@@ -9,6 +9,7 @@ import CodeEditor from "./ui/CodeEditor";
 import RunButton from "./ui/RunButton";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import { TestModalButtons } from "./ui/TestModalButtons";
+import LanguageToggle from "./ui/LanguageToggle";
 
 interface ComplexExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -82,8 +83,9 @@ function ComplexExerciseContent({ orchestrator }: { orchestrator: Orchestrator }
 
         <div className="flex flex-1 overflow-hidden">
           <div className="flex-1 flex flex-col">
-            <div className="bg-white border-b border-gray-200 px-4 py-2">
+            <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
+              <LanguageToggle />
             </div>
             <CodeEditor />
             <ScenariosPanel />

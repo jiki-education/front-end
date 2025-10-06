@@ -92,7 +92,7 @@ describe("runTests", () => {
       });
 
       const code = "move()\nmove()\nmove()";
-      const result = runTests(code, testExercise);
+      const result = runTests(code, testExercise, "jikiscript");
 
       // Check that tests have frames
       expect(result.tests[0].frames[0].time).toBe(100000);
@@ -107,7 +107,7 @@ describe("runTests", () => {
       });
 
       const code = "";
-      const result = runTests(code, testExercise);
+      const result = runTests(code, testExercise, "jikiscript");
 
       // Should have empty frames array
       expect(result.tests[0].frames).toEqual([]);
@@ -128,7 +128,7 @@ describe("runTests", () => {
       });
 
       const code = "move()\nmove()";
-      const result = runTests(code, testExercise);
+      const result = runTests(code, testExercise, "jikiscript");
 
       // Should have 2 test scenarios
       expect(result.tests).toHaveLength(2);
@@ -151,7 +151,7 @@ describe("runTests", () => {
       });
 
       const code = "for (let i = 0; i < 5; i++) {\n  move();\n}";
-      const result = runTests(code, testExercise);
+      const result = runTests(code, testExercise, "jikiscript");
 
       // Each test result should have codeRun set to the student code
       expect(result.tests[0].codeRun).toBe(code);
