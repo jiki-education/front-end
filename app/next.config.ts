@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   experimental: {
-    reactCompiler: true
+    reactCompiler: true,
+    turbo: {
+      root: path.resolve(__dirname, "..")
+    }
   },
   transpilePackages: ["interpreters", "@jiki/curriculum"],
   allowedDevOrigins: ["localhost", "local.exercism.io"]
