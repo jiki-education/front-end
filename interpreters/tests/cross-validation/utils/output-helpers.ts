@@ -2,26 +2,30 @@ import type { Frame } from "../../../src/shared/frames";
 
 export interface InterpretResult {
   frames: Frame[];
+  logLines?: Array<{ time: number; output: string }>; // Optional - Python has this, JavaScript doesn't yet
   error: any;
   success: boolean;
 }
 
 /**
  * Extract output from Jiki interpreter frames
- * This simulates print() in Python or console.log() in JavaScript
- * For now, since we don't have print() implemented, we just get the last value
+ * Uses logLines if available (Python), otherwise falls back to frame values (JavaScript)
  */
 export function extractOutput(result: InterpretResult): string {
   const outputs: string[] = [];
 
-  // Look for print/console.log outputs first (future implementation)
-  // For now, just get the last successful frame's value
-  const successFrames = result.frames.filter(f => f.status === "SUCCESS");
-  if (successFrames.length > 0) {
-    const lastFrame = successFrames[successFrames.length - 1];
-    const value = lastFrame.result?.jikiObject?.value;
-    if (value !== undefined) {
-      outputs.push(String(value));
+  // Check for logLines first (Python print() output)
+  if (result.logLines && result.logLines.length > 0) {
+    outputs.push(...result.logLines.map(line => line.output));
+  } else {
+    // Fallback: get the last successful frame's value (for JavaScript or expressions)
+    const successFrames = result.frames.filter(f => f.status === "SUCCESS");
+    if (successFrames.length > 0) {
+      const lastFrame = successFrames[successFrames.length - 1];
+      const value = lastFrame.result?.jikiObject?.value;
+      if (value !== undefined) {
+        outputs.push(String(value));
+      }
     }
   }
 

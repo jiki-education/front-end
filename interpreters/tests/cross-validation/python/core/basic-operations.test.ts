@@ -1,7 +1,7 @@
 import { describe } from "vitest";
 import { testPython } from "../../utils/test-runner";
 
-describe.skip("Python basic operations cross-validation", () => {
+describe("Python basic operations cross-validation", () => {
   describe("arithmetic", () => {
     testPython("addition", "2 + 3", { expectedValue: 5 });
     testPython("subtraction", "10 - 4", { expectedValue: 6 });
