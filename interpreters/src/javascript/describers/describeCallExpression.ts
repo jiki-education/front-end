@@ -27,6 +27,35 @@ export function describeCallExpression(
 
   steps.push(...argSteps);
 
+  // Special handling for console.log() - show what it outputs
+  if (functionName === "log") {
+    // Get the actual output by converting JikiObjects to strings (without quotes for strings)
+    const output =
+      result.args && result.args.length > 0 ? result.args.map(arg => arg.immutableJikiObject.toString()).join(" ") : "";
+
+    const argValues =
+      result.args && result.args.length > 0
+        ? result.args.map(arg => `<code>${formatJSObject(arg.immutableJikiObject)}</code>`)
+        : [];
+
+    if (argValues.length === 0) {
+      steps.push(`JavaScript used <code>console.log</code>, which printed a blank line`);
+    } else if (argValues.length === 1) {
+      steps.push(`JavaScript used <code>console.log</code> with ${argValues[0]}, which printed <code>${output}</code>`);
+    } else if (argValues.length === 2) {
+      steps.push(
+        `JavaScript used <code>console.log</code> with ${argValues[0]} and ${argValues[1]}, which printed <code>${output}</code>`
+      );
+    } else {
+      const lastArg = argValues[argValues.length - 1];
+      const otherArgs = argValues.slice(0, -1);
+      steps.push(
+        `JavaScript used <code>console.log</code> with ${otherArgs.join(", ")} and ${lastArg}, which printed <code>${output}</code>`
+      );
+    }
+    return steps;
+  }
+
   // Then describe the function lookup
   steps.push(`Looked up the function <code>${functionName}</code>`);
 

@@ -17,6 +17,7 @@ export interface InterpretResult {
   frames: Frame[];
   error: SyntaxError | null; // Only parse/syntax errors, never runtime errors
   success: boolean;
+  logLines: Array<{ time: number; output: string }>;
 }
 
 /**
@@ -45,6 +46,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       frames: result.frames,
       error: null, // No parse error
       success: result.success,
+      logLines: executor.logLines,
     };
   } catch (error) {
     // Only parsing/compilation errors are returned as errors
@@ -52,6 +54,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       frames: [],
       error: error as SyntaxError,
       success: false,
+      logLines: [],
     };
   }
 }

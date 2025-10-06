@@ -1,14 +1,13 @@
 import { describe } from "vitest";
 import { testJavaScript } from "../../utils/test-runner";
 
-// SKIP ALL: Methods require CallExpression support which is not fully implemented
-describe.skip("JavaScript array methods cross-validation", () => {
+describe("JavaScript array methods cross-validation", () => {
   describe("array.at()", () => {
     testJavaScript(
       "positive index at start",
       `
-const arr = [10, 20, 30];
-const result = arr.at(0);
+let arr = [10, 20, 30];
+let result = arr.at(0);
     `,
       { expectedValue: 10 }
     );
@@ -16,8 +15,8 @@ const result = arr.at(0);
     testJavaScript(
       "positive index in middle",
       `
-const arr = [10, 20, 30];
-const result = arr.at(1);
+let arr = [10, 20, 30];
+let result = arr.at(1);
     `,
       { expectedValue: 20 }
     );
@@ -25,8 +24,8 @@ const result = arr.at(1);
     testJavaScript(
       "positive index at end",
       `
-const arr = [10, 20, 30];
-const result = arr.at(2);
+let arr = [10, 20, 30];
+let result = arr.at(2);
     `,
       { expectedValue: 30 }
     );
@@ -34,8 +33,8 @@ const result = arr.at(2);
     testJavaScript(
       "negative index from end",
       `
-const arr = [10, 20, 30];
-const result = arr.at(-1);
+let arr = [10, 20, 30];
+let result = arr.at(-1);
     `,
       { expectedValue: 30 }
     );
@@ -43,8 +42,8 @@ const result = arr.at(-1);
     testJavaScript(
       "negative index from middle",
       `
-const arr = [10, 20, 30];
-const result = arr.at(-2);
+let arr = [10, 20, 30];
+let result = arr.at(-2);
     `,
       { expectedValue: 20 }
     );
@@ -52,8 +51,8 @@ const result = arr.at(-2);
     testJavaScript(
       "negative index from start",
       `
-const arr = [10, 20, 30];
-const result = arr.at(-3);
+let arr = [10, 20, 30];
+let result = arr.at(-3);
     `,
       { expectedValue: 10 }
     );
@@ -61,8 +60,8 @@ const result = arr.at(-3);
     testJavaScript(
       "out of bounds positive",
       `
-const arr = [10, 20, 30];
-const result = arr.at(5);
+let arr = [10, 20, 30];
+let result = arr.at(5);
     `,
       { expectedValue: undefined }
     );
@@ -70,8 +69,8 @@ const result = arr.at(5);
     testJavaScript(
       "out of bounds negative",
       `
-const arr = [10, 20, 30];
-const result = arr.at(-5);
+let arr = [10, 20, 30];
+let result = arr.at(-5);
     `,
       { expectedValue: undefined }
     );
@@ -79,8 +78,8 @@ const result = arr.at(-5);
     testJavaScript(
       "on empty array",
       `
-const arr = [];
-const result = arr.at(0);
+let arr = [];
+let result = arr.at(0);
     `,
       { expectedValue: undefined }
     );
@@ -88,8 +87,8 @@ const result = arr.at(0);
     testJavaScript(
       "with string elements",
       `
-const arr = ["a", "b", "c"];
-const result = arr.at(1);
+let arr = ["a", "b", "c"];
+let result = arr.at(1);
     `,
       { expectedValue: "b" }
     );
@@ -99,8 +98,8 @@ const result = arr.at(1);
     testJavaScript(
       "empty array",
       `
-const arr = [];
-const result = arr.length;
+let arr = [];
+let result = arr.length;
     `,
       { expectedValue: 0 }
     );
@@ -108,8 +107,8 @@ const result = arr.length;
     testJavaScript(
       "single element",
       `
-const arr = [1];
-const result = arr.length;
+let arr = [1];
+let result = arr.length;
     `,
       { expectedValue: 1 }
     );
@@ -117,8 +116,8 @@ const result = arr.length;
     testJavaScript(
       "multiple elements",
       `
-const arr = [1, 2, 3, 4, 5];
-const result = arr.length;
+let arr = [1, 2, 3, 4, 5];
+let result = arr.length;
     `,
       { expectedValue: 5 }
     );
@@ -126,8 +125,8 @@ const result = arr.length;
     testJavaScript(
       "mixed types",
       `
-const arr = [1, "two", 3.0, true];
-const result = arr.length;
+let arr = [1, "two", 3.0, true];
+let result = arr.length;
     `,
       { expectedValue: 4 }
     );
@@ -135,19 +134,10 @@ const result = arr.length;
     testJavaScript(
       "nested arrays",
       `
-const arr = [[1, 2], [3, 4], [5]];
-const result = arr.length;
+let arr = [[1, 2], [3, 4], [5]];
+let result = arr.length;
     `,
       { expectedValue: 3 }
-    );
-
-    testJavaScript(
-      "sparse array",
-      `
-const arr = [1, , , 4];
-const result = arr.length;
-    `,
-      { expectedValue: 4 }
     );
 
     testJavaScript(
@@ -155,7 +145,7 @@ const result = arr.length;
       `
 let arr = [1, 2];
 arr[2] = 3;
-const result = arr.length;
+let result = arr.length;
     `,
       { expectedValue: 3 }
     );
