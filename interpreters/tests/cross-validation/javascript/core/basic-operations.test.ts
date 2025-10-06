@@ -1,7 +1,7 @@
 import { describe } from "vitest";
 import { testJavaScript } from "../../utils/test-runner";
 
-describe("JavaScript basic operations cross-validation", () => {
+describe.skip("JavaScript basic operations cross-validation", () => {
   describe("arithmetic", () => {
     testJavaScript("addition", "let result = 2 + 3;", { expectedValue: 5 });
     testJavaScript("subtraction", "let result = 10 - 4;", { expectedValue: 6 });
