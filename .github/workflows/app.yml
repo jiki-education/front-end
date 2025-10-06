@@ -31,7 +31,7 @@ jobs:
         working-directory: app
         run: npx tsc --noEmit
 
-  formatting:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -55,7 +55,7 @@ jobs:
         working-directory: app
         run: pnpm run format:check
 
-  linting:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
