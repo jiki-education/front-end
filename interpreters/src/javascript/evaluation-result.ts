@@ -39,16 +39,16 @@ export interface EvaluationResultReturnStatement {
 
 export interface EvaluationResultBreakStatement {
   type: "BreakStatement";
-  // Break statements don't produce values, these fields are never accessed
-  jikiObject: never;
-  immutableJikiObject: never;
+  // Break statements don't produce values, these fields are optional
+  jikiObject?: undefined;
+  immutableJikiObject?: undefined;
 }
 
 export interface EvaluationResultContinueStatement {
   type: "ContinueStatement";
-  // Continue statements don't produce values, these fields are never accessed
-  jikiObject: never;
-  immutableJikiObject: never;
+  // Continue statements don't produce values, these fields are optional
+  jikiObject?: undefined;
+  immutableJikiObject?: undefined;
 }
 
 // Expression result types

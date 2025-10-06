@@ -1,8 +1,11 @@
 import type { UpdateExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultUpdateExpression } from "../evaluation-result";
 import { codeTag } from "../helpers";
 
-export function describeUpdateExpression(expression: UpdateExpression, result: EvaluationResult): string {
+export function describeUpdateExpression(
+  expression: UpdateExpression,
+  result: EvaluationResultUpdateExpression
+): string {
   const varName = codeTag(expression.operand.name.lexeme, expression.operand.location);
   const operator = expression.operator.type === "INCREMENT" ? "incremented" : "decremented";
   const oldValue = expression.prefix

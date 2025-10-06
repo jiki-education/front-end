@@ -270,13 +270,9 @@ export class Executor {
     } catch (e: unknown) {
       if (e instanceof LogicError) {
         this.error("LogicErrorInExecution", statement.location, { message: e.message });
-        throw e;
       }
-      // Flow control errors need to bubble up to loop handlers
-      // Only catch them if we're at the top level (not in a loop)
-      if (e instanceof BreakFlowControlError || e instanceof ContinueFlowControlError) {
-        throw e;
-      }
+      // Re-throw all exceptions - let outer handlers deal with them
+      // Flow control errors bubble up to loop handlers
       throw e;
     }
   }
@@ -364,6 +360,7 @@ export class Executor {
   /**
    * Execute loop body with break handling
    * Catches BreakFlowControlError to exit the loop
+   * Note: Public because JavaScript uses modular executor files (unlike JikiScript's single-file visitor pattern)
    */
   public executeLoop(body: () => void): void {
     try {
@@ -381,6 +378,7 @@ export class Executor {
   /**
    * Execute loop iteration with continue handling
    * Catches ContinueFlowControlError to skip to next iteration
+   * Note: Public because JavaScript uses modular executor files (unlike JikiScript's single-file visitor pattern)
    */
   public executeLoopIteration(body: () => void): void {
     try {
