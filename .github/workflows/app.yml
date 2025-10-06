@@ -3,16 +3,8 @@ name: App
 on:
   push:
     branches: [main]
-    paths:
-      - 'app/**'
-      - 'curriculum/**'
-      - 'interpreters/**'
   pull_request:
     branches: [main]
-    paths:
-      - 'app/**'
-      - 'curriculum/**'
-      - 'interpreters/**'
 
 jobs:
   typecheck:
