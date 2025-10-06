@@ -16,10 +16,4 @@ export { TestExercise } from "./mocks";
 export { levels, getLevel, getLanguageFeatures, type Level, type LevelId } from "./levels";
 
 // Export test runner for curriculum validation
-export {
-  runScenarioTest,
-  runAllScenarios,
-  runExerciseTests,
-  runExerciseSolution,
-  type ScenarioTestResult
-} from "./test-runner";
+export { runScenarioTest, runAllScenarios, runExerciseTests, type ScenarioTestResult } from "./test-runner";

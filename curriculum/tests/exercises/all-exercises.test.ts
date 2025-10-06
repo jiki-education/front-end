@@ -18,6 +18,19 @@ describe("All Exercises - Solution Validation", () => {
       const exerciseModule = await loader();
       const exercise = exerciseModule.default;
 
+      // Import solution file directly
+      let jikiscriptSolution: string;
+      try {
+        const solutionModule = await import(`../../src/exercises/${slug}/solution.jiki?raw`);
+        jikiscriptSolution = solutionModule.default;
+      } catch {
+        throw new Error(
+          `Failed to load solution file for exercise "${slug}".\n` +
+            `Expected file: src/exercises/${slug}/solution.jiki\n` +
+            `Make sure the solution file exists and is properly formatted.`
+        );
+      }
+
       // Filter to non-bonus scenarios only
       const nonBonusScenarios = exercise.scenarios.filter((scenario) => {
         const task = exercise.tasks.find((t) => t.id === scenario.taskId);
@@ -25,11 +38,7 @@ describe("All Exercises - Solution Validation", () => {
       });
 
       // Run jikiscript solution against non-bonus scenarios
-      const results = runExerciseTests(
-        { ...exercise, scenarios: nonBonusScenarios },
-        exercise.solutions.jikiscript,
-        "jikiscript"
-      );
+      const results = runExerciseTests({ ...exercise, scenarios: nonBonusScenarios }, jikiscriptSolution, "jikiscript");
 
       // Assert all passed
       expect(results.length).toBeGreaterThan(0);

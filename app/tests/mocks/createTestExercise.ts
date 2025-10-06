@@ -16,9 +16,6 @@ export function createTestExercise(overrides?: Partial<ExerciseDefinition>): Exe
     ExerciseClass: TestExercise,
     tasks,
     scenarios,
-    solutions: {
-      jikiscript: "// Test solution"
-    },
     ...overrides
   };
 }

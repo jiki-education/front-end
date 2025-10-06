@@ -12,10 +12,7 @@ export const testExerciseDefinition: ExerciseDefinition = {
   ExerciseClass: TestExercise,
   tasks,
   scenarios,
-  hints: ["Test hint 1", "Test hint 2"],
-  solutions: {
-    jikiscript: "move()\nmove()\nmove()\nmove()\nmove()"
-  }
+  hints: ["Test hint 1", "Test hint 2"]
 };
 
 export default testExerciseDefinition;
