@@ -5,6 +5,7 @@ import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchLesson, type LessonData } from "@/lib/api/lessons";
 import { useRequireAuth } from "@/lib/auth/hooks";
+import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -93,16 +94,16 @@ export default function LessonPage({ params }: PageProps) {
     return <VideoExercise lessonData={lesson} />;
   }
 
-  // Default to complex exercise for "exercise" type
-  // TODO: Map lesson slug to exercise slug from curriculum
-  // For now, use a simple mapping to available exercises
-  const exerciseSlugMap: Record<string, any> = {
-    "solve-a-maze": "basic-movement",
-    "win-space-invaders": "basic-movement",
-    "solve-a-maze-with-numbers": "basic-movement"
-  };
+  // // Default to complex exercise for "exercise" type
+  // // TODO: Map lesson slug to exercise slug from curriculum
+  // // For now, use a simple mapping to available exercises
+  // const exerciseSlugMap: Record<string, any> = {
+  //   "solve-a-maze": "basic-movement",
+  //   "win-space-invaders": "basic-movement",
+  //   "solve-a-maze-with-numbers": "basic-movement"
+  // };
 
-  const exerciseSlug = exerciseSlugMap[lesson.slug] || "basic-movement";
+  // const exerciseSlug = exerciseSlugMap[lesson.slug] || "basic-movement";
 
-  return <ComplexExercise exerciseSlug={exerciseSlug} />;
+  return <ComplexExercise exerciseSlug={lesson.slug as ExerciseSlug} />;
 }
