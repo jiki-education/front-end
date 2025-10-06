@@ -3,14 +3,8 @@ name: Curriculum
 on:
   push:
     branches: [main]
-    paths:
-      - 'curriculum/**'
-      - 'interpreters/**'
   pull_request:
     branches: [main]
-    paths:
-      - 'curriculum/**'
-      - 'interpreters/**'
 
 jobs:
   typecheck:

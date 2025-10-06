@@ -3,12 +3,8 @@ name: Interpreters
 on:
   push:
     branches: [main]
-    paths:
-      - 'interpreters/**'
   pull_request:
     branches: [main]
-    paths:
-      - 'interpreters/**'
 
 jobs:
   typecheck:
