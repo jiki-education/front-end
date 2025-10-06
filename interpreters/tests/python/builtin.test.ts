@@ -128,4 +128,89 @@ print("Third")`);
       expect(description).toContain("This printed a blank line");
     });
   });
+
+  describe("print() logLines", () => {
+    it("should log output to logLines with time", () => {
+      const result = interpret('print("Hello")');
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("Hello");
+      expect(result.logLines[0].time).toBe(0);
+    });
+
+    it("should log multiple arguments separated by spaces", () => {
+      const result = interpret('print("Hello", "World", 42)');
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("Hello World 42");
+    });
+
+    it("should log empty string for print with no arguments", () => {
+      const result = interpret("print()");
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("");
+    });
+
+    it("should log multiple print calls with correct times", () => {
+      const result = interpret(`print("First")
+print("Second")
+print("Third")`);
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(3);
+      expect(result.logLines[0].output).toBe("First");
+      expect(result.logLines[0].time).toBe(0);
+      expect(result.logLines[1].output).toBe("Second");
+      expect(result.logLines[1].time).toBe(1);
+      expect(result.logLines[2].output).toBe("Third");
+      expect(result.logLines[2].time).toBe(2);
+    });
+
+    it("should log boolean values as strings", () => {
+      const result = interpret("print(True, False)");
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("True False");
+    });
+
+    it("should log None as string", () => {
+      const result = interpret("print(None)");
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("None");
+    });
+
+    it("should log list representations", () => {
+      const result = interpret("print([1, 2, 3])");
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("[1, 2, 3]");
+    });
+
+    it("should log expression results", () => {
+      const result = interpret("print(2 + 3, 10 * 2)");
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("5 20");
+    });
+
+    it("should log variable values", () => {
+      const result = interpret(`x = 10
+y = 20
+print(x, y)`);
+
+      expect(result.success).toBe(true);
+      expect(result.logLines).toHaveLength(1);
+      expect(result.logLines[0].output).toBe("10 20");
+      expect(result.logLines[0].time).toBe(2); // After two assignment statements
+    });
+  });
 });
