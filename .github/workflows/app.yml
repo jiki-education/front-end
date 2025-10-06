@@ -7,6 +7,22 @@ on:
     branches: [main]
 
 jobs:
+  check-lockfiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for individual package lockfiles
+        run: |
+          if ls app/pnpm-lock.yaml curriculum/pnpm-lock.yaml interpreters/pnpm-lock.yaml 2>/dev/null; then
+            echo "❌ Error: Individual package lockfiles detected"
+            echo "Only the root pnpm-lock.yaml should exist in a monorepo"
+            echo "Run 'rm app/pnpm-lock.yaml curriculum/pnpm-lock.yaml interpreters/pnpm-lock.yaml' to fix"
+            exit 1
+          fi
+          echo "✅ No individual package lockfiles found"
+
   typecheck:
     runs-on: ubuntu-latest
     steps:
