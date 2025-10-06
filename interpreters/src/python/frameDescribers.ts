@@ -88,7 +88,18 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
 
     case "ReturnStatement":
       return describeReturnStatement(frame, context);
-  }
 
-  return null;
+    case "FunctionDeclaration":
+    case "LiteralExpression":
+    case "BinaryExpression":
+    case "UnaryExpression":
+    case "GroupingExpression":
+    case "IdentifierExpression":
+    case "SubscriptExpression":
+    case "CallExpression":
+    case "AttributeExpression":
+    case "ListExpression":
+      // These types don't generate frames with descriptions
+      return null;
+  }
 }

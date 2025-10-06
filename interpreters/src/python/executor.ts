@@ -27,7 +27,7 @@ import {
   FunctionDeclaration,
   ReturnStatement,
 } from "./statement";
-import type { EvaluationResult } from "./evaluation-result";
+import type { EvaluationResult, EvaluationResultExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { TIME_SCALE_FACTOR, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
@@ -261,7 +261,7 @@ export class Executor {
     return result;
   }
 
-  public evaluate(expression: Expression): EvaluationResult {
+  public evaluate(expression: Expression): EvaluationResultExpression {
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(expression);
 

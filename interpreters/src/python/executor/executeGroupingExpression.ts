@@ -1,14 +1,17 @@
 import type { Executor } from "../executor";
 import type { GroupingExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultGroupingExpression } from "../evaluation-result";
 
-export function executeGroupingExpression(executor: Executor, expression: GroupingExpression): EvaluationResult {
+export function executeGroupingExpression(
+  executor: Executor,
+  expression: GroupingExpression
+): EvaluationResultGroupingExpression {
   const result = executor.evaluate(expression.inner);
 
   return {
     type: "GroupingExpression",
-    expression: result,
+    inner: result,
     jikiObject: result.jikiObject,
     immutableJikiObject: result.jikiObject.clone(),
-  } as any;
+  };
 }

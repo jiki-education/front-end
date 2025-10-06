@@ -1,6 +1,6 @@
 import type { Executor } from "../executor";
 import type { BlockStatement } from "../statement";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResult, EvaluationResultBlockStatement } from "../evaluation-result";
 import { PyNone } from "../jikiObjects";
 
 export function executeBlockStatement(executor: Executor, statement: BlockStatement): EvaluationResult {
@@ -19,17 +19,21 @@ export function executeBlockStatement(executor: Executor, statement: BlockStatem
   // If no statements were executed, return PyNone
   if (!lastResult) {
     const noneObj = new PyNone();
-    return {
+    const result: EvaluationResultBlockStatement = {
       type: "BlockStatement",
       jikiObject: noneObj,
       immutableJikiObject: noneObj.clone(),
     };
+    return result;
   }
 
   // Return the result of the last statement
-  return {
+  // Note: Break/continue statements have undefined jikiObject, so we fall back to PyNone
+  const jikiObject = lastResult.jikiObject ?? new PyNone();
+  const result: EvaluationResultBlockStatement = {
     type: "BlockStatement",
-    jikiObject: lastResult.jikiObject,
-    immutableJikiObject: lastResult.immutableJikiObject,
+    jikiObject: jikiObject,
+    immutableJikiObject: lastResult.immutableJikiObject ?? jikiObject.clone(),
   };
+  return result;
 }

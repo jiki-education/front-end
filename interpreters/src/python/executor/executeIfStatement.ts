@@ -1,6 +1,6 @@
 import type { Executor } from "../executor";
 import type { IfStatement } from "../statement";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResult, EvaluationResultIfStatement } from "../evaluation-result";
 import type { JikiObject } from "../jikiObjects";
 
 // Python truthiness rules (same as in executeBinaryExpression)
@@ -29,7 +29,7 @@ function isTruthy(obj: JikiObject): boolean {
 
 export function executeIfStatement(executor: Executor, statement: IfStatement): EvaluationResult {
   // Evaluate the condition and generate a frame for it
-  const conditionResult = executor.executeFrame(statement, () => {
+  const conditionResult = executor.executeFrame<EvaluationResultIfStatement>(statement, () => {
     const result = executor.evaluate(statement.condition);
 
     // Check if truthiness is disabled and we have a non-boolean

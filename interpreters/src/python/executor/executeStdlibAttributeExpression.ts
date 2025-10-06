@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultAttributeExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultAttributeExpression } from "../evaluation-result";
 import type { Executor } from "../executor";
 import type { AttributeExpression } from "../expression";
 import { type JikiObject, PyString, PyStdLibFunction } from "../jikiObjects";
@@ -9,7 +9,7 @@ import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../st
 export function executeStdlibAttributeExpression(
   executor: Executor,
   expression: AttributeExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   object: JikiObject
 ): EvaluationResultAttributeExpression {
   // Check if this object type has stdlib members
@@ -22,6 +22,7 @@ export function executeStdlibAttributeExpression(
   // Create a property result for the attribute name
   const propertyResult = {
     type: "IdentifierExpression" as const,
+    name: attributeName,
     jikiObject: new PyString(attributeName),
     immutableJikiObject: new PyString(attributeName),
   };

@@ -1,6 +1,6 @@
 import type { Executor } from "../executor";
 import type { CallExpression } from "../expression";
-import type { EvaluationResult, EvaluationResultCallExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultCallExpression } from "../evaluation-result";
 import { createPyObject, PyStdLibFunction, PyNone } from "../jikiObjects";
 import type { JikiObject } from "../jikiObjects";
 import type { Arity } from "../../shared/interfaces";
@@ -32,7 +32,7 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
   const callable = calleeValue as PyCallable | PyStdLibFunction;
 
   // Evaluate arguments and store both the results and JikiObjects
-  const argResults: EvaluationResult[] = [];
+  const argResults: EvaluationResultExpression[] = [];
   const argJikiObjects: JikiObject[] = [];
   for (const arg of expression.args) {
     const argResult = executor.evaluate(arg);
@@ -121,7 +121,7 @@ function executeUserDefinedFunction(
   executor: Executor,
   callable: PyUserDefinedFunction,
   argJikiObjects: JikiObject[],
-  argResults: EvaluationResult[]
+  argResults: EvaluationResultExpression[]
 ): EvaluationResultCallExpression {
   const declaration = callable.getDeclaration();
   const environment = new Environment(executor.environment);
@@ -167,7 +167,7 @@ function executeStdLibFunction(
   executor: Executor,
   callable: PyStdLibFunction,
   argJikiObjects: JikiObject[],
-  argResults: EvaluationResult[],
+  argResults: EvaluationResultExpression[],
   expression: CallExpression
 ): EvaluationResultCallExpression {
   try {

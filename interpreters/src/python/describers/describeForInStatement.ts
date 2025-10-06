@@ -1,6 +1,6 @@
 import type { Description, DescriptionContext } from "../../shared/frames";
 import { formatPyObject, getOrdinal } from "./helpers";
-import type { EvaluationResultForInStatement } from "../executor/executeForInStatement";
+import type { EvaluationResultForInStatement } from "../evaluation-result";
 import type { FrameWithResult } from "../frameDescribers";
 
 export function describeForInStatement(frame: FrameWithResult, _context: DescriptionContext): Description {

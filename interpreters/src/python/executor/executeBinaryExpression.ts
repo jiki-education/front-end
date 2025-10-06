@@ -1,9 +1,12 @@
 import type { Executor } from "../executor";
 import type { BinaryExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createPyObject, type JikiObject, PyBoolean } from "../jikiObjects";
 
-export function executeBinaryExpression(executor: Executor, expression: BinaryExpression): EvaluationResult {
+export function executeBinaryExpression(
+  executor: Executor,
+  expression: BinaryExpression
+): EvaluationResultBinaryExpression {
   const leftResult = executor.evaluate(expression.left);
 
   // For logical operators, we need to check truthiness before evaluating the right side
@@ -22,14 +25,14 @@ export function executeBinaryExpression(executor: Executor, expression: BinaryEx
     right: rightResult,
     jikiObject: result,
     immutableJikiObject: result.clone(),
-  } as any;
+  };
 }
 
 function handleBinaryOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   switch (expression.operator.type) {
     // Arithmetic operations
@@ -96,8 +99,8 @@ function isTruthy(obj: JikiObject): boolean {
 function handleLogicalOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult
-): EvaluationResult {
+  leftResult: EvaluationResultExpression
+): EvaluationResultBinaryExpression {
   const leftObject = leftResult.jikiObject;
 
   // Check if truthiness is disabled for non-boolean values
@@ -180,8 +183,8 @@ function handleLogicalOperation(
 function handlePlusOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
@@ -219,8 +222,8 @@ function handlePlusOperation(
 function handleMinusOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   if (!executor.languageFeatures.allowTypeCoercion) {
     verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
@@ -234,8 +237,8 @@ function handleMinusOperation(
 function handleMultiplyOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
@@ -283,8 +286,8 @@ function handleMultiplyOperation(
 function handleDivisionOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   if (!executor.languageFeatures.allowTypeCoercion) {
     verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
@@ -298,8 +301,8 @@ function handleDivisionOperation(
 function handleFloorDivisionOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   if (!executor.languageFeatures.allowTypeCoercion) {
     verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
@@ -313,8 +316,8 @@ function handleFloorDivisionOperation(
 function handleModuloOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   if (!executor.languageFeatures.allowTypeCoercion) {
     verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
@@ -328,8 +331,8 @@ function handleModuloOperation(
 function handlePowerOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   if (!executor.languageFeatures.allowTypeCoercion) {
     verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
@@ -341,37 +344,55 @@ function handlePowerOperation(
 }
 
 // Comparison operation handlers
-function handleGreaterOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleGreaterOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left > right);
 }
 
-function handleGreaterEqualOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleGreaterEqualOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left >= right);
 }
 
-function handleLessOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleLessOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left < right);
 }
 
-function handleLessEqualOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleLessEqualOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left <= right);
 }
 
-function handleEqualOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleEqualOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left === right);
 }
 
-function handleNotEqualOperation(leftResult: EvaluationResult, rightResult: EvaluationResult): JikiObject {
+function handleNotEqualOperation(
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
   return new PyBoolean(left !== right);
@@ -380,8 +401,8 @@ function handleNotEqualOperation(leftResult: EvaluationResult, rightResult: Eval
 function verifyNumbersForArithmetic(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): void {
   const leftType = leftResult.jikiObject.type;
   const rightType = rightResult.jikiObject.type;
