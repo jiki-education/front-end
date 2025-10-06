@@ -1,0 +1,29 @@
+{
+  "name": "@jiki/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jiki monorepo - Learn to code platform",
+  "scripts": {
+    "test": "pnpm -r test",
+    "test:app": "pnpm --filter @jiki/app test",
+    "test:curriculum": "pnpm --filter @jiki/curriculum test",
+    "test:interpreters": "pnpm --filter @jiki/interpreters test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format",
+    "format:check": "pnpm -r format:check",
+    "dev:app": "pnpm --filter @jiki/app dev",
+    "build:app": "pnpm --filter @jiki/app build"
+  },
+  "keywords": [
+    "jiki",
+    "monorepo",
+    "learn-to-code"
+  ],
+  "author": "Jiki Team",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  }
+}

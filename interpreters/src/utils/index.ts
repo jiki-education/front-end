@@ -1,0 +1,1 @@
+export { typecheck } from "./typecheck";

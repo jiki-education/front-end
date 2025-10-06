@@ -1,0 +1,68 @@
+{
+  "name": "@jiki/interpreters",
+  "version": "1.0.0",
+  "description": "JikiScript language implementation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --platform=browser --external:i18next",
+    "dev": "tsc --watch",
+    "test": "vitest --exclude '**/benchmark*.test.ts'",
+    "test:watch": "vitest --watch --exclude '**/benchmark*.test.ts'",
+    "test:benchmark": "vitest tests/jikiscript/benchmark.test.ts --run",
+    "test:cross": "vitest run tests/cross-validation",
+    "test:cross:python": "vitest run tests/cross-validation/python",
+    "test:cross:js": "vitest run tests/cross-validation/javascript",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky && pnpm run build"
+  },
+  "keywords": [
+    "jikiscript",
+    "language",
+    "interpreter"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.36.0",
+    "@types/didyoumean": "^1.2.3",
+    "@types/lodash": "^4.17.20",
+    "@types/lodash.clonedeep": "^4.5.9",
+    "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.36.0",
+    "husky": "^9.1.7",
+    "marked": "^16.2.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "didyoumean": "^1.2.2",
+    "i18next": "^25.5.0",
+    "lodash": "^4.17.21",
+    "lodash.clonedeep": "^4.5.0",
+    "string-similarity-js": "^2.1.4"
+  }
+}

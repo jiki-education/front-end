@@ -1,0 +1,39 @@
+.information-widget-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #6b7280;
+}
+
+.information-widget-toggle-btn:hover:not(:disabled) {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.information-widget-toggle-btn.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: #ffffff;
+}
+
+.information-widget-toggle-btn.active:hover:not(:disabled) {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.information-widget-toggle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.information-widget-toggle-btn .info-icon {
+    width: 16px;
+    height: 16px;
+}
