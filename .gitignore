@@ -34,3 +34,5 @@ coverage/
 app/pnpm-lock.yaml
 curriculum/pnpm-lock.yaml
 interpreters/pnpm-lock.yaml
+
+.claude/settings.local.json
