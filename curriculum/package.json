@@ -1,0 +1,56 @@
+{
+  "name": "@jiki/curriculum",
+  "version": "1.0.0",
+  "description": "Jiki curriculum exercises and content",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
+    "copy-css": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
+    "dev": "pnpm run build && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' -- sh -c 'pnpm run copy-css && echo \"export const CSS_LAST_UPDATED = $(date +%s);\" > src/css_last_touched.ts'",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky && pnpm run build"
+  },
+  "keywords": [
+    "jiki",
+    "curriculum",
+    "exercises",
+    "learn-to-code"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@jiki/interpreters": "workspace:*"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "@vitest/ui": "^3.2.4",
+    "eslint": "^9",
+    "husky": "^9.1.7",
+    "jsdom": "^27.0.0",
+    "onchange": "^7.1.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  }
+}

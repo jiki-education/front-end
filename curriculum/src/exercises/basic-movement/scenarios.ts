@@ -1,0 +1,86 @@
+import type { Task, Scenario } from "../types";
+import type BasicMovementExercise from "./Exercise";
+
+export const tasks: Task[] = [
+  {
+    id: "move-character",
+    name: "Move the character",
+    bonus: false
+  },
+  {
+    id: "bonus-challenges",
+    name: "Bonus challenges",
+    bonus: true
+  }
+];
+
+export const scenarios: Scenario[] = [
+  {
+    slug: "start-at-0",
+    name: "Starting from position 0",
+    description: "Move the character 5 times starting from position 0",
+    taskId: "move-character",
+
+    setup(exercise) {
+      (exercise as BasicMovementExercise).setStartPosition(0);
+    },
+
+    expectations(exercise) {
+      const ex = exercise as BasicMovementExercise;
+      return [
+        {
+          pass: ex.position === 100,
+          actual: ex.position,
+          expected: 100,
+          errorHtml: `Expected position to be 100 but got ${ex.position}. Did you call move() 5 times?`
+        }
+      ];
+    }
+  },
+
+  {
+    slug: "start-at-50",
+    name: "Starting from position 50",
+    description: "Move the character 5 times starting from position 50",
+    taskId: "move-character",
+
+    setup(exercise) {
+      (exercise as BasicMovementExercise).setStartPosition(50);
+    },
+
+    expectations(exercise) {
+      const ex = exercise as BasicMovementExercise;
+      return [
+        {
+          pass: ex.position === 150,
+          actual: ex.position,
+          expected: 150,
+          errorHtml: `Expected position to be 150 but got ${ex.position}. Did you call move() 5 times?`
+        }
+      ];
+    }
+  },
+
+  {
+    slug: "bonus-double-movement",
+    name: "Double movement",
+    description: "Move the character 10 times",
+    taskId: "bonus-challenges",
+
+    setup(exercise) {
+      (exercise as BasicMovementExercise).setStartPosition(0);
+    },
+
+    expectations(exercise) {
+      const ex = exercise as BasicMovementExercise;
+      return [
+        {
+          pass: ex.position === 200,
+          actual: ex.position,
+          expected: 200,
+          errorHtml: `Expected position to be 200 but got ${ex.position}. Did you call move() 10 times?`
+        }
+      ];
+    }
+  }
+];

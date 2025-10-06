@@ -1,0 +1,29 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignore": ["tests/**/*", ".next/**/*"],
+  "ignoreDependencies": [
+    "@types/node",
+    "eslint-config-next",
+    "tailwindcss",
+    "@types/animejs",
+    "@types/puppeteer",
+    "@typescript-eslint/eslint-plugin",
+    "@welldone-software/why-did-you-render",
+    "postcss"
+  ],
+  "ignoreExportsUsedInFile": true,
+  "include": [
+    "files",
+    "dependencies",
+    "unlisted",
+    "binaries",
+    "unresolved",
+    "exports",
+    "nsExports",
+    "classMembers",
+    "types",
+    "nsTypes",
+    "enumMembers",
+    "duplicates"
+  ]
+}

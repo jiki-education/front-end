@@ -1,0 +1,181 @@
+name: Rerun CI on Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
+
+jobs:
+  rerun-ci:
+    if: |
+      github.event.issue.pull_request &&
+      (contains(github.event.comment.body, '/ci'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add eyes reaction
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes'
+            });
+
+      - name: Check authorization
+        id: auth_check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const user = context.payload.comment.user.login;
+            try {
+              const { data: collaborator } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: user
+              });
+
+              const hasPermission = ['admin', 'write'].includes(collaborator.permission);
+              core.setOutput('authorized', hasPermission);
+
+              if (!hasPermission) {
+                // Remove eyes reaction and add thumbs down
+                const reactions = await github.rest.reactions.listForIssueComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: context.payload.comment.id
+                });
+
+                const eyesReaction = reactions.data.find(r =>
+                  r.content === 'eyes' && r.user.login === 'github-actions[bot]'
+                );
+
+                if (eyesReaction) {
+                  await github.rest.reactions.deleteForIssueComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    comment_id: context.payload.comment.id,
+                    reaction_id: eyesReaction.id
+                  });
+                }
+
+                await github.rest.reactions.createForIssueComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: context.payload.comment.id,
+                  content: '-1'
+                });
+
+                core.info(`User ${user} is not authorized to trigger CI reruns`);
+              }
+            } catch (error) {
+              core.setFailed(`Error checking permissions: ${error.message}`);
+            }
+
+      - name: Get PR information
+        if: steps.auth_check.outputs.authorized == 'true'
+        id: pr_info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr_number = context.issue.number;
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr_number
+            });
+
+            core.setOutput('head_sha', pr.head.sha);
+            core.setOutput('head_ref', pr.head.ref);
+            console.log(`PR #${pr_number}: branch=${pr.head.ref}, sha=${pr.head.sha}`);
+
+      - name: Determine rerun mode
+        if: steps.auth_check.outputs.authorized == 'true'
+        id: rerun_mode
+        run: |
+          if [[ "${{ github.event.comment.body }}" == *"/ci all"* ]]; then
+            echo "mode=all" >> $GITHUB_OUTPUT
+          else
+            echo "mode=failed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rerun workflows
+        if: steps.auth_check.outputs.authorized == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const mode = '${{ steps.rerun_mode.outputs.mode }}';
+            const head_sha = '${{ steps.pr_info.outputs.head_sha }}';
+
+            // Get all workflow runs for the PR's latest commit
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head_sha: head_sha,
+              per_page: 100
+            });
+
+            let rerunCount = 0;
+            const workflowNames = new Set();
+
+            for (const run of runs.workflow_runs) {
+              // Skip the rerun-ci workflow itself
+              if (run.name === 'Rerun CI on Comment') continue;
+
+              // Check if we should rerun this workflow
+              const shouldRerun = mode === 'all' ||
+                                   run.status === 'completed' && run.conclusion === 'failure';
+
+              if (shouldRerun) {
+                try {
+                  await github.rest.actions.reRunWorkflow({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    run_id: run.id
+                  });
+                  rerunCount++;
+                  workflowNames.add(run.name);
+                  console.log(`Rerunning: ${run.name} (${run.id})`);
+                } catch (error) {
+                  console.log(`Failed to rerun ${run.name}: ${error.message}`);
+                }
+              }
+            }
+
+            // Update reaction to thumbs up
+            const reactions = await github.rest.reactions.listForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            });
+
+            const eyesReaction = reactions.data.find(r =>
+              r.content === 'eyes' && r.user.login === 'github-actions[bot]'
+            );
+
+            if (eyesReaction) {
+              await github.rest.reactions.deleteForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: context.payload.comment.id,
+                reaction_id: eyesReaction.id
+              });
+            }
+
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: '+1'
+            });
+
+            if (rerunCount > 0) {
+              console.log(`Successfully triggered ${rerunCount} workflow rerun(s): ${Array.from(workflowNames).join(', ')}`);
+            } else {
+              console.log('No workflows needed to be rerun');
+            }

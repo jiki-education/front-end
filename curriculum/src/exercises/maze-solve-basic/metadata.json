@@ -1,0 +1,19 @@
+{
+  "slug": "maze-solve-basic",
+  "title": "Manually Solve a Maze",
+  "instructions": "Solve a maze using basic movement and turning functions. Your goal is to reach the green target cell by navigating through the maze without hitting walls.",
+  "estimatedMinutes": 10,
+  "levelId": "using-functions",
+  "initialCode": "// Guide the character to the green target cell\n// Use move() to move forward\n// Use turn_left() and turn_right() to change direction\n",
+  "hints": [
+    "The character starts in the top-left corner facing down",
+    "Plan your path to avoid blocked (red striped) cells",
+    "You need to reach the bottom-right corner with the green target",
+    "Use turn_left() or turn_right() to change direction before moving"
+  ],
+  "solutions": {
+    "jikiscript": "move()\nmove()\nturn_left()\nmove()\nmove()\nturn_left()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nmove()\nmove()\nmove()\nmove()\nturn_left()\nmove()\nmove()",
+    "javascript": "move();\nmove();\nturnLeft();\nmove();\nmove();\nturnLeft();\nmove();\nmove();\nturnRight();\nmove();\nmove();\nturnRight();\nmove();\nmove();\nmove();\nmove();\nmove();\nmove();\nturnLeft();\nmove();\nmove();",
+    "python": "move()\nmove()\nturn_left()\nmove()\nmove()\nturn_left()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nmove()\nmove()\nmove()\nmove()\nturn_left()\nmove()\nmove()"
+  }
+}
