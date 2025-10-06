@@ -68,7 +68,7 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to return a specific slug
-      jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue('solve-a-maze');
+      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
 
       // Mock successful test run
       (runTests as jest.Mock).mockReturnValue({
@@ -80,19 +80,16 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
 
       // Verify API was called with correct parameters
-      expect(api.post).toHaveBeenCalledWith(
-        "/lessons/solve-a-maze/exercise-submissions",
-        {
-          submission: {
-            files: [
-              {
-                filename: "solution.js",
-                content: mockCode
-              }
-            ]
-          }
+      expect(api.post).toHaveBeenCalledWith("/lessons/solve-a-maze/exercise-submissions", {
+        submission: {
+          files: [
+            {
+              filename: "solution.js",
+              content: mockCode
+            }
+          ]
         }
-      );
+      });
 
       // Verify test runner was called
       expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise);
@@ -118,7 +115,7 @@ describe("TestSuiteManager", () => {
 
       for (const testCase of testCases) {
         // Mock getLessonSlugFromURL to return the test slug
-        jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue(testCase.slug);
+        jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(testCase.slug);
 
         // Clear previous calls
         (api.post as jest.Mock).mockClear();
@@ -128,10 +125,7 @@ describe("TestSuiteManager", () => {
         await manager.runCode(mockCode, mockExercise);
 
         // Verify API was called with correct lesson slug
-        expect(api.post).toHaveBeenCalledWith(
-          `/lessons/${testCase.slug}/exercise-submissions`,
-          expect.any(Object)
-        );
+        expect(api.post).toHaveBeenCalledWith(`/lessons/${testCase.slug}/exercise-submissions`, expect.any(Object));
       }
     });
 
@@ -140,7 +134,7 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to return null (no lesson slug)
-      jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue(null);
+      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
 
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
@@ -159,7 +153,7 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL
-      jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue('solve-a-maze');
+      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
 
       // Mock API to throw error
       (api.post as jest.Mock).mockRejectedValue(new Error("Network error"));
@@ -225,7 +219,7 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL
-      jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue('solve-a-maze');
+      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
 
       // Create a promise that we can control
       let resolveApiCall: () => void;
@@ -256,7 +250,7 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to simulate undefined window
-      jest.spyOn(manager as any, 'getLessonSlugFromURL').mockReturnValue(null);
+      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
 
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
@@ -320,5 +314,4 @@ describe("TestSuiteManager", () => {
       expect(result).toBeNull();
     });
   });
-
 });

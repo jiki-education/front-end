@@ -51,10 +51,10 @@ export class TestSuiteManager {
    */
   private getLessonSlugFromURL(): string | null {
     // Get the pathname from window location
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return null;
     }
-    
+
     const pathname = window.location.pathname;
     // URL format is /lesson/[slug], so extract the slug
     const match = pathname.match(/\/lesson\/([^/]+)/);
@@ -71,20 +71,22 @@ export class TestSuiteManager {
     }
     try {
       const { api } = await import("@/lib/api/client");
-      
+
       // Fire and forget - we don't await or care about the response
-      void api.post(`/lessons/${lessonSlug}/exercise-submissions`, {
-        submission: {
-          files: [
-            {
-              filename: "solution.js", // or appropriate extension
-              content: code
-            }
-          ]
-        }
-      }).catch(() => {
-        // Silently ignore errors (no internet, etc.)
-      });
+      void api
+        .post(`/lessons/${lessonSlug}/exercise-submissions`, {
+          submission: {
+            files: [
+              {
+                filename: "solution.js", // or appropriate extension
+                content: code
+              }
+            ]
+          }
+        })
+        .catch(() => {
+          // Silently ignore errors (no internet, etc.)
+        });
     } catch {
       // Silently ignore any import or other errors
     }
