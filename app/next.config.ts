@@ -3,10 +3,10 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   experimental: {
-    reactCompiler: true,
-    turbo: {
-      root: path.resolve(__dirname, "..")
-    }
+    reactCompiler: true
+  },
+  turbopack: {
+    root: path.resolve(__dirname, "..")
   },
   transpilePackages: ["interpreters", "@jiki/curriculum"],
   allowedDevOrigins: ["localhost", "local.exercism.io"]

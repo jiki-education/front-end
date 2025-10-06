@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
     "copy-css": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
-    "dev": "pnpm run build && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' -- sh -c 'pnpm run copy-css && echo \"export const CSS_LAST_UPDATED = $(date +%s);\" > src/css_last_touched.ts'",
+    "dev": "pnpm run copy-css && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' -- pnpm run copy-css",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit",
