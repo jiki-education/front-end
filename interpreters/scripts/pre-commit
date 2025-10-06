@@ -5,7 +5,7 @@ echo "💅 Formatting changed files..."
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^interpreters/" | grep -E '\.(ts|tsx|js|jsx|json|md|yml)$' | sed 's|^interpreters/||' || true)
 if [ -n "$STAGED_FILES" ]; then
     echo "Formatting: $STAGED_FILES"
-    npx prettier --write $STAGED_FILES
+    pnpm exec prettier --write $STAGED_FILES
     git add $STAGED_FILES
 else
     echo "No files to format"

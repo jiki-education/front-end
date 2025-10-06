@@ -3,7 +3,7 @@ echo "Running pre-commit checks..."
 
 # Run TypeScript type checking
 echo "🔷 Running TypeScript type check..."
-npx tsc --noEmit
+pnpm exec tsc --noEmit
 if [ $? -ne 0 ]; then
     echo "❌ TypeScript type check failed. Commit aborted."
     exit 1
@@ -14,7 +14,7 @@ echo "💅 Formatting changed files..."
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^curriculum/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^curriculum/||' || true)
 if [ -n "$STAGED_FILES" ]; then
     echo "Formatting: $STAGED_FILES"
-    npx prettier --write $STAGED_FILES
+    pnpm exec prettier --write $STAGED_FILES
     git add $STAGED_FILES
 else
     echo "No files to format"
