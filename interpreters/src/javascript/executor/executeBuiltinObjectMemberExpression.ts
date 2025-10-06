@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultMemberExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
 import type { Executor } from "../executor";
 import { RuntimeError } from "../executor";
 import type { MemberExpression } from "../expression";
@@ -8,7 +8,7 @@ import { type JSBuiltinObject, JSString } from "../jsObjects";
 export function executeBuiltinObjectMemberExpression(
   executor: Executor,
   expression: MemberExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   builtinObject: JSBuiltinObject
 ): EvaluationResultMemberExpression {
   // Builtin objects only support dot notation (non-computed access)
