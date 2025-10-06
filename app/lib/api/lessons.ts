@@ -41,7 +41,7 @@ export async function fetchLesson(slug: string): Promise<LessonData> {
  * Mark a lesson as completed
  */
 export async function markLessonComplete(slug: string): Promise<void> {
-  await api.post(`/lessons/${slug}/complete`);
+  await api.patch(`/v1/user_lessons/${slug}/completed`);
 }
 
 /**
