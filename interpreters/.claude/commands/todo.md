@@ -11,6 +11,7 @@ Follow the instructions at the top of TODO.md. Ensure to:
 2. Check relevant .context/ documentation first
 3. Implement the solution
 4. Run tests to verify
-5. Commit changes when complete
+5. **Add cross-validation tests** to verify implementation matches native behavior (tests/cross-validation/)
+6. Commit changes when complete
 
 Current interpreter filter: $1

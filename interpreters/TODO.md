@@ -22,6 +22,7 @@ Important:
 
 - Do not comment out any tests or run git with no-verify. Always solve problems.
 - If you are unsure, or feel like you're going down a rabbit hole, stop and ask for advice and help.
+- **When implementing new features, add cross-validation tests** in `tests/cross-validation/` to verify the implementation matches native language behavior. See `.context/shared/cross-validation.md` for details.
 
 ## JikiScript
 

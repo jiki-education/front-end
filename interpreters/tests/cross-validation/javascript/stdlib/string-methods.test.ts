@@ -1,14 +1,13 @@
 import { describe } from "vitest";
 import { testJavaScript } from "../../utils/test-runner";
 
-// SKIP ALL: Methods require CallExpression support which is not fully implemented
-describe.skip("JavaScript string methods cross-validation", () => {
+describe("JavaScript string methods cross-validation", () => {
   describe("string.toUpperCase()", () => {
     testJavaScript(
       "lowercase to uppercase",
       `
-const s = "hello";
-const result = s.toUpperCase();
+let s = "hello";
+let result = s.toUpperCase();
     `,
       { expectedValue: "HELLO" }
     );
@@ -16,8 +15,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "already uppercase",
       `
-const s = "WORLD";
-const result = s.toUpperCase();
+let s = "WORLD";
+let result = s.toUpperCase();
     `,
       { expectedValue: "WORLD" }
     );
@@ -25,8 +24,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "mixed case",
       `
-const s = "Hello World";
-const result = s.toUpperCase();
+let s = "Hello World";
+let result = s.toUpperCase();
     `,
       { expectedValue: "HELLO WORLD" }
     );
@@ -34,8 +33,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "with numbers and symbols",
       `
-const s = "hello123!@#";
-const result = s.toUpperCase();
+let s = "hello123!@#";
+let result = s.toUpperCase();
     `,
       { expectedValue: "HELLO123!@#" }
     );
@@ -43,8 +42,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "empty string",
       `
-const s = "";
-const result = s.toUpperCase();
+let s = "";
+let result = s.toUpperCase();
     `,
       { expectedValue: "" }
     );
@@ -52,8 +51,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "with spaces",
       `
-const s = "hello world";
-const result = s.toUpperCase();
+let s = "hello world";
+let result = s.toUpperCase();
     `,
       { expectedValue: "HELLO WORLD" }
     );
@@ -63,8 +62,8 @@ const result = s.toUpperCase();
     testJavaScript(
       "uppercase to lowercase",
       `
-const s = "HELLO";
-const result = s.toLowerCase();
+let s = "HELLO";
+let result = s.toLowerCase();
     `,
       { expectedValue: "hello" }
     );
@@ -72,8 +71,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "already lowercase",
       `
-const s = "world";
-const result = s.toLowerCase();
+let s = "world";
+let result = s.toLowerCase();
     `,
       { expectedValue: "world" }
     );
@@ -81,8 +80,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "mixed case",
       `
-const s = "Hello World";
-const result = s.toLowerCase();
+let s = "Hello World";
+let result = s.toLowerCase();
     `,
       { expectedValue: "hello world" }
     );
@@ -90,8 +89,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "with numbers and symbols",
       `
-const s = "HELLO123!@#";
-const result = s.toLowerCase();
+let s = "HELLO123!@#";
+let result = s.toLowerCase();
     `,
       { expectedValue: "hello123!@#" }
     );
@@ -99,8 +98,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "empty string",
       `
-const s = "";
-const result = s.toLowerCase();
+let s = "";
+let result = s.toLowerCase();
     `,
       { expectedValue: "" }
     );
@@ -108,8 +107,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "with spaces",
       `
-const s = "HELLO WORLD";
-const result = s.toLowerCase();
+let s = "HELLO WORLD";
+let result = s.toLowerCase();
     `,
       { expectedValue: "hello world" }
     );
@@ -119,8 +118,8 @@ const result = s.toLowerCase();
     testJavaScript(
       "empty string",
       `
-const s = "";
-const result = s.length;
+let s = "";
+let result = s.length;
     `,
       { expectedValue: 0 }
     );
@@ -128,8 +127,8 @@ const result = s.length;
     testJavaScript(
       "single character",
       `
-const s = "a";
-const result = s.length;
+let s = "a";
+let result = s.length;
     `,
       { expectedValue: 1 }
     );
@@ -137,8 +136,8 @@ const result = s.length;
     testJavaScript(
       "multiple characters",
       `
-const s = "hello";
-const result = s.length;
+let s = "hello";
+let result = s.length;
     `,
       { expectedValue: 5 }
     );
@@ -146,8 +145,8 @@ const result = s.length;
     testJavaScript(
       "with spaces",
       `
-const s = "hello world";
-const result = s.length;
+let s = "hello world";
+let result = s.length;
     `,
       { expectedValue: 11 }
     );
@@ -155,8 +154,8 @@ const result = s.length;
     testJavaScript(
       "with special characters",
       `
-const s = "hello!@#$%";
-const result = s.length;
+let s = "hello!@#$%";
+let result = s.length;
     `,
       { expectedValue: 10 }
     );
@@ -164,8 +163,8 @@ const result = s.length;
     testJavaScript(
       "with escape sequences",
       `
-const s = "hello\\nworld";
-const result = s.length;
+let s = "hello\\nworld";
+let result = s.length;
     `,
       { expectedValue: 11 }
     );
@@ -173,8 +172,8 @@ const result = s.length;
     testJavaScript(
       "template literal",
       `
-const s = \`hello world\`;
-const result = s.length;
+let s = \`hello world\`;
+let result = s.length;
     `,
       { expectedValue: 11 }
     );

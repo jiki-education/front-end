@@ -65,10 +65,12 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
+import { JSBuiltinObject, JSStdLibFunction } from "./jikiObjects";
+import { consoleMethods } from "./stdlib/console";
 
 // Execution context for JavaScript stdlib
 export type ExecutionContext = SharedExecutionContext & {
-  // Additional JavaScript-specific properties can be added here
+  log: (output: string) => void;
 };
 
 export type RuntimeErrorType =
@@ -122,6 +124,7 @@ export class Executor {
   private readonly frames: Frame[] = [];
   public time: number = 0;
   private readonly timePerFrame: number = 1;
+  public readonly logLines: Array<{ time: number; output: string }> = [];
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
 
@@ -136,6 +139,20 @@ export class Executor {
       ...context.languageFeatures,
     };
     this.environment = new Environment(this.languageFeatures);
+
+    // Register builtin objects (console, Math, etc.) as JSBuiltinObject in the environment
+    const consoleFunctions = new Map<string, JSStdLibFunction>();
+    for (const [name, method] of Object.entries(consoleMethods)) {
+      const func = new JSStdLibFunction(
+        name,
+        method.arity,
+        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+        method.description
+      );
+      consoleFunctions.set(name, func);
+    }
+    const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
+    this.environment.define("console", consoleObject, Location.unknown);
 
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
@@ -484,10 +501,15 @@ export class Executor {
   }
 
   // Get execution context for stdlib functions
+  public log(output: string): void {
+    this.logLines.push({ time: this.time, output });
+  }
+
   public getExecutionContext(): ExecutionContext {
     return {
       ...createBaseExecutionContext.call(this),
       logicError: this.logicError.bind(this),
+      log: this.log.bind(this),
     };
   }
 }

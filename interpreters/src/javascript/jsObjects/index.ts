@@ -10,6 +10,7 @@ export { JSUndefined } from "./JSUndefined";
 export { JSArray } from "./JSList";
 export { JSDictionary } from "./JSDictionary";
 export { JSStdLibFunction } from "./JSStdLibFunction";
+export { JSBuiltinObject } from "./JSBuiltinObject";
 
 // Import for helper functions
 import { JikiObject } from "../../shared/jikiObject";
