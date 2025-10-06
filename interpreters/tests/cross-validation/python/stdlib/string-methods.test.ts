@@ -1,8 +1,7 @@
 import { describe } from "vitest";
 import { testPython } from "../../utils/test-runner";
 
-// SKIP ALL: Requires print() implementation in Python interpreter
-describe.skip("Python string methods cross-validation", () => {
+describe("Python string methods cross-validation", () => {
   describe("str.upper()", () => {
     testPython(
       "lowercase to uppercase",
@@ -115,7 +114,8 @@ result = s.lower()
     );
   });
 
-  describe("len(string)", () => {
+  // SKIPPED: Requires len() builtin implementation
+  describe.skip("len(string)", () => {
     testPython(
       "empty string",
       `

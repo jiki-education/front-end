@@ -29,15 +29,17 @@ export function testPython(
   const testFn = options?.only ? test.only : options?.skip ? test.skip : test;
 
   testFn(name, async () => {
-    // Execute with Jiki Python interpreter
-    const jikiResult = interpretPython(code);
-
-    // Prepare code for native Python execution
+    // Prepare code for execution
     // When testing expectedValue, wrap code with print() to capture the result
+    let jikiCode = code;
     let nativeCode = code;
     if (options?.expectedValue !== undefined) {
+      jikiCode = wrapPythonWithPrint(code);
       nativeCode = wrapPythonWithPrint(code);
     }
+
+    // Execute with Jiki Python interpreter
+    const jikiResult = interpretPython(jikiCode);
 
     // Execute with native Python
     const nativeOutput = await executeNativePython(nativeCode);
@@ -55,12 +57,12 @@ export function testPython(
         expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
         expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
       } else if (options?.expectedValue !== undefined) {
-        // Compare final values
-        const jikiValue = extractLastValue(jikiResult);
+        // Compare final values via print() output
+        // Both Jiki and native code have been wrapped with print()
+        const jikiOutput = extractOutput(jikiResult);
+        const jikiValue = parseValue(jikiOutput.trim());
         expect(jikiValue).toBe(options.expectedValue);
 
-        // For native, we need to parse the output
-        // This is simplified - may need enhancement for complex types
         const nativeValue = parseValue(nativeOutput.trim());
         expect(nativeValue).toBe(options.expectedValue);
       } else {
@@ -89,15 +91,17 @@ export function testJavaScript(
   const testFn = options?.only ? test.only : options?.skip ? test.skip : test;
 
   testFn(name, async () => {
-    // Execute with Jiki JavaScript interpreter
-    const jikiResult = interpretJS(code);
-
-    // Prepare code for native JavaScript execution
+    // Prepare code for execution
     // When testing expectedValue, wrap code with console.log() to capture the result
+    let jikiCode = code;
     let nativeCode = code;
     if (options?.expectedValue !== undefined) {
+      jikiCode = wrapJavaScriptWithConsoleLog(code);
       nativeCode = wrapJavaScriptWithConsoleLog(code);
     }
+
+    // Execute with Jiki JavaScript interpreter
+    const jikiResult = interpretJS(jikiCode);
 
     // Execute with native Node.js
     const nativeOutput = await executeNativeJS(nativeCode);
@@ -114,11 +118,12 @@ export function testJavaScript(
         expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
         expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
       } else if (options?.expectedValue !== undefined) {
-        // Compare final values
-        const jikiValue = extractLastValue(jikiResult);
+        // Compare final values via console.log() output
+        // Both Jiki and native code have been wrapped with console.log()
+        const jikiOutput = extractOutput(jikiResult);
+        const jikiValue = parseValue(jikiOutput.trim());
         expect(jikiValue).toBe(options.expectedValue);
 
-        // For native, parse the output
         const nativeValue = parseValue(nativeOutput.trim());
         expect(nativeValue).toBe(options.expectedValue);
       } else {
