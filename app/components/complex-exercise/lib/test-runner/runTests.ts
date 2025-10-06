@@ -12,6 +12,16 @@ const interpreters = {
   jikiscript
 };
 
+function getInterpreter(language: Language) {
+  const interpreter = interpreters[language];
+  // Defensive check (TypeScript guarantees this, but good for runtime safety)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!interpreter) {
+    throw new Error(`Unknown language: ${language}`);
+  }
+  return interpreter;
+}
+
 function runScenario(
   scenario: Scenario,
   studentCode: string,
@@ -24,10 +34,8 @@ function runScenario(
   // Run setup
   scenario.setup(exercise);
 
-  // Get the appropriate interpreter
-  const interpreter = interpreters[language];
-
   // Execute student code with selected interpreter
+  const interpreter = getInterpreter(language);
   const result = interpreter.interpret(studentCode, {
     externalFunctions: exercise.availableFunctions.map((func) => ({
       name: func.name,
@@ -70,10 +78,8 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   // Create a temporary exercise to get external functions
   const tempExercise = new exercise.ExerciseClass();
 
-  // Get the appropriate interpreter
-  const interpreter = interpreters[language];
-
   // Compile ONCE before running any scenarios
+  const interpreter = getInterpreter(language);
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: tempExercise.availableFunctions.map((func) => ({
       name: func.name,
