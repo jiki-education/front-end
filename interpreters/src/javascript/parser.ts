@@ -755,12 +755,37 @@ export class Parser {
 
       return semicolon;
     }
-    if (!this.isAtEnd()) {
-      // In JavaScript, semicolons are often optional, but for simplicity we'll require them for now
-      this.error("MissingSemicolon", this.peek().location);
+
+    // Check if semicolons are optional (default is required)
+    const requireSemicolons = this.languageFeatures.requireSemicolons ?? true;
+
+    // If semicolons are required, throw error unless we're at end of file
+    if (requireSemicolons) {
+      if (!this.isAtEnd()) {
+        this.error("MissingSemicolon", this.peek().location);
+      }
+      // Return the current token as fallback (for end of file cases)
+      return this.previous();
     }
-    // Return the current token as fallback (for end of file cases)
-    return this.previous();
+
+    // Semicolons are optional - allow statement boundaries without semicolon
+    if (this.isAtEnd()) {
+      return this.previous();
+    }
+
+    // Check if we're at a valid statement boundary
+    const nextToken = this.peek();
+    if (
+      nextToken.type === "EOL" ||
+      nextToken.type === "EOF" ||
+      nextToken.type === "RIGHT_BRACE" ||
+      nextToken.type === "RIGHT_PAREN"
+    ) {
+      return this.previous();
+    }
+
+    // Not at a statement boundary, still require semicolon
+    this.error("MissingSemicolon", this.peek().location);
   }
 
   private synchronize(): void {
