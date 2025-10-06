@@ -1,10 +1,13 @@
 import type { Executor } from "../executor";
 import type { UnaryExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultUnaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createJSObject, type JikiObject } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
-export function executeUnaryExpression(executor: Executor, expression: UnaryExpression): EvaluationResult {
+export function executeUnaryExpression(
+  executor: Executor,
+  expression: UnaryExpression
+): EvaluationResultUnaryExpression {
   const operandResult = executor.evaluate(expression.operand);
 
   const result = handleUnaryOperation(executor, expression, operandResult);
@@ -20,7 +23,7 @@ export function executeUnaryExpression(executor: Executor, expression: UnaryExpr
 function handleUnaryOperation(
   executor: Executor,
   expression: UnaryExpression,
-  operandResult: EvaluationResult
+  operandResult: EvaluationResultExpression
 ): JikiObject {
   const operand = operandResult.jikiObject.value;
   const operandType = operandResult.jikiObject.type;

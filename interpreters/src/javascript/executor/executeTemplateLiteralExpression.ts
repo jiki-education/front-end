@@ -1,15 +1,8 @@
 import type { Executor } from "../executor";
 import type { TemplateLiteralExpression } from "../expression";
-import type { EvaluationResultExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultTemplateLiteralExpression } from "../evaluation-result";
 import { JSString } from "../jikiObjects";
 import { unwrapJSObject } from "../jikiObjects";
-
-export interface EvaluationResultTemplateLiteralExpression {
-  type: "TemplateLiteralExpression";
-  parts: (string | EvaluationResultExpression)[];
-  jikiObject: JSString;
-  immutableJikiObject: JSString;
-}
 
 export function executeTemplateLiteralExpression(
   executor: Executor,

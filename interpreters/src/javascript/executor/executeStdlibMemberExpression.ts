@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultMemberExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
 import { type Executor, RuntimeError } from "../executor";
 import type { MemberExpression } from "../expression";
 import { type JikiObject, JSString, JSStdLibFunction } from "../jsObjects";
@@ -9,7 +9,7 @@ import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../st
 export function executeStdlibMemberExpression(
   executor: Executor,
   expression: MemberExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   object: JikiObject
 ): EvaluationResultMemberExpression {
   // Check if this object type has stdlib members

@@ -10,11 +10,11 @@ export class BreakFlowControlError extends Error {
 }
 
 export function executeBreakStatement(executor: Executor, statement: BreakStatement): void {
-  const result: EvaluationResultBreakStatement = {
-    type: "BreakStatement",
-  };
-
-  executor.addSuccessFrame(statement.location, result as any, statement);
+  executor.executeFrame<EvaluationResultBreakStatement>(statement, () => {
+    return {
+      type: "BreakStatement",
+    } as EvaluationResultBreakStatement;
+  });
 
   throw new BreakFlowControlError(statement.location);
 }

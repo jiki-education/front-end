@@ -4,20 +4,17 @@ import type { EvaluationResultContinueStatement } from "../evaluation-result";
 import type { Location } from "../../shared/location";
 
 export class ContinueFlowControlError extends Error {
-  constructor(
-    public location: Location,
-    public lexeme: string
-  ) {
+  constructor(public location: Location) {
     super();
   }
 }
 
 export function executeContinueStatement(executor: Executor, statement: ContinueStatement): void {
-  const result: EvaluationResultContinueStatement = {
-    type: "ContinueStatement",
-  };
+  executor.executeFrame<EvaluationResultContinueStatement>(statement, () => {
+    return {
+      type: "ContinueStatement",
+    } as EvaluationResultContinueStatement;
+  });
 
-  executor.addSuccessFrame(statement.location, result as any, statement);
-
-  throw new ContinueFlowControlError(statement.location, statement.keyword.lexeme);
+  throw new ContinueFlowControlError(statement.location);
 }

@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultMemberExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
 import type { Executor } from "../executor";
 import type { MemberExpression } from "../expression";
 import { type JSDictionary, JSString, JSNumber, JSUndefined } from "../jsObjects";
@@ -7,7 +7,7 @@ import { type JSDictionary, JSString, JSNumber, JSUndefined } from "../jsObjects
 export function executeDictionaryMemberExpression(
   executor: Executor,
   expression: MemberExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   dictionary: JSDictionary
 ): EvaluationResultMemberExpression {
   // For both computed and non-computed access, evaluate the property

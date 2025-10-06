@@ -30,7 +30,7 @@ import {
   BreakStatement,
   ContinueStatement,
 } from "./statement";
-import type { EvaluationResult } from "./evaluation-result";
+import type { EvaluationResult, EvaluationResultExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
 import { translate } from "./translator";
@@ -236,17 +236,15 @@ export class Executor {
     return result;
   }
 
-  public executeStatement(statement: Statement): EvaluationResult | null {
+  public executeStatement(statement: Statement): void {
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(statement);
 
-    let result: EvaluationResult | null = null;
-
     try {
       if (statement instanceof ExpressionStatement) {
-        result = this.executeFrame(statement, () => executeExpressionStatement(this, statement));
+        this.executeFrame(statement, () => executeExpressionStatement(this, statement));
       } else if (statement instanceof VariableDeclaration) {
-        result = this.executeFrame(statement, () => executeVariableDeclaration(this, statement));
+        this.executeFrame(statement, () => executeVariableDeclaration(this, statement));
       } else if (statement instanceof BlockStatement) {
         // Block statements should not generate frames, just execute their contents
         executeBlockStatement(this, statement);
@@ -281,11 +279,9 @@ export class Executor {
       }
       throw e;
     }
-
-    return result;
   }
 
-  public evaluate(expression: Expression): EvaluationResult {
+  public evaluate(expression: Expression): EvaluationResultExpression {
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(expression);
 
@@ -399,7 +395,7 @@ export class Executor {
     }
   }
 
-  public addSuccessFrame(location: Location, result: EvaluationResult | null, context?: Statement | Expression): void {
+  public addSuccessFrame(location: Location, result: EvaluationResult, context?: Statement | Expression): void {
     this.addFrame(location, "SUCCESS", result, undefined, context);
   }
 
@@ -410,7 +406,7 @@ export class Executor {
   private addFrame(
     location: Location,
     status: FrameExecutionStatus,
-    result?: EvaluationResult | null,
+    result?: EvaluationResult,
     error?: RuntimeError,
     context?: Statement | Expression
   ): void {

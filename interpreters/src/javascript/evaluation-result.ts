@@ -1,13 +1,57 @@
 import type { JikiObject } from "./jikiObjects";
 
-export interface EvaluationResult {
-  type: string;
+// Statement result types
+export interface EvaluationResultExpressionStatement {
+  type: "ExpressionStatement";
+  expression: EvaluationResultExpression;
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
 
-export type EvaluationResultExpression = EvaluationResult;
+export interface EvaluationResultVariableDeclaration {
+  type: "VariableDeclaration";
+  name: string;
+  value: EvaluationResultExpression;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
 
+export interface EvaluationResultIfStatement {
+  type: "IfStatement";
+  condition: EvaluationResultExpression;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
+export interface EvaluationResultFunctionDeclaration {
+  type: "FunctionDeclaration";
+  name: string;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
+export interface EvaluationResultReturnStatement {
+  type: "ReturnStatement";
+  expression?: EvaluationResultExpression;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
+export interface EvaluationResultBreakStatement {
+  type: "BreakStatement";
+  // Break statements don't produce values, these fields are never accessed
+  jikiObject: never;
+  immutableJikiObject: never;
+}
+
+export interface EvaluationResultContinueStatement {
+  type: "ContinueStatement";
+  // Continue statements don't produce values, these fields are never accessed
+  jikiObject: never;
+  immutableJikiObject: never;
+}
+
+// Expression result types
 export interface EvaluationResultBinaryExpression {
   type: "BinaryExpression";
   left: EvaluationResultExpression;
@@ -36,13 +80,6 @@ export interface EvaluationResultGroupingExpression {
   immutableJikiObject: JikiObject;
 }
 
-export interface EvaluationResultExpressionStatement {
-  type: "ExpressionStatement";
-  expression: EvaluationResultExpression;
-  jikiObject: JikiObject;
-  immutableJikiObject: JikiObject;
-}
-
 export interface EvaluationResultIdentifierExpression {
   type: "IdentifierExpression";
   name: string;
@@ -51,25 +88,10 @@ export interface EvaluationResultIdentifierExpression {
   functionName?: string; // Present when identifier refers to a function
 }
 
-export interface EvaluationResultVariableDeclaration {
-  type: "VariableDeclaration";
-  name: string;
-  value: EvaluationResultExpression;
-  jikiObject: JikiObject;
-  immutableJikiObject: JikiObject;
-}
-
 export interface EvaluationResultAssignmentExpression {
   type: "AssignmentExpression";
   name: string;
   value: EvaluationResultExpression;
-  jikiObject: JikiObject;
-  immutableJikiObject: JikiObject;
-}
-
-export interface EvaluationResultIfStatement {
-  type: "IfStatement";
-  condition: EvaluationResultExpression;
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
@@ -102,24 +124,41 @@ export interface EvaluationResultCallExpression {
   args?: EvaluationResult[];
 }
 
-export interface EvaluationResultFunctionDeclaration {
-  type: "FunctionDeclaration";
-  name: string;
+export interface EvaluationResultTemplateLiteralExpression {
+  type: "TemplateLiteralExpression";
+  parts: (string | EvaluationResultExpression)[];
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
 
-export interface EvaluationResultReturnStatement {
-  type: "ReturnStatement";
-  expression?: EvaluationResultExpression;
+export interface EvaluationResultUpdateExpression {
+  type: "UpdateExpression";
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
 
-export interface EvaluationResultBreakStatement {
-  type: "BreakStatement";
-}
+// Union types
+export type EvaluationResultStatement =
+  | EvaluationResultExpressionStatement
+  | EvaluationResultVariableDeclaration
+  | EvaluationResultIfStatement
+  | EvaluationResultFunctionDeclaration
+  | EvaluationResultReturnStatement
+  | EvaluationResultBreakStatement
+  | EvaluationResultContinueStatement;
 
-export interface EvaluationResultContinueStatement {
-  type: "ContinueStatement";
-}
+export type EvaluationResultExpression =
+  | EvaluationResultBinaryExpression
+  | EvaluationResultUnaryExpression
+  | EvaluationResultLiteralExpression
+  | EvaluationResultGroupingExpression
+  | EvaluationResultIdentifierExpression
+  | EvaluationResultAssignmentExpression
+  | EvaluationResultArrayExpression
+  | EvaluationResultMemberExpression
+  | EvaluationResultDictionaryExpression
+  | EvaluationResultCallExpression
+  | EvaluationResultTemplateLiteralExpression
+  | EvaluationResultUpdateExpression;
+
+export type EvaluationResult = EvaluationResultStatement | EvaluationResultExpression;

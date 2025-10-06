@@ -1,9 +1,12 @@
 import type { Executor } from "../executor";
 import type { UpdateExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultUpdateExpression } from "../evaluation-result";
 import { JSNumber } from "../jikiObjects";
 
-export function executeUpdateExpression(executor: Executor, expression: UpdateExpression): EvaluationResult {
+export function executeUpdateExpression(
+  executor: Executor,
+  expression: UpdateExpression
+): EvaluationResultUpdateExpression {
   // Get the current value of the variable
   const currentValue = executor.environment.get(expression.operand.name.lexeme);
 

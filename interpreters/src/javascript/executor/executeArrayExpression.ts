@@ -1,9 +1,12 @@
 import type { Executor } from "../executor";
 import type { ArrayExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultArrayExpression } from "../evaluation-result";
 import { JSArray } from "../jikiObjects";
 
-export function executeArrayExpression(executor: Executor, expression: ArrayExpression): EvaluationResult {
+export function executeArrayExpression(
+  executor: Executor,
+  expression: ArrayExpression
+): EvaluationResultArrayExpression {
   const elements = expression.elements.map(element => executor.evaluate(element).jikiObject);
   const jikiObject = new JSArray(elements);
 

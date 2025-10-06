@@ -77,6 +77,31 @@ describe("continue", () => {
     expect(lastFrame.variables?.x?.value).toBe(12);
   });
 
+  test("continue executes update expression in for loop", () => {
+    const { success, frames } = interpret(
+      `
+      let x = 0;
+      let count = 0;
+      for (let i = 0; i < 5; i = i + 1) {
+        count = count + 1;
+        if (i === 2) {
+          continue;
+        }
+        x = x + i;
+      }
+    `,
+      {}
+    );
+    expect(success).toBe(true);
+    const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
+    // count should be 5 (loop runs 5 times)
+    expect(lastFrame.variables?.count?.value).toBe(5);
+    // x should be 0 + 1 + 3 + 4 = 8 (skip i=2)
+    expect(lastFrame.variables?.x?.value).toBe(8);
+    // Verify i reaches 5, proving update expression ran after continue
+    expect(lastFrame.variables?.i?.value).toBe(5);
+  });
+
   test("continue in while loop", () => {
     const { success, frames } = interpret(
       `
