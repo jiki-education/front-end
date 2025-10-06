@@ -6,7 +6,11 @@ import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import Orchestrator, { useOrchestratorStore } from "./lib/Orchestrator";
 import OrchestratorProvider from "./lib/OrchestratorProvider";
 import CodeEditor from "./ui/CodeEditor";
+import HintsView from "./ui/HintsView";
+import InstructionsPanel from "./ui/InstructionsPanel";
 import RunButton from "./ui/RunButton";
+import TabPanel from "./ui/TabPanel";
+import TasksView from "./ui/TasksView";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import { TestModalButtons } from "./ui/TestModalButtons";
 import LanguageToggle from "./ui/LanguageToggle";
@@ -71,14 +75,13 @@ export default function ComplexExercise({ exerciseSlug }: ComplexExerciseProps) 
 // Separate component that assumes orchestrator is loaded
 function ComplexExerciseContent({ orchestrator }: { orchestrator: Orchestrator }) {
   // Call the hook directly with the orchestrator
-  const { output, status, error } = useOrchestratorStore(orchestrator);
+  const { status, error } = useOrchestratorStore(orchestrator);
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
       <div className="flex flex-col h-screen bg-gray-50">
         <header className="bg-white border-b border-gray-200 px-6 py-4">
           <h1 className="text-2xl font-bold text-gray-900">{orchestrator.getExerciseTitle()}</h1>
-          <p className="text-sm text-gray-600 mt-1">{orchestrator.getExerciseInstructions()}</p>
         </header>
 
         <div className="flex flex-1 overflow-hidden">
@@ -92,17 +95,24 @@ function ComplexExerciseContent({ orchestrator }: { orchestrator: Orchestrator }
           </div>
 
           <div className="w-1/3 border-l border-gray-200 flex flex-col bg-white">
-            <div className="border-b border-gray-200 px-4 py-2">
-              <h2 className="text-lg font-semibold text-gray-700">Output</h2>
-            </div>
-            <div className="flex-1 p-4 overflow-auto">
-              <div className="bg-gray-100 rounded-lg p-4 min-h-[200px]">
-                {output ? (
-                  <pre className="text-sm text-gray-800 whitespace-pre-wrap">{output}</pre>
-                ) : (
-                  <p className="text-sm text-gray-600">Output will appear here...</p>
-                )}
-              </div>
+            <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} className="border-b border-gray-200" />
+            
+            <div className="flex-1 overflow-hidden">
+              <TabPanel
+                tabs={[
+                  {
+                    id: "tasks",
+                    label: "Tasks",
+                    content: <TasksView tasks={orchestrator.getExercise().tasks} />
+                  },
+                  {
+                    id: "hints",
+                    label: "Hints",
+                    content: <HintsView hints={orchestrator.getExercise().hints} />
+                  }
+                ]}
+                defaultActiveTab="tasks"
+              />
             </div>
           </div>
         </div>
