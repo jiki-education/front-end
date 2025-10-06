@@ -79,7 +79,7 @@ jobs:
         working-directory: app
         run: pnpm run lint
 
-  unit-tests:
+  tests:
     runs-on: ubuntu-latest
     permissions:
       contents: read
