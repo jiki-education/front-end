@@ -146,3 +146,27 @@ export class ReturnStatement extends Statement {
     return this.expression ? [this.expression] : [];
   }
 }
+
+export class BreakStatement extends Statement {
+  constructor(
+    public keyword: Token,
+    public location: Location
+  ) {
+    super("BreakStatement");
+  }
+  public children() {
+    return [];
+  }
+}
+
+export class ContinueStatement extends Statement {
+  constructor(
+    public keyword: Token,
+    public location: Location
+  ) {
+    super("ContinueStatement");
+  }
+  public children() {
+    return [];
+  }
+}

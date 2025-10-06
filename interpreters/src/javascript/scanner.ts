@@ -568,12 +568,10 @@ export class Scanner {
     // Check for unimplemented tokens
     const unimplementedTokens: TokenType[] = [
       // Statement keywords
-      "BREAK",
       "CASE",
       "CATCH",
       "CLASS",
       "CONST",
-      "CONTINUE",
       "DEBUGGER",
       "DEFAULT",
       "DELETE",

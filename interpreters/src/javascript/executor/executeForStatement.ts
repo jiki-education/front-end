@@ -24,33 +24,37 @@ export function executeForStatement(executor: Executor, statement: ForStatement)
       }
     }
 
-    // Execute the loop
-    while (true) {
-      // Check condition (if present) - this should generate a frame
-      if (statement.condition) {
-        const conditionResult = executor.executeFrame(statement.condition, () => {
-          const result = executor.evaluate(statement.condition!);
-          executor.verifyBoolean(result.jikiObject, statement.condition!.location);
-          return result;
+    // Execute the loop with break handling
+    executor.executeLoop(() => {
+      while (true) {
+        // Check condition (if present) - this should generate a frame
+        if (statement.condition) {
+          const conditionResult = executor.executeFrame(statement.condition, () => {
+            const result = executor.evaluate(statement.condition!);
+            executor.verifyBoolean(result.jikiObject, statement.condition!.location);
+            return result;
+          });
+
+          // If condition is false, break the loop
+          if (!conditionResult.jikiObject.value) {
+            break;
+          }
+        }
+
+        // Execute body with continue handling - this generates its own frames
+        executor.executeLoopIteration(() => {
+          executor.executeStatement(statement.body);
         });
 
-        // If condition is false, break the loop
-        if (!conditionResult.jikiObject.value) {
-          break;
+        // Execute update (if present) - this should generate a frame
+        if (statement.update) {
+          executor.executeFrame(statement.update, () => {
+            const result = executor.evaluate(statement.update!);
+            return result;
+          });
         }
       }
-
-      // Execute body - this generates its own frames
-      executor.executeStatement(statement.body);
-
-      // Execute update (if present) - this should generate a frame
-      if (statement.update) {
-        executor.executeFrame(statement.update, () => {
-          const result = executor.evaluate(statement.update!);
-          return result;
-        });
-      }
-    }
+    });
   } finally {
     executor.environment = previous;
   }

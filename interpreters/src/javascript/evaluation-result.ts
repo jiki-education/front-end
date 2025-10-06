@@ -115,3 +115,11 @@ export interface EvaluationResultReturnStatement {
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
 }
+
+export interface EvaluationResultBreakStatement {
+  type: "BreakStatement";
+}
+
+export interface EvaluationResultContinueStatement {
+  type: "ContinueStatement";
+}

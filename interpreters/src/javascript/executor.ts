@@ -27,6 +27,8 @@ import {
   WhileStatement,
   FunctionDeclaration,
   ReturnStatement,
+  BreakStatement,
+  ContinueStatement,
 } from "./statement";
 import type { EvaluationResult } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
@@ -61,6 +63,8 @@ import { executeDictionaryExpression } from "./executor/executeDictionaryExpress
 import { executeCallExpression } from "./executor/executeCallExpression";
 import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaration";
 import { executeReturnStatement } from "./executor/executeReturnStatement";
+import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
+import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
 
 // Execution context for JavaScript stdlib
 export type ExecutionContext = SharedExecutionContext & {
@@ -87,6 +91,8 @@ export type RuntimeErrorType =
   | "FunctionExecutionError"
   | "LogicErrorInExecution"
   | "ReturnOutsideFunction"
+  | "BreakOutsideLoop"
+  | "ContinueOutsideLoop"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
   | "NonJikiObjectDetectedInExecution";
@@ -198,6 +204,24 @@ export class Executor {
         );
         return false;
       }
+      if (error instanceof BreakFlowControlError) {
+        // Break outside loop - pop the frame and add an error frame
+        this.frames.pop();
+        this.addErrorFrame(
+          error.location,
+          new RuntimeError(translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
+        );
+        return false;
+      }
+      if (error instanceof ContinueFlowControlError) {
+        // Continue outside loop - pop the frame and add an error frame
+        this.frames.pop();
+        this.addErrorFrame(
+          error.location,
+          new RuntimeError(translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
+        );
+        return false;
+      }
       // Re-throw RuntimeErrors to be handled by outer try-catch
       if (error instanceof RuntimeError) {
         throw error;
@@ -238,10 +262,22 @@ export class Executor {
       } else if (statement instanceof ReturnStatement) {
         // Return statements generate frames and throw ReturnValue
         executeReturnStatement(this, statement);
+      } else if (statement instanceof BreakStatement) {
+        // Break statements generate frames and throw BreakFlowControlError
+        executeBreakStatement(this, statement);
+      } else if (statement instanceof ContinueStatement) {
+        // Continue statements generate frames and throw ContinueFlowControlError
+        executeContinueStatement(this, statement);
       }
     } catch (e: unknown) {
       if (e instanceof LogicError) {
         this.error("LogicErrorInExecution", statement.location, { message: e.message });
+        throw e;
+      }
+      // Flow control errors need to bubble up to loop handlers
+      // Only catch them if we're at the top level (not in a loop)
+      if (e instanceof BreakFlowControlError || e instanceof ContinueFlowControlError) {
+        throw e;
       }
       throw e;
     }
@@ -326,6 +362,40 @@ export class Executor {
       }
     } finally {
       this.environment = previous;
+    }
+  }
+
+  /**
+   * Execute loop body with break handling
+   * Catches BreakFlowControlError to exit the loop
+   */
+  public executeLoop(body: () => void): void {
+    try {
+      body.call(this);
+    } catch (e) {
+      if (e instanceof BreakFlowControlError) {
+        // Break flow control - handled by outer loop, exit normally
+        return;
+      }
+      // Otherwise we have some error that shouldn't be handled here
+      throw e;
+    }
+  }
+
+  /**
+   * Execute loop iteration with continue handling
+   * Catches ContinueFlowControlError to skip to next iteration
+   */
+  public executeLoopIteration(body: () => void): void {
+    try {
+      body.call(this);
+    } catch (e) {
+      if (e instanceof ContinueFlowControlError) {
+        // Continue flow control - handled by loop, return to continue to next iteration
+        return;
+      }
+      // Otherwise we have some error that shouldn't be handled here
+      throw e;
     }
   }
 

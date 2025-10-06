@@ -34,7 +34,9 @@
       "MissingParameterName": "Missing parameter name in function declaration.",
       "DuplicateParameterName": "Duplicate parameter name '{{name}}' in function declaration.",
       "MissingRightParenthesisAfterParameters": "Missing closing parenthesis ')' after function parameters.",
-      "MissingLeftBraceBeforeFunctionBody": "Missing opening brace '{' before function body."
+      "MissingLeftBraceBeforeFunctionBody": "Missing opening brace '{' before function body.",
+      "BreakStatementNotAllowed": "Break statements are not allowed at your current learning level.",
+      "ContinueStatementNotAllowed": "Continue statements are not allowed at your current learning level."
     },
     "runtime": {
       "ArgumentError": "{{message}}",
@@ -49,6 +51,8 @@
       "UnsupportedOperation": "This operation is not supported.",
       "VariableNotDeclared": "The variable '{{name}}' has not been declared.",
       "ReturnOutsideFunction": "You used the 'return' keyword, but you're not inside a function. Return statements can only be used inside functions.",
+      "BreakOutsideLoop": "You used the 'break' keyword, but you're not inside a loop. Break statements can only be used inside for or while loops.",
+      "ContinueOutsideLoop": "You used the 'continue' keyword, but you're not inside a loop. Continue statements can only be used inside for or while loops.",
       "MethodNotYetImplemented": "The method '{{method}}' exists but has not been implemented yet. It will be available in a future version.",
       "MethodNotYetAvailable": "The method '{{method}}' is not available at your current learning level. Keep progressing to unlock this feature!",
       "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter."

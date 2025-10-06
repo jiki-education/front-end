@@ -500,12 +500,10 @@ describe.skip("synthetic", () => {
 describe("JavaScript - Unimplemented Tokens", () => {
   describe("Unimplemented Keywords", () => {
     const unimplementedKeywords = [
-      { token: "break", type: "BREAK" },
       { token: "case", type: "CASE" },
       { token: "catch", type: "CATCH" },
       { token: "class", type: "CLASS" },
       { token: "const", type: "CONST" },
-      { token: "continue", type: "CONTINUE" },
       { token: "debugger", type: "DEBUGGER" },
       { token: "default", type: "DEFAULT" },
       { token: "delete", type: "DELETE" },

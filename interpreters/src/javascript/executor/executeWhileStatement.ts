@@ -10,23 +10,27 @@ export function executeWhileStatement(executor: Executor, statement: WhileStatem
   try {
     executor.environment = loopEnvironment;
 
-    // Execute the loop
-    while (true) {
-      // Check condition - this should generate a frame
-      const conditionResult = executor.executeFrame(statement.condition, () => {
-        const result = executor.evaluate(statement.condition);
-        executor.verifyBoolean(result.jikiObject, statement.condition.location);
-        return result;
-      });
+    // Execute the loop with break handling
+    executor.executeLoop(() => {
+      while (true) {
+        // Check condition - this should generate a frame
+        const conditionResult = executor.executeFrame(statement.condition, () => {
+          const result = executor.evaluate(statement.condition);
+          executor.verifyBoolean(result.jikiObject, statement.condition.location);
+          return result;
+        });
 
-      // If condition is false, break the loop
-      if (!conditionResult.jikiObject.value) {
-        break;
+        // If condition is false, break the loop
+        if (!conditionResult.jikiObject.value) {
+          break;
+        }
+
+        // Execute body with continue handling - this generates its own frames
+        executor.executeLoopIteration(() => {
+          executor.executeStatement(statement.body);
+        });
       }
-
-      // Execute body - this generates its own frames
-      executor.executeStatement(statement.body);
-    }
+    });
   } finally {
     executor.environment = previous;
   }

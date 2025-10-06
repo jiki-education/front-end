@@ -1,5 +1,129 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-06: Break and Continue Statements Implementation
+
+### Overview
+
+Implemented `break` and `continue` statements for JavaScript loops, enabling students to learn loop flow control with Jiki's frame-by-frame visualization.
+
+### Core Implementation
+
+**AST Nodes** (`src/javascript/statement.ts`):
+
+- `BreakStatement`: Represents `break` statements with keyword token and location
+- `ContinueStatement`: Represents `continue` statements with keyword token and location
+
+**Flow Control Errors** (`src/javascript/executor/executeBreakStatement.ts`, `executeContinueStatement.ts`):
+
+- `BreakFlowControlError`: Exception class for break flow control with location
+- `ContinueFlowControlError`: Exception class for continue flow control with location and lexeme
+- Both generate success frames before throwing to show in timeline
+
+**Execution Modules**:
+
+- `executeBreakStatement.ts`: Creates frame and throws `BreakFlowControlError`
+- `executeContinueStatement.ts`: Creates frame and throws `ContinueFlowControlError`
+- `executeLoop()`: Helper method that catches `BreakFlowControlError` to exit loops
+- `executeLoopIteration()`: Helper method that catches `ContinueFlowControlError` to skip to next iteration
+
+**Executor Updates** (`src/javascript/executor.ts`):
+
+- Added `executeLoop()` and `executeLoopIteration()` helper methods
+- Updated `executeForStatement` and `executeWhileStatement` to use flow control helpers
+- Added break/continue handling in `withExecutionContext()` for top-level error detection
+- Flow control errors bubble up through `executeStatement()` to loop handlers
+
+**Parser Enhancements** (`src/javascript/parser.ts`):
+
+- Added `breakStatement()` method for parsing `break` statements
+- Added `continueStatement()` method for parsing `continue` statements
+- Node restriction support via `checkNodeAllowed()`
+
+**Scanner Updates** (`src/javascript/scanner.ts`):
+
+- Removed `BREAK` and `CONTINUE` from unimplemented tokens list
+- Tokens now fully operational
+
+**Error Types**:
+
+- Runtime: `BreakOutsideLoop`, `ContinueOutsideLoop`
+- Syntax: `BreakStatementNotAllowed`, `ContinueStatementNotAllowed` (for node restrictions)
+
+**Frame Generation**:
+
+- Added `describeBreakStatement.ts` - "This line immediately exited the loop"
+- Added `describeContinueStatement.ts` - "This line stopped running any more code in this iteration"
+
+**Evaluation Results** (`src/javascript/evaluation-result.ts`):
+
+- Added `EvaluationResultBreakStatement` type (no jikiObject needed)
+- Added `EvaluationResultContinueStatement` type (no jikiObject needed)
+
+### Flow Control Architecture
+
+**Exception-Based Flow Control**:
+
+1. Break/continue statements generate success frames
+2. Throw flow control exception
+3. Exception bubbles through `executeStatement()` calls (re-thrown)
+4. Loop helpers (`executeLoop`, `executeLoopIteration`) catch and handle
+5. If caught at top level, converted to error frame
+
+**Loop Integration**:
+
+- For loops: `executeLoop()` wraps entire while loop, `executeLoopIteration()` wraps body execution
+- While loops: Same pattern as for loops
+- Nested loops: Inner loop handlers catch first, outer loops unaffected
+
+### Translation System
+
+**Added translations** in `src/javascript/locales/en/translation.json` and `system/translation.json`:
+
+- `BreakOutsideLoop`: "You used the 'break' keyword, but you're not inside a loop..."
+- `ContinueOutsideLoop`: "You used the 'continue' keyword, but you're not inside a loop..."
+- `BreakStatementNotAllowed`: "Break statements are not allowed at your current learning level"
+- `ContinueStatementNotAllowed`: "Continue statements are not allowed at your current learning level"
+
+### Test Coverage
+
+**New Test Suite** (`tests/javascript/concepts/break-continue.test.ts`): 8 comprehensive tests
+
+**Break Tests**:
+
+- Break in for loop (exits early)
+- Break in while loop (exits early)
+- Break outside loop generates runtime error
+
+**Continue Tests**:
+
+- Continue in for loop (skips iterations)
+- Continue in while loop (skips iterations)
+- Continue outside loop generates runtime error
+
+**Nested Loop Tests**:
+
+- Break only exits inner loop
+- Continue only affects inner loop
+
+### Impact and Benefits
+
+**Educational Value**:
+
+- Students learn loop flow control with frame-by-frame visualization
+- Clear error messages when break/continue used incorrectly
+- Nested loop behavior shown visually
+
+**Architecture Consistency**:
+
+- Follows shared flow control pattern from JikiScript
+- Parse errors as returned errors, runtime errors as frames
+- Frame generation compatible with Jiki UI
+
+**Test Results**:
+
+- All 8 new tests passing
+- No regressions in existing 300+ tests
+
 ## 2025-10-03: User-Defined Functions Implementation
 
 ### Overview
