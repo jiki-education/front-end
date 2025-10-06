@@ -15,6 +15,7 @@ export interface EvaluationContext {
 // Update InterpretResult to match shared pattern
 export interface InterpretResult {
   frames: Frame[];
+  logLines: Array<{ time: number; output: string }>;
   error: SyntaxError | null; // Only parse/syntax errors, never runtime errors
   success: boolean;
 }
@@ -45,6 +46,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
 
     return {
       frames: result.frames,
+      logLines: executor.logLines,
       error: null, // No parse error
       success: result.success,
     };
@@ -52,6 +54,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
     // Only parsing/compilation errors are returned as errors
     return {
       frames: [],
+      logLines: [],
       error: error as SyntaxError,
       success: false,
     };

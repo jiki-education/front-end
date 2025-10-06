@@ -13,7 +13,11 @@ export interface BuiltinFunction {
 // Describers access the arguments directly from the evaluation result
 export const print: BuiltinFunction = {
   arity: [0, Infinity], // Accept any number of arguments
-  call: (_ctx: ExecutionContext, _args: JikiObject[]) => {
+  call: (ctx: ExecutionContext, args: JikiObject[]) => {
+    // Convert arguments to strings and join with spaces (Python behavior)
+    const output = args.map(arg => arg.toString()).join(" ");
+    // Log the output with current execution time
+    ctx.log(output);
     // Python's print() always returns None
     return new PyNone();
   },

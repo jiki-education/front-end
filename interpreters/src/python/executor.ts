@@ -64,6 +64,7 @@ import { executeAttributeExpression } from "./executor/executeAttributeExpressio
 // Execution context for Python stdlib (future use)
 export type ExecutionContext = SharedExecutionContext & {
   // Additional Python-specific properties can be added here
+  log: (output: string) => void;
 };
 
 export type RuntimeErrorType =
@@ -108,6 +109,7 @@ export interface ExecutorResult {
 
 export class Executor {
   private readonly frames: Frame[] = [];
+  public readonly logLines: Array<{ time: number; output: string }> = [];
   public time: number = 0;
   private readonly timePerFrame: number = 1;
   public environment: Environment;
@@ -379,6 +381,11 @@ export class Executor {
     return {
       ...createBaseExecutionContext.call(this),
       logicError: this.logicError.bind(this),
+      log: this.log.bind(this),
     };
+  }
+
+  public log(output: string): void {
+    this.logLines.push({ time: this.time, output });
   }
 }
