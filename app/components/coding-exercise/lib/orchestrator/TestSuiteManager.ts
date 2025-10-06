@@ -47,10 +47,58 @@ export class TestSuiteManager {
   }
 
   /**
+   * Get lesson slug from the current URL
+   */
+  private getLessonSlugFromURL(): string | null {
+    // Get the pathname from window location
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    
+    const pathname = window.location.pathname;
+    // URL format is /lesson/[slug], so extract the slug
+    const match = pathname.match(/\/lesson\/([^/]+)/);
+    return match ? match[1] : null;
+  }
+
+  /**
+   * Submit exercise files to the backend (fire and forget)
+   */
+  private async submitExerciseFiles(code: string): Promise<void> {
+    const lessonSlug = this.getLessonSlugFromURL();
+    if (!lessonSlug) {
+      return; // Can't submit without a lesson slug
+    }
+    try {
+      const { api } = await import("@/lib/api/client");
+      
+      // Fire and forget - we don't await or care about the response
+      void api.post(`/lessons/${lessonSlug}/exercise-submissions`, {
+        submission: {
+          files: [
+            {
+              filename: "solution.js", // or appropriate extension
+              content: code
+            }
+          ]
+        }
+      }).catch(() => {
+        // Silently ignore errors (no internet, etc.)
+      });
+    } catch {
+      // Silently ignore any import or other errors
+    }
+  }
+
+  /**
    * Run tests on the provided code
    */
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
     this.prepareStateForTestRun();
+
+    // Submit exercise files asynchronously (gets lesson slug from URL)
+    // Fire and forget - don't await
+    void this.submitExerciseFiles(code);
 
     try {
       // Import and run our new test runner
