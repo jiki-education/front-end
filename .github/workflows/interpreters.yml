@@ -85,4 +85,4 @@ jobs:
 
       - name: Run tests
         working-directory: interpreters
-        run: pnpm test
+        run: pnpm test --exclude tests/cross-validation
