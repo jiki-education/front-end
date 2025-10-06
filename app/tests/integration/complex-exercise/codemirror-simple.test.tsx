@@ -115,6 +115,29 @@ jest.mock("@/components/complex-exercise/ui/codemirror/utils/getFoldedLines", ()
   getFoldedLines: jest.fn(() => [])
 }));
 
+jest.mock("@/components/complex-exercise/ui/codemirror/setup/editorCompartments", () => ({
+  readonlyCompartment: {
+    of: jest.fn(() => []),
+    reconfigure: jest.fn()
+  },
+  languageCompartment: {
+    of: jest.fn(() => []),
+    reconfigure: jest.fn()
+  }
+}));
+
+jest.mock("@codemirror/lang-javascript", () => ({
+  javascript: jest.fn(() => [])
+}));
+
+jest.mock("@codemirror/lang-python", () => ({
+  python: jest.fn(() => [])
+}));
+
+jest.mock("@exercism/codemirror-lang-jikiscript", () => ({
+  jikiscript: jest.fn(() => [])
+}));
+
 jest.mock("@/components/complex-exercise/ui/codemirror/utils/getCodeMirrorFieldValue", () => ({
   getCodeMirrorFieldValue: jest.fn(() => [])
 }));

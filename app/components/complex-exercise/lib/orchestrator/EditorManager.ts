@@ -6,7 +6,8 @@ import type { ViewUpdate } from "@codemirror/view";
 import { EditorView } from "@codemirror/view";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
-import { readonlyCompartment } from "../../ui/codemirror/CodeMirror";
+import { readonlyCompartment, languageCompartment } from "../../ui/codemirror/setup/editorCompartments";
+import { getLanguageExtension } from "../../ui/codemirror/setup/editorExtensions";
 import {
   changeMultiLineHighlightEffect,
   informationWidgetDataEffect,
@@ -54,6 +55,7 @@ export class EditorManager {
     const readonly = state.readonly;
     const highlightedLine = state.highlightedLine;
     const shouldAutoRunCode = state.shouldAutoRunCode;
+    const language = state.language;
 
     // Create event handlers
     const onBreakpointChange = this.createBreakpointChangeHandler();
@@ -65,6 +67,7 @@ export class EditorManager {
     const extensions = createEditorExtensions({
       highlightedLine,
       readonly,
+      language,
       onBreakpointChange,
       onFoldChange,
       onEditorChange,
@@ -116,6 +119,7 @@ export class EditorManager {
     let previousHighlightedLine = this.store.getState().highlightedLine;
     let previousHighlightedLineColor = this.store.getState().highlightedLineColor;
     let previousUnderlineRange = this.store.getState().underlineRange;
+    let previousLanguage = this.store.getState().language;
 
     this.store.subscribe((state) => {
       if (state.informationWidgetData !== previousInformationWidgetData) {
@@ -150,6 +154,11 @@ export class EditorManager {
       if (state.underlineRange !== previousUnderlineRange) {
         this.applyUnderlineRange(state.underlineRange);
         previousUnderlineRange = state.underlineRange;
+      }
+
+      if (state.language !== previousLanguage) {
+        this.applyLanguage(state.language);
+        previousLanguage = state.language;
       }
     });
   }
@@ -351,6 +360,12 @@ export class EditorManager {
   applyReadonlyCompartment(readonly: boolean) {
     this.editorView.dispatch({
       effects: readonlyCompartment.reconfigure([EditorView.editable.of(!readonly)])
+    });
+  }
+
+  applyLanguage(language: "javascript" | "python" | "jikiscript") {
+    this.editorView.dispatch({
+      effects: languageCompartment.reconfigure(getLanguageExtension(language))
     });
   }
 

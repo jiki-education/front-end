@@ -1,6 +1,8 @@
 import { defaultKeymap, historyKeymap, indentWithTab } from "@codemirror/commands";
 import { bracketMatching, foldKeymap, indentOnInput } from "@codemirror/language";
 import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
+import { jikiscript } from "@exercism/codemirror-lang-jikiscript";
 import { lintKeymap } from "@codemirror/lint";
 import { searchKeymap } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
@@ -18,13 +20,28 @@ import { minimalSetup } from "codemirror";
 import * as Ext from "../extensions";
 import { moveCursorByPasteLength } from "../extensions/move-cursor-by-paste-length";
 import { unfoldableFunctionsField } from "../utils/unfoldableFunctionNames";
-import { readonlyCompartment } from "./editorCompartments";
+import { readonlyCompartment, languageCompartment } from "./editorCompartments";
 
 import type { Extension } from "@codemirror/state";
+
+type Language = "javascript" | "python" | "jikiscript";
+
+// Get language extension based on language string
+export function getLanguageExtension(language: Language): Extension {
+  switch (language) {
+    case "javascript":
+      return javascript();
+    case "python":
+      return python();
+    case "jikiscript":
+      return jikiscript();
+  }
+}
 
 export interface EditorExtensionsConfig {
   highlightedLine: number;
   readonly: boolean;
+  language: Language;
   onBreakpointChange: Extension;
   onFoldChange: Extension;
   onEditorChange: Extension;
@@ -34,6 +51,7 @@ export interface EditorExtensionsConfig {
 export function createEditorExtensions({
   highlightedLine: _highlightedLine,
   readonly: _readonly,
+  language,
   onBreakpointChange,
   onFoldChange,
   onEditorChange,
@@ -42,7 +60,7 @@ export function createEditorExtensions({
   return [
     // Core CodeMirror extensions
     minimalSetup,
-    javascript(),
+    languageCompartment.of(getLanguageExtension(language)),
 
     // Editor behavior
     EditorState.allowMultipleSelections.of(true),

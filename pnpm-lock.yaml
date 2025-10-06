@@ -20,6 +20,9 @@ importers:
       '@codemirror/lang-javascript':
         specifier: ^6.2.4
         version: 6.2.4
+      '@codemirror/lang-python':
+        specifier: ^6.2.1
+        version: 6.2.1
       '@codemirror/language':
         specifier: ^6.11.3
         version: 6.11.3
@@ -35,6 +38,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.38.2
         version: 6.38.4
+      '@exercism/codemirror-lang-jikiscript':
+        specifier: ^0.0.22
+        version: 0.0.22
       '@exercism/highlightjs-jikiscript':
         specifier: ^0.0.2
         version: 0.0.2(typescript@5.9.3)
@@ -505,6 +511,9 @@ packages:
   '@codemirror/lang-javascript@6.2.4':
     resolution: {integrity: sha512-0WVmhp1QOqZ4Rt6GlVGwKJN3KW7Xh4H2q8ZZNGZaP6lRdxXJzmjm4FqvmOojVj6khWJHIb9sp7U/72W7xQgqAA==}
 
+  '@codemirror/lang-python@6.2.1':
+    resolution: {integrity: sha512-IRjC8RUBhn9mGR9ywecNhB51yePWCGgvHfY1lWN/Mrp3cKuHr0isDKia+9HnvhiWNnMpbGhWrkhuWOc09exRyw==}
+
   '@codemirror/language@6.11.3':
     resolution: {integrity: sha512-9HBM2XnwDj7fnu0551HkGdrUrrqmYq/WC5iv6nbY2WdicXdGbhR/gfbZOH73Aqj4351alY1+aoG9rCNfiwS1RA==}
 
@@ -756,6 +765,9 @@ packages:
   '@eslint/plugin-kit@0.4.0':
     resolution: {integrity: sha512-sB5uyeq+dwCWyPi31B2gQlVlo+j5brPlWx4yZBrEaRo/nhdDE8Xke1gsGgtiBdaBTxuTkceLVuVt/pclrasb0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@exercism/codemirror-lang-jikiscript@0.0.22':
+    resolution: {integrity: sha512-Ta0/us3XHg/7gemaEClnjIowQtOGjBzRRct3zoC9b5HORZdIb56LXRpP2S8v04D/u3ovdc2OC/1VcherHG0Uug==}
 
   '@exercism/highlightjs-jikiscript@0.0.2':
     resolution: {integrity: sha512-p/xoAeD60IGPz/Wv0sY3I9yLebLWdkPrvb+VzL43bdTSjKOZsX9xkYboD7MUpqgyqQOb/yMnilbBLLkRZtiM/Q==}
@@ -1096,6 +1108,9 @@ packages:
 
   '@lezer/lr@1.4.2':
     resolution: {integrity: sha512-pu0K1jCIdnQ12aWNaAVU5bzi7Bd1w54J3ECgANPmYLtQKP0HBj2cE/5coBD66MT10xbtIuUr7tg0Shbsvk0mDA==}
+
+  '@lezer/python@1.1.18':
+    resolution: {integrity: sha512-31FiUrU7z9+d/ElGQLJFXl+dKOdx0jALlP3KEOsGTex8mvj+SoE1FgItcHWK/axkxCHGUSpqIHt6JAWfWu9Rhg==}
 
   '@marijn/find-cluster-break@1.0.2':
     resolution: {integrity: sha512-l0h88YhZFyKdXIFNfSWpyjStDjGHwZ/U7iobcK1cQQD8sejsONdQtTVU+1wVN1PBw40PiiHB1vA5S7VTfQiP9g==}
@@ -4989,6 +5004,14 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/javascript': 1.5.4
 
+  '@codemirror/lang-python@6.2.1':
+    dependencies:
+      '@codemirror/autocomplete': 6.19.0
+      '@codemirror/language': 6.11.3
+      '@codemirror/state': 6.5.2
+      '@lezer/common': 1.2.3
+      '@lezer/python': 1.1.18
+
   '@codemirror/language@6.11.3':
     dependencies:
       '@codemirror/state': 6.5.2
@@ -5184,6 +5207,13 @@ snapshots:
     dependencies:
       '@eslint/core': 0.16.0
       levn: 0.4.1
+
+  '@exercism/codemirror-lang-jikiscript@0.0.22':
+    dependencies:
+      '@codemirror/language': 6.11.3
+      '@lezer/highlight': 1.2.1
+      '@lezer/lr': 1.4.2
+      tslib: 2.8.1
 
   '@exercism/highlightjs-jikiscript@0.0.2(typescript@5.9.3)':
     dependencies:
@@ -5606,6 +5636,12 @@ snapshots:
   '@lezer/lr@1.4.2':
     dependencies:
       '@lezer/common': 1.2.3
+
+  '@lezer/python@1.1.18':
+    dependencies:
+      '@lezer/common': 1.2.3
+      '@lezer/highlight': 1.2.1
+      '@lezer/lr': 1.4.2
 
   '@marijn/find-cluster-break@1.0.2': {}
 

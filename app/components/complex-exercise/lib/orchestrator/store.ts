@@ -24,6 +24,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       foldedLines: [],
+      language: "jikiscript",
 
       // Editor store state
       defaultCode: initialCode,
@@ -126,6 +127,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       setOutput: (output) => set({ output }),
       setStatus: (status) => set({ status }),
       setError: (error) => set({ error }),
+      setLanguage: (language) => set({ language }),
       setCurrentTest: (test) => {
         const state = get();
 
@@ -426,6 +428,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
           foldedLines: [],
+          language: "jikiscript",
 
           // Reset editor store state
           defaultCode: "",
@@ -482,6 +485,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       foldedLines: state.foldedLines,
+      language: state.language,
 
       // Editor store state
       defaultCode: state.defaultCode,

@@ -1,17 +1,42 @@
 import type { Exercise, ExerciseDefinition, Scenario } from "@jiki/curriculum";
-import { jikiscript } from "@jiki/interpreters";
+import { jikiscript, javascript, python } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 
-function runScenario(scenario: Scenario, studentCode: string, ExerciseClass: new () => Exercise): TestResult {
+type Language = "javascript" | "python" | "jikiscript";
+
+// Map language to interpreter
+const interpreters = {
+  javascript,
+  python,
+  jikiscript
+};
+
+function getInterpreter(language: Language) {
+  const interpreter = interpreters[language];
+  // Defensive check (TypeScript guarantees this, but good for runtime safety)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!interpreter) {
+    throw new Error(`Unknown language: ${language}`);
+  }
+  return interpreter;
+}
+
+function runScenario(
+  scenario: Scenario,
+  studentCode: string,
+  ExerciseClass: new () => Exercise,
+  language: Language
+): TestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
 
   // Run setup
   scenario.setup(exercise);
 
-  // Execute student code with Jikiscript
-  const result = jikiscript.interpret(studentCode, {
+  // Execute student code with selected interpreter
+  const interpreter = getInterpreter(language);
+  const result = interpreter.interpret(studentCode, {
     externalFunctions: exercise.availableFunctions.map((func) => ({
       name: func.name,
       func: func.func
@@ -49,12 +74,13 @@ function runScenario(scenario: Scenario, studentCode: string, ExerciseClass: new
   };
 }
 
-export function runTests(studentCode: string, exercise: ExerciseDefinition): TestSuiteResult {
+export function runTests(studentCode: string, exercise: ExerciseDefinition, language: Language): TestSuiteResult {
   // Create a temporary exercise to get external functions
   const tempExercise = new exercise.ExerciseClass();
 
   // Compile ONCE before running any scenarios
-  const compilationResult = jikiscript.compile(studentCode, {
+  const interpreter = getInterpreter(language);
+  const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: tempExercise.availableFunctions.map((func) => ({
       name: func.name,
       func: func.func
@@ -73,7 +99,7 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition): Tes
   // Compilation succeeded, run all scenarios with interpret()
   const tests: TestResult[] = [];
   for (const scenario of exercise.scenarios) {
-    const result = runScenario(scenario, studentCode, exercise.ExerciseClass);
+    const result = runScenario(scenario, studentCode, exercise.ExerciseClass, language);
     tests.push(result);
   }
 
