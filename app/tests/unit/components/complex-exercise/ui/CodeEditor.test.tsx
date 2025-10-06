@@ -46,6 +46,7 @@ describe("CodeEditor", () => {
       currentTest: null,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
+      wasSuccessModalShown: false,
       foldedLines: [],
       language: "jikiscript" as const,
       defaultCode: "const x = 1;",

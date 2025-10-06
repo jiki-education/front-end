@@ -8,7 +8,7 @@ import { TestResultInfo } from "./TestResultInfo";
 
 export function InspectedTestResultView() {
   const orchestrator = useOrchestrator();
-  const { currentTest } = useOrchestratorStore(orchestrator);
+  const { currentTest, isSpotlightActive } = useOrchestratorStore(orchestrator);
 
   const result = currentTest ? (currentTest as unknown as TestResult) : null;
   const viewContainerRef = useRef<HTMLDivElement | null>(null);
@@ -55,7 +55,10 @@ export function InspectedTestResultView() {
       />
 
       <div
-        className="spotlight flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink"
+        className={assembleClassNames(
+          "flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink",
+          isSpotlightActive && "spotlight"
+        )}
         ref={viewContainerRef}
       />
     </div>

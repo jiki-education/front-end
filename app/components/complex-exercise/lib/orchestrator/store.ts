@@ -23,6 +23,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       currentTest: null,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
+      wasSuccessModalShown: false,
       foldedLines: [],
       language: "jikiscript",
 
@@ -170,9 +171,21 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR);
         });
 
-        // Set up completion callback to update play/pause state
+        // Set up completion callback to update play/pause state and show success modal
         test.animationTimeline.onComplete(() => {
-          get().setIsPlaying(false);
+          const state = get();
+          state.setIsPlaying(false);
+
+          // Check if all tests passed and we haven't shown the modal yet
+          const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
+          if (allTestsPassed && !state.wasSuccessModalShown) {
+            // Import and show the modal
+            void import("@/lib/modal").then(({ showModal }) => {
+              showModal("exercise-success-modal");
+            });
+            state.setWasSuccessModalShown(true);
+            state.setIsSpotlightActive(false);
+          }
         });
 
         // Trigger frame calculations with the restored/initial time
@@ -240,6 +253,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       },
       setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
       setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
+      setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
       setFoldedLines: (lines) => {
         set({ foldedLines: lines });
 
@@ -274,13 +288,20 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
 
       // Test results actions
       setTestSuiteResult: (result) => {
+        // Check if all tests passed
+        const allTestsPassed = result ? result.tests.every((test) => test.status === "pass") : false;
+
         // Set the test suite result and reset things.
         set({
           testSuiteResult: result,
           shouldPlayOnTestChange: true,
           hasCodeBeenEdited: false,
           status: "success",
-          testCurrentTimes: {}
+          testCurrentTimes: {},
+          // Reset success modal tracking for new test runs
+          wasSuccessModalShown: false,
+          // Enable spotlight if all tests passed
+          isSpotlightActive: allTestsPassed
         });
 
         // Also set the first test as current by default
@@ -427,6 +448,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           currentTest: null,
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
+          wasSuccessModalShown: false,
           foldedLines: [],
           language: "jikiscript",
 
@@ -484,6 +506,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       currentTest: state.currentTest,
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
+      wasSuccessModalShown: state.wasSuccessModalShown,
       foldedLines: state.foldedLines,
       language: state.language,
 
