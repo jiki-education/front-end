@@ -10,10 +10,5 @@
     "Plan your path to avoid blocked (red striped) cells",
     "You need to reach the bottom-right corner with the green target",
     "Use turn_left() or turn_right() to change direction before moving"
-  ],
-  "solutions": {
-    "jikiscript": "move()\nmove()\nturn_left()\nmove()\nmove()\nturn_left()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nmove()\nmove()\nmove()\nmove()\nturn_left()\nmove()\nmove()",
-    "javascript": "move();\nmove();\nturnLeft();\nmove();\nmove();\nturnLeft();\nmove();\nmove();\nturnRight();\nmove();\nmove();\nturnRight();\nmove();\nmove();\nmove();\nmove();\nmove();\nmove();\nturnLeft();\nmove();\nmove();",
-    "python": "move()\nmove()\nturn_left()\nmove()\nmove()\nturn_left()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nturn_right()\nmove()\nmove()\nmove()\nmove()\nmove()\nmove()\nturn_left()\nmove()\nmove()"
-  }
+  ]
 }

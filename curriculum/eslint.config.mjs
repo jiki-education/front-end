@@ -5,7 +5,14 @@ import tsParser from "@typescript-eslint/parser";
 export default [
   // Ignore patterns
   {
-    ignores: ["node_modules/**", "dist/**", "build/**"]
+    ignores: [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "**/solution.js", // Exercise solution files (not standalone code)
+      "**/solution.py",
+      "**/solution.jiki"
+    ]
   },
 
   // Base ESLint recommended config for all files
