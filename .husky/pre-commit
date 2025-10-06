@@ -1,0 +1,62 @@
+#!/bin/sh
+
+echo "🔍 Detecting changed packages..."
+
+# Get all staged files
+STAGED_FILES=$(git diff --cached --name-only)
+
+# Detect which packages have changes
+APP_CHANGED=false
+CURRICULUM_CHANGED=false
+INTERPRETERS_CHANGED=false
+
+for file in $STAGED_FILES; do
+  if echo "$file" | grep -q "^app/"; then
+    APP_CHANGED=true
+  elif echo "$file" | grep -q "^curriculum/"; then
+    CURRICULUM_CHANGED=true
+  elif echo "$file" | grep -q "^interpreters/"; then
+    INTERPRETERS_CHANGED=true
+  fi
+done
+
+# Run pre-commit hooks for changed packages
+FAILED=false
+
+if [ "$APP_CHANGED" = true ]; then
+  echo "\n📦 Running app pre-commit checks..."
+  cd app && ./scripts/pre-commit
+  if [ $? -ne 0 ]; then
+    FAILED=true
+  fi
+  cd ..
+fi
+
+if [ "$CURRICULUM_CHANGED" = true ]; then
+  echo "\n📦 Running curriculum pre-commit checks..."
+  cd curriculum && ./scripts/pre-commit
+  if [ $? -ne 0 ]; then
+    FAILED=true
+  fi
+  cd ..
+fi
+
+if [ "$INTERPRETERS_CHANGED" = true ]; then
+  echo "\n📦 Running interpreters pre-commit checks..."
+  cd interpreters && ./scripts/pre-commit
+  if [ $? -ne 0 ]; then
+    FAILED=true
+  fi
+  cd ..
+fi
+
+if [ "$FAILED" = true ]; then
+  echo "\n❌ Pre-commit checks failed in one or more packages"
+  exit 1
+fi
+
+if [ "$APP_CHANGED" = false ] && [ "$CURRICULUM_CHANGED" = false ] && [ "$INTERPRETERS_CHANGED" = false ]; then
+  echo "✅ No package files changed, skipping pre-commit checks"
+else
+  echo "\n✅ All pre-commit checks passed!"
+fi
