@@ -30,8 +30,13 @@ jest.mock("@codemirror/view", () => ({
   )
 }));
 
-jest.mock("@/components/complex-exercise/ui/codemirror/CodeMirror", () => ({
+jest.mock("@/components/complex-exercise/ui/codemirror/setup/editorCompartments", () => ({
   readonlyCompartment: {
+    of: jest.fn(() => []),
+    reconfigure: jest.fn()
+  },
+  languageCompartment: {
+    of: jest.fn(() => []),
     reconfigure: jest.fn()
   }
 }));

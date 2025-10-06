@@ -26,6 +26,7 @@
     "@codemirror/search": "^6.5.11",
     "@codemirror/state": "^6.5.2",
     "@codemirror/view": "^6.38.2",
+    "@exercism/codemirror-lang-jikiscript": "^0.0.22",
     "@exercism/highlightjs-jikiscript": "^0.0.2",
     "@floating-ui/dom": "^1.7.4",
     "@floating-ui/react": "^0.27.16",

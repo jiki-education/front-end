@@ -2,6 +2,7 @@ import { defaultKeymap, historyKeymap, indentWithTab } from "@codemirror/command
 import { bracketMatching, foldKeymap, indentOnInput } from "@codemirror/language";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
+import { jikiscript } from "@exercism/codemirror-lang-jikiscript";
 import { lintKeymap } from "@codemirror/lint";
 import { searchKeymap } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
@@ -33,8 +34,7 @@ export function getLanguageExtension(language: Language): Extension {
     case "python":
       return python();
     case "jikiscript":
-      // JikiScript uses JavaScript syntax highlighting
-      return javascript();
+      return jikiscript();
   }
 }
 
