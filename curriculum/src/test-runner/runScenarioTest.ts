@@ -91,21 +91,3 @@ export function runExerciseTests(
 ): ScenarioTestResult[] {
   return runAllScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
 }
-
-/**
- * Runs an exercise's solution code against all scenarios.
- * Uses the appropriate solution based on language.
- */
-export function runExerciseSolution(
-  exercise: ExerciseDefinition,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
-): ScenarioTestResult[] {
-  // Get solution for the specified language
-  const solution = exercise.solutions[language];
-
-  if (solution === undefined) {
-    throw new Error(`Exercise ${exercise.slug} has no ${language} solution defined`);
-  }
-
-  return runExerciseTests(exercise, solution, language);
-}

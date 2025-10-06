@@ -9,10 +9,5 @@
     "Remember to call move() 5 times",
     "Each move() call moves the character 20px forward",
     "The character starts at position 0 (or 50 in the second test)"
-  ],
-  "solutions": {
-    "jikiscript": "move()\nmove()\nmove()\nmove()\nmove()",
-    "javascript": "move();\nmove();\nmove();\nmove();\nmove();",
-    "python": "move()\nmove()\nmove()\nmove()\nmove()"
-  }
+  ]
 }

@@ -17,13 +17,6 @@ export interface ExerciseDefinition {
 
   // Optional
   hints?: string[];
-
-  // Language-specific solutions (jikiscript is required)
-  solutions: {
-    jikiscript: string;
-    javascript?: string;
-    python?: string;
-  };
 }
 
 export interface Task {
