@@ -4,10 +4,11 @@ import type { Statement } from "./statement";
 import type { Expression } from "./expression";
 import { describeExpressionStatement } from "./describers/describeExpressionStatement";
 import { describeVariableDeclaration } from "./describers/describeVariableDeclaration";
-import { describeBlockStatement } from "./describers/describeBlockStatement";
 import { describeIfStatement } from "./describers/describeIfStatement";
 import { describeCallExpression } from "./describers/describeCallExpression";
 import { describeReturnStatement } from "./describers/describeReturnStatement";
+import { describeBreakStatement } from "./describers/describeBreakStatement";
+import { describeContinueStatement } from "./describers/describeContinueStatement";
 
 // JavaScript-specific frame extending the shared base
 export interface JavaScriptFrame extends Frame {
@@ -60,8 +61,6 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
       return describeExpressionStatement(frame, context);
     case "VariableDeclaration":
       return describeVariableDeclaration(frame, context);
-    case "BlockStatement":
-      return describeBlockStatement(frame, context);
     case "IfStatement":
       return describeIfStatement(frame, context);
     case "CallExpression": {
@@ -71,6 +70,23 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
     }
     case "ReturnStatement":
       return describeReturnStatement(frame, context);
+    case "BreakStatement":
+      return describeBreakStatement(frame, context);
+    case "ContinueStatement":
+      return describeContinueStatement(frame, context);
+    case "FunctionDeclaration":
+    case "LiteralExpression":
+    case "BinaryExpression":
+    case "UnaryExpression":
+    case "GroupingExpression":
+    case "IdentifierExpression":
+    case "AssignmentExpression":
+    case "UpdateExpression":
+    case "TemplateLiteralExpression":
+    case "ArrayExpression":
+    case "MemberExpression":
+    case "DictionaryExpression":
+      // These types don't generate frames with descriptions
+      return null;
   }
-  return null;
 }

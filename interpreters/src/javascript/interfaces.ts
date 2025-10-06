@@ -19,7 +19,9 @@ export type NodeType =
   | "BlockStatement"
   | "IfStatement"
   | "ForStatement"
-  | "WhileStatement";
+  | "WhileStatement"
+  | "BreakStatement"
+  | "ContinueStatement";
 
 export interface LanguageFeatures {
   excludeList?: string[];

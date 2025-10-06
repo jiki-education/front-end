@@ -31,11 +31,15 @@ export function describeCallExpression(
   if (functionName === "log") {
     // Get the actual output by converting JikiObjects to strings (without quotes for strings)
     const output =
-      result.args && result.args.length > 0 ? result.args.map(arg => arg.immutableJikiObject.toString()).join(" ") : "";
+      result.args && result.args.length > 0
+        ? result.args.map(arg => arg.immutableJikiObject?.toString() ?? "").join(" ")
+        : "";
 
     const argValues =
       result.args && result.args.length > 0
-        ? result.args.map(arg => `<code>${formatJSObject(arg.immutableJikiObject)}</code>`)
+        ? result.args
+            .filter(arg => arg.immutableJikiObject !== undefined)
+            .map(arg => `<code>${formatJSObject(arg.immutableJikiObject)}</code>`)
         : [];
 
     if (argValues.length === 0) {

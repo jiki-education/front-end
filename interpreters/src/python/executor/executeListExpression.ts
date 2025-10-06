@@ -1,10 +1,10 @@
 import type { Executor } from "../executor";
 import type { ListExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultListExpression } from "../evaluation-result";
 import type { JikiObject } from "../jikiObjects";
 import { PyList } from "../jikiObjects";
 
-export function executeListExpression(executor: Executor, expression: ListExpression): EvaluationResult {
+export function executeListExpression(executor: Executor, expression: ListExpression): EvaluationResultListExpression {
   // Evaluate each element of the list
   const elements: JikiObject[] = [];
 

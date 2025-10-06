@@ -27,6 +27,8 @@ import {
   FunctionDeclaration,
   FunctionParameter,
   ReturnStatement,
+  BreakStatement,
+  ContinueStatement,
 } from "./statement";
 import { type Token, type TokenType } from "./token";
 import { translate } from "./translator";
@@ -80,6 +82,8 @@ export class Parser {
       IfStatement: "If statements",
       ForStatement: "For loops",
       WhileStatement: "While loops",
+      BreakStatement: "Break statements",
+      ContinueStatement: "Continue statements",
     };
     return friendlyNames[nodeType] || nodeType;
   }
@@ -131,6 +135,16 @@ export class Parser {
       // Handle return statements
       if (this.match("RETURN")) {
         return this.returnStatement(this.previous());
+      }
+
+      // Handle break statements
+      if (this.match("BREAK")) {
+        return this.breakStatement(this.previous());
+      }
+
+      // Handle continue statements
+      if (this.match("CONTINUE")) {
+        return this.continueStatement(this.previous());
       }
 
       // Handle variable declarations
@@ -381,6 +395,22 @@ export class Parser {
 
     const semicolonToken = this.consumeSemicolon();
     return new ReturnStatement(returnToken, expression, Location.between(returnToken, semicolonToken));
+  }
+
+  private breakStatement(breakToken: Token): Statement {
+    // Check if BreakStatement is allowed
+    this.checkNodeAllowed("BreakStatement", "BreakStatementNotAllowed", breakToken.location);
+
+    const semicolonToken = this.consumeSemicolon();
+    return new BreakStatement(breakToken, Location.between(breakToken, semicolonToken));
+  }
+
+  private continueStatement(continueToken: Token): Statement {
+    // Check if ContinueStatement is allowed
+    this.checkNodeAllowed("ContinueStatement", "ContinueStatementNotAllowed", continueToken.location);
+
+    const semicolonToken = this.consumeSemicolon();
+    return new ContinueStatement(continueToken, Location.between(continueToken, semicolonToken));
   }
 
   private expression(): Expression {

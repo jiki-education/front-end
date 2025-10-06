@@ -48,6 +48,8 @@ export type SyntaxErrorType =
   | "IfStatementNotAllowed"
   | "ForStatementNotAllowed"
   | "WhileStatementNotAllowed"
+  | "BreakStatementNotAllowed"
+  | "ContinueStatementNotAllowed"
   | "MissingRightParenthesisAfterArguments"
   // Function-related errors
   | "NestedFunctionDeclaration"

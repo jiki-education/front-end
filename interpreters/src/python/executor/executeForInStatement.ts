@@ -1,6 +1,6 @@
 import type { Executor } from "../executor";
 import type { ForInStatement } from "../statement";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResult, EvaluationResultForInStatement } from "../evaluation-result";
 import { PyList, PyString, PyNumber, PyBoolean, PyNone, type JikiObject } from "../jikiObjects";
 import type { Location } from "../../shared/location";
 
@@ -16,14 +16,6 @@ export class ContinueFlowControlError extends Error {
     super();
   }
 }
-
-export type EvaluationResultForInStatement = EvaluationResult & {
-  type: "ForInStatement";
-  variableName: string;
-  iterable: EvaluationResult;
-  currentValue?: JikiObject;
-  iteration: number;
-};
 
 export function executeForInStatement(executor: Executor, statement: ForInStatement): EvaluationResult | null {
   // Evaluate the iterable expression

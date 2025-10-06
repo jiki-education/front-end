@@ -27,8 +27,10 @@ import {
   WhileStatement,
   FunctionDeclaration,
   ReturnStatement,
+  BreakStatement,
+  ContinueStatement,
 } from "./statement";
-import type { EvaluationResult } from "./evaluation-result";
+import type { EvaluationResult, EvaluationResultExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
 import { translate } from "./translator";
@@ -61,6 +63,8 @@ import { executeDictionaryExpression } from "./executor/executeDictionaryExpress
 import { executeCallExpression } from "./executor/executeCallExpression";
 import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaration";
 import { executeReturnStatement } from "./executor/executeReturnStatement";
+import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
+import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
 import { JSBuiltinObject, JSStdLibFunction } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 
@@ -89,6 +93,8 @@ export type RuntimeErrorType =
   | "FunctionExecutionError"
   | "LogicErrorInExecution"
   | "ReturnOutsideFunction"
+  | "BreakOutsideLoop"
+  | "ContinueOutsideLoop"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
   | "NonJikiObjectDetectedInExecution";
@@ -215,6 +221,24 @@ export class Executor {
         );
         return false;
       }
+      if (error instanceof BreakFlowControlError) {
+        // Break outside loop - pop the frame and add an error frame
+        this.frames.pop();
+        this.addErrorFrame(
+          error.location,
+          new RuntimeError(translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
+        );
+        return false;
+      }
+      if (error instanceof ContinueFlowControlError) {
+        // Continue outside loop - pop the frame and add an error frame
+        this.frames.pop();
+        this.addErrorFrame(
+          error.location,
+          new RuntimeError(translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
+        );
+        return false;
+      }
       // Re-throw RuntimeErrors to be handled by outer try-catch
       if (error instanceof RuntimeError) {
         throw error;
@@ -229,17 +253,15 @@ export class Executor {
     return result;
   }
 
-  public executeStatement(statement: Statement): EvaluationResult | null {
+  public executeStatement(statement: Statement): void {
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(statement);
 
-    let result: EvaluationResult | null = null;
-
     try {
       if (statement instanceof ExpressionStatement) {
-        result = this.executeFrame(statement, () => executeExpressionStatement(this, statement));
+        this.executeFrame(statement, () => executeExpressionStatement(this, statement));
       } else if (statement instanceof VariableDeclaration) {
-        result = this.executeFrame(statement, () => executeVariableDeclaration(this, statement));
+        this.executeFrame(statement, () => executeVariableDeclaration(this, statement));
       } else if (statement instanceof BlockStatement) {
         // Block statements should not generate frames, just execute their contents
         executeBlockStatement(this, statement);
@@ -255,18 +277,24 @@ export class Executor {
       } else if (statement instanceof ReturnStatement) {
         // Return statements generate frames and throw ReturnValue
         executeReturnStatement(this, statement);
+      } else if (statement instanceof BreakStatement) {
+        // Break statements generate frames and throw BreakFlowControlError
+        executeBreakStatement(this, statement);
+      } else if (statement instanceof ContinueStatement) {
+        // Continue statements generate frames and throw ContinueFlowControlError
+        executeContinueStatement(this, statement);
       }
     } catch (e: unknown) {
       if (e instanceof LogicError) {
         this.error("LogicErrorInExecution", statement.location, { message: e.message });
       }
+      // Re-throw all exceptions - let outer handlers deal with them
+      // Flow control errors bubble up to loop handlers
       throw e;
     }
-
-    return result;
   }
 
-  public evaluate(expression: Expression): EvaluationResult {
+  public evaluate(expression: Expression): EvaluationResultExpression {
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(expression);
 
@@ -346,7 +374,43 @@ export class Executor {
     }
   }
 
-  public addSuccessFrame(location: Location, result: EvaluationResult | null, context?: Statement | Expression): void {
+  /**
+   * Execute loop body with break handling
+   * Catches BreakFlowControlError to exit the loop
+   * Note: Public because JavaScript uses modular executor files (unlike JikiScript's single-file visitor pattern)
+   */
+  public executeLoop(body: () => void): void {
+    try {
+      body.call(this);
+    } catch (e) {
+      if (e instanceof BreakFlowControlError) {
+        // Break flow control - handled by outer loop, exit normally
+        return;
+      }
+      // Otherwise we have some error that shouldn't be handled here
+      throw e;
+    }
+  }
+
+  /**
+   * Execute loop iteration with continue handling
+   * Catches ContinueFlowControlError to skip to next iteration
+   * Note: Public because JavaScript uses modular executor files (unlike JikiScript's single-file visitor pattern)
+   */
+  public executeLoopIteration(body: () => void): void {
+    try {
+      body.call(this);
+    } catch (e) {
+      if (e instanceof ContinueFlowControlError) {
+        // Continue flow control - handled by loop, return to continue to next iteration
+        return;
+      }
+      // Otherwise we have some error that shouldn't be handled here
+      throw e;
+    }
+  }
+
+  public addSuccessFrame(location: Location, result: EvaluationResult, context?: Statement | Expression): void {
     this.addFrame(location, "SUCCESS", result, undefined, context);
   }
 
@@ -357,7 +421,7 @@ export class Executor {
   private addFrame(
     location: Location,
     status: FrameExecutionStatus,
-    result?: EvaluationResult | null,
+    result?: EvaluationResult,
     error?: RuntimeError,
     context?: Statement | Expression
   ): void {

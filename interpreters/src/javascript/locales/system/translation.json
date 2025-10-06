@@ -34,7 +34,9 @@
       "MissingParameterName": "MissingParameterName",
       "DuplicateParameterName": "DuplicateParameterName: name: {{name}}",
       "MissingRightParenthesisAfterParameters": "MissingRightParenthesisAfterParameters",
-      "MissingLeftBraceBeforeFunctionBody": "MissingLeftBraceBeforeFunctionBody"
+      "MissingLeftBraceBeforeFunctionBody": "MissingLeftBraceBeforeFunctionBody",
+      "BreakStatementNotAllowed": "BreakStatementNotAllowed",
+      "ContinueStatementNotAllowed": "ContinueStatementNotAllowed"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",
@@ -49,6 +51,8 @@
       "UnsupportedOperation": "UnsupportedOperation",
       "VariableNotDeclared": "VariableNotDeclared: name: {{name}}",
       "ReturnOutsideFunction": "ReturnOutsideFunction",
+      "BreakOutsideLoop": "BreakOutsideLoop",
+      "ContinueOutsideLoop": "ContinueOutsideLoop",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}"

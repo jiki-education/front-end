@@ -1,4 +1,4 @@
-import type { EvaluationResultTemplateLiteralExpression } from "../executor/executeTemplateLiteralExpression";
+import type { EvaluationResultTemplateLiteralExpression } from "../evaluation-result";
 import type { TemplateLiteralExpression } from "../expression";
 import type { DescriptionContext } from "../../shared/frames";
 import { describeExpression } from "./describeSteps";

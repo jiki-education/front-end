@@ -1,10 +1,13 @@
 import type { Executor } from "../executor";
 import type { BinaryExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createJSObject, type JikiObject } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
-export function executeBinaryExpression(executor: Executor, expression: BinaryExpression): EvaluationResult {
+export function executeBinaryExpression(
+  executor: Executor,
+  expression: BinaryExpression
+): EvaluationResultBinaryExpression {
   const leftResult = executor.evaluate(expression.left);
   const rightResult = executor.evaluate(expression.right);
 
@@ -22,8 +25,8 @@ export function executeBinaryExpression(executor: Executor, expression: BinaryEx
 function handleBinaryOperation(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   const left = leftResult.jikiObject.value;
   const right = rightResult.jikiObject.value;
@@ -137,8 +140,8 @@ function handleBinaryOperation(
 function verifyNumbersForArithmetic(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): void {
   const leftType = leftResult.jikiObject.type;
   const rightType = rightResult.jikiObject.type;
@@ -162,8 +165,8 @@ function verifyNumbersForArithmetic(
 function verifyNumbersForComparison(
   executor: Executor,
   expression: BinaryExpression,
-  leftResult: EvaluationResult,
-  rightResult: EvaluationResult
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
 ): void {
   if (typeof leftResult.jikiObject.value !== "number") {
     throw new RuntimeError(

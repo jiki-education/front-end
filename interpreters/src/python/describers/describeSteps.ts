@@ -35,9 +35,8 @@ export function describeExpression(
 
     case "LiteralExpression":
     case "GroupingExpression":
-      return [];
-
-    default:
+    case "ListExpression":
+    case "AttributeExpression":
       return [];
   }
 }

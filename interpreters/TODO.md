@@ -68,7 +68,7 @@ For everything in here, base your work in the JikiScript interpreter.
 - [x] Add the ability to call external functions. Look at the JikiScript implementation of this. We'll use a standard CallExpression but we'll check to see if the function is external and use it if so. We need to keep the format the same in terms of using ExecutionContext etc. The same external functions contract needs to apply to all three languages and should be made generic.
 - [x] Add the ability to create functions using the function keyword. Keep things very minimal for now. Only have normal args (not spread etc). Confirm exactly which options to support. Add return with or without a value. Don't worry about bindings (this etc) at this stage. Keep things close to JikiScript functions. Check that code.
 - [x] Look at all JS stdlib methods on existing data types and implement a stub for each that raises a NotYetAvailable error, that says that this method isn't available to students yet in this exercise. Have a list of method names in an array that does this, rather than writing a stub for every one.
-- [ ] Add break and continue. Look at JikiScript for inspiration.
+- [x] Add break and continue. Look at JikiScript for inspiration.
 - [ ] Add for ... of ... loop.
 - [ ] Add tests for `else if`
 - [ ] Add const.

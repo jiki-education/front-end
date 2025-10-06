@@ -1,9 +1,12 @@
 import type { Executor } from "../executor";
 import type { UnaryExpression } from "../expression";
-import type { EvaluationResult } from "../evaluation-result";
+import type { EvaluationResultUnaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createPyObject, PyBoolean, type JikiObject } from "../jikiObjects";
 
-export function executeUnaryExpression(executor: Executor, expression: UnaryExpression): EvaluationResult {
+export function executeUnaryExpression(
+  executor: Executor,
+  expression: UnaryExpression
+): EvaluationResultUnaryExpression {
   const rightResult = executor.evaluate(expression.operand);
 
   const result = handleUnaryOperation(executor, expression, rightResult);
@@ -13,13 +16,13 @@ export function executeUnaryExpression(executor: Executor, expression: UnaryExpr
     operand: rightResult,
     jikiObject: result,
     immutableJikiObject: result.clone(),
-  } as any;
+  };
 }
 
 function handleUnaryOperation(
   executor: Executor,
   expression: UnaryExpression,
-  rightResult: EvaluationResult
+  rightResult: EvaluationResultExpression
 ): JikiObject {
   const rightObject = rightResult.jikiObject;
 

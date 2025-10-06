@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultAttributeExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultAttributeExpression } from "../evaluation-result";
 import type { Executor } from "../executor";
 import type { AttributeExpression } from "../expression";
 import type { PyList } from "../jikiObjects";
@@ -8,7 +8,7 @@ import { executeStdlibAttributeExpression } from "./executeStdlibAttributeExpres
 export function executeListAttributeExpression(
   executor: Executor,
   expression: AttributeExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   object: PyList
 ): EvaluationResultAttributeExpression {
   // For now, lists only have stdlib members, no special handling needed

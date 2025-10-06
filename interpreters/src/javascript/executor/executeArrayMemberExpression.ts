@@ -1,4 +1,4 @@
-import type { EvaluationResult, EvaluationResultMemberExpression } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
 import { type Executor, RuntimeError } from "../executor";
 import type { MemberExpression } from "../expression";
 import { type JSArray, JSNumber, JSString, JSUndefined } from "../jsObjects";
@@ -9,7 +9,7 @@ import { stdlib } from "../stdlib";
 export function executeArrayMemberExpression(
   executor: Executor,
   expression: MemberExpression,
-  objectResult: EvaluationResult,
+  objectResult: EvaluationResultExpression,
   array: JSArray
 ): EvaluationResultMemberExpression {
   // Check if this is a non-computed access (property/method access like arr.length)

@@ -1,5 +1,386 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-06: Type System Refactoring to Union Types
+
+### Overview
+
+Completed major refactoring of JavaScript interpreter's type system to use union types instead of base interfaces, aligning with JikiScript's proven architecture and eliminating problematic type casts.
+
+### Motivation
+
+The PR review identified critical type safety issues with break/continue implementation using `as any` casts. Investigation revealed a fundamental architectural difference between JavaScript and JikiScript:
+
+- **JavaScript (Before)**: Used base `EvaluationResult` interface with required `jikiObject` field
+- **JikiScript**: Used union types with valueless statements having `jikiObject?: undefined`
+- **Problem**: Break/Continue statements don't produce values, forcing use of `as any` to bypass type system
+
+### Changes Applied
+
+**1. Evaluation Result Type System** (`src/javascript/evaluation-result.ts`):
+
+- **Before**: Base interface with required fields
+
+  ```typescript
+  export interface EvaluationResult {
+    type: string;
+    jikiObject: JikiObject;
+    immutableJikiObject: JikiObject;
+  }
+  ```
+
+- **After**: Union types with `never` for valueless statements
+
+  ```typescript
+  export interface EvaluationResultBreakStatement {
+    type: "BreakStatement";
+    jikiObject: never;
+    immutableJikiObject: never;
+  }
+
+  export type EvaluationResultStatement =
+    | EvaluationResultExpressionStatement
+    | EvaluationResultVariableDeclaration
+    | ...
+    | EvaluationResultBreakStatement
+    | EvaluationResultContinueStatement;
+
+  export type EvaluationResult =
+    | EvaluationResultStatement
+    | EvaluationResultExpression;
+  ```
+
+**2. Executor Signatures** (`src/javascript/executor.ts`):
+
+- Removed defensive `| null` typing from signatures:
+  - `addSuccessFrame(result: EvaluationResult)` (was `EvaluationResult | null`)
+  - `executeStatement(statement: Statement): void` (was `EvaluationResult | null`)
+  - `addFrame(result?: EvaluationResult)` (was `result?: EvaluationResult | null`)
+
+- Changed `evaluate()` return type to narrow union:
+  - `evaluate(expression: Expression): EvaluationResultExpression` (was `EvaluationResult`)
+  - Ensures expressions can't accidentally return statement results
+
+**3. Break/Continue Executors**:
+
+- Replaced `as any` casts with type-safe `executeFrame<T>()` pattern:
+
+  ```typescript
+  // Before:
+  const result = { type: "BreakStatement" };
+  executor.addSuccessFrame(statement.location, result as any, statement);
+
+  // After:
+  executor.executeFrame<EvaluationResultBreakStatement>(statement, () => {
+    return { type: "BreakStatement" } as EvaluationResultBreakStatement;
+  });
+  ```
+
+- Fixed `ContinueFlowControlError` constructor (removed unused `lexeme` parameter)
+
+**4. Expression Executor Return Types**:
+
+Updated all expression executors to return specific types instead of broad `EvaluationResult`:
+
+- `executeLiteralExpression`: Returns `EvaluationResultLiteralExpression`
+- `executeBinaryExpression`: Returns `EvaluationResultBinaryExpression`
+- `executeUnaryExpression`: Returns `EvaluationResultUnaryExpression`
+- `executeGroupingExpression`: Returns `EvaluationResultGroupingExpression`
+- `executeArrayExpression`: Returns `EvaluationResultArrayExpression`
+
+Helper functions also updated to use narrower types (e.g., `EvaluationResultExpression` instead of `EvaluationResult`)
+
+**5. BlockStatement Handling**:
+
+- Confirmed BlockStatements don't generate frames (just create scope)
+- Removed premature `EvaluationResultBlockStatement` type that was added
+- Removed BlockStatement case from frameDescribers
+- Comment in executor confirms: "Block statements should not generate frames, just execute their contents"
+
+### Files Modified
+
+**Core Types**:
+
+- `src/javascript/evaluation-result.ts` - Complete refactor to union types
+
+**Executor**:
+
+- `src/javascript/executor.ts` - Signature updates, added `EvaluationResultExpression` import
+- `src/javascript/executor/executeBreakStatement.ts` - Type-safe frame generation
+- `src/javascript/executor/executeContinueStatement.ts` - Type-safe frame generation, removed lexeme param
+- `src/javascript/executor/executeBlockStatement.ts` - Simplified (no frame generation)
+
+**Expression Executors** (return type updates):
+
+- `executeLiteralExpression.ts`
+- `executeBinaryExpression.ts`
+- `executeUnaryExpression.ts`
+- `executeGroupingExpression.ts`
+- `executeArrayExpression.ts`
+
+**Member Expression Handlers** (parameter type updates):
+
+- `executeArrayMemberExpression.ts`
+- `executeDictionaryMemberExpression.ts`
+- `executeStdlibMemberExpression.ts`
+
+**Describers**:
+
+- `src/javascript/frameDescribers.ts` - Removed unused BlockStatement import and case
+- `src/javascript/describers/describeSteps.ts` - Updated import paths
+- `src/javascript/describers/describeTemplateLiteralExpression.ts` - Updated import paths
+
+### Benefits Achieved
+
+**Type Safety**:
+
+- Eliminated all `as any` casts from break/continue implementation
+- Compiler now enforces that valueless statements can't have `jikiObject` accessed
+- Clear distinction between statements and expressions at type level
+
+**Architecture Consistency**:
+
+- JavaScript now matches JikiScript's union type pattern exactly
+- Same approach to handling valueless statements
+- Consistent across all three interpreters (JikiScript, JavaScript, Python)
+
+**Maintainability**:
+
+- Explicit types make code intent clearer
+- Compiler catches more errors at build time
+- Easier to understand which result types have values
+
+**Code Quality**:
+
+- No defensive `| null` typing needed
+- Narrower types in expression evaluation
+- Better IDE autocomplete and type checking
+
+### Test Results
+
+- All 2120 tests passing
+- No regressions introduced
+- TypeScript compilation with zero errors
+- All functionality preserved while improving type safety
+
+### Technical Notes
+
+**Why `never` instead of `?: undefined`**:
+
+While JikiScript uses `jikiObject?: undefined`, we chose `jikiObject: never` because:
+
+- More explicit that field should never be accessed
+- Compiler catches accidental access attempts
+- Still requires `as EvaluationResultBreakStatement` cast in `executeFrame<T>()` callback
+- Trade-off accepted for explicitness
+
+**BlockStatement Frames**:
+
+Initial implementation mistakenly added BlockStatement frames, causing test failures. Investigation confirmed:
+
+- JikiScript doesn't generate BlockStatement frames
+- Executor comment explicitly states this intent
+- Block statements only create scope, statements inside generate frames
+- Removed premature type and frame handling
+
+### Impact
+
+This refactoring establishes JavaScript interpreter on the same type-safe foundation as JikiScript:
+
+- Eliminates last remaining `as any` casts from flow control
+- Provides template for future valueless statement types
+- Ensures long-term maintainability through stricter typing
+- Maintains backward compatibility (all tests pass)
+
+## 2025-10-06: Break and Continue Statements - Bug Fixes
+
+### Overview
+
+Fixed three critical issues in the initial break/continue implementation based on PR review feedback.
+
+### Fixes Applied
+
+**1. ContinueFlowControlError Constructor Inconsistency**
+
+- **Issue**: `ContinueFlowControlError` took `location` and `lexeme` parameters, but `lexeme` was never used
+- **Fix**: Removed unused `lexeme` parameter to match `BreakFlowControlError` pattern
+- **Files**: `src/javascript/executor/executeContinueStatement.ts`
+
+**2. Type Casting with `as any`**
+
+- **Issue**: Both executors used `addSuccessFrame(result as any)` to bypass type checking
+- **Fix**: Replaced with `executeFrame<T>()` pattern following JikiScript's approach
+- **Benefit**: Proper type safety without casts, consistent with return statement pattern
+- **Files**: `executeBreakStatement.ts`, `executeContinueStatement.ts`
+
+**3. Continue with Update Expression Verification**
+
+- **Issue**: Need to verify `continue` executes update expression before next iteration in for loops
+- **Fix**: Added comprehensive test that verifies update runs after continue
+- **Test**: New test checks iteration count, accumulated values, and final loop variable value
+- **Result**: Confirmed implementation is correct - update expression runs after continue
+
+### Test Updates
+
+**New Test** (`tests/javascript/concepts/break-continue.test.ts`):
+
+- "continue executes update expression in for loop" - Verifies critical behavior:
+  - `count` variable increments on every iteration (including when continue is called)
+  - Loop variable `i` reaches final value, proving update expression executed
+  - Accumulated value `x` correctly skips the continue iteration
+
+**Test Count**: 9 tests total (was 8)
+
+### Technical Details
+
+**Before**:
+
+```typescript
+export class ContinueFlowControlError extends Error {
+  constructor(public location: Location, public lexeme: string) { ... }
+}
+
+executor.addSuccessFrame(statement.location, result as any, statement);
+throw new ContinueFlowControlError(statement.location, statement.keyword.lexeme);
+```
+
+**After**:
+
+```typescript
+export class ContinueFlowControlError extends Error {
+  constructor(public location: Location) { ... }
+}
+
+executor.executeFrame<EvaluationResultContinueStatement>(statement, () => {
+  return { type: "ContinueStatement" };
+});
+throw new ContinueFlowControlError(statement.location);
+```
+
+## 2025-10-06: Break and Continue Statements Implementation
+
+### Overview
+
+Implemented `break` and `continue` statements for JavaScript loops, enabling students to learn loop flow control with Jiki's frame-by-frame visualization.
+
+### Core Implementation
+
+**AST Nodes** (`src/javascript/statement.ts`):
+
+- `BreakStatement`: Represents `break` statements with keyword token and location
+- `ContinueStatement`: Represents `continue` statements with keyword token and location
+
+**Flow Control Errors** (`src/javascript/executor/executeBreakStatement.ts`, `executeContinueStatement.ts`):
+
+- `BreakFlowControlError`: Exception class for break flow control with location
+- `ContinueFlowControlError`: Exception class for continue flow control with location
+- Both use `executeFrame<T>()` pattern for type-safe frame generation
+
+**Execution Modules**:
+
+- `executeBreakStatement.ts`: Creates frame and throws `BreakFlowControlError`
+- `executeContinueStatement.ts`: Creates frame and throws `ContinueFlowControlError`
+- `executeLoop()`: Helper method that catches `BreakFlowControlError` to exit loops
+- `executeLoopIteration()`: Helper method that catches `ContinueFlowControlError` to skip to next iteration
+
+**Executor Updates** (`src/javascript/executor.ts`):
+
+- Added `executeLoop()` and `executeLoopIteration()` helper methods
+- Updated `executeForStatement` and `executeWhileStatement` to use flow control helpers
+- Added break/continue handling in `withExecutionContext()` for top-level error detection
+- Flow control errors bubble up through `executeStatement()` to loop handlers
+
+**Parser Enhancements** (`src/javascript/parser.ts`):
+
+- Added `breakStatement()` method for parsing `break` statements
+- Added `continueStatement()` method for parsing `continue` statements
+- Node restriction support via `checkNodeAllowed()`
+
+**Scanner Updates** (`src/javascript/scanner.ts`):
+
+- Removed `BREAK` and `CONTINUE` from unimplemented tokens list
+- Tokens now fully operational
+
+**Error Types**:
+
+- Runtime: `BreakOutsideLoop`, `ContinueOutsideLoop`
+- Syntax: `BreakStatementNotAllowed`, `ContinueStatementNotAllowed` (for node restrictions)
+
+**Frame Generation**:
+
+- Added `describeBreakStatement.ts` - "This line immediately exited the loop"
+- Added `describeContinueStatement.ts` - "This line stopped running any more code in this iteration"
+
+**Evaluation Results** (`src/javascript/evaluation-result.ts`):
+
+- Added `EvaluationResultBreakStatement` type (no jikiObject needed)
+- Added `EvaluationResultContinueStatement` type (no jikiObject needed)
+
+### Flow Control Architecture
+
+**Exception-Based Flow Control**:
+
+1. Break/continue statements generate success frames
+2. Throw flow control exception
+3. Exception bubbles through `executeStatement()` calls (re-thrown)
+4. Loop helpers (`executeLoop`, `executeLoopIteration`) catch and handle
+5. If caught at top level, converted to error frame
+
+**Loop Integration**:
+
+- For loops: `executeLoop()` wraps entire while loop, `executeLoopIteration()` wraps body execution
+- While loops: Same pattern as for loops
+- Nested loops: Inner loop handlers catch first, outer loops unaffected
+
+### Translation System
+
+**Added translations** in `src/javascript/locales/en/translation.json` and `system/translation.json`:
+
+- `BreakOutsideLoop`: "You used the 'break' keyword, but you're not inside a loop..."
+- `ContinueOutsideLoop`: "You used the 'continue' keyword, but you're not inside a loop..."
+- `BreakStatementNotAllowed`: "Break statements are not allowed at your current learning level"
+- `ContinueStatementNotAllowed`: "Continue statements are not allowed at your current learning level"
+
+### Test Coverage
+
+**New Test Suite** (`tests/javascript/concepts/break-continue.test.ts`): 9 comprehensive tests
+
+**Break Tests**:
+
+- Break in for loop (exits early)
+- Break in while loop (exits early)
+- Break outside loop generates runtime error
+
+**Continue Tests**:
+
+- Continue in for loop (skips iterations)
+- Continue executes update expression in for loop (verifies correct behavior)
+- Continue in while loop (skips iterations)
+- Continue outside loop generates runtime error
+
+**Nested Loop Tests**:
+
+- Break only exits inner loop
+- Continue only affects inner loop
+
+### Impact and Benefits
+
+**Educational Value**:
+
+- Students learn loop flow control with frame-by-frame visualization
+- Clear error messages when break/continue used incorrectly
+- Nested loop behavior shown visually
+
+**Architecture Consistency**:
+
+- Follows shared flow control pattern from JikiScript
+- Parse errors as returned errors, runtime errors as frames
+- Frame generation compatible with Jiki UI
+
+**Test Results**:
+
+- All 8 new tests passing
+- No regressions in existing 300+ tests
+
 ## 2025-10-03: User-Defined Functions Implementation
 
 ### Overview
