@@ -1,5 +1,5 @@
 import { runTests } from "@/components/complex-exercise/lib/test-runner/runTests";
-import { jikiscript } from "@jiki/interpreters";
+import { jikiscript, javascript, python } from "@jiki/interpreters";
 import { createTestExercise } from "@/tests/mocks/createTestExercise";
 import type { Scenario } from "@jiki/curriculum";
 import { TestExercise } from "@jiki/curriculum";
@@ -7,6 +7,14 @@ import { TestExercise } from "@jiki/curriculum";
 // Mock the interpreters module
 jest.mock("@jiki/interpreters", () => ({
   jikiscript: {
+    compile: jest.fn(),
+    interpret: jest.fn()
+  },
+  javascript: {
+    compile: jest.fn(),
+    interpret: jest.fn()
+  },
+  python: {
     compile: jest.fn(),
     interpret: jest.fn()
   },
@@ -159,6 +167,130 @@ describe("runTests", () => {
 
       // Should not be hardcoded to "move()"
       expect(result.tests[0].codeRun).not.toBe("move()");
+    });
+  });
+
+  describe("language selection", () => {
+    const mockFrames = [
+      { time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 },
+      { time: 200000, timeInMs: 200, status: "SUCCESS", line: 2 }
+    ];
+
+    beforeEach(() => {
+      // Set up default successful compile and interpret for all interpreters
+      const mockInterpretResult = {
+        frames: mockFrames,
+        value: undefined,
+        status: "SUCCESS"
+      };
+
+      (jikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (jikiscript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+
+      (javascript.compile as jest.Mock).mockReturnValue({ success: true });
+      (javascript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+
+      (python.compile as jest.Mock).mockReturnValue({ success: true });
+      (python.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+    });
+
+    it("should use JavaScript interpreter when language is javascript", () => {
+      const code = "move()";
+      runTests(code, testExercise, "javascript");
+
+      // JavaScript interpreter should be called
+      expect(javascript.compile).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+      expect(javascript.interpret).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+
+      // Other interpreters should NOT be called
+      expect(python.compile).not.toHaveBeenCalled();
+      expect(python.interpret).not.toHaveBeenCalled();
+      expect(jikiscript.compile).not.toHaveBeenCalled();
+      expect(jikiscript.interpret).not.toHaveBeenCalled();
+    });
+
+    it("should use Python interpreter when language is python", () => {
+      const code = "move()";
+      runTests(code, testExercise, "python");
+
+      // Python interpreter should be called
+      expect(python.compile).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+      expect(python.interpret).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+
+      // Other interpreters should NOT be called
+      expect(javascript.compile).not.toHaveBeenCalled();
+      expect(javascript.interpret).not.toHaveBeenCalled();
+      expect(jikiscript.compile).not.toHaveBeenCalled();
+      expect(jikiscript.interpret).not.toHaveBeenCalled();
+    });
+
+    it("should use JikiScript interpreter when language is jikiscript", () => {
+      const code = "move()";
+      runTests(code, testExercise, "jikiscript");
+
+      // JikiScript interpreter should be called
+      expect(jikiscript.compile).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+      expect(jikiscript.interpret).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            maxTotalLoopIterations: 1000
+          })
+        })
+      );
+
+      // Other interpreters should NOT be called
+      expect(javascript.compile).not.toHaveBeenCalled();
+      expect(javascript.interpret).not.toHaveBeenCalled();
+      expect(python.compile).not.toHaveBeenCalled();
+      expect(python.interpret).not.toHaveBeenCalled();
     });
   });
 });
