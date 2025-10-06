@@ -13,7 +13,8 @@
     "format": "pnpm -r format",
     "format:check": "pnpm -r format:check",
     "dev:app": "pnpm --filter @jiki/app dev",
-    "build:app": "pnpm --filter @jiki/app build"
+    "build:app": "pnpm --filter @jiki/app build",
+    "prepare": "husky"
   },
   "keywords": [
     "jiki",
@@ -25,5 +26,8 @@
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }

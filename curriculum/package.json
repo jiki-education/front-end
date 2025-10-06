@@ -15,7 +15,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky && pnpm run build"
+    "prepare": "pnpm run build"
   },
   "keywords": [
     "jiki",
@@ -46,7 +46,6 @@
     "@typescript-eslint/parser": "^8.44.0",
     "@vitest/ui": "^3.2.4",
     "eslint": "^9",
-    "husky": "^9.1.7",
     "jsdom": "^27.0.0",
     "onchange": "^7.1.0",
     "prettier": "^3.6.2",
