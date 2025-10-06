@@ -152,8 +152,11 @@ describe("Timeline Completion and Restart E2E", () => {
     // Click play again
     await page.click('[data-ci="play-button"]');
 
-    // Wait just a moment
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for isPlaying to become true
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator.getStore().getState().isPlaying === true;
+    });
 
     // Verify time was NOT reset to 0 (should resume)
     const timeAfterResume = await page.evaluate(() => {
