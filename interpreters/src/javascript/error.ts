@@ -6,6 +6,7 @@ export type SyntaxErrorType =
   | "MissingBacktickToTerminateTemplateLiteral"
   | "MissingDoubleQuoteToTerminateString"
   | "MissingExpression"
+  | "MissingInitializerInConstDeclaration"
   | "MissingInitializerInVariableDeclaration"
   | "MissingLeftParenthesisAfterIf"
   | "MissingRightBraceAfterBlock"

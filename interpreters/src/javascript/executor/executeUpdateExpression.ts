@@ -26,7 +26,7 @@ export function executeUpdateExpression(
   const newValue = new JSNumber(currentValue.value + increment);
 
   // Update the variable
-  executor.environment.update(expression.operand.name.lexeme, newValue);
+  executor.environment.update(expression.operand.name.lexeme, newValue, expression.operand.name.location);
 
   // Return the appropriate value based on prefix/postfix
   if (expression.prefix) {

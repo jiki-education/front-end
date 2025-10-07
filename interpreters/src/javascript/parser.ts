@@ -150,8 +150,8 @@ export class Parser {
       }
 
       // Handle variable declarations
-      if (this.match("LET")) {
-        return this.variableDeclaration(this.previous()); // Pass the LET token
+      if (this.match("LET", "CONST")) {
+        return this.variableDeclaration(this.previous()); // Pass the LET or CONST token
       }
 
       // Handle if statements
@@ -200,10 +200,11 @@ export class Parser {
     }
   }
 
-  private variableDeclaration(letToken: Token): Statement {
+  private variableDeclaration(keywordToken: Token): Statement {
     // Check if VariableDeclaration is allowed
-    this.checkNodeAllowed("VariableDeclaration", "VariableDeclarationNotAllowed", letToken.location);
+    this.checkNodeAllowed("VariableDeclaration", "VariableDeclarationNotAllowed", keywordToken.location);
 
+    const kind = keywordToken.type === "CONST" ? "const" : "let";
     const name = this.consume("IDENTIFIER", "MissingVariableName");
 
     let initializer: Expression | null = null;
@@ -215,7 +216,12 @@ export class Parser {
       initializer = this.expression();
       semicolonToken = this.consumeSemicolon();
     } else {
-      // No initializer - check if this is allowed
+      // No initializer
+      // const ALWAYS requires an initializer
+      if (kind === "const") {
+        throw this.error("MissingInitializerInConstDeclaration", this.peek().location);
+      }
+      // let requires initializer only if requireVariableInstantiation is true
       const requireInstantiation = this.languageFeatures.requireVariableInstantiation ?? true;
       if (requireInstantiation) {
         throw this.error("MissingInitializerInVariableDeclaration", this.peek().location);
@@ -223,7 +229,7 @@ export class Parser {
       semicolonToken = this.consumeSemicolon();
     }
 
-    return new VariableDeclaration(name, initializer, Location.between(letToken, semicolonToken));
+    return new VariableDeclaration(kind, name, initializer, Location.between(keywordToken, semicolonToken));
   }
 
   private blockStatement(): Statement {

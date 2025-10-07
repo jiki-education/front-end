@@ -22,9 +22,11 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
   }
 
   // Shadowing check is now handled inside environment.define()
-  executor.environment.define(statement.name.lexeme, jikiObject, statement.name.location);
+  const isConst = statement.kind === "const";
+  executor.environment.define(statement.name.lexeme, jikiObject, statement.name.location, isConst);
   return {
     type: "VariableDeclaration",
+    kind: statement.kind,
     name: statement.name.lexeme,
     value: value,
     jikiObject: jikiObject,
