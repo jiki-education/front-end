@@ -214,4 +214,52 @@ describe("JavaScript for...of cross-validation", () => {
 
     expect(lastFrame.variables.product.value).toBe(nativeResult);
   });
+
+  test("const in for...of with array matches native behavior", () => {
+    // Native JavaScript
+    const nativeResult = (() => {
+      let sum = 0;
+      for (const num of [1, 2, 3, 4, 5]) {
+        sum = sum + num;
+      }
+      return sum;
+    })();
+
+    // Our interpreter
+    const code = `
+      let sum = 0;
+      for (const num of [1, 2, 3, 4, 5]) {
+        sum = sum + num;
+      }
+    `;
+    const { frames, error } = interpret(code);
+    expect(error).toBeNull();
+    const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
+
+    expect(lastFrame.variables.sum.value).toBe(nativeResult);
+  });
+
+  test("const in for...of with string matches native behavior", () => {
+    // Native JavaScript
+    const nativeResult = (() => {
+      let result = "";
+      for (const char of "abc") {
+        result = result + char;
+      }
+      return result;
+    })();
+
+    // Our interpreter
+    const code = `
+      let result = "";
+      for (const char of "abc") {
+        result = result + char;
+      }
+    `;
+    const { frames, error } = interpret(code);
+    expect(error).toBeNull();
+    const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
+
+    expect(lastFrame.variables.result.value).toBe(nativeResult);
+  });
 });

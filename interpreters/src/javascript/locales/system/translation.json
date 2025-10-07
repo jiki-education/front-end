@@ -8,6 +8,7 @@
       "MissingExpression": "MissingExpression",
       "MissingInitializerInConstDeclaration": "MissingInitializerInConstDeclaration",
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
+      "ConstInForLoopInit": "ConstInForLoopInit",
       "MissingLeftParenthesisAfterIf": "MissingLeftParenthesisAfterIf",
       "MissingRightBraceAfterBlock": "MissingRightBraceAfterBlock",
       "MissingRightBraceInTemplateLiteral": "MissingRightBraceInTemplateLiteral",

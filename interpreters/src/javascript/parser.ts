@@ -312,10 +312,10 @@ export class Parser {
 
     this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterIf"); // Reuse error type for now
 
-    // Check if this is a for...of loop by looking for "let identifier of"
-    if (this.check("LET")) {
+    // Check if this is a for...of loop by looking for "let/const identifier of"
+    if (this.check("LET") || this.check("CONST")) {
       const checkpoint = this.current;
-      this.advance(); // consume 'let'
+      this.advance(); // consume 'let' or 'const'
       if (this.check("IDENTIFIER")) {
         const variable = this.advance(); // consume identifier
         if (this.check("OF")) {
@@ -350,6 +350,10 @@ export class Parser {
         init = null; // Empty init
       } else if (this.match("LET")) {
         init = this.variableDeclaration(this.previous());
+      } else if (this.match("CONST")) {
+        // const is not allowed in C-style for loops because the update expression
+        // would try to modify a constant variable
+        throw this.error("ConstInForLoopInit", this.previous().location);
       } else {
         init = this.expression();
         this.consume("SEMICOLON", "MissingSemicolon");
