@@ -24,6 +24,7 @@ export interface OrchestratorState {
   currentTest: TestResult | null;
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
+  wasSuccessModalShown: boolean;
   foldedLines: number[]; // Line numbers that are currently folded in the editor
   language: "javascript" | "python" | "jikiscript";
 
@@ -81,6 +82,7 @@ export interface OrchestratorActions {
   setCurrentTestTime: (time: number, nearestOrExactFrame?: "nearest" | "exact", force?: boolean) => void;
   setHasCodeBeenEdited: (value: boolean) => void;
   setIsSpotlightActive: (value: boolean) => void;
+  setWasSuccessModalShown: (value: boolean) => void;
   setFoldedLines: (lines: number[]) => void;
   setLanguage: (language: OrchestratorState["language"]) => void;
 

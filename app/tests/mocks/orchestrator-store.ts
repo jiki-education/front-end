@@ -17,6 +17,7 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
       currentTest: null,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
+      wasSuccessModalShown: false,
       foldedLines: [],
       language: "jikiscript" as const,
 
@@ -88,6 +89,7 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
         }),
       setHasCodeBeenEdited: jest.fn(),
       setIsSpotlightActive: jest.fn(),
+      setWasSuccessModalShown: jest.fn(),
       setFoldedLines: jest.fn(),
       setLanguage: jest.fn(),
 
