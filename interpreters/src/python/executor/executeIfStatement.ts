@@ -3,10 +3,15 @@ import type { IfStatement } from "../statement";
 import type { EvaluationResult, EvaluationResultIfStatement } from "../evaluation-result";
 import { isTruthy } from "../helpers";
 
-export function executeIfStatement(executor: Executor, statement: IfStatement): EvaluationResult {
+export function executeIfStatement(executor: Executor, statement: IfStatement): EvaluationResult | null {
+  let conditionValue!: boolean;
+
   // Evaluate the condition and generate a frame for it
-  const conditionResult = executor.executeFrame<EvaluationResultIfStatement>(statement, () => {
+  executor.executeFrame<EvaluationResultIfStatement>(statement, () => {
     const result = executor.evaluate(statement.condition);
+
+    // Validate truthiness inside the frame - this will throw with the condition's location if invalid
+    conditionValue = isTruthy(executor, result.jikiObject, statement.condition.location);
 
     return {
       type: "IfStatement",
@@ -16,19 +21,14 @@ export function executeIfStatement(executor: Executor, statement: IfStatement): 
     };
   });
 
-  // Check the condition value using truthiness rules (includes language feature guard)
-  const conditionValue = isTruthy(executor, conditionResult.jikiObject, statement.condition.location);
-
   if (conditionValue) {
     // Execute the then branch
-    const result = executor.executeStatement(statement.thenBranch);
-    return result || conditionResult;
+    return executor.executeStatement(statement.thenBranch);
   } else if (statement.elseBranch) {
     // Execute the else branch if it exists
-    const result = executor.executeStatement(statement.elseBranch);
-    return result || conditionResult;
+    return executor.executeStatement(statement.elseBranch);
   }
 
-  // If condition is false and no else branch, return the condition result
-  return conditionResult;
+  // If condition is false and no else branch, return null (if statements don't produce values)
+  return null;
 }
