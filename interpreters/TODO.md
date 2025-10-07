@@ -36,7 +36,8 @@ For everything in here, base your work in the JikiScript interpreter.
 - [x] Add for ... of ... loop.
 - [x] Add const.
 - [x] Add tests for `else if`
-- [ ] Add a specific error type if someone tries to use a const in a for loop.
+- [ ] Add template literals.
+- [x] Add a specific error type if someone tries to use a const in a for loop.
 - [ ] Add Exponentiation.
 - [ ] Add array mutating methods: `push()`, `pop()`, `shift()`, `unshift()`. These modify the array in place and should follow the stdlib pattern like `.length` and `.at()`. Look at `src/javascript/stdlib/arrays.ts` for the pattern.
 - [ ] Add array query methods: `indexOf()`, `includes()`. These search the array and return values without mutating. Follow the same stdlib pattern.

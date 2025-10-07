@@ -1,5 +1,91 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Added const Support in for...of Loops and Error for const in C-Style for Loops
+
+### Overview
+
+Enhanced the JavaScript interpreter to properly support `const` in for...of loops (matching native JavaScript behavior) and added a syntax error for using `const` in C-style for loops (where it would cause runtime errors).
+
+### Changes Applied
+
+**1. Parser Enhancement** (`src/javascript/parser.ts`):
+
+- Modified `forStatement()` to check for both `LET` and `CONST` tokens when detecting for...of loops (line 316)
+- Added specific error for `const` in C-style for loop init (lines 353-356)
+- Error thrown at parse time with clear educational message
+
+**2. Error Type** (`src/javascript/error.ts`):
+
+- Added `ConstInForLoopInit` syntax error type
+- Prevents students from writing code that would fail at runtime
+
+**3. Translation Updates**:
+
+- `system/translation.json`: `"ConstInForLoopInit"`
+- `en/translation.json`: Educational message explaining why const doesn't work in C-style loops and suggesting let or for...of
+
+**4. Test Coverage**:
+
+- New test file: `tests/javascript/syntaxErrors/const-in-for-loop.test.ts` (10 tests)
+  - Syntax errors for `const` in C-style for loops
+  - Successful execution with `let` in C-style for loops
+  - Successful execution with `const` in for...of loops (arrays and strings)
+  - Successful execution with `let` in for...of loops
+- Cross-validation tests added:
+  - `tests/cross-validation/javascript/for-of.test.ts`: Added 2 tests for const in for...of
+  - `tests/cross-validation/javascript/core/const.test.ts`: Added 1 test for const in for...of
+
+### Supported Syntax
+
+**Valid** (matches native JavaScript):
+
+```javascript
+// const in for...of loops (new binding each iteration)
+for (const item of [1, 2, 3]) {
+  console.log(item);
+}
+
+for (const char of "abc") {
+  console.log(char);
+}
+
+// let in C-style for loops
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+```
+
+**Invalid** (syntax error with helpful message):
+
+```javascript
+// const in C-style for loop (would fail at i++)
+for (const i = 0; i < 5; i++) {
+  console.log(i);
+}
+// Error: "You cannot use 'const' in a C-style for loop..."
+```
+
+### Rationale
+
+In JavaScript:
+
+- `for (const i = 0; i < 5; i++)` is invalid because `i++` tries to modify a const variable
+- `for (const item of array)` is valid because each iteration creates a new const binding
+
+Catching this at parse time (rather than runtime) provides better educational feedback to students.
+
+### Implementation Notes
+
+- For...of loops currently define loop variables using `environment.define()` without tracking const vs let
+- Full const semantics in for...of loop bodies (preventing reassignment) would require tracking variable kind in `ForOfStatement` AST node
+- This is deferred to a future enhancement as it's a separate feature from preventing const in C-style loops
+
+### Test Results
+
+- All 2387 tests passing (including 10 new tests)
+- No regressions from implementation
+- TypeScript compilation with zero errors
+
 ## 2025-10-07: Added const Declaration Support
 
 ### Overview

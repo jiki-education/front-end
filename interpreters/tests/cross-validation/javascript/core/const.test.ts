@@ -38,4 +38,12 @@ describe("JavaScript const cross-validation", () => {
       expectedValue: 25,
     });
   });
+
+  describe("const in for loops", () => {
+    testJavaScript(
+      "const in for...of loop works",
+      "let sum = 0; for (const n of [1, 2, 3]) { sum = sum + n; } const result = sum;",
+      { expectedValue: 6 }
+    );
+  });
 });

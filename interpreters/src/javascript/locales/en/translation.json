@@ -8,6 +8,7 @@
       "MissingExpression": "Missing expression in code.",
       "MissingInitializerInConstDeclaration": "Missing initializer in const declaration. Constants must be initialized when declared.",
       "MissingInitializerInVariableDeclaration": "Missing initializer in variable declaration. You must provide a value when declaring a variable with 'let'.",
+      "ConstInForLoopInit": "You cannot use 'const' in a C-style for loop. The loop variable needs to be modified (e.g., i++), but const variables cannot be changed. Use 'let' instead, or consider using a for...of loop if you're iterating over an array.",
       "MissingLeftParenthesisAfterIf": "Missing opening parenthesis '(' after 'if' keyword.",
       "MissingRightBraceAfterBlock": "Missing closing brace '}' after block statement.",
       "MissingRightBraceInTemplateLiteral": "Missing closing brace '}' in template literal interpolation.",

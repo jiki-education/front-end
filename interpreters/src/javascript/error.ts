@@ -8,6 +8,7 @@ export type SyntaxErrorType =
   | "MissingExpression"
   | "MissingInitializerInConstDeclaration"
   | "MissingInitializerInVariableDeclaration"
+  | "ConstInForLoopInit"
   | "MissingLeftParenthesisAfterIf"
   | "MissingRightBraceAfterBlock"
   | "MissingRightBraceInTemplateLiteral"
