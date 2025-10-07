@@ -1,18 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { interpret } from "../../src/python/interpreter";
-
-// Type for frames augmented in test environment
-interface TestAugmentedFrame {
-  status: "SUCCESS" | "ERROR";
-  result?: any;
-  variables?: Record<string, any>;
-  description?: string;
-  error?: {
-    type: string;
-    message?: string;
-    context?: any;
-  };
-}
+import type { TestAugmentedFrame } from "../../src/shared/frames";
 
 describe("Python stdlib errors", () => {
   describe("MethodNotYetImplemented errors", () => {

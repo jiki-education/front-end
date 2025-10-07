@@ -94,6 +94,173 @@ let result = arr.at(1);
     );
   });
 
+  describe("array.push()", () => {
+    testJavaScript(
+      "push single element",
+      `
+let arr = [1, 2, 3];
+let result = arr.push(4);
+    `,
+      { expectedValue: 4 }
+    );
+
+    testJavaScript(
+      "push multiple elements",
+      `
+let arr = [1, 2];
+let result = arr.push(3, 4, 5);
+    `,
+      { expectedValue: 5 }
+    );
+
+    testJavaScript(
+      "push to empty array",
+      `
+let arr = [];
+let result = arr.push(1);
+    `,
+      { expectedValue: 1 }
+    );
+
+    testJavaScript(
+      "push modifies original array",
+      `
+let arr = [1, 2];
+arr.push(3);
+let result = arr.length;
+    `,
+      { expectedValue: 3 }
+    );
+  });
+
+  describe("array.pop()", () => {
+    testJavaScript(
+      "pop from array with elements",
+      `
+let arr = [1, 2, 3];
+let result = arr.pop();
+    `,
+      { expectedValue: 3 }
+    );
+
+    testJavaScript(
+      "pop from empty array",
+      `
+let arr = [];
+let result = arr.pop();
+    `,
+      { expectedValue: undefined }
+    );
+
+    testJavaScript(
+      "pop modifies original array",
+      `
+let arr = [1, 2, 3];
+arr.pop();
+let result = arr.length;
+    `,
+      { expectedValue: 2 }
+    );
+
+    testJavaScript(
+      "pop single element array",
+      `
+let arr = [42];
+let result = arr.pop();
+    `,
+      { expectedValue: 42 }
+    );
+  });
+
+  describe("array.shift()", () => {
+    testJavaScript(
+      "shift from array with elements",
+      `
+let arr = [1, 2, 3];
+let result = arr.shift();
+    `,
+      { expectedValue: 1 }
+    );
+
+    testJavaScript(
+      "shift from empty array",
+      `
+let arr = [];
+let result = arr.shift();
+    `,
+      { expectedValue: undefined }
+    );
+
+    testJavaScript(
+      "shift modifies original array",
+      `
+let arr = [1, 2, 3];
+arr.shift();
+let result = arr.length;
+    `,
+      { expectedValue: 2 }
+    );
+
+    testJavaScript(
+      "shift updates indices",
+      `
+let arr = [1, 2, 3];
+arr.shift();
+let result = arr[0];
+    `,
+      { expectedValue: 2 }
+    );
+  });
+
+  describe("array.unshift()", () => {
+    testJavaScript(
+      "unshift single element",
+      `
+let arr = [2, 3, 4];
+let result = arr.unshift(1);
+    `,
+      { expectedValue: 4 }
+    );
+
+    testJavaScript(
+      "unshift multiple elements",
+      `
+let arr = [4, 5];
+let result = arr.unshift(1, 2, 3);
+    `,
+      { expectedValue: 5 }
+    );
+
+    testJavaScript(
+      "unshift to empty array",
+      `
+let arr = [];
+let result = arr.unshift(1);
+    `,
+      { expectedValue: 1 }
+    );
+
+    testJavaScript(
+      "unshift updates indices",
+      `
+let arr = [2, 3];
+arr.unshift(1);
+let result = arr[0];
+    `,
+      { expectedValue: 1 }
+    );
+
+    testJavaScript(
+      "unshift preserves order",
+      `
+let arr = [4];
+arr.unshift(1, 2, 3);
+let result = arr[2];
+    `,
+      { expectedValue: 3 }
+    );
+  });
+
   describe("array.length", () => {
     testJavaScript(
       "empty array",

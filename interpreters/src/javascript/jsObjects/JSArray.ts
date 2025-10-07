@@ -2,7 +2,7 @@ import { JikiObject } from "../../shared/jikiObject";
 import { JSString } from "./JSString";
 
 export class JSArray extends JikiObject {
-  private readonly elements: JikiObject[];
+  public readonly elements: JikiObject[];
 
   constructor(elements: JikiObject[]) {
     super("list");

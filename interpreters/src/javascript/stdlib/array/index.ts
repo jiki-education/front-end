@@ -4,6 +4,10 @@ import { createNotYetImplementedStub } from "../index";
 // Import implemented properties and methods
 import { length } from "./length";
 import { at } from "./at";
+import { push } from "./push";
+import { pop } from "./pop";
+import { shift } from "./shift";
+import { unshift } from "./unshift";
 
 // Array properties
 export const arrayProperties: Record<string, Property> = {
@@ -13,10 +17,6 @@ export const arrayProperties: Record<string, Property> = {
 // List of array methods that are not yet implemented
 const notYetImplementedMethods = [
   // Mutating methods
-  "push",
-  "pop",
-  "shift",
-  "unshift",
   "splice",
   "sort",
   "reverse",
@@ -60,6 +60,10 @@ const notYetImplementedMethods = [
 // Array methods
 export const arrayMethods: Record<string, Method> = {
   at,
+  push,
+  pop,
+  shift,
+  unshift,
 
   // Generate stub methods for all not-yet-implemented methods
   ...Object.fromEntries(notYetImplementedMethods.map(name => [name, createNotYetImplementedStub(name)])),

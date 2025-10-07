@@ -21,16 +21,9 @@ export const at: Method = {
     // We match this behavior for compatibility (e.g., arr.at(1.5) returns arr[1])
     const index = Math.trunc(indexArg.value);
 
-    // Handle negative indices
-    const actualIndex = index < 0 ? array.length + index : index;
-
-    // Check bounds and get element
-    if (actualIndex < 0 || actualIndex >= array.length) {
-      return new JSUndefined();
-    }
-
-    const element = array.getElement(actualIndex);
-    return element || new JSUndefined();
+    // Use native JavaScript at() method
+    const element = array.elements.at(index);
+    return element ?? new JSUndefined();
   },
   description: "returns the element at the specified index, supporting negative indices",
 };

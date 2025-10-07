@@ -1,5 +1,6 @@
 import { expect, test, describe } from "vitest";
 import { interpret } from "../../src/javascript/interpreter";
+import type { TestAugmentedFrame } from "../../src/shared/frames";
 
 describe("Array properties", () => {
   describe("length property", () => {
@@ -91,8 +92,7 @@ describe("Array properties", () => {
   });
 });
 
-// Note: Method tests will be added when CallExpression is implemented
-describe("Array methods (placeholder)", () => {
+describe("Array methods", () => {
   test("gives runtime error when using computed access for methods", () => {
     const result = interpret(`
       let arr = [1, 2, 3];
@@ -149,5 +149,182 @@ describe("Array methods (placeholder)", () => {
     const lastFrame = result.frames[result.frames.length - 1];
     expect(lastFrame.status).toBe("SUCCESS");
     expect(lastFrame.result?.jikiObject?.value).toBeUndefined();
+  });
+
+  describe("push() method", () => {
+    test("adds single element and returns new length", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let len = arr.push(4);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(4);
+      expect(lastFrame.variables?.arr.value.length).toBe(4);
+      expect(lastFrame.variables?.arr.value[3].value).toBe(4);
+    });
+
+    test("adds multiple elements", () => {
+      const result = interpret(`
+        let arr = [1, 2];
+        let len = arr.push(3, 4, 5);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(5);
+      expect(lastFrame.variables?.arr.value.length).toBe(5);
+    });
+
+    test("works on empty array", () => {
+      const result = interpret(`
+        let arr = [];
+        let len = arr.push(1);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(1);
+      expect(lastFrame.variables?.arr.value.length).toBe(1);
+    });
+
+    test("requires at least one argument", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.push();
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
+  });
+
+  describe("pop() method", () => {
+    test("removes and returns last element", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let last = arr.pop();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(3);
+      expect(lastFrame.variables?.arr.value.length).toBe(2);
+    });
+
+    test("returns undefined for empty array", () => {
+      const result = interpret(`
+        let arr = [];
+        let last = arr.pop();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBeUndefined();
+      expect(lastFrame.variables?.arr.value.length).toBe(0);
+    });
+
+    test("requires no arguments", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.pop(1);
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
+  });
+
+  describe("shift() method", () => {
+    test("removes and returns first element", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let first = arr.shift();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(1);
+      expect(lastFrame.variables?.arr.value.length).toBe(2);
+      expect(lastFrame.variables?.arr.value[0].value).toBe(2);
+    });
+
+    test("returns undefined for empty array", () => {
+      const result = interpret(`
+        let arr = [];
+        let first = arr.shift();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBeUndefined();
+      expect(lastFrame.variables?.arr.value.length).toBe(0);
+    });
+
+    test("requires no arguments", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.shift(1);
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
+  });
+
+  describe("unshift() method", () => {
+    test("adds single element to beginning and returns new length", () => {
+      const result = interpret(`
+        let arr = [2, 3, 4];
+        let len = arr.unshift(1);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(4);
+      expect(lastFrame.variables?.arr.value.length).toBe(4);
+      expect(lastFrame.variables?.arr.value[0].value).toBe(1);
+    });
+
+    test("adds multiple elements to beginning", () => {
+      const result = interpret(`
+        let arr = [4, 5];
+        let len = arr.unshift(1, 2, 3);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(5);
+      expect(lastFrame.variables?.arr.value.length).toBe(5);
+      expect(lastFrame.variables?.arr.value[0].value).toBe(1);
+      expect(lastFrame.variables?.arr.value[1].value).toBe(2);
+    });
+
+    test("works on empty array", () => {
+      const result = interpret(`
+        let arr = [];
+        let len = arr.unshift(1);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(1);
+      expect(lastFrame.variables?.arr.value.length).toBe(1);
+    });
+
+    test("requires at least one argument", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.unshift();
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
   });
 });
