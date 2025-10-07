@@ -91,6 +91,40 @@ describe("const declarations", () => {
     });
   });
 
+  describe("const with increment/decrement operators", () => {
+    test("cannot post-increment const variable", () => {
+      const { frames, success } = interpret("const x = 5; x++;");
+      expect(success).toBe(false);
+      expect(frames[1].status).toBe("ERROR");
+      expect(frames[1].error?.type).toBe("AssignmentToConstant");
+      expect(frames[1].error?.context?.name).toBe("x");
+    });
+
+    test("cannot pre-increment const variable", () => {
+      const { frames, success } = interpret("const x = 5; ++x;");
+      expect(success).toBe(false);
+      expect(frames[1].status).toBe("ERROR");
+      expect(frames[1].error?.type).toBe("AssignmentToConstant");
+      expect(frames[1].error?.context?.name).toBe("x");
+    });
+
+    test("cannot post-decrement const variable", () => {
+      const { frames, success } = interpret("const x = 5; x--;");
+      expect(success).toBe(false);
+      expect(frames[1].status).toBe("ERROR");
+      expect(frames[1].error?.type).toBe("AssignmentToConstant");
+      expect(frames[1].error?.context?.name).toBe("x");
+    });
+
+    test("cannot pre-decrement const variable", () => {
+      const { frames, success } = interpret("const x = 5; --x;");
+      expect(success).toBe(false);
+      expect(frames[1].status).toBe("ERROR");
+      expect(frames[1].error?.type).toBe("AssignmentToConstant");
+      expect(frames[1].error?.context?.name).toBe("x");
+    });
+  });
+
   describe("const with mutable objects", () => {
     test("can modify array elements of const array", () => {
       const { frames, error } = interpret("const arr = [1, 2, 3]; arr[0] = 99;");

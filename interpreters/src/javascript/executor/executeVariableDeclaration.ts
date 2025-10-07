@@ -14,11 +14,10 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
     // No initializer - variable is undefined
     jikiObject = new JSUndefined();
     value = {
-      type: "Literal",
-      value: undefined,
+      type: "LiteralExpression",
       jikiObject: jikiObject,
       immutableJikiObject: jikiObject.clone(),
-    } as any;
+    };
   }
 
   // Shadowing check is now handled inside environment.define()
@@ -31,5 +30,5 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
     value: value,
     jikiObject: jikiObject,
     immutableJikiObject: jikiObject.clone(),
-  } as any;
+  };
 }
