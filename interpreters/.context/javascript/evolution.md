@@ -1,5 +1,87 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Added const Declaration Support
+
+### Overview
+
+Implemented full support for JavaScript `const` declarations, enabling students to declare immutable variable bindings that cannot be reassigned.
+
+### Changes Applied
+
+**1. Statement Structure** (`src/javascript/statement.ts`):
+
+- Modified `VariableDeclaration` class to include `kind` field (`"let" | "const"`)
+- Constructor now accepts keyword type to distinguish between let and const
+
+**2. Parser Enhancement** (`src/javascript/parser.ts`):
+
+- Updated `statement()` to handle both `LET` and `CONST` tokens
+- Modified `variableDeclaration()` to track declaration kind
+- Enforced that const declarations MUST have initializers (syntax error if missing)
+- This requirement applies regardless of `requireVariableInstantiation` language feature
+
+**3. Environment Structure** (`src/javascript/environment.ts`):
+
+- Introduced `VariableMetadata` interface: `{ value: JikiObject, isConst: boolean }`
+- Changed internal storage from `Map<string, JikiObject>` to `Map<string, VariableMetadata>`
+- Updated `define()` to accept `isConst` parameter (defaults to false)
+- Updated `update()` to check const status and throw `AssignmentToConstant` error
+- This structure allows future extensions (e.g., var support, TDZ tracking)
+
+**4. Executor Implementation** (`src/javascript/executor`):
+
+- Modified `executeVariableDeclaration.ts` to pass `isConst` flag to environment
+- Modified `executeAssignmentExpression.ts` to pass location to update() for error reporting
+- Environment now throws `AssignmentToConstant` runtime error on const reassignment attempts
+
+**5. Error Types**:
+
+- Added `MissingInitializerInConstDeclaration` syntax error type (`src/javascript/error.ts`)
+- Added `AssignmentToConstant` runtime error type (`src/javascript/executor.ts`)
+- Updated translation files with appropriate error messages (system and English)
+
+**6. Scanner Update** (`src/javascript/scanner.ts`):
+
+- Removed `CONST` from `unimplementedTokens` list (already in keywords)
+
+**7. Describers** (`src/javascript/describers/describeVariableDeclaration.ts`):
+
+- Updated to distinguish between "constant" and "variable" in descriptions
+- Shows appropriate wording based on declaration kind
+
+**8. Evaluation Result** (`src/javascript/evaluation-result.ts`):
+
+- Added `kind` field to `EvaluationResultVariableDeclaration`
+
+### Testing
+
+- Created comprehensive test suite (`tests/javascript/concepts/const.test.ts`) covering:
+  - Basic const declarations with various value types
+  - Const initializer requirement (syntax error without)
+  - Const reassignment prevention (runtime error)
+  - Shallow immutability (array/object properties can be modified)
+  - Interaction with let declarations
+  - Scoping and shadowing behavior
+  - Educational descriptions
+
+- Created cross-validation tests (`tests/cross-validation/javascript/core/const.test.ts`)
+- Updated scanner test to remove const from unimplemented tokens list
+
+### Key Design Decisions
+
+**1. Shallow Immutability**: Following JavaScript semantics, `const` prevents reassignment but allows mutation:
+
+- `const arr = [1, 2]; arr[0] = 99` → Allowed
+- `const arr = [1, 2]; arr = [3, 4]` → Runtime error
+
+**2. Required Initializer**: Const always requires initializer, even when `requireVariableInstantiation: false`
+
+**3. Future-Ready Environment**: `VariableMetadata` structure supports future features:
+
+- `kind: 'let' | 'const' | 'var'` for var support
+- `isInitialized: boolean` for temporal dead zone (TDZ)
+- Other variable-specific metadata
+
 ## 2025-10-07: Added for...of Loop Support
 
 ### Overview

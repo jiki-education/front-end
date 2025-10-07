@@ -35,7 +35,7 @@ For everything in here, base your work in the JikiScript interpreter.
 - [x] Add break and continue. Look at JikiScript for inspiration.
 - [x] Add for ... of ... loop.
 - [ ] Add tests for `else if`
-- [ ] Add const.
+- [x] Add const.
 - [ ] Add Exponentiation.
 - [ ] Add array mutating methods: `push()`, `pop()`, `shift()`, `unshift()`. These modify the array in place and should follow the stdlib pattern like `.length` and `.at()`. Look at `src/javascript/stdlib/arrays.ts` for the pattern.
 - [ ] Add array query methods: `indexOf()`, `includes()`. These search the array and return values without mutating. Follow the same stdlib pattern.

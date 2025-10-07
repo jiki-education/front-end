@@ -102,7 +102,7 @@ export function executeAssignmentExpression(
 
   // Handle regular identifier assignment
   const target = expression.target;
-  const success = executor.environment.update(target.lexeme, valueResult.jikiObject);
+  const success = executor.environment.update(target.lexeme, valueResult.jikiObject, target.location);
 
   if (!success) {
     executor.error("VariableNotDeclared", target.location, {

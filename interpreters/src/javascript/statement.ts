@@ -34,6 +34,7 @@ export class ConsoleLogStatement extends Statement {
 
 export class VariableDeclaration extends Statement {
   constructor(
+    public kind: "let" | "const",
     public name: Token,
     public initializer: Expression | null,
     public location: Location

@@ -4,8 +4,13 @@ import type { Location } from "../shared/location";
 import { RuntimeError } from "./executor";
 import { translate } from "./translator";
 
+interface VariableMetadata {
+  value: JikiObject;
+  isConst: boolean;
+}
+
 export class Environment {
-  private readonly values: Map<string, JikiObject> = new Map();
+  private readonly variables: Map<string, VariableMetadata> = new Map();
   public readonly id: string;
   private readonly languageFeatures: LanguageFeatures;
 
@@ -17,7 +22,7 @@ export class Environment {
     this.languageFeatures = languageFeatures;
   }
 
-  public define(name: string, value: JikiObject, location: Location): void {
+  public define(name: string, value: JikiObject, location: Location, isConst: boolean = false): void {
     // Check for shadowing if disabled
     if (!this.languageFeatures.allowShadowing) {
       if (this.isDefinedInEnclosingScope(name)) {
@@ -25,7 +30,7 @@ export class Environment {
         throw new RuntimeError(message, location, "ShadowingDisabled", { name });
       }
     }
-    this.values.set(name, value);
+    this.variables.set(name, { value, isConst });
   }
 
   public isDefinedInEnclosingScope(name: string): boolean {
@@ -34,7 +39,7 @@ export class Environment {
     }
 
     // Check if the variable is defined in any enclosing scope
-    if (this.enclosing.values.has(name)) {
+    if (this.enclosing.variables.has(name)) {
       return true;
     }
 
@@ -42,8 +47,9 @@ export class Environment {
   }
 
   public get(name: string): JikiObject | undefined {
-    if (this.values.has(name)) {
-      return this.values.get(name);
+    const metadata = this.variables.get(name);
+    if (metadata) {
+      return metadata.value;
     }
 
     if (this.enclosing !== null) {
@@ -53,14 +59,20 @@ export class Environment {
     return undefined;
   }
 
-  public update(name: string, value: JikiObject): boolean {
-    if (this.values.has(name)) {
-      this.values.set(name, value);
+  public update(name: string, value: JikiObject, location: Location): boolean {
+    const metadata = this.variables.get(name);
+    if (metadata) {
+      // Check if variable is const
+      if (metadata.isConst) {
+        const message = translate(`error.runtime.AssignmentToConstant`, { name });
+        throw new RuntimeError(message, location, "AssignmentToConstant", { name });
+      }
+      this.variables.set(name, { ...metadata, value });
       return true;
     }
 
     if (this.enclosing !== null) {
-      return this.enclosing.update(name, value);
+      return this.enclosing.update(name, value, location);
     }
 
     // Variable not found in any scope
@@ -76,8 +88,8 @@ export class Environment {
     }
 
     // Add variables from this scope
-    for (const [name, value] of this.values) {
-      result[name] = value;
+    for (const [name, metadata] of this.variables) {
+      result[name] = metadata.value;
     }
 
     return result;
