@@ -66,6 +66,12 @@ function handleBinaryOperation(
       }
       return createJSObject(left * right);
 
+    case "STAR_STAR":
+      if (!executor.languageFeatures.allowTypeCoercion) {
+        verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
+      }
+      return createJSObject(left ** right);
+
     case "SLASH":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);

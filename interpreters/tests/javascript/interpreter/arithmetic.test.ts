@@ -55,6 +55,40 @@ describe("arithmetic interpreter", () => {
         expect(frames[0].result?.jikiObject.value).toBe(5);
       });
 
+      test("exponentiation", () => {
+        const { frames, error } = interpret("2 ** 3;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(8);
+      });
+
+      test("exponentiation with decimal result", () => {
+        const { frames, error } = interpret("4 ** 0.5;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(2);
+      });
+
+      test("exponentiation is right-associative", () => {
+        // 2 ** 3 ** 2 = 2 ** (3 ** 2) = 2 ** 9 = 512
+        const { frames, error } = interpret("2 ** 3 ** 2;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(512);
+      });
+
+      test("exponentiation has higher precedence than multiplication", () => {
+        // 2 * 3 ** 2 = 2 * (3 ** 2) = 2 * 9 = 18
+        const { frames, error } = interpret("2 * 3 ** 2;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(18);
+      });
+
       test("complex expression", () => {
         const { frames, error } = interpret("1 + 2 * 3;");
         expect(error).toBeNull();

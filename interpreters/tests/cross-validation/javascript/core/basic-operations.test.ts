@@ -7,9 +7,12 @@ describe("JavaScript basic operations cross-validation", () => {
     testJavaScript("subtraction", "let result = 10 - 4;", { expectedValue: 6 });
     testJavaScript("multiplication", "let result = 3 * 4;", { expectedValue: 12 });
     testJavaScript("division", "let result = 10 / 2;", { expectedValue: 5 });
+    testJavaScript("exponentiation", "let result = 2 ** 3;", { expectedValue: 8 });
 
     testJavaScript("order of operations", "let result = 2 + 3 * 4;", { expectedValue: 14 });
     testJavaScript("parentheses", "let result = (2 + 3) * 4;", { expectedValue: 20 });
+    testJavaScript("exponentiation precedence", "let result = 2 * 3 ** 2;", { expectedValue: 18 });
+    testJavaScript("exponentiation right-associative", "let result = 2 ** 3 ** 2;", { expectedValue: 512 });
   });
 
   describe("variable declarations", () => {
