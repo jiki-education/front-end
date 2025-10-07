@@ -25,6 +25,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
+      allTestsPassed: false,
       foldedLines: [],
       language: "jikiscript",
 
@@ -174,15 +175,13 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
 
         // Set up completion callback to update play/pause state and show success modal
         test.animationTimeline.onComplete(() => {
-          const state = get();
-          state.setIsPlaying(false);
+          get().setIsPlaying(false);
+          get().setIsSpotlightActive(false);
 
-          // Check if all tests passed and we haven't shown the modal yet
-          const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
-          if (allTestsPassed && !state.wasSuccessModalShown) {
+          // Only show modal once when all tests pass
+          if (get().allTestsPassed && !get().wasSuccessModalShown) {
             showModal("exercise-success-modal");
-            state.setWasSuccessModalShown(true);
-            state.setIsSpotlightActive(false);
+            get().setWasSuccessModalShown(true);
           }
         });
 
@@ -298,6 +297,8 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           testCurrentTimes: {},
           // Reset success modal tracking for new test runs
           wasSuccessModalShown: false,
+          // Set allTestsPassed state
+          allTestsPassed,
           // Enable spotlight if all tests passed
           isSpotlightActive: allTestsPassed
         });
@@ -447,6 +448,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
           wasSuccessModalShown: false,
+          allTestsPassed: false,
           foldedLines: [],
           language: "jikiscript",
 
@@ -505,6 +507,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       wasSuccessModalShown: state.wasSuccessModalShown,
+      allTestsPassed: state.allTestsPassed,
       foldedLines: state.foldedLines,
       language: state.language,
 

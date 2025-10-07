@@ -25,6 +25,7 @@ export interface OrchestratorState {
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
   wasSuccessModalShown: boolean;
+  allTestsPassed: boolean;
   foldedLines: number[]; // Line numbers that are currently folded in the editor
   language: "javascript" | "python" | "jikiscript";
 

@@ -271,22 +271,37 @@ When all tests pass, the orchestrator triggers a celebration flow with visual fe
 - Reset to `false` on new test run (in `setTestSuiteResult()`)
 - Ensures modal only appears once per successful test run
 
+**`allTestsPassed: boolean`**
+
+- Calculated once when test results are set (in `setTestSuiteResult()`)
+- Cached in state to avoid repeated calculations across components
+- Used by UI components and callbacks to determine if all tests passed
+- Reset on new test run
+
 ### Implementation Details
 
-The success modal is triggered in the `onComplete` callback registered when setting the current test:
+The success modal is triggered in the `onComplete` callback registered when setting the current test. The callback uses `get()` to read from current state rather than relying on closures, ensuring it always sees the latest state values:
 
 ```typescript
 test.animationTimeline.onComplete(() => {
-  const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
-  if (allTestsPassed && !state.wasSuccessModalShown) {
+  get().setIsPlaying(false);
+  get().setIsSpotlightActive(false);
+
+  // Only show modal once when all tests pass
+  if (get().allTestsPassed && !get().wasSuccessModalShown) {
     showModal("exercise-success-modal");
-    state.setWasSuccessModalShown(true);
-    state.setIsSpotlightActive(false);
+    get().setWasSuccessModalShown(true);
   }
 });
 ```
 
-See `components/complex-exercise/lib/orchestrator/store.ts:175-187` for implementation.
+Key implementation notes:
+
+- Spotlight always turns off when any test animation completes
+- Modal only shows on first completion when all tests passed
+- Using `get()` prevents closure bugs when switching between tests
+
+See `components/coding-exercise/lib/orchestrator/store.ts:177-186` for implementation.
 
 ### User Experience
 

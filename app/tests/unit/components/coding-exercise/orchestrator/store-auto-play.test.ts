@@ -2,9 +2,7 @@ import { createOrchestratorStore } from "@/components/coding-exercise/lib/orches
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
 
 // Mock modal system
-jest.mock("@/lib/modal", () => ({
-  showModal: jest.fn()
-}));
+jest.mock("@/lib/modal");
 
 // Mock TimelineManager
 jest.mock("@/components/coding-exercise/lib/orchestrator/TimelineManager", () => ({
@@ -405,8 +403,8 @@ describe("Store Auto-Play Behavior", () => {
         onCompleteCallback();
 
         expect(showModal).not.toHaveBeenCalled();
-        // Spotlight should remain active since modal wasn't shown
-        expect(store.getState().isSpotlightActive).toBe(true);
+        // Spotlight should be disabled after animation completes (regardless of modal)
+        expect(store.getState().isSpotlightActive).toBe(false);
       });
 
       it("should not show modal when not all tests pass", () => {
@@ -450,6 +448,44 @@ describe("Store Auto-Play Behavior", () => {
 
         // Spotlight should be disabled after modal shows
         expect(store.getState().isSpotlightActive).toBe(false);
+      });
+
+      it("should only show modal once even when switching between tests", () => {
+        jest.clearAllMocks();
+
+        const store = createOrchestratorStore("test-uuid", "");
+        const test1 = createMockTest("test-1");
+        const test2 = createMockTest("test-2");
+
+        const testResults = {
+          tests: [test1, test2],
+          status: "pass" as const
+        };
+
+        // Set test suite result - this will set the first test
+        store.getState().setTestSuiteResult(testResults);
+
+        // Get and trigger first test's onComplete callback
+        const firstOnCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        firstOnCompleteCallback();
+
+        // Modal should have been shown once
+        expect(showModal).toHaveBeenCalledTimes(1);
+        expect(showModal).toHaveBeenCalledWith("exercise-success-modal");
+        expect(store.getState().wasSuccessModalShown).toBe(true);
+
+        jest.clearAllMocks();
+
+        // Switch to second test
+        store.getState().setCurrentTest(test2);
+
+        // Get and trigger second test's onComplete callback
+        const secondOnCompleteCallback = (test2.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        secondOnCompleteCallback();
+
+        // Modal should NOT be shown again
+        expect(showModal).not.toHaveBeenCalled();
+        expect(store.getState().wasSuccessModalShown).toBe(true);
       });
     });
   });

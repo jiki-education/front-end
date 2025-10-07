@@ -7,7 +7,7 @@ import { TestResultsButtons as OrchestratorTestResultsButtons } from "./TestResu
 
 export default function TestResultsView() {
   const orchestrator = useOrchestrator();
-  const { testSuiteResult, currentTest } = useOrchestratorStore(orchestrator);
+  const { testSuiteResult, currentTest, allTestsPassed } = useOrchestratorStore(orchestrator);
 
   if (!testSuiteResult) {
     return (
@@ -18,7 +18,6 @@ export default function TestResultsView() {
   }
 
   const hasTests = testSuiteResult.tests.length > 0;
-  const allTestsPassed = testSuiteResult.tests.every((test) => test.status === "pass");
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg flex flex-col overflow-hidden">

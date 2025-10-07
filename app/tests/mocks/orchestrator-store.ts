@@ -18,6 +18,7 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
+      allTestsPassed: false,
       foldedLines: [],
       language: "jikiscript" as const,
 
