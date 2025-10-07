@@ -30,7 +30,8 @@
       "MissingDedent": "MissingDedent",
       "MissingIdentifier": "MissingIdentifier",
       "MissingAttributeName": "MissingAttributeName",
-      "AttributeExpressionNotAllowed": "AttributeExpressionNotAllowed"
+      "AttributeExpressionNotAllowed": "AttributeExpressionNotAllowed",
+      "MissingRightBraceInFString": "MissingRightBraceInFString"
     },
     "runtime": {
       "FunctionExecutionError": "FunctionExecutionError: function: {{function}}: message: {{message}}",

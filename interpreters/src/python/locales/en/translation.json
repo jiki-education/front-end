@@ -30,7 +30,8 @@
       "MissingDedent": "Missing dedent.",
       "MissingIdentifier": "Missing identifier.",
       "MissingAttributeName": "Missing attribute name after '.'.",
-      "AttributeExpressionNotAllowed": "Attribute access is not allowed."
+      "AttributeExpressionNotAllowed": "Attribute access is not allowed.",
+      "MissingRightBraceInFString": "Missing '}' in f-string interpolation."
     },
     "runtime": {
       "FunctionExecutionError": "Error executing function '{{function}}': {{message}}",

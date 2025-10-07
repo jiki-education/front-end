@@ -18,11 +18,11 @@ This document outlines the features and functions included in the educational Py
 - Comments
 - Lists (creation, logging, index access with negative indexing, and element assignment)
 - **User-defined functions** (def, return statements with closures and parameter binding)
+- **while loops** (with break and continue support)
+- **f-strings** (formatted string literals with expression interpolation)
 
 ### TODO
 
-- while loops
-- f-strings
 - Dictionaries (called Dictionary internally)
 - Default parameter values
 - Keyword arguments

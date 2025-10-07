@@ -13,6 +13,7 @@ import {
   SubscriptExpression,
   CallExpression,
   AttributeExpression,
+  FStringExpression,
 } from "./expression";
 import type { Location } from "../shared/location";
 import type { Statement } from "./statement";
@@ -62,6 +63,7 @@ import { executeCallExpression } from "./executor/executeCallExpression";
 import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaration";
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeAttributeExpression } from "./executor/executeAttributeExpression";
+import { executeFStringExpression } from "./executor/executeFStringExpression";
 
 // Execution context for Python stdlib (future use)
 export type ExecutionContext = SharedExecutionContext & {
@@ -308,6 +310,10 @@ export class Executor {
 
     if (expression instanceof AttributeExpression) {
       return executeAttributeExpression(this, expression);
+    }
+
+    if (expression instanceof FStringExpression) {
+      return executeFStringExpression(this, expression);
     }
 
     this.error("UnsupportedOperation", expression.location, {

@@ -10,6 +10,7 @@ import {
   SubscriptExpression,
   CallExpression,
   AttributeExpression,
+  FStringExpression,
 } from "./expression";
 import { Location } from "../shared/location";
 import { Scanner } from "./scanner";
@@ -155,6 +156,7 @@ export class Parser {
         this.check("IDENTIFIER") ||
         this.check("NUMBER") ||
         this.check("STRING") ||
+        this.check("F_STRING_TEXT") ||
         this.check("TRUE") ||
         this.check("FALSE") ||
         this.check("NONE") ||
@@ -451,7 +453,42 @@ export class Parser {
       return this.listExpression();
     }
 
+    if (this.check("F_STRING_TEXT") || this.checkFStringStart()) {
+      return this.parseFString();
+    }
+
     this.error("MissingExpression", this.peek().location);
+  }
+
+  private checkFStringStart(): boolean {
+    // Check if we're at the start of an f-string
+    // The scanner emits an F_STRING_START token for all f-strings
+    return this.check("F_STRING_START");
+  }
+
+  private parseFString(): Expression {
+    const startToken = this.peek();
+    const parts: (string | Expression)[] = [];
+
+    // Consume the F_STRING_START token
+    this.consume("F_STRING_START", "MissingExpression");
+
+    while (!this.isAtEnd() && (this.check("F_STRING_TEXT") || this.check("LEFT_BRACE"))) {
+      if (this.match("F_STRING_TEXT")) {
+        parts.push(this.previous().literal as string);
+      } else if (this.match("LEFT_BRACE")) {
+        // Parse the interpolated expression
+        const expr = this.expression();
+        this.consume("RIGHT_BRACE", "MissingRightBraceInFString");
+        parts.push(expr);
+      } else {
+        break;
+      }
+    }
+
+    // Create location spanning from start to the current position
+    const endToken = this.previous();
+    return new FStringExpression(parts, Location.between(startToken, endToken));
   }
 
   // Helper methods

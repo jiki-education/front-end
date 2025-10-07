@@ -66,6 +66,7 @@ export type SyntaxErrorType =
   | "MissingEqual"
   | "MissingRightBracket"
   | "MissingRightParen"
+  | "MissingRightBraceInFString"
   | "MissingColon"
   | "MissingIn"
   | "MissingIndent"

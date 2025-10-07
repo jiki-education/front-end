@@ -141,6 +141,13 @@ export interface EvaluationResultListExpression {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultFStringExpression {
+  type: "FStringExpression";
+  parts: (string | EvaluationResultExpression)[];
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 // Union types
 export type EvaluationResultStatement =
   | EvaluationResultExpressionStatement
@@ -163,6 +170,7 @@ export type EvaluationResultExpression =
   | EvaluationResultSubscriptExpression
   | EvaluationResultCallExpression
   | EvaluationResultAttributeExpression
-  | EvaluationResultListExpression;
+  | EvaluationResultListExpression
+  | EvaluationResultFStringExpression;
 
 export type EvaluationResult = EvaluationResultStatement | EvaluationResultExpression;

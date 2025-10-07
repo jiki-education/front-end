@@ -79,6 +79,8 @@ export type TokenType =
   | "IDENTIFIER"
   | "NUMBER"
   | "STRING"
+  | "F_STRING_START"
+  | "F_STRING_TEXT"
 
   // Invisible tokens
   | "NEWLINE" // End of statement (Python uses newlines)
