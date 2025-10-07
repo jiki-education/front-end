@@ -43,22 +43,22 @@ For everything in here, base your work in the JikiScript interpreter.
 - [ ] Add string `.length` property. Follow the same stdlib pattern as array `.length`.
 - [ ] Add a console.log() stdlib method. How do we do this? Do we introduce a `console` global?
 - [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignmennt. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it. You may need to update lots of tests where this is the case. For now you can just add a `let foo = "bar"` for these to make them easy to find later.
-- [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Equality Operators block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Function Definitions block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Function Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the If Statements block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the For Each Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Repeat Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Lists block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Dictionaries block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Method Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Classes block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
-- [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript.
+- [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Equality Operators block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Function Definitions block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Function Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the If Statements block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the For Each Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Repeat Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Lists block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Dictionaries block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Method Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Classes block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
 
 ## Python
 
@@ -67,19 +67,19 @@ For everything in here, base your work in the JikiScript interpreter.
 - [ ] Add fstrings
 - [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignment. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it.
 - [ ] Implement the next Python built-in function from [.context/python/features-and-functions.md](.context/python/features-and-functions.md). Only mark this as complete when all functions in the "Including" list are done. Ensure to move each function from TODO to Implemented in the context document when finished. Remember to confirm the plan with the human before implementing each function.
-- [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Equality Operators block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Function Definitions block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Function Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the If Statements block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the For Each Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Repeat Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Lists block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Dictionaries block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Method Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Classes block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
-- [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python.
+- [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Equality Operators block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Function Definitions block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Function Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the If Statements block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the For Each Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Repeat Loops block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Lists block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Dictionaries block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Method Calls block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Classes block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
