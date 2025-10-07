@@ -11,7 +11,7 @@ fi
 
 # Run formatter on changed files only
 echo "💅 Formatting changed files..."
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^app/||' || true)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^app/||' || true)
 if [ -n "$STAGED_FILES" ]; then
     echo "Formatting: $STAGED_FILES"
     pnpm exec prettier --write $STAGED_FILES
@@ -22,7 +22,7 @@ fi
 
 # Run lint check on staged files only (treating warnings as errors)
 echo "🔍 Running lint check on staged files..."
-STAGED_TS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs)$' | sed 's|^app/||' || true)
+STAGED_TS_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs)$' | sed 's|^app/||' || true)
 if [ -n "$STAGED_TS_FILES" ]; then
     echo "Linting: $STAGED_TS_FILES"
     pnpm exec eslint $STAGED_TS_FILES --max-warnings=0
