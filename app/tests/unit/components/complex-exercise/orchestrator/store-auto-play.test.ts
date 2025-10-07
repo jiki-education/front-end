@@ -1,6 +1,11 @@
 import { createOrchestratorStore } from "@/components/complex-exercise/lib/orchestrator/store";
 import type { TestResult } from "@/components/complex-exercise/lib/test-results-types";
 
+// Mock modal system
+jest.mock("@/lib/modal", () => ({
+  showModal: jest.fn()
+}));
+
 // Mock TimelineManager
 jest.mock("@/components/complex-exercise/lib/orchestrator/TimelineManager", () => ({
   TimelineManager: {
@@ -298,6 +303,154 @@ describe("Store Auto-Play Behavior", () => {
       store.getState().setIsPlaying(false);
 
       expect(test.animationTimeline.play).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Success Modal Flow", () => {
+    let showModal: jest.Mock;
+
+    beforeEach(() => {
+      // Get the mocked showModal function
+      showModal = jest.requireMock("@/lib/modal").showModal;
+      showModal.mockClear();
+    });
+
+    describe("setTestSuiteResult spotlight behavior", () => {
+      it("should set isSpotlightActive to true when all tests pass", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const testResults = {
+          tests: [createMockTest("test-1"), createMockTest("test-2")],
+          status: "pass" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        expect(store.getState().isSpotlightActive).toBe(true);
+      });
+
+      it("should set isSpotlightActive to false when any test fails", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const failedTest = createMockTest("test-1");
+        failedTest.status = "fail";
+
+        const testResults = {
+          tests: [failedTest, createMockTest("test-2")],
+          status: "fail" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        expect(store.getState().isSpotlightActive).toBe(false);
+      });
+
+      it("should reset wasSuccessModalShown to false on new test run", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+
+        // Simulate modal was shown previously
+        store.getState().setWasSuccessModalShown(true);
+        expect(store.getState().wasSuccessModalShown).toBe(true);
+
+        const testResults = {
+          tests: [createMockTest("test-1")],
+          status: "pass" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        expect(store.getState().wasSuccessModalShown).toBe(false);
+      });
+    });
+
+    describe("onComplete callback modal display", () => {
+      it("should show success modal when all tests pass and modal not shown yet", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const test1 = createMockTest("test-1");
+
+        const testResults = {
+          tests: [test1],
+          status: "pass" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        // Get the onComplete callback that was registered
+        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+
+        // Trigger the callback
+        onCompleteCallback();
+
+        expect(showModal).toHaveBeenCalledWith("exercise-success-modal");
+        expect(store.getState().wasSuccessModalShown).toBe(true);
+        expect(store.getState().isSpotlightActive).toBe(false);
+      });
+
+      it("should not show modal when wasSuccessModalShown is true", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const test1 = createMockTest("test-1");
+
+        const testResults = {
+          tests: [test1],
+          status: "pass" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        // Manually set wasSuccessModalShown to true
+        store.getState().setWasSuccessModalShown(true);
+
+        // Get the onComplete callback
+        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+
+        // Trigger the callback
+        onCompleteCallback();
+
+        expect(showModal).not.toHaveBeenCalled();
+        // Spotlight should remain active since modal wasn't shown
+        expect(store.getState().isSpotlightActive).toBe(true);
+      });
+
+      it("should not show modal when not all tests pass", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const failedTest = createMockTest("test-1");
+        failedTest.status = "fail";
+
+        const testResults = {
+          tests: [failedTest],
+          status: "fail" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        // Get the onComplete callback
+        const onCompleteCallback = (failedTest.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+
+        // Trigger the callback
+        onCompleteCallback();
+
+        expect(showModal).not.toHaveBeenCalled();
+      });
+
+      it("should disable spotlight after showing modal", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+        const test1 = createMockTest("test-1");
+
+        const testResults = {
+          tests: [test1],
+          status: "pass" as const
+        };
+
+        store.getState().setTestSuiteResult(testResults);
+
+        // Verify spotlight is active before modal
+        expect(store.getState().isSpotlightActive).toBe(true);
+
+        // Get and trigger the onComplete callback
+        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        onCompleteCallback();
+
+        // Spotlight should be disabled after modal shows
+        expect(store.getState().isSpotlightActive).toBe(false);
+      });
     });
   });
 });

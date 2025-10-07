@@ -3,6 +3,7 @@ import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
+import { showModal } from "@/lib/modal";
 import { loadCodeMirrorContent } from "../localStorage";
 import type { OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
@@ -179,10 +180,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           // Check if all tests passed and we haven't shown the modal yet
           const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
           if (allTestsPassed && !state.wasSuccessModalShown) {
-            // Import and show the modal
-            void import("@/lib/modal").then(({ showModal }) => {
-              showModal("exercise-success-modal");
-            });
+            showModal("exercise-success-modal");
             state.setWasSuccessModalShown(true);
             state.setIsSpotlightActive(false);
           }

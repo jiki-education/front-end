@@ -67,6 +67,22 @@ showInfo({
 });
 ```
 
+#### Exercise Success Modal
+
+Automatically shown when all tests pass in a complex exercise. Appears after the test animation completes with spotlight effect.
+
+```typescript
+import { showModal } from "@/lib/modal";
+
+showModal("exercise-success-modal", {
+  title: "Congratulations!",
+  message: "All tests passed! You've successfully completed this exercise.",
+  buttonText: "Continue"
+});
+```
+
+**Note**: This modal is typically triggered automatically by the orchestrator and doesn't require manual invocation.
+
 ## Adding New Modals
 
 1. Create component in `lib/modal/modals/YourModal.tsx`

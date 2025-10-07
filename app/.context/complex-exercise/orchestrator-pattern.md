@@ -241,3 +241,56 @@ The scrubber UI is modularized into focused components:
 - `FrameStepperButtons.tsx` - Previous/next frame navigation
 
 Each component receives the orchestrator and uses the enabled prop pattern based on test state, edit state, spotlight mode, and frame availability.
+
+## Success Celebration Flow
+
+When all tests pass, the orchestrator triggers a celebration flow with visual feedback and a success modal.
+
+### Flow Sequence
+
+1. **Test Execution Completes**: All tests pass
+2. **Spotlight Activation**: `isSpotlightActive` set to `true` in `setTestSuiteResult()`
+3. **Test Animation Plays**: First test animates with spotlight effect on the test view
+4. **Animation Completes**: Timeline `onComplete` callback triggers
+5. **Modal Display**: Success modal appears with congratulations message
+6. **State Reset**: `isSpotlightActive` set to `false`, `wasSuccessModalShown` set to `true`
+
+### State Management
+
+**`isSpotlightActive: boolean`**
+
+- Set to `true` when all tests pass (in `setTestSuiteResult()`)
+- Controls whether spotlight class is applied to test result view
+- Set to `false` after success modal is shown
+- Prevents UI interaction during celebration animation
+
+**`wasSuccessModalShown: boolean`**
+
+- Tracks whether success modal has been displayed for current test run
+- Set to `true` after modal is shown
+- Reset to `false` on new test run (in `setTestSuiteResult()`)
+- Ensures modal only appears once per successful test run
+
+### Implementation Details
+
+The success modal is triggered in the `onComplete` callback registered when setting the current test:
+
+```typescript
+test.animationTimeline.onComplete(() => {
+  const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
+  if (allTestsPassed && !state.wasSuccessModalShown) {
+    showModal("exercise-success-modal");
+    state.setWasSuccessModalShown(true);
+    state.setIsSpotlightActive(false);
+  }
+});
+```
+
+See `components/complex-exercise/lib/orchestrator/store.ts:175-187` for implementation.
+
+### User Experience
+
+- **Visual Spotlight**: Test view highlighted during animation
+- **Automatic Trigger**: No user action required
+- **One-Time Display**: Modal shown once per successful test run
+- **Clean Reset**: New test runs reset state for fresh celebration
