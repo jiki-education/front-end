@@ -24,6 +24,7 @@ import {
   BlockStatement,
   IfStatement,
   ForStatement,
+  ForOfStatement,
   WhileStatement,
   FunctionDeclaration,
   ReturnStatement,
@@ -55,6 +56,7 @@ import { executeExpressionStatement } from "./executor/executeExpressionStatemen
 import { executeVariableDeclaration } from "./executor/executeVariableDeclaration";
 import { executeIfStatement } from "./executor/executeIfStatement";
 import { executeForStatement } from "./executor/executeForStatement";
+import { executeForOfStatement } from "./executor/executeForOfStatement";
 import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeTemplateLiteralExpression } from "./executor/executeTemplateLiteralExpression";
 import { executeArrayExpression } from "./executor/executeArrayExpression";
@@ -95,6 +97,7 @@ export type RuntimeErrorType =
   | "ReturnOutsideFunction"
   | "BreakOutsideLoop"
   | "ContinueOutsideLoop"
+  | "ForOfLoopTargetNotIterable"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
   | "NonJikiObjectDetectedInExecution";
@@ -269,6 +272,8 @@ export class Executor {
         executeIfStatement(this, statement);
       } else if (statement instanceof ForStatement) {
         executeForStatement(this, statement);
+      } else if (statement instanceof ForOfStatement) {
+        executeForOfStatement(this, statement);
       } else if (statement instanceof WhileStatement) {
         executeWhileStatement(this, statement);
       } else if (statement instanceof FunctionDeclaration) {

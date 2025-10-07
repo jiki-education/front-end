@@ -32,7 +32,7 @@ const StatementKeywordTokens = [
   "YIELD",
 ] as const;
 
-const OtherKeywordTokens = ["FALSE", "IN", "INSTANCEOF", "NULL", "TRUE", "TYPEOF", "UNDEFINED", "VOID"];
+const OtherKeywordTokens = ["ELSE", "FALSE", "IN", "INSTANCEOF", "NULL", "OF", "TRUE", "TYPEOF", "UNDEFINED", "VOID"];
 
 export const KeywordTokens = [...StatementKeywordTokens, ...OtherKeywordTokens];
 

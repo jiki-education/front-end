@@ -7,7 +7,7 @@ export { JSString } from "./JSString";
 export { JSBoolean } from "./JSBoolean";
 export { JSNull } from "./JSNull";
 export { JSUndefined } from "./JSUndefined";
-export { JSArray } from "./JSList";
+export { JSArray } from "./JSArray";
 export { JSDictionary } from "./JSDictionary";
 export { JSStdLibFunction } from "./JSStdLibFunction";
 export { JSBuiltinObject } from "./JSBuiltinObject";
@@ -19,7 +19,7 @@ import { JSString } from "./JSString";
 import { JSBoolean } from "./JSBoolean";
 import { JSNull } from "./JSNull";
 import { JSUndefined } from "./JSUndefined";
-import { JSArray } from "./JSList";
+import { JSArray } from "./JSArray";
 import { JSDictionary } from "./JSDictionary";
 
 // Helper function to create JSObjects from JavaScript values

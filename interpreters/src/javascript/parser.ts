@@ -23,6 +23,7 @@ import {
   BlockStatement,
   IfStatement,
   ForStatement,
+  ForOfStatement,
   WhileStatement,
   FunctionDeclaration,
   FunctionParameter,
@@ -81,6 +82,7 @@ export class Parser {
       BlockStatement: "Block statements",
       IfStatement: "If statements",
       ForStatement: "For loops",
+      ForOfStatement: "For...of loops",
       WhileStatement: "While loops",
       BreakStatement: "Break statements",
       ContinueStatement: "Continue statements",
@@ -302,9 +304,33 @@ export class Parser {
   private forStatement(): Statement {
     const forToken = this.previous();
 
-    // Check if ForStatement is allowed
-    this.checkNodeAllowed("ForStatement", "ForStatementNotAllowed", forToken.location);
     this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterIf"); // Reuse error type for now
+
+    // Check if this is a for...of loop by looking for "let identifier of"
+    if (this.check("LET")) {
+      const checkpoint = this.current;
+      this.advance(); // consume 'let'
+      if (this.check("IDENTIFIER")) {
+        const variable = this.advance(); // consume identifier
+        if (this.check("OF")) {
+          // This is a for...of loop
+          this.checkNodeAllowed("ForOfStatement", "ForOfStatementNotAllowed", forToken.location);
+          this.advance(); // consume 'of'
+
+          const iterable = this.expression();
+          this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
+
+          const body = this.statement();
+
+          return new ForOfStatement(variable, iterable, body!, Location.between(forToken, body!));
+        }
+      }
+      // Not a for...of loop, reset and parse as regular for loop
+      this.current = checkpoint;
+    }
+
+    // Parse as regular C-style for loop
+    this.checkNodeAllowed("ForStatement", "ForStatementNotAllowed", forToken.location);
 
     // Save the oneStatementPerLine setting and temporarily disable it
     // inside for loop parentheses since semicolons there are part of the for syntax
