@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import { interpret as interpretPython } from "../../../src/python/interpreter";
-import { interpret as interpretJS } from "../../../src/javascript/interpreter";
+import { interpret as interpretPython } from "@python/interpreter";
+import { interpret as interpretJS } from "@javascript/interpreter";
 import { executeNativePython, executeNativeJS } from "./native-executor";
 import { extractOutput, normalizeOutput, extractLastValue, hasError, extractError } from "./output-helpers";
 

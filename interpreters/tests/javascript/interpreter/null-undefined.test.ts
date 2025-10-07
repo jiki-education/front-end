@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { interpret } from "../../../src/javascript/interpreter";
+import { interpret } from "@javascript/interpreter";
 
 describe("JavaScript Interpreter: null and undefined", () => {
   describe("null literal", () => {

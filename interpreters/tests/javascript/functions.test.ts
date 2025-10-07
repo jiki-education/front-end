@@ -1,4 +1,4 @@
-import { interpret } from "../../src/javascript/interpreter";
+import { interpret } from "@javascript/interpreter";
 import { describe, test, expect } from "vitest";
 import type { TestAugmentedFrame } from "@shared/frames";
 

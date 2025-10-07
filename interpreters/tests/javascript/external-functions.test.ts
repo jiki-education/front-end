@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
-import type { ExternalFunction } from "../../src/shared/interfaces";
-import type { ExecutionContext } from "../../src/javascript/executor";
-import { JSNumber, JSString, JSBoolean, type JikiObject } from "../../src/javascript/jsObjects";
+import { interpret } from "@javascript/interpreter";
+import type { ExternalFunction } from "@shared/interfaces";
+import type { ExecutionContext } from "@javascript/executor";
+import { JSNumber, JSString, JSBoolean, type JikiObject } from "@javascript/jsObjects";
 
 describe("JavaScript External Functions", () => {
   it("should call an external function with no arguments", () => {

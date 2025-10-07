@@ -1,4 +1,4 @@
-import { Frame } from "../src/shared/frames";
+import { Frame } from "@shared/frames";
 
 /**
  * Type-safe helper to get a frame at a specific index

@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { interpret } from "../../../src/python/interpreter";
+import { interpret } from "@python/interpreter";
 
 describe("Python Type Coercion", () => {
   describe("with allowTypeCoercion disabled (default)", () => {

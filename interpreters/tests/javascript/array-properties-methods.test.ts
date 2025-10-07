@@ -1,6 +1,6 @@
 import { expect, test, describe } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
-import type { TestAugmentedFrame } from "../../src/shared/frames";
+import { interpret } from "@javascript/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("Array properties", () => {
   describe("length property", () => {

@@ -1,4 +1,4 @@
-import type { Frame } from "../../../src/shared/frames";
+import type { Frame } from "@shared/frames";
 
 export interface InterpretResult {
   frames: Frame[];

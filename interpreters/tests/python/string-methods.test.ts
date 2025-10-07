@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { interpret } from "../../src/python/interpreter";
-import type { TestAugmentedFrame } from "../../src/shared/frames";
+import { interpret } from "@python/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("Python string methods", () => {
   describe("upper() method", () => {

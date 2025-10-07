@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { compile } from "../../src/javascript/interpreter";
+import { compile } from "@javascript/interpreter";
 
 describe("JavaScript compile()", () => {
   describe("successful compilation", () => {

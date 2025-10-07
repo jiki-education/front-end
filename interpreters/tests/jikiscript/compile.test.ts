@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { compile } from "../../src/jikiscript/interpreter";
+import { compile } from "@jikiscript/interpreter";
 
 describe("JikiScript compile()", () => {
   describe("successful compilation", () => {

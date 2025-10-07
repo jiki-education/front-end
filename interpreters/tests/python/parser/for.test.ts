@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { Parser } from "../../../src/python/parser";
-import { ForInStatement, BreakStatement, ContinueStatement, BlockStatement } from "../../../src/python/statement";
-import { IdentifierExpression, ListExpression } from "../../../src/python/expression";
+import { Parser } from "@python/parser";
+import { ForInStatement, BreakStatement, ContinueStatement, BlockStatement } from "@python/statement";
+import { IdentifierExpression, ListExpression } from "@python/expression";
 
 describe("Python Parser - For Loops", () => {
   describe("Basic for-in loops", () => {

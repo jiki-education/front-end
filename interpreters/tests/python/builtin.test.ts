@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { interpret } from "../../src/python";
-import type { TestAugmentedFrame } from "../../src/shared/frames";
+import { interpret } from "@python/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("Python builtin functions", () => {
   describe("print()", () => {

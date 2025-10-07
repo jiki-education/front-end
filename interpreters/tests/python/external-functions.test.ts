@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { interpret } from "../../src/python/interpreter";
-import type { ExternalFunction } from "../../src/shared/interfaces";
-import type { ExecutionContext } from "../../src/shared/interfaces";
+import { interpret } from "@python/interpreter";
+import type { ExternalFunction } from "@shared/interfaces";
+import type { ExecutionContext } from "@shared/interfaces";
 
 describe("Python External Functions", () => {
   describe("Basic function calls", () => {
