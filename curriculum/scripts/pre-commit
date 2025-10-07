@@ -11,7 +11,7 @@ fi
 
 # Run formatter on changed files only
 echo "💅 Formatting changed files..."
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^curriculum/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^curriculum/||' || true)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep "^curriculum/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^curriculum/||' || true)
 if [ -n "$STAGED_FILES" ]; then
     echo "Formatting: $STAGED_FILES"
     pnpm exec prettier --write $STAGED_FILES
