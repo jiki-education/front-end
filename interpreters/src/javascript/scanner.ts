@@ -43,6 +43,7 @@ export class Scanner {
     let: "LET",
     new: "NEW",
     null: "NULL",
+    of: "OF",
     return: "RETURN",
     super: "SUPER",
     switch: "SWITCH",

@@ -100,19 +100,19 @@ This centralized approach ensures consistent behavior across:
 
 ### 6. JikiObjects (`src/javascript/jsObjects/`)
 
-Wrapper objects extending shared `JikiObject` base class. Each type is now in its own file under `jsObjects/` directory. Supports JSNumber, JSString, JSBoolean, JSNull, JSUndefined, JSList, JSDictionary, and JSStdLibFunction with consistent cross-interpreter compatibility.
+Wrapper objects extending shared `JikiObject` base class. Each type is now in its own file under `jsObjects/` directory. Supports JSNumber, JSString, JSBoolean, JSNull, JSUndefined, JSArray, JSDictionary, and JSStdLibFunction with consistent cross-interpreter compatibility.
 
 **Key features:**
 
 - All objects implement `clone()` method (required by base class)
 - Primitive types return `self` from `clone()` since they're immutable
-- JSList implements deep cloning for proper immutability in frames
+- JSArray implements deep cloning for proper immutability in frames
 - Evaluation results include `immutableJikiObject` field for consistency with JikiScript
 - Describers use `immutableJikiObject` for accessing values
 
 **Collections:**
 
-- **JSList**: Represents JavaScript arrays, called "lists" in user-facing messages for consistency
+- **JSArray**: Represents JavaScript arrays, called "lists" in user-facing messages for consistency
   - Stores array of JikiObjects
   - Implements deep cloning via `clone()` method
   - Formatted as `[ elem1, elem2, ... ]` or `[]` for empty
@@ -211,6 +211,18 @@ This ensures the node restriction system remains complete and consistent.
 - Creates new scope for loop variables
 - Each component (init, condition, update) generates its own frame
 - Supports all variations: empty init, missing condition, no update
+
+### For...of Loops
+
+- Modern JavaScript iteration over arrays and strings
+- Syntax: `for (let variable of iterable) { ... }`
+- Only supports `let` declarations (not `const` or bare identifiers)
+- Creates new scope for loop variable
+- Validates iterable is JSArray or JSString (runtime error otherwise)
+- Generates frames for each iteration showing current element
+- Handles empty iterables (single frame, no iterations)
+- Supports `break` and `continue` statements
+- String characters automatically converted to JSString objects
 
 ### While Loops
 

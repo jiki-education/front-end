@@ -51,6 +51,16 @@ export interface EvaluationResultContinueStatement {
   immutableJikiObject?: undefined;
 }
 
+export interface EvaluationResultForOfStatement {
+  type: "ForOfStatement";
+  variable: string;
+  iterable: EvaluationResultExpression;
+  currentElement?: JikiObject;
+  iteration: number;
+  jikiObject?: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 // Expression result types
 export interface EvaluationResultBinaryExpression {
   type: "BinaryExpression";
@@ -145,7 +155,8 @@ export type EvaluationResultStatement =
   | EvaluationResultFunctionDeclaration
   | EvaluationResultReturnStatement
   | EvaluationResultBreakStatement
-  | EvaluationResultContinueStatement;
+  | EvaluationResultContinueStatement
+  | EvaluationResultForOfStatement;
 
 export type EvaluationResultExpression =
   | EvaluationResultBinaryExpression

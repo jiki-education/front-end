@@ -47,6 +47,7 @@ export type SyntaxErrorType =
   | "BlockStatementNotAllowed"
   | "IfStatementNotAllowed"
   | "ForStatementNotAllowed"
+  | "ForOfStatementNotAllowed"
   | "WhileStatementNotAllowed"
   | "BreakStatementNotAllowed"
   | "ContinueStatementNotAllowed"

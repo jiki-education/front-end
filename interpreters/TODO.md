@@ -33,7 +33,7 @@ Important:
 For everything in here, base your work in the JikiScript interpreter.
 
 - [x] Add break and continue. Look at JikiScript for inspiration.
-- [ ] Add for ... of ... loop.
+- [x] Add for ... of ... loop.
 - [ ] Add tests for `else if`
 - [ ] Add const.
 - [ ] Add Exponentiation.

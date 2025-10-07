@@ -1,5 +1,112 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Added for...of Loop Support
+
+### Overview
+
+Implemented full support for JavaScript `for...of` loops, enabling students to iterate over arrays and strings using modern JavaScript syntax.
+
+### Changes Applied
+
+**1. Token System** (`src/javascript/token.ts`, `src/javascript/scanner.ts`):
+
+- Added `OF` keyword token to support `for...of` syntax
+
+**2. AST Node** (`src/javascript/statement.ts`):
+
+- Created `ForOfStatement` class with fields: `variable`, `iterable`, `body`, `location`
+
+**3. Type System Updates**:
+
+- Added `ForOfStatement` to `NodeType` union (`src/javascript/interfaces.ts`)
+- Added `ForOfStatementNotAllowed` syntax error type (`src/javascript/error.ts`)
+- Added `ForOfLoopTargetNotIterable` runtime error type (`src/javascript/executor.ts`)
+
+**4. Parser Enhancement** (`src/javascript/parser.ts`):
+
+- Modified `forStatement()` to detect `for...of` pattern via lookahead
+- Checks for `let identifier of` sequence
+- Falls back to C-style for loop if pattern doesn't match
+- Supports node-level restrictions via `allowedNodes` feature flag
+
+**5. Executor Implementation** (`src/javascript/executor/executeForOfStatement.ts`):
+
+- Validates iterable is `JSArray` or `JSString`
+- Creates new scope for loop variable
+- Handles empty iterables (generates single frame, no iterations)
+- Supports `break` and `continue` statements
+- Converts string characters to `JSString` objects during iteration
+- Generates educational frames for each iteration
+
+**6. Evaluation Result** (`src/javascript/evaluation-result.ts`):
+
+- Added `EvaluationResultForOfStatement` interface with fields: `variable`, `iterable`, `currentElement`, `iteration`
+
+**7. Describer** (`src/javascript/describers/describeForOfStatement.ts`):
+
+- Educational descriptions for empty iterables
+- Per-iteration descriptions showing variable assignment
+- Uses "list" terminology for arrays (consistent with JikiScript)
+
+**8. Translation Updates**:
+
+- `en/translation.json`: "The for...of loop requires an iterable value (like an array or string), but you provided a {{type}} with value {{value}}."
+- `system/translation.json`: "ForOfLoopTargetNotIterable: type: {{type}}: value: {{value}}"
+
+**9. Comprehensive Test Suite**:
+
+- **Concept tests** (`tests/javascript/concepts/for-of-loops.test.ts`): 19 tests covering:
+  - Basic array iteration
+  - String iteration
+  - Empty iterables
+  - Nested loops
+  - Break/continue behavior
+  - Variable scoping
+  - Error handling (6 tests for non-iterable types)
+- **Cross-validation tests** (`tests/cross-validation/javascript/for-of.test.ts`): 8 tests verifying behavior matches native JavaScript
+
+### Supported Syntax
+
+```javascript
+// Array iteration
+for (let item of [1, 2, 3]) {
+  // ...
+}
+
+// String iteration
+for (let char of "hello") {
+  // ...
+}
+
+// With break/continue
+for (let num of numbers) {
+  if (num === 5) break;
+  if (num === 3) continue;
+  // ...
+}
+```
+
+### Error Handling
+
+The implementation provides clear error messages for non-iterable values:
+
+```javascript
+for (let x of 42) {
+} // Error: requires iterable (number provided)
+for (let x of true) {
+} // Error: requires iterable (boolean provided)
+for (let x of { a: 1 }) {
+} // Error: requires iterable (object provided)
+```
+
+### Implementation Notes
+
+- Only supports `let` declarations (not `const` or bare identifiers)
+- Loop variable is scoped to the loop body
+- Arrays are called "lists" in user-facing messages for consistency with JikiScript
+- String characters are converted to `JSString` objects during iteration
+- Empty iterables generate a single frame showing no iterations will occur
+
 ## 2025-10-07: Improved Error Handling for Unclosed Function Calls
 
 ### Overview
@@ -894,7 +1001,7 @@ Added support for array index reading (member access) without chaining:
    - Proper error recovery with `MissingRightBracketInMemberAccess`
 
 3. **Executor Module** (`src/javascript/executor/executeMemberExpression.ts`):
-   - Validates object is array (JSList)
+   - Validates object is array (JSArray)
    - Validates property is number (JSNumber)
    - Checks for negative indices
    - Checks for out of bounds access

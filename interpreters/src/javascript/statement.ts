@@ -170,3 +170,19 @@ export class ContinueStatement extends Statement {
     return [];
   }
 }
+
+export class ForOfStatement extends Statement {
+  constructor(
+    public variable: Token,
+    public iterable: Expression,
+    public body: Statement,
+    public location: Location
+  ) {
+    super("ForOfStatement");
+  }
+  public children() {
+    const children: Expression[] = [this.iterable];
+    children.push(...this.body.children());
+    return children;
+  }
+}

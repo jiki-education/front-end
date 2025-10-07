@@ -54,6 +54,7 @@
       "ReturnOutsideFunction": "ReturnOutsideFunction",
       "BreakOutsideLoop": "BreakOutsideLoop",
       "ContinueOutsideLoop": "ContinueOutsideLoop",
+      "ForOfLoopTargetNotIterable": "ForOfLoopTargetNotIterable: type: {{type}}: value: {{value}}",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}"

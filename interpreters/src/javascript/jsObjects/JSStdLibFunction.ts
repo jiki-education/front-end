@@ -1,6 +1,6 @@
 import { JikiObject } from "../../shared/jikiObject";
 import type { ExecutionContext } from "../executor";
-import type { JSArray } from "./JSList";
+import type { JSArray } from "./JSArray";
 
 // Represents a JavaScript function/method that can be called
 export class JSStdLibFunction extends JikiObject {
