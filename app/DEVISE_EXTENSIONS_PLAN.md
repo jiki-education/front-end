@@ -32,6 +32,7 @@ The backend API handles token generation and email sending - your job is to buil
 ```
 
 **User Journey:**
+
 1. User forgets password → visits `/auth/forgot-password`
 2. User enters email → frontend POSTs to API
 3. API sends email with link to `/auth/reset-password?token=abc123`
@@ -101,7 +102,8 @@ export default function ForgotPasswordPage() {
 }
 ```
 
-**API Request**:
+**API Request:**
+
 ```typescript
 POST /v1/auth/password
 {
@@ -203,7 +205,8 @@ export default function ResetPasswordPage() {
 }
 ```
 
-**API Request**:
+**API Request:**
+
 ```typescript
 PATCH /v1/auth/password
 {
@@ -215,7 +218,8 @@ PATCH /v1/auth/password
 }
 ```
 
-**API Responses**:
+**API Responses:**
+
 - **Success** (200): `{ "message": "Password has been reset successfully" }`
 - **Error** (422): `{ "error": { "type": "invalid_token", "message": "..." } }`
 
@@ -244,6 +248,7 @@ PATCH /v1/auth/password
 ```
 
 **User Journey:**
+
 1. User signs up → API creates account (unconfirmed)
 2. API sends email with link to `/auth/confirm-email?token=abc123`
 3. User clicks link → opens frontend page
@@ -325,12 +330,14 @@ export default function ConfirmEmailPage() {
 }
 ```
 
-**API Request**:
+**API Request:**
+
 ```typescript
 GET /v1/auth/confirmation?confirmation_token=abc123
 ```
 
-**API Responses**:
+**API Responses:**
+
 - **Success** (200): `{ "message": "Email confirmed successfully" }`
 - **Error** (422): `{ "error": { "type": "invalid_token", "message": "..." } }`
 
@@ -374,11 +381,13 @@ pnpm dev
 ## Implementation Checklist
 
 ### Pages
+
 - [ ] `/app/auth/forgot-password/page.tsx`
 - [ ] `/app/auth/reset-password/page.tsx`
 - [ ] `/app/auth/confirm-email/page.tsx`
 
 ### Styling
+
 - [ ] Match existing auth pages (login/signup)
 - [ ] Mobile responsive
 - [ ] Loading spinners
@@ -386,6 +395,7 @@ pnpm dev
 - [ ] Success feedback
 
 ### UX Enhancements
+
 - [ ] Password visibility toggle
 - [ ] Password strength indicator
 - [ ] "Back to login" links
@@ -393,6 +403,7 @@ pnpm dev
 - [ ] Form validation
 
 ### Edge Cases
+
 - [ ] Missing token parameter
 - [ ] Expired tokens
 - [ ] Network errors
@@ -412,20 +423,20 @@ pnpm dev
 
 ### Token Lifecycle
 
-- **Reset tokens**: Valid for 6 hours, single-use
-- **Confirmation tokens**: Valid until used, single-use
+- **Reset tokens:** Valid for 6 hours, single-use
+- **Confirmation tokens:** Valid until used, single-use
 - Once used or expired, user must request new one
 
 ---
 
 ## Common Issues
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Email link wrong URL | Config issue | Check `frontend_base_url` in API config |
-| CORS error | API not allowing origin | Check API CORS settings |
-| Token expired | Too slow clicking link | Request new reset/confirmation |
-| Token invalid | Already used or fake | Request new reset/confirmation |
+| Issue                | Cause                   | Solution                                |
+| -------------------- | ----------------------- | --------------------------------------- |
+| Email link wrong URL | Config issue            | Check `frontend_base_url` in API config |
+| CORS error           | API not allowing origin | Check API CORS settings                 |
+| Token expired        | Too slow clicking link  | Request new reset/confirmation          |
+| Token invalid        | Already used or fake    | Request new reset/confirmation          |
 
 ---
 
