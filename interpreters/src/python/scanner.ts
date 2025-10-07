@@ -214,7 +214,7 @@ export class Scanner {
       "RAISE",
       // "RETURN", - Implemented for user-defined functions
       "TRY",
-      "WHILE",
+      // "WHILE", - Implemented for while loops
       "WITH",
       "YIELD",
       // Operators

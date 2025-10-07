@@ -1,13 +1,26 @@
 import type { EvaluationResultIfStatement } from "../evaluation-result";
 import type { Executor } from "../executor";
 import type { IfStatement } from "../statement";
+import { isTruthy } from "../helpers";
 
 export function executeIfStatement(executor: Executor, statement: IfStatement) {
-  const conditionResult = executor.executeFrame<EvaluationResultIfStatement>(statement, () =>
-    executeCondition(executor, statement)
-  );
+  let conditionValue!: boolean;
 
-  if (conditionResult.jikiObject.value) {
+  executor.executeFrame<EvaluationResultIfStatement>(statement, () => {
+    const result = executor.evaluate(statement.condition);
+
+    // Validate truthiness inside the frame - this will throw with the condition's location if invalid
+    conditionValue = isTruthy(executor, result.jikiObject, statement.condition.location);
+
+    return {
+      type: "IfStatement",
+      condition: result,
+      jikiObject: result.jikiObject,
+      immutableJikiObject: result.jikiObject.clone(),
+    };
+  });
+
+  if (conditionValue) {
     executor.executeStatement(statement.thenBranch);
     return;
   }
@@ -16,18 +29,4 @@ export function executeIfStatement(executor: Executor, statement: IfStatement) {
     return;
   }
   executor.executeStatement(statement.elseBranch);
-}
-
-function executeCondition(executor: Executor, statement: IfStatement): EvaluationResultIfStatement {
-  const result = executor.evaluate(statement.condition);
-
-  // Verify that the condition is a boolean if truthiness is disabled
-  executor.verifyBoolean(result.jikiObject, statement.condition.location);
-
-  return {
-    type: "IfStatement",
-    condition: result,
-    jikiObject: result.jikiObject,
-    immutableJikiObject: result.jikiObject.clone(),
-  };
 }

@@ -23,7 +23,7 @@ Supports Python tokens including single/multi-character operators, literals, key
 
 Builds an Abstract Syntax Tree (AST) from tokens using recursive descent parsing.
 
-**AST Nodes**: Literals, binary/unary expressions, grouping, identifiers, list expressions, subscript expressions, expression/assignment statements, if/elif/else statements, for-in statements, break/continue statements, indented block statements.
+**AST Nodes**: Literals, binary/unary expressions, grouping, identifiers, list expressions, subscript expressions, expression/assignment statements, if/elif/else statements, for-in statements, while statements, break/continue statements, indented block statements.
 
 Python-specific operator precedence from grouping through logical OR, including power operator.
 
@@ -72,6 +72,7 @@ Modular executor architecture with dedicated modules for each AST node type. Mai
 - `describeIfStatement.ts` - Conditional execution descriptions
 - `describeBlockStatement.ts` - Block statement descriptions
 - `describeForInStatement.ts` - For loop iteration descriptions
+- `describeWhileStatement.ts` - While loop condition evaluation and iteration descriptions
 - `describeBreakStatement.ts` - Loop break descriptions
 - `describeContinueStatement.ts` - Loop continue descriptions
 - `describeBinaryExpression.ts` - Binary operations with short-circuit support

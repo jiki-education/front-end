@@ -21,6 +21,7 @@ import {
   IfStatement,
   BlockStatement,
   ForInStatement,
+  WhileStatement,
   BreakStatement,
   ContinueStatement,
   FunctionDeclaration,
@@ -77,6 +78,7 @@ export class Parser {
       BlockStatement: "Block statements",
       IfStatement: "If statements",
       ForInStatement: "For loops",
+      WhileStatement: "While loops",
       BreakStatement: "Break statements",
       ContinueStatement: "Continue statements",
       FunctionDeclaration: "Function declarations",
@@ -120,6 +122,11 @@ export class Parser {
       // Check for for statement
       if (this.match("FOR")) {
         return this.forInStatement();
+      }
+
+      // Check for while statement
+      if (this.match("WHILE")) {
+        return this.whileStatement();
       }
 
       // Check for break statement
@@ -569,6 +576,32 @@ export class Parser {
     const body = bodyBlock instanceof BlockStatement ? bodyBlock.statements : [bodyBlock];
 
     return new ForInStatement(variable, iterable, body, Location.between(forToken, bodyBlock));
+  }
+
+  private whileStatement(): Statement {
+    const whileToken = this.previous();
+
+    // Check if WhileStatement is allowed
+    this.checkNodeAllowed("WhileStatement", "WhileStatementNotAllowed", whileToken.location);
+
+    // Parse the condition expression
+    const condition = this.expression();
+
+    // Parse the colon
+    this.consume("COLON", "MissingColon");
+
+    // Consume the newline after the colon
+    if (this.check("NEWLINE")) {
+      this.advance();
+    }
+
+    // Parse the block body
+    const bodyBlock = this.block();
+
+    // Extract statements from BlockStatement
+    const body = bodyBlock instanceof BlockStatement ? bodyBlock.statements : [bodyBlock];
+
+    return new WhileStatement(condition, body, Location.between(whileToken, bodyBlock));
   }
 
   private breakStatement(): Statement {

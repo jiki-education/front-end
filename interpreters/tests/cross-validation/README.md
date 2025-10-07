@@ -31,15 +31,6 @@ tests/cross-validation/
 ## Running Tests
 
 ```bash
-# Run all cross-validation tests
-pnpm test:cross
-
-# Run Python tests only
-pnpm test:cross:python
-
-# Run JavaScript tests only
-pnpm test:cross:js
-
 # Run with regular test suite
 pnpm test
 ```

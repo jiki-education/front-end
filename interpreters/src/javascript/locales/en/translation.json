@@ -59,7 +59,8 @@
       "ForOfLoopTargetNotIterable": "The for...of loop requires an iterable value (like an array or string), but you provided a {{type}} with value {{value}}.",
       "MethodNotYetImplemented": "The method '{{method}}' exists but has not been implemented yet. It will be available in a future version.",
       "MethodNotYetAvailable": "The method '{{method}}' is not available at your current learning level. Keep progressing to unlock this feature!",
-      "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter."
+      "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter.",
+      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}."
     }
   }
 }

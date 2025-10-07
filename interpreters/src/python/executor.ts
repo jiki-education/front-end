@@ -22,6 +22,7 @@ import {
   IfStatement,
   BlockStatement,
   ForInStatement,
+  WhileStatement,
   BreakStatement,
   ContinueStatement,
   FunctionDeclaration,
@@ -54,6 +55,7 @@ import { executeBlockStatement } from "./executor/executeBlockStatement";
 import { executeListExpression } from "./executor/executeListExpression";
 import { executeSubscriptExpression } from "./executor/executeSubscriptExpression";
 import { executeForInStatement } from "./executor/executeForInStatement";
+import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeBreakStatement } from "./executor/executeBreakStatement";
 import { executeContinueStatement } from "./executor/executeContinueStatement";
 import { executeCallExpression } from "./executor/executeCallExpression";
@@ -85,7 +87,8 @@ export type RuntimeErrorType =
   | "AttributeError"
   | "ValueError"
   | "MethodNotYetImplemented"
-  | "MethodNotYetAvailable";
+  | "MethodNotYetAvailable"
+  | "MaxIterationsReached";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
@@ -112,6 +115,8 @@ export class Executor {
   public readonly logLines: Array<{ time: number; output: string }> = [];
   public time: number = 0;
   private readonly timePerFrame: number = 1;
+  private totalLoopIterations = 0;
+  private readonly maxTotalLoopIterations: number;
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
 
@@ -123,8 +128,10 @@ export class Executor {
     this.languageFeatures = {
       allowTruthiness: false, // Default to false for educational purposes
       allowTypeCoercion: false,
+      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
 
     // Register builtin functions (like print) as PyStdLibFunction objects
     for (const [name, builtin] of Object.entries(builtinFunctions)) {
@@ -236,6 +243,8 @@ export class Executor {
         result = executeBlockStatement(this, statement);
       } else if (statement instanceof ForInStatement) {
         result = executeForInStatement(this, statement);
+      } else if (statement instanceof WhileStatement) {
+        result = executeWhileStatement(this, statement);
       } else if (statement instanceof BreakStatement) {
         executeBreakStatement(this, statement);
         result = null;
@@ -358,6 +367,16 @@ export class Executor {
     if (value.type !== "boolean") {
       this.error("TruthinessDisabled", location, {
         value: value.type,
+      });
+    }
+  }
+
+  public guardInfiniteLoop(location: Location): void {
+    this.totalLoopIterations++;
+
+    if (this.totalLoopIterations > this.maxTotalLoopIterations) {
+      this.error("MaxIterationsReached", location, {
+        max: this.maxTotalLoopIterations,
       });
     }
   }

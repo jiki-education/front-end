@@ -59,7 +59,8 @@
       "ForOfLoopTargetNotIterable": "ForOfLoopTargetNotIterable: type: {{type}}: value: {{value}}",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
-      "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}"
+      "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}",
+      "MaxIterationsReached": "MaxIterationsReached: max: {{max}}"
     }
   }
 }
