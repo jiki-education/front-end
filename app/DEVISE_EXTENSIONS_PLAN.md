@@ -1,64 +1,58 @@
-# Devise Extensions - Frontend Implementation Plan
+# Devise Authentication Flows - Frontend Implementation
 
-This document outlines how to implement password reset and other Devise flows in the frontend, working with the Rails API's Devise + JWT authentication.
-
-## Overview
-
-The backend uses Devise with JWT for authentication in an API-only Rails app. Devise handles flows like password reset by sending emails with tokens. The **frontend is responsible** for:
-
-1. Providing forms for users to request actions (reset password, etc.)
-2. Displaying pages that the backend emails link to
-3. Submitting tokens + data back to the API
-
-## Architecture Pattern
-
-```
-┌─────────────┐         ┌──────────────┐         ┌─────────────┐
-│   Frontend  │  POST   │   Rails API  │  Email  │    User     │
-│             │────────>│   + Devise   │────────>│             │
-│  /forgot-   │         │              │         │   Inbox     │
-│  password   │         │  Generates   │         │             │
-└─────────────┘         │    Token     │         └─────────────┘
-                        └──────────────┘                │
-                                                        │ Clicks link
-                                                        ▼
-┌─────────────┐         ┌──────────────┐         ┌─────────────┐
-│   Frontend  │  PATCH  │   Rails API  │         │   Frontend  │
-│             │<────────│              │<────────│  /reset-    │
-│  Success    │         │  Validates   │         │  password   │
-│  Message    │         │    Token     │         │  ?token=... │
-└─────────────┘         └──────────────┘         └─────────────┘
-```
+This document explains how to implement authentication flows (password reset and email confirmation) in the frontend. The backend API handles token generation and email sending - your job is to build the pages users interact with.
 
 ## Password Reset Flow
 
-### 1. Request Password Reset
+### How It Works
 
-**Page**: `/auth/forgot-password`
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Frontend  │  POST   │      API     │  Email  │    User     │
+│             │────────>│              │────────>│             │
+│  /forgot-   │         │   Generates  │         │   Inbox     │
+│  password   │         │    Token     │         │             │
+└─────────────┘         └──────────────┘         └─────────────┘
+                                                         │
+                                                         │ Clicks link
+                                                         ▼
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Frontend  │  PATCH  │      API     │         │   Frontend  │
+│             │<────────│              │<────────│  /reset-    │
+│  Success!   │         │  Validates   │         │  password   │
+│  Redirect   │         │    Token     │         │  ?token=... │
+└─────────────┘         └──────────────┘         └─────────────┘
+```
 
-**Purpose**: Let users request a password reset email
+**User Journey:**
+1. User forgets password → visits `/auth/forgot-password`
+2. User enters email → frontend POSTs to API
+3. API sends email with link to `/auth/reset-password?token=abc123`
+4. User clicks link → opens frontend page
+5. User enters new password → frontend PATCHes to API with token
+6. Success → redirect to login
 
-**Implementation**:
+### 1. Forgot Password Page
+
+**Route**: `/auth/forgot-password`
+
+**What it does**: Lets users request a password reset email
 
 ```typescript
 // app/auth/forgot-password/page.tsx
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api/client';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
 
     try {
       await api.post('/v1/auth/password', {
@@ -66,7 +60,8 @@ export default function ForgotPasswordPage() {
       });
       setSuccess(true);
     } catch (err) {
-      setError('Failed to send reset email. Please try again.');
+      // Show generic error (don't reveal if email exists)
+      alert('Failed to send reset email. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -76,10 +71,7 @@ export default function ForgotPasswordPage() {
     return (
       <div>
         <h1>Check Your Email</h1>
-        <p>
-          We've sent password reset instructions to {email}.
-          Please check your inbox.
-        </p>
+        <p>We've sent password reset instructions to {email}.</p>
       </div>
     );
   }
@@ -87,8 +79,6 @@ export default function ForgotPasswordPage() {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Reset Your Password</h1>
-      {error && <div className="error">{error}</div>}
-
       <input
         type="email"
         value={email}
@@ -96,7 +86,6 @@ export default function ForgotPasswordPage() {
         placeholder="Enter your email"
         required
       />
-
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Sending...' : 'Send Reset Instructions'}
       </button>
@@ -105,10 +94,9 @@ export default function ForgotPasswordPage() {
 }
 ```
 
-**API Endpoint**: `POST /v1/auth/password`
-
-**Request Body**:
-```json
+**API Request**:
+```typescript
+POST /v1/auth/password
 {
   "user": {
     "email": "user@example.com"
@@ -116,20 +104,13 @@ export default function ForgotPasswordPage() {
 }
 ```
 
-**Response**: Always returns 200 OK to prevent email enumeration
-```json
-{
-  "message": "Reset instructions sent to user@example.com"
-}
-```
+**API Response**: Always 200 OK (security: don't reveal if email exists)
 
 ### 2. Reset Password Page
 
-**Page**: `/auth/reset-password?token=abc123...`
+**Route**: `/auth/reset-password?token=abc123`
 
-**Purpose**: Allow users to set a new password after clicking the email link
-
-**Implementation**:
+**What it does**: Lets users set a new password
 
 ```typescript
 // app/auth/reset-password/page.tsx
@@ -147,44 +128,41 @@ export default function ResetPasswordPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   if (!token) {
     return (
       <div>
-        <h1>Invalid Reset Link</h1>
-        <p>This password reset link is invalid or has expired.</p>
+        <h1>Invalid Link</h1>
+        <p>This password reset link is invalid or expired.</p>
       </div>
     );
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
 
     if (password !== passwordConfirmation) {
-      setError('Passwords do not match');
-      setIsLoading(false);
+      alert('Passwords do not match');
       return;
     }
+
+    setIsLoading(true);
 
     try {
       await api.patch('/v1/auth/password', {
         user: {
           reset_password_token: token,
-          password: password,
+          password,
           password_confirmation: passwordConfirmation
         }
       });
 
-      // Success - redirect to login
       router.push('/auth/login?reset=success');
     } catch (err: any) {
       if (err.response?.status === 422) {
-        setError('Reset token is invalid or has expired. Please request a new one.');
+        alert('Reset token is invalid or expired. Please request a new one.');
       } else {
-        setError('Failed to reset password. Please try again.');
+        alert('Failed to reset password. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -194,8 +172,6 @@ export default function ResetPasswordPage() {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Choose a New Password</h1>
-      {error && <div className="error">{error}</div>}
-
       <input
         type="password"
         value={password}
@@ -204,16 +180,14 @@ export default function ResetPasswordPage() {
         minLength={6}
         required
       />
-
       <input
         type="password"
         value={passwordConfirmation}
         onChange={(e) => setPasswordConfirmation(e.target.value)}
-        placeholder="Confirm new password"
+        placeholder="Confirm password"
         minLength={6}
         required
       />
-
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Resetting...' : 'Reset Password'}
       </button>
@@ -222,10 +196,9 @@ export default function ResetPasswordPage() {
 }
 ```
 
-**API Endpoint**: `PATCH /v1/auth/password`
-
-**Request Body**:
-```json
+**API Request**:
+```typescript
+PATCH /v1/auth/password
 {
   "user": {
     "reset_password_token": "abc123...",
@@ -235,220 +208,232 @@ export default function ResetPasswordPage() {
 }
 ```
 
-**Success Response** (200):
-```json
-{
-  "message": "Password has been reset successfully"
-}
+**API Responses**:
+- **Success** (200): `{ "message": "Password has been reset successfully" }`
+- **Error** (422): `{ "error": { "type": "invalid_token", "message": "..." } }`
+
+---
+
+## Email Confirmation Flow
+
+### How It Works
+
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Frontend  │  POST   │      API     │  Email  │    User     │
+│             │────────>│              │────────>│             │
+│  /signup    │         │   Creates    │         │   Inbox     │
+│             │         │   Account    │         │             │
+└─────────────┘         └──────────────┘         └─────────────┘
+                                                         │
+                                                         │ Clicks link
+                                                         ▼
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Frontend  │   GET   │      API     │         │   Frontend  │
+│             │────────>│              │<────────│  /confirm-  │
+│  Success!   │         │   Confirms   │         │  email      │
+│  Redirect   │         │   Account    │         │  ?token=... │
+└─────────────┘         └──────────────┘         └─────────────┘
 ```
 
-**Error Response** (422):
-```json
-{
-  "error": {
-    "type": "invalid_token",
-    "message": "Reset token is invalid or has expired",
-    "errors": {
-      "reset_password_token": ["is invalid"]
+**User Journey:**
+1. User signs up → API creates account (unconfirmed)
+2. API sends email with link to `/auth/confirm-email?token=abc123`
+3. User clicks link → opens frontend page
+4. Frontend immediately GETs API with token → API confirms account
+5. Success → redirect to login or dashboard
+
+### Confirm Email Page
+
+**Route**: `/auth/confirm-email?token=abc123`
+
+**What it does**: Confirms user's email address automatically when they visit
+
+```typescript
+// app/auth/confirm-email/page.tsx
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { api } from '@/lib/api/client';
+
+export default function ConfirmEmailPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+  const router = useRouter();
+
+  const [status, setStatus] = useState<'confirming' | 'success' | 'error'>('confirming');
+
+  useEffect(() => {
+    if (!token) {
+      setStatus('error');
+      return;
     }
+
+    const confirmEmail = async () => {
+      try {
+        await api.get('/v1/auth/confirmation', {
+          params: { confirmation_token: token }
+        });
+
+        setStatus('success');
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          router.push('/auth/login?confirmed=true');
+        }, 2000);
+      } catch (err: any) {
+        setStatus('error');
+      }
+    };
+
+    confirmEmail();
+  }, [token, router]);
+
+  if (status === 'confirming') {
+    return (
+      <div>
+        <h1>Confirming Your Email...</h1>
+        <p>Please wait while we confirm your email address.</p>
+      </div>
+    );
   }
+
+  if (status === 'success') {
+    return (
+      <div>
+        <h1>Email Confirmed!</h1>
+        <p>Your email has been confirmed. Redirecting to login...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1>Confirmation Failed</h1>
+      <p>This confirmation link is invalid or has expired.</p>
+      <a href="/auth/signup">Sign up again</a>
+    </div>
+  );
 }
 ```
 
-## Email Template Context
+**API Request**:
+```typescript
+GET /v1/auth/confirmation?confirmation_token=abc123
+```
 
-The backend sends emails with links that point to the frontend:
+**API Responses**:
+- **Success** (200): `{ "message": "Email confirmed successfully" }`
+- **Error** (422): `{ "error": { "type": "invalid_token", "message": "..." } }`
 
-**Password Reset Email**:
-- **Link**: `http://localhost:3000/auth/reset-password?token=abc123...`
-- **Backend Variable**: `Jiki.config.frontend_base_url` (from config gem)
-- **Configured In**: `../config/settings/local.yml` and `ci.yml`
+---
 
-## Testing in Development
+## Testing Locally
 
-### 1. Test Password Reset Flow
+### Setup
 
 ```bash
-# Start Rails API (runs on http://localhost:3061)
+# Terminal 1: Start API (localhost:3061)
 cd api
 bin/rails server
 
-# Start Frontend (runs on http://localhost:3000)
+# Terminal 2: Start Frontend (localhost:3060)
 cd front-end-app/app
 pnpm dev
 ```
 
-### 2. Trigger Password Reset Email
+### Test Password Reset
 
-1. Navigate to `http://localhost:3000/auth/forgot-password`
-2. Enter an email address of an existing user
-3. Submit the form
+1. Visit `http://localhost:3060/auth/forgot-password`
+2. Enter email of existing user
+3. Check browser - email opens automatically (Letter Opener)
+4. Click "Reset My Password" in email
+5. Opens `http://localhost:3060/auth/reset-password?token=...`
+6. Enter new password
+7. Should redirect to login
 
-### 3. Check Email (Letter Opener)
+### Test Email Confirmation
 
-Rails development uses Letter Opener - emails automatically open in your browser.
+1. Sign up a new user (if signup is implemented)
+2. Check browser - confirmation email opens automatically
+3. Click "Confirm My Email" in email
+4. Opens `http://localhost:3060/auth/confirm-email?token=...`
+5. Page confirms automatically
+6. Redirects to login after 2 seconds
 
-Check the email contains:
-- Link to `http://localhost:3000/auth/reset-password?token=...`
-- Clear call-to-action button
-- Expiry information (6 hours)
-
-### 4. Complete Reset
-
-1. Click the link in the email
-2. Should navigate to frontend reset password page
-3. Enter new password (twice)
-4. Submit form
-5. Should redirect to `/auth/login?reset=success`
+---
 
 ## Implementation Checklist
 
-### Pages to Create
-
-- [ ] `/app/auth/forgot-password/page.tsx` - Request password reset form
-- [ ] `/app/auth/reset-password/page.tsx` - Reset password form with token
-
-### Components to Create (Optional)
-
-- [ ] `<PasswordResetRequestForm />` - Reusable forgot password form
-- [ ] `<PasswordResetForm />` - Reusable reset password form
-- [ ] `<PasswordStrengthIndicator />` - Show password strength
-
-### API Integration
-
-- [x] Password reset request endpoint exists: `POST /v1/auth/password`
-- [x] Password reset completion endpoint exists: `PATCH /v1/auth/password`
-- [x] Backend sends emails with correct frontend URLs
-- [ ] Frontend API client handles password reset requests
-- [ ] Error handling for invalid/expired tokens
-
-### User Experience
-
-- [ ] Loading states during API calls
-- [ ] Clear error messages
-- [ ] Success messages with next steps
-- [ ] Form validation (password length, matching passwords)
-- [ ] Password visibility toggle
-- [ ] "Back to login" links
-- [ ] Auto-redirect after successful reset
+### Pages
+- [ ] `/app/auth/forgot-password/page.tsx`
+- [ ] `/app/auth/reset-password/page.tsx`
+- [ ] `/app/auth/confirm-email/page.tsx`
 
 ### Styling
-
-- [ ] Consistent with existing auth pages (login/signup)
+- [ ] Match existing auth pages (login/signup)
 - [ ] Mobile responsive
-- [ ] Accessible (ARIA labels, keyboard navigation)
-- [ ] Loading spinners/indicators
+- [ ] Loading spinners
+- [ ] Clear error messages
+- [ ] Success feedback
+
+### UX Enhancements
+- [ ] Password visibility toggle
+- [ ] Password strength indicator
+- [ ] "Back to login" links
+- [ ] Prevent double submissions
+- [ ] Form validation
 
 ### Edge Cases
+- [ ] Missing token parameter
+- [ ] Expired tokens
+- [ ] Network errors
+- [ ] CORS issues (check API config)
 
-- [ ] Handle missing token parameter
-- [ ] Handle expired tokens
-- [ ] Handle already-used tokens
-- [ ] Handle user not found (backend returns success to prevent enumeration)
-- [ ] Handle network errors
-- [ ] Prevent multiple submissions
+---
 
-## Future Extensions
+## Security Notes
 
-### Email Confirmation (If Needed)
+### For Frontend Developers
 
-**Pattern is identical to password reset**:
+- **Never log tokens** - Don't `console.log()` tokens
+- **Generic errors on request** - Don't reveal if email exists when requesting reset
+- **Specific errors on completion** - It's safe to say "token expired" when using the token
+- **HTTPS in production** - Tokens are in URLs, need encryption
+- **Minimum password length** - Enforce 6+ characters (matches backend)
 
-1. **Backend adds** `:confirmable` module to User model
-2. **Backend sends** confirmation email with token
-3. **Frontend creates** `/auth/confirm-email?token=...` page
-4. **Page calls** `GET /v1/auth/confirmation?confirmation_token=...`
-5. **Backend confirms** user and returns success
+### Token Lifecycle
 
-### Account Unlocking (If :lockable enabled)
+- **Reset tokens**: Valid for 6 hours, single-use
+- **Confirmation tokens**: Valid until used, single-use
+- Once used or expired, user must request new one
 
-Same pattern - backend sends email, frontend displays page, calls API with token.
+---
 
-## Security Considerations
+## Common Issues
 
-### Token Handling
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Email link wrong URL | Config issue | Check `frontend_base_url` in API config |
+| CORS error | API not allowing origin | Check API CORS settings |
+| Token expired | Too slow clicking link | Request new reset/confirmation |
+| Token invalid | Already used or fake | Request new reset/confirmation |
 
-- **Never log tokens** - Don't console.log tokens
-- **HTTPS only in production** - Tokens sent over URL params
-- **Short token expiry** - Backend expires reset tokens after 6 hours
-- **Single-use tokens** - Backend invalidates tokens after use
+---
 
-### Password Requirements
+## Optional: Auto-Login After Reset
 
-Match backend requirements:
-- Minimum 6 characters (Devise default)
-- Consider adding:
-  - Password strength indicator
-  - Common password checks
-  - Minimum character requirements
+By default, users redirect to login after password reset (more secure). If you want auto-login:
 
-### Error Messages
-
-- **Generic on request** - "If this email exists, we've sent instructions"
-- **Specific on reset** - "Token is invalid or expired" is safe to reveal
-- **No user enumeration** - Don't reveal if email exists
-
-## Related Documentation
-
-- **Backend Auth**: See `api/.context/auth.md` for API details
-- **Frontend Auth**: See `.context/auth.md` for current auth implementation
-- **API Client**: See `.context/api.md` for HTTP client setup
-- **Mailers**: See `api/.context/mailers.md` for email template patterns
-
-## Common Issues & Solutions
-
-### Issue: Email link doesn't work locally
-
-**Problem**: Link points to wrong URL
-**Solution**: Check `Jiki.config.frontend_base_url` in `../config/settings/local.yml`
-
-### Issue: Token expired error
-
-**Problem**: Took too long to click email link
-**Solution**: Backend expires tokens after 6 hours - request new reset
-
-### Issue: Token invalid error
-
-**Problem**: Token already used or never existed
-**Solution**: Request new reset link
-
-### Issue: CORS error when calling API
-
-**Problem**: API not allowing frontend origin
-**Solution**: Check CORS configuration in `api/config/initializers/cors.rb`
-
-## Implementation Notes
-
-### Why Not Auto-Login After Reset?
-
-The backend can auto-login after password reset by returning a JWT token. However, for security:
-- Better to redirect to login page
-- Forces user to confirm new password works
-- Prevents session hijacking if email was compromised
-
-If you want auto-login:
 ```typescript
-// In reset-password page.tsx
 const response = await api.patch('/v1/auth/password', { ... });
 const token = response.headers.authorization?.replace('Bearer ', '');
 if (token) {
-  // Store token and redirect to dashboard
+  // Store JWT and redirect to dashboard
   useAuthStore.getState().setAuth(token, response.data.user);
   router.push('/dashboard');
 }
 ```
 
-### Internationalization
-
-Password reset pages should support multiple languages:
-- Use same locale detection as login/signup pages
-- Backend sends emails in user's preferred language
-- Frontend forms match email language
-
-### Analytics
-
-Consider tracking:
-- Password reset requests (count)
-- Successful password resets (count)
-- Time between request and completion
-- Failed reset attempts (expired/invalid tokens)
+⚠️ **Security tradeoff**: If user's email was compromised, attacker could auto-login
