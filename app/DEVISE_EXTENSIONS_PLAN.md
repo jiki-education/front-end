@@ -1,6 +1,13 @@
 # Devise Authentication Flows - Frontend Implementation
 
-This document explains how to implement authentication flows (password reset and email confirmation) in the frontend. The backend API handles token generation and email sending - your job is to build the pages users interact with.
+This document explains how to implement two authentication flows in the frontend:
+
+1. **Forgot Password Flow** - Let users reset their password via email
+2. **Email Confirmation Flow** - Verify user email addresses after signup
+
+The backend API handles token generation and email sending - your job is to build the pages users interact with.
+
+---
 
 ## Password Reset Flow
 
