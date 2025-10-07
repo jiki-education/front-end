@@ -615,7 +615,7 @@ Examples:
   tsx scripts/analyze-exports.ts
 
   # Analyze specific file
-  tsx scripts/analyze-exports.ts components/complex-exercise/lib/Orchestrator.ts
+  tsx scripts/analyze-exports.ts components/coding-exercise/lib/Orchestrator.ts
 
   # Generate markdown report
   tsx scripts/analyze-exports.ts --markdown > unused-exports.md

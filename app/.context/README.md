@@ -35,16 +35,16 @@ General documentation that applies across the entire codebase:
 - **[api.md](./api.md)** - Backend API client and usage patterns
 - **[auth.md](./auth.md)** - JWT authentication system and auth flow
 
-### Complex Exercise Context (`complex-exercise/`)
+### Complex Exercise Context (`coding-exercise/`)
 
 Documentation specific to the complex exercise component and its subsystems:
 
-- **[README.md](./complex-exercise/README.md)** - Overview of how complex exercise components work together
-- **[codemirror.md](./complex-exercise/codemirror.md)** - CodeMirror editor integration and extension system
-- **[orchestrator-pattern.md](./complex-exercise/orchestrator-pattern.md)** - Orchestrator pattern for state management
-- **[scrubber-frames.md](./complex-exercise/scrubber-frames.md)** - Frame system and timeline concepts
-- **[scrubber-implementation.md](./complex-exercise/scrubber-implementation.md)** - Scrubber UI component implementation
-- **[test-runner.md](./complex-exercise/test-runner.md)** - Test execution and frame generation
+- **[README.md](./coding-exercise/README.md)** - Overview of how complex exercise components work together
+- **[codemirror.md](./coding-exercise/codemirror.md)** - CodeMirror editor integration and extension system
+- **[orchestrator-pattern.md](./coding-exercise/orchestrator-pattern.md)** - Orchestrator pattern for state management
+- **[scrubber-frames.md](./coding-exercise/scrubber-frames.md)** - Frame system and timeline concepts
+- **[scrubber-implementation.md](./coding-exercise/scrubber-implementation.md)** - Scrubber UI component implementation
+- **[test-runner.md](./coding-exercise/test-runner.md)** - Test execution and frame generation
 
 ## How to Use These Files
 
@@ -68,7 +68,7 @@ When working on a task, load context files in this order:
 
 When working on complex exercise features, see:
 
-- **[complex-exercise/README.md](./complex-exercise/README.md)** - Start here for overview
+- **[coding-exercise/README.md](./coding-exercise/README.md)** - Start here for overview
 - Then load specific files based on your task
 
 ## Maintenance
@@ -116,7 +116,7 @@ All context files should include:
 - **Architecture?** → [architecture.md](./architecture.md)
 - **API integration?** → [api.md](./api.md)
 - **Authentication?** → [auth.md](./auth.md)
-- **Complex exercises?** → [complex-exercise/README.md](./complex-exercise/README.md)
+- **Complex exercises?** → [coding-exercise/README.md](./coding-exercise/README.md)
 - **Testing approach?** → [testing.md](./testing.md)
 - **Deployment?** → [deployment.md](./deployment.md)
 

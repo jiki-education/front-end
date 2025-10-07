@@ -1,5 +1,5 @@
-import { TimelineManager } from "@/components/complex-exercise/lib/orchestrator/TimelineManager";
-import type { OrchestratorStore } from "@/components/complex-exercise/lib/types";
+import { TimelineManager } from "@/components/coding-exercise/lib/orchestrator/TimelineManager";
+import type { OrchestratorStore } from "@/components/coding-exercise/lib/types";
 import { subscribeWithSelector } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 

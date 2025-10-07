@@ -15,8 +15,8 @@ The project uses two testing approaches:
 - **Naming Convention**: `[feature].test.tsx` or `[feature].test.ts`
 - **Examples**:
   - `tests/unit/AnimationTimeline.test.ts`
-  - `tests/unit/components/complex-exercise/Scrubber.test.tsx`
-  - `tests/unit/components/complex-exercise/scrubber/ScrubberInput.test.tsx`
+  - `tests/unit/components/coding-exercise/Scrubber.test.tsx`
+  - `tests/unit/components/coding-exercise/scrubber/ScrubberInput.test.tsx`
 - **Important**: All unit tests MUST be placed in the `tests/unit/` directory, not alongside source files
 - **Directory Structure**: Match the source directory structure within `tests/unit/`
 
@@ -214,7 +214,7 @@ When creating test pages for E2E tests, follow the same patterns used in product
 
 #### Orchestrator Initialization Pattern
 
-Test pages should initialize the Orchestrator following the same pattern as the ComplexExercise page:
+Test pages should initialize the Orchestrator following the same pattern as the CodingExercise page:
 
 ```typescript
 // ✅ CORRECT: Use useRef to ensure single orchestrator instance

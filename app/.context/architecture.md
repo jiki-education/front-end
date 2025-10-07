@@ -61,7 +61,7 @@ Following Next.js best practices, we use the "Store project files outside of app
     /video-exercise    # Video player testing
 /components            # Reusable React components used by pages
   /video-exercise      # Video lesson player component
-  /complex-exercise    # Coding exercise system
+  /coding-exercise    # Coding exercise system
   /index-page          # Dashboard components
     /exercise-path     # Level/lesson display system
 /lib                   # Core libraries and utilities
@@ -103,7 +103,7 @@ This approach provides:
   - Fetches lesson details from API
   - Routes to appropriate component based on type:
     - Video lessons → `VideoExercise` component
-    - Coding exercises → `ComplexExercise` component
+    - Coding exercises → `CodingExercise` component
   - Handles authentication and progress tracking
 
 ### Content Flow

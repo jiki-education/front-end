@@ -15,7 +15,7 @@ The lesson system provides a unified way to deliver both video content and codin
 Lessons are the atomic units of learning in Jiki. Each lesson can be either:
 
 - **Video**: Educational video content delivered via Mux
-- **Exercise**: Interactive coding challenges using the ComplexExercise system
+- **Exercise**: Interactive coding challenges using the CodingExercise system
 
 ## Data Structure
 
@@ -68,7 +68,7 @@ Dynamic route that loads the appropriate component based on lesson type:
 
 - Fetches lesson details from `/lessons/:slug` API endpoint
 - Routes to `VideoExercise` component for video lessons
-- Routes to `ComplexExercise` component for coding exercises
+- Routes to `CodingExercise` component for coding exercises
 
 ## Components
 
@@ -84,7 +84,7 @@ Handles video lesson playback:
   - Automatic progress tracking on completion
   - Integration with lesson quit button
 
-### ComplexExercise Integration
+### CodingExercise Integration
 
 For coding exercises:
 

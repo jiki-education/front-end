@@ -13,36 +13,36 @@ export default function TestIndexPage() {
       ]
     },
     {
-      category: "Complex Exercise",
+      category: "Coding Exercise",
       pages: [
         {
           name: "Breakpoint Gutter",
-          path: "/test/complex-exercise/breakpoint-gutter",
+          path: "/test/coding-exercise/breakpoint-gutter",
           description: "Test breakpoint gutter functionality"
         },
         {
           name: "Breakpoint Stepper Buttons",
-          path: "/test/complex-exercise/breakpoint-stepper-buttons",
+          path: "/test/coding-exercise/breakpoint-stepper-buttons",
           description: "Test breakpoint navigation controls"
         },
         {
           name: "Code Folding",
-          path: "/test/complex-exercise/code-folding",
+          path: "/test/coding-exercise/code-folding",
           description: "Test code folding functionality"
         },
         {
           name: "Frame Stepper Buttons",
-          path: "/test/complex-exercise/frame-stepper-buttons",
+          path: "/test/coding-exercise/frame-stepper-buttons",
           description: "Test frame navigation controls"
         },
         {
           name: "Orchestrator CodeMirror",
-          path: "/test/complex-exercise/orchestrator-codemirror",
+          path: "/test/coding-exercise/orchestrator-codemirror",
           description: "Test orchestrator integration with CodeMirror"
         },
         {
           name: "Scrubber Input",
-          path: "/test/complex-exercise/scrubber-input",
+          path: "/test/coding-exercise/scrubber-input",
           description: "Test timeline scrubber input control"
         }
       ]

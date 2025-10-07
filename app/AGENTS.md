@@ -9,7 +9,7 @@ Context files explain how everything works. If the human MENTIONS something that
 ### Documentation Structure
 
 - **[.context/README.md](.context/README.md)** - **ALWAYS READ THIS FILE BEFORE WORKING ON ANY INSTRUCTION. THIS IS THE FIRST THING YOU DO WHEN A HUMAN GIVES YOU AN INSTRUCTION** - Overview of all context documentation
-- **[.context/complex-exercise/README.md](.context/complex-exercise/README.md)** - Complex exercise system overview
+- **[.context/coding-exercise/README.md](.context/coding-exercise/README.md)** - Complex exercise system overview
 
 ### General Context Files
 
@@ -29,13 +29,13 @@ Load the relevant context files from `.context/` directory based on your task:
 
 ### Complex Exercise Context Files
 
-When working on the complex exercise component, load these files from `.context/complex-exercise/`:
+When working on the complex exercise component, load these files from `.context/coding-exercise/`:
 
-- [.context/complex-exercise/orchestrator-pattern.md](.context/complex-exercise/orchestrator-pattern.md) - Orchestrator pattern for complex state management
-- [.context/complex-exercise/codemirror.md](.context/complex-exercise/codemirror.md) - CodeMirror editor integration
-- [.context/complex-exercise/scrubber-frames.md](.context/complex-exercise/scrubber-frames.md) - Frame system and timeline
-- [.context/complex-exercise/scrubber-implementation.md](.context/complex-exercise/scrubber-implementation.md) - Scrubber UI implementation
-- [.context/complex-exercise/test-runner.md](.context/complex-exercise/test-runner.md) - Test execution system
+- [.context/coding-exercise/orchestrator-pattern.md](.context/coding-exercise/orchestrator-pattern.md) - Orchestrator pattern for complex state management
+- [.context/coding-exercise/codemirror.md](.context/coding-exercise/codemirror.md) - CodeMirror editor integration
+- [.context/coding-exercise/scrubber-frames.md](.context/coding-exercise/scrubber-frames.md) - Frame system and timeline
+- [.context/coding-exercise/scrubber-implementation.md](.context/coding-exercise/scrubber-implementation.md) - Scrubber UI implementation
+- [.context/coding-exercise/test-runner.md](.context/coding-exercise/test-runner.md) - Test execution system
 
 ## Quick Start
 
@@ -80,7 +80,7 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 Components follow a hierarchical pattern:
 
-- **Feature-based folders** in `/components/` (e.g., `complex-exercise/`)
+- **Feature-based folders** in `/components/` (e.g., `coding-exercise/`)
 - **UI subfolder** for presentational components within features
 - **Lib subfolder** for business logic and utilities
 - **Single responsibility** - each component has one clear purpose
@@ -188,7 +188,7 @@ This pattern makes components readable from high-level to low-level details.
 
 2. **Avoid code duplication in context files** - Don't include large code blocks in context documentation when the actual code is just as easy for an LLM to look up. Instead, reference file paths and describe the functionality. Keep instructional examples and diagrams that explain concepts.
 
-   ✅ **GOOD**: "See `components/complex-exercise/lib/Orchestrator.ts` for the implementation"
+   ✅ **GOOD**: "See `components/coding-exercise/lib/Orchestrator.ts` for the implementation"
 
    ❌ **BAD**: Including entire class definitions or method implementations in context files
 
