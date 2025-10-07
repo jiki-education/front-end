@@ -49,7 +49,8 @@
       "UnsupportedOperation": "Expression type '{{type}}' is not supported.",
       "AttributeError": "'{{type}}' object has no attribute '{{attribute}}'.",
       "MethodNotYetImplemented": "The method '{{method}}' is not yet implemented.",
-      "MethodNotYetAvailable": "The method '{{method}}' is not yet available."
+      "MethodNotYetAvailable": "The method '{{method}}' is not yet available.",
+      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}."
     }
   }
 }

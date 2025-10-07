@@ -100,6 +100,7 @@ export type RuntimeErrorType =
   | "ForOfLoopTargetNotIterable"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
+  | "MaxIterationsReached"
   | "NonJikiObjectDetectedInExecution";
 
 export class RuntimeError extends Error {
@@ -127,6 +128,8 @@ export class Executor {
   private readonly frames: Frame[] = [];
   public time: number = 0;
   private readonly timePerFrame: number = 1;
+  private totalLoopIterations = 0;
+  private readonly maxTotalLoopIterations: number;
   public readonly logLines: Array<{ time: number; output: string }> = [];
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
@@ -139,8 +142,10 @@ export class Executor {
       allowShadowing: false, // Default to false (shadowing disabled)
       allowTypeCoercion: false, // Default to false (type coercion disabled)
       enforceStrictEquality: true, // Default to true (strict equality required)
+      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
 
     // Register builtin objects (console, Math, etc.) as JSBuiltinObject in the environment
@@ -485,6 +490,16 @@ export class Executor {
       receivedType: typeof value,
       receivedValue: value,
     });
+  }
+
+  public guardInfiniteLoop(location: Location): void {
+    this.totalLoopIterations++;
+
+    if (this.totalLoopIterations > this.maxTotalLoopIterations) {
+      this.error("MaxIterationsReached", location, {
+        max: this.maxTotalLoopIterations,
+      });
+    }
   }
 
   public error(type: RuntimeErrorType, location: Location, context?: any): never {

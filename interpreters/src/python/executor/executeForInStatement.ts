@@ -69,6 +69,9 @@ export function executeForInStatement(executor: Executor, statement: ForInStatem
   for (const item of items) {
     iteration++;
 
+    // Guard against infinite loops
+    executor.guardInfiniteLoop(statement.location);
+
     // Set the loop variable
     executor.environment.define(variableName, item);
 

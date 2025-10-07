@@ -28,6 +28,7 @@ export interface LanguageFeatures {
   includeList?: string[];
   allowTruthiness?: boolean;
   allowTypeCoercion?: boolean;
+  maxTotalLoopIterations?: number;
   // AST node-level restrictions
   // null/undefined = all nodes allowed (default behavior)
   // [] = no nodes allowed
