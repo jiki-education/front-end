@@ -25,6 +25,12 @@ describe("const in for loops", () => {
       expect(error).not.toBeNull();
       expect(error?.type).toBe("ConstInForLoopInit");
     });
+
+    test("const in for loop without update expression is syntax error", () => {
+      const { error } = interpret("for (const i = 0; i < 5;) {}");
+      expect(error).not.toBeNull();
+      expect(error?.type).toBe("ConstInForLoopInit");
+    });
   });
 
   describe("let in C-style for loops works correctly", () => {
