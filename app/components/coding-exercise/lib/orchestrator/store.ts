@@ -298,7 +298,9 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           testCurrentTimes: {},
           // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
           // Enable spotlight if all tests passed
-          isSpotlightActive: allTestsPassed
+          isSpotlightActive: allTestsPassed,
+          // Reset playing state to allow animations to play on new test suite
+          isPlaying: false
         });
 
         // Also set the first test as current by default
