@@ -32,6 +32,7 @@ export interface LanguageFeatures {
   allowTypeCoercion?: boolean;
   oneStatementPerLine?: boolean;
   enforceStrictEquality?: boolean;
+  requireSemicolons?: boolean;
   // AST node-level restrictions
   // null/undefined = all nodes allowed (default behavior)
   // [] = no nodes allowed

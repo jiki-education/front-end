@@ -1,5 +1,94 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-06: Add requireSemicolons Language Feature Flag
+
+### Overview
+
+Added a new language feature flag `requireSemicolons` to make semicolons optional in JavaScript code. When disabled, semicolons become optional at statement boundaries (end of line, end of file, closing braces).
+
+### Motivation
+
+Educational progression: Allow students to write simpler code initially (`move()\nmove()`) and introduce semicolons as a later concept. Aligns with many modern JavaScript practices where ASI (Automatic Semicolon Insertion) handles statement boundaries.
+
+### Changes Applied
+
+**1. LanguageFeatures Interface** (`src/javascript/interfaces.ts`):
+
+- Added `requireSemicolons?: boolean` flag
+- Default: `true` (semicolons required - backward compatible)
+- When `false`: Semicolons optional at statement boundaries
+
+**2. Parser consumeSemicolon Method** (`src/javascript/parser.ts:725-789`):
+
+Updated logic to support optional semicolons:
+
+```typescript
+private consumeSemicolon(): Token {
+  // If semicolon present, consume it
+  if (this.match("SEMICOLON")) { ... }
+
+  // Check flag (defaults to true)
+  const requireSemicolons = this.languageFeatures.requireSemicolons ?? true;
+
+  // If required, throw error (unless EOF)
+  if (requireSemicolons) {
+    if (!this.isAtEnd()) {
+      this.error("MissingSemicolon", this.peek().location);
+    }
+    return this.previous();
+  }
+
+  // If optional, allow statement boundaries without semicolon
+  const nextToken = this.peek();
+  if (nextToken.type === "EOL" || "EOF" || "RIGHT_BRACE" || "RIGHT_PAREN") {
+    return this.previous();
+  }
+
+  // Still require semicolon on same line
+  this.error("MissingSemicolon", this.peek().location);
+}
+```
+
+**3. Test Suite** (`tests/javascript/language-features/requireSemicolons.test.ts`):
+
+Comprehensive tests covering:
+
+- Default behavior (semicolons required)
+- Optional semicolons with `requireSemicolons: false`
+- Multiple statements on separate lines without semicolons
+- Function calls, return, break, continue without semicolons
+- Block statements without semicolons
+- Still requiring semicolons on same line
+- Explicit `requireSemicolons: true` behavior
+
+### Behavior Details
+
+**When `requireSemicolons: false`:**
+
+- ✅ Allows: `move()\nmove()` (separate lines)
+- ✅ Allows: `let x = 1\nlet y = 2` (separate lines)
+- ✅ Allows: `if (true) { let x = 1\n}` (before closing brace)
+- ❌ Requires: `let x = 1; let y = 2` (same line - semicolon still needed)
+- ✅ Still accepts: `let x = 1;` (semicolons when provided)
+
+**When `requireSemicolons: true` (default):**
+
+- All semicolons required (current behavior maintained)
+- Ensures backward compatibility
+
+### Files Modified
+
+- `src/javascript/interfaces.ts` - Added `requireSemicolons` flag
+- `src/javascript/parser.ts` - Updated `consumeSemicolon()` logic
+- `tests/javascript/language-features/requireSemicolons.test.ts` - New test suite
+
+### Impact
+
+- ✅ Backward compatible (defaults to `true`)
+- ✅ All existing tests pass
+- ✅ Enables educational progression
+- ✅ Consistent with modern JavaScript practices
+
 ## 2025-10-06: Type System Refactoring to Union Types
 
 ### Overview
