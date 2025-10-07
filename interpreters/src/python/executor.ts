@@ -22,6 +22,7 @@ import {
   IfStatement,
   BlockStatement,
   ForInStatement,
+  WhileStatement,
   BreakStatement,
   ContinueStatement,
   FunctionDeclaration,
@@ -54,6 +55,7 @@ import { executeBlockStatement } from "./executor/executeBlockStatement";
 import { executeListExpression } from "./executor/executeListExpression";
 import { executeSubscriptExpression } from "./executor/executeSubscriptExpression";
 import { executeForInStatement } from "./executor/executeForInStatement";
+import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeBreakStatement } from "./executor/executeBreakStatement";
 import { executeContinueStatement } from "./executor/executeContinueStatement";
 import { executeCallExpression } from "./executor/executeCallExpression";
@@ -236,6 +238,8 @@ export class Executor {
         result = executeBlockStatement(this, statement);
       } else if (statement instanceof ForInStatement) {
         result = executeForInStatement(this, statement);
+      } else if (statement instanceof WhileStatement) {
+        result = executeWhileStatement(this, statement);
       } else if (statement instanceof BreakStatement) {
         executeBreakStatement(this, statement);
         result = null;

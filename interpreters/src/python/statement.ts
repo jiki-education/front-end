@@ -102,6 +102,19 @@ export class ForInStatement extends Statement {
   }
 }
 
+export class WhileStatement extends Statement {
+  constructor(
+    public condition: Expression,
+    public body: Statement[],
+    public location: Location
+  ) {
+    super("WhileStatement");
+  }
+  public children() {
+    return [this.condition];
+  }
+}
+
 export class BreakStatement extends Statement {
   constructor(
     public keyword: Token,

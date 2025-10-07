@@ -2,6 +2,104 @@
 
 This document tracks the historical development and changes specific to the Python interpreter.
 
+## 2025-10-07: While Loop Implementation
+
+### Overview
+
+Added full while loop support to the Python interpreter, enabling condition-based iteration with break/continue support. While loops complement the existing for-in loops and provide students with another fundamental control flow structure.
+
+### Changes Applied
+
+**1. Statement Class** (`src/python/statement.ts`):
+
+- Added `WhileStatement` class with `condition: Expression` and `body: Statement[]`
+- Follows Python syntax: `while condition:` with indented body
+
+**2. Parser Updates** (`src/python/parser.ts`):
+
+- Added `whileStatement()` parsing method
+- Checks for WHILE keyword, parses condition expression, requires colon
+- Parses indented block body
+- Added WhileStatement to NodeType interface and friendly name mapping
+
+**3. Executor Module** (`src/python/executor/executeWhileStatement.ts`):
+
+- Evaluates condition in each iteration using `executeFrame()`
+- Verifies condition is boolean (or uses truthiness if enabled)
+- Executes body statements for each iteration
+- Handles break/continue via existing `BreakFlowControlError` and `ContinueFlowControlError`
+
+**4. Evaluation Result** (`src/python/evaluation-result.ts`):
+
+- Added `EvaluationResultWhileStatement` with condition evaluation result
+- Stores condition result for frame description generation
+
+**5. Frame Describer** (`src/python/describers/describeWhileStatement.ts`):
+
+- Describes condition evaluation (true/false)
+- Explains loop continuation or exit decision
+- Uses `describeExpression()` for condition step-by-step breakdown
+
+**6. Main Executor Integration** (`src/python/executor.ts`):
+
+- Added WhileStatement case in `executeStatement()`
+- Imports and calls `executeWhileStatement()`
+
+**7. Frame Describers Dispatcher** (`src/python/frameDescribers.ts`):
+
+- Added WhileStatement case routing to `describeWhileStatement()`
+
+### Test Coverage
+
+**Concept Tests** (`tests/python/concepts/while-loops.test.ts`):
+
+- Basic while loops (counting, conditions)
+- Nested while loops
+- While with break/continue
+- Runtime errors (undefined variables, non-boolean conditions)
+- Syntax errors (missing colon, missing condition, missing body)
+- Truthiness tests (with allowTruthiness enabled/disabled)
+- 20+ comprehensive test cases
+
+**Cross-Validation Tests** (`tests/cross-validation/python/core/while-loops.test.ts`):
+
+- Validates behavior matches native Python
+- Simple countdown, boolean conditions
+- Break and continue functionality
+- Nested loops with complex conditions
+- Factorial and Fibonacci implementations
+- 15+ validation test cases
+
+### Implementation Notes
+
+**Pattern Consistency**:
+
+- Follows existing for-in loop pattern for break/continue handling
+- Uses Python truthiness rules via `verifyBoolean()` method
+- No new environment per loop (Python block scoping)
+- Condition evaluated as a frame for educational visibility
+
+**Differences from JavaScript**:
+
+- Python syntax: `while condition:` not `while (condition) {}`
+- Body is `Statement[]` with indentation, not BlockStatement
+- Reuses break/continue flow control errors from for-in loops
+- Python-specific truthiness rules when enabled
+
+### Educational Benefits
+
+- Students learn condition-based iteration
+- Clear frame-by-frame condition evaluation visibility
+- Consistent error messages for non-boolean conditions
+- Break/continue work identically in for and while loops
+
+### Test Results
+
+- All existing Python tests still passing
+- 20+ new while loop concept tests
+- 15+ cross-validation tests verifying native Python behavior
+- Full TypeScript type safety maintained
+
 ## 2025-10-07: Improved Error Handling for Unclosed Function Calls
 
 ### Overview

@@ -48,6 +48,7 @@ export type SyntaxErrorType =
   | "BlockStatementNotAllowed"
   | "IfStatementNotAllowed"
   | "ForInStatementNotAllowed"
+  | "WhileStatementNotAllowed"
   | "AttributeExpressionNotAllowed"
   | "BreakStatementNotAllowed"
   | "ContinueStatementNotAllowed"

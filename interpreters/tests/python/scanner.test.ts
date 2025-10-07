@@ -11,27 +11,19 @@ describe("Python - Unimplemented Tokens", () => {
       { token: "assert", type: "ASSERT" },
       { token: "async", type: "ASYNC" },
       { token: "await", type: "AWAIT" },
-      // { token: "break", type: "BREAK" }, - Implemented for for loops
       { token: "class", type: "CLASS" },
-      // { token: "continue", type: "CONTINUE" }, - Implemented for for loops
-      // { token: "def", type: "DEF" }, - Implemented for user-defined functions
       { token: "del", type: "DEL" },
       { token: "except", type: "EXCEPT" },
       { token: "finally", type: "FINALLY" },
-      // { token: "for", type: "FOR" }, - Implemented for for-in loops
       { token: "from", type: "FROM" },
       { token: "global", type: "GLOBAL" },
       { token: "import", type: "IMPORT" },
-      // { token: "in", type: "IN" }, - Implemented for for-in loops
       { token: "is", type: "IS" },
       { token: "lambda", type: "LAMBDA" },
       { token: "nonlocal", type: "NONLOCAL" },
-      // { token: "not", type: "NOT" }, - Already implemented
       { token: "pass", type: "PASS" },
       { token: "raise", type: "RAISE" },
-      // { token: "return", type: "RETURN" }, - Implemented for user-defined functions
       { token: "try", type: "TRY" },
-      { token: "while", type: "WHILE" },
       { token: "with", type: "WITH" },
       { token: "yield", type: "YIELD" },
     ];
@@ -50,13 +42,7 @@ describe("Python - Unimplemented Tokens", () => {
   });
 
   describe("Unimplemented Operators", () => {
-    const unimplementedOperators = [
-      // { code: "1, 2", token: ",", type: "COMMA" }, - Already implemented for lists
-      // { code: "obj.prop", token: ".", type: "DOT" }, - Already implemented for attribute access
-      // { code: "5 % 2", token: "%", type: "PERCENT" }, - Already implemented
-      { code: "5;", token: ";", type: "SEMICOLON" },
-      // { code: "[1, 2]", token: "[", type: "LEFT_BRACKET" }, - Already implemented for lists
-    ];
+    const unimplementedOperators = [{ code: "5;", token: ";", type: "SEMICOLON" }];
 
     unimplementedOperators.forEach(({ code, token, type }) => {
       it(`should error on '${token}' operator`, () => {
@@ -69,34 +55,11 @@ describe("Python - Unimplemented Tokens", () => {
   });
 
   describe("Compound statements", () => {
-    // Commented out - def is now implemented for user-defined functions
-    // it("should error on function definition", () => {
-    //   const result = interpret("def foo():\n    pass");
-    //   expect(result.error).toBeDefined();
-    //   expect(result.error?.type).toBe("UnimplementedToken");
-    //   expect(result.error?.context.tokenType).toBe("DEF");
-    // });
-
     it("should error on class definition", () => {
       const result = interpret("class Foo:\n    pass");
       expect(result.error).toBeDefined();
       expect(result.error?.type).toBe("UnimplementedToken");
       expect(result.error?.context.tokenType).toBe("CLASS");
-    });
-
-    // Commented out - for loops are now implemented
-    // it("should error on for loop", () => {
-    //   const result = interpret("for i in range(10):\n    print(i)");
-    //   expect(result.error).toBeDefined();
-    //   expect(result.error?.type).toBe("UnimplementedToken");
-    //   expect(result.error?.context.tokenType).toBe("FOR");
-    // });
-
-    it("should error on while loop", () => {
-      const result = interpret("while True:\n    pass");
-      expect(result.error).toBeDefined();
-      expect(result.error?.type).toBe("UnimplementedToken");
-      expect(result.error?.context.tokenType).toBe("WHILE");
     });
 
     it("should error on try statement", () => {

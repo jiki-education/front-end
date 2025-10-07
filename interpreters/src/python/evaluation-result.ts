@@ -46,6 +46,13 @@ export interface EvaluationResultForInStatement {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultWhileStatement {
+  type: "WhileStatement";
+  condition: EvaluationResultExpression;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 export interface EvaluationResultReturnStatement {
   type: "ReturnStatement";
   expression?: EvaluationResultExpression;
@@ -141,6 +148,7 @@ export type EvaluationResultStatement =
   | EvaluationResultIfStatement
   | EvaluationResultBlockStatement
   | EvaluationResultForInStatement
+  | EvaluationResultWhileStatement
   | EvaluationResultFunctionDeclaration
   | EvaluationResultReturnStatement
   | EvaluationResultBreakStatement

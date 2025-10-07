@@ -7,6 +7,7 @@ import { describeExpressionStatement } from "./describers/describeExpressionStat
 import { describeIfStatement } from "./describers/describeIfStatement";
 import { describeBlockStatement } from "./describers/describeBlockStatement";
 import { describeForInStatement } from "./describers/describeForInStatement";
+import { describeWhileStatement } from "./describers/describeWhileStatement";
 import { describeBreakStatement } from "./describers/describeBreakStatement";
 import { describeContinueStatement } from "./describers/describeContinueStatement";
 import { describeReturnStatement } from "./describers/describeReturnStatement";
@@ -79,6 +80,9 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
 
     case "ForInStatement":
       return describeForInStatement(frame, context);
+
+    case "WhileStatement":
+      return describeWhileStatement(frame, context);
 
     case "BreakStatement":
       return describeBreakStatement(frame, context);
