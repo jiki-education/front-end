@@ -1,4 +1,7 @@
 import type { Location } from "./location";
+import type { JSLanguageFeatures } from "../javascript/interfaces";
+import type { PythonLanguageFeatures } from "../python/interfaces";
+import type { JikiScriptLanguageFeatures } from "../jikiscript/interpreter";
 
 export interface SomethingWithLocation {
   location: Location;
@@ -24,6 +27,7 @@ export interface ExecutionContext {
   fastForward: (milliseconds: number) => void;
   getCurrentTimeInMs: () => number;
   logicError: (message: string) => never; // For custom functions to throw educational errors
+  languageFeatures?: JSLanguageFeatures | PythonLanguageFeatures | JikiScriptLanguageFeatures;
 }
 
 // Arity can be a fixed number or a range [min, max]

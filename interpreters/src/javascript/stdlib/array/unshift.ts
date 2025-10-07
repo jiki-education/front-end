@@ -5,12 +5,17 @@ import type { Method } from "../index";
 import { guardArgRange } from "../guards";
 
 export const unshift: Method = {
-  arity: [1, Infinity],
-  call: (_ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
+  arity: [0, Infinity],
+  call: (ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
     const array = obj as JSArray;
 
-    // Validate at least one argument
-    guardArgRange(args, 1, Infinity, "unshift");
+    // Validate zero or more arguments
+    guardArgRange(args, 0, Infinity, "unshift");
+
+    // Educational guard: in non-native mode, unshift() with no arguments is a logic error
+    if (!ctx.languageFeatures.nativeJSMode && args.length === 0) {
+      ctx.logicError("There's no point in calling unshift with no inputs");
+    }
 
     // Use native JavaScript unshift() method
     const newLength = array.elements.unshift(...args);

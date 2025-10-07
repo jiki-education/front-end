@@ -131,6 +131,15 @@ let result = arr.length;
     `,
       { expectedValue: 3 }
     );
+
+    testJavaScript(
+      "push with no arguments returns current length",
+      `
+let arr = [1, 2, 3];
+let result = arr.push();
+    `,
+      { expectedValue: 3, languageFeatures: { nativeJSMode: true } }
+    );
   });
 
   describe("array.pop()", () => {
@@ -258,6 +267,15 @@ arr.unshift(1, 2, 3);
 let result = arr[2];
     `,
       { expectedValue: 3 }
+    );
+
+    testJavaScript(
+      "unshift with no arguments returns current length",
+      `
+let arr = [1, 2, 3];
+let result = arr.unshift();
+    `,
+      { expectedValue: 3, languageFeatures: { nativeJSMode: true } }
     );
   });
 

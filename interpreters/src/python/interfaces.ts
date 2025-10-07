@@ -43,3 +43,6 @@ export interface LanguageFeatures {
     // Future: dict, str, etc.
   };
 }
+
+// Export as PythonLanguageFeatures for use in shared interfaces
+export type PythonLanguageFeatures = LanguageFeatures;

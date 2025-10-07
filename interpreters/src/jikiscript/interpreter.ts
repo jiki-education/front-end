@@ -57,6 +57,9 @@ export interface InputLanguageFeatures {
   addSuccessFrames?: boolean;
 }
 
+// Export as JikiScriptLanguageFeatures for use in shared interfaces
+export type JikiScriptLanguageFeatures = LanguageFeatures;
+
 export interface CustomFunction {
   name: string;
   arity: Arity;

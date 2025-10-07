@@ -5,12 +5,17 @@ import type { Method } from "../index";
 import { guardArgRange } from "../guards";
 
 export const push: Method = {
-  arity: [1, Infinity],
-  call: (_ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
+  arity: [0, Infinity],
+  call: (ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
     const array = obj as JSArray;
 
-    // Validate at least one argument
-    guardArgRange(args, 1, Infinity, "push");
+    // Validate zero or more arguments
+    guardArgRange(args, 0, Infinity, "push");
+
+    // Educational guard: in non-native mode, push() with no arguments is a logic error
+    if (!ctx.languageFeatures.nativeJSMode && args.length === 0) {
+      ctx.logicError("There's no point in calling push with no inputs");
+    }
 
     // Use native JavaScript push() method
     const newLength = array.elements.push(...args);

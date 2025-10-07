@@ -73,6 +73,7 @@ import { consoleMethods } from "./stdlib/console";
 // Execution context for JavaScript stdlib
 export type ExecutionContext = SharedExecutionContext & {
   log: (output: string) => void;
+  languageFeatures: LanguageFeatures;
 };
 
 export type RuntimeErrorType =
@@ -531,6 +532,7 @@ export class Executor {
       ...createBaseExecutionContext.call(this),
       logicError: this.logicError.bind(this),
       log: this.log.bind(this),
+      languageFeatures: this.languageFeatures,
     };
   }
 }
