@@ -56,7 +56,7 @@ This document outlines the comprehensive audit findings for the .context documen
 - Update Next.js version to match package.json
 - Add missing dependencies: interpreters (workspace), lodash, diff, marked, animejs
 
-#### 1.4 Fix `.context/complex-exercise/README.md`
+#### 1.4 Fix `.context/coding-exercise/README.md`
 
 **Issues:**
 
@@ -70,7 +70,7 @@ This document outlines the comprehensive audit findings for the .context documen
 
 ### Priority 2: Add Missing Documentation
 
-#### 2.1 Create `.context/complex-exercise/interpreters.md`
+#### 2.1 Create `.context/coding-exercise/interpreters.md`
 
 **Content to include:**
 
@@ -82,7 +82,7 @@ This document outlines the comprehensive audit findings for the .context documen
 
 ### Priority 3: Enhance Existing Documentation
 
-#### 3.1 Enhance `.context/complex-exercise/time-scales.md`
+#### 3.1 Enhance `.context/coding-exercise/time-scales.md`
 
 **Actions:**
 
@@ -90,7 +90,7 @@ This document outlines the comprehensive audit findings for the .context documen
 - Clarify that TIME_SCALE_FACTOR is imported from interpreters/src/shared/frames.ts
 - Update Frame interface to match actual implementation
 
-#### 3.2 Update `.context/complex-exercise/test-runner.md`
+#### 3.2 Update `.context/coding-exercise/test-runner.md`
 
 **Actions:**
 
@@ -129,7 +129,7 @@ This document outlines the comprehensive audit findings for the .context documen
 
 **Actions:**
 
-- Ensure all complex-exercise files link back to main README
+- Ensure all coding-exercise files link back to main README
 - Add "See also" sections to related files
 - Improve navigation between related concepts
 

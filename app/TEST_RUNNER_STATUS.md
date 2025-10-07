@@ -26,7 +26,7 @@ The test runner is now fully integrated with the interpreters package from the m
 
 ### E2E Testing
 
-- Comprehensive test suite in `tests/e2e/complex-exercise/test-runner.test.ts`
+- Comprehensive test suite in `tests/e2e/coding-exercise/test-runner.test.ts`
 - Tests cover: running code, displaying results, handling failures, switching scenarios
 - Added data-testid="run-button" for reliable test selection
 - Follows best practices from testing guidelines
@@ -45,7 +45,7 @@ The test runner is now fully integrated with the interpreters package from the m
 ## How to Test
 
 1. Start dev server: `pnpm run dev`
-2. Navigate to: http://localhost:3060/dev/complex-exercise
+2. Navigate to: http://localhost:3060/dev/coding-exercise
 3. Enter code in editor:
    ```javascript
    move();
@@ -67,7 +67,7 @@ The test runner is now fully integrated with the interpreters package from the m
 npx puppeteer browsers install chrome
 
 # Run the test
-pnpm test:e2e tests/e2e/complex-exercise/test-runner.test.ts
+pnpm test:e2e tests/e2e/coding-exercise/test-runner.test.ts
 ```
 
 ## Architecture Summary

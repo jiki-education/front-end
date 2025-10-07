@@ -1,6 +1,6 @@
 "use client";
 
-import ComplexExercise from "@/components/complex-exercise/ComplexExercise";
+import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchLesson, type LessonData } from "@/lib/api/lessons";
@@ -94,7 +94,7 @@ export default function LessonPage({ params }: PageProps) {
     return <VideoExercise lessonData={lesson} />;
   }
 
-  // // Default to complex exercise for "exercise" type
+  // // Default to coding exercise for "exercise" type
   // // TODO: Map lesson slug to exercise slug from curriculum
   // // For now, use a simple mapping to available exercises
   // const exerciseSlugMap: Record<string, any> = {
@@ -105,5 +105,5 @@ export default function LessonPage({ params }: PageProps) {
 
   // const exerciseSlug = exerciseSlugMap[lesson.slug] || "basic-movement";
 
-  return <ComplexExercise exerciseSlug={lesson.slug as ExerciseSlug} />;
+  return <CodingExercise exerciseSlug={lesson.slug as ExerciseSlug} />;
 }

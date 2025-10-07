@@ -1,10 +1,10 @@
 "use client";
 
-import Orchestrator, { useOrchestratorStore } from "@/components/complex-exercise/lib/Orchestrator";
-import OrchestratorProvider from "@/components/complex-exercise/lib/OrchestratorProvider";
+import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
+import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 // TestResultsButtons component is not used - we're rendering buttons inline for this test
-// import { TestResultsButtons } from "@/components/complex-exercise/ui/test-results-view/TestResultsButtons";
-import { InspectedTestResultView } from "@/components/complex-exercise/ui/test-results-view/InspectedTestResultView";
+// import { TestResultsButtons } from "@/components/coding-exercise/ui/test-results-view/TestResultsButtons";
+import { InspectedTestResultView } from "@/components/coding-exercise/ui/test-results-view/InspectedTestResultView";
 import { createTestExercise } from "@/tests/mocks/createTestExercise";
 import { useEffect, useRef } from "react";
 

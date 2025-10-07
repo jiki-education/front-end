@@ -74,7 +74,7 @@ The conversion factor between them is `TIME_SCALE_FACTOR = 1000`.
    - Test scrubber functionality with microsecond precision
 
 7. **Update context documentation**
-   - Document time scales in `.context/complex-exercise/`
+   - Document time scales in `.context/coding-exercise/`
    - Explain the microsecond/millisecond split
 
 ## File Changes Summary
@@ -83,12 +83,12 @@ The conversion factor between them is `TIME_SCALE_FACTOR = 1000`.
 
 - `interpreters/src/shared/frames.ts`: Export TIME_SCALE_FACTOR, define Frame with time and timeInMs
 - `interpreters/src/jikiscript/executor.ts`: Create frames with both time scales
-- `fe/components/complex-exercise/lib/orchestrator/TimelineManager.ts`: Use TIME_SCALE_FACTOR for conversions
-- `fe/components/complex-exercise/lib/AnimationTimeline.ts`: Work with timeInMs for animations
+- `fe/components/coding-exercise/lib/orchestrator/TimelineManager.ts`: Use TIME_SCALE_FACTOR for conversions
+- `fe/components/coding-exercise/lib/AnimationTimeline.ts`: Work with timeInMs for animations
 
 ### Test Files
 
-- `fe/components/complex-exercise/lib/test-utils/createTestFrame.ts`: Factory for test frames
+- `fe/components/coding-exercise/lib/test-utils/createTestFrame.ts`: Factory for test frames
 - All test files: Updated to use createTestFrame instead of manual frame creation
 
 ### Configuration

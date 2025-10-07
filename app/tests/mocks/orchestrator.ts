@@ -1,4 +1,4 @@
-import type { Orchestrator } from "@/components/complex-exercise/lib/Orchestrator";
+import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
 
 // Helper to create a mock Orchestrator
 export function mockOrchestrator(): Orchestrator {

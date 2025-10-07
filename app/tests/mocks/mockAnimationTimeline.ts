@@ -1,4 +1,4 @@
-import type { AnimationTimeline } from "@/components/complex-exercise/lib/AnimationTimeline";
+import type { AnimationTimeline } from "@/components/coding-exercise/lib/AnimationTimeline";
 
 interface MockAnimationTimelineOptions {
   duration?: number; // in microseconds

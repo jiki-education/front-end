@@ -1,4 +1,4 @@
-import type { TestResult } from "@/components/complex-exercise/lib/test-results-types";
+import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
 import type { Frame } from "@jiki/interpreters";
 import { mockAnimationTimeline } from "./index";
 

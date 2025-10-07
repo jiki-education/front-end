@@ -10,7 +10,7 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
     trackHooks: true,
     trackExtraHooks: [["useOrchestratorStore", "useOrchestratorStore"]],
     logOnDifferentValues: true,
-    include: [/CodeMirror/, /ComplexExercise/],
+    include: [/CodeMirror/, /CodingExercise/],
     exclude: [/^Suspense/, /^Fragment/]
   });
 }

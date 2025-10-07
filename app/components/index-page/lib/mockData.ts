@@ -27,7 +27,7 @@ export function generateMockExercises(): Exercise[] {
       xpReward: 10,
       estimatedTime: 5,
       position: { x: 0, y: 0 },
-      route: "/dev/complex-exercise"
+      route: "/dev/coding-exercise"
     },
     {
       id: "2",
@@ -66,7 +66,7 @@ export function generateMockExercises(): Exercise[] {
       xpReward: 25,
       estimatedTime: 20,
       position: { x: 100, y: 300 },
-      route: "/dev/complex-exercise"
+      route: "/dev/coding-exercise"
     },
     {
       id: "5",
@@ -105,7 +105,7 @@ export function generateMockExercises(): Exercise[] {
       xpReward: 40,
       estimatedTime: 30,
       position: { x: 100, y: 600 },
-      route: "/dev/complex-exercise"
+      route: "/dev/coding-exercise"
     },
     {
       id: "8",
@@ -144,7 +144,7 @@ export function generateMockExercises(): Exercise[] {
       xpReward: 100,
       estimatedTime: 60,
       position: { x: 0, y: 1050 },
-      route: "/dev/complex-exercise"
+      route: "/dev/coding-exercise"
     }
   ];
 

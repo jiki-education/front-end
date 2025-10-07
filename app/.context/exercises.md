@@ -6,8 +6,8 @@ The exercise system provides a structured way to create and manage coding exerci
 
 - **Context Root**: [.context/README.md](./README.md)
 - **Related**:
-  - [Complex Exercise System](./complex-exercise/README.md) - Exercise execution environment
-  - [Orchestrator Pattern](./complex-exercise/orchestrator-pattern.md) - How exercises are managed
+  - [Complex Exercise System](./coding-exercise/README.md) - Exercise execution environment
+  - [Orchestrator Pattern](./coding-exercise/orchestrator-pattern.md) - How exercises are managed
 
 ## Directory Structure
 
@@ -104,7 +104,7 @@ Create `metadata.json` with all static content:
 Create the exercise implementation extending the base Exercise class:
 
 ```typescript
-import { Exercise } from "@/components/complex-exercise/lib/mock-exercise/Exercise";
+import { Exercise } from "@/components/coding-exercise/lib/mock-exercise/Exercise";
 
 export default class YourExercise extends Exercise {
   // Exercise-specific properties
@@ -205,7 +205,7 @@ export const exercises = {
 Exercises are loaded asynchronously and passed to the Orchestrator:
 
 ```typescript
-// In ComplexExercise component
+// In CodingExercise component
 const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
 useEffect(() => {

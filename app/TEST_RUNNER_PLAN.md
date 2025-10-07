@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the architecture for migrating the test runner system from the prototype to the new complex-exercise component. The test runner executes student code against predefined scenarios, generating frames and animations for visualization through the scrubber.
+This document outlines the architecture for migrating the test runner system from the prototype to the new coding-exercise component. The test runner executes student code against predefined scenarios, generating frames and animations for visualization through the scrubber.
 
 ## Implementation Status
 
@@ -53,7 +53,7 @@ This document outlines the architecture for migrating the test runner system fro
 ### Directory Structure
 
 ```
-components/complex-exercise/
+components/coding-exercise/
 ├── lib/
 │   ├── mock-exercise/           # Temporary location, will be extracted
 │   │   ├── Exercise.ts         # Base exercise class

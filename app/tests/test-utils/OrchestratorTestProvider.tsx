@@ -1,5 +1,5 @@
-import Orchestrator from "@/components/complex-exercise/lib/Orchestrator";
-import OrchestratorProvider from "@/components/complex-exercise/lib/OrchestratorProvider";
+import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
+import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import { createTestExercise } from "@/tests/mocks/createTestExercise";
 import type { ReactNode } from "react";
 

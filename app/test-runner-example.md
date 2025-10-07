@@ -1,6 +1,6 @@
 # Test Runner Example Code
 
-To test the minimal test runner implementation, use this code in the ComplexExercise component:
+To test the minimal test runner implementation, use this code in the CodingExercise component:
 
 ```javascript
 // Student code that should pass the tests

@@ -52,7 +52,7 @@ If a specific target was provided ($ARGUMENTS), filter the results to only show 
 
 ```bash
 # Analyze specific file
-npx tsx scripts/analyze-exports.ts components/complex-exercise/lib/Orchestrator.ts
+npx tsx scripts/analyze-exports.ts components/coding-exercise/lib/Orchestrator.ts
 
 # Generate markdown report
 npx tsx scripts/analyze-exports.ts --markdown > dead-code-report.md
