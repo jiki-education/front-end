@@ -33,6 +33,7 @@ export type SyntaxErrorType =
   | "UnknownCharacter"
   | "UnterminatedComment"
   | "UnterminatedString"
+  | "UnterminatedFString"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"
@@ -66,6 +67,7 @@ export type SyntaxErrorType =
   | "MissingEqual"
   | "MissingRightBracket"
   | "MissingRightParen"
+  | "MissingRightBraceInFString"
   | "MissingColon"
   | "MissingIn"
   | "MissingIndent"

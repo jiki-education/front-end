@@ -14,6 +14,7 @@
       "UnknownCharacter": "Unknown character encountered in code.",
       "UnterminatedComment": "Unterminated comment. Multi-line comments must be properly closed.",
       "UnterminatedString": "Unterminated string literal. Make sure to close your string quotes.",
+      "UnterminatedFString": "Unterminated f-string. Make sure to close your f-string with a matching quote.",
       "MissingFunctionName": "Missing function name after 'def' keyword.",
       "MissingLeftParenthesisAfterFunctionName": "Missing '(' after function name.",
       "MissingParameterName": "Missing parameter name in function definition.",
@@ -30,7 +31,8 @@
       "MissingDedent": "Missing dedent.",
       "MissingIdentifier": "Missing identifier.",
       "MissingAttributeName": "Missing attribute name after '.'.",
-      "AttributeExpressionNotAllowed": "Attribute access is not allowed."
+      "AttributeExpressionNotAllowed": "Attribute access is not allowed.",
+      "MissingRightBraceInFString": "Missing '}' in f-string interpolation."
     },
     "runtime": {
       "FunctionExecutionError": "Error executing function '{{function}}': {{message}}",

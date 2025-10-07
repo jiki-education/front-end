@@ -37,6 +37,7 @@ export function describeExpression(
     case "GroupingExpression":
     case "ListExpression":
     case "AttributeExpression":
+    case "FStringExpression":
       return [];
   }
 }

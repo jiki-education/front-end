@@ -120,3 +120,15 @@ export class AttributeExpression extends Expression {
     return [this.object];
   }
 }
+
+export class FStringExpression extends Expression {
+  constructor(
+    public parts: (string | Expression)[],
+    public location: Location
+  ) {
+    super("FStringExpression");
+  }
+  public children(): Expression[] {
+    return this.parts.filter((p): p is Expression => typeof p !== "string");
+  }
+}

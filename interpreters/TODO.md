@@ -65,7 +65,7 @@ For everything in here, base your work in the JikiScript interpreter.
 
 - [x] Add the ability to call external functions. Look at the JavaScript implementation of this. We'll use a standard CallExpression but we'll check to see if the function is external and use it if so. We need to keep the format the same in terms of using ExecutionContext etc. The same external functions contract needs to apply to all three languages and should be made generic.
 - [x] Add a while loop. Look at the JavaScript implementation.
-- [ ] Add fstrings. Look at JS template literals for the pattern.
+- [x] Add fstrings. Look at JS template literals for the pattern.
 - [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignment. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it.
 - [ ] Implement the next Python built-in function from [.context/python/features-and-functions.md](.context/python/features-and-functions.md). Only mark this as complete when all functions in the "Including" list are done. Ensure to move each function from TODO to Implemented in the context document when finished. Remember to confirm the plan with the human before implementing each function.
 - [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.

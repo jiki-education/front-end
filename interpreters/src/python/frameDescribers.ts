@@ -103,6 +103,7 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
     case "CallExpression":
     case "AttributeExpression":
     case "ListExpression":
+    case "FStringExpression":
       // These types don't generate frames with descriptions
       return null;
   }

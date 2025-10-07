@@ -432,6 +432,14 @@ export class Scanner {
   }
 
   private tokenizeIdentifier(): void {
+    // Check for f-string prefix
+    const char = this.sourceCode.charAt(this.start);
+    const next = this.peek();
+    if (char === "f" && (next === '"' || next === "'")) {
+      this.tokenizeFString();
+      return;
+    }
+
     while (this.isAlphaNumeric(this.peek())) {
       this.advance();
     }
@@ -439,6 +447,91 @@ export class Scanner {
     const text = this.sourceCode.substring(this.start, this.current);
     const type = Scanner.keywords[text] || "IDENTIFIER";
     this.addToken(type);
+  }
+
+  private tokenizeFString(): void {
+    // Note: the 'f' prefix has already been consumed by scanToken()
+    // Now we're at the opening quote
+    const quoteChar = this.peek();
+    this.advance(); // Consume opening quote
+
+    // Emit F_STRING_START token to signal the parser
+    this.addToken("F_STRING_START");
+
+    while (this.peek() !== quoteChar && !this.isAtEnd()) {
+      this.start = this.current;
+
+      if (this.peek() === "{") {
+        // Check for escaped brace {{
+        if (this.peekNext() === "{") {
+          // This is a literal { - emit single { as text
+          this.advance(); // first {
+          this.advance(); // second {
+          this.addToken("F_STRING_TEXT", "{");
+          continue;
+        }
+
+        // Emit any text before the interpolation
+        if (this.current > this.start) {
+          this.addToken("F_STRING_TEXT", this.sourceCode.substring(this.start, this.current));
+        }
+
+        this.advance(); // Consume the {
+        this.addToken("LEFT_BRACE");
+        this.start = this.current;
+
+        // Scan tokens inside the interpolation, counting only braces
+        // The parser will handle validating the expression structure
+        let braceCount = 1;
+        while (braceCount > 0 && !this.isAtEnd() && this.peek() !== quoteChar) {
+          this.start = this.current;
+          this.scanToken();
+          if (this.tokens[this.tokens.length - 1].type === "LEFT_BRACE") {
+            braceCount++;
+          } else if (this.tokens[this.tokens.length - 1].type === "RIGHT_BRACE") {
+            braceCount--;
+          }
+        }
+      } else if (this.peek() === "}") {
+        // Check for escaped closing brace }}
+        if (this.peekNext() === "}") {
+          // This is a literal } - emit single } as text
+          this.advance(); // first }
+          this.advance(); // second }
+          this.addToken("F_STRING_TEXT", "}");
+          continue;
+        }
+        // Single } is just regular text, collect it normally
+        this.advance();
+        if (this.current > this.start) {
+          this.addToken("F_STRING_TEXT", this.sourceCode.substring(this.start, this.current));
+        }
+      } else {
+        // Collect f-string text
+        while (this.peek() !== "{" && this.peek() !== "}" && this.peek() !== quoteChar && !this.isAtEnd()) {
+          if (this.peek() === "\n") {
+            this.line++;
+            this.lineOffset = this.current + 1;
+          }
+          this.advance();
+        }
+
+        if (this.current > this.start) {
+          this.addToken("F_STRING_TEXT", this.sourceCode.substring(this.start, this.current));
+        }
+      }
+    }
+
+    if (this.isAtEnd()) {
+      throw new SyntaxError(
+        translate("error.syntax.UnterminatedFString"),
+        Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
+        "UnterminatedFString"
+      );
+    }
+
+    // Consume the closing quote
+    this.advance();
   }
 
   // Helper methods
