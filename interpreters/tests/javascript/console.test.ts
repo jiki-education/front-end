@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
+import { interpret } from "@javascript/interpreter";
 
 describe("console.log()", () => {
   it("logs a single string", () => {

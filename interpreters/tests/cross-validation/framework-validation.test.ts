@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { executeNativePython, executeNativeJS } from "./utils/native-executor";
-import { interpret as interpretPython } from "../../src/python/interpreter";
-import { interpret as interpretJS } from "../../src/javascript/interpreter";
+import { interpret as interpretPython } from "@python/interpreter";
+import { interpret as interpretJS } from "@javascript/interpreter";
 import { extractLastValue } from "./utils/output-helpers";
 
 describe("Cross-validation framework validation", () => {

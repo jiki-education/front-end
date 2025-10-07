@@ -1,4 +1,4 @@
-import { interpret } from "../../src/python/interpreter";
+import { interpret } from "@python/interpreter";
 import { describe, test, expect } from "vitest";
 import type { TestAugmentedFrame } from "@shared/frames";
 

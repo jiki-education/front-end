@@ -78,4 +78,37 @@ This document outlines the most common mistakes developers make when working on 
 
 **✅ CORRECT**: Use `string[]` (lowercase) for TypeScript primitive types.
 
+## Import Path Guidelines
+
+### ❌ Using Relative Imports in Tests
+
+**WRONG**: Using relative paths to import from src directories.
+
+```typescript
+import { interpret } from "../../src/javascript/interpreter";
+import type { TestAugmentedFrame } from "../../../src/shared/frames";
+```
+
+**✅ CORRECT**: Always use TypeScript path aliases in test files.
+
+```typescript
+import { interpret } from "@javascript/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
+```
+
+**Available aliases:**
+
+- `@jikiscript/*` → `src/jikiscript/*`
+- `@javascript/*` → `src/javascript/*`
+- `@python/*` → `src/python/*`
+- `@shared/*` → `src/shared/*`
+- `@utils/*` → `src/utils/*`
+
+**Benefits:**
+
+- Cleaner, more readable imports
+- Imports don't break when files are moved
+- Consistent with production code patterns
+- Easier to refactor
+
 **Any deviation from the shared architecture WILL break UI compatibility!**

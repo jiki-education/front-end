@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
-import type { TestAugmentedFrame } from "../../src/shared/frames";
+import { interpret } from "@javascript/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("JavaScript string methods", () => {
   describe("toUpperCase() method", () => {

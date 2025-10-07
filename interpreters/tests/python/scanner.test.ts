@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { interpret } from "../../src/python/interpreter";
+import { interpret } from "@python/interpreter";
 
 // UNIMPLEMENTED TOKENS
 // When implementing a token, move it from this section to the appropriate implemented section

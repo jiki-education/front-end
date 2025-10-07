@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { compile } from "../../src/python/interpreter";
+import { compile } from "@python/interpreter";
 
 describe("Python compile()", () => {
   describe("successful compilation", () => {

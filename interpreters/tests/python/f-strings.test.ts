@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { interpret } from "../../src/python/interpreter";
+import { interpret } from "@python/interpreter";
 import { Parser } from "@python/parser";
 
 function parse(code: string) {

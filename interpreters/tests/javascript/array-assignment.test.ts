@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
+import { interpret } from "@javascript/interpreter";
 
 // Type for frames augmented in test environment
 interface TestFrame {

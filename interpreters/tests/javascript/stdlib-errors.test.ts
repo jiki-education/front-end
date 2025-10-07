@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { interpret } from "../../src/javascript/interpreter";
-import type { TestAugmentedFrame } from "../../src/shared/frames";
+import { interpret } from "@javascript/interpreter";
+import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("JavaScript stdlib errors", () => {
   describe("MethodNotYetImplemented errors", () => {
