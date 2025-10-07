@@ -26,8 +26,8 @@ export default function ScenariosPanel() {
         <TestResultsView />
       </div>
 
-      {/* Scrubber - show when there are frames */}
-      {currentTest?.frames && currentTest.frames.length > 0 && (
+      {/* Scrubber - show when there is a current test (will be disabled if no frames) */}
+      {currentTest && (
         <div className="border-t border-gray-200 px-4 py-2">
           <div className="flex items-center gap-4">
             <div className="text-sm font-medium text-gray-700">Timeline:</div>

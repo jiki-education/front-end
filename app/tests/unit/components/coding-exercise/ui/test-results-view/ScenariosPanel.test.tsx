@@ -92,7 +92,7 @@ describe("ScenariosPanel", () => {
     expect(screen.getByTestId("frame-description")).toBeInTheDocument();
   });
 
-  it("should not show scrubber when currentTest has no frames", () => {
+  it("should show scrubber when currentTest has no frames (scrubber will be disabled)", () => {
     mockUseOrchestratorStore.mockReturnValue({
       hasSyntaxError: false,
       testSuiteResult: { tests: [], status: "idle" },
@@ -104,8 +104,8 @@ describe("ScenariosPanel", () => {
     render(<ScenariosPanel />);
 
     expect(screen.getByTestId("test-results")).toBeInTheDocument();
-    expect(screen.queryByTestId("scrubber")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("frame-description")).not.toBeInTheDocument();
+    expect(screen.getByTestId("scrubber")).toBeInTheDocument();
+    expect(screen.getByTestId("frame-description")).toBeInTheDocument();
   });
 
   it("should not show scrubber when currentTest is null", () => {
