@@ -239,6 +239,197 @@ result = f"first: {items[0]}"
     });
   });
 
+  describe("escaped braces", () => {
+    it("should handle escaped braces with no interpolation", () => {
+      const code = `result = f"{{value}}"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("{value}");
+    });
+
+    it("should handle mixed escaped braces and interpolation", () => {
+      const code = `
+x = 5
+result = f"{x} {{literal}}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("5 {literal}");
+    });
+
+    it("should handle closing brace escape", () => {
+      const code = `result = f"}}"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("}");
+    });
+
+    it("should handle multiple escaped braces", () => {
+      const code = `result = f"{{a}} {{b}}"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("{a} {b}");
+    });
+
+    it("should handle escaped braces before interpolation", () => {
+      const code = `
+x = 10
+result = f"{{prefix}}{x}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("{prefix}10");
+    });
+
+    it("should handle escaped braces after interpolation", () => {
+      const code = `
+x = 10
+result = f"{x}{{suffix}}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("10{suffix}");
+    });
+
+    it("should handle triple braces as escape plus interpolation start", () => {
+      const code = `
+x = 5
+result = f"{{{x}}}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("{5}");
+    });
+
+    it("should handle quadruple braces", () => {
+      const code = `result = f"{{{{}}}}"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("{{}}");
+    });
+
+    it("should handle mixed single and double closing braces", () => {
+      const code = `result = f"}a}}b}c"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("}a}b}c");
+    });
+  });
+
+  describe("quotes in expressions", () => {
+    it("should handle double-quoted strings in interpolations", () => {
+      const code = `
+def get_message():
+    return "hello"
+
+result = f"Message: {get_message()}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Message: hello");
+    });
+
+    it("should handle single-quoted strings in interpolations", () => {
+      const code = `result = f"Value: {'test'}"`;
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Value: test");
+    });
+  });
+
+  describe("nested and complex expressions", () => {
+    it("should handle nested list access in interpolation", () => {
+      const code = `
+matrix = [[1, 2], [3, 4]]
+result = f"Value: {matrix[0][1]}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Value: 2");
+    });
+
+    it("should handle complex arithmetic in interpolation", () => {
+      const code = `
+x = 10
+y = 3
+result = f"Result: {(x + y) * 2 - 5}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Result: 21");
+    });
+
+    it("should handle nested function calls in interpolation", () => {
+      const code = `
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+result = f"Answer: {multiply(add(2, 3), 4)}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Answer: 20");
+    });
+
+    it("should handle string method calls in interpolation", () => {
+      const code = `
+name = "world"
+result = f"Hello {name.upper()}"
+      `.trim();
+      const result = interpret(code);
+      expect(result.success).toBe(true);
+
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.variables?.result?.value ?? lastFrame.variables?.result).toBe("Hello WORLD");
+    });
+  });
+
   describe("error handling", () => {
     it("should report error for undefined variable in f-string", () => {
       const code = `result = f"value is {undefined_var}"`;

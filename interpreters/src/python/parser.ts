@@ -453,17 +453,11 @@ export class Parser {
       return this.listExpression();
     }
 
-    if (this.check("F_STRING_TEXT") || this.checkFStringStart()) {
+    if (this.check("F_STRING_TEXT", "F_STRING_START")) {
       return this.parseFString();
     }
 
     this.error("MissingExpression", this.peek().location);
-  }
-
-  private checkFStringStart(): boolean {
-    // Check if we're at the start of an f-string
-    // The scanner emits an F_STRING_START token for all f-strings
-    return this.check("F_STRING_START");
   }
 
   private parseFString(): Expression {
@@ -481,8 +475,6 @@ export class Parser {
         const expr = this.expression();
         this.consume("RIGHT_BRACE", "MissingRightBraceInFString");
         parts.push(expr);
-      } else {
-        break;
       }
     }
 

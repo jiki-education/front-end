@@ -464,20 +464,10 @@ export class Scanner {
       if (this.peek() === "{") {
         // Check for escaped brace {{
         if (this.peekNext() === "{") {
-          // This is a literal { - consume both braces and add as text
-          while (this.peek() !== "{" && this.peek() !== quoteChar && !this.isAtEnd()) {
-            if (this.peek() === "\n") {
-              this.line++;
-              this.lineOffset = this.current + 1;
-            }
-            this.advance();
-          }
-          if (this.current > this.start) {
-            this.addToken("F_STRING_TEXT", this.sourceCode.substring(this.start, this.current));
-          }
-          // Skip the {{
+          // This is a literal { - emit single { as text
           this.advance(); // first {
           this.advance(); // second {
+          this.addToken("F_STRING_TEXT", "{");
           continue;
         }
 
@@ -501,9 +491,23 @@ export class Scanner {
             braceCount--;
           }
         }
+      } else if (this.peek() === "}") {
+        // Check for escaped closing brace }}
+        if (this.peekNext() === "}") {
+          // This is a literal } - emit single } as text
+          this.advance(); // first }
+          this.advance(); // second }
+          this.addToken("F_STRING_TEXT", "}");
+          continue;
+        }
+        // Single } is just regular text, collect it normally
+        this.advance();
+        if (this.current > this.start) {
+          this.addToken("F_STRING_TEXT", this.sourceCode.substring(this.start, this.current));
+        }
       } else {
         // Collect f-string text
-        while (this.peek() !== "{" && this.peek() !== quoteChar && !this.isAtEnd()) {
+        while (this.peek() !== "{" && this.peek() !== "}" && this.peek() !== quoteChar && !this.isAtEnd()) {
           if (this.peek() === "\n") {
             this.line++;
             this.lineOffset = this.current + 1;
