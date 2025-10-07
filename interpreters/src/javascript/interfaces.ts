@@ -34,6 +34,7 @@ export interface LanguageFeatures {
   oneStatementPerLine?: boolean;
   enforceStrictEquality?: boolean;
   requireSemicolons?: boolean;
+  maxTotalLoopIterations?: number;
   // AST node-level restrictions
   // null/undefined = all nodes allowed (default behavior)
   // [] = no nodes allowed

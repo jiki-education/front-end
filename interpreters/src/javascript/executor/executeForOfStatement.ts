@@ -51,6 +51,9 @@ export function executeForOfStatement(executor: Executor, statement: ForOfStatem
       for (const element of elements) {
         iteration++;
 
+        // Guard against infinite loops
+        executor.guardInfiniteLoop(statement.location);
+
         // Convert string characters to JSString if needed
         const elementValue = typeof element === "string" ? new JSString(element) : element;
 
