@@ -2,33 +2,33 @@ import { interpret } from "@javascript/interpreter";
 import { JSUndefined } from "@javascript/jsObjects";
 
 describe("requireSemicolons language feature", () => {
-  describe("when requireSemicolons is true (default)", () => {
-    test("requires semicolons after statements", () => {
+  describe("when requireSemicolons is false (default)", () => {
+    test("allows statements without semicolons", () => {
       const result = interpret("let x = 1");
-      expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.success).toBe(true);
+      expect(result.frames).toBeArrayOfSize(1);
     });
 
-    test("requires semicolons after expression statements", () => {
+    test("allows expression statements without semicolons", () => {
       const result = interpret("1 + 2");
-      expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.success).toBe(true);
+      expect(result.frames).toBeArrayOfSize(1);
     });
 
-    test("requires semicolons between statements on different lines", () => {
+    test("allows statements on different lines without semicolons", () => {
       const result = interpret("let x = 1\nlet y = 2");
-      expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.success).toBe(true);
+      expect(result.frames).toBeArrayOfSize(2);
     });
 
-    test("allows code with semicolons", () => {
+    test("still allows code with semicolons", () => {
       const result = interpret("let x = 1;");
       expect(result.success).toBe(true);
       expect(result.frames).toBeArrayOfSize(1);
     });
   });
 
-  describe("when requireSemicolons is false", () => {
+  describe("when requireSemicolons is explicitly false", () => {
     const context = { languageFeatures: { requireSemicolons: false } };
 
     test("allows statements without semicolons at end of file", () => {
@@ -195,11 +195,23 @@ for (let i = 0; i < 3; i = i + 1) {
     });
   });
 
-  describe("when requireSemicolons is explicitly true", () => {
+  describe("when requireSemicolons is true", () => {
     const context = { languageFeatures: { requireSemicolons: true } };
 
     test("requires semicolons after statements", () => {
       const result = interpret("let x = 1", context);
+      expect(result.success).toBe(false);
+      expect(result.error?.type).toBe("MissingSemicolon");
+    });
+
+    test("requires semicolons after expression statements", () => {
+      const result = interpret("1 + 2", context);
+      expect(result.success).toBe(false);
+      expect(result.error?.type).toBe("MissingSemicolon");
+    });
+
+    test("requires semicolons between statements on different lines", () => {
+      const result = interpret("let x = 1\nlet y = 2", context);
       expect(result.success).toBe(false);
       expect(result.error?.type).toBe("MissingSemicolon");
     });
