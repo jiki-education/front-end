@@ -1,5 +1,43 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Change requireSemicolons Default to Optional (False)
+
+### Overview
+
+Changed the default value of `requireSemicolons` from `true` to `false`, making semicolons optional by default in JavaScript code. This enables beginners to write simpler code without semicolons initially.
+
+### Motivation
+
+Simplify the learning curve for beginners by removing the requirement to remember semicolons. Students can write natural code like `move()\nmove()` from day one, and semicolons can be introduced as a later educational concept. This aligns with modern JavaScript best practices where ASI (Automatic Semicolon Insertion) handles statement boundaries.
+
+### Changes Applied
+
+**1. Parser Default** (`src/javascript/parser.ts:760`):
+
+- Changed: `const requireSemicolons = this.languageFeatures.requireSemicolons ?? false;`
+- Previously: `?? true`
+
+**2. Test Updates**:
+
+- Updated tests in `syntax-errors.test.ts` to explicitly set `requireSemicolons: true` when testing for missing semicolon errors (6 tests)
+- Updated tests in `compile.test.ts` to explicitly set `requireSemicolons: true` when testing compilation failures (1 test)
+- Reorganized `requireSemicolons.test.ts` to reflect new default behavior (23 tests total)
+
+### Impact
+
+- **All 2,228 tests pass** with the new default
+- **Backward compatible**: Code can still require semicolons by setting `requireSemicolons: true`
+- **Simpler for beginners**: Students can write code without semicolons by default
+- **Educational progression**: Semicolons can be introduced gradually as needed
+- **Only 10 tests needed updates** (99.6% of tests unaffected)
+
+### Files Modified
+
+- `src/javascript/parser.ts` - Changed default to `false`
+- `tests/javascript/syntax-errors.test.ts` - Updated 6 tests to explicitly require semicolons
+- `tests/javascript/compile.test.ts` - Updated 1 test to explicitly require semicolons
+- `tests/javascript/language-features/requireSemicolons.test.ts` - Reorganized 23 tests to reflect new default
+
 ## 2025-10-06: Add requireSemicolons Language Feature Flag
 
 ### Overview

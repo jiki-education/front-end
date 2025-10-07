@@ -7,7 +7,7 @@ describe("syntax errors", () => {
     });
 
     test("unterminated string - end of line", () => {
-      expect(() => parse('"hello\nsomething_else"')).toThrow(); // This seems to parse the first string successfully, then fail on missing semicolon
+      expect(() => parse('"hello\nsomething_else"', { languageFeatures: { requireSemicolons: true } })).toThrow(); // This seems to parse the first string successfully, then fail on missing semicolon
     });
 
     test("single quote unterminated string", () => {
@@ -102,19 +102,19 @@ describe("syntax errors", () => {
 
   describe("semicolon errors", () => {
     test("missing semicolon after expression", () => {
-      expect(() => parse("1 + 2")).toThrow("MissingSemicolon");
+      expect(() => parse("1 + 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
     });
 
     test("missing semicolon after string", () => {
-      expect(() => parse('"hello"')).toThrow("MissingSemicolon");
+      expect(() => parse('"hello"', { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
     });
 
     test("missing semicolon after boolean", () => {
-      expect(() => parse("true")).toThrow("MissingSemicolon");
+      expect(() => parse("true", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
     });
 
     test("multiple statements missing semicolon", () => {
-      expect(() => parse("1; 2")).toThrow("MissingSemicolon");
+      expect(() => parse("1; 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
     });
   });
 
@@ -154,7 +154,7 @@ describe("syntax errors", () => {
     });
 
     test("missing semicolon after variable declaration", () => {
-      expect(() => parse("let x = 42")).toThrow("MissingSemicolon");
+      expect(() => parse("let x = 42", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
     });
 
     test("let keyword without declaration", () => {

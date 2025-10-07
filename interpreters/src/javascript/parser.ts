@@ -756,8 +756,8 @@ export class Parser {
       return semicolon;
     }
 
-    // Check if semicolons are optional (default is required)
-    const requireSemicolons = this.languageFeatures.requireSemicolons ?? true;
+    // Check if semicolons are optional (default is optional)
+    const requireSemicolons = this.languageFeatures.requireSemicolons ?? false;
 
     // If semicolons are required, throw error unless we're at end of file
     if (requireSemicolons) {

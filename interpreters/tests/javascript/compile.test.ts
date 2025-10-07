@@ -52,8 +52,8 @@ describe("JavaScript compile()", () => {
       }
     });
 
-    test("returns failure for missing semicolon", () => {
-      const result = compile("let x = 5");
+    test("returns failure for missing semicolon when required", () => {
+      const result = compile("let x = 5", { languageFeatures: { requireSemicolons: true } });
       expect(result.success).toBe(false);
       if (!result.success) {
         expect(result.error).toBeDefined();
