@@ -33,6 +33,7 @@ export type SyntaxErrorType =
   | "UnknownCharacter"
   | "UnterminatedComment"
   | "UnterminatedString"
+  | "UnterminatedFString"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"

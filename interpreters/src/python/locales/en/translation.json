@@ -14,6 +14,7 @@
       "UnknownCharacter": "Unknown character encountered in code.",
       "UnterminatedComment": "Unterminated comment. Multi-line comments must be properly closed.",
       "UnterminatedString": "Unterminated string literal. Make sure to close your string quotes.",
+      "UnterminatedFString": "Unterminated f-string. Make sure to close your f-string with a matching quote.",
       "MissingFunctionName": "Missing function name after 'def' keyword.",
       "MissingLeftParenthesisAfterFunctionName": "Missing '(' after function name.",
       "MissingParameterName": "Missing parameter name in function definition.",

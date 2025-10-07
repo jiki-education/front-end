@@ -14,6 +14,7 @@
       "UnknownCharacter": "UnknownCharacter: lexeme: {{lexeme}}",
       "UnterminatedComment": "UnterminatedComment",
       "UnterminatedString": "UnterminatedString",
+      "UnterminatedFString": "UnterminatedFString",
       "MissingFunctionName": "MissingFunctionName",
       "MissingLeftParenthesisAfterFunctionName": "MissingLeftParenthesisAfterFunctionName",
       "MissingParameterName": "MissingParameterName",

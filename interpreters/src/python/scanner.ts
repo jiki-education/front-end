@@ -480,7 +480,8 @@ export class Scanner {
         this.addToken("LEFT_BRACE");
         this.start = this.current;
 
-        // Scan tokens inside the interpolation, counting braces
+        // Scan tokens inside the interpolation, counting only braces
+        // The parser will handle validating the expression structure
         let braceCount = 1;
         while (braceCount > 0 && !this.isAtEnd() && this.peek() !== quoteChar) {
           this.start = this.current;
@@ -523,9 +524,9 @@ export class Scanner {
 
     if (this.isAtEnd()) {
       throw new SyntaxError(
-        translate("Unterminated f-string."),
+        translate("error.syntax.UnterminatedFString"),
         Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
-        "GenericSyntaxError"
+        "UnterminatedFString"
       );
     }
 

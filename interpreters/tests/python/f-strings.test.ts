@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { interpret } from "../../src/python/interpreter";
+import { Parser } from "@python/parser";
+
+function parse(code: string) {
+  const parser = new Parser();
+  return parser.parse(code);
+}
 
 interface TestAugmentedFrame {
   status: "SUCCESS" | "ERROR";
@@ -442,19 +448,11 @@ result = f"Hello {name.upper()}"
     });
 
     it("should report error for missing closing brace", () => {
-      const code = `result = f"value is {x"`;
-      const result = interpret(code);
-      expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
-      expect(result.error?.message).toContain("MissingRightBraceInFString");
+      expect(() => parse(`result = f"value is {x"`)).toThrow("MissingRightBraceInFString");
     });
 
     it("should report error for unterminated f-string", () => {
-      const code = `result = f"unterminated`;
-      const result = interpret(code);
-      expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
-      expect(result.error?.message).toContain("Unterminated f-string");
+      expect(() => parse(`result = f"unterminated`)).toThrow("UnterminatedFString");
     });
   });
 
