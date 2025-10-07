@@ -17,6 +17,13 @@ export interface ExerciseDefinition {
 
   // Optional
   hints?: string[];
+  functions?: FunctionDoc[];
+}
+
+export interface FunctionDoc {
+  name: string;
+  description: string;
+  usage: string;
 }
 
 export interface Task {
