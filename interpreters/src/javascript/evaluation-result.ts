@@ -10,6 +10,7 @@ export interface EvaluationResultExpressionStatement {
 
 export interface EvaluationResultVariableDeclaration {
   type: "VariableDeclaration";
+  kind: "let" | "const";
   name: string;
   value: EvaluationResultExpression;
   jikiObject: JikiObject;

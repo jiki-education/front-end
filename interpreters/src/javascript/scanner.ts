@@ -572,7 +572,6 @@ export class Scanner {
       "CASE",
       "CATCH",
       "CLASS",
-      "CONST",
       "DEBUGGER",
       "DEFAULT",
       "DELETE",

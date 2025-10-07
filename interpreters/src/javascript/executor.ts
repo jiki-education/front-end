@@ -81,6 +81,7 @@ export type RuntimeErrorType =
   | "UnsupportedOperation"
   | "VariableNotDeclared"
   | "ShadowingDisabled"
+  | "AssignmentToConstant"
   | "ComparisonRequiresNumber"
   | "TruthinessDisabled"
   | "TypeCoercionNotAllowed"

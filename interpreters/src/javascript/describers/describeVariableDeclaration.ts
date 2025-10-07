@@ -9,16 +9,17 @@ export function describeVariableDeclaration(frame: FrameWithResult, context: Des
   const frameResult = frame.result as EvaluationResultVariableDeclaration;
   const value = formatJSObject(frameResult.immutableJikiObject);
   const name = variableDeclaration.name.lexeme;
+  const keyword = variableDeclaration.kind;
 
   let result: string;
   let steps: string[];
 
   if (variableDeclaration.initializer) {
-    result = `<p>Declared variable <code>${name}</code> and set it to <code>${value}</code>.</p>`;
+    result = `<p>Declared ${keyword === "const" ? "constant" : "variable"} <code>${name}</code> and set it to <code>${value}</code>.</p>`;
     const initializerSteps = describeExpression(variableDeclaration.initializer, frameResult.value, context);
     steps = [
       ...initializerSteps,
-      `<li>JavaScript created variable <code>${name}</code> and assigned it the value <code>${value}</code>.</li>`,
+      `<li>JavaScript created ${keyword === "const" ? "constant" : "variable"} <code>${name}</code> and assigned it the value <code>${value}</code>.</li>`,
     ];
   } else {
     result = `<p>Declared variable <code>${name}</code>.</p>`;

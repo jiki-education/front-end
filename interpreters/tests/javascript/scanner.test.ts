@@ -503,7 +503,6 @@ describe("JavaScript - Unimplemented Tokens", () => {
       { token: "case", type: "CASE" },
       { token: "catch", type: "CATCH" },
       { token: "class", type: "CLASS" },
-      { token: "const", type: "CONST" },
       { token: "debugger", type: "DEBUGGER" },
       { token: "default", type: "DEFAULT" },
       { token: "delete", type: "DELETE" },
