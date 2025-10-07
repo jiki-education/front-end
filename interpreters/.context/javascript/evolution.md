@@ -1,5 +1,91 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Added Array Mutating Methods (push, pop, shift, unshift)
+
+### Overview
+
+Implemented four essential array mutating methods (`push`, `pop`, `shift`, `unshift`) that modify arrays in place. Refactored JSArray to use native JavaScript array methods for improved maintainability and 100% compatibility with native behavior.
+
+### Changes Applied
+
+**1. JSArray Refactoring** (`src/javascript/jsObjects/JSArray.ts`):
+
+- Changed `elements` field from `private readonly` to `public readonly`
+- This allows stdlib methods to directly access and use native JavaScript array methods
+- The array reference is readonly but contents remain mutable, enabling proper method behavior
+
+**2. Refactored at() Method** (`src/javascript/stdlib/array/at.ts`):
+
+- Updated to use native `array.elements.at(index)` instead of custom logic
+- Simplified implementation while maintaining all existing behavior
+- Ensures 100% compatibility with JavaScript's native `at()` method
+
+**3. Implemented Mutating Methods**:
+
+- **push()** (`src/javascript/stdlib/array/push.ts`):
+  - Accepts variable arguments (arity: `[1, Infinity]`)
+  - Uses native `array.elements.push(...args)`
+  - Returns JSNumber with new array length
+
+- **pop()** (`src/javascript/stdlib/array/pop.ts`):
+  - Accepts no arguments (arity: `0`)
+  - Uses native `array.elements.pop()`
+  - Returns removed element or JSUndefined if array is empty
+
+- **shift()** (`src/javascript/stdlib/array/shift.ts`):
+  - Accepts no arguments (arity: `0`)
+  - Uses native `array.elements.shift()`
+  - Returns removed first element or JSUndefined if array is empty
+
+- **unshift()** (`src/javascript/stdlib/array/unshift.ts`):
+  - Accepts variable arguments (arity: `[1, Infinity]`)
+  - Uses native `array.elements.unshift(...args)`
+  - Returns JSNumber with new array length
+
+**4. Stdlib Registry Updates** (`src/javascript/stdlib/array/index.ts`):
+
+- Removed `push`, `pop`, `shift`, `unshift` from `notYetImplementedMethods` list
+- Added imports and exports for all four new methods
+
+**5. Test Infrastructure Improvements**:
+
+- Moved `TestAugmentedFrame` type from inline definitions to `src/shared/frames.ts` for reuse
+- Updated all test files (JavaScript and Python) to import from shared location
+- Ensures type consistency across the entire test suite
+
+**6. Comprehensive Test Coverage**:
+
+- **Unit tests** (`tests/javascript/array-properties-methods.test.ts`):
+  - Added 14 new tests covering all four methods
+  - Tests for basic functionality, edge cases, return values, mutations
+  - Tests for argument validation (too many/few arguments)
+
+- **Cross-validation tests** (`tests/cross-validation/javascript/stdlib/array-methods.test.ts`):
+  - Added 17 new tests verifying implementation matches native JavaScript
+  - Tests for push/pop/shift/unshift with various scenarios
+  - Verifies mutations, return values, and array state changes
+
+- **Error tests** (`tests/javascript/stdlib-errors.test.ts`):
+  - Updated to reflect that push/pop/shift/unshift are now implemented
+  - Changed test cases to use other unimplemented methods (indexOf, etc.)
+
+### Benefits of Native Method Approach
+
+- **Simpler code**: No need to reimplement JavaScript's array logic
+- **100% compatibility**: Native methods guarantee matching behavior
+- **Easier maintenance**: Less custom code to maintain and debug
+- **Future-proof**: Easy to add more array methods using the same pattern
+
+### Supported Syntax
+
+```javascript
+let arr = [1, 2, 3];
+arr.push(4); // Returns 4 (new length)
+arr.pop(); // Returns 4 (removed element)
+arr.shift(); // Returns 1 (first element)
+arr.unshift(0); // Returns 3 (new length)
+```
+
 ## 2025-10-07: Added Exponentiation Operator (`**`)
 
 ### Overview

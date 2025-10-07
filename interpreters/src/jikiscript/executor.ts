@@ -119,6 +119,7 @@ export type ExecutionContext = SharedExecutionContext & {
   logicError: (message: string) => never;
   withThis: Function;
   contextualThis: Jiki.Instance | null;
+  languageFeatures: LanguageFeatures;
 };
 
 export interface ExternalFunction {
@@ -1266,6 +1267,7 @@ export class Executor {
       logicError: this.logicError.bind(this) as (message: string) => never,
       withThis: this.withThis.bind(this),
       contextualThis: this.contextualThis,
+      languageFeatures: this.languageFeatures,
     };
   }
 

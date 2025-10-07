@@ -86,6 +86,7 @@ export function testJavaScript(
     shouldError?: boolean;
     only?: boolean;
     skip?: boolean;
+    languageFeatures?: any;
   }
 ) {
   const testFn = options?.only ? test.only : options?.skip ? test.skip : test;
@@ -101,7 +102,7 @@ export function testJavaScript(
     }
 
     // Execute with Jiki JavaScript interpreter
-    const jikiResult = interpretJS(jikiCode);
+    const jikiResult = interpretJS(jikiCode, { languageFeatures: options?.languageFeatures });
 
     // Execute with native Node.js
     const nativeOutput = await executeNativeJS(nativeCode);

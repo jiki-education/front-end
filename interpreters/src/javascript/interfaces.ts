@@ -35,6 +35,12 @@ export interface LanguageFeatures {
   enforceStrictEquality?: boolean;
   requireSemicolons?: boolean;
   maxTotalLoopIterations?: number;
+  /**
+   * Enable native JavaScript behavior for edge cases that don't make pedagogical sense.
+   * When false (default), educational guardrails are enabled (e.g., push() with no arguments throws error).
+   * When true, allows all native JavaScript behaviors (e.g., push() with no arguments is a no-op).
+   */
+  nativeJSMode?: boolean;
   // AST node-level restrictions
   // null/undefined = all nodes allowed (default behavior)
   // [] = no nodes allowed
@@ -55,3 +61,6 @@ export interface LanguageFeatures {
     // Extensible for other types (number, object, etc.)
   };
 }
+
+// Export as JSLanguageFeatures for use in shared interfaces
+export type JSLanguageFeatures = LanguageFeatures;

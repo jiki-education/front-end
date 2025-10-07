@@ -4,6 +4,61 @@ This document tracks the historical development, major changes, and architectura
 
 ## Major Architectural Changes
 
+### January 2025: languageFeatures Added to ExecutionContext
+
+**Date**: 2025-01-07
+
+**Problem**: Stdlib methods needed access to language feature flags to provide different behavior in educational vs native modes. Specifically, JavaScript's `push()` and `unshift()` methods accept zero arguments in native JS (no-op returning current length), but this doesn't make pedagogical sense for learners.
+
+**Solution**: Added `languageFeatures` to the shared `ExecutionContext` interface, allowing stdlib methods to access feature flags and adjust their behavior accordingly. Introduced `nativeJSMode` flag for JavaScript to control native vs educational behaviors.
+
+**Changes Made**:
+
+1. **Shared Interface Updates**:
+   - Added typed `languageFeatures?: JSLanguageFeatures | PythonLanguageFeatures | JikiScriptLanguageFeatures` to `ExecutionContext` in `src/shared/interfaces.ts`
+   - Each interpreter exports their `LanguageFeatures` type with an interpreter-specific alias
+
+2. **Interpreter-Specific Updates**:
+   - **JavaScript**: Added `nativeJSMode?: boolean` to `LanguageFeatures` interface with JSDoc documentation
+   - **JavaScript**: Updated `ExecutionContext` type to include `languageFeatures: LanguageFeatures`
+   - **JavaScript**: Modified `getExecutionContext()` to pass `this.languageFeatures`
+   - **Python**: Exported `LanguageFeatures` as `PythonLanguageFeatures`, updated ExecutionContext
+   - **JikiScript**: Exported `LanguageFeatures` as `JikiScriptLanguageFeatures`, updated ExecutionContext
+
+3. **Stdlib Method Updates**:
+   - **push.ts**: Added check for `!ctx.languageFeatures.nativeJSMode && args.length === 0` to throw educational error
+   - **unshift.ts**: Same educational guard for zero-argument calls
+   - Both methods call `ctx.logicError()` with message: "There's no point in calling push/unshift with no inputs"
+
+4. **Test Updates**:
+   - Updated failing unit tests to test both modes (default educational mode and `nativeJSMode: true`)
+   - Updated cross-validation tests to use `nativeJSMode: true` for native JS behavior testing
+   - Updated test-runner utility to accept and pass through `languageFeatures` option
+
+**Files Affected**:
+
+- `src/shared/interfaces.ts` - Added languageFeatures to ExecutionContext
+- `src/javascript/interfaces.ts` - Added nativeJSMode flag and JSLanguageFeatures export
+- `src/python/interfaces.ts` - Added PythonLanguageFeatures export
+- `src/jikiscript/interpreter.ts` - Added JikiScriptLanguageFeatures export
+- `src/javascript/executor.ts` - Added languageFeatures to ExecutionContext type and getExecutionContext()
+- `src/python/executor.ts` - Same as JavaScript
+- `src/jikiscript/executor.ts` - Same as JavaScript
+- `src/javascript/stdlib/array/push.ts` - Added nativeJSMode check
+- `src/javascript/stdlib/array/unshift.ts` - Added nativeJSMode check
+- `tests/javascript/array-properties-methods.test.ts` - Updated tests for both modes
+- `tests/cross-validation/javascript/stdlib/array-methods.test.ts` - Added nativeJSMode flag
+- `tests/cross-validation/utils/test-runner.ts` - Added languageFeatures parameter
+
+**Benefits**:
+
+- **Educational Guardrails**: Prevents confusing native JS patterns that don't aid learning
+- **Flexibility**: Allows progressive introduction of native behaviors via feature flags
+- **Consistency**: Unified pattern across all three interpreters for accessing feature flags
+- **Extensibility**: Future "native vs educational" behaviors can use the same pattern
+
+**Default Behavior**: `nativeJSMode` defaults to `false`, meaning educational mode is active by default. Users must explicitly opt into native JavaScript edge-case behaviors.
+
 ### October 2025: Removal of Executor Location Tracking
 
 **Date**: 2025-10-03

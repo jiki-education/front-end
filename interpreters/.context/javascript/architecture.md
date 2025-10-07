@@ -139,6 +139,10 @@ Provides built-in properties and methods for JavaScript types with feature flag 
   - `length`: Returns the number of elements in the array
 - Implemented Methods:
   - `at(index)`: Returns element at index (supports negative indices)
+  - `push(...elements)`: Adds one or more elements to the end, returns new length
+  - `pop()`: Removes and returns the last element
+  - `shift()`: Removes and returns the first element
+  - `unshift(...elements)`: Adds one or more elements to the beginning, returns new length
 
 **Strings** (`src/javascript/stdlib/string/`):
 
@@ -148,8 +152,8 @@ Provides built-in properties and methods for JavaScript types with feature flag 
   - `toUpperCase()`: Returns uppercase version of the string
   - `toLowerCase()`: Returns lowercase version of the string
 - Stubbed Methods (throw MethodNotYetImplemented when called):
-  - All standard JS array methods: `push`, `pop`, `shift`, `unshift`, `indexOf`, `includes`, `slice`, `concat`, `join`, `forEach`, `map`, `filter`, `reduce`, etc.
-  - Stub methods still return function objects for correct semantics (e.g., `arr.push` returns a function)
+  - All standard JS array methods not yet implemented: `indexOf`, `includes`, `slice`, `concat`, `join`, `forEach`, `map`, `filter`, `reduce`, etc.
+  - Stub methods still return function objects for correct semantics
 
 **Access Patterns**:
 

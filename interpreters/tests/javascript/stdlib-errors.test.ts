@@ -1,25 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { interpret } from "../../src/javascript/interpreter";
-
-// Type for frames augmented in test environment
-interface TestAugmentedFrame {
-  status: "SUCCESS" | "ERROR";
-  result?: any;
-  variables?: Record<string, any>;
-  description?: string;
-  error?: {
-    type: string;
-    message?: string;
-    context?: any;
-  };
-}
+import type { TestAugmentedFrame } from "../../src/shared/frames";
 
 describe("JavaScript stdlib errors", () => {
   describe("MethodNotYetImplemented errors", () => {
     it("should throw MethodNotYetImplemented for unimplemented array methods", () => {
       const code = `
         let arr = [1, 2, 3];
-        arr.push(4);
+        arr.indexOf(2);
       `;
       const result = interpret(code);
       expect(result.success).toBe(false);
@@ -28,14 +16,14 @@ describe("JavaScript stdlib errors", () => {
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
       expect(lastFrame.error?.type).toBe("MethodNotYetImplemented");
-      expect(lastFrame.error?.context?.method).toBe("push");
+      expect(lastFrame.error?.context?.method).toBe("indexOf");
     });
 
     it("should return a function for stub methods but throw when called", () => {
       const code = `
         let arr = [1, 2, 3];
-        let pushFn = arr.push;
-        pushFn(4);
+        let indexOfFn = arr.indexOf;
+        indexOfFn(2);
       `;
       const result = interpret(code);
       expect(result.success).toBe(false);
@@ -53,10 +41,6 @@ describe("JavaScript stdlib errors", () => {
 
     it("should list all unimplemented array methods", () => {
       const unimplementedMethods = [
-        "push",
-        "pop",
-        "shift",
-        "unshift",
         "indexOf",
         "includes",
         "slice",

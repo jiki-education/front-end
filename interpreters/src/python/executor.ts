@@ -69,6 +69,7 @@ import { executeFStringExpression } from "./executor/executeFStringExpression";
 export type ExecutionContext = SharedExecutionContext & {
   // Additional Python-specific properties can be added here
   log: (output: string) => void;
+  languageFeatures: LanguageFeatures;
 };
 
 export type RuntimeErrorType =
@@ -407,6 +408,7 @@ export class Executor {
       ...createBaseExecutionContext.call(this),
       logicError: this.logicError.bind(this),
       log: this.log.bind(this),
+      languageFeatures: this.languageFeatures,
     };
   }
 
