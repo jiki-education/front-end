@@ -14,6 +14,7 @@
       "MissingRightBracketInMemberAccess": "Missing closing bracket ']' after array index.",
       "MissingRightParenthesisAfterExpression": "Missing closing parenthesis ')' after expression.",
       "MissingRightParenthesisAfterIfCondition": "Missing closing parenthesis ')' after if condition.",
+      "MissingRightParenthesisAfterFunctionCall": "Did you forget the closing parenthesis ')' when calling the {{function}} function?",
       "MissingSemicolon": "Missing semicolon ';' at end of statement.",
       "MissingVariableName": "Missing variable name in declaration. You must provide a name after 'let'.",
       "MultipleStatementsPerLine": "Multiple statements found on line {{line}}. Only one statement per line is allowed when oneStatementPerLine is enabled.",

@@ -51,6 +51,7 @@ export type SyntaxErrorType =
   | "BreakStatementNotAllowed"
   | "ContinueStatementNotAllowed"
   | "MissingRightParenthesisAfterArguments"
+  | "MissingRightParenthesisAfterFunctionCall"
   // Function-related errors
   | "NestedFunctionDeclaration"
   | "MissingFunctionName"

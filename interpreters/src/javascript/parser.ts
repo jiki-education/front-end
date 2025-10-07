@@ -609,6 +609,17 @@ export class Parser {
   }
 
   private finishCallExpression(callee: Expression): CallExpression {
+    // Extract function name for better error messages
+    const functionName = callee instanceof IdentifierExpression ? (callee as any).name.lexeme : null;
+
+    // Check if we immediately encounter EOL or semicolon after opening paren
+    // This is a common mistake: move( followed by newline or move(;
+    if (this.check("EOL", "SEMICOLON")) {
+      this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
+        function: functionName,
+      });
+    }
+
     const args: Expression[] = [];
 
     if (!this.check("RIGHT_PAREN")) {
@@ -617,7 +628,14 @@ export class Parser {
       } while (this.match("COMMA"));
     }
 
-    this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterArguments");
+    // Use specific error with function name context
+    if (!this.check("RIGHT_PAREN")) {
+      this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
+        function: functionName,
+      });
+    }
+
+    this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterFunctionCall");
     const rightParen = this.previous();
 
     return new CallExpression(callee, args, Location.between(callee, rightParen));

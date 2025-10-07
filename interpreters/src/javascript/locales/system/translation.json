@@ -14,6 +14,7 @@
       "MissingRightBracketInMemberAccess": "MissingRightBracketInMemberAccess",
       "MissingRightParenthesisAfterExpression": "MissingRightParenthesisAfterExpression",
       "MissingRightParenthesisAfterIfCondition": "MissingRightParenthesisAfterIfCondition",
+      "MissingRightParenthesisAfterFunctionCall": "MissingRightParenthesisAfterFunctionCall: function: {{function}}",
       "MissingSemicolon": "MissingSemicolon",
       "MissingVariableName": "MissingVariableName",
       "MultipleStatementsPerLine": "MultipleStatementsPerLine: line: {{line}}",
