@@ -81,7 +81,12 @@ describe("CodeEditor", () => {
       currentFrame: undefined,
 
       // Play/pause state
-      isPlaying: false
+      isPlaying: false,
+
+      // Task management state
+      taskProgress: new Map(),
+      completedTasks: new Set(),
+      currentTaskId: null
     });
   });
 

@@ -62,6 +62,11 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
       // Play/pause state
       isPlaying: false,
 
+      // Task management state
+      taskProgress: new Map(),
+      completedTasks: new Set(),
+      currentTaskId: null,
+
       // Apply overrides
       ...overrides,
 
@@ -121,6 +126,11 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
 
       // Exercise data initialization
       initializeExerciseData: jest.fn(),
+
+      // Task management actions
+      setTaskProgress: jest.fn(),
+      setCompletedTasks: jest.fn(),
+      setCurrentTaskId: jest.fn(),
 
       reset: jest.fn(),
 

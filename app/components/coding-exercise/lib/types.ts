@@ -1,4 +1,5 @@
 import type { Frame } from "@jiki/interpreters";
+import type { TaskProgress } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 
 // CodeMirror editor types
@@ -68,6 +69,11 @@ export interface OrchestratorState {
 
   // Play/pause state for animation timeline
   isPlaying: boolean;
+
+  // Task management state
+  taskProgress: Map<string, TaskProgress>;
+  completedTasks: Set<string>;
+  currentTaskId: string | null;
 }
 
 // Private actions only accessible within the orchestrator
@@ -118,6 +124,11 @@ export interface OrchestratorActions {
     storedAt?: string;
     readonlyRanges?: { from: number; to: number }[];
   }) => void;
+
+  // Task management actions
+  setTaskProgress: (taskProgress: Map<string, TaskProgress>) => void;
+  setCompletedTasks: (completedTasks: Set<string>) => void;
+  setCurrentTaskId: (taskId: string | null) => void;
 
   reset: () => void;
 }

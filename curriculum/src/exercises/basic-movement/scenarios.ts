@@ -5,11 +5,17 @@ export const tasks: Task[] = [
   {
     id: "move-character",
     name: "Move the character",
+    description: "Learn basic movement by calling the move() function",
+    hints: ["Call move() to advance the character", "Each move() call advances by 20 units"],
+    requiredScenarios: ["start-at-0", "start-at-50"], // Both must pass
     bonus: false
   },
   {
     id: "bonus-challenges",
     name: "Bonus challenges",
+    description: "Try more advanced movement challenges",
+    hints: ["You'll need to call move() more times", "Practice makes perfect!"],
+    requiredScenarios: ["bonus-double-movement"],
     bonus: true
   }
 ];

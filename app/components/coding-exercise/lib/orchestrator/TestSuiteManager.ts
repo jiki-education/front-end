@@ -15,7 +15,10 @@ interface SyntaxError {
  * Manages test suite execution, results, and processing
  */
 export class TestSuiteManager {
-  constructor(private readonly store: StoreApi<OrchestratorStore>) {}
+  constructor(
+    private readonly store: StoreApi<OrchestratorStore>,
+    private readonly taskManager?: { updateTaskProgress: (testResults: any, exercise: ExerciseDefinition) => void }
+  ) {}
 
   /**
    * Prepare state for a new test run
@@ -114,6 +117,11 @@ export class TestSuiteManager {
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();
       state.setTestSuiteResult(testResults);
+
+      // Update task progress if TaskManager is available
+      if (this.taskManager) {
+        this.taskManager.updateTaskProgress(testResults, exercise);
+      }
     } catch (error) {
       // Check if it's a SyntaxError (has location property)
       if (error && typeof error === "object" && "location" in error) {

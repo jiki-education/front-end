@@ -109,7 +109,7 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
                   {
                     id: "tasks",
                     label: "Tasks",
-                    content: <TasksView tasks={orchestrator.getExercise().tasks} />
+                    content: <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />
                   },
                   {
                     id: "functions",

@@ -4,7 +4,7 @@
 export { exercises, type ExerciseSlug } from "./exercises";
 
 // Export all types needed by consumers
-export type { ExerciseDefinition, Task, Scenario, TestExpect, FunctionDoc } from "./exercises/types";
+export type { ExerciseDefinition, Task, Scenario, TestExpect, FunctionDoc, TaskProgress } from "./exercises/types";
 
 // Export the base Exercise class and Animation type
 export { Exercise, type Animation } from "./Exercise";
