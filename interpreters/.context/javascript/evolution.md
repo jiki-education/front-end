@@ -1,5 +1,73 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Improved Error Handling for Unclosed Function Calls
+
+### Overview
+
+Enhanced JavaScript parser to provide specific, educational error messages when function call parentheses are not closed, matching the quality of JikiScript's error handling.
+
+### Problem Identified
+
+Previously, `move(\nmove()` would report generic `MissingExpression` error without context about which function or what went wrong. This made debugging difficult for students learning JavaScript.
+
+### Changes Applied
+
+**1. New Error Type** (`src/javascript/error.ts`):
+
+- Added `MissingRightParenthesisAfterFunctionCall` error type
+- Replaces generic `MissingExpression` in function call contexts
+
+**2. Parser Enhancement** (`src/javascript/parser.ts` lines 611-642):
+
+- Early detection: Checks for EOL/semicolon immediately after opening `(`
+- Extracts function name from callee for error context
+- Reports error at function location (not next token location)
+- Provides specific error instead of generic "missing expression"
+
+**3. Translation Updates**:
+
+- `en/translation.json`: "Did you forget the closing parenthesis ')' when calling the {{function}} function?"
+- `system/translation.json`: "MissingRightParenthesisAfterFunctionCall: function: {{function}}"
+
+**4. Comprehensive Test Suite** (`tests/javascript/syntaxErrors.test.ts`):
+
+- 18 new tests covering all edge cases
+- Single line, multi-line, nested calls
+- Various function names and argument patterns
+
+### Impact
+
+**Before**:
+
+```
+move()
+move(
+move()
+→ Error: MissingExpression (line 2, generic, no context)
+```
+
+**After**:
+
+```
+move()
+move(
+move()
+→ Error: MissingRightParenthesisAfterFunctionCall (line 2, function: "move")
+```
+
+### Test Results
+
+- All 952 JavaScript tests passing
+- 18 new syntax error tests added
+- Error quality now matches JikiScript
+
+### Educational Benefits
+
+- Students get clear, actionable error messages
+- Error points to correct line (where unclosed paren is)
+- Function name in context helps identify which call has the issue
+- Consistent error quality across all three interpreters
+
 ## 2025-10-07: Change requireSemicolons Default to Optional (False)
 
 ### Overview

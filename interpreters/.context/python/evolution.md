@@ -2,6 +2,97 @@
 
 This document tracks the historical development and changes specific to the Python interpreter.
 
+## 2025-10-07: Improved Error Handling for Unclosed Function Calls
+
+### Overview
+
+Enhanced Python parser to provide specific, educational error messages when function call parentheses are not closed, fixing a critical bug where errors pointed to the wrong line number.
+
+### Problem Identified
+
+When parsing `move()\nmove(\nmove()`, the Python parser would:
+
+1. Report generic `MissingExpression` error (not specific)
+2. **Point to line 3 instead of line 2** where the error actually is
+3. Provide no context about which function or what went wrong
+
+**Root Cause**: When `finishCallExpression` called `this.expression()` after an unclosed `(`, the expression parser would consume the NEWLINE and advance to the next line. When parsing failed, `peek().location` pointed to line 3, not line 2 where the unclosed parenthesis actually was.
+
+### Changes Applied
+
+**1. New Error Type** (`src/python/error.ts`):
+
+- Added `MissingRightParenthesisAfterFunctionCall` error type
+- Replaces generic `MissingExpression` in function call contexts
+
+**2. Parser Enhancement** (`src/python/parser.ts` lines 728-759):
+
+- Early detection: Checks for NEWLINE or EOF immediately after opening `(`
+- Extracts function name from callee for error context
+- Reports error at **callee.location** (not `peek().location`)
+- This ensures error points to line 2 (the function with unclosed paren), not line 3
+
+**3. Translation Updates**:
+
+- `en/translation.json`: "Did you forget the closing parenthesis ')' when calling the {{function}} function?"
+- `system/translation.json`: "MissingRightParenthesisAfterFunctionCall: function: {{function}}"
+
+**4. Comprehensive Test Suite** (`tests/python/syntaxErrors.test.ts`):
+
+- 14 new tests covering all edge cases
+- Single line, multi-line, nested calls
+- Various function names and argument patterns
+
+### Technical Details
+
+**Why the Line Number Was Wrong**:
+
+For code `move()\nmove(\nmove()`:
+
+1. Parser enters `finishCallExpression` for line 2's `move(`
+2. Sees no RIGHT_PAREN, calls `this.expression()` to parse arguments
+3. `expression()` eventually consumes NEWLINE and advances to line 3
+4. Tries to parse line 3's `move()` as an argument expression
+5. Parsing fails somewhere on line 3
+6. `consume("RIGHT_PAREN")` uses `peek().location` which points to line 3
+
+**The Fix**:
+
+Check for NEWLINE/EOF immediately after `(` and report error at `callee.location` (line 2), before calling `expression()`.
+
+### Impact
+
+**Before**:
+
+```python
+move()
+move(
+move()
+→ Error: MissingExpression (line 3 ❌, generic, no context)
+```
+
+**After**:
+
+```python
+move()
+move(
+move()
+→ Error: MissingRightParenthesisAfterFunctionCall (line 2 ✓, function: "move")
+```
+
+### Test Results
+
+- All 546 Python tests passing
+- 14 new syntax error tests added
+- Error quality now matches JikiScript and JavaScript
+
+### Educational Benefits
+
+- Students get clear, actionable error messages
+- **Error points to correct line** where the problem actually is
+- Function name in context helps identify which call has the issue
+- Consistent error quality across all three interpreters
+
 ## 2025-10-05: Builtin Functions - print() Implementation
 
 ### Overview
