@@ -887,7 +887,7 @@ export class Parser {
     while (!this.check("BACKTICK") && !this.isAtEnd()) {
       if (this.match("TEMPLATE_LITERAL_TEXT")) {
         parts.push(this.previous().literal as string);
-      } else if (this.match("DOLLAR_LEFT_BRACE")) {
+      } else if (this.match("LEFT_BRACE")) {
         // Parse the interpolated expression
         const expr = this.expression();
         this.consume("RIGHT_BRACE", "MissingRightBraceInTemplateLiteral");
