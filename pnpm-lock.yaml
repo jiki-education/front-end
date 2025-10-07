@@ -132,9 +132,6 @@ importers:
       '@types/animejs':
         specifier: ^3.1.13
         version: 3.1.13
-      '@types/diff':
-        specifier: ^8.0.0
-        version: 8.0.0
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -144,9 +141,6 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.19
-      '@types/puppeteer':
-        specifier: ^7.0.4
-        version: 7.0.4(typescript@5.9.3)
       '@types/react':
         specifier: ^19
         version: 19.2.0
@@ -1614,10 +1608,6 @@ packages:
   '@types/didyoumean@1.2.3':
     resolution: {integrity: sha512-jmogYbzJs7gehniakiGVlKCxrEqVfYL5oKdV2/026DGMGlhbYJWuO88oM4RcncgoZp0p/rCO7ipiYaxYxWedow==}
 
-  '@types/diff@8.0.0':
-    resolution: {integrity: sha512-o7jqJM04gfaYrdCecCVMbZhNdG6T1MHg/oQoRFdERLV+4d+V7FijhiEAbFu0Usww84Yijk9yH58U4Jk4HbtzZw==}
-    deprecated: This is a stub types definition. diff provides its own type definitions, so you do not need this installed.
-
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
@@ -1653,10 +1643,6 @@ packages:
 
   '@types/node@24.7.0':
     resolution: {integrity: sha512-IbKooQVqUBrlzWTi79E8Fw78l8k1RNtlDDNWsFZs7XonuQSJ8oNYfEeclhprUldXISRMLzBpILuKgPlIxm+/Yw==}
-
-  '@types/puppeteer@7.0.4':
-    resolution: {integrity: sha512-ja78vquZc8y+GM2al07GZqWDKQskQXygCDiu0e3uO0DMRKqE0MjrFBFmTulfPYzLB6WnL7Kl2tFPy0WXSpPomg==}
-    deprecated: This is a stub types definition. puppeteer provides its own type definitions, so you do not need this installed.
 
   '@types/react-dom@19.2.0':
     resolution: {integrity: sha512-brtBs0MnE9SMx7px208g39lRmC5uHZs96caOJfTjFcYSLHNamvaSMfJNagChVNkup2SdtOxKX1FDBkRSJe1ZAg==}
@@ -6058,10 +6044,6 @@ snapshots:
 
   '@types/didyoumean@1.2.3': {}
 
-  '@types/diff@8.0.0':
-    dependencies:
-      diff: 8.0.2
-
   '@types/estree@1.0.8': {}
 
   '@types/istanbul-lib-coverage@2.0.6': {}
@@ -6102,17 +6084,6 @@ snapshots:
   '@types/node@24.7.0':
     dependencies:
       undici-types: 7.14.0
-
-  '@types/puppeteer@7.0.4(typescript@5.9.3)':
-    dependencies:
-      puppeteer: 24.23.0(typescript@5.9.3)
-    transitivePeerDependencies:
-      - bare-buffer
-      - bufferutil
-      - react-native-b4a
-      - supports-color
-      - typescript
-      - utf-8-validate
 
   '@types/react-dom@19.2.0(@types/react@19.2.0)':
     dependencies:
