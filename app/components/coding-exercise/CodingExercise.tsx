@@ -13,6 +13,7 @@ import TabPanel from "./ui/TabPanel";
 import TasksView from "./ui/TasksView";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import LanguageToggle from "./ui/LanguageToggle";
+import FunctionsView from "./ui/FunctionsView";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -90,6 +91,9 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
               <LanguageToggle />
             </div>
             <CodeEditor />
+            <div className="bg-white border-t border-gray-200 px-4 py-3">
+              <RunButton />
+            </div>
             <ScenariosPanel />
           </div>
 
@@ -108,6 +112,11 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
                     content: <TasksView tasks={orchestrator.getExercise().tasks} />
                   },
                   {
+                    id: "functions",
+                    label: "Functions",
+                    content: <FunctionsView functions={orchestrator.getExercise().functions} />
+                  },
+                  {
                     id: "hints",
                     label: "Hints",
                     content: <HintsView hints={orchestrator.getExercise().hints} />
@@ -119,7 +128,7 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           </div>
         </div>
 
-        <div className="bg-white border-t border-gray-200 px-6 py-4 flex justify-between items-center">
+        <div className="bg-white border-t border-gray-200 px-6 py-4">
           <div className="flex items-center gap-4">
             <div className="text-sm">
               {status === "idle" && <span className="text-gray-600">Ready</span>}
@@ -128,9 +137,6 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
               {status === "error" && <span className="text-red-600">Error</span>}
             </div>
             {error && <div className="text-sm text-red-600">{error}</div>}
-          </div>
-          <div className="flex gap-2">
-            <RunButton />
           </div>
         </div>
       </div>
