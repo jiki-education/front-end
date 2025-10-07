@@ -25,7 +25,8 @@ function createMockStore() {
     setInformationWidgetData: jest.fn(),
     setShouldShowInformationWidget: jest.fn(),
     setHighlightedLine: jest.fn(),
-    currentTest: null
+    currentTest: null,
+    language: "javascript" // Add default language
   }));
 
   return mockStore as any;
@@ -91,8 +92,8 @@ describe("TestSuiteManager", () => {
         }
       });
 
-      // Verify test runner was called
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise);
+      // Verify test runner was called with language parameter
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
 
       // Verify store methods were called
       const state = mockStore.getState();
@@ -144,8 +145,8 @@ describe("TestSuiteManager", () => {
       // Verify API was NOT called
       expect(api.post).not.toHaveBeenCalled();
 
-      // Verify tests still ran
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise);
+      // Verify tests still ran with language parameter
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
     });
 
     it("should handle submission errors silently", async () => {
@@ -162,8 +163,8 @@ describe("TestSuiteManager", () => {
       // Run the code - should not throw
       await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
 
-      // Verify tests still ran despite API error
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise);
+      // Verify tests still ran despite API error with language parameter
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
       expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalled();
     });
 
