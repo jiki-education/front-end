@@ -95,8 +95,11 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           </div>
 
           <div className="w-1/3 border-l border-gray-200 flex flex-col bg-white">
-            <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} className="border-b border-gray-200" />
-            
+            <InstructionsPanel
+              instructions={orchestrator.getExerciseInstructions()}
+              className="border-b border-gray-200"
+            />
+
             <div className="flex-1 overflow-hidden">
               <TabPanel
                 tabs={[
