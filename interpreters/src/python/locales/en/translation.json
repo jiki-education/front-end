@@ -20,6 +20,7 @@
       "DuplicateParameterName": "Duplicate parameter name '{{name}}' in function definition.",
       "MissingRightParenthesisAfterParameters": "Missing ')' after function parameters.",
       "MissingColonAfterFunctionSignature": "Missing ':' after function signature.",
+      "MissingRightParenthesisAfterFunctionCall": "Did you forget the closing parenthesis ')' when calling the {{function}} function?",
       "MissingEqual": "Missing '=' in assignment.",
       "MissingRightBracket": "Missing ']'.",
       "MissingRightParen": "Missing ')'.",

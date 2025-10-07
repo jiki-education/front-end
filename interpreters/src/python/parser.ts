@@ -726,6 +726,17 @@ export class Parser {
   }
 
   private finishCallExpression(callee: Expression): CallExpression {
+    // Extract function name for better error messages
+    const functionName = callee instanceof IdentifierExpression ? (callee as any).name.lexeme : null;
+
+    // Check if we immediately encounter NEWLINE or EOF after opening paren
+    // This is a common mistake: move( followed by newline or EOF
+    if (this.check("NEWLINE") || this.isAtEnd()) {
+      this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
+        function: functionName,
+      });
+    }
+
     const args: Expression[] = [];
 
     // Handle empty argument list
@@ -735,7 +746,14 @@ export class Parser {
       } while (this.match("COMMA"));
     }
 
-    const rightParen = this.consume("RIGHT_PAREN", "MissingRightParen");
+    // Use specific error with function name context
+    if (!this.check("RIGHT_PAREN")) {
+      this.error("MissingRightParenthesisAfterFunctionCall", callee.location, {
+        function: functionName,
+      });
+    }
+
+    const rightParen = this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterFunctionCall");
 
     return new CallExpression(callee, args, Location.between(callee, rightParen));
   }

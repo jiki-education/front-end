@@ -60,6 +60,7 @@ export type SyntaxErrorType =
   | "DuplicateParameterName"
   | "MissingRightParenthesisAfterParameters"
   | "MissingColonAfterFunctionSignature"
+  | "MissingRightParenthesisAfterFunctionCall"
   // Generic parser errors
   | "MissingEqual"
   | "MissingRightBracket"
