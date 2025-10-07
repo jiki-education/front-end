@@ -1,10 +1,10 @@
-import { TestSuiteManager } from "@/components/complex-exercise/lib/orchestrator/TestSuiteManager";
+import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/TestSuiteManager";
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import { createStore } from "zustand/vanilla";
-import type { OrchestratorStore } from "@/components/complex-exercise/lib/types";
+import type { OrchestratorStore } from "@/components/coding-exercise/lib/types";
 
 // Mock the test runner
-jest.mock("@/components/complex-exercise/lib/test-runner/runTests", () => ({
+jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
 }));
 
@@ -65,7 +65,7 @@ describe("TestSuiteManager", () => {
 
     it("should submit exercise files to the backend when running tests", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to return a specific slug
       jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
@@ -104,7 +104,7 @@ describe("TestSuiteManager", () => {
 
     it("should extract lesson slug from URL correctly", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Test different URL patterns
       const testCases = [
@@ -131,7 +131,7 @@ describe("TestSuiteManager", () => {
 
     it("should not submit if no lesson slug in URL", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to return null (no lesson slug)
       jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
@@ -150,7 +150,7 @@ describe("TestSuiteManager", () => {
 
     it("should handle submission errors silently", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL
       jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
@@ -168,7 +168,7 @@ describe("TestSuiteManager", () => {
     });
 
     it("should handle syntax errors correctly", async () => {
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       const syntaxError = {
         message: "Unexpected token",
@@ -198,7 +198,7 @@ describe("TestSuiteManager", () => {
     });
 
     it("should handle non-syntax errors correctly", async () => {
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock test runner to throw regular error
       (runTests as jest.Mock).mockImplementation(() => {
@@ -216,7 +216,7 @@ describe("TestSuiteManager", () => {
 
     it("should run tests and submit asynchronously (fire-and-forget)", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL
       jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
@@ -247,7 +247,7 @@ describe("TestSuiteManager", () => {
 
     it("should handle undefined window gracefully", async () => {
       const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/complex-exercise/lib/test-runner/runTests");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
 
       // Mock getLessonSlugFromURL to simulate undefined window
       jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
