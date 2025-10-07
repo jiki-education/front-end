@@ -48,6 +48,7 @@ describe("two-character operators", () => {
     ["||", "LOGICAL_OR"],
     ["++", "INCREMENT"],
     ["--", "DECREMENT"],
+    ["**", "STAR_STAR"],
     // ["+=", "PLUS_EQUAL"], // Unimplemented
     // ["-=", "MINUS_EQUAL"], // Unimplemented
     // ["*=", "MULTIPLY_EQUAL"], // Unimplemented

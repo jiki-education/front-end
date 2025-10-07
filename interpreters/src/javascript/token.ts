@@ -70,6 +70,7 @@ export type TokenType =
   | "EQUAL"
 
   // Two or more character tokens
+  | "STAR_STAR"
   | "ARROW"
   | "AND_EQUAL"
   | "DECREMENT"

@@ -552,14 +552,30 @@ export class Parser {
   }
 
   private multiplication(): Expression {
-    let expr = this.unary();
+    let expr = this.exponentiation();
 
     while (this.match("STAR", "SLASH")) {
       // Check if BinaryExpression is allowed
       this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
-      const right = this.unary();
+      const right = this.exponentiation();
+      expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
+    }
+
+    return expr;
+  }
+
+  private exponentiation(): Expression {
+    let expr = this.unary();
+
+    // Exponentiation is right-associative, so we use recursion instead of a loop
+    if (this.match("STAR_STAR")) {
+      // Check if BinaryExpression is allowed
+      this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
+
+      const operator = this.previous();
+      const right = this.exponentiation(); // Right-associative recursion
       expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
     }
 

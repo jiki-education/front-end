@@ -1,5 +1,107 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-07: Added Exponentiation Operator (`**`)
+
+### Overview
+
+Implemented full support for the JavaScript exponentiation operator (`**`), enabling students to perform power operations with proper operator precedence and right-associativity.
+
+### Changes Applied
+
+**1. Token System** (`src/javascript/token.ts`):
+
+- Added `STAR_STAR` token type for the `**` operator
+
+**2. Scanner Update** (`src/javascript/scanner.ts`):
+
+- Modified `tokenizeStar()` method to check for `**` before `*=` and `*`
+- Pattern: `**` → `STAR_STAR`, `*=` → `MULTIPLY_EQUAL`, `*` → `STAR`
+
+**3. Parser Enhancement** (`src/javascript/parser.ts`):
+
+- Added `exponentiation()` method between `multiplication()` and `unary()` in precedence chain
+- Implemented right-associative parsing using recursion instead of loop
+- Proper precedence: `2 * 3 ** 2` parses as `2 * (3 ** 2)` = 18
+- Right-associativity: `2 ** 3 ** 2` parses as `2 ** (3 ** 2)` = 512
+
+**4. Executor Implementation** (`src/javascript/executor/executeBinaryExpression.ts`):
+
+- Added `STAR_STAR` case using JavaScript's native `**` operator
+- Follows same type checking pattern as multiplication (verifies numbers when type coercion disabled)
+- Computes: `left ** right`
+
+**5. Comprehensive Test Coverage**:
+
+- **Scanner tests** (`tests/javascript/scanner.test.ts`): Added `**` token test
+- **Parser tests** (`tests/javascript/concepts/arithmetic.test.ts`):
+  - Basic exponentiation parsing
+  - Right-associativity verification (`2 ** 3 ** 2`)
+  - Precedence verification (`2 * 3 ** 2`)
+- **Interpreter tests** (`tests/javascript/interpreter/arithmetic.test.ts`):
+  - Basic computation: `2 ** 3` = 8
+  - Decimal results: `4 ** 0.5` = 2
+  - Right-associativity: `2 ** 3 ** 2` = 512
+  - Precedence: `2 * 3 ** 2` = 18
+- **Cross-validation tests** (`tests/cross-validation/javascript/core/basic-operations.test.ts`):
+  - Verified implementation matches native JavaScript behavior
+  - Tests for basic exponentiation, precedence, and right-associativity
+
+### Supported Syntax
+
+```javascript
+// Basic exponentiation
+let result = 2 ** 3; // 8
+
+// Right-associative (evaluates right to left)
+let result = 2 ** (3 ** 2); // 2 ** (3 ** 2) = 2 ** 9 = 512
+
+// Higher precedence than multiplication
+let result = 2 * 3 ** 2; // 2 * (3 ** 2) = 2 * 9 = 18
+
+// Works with decimals
+let result = 4 ** 0.5; // 2 (square root)
+```
+
+### Implementation Notes
+
+**Operator Precedence**:
+
+JavaScript operator precedence (high to low):
+
+1. Grouping `()`
+2. Unary `+`, `-`, `!`
+3. Exponentiation `**` (right-associative)
+4. Multiplication/Division `*`, `/`
+5. Addition/Subtraction `+`, `-`
+6. Comparison `>`, `<`, `>=`, `<=`
+7. Equality `===`, `!==`, `==`, `!=`
+8. Logical AND `&&`
+9. Logical OR `||`
+10. Assignment `=`
+
+**Right-Associativity**:
+
+Unlike most binary operators, exponentiation is right-associative:
+
+- `2 ** 3 ** 2` = `2 ** (3 ** 2)` = `2 ** 9` = `512`
+- NOT `(2 ** 3) ** 2` = `8 ** 2` = `64`
+
+This is implemented using recursion in the parser's `exponentiation()` method instead of the typical while-loop pattern used for left-associative operators.
+
+### Test Results
+
+- All 2,399 tests passing (including new exponentiation tests)
+- No regressions from implementation
+- TypeScript compilation with zero errors
+- Cross-validation confirms native JavaScript parity
+
+### Educational Benefits
+
+- Students learn power operations with visual frame-by-frame execution
+- Operator precedence rules reinforced through examples
+- Right-associativity demonstrated clearly (uncommon but important concept)
+- Natural progression from basic arithmetic to advanced operations
+
 ## 2025-10-07: Added const Support in for...of Loops and Error for const in C-Style for Loops
 
 ### Overview

@@ -208,7 +208,9 @@ export class Scanner {
   }
 
   private tokenizeStar() {
-    if (this.match("=")) {
+    if (this.match("*")) {
+      this.addToken("STAR_STAR");
+    } else if (this.match("=")) {
       this.addToken("MULTIPLY_EQUAL");
     } else {
       this.addToken("STAR");
