@@ -271,9 +271,9 @@ describe("Test Switching E2E", () => {
         return orchestrator.getStore().getState().currentTestTime;
       });
 
-      // Should be at a small time (less than 500ms), proving it restarted
-      // Using 500ms threshold to account for E2E timing variability
-      expect(currentTime).toBeLessThan(500000);
+      // Should be at a small time (less than 250ms), proving it restarted
+      // Using 250ms threshold to account for E2E timing variability
+      expect(currentTime).toBeLessThan(250000);
     });
   });
 });
