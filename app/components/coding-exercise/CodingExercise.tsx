@@ -12,7 +12,6 @@ import RunButton from "./ui/RunButton";
 import TabPanel from "./ui/TabPanel";
 import TasksView from "./ui/TasksView";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
-import { TestModalButtons } from "./ui/TestModalButtons";
 import LanguageToggle from "./ui/LanguageToggle";
 
 interface CodingExerciseProps {
@@ -132,7 +131,6 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           </div>
           <div className="flex gap-2">
             <RunButton />
-            <TestModalButtons />
           </div>
         </div>
       </div>
