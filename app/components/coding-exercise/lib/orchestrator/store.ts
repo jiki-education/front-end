@@ -296,8 +296,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           hasCodeBeenEdited: false,
           status: "success",
           testCurrentTimes: {},
-          // Reset success modal tracking for new test runs
-          wasSuccessModalShown: false,
+          // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
           // Enable spotlight if all tests passed
           isSpotlightActive: allTestsPassed
         });
