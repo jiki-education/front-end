@@ -421,7 +421,7 @@ export class Scanner {
 
         this.advance(); // Consume the $
         this.advance(); // Consume the {
-        this.addToken("DOLLAR_LEFT_BRACE");
+        this.addToken("LEFT_BRACE");
         this.start = this.current;
 
         let braceCount = 1;
