@@ -343,7 +343,7 @@ describe("Store Auto-Play Behavior", () => {
         expect(store.getState().isSpotlightActive).toBe(false);
       });
 
-      it("should reset wasSuccessModalShown to false on new test run", () => {
+      it("should NOT reset wasSuccessModalShown when running tests again", () => {
         const store = createOrchestratorStore("test-uuid", "");
 
         // Simulate modal was shown previously
@@ -355,9 +355,11 @@ describe("Store Auto-Play Behavior", () => {
           status: "pass" as const
         };
 
+        // Run tests again (without code changes)
         store.getState().setTestSuiteResult(testResults);
 
-        expect(store.getState().wasSuccessModalShown).toBe(false);
+        // Modal state should persist - it should NOT be reset
+        expect(store.getState().wasSuccessModalShown).toBe(true);
       });
     });
 
