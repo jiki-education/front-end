@@ -76,7 +76,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                       <div
                         className="bg-blue-500 h-1 rounded-full transition-all duration-300"
                         style={{
-                          width: `${(progress.passedScenarios.length / progress.totalScenarios) * 100}%`
+                          width: `${progress.totalScenarios > 0 ? (progress.passedScenarios.length / progress.totalScenarios) * 100 : 0}%`
                         }}
                       />
                     </div>

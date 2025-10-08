@@ -522,5 +522,29 @@ describe("TasksView", () => {
       const progressBar = container.querySelector(".bg-blue-500");
       expect(progressBar).toHaveStyle("width: 100%");
     });
+
+    it("should handle division by zero edge case with in-progress task having 0 total scenarios", () => {
+      const taskProgress = new Map<string, TaskProgress>();
+      taskProgress.set(
+        "task-1",
+        createMockProgress({
+          status: "in-progress",
+          passedScenarios: [],
+          totalScenarios: 0
+        })
+      );
+
+      mockUseOrchestratorStore.mockReturnValue({
+        taskProgress,
+        completedTasks: new Set(),
+        currentTaskId: null
+      });
+
+      const tasks = [createMockTask({ id: "task-1" })];
+      const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
+
+      const progressBar = container.querySelector(".bg-blue-500");
+      expect(progressBar).toHaveStyle("width: 0%");
+    });
   });
 });
