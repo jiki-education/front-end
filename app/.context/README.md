@@ -32,6 +32,7 @@ General documentation that applies across the entire codebase:
 - **[sound.md](./sound.md)** - Sound system for audio feedback
 - **[lessons.md](./lessons.md)** - Lesson system for videos and exercises
 - **[exercises.md](./exercises.md)** - Exercise system structure and creation guide
+- **[content.md](./content.md)** - Content integration for blog posts and articles
 - **[api.md](./api.md)** - Backend API client and usage patterns
 - **[auth.md](./auth.md)** - JWT authentication system and auth flow
 
@@ -114,6 +115,7 @@ All context files should include:
 - **The product?** → [about-jiki.md](./about-jiki.md)
 - **Code style?** → [coding-style.md](./coding-style.md)
 - **Architecture?** → [architecture.md](./architecture.md)
+- **Content (blog/articles)?** → [content.md](./content.md)
 - **API integration?** → [api.md](./api.md)
 - **Authentication?** → [auth.md](./auth.md)
 - **Complex exercises?** → [coding-exercise/README.md](./coding-exercise/README.md)

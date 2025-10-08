@@ -17,10 +17,10 @@ interface PostFile {
   slug: string;
   locale: string;
   filePath: string;
-  type: "blog" | "article";
+  type: "blog" | "articles";
 }
 
-function getPostFiles(type: "blog" | "article"): PostFile[] {
+function getPostFiles(type: "blog" | "articles"): PostFile[] {
   const typeDir = path.join(POSTS_DIR, type);
 
   if (!fs.existsSync(typeDir)) {
@@ -102,14 +102,14 @@ export function getBlogPost(slug: string, locale: string): ProcessedPost {
 }
 
 export function getAllArticles(locale: string): ProcessedPost[] {
-  const files = getPostFiles("article");
+  const files = getPostFiles("articles");
   const localeFiles = files.filter((f) => f.locale === locale);
 
   return localeFiles.map(loadPost).sort((a, b) => a.title.localeCompare(b.title));
 }
 
 export function getArticle(slug: string, locale: string): ProcessedPost {
-  const files = getPostFiles("article");
+  const files = getPostFiles("articles");
   const file = files.find((f) => f.slug === slug && f.locale === locale);
 
   if (!file) {

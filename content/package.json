@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && pnpm run copy-images",
-    "copy-images": "mkdir -p dist/images && cp -r images/* dist/images/",
+    "build": "tsc -p tsconfig.build.json && pnpm run copy-assets",
+    "copy-assets": "mkdir -p dist/images dist/posts && cp -r images/* dist/images/ && cp -r src/posts/* dist/posts/",
     "dev": "tsc -p tsconfig.build.json --watch",
     "test": "vitest",
     "test:ui": "vitest --ui",
