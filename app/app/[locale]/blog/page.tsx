@@ -1,26 +1,28 @@
-import { getAllBlogPosts } from "@jiki/content";
+import { getAllBlogPosts, getAvailableLocales } from "@jiki/content";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { DEFAULT_LOCALE } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string }>;
 }
 
-const SUPPORTED_LOCALES = ["hu"]; // Only non-English locales
-
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.map((locale) => ({ locale }));
+  const locales = getAvailableLocales("blog");
+  return locales.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }));
 }
 
 export default async function LocaleBlogPage({ params }: Props) {
   const { locale } = await params;
 
-  // Redirect en to naked URL
-  if (locale === "en") {
+  // Redirect default locale to naked URL
+  if (locale === DEFAULT_LOCALE) {
     redirect("/blog");
   }
 
-  if (!SUPPORTED_LOCALES.includes(locale)) {
+  // Check if locale has any blog posts
+  const locales = getAvailableLocales("blog");
+  if (!locales.includes(locale)) {
     notFound();
   }
 

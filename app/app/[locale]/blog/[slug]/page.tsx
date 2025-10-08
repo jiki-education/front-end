@@ -1,31 +1,23 @@
-import { getAllBlogPosts, getBlogPost } from "@jiki/content";
+import { getBlogPost, getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
+import { DEFAULT_LOCALE } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
 
-const SUPPORTED_LOCALES = ["hu"]; // Only non-English locales
-
 export function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
-
-  for (const locale of SUPPORTED_LOCALES) {
-    const blogPosts = getAllBlogPosts(locale);
-    for (const post of blogPosts) {
-      params.push({ locale, slug: post.slug });
-    }
-  }
-
-  return params;
+  return getAllPostSlugsWithLocales("blog")
+    .filter((p) => p.locale !== DEFAULT_LOCALE)
+    .map((p) => ({ locale: p.locale, slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
 
-  if (locale === "en") {
+  if (locale === DEFAULT_LOCALE) {
     return { title: "Redirecting..." };
   }
 
@@ -44,13 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleBlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
 
-  // Redirect en to naked URL
-  if (locale === "en") {
+  // Redirect default locale to naked URL
+  if (locale === DEFAULT_LOCALE) {
     redirect(`/blog/${slug}`);
-  }
-
-  if (!SUPPORTED_LOCALES.includes(locale)) {
-    notFound();
   }
 
   let post;
