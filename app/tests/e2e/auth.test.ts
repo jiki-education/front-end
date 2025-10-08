@@ -157,7 +157,7 @@ describe("Authentication E2E", () => {
   });
 
   describe("Authentication Flow", () => {
-    it("should handle dashboard access without auth after refresh redirect fix", async () => {
+    it("should redirect unauthenticated users from dashboard to login", async () => {
       // Clear any existing auth completely
       await page.goto("http://localhost:3070", { waitUntil: "domcontentloaded" });
       await page.evaluate(() => {
@@ -171,30 +171,11 @@ describe("Authentication E2E", () => {
       // Try to access dashboard
       await page.goto("http://localhost:3070/dashboard", { waitUntil: "domcontentloaded" });
 
-      // With the refresh redirect fix, the behavior might be:
-      // 1. Show loading state while auth resolves
-      // 2. Eventually redirect to login once auth state is ready
-      // 3. Or show empty page if auth never resolves (due to return null)
-
-      // Wait a reasonable time to see what happens
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      // Wait for auth system to resolve and redirect
+      await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 5000 });
 
       const url = page.url();
-
-      // Check if we got redirected to login (ideal case)
-      if (url.includes("/auth/login")) {
-        expect(url).toContain("/auth/login");
-      } else {
-        // If not redirected, we should still be on dashboard but with minimal content
-        expect(url).toContain("/dashboard");
-
-        // The page should either show loading or be mostly empty (due to return null)
-        const hasLoadingIndicator = await page.$(".animate-spin");
-        const bodyText = await page.evaluate(() => (document.body.textContent || "").trim());
-
-        // Should either have loading indicator or very minimal content
-        expect(hasLoadingIndicator !== null || bodyText.length < 50).toBe(true);
-      }
+      expect(url).toContain("/auth/login");
     });
   });
 });
