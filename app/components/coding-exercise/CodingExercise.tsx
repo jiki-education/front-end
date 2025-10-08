@@ -79,7 +79,7 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="flex flex-col h-screen bg-gray-50">
+      <div className="flex flex-col h-screen bg-gray-50 coding-exercise-container">
         <header className="bg-white border-b border-gray-200 px-6 py-4">
           <h1 className="text-2xl font-bold text-gray-900">{orchestrator.getExerciseTitle()}</h1>
         </header>

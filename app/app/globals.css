@@ -144,7 +144,6 @@ body {
     background: var(--background);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
 
     &::after {
         content: "";
@@ -689,4 +688,9 @@ body {
 
 .container-size {
     container-type: size;
+}
+
+/* Coding exercise specific styles */
+.coding-exercise-container {
+    overflow: hidden;
 }
