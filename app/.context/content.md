@@ -18,22 +18,41 @@ All content validation happens in the content package's test suite, ensuring dat
 
 ## Routes
 
-### Blog Routes
+### Blog Routes (English - Default)
 
-- **`/blog`** - Blog index page listing all blog posts
-- **`/blog/[slug]`** - Individual blog post page
+- **`/blog`** - English blog index page
+- **`/blog/[slug]`** - Individual English blog post
 
-### Article Routes
+### Blog Routes (Localized)
 
-- **`/articles`** - Articles index page listing all articles
-- **`/articles/[slug]`** - Individual article page
+- **`/[locale]/blog`** - Localized blog index (e.g., `/hu/blog`)
+- **`/[locale]/blog/[slug]`** - Localized blog post (e.g., `/hu/blog/jiki-is-born`)
+- **`/en/blog/*`** - Redirects to naked `/blog/*` URLs
+
+### Article Routes (English - Default)
+
+- **`/articles`** - English articles index page
+- **`/articles/[slug]`** - Individual English article
+
+### Article Routes (Localized)
+
+- **`/[locale]/articles`** - Localized articles index (e.g., `/hu/articles`)
+- **`/[locale]/articles/[slug]`** - Localized article (e.g., `/hu/articles/about-jiki`)
+- **`/en/articles/*`** - Redirects to naked `/articles/*` URLs
 
 ## Using Content Functions
 
 Import content functions from `@jiki/content`:
 
 ```typescript
-import { getAllBlogPosts, getBlogPost, getAllArticles, getArticle } from "@jiki/content";
+import {
+  getAllBlogPosts,
+  getBlogPost,
+  getAllArticles,
+  getArticle,
+  getAllPostSlugsWithLocales,
+  getAvailableLocales
+} from "@jiki/content";
 ```
 
 ### Get All Blog Posts
@@ -48,7 +67,7 @@ const posts = getAllBlogPosts("en");
 ```typescript
 const post = getBlogPost("jiki-is-born", "en");
 // Returns: ProcessedPost with rendered HTML content
-// Throws: Error if post not found
+// Throws: Error if post not found (falls back to English if locale missing)
 ```
 
 ### Get All Articles
@@ -63,7 +82,26 @@ const articles = getAllArticles("en");
 ```typescript
 const article = getArticle("about-jiki-javascript", "en");
 // Returns: ProcessedPost with rendered HTML content
-// Throws: Error if article not found
+// Throws: Error if article not found (falls back to English if locale missing)
+```
+
+### Get All Post Slugs with Locales (Route Generation)
+
+```typescript
+import { SUPPORTED_LOCALES } from "@/config/locales";
+
+const slugsWithLocales = getAllPostSlugsWithLocales("blog", SUPPORTED_LOCALES);
+// Returns: [{ slug: "jiki-is-born", locale: "en" }, { slug: "jiki-is-born", locale: "hu" }, ...]
+// Only includes locales that are both in content AND in SUPPORTED_LOCALES
+```
+
+### Get Available Locales
+
+```typescript
+import { SUPPORTED_LOCALES } from "@/config/locales";
+
+const locales = getAvailableLocales("blog", SUPPORTED_LOCALES);
+// Returns: ["en", "hu"] (intersection of content locales and SUPPORTED_LOCALES)
 ```
 
 ## Data Structure
@@ -94,21 +132,27 @@ interface ProcessedPost {
 
 ## Static Generation
 
-All blog and article pages use Next.js static generation:
+All blog and article pages use Next.js static generation. Routes are generated dynamically based on actual translated content:
 
 ```typescript
-// Generate static paths at build time
-export async function generateStaticParams() {
-  const posts = getAllBlogPosts("en");
-  return posts.map((post) => ({ slug: post.slug }));
+import { getAllPostSlugsWithLocales } from "@jiki/content";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
+
+// For locale-specific routes (e.g., /[locale]/blog/[slug])
+export function generateStaticParams() {
+  return getAllPostSlugsWithLocales("blog", SUPPORTED_LOCALES)
+    .filter((p) => p.locale !== DEFAULT_LOCALE)
+    .map((p) => ({ locale: p.locale, slug: p.slug }));
 }
 ```
 
 This ensures:
 
-- Fast page loads
+- Routes only generated for locales in SUPPORTED_LOCALES
+- Routes only generated for content that actually exists
+- Adding new translation automatically creates routes
+- Fast page loads with static generation
 - SEO-friendly URLs
-- No runtime data fetching
 - Build-time error detection
 
 ## SEO Metadata
@@ -129,28 +173,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 ## Images
 
-Images are copied from the content package during prebuild:
+Images are symlinked from the content package for local development:
 
 ```bash
-./scripts/copy-content-images.sh
+public/images/blog -> ../../../content/dist/images/blog
+public/images/articles -> ../../../content/dist/images/articles
+public/images/avatars -> ../../../content/dist/images/avatars
 ```
 
-This copies:
-
-- `content/dist/images/blog/` → `app/public/images/blog/`
-- `content/dist/images/articles/` → `app/public/images/articles/`
-- `content/dist/images/avatars/` → `app/public/images/avatars/`
-
-Copied images are gitignored and regenerated on each build.
+- **Local development**: Symlinks provide instant access without copying
+- **Production**: Script at `scripts/copy-content-images.sh` available for S3/CDN upload
+- Images in `public/images/{blog,articles,avatars}/` are gitignored
 
 ## Locale Handling
 
-Currently hardcoded to `"en"` locale. Future improvements:
+### Configuration
 
-1. Get user locale from settings/preferences
-2. Pass locale to all content functions
-3. Show language switcher on posts with translations
-4. Automatic fallback to English (handled by content package)
+Supported locales are defined in `app/config/locales.ts`:
+
+```typescript
+export const SUPPORTED_LOCALES = ["en", "hu"] as const;
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
+export const DEFAULT_LOCALE: Locale = "en";
+```
+
+### How It Works
+
+1. **Default locale (English)**: Served at naked URLs (`/blog`, `/articles`)
+2. **Non-default locales**: Served at locale-prefixed URLs (`/hu/blog`, `/hu/articles`)
+3. **English locale prefix**: Redirects to naked URLs (`/en/blog` → `/blog`)
+4. **Content filtering**: Only locales in BOTH content AND SUPPORTED_LOCALES are exposed
+
+### Adding a New Locale
+
+1. Add locale to `SUPPORTED_LOCALES` in `app/config/locales.ts`
+2. Add translated content markdown files in `content/src/posts/`
+3. Routes automatically generated on next build
+
+### Fallback Behavior
+
+If a post exists in English but not in the requested locale:
+
+- `getBlogPost(slug, "hu")` automatically falls back to English
+- This allows partial translations without breaking the site
 
 ## Styling Content
 
