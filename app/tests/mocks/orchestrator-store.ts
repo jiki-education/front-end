@@ -4,7 +4,7 @@ import { subscribeWithSelector } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
 // Helper to create mock store with overrides
-export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
+export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore> = {}) {
   const store = createStore(
     subscribeWithSelector<OrchestratorStore>((set, _get) => ({
       // Default state

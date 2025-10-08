@@ -1,9 +1,9 @@
 import { AnimationTimeline } from "@/components/coding-exercise/lib/AnimationTimeline";
-import { createTimeline } from "animejs";
-import type { Timeline, DefaultsParams } from "animejs";
-import type { Frame } from "@jiki/interpreters";
+import { createMockFrame } from "@/tests/mocks";
 import type { Animation as CurriculumAnimation } from "@jiki/curriculum";
-import { mockFrame } from "@/tests/mocks";
+import type { Frame } from "@jiki/interpreters";
+import type { DefaultsParams, Timeline } from "animejs";
+import { createTimeline } from "animejs";
 
 // Mock animejs
 jest.mock("animejs", () => ({
@@ -14,10 +14,10 @@ describe("AnimationTimeline", () => {
   let mockTimeline: Partial<Timeline>;
   let animationTimeline: AnimationTimeline;
   const mockFrames: Frame[] = [
-    mockFrame(0, { line: 1 }),
-    mockFrame(30000, { line: 2 }), // 30ms
-    mockFrame(60000, { line: 3 }), // 60ms
-    mockFrame(90000, {
+    createMockFrame(0, { line: 1 }),
+    createMockFrame(30000, { line: 2 }), // 30ms
+    createMockFrame(60000, { line: 3 }), // 60ms
+    createMockFrame(90000, {
       line: 4,
       status: "ERROR",
       error: { message: "Test error", type: "runtime" }

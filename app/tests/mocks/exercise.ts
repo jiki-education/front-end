@@ -1,11 +1,11 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import { TestExercise } from "@jiki/curriculum";
-import { tasks, scenarios } from "./test-exercise/scenarios";
+import { scenarios, tasks } from "./mock-exercise/scenarios";
 
 /**
  * Helper function to create a test exercise definition with custom overrides
  */
-export function createTestExercise(overrides?: Partial<ExerciseDefinition>): ExerciseDefinition {
+export function createMockExercise(overrides?: Partial<ExerciseDefinition>): ExerciseDefinition {
   return {
     slug: "test-exercise",
     title: "Test Exercise",

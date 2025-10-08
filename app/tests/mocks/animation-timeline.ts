@@ -14,7 +14,7 @@ interface MockAnimationTimelineOptions {
  * @param options - Optional overrides for AnimationTimeline properties
  * @returns A mock AnimationTimeline object that satisfies the type requirements
  */
-export function mockAnimationTimeline(options: MockAnimationTimelineOptions = {}): AnimationTimeline {
+export function createMockAnimationTimeline(options: MockAnimationTimelineOptions = {}): AnimationTimeline {
   const {
     duration = 1000000, // Default 1 second in microseconds
     paused = true,
@@ -62,5 +62,5 @@ export function mockAnimationTimeline(options: MockAnimationTimelineOptions = {}
  * @returns A mock AnimationTimeline with the specified duration
  */
 export function mockAnimationTimelineWithDuration(durationInMicroseconds: number): AnimationTimeline {
-  return mockAnimationTimeline({ duration: durationInMicroseconds });
+  return createMockAnimationTimeline({ duration: durationInMicroseconds });
 }

@@ -1,42 +1,15 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
-import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
-import type { Frame } from "@jiki/interpreters";
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
+import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
+import { createMockFrame, createMockOrchestrator } from "@/tests/mocks";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
-import { mockFrame } from "@/tests/mocks";
+import type { Frame } from "@jiki/interpreters";
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 // Mock the orchestrator store hook
 jest.mock("@/components/coding-exercise/lib/Orchestrator", () => ({
   useOrchestratorStore: jest.fn()
 }));
-
-// Helper to create mock frames
-function createMockFrame(line: number, time: number): Frame {
-  return mockFrame(time, {
-    line,
-    generateDescription: () => `Frame at line ${line}`
-  });
-}
-
-// Helper to create mock orchestrator
-function createMockOrchestrator(): Orchestrator {
-  return {
-    exerciseUuid: "test-uuid",
-    setCode: jest.fn(),
-    setCurrentTestTime: jest.fn(),
-    setCurrentTest: jest.fn(),
-    setHasCodeBeenEdited: jest.fn(),
-    setIsSpotlightActive: jest.fn(),
-    getNearestCurrentFrame: jest.fn().mockReturnValue(null),
-    runCode: jest.fn(),
-    getStore: jest.fn(),
-    goToPrevBreakpoint: jest.fn(),
-    goToNextBreakpoint: jest.fn()
-  } as unknown as Orchestrator;
-}
 
 // Helper to setup store mock
 function setupStoreMock({
@@ -72,7 +45,7 @@ describe("BreakpointStepperButtons Component", () => {
   describe("component visibility", () => {
     it("should not render when no breakpoints are set", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(2, 200);
+      const currentFrame = createMockFrame(200, { line: 2 });
 
       setupStoreMock({
         currentFrame,
@@ -107,7 +80,7 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should render when breakpoints exist and currentTest is set", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(2, 200);
+      const currentFrame = createMockFrame(200, { line: 2 });
 
       setupStoreMock({
         currentFrame,
@@ -128,7 +101,7 @@ describe("BreakpointStepperButtons Component", () => {
   describe("button rendering", () => {
     it("should have correct data-testid attribute on container", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(2, 200);
+      const currentFrame = createMockFrame(200, { line: 2 });
 
       setupStoreMock({
         currentFrame,
@@ -148,7 +121,7 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should render both previous and next buttons", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(2, 200);
+      const currentFrame = createMockFrame(200, { line: 2 });
 
       setupStoreMock({
         currentFrame,
@@ -169,8 +142,8 @@ describe("BreakpointStepperButtons Component", () => {
   describe("previous button functionality", () => {
     it("should be enabled when previous breakpoint frame exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -191,8 +164,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should be disabled when no previous breakpoint frame exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
-      const nextFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(100, { line: 1 });
+      const nextFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -213,8 +186,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should be disabled when enabled prop is false", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -235,8 +208,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should call goToPrevBreakpoint on click", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -259,7 +232,7 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should not call goToPrevBreakpoint when no previous breakpoint exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
+      const currentFrame = createMockFrame(100, { line: 1 });
 
       setupStoreMock({
         currentFrame,
@@ -284,8 +257,8 @@ describe("BreakpointStepperButtons Component", () => {
   describe("next button functionality", () => {
     it("should be enabled when next breakpoint frame exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
-      const nextFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(100, { line: 1 });
+      const nextFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -306,8 +279,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should be disabled when no next breakpoint frame exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -328,8 +301,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should be disabled when enabled prop is false", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
-      const nextFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(100, { line: 1 });
+      const nextFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -350,8 +323,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should call goToNextBreakpoint on click", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
-      const nextFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(100, { line: 1 });
+      const nextFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -374,7 +347,7 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should not call goToNextBreakpoint when no next breakpoint exists", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -399,7 +372,7 @@ describe("BreakpointStepperButtons Component", () => {
   describe("edge cases", () => {
     it("should handle both buttons disabled when no breakpoint frames available", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(2, 200);
+      const currentFrame = createMockFrame(200, { line: 2 });
 
       setupStoreMock({
         currentFrame,
@@ -423,8 +396,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should handle only previous button enabled", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -448,8 +421,8 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should handle only next button enabled", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const currentFrame = createMockFrame(1, 100);
-      const nextFrame = createMockFrame(3, 300);
+      const currentFrame = createMockFrame(100, { line: 1 });
+      const nextFrame = createMockFrame(300, { line: 3 });
 
       setupStoreMock({
         currentFrame,
@@ -473,9 +446,9 @@ describe("BreakpointStepperButtons Component", () => {
 
     it("should handle both buttons enabled", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
-      const nextFrame = createMockFrame(5, 500);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
+      const nextFrame = createMockFrame(500, { line: 5 });
 
       setupStoreMock({
         currentFrame,
@@ -501,9 +474,9 @@ describe("BreakpointStepperButtons Component", () => {
   describe("both buttons interaction", () => {
     it("should allow navigation in both directions", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300);
-      const nextFrame = createMockFrame(5, 500);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 });
+      const nextFrame = createMockFrame(500, { line: 5 });
 
       setupStoreMock({
         currentFrame,
@@ -536,9 +509,9 @@ describe("BreakpointStepperButtons Component", () => {
   describe("current frame on breakpoint", () => {
     it("should handle navigation when current frame is on a breakpoint", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const prevFrame = createMockFrame(1, 100);
-      const currentFrame = createMockFrame(3, 300); // On a breakpoint
-      const nextFrame = createMockFrame(5, 500);
+      const prevFrame = createMockFrame(100, { line: 1 });
+      const currentFrame = createMockFrame(300, { line: 3 }); // On a breakpoint
+      const nextFrame = createMockFrame(500, { line: 5 });
 
       setupStoreMock({
         currentFrame,

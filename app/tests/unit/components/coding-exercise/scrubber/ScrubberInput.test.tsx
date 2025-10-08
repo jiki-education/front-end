@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
-import type { Frame } from "@jiki/interpreters";
-import { mockFrame, mockAnimationTimeline } from "@/tests/mocks";
 import ScrubberInput from "@/components/coding-exercise/ui/scrubber/ScrubberInput";
+import { createMockAnimationTimeline, createMockFrame } from "@/tests/mocks";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
+import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
@@ -11,7 +11,7 @@ import React from "react";
 // Helper to create mock frames
 function createMockFrames(count: number): Frame[] {
   return Array.from({ length: count }, (_, i) =>
-    mockFrame(i * 100000, {
+    createMockFrame(i * 100000, {
       // Each frame is 100ms apart
       line: i + 1,
       generateDescription: () => `Frame ${i}`
@@ -42,7 +42,7 @@ describe("ScrubberInput Component", () => {
   describe("range input properties", () => {
     it("should calculate min value based on frames count", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 5 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 5 });
 
       // Test with less than 2 frames
       const { rerender } = render(
@@ -75,7 +75,7 @@ describe("ScrubberInput Component", () => {
       ];
 
       testCases.forEach(({ duration, expected }) => {
-        const mockTimeline = mockAnimationTimeline({ duration });
+        const mockTimeline = createMockAnimationTimeline({ duration });
 
         const { rerender } = render(
           <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -92,7 +92,7 @@ describe("ScrubberInput Component", () => {
 
     it("should display the current time value", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 10000 }); // 10ms in microseconds
+      const mockTimeline = createMockAnimationTimeline({ duration: 10000 }); // 10ms in microseconds
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -123,7 +123,7 @@ describe("ScrubberInput Component", () => {
       const mockOrchestrator = createMockOrchestrator();
       const frames = createMockFrames(5); // 5 frames, last at 400000 microseconds
       const lastFrameTime = 400000; // Last frame at 400ms = 400000 microseconds
-      const mockTimeline = mockAnimationTimeline({ duration: lastFrameTime });
+      const mockTimeline = createMockAnimationTimeline({ duration: lastFrameTime });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -140,7 +140,7 @@ describe("ScrubberInput Component", () => {
   describe("enabled/disabled state", () => {
     it("should be disabled when enabled prop is false", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 5 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 5 });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -154,7 +154,7 @@ describe("ScrubberInput Component", () => {
 
     it("should be enabled when enabled prop is true", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 5 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 5 });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -170,7 +170,7 @@ describe("ScrubberInput Component", () => {
   describe("onChange handler", () => {
     it("should call setCurrentTestTime when value changes", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
+      const mockTimeline = createMockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -187,7 +187,7 @@ describe("ScrubberInput Component", () => {
 
     it("should handle multiple value changes", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
+      const mockTimeline = createMockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -211,7 +211,7 @@ describe("ScrubberInput Component", () => {
   describe("onMouseUp handler (frame snapping)", () => {
     it("should snap to nearest frame on mouse up", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 10 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 10 });
 
       mockOrchestrator.snapToNearestFrame = jest.fn();
 
@@ -234,7 +234,7 @@ describe("ScrubberInput Component", () => {
 
     it("should call snapToNearestFrame regardless of frame availability", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 10 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 10 });
 
       mockOrchestrator.snapToNearestFrame = jest.fn();
 
@@ -255,7 +255,7 @@ describe("ScrubberInput Component", () => {
   describe("keyboard handlers", () => {
     it("should handle keyUp events", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 10 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 10 });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -275,7 +275,7 @@ describe("ScrubberInput Component", () => {
 
     it("should handle keyDown events", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 10 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 10 });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
@@ -297,7 +297,7 @@ describe("ScrubberInput Component", () => {
   describe("ref forwarding", () => {
     it("should forward ref to the input element", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 5 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 5 });
       const ref = React.createRef<HTMLInputElement>();
 
       render(
@@ -320,7 +320,7 @@ describe("ScrubberInput Component", () => {
   describe("data-testid attribute", () => {
     it("should have the correct data-testid", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = mockAnimationTimeline({ duration: 5 });
+      const mockTimeline = createMockAnimationTimeline({ duration: 5 });
 
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>

@@ -2,7 +2,8 @@
 import TasksView from "@/components/coding-exercise/ui/TasksView";
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
-import type { Task, TaskProgress } from "@jiki/curriculum";
+import type { TaskProgress } from "@jiki/curriculum";
+import { createMockTask, createMockOrchestrator } from "@/tests/mocks";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
@@ -13,16 +14,7 @@ jest.mock("@/components/coding-exercise/lib/orchestrator/store", () => ({
 
 const mockUseOrchestratorStore = useOrchestratorStore as jest.MockedFunction<typeof useOrchestratorStore>;
 
-// Helper functions to create mock data
-function createMockTask(overrides: Partial<Task> = {}): Task {
-  return {
-    id: "task-1",
-    name: "Test Task",
-    bonus: false,
-    ...overrides
-  };
-}
-
+// Helper function to create mock progress (test-specific, no shared equivalent)
 function createMockProgress(overrides: Partial<TaskProgress> = {}): TaskProgress {
   return {
     taskId: "task-1",
@@ -31,12 +23,6 @@ function createMockProgress(overrides: Partial<TaskProgress> = {}): TaskProgress
     totalScenarios: 2,
     ...overrides
   };
-}
-
-function createMockOrchestrator(): Orchestrator {
-  return {
-    setCurrentTask: jest.fn()
-  } as unknown as Orchestrator;
 }
 
 // Helper to create mock hook return value

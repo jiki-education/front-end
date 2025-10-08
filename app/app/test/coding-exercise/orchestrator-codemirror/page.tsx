@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
+import { createMockExercise } from "@/tests/mocks/exercise";
+import { useEffect, useState } from "react";
 
 export default function OrchestratorCodeMirrorTestPage() {
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
-    const exercise = createTestExercise({ slug: "test-exercise", initialCode: "// Initial code\nconst x = 42;" });
+    const exercise = createMockExercise({ slug: "test-exercise", initialCode: "// Initial code\nconst x = 42;" });
     const orch = new Orchestrator(exercise);
     setOrchestrator(orch);
 

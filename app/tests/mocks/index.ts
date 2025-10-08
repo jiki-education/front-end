@@ -3,8 +3,12 @@
  * These provide consistent, typed mocks with sensible defaults.
  */
 
-export { mockAnimationTimeline, mockAnimationTimelineWithDuration } from "./mockAnimationTimeline";
-export { mockFrame } from "./mockFrame";
-export { mockOrchestrator } from "./orchestrator";
-export { mockStore as createMockStore } from "./orchestrator-store";
-export { mockTestResult } from "./test-result";
+export { createMockAnimationTimeline, mockAnimationTimelineWithDuration } from "./animation-timeline";
+export { createMockExercise } from "./exercise";
+export { createMockFrame } from "./frame";
+export { createMockOrchestrator } from "./orchestrator";
+export { createMockOrchestratorStore } from "./orchestrator-store";
+export { createMockScenario } from "./scenario";
+export { createMockTask } from "./task";
+export { createMockTestResult } from "./test-result";
+export { createMockTestSuiteResult } from "./test-suite-result";

@@ -1,24 +1,29 @@
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
-import type { Frame } from "@jiki/interpreters";
-import { mockAnimationTimeline } from "./index";
+import { createMockAnimationTimeline } from "./index";
 
-// Helper to create a mock TestResult
-export function mockTestResult(
-  frames: Frame[],
-  slug: string = `test-${Math.random().toString(36).substr(2, 9)}`
-): TestResult {
-  // Calculate duration based on the last frame's time (convert from microseconds to milliseconds)
+/**
+ * Creates a mock TestResult with sensible defaults and optional overrides
+ */
+export function createMockTestResult(overrides: Partial<TestResult> = {}): TestResult {
+  const frames = overrides.frames || [];
+  const slug = overrides.slug || `test-${Math.random().toString(36).substr(2, 9)}`;
+
+  // Calculate duration based on frames if provided
   const lastFrameTime = frames.length > 0 ? frames[frames.length - 1].time : 0;
-  const duration = Math.max(5, Math.ceil(lastFrameTime / 1000)); // At least 5ms, or last frame time in ms
+  const duration = Math.max(5, Math.ceil(lastFrameTime / 1000));
+
+  // Default animation timeline - use real one if frames exist, otherwise mock
+  const defaultAnimationTimeline = frames.length > 0 ? createMockAnimationTimeline({ duration }) : ({} as any);
 
   return {
     slug,
     name: `Test ${slug}`,
-    status: "pass" as const,
+    status: "pass",
     expects: [],
     view: document.createElement("div"),
     frames,
     logLines: [],
-    animationTimeline: mockAnimationTimeline({ duration })
+    animationTimeline: defaultAnimationTimeline,
+    ...overrides
   };
 }

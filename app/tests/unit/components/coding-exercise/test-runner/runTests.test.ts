@@ -1,8 +1,8 @@
 import { runTests } from "@/components/coding-exercise/lib/test-runner/runTests";
-import { jikiscript, javascript, python } from "@jiki/interpreters";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Scenario } from "@jiki/curriculum";
 import { TestExercise } from "@jiki/curriculum";
+import { javascript, jikiscript, python } from "@jiki/interpreters";
 
 // Mock the interpreters module
 jest.mock("@jiki/interpreters", () => ({
@@ -71,11 +71,11 @@ jest.mock("@/components/coding-exercise/lib/AnimationTimeline", () => {
 });
 
 describe("runTests", () => {
-  let testExercise: ReturnType<typeof createTestExercise>;
+  let testExercise: ReturnType<typeof createMockExercise>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    testExercise = createTestExercise({
+    testExercise = createMockExercise({
       ExerciseClass: TestExercise,
       scenarios: testScenarios
     });

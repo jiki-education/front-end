@@ -1,21 +1,15 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
-import type { Frame } from "@jiki/interpreters";
+import { createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
-import { mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
-
-// Helper to create mock frames
-function createMockFrame(line: number, timeInMicroseconds: number): Frame {
-  return mockFrame(timeInMicroseconds, { line });
-}
+import type { Frame } from "@jiki/interpreters";
+import "@testing-library/jest-dom";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 // Helper to setup orchestrator with test data
 function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLines: number[] = []) {
-  const exercise = createTestExercise({ slug: "test-uuid", initialCode: "// test code" });
+  const exercise = createMockExercise({ slug: "test-uuid", initialCode: "// test code" });
   const orchestrator = new Orchestrator(exercise);
 
   // Set up test state with proper animation timeline mock
@@ -62,11 +56,11 @@ describe("Breakpoint Navigation Integration", () => {
   describe("Orchestrator breakpoint methods", () => {
     it("should navigate to previous breakpoint", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(3, 200),
-        createMockFrame(4, 300),
-        createMockFrame(5, 400)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 }),
+        createMockFrame(400, { line: 5 })
       ];
       const breakpoints = [1, 3, 5];
       const orchestrator = setupOrchestrator(frames, breakpoints);
@@ -84,11 +78,11 @@ describe("Breakpoint Navigation Integration", () => {
 
     it("should navigate to next breakpoint", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(3, 200),
-        createMockFrame(4, 300),
-        createMockFrame(5, 400)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 }),
+        createMockFrame(400, { line: 5 })
       ];
       const breakpoints = [1, 3, 5];
       const orchestrator = setupOrchestrator(frames, breakpoints);
@@ -105,7 +99,11 @@ describe("Breakpoint Navigation Integration", () => {
     });
 
     it("should not navigate when no breakpoint exists", () => {
-      const frames = [createMockFrame(1, 0), createMockFrame(2, 100), createMockFrame(3, 200)];
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 })
+      ];
       const breakpoints = [2]; // Only breakpoint at line 2
       const orchestrator = setupOrchestrator(frames, breakpoints);
 
@@ -122,11 +120,11 @@ describe("Breakpoint Navigation Integration", () => {
 
     it("should skip folded lines when navigating", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(3, 200),
-        createMockFrame(4, 300),
-        createMockFrame(5, 400)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 }),
+        createMockFrame(400, { line: 5 })
       ];
       const breakpoints = [1, 2, 3, 4, 5];
       const foldedLines = [2, 3]; // Fold lines 2 and 3
@@ -146,7 +144,12 @@ describe("Breakpoint Navigation Integration", () => {
 
   describe("Store updates", () => {
     it("should update breakpoint frames when breakpoints change", () => {
-      const frames = [createMockFrame(1, 0), createMockFrame(2, 100), createMockFrame(3, 200), createMockFrame(4, 300)];
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 })
+      ];
       const orchestrator = setupOrchestrator(frames, []);
 
       // Initially no breakpoints
@@ -163,7 +166,12 @@ describe("Breakpoint Navigation Integration", () => {
     });
 
     it("should update breakpoint frames when folded lines change", () => {
-      const frames = [createMockFrame(1, 0), createMockFrame(2, 100), createMockFrame(3, 200), createMockFrame(4, 300)];
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 })
+      ];
       const breakpoints = [2, 3, 4];
       const orchestrator = setupOrchestrator(frames, breakpoints);
 
@@ -184,11 +192,11 @@ describe("Breakpoint Navigation Integration", () => {
 
     it("should update breakpoint frames when timeline time changes", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(3, 200),
-        createMockFrame(4, 300),
-        createMockFrame(5, 400)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 }),
+        createMockFrame(400, { line: 5 })
       ];
       const breakpoints = [1, 3, 5];
       const orchestrator = setupOrchestrator(frames, breakpoints);
@@ -217,11 +225,11 @@ describe("Breakpoint Navigation Integration", () => {
   describe("Component integration", () => {
     it("should render and handle navigation through orchestrator", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(3, 200),
-        createMockFrame(4, 300),
-        createMockFrame(5, 400)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 }),
+        createMockFrame(400, { line: 5 })
       ];
       const breakpoints = [1, 3, 5];
       const orchestrator = setupOrchestrator(frames, breakpoints);
@@ -258,7 +266,11 @@ describe("Breakpoint Navigation Integration", () => {
     });
 
     it("should update button states when orchestrator state changes", async () => {
-      const frames = [createMockFrame(1, 0), createMockFrame(2, 100), createMockFrame(3, 200)];
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 })
+      ];
       const orchestrator = setupOrchestrator(frames, []);
 
       const { rerender } = render(
@@ -297,12 +309,12 @@ describe("Breakpoint Navigation Integration", () => {
   describe("Complex scenarios", () => {
     it("should handle multiple frames on same line with breakpoints", () => {
       const frames = [
-        createMockFrame(1, 0),
-        createMockFrame(2, 100),
-        createMockFrame(2, 150), // Another frame on line 2
-        createMockFrame(3, 200),
-        createMockFrame(3, 250), // Another frame on line 3
-        createMockFrame(4, 300)
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(150, { line: 2 }), // Another frame on line 2
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(250, { line: 3 }), // Another frame on line 3
+        createMockFrame(300, { line: 4 })
       ];
       const breakpoints = [2, 3];
       const orchestrator = setupOrchestrator(frames, breakpoints);
@@ -329,7 +341,12 @@ describe("Breakpoint Navigation Integration", () => {
     });
 
     it("should handle all breakpoints being folded", () => {
-      const frames = [createMockFrame(1, 0), createMockFrame(2, 100), createMockFrame(3, 200), createMockFrame(4, 300)];
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 }),
+        createMockFrame(300, { line: 4 })
+      ];
       const breakpoints = [2, 3];
       const foldedLines = [2, 3]; // All breakpoints are folded
       const orchestrator = setupOrchestrator(frames, breakpoints, foldedLines);

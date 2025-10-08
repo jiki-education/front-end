@@ -1,10 +1,10 @@
 "use client";
 
+import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
+import OrchestratorProvider, { useOrchestratorContext } from "@/components/coding-exercise/lib/OrchestratorProvider";
 import CodeEditor from "@/components/coding-exercise/ui/CodeEditor";
 import RunButton from "@/components/coding-exercise/ui/RunButton";
 import ScenariosPanel from "@/components/coding-exercise/ui/test-results-view/ScenariosPanel";
-import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
-import OrchestratorProvider, { useOrchestratorContext } from "@/components/coding-exercise/lib/OrchestratorProvider";
 import { createTestExercise } from "@/tests/mocks/createTestExercise";
 import { useEffect, useState, useRef } from "react";
 import { assembleClassNames } from "@/utils/assemble-classnames";
