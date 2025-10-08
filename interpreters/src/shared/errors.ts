@@ -1,4 +1,5 @@
 import type { Location } from "./location";
+import type { InterpreterError } from "./interfaces";
 
 /**
  * Shared SyntaxError interface that all interpreter-specific SyntaxError classes conform to.
@@ -18,4 +19,4 @@ export interface SyntaxError {
  * Result type returned by compile() functions in all interpreters.
  * Uses a discriminated union for type-safe success/error handling.
  */
-export type CompilationResult = { success: true } | { success: false; error: SyntaxError };
+export type CompilationResult = { success: true } | { success: false; error: InterpreterError };

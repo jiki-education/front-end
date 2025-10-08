@@ -23,6 +23,7 @@ export interface TestResult {
   status: "pass" | "fail" | "idle";
   expects: TestExpect[];
   frames: Frame[]; // Execution frames for scrubber timeline
+  logLines: Array<{ time: number; output: string }>; // Console output with timestamps
   codeRun?: string;
   imageSlug?: string;
 

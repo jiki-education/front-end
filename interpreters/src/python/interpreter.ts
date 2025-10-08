@@ -1,23 +1,14 @@
 import { Parser } from "./parser";
 import { Executor } from "./executor";
-import type { SyntaxError } from "./error";
-import type { Frame } from "../shared/frames";
+import type { SyntaxError as PySyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
-import type { ExternalFunction } from "../shared/interfaces";
+import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
   languageFeatures?: LanguageFeatures;
   externalFunctions?: ExternalFunction[];
-}
-
-// Update InterpretResult to match shared pattern
-export interface InterpretResult {
-  frames: Frame[];
-  logLines: Array<{ time: number; output: string }>;
-  error: SyntaxError | null; // Only parse/syntax errors, never runtime errors
-  success: boolean;
 }
 
 /**
@@ -29,8 +20,8 @@ export function compile(sourceCode: string, context: EvaluationContext = {}): Co
     const parser = new Parser(context);
     parser.parse(sourceCode);
     return { success: true };
-  } catch (error) {
-    return { success: false, error: error as SyntaxError };
+  } catch (error: unknown) {
+    return { success: false, error: error as PySyntaxError };
   }
 }
 
@@ -49,14 +40,22 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       logLines: executor.logLines,
       error: null, // No parse error
       success: result.success,
+      meta: {
+        functionCallLog: {},
+        statements: statements,
+      },
     };
-  } catch (error) {
+  } catch (error: unknown) {
     // Only parsing/compilation errors are returned as errors
     return {
       frames: [],
       logLines: [],
-      error: error as SyntaxError,
+      error: error as PySyntaxError,
       success: false,
+      meta: {
+        functionCallLog: {},
+        statements: [],
+      },
     };
   }
 }

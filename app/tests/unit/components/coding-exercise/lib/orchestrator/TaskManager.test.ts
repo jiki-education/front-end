@@ -60,6 +60,7 @@ function createMockTestResult(slug: string, status: "pass" | "fail" = "pass") {
     passed: status === "pass",
     expects: [],
     frames: [],
+    logLines: [],
     view: {} as any,
     animationTimeline: {} as any
   };

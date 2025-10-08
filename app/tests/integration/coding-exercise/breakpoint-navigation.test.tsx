@@ -27,6 +27,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
       expects: [],
       view: document.createElement("div"),
       frames,
+      logLines: [],
       animationTimeline: {
         duration: 5,
         paused: true,
