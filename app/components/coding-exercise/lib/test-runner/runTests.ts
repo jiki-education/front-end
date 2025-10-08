@@ -45,7 +45,7 @@ function runScenario(
       timePerFrame: 1,
       maxTotalLoopIterations: 1000
     }
-  }) as { frames: any[]; logLines: Array<{ time: number; output: string }>; success: boolean; error: any; meta: any };
+  });
 
   // Run expectations
   const expects = scenario.expectations(exercise);
