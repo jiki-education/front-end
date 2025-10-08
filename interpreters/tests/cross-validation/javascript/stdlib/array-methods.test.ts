@@ -417,6 +417,24 @@ let result = arr.indexOf(1);
     `,
       { expectedValue: -1 }
     );
+
+    testJavaScript(
+      "with fromIndex beyond array length",
+      `
+let arr = [1, 2, 3];
+let result = arr.indexOf(2, 10);
+    `,
+      { expectedValue: -1 }
+    );
+
+    testJavaScript(
+      "with very negative fromIndex",
+      `
+let arr = [1, 2, 3];
+let result = arr.indexOf(1, -1000);
+    `,
+      { expectedValue: 0 }
+    );
   });
 
   describe("array.includes()", () => {
@@ -479,6 +497,24 @@ let result = arr.includes(1);
       `
 let arr = [true, false, true];
 let result = arr.includes(true);
+    `,
+      { expectedValue: true }
+    );
+
+    testJavaScript(
+      "with fromIndex beyond array length",
+      `
+let arr = [1, 2, 3];
+let result = arr.includes(2, 10);
+    `,
+      { expectedValue: false }
+    );
+
+    testJavaScript(
+      "with very negative fromIndex",
+      `
+let arr = [1, 2, 3];
+let result = arr.includes(1, -1000);
     `,
       { expectedValue: true }
     );
@@ -704,6 +740,15 @@ let arr = [1, "two", 3];
 let result = arr.join(", ");
     `,
       { expectedValue: "1, two, 3" }
+    );
+
+    testJavaScript(
+      "with null and undefined",
+      `
+let arr = [1, null, undefined, 2];
+let result = arr.join(",");
+    `,
+      { expectedValue: "1,,,2" }
     );
   });
 });

@@ -1,5 +1,5 @@
 import type { JSArray, JikiObject } from "../../jsObjects";
-import { JSString } from "../../jsObjects";
+import { JSString, JSNull, JSUndefined } from "../../jsObjects";
 import type { ExecutionContext } from "../../executor";
 import type { Method } from "../index";
 import { guardArgRange, guardArgType } from "../guards";
@@ -20,8 +20,14 @@ export const join: Method = {
     }
 
     // Convert all elements to strings and join
-    // Use native JavaScript map and join on the underlying array
-    const stringElements = array.elements.map(elem => elem.toString());
+    // Note: JavaScript's join() converts null/undefined to empty strings, not "null"/"undefined"
+    const stringElements = array.elements.map(elem => {
+      // Match native JavaScript behavior: null and undefined become empty strings
+      if (elem instanceof JSNull || elem instanceof JSUndefined) {
+        return "";
+      }
+      return elem.toString();
+    });
     const result = stringElements.join(separator);
 
     return new JSString(result);
