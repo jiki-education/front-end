@@ -40,8 +40,8 @@ For everything in here, base your work in the JikiScript interpreter.
 - [x] Add a specific error type if someone tries to use a const in a for loop.
 - [x] Add Exponentiation.
 - [x] Add array mutating methods: `push()`, `pop()`, `shift()`, `unshift()`. These modify the array in place and should follow the stdlib pattern like `.length` and `.at()`. Look at `src/javascript/stdlib/arrays.ts` for the pattern.
-- [ ] Add array query methods: `indexOf()`, `includes()`. These search the array and return values without mutating. Follow the same stdlib pattern.
-- [ ] Add array transformation methods: `slice()`, `concat()`, `join()`. These create new values from the array. `slice()` and `concat()` return new arrays, `join()` returns a string.
+- [x] Add array query methods: `indexOf()`, `includes()`. These search the array and return values without mutating. Follow the same stdlib pattern.
+- [x] Add array transformation methods: `slice()`, `concat()`, `join()`. These create new values from the array. `slice()` and `concat()` return new arrays, `join()` returns a string.
 - [ ] Add string `.length` property. Follow the same stdlib pattern as array `.length`.
 - [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignmennt. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it. You may need to update lots of tests where this is the case. For now you can just add a `let foo = "bar"` for these to make them easy to find later.
 - [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.

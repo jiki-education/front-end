@@ -8,6 +8,11 @@ import { push } from "./push";
 import { pop } from "./pop";
 import { shift } from "./shift";
 import { unshift } from "./unshift";
+import { indexOf } from "./indexOf";
+import { includes } from "./includes";
+import { slice } from "./slice";
+import { concat } from "./concat";
+import { join } from "./join";
 
 // Array properties
 export const arrayProperties: Record<string, Property> = {
@@ -24,12 +29,7 @@ const notYetImplementedMethods = [
   "copyWithin",
 
   // Accessor methods
-  "indexOf",
   "lastIndexOf",
-  "includes",
-  "slice",
-  "concat",
-  "join",
   "toString",
   "toLocaleString",
   "entries",
@@ -64,6 +64,11 @@ export const arrayMethods: Record<string, Method> = {
   pop,
   shift,
   unshift,
+  indexOf,
+  includes,
+  slice,
+  concat,
+  join,
 
   // Generate stub methods for all not-yet-implemented methods
   ...Object.fromEntries(notYetImplementedMethods.map(name => [name, createNotYetImplementedStub(name)])),

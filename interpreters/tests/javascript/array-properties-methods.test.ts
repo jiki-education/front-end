@@ -355,4 +355,312 @@ describe("Array methods", () => {
       expect(lastFrame.variables?.result?.value).toBe(3);
     });
   });
+
+  describe("indexOf() method", () => {
+    test("finds element at beginning", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let idx = arr.indexOf(10);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(0);
+    });
+
+    test("finds element in middle", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let idx = arr.indexOf(20);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(1);
+    });
+
+    test("returns -1 when not found", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let idx = arr.indexOf(99);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(-1);
+    });
+
+    test("supports fromIndex parameter", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 20];
+        let idx = arr.indexOf(20, 2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(3);
+    });
+
+    test("supports negative fromIndex", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 40];
+        let idx = arr.indexOf(30, -2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(2);
+    });
+
+    test("requires at least one argument", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.indexOf();
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
+  });
+
+  describe("includes() method", () => {
+    test("returns true when element found", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let found = arr.includes(20);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(true);
+    });
+
+    test("returns false when element not found", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let found = arr.includes(99);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(false);
+    });
+
+    test("supports fromIndex parameter", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 20];
+        let found = arr.includes(20, 2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(true);
+    });
+
+    test("supports negative fromIndex", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 40];
+        let found = arr.includes(20, -2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(false);
+    });
+
+    test("requires at least one argument", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.includes();
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("InvalidNumberOfArguments");
+    });
+  });
+
+  describe("slice() method", () => {
+    test("slices from start to end", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 40, 50];
+        let sliced = arr.slice(1, 3);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(2);
+      expect(lastFrame.result?.jikiObject?.value[0].value).toBe(20);
+      expect(lastFrame.result?.jikiObject?.value[1].value).toBe(30);
+    });
+
+    test("slices from start to array end when no end parameter", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 40];
+        let sliced = arr.slice(2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(2);
+      expect(lastFrame.result?.jikiObject?.value[0].value).toBe(30);
+    });
+
+    test("returns shallow copy when no parameters", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let sliced = arr.slice();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(3);
+    });
+
+    test("supports negative indices", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30, 40, 50];
+        let sliced = arr.slice(-3, -1);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(2);
+      expect(lastFrame.result?.jikiObject?.value[0].value).toBe(30);
+    });
+
+    test("does not mutate original array", () => {
+      const result = interpret(`
+        let arr = [10, 20, 30];
+        let sliced = arr.slice(1);
+        arr.length;
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(3);
+    });
+  });
+
+  describe("concat() method", () => {
+    test("concatenates two arrays", () => {
+      const result = interpret(`
+        let arr1 = [1, 2];
+        let arr2 = [3, 4];
+        let result = arr1.concat(arr2);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(4);
+      expect(lastFrame.result?.jikiObject?.value[2].value).toBe(3);
+    });
+
+    test("concatenates multiple arrays", () => {
+      const result = interpret(`
+        let arr1 = [1];
+        let arr2 = [2];
+        let arr3 = [3];
+        let result = arr1.concat(arr2, arr3);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(3);
+    });
+
+    test("concatenates with non-array values", () => {
+      const result = interpret(`
+        let arr = [1, 2];
+        let result = arr.concat(3, 4);
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(4);
+      expect(lastFrame.result?.jikiObject?.value[2].value).toBe(3);
+    });
+
+    test("works with no arguments", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let result = arr.concat();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value.length).toBe(3);
+    });
+
+    test("does not mutate original array", () => {
+      const result = interpret(`
+        let arr1 = [1, 2];
+        let arr2 = [3, 4];
+        let result = arr1.concat(arr2);
+        arr1.length;
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe(2);
+    });
+  });
+
+  describe("join() method", () => {
+    test("joins with default comma separator", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let result = arr.join();
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe("1,2,3");
+    });
+
+    test("joins with custom separator", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        let result = arr.join("-");
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe("1-2-3");
+    });
+
+    test("joins with empty string separator", () => {
+      const result = interpret(`
+        let arr = ["a", "b", "c"];
+        let result = arr.join("");
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe("abc");
+    });
+
+    test("joins empty array", () => {
+      const result = interpret(`
+        let arr = [];
+        let result = arr.join(",");
+      `);
+      expect(result.success).toBe(true);
+      const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
+      expect(lastFrame.status).toBe("SUCCESS");
+      expect(lastFrame.result?.jikiObject?.value).toBe("");
+    });
+
+    test("requires separator to be a string if provided", () => {
+      const result = interpret(`
+        let arr = [1, 2, 3];
+        arr.join(5);
+      `);
+      expect(result.error).toBeNull();
+      const errorFrame = result.frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("TypeError");
+    });
+  });
 });

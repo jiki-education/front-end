@@ -7,7 +7,7 @@ describe("JavaScript stdlib errors", () => {
     it("should throw MethodNotYetImplemented for unimplemented array methods", () => {
       const code = `
         let arr = [1, 2, 3];
-        arr.indexOf(2);
+        arr.map();
       `;
       const result = interpret(code);
       expect(result.success).toBe(false);
@@ -16,14 +16,14 @@ describe("JavaScript stdlib errors", () => {
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
       expect(lastFrame.error?.type).toBe("MethodNotYetImplemented");
-      expect(lastFrame.error?.context?.method).toBe("indexOf");
+      expect(lastFrame.error?.context?.method).toBe("map");
     });
 
     it("should return a function for stub methods but throw when called", () => {
       const code = `
         let arr = [1, 2, 3];
-        let indexOfFn = arr.indexOf;
-        indexOfFn(2);
+        let mapFn = arr.map;
+        mapFn();
       `;
       const result = interpret(code);
       expect(result.success).toBe(false);
@@ -40,22 +40,7 @@ describe("JavaScript stdlib errors", () => {
     });
 
     it("should list all unimplemented array methods", () => {
-      const unimplementedMethods = [
-        "indexOf",
-        "includes",
-        "slice",
-        "concat",
-        "join",
-        "forEach",
-        "map",
-        "filter",
-        "reduce",
-        "find",
-        "every",
-        "some",
-        "sort",
-        "reverse",
-      ];
+      const unimplementedMethods = ["forEach", "map", "filter", "reduce", "find", "every", "some", "sort", "reverse"];
 
       for (const method of unimplementedMethods) {
         const code = `
