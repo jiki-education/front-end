@@ -30,6 +30,7 @@
     "@exercism/highlightjs-jikiscript": "^0.0.2",
     "@floating-ui/dom": "^1.7.4",
     "@floating-ui/react": "^0.27.16",
+    "@jiki/content": "workspace:*",
     "@jiki/curriculum": "workspace:*",
     "@jiki/interpreters": "workspace:*",
     "@lezer/common": "^1.2.3",

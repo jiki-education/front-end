@@ -26,6 +26,7 @@ Load the relevant context files from `.context/` directory based on your task:
 - [.context/eslint.md](.context/eslint.md) - ESLint configuration and how to handle lint errors. **ALWAYS READ THIS BEFORE LINTING**
 - [.context/toasts.md](.context/toasts.md) - Toast notifications with react-hot-toast
 - [.context/modals.md](.context/modals.md) - Global modal system
+- [.context/content.md](.context/content.md) - Content integration for blog posts and articles
 
 ### Complex Exercise Context Files
 
