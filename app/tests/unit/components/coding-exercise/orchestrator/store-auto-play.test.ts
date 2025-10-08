@@ -316,8 +316,13 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     describe("setTestSuiteResult spotlight behavior", () => {
-      it("should set isSpotlightActive to true when all tests pass", () => {
+      it("should set isSpotlightActive to true when all tests pass for the FIRST time", () => {
         const store = createOrchestratorStore("test-uuid", "");
+
+        // Verify initial state
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
+        expect(store.getState().isSpotlightActive).toBe(false);
+
         const testResults = {
           tests: [createMockTest("test-1"), createMockTest("test-2")],
           status: "pass" as const
@@ -325,7 +330,33 @@ describe("Store Auto-Play Behavior", () => {
 
         store.getState().setTestSuiteResult(testResults);
 
+        // Should activate spotlight on first success
         expect(store.getState().isSpotlightActive).toBe(true);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
+      });
+
+      it("should NOT set isSpotlightActive when all tests pass for the SECOND time", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+
+        const testResults = {
+          tests: [createMockTest("test-1"), createMockTest("test-2")],
+          status: "pass" as const
+        };
+
+        // First successful run
+        store.getState().setTestSuiteResult(testResults);
+        expect(store.getState().isSpotlightActive).toBe(true);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
+
+        // Manually turn off spotlight (simulating modal completion)
+        store.getState().setIsSpotlightActive(false);
+
+        // Second successful run
+        store.getState().setTestSuiteResult(testResults);
+
+        // Should NOT activate spotlight again
+        expect(store.getState().isSpotlightActive).toBe(false);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
       });
 
       it("should set isSpotlightActive to false when any test fails", () => {
@@ -341,6 +372,34 @@ describe("Store Auto-Play Behavior", () => {
         store.getState().setTestSuiteResult(testResults);
 
         expect(store.getState().isSpotlightActive).toBe(false);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
+      });
+
+      it("should track hasEverHadSuccessfulRun correctly across multiple runs", () => {
+        const store = createOrchestratorStore("test-uuid", "");
+
+        // Initially false
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
+
+        // Failed run - should remain false
+        const failedResults = {
+          tests: [{ ...createMockTest("test-1"), status: "fail" as const }],
+          status: "fail" as const
+        };
+        store.getState().setTestSuiteResult(failedResults);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
+
+        // Successful run - should become true
+        const successResults = {
+          tests: [createMockTest("test-1")],
+          status: "pass" as const
+        };
+        store.getState().setTestSuiteResult(successResults);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
+
+        // Another failed run - should remain true (once successful, always marked as such)
+        store.getState().setTestSuiteResult(failedResults);
+        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
       });
 
       it("should NOT reset wasSuccessModalShown when running tests again", () => {
