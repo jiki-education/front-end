@@ -24,17 +24,17 @@ Run `pnpm install` to link the workspace package.
 
 ### 2. Update Build Scripts
 
-Add a prebuild script to copy images from the content package to the app's public directory:
+Add a prebuild script to `package.json` that runs the image copy script:
 
 ```json
 {
   "scripts": {
-    "prebuild": "mkdir -p public/images && cp -r ../content/dist/images/blog public/images/ && cp -r ../content/dist/images/articles public/images/ && cp -r ../content/dist/images/avatars public/images/"
+    "prebuild": "./scripts/copy-content-images.sh"
   }
 }
 ```
 
-This ensures all images (blog covers, article images, author avatars) are available in the public directory for serving.
+The script (`scripts/copy-content-images.sh`) copies images from the content package to the app's public directory. This ensures all images (blog covers, article images, author avatars) are available in the public directory for serving.
 
 **Important**: These copied images should NOT be committed to git. They are added to `.gitignore`:
 
