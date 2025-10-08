@@ -4,6 +4,67 @@ This document tracks the historical development, major changes, and architectura
 
 ## Major Architectural Changes
 
+### October 2025: JavaScript Array Query and Transformation Methods
+
+**Date**: 2025-10-08
+
+**Feature**: Added five new array methods to the JavaScript interpreter: `indexOf()`, `includes()`, `slice()`, `concat()`, and `join()`.
+
+**Implementation Details**:
+
+1. **Query Methods** (search for elements, do not mutate):
+   - **`indexOf(searchElement, fromIndex?)`**: Returns first index of element using strict equality (`===`), or -1 if not found
+     - Supports optional fromIndex parameter (negative indices count from end)
+     - Manual loop implementation because elements are JikiObjects (can't use native `indexOf`)
+   - **`includes(searchElement, fromIndex?)`**: Returns boolean using SameValueZero equality (NaN equals NaN)
+     - Supports optional fromIndex parameter (negative indices count from end)
+     - Manual loop implementation to compare `.value` properties
+
+2. **Transformation Methods** (create new arrays/strings, do not mutate):
+   - **`slice(start?, end?)`**: Returns shallow copy of array portion
+     - Uses native JavaScript `slice()` directly on `elements` array
+     - Supports negative indices, optional parameters
+   - **`concat(...values)`**: Merges arrays/values into new array
+     - Flattens one level if argument is array
+     - Uses spread operator to build result array
+   - **`join(separator?)`**: Joins elements into string with separator (default ",")
+     - Uses native `map()` and `join()` on underlying elements
+     - Converts all elements via `toString()`
+
+**Files Created**:
+
+- `src/javascript/stdlib/array/indexOf.ts`
+- `src/javascript/stdlib/array/includes.ts`
+- `src/javascript/stdlib/array/slice.ts`
+- `src/javascript/stdlib/array/concat.ts`
+- `src/javascript/stdlib/array/join.ts`
+
+**Files Modified**:
+
+- `src/javascript/stdlib/array/index.ts` - Removed methods from notYetImplementedMethods list
+- `tests/javascript/array-properties-methods.test.ts` - Added comprehensive unit tests
+- `tests/cross-validation/javascript/stdlib/array-methods.test.ts` - Added cross-validation tests
+- `tests/javascript/stdlib-errors.test.ts` - Removed implemented methods from error test list
+
+**Design Decisions**:
+
+- **Equality Handling**: `indexOf()` uses strict equality (===) on `.value` properties; `includes()` uses SameValueZero (NaN equals NaN)
+- **JikiObject Wrapping**: Cannot use native indexOf/includes directly because array elements are JikiObjects, not raw values
+- **Native Method Usage**: Used native slice/concat/join where possible on underlying arrays for simplicity and correctness
+- **Immutability**: All transformation methods return new arrays/strings without mutating originals
+
+**Testing**:
+
+- Unit tests verify correct behavior, error handling, and immutability
+- Cross-validation tests ensure implementation matches native JavaScript behavior
+- All 1211 tests passing, typecheck clean
+
+**Benefits**:
+
+- Expands JavaScript interpreter stdlib coverage
+- Provides essential array manipulation methods for educational content
+- Maintains consistency with native JavaScript behavior through cross-validation
+
 ### January 2025: languageFeatures Added to ExecutionContext
 
 **Date**: 2025-01-07
