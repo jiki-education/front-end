@@ -18,6 +18,7 @@ export function mockTestResult(
     expects: [],
     view: document.createElement("div"),
     frames,
+    logLines: [],
     animationTimeline: mockAnimationTimeline({ duration })
   };
 }

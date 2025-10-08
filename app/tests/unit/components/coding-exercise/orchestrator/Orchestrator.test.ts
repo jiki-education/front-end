@@ -94,6 +94,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -121,6 +122,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -142,6 +144,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline1
       });
 
@@ -153,6 +156,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline2
       });
 
@@ -172,6 +176,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -219,6 +224,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: testFrames,
+        logLines: [],
         animationTimeline: mockAnimationTimeline()
       });
 
@@ -258,6 +264,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: testFrames,
+        logLines: [],
         animationTimeline: mockAnimationTimeline()
       });
 
@@ -425,6 +432,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -445,6 +453,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -466,6 +475,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -487,6 +497,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -525,6 +536,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -554,6 +566,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -582,6 +595,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -602,6 +616,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 
@@ -623,6 +638,7 @@ describe("Orchestrator", () => {
         expects: [],
         view: document.createElement("div"),
         frames: [mockFrame(0, { line: 1 })],
+        logLines: [],
         animationTimeline: mockTimeline
       });
 

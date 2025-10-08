@@ -3,6 +3,7 @@ import { interpret, evaluateFunction, EvaluationContext } from "@jikiscript/inte
 import type { ExecutionContext } from "@jikiscript/executor";
 import { Number, unwrapJikiObject } from "@jikiscript/jikiObjects";
 import type { TestAugmentedFrame } from "@shared/frames";
+import type { StaticError } from "@jikiscript/error";
 
 describe("statements", () => {
   describe("set expression", () => {
@@ -528,18 +529,18 @@ describe("errors", () => {
     const { frames, error } = interpret("let 123#");
     expect(frames).toBeEmpty();
     expect(error).not.toBeNull();
-    expect(error!.category).toBe("SyntaxError");
-    expect(error!.type).toBe("UnknownCharacterInSource");
-    expect(error!.context?.character).toBe("#");
+    expect((error as StaticError)!.category).toBe("SyntaxError");
+    expect((error as StaticError)!.type).toBe("UnknownCharacterInSource");
+    expect((error as StaticError)!.context?.character).toBe("#");
   });
 
   test("parser", () => {
     const { frames, error } = interpret('"abc');
     expect(frames).toBeEmpty();
     expect(error).not.toBeNull();
-    expect(error!.category).toBe("SyntaxError");
-    expect(error!.type).toBe("MissingDoubleQuoteToTerminateStringLiteral");
-    expect(error!.context).toBeNull;
+    expect((error as StaticError)!.category).toBe("SyntaxError");
+    expect((error as StaticError)!.type).toBe("MissingDoubleQuoteToTerminateStringLiteral");
+    expect((error as StaticError)!.context).toBeNull;
   });
 
   describe("interpret", () => {

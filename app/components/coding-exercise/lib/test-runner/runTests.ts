@@ -68,6 +68,7 @@ function runScenario(
     status,
     expects,
     frames,
+    logLines: result.logLines,
     codeRun: studentCode,
     view: exercise.getView(),
     animationTimeline

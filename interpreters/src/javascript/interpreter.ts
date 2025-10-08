@@ -1,23 +1,14 @@
 import { parse } from "./parser";
 import { Executor } from "./executor";
-import type { SyntaxError } from "./error";
-import type { Frame } from "../shared/frames";
+import type { SyntaxError as JSSyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
-import type { ExternalFunction } from "../shared/interfaces";
+import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
   languageFeatures?: LanguageFeatures;
   externalFunctions?: ExternalFunction[];
-}
-
-// Update InterpretResult to match JikiScript pattern
-export interface InterpretResult {
-  frames: Frame[];
-  error: SyntaxError | null; // Only parse/syntax errors, never runtime errors
-  success: boolean;
-  logLines: Array<{ time: number; output: string }>;
 }
 
 /**
@@ -28,8 +19,8 @@ export function compile(sourceCode: string, context: EvaluationContext = {}): Co
   try {
     parse(sourceCode, context);
     return { success: true };
-  } catch (error) {
-    return { success: false, error: error as SyntaxError };
+  } catch (error: unknown) {
+    return { success: false, error: error as JSSyntaxError };
   }
 }
 
@@ -47,14 +38,22 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       error: null, // No parse error
       success: result.success,
       logLines: executor.logLines,
+      meta: {
+        functionCallLog: {},
+        statements: statements,
+      },
     };
-  } catch (error) {
+  } catch (error: unknown) {
     // Only parsing/compilation errors are returned as errors
     return {
       frames: [],
-      error: error as SyntaxError,
+      error: error as JSSyntaxError,
       success: false,
       logLines: [],
+      meta: {
+        functionCallLog: {},
+        statements: [],
+      },
     };
   }
 }

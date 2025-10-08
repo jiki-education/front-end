@@ -48,6 +48,7 @@ describe("Store Auto-Play Behavior", () => {
         generateDescription: () => "Frame 2"
       }
     ],
+    logLines: [],
     animationTimeline: {
       play: jest.fn(),
       pause: jest.fn(),

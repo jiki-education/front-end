@@ -71,8 +71,9 @@ import type {
 } from "./evaluation-result";
 import { translate } from "./translator";
 import cloneDeep from "lodash.clonedeep";
-import type { CallableCustomFunction, InterpretResult } from "./interpreter";
-import type { LanguageFeatures, Meta } from "./interpreter";
+import type { CallableCustomFunction } from "./interpreter";
+import type { InterpretResult } from "../shared/interfaces";
+import type { LanguageFeatures } from "./interpreter";
 
 import { TIME_SCALE_FACTOR, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
@@ -132,6 +133,7 @@ export interface ExternalFunction {
 export class Executor {
   [key: string]: any; // Allow dynamic method access
   private readonly frames: Frame[] = [];
+  public readonly logLines: Array<{ time: number; output: string }> = [];
   public time: number = 0;
   private readonly timePerFrame: number;
   private totalLoopIterations = 0;
@@ -288,17 +290,18 @@ export class Executor {
 
     return {
       frames: this.frames,
+      logLines: this.logLines,
+      success: true,
       error: null,
-      meta: this.generateMeta(statements),
+      meta: {
+        functionCallLog: this.functionCallLog,
+        statements: statements,
+      },
     };
   }
 
-  private generateMeta(statements: Statement[]): Meta {
-    return {
-      functionCallLog: this.functionCallLog,
-      statements: statements,
-      sourceCode: this.sourceCode,
-    };
+  public log(output: string): void {
+    this.logLines.push({ time: this.time, output });
   }
 
   public evaluateSingleExpression(statement: Statement) {
@@ -327,8 +330,13 @@ export class Executor {
         value: result ? Jiki.unwrapJikiObject(result.jikiObject) : undefined,
         jikiObject: result?.jikiObject,
         frames: this.frames,
+        logLines: this.logLines,
+        success: true,
         error: null,
-        meta: this.generateMeta([statement]),
+        meta: {
+          functionCallLog: this.functionCallLog,
+          statements: [statement],
+        },
       };
     } catch (error) {
       if (isRuntimeError(error)) {
@@ -357,8 +365,13 @@ export class Executor {
         return {
           value: undefined,
           frames: this.frames,
+          logLines: this.logLines,
+          success: false,
           error: null,
-          meta: this.generateMeta([statement]),
+          meta: {
+            functionCallLog: this.functionCallLog,
+            statements: [statement],
+          },
         };
       }
 

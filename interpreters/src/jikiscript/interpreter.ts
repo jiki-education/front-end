@@ -7,8 +7,8 @@ import type { Statement } from "./statement";
 import type { TokenType } from "./token";
 import { translate } from "./translator";
 import type { ExecutionContext, ExternalFunction } from "./executor";
-import type { Frame } from "../shared/frames";
 import type { CompilationResult } from "../shared/errors";
+import type { InterpretResult } from "../shared/interfaces";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
 import { StdlibFunctionsForLibrary } from "./stdlib";
@@ -85,18 +85,6 @@ export type EvaluateFunctionResult = InterpretResult & {
   jikiObject?: Jiki.JikiObject;
 };
 
-export interface InterpretResult {
-  frames: Frame[];
-  error: StaticError | null;
-  meta: Meta;
-}
-
-export interface Meta {
-  functionCallLog: Record<string, Record<any, number>>;
-  statements: Statement[];
-  sourceCode: string;
-}
-
 export function compile(sourceCode: string, context: EvaluationContext = {}): CompilationResult {
   return new Interpreter(sourceCode, context).compile();
 }
@@ -106,11 +94,12 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
   if (!compileResult.success) {
     return {
       frames: [],
-      error: compileResult.error as StaticError,
+      logLines: [],
+      success: false,
+      error: compileResult.error,
       meta: {
         functionCallLog: {},
         statements: [],
-        sourceCode,
       },
     };
   }
