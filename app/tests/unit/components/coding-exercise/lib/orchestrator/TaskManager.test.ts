@@ -87,10 +87,10 @@ describe("TaskManager", () => {
 
       expect(mockStore.getState().setTaskProgress).toHaveBeenCalledWith(expect.any(Map));
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
-      expect(taskProgressMap.size).toBe(2);
+      const setTaskProgressCall = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
+      expect(setTaskProgressCall.size).toBe(2);
 
-      const task1Progress = taskProgressMap.get("task-1");
+      const task1Progress = setTaskProgressCall.get("task-1");
       expect(task1Progress).toEqual({
         taskId: "task-1",
         status: "not-started",
@@ -98,7 +98,7 @@ describe("TaskManager", () => {
         totalScenarios: 2
       });
 
-      const task2Progress = taskProgressMap.get("task-2");
+      const task2Progress = setTaskProgressCall.get("task-2");
       expect(task2Progress).toEqual({
         taskId: "task-2",
         status: "not-started",
@@ -123,8 +123,8 @@ describe("TaskManager", () => {
 
       taskManager.initializeTaskProgress(exercise);
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
-      const task1Progress = taskProgressMap.get("task-1");
+      const setTaskProgressCall = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
+      const task1Progress = setTaskProgressCall.get("task-1");
       expect(task1Progress.totalScenarios).toBe(2);
     });
 
@@ -194,8 +194,9 @@ describe("TaskManager", () => {
 
       taskManager.updateTaskProgress(testResults, exercise);
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
-      const updatedProgress = taskProgressMap.get("task-1");
+      const setStateCall = (mockStore.setState as jest.Mock).mock.calls[0][0];
+      const newState = setStateCall({});
+      const updatedProgress = newState.taskProgress.get("task-1");
 
       expect(updatedProgress.status).toBe("in-progress");
       expect(updatedProgress.passedScenarios).toEqual(["scenario-1"]);
@@ -216,15 +217,15 @@ describe("TaskManager", () => {
 
       taskManager.updateTaskProgress(testResults, exercise);
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
-      const updatedProgress = taskProgressMap.get("task-1");
+      const setStateCall = (mockStore.setState as jest.Mock).mock.calls[0][0];
+      const newState = setStateCall({});
+      const updatedProgress = newState.taskProgress.get("task-1");
 
       expect(updatedProgress.status).toBe("completed");
       expect(updatedProgress.passedScenarios).toEqual(["scenario-1", "scenario-2"]);
       expect(updatedProgress.completedAt).toBeInstanceOf(Date);
 
-      const completedTasks = (mockStore.getState().setCompletedTasks as jest.Mock).mock.calls[0][0];
-      expect(completedTasks.has("task-1")).toBe(true);
+      expect(newState.completedTasks.has("task-1")).toBe(true);
     });
 
     it("should preserve completedAt date when task remains completed", () => {
@@ -257,8 +258,9 @@ describe("TaskManager", () => {
 
       taskManager.updateTaskProgress(testResults, exercise);
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
-      const updatedProgress = taskProgressMap.get("task-1");
+      const setStateCall = (mockStore.setState as jest.Mock).mock.calls[0][0];
+      const newState = setStateCall({});
+      const updatedProgress = newState.taskProgress.get("task-1");
 
       expect(updatedProgress.completedAt).toBe(completedDate);
     });
@@ -292,8 +294,9 @@ describe("TaskManager", () => {
 
       taskManager.updateTaskProgress(testResults, exercise);
 
-      const completedTasks = (mockStore.getState().setCompletedTasks as jest.Mock).mock.calls[0][0];
-      expect(completedTasks.has("task-1")).toBe(false);
+      const setStateCall = (mockStore.setState as jest.Mock).mock.calls[0][0];
+      const newState = setStateCall({});
+      expect(newState.completedTasks.has("task-1")).toBe(false);
     });
 
     it("should handle multiple tasks correctly", () => {
@@ -330,14 +333,14 @@ describe("TaskManager", () => {
 
       taskManager.updateTaskProgress(testResults, exercise);
 
-      const taskProgressMap = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls[0][0];
+      const setStateCall = (mockStore.setState as jest.Mock).mock.calls[0][0];
+      const newState = setStateCall({});
 
-      expect(taskProgressMap.get("task-1").status).toBe("completed");
-      expect(taskProgressMap.get("task-2").status).toBe("not-started");
+      expect(newState.taskProgress.get("task-1").status).toBe("completed");
+      expect(newState.taskProgress.get("task-2").status).toBe("not-started");
 
-      const completedTasks = (mockStore.getState().setCompletedTasks as jest.Mock).mock.calls[0][0];
-      expect(completedTasks.has("task-1")).toBe(true);
-      expect(completedTasks.has("task-2")).toBe(false);
+      expect(newState.completedTasks.has("task-1")).toBe(true);
+      expect(newState.completedTasks.has("task-2")).toBe(false);
     });
   });
 

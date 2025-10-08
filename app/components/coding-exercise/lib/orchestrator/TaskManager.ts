@@ -18,8 +18,7 @@ export class TaskManager {
 
     // Initialize progress for each task
     for (const task of exercise.tasks) {
-      const requiredScenarios =
-        task.requiredScenarios || exercise.scenarios.filter((s) => s.taskId === task.id).map((s) => s.slug);
+      const requiredScenarios = this.getRequiredScenarios(task, exercise);
 
       taskProgress.set(task.id, {
         taskId: task.id,
@@ -59,8 +58,12 @@ export class TaskManager {
       }
     }
 
-    state.setTaskProgress(taskProgress);
-    state.setCompletedTasks(completedTasks);
+    // Atomic state update - batch both updates together
+    this.store.setState((prevState) => ({
+      ...prevState,
+      taskProgress,
+      completedTasks
+    }));
   }
 
   /**
@@ -119,7 +122,7 @@ export class TaskManager {
       return null;
     }
 
-    const requiredScenarios = task.requiredScenarios || scenarios.map((s) => s.slug);
+    const requiredScenarios = this.getRequiredScenarios(task, exercise, scenarios);
     const passedScenarios = this.getPassedScenariosForTask(testResults, requiredScenarios);
     const newStatus = this.determineTaskStatus(requiredScenarios, passedScenarios);
 
@@ -172,6 +175,22 @@ export class TaskManager {
     }
 
     return scenariosByTask;
+  }
+
+  /**
+   * Get required scenarios for a task with consistent fallback logic
+   */
+  private getRequiredScenarios(
+    task: ExerciseDefinition["tasks"][0],
+    exercise: ExerciseDefinition,
+    filteredScenarios?: ExerciseDefinition["scenarios"]
+  ): string[] {
+    return (
+      task.requiredScenarios ||
+      (filteredScenarios
+        ? filteredScenarios.map((s) => s.slug)
+        : exercise.scenarios.filter((s) => s.taskId === task.id).map((s) => s.slug))
+    );
   }
 
   /**

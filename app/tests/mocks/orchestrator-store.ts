@@ -140,5 +140,8 @@ export function mockStore(overrides: Partial<OrchestratorStore> = {}) {
     }))
   );
 
+  // Mock the setState method which is used for atomic updates
+  store.setState = jest.fn();
+
   return store;
 }

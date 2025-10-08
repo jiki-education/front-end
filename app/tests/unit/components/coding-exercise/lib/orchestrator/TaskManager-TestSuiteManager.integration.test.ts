@@ -164,13 +164,13 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       await testSuiteManager.runCode("// test code", exercise);
 
       // Verify that TaskManager.updateTaskProgress was called
-      expect(mockStore.getState().setTaskProgress).toHaveBeenCalled();
-      expect(mockStore.getState().setCompletedTasks).toHaveBeenCalled();
+      expect(mockStore.setState).toHaveBeenCalled();
 
-      // Check the actual task progress state
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      // Check the actual task progress state from setState calls
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       // Task 1 should be in-progress (1/2 scenarios passed)
       const task1Progress = finalTaskProgress.get("task-1");
@@ -184,10 +184,8 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       expect(task2Progress?.passedScenarios).toEqual(["scenario-3"]);
       expect(task2Progress?.totalScenarios).toBe(1);
 
-      // Check completed tasks set
-      const completedTasksCalls = (mockStore.getState().setCompletedTasks as jest.Mock).mock.calls;
-      const lastCompletedTasksCall = completedTasksCalls[completedTasksCalls.length - 1];
-      const finalCompletedTasks = lastCompletedTasksCall[0] as Set<string>;
+      // Check completed tasks set from setState
+      const finalCompletedTasks = finalState.completedTasks;
 
       expect(finalCompletedTasks.has("task-1")).toBe(false);
       expect(finalCompletedTasks.has("task-2")).toBe(true);
@@ -208,9 +206,10 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       await testSuiteManager.runCode("// test code", exercise);
 
       // Verify task remains not-started
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("not-started");
@@ -286,9 +285,10 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       await testSuiteManager.runCode("// code v3", exercise);
 
       // Verify final state is completed
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("completed");
@@ -323,16 +323,15 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       await testSuiteManager.runCode("// broken code", exercise);
 
       // Verify task is now in-progress and removed from completed set
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("in-progress");
 
-      const completedTasksCalls = (mockStore.getState().setCompletedTasks as jest.Mock).mock.calls;
-      const lastCompletedTasksCall = completedTasksCalls[completedTasksCalls.length - 1];
-      const finalCompletedTasks = lastCompletedTasksCall[0] as Set<string>;
+      const finalCompletedTasks = finalState.completedTasks;
 
       expect(finalCompletedTasks.has("task-1")).toBe(false);
     });
@@ -350,9 +349,10 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       mockRunTests.mockReturnValue(testResults);
       await testSuiteManager.runCode("// code", exercise);
 
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("not-started"); // No scenarios to pass means not-started
@@ -371,9 +371,10 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       mockRunTests.mockReturnValue(testResults);
       await testSuiteManager.runCode("// code", exercise);
 
-      const taskProgressCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;
-      const lastTaskProgressCall = taskProgressCalls[taskProgressCalls.length - 1];
-      const finalTaskProgress = lastTaskProgressCall[0] as Map<string, TaskProgress>;
+      const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
+      const lastSetStateCall = setStateCalls[setStateCalls.length - 1];
+      const finalState = lastSetStateCall[0]({});
+      const finalTaskProgress = finalState.taskProgress;
 
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("not-started");
