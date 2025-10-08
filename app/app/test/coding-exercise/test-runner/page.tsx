@@ -5,7 +5,7 @@ import OrchestratorProvider, { useOrchestratorContext } from "@/components/codin
 import CodeEditor from "@/components/coding-exercise/ui/CodeEditor";
 import RunButton from "@/components/coding-exercise/ui/RunButton";
 import ScenariosPanel from "@/components/coding-exercise/ui/test-results-view/ScenariosPanel";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useState, useRef } from "react";
 import { assembleClassNames } from "@/utils/assemble-classnames";
 
@@ -19,7 +19,7 @@ export default function TestRunnerTestPage() {
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
-    const exercise = createTestExercise({
+    const exercise = createMockExercise({
       slug: "test-runner-e2e",
       initialCode,
       title: "Test Runner E2E Exercise"
