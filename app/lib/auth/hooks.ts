@@ -45,7 +45,7 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
       return;
     }
 
-    if (!redirectIfAuthenticated && !isAuthenticated) {
+    if (!redirectIfAuthenticated && !isAuthenticated && isReady) {
       if (onUnauthenticated) {
         onUnauthenticated();
       }
