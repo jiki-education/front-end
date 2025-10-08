@@ -29,12 +29,22 @@ Add a prebuild script to copy images from the content package to the app's publi
 ```json
 {
   "scripts": {
-    "prebuild": "cp -r ../content/dist/images/* public/images/"
+    "prebuild": "mkdir -p public/images && cp -r ../content/dist/images/blog public/images/ && cp -r ../content/dist/images/articles public/images/ && cp -r ../content/dist/images/avatars public/images/"
   }
 }
 ```
 
 This ensures all images (blog covers, article images, author avatars) are available in the public directory for serving.
+
+**Important**: These copied images should NOT be committed to git. They are added to `.gitignore`:
+
+```
+public/images/blog/
+public/images/articles/
+public/images/avatars/
+```
+
+The source images remain in the `content` package and are copied during the prebuild step.
 
 ### 3. Create Blog Routes
 
