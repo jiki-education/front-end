@@ -1,9 +1,9 @@
+import { showModal } from "@/lib/modal";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
-import { showModal } from "@/lib/modal";
 import { loadCodeMirrorContent } from "../localStorage";
 import type { OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
@@ -332,11 +332,17 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           return;
         }
 
-        set({ isPlaying: playing });
-
         if (!state.currentTest) {
           return;
         }
+
+        // If trying to set playing to true but animation is completed, don't start
+        // User must explicitly click play button (which calls orchestrator.play() and resets time) to restart
+        if (playing && state.currentTest.animationTimeline.completed) {
+          return;
+        }
+
+        set({ isPlaying: playing });
 
         if (playing) {
           // Hide information widget when playing

@@ -192,8 +192,14 @@ describe("Orchestrator", () => {
       expect(orchestrator.getStore().getState().isPlaying).toBe(false);
 
       // Second cycle: play should reset and start again
+      // When seek(0) is called, the completed flag should be reset
+      (mockTimeline.seek as jest.Mock).mockImplementation(() => {
+        Object.defineProperty(mockTimeline, "completed", { value: false, writable: true });
+      });
+
       orchestrator.play();
       expect(orchestrator.getStore().getState().currentTestTime).toBe(0);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0);
       expect(orchestrator.getStore().getState().isPlaying).toBe(true);
 
       // Complete again
@@ -529,6 +535,11 @@ describe("Orchestrator", () => {
       // Make timeline appear completed
       Object.defineProperty(mockTimeline, "completed", { value: true, writable: true });
 
+      // When seek is called, reset the completed flag
+      (mockTimeline.seek as jest.Mock).mockImplementation(() => {
+        Object.defineProperty(mockTimeline, "completed", { value: false, writable: true });
+      });
+
       orchestrator.setCurrentTest({
         slug: "test-1",
         name: "Test 1",
@@ -543,11 +554,15 @@ describe("Orchestrator", () => {
       // Set time to end
       orchestrator.setCurrentTestTime(100000);
 
-      // Play should reset time to 0
+      // Re-mark as completed after seek
+      Object.defineProperty(mockTimeline, "completed", { value: true, writable: true });
+
+      // Play should reset time to 0 and call seek
       orchestrator.play();
 
       const state = orchestrator.getStore().getState();
       expect(state.currentTestTime).toBe(0);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0);
       expect(mockTimeline.play).toHaveBeenCalled();
     });
 

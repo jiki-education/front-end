@@ -205,9 +205,10 @@ class Orchestrator {
       return;
     }
 
-    // If animation completed, reset orchestrator time to beginning
+    // If animation completed, reset to beginning
+    // Use orchestrator's setCurrentTestTime which also seeks the animation timeline
     if (state.currentTest.animationTimeline.completed) {
-      state.setCurrentTestTime(0);
+      this.setCurrentTestTime(0);
     }
 
     // Set isPlaying state (this will handle animation.play() and hide widget)

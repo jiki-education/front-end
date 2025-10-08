@@ -239,11 +239,13 @@ describe("AnimationTimeline", () => {
         expect(mockTimeline.play).toHaveBeenCalled();
       });
 
-      it("should restart from beginning if completed", () => {
+      it("should play even if completed (no auto-reset)", () => {
         mockTimeline.completed = true;
         animationTimeline.play();
 
-        expect(mockTimeline.seek).toHaveBeenCalledWith(0);
+        // AnimationTimeline.play() no longer resets on completion
+        // That responsibility moved to Orchestrator.play()
+        expect(mockTimeline.seek).not.toHaveBeenCalled();
         expect(mockTimeline.play).toHaveBeenCalled();
       });
 
