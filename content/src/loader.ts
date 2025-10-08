@@ -5,18 +5,13 @@ import matter from "gray-matter";
 import { marked } from "marked";
 import fg from "fast-glob";
 import type { ProcessedPost, Frontmatter, AuthorRegistry } from "./types.js";
-import { validateFrontmatter, validateAuthors, validateNoDuplicateSlugs } from "./validator.js";
 import authorsData from "./authors.json" with { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const POSTS_DIR = path.join(__dirname, "posts");
-const IMAGES_DIR = path.join(__dirname, "..", "images");
 const authors = authorsData as AuthorRegistry;
-
-// Validate authors on load
-validateAuthors(authors, IMAGES_DIR);
 
 interface PostFile {
   slug: string;
@@ -60,9 +55,6 @@ function loadPost(file: PostFile): ProcessedPost {
   const fileContent = fs.readFileSync(file.filePath, "utf-8");
   const parsed = matter(fileContent);
 
-  // Validate frontmatter
-  validateFrontmatter(file.slug, parsed.data, authors, IMAGES_DIR);
-
   const frontmatter = parsed.data as Frontmatter;
 
   // Render markdown to HTML
@@ -90,9 +82,6 @@ export function getAllBlogPosts(locale: string): ProcessedPost[] {
   const files = getPostFiles("blog");
   const localeFiles = files.filter((f) => f.locale === locale);
 
-  // Validate no duplicate slugs
-  validateNoDuplicateSlugs(files.map((f) => f.slug));
-
   return localeFiles.map(loadPost).sort((a, b) => b.date.localeCompare(a.date));
 }
 
@@ -115,9 +104,6 @@ export function getBlogPost(slug: string, locale: string): ProcessedPost {
 export function getAllArticles(locale: string): ProcessedPost[] {
   const files = getPostFiles("article");
   const localeFiles = files.filter((f) => f.locale === locale);
-
-  // Validate no duplicate slugs
-  validateNoDuplicateSlugs(files.map((f) => f.slug));
 
   return localeFiles.map(loadPost).sort((a, b) => a.title.localeCompare(b.title));
 }

@@ -125,48 +125,64 @@ tags: [123, "tutorial"]           ❌ Non-string
 
 ## Validation Implementation
 
-### Test-Driven Validation
+### Test-Only Validation
 
-All validation rules are tested in `tests/validator.test.ts`:
+All validation happens exclusively in the test suite. The loader (`src/loader.ts`) does not perform any validation - it simply parses and returns content data.
+
+**Unit Tests** (`tests/validator.test.ts`):
+Tests individual validation functions with specific cases:
 
 ```typescript
-describe("Validator", () => {
-  it("should reject post without en.md", () => {
-    // Test implementation
+describe("validateFrontmatter", () => {
+  it("should reject frontmatter without title", () => {
+    expect(() => validateFrontmatter(slug, invalid, authors, imagesDir)).toThrow(ValidationError);
   });
 
   it("should reject invalid date format", () => {
-    // Test implementation
+    expect(() => validateFrontmatter(slug, invalid, authors, imagesDir)).toThrow(/invalid date format/);
   });
-
-  it("should reject missing author", () => {
-    // Test implementation
-  });
-
-  // ... more tests
 });
 ```
 
-### Build-Time Execution
+**Integration Tests** (`tests/content-validation.test.ts`):
+Validates all actual content files in the repository:
 
-The `pnpm build` command runs validation before compiling:
+```typescript
+describe("Content Validation", () => {
+  describe("Blog Posts", () => {
+    slugDirs.forEach((slug) => {
+      it("should have en.md file", () => {
+        expect(fs.existsSync(enFile)).toBe(true);
+      });
 
-```bash
-pnpm run build
-# 1. Run validator.ts
-# 2. If validation fails, exit with error
-# 3. If validation passes, continue with compilation
+      mdFiles.forEach((mdFile) => {
+        it(`should have valid frontmatter (${locale})`, () => {
+          validateFrontmatter(slug, parsed.data, authors, IMAGES_DIR);
+        });
+      });
+    });
+  });
+});
 ```
 
-### Pre-Commit Hook
+### Test Execution
 
-The git pre-commit hook runs tests (including validation) before allowing commits:
+Tests run automatically via:
 
-```bash
-scripts/pre-commit
-# Runs: pnpm test
-# Includes all validator tests
-```
+1. **Pre-Commit Hook**: Git pre-commit hook runs `pnpm test` before allowing commits
+2. **CI Pipeline**: GitHub Actions runs full test suite on pull requests
+3. **Manual Testing**: Run `pnpm test` anytime to validate all content
+
+If any test fails, the commit or build is blocked until issues are fixed.
+
+### No Runtime Validation
+
+The loader functions (`getAllBlogPosts`, `getBlogPost`, etc.) trust that content is valid because tests have already verified it. This design:
+
+- Simplifies loader code
+- Eliminates runtime validation overhead
+- Ensures data integrity through comprehensive tests
+- Fails fast during development (pre-commit) rather than at runtime
 
 ## Error Messages
 
@@ -201,24 +217,15 @@ When adding new frontmatter fields:
 
 ## Performance Considerations
 
-Validation runs once at build time, not at runtime:
+Validation runs only during test execution, not during build or at runtime:
 
-- **Build time**: ~100-500ms for validation (depending on content volume)
+- **Test time**: ~100-500ms for validation (depending on content volume)
+- **Build time**: 0ms (no validation during build)
 - **Runtime**: 0ms (no validation in app)
 
 This trade-off ensures:
 
-- Fast runtime performance
-- Guaranteed data integrity
-- Early error detection
-- Simpler app code
-
-## Skipping Validation (Not Recommended)
-
-In extreme cases, validation can be skipped with an environment variable:
-
-```bash
-SKIP_VALIDATION=true pnpm build
-```
-
-⚠️ **Warning**: Only use this for debugging. Never deploy without validation.
+- Fast build and runtime performance
+- Guaranteed data integrity through tests
+- Early error detection (pre-commit)
+- Simpler loader and app code

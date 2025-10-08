@@ -79,21 +79,7 @@ const parsed = matter(content); // gray-matter
 
 Extracts frontmatter and content from markdown files.
 
-### 2. Validate Frontmatter
-
-```typescript
-// validator.ts
-validateFrontmatter(parsed.data);
-// - Check required fields
-// - Validate types
-// - Verify author exists
-// - Check image files exist
-// - Ensure no duplicate slugs
-```
-
-All validation happens at build time to fail fast.
-
-### 3. Expand Author Data
+### 2. Expand Author Data
 
 ```typescript
 // loader.ts
@@ -103,7 +89,7 @@ const author = authors[frontmatter.author];
 
 Author registry in `authors.json` provides name and avatar path.
 
-### 4. Render Markdown
+### 3. Render Markdown
 
 ```typescript
 // loader.ts
@@ -112,7 +98,7 @@ const html = marked.parse(parsed.content);
 
 Converts markdown content to HTML using marked.
 
-### 5. Copy Images
+### 4. Copy Images
 
 ```bash
 # package.json build script
@@ -121,7 +107,7 @@ mkdir -p dist/images && cp -r images/* dist/images/
 
 All images are copied to dist for distribution.
 
-### 6. Export Data
+### 5. Export Data
 
 ```typescript
 // index.ts
@@ -131,14 +117,16 @@ export function getBlogPost(slug: string, locale: string): ProcessedPost;
 
 Exports typed functions for app consumption.
 
+**Note**: Validation is NOT part of the build process - it happens only in tests.
+
 ## Data Flow
+
+### Build Flow
 
 ```
 Markdown Files (src/posts/)
     ↓
 Parse (gray-matter)
-    ↓
-Validate (validator.ts)
     ↓
 Expand Authors (authors.json)
     ↓
@@ -147,6 +135,18 @@ Render HTML (marked)
 Export Functions (index.ts)
     ↓
 App Consumes at Build Time
+```
+
+### Test Flow (Separate)
+
+```
+Markdown Files (src/posts/)
+    ↓
+Tests Read Files
+    ↓
+Validate (validator.ts)
+    ↓
+Pass/Fail Tests
 ```
 
 ## Type Safety
@@ -179,9 +179,9 @@ TypeScript ensures compile-time safety between content package and app.
 
 ## Validation Strategy
 
-### Build-Time Validation
+### Test-Only Validation
 
-All validation happens in the content package during `pnpm build`:
+All validation happens exclusively in the test suite (`tests/content-validation.test.ts` and `tests/validator.test.ts`):
 
 - ✅ Frontmatter schema validation
 - ✅ Required field checks
@@ -190,16 +190,22 @@ All validation happens in the content package during `pnpm build`:
 - ✅ Date format validation
 - ✅ No duplicate slugs
 
+The loader (`src/loader.ts`) does NOT perform validation - it simply parses and returns data.
+
 ### App Trust Model
 
-The app package trusts that content data is valid. No runtime validation occurs in the app - if the content package builds successfully, the data is guaranteed to be correct.
+The app package trusts that content data is valid because:
+
+1. Tests validate all content before commits (pre-commit hook)
+2. CI validates all content before merging PRs
+3. No invalid content can enter the repository
 
 This separation of concerns means:
 
-- Content validation is centralized
-- App code is simpler
-- Build fails fast if content is invalid
-- No runtime performance cost
+- Content validation is centralized in tests
+- Loader and app code are simpler
+- Tests fail fast if content is invalid
+- Zero build and runtime performance cost for validation
 
 ## Package Dependencies
 

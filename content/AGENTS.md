@@ -109,7 +109,7 @@ See `.context/frontmatter.md` for complete schema reference.
 
 ### Validation Strategy
 
-All validation happens at **build time**:
+All validation happens **only in tests**:
 
 - ✅ Every post has `en.md`
 - ✅ All frontmatter fields present and correctly typed
@@ -118,7 +118,7 @@ All validation happens at **build time**:
 - ✅ Cover images and avatars exist
 - ✅ No duplicate slugs
 
-The app package **trusts** content data - no runtime validation.
+The loader does NOT validate - it trusts tests have verified content integrity. The app package also **trusts** content data - no runtime validation.
 
 ### Build Process
 
@@ -127,11 +127,12 @@ pnpm run build
 ```
 
 1. Parse all markdown files with gray-matter
-2. Validate frontmatter against schema
-3. Expand author keys to full objects
-4. Render markdown to HTML with marked
-5. Copy images to dist/
-6. Export typed data structures
+2. Expand author keys to full objects
+3. Render markdown to HTML with marked
+4. Copy images to dist/
+5. Export typed data structures
+
+**Note**: Validation is NOT part of the build - it only runs in tests (`pnpm test`).
 
 ## Development Workflow
 
@@ -240,10 +241,11 @@ export function getArticle(slug: string, locale: string): ProcessedPost;
 
 ### Validation
 
-- **Fail fast** - Validation errors stop the build immediately
+- **Test-only** - Validation only runs in test suite, not in loader or build
+- **Fail fast** - Validation errors stop tests immediately
 - **Clear messages** - Errors explain what's wrong and how to fix it
-- **Comprehensive tests** - Test all validation rules
-- **No runtime cost** - All validation at build time
+- **Comprehensive tests** - Test all validation rules and all actual content
+- **No build/runtime cost** - Zero validation overhead during build or runtime
 
 ## Integration with Frontend
 
@@ -268,10 +270,10 @@ export async function generateStaticParams() {
 ## Important Rules
 
 1. **English required** - Every post must have `en.md`
-2. **Build-time validation** - All validation in content package, not app
+2. **Test-only validation** - All validation in test suite only, not in loader or app
 3. **Type safety first** - All interfaces properly typed
 4. **Clear documentation** - Document all public APIs
-5. **Test validation** - Every validation rule has tests
+5. **Test validation** - Every validation rule has unit tests, and all content has integration tests
 6. **Slug consistency** - Same slug across all locales
 7. **Author registry** - All authors in `authors.json`
 
