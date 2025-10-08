@@ -43,8 +43,8 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                 progress={progress}
               />
               <div
-                className={`flex-1 cursor-pointer transition-opacity hover:opacity-80 ${
-                  isCurrent ? "bg-blue-50 -mx-2 px-2 py-1 rounded" : ""
+                className={`flex-1 cursor-pointer transition-all hover:opacity-80 ${
+                  isCurrent ? "bg-blue-50 border-l-4 border-blue-400 -mx-2 px-2 py-2 rounded-r shadow-sm" : ""
                 }`}
                 onClick={() => handleTaskClick(task.id)}
               >

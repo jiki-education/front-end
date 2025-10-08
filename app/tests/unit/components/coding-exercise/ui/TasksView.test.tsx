@@ -305,7 +305,16 @@ describe("TasksView", () => {
 
       const taskContainer = container.querySelector(".bg-blue-50");
       expect(taskContainer).toBeInTheDocument();
-      expect(taskContainer).toHaveClass("bg-blue-50", "-mx-2", "px-2", "py-1", "rounded");
+      expect(taskContainer).toHaveClass(
+        "bg-blue-50",
+        "border-l-4",
+        "border-blue-400",
+        "-mx-2",
+        "px-2",
+        "py-2",
+        "rounded-r",
+        "shadow-sm"
+      );
     });
 
     it("should not highlight non-current tasks", () => {
@@ -338,7 +347,7 @@ describe("TasksView", () => {
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       const taskContainer = container.querySelector(".cursor-pointer");
-      expect(taskContainer).toHaveClass("cursor-pointer", "transition-opacity", "hover:opacity-80");
+      expect(taskContainer).toHaveClass("cursor-pointer", "transition-all", "hover:opacity-80");
     });
   });
 

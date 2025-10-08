@@ -3,6 +3,18 @@ import type { ExerciseDefinition, Task, Scenario, TaskProgress } from "@jiki/cur
 import type { TestSuiteResult } from "@/components/coding-exercise/lib/test-results-types";
 import { createMockStore } from "@/tests/mocks";
 
+// Mock the SoundManager
+jest.mock("@/lib/sound/SoundManager", () => {
+  return {
+    __esModule: true,
+    default: {
+      getInstance: () => ({
+        play: jest.fn()
+      })
+    }
+  };
+});
+
 // Mock data helpers
 function createMockTask(overrides: Partial<Task> = {}): Task {
   return {
@@ -141,7 +153,7 @@ describe("TaskManager", () => {
       expect(mockStore.getState().setCurrentTaskId).toHaveBeenCalledWith("regular-task");
     });
 
-    it("should not set current task if all tasks are bonus", () => {
+    it("should set first bonus task as current if all tasks are bonus", () => {
       const tasks = [
         createMockTask({ id: "bonus-task-1", bonus: true }),
         createMockTask({ id: "bonus-task-2", bonus: true })
@@ -150,7 +162,7 @@ describe("TaskManager", () => {
 
       taskManager.initializeTaskProgress(exercise);
 
-      expect(mockStore.getState().setCurrentTaskId).not.toHaveBeenCalled();
+      expect(mockStore.getState().setCurrentTaskId).toHaveBeenCalledWith("bonus-task-1");
     });
 
     it("should initialize empty completed tasks set", () => {

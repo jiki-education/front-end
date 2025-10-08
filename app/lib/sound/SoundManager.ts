@@ -39,7 +39,8 @@ class SoundManager {
 
     const soundFiles: Record<SoundName, string> = {
       success: "success.wav",
-      error: "error.wav"
+      error: "error.wav",
+      "task-completed": "task-completed.wav"
     };
 
     for (const [name, file] of Object.entries(soundFiles) as Array<[SoundName, string]>) {

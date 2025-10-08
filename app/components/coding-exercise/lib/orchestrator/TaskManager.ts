@@ -2,12 +2,17 @@ import type { ExerciseDefinition, TaskProgress } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
 import type { TestSuiteResult } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
+import SoundManager from "@/lib/sound/SoundManager";
 
 /**
  * Manages task completion status and progress tracking
  */
 export class TaskManager {
-  constructor(private readonly store: StoreApi<OrchestratorStore>) {}
+  private readonly soundManager: SoundManager;
+
+  constructor(private readonly store: StoreApi<OrchestratorStore>) {
+    this.soundManager = SoundManager.getInstance();
+  }
 
   /**
    * Initialize task progress for an exercise
@@ -32,10 +37,19 @@ export class TaskManager {
     state.setTaskProgress(taskProgress);
     state.setCompletedTasks(new Set());
 
-    // Set first non-bonus task as current
-    const firstTask = exercise.tasks.find((t) => !t.bonus);
-    if (firstTask) {
-      state.setCurrentTaskId(firstTask.id);
+    // Set first incomplete task as current
+    this.setCurrentTaskToFirstIncomplete(exercise);
+  }
+
+  /**
+   * Set the current task to the first incomplete task
+   */
+  private setCurrentTaskToFirstIncomplete(exercise: ExerciseDefinition): void {
+    const state = this.store.getState();
+    const firstIncompleteTask = this.findFirstIncompleteTask(exercise, state.completedTasks);
+
+    if (firstIncompleteTask) {
+      state.setCurrentTaskId(firstIncompleteTask.id);
     }
 
     // Tasks will be recalculated fresh on each visit - no persistence needed
@@ -49,11 +63,18 @@ export class TaskManager {
     const taskProgress = new Map(state.taskProgress);
     const completedTasks = new Set(state.completedTasks);
     const scenariosByTask = this.groupScenariosByTask(exercise);
+    const newlyCompletedTasks: string[] = [];
 
     for (const [taskId, scenarios] of scenariosByTask) {
       const updatedData = this.calculateTaskUpdate(taskId, scenarios, exercise, testResults, taskProgress);
       if (updatedData) {
         taskProgress.set(taskId, updatedData.progress);
+
+        // Track newly completed tasks for sound effects
+        if (updatedData.isNowCompleted && !completedTasks.has(taskId)) {
+          newlyCompletedTasks.push(taskId);
+        }
+
         this.updateCompletedTasksSet(completedTasks, taskId, updatedData.isNowCompleted);
       }
     }
@@ -64,6 +85,14 @@ export class TaskManager {
       taskProgress,
       completedTasks
     }));
+
+    // Play sound effect for newly completed tasks
+    if (newlyCompletedTasks.length > 0) {
+      this.soundManager.play("task-completed");
+    }
+
+    // Update current task to first incomplete task
+    this.setCurrentTaskToFirstIncomplete(exercise);
   }
 
   /**
@@ -191,6 +220,24 @@ export class TaskManager {
         ? filteredScenarios.map((s) => s.slug)
         : exercise.scenarios.filter((s) => s.taskId === task.id).map((s) => s.slug))
     );
+  }
+
+  /**
+   * Find the first incomplete task (non-bonus tasks have priority)
+   */
+  private findFirstIncompleteTask(
+    exercise: ExerciseDefinition,
+    completedTasks: Set<string>
+  ): ExerciseDefinition["tasks"][0] | null {
+    // First try to find the first incomplete non-bonus task
+    const firstIncompleteRegularTask = exercise.tasks.find((task) => !task.bonus && !completedTasks.has(task.id));
+    if (firstIncompleteRegularTask) {
+      return firstIncompleteRegularTask;
+    }
+
+    // If all regular tasks are complete, find the first incomplete bonus task
+    const firstIncompleteBonusTask = exercise.tasks.find((task) => task.bonus && !completedTasks.has(task.id));
+    return firstIncompleteBonusTask || null;
   }
 
   /**

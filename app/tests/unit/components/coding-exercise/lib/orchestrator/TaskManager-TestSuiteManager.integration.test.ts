@@ -9,6 +9,18 @@ jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
 }));
 
+// Mock the SoundManager
+jest.mock("@/lib/sound/SoundManager", () => {
+  return {
+    __esModule: true,
+    default: {
+      getInstance: () => ({
+        play: jest.fn()
+      })
+    }
+  };
+});
+
 // Mock the API client
 jest.mock("@/lib/api/client", () => ({
   api: {
