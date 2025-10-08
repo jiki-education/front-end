@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3060 --turbo",
-    "prebuild": "./scripts/copy-content-images.sh",
     "build": "next build",
     "start": "next start",
     "test": "jest",
