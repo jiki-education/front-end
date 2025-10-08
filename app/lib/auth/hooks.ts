@@ -40,6 +40,8 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
       return;
     }
 
+    setIsReady(true);
+
     if (redirectIfAuthenticated && isAuthenticated) {
       router.push("/dashboard");
       return;
@@ -56,8 +58,6 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
     if (isAuthenticated && onAuthenticated) {
       onAuthenticated();
     }
-
-    setIsReady(true);
     // Excluding callback functions from dependencies to prevent infinite re-renders
     // when consumers pass inline functions. The callbacks are only used for side effects
     // and don't affect the core auth logic flow.

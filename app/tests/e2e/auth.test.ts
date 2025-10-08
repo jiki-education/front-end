@@ -157,18 +157,21 @@ describe("Authentication E2E", () => {
   });
 
   describe("Authentication Flow", () => {
-    it("should redirect to login when accessing dashboard without auth", async () => {
-      // Clear any existing auth
+    it("should redirect unauthenticated users from dashboard to login", async () => {
+      // Clear any existing auth completely
       await page.goto("http://localhost:3070", { waitUntil: "domcontentloaded" });
       await page.evaluate(() => {
         localStorage.clear();
         sessionStorage.clear();
       });
 
+      // Force reload to ensure clean state
+      await page.reload({ waitUntil: "domcontentloaded" });
+
       // Try to access dashboard
       await page.goto("http://localhost:3070/dashboard", { waitUntil: "domcontentloaded" });
 
-      // Should redirect to login
+      // Wait for auth system to resolve and redirect
       await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 5000 });
 
       const url = page.url();
