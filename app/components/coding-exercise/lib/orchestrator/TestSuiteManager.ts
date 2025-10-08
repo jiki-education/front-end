@@ -1,6 +1,6 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
-import type { TestExpect } from "../test-results-types";
+import type { TestExpect, TestSuiteResult } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
 
 // Define SyntaxError interface inline since it's not exported from interpreters
@@ -15,7 +15,12 @@ interface SyntaxError {
  * Manages test suite execution, results, and processing
  */
 export class TestSuiteManager {
-  constructor(private readonly store: StoreApi<OrchestratorStore>) {}
+  constructor(
+    private readonly store: StoreApi<OrchestratorStore>,
+    private readonly taskManager?: {
+      updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
+    }
+  ) {}
 
   /**
    * Prepare state for a new test run
@@ -114,6 +119,11 @@ export class TestSuiteManager {
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();
       state.setTestSuiteResult(testResults);
+
+      // Update task progress if TaskManager is available
+      if (this.taskManager) {
+        this.taskManager.updateTaskProgress(testResults, exercise);
+      }
     } catch (error) {
       // Check if it's a SyntaxError (has location property)
       if (error && typeof error === "object" && "location" in error) {

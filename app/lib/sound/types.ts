@@ -1,4 +1,4 @@
-export type SoundName = "success" | "error";
+export type SoundName = "success" | "error" | "task-completed";
 
 export interface SoundConfig {
   volume?: number;

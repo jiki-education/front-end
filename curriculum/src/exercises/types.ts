@@ -29,6 +29,9 @@ export interface FunctionDoc {
 export interface Task {
   id: string;
   name: string;
+  description?: string;
+  hints?: string[];
+  requiredScenarios?: string[]; // Scenario slugs that must pass for task completion
   bonus?: boolean;
 }
 
@@ -46,4 +49,13 @@ export interface TestExpect {
   actual: string | number | boolean;
   expected: string | number | boolean;
   errorHtml: string;
+}
+
+// Task Management Types
+export interface TaskProgress {
+  taskId: string;
+  status: "not-started" | "in-progress" | "completed";
+  passedScenarios: string[];
+  totalScenarios: number;
+  completedAt?: string;
 }

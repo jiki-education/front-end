@@ -8,6 +8,7 @@ import type { StoreApi } from "zustand/vanilla";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
 import { createOrchestratorStore } from "./orchestrator/store";
+import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import type { TestExpect, TestResult } from "./test-results-types";
@@ -18,6 +19,7 @@ class Orchestrator {
   private readonly timelineManager: TimelineManager;
   private readonly breakpointManager: BreakpointManager;
   private readonly testSuiteManager: TestSuiteManager;
+  private readonly taskManager: TaskManager;
   private editorManager: EditorManager | null = null;
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
@@ -32,7 +34,8 @@ class Orchestrator {
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
     this.breakpointManager = new BreakpointManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store);
+    this.taskManager = new TaskManager(this.store);
+    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager);
     // EditorManager will be created lazily when setupEditor is called
 
     // Set exercise title in store
@@ -40,6 +43,9 @@ class Orchestrator {
 
     // Initialize exercise data (loads from localStorage if available)
     this.store.getState().initializeExerciseData();
+
+    // Initialize task progress
+    this.taskManager.initializeTaskProgress(exercise);
   }
 
   // Expose the store so a hook can use it
@@ -308,6 +314,27 @@ class Orchestrator {
   // Test result processing methods - delegate to TestSuiteManager
   getFirstExpect(): TestExpect | null {
     return this.testSuiteManager.getFirstExpect();
+  }
+
+  // Task management methods - delegate to TaskManager
+  getTaskCompletionStatus(taskId: string): "not-started" | "in-progress" | "completed" {
+    return this.taskManager.getTaskCompletionStatus(taskId);
+  }
+
+  getTaskProgress(taskId: string) {
+    return this.taskManager.getTaskProgress(taskId);
+  }
+
+  isTaskCompleted(taskId: string): boolean {
+    return this.taskManager.isTaskCompleted(taskId);
+  }
+
+  getCompletedTaskIds(): string[] {
+    return this.taskManager.getCompletedTaskIds();
+  }
+
+  setCurrentTask(taskId: string): void {
+    this.taskManager.setCurrentTask(taskId);
   }
 }
 

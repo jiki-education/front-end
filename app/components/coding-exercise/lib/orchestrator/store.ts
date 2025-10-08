@@ -69,6 +69,11 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       // Play/pause state
       isPlaying: false,
 
+      // Task management state
+      taskProgress: new Map(),
+      completedTasks: new Set(),
+      currentTaskId: null,
+
       // Private actions - not exposed to components
       recalculateNavigationFrames: () => {
         const state = get();
@@ -437,6 +442,11 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
         }
       },
 
+      // Task management actions
+      setTaskProgress: (taskProgress) => set({ taskProgress }),
+      setCompletedTasks: (completedTasks) => set({ completedTasks }),
+      setCurrentTaskId: (currentTaskId) => set({ currentTaskId }),
+
       reset: () =>
         set({
           code: "",
@@ -485,7 +495,12 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           currentFrame: undefined,
 
           // Reset play/pause state
-          isPlaying: false
+          isPlaying: false,
+
+          // Reset task management state
+          taskProgress: new Map(),
+          completedTasks: new Set(),
+          currentTaskId: null
         })
     }))
   );
@@ -548,7 +563,12 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       currentFrame: state.currentFrame,
 
       // Play/pause state
-      isPlaying: state.isPlaying
+      isPlaying: state.isPlaying,
+
+      // Task management state
+      taskProgress: state.taskProgress,
+      completedTasks: state.completedTasks,
+      currentTaskId: state.currentTaskId
     }))
   );
 }

@@ -5,6 +5,9 @@ export const tasks: Task[] = [
   {
     id: "solve-maze",
     name: "Guide person to the end of the maze",
+    description: "Navigate through the maze to reach the green target",
+    hints: ["Plan your path", "Use turn functions to change direction"],
+    requiredScenarios: ["maze-1", "maze-2"], // All must pass
     bonus: false
   }
 ];
