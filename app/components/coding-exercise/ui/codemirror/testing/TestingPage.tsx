@@ -1,9 +1,9 @@
 "use client";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { useRef } from "react";
 import Orchestrator from "../../../lib/Orchestrator";
 import OrchestratorProvider from "../../../lib/OrchestratorProvider";
 import { CodeMirror } from "../CodeMirror";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
 import BreakpointTest from "./BreakpointTest";
 import EditEditorTest from "./EditEditorTest";
 import InformationWidgetTest from "./InformationWidgetTest";
@@ -19,7 +19,7 @@ interface TestingPageProps {
 export default function TestingPage({
   initialCode = "// Test CodeMirror extensions\nfunction hello() {\n  console.log('Hello, World!');\n}\n\nhello();"
 }: TestingPageProps) {
-  const exercise = createTestExercise({ slug: "testing-ui", initialCode });
+  const exercise = createMockExercise({ slug: "testing-ui", initialCode });
   const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
   const orchestrator = orchestratorRef.current;
 

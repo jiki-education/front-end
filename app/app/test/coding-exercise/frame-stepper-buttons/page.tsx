@@ -1,24 +1,24 @@
 "use client";
-import { mockFrame } from "@/tests/mocks";
+import { createMockFrame } from "@/tests/mocks";
 
-import React, { useEffect, useState } from "react";
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
+import { TimelineManager } from "@/components/coding-exercise/lib/orchestrator/TimelineManager";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import FrameStepperButtons from "@/components/coding-exercise/ui/scrubber/FrameStepperButtons";
-import { TimelineManager } from "@/components/coding-exercise/lib/orchestrator/TimelineManager";
-import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
-import { FrameInfo } from "../ui-utils/FrameInfo";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
+import { useEffect, useState } from "react";
+import { FrameInfo } from "../ui-utils/FrameInfo";
+import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
 
 // Create test frames similar to mockFrames
 function mockFrames(): Frame[] {
   return [
-    mockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
-    mockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }), // 100ms
-    mockFrame(200000, { line: 3, generateDescription: () => "Frame 3" }), // 200ms
-    mockFrame(300000, { line: 4, generateDescription: () => "Frame 4" }), // 300ms
-    mockFrame(400000, { line: 5, generateDescription: () => "Frame 5" }) // 400ms
+    createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
+    createMockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }), // 100ms
+    createMockFrame(200000, { line: 3, generateDescription: () => "Frame 3" }), // 200ms
+    createMockFrame(300000, { line: 4, generateDescription: () => "Frame 4" }), // 300ms
+    createMockFrame(400000, { line: 5, generateDescription: () => "Frame 5" }) // 400ms
   ];
 }
 
@@ -26,7 +26,7 @@ export default function FrameStepperButtonsTestPage() {
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
-    const exercise = createTestExercise({
+    const exercise = createMockExercise({
       slug: "test-exercise",
       initialCode: "// Test code for frame stepping"
     });

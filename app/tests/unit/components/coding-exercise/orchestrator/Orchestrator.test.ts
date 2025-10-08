@@ -1,7 +1,7 @@
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import * as localStorage from "@/components/coding-exercise/lib/localStorage";
-import { mockAnimationTimeline, mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockAnimationTimeline, createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { renderHook } from "@testing-library/react";
 
 // Mock localStorage functions
@@ -26,7 +26,7 @@ describe("Orchestrator", () => {
 
   describe("constructor", () => {
     it("should initialize with provided exercise definition", () => {
-      const exercise = createTestExercise({
+      const exercise = createMockExercise({
         slug: "test-uuid",
         initialCode: "const x = 1;"
       });
@@ -38,7 +38,7 @@ describe("Orchestrator", () => {
     });
 
     it("should initialize with default values", () => {
-      const exercise = createTestExercise({
+      const exercise = createMockExercise({
         slug: "test-uuid",
         initialCode: ""
       });
@@ -54,8 +54,8 @@ describe("Orchestrator", () => {
     });
 
     it("should create separate instances with separate stores", () => {
-      const exercise1 = createTestExercise({ slug: "uuid1", initialCode: "code1" });
-      const exercise2 = createTestExercise({ slug: "uuid2", initialCode: "code2" });
+      const exercise1 = createMockExercise({ slug: "uuid1", initialCode: "code1" });
+      const exercise2 = createMockExercise({ slug: "uuid2", initialCode: "code2" });
       const orchestrator1 = new Orchestrator(exercise1);
       const orchestrator2 = new Orchestrator(exercise2);
 
@@ -71,7 +71,7 @@ describe("Orchestrator", () => {
 
   describe("getStore", () => {
     it("should return the store instance", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
       const store = orchestrator.getStore();
 
@@ -83,9 +83,9 @@ describe("Orchestrator", () => {
 
   describe("animation completion", () => {
     it("should set isPlaying to false when animation completes", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -93,7 +93,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -111,9 +111,9 @@ describe("Orchestrator", () => {
     });
 
     it("should register onComplete callback when setting current test", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -121,7 +121,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -131,10 +131,10 @@ describe("Orchestrator", () => {
     });
 
     it("should clear complete callbacks when changing tests", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline1 = mockAnimationTimeline();
-      const mockTimeline2 = mockAnimationTimeline();
+      const mockTimeline1 = createMockAnimationTimeline();
+      const mockTimeline2 = createMockAnimationTimeline();
 
       // Set first test
       orchestrator.setCurrentTest({
@@ -143,7 +143,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline1
       });
@@ -155,7 +155,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline2
       });
@@ -165,9 +165,9 @@ describe("Orchestrator", () => {
     });
 
     it("should allow multiple play/complete cycles", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -175,7 +175,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -204,16 +204,16 @@ describe("Orchestrator", () => {
 
   describe("frame synchronization", () => {
     it("should only update currentFrame when landing exactly on a frame", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
 
       // Create custom test frames
       const testFrames = [
-        mockFrame(0, { line: 1 }),
-        mockFrame(100000, { line: 2 }),
-        mockFrame(200000, { line: 3 }),
-        mockFrame(300000, { line: 4 }),
-        mockFrame(400000, { line: 5 })
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100000, { line: 2 }),
+        createMockFrame(200000, { line: 3 }),
+        createMockFrame(300000, { line: 4 }),
+        createMockFrame(400000, { line: 5 })
       ];
 
       // Set up test state with custom frames
@@ -225,7 +225,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: testFrames,
         logLines: [],
-        animationTimeline: mockAnimationTimeline()
+        animationTimeline: createMockAnimationTimeline()
       });
 
       const state = orchestrator.getStore().getState();
@@ -245,15 +245,15 @@ describe("Orchestrator", () => {
     });
 
     it("should recalculate navigation frames when setFoldedLines is called", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
 
       // Create custom test frames
       const testFrames = [
-        mockFrame(0, { line: 1 }),
-        mockFrame(100000, { line: 2 }),
-        mockFrame(200000, { line: 3 }),
-        mockFrame(300000, { line: 4 })
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100000, { line: 2 }),
+        createMockFrame(200000, { line: 3 }),
+        createMockFrame(300000, { line: 4 })
       ];
 
       // Set up test state with custom frames at line 2
@@ -265,7 +265,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: testFrames,
         logLines: [],
-        animationTimeline: mockAnimationTimeline()
+        animationTimeline: createMockAnimationTimeline()
       });
 
       // Set to line 2's time
@@ -291,7 +291,7 @@ describe("Orchestrator", () => {
 
   describe("useOrchestratorStore hook", () => {
     it("should return the current state", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "initial code" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "initial code" });
       const orchestrator = new Orchestrator(exercise);
 
       const { result } = renderHook(() => useOrchestratorStore(orchestrator));
@@ -308,7 +308,7 @@ describe("Orchestrator", () => {
     });
 
     it("should use shallow equality to prevent unnecessary renders", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "code" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "code" });
       const orchestrator = new Orchestrator(exercise);
 
       const { result, rerender } = renderHook(() => useOrchestratorStore(orchestrator));
@@ -329,7 +329,7 @@ describe("Orchestrator", () => {
     let orchestrator: Orchestrator;
 
     beforeEach(() => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "initial code" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "initial code" });
       orchestrator = new Orchestrator(exercise);
     });
 
@@ -375,7 +375,7 @@ describe("Orchestrator", () => {
   describe("initializeExerciseData", () => {
     it("should initialize data automatically in constructor", () => {
       // Arrange
-      const exercise = createTestExercise({
+      const exercise = createMockExercise({
         slug: "test-uuid",
         initialCode: "initial code"
       });
@@ -404,7 +404,7 @@ describe("Orchestrator", () => {
         }
       });
 
-      const exercise = createTestExercise({
+      const exercise = createMockExercise({
         slug: "test-uuid",
         initialCode: serverCode
       });
@@ -421,9 +421,9 @@ describe("Orchestrator", () => {
 
   describe("play() method", () => {
     it("should play timeline when shouldAutoPlay is true", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -431,7 +431,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -442,9 +442,9 @@ describe("Orchestrator", () => {
     });
 
     it("should play animation timeline when play() is called regardless of shouldAutoPlay flag", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -452,7 +452,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -464,9 +464,9 @@ describe("Orchestrator", () => {
     });
 
     it("should set isPlaying to true when playing", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -474,7 +474,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -486,9 +486,9 @@ describe("Orchestrator", () => {
     });
 
     it("should hide information widget when manually playing", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -496,7 +496,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -515,16 +515,16 @@ describe("Orchestrator", () => {
     });
 
     it("should not throw when currentTest is null", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
 
       expect(() => orchestrator.play()).not.toThrow();
     });
 
     it("should reset time to 0 when playing after completion", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       // Make timeline appear completed
       Object.defineProperty(mockTimeline, "completed", { value: true, writable: true });
@@ -535,7 +535,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -552,9 +552,9 @@ describe("Orchestrator", () => {
     });
 
     it("should NOT reset time when playing if not completed", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       // Timeline is NOT completed
       Object.defineProperty(mockTimeline, "completed", { value: false, writable: true });
@@ -565,7 +565,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 }), mockFrame(100000, { line: 2 })],
+        frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -584,9 +584,9 @@ describe("Orchestrator", () => {
 
   describe("pause() method", () => {
     it("should pause the timeline", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -594,7 +594,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -605,9 +605,9 @@ describe("Orchestrator", () => {
     });
 
     it("should set shouldAutoPlay to false", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -615,7 +615,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -627,9 +627,9 @@ describe("Orchestrator", () => {
     });
 
     it("should set isPlaying to false", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
-      const mockTimeline = mockAnimationTimeline();
+      const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
         slug: "test-1",
@@ -637,7 +637,7 @@ describe("Orchestrator", () => {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
-        frames: [mockFrame(0, { line: 1 })],
+        frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
         animationTimeline: mockTimeline
       });
@@ -652,7 +652,7 @@ describe("Orchestrator", () => {
     });
 
     it("should not throw when currentTest is null", () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
       const orchestrator = new Orchestrator(exercise);
 
       expect(() => orchestrator.pause()).not.toThrow();
@@ -668,7 +668,7 @@ describe("Orchestrator", () => {
     });
 
     it("should delegate to testSuiteManager.runCode with current code and exercise", async () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "const x = 1;" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "const x = 1;" });
       const orchestrator = new Orchestrator(exercise);
 
       // Mock testSuiteManager.runCode to simulate successful execution
@@ -682,7 +682,7 @@ describe("Orchestrator", () => {
     });
 
     it("should NOT call play() when syntax error occurs", async () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "invalid code" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "invalid code" });
       const orchestrator = new Orchestrator(exercise);
 
       // Mock testSuiteManager.runCode to simulate successful execution (but with syntax error state)
@@ -705,7 +705,7 @@ describe("Orchestrator", () => {
     });
 
     it("should use editor value if available", async () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "initial" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "initial" });
       const orchestrator = new Orchestrator(exercise);
 
       // Mock getCurrentEditorValue to return different code
@@ -725,7 +725,7 @@ describe("Orchestrator", () => {
     });
 
     it("should use store code if editor value is not available", async () => {
-      const exercise = createTestExercise({ slug: "test-uuid", initialCode: "store code" });
+      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "store code" });
       const orchestrator = new Orchestrator(exercise);
 
       // Mock getCurrentEditorValue to return undefined

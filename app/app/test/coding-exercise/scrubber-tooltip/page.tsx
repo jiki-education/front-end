@@ -3,23 +3,23 @@
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import Scrubber from "@/components/coding-exercise/ui/scrubber/Scrubber";
-import { mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
 import { useEffect, useRef } from "react";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
   return [
-    mockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
-    mockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }),
-    mockFrame(250000, { line: 3, generateDescription: () => "Frame 3" }),
-    mockFrame(400000, { line: 4, generateDescription: () => "Frame 4" })
+    createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
+    createMockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }),
+    createMockFrame(250000, { line: 3, generateDescription: () => "Frame 3" }),
+    createMockFrame(400000, { line: 4, generateDescription: () => "Frame 4" })
   ];
 }
 
 export default function ScrubberTooltipTestPage() {
-  const exercise = createTestExercise({
+  const exercise = createMockExercise({
     slug: "test-scrubber-tooltip",
     initialCode: `console.log("Line 1");\nconsole.log("Line 2");`
   });
@@ -117,7 +117,7 @@ export default function ScrubberTooltipTestPage() {
           <button
             data-testid="set-single-frame"
             onClick={() => {
-              const singleFrame = mockFrame(0, { line: 1, generateDescription: () => "Frame 1" });
+              const singleFrame = createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" });
               const singleFrameTest = {
                 slug: "test-1",
                 name: "Test 1",

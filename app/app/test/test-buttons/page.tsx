@@ -5,7 +5,7 @@ import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorP
 // TestResultsButtons component is not used - we're rendering buttons inline for this test
 // import { TestResultsButtons } from "@/components/coding-exercise/ui/test-results-view/TestResultsButtons";
 import { InspectedTestResultView } from "@/components/coding-exercise/ui/test-results-view/InspectedTestResultView";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef } from "react";
 
 const initialCode = `move()
@@ -16,7 +16,7 @@ move()`;
 
 export default function TestButtonsTestPage() {
   // Create orchestrator once using useRef (prevents re-creation on re-renders)
-  const exercise = createTestExercise({
+  const exercise = createMockExercise({
     slug: "test-buttons-e2e-id",
     initialCode,
     title: "Test Buttons E2E Test"

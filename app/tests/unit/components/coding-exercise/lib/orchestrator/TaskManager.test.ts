@@ -1,7 +1,13 @@
 import { TaskManager } from "@/components/coding-exercise/lib/orchestrator/TaskManager";
-import type { ExerciseDefinition, Task, Scenario, TaskProgress } from "@jiki/curriculum";
-import type { TestSuiteResult } from "@/components/coding-exercise/lib/test-results-types";
-import { createMockStore } from "@/tests/mocks";
+import type { TaskProgress } from "@jiki/curriculum";
+import {
+  createMockOrchestratorStore,
+  createMockTask,
+  createMockScenario,
+  createMockExercise,
+  createMockTestResult,
+  createMockTestSuiteResult
+} from "@/tests/mocks";
 
 // Mock the SoundManager
 jest.mock("@/lib/sound/SoundManager", () => {
@@ -15,71 +21,12 @@ jest.mock("@/lib/sound/SoundManager", () => {
   };
 });
 
-// Mock data helpers
-function createMockTask(overrides: Partial<Task> = {}): Task {
-  return {
-    id: "task-1",
-    name: "Test Task",
-    bonus: false,
-    ...overrides
-  };
-}
-
-function createMockScenario(overrides: Partial<Scenario> = {}): Scenario {
-  return {
-    slug: "scenario-1",
-    name: "Test Scenario",
-    description: "Test description",
-    taskId: "task-1",
-    setup: jest.fn(),
-    expectations: jest.fn(),
-    ...overrides
-  };
-}
-
-function createMockExercise(overrides: Partial<ExerciseDefinition> = {}): ExerciseDefinition {
-  return {
-    slug: "test-exercise",
-    title: "Test Exercise",
-    instructions: "Test instructions",
-    estimatedMinutes: 5,
-    levelId: "level-1",
-    initialCode: "// Test code",
-    ExerciseClass: class TestExercise {} as any,
-    tasks: [createMockTask()],
-    scenarios: [createMockScenario()],
-    ...overrides
-  };
-}
-
-function createMockTestResult(slug: string, status: "pass" | "fail" = "pass") {
-  return {
-    slug,
-    name: slug,
-    status,
-    passed: status === "pass",
-    expects: [],
-    frames: [],
-    logLines: [],
-    view: {} as any,
-    animationTimeline: {} as any
-  };
-}
-
-function createMockTestSuiteResult(tests: ReturnType<typeof createMockTestResult>[] = []): TestSuiteResult {
-  const hasFailures = tests.some((t) => t.status === "fail");
-  return {
-    tests,
-    status: hasFailures ? "fail" : "pass"
-  };
-}
-
 describe("TaskManager", () => {
   let taskManager: TaskManager;
-  let mockStore: ReturnType<typeof createMockStore>;
+  let mockStore: ReturnType<typeof createMockOrchestratorStore>;
 
   beforeEach(() => {
-    mockStore = createMockStore();
+    mockStore = createMockOrchestratorStore();
     taskManager = new TaskManager(mockStore);
   });
 
@@ -186,7 +133,7 @@ describe("TaskManager", () => {
         totalScenarios: 2
       });
 
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         taskProgress,
         completedTasks: new Set()
       });
@@ -201,8 +148,8 @@ describe("TaskManager", () => {
       ];
       const exercise = createMockExercise({ tasks, scenarios });
       const testResults = createMockTestSuiteResult([
-        createMockTestResult("scenario-1", "pass"),
-        createMockTestResult("scenario-2", "fail")
+        createMockTestResult({ slug: "scenario-1", status: "pass" }),
+        createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
 
       taskManager.updateTaskProgress(testResults, exercise);
@@ -224,8 +171,8 @@ describe("TaskManager", () => {
       ];
       const exercise = createMockExercise({ tasks, scenarios });
       const testResults = createMockTestSuiteResult([
-        createMockTestResult("scenario-1", "pass"),
-        createMockTestResult("scenario-2", "pass")
+        createMockTestResult({ slug: "scenario-1", status: "pass" }),
+        createMockTestResult({ slug: "scenario-2", status: "pass" })
       ]);
 
       taskManager.updateTaskProgress(testResults, exercise);
@@ -253,7 +200,7 @@ describe("TaskManager", () => {
         completedAt: completedDate
       });
 
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         taskProgress,
         completedTasks: new Set(["task-1"])
       });
@@ -266,8 +213,8 @@ describe("TaskManager", () => {
       ];
       const exercise = createMockExercise({ tasks, scenarios });
       const testResults = createMockTestSuiteResult([
-        createMockTestResult("scenario-1", "pass"),
-        createMockTestResult("scenario-2", "pass")
+        createMockTestResult({ slug: "scenario-1", status: "pass" }),
+        createMockTestResult({ slug: "scenario-2", status: "pass" })
       ]);
 
       taskManager.updateTaskProgress(testResults, exercise);
@@ -289,7 +236,7 @@ describe("TaskManager", () => {
         completedAt: new Date().toISOString()
       });
 
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         taskProgress,
         completedTasks: new Set(["task-1"])
       });
@@ -302,8 +249,8 @@ describe("TaskManager", () => {
       ];
       const exercise = createMockExercise({ tasks, scenarios });
       const testResults = createMockTestSuiteResult([
-        createMockTestResult("scenario-1", "pass"),
-        createMockTestResult("scenario-2", "fail")
+        createMockTestResult({ slug: "scenario-1", status: "pass" }),
+        createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
 
       taskManager.updateTaskProgress(testResults, exercise);
@@ -328,7 +275,7 @@ describe("TaskManager", () => {
         totalScenarios: 1
       });
 
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         taskProgress,
         completedTasks: new Set()
       });
@@ -341,8 +288,8 @@ describe("TaskManager", () => {
       ];
       const exercise = createMockExercise({ tasks, scenarios });
       const testResults = createMockTestSuiteResult([
-        createMockTestResult("scenario-1", "pass"),
-        createMockTestResult("scenario-2", "fail")
+        createMockTestResult({ slug: "scenario-1", status: "pass" }),
+        createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
 
       taskManager.updateTaskProgress(testResults, exercise);
@@ -368,7 +315,7 @@ describe("TaskManager", () => {
         totalScenarios: 2
       });
 
-      mockStore = createMockStore({ taskProgress });
+      mockStore = createMockOrchestratorStore({ taskProgress });
       taskManager = new TaskManager(mockStore);
 
       expect(taskManager.getTaskCompletionStatus("task-1")).toBe("in-progress");
@@ -390,7 +337,7 @@ describe("TaskManager", () => {
       const taskProgress = new Map<string, TaskProgress>();
       taskProgress.set("task-1", progress);
 
-      mockStore = createMockStore({ taskProgress });
+      mockStore = createMockOrchestratorStore({ taskProgress });
       taskManager = new TaskManager(mockStore);
 
       expect(taskManager.getTaskProgress("task-1")).toBe(progress);
@@ -403,7 +350,7 @@ describe("TaskManager", () => {
 
   describe("isTaskCompleted", () => {
     it("should return true for completed task", () => {
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         completedTasks: new Set(["task-1"])
       });
       taskManager = new TaskManager(mockStore);
@@ -412,7 +359,7 @@ describe("TaskManager", () => {
     });
 
     it("should return false for non-completed task", () => {
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         completedTasks: new Set()
       });
       taskManager = new TaskManager(mockStore);
@@ -421,9 +368,9 @@ describe("TaskManager", () => {
     });
   });
 
-  describe("getCompletedTaskIds", () => {
+  describe("getCompletedTasks", () => {
     it("should return array of completed task IDs", () => {
-      mockStore = createMockStore({
+      mockStore = createMockOrchestratorStore({
         completedTasks: new Set(["task-1", "task-3"])
       });
       taskManager = new TaskManager(mockStore);
@@ -497,9 +444,9 @@ describe("TaskManager", () => {
     describe("getPassedScenariosForTask", () => {
       it("should return only passed scenarios from required list", () => {
         const testResults = createMockTestSuiteResult([
-          createMockTestResult("scenario-1", "pass"),
-          createMockTestResult("scenario-2", "fail"),
-          createMockTestResult("scenario-3", "pass")
+          createMockTestResult({ slug: "scenario-1", status: "pass" }),
+          createMockTestResult({ slug: "scenario-2", status: "fail" }),
+          createMockTestResult({ slug: "scenario-3", status: "pass" })
         ]);
         const requiredScenarios = ["scenario-1", "scenario-2"];
 
@@ -510,8 +457,8 @@ describe("TaskManager", () => {
 
       it("should return empty array when no scenarios pass", () => {
         const testResults = createMockTestSuiteResult([
-          createMockTestResult("scenario-1", "fail"),
-          createMockTestResult("scenario-2", "fail")
+          createMockTestResult({ slug: "scenario-1", status: "fail" }),
+          createMockTestResult({ slug: "scenario-2", status: "fail" })
         ]);
         const requiredScenarios = ["scenario-1", "scenario-2"];
 

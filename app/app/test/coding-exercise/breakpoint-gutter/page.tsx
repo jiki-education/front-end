@@ -1,23 +1,23 @@
 "use client";
 
-import { useRef, useEffect } from "react";
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
+import { createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
-import { mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { useEffect, useRef } from "react";
 
 function mockFrames(): Frame[] {
   return [
-    mockFrame(0, { line: 1 }),
-    mockFrame(100000, { line: 2 }), // 100ms
-    mockFrame(200000, { line: 3 }), // 200ms
-    mockFrame(300000, { line: 4 }), // 300ms
-    mockFrame(400000, { line: 5 }), // 400ms
-    mockFrame(500000, { line: 6 }), // 500ms
-    mockFrame(600000, { line: 7 }), // 600ms
-    mockFrame(700000, { line: 8 }) // 700ms
+    createMockFrame(0, { line: 1 }),
+    createMockFrame(100000, { line: 2 }), // 100ms
+    createMockFrame(200000, { line: 3 }), // 200ms
+    createMockFrame(300000, { line: 4 }), // 300ms
+    createMockFrame(400000, { line: 5 }), // 400ms
+    createMockFrame(500000, { line: 6 }), // 500ms
+    createMockFrame(600000, { line: 7 }), // 600ms
+    createMockFrame(700000, { line: 8 }) // 700ms
   ];
 }
 
@@ -36,7 +36,7 @@ console.log(\`Final answer: \${answer}\`);`;
 
 export default function BreakpointGutterTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
-  const exercise = createTestExercise({ slug: "test-breakpoint-gutter", initialCode: TEST_CODE });
+  const exercise = createMockExercise({ slug: "test-breakpoint-gutter", initialCode: TEST_CODE });
   const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
   const orchestrator = orchestratorRef.current;
 

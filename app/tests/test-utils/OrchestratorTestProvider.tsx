@@ -1,6 +1,6 @@
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { ReactNode } from "react";
 
 interface OrchestratorTestProviderProps {
@@ -9,7 +9,7 @@ interface OrchestratorTestProviderProps {
 }
 
 export default function OrchestratorTestProvider({
-  orchestrator = new Orchestrator(createTestExercise()),
+  orchestrator = new Orchestrator(createMockExercise()),
   children
 }: OrchestratorTestProviderProps) {
   return <OrchestratorProvider orchestrator={orchestrator}>{children}</OrchestratorProvider>;

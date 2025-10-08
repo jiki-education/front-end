@@ -1,30 +1,30 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import ScrubberInput from "@/components/coding-exercise/ui/scrubber/ScrubberInput";
+import { createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
-import { mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { useEffect, useRef } from "react";
 
 // Create frames for testing with specific timeline positions
 function mockFrames(): Frame[] {
   return [
-    mockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
-    mockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }), // 100ms
-    mockFrame(250000, { line: 3, generateDescription: () => "Frame 3" }), // 250ms
-    mockFrame(400000, { line: 4, generateDescription: () => "Frame 4" }), // 400ms
-    mockFrame(600000, { line: 5, generateDescription: () => "Frame 5" }), // 600ms
-    mockFrame(750000, { line: 6, generateDescription: () => "Frame 6" }), // 750ms
-    mockFrame(900000, { line: 7, generateDescription: () => "Frame 7" }), // 900ms
-    mockFrame(1000000, { line: 8, generateDescription: () => "Frame 8" }) // 1000ms = 1 second
+    createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" }),
+    createMockFrame(100000, { line: 2, generateDescription: () => "Frame 2" }), // 100ms
+    createMockFrame(250000, { line: 3, generateDescription: () => "Frame 3" }), // 250ms
+    createMockFrame(400000, { line: 4, generateDescription: () => "Frame 4" }), // 400ms
+    createMockFrame(600000, { line: 5, generateDescription: () => "Frame 5" }), // 600ms
+    createMockFrame(750000, { line: 6, generateDescription: () => "Frame 6" }), // 750ms
+    createMockFrame(900000, { line: 7, generateDescription: () => "Frame 7" }), // 900ms
+    createMockFrame(1000000, { line: 8, generateDescription: () => "Frame 8" }) // 1000ms = 1 second
   ];
 }
 
 export default function ScrubberInputTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
-  const exercise = createTestExercise({
+  const exercise = createMockExercise({
     slug: "test-scrubber-input",
     initialCode: `// Test code for scrubber input\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`
   });

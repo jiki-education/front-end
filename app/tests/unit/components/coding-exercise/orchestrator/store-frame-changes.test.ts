@@ -1,5 +1,5 @@
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
-import { mockFrame } from "@/tests/mocks";
+import { createMockFrame } from "@/tests/mocks";
 
 // Mock localStorage functions
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
@@ -13,7 +13,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore("test-uuid", "test code");
       const state = store.getState();
 
-      const testFrame = mockFrame(100000, {
+      const testFrame = createMockFrame(100000, {
         line: 5,
         generateDescription: () => "Test frame description",
         status: "SUCCESS"
@@ -55,7 +55,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore("test-uuid", "test code");
       const state = store.getState();
 
-      const testFrame = mockFrame(100000, {
+      const testFrame = createMockFrame(100000, {
         line: 10,
         generateDescription: () => "",
         status: "ERROR"
@@ -95,9 +95,9 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore("test-uuid", "test code");
       const state = store.getState();
 
-      const frame1 = mockFrame(0, { line: 1 });
-      const frame2 = mockFrame(100000, { line: 2 });
-      const frame3 = mockFrame(200000, { line: 3 });
+      const frame1 = createMockFrame(0, { line: 1 });
+      const frame2 = createMockFrame(100000, { line: 2 });
+      const frame3 = createMockFrame(200000, { line: 3 });
 
       // Set up test with multiple frames
       // Set shouldAutoPlay to false to prevent auto-play in tests

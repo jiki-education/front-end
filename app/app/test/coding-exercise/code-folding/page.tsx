@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
+import { createMockFrame } from "@/tests/mocks";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
-import { mockFrame } from "@/tests/mocks";
-import { createTestExercise } from "@/tests/mocks/createTestExercise";
+import { useEffect, useRef } from "react";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
   return Array.from({ length: 15 }, (_, i) =>
-    mockFrame((i + 1) * 100000, {
+    createMockFrame((i + 1) * 100000, {
       line: i + 1,
       generateDescription: () => `Frame ${i + 1}`
     })
@@ -55,7 +55,7 @@ console.log("Statistics:", stats);`;
 
 export default function CodeFoldingTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
-  const exercise = createTestExercise({ slug: "test-code-folding", initialCode: TEST_CODE });
+  const exercise = createMockExercise({ slug: "test-code-folding", initialCode: TEST_CODE });
   const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
   const orchestrator = orchestratorRef.current;
 

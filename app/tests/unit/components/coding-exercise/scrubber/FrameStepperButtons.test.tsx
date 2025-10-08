@@ -1,12 +1,11 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import FrameStepperButtons from "@/components/coding-exercise/ui/scrubber/FrameStepperButtons";
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
-import type { Frame } from "@jiki/interpreters";
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
+import FrameStepperButtons from "@/components/coding-exercise/ui/scrubber/FrameStepperButtons";
+import { createMockFrame } from "@/tests/mocks";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
-import { mockFrame } from "@/tests/mocks";
+import type { Frame } from "@jiki/interpreters";
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 // Mock the orchestrator store hook
 jest.mock("@/components/coding-exercise/lib/Orchestrator", () => ({
@@ -16,7 +15,7 @@ jest.mock("@/components/coding-exercise/lib/Orchestrator", () => ({
 // Helper to create mock frames
 function createMockFrames(count: number): Frame[] {
   return Array.from({ length: count }, (_, i) =>
-    mockFrame(i * 100000, {
+    createMockFrame(i * 100000, {
       // Each frame is 100ms apart
       line: i + 1,
       generateDescription: () => `Frame ${i}`

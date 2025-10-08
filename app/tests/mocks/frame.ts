@@ -8,7 +8,7 @@ import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
  * @param timeInMicroseconds - Time in microseconds
  * @param overrides - Optional overrides for any Frame properties (including line)
  */
-export function mockFrame(timeInMicroseconds: number, overrides?: Partial<Frame>): Frame {
+export function createMockFrame(timeInMicroseconds: number, overrides?: Partial<Frame>): Frame {
   const line = overrides?.line ?? 1;
   const description = overrides?.generateDescription?.() || `Frame at line ${line}`;
 

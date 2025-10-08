@@ -373,20 +373,28 @@ const result = object.method!(); // Assert method exists
 
 The project provides centralized mock utilities in `tests/mocks/`:
 
-- **`mockFrame()`** - Creates mock Frame objects with consistent defaults
-- **`mockTestResult()`** - Creates mock TestResult with frames and animation timeline
-- **`mockOrchestrator()`** - Creates mock Orchestrator instances for testing
-- **`mockStore()`** - Creates mock Zustand stores with overrides pattern
-- **`mockAnimationTimeline()`** - Creates mock anime.js timeline objects
+- **`createMockFrame(timeInMicroseconds, overrides?)`** - Creates mock Frame objects with time and optional property overrides
+- **`createMockTestResult(overrides?)`** - Creates mock TestResult with optional property overrides
+- **`createMockOrchestrator()`** - Creates mock Orchestrator instances for testing
+- **`createMockOrchestratorStore(overrides?)`** - Creates mock Zustand stores with optional state overrides
+- **`createMockAnimationTimeline(overrides?)`** - Creates mock anime.js timeline objects
+- **`createMockExercise(overrides?)`** - Creates mock ExerciseDefinition objects
+- **`createMockTask(overrides?)`** - Creates mock Task objects
+- **`createMockScenario(overrides?)`** - Creates mock Scenario objects
+- **`createMockTestSuiteResult(tests)`** - Creates mock TestSuiteResult with array of test results
 
 Use these utilities to maintain consistency across tests:
 
 ```typescript
-import { mockFrame, mockTestResult, mockStore } from "@/tests/mocks";
+import { createMockFrame, createMockTestResult, createMockOrchestratorStore } from "@/tests/mocks";
 
-const frames = [mockFrame(0), mockFrame(100000), mockFrame(200000)];
-const testResult = mockTestResult(frames);
-const store = mockStore({
+const frames = [
+  createMockFrame(0, { line: 1 }),
+  createMockFrame(100000, { line: 2 }),
+  createMockFrame(200000, { line: 3 })
+];
+const testResult = createMockTestResult({ frames, slug: "test-1" });
+const store = createMockOrchestratorStore({
   currentTestTime: 150000,
   currentTest: testResult,
   foldedLines: [2, 3]

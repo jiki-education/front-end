@@ -1,7 +1,5 @@
 import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/TestSuiteManager";
-import type { ExerciseDefinition } from "@jiki/curriculum";
-import { createStore } from "zustand/vanilla";
-import type { OrchestratorStore } from "@/components/coding-exercise/lib/types";
+import { createMockExercise, createMockOrchestratorStore } from "@/tests/mocks";
 
 // Mock the test runner
 jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
@@ -15,34 +13,6 @@ jest.mock("@/lib/api/client", () => ({
   }
 }));
 
-// Helper to create a mock store
-function createMockStore() {
-  const mockStore = createStore<Partial<OrchestratorStore>>(() => ({
-    setHasSyntaxError: jest.fn(),
-    setStatus: jest.fn(),
-    setError: jest.fn(),
-    setTestSuiteResult: jest.fn(),
-    setInformationWidgetData: jest.fn(),
-    setShouldShowInformationWidget: jest.fn(),
-    setHighlightedLine: jest.fn(),
-    currentTest: null,
-    language: "javascript" // Add default language
-  }));
-
-  return mockStore as any;
-}
-
-// Helper to create a mock exercise
-function createMockExercise(): ExerciseDefinition {
-  return {
-    slug: "test-exercise",
-    title: "Test Exercise",
-    instructions: "Test instructions",
-    initialCode: "// Initial code",
-    tests: []
-  } as any;
-}
-
 describe("TestSuiteManager", () => {
   let manager: TestSuiteManager;
   let mockStore: any;
@@ -52,7 +22,17 @@ describe("TestSuiteManager", () => {
     jest.clearAllMocks();
 
     // Create fresh store and manager for each test
-    mockStore = createMockStore();
+    mockStore = createMockOrchestratorStore({
+      setHasSyntaxError: jest.fn(),
+      setStatus: jest.fn(),
+      setError: jest.fn(),
+      setTestSuiteResult: jest.fn(),
+      setInformationWidgetData: jest.fn(),
+      setShouldShowInformationWidget: jest.fn(),
+      setHighlightedLine: jest.fn(),
+      currentTest: null,
+      language: "javascript"
+    });
     manager = new TestSuiteManager(mockStore);
   });
 
