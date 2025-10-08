@@ -25,6 +25,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
+      hasEverHadSuccessfulRun: false,
       foldedLines: [],
       language: "jikiscript",
 
@@ -257,6 +258,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
       setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
       setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
+      setHasEverHadSuccessfulRun: (value) => set({ hasEverHadSuccessfulRun: value }),
       setFoldedLines: (lines) => {
         set({ foldedLines: lines });
 
@@ -293,6 +295,10 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       setTestSuiteResult: (result) => {
         // Check if all tests passed
         const allTestsPassed = result ? result.tests.every((test) => test.status === "pass") : false;
+        const state = get();
+
+        // Only enable spotlight if all tests passed AND this is the first time we've had a successful run
+        const shouldActivateSpotlight = allTestsPassed && !state.hasEverHadSuccessfulRun;
 
         // Set the test suite result and reset things.
         set({
@@ -302,8 +308,10 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           status: "success",
           testCurrentTimes: {},
           // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
-          // Enable spotlight if all tests passed
-          isSpotlightActive: allTestsPassed,
+          // Enable spotlight only on first successful run
+          isSpotlightActive: shouldActivateSpotlight,
+          // Mark that we've had a successful run if all tests passed
+          hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun || allTestsPassed,
           // Reset playing state to allow animations to play on new test suite
           isPlaying: false
         });
@@ -458,6 +466,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
           wasSuccessModalShown: false,
+          hasEverHadSuccessfulRun: false,
           foldedLines: [],
           language: "jikiscript",
 
@@ -521,6 +530,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       wasSuccessModalShown: state.wasSuccessModalShown,
+      hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun,
       foldedLines: state.foldedLines,
       language: state.language,
 
