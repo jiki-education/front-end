@@ -124,12 +124,27 @@ export function getArticle(slug: string, locale: string): ProcessedPost {
   return loadPost(file);
 }
 
-export function getAllPostSlugsWithLocales(type: "blog" | "articles"): Array<{ slug: string; locale: string }> {
+export function getAllPostSlugsWithLocales(
+  type: "blog" | "articles",
+  supportedLocales?: readonly string[]
+): Array<{ slug: string; locale: string }> {
   const files = getPostFiles(type);
-  return files.map((f) => ({ slug: f.slug, locale: f.locale }));
+  let filtered = files;
+
+  if (supportedLocales) {
+    filtered = files.filter((f) => supportedLocales.includes(f.locale));
+  }
+
+  return filtered.map((f) => ({ slug: f.slug, locale: f.locale }));
 }
 
-export function getAvailableLocales(type: "blog" | "articles"): string[] {
+export function getAvailableLocales(type: "blog" | "articles", supportedLocales?: readonly string[]): string[] {
   const files = getPostFiles(type);
-  return [...new Set(files.map((f) => f.locale))];
+  let locales = [...new Set(files.map((f) => f.locale))];
+
+  if (supportedLocales) {
+    locales = locales.filter((l) => supportedLocales.includes(l));
+  }
+
+  return locales;
 }

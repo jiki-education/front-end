@@ -1,14 +1,14 @@
 import { getAllArticles, getAvailableLocales } from "@jiki/content";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { DEFAULT_LOCALE } from "@/config/locales";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string }>;
 }
 
 export function generateStaticParams() {
-  const locales = getAvailableLocales("articles");
+  const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
   return locales.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }));
 }
 
@@ -20,8 +20,8 @@ export default async function LocaleArticlesPage({ params }: Props) {
     redirect("/articles");
   }
 
-  // Check if locale has any articles
-  const locales = getAvailableLocales("articles");
+  // Check if locale is supported and has articles
+  const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
   if (!locales.includes(locale)) {
     notFound();
   }

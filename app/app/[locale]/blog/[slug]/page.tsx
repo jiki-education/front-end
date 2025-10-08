@@ -2,14 +2,14 @@ import { getBlogPost, getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
-import { DEFAULT_LOCALE } from "@/config/locales";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
-  return getAllPostSlugsWithLocales("blog")
+  return getAllPostSlugsWithLocales("blog", SUPPORTED_LOCALES)
     .filter((p) => p.locale !== DEFAULT_LOCALE)
     .map((p) => ({ locale: p.locale, slug: p.slug }));
 }
