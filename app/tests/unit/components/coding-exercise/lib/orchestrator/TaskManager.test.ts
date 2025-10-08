@@ -235,13 +235,14 @@ describe("TaskManager", () => {
 
       expect(updatedProgress.status).toBe("completed");
       expect(updatedProgress.passedScenarios).toEqual(["scenario-1", "scenario-2"]);
-      expect(updatedProgress.completedAt).toBeInstanceOf(Date);
+      expect(typeof updatedProgress.completedAt).toBe("string");
+      expect(updatedProgress.completedAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
 
       expect(newState.completedTasks.has("task-1")).toBe(true);
     });
 
     it("should preserve completedAt date when task remains completed", () => {
-      const completedDate = new Date("2023-01-01");
+      const completedDate = "2023-01-01T00:00:00.000Z";
       const taskProgress = new Map<string, TaskProgress>();
       taskProgress.set("task-1", {
         taskId: "task-1",
@@ -284,7 +285,7 @@ describe("TaskManager", () => {
         status: "completed",
         passedScenarios: ["scenario-1", "scenario-2"],
         totalScenarios: 2,
-        completedAt: new Date()
+        completedAt: new Date().toISOString()
       });
 
       mockStore = createMockStore({

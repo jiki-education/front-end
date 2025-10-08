@@ -60,6 +60,8 @@ export class TaskManager {
    */
   updateTaskProgress(testResults: TestSuiteResult, exercise: ExerciseDefinition): void {
     const state = this.store.getState();
+    // Create local copies to avoid mutating store state directly
+    // IMPORTANT: These new Map()/new Set() calls are required for safe mutation
     const taskProgress = new Map(state.taskProgress);
     const completedTasks = new Set(state.completedTasks);
     const scenariosByTask = this.groupScenariosByTask(exercise);
@@ -163,7 +165,7 @@ export class TaskManager {
       status: newStatus,
       passedScenarios,
       totalScenarios: requiredScenarios.length,
-      completedAt: isNowCompleted && !wasCompleted ? new Date() : currentProgress.completedAt
+      completedAt: isNowCompleted && !wasCompleted ? new Date().toISOString() : currentProgress.completedAt
     };
 
     return { progress: updatedProgress, isNowCompleted };

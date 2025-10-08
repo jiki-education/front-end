@@ -305,7 +305,8 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       const task1Progress = finalTaskProgress.get("task-1");
       expect(task1Progress?.status).toBe("completed");
       expect(task1Progress?.passedScenarios).toEqual(["scenario-1", "scenario-2"]);
-      expect(task1Progress?.completedAt).toBeInstanceOf(Date);
+      expect(typeof task1Progress?.completedAt).toBe("string");
+      expect(task1Progress?.completedAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
     });
 
     it("should handle edge case where task becomes incomplete after being complete", async () => {

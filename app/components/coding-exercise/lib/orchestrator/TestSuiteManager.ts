@@ -1,6 +1,6 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
-import type { TestExpect } from "../test-results-types";
+import type { TestExpect, TestSuiteResult } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
 
 // Define SyntaxError interface inline since it's not exported from interpreters
@@ -17,7 +17,9 @@ interface SyntaxError {
 export class TestSuiteManager {
   constructor(
     private readonly store: StoreApi<OrchestratorStore>,
-    private readonly taskManager?: { updateTaskProgress: (testResults: any, exercise: ExerciseDefinition) => void }
+    private readonly taskManager?: {
+      updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
+    }
   ) {}
 
   /**

@@ -57,5 +57,5 @@ export interface TaskProgress {
   status: "not-started" | "in-progress" | "completed";
   passedScenarios: string[];
   totalScenarios: number;
-  completedAt?: Date;
+  completedAt?: string;
 }
