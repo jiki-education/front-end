@@ -105,15 +105,12 @@ This document lists all standard library methods for the JavaScript interpreter.
 
 - [x] indexOf()
 - [x] lastIndexOf()
+- [ ] search()
 - [x] includes()
 - [x] startsWith()
 - [x] endsWith()
-
-### Not planned (regex-based)
-
-- search()
-- match()
-- matchAll()
+- [ ] match()
+- [ ] matchAll()
 
 ### Instance Methods - Extraction
 
