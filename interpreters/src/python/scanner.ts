@@ -445,7 +445,7 @@ export class Scanner {
     }
 
     const text = this.sourceCode.substring(this.start, this.current);
-    const type = Scanner.keywords[text] || "IDENTIFIER";
+    const type = Object.hasOwn(Scanner.keywords, text) ? Scanner.keywords[text] : "IDENTIFIER";
     this.addToken(type);
   }
 

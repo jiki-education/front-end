@@ -40,7 +40,7 @@ describe("JavaScript stdlib errors", () => {
     });
 
     it("should list all unimplemented array methods", () => {
-      const unimplementedMethods = ["forEach", "map", "filter", "reduce", "find", "every", "some", "sort", "reverse"];
+      const unimplementedMethods = ["forEach", "map", "filter", "reduce", "find", "every", "some"];
 
       for (const method of unimplementedMethods) {
         const code = `

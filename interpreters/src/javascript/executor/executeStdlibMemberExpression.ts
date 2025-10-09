@@ -29,13 +29,17 @@ export function executeStdlibMemberExpression(
   const propertyName = property.value;
 
   // Check if it's a property
-  const stdlibProperty = stdlib[stdlibType].properties[propertyName] as Property | undefined;
+  const stdlibProperty = Object.hasOwn(stdlib[stdlibType].properties, propertyName)
+    ? stdlib[stdlibType].properties[propertyName]
+    : undefined;
   if (stdlibProperty) {
     return handleProperty(stdlibProperty);
   }
 
   // Check if it's a method
-  const stdlibMethod = stdlib[stdlibType].methods[propertyName] as Method | undefined;
+  const stdlibMethod = Object.hasOwn(stdlib[stdlibType].methods, propertyName)
+    ? stdlib[stdlibType].methods[propertyName]
+    : undefined;
   if (stdlibMethod) {
     return handleMethod(stdlibMethod);
   }
