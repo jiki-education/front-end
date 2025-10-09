@@ -1,5 +1,27 @@
 # Instructions for coding assistants
 
+## ⚠️ CRITICAL: First Step for ANY Work
+
+**Before starting ANY task, you MUST create a feature branch using git worktree:**
+
+```bash
+# 1. Ensure you're on main and up-to-date
+git checkout main && git pull
+
+# 2. Create a new feature branch
+git checkout -b feature-branch-name
+
+# 3. Create an isolated worktree directory
+git worktree add ../../worktrees/front-end-app-feature-branch feature-branch-name
+
+# 4. Change to the worktree directory
+cd ../../worktrees/front-end-app-feature-branch/app
+```
+
+This isolates your work in a separate directory. Never work directly in the main repository directory.
+
+---
+
 This file provides guidance to AI agents when working with code in this repository.
 
 ## Context Documentation
@@ -26,6 +48,7 @@ Load the relevant context files from `.context/` directory based on your task:
 - [.context/eslint.md](.context/eslint.md) - ESLint configuration and how to handle lint errors. **ALWAYS READ THIS BEFORE LINTING**
 - [.context/toasts.md](.context/toasts.md) - Toast notifications with react-hot-toast
 - [.context/modals.md](.context/modals.md) - Global modal system
+- [.context/content.md](.context/content.md) - Content integration for blog posts and articles
 
 ### Complex Exercise Context Files
 
@@ -141,33 +164,6 @@ This pattern makes components readable from high-level to low-level details.
 - E2E tests go in `tests/e2e/` directory
 - Never place test files alongside source files
 - **ALWAYS run `npx tsc --noEmit` after running tests to check for TypeScript errors**
-
-## Git Workflow
-
-### Branching and Pull Requests
-
-**IMPORTANT: All changes must be made on feature branches. Never commit directly to main.**
-
-1. **Always create a feature branch** for changes:
-
-   ```bash
-   git checkout -b descriptive-branch-name
-   ```
-
-2. **After pushing a new branch, always create a Pull Request**:
-
-   ```bash
-   git push -u origin branch-name
-   gh pr create --title "Clear, concise title" --body "Detailed description of changes"
-   ```
-
-   Repository: https://github.com/exercism/jiki-fe
-
-3. **Branch naming conventions**:
-   - Features: `add-feature-name` or `feature/description`
-   - Fixes: `fix-issue-name` or `fix/description`
-   - Documentation: `update-docs-name` or `docs/description`
-   - Tests: `add-tests-name` or `test/description`
 
 ## Important Rules
 
