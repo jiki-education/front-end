@@ -17,6 +17,8 @@ cd ../../worktrees/front-end-app-feature-branch/interpreters
 
 This isolates your work in a separate directory. Never work directly in the main repository directory.
 
+Once the work is completed, always git commit, push and create a PR unless told otherwise.
+
 ---
 
 ## ⚠️ IMPORTANT: Check .context/ Directory FIRST

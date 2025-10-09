@@ -17,6 +17,8 @@ cd ../../worktrees/front-end-app-feature-branch/curriculum
 
 This isolates your work in a separate directory. Never work directly in the main repository directory.
 
+Once the work is completed, always git commit, push and create a PR unless told otherwise.
+
 ---
 
 This file provides guidance to AI agents when working with the Jiki curriculum repository.

@@ -28,12 +28,11 @@ This document lists all standard library methods for the JavaScript interpreter.
 
 ### Static Methods
 
-- [ ] Array.from()
-- [ ] Array.isArray()
-
-### Not planned
+#### Not planned
 
 - Array.of()
+- [ ] Array.from()
+- [ ] Array.isArray()
 
 ### Instance Methods - Mutating
 

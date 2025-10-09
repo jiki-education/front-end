@@ -17,6 +17,8 @@ cd ../worktrees/front-end-app-feature-branch
 
 This isolates your work in a separate directory. Never work directly in the main repository directory.
 
+Once the work is completed, always git commit, push and create a PR unless told otherwise.
+
 ---
 
 This is a monorepo. Please read the appropriate AGENTS.md file for the project you're working on:
