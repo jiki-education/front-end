@@ -1,5 +1,27 @@
 # Instructions for AI Assistants - Jiki Content
 
+## ⚠️ CRITICAL: First Step for ANY Work
+
+**Before starting ANY task, you MUST create a feature branch using git worktree:**
+
+```bash
+# 1. Ensure you're on main and up-to-date
+git checkout main && git pull
+
+# 2. Create a new feature branch
+git checkout -b feature-branch-name
+
+# 3. Create an isolated worktree directory
+git worktree add ../../worktrees/front-end-app-feature-branch feature-branch-name
+
+# 4. Change to the worktree directory
+cd ../../worktrees/front-end-app-feature-branch/content
+```
+
+This isolates your work in a separate directory. Never work directly in the main repository directory.
+
+---
+
 This file provides guidance to AI agents when working with the Jiki content repository.
 
 ## Repository Overview
@@ -306,11 +328,10 @@ Validates all TypeScript without emitting files.
 ### Creating a Pull Request
 
 ```bash
-git checkout -b add-blog-post-name
 # Make changes
 git add .
 git commit -m "Add blog post: [name]"
-git push -u origin add-blog-post-name
+git push -u origin branch-name
 gh pr create --title "Add blog post: [name]" --body "Description of the post"
 ```
 
