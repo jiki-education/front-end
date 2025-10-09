@@ -6,6 +6,7 @@ import { useOrchestrator } from "../../lib/OrchestratorContext";
 interface LogLineProps {
   log: { time: number; output: string };
   isActive: boolean;
+  index: number;
 }
 
 export default function ConsoleTab() {
@@ -17,15 +18,15 @@ export default function ConsoleTab() {
   }
 
   return (
-    <div className="console-tab bg-gray-900 text-gray-300 font-mono text-xs p-2 overflow-y-auto h-full">
+    <div className="console-tab bg-gray-900 text-gray-300 font-mono text-xs p-2 overflow-y-auto h-full" role="log">
       {currentTest.logLines.map((log, index) => (
-        <LogLine key={index} log={log} isActive={currentTestTime >= log.time} />
+        <LogLine key={index} log={log} isActive={currentTestTime >= log.time} index={index} />
       ))}
     </div>
   );
 }
 
-function LogLine({ log, isActive }: LogLineProps) {
+function LogLine({ log, isActive, index }: LogLineProps) {
   const orchestrator = useOrchestrator();
 
   const handleClick = () => {
@@ -38,6 +39,7 @@ function LogLine({ log, isActive }: LogLineProps) {
         isActive ? "opacity-100 bg-gray-800" : "opacity-40"
       }`}
       onClick={handleClick}
+      data-testid={`log-line-${index}`}
     >
       <span className="log-timestamp text-gray-500 mr-2">{formatTimestamp(log.time)}</span>
       <span>{log.output}</span>
