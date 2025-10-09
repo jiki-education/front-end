@@ -114,11 +114,6 @@ export class AnimationTimeline {
   }
 
   public play(cb?: () => void) {
-    // If we're at the end of the animation and hit play
-    // then we want to restart it.
-    if (this.completed) {
-      this.animationTimeline.seek(0);
-    }
     if (cb) {
       cb();
     }
