@@ -18,7 +18,7 @@ export function ResetPasswordForm() {
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-    const tokenParam = searchParams.get("token");
+    const tokenParam = searchParams.get("reset_password_token") || searchParams.get("token");
     if (tokenParam) {
       setToken(tokenParam);
     }
@@ -58,7 +58,7 @@ export function ResetPasswordForm() {
 
     try {
       await resetPassword({
-        token,
+        reset_password_token: token,
         password,
         password_confirmation: passwordConfirmation
       });
