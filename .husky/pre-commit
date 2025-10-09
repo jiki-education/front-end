@@ -23,8 +23,42 @@ for file in $STAGED_FILES; do
   fi
 done
 
-# Run pre-commit hooks for changed packages
+# Build all packages in dependency order (always runs to ensure everything is available)
+echo "\n🔨 Building packages in dependency order..."
 FAILED=false
+
+echo "Building interpreters..."
+cd interpreters && pnpm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Failed to build interpreters"
+  FAILED=true
+fi
+cd ..
+
+echo "Building curriculum..."
+cd curriculum && pnpm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Failed to build curriculum"
+  FAILED=true
+fi
+cd ..
+
+echo "Building content..."
+cd content && pnpm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Failed to build content"
+  FAILED=true
+fi
+cd ..
+
+if [ "$FAILED" = true ]; then
+  echo "\n❌ Build failed in one or more packages"
+  exit 1
+fi
+
+echo "✅ All packages built successfully\n"
+
+# Run pre-commit hooks for changed packages
 
 if [ "$APP_CHANGED" = true ]; then
   echo "\n📦 Running app pre-commit checks..."

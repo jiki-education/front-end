@@ -78,6 +78,17 @@ The `.context/` folder contains comprehensive documentation about:
 
 **These reminders ensure consistency across the entire Jiki interpreter ecosystem.**
 
+## Version Control Guidelines
+
+**IMPORTANT: Always commit your changes when you complete an instruction or task.**
+
+- Create descriptive commit messages that explain what was changed and why
+- Commit after finishing each discrete task or instruction
+- This ensures work is saved and provides clear history of changes
+- Use conventional commit format when appropriate
+- Include context about the implementation in commit messages
+- Push your feature branch and create a pull request when ready for review
+
 ## Instructions
 
 If you are asked to work on a TODO, look at TODO.md. Read the instructions at the top. Ensure to CONFIRM WITH A HUMAN between the execution plan and the coding. Ensure to commit at the end.
@@ -162,17 +173,6 @@ All workflows run on pushes to `main` and pull requests targeting `main`. The pa
 - If tests are failing, identify and resolve the root cause rather than masking the problem
 - **ABSOLUTELY NEVER use `--no-verify` flag when committing without explicit permission from the user**
 - **ALL tests MUST pass before considering a task complete - failing tests mean the work is NOT done**
-
-## Version Control Guidelines
-
-**IMPORTANT: Always commit your changes when you complete an instruction or task.**
-
-- Create descriptive commit messages that explain what was changed and why
-- Commit after finishing each discrete task or instruction
-- This ensures work is saved and provides clear history of changes
-- Use conventional commit format when appropriate
-- Include context about the implementation in commit messages
-- Push your feature branch and create a pull request when ready for review
 
 ## Notes
 

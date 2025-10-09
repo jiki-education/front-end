@@ -56,6 +56,20 @@ For detailed information about specific aspects of the curriculum:
 - **Type Bridge**: Provides `Animation` and `Exercise` types that frontend converts to anime.js
 - **Interpreter Integration**: Uses `@jiki/interpreters` for execution context and timing control
 
+## Git Workflow
+
+### Creating Pull Requests
+
+After completing work:
+
+```bash
+# Make changes
+git add .
+git commit -m "Add new exercise: [name]"
+git push -u origin branch-name
+gh pr create --title "Add new exercise: [name]" --body "Description of the exercise"
+```
+
 ## Project Structure
 
 ```
@@ -323,16 +337,6 @@ pnpm run typecheck
 ```
 
 Validates all TypeScript without emitting files.
-
-### Creating a Pull Request
-
-```bash
-# Make changes
-git add .
-git commit -m "Add new exercise: [name]"
-git push -u origin branch-name
-gh pr create --title "Add new exercise: [name]" --body "Description of the exercise"
-```
 
 ## Debugging Tips
 

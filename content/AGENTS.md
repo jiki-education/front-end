@@ -54,6 +54,20 @@ For detailed information about specific aspects of the content package:
 - **Type Safety**: Provides `ProcessedPost` types for frontend consumption
 - **Independent**: No dependencies on curriculum or interpreters packages
 
+## Git Workflow
+
+### Creating Pull Requests
+
+After completing work:
+
+```bash
+# Make changes
+git add .
+git commit -m "Add blog post: [name]"
+git push -u origin branch-name
+gh pr create --title "Add blog post: [name]" --body "Description of the post"
+```
+
 ## Project Structure
 
 ```
@@ -324,16 +338,6 @@ pnpm run typecheck
 ```
 
 Validates all TypeScript without emitting files.
-
-### Creating a Pull Request
-
-```bash
-# Make changes
-git add .
-git commit -m "Add blog post: [name]"
-git push -u origin branch-name
-gh pr create --title "Add blog post: [name]" --body "Description of the post"
-```
 
 ## Debugging Tips
 
