@@ -6,28 +6,22 @@ import type { ExerciseDefinition, FunctionDoc } from "../types";
 
 const functions: FunctionDoc[] = [
   {
-    name: "moveUp()",
+    name: "move()",
     description:
-      "Moves the character **one step up** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveUp();"
+      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+    usage: "move();"
   },
   {
-    name: "moveDown()",
+    name: "turn_left()",
     description:
-      "Moves the character **one step down** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveDown();"
+      "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+    usage: "turn_left();"
   },
   {
-    name: "moveLeft()",
+    name: "turn_right()",
     description:
-      "Moves the character **one step left** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveLeft();"
-  },
-  {
-    name: "moveRight()",
-    description:
-      "Moves the character **one step right** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveRight();"
+      "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+    usage: "turn_right();"
   }
 ];
 
