@@ -57,6 +57,7 @@ describe("Dashboard Page", () => {
     const mockState = {
       isAuthenticated: false,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth
     };
     (useAuthStore as unknown as jest.Mock).mockReturnValue(mockState);
@@ -74,6 +75,7 @@ describe("Dashboard Page", () => {
     const mockState = {
       isAuthenticated: true,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth,
       user: { id: "1", email: "test@test.com" }
     };
@@ -92,6 +94,7 @@ describe("Dashboard Page", () => {
     const mockState = {
       isAuthenticated: true,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth,
       user: { id: "1", email: "test@test.com" }
     };
@@ -111,6 +114,7 @@ describe("Dashboard Page", () => {
     const mockState = {
       isAuthenticated: true,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth,
       user: { id: "1", email: "test@test.com" }
     };

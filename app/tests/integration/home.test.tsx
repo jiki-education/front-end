@@ -32,6 +32,7 @@ describe("Home Page", () => {
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
       isAuthenticated: false,
       isLoading: true,
+      hasCheckedAuth: false,
       checkAuth: mockCheckAuth
     });
 
@@ -44,6 +45,7 @@ describe("Home Page", () => {
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
       isAuthenticated: false,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth
     });
 
@@ -61,6 +63,7 @@ describe("Home Page", () => {
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
       isAuthenticated: true,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth
     });
 
@@ -76,6 +79,7 @@ describe("Home Page", () => {
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
       isAuthenticated: false,
       isLoading: false,
+      hasCheckedAuth: true,
       checkAuth: mockCheckAuth
     });
 

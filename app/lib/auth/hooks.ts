@@ -32,11 +32,20 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
   const { redirectTo = "/auth/login", redirectIfAuthenticated = false, onAuthenticated, onUnauthenticated } = options;
 
   const router = useRouter();
-  const { isAuthenticated, isLoading: authLoading, user } = useAuthStore();
+  const { isAuthenticated, isLoading: authLoading, user, hasCheckedAuth } = useAuthStore();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    // Wait for auth loading to complete AND for hasCheckedAuth to be true
+    // This prevents race conditions during page refresh where auth state might
+    // briefly appear as unauthenticated before the actual auth check completes
     if (authLoading) {
+      return;
+    }
+
+    // Only proceed with redirects after auth has been properly checked
+    // This is crucial for preventing redirect loops on page refresh
+    if (!hasCheckedAuth) {
       return;
     }
 
@@ -62,13 +71,13 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
     // when consumers pass inline functions. The callbacks are only used for side effects
     // and don't affect the core auth logic flow.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, authLoading, router, redirectTo, redirectIfAuthenticated]);
+  }, [isAuthenticated, authLoading, hasCheckedAuth, router, redirectTo, redirectIfAuthenticated]);
 
   return {
     isAuthenticated,
-    isLoading: authLoading || !isReady,
+    isLoading: authLoading || !hasCheckedAuth || !isReady,
     user,
-    isReady: isReady && !authLoading
+    isReady: isReady && !authLoading && hasCheckedAuth
   };
 }
 
@@ -89,12 +98,13 @@ export function useRedirectIfAuthenticated(_redirectTo = "/dashboard") {
  * @returns Current auth state from the store
  */
 export function useAuth() {
-  const { isAuthenticated, isLoading, user } = useAuthStore();
+  const { isAuthenticated, isLoading, user, hasCheckedAuth } = useAuthStore();
 
   return {
     isAuthenticated,
     isLoading,
     user,
-    isReady: !isLoading
+    hasCheckedAuth,
+    isReady: !isLoading && hasCheckedAuth
   };
 }
