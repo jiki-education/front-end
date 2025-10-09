@@ -12,6 +12,7 @@ import RunButton from "./ui/RunButton";
 import TabPanel from "./ui/TabPanel";
 import TasksView from "./ui/TasksView";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
+import ConsoleTab from "./ui/test-results-view/ConsoleTab";
 import LanguageToggle from "./ui/LanguageToggle";
 import FunctionsView from "./ui/FunctionsView";
 
@@ -120,6 +121,11 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
                     id: "hints",
                     label: "Hints",
                     content: <HintsView hints={orchestrator.getExercise().hints} />
+                  },
+                  {
+                    id: "console",
+                    label: "Console",
+                    content: <ConsoleTab />
                   }
                 ]}
                 defaultActiveTab="tasks"

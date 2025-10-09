@@ -1,10 +1,12 @@
-# Log Tab Implementation Plan
+# Test Results Tabbed Interface Implementation Plan
 
 ## Overview
-Add a tab in the bottom-right area of the coding exercise interface to display console log output (`logLines`) for the currently selected test.
+Convert the existing `ScenariosPanel` into a tabbed interface with two tabs:
+1. **Scenarios tab** - Shows the current test scenarios/results view (existing ScenariosPanel content)
+2. **Console tab** - Displays console log output (`logLines`) for the currently selected test
 
 ## Data Structure
-Log lines are now stored in `TestResult`:
+Log lines are stored in `TestResult`:
 ```typescript
 interface TestResult {
   // ... other fields
@@ -17,21 +19,57 @@ interface TestResult {
 
 ## UI Implementation
 
-### 1. Component Structure
+### 1. Component Structure Refactor
 
-Create new component: `app/components/coding-exercise/ui/test-results-view/LogLinesTab.tsx`
+**Replace `ScenariosPanel.tsx` with `TestResultsTabbedView.tsx`:**
 
 ```typescript
-export function LogLinesTab() {
+export function TestResultsTabbedView() {
+  const [activeTab, setActiveTab] = useState<'scenarios' | 'console'>('scenarios');
+
+  return (
+    <div className="test-results-tabbed-view">
+      <div className="tab-header">
+        <button 
+          className={`tab ${activeTab === 'scenarios' ? 'active' : ''}`}
+          onClick={() => setActiveTab('scenarios')}
+        >
+          Scenarios
+        </button>
+        <button 
+          className={`tab ${activeTab === 'console' ? 'active' : ''}`}
+          onClick={() => setActiveTab('console')}
+        >
+          Console
+        </button>
+      </div>
+      
+      <div className="tab-content">
+        {activeTab === 'scenarios' && <ScenariosTabContent />}
+        {activeTab === 'console' && <ConsoleTab />}
+      </div>
+    </div>
+  );
+}
+```
+
+**Extract existing ScenariosPanel content into `ScenariosTabContent.tsx`:**
+- Move all current ScenariosPanel functionality into this new component
+- Keep the same behavior and styling for the scenarios view
+
+**Create new `ConsoleTab.tsx` component:**
+
+```typescript
+export function ConsoleTab() {
   const orchestrator = useOrchestrator();
   const { currentTest, currentTestTime } = useOrchestratorStore(orchestrator);
 
   if (!currentTest || currentTest.logLines.length === 0) {
-    return <div className="log-tab-empty">No console output</div>;
+    return <div className="console-tab-empty">No console output</div>;
   }
 
   return (
-    <div className="log-tab">
+    <div className="console-tab">
       {currentTest.logLines.map((log, index) => (
         <LogLine
           key={index}
@@ -46,48 +84,72 @@ export function LogLinesTab() {
 
 ### 2. Integration Point
 
-**Location:** Bottom-right of `ScenariosPanel.tsx` or as a new panel below/beside it
-
-**Options:**
-- **Option A**: Add as a tab alongside the existing scenarios/test results view
-- **Option B**: Fixed panel at bottom-right that's always visible
-- **Option C**: Collapsible panel that can be toggled
-
-**Recommended: Option C** - Collapsible panel for flexibility
+**Location:** Replace existing `ScenariosPanel` usage in `TestResultsView.tsx`
 
 ### 3. Layout Changes
 
 Modify `app/components/coding-exercise/ui/test-results-view/TestResultsView.tsx`:
 
-Add a log panel section:
 ```tsx
 <div className="test-results-container">
-  {/* Existing content */}
-  <ScenariosPanel />
-
-  {/* New log panel */}
-  <LogPanel />
+  {/* Replace ScenariosPanel with new tabbed view */}
+  <TestResultsTabbedView />
 </div>
 ```
 
 ### 4. Styling
 
-**Position**: Bottom-right corner, similar to how ScenariosPanel is positioned
-**Size**:
-- Width: ~300-400px (or 30% of container)
-- Height: ~200-300px (or expandable)
-- Max-height with scroll
+**Position**: Bottom-right corner, same location as current ScenariosPanel
+**Size**: Maintain same dimensions as current ScenariosPanel
 
-**Visual Design**:
+**Tab Header Design**:
 ```css
-.log-tab {
+.test-results-tabbed-view {
+  /* Inherit positioning from current ScenariosPanel */
+}
+
+.tab-header {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+}
+
+.tab {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom-color: #007acc;
+  background: white;
+}
+
+.tab-content {
+  flex: 1;
+  overflow: hidden;
+}
+```
+
+**Console Tab Design**:
+```css
+.console-tab {
   background: #1e1e1e; /* Dark terminal-style */
   color: #d4d4d4;
   font-family: 'Consolas', 'Monaco', monospace;
   font-size: 12px;
   padding: 8px;
   overflow-y: auto;
-  border-radius: 4px;
+  height: 100%;
+}
+
+.console-tab-empty {
+  color: #858585;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
 }
 
 .log-line {
@@ -135,14 +197,16 @@ const isLogActive = (logTime: number, currentTime: number) => {
 
 ## Implementation Steps
 
-1. **Create LogLinesTab component** with basic rendering
-2. **Add styling** for terminal-like appearance
-3. **Integrate into TestResultsView** layout
-4. **Connect to orchestrator state** (currentTest, currentTestTime)
-5. **Implement time-based highlighting** logic
-6. **Add auto-scroll** behavior
-7. **Test with different scenarios** (no logs, many logs, long logs)
-8. **Polish UX** (empty states, loading states, etc.)
+1. **Create `ScenariosTabContent.tsx`** by extracting content from existing `ScenariosPanel.tsx`
+2. **Create `ConsoleTab.tsx`** component with basic log rendering
+3. **Create `TestResultsTabbedView.tsx`** with tab switching logic
+4. **Replace `ScenariosPanel` usage** in `TestResultsView.tsx` with new tabbed view
+5. **Add styling** for tab header and console appearance
+6. **Connect console tab to orchestrator state** (currentTest, currentTestTime)
+7. **Implement time-based highlighting** logic in console tab
+8. **Add auto-scroll** behavior for console tab
+9. **Test with different scenarios** (no logs, many logs, long logs)
+10. **Polish UX** (empty states, tab transitions, etc.)
 
 ## Testing Scenarios
 
