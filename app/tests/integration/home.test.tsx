@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { useAuthStore } from "@/stores/authStore";
-import Home from "@/app/page";
+import Home from "@/app/(external)/page";
 
 // Mock Next.js router
 const mockPush = jest.fn();

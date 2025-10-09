@@ -1,4 +1,4 @@
-import Dashboard from "@/app/dashboard/page";
+import Dashboard from "@/app/(app)/dashboard/page";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { useAuthStore } from "@/stores/authStore";
 import { render, screen, waitFor } from "@testing-library/react";
