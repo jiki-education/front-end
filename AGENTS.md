@@ -2,7 +2,7 @@
 
 ## ⚠️ CRITICAL: First Step for ANY Work
 
-**Before starting ANY task, you MUST create a feature branch using git worktree:**
+**Before starting ANY task, you MUST create a feature branch using git worktree UNLESS you are in a `worktrees` subdirectory already**
 
 ```bash
 # 1. Ensure you're on main and up-to-date
