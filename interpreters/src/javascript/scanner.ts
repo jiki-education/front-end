@@ -553,7 +553,7 @@ export class Scanner {
   }
 
   private tokenForLexeme(lexeme: string): string | null {
-    return Scanner.keywords[lexeme] || null;
+    return Object.hasOwn(Scanner.keywords, lexeme) ? Scanner.keywords[lexeme] : null;
   }
 
   private addSyntheticToken(type: TokenType, lexeme: string): void {

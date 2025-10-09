@@ -28,13 +28,17 @@ export function executeStdlibAttributeExpression(
   };
 
   // Check if it's a property
-  const stdlibProperty = stdlib[stdlibType].properties[attributeName] as Property | undefined;
+  const stdlibProperty = Object.hasOwn(stdlib[stdlibType].properties, attributeName)
+    ? stdlib[stdlibType].properties[attributeName]
+    : undefined;
   if (stdlibProperty) {
     return handleProperty(stdlibProperty);
   }
 
   // Check if it's a method
-  const stdlibMethod = stdlib[stdlibType].methods[attributeName] as Method | undefined;
+  const stdlibMethod = Object.hasOwn(stdlib[stdlibType].methods, attributeName)
+    ? stdlib[stdlibType].methods[attributeName]
+    : undefined;
   if (stdlibMethod) {
     return handleMethod(stdlibMethod);
   }

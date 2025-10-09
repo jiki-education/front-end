@@ -382,15 +382,15 @@ export class Scanner {
       return "EQUALITY";
     }
 
-    const keyword = Scanner.keywords[this.lexeme()];
-    if (keyword) {
-      return keyword;
+    if (Object.hasOwn(Scanner.keywords, lexeme)) {
+      return Scanner.keywords[lexeme];
     }
 
-    if (Scanner.keywords[this.lexeme().toLowerCase()]) {
+    const lowerLexeme = lexeme.toLowerCase();
+    if (Object.hasOwn(Scanner.keywords, lowerLexeme)) {
       this.error("MiscapitalizedKeywordInStatement", {
-        actual: this.lexeme(),
-        expected: this.lexeme().toLowerCase(),
+        actual: lexeme,
+        expected: lowerLexeme,
       });
     }
     return null;
