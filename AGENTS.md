@@ -12,10 +12,10 @@ git checkout main && git pull
 git checkout -b feature-branch-name
 
 # 3. Create an isolated worktree directory
-git worktree add ../front-end-app-feature-branch feature-branch-name
+git worktree add ../worktrees/front-end-app-feature-branch feature-branch-name
 
 # 4. Change to the worktree directory
-cd ../front-end-app-feature-branch
+cd ../worktrees/front-end-app-feature-branch
 ```
 
 This isolates your work in a separate directory. Never work directly in the main repository directory.
