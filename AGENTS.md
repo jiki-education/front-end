@@ -1,5 +1,27 @@
 # Jiki Monorepo - Agent Instructions
 
+## ⚠️ CRITICAL: First Step for ANY Work
+
+**Before starting ANY task, you MUST create a feature branch using git worktree:**
+
+```bash
+# 1. Ensure you're on main and up-to-date
+git checkout main && git pull
+
+# 2. Create a new feature branch
+git checkout -b feature-branch-name
+
+# 3. Create an isolated worktree directory
+git worktree add ../front-end-app-feature-branch feature-branch-name
+
+# 4. Change to the worktree directory
+cd ../front-end-app-feature-branch
+```
+
+This isolates your work in a separate directory. Never work directly in the main repository directory.
+
+---
+
 This is a monorepo. Please read the appropriate AGENTS.md file for the project you're working on:
 
 - **[app/AGENTS.md](app/AGENTS.md)** - Next.js frontend application
