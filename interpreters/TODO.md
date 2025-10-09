@@ -42,9 +42,7 @@ For everything in here, base your work in the JikiScript interpreter.
 - [x] Add array mutating methods: `push()`, `pop()`, `shift()`, `unshift()`. These modify the array in place and should follow the stdlib pattern like `.length` and `.at()`. Look at `src/javascript/stdlib/arrays.ts` for the pattern.
 - [x] Add array query methods: `indexOf()`, `includes()`. These search the array and return values without mutating. Follow the same stdlib pattern.
 - [x] Add array transformation methods: `slice()`, `concat()`, `join()`. These create new values from the array. `slice()` and `concat()` return new arrays, `join()` returns a string.
-- [ ] Complete the NEXT section in STDLIB_JS.md. Only tick this TODO off once the WHOLE STDLIB_JS file is completed.
-
-- [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignmennt. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it. You may need to update lots of tests where this is the case. For now you can just add a `let foo = "bar"` for these to make them easy to find later.
+- [ ] Complete the NEXT section in STDLIB_JS.md. Only tick this TODO off once the WHOLE STDLIB_JS.md file is completed.
 - [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
@@ -61,14 +59,14 @@ For everything in here, base your work in the JikiScript interpreter.
 - [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for JavaScript. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignmennt. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it. You may need to update lots of tests where this is the case. For now you can just add a `let foo = "bar"` for these to make them easy to find later.
 
 ## Python
 
 - [x] Add the ability to call external functions. Look at the JavaScript implementation of this. We'll use a standard CallExpression but we'll check to see if the function is external and use it if so. We need to keep the format the same in terms of using ExecutionContext etc. The same external functions contract needs to apply to all three languages and should be made generic.
 - [x] Add a while loop. Look at the JavaScript implementation.
 - [x] Add fstrings. Look at JS template literals for the pattern.
-- [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignment. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it.
-- [ ] Complete the NEXT section in STDLIB_PY.md. Only tick this TODO off once the WHOLE STDLIB_PY file is completed.
+- [ ] Complete the NEXT section in STDLIB_PY.md. Only tick this TODO off once the WHOLE STDLIB_PY.md file is completed.
 - [ ] Implement equivalent tests to the Numbers block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Strings block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Variable Assignment block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
@@ -85,3 +83,4 @@ For everything in here, base your work in the JikiScript interpreter.
 - [ ] Implement equivalent tests to the Keywords block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the Brackets block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
 - [ ] Implement equivalent tests to the General Parsing Errors block in JikiScript's syntaxErrors.test.ts file. Only apply tests where the rules are appropriate for Python. Look at the JikiScript implementation of how this error message is managed.
+- [ ] Don't allow statements that don't actually do anything. For example, a statement that is just a variable. Or a grouping expression that doesn't have assignment. Add a TOOD that you will need to modify this for calling functions (which should just be allowed by themselves) later. Look at how this works in JikiScript as there is a specific type for it.

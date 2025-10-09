@@ -11,6 +11,7 @@ export { JSArray } from "./JSArray";
 export { JSDictionary } from "./JSDictionary";
 export { JSStdLibFunction } from "./JSStdLibFunction";
 export { JSBuiltinObject } from "./JSBuiltinObject";
+export { JSIterator } from "./JSIterator";
 
 // Import for helper functions
 import { JikiObject } from "../../shared/jikiObject";

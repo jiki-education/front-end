@@ -13,6 +13,15 @@ import { includes } from "./includes";
 import { slice } from "./slice";
 import { concat } from "./concat";
 import { join } from "./join";
+import { splice } from "./splice";
+import { sort } from "./sort";
+import { reverse } from "./reverse";
+import { fill } from "./fill";
+import { lastIndexOf } from "./lastIndexOf";
+import { toString } from "./toString";
+import { entries } from "./entries";
+import { keys } from "./keys";
+import { values } from "./values";
 
 // Array properties
 export const arrayProperties: Record<string, Property> = {
@@ -22,19 +31,10 @@ export const arrayProperties: Record<string, Property> = {
 // List of array methods that are not yet implemented
 const notYetImplementedMethods = [
   // Mutating methods
-  "splice",
-  "sort",
-  "reverse",
-  "fill",
   "copyWithin",
 
   // Accessor methods
-  "lastIndexOf",
-  "toString",
   "toLocaleString",
-  "entries",
-  "keys",
-  "values",
 
   // Iteration methods
   "forEach",
@@ -69,6 +69,15 @@ export const arrayMethods: Record<string, Method> = {
   slice,
   concat,
   join,
+  splice,
+  sort,
+  reverse,
+  fill,
+  lastIndexOf,
+  toString,
+  entries,
+  keys,
+  values,
 
   // Generate stub methods for all not-yet-implemented methods
   ...Object.fromEntries(notYetImplementedMethods.map(name => [name, createNotYetImplementedStub(name)])),

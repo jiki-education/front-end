@@ -20,21 +20,6 @@ This document lists all standard library methods for the JavaScript interpreter.
 - console.trace()
 - console.assert()
 
-## Globals (Functions)
-
-- [ ] isFinite()
-- [ ] isNaN()
-- [ ] parseFloat()
-- [ ] parseInt()
-- [ ] encodeURI()
-- [ ] encodeURIComponent()
-
-### Not planned
-
-- eval()
-- decodeURI()
-- decodeURIComponent()
-
 ## Array
 
 ### Properties
@@ -56,10 +41,10 @@ This document lists all standard library methods for the JavaScript interpreter.
 - [x] pop()
 - [x] shift()
 - [x] unshift()
-- [ ] splice()
-- [ ] sort()
-- [ ] reverse()
-- [ ] fill()
+- [x] splice()
+- [x] sort()
+- [x] reverse()
+- [x] fill()
 
 ### Instance Methods - Accessor
 
@@ -67,13 +52,13 @@ This document lists all standard library methods for the JavaScript interpreter.
 - [x] concat()
 - [x] slice()
 - [x] indexOf()
-- [ ] lastIndexOf()
+- [x] lastIndexOf()
 - [x] includes()
 - [x] join()
-- [ ] toString()
-- [ ] entries()
-- [ ] keys()
-- [ ] values()
+- [x] toString()
+- [x] entries()
+- [x] keys()
+- [x] values()
 
 ### Not planned
 
@@ -350,3 +335,18 @@ This document lists all standard library methods for the JavaScript interpreter.
 - [ ] then()
 - [ ] catch()
 - [ ] finally()
+
+## Globals (Functions)
+
+- [ ] isFinite()
+- [ ] isNaN()
+- [ ] parseFloat()
+- [ ] parseInt()
+- [ ] encodeURI()
+- [ ] encodeURIComponent()
+
+### Not planned
+
+- eval()
+- decodeURI()
+- decodeURIComponent()

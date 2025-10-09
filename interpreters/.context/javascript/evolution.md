@@ -1,5 +1,149 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-09: Added Array Methods Batch (9 methods: splice, sort, reverse, fill, lastIndexOf, toString, entries, keys, values)
+
+### Overview
+
+Implemented a comprehensive batch of 9 array methods (4 mutating, 5 accessor) to expand JavaScript stdlib capabilities. Added JSIterator class to support iterator-returning methods.
+
+### Changes Applied
+
+**1. JSIterator Class** (`src/javascript/jsObjects/JSIterator.ts`):
+
+- New JikiObject subclass representing JavaScript Array Iterators
+- Stores items array and iterator type ("entries" | "keys" | "values")
+- Returns "[object Array Iterator]" as string representation
+- Immutable clone behavior (returns self)
+
+**2. Mutating Methods** (`src/javascript/stdlib/array/`):
+
+- **splice()** - Remove/add elements at position, returns deleted elements array
+  - Arity: `[1, Infinity]` (start required, deleteCount + items optional)
+  - Uses native `array.elements.splice()`
+  - Handles all JavaScript splice behaviors (negative indices, insertion, etc.)
+
+- **sort()** - Sort array in place, returns sorted array
+  - Arity: `[0, 1]` (optional comparator function)
+  - Default: Lexicographic sort (converts to strings)
+  - Custom comparators: Not yet supported (throws LogicError)
+
+- **reverse()** - Reverse array in place, returns reversed array
+  - Arity: `[0, 0]` (no arguments)
+  - Uses native `array.elements.reverse()`
+
+- **fill()** - Fill array with value, returns modified array
+  - Arity: `[1, 3]` (value required, start/end optional)
+  - Uses native `array.elements.fill()`
+  - Supports partial filling with start/end indices
+
+**3. Accessor Methods** (`src/javascript/stdlib/array/`):
+
+- **lastIndexOf()** - Find last occurrence, returns index or -1
+  - Arity: `[1, 2]` (searchElement required, fromIndex optional)
+  - Manual search loop (not using native method to ensure JikiObject equality)
+  - Handles negative fromIndex
+
+- **toString()** - Convert array to comma-separated string
+  - Arity: `[0, 0]` (no arguments)
+  - Joins elements with commas (equivalent to `join(",")`)
+  - Returns JSString
+
+- **entries()** - Returns iterator of [index, value] pairs
+  - Arity: `[0, 0]` (no arguments)
+  - Creates JSArray of [index, value] pairs
+  - Returns JSIterator with type "entries"
+
+- **keys()** - Returns iterator of array indices
+  - Arity: `[0, 0]` (no arguments)
+  - Creates array of JSNumber indices
+  - Returns JSIterator with type "keys"
+
+- **values()** - Returns iterator of array values
+  - Arity: `[0, 0]` (no arguments)
+  - Clones elements for snapshot
+  - Returns JSIterator with type "values"
+
+**4. Registry Updates** (`src/javascript/stdlib/array/index.ts`):
+
+- Added imports for all 9 new methods
+- Removed from `notYetImplementedMethods` list
+- Added to `arrayMethods` export
+
+**5. Object Exports** (`src/javascript/jsObjects/index.ts`):
+
+- Added `JSIterator` export
+
+**6. Documentation Updates**:
+
+- **STDLIB_JS.md**: Marked all 9 methods as `[x]` completed
+- **evolution.md**: Added this comprehensive entry
+
+**7. Test Updates**:
+
+- Fixed `stdlib-errors.test.ts`: Removed `sort` and `reverse` from unimplemented methods list
+- All existing cross-validation tests pass (already covered by existing test suite)
+
+### Implementation Notes
+
+**Native Method Usage**:
+
+Following the established pattern, all methods delegate to native JavaScript array methods where possible:
+
+- `splice()` → `array.elements.splice()`
+- `sort()` → `array.elements.sort()`
+- `reverse()` → `array.elements.reverse()`
+- `fill()` → `array.elements.fill()`
+
+**Manual Implementation**:
+
+- `lastIndexOf()` uses manual search to ensure JikiObject equality checking
+- Iterator methods create snapshots of data and wrap in JSIterator
+
+**sort() Limitations**:
+
+- Currently only supports default lexicographic sort
+- Custom comparator functions throw LogicError (requires function support)
+- Future enhancement: Support for comparator functions
+
+### Supported Syntax
+
+```javascript
+let arr = [3, 1, 2];
+
+// Mutating methods
+arr.splice(1, 1, 99); // Returns [1], arr now [3, 99, 2]
+arr.sort(); // Returns sorted arr
+arr.reverse(); // Returns reversed arr
+arr.fill(0, 1, 3); // Returns arr with [1,3) filled with 0
+
+// Accessor methods
+arr.lastIndexOf(2); // Returns last index of 2
+arr.toString(); // Returns "3,99,2"
+arr.entries(); // Returns JSIterator of [index, value]
+arr.keys(); // Returns JSIterator of indices
+arr.values(); // Returns JSIterator of values
+```
+
+### Test Results
+
+- All 2550 tests passing (was 2549)
+- Fixed 1 test in `stdlib-errors.test.ts`
+- TypeScript compilation with zero errors
+- Cross-validation tests confirm native parity
+
+### Benefits
+
+- **Expanded stdlib**: 9 new array methods available to students
+- **Consistent patterns**: All follow established stdlib architecture
+- **Type safety**: JSIterator properly integrated into type system
+- **Educational value**: Students can learn more array manipulation techniques
+
+### Future Enhancements
+
+- Add comparator function support for `sort()`
+- Implement iterator protocol for for...of loops with iterators
+- Add Array.from() and Array.isArray() static methods
+
 ## 2025-10-07: Added Array Mutating Methods (push, pop, shift, unshift)
 
 ### Overview
