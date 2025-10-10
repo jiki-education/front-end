@@ -1,5 +1,5 @@
 packages:
-  - 'app'
-  - 'content'
-  - 'curriculum'
-  - 'interpreters'
+  - "app"
+  - "content"
+  - "curriculum"
+  - "interpreters"
