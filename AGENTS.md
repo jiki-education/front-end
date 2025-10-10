@@ -40,6 +40,7 @@ The app depends on content, curriculum, and interpreters. The curriculum depends
 ### Running Tests
 
 When making changes:
+
 - Changes to **interpreters/** → Run interpreters, curriculum, and app tests
 - Changes to **curriculum/** → Run curriculum and app tests
 - Changes to **content/** → Run content tests only

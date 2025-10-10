@@ -1,12 +1,16 @@
 # Test Results Tabbed Interface Implementation Plan
 
 ## Overview
+
 Convert the existing `ScenariosPanel` into a tabbed interface with two tabs:
+
 1. **Scenarios tab** - Shows the current test scenarios/results view (existing ScenariosPanel content)
 2. **Console tab** - Displays console log output (`logLines`) for the currently selected test
 
 ## Data Structure
+
 Log lines are stored in `TestResult`:
+
 ```typescript
 interface TestResult {
   // ... other fields
@@ -30,20 +34,20 @@ export function TestResultsTabbedView() {
   return (
     <div className="test-results-tabbed-view">
       <div className="tab-header">
-        <button 
+        <button
           className={`tab ${activeTab === 'scenarios' ? 'active' : ''}`}
           onClick={() => setActiveTab('scenarios')}
         >
           Scenarios
         </button>
-        <button 
+        <button
           className={`tab ${activeTab === 'console' ? 'active' : ''}`}
           onClick={() => setActiveTab('console')}
         >
           Console
         </button>
       </div>
-      
+
       <div className="tab-content">
         {activeTab === 'scenarios' && <ScenariosTabContent />}
         {activeTab === 'console' && <ConsoleTab />}
@@ -54,6 +58,7 @@ export function TestResultsTabbedView() {
 ```
 
 **Extract existing ScenariosPanel content into `ScenariosTabContent.tsx`:**
+
 - Move all current ScenariosPanel functionality into this new component
 - Keep the same behavior and styling for the scenarios view
 
@@ -103,6 +108,7 @@ Modify `app/components/coding-exercise/ui/test-results-view/TestResultsView.tsx`
 **Size**: Maintain same dimensions as current ScenariosPanel
 
 **Tab Header Design**:
+
 ```css
 .test-results-tabbed-view {
   /* Inherit positioning from current ScenariosPanel */
@@ -134,11 +140,12 @@ Modify `app/components/coding-exercise/ui/test-results-view/TestResultsView.tsx`
 ```
 
 **Console Tab Design**:
+
 ```css
 .console-tab {
   background: #1e1e1e; /* Dark terminal-style */
   color: #d4d4d4;
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: "Consolas", "Monaco", monospace;
   font-size: 12px;
   padding: 8px;
   overflow-y: auto;
@@ -171,11 +178,13 @@ Modify `app/components/coding-exercise/ui/test-results-view/TestResultsView.tsx`
 ### 5. Time Synchronization
 
 **Highlight current log based on scrubber position:**
+
 - As user scrubs through the timeline (`currentTestTime` updates)
 - Log lines with `time <= currentTestTime` should be highlighted/visible
 - Log lines with `time > currentTestTime` should be dimmed or hidden
 
 **Implementation**:
+
 ```typescript
 const isLogActive = (logTime: number, currentTime: number) => {
   return logTime <= currentTime;
@@ -185,11 +194,13 @@ const isLogActive = (logTime: number, currentTime: number) => {
 ### 6. Features to Consider
 
 **Basic (MVP)**:
+
 - Display all log lines for current test
 - Highlight logs up to current scrubber time
 - Scroll to bottom on new test selection
 
 **Enhanced**:
+
 - Click log line to jump scrubber to that timestamp
 - Filter/search logs
 - Copy log output to clipboard
