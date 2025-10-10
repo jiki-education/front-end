@@ -105,7 +105,8 @@ describe("Dashboard Page", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
-      expect(screen.getByText("Exercises")).toBeInTheDocument();
+      expect(screen.getByText("Blog")).toBeInTheDocument();
+      expect(screen.getByText("Articles")).toBeInTheDocument();
     });
   });
 
