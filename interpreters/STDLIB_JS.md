@@ -103,12 +103,12 @@ This document lists all standard library methods for the JavaScript interpreter.
 
 ### Instance Methods - Search
 
-- [ ] indexOf()
-- [ ] lastIndexOf()
+- [x] indexOf()
+- [x] lastIndexOf()
 - [ ] search()
-- [ ] includes()
-- [ ] startsWith()
-- [ ] endsWith()
+- [x] includes()
+- [x] startsWith()
+- [x] endsWith()
 - [ ] match()
 - [ ] matchAll()
 

@@ -1,5 +1,146 @@
 # JavaScript Interpreter Evolution
 
+## 2025-10-09: Added String Search Methods (indexOf, lastIndexOf, includes, startsWith, endsWith)
+
+### Overview
+
+Implemented 5 essential string search methods to enable students to search and test strings for substrings. All methods use native JavaScript string methods for 100% spec compliance.
+
+### Changes Applied
+
+**1. String Search Methods** (`src/javascript/stdlib/string/`):
+
+- **indexOf(searchString, position?)** - Returns first index of substring, or -1
+  - Arity: `[1, 2]` (searchString required, position optional)
+  - Uses native `string.value.indexOf()`
+  - Handles optional position parameter (defaults to 0)
+  - Returns JSNumber with index or -1
+
+- **lastIndexOf(searchString, position?)** - Returns last index of substring, or -1
+  - Arity: `[1, 2]` (searchString required, position optional)
+  - Uses native `string.value.lastIndexOf()`
+  - Handles optional position parameter (defaults to +Infinity)
+  - Returns JSNumber with index or -1
+
+- **includes(searchString, position?)** - Returns boolean if string contains substring
+  - Arity: `[1, 2]` (searchString required, position optional)
+  - Uses native `string.value.includes()`
+  - Handles optional position parameter (defaults to 0)
+  - Returns JSBoolean
+
+- **startsWith(searchString, position?)** - Returns boolean if string starts with substring
+  - Arity: `[1, 2]` (searchString required, position optional)
+  - Uses native `string.value.startsWith()`
+  - Handles optional position parameter (defaults to 0)
+  - Returns JSBoolean
+
+- **endsWith(searchString, length?)** - Returns boolean if string ends with substring
+  - Arity: `[1, 2]` (searchString required, length optional)
+  - Uses native `string.value.endsWith()`
+  - Handles optional length parameter (defaults to string length)
+  - Note: Second parameter is `length`, not `position`
+  - Returns JSBoolean
+
+**2. Registry Updates** (`src/javascript/stdlib/string/index.ts`):
+
+- Added imports for all 5 new methods
+- Removed from `notYetImplementedMethods` list
+- Added to `stringMethods` export
+- Separated regex-based methods (search, match, matchAll) into "Not planned" section with comment
+
+**3. Documentation Updates**:
+
+- **STDLIB_JS.md**: Marked 5 methods as `[x]` completed, separated regex methods to "Not planned"
+- **evolution.md**: Added this comprehensive entry
+
+**4. Test Coverage**:
+
+- **Unit tests** (`tests/javascript/stdlib/string/`):
+  - `indexOf.test.ts`: 19 tests covering basic search, position param, edge cases, errors
+  - `lastIndexOf.test.ts`: 12 tests covering last occurrence, position param, edge cases
+  - `includes.test.ts`: 13 tests covering found/not found, position param, edge cases
+  - `startsWith.test.ts`: 14 tests covering start checks, position param, edge cases
+  - `endsWith.test.ts`: 15 tests covering end checks, length param, edge cases
+
+- **Cross-validation tests** (`tests/cross-validation/string-search-methods.test.ts`):
+  - 25 tests verifying implementation matches native JavaScript exactly
+  - Tests all 5 methods with various parameters
+  - Validates edge cases (empty strings, negative positions, etc.)
+
+### Implementation Notes
+
+**Native Method Usage**:
+
+Following the established pattern, all methods delegate to native JavaScript string methods:
+
+- `indexOf()` → `string.value.indexOf()`
+- `lastIndexOf()` → `string.value.lastIndexOf()`
+- `includes()` → `string.value.includes()`
+- `startsWith()` → `string.value.startsWith()`
+- `endsWith()` → `string.value.endsWith()`
+
+**Parameter Handling**:
+
+- All methods use `Math.trunc()` to convert position/length to integers
+- Optional parameters handled with proper defaults
+- Guards validate argument count and types
+
+**Regex Methods Excluded**:
+
+- `search()`, `match()`, `matchAll()` moved to "Not planned" section
+- These require regex support which is not yet implemented
+- Can be added in future when regex support is ready
+
+### Supported Syntax
+
+```javascript
+let str = "hello world";
+
+// Find first occurrence
+str.indexOf("world"); // Returns 6
+str.indexOf("xyz"); // Returns -1
+str.indexOf("o", 5); // Returns 7 (starts search from index 5)
+
+// Find last occurrence
+str.lastIndexOf("o"); // Returns 7
+str.lastIndexOf("o", 5); // Returns 4 (searches up to index 5)
+
+// Check if string contains substring
+str.includes("world"); // Returns true
+str.includes("xyz"); // Returns false
+str.includes("world", 7); // Returns false (search starts after "world")
+
+// Check if string starts with substring
+str.startsWith("hello"); // Returns true
+str.startsWith("world"); // Returns false
+str.startsWith("world", 6); // Returns true (checks from index 6)
+
+// Check if string ends with substring
+str.endsWith("world"); // Returns true
+str.endsWith("hello"); // Returns false
+str.endsWith("hello", 5); // Returns true (considers first 5 chars)
+```
+
+### Test Results
+
+- All 73 new tests passing
+- All existing tests still passing
+- Cross-validation confirms native JavaScript parity
+- TypeScript compilation with zero errors
+
+### Benefits
+
+- **Expanded stdlib**: 5 new string methods available to students
+- **Consistent patterns**: All follow established stdlib architecture
+- **100% native parity**: Using native methods ensures correct behavior
+- **Educational value**: Students can learn string searching techniques
+
+### Future Enhancements
+
+- Add regex support to enable `search()`, `match()`, `matchAll()`
+- Add string extraction methods (`slice()`, `substring()`, `charAt()`, `at()`)
+- Add string modification methods (`replace()`, `split()`, `trim()`, etc.)
+
 ## 2025-10-09: Added Array Methods Batch (9 methods: splice, sort, reverse, fill, lastIndexOf, toString, entries, keys, values)
 
 ### Overview

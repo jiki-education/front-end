@@ -5,6 +5,11 @@ import { createNotYetImplementedStub } from "../index";
 import { length } from "./length";
 import { toUpperCase } from "./toUpperCase";
 import { toLowerCase } from "./toLowerCase";
+import { indexOf } from "./indexOf";
+import { lastIndexOf } from "./lastIndexOf";
+import { includes } from "./includes";
+import { startsWith } from "./startsWith";
+import { endsWith } from "./endsWith";
 
 // String properties
 export const stringProperties: Record<string, Property> = {
@@ -17,13 +22,8 @@ const notYetImplementedMethods = [
   "toLocaleLowerCase",
   "toLocaleUpperCase",
 
-  // Search methods
-  "indexOf",
-  "lastIndexOf",
+  // Search methods (regex-based, not yet implemented)
   "search",
-  "includes",
-  "startsWith",
-  "endsWith",
   "match",
   "matchAll",
 
@@ -78,6 +78,11 @@ const notYetImplementedMethods = [
 export const stringMethods: Record<string, Method> = {
   toUpperCase,
   toLowerCase,
+  indexOf,
+  lastIndexOf,
+  includes,
+  startsWith,
+  endsWith,
 
   // Generate stub methods for all not-yet-implemented methods
   ...Object.fromEntries(notYetImplementedMethods.map(name => [name, createNotYetImplementedStub(name)])),

@@ -167,18 +167,4 @@ describe("unimplemented methods", () => {
     expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("MethodNotYetImplemented");
     expect((errorFrame as TestAugmentedFrame)?.error?.context?.method).toBe("charAt");
   });
-
-  test("gives runtime error for indexOf", () => {
-    const result = interpret(`
-        let str = "hello";
-        str.indexOf("l");
-      `);
-
-    expect(result.success).toBe(false);
-    expect(result.error).toBe(null);
-    const errorFrame = result.frames.find(f => (f as TestAugmentedFrame).status === "ERROR");
-    expect(errorFrame).toBeDefined();
-    expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("MethodNotYetImplemented");
-    expect((errorFrame as TestAugmentedFrame)?.error?.context?.method).toBe("indexOf");
-  });
 });
