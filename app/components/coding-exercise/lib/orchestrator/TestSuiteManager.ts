@@ -19,7 +19,8 @@ export class TestSuiteManager {
     private readonly store: StoreApi<OrchestratorStore>,
     private readonly taskManager?: {
       updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
-    }
+    },
+    private readonly projectContext?: { projectSlug?: string }
   ) {}
 
   /**
@@ -70,11 +71,29 @@ export class TestSuiteManager {
    * Submit exercise files to the backend (fire and forget)
    */
   private async submitExerciseFiles(code: string): Promise<void> {
-    const lessonSlug = this.getLessonSlugFromURL();
-    if (!lessonSlug) {
-      return; // Can't submit without a lesson slug
-    }
     try {
+      // Check if this is a project submission
+      if (this.projectContext?.projectSlug) {
+        const { submitProjectExercise } = await import("@/lib/api/projects");
+
+        // Fire and forget - we don't await or care about the response
+        void submitProjectExercise(this.projectContext.projectSlug, [
+          {
+            filename: "solution.js", // or appropriate extension
+            code: code
+          }
+        ]).catch(() => {
+          // Silently ignore errors (no internet, etc.)
+        });
+        return;
+      }
+
+      // Handle lesson submission (existing logic)
+      const lessonSlug = this.getLessonSlugFromURL();
+      if (!lessonSlug) {
+        return; // Can't submit without a lesson slug
+      }
+
       const { api } = await import("@/lib/api/client");
 
       // Fire and forget - we don't await or care about the response

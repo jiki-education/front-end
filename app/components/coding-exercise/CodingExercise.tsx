@@ -18,9 +18,11 @@ import FunctionsView from "./ui/FunctionsView";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
+  projectSlug?: string;
+  isProject?: boolean;
 }
 
-export default function CodingExercise({ exerciseSlug }: CodingExerciseProps) {
+export default function CodingExercise({ exerciseSlug, projectSlug, isProject = false }: CodingExerciseProps) {
   // Use ref to store the orchestrator instance to prevent recreation
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +45,8 @@ export default function CodingExercise({ exerciseSlug }: CodingExerciseProps) {
         const exercise = (await loader()).default;
 
         // Create orchestrator only once and store in ref
-        orchestratorRef.current = new Orchestrator(exercise);
+        // Pass project context if this is a project
+        orchestratorRef.current = new Orchestrator(exercise, isProject ? { projectSlug } : undefined);
         setIsLoading(false);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : "Unknown error");
