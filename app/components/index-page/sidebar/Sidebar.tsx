@@ -10,7 +10,8 @@ interface SidebarProps {
 
 const navigationItems: Array<{ id: string; label: string; href?: string }> = [
   { id: "blog", label: "Blog", href: "/blog" },
-  { id: "articles", label: "Articles", href: "/articles" }
+  { id: "articles", label: "Articles", href: "/articles" },
+  { id: "concepts", label: "Concepts", href: "/concepts" }
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
