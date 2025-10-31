@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { getTokenExpiry, setToken } from "@/lib/auth/storage";
 import type {
   AuthResponse,
+  EmailConfirmationResponse,
   LoginCredentials,
   PasswordReset,
   PasswordResetRequest,
@@ -109,6 +110,17 @@ export async function requestPasswordReset(data: PasswordResetRequest): Promise<
  */
 export async function resetPassword(data: PasswordReset): Promise<void> {
   await api.patch("/auth/password", { user: data });
+}
+
+/**
+ * Confirm email address
+ * GET /v1/auth/confirmation?confirmation_token=token
+ */
+export async function confirmEmail(token: string): Promise<EmailConfirmationResponse> {
+  const response = await api.get<EmailConfirmationResponse>("/auth/confirmation", {
+    params: { confirmation_token: token }
+  });
+  return response.data;
 }
 
 /**

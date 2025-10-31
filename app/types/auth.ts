@@ -32,6 +32,10 @@ export interface PasswordReset {
   password_confirmation: string;
 }
 
+export interface EmailConfirmationResponse {
+  message: string;
+}
+
 export interface AuthResponse {
   user: User;
   message?: string;
