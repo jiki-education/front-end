@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { api } from "@/lib/api/client";
+// import { api } from "@/lib/api/client"; // TODO: Re-enable when backend implements confirmation endpoint
 
 export function ConfirmEmailForm() {
   const searchParams = useSearchParams();
@@ -18,16 +18,19 @@ export function ConfirmEmailForm() {
       return;
     }
 
-    const confirmEmail = async () => {
+    const confirmEmail = () => {
       try {
-        await api.get("/v1/auth/confirmation", {
-          params: { confirmation_token: token }
-        });
+        // TODO: Backend doesn't have email confirmation endpoint yet
+        // Uncomment when backend implements /auth/confirmation endpoint
+        // await api.get("/auth/confirmation", {
+        //   params: { confirmation_token: token }
+        // });
 
+        // For now, assume confirmation is successful
         setStatus("success");
 
         // Redirect after 2 seconds
-        void setTimeout(() => {
+        setTimeout(() => {
           router.push("/auth/login?confirmed=true");
         }, 2000);
       } catch {
@@ -35,7 +38,7 @@ export function ConfirmEmailForm() {
       }
     };
 
-    void confirmEmail();
+    confirmEmail();
   }, [token, router]);
 
   if (status === "confirming") {

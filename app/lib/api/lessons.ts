@@ -28,7 +28,7 @@ export interface LessonResponse {
  * Fetch lesson details by slug
  */
 export async function fetchLesson(slug: string): Promise<LessonData> {
-  const response = await api.get<any>(`/lessons/${slug}`);
+  const response = await api.get<any>(`/internal/lessons/${slug}`);
 
   // Handle different response structures
   // If the response has a "lesson" key, use it; otherwise, assume the response is the lesson data
@@ -41,12 +41,12 @@ export async function fetchLesson(slug: string): Promise<LessonData> {
  * Mark a lesson as completed
  */
 export async function markLessonComplete(slug: string): Promise<void> {
-  await api.patch(`/v1/user_lessons/${slug}/completed`);
+  await api.patch(`/internal/user_lessons/${slug}/complete`);
 }
 
 /**
  * Start tracking a lesson - called when user clicks on a lesson
  */
 export async function startLesson(slug: string): Promise<void> {
-  await api.post(`/user_lessons/${slug}/start`);
+  await api.post(`/internal/user_lessons/${slug}/start`);
 }

@@ -59,7 +59,7 @@ export default function TestAuthV2Page() {
     addResult(`Using token: ${token.substring(0, 30)}...`);
 
     try {
-      const response = await api.get("/levels");
+      const response = await api.get("/internal/levels");
       setLevels(response.data);
       addResult("✅ Successfully fetched levels!");
       addResult(`Received ${Array.isArray(response.data) ? response.data.length : "unknown"} levels`);
@@ -81,7 +81,7 @@ export default function TestAuthV2Page() {
     }
 
     try {
-      const response = await fetch("http://localhost:3061/v1/levels", {
+      const response = await fetch("http://localhost:3061/internal/levels", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"

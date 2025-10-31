@@ -61,7 +61,7 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
 
       // Verify API was called with correct parameters
-      expect(api.post).toHaveBeenCalledWith("/lessons/solve-a-maze/exercise-submissions", {
+      expect(api.post).toHaveBeenCalledWith("/internal/lessons/solve-a-maze/exercise_submissions", {
         submission: {
           files: [
             {
@@ -106,7 +106,10 @@ describe("TestSuiteManager", () => {
         await manager.runCode(mockCode, mockExercise);
 
         // Verify API was called with correct lesson slug
-        expect(api.post).toHaveBeenCalledWith(`/lessons/${testCase.slug}/exercise-submissions`, expect.any(Object));
+        expect(api.post).toHaveBeenCalledWith(
+          `/internal/lessons/${testCase.slug}/exercise_submissions`,
+          expect.any(Object)
+        );
       }
     });
 
