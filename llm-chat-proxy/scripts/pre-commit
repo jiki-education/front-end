@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+echo "Running llm-chat-proxy pre-commit checks..."
+
+# TypeScript type check
+echo "Checking types..."
+pnpm exec tsc --noEmit
+
+# Format changed files in llm-chat-proxy only
+echo "Formatting changed files..."
+git diff --cached --name-only --diff-filter=ACMR | grep '^llm-chat-proxy/' | grep -E '\.(ts|js|json)$' | sed 's|^llm-chat-proxy/||' | xargs -r pnpm exec prettier --write
+
+# Re-stage formatted files
+git diff --cached --name-only --diff-filter=ACMR | grep '^llm-chat-proxy/' | xargs -r git add
+
+# Lint check
+echo "Running linter..."
+pnpm run lint --max-warnings=0
+
+# Run tests
+echo "Running tests..."
+pnpm test
+
+echo "All llm-chat-proxy pre-commit checks passed!"

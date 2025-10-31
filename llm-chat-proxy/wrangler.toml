@@ -1,0 +1,18 @@
+name = "llm-chat-proxy"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "llm-chat-proxy"
+workers_dev = false
+route = "https://llm.jiki.app/*"
+
+# Environment variables are set via: wrangler secret put <NAME>
+# Required secrets:
+# - GOOGLE_GEMINI_API_KEY
+# - DEVISE_JWT_SECRET_KEY
+# - RAILS_API_URL
+# - INTERNAL_API_SECRET
+#
+# For local development, create .dev.vars with these values
