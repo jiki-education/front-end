@@ -15,6 +15,7 @@ export const fundamentalsLevel: Level = {
         "MemberExpression" // For console.log or object.method()
       ],
       languageFeatures: {
+        allowedStdlibFunctions: ["concatenate", "to_upper_case"], // Stdlib functions available at this level
         allowTruthiness: false,
         allowTypeCoercion: false,
         enforceStrictEquality: true,

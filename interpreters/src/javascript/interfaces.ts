@@ -46,6 +46,9 @@ export interface LanguageFeatures {
   // [] = no nodes allowed
   // ["NodeType", ...] = only specified nodes allowed
   allowedNodes?: NodeType[] | null;
+  // Stdlib function restrictions for IO exercises
+  // Which stdlib functions are available (e.g., ['concatenate', 'to_upper_case'])
+  allowedStdlibFunctions?: string[];
   // Stdlib member restrictions
   // null/undefined = all stdlib members allowed (default behavior)
   // Nested structure for granular control per type

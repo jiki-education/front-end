@@ -1,7 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import type { ExerciseDefinition, FunctionDoc } from "../types";
+import type { VisualExerciseDefinition, FunctionDoc } from "../types";
 
 const functions: FunctionDoc[] = [
   {
@@ -30,7 +30,8 @@ const functions: FunctionDoc[] = [
   }
 ];
 
-const exerciseDefinition: ExerciseDefinition = {
+const exerciseDefinition: VisualExerciseDefinition = {
+  type: "visual",
   ...metadata, // Spreads all fields from metadata.json
   ExerciseClass,
   tasks,

@@ -38,7 +38,12 @@ describe("All Exercises - Solution Validation", () => {
       });
 
       // Run jikiscript solution against non-bonus scenarios
-      const results = runExerciseTests({ ...exercise, scenarios: nonBonusScenarios }, jikiscriptSolution, "jikiscript");
+      // We need to create a properly typed exercise object based on the type
+      const testExercise = exercise.type === "visual"
+        ? { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios }
+        : { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios };
+
+      const results = runExerciseTests(testExercise, jikiscriptSolution, "jikiscript");
 
       // Assert all passed
       expect(results.length).toBeGreaterThan(0);

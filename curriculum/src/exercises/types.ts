@@ -1,7 +1,8 @@
-import type { Exercise } from "../Exercise";
+import type { VisualExercise, IOExercise } from "../Exercise";
 import type { LevelId } from "../levels";
 
-export interface ExerciseDefinition {
+// Base properties shared by all exercise definitions
+interface BaseExerciseDefinition {
   // From metadata.json
   slug: string;
   title: string;
@@ -11,14 +12,29 @@ export interface ExerciseDefinition {
 
   // Core components
   initialCode: string;
-  ExerciseClass: new () => Exercise;
   tasks: Task[];
-  scenarios: Scenario[];
 
   // Optional
   hints?: string[];
   functions?: FunctionDoc[];
 }
+
+// Visual exercises with animations and state checking
+export interface VisualExerciseDefinition extends BaseExerciseDefinition {
+  type: "visual";
+  ExerciseClass: new () => VisualExercise;
+  scenarios: Scenario[];
+}
+
+// IO exercises that test function return values
+export interface IOExerciseDefinition extends BaseExerciseDefinition {
+  type: "io";
+  ExerciseClass: typeof IOExercise;
+  scenarios: IOScenario[];
+}
+
+// Discriminated union of exercise types
+export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition;
 
 export interface FunctionDoc {
   name: string;
@@ -40,8 +56,19 @@ export interface Scenario {
   name: string;
   description: string;
   taskId: string; // References the task this scenario belongs to
-  setup: (exercise: Exercise) => void;
-  expectations: (exercise: Exercise) => TestExpect[];
+  setup: (exercise: VisualExercise) => void;
+  expectations: (exercise: VisualExercise) => TestExpect[];
+}
+
+export interface IOScenario {
+  slug: string;
+  name: string;
+  description: string;
+  taskId: string; // References the task this scenario belongs to
+  functionName: string; // The function to call
+  args: any[]; // Arguments to pass to the function
+  expected: any; // Expected return value
+  matcher?: "toBe" | "toEqual" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
 }
 
 export interface TestExpect {
