@@ -41,7 +41,7 @@ import type { PythonFrame } from "./frameDescribers";
 import { describeFrame } from "./frameDescribers";
 import { PyCallable, ReturnValue } from "./functions";
 import { builtinFunctions } from "./stdlib";
-import { PyStdLibFunction } from "./jikiObjects";
+import { PyStdLibFunction, unwrapPyObject } from "./jikiObjects";
 
 // Import individual executors
 import { executeLiteralExpression } from "./executor/executeLiteralExpression";
@@ -55,7 +55,11 @@ import { executeIfStatement } from "./executor/executeIfStatement";
 import { executeBlockStatement } from "./executor/executeBlockStatement";
 import { executeListExpression } from "./executor/executeListExpression";
 import { executeSubscriptExpression } from "./executor/executeSubscriptExpression";
-import { executeForInStatement } from "./executor/executeForInStatement";
+import {
+  executeForInStatement,
+  BreakFlowControlError,
+  ContinueFlowControlError,
+} from "./executor/executeForInStatement";
 import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeBreakStatement } from "./executor/executeBreakStatement";
 import { executeContinueStatement } from "./executor/executeContinueStatement";
@@ -414,5 +418,121 @@ export class Executor {
 
   public log(output: string): void {
     this.logLines.push({ time: this.time, output });
+  }
+
+  /**
+   * Evaluates a single expression statement (must be a function call).
+   * Used for IO exercises to call student-defined functions and capture return values.
+   *
+   * @param statement - Must be an ExpressionStatement containing a CallExpression
+   * @returns Object with the function's return value, frames, and execution metadata
+   */
+  public evaluateSingleExpression(statement: Statement): {
+    value: any;
+    jikiObject?: JikiObject;
+    frames: Frame[];
+    logLines: Array<{ time: number; output: string }>;
+    success: boolean;
+    error: null;
+    meta: {
+      functionCallLog: Record<string, Record<string, number>>;
+      statements: Statement[];
+    };
+  } {
+    try {
+      // Validate that this is an ExpressionStatement with a CallExpression
+      if (!(statement instanceof ExpressionStatement)) {
+        throw new RuntimeError(
+          "evaluateSingleExpression requires an ExpressionStatement",
+          statement.location,
+          "LogicErrorInExecution",
+          { statement }
+        );
+      }
+
+      if (!(statement.expression instanceof CallExpression)) {
+        throw new RuntimeError(
+          "evaluateSingleExpression requires a CallExpression",
+          statement.location,
+          "LogicErrorInExecution",
+          { expression: statement.expression }
+        );
+      }
+
+      // Execute the call expression within execution context
+      // Frames are generated naturally during execution, don't add extra frame
+      let callResult: any;
+      const success = this.withExecutionContext(() => {
+        callResult = executeCallExpression(this, statement.expression as CallExpression);
+      });
+
+      if (!success) {
+        return {
+          value: undefined,
+          frames: this.frames,
+          logLines: this.logLines,
+          success: false,
+          error: null,
+          meta: {
+            functionCallLog: {},
+            statements: [statement],
+          },
+        };
+      }
+
+      return {
+        value: callResult ? unwrapPyObject(callResult.jikiObject) : undefined,
+        jikiObject: callResult?.jikiObject,
+        frames: this.frames,
+        logLines: this.logLines,
+        success: true,
+        error: null,
+        meta: {
+          functionCallLog: {},
+          statements: [statement],
+        },
+      };
+    } catch (error) {
+      if (error instanceof RuntimeError) {
+        // Handle specific error types for better error messages in IO exercises
+        if (error.type === "FunctionNotFound") {
+          this.addErrorFrame(statement.location, error, statement);
+        } else if (error.type === "InvalidNumberOfArguments") {
+          this.addErrorFrame(statement.location, error, statement);
+        } else {
+          this.addErrorFrame(error.location, error, statement);
+        }
+
+        return {
+          value: undefined,
+          frames: this.frames,
+          logLines: this.logLines,
+          success: false,
+          error: null,
+          meta: {
+            functionCallLog: {},
+            statements: [statement],
+          },
+        };
+      }
+
+      // Handle break/continue outside loop
+      if (error instanceof BreakFlowControlError || error instanceof ContinueFlowControlError) {
+        // These should already have been handled and added error frames
+        return {
+          value: undefined,
+          frames: this.frames,
+          logLines: this.logLines,
+          success: false,
+          error: null,
+          meta: {
+            functionCallLog: {},
+            statements: [statement],
+          },
+        };
+      }
+
+      throw error;
+    }
   }
 }
