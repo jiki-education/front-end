@@ -1,5 +1,5 @@
 // Import node types from interpreters - the canonical source
-import type { javascript, python } from "@jiki/interpreters";
+import type { javascript, python, jikiscript } from "@jiki/interpreters";
 
 // Core level interface
 export interface Level {
@@ -9,6 +9,7 @@ export interface Level {
   educationalGoal: string; // Internal facing: What's the educational goal.
 
   languageFeatures: {
+    jikiscript?: JikiScriptFeatures;
     javascript?: JavaScriptFeatures;
     python?: PythonFeatures;
   };
@@ -32,7 +33,17 @@ export interface PythonFeatures {
   languageFeatures?: Omit<python.LanguageFeatures, "allowedNodes">;
 }
 
+// JikiScript features
+export interface JikiScriptFeatures {
+  // AST node types that are allowed
+  allowedNodes?: jikiscript.TokenType[];
+
+  // Language behavior features (excluding allowedNodes from interpreter's LanguageFeatures)
+  languageFeatures?: Omit<jikiscript.LanguageFeatures, "allowedNodes">;
+}
+
 // Type aliases for language feature flags (without allowedNodes)
 export type JavaScriptFeatureFlags = Omit<javascript.LanguageFeatures, "allowedNodes">;
 export type PythonFeatureFlags = Omit<python.LanguageFeatures, "allowedNodes">;
-export type LanguageFeatureFlags = JavaScriptFeatureFlags | PythonFeatureFlags;
+export type JikiScriptFeatureFlags = Omit<jikiscript.LanguageFeatures, "allowedNodes">;
+export type LanguageFeatureFlags = JavaScriptFeatureFlags | PythonFeatureFlags | JikiScriptFeatureFlags;

@@ -27,14 +27,14 @@ export function getLevel(id: LevelId | string) {
 }
 
 // Helper to get allowed nodes for a language
-export function getAllowedNodes(levelId: LevelId | string, language: "javascript" | "python"): string[] | undefined {
+export function getAllowedNodes(levelId: LevelId | string, language: "jikiscript" | "javascript" | "python"): string[] | undefined {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   return features?.allowedNodes;
 }
 
 // Helper to get feature flags for a language
-export function getFeatureFlags(levelId: LevelId | string, language: "javascript" | "python"): LanguageFeatureFlags {
+export function getFeatureFlags(levelId: LevelId | string, language: "jikiscript" | "javascript" | "python"): LanguageFeatureFlags {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   return features?.languageFeatures ?? {};
@@ -43,7 +43,7 @@ export function getFeatureFlags(levelId: LevelId | string, language: "javascript
 // Helper to get combined language features for interpreter (accumulates from all levels up to target)
 export function getLanguageFeatures(
   levelId: LevelId | string,
-  language: "javascript" | "python"
+  language: "jikiscript" | "javascript" | "python"
 ): {
   allowedNodes?: string[];
   excludeList?: string[];
@@ -54,6 +54,7 @@ export function getLanguageFeatures(
   allowTypeCoercion?: boolean;
   oneStatementPerLine?: boolean;
   enforceStrictEquality?: boolean;
+  allowedStdlibFunctions?: string[];
 } {
   const levelIds = getLevelIds();
   const targetIndex = levelIds.indexOf(levelId as LevelId);
@@ -73,6 +74,7 @@ export function getLanguageFeatures(
     allowTypeCoercion?: boolean;
     oneStatementPerLine?: boolean;
     enforceStrictEquality?: boolean;
+    allowedStdlibFunctions?: string[];
   } = {};
 
   // Iterate through all levels up to and including the target

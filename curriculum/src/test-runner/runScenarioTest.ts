@@ -86,7 +86,7 @@ export function runIOScenarioTest(
   language: "jikiscript" | "javascript" | "python" = "jikiscript"
 ): ScenarioTestResult {
   // Get language features for this level
-  const languageFeatures = getLanguageFeatures(levelId, language === "jikiscript" ? "javascript" : language);
+  const languageFeatures = getLanguageFeatures(levelId, language);
 
   // Get available helper functions from the exercise class
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
