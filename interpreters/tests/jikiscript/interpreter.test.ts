@@ -880,3 +880,110 @@ describe("custom functions", () => {
     expect(unwrapJikiObject(frames[0].result?.jikiObject)).toBe(true);
   });
 });
+
+describe("stdlib function filtering", () => {
+  test("allowed stdlib function is available", () => {
+    const { value, frames } = evaluateFunction(
+      'function test do\n  return concatenate("a", "b")\nend',
+      {
+        externalFunctions: [],
+        languageFeatures: { allowedStdlibFunctions: ["concatenate"] },
+      },
+      "test"
+    );
+    expect(value).toBe("ab");
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("SUCCESS");
+  });
+
+  test("non-allowed stdlib function is not available", () => {
+    const { frames } = evaluateFunction(
+      'function test do\n  return concatenate("a", "b")\nend',
+      {
+        externalFunctions: [],
+        languageFeatures: { allowedStdlibFunctions: ["to_upper_case"] }, // concatenate not in list
+      },
+      "test"
+    );
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("ERROR");
+    expect(frames[0].error!.type).toBe("FunctionNotFoundInScope");
+  });
+
+  test("multiple stdlib functions can be allowed", () => {
+    const { value, frames } = evaluateFunction(
+      'function test do\n  return to_upper_case(concatenate("hello", " world"))\nend',
+      {
+        externalFunctions: [],
+        languageFeatures: { allowedStdlibFunctions: ["concatenate", "to_upper_case"] },
+      },
+      "test"
+    );
+    expect(value).toBe("HELLO WORLD");
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("SUCCESS");
+  });
+
+  test("exercise-specific functions work alongside stdlib", () => {
+    const customFunc = (_: ExecutionContext, x: Number) => new Number(x.value);
+    const { value, frames } = evaluateFunction(
+      'function test do\n  return number_to_string(custom(1))\nend',
+      {
+        externalFunctions: [
+          {
+            name: "custom",
+            func: customFunc,
+            description: "custom function",
+          },
+        ],
+        languageFeatures: { allowedStdlibFunctions: ["number_to_string"] },
+      },
+      "test"
+    );
+    expect(value).toBe("1");
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("SUCCESS");
+  });
+
+  test("empty allowedStdlibFunctions list means no stdlib functions", () => {
+    const { frames } = evaluateFunction(
+      'function test do\n  return concatenate("a", "b")\nend',
+      {
+        externalFunctions: [],
+        languageFeatures: { allowedStdlibFunctions: [] },
+      },
+      "test"
+    );
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("ERROR");
+    expect(frames[0].error!.type).toBe("FunctionNotFoundInScope");
+  });
+
+  test("no allowedStdlibFunctions means no auto-merge", () => {
+    const { frames } = evaluateFunction(
+      'function test do\n  return concatenate("a", "b")\nend',
+      {
+        externalFunctions: [],
+        // No languageFeatures.allowedStdlibFunctions specified
+      },
+      "test"
+    );
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("ERROR");
+    expect(frames[0].error!.type).toBe("FunctionNotFoundInScope");
+  });
+
+  test("stdlib functions work in interpret() as well", () => {
+    const { frames } = interpret(
+      'set result to concatenate("hello", " ", "world")',
+      {
+        languageFeatures: { allowedStdlibFunctions: ["concatenate"] },
+      }
+    );
+    expect(frames).toBeArrayOfSize(1);
+    expect(frames[0].status).toBe("SUCCESS");
+    expect(unwrapJikiObject((frames[0] as TestAugmentedFrame).variables)).toMatchObject({
+      result: "hello world",
+    });
+  });
+});
