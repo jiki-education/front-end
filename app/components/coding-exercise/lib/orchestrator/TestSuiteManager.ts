@@ -79,7 +79,7 @@ export class TestSuiteManager {
 
       // Fire and forget - we don't await or care about the response
       void api
-        .post(`/lessons/${lessonSlug}/exercise-submissions`, {
+        .post(`/internal/lessons/${lessonSlug}/exercise_submissions`, {
           submission: {
             files: [
               {
