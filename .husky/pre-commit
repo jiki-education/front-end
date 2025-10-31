@@ -10,6 +10,7 @@ APP_CHANGED=false
 CURRICULUM_CHANGED=false
 INTERPRETERS_CHANGED=false
 CONTENT_CHANGED=false
+LLM_CHAT_PROXY_CHANGED=false
 
 for file in $STAGED_FILES; do
   if echo "$file" | grep -q "^app/"; then
@@ -20,6 +21,8 @@ for file in $STAGED_FILES; do
     INTERPRETERS_CHANGED=true
   elif echo "$file" | grep -q "^content/"; then
     CONTENT_CHANGED=true
+  elif echo "$file" | grep -q "^llm-chat-proxy/"; then
+    LLM_CHAT_PROXY_CHANGED=true
   fi
 done
 
@@ -96,12 +99,21 @@ if [ "$CONTENT_CHANGED" = true ]; then
   cd ..
 fi
 
+if [ "$LLM_CHAT_PROXY_CHANGED" = true ]; then
+  echo "\n📦 Running llm-chat-proxy pre-commit checks..."
+  cd llm-chat-proxy && ./scripts/pre-commit
+  if [ $? -ne 0 ]; then
+    FAILED=true
+  fi
+  cd ..
+fi
+
 if [ "$FAILED" = true ]; then
   echo "\n❌ Pre-commit checks failed in one or more packages"
   exit 1
 fi
 
-if [ "$APP_CHANGED" = false ] && [ "$CURRICULUM_CHANGED" = false ] && [ "$INTERPRETERS_CHANGED" = false ] && [ "$CONTENT_CHANGED" = false ]; then
+if [ "$APP_CHANGED" = false ] && [ "$CURRICULUM_CHANGED" = false ] && [ "$INTERPRETERS_CHANGED" = false ] && [ "$CONTENT_CHANGED" = false ] && [ "$LLM_CHAT_PROXY_CHANGED" = false ]; then
   echo "✅ No package files changed, skipping pre-commit checks"
 else
   echo "\n✅ All pre-commit checks passed!"

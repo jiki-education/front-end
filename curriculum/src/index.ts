@@ -1,7 +1,7 @@
 // Main exports from the curriculum package
 
-// Export the exercise registry and type
-export { exercises, type ExerciseSlug } from "./exercises";
+// Export the exercise registry, loader function, and type
+export { exercises, getExercise, type ExerciseSlug } from "./exercises";
 
 // Export all types needed by consumers
 export type { ExerciseDefinition, Task, Scenario, TestExpect, FunctionDoc, TaskProgress } from "./exercises/types";
