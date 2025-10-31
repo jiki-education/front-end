@@ -1,4 +1,4 @@
-import { jikiscript } from "@jiki/interpreters";
+import { jikiscript, javascript, python } from "@jiki/interpreters";
 import type { VisualExercise, IOExercise } from "../Exercise";
 import type {
   Scenario,
@@ -9,6 +9,15 @@ import type {
   IOExerciseDefinition
 } from "../exercises/types";
 import { getLanguageFeatures } from "../levels";
+
+/**
+ * Helper to get the appropriate interpreter for a language
+ */
+function getInterpreter(language: "jikiscript" | "javascript" | "python") {
+  if (language === "jikiscript") return jikiscript;
+  if (language === "javascript") return javascript;
+  return python;
+}
 
 export interface ScenarioTestResult {
   slug: string;
@@ -42,12 +51,12 @@ export function runVisualScenarioTest(
   scenario.setup(exercise);
 
   // Get language features for this level
-  // TODO: Support javascript and python interpreters when available
-  const languageFeatures = getLanguageFeatures(levelId, language === "jikiscript" ? "javascript" : language);
+  const languageFeatures = getLanguageFeatures(levelId, language);
 
   // Execute student code with the exercise's available functions
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
-  jikiscript.interpret(studentCode, {
+  const interpreter = getInterpreter(language);
+  interpreter.interpret(studentCode, {
     externalFunctions: exercise.availableFunctions.map((func) => ({
       name: func.name,
       func: func.func,
@@ -57,7 +66,7 @@ export function runVisualScenarioTest(
       timePerFrame: 1,
       maxTotalLoopIterations: 1000,
       ...languageFeatures
-    }
+    } as any
   });
 
   // Run expectations to validate final state
@@ -97,8 +106,8 @@ export function runIOScenarioTest(
   }));
 
   // Call the student's function using evaluateFunction
-  // TODO: Support javascript and python interpreters when available
-  const result = jikiscript.evaluateFunction(
+  const interpreter = getInterpreter(language);
+  const result = interpreter.evaluateFunction(
     studentCode,
     {
       externalFunctions,
@@ -106,7 +115,7 @@ export function runIOScenarioTest(
         timePerFrame: 1,
         maxTotalLoopIterations: 1000,
         ...languageFeatures
-      }
+      } as any
     },
     scenario.functionName,
     ...scenario.args

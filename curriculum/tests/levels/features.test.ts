@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getAllowedNodes, getFeatureFlags, getLanguageFeatures, type JavaScriptFeatureFlags } from "../../src/levels";
+import { getAllowedNodes, getFeatureFlags, getLanguageFeatures, type JavaScriptFeatureFlags, type PythonFeatureFlags } from "../../src/levels";
 
 describe("Language Features", () => {
   describe("getAllowedNodes", () => {
@@ -78,7 +78,7 @@ describe("Language Features", () => {
     });
 
     it("should return language features for Python fundamentals", () => {
-      const flags = getFeatureFlags("fundamentals", "python");
+      const flags = getFeatureFlags("fundamentals", "python") as PythonFeatureFlags;
       expect(flags.allowTruthiness).toBe(false);
       expect(flags.allowTypeCoercion).toBe(false);
     });

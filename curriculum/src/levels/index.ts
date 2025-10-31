@@ -1,6 +1,7 @@
 import { usingFunctions } from "./using-functions";
 import { fundamentalsLevel } from "./fundamentals";
 import { variablesLevel } from "./variables";
+import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags } from "./types";
 
 // Export types
@@ -10,7 +11,8 @@ export * from "./types";
 export const levels = [
   usingFunctions,
   fundamentalsLevel,
-  variablesLevel
+  variablesLevel,
+  everythingLevel
   // Future levels will be added here:
   // controlFlowLevel,
   // loopsLevel,
@@ -30,6 +32,8 @@ export function getLevel(id: LevelId | string) {
 export function getAllowedNodes(levelId: LevelId | string, language: "jikiscript" | "javascript" | "python"): string[] | undefined {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
+  // Jikiscript doesn't use allowedNodes (uses includeList/excludeList instead)
+  if (language === "jikiscript") return undefined;
   return features?.allowedNodes;
 }
 
@@ -86,7 +90,8 @@ export function getLanguageFeatures(
     if (features === undefined) continue;
 
     // Concatenate allowed nodes (avoiding duplicates)
-    if (features.allowedNodes !== undefined && features.allowedNodes.length > 0) {
+    // Note: Jikiscript doesn't use allowedNodes (uses includeList/excludeList instead)
+    if (language !== "jikiscript" && features.allowedNodes && features.allowedNodes.length > 0) {
       const newNodes = features.allowedNodes.filter((node) => !accumulatedNodes.includes(node));
       accumulatedNodes = [...accumulatedNodes, ...newNodes];
     }

@@ -3,7 +3,7 @@
   "title": "Acronym",
   "instructions": "Convert a phrase to its acronym. An acronym is formed by taking the first letter of each word and converting it to uppercase. For example, 'Portable Network Graphics' becomes 'PNG'.",
   "estimatedMinutes": 10,
-  "levelId": "fundamentals",
+  "levelId": "everything",
   "initialCode": "function acronym with phrase do\n  // Your code here\n  // Split the phrase into words\n  // Get the first letter of each word\n  // Convert to uppercase and join together\nend\n",
   "hints": [
     "You can iterate through each character in the phrase",

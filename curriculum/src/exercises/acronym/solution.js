@@ -1,14 +1,15 @@
 function acronym(phrase) {
-  const words = split(phrase, " ");
-  const letters = [];
+  let output = "";
+  let wasSpace = true;
 
-  for (const word of words) {
-    if (length(word) > 0) {
-      const firstLetter = charAt(word, 0);
-      const upperLetter = toUpperCase(firstLetter);
-      letters.push(upperLetter);
+  for (const letter of phrase) {
+    if (letter === " " || letter === "-") {
+      wasSpace = true;
+    } else if (wasSpace && /[a-zA-Z]/.test(letter)) {
+      output = output + letter;
+      wasSpace = false;
     }
   }
 
-  return join(letters, "");
+  return output.toUpperCase();
 }

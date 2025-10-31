@@ -35,15 +35,17 @@ export interface PythonFeatures {
 
 // JikiScript features
 export interface JikiScriptFeatures {
-  // AST node types that are allowed
-  allowedNodes?: jikiscript.TokenType[];
+  // Jikiscript doesn't use allowedNodes, but we include it for type compatibility
+  allowedNodes?: never;
 
-  // Language behavior features (excluding allowedNodes from interpreter's LanguageFeatures)
-  languageFeatures?: Omit<jikiscript.LanguageFeatures, "allowedNodes">;
+  // Language behavior features
+  languageFeatures?: {
+    allowedStdlibFunctions?: string[];
+  };
 }
 
 // Type aliases for language feature flags (without allowedNodes)
 export type JavaScriptFeatureFlags = Omit<javascript.LanguageFeatures, "allowedNodes">;
 export type PythonFeatureFlags = Omit<python.LanguageFeatures, "allowedNodes">;
-export type JikiScriptFeatureFlags = Omit<jikiscript.LanguageFeatures, "allowedNodes">;
+export type JikiScriptFeatureFlags = { allowedStdlibFunctions?: string[] };
 export type LanguageFeatureFlags = JavaScriptFeatureFlags | PythonFeatureFlags | JikiScriptFeatureFlags;

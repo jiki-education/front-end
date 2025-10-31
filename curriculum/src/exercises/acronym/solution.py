@@ -1,11 +1,12 @@
 def acronym(phrase):
-    words = split(phrase, " ")
-    letters = []
+    output = ""
+    was_space = True
 
-    for word in words:
-        if length(word) > 0:
-            first_letter = char_at(word, 0)
-            upper_letter = to_upper_case(first_letter)
-            letters.append(upper_letter)
+    for letter in phrase:
+        if letter == " " or letter == "-":
+            was_space = True
+        elif was_space and letter.isalpha():
+            output = output + letter
+            was_space = False
 
-    return join(letters, "")
+    return output.upper()
