@@ -24,7 +24,7 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
 
-  constructor(exercise: ExerciseDefinition) {
+  constructor(exercise: ExerciseDefinition, projectContext?: { projectSlug?: string }) {
     this.exercise = exercise;
 
     // Create instance-specific store with exercise's initial code
@@ -35,7 +35,7 @@ class Orchestrator {
     this.timelineManager = new TimelineManager(this.store);
     this.breakpointManager = new BreakpointManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager);
+    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, projectContext);
     // EditorManager will be created lazily when setupEditor is called
 
     // Set exercise title in store
