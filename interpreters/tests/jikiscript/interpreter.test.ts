@@ -927,7 +927,7 @@ describe("stdlib function filtering", () => {
   test("exercise-specific functions work alongside stdlib", () => {
     const customFunc = (_: ExecutionContext, x: Number) => new Number(x.value);
     const { value, frames } = evaluateFunction(
-      'function test do\n  return number_to_string(custom(1))\nend',
+      "function test do\n  return number_to_string(custom(1))\nend",
       {
         externalFunctions: [
           {
@@ -974,12 +974,9 @@ describe("stdlib function filtering", () => {
   });
 
   test("stdlib functions work in interpret() as well", () => {
-    const { frames } = interpret(
-      'set result to concatenate("hello", " ", "world")',
-      {
-        languageFeatures: { allowedStdlibFunctions: ["concatenate"] },
-      }
-    );
+    const { frames } = interpret('set result to concatenate("hello", " ", "world")', {
+      languageFeatures: { allowedStdlibFunctions: ["concatenate"] },
+    });
     expect(frames).toBeArrayOfSize(1);
     expect(frames[0].status).toBe("SUCCESS");
     expect(unwrapJikiObject((frames[0] as TestAugmentedFrame).variables)).toMatchObject({

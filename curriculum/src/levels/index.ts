@@ -29,7 +29,10 @@ export function getLevel(id: LevelId | string) {
 }
 
 // Helper to get allowed nodes for a language
-export function getAllowedNodes(levelId: LevelId | string, language: "jikiscript" | "javascript" | "python"): string[] | undefined {
+export function getAllowedNodes(
+  levelId: LevelId | string,
+  language: "jikiscript" | "javascript" | "python"
+): string[] | undefined {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   // Jikiscript doesn't use allowedNodes (uses includeList/excludeList instead)
@@ -38,7 +41,10 @@ export function getAllowedNodes(levelId: LevelId | string, language: "jikiscript
 }
 
 // Helper to get feature flags for a language
-export function getFeatureFlags(levelId: LevelId | string, language: "jikiscript" | "javascript" | "python"): LanguageFeatureFlags {
+export function getFeatureFlags(
+  levelId: LevelId | string,
+  language: "jikiscript" | "javascript" | "python"
+): LanguageFeatureFlags {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   return features?.languageFeatures ?? {};

@@ -45,9 +45,10 @@ describe("All Exercises - Solution Validation", () => {
 
         // Run solution against non-bonus scenarios
         // We need to create a properly typed exercise object based on the type
-        const testExercise = exercise.type === "visual"
-          ? { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios }
-          : { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios };
+        const testExercise =
+          exercise.type === "visual"
+            ? { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios }
+            : { ...exercise, scenarios: nonBonusScenarios as typeof exercise.scenarios };
 
         const results = runExerciseTests(testExercise, solution, language);
 
