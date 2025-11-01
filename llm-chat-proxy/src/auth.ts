@@ -15,12 +15,6 @@ export async function verifyJWT(token: string, secret: string): Promise<string |
       algorithms: ["HS256"]
     });
 
-    // Check expiration (devise-jwt includes exp claim)
-    if (payload.exp !== undefined && payload.exp < Math.floor(Date.now() / 1000)) {
-      console.log("Token expired");
-      return null;
-    }
-
     // User ID is in the 'sub' claim
     if (typeof payload.sub !== "string") {
       console.log("Invalid token: missing or invalid sub claim");

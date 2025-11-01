@@ -3,7 +3,6 @@ import { cors } from "hono/cors";
 import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
 import { buildPrompt } from "./prompt-builder";
-import { checkRateLimit } from "./rate-limiter";
 import { createSignaturePayload, generateSignature } from "./crypto";
 import type { Bindings, ChatRequest } from "./types";
 
@@ -14,8 +13,14 @@ app.use(
   "/chat",
   cors({
     origin: (origin) => {
-      // Allow localhost and production domains
-      if (origin.includes("localhost") || origin.includes("jiki.app")) {
+      // Exact domain matching to prevent bypass attacks
+      const allowedOrigins = [
+        "http://localhost:3061",
+        "http://local.jiki.io:3061",
+        "https://jiki.app",
+        "https://www.jiki.app"
+      ];
+      if (allowedOrigins.includes(origin)) {
         return origin;
       }
       return "";
@@ -45,18 +50,7 @@ app.post("/chat", async (c) => {
       return c.json({ error: "Invalid or expired token" }, 401);
     }
 
-    // 2. Check rate limit
-    const isAllowed = await checkRateLimit(userId);
-    if (!isAllowed) {
-      return c.json(
-        {
-          error: "Rate limit exceeded. Maximum 50 messages per hour."
-        },
-        429
-      );
-    }
-
-    // 3. Parse request
+    // 2. Parse request
     const body = await c.req.json<ChatRequest>();
     const { exerciseSlug, code, question, history = [] } = body;
 
@@ -64,7 +58,7 @@ app.post("/chat", async (c) => {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question" }, 400);
     }
 
-    // 4. Build prompt (uses curriculum package)
+    // 3. Build prompt (uses curriculum package)
     const prompt = await buildPrompt({
       exerciseSlug,
       code,
@@ -72,13 +66,13 @@ app.post("/chat", async (c) => {
       history
     });
 
-    // 5. Stream from Gemini and collect full response
+    // 4. Stream from Gemini and collect full response
     let fullResponse = "";
     const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
       fullResponse += chunk;
     });
 
-    // 6. Create a new stream that includes the signature at the end
+    // 5. Create a new stream that includes the signature at the end
     const timestamp = new Date().toISOString();
     let signatureSent = false;
 
@@ -118,7 +112,7 @@ app.post("/chat", async (c) => {
       }
     });
 
-    // 7. Return streaming response
+    // 6. Return streaming response
     return new Response(streamWithSignature, {
       headers: {
         "Content-Type": "text/event-stream",
