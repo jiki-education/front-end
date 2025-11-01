@@ -85,14 +85,14 @@ await page.waitForNavigation({ waitUntil: "networkidle2" }); // ❌ Slow and unr
 - **Puppeteer Config**: `jest-puppeteer.config.js` - Browser launch settings
 - **Test Runner**: `scripts/run-e2e-tests.js` - Manages shared dev server for all tests
 - Test environment: `jest-environment-puppeteer`
-- Shared dev server on port 3070 for all tests (started once, shared across test files)
+- Shared dev server on port 3081 for all tests (started once, shared across test files)
 - Headless mode by default (set `HEADLESS=false` for debugging)
 
 #### E2E Performance Optimization
 
 E2E tests use a custom runner script that:
 
-1. Starts a single Next.js dev server on port 3070 before tests
+1. Starts a single Next.js dev server on port 3081 before tests
 2. Runs all test files against this shared server
 3. Automatically cleans up the server and port after tests complete
 4. Handles interrupts gracefully with proper cleanup

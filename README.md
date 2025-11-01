@@ -1,56 +1,101 @@
-# Jiki Frontend
+# Jiki Monorepo
 
-This is the Front End for Jiki.
-For comprehensive information on Jiki, see [the Overview Repository](../overview).
+This is the monorepo for Jiki's frontend platform, containing the Next.js application and its supporting packages.
+
+## About Jiki
+
+Jiki is a hands-on coding education platform launching in January 2026. It provides a structured, linear pathway for beginners to learn programming through problem-solving and interactive games.
+
+## Packages
+
+This monorepo contains three packages:
+
+- **[app/](app/)** - Next.js frontend application (main user-facing platform)
+- **[curriculum/](curriculum/)** - Exercise content library and educational materials
+- **[interpreters/](interpreters/)** - Language interpreters (JikiScript, JavaScript, Python)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20.x or higher
+- pnpm 10.x or higher
+
+### Installation
 
 ```bash
-./bin/dev
+# Install all dependencies for all packages
+pnpm install
 ```
 
-Open [http://localhost:3061](http://localhost:3061) with your browser to see the result.
-
-## Testing
-
-### Running Tests
+### Development
 
 ```bash
-# Run all unit and integration tests
+# Run the main application
+pnpm dev:app
+
+# Run tests for all packages
 pnpm test
 
-# Run tests in watch mode (re-runs on file changes)
-pnpm test:watch
-
-# Run E2E browser tests
-pnpm test:e2e
-
-# Run all tests (unit, integration, and E2E)
-pnpm test:all
+# Run tests for a specific package
+pnpm test:app
+pnpm test:curriculum
+pnpm test:interpreters
 ```
 
-### E2E Test Setup
-
-Before running E2E tests for the first time, install the Chrome browser for Puppeteer:
+### Common Commands
 
 ```bash
-npx puppeteer browsers install chrome
+# Type checking across all packages
+pnpm typecheck
+
+# Linting across all packages
+pnpm lint
+
+# Format code across all packages
+pnpm format
+
+# Check formatting across all packages
+pnpm format:check
 ```
 
-### Test Structure
+## Project Structure
 
-- **Unit Tests**: Located in `tests/unit/` - Pure logic tests
-- **Integration Tests**: Located in `tests/integration/` - Component and feature tests
-- **E2E Tests**: Located in `tests/e2e/` - Full browser automation tests
+```
+monorepo/
+├── app/              # Next.js frontend application
+├── curriculum/       # Exercise content library
+├── interpreters/     # Language interpreters
+├── package.json      # Root workspace configuration
+└── pnpm-workspace.yaml
+```
 
-## Initial TODOs
+## Dependency Graph
 
-- [ ] Svg support
-- [ ] [Fonts](https://nextjs.org/docs/app/getting-started/fonts)
-- [ ] Deploy on Cloudflare
+```
+app → curriculum → interpreters
+```
 
----
+The app depends on both curriculum and interpreters packages. The curriculum depends on interpreters.
+
+## CI/CD
+
+This monorepo uses GitHub Actions with path-based filtering:
+
+- **app.yml** - Runs on changes to app/, curriculum/, or interpreters/
+- **curriculum.yml** - Runs on changes to curriculum/ or interpreters/
+- **interpreters.yml** - Runs only on changes to interpreters/
+
+This ensures integration tests run when dependencies change while keeping individual package tests focused.
+
+## Contributing
+
+Each package has its own `AGENTS.md` file with specific guidelines:
+
+- [app/AGENTS.md](app/AGENTS.md) - Frontend application guidelines
+- [curriculum/AGENTS.md](curriculum/AGENTS.md) - Curriculum package guidelines
+- [interpreters/AGENTS.md](interpreters/AGENTS.md) - Interpreter package guidelines
+
+## License
 
 Copyright (c) 2025 Jiki Ltd. All rights reserved.
