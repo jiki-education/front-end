@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 describe("Global Modal System E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/dev/test-global-modals");
+    await page.goto("http://localhost:3081/dev/test-global-modals");
     await page.waitForSelector("h1");
 
     // Wait a bit for page to fully stabilize

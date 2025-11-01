@@ -1,6 +1,6 @@
 describe("FrameStepper Buttons E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/coding-exercise/frame-stepper-buttons");
+    await page.goto("http://localhost:3081/test/coding-exercise/frame-stepper-buttons");
     await page.waitForSelector('[data-testid="frame-stepper-container"]');
   });
 

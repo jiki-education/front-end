@@ -49,9 +49,9 @@ This project uses pnpm with workspaces for monorepo management:
 
 ## Development Server
 
-The dev server runs on port 3060 by default:
+The dev server runs on port 3061 by default:
 
-- URL: http://localhost:3060
+- URL: http://localhost:3061
 - Uses webpack (Turbopack disabled due to pnpm workspace compatibility issues)
 - Hot module replacement enabled
 

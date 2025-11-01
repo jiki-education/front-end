@@ -1,6 +1,6 @@
 describe("Navigation E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070");
+    await page.goto("http://localhost:3081");
     await page.waitForSelector("h1");
   });
 
@@ -14,7 +14,7 @@ describe("Navigation E2E", () => {
 
     for (const link of links.slice(0, 3)) {
       if (link.href && !link.href.includes("http")) {
-        await page.goto(`http://localhost:3070${link.href}`);
+        await page.goto(`http://localhost:3081${link.href}`);
         await page.waitForSelector("body");
 
         const url = page.url();
@@ -27,7 +27,7 @@ describe("Navigation E2E", () => {
   });
 
   it("should handle 404 pages gracefully", async () => {
-    await page.goto("http://localhost:3070/non-existent-page");
+    await page.goto("http://localhost:3081/non-existent-page");
     await page.waitForSelector("body");
 
     const body = await page.$("body");
@@ -36,7 +36,7 @@ describe("Navigation E2E", () => {
 
   it("should measure page load performance", async () => {
     const startTime = Date.now();
-    await page.goto("http://localhost:3070");
+    await page.goto("http://localhost:3081");
     await page.waitForSelector("h1");
     const loadTime = Date.now() - startTime;
 

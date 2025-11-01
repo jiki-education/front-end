@@ -1,6 +1,6 @@
 describe("Articles Page E2E", () => {
   beforeAll(async () => {
-    await page.goto("http://localhost:3070/articles");
+    await page.goto("http://localhost:3081/articles");
     await page.waitForSelector("h1");
   });
 
@@ -45,7 +45,7 @@ describe("Articles Page E2E", () => {
 describe("Article Page E2E", () => {
   beforeAll(async () => {
     // Navigate to the first article
-    await page.goto("http://localhost:3070/articles");
+    await page.goto("http://localhost:3081/articles");
     await page.waitForSelector("article a");
     const firstArticleLink = await page.$("article a");
     if (firstArticleLink) {

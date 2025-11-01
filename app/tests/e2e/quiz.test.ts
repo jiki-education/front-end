@@ -8,7 +8,7 @@
 
 describe("Quiz Page E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/quiz");
+    await page.goto("http://localhost:3081/test/quiz");
     await page.waitForSelector("h1", { timeout: 5000 });
   });
 
