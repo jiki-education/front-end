@@ -19,6 +19,5 @@ export interface RateLimitInfo {
 export interface Bindings {
   GOOGLE_GEMINI_API_KEY: string;
   DEVISE_JWT_SECRET_KEY: string;
-  RAILS_API_URL: string;
-  INTERNAL_API_SECRET: string;
+  LLM_SIGNATURE_SECRET: string;
 }

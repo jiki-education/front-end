@@ -10,9 +10,8 @@ route = "https://llm.jiki.app/*"
 
 # Environment variables are set via: wrangler secret put <NAME>
 # Required secrets:
-# - GOOGLE_GEMINI_API_KEY
-# - DEVISE_JWT_SECRET_KEY
-# - RAILS_API_URL
-# - INTERNAL_API_SECRET
+# - GOOGLE_GEMINI_API_KEY       (Get from: https://aistudio.google.com/apikey)
+# - DEVISE_JWT_SECRET_KEY       (MUST match Rails exactly - from Rails credentials)
+# - LLM_SIGNATURE_SECRET        (Shared with Rails for HMAC verification - from Rails credentials)
 #
 # For local development, create .dev.vars with these values

@@ -4,7 +4,7 @@ import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
 import { buildPrompt } from "./prompt-builder";
 import { checkRateLimit } from "./rate-limiter";
-import { saveConversationToRails } from "./rails-client";
+import { createSignaturePayload, generateSignature } from "./crypto";
 import type { Bindings, ChatRequest } from "./types";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -72,27 +72,54 @@ app.post("/chat", async (c) => {
       history
     });
 
-    // 5. Stream from Gemini
+    // 5. Stream from Gemini and collect full response
     let fullResponse = "";
-    const stream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
+    const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
       fullResponse += chunk;
     });
 
-    // 6. Save conversation to Rails after stream completes (don't await)
-    // The stream will be closed by then, so we have the full response
-    c.executionCtx.waitUntil(
-      saveConversationToRails({
-        userId,
-        exerciseSlug,
-        userMessage: question,
-        assistantMessage: fullResponse,
-        railsApiUrl: c.env.RAILS_API_URL,
-        internalSecret: c.env.INTERNAL_API_SECRET
-      })
-    );
+    // 6. Create a new stream that includes the signature at the end
+    const timestamp = new Date().toISOString();
+    let signatureSent = false;
+
+    const streamWithSignature = new ReadableStream({
+      async start(controller) {
+        const reader = geminiStream.getReader();
+        const encoder = new TextEncoder();
+
+        try {
+          // Stream all chunks from Gemini
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            controller.enqueue(value);
+          }
+
+          // Generate signature after streaming completes
+          const payload = createSignaturePayload(userId, exerciseSlug, fullResponse, timestamp);
+          const signature = await generateSignature(payload, c.env.LLM_SIGNATURE_SECRET);
+
+          // Send signature as final SSE message
+          const signatureMessage = `data: ${JSON.stringify({
+            type: "signature",
+            signature,
+            timestamp,
+            exerciseSlug,
+            userMessage: question
+          })}\n\n`;
+          controller.enqueue(encoder.encode(signatureMessage));
+          signatureSent = true;
+
+          controller.close();
+        } catch (error) {
+          console.error("Stream error:", error);
+          controller.error(error);
+        }
+      }
+    });
 
     // 7. Return streaming response
-    return new Response(stream, {
+    return new Response(streamWithSignature, {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
