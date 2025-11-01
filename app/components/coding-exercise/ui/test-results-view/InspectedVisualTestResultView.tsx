@@ -1,20 +1,19 @@
 import { assembleClassNames } from "@/utils/assemble-classnames";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
-import type { VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
+import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
 import { PassMessage } from "./PassMessage";
-import { TestResultInfo } from "./TestResultInfo";
+import { VisualTestResultView } from "./VisualTestResultView";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();
   const { currentTest, isSpotlightActive } = useOrchestratorStore(orchestrator);
 
-  const result = currentTest as VisualTestResult | null;
   const viewContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!result) {
+    if (!currentTest || currentTest.type !== "visual") {
       return;
     }
     if (!viewContainerRef.current) {
@@ -28,7 +27,7 @@ export function InspectedVisualTestResultView() {
     }
 
     viewContainerRef.current.innerHTML = "";
-    result.view.classList.add(
+    currentTest.view.classList.add(
       "container-size",
       "aspect-square",
       "max-h-[100cqh]",
@@ -36,22 +35,24 @@ export function InspectedVisualTestResultView() {
       "bg-white",
       "relative"
     );
-    viewContainerRef.current.appendChild(result.view);
-    result.view.style.display = "block";
-  }, [result]);
+    viewContainerRef.current.appendChild(currentTest.view);
+    currentTest.view.style.display = "block";
+  }, [currentTest]);
 
-  const firstExpect = orchestrator.getFirstExpect() as VisualTestExpect | null;
+  // Recompute firstExpect whenever currentTest changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- orchestrator is stable from context, including it breaks everything.
+  const firstExpect = useMemo(() => orchestrator.getFirstExpect() as VisualTestExpect | null, [currentTest]);
 
-  if (!result) {
+  if (!currentTest || currentTest.type !== "visual") {
     return null;
   }
 
   return (
-    <div className={assembleClassNames("c-scenario", result.status === "fail" ? "fail" : "pass")}>
+    <div className={assembleClassNames("c-scenario", currentTest.status === "fail" ? "fail" : "pass")}>
       <InspectedVisualTestResultViewLHS
         // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
         firstExpect={firstExpect}
-        result={result}
+        currentTest={currentTest}
       />
 
       <div
@@ -66,10 +67,10 @@ export function InspectedVisualTestResultView() {
 }
 
 export function InspectedVisualTestResultViewLHS({
-  result,
+  currentTest,
   firstExpect
 }: {
-  result: VisualTestResult;
+  currentTest: VisualTestResult;
   firstExpect: VisualTestExpect | null;
 }) {
   return (
@@ -77,12 +78,24 @@ export function InspectedVisualTestResultViewLHS({
       <div className="scenario-lhs-content">
         <h3>
           <strong>Scenario: </strong>
-          {result.name}
+          {currentTest.name}
         </h3>
 
-        {result.status === "pass" && <PassMessage testIdx={0} />}
+        {currentTest.status === "pass" && <PassMessage testIdx={0} />}
         <TestResultInfo firstExpect={firstExpect} />
       </div>
     </div>
   );
+}
+
+function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
+  if (!firstExpect) {
+    return null;
+  }
+
+  // Visual test
+  let errorHtml = firstExpect.errorHtml || "";
+  errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
+
+  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} />;
 }
