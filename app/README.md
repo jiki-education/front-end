@@ -11,7 +11,7 @@ First, run the development server:
 ./bin/dev
 ```
 
-Open [http://localhost:3060](http://localhost:3060) with your browser to see the result.
+Open [http://localhost:3061](http://localhost:3061) with your browser to see the result.
 
 ## Testing
 

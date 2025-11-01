@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3060 --turbo",
+    "dev": "next dev --port 3061 --turbo",
     "build": "next build",
     "start": "next start",
     "test": "jest",
