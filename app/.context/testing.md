@@ -163,7 +163,7 @@ describe("Feature E2E", () => {
   // IMPORTANT: Avoid using networkidle2 with beforeEach as it can cause timeouts
   // Instead, wait for specific elements to appear
   beforeEach(async () => {
-    await page.goto("http://localhost:3061/test-page");
+    await page.goto("http://localhost:3081/test-page");
     await page.waitForSelector('[data-testid="container"]', { timeout: 5000 });
   });
 
@@ -189,20 +189,20 @@ Example patterns:
 ```typescript
 // ✅ GOOD: beforeEach without networkidle2
 beforeEach(async () => {
-  await page.goto("http://localhost:3061/test-page");
+  await page.goto("http://localhost:3081/test-page");
   await page.waitForSelector('[data-testid="container"]');
 });
 
 // ❌ BAD: Can cause timeouts
 beforeEach(async () => {
-  await page.goto("http://localhost:3061/test-page", {
+  await page.goto("http://localhost:3081/test-page", {
     waitUntil: "networkidle2"
   });
 });
 
 // ✅ OK: beforeAll with networkidle2 (for non-repeating setup)
 beforeAll(async () => {
-  await page.goto("http://localhost:3061", {
+  await page.goto("http://localhost:3081", {
     waitUntil: "networkidle2"
   });
 });
@@ -273,7 +273,7 @@ export default function TestPage() {
 ```typescript
 describe("Feature E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3061/test/feature-page");
+    await page.goto("http://localhost:3081/test/feature-page");
     await page.waitForSelector('[data-testid="test-container"]');
   });
 
