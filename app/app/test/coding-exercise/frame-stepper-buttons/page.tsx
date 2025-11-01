@@ -42,6 +42,7 @@ export default function FrameStepperButtonsTestPage() {
 
     orch.getStore().setState({
       currentTest: {
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,

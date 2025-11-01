@@ -48,7 +48,7 @@ const testScenarios: Scenario[] = [
     description: "Move the character 5 times starting from position 0",
     taskId: "test-task",
     setup: jest.fn(),
-    expectations: jest.fn(() => [{ pass: true, actual: 100, expected: 100, errorHtml: "" }])
+    expectations: jest.fn(() => [{ type: "visual" as const, pass: true, actual: 100, expected: 100, errorHtml: "" }])
   },
   {
     slug: "start-at-50",
@@ -56,7 +56,7 @@ const testScenarios: Scenario[] = [
     description: "Move the character 5 times starting from position 50",
     taskId: "test-task",
     setup: jest.fn(),
-    expectations: jest.fn(() => [{ pass: true, actual: 150, expected: 150, errorHtml: "" }])
+    expectations: jest.fn(() => [{ type: "visual" as const, pass: true, actual: 150, expected: 150, errorHtml: "" }])
   }
 ];
 
@@ -77,7 +77,7 @@ describe("runTests", () => {
     jest.clearAllMocks();
     testExercise = createMockExercise({
       ExerciseClass: TestExercise,
-      scenarios: testScenarios
+      scenarios: testScenarios as any
     });
 
     // Default compile mock returns success

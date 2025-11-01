@@ -3,9 +3,6 @@ export {
   runIOScenarioTest,
   runAllVisualScenarios,
   runAllIOScenarios,
-  runExerciseTests,
-  // Backwards compatibility (deprecated)
-  runScenarioTest,
-  runAllScenarios
+  runExerciseTests
 } from "./runScenarioTest";
 export type { ScenarioTestResult } from "./runScenarioTest";

@@ -1,5 +1,5 @@
 // Import node types from interpreters - the canonical source
-import type { javascript, python, jikiscript } from "@jiki/interpreters";
+import type { javascript, python } from "@jiki/interpreters";
 
 // Core level interface
 export interface Level {

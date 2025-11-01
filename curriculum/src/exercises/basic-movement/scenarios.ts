@@ -1,4 +1,4 @@
-import type { Task, Scenario } from "../types";
+import type { Task, VisualScenario } from "../types";
 import type BasicMovementExercise from "./Exercise";
 
 export const tasks: Task[] = [
@@ -20,7 +20,7 @@ export const tasks: Task[] = [
   }
 ];
 
-export const scenarios: Scenario[] = [
+export const scenarios: VisualScenario[] = [
   {
     slug: "start-at-0",
     name: "Starting from position 0",
@@ -35,6 +35,7 @@ export const scenarios: Scenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
+          type: "visual" as const,
           pass: ex.position === 100,
           actual: ex.position,
           expected: 100,
@@ -58,6 +59,7 @@ export const scenarios: Scenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
+          type: "visual" as const,
           pass: ex.position === 150,
           actual: ex.position,
           expected: 150,
@@ -81,6 +83,7 @@ export const scenarios: Scenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
+          type: "visual" as const,
           pass: ex.position === 200,
           actual: ex.position,
           expected: 200,

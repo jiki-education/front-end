@@ -29,7 +29,7 @@ export abstract class VisualExercise {
   abstract availableFunctions: Array<{
     name: string;
     func: (ctx: ExecutionContext) => void;
-    description?: string;
+    description: string;
   }>;
 
   abstract getState(): Record<string, number | string | boolean>;
@@ -60,8 +60,9 @@ export abstract class IOExercise {
   static slug: string;
   static availableFunctions: Array<{
     name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     func: (ctx: ExecutionContext, ...args: any[]) => any;
-    description?: string;
+    description: string;
   }>;
 }
 

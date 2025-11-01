@@ -6,34 +6,34 @@ export { exercises, type ExerciseSlug } from "./exercises";
 // Export all types needed by consumers
 export type {
   ExerciseDefinition,
-  VisualExerciseDefinition,
-  IOExerciseDefinition,
-  Task,
-  Scenario,
-  IOScenario,
-  TestExpect,
   FunctionDoc,
-  TaskProgress
+  IOExerciseDefinition,
+  IOScenario,
+  IOTestExpect,
+  VisualScenario,
+  Scenario,
+  Task,
+  TaskProgress,
+  TestExpect,
+  VisualExerciseDefinition,
+  VisualTestExpect
 } from "./exercises/types";
 
 // Export the base Exercise classes and Animation type
-export { VisualExercise, IOExercise, Exercise, type Animation } from "./Exercise";
+export { Exercise, IOExercise, VisualExercise, type Animation } from "./Exercise";
 
 // Export mock implementations for testing
 export { TestExercise } from "./mocks";
 
 // Export levels - language feature definitions for each level
-export { levels, getLevel, getLanguageFeatures, type Level, type LevelId } from "./levels";
+export { getLanguageFeatures, getLevel, levels, type Level, type LevelId } from "./levels";
 
 // Export test runner for curriculum validation
 export {
-  runVisualScenarioTest,
-  runIOScenarioTest,
-  runAllVisualScenarios,
   runAllIOScenarios,
+  runAllVisualScenarios,
   runExerciseTests,
-  // Backwards compatibility (deprecated)
-  runScenarioTest,
-  runAllScenarios,
+  runIOScenarioTest,
+  runVisualScenarioTest,
   type ScenarioTestResult
 } from "./test-runner";

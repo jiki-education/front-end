@@ -1,7 +1,8 @@
-import type { Exercise, ExerciseDefinition, Scenario } from "@jiki/curriculum";
+import type { ExerciseDefinition } from "@jiki/curriculum";
 import { jikiscript, javascript, python } from "@jiki/interpreters";
-import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
+import { runVisualScenario } from "./runVisualScenario";
+import { runIOScenario } from "./runIOScenario";
 
 type Language = "javascript" | "python" | "jikiscript";
 
@@ -22,67 +23,23 @@ function getInterpreter(language: Language) {
   return interpreter;
 }
 
-function runScenario(
-  scenario: Scenario,
-  studentCode: string,
-  ExerciseClass: new () => Exercise,
-  language: Language
-): TestResult {
-  // Create fresh exercise instance
-  const exercise = new ExerciseClass();
-
-  // Run setup
-  scenario.setup(exercise);
-
-  // Execute student code with selected interpreter
-  const interpreter = getInterpreter(language);
-  const result = interpreter.interpret(studentCode, {
-    externalFunctions: exercise.availableFunctions.map((func) => ({
-      name: func.name,
-      func: func.func
-    })) as any,
-    languageFeatures: {
-      timePerFrame: 1,
-      maxTotalLoopIterations: 1000
-    }
-  });
-
-  // Run expectations
-  const expects = scenario.expectations(exercise);
-
-  // Build animation timeline
-  // Frames already have time (microseconds) and timeInMs (milliseconds) from interpreter
-  const frames = result.frames;
-
-  // Always create animation timeline (required for scrubber)
-  const animationTimeline = new AnimationTimelineClass({}).populateTimeline(exercise.animations, frames);
-
-  // Animation timeline is ready for scrubber
-
-  // Determine status
-  const status = expects.every((e) => e.pass) ? "pass" : "fail";
-
-  return {
-    slug: scenario.slug,
-    name: scenario.name,
-    status,
-    expects,
-    frames,
-    logLines: result.logLines,
-    codeRun: studentCode,
-    view: exercise.getView(),
-    animationTimeline
-  };
-}
-
 export function runTests(studentCode: string, exercise: ExerciseDefinition, language: Language): TestSuiteResult {
-  // Create a temporary exercise to get external functions
-  const tempExercise = new exercise.ExerciseClass();
+  // Get available functions based on exercise type
+  let availableFunctions: Array<{ name: string; func: any; description: string }>;
+
+  if (exercise.type === "visual") {
+    // Visual exercises: create instance to get functions
+    const tempExercise = new exercise.ExerciseClass();
+    availableFunctions = tempExercise.availableFunctions;
+  } else {
+    // IO exercises: get static functions
+    availableFunctions = exercise.ExerciseClass.availableFunctions;
+  }
 
   // Compile ONCE before running any scenarios
   const interpreter = getInterpreter(language);
   const compilationResult = interpreter.compile(studentCode, {
-    externalFunctions: tempExercise.availableFunctions.map((func) => ({
+    externalFunctions: availableFunctions.map((func) => ({
       name: func.name,
       func: func.func
     })) as any,
@@ -97,11 +54,21 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
     throw compilationResult.error;
   }
 
-  // Compilation succeeded, run all scenarios with interpret()
+  // Compilation succeeded, run all scenarios
   const tests: TestResult[] = [];
-  for (const scenario of exercise.scenarios) {
-    const result = runScenario(scenario, studentCode, exercise.ExerciseClass, language);
-    tests.push(result);
+
+  if (exercise.type === "visual") {
+    // Run visual scenarios
+    for (const scenario of exercise.scenarios) {
+      const result = runVisualScenario(scenario, studentCode, exercise.ExerciseClass, language);
+      tests.push(result);
+    }
+  } else {
+    // Run IO scenarios
+    for (const scenario of exercise.scenarios) {
+      const result = runIOScenario(scenario, studentCode, availableFunctions, language);
+      tests.push(result);
+    }
   }
 
   // Determine overall status

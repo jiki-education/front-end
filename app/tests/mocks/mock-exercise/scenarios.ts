@@ -1,4 +1,4 @@
-import type { Task, Scenario, Exercise } from "@jiki/curriculum";
+import type { Task, VisualScenario, VisualExercise } from "@jiki/curriculum";
 import type { TestExercise } from "@jiki/curriculum";
 
 export const tasks: Task[] = [
@@ -14,22 +14,23 @@ export const tasks: Task[] = [
   }
 ];
 
-export const scenarios: Scenario[] = [
+export const scenarios: VisualScenario[] = [
   {
     slug: "test-scenario-1",
     name: "Test Scenario 1",
     description: "Move to position 100",
     taskId: "test-task-1",
-    setup: (exercise: Exercise) => {
+    setup: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       testExercise.setStartPosition(0);
       testExercise.setCounter(0);
     },
-    expectations: (exercise: Exercise) => {
+    expectations: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       const state = testExercise.getState();
       return [
         {
+          type: "visual",
           pass: state.position === 100,
           actual: state.position,
           expected: 100,
@@ -43,16 +44,17 @@ export const scenarios: Scenario[] = [
     name: "Test Scenario 2",
     description: "Call move() 5 times starting from position 0",
     taskId: "test-task-1",
-    setup: (exercise: Exercise) => {
+    setup: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       testExercise.setStartPosition(0);
       testExercise.setCounter(0);
     },
-    expectations: (exercise: Exercise) => {
+    expectations: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       const state = testExercise.getState();
       return [
         {
+          type: "visual",
           pass: state.position === 100,
           actual: state.position,
           expected: 100,
@@ -66,16 +68,17 @@ export const scenarios: Scenario[] = [
     name: "Bonus Test Scenario",
     description: "Move to position 200",
     taskId: "test-task-bonus",
-    setup: (exercise: Exercise) => {
+    setup: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       testExercise.setStartPosition(0);
       testExercise.setCounter(0);
     },
-    expectations: (exercise: Exercise) => {
+    expectations: (exercise: VisualExercise) => {
       const testExercise = exercise as TestExercise;
       const state = testExercise.getState();
       return [
         {
+          type: "visual",
           pass: state.position === 200,
           actual: state.position,
           expected: 200,

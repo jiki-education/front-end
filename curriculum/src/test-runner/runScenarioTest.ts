@@ -1,13 +1,6 @@
 import { jikiscript, javascript, python } from "@jiki/interpreters";
 import type { VisualExercise, IOExercise } from "../Exercise";
-import type {
-  Scenario,
-  IOScenario,
-  TestExpect,
-  ExerciseDefinition,
-  VisualExerciseDefinition,
-  IOExerciseDefinition
-} from "../exercises/types";
+import type { VisualScenario, IOScenario, TestExpect, ExerciseDefinition } from "../exercises/types";
 import { getLanguageFeatures } from "../levels";
 
 /**
@@ -39,7 +32,7 @@ export interface ScenarioTestResult {
  */
 export function runVisualScenarioTest(
   ExerciseClass: new () => VisualExercise,
-  scenario: Scenario,
+  scenario: VisualScenario,
   studentCode: string,
   levelId: string,
   language: "jikiscript" | "javascript" | "python" = "jikiscript"
@@ -66,6 +59,7 @@ export function runVisualScenarioTest(
       timePerFrame: 1,
       maxTotalLoopIterations: 1000,
       ...languageFeatures
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any
   });
 
@@ -115,6 +109,7 @@ export function runIOScenarioTest(
         timePerFrame: 1,
         maxTotalLoopIterations: 1000,
         ...languageFeatures
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
     },
     scenario.functionName,
@@ -145,13 +140,17 @@ export function runIOScenarioTest(
     }
   }
 
-  // Build TestExpect
+  // Build TestExpect (note: this is for curriculum testing, not app testing)
+  // The app's test runner creates proper IOTestExpect with diff
   const expects: TestExpect[] = [
     {
+      type: "visual" as const, // Using visual type for curriculum tests
       pass,
       actual: result.error ? "error" : String(result.value),
       expected: String(scenario.expected),
-      errorHtml: pass ? "" : `Expected ${scenario.functionName}(${scenario.args.map(a => JSON.stringify(a)).join(", ")}) to return ${JSON.stringify(scenario.expected)}, but got ${result.error ? "error" : JSON.stringify(result.value)}`
+      errorHtml: pass
+        ? ""
+        : `Expected ${scenario.functionName}(${scenario.args.map((a) => JSON.stringify(a)).join(", ")}) to return ${JSON.stringify(scenario.expected)}, but got ${result.error ? "error" : JSON.stringify(result.value)}`
     }
   ];
 
@@ -169,7 +168,7 @@ export function runIOScenarioTest(
  */
 export function runAllVisualScenarios(
   ExerciseClass: new () => VisualExercise,
-  scenarios: Scenario[],
+  scenarios: VisualScenario[],
   studentCode: string,
   levelId: string,
   language: "jikiscript" | "javascript" | "python" = "jikiscript"
@@ -203,10 +202,6 @@ export function runExerciseTests(
 ): ScenarioTestResult[] {
   if (exercise.type === "visual") {
     return runAllVisualScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
-  } else {
-    return runAllIOScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
   }
+  return runAllIOScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
 }
-
-// Backwards compatibility exports (deprecated, use Visual/IO specific versions)
-export { runVisualScenarioTest as runScenarioTest, runAllVisualScenarios as runAllScenarios };

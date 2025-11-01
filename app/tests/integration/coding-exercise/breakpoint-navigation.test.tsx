@@ -15,6 +15,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
   // Set up test state with proper animation timeline mock
   orchestrator.getStore().setState({
     currentTest: {
+      type: "visual" as const,
       slug: "test-1",
       name: "Test 1",
       status: "pass" as const,

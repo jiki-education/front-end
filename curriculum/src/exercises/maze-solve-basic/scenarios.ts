@@ -1,4 +1,4 @@
-import type { Task, Scenario } from "../types";
+import type { Task, VisualScenario } from "../types";
 import type MazeSolveBasicExercise from "./Exercise";
 
 export const tasks: Task[] = [
@@ -12,7 +12,7 @@ export const tasks: Task[] = [
   }
 ];
 
-export const scenarios: Scenario[] = [
+export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
     name: "Guide person to the end of the maze",
@@ -42,12 +42,14 @@ export const scenarios: Scenario[] = [
       const ex = exercise as MazeSolveBasicExercise;
       return [
         {
+          type: "visual" as const,
           pass: ex.characterRow === 6 && ex.characterCol === 6,
           actual: `[${ex.characterRow}, ${ex.characterCol}]`,
           expected: "[6, 6]",
           errorHtml: "You didn't reach the end of the maze."
         },
         {
+          type: "visual" as const,
           pass: ex.getGameResult() === "win",
           actual: ex.getGameResult() ?? "playing",
           expected: "win",
@@ -85,12 +87,14 @@ export const scenarios: Scenario[] = [
       const ex = exercise as MazeSolveBasicExercise;
       return [
         {
+          type: "visual" as const,
           pass: ex.characterRow === 6 && ex.characterCol === 6,
           actual: `[${ex.characterRow}, ${ex.characterCol}]`,
           expected: "[6, 6]",
           errorHtml: "You didn't reach the end of the maze."
         },
         {
+          type: "visual" as const,
           pass: ex.getGameResult() === "win",
           actual: ex.getGameResult() ?? "playing",
           expected: "win",

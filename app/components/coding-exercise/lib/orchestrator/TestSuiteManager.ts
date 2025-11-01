@@ -1,6 +1,6 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
-import type { TestExpect, TestSuiteResult } from "../test-results-types";
+import type { TestSuiteResult, TestExpect } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
 
 // Define SyntaxError interface inline since it's not exported from interpreters
