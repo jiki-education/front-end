@@ -1,3 +1,4 @@
-export { interpret, compile } from "./interpreter";
+export { interpret, compile, evaluateFunction } from "./interpreter";
 export type { InterpretResult } from "../shared/interfaces";
+export type { EvaluationContext, EvaluateFunctionResult } from "./interpreter";
 export type { NodeType, LanguageFeatures } from "./interfaces";

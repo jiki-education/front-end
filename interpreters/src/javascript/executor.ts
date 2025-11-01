@@ -31,7 +31,7 @@ import {
   BreakStatement,
   ContinueStatement,
 } from "./statement";
-import type { EvaluationResult, EvaluationResultExpression } from "./evaluation-result";
+import type { EvaluationResult, EvaluationResultExpression, EvaluationResultCallExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
 import { translate } from "./translator";
@@ -67,7 +67,7 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
-import { JSBuiltinObject, JSStdLibFunction } from "./jikiObjects";
+import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 
 // Execution context for JavaScript stdlib
@@ -534,5 +534,98 @@ export class Executor {
       log: this.log.bind(this),
       languageFeatures: this.languageFeatures,
     };
+  }
+
+  /**
+   * Evaluates a single expression statement (must be a function call).
+   * Used for IO exercises to call student-defined functions and capture return values.
+   *
+   * @param statement - Must be an ExpressionStatement containing a CallExpression
+   * @returns Object with the function's return value, frames, and execution metadata
+   */
+  public evaluateSingleExpression(statement: Statement): {
+    value: any;
+    jikiObject?: JikiObject;
+    frames: Frame[];
+    logLines: Array<{ time: number; output: string }>;
+    success: boolean;
+    error: null;
+    meta: {
+      functionCallLog: Record<string, Record<string, number>>;
+      statements: Statement[];
+    };
+  } {
+    try {
+      // Validate that this is an ExpressionStatement with a CallExpression
+      if (!(statement instanceof ExpressionStatement)) {
+        throw new RuntimeError(
+          "evaluateSingleExpression requires an ExpressionStatement",
+          statement.location,
+          "LogicErrorInExecution",
+          { statement }
+        );
+      }
+
+      if (!(statement.expression instanceof CallExpression)) {
+        throw new RuntimeError(
+          "evaluateSingleExpression requires a CallExpression",
+          statement.location,
+          "LogicErrorInExecution",
+          { expression: statement.expression }
+        );
+      }
+
+      // Execute the call expression within execution context
+      // Frames are generated naturally during execution, don't add extra frame
+      let callResult: EvaluationResultCallExpression | undefined;
+      this.withExecutionContext(() => {
+        callResult = executeCallExpression(this, statement.expression as CallExpression);
+      });
+
+      return {
+        value: callResult ? unwrapJSObject(callResult.jikiObject) : undefined,
+        jikiObject: callResult?.jikiObject,
+        frames: this.frames,
+        logLines: this.logLines,
+        success: true,
+        error: null,
+        meta: {
+          functionCallLog: {},
+          statements: [statement],
+        },
+      };
+    } catch (error) {
+      if (error instanceof RuntimeError) {
+        // Handle specific error types for better error messages in IO exercises
+        if (error.type === "FunctionNotFound") {
+          const newError = new RuntimeError(error.message, statement.location, "FunctionNotFound", error.context);
+          this.addErrorFrame(statement.location, newError, statement);
+        } else if (error.type === "InvalidNumberOfArguments") {
+          const newError = new RuntimeError(
+            error.message,
+            statement.location,
+            "InvalidNumberOfArguments",
+            error.context
+          );
+          this.addErrorFrame(statement.location, newError, statement);
+        } else {
+          this.addErrorFrame(error.location, error, statement);
+        }
+
+        return {
+          value: undefined,
+          frames: this.frames,
+          logLines: this.logLines,
+          success: false,
+          error: null,
+          meta: {
+            functionCallLog: {},
+            statements: [statement],
+          },
+        };
+      }
+
+      throw error;
+    }
   }
 }

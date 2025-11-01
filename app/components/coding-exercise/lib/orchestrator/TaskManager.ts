@@ -1,4 +1,4 @@
-import type { ExerciseDefinition, TaskProgress } from "@jiki/curriculum";
+import type { ExerciseDefinition, TaskProgress, Scenario } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
 import type { TestSuiteResult } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
@@ -138,7 +138,7 @@ export class TaskManager {
    */
   private calculateTaskUpdate(
     taskId: string,
-    scenarios: ExerciseDefinition["scenarios"],
+    scenarios: Scenario[],
     exercise: ExerciseDefinition,
     testResults: TestSuiteResult,
     taskProgress: Map<string, TaskProgress>
@@ -196,11 +196,11 @@ export class TaskManager {
   /**
    * Group scenarios by their taskId
    */
-  private groupScenariosByTask(exercise: ExerciseDefinition): Map<string, ExerciseDefinition["scenarios"]> {
-    const scenariosByTask = new Map<string, ExerciseDefinition["scenarios"]>();
+  private groupScenariosByTask(exercise: ExerciseDefinition): Map<string, Scenario[]> {
+    const scenariosByTask = new Map<string, Scenario[]>();
 
     for (const scenario of exercise.scenarios) {
-      const taskScenarios = scenariosByTask.get(scenario.taskId) || [];
+      const taskScenarios: Scenario[] = scenariosByTask.get(scenario.taskId) || [];
       taskScenarios.push(scenario);
       scenariosByTask.set(scenario.taskId, taskScenarios);
     }
@@ -214,7 +214,7 @@ export class TaskManager {
   private getRequiredScenarios(
     task: ExerciseDefinition["tasks"][0],
     exercise: ExerciseDefinition,
-    filteredScenarios?: ExerciseDefinition["scenarios"]
+    filteredScenarios?: Scenario[]
   ): string[] {
     return (
       task.requiredScenarios ||

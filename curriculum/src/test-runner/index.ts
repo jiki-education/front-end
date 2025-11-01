@@ -1,2 +1,8 @@
-export { runScenarioTest, runAllScenarios, runExerciseTests } from "./runScenarioTest";
+export {
+  runVisualScenarioTest,
+  runIOScenarioTest,
+  runAllVisualScenarios,
+  runAllIOScenarios,
+  runExerciseTests
+} from "./runScenarioTest";
 export type { ScenarioTestResult } from "./runScenarioTest";

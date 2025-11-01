@@ -20,8 +20,8 @@ export interface Animation {
   };
 }
 
-// Base exercise class that all curriculum exercises extend
-export abstract class Exercise {
+// Base exercise class for visual exercises with animations and state
+export abstract class VisualExercise {
   animations: Animation[] = [];
   view!: HTMLElement;
   protected abstract get slug(): string;
@@ -29,7 +29,7 @@ export abstract class Exercise {
   abstract availableFunctions: Array<{
     name: string;
     func: (ctx: ExecutionContext) => void;
-    description?: string;
+    description: string;
   }>;
 
   abstract getState(): Record<string, number | string | boolean>;
@@ -54,3 +54,17 @@ export abstract class Exercise {
     return this.view;
   }
 }
+
+// Base class for IO exercises that test function return values
+export abstract class IOExercise {
+  static slug: string;
+  static availableFunctions: Array<{
+    name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    func: (ctx: ExecutionContext, ...args: any[]) => any;
+    description: string;
+  }>;
+}
+
+// Backwards compatibility export (deprecated, use VisualExercise)
+export { VisualExercise as Exercise };

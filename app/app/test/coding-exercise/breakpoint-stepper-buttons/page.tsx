@@ -39,6 +39,7 @@ export default function BreakpointStepperButtonsTestPage() {
 
     // Create test state similar to what would come from the test runner
     const testState = {
+      type: "visual" as const,
       slug: "test-1",
       name: "Test 1",
       status: "pass" as const,

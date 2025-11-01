@@ -41,7 +41,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-2", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-3", taskId: "task-2" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -79,7 +79,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-2", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-3", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -146,7 +146,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
@@ -169,7 +169,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "pass" })
@@ -211,7 +211,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "pass" })
@@ -247,7 +247,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
@@ -286,7 +286,7 @@ describe("TaskManager", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-2" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
@@ -428,7 +428,7 @@ describe("TaskManager", () => {
           createMockScenario({ slug: "scenario-2", taskId: "task-1" }),
           createMockScenario({ slug: "scenario-3", taskId: "task-2" })
         ];
-        const exercise = createMockExercise({ scenarios });
+        const exercise = createMockExercise({ scenarios: scenarios as any });
 
         const grouped = taskManager["groupScenariosByTask"](exercise);
 

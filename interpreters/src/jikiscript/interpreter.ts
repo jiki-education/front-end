@@ -11,7 +11,7 @@ import type { CompilationResult } from "../shared/errors";
 import type { InterpretResult } from "../shared/interfaces";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
-import { StdlibFunctionsForLibrary } from "./stdlib";
+import { StdlibFunctionsForLibrary, filteredStdLibFunctions } from "./stdlib";
 
 export interface FrameContext {
   result: any;
@@ -34,6 +34,7 @@ export type Toggle = "ON" | "OFF";
 export interface LanguageFeatures {
   includeList?: TokenType[];
   excludeList?: TokenType[];
+  allowedStdlibFunctions?: string[]; // Which stdlib functions are available (e.g., ['concatenate', 'to_upper_case'])
   timePerFrame: number;
   repeatDelay: number;
   maxTotalLoopIterations: number;
@@ -47,6 +48,7 @@ export interface LanguageFeatures {
 export interface InputLanguageFeatures {
   includeList?: TokenType[];
   excludeList?: TokenType[];
+  allowedStdlibFunctions?: string[]; // Which stdlib functions are available (e.g., ['concatenate', 'to_upper_case'])
   timePerFrame?: number;
   repeatDelay?: number;
   maxTotalLoopIterations?: number;
@@ -171,6 +173,12 @@ export class Interpreter {
       addSuccessFrames: true,
       ...context.languageFeatures,
     };
+
+    // Auto-merge stdlib functions if allowedStdlibFunctions is provided
+    if (this.languageFeatures.allowedStdlibFunctions) {
+      const filteredStdlib = filteredStdLibFunctions(this.languageFeatures.allowedStdlibFunctions);
+      this.externalFunctions = [...filteredStdlib, ...this.externalFunctions];
+    }
 
     this.parser = new Parser(
       this.externalFunctions.map(f => f.name),

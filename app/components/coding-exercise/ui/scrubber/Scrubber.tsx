@@ -46,7 +46,7 @@ export default function Scrubber() {
       tabIndex={-1}
       className="relative group flex-1 flex items-center"
     >
-      <PlayPauseButton disabled={!isEnabled} />
+      {currentTest?.type === "visual" && <PlayPauseButton disabled={!isEnabled} />}
       <ScrubberInput
         ref={rangeRef}
         frames={frames}

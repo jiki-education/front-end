@@ -1,10 +1,10 @@
 import { type ExecutionContext } from "@jiki/interpreters";
-import { Exercise } from "../../Exercise";
+import { VisualExercise } from "../../Exercise";
 import metadata from "./metadata.json";
 
 type Direction = "up" | "right" | "down" | "left";
 
-export default class MazeSolveBasicExercise extends Exercise {
+export default class MazeSolveBasicExercise extends VisualExercise {
   protected get slug() {
     return metadata.slug;
   }

@@ -1,7 +1,9 @@
-import type { Exercise } from "../Exercise";
+import type { IOExercise, VisualExercise } from "../Exercise";
 import type { LevelId } from "../levels";
+import type { Change } from "diff";
 
-export interface ExerciseDefinition {
+// Base properties shared by all exercise definitions
+interface BaseExerciseDefinition {
   // From metadata.json
   slug: string;
   title: string;
@@ -11,14 +13,29 @@ export interface ExerciseDefinition {
 
   // Core components
   initialCode: string;
-  ExerciseClass: new () => Exercise;
   tasks: Task[];
-  scenarios: Scenario[];
 
   // Optional
   hints?: string[];
   functions?: FunctionDoc[];
 }
+
+// Visual exercises with animations and state checking
+export interface VisualExerciseDefinition extends BaseExerciseDefinition {
+  type: "visual";
+  ExerciseClass: new () => VisualExercise;
+  scenarios: VisualScenario[];
+}
+
+// IO exercises that test function return values
+export interface IOExerciseDefinition extends BaseExerciseDefinition {
+  type: "io";
+  ExerciseClass: typeof IOExercise;
+  scenarios: IOScenario[];
+}
+
+// Discriminated union of exercise types
+export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition;
 
 export interface FunctionDoc {
   name: string;
@@ -35,21 +52,53 @@ export interface Task {
   bonus?: boolean;
 }
 
-export interface Scenario {
+export interface VisualScenario {
   slug: string;
   name: string;
   description: string;
   taskId: string; // References the task this scenario belongs to
-  setup: (exercise: Exercise) => void;
-  expectations: (exercise: Exercise) => TestExpect[];
+  setup: (exercise: VisualExercise) => void;
+  expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
 
-export interface TestExpect {
+export interface IOScenario {
+  slug: string;
+  name: string;
+  description: string;
+  taskId: string; // References the task this scenario belongs to
+  functionName: string; // The function to call
+  args: Array<string | number | boolean | null | undefined>; // Arguments to pass to the function
+  expected: string | number | boolean; // Expected return value (must be defined)
+  matcher?: "toBe" | "toEqual" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
+}
+
+// Union type for all scenario types
+export type Scenario = VisualScenario | IOScenario;
+
+// Visual test expectation - for state checks in visual exercises
+export interface VisualTestExpect {
+  type: "visual";
   pass: boolean;
   actual: string | number | boolean;
-  expected: string | number | boolean;
-  errorHtml: string;
+  expected?: string | number | boolean;
+  errorHtml?: string;
+  codeRun?: string;
 }
+
+// IO test expectation - for function return value checks
+export interface IOTestExpect {
+  type: "io";
+  pass: boolean;
+  actual: string | number | boolean | null | undefined;
+  expected: string | number | boolean; // Expected value is always defined
+  diff: Change[]; // Diff from 'diff' library
+  matcher: string; // e.g., 'toBe', 'toEqual'
+  codeRun?: string;
+  errorHtml?: string;
+}
+
+// Union type for all test expectations
+export type TestExpect = VisualTestExpect | IOTestExpect;
 
 // Task Management Types
 export interface TaskProgress {

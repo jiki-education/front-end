@@ -25,6 +25,7 @@ jest.mock("@/components/coding-exercise/lib/orchestrator/BreakpointManager", () 
 
 describe("Store Animation Replay Bug", () => {
   const createMockTest = (slug: string, frames: any[] = []): TestResult => ({
+    type: "visual" as const,
     slug,
     name: slug,
     status: "pass" as const,
@@ -69,7 +70,7 @@ describe("Store Animation Replay Bug", () => {
 
     // Verify animation started playing
     expect(store.getState().isPlaying).toBe(true);
-    expect(firstTest.animationTimeline.play).toHaveBeenCalledTimes(1);
+    expect(firstTest.animationTimeline!.play).toHaveBeenCalledTimes(1);
 
     // Second test run - with different frames
     const secondTest = createMockTest("test-2", [
@@ -101,7 +102,7 @@ describe("Store Animation Replay Bug", () => {
     // BUG: Without resetting isPlaying, the second animation won't play
     // because setIsPlaying(true) will return early if isPlaying is already true
     expect(store.getState().isPlaying).toBe(true);
-    expect(secondTest.animationTimeline.play).toHaveBeenCalledTimes(1);
+    expect(secondTest.animationTimeline!.play).toHaveBeenCalledTimes(1);
   });
 
   it("should allow animation to play after empty/failed first run", () => {
@@ -151,6 +152,6 @@ describe("Store Animation Replay Bug", () => {
 
     // The bug: If isPlaying isn't reset, setIsPlaying(true) will return early
     // and animationTimeline.play() won't be called
-    expect(secondTest.animationTimeline.play).toHaveBeenCalledTimes(1);
+    expect(secondTest.animationTimeline!.play).toHaveBeenCalledTimes(1);
   });
 });

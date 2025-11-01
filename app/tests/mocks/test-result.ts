@@ -16,6 +16,7 @@ export function createMockTestResult(overrides: Partial<TestResult> = {}): TestR
   const defaultAnimationTimeline = frames.length > 0 ? createMockAnimationTimeline({ duration }) : ({} as any);
 
   return {
+    type: "visual",
     slug,
     name: `Test ${slug}`,
     status: "pass",
@@ -25,5 +26,5 @@ export function createMockTestResult(overrides: Partial<TestResult> = {}): TestR
     logLines: [],
     animationTimeline: defaultAnimationTimeline,
     ...overrides
-  };
+  } as TestResult;
 }
