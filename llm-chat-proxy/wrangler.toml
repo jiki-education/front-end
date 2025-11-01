@@ -1,0 +1,24 @@
+name = "llm-chat-proxy"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Rate limiting: 100 requests per hour per user
+# Uses Cloudflare's built-in rate limiting (works globally across all regions)
+[[unsafe.bindings]]
+type = "ratelimit"
+namespace_id = "llm_chat_rate_limit"
+simple = { limit = 100, period = 3600 }
+
+[env.production]
+name = "llm-chat-proxy"
+workers_dev = false
+route = "https://llm.jiki.app/*"
+
+# Environment variables are set via: wrangler secret put <NAME>
+# Required secrets:
+# - GOOGLE_GEMINI_API_KEY       (Get from: https://aistudio.google.com/apikey)
+# - DEVISE_JWT_SECRET_KEY       (MUST match Rails exactly - from Rails credentials)
+# - LLM_SIGNATURE_SECRET        (Shared with Rails for HMAC verification - from Rails credentials)
+#
+# For local development, create .dev.vars with these values

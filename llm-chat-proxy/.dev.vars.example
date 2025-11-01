@@ -1,0 +1,3 @@
+GOOGLE_GEMINI_API_KEY=your_gemini_api_key_from_https://aistudio.google.com/apikey
+DEVISE_JWT_SECRET_KEY=your_devise_jwt_secret_from_rails_credentials
+LLM_SIGNATURE_SECRET=your_llm_signature_secret_from_rails_credentials
