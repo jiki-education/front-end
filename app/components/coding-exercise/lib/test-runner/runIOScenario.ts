@@ -3,6 +3,7 @@ import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
 import type { Frame } from "@jiki/interpreters";
+import { formatInterpreterObject } from "./formatInterpreterObject";
 
 type Language = "javascript" | "python" | "jikiscript";
 
@@ -40,9 +41,9 @@ function compareValues(actual: any, expected: any, matcher: string): boolean {
 
 // Generate diff for displaying expected vs actual values
 function generateDiff(expected: any, actual: any): Change[] {
-  // Convert values to strings for comparison
-  const expectedStr = expected === null ? "null" : expected === undefined ? "undefined" : String(expected);
-  const actualStr = actual === null ? "null" : actual === undefined ? "undefined" : String(actual);
+  // Format values using JSON.stringify to properly show quotes around strings
+  const expectedStr = formatInterpreterObject(expected);
+  const actualStr = formatInterpreterObject(actual);
 
   // Use character-level diff for strings
   if (typeof expected === "string" && typeof actual === "string") {
