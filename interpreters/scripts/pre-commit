@@ -1,12 +1,21 @@
+#!/bin/sh
+# Get absolute path to interpreters directory and change to it
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+INTERPRETERS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$INTERPRETERS_DIR" || exit 1
+
 echo "Running pre-commit checks..."
 
 # Run formatter on changed files only
 echo "💅 Formatting changed files..."
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep "^interpreters/" | grep -E '\.(ts|tsx|js|jsx|json|md|yml)$' | sed 's|^interpreters/||' || true)
-if [ -n "$STAGED_FILES" ]; then
-    echo "Formatting: $STAGED_FILES"
-    pnpm exec prettier --write $STAGED_FILES
-    git add $STAGED_FILES
+STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^interpreters/" | grep -E '\.(ts|tsx|js|jsx|json|md|yml)$' | sed 's|^interpreters/||' || true)
+if [ -n "$STAGED_FILES_RELATIVE" ]; then
+    echo "Formatting: $STAGED_FILES_RELATIVE"
+    # Convert relative paths to absolute paths for prettier
+    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$INTERPRETERS_DIR/|")
+    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
+    # Re-add formatted files (use paths relative to current directory, which is INTERPRETERS_DIR)
+    git add $STAGED_FILES_RELATIVE
 else
     echo "No files to format"
 fi
