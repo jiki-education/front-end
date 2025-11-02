@@ -7,6 +7,11 @@ export const fundamentalsLevel: Level = {
   educationalGoal: "",
 
   languageFeatures: {
+    jikiscript: {
+      languageFeatures: {
+        allowedStdlibFunctions: ["concatenate", "to_upper_case"]
+      }
+    },
     javascript: {
       allowedNodes: [
         "ExpressionStatement",
@@ -33,6 +38,5 @@ export const fundamentalsLevel: Level = {
         allowTypeCoercion: false
       }
     }
-    // Python support will be added when NodeType is defined in interpreters
   }
 };

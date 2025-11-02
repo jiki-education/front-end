@@ -12,8 +12,6 @@ export const API_CONFIG = {
   }
 } as const;
 
-export const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || "v1";
-
 export function getApiConfig() {
   const isDevelopment = process.env.NODE_ENV === "development";
   return isDevelopment ? API_CONFIG.development : API_CONFIG.production;
@@ -21,12 +19,7 @@ export function getApiConfig() {
 
 export function getApiUrl(path: string): string {
   const config = getApiConfig();
-  let cleanPath = path.startsWith("/") ? path : `/${path}`;
-
-  // Add API version prefix if not already present
-  if (!cleanPath.startsWith(`/${API_VERSION}`)) {
-    cleanPath = `/${API_VERSION}${cleanPath}`;
-  }
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
 
   return `${config.baseUrl}${cleanPath}`;
 }

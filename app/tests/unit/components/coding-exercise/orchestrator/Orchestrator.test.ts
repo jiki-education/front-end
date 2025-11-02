@@ -88,6 +88,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -116,6 +117,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -138,6 +140,7 @@ describe("Orchestrator", () => {
 
       // Set first test
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -150,6 +153,7 @@ describe("Orchestrator", () => {
 
       // Set second test - should clear callbacks from first timeline
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-2",
         name: "Test 2",
         status: "pass" as const,
@@ -170,6 +174,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -224,6 +229,7 @@ describe("Orchestrator", () => {
 
       // Set up test state with custom frames
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -264,6 +270,7 @@ describe("Orchestrator", () => {
 
       // Set up test state with custom frames at line 2
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -432,6 +439,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -453,6 +461,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -475,6 +484,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -497,6 +507,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -541,6 +552,7 @@ describe("Orchestrator", () => {
       });
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -575,6 +587,7 @@ describe("Orchestrator", () => {
       Object.defineProperty(mockTimeline, "completed", { value: false, writable: true });
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -604,6 +617,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -625,6 +639,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,
@@ -647,6 +662,7 @@ describe("Orchestrator", () => {
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
+        type: "visual" as const,
         slug: "test-1",
         name: "Test 1",
         status: "pass" as const,

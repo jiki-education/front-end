@@ -106,7 +106,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockScenario({ slug: "scenario-3", taskId: "task-2" })
       ];
 
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       // Initialize task progress
       taskManager.initializeTaskProgress(exercise);
@@ -154,7 +154,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
     it("should handle test failures gracefully", async () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const scenarios = [createMockScenario({ slug: "scenario-1", taskId: "task-1" })];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -216,7 +216,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -263,7 +263,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockScenario({ slug: "scenario-1", taskId: "task-1" }),
         createMockScenario({ slug: "scenario-2", taskId: "task-1" })
       ];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -302,7 +302,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
     it("should handle tasks with no required scenarios", async () => {
       const tasks = [createMockTask({ id: "task-1", requiredScenarios: [] })];
       const scenarios: Scenario[] = [];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 
@@ -323,7 +323,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
     it("should handle scenarios that don't match any test results", async () => {
       const tasks = [createMockTask({ id: "task-1", requiredScenarios: ["missing-scenario"] })];
       const scenarios = [createMockScenario({ slug: "missing-scenario", taskId: "task-1" })];
-      const exercise = createMockExercise({ tasks, scenarios });
+      const exercise = createMockExercise({ tasks, scenarios: scenarios as any });
 
       taskManager.initializeTaskProgress(exercise);
 

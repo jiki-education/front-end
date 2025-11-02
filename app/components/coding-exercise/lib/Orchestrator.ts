@@ -11,7 +11,7 @@ import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
-import type { TestExpect, TestResult } from "./test-results-types";
+import type { TestResult, TestExpect } from "./test-results-types";
 import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 class Orchestrator {
@@ -24,7 +24,7 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
 
-  constructor(exercise: ExerciseDefinition) {
+  constructor(exercise: ExerciseDefinition, projectContext?: { projectSlug?: string }) {
     this.exercise = exercise;
 
     // Create instance-specific store with exercise's initial code
@@ -35,7 +35,7 @@ class Orchestrator {
     this.timelineManager = new TimelineManager(this.store);
     this.breakpointManager = new BreakpointManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager);
+    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, projectContext);
     // EditorManager will be created lazily when setupEditor is called
 
     // Set exercise title in store
@@ -122,9 +122,9 @@ class Orchestrator {
   setCurrentTestTime(time: number) {
     this.store.getState().setCurrentTestTime(time);
 
-    // Also seek to the relevant spot on the animation timeline if it exists
+    // Also seek to the relevant spot on the animation timeline if it exists (visual tests only)
     // This is what powers the stepper buttons.
-    this.store.getState().currentTest?.animationTimeline.seek(time);
+    this.store.getState().currentTest?.animationTimeline?.seek(time);
   }
 
   setFoldedLines(lines: number[]) {
@@ -205,9 +205,9 @@ class Orchestrator {
       return;
     }
 
-    // If animation completed, reset to beginning
+    // If animation completed, reset to beginning (visual tests only)
     // Use orchestrator's setCurrentTestTime which also seeks the animation timeline
-    if (state.currentTest.animationTimeline.completed) {
+    if (state.currentTest.animationTimeline?.completed) {
       this.setCurrentTestTime(0);
     }
 

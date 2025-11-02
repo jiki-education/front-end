@@ -36,7 +36,9 @@
     }
   },
   "dependencies": {
-    "@jiki/interpreters": "workspace:*"
+    "@jiki/interpreters": "workspace:*",
+    "@types/diff": "^8.0.0",
+    "diff": "^8.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

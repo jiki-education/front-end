@@ -225,7 +225,7 @@ describe("TimelineManager", () => {
       it("should update time in store and seek animation timeline", () => {
         const mockSeek = jest.fn();
         const testResult = createMockTestResult({ frames: [createMockFrame(0, { line: 1 })] });
-        testResult.animationTimeline.seek = mockSeek;
+        testResult.animationTimeline!.seek = mockSeek;
 
         const store = createMockOrchestratorStore({ currentTest: testResult });
         const manager = new TimelineManager(store as any);

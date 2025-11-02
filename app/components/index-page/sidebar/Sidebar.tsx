@@ -9,6 +9,8 @@ interface SidebarProps {
 }
 
 const navigationItems: Array<{ id: string; label: string; href?: string }> = [
+  { id: "exercises", label: "Exercises", href: "/dashboard" },
+  { id: "projects", label: "Projects", href: "/projects" },
   { id: "blog", label: "Blog", href: "/blog" },
   { id: "articles", label: "Articles", href: "/articles" },
   { id: "concepts", label: "Concepts", href: "/concepts" }

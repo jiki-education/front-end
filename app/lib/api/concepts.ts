@@ -25,10 +25,6 @@ export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise
 
   const params: Record<string, string | number | boolean> = {};
 
-  if (unscoped) {
-    params.unscoped = true;
-  }
-
   if (title && title.trim()) {
     params.title = title.trim();
   }
@@ -37,7 +33,9 @@ export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise
     params.page = page;
   }
 
-  const response = await api.get<ConceptsResponse>("/v1/concepts", { params });
+  // Use external endpoint for unscoped (unauthenticated) requests, internal for authenticated
+  const endpoint = unscoped ? "/external/concepts" : "/internal/concepts";
+  const response = await api.get<ConceptsResponse>(endpoint, { params });
   return response.data;
 }
 
@@ -47,7 +45,8 @@ export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise
  * @param unscoped - If true, returns concept regardless of user authentication/unlock status
  */
 export async function fetchConcept(slug: string, unscoped?: boolean): Promise<ConceptDetail> {
-  const params = unscoped ? { unscoped: true } : undefined;
-  const response = await api.get<{ concept: ConceptDetail }>(`/v1/concepts/${slug}`, { params });
+  // Use external endpoint for unscoped (unauthenticated) requests, internal for authenticated
+  const endpoint = unscoped ? `/external/concepts/${slug}` : `/internal/concepts/${slug}`;
+  const response = await api.get<{ concept: ConceptDetail }>(endpoint);
   return response.data.concept;
 }

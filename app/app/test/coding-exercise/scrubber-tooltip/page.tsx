@@ -33,6 +33,7 @@ export default function ScrubberTooltipTestPage() {
 
     // Create test state
     const testState = {
+      type: "visual" as const,
       slug: "test-1",
       name: "Test 1",
       status: "pass" as const,
@@ -119,6 +120,7 @@ export default function ScrubberTooltipTestPage() {
             onClick={() => {
               const singleFrame = createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" });
               const singleFrameTest = {
+                type: "visual" as const,
                 slug: "test-1",
                 name: "Test 1",
                 status: "pass" as const,

@@ -1,9 +1,9 @@
-interface StateTestResultViewProps {
+interface VisualTestResultViewProps {
   isPassing: boolean;
   errorHtml: string;
 }
 
-export function StateTestResultView({ isPassing, errorHtml }: StateTestResultViewProps) {
+export function VisualTestResultView({ isPassing, errorHtml }: VisualTestResultViewProps) {
   return (
     <div className={`p-4 rounded-lg border ${isPassing ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}`}>
       <div className="flex items-center mb-2">

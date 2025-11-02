@@ -2,12 +2,12 @@ import type { Level, LevelWithProgress, LevelsResponse, UserLevel, UserLevelsRes
 import { api } from "./client";
 
 export async function fetchLevels(): Promise<Level[]> {
-  const response = await api.get<LevelsResponse>("/levels");
+  const response = await api.get<LevelsResponse>("/internal/levels");
   return response.data.levels;
 }
 
 export async function fetchUserLevels(): Promise<UserLevel[]> {
-  const response = await api.get<UserLevelsResponse>("/user_levels");
+  const response = await api.get<UserLevelsResponse>("/internal/user_levels");
   return response.data.user_levels;
 }
 

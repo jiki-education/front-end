@@ -9,6 +9,7 @@ export interface Level {
   educationalGoal: string; // Internal facing: What's the educational goal.
 
   languageFeatures: {
+    jikiscript?: JikiScriptFeatures;
     javascript?: JavaScriptFeatures;
     python?: PythonFeatures;
   };
@@ -32,7 +33,19 @@ export interface PythonFeatures {
   languageFeatures?: Omit<python.LanguageFeatures, "allowedNodes">;
 }
 
+// JikiScript features
+export interface JikiScriptFeatures {
+  // Jikiscript doesn't use allowedNodes, but we include it for type compatibility
+  allowedNodes?: never;
+
+  // Language behavior features
+  languageFeatures?: {
+    allowedStdlibFunctions?: string[];
+  };
+}
+
 // Type aliases for language feature flags (without allowedNodes)
 export type JavaScriptFeatureFlags = Omit<javascript.LanguageFeatures, "allowedNodes">;
 export type PythonFeatureFlags = Omit<python.LanguageFeatures, "allowedNodes">;
-export type LanguageFeatureFlags = JavaScriptFeatureFlags | PythonFeatureFlags;
+export type JikiScriptFeatureFlags = { allowedStdlibFunctions?: string[] };
+export type LanguageFeatureFlags = JavaScriptFeatureFlags | PythonFeatureFlags | JikiScriptFeatureFlags;

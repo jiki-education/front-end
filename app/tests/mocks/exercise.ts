@@ -7,6 +7,7 @@ import { scenarios, tasks } from "./mock-exercise/scenarios";
  */
 export function createMockExercise(overrides?: Partial<ExerciseDefinition>): ExerciseDefinition {
   return {
+    type: "visual",
     slug: "test-exercise",
     title: "Test Exercise",
     instructions: "This is a test exercise",
@@ -17,5 +18,5 @@ export function createMockExercise(overrides?: Partial<ExerciseDefinition>): Exe
     tasks,
     scenarios,
     ...overrides
-  };
+  } as ExerciseDefinition;
 }

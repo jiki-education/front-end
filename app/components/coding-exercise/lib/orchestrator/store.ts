@@ -146,11 +146,9 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
 
         const oldTest = state.currentTest;
 
-        // Clean up old test's animation timeline callbacks
-        if (oldTest?.animationTimeline) {
-          oldTest.animationTimeline.clearUpdateCallbacks();
-          oldTest.animationTimeline.clearCompleteCallbacks();
-        }
+        // Clean up old test's animation timeline callbacks (visual tests only)
+        oldTest?.animationTimeline?.clearUpdateCallbacks();
+        oldTest?.animationTimeline?.clearCompleteCallbacks();
 
         if (!test) {
           set({
@@ -172,14 +170,13 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
           highlightedLine: 0
         });
 
-        // Set up animation timeline callback to sync with store
-        test.animationTimeline.onUpdate((anim) => {
+        // Set up animation timeline callbacks (visual tests only)
+        test.animationTimeline?.onUpdate((anim) => {
           // Convert from milliseconds to microseconds
           get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR);
         });
 
-        // Set up completion callback to update play/pause state and show success modal
-        test.animationTimeline.onComplete(() => {
+        test.animationTimeline?.onComplete(() => {
           const state = get();
           state.setIsPlaying(false);
 
@@ -195,7 +192,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
         // Trigger frame calculations with the restored/initial time
         get().setCurrentTestTime(timeToUse, "nearest", true);
 
-        if (state.shouldPlayOnTestChange) {
+        if (state.shouldPlayOnTestChange && test.animationTimeline) {
           get().setIsPlaying(true);
         }
       },
@@ -338,7 +335,7 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
 
         // If trying to set playing to true but animation is completed, don't start
         // User must explicitly click play button (which calls orchestrator.play() and resets time) to restart
-        if (playing && state.currentTest.animationTimeline.completed) {
+        if (playing && state.currentTest.animationTimeline?.completed) {
           return;
         }
 
@@ -347,11 +344,11 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
         if (playing) {
           // Hide information widget when playing
           state.setShouldShowInformationWidget(false);
-          // Start the animation timeline
-          state.currentTest.animationTimeline.play();
+          // Start the animation timeline (visual tests only)
+          state.currentTest.animationTimeline?.play();
         } else {
-          // Pause the animation timeline
-          state.currentTest.animationTimeline.pause();
+          // Pause the animation timeline (visual tests only)
+          state.currentTest.animationTimeline?.pause();
         }
       },
 

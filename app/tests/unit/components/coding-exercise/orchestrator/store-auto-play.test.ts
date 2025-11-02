@@ -25,6 +25,7 @@ jest.mock("@/components/coding-exercise/lib/orchestrator/BreakpointManager", () 
 
 describe("Store Auto-Play Behavior", () => {
   const createMockTest = (slug: string, time = 0): TestResult => ({
+    type: "visual" as const,
     slug,
     name: slug,
     status: "pass" as const,
@@ -183,7 +184,7 @@ describe("Store Auto-Play Behavior", () => {
       store.getState().setCurrentTest(test);
 
       expect(store.getState().isPlaying).toBe(true);
-      expect(test.animationTimeline.play).toHaveBeenCalled();
+      expect(test.animationTimeline!.play).toHaveBeenCalled();
     });
 
     it("should not auto-play if shouldAutoPlay is false", () => {
@@ -194,7 +195,7 @@ describe("Store Auto-Play Behavior", () => {
       store.getState().setCurrentTest(test);
 
       expect(store.getState().isPlaying).toBe(false);
-      expect(test.animationTimeline.play).not.toHaveBeenCalled();
+      expect(test.animationTimeline!.play).not.toHaveBeenCalled();
     });
 
     it("should hide information widget when switching tests with auto-play", () => {
@@ -269,7 +270,7 @@ describe("Store Auto-Play Behavior", () => {
 
       store.getState().setIsPlaying(true);
 
-      expect(test.animationTimeline.play).toHaveBeenCalled();
+      expect(test.animationTimeline!.play).toHaveBeenCalled();
     });
 
     it("should hide information widget when playing=true", () => {
@@ -298,12 +299,12 @@ describe("Store Auto-Play Behavior", () => {
       store.getState().setCurrentTest(test);
 
       // Clear the mock from setCurrentTest
-      (test.animationTimeline.play as jest.Mock).mockClear();
+      (test.animationTimeline!.play as jest.Mock).mockClear();
 
       // Now call setIsPlaying(false)
       store.getState().setIsPlaying(false);
 
-      expect(test.animationTimeline.play).not.toHaveBeenCalled();
+      expect(test.animationTimeline!.play).not.toHaveBeenCalled();
     });
   });
 
@@ -436,7 +437,7 @@ describe("Store Auto-Play Behavior", () => {
         store.getState().setTestSuiteResult(testResults);
 
         // Get the onComplete callback that was registered
-        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        const onCompleteCallback = (test1.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
 
         // Trigger the callback
         onCompleteCallback();
@@ -461,7 +462,7 @@ describe("Store Auto-Play Behavior", () => {
         store.getState().setWasSuccessModalShown(true);
 
         // Get the onComplete callback
-        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        const onCompleteCallback = (test1.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
 
         // Trigger the callback
         onCompleteCallback();
@@ -484,7 +485,7 @@ describe("Store Auto-Play Behavior", () => {
         store.getState().setTestSuiteResult(testResults);
 
         // Get the onComplete callback
-        const onCompleteCallback = (failedTest.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        const onCompleteCallback = (failedTest.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
 
         // Trigger the callback
         onCompleteCallback();
@@ -507,7 +508,7 @@ describe("Store Auto-Play Behavior", () => {
         expect(store.getState().isSpotlightActive).toBe(true);
 
         // Get and trigger the onComplete callback
-        const onCompleteCallback = (test1.animationTimeline.onComplete as jest.Mock).mock.calls[0][0];
+        const onCompleteCallback = (test1.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
         onCompleteCallback();
 
         // Spotlight should be disabled after modal shows

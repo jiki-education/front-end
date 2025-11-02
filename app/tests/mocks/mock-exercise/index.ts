@@ -3,6 +3,7 @@ import { TestExercise } from "@jiki/curriculum";
 import { tasks, scenarios } from "./scenarios";
 
 export const testExerciseDefinition: ExerciseDefinition = {
+  type: "visual",
   slug: "test-exercise",
   title: "Test Exercise",
   instructions: "This is a test exercise for unit tests",

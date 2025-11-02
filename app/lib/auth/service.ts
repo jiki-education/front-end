@@ -34,7 +34,7 @@ function extractTokenFromHeaders(headers: Headers): string | null {
 
 /**
  * User login
- * POST /v1/auth/login
+ * POST /auth/login
  */
 export async function login(credentials: LoginCredentials): Promise<User> {
   const response = await api.post<AuthResponse>("/auth/login", { user: credentials });
@@ -57,7 +57,7 @@ export async function login(credentials: LoginCredentials): Promise<User> {
 
 /**
  * User signup
- * POST /v1/auth/signup
+ * POST /auth/signup
  */
 export async function signup(userData: SignupData): Promise<User> {
   const response = await api.post<AuthResponse>("/auth/signup", { user: userData });
@@ -80,7 +80,7 @@ export async function signup(userData: SignupData): Promise<User> {
 
 /**
  * User logout
- * DELETE /v1/auth/logout
+ * DELETE /auth/logout
  */
 export async function logout(): Promise<void> {
   try {
@@ -97,7 +97,7 @@ export async function logout(): Promise<void> {
 
 /**
  * Request password reset
- * POST /v1/auth/password
+ * POST /auth/password
  */
 export async function requestPasswordReset(data: PasswordResetRequest): Promise<void> {
   await api.post("/auth/password", { user: data });
@@ -105,7 +105,7 @@ export async function requestPasswordReset(data: PasswordResetRequest): Promise<
 
 /**
  * Complete password reset
- * PATCH /v1/auth/password
+ * PATCH /auth/password
  */
 export async function resetPassword(data: PasswordReset): Promise<void> {
   await api.patch("/auth/password", { user: data });

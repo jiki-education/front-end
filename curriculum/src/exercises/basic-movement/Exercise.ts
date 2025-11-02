@@ -1,8 +1,8 @@
 import { type ExecutionContext } from "@jiki/interpreters";
-import { Exercise } from "../../Exercise";
+import { VisualExercise } from "../../Exercise";
 import metadata from "./metadata.json";
 
-export default class BasicMovementExercise extends Exercise {
+export default class BasicMovementExercise extends VisualExercise {
   protected get slug() {
     return metadata.slug;
   }
