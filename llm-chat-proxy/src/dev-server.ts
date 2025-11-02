@@ -6,11 +6,7 @@ import app from "./index";
 dotenv.config({ path: ".dev.vars" });
 
 // Validate required environment variables
-const requiredEnvVars = [
-  "GOOGLE_GEMINI_API_KEY",
-  "DEVISE_JWT_SECRET_KEY",
-  "LLM_SIGNATURE_SECRET"
-];
+const requiredEnvVars = ["GOOGLE_GEMINI_API_KEY", "DEVISE_JWT_SECRET_KEY", "LLM_SIGNATURE_SECRET"];
 
 const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
 if (missingVars.length > 0) {
@@ -24,6 +20,7 @@ if (missingVars.length > 0) {
 const port = 3063;
 
 console.log(`Starting LLM Chat Proxy development server on port ${port}...`);
+console.log(`JWT Secret loaded: ${process.env.DEVISE_JWT_SECRET_KEY?.substring(0, 20)}...`);
 
 serve({
   fetch: app.fetch,

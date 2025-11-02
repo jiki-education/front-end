@@ -37,18 +37,28 @@ app.get("/health", (c) => {
 // Main chat endpoint
 app.post("/chat", async (c) => {
   try {
+    console.log("[Chat] Incoming request");
+
     // 1. Extract and verify JWT
     const authHeader = c.req.header("Authorization");
+    console.log("[Chat] Auth header present:", !!authHeader);
+
     const token = authHeader?.replace("Bearer ", "");
 
     if (token === undefined) {
+      console.log("[Chat] ❌ No token provided");
       return c.json({ error: "Missing authorization token" }, 401);
     }
 
+    console.log("[Chat] Token (first 20 chars):", token.substring(0, 20) + "...");
+
     const userId = await verifyJWT(token, c.env.DEVISE_JWT_SECRET_KEY);
     if (userId === null) {
+      console.log("[Chat] ❌ JWT verification failed - returning 401");
       return c.json({ error: "Invalid or expired token" }, 401);
     }
+
+    console.log("[Chat] ✅ JWT verified, user ID:", userId);
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
