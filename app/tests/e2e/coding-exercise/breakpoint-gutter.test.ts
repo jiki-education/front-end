@@ -25,7 +25,7 @@
  */
 describe("Breakpoint Gutter E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/coding-exercise/breakpoint-gutter");
+    await page.goto("http://localhost:3081/test/coding-exercise/breakpoint-gutter");
     await page.waitForSelector('[data-testid="breakpoint-gutter-container"]', { timeout: 5000 });
     // Wait a bit for CodeMirror to fully initialize
     await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 500)));

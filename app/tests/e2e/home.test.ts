@@ -1,6 +1,6 @@
 describe("Home Page E2E", () => {
   beforeAll(async () => {
-    await page.goto("http://localhost:3070");
+    await page.goto("http://localhost:3081");
     await page.waitForSelector("h1");
   });
 

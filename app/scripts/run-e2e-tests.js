@@ -9,7 +9,7 @@ const waitOn = require("wait-on");
 const fs = require("fs");
 const path = require("path");
 
-const PORT = 3070;
+const PORT = 3081;
 const SERVER_URL = `http://localhost:${PORT}`;
 
 /**

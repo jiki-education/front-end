@@ -85,14 +85,14 @@ await page.waitForNavigation({ waitUntil: "networkidle2" }); // ❌ Slow and unr
 - **Puppeteer Config**: `jest-puppeteer.config.js` - Browser launch settings
 - **Test Runner**: `scripts/run-e2e-tests.js` - Manages shared dev server for all tests
 - Test environment: `jest-environment-puppeteer`
-- Shared dev server on port 3070 for all tests (started once, shared across test files)
+- Shared dev server on port 3081 for all tests (started once, shared across test files)
 - Headless mode by default (set `HEADLESS=false` for debugging)
 
 #### E2E Performance Optimization
 
 E2E tests use a custom runner script that:
 
-1. Starts a single Next.js dev server on port 3070 before tests
+1. Starts a single Next.js dev server on port 3081 before tests
 2. Runs all test files against this shared server
 3. Automatically cleans up the server and port after tests complete
 4. Handles interrupts gracefully with proper cleanup
@@ -163,7 +163,7 @@ describe("Feature E2E", () => {
   // IMPORTANT: Avoid using networkidle2 with beforeEach as it can cause timeouts
   // Instead, wait for specific elements to appear
   beforeEach(async () => {
-    await page.goto("http://localhost:3060/test-page");
+    await page.goto("http://localhost:3081/test-page");
     await page.waitForSelector('[data-testid="container"]', { timeout: 5000 });
   });
 
@@ -189,20 +189,20 @@ Example patterns:
 ```typescript
 // ✅ GOOD: beforeEach without networkidle2
 beforeEach(async () => {
-  await page.goto("http://localhost:3060/test-page");
+  await page.goto("http://localhost:3081/test-page");
   await page.waitForSelector('[data-testid="container"]');
 });
 
 // ❌ BAD: Can cause timeouts
 beforeEach(async () => {
-  await page.goto("http://localhost:3060/test-page", {
+  await page.goto("http://localhost:3081/test-page", {
     waitUntil: "networkidle2"
   });
 });
 
 // ✅ OK: beforeAll with networkidle2 (for non-repeating setup)
 beforeAll(async () => {
-  await page.goto("http://localhost:3060", {
+  await page.goto("http://localhost:3081", {
     waitUntil: "networkidle2"
   });
 });
@@ -273,7 +273,7 @@ export default function TestPage() {
 ```typescript
 describe("Feature E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3060/test/feature-page");
+    await page.goto("http://localhost:3081/test/feature-page");
     await page.waitForSelector('[data-testid="test-container"]');
   });
 

@@ -1,6 +1,6 @@
 describe("ScrubberInput E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/coding-exercise/scrubber-input");
+    await page.goto("http://localhost:3081/test/coding-exercise/scrubber-input");
     await page.waitForSelector('[data-testid="scrubber-input-container"]', { timeout: 5000 });
   });
 
