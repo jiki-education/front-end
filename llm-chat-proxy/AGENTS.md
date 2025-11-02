@@ -15,6 +15,17 @@ git worktree add ../../worktrees/front-end-llm-chat-proxy-feature -b feature-bra
 cd ../../worktrees/front-end-llm-chat-proxy-feature/llm-chat-proxy
 ```
 
+**Note:** The `worktrees` directory should be parallel to `front-end` (the repository root), not parallel to individual project directories. Directory structure:
+```
+/Users/iHiD/Code/jiki/
+├── front-end/          # Main repository
+│   ├── app/
+│   ├── content/
+│   └── ...
+└── worktrees/          # Worktrees parallel to front-end
+    └── front-end-llm-chat-proxy-feature/
+```
+
 This isolates your work in a separate directory. Never work directly in the main repository directory.
 
 ---
