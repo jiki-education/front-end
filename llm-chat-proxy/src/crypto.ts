@@ -30,16 +30,14 @@ export async function generateSignature(payload: string, secret: string): Promis
  * This format must match exactly what Rails expects for verification.
  *
  * @param userId - User ID from JWT
- * @param exerciseSlug - Exercise identifier
  * @param assistantMessage - Full LLM response
  * @param timestamp - ISO 8601 timestamp
  * @returns Payload string for signing
  */
 export function createSignaturePayload(
   userId: string,
-  exerciseSlug: string,
   assistantMessage: string,
   timestamp: string
 ): string {
-  return `${userId}:${exerciseSlug}:${assistantMessage}:${timestamp}`;
+  return `${userId}:${assistantMessage}:${timestamp}`;
 }

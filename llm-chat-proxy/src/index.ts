@@ -101,7 +101,7 @@ app.post("/chat", async (c) => {
 
           // Generate signature after streaming completes
           try {
-            const payload = createSignaturePayload(userId, exerciseSlug, fullResponse, timestamp);
+            const payload = createSignaturePayload(userId, fullResponse, timestamp);
             const signature = await generateSignature(payload, c.env.LLM_SIGNATURE_SECRET);
 
             // Send signature as final SSE message
