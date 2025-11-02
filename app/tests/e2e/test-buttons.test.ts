@@ -1,6 +1,6 @@
 describe("Test Buttons E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/test-buttons");
+    await page.goto("http://localhost:3081/test/test-buttons");
 
     await page.waitForSelector('[data-testid="test-buttons-container"]', { timeout: 5000 });
 

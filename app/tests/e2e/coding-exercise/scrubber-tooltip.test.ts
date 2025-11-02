@@ -1,6 +1,6 @@
 describe("Scrubber Tooltip E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/coding-exercise/scrubber-tooltip");
+    await page.goto("http://localhost:3081/test/coding-exercise/scrubber-tooltip");
     await page.waitForSelector('[data-testid="scrubber"]', { timeout: 5000 });
   });
 

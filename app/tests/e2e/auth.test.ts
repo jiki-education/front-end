@@ -1,7 +1,7 @@
 describe("Authentication E2E", () => {
   describe("Landing Page", () => {
     it("should show landing page for unauthenticated users", async () => {
-      await page.goto("http://localhost:3070");
+      await page.goto("http://localhost:3081");
       await page.waitForSelector("h1");
 
       const heading = await page.$eval("h1", (el) => el.textContent);
@@ -16,7 +16,7 @@ describe("Authentication E2E", () => {
     });
 
     it("should navigate to login page when login button clicked", async () => {
-      await page.goto("http://localhost:3070");
+      await page.goto("http://localhost:3081");
       await page.waitForSelector('a[href="/auth/login"]');
 
       // Click the login link
@@ -33,7 +33,7 @@ describe("Authentication E2E", () => {
     });
 
     it("should navigate to signup page when signup button clicked", async () => {
-      await page.goto("http://localhost:3070");
+      await page.goto("http://localhost:3081");
       await page.waitForSelector('a[href="/auth/signup"]');
 
       // Click the signup link
@@ -52,7 +52,7 @@ describe("Authentication E2E", () => {
 
   describe("Login Page", () => {
     beforeEach(async () => {
-      await page.goto("http://localhost:3070/auth/login");
+      await page.goto("http://localhost:3081/auth/login");
       await page.waitForSelector("h2");
     });
 
@@ -100,7 +100,7 @@ describe("Authentication E2E", () => {
 
   describe("Signup Page", () => {
     beforeEach(async () => {
-      await page.goto("http://localhost:3070/auth/signup");
+      await page.goto("http://localhost:3081/auth/signup");
       await page.waitForSelector("h2");
     });
 
@@ -159,7 +159,7 @@ describe("Authentication E2E", () => {
   describe("Authentication Flow", () => {
     it("should redirect unauthenticated users from dashboard to login", async () => {
       // Clear any existing auth completely
-      await page.goto("http://localhost:3070", { waitUntil: "domcontentloaded" });
+      await page.goto("http://localhost:3081", { waitUntil: "domcontentloaded" });
       await page.evaluate(() => {
         localStorage.clear();
         sessionStorage.clear();
@@ -169,7 +169,7 @@ describe("Authentication E2E", () => {
       await page.reload({ waitUntil: "domcontentloaded" });
 
       // Try to access dashboard
-      await page.goto("http://localhost:3070/dashboard", { waitUntil: "domcontentloaded" });
+      await page.goto("http://localhost:3081/dashboard", { waitUntil: "domcontentloaded" });
 
       // Wait for auth system to resolve and redirect
       await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 5000 });
@@ -182,7 +182,7 @@ describe("Authentication E2E", () => {
   describe("Password Reset Flow", () => {
     describe("Forgot Password Page", () => {
       beforeEach(async () => {
-        await page.goto("http://localhost:3070/auth/forgot-password");
+        await page.goto("http://localhost:3081/auth/forgot-password");
         await page.waitForSelector("h2");
       });
 
@@ -279,7 +279,7 @@ describe("Authentication E2E", () => {
 
       it("should have forgot password link from login page", async () => {
         // Navigate to login page first
-        await page.goto("http://localhost:3070/auth/login");
+        await page.goto("http://localhost:3081/auth/login");
         await page.waitForSelector("h2");
 
         // Find and click the forgot password link
@@ -303,7 +303,7 @@ describe("Authentication E2E", () => {
     describe("Reset Password Page", () => {
       describe("With valid token", () => {
         beforeEach(async () => {
-          await page.goto("http://localhost:3070/auth/reset-password?token=valid-reset-token");
+          await page.goto("http://localhost:3081/auth/reset-password?token=valid-reset-token");
           await page.waitForSelector("h2");
         });
 
@@ -389,7 +389,7 @@ describe("Authentication E2E", () => {
 
       describe("Without token", () => {
         beforeEach(async () => {
-          await page.goto("http://localhost:3070/auth/reset-password");
+          await page.goto("http://localhost:3081/auth/reset-password");
           await page.waitForSelector("h2");
         });
 
@@ -425,7 +425,7 @@ describe("Authentication E2E", () => {
 
       describe("With token from URL parameter variations", () => {
         it("should work with reset_password_token parameter", async () => {
-          await page.goto("http://localhost:3070/auth/reset-password?reset_password_token=valid-token");
+          await page.goto("http://localhost:3081/auth/reset-password?reset_password_token=valid-token");
           await page.waitForSelector("h2");
 
           const heading = await page.$eval("h2", (el) => el.textContent);
@@ -437,7 +437,7 @@ describe("Authentication E2E", () => {
         });
 
         it("should work with token parameter", async () => {
-          await page.goto("http://localhost:3070/auth/reset-password?token=valid-token");
+          await page.goto("http://localhost:3081/auth/reset-password?token=valid-token");
           await page.waitForSelector("h2");
 
           const heading = await page.$eval("h2", (el) => el.textContent);

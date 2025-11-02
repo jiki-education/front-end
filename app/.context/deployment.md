@@ -22,7 +22,7 @@ Cloudflare Workers with Next.js Edge Runtime
 ## Environment Configuration
 
 - **Production URL**: TBD (pending launch)
-- **Development**: http://localhost:3060
+- **Development**: http://localhost:3061
 - **Edge Runtime**: Cloudflare Workers compatibility
 - **Features**:
   - Purchasing power parity (PPP) pricing based on location

@@ -1,6 +1,6 @@
 describe("Test Switching E2E", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:3070/test/coding-exercise/test-runner");
+    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
     await page.waitForSelector(".cm-editor", { timeout: 5000 });
 
     // Enter valid code to get test results
