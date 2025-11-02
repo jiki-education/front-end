@@ -24,6 +24,7 @@ This isolates your work in a separate directory. Never work directly in the main
 Cloudflare Workers proxy for LLM-powered coding help. Students ask questions about their code, get streaming responses from Gemini, signed with HMAC for Rails verification.
 
 **Key Architecture Decisions:**
+
 - Edge deployment for global low latency
 - Bundles `@jiki/curriculum` for zero-latency exercise context (no DB lookup)
 - HMAC signatures instead of direct Rails persistence (proxy is stateless)
