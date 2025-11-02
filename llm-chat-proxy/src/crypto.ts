@@ -34,10 +34,6 @@ export async function generateSignature(payload: string, secret: string): Promis
  * @param timestamp - ISO 8601 timestamp
  * @returns Payload string for signing
  */
-export function createSignaturePayload(
-  userId: string,
-  assistantMessage: string,
-  timestamp: string
-): string {
+export function createSignaturePayload(userId: string, assistantMessage: string, timestamp: string): string {
   return `${userId}:${assistantMessage}:${timestamp}`;
 }

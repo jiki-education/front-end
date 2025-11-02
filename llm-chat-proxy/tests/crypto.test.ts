@@ -123,9 +123,7 @@ describe("Crypto - HMAC Signature Generation", () => {
       const payload = createSignaturePayload("user123", longMessage, "2024-01-01T12:00:00Z");
 
       expect(payload).toContain(longMessage);
-      expect(payload.length).toBe(
-        "user123".length + 1 + longMessage.length + 1 + "2024-01-01T12:00:00Z".length
-      );
+      expect(payload.length).toBe("user123".length + 1 + longMessage.length + 1 + "2024-01-01T12:00:00Z".length);
     });
 
     it("should handle unicode in all components", () => {

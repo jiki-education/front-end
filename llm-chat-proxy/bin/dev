@@ -21,8 +21,4 @@ INTERPRETERS_PID=$!
 CURRICULUM_PID=$!
 
 # Start the LLM chat proxy with Wrangler (safer, closer to production)
-pnpm dev:wrangler --port 3063 &
-WRANGLER_PID=$!
-
-# Wait for wrangler to exit
-wait $WRANGLER_PID
+pnpm dev --port 3063

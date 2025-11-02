@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function DevPage() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -16,6 +18,18 @@ export default function DevPage() {
               <dd className="inline ml-2">{process.env.NEXT_RUNTIME ? "Edge Runtime" : "Node Runtime"}</dd>
             </div>
           </dl>
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6 mb-4">
+          <h2 className="text-xl font-semibold mb-3">Dev Pages</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/dev/llm-chat" className="text-blue-600 hover:underline">
+                LLM Chat Proxy Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- Test the LLM chat proxy with SSE streaming</span>
+            </li>
+          </ul>
         </div>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
