@@ -3,17 +3,25 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Rate limiting: 100 requests per hour per user
-# Uses Cloudflare's built-in rate limiting (works globally across all regions)
+# Rate limiting for development: 100 requests per minute
+# Note: Local dev only supports period of 10 or 60 seconds
 [[unsafe.bindings]]
+name = "RATE_LIMITER"
 type = "ratelimit"
 namespace_id = "llm_chat_rate_limit"
-simple = { limit = 100, period = 3600 }
+simple = { limit = 100, period = 60 }
 
 [env.production]
 name = "llm-chat-proxy"
 workers_dev = false
 route = "https://llm.jiki.app/*"
+
+# Rate limiting for production: 100 requests per hour
+[[env.production.unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "llm_chat_rate_limit"
+simple = { limit = 100, period = 3600 }
 
 # Environment variables are set via: wrangler secret put <NAME>
 # Required secrets:

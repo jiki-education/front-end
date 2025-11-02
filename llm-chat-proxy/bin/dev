@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+pnpm install
+
+# Start interpreters watch in background
+(cd ../interpreters && pnpm run dev) &
+INTERPRETERS_PID=$!
+
+# Start curriculum watch in background
+(cd ../curriculum && pnpm run dev) &
+CURRICULUM_PID=$!
+
+# Start the LLM chat proxy dev server
+pnpm dev
+
+# Kill background processes when this script exits
+trap "kill $INTERPRETERS_PID $CURRICULUM_PID 2>/dev/null" EXIT
