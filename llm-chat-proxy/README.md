@@ -39,8 +39,7 @@ pnpm lint
 # Set secrets (one time)
 wrangler secret put GOOGLE_GEMINI_API_KEY
 wrangler secret put DEVISE_JWT_SECRET_KEY
-wrangler secret put RAILS_API_URL
-wrangler secret put INTERNAL_API_SECRET
+wrangler secret put LLM_SIGNATURE_SECRET
 
 # Deploy
 pnpm deploy
@@ -74,7 +73,7 @@ Streams an AI response for a coding question.
 }
 ```
 
-**Response:** Text event stream (streaming response from Gemini)
+**Response:** Text event stream (streaming response from Gemini with HMAC signature at end)
 
 ### GET /health
 
@@ -93,19 +92,15 @@ Health check endpoint.
 
 - **Runtime**: Cloudflare Workers (Edge)
 - **Framework**: Hono
-- **LLM**: Google Gemini 2.0 Flash
+- **LLM**: Google Gemini 2.5 Flash-Lite
 - **Auth**: JWT (Devise JWT from Rails)
-- **Rate Limiting**: 50 messages/hour per user (in-memory)
+- **Rate Limiting**: 100 requests/hour (Cloudflare rate limiter, IP-based)
+- **Signatures**: HMAC-SHA256 for response verification
 - **Exercise Context**: Bundled from `@jiki/curriculum` package
 
 ## Documentation
 
 - **[AGENTS.md](AGENTS.md)** - Development guide for AI agents
-- **[.context/README.md](.context/README.md)** - Technical implementation details
-
-## Cost
-
-Estimated cost per message: ~$0.0004 (Gemini 2.0 Flash)
 
 ## License
 

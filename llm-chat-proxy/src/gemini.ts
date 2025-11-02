@@ -20,10 +20,10 @@ export async function streamGeminiResponse(
     model: "gemini-2.5-flash-lite",
     contents: prompt,
     config: {
-      temperature: 0.7,
-      topP: 0.9,
-      topK: 40,
-      maxOutputTokens: 2048
+      maxOutputTokens: 2048,
+      thinkingConfig: {
+        thinkingBudget: 0
+      }
     }
   });
 

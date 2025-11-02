@@ -90,19 +90,30 @@ app.post("/chat", async (c) => {
           }
 
           // Generate signature after streaming completes
-          const payload = createSignaturePayload(userId, exerciseSlug, fullResponse, timestamp);
-          const signature = await generateSignature(payload, c.env.LLM_SIGNATURE_SECRET);
+          try {
+            const payload = createSignaturePayload(userId, exerciseSlug, fullResponse, timestamp);
+            const signature = await generateSignature(payload, c.env.LLM_SIGNATURE_SECRET);
 
-          // Send signature as final SSE message
-          const signatureMessage = `data: ${JSON.stringify({
-            type: "signature",
-            signature,
-            timestamp,
-            exerciseSlug,
-            userMessage: question
-          })}\n\n`;
-          controller.enqueue(encoder.encode(signatureMessage));
-          signatureSent = true;
+            // Send signature as final SSE message
+            const signatureMessage = `data: ${JSON.stringify({
+              type: "signature",
+              signature,
+              timestamp,
+              exerciseSlug,
+              userMessage: question
+            })}\n\n`;
+            controller.enqueue(encoder.encode(signatureMessage));
+            signatureSent = true;
+          } catch (signatureError) {
+            // Signature generation failed - send error event so client knows not to save
+            console.error("Signature generation failed:", signatureError);
+            const errorMessage = `data: ${JSON.stringify({
+              type: "error",
+              error: "signature_generation_failed",
+              message: "Failed to generate signature. Response cannot be saved."
+            })}\n\n`;
+            controller.enqueue(encoder.encode(errorMessage));
+          }
 
           controller.close();
         } catch (error) {
