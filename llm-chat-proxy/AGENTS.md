@@ -16,6 +16,7 @@ cd ../../worktrees/front-end-llm-chat-proxy-feature/llm-chat-proxy
 ```
 
 **Note:** The `worktrees` directory should be parallel to `front-end` (the repository root), not parallel to individual project directories. Directory structure:
+
 ```
 /Users/iHiD/Code/jiki/
 ├── front-end/          # Main repository
