@@ -42,6 +42,8 @@ export default function LLMChatTestPage() {
   const [selectedExercise, setSelectedExercise] = useState<string>("basic-movement");
   const [code, setCode] = useState<string>("");
   const [isLoadingExercise, setIsLoadingExercise] = useState(false);
+  const [availableTasks, setAvailableTasks] = useState<Array<{ id: string; name: string }>>([]);
+  const [selectedTaskId, setSelectedTaskId] = useState<string>("");
 
   // Chat state
   const [question, setQuestion] = useState<string>("");
@@ -99,7 +101,8 @@ export default function LLMChatTestPage() {
       exerciseSlug: selectedExercise,
       code,
       question,
-      history: history.slice(-5) // Last 5 messages
+      history: history.slice(-5), // Last 5 messages
+      nextTaskId: selectedTaskId || undefined // Only include if set
     };
 
     addDebugEvent("request", requestPayload);
@@ -165,6 +168,12 @@ export default function LLMChatTestPage() {
                 isLoading={isLoadingExercise}
               />
 
+              <TaskSelector
+                availableTasks={availableTasks}
+                selectedTaskId={selectedTaskId}
+                onSelectTask={setSelectedTaskId}
+              />
+
               <CodeEditor code={code} onChange={setCode} />
 
               <QuestionInput
@@ -209,9 +218,20 @@ export default function LLMChatTestPage() {
       // Get initial code from exercise definition
       const starterCode = exercise.initialCode || "// Write your code here";
       setCode(starterCode);
+
+      // Load available tasks
+      const tasks = exercise.tasks.map((task) => ({
+        id: task.id,
+        name: task.name
+      }));
+      setAvailableTasks(tasks);
+      // Auto-select first task
+      setSelectedTaskId(tasks.length > 0 ? tasks[0].id : "");
     } catch (err) {
       console.error("Failed to load exercise:", err);
       setCode("// Failed to load exercise code");
+      setAvailableTasks([]);
+      setSelectedTaskId("");
     } finally {
       setIsLoadingExercise(false);
     }
@@ -467,6 +487,34 @@ function AuthSection({
       >
         {isAuthLoading ? "Logging in..." : "Login as ihid@jiki.io"}
       </button>
+    </div>
+  );
+}
+
+function TaskSelector({
+  availableTasks,
+  selectedTaskId,
+  onSelectTask
+}: {
+  availableTasks: Array<{ id: string; name: string }>;
+  selectedTaskId: string;
+  onSelectTask: (taskId: string) => void;
+}) {
+  return (
+    <div className="bg-white rounded-lg shadow p-4">
+      <label className="block text-sm font-semibold mb-2">Current Task (for LLM context)</label>
+      <select
+        value={selectedTaskId}
+        onChange={(e) => onSelectTask(e.target.value)}
+        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="">No specific task (exercise-level guidance only)</option>
+        {availableTasks.map((task) => (
+          <option key={task.id} value={task.id}>
+            {task.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

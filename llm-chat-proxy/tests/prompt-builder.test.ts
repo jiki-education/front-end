@@ -108,6 +108,71 @@ describe("Prompt Builder", () => {
 
     expect(prompt).toContain("HINTS AVAILABLE:");
   });
+
+  it("should include LLM teaching context when metadata available", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: []
+    });
+
+    expect(prompt).toContain("TEACHING CONTEXT:");
+  });
+
+  it("should include task-specific guidance when nextTaskId provided", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "create-acronym-function"
+    });
+
+    expect(prompt).toContain("TEACHING CONTEXT:");
+    expect(prompt).toContain("CURRENT TASK GUIDANCE:");
+  });
+
+  it("should only show exercise-level guidance when nextTaskId not provided", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: []
+    });
+
+    expect(prompt).toContain("TEACHING CONTEXT:");
+    expect(prompt).not.toContain("CURRENT TASK GUIDANCE:");
+  });
+
+  it("should handle invalid nextTaskId gracefully", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "non-existent-task"
+    });
+
+    // Should still include exercise context
+    expect(prompt).toContain("TEACHING CONTEXT:");
+    // But not task guidance for invalid task
+    expect(prompt).not.toContain("CURRENT TASK GUIDANCE:");
+  });
+
+  it("should work with exercises that have no LLM metadata", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "basic-movement",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "move-character"
+    });
+
+    // Should still build prompt successfully
+    expect(prompt).toContain("EXERCISE:");
+    expect(prompt).toContain("STUDENT QUESTION:");
+  });
 });
 
 describe("Input Validation", () => {

@@ -3,6 +3,7 @@ export interface ChatRequest {
   code: string;
   question: string;
   history?: ChatMessage[];
+  nextTaskId?: string;
 }
 
 export interface ChatMessage {

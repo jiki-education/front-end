@@ -7,6 +7,7 @@ interface PromptOptions {
   code: string;
   question: string;
   history: ChatMessage[];
+  nextTaskId?: string;
 }
 
 // Input validation limits to prevent abuse and prompt injection
@@ -64,7 +65,7 @@ function validateInput(code: string, question: string, history: ChatMessage[]): 
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<string> {
-  const { exerciseSlug, code, question, history } = options;
+  const { exerciseSlug, code, question, history, nextTaskId } = options;
 
   // Validate input before building prompt
   validateInput(code, question, history);
@@ -80,7 +81,7 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   const llmMetadata = getLLMMetadata(exerciseSlug);
 
   // Build exercise context
-  const exerciseContext = buildExerciseContext(exercise, llmMetadata);
+  const exerciseContext = buildExerciseContext(exercise, llmMetadata, nextTaskId);
 
   // Build conversation history (last 5 messages only to manage token count)
   const conversationHistory = history
@@ -112,7 +113,38 @@ INSTRUCTIONS:
 Response:`;
 }
 
-function buildExerciseContext(exercise: ExerciseDefinition, llmMetadata?: LLMMetadata): string {
+/**
+ * Builds LLM-specific teaching guidance from metadata.
+ * Returns early if no metadata available.
+ *
+ * @param llmMetadata - Exercise LLM metadata (if available)
+ * @param nextTaskId - ID of the task the student is currently working on
+ * @returns LLM guidance string, or empty string if no metadata
+ */
+function buildLLMGuidance(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string {
+  if (!llmMetadata) {
+    return "";
+  }
+
+  const parts: string[] = [];
+
+  // Always include exercise-level teaching context
+  parts.push(`TEACHING CONTEXT: ${llmMetadata.description}`);
+
+  // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
+  if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
+    const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
+    parts.push(`CURRENT TASK GUIDANCE: ${taskMeta.description}`);
+  }
+
+  return parts.join("\n\n");
+}
+
+function buildExerciseContext(
+  exercise: ExerciseDefinition,
+  llmMetadata: LLMMetadata | undefined,
+  nextTaskId?: string
+): string {
   const parts: string[] = [];
 
   if (exercise.instructions !== undefined) {
@@ -127,24 +159,10 @@ function buildExerciseContext(exercise: ExerciseDefinition, llmMetadata?: LLMMet
     parts.push(`TASKS:\n${exercise.tasks.map((task) => `- ${task.name}`).join("\n")}`);
   }
 
-  // Include LLM-specific guidance if available
-  if (llmMetadata !== undefined) {
-    parts.push(`TEACHING CONTEXT: ${llmMetadata.description}`);
-
-    // Add task-specific guidance if available
-    if (exercise.tasks !== undefined && exercise.tasks.length > 0) {
-      const taskGuidance = exercise.tasks
-        .map((task) => {
-          const taskMeta = llmMetadata.tasks[task.id as keyof typeof llmMetadata.tasks];
-          return taskMeta ? `- ${task.name}: ${taskMeta.description}` : null;
-        })
-        .filter((guidance) => guidance !== null)
-        .join("\n");
-
-      if (taskGuidance.length > 0) {
-        parts.push(`TASK-SPECIFIC GUIDANCE:\n${taskGuidance}`);
-      }
-    }
+  // Include LLM-specific guidance
+  const llmGuidance = buildLLMGuidance(llmMetadata, nextTaskId);
+  if (llmGuidance) {
+    parts.push(llmGuidance);
   }
 
   return parts.join("\n\n");
