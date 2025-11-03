@@ -102,38 +102,36 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           </div>
 
           <div className="w-1/3 border-l border-gray-200 flex flex-col bg-white">
-            <InstructionsPanel
-              instructions={orchestrator.getExerciseInstructions()}
-              className="border-b border-gray-200"
+            <TabPanel
+              tabs={[
+                {
+                  id: "instructions",
+                  label: "Instructions",
+                  content: <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} />
+                },
+                {
+                  id: "tasks",
+                  label: "Tasks",
+                  content: <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />
+                },
+                {
+                  id: "functions",
+                  label: "Functions",
+                  content: <FunctionsView functions={orchestrator.getExercise().functions} />
+                },
+                {
+                  id: "hints",
+                  label: "Hints",
+                  content: <HintsView hints={orchestrator.getExercise().hints} />
+                },
+                {
+                  id: "console",
+                  label: "Console",
+                  content: <ConsoleTab />
+                }
+              ]}
+              defaultActiveTab="instructions"
             />
-
-            <div className="flex-1 overflow-hidden">
-              <TabPanel
-                tabs={[
-                  {
-                    id: "tasks",
-                    label: "Tasks",
-                    content: <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />
-                  },
-                  {
-                    id: "functions",
-                    label: "Functions",
-                    content: <FunctionsView functions={orchestrator.getExercise().functions} />
-                  },
-                  {
-                    id: "hints",
-                    label: "Hints",
-                    content: <HintsView hints={orchestrator.getExercise().hints} />
-                  },
-                  {
-                    id: "console",
-                    label: "Console",
-                    content: <ConsoleTab />
-                  }
-                ]}
-                defaultActiveTab="tasks"
-              />
-            </div>
           </div>
         </div>
 
