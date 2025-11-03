@@ -601,14 +601,11 @@ function ConversationHistory({ history }: { history: ChatMessage[] }) {
   return (
     <div className="bg-white rounded-lg shadow p-4">
       <h3 className="text-sm font-semibold mb-2">Conversation History</h3>
-      <div className="space-y-2 max-h-48 overflow-y-auto">
+      <div className="space-y-3 max-h-96 overflow-y-auto">
         {history.slice(-5).map((msg, idx) => (
           <div key={idx} className="text-sm">
-            <span className="font-semibold">{msg.role === "user" ? "You: " : "Assistant: "}</span>
-            <span className="text-gray-700">
-              {msg.content.substring(0, 100)}
-              {msg.content.length > 100 ? "..." : ""}
-            </span>
+            <div className="font-semibold mb-1">{msg.role === "user" ? "You:" : "Assistant:"}</div>
+            <div className="text-gray-700 whitespace-pre-wrap">{msg.content}</div>
           </div>
         ))}
       </div>

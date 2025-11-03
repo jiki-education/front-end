@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname, "..")
   },
   transpilePackages: ["interpreters", "@jiki/curriculum"],
-  allowedDevOrigins: ["localhost", "local.exercism.io"]
+  allowedDevOrigins: ["localhost", "local.jiki.io"]
 };
 
 export default nextConfig;
