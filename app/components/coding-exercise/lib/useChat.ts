@@ -1,8 +1,9 @@
 import { useCallback } from "react";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
-import { sendChatMessage, ChatApiError } from "./chatApi";
+import { sendChatMessage } from "./chatApi";
 import { saveConversation } from "./conversationApi";
+import { formatChatError } from "./chatErrorHandler";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
@@ -51,7 +52,7 @@ export function useChat(orchestrator: Orchestrator) {
           }
         );
       } catch (error) {
-        const errorMessage = error instanceof ChatApiError ? error.message : "Failed to send message";
+        const errorMessage = formatChatError(error);
         chatState.setError(errorMessage);
         chatState.setStatus("error");
       }
@@ -63,11 +64,37 @@ export function useChat(orchestrator: Orchestrator) {
     chatState.clearChat();
   }, [chatState]);
 
+  const retryLastMessage = useCallback(() => {
+    if (chatState.status === "error" && chatState.messages.length > 0) {
+      const lastUserMessage = [...chatState.messages].reverse().find((msg) => msg.role === "user");
+
+      if (lastUserMessage) {
+        // Remove the failed message pair from history
+        const newMessages = chatState.messages.slice(0, -2);
+        chatState.clearChat();
+        newMessages.forEach((msg) => chatState.addMessage(msg));
+
+        // Retry the message
+        void sendMessage(lastUserMessage.content);
+      }
+    }
+  }, [chatState, sendMessage]);
+
+  const clearError = useCallback(() => {
+    if (chatState.status === "error") {
+      chatState.setError(null);
+      chatState.setStatus("idle");
+    }
+  }, [chatState]);
+
   return {
     ...chatState,
     context,
     sendMessage,
     clearConversation,
-    isDisabled: chatState.status === "streaming"
+    retryLastMessage,
+    clearError,
+    isDisabled: chatState.status === "streaming",
+    canRetry: chatState.status === "error" && chatState.messages.length > 0
   };
 }
