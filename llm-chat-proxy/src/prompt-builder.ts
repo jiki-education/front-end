@@ -1,5 +1,5 @@
-import { getExercise } from "@jiki/curriculum";
-import type { ExerciseDefinition } from "@jiki/curriculum";
+import { getExercise, getLLMMetadata } from "@jiki/curriculum";
+import type { ExerciseDefinition, LLMMetadata } from "@jiki/curriculum";
 import type { ChatMessage } from "./types";
 
 interface PromptOptions {
@@ -76,8 +76,11 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
     throw new Error(`Exercise not found: ${exerciseSlug}`);
   }
 
+  // Get LLM metadata for context-aware help
+  const llmMetadata = getLLMMetadata(exerciseSlug);
+
   // Build exercise context
-  const exerciseContext = buildExerciseContext(exercise);
+  const exerciseContext = buildExerciseContext(exercise, llmMetadata);
 
   // Build conversation history (last 5 messages only to manage token count)
   const conversationHistory = history
@@ -109,7 +112,7 @@ INSTRUCTIONS:
 Response:`;
 }
 
-function buildExerciseContext(exercise: ExerciseDefinition): string {
+function buildExerciseContext(exercise: ExerciseDefinition, llmMetadata?: LLMMetadata): string {
   const parts: string[] = [];
 
   if (exercise.instructions !== undefined) {
@@ -122,6 +125,26 @@ function buildExerciseContext(exercise: ExerciseDefinition): string {
 
   if (exercise.tasks !== undefined && exercise.tasks.length > 0) {
     parts.push(`TASKS:\n${exercise.tasks.map((task) => `- ${task.name}`).join("\n")}`);
+  }
+
+  // Include LLM-specific guidance if available
+  if (llmMetadata !== undefined) {
+    parts.push(`TEACHING CONTEXT: ${llmMetadata.description}`);
+
+    // Add task-specific guidance if available
+    if (exercise.tasks !== undefined && exercise.tasks.length > 0) {
+      const taskGuidance = exercise.tasks
+        .map((task) => {
+          const taskMeta = llmMetadata.tasks[task.id as keyof typeof llmMetadata.tasks];
+          return taskMeta ? `- ${task.name}: ${taskMeta.description}` : null;
+        })
+        .filter((guidance) => guidance !== null)
+        .join("\n");
+
+      if (taskGuidance.length > 0) {
+        parts.push(`TASK-SPECIFIC GUIDANCE:\n${taskGuidance}`);
+      }
+    }
   }
 
   return parts.join("\n\n");
