@@ -12,9 +12,9 @@ describe("Prompt Builder", () => {
 
     expect(prompt).toContain('console.log("hello")');
     expect(prompt).toContain("How do I fix this?");
-    expect(prompt).toContain("EXERCISE:");
-    expect(prompt).toContain("CURRENT CODE:");
-    expect(prompt).toContain("STUDENT QUESTION:");
+    expect(prompt).toContain("## Exercise:");
+    expect(prompt).toContain("## Current Code");
+    expect(prompt).toContain("## Student Last post:");
   });
 
   it("should include exercise title", async () => {
@@ -41,7 +41,7 @@ describe("Prompt Builder", () => {
 
     expect(prompt).toContain("Previous question");
     expect(prompt).toContain("Previous answer");
-    expect(prompt).toContain("CONVERSATION HISTORY");
+    expect(prompt).toContain("## Conversation History:");
   });
 
   it("should limit conversation history to last 5 messages", async () => {
@@ -84,7 +84,7 @@ describe("Prompt Builder", () => {
       history: []
     });
 
-    expect(prompt).not.toContain("CONVERSATION HISTORY");
+    expect(prompt).not.toContain("## Conversation History:");
   });
 
   it("should include exercise instructions", async () => {
@@ -170,8 +170,8 @@ describe("Prompt Builder", () => {
     });
 
     // Should still build prompt successfully
-    expect(prompt).toContain("EXERCISE:");
-    expect(prompt).toContain("STUDENT QUESTION:");
+    expect(prompt).toContain("## Exercise:");
+    expect(prompt).toContain("## Student Last post:");
   });
 });
 

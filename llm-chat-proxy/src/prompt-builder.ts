@@ -80,37 +80,19 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   // Get LLM metadata for context-aware help
   const llmMetadata = getLLMMetadata(exerciseSlug);
 
-  // Build exercise context
-  const exerciseContext = buildExerciseContext(exercise, llmMetadata, nextTaskId);
+  // Build prompt sections
+  const sections = [
+    buildSystemMessage(),
+    buildExerciseSection(exercise),
+    buildExerciseContext(exercise, llmMetadata, nextTaskId),
+    buildConversationHistorySection(history),
+    buildStudentQuestionSection(question),
+    buildCurrentCodeSection(code),
+    buildInstructionsSection()
+  ];
 
-  // Build conversation history (last 5 messages only to manage token count)
-  const conversationHistory = history
-    .slice(-5)
-    .map((msg) => `${msg.role === "user" ? "Student" : "Tutor"}: ${msg.content}`)
-    .join("\n\n");
-
-  return `You are a helpful coding tutor assisting a student with a programming exercise.
-
-EXERCISE: ${exercise.title}
-${exerciseContext}
-
-CURRENT CODE:
-\`\`\`javascript
-${code}
-\`\`\`
-
-${conversationHistory.length > 0 ? `CONVERSATION HISTORY:\n${conversationHistory}\n\n` : ""}STUDENT QUESTION:
-${question}
-
-INSTRUCTIONS:
-- Provide a helpful, educational response that guides the student
-- Don't give away the complete solution
-- Focus on teaching concepts and debugging strategies
-- Ask guiding questions when appropriate
-- Reference the specific parts of their code that need attention
-- Keep responses concise and focused (2-3 paragraphs maximum)
-
-Response:`;
+  // Filter out null sections and join with double newlines
+  return sections.filter((section) => section !== null).join("\n\n");
 }
 
 /**
@@ -166,4 +148,50 @@ function buildExerciseContext(
   }
 
   return parts.join("\n\n");
+}
+
+function buildSystemMessage(): string {
+  return "You are a helpful coding tutor assisting a student with a programming exercise.";
+}
+
+function buildExerciseSection(exercise: ExerciseDefinition): string {
+  return `## Exercise: ${exercise.title}`;
+}
+
+function buildCurrentCodeSection(code: string): string {
+  return `## Current Code
+
+\`\`\`javascript
+${code}
+\`\`\``;
+}
+
+function buildConversationHistorySection(history: ChatMessage[]): string | null {
+  if (history.length === 0) {
+    return null;
+  }
+
+  const conversationHistory = history
+    .slice(-5)
+    .map((msg) => `${msg.role === "user" ? "Student" : "Tutor"}: ${msg.content}`)
+    .join("\n\n");
+
+  return `## Conversation History:\n${conversationHistory}`;
+}
+
+function buildStudentQuestionSection(question: string): string {
+  return `## Student Last post:
+${question}`;
+}
+
+function buildInstructionsSection(): string {
+  return `## Instructions:
+- Provide a helpful, educational response that guides the student
+- Don't give away the complete solution
+- Focus on teaching concepts and debugging strategies
+- Ask guiding questions when appropriate
+- Reference the specific parts of their code that need attention
+- Keep responses concise and focused (1-3 sentences maximum. You can use markdown)
+
+Response:`;
 }
