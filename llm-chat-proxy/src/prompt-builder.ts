@@ -84,70 +84,15 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   const sections = [
     buildSystemMessage(),
     buildExerciseSection(exercise),
-    buildExerciseContext(exercise, llmMetadata, nextTaskId),
+    buildLLMGuidance(llmMetadata, nextTaskId),
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
     buildCurrentCodeSection(code),
     buildInstructionsSection()
   ];
 
-  // Filter out null sections and join with double newlines
-  return sections.filter((section) => section !== null).join("\n\n");
-}
-
-/**
- * Builds LLM-specific teaching guidance from metadata.
- * Returns early if no metadata available.
- *
- * @param llmMetadata - Exercise LLM metadata (if available)
- * @param nextTaskId - ID of the task the student is currently working on
- * @returns LLM guidance string, or empty string if no metadata
- */
-function buildLLMGuidance(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string {
-  if (!llmMetadata) {
-    return "";
-  }
-
-  const parts: string[] = [];
-
-  // Always include exercise-level teaching context
-  parts.push(`TEACHING CONTEXT: ${llmMetadata.description}`);
-
-  // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
-  if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
-    const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
-    parts.push(`CURRENT TASK GUIDANCE: ${taskMeta.description}`);
-  }
-
-  return parts.join("\n\n");
-}
-
-function buildExerciseContext(
-  exercise: ExerciseDefinition,
-  llmMetadata: LLMMetadata | undefined,
-  nextTaskId?: string
-): string {
-  const parts: string[] = [];
-
-  if (exercise.instructions !== undefined) {
-    parts.push(`INSTRUCTIONS: ${exercise.instructions}`);
-  }
-
-  if (exercise.hints !== undefined && exercise.hints.length > 0) {
-    parts.push(`HINTS AVAILABLE:\n${exercise.hints.map((hint) => `- ${hint}`).join("\n")}`);
-  }
-
-  if (exercise.tasks !== undefined && exercise.tasks.length > 0) {
-    parts.push(`TASKS:\n${exercise.tasks.map((task) => `- ${task.name}`).join("\n")}`);
-  }
-
-  // Include LLM-specific guidance
-  const llmGuidance = buildLLMGuidance(llmMetadata, nextTaskId);
-  if (llmGuidance) {
-    parts.push(llmGuidance);
-  }
-
-  return parts.join("\n\n");
+  // Filter out null/empty sections and join with double newlines
+  return sections.filter((section) => section !== null && section !== "").join("\n\n");
 }
 
 function buildSystemMessage(): string {
@@ -158,12 +103,23 @@ function buildExerciseSection(exercise: ExerciseDefinition): string {
   return `## Exercise: ${exercise.title}`;
 }
 
-function buildCurrentCodeSection(code: string): string {
-  return `## Current Code
+function buildLLMGuidance(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string {
+  if (!llmMetadata) {
+    return "";
+  }
 
-\`\`\`javascript
-${code}
-\`\`\``;
+  const parts: string[] = [];
+
+  // Always include exercise-level teaching context
+  parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
+
+  // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
+  if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
+    const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
+    parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+  }
+
+  return parts.join("\n\n");
 }
 
 function buildConversationHistorySection(history: ChatMessage[]): string | null {
@@ -173,15 +129,23 @@ function buildConversationHistorySection(history: ChatMessage[]): string | null 
 
   const conversationHistory = history
     .slice(-5)
-    .map((msg) => `${msg.role === "user" ? "Student" : "Tutor"}: ${msg.content}`)
+    .map((msg) => `${msg.role === "user" ? "Student" : "You"}: ${msg.content}`)
     .join("\n\n");
 
-  return `## Conversation History:\n${conversationHistory}`;
+  return `## Conversation History\n${conversationHistory}`;
 }
 
 function buildStudentQuestionSection(question: string): string {
-  return `## Student Last post:
+  return `## Student Last post
 ${question}`;
+}
+
+function buildCurrentCodeSection(code: string): string {
+  return `## Current Code
+
+\`\`\`javascript
+${code}
+\`\`\``;
 }
 
 function buildInstructionsSection(): string {
