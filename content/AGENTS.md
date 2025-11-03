@@ -15,6 +15,18 @@ git worktree add ../../worktrees/front-end-app-feature-branch -b feature-branch-
 cd ../../worktrees/front-end-app-feature-branch/content
 ```
 
+**Note:** The `worktrees` directory should be parallel to `front-end` (the repository root), not parallel to individual project directories. Directory structure:
+
+```
+/Users/iHiD/Code/jiki/
+├── front-end/          # Main repository
+│   ├── app/
+│   ├── content/
+│   └── ...
+└── worktrees/          # Worktrees parallel to front-end
+    └── front-end-app-feature-branch/
+```
+
 This isolates your work in a separate directory. Never work directly in the main repository directory.
 
 ---

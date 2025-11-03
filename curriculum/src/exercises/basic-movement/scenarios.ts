@@ -1,24 +1,24 @@
 import type { Task, VisualScenario } from "../types";
 import type BasicMovementExercise from "./Exercise";
 
-export const tasks: Task[] = [
+export const tasks = [
   {
-    id: "move-character",
+    id: "move-character" as const,
     name: "Move the character",
     description: "Learn basic movement by calling the move() function",
     hints: ["Call move() to advance the character", "Each move() call advances by 20 units"],
-    requiredScenarios: ["start-at-0", "start-at-50"], // Both must pass
+    requiredScenarios: ["start-at-0", "start-at-50"],
     bonus: false
   },
   {
-    id: "bonus-challenges",
+    id: "bonus-challenges" as const,
     name: "Bonus challenges",
     description: "Try more advanced movement challenges",
     hints: ["You'll need to call move() more times", "Practice makes perfect!"],
     requiredScenarios: ["bonus-double-movement"],
     bonus: true
   }
-];
+] as const satisfies readonly Task[];
 
 export const scenarios: VisualScenario[] = [
   {

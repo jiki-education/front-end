@@ -55,6 +55,8 @@ The dev server runs on port 3061 by default:
 - Uses webpack (Turbopack disabled due to pnpm workspace compatibility issues)
 - Hot module replacement enabled
 
+**For AI assistants**: The `./bin/dev-claude` script runs on port 3071
+
 ### Important Notes
 
 - **Build Command**: Avoid using `pnpm run build` during development as it can cause the dev server to break with ENOENT errors for buildManifest.js.tmp files

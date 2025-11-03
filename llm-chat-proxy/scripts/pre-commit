@@ -1,0 +1,48 @@
+#!/bin/sh
+# Get absolute path to llm-chat-proxy directory and change to it
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+LLM_CHAT_PROXY_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$LLM_CHAT_PROXY_DIR" || exit 1
+
+echo "Running pre-commit checks..."
+
+# Run TypeScript type checking
+echo "🔷 Running TypeScript type check..."
+pnpm exec tsc --noEmit
+if [ $? -ne 0 ]; then
+    echo "❌ TypeScript type check failed. Commit aborted."
+    exit 1
+fi
+
+# Run formatter on changed files only
+echo "💅 Formatting changed files..."
+STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^llm-chat-proxy/" | grep -E '\.(ts|js|json|md|yml|yaml)$' | sed 's|^llm-chat-proxy/||' || true)
+if [ -n "$STAGED_FILES_RELATIVE" ]; then
+    echo "Formatting: $STAGED_FILES_RELATIVE"
+    # Convert relative paths to absolute paths for prettier
+    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$LLM_CHAT_PROXY_DIR/|")
+    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
+    # Git add needs paths relative to repo root (llm-chat-proxy/...)
+    STAGED_FILES_FOR_GIT=$(echo "$STAGED_FILES_RELATIVE" | sed 's|^|llm-chat-proxy/|')
+    git add $STAGED_FILES_FOR_GIT
+else
+    echo "No files to format"
+fi
+
+# Run lint check (treating warnings as errors)
+echo "🔍 Running lint check..."
+pnpm run lint --max-warnings=0
+if [ $? -ne 0 ]; then
+    echo "❌ Lint check failed (errors or warnings found). Commit aborted."
+    exit 1
+fi
+
+# Run tests
+echo "🧪 Running tests..."
+pnpm test
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed. Commit aborted."
+    exit 1
+fi
+
+echo "✅ All checks passed!"

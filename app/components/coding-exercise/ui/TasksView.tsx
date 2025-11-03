@@ -5,7 +5,7 @@ import type { Orchestrator } from "../lib/Orchestrator";
 import { useOrchestratorStore } from "../lib/orchestrator/store";
 
 interface TasksViewProps {
-  tasks: Task[] | undefined;
+  tasks: readonly Task[] | undefined;
   orchestrator: Orchestrator;
   className?: string;
 }

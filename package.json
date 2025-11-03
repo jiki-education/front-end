@@ -9,11 +9,13 @@
     "test:content": "pnpm --filter @jiki/content test",
     "test:curriculum": "pnpm --filter @jiki/curriculum test",
     "test:interpreters": "pnpm --filter @jiki/interpreters test",
+    "test:llm-chat-proxy": "pnpm --filter @jiki/llm-chat-proxy test",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",
     "format:check": "pnpm -r format:check",
     "dev:app": "pnpm --filter @jiki/app dev",
+    "dev:llm-chat-proxy": "pnpm --filter @jiki/llm-chat-proxy dev",
     "build:app": "pnpm --filter @jiki/app build",
     "prepare": "husky"
   },

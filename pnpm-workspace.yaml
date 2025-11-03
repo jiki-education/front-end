@@ -3,3 +3,4 @@ packages:
   - "content"
   - "curriculum"
   - "interpreters"
+  - "llm-chat-proxy"

@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# Cleanup function to kill all background processes
+cleanup() {
+  echo "Stopping services..."
+  kill $INTERPRETERS_PID $CURRICULUM_PID $WRANGLER_PID 2>/dev/null
+  exit 0
+}
+
+# Trap EXIT, SIGINT (Ctrl-C), and SIGTERM
+trap cleanup EXIT INT TERM
+
+pnpm install
+
+# Start interpreters watch in background
+(cd ../interpreters && pnpm run dev) &
+INTERPRETERS_PID=$!
+
+# Start curriculum watch in background
+(cd ../curriculum && pnpm run dev) &
+CURRICULUM_PID=$!
+
+# Start the LLM chat proxy with Wrangler (safer, closer to production)
+pnpm dev --port 3063

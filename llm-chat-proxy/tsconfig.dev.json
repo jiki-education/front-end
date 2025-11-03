@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "paths": {
+      "@jiki/curriculum": ["../curriculum/src/index.ts"],
+      "@jiki/curriculum/*": ["../curriculum/src/*"],
+      "@jiki/interpreters": ["../interpreters/src/index.ts"],
+      "@jiki/interpreters/*": ["../interpreters/src/*"]
+    }
+  }
+}
