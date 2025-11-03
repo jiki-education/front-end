@@ -1,8 +1,8 @@
 import type { Task, IOScenario } from "../types";
 
-export const tasks: Task[] = [
+export const tasks = [
   {
-    id: "create-acronym-function",
+    id: "create-acronym-function" as const,
     name: "Create acronym function",
     description:
       "Write a function that takes a phrase and returns an acronym. The acronym should be formed by taking the first letter of each word and converting it to uppercase.",
@@ -15,7 +15,7 @@ export const tasks: Task[] = [
     requiredScenarios: ["png", "ror", "first-word-only", "hyphenated"],
     bonus: false
   }
-];
+] as const satisfies readonly Task[];
 
 export const scenarios: IOScenario[] = [
   {

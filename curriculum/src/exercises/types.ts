@@ -13,7 +13,7 @@ interface BaseExerciseDefinition {
 
   // Core components
   initialCode: string;
-  tasks: Task[];
+  tasks: readonly Task[];
 
   // Optional
   hints?: string[];

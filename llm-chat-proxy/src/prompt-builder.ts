@@ -1,5 +1,5 @@
-import { getExercise } from "@jiki/curriculum";
-import type { ExerciseDefinition } from "@jiki/curriculum";
+import { getExercise, getLLMMetadata } from "@jiki/curriculum";
+import type { ExerciseDefinition, LLMMetadata } from "@jiki/curriculum";
 import type { ChatMessage } from "./types";
 
 interface PromptOptions {
@@ -7,6 +7,7 @@ interface PromptOptions {
   code: string;
   question: string;
   history: ChatMessage[];
+  nextTaskId?: string;
 }
 
 // Input validation limits to prevent abuse and prompt injection
@@ -64,7 +65,7 @@ function validateInput(code: string, question: string, history: ChatMessage[]): 
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<string> {
-  const { exerciseSlug, code, question, history } = options;
+  const { exerciseSlug, code, question, history, nextTaskId } = options;
 
   // Validate input before building prompt
   validateInput(code, question, history);
@@ -76,53 +77,86 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
     throw new Error(`Exercise not found: ${exerciseSlug}`);
   }
 
-  // Build exercise context
-  const exerciseContext = buildExerciseContext(exercise);
+  // Get LLM metadata for context-aware help
+  const llmMetadata = getLLMMetadata(exerciseSlug);
 
-  // Build conversation history (last 5 messages only to manage token count)
+  // Build prompt sections
+  const sections = [
+    buildSystemMessage(),
+    buildExerciseSection(exercise, llmMetadata, nextTaskId),
+    buildConversationHistorySection(history),
+    buildStudentQuestionSection(question),
+    buildCurrentCodeSection(code),
+    buildInstructionsSection()
+  ];
+
+  // Filter out null/empty sections and join with double newlines
+  return sections.filter((section) => section !== null && section !== "").join("\n\n");
+}
+
+function buildSystemMessage(): string {
+  return "You are a helpful coding tutor assisting a student with a programming exercise.";
+}
+
+function buildExerciseSection(
+  exercise: ExerciseDefinition,
+  llmMetadata: LLMMetadata | undefined,
+  nextTaskId?: string
+): string {
+  const parts: string[] = [];
+
+  // Exercise title
+  parts.push(`## Exercise: ${exercise.title}`);
+
+  // LLM metadata if available
+  if (llmMetadata) {
+    // Always include exercise-level teaching context
+    parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
+
+    // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
+    if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
+      const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
+      parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+    }
+  }
+
+  return parts.join("\n\n");
+}
+
+function buildConversationHistorySection(history: ChatMessage[]): string | null {
+  if (history.length === 0) {
+    return null;
+  }
+
   const conversationHistory = history
     .slice(-5)
-    .map((msg) => `${msg.role === "user" ? "Student" : "Tutor"}: ${msg.content}`)
+    .map((msg) => `${msg.role === "user" ? "Student" : "You"}: ${msg.content}`)
     .join("\n\n");
 
-  return `You are a helpful coding tutor assisting a student with a programming exercise.
+  return `## Conversation History\n${conversationHistory}`;
+}
 
-EXERCISE: ${exercise.title}
-${exerciseContext}
+function buildStudentQuestionSection(question: string): string {
+  return `## Student Last post
+${question}`;
+}
 
-CURRENT CODE:
+function buildCurrentCodeSection(code: string): string {
+  return `## Current Code
+
 \`\`\`javascript
 ${code}
-\`\`\`
+\`\`\``;
+}
 
-${conversationHistory.length > 0 ? `CONVERSATION HISTORY:\n${conversationHistory}\n\n` : ""}STUDENT QUESTION:
-${question}
-
-INSTRUCTIONS:
+function buildInstructionsSection(): string {
+  return `## Instructions:
 - Provide a helpful, educational response that guides the student
 - Don't give away the complete solution
 - Focus on teaching concepts and debugging strategies
 - Ask guiding questions when appropriate
 - Reference the specific parts of their code that need attention
-- Keep responses concise and focused (2-3 paragraphs maximum)
+- Keep responses concise and focused (1-3 sentences maximum. You can use markdown)
 
 Response:`;
-}
-
-function buildExerciseContext(exercise: ExerciseDefinition): string {
-  const parts: string[] = [];
-
-  if (exercise.instructions !== undefined) {
-    parts.push(`INSTRUCTIONS: ${exercise.instructions}`);
-  }
-
-  if (exercise.hints !== undefined && exercise.hints.length > 0) {
-    parts.push(`HINTS AVAILABLE:\n${exercise.hints.map((hint) => `- ${hint}`).join("\n")}`);
-  }
-
-  if (exercise.tasks !== undefined && exercise.tasks.length > 0) {
-    parts.push(`TASKS:\n${exercise.tasks.map((task) => `- ${task.name}`).join("\n")}`);
-  }
-
-  return parts.join("\n\n");
 }

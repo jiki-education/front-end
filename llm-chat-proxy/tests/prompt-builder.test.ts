@@ -12,9 +12,9 @@ describe("Prompt Builder", () => {
 
     expect(prompt).toContain('console.log("hello")');
     expect(prompt).toContain("How do I fix this?");
-    expect(prompt).toContain("EXERCISE:");
-    expect(prompt).toContain("CURRENT CODE:");
-    expect(prompt).toContain("STUDENT QUESTION:");
+    expect(prompt).toContain("## Exercise:");
+    expect(prompt).toContain("## Current Code");
+    expect(prompt).toContain("## Student Last post");
   });
 
   it("should include exercise title", async () => {
@@ -41,7 +41,7 @@ describe("Prompt Builder", () => {
 
     expect(prompt).toContain("Previous question");
     expect(prompt).toContain("Previous answer");
-    expect(prompt).toContain("CONVERSATION HISTORY");
+    expect(prompt).toContain("## Conversation History");
   });
 
   it("should limit conversation history to last 5 messages", async () => {
@@ -84,7 +84,7 @@ describe("Prompt Builder", () => {
       history: []
     });
 
-    expect(prompt).not.toContain("CONVERSATION HISTORY");
+    expect(prompt).not.toContain("## Conversation History");
   });
 
   it("should include exercise instructions", async () => {
@@ -95,7 +95,7 @@ describe("Prompt Builder", () => {
       history: []
     });
 
-    expect(prompt).toContain("INSTRUCTIONS:");
+    expect(prompt).toContain("## Instructions:");
   });
 
   it("should include hints if available", async () => {
@@ -106,7 +106,72 @@ describe("Prompt Builder", () => {
       history: []
     });
 
-    expect(prompt).toContain("HINTS AVAILABLE:");
+    expect(prompt).toContain("## Exercise Context");
+  });
+
+  it("should include LLM teaching context when metadata available", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: []
+    });
+
+    expect(prompt).toContain("## Exercise Context");
+  });
+
+  it("should include task-specific guidance when nextTaskId provided", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "create-acronym-function"
+    });
+
+    expect(prompt).toContain("## Exercise Context");
+    expect(prompt).toContain("### Current Task Context");
+  });
+
+  it("should only show exercise-level guidance when nextTaskId not provided", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: []
+    });
+
+    expect(prompt).toContain("## Exercise Context");
+    expect(prompt).not.toContain("### Current Task Context");
+  });
+
+  it("should handle invalid nextTaskId gracefully", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "acronym",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "non-existent-task"
+    });
+
+    // Should still include exercise context
+    expect(prompt).toContain("## Exercise Context");
+    // But not task guidance for invalid task
+    expect(prompt).not.toContain("### Current Task Context");
+  });
+
+  it("should work with exercises that have no LLM metadata", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "basic-movement",
+      code: "test",
+      question: "test",
+      history: [],
+      nextTaskId: "move-character"
+    });
+
+    // Should still build prompt successfully
+    expect(prompt).toContain("## Exercise:");
+    expect(prompt).toContain("## Student Last post");
   });
 });
 

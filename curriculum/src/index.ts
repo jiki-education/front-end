@@ -37,3 +37,8 @@ export {
   runVisualScenarioTest,
   type ScenarioTestResult
 } from "./test-runner";
+
+// Export LLM metadata types and accessor
+// NOTE: This will NOT be bundled in app builds due to tree-shaking
+// Only llm-chat-proxy should import this
+export { getLLMMetadata, type LLMMetadata } from "./llm-metadata";
