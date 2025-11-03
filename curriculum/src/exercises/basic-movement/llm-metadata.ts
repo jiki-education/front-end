@@ -1,5 +1,6 @@
-// Task IDs for type-safe LLM metadata
-type TaskId = "move-character" | "bonus-challenges";
+import type { tasks } from "./scenarios";
+
+type TaskId = (typeof tasks)[number]["id"];
 
 interface LLMMetadata {
   description: string;
@@ -7,19 +8,23 @@ interface LLMMetadata {
 }
 
 export const llmMetadata: LLMMetadata = {
-  description:
-    "This exercise teaches function calling and repetition. " +
-    "Students learn to call functions multiple times to achieve a goal.",
+  description: `
+    This exercise teaches function calling and repetition.
+    Students learn to call functions multiple times to achieve a goal.
+  `,
 
   tasks: {
     "move-character": {
-      description:
-        "Students need to call move() function 5 times. " +
-        "Common mistakes: calling it too few or too many times, or not calling it at all."
+      description: `
+        Students need to call move() function 5 times.
+        Common mistakes: calling it too few or too many times, or not calling it at all.
+      `
     },
     "bonus-challenges": {
-      description:
-        "Students need to call move() function 10 times. " + "This reinforces the pattern from the previous task."
+      description: `
+        Students need to call move() function 10 times.
+        This reinforces the pattern from the previous task.
+      `
     }
   }
 };

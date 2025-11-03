@@ -1,19 +1,9 @@
-import type { TaskId } from "./scenarios";
+import type { tasks } from "./scenarios";
 
-/**
- * LLM-specific metadata for the acronym exercise.
- * This file contains prompts and descriptions used by the LLM chat proxy
- * to provide context-aware help to students.
- *
- * IMPORTANT: This data is NOT exported in the public build and should NOT
- * be exposed to client-side code. It's only available via @jiki/curriculum/internal.
- */
+type TaskId = (typeof tasks)[number]["id"];
 
 interface LLMMetadata {
-  // Exercise-level LLM description
   description: string;
-
-  // Task-specific LLM descriptions (type-safe: must include all task IDs)
   tasks: Record<TaskId, { description: string }>;
 }
 

@@ -17,9 +17,6 @@ export const tasks = [
   }
 ] as const satisfies readonly Task[];
 
-// Export type-safe task IDs for LLM metadata
-export type TaskId = (typeof tasks)[number]["id"];
-
 export const scenarios: IOScenario[] = [
   {
     slug: "png",

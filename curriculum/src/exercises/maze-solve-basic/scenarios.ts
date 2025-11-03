@@ -1,16 +1,16 @@
 import type { Task, VisualScenario } from "../types";
 import type MazeSolveBasicExercise from "./Exercise";
 
-export const tasks: Task[] = [
+export const tasks = [
   {
-    id: "solve-maze",
+    id: "solve-maze" as const,
     name: "Guide person to the end of the maze",
     description: "Navigate through the maze to reach the green target",
     hints: ["Plan your path", "Use turn functions to change direction"],
-    requiredScenarios: ["maze-1", "maze-2"], // All must pass
+    requiredScenarios: ["maze-1", "maze-2"],
     bonus: false
   }
-];
+] as const satisfies readonly Task[];
 
 export const scenarios: VisualScenario[] = [
   {
