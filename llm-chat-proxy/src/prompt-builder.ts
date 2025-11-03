@@ -83,8 +83,7 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   // Build prompt sections
   const sections = [
     buildSystemMessage(),
-    buildExerciseSection(exercise),
-    buildLLMGuidance(llmMetadata, nextTaskId),
+    buildExerciseSection(exercise, llmMetadata, nextTaskId),
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
     buildCurrentCodeSection(code),
@@ -99,24 +98,26 @@ function buildSystemMessage(): string {
   return "You are a helpful coding tutor assisting a student with a programming exercise.";
 }
 
-function buildExerciseSection(exercise: ExerciseDefinition): string {
-  return `## Exercise: ${exercise.title}`;
-}
-
-function buildLLMGuidance(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string {
-  if (!llmMetadata) {
-    return "";
-  }
-
+function buildExerciseSection(
+  exercise: ExerciseDefinition,
+  llmMetadata: LLMMetadata | undefined,
+  nextTaskId?: string
+): string {
   const parts: string[] = [];
 
-  // Always include exercise-level teaching context
-  parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
+  // Exercise title
+  parts.push(`## Exercise: ${exercise.title}`);
 
-  // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
-  if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
-    const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
-    parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+  // LLM metadata if available
+  if (llmMetadata) {
+    // Always include exercise-level teaching context
+    parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
+
+    // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
+    if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
+      const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
+      parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+    }
   }
 
   return parts.join("\n\n");
