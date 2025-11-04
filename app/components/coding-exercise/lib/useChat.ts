@@ -104,6 +104,7 @@ export function useChat(orchestrator: Orchestrator) {
     clearConversation,
     retryLastMessage,
     clearError,
+    loadConversation: chatState.loadConversation,
     isDisabled: chatState.status === "thinking" || chatState.status === "typing",
     canRetry: chatState.status === "error" && chatState.messages.length > 0
   };
