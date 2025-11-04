@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { marked } from "marked";
 import type { ChatMessage, StreamStatus } from "../lib/chat-types";
 import TypeItAssistantMessage from "./TypeItAssistantMessage";
+
+// Configure marked for safe rendering
+marked.setOptions({
+  gfm: true, // GitHub Flavored Markdown
+  breaks: true // Convert \n to <br>
+});
 
 interface ChatMessagesProps {
   messages: ChatMessage[];
@@ -54,6 +61,9 @@ export default function ChatMessages({ messages, currentResponse, status, onTypi
 function ChatMessageItem({ message }: { message: ChatMessage }) {
   const isUser = message.role === "user";
 
+  // Parse markdown content
+  const htmlContent = marked.parse(message.content);
+
   return (
     <div className="flex gap-3">
       <div
@@ -67,7 +77,10 @@ function ChatMessageItem({ message }: { message: ChatMessage }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium text-gray-900 mb-1">{isUser ? "You" : "Assistant"}</div>
-        <div className="text-sm text-gray-700 whitespace-pre-wrap">{message.content}</div>
+        <div
+          className="text-sm text-gray-700 prose prose-sm max-w-none prose-code:before:content-[''] prose-code:after:content-[''] prose-code:bg-blue-100 prose-code:px-2 prose-code:py-1 prose-code:rounded"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
       </div>
     </div>
   );

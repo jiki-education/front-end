@@ -1,4 +1,5 @@
 import TypeIt from "typeit-react";
+import { marked } from "marked";
 import type { StreamStatus } from "../lib/chat-types";
 
 interface TypeItAssistantMessageProps {
@@ -40,7 +41,7 @@ export default function TypeItAssistantMessage({
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium text-gray-900 mb-1">Assistant</div>
-        <div className="text-sm text-gray-700 whitespace-pre-wrap">
+        <div className="text-sm text-gray-700 prose prose-sm max-w-none prose-code:before:content-[''] prose-code:after:content-[''] prose-code:bg-blue-100 prose-code:px-2 prose-code:py-1 prose-code:rounded">
           {status === "typing" && content ? (
             <TypeIt
               options={{
@@ -53,7 +54,7 @@ export default function TypeItAssistantMessage({
               {content}
             </TypeIt>
           ) : (
-            content
+            <div dangerouslySetInnerHTML={{ __html: marked.parse(content) }} />
           )}
         </div>
       </div>
