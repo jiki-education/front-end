@@ -1,4 +1,5 @@
 import { getToken } from "@/lib/auth/storage";
+import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
 
 export interface ChatRequestPayload {
@@ -33,7 +34,7 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
   }
 
   try {
-    const response = await fetch("http://localhost:3063/chat", {
+    const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
