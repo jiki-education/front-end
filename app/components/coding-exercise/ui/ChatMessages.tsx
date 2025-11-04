@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { ChatMessage } from "../lib/chat-types";
+import type { ChatMessage, StreamStatus } from "../lib/chat-types";
+import TypeItAssistantMessage from "./TypeItAssistantMessage";
 
 interface ChatMessagesProps {
   messages: ChatMessage[];
   currentResponse: string;
-  isStreaming: boolean;
+  status: StreamStatus;
+  onTypingComplete?: () => void;
 }
 
-export default function ChatMessages({ messages, currentResponse, isStreaming }: ChatMessagesProps) {
+export default function ChatMessages({ messages, currentResponse, status, onTypingComplete }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages arrive or response updates
@@ -29,19 +31,8 @@ export default function ChatMessages({ messages, currentResponse, isStreaming }:
         <ChatMessageItem key={index} message={message} />
       ))}
 
-      {currentResponse && (
-        <div className="flex gap-3">
-          <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-            <span className="text-blue-600 text-sm font-semibold">AI</span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium text-gray-900 mb-1">Assistant</div>
-            <div className="text-sm text-gray-700 whitespace-pre-wrap">
-              {currentResponse}
-              {isStreaming && <span className="animate-pulse">▊</span>}
-            </div>
-          </div>
-        </div>
+      {(currentResponse || status === "thinking" || status === "typing") && (
+        <TypeItAssistantMessage content={currentResponse} status={status} onTypingComplete={onTypingComplete} />
       )}
 
       <div ref={messagesEndRef} />
