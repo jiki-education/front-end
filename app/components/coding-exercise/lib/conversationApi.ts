@@ -1,4 +1,5 @@
 import { getToken } from "@/lib/auth/storage";
+import { getApiUrl } from "@/lib/api/config";
 import type { SignatureData } from "./chat-types";
 
 export interface ConversationSaveError extends Error {
@@ -62,7 +63,7 @@ async function saveUserMessage(
   },
   token: string
 ): Promise<void> {
-  const response = await fetch("http://localhost:3060/internal/assistant_conversations/user_messages", {
+  const response = await fetch(getApiUrl("/internal/assistant_conversations/user_messages"), {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -87,7 +88,7 @@ async function saveAssistantMessage(
   },
   token: string
 ): Promise<void> {
-  const response = await fetch("http://localhost:3060/internal/assistant_conversations/assistant_messages", {
+  const response = await fetch(getApiUrl("/internal/assistant_conversations/assistant_messages"), {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
