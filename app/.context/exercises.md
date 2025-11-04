@@ -28,50 +28,17 @@ components/exercises/
 
 ### ExerciseDefinition
 
-The main interface that defines an exercise:
+The main interface that defines an exercise. See `@jiki/curriculum/src/exercises/types.ts` for the complete type definition.
 
-```typescript
-export interface ExerciseDefinition {
-  slug: string; // Unique identifier (e.g., "basic-movement")
-  title: string; // Display title
-  instructions: string; // User-facing instructions
-  estimatedMinutes: number; // Time estimate
-  initialCode: string; // Starting code template
-  ExerciseClass: new () => Exercise; // Exercise implementation
-  tasks: Task[]; // Exercise tasks
-  scenarios: Scenario[]; // Test scenarios
-  hints?: string[]; // Optional hints
-  solution?: string; // Optional solution
-}
-```
+Key fields include:
 
-### Task
+- `stubs: Record<Language, string>` - Starting code templates for each language
+- `solutions: Record<Language, string>` - Complete solutions for each language
+- Language-specific code files (`.javascript`, `.py`, `.jiki`) imported as text
 
-Represents a specific task within an exercise:
+### Task and Scenario Types
 
-```typescript
-export interface Task {
-  id: string; // Unique task identifier
-  name: string; // Display name
-  bonus: boolean; // Whether this is a bonus task
-}
-```
-
-### Scenario
-
-Defines a test scenario for an exercise:
-
-```typescript
-export interface Scenario {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  taskId: string; // References the task this scenario belongs to
-  setup: (exercise: any) => void;
-  expectations: (exercise: any) => TestExpect[];
-}
-```
+See `@jiki/curriculum/src/exercises/types.ts` for Task and Scenario type definitions.
 
 ## Creating a New Exercise
 
@@ -85,138 +52,34 @@ components/exercises/your-exercise-slug/
 
 ### 2. Define Metadata (metadata.json)
 
-Create `metadata.json` with all static content:
-
-```json
-{
-  "slug": "your-exercise-slug",
-  "title": "Your Exercise Title",
-  "instructions": "Clear instructions for the user",
-  "estimatedMinutes": 10,
-  "initialCode": "// Starting code template\n",
-  "hints": ["First hint", "Second hint"],
-  "solution": "// Complete solution\n"
-}
-```
+Create `metadata.json` with exercise metadata (slug, title, instructions, estimatedMinutes, levelId, hints). See `@jiki/curriculum/src/exercises/acronym/metadata.json` for a complete example.
 
 ### 3. Implement Exercise Class (Exercise.ts)
 
-Create the exercise implementation extending the base Exercise class:
-
-```typescript
-import { Exercise } from "@/components/coding-exercise/lib/mock-exercise/Exercise";
-
-export default class YourExercise extends Exercise {
-  // Exercise-specific properties
-  private someProperty = 0;
-
-  // Implement required methods
-  getState(): Record<string, any> {
-    return {
-      someProperty: this.someProperty
-    };
-  }
-
-  // Exercise-specific methods
-  doSomething() {
-    this.someProperty++;
-  }
-
-  // Optional: populate the view with custom HTML
-  protected populateView() {
-    // Add elements to this.view
-  }
-}
-```
+Create the exercise implementation extending the base Exercise class from `@jiki/curriculum`. See `@jiki/curriculum/src/exercises/basic-movement/Exercise.ts` for a complete example.
 
 ### 4. Define Tasks and Scenarios (scenarios.ts)
 
-Define the tasks and test scenarios:
+Define the tasks and test scenarios. See `@jiki/curriculum/src/exercises/basic-movement/scenarios.ts` for a complete example.
 
-```typescript
-import type { Task, Scenario } from "../types";
-import type YourExercise from "./Exercise";
+### 5. Create Solution and Stub Files
 
-export const tasks: Task[] = [
-  {
-    id: "main-task",
-    name: "Main Task",
-    bonus: false
-  }
-];
+Create separate code files for each language:
 
-export const scenarios: Scenario[] = [
-  {
-    id: "scenario-1",
-    slug: "scenario-1",
-    name: "First Scenario",
-    description: "Test description",
-    taskId: "main-task",
-    setup: (exercise: YourExercise) => {
-      // Set up initial state
-    },
-    expectations: (exercise: YourExercise) => {
-      return [
-        {
-          passed: exercise.someProperty === expectedValue,
-          actual: exercise.someProperty,
-          expected: expectedValue,
-          errorHtml: `Expected ${expectedValue}, got ${exercise.someProperty}`
-        }
-      ];
-    }
-  }
-];
-```
+- `solution.javascript`, `solution.py`, `solution.jiki` - Complete solutions
+- `stub.javascript`, `stub.py`, `stub.jiki` - Starting templates
 
-### 5. Export Exercise Definition (index.ts)
+### 6. Export Exercise Definition (index.ts)
 
-Combine everything into an ExerciseDefinition:
+Combine metadata, code files, and exercise class. Import solution/stub files as text and structure them in the ExerciseDefinition. See `@jiki/curriculum/src/exercises/acronym/index.ts` for a complete example.
 
-```typescript
-import ExerciseClass from "./Exercise";
-import { tasks, scenarios } from "./scenarios";
-import metadata from "./metadata.json";
-import type { ExerciseDefinition } from "../types";
+### 7. Register in Exercise Index
 
-const exerciseDefinition: ExerciseDefinition = {
-  ...metadata, // Spreads all fields from metadata.json
-  ExerciseClass,
-  tasks,
-  scenarios
-};
-
-export default exerciseDefinition;
-```
-
-### 6. Register in Exercise Index
-
-Add your exercise to `components/exercises/index.ts`:
-
-```typescript
-export const exercises = {
-  "your-exercise-slug": () => import("./your-exercise-slug")
-  // ... other exercises
-} as const;
-```
+Add your exercise to `@jiki/curriculum/src/exercises/index.ts` following the existing pattern of dynamic imports.
 
 ## Usage in Components
 
-Exercises are loaded asynchronously and passed to the Orchestrator:
-
-```typescript
-// In CodingExercise component
-const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
-
-useEffect(() => {
-  const loadExercise = async () => {
-    const loader = exercises[exerciseSlug];
-    const exercise = (await loader()).default;
-    setOrchestrator(new Orchestrator(exercise));
-  };
-  void loadExercise();
-}, [exerciseSlug]);
-```
+Exercises are loaded asynchronously and passed to the Orchestrator. The Orchestrator constructor now requires both an `ExerciseDefinition` and a `Language` parameter. See `components/coding-exercise/CodingExercise.tsx` for the complete implementation.
 
 ## Best Practices
 
@@ -227,6 +90,10 @@ useEffect(() => {
 5. **User-friendly content**: Write clear instructions, helpful hints, and complete solutions
 6. **Separation of concerns**: Keep exercise logic in the Exercise class, test logic in scenarios
 
-## Example Exercise
+## Example Exercises
 
-See `components/exercises/basic-movement/` for a complete example of an exercise implementation.
+See `@jiki/curriculum/src/exercises/` for complete exercise implementations:
+
+- `basic-movement/` - Simple visual exercise with movement commands
+- `acronym/` - IO-based exercise for text processing
+- `maze-solve-basic/` - More complex visual maze navigation
