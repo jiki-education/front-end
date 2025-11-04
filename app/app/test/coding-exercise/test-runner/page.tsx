@@ -21,10 +21,10 @@ export default function TestRunnerTestPage() {
   useEffect(() => {
     const exercise = createMockExercise({
       slug: "test-runner-e2e",
-      initialCode,
+      stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
       title: "Test Runner E2E Exercise"
     });
-    const orch = new Orchestrator(exercise);
+    const orch = new Orchestrator(exercise, "jikiscript");
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

@@ -4,7 +4,6 @@
   "instructions": "Solve a maze using basic movement and turning functions. Your goal is to reach the green target cell by navigating through the maze without hitting walls.",
   "estimatedMinutes": 10,
   "levelId": "using-functions",
-  "initialCode": "// Guide the character to the green target cell\n// Use move() to move forward\n// Use turn_left() and turn_right() to change direction\n",
   "hints": [
     "The character starts in the top-left corner facing down",
     "Plan your path to avoid blocked (red striped) cells",

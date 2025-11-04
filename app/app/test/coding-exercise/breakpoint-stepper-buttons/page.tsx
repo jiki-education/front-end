@@ -26,9 +26,13 @@ export default function BreakpointStepperButtonsTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
   const exercise = createMockExercise({
     slug: "test-breakpoint-stepper",
-    initialCode: `// Test code for breakpoint stepper\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`
+    stubs: {
+      javascript: `// Test code for breakpoint stepper\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`,
+      python: `// Test code for breakpoint stepper\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`,
+      jikiscript: `// Test code for breakpoint stepper\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`
+    }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
+  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
   const orchestrator = orchestratorRef.current;
 
   // Get state from orchestrator store

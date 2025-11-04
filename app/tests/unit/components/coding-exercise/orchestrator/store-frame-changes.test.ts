@@ -1,3 +1,4 @@
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import { createMockFrame } from "@/tests/mocks";
 
@@ -10,7 +11,11 @@ jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
 describe("Store Frame Changes", () => {
   describe("setCurrentFrame", () => {
     it("should update informationWidgetData when frame changes", () => {
-      const store = createOrchestratorStore("test-uuid", "test code");
+      const exercise = createMockExercise({
+        slug: "test-uuid",
+        stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -52,7 +57,11 @@ describe("Store Frame Changes", () => {
     });
 
     it("should handle frames without descriptions", () => {
-      const store = createOrchestratorStore("test-uuid", "test code");
+      const exercise = createMockExercise({
+        slug: "test-uuid",
+        stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -92,7 +101,11 @@ describe("Store Frame Changes", () => {
     });
 
     it("should update navigation frames after setting current frame", () => {
-      const store = createOrchestratorStore("test-uuid", "test code");
+      const exercise = createMockExercise({
+        slug: "test-uuid",
+        stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const state = store.getState();
 
       const frame1 = createMockFrame(0, { line: 1 });

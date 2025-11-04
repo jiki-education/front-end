@@ -1,7 +1,6 @@
 import { useOrchestrator } from "../lib/OrchestratorContext";
 import { useOrchestratorStore } from "../lib/Orchestrator";
-
-type Language = "javascript" | "python" | "jikiscript";
+import type { Language } from "@jiki/curriculum";
 
 interface LanguageOption {
   value: Language;

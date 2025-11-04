@@ -3,3 +3,4 @@ dist
 .wrangler
 coverage
 .dev.vars
+.claude/settings.local.json

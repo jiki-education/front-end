@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
+    "build": "tsc -p tsconfig.build.json && pnpm run copy-assets",
+    "copy-assets": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\; && find src -name '*.javascript' -o -name '*.py' -o -name '*.jiki' | while read f; do mkdir -p dist/$(dirname ${f#src/}) && cp $f dist/${f#src/}; done",
     "copy-css": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
     "dev": "pnpm run copy-css && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' -- pnpm run copy-css",
     "test": "vitest",

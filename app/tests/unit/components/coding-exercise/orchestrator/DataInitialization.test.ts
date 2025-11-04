@@ -1,5 +1,6 @@
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import * as localStorage from "@/components/coding-exercise/lib/localStorage";
+import { createMockExercise } from "@/tests/mocks/exercise";
 
 // Mock localStorage functions
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
@@ -31,7 +32,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData();
 
       // Assert
@@ -61,7 +66,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData();
 
       // Assert
@@ -88,7 +97,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -121,7 +134,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -156,7 +173,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -191,7 +212,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -226,7 +251,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -259,7 +288,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert
@@ -281,7 +314,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData();
 
       // Assert
@@ -301,7 +338,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData();
 
       // Assert
@@ -333,7 +374,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert - Should use localStorage when server timestamp is invalid
@@ -364,7 +409,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().initializeExerciseData(serverData);
 
       // Assert - Should use server data when localStorage timestamp is invalid
@@ -387,7 +436,11 @@ describe("Data Initialization Priority Logic", () => {
       });
 
       // Act
-      const store = createOrchestratorStore(exerciseUuid, initialCode);
+      const exercise = createMockExercise({
+        slug: exerciseUuid,
+        stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+      });
+      const store = createOrchestratorStore(exercise, "jikiscript");
 
       // Simulate calling through orchestrator
       const serverData = {

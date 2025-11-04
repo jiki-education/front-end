@@ -1,3 +1,4 @@
+import { createMockExercise } from "@/tests/mocks/exercise";
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
 
@@ -65,7 +66,8 @@ describe("Store Auto-Play Behavior", () => {
 
   describe("setTestSuiteResult", () => {
     it("should set shouldAutoPlay to true", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().setShouldPlayOnTestChange(false);
 
       const testResults = {
@@ -79,7 +81,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should reset testCurrentTimes before setting first test", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -102,7 +105,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should set hasCodeBeenEdited to false and status to success", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       store.getState().setHasCodeBeenEdited(true);
       store.getState().setStatus("idle");
 
@@ -118,7 +122,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should call setCurrentTest with first test", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -133,7 +138,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should hide information widget when auto-playing first test", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
 
       // Show widget before running tests
       store.getState().setShouldShowInformationWidget(true);
@@ -152,7 +158,8 @@ describe("Store Auto-Play Behavior", () => {
 
   describe("setCurrentTest", () => {
     it("should not set currentTestTime in initial state update", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
 
       // The initial set should not include currentTestTime
@@ -166,7 +173,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should call setCurrentTestTime with force=true", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
 
       const setCurrentTestTimeSpy = jest.spyOn(store.getState(), "setCurrentTestTime");
@@ -177,7 +185,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should auto-play if shouldAutoPlay is true", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setShouldPlayOnTestChange(true);
 
@@ -188,7 +197,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should not auto-play if shouldAutoPlay is false", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setShouldPlayOnTestChange(false);
 
@@ -199,7 +209,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should hide information widget when switching tests with auto-play", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -221,7 +232,8 @@ describe("Store Auto-Play Behavior", () => {
 
   describe("setCurrentTestTime with force flag", () => {
     it("should update state when force=true even if time is same", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -235,7 +247,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should skip update when time is same and force=false", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -252,7 +265,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should persist time to testCurrentTimes map", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -264,7 +278,8 @@ describe("Store Auto-Play Behavior", () => {
 
   describe("setIsPlaying", () => {
     it("should call animationTimeline.play when playing=true", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -274,7 +289,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should hide information widget when playing=true", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
 
       // Disable auto-play to start paused
@@ -291,7 +307,8 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     it("should not call play when playing=false", () => {
-      const store = createOrchestratorStore("test-uuid", "");
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript");
       const test = createMockTest("test-1");
 
       // Don't auto-play on setCurrentTest
@@ -319,7 +336,11 @@ describe("Store Auto-Play Behavior", () => {
 
     describe("setTestSuiteResult spotlight behavior", () => {
       it("should set isSpotlightActive to true when all tests pass for the FIRST time", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
 
         // Verify initial state
         expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
@@ -338,7 +359,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should NOT set isSpotlightActive when all tests pass for the SECOND time", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
 
         const testResults = {
           tests: [createMockTest("test-1"), createMockTest("test-2")],
@@ -362,7 +387,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should set isSpotlightActive to false when any test fails", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
         const failedTest = createMockTest("test-1");
         failedTest.status = "fail";
 
@@ -378,7 +407,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should track hasEverHadSuccessfulRun correctly across multiple runs", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
 
         // Initially false
         expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
@@ -405,7 +438,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should NOT reset wasSuccessModalShown when running tests again", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
 
         // Simulate modal was shown previously
         store.getState().setWasSuccessModalShown(true);
@@ -426,7 +463,11 @@ describe("Store Auto-Play Behavior", () => {
 
     describe("onComplete callback modal display", () => {
       it("should show success modal when all tests pass and modal not shown yet", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
         const test1 = createMockTest("test-1");
 
         const testResults = {
@@ -448,7 +489,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should not show modal when wasSuccessModalShown is true", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
         const test1 = createMockTest("test-1");
 
         const testResults = {
@@ -473,7 +518,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should not show modal when not all tests pass", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
         const failedTest = createMockTest("test-1");
         failedTest.status = "fail";
 
@@ -494,7 +543,11 @@ describe("Store Auto-Play Behavior", () => {
       });
 
       it("should disable spotlight after showing modal", () => {
-        const store = createOrchestratorStore("test-uuid", "");
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript");
         const test1 = createMockTest("test-1");
 
         const testResults = {

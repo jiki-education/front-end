@@ -1,10 +1,8 @@
-import type { ExerciseDefinition } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import { jikiscript, javascript, python } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { runVisualScenario } from "./runVisualScenario";
 import { runIOScenario } from "./runIOScenario";
-
-type Language = "javascript" | "python" | "jikiscript";
 
 // Map language to interpreter
 const interpreters = {
@@ -14,7 +12,7 @@ const interpreters = {
 };
 
 function getInterpreter(language: Language) {
-  const interpreter = interpreters[language];
+  const interpreter = interpreters[language as keyof typeof interpreters];
   // Defensive check (TypeScript guarantees this, but good for runtime safety)
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!interpreter) {

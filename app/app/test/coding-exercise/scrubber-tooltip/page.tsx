@@ -21,9 +21,13 @@ function mockFrames(): Frame[] {
 export default function ScrubberTooltipTestPage() {
   const exercise = createMockExercise({
     slug: "test-scrubber-tooltip",
-    initialCode: `console.log("Line 1");\nconsole.log("Line 2");`
+    stubs: {
+      javascript: `console.log("Line 1");\nconsole.log("Line 2");`,
+      python: `console.log("Line 1");\nconsole.log("Line 2");`,
+      jikiscript: `console.log("Line 1");\nconsole.log("Line 2");`
+    }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
+  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
   const orchestrator = orchestratorRef.current;
 
   const { hasCodeBeenEdited, currentTest } = useOrchestratorStore(orchestrator);

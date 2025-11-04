@@ -15,8 +15,8 @@ describe("Store Test Time Persistence", () => {
 
   describe("testCurrentTimes initialization", () => {
     it("should initialize testCurrentTimes as an empty object", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const state = orchestrator.getStore().getState();
 
       expect(state.testCurrentTimes).toEqual({});
@@ -25,8 +25,8 @@ describe("Store Test Time Persistence", () => {
 
   describe("setCurrentTestTime", () => {
     it("should save the current time to testCurrentTimes when updating time", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -44,8 +44,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should update the saved time when scrubbing multiple times", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -74,8 +74,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should maintain separate times for different tests", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test1 = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -109,8 +109,8 @@ describe("Store Test Time Persistence", () => {
 
   describe("setCurrentTest", () => {
     it("should use the test's initial time when no saved time exists", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test = createMockTestResult({
         frames: [
           createMockFrame(50000, { line: 1 }),
@@ -128,8 +128,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should restore the saved time when switching back to a test", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test1 = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -164,8 +164,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should handle switching between multiple tests and preserve all positions", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test1 = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -224,8 +224,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should handle setting a null test", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -248,8 +248,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should update the saved time even when switching to the same test", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const test = createMockTestResult({
         frames: [
           createMockFrame(0, { line: 1 }),
@@ -281,8 +281,8 @@ describe("Store Test Time Persistence", () => {
 
   describe("frame synchronization with persisted times", () => {
     it("should correctly set currentFrame when restoring a saved time that matches a frame", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const frames = [
         createMockFrame(0, { line: 1 }),
         createMockFrame(100000, { line: 2 }),
@@ -307,8 +307,8 @@ describe("Store Test Time Persistence", () => {
     });
 
     it("should handle restoring a time between frames", () => {
-      const exercise = createMockExercise({ slug: "test-uuid", initialCode: "" });
-      const orchestrator = new Orchestrator(exercise);
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
       const frames = [
         createMockFrame(0, { line: 1 }),
         createMockFrame(100000, { line: 2 }),

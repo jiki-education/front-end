@@ -28,9 +28,13 @@ export default function FrameStepperButtonsTestPage() {
   useEffect(() => {
     const exercise = createMockExercise({
       slug: "test-exercise",
-      initialCode: "// Test code for frame stepping"
+      stubs: {
+        javascript: "// Test code for frame stepping",
+        python: "// Test code for frame stepping",
+        jikiscript: "// Test code for frame stepping"
+      }
     });
-    const orch = new Orchestrator(exercise);
+    const orch = new Orchestrator(exercise, "jikiscript");
 
     // Create test frames and set up the test state
     const frames = mockFrames();

@@ -1,5 +1,6 @@
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
+import { createMockExercise } from "@/tests/mocks/exercise";
 
 // Mock modal system
 jest.mock("@/lib/modal", () => ({
@@ -47,7 +48,8 @@ describe("Store Animation Replay Bug", () => {
   });
 
   it("should reset isPlaying when setting new test suite results", () => {
-    const store = createOrchestratorStore("test-uuid", "");
+    const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+    const store = createOrchestratorStore(exercise, "jikiscript");
 
     // First test run - with frames (will auto-play)
     const firstTest = createMockTest("test-1", [
@@ -106,7 +108,8 @@ describe("Store Animation Replay Bug", () => {
   });
 
   it("should allow animation to play after empty/failed first run", () => {
-    const store = createOrchestratorStore("test-uuid", "");
+    const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+    const store = createOrchestratorStore(exercise, "jikiscript");
 
     // First test run - empty repeat loop (no frames)
     const firstTest = createMockTest("test-1", []);

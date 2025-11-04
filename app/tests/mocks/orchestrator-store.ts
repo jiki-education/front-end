@@ -8,7 +8,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
   const store = createStore(
     subscribeWithSelector<OrchestratorStore>((set, _get) => ({
       // Default state
-      exerciseUuid: "test-uuid",
+      exerciseSlug: "test-uuid",
       exerciseTitle: "Test Exercise",
       code: "",
       output: "",

@@ -36,8 +36,11 @@ console.log(\`Final answer: \${answer}\`);`;
 
 export default function BreakpointGutterTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
-  const exercise = createMockExercise({ slug: "test-breakpoint-gutter", initialCode: TEST_CODE });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
+  const exercise = createMockExercise({
+    slug: "test-breakpoint-gutter",
+    stubs: { javascript: TEST_CODE, python: TEST_CODE, jikiscript: TEST_CODE }
+  });
+  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
   const orchestrator = orchestratorRef.current;
 
   // Get state from orchestrator store

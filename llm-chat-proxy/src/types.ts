@@ -1,9 +1,12 @@
+import type { Language } from "@jiki/curriculum";
+
 export interface ChatRequest {
   exerciseSlug: string;
   code: string;
   question: string;
   history?: ChatMessage[];
   nextTaskId?: string;
+  language: Language;
 }
 
 export interface ChatMessage {

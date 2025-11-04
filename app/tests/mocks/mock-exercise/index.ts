@@ -9,7 +9,16 @@ export const testExerciseDefinition: ExerciseDefinition = {
   instructions: "This is a test exercise for unit tests",
   estimatedMinutes: 5,
   levelId: "level-1",
-  initialCode: "// Test code",
+  stubs: {
+    javascript: "// Test code",
+    python: "# Test code",
+    jikiscript: "// Test code"
+  },
+  solutions: {
+    javascript: "// Solution code",
+    python: "# Solution code",
+    jikiscript: "// Solution code"
+  },
   ExerciseClass: TestExercise,
   tasks,
   scenarios,

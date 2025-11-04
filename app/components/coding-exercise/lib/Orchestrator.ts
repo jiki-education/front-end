@@ -3,7 +3,7 @@
 // passed around, controls the state, etc.
 
 import type { EditorView } from "@codemirror/view";
-import type { ExerciseDefinition } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
@@ -11,7 +11,7 @@ import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
-import type { TestResult, TestExpect } from "./test-results-types";
+import type { TestExpect, TestResult } from "./test-results-types";
 import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 class Orchestrator {
@@ -24,12 +24,11 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
 
-  constructor(exercise: ExerciseDefinition, projectContext?: { projectSlug?: string }) {
+  constructor(exercise: ExerciseDefinition, language: Language, projectContext?: { projectSlug?: string }) {
     this.exercise = exercise;
 
-    // Create instance-specific store with exercise's initial code
-    // Use exercise.slug as the exerciseUuid for localStorage
-    this.store = createOrchestratorStore(exercise.slug, exercise.initialCode);
+    // Create instance-specific store with exercise and language
+    this.store = createOrchestratorStore(exercise, language);
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
@@ -37,9 +36,6 @@ class Orchestrator {
     this.taskManager = new TaskManager(this.store);
     this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, projectContext);
     // EditorManager will be created lazily when setupEditor is called
-
-    // Set exercise title in store
-    this.store.getState().setExerciseTitle(exercise.title);
 
     // Initialize exercise data (loads from localStorage if available)
     this.store.getState().initializeExerciseData();

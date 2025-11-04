@@ -3,7 +3,7 @@ import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator
 // Helper to create a mock Orchestrator
 export function createMockOrchestrator(): Orchestrator {
   return {
-    exerciseUuid: "test-uuid",
+    exerciseSlug: "test-uuid",
     setCode: jest.fn(),
     setCurrentTestTime: jest.fn(),
     setCurrentTest: jest.fn(),

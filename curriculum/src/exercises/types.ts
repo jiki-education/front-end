@@ -1,6 +1,7 @@
 import type { IOExercise, VisualExercise } from "../Exercise";
 import type { LevelId } from "../levels";
 import type { Change } from "diff";
+import type { Language } from "../types";
 
 // Base properties shared by all exercise definitions
 interface BaseExerciseDefinition {
@@ -12,8 +13,11 @@ interface BaseExerciseDefinition {
   levelId: LevelId; // The level this exercise belongs to (determines allowed language features)
 
   // Core components
-  initialCode: string;
   tasks: readonly Task[];
+
+  // Code for all languages
+  solutions: Record<Language, string>;
+  stubs: Record<Language, string>;
 
   // Optional
   hints?: string[];

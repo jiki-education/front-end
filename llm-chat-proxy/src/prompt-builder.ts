@@ -1,5 +1,5 @@
 import { getExercise, getLLMMetadata } from "@jiki/curriculum";
-import type { ExerciseDefinition, LLMMetadata } from "@jiki/curriculum";
+import type { ExerciseDefinition, LLMMetadata, Language } from "@jiki/curriculum";
 import type { ChatMessage } from "./types";
 
 interface PromptOptions {
@@ -8,6 +8,7 @@ interface PromptOptions {
   question: string;
   history: ChatMessage[];
   nextTaskId?: string;
+  language: Language;
 }
 
 // Input validation limits to prevent abuse and prompt injection
@@ -65,7 +66,7 @@ function validateInput(code: string, question: string, history: ChatMessage[]): 
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<string> {
-  const { exerciseSlug, code, question, history, nextTaskId } = options;
+  const { exerciseSlug, code, question, history, nextTaskId, language } = options;
 
   // Validate input before building prompt
   validateInput(code, question, history);
@@ -86,12 +87,22 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
     buildExerciseSection(exercise, llmMetadata, nextTaskId),
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
-    buildCurrentCodeSection(code),
+    buildInitialCodeSection(exercise.stubs[language], language),
+    buildTargetCodeSection(exercise.solutions[language], language),
+    buildCurrentCodeSection(code, language),
     buildInstructionsSection()
   ];
 
   // Filter out null/empty sections and join with double newlines
-  return sections.filter((section) => section !== null && section !== "").join("\n\n");
+  const prompt = sections.filter((section) => section !== null && section !== "").join("\n\n");
+
+  // Log prompt for debugging in development
+  console.log("[Prompt Builder] Generated prompt:");
+  console.log("=".repeat(80));
+  console.log(prompt);
+  console.log("=".repeat(80));
+
+  return prompt;
 }
 
 function buildSystemMessage(): string {
@@ -137,26 +148,63 @@ function buildConversationHistorySection(history: ChatMessage[]): string | null 
 }
 
 function buildStudentQuestionSection(question: string): string {
-  return `## Student Last post
+  return `## Student Last post (The message you are replying to)
+
 ${question}`;
 }
 
-function buildCurrentCodeSection(code: string): string {
-  return `## Current Code
+function buildInitialCodeSection(code: string | null, language: Language): string | null {
+  if (!code) {
+    return null;
+  }
+
+  return `## Initial Code
+
+  What we gave the student as their starting point.
 
 \`\`\`javascript
 ${code}
 \`\`\``;
 }
 
+function buildTargetCodeSection(code: string | null, language: Language): string | null {
+  if (!code) {
+    return null;
+  }
+
+  return `## Target Code
+
+This is the target that the student needs to code to solve the exercise.
+They do not need this EXACT code, but this acts as a reference for the BEST PRINCIPLES.
+
+\`\`\`${language}
+${code}
+\`\`\``;
+}
+
+function buildCurrentCodeSection(code: string, language: Language): string {
+  return `## Current Code
+
+This is the student's current code.
+
+\`\`\`${language}
+${code}
+\`\`\``;
+}
+
 function buildInstructionsSection(): string {
-  return `## Instructions:
-- Provide a helpful, educational response that guides the student
-- Don't give away the complete solution
-- Focus on teaching concepts and debugging strategies
-- Ask guiding questions when appropriate
-- Reference the specific parts of their code that need attention
+  return `## Instructions
+
+- Your job is to GUIDE the student to DISCOVER the answer THEMSELVES.
+- Speak naturally like a tutor to a student. Don't parrot what a student says.
+- IMPORTANT: Do NOT give away the answer. 
+- Attempt to guide the student by ASKING THEM QUESTIONS that help them move forward.
+- Focus on helping them get to the NEXT STEP in the exercise.
+- Your job is NOT TO TEACH new concepts or ideas.
+- Reference the specific parts of their code that they should look at carefully.
+- Look carefully at what a student has ALREADY BEEN TAUGHT and only presume that level of knowledge.
 - Keep responses concise and focused (1-3 sentences maximum. You can use markdown)
+- Respond in the same language as the student is talking to you.
 
 Response:`;
 }

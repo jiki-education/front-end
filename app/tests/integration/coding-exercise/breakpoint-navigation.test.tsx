@@ -9,8 +9,11 @@ import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 
 // Helper to setup orchestrator with test data
 function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLines: number[] = []) {
-  const exercise = createMockExercise({ slug: "test-uuid", initialCode: "// test code" });
-  const orchestrator = new Orchestrator(exercise);
+  const exercise = createMockExercise({
+    slug: "test-uuid",
+    stubs: { javascript: "// test code", python: "// test code", jikiscript: "// test code" }
+  });
+  const orchestrator = new Orchestrator(exercise, "jikiscript");
 
   // Set up test state with proper animation timeline mock
   orchestrator.getStore().setState({

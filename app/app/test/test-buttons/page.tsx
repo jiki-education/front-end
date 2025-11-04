@@ -18,10 +18,10 @@ export default function TestButtonsTestPage() {
   // Create orchestrator once using useRef (prevents re-creation on re-renders)
   const exercise = createMockExercise({
     slug: "test-buttons-e2e-id",
-    initialCode,
+    stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
     title: "Test Buttons E2E Test"
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
+  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
   const orchestrator = orchestratorRef.current;
 
   // Use the orchestrator store hook
