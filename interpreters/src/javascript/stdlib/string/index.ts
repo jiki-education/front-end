@@ -10,6 +10,16 @@ import { lastIndexOf } from "./lastIndexOf";
 import { includes } from "./includes";
 import { startsWith } from "./startsWith";
 import { endsWith } from "./endsWith";
+import { concat } from "./concat";
+import { repeat } from "./repeat";
+import { replace } from "./replace";
+import { replaceAll } from "./replaceAll";
+import { split } from "./split";
+import { trim } from "./trim";
+import { trimStart } from "./trimStart";
+import { trimEnd } from "./trimEnd";
+import { padStart } from "./padStart";
+import { padEnd } from "./padEnd";
 
 // String properties
 export const stringProperties: Record<string, Property> = {
@@ -35,19 +45,9 @@ const notYetImplementedMethods = [
   "substring",
   "substr",
 
-  // Modification methods
-  "concat",
-  "repeat",
-  "replace",
-  "replaceAll",
-  "split",
-  "trim",
-  "trimStart",
-  "trimEnd",
+  // Modification methods (legacy aliases only)
   "trimLeft",
   "trimRight",
-  "padStart",
-  "padEnd",
 
   // Locale methods
   "localeCompare",
@@ -83,6 +83,16 @@ export const stringMethods: Record<string, Method> = {
   includes,
   startsWith,
   endsWith,
+  concat,
+  repeat,
+  replace,
+  replaceAll,
+  split,
+  trim,
+  trimStart,
+  trimEnd,
+  padStart,
+  padEnd,
 
   // Generate stub methods for all not-yet-implemented methods
   ...Object.fromEntries(notYetImplementedMethods.map(name => [name, createNotYetImplementedStub(name)])),
