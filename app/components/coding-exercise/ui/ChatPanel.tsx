@@ -43,7 +43,8 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
       <ChatMessages
         messages={chat.messages}
         currentResponse={chat.currentResponse}
-        isStreaming={chat.status === "streaming"}
+        status={chat.status}
+        onTypingComplete={chat.finishTyping}
       />
 
       <ChatStatus

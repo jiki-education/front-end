@@ -12,11 +12,12 @@ export function useChat(orchestrator: Orchestrator) {
 
   const sendMessage = useCallback(
     async (message: string) => {
-      if (!message.trim() || chatState.status === "streaming") {
+      if (!message.trim() || chatState.status === "thinking" || chatState.status === "typing") {
         return;
       }
 
-      chatState.resetForNewMessage();
+      // Add user message immediately
+      chatState.addUserMessageImmediately(message);
 
       try {
         await sendChatMessage(
@@ -29,6 +30,7 @@ export function useChat(orchestrator: Orchestrator) {
           },
           {
             onTextChunk: (text) => {
+              // Just update the response, keep status as thinking until complete
               chatState.setCurrentResponse(text);
             },
             onSignature: (signature) => {
@@ -40,14 +42,22 @@ export function useChat(orchestrator: Orchestrator) {
             },
             onComplete: (fullResponse, signature) => {
               if (fullResponse.trim()) {
-                chatState.addMessageToHistory(message, fullResponse);
+                // Set the response content and start typing animation
+                chatState.setCurrentResponse(fullResponse);
 
-                // If we have a signature, save the conversation
+                // Save signature data if present
                 if (signature) {
+                  chatState.setSignature(signature);
                   void saveConversation(context.exerciseSlug, message, fullResponse, signature);
                 }
+
+                // Set status to typing to start the TypeIt animation
+                // DON'T add to history yet - wait for typing to complete
+                chatState.setStatus("typing");
+              } else {
+                // No response, go back to idle
+                chatState.setStatus("idle");
               }
-              chatState.setStatus("idle");
             }
           }
         );
@@ -94,7 +104,7 @@ export function useChat(orchestrator: Orchestrator) {
     clearConversation,
     retryLastMessage,
     clearError,
-    isDisabled: chatState.status === "streaming",
+    isDisabled: chatState.status === "thinking" || chatState.status === "typing",
     canRetry: chatState.status === "error" && chatState.messages.length > 0
   };
 }

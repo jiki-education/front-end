@@ -33,15 +33,20 @@ export function useChatState() {
     }));
   }, []);
 
-  const addMessageToHistory = useCallback((userMessage: string, assistantMessage: string) => {
+  const addMessageToHistory = useCallback((assistantMessage: string) => {
     setState((prev) => ({
       ...prev,
-      messages: [
-        ...prev.messages,
-        { role: "user", content: userMessage },
-        { role: "assistant", content: assistantMessage }
-      ],
+      messages: [...prev.messages, { role: "assistant", content: assistantMessage }],
       currentResponse: ""
+    }));
+  }, []);
+
+  const finishTyping = useCallback(() => {
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, { role: "assistant", content: prev.currentResponse }],
+      currentResponse: "",
+      status: "idle"
     }));
   }, []);
 
@@ -61,7 +66,18 @@ export function useChatState() {
       currentResponse: "",
       error: null,
       signature: null,
-      status: "streaming"
+      status: "thinking"
+    }));
+  }, []);
+
+  const addUserMessageImmediately = useCallback((userMessage: string) => {
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, { role: "user", content: userMessage }],
+      currentResponse: "",
+      error: null,
+      signature: null,
+      status: "thinking"
     }));
   }, []);
 
@@ -73,7 +89,9 @@ export function useChatState() {
     setSignature,
     addMessage,
     addMessageToHistory,
+    addUserMessageImmediately,
     clearChat,
-    resetForNewMessage
+    resetForNewMessage,
+    finishTyping
   };
 }

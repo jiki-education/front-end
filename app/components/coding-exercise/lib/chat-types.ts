@@ -18,7 +18,7 @@ export interface ErrorData {
   message: string;
 }
 
-export type StreamStatus = "idle" | "streaming" | "error";
+export type StreamStatus = "idle" | "thinking" | "typing" | "error";
 
 export interface ChatState {
   messages: ChatMessage[];
