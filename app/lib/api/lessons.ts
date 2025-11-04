@@ -1,4 +1,5 @@
 import { api } from "./client";
+import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 
 export interface VideoSource {
   host: string; // Backend uses 'host' instead of 'provider'
@@ -22,6 +23,17 @@ export interface LessonResponse {
   lesson?: LessonData;
   // The API might return the data directly without wrapping in "lesson"
   [key: string]: any;
+}
+
+export interface UserLessonData {
+  lesson_slug: string;
+  status: "started" | "completed";
+  conversation: ChatMessage[];
+  data: any;
+}
+
+export interface UserLessonResponse {
+  user_lesson: UserLessonData;
 }
 
 /**
@@ -49,4 +61,12 @@ export async function markLessonComplete(slug: string): Promise<void> {
  */
 export async function startLesson(slug: string): Promise<void> {
   await api.post(`/internal/user_lessons/${slug}/start`);
+}
+
+/**
+ * Fetch user lesson data including conversation history
+ */
+export async function fetchUserLesson(slug: string): Promise<UserLessonData> {
+  const response = await api.get<UserLessonResponse>(`/internal/user_lessons/${slug}`);
+  return response.data.user_lesson;
 }

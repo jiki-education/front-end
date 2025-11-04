@@ -81,6 +81,17 @@ export function useChatState() {
     }));
   }, []);
 
+  const loadConversation = useCallback((messages: ChatMessage[]) => {
+    setState((prev) => ({
+      ...prev,
+      messages: [...messages],
+      currentResponse: "",
+      status: "idle",
+      error: null,
+      signature: null
+    }));
+  }, []);
+
   return {
     ...state,
     setStatus,
@@ -92,6 +103,7 @@ export function useChatState() {
     addUserMessageImmediately,
     clearChat,
     resetForNewMessage,
-    finishTyping
+    finishTyping,
+    loadConversation
   };
 }
