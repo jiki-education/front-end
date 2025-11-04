@@ -15,7 +15,13 @@ describe("useChatState", () => {
     const { result } = renderHook(() => useChatState());
 
     act(() => {
-      result.current.addMessageToHistory("Hello", "Hi there!");
+      // Add user message first
+      result.current.addMessage({
+        role: "user",
+        content: "Hello"
+      });
+      // Add assistant message
+      result.current.addMessageToHistory("Hi there!");
     });
 
     expect(result.current.messages).toHaveLength(2);
@@ -33,7 +39,12 @@ describe("useChatState", () => {
     const { result } = renderHook(() => useChatState());
 
     act(() => {
-      result.current.addMessageToHistory("Hello", "Hi there!");
+      // Add some messages and an error
+      result.current.addMessage({
+        role: "user",
+        content: "Hello"
+      });
+      result.current.addMessageToHistory("Hi there!");
       result.current.setError("Test error");
     });
 
