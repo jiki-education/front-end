@@ -121,16 +121,16 @@ This document lists all standard library methods for the JavaScript interpreter.
 
 ### Instance Methods - Modification
 
-- [ ] concat()
-- [ ] repeat()
-- [ ] replace()
-- [ ] replaceAll()
-- [ ] split()
-- [ ] trim()
-- [ ] trimStart()
-- [ ] trimEnd()
-- [ ] padStart()
-- [ ] padEnd()
+- [x] concat()
+- [x] repeat()
+- [x] replace()
+- [x] replaceAll()
+- [x] split()
+- [x] trim()
+- [x] trimStart()
+- [x] trimEnd()
+- [x] padStart()
+- [x] padEnd()
 
 ### Instance Methods - Other
 
