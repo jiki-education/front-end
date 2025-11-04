@@ -19,6 +19,17 @@ export default function ChatMessages({ messages, currentResponse, status, onTypi
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, currentResponse]);
 
+  // Continuous scrolling during typing animation
+  useEffect(() => {
+    if (status === "typing") {
+      const intervalId = setInterval(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100); // Scroll every 100ms during typing
+
+      return () => clearInterval(intervalId);
+    }
+  }, [status]);
+
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4">
       {messages.length === 0 && !currentResponse && (
