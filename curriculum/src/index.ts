@@ -3,6 +3,9 @@
 // Export the exercise registry, loader function, and type
 export { exercises, getExercise, type ExerciseSlug } from "./exercises";
 
+// Export core types
+export type { Language } from "./types";
+
 // Export all types needed by consumers
 export type {
   ExerciseDefinition,

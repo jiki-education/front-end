@@ -62,10 +62,10 @@ app.post("/chat", async (c) => {
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
-    const { exerciseSlug, code, question, history = [], nextTaskId } = body;
+    const { exerciseSlug, code, question, history = [], nextTaskId, language } = body;
 
-    if (exerciseSlug === undefined || code === undefined || question === undefined) {
-      return c.json({ error: "Missing required fields: exerciseSlug, code, question" }, 400);
+    if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
+      return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
     }
 
     // 3. Build prompt (uses curriculum package)
@@ -74,7 +74,8 @@ app.post("/chat", async (c) => {
       code,
       question,
       history,
-      nextTaskId
+      nextTaskId,
+      language
     });
 
     // 4. Stream from Gemini and collect full response

@@ -2,11 +2,12 @@ import { jikiscript, javascript, python } from "@jiki/interpreters";
 import type { VisualExercise, IOExercise } from "../Exercise";
 import type { VisualScenario, IOScenario, TestExpect, ExerciseDefinition } from "../exercises/types";
 import { getLanguageFeatures } from "../levels";
+import type { Language } from "../types";
 
 /**
  * Helper to get the appropriate interpreter for a language
  */
-function getInterpreter(language: "jikiscript" | "javascript" | "python") {
+function getInterpreter(language: Language) {
   if (language === "jikiscript") return jikiscript;
   if (language === "javascript") return javascript;
   return python;
@@ -35,7 +36,7 @@ export function runVisualScenarioTest(
   scenario: VisualScenario,
   studentCode: string,
   levelId: string,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
+  language: Language = "jikiscript"
 ): ScenarioTestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
@@ -86,7 +87,7 @@ export function runIOScenarioTest(
   scenario: IOScenario,
   studentCode: string,
   levelId: string,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
+  language: Language = "jikiscript"
 ): ScenarioTestResult {
   // Get language features for this level
   const languageFeatures = getLanguageFeatures(levelId, language);
@@ -171,7 +172,7 @@ export function runAllVisualScenarios(
   scenarios: VisualScenario[],
   studentCode: string,
   levelId: string,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
+  language: Language = "jikiscript"
 ): ScenarioTestResult[] {
   return scenarios.map((scenario) => runVisualScenarioTest(ExerciseClass, scenario, studentCode, levelId, language));
 }
@@ -185,7 +186,7 @@ export function runAllIOScenarios(
   scenarios: IOScenario[],
   studentCode: string,
   levelId: string,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
+  language: Language = "jikiscript"
 ): ScenarioTestResult[] {
   return scenarios.map((scenario) => runIOScenarioTest(ExerciseClass, scenario, studentCode, levelId, language));
 }
@@ -198,7 +199,7 @@ export function runAllIOScenarios(
 export function runExerciseTests(
   exercise: ExerciseDefinition,
   studentCode: string,
-  language: "jikiscript" | "javascript" | "python" = "jikiscript"
+  language: Language = "jikiscript"
 ): ScenarioTestResult[] {
   if (exercise.type === "visual") {
     return runAllVisualScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);

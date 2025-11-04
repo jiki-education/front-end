@@ -43,7 +43,7 @@ export class EditorManager {
   constructor(
     element: HTMLDivElement,
     private readonly store: StoreApi<OrchestratorStore>,
-    private readonly exerciseUuid: string,
+    private readonly exerciseSlug: string,
     private readonly runCode: (code: string) => void
   ) {
     this.initializeAutoSave();
@@ -172,7 +172,7 @@ export class EditorManager {
       this.isSaving = true;
 
       try {
-        const result = saveCodeMirrorContent(this.exerciseUuid, code, readonlyRanges);
+        const result = saveCodeMirrorContent(this.exerciseSlug, code, readonlyRanges);
 
         if (result.success) {
           console.log("CodeMirror content saved successfully", result);
@@ -180,7 +180,7 @@ export class EditorManager {
           console.error("Failed to save CodeMirror content:", result.error);
         }
       } catch (error) {
-        console.error(`Error saving exercise ${this.exerciseUuid}:`, error);
+        console.error(`Error saving exercise ${this.exerciseSlug}:`, error);
       } finally {
         this.isSaving = false;
       }
@@ -239,13 +239,13 @@ export class EditorManager {
     this.isSaving = true;
 
     try {
-      const result = saveCodeMirrorContent(this.exerciseUuid, code, readonlyRanges);
+      const result = saveCodeMirrorContent(this.exerciseSlug, code, readonlyRanges);
 
       if (!result.success) {
         console.error("Failed to save CodeMirror content:", result.error);
       }
     } catch (error) {
-      console.error(`Error saving exercise ${this.exerciseUuid}:`, error);
+      console.error(`Error saving exercise ${this.exerciseSlug}:`, error);
     } finally {
       this.isSaving = false;
     }
@@ -408,7 +408,7 @@ export class EditorManager {
     exercise: unknown,
     unfoldableFunctionNames: string[]
   ) {
-    const localStorageResult = loadCodeMirrorContent(this.exerciseUuid);
+    const localStorageResult = loadCodeMirrorContent(this.exerciseSlug);
 
     if (
       localStorageResult.success &&
@@ -422,7 +422,7 @@ export class EditorManager {
         readonlyRanges: code.readonlyRanges
       });
 
-      saveCodeMirrorContent(this.exerciseUuid, code.code, code.readonlyRanges);
+      saveCodeMirrorContent(this.exerciseSlug, code.code, code.readonlyRanges);
     } else if (localStorageResult.success && localStorageResult.data) {
       this.store.getState().setDefaultCode(localStorageResult.data.code);
       this.setupEditor(unfoldableFunctionNames, {
@@ -443,7 +443,7 @@ export class EditorManager {
     defaultReadonlyRanges: { from: number; to: number }[],
     unfoldableFunctionNames: string[]
   ) {
-    saveCodeMirrorContent(this.exerciseUuid, stubCode, defaultReadonlyRanges);
+    saveCodeMirrorContent(this.exerciseSlug, stubCode, defaultReadonlyRanges);
 
     this.setupEditor(unfoldableFunctionNames, {
       code: "",

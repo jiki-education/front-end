@@ -22,7 +22,7 @@ function createMockFrames(count: number): Frame[] {
 // Helper to create mock orchestrator
 function createMockOrchestrator(): Orchestrator {
   return {
-    exerciseUuid: "test-uuid",
+    exerciseSlug: "test-uuid",
     setCode: jest.fn(),
     setCurrentTestTime: jest.fn(),
     setCurrentTest: jest.fn(),

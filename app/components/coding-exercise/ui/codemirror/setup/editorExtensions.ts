@@ -23,8 +23,7 @@ import { unfoldableFunctionsField } from "../utils/unfoldableFunctionNames";
 import { readonlyCompartment, languageCompartment } from "./editorCompartments";
 
 import type { Extension } from "@codemirror/state";
-
-type Language = "javascript" | "python" | "jikiscript";
+import type { Language } from "@jiki/curriculum";
 
 // Get language extension based on language string
 export function getLanguageExtension(language: Language): Extension {
@@ -35,6 +34,8 @@ export function getLanguageExtension(language: Language): Extension {
       return python();
     case "jikiscript":
       return jikiscript();
+    default:
+      throw new Error(`Unknown language: ${language}`);
   }
 }
 

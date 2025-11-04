@@ -1,5 +1,6 @@
 import { showModal } from "@/lib/modal";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
+import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
@@ -12,12 +13,12 @@ import { TimelineManager } from "./TimelineManager";
 const ONE_MINUTE = 60 * 1000;
 
 // Factory function to create an instance-specific store
-export function createOrchestratorStore(exerciseUuid: string, initialCode: string): StoreApi<OrchestratorStore> {
+export function createOrchestratorStore(exercise: ExerciseDefinition, language: Language): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => ({
-      exerciseUuid,
-      exerciseTitle: "Greeting Function Exercise", // Default title
-      code: initialCode,
+      exerciseSlug: exercise.slug,
+      exerciseTitle: exercise.title,
+      code: exercise.stubs[language],
       output: "",
       status: "idle",
       error: null,
@@ -27,10 +28,10 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
       wasSuccessModalShown: false,
       hasEverHadSuccessfulRun: false,
       foldedLines: [],
-      language: "jikiscript",
+      language: language,
 
       // Editor store state
-      defaultCode: initialCode,
+      defaultCode: exercise.stubs[language],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
@@ -358,14 +359,12 @@ export function createOrchestratorStore(exerciseUuid: string, initialCode: strin
         storedAt?: string;
         readonlyRanges?: { from: number; to: number }[];
       }) => {
-        const localStorageResult = loadCodeMirrorContent(exerciseUuid);
+        const state = get();
+        const localStorageResult = loadCodeMirrorContent(state.exerciseSlug);
 
-        // Rule 1: No server data and no localStorage - use initial code
+        // Rule 1: No server data and no localStorage - use stub code (already set during store creation)
         if (!serverData && (!localStorageResult.success || !localStorageResult.data)) {
-          set({
-            code: initialCode,
-            defaultCode: initialCode
-          });
+          // Code and defaultCode are already initialized with exercise.stubs[language]
           return;
         }
 
@@ -523,7 +522,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
   return useStore(
     orchestrator.getStore(),
     useShallow((state) => ({
-      exerciseUuid: state.exerciseUuid,
+      exerciseSlug: state.exerciseSlug,
       exerciseTitle: state.exerciseTitle,
       code: state.code,
       output: state.output,

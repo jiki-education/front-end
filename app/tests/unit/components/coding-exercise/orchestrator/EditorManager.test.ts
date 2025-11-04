@@ -97,6 +97,7 @@ jest.mock("lodash", () => ({
 
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import { EditorManager } from "@/components/coding-exercise/lib/orchestrator/EditorManager";
+import { createMockExercise } from "@/tests/mocks/exercise";
 import type { EditorView } from "@codemirror/view";
 
 describe("EditorManager", () => {
@@ -105,7 +106,11 @@ describe("EditorManager", () => {
   let mockRunCode: jest.Mock;
 
   beforeEach(() => {
-    store = createOrchestratorStore("test-uuid", "const x = 1;");
+    const mockExercise = createMockExercise({
+      slug: "test-uuid",
+      stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
+    });
+    store = createOrchestratorStore(mockExercise, "jikiscript");
     mockRunCode = jest.fn();
     const mockElement = document.createElement("div");
 

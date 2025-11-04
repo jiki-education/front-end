@@ -3,6 +3,7 @@ import { fundamentalsLevel } from "./fundamentals";
 import { variablesLevel } from "./variables";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags } from "./types";
+import type { Language } from "../types";
 
 // Export types
 export * from "./types";
@@ -29,10 +30,7 @@ export function getLevel(id: LevelId | string) {
 }
 
 // Helper to get allowed nodes for a language
-export function getAllowedNodes(
-  levelId: LevelId | string,
-  language: "jikiscript" | "javascript" | "python"
-): string[] | undefined {
+export function getAllowedNodes(levelId: LevelId | string, language: Language): string[] | undefined {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   // Jikiscript doesn't use allowedNodes (uses includeList/excludeList instead)
@@ -41,10 +39,7 @@ export function getAllowedNodes(
 }
 
 // Helper to get feature flags for a language
-export function getFeatureFlags(
-  levelId: LevelId | string,
-  language: "jikiscript" | "javascript" | "python"
-): LanguageFeatureFlags {
+export function getFeatureFlags(levelId: LevelId | string, language: Language): LanguageFeatureFlags {
   const level = getLevel(levelId);
   const features = level?.languageFeatures[language];
   return features?.languageFeatures ?? {};
@@ -53,7 +48,7 @@ export function getFeatureFlags(
 // Helper to get combined language features for interpreter (accumulates from all levels up to target)
 export function getLanguageFeatures(
   levelId: LevelId | string,
-  language: "jikiscript" | "javascript" | "python"
+  language: Language
 ): {
   allowedNodes?: string[];
   excludeList?: string[];

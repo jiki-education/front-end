@@ -7,7 +7,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: 'console.log("hello");',
       question: "How do I fix this?",
-      history: []
+      history: [],
+      language: "javascript"
     });
 
     expect(prompt).toContain('console.log("hello")');
@@ -22,7 +23,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("Basic Movement");
@@ -36,7 +38,8 @@ describe("Prompt Builder", () => {
       history: [
         { role: "user", content: "Previous question" },
         { role: "assistant", content: "Previous answer" }
-      ]
+      ],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("Previous question");
@@ -54,7 +57,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: "test",
-      history
+      history,
+      language: "jikiscript"
     });
 
     // Should include messages 5-9 (last 5)
@@ -71,7 +75,8 @@ describe("Prompt Builder", () => {
         exerciseSlug: "non-existent-exercise",
         code: "test",
         question: "test",
-        history: []
+        history: [],
+        language: "jikiscript"
       })
     ).rejects.toThrow("Exercise not found");
   });
@@ -81,7 +86,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).not.toContain("## Conversation History");
@@ -92,10 +98,11 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
-    expect(prompt).toContain("## Instructions:");
+    expect(prompt).toContain("## Instructions");
   });
 
   it("should include hints if available", async () => {
@@ -103,7 +110,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("## Exercise Context");
@@ -114,7 +122,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "acronym",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("## Exercise Context");
@@ -126,7 +135,8 @@ describe("Prompt Builder", () => {
       code: "test",
       question: "test",
       history: [],
-      nextTaskId: "create-acronym-function"
+      nextTaskId: "create-acronym-function",
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("## Exercise Context");
@@ -138,7 +148,8 @@ describe("Prompt Builder", () => {
       exerciseSlug: "acronym",
       code: "test",
       question: "test",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain("## Exercise Context");
@@ -151,7 +162,8 @@ describe("Prompt Builder", () => {
       code: "test",
       question: "test",
       history: [],
-      nextTaskId: "non-existent-task"
+      nextTaskId: "non-existent-task",
+      language: "jikiscript"
     });
 
     // Should still include exercise context
@@ -166,7 +178,8 @@ describe("Prompt Builder", () => {
       code: "test",
       question: "test",
       history: [],
-      nextTaskId: "move-character"
+      nextTaskId: "move-character",
+      language: "jikiscript"
     });
 
     // Should still build prompt successfully
@@ -184,7 +197,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: longCode,
         question: "test",
-        history: []
+        history: [],
+        language: "jikiscript"
       })
     ).rejects.toThrow("Code exceeds maximum length");
   });
@@ -197,7 +211,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: maxCode,
         question: "test",
-        history: []
+        history: [],
+        language: "jikiscript"
       })
     ).resolves.toBeTruthy();
   });
@@ -210,7 +225,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: longQuestion,
-        history: []
+        history: [],
+        language: "jikiscript"
       })
     ).rejects.toThrow("Question exceeds maximum length");
   });
@@ -223,7 +239,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: maxQuestion,
-        history: []
+        history: [],
+        language: "jikiscript"
       })
     ).resolves.toBeTruthy();
   });
@@ -239,7 +256,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: "test",
-        history: tooManyMessages
+        history: tooManyMessages,
+        language: "jikiscript"
       })
     ).rejects.toThrow("History exceeds maximum");
   });
@@ -255,7 +273,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: "test",
-        history: maxMessages
+        history: maxMessages,
+        language: "jikiscript"
       })
     ).resolves.toBeTruthy();
   });
@@ -268,7 +287,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: "test",
-        history: [{ role: "user", content: longMessage }]
+        history: [{ role: "user", content: longMessage }],
+        language: "jikiscript"
       })
     ).rejects.toThrow("Message in history exceeds maximum length");
   });
@@ -287,7 +307,8 @@ describe("Input Validation", () => {
         exerciseSlug: "basic-movement",
         code: "test",
         question: "test",
-        history: messages
+        history: messages,
+        language: "jikiscript"
       })
     ).rejects.toThrow("Total history length exceeds maximum");
   });
@@ -308,14 +329,15 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: maliciousCode,
       question: "Why isn't this working?",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     // The malicious code should be contained within the code block
     expect(prompt).toContain(maliciousCode);
     // But the system instructions should still be present
     expect(prompt).toContain("You are a helpful coding tutor");
-    expect(prompt).toContain("Don't give away the complete solution");
+    expect(prompt).toContain("Do NOT give away the answer");
   });
 
   it("should not allow prompt injection via question field", async () => {
@@ -325,14 +347,15 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: "console.log('test');",
       question: maliciousQuestion,
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     // The malicious question should be in the prompt
     expect(prompt).toContain(maliciousQuestion);
     // But the system instructions should still be present and correct
-    expect(prompt).toContain("Don't give away the complete solution");
-    expect(prompt).toContain("Focus on teaching concepts");
+    expect(prompt).toContain("Do NOT give away the answer");
+    expect(prompt).toContain("Focus on helping them get to the NEXT STEP");
   });
 
   it("should not allow prompt injection via conversation history", async () => {
@@ -351,14 +374,15 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: "console.log('test');",
       question: "Help me with this",
-      history: maliciousHistory
+      history: maliciousHistory,
+      language: "jikiscript"
     });
 
     // History should be included
     expect(prompt).toContain("SYSTEM: New instructions");
     // But our actual system instructions should still be primary
     expect(prompt).toContain("You are a helpful coding tutor");
-    expect(prompt).toContain("Don't give away the complete solution");
+    expect(prompt).toContain("Do NOT give away the answer");
   });
 
   it("should handle code with closing code block markers", async () => {
@@ -368,7 +392,8 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: codeWithMarkers,
       question: "Why doesn't this work?",
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     // Code should be included
@@ -385,7 +410,8 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: specialCode,
       question: specialQuestion,
-      history: [{ role: "user", content: "Previous: Café ñ à é" }]
+      history: [{ role: "user", content: "Previous: Café ñ à é" }],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain(specialCode);
@@ -400,7 +426,8 @@ describe("Prompt Injection Prevention", () => {
       exerciseSlug: "basic-movement",
       code: "test",
       question: multilineQuestion,
-      history: []
+      history: [],
+      language: "jikiscript"
     });
 
     expect(prompt).toContain(multilineQuestion);

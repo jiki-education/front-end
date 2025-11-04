@@ -171,8 +171,15 @@ jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
 
 describe("CodeMirror Integration with Real Orchestrator", () => {
   it("renders CodeEditor with real orchestrator and mocked CodeMirror", () => {
-    const exercise = createMockExercise({ slug: "integration-test", initialCode: "console.log('Hello World');" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "integration-test",
+      stubs: {
+        javascript: "console.log('Hello World');",
+        python: "console.log('Hello World');",
+        jikiscript: "console.log('Hello World');"
+      }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -186,8 +193,15 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
   });
 
   it("integrates orchestrator state management", () => {
-    const exercise = createMockExercise({ slug: "state-test", initialCode: "const initial = true;" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "state-test",
+      stubs: {
+        javascript: "const initial = true;",
+        python: "const initial = true;",
+        jikiscript: "const initial = true;"
+      }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -197,15 +211,18 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
 
     // Check initial state
     const state = orchestrator.getStore().getState();
-    expect(state.exerciseUuid).toBe("state-test");
+    expect(state.exerciseSlug).toBe("state-test");
     expect(state.code).toBe("const initial = true;");
     expect(state.defaultCode).toBe("const initial = true;");
     expect(state.readonly).toBe(false);
   });
 
   it("responds to orchestrator state changes", () => {
-    const exercise = createMockExercise({ slug: "change-test", initialCode: "const x = 1;" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "change-test",
+      stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -229,10 +246,16 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
   });
 
   it("handles multiple orchestrator instances independently", () => {
-    const exercise1 = createMockExercise({ slug: "uuid-1", initialCode: "code1" });
-    const exercise2 = createMockExercise({ slug: "uuid-2", initialCode: "code2" });
-    const orchestrator1 = new Orchestrator(exercise1);
-    const orchestrator2 = new Orchestrator(exercise2);
+    const exercise1 = createMockExercise({
+      slug: "uuid-1",
+      stubs: { javascript: "code1", python: "code1", jikiscript: "code1" }
+    });
+    const exercise2 = createMockExercise({
+      slug: "uuid-2",
+      stubs: { javascript: "code2", python: "code2", jikiscript: "code2" }
+    });
+    const orchestrator1 = new Orchestrator(exercise1, "jikiscript");
+    const orchestrator2 = new Orchestrator(exercise2, "jikiscript");
 
     const { rerender } = render(
       <OrchestratorTestProvider orchestrator={orchestrator1}>
@@ -241,7 +264,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
     );
 
     // Verify first orchestrator
-    expect(orchestrator1.getStore().getState().exerciseUuid).toBe("uuid-1");
+    expect(orchestrator1.getStore().getState().exerciseSlug).toBe("uuid-1");
     expect(orchestrator1.getStore().getState().code).toBe("code1");
 
     rerender(
@@ -251,7 +274,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
     );
 
     // Verify second orchestrator
-    expect(orchestrator2.getStore().getState().exerciseUuid).toBe("uuid-2");
+    expect(orchestrator2.getStore().getState().exerciseSlug).toBe("uuid-2");
     expect(orchestrator2.getStore().getState().code).toBe("code2");
 
     // Verify they're independent
@@ -265,8 +288,11 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
   });
 
   it("exposes editor management methods", () => {
-    const exercise = createMockExercise({ slug: "methods-test", initialCode: "test code" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "methods-test",
+      stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -292,8 +318,11 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
   });
 
   it("maintains proper editor state lifecycle", () => {
-    const exercise = createMockExercise({ slug: "lifecycle-test", initialCode: "initial code" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "lifecycle-test",
+      stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     const { unmount } = render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -315,8 +344,11 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
   });
 
   it("supports editor configuration and extensions", () => {
-    const exercise = createMockExercise({ slug: "config-test", initialCode: "test" });
-    const orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "config-test",
+      stubs: { javascript: "test", python: "test", jikiscript: "test" }
+    });
+    const orchestrator = new Orchestrator(exercise, "jikiscript");
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>

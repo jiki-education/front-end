@@ -14,8 +14,11 @@ describe("InformationWidgetToggleButton", () => {
   let orchestrator: Orchestrator;
 
   beforeEach(() => {
-    const exercise = createMockExercise({ slug: "test-uuid", initialCode: "initial code" });
-    orchestrator = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "test-uuid",
+      stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
+    });
+    orchestrator = new Orchestrator(exercise, "jikiscript");
     // Mock the editorManager methods
     orchestrator.showInformationWidget = jest.fn();
     orchestrator.hideInformationWidget = jest.fn();

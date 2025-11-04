@@ -14,5 +14,6 @@ export default defineConfig({
     alias: {
       "@jiki/curriculum": path.resolve(__dirname, "../curriculum/src")
     }
-  }
+  },
+  assetsInclude: ["**/*.javascript", "**/*.py", "**/*.jiki"]
 });

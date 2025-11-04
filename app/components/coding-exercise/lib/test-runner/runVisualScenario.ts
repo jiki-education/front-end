@@ -1,10 +1,6 @@
-import type { VisualExercise, VisualScenario } from "@jiki/curriculum";
+import type { VisualExercise, VisualScenario, Language } from "@jiki/curriculum";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
-
-type Language = "javascript" | "python" | "jikiscript";
-
-// Map language to interpreter
 import { jikiscript, javascript, python } from "@jiki/interpreters";
 
 const interpreters = {
@@ -14,7 +10,7 @@ const interpreters = {
 };
 
 function getInterpreter(language: Language) {
-  const interpreter = interpreters[language];
+  const interpreter = interpreters[language as keyof typeof interpreters];
   // Defensive check (TypeScript guarantees this, but good for runtime safety)
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!interpreter) {

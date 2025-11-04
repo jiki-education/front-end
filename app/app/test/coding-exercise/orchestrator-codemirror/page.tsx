@@ -10,8 +10,15 @@ export default function OrchestratorCodeMirrorTestPage() {
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
-    const exercise = createMockExercise({ slug: "test-exercise", initialCode: "// Initial code\nconst x = 42;" });
-    const orch = new Orchestrator(exercise);
+    const exercise = createMockExercise({
+      slug: "test-exercise",
+      stubs: {
+        javascript: "// Initial code\nconst x = 42;",
+        python: "// Initial code\nconst x = 42;",
+        jikiscript: "// Initial code\nconst x = 42;"
+      }
+    });
+    const orch = new Orchestrator(exercise, "jikiscript");
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

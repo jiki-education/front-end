@@ -8,23 +8,12 @@ Exercises are the core educational units in Jiki. Each exercise teaches a specif
 
 ### Base Exercise Class
 
-All exercises extend the `Exercise` class from `src/Exercise.ts`:
+All exercises extend the `Exercise` class from `src/Exercise.ts`. See that file for the complete class definition including:
 
-```typescript
-export abstract class Exercise {
-  animations: Animation[] = [];
-  view: HTMLElement;
-
-  abstract availableFunctions: Array<{
-    name: string;
-    func: (ctx: ExecutionContext) => void;
-    description?: string;
-  }>;
-
-  abstract getState(): Record<string, number | string | boolean>;
-  getView(): HTMLElement;
-}
-```
+- `animations: Animation[]` - Visual feedback array
+- `availableFunctions` - Exercise-specific functions
+- `getState()` - Returns exercise state
+- `getView()` - Returns HTML element
 
 ### Key Components
 
@@ -50,130 +39,31 @@ src/exercises/
 
 ### Step 1: Create the Exercise Class
 
-Each exercise defines its own specific functions that become available to students. These are not generic functions - they are unique to each exercise and provide the specific behavior for that exercise's puzzle or challenge.
-
-```typescript
-// src/exercises/maze-navigation/Exercise.ts
-import { Exercise } from "../../Exercise";
-import type { ExecutionContext } from "@jiki/interpreters";
-
-export class MazeNavigationExercise extends Exercise {
-  private playerX = 0;
-  private playerY = 0;
-
-  // These functions are specific to THIS exercise
-  availableFunctions = [
-    {
-      name: "move_forward", // Python: move_forward(), JavaScript: moveForward()
-      func: (ctx: ExecutionContext) => {
-        this.playerY -= 1;
-        this.animations.push({
-          targets: "#player",
-          offset: ctx.currentTime,
-          duration: 300,
-          transformations: {
-            translateY: this.playerY * 50
-          }
-        });
-      },
-      description: "Move the player forward one square"
-    },
-    {
-      name: "turn_left", // Python: turn_left(), JavaScript: turnLeft()
-      func: (ctx: ExecutionContext) => {
-        // Implementation specific to this exercise's turning logic
-      },
-      description: "Turn the player left"
-    }
-  ];
-
-  getState() {
-    return {
-      x: this.playerX,
-      y: this.playerY,
-      atGoal: this.isAtGoal()
-    };
-  }
-}
-```
-
-Functions are defined in snake_case and automatically converted for each language:
+Each exercise defines its own specific functions that become available to students. Functions are defined in snake_case and automatically converted for each language:
 
 - **Python**: `move_forward()`, `turn_left()` (as defined)
-- **JavaScript**: `moveForward()`, `turnLeft()` (automatically converted)
+- **JavaScript**: `moveForward()`, `turnLeft()` (automatically converted to camelCase)
+- **JikiScript**: `moveForward()`, `turnLeft()` (uses camelCase)
+
+See `src/exercises/basic-movement/Exercise.ts` for a complete example of how to structure an exercise class with available functions.
 
 ### Step 2: Define Scenarios
 
-Scenarios are like test cases - they provide different starting states and success conditions for the same exercise. All scenarios in an exercise use the same available functions:
+Scenarios are like test cases - they provide different starting states and success conditions for the same exercise. All scenarios in an exercise use the same available functions.
 
-```typescript
-// src/exercises/maze-navigation/scenarios.ts
-export const scenarios = {
-  simple: {
-    name: "Simple Path",
-    description: "Navigate a straight path to the goal",
-    // Different starting state
-    initialState: {
-      playerX: 0,
-      playerY: 5,
-      goalX: 0,
-      goalY: 0,
-      obstacles: []
-    },
-    // Different success criteria
-    successCondition: (state) => state.x === 0 && state.y === 0
-  },
-  complex: {
-    name: "Winding Path",
-    description: "Navigate around obstacles",
-    // More complex starting state
-    initialState: {
-      playerX: 0,
-      playerY: 5,
-      goalX: 5,
-      goalY: 0,
-      obstacles: [
-        [1, 3],
-        [2, 3],
-        [3, 3]
-      ] // Wall positions
-    },
-    // Same functions available, different challenge
-    successCondition: (state) => state.x === 5 && state.y === 0
-  }
-};
-```
+See `src/exercises/basic-movement/scenarios.ts` or `src/exercises/acronym/scenarios.ts` for complete examples of how to structure scenarios.
 
-### Step 3: Register the Exercise
+### Step 3: Create Solution and Stub Files
 
-Add to the exercise registry:
+Create language-specific code files (`.javascript`, `.py`, `.jiki`) for both solutions and stubs.
 
-```typescript
-// src/exercises/index.ts
-export { MazeNavigationExercise } from "./maze-navigation";
-```
+### Step 4: Register the Exercise
+
+Add to the exercise registry in `src/exercises/index.ts` and `src/index.ts` following the existing pattern.
 
 ## Animation System
 
-Exercises generate animations that the frontend converts to anime.js timelines:
-
-```typescript
-interface Animation {
-  targets: string; // CSS selector
-  offset: number; // Time offset in ms
-  duration?: number; // Animation duration
-  easing?: string; // Easing function
-  transformations: {
-    left?: number;
-    top?: number;
-    translateX?: number;
-    translateY?: number;
-    rotate?: number;
-    scale?: number;
-    opacity?: number;
-  };
-}
-```
+Exercises generate animations that the frontend converts to anime.js timelines. See `src/Exercise.ts` for the complete `Animation` interface definition.
 
 ### Animation Best Practices
 

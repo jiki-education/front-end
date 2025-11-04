@@ -19,8 +19,11 @@ interface TestingPageProps {
 export default function TestingPage({
   initialCode = "// Test CodeMirror extensions\nfunction hello() {\n  console.log('Hello, World!');\n}\n\nhello();"
 }: TestingPageProps) {
-  const exercise = createMockExercise({ slug: "testing-ui", initialCode });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise));
+  const exercise = createMockExercise({
+    slug: "testing-ui",
+    stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
+  });
+  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
   const orchestrator = orchestratorRef.current;
 
   return (

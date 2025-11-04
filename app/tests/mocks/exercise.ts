@@ -13,7 +13,16 @@ export function createMockExercise(overrides?: Partial<ExerciseDefinition>): Exe
     instructions: "This is a test exercise",
     estimatedMinutes: 5,
     levelId: "level-1",
-    initialCode: "// Test code",
+    stubs: {
+      javascript: "// Test code",
+      python: "# Test code",
+      jikiscript: "// Test code"
+    },
+    solutions: {
+      javascript: "// Solution code",
+      python: "# Solution code",
+      jikiscript: "// Solution code"
+    },
     ExerciseClass: TestExercise,
     tasks,
     scenarios,

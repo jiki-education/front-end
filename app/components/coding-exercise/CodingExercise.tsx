@@ -45,8 +45,8 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
         const exercise = (await loader()).default;
 
         // Create orchestrator only once and store in ref
-        // Pass project context if this is a project
-        orchestratorRef.current = new Orchestrator(exercise, isProject ? { projectSlug } : undefined);
+        // Pass hardcoded jikiscript language and project context if this is a project
+        orchestratorRef.current = new Orchestrator(exercise, "jikiscript", isProject ? { projectSlug } : undefined);
         setIsLoading(false);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : "Unknown error");

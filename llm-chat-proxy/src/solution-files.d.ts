@@ -1,4 +1,4 @@
-// Type declarations for importing solution files as text
+// Type declarations for importing solution files as text from curriculum
 declare module "*.jiki" {
   const content: string;
   export default content;

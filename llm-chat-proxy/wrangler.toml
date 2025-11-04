@@ -3,6 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
+[[rules]]
+type = "Text"
+globs = ["**/*.javascript", "**/*.py", "**/*.jiki"]
+fallthrough = true
+
 # Rate limiting for development: 100 requests per minute
 # Note: Local dev only supports period of 10 or 60 seconds
 [[unsafe.bindings]]

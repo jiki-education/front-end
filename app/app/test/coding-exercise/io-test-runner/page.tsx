@@ -61,12 +61,13 @@ export default function IOTestRunnerPage() {
       instructions: "This is a test exercise for IO tests",
       estimatedMinutes: 5,
       levelId: "fundamentals",
-      initialCode,
+      stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
+      solutions: { javascript: "", python: "", jikiscript: "" },
       ExerciseClass: TestIOExercise,
       tasks,
       scenarios
     };
-    const orch = new Orchestrator(exercise);
+    const orch = new Orchestrator(exercise, "jikiscript");
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

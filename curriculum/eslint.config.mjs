@@ -11,7 +11,10 @@ export default [
       "build/**",
       "**/solution.js", // Exercise solution files (not standalone code)
       "**/solution.py",
-      "**/solution.jiki"
+      "**/solution.jiki",
+      "**/stub.js", // Exercise stub files (use exercise context functions)
+      "**/stub.py",
+      "**/stub.jiki"
     ]
   },
 

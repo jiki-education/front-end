@@ -1,5 +1,5 @@
 import type { Frame } from "@jiki/interpreters";
-import type { TaskProgress } from "@jiki/curriculum";
+import type { TaskProgress, Language } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 
 // CodeMirror editor types
@@ -16,7 +16,7 @@ export interface InformationWidgetData {
 
 // Public read-only state that components can access
 export interface OrchestratorState {
-  exerciseUuid: string;
+  exerciseSlug: string;
   exerciseTitle: string; // Exercise title for UI display
   code: string;
   output: string;
@@ -28,7 +28,7 @@ export interface OrchestratorState {
   wasSuccessModalShown: boolean;
   hasEverHadSuccessfulRun: boolean;
   foldedLines: number[]; // Line numbers that are currently folded in the editor
-  language: "javascript" | "python" | "jikiscript";
+  language: Language;
 
   // Editor store state
   defaultCode: string;

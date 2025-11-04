@@ -4,7 +4,6 @@
   "instructions": "Learn to control a character using basic movement commands. Your goal is to move the character to the correct position.",
   "estimatedMinutes": 5,
   "levelId": "using-functions",
-  "initialCode": "// Move the character 5 times\n// Each move() call moves the character 20px forward\n",
   "hints": [
     "Remember to call move() 5 times",
     "Each move() call moves the character 20px forward",

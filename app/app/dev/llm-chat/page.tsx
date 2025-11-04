@@ -3,7 +3,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { exercises } from "@jiki/curriculum";
 import { getToken } from "@/lib/auth/storage";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // Types
 interface ChatMessage {
@@ -40,6 +40,7 @@ export default function LLMChatTestPage() {
   // Exercise and code state
   const exerciseSlugs = Object.keys(exercises);
   const [selectedExercise, setSelectedExercise] = useState<string>("basic-movement");
+  const [selectedLanguage, setSelectedLanguage] = useState<"javascript" | "python" | "jikiscript">("jikiscript");
   const [code, setCode] = useState<string>("");
   const [isLoadingExercise, setIsLoadingExercise] = useState(false);
   const [availableTasks, setAvailableTasks] = useState<Array<{ id: string; name: string }>>([]);
@@ -58,10 +59,41 @@ export default function LLMChatTestPage() {
   // Refs
   const responseRef = useRef<HTMLDivElement>(null);
 
+  // Helper function to load exercise code
+  const loadExerciseCode = useCallback(
+    async (slug: string) => {
+      setIsLoadingExercise(true);
+      try {
+        const loader = exercises[slug as keyof typeof exercises];
+        const exercise = (await loader()).default;
+        // Get initial code from exercise definition
+        const starterCode = exercise.stubs[selectedLanguage] || "// Write your code here";
+        setCode(starterCode);
+
+        // Load available tasks
+        const tasks = exercise.tasks.map((task) => ({
+          id: task.id,
+          name: task.name
+        }));
+        setAvailableTasks(tasks);
+        // Auto-select first task
+        setSelectedTaskId(tasks.length > 0 ? tasks[0].id : "");
+      } catch (err) {
+        console.error("Failed to load exercise:", err);
+        setCode("// Failed to load exercise code");
+        setAvailableTasks([]);
+        setSelectedTaskId("");
+      } finally {
+        setIsLoadingExercise(false);
+      }
+    },
+    [selectedLanguage]
+  );
+
   // Load exercise code when selection changes
   useEffect(() => {
     void loadExerciseCode(selectedExercise);
-  }, [selectedExercise]);
+  }, [selectedExercise, loadExerciseCode]);
 
   // Auto-scroll response area
   useEffect(() => {
@@ -102,7 +134,8 @@ export default function LLMChatTestPage() {
       code,
       question,
       history: history.slice(-5), // Last 5 messages
-      nextTaskId: selectedTaskId || undefined // Only include if set
+      nextTaskId: selectedTaskId || undefined, // Only include if set
+      language: selectedLanguage
     };
 
     addDebugEvent("request", requestPayload);
@@ -168,6 +201,8 @@ export default function LLMChatTestPage() {
                 isLoading={isLoadingExercise}
               />
 
+              <LanguageSelector selectedLanguage={selectedLanguage} onSelectLanguage={setSelectedLanguage} />
+
               <TaskSelector
                 availableTasks={availableTasks}
                 selectedTaskId={selectedTaskId}
@@ -210,33 +245,6 @@ export default function LLMChatTestPage() {
   );
 
   // Helper functions
-  async function loadExerciseCode(slug: string) {
-    setIsLoadingExercise(true);
-    try {
-      const loader = exercises[slug as keyof typeof exercises];
-      const exercise = (await loader()).default;
-      // Get initial code from exercise definition
-      const starterCode = exercise.initialCode || "// Write your code here";
-      setCode(starterCode);
-
-      // Load available tasks
-      const tasks = exercise.tasks.map((task) => ({
-        id: task.id,
-        name: task.name
-      }));
-      setAvailableTasks(tasks);
-      // Auto-select first task
-      setSelectedTaskId(tasks.length > 0 ? tasks[0].id : "");
-    } catch (err) {
-      console.error("Failed to load exercise:", err);
-      setCode("// Failed to load exercise code");
-      setAvailableTasks([]);
-      setSelectedTaskId("");
-    } finally {
-      setIsLoadingExercise(false);
-    }
-  }
-
   async function handleStreamingResponse(body: ReadableStream<Uint8Array>, userQuestion: string) {
     const reader = body.getReader();
     const decoder = new TextDecoder();
@@ -487,6 +495,29 @@ function AuthSection({
       >
         {isAuthLoading ? "Logging in..." : "Login as ihid@jiki.io"}
       </button>
+    </div>
+  );
+}
+
+function LanguageSelector({
+  selectedLanguage,
+  onSelectLanguage
+}: {
+  selectedLanguage: "javascript" | "python" | "jikiscript";
+  onSelectLanguage: (language: "javascript" | "python" | "jikiscript") => void;
+}) {
+  return (
+    <div className="bg-white rounded-lg shadow p-4">
+      <label className="block text-sm font-semibold mb-2">Language</label>
+      <select
+        value={selectedLanguage}
+        onChange={(e) => onSelectLanguage(e.target.value as "javascript" | "python" | "jikiscript")}
+        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="jikiscript">JikiScript</option>
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+      </select>
     </div>
   );
 }
