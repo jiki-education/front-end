@@ -7,6 +7,7 @@ export interface ChatContext {
   exerciseInstructions: string;
   currentTaskId: string | null;
   currentCode: string;
+  language: string;
   exercise: any; // Full exercise object
 }
 
@@ -22,6 +23,7 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
       exerciseInstructions: orchestrator.getExerciseInstructions(),
       currentTaskId: storeState.currentTaskId,
       currentCode,
+      language: storeState.language,
       exercise
     };
   }, [orchestrator]);

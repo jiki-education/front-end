@@ -55,26 +55,30 @@ export function useConversationLoader(exerciseSlug: string) {
           error: null
         });
       } catch (error) {
-        // If user lesson doesn't exist yet, that's okay - start with empty conversation
-        if (error instanceof Error && error.message.includes("User lesson not found")) {
-          const emptyConversation: ChatMessage[] = [];
-          cacheRef.current[exerciseSlug] = emptyConversation;
-          loadedRef.current = exerciseSlug;
+        // Handle specific error cases gracefully
+        if (error instanceof Error) {
+          // If user lesson doesn't exist yet, that's okay - start with empty conversation
+          if (error.message.includes("User lesson not found")) {
+            const emptyConversation: ChatMessage[] = [];
+            cacheRef.current[exerciseSlug] = emptyConversation;
+            loadedRef.current = exerciseSlug;
 
-          setState({
-            conversation: emptyConversation,
-            isLoading: false,
-            error: null
-          });
-        } else {
-          // Other errors should be logged but not break the UI
-          console.warn("Failed to load conversation:", error);
-          setState({
-            conversation: [],
-            isLoading: false,
-            error: error instanceof Error ? error.message : "Failed to load conversation"
-          });
+            setState({
+              conversation: emptyConversation,
+              isLoading: false,
+              error: null
+            });
+            return;
+          }
         }
+
+        // Other errors should be logged but not break the UI
+        console.warn("Failed to load conversation:", error);
+        setState({
+          conversation: [],
+          isLoading: false,
+          error: error instanceof Error ? error.message : "Failed to load conversation"
+        });
       }
     },
     [exerciseSlug]

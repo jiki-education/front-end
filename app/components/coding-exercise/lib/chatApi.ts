@@ -6,6 +6,7 @@ export interface ChatRequestPayload {
   exerciseSlug: string;
   code: string;
   question: string;
+  language: string;
   history: ChatMessage[];
   nextTaskId?: string;
 }

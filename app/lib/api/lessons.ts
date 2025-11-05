@@ -67,6 +67,25 @@ export async function startLesson(slug: string): Promise<void> {
  * Fetch user lesson data including conversation history
  */
 export async function fetchUserLesson(slug: string): Promise<UserLessonData> {
-  const response = await api.get<UserLessonResponse>(`/internal/user_lessons/${slug}`);
-  return response.data.user_lesson;
+  try {
+    const response = await api.get<UserLessonResponse>(`/internal/user_lessons/${slug}`);
+    return response.data.user_lesson;
+  } catch (error) {
+    // Enhance error messages for better debugging and frontend handling
+    if (error instanceof Error) {
+      // If the API returns a server error (500), check if it's a database schema issue
+      if (error.message.includes("500")) {
+        throw new Error(
+          "Server error occurred while fetching user lesson data. This may be due to a database schema issue."
+        );
+      }
+
+      // If the API returns 404, it's likely the user lesson doesn't exist
+      if (error.message.includes("404")) {
+        throw new Error("User lesson not found");
+      }
+    }
+
+    throw error;
+  }
 }
