@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface AuthHeaderProps {
   title?: string;
@@ -18,30 +19,31 @@ export function AuthHeader({ title }: AuthHeaderProps) {
   }, []);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50 p-20">
+    <header className="bg-bg-primary border-b border-border-primary sticky top-0 z-50 p-20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Title */}
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600">
+            <Link href="/" className="text-xl font-bold text-text-primary hover:text-link-primary">
               Jiki Learn
             </Link>
             {title && (
               <>
-                <span className="mx-3 text-gray-400">/</span>
-                <span className="text-gray-700">{title}</span>
+                <span className="mx-3 text-text-tertiary">/</span>
+                <span className="text-text-secondary">{title}</span>
               </>
             )}
           </div>
 
           {/* Auth Section */}
           <nav className="flex items-center space-x-4">
-            <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/blog" className="text-text-secondary hover:text-text-primary transition-colors">
               Blog
             </Link>
-            <Link href="/articles" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/articles" className="text-text-secondary hover:text-text-primary transition-colors">
               Articles
             </Link>
+            <ThemeToggle />
 
             {/* Auth-dependent content with hydration protection */}
             {!mounted || isLoading ? (

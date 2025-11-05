@@ -1,5 +1,6 @@
 import { ConditionalAuthHeader } from "@/components/layout/ConditionalAuthHeader";
 import { useAuthStore } from "@/stores/authStore";
+import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { render, screen } from "@testing-library/react";
 
 // Mock the auth store
@@ -15,6 +16,31 @@ jest.mock("next/navigation", () => ({
   })
 }));
 
+// Mock DOM APIs for theme provider
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+});
+
+Object.defineProperty(window, "localStorage", {
+  value: {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn()
+  },
+  writable: true
+});
+
 describe("ConditionalAuthHeader Route-based Visibility", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -29,7 +55,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("shows header on blog pages", () => {
     mockPathname.mockReturnValue("/blog");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should render the header
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -39,7 +69,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("shows header on blog post pages", () => {
     mockPathname.mockReturnValue("/blog/some-post-slug");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should render the header with Blog title
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -49,7 +83,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("shows header on articles pages", () => {
     mockPathname.mockReturnValue("/articles");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should render the header
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -59,7 +97,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("shows header on article post pages", () => {
     mockPathname.mockReturnValue("/articles/some-article-slug");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should render the header with Articles title
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -69,7 +111,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("shows header on localized blog pages", () => {
     mockPathname.mockReturnValue("/hu/blog");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should render the header
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -79,7 +125,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("hides header on dashboard page", () => {
     mockPathname.mockReturnValue("/dashboard");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should NOT render the header
     expect(screen.queryByText("Jiki Learn")).not.toBeInTheDocument();
@@ -88,7 +138,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("hides header on auth pages", () => {
     mockPathname.mockReturnValue("/auth/login");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should NOT render the header
     expect(screen.queryByText("Jiki Learn")).not.toBeInTheDocument();
@@ -97,7 +151,11 @@ describe("ConditionalAuthHeader Route-based Visibility", () => {
   it("hides header on home page", () => {
     mockPathname.mockReturnValue("/");
 
-    render(<ConditionalAuthHeader />);
+    render(
+      <ThemeProvider>
+        <ConditionalAuthHeader />
+      </ThemeProvider>
+    );
 
     // Should NOT render the header
     expect(screen.queryByText("Jiki Learn")).not.toBeInTheDocument();

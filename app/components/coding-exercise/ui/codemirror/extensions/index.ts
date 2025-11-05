@@ -6,7 +6,8 @@ export {
   informationWidgetDataField,
   informationWidgetDataEffect
 } from "./end-line-information/line-information";
-export { jsTheme } from "./js-theme";
+export { jsTheme, createAdaptiveTheme, lightTheme, darkTheme } from "./js-theme";
+export { createThemeExtension, createThemeChangeEffect, themeCompartment } from "./adaptive-theme";
 export { cursorTooltip } from "./edit-editor/customCursor";
 export { highlightedCodeBlock } from "./edit-editor/highlightRange";
 export { initReadOnlyRangesExtension } from "./read-only-ranges/readOnlyRanges";
