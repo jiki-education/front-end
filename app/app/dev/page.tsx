@@ -29,6 +29,14 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- Test the LLM chat proxy with SSE streaming</span>
             </li>
+            <li>
+              <Link href="/dev/stripe-test" className="text-blue-600 hover:underline">
+                Stripe Subscription Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - Test Stripe subscription flows, upgrades, downgrades, and customer portal
+              </span>
+            </li>
           </ul>
         </div>
 
