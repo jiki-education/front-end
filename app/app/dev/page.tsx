@@ -29,6 +29,14 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- Test the LLM chat proxy with SSE streaming</span>
             </li>
+            <li>
+              <Link href="/dev/typing-test" className="text-blue-600 hover:underline">
+                Typing Effect Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - Test TypeIt.js chat typing animation without API calls
+              </span>
+            </li>
           </ul>
         </div>
 

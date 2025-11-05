@@ -15,6 +15,7 @@ import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import ConsoleTab from "./ui/test-results-view/ConsoleTab";
 import LanguageToggle from "./ui/LanguageToggle";
 import FunctionsView from "./ui/FunctionsView";
+import ChatPanel from "./ui/ChatPanel";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -128,6 +129,11 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
                   id: "console",
                   label: "Console",
                   content: <ConsoleTab />
+                },
+                {
+                  id: "chat",
+                  label: "Chat",
+                  content: <ChatPanel />
                 }
               ]}
               defaultActiveTab="instructions"
