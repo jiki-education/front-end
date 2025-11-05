@@ -77,11 +77,18 @@ export function useChat(orchestrator: Orchestrator) {
 
   const retryLastMessage = useCallback(() => {
     if (chatState.status === "error" && chatState.messages.length > 0) {
-      const lastUserMessage = [...chatState.messages].reverse().find((msg) => msg.role === "user");
+      const messages = chatState.messages;
+      const lastUserMessage = [...messages].reverse().find((msg) => msg.role === "user");
 
       if (lastUserMessage) {
-        // Remove the failed message pair from history
-        const newMessages = chatState.messages.slice(0, -2);
+        // Find the index of the last user message
+        const lastUserMessageIndex = messages.lastIndexOf(lastUserMessage);
+
+        // Remove from the last user message onwards (handles both cases:
+        // 1. Error during streaming: removes only the user message
+        // 2. Error after assistant response: removes user + assistant messages)
+        const newMessages = messages.slice(0, lastUserMessageIndex);
+
         chatState.clearChat();
         newMessages.forEach((msg) => chatState.addMessage(msg));
 
