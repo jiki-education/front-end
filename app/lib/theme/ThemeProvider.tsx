@@ -16,20 +16,29 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
+    // Sync with blocking script's theme on initial render to prevent hydration mismatch
+    if (typeof document !== "undefined") {
+      const hasDataTheme = document.documentElement.getAttribute("data-theme") === "dark";
+      return hasDataTheme ? "dark" : "light";
+    }
+    return "light";
+  });
   const [mounted, setMounted] = useState(false);
 
   // Initialize theme from localStorage and system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
+
+    // Sync with what the blocking script already set
+    const currentDataTheme = document.documentElement.getAttribute("data-theme");
+    const blockingScriptResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
 
     const initialTheme = savedTheme || defaultTheme;
-    const initialResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
 
     setThemeState(initialTheme);
-    setResolvedTheme(initialResolvedTheme);
-    updateDocumentTheme(initialResolvedTheme);
+    setResolvedTheme(blockingScriptResolvedTheme);
+    // Don't call updateDocumentTheme here since blocking script already set it correctly
     setMounted(true);
   }, [defaultTheme]);
 
@@ -65,11 +74,11 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     localStorage.setItem(STORAGE_KEY, newTheme);
   };
 
-  // Prevent hydration mismatch by using default theme until mounted
-  // The blocking script in layout.tsx should have already set the correct theme attributes
+  // Prevent hydration mismatch by syncing with blocking script's theme
+  // The resolvedTheme state is initialized to match the blocking script's data-theme attribute
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme: "light", setTheme: () => {} }}>
+      <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme, setTheme: () => {} }}>
         {children}
       </ThemeContext.Provider>
     );
