@@ -253,19 +253,14 @@ function MyComponent() {
 - **Browser Support**: Modern browsers with CSS custom properties
 - **Memory**: Stable during extensive theme switching
 
-## Documentation Files
+## Documentation
 
-### Implementation Documentation
+### Primary Documentation
 
-- `THEME_SYSTEM_GUIDE.md` - Comprehensive implementation guide
-- `DARK_THEME_IMPLEMENTATION_PLAN.md` - Original 4-phase implementation plan
-- `.context/dark-light-theme-system.md` - This context file
-
-### API Reference
-
+- `.context/dark-light-theme-system.md` - This comprehensive context file (complete guide)
 - Complete TypeScript interfaces in `lib/theme/types.ts`
 - Inline code documentation throughout components
-- Usage examples in test pages
+- Usage examples in development test pages (`/dev/theme-test`, `/dev/accessibility-test`, `/dev/performance-test`)
 
 ## Integration Points
 
@@ -318,6 +313,197 @@ Editor themes automatically switch with the global theme through the orchestrato
 - Respect user motion preferences
 - Monitor memory usage during development
 
+## API Reference
+
+### Theme Hook Interface
+
+```typescript
+interface ThemeContextType {
+  theme: "light" | "dark" | "system";
+  resolvedTheme: "light" | "dark";
+  setTheme: (theme: "light" | "dark" | "system") => void;
+}
+```
+
+### Theme Provider Props
+
+```typescript
+interface ThemeProviderProps {
+  children: ReactNode;
+  defaultTheme?: "light" | "dark" | "system";
+}
+```
+
+### Complete CSS Custom Properties Reference
+
+**Background Colors:**
+
+```css
+var(--color-background-primary)    /* Main background */
+var(--color-background-secondary)  /* Cards, sidebars */
+var(--color-background-tertiary)   /* Subtle highlights */
+var(--color-surface-elevated)      /* Modals, dropdowns */
+```
+
+**Text Colors:**
+
+```css
+var(--color-text-primary)      /* High contrast text */
+var(--color-text-secondary)    /* Medium contrast text */
+var(--color-text-tertiary)     /* Lower contrast text */
+var(--color-text-muted)        /* Subtle information */
+```
+
+**Interactive Elements:**
+
+```css
+var(--color-button-primary-bg)    /* Primary button background */
+var(--color-button-primary-text)  /* Primary button text */
+var(--color-button-secondary-bg)  /* Secondary button background */
+var(--color-button-secondary-text) /* Secondary button text */
+var(--color-link-primary)         /* Link color */
+var(--color-link-hover)           /* Link hover color */
+```
+
+**Status Colors:**
+
+```css
+var(--color-success-bg)    /* Success background */
+var(--color-success-text)  /* Success text */
+var(--color-success-border) /* Success border */
+var(--color-error-bg)      /* Error background */
+var(--color-error-text)    /* Error text */
+var(--color-error-border)  /* Error border */
+var(--color-warning-bg)    /* Warning background */
+var(--color-warning-text)  /* Warning text */
+var(--color-warning-border) /* Warning border */
+var(--color-info-bg)       /* Info background */
+var(--color-info-text)     /* Info text */
+var(--color-info-border)   /* Info border */
+```
+
+**Borders:**
+
+```css
+var(--color-border-primary)   /* Primary borders */
+var(--color-border-secondary) /* Secondary borders */
+```
+
+## Troubleshooting Guide
+
+### Common Issues
+
+**1. Theme not persisting between sessions**
+
+- Verify `ThemeProvider` wraps your entire app in `layout.tsx`
+- Check that localStorage is available (not in SSR context)
+- Ensure no JavaScript errors are preventing theme initialization
+
+**2. Colors not updating when theme changes**
+
+- Confirm you're using semantic tokens (`bg-bg-primary`) not hardcoded colors (`bg-white`)
+- Check that CSS custom properties are properly defined in `globals.css`
+- Verify the component is inside the `ThemeProvider` context
+
+**3. Theme transitions too slow or not working**
+
+- Use appropriate transition class: `.theme-transition`, `.theme-transition-fast`, `.theme-transition-slow`
+- Check for `prefers-reduced-motion: reduce` media query override
+- Avoid transitioning too many properties simultaneously
+
+**4. Focus states not visible in dark theme**
+
+- Ensure interactive elements have `focus-ring` class
+- Verify focus ring colors are defined for both themes
+- Check that focus-visible is supported in your target browsers
+
+**5. CodeMirror theme not switching**
+
+- Verify `createThemeExtension` is properly mocked in tests
+- Check that editor compartments are being reconfigured
+- Ensure theme adapter is receiving the correct theme value
+
+### Browser Compatibility
+
+| Feature                | Chrome | Firefox | Safari | Edge |
+| ---------------------- | ------ | ------- | ------ | ---- |
+| CSS Custom Properties  | ✅     | ✅      | ✅     | ✅   |
+| prefers-color-scheme   | ✅     | ✅      | ✅     | ✅   |
+| prefers-contrast       | ✅     | ✅      | ✅     | ✅   |
+| prefers-reduced-motion | ✅     | ✅      | ✅     | ✅   |
+
+### Debug Mode
+
+Enable theme debugging in development:
+
+```tsx
+// Temporary debug logging
+import { useTheme } from "@/lib/theme";
+
+function DebugTheme() {
+  const { theme, resolvedTheme } = useTheme();
+
+  if (process.env.NODE_ENV === "development") {
+    console.log("Theme state:", { theme, resolvedTheme });
+    console.log("Document data-theme:", document.documentElement.getAttribute("data-theme"));
+  }
+
+  return null;
+}
+```
+
+## Contributing Guidelines
+
+### Code Review Checklist
+
+When reviewing theme-related changes:
+
+- [ ] Uses semantic tokens instead of hardcoded colors
+- [ ] Includes focus states for interactive elements
+- [ ] Has proper accessibility attributes (ARIA labels, etc.)
+- [ ] Tested in both light and dark themes
+- [ ] Includes smooth transitions where appropriate
+- [ ] No performance regressions during theme switching
+- [ ] Respects user motion preferences
+- [ ] Compatible with high contrast mode
+
+### Adding New Semantic Tokens
+
+1. **Define in both themes** in `globals.css`:
+
+   ```css
+   :root {
+     --color-my-new-token: #value-for-light;
+   }
+
+   [data-theme="dark"] {
+     --color-my-new-token: #value-for-dark;
+   }
+   ```
+
+2. **Add to Tailwind configuration** in `@theme` block:
+
+   ```css
+   @theme inline {
+     --color-my-new: var(--color-my-new-token);
+   }
+   ```
+
+3. **Update TypeScript interfaces** if needed in `lib/theme/types.ts`
+
+4. **Test across all usage scenarios** and update test pages
+
+5. **Update this documentation** with the new token
+
+### Component Development Standards
+
+- **Always use semantic tokens** for theming
+- **Include focus states** for all interactive elements
+- **Add theme transitions** for smooth user experience
+- **Test with screen readers** and keyboard navigation
+- **Verify high contrast mode** compatibility
+- **Respect motion preferences** in animations
+
 ## Current Status: Production Ready
 
 The theme system is fully implemented and production-ready with:
@@ -327,6 +513,6 @@ The theme system is fully implemented and production-ready with:
 - ✅ Performance optimization (<16ms switches)
 - ✅ Cross-browser compatibility
 - ✅ Comprehensive testing infrastructure
-- ✅ Complete documentation
+- ✅ Complete documentation and troubleshooting guide
 
 The system provides users with a seamless, accessible theme experience while giving developers a scalable foundation for future enhancements.
