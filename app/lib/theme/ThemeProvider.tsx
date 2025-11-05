@@ -65,10 +65,11 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     localStorage.setItem(STORAGE_KEY, newTheme);
   };
 
-  // Prevent hydration mismatch by not rendering theme-dependent content until mounted
+  // Prevent hydration mismatch by using default theme until mounted
+  // The blocking script in layout.tsx should have already set the correct theme attributes
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", resolvedTheme: "light", setTheme: () => {} }}>
+      <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme: "light", setTheme: () => {} }}>
         {children}
       </ThemeContext.Provider>
     );

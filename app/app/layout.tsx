@@ -4,6 +4,7 @@ import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { ThemeProvider } from "@/lib/theme";
 import type { Metadata } from "next";
+import Script from "next/script";
 import "../src/utils/whyDidYouRender";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en">
       {/*<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>*/}
       <body className={`antialiased`}>
+        <Script src="/theme-script.js" strategy="beforeInteractive" />
         <ThemeProvider>
           <AuthProvider>
             <ConditionalAuthHeader />

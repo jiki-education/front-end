@@ -46,7 +46,7 @@ The Jiki frontend implements a comprehensive, production-ready dark/light theme 
 - Three theme modes: 'light', 'dark', 'system'
 - Automatic system theme detection via `prefers-color-scheme`
 - localStorage persistence
-- Hydration-safe implementation
+- Hydration-safe implementation with blocking script to prevent theme flash
 - Document attribute management (`data-theme="dark"`)
 
 ### 3. Tailwind CSS Integration
@@ -268,13 +268,42 @@ function MyComponent() {
 
 ```tsx
 // app/layout.tsx
-<ThemeProvider>
-  <AuthProvider>
-    <ConditionalAuthHeader />
-    <main className="min-h-screen bg-bg-secondary theme-transition">{children}</main>
-  </AuthProvider>
-</ThemeProvider>
+import Script from "next/script";
+
+<html lang="en">
+  <body>
+    <Script src="/theme-script.js" strategy="beforeInteractive" />
+    <ThemeProvider>
+      <AuthProvider>
+        <ConditionalAuthHeader />
+        <main className="min-h-screen bg-bg-secondary theme-transition">{children}</main>
+      </AuthProvider>
+    </ThemeProvider>
+  </body>
+</html>;
 ```
+
+### Hydration Strategy
+
+The theme system uses a **blocking script** strategy to prevent theme flash:
+
+1. **Theme Script** (`public/theme-script.js`): Clean, external JavaScript file
+   - Executes before React hydration using `strategy="beforeInteractive"`
+   - Reads theme preference from localStorage (`'jiki-theme'`)
+   - Detects system color scheme preference via `prefers-color-scheme`
+   - Sets `data-theme` attribute and CSS classes immediately
+   - Ensures SSR HTML matches the user's actual theme preference
+
+2. **ThemeProvider Hydration**: Syncs with the pre-set theme
+   - Uses the theme set by blocking script during initial render
+   - Prevents hydration mismatches and layout shifts
+   - Provides seamless theme experience with no flash
+
+3. **Benefits of External Script**:
+   - No `dangerouslySetInnerHTML` usage
+   - Better CSP (Content Security Policy) compliance
+   - Easier to maintain and test
+   - Cached by browser for performance
 
 ### Dashboard Integration
 
