@@ -25,6 +25,7 @@ export function useChat(orchestrator: Orchestrator) {
             exerciseSlug: context.exerciseSlug,
             code: context.currentCode,
             question: message,
+            language: context.language,
             history: chatState.messages,
             nextTaskId: context.currentTaskId || undefined
           },
