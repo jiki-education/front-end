@@ -1,5 +1,6 @@
 import { AuthHeader } from "@/components/layout/AuthHeader";
 import { useAuthStore } from "@/stores/authStore";
+import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { render, screen, waitFor } from "@testing-library/react";
 
 // Mock the auth store
@@ -14,6 +15,31 @@ jest.mock("next/navigation", () => ({
   })
 }));
 
+// Mock DOM APIs for theme provider
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+});
+
+Object.defineProperty(window, "localStorage", {
+  value: {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn()
+  },
+  writable: true
+});
+
 describe("AuthHeader Hydration", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,7 +53,11 @@ describe("AuthHeader Hydration", () => {
     };
     (useAuthStore as unknown as jest.Mock).mockReturnValue(mockAuthStore);
 
-    render(<AuthHeader title="Blog" />);
+    render(
+      <ThemeProvider>
+        <AuthHeader title="Blog" />
+      </ThemeProvider>
+    );
 
     // Should show static content
     expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
@@ -50,7 +80,11 @@ describe("AuthHeader Hydration", () => {
     };
     (useAuthStore as unknown as jest.Mock).mockReturnValue(mockAuthStore);
 
-    render(<AuthHeader title="Articles" />);
+    render(
+      <ThemeProvider>
+        <AuthHeader title="Articles" />
+      </ThemeProvider>
+    );
 
     // Wait for component to mount (hydration simulation)
     await waitFor(() => {
@@ -75,7 +109,11 @@ describe("AuthHeader Hydration", () => {
     };
     (useAuthStore as unknown as jest.Mock).mockReturnValue(mockAuthStore);
 
-    render(<AuthHeader />);
+    render(
+      <ThemeProvider>
+        <AuthHeader />
+      </ThemeProvider>
+    );
 
     // Wait for component to mount (hydration simulation)
     await waitFor(() => {
@@ -99,7 +137,11 @@ describe("AuthHeader Hydration", () => {
     };
     (useAuthStore as unknown as jest.Mock).mockReturnValue(mockAuthStore);
 
-    render(<AuthHeader />);
+    render(
+      <ThemeProvider>
+        <AuthHeader />
+      </ThemeProvider>
+    );
 
     // Navigation links should always be present (static content)
     expect(screen.getByText("Blog")).toBeInTheDocument();

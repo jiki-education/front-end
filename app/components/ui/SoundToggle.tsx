@@ -9,10 +9,14 @@ export function SoundToggle() {
   return (
     <button
       onClick={toggleMute}
-      className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+      className="p-2 rounded-lg hover:bg-bg-secondary transition-colors"
       aria-label={muted ? "Unmute sounds" : "Mute sounds"}
     >
-      {muted ? <VolumeX className="w-5 h-5 text-gray-600" /> : <Volume2 className="w-5 h-5 text-gray-600" />}
+      {muted ? (
+        <VolumeX className="w-5 h-5 text-text-secondary" />
+      ) : (
+        <Volume2 className="w-5 h-5 text-text-secondary" />
+      )}
     </button>
   );
 }
