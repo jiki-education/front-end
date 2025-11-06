@@ -37,6 +37,11 @@ export default function StripeTestPage() {
 
   // Check for success parameter from payment redirect
   useEffect(() => {
+    // Only process if user is authenticated
+    if (!isAuthenticated || !user) {
+      return;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get("session_id");
 
@@ -61,7 +66,7 @@ export default function StripeTestPage() {
       // Clear the session_id from URL
       window.history.replaceState({}, "", window.location.pathname);
     }
-  }, []);
+  }, [isAuthenticated, user]);
 
   const handleLogin = async () => {
     try {
