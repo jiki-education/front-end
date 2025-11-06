@@ -95,6 +95,10 @@ export default function StripeTestPage() {
               <h2 className="text-xl font-semibold mb-4">Current User</h2>
               <dl className="space-y-2">
                 <div>
+                  <dt className="inline font-medium">User ID:</dt>
+                  <dd className="inline ml-2">{user.id || "(not available)"}</dd>
+                </div>
+                <div>
                   <dt className="inline font-medium">Email:</dt>
                   <dd className="inline ml-2">{user.email}</dd>
                 </div>
@@ -307,8 +311,9 @@ export default function StripeTestPage() {
               </p>
               <button
                 onClick={handleDeleteStripeHistory}
-                disabled={deletingStripeHistory}
+                disabled={deletingStripeHistory || !user.id}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                title={!user.id ? "User ID not available" : undefined}
               >
                 {deletingStripeHistory ? "Deleting..." : "DELETE STRIPE HISTORY"}
               </button>
@@ -378,7 +383,8 @@ export default function StripeTestPage() {
   }
 
   async function handleDeleteStripeHistory() {
-    if (!user) {
+    if (!user?.id) {
+      toast.error("User ID not available");
       return;
     }
 
