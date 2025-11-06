@@ -13,7 +13,7 @@ import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscripti
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { useAuthStore } from "@/stores/authStore";
 import type { Subscription } from "@/types/subscription";
-import { getAllTiers, getPricingTier } from "@/lib/pricing";
+import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
 
@@ -71,7 +71,6 @@ export default function StripeTestPage() {
     }
   };
 
-  const tiers = getAllTiers();
   const currentTier = user?.membership_type;
 
   return (
@@ -199,52 +198,70 @@ export default function StripeTestPage() {
               )}
             </div>
 
-            {/* Tier Selection & Upgrade */}
+            {/* Subscription Actions */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">Test Subscription Flows</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Current Tier: {currentTier && getPricingTier(currentTier).name}
+              </h2>
 
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                {tiers.map((tier) => (
-                  <div
-                    key={tier.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition ${
-                      selectedTier === tier.id ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
-                    } ${currentTier === tier.id ? "ring-2 ring-green-500" : ""}`}
-                    onClick={() => handleTierSelect(tier.id)}
-                  >
-                    {currentTier === tier.id && (
-                      <div className="text-xs font-semibold text-green-600 mb-2">CURRENT TIER</div>
-                    )}
-                    <h3 className="font-bold text-lg">{tier.name}</h3>
-                    <div className="text-2xl font-bold my-2">{tier.price === 0 ? "Free" : `$${tier.price}/mo`}</div>
-                    <p className="text-sm text-gray-600 mb-3">{tier.description}</p>
-                    <ul className="text-sm space-y-1">
-                      {tier.features.slice(0, 3).map((feature, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <span className="text-green-500 mr-2">✓</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <div className="space-y-3">
+                {/* Scenario 1: Free tier - offer upgrades */}
+                {currentTier === "standard" && (
+                  <>
+                    <button
+                      onClick={() => handleUpgrade("premium")}
+                      className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+                    >
+                      Upgrade to Premium - $3/month
+                    </button>
+                    <button
+                      onClick={() => handleUpgrade("max")}
+                      className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+                    >
+                      Upgrade to Max - $10/month
+                    </button>
+                  </>
+                )}
+
+                {/* Scenario 2: Premium tier - offer upgrade or cancel */}
+                {currentTier === "premium" && (
+                  <>
+                    <button
+                      onClick={() => handleUpgrade("max")}
+                      className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+                    >
+                      Upgrade to Max - $10/month
+                    </button>
+                    <button
+                      disabled
+                      className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
+                      title="Not implemented yet"
+                    >
+                      Cancel Subscription
+                    </button>
+                  </>
+                )}
+
+                {/* Scenario 3: Max tier - offer downgrade or cancel */}
+                {currentTier === "max" && (
+                  <>
+                    <button
+                      disabled
+                      className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
+                      title="Not implemented yet"
+                    >
+                      Downgrade to Premium - $3/month
+                    </button>
+                    <button
+                      disabled
+                      className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
+                      title="Not implemented yet"
+                    >
+                      Cancel Subscription
+                    </button>
+                  </>
+                )}
               </div>
-
-              {selectedTier && selectedTier !== currentTier && currentTier && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <p className="text-sm text-blue-800 mb-3">
-                    {getTierIndex(selectedTier) > getTierIndex(currentTier)
-                      ? `Upgrade from ${getPricingTier(currentTier).name} to ${getPricingTier(selectedTier).name}`
-                      : `Downgrade from ${getPricingTier(currentTier).name} to ${getPricingTier(selectedTier).name}`}
-                  </p>
-                  <button
-                    onClick={handleStartCheckout}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                  >
-                    Start Checkout for {getPricingTier(selectedTier).name}
-                  </button>
-                </div>
-              )}
             </div>
 
             {/* Payment Form with Checkout SDK */}
@@ -313,19 +330,11 @@ export default function StripeTestPage() {
     }
   }
 
-  function handleTierSelect(tier: MembershipTier) {
-    setSelectedTier(tier);
-    setClientSecret(null); // Reset checkout
-  }
-
-  async function handleStartCheckout() {
-    if (!selectedTier) {
-      return;
-    }
-
+  async function handleUpgrade(tier: MembershipTier) {
     try {
       const returnUrl = createCheckoutReturnUrl(window.location.pathname);
-      const response = await createCheckoutSession(selectedTier, returnUrl);
+      const response = await createCheckoutSession(tier, returnUrl);
+      setSelectedTier(tier);
       setClientSecret(response.client_secret);
       toast.success("Checkout session created");
     } catch (error) {
@@ -528,9 +537,4 @@ function getStatusColor(status: string): string {
     trialing: "bg-blue-100 text-blue-800"
   };
   return colors[status] || "bg-gray-100 text-gray-800";
-}
-
-function getTierIndex(tier: MembershipTier): number {
-  const order: MembershipTier[] = ["standard", "premium", "max"];
-  return order.indexOf(tier);
 }
