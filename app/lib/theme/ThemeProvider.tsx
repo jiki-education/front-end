@@ -24,10 +24,7 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Store initial DOM state to prevent race condition between effects
-  const [initialDOMState, setInitialDOMState] = useState<ResolvedTheme | null>(null);
-
-  // Sync with blocking script immediately to prevent flash
+  // Sync with blocking script and initialize theme
   useIsomorphicLayoutEffect(() => {
     // Read what the blocking script set
     // Note: blocking script only sets data-theme="dark" for dark mode,
@@ -35,12 +32,10 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     const currentDataTheme = document.documentElement.getAttribute("data-theme");
     const blockingScriptResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
 
+    // Immediately sync to prevent flash
     setResolvedTheme(blockingScriptResolvedTheme);
-    setInitialDOMState(blockingScriptResolvedTheme);
-  }, []);
 
-  // Initialize theme from localStorage after layout sync
-  useEffect(() => {
+    // Initialize theme from localStorage
     const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initialTheme = savedTheme || defaultTheme;
 
@@ -50,15 +45,14 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
     const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
 
-    // Only update DOM if the resolved theme differs from what blocking script initially set
-    // Use stored initial state to prevent race condition between effects
-    if (initialDOMState && newResolvedTheme !== initialDOMState) {
+    // Only update DOM if the resolved theme differs from what blocking script set
+    if (newResolvedTheme !== blockingScriptResolvedTheme) {
       setResolvedTheme(newResolvedTheme);
       updateDocumentTheme(newResolvedTheme);
     }
 
     setMounted(true);
-  }, [defaultTheme, initialDOMState]);
+  }, [defaultTheme]);
 
   // Listen for system theme changes
   useEffect(() => {
