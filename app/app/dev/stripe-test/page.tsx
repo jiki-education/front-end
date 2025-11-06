@@ -267,11 +267,7 @@ export default function StripeTestPage() {
                   </p>
                 </div>
                 <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
-                  <CheckoutForm
-                    tier={selectedTier!}
-                    onSuccess={handleCheckoutSuccess}
-                    onCancel={handleCheckoutCancel}
-                  />
+                  <CheckoutForm tier={selectedTier!} onCancel={handleCheckoutCancel} />
                 </CheckoutProvider>
               </div>
             )}
@@ -342,8 +338,8 @@ export default function StripeTestPage() {
 
     try {
       // Use current page URL as return URL so we come back here after payment
-      // Stripe will automatically append session_id={CHECKOUT_SESSION_ID}
-      const returnUrl = `${window.location.origin}${window.location.pathname}`;
+      // Include {CHECKOUT_SESSION_ID} placeholder which Stripe will replace with actual session ID
+      const returnUrl = `${window.location.origin}${window.location.pathname}?session_id={CHECKOUT_SESSION_ID}`;
       const response = await createCheckoutSession(selectedTier, returnUrl);
       setClientSecret(response.client_secret);
       toast.success("Checkout session created");
@@ -351,16 +347,6 @@ export default function StripeTestPage() {
       toast.error("Failed to create checkout session");
       console.error(error);
     }
-  }
-
-  function handleCheckoutSuccess() {
-    toast.success("Payment successful!");
-    setClientSecret(null);
-    setSelectedTier(null);
-    // Reload subscription status after a short delay
-    setTimeout(() => {
-      void loadSubscriptionStatus();
-    }, 2000);
   }
 
   function handleCheckoutCancel() {
@@ -425,15 +411,7 @@ function AuthSection({
 }
 
 // CheckoutForm component with Checkout SDK
-function CheckoutForm({
-  tier,
-  onSuccess,
-  onCancel
-}: {
-  tier: MembershipTier;
-  onSuccess: () => void;
-  onCancel: () => void;
-}) {
+function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCancel: () => void }) {
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -468,12 +446,12 @@ function CheckoutForm({
     // redirected to the `return_url`.
     if (confirmResult.type === "error") {
       setMessage(confirmResult.error.message);
+      setIsLoading(false);
     } else {
-      // Payment succeeded
-      onSuccess();
+      // Payment succeeded - redirect will happen automatically
+      // Note: The redirect to return_url happens automatically by Stripe
+      // The page will reload with the session_id in the URL
     }
-
-    setIsLoading(false);
   }
 
   return (
