@@ -24,32 +24,21 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Sync with blocking script and initialize theme
+  // Initialize theme and sync with blocking script
   useIsomorphicLayoutEffect(() => {
-    // Read what the blocking script set
-    // Note: blocking script only sets data-theme="dark" for dark mode,
-    // removes the attribute entirely for light mode (see updateDocumentTheme)
-    const currentDataTheme = document.documentElement.getAttribute("data-theme");
-    const blockingScriptResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
-
-    // Immediately sync to prevent flash
-    setResolvedTheme(blockingScriptResolvedTheme);
-
     // Initialize theme from localStorage
     const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initialTheme = savedTheme || defaultTheme;
 
     setThemeState(initialTheme);
 
-    // Resolve the theme and update DOM if needed
+    // Calculate what the resolved theme should be based on user preference
     const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
     const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
 
-    // Only update DOM if the resolved theme differs from what blocking script set
-    if (newResolvedTheme !== blockingScriptResolvedTheme) {
-      setResolvedTheme(newResolvedTheme);
-      updateDocumentTheme(newResolvedTheme);
-    }
+    // Set the resolved theme and update DOM once with final value
+    setResolvedTheme(newResolvedTheme);
+    updateDocumentTheme(newResolvedTheme);
 
     setMounted(true);
   }, [defaultTheme]);
