@@ -8,7 +8,12 @@
 import { useState, useEffect } from "react";
 import { stripePromise } from "@/lib/stripe";
 import { CheckoutProvider, useCheckout, PaymentElement, BillingAddressElement } from "@stripe/react-stripe-js/checkout";
-import { createCheckoutSession, createPortalSession, getSubscriptionStatus } from "@/lib/api/subscriptions";
+import {
+  createCheckoutSession,
+  createPortalSession,
+  getSubscriptionStatus,
+  verifyCheckoutSession
+} from "@/lib/api/subscriptions";
 import { useAuthStore } from "@/stores/authStore";
 import type { Subscription } from "@/types/subscription";
 import { getAllTiers, getPricingTier } from "@/lib/pricing";
@@ -33,14 +38,28 @@ export default function StripeTestPage() {
   // Check for success parameter from payment redirect
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("success") === "true") {
-      toast.success("Payment completed! Refreshing subscription status...");
-      // Clear the success param from URL
+    const sessionId = urlParams.get("session_id");
+
+    if (sessionId) {
+      // Verify the checkout session and sync subscription
+      async function verifyCheckoutAndRefresh(id: string) {
+        try {
+          toast.loading("Verifying payment...");
+          await verifyCheckoutSession(id);
+          toast.dismiss();
+          toast.success("Payment verified! Refreshing subscription status...");
+          // Reload subscription status
+          await loadSubscriptionStatus();
+        } catch (error) {
+          toast.dismiss();
+          toast.error("Failed to verify payment. Please refresh the page.");
+          console.error("Failed to verify checkout:", error);
+        }
+      }
+
+      void verifyCheckoutAndRefresh(sessionId);
+      // Clear the session_id from URL
       window.history.replaceState({}, "", window.location.pathname);
-      // Reload subscription status
-      setTimeout(() => {
-        void loadSubscriptionStatus();
-      }, 1000);
     }
   }, []);
 
@@ -318,7 +337,8 @@ export default function StripeTestPage() {
 
     try {
       // Use current page URL as return URL so we come back here after payment
-      const returnUrl = `${window.location.origin}${window.location.pathname}?success=true`;
+      // Stripe will automatically append session_id={CHECKOUT_SESSION_ID}
+      const returnUrl = `${window.location.origin}${window.location.pathname}`;
       const response = await createCheckoutSession(selectedTier, returnUrl);
       setClientSecret(response.client_secret);
       toast.success("Checkout session created");
