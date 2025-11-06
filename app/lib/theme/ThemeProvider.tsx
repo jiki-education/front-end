@@ -1,6 +1,9 @@
 "use client";
 
 import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
+
+// SSR-safe layout effect hook
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import type { ReactNode } from "react";
 import type { Theme, ResolvedTheme, ThemeContextType } from "./types";
 
@@ -21,8 +24,11 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
+  // Store initial DOM state to prevent race condition between effects
+  const [initialDOMState, setInitialDOMState] = useState<ResolvedTheme | null>(null);
+
   // Sync with blocking script immediately to prevent flash
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // Read what the blocking script set
     // Note: blocking script only sets data-theme="dark" for dark mode,
     // removes the attribute entirely for light mode (see updateDocumentTheme)
@@ -30,6 +36,7 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     const blockingScriptResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
 
     setResolvedTheme(blockingScriptResolvedTheme);
+    setInitialDOMState(blockingScriptResolvedTheme);
   }, []);
 
   // Initialize theme from localStorage after layout sync
@@ -43,18 +50,15 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
     const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
 
-    // Only update DOM if the resolved theme differs from what blocking script set
-    // Note: data-theme="dark" for dark mode, attribute removed for light mode
-    const currentDataTheme = document.documentElement.getAttribute("data-theme");
-    const currentResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
-
-    if (newResolvedTheme !== currentResolvedTheme) {
+    // Only update DOM if the resolved theme differs from what blocking script initially set
+    // Use stored initial state to prevent race condition between effects
+    if (initialDOMState && newResolvedTheme !== initialDOMState) {
       setResolvedTheme(newResolvedTheme);
       updateDocumentTheme(newResolvedTheme);
     }
 
     setMounted(true);
-  }, [defaultTheme]);
+  }, [defaultTheme, initialDOMState]);
 
   // Listen for system theme changes
   useEffect(() => {
