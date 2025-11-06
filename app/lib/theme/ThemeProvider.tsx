@@ -1,6 +1,9 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
+
+// SSR-safe layout effect hook
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 import type { ReactNode } from "react";
 import type { Theme, ResolvedTheme, ThemeContextType } from "./types";
 
@@ -16,20 +19,27 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
+  // Always start with "light" to prevent hydration mismatch
+  // The blocking script will ensure the DOM is correct, and we'll sync in useEffect
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from localStorage and system preference
-  useEffect(() => {
+  // Initialize theme and sync with blocking script
+  useIsomorphicLayoutEffect(() => {
+    // Initialize theme from localStorage
     const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
-
     const initialTheme = savedTheme || defaultTheme;
-    const initialResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
 
     setThemeState(initialTheme);
-    setResolvedTheme(initialResolvedTheme);
-    updateDocumentTheme(initialResolvedTheme);
+
+    // Calculate what the resolved theme should be based on user preference
+    const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
+    const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
+
+    // Set the resolved theme and update DOM once with final value
+    setResolvedTheme(newResolvedTheme);
+    updateDocumentTheme(newResolvedTheme);
+
     setMounted(true);
   }, [defaultTheme]);
 
@@ -65,11 +75,11 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
     localStorage.setItem(STORAGE_KEY, newTheme);
   };
 
-  // Prevent hydration mismatch by using default theme until mounted
-  // The blocking script in layout.tsx should have already set the correct theme attributes
+  // Prevent hydration mismatch by syncing with blocking script's theme
+  // The resolvedTheme state is initialized to match the blocking script's data-theme attribute
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme: "light", setTheme: () => {} }}>
+      <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme, setTheme: () => {} }}>
         {children}
       </ThemeContext.Provider>
     );
