@@ -7,6 +7,7 @@ import type { MembershipTier } from "@/lib/pricing";
 
 export interface User {
   id: number;
+  handle: string;
   email: string;
   name: string | null;
   created_at: string;

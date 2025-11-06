@@ -95,8 +95,8 @@ export default function StripeTestPage() {
               <h2 className="text-xl font-semibold mb-4">Current User</h2>
               <dl className="space-y-2">
                 <div>
-                  <dt className="inline font-medium">User ID:</dt>
-                  <dd className="inline ml-2">{user.id || "(not available)"}</dd>
+                  <dt className="inline font-medium">Handle:</dt>
+                  <dd className="inline ml-2">{user.handle}</dd>
                 </div>
                 <div>
                   <dt className="inline font-medium">Email:</dt>
@@ -113,6 +113,22 @@ export default function StripeTestPage() {
                   </dd>
                 </div>
               </dl>
+            </div>
+
+            {/* Delete Stripe History */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Reset Stripe Data</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Clear all Stripe subscription history for the current user. This will reset the user back to the free
+                tier.
+              </p>
+              <button
+                onClick={handleDeleteStripeHistory}
+                disabled={deletingStripeHistory || !user.handle}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deletingStripeHistory ? "Deleting..." : "DELETE STRIPE HISTORY"}
+              </button>
             </div>
 
             {/* Subscription Status */}
@@ -302,23 +318,6 @@ export default function StripeTestPage() {
               </button>
             </div>
 
-            {/* Delete Stripe History */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">Reset Stripe Data</h2>
-              <p className="text-sm text-gray-600 mb-4">
-                Clear all Stripe subscription history for the current user. This will reset the user back to the free
-                tier.
-              </p>
-              <button
-                onClick={handleDeleteStripeHistory}
-                disabled={deletingStripeHistory || !user.id}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                title={!user.id ? "User ID not available" : undefined}
-              >
-                {deletingStripeHistory ? "Deleting..." : "DELETE STRIPE HISTORY"}
-              </button>
-            </div>
-
             {/* Testing Notes */}
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold mb-4">Testing Notes</h2>
@@ -383,14 +382,14 @@ export default function StripeTestPage() {
   }
 
   async function handleDeleteStripeHistory() {
-    if (!user?.id) {
-      toast.error("User ID not available");
+    if (!user?.handle) {
+      toast.error("User handle not available");
       return;
     }
 
     setDeletingStripeHistory(true);
     try {
-      const response = await fetch(`http://localhost:3060/dev/users/${user.id}/clear_stripe_history`, {
+      const response = await fetch(`http://localhost:3060/dev/users/${user.handle}/clear_stripe_history`, {
         method: "DELETE"
       });
 

@@ -31,6 +31,7 @@ const mockUseRequireAuth = useRequireAuth as jest.MockedFunction<typeof useRequi
 describe("ProjectsPage", () => {
   const mockUser: User = {
     id: 1,
+    handle: "testuser",
     email: "test@example.com",
     name: "Test User",
     created_at: "2023-01-01T00:00:00Z",
