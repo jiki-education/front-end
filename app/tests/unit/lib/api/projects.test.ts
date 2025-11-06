@@ -43,7 +43,7 @@ describe("Projects API", () => {
 
       const result = await fetchProjects();
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects", { params: undefined });
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects", { params: undefined });
       expect(result).toEqual(mockResponse.data);
     });
 
@@ -66,13 +66,13 @@ describe("Projects API", () => {
       const params = { title: "test", page: 1, per: 10 };
       const result = await fetchProjects(params);
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects", { params });
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects", { params });
       expect(result).toEqual(mockResponse.data);
     });
   });
 
   describe("fetchProject", () => {
-    it("should fetch individual project by slug", async () => {
+    it("should fetch individual project by slug from projects list", async () => {
       const mockProject = {
         slug: "test-project",
         title: "Test Project",
@@ -81,7 +81,14 @@ describe("Projects API", () => {
       };
 
       const mockResponse = {
-        data: mockProject,
+        data: {
+          results: [mockProject],
+          meta: {
+            current_page: 1,
+            total_count: 1,
+            total_pages: 1
+          }
+        },
         status: 200,
         headers: new Headers()
       };
@@ -89,29 +96,28 @@ describe("Projects API", () => {
 
       const result = await fetchProject("test-project");
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects/test-project");
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects");
       expect(result).toEqual(mockProject);
     });
 
-    it("should handle nested project response structure", async () => {
-      const mockProject = {
-        slug: "test-project",
-        title: "Test Project",
-        description: "A test project",
-        status: "unlocked"
-      };
-
+    it("should throw error when project not found", async () => {
       const mockResponse = {
-        data: { project: mockProject },
+        data: {
+          results: [],
+          meta: {
+            current_page: 1,
+            total_count: 0,
+            total_pages: 1
+          }
+        },
         status: 200,
         headers: new Headers()
       };
       mockApi.get.mockResolvedValue(mockResponse);
 
-      const result = await fetchProject("test-project");
-
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects/test-project");
-      expect(result).toEqual(mockProject);
+      await expect(fetchProject("non-existent-project")).rejects.toThrow(
+        'Project with slug "non-existent-project" not found'
+      );
     });
   });
 
@@ -128,7 +134,7 @@ describe("Projects API", () => {
 
       await submitProjectExercise("test-project", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/v1/projects/test-project/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/projects/test-project/exercise_submissions", {
         submission: { files }
       });
     });
@@ -148,7 +154,7 @@ describe("Projects API", () => {
 
       await submitProjectExercise("test-project", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/v1/projects/test-project/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/projects/test-project/exercise_submissions", {
         submission: { files }
       });
     });

@@ -32,7 +32,7 @@ export async function fetchProjects(params?: {
   page?: number;
   per?: number;
 }): Promise<ProjectsResponse> {
-  const response = await api.get<ProjectsResponse>("/v1/projects", {
+  const response = await api.get<ProjectsResponse>("/internal/projects", {
     params
   });
 
@@ -41,21 +41,25 @@ export async function fetchProjects(params?: {
 
 /**
  * Fetch individual project details by slug
+ * Since backend doesn't have individual project endpoint, we fetch from the list
  */
 export async function fetchProject(slug: string): Promise<ProjectData> {
-  const response = await api.get<{ project?: ProjectData } | ProjectData>(`/v1/projects/${slug}`);
+  const response = await api.get<ProjectsResponse>("/internal/projects");
 
-  // Handle different response structures
-  const projectData: ProjectData = (response.data as any).project || response.data;
+  const project = response.data.results.find((p) => p.slug === slug);
 
-  return projectData;
+  if (!project) {
+    throw new Error(`Project with slug "${slug}" not found`);
+  }
+
+  return project;
 }
 
 /**
  * Submit exercise files for a project
  */
 export async function submitProjectExercise(slug: string, files: ProjectSubmissionFile[]): Promise<void> {
-  await api.post(`/v1/projects/${slug}/exercise_submissions`, {
+  await api.post(`/internal/projects/${slug}/exercise_submissions`, {
     submission: { files }
   });
 }

@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" data-theme="dark">
       {/*<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>*/}
       <body className={`antialiased`}>
         <Script src="/theme-script.js" strategy="beforeInteractive" />
