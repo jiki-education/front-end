@@ -5,6 +5,7 @@
 
 const TOKEN_KEY = "jiki_auth_token";
 const TOKEN_EXPIRY_KEY = "jiki_auth_expiry";
+const REFRESH_TOKEN_KEY = "jiki_refresh_token";
 
 /**
  * Store JWT token and optional expiry
@@ -52,7 +53,7 @@ export function getToken(): string | null {
 }
 
 /**
- * Remove stored JWT token
+ * Remove stored JWT token and refresh token
  */
 export function removeToken(): void {
   if (typeof window === "undefined") {
@@ -62,6 +63,7 @@ export function removeToken(): void {
   try {
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(TOKEN_EXPIRY_KEY);
+    removeRefreshToken(); // Also clear refresh token
   } catch (error) {
     console.error("Failed to remove token:", error);
   }
@@ -151,4 +153,50 @@ export function getTokenExpiry(token: string): number | null {
 
   // JWT exp is in seconds, convert to milliseconds
   return payload.exp * 1000;
+}
+
+/**
+ * Store refresh token in localStorage (persists across browser sessions)
+ */
+export function setRefreshToken(token: string): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem(REFRESH_TOKEN_KEY, token);
+  } catch (error) {
+    console.error("Failed to store refresh token:", error);
+  }
+}
+
+/**
+ * Retrieve stored refresh token
+ */
+export function getRefreshToken(): string | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    return localStorage.getItem(REFRESH_TOKEN_KEY);
+  } catch (error) {
+    console.error("Failed to retrieve refresh token:", error);
+    return null;
+  }
+}
+
+/**
+ * Remove stored refresh token
+ */
+export function removeRefreshToken(): void {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+  } catch (error) {
+    console.error("Failed to remove refresh token:", error);
+  }
 }

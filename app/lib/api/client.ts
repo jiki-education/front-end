@@ -6,6 +6,10 @@
 import { getToken, removeToken } from "@/lib/auth/storage";
 import { getApiUrl } from "./config";
 
+// Track refresh state to prevent concurrent refresh calls
+let isRefreshing = false;
+let refreshQueue: Array<(token: string | null) => void> = [];
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -87,11 +91,74 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
 
     // Handle error responses
     if (!response.ok) {
-      // Handle 401 Unauthorized - clear invalid token
+      // Handle 401 Unauthorized with automatic token refresh
       if (response.status === 401) {
-        removeToken();
-        // Optionally trigger a re-authentication flow here
+        // Only try to refresh if we're not already refreshing
+        if (!isRefreshing) {
+          isRefreshing = true;
+
+          try {
+            // Dynamically import to avoid circular dependency
+            const { refreshAccessToken } = await import("@/lib/auth/service");
+            const newAccessToken = await refreshAccessToken();
+
+            if (newAccessToken) {
+              // Refresh succeeded! Process all queued requests
+              refreshQueue.forEach((callback) => callback(newAccessToken));
+              refreshQueue = [];
+
+              // Retry the original request with new token
+              requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
+              const retryResponse = await fetch(url.toString(), {
+                ...requestOptions,
+                headers: requestHeaders
+              });
+
+              let retryData: T;
+              const retryContentType = retryResponse.headers.get("content-type");
+
+              if (retryContentType?.includes("application/json")) {
+                retryData = await retryResponse.json();
+              } else {
+                retryData = (await retryResponse.text()) as T;
+              }
+
+              if (!retryResponse.ok) {
+                throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
+              }
+
+              return {
+                data: retryData,
+                status: retryResponse.status,
+                headers: retryResponse.headers
+              };
+            }
+
+            // Refresh failed - clear tokens and reject all queued requests
+            removeToken();
+            refreshQueue.forEach((callback) => callback(null));
+            refreshQueue = [];
+          } finally {
+            isRefreshing = false;
+          }
+        } else {
+          // Already refreshing - add this request to the queue
+          return new Promise<ApiResponse<T>>((resolve, reject) => {
+            refreshQueue.push((newToken) => {
+              if (newToken) {
+                // Retry request with new token
+                const retryHeaders = { ...requestHeaders, Authorization: `Bearer ${newToken}` };
+                request<T>(path, { ...options, headers: retryHeaders })
+                  .then(resolve)
+                  .catch(reject);
+              } else {
+                reject(new ApiError(401, "Unauthorized", data));
+              }
+            });
+          });
+        }
       }
+
       throw new ApiError(response.status, response.statusText, data);
     }
 

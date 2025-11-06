@@ -1,7 +1,8 @@
 "use client";
 
 import { api } from "@/lib/api";
-import { getToken } from "@/lib/auth/storage";
+import { getToken, getRefreshToken } from "@/lib/auth/storage";
+import { refreshAccessToken } from "@/lib/auth/service";
 import { useAuthStore } from "@/stores/authStore";
 import { useState } from "react";
 
@@ -108,6 +109,59 @@ export default function TestAuthV2Page() {
     addResult("✅ Logged out");
   };
 
+  const testRefreshToken = async () => {
+    addResult("Testing refresh token storage...");
+    const refreshToken = getRefreshToken();
+
+    if (refreshToken) {
+      addResult(`✅ Refresh token found: ${refreshToken.substring(0, 30)}...`);
+    } else {
+      addResult("❌ No refresh token found. Please login first.");
+      return;
+    }
+
+    addResult("Testing manual token refresh...");
+    try {
+      const newAccessToken = await refreshAccessToken();
+      if (newAccessToken) {
+        addResult("✅ Successfully refreshed access token!");
+        addResult(`New token: ${newAccessToken.substring(0, 30)}...`);
+      } else {
+        addResult("❌ Failed to refresh access token");
+      }
+    } catch (error: any) {
+      addResult(`❌ Refresh token error: ${error.message}`);
+    }
+  };
+
+  const testAutoRefresh = async () => {
+    addResult("Testing automatic refresh on 401...");
+    const originalToken = getToken();
+
+    if (!originalToken) {
+      addResult("❌ No access token found. Please login first.");
+      return;
+    }
+
+    // Manually set a fake expired token to trigger auto-refresh
+    sessionStorage.setItem("jiki_auth_token", "fake.expired.token");
+    addResult("Set fake expired token to trigger 401...");
+
+    try {
+      const response = await api.get("/internal/levels");
+      addResult("✅ Auto-refresh worked! Got levels despite fake token!");
+      addResult(`Token after auto-refresh: ${getToken()?.substring(0, 30)}...`);
+      setLevels(response.data);
+    } catch (error: any) {
+      addResult(`❌ Auto-refresh failed: ${error.message}`);
+      // Restore original token if auto-refresh failed
+      if (originalToken) {
+        sessionStorage.setItem("jiki_auth_token", originalToken);
+        addResult("Restored original token");
+      }
+    }
+  };
+
   const clearResults = () => {
     setTestResults([]);
     setLevels(null);
@@ -146,7 +200,12 @@ export default function TestAuthV2Page() {
                 )}
                 {getToken() && (
                   <p className="text-xs text-gray-600">
-                    <span className="font-medium">Token:</span> {getToken()?.substring(0, 30)}...
+                    <span className="font-medium">Access Token:</span> {getToken()?.substring(0, 30)}...
+                  </p>
+                )}
+                {getRefreshToken() && (
+                  <p className="text-xs text-gray-600">
+                    <span className="font-medium">Refresh Token:</span> {getRefreshToken()?.substring(0, 30)}...
                   </p>
                 )}
               </div>
@@ -207,6 +266,18 @@ export default function TestAuthV2Page() {
                   4. Fetch Levels (Direct)
                 </button>
                 <button
+                  onClick={testRefreshToken}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 text-sm"
+                >
+                  5. Test Refresh Token
+                </button>
+                <button
+                  onClick={testAutoRefresh}
+                  className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 text-sm"
+                >
+                  6. Test Auto-Refresh
+                </button>
+                <button
                   onClick={handleLogout}
                   className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 text-sm"
                 >
@@ -263,7 +334,18 @@ export default function TestAuthV2Page() {
             <li>Check that auth status shows authenticated</li>
             <li>Test fetching levels using API client</li>
             <li>If API client fails, try direct fetch to debug</li>
+            <li>
+              <strong>NEW:</strong> Test refresh token storage and manual refresh
+            </li>
+            <li>
+              <strong>NEW:</strong> Test automatic token refresh on 401 errors
+            </li>
           </ol>
+          <div className="mt-4 p-3 bg-green-50 text-green-700 rounded text-sm">
+            <strong>Refresh Token Features:</strong> The system now uses dual tokens - short-lived access tokens (1hr)
+            stored in sessionStorage and long-lived refresh tokens (30d) in localStorage. Test functions 5 & 6 validate
+            this functionality.
+          </div>
         </div>
       </div>
     </div>
