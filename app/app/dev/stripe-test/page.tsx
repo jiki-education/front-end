@@ -24,6 +24,7 @@ export default function StripeTestPage() {
   const [showGracePeriodTest, setShowGracePeriodTest] = useState(false);
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [deletingStripeHistory, setDeletingStripeHistory] = useState(false);
 
   // Load subscription status on mount
   useEffect(() => {
@@ -71,7 +72,8 @@ export default function StripeTestPage() {
     }
   };
 
-  const currentTier = user?.membership_type;
+  // Use subscription tier if available (most up-to-date), otherwise fall back to user's membership_type
+  const currentTier = subscription?.tier || user?.membership_type;
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -296,6 +298,22 @@ export default function StripeTestPage() {
               </button>
             </div>
 
+            {/* Delete Stripe History */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Reset Stripe Data</h2>
+              <p className="text-sm text-gray-600 mb-4">
+                Clear all Stripe subscription history for the current user. This will reset the user back to the free
+                tier.
+              </p>
+              <button
+                onClick={handleDeleteStripeHistory}
+                disabled={deletingStripeHistory}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deletingStripeHistory ? "Deleting..." : "DELETE STRIPE HISTORY"}
+              </button>
+            </div>
+
             {/* Testing Notes */}
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-semibold mb-4">Testing Notes</h2>
@@ -356,6 +374,31 @@ export default function StripeTestPage() {
     } catch (error) {
       toast.error("Failed to open customer portal");
       console.error(error);
+    }
+  }
+
+  async function handleDeleteStripeHistory() {
+    if (!user) {
+      return;
+    }
+
+    setDeletingStripeHistory(true);
+    try {
+      const response = await fetch(`http://localhost:3060/dev/users/${user.id}/clear_stripe_history`, {
+        method: "DELETE"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete Stripe history: ${response.statusText}`);
+      }
+
+      toast.success("Stripe history deleted");
+      await loadSubscriptionStatus();
+    } catch (error) {
+      toast.error("Failed to delete Stripe history");
+      console.error(error);
+    } finally {
+      setDeletingStripeHistory(false);
     }
   }
 }
