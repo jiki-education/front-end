@@ -41,18 +41,10 @@ export async function fetchProjects(params?: {
 
 /**
  * Fetch individual project details by slug
- * Since backend doesn't have individual project endpoint, we fetch from the list
  */
 export async function fetchProject(slug: string): Promise<ProjectData> {
-  const response = await api.get<ProjectsResponse>("/internal/projects");
-
-  const project = response.data.results.find((p) => p.slug === slug);
-
-  if (!project) {
-    throw new Error(`Project with slug "${slug}" not found`);
-  }
-
-  return project;
+  const response = await api.get<{ project: ProjectData }>(`/internal/projects/${slug}`);
+  return response.data.project;
 }
 
 /**

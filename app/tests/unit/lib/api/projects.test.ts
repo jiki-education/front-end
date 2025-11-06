@@ -72,7 +72,7 @@ describe("Projects API", () => {
   });
 
   describe("fetchProject", () => {
-    it("should fetch individual project by slug from projects list", async () => {
+    it("should fetch individual project by slug", async () => {
       const mockProject = {
         slug: "test-project",
         title: "Test Project",
@@ -82,12 +82,7 @@ describe("Projects API", () => {
 
       const mockResponse = {
         data: {
-          results: [mockProject],
-          meta: {
-            current_page: 1,
-            total_count: 1,
-            total_pages: 1
-          }
+          project: mockProject
         },
         status: 200,
         headers: new Headers()
@@ -96,28 +91,8 @@ describe("Projects API", () => {
 
       const result = await fetchProject("test-project");
 
-      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects");
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects/test-project");
       expect(result).toEqual(mockProject);
-    });
-
-    it("should throw error when project not found", async () => {
-      const mockResponse = {
-        data: {
-          results: [],
-          meta: {
-            current_page: 1,
-            total_count: 0,
-            total_pages: 1
-          }
-        },
-        status: 200,
-        headers: new Headers()
-      };
-      mockApi.get.mockResolvedValue(mockResponse);
-
-      await expect(fetchProject("non-existent-project")).rejects.toThrow(
-        'Project with slug "non-existent-project" not found'
-      );
     });
   });
 
