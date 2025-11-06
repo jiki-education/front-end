@@ -5,7 +5,7 @@
 
 import type { MembershipTier } from "@/lib/pricing";
 
-export type SubscriptionStatus = "active" | "canceled" | "past_due" | "incomplete" | "trialing";
+export type SubscriptionStatus = "active" | "canceled" | "past_due" | "incomplete" | "incomplete_expired" | "trialing";
 
 export interface Subscription {
   tier: MembershipTier;
@@ -14,6 +14,7 @@ export interface Subscription {
   payment_failed: boolean;
   in_grace_period: boolean;
   grace_period_ends_at: string | null; // ISO 8601 date string
+  cancel_at_period_end: boolean; // True if subscription is scheduled for cancellation
 }
 
 export interface SubscriptionStatusResponse {

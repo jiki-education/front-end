@@ -226,64 +226,33 @@ export default function StripeTestPage() {
                 Current Tier: {currentTier && getPricingTier(currentTier).name}
               </h2>
 
-              <div className="space-y-3">
-                {/* Scenario 1: Free tier - offer upgrades */}
-                {currentTier === "standard" && (
-                  <>
-                    <button
-                      onClick={() => handleUpgrade("premium")}
-                      className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
-                    >
-                      Upgrade to Premium - $3/month
-                    </button>
-                    <button
-                      onClick={() => handleUpgrade("max")}
-                      className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
-                    >
-                      Upgrade to Max - $10/month
-                    </button>
-                  </>
-                )}
-
-                {/* Scenario 2: Premium tier - offer upgrade or cancel */}
-                {currentTier === "premium" && (
-                  <>
-                    <button
-                      onClick={() => handleUpgrade("max")}
-                      className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
-                    >
-                      Upgrade to Max - $10/month
-                    </button>
-                    <button
-                      disabled
-                      className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
-                      title="Not implemented yet"
-                    >
-                      Cancel Subscription
-                    </button>
-                  </>
-                )}
-
-                {/* Scenario 3: Max tier - offer downgrade or cancel */}
-                {currentTier === "max" && (
-                  <>
-                    <button
-                      disabled
-                      className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
-                      title="Not implemented yet"
-                    >
-                      Downgrade to Premium - $3/month
-                    </button>
-                    <button
-                      disabled
-                      className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
-                      title="Not implemented yet"
-                    >
-                      Cancel Subscription
-                    </button>
-                  </>
-                )}
-              </div>
+              {(() => {
+                const state = getSubscriptionState(currentTier, subscription);
+                switch (state) {
+                  case "never_subscribed":
+                    return <NeverSubscribedActions onUpgrade={handleUpgrade} />;
+                  case "incomplete_payment":
+                    return <IncompletePaymentActions />;
+                  case "active_premium":
+                    return <ActivePremiumActions onUpgrade={handleUpgrade} onOpenPortal={handleOpenPortal} />;
+                  case "active_max":
+                    return <ActiveMaxActions onOpenPortal={handleOpenPortal} />;
+                  case "cancelling_scheduled":
+                    return <CancellingScheduledActions onOpenPortal={handleOpenPortal} />;
+                  case "payment_failed_grace":
+                    return <PaymentFailedGracePeriodActions onOpenPortal={handleOpenPortal} />;
+                  case "payment_failed_expired":
+                    return (
+                      <PaymentFailedGraceExpiredActions onUpgrade={handleUpgrade} onOpenPortal={handleOpenPortal} />
+                    );
+                  case "previously_subscribed":
+                    return <PreviouslySubscribedActions onUpgrade={handleUpgrade} />;
+                  case "incomplete_expired":
+                    return <IncompleteExpiredActions onUpgrade={handleUpgrade} />;
+                  default:
+                    return <NeverSubscribedActions onUpgrade={handleUpgrade} />;
+                }
+              })()}
             </div>
 
             {/* Payment Form with Checkout SDK */}
@@ -406,6 +375,337 @@ export default function StripeTestPage() {
       setDeletingStripeHistory(false);
     }
   }
+}
+
+// Subscription state type
+type SubscriptionState =
+  | "never_subscribed"
+  | "incomplete_payment"
+  | "active_premium"
+  | "active_max"
+  | "cancelling_scheduled"
+  | "payment_failed_grace"
+  | "payment_failed_expired"
+  | "previously_subscribed"
+  | "incomplete_expired";
+
+// Helper to determine subscription state
+function getSubscriptionState(
+  currentTier: MembershipTier | undefined,
+  subscription: Subscription | null
+): SubscriptionState {
+  // Never had a subscription
+  if (!subscription && currentTier === "standard") {
+    return "never_subscribed";
+  }
+
+  if (subscription) {
+    // Incomplete states
+    if (subscription.status === "incomplete_expired") {
+      return "incomplete_expired";
+    }
+    if (subscription.status === "incomplete") {
+      return "incomplete_payment";
+    }
+
+    // Active subscriptions
+    if (subscription.status === "active") {
+      // Check if cancelling
+      if (subscription.cancel_at_period_end) {
+        return "cancelling_scheduled";
+      }
+      // Check tier
+      if (subscription.tier === "premium") {
+        return "active_premium";
+      }
+      if (subscription.tier === "max") {
+        return "active_max";
+      }
+    }
+
+    // Payment failed states
+    if (subscription.payment_failed) {
+      if (subscription.in_grace_period) {
+        return "payment_failed_grace";
+      }
+      return "payment_failed_expired";
+    }
+
+    // Previously subscribed (canceled, expired, etc.)
+    if (subscription.status === "canceled" || subscription.status === "past_due") {
+      return "previously_subscribed";
+    }
+  }
+
+  // Fallback: previously subscribed if on standard but has no active subscription
+  if (currentTier === "standard") {
+    return "previously_subscribed";
+  }
+
+  // Default fallback
+  return "never_subscribed";
+}
+
+// Subscription Action Components
+function NeverSubscribedActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold">Start Your Subscription</h3>
+        <p className="text-sm text-gray-600">Choose a plan to unlock premium features</p>
+      </div>
+
+      <button
+        onClick={() => onUpgrade("premium")}
+        className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+      >
+        Subscribe to Premium - $3/month
+      </button>
+
+      <button
+        onClick={() => onUpgrade("max")}
+        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+      >
+        Subscribe to Max - $10/month
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">No active subscription</p>
+      </div>
+    </div>
+  );
+}
+
+function IncompletePaymentActions() {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-yellow-700">Payment In Progress</h3>
+        <p className="text-sm text-gray-600">Your checkout session is awaiting payment confirmation</p>
+      </div>
+
+      <button
+        disabled
+        className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
+        title="Not implemented yet"
+      >
+        Complete Payment
+      </button>
+
+      <button
+        disabled
+        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded opacity-50 cursor-not-allowed"
+        title="Not implemented yet"
+      >
+        Cancel Checkout
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Checkout initiated but not completed</p>
+      </div>
+    </div>
+  );
+}
+
+function ActivePremiumActions({
+  onUpgrade,
+  onOpenPortal
+}: {
+  onUpgrade: (tier: MembershipTier) => void;
+  onOpenPortal: () => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-green-700">Active Premium</h3>
+        <p className="text-sm text-gray-600">Full access to premium features</p>
+      </div>
+
+      <button
+        onClick={() => onUpgrade("max")}
+        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+      >
+        Upgrade to Max - $10/month
+      </button>
+
+      <button
+        onClick={onOpenPortal}
+        className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
+      >
+        Manage Subscription
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Use Customer Portal to cancel or update payment method</p>
+      </div>
+    </div>
+  );
+}
+
+function ActiveMaxActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-purple-700">Active Max</h3>
+        <p className="text-sm text-gray-600">Highest tier with full access</p>
+      </div>
+
+      <button
+        onClick={onOpenPortal}
+        className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
+      >
+        Manage Subscription
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Use Customer Portal to downgrade, cancel, or update payment method</p>
+      </div>
+    </div>
+  );
+}
+
+function CancellingScheduledActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-orange-700">Cancellation Scheduled</h3>
+        <p className="text-sm text-gray-600">Your subscription will end at the current period end</p>
+      </div>
+
+      <button
+        onClick={onOpenPortal}
+        className="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition-colors"
+      >
+        Resume Subscription
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Access continues until period end. Use Customer Portal to resume.</p>
+      </div>
+    </div>
+  );
+}
+
+function PaymentFailedGracePeriodActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-red-700">Payment Failed - Grace Period</h3>
+        <p className="text-sm text-gray-600">Update your payment method within 7 days to maintain access</p>
+      </div>
+
+      <button
+        onClick={onOpenPortal}
+        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
+      >
+        Update Payment Method
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">You still have access during the grace period</p>
+      </div>
+    </div>
+  );
+}
+
+function PaymentFailedGraceExpiredActions({
+  onOpenPortal,
+  onUpgrade
+}: {
+  onOpenPortal: () => void;
+  onUpgrade: (tier: MembershipTier) => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-red-700">Payment Failed - Access Revoked</h3>
+        <p className="text-sm text-gray-600">Grace period expired. Update payment or start new subscription</p>
+      </div>
+
+      <button
+        onClick={onOpenPortal}
+        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
+      >
+        Update Payment Method
+      </button>
+
+      <button
+        onClick={() => onUpgrade("premium")}
+        className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+      >
+        Start New Premium Subscription
+      </button>
+
+      <button
+        onClick={() => onUpgrade("max")}
+        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+      >
+        Start New Max Subscription
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Downgraded to standard tier</p>
+      </div>
+    </div>
+  );
+}
+
+function PreviouslySubscribedActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold">Re-Subscribe</h3>
+        <p className="text-sm text-gray-600">Your previous subscription has ended. Subscribe again to regain access</p>
+      </div>
+
+      <button
+        onClick={() => onUpgrade("premium")}
+        className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+      >
+        Re-subscribe to Premium - $3/month
+      </button>
+
+      <button
+        onClick={() => onUpgrade("max")}
+        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+      >
+        Re-subscribe to Max - $10/month
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Previously subscribed, no active subscription</p>
+      </div>
+    </div>
+  );
+}
+
+function IncompleteExpiredActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+  return (
+    <div className="space-y-3">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-gray-700">Checkout Expired</h3>
+        <p className="text-sm text-gray-600">Your previous checkout session expired. Start a new checkout</p>
+      </div>
+
+      <button
+        onClick={() => onUpgrade("premium")}
+        className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+      >
+        Start Fresh Checkout - Premium
+      </button>
+
+      <button
+        onClick={() => onUpgrade("max")}
+        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
+      >
+        Start Fresh Checkout - Max
+      </button>
+
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <p className="text-xs text-gray-500">Checkout session abandoned or expired</p>
+      </div>
+    </div>
+  );
 }
 
 // Sub-components
