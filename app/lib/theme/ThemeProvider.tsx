@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { Theme, ResolvedTheme, ThemeContextType } from "./types";
 
@@ -16,29 +16,43 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
-    // Sync with blocking script's theme on initial render to prevent hydration mismatch
-    if (typeof document !== "undefined") {
-      const hasDataTheme = document.documentElement.getAttribute("data-theme") === "dark";
-      return hasDataTheme ? "dark" : "light";
-    }
-    return "light";
-  });
+  // Always start with "light" to prevent hydration mismatch
+  // The blocking script will ensure the DOM is correct, and we'll sync in useEffect
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from localStorage and system preference
-  useEffect(() => {
-    const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
-
-    // Sync with what the blocking script already set
+  // Sync with blocking script immediately to prevent flash
+  useLayoutEffect(() => {
+    // Read what the blocking script set
+    // Note: blocking script only sets data-theme="dark" for dark mode,
+    // removes the attribute entirely for light mode (see updateDocumentTheme)
     const currentDataTheme = document.documentElement.getAttribute("data-theme");
     const blockingScriptResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
 
+    setResolvedTheme(blockingScriptResolvedTheme);
+  }, []);
+
+  // Initialize theme from localStorage after layout sync
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initialTheme = savedTheme || defaultTheme;
 
     setThemeState(initialTheme);
-    setResolvedTheme(blockingScriptResolvedTheme);
-    // Don't call updateDocumentTheme here since blocking script already set it correctly
+
+    // Resolve the theme and update DOM if needed
+    const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
+    const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
+
+    // Only update DOM if the resolved theme differs from what blocking script set
+    // Note: data-theme="dark" for dark mode, attribute removed for light mode
+    const currentDataTheme = document.documentElement.getAttribute("data-theme");
+    const currentResolvedTheme = currentDataTheme === "dark" ? "dark" : "light";
+
+    if (newResolvedTheme !== currentResolvedTheme) {
+      setResolvedTheme(newResolvedTheme);
+      updateDocumentTheme(newResolvedTheme);
+    }
+
     setMounted(true);
   }, [defaultTheme]);
 
