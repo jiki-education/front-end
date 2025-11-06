@@ -198,16 +198,12 @@ export default function TestAuthV2Page() {
                     </p>
                   </>
                 )}
-                {getToken() && (
-                  <p className="text-xs text-gray-600">
-                    <span className="font-medium">Access Token:</span> {getToken()?.substring(0, 30)}...
-                  </p>
-                )}
-                {getRefreshToken() && (
-                  <p className="text-xs text-gray-600">
-                    <span className="font-medium">Refresh Token:</span> {getRefreshToken()?.substring(0, 30)}...
-                  </p>
-                )}
+                <p className="text-xs text-gray-600 break-all" suppressHydrationWarning>
+                  <span className="font-medium">Access Token:</span> {getToken() || "None"}
+                </p>
+                <p className="text-xs text-gray-600 break-all" suppressHydrationWarning>
+                  <span className="font-medium">Refresh Token:</span> {getRefreshToken() || "None"}
+                </p>
               </div>
               {authError && <div className="mt-4 p-3 bg-red-50 text-red-700 rounded text-sm">{authError}</div>}
             </div>
