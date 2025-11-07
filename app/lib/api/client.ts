@@ -3,7 +3,7 @@
  * Simple, type-safe API client for backend communication with JWT support
  */
 
-import { getToken } from "@/lib/auth/storage";
+import { getToken, parseJwtPayload } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getApiUrl } from "./config";
 
@@ -90,43 +90,50 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
     if (!response.ok) {
       // Handle 401 Unauthorized with automatic token refresh
       if (response.status === 401) {
-        try {
-          const newAccessToken = await refreshAccessToken();
+        // Only attempt refresh if token is actually expired
+        // This prevents unnecessary refresh token consumption on authorization errors
+        const shouldRefresh = isTokenActuallyExpired(token);
 
-          if (newAccessToken) {
-            // Refresh succeeded! Retry the original request with new token
-            requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
-            const retryResponse = await fetch(url.toString(), {
-              ...requestOptions,
-              headers: requestHeaders
-            });
+        if (shouldRefresh) {
+          try {
+            const newAccessToken = await refreshAccessToken();
 
-            let retryData: T;
-            const retryContentType = retryResponse.headers.get("content-type");
+            if (newAccessToken) {
+              // Refresh succeeded! Retry the original request with new token
+              requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
+              const retryResponse = await fetch(url.toString(), {
+                ...requestOptions,
+                headers: requestHeaders
+              });
 
-            if (retryContentType?.includes("application/json")) {
-              retryData = await retryResponse.json();
-            } else {
-              retryData = (await retryResponse.text()) as T;
+              let retryData: T;
+              const retryContentType = retryResponse.headers.get("content-type");
+
+              if (retryContentType?.includes("application/json")) {
+                retryData = await retryResponse.json();
+              } else {
+                retryData = (await retryResponse.text()) as T;
+              }
+
+              if (!retryResponse.ok) {
+                throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
+              }
+
+              return {
+                data: retryData,
+                status: retryResponse.status,
+                headers: retryResponse.headers
+              };
             }
 
-            if (!retryResponse.ok) {
-              throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
-            }
-
-            return {
-              data: retryData,
-              status: retryResponse.status,
-              headers: retryResponse.headers
-            };
+            // Refresh failed - tokens already cleared by refresh module
+            // Fall through to throw 401 error
+          } catch (refreshError) {
+            console.error("Token refresh failed:", refreshError);
+            // Fall through to throw original 401 error
           }
-
-          // Refresh failed - tokens already cleared by refresh module
-          // Fall through to throw 401 error
-        } catch (refreshError) {
-          console.error("Token refresh failed:", refreshError);
-          // Fall through to throw original 401 error
         }
+        // If token not expired or refresh failed, throw original 401 error
       }
 
       throw new ApiError(response.status, response.statusText, data);
@@ -150,6 +157,29 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
 
     // Handle other errors
     throw new Error(`Request failed: ${error}`);
+  }
+}
+
+/**
+ * Check if token is actually expired to determine if refresh is warranted
+ */
+function isTokenActuallyExpired(token: string | null): boolean {
+  if (!token) {
+    return false; // No token means 401 is not due to expiry
+  }
+
+  try {
+    const payload = parseJwtPayload(token);
+    if (!payload || !payload.exp) {
+      return false; // Can't determine expiry, assume not expired
+    }
+
+    // Check if token has expired (exp is in seconds, Date.now() is in milliseconds)
+    const expiryMs = payload.exp * 1000;
+    return Date.now() > expiryMs;
+  } catch (error) {
+    console.error("Failed to check token expiry:", error);
+    return false; // Assume not expired on error to avoid unnecessary refresh
   }
 }
 
