@@ -3,9 +3,10 @@
  * Secure JWT token management for authentication
  */
 
+import { setRefreshTokenCookie, getRefreshTokenCookie, removeRefreshTokenCookie } from "@/lib/auth/cookie-storage";
+
 const TOKEN_KEY = "jiki_auth_token";
 const TOKEN_EXPIRY_KEY = "jiki_auth_expiry";
-const REFRESH_TOKEN_KEY = "jiki_refresh_token";
 
 /**
  * Store JWT token and optional expiry
@@ -156,47 +157,25 @@ export function getTokenExpiry(token: string): number | null {
 }
 
 /**
- * Store refresh token in localStorage (persists across browser sessions)
+ * Store refresh token in secure cookie (XSS-resistant, persists across browser sessions)
  */
 export function setRefreshToken(token: string): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.setItem(REFRESH_TOKEN_KEY, token);
-  } catch (error) {
-    console.error("Failed to store refresh token:", error);
-  }
+  // Use secure cookie storage instead of localStorage for XSS protection
+  setRefreshTokenCookie(token);
 }
 
 /**
- * Retrieve stored refresh token
+ * Retrieve stored refresh token from secure cookie
  */
 export function getRefreshToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  try {
-    return localStorage.getItem(REFRESH_TOKEN_KEY);
-  } catch (error) {
-    console.error("Failed to retrieve refresh token:", error);
-    return null;
-  }
+  // Use secure cookie storage instead of localStorage for XSS protection
+  return getRefreshTokenCookie();
 }
 
 /**
- * Remove stored refresh token
+ * Remove stored refresh token from secure cookie
  */
 export function removeRefreshToken(): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
-  } catch (error) {
-    console.error("Failed to remove refresh token:", error);
-  }
+  // Use secure cookie storage instead of localStorage for XSS protection
+  removeRefreshTokenCookie();
 }
