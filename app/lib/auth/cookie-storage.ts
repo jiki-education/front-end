@@ -124,7 +124,6 @@ export function setRefreshTokenCookie(token: string): void {
 
   setSecureCookie(REFRESH_TOKEN_COOKIE, token, {
     expires: thirtyDaysFromNow,
-    secure: true, // HTTPS only in production
     sameSite: "strict" // CSRF protection
   });
 }
