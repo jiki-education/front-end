@@ -4,7 +4,7 @@
  */
 
 import { api } from "@/lib/api";
-import { getTokenExpiry, setToken, setRefreshToken, getRefreshToken, removeRefreshToken } from "@/lib/auth/storage";
+import { getTokenExpiry, setToken, setRefreshToken } from "@/lib/auth/storage";
 import type {
   AuthResponse,
   LoginCredentials,
@@ -115,42 +115,11 @@ export async function logout(): Promise<void> {
 
 /**
  * Refresh access token using refresh token
- * POST /auth/refresh
+ * This now uses the standalone refresh module to avoid circular dependencies
  */
 export async function refreshAccessToken(): Promise<string | null> {
-  const refreshToken = getRefreshToken();
-
-  if (!refreshToken) {
-    console.error("No refresh token available");
-    return null;
-  }
-
-  try {
-    const response = await api.post<{ message?: string; access_token?: string }>("/auth/refresh", {
-      refresh_token: refreshToken
-    });
-
-    // Extract new access token from response headers
-    let newAccessToken = extractTokenFromHeaders(response.headers);
-    if (!newAccessToken) {
-      newAccessToken = response.data.access_token || null;
-    }
-
-    if (newAccessToken) {
-      const expiry = getTokenExpiry(newAccessToken);
-      setToken(newAccessToken, expiry || undefined);
-      return newAccessToken;
-    }
-
-    return null;
-  } catch (error) {
-    console.error("Failed to refresh access token:", error);
-    // If refresh fails, clear all tokens (invalid refresh token)
-    const { removeToken } = await import("@/lib/auth/storage");
-    removeToken();
-    removeRefreshToken();
-    return null;
-  }
+  const { refreshAccessToken: performRefresh } = await import("@/lib/auth/refresh");
+  return performRefresh();
 }
 
 /**
