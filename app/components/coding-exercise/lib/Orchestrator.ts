@@ -12,7 +12,7 @@ import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import type { TestExpect, TestResult } from "./test-results-types";
-import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
+import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
@@ -24,7 +24,7 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
 
-  constructor(exercise: ExerciseDefinition, language: Language, projectContext?: { projectSlug?: string }) {
+  constructor(exercise: ExerciseDefinition, language: Language, context?: ExerciseContext) {
     this.exercise = exercise;
 
     // Create instance-specific store with exercise and language
@@ -34,7 +34,7 @@ class Orchestrator {
     this.timelineManager = new TimelineManager(this.store);
     this.breakpointManager = new BreakpointManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, projectContext);
+    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, context);
     // EditorManager will be created lazily when setupEditor is called
 
     // Initialize exercise data (loads from localStorage if available)

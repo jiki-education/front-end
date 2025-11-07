@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "next/navigation";
 import { NavigationItem } from "./NavigationItem";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface SidebarProps {
   activeItem?: string;
@@ -26,9 +27,9 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   };
 
   return (
-    <aside className="w-1/4 bg-white border-r border-gray-200 h-screen sticky top-0 flex flex-col">
-      <div className="p-6 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">Jiki Learn</h1>
+    <aside className="w-1/4 bg-bg-primary border-r border-border-primary h-screen sticky top-0 flex flex-col theme-transition">
+      <div className="p-6 border-b border-border-primary">
+        <h1 className="text-2xl font-bold text-text-primary">Jiki Learn</h1>
       </div>
 
       <nav className="flex-1 p-4">
@@ -45,22 +46,28 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         </ul>
       </nav>
 
-      <div className="p-4 border-t border-gray-200 space-y-3">
+      <div className="p-4 border-t border-border-primary space-y-3">
         {user && (
           <div className="text-sm">
-            <div className="font-semibold text-gray-700">Signed in as:</div>
-            <div className="truncate text-gray-500">{user.email}</div>
+            <div className="font-semibold text-text-primary">Signed in as:</div>
+            <div className="truncate text-text-secondary">{user.email}</div>
           </div>
         )}
 
+        {/* Theme Toggle */}
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-text-secondary">Theme</span>
+          <ThemeToggle />
+        </div>
+
         <button
           onClick={handleLogout}
-          className="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          className="w-full px-4 py-2 text-sm text-error-text hover:bg-error-bg rounded-lg transition-colors focus-ring"
         >
           Sign Out
         </button>
 
-        <div className="text-xs text-gray-400 text-center">Version 1.0.0</div>
+        <div className="text-xs text-text-muted text-center">Version 1.0.0</div>
       </div>
     </aside>
   );

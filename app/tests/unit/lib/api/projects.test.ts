@@ -43,7 +43,7 @@ describe("Projects API", () => {
 
       const result = await fetchProjects();
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects", { params: undefined });
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects", { params: undefined });
       expect(result).toEqual(mockResponse.data);
     });
 
@@ -66,7 +66,7 @@ describe("Projects API", () => {
       const params = { title: "test", page: 1, per: 10 };
       const result = await fetchProjects(params);
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects", { params });
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects", { params });
       expect(result).toEqual(mockResponse.data);
     });
   });
@@ -81,7 +81,9 @@ describe("Projects API", () => {
       };
 
       const mockResponse = {
-        data: mockProject,
+        data: {
+          project: mockProject
+        },
         status: 200,
         headers: new Headers()
       };
@@ -89,28 +91,7 @@ describe("Projects API", () => {
 
       const result = await fetchProject("test-project");
 
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects/test-project");
-      expect(result).toEqual(mockProject);
-    });
-
-    it("should handle nested project response structure", async () => {
-      const mockProject = {
-        slug: "test-project",
-        title: "Test Project",
-        description: "A test project",
-        status: "unlocked"
-      };
-
-      const mockResponse = {
-        data: { project: mockProject },
-        status: 200,
-        headers: new Headers()
-      };
-      mockApi.get.mockResolvedValue(mockResponse);
-
-      const result = await fetchProject("test-project");
-
-      expect(mockApi.get).toHaveBeenCalledWith("/v1/projects/test-project");
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/projects/test-project");
       expect(result).toEqual(mockProject);
     });
   });
@@ -128,7 +109,7 @@ describe("Projects API", () => {
 
       await submitProjectExercise("test-project", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/v1/projects/test-project/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/projects/test-project/exercise_submissions", {
         submission: { files }
       });
     });
@@ -148,7 +129,7 @@ describe("Projects API", () => {
 
       await submitProjectExercise("test-project", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/v1/projects/test-project/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/projects/test-project/exercise_submissions", {
         submission: { files }
       });
     });

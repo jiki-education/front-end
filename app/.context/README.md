@@ -22,6 +22,7 @@ General documentation that applies across the entire codebase:
 - **[architecture.md](./architecture.md)** - Frontend architecture and design decisions
 - **[coding-style.md](./coding-style.md)** - Coding style and file organization guidelines
 - **[commands.md](./commands.md)** - Development commands and scripts
+- **[dark-light-theme-system.md](./dark-light-theme-system.md)** - Complete dark/light theme system implementation
 - **[deployment.md](./deployment.md)** - Deployment process and configuration
 - **[eslint.md](./eslint.md)** - ESLint configuration and how to handle lint errors
 - **[git.md](./git.md)** - Git workflow and commit conventions

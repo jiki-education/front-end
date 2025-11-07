@@ -15,6 +15,7 @@ import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import ConsoleTab from "./ui/test-results-view/ConsoleTab";
 import LanguageToggle from "./ui/LanguageToggle";
 import FunctionsView from "./ui/FunctionsView";
+import ChatPanel from "./ui/ChatPanel";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -45,8 +46,13 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
         const exercise = (await loader()).default;
 
         // Create orchestrator only once and store in ref
-        // Pass hardcoded jikiscript language and project context if this is a project
-        orchestratorRef.current = new Orchestrator(exercise, "jikiscript", isProject ? { projectSlug } : undefined);
+        // Pass hardcoded jikiscript language and exercise context
+        const context =
+          isProject && projectSlug
+            ? { type: "project" as const, slug: projectSlug }
+            : { type: "lesson" as const, slug: exerciseSlug };
+
+        orchestratorRef.current = new Orchestrator(exercise, "jikiscript", context);
         setIsLoading(false);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : "Unknown error");
@@ -128,6 +134,11 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
                   id: "console",
                   label: "Console",
                   content: <ConsoleTab />
+                },
+                {
+                  id: "chat",
+                  label: "Chat",
+                  content: <ChatPanel />
                 }
               ]}
               defaultActiveTab="instructions"

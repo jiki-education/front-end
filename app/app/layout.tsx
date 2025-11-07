@@ -2,7 +2,9 @@ import { AuthProvider } from "@/components/auth/AuthProvider";
 import { ConditionalAuthHeader } from "@/components/layout/ConditionalAuthHeader";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
+import { ThemeProvider } from "@/lib/theme";
 import type { Metadata } from "next";
+import Script from "next/script";
 import "../src/utils/whyDidYouRender";
 import "./globals.css";
 
@@ -27,15 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" data-theme="dark">
       {/*<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>*/}
       <body className={`antialiased`}>
-        <AuthProvider>
-          <ConditionalAuthHeader />
-          <main className="min-h-screen bg-gray-50">{children}</main>
-          <GlobalModalProvider />
-          <ToasterProvider />
-        </AuthProvider>
+        <Script src="/theme-script.js" strategy="beforeInteractive" />
+        <ThemeProvider>
+          <AuthProvider>
+            <ConditionalAuthHeader />
+            <main className="min-h-screen bg-bg-secondary theme-transition">{children}</main>
+            <GlobalModalProvider />
+            <ToasterProvider />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

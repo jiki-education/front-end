@@ -44,7 +44,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, clas
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-500"
+        className="flex items-center px-3 py-2 text-sm font-medium text-text-secondary bg-bg-primary border border-border-primary rounded-lg hover:bg-bg-secondary hover:text-text-primary disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-bg-primary disabled:hover:text-text-secondary"
       >
         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -57,14 +57,14 @@ export default function Pagination({ currentPage, totalPages, onPageChange, clas
         {pageNumbers.map((page, index) => (
           <span key={index}>
             {page === "..." ? (
-              <span className="px-3 py-2 text-sm font-medium text-gray-700">...</span>
+              <span className="px-3 py-2 text-sm font-medium text-text-secondary">...</span>
             ) : (
               <button
                 onClick={() => onPageChange(page as number)}
                 className={`px-3 py-2 text-sm font-medium rounded-lg ${
                   currentPage === page
-                    ? "text-blue-600 bg-blue-50 border border-blue-300"
-                    : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                    ? "text-link-primary bg-info-bg border border-info-border"
+                    : "text-text-secondary bg-bg-primary border border-border-primary hover:bg-bg-secondary hover:text-text-primary"
                 }`}
               >
                 {page}
@@ -78,7 +78,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, clas
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-500"
+        className="flex items-center px-3 py-2 text-sm font-medium text-text-secondary bg-bg-primary border border-border-primary rounded-lg hover:bg-bg-secondary hover:text-text-primary disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-bg-primary disabled:hover:text-text-secondary"
       >
         Next
         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

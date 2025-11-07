@@ -1,7 +1,7 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
 import type { TestSuiteResult, TestExpect } from "../test-results-types";
-import type { OrchestratorStore } from "../types";
+import type { ExerciseContext, OrchestratorStore } from "../types";
 
 // Define SyntaxError interface inline since it's not exported from interpreters
 interface SyntaxError {
@@ -20,7 +20,7 @@ export class TestSuiteManager {
     private readonly taskManager?: {
       updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
     },
-    private readonly projectContext?: { projectSlug?: string }
+    private readonly context?: ExerciseContext
   ) {}
 
   /**
@@ -73,11 +73,11 @@ export class TestSuiteManager {
   private async submitExerciseFiles(code: string): Promise<void> {
     try {
       // Check if this is a project submission
-      if (this.projectContext?.projectSlug) {
+      if (this.context?.type === "project") {
         const { submitProjectExercise } = await import("@/lib/api/projects");
 
         // Fire and forget - we don't await or care about the response
-        void submitProjectExercise(this.projectContext.projectSlug, [
+        void submitProjectExercise(this.context.slug, [
           {
             filename: "solution.js", // or appropriate extension
             code: code

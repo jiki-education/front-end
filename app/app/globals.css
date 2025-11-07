@@ -4,9 +4,85 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+
+    /* Semantic color tokens for theming */
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f8f9fa;
+    --color-background-tertiary: #f1f3f4;
+    --color-text-primary: #171717;
+    --color-text-secondary: #6b7280;
+    --color-text-tertiary: #9ca3af;
+    --color-text-muted: #d1d5db;
+    --color-border-primary: #e5e7eb;
+    --color-border-secondary: #d1d5db;
+    --color-surface-elevated: #ffffff;
+    --color-surface-overlay: rgba(0, 0, 0, 0.05);
+
+    /* Interactive elements */
+    --color-button-primary-bg: #7029f5;
+    --color-button-primary-text: #ffffff;
+    --color-button-secondary-bg: #f3f4f6;
+    --color-button-secondary-text: #374151;
+    --color-link-primary: #2563eb;
+    --color-link-hover: #1d4ed8;
+
+    /* Status colors */
+    --color-success-bg: #edfff6;
+    --color-success-text: #006032;
+    --color-success-border: #00bf63;
+    --color-error-bg: #fff7f7;
+    --color-error-text: #dc2626;
+    --color-error-border: #ef4444;
+    --color-warning-bg: #fffbeb;
+    --color-warning-text: #d97706;
+    --color-warning-border: #f59e0b;
+    --color-info-bg: #eff6ff;
+    --color-info-text: #1d4ed8;
+    --color-info-border: #3b82f6;
+}
+
+[data-theme="dark"] {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Semantic color tokens for dark theme */
+    --color-background-primary: #0a0a0a;
+    --color-background-secondary: #1a1a1a;
+    --color-background-tertiary: #262626;
+    --color-text-primary: #ededed;
+    --color-text-secondary: #a3a3a3;
+    --color-text-tertiary: #737373;
+    --color-text-muted: #525252;
+    --color-border-primary: #404040;
+    --color-border-secondary: #525252;
+    --color-surface-elevated: #1f1f1f;
+    --color-surface-overlay: rgba(255, 255, 255, 0.05);
+
+    /* Interactive elements - adjusted for dark theme */
+    --color-button-primary-bg: #8b5cf6;
+    --color-button-primary-text: #ffffff;
+    --color-button-secondary-bg: #374151;
+    --color-button-secondary-text: #d1d5db;
+    --color-link-primary: #60a5fa;
+    --color-link-hover: #93c5fd;
+
+    /* Status colors - dark theme variants */
+    --color-success-bg: #064e3b;
+    --color-success-text: #6ee7b7;
+    --color-success-border: #10b981;
+    --color-error-bg: #7f1d1d;
+    --color-error-text: #fca5a5;
+    --color-error-border: #ef4444;
+    --color-warning-bg: #78350f;
+    --color-warning-text: #fcd34d;
+    --color-warning-border: #f59e0b;
+    --color-info-bg: #1e3a8a;
+    --color-info-text: #93c5fd;
+    --color-info-border: #3b82f6;
 }
 
 @theme inline {
+    /* Legacy tokens for backward compatibility */
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-thick-border-blue: #f4f6ff;
@@ -24,10 +100,39 @@
     --color-dark-red: #d03b3b;
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
-
-    /* colors */
     --color-orange: #ff8c00;
     --color-bootcamp-light-purple: #e6e6fa;
+
+    /* Semantic tokens for new theming system */
+    --color-bg-primary: var(--color-background-primary);
+    --color-bg-secondary: var(--color-background-secondary);
+    --color-bg-tertiary: var(--color-background-tertiary);
+    --color-text-primary: var(--color-text-primary);
+    --color-text-secondary: var(--color-text-secondary);
+    --color-text-tertiary: var(--color-text-tertiary);
+    --color-text-muted: var(--color-text-muted);
+    --color-border-primary: var(--color-border-primary);
+    --color-border-secondary: var(--color-border-secondary);
+    --color-surface-elevated: var(--color-surface-elevated);
+    --color-surface-overlay: var(--color-surface-overlay);
+    --color-button-primary-bg: var(--color-button-primary-bg);
+    --color-button-primary-text: var(--color-button-primary-text);
+    --color-button-secondary-bg: var(--color-button-secondary-bg);
+    --color-button-secondary-text: var(--color-button-secondary-text);
+    --color-link-primary: var(--color-link-primary);
+    --color-link-hover: var(--color-link-hover);
+    --color-success-bg: var(--color-success-bg);
+    --color-success-text: var(--color-success-text);
+    --color-success-border: var(--color-success-border);
+    --color-error-bg: var(--color-error-bg);
+    --color-error-text: var(--color-error-text);
+    --color-error-border: var(--color-error-border);
+    --color-warning-bg: var(--color-warning-bg);
+    --color-warning-text: var(--color-warning-text);
+    --color-warning-border: var(--color-warning-border);
+    --color-info-bg: var(--color-info-bg);
+    --color-info-text: var(--color-info-text);
+    --color-info-border: var(--color-info-border);
 
     --text-12: 12px;
     --text-13: 13px;
@@ -134,17 +239,94 @@
     }
 }
 
-/* @media (prefers-color-scheme: dark) {
+/* Theme transition animations */
+.theme-transition {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.theme-transition-fast {
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.theme-transition-slow {
+    transition:
+        background-color 0.5s ease,
+        color 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+/* Accessibility and focus states */
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-link-primary focus:ring-offset-2;
+}
+
+.focus-ring-inset {
+    @apply focus:outline-none focus:ring-2 focus:ring-link-primary focus:ring-inset;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
     :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
+        --color-border-primary: #000000;
+        --color-border-secondary: #000000;
+        --color-text-secondary: var(--color-text-primary);
     }
-} */
+
+    [data-theme="dark"] {
+        --color-border-primary: #ffffff;
+        --color-border-secondary: #ffffff;
+        --color-text-secondary: var(--color-text-primary);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .theme-transition,
+    .theme-transition-fast,
+    .theme-transition-slow {
+        transition: none;
+    }
+
+    body {
+        transition: none;
+    }
+
+    .editor {
+        transition: none;
+    }
+
+    .cm-gutters {
+        transition: none;
+    }
+}
 
 body {
     background: var(--background);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 
     &::after {
         content: "";
@@ -218,13 +400,15 @@ body {
 .editor {
     width: 800px;
     height: 100%;
-    background: #fff;
+    background: var(--color-background-primary);
     overflow-y: auto;
     @apply flex flex-grow;
+    transition: background-color 0.3s ease;
 
     .cm-gutters {
-        background: white;
+        background: var(--color-background-primary);
         @apply border-r-0;
+        transition: background-color 0.3s ease;
     }
     .cm-lineNumbers .cm-gutterElement,
     .cm-foldGutter,
@@ -268,7 +452,7 @@ body {
     }
     .cm-lockedLine,
     .cm-lockedGutter {
-        background: #f6f6f6;
+        background: var(--color-background-secondary);
     }
     .ͼ1 .cm-underline {
         text-decoration: none;
@@ -280,11 +464,11 @@ body {
     font-family: "Source Code Pro", "Courier New", Courier, monospace;
     text-align: left;
     width: 100%;
-    color: #aaa;
+    color: var(--color-text-secondary);
     font-size: 16px;
 
     .cm-cursor {
-        border-color: var(--text-color-1);
+        border-color: var(--color-text-primary);
     }
 
     .cm-scroller {
@@ -317,9 +501,9 @@ body {
     font-family: Poppins;
     font-size: 14px;
     padding: 4px;
-    color: #130b43;
+    color: var(--color-text-primary);
     line-height: 160%;
-    background: #ffd38f;
+    background: var(--color-warning-bg);
     border-radius: 8px;
 }
 
@@ -401,12 +585,12 @@ body {
     }
 
     &.description {
-        @apply bg-white text-primary-blue border-2 border-blue-500;
+        @apply bg-surface-elevated text-link-primary border-2 border-info-border;
 
         filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
 
         .tooltip-arrow {
-            border-right-color: rgb(59 130 246);
+            border-right-color: var(--color-info-border);
         }
 
         hr {
@@ -418,17 +602,17 @@ body {
     }
 
     &.error {
-        @apply bg-white border-2 border-red-500;
+        @apply bg-surface-elevated border-2 border-error-border;
 
         @apply p-0;
 
         filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
 
         h2 {
-            @apply text-dark-red;
+            @apply text-error-text;
             @apply font-semibold;
             @apply py-8 px-20;
-            @apply relative z-tooltip-content bg-red-100;
+            @apply relative z-tooltip-content bg-error-bg;
             @apply rounded-t-[6px];
 
             .tooltip-close {
@@ -437,9 +621,9 @@ body {
         }
         .content {
             @apply rounded-6;
-            @apply text-text-color-1;
+            @apply text-text-primary;
             @apply pt-10 px-20 pb-12;
-            @apply relative z-tooltip-content bg-white;
+            @apply relative z-tooltip-content bg-surface-elevated;
             @apply rounded-b-8;
             & > *:first-child {
                 margin-top: 0;
@@ -453,7 +637,7 @@ body {
         }
 
         .tooltip-arrow {
-            border-right-color: rgb(239 68 68);
+            border-right-color: var(--color-error-border);
         }
     }
 }
@@ -563,7 +747,7 @@ body {
             th,
             td {
                 @apply text-16 leading-140;
-                @apply bg-white;
+                @apply bg-bg-primary;
                 @apply py-10 px-10;
             }
             th {
@@ -628,8 +812,8 @@ body {
     @apply bg-no-repeat;
 
     &.idle {
-        @apply border-[#efefef];
-        background-color: white;
+        @apply border-border-primary;
+        background-color: var(--color-background-primary);
         &.selected {
             @apply border-bootcamp-purple;
         }
@@ -654,8 +838,8 @@ body {
     }
 
     &.fail {
-        border-color: #ffdddd;
-        background-color: #ffe5e5; /* Deliberately different to be more visible */
+        border-color: var(--color-error-border);
+        background-color: var(--color-error-bg);
         @apply text-bootcamp-fail-text;
         background-image: url("/bootcamp-cross-red.svg");
         background-size: 9px;

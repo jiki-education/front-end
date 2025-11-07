@@ -47,6 +47,7 @@ export interface EditorExtensionsConfig {
   onFoldChange: Extension;
   onEditorChange: Extension;
   onCloseInfoWidget: () => void;
+  isDarkTheme?: boolean;
 }
 
 export function createEditorExtensions({
@@ -56,7 +57,8 @@ export function createEditorExtensions({
   onBreakpointChange,
   onFoldChange,
   onEditorChange,
-  onCloseInfoWidget
+  onCloseInfoWidget,
+  isDarkTheme = false
 }: EditorExtensionsConfig) {
   return [
     // Core CodeMirror extensions
@@ -80,7 +82,7 @@ export function createEditorExtensions({
     Ext.foldGutter,
     Ext.underlineExtension(),
     Ext.readOnlyRangeDecoration(),
-    Ext.jsTheme,
+    Ext.createThemeExtension(isDarkTheme),
     unfoldableFunctionsField,
     moveCursorByPasteLength,
 

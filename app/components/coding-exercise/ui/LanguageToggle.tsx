@@ -18,15 +18,15 @@ export default function LanguageToggle() {
   const { language } = useOrchestratorStore(orchestrator);
 
   return (
-    <div className="flex gap-1 bg-gray-100 rounded-md p-1">
+    <div className="flex gap-1 bg-bg-secondary rounded-md p-1">
       {LANGUAGES.map((lang) => (
         <button
           key={lang.value}
           onClick={() => orchestrator.getStore().getState().setLanguage(lang.value)}
           className={`px-3 py-1 text-sm rounded transition-colors ${
             language === lang.value
-              ? "bg-white text-gray-900 font-medium shadow-sm"
-              : "text-gray-600 hover:text-gray-900"
+              ? "bg-surface-elevated text-text-primary font-medium shadow-sm"
+              : "text-text-secondary hover:text-text-primary"
           }`}
         >
           {lang.label}

@@ -93,6 +93,7 @@ jest.mock("@/components/coding-exercise/ui/codemirror/extensions", () => ({
   underlineExtension: jest.fn(),
   readOnlyRangeDecoration: jest.fn(),
   jsTheme: jest.fn(),
+  createThemeExtension: jest.fn(() => []),
   highlightLine: jest.fn(),
   showInfoWidgetField: jest.fn(),
   informationWidgetDataField: jest.fn(),

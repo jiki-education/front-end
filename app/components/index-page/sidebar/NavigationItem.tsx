@@ -21,8 +21,8 @@ export function NavigationItem({ label, isActive, href }: NavigationItemProps) {
       <button
         onClick={handleClick}
         className={`
-          w-full text-left px-4 py-3 rounded-lg transition-colors
-          ${isActive ? "bg-blue-50 text-blue-600 font-medium" : "text-gray-700 hover:bg-gray-50"}
+          w-full text-left px-4 py-3 rounded-lg transition-colors focus-ring
+          ${isActive ? "bg-info-bg text-info-text font-medium" : "text-text-primary hover:bg-bg-secondary"}
         `}
       >
         {label}

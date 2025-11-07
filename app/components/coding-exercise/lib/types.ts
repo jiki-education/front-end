@@ -2,6 +2,9 @@ import type { Frame } from "@jiki/interpreters";
 import type { TaskProgress, Language } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 
+// Exercise context types
+export type ExerciseContext = { type: "lesson"; slug: string } | { type: "project"; slug: string };
+
 // CodeMirror editor types
 export interface UnderlineRange {
   from: number;

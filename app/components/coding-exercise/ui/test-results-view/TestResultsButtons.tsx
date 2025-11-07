@@ -50,21 +50,17 @@ export function TestResultsButtons() {
           style={{
             transitionDelay: `${idx * TRANSITION_DELAY}s`,
             padding: "8px 12px",
-            border: "1px solid #d1d5db",
             borderRadius: "6px",
-            backgroundColor: "#fff",
             cursor: "pointer",
             fontSize: "14px",
             fontWeight: "500",
             transition: "all 0.2s ease"
           }}
-          className={assembleClassNames("test-button", test.status, currentTest?.slug === test.slug ? "selected" : "")}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#f3f4f6";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "#fff";
-          }}
+          className={assembleClassNames(
+            "test-button bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
+            test.status,
+            currentTest?.slug === test.slug ? "selected" : ""
+          )}
         >
           {idx + 1}
         </button>
@@ -72,20 +68,20 @@ export function TestResultsButtons() {
 
       <style jsx>{`
         .test-button.pass {
-          border-color: #10b981;
-          color: #10b981;
+          border-color: var(--color-success-border);
+          color: var(--color-success-text);
         }
         .test-button.fail {
-          border-color: #ef4444;
-          color: #ef4444;
+          border-color: var(--color-error-border);
+          color: var(--color-error-text);
         }
         .test-button.selected {
-          background-color: #3b82f6 !important;
-          border-color: #3b82f6;
-          color: white;
+          background-color: var(--color-link-primary) !important;
+          border-color: var(--color-link-primary);
+          color: var(--color-button-primary-text);
         }
         .test-button.selected:hover {
-          background-color: #2563eb !important;
+          background-color: var(--color-link-hover) !important;
         }
       `}</style>
     </div>
