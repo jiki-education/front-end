@@ -200,3 +200,51 @@ Directly downgrade an existing Max subscription to Premium tier.
 4. Show success message
 
 The tier change happens immediately and the user loses Max features right away. If the subscription is in "cancelling" status, the downgrade will automatically resume the subscription.
+
+## Subscription Data Source
+
+Subscription status and details are provided through the `/me` endpoint as part of the authenticated user object, not through a separate subscription endpoint.
+
+### User Object Structure
+
+```typescript
+{
+  id: number;
+  handle: string;
+  email: string;
+  name: string | null;
+  created_at: string;
+  membership_type: "standard" | "premium" | "max";
+  subscription_status: "never_subscribed" | "incomplete" | "active" | "cancelling" | "payment_failed" | "canceled";
+  subscription: {
+    in_grace_period: boolean;
+    grace_period_ends_at: string | null;
+    subscription_valid_until: string;
+  } | null;
+}
+```
+
+### Subscription Object Presence
+
+The `subscription` object is **present** when there is an active Stripe subscription:
+
+- `incomplete` - Payment pending confirmation
+- `active` - Active subscription
+- `payment_failed` - Failed payment (user in grace period)
+- `cancelling` - Scheduled for cancellation at period end
+
+The `subscription` object is **null** when there is no Stripe subscription:
+
+- `never_subscribed` - User has never subscribed
+- `canceled` - Subscription was canceled and period has ended
+
+### Usage in Frontend
+
+After any subscription operation (checkout, upgrade, downgrade, cancel), refresh the user data to get updated subscription status:
+
+```typescript
+// After subscription operation
+await checkAuth(); // Refreshes user object from /me endpoint
+```
+
+The user's `membership_type` reflects their current tier, while `subscription_status` indicates the state of their Stripe subscription.
