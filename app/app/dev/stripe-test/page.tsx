@@ -22,13 +22,19 @@ import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
 
 export default function StripeTestPage() {
-  const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login, checkAuth } = useAuthStore();
+  const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login, refreshUser } = useAuthStore();
   const [showGracePeriodTest, setShowGracePeriodTest] = useState(false);
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [deletingStripeHistory, setDeletingStripeHistory] = useState(false);
 
-  // No need to load subscription separately - it comes with user
+  // Refresh user data on mount to get latest subscription status
+  useEffect(() => {
+    if (user) {
+      void refreshUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only on mount - we don't want to re-run when user or refreshUser changes
 
   // Check for success parameter from payment redirect
   useEffect(() => {
@@ -48,7 +54,7 @@ export default function StripeTestPage() {
 
         if (result.success) {
           toast.success("Payment verified! Refreshing user data...");
-          await checkAuth();
+          await refreshUser();
         } else {
           toast.error(`Failed to verify payment: ${result.error}`);
         }
@@ -56,7 +62,7 @@ export default function StripeTestPage() {
 
       void verifyAndRefresh(sessionId);
     }
-  }, [isAuthenticated, user, checkAuth]);
+  }, [isAuthenticated, user, refreshUser]);
 
   const handleLogin = async () => {
     try {
@@ -343,7 +349,7 @@ export default function StripeTestPage() {
     try {
       await updateSubscription("max");
       toast.success("Successfully upgraded to Max!");
-      await checkAuth();
+      await refreshUser();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
       toast.error(errorMessage);
@@ -355,7 +361,7 @@ export default function StripeTestPage() {
     try {
       await updateSubscription("premium");
       toast.success("Successfully downgraded to Premium!");
-      await checkAuth();
+      await refreshUser();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to downgrade subscription";
       toast.error(errorMessage);
@@ -369,7 +375,7 @@ export default function StripeTestPage() {
       toast.success(
         `Subscription canceled. You'll keep access until ${new Date(response.access_until).toLocaleDateString()}`
       );
-      await checkAuth();
+      await refreshUser();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to cancel subscription";
       toast.error(errorMessage);
@@ -394,7 +400,7 @@ export default function StripeTestPage() {
       }
 
       toast.success("Stripe history deleted");
-      await checkAuth();
+      await refreshUser();
     } catch (error) {
       toast.error("Failed to delete Stripe history");
       console.error(error);
