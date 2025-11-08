@@ -203,7 +203,7 @@ The tier change happens immediately and the user loses Max features right away. 
 
 ## Subscription Data Source
 
-Subscription status and details are provided through the `/me` endpoint as part of the authenticated user object, not through a separate subscription endpoint.
+Subscription status and details are provided through the `/internal/me` endpoint as part of the authenticated user object, not through a separate subscription endpoint.
 
 ### User Object Structure
 
@@ -244,7 +244,7 @@ After any subscription operation (checkout, upgrade, downgrade, cancel), refresh
 
 ```typescript
 // After subscription operation
-await checkAuth(); // Refreshes user object from /me endpoint
+await refreshUser(); // Refreshes user object from /internal/me endpoint
 ```
 
 The user's `membership_type` reflects their current tier, while `subscription_status` indicates the state of their Stripe subscription.
