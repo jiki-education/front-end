@@ -33,3 +33,12 @@ export interface CheckoutSessionResponse {
 export interface PortalSessionResponse {
   url: string;
 }
+
+export interface UpdateSubscriptionRequest {
+  product: "premium" | "max";
+}
+
+export interface UpdateSubscriptionResponse {
+  tier: MembershipTier;
+  subscription_valid_until: string; // ISO 8601 date string
+}

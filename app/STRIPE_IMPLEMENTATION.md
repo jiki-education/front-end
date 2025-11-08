@@ -14,7 +14,7 @@ They need the ability to "Upgrade To Premium From Standard" or "Upgrade To Max F
 
 Users in this state have started a payment that can take more time to complete (e.g. PayPal or a BACS payment). Stripe is awaiting confirmation that the payment has completed successfully. When that happens, the subscription state will update.
 
-The user needs to be informed that we're awaiting payment confirmation. They should have the ability to "Manage Subscription Via Customer Portal" to change the payment method or cancel if they want.
+The user needs to be informed that we're awaiting payment confirmation.
 
 ### Active Premium
 
@@ -22,7 +22,7 @@ Users in this state have an active Premium subscription with full access to prem
 
 They need the ability to:
 
-- "Upgrade To Max From Premium"
+- "Upgrade To Max From Premium" (direct tier change via API)
 - "Manage Subscription Via Customer Portal" (change payment method, view billing history, cancel subscription)
 
 ### Active Max
@@ -31,7 +31,8 @@ Users in this state have an active Max subscription with full access to all feat
 
 They need the ability to:
 
-- "Manage Subscription Via Customer Portal" (downgrade to Premium, change payment method, view billing history, cancel subscription)
+- "Downgrade To Premium From Max" (direct tier change via API)
+- "Manage Subscription Via Customer Portal" (change payment method, view billing history, cancel subscription)
 
 ### Cancelling Scheduled
 
@@ -112,10 +113,16 @@ Same as "Upgrade To Premium From Standard" but use `'max'` as the tier parameter
 
 ### Upgrade To Max From Premium
 
-Create a checkout session for the Max tier to upgrade from Premium.
+Directly upgrade an existing Premium subscription to Max tier.
 
 **Implementation:**
-Same as "Upgrade To Premium From Standard" but use `'max'` as the tier parameter. Stripe will handle the upgrade and prorating.
+
+1. Call `updateSubscription('max')` API
+2. Handle the immediate tier change response
+3. Update UI to reflect new tier
+4. Show success message
+
+The tier change happens immediately. If the subscription is in "cancelling" status, the upgrade will automatically resume the subscription.
 
 ### Manage Subscription Via Customer Portal
 
@@ -154,3 +161,16 @@ Create a new checkout session for the Max tier for returning or incomplete users
 
 **Implementation:**
 Same as "Upgrade To Max From Standard". The checkout flow handles both new and returning subscribers.
+
+### Downgrade To Premium From Max
+
+Directly downgrade an existing Max subscription to Premium tier.
+
+**Implementation:**
+
+1. Call `updateSubscription('premium')` API
+2. Handle the immediate tier change response
+3. Update UI to reflect new tier
+4. Show success message
+
+The tier change happens immediately and the user loses Max features right away. If the subscription is in "cancelling" status, the downgrade will automatically resume the subscription.

@@ -8,7 +8,9 @@ import type {
   CheckoutSessionRequest,
   CheckoutSessionResponse,
   PortalSessionResponse,
-  SubscriptionStatusResponse
+  SubscriptionStatusResponse,
+  UpdateSubscriptionRequest,
+  UpdateSubscriptionResponse
 } from "@/types/subscription";
 
 /**
@@ -52,5 +54,17 @@ export async function verifyCheckoutSession(sessionId: string): Promise<{ succes
   const response = await api.post<{ success: boolean; status: string }>("/internal/subscriptions/verify_checkout", {
     session_id: sessionId
   });
+  return response.data;
+}
+
+/**
+ * Update subscription tier (upgrade or downgrade)
+ * @param product - Target membership tier (premium or max)
+ * @returns Updated subscription details
+ */
+export async function updateSubscription(product: "premium" | "max"): Promise<UpdateSubscriptionResponse> {
+  const response = await api.post<UpdateSubscriptionResponse>("/internal/subscriptions/update", {
+    product
+  } as UpdateSubscriptionRequest);
   return response.data;
 }

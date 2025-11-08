@@ -8,7 +8,12 @@
 import { useState, useEffect } from "react";
 import { stripePromise } from "@/lib/stripe";
 import { CheckoutProvider, useCheckout, PaymentElement, BillingAddressElement } from "@stripe/react-stripe-js/checkout";
-import { createCheckoutSession, createPortalSession, getSubscriptionStatus } from "@/lib/api/subscriptions";
+import {
+  createCheckoutSession,
+  createPortalSession,
+  getSubscriptionStatus,
+  updateSubscription
+} from "@/lib/api/subscriptions";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { useAuthStore } from "@/stores/authStore";
@@ -234,9 +239,14 @@ export default function StripeTestPage() {
                   case "incomplete_payment":
                     return <IncompletePaymentActions />;
                   case "active_premium":
-                    return <ActivePremiumActions onUpgrade={handleUpgrade} onOpenPortal={handleOpenPortal} />;
+                    return <ActivePremiumActions onUpgradeToMax={handleUpgradeToMax} onOpenPortal={handleOpenPortal} />;
                   case "active_max":
-                    return <ActiveMaxActions onOpenPortal={handleOpenPortal} />;
+                    return (
+                      <ActiveMaxActions
+                        onDowngradeToPremium={handleDowngradeToPremium}
+                        onOpenPortal={handleOpenPortal}
+                      />
+                    );
                   case "cancelling_scheduled":
                     return <CancellingScheduledActions onOpenPortal={handleOpenPortal} />;
                   case "payment_failed_grace":
@@ -346,6 +356,32 @@ export default function StripeTestPage() {
       window.location.href = response.url;
     } catch (error) {
       toast.error("Failed to open customer portal");
+      console.error(error);
+    }
+  }
+
+  async function handleUpgradeToMax() {
+    try {
+      const response = await updateSubscription("max");
+      setSubscription((prev) => (prev ? { ...prev, tier: response.tier } : null));
+      toast.success("Successfully upgraded to Max!");
+      await loadSubscriptionStatus();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
+      toast.error(errorMessage);
+      console.error(error);
+    }
+  }
+
+  async function handleDowngradeToPremium() {
+    try {
+      const response = await updateSubscription("premium");
+      setSubscription((prev) => (prev ? { ...prev, tier: response.tier } : null));
+      toast.success("Successfully downgraded to Premium!");
+      await loadSubscriptionStatus();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to downgrade subscription";
+      toast.error(errorMessage);
       console.error(error);
     }
   }
@@ -508,10 +544,10 @@ function IncompletePaymentActions() {
 }
 
 function ActivePremiumActions({
-  onUpgrade,
+  onUpgradeToMax,
   onOpenPortal
 }: {
-  onUpgrade: (tier: MembershipTier) => void;
+  onUpgradeToMax: () => void;
   onOpenPortal: () => void;
 }) {
   return (
@@ -522,7 +558,7 @@ function ActivePremiumActions({
       </div>
 
       <button
-        onClick={() => onUpgrade("max")}
+        onClick={onUpgradeToMax}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Upgrade to Max - $10/month
@@ -536,19 +572,34 @@ function ActivePremiumActions({
       </button>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500">Use Customer Portal to cancel or update payment method</p>
+        <p className="text-xs text-gray-500">
+          Tier change happens immediately via API. Use Customer Portal to cancel or update payment method.
+        </p>
       </div>
     </div>
   );
 }
 
-function ActiveMaxActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+function ActiveMaxActions({
+  onDowngradeToPremium,
+  onOpenPortal
+}: {
+  onDowngradeToPremium: () => void;
+  onOpenPortal: () => void;
+}) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-purple-700">Active Max</h3>
         <p className="text-sm text-gray-600">Highest tier with full access</p>
       </div>
+
+      <button
+        onClick={onDowngradeToPremium}
+        className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
+      >
+        Downgrade to Premium - $3/month
+      </button>
 
       <button
         onClick={onOpenPortal}
@@ -558,7 +609,9 @@ function ActiveMaxActions({ onOpenPortal }: { onOpenPortal: () => void }) {
       </button>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500">Use Customer Portal to downgrade, cancel, or update payment method</p>
+        <p className="text-xs text-gray-500">
+          Tier change happens immediately via API. Use Customer Portal to cancel or update payment method.
+        </p>
       </div>
     </div>
   );
