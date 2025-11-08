@@ -23,7 +23,8 @@ Users in this state have an active Premium subscription with full access to prem
 They need the ability to:
 
 - "Upgrade To Max From Premium" (direct tier change via API)
-- "Manage Subscription Via Customer Portal" (change payment method, view billing history, cancel subscription)
+- "Cancel Subscription" (schedule cancellation at period end)
+- "Manage Subscription Via Customer Portal" (change payment method, view billing history)
 
 ### Active Max
 
@@ -32,7 +33,8 @@ Users in this state have an active Max subscription with full access to all feat
 They need the ability to:
 
 - "Downgrade To Premium From Max" (direct tier change via API)
-- "Manage Subscription Via Customer Portal" (change payment method, view billing history, cancel subscription)
+- "Cancel Subscription" (schedule cancellation at period end)
+- "Manage Subscription Via Customer Portal" (change payment method, view billing history)
 
 ### Cancelling Scheduled
 
@@ -57,6 +59,7 @@ They should have the ability to:
 
 - "Manage Subscription Via Customer Portal" to update their payment method
 - Retry the payment (happens automatically when payment method is updated)
+- "Cancel Subscription" (if they want to cancel instead of fixing payment)
 
 ### Payment Failed - Grace Expired
 
@@ -141,12 +144,35 @@ Open the Stripe Customer Portal where users can manage all aspects of their subs
 
 The Customer Portal is managed by Stripe and requires no additional UI implementation.
 
+### Cancel Subscription
+
+Allow users to cancel their active subscription. Cancellation is scheduled for the end of the current billing period (not immediate).
+
+**Implementation:**
+
+1. Call `cancelSubscription()` API
+2. Handle the response with cancellation status and access end date
+3. Update UI to show "cancelling" status
+4. Display message about keeping access until period end
+
+**Important UX Notes:**
+
+- Cancellation happens at period end (not immediate)
+- User keeps full access until `access_until` date
+- No refunds for unused time
+- Only available for users with status: "active", "payment_failed", or "incomplete"
+- Show confirmation modal before canceling with features they'll lose
+- Consider retention messaging (discounts, feature highlights)
+
 ### Resume Subscription
 
 Allow users to cancel their scheduled cancellation and resume their subscription.
 
 **Implementation:**
-This is handled via "Manage Subscription Via Customer Portal". Users can reactivate their subscription before the cancellation takes effect.
+Two ways to resume:
+
+1. Via "Manage Subscription Via Customer Portal" - users can click "Resume subscription"
+2. Automatic resume when upgrading/downgrading - tier changes automatically clear the cancellation
 
 ### Start Fresh Subscription To Premium
 

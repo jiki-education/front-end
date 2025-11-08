@@ -2,24 +2,17 @@
  * Tests for subscriptions API client
  */
 
-import {
-  createCheckoutSession,
-  createPortalSession,
-  getSubscriptionStatus,
-  verifyCheckoutSession
-} from "@/lib/api/subscriptions";
+import { createCheckoutSession, createPortalSession, verifyCheckoutSession } from "@/lib/api/subscriptions";
 import { api } from "@/lib/api/client";
 
 // Mock the API client
 jest.mock("@/lib/api/client", () => ({
   api: {
-    post: jest.fn(),
-    get: jest.fn()
+    post: jest.fn()
   }
 }));
 
 const mockedApiPost = api.post as jest.MockedFunction<typeof api.post>;
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>;
 
 describe("createCheckoutSession", () => {
   beforeEach(() => {
@@ -79,64 +72,6 @@ describe("createPortalSession", () => {
     mockedApiPost.mockRejectedValue(new Error("No customer found"));
 
     await expect(createPortalSession()).rejects.toThrow("No customer found");
-  });
-});
-
-describe("getSubscriptionStatus", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("fetches subscription status successfully", async () => {
-    const mockResponse = {
-      data: {
-        subscription: {
-          tier: "premium",
-          status: "active",
-          current_period_end: "2025-01-01T00:00:00Z",
-          payment_failed: false,
-          in_grace_period: false,
-          grace_period_ends_at: null
-        }
-      },
-      status: 200,
-      headers: {}
-    } as any;
-    mockedApiGet.mockResolvedValue(mockResponse);
-
-    const result = await getSubscriptionStatus();
-
-    expect(mockedApiGet).toHaveBeenCalledWith("/internal/subscriptions/status");
-    expect(result).toEqual(mockResponse.data);
-  });
-
-  it("handles subscription with grace period", async () => {
-    const mockResponse = {
-      data: {
-        subscription: {
-          tier: "max",
-          status: "past_due",
-          current_period_end: "2025-01-01T00:00:00Z",
-          payment_failed: true,
-          in_grace_period: true,
-          grace_period_ends_at: "2025-01-08T00:00:00Z"
-        }
-      },
-      status: 200,
-      headers: {}
-    } as any;
-    mockedApiGet.mockResolvedValue(mockResponse);
-
-    const result = await getSubscriptionStatus();
-
-    expect(result.subscription.in_grace_period).toBe(true);
-    expect(result.subscription.grace_period_ends_at).toBe("2025-01-08T00:00:00Z");
-  });
-
-  it("propagates API errors", async () => {
-    mockedApiGet.mockRejectedValue(new Error("Unauthorized"));
-
-    await expect(getSubscriptionStatus()).rejects.toThrow("Unauthorized");
   });
 });
 

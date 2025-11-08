@@ -8,9 +8,9 @@ import type {
   CheckoutSessionRequest,
   CheckoutSessionResponse,
   PortalSessionResponse,
-  SubscriptionStatusResponse,
   UpdateSubscriptionRequest,
-  UpdateSubscriptionResponse
+  UpdateSubscriptionResponse,
+  CancelSubscriptionResponse
 } from "@/types/subscription";
 
 /**
@@ -37,15 +37,6 @@ export async function createPortalSession(): Promise<PortalSessionResponse> {
 }
 
 /**
- * Get current subscription status for the authenticated user
- * @returns Subscription status and details
- */
-export async function getSubscriptionStatus(): Promise<SubscriptionStatusResponse> {
-  const response = await api.get<SubscriptionStatusResponse>("/internal/subscriptions/status");
-  return response.data;
-}
-
-/**
  * Verify a checkout session and sync subscription status
  * @param sessionId - Stripe checkout session ID
  * @returns Verification result
@@ -66,5 +57,14 @@ export async function updateSubscription(product: "premium" | "max"): Promise<Up
   const response = await api.post<UpdateSubscriptionResponse>("/internal/subscriptions/update", {
     product
   } as UpdateSubscriptionRequest);
+  return response.data;
+}
+
+/**
+ * Cancel subscription (schedules cancellation at period end)
+ * @returns Cancellation status and access end date
+ */
+export async function cancelSubscription(): Promise<CancelSubscriptionResponse> {
+  const response = await api.delete<CancelSubscriptionResponse>("/internal/subscriptions/cancel");
   return response.data;
 }

@@ -11,32 +11,24 @@ import { CheckoutProvider, useCheckout, PaymentElement, BillingAddressElement } 
 import {
   createCheckoutSession,
   createPortalSession,
-  getSubscriptionStatus,
-  updateSubscription
+  updateSubscription,
+  cancelSubscription
 } from "@/lib/api/subscriptions";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { useAuthStore } from "@/stores/authStore";
-import type { Subscription } from "@/types/subscription";
 import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
 
 export default function StripeTestPage() {
-  const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login } = useAuthStore();
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
-  const [loadingStatus, setLoadingStatus] = useState(false);
+  const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login, checkAuth } = useAuthStore();
   const [showGracePeriodTest, setShowGracePeriodTest] = useState(false);
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [deletingStripeHistory, setDeletingStripeHistory] = useState(false);
 
-  // Load subscription status on mount
-  useEffect(() => {
-    if (user) {
-      void loadSubscriptionStatus();
-    }
-  }, [user]);
+  // No need to load subscription separately - it comes with user
 
   // Check for success parameter from payment redirect
   useEffect(() => {
@@ -55,8 +47,8 @@ export default function StripeTestPage() {
         toast.dismiss();
 
         if (result.success) {
-          toast.success("Payment verified! Refreshing subscription status...");
-          await loadSubscriptionStatus();
+          toast.success("Payment verified! Refreshing user data...");
+          await checkAuth();
         } else {
           toast.error(`Failed to verify payment: ${result.error}`);
         }
@@ -64,7 +56,7 @@ export default function StripeTestPage() {
 
       void verifyAndRefresh(sessionId);
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, checkAuth]);
 
   const handleLogin = async () => {
     try {
@@ -77,8 +69,7 @@ export default function StripeTestPage() {
     }
   };
 
-  // Use subscription tier if available (most up-to-date), otherwise fall back to user's membership_type
-  const currentTier = subscription?.tier || user?.membership_type;
+  const currentTier = user?.membership_type;
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -140,53 +131,42 @@ export default function StripeTestPage() {
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold">Subscription Status</h2>
-                <button
-                  onClick={loadSubscriptionStatus}
-                  disabled={loadingStatus}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {loadingStatus ? "Loading..." : "Refresh"}
-                </button>
               </div>
 
-              {subscription ? (
-                <dl className="space-y-2">
+              <dl className="space-y-2">
+                <div>
+                  <dt className="inline font-medium">Tier:</dt>
+                  <dd className="inline ml-2">{user.membership_type}</dd>
+                </div>
+                <div>
+                  <dt className="inline font-medium">Status:</dt>
+                  <dd className="inline ml-2">
+                    <span className={`px-2 py-1 rounded text-sm ${getStatusColor(user.subscription_status)}`}>
+                      {user.subscription_status}
+                    </span>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-medium">Subscription Valid Until:</dt>
+                  <dd className="inline ml-2">
+                    {user.subscription?.subscription_valid_until
+                      ? new Date(user.subscription.subscription_valid_until).toLocaleDateString()
+                      : "N/A"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-medium">In Grace Period:</dt>
+                  <dd className="inline ml-2">{user.subscription?.in_grace_period ? "Yes" : "No"}</dd>
+                </div>
+                {user.subscription?.grace_period_ends_at && (
                   <div>
-                    <dt className="inline font-medium">Tier:</dt>
-                    <dd className="inline ml-2">{subscription.tier}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline font-medium">Status:</dt>
+                    <dt className="inline font-medium">Grace Period Ends:</dt>
                     <dd className="inline ml-2">
-                      <span className={`px-2 py-1 rounded text-sm ${getStatusColor(subscription.status)}`}>
-                        {subscription.status}
-                      </span>
+                      {new Date(user.subscription.grace_period_ends_at).toLocaleDateString()}
                     </dd>
                   </div>
-                  <div>
-                    <dt className="inline font-medium">Current Period End:</dt>
-                    <dd className="inline ml-2">{new Date(subscription.current_period_end).toLocaleDateString()}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline font-medium">Payment Failed:</dt>
-                    <dd className="inline ml-2">{subscription.payment_failed ? "Yes" : "No"}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline font-medium">In Grace Period:</dt>
-                    <dd className="inline ml-2">{subscription.in_grace_period ? "Yes" : "No"}</dd>
-                  </div>
-                  {subscription.grace_period_ends_at && (
-                    <div>
-                      <dt className="inline font-medium">Grace Period Ends:</dt>
-                      <dd className="inline ml-2">
-                        {new Date(subscription.grace_period_ends_at).toLocaleDateString()}
-                      </dd>
-                    </div>
-                  )}
-                </dl>
-              ) : (
-                <p className="text-gray-600">Click refresh to load subscription status</p>
-              )}
+                )}
+              </dl>
             </div>
 
             {/* Grace Period Banner Test */}
@@ -232,25 +212,37 @@ export default function StripeTestPage() {
               </h2>
 
               {(() => {
-                const state = getSubscriptionState(currentTier, subscription);
+                const state = getSubscriptionState(user);
                 switch (state) {
                   case "never_subscribed":
                     return <NeverSubscribedActions onUpgrade={handleUpgrade} />;
                   case "incomplete_payment":
                     return <IncompletePaymentActions />;
                   case "active_premium":
-                    return <ActivePremiumActions onUpgradeToMax={handleUpgradeToMax} onOpenPortal={handleOpenPortal} />;
+                    return (
+                      <ActivePremiumActions
+                        onUpgradeToMax={handleUpgradeToMax}
+                        onCancel={handleCancelSubscription}
+                        onOpenPortal={handleOpenPortal}
+                      />
+                    );
                   case "active_max":
                     return (
                       <ActiveMaxActions
                         onDowngradeToPremium={handleDowngradeToPremium}
+                        onCancel={handleCancelSubscription}
                         onOpenPortal={handleOpenPortal}
                       />
                     );
                   case "cancelling_scheduled":
                     return <CancellingScheduledActions onOpenPortal={handleOpenPortal} />;
                   case "payment_failed_grace":
-                    return <PaymentFailedGracePeriodActions onOpenPortal={handleOpenPortal} />;
+                    return (
+                      <PaymentFailedGracePeriodActions
+                        onCancel={handleCancelSubscription}
+                        onOpenPortal={handleOpenPortal}
+                      />
+                    );
                   case "payment_failed_expired":
                     return (
                       <PaymentFailedGraceExpiredActions onUpgrade={handleUpgrade} onOpenPortal={handleOpenPortal} />
@@ -318,19 +310,6 @@ export default function StripeTestPage() {
     </div>
   );
 
-  async function loadSubscriptionStatus() {
-    setLoadingStatus(true);
-    try {
-      const response = await getSubscriptionStatus();
-      setSubscription(response.subscription);
-    } catch (error) {
-      toast.error("Failed to load subscription status");
-      console.error(error);
-    } finally {
-      setLoadingStatus(false);
-    }
-  }
-
   async function handleUpgrade(tier: MembershipTier) {
     try {
       const returnUrl = createCheckoutReturnUrl(window.location.pathname);
@@ -362,10 +341,9 @@ export default function StripeTestPage() {
 
   async function handleUpgradeToMax() {
     try {
-      const response = await updateSubscription("max");
-      setSubscription((prev) => (prev ? { ...prev, tier: response.tier } : null));
+      await updateSubscription("max");
       toast.success("Successfully upgraded to Max!");
-      await loadSubscriptionStatus();
+      await checkAuth();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
       toast.error(errorMessage);
@@ -375,12 +353,25 @@ export default function StripeTestPage() {
 
   async function handleDowngradeToPremium() {
     try {
-      const response = await updateSubscription("premium");
-      setSubscription((prev) => (prev ? { ...prev, tier: response.tier } : null));
+      await updateSubscription("premium");
       toast.success("Successfully downgraded to Premium!");
-      await loadSubscriptionStatus();
+      await checkAuth();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to downgrade subscription";
+      toast.error(errorMessage);
+      console.error(error);
+    }
+  }
+
+  async function handleCancelSubscription() {
+    try {
+      const response = await cancelSubscription();
+      toast.success(
+        `Subscription canceled. You'll keep access until ${new Date(response.access_until).toLocaleDateString()}`
+      );
+      await checkAuth();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to cancel subscription";
       toast.error(errorMessage);
       console.error(error);
     }
@@ -403,7 +394,7 @@ export default function StripeTestPage() {
       }
 
       toast.success("Stripe history deleted");
-      await loadSubscriptionStatus();
+      await checkAuth();
     } catch (error) {
       toast.error("Failed to delete Stripe history");
       console.error(error);
@@ -426,55 +417,49 @@ type SubscriptionState =
   | "incomplete_expired";
 
 // Helper to determine subscription state
-function getSubscriptionState(
-  currentTier: MembershipTier | undefined,
-  subscription: Subscription | null
-): SubscriptionState {
-  // Never had a subscription
-  if (!subscription && currentTier === "standard") {
+function getSubscriptionState(user: {
+  membership_type: MembershipTier;
+  subscription_status: string;
+  subscription: { in_grace_period: boolean } | null;
+}): SubscriptionState {
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- API response uses snake_case
+  const { membership_type, subscription_status, subscription } = user;
+
+  // Never subscribed
+  if (subscription_status === "never_subscribed") {
     return "never_subscribed";
   }
 
-  if (subscription) {
-    // Incomplete states
-    if (subscription.status === "incomplete_expired") {
-      return "incomplete_expired";
-    }
-    if (subscription.status === "incomplete") {
-      return "incomplete_payment";
-    }
+  // Incomplete payment
+  if (subscription_status === "incomplete") {
+    return "incomplete_payment";
+  }
 
-    // Active subscriptions
-    if (subscription.status === "active") {
-      // Check if cancelling
-      if (subscription.cancel_at_period_end) {
-        return "cancelling_scheduled";
-      }
-      // Check tier
-      if (subscription.tier === "premium") {
-        return "active_premium";
-      }
-      if (subscription.tier === "max") {
-        return "active_max";
-      }
+  // Active subscriptions
+  if (subscription_status === "active") {
+    if (membership_type === "premium") {
+      return "active_premium";
     }
-
-    // Payment failed states
-    if (subscription.payment_failed) {
-      if (subscription.in_grace_period) {
-        return "payment_failed_grace";
-      }
-      return "payment_failed_expired";
-    }
-
-    // Previously subscribed (canceled, expired, etc.)
-    if (subscription.status === "canceled" || subscription.status === "past_due") {
-      return "previously_subscribed";
+    if (membership_type === "max") {
+      return "active_max";
     }
   }
 
-  // Fallback: previously subscribed if on standard but has no active subscription
-  if (currentTier === "standard") {
+  // Cancelling
+  if (subscription_status === "cancelling") {
+    return "cancelling_scheduled";
+  }
+
+  // Payment failed states
+  if (subscription_status === "payment_failed") {
+    if (subscription?.in_grace_period) {
+      return "payment_failed_grace";
+    }
+    return "payment_failed_expired";
+  }
+
+  // Previously subscribed (canceled)
+  if (subscription_status === "canceled") {
     return "previously_subscribed";
   }
 
@@ -545,9 +530,11 @@ function IncompletePaymentActions() {
 
 function ActivePremiumActions({
   onUpgradeToMax,
+  onCancel,
   onOpenPortal
 }: {
   onUpgradeToMax: () => void;
+  onCancel: () => void;
   onOpenPortal: () => void;
 }) {
   return (
@@ -571,9 +558,16 @@ function ActivePremiumActions({
         Manage Subscription
       </button>
 
+      <button
+        onClick={onCancel}
+        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
+      >
+        Cancel Subscription
+      </button>
+
       <div className="mt-4 pt-4 border-t border-gray-200">
         <p className="text-xs text-gray-500">
-          Tier change happens immediately via API. Use Customer Portal to cancel or update payment method.
+          Tier change happens immediately via API. Cancellation happens at period end.
         </p>
       </div>
     </div>
@@ -582,9 +576,11 @@ function ActivePremiumActions({
 
 function ActiveMaxActions({
   onDowngradeToPremium,
+  onCancel,
   onOpenPortal
 }: {
   onDowngradeToPremium: () => void;
+  onCancel: () => void;
   onOpenPortal: () => void;
 }) {
   return (
@@ -608,9 +604,16 @@ function ActiveMaxActions({
         Manage Subscription
       </button>
 
+      <button
+        onClick={onCancel}
+        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
+      >
+        Cancel Subscription
+      </button>
+
       <div className="mt-4 pt-4 border-t border-gray-200">
         <p className="text-xs text-gray-500">
-          Tier change happens immediately via API. Use Customer Portal to cancel or update payment method.
+          Tier change happens immediately via API. Cancellation happens at period end.
         </p>
       </div>
     </div>
@@ -629,17 +632,25 @@ function CancellingScheduledActions({ onOpenPortal }: { onOpenPortal: () => void
         onClick={onOpenPortal}
         className="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition-colors"
       >
-        Resume Subscription
+        Resume Subscription (via Customer Portal)
       </button>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500">Access continues until period end. Use Customer Portal to resume.</p>
+        <p className="text-xs text-gray-500">
+          You keep access until period end. Resume via Customer Portal or upgrade/downgrade to automatically resume.
+        </p>
       </div>
     </div>
   );
 }
 
-function PaymentFailedGracePeriodActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+function PaymentFailedGracePeriodActions({
+  onCancel,
+  onOpenPortal
+}: {
+  onCancel: () => void;
+  onOpenPortal: () => void;
+}) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -652,6 +663,13 @@ function PaymentFailedGracePeriodActions({ onOpenPortal }: { onOpenPortal: () =>
         className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
       >
         Update Payment Method
+      </button>
+
+      <button
+        onClick={onCancel}
+        className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
+      >
+        Cancel Subscription
       </button>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
