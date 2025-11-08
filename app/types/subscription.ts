@@ -22,6 +22,7 @@ export interface SubscriptionDetails {
 export interface CheckoutSessionRequest {
   product: MembershipTier;
   return_url?: string;
+  customer_email?: string;
 }
 
 export interface CheckoutSessionResponse {

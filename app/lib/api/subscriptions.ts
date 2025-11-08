@@ -18,12 +18,18 @@ import type {
  * Create a Stripe checkout session for a subscription
  * @param product - Membership tier/product (premium or max)
  * @param returnUrl - Optional return URL after payment completion
+ * @param customerEmail - Optional customer email for pre-filling and Link authentication
  * @returns Checkout session with client secret
  */
-export async function createCheckoutSession(product: string, returnUrl?: string): Promise<CheckoutSessionResponse> {
+export async function createCheckoutSession(
+  product: string,
+  returnUrl?: string,
+  customerEmail?: string
+): Promise<CheckoutSessionResponse> {
   const response = await api.post<CheckoutSessionResponse>("/internal/subscriptions/checkout_session", {
     product,
-    return_url: returnUrl
+    return_url: returnUrl,
+    customer_email: customerEmail
   } as CheckoutSessionRequest);
   return response.data;
 }

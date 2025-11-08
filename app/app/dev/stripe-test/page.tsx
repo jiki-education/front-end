@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { stripePromise } from "@/lib/stripe";
-import { CheckoutProvider, useCheckout, PaymentElement, BillingAddressElement } from "@stripe/react-stripe-js/checkout";
+import { CheckoutProvider, useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
 import {
   createCheckoutSession,
   createPortalSession,
@@ -320,7 +320,7 @@ export default function StripeTestPage() {
   async function handleUpgrade(tier: MembershipTier) {
     try {
       const returnUrl = createCheckoutReturnUrl(window.location.pathname);
-      const response = await createCheckoutSession(tier, returnUrl);
+      const response = await createCheckoutSession(tier, returnUrl, user?.email);
       setSelectedTier(tier);
       setClientSecret(response.client_secret);
       toast.success("Checkout session created");
@@ -899,12 +899,6 @@ function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCancel: () =
             <p className="text-sm text-gray-600">per month</p>
           </div>
         </div>
-      </div>
-
-      {/* Billing Address Element */}
-      <div>
-        <h4 className="text-sm font-medium mb-2">Billing Address</h4>
-        <BillingAddressElement />
       </div>
 
       {/* Payment Element */}
