@@ -12,7 +12,8 @@ import {
   createCheckoutSession,
   createPortalSession,
   updateSubscription,
-  cancelSubscription
+  cancelSubscription,
+  reactivateSubscription
 } from "@/lib/api/subscriptions";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
@@ -241,7 +242,7 @@ export default function StripeTestPage() {
                       />
                     );
                   case "cancelling_scheduled":
-                    return <CancellingScheduledActions onOpenPortal={handleOpenPortal} />;
+                    return <CancellingScheduledActions onReactivate={handleReactivateSubscription} />;
                   case "payment_failed_grace":
                     return (
                       <PaymentFailedGracePeriodActions
@@ -378,6 +379,18 @@ export default function StripeTestPage() {
       await refreshUser();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to cancel subscription";
+      toast.error(errorMessage);
+      console.error(error);
+    }
+  }
+
+  async function handleReactivateSubscription() {
+    try {
+      await reactivateSubscription();
+      toast.success("Subscription reactivated!");
+      await refreshUser();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to reactivate subscription";
       toast.error(errorMessage);
       console.error(error);
     }
@@ -626,7 +639,7 @@ function ActiveMaxActions({
   );
 }
 
-function CancellingScheduledActions({ onOpenPortal }: { onOpenPortal: () => void }) {
+function CancellingScheduledActions({ onReactivate }: { onReactivate: () => void }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -635,16 +648,14 @@ function CancellingScheduledActions({ onOpenPortal }: { onOpenPortal: () => void
       </div>
 
       <button
-        onClick={onOpenPortal}
+        onClick={onReactivate}
         className="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition-colors"
       >
-        Resume Subscription (via Customer Portal)
+        Resume Subscription
       </button>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500">
-          You keep access until period end. Resume via Customer Portal or upgrade/downgrade to automatically resume.
-        </p>
+        <p className="text-xs text-gray-500">You keep access until period end. Resume happens immediately via API.</p>
       </div>
     </div>
   );

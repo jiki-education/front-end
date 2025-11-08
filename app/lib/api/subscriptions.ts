@@ -10,7 +10,8 @@ import type {
   PortalSessionResponse,
   UpdateSubscriptionRequest,
   UpdateSubscriptionResponse,
-  CancelSubscriptionResponse
+  CancelSubscriptionResponse,
+  ReactivateSubscriptionResponse
 } from "@/types/subscription";
 
 /**
@@ -66,5 +67,14 @@ export async function updateSubscription(product: "premium" | "max"): Promise<Up
  */
 export async function cancelSubscription(): Promise<CancelSubscriptionResponse> {
   const response = await api.delete<CancelSubscriptionResponse>("/internal/subscriptions/cancel");
+  return response.data;
+}
+
+/**
+ * Reactivate a cancelled subscription (resumes subscription)
+ * @returns Reactivated subscription status
+ */
+export async function reactivateSubscription(): Promise<ReactivateSubscriptionResponse> {
+  const response = await api.post<ReactivateSubscriptionResponse>("/internal/subscriptions/reactivate");
   return response.data;
 }

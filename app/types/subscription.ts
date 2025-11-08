@@ -45,3 +45,8 @@ export interface CancelSubscriptionResponse {
   status: "cancelling";
   access_until: string; // ISO 8601 date string
 }
+
+export interface ReactivateSubscriptionResponse {
+  status: "active";
+  subscription_valid_until: string; // ISO 8601 date string
+}

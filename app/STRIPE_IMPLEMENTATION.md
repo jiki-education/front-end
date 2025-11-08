@@ -164,15 +164,18 @@ Allow users to cancel their active subscription. Cancellation is scheduled for t
 - Show confirmation modal before canceling with features they'll lose
 - Consider retention messaging (discounts, feature highlights)
 
-### Resume Subscription
+### Resume Subscription (Reactivate)
 
 Allow users to cancel their scheduled cancellation and resume their subscription.
 
 **Implementation:**
-Two ways to resume:
 
-1. Via "Manage Subscription Via Customer Portal" - users can click "Resume subscription"
-2. Automatic resume when upgrading/downgrading - tier changes automatically clear the cancellation
+1. Call `reactivateSubscription()` API
+2. Handle the response with updated subscription status
+3. Update UI to show active status
+4. Display success message
+
+The subscription resumes immediately and the scheduled cancellation is cleared. Users can also resume by upgrading/downgrading their tier, which automatically clears the cancellation.
 
 ### Start Fresh Subscription To Premium
 
