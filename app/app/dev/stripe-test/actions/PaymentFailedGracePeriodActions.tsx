@@ -1,10 +1,6 @@
-export function PaymentFailedGracePeriodActions({
-  onCancel,
-  onOpenPortal
-}: {
-  onCancel: () => void;
-  onOpenPortal: () => void;
-}) {
+import { handleCancelSubscription, handleOpenPortal } from "../handlers";
+
+export function PaymentFailedGracePeriodActions({ refreshUser }: { refreshUser: () => Promise<void> }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -13,14 +9,14 @@ export function PaymentFailedGracePeriodActions({
       </div>
 
       <button
-        onClick={onOpenPortal}
+        onClick={handleOpenPortal}
         className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
       >
         Update Payment Method
       </button>
 
       <button
-        onClick={onCancel}
+        onClick={() => handleCancelSubscription(refreshUser)}
         className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
       >
         Cancel Subscription

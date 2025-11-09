@@ -1,11 +1,14 @@
 import type { MembershipTier } from "@/lib/pricing";
+import { handleSubscribe, handleOpenPortal } from "../handlers";
 
 export function PaymentFailedGraceExpiredActions({
-  onOpenPortal,
-  onSubscribe
+  userEmail,
+  setSelectedTier,
+  setClientSecret
 }: {
-  onOpenPortal: () => void;
-  onSubscribe: (tier: MembershipTier) => void;
+  userEmail: string;
+  setSelectedTier: (tier: MembershipTier) => void;
+  setClientSecret: (secret: string) => void;
 }) {
   return (
     <div className="space-y-3">
@@ -15,21 +18,21 @@ export function PaymentFailedGraceExpiredActions({
       </div>
 
       <button
-        onClick={onOpenPortal}
+        onClick={handleOpenPortal}
         className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
       >
         Update Payment Method
       </button>
 
       <button
-        onClick={() => onSubscribe("premium")}
+        onClick={() => handleSubscribe({ tier: "premium", userEmail, setSelectedTier, setClientSecret })}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Start New Premium Subscription
       </button>
 
       <button
-        onClick={() => onSubscribe("max")}
+        onClick={() => handleSubscribe({ tier: "max", userEmail, setSelectedTier, setClientSecret })}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Start New Max Subscription

@@ -1,12 +1,6 @@
-export function ActiveMaxActions({
-  onDowngradeToPremium,
-  onCancel,
-  onOpenPortal
-}: {
-  onDowngradeToPremium: () => void;
-  onCancel: () => void;
-  onOpenPortal: () => void;
-}) {
+import { handleDowngradeToPremium, handleCancelSubscription, handleOpenPortal } from "../handlers";
+
+export function ActiveMaxActions({ refreshUser }: { refreshUser: () => Promise<void> }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -15,21 +9,21 @@ export function ActiveMaxActions({
       </div>
 
       <button
-        onClick={onDowngradeToPremium}
+        onClick={() => handleDowngradeToPremium(refreshUser)}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Downgrade to Premium - $3/month
       </button>
 
       <button
-        onClick={onOpenPortal}
+        onClick={handleOpenPortal}
         className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
       >
         Manage Subscription
       </button>
 
       <button
-        onClick={onCancel}
+        onClick={() => handleCancelSubscription(refreshUser)}
         className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
       >
         Cancel Subscription

@@ -1,6 +1,5 @@
 import type { MembershipTier } from "@/lib/pricing";
 import type { User } from "@/types/auth";
-import * as handlers from "../handlers";
 import {
   NeverSubscribedActions,
   IncompletePaymentActions,
@@ -43,69 +42,51 @@ export function SubscriptionActionsSwitch({
     case "never_subscribed":
       return (
         <NeverSubscribedActions
-          onSubscribe={(tier) =>
-            handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
-          }
+          userEmail={user.email}
+          setSelectedTier={setSelectedTier}
+          setClientSecret={setClientSecret}
         />
       );
     case "incomplete_payment":
       return <IncompletePaymentActions />;
     case "active_premium":
-      return (
-        <ActivePremiumActions
-          onUpgradeToMax={() => handlers.handleUpgradeToMax(refreshUser)}
-          onCancel={() => handlers.handleCancelSubscription(refreshUser)}
-          onOpenPortal={handlers.handleOpenPortal}
-        />
-      );
+      return <ActivePremiumActions refreshUser={refreshUser} />;
     case "active_max":
-      return (
-        <ActiveMaxActions
-          onDowngradeToPremium={() => handlers.handleDowngradeToPremium(refreshUser)}
-          onCancel={() => handlers.handleCancelSubscription(refreshUser)}
-          onOpenPortal={handlers.handleOpenPortal}
-        />
-      );
+      return <ActiveMaxActions refreshUser={refreshUser} />;
     case "cancelling_scheduled":
-      return <CancellingScheduledActions onReactivate={() => handlers.handleReactivateSubscription(refreshUser)} />;
+      return <CancellingScheduledActions refreshUser={refreshUser} />;
     case "payment_failed_grace":
-      return (
-        <PaymentFailedGracePeriodActions
-          onCancel={() => handlers.handleCancelSubscription(refreshUser)}
-          onOpenPortal={handlers.handleOpenPortal}
-        />
-      );
+      return <PaymentFailedGracePeriodActions refreshUser={refreshUser} />;
     case "payment_failed_expired":
       return (
         <PaymentFailedGraceExpiredActions
-          onSubscribe={(tier) =>
-            handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
-          }
-          onOpenPortal={handlers.handleOpenPortal}
+          userEmail={user.email}
+          setSelectedTier={setSelectedTier}
+          setClientSecret={setClientSecret}
         />
       );
     case "previously_subscribed":
       return (
         <PreviouslySubscribedActions
-          onSubscribe={(tier) =>
-            handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
-          }
+          userEmail={user.email}
+          setSelectedTier={setSelectedTier}
+          setClientSecret={setClientSecret}
         />
       );
     case "incomplete_expired":
       return (
         <IncompleteExpiredActions
-          onSubscribe={(tier) =>
-            handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
-          }
+          userEmail={user.email}
+          setSelectedTier={setSelectedTier}
+          setClientSecret={setClientSecret}
         />
       );
     default:
       return (
         <NeverSubscribedActions
-          onSubscribe={(tier) =>
-            handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
-          }
+          userEmail={user.email}
+          setSelectedTier={setSelectedTier}
+          setClientSecret={setClientSecret}
         />
       );
   }

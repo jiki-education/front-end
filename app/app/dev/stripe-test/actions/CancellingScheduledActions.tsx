@@ -1,4 +1,6 @@
-export function CancellingScheduledActions({ onReactivate }: { onReactivate: () => void }) {
+import { handleReactivateSubscription } from "../handlers";
+
+export function CancellingScheduledActions({ refreshUser }: { refreshUser: () => Promise<void> }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -7,7 +9,7 @@ export function CancellingScheduledActions({ onReactivate }: { onReactivate: () 
       </div>
 
       <button
-        onClick={onReactivate}
+        onClick={() => handleReactivateSubscription(refreshUser)}
         className="w-full px-4 py-3 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition-colors"
       >
         Resume Subscription
