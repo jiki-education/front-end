@@ -19,7 +19,7 @@ export function ActivePremiumActions({ refreshUser }: { refreshUser: () => Promi
         onClick={handleOpenPortal}
         className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
       >
-        Manage Subscription
+        Update Payment Details
       </button>
 
       <button

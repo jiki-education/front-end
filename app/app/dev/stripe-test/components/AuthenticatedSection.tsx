@@ -54,11 +54,6 @@ export function AuthenticatedSection({ user, refreshUser }: AuthenticatedSection
       {clientSecret && (
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">Checkout - {selectedTier && getPricingTier(selectedTier).name}</h2>
-          <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-            <p className="text-sm text-blue-800">
-              <strong>Test card:</strong> 4242 4242 4242 4242, any future expiry, any CVC
-            </p>
-          </div>
           <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
             <CheckoutForm
               tier={selectedTier!}
