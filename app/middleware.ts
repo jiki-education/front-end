@@ -16,10 +16,46 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Allow all other requests
-  return NextResponse.next();
+  // Generate nonce for inline scripts
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+
+  const isDevelopment = process.env.NODE_ENV === "development";
+
+  // Set Content Security Policy headers
+  // In development, allow unsafe-inline for Next.js dev scripts
+  // In production, use strict nonce-based CSP
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' https://js.stripe.com ${isDevelopment ? "'unsafe-inline' 'unsafe-eval'" : `'nonce-${nonce}' 'strict-dynamic'`};
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: https://*.stripe.com;
+    font-src 'self';
+    connect-src 'self' https://api.stripe.com ${isDevelopment ? "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*" : ""};
+    frame-src 'self' https://js.stripe.com https://hooks.stripe.com;
+    worker-src 'self' blob:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    ${isDevelopment ? "" : "upgrade-insecure-requests;"}
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-nonce", nonce);
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders
+    }
+  });
+  response.headers.set("Content-Security-Policy", cspHeader);
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/dev/:path*", "/test/:path*"]
+  // Apply middleware to all routes
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"]
 };
