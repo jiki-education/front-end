@@ -26,11 +26,12 @@ export function middleware(request: NextRequest) {
   // In production, use strict nonce-based CSP
   const cspHeader = `
     default-src 'self';
-    script-src 'self' ${isDevelopment ? "'unsafe-inline' 'unsafe-eval'" : `'nonce-${nonce}' 'strict-dynamic'`};
+    script-src 'self' https://js.stripe.com ${isDevelopment ? "'unsafe-inline' 'unsafe-eval'" : `'nonce-${nonce}' 'strict-dynamic'`};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
-    connect-src 'self' ${isDevelopment ? "ws://localhost:* ws://127.0.0.1:*" : ""};
+    connect-src 'self' https://api.stripe.com ${isDevelopment ? "ws://localhost:* ws://127.0.0.1:*" : ""};
+    frame-src 'self' https://js.stripe.com https://hooks.stripe.com;
     worker-src 'self' blob:;
     object-src 'none';
     base-uri 'self';
