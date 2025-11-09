@@ -22,26 +22,32 @@ export default function StripeTestPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only on mount - we don't want to re-run when user or refreshUser changes
 
-  // Check for success parameter from payment redirect
+  // Handle post-payment redirect from Stripe
+  // When payment completes, Stripe redirects back to this page with a session_id query parameter
   useEffect(() => {
     // Only process if user is authenticated
     if (!isAuthenticated || !user) {
       return;
     }
 
+    // Extract session_id from URL and remove it (to prevent re-processing on refresh)
+    // Returns null if no session_id is present in URL
     const sessionId = extractAndClearSessionId();
 
     if (sessionId) {
-      // Verify the checkout session and sync subscription
+      // Verify the checkout session with our backend and sync subscription data
+      // This ensures the payment was successful and updates the user's subscription status
       async function verifyAndRefresh(id: string) {
         toast.loading("Verifying payment...");
         const result = await verifyPaymentSession(id);
         toast.dismiss();
 
         if (result.success) {
+          // Payment successful - refresh user data to show new subscription tier
           toast.success("Payment verified! Refreshing user data...");
           await refreshUser();
         } else {
+          // Payment failed or session invalid
           toast.error(`Failed to verify payment: ${result.error}`);
         }
       }
