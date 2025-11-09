@@ -8,19 +8,12 @@
 import { useState, useEffect } from "react";
 import { stripePromise } from "@/lib/stripe";
 import { CheckoutProvider, useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
-import {
-  createCheckoutSession,
-  createPortalSession,
-  updateSubscription,
-  cancelSubscription,
-  reactivateSubscription
-} from "@/lib/api/subscriptions";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
-import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { useAuthStore } from "@/stores/authStore";
 import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
+import * as handlers from "./handlers";
 
 export default function StripeTestPage() {
   const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login, refreshUser } = useAuthStore();
@@ -126,7 +119,13 @@ export default function StripeTestPage() {
                 tier.
               </p>
               <button
-                onClick={handleDeleteStripeHistory}
+                onClick={() =>
+                  handlers.handleDeleteStripeHistory({
+                    userHandle: user.handle,
+                    refreshUser,
+                    setDeletingStripeHistory
+                  })
+                }
                 disabled={deletingStripeHistory || !user.handle}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -222,44 +221,77 @@ export default function StripeTestPage() {
                 const state = getSubscriptionState(user);
                 switch (state) {
                   case "never_subscribed":
-                    return <NeverSubscribedActions onUpgrade={handleUpgrade} />;
+                    return (
+                      <NeverSubscribedActions
+                        onSubscribe={(tier) =>
+                          handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
+                        }
+                      />
+                    );
                   case "incomplete_payment":
                     return <IncompletePaymentActions />;
                   case "active_premium":
                     return (
                       <ActivePremiumActions
-                        onUpgradeToMax={handleUpgradeToMax}
-                        onCancel={handleCancelSubscription}
-                        onOpenPortal={handleOpenPortal}
+                        onUpgradeToMax={() => handlers.handleUpgradeToMax(refreshUser)}
+                        onCancel={() => handlers.handleCancelSubscription(refreshUser)}
+                        onOpenPortal={handlers.handleOpenPortal}
                       />
                     );
                   case "active_max":
                     return (
                       <ActiveMaxActions
-                        onDowngradeToPremium={handleDowngradeToPremium}
-                        onCancel={handleCancelSubscription}
-                        onOpenPortal={handleOpenPortal}
+                        onDowngradeToPremium={() => handlers.handleDowngradeToPremium(refreshUser)}
+                        onCancel={() => handlers.handleCancelSubscription(refreshUser)}
+                        onOpenPortal={handlers.handleOpenPortal}
                       />
                     );
                   case "cancelling_scheduled":
-                    return <CancellingScheduledActions onReactivate={handleReactivateSubscription} />;
+                    return (
+                      <CancellingScheduledActions
+                        onReactivate={() => handlers.handleReactivateSubscription(refreshUser)}
+                      />
+                    );
                   case "payment_failed_grace":
                     return (
                       <PaymentFailedGracePeriodActions
-                        onCancel={handleCancelSubscription}
-                        onOpenPortal={handleOpenPortal}
+                        onCancel={() => handlers.handleCancelSubscription(refreshUser)}
+                        onOpenPortal={handlers.handleOpenPortal}
                       />
                     );
                   case "payment_failed_expired":
                     return (
-                      <PaymentFailedGraceExpiredActions onUpgrade={handleUpgrade} onOpenPortal={handleOpenPortal} />
+                      <PaymentFailedGraceExpiredActions
+                        onSubscribe={(tier) =>
+                          handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
+                        }
+                        onOpenPortal={handlers.handleOpenPortal}
+                      />
                     );
                   case "previously_subscribed":
-                    return <PreviouslySubscribedActions onUpgrade={handleUpgrade} />;
+                    return (
+                      <PreviouslySubscribedActions
+                        onSubscribe={(tier) =>
+                          handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
+                        }
+                      />
+                    );
                   case "incomplete_expired":
-                    return <IncompleteExpiredActions onUpgrade={handleUpgrade} />;
+                    return (
+                      <IncompleteExpiredActions
+                        onSubscribe={(tier) =>
+                          handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
+                        }
+                      />
+                    );
                   default:
-                    return <NeverSubscribedActions onUpgrade={handleUpgrade} />;
+                    return (
+                      <NeverSubscribedActions
+                        onSubscribe={(tier) =>
+                          handlers.handleSubscribe({ tier, userEmail: user.email, setSelectedTier, setClientSecret })
+                        }
+                      />
+                    );
                 }
               })()}
             </div>
@@ -276,7 +308,10 @@ export default function StripeTestPage() {
                   </p>
                 </div>
                 <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
-                  <CheckoutForm tier={selectedTier!} onCancel={handleCheckoutCancel} />
+                  <CheckoutForm
+                    tier={selectedTier!}
+                    onCancel={() => handlers.handleCheckoutCancel({ setClientSecret, setSelectedTier })}
+                  />
                 </CheckoutProvider>
               </div>
             )}
@@ -289,7 +324,7 @@ export default function StripeTestPage() {
                 cancel subscriptions.
               </p>
               <button
-                onClick={handleOpenPortal}
+                onClick={handlers.handleOpenPortal}
                 className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
               >
                 Open Customer Portal
@@ -316,111 +351,6 @@ export default function StripeTestPage() {
       </div>
     </div>
   );
-
-  async function handleUpgrade(tier: MembershipTier) {
-    try {
-      const returnUrl = createCheckoutReturnUrl(window.location.pathname);
-      const response = await createCheckoutSession(tier, returnUrl, user?.email);
-      setSelectedTier(tier);
-      setClientSecret(response.client_secret);
-      toast.success("Checkout session created");
-    } catch (error) {
-      toast.error("Failed to create checkout session");
-      console.error(error);
-    }
-  }
-
-  function handleCheckoutCancel() {
-    setClientSecret(null);
-    setSelectedTier(null);
-    toast("Checkout canceled");
-  }
-
-  async function handleOpenPortal() {
-    try {
-      const response = await createPortalSession();
-      window.location.href = response.url;
-    } catch (error) {
-      toast.error("Failed to open customer portal");
-      console.error(error);
-    }
-  }
-
-  async function handleUpgradeToMax() {
-    try {
-      await updateSubscription("max");
-      toast.success("Successfully upgraded to Max!");
-      await refreshUser();
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
-      toast.error(errorMessage);
-      console.error(error);
-    }
-  }
-
-  async function handleDowngradeToPremium() {
-    try {
-      await updateSubscription("premium");
-      toast.success("Successfully downgraded to Premium!");
-      await refreshUser();
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to downgrade subscription";
-      toast.error(errorMessage);
-      console.error(error);
-    }
-  }
-
-  async function handleCancelSubscription() {
-    try {
-      const response = await cancelSubscription();
-      toast.success(
-        `Subscription canceled. You'll keep access until ${new Date(response.access_until).toLocaleDateString()}`
-      );
-      await refreshUser();
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to cancel subscription";
-      toast.error(errorMessage);
-      console.error(error);
-    }
-  }
-
-  async function handleReactivateSubscription() {
-    try {
-      await reactivateSubscription();
-      toast.success("Subscription reactivated!");
-      await refreshUser();
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to reactivate subscription";
-      toast.error(errorMessage);
-      console.error(error);
-    }
-  }
-
-  async function handleDeleteStripeHistory() {
-    if (!user?.handle) {
-      toast.error("User handle not available");
-      return;
-    }
-
-    setDeletingStripeHistory(true);
-    try {
-      const response = await fetch(`http://localhost:3060/dev/users/${user.handle}/clear_stripe_history`, {
-        method: "DELETE"
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to delete Stripe history: ${response.statusText}`);
-      }
-
-      toast.success("Stripe history deleted");
-      await refreshUser();
-    } catch (error) {
-      toast.error("Failed to delete Stripe history");
-      console.error(error);
-    } finally {
-      setDeletingStripeHistory(false);
-    }
-  }
 }
 
 // Subscription state type
@@ -487,7 +417,7 @@ function getSubscriptionState(user: {
 }
 
 // Subscription Action Components
-function NeverSubscribedActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+function NeverSubscribedActions({ onSubscribe }: { onSubscribe: (tier: MembershipTier) => void }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -496,14 +426,14 @@ function NeverSubscribedActions({ onUpgrade }: { onUpgrade: (tier: MembershipTie
       </div>
 
       <button
-        onClick={() => onUpgrade("premium")}
+        onClick={() => onSubscribe("premium")}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Subscribe to Premium - $3/month
       </button>
 
       <button
-        onClick={() => onUpgrade("max")}
+        onClick={() => onSubscribe("max")}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Subscribe to Max - $10/month
@@ -698,10 +628,10 @@ function PaymentFailedGracePeriodActions({
 
 function PaymentFailedGraceExpiredActions({
   onOpenPortal,
-  onUpgrade
+  onSubscribe
 }: {
   onOpenPortal: () => void;
-  onUpgrade: (tier: MembershipTier) => void;
+  onSubscribe: (tier: MembershipTier) => void;
 }) {
   return (
     <div className="space-y-3">
@@ -718,14 +648,14 @@ function PaymentFailedGraceExpiredActions({
       </button>
 
       <button
-        onClick={() => onUpgrade("premium")}
+        onClick={() => onSubscribe("premium")}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Start New Premium Subscription
       </button>
 
       <button
-        onClick={() => onUpgrade("max")}
+        onClick={() => onSubscribe("max")}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Start New Max Subscription
@@ -738,7 +668,7 @@ function PaymentFailedGraceExpiredActions({
   );
 }
 
-function PreviouslySubscribedActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+function PreviouslySubscribedActions({ onSubscribe }: { onSubscribe: (tier: MembershipTier) => void }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -747,14 +677,14 @@ function PreviouslySubscribedActions({ onUpgrade }: { onUpgrade: (tier: Membersh
       </div>
 
       <button
-        onClick={() => onUpgrade("premium")}
+        onClick={() => onSubscribe("premium")}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Re-subscribe to Premium - $3/month
       </button>
 
       <button
-        onClick={() => onUpgrade("max")}
+        onClick={() => onSubscribe("max")}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Re-subscribe to Max - $10/month
@@ -767,7 +697,7 @@ function PreviouslySubscribedActions({ onUpgrade }: { onUpgrade: (tier: Membersh
   );
 }
 
-function IncompleteExpiredActions({ onUpgrade }: { onUpgrade: (tier: MembershipTier) => void }) {
+function IncompleteExpiredActions({ onSubscribe }: { onSubscribe: (tier: MembershipTier) => void }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -776,14 +706,14 @@ function IncompleteExpiredActions({ onUpgrade }: { onUpgrade: (tier: MembershipT
       </div>
 
       <button
-        onClick={() => onUpgrade("premium")}
+        onClick={() => onSubscribe("premium")}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Start Fresh Checkout - Premium
       </button>
 
       <button
-        onClick={() => onUpgrade("max")}
+        onClick={() => onSubscribe("max")}
         className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
       >
         Start Fresh Checkout - Max
