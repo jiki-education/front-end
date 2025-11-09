@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
-    connect-src 'self' https://api.stripe.com ${isDevelopment ? "ws://localhost:* ws://127.0.0.1:*" : ""};
+    connect-src 'self' https://api.stripe.com ${isDevelopment ? "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*" : ""};
     frame-src 'self' https://js.stripe.com https://hooks.stripe.com;
     worker-src 'self' blob:;
     object-src 'none';
