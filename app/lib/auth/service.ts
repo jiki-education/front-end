@@ -4,7 +4,7 @@
  */
 
 import { api } from "@/lib/api";
-import { getTokenExpiry, setToken } from "@/lib/auth/storage";
+import { getTokenExpiry, setToken, setRefreshToken } from "@/lib/auth/storage";
 import type {
   AuthResponse,
   LoginCredentials,
@@ -39,17 +39,26 @@ function extractTokenFromHeaders(headers: Headers): string | null {
 export async function login(credentials: LoginCredentials): Promise<User> {
   const response = await api.post<AuthResponse>("/auth/login", { user: credentials });
 
-  // Try to extract JWT from response headers first
-  let token = extractTokenFromHeaders(response.headers);
+  // Try to extract JWT access token from response headers first
+  let accessToken = extractTokenFromHeaders(response.headers);
 
   // If not in headers, check response body
-  if (!token) {
-    token = response.data.token || response.data.jwt || response.data.access_token || null;
+  if (!accessToken) {
+    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
   }
 
-  if (token) {
-    const expiry = getTokenExpiry(token);
-    setToken(token, expiry || undefined);
+  // Extract refresh token from response body
+  const refreshToken = response.data.refresh_token;
+
+  // Store access token (short-lived, sessionStorage)
+  if (accessToken) {
+    const expiry = getTokenExpiry(accessToken);
+    setToken(accessToken, expiry || undefined);
+  }
+
+  // Store refresh token (long-lived, localStorage)
+  if (refreshToken) {
+    setRefreshToken(refreshToken);
   }
 
   return response.data.user;
@@ -62,17 +71,26 @@ export async function login(credentials: LoginCredentials): Promise<User> {
 export async function signup(userData: SignupData): Promise<User> {
   const response = await api.post<AuthResponse>("/auth/signup", { user: userData });
 
-  // Try to extract JWT from response headers first
-  let token = extractTokenFromHeaders(response.headers);
+  // Try to extract JWT access token from response headers first
+  let accessToken = extractTokenFromHeaders(response.headers);
 
   // If not in headers, check response body
-  if (!token) {
-    token = response.data.token || response.data.jwt || response.data.access_token || null;
+  if (!accessToken) {
+    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
   }
 
-  if (token) {
-    const expiry = getTokenExpiry(token);
-    setToken(token, expiry || undefined);
+  // Extract refresh token from response body
+  const refreshToken = response.data.refresh_token;
+
+  // Store access token (short-lived, sessionStorage)
+  if (accessToken) {
+    const expiry = getTokenExpiry(accessToken);
+    setToken(accessToken, expiry || undefined);
+  }
+
+  // Store refresh token (long-lived, localStorage)
+  if (refreshToken) {
+    setRefreshToken(refreshToken);
   }
 
   return response.data.user;
@@ -90,9 +108,18 @@ export async function logout(): Promise<void> {
     console.error("Logout API call failed:", error);
   }
 
-  // Always clear local token regardless of API response
+  // Always clear local tokens regardless of API response
   const { removeToken } = await import("@/lib/auth/storage");
-  removeToken();
+  removeToken(); // This now also clears refresh token
+}
+
+/**
+ * Refresh access token using refresh token
+ * This now uses the standalone refresh module to avoid circular dependencies
+ */
+export async function refreshAccessToken(): Promise<string | null> {
+  const { refreshAccessToken: performRefresh } = await import("@/lib/auth/refresh");
+  return performRefresh();
 }
 
 /**

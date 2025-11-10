@@ -3,6 +3,16 @@ import { ChatApiError } from "./chatApi";
 export function formatChatError(error: unknown): string {
   if (error instanceof ChatApiError) {
     if (error.status === 401) {
+      // Check specific error type for better user messaging
+      if (error.data && typeof error.data === "object") {
+        const errorData = error.data as any;
+        if (errorData.error === "token_expired") {
+          return "Session expired. Refreshing authentication...";
+        }
+        if (errorData.error === "invalid_token") {
+          return "Authentication failed. Please sign in again.";
+        }
+      }
       return "Authentication expired. Please refresh the page.";
     }
     if (error.status === 429) {
@@ -32,6 +42,14 @@ export function formatChatError(error: unknown): string {
 
 export function shouldRetryError(error: unknown): boolean {
   if (error instanceof ChatApiError) {
+    // Don't retry expired tokens - they should be handled by refresh logic
+    if (error.status === 401 && error.data && typeof error.data === "object") {
+      const errorData = error.data as any;
+      if (errorData.error === "token_expired") {
+        return false; // Refresh logic handles this
+      }
+    }
+
     // Retry on server errors and rate limits
     return error.status === 429 || (error.status !== undefined && error.status >= 500);
   }
