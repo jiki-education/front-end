@@ -55,18 +55,24 @@ app.post("/chat", async (c) => {
     const jwtResult = await verifyJWT(token, c.env.DEVISE_JWT_SECRET_KEY);
     if (!jwtResult.userId) {
       console.log(`[Chat] ❌ JWT verification failed - ${jwtResult.error}`);
-      
-      if (jwtResult.error === 'expired') {
-        return c.json({ 
-          error: "token_expired", 
-          message: "Token has expired" 
-        }, 401);
+
+      if (jwtResult.error === "expired") {
+        return c.json(
+          {
+            error: "token_expired",
+            message: "Token has expired"
+          },
+          401
+        );
       }
-      
-      return c.json({ 
-        error: "invalid_token", 
-        message: "Invalid token" 
-      }, 401);
+
+      return c.json(
+        {
+          error: "invalid_token",
+          message: "Invalid token"
+        },
+        401
+      );
     }
 
     console.log("[Chat] ✅ JWT verified, user ID:", jwtResult.userId);
