@@ -1,4 +1,5 @@
 import { getToken } from "@/lib/auth/storage";
+import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
 
@@ -21,7 +22,8 @@ export interface StreamCallbacks {
 export class ChatApiError extends Error {
   constructor(
     message: string,
-    public status?: number
+    public status?: number,
+    public data?: unknown
   ) {
     super(message);
     this.name = "ChatApiError";
@@ -29,6 +31,29 @@ export class ChatApiError extends Error {
 }
 
 export async function sendChatMessage(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
+  try {
+    await performChatRequest(payload, callbacks);
+  } catch (error) {
+    if (error instanceof ChatApiError && error.status === 401 && error.data) {
+      // Check if this is a token_expired error that we can refresh
+      const errorData = error.data as any;
+      if (errorData?.error === "token_expired") {
+        // Attempt token refresh
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          // Retry with new token
+          await performChatRequest(payload, callbacks);
+          return;
+        }
+        // If refresh failed, the refresh module already cleared tokens
+        // Fall through to throw the original error
+      }
+    }
+    throw error;
+  }
+}
+
+async function performChatRequest(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
   const token = getToken();
   if (!token) {
     throw new ChatApiError("No authentication token available");
@@ -48,7 +73,20 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
     });
 
     if (!response.ok) {
-      throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status);
+      // Parse error response to get detailed error info
+      let errorData: unknown;
+      try {
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          errorData = await response.json();
+        } else {
+          errorData = await response.text();
+        }
+      } catch {
+        errorData = { error: "unknown", message: "Failed to parse error response" };
+      }
+
+      throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status, errorData);
     }
 
     if (!response.body) {
