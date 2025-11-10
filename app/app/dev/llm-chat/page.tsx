@@ -4,6 +4,11 @@ import { useAuthStore } from "@/stores/authStore";
 import { exercises } from "@jiki/curriculum";
 import { getToken } from "@/lib/auth/storage";
 import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  sendChatMessage,
+  type ChatRequestPayload,
+  type StreamCallbacks
+} from "@/components/coding-exercise/lib/chatApi";
 
 // Types
 interface ChatMessage {
@@ -17,12 +22,6 @@ interface SignatureData {
   timestamp: string;
   exerciseSlug: string;
   userMessage: string;
-}
-
-interface ErrorData {
-  type: "error";
-  error: string;
-  message: string;
 }
 
 interface DebugEvent {
@@ -129,7 +128,7 @@ export default function LLMChatTestPage() {
     setCurrentResponse("");
     setSignature(null);
 
-    const requestPayload = {
+    const requestPayload: ChatRequestPayload = {
       exerciseSlug: selectedExercise,
       code,
       question,
@@ -140,26 +139,49 @@ export default function LLMChatTestPage() {
 
     addDebugEvent("request", requestPayload);
 
+    const callbacks: StreamCallbacks = {
+      onTextChunk: (text: string) => {
+        setCurrentResponse((prev) => prev + text);
+        addDebugEvent("sse", { type: "text_chunk", content: text });
+      },
+      onSignature: (signatureData: SignatureData) => {
+        setSignature(signatureData);
+        addDebugEvent("sse", { type: "signature", data: signatureData });
+      },
+      onError: (error: string) => {
+        setChatError(error);
+        setStatus("error");
+        addDebugEvent("error", { error });
+      },
+      onComplete: (fullResponse: string, signatureData: SignatureData | null) => {
+        // Save conversation to backend if we have both response and signature
+        if (fullResponse.trim() && signatureData) {
+          void saveConversation(
+            selectedExercise,
+            question,
+            fullResponse.trim(),
+            signatureData.timestamp,
+            signatureData.signature
+          );
+        }
+
+        // Add to history
+        if (fullResponse.trim()) {
+          setHistory((prev) => [
+            ...prev,
+            { role: "user", content: question },
+            { role: "assistant", content: fullResponse.trim() }
+          ]);
+          setCurrentResponse("");
+        }
+
+        setStatus("idle");
+        setQuestion("");
+      }
+    };
+
     try {
-      const response = await fetch("http://localhost:3063/chat", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestPayload)
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      if (!response.body) {
-        throw new Error("No response body");
-      }
-
-      // Handle streaming response
-      await handleStreamingResponse(response.body, question);
+      await sendChatMessage(requestPayload, callbacks);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Unknown error";
       setChatError(errorMessage);
@@ -182,6 +204,15 @@ export default function LLMChatTestPage() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">LLM Chat Proxy Test</h1>
+
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <h2 className="text-lg font-semibold mb-2 text-blue-900">🔄 Refresh Token Testing</h2>
+          <p className="text-blue-800 text-sm">
+            This test page now uses the new chat API with automatic refresh token support. To test refresh
+            functionality, you can manually expire your token in browser dev tools or wait for natural token expiration.
+            The system will automatically refresh and retry failed requests seamlessly.
+          </p>
+        </div>
 
         <AuthSection
           isAuthenticated={isAuthenticated}
@@ -245,113 +276,6 @@ export default function LLMChatTestPage() {
   );
 
   // Helper functions
-  async function handleStreamingResponse(body: ReadableStream<Uint8Array>, userQuestion: string) {
-    const reader = body.getReader();
-    const decoder = new TextDecoder();
-    let accumulatedText = "";
-    let buffer = "";
-    let receivedSignature: SignatureData | null = null;
-
-    try {
-      while (true) {
-        const { done, value } = await reader.read();
-
-        if (done) {
-          break;
-        }
-
-        const chunk = decoder.decode(value, { stream: true });
-        buffer += chunk;
-
-        // Check for "data: " markers in the buffer
-        let dataIndex = buffer.indexOf("data: ");
-
-        while (dataIndex !== -1) {
-          // If there's text before "data: ", it's part of the response
-          if (dataIndex > 0) {
-            const textBeforeData = buffer.substring(0, dataIndex);
-            accumulatedText += textBeforeData;
-            setCurrentResponse(accumulatedText);
-          }
-
-          // Find the end of this data line (look for next newline)
-          const endOfLine = buffer.indexOf("\n", dataIndex);
-          if (endOfLine === -1) {
-            // Incomplete data line, keep in buffer
-            buffer = buffer.substring(dataIndex);
-            break;
-          }
-
-          // Extract the data line
-          const dataLine = buffer.substring(dataIndex + 6, endOfLine); // +6 to skip "data: "
-
-          // Try to parse as JSON
-          try {
-            const data = JSON.parse(dataLine);
-            addDebugEvent("sse", data);
-
-            if (data.type === "signature") {
-              receivedSignature = data as SignatureData;
-              setSignature(receivedSignature);
-            } else if (data.type === "error") {
-              const errorData = data as ErrorData;
-              setChatError(errorData.message);
-              setStatus("error");
-            }
-          } catch {
-            // Not valid JSON, might be malformed
-            console.error("Failed to parse SSE data:", dataLine);
-          }
-
-          // Move past this data line
-          buffer = buffer.substring(endOfLine + 1);
-          dataIndex = buffer.indexOf("data: ");
-        }
-
-        // Any remaining buffer is text
-        if (buffer && !buffer.startsWith("data: ")) {
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-          for (const line of lines) {
-            accumulatedText += line + "\n";
-            setCurrentResponse(accumulatedText);
-          }
-        }
-      }
-
-      // Process any remaining buffer
-      if (buffer.trim()) {
-        accumulatedText += buffer;
-        setCurrentResponse(accumulatedText);
-      }
-
-      // Save conversation to backend if we have both response and signature
-      if (accumulatedText.trim() && receivedSignature) {
-        await saveConversation(
-          selectedExercise,
-          userQuestion,
-          accumulatedText.trim(),
-          receivedSignature.timestamp,
-          receivedSignature.signature
-        );
-      }
-
-      // Add to history
-      if (accumulatedText.trim()) {
-        setHistory((prev) => [
-          ...prev,
-          { role: "user", content: userQuestion },
-          { role: "assistant", content: accumulatedText.trim() }
-        ]);
-        setCurrentResponse("");
-      }
-
-      setStatus("idle");
-      setQuestion("");
-    } catch (err) {
-      throw err;
-    }
-  }
 
   async function saveConversation(
     exerciseSlug: string,
