@@ -59,14 +59,26 @@ export default function SubscriptionStatus({
   const statusInfo = statusConfig[status];
 
   return (
-    <div className={`p-4 bg-bg-primary rounded border border-border-secondary ${className}`}>
+    <div
+      className={`p-4 bg-bg-primary rounded border border-border-secondary ${className}`}
+      role="region"
+      aria-label="Current subscription status"
+    >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
-          <div className={`px-3 py-1 rounded-full text-sm font-medium ${tierInfo.bgColor} ${tierInfo.color}`}>
+          <div
+            className={`px-3 py-1 rounded-full text-sm font-medium ${tierInfo.bgColor} ${tierInfo.color}`}
+            role="status"
+            aria-label={`Current plan: ${tierInfo.name}`}
+          >
             {tierInfo.name}
           </div>
           {tier !== "free" && (
-            <div className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}>
+            <div
+              className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
+              role="status"
+              aria-label={`Subscription status: ${statusInfo.text}`}
+            >
               {statusInfo.text}
             </div>
           )}
@@ -75,10 +87,30 @@ export default function SubscriptionStatus({
 
       <div className="text-text-secondary text-sm">
         <p>{tierInfo.description}</p>
-        {nextBillingDate && status === "active" && <p className="mt-1">Next billing: {nextBillingDate}</p>}
-        {status === "canceled" && <p className="mt-1">Service continues until period end</p>}
-        {status === "past_due" && <p className="mt-1">Payment failed - please update payment method</p>}
-        {status === "incomplete" && <p className="mt-1">Payment setup incomplete - please complete setup</p>}
+        {nextBillingDate && status === "active" && (
+          <p className="mt-1">
+            <span className="sr-only">Billing information: </span>
+            Next billing: {nextBillingDate}
+          </p>
+        )}
+        {status === "canceled" && (
+          <p className="mt-1">
+            <span className="sr-only">Cancellation notice: </span>
+            Service continues until period end
+          </p>
+        )}
+        {status === "past_due" && (
+          <p className="mt-1">
+            <span className="sr-only">Payment issue: </span>
+            Payment failed - please update payment method
+          </p>
+        )}
+        {status === "incomplete" && (
+          <p className="mt-1">
+            <span className="sr-only">Payment setup: </span>
+            Payment setup incomplete - please complete setup
+          </p>
+        )}
       </div>
     </div>
   );

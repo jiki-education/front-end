@@ -8,6 +8,8 @@ interface SubscriptionButtonProps {
   disabled?: boolean;
   className?: string;
   onClick?: () => void;
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
 }
 
 export default function SubscriptionButton({
@@ -17,7 +19,9 @@ export default function SubscriptionButton({
   loading = false,
   disabled = false,
   className = "",
-  onClick
+  onClick,
+  ariaLabel,
+  ariaDescribedBy
 }: SubscriptionButtonProps) {
   const baseClasses =
     "font-medium rounded transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed";
@@ -42,10 +46,17 @@ export default function SubscriptionButton({
       onClick={onClick}
       disabled={isDisabled}
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-busy={loading}
     >
       {loading && (
         <div className="inline-flex items-center">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+          <div
+            className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"
+            role="status"
+            aria-label="Loading"
+          />
           <span>Loading...</span>
         </div>
       )}

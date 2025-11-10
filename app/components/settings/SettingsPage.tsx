@@ -2,6 +2,7 @@
 
 import { useRequireAuth } from "@/lib/auth/hooks";
 import SubscriptionSection from "./subscription/SubscriptionSection";
+import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
 
 export default function SettingsPage() {
   const { isAuthenticated, isLoading: authLoading } = useRequireAuth();
@@ -30,7 +31,9 @@ export default function SettingsPage() {
         </header>
 
         <main className="space-y-6 sm:space-y-8">
-          <SubscriptionSection />
+          <SubscriptionErrorBoundary>
+            <SubscriptionSection />
+          </SubscriptionErrorBoundary>
 
           {/* Placeholder for future settings sections */}
           <div className="text-center py-8 text-text-secondary">
