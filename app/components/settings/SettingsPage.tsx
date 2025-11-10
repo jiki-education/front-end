@@ -1,6 +1,7 @@
 "use client";
 
 import { useRequireAuth } from "@/lib/auth/hooks";
+import SubscriptionSection from "./subscription/SubscriptionSection";
 
 export default function SettingsPage() {
   const { isAuthenticated, isLoading: authLoading } = useRequireAuth();
@@ -22,41 +23,21 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-bg-primary theme-transition">
-      <div className="max-w-4xl mx-auto px-6 py-8">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-text-primary mb-2">Settings</h1>
-          <p className="text-text-secondary">Manage your account preferences and subscription</p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <header className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Settings</h1>
+          <p className="text-text-secondary text-sm sm:text-base">Manage your account preferences and subscription</p>
         </header>
 
-        <main className="space-y-8">
+        <main className="space-y-6 sm:space-y-8">
           <SubscriptionSection />
+
+          {/* Placeholder for future settings sections */}
+          <div className="text-center py-8 text-text-secondary">
+            <p className="text-sm">More settings sections coming soon...</p>
+          </div>
         </main>
       </div>
     </div>
-  );
-}
-
-function SubscriptionSection() {
-  return (
-    <section className="bg-bg-secondary rounded-lg p-6 border border-border-primary">
-      <h2 className="text-xl font-semibold text-text-primary mb-4">Subscription</h2>
-      <p className="text-text-secondary mb-6">Manage your subscription plan and billing details</p>
-
-      <div className="space-y-4">
-        <div className="p-4 bg-bg-primary rounded border border-border-secondary">
-          <h3 className="font-medium text-text-primary mb-2">Current Plan</h3>
-          <p className="text-text-secondary">Free Plan</p>
-        </div>
-
-        <div className="flex gap-4">
-          <button className="px-4 py-2 bg-button-primary-bg text-button-primary-text rounded hover:opacity-90 transition-opacity focus-ring">
-            Upgrade to Premium
-          </button>
-          <button className="px-4 py-2 bg-button-secondary-bg text-button-secondary-text border border-button-secondary-border rounded hover:bg-button-secondary-bg-hover transition-colors focus-ring">
-            Upgrade to Max
-          </button>
-        </div>
-      </div>
-    </section>
   );
 }
