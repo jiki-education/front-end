@@ -3,6 +3,8 @@
  * Secure JWT token management for authentication
  */
 
+import { setRefreshTokenCookie, getRefreshTokenCookie, removeRefreshTokenCookie } from "@/lib/auth/cookie-storage";
+
 const TOKEN_KEY = "jiki_auth_token";
 const TOKEN_EXPIRY_KEY = "jiki_auth_expiry";
 
@@ -52,7 +54,7 @@ export function getToken(): string | null {
 }
 
 /**
- * Remove stored JWT token
+ * Remove stored JWT token and refresh token
  */
 export function removeToken(): void {
   if (typeof window === "undefined") {
@@ -62,6 +64,7 @@ export function removeToken(): void {
   try {
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(TOKEN_EXPIRY_KEY);
+    removeRefreshToken(); // Also clear refresh token
   } catch (error) {
     console.error("Failed to remove token:", error);
   }
@@ -151,4 +154,28 @@ export function getTokenExpiry(token: string): number | null {
 
   // JWT exp is in seconds, convert to milliseconds
   return payload.exp * 1000;
+}
+
+/**
+ * Store refresh token in secure cookie (XSS-resistant, persists across browser sessions)
+ */
+export function setRefreshToken(token: string): void {
+  // Use secure cookie storage instead of localStorage for XSS protection
+  setRefreshTokenCookie(token);
+}
+
+/**
+ * Retrieve stored refresh token from secure cookie
+ */
+export function getRefreshToken(): string | null {
+  // Use secure cookie storage instead of localStorage for XSS protection
+  return getRefreshTokenCookie();
+}
+
+/**
+ * Remove stored refresh token from secure cookie
+ */
+export function removeRefreshToken(): void {
+  // Use secure cookie storage instead of localStorage for XSS protection
+  removeRefreshTokenCookie();
 }

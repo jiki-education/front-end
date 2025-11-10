@@ -1,4 +1,5 @@
 import { getToken } from "@/lib/auth/storage";
+import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
 
@@ -21,7 +22,8 @@ export interface StreamCallbacks {
 export class ChatApiError extends Error {
   constructor(
     message: string,
-    public status?: number
+    public status?: number,
+    public data?: unknown
   ) {
     super(message);
     this.name = "ChatApiError";
@@ -29,8 +31,41 @@ export class ChatApiError extends Error {
 }
 
 export async function sendChatMessage(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
-  const token = getToken();
-  if (!token) {
+  // Truncate history to last 5 messages at the API boundary for clarity
+  const truncatedPayload = {
+    ...payload,
+    history: payload.history.slice(-5)
+  };
+
+  try {
+    await performChatRequest(truncatedPayload, callbacks);
+  } catch (error) {
+    if (error instanceof ChatApiError && error.status === 401 && error.data) {
+      // Check if this is a token_expired error that we can refresh
+      const errorData = error.data as any;
+      if (errorData?.error === "token_expired") {
+        // Attempt token refresh
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          // Retry with the new token directly to avoid redundant storage round-trip
+          await performChatRequest(truncatedPayload, callbacks, newToken);
+          return;
+        }
+        // If refresh failed, the refresh module already cleared tokens
+        // Fall through to throw the original error
+      }
+    }
+    throw error;
+  }
+}
+
+async function performChatRequest(
+  payload: ChatRequestPayload,
+  callbacks: StreamCallbacks,
+  token?: string
+): Promise<void> {
+  const authToken = token || getToken();
+  if (!authToken) {
     throw new ChatApiError("No authentication token available");
   }
 
@@ -38,17 +73,27 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
     const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${authToken}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        ...payload,
-        history: payload.history.slice(-5) // Last 5 messages
-      })
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
-      throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status);
+      // Parse error response to get detailed error info
+      let errorData: unknown;
+      try {
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          errorData = await response.json();
+        } else {
+          errorData = await response.text();
+        }
+      } catch {
+        errorData = { error: "unknown", message: "Failed to parse error response" };
+      }
+
+      throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status, errorData);
     }
 
     if (!response.body) {
@@ -91,7 +136,7 @@ async function handleStreamingResponse(body: ReadableStream<Uint8Array>, callbac
         if (dataIndex > 0) {
           const textBeforeData = buffer.substring(0, dataIndex);
           accumulatedText += textBeforeData;
-          callbacks.onTextChunk(accumulatedText);
+          callbacks.onTextChunk(textBeforeData); // Pass only the new chunk
         }
 
         // Find the end of this data line (look for next newline)
@@ -132,8 +177,9 @@ async function handleStreamingResponse(body: ReadableStream<Uint8Array>, callbac
         const lines = buffer.split("\n");
         buffer = lines.pop() || "";
         for (const line of lines) {
-          accumulatedText += line + "\n";
-          callbacks.onTextChunk(accumulatedText);
+          const lineWithNewline = line + "\n";
+          accumulatedText += lineWithNewline;
+          callbacks.onTextChunk(lineWithNewline); // Pass only the new chunk
         }
       }
     }
@@ -141,7 +187,7 @@ async function handleStreamingResponse(body: ReadableStream<Uint8Array>, callbac
     // Process any remaining buffer
     if (buffer.trim()) {
       accumulatedText += buffer;
-      callbacks.onTextChunk(accumulatedText);
+      callbacks.onTextChunk(buffer); // Pass only the new chunk
     }
 
     callbacks.onComplete(accumulatedText.trim(), receivedSignature);
