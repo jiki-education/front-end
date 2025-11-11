@@ -9,6 +9,7 @@ export type SubscriptionStatus =
   | "active"
   | "canceled"
   | "incomplete"
+  | "incomplete_expired"
   | "never_subscribed"
   | "cancelling"
   | "payment_failed";

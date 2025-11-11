@@ -54,6 +54,16 @@ export function getSubscriptionState(user: User): SubscriptionState {
     return "previously_subscribed";
   }
 
-  // Default fallback (includes incomplete, incomplete_expired, etc.)
+  // Incomplete payment (awaiting confirmation)
+  if (subscription_status === "incomplete") {
+    return "incomplete_payment";
+  }
+
+  // Incomplete payment expired (session abandoned/expired)
+  if (subscription_status === "incomplete_expired") {
+    return "incomplete_expired";
+  }
+
+  // Default fallback for truly never subscribed users
   return "never_subscribed";
 }

@@ -60,6 +60,11 @@ export default function SubscriptionStatus({
       color: "text-yellow-700",
       bgColor: "bg-yellow-50"
     },
+    incomplete_expired: {
+      text: "Session Expired",
+      color: "text-red-700",
+      bgColor: "bg-red-50"
+    },
     never_subscribed: {
       text: "Not Subscribed",
       color: "text-gray-700",
@@ -127,6 +132,12 @@ export default function SubscriptionStatus({
           <p className="mt-1">
             <span className="sr-only">Payment setup: </span>
             Payment setup incomplete - please complete setup
+          </p>
+        )}
+        {status === "incomplete_expired" && (
+          <p className="mt-1">
+            <span className="sr-only">Session expired: </span>
+            Previous checkout session expired - please start a new subscription
           </p>
         )}
       </div>
