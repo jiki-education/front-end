@@ -42,9 +42,13 @@ describe("ProjectPage", () => {
   const mockPush = jest.fn();
   const mockUser: User = {
     id: 1,
+    handle: "testuser",
     email: "test@example.com",
     name: "Test User",
-    created_at: "2023-01-01T00:00:00Z"
+    created_at: "2023-01-01T00:00:00Z",
+    membership_type: "standard",
+    subscription_status: "never_subscribed",
+    subscription: null
   };
 
   beforeEach(() => {

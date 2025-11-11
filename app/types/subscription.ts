@@ -1,0 +1,53 @@
+/**
+ * Subscription Types
+ * Type definitions for subscription and payment system
+ */
+
+import type { MembershipTier } from "@/lib/pricing";
+
+export type SubscriptionStatus =
+  | "active"
+  | "canceled"
+  | "incomplete"
+  | "never_subscribed"
+  | "cancelling"
+  | "payment_failed";
+
+export interface SubscriptionDetails {
+  in_grace_period: boolean;
+  grace_period_ends_at: string | null; // ISO 8601 date string
+  subscription_valid_until: string; // ISO 8601 date string
+}
+
+export interface CheckoutSessionRequest {
+  product: MembershipTier;
+  return_url?: string;
+  customer_email?: string;
+}
+
+export interface CheckoutSessionResponse {
+  client_secret: string;
+}
+
+export interface PortalSessionResponse {
+  url: string;
+}
+
+export interface UpdateSubscriptionRequest {
+  product: "premium" | "max";
+}
+
+export interface UpdateSubscriptionResponse {
+  tier: MembershipTier;
+  subscription_valid_until: string; // ISO 8601 date string
+}
+
+export interface CancelSubscriptionResponse {
+  status: "cancelling";
+  access_until: string; // ISO 8601 date string
+}
+
+export interface ReactivateSubscriptionResponse {
+  status: "active";
+  subscription_valid_until: string; // ISO 8601 date string
+}

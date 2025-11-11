@@ -139,10 +139,13 @@ export async function resetPassword(data: PasswordReset): Promise<void> {
 }
 
 /**
- * Get current user
- * This function has been removed to avoid circular dependencies.
- * User data should be accessed directly from the auth store.
+ * Get current user from /internal/me endpoint
+ * GET /internal/me
  */
+export async function getCurrentUser(): Promise<User> {
+  const response = await api.get<{ user: User }>("/internal/me");
+  return response.data.user;
+}
 
 /**
  * Validate current token

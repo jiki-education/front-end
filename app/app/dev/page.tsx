@@ -30,6 +30,14 @@ export default function DevPage() {
               <span className="text-gray-600 text-sm ml-2">- Test the LLM chat proxy with SSE streaming</span>
             </li>
             <li>
+              <Link href="/dev/stripe-test" className="text-blue-600 hover:underline">
+                Stripe Subscription Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - Test Stripe subscription flows, upgrades, downgrades, and customer portal43
+              </span>
+            </li>
+            <li>
               <Link href="/dev/typing-test" className="text-blue-600 hover:underline">
                 Typing Effect Test
               </Link>

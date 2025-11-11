@@ -22,6 +22,7 @@ interface AuthStore {
   signup: (userData: SignupData) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  refreshUser: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   resetPassword: (data: PasswordReset) => Promise<void>;
   clearError: () => void;
@@ -172,6 +173,17 @@ export const useAuthStore = create<AuthStore>()(
             error: "Authentication check failed",
             hasCheckedAuth: true
           });
+        }
+      },
+
+      // Refresh user data from server
+      refreshUser: async () => {
+        try {
+          const user = await authService.getCurrentUser();
+          set({ user });
+        } catch (error) {
+          console.error("Failed to refresh user:", error);
+          throw error;
         }
       },
 

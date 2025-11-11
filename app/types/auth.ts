@@ -3,11 +3,18 @@
  * Type definitions for authentication system
  */
 
+import type { MembershipTier } from "@/lib/pricing";
+import type { SubscriptionStatus, SubscriptionDetails } from "./subscription";
+
 export interface User {
   id: number;
+  handle: string;
   email: string;
   name: string | null;
   created_at: string;
+  membership_type: MembershipTier;
+  subscription_status: SubscriptionStatus;
+  subscription: SubscriptionDetails | null;
 }
 
 export interface LoginCredentials {
