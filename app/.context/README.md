@@ -36,6 +36,8 @@ General documentation that applies across the entire codebase:
 - **[content.md](./content.md)** - Content integration for blog posts and articles
 - **[api.md](./api.md)** - Backend API client and usage patterns
 - **[auth.md](./auth.md)** - JWT authentication system and auth flow
+- **[stripe.md](./stripe.md)** - Stripe subscription system with 9 states and API integration
+- **[settings-page.md](./settings-page.md)** - Settings page with subscription management and Stripe integration
 
 ### Complex Exercise Context (`coding-exercise/`)
 
@@ -119,6 +121,8 @@ All context files should include:
 - **Content (blog/articles)?** → [content.md](./content.md)
 - **API integration?** → [api.md](./api.md)
 - **Authentication?** → [auth.md](./auth.md)
+- **Stripe subscriptions?** → [stripe.md](./stripe.md)
+- **Settings & subscriptions?** → [settings-page.md](./settings-page.md)
 - **Complex exercises?** → [coding-exercise/README.md](./coding-exercise/README.md)
 - **Testing approach?** → [testing.md](./testing.md)
 - **Deployment?** → [deployment.md](./deployment.md)
