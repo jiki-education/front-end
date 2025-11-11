@@ -201,5 +201,6 @@ export const devHandlers = {
   downgradeToPremium: handleDowngradeToPremium,
   cancelSubscription: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
+  retryPayment: handleRetryPayment,
   deleteStripeHistory: handleDeleteStripeHistory
 };

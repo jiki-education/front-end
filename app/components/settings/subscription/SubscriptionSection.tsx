@@ -263,6 +263,7 @@ export default function SubscriptionSection({
             selectedTier={selectedTier}
             onSuccess={handleCheckoutSuccess}
             onCancel={handleCheckoutCancel}
+            returnUrl={`${window.location.origin}/settings?success=true`}
           />
         </Suspense>
       )}

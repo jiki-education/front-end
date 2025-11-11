@@ -23,4 +23,5 @@ export const handleUpgradeToPremium = devHandlers.upgradeToPremium;
 export const handleDowngradeToPremium = devHandlers.downgradeToPremium;
 export const handleCancelSubscription = devHandlers.cancelSubscription;
 export const handleReactivateSubscription = devHandlers.reactivate;
+export const handleRetryPayment = devHandlers.retryPayment;
 export const handleDeleteStripeHistory = devHandlers.deleteStripeHistory;

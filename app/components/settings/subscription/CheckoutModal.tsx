@@ -14,15 +14,17 @@ interface CheckoutModalProps {
   selectedTier: MembershipTier;
   onSuccess: () => void;
   onCancel: () => void;
+  returnUrl?: string;
 }
 
 interface CheckoutFormProps {
   selectedTier: MembershipTier;
   onSuccess: () => void;
   onCancel: () => void;
+  returnUrl?: string;
 }
 
-function CheckoutForm({ selectedTier, onSuccess, onCancel }: CheckoutFormProps) {
+function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +73,7 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel }: CheckoutFormProps) 
       const { error: submitError } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${window.location.origin}/settings?success=true`
+          return_url: returnUrl || `${window.location.origin}/settings?success=true`
         }
       });
 
@@ -190,7 +192,13 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel }: CheckoutFormProps) 
   );
 }
 
-export default function CheckoutModal({ clientSecret, selectedTier, onSuccess, onCancel }: CheckoutModalProps) {
+export default function CheckoutModal({
+  clientSecret,
+  selectedTier,
+  onSuccess,
+  onCancel,
+  returnUrl
+}: CheckoutModalProps) {
   const options = {
     clientSecret,
     appearance: {
@@ -200,7 +208,7 @@ export default function CheckoutModal({ clientSecret, selectedTier, onSuccess, o
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm selectedTier={selectedTier} onSuccess={onSuccess} onCancel={onCancel} />
+      <CheckoutForm selectedTier={selectedTier} onSuccess={onSuccess} onCancel={onCancel} returnUrl={returnUrl} />
     </Elements>
   );
 }
