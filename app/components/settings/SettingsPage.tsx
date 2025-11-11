@@ -6,6 +6,7 @@ import { useRequireAuth } from "@/lib/auth/hooks";
 import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
 import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
+import SettingsSidebar from "./SettingsSidebar";
 
 export default function SettingsPage() {
   const { isAuthenticated, isLoading: authLoading, user } = useRequireAuth();
@@ -14,6 +15,7 @@ export default function SettingsPage() {
   // State for checkout flows
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState("subscription");
 
   if (authLoading) {
     return (
@@ -31,31 +33,26 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary theme-transition">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <header className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Settings</h1>
-          <p className="text-text-secondary text-sm sm:text-base">Manage your account preferences and subscription</p>
-        </header>
+    <div className="flex min-h-screen bg-bg-secondary theme-transition">
+      <SettingsSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
 
-        <main className="space-y-6 sm:space-y-8">
-          <SubscriptionErrorBoundary>
-            <SubscriptionSection
-              user={user}
-              refreshUser={refreshUser}
-              selectedTier={selectedTier}
-              setSelectedTier={setSelectedTier}
-              clientSecret={clientSecret}
-              setClientSecret={setClientSecret}
-            />
-          </SubscriptionErrorBoundary>
-
-          {/* Placeholder for future settings sections */}
-          <div className="text-center py-8 text-text-secondary">
-            <p className="text-sm">More settings sections coming soon...</p>
-          </div>
-        </main>
-      </div>
+      {/* Main Content */}
+      <main className="flex-1 p-6">
+        <div className="space-y-6">
+          {activeSection === "subscription" && (
+            <SubscriptionErrorBoundary>
+              <SubscriptionSection
+                user={user}
+                refreshUser={refreshUser}
+                selectedTier={selectedTier}
+                setSelectedTier={setSelectedTier}
+                clientSecret={clientSecret}
+                setClientSecret={setClientSecret}
+              />
+            </SubscriptionErrorBoundary>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

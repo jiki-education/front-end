@@ -14,7 +14,8 @@ const navigationItems: Array<{ id: string; label: string; href?: string }> = [
   { id: "projects", label: "Projects", href: "/projects" },
   { id: "blog", label: "Blog", href: "/blog" },
   { id: "articles", label: "Articles", href: "/articles" },
-  { id: "concepts", label: "Concepts", href: "/concepts" }
+  { id: "concepts", label: "Concepts", href: "/concepts" },
+  { id: "settings", label: "Settings", href: "/settings" }
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
