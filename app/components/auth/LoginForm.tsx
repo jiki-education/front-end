@@ -115,7 +115,7 @@ export function LoginForm() {
           <div className="text-right">
             <Link
               href="/auth/forgot-password"
-              className="text-sm text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors"
+              className="text-15 text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors"
             >
               Forgot your password?
             </Link>
@@ -126,9 +126,9 @@ export function LoginForm() {
           type="submit"
           disabled={isLoading}
           className={`
-            w-full px-5 py-4 
+            w-full px-20 py-16 
             border-2 border-[#3b82f6] rounded-xl
-            text-base font-medium text-white
+            text-17 font-medium text-white
             bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
             shadow-lg shadow-blue-200
             transition-all duration-300
@@ -161,7 +161,7 @@ export function LoginForm() {
         </button>
 
         <div className="text-center">
-          <p className="text-sm text-[#4a5568]">
+          <p className="text-15 text-[#4a5568]">
             Didn&apos;t receive your confirmation email?{" "}
             <Link
               href="/auth/resend-confirmation"

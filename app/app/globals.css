@@ -347,6 +347,16 @@
     }
 }
 
+.ui-html {
+    overscroll-behavior: none;
+}
+
+.ui-body,
+.ui-body * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body {
     background: var(--background);
     color: var(--foreground);

@@ -36,7 +36,7 @@ export function GoogleAuthButton({ children, className, ...props }: GoogleAuthBu
       className={`
         w-full px-20 py-16
         border-2 border-[#e2e8f0] rounded-xl
-        text-base font-medium text-[#1a365d]
+        text-[17px] font-medium text-[#1a365d]
         bg-white
         shadow-sm
         transition-all duration-300

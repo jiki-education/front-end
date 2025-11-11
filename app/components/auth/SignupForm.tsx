@@ -57,7 +57,7 @@ export function SignupForm() {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-20">
       <GoogleAuthButton
         onClick={() => {
           /* Google OAuth not implemented yet */
@@ -119,9 +119,9 @@ export function SignupForm() {
           type="submit"
           disabled={isLoading}
           className={`
-            w-full px-5 py-4 
+            w-full px-20 py-16 
             border-2 border-[#3b82f6] rounded-xl
-            text-base font-medium text-white
+            text-17 font-medium text-white
             bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
             shadow-lg shadow-blue-200
             transition-all duration-300
@@ -154,7 +154,7 @@ export function SignupForm() {
         </button>
 
         <div className="text-center">
-          <p className="text-sm text-[#4a5568]">
+          <p className="text-15 text-[#4a5568]">
             Didn&apos;t receive your confirmation email?{" "}
             <Link
               href="/auth/resend-confirmation"

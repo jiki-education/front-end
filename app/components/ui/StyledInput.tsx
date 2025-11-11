@@ -127,11 +127,11 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
     }, [error]);
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-8">
         <label
           htmlFor={props.id}
           className={`
-            block text-sm font-medium leading-5 transition-colors duration-200
+            block text-[15px] font-semibold leading-5 transition-colors duration-200
             ${isFocused && !error ? "text-[#3b82f6]" : error ? "text-[#ef4444]" : "text-[#374151]"}
           `}
         >
