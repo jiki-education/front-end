@@ -32,6 +32,15 @@ export function getSubscriptionState(user: User): SubscriptionState {
     if (membership_type === "max") {
       return "active_max";
     }
+    // Handle edge case: active status with standard tier
+    // TypeScript infers this must be "standard" since premium/max are already handled
+    console.warn(
+      "Detected user with active subscription status but standard tier. " +
+        "This may indicate a data sync issue between Stripe and the application. " +
+        "Treating as previously subscribed.",
+      { subscription_status, membership_type, user_id: user.id }
+    );
+    return "previously_subscribed";
   }
 
   // Cancelling (scheduled for end of period)
