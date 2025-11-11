@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense } from "react";
 import { showConfirmation } from "@/lib/modal";
 import type { MembershipTier } from "@/lib/pricing";
+import toast from "react-hot-toast";
 import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
 import SubscriptionStateSwitch from "./SubscriptionStateSwitch";
@@ -88,9 +89,12 @@ export default function SubscriptionSection({
           setSelectedTier,
           setClientSecret
         });
+      } else if (user.membership_type === "premium") {
+        // Already on premium - this shouldn't happen if UI is correct
+        toast.error("Already on Premium tier");
       } else {
-        // Existing subscription - upgrade
-        await handlers.handleUpgradeToPremium(refreshUser);
+        // Max tier users trying to "upgrade" to premium is invalid
+        toast.error("Cannot downgrade from Max to Premium tier");
       }
     });
 
@@ -206,11 +210,17 @@ export default function SubscriptionSection({
     });
 
   // Checkout flow handlers
-  const handleCheckoutSuccess = () => {
+  const handleCheckoutSuccess = async () => {
     setClientSecret(null);
     setSelectedTier(null);
     // Refresh user data to get updated subscription status
-    void refreshUser();
+    try {
+      await refreshUser();
+      toast.success("Subscription activated successfully!");
+    } catch (error) {
+      toast.error("Subscription activated but failed to refresh user data. Please refresh the page.");
+      console.error("Failed to refresh user after checkout:", error);
+    }
   };
 
   const handleCheckoutCancel = () => {

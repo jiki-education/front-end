@@ -12,6 +12,7 @@ import {
   reactivateSubscription
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
+import { getApiUrl } from "@/lib/api/config";
 import toast from "react-hot-toast";
 
 // Types for handler functions
@@ -162,7 +163,7 @@ export async function handleDeleteStripeHistory({
 
   setDeletingStripeHistory(true);
   try {
-    const response = await fetch(`http://localhost:3060/dev/users/${userHandle}/clear_stripe_history`, {
+    const response = await fetch(getApiUrl(`/dev/users/${userHandle}/clear_stripe_history`), {
       method: "DELETE"
     });
 
