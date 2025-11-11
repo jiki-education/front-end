@@ -1,6 +1,8 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
+import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { StyledInput } from "@/components/ui/StyledInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -51,85 +53,125 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="flex flex-col gap-5">
+      <GoogleAuthButton
+        onClick={() => {
+          /* Google OAuth not implemented yet */
+        }}
+      >
+        Log In with Google
+      </GoogleAuthButton>
+
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-[#e2e8f0]"></div>
+        <span className="text-sm font-medium text-[#718096]">OR</span>
+        <div className="flex-1 h-px bg-[#e2e8f0]"></div>
+      </div>
+
       {error && (
-        <div className="rounded-md bg-red-50 p-4">
-          <p className="text-sm text-red-800">{error}</p>
+        <div className="bg-[#e0f5d2] border-2 border-[#78ce4d] rounded-lg p-4 text-[#2e571d] text-sm font-medium leading-relaxed">
+          {error}
         </div>
       )}
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email address
-        </label>
-        <div className="mt-1">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (validationErrors.email) {
-                setValidationErrors({ ...validationErrors, email: "" });
-              }
-            }}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          />
-          {validationErrors.email && <p className="mt-2 text-sm text-red-600">{validationErrors.email}</p>}
-        </div>
-      </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <StyledInput
+          id="email"
+          label="Email"
+          type="email"
+          autoComplete="email"
+          placeholder="Enter your email address"
+          icon="email"
+          value={email}
+          error={validationErrors.email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (validationErrors.email) {
+              setValidationErrors({ ...validationErrors, email: "" });
+            }
+          }}
+          required
+        />
 
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password
-        </label>
-        <div className="mt-1">
-          <input
+        <div className="flex flex-col gap-2.5 mb-2">
+          <StyledInput
             id="password"
-            name="password"
+            label="Password"
             type="password"
             autoComplete="current-password"
-            required
+            placeholder="Enter your password"
+            icon="password"
             value={password}
+            error={validationErrors.password}
             onChange={(e) => {
               setPassword(e.target.value);
               if (validationErrors.password) {
                 setValidationErrors({ ...validationErrors, password: "" });
               }
             }}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            required
           />
-          {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
-        </div>
-      </div>
 
-      <div className="flex items-center justify-between">
-        <div className="text-sm">
-          <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Forgot your password?
-          </Link>
+          <div className="text-right">
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors"
+            >
+              Forgot your password?
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div>
         <button
           type="submit"
           disabled={isLoading}
-          className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`
+            w-full px-5 py-4 
+            border-2 border-[#3b82f6] rounded-xl
+            text-base font-medium text-white
+            bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
+            shadow-lg shadow-blue-200
+            transition-all duration-300
+            hover:border-[#2563eb] hover:shadow-xl hover:shadow-blue-300 hover:ring-4 hover:ring-blue-100
+            focus:outline-none focus:ring-4 focus:ring-blue-100
+            disabled:cursor-not-allowed
+            ${isLoading ? "btn-loading" : ""}
+          `}
+          style={{
+            ...(isLoading && {
+              pointerEvents: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              opacity: 0.8
+            })
+          }}
         >
-          {isLoading ? "Signing in..." : "Sign in"}
+          {isLoading && (
+            <div
+              className="w-[18px] h-[18px] rounded-full border-2 animate-spin"
+              style={{
+                borderColor: "rgba(255, 255, 255, 0.3)",
+                borderTopColor: "white"
+              }}
+            />
+          )}
+          {isLoading ? "Logging in..." : "Log In"}
         </button>
-      </div>
 
-      <div className="text-center text-sm">
-        <span className="text-gray-600">Don&apos;t have an account? </span>
-        <Link href="/auth/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-          Sign up
-        </Link>
-      </div>
-    </form>
+        <div className="text-center">
+          <p className="text-sm text-[#4a5568]">
+            Didn&apos;t receive your confirmation email?{" "}
+            <Link
+              href="/auth/resend-confirmation"
+              className="text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors"
+            >
+              Resend it.
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 }
