@@ -14,8 +14,8 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
       {/* Left Side - Form */}
       <div className="flex-1 bg-white flex flex-col items-center justify-center px-8 py-10 lg:px-15">
         <div className="w-full max-w-[420px]">
-          <div className="mb-10">
-            <h1 className="text-5xl font-medium text-[#1a365d] mb-4 leading-none">{title}</h1>
+          <div className="mb-40">
+            <h1 className="text-5xl font-medium text-[#1a365d] mb-16 leading-normal">{title}</h1>
             <p className="text-lg text-[#718096] leading-relaxed">{subtitle}</p>
           </div>
           {children}

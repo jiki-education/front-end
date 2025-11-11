@@ -34,7 +34,7 @@ export function GoogleAuthButton({ children, className, ...props }: GoogleAuthBu
     <button
       type="button"
       className={`
-        w-full px-5 py-4
+        w-full px-20 py-16
         border-2 border-[#e2e8f0] rounded-xl
         text-base font-medium text-[#1a365d]
         bg-white

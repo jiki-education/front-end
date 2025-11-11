@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import type { ComponentProps } from "react";
 
 interface StyledInputProps extends ComponentProps<"input"> {
@@ -96,6 +96,8 @@ function PasswordIconDefault({ focused }: { focused: boolean }) {
 export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
   ({ label, error, icon, className, onFocus, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
@@ -107,43 +109,69 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
       onBlur?.(e);
     };
 
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+
+    // Trigger shake animation when error appears
+    React.useEffect(() => {
+      if (error) {
+        setIsAnimating(true);
+        const timer = setTimeout(() => setIsAnimating(false), 500);
+        return () => clearTimeout(timer);
+      }
+    }, [error]);
+
     return (
       <div className="space-y-2">
-        <label htmlFor={props.id} className="block text-sm font-medium text-[#374151] leading-5">
+        <label
+          htmlFor={props.id}
+          className={`
+            block text-sm font-medium leading-5 transition-colors duration-200
+            ${isFocused && !error ? "text-[#3b82f6]" : error ? "text-[#ef4444]" : "text-[#374151]"}
+          `}
+        >
           {label}
         </label>
         <div className={`relative ${error ? "form-field-error" : ""}`}>
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute left-16 top-1/2 -translate-y-1/2 z-10">
             {icon === "email" && (
               <>
-                <EmailIconDefault focused={isFocused} />
-                <EmailIcon focused={isFocused} />
+                <EmailIconDefault focused={isFocused || isHovered} />
+                <EmailIcon focused={isFocused || isHovered} />
               </>
             )}
             {icon === "password" && (
               <>
-                <PasswordIconDefault focused={isFocused} />
-                <PasswordIcon focused={isFocused} />
+                <PasswordIconDefault focused={isFocused || isHovered} />
+                <PasswordIcon focused={isFocused || isHovered} />
               </>
             )}
           </div>
           <input
             ref={ref}
             className={`
-              w-full pl-14 pr-4 py-4 
+              w-full p-16 pl-48
               border-2 rounded-xl
               text-base placeholder:text-[#9ca3af]
               transition-all duration-200
               focus:outline-none
               ${
                 error
-                  ? "border-[#ef4444] focus:border-[#ef4444] focus:ring-4 focus:ring-red-100"
-                  : "border-[#e5e7eb] focus:border-[#3b82f6] focus:ring-4 focus:ring-blue-100"
+                  ? "border-[#ef4444] hover:border-[#ef4444] focus:border-[#ef4444] focus:ring-4 focus:ring-red-100"
+                  : "border-[#e5e7eb] hover:border-[#3b82f6] focus:border-[#3b82f6] focus:ring-4 focus:ring-blue-100"
               }
+              ${isAnimating ? "animate-[shake_0.5s_ease-in-out]" : ""}
               ${className || ""}
             `}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             {...props}
           />
         </div>
