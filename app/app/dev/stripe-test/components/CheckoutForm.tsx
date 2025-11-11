@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
 import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 
@@ -9,14 +9,13 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const stripe = useStripe();
-  const elements = useElements();
+  const checkoutState = useCheckout();
   const pricingTier = getPricingTier(tier);
 
-  if (!stripe || !elements) {
+  if (checkoutState.type === "error") {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-sm text-red-800">Loading payment form...</p>
+        <p className="text-sm text-red-800">Error: {checkoutState.error.message}</p>
       </div>
     );
   }
@@ -24,28 +23,23 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!stripe || !elements) {
+    if (checkoutState.type !== "success") {
       return;
     }
 
+    const { checkout } = checkoutState;
     setIsLoading(true);
 
-    // Confirm the payment using Stripe's confirmPayment
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: window.location.href // Return to the same page after payment
-      }
-    });
+    // Confirm the payment
+    const confirmResult = await checkout.confirm();
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (error) {
-      setMessage(error.message || "An unexpected error occurred.");
+    if (confirmResult.type === "error") {
+      setMessage(confirmResult.error.message);
       setIsLoading(false);
     } else {
       // Payment succeeded - redirect will happen automatically
@@ -91,11 +85,10 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
         <button
           type="submit"
           id="submit"
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          disabled={isLoading || !stripe || !elements}
+          disabled={isLoading || checkoutState.type === "loading"}
           className="flex-1 px-4 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          {isLoading ? (
+          {isLoading || checkoutState.type === "loading" ? (
             <div className="spinner inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent"></div>
           ) : (
             `Pay $${pricingTier.price} now`

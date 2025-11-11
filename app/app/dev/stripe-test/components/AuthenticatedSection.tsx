@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { stripePromise } from "@/lib/stripe";
-import { Elements } from "@stripe/react-stripe-js";
+import { CheckoutProvider } from "@stripe/react-stripe-js/checkout";
 import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 import type { User } from "@/types/auth";
@@ -54,12 +54,12 @@ export function AuthenticatedSection({ user, refreshUser }: AuthenticatedSection
       {clientSecret && (
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">Checkout - {selectedTier && getPricingTier(selectedTier).name}</h2>
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
             <CheckoutForm
               tier={selectedTier!}
               onCancel={() => handleCheckoutCancel({ setClientSecret, setSelectedTier })}
             />
-          </Elements>
+          </CheckoutProvider>
         </div>
       )}
 
