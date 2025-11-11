@@ -127,7 +127,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
     }, [error]);
 
     return (
-      <div className="space-y-8">
+      <div className="mb-8 space-y-8">
         <label
           htmlFor={props.id}
           className={`
@@ -155,7 +155,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           <input
             ref={ref}
             className={`
-              w-full p-16 pl-48
+              w-full pr-16 py-[14px] pl-48
               border-2 rounded-xl
               text-base placeholder:text-[#9ca3af]
               transition-all duration-200

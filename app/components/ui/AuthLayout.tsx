@@ -15,7 +15,7 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
       <div className="flex-1 bg-white flex flex-col items-center justify-center px-8 py-10 lg:px-15">
         <div className="w-full max-w-[420px]">
           <div className="mb-40">
-            <h1 className="text-5xl font-medium text-[#1a365d] mb-16 leading-normal">{title}</h1>
+            <h1 className="text-5xl font-medium text-[#1a365d] mb-16 leading-[1.3]">{title}</h1>
             <p className="text-[19px] text-[#718096] leading-normal">{subtitle}</p>
           </div>
           {children}
@@ -42,7 +42,7 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
           </p>
 
           <div className="text-center">
-            <div className="text-[10px] text-white/40 uppercase tracking-wider mb-6">Created By</div>
+            <div className="text-[10px] text-white/40 uppercase tracking-[1.5px] mb-6">Created By</div>
             <div className="text-sm text-white/75 font-medium">The team behind Exercism</div>
           </div>
         </div>
