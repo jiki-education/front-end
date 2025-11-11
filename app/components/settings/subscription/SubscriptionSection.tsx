@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { showConfirmation } from "@/lib/modal";
 import type { MembershipTier } from "@/lib/pricing";
 import SettingsCard from "../ui/SettingsCard";
@@ -6,8 +6,10 @@ import SubscriptionStatus from "../ui/SubscriptionStatus";
 import SubscriptionStateSwitch from "./SubscriptionStateSwitch";
 import { getSubscriptionState } from "./utils";
 import * as handlers from "./handlers";
-import CheckoutModal from "./CheckoutModal";
 import type { User, SubscriptionData } from "./types";
+
+// Lazy load CheckoutModal since it's only shown when needed
+const CheckoutModal = lazy(() => import("./CheckoutModal"));
 
 interface SubscriptionSectionProps {
   user: User | null;
@@ -246,12 +248,23 @@ export default function SubscriptionSection({
 
       {/* Checkout Modal */}
       {clientSecret && selectedTier && (
-        <CheckoutModal
-          clientSecret={clientSecret}
-          selectedTier={selectedTier}
-          onSuccess={handleCheckoutSuccess}
-          onCancel={handleCheckoutCancel}
-        />
+        <Suspense
+          fallback={
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded-lg">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-4 text-center">Loading checkout...</p>
+              </div>
+            </div>
+          }
+        >
+          <CheckoutModal
+            clientSecret={clientSecret}
+            selectedTier={selectedTier}
+            onSuccess={handleCheckoutSuccess}
+            onCancel={handleCheckoutCancel}
+          />
+        </Suspense>
       )}
     </>
   );
