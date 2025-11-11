@@ -1,4 +1,5 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
+import { PRICING_TIERS } from "@/lib/pricing";
 
 interface NeverSubscribedStateProps {
   onUpgradeToPremium: () => void;
@@ -11,6 +12,9 @@ export default function NeverSubscribedState({
   onUpgradeToMax,
   isLoading = false
 }: NeverSubscribedStateProps) {
+  const premiumTier = PRICING_TIERS.premium;
+  const maxTier = PRICING_TIERS.max;
+
   return (
     <div className="bg-bg-primary p-4 rounded border border-border-secondary">
       <h3 className="font-medium text-text-primary mb-3">Upgrade Your Plan</h3>
@@ -20,14 +24,15 @@ export default function NeverSubscribedState({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border border-border-secondary rounded p-4">
-          <h4 className="font-medium text-text-primary mb-2">Premium</h4>
+          <h4 className="font-medium text-text-primary mb-2">{premiumTier.name}</h4>
           <p className="text-2xl font-bold text-text-primary mb-1">
-            $3<span className="text-sm font-normal">/month</span>
+            ${premiumTier.price}
+            <span className="text-sm font-normal">/month</span>
           </p>
           <ul className="text-sm text-text-secondary space-y-1 mb-4">
-            <li>• Advanced exercises</li>
-            <li>• Progress tracking</li>
-            <li>• Community access</li>
+            {premiumTier.features.map((feature, index) => (
+              <li key={index}>• {feature}</li>
+            ))}
           </ul>
           <SubscriptionButton variant="secondary" onClick={onUpgradeToPremium} loading={isLoading} className="w-full">
             Upgrade to Premium
@@ -38,15 +43,15 @@ export default function NeverSubscribedState({
           <div className="absolute -top-2 left-4">
             <span className="bg-purple-600 text-white text-xs px-2 py-1 rounded">Most Popular</span>
           </div>
-          <h4 className="font-medium text-text-primary mb-2">Max</h4>
+          <h4 className="font-medium text-text-primary mb-2">{maxTier.name}</h4>
           <p className="text-2xl font-bold text-text-primary mb-1">
-            $9<span className="text-sm font-normal">/month</span>
+            ${maxTier.price}
+            <span className="text-sm font-normal">/month</span>
           </p>
           <ul className="text-sm text-text-secondary space-y-1 mb-4">
-            <li>• Everything in Premium</li>
-            <li>• AI-powered hints</li>
-            <li>• Priority support</li>
-            <li>• Exclusive content</li>
+            {maxTier.features.map((feature, index) => (
+              <li key={index}>• {feature}</li>
+            ))}
           </ul>
           <SubscriptionButton variant="primary" onClick={onUpgradeToMax} loading={isLoading} className="w-full">
             Upgrade to Max

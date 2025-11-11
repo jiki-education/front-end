@@ -1,11 +1,19 @@
 "use client";
 
+import { useState } from "react";
+import { useAuthStore } from "@/stores/authStore";
 import { useRequireAuth } from "@/lib/auth/hooks";
+import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
 import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
 
 export default function SettingsPage() {
-  const { isAuthenticated, isLoading: authLoading } = useRequireAuth();
+  const { isAuthenticated, isLoading: authLoading, user } = useRequireAuth();
+  const { refreshUser } = useAuthStore();
+
+  // State for checkout flows
+  const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   if (authLoading) {
     return (
@@ -32,7 +40,14 @@ export default function SettingsPage() {
 
         <main className="space-y-6 sm:space-y-8">
           <SubscriptionErrorBoundary>
-            <SubscriptionSection />
+            <SubscriptionSection
+              user={user}
+              refreshUser={refreshUser}
+              selectedTier={selectedTier}
+              setSelectedTier={setSelectedTier}
+              clientSecret={clientSecret}
+              setClientSecret={setClientSecret}
+            />
           </SubscriptionErrorBoundary>
 
           {/* Placeholder for future settings sections */}

@@ -80,7 +80,7 @@ export default function SubscriptionStateSwitch({
       return (
         <CancellingScheduledState
           cancellationDate={subscriptionData.cancellationDate || "Unknown"}
-          tier={subscriptionData.tier && subscriptionData.tier !== "free" ? subscriptionData.tier : "premium"}
+          tier={subscriptionData.tier && subscriptionData.tier !== "standard" ? subscriptionData.tier : "premium"}
           onReactivate={onReactivate}
           onUpdatePayment={onUpdatePayment}
           isLoading={isLoading}
@@ -90,7 +90,7 @@ export default function SubscriptionStateSwitch({
     case "payment_failed_grace":
       return (
         <PaymentFailedGraceState
-          tier={subscriptionData.tier && subscriptionData.tier !== "free" ? subscriptionData.tier : "premium"}
+          tier={subscriptionData.tier && subscriptionData.tier !== "standard" ? subscriptionData.tier : "premium"}
           graceEndDate={subscriptionData.graceEndDate || "Unknown"}
           lastPaymentAttempt={subscriptionData.lastPaymentAttempt}
           onUpdatePayment={onUpdatePayment}
@@ -123,7 +123,7 @@ export default function SubscriptionStateSwitch({
     case "incomplete_payment":
       return (
         <IncompletePaymentState
-          tier={subscriptionData.tier && subscriptionData.tier !== "free" ? subscriptionData.tier : "premium"}
+          tier={subscriptionData.tier && subscriptionData.tier !== "standard" ? subscriptionData.tier : "premium"}
           onCompletePayment={onCompletePayment}
           isLoading={isLoading}
         />

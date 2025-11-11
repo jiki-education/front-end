@@ -1,77 +1,112 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { showConfirmation } from "@/lib/modal";
+import type { MembershipTier } from "@/lib/pricing";
 import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
 import SubscriptionStateSwitch from "./SubscriptionStateSwitch";
-import type { SubscriptionState, SubscriptionData } from "./types";
+import { getSubscriptionState } from "./utils";
+import * as handlers from "./handlers";
+import CheckoutModal from "./CheckoutModal";
+import type { User, SubscriptionData } from "./types";
 
 interface SubscriptionSectionProps {
+  user: User | null;
+  refreshUser: () => Promise<void>;
+  selectedTier: MembershipTier | null;
+  setSelectedTier: (tier: MembershipTier | null) => void;
+  clientSecret: string | null;
+  setClientSecret: (secret: string | null) => void;
   className?: string;
 }
 
-export default function SubscriptionSection({ className = "" }: SubscriptionSectionProps) {
+export default function SubscriptionSection({
+  user,
+  refreshUser,
+  selectedTier,
+  setSelectedTier,
+  clientSecret,
+  setClientSecret,
+  className = ""
+}: SubscriptionSectionProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  // For now, mock the subscription state - this will be replaced with real data from API
-  const subscriptionState: SubscriptionState = "never_subscribed"; // This will come from API
-  const currentTier = "free" as const;
-  const subscriptionStatus = "active" as const;
+  // If no user, show loading state
+  if (!user) {
+    return (
+      <SettingsCard
+        title="Subscription"
+        description="Manage your subscription plan and billing details"
+        className={className}
+      >
+        <div className="flex items-center justify-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-link-primary"></div>
+          <span className="ml-3 text-text-secondary">Loading subscription data...</span>
+        </div>
+      </SettingsCard>
+    );
+  }
 
-  // Mock subscription data - this will come from API
+  // Get real subscription state from user data
+  const subscriptionState = getSubscriptionState(user);
+  const currentTier = user.membership_type;
+  const subscriptionStatus = user.subscription_status;
+
+  // Create subscription data from real user data
   const subscriptionData: SubscriptionData = {
-    tier: "premium",
-    status: "active",
-    nextBillingDate: "December 15, 2024",
-    cancellationDate: "January 15, 2025",
-    graceEndDate: "November 20, 2024",
-    lastPaymentAttempt: "November 10, 2024",
-    previousTier: "max",
-    lastActiveDate: "October 15, 2024"
+    tier: user.membership_type,
+    status: user.subscription_status,
+    // Note: These additional fields would come from the API in a real implementation
+    // For now, we'll use basic data from the user object
+    nextBillingDate: user.subscription?.subscription_valid_until,
+    graceEndDate: user.subscription?.grace_period_ends_at || undefined,
+    previousTier: undefined // This would need to come from API
   };
 
-  // Helper function to handle async operations with loading state and user feedback
-  const handleAsyncOperation = async (operation: () => Promise<void>, actionName: string, successMessage?: string) => {
+  // Helper function to handle async operations with loading state
+  const handleAsyncOperation = async (operation: () => Promise<void>) => {
     setIsLoading(true);
-
     try {
       await operation();
-
-      // Show success toast if provided
-      if (successMessage) {
-        toast.success(successMessage);
-      }
     } catch (error) {
-      console.error(`Failed to ${actionName}:`, error);
-
-      // Show error toast with user-friendly message
-      const errorMessage = error instanceof Error ? error.message : `Failed to ${actionName}. Please try again.`;
-      toast.error(errorMessage);
+      console.error("Operation failed:", error);
+      // Error handling is done in individual handlers
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Event handlers for all subscription actions with user feedback
+  // Event handlers for all subscription actions using real Stripe integration
   const handleUpgradeToPremium = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Implement Stripe integration for Premium upgrade
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "upgrade to Premium",
-      "Successfully upgraded to Premium!"
-    );
+    handleAsyncOperation(async () => {
+      if (user.membership_type === "standard") {
+        // New subscription - use checkout flow
+        await handlers.handleSubscribe({
+          tier: "premium",
+          userEmail: user.email,
+          setSelectedTier,
+          setClientSecret
+        });
+      } else {
+        // Existing subscription - upgrade
+        await handlers.handleUpgradeToPremium(refreshUser);
+      }
+    });
 
   const handleUpgradeToMax = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Implement Stripe integration for Max upgrade
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "upgrade to Max",
-      "Successfully upgraded to Max!"
-    );
+    handleAsyncOperation(async () => {
+      if (user.membership_type === "standard") {
+        // New subscription - use checkout flow
+        await handlers.handleSubscribe({
+          tier: "max",
+          userEmail: user.email,
+          setSelectedTier,
+          setClientSecret
+        });
+      } else {
+        // Existing subscription - upgrade
+        await handlers.handleUpgradeToMax(refreshUser);
+      }
+    });
 
   const handleDowngradeToPremium = () => {
     showConfirmation({
@@ -80,14 +115,9 @@ export default function SubscriptionSection({ className = "" }: SubscriptionSect
         "You'll lose access to Max-exclusive features like AI-powered hints and priority support, but keep all Premium features. Changes take effect at your next billing cycle.",
       variant: "default",
       onConfirm: () => {
-        void handleAsyncOperation(
-          async () => {
-            // TODO: Implement Stripe integration for downgrade to Premium
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-          },
-          "downgrade to Premium",
-          "Successfully downgraded to Premium"
-        );
+        void handleAsyncOperation(async () => {
+          await handlers.handleDowngradeToPremium(refreshUser);
+        });
       },
       onCancel: () => {
         // User cancelled the action
@@ -96,14 +126,9 @@ export default function SubscriptionSection({ className = "" }: SubscriptionSect
   };
 
   const handleUpdatePayment = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Open Stripe customer portal for payment method update
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "update payment method",
-      "Payment method updated successfully"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleOpenPortal();
+    });
 
   const handleCancel = () => {
     showConfirmation({
@@ -112,14 +137,9 @@ export default function SubscriptionSection({ className = "" }: SubscriptionSect
         "Are you sure you want to cancel your subscription? You'll continue to have access until your current billing period ends, but you won't be charged again.",
       variant: "danger",
       onConfirm: () => {
-        void handleAsyncOperation(
-          async () => {
-            // TODO: Implement subscription cancellation
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-          },
-          "cancel subscription",
-          "Subscription cancelled successfully"
-        );
+        void handleAsyncOperation(async () => {
+          await handlers.handleCancelSubscription(refreshUser);
+        });
       },
       onCancel: () => {
         // User cancelled the action - no toast needed
@@ -128,100 +148,111 @@ export default function SubscriptionSection({ className = "" }: SubscriptionSect
   };
 
   const handleReactivate = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Implement subscription reactivation
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "reactivate subscription",
-      "Subscription reactivated successfully"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleReactivateSubscription(refreshUser);
+    });
 
   const handleRetryPayment = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Retry failed payment
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "retry payment",
-      "Payment processed successfully"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleRetryPayment(refreshUser);
+    });
 
   const handleResubscribeToPremium = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Implement resubscription to Premium
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "resubscribe to Premium",
-      "Successfully resubscribed to Premium!"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleSubscribe({
+        tier: "premium",
+        userEmail: user.email,
+        setSelectedTier,
+        setClientSecret
+      });
+    });
 
   const handleResubscribeToMax = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Implement resubscription to Max
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "resubscribe to Max",
-      "Successfully resubscribed to Max!"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleSubscribe({
+        tier: "max",
+        userEmail: user.email,
+        setSelectedTier,
+        setClientSecret
+      });
+    });
 
   const handleCompletePayment = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Complete incomplete payment setup
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "complete payment setup",
-      "Payment setup completed successfully"
-    );
+    handleAsyncOperation(async () => {
+      // For incomplete payment, direct to portal to complete setup
+      await handlers.handleOpenPortal();
+    });
 
   const handleTryPremiumAgain = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Restart Premium subscription process
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "start Premium subscription",
-      "Premium subscription started successfully!"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleSubscribe({
+        tier: "premium",
+        userEmail: user.email,
+        setSelectedTier,
+        setClientSecret
+      });
+    });
 
   const handleTryMaxAgain = () =>
-    handleAsyncOperation(
-      async () => {
-        // TODO: Restart Max subscription process
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Mock delay
-      },
-      "start Max subscription",
-      "Max subscription started successfully!"
-    );
+    handleAsyncOperation(async () => {
+      await handlers.handleSubscribe({
+        tier: "max",
+        userEmail: user.email,
+        setSelectedTier,
+        setClientSecret
+      });
+    });
+
+  // Checkout flow handlers
+  const handleCheckoutSuccess = () => {
+    setClientSecret(null);
+    setSelectedTier(null);
+    // Refresh user data to get updated subscription status
+    void refreshUser();
+  };
+
+  const handleCheckoutCancel = () => {
+    setClientSecret(null);
+    setSelectedTier(null);
+  };
 
   return (
-    <SettingsCard
-      title="Subscription"
-      description="Manage your subscription plan and billing details"
-      className={className}
-    >
-      <SubscriptionStatus tier={currentTier} status={subscriptionStatus} />
+    <>
+      <SettingsCard
+        title="Subscription"
+        description="Manage your subscription plan and billing details"
+        className={className}
+      >
+        <SubscriptionStatus tier={currentTier} status={subscriptionStatus} />
 
-      <SubscriptionStateSwitch
-        subscriptionState={subscriptionState}
-        subscriptionData={subscriptionData}
-        isLoading={isLoading}
-        onUpgradeToPremium={handleUpgradeToPremium}
-        onUpgradeToMax={handleUpgradeToMax}
-        onDowngradeToPremium={handleDowngradeToPremium}
-        onUpdatePayment={handleUpdatePayment}
-        onCancel={handleCancel}
-        onReactivate={handleReactivate}
-        onRetryPayment={handleRetryPayment}
-        onResubscribeToPremium={handleResubscribeToPremium}
-        onResubscribeToMax={handleResubscribeToMax}
-        onCompletePayment={handleCompletePayment}
-        onTryPremiumAgain={handleTryPremiumAgain}
-        onTryMaxAgain={handleTryMaxAgain}
-      />
-    </SettingsCard>
+        <SubscriptionStateSwitch
+          subscriptionState={subscriptionState}
+          subscriptionData={subscriptionData}
+          isLoading={isLoading}
+          onUpgradeToPremium={handleUpgradeToPremium}
+          onUpgradeToMax={handleUpgradeToMax}
+          onDowngradeToPremium={handleDowngradeToPremium}
+          onUpdatePayment={handleUpdatePayment}
+          onCancel={handleCancel}
+          onReactivate={handleReactivate}
+          onRetryPayment={handleRetryPayment}
+          onResubscribeToPremium={handleResubscribeToPremium}
+          onResubscribeToMax={handleResubscribeToMax}
+          onCompletePayment={handleCompletePayment}
+          onTryPremiumAgain={handleTryPremiumAgain}
+          onTryMaxAgain={handleTryMaxAgain}
+        />
+      </SettingsCard>
+
+      {/* Checkout Modal */}
+      {clientSecret && selectedTier && (
+        <CheckoutModal
+          clientSecret={clientSecret}
+          selectedTier={selectedTier}
+          onSuccess={handleCheckoutSuccess}
+          onCancel={handleCheckoutCancel}
+        />
+      )}
+    </>
   );
 }

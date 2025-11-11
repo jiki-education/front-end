@@ -1,4 +1,5 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
+import { PRICING_TIERS } from "@/lib/pricing";
 
 interface ActivePremiumStateProps {
   nextBillingDate?: string;
@@ -15,6 +16,9 @@ export default function ActivePremiumState({
   onCancel,
   isLoading = false
 }: ActivePremiumStateProps) {
+  const premiumTier = PRICING_TIERS.premium;
+  const maxTier = PRICING_TIERS.max;
+
   return (
     <div className="space-y-4">
       <div className="bg-bg-primary p-4 rounded border border-border-secondary">
@@ -25,23 +29,17 @@ export default function ActivePremiumState({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <ul className="text-sm text-text-secondary space-y-2">
-            <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              Advanced exercises
-            </li>
-            <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              Progress tracking
-            </li>
-            <li className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              Community access
-            </li>
+            {premiumTier.features.map((feature, index) => (
+              <li key={index} className="flex items-center">
+                <span className="text-green-500 mr-2">✓</span>
+                {feature}
+              </li>
+            ))}
           </ul>
 
           <div className="text-sm">
             <p className="text-text-secondary mb-1">Billing Information</p>
-            <p className="font-medium text-text-primary">$3.00/month</p>
+            <p className="font-medium text-text-primary">${premiumTier.price}.00/month</p>
             {nextBillingDate && <p className="text-text-secondary">Next billing: {nextBillingDate}</p>}
           </div>
         </div>
@@ -50,15 +48,16 @@ export default function ActivePremiumState({
       <div className="bg-bg-primary p-4 rounded border border-border-secondary">
         <h3 className="font-medium text-text-primary mb-3">Upgrade to Max</h3>
         <p className="text-text-secondary text-sm mb-4">
-          Get AI-powered hints, priority support, and exclusive content for just $6 more per month.
+          {maxTier.description} for just ${maxTier.price - premiumTier.price} more per month.
         </p>
         <div className="border border-purple-200 rounded p-4 mb-4">
-          <h4 className="font-medium text-text-primary mb-2">Max Plan - $9/month</h4>
+          <h4 className="font-medium text-text-primary mb-2">
+            {maxTier.name} Plan - ${maxTier.price}/month
+          </h4>
           <ul className="text-sm text-text-secondary space-y-1">
-            <li>• Everything in Premium</li>
-            <li>• AI-powered hints</li>
-            <li>• Priority support</li>
-            <li>• Exclusive content</li>
+            {maxTier.features.map((feature, index) => (
+              <li key={index}>• {feature}</li>
+            ))}
           </ul>
         </div>
         <SubscriptionButton variant="primary" onClick={onUpgradeToMax} loading={isLoading} className="w-full sm:w-auto">

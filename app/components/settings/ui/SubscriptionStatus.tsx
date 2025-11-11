@@ -1,6 +1,8 @@
+import type { MembershipTier, SubscriptionStatus } from "../subscription/types";
+
 interface SubscriptionStatusProps {
-  tier: "free" | "premium" | "max";
-  status?: "active" | "canceled" | "past_due" | "incomplete";
+  tier: MembershipTier;
+  status?: SubscriptionStatus;
   nextBillingDate?: string;
   className?: string;
 }
@@ -12,8 +14,8 @@ export default function SubscriptionStatus({
   className = ""
 }: SubscriptionStatusProps) {
   const tierConfig = {
-    free: {
-      name: "Free Plan",
+    standard: {
+      name: "Standard Plan",
       color: "text-text-secondary",
       bgColor: "bg-gray-100",
       description: "Basic features included"
@@ -43,15 +45,25 @@ export default function SubscriptionStatus({
       color: "text-orange-700",
       bgColor: "bg-orange-50"
     },
-    past_due: {
-      text: "Past Due",
+    payment_failed: {
+      text: "Payment Failed",
       color: "text-red-700",
       bgColor: "bg-red-50"
+    },
+    cancelling: {
+      text: "Cancelling",
+      color: "text-orange-700",
+      bgColor: "bg-orange-50"
     },
     incomplete: {
       text: "Incomplete",
       color: "text-yellow-700",
       bgColor: "bg-yellow-50"
+    },
+    never_subscribed: {
+      text: "Not Subscribed",
+      color: "text-gray-700",
+      bgColor: "bg-gray-50"
     }
   };
 
@@ -73,7 +85,7 @@ export default function SubscriptionStatus({
           >
             {tierInfo.name}
           </div>
-          {tier !== "free" && (
+          {tier !== "standard" && (
             <div
               className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
               role="status"
@@ -99,10 +111,16 @@ export default function SubscriptionStatus({
             Service continues until period end
           </p>
         )}
-        {status === "past_due" && (
+        {status === "payment_failed" && (
           <p className="mt-1">
             <span className="sr-only">Payment issue: </span>
             Payment failed - please update payment method
+          </p>
+        )}
+        {status === "cancelling" && (
+          <p className="mt-1">
+            <span className="sr-only">Cancellation in progress: </span>
+            Cancellation scheduled - access until period end
           </p>
         )}
         {status === "incomplete" && (

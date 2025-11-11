@@ -1,11 +1,16 @@
 /**
  * Comprehensive TypeScript types for subscription management system
+ * Updated to match real Jiki system types
  */
 
-export type SubscriptionTier = "free" | "premium" | "max";
+import type { MembershipTier } from "@/lib/pricing";
+import type { User } from "@/types/auth";
+import type { SubscriptionStatus } from "@/types/subscription";
 
-export type SubscriptionStatus = "active" | "canceled" | "past_due" | "incomplete";
+// Re-export real system types
+export type { MembershipTier, User, SubscriptionStatus };
 
+// Subscription state for UI logic
 export type SubscriptionState =
   | "never_subscribed"
   | "incomplete_payment"
@@ -17,14 +22,15 @@ export type SubscriptionState =
   | "previously_subscribed"
   | "incomplete_expired";
 
+// Updated to match real user subscription structure
 export interface SubscriptionData {
-  tier?: SubscriptionTier;
+  tier?: MembershipTier;
   status?: SubscriptionStatus;
   nextBillingDate?: string;
   cancellationDate?: string;
   graceEndDate?: string;
   lastPaymentAttempt?: string;
-  previousTier?: Exclude<SubscriptionTier, "free">;
+  previousTier?: Exclude<MembershipTier, "standard">;
   lastActiveDate?: string;
 }
 
@@ -69,13 +75,13 @@ export interface ActiveMaxProps extends ActiveSubscriptionProps {
 
 export interface CancellingScheduledProps extends SubscriptionStateProps {
   cancellationDate: string;
-  tier: Exclude<SubscriptionTier, "free">;
+  tier: Exclude<MembershipTier, "standard">;
   onReactivate: SubscriptionActions["onReactivate"];
   onUpdatePayment: SubscriptionActions["onUpdatePayment"];
 }
 
 export interface PaymentFailedGraceProps extends SubscriptionStateProps {
-  tier: Exclude<SubscriptionTier, "free">;
+  tier: Exclude<MembershipTier, "standard">;
   graceEndDate: string;
   lastPaymentAttempt?: string;
   onUpdatePayment: SubscriptionActions["onUpdatePayment"];
@@ -83,20 +89,20 @@ export interface PaymentFailedGraceProps extends SubscriptionStateProps {
 }
 
 export interface PaymentFailedExpiredProps extends SubscriptionStateProps {
-  previousTier: Exclude<SubscriptionTier, "free">;
+  previousTier: Exclude<MembershipTier, "standard">;
   onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
   onResubscribeToMax: SubscriptionActions["onResubscribeToMax"];
 }
 
 export interface PreviouslySubscribedProps extends SubscriptionStateProps {
-  previousTier: Exclude<SubscriptionTier, "free">;
+  previousTier: Exclude<MembershipTier, "standard">;
   lastActiveDate?: string;
   onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
   onResubscribeToMax: SubscriptionActions["onResubscribeToMax"];
 }
 
 export interface IncompletePaymentProps extends SubscriptionStateProps {
-  tier: Exclude<SubscriptionTier, "free">;
+  tier: Exclude<MembershipTier, "standard">;
   onCompletePayment: SubscriptionActions["onCompletePayment"];
 }
 
