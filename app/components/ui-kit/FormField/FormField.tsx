@@ -47,6 +47,9 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
       // Size-specific styles
       "px-16 py-[14px] text-[16px]",
 
+      // Placeholder styling
+      "placeholder:text-gray-400",
+
       // Icon spacing (add left padding when icon is present)
       (icon || focusedIcon) && "pl-48",
 

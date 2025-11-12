@@ -2,7 +2,8 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
-import { StyledInput } from "@/components/ui/StyledInput";
+import { FormField, Button } from "@/components/ui-kit";
+import { EmailIcon, EmailIconFocused, PasswordIcon, PasswordIconFocused } from "@/components/ui-kit/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -75,13 +76,14 @@ export function LoginForm() {
       )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <StyledInput
+        <FormField
           id="email"
           label="Email"
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon="email"
+          icon={<EmailIcon />}
+          focusedIcon={<EmailIconFocused />}
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -94,13 +96,14 @@ export function LoginForm() {
         />
 
         <div className="flex flex-col gap-2.5 mb-2">
-          <StyledInput
+          <FormField
             id="password"
             label="Password"
             type="password"
             autoComplete="current-password"
             placeholder="Enter your password"
-            icon="password"
+            icon={<PasswordIcon />}
+            focusedIcon={<PasswordIconFocused />}
             value={password}
             error={validationErrors.password}
             onChange={(e) => {
@@ -122,43 +125,9 @@ export function LoginForm() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`
-            w-full px-20 py-16 
-            border-2 border-[#3b82f6] rounded-xl
-            text-17 font-medium text-white
-            bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
-            shadow-lg shadow-blue-200
-            transition-all duration-300
-            hover:border-[#2563eb] hover:shadow-xl hover:shadow-blue-300 hover:ring-4 hover:ring-blue-100
-            focus:outline-none focus:ring-4 focus:ring-blue-100
-            disabled:cursor-not-allowed
-            ${isLoading ? "btn-loading" : ""}
-          `}
-          style={{
-            ...(isLoading && {
-              pointerEvents: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              opacity: 0.8
-            })
-          }}
-        >
-          {isLoading && (
-            <div
-              className="w-[18px] h-[18px] rounded-full border-2 animate-spin"
-              style={{
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                borderTopColor: "white"
-              }}
-            />
-          )}
+        <Button type="submit" variant="primary" loading={isLoading} disabled={isLoading} fullWidth>
           {isLoading ? "Logging in..." : "Log In"}
-        </button>
+        </Button>
 
         <div className="text-center">
           <p className="text-15 text-[#4a5568]">
