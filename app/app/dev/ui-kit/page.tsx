@@ -1,13 +1,7 @@
 "use client";
 
 import { Button, ButtonGroup, FormField, FormFieldGroup, PageHeader, PageTabs, Link } from "@/components/ui-kit";
-import { EmailIcon, PasswordIcon, UserIcon } from "./icons";
-
-const tabs = [
-  { id: "overview", label: "Overview" },
-  { id: "features", label: "Features" },
-  { id: "pricing", label: "Pricing" }
-];
+import { EmailIcon, PasswordIcon, UserIcon, AllIcon, InProgressIcon, CompleteIcon, LockedIcon } from "./icons";
 
 export default function UIKitDemoPage() {
   return (
@@ -189,9 +183,69 @@ export default function UIKitDemoPage() {
 
           <div className="bg-gray-50 rounded-lg p-24">
             <p className="text-gray-600 text-sm mb-24">
-              Horizontal tab navigation for filtering or switching page views.
+              Horizontal tab navigation for filtering or switching page views. Supports color variants (blue, purple,
+              green, gray).
             </p>
-            <PageTabs tabs={tabs} activeTabId="overview" onTabChange={() => {}} />
+
+            <div className="space-y-32">
+              {/* Blue (Default) */}
+              <div>
+                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">
+                  Blue Active (Default)
+                </div>
+                <PageTabs
+                  tabs={[
+                    { id: "all", label: "All", icon: <AllIcon /> },
+                    { id: "not-started", label: "Not started", icon: <InProgressIcon /> }
+                  ]}
+                  activeTabId="all"
+                  onTabChange={() => {}}
+                  color="blue"
+                />
+              </div>
+
+              {/* Purple */}
+              <div>
+                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Purple Active</div>
+                <PageTabs
+                  tabs={[
+                    { id: "in-progress", label: "In Progress", icon: <InProgressIcon /> },
+                    { id: "other", label: "Other Tab" }
+                  ]}
+                  activeTabId="in-progress"
+                  onTabChange={() => {}}
+                  color="purple"
+                />
+              </div>
+
+              {/* Green */}
+              <div>
+                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Green Active</div>
+                <PageTabs
+                  tabs={[
+                    { id: "complete", label: "Complete", icon: <CompleteIcon /> },
+                    { id: "other2", label: "Other Tab" }
+                  ]}
+                  activeTabId="complete"
+                  onTabChange={() => {}}
+                  color="green"
+                />
+              </div>
+
+              {/* Gray */}
+              <div>
+                <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Gray Active</div>
+                <PageTabs
+                  tabs={[
+                    { id: "locked", label: "Locked", icon: <LockedIcon /> },
+                    { id: "other3", label: "Other Tab" }
+                  ]}
+                  activeTabId="locked"
+                  onTabChange={() => {}}
+                  color="gray"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

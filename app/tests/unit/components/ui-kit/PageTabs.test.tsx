@@ -223,7 +223,7 @@ describe("PageTabs", () => {
       defaultTabs.forEach((_, index) => {
         const icon = screen.getByTestId(`tab-${index + 1}-icon`);
         const iconContainer = icon.parentElement;
-        expect(iconContainer).toHaveClass("w-4", "h-4", "flex-shrink-0");
+        expect(iconContainer).toHaveClass("w-16", "h-16", "flex-shrink-0");
       });
     });
   });

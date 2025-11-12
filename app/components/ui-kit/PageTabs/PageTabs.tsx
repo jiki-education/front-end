@@ -45,15 +45,14 @@ export function PageTabs({ tabs, activeTabId, onTabChange, color = "blue", class
       "font-sans relative inline-flex items-center gap-8",
       "transition-colors duration-200 ease-in-out",
 
-      // Default color
-      "text-gray-500",
+      // Text color - conditional based on active state
+      isActive ? colorClasses.text : "text-gray-500",
 
       // Hover state
       "hover:text-blue-500",
 
-      // Active state
+      // Active state underline
       isActive && [
-        colorClasses.text,
         "relative",
         // Active underline
         'after:content-[""] after:absolute after:bottom-0 after:left-0 after:right-0',
@@ -66,7 +65,7 @@ export function PageTabs({ tabs, activeTabId, onTabChange, color = "blue", class
       .join(" ");
   };
 
-  const iconClasses = "w-4 h-4 flex-shrink-0";
+  const iconClasses = "w-16 h-16 flex-shrink-0";
 
   return (
     <div className={containerClasses} {...props}>
