@@ -97,6 +97,38 @@ export async function signup(userData: SignupData): Promise<User> {
 }
 
 /**
+ * Google OAuth login
+ * POST /auth/google
+ */
+export async function googleLogin(credential: string): Promise<User> {
+  const response = await api.post<AuthResponse>("/auth/google", { token: credential });
+
+  // Try to extract JWT access token from response headers first
+  let accessToken = extractTokenFromHeaders(response.headers);
+
+  // If not in headers, check response body
+  if (!accessToken) {
+    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
+  }
+
+  // Extract refresh token from response body
+  const refreshToken = response.data.refresh_token;
+
+  // Store access token (short-lived, sessionStorage)
+  if (accessToken) {
+    const expiry = getTokenExpiry(accessToken);
+    setToken(accessToken, expiry || undefined);
+  }
+
+  // Store refresh token (long-lived, localStorage)
+  if (refreshToken) {
+    setRefreshToken(refreshToken);
+  }
+
+  return response.data.user;
+}
+
+/**
  * User logout
  * DELETE /auth/logout
  */
