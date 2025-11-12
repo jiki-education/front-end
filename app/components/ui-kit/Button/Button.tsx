@@ -27,11 +27,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // Base button classes
     const baseClasses = [
       // Layout and positioning
-      "inline-flex items-center justify-center gap-3",
+      "inline-flex items-center justify-center gap-12",
       "text-center font-medium cursor-pointer",
 
       // Size-specific styles
-      "px-5 py-4 text-[17px] rounded-[12px]",
+      "px-20 py-16 text-[17px] rounded-[12px]",
 
       // Border and transitions
       "border-2",

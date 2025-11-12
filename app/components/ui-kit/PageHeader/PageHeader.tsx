@@ -8,11 +8,11 @@
 import type { PageHeaderProps } from "./types";
 
 export function PageHeader({ title, subtitle, icon, className = "", ...props }: PageHeaderProps) {
-  const containerClasses = ["mb-6", className].filter(Boolean).join(" ");
+  const containerClasses = ["mb-24", className].filter(Boolean).join(" ");
 
   const titleClasses = [
     "text-[34px] font-semibold mb-[13px] text-gray-950",
-    "flex items-center gap-3",
+    "flex items-center gap-12",
     // Text wrap balance for better line breaks
     "text-balance"
   ].join(" ");

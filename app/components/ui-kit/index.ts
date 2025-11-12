@@ -9,10 +9,10 @@
  */
 
 // Component exports
-export { Button } from "./Button";
-export { FormField } from "./FormField";
+export { Button, ButtonGroup, useButtonGroup, ButtonWithRenderProps } from "./Button";
+export { FormField, FormFieldGroup, useFormFieldGroup, FormFieldWithRenderProps } from "./FormField";
 export { PageHeader } from "./PageHeader";
-export { PageTabs } from "./PageTabs";
+export { PageTabs, TabContainer, useTabContainer, TabPanel, PageTabsWithRenderProps } from "./PageTabs";
 export { Link } from "./Link";
 
 // Type exports

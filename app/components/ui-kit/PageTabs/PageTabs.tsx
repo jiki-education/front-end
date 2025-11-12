@@ -9,7 +9,7 @@ import type { PageTabsProps, TabItem } from "./types";
 import type { ColorVariant } from "../types";
 
 export function PageTabs({ tabs, activeTabId, onTabChange, color = "blue", className = "", ...props }: PageTabsProps) {
-  const containerClasses = ["flex gap-6 mb-[26px] flex-wrap", className].filter(Boolean).join(" ");
+  const containerClasses = ["flex gap-24 mb-[26px] flex-wrap", className].filter(Boolean).join(" ");
 
   // Color variant classes for active states
   const getColorClasses = (variant: ColorVariant) => {
@@ -41,8 +41,8 @@ export function PageTabs({ tabs, activeTabId, onTabChange, color = "blue", class
 
     return [
       // Base styles
-      "py-2 bg-transparent border-none text-[15px] font-normal cursor-pointer",
-      "font-sans relative inline-flex items-center gap-2",
+      "py-8 bg-transparent border-none text-[15px] font-normal cursor-pointer",
+      "font-sans relative inline-flex items-center gap-8",
       "transition-colors duration-200 ease-in-out",
 
       // Default color

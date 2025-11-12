@@ -5,6 +5,7 @@
  * Based on the UI kit design system.
  */
 
+"use client";
 import { forwardRef, useState, useId } from "react";
 import type { FormFieldProps } from "./types";
 import { TRANSITION_CLASSES } from "../types";
@@ -26,7 +27,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
 
     // Label classes
     const labelClasses = [
-      "block font-semibold mb-2",
+      "block font-semibold mb-8",
       // Size-specific styles
       "text-[15px]",
       // Color based on focus state
@@ -44,10 +45,10 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
     const inputClasses = [
       "w-full border-2 rounded-[12px] bg-white font-normal",
       // Size-specific styles
-      "px-4 py-[14px] text-[16px]",
+      "px-16 py-[14px] text-[16px]",
 
       // Icon spacing (add left padding when icon is present)
-      (icon || focusedIcon) && "pl-12",
+      (icon || focusedIcon) && "pl-48",
 
       // Default state
       !error && "border-gray-200",
@@ -73,14 +74,14 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
 
     // Icon classes
     const iconClasses = [
-      "absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] pointer-events-none",
+      "absolute left-16 top-1/2 -translate-y-1/2 w-[18px] h-[18px] pointer-events-none",
       TRANSITION_CLASSES.opacity
     ]
       .filter(Boolean)
       .join(" ");
 
     // Error message classes
-    const errorClasses = ["mt-1 text-[14px] font-medium text-error-500"].filter(Boolean).join(" ");
+    const errorClasses = ["mt-4 text-[14px] font-medium text-error-500"].filter(Boolean).join(" ");
 
     // Determine which icons to show
     const defaultIcon = icon;
