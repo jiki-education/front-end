@@ -12,7 +12,6 @@ import { PRICING_TIERS } from "@/lib/pricing";
 interface CheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
-  _onSuccess: () => void;
   onCancel: () => void;
 }
 
@@ -197,7 +196,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
   );
 }
 
-export default function CheckoutModal({ clientSecret, selectedTier, _onSuccess, onCancel }: CheckoutModalProps) {
+export default function CheckoutModal({ clientSecret, selectedTier, onCancel }: CheckoutModalProps) {
   return (
     <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
       <CheckoutForm selectedTier={selectedTier} onCancel={onCancel} />
