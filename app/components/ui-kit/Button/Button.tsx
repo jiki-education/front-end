@@ -5,6 +5,7 @@
  * Based on the UI kit design system.
  */
 
+"use client";
 import { forwardRef } from "react";
 import type { ButtonProps, ButtonVariant } from "./types";
 import { TRANSITION_CLASSES } from "../types";
