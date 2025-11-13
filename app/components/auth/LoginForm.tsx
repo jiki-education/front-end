@@ -3,11 +3,11 @@
 import { useAuthStore } from "@/stores/authStore";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import { FormField, Button } from "@/components/ui-kit";
-import { EmailIcon, EmailIconFocused, PasswordIcon, PasswordIconFocused } from "@/components/ui-kit/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { Icon } from "../ui-kit/Icon";
 
 export function LoginForm() {
   const router = useRouter();
@@ -82,8 +82,8 @@ export function LoginForm() {
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon={<EmailIcon />}
-          focusedIcon={<EmailIconFocused />}
+          icon={<Icon name="email" />}
+          focusedIcon={<Icon name="email" color="#3b82f6" />}
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -102,8 +102,8 @@ export function LoginForm() {
             type="password"
             autoComplete="current-password"
             placeholder="Enter your password"
-            icon={<PasswordIcon />}
-            focusedIcon={<PasswordIconFocused />}
+            icon={<Icon name="locked" />}
+            focusedIcon={<Icon name="locked" color="blue-500" />}
             value={password}
             error={validationErrors.password}
             onChange={(e) => {

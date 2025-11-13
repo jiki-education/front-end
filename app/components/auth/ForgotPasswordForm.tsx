@@ -2,10 +2,10 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { FormField, Button } from "@/components/ui-kit";
-import { EmailIcon, EmailIconFocused } from "@/components/ui-kit/icons";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { Icon } from "../ui-kit/Icon";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
@@ -66,8 +66,8 @@ export function ForgotPasswordForm() {
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon={<EmailIcon />}
-          focusedIcon={<EmailIconFocused />}
+          icon={<Icon name="email" color="#707985" />}
+          focusedIcon={<Icon name="email" color="#3b82f6" />}
           value={email}
           error={validationErrors.email}
           onChange={(e) => {

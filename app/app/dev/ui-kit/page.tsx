@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, ButtonGroup, FormField, FormFieldGroup, PageHeader, PageTabs, Link } from "@/components/ui-kit";
-import { EmailIcon, PasswordIcon, UserIcon, AllIcon, InProgressIcon, CompleteIcon, LockedIcon } from "./icons";
+import { Icon } from "@/components/ui-kit/Icon";
 
 export default function UIKitDemoPage() {
   return (
@@ -100,16 +100,16 @@ export default function UIKitDemoPage() {
                 name="email-icon"
                 type="email"
                 placeholder="Enter your email address"
-                icon={<EmailIcon className="text-gray-500" />}
-                focusedIcon={<EmailIcon className="text-blue-500" />}
+                icon={<Icon name="email" color="#707985" />}
+                focusedIcon={<Icon name="email" color="#3b82f6" />}
               />
               <FormField
                 label="Password"
                 name="password-icon"
                 type="password"
                 placeholder="Enter your password"
-                icon={<PasswordIcon className="text-gray-500" />}
-                focusedIcon={<PasswordIcon className="text-blue-500" />}
+                icon={<Icon name="password" color="#707985" />}
+                focusedIcon={<Icon name="password" color="#3b82f6" />}
               />
             </div>
           </div>
@@ -127,6 +127,8 @@ export default function UIKitDemoPage() {
                 placeholder="Enter your email address"
                 value="invalid-email"
                 error="Please enter a valid email address"
+                icon={<Icon name="email" color="#707985" />}
+                focusedIcon={<Icon name="email" color="#3b82f6" />}
               />
               <FormField
                 label="Password"
@@ -135,8 +137,8 @@ export default function UIKitDemoPage() {
                 placeholder="Enter your password"
                 value="123"
                 error="Password must be at least 8 characters"
-                icon={<PasswordIcon className="text-gray-500" />}
-                focusedIcon={<PasswordIcon className="text-blue-500" />}
+                icon={<Icon name="password" color="#707985" />}
+                focusedIcon={<Icon name="password" color="#3b82f6" />}
               />
             </div>
           </div>
@@ -146,20 +148,8 @@ export default function UIKitDemoPage() {
             <p className="text-gray-600 text-sm mb-24">Related form fields grouped together with consistent spacing.</p>
             <div className="max-w-2xl">
               <FormFieldGroup>
-                <FormField
-                  label="First Name"
-                  name="firstName"
-                  placeholder="John"
-                  icon={<UserIcon className="text-gray-500" />}
-                  focusedIcon={<UserIcon className="text-blue-500" />}
-                />
-                <FormField
-                  label="Last Name"
-                  name="lastName"
-                  placeholder="Doe"
-                  icon={<UserIcon className="text-gray-500" />}
-                  focusedIcon={<UserIcon className="text-blue-500" />}
-                />
+                <FormField label="First Name" name="firstName" placeholder="John" />
+                <FormField label="Last Name" name="lastName" placeholder="Doe" />
               </FormFieldGroup>
             </div>
           </div>
@@ -195,8 +185,8 @@ export default function UIKitDemoPage() {
                 </div>
                 <PageTabs
                   tabs={[
-                    { id: "all", label: "All", icon: <AllIcon /> },
-                    { id: "not-started", label: "Not started", icon: <InProgressIcon /> }
+                    { id: "all", label: "All", icon: <Icon name="all" /> },
+                    { id: "not-started", label: "Not started", icon: <Icon name="in-progress" /> }
                   ]}
                   activeTabId="all"
                   onTabChange={() => {}}
@@ -209,7 +199,7 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Purple Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "in-progress", label: "In Progress", icon: <InProgressIcon /> },
+                    { id: "in-progress", label: "In Progress", icon: <Icon name="in-progress" color="purple" /> },
                     { id: "other", label: "Other Tab" }
                   ]}
                   activeTabId="in-progress"
@@ -223,7 +213,7 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Green Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "complete", label: "Complete", icon: <CompleteIcon /> },
+                    { id: "complete", label: "Complete", icon: <Icon name="complete" color="green" /> },
                     { id: "other2", label: "Other Tab" }
                   ]}
                   activeTabId="complete"
@@ -237,7 +227,7 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Gray Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "locked", label: "Locked", icon: <LockedIcon /> },
+                    { id: "locked", label: "Locked", icon: <Icon name="locked" color="gray-500" /> },
                     { id: "other3", label: "Other Tab" }
                   ]}
                   activeTabId="locked"
@@ -245,6 +235,49 @@ export default function UIKitDemoPage() {
                   color="gray"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Icons Section */}
+        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
+          <h2 className="text-2xl font-semibold mb-32 text-gray-900">Icons</h2>
+
+          <div className="bg-gray-50 rounded-lg p-24 mb-24">
+            <h3 className="text-lg font-semibold mb-8 text-gray-900">Default Icons</h3>
+            <p className="text-gray-600 text-sm mb-24">Icons without color override use their original colors.</p>
+            <div className="flex flex-wrap gap-4 items-center">
+              <Icon name="email" size="lg" />
+              <Icon name="password" size="lg" />
+              <Icon name="complete" size="lg" />
+              <Icon name="in-progress" size="lg" />
+              <Icon name="locked" size="lg" />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-24 mb-24">
+            <h3 className="text-lg font-semibold mb-8 text-gray-900">Custom Colors</h3>
+            <p className="text-gray-600 text-sm mb-24">Icons with custom color override using the color prop.</p>
+            <div className="flex flex-wrap gap-4 items-center">
+              <Icon name="email" size="lg" color="#e74c3c" />
+              <Icon name="password" size="lg" color="#3498db" />
+              <Icon name="complete" size="lg" color="#f39c12" />
+              <Icon name="in-progress" size="lg" color="#9b59b6" />
+              <Icon name="locked" size="lg" color="#95a5a6" />
+            </div>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-24">
+            <h3 className="text-lg font-semibold mb-8 text-gray-900">Different Sizes</h3>
+            <p className="text-gray-600 text-sm mb-24">Icons in various sizes with custom colors.</p>
+            <div className="flex flex-wrap gap-4 items-center">
+              <Icon name="email" size="xs" color="#3c6ad6" />
+              <Icon name="email" size="sm" color="#3c6ad6" />
+              <Icon name="email" size="md" color="#3c6ad6" />
+              <Icon name="email" size="lg" color="#3c6ad6" />
+              <Icon name="email" size="xl" color="#3c6ad6" />
+              <Icon name="email" size="2xl" color="#3c6ad6" />
+              <Icon name="email" size={48} color="#3c6ad6" />
             </div>
           </div>
         </section>
