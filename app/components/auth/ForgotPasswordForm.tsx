@@ -1,10 +1,11 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
-import { StyledInput } from "@/components/ui/StyledInput";
+import { FormField, Button } from "@/components/ui-kit";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { Icon } from "../ui-kit/Icon";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
@@ -59,13 +60,14 @@ export function ForgotPasswordForm() {
       )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-20">
-        <StyledInput
+        <FormField
           id="email"
           label="Email"
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon="email"
+          icon={<Icon name="email" color="#707985" />}
+          focusedIcon={<Icon name="email" color="#3b82f6" />}
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -77,43 +79,9 @@ export function ForgotPasswordForm() {
           required
         />
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`
-            w-full px-20 py-16 
-            border-2 border-[#3b82f6] rounded-xl
-            text-17 font-medium text-white
-            bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
-            shadow-lg shadow-blue-200
-            transition-all duration-300
-            hover:border-[#2563eb] hover:shadow-xl hover:shadow-blue-300 hover:ring-4 hover:ring-blue-100
-            focus:outline-none focus:ring-4 focus:ring-blue-100
-            disabled:cursor-not-allowed
-            ${isLoading ? "btn-loading" : ""}
-          `}
-          style={{
-            ...(isLoading && {
-              pointerEvents: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              opacity: 0.8
-            })
-          }}
-        >
-          {isLoading && (
-            <div
-              className="w-[18px] h-[18px] rounded-full border-2 animate-spin"
-              style={{
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                borderTopColor: "white"
-              }}
-            />
-          )}
+        <Button type="submit" variant="primary" loading={isLoading} disabled={isLoading} fullWidth>
           {isLoading ? "Sending..." : "Send Reset Link"}
-        </button>
+        </Button>
 
         <div className="text-center">
           <p className="text-15 text-[#4a5568]">

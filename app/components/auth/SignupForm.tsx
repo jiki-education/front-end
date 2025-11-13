@@ -2,7 +2,8 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
-import { StyledInput } from "@/components/ui/StyledInput";
+import { FormField, Button } from "@/components/ui-kit";
+import { Icon } from "@/components/ui-kit/Icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -79,13 +80,14 @@ export function SignupForm() {
       )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <StyledInput
+        <FormField
           id="email"
           label="Email"
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon="email"
+          icon={<Icon name="email" />}
+          focusedIcon={<Icon name="email" color="blue-500" />}
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -97,13 +99,14 @@ export function SignupForm() {
           required
         />
 
-        <StyledInput
+        <FormField
           id="password"
           label="Password"
           type="password"
           autoComplete="new-password"
           placeholder="Enter your password"
-          icon="password"
+          icon={<Icon name="locked" />}
+          focusedIcon={<Icon name="locked" color="blue-500" />}
           value={password}
           error={validationErrors.password}
           onChange={(e) => {
@@ -115,43 +118,9 @@ export function SignupForm() {
           required
         />
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`
-            w-full px-20 py-16 
-            border-2 border-[#3b82f6] rounded-xl
-            text-17 font-medium text-white
-            bg-gradient-to-br from-[#3b82f6] to-[#2563eb]
-            shadow-lg shadow-blue-200
-            transition-all duration-300
-            hover:border-[#2563eb] hover:shadow-xl hover:shadow-blue-300 hover:ring-4 hover:ring-blue-100
-            focus:outline-none focus:ring-4 focus:ring-blue-100
-            disabled:cursor-not-allowed
-            ${isLoading ? "btn-loading" : ""}
-          `}
-          style={{
-            ...(isLoading && {
-              pointerEvents: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "12px",
-              opacity: 0.8
-            })
-          }}
-        >
-          {isLoading && (
-            <div
-              className="w-[18px] h-[18px] rounded-full border-2 animate-spin"
-              style={{
-                borderColor: "rgba(255, 255, 255, 0.3)",
-                borderTopColor: "white"
-              }}
-            />
-          )}
+        <Button type="submit" variant="primary" loading={isLoading} disabled={isLoading} fullWidth>
           {isLoading ? "Signing up..." : "Sign Up"}
-        </button>
+        </Button>
 
         <div className="text-center">
           <p className="text-15 text-[#4a5568]">

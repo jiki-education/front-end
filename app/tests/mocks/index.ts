@@ -12,3 +12,17 @@ export { createMockScenario } from "./scenario";
 export { createMockTask } from "./task";
 export { createMockTestResult } from "./test-result";
 export { createMockTestSuiteResult } from "./test-suite-result";
+
+// UI Kit mocks
+export {
+  MockIcon,
+  MockEmailIcon,
+  MockEmailIconFocused,
+  MockGoogleIcon,
+  MockProjectsIcon,
+  createMockTabItems,
+  createMockFormFieldProps,
+  createMockPageHeaderProps,
+  createMockHandlers,
+  waitForAnimation
+} from "./ui-kit";
