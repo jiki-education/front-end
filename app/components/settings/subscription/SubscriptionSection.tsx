@@ -271,9 +271,8 @@ export default function SubscriptionSection({
           <CheckoutModal
             clientSecret={clientSecret}
             selectedTier={selectedTier}
-            onSuccess={handleCheckoutSuccess}
+            _onSuccess={handleCheckoutSuccess}
             onCancel={handleCheckoutCancel}
-            returnUrl={`${window.location.origin}/settings?success=true`}
           />
         </Suspense>
       )}
