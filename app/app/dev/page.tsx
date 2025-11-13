@@ -45,6 +45,12 @@ export default function DevPage() {
                 - Test TypeIt.js chat typing animation without API calls
               </span>
             </li>
+            <li>
+              <Link href="/dev/ui-kit" className="text-blue-600 hover:underline">
+                UI Kit Demo
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- Simple demo of all UI kit components</span>
+            </li>
           </ul>
         </div>
 

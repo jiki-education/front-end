@@ -1,20 +1,30 @@
 import { AuthPageWrapper } from "@/components/auth/AuthPageWrapper";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 import { LoginForm } from "@/components/auth/LoginForm";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login - Jiki",
+  title: "Log In - Jiki",
   description: "Sign in to your Jiki account"
 };
 
 export default function LoginPage() {
   return (
     <AuthPageWrapper>
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Sign in to your account</h2>
-        <p className="mt-2 text-sm text-gray-600">Welcome back! Please enter your details.</p>
-      </div>
-      <LoginForm />
+      <AuthLayout
+        title="Log In"
+        subtitle={
+          <>
+            Don&apos;t have an account?{" "}
+            <Link href="/auth/signup" className="text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors">
+              Sign up for free.
+            </Link>
+          </>
+        }
+      >
+        <LoginForm />
+      </AuthLayout>
     </AuthPageWrapper>
   );
 }

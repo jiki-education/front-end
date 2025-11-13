@@ -1,6 +1,9 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
+import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { FormField, Button } from "@/components/ui-kit";
+import { Icon } from "@/components/ui-kit/Icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -10,48 +13,23 @@ export function SignupForm() {
   const router = useRouter();
   const { signup, isLoading, error, clearError } = useAuthStore();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    name: "",
-    password: "",
-    password_confirmation: ""
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-
-  const updateField = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
-    // Clear validation error for this field
-    if (validationErrors[field]) {
-      const newErrors = { ...validationErrors };
-      delete newErrors[field];
-      setValidationErrors(newErrors);
-    }
-  };
 
   const validate = () => {
     const errors: Record<string, string> = {};
 
-    if (!formData.email) {
+    if (!email) {
       errors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errors.email = "Please enter a valid email";
     }
 
-    if (!formData.password) {
+    if (!password) {
       errors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
-    }
-
-    if (!formData.password_confirmation) {
-      errors.password_confirmation = "Password confirmation is required";
-    } else if (formData.password !== formData.password_confirmation) {
-      errors.password_confirmation = "Passwords don't match";
-    }
-
-    if (!agreedToTerms) {
-      errors.terms = "You must agree to the terms and conditions";
+    } else if (password.length < 8) {
+      errors.password = "Password must be at least 8 characters";
     }
 
     setValidationErrors(errors);
@@ -68,10 +46,9 @@ export function SignupForm() {
 
     try {
       await signup({
-        email: formData.email,
-        password: formData.password,
-        password_confirmation: formData.password_confirmation,
-        name: formData.name || undefined
+        email,
+        password,
+        password_confirmation: password
       });
       router.push("/dashboard");
     } catch (err) {
@@ -81,136 +58,82 @@ export function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="flex flex-col gap-20">
+      <GoogleAuthButton
+        onClick={() => {
+          /* Google OAuth not implemented yet */
+        }}
+      >
+        Sign Up with Google
+      </GoogleAuthButton>
+
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-[#e2e8f0]"></div>
+        <span className="text-sm font-medium text-[#718096]">OR</span>
+        <div className="flex-1 h-px bg-[#e2e8f0]"></div>
+      </div>
+
       {error && (
-        <div className="rounded-md bg-red-50 p-4">
-          <p className="text-sm text-red-800">{error}</p>
+        <div className="bg-[#e0f5d2] border-2 border-[#78ce4d] rounded-lg p-4 text-[#2e571d] text-sm font-medium leading-relaxed">
+          {error}
         </div>
       )}
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email address *
-        </label>
-        <div className="mt-1">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={formData.email}
-            onChange={(e) => updateField("email", e.target.value)}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          />
-          {validationErrors.email && <p className="mt-2 text-sm text-red-600">{validationErrors.email}</p>}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <FormField
+          id="email"
+          label="Email"
+          type="email"
+          autoComplete="email"
+          placeholder="Enter your email address"
+          icon={<Icon name="email" />}
+          focusedIcon={<Icon name="email" color="blue-500" />}
+          value={email}
+          error={validationErrors.email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (validationErrors.email) {
+              setValidationErrors({ ...validationErrors, email: "" });
+            }
+          }}
+          required
+        />
+
+        <FormField
+          id="password"
+          label="Password"
+          type="password"
+          autoComplete="new-password"
+          placeholder="Enter your password"
+          icon={<Icon name="locked" />}
+          focusedIcon={<Icon name="locked" color="blue-500" />}
+          value={password}
+          error={validationErrors.password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            if (validationErrors.password) {
+              setValidationErrors({ ...validationErrors, password: "" });
+            }
+          }}
+          required
+        />
+
+        <Button type="submit" variant="primary" loading={isLoading} disabled={isLoading} fullWidth>
+          {isLoading ? "Signing up..." : "Sign Up"}
+        </Button>
+
+        <div className="text-center">
+          <p className="text-15 text-[#4a5568]">
+            Didn&apos;t receive your confirmation email?{" "}
+            <Link
+              href="/auth/resend-confirmation"
+              className="text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors"
+            >
+              Resend it.
+            </Link>
+          </p>
         </div>
-      </div>
-
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Name (optional)
-        </label>
-        <div className="mt-1">
-          <input
-            id="name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            value={formData.name}
-            onChange={(e) => updateField("name", e.target.value)}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password *
-        </label>
-        <div className="mt-1">
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="new-password"
-            required
-            value={formData.password}
-            onChange={(e) => updateField("password", e.target.value)}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          />
-          {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">
-          Confirm Password *
-        </label>
-        <div className="mt-1">
-          <input
-            id="password_confirmation"
-            name="password_confirmation"
-            type="password"
-            autoComplete="new-password"
-            required
-            value={formData.password_confirmation}
-            onChange={(e) => updateField("password_confirmation", e.target.value)}
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          />
-          {validationErrors.password_confirmation && (
-            <p className="mt-2 text-sm text-red-600">{validationErrors.password_confirmation}</p>
-          )}
-        </div>
-      </div>
-
-      <div>
-        <div className="flex items-start">
-          <div className="flex items-center h-5">
-            <input
-              id="terms"
-              name="terms"
-              type="checkbox"
-              checked={agreedToTerms}
-              onChange={(e) => {
-                setAgreedToTerms(e.target.checked);
-                if (validationErrors.terms) {
-                  const newErrors = { ...validationErrors };
-                  delete newErrors.terms;
-                  setValidationErrors(newErrors);
-                }
-              }}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-            />
-          </div>
-          <div className="ml-3 text-sm">
-            <label htmlFor="terms" className="font-medium text-gray-700">
-              I agree to the{" "}
-              <Link href="/terms" className="text-indigo-600 hover:text-indigo-500">
-                Terms and Conditions
-              </Link>
-            </label>
-          </div>
-        </div>
-        {validationErrors.terms && <p className="mt-2 text-sm text-red-600">{validationErrors.terms}</p>}
-      </div>
-
-      <div>
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? "Creating account..." : "Sign up"}
-        </button>
-      </div>
-
-      <div className="text-center text-sm">
-        <span className="text-gray-600">Already have an account? </span>
-        <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-          Sign in
-        </Link>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
