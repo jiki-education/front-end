@@ -8,10 +8,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import type { CredentialResponse } from "@react-oauth/google";
 
 export function SignupForm() {
   const router = useRouter();
-  const { signup, isLoading, error, clearError } = useAuthStore();
+  const { signup, googleAuth, isLoading, error, clearError } = useAuthStore();
+
+  const handleGoogleAuth = async (credentialResponse: CredentialResponse) => {
+    await googleAuth(credentialResponse);
+    router.push("/dashboard");
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,11 +65,7 @@ export function SignupForm() {
 
   return (
     <div className="flex flex-col gap-20">
-      <GoogleAuthButton
-        onClick={() => {
-          /* Google OAuth not implemented yet */
-        }}
-      >
+      <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
         Sign Up with Google
       </GoogleAuthButton>
 

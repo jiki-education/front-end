@@ -1,9 +1,12 @@
 "use client";
 
-import type { ComponentProps } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import type { CredentialResponse } from "@react-oauth/google";
 
-interface GoogleAuthButtonProps extends ComponentProps<"button"> {
+interface GoogleAuthButtonProps {
   children: React.ReactNode;
+  onSuccess: (credentialResponse: CredentialResponse) => void;
+  onError?: () => void;
 }
 
 function GoogleIcon() {
@@ -29,27 +32,22 @@ function GoogleIcon() {
   );
 }
 
-export function GoogleAuthButton({ children, className, ...props }: GoogleAuthButtonProps) {
+export function GoogleAuthButton({ children, onSuccess, onError }: GoogleAuthButtonProps) {
   return (
-    <button
-      type="button"
-      className={`
-        w-full px-20 py-16
-        border-2 border-[#e2e8f0] rounded-xl
-        text-[17px] font-medium text-[#1a365d]
-        bg-white
-        shadow-sm
-        transition-all duration-300
-        flex items-center justify-center gap-3
-        hover:border-[#3b82f6] hover:shadow-lg hover:shadow-blue-100
-        focus:outline-none focus:ring-4 focus:ring-blue-100
-        disabled:opacity-50 disabled:cursor-not-allowed
-        ${className || ""}
-      `}
-      {...props}
-    >
-      <GoogleIcon />
-      {children}
-    </button>
+    <div className="relative w-full group">
+      {/* Custom styled button */}
+      <button
+        type="button"
+        className="w-full px-20 py-16 border-2 border-[#e2e8f0] rounded-xl text-[17px] font-medium text-[#1a365d] bg-white shadow-sm transition-all duration-300 flex items-center justify-center gap-3 group-hover:border-[#3b82f6] group-hover:shadow-lg group-hover:shadow-blue-100 focus:outline-none focus:ring-4 focus:ring-blue-100 disabled:opacity-50 disabled:cursor-not-allowed relative z-10 pointer-events-none"
+      >
+        <GoogleIcon />
+        {children}
+      </button>
+
+      {/* Invisible GoogleLogin overlaid on top */}
+      <div className="absolute inset-0 z-20 opacity-0">
+        <GoogleLogin onSuccess={onSuccess} onError={onError} theme="outline" size="large" width={400} />
+      </div>
+    </div>
   );
 }

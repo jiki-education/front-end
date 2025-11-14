@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
   const cspHeader = `
     default-src 'self';
     script-src 'self' https://js.stripe.com https://accounts.google.com ${isDevelopment ? "'unsafe-inline' 'unsafe-eval'" : `'nonce-${nonce}' 'strict-dynamic'`};
-    style-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://accounts.google.com;
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
     connect-src 'self' https://api.stripe.com https://accounts.google.com ${isDevelopment ? "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*" : ""};

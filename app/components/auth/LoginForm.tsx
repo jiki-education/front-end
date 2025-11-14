@@ -8,10 +8,16 @@ import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { Icon } from "../ui-kit/Icon";
+import type { CredentialResponse } from "@react-oauth/google";
 
 export function LoginForm() {
   const router = useRouter();
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const { login, googleAuth, isLoading, error, clearError } = useAuthStore();
+
+  const handleGoogleAuth = async (credentialResponse: CredentialResponse) => {
+    await googleAuth(credentialResponse);
+    router.push("/dashboard");
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,11 +61,7 @@ export function LoginForm() {
 
   return (
     <div className="flex flex-col gap-5">
-      <GoogleAuthButton
-        onClick={() => {
-          /* Google OAuth not implemented yet */
-        }}
-      >
+      <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
         Log In with Google
       </GoogleAuthButton>
 

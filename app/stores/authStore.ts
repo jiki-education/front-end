@@ -8,6 +8,8 @@ import { hasValidToken, removeToken } from "@/lib/auth/storage";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import toast from "react-hot-toast";
+import type { CredentialResponse } from "@react-oauth/google";
 
 interface AuthStore {
   // State
@@ -20,6 +22,8 @@ interface AuthStore {
   // Actions
   login: (credentials: LoginCredentials) => Promise<void>;
   signup: (userData: SignupData) => Promise<void>;
+  googleLogin: (credential: string) => Promise<void>;
+  googleAuth: (credentialResponse: CredentialResponse) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -60,6 +64,65 @@ export const useAuthStore = create<AuthStore>()(
             error: message
           });
           throw error; // Re-throw for component handling
+        }
+      },
+
+      // Google login action (internal)
+      googleLogin: async (credential) => {
+        set({ isLoading: true, error: null });
+        try {
+          const user = await authService.googleLogin(credential);
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+            error: null,
+            hasCheckedAuth: true
+          });
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Google login failed";
+          set({
+            user: null,
+            isAuthenticated: false,
+            isLoading: false,
+            error: message
+          });
+          throw error; // Re-throw for component handling
+        }
+      },
+
+      // Google authentication with UI feedback
+      googleAuth: async (credentialResponse) => {
+        if (!credentialResponse.credential) {
+          toast.error("No credential received from Google");
+          return;
+        }
+        try {
+          toast.loading("Authenticating with Google...");
+          const user = await authService.googleLogin(credentialResponse.credential);
+
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+            error: null,
+            hasCheckedAuth: true
+          });
+
+          toast.dismiss();
+          toast.success(`Welcome ${user.name || user.email}!`);
+        } catch (error) {
+          toast.dismiss();
+          const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
+          toast.error(errorMessage);
+          console.error("Google OAuth error:", error);
+
+          set({
+            user: null,
+            isAuthenticated: false,
+            isLoading: false,
+            error: errorMessage
+          });
         }
       },
 
