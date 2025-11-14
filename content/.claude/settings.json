@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "jiki-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "jiki-education/claude-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "jiki-translation-agents@jiki-marketplace": true
+  }
+}

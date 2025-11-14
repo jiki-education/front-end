@@ -26,10 +26,18 @@ The content repository:
 
 - Stores blog posts and articles as Markdown files
 - Validates frontmatter and content structure at build time
-- Manages multi-language support (English + Hungarian)
+- Manages multi-language support (English plus multiple additional languages)
 - Exports typed data structures for frontend consumption
 - Handles image assets (covers, avatars)
 - Provides author registry
+
+### Translation Workflow
+
+**IMPORTANT**: When asked to translate content, ALWAYS use the `translate` subagent. Do not translate manually.
+
+The `translate` subagent orchestrates parallel translations into all supported languages by delegating to specialized language-specific translation agents. Simply invoke it with the post slug and type.
+
+**Translation agents are provided by the Jiki Claude Marketplace** (`jiki-education/claude-marketplace`), which is configured in `.claude/settings.json` and automatically available to the team. The marketplace defines which languages are supported - check the marketplace repository for the current list of available translation agents.
 
 ### Key Documentation
 
