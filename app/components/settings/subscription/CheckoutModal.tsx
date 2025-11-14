@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { CheckoutProvider, useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
 import { stripePromise } from "@/lib/stripe";
 import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
@@ -12,26 +12,15 @@ import { PRICING_TIERS } from "@/lib/pricing";
 interface CheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
-  onSuccess: () => void;
   onCancel: () => void;
-  returnUrl?: string;
 }
 
-interface CheckoutFormProps {
-  selectedTier: MembershipTier;
-  onSuccess: () => void;
-  onCancel: () => void;
-  returnUrl?: string;
-}
-
-function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: CheckoutFormProps) {
-  const stripe = useStripe();
-  const elements = useElements();
+function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier; onCancel: () => void }) {
+  const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  const checkoutState = useCheckout();
   const tierInfo = PRICING_TIERS[selectedTier];
 
   // Focus management for modal accessibility
@@ -59,35 +48,49 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: Checkout
     };
   }, [onCancel]);
 
+  if (checkoutState.type === "error") {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="bg-bg-primary rounded-lg shadow-xl max-w-md w-full p-6">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-sm text-red-800">Error: {checkoutState.error.message}</p>
+          </div>
+          <button
+            onClick={onCancel}
+            className="mt-4 w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
+    if (checkoutState.type !== "success") {
       return;
     }
 
+    const { checkout } = checkoutState;
     setIsLoading(true);
-    setError(null);
 
-    try {
-      const { error: submitError } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: returnUrl || `${window.location.origin}/settings?success=true`
-        }
-      });
+    // Confirm the payment
+    const confirmResult = await checkout.confirm();
 
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Stripe error handling
-      if (submitError) {
-        setError(submitError.message ?? "An error occurred processing your payment.");
-      } else {
-        onSuccess();
-      }
-    } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
-      console.error("Payment error:", err);
-    } finally {
+    // This point will only be reached if there is an immediate error when
+    // confirming the payment. Otherwise, your customer will be redirected to
+    // your `return_url`. For some payment methods like iDEAL, your customer will
+    // be redirected to an intermediate site first to authorize the payment, then
+    // redirected to the `return_url`.
+    if (confirmResult.type === "error") {
+      setMessage(confirmResult.error.message);
       setIsLoading(false);
+    } else {
+      // Payment succeeded - redirect will happen automatically
+      // Note: The redirect to return_url happens automatically by Stripe
+      // The page will reload with the session_id in the URL
     }
   };
 
@@ -117,7 +120,6 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: Checkout
               Subscribe to {tierInfo.name}
             </h2>
             <button
-              ref={closeButtonRef}
               onClick={onCancel}
               className="text-text-secondary hover:text-text-primary transition-colors"
               aria-label="Close checkout modal"
@@ -157,9 +159,9 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: Checkout
               <PaymentElement />
             </fieldset>
 
-            {error && (
+            {message && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg" role="alert" aria-live="polite">
-                <p className="text-sm text-red-800">{error}</p>
+                <p className="text-sm text-red-800">{message}</p>
               </div>
             )}
 
@@ -174,11 +176,13 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: Checkout
               </button>
               <button
                 type="submit"
-                disabled={!stripe || isLoading}
+                disabled={isLoading || checkoutState.type === "loading"}
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 aria-describedby="subscribe-button-description"
               >
-                {isLoading ? "Processing..." : `Subscribe for $${tierInfo.price}/month`}
+                {isLoading || checkoutState.type === "loading"
+                  ? "Processing..."
+                  : `Subscribe for $${tierInfo.price}/month`}
               </button>
             </div>
           </form>
@@ -192,23 +196,10 @@ function CheckoutForm({ selectedTier, onSuccess, onCancel, returnUrl }: Checkout
   );
 }
 
-export default function CheckoutModal({
-  clientSecret,
-  selectedTier,
-  onSuccess,
-  onCancel,
-  returnUrl
-}: CheckoutModalProps) {
-  const options = {
-    clientSecret,
-    appearance: {
-      theme: "stripe" as const
-    }
-  };
-
+export default function CheckoutModal({ clientSecret, selectedTier, onCancel }: CheckoutModalProps) {
   return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm selectedTier={selectedTier} onSuccess={onSuccess} onCancel={onCancel} returnUrl={returnUrl} />
-    </Elements>
+    <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
+      <CheckoutForm selectedTier={selectedTier} onCancel={onCancel} />
+    </CheckoutProvider>
   );
 }

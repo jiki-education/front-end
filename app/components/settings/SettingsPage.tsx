@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthStore } from "@/stores/authStore";
 import { useRequireAuth } from "@/lib/auth/hooks";
+import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
+import toast from "react-hot-toast";
 import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
 import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
@@ -16,6 +18,40 @@ export default function SettingsPage() {
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("subscription");
+
+  // Handle post-payment redirect from Stripe
+  useEffect(() => {
+    // Only process if user is authenticated
+    if (!isAuthenticated || !user) {
+      return;
+    }
+
+    // Extract session_id from URL and remove it (to prevent re-processing on refresh)
+    const sessionId = extractAndClearSessionId();
+
+    if (sessionId) {
+      // Verify the checkout session with our backend and sync subscription data
+      async function verifyAndRefresh(id: string) {
+        toast.loading("Verifying payment...");
+        const result = await verifyPaymentSession(id);
+        toast.dismiss();
+
+        if (result.success) {
+          // Payment successful - refresh user data to show new subscription tier
+          toast.success("Payment verified! Your subscription has been updated.");
+          await refreshUser();
+          // Clear checkout state
+          setSelectedTier(null);
+          setClientSecret(null);
+        } else {
+          // Payment failed or session invalid
+          toast.error(`Failed to verify payment: ${result.error}`);
+        }
+      }
+
+      void verifyAndRefresh(sessionId);
+    }
+  }, [isAuthenticated, user, refreshUser]);
 
   if (authLoading) {
     return (

@@ -210,19 +210,6 @@ export default function SubscriptionSection({
     });
 
   // Checkout flow handlers
-  const handleCheckoutSuccess = async () => {
-    setClientSecret(null);
-    setSelectedTier(null);
-    // Refresh user data to get updated subscription status
-    try {
-      await refreshUser();
-      toast.success("Subscription activated successfully!");
-    } catch (error) {
-      toast.error("Subscription activated but failed to refresh user data. Please refresh the page.");
-      console.error("Failed to refresh user after checkout:", error);
-    }
-  };
-
   const handleCheckoutCancel = () => {
     setClientSecret(null);
     setSelectedTier(null);
@@ -268,13 +255,7 @@ export default function SubscriptionSection({
             </div>
           }
         >
-          <CheckoutModal
-            clientSecret={clientSecret}
-            selectedTier={selectedTier}
-            onSuccess={handleCheckoutSuccess}
-            onCancel={handleCheckoutCancel}
-            returnUrl={`${window.location.origin}/settings?success=true`}
-          />
+          <CheckoutModal clientSecret={clientSecret} selectedTier={selectedTier} onCancel={handleCheckoutCancel} />
         </Suspense>
       )}
     </>
