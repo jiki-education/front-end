@@ -100,8 +100,8 @@ export async function signup(userData: SignupData): Promise<User> {
  * Google OAuth login
  * POST /auth/google
  */
-export async function googleLogin(credential: string): Promise<User> {
-  const response = await api.post<AuthResponse>("/auth/google", { token: credential });
+export async function googleLogin(code: string): Promise<User> {
+  const response = await api.post<AuthResponse>("/auth/google", { code });
 
   // Try to extract JWT access token from response headers first
   let accessToken = extractTokenFromHeaders(response.headers);

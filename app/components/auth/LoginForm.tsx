@@ -8,14 +8,13 @@ import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { Icon } from "../ui-kit/Icon";
-import type { CredentialResponse } from "@react-oauth/google";
 
 export function LoginForm() {
   const router = useRouter();
   const { login, googleAuth, isLoading, error, clearError } = useAuthStore();
 
-  const handleGoogleAuth = async (credentialResponse: CredentialResponse) => {
-    await googleAuth(credentialResponse);
+  const handleGoogleAuth = async (code: string) => {
+    await googleAuth(code);
     router.push("/dashboard");
   };
 

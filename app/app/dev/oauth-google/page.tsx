@@ -7,8 +7,7 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { googleLogin } from "@/lib/auth/service";
-import { GoogleLogin } from "@react-oauth/google";
-import type { CredentialResponse } from "@react-oauth/google";
+import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -18,10 +17,10 @@ export default function GoogleOAuthTestPage() {
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Handle Google OAuth login success
-  const handleGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
-    if (!credentialResponse.credential) {
-      setOauthError("No credential received from Google");
-      toast.error("No credential received from Google");
+  const handleGoogleLoginSuccess = async (code: string) => {
+    if (!code) {
+      setOauthError("No authorization code received from Google");
+      toast.error("No authorization code received from Google");
       return;
     }
 
@@ -30,7 +29,7 @@ export default function GoogleOAuthTestPage() {
 
     try {
       toast.loading("Authenticating with Google...");
-      const loggedInUser = await googleLogin(credentialResponse.credential);
+      const loggedInUser = await googleLogin(code);
 
       // Update auth store state directly
       useAuthStore.setState({
@@ -135,7 +134,9 @@ export default function GoogleOAuthTestPage() {
             <p className="text-gray-600">Click the button below to test Google Sign-In:</p>
 
             <div className="max-w-md">
-              <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} />
+              <GoogleAuthButton onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError}>
+                Sign in with Google
+              </GoogleAuthButton>
             </div>
 
             {isProcessing && (

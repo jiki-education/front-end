@@ -9,7 +9,6 @@ import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import toast from "react-hot-toast";
-import type { CredentialResponse } from "@react-oauth/google";
 
 interface AuthStore {
   // State
@@ -22,8 +21,8 @@ interface AuthStore {
   // Actions
   login: (credentials: LoginCredentials) => Promise<void>;
   signup: (userData: SignupData) => Promise<void>;
-  googleLogin: (credential: string) => Promise<void>;
-  googleAuth: (credentialResponse: CredentialResponse) => Promise<void>;
+  googleLogin: (code: string) => Promise<void>;
+  googleAuth: (code: string) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -92,14 +91,14 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       // Google authentication with UI feedback
-      googleAuth: async (credentialResponse) => {
-        if (!credentialResponse.credential) {
-          toast.error("No credential received from Google");
+      googleAuth: async (code) => {
+        if (!code) {
+          toast.error("No authorization code received from Google");
           return;
         }
         try {
           toast.loading("Authenticating with Google...");
-          const user = await authService.googleLogin(credentialResponse.credential);
+          const user = await authService.googleLogin(code);
 
           set({
             user,
