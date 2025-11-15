@@ -3,7 +3,6 @@
 import { useAuthStore } from "@/stores/authStore";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import { FormField, Button } from "@/components/ui-kit";
-import { Icon } from "@/components/ui-kit/Icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -86,8 +85,7 @@ export function SignupForm() {
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon={<Icon name="email" />}
-          focusedIcon={<Icon name="email" color="blue-500" />}
+          iconName="email"
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -105,8 +103,7 @@ export function SignupForm() {
           type="password"
           autoComplete="new-password"
           placeholder="Enter your password"
-          icon={<Icon name="locked" />}
-          focusedIcon={<Icon name="locked" color="blue-500" />}
+          iconName="locked"
           value={password}
           error={validationErrors.password}
           onChange={(e) => {

@@ -2,13 +2,13 @@
  * FormField Component Types
  */
 
-import type { ReactNode, InputHTMLAttributes } from "react";
-import type { BaseUIProps, IconProps, Size } from "../types";
+import type { InputHTMLAttributes } from "react";
+import type { BaseUIProps, Size } from "../types";
 
 /**
  * Props for the FormField component
  */
-export interface FormFieldProps extends BaseUIProps, IconProps, Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface FormFieldProps extends BaseUIProps, Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /**
    * Label text for the form field
    */
@@ -26,8 +26,8 @@ export interface FormFieldProps extends BaseUIProps, IconProps, Omit<InputHTMLAt
   size?: Size;
 
   /**
-   * Focused icon (shown when field is focused)
-   * If not provided, the main icon will be used
+   * Icon name to display in the form field
+   * Icon color changes from gray-500 to blue-500 on focus
    */
-  focusedIcon?: ReactNode;
+  iconName?: string;
 }
