@@ -47,29 +47,17 @@ const nextConfig: NextConfig = {
     );
 
     // SVGR configuration for importing SVGs as React components
-    // Find the existing SVG rule
+    // Disable the default SVG handling
     const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.(".svg"));
-
-    config.module.rules.push(
-      // Keep the ?url pattern for static assets
-      {
-        test: /\.svg$/i,
-        resourceQuery: /url/, // *.svg?url
-        type: "asset"
-      },
-      // Convert all other *.svg imports to React components
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        resourceQuery: { not: [/url/] }, // exclude if *.svg?url
-        use: ["@svgr/webpack"]
-      }
-    );
-
-    // Modify the existing SVG rule to ignore SVG imports
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /\.svg$/i;
     }
+
+    // Add SVGR loader
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: ["@svgr/webpack"]
+    });
 
     return config;
   }
