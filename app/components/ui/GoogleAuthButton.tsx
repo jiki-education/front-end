@@ -31,7 +31,7 @@ function GoogleIcon() {
   );
 }
 
-export function GoogleAuthButton({ children, onSuccess, onError }: GoogleAuthButtonProps) {
+function GoogleAuthButtonInner({ children, onSuccess, onError }: GoogleAuthButtonProps) {
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       onSuccess(codeResponse.code);
@@ -50,4 +50,13 @@ export function GoogleAuthButton({ children, onSuccess, onError }: GoogleAuthBut
       {children}
     </button>
   );
+}
+
+export function GoogleAuthButton(props: GoogleAuthButtonProps) {
+  // Don't render if Google OAuth client ID is not configured
+  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+    return null;
+  }
+
+  return <GoogleAuthButtonInner {...props} />;
 }
