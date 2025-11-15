@@ -25,7 +25,7 @@ interface FormFieldRenderProps {
   };
 }
 
-interface FormFieldWithRenderPropsProps extends Omit<FormFieldProps, "icon" | "focusedIcon" | "children"> {
+interface FormFieldWithRenderPropsProps extends Omit<FormFieldProps, "children"> {
   children: (props: FormFieldRenderProps) => ReactNode;
   renderIcon?: (props: { isFocused: boolean; hasError: boolean }) => ReactNode;
   renderError?: (props: { error: string }) => ReactNode;

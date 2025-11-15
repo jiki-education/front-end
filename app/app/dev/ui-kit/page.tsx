@@ -100,16 +100,14 @@ export default function UIKitDemoPage() {
                 name="email-icon"
                 type="email"
                 placeholder="Enter your email address"
-                icon={<Icon name="email" color="#707985" />}
-                focusedIcon={<Icon name="email" color="#3b82f6" />}
+                iconName="email"
               />
               <FormField
                 label="Password"
                 name="password-icon"
                 type="password"
                 placeholder="Enter your password"
-                icon={<Icon name="password" color="#707985" />}
-                focusedIcon={<Icon name="password" color="#3b82f6" />}
+                iconName="locked"
               />
             </div>
           </div>
@@ -127,8 +125,7 @@ export default function UIKitDemoPage() {
                 placeholder="Enter your email address"
                 value="invalid-email"
                 error="Please enter a valid email address"
-                icon={<Icon name="email" color="#707985" />}
-                focusedIcon={<Icon name="email" color="#3b82f6" />}
+                iconName="email"
               />
               <FormField
                 label="Password"
@@ -137,8 +134,7 @@ export default function UIKitDemoPage() {
                 placeholder="Enter your password"
                 value="123"
                 error="Password must be at least 8 characters"
-                icon={<Icon name="password" color="#707985" />}
-                focusedIcon={<Icon name="password" color="#3b82f6" />}
+                iconName="locked"
               />
             </div>
           </div>
@@ -245,25 +241,27 @@ export default function UIKitDemoPage() {
 
           <div className="bg-gray-50 rounded-lg p-24 mb-24">
             <h3 className="text-lg font-semibold mb-8 text-gray-900">Default Icons</h3>
-            <p className="text-gray-600 text-sm mb-24">Icons without color override use their original colors.</p>
+            <p className="text-gray-600 text-sm mb-24">
+              Icons without color override inherit from parent or use currentColor.
+            </p>
             <div className="flex flex-wrap gap-4 items-center">
-              <Icon name="email" size="lg" />
-              <Icon name="password" size="lg" />
-              <Icon name="complete" size="lg" />
-              <Icon name="in-progress" size="lg" />
-              <Icon name="locked" size="lg" />
+              <Icon name="email" size={24} />
+              <Icon name="password" size={24} />
+              <Icon name="complete" size={24} />
+              <Icon name="in-progress" size={24} />
+              <Icon name="locked" size={24} />
             </div>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-24 mb-24">
             <h3 className="text-lg font-semibold mb-8 text-gray-900">Custom Colors</h3>
-            <p className="text-gray-600 text-sm mb-24">Icons with custom color override using the color prop.</p>
+            <p className="text-gray-600 text-sm mb-24">Icons with custom color using Tailwind color classes.</p>
             <div className="flex flex-wrap gap-4 items-center">
-              <Icon name="email" size="lg" color="#e74c3c" />
-              <Icon name="password" size="lg" color="#3498db" />
-              <Icon name="complete" size="lg" color="#f39c12" />
-              <Icon name="in-progress" size="lg" color="#9b59b6" />
-              <Icon name="locked" size="lg" color="#95a5a6" />
+              <Icon name="email" size={24} color="red-500" />
+              <Icon name="password" size={24} color="blue-500" />
+              <Icon name="complete" size={24} color="orange-500" />
+              <Icon name="in-progress" size={24} color="purple-500" />
+              <Icon name="locked" size={24} color="gray-500" />
             </div>
           </div>
 
@@ -271,13 +269,13 @@ export default function UIKitDemoPage() {
             <h3 className="text-lg font-semibold mb-8 text-gray-900">Different Sizes</h3>
             <p className="text-gray-600 text-sm mb-24">Icons in various sizes with custom colors.</p>
             <div className="flex flex-wrap gap-4 items-center">
-              <Icon name="email" size="xs" color="#3c6ad6" />
-              <Icon name="email" size="sm" color="#3c6ad6" />
-              <Icon name="email" size="md" color="#3c6ad6" />
-              <Icon name="email" size="lg" color="#3c6ad6" />
-              <Icon name="email" size="xl" color="#3c6ad6" />
-              <Icon name="email" size="2xl" color="#3c6ad6" />
-              <Icon name="email" size={48} color="#3c6ad6" />
+              <Icon name="email" size={12} color="blue-600" />
+              <Icon name="email" size={16} color="blue-600" />
+              <Icon name="email" size={20} color="blue-600" />
+              <Icon name="email" size={24} color="blue-600" />
+              <Icon name="email" size={32} color="blue-600" />
+              <Icon name="email" size={40} color="blue-600" />
+              <Icon name="email" size={48} color="blue-600" />
             </div>
           </div>
         </section>

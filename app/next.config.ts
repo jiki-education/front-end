@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       "*.jiki": {
         loaders: ["raw-loader"],
         as: "*.js"
+      },
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js"
       }
     }
   },
@@ -41,6 +45,20 @@ const nextConfig: NextConfig = {
         type: "asset/source"
       }
     );
+
+    // SVGR configuration for importing SVGs as React components
+    // Disable the default SVG handling
+    const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.(".svg"));
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/i;
+    }
+
+    // Add SVGR loader
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: ["@svgr/webpack"]
+    });
+
     return config;
   }
 };

@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { Icon } from "../ui-kit/Icon";
 
 export function LoginForm() {
   const router = useRouter();
@@ -82,8 +81,7 @@ export function LoginForm() {
           type="email"
           autoComplete="email"
           placeholder="Enter your email address"
-          icon={<Icon name="email" />}
-          focusedIcon={<Icon name="email" color="#3b82f6" />}
+          iconName="email"
           value={email}
           error={validationErrors.email}
           onChange={(e) => {
@@ -102,8 +100,7 @@ export function LoginForm() {
             type="password"
             autoComplete="current-password"
             placeholder="Enter your password"
-            icon={<Icon name="locked" />}
-            focusedIcon={<Icon name="locked" color="blue-500" />}
+            iconName="locked"
             value={password}
             error={validationErrors.password}
             onChange={(e) => {

@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@source inline("text-{blue,purple,green,gray}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("text-error-500");
+
 :root {
     --background: #ffffff;
     --foreground: #171717;

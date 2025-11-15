@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormField } from "@/components/ui-kit";
-import { MockEmailIcon, MockEmailIconFocused, createMockHandlers } from "@/tests/mocks";
+import { createMockHandlers } from "@/tests/mocks";
 
 describe("FormField", () => {
   const mockHandlers = createMockHandlers();
@@ -47,67 +47,29 @@ describe("FormField", () => {
   });
 
   describe("Icon Behavior", () => {
-    it("displays default icon initially", () => {
-      render(<FormField label="Email" icon={<MockEmailIcon />} focusedIcon={<MockEmailIconFocused />} />);
-
-      expect(screen.getByTestId("email-icon")).toBeInTheDocument();
-      expect(screen.queryByTestId("email-icon-focused")).toBeInTheDocument();
-
-      // Default icon should be visible, focused icon should be hidden
-      const defaultIcon = screen.getByTestId("email-icon").parentElement;
-      const focusedIcon = screen.getByTestId("email-icon-focused").parentElement;
-
-      expect(defaultIcon).toHaveClass("opacity-100");
-      expect(focusedIcon).toHaveClass("opacity-0");
-    });
-
-    it("swaps to focused icon when input is focused", async () => {
-      const user = userEvent.setup();
-
-      render(<FormField label="Email" icon={<MockEmailIcon />} focusedIcon={<MockEmailIconFocused />} />);
-
-      const input = screen.getByRole("textbox");
-      await user.click(input);
-
-      // After focus, default icon should be hidden and focused icon visible
-      const defaultIcon = screen.getByTestId("email-icon").parentElement;
-      const focusedIcon = screen.getByTestId("email-icon-focused").parentElement;
-
-      expect(defaultIcon).toHaveClass("opacity-0");
-      expect(focusedIcon).toHaveClass("opacity-100");
-    });
-
-    it("reverts to default icon when input loses focus", async () => {
-      const user = userEvent.setup();
-
-      render(<FormField label="Email" icon={<MockEmailIcon />} focusedIcon={<MockEmailIconFocused />} />);
+    it("displays icon when iconName is provided", () => {
+      render(<FormField label="Email" iconName="email" />);
 
       const input = screen.getByRole("textbox");
 
-      // Focus then blur
-      await user.click(input);
-      await user.tab(); // Move focus away
-
-      // Should be back to default icon
-      const defaultIcon = screen.getByTestId("email-icon").parentElement;
-      const focusedIcon = screen.getByTestId("email-icon-focused").parentElement;
-
-      expect(defaultIcon).toHaveClass("opacity-100");
-      expect(focusedIcon).toHaveClass("opacity-0");
-    });
-
-    it("shows only default icon when no focused icon provided", () => {
-      render(<FormField label="Email" icon={<MockEmailIcon />} />);
-
-      expect(screen.getByTestId("email-icon")).toBeInTheDocument();
-      expect(screen.queryByTestId("email-icon-focused")).not.toBeInTheDocument();
+      // Icon should be present (rendered via Icon component)
+      // Note: Icon component uses lazy loading so we just verify the container exists
+      const iconContainer = input.parentElement?.querySelector('[class*="absolute"]');
+      expect(iconContainer).toBeInTheDocument();
     });
 
     it("adds left padding when icon is present", () => {
-      render(<FormField label="Email" icon={<MockEmailIcon />} />);
+      render(<FormField label="Email" iconName="email" />);
 
       const input = screen.getByRole("textbox");
       expect(input).toHaveClass("pl-48");
+    });
+
+    it("does not add left padding when no icon", () => {
+      render(<FormField label="Email" />);
+
+      const input = screen.getByRole("textbox");
+      expect(input).not.toHaveClass("pl-48");
     });
   });
 
