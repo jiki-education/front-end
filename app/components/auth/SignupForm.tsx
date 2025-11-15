@@ -11,7 +11,12 @@ import { useState } from "react";
 
 export function SignupForm() {
   const router = useRouter();
-  const { signup, isLoading, error, clearError } = useAuthStore();
+  const { signup, googleAuth, isLoading, error, clearError } = useAuthStore();
+
+  const handleGoogleAuth = async (code: string) => {
+    await googleAuth(code);
+    router.push("/dashboard");
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,11 +64,7 @@ export function SignupForm() {
 
   return (
     <div className="flex flex-col gap-20">
-      <GoogleAuthButton
-        onClick={() => {
-          /* Google OAuth not implemented yet */
-        }}
-      >
+      <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
         Sign Up with Google
       </GoogleAuthButton>
 

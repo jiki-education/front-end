@@ -6,6 +6,19 @@ const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true
   },
+  async headers() {
+    return Promise.resolve([
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin-allow-popups"
+          }
+        ]
+      }
+    ]);
+  },
   turbopack: {
     root: path.resolve(__dirname, ".."),
     rules: {
