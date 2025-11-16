@@ -36,7 +36,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  // Only use nonce in production to avoid hydration mismatches in development
+  const nonce = process.env.NODE_ENV === "production" ? ((await headers()).get("x-nonce") ?? undefined) : undefined;
 
   return (
     <html lang="en" className="dark" data-theme="dark">

@@ -103,25 +103,25 @@ export function middleware(request: NextRequest) {
   // Generate nonce for inline scripts
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
 
-  const isDevelopment = process.env.NODE_ENV === "development";
+  const isProduction = process.env.NODE_ENV === "production";
 
   // Set Content Security Policy headers
   // In development, allow unsafe-inline for Next.js dev scripts
   // In production, use strict nonce-based CSP
   const cspHeader = `
     default-src 'self';
-    script-src 'self' https://js.stripe.com ${isDevelopment ? "'unsafe-inline' 'unsafe-eval'" : `'nonce-${nonce}' 'strict-dynamic'`};
+    script-src 'self' https://js.stripe.com ${isProduction ? `'nonce-${nonce}' 'strict-dynamic'` : "'unsafe-inline' 'unsafe-eval'"};
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
-    connect-src 'self' https://api.stripe.com ${isDevelopment ? "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*" : ""};
+    connect-src 'self' https://api.stripe.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
     frame-src 'self' https://js.stripe.com https://hooks.stripe.com;
     worker-src 'self' blob:;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    ${isDevelopment ? "" : "upgrade-insecure-requests;"}
+    ${isProduction ? "upgrade-insecure-requests;" : ""}
   `
     .replace(/\s{2,}/g, " ")
     .trim();
