@@ -1,87 +1,87 @@
 ---
-title: "Megszületett a Jiki: Új út a kódolás tanulásához"
+title: "Elindult a Jiki: Új út a programozástanuláshoz"
 date: "2025-01-15"
-excerpt: "Örömmel jelentjük be a Jiki indulását, egy interaktív platformot, amelyet azért terveztünk, hogy segítsen a kezdőknek megtanulni a kódolást gyakorlati feladatokon és irányított gyakorlatokon keresztül."
+excerpt: "Nagy örömmel jelentjük be a Jiki elindulását! Ez egy interaktív platform, amely gyakorlati feladatokon és irányított gyakorlatokon keresztül segíti a teljesen kezdőket a programozás tanulásában."
 author: "ihid"
-tags: ["bejelentés", "indulás", "kezdők"]
+tags: ["announcement", "launch", "beginners"]
 seo:
-  description: "A Jiki bejelentése - interaktív kódolástanulási platform kezdőknek az Exercism csapatától"
-  keywords: ["jiki", "kódolás tanulása", "programozás kezdőknek", "kódolás oktatás", "exercism"]
+  description: "Bemutatkozik a Jiki - egy interaktív programozástanuló platform teljesen kezdőknek, az Exercism csapatától"
+  keywords: ["jiki", "programozás tanulása", "programozás kezdőknek", "programozásoktatás", "exercism"]
 featured: true
 coverImage: "/images/blog/jiki-launch.jpg"
 ---
 
-# Üdvözöljük a Jikiben!
+# Üdvözlünk a Jiki platformon!
 
-Ma egy izgalmas mérföldkőhöz érkeztünk: **a Jiki hivatalosan is elindult!** Keményen dolgoztunk azon, hogy létrehozzunk egy platformot, amely hozzáférhetővé, vonzóvá és hatékonnyá teszi a kódolás tanulását a kezdők számára.
+Ma egy különleges mérföldkőhöz érkeztünk: **a Jiki hivatalosan is elérhető!** Sokat dolgoztunk azon, hogy egy olyan platformot hozzunk létre, amely a teljesen kezdők számára is elérhetővé, érdekessé és hatékonnyá teszi a programozás tanulását.
 
-## Mi az a Jiki?
+## Mi is az a Jiki?
 
-A Jiki egy interaktív kódolástanulási platform, amelyet az [Exercism](https://exercism.org) mögött álló csapat hozott létre. Míg az Exercism segíti a fejlesztőket a programozási nyelvek gyakorlásában és elsajátításában, a Jiki az abszolút kezdőkre összpontosít, hogy megtegyék első lépéseiket a kódolás világában.
+A Jiki egy interaktív programozástanuló platform, amelyet az [Exercism](https://exercism.org) mögött álló csapat készített. Míg az Exercism a fejlesztőknek segít gyakorolni és elsajátítani a programozási nyelveket, a Jiki arra összpontosít, hogy a teljesen kezdők megtehessék első lépéseiket a programozás világában.
 
-## Miért építettük a Jikit
+## Miért hoztuk létre a Jikit?
 
-Az Exercismnél eltöltött évek során több ezer embert láttunk, akik megpróbálták elkezdeni a kódolási útjukat, de falba ütköztek, mert hiányoztak az alapvető készségeik. Rájöttünk, hogy van egy hiány: a meglévő erőforrások vagy túl elmé​letiek voltak, vagy előzetes tudást feltételeztek.
+Az Exercismnél eltöltött évek során több ezer emberről tapasztaltuk, hogy megpróbáltak elindulni a programozás útján, de az alapvető készségek hiánya miatt elakadtak. Rájöttünk, hogy van egy hiány: a létező források vagy túl elméleti jellegűek voltak, vagy előzetes tudást feltételeztek.
 
-A Jikit azért építettük, hogy ezt a hiányt betöltsük. Célunk az, hogy biztosítsunk:
+A Jikit azért hoztuk létre, hogy ezt a hiányt betöltsük. Célunk, hogy a következőket biztosítsuk:
 
-- **Gyakorlati tanulást** interaktív kódolási gyakorlatokon keresztül
-- **Strukturált haladást** a nullától a magabiztos kezdőig
-- **Világos magyarázatokat**, amelyek nem feltételeznek előzetes tudást
-- **Azonnali visszajelzést**, hogy tanuljunk a hibákból
+- **Gyakorlati tanulás** interaktív programozási feladatokon keresztül
+- **Strukturált haladás** a nulláról kezdve, egészen a magabiztos tudásig
+- **Egyértelmű magyarázatok**, amelyek nem feltételeznek előzetes ismereteket
+- **Azonnali visszajelzés**, hogy a hibáidból tanulhass
 
-## Hogyan működik a Jiki
+## Hogyan működik a Jiki?
 
-A Jiki egyedi megközelítést alkalmaz a kód tanítására:
+A Jiki egy egyedi megközelítést alkalmaz a programozás tanításához:
 
-1. **Interaktív gyakorlatok**: Írj valódi kódot a böngésződben és futtasd azonnal
-2. **Lépésről lépésre tanulás**: Kövesd a gondosan megtervezett tantervünket, amely minden koncepciót
+1. **Interaktív feladatok**: Valódi kódot írhatsz a böngésződben, és azonnal láthatod a futás eredményét
+2. **Lépésről lépésre haladás**: Egy gondosan megtervezett tananyagot követsz, amely minden koncepciót az előzőekre épít
+3. **Vizuális visszajelzés**: Megfigyelheted a kódod végrehajtását képkockáról képkockára, hogy pontosan megértsd, mi történik
+4. **Projektalapú gyakorlás**: Valódi projekteket építve alkalmazhatod a tanultakat
 
-felépít 3. **Vizuális visszajelzés**: Nézd meg, ahogy a kódod képkockánként fut le, hogy pontosan megértsd, mi történik 4. **Projektalapu gyakorlás**: Alkalmazd a tanultakat valódi projektek építésével
+## Kinek készült a Jiki?
 
-## Kinek való a Jiki?
+A Jiki tökéletes választás a következő csoportoknak:
 
-A Jiki tökéletes:
+- Teljesen kezdők, akiknek nulla programozási tapasztalatuk van
+- Akik korábban már próbálkoztak a programozástanulással, de elakadtak
+- Bárki, aki strukturált és támogató utat szeretne a fejlesztővé váláshoz
+- Az Exercismről érkező diákok, akiknek először az alapvető készségeket kell felépíteniük
 
-- Kezdőknek, akiknek nulla kódolási tapasztalatuk van
-- Embereknek, akik korábban próbálták tanulni a kódolást, de elakadtak
-- Bárkinek, aki strukturált, támogató utat szeretne a fejlesztővé váláshoz
-- Az Exercismről átirányított tanulóknak, akiknek először alapvető készségeket kell fejleszteniük
+## Mit tanulhatsz meg?
 
-## Mit tanulhatsz?
+A **JavaScript** és **Python** nyelvekhez készült átfogó képzési útvonalakkal indulunk, amelyek az alábbiakat fedik le:
 
-**JavaScript** és **Python** átfogó tananyagokkal indulunk, amelyek lefedik:
-
-- Változókat és adattípusokat
-- Függvényeket és kódszervezést
-- Vezérlési folyamatot (if utasítások, ciklusok)
-- Adatstruktúrákkal való munkát (tömbök, objektumok)
+- Változók és adattípusok
+- Függvények és kódszervezés
+- Vezérlési szerkezetek (feltételes utasítások, ciklusok)
+- Adatstruktúrákkal való munka (tömbök, objektumok)
 - És még sok más!
 
 ## Árazás és hozzáférhetőség
 
-Hiszünk abban, hogy mindenkinek hozzáférése kell legyen a minőségi kódolási oktatáshoz, függetlenül attól, hogy hol él vagy milyen anyagi helyzete van. Ezért a Jiki vásárlóerő-paritás (PPP) árazást alkalmaz:
+Hiszünk abban, hogy mindenkinek hozzáférése kell legyen minőségi programozásoktatáshoz, függetlenül attól, hol él vagy mi a pénzügyi helyzete. Ezért a Jiki helyi vásárlóerőhöz igazított árazást alkalmaz:
 
-- **USA árazás**: 10 USD/hó
-- **Módosított árazás**: Akár 2 USD/hó alacsonyabb jövedelmű régiókban
-- **Ingyenes próbaverzió**: Próbáld ki a Jikit, mielőtt elköteleződnél
+- **USA árképzés**: 10 dollár/hó
+- **Igazított árképzés**: Az alacsonyabb jövedelmű régiókban akár 2 dollár/hó
+- **Ingyenes próbaidőszak**: Próbáld ki a Jikit, mielőtt elköteleznéd magad
 
-## Mi következik?
+## Mi jön ezután?
 
-Ez csak a kezdet! Izgalmas funkciókat tervezünk, beleértve:
+Ez még csak a kezdet! Izgalmas funkciókat tervezünk, többek között:
 
-- További programozási nyelveket
-- Haladó projekt tananyagokat
-- Közösségi funkciókat
-- Élő kérdések és válaszok oktatókkal
+- További programozási nyelvek
+- Haladó projekt útvonalak
+- Közösségi funkciók
+- Élő kérdés-válasz szekciók oktatókkal
 
 ## Csatlakozz hozzánk!
 
-Készen állsz a kódolási utad megkezdésére? [Regisztrálj a Jikibe](https://jiki.io) és tedd meg az első lépést a fejlesztővé válás felé.
+Készen állsz a programozási utad megkezdésére? [Regisztrálj a Jikire](https://jiki.io), és tedd meg az első lépést a fejlesztővé válás felé.
 
-Kérdéseid vagy visszajelzésed van? Szívesen hallanánk róluk! Írj nekünk a [hello@jiki.io](mailto:hello@jiki.io) címre.
+Kérdésed vagy visszajelzésed van? Szeretnénk hallani rólad! Írj nekünk a [hello@jiki.io](mailto:hello@jiki.io) címre.
 
-Tanuljunk együtt kódolni! 🚀
+Tanuljunk együtt programozni! 🚀
 
 ---
 
