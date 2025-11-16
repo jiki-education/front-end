@@ -6,6 +6,8 @@
     "dev": "next dev --port 3061 --turbo",
     "build": "next build",
     "start": "next start",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:e2e": "node scripts/run-e2e-tests.js",
@@ -36,6 +38,7 @@
     "@lezer/common": "^1.2.3",
     "@lezer/highlight": "^1.2.1",
     "@mux/mux-player-react": "^3.6.0",
+    "@opennextjs/cloudflare": "^1.12.0",
     "@stripe/react-stripe-js": "^5.3.0",
     "@stripe/stripe-js": "^8.3.0",
     "@types/react-modal": "^3.16.3",
@@ -85,6 +88,7 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.4.1",
     "typescript": "^5",
-    "wait-on": "^9.0.1"
+    "wait-on": "^9.0.1",
+    "wrangler": "^4.47.0"
   }
 }

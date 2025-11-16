@@ -1,7 +1,52 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// Basic authentication credentials
+// NOTE: These credentials are intentionally hardcoded and not considered secrets.
+// They provide basic protection during development/staging but are not meant for
+// production security. Username: jiki, Password: ave-fetching-chloe-packed
+const BASIC_AUTH_USER = "jiki";
+const BASIC_AUTH_PASSWORD = "ave-fetching-chloe-packed";
+
+function checkBasicAuth(request: NextRequest): NextResponse | null {
+  // Only apply basic auth in production
+  if (process.env.NODE_ENV !== "production") {
+    return null;
+  }
+
+  const authHeader = request.headers.get("authorization");
+
+  if (!authHeader) {
+    return new NextResponse("Authentication required", {
+      status: 401,
+      headers: {
+        "WWW-Authenticate": 'Basic realm="Secure Area"'
+      }
+    });
+  }
+
+  const auth = authHeader.split(" ")[1];
+  const [user, password] = Buffer.from(auth, "base64").toString().split(":");
+
+  if (user !== BASIC_AUTH_USER || password !== BASIC_AUTH_PASSWORD) {
+    return new NextResponse("Authentication failed", {
+      status: 401,
+      headers: {
+        "WWW-Authenticate": 'Basic realm="Secure Area"'
+      }
+    });
+  }
+
+  return null;
+}
+
 export function middleware(request: NextRequest) {
+  // Check basic auth first
+  const authResponse = checkBasicAuth(request);
+  if (authResponse) {
+    return authResponse;
+  }
+
   // Block access to /dev and test routes in production
   const path = request.nextUrl.pathname;
   const isTestRoute = path.startsWith("/dev") || path.startsWith("/test");
