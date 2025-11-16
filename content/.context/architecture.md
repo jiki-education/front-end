@@ -22,11 +22,11 @@ content/
 │       ├── blog/             # Blog posts (time-based)
 │       │   └── [slug]/
 │       │       ├── en.md     # English version (required)
-│       │       └── hu.md     # Hungarian version (optional)
+│       │       └── xx.md     # Translation (optional, where xx is locale code)
 │       └── articles/         # Articles (evergreen)
 │           └── [slug]/
 │               ├── en.md
-│               └── hu.md
+│               └── xx.md     # Translation (optional)
 ├── images/
 │   ├── blog/                 # Blog post images
 │   ├── articles/             # Article images
@@ -50,7 +50,7 @@ Content is organized by slug (post identifier), not by language. Each post lives
 ```
 posts/blog/jiki-is-born/
 ├── en.md    # Required
-└── hu.md    # Optional
+└── xx.md    # Optional (where xx is locale code like hu, de, ja, etc.)
 ```
 
 This makes it easy to:
