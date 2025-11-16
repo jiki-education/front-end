@@ -181,8 +181,8 @@ export default function UIKitDemoPage() {
                 </div>
                 <PageTabs
                   tabs={[
-                    { id: "all", label: "All", icon: <Icon name="all" /> },
-                    { id: "not-started", label: "Not started", icon: <Icon name="in-progress" /> }
+                    { id: "all", label: "All", icon: <Icon name="all" size={16} /> },
+                    { id: "not-started", label: "Not started", icon: <Icon name="in-progress" size={16} /> }
                   ]}
                   activeTabId="all"
                   onTabChange={() => {}}
@@ -195,7 +195,11 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Purple Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "in-progress", label: "In Progress", icon: <Icon name="in-progress" color="purple" /> },
+                    {
+                      id: "in-progress",
+                      label: "In Progress",
+                      icon: <Icon name="in-progress" size={16} color="purple" />
+                    },
                     { id: "other", label: "Other Tab" }
                   ]}
                   activeTabId="in-progress"
@@ -209,7 +213,7 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Green Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "complete", label: "Complete", icon: <Icon name="complete" color="green" /> },
+                    { id: "complete", label: "Complete", icon: <Icon name="complete" size={16} color="green" /> },
                     { id: "other2", label: "Other Tab" }
                   ]}
                   activeTabId="complete"
@@ -223,7 +227,7 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Gray Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "locked", label: "Locked", icon: <Icon name="locked" color="gray-500" /> },
+                    { id: "locked", label: "Locked", icon: <Icon name="locked" size={16} color="gray-500" /> },
                     { id: "other3", label: "Other Tab" }
                   ]}
                   activeTabId="locked"

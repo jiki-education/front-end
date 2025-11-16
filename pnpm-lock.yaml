@@ -195,6 +195,9 @@ importers:
       knip:
         specifier: ^5.63.1
         version: 5.67.1(@types/node@20.19.24)(typescript@5.9.3)
+      onchange:
+        specifier: ^7.1.0
+        version: 7.1.0
       prettier:
         specifier: ^3.6.2
         version: 3.6.2

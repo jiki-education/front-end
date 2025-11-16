@@ -15,7 +15,9 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "knip": "knip"
+    "knip": "knip",
+    "icons:generate": "node scripts/generate-icon-types.js",
+    "icons:watch": "onchange 'icons/**/*.svg' -- pnpm run icons:generate"
   },
   "dependencies": {
     "@codemirror/commands": "^6.8.1",
@@ -80,6 +82,7 @@
     "jest-environment-jsdom": "^30.1.2",
     "jest-puppeteer": "^11.0.0",
     "knip": "^5.63.1",
+    "onchange": "^7.1.0",
     "prettier": "^3.6.2",
     "puppeteer": "^24.21.0",
     "raw-loader": "^4.0.2",

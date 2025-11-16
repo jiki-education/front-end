@@ -1,4 +1,4 @@
-import BugIcon from "@/icons/bug.svg";
+import { Icon } from "@/components/ui-kit/Icon";
 
 export function UnhandledErrorView() {
   // TODO: use orchestrator's error store
@@ -6,7 +6,7 @@ export function UnhandledErrorView() {
   return (
     <div className="border-t-1 border-borderColor6">
       <div className="text-center py-40 px-40 max-w-[600px] mx-auto">
-        <BugIcon className="w-[48px] h-[48px] m-auto mb-20 stroke-textColor6" aria-label="An image of a bug" />
+        <Icon name="bug" size={48} className="m-auto mb-20" color="gray-500" alt="An image of a bug" />
         <div className="text-h5 mb-6 text-textColor6">
           Oops! Something went <strong className="font-bold">very</strong> wrong.
         </div>

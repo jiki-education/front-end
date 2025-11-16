@@ -4,6 +4,7 @@
 
 import type { InputHTMLAttributes } from "react";
 import type { BaseUIProps, Size } from "../types";
+import type { IconName } from "../icon-types";
 
 /**
  * Props for the FormField component
@@ -29,5 +30,5 @@ export interface FormFieldProps extends BaseUIProps, Omit<InputHTMLAttributes<HT
    * Icon name to display in the form field
    * Icon color changes from gray-500 to blue-500 on focus
    */
-  iconName?: string;
+  iconName?: IconName;
 }

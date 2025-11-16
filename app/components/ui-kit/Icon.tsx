@@ -15,16 +15,17 @@
  */
 
 import { lazy, Suspense, useMemo } from "react";
+import type { IconName } from "./icon-types";
 
 export interface IconProps {
-  name: string;
-  size?: number;
+  name: IconName;
+  size: number;
   className?: string;
   alt?: string;
   color?: string;
 }
 
-export function Icon({ name, size = 1, className = "", alt, color }: IconProps) {
+export function Icon({ name, size, className = "", alt, color }: IconProps) {
   // Lazy load the icon component for code-splitting (memoized by name)
   const IconComponent = useMemo(() => lazy(() => import(`@/icons/${name}.svg`)), [name]);
 

@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/**
+ * Safelist dynamic color classes for Icon component
+ * Icon.tsx uses dynamic color prop (text-${color}) which needs all possible
+ * color combinations available at build time for Tailwind JIT compilation
+ */
 @source inline("text-{blue,purple,green,gray}-{50,100,200,300,400,500,600,700,800,900,950}");
 @source inline("text-error-500");
 
@@ -555,7 +560,7 @@ body {
     }
     .cm-lockedGutter {
         .cm-lock-marker {
-            background-image: url("/readonly-lock.svg");
+            background-image: url("/icons/readonly-lock.svg");
             background-size: 80%;
             @apply bg-no-repeat bg-center;
             @apply opacity-[0.4];
@@ -960,7 +965,7 @@ body {
         border-color: #ddefe6;
         @apply bg-bootcamp-success-light;
         @apply text-bootcamp-success-dark;
-        background-image: url("/bootcamp-tick-green.svg");
+        background-image: url("/icons/bootcamp-tick-green.svg");
         background-size: 12px;
         background-position: 24px 0px;
         &.selected {
@@ -975,7 +980,7 @@ body {
         border-color: var(--color-error-border);
         background-color: var(--color-error-bg);
         @apply text-bootcamp-fail-text;
-        background-image: url("/bootcamp-cross-red.svg");
+        background-image: url("/icons/bootcamp-cross-red.svg");
         background-size: 9px;
         background-position: 25px 2px;
         &.selected {
