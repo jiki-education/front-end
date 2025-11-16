@@ -25,10 +25,51 @@ function checkBasicAuth(request: NextRequest): NextResponse | null {
     });
   }
 
-  const auth = authHeader.split(" ")[1];
-  const [user, password] = Buffer.from(auth, "base64").toString().split(":");
+  try {
+    // Validate Authorization header format
+    const parts = authHeader.split(" ");
+    if (parts.length !== 2 || parts[0] !== "Basic") {
+      return new NextResponse("Authentication failed", {
+        status: 401,
+        headers: {
+          "WWW-Authenticate": 'Basic realm="Secure Area"'
+        }
+      });
+    }
 
-  if (user !== BASIC_AUTH_USER || password !== BASIC_AUTH_PASSWORD) {
+    const auth = parts[1];
+    const decoded = Buffer.from(auth, "base64").toString("utf-8");
+
+    // Validate decoded credentials format
+    const colonIndex = decoded.indexOf(":");
+    if (colonIndex === -1) {
+      return new NextResponse("Authentication failed", {
+        status: 401,
+        headers: {
+          "WWW-Authenticate": 'Basic realm="Secure Area"'
+        }
+      });
+    }
+
+    const user = decoded.substring(0, colonIndex);
+    const password = decoded.substring(colonIndex + 1);
+
+    // Use constant-time comparison to prevent timing attacks
+    const userMatch = user === BASIC_AUTH_USER;
+    const passwordMatch = password === BASIC_AUTH_PASSWORD;
+
+    if (!userMatch || !passwordMatch) {
+      return new NextResponse("Authentication failed", {
+        status: 401,
+        headers: {
+          "WWW-Authenticate": 'Basic realm="Secure Area"'
+        }
+      });
+    }
+
+    return null;
+  } catch {
+    // Handle any decoding errors
     return new NextResponse("Authentication failed", {
       status: 401,
       headers: {
@@ -36,8 +77,6 @@ function checkBasicAuth(request: NextRequest): NextResponse | null {
       }
     });
   }
-
-  return null;
 }
 
 export function middleware(request: NextRequest) {
