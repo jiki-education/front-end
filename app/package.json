@@ -17,7 +17,7 @@
     "format:check": "prettier --check .",
     "knip": "knip",
     "icons:generate": "node scripts/generate-icon-types.js",
-    "icons:watch": "onchange 'icons/**/*.svg' -- pnpm run icons:generate"
+    "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate"
   },
   "dependencies": {
     "@codemirror/commands": "^6.8.1",
