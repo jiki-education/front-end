@@ -60,46 +60,52 @@ describe("PageTabs", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-2" onTabChange={mockHandlers.onTabChange} />);
 
       const activeTab = screen.getByRole("tab", { name: "Tab 2" });
-      expect(activeTab).toHaveClass("text-blue-500");
-      expect(activeTab).toHaveClass("after:bg-blue-500");
+      expect(activeTab).toHaveClass("active");
     });
 
     it("applies inactive styling to non-selected tabs", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-2" onTabChange={mockHandlers.onTabChange} />);
 
       const inactiveTab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(inactiveTab).toHaveClass("text-gray-500");
-      expect(inactiveTab).not.toHaveClass("text-blue-500");
+      expect(inactiveTab).not.toHaveClass("active");
     });
   });
 
   describe("Color Variants", () => {
-    it("applies blue color by default", () => {
+    it("applies active class to active tab", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       const activeTab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(activeTab).toHaveClass("text-blue-500", "after:bg-blue-500");
+      expect(activeTab).toHaveClass("active");
+      // Default tabs don't have color property, so no data-color attribute
+      expect(activeTab).not.toHaveAttribute("data-color");
     });
 
     it("applies purple color variant", () => {
-      render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} color="purple" />);
+      const tabsWithPurple: TabItem[] = [{ ...defaultTabs[0], color: "purple" }, defaultTabs[1]];
+      render(<PageTabs tabs={tabsWithPurple} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       const activeTab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(activeTab).toHaveClass("text-purple-500", "after:bg-purple-500");
+      expect(activeTab).toHaveClass("active");
+      expect(activeTab).toHaveAttribute("data-color", "purple");
     });
 
     it("applies green color variant", () => {
-      render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} color="green" />);
+      const tabsWithGreen: TabItem[] = [{ ...defaultTabs[0], color: "green" }, defaultTabs[1]];
+      render(<PageTabs tabs={tabsWithGreen} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       const activeTab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(activeTab).toHaveClass("text-green-500", "after:bg-green-500");
+      expect(activeTab).toHaveClass("active");
+      expect(activeTab).toHaveAttribute("data-color", "green");
     });
 
     it("applies gray color variant", () => {
-      render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} color="gray" />);
+      const tabsWithGray: TabItem[] = [{ ...defaultTabs[0], color: "gray" }, defaultTabs[1]];
+      render(<PageTabs tabs={tabsWithGray} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       const activeTab = screen.getByRole("tab", { name: "Tab 1" });
-      expect(activeTab).toHaveClass("text-gray-400", "after:bg-gray-400");
+      expect(activeTab).toHaveClass("active");
+      expect(activeTab).toHaveAttribute("data-color", "gray");
     });
 
     it("supports individual tab color overrides", () => {
@@ -109,25 +115,20 @@ describe("PageTabs", () => {
       ];
 
       const { rerender } = render(
-        <PageTabs
-          tabs={tabsWithColors}
-          activeTabId="tab-1"
-          onTabChange={mockHandlers.onTabChange}
-          color="green" // Default color
-        />
+        <PageTabs tabs={tabsWithColors} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />
       );
 
       // First tab should use its own blue color
       const blueTab = screen.getByRole("tab", { name: "Blue Tab" });
-      expect(blueTab).toHaveClass("text-blue-500", "after:bg-blue-500");
+      expect(blueTab).toHaveClass("active");
+      expect(blueTab).toHaveAttribute("data-color", "blue");
 
       // Switch to second tab and check its purple color
-      rerender(
-        <PageTabs tabs={tabsWithColors} activeTabId="tab-2" onTabChange={mockHandlers.onTabChange} color="green" />
-      );
+      rerender(<PageTabs tabs={tabsWithColors} activeTabId="tab-2" onTabChange={mockHandlers.onTabChange} />);
 
       const activePurpleTab = screen.getByRole("tab", { name: "Purple Tab" });
-      expect(activePurpleTab).toHaveClass("text-purple-500", "after:bg-purple-500");
+      expect(activePurpleTab).toHaveClass("active");
+      expect(activePurpleTab).toHaveAttribute("data-color", "purple");
     });
   });
 
@@ -171,27 +172,18 @@ describe("PageTabs", () => {
   });
 
   describe("Styling", () => {
-    it("applies base styling to tabs", () => {
+    it("applies proper structure and data attributes to tabs", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       defaultTabs.forEach((tab) => {
         const tabButton = screen.getByRole("tab", { name: tab.label });
-        expect(tabButton).toHaveClass(
-          "py-8",
-          "bg-transparent",
-          "border-none",
-          "text-[15px]",
-          "font-normal",
-          "cursor-pointer",
-          "font-sans",
-          "relative",
-          "inline-flex",
-          "items-center",
-          "gap-8",
-          "transition-colors",
-          "duration-200",
-          "ease-in-out"
-        );
+        // Check that it's a proper button element
+        expect(tabButton.tagName).toBe("BUTTON");
+        // Check for data-tab attribute
+        expect(tabButton).toHaveAttribute("data-tab", tab.id);
+        // Check for proper role and ARIA attributes
+        expect(tabButton).toHaveAttribute("role", "tab");
+        expect(tabButton).toHaveAttribute("type", "button");
       });
     });
 
@@ -199,7 +191,9 @@ describe("PageTabs", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       const tab = screen.getByRole("tab", { name: "Tab 2" });
-      expect(tab).toHaveClass("hover:text-blue-500");
+      // Hover styling is handled by CSS, just check it's a proper button
+      expect(tab).toBeInTheDocument();
+      expect(tab).not.toHaveClass("active");
     });
 
     it("applies container styling", () => {
@@ -214,16 +208,15 @@ describe("PageTabs", () => {
 
       const container = screen.getByRole("tab", { name: "Tab 1" }).parentElement;
 
-      expect(container).toHaveClass("flex", "gap-24", "mb-[26px]", "flex-wrap", "custom-tabs");
+      expect(container).toHaveClass("ui-page-tabs", "custom-tabs");
     });
 
-    it("applies icon styling when present", () => {
+    it("renders icons when present", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
       defaultTabs.forEach((_, index) => {
         const icon = screen.getByTestId(`tab-${index + 1}-icon`);
-        const iconContainer = icon.parentElement;
-        expect(iconContainer).toHaveClass("w-16", "h-16", "flex-shrink-0");
+        expect(icon).toBeInTheDocument();
       });
     });
   });

@@ -11,7 +11,6 @@ interface TabContainerProps {
   className?: string;
   children?: ReactNode;
   onChange?: (tabId: string) => void;
-  color?: "blue" | "purple" | "green" | "gray";
 }
 
 interface TabContainerContextType {
@@ -22,7 +21,7 @@ interface TabContainerContextType {
 
 export const TabContainerContext = React.createContext<TabContainerContextType | null>(null);
 
-export function TabContainer({ tabs, defaultTab, className, children, onChange, color = "blue" }: TabContainerProps) {
+export function TabContainer({ tabs, defaultTab, className, children, onChange }: TabContainerProps) {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id || "");
 
   const handleTabChange = useCallback(
@@ -45,7 +44,7 @@ export function TabContainer({ tabs, defaultTab, className, children, onChange, 
   return (
     <TabContainerContext.Provider value={contextValue}>
       <div className={`w-full ${className || ""}`}>
-        <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={handleTabChange} color={color} />
+        <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={handleTabChange} />
         <div className="mt-24">{children}</div>
       </div>
     </TabContainerContext.Provider>
