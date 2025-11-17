@@ -1,16 +1,19 @@
 import { useRouter } from "next/navigation";
+import type { ComponentType } from "react";
 
 interface NavigationItemProps {
   id: string;
   label: string;
   isActive: boolean;
   href?: string;
+  icon?: ComponentType<{ className?: string }>;
 }
 
-export function NavigationItem({ label, isActive, href }: NavigationItemProps) {
+export function NavigationItem({ label, isActive, href, icon: Icon }: NavigationItemProps) {
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (href) {
       router.push(href);
     }
@@ -18,15 +21,14 @@ export function NavigationItem({ label, isActive, href }: NavigationItemProps) {
 
   return (
     <li>
-      <button
-        onClick={handleClick}
-        className={`
-          w-full text-left px-4 py-3 rounded-lg transition-colors focus-ring
-          ${isActive ? "bg-info-bg text-info-text font-medium" : "text-text-primary hover:bg-bg-secondary"}
-        `}
-      >
-        {label}
-      </button>
+      <a href={href || "#"} onClick={handleClick} className={`nav-item ${isActive ? "active" : ""}`}>
+        {Icon && (
+          <span className="nav-icon">
+            <Icon />
+          </span>
+        )}
+        <span>{label}</span>
+      </a>
     </li>
   );
 }

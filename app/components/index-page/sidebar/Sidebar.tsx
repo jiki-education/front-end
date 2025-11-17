@@ -4,17 +4,27 @@ import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "next/navigation";
 import { NavigationItem } from "./NavigationItem";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "./Logo";
+import type { ComponentType } from "react";
+import HouseIcon from "../../../public/icons/house.svg";
+import ProjectsIcon from "../../../public/icons/projects.svg";
 
 interface SidebarProps {
   activeItem?: string;
 }
 
-const navigationItems: Array<{ id: string; label: string; href?: string }> = [
-  { id: "exercises", label: "Exercises", href: "/dashboard" },
-  { id: "projects", label: "Projects", href: "/projects" },
+const navigationItems: Array<{
+  id: string;
+  label: string;
+  href?: string;
+  icon?: ComponentType<{ className?: string }>;
+}> = [
+  { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
+  { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon },
   { id: "blog", label: "Blog", href: "/blog" },
   { id: "articles", label: "Articles", href: "/articles" },
   { id: "concepts", label: "Concepts", href: "/concepts" },
+  { id: "achievements", label: "Achievements", href: "/concepts" },
   { id: "settings", label: "Settings", href: "/settings" }
 ];
 
@@ -28,12 +38,10 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   };
 
   return (
-    <aside className="w-1/4 bg-bg-primary border-r border-border-primary h-screen sticky top-0 flex flex-col theme-transition">
-      <div className="p-6 border-b border-border-primary">
-        <h1 className="text-2xl font-bold text-text-primary">Jiki Learn</h1>
-      </div>
+    <aside className="ui-lhs-menu" id="sidebar">
+      <Logo />
 
-      <nav className="flex-1 p-4">
+      <nav>
         <ul className="space-y-2">
           {navigationItems.map((item) => (
             <NavigationItem
@@ -42,6 +50,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
               label={item.label}
               isActive={activeItem === item.id}
               href={item.href}
+              icon={item.icon}
             />
           ))}
         </ul>

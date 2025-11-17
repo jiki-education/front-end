@@ -1,0 +1,17 @@
+<svg class="collapsed-logo" width="40" height="45" viewBox="0 0 40 45" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradientCollapsed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="underlineGradientCollapsed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <text x="5" y="32" fill="url(#logoGradientCollapsed)" font-family="Poppins" font-size="32"
+    font-weight="700" letter-spacing="0">J</text>
+  <rect x="5" y="42" width="30" height="3" rx="1.5" fill="url(#underlineGradientCollapsed)" />
+</svg>
