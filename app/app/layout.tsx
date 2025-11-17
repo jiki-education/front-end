@@ -41,7 +41,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark" data-theme="dark">
       {/*<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>*/}
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${poppins.variable} antialiased ui-body`}>
         <Script src="/theme-script.js" strategy="beforeInteractive" nonce={nonce} />
         <ThemeProvider>
           <AuthProvider>

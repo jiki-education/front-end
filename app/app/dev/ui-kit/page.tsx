@@ -186,7 +186,6 @@ export default function UIKitDemoPage() {
                   ]}
                   activeTabId="all"
                   onTabChange={() => {}}
-                  color="blue"
                 />
               </div>
 
@@ -204,7 +203,6 @@ export default function UIKitDemoPage() {
                   ]}
                   activeTabId="in-progress"
                   onTabChange={() => {}}
-                  color="purple"
                 />
               </div>
 
@@ -213,12 +211,16 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Green Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "complete", label: "Complete", icon: <Icon name="complete" size={16} color="green" /> },
+                    {
+                      id: "complete",
+                      label: "Complete",
+                      icon: <Icon name="complete" size={16} color="green" />,
+                      color: "green"
+                    },
                     { id: "other2", label: "Other Tab" }
                   ]}
                   activeTabId="complete"
                   onTabChange={() => {}}
-                  color="green"
                 />
               </div>
 
@@ -227,12 +229,16 @@ export default function UIKitDemoPage() {
                 <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-12">Gray Active</div>
                 <PageTabs
                   tabs={[
-                    { id: "locked", label: "Locked", icon: <Icon name="locked" size={16} color="gray-500" /> },
+                    {
+                      id: "locked",
+                      label: "Locked",
+                      icon: <Icon name="locked" size={16} color="gray-500" />,
+                      color: "gray"
+                    },
                     { id: "other3", label: "Other Tab" }
                   ]}
                   activeTabId="locked"
                   onTabChange={() => {}}
-                  color="gray"
                 />
               </div>
             </div>

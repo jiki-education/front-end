@@ -120,7 +120,7 @@ describe("ProjectsPage", () => {
     });
 
     expect(screen.getByTestId("sidebar")).toHaveTextContent("Sidebar - projects");
-    expect(screen.getByText(/Practice your coding skills with these hands-on projects/)).toBeInTheDocument();
+    expect(screen.getByText(/Build real applications and games to practice your coding skills/)).toBeInTheDocument();
     expect(screen.getByText("Project 1")).toBeInTheDocument();
     expect(screen.getByText("Project 2")).toBeInTheDocument();
   });

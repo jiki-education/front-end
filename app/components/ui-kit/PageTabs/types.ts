@@ -49,11 +49,4 @@ export interface PageTabsProps extends BaseUIProps {
    * Callback when a tab is clicked
    */
   onTabChange: (tabId: string) => void;
-
-  /**
-   * Default color variant for all tabs
-   * Individual tabs can override this with their own color prop
-   * @default 'blue'
-   */
-  color?: ColorVariant;
 }
