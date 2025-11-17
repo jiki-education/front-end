@@ -6,51 +6,14 @@ import { useRequireAuth } from "@/lib/auth/hooks";
 import Sidebar from "@/components/index-page/sidebar/Sidebar";
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import AllIcon from "../../public/icons/all.svg";
 import InProgressIcon from "../../public/icons/in-progress.svg";
 import CompleteIcon from "../../public/icons/complete.svg";
 import LockedIcon from "../../public/icons/locked.svg";
 import ProjectsIcon from "../../public/icons/projects.svg";
-
-interface ProjectCardProps {
-  project: ProjectData;
-}
-
-function ProjectCard({ project }: ProjectCardProps) {
-  const isClickable = project.status !== "locked";
-  const statusColors = {
-    locked: "bg-gray-300 text-gray-500",
-    unlocked: "bg-blue-100 text-blue-800",
-    started: "bg-yellow-100 text-yellow-800",
-    completed: "bg-green-100 text-green-800"
-  };
-
-  const cardContent = (
-    <div
-      className={`p-6 border rounded-lg transition-colors ${
-        isClickable ? "hover:shadow-md cursor-pointer border-gray-200" : "cursor-not-allowed border-gray-300 opacity-60"
-      }`}
-    >
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="text-xl font-semibold text-gray-900">{project.title}</h3>
-        {project.status && (
-          <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${statusColors[project.status]}`}>
-            {project.status}
-          </span>
-        )}
-      </div>
-      <p className="text-gray-600 text-sm">{project.description}</p>
-    </div>
-  );
-
-  if (!isClickable) {
-    return cardContent;
-  }
-
-  return <Link href={`/projects/${project.slug}`}>{cardContent}</Link>;
-}
+import { ProjectCard } from "./ProjectCard";
+import { mockProjects } from "./mockProjects";
 
 const tabs: TabItem[] = [
   { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
@@ -139,7 +102,7 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="w-full">
       <Sidebar activeItem="projects" />
       <div className="main-content">
         <div className="container">
@@ -162,8 +125,11 @@ export default function ProjectsPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="cards-grid">
               {filteredProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+              {mockProjects.map((project) => (
                 <ProjectCard key={project.slug} project={project} />
               ))}
             </div>

@@ -45,7 +45,7 @@ export default async function RootLayout({
         <Script src="/theme-script.js" strategy="beforeInteractive" nonce={nonce} />
         <ThemeProvider>
           <AuthProvider>
-            <main className="min-h-screen bg-bg-secondary theme-transition">{children}</main>
+            <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
           </AuthProvider>
