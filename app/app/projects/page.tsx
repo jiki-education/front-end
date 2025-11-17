@@ -102,39 +102,41 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="w-full">
+    <div className="min-h-screen bg-bg-secondary theme-transition">
       <Sidebar activeItem="projects" />
-      <div className="main-content">
-        <div className="container">
-          <header className="ui-page-header">
-            <h1>
-              <ProjectsIcon />
-              Projects
-            </h1>
-            <p>Build real applications and games to practice your coding skills.</p>
-          </header>
+      <div className="ml-[260px] p-40">
+        <main className="p-6">
+          <div className="max-w-screen-xl mx-auto">
+            <header className="ui-page-header">
+              <h1>
+                <ProjectsIcon />
+                Projects
+              </h1>
+              <p>Build real applications and games to practice your coding skills.</p>
+            </header>
 
-          <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+            <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
-                {projects.length === 0
-                  ? "No projects available yet."
-                  : `No projects found for "${tabs.find((tab) => tab.id === activeTab)?.label}".`}
-              </p>
-            </div>
-          ) : (
-            <div className="cards-grid">
-              {filteredProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-              {mockProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </div>
-          )}
-        </div>
+            {filteredProjects.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  {projects.length === 0
+                    ? "No projects available yet."
+                    : `No projects found for "${tabs.find((tab) => tab.id === activeTab)?.label}".`}
+                </p>
+              </div>
+            ) : (
+              <div className="cards-grid">
+                {filteredProjects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} />
+                ))}
+                {mockProjects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} />
+                ))}
+              </div>
+            )}
+          </div>
+        </main>
       </div>
     </div>
   );

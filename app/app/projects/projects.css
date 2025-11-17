@@ -1,27 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: white !important;
-    color: #1a202c;
-    display: flex;
-    margin: 0;
-}
-
-/* Main Content */
-.main-content {
-    margin-left: 260px;
-    flex: 1;
-    padding: 40px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/* Projects page specific styles */
 
 /* Project Cards Grid */
 .cards-grid {
