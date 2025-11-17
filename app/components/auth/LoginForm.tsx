@@ -11,7 +11,12 @@ import { Icon } from "../ui-kit/Icon";
 
 export function LoginForm() {
   const router = useRouter();
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const { login, googleAuth, isLoading, error, clearError } = useAuthStore();
+
+  const handleGoogleAuth = async (code: string) => {
+    await googleAuth(code);
+    router.push("/dashboard");
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,11 +60,7 @@ export function LoginForm() {
 
   return (
     <div className="flex flex-col gap-5">
-      <GoogleAuthButton
-        onClick={() => {
-          /* Google OAuth not implemented yet */
-        }}
-      >
+      <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
         Log In with Google
       </GoogleAuthButton>
 

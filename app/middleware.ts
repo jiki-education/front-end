@@ -110,12 +110,12 @@ export function middleware(request: NextRequest) {
   // In production, use strict nonce-based CSP
   const cspHeader = `
     default-src 'self';
-    script-src 'self' https://js.stripe.com ${isProduction ? `'nonce-${nonce}' 'strict-dynamic'` : "'unsafe-inline' 'unsafe-eval'"};
-    style-src 'self' 'unsafe-inline';
+    script-src 'self' https://js.stripe.com https://accounts.google.com ${isProduction ? `'nonce-${nonce}' 'strict-dynamic'` : "'unsafe-inline' 'unsafe-eval'"};
+    style-src 'self' 'unsafe-inline' https://accounts.google.com;
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
-    connect-src 'self' https://api.stripe.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
-    frame-src 'self' https://js.stripe.com https://hooks.stripe.com;
+    connect-src 'self' https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
+    frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
     worker-src 'self' blob:;
     object-src 'none';
     base-uri 'self';
