@@ -9,12 +9,21 @@
 import { forwardRef, useState, useId } from "react";
 import type { FormFieldProps } from "./types";
 import { TRANSITION_CLASSES } from "../types";
+import { Icon } from "../Icon";
+
+// Map form field sizes to icon sizes
+const ICON_SIZE_MAP = {
+  small: 14,
+  medium: 16,
+  large: 18
+} as const;
 
 export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
-  ({ label, error, size: _size = "large", icon, focusedIcon, className = "", ...props }, ref) => {
+  ({ label, error, size: _size = "large", iconName, className = "", ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     const fieldId = useId();
     const errorId = `${fieldId}-error`;
+    const iconSize = ICON_SIZE_MAP[_size];
 
     // Container classes
     const containerClasses = [
@@ -51,7 +60,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
       "placeholder:text-gray-400",
 
       // Icon spacing (add left padding when icon is present)
-      (icon || focusedIcon) && "pl-48",
+      iconName && "pl-48",
 
       // Default state
       !error && "border-gray-200",
@@ -78,16 +87,13 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
     // Icon classes
     const iconClasses = [
       "absolute left-16 top-1/2 -translate-y-1/2 w-[18px] h-[18px] pointer-events-none",
-      TRANSITION_CLASSES.opacity
+      TRANSITION_CLASSES.colors
     ]
       .filter(Boolean)
       .join(" ");
 
     // Error message classes
     const errorClasses = ["mt-4 text-[14px] font-medium text-error-500"].filter(Boolean).join(" ");
-
-    // Determine which icons to show
-    const defaultIcon = icon;
 
     return (
       <div className={containerClasses}>
@@ -96,18 +102,13 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
           {label}
         </label>
 
-        {/* Input wrapper with icons */}
+        {/* Input wrapper with icon */}
         <div className={wrapperClasses}>
-          {/* Default icon (hidden when focused if focusedIcon is provided) */}
-          {defaultIcon && (
-            <div className={`${iconClasses} ${isFocused && focusedIcon ? "opacity-0" : "opacity-100"}`}>
-              {defaultIcon}
+          {/* Icon with color transition based on focus state */}
+          {iconName && (
+            <div className={iconClasses}>
+              <Icon name={iconName} size={iconSize} color={isFocused ? "blue-500" : "gray-500"} />
             </div>
-          )}
-
-          {/* Focused icon (shown when focused) */}
-          {focusedIcon && (
-            <div className={`${iconClasses} ${isFocused ? "opacity-100" : "opacity-0"}`}>{focusedIcon}</div>
           )}
 
           {/* Input field */}

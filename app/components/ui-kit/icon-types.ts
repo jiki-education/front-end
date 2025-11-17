@@ -1,26 +1,26 @@
 /**
  * Auto-generated icon types
- * Generated from SVG files in public/icons/
+ * Generated from SVG files in /icons/
  *
- * To add new icons:
- * 1. Add SVG file to public/icons/
- * 2. Run: node scripts/generate-icon-types.js
+ * To regenerate manually: pnpm run icons:generate
+ * Auto-regenerates during development via bin/dev watch mode
  *
- * Available icons: all, complete, email, in-progress, locked, password, user
+ * Available icons: all, bootcamp-cross-red, bootcamp-tick-green, bug, complete, email, file, globe, in-progress, locked, next, password, readonly-lock, vercel, window
  */
 
-export type IconName = "all" | "complete" | "email" | "in-progress" | "locked" | "password" | "user";
-
-export const availableIcons: readonly IconName[] = [
-  "all",
-  "complete",
-  "email",
-  "in-progress",
-  "locked",
-  "password",
-  "user"
-] as const;
-
-export function isValidIconName(name: string): name is IconName {
-  return availableIcons.includes(name as IconName);
-}
+export type IconName =
+  | "all"
+  | "bootcamp-cross-red"
+  | "bootcamp-tick-green"
+  | "bug"
+  | "complete"
+  | "email"
+  | "file"
+  | "globe"
+  | "in-progress"
+  | "locked"
+  | "next"
+  | "password"
+  | "readonly-lock"
+  | "vercel"
+  | "window";

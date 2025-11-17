@@ -24,6 +24,12 @@ jest.mock("@/stores/authStore", () => ({
   useAuthStore: jest.fn()
 }));
 
+jest.mock("@/components/ui-kit/Icon", () => ({
+  Icon: ({ name, size, className }: any) => (
+    <div data-testid={`icon-${name}`} className={className} style={{ width: size, height: size }} />
+  )
+}));
+
 const mockRouter = {
   push: jest.fn(),
   back: jest.fn(),
