@@ -6,57 +6,36 @@
  */
 
 import { useAuthStore } from "@/stores/authStore";
-import { googleLogin } from "@/lib/auth/service";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 export default function GoogleOAuthTestPage() {
-  const { user, isAuthenticated, isLoading: isAuthLoading, error: authError, login, logout } = useAuthStore();
+  const {
+    user,
+    isAuthenticated,
+    isLoading: isAuthLoading,
+    error: authError,
+    login,
+    logout,
+    googleAuth
+  } = useAuthStore();
   const [oauthError, setOauthError] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
 
   // Handle Google OAuth login success
   const handleGoogleLoginSuccess = async (code: string) => {
-    if (!code) {
-      setOauthError("No authorization code received from Google");
-      toast.error("No authorization code received from Google");
-      return;
-    }
-
-    setIsProcessing(true);
     setOauthError(null);
-
     try {
-      toast.loading("Authenticating with Google...");
-      const loggedInUser = await googleLogin(code);
-
-      // Update auth store state directly
-      useAuthStore.setState({
-        user: loggedInUser,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-        hasCheckedAuth: true
-      });
-
-      toast.dismiss();
-      toast.success(`Welcome ${loggedInUser.name || loggedInUser.email}!`);
+      await googleAuth(code);
     } catch (error) {
-      toast.dismiss();
       const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
       setOauthError(errorMessage);
-      toast.error(errorMessage);
       console.error("Google OAuth error:", error);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
   // Handle Google OAuth login error
   const handleGoogleLoginError = () => {
     setOauthError("Google login failed");
-    toast.error("Google login failed");
   };
 
   // Handle traditional email/password login for testing
@@ -66,20 +45,16 @@ export default function GoogleOAuthTestPage() {
         email: "ihid@jiki.io",
         password: "password"
       });
-      toast.success("Logged in successfully!");
     } catch (err) {
       console.error("Login failed:", err);
-      toast.error("Login failed");
     }
   };
 
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Logged out successfully");
     } catch (err) {
       console.error("Logout failed:", err);
-      toast.error("Logout failed");
     }
   };
 
@@ -138,13 +113,6 @@ export default function GoogleOAuthTestPage() {
                 Sign in with Google
               </GoogleAuthButton>
             </div>
-
-            {isProcessing && (
-              <div className="flex items-center text-blue-600">
-                <Spinner className="mr-2" />
-                <span>Processing authentication...</span>
-              </div>
-            )}
 
             {isAuthenticated && (
               <p className="text-sm text-green-600">
@@ -268,26 +236,5 @@ function TestScenario({ title, description }: { title: string; description: stri
       <h3 className="font-semibold text-gray-900">{title}</h3>
       <p className="text-gray-600 ml-4">{description}</p>
     </div>
-  );
-}
-
-// Loading Components
-function Spinner({ className }: { className?: string }) {
-  return (
-    <svg
-      className={`animate-spin ${className}`}
-      width="20"
-      height="20"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      ></path>
-    </svg>
   );
 }

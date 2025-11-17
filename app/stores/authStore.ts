@@ -98,30 +98,15 @@ export const useAuthStore = create<AuthStore>()(
         }
         try {
           toast.loading("Authenticating with Google...");
-          const user = await authService.googleLogin(code);
-
-          set({
-            user,
-            isAuthenticated: true,
-            isLoading: false,
-            error: null,
-            hasCheckedAuth: true
-          });
-
+          await get().googleLogin(code);
           toast.dismiss();
-          toast.success(`Welcome ${user.name || user.email}!`);
+          const user = get().user;
+          toast.success(`Welcome ${user?.name || user?.email}!`);
         } catch (error) {
           toast.dismiss();
           const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
           toast.error(errorMessage);
           console.error("Google OAuth error:", error);
-
-          set({
-            user: null,
-            isAuthenticated: false,
-            isLoading: false,
-            error: errorMessage
-          });
         }
       },
 
