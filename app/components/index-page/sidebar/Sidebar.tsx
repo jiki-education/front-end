@@ -27,7 +27,7 @@ const navigationItems: Array<{
   { id: "blog", label: "Blog", href: "/blog", icon: FolderIcon },
   { id: "articles", label: "Articles", href: "/articles", icon: FolderIcon },
   { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
-  { id: "achievements", label: "Achievements", href: "/concepts", icon: MedalIcon },
+  { id: "achievements", label: "Achievements", href: "", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
 ];
 
@@ -41,7 +41,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   };
 
   return (
-    <aside className="ui-lhs-menu" id="sidebar">
+    <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">
       <Logo />
 
       <nav>

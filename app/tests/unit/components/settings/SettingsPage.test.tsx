@@ -107,7 +107,7 @@ describe("SettingsPage Payment Verification", () => {
   it("renders settings page when authenticated without session_id", () => {
     render(<SettingsPage />);
 
-    expect(screen.getByTestId("settings-sidebar")).toBeInTheDocument();
+    expect(screen.getByTestId("sidebar")).toBeInTheDocument();
     expect(screen.getByTestId("subscription-section")).toBeInTheDocument();
     expect(mockExtractAndClearSessionId).toHaveBeenCalledTimes(1);
     expect(mockVerifyPaymentSession).not.toHaveBeenCalled();

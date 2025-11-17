@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
 import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
-import SettingsSidebar from "./SettingsSidebar";
+import Sidebar from "@/components/index-page/sidebar/Sidebar";
 
 export default function SettingsPage() {
   const { isAuthenticated, isLoading: authLoading, user } = useRequireAuth();
@@ -17,7 +17,6 @@ export default function SettingsPage() {
   // State for checkout flows
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [activeSection, setActiveSection] = useState("subscription");
 
   // Handle post-payment redirect from Stripe
   useEffect(() => {
@@ -69,13 +68,13 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-bg-secondary theme-transition">
-      <SettingsSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
+    <div className="min-h-screen bg-bg-secondary theme-transition">
+      <Sidebar activeItem="settings" />
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
-        <div className="space-y-6">
-          {activeSection === "subscription" && (
+      <div className="ml-[260px]">
+        <main className="p-6">
+          <div className="space-y-6">
             <SubscriptionErrorBoundary>
               <SubscriptionSection
                 user={user}
@@ -86,9 +85,9 @@ export default function SettingsPage() {
                 setClientSecret={setClientSecret}
               />
             </SubscriptionErrorBoundary>
-          )}
-        </div>
-      </main>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
