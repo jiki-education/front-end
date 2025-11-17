@@ -8,6 +8,9 @@ import { Logo } from "./Logo";
 import type { ComponentType } from "react";
 import HouseIcon from "../../../public/icons/house.svg";
 import ProjectsIcon from "../../../public/icons/projects.svg";
+import MedalIcon from "../../../public/icons/medal.svg";
+import SettingsIcon from "../../../public/icons/settings.svg";
+import FolderIcon from "../../../public/icons/folder.svg";
 
 interface SidebarProps {
   activeItem?: string;
@@ -21,11 +24,11 @@ const navigationItems: Array<{
 }> = [
   { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon },
-  { id: "blog", label: "Blog", href: "/blog" },
-  { id: "articles", label: "Articles", href: "/articles" },
-  { id: "concepts", label: "Concepts", href: "/concepts" },
-  { id: "achievements", label: "Achievements", href: "/concepts" },
-  { id: "settings", label: "Settings", href: "/settings" }
+  { id: "blog", label: "Blog", href: "/blog", icon: FolderIcon },
+  { id: "articles", label: "Articles", href: "/articles", icon: FolderIcon },
+  { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
+  { id: "achievements", label: "Achievements", href: "/concepts", icon: MedalIcon },
+  { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
@@ -56,7 +59,12 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         </ul>
       </nav>
 
-      <div className="p-4 border-t border-border-primary space-y-3">
+      <a href="#" className="premium-upgrade-btn ">
+        <span className="icon">⭐</span>
+        <span>Upgrade to Premium</span>
+      </a>
+
+      <div className="p-4 border-t border-border-primary space-y-3 mt-auto">
         {user && (
           <div className="text-sm">
             <div className="font-semibold text-text-primary">Signed in as:</div>
