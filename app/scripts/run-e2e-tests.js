@@ -67,7 +67,11 @@ async function runE2ETests() {
 
   // Start the dev server
   const serverProcess = spawn("pnpm", ["next", "dev", "--port", PORT.toString()], {
-    stdio: "pipe"
+    stdio: "pipe",
+    env: {
+      ...process.env,
+      NODE_ENV: "test"
+    }
   });
 
   // Capture server output for debugging

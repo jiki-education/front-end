@@ -45,3 +45,8 @@ next-env.d.ts
 public/images/blog/
 public/images/articles/
 public/images/avatars/
+
+# cloudflare workers
+.open-next/
+.wrangler/
+.dev.vars

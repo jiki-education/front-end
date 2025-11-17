@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:code.claude.com)",
+      "WebSearch",
+      "WebFetch(domain:qiita.com)",
+      "WebFetch(domain:prog-8.com)",
+      "WebFetch(domain:zenn.dev)",
+      "WebFetch(domain:german.stackexchange.com)",
+      "WebFetch(domain:de.react.dev)",
+      "WebFetch(domain:www.freecodecamp.org)",
+      "WebFetch(domain:help.unbabel.com)",
+      "WebFetch(domain:download.microsoft.com)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
