@@ -50,6 +50,10 @@ export default function DevPage() {
                 UI Kit Demo
               </Link>
               <span className="text-gray-600 text-sm ml-2">- Simple demo of all UI kit components</span>
+              <Link href="/dev/oauth-google" className="text-blue-600 hover:underline">
+                Google OAuth Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- Test Google Sign-In integration with backend</span>
             </li>
           </ul>
         </div>
