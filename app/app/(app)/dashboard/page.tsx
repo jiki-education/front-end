@@ -88,12 +88,14 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-bg-secondary theme-transition">
-      <Sidebar activeItem="exercises" />
-      <main className="w-2/4 p-6">
-        <ExercisePath levels={levels} />
-      </main>
-      <InfoPanel />
+    <div className="min-h-screen bg-bg-secondary theme-transition">
+      <Sidebar activeItem="learn" />
+      <div className="flex ml-[260px]">
+        <main className="flex-1 p-6">
+          <ExercisePath levels={levels} />
+        </main>
+        <InfoPanel />
+      </div>
     </div>
   );
 }

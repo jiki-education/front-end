@@ -1,0 +1,17 @@
+<svg class="full-logo" width="107" height="45" viewBox="0 0 107 45" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="underlineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <text x="0" y="32" fill="url(#logoGradient)" font-family="Poppins" font-size="34"
+    font-weight="700" letter-spacing="2" text-transform="uppercase">JIKI</text>
+  <rect x="0" y="42" width="60" height="3" rx="1.5" fill="url(#underlineGradient)" />
+</svg>

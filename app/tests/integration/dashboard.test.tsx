@@ -20,6 +20,22 @@ jest.mock("next/navigation", () => ({
   }
 }));
 
+// Mock SVG imports
+jest.mock("../../../public/icons/jiki-logo.svg", () => ({
+  __esModule: true,
+  default: () => <div data-testid="jiki-logo">Jiki</div>
+}));
+
+jest.mock("../../../public/icons/house.svg", () => ({
+  __esModule: true,
+  default: () => <div data-testid="house-icon" aria-hidden="true" />
+}));
+
+jest.mock("../../../public/icons/projects.svg", () => ({
+  __esModule: true,
+  default: () => <div data-testid="projects-icon" aria-hidden="true" />
+}));
+
 // Mock the auth store
 jest.mock("@/stores/authStore");
 
@@ -142,9 +158,11 @@ describe("Dashboard Page", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("Jiki Learn")).toBeInTheDocument();
+      expect(screen.getByText("Learn")).toBeInTheDocument();
+      expect(screen.getByText("Projects")).toBeInTheDocument();
       expect(screen.getByText("Blog")).toBeInTheDocument();
       expect(screen.getByText("Articles")).toBeInTheDocument();
+      expect(screen.getByText("Concepts")).toBeInTheDocument();
     });
   });
 
