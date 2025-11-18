@@ -32,10 +32,10 @@ const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunc
 const mockVerifyPaymentSession = verifyPaymentSession as jest.MockedFunction<typeof verifyPaymentSession>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
-// Mock SettingsSidebar and SubscriptionSection since we're testing the payment flow
-jest.mock("@/components/settings/SettingsSidebar", () => {
-  return function MockSettingsSidebar() {
-    return <div data-testid="settings-sidebar">Settings Sidebar</div>;
+// Mock Sidebar and SubscriptionSection since we're testing the payment flow
+jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+  return function MockSidebar() {
+    return <div data-testid="sidebar">Sidebar</div>;
   };
 });
 

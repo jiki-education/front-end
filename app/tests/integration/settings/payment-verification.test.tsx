@@ -60,8 +60,8 @@ jest.mock("@/stores/authStore", () => ({
 }));
 
 // Mock components to focus on the verification logic
-jest.mock("@/components/settings/SettingsSidebar", () => {
-  return function MockSettingsSidebar() {
+jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+  return function MockSidebar() {
     return <div data-testid="sidebar">Sidebar</div>;
   };
 });
