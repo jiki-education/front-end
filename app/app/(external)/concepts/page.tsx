@@ -6,6 +6,7 @@ import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/
 import { LoadingSkeleton, ErrorState } from "@/components/concepts-page";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
+import "./concepts.css";
 
 export default function ConceptsPage() {
   const { isAuthenticated, isReady } = useAuth();
@@ -27,8 +28,8 @@ export default function ConceptsPage() {
 
   const retryLoad = () => void loadConcepts(1, debouncedSearchQuery);
 
-  // Loading state
-  if (!isReady || (isLoading && conceptsState.concepts.length === 0)) {
+  // Show loading skeleton only for initial load
+  if (!isReady || (isLoading && conceptsState.concepts.length === 0 && !debouncedSearchQuery)) {
     return withSidebar ? (
       <ConceptsLayout withSidebar={true}>
         <LoadingSkeleton withSidebar={true} />
@@ -38,8 +39,8 @@ export default function ConceptsPage() {
     );
   }
 
-  // Error state
-  if (error && conceptsState.concepts.length === 0) {
+  // Show error state only when there are no concepts and no search
+  if (error && conceptsState.concepts.length === 0 && !debouncedSearchQuery) {
     return (
       <ConceptsLayout withSidebar={withSidebar}>
         <ErrorState error={error} onRetry={retryLoad} withSidebar={withSidebar} />
@@ -47,7 +48,7 @@ export default function ConceptsPage() {
     );
   }
 
-  // Main content
+  // Always render main content structure to prevent remounting
   return (
     <ConceptsLayout withSidebar={withSidebar}>
       <ConceptsHeader isAuthenticated={isAuthenticated} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { fetchConcepts } from "@/lib/api/concepts";
 import type { ConceptListItem } from "@/types/concepts";
 
@@ -24,35 +24,38 @@ export function useConcepts({ isAuthenticated, isReady }: UseConceptsOptions) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadConcepts = async (page: number = 1, title?: string) => {
-    if (!isReady) {
-      return;
-    }
+  const loadConcepts = useCallback(
+    async (page: number = 1, title?: string) => {
+      if (!isReady) {
+        return;
+      }
 
-    try {
-      setIsLoading(true);
-      setError(null);
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      const unscoped = !isAuthenticated;
-      const response = await fetchConcepts({
-        unscoped,
-        page,
-        title: title || undefined
-      });
+        const unscoped = !isAuthenticated;
+        const response = await fetchConcepts({
+          unscoped,
+          page,
+          title: title || undefined
+        });
 
-      setConceptsState({
-        concepts: response.results,
-        currentPage: response.meta.current_page,
-        totalPages: response.meta.total_pages,
-        totalCount: response.meta.total_count
-      });
-    } catch (err) {
-      setError("Failed to load concepts. Please try again later.");
-      console.error("Error fetching concepts:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setConceptsState({
+          concepts: response.results,
+          currentPage: response.meta.current_page,
+          totalPages: response.meta.total_pages,
+          totalCount: response.meta.total_count
+        });
+      } catch (err) {
+        setError("Failed to load concepts. Please try again later.");
+        console.error("Error fetching concepts:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isReady, isAuthenticated]
+  );
 
   return {
     conceptsState,

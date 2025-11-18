@@ -9,7 +9,7 @@ export function useConceptsSearch(loadConcepts: (page: number, title?: string) =
     if (isReady) {
       loadConcepts(1, debouncedSearchQuery);
     }
-  }, [isReady, debouncedSearchQuery, loadConcepts]);
+  }, [isReady, debouncedSearchQuery]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);

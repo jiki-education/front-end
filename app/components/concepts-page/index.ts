@@ -1,3 +1,4 @@
+export { default as Breadcrumb } from "./Breadcrumb";
 export { default as ConceptCard } from "./ConceptCard";
 export { default as ConceptsGrid } from "./ConceptsGrid";
 export { default as ConceptsHeader } from "./ConceptsHeader";

@@ -5,7 +5,7 @@
  * To regenerate manually: pnpm run icons:generate
  * Auto-regenerates during development via bin/dev watch mode
  *
- * Available icons: all, bootcamp-cross-red, bootcamp-tick-green, bug, complete, email, file, folder, globe, house, in-progress, jiki-logo, jiki-logo-collapsed, locked, medal, next, password, projects, readonly-lock, settings, vercel, window
+ * Available icons: all, bootcamp-cross-red, bootcamp-tick-green, bug, complete, email, file, folder, globe, house, in-progress, jiki-logo, jiki-logo-collapsed, locked, medal, next, password, projects, readonly-lock, search, settings, vercel, window
  */
 
 export type IconName =
@@ -28,6 +28,7 @@ export type IconName =
   | "password"
   | "projects"
   | "readonly-lock"
+  | "search"
   | "settings"
   | "vercel"
   | "window";
