@@ -9,7 +9,8 @@ export function useConceptsSearch(loadConcepts: (page: number, title?: string) =
     if (isReady) {
       loadConcepts(1, debouncedSearchQuery);
     }
-  }, [isReady, debouncedSearchQuery, loadConcepts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReady, debouncedSearchQuery]);
 
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
