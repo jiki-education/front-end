@@ -1,0 +1,225 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: white;
+    color: var(--color-gray-950);
+    display: flex;
+    margin: 0;
+} */
+
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    color: var(--color-gray-500);
+    font-weight: 400;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item:hover:not(.breadcrumb-current) {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: var(--color-gray-300);
+    font-size: 15px;
+    line-height: 1;
+}
+
+.breadcrumb-current {
+    color: var(--color-blue-500);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.breadcrumb-label {
+    cursor: default;
+    pointer-events: none;
+    font-weight: 500;
+}
+
+/* Page Heading */
+.page-heading {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--color-gray-950);
+    margin-bottom: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.heading-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    color: var(--color-blue-500);
+}
+
+/* Search Bar */
+.search-bar {
+    margin-top: 2px;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    color: var(--color-gray-400);
+}
+
+.search-bar:focus-within .search-icon {
+    color: var(--color-blue-500);
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    border: 2px solid var(--color-gray-200);
+    border-radius: 12px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:hover {
+    border-color: var(--color-blue-500);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--color-blue-500);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Concepts Grid */
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+/* Concept Card */
+.concept-card {
+    padding: 24px;
+    background: white;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.concept-card:hover {
+    border-color: var(--color-blue-500);
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.1),
+        0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+.concept-card:hover .sub-concept-count {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: transparent;
+}
+
+.concept-card:hover .sub-concept-count svg {
+    color: var(--color-blue-600);
+}
+
+.concept-icon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.concept-icon img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.concept-content {
+    flex: 1;
+}
+
+.concept-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--color-gray-950);
+    transition: color 0.3s ease;
+}
+
+.concept-description {
+    font-size: 14px;
+    color: var(--color-gray-700);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.sub-concept-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-100);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+    font-weight: 500;
+    line-height: 1;
+}
+
+.sub-concept-count svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    display: block;
+    color: #9ca3af;
+    transition: color 0.3s ease;
+}
