@@ -3,6 +3,7 @@ import FolderIcon from "../../public/icons/folder.svg";
 
 interface ConceptsHeaderProps {
   isAuthenticated: boolean;
+  hideSearch?: boolean;
 }
 
 export default function ConceptsHeader({ isAuthenticated }: ConceptsHeaderProps) {

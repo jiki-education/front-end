@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 
 export function useConceptsSearch(loadConcepts: (page: number, title?: string) => void, isReady: boolean) {
@@ -9,15 +9,15 @@ export function useConceptsSearch(loadConcepts: (page: number, title?: string) =
     if (isReady) {
       loadConcepts(1, debouncedSearchQuery);
     }
-  }, [isReady, debouncedSearchQuery]);
+  }, [isReady, debouncedSearchQuery, loadConcepts]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-  };
+  }, []);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setSearchQuery("");
-  };
+  }, []);
 
   return {
     searchQuery,

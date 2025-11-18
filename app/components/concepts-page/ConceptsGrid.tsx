@@ -2,6 +2,7 @@ import type { ConceptListItem } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";
 import { EmptyState } from "./ErrorStates";
 import { InlineLoading } from "./LoadingStates";
+import { mockConcepts } from "@/lib/data/mockConcepts";
 
 interface ConceptsGridProps {
   concepts: ConceptListItem[];
@@ -18,6 +19,21 @@ export default function ConceptsGrid({
   onClearSearch,
   isAuthenticated
 }: ConceptsGridProps) {
+  // Show mock concepts when authenticated, regardless of API data
+  if (isAuthenticated) {
+    return (
+      <>
+        {isLoading && <InlineLoading isAuthenticated={isAuthenticated} />}
+        <div className="concepts-grid">
+          {mockConcepts.map((concept) => (
+            <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  // Original logic for non-authenticated users
   return (
     <>
       {isLoading && concepts.length > 0 && <InlineLoading isAuthenticated={isAuthenticated} />}
@@ -29,8 +45,8 @@ export default function ConceptsGrid({
           isAuthenticated={isAuthenticated}
         />
       ) : (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {concepts.map((concept) => (
+        <div className="concepts-grid">
+          {mockConcepts.map((concept) => (
             <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
           ))}
         </div>

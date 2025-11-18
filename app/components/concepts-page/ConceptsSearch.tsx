@@ -1,4 +1,6 @@
 import SearchIcon from "../../public/icons/search.svg";
+import { useRef } from "react";
+
 interface ConceptsSearchProps {
   searchQuery: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,14 +19,25 @@ export default function ConceptsSearch({
   isLoading,
   totalCount
 }: ConceptsSearchProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClearSearch = () => {
+    onClearSearch();
+  };
   return (
     <div>
       <div className="search-bar">
         <SearchIcon className="search-icon" />
-        <input type="text" placeholder="Search concepts..." value={searchQuery} onChange={onSearchChange} />
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Search concepts..."
+          value={searchQuery}
+          onChange={onSearchChange}
+        />
         {searchQuery && (
           <button
-            onClick={onClearSearch}
+            onClick={handleClearSearch}
             style={{
               position: "absolute",
               right: "16px",
@@ -56,13 +69,6 @@ export default function ConceptsSearch({
               {totalCount} result{totalCount !== 1 ? "s" : ""} for &quot;{debouncedSearchQuery}&quot;
             </span>
           )}
-        </div>
-      )}
-
-      {/* Total Count */}
-      {!debouncedSearchQuery && !isLoading && (
-        <div style={{ marginTop: "8px", fontSize: "14px", color: "var(--color-gray-500)" }}>
-          {totalCount} concept{totalCount !== 1 ? "s" : ""} available
         </div>
       )}
     </div>
