@@ -114,7 +114,7 @@ export function middleware(request: NextRequest) {
     style-src 'self' 'unsafe-inline' https://accounts.google.com;
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
-    connect-src 'self' https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
+    connect-src 'self' https://api.jiki.com https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
     frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
     worker-src 'self' blob:;
     object-src 'none';
