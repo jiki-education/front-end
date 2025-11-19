@@ -1,10 +1,11 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
-import { FormField, Button } from "@/components/ui-kit";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import EmailIcon from "../../icons/email.svg";
+import "./login-form.css";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
@@ -19,7 +20,7 @@ export function ForgotPasswordForm() {
     if (!email) {
       errors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Please enter a valid email";
+      errors.email = "Please enter a valid email address";
     }
 
     setValidationErrors(errors);
@@ -37,7 +38,7 @@ export function ForgotPasswordForm() {
 
     try {
       await requestPasswordReset(email);
-      setSuccessMessage("If an account with that email exists, you'll receive reset instructions shortly.");
+      setSuccessMessage("If an account with that email exists, you&apos;ll receive reset instructions shortly.");
       setEmail("");
     } catch (err) {
       console.error("Password reset request failed:", err);
@@ -45,51 +46,73 @@ export function ForgotPasswordForm() {
   };
 
   return (
-    <div className="flex flex-col gap-20">
-      {error && (
-        <div className="bg-[#e0f5d2] border-2 border-[#78ce4d] rounded-lg p-16 text-[#2e571d] text-15 font-medium leading-relaxed">
-          {error}
-        </div>
-      )}
-
-      {successMessage && (
-        <div className="bg-[#e0f5d2] border-2 border-[#78ce4d] rounded-lg p-16 text-[#2e571d] text-15 font-medium leading-relaxed">
-          {successMessage}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-20">
-        <FormField
-          id="email"
-          label="Email"
-          type="email"
-          autoComplete="email"
-          placeholder="Enter your email address"
-          iconName="email"
-          value={email}
-          error={validationErrors.email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (validationErrors.email) {
-              setValidationErrors({ ...validationErrors, email: "" });
-            }
-          }}
-          required
-        />
-
-        <Button type="submit" variant="primary" loading={isLoading} disabled={isLoading} fullWidth>
-          {isLoading ? "Sending..." : "Send Reset Link"}
-        </Button>
-
-        <div className="text-center">
-          <p className="text-15 text-[#4a5568]">
-            Remembered your password?{" "}
-            <Link href="/auth/login" className="text-[#3b82f6] hover:text-[#2563eb] font-medium transition-colors">
-              Log in
-            </Link>
+    <div className="left-side">
+      <div className="form-container">
+        <div className="form-header">
+          <h1 className="form-title">Forgot your password?</h1>
+          <p className="form-subtitle">
+            If you&apos;ve forgotten your password, use the form below to request a link to change it.
           </p>
         </div>
-      </form>
+
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {error && (
+            <div className="success-message" style={{ display: "block" }}>
+              {error}
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="success-message" style={{ display: "block" }}>
+              {successMessage}
+            </div>
+          )}
+
+          <div className="ui-form-field-large" id="email-field" style={{ marginBottom: "8px" }}>
+            <label htmlFor="reset-email">Email</label>
+            <div>
+              <EmailIcon />
+              <input
+                type="email"
+                id="reset-email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (validationErrors.email) {
+                    setValidationErrors({ ...validationErrors, email: "" });
+                  }
+                }}
+                required
+              />
+            </div>
+            {validationErrors.email && (
+              <div id="email-error-message" className="ui-form-field-error-message" style={{ display: "block" }}>
+                {validationErrors.email}
+              </div>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            id="submit-btn"
+            className="ui-btn-large ui-btn-primary"
+            style={{ width: "100%" }}
+            disabled={isLoading}
+          >
+            {isLoading ? "Sending..." : "Send Reset Link"}
+          </button>
+
+          <div className="footer-links">
+            <p>
+              Remembered your password?{" "}
+              <Link href="/auth/login" className="ui-link">
+                Log in
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
