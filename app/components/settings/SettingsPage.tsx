@@ -82,93 +82,91 @@ export default function SettingsPage() {
       <Sidebar activeItem="settings" />
 
       {/* Main Content */}
-      <div className="ml-[260px]">
-        <div className="main-content">
-          <div className="container">
-            {/* Page Header */}
-            <header className="ui-page-header">
-              <h1>
-                <SettingsIcon />
-                Settings
-              </h1>
-              <p>Manage your account and preferences.</p>
-            </header>
+      <div className="main-content">
+        <div className="container">
+          {/* Page Header */}
+          <header className="ui-page-header">
+            <h1>
+              <SettingsIcon />
+              Settings
+            </h1>
+            <p>Manage your account and preferences.</p>
+          </header>
 
-            {/* Page Tabs */}
-            <div className="ui-page-tabs">
-              <button className={activeTab === "account" ? "active" : ""} onClick={() => setActiveTab("account")}>
-                <AccountSettingsIcon />
-                Account
-              </button>
-              <button className={activeTab === "learning" ? "active" : ""} onClick={() => setActiveTab("learning")}>
-                <LearningSettingsIcon />
-                Learning
-              </button>
-              <button
-                className={activeTab === "notifications" ? "active" : ""}
-                onClick={() => setActiveTab("notifications")}
-              >
-                <NotificationsSettingsIcon />
-                Notifications
-              </button>
-              <button className={activeTab === "privacy" ? "active" : ""} onClick={() => setActiveTab("privacy")}>
-                <PrivacySettingsIcon />
-                Privacy
-              </button>
-              <button
-                className={activeTab === "danger" ? "active" : ""}
-                data-color="red"
-                onClick={() => setActiveTab("danger")}
-              >
-                <DangerSettingsIcon />
-                Danger Zone
-              </button>
-            </div>
+          {/* Page Tabs */}
+          <div className="ui-page-tabs">
+            <button className={activeTab === "account" ? "active" : ""} onClick={() => setActiveTab("account")}>
+              <AccountSettingsIcon />
+              Account
+            </button>
+            <button className={activeTab === "learning" ? "active" : ""} onClick={() => setActiveTab("learning")}>
+              <LearningSettingsIcon />
+              Learning
+            </button>
+            <button
+              className={activeTab === "notifications" ? "active" : ""}
+              onClick={() => setActiveTab("notifications")}
+            >
+              <NotificationsSettingsIcon />
+              Notifications
+            </button>
+            <button className={activeTab === "privacy" ? "active" : ""} onClick={() => setActiveTab("privacy")}>
+              <PrivacySettingsIcon />
+              Privacy
+            </button>
+            <button
+              className={activeTab === "danger" ? "active" : ""}
+              data-color="red"
+              onClick={() => setActiveTab("danger")}
+            >
+              <DangerSettingsIcon />
+              Danger Zone
+            </button>
+          </div>
 
-            {/* Tab Content */}
-            <main className="p-6">
-              <div className="space-y-6">
-                {activeTab === "account" && (
-                  <SubscriptionErrorBoundary>
-                    <SubscriptionSection
-                      user={user}
-                      refreshUser={refreshUser}
-                      selectedTier={selectedTier}
-                      setSelectedTier={setSelectedTier}
-                      clientSecret={clientSecret}
-                      setClientSecret={setClientSecret}
-                    />
-                  </SubscriptionErrorBoundary>
-                )}
-                {activeTab === "learning" && (
-                  <div className="text-center text-text-secondary py-8">Learning settings coming soon...</div>
-                )}
-                {activeTab === "notifications" && (
-                  <div className="text-center text-text-secondary py-8">Notification settings coming soon...</div>
-                )}
-                {activeTab === "privacy" && (
-                  <div className="text-center text-text-secondary py-8">Privacy settings coming soon...</div>
-                )}
-                {activeTab === "danger" && (
-                  <div className="settings-content">
-                    <div className="setting-item">
-                      <h3>Delete Account</h3>
-                      <p style={{ marginBottom: "8px" }}>
-                        Permanently delete your account and all associated data. This action cannot be undone.
-                      </p>
-                      <p className="warning-text">
-                        ⚠️ <strong>Warning:</strong> This will permanently delete your account, all your progress,
-                        completed exercises, and personal data. This action is irreversible.
-                      </p>
-                      <div className="button-row">
-                        <button className="ui-btn ui-btn-danger">Delete Account</button>
-                      </div>
+          {/* Tab Content */}
+          <main className="p-6">
+            <div className="space-y-6">
+              {activeTab === "account" && (
+                <SubscriptionErrorBoundary>
+                  <SubscriptionSection
+                    user={user}
+                    refreshUser={refreshUser}
+                    selectedTier={selectedTier}
+                    setSelectedTier={setSelectedTier}
+                    clientSecret={clientSecret}
+                    setClientSecret={setClientSecret}
+                  />
+                </SubscriptionErrorBoundary>
+              )}
+              {activeTab === "learning" && (
+                <div className="text-center text-text-secondary py-8">Learning settings coming soon...</div>
+              )}
+              {activeTab === "notifications" && (
+                <div className="text-center text-text-secondary py-8">Notification settings coming soon...</div>
+              )}
+              {activeTab === "privacy" && (
+                <div className="text-center text-text-secondary py-8">Privacy settings coming soon...</div>
+              )}
+              {activeTab === "danger" && (
+                <div className="settings-content">
+                  <div className="setting-item">
+                    <h3>Delete Account</h3>
+                    <p style={{ marginBottom: "8px" }}>
+                      Permanently delete your account and all associated data. This action cannot be undone.
+                    </p>
+                    <p className="warning-text">
+                      ⚠️ <strong>Warning:</strong> This will permanently delete your account, all your progress,
+                      completed exercises, and personal data. This action is irreversible.
+                    </p>
+                    <div className="button-row">
+                      <button className="ui-btn ui-btn-danger">Delete Account</button>
                     </div>
                   </div>
-                )}
-              </div>
-            </main>
-          </div>
+                </div>
+              )}
+            </div>
+          </main>
         </div>
       </div>
     </div>
