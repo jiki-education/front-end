@@ -3,122 +3,54 @@
  * Secure JWT token management for authentication
  */
 
-import { setRefreshTokenCookie, getRefreshTokenCookie, removeRefreshTokenCookie } from "@/lib/auth/cookie-storage";
+import { setAccessTokenCookie, getAccessTokenCookie, removeAccessTokenCookie } from "@/lib/auth/cookie-storage";
 
-const TOKEN_KEY = "jiki_auth_token";
-const TOKEN_EXPIRY_KEY = "jiki_auth_expiry";
+const REFRESH_TOKEN_KEY = "jiki_refresh_token";
 
 /**
- * Store JWT token and optional expiry
+ * Store JWT access token in cookie
  */
-export function setToken(token: string, expiryMs?: number): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    // Store in sessionStorage for security (doesn't persist across tabs)
-    // Use localStorage if you need cross-tab persistence
-    sessionStorage.setItem(TOKEN_KEY, token);
-
-    if (expiryMs) {
-      sessionStorage.setItem(TOKEN_EXPIRY_KEY, expiryMs.toString());
-    }
-  } catch (error) {
-    console.error("Failed to store token:", error);
-  }
+export function setAccessToken(token: string, expiryMs?: number): void {
+  setAccessTokenCookie(token, expiryMs);
 }
 
 /**
- * Retrieve stored JWT token
+ * Retrieve stored JWT access token from cookie
  */
-export function getToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  try {
-    const token = sessionStorage.getItem(TOKEN_KEY);
-
-    // Check if token is expired
-    if (token && isTokenExpired()) {
-      removeToken();
-      return null;
-    }
-
-    return token;
-  } catch (error) {
-    console.error("Failed to retrieve token:", error);
-    return null;
-  }
+export function getAccessToken(): string | null {
+  return getAccessTokenCookie();
 }
 
 /**
- * Remove stored JWT token and refresh token
+ * Remove stored JWT access token and refresh token
  */
-export function removeToken(): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    sessionStorage.removeItem(TOKEN_KEY);
-    sessionStorage.removeItem(TOKEN_EXPIRY_KEY);
-    removeRefreshToken(); // Also clear refresh token
-  } catch (error) {
-    console.error("Failed to remove token:", error);
-  }
+export function removeAccessToken(): void {
+  removeAccessTokenCookie();
+  removeRefreshToken(); // Also clear refresh token
 }
 
 /**
- * Check if token exists and is valid
- * Validates both stored expiry and JWT exp claim
+ * Check if access token exists and is valid
+ * Validates JWT exp claim
  */
 export function hasValidToken(): boolean {
-  const token = getToken();
+  const token = getAccessToken();
   if (!token) {
     return false;
   }
 
-  // Check stored expiry first
-  if (isTokenExpired()) {
-    return false;
-  }
-
-  // Also check JWT exp claim for additional validation
+  // Check JWT exp claim
   const payload = parseJwtPayload(token);
   if (payload && payload.exp) {
     const expiryMs = payload.exp * 1000;
     if (Date.now() > expiryMs) {
       // Token has expired according to JWT claim
-      removeToken();
+      removeAccessToken();
       return false;
     }
   }
 
   return true;
-}
-
-/**
- * Check if token is expired
- */
-export function isTokenExpired(): boolean {
-  if (typeof window === "undefined") {
-    return true;
-  }
-
-  try {
-    const expiryStr = sessionStorage.getItem(TOKEN_EXPIRY_KEY);
-    if (!expiryStr) {
-      return false;
-    } // No expiry set, assume valid
-
-    const expiry = parseInt(expiryStr, 10);
-    return Date.now() > expiry;
-  } catch (error) {
-    console.error("Failed to check token expiry:", error);
-    return true; // Assume expired on error
-  }
 }
 
 /**
@@ -157,25 +89,47 @@ export function getTokenExpiry(token: string): number | null {
 }
 
 /**
- * Store refresh token in secure cookie (XSS-resistant, persists across browser sessions)
+ * Store refresh token in localStorage (persists across browser sessions)
  */
 export function setRefreshToken(token: string): void {
-  // Use secure cookie storage instead of localStorage for XSS protection
-  setRefreshTokenCookie(token);
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem(REFRESH_TOKEN_KEY, token);
+  } catch (error) {
+    console.error("Failed to store refresh token:", error);
+  }
 }
 
 /**
- * Retrieve stored refresh token from secure cookie
+ * Retrieve stored refresh token from localStorage
  */
 export function getRefreshToken(): string | null {
-  // Use secure cookie storage instead of localStorage for XSS protection
-  return getRefreshTokenCookie();
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    return localStorage.getItem(REFRESH_TOKEN_KEY);
+  } catch (error) {
+    console.error("Failed to retrieve refresh token:", error);
+    return null;
+  }
 }
 
 /**
- * Remove stored refresh token from secure cookie
+ * Remove stored refresh token from localStorage
  */
 export function removeRefreshToken(): void {
-  // Use secure cookie storage instead of localStorage for XSS protection
-  removeRefreshTokenCookie();
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+  } catch (error) {
+    console.error("Failed to remove refresh token:", error);
+  }
 }

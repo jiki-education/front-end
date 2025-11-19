@@ -61,7 +61,7 @@ describe("refresh.ts - Token Refresh Module", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh_token: "valid_refresh_token" })
       });
-      expect(mockStorage.setToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
     });
 
     it("should successfully refresh token from response body when not in headers", async () => {
@@ -94,7 +94,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBe(newAccessToken);
-      expect(mockStorage.setToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
     });
 
     it("should handle token expiry extraction correctly", async () => {
@@ -127,7 +127,7 @@ describe("refresh.ts - Token Refresh Module", () => {
 
       expect(result).toBe(newAccessToken);
       expect(mockStorage.getTokenExpiry).toHaveBeenCalledWith(newAccessToken);
-      expect(mockStorage.setToken).toHaveBeenCalledWith(newAccessToken, extractedExpiry);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, extractedExpiry);
     });
 
     it("should store token without expiry when getTokenExpiry returns null", async () => {
@@ -158,7 +158,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBe(newAccessToken);
-      expect(mockStorage.setToken).toHaveBeenCalledWith(newAccessToken, undefined);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, undefined);
     });
   });
 
@@ -175,7 +175,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeToken).toHaveBeenCalled();
+      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
 
@@ -191,7 +191,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeToken).toHaveBeenCalled();
+      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
 
@@ -201,7 +201,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeToken).toHaveBeenCalled();
+      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
 
@@ -212,7 +212,7 @@ describe("refresh.ts - Token Refresh Module", () => {
 
       expect(result).toBeNull();
       expect(mockFetch).not.toHaveBeenCalled();
-      expect(mockStorage.removeToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
     });
 
     it("should handle invalid content type response", async () => {
@@ -284,7 +284,7 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeToken).toHaveBeenCalled();
+      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
   });
@@ -555,7 +555,7 @@ describe("refresh.ts - Token Refresh Module", () => {
 
       const result = await refreshAccessToken();
       expect(result).toBe(headerToken);
-      expect(mockStorage.setToken).toHaveBeenCalledWith(headerToken, 1700999999000);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(headerToken, 1700999999000);
     });
 
     it("should handle various content types properly", async () => {

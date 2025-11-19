@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { exercises } from "@jiki/curriculum";
-import { getToken } from "@/lib/auth/storage";
+import { getAccessToken } from "@/lib/auth/storage";
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   sendChatMessage,
@@ -117,7 +117,7 @@ export default function LLMChatTestPage() {
       return;
     }
 
-    const token = getToken();
+    const token = getAccessToken();
     if (!token) {
       setChatError("No authentication token found");
       return;
@@ -284,7 +284,7 @@ export default function LLMChatTestPage() {
     timestamp: string,
     signatureValue: string
   ) {
-    const token = getToken();
+    const token = getAccessToken();
     if (!token) {
       console.error("No token available to save conversation");
       return;

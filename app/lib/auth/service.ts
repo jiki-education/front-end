@@ -4,7 +4,7 @@
  */
 
 import { api } from "@/lib/api";
-import { getTokenExpiry, setToken, setRefreshToken } from "@/lib/auth/storage";
+import { getTokenExpiry, setAccessToken, setRefreshToken } from "@/lib/auth/storage";
 import type {
   AuthResponse,
   LoginCredentials,
@@ -50,10 +50,10 @@ export async function login(credentials: LoginCredentials): Promise<User> {
   // Extract refresh token from response body
   const refreshToken = response.data.refresh_token;
 
-  // Store access token (short-lived, sessionStorage)
+  // Store access token (short-lived, cookie)
   if (accessToken) {
     const expiry = getTokenExpiry(accessToken);
-    setToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken, expiry || undefined);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -82,10 +82,10 @@ export async function signup(userData: SignupData): Promise<User> {
   // Extract refresh token from response body
   const refreshToken = response.data.refresh_token;
 
-  // Store access token (short-lived, sessionStorage)
+  // Store access token (short-lived, cookie)
   if (accessToken) {
     const expiry = getTokenExpiry(accessToken);
-    setToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken, expiry || undefined);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -114,10 +114,10 @@ export async function googleLogin(code: string): Promise<User> {
   // Extract refresh token from response body
   const refreshToken = response.data.refresh_token;
 
-  // Store access token (short-lived, sessionStorage)
+  // Store access token (short-lived, cookie)
   if (accessToken) {
     const expiry = getTokenExpiry(accessToken);
-    setToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken, expiry || undefined);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -141,8 +141,8 @@ export async function logout(): Promise<void> {
   }
 
   // Always clear local tokens regardless of API response
-  const { removeToken } = await import("@/lib/auth/storage");
-  removeToken(); // This now also clears refresh token
+  const { removeAccessToken } = await import("@/lib/auth/storage");
+  removeAccessToken(); // This now also clears refresh token
 }
 
 /**
@@ -185,8 +185,8 @@ export async function getCurrentUser(): Promise<User> {
  */
 export async function validateToken(): Promise<boolean> {
   try {
-    const { getToken, parseJwtPayload } = await import("@/lib/auth/storage");
-    const token = getToken();
+    const { getAccessToken, parseJwtPayload } = await import("@/lib/auth/storage");
+    const token = getAccessToken();
 
     if (!token) {
       return false;

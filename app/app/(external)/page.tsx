@@ -1,35 +1,17 @@
-"use client";
-
-import { useRedirectIfAuthenticated } from "@/lib/auth/hooks";
+import { getServerAuth } from "@/lib/auth/server";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export default function LandingPage() {
-  const { isLoading, isAuthenticated } = useRedirectIfAuthenticated();
+export default async function LandingPage() {
+  // Check auth server-side
+  const auth = await getServerAuth();
 
-  // Show loading while checking auth status
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
+  // Redirect authenticated users to dashboard
+  if (auth.isAuthenticated) {
+    redirect("/dashboard");
   }
 
-  // If authenticated, show loading while redirecting
-  if (isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Redirecting to dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
+  // Render landing page for unauthenticated users
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
       <div className="max-w-4xl mx-auto px-6 text-center">

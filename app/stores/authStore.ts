@@ -4,7 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
-import { hasValidToken, removeToken } from "@/lib/auth/storage";
+import { hasValidToken, removeAccessToken } from "@/lib/auth/storage";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -143,7 +143,7 @@ export const useAuthStore = create<AuthStore>()(
           console.error("Logout error:", error);
         } finally {
           // Always clear state regardless of API response
-          removeToken();
+          removeAccessToken();
           set({
             user: null,
             isAuthenticated: false,
@@ -183,7 +183,7 @@ export const useAuthStore = create<AuthStore>()(
             const isValid = await authService.validateToken();
             if (!isValid) {
               // Token is invalid or expired, clear auth state
-              removeToken();
+              removeAccessToken();
               set({
                 user: null,
                 isAuthenticated: false,
@@ -201,7 +201,7 @@ export const useAuthStore = create<AuthStore>()(
 
           // If we have a token but no user data, the session is invalid
           // This shouldn't happen in normal flow as user data is persisted
-          removeToken();
+          removeAccessToken();
           set({
             user: null,
             isAuthenticated: false,
@@ -212,7 +212,7 @@ export const useAuthStore = create<AuthStore>()(
         } catch (error) {
           console.error("Auth check failed:", error);
           // On error, clear auth state for safety
-          removeToken();
+          removeAccessToken();
           set({
             user: null,
             isAuthenticated: false,

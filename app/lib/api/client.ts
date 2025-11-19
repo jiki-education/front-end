@@ -3,7 +3,7 @@
  * Simple, type-safe API client for backend communication with JWT support
  */
 
-import { getToken, parseJwtPayload } from "@/lib/auth/storage";
+import { getAccessToken, parseJwtPayload } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getApiUrl } from "./config";
 
@@ -44,7 +44,7 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
   }
 
   // Get auth token
-  const token = getToken();
+  const token = getAccessToken();
 
   // Prepare request options
   const requestHeaders: Record<string, string> = {
