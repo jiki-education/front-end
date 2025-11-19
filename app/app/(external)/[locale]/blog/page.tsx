@@ -2,6 +2,7 @@ import { getAllBlogPosts, getAvailableLocales } from "@jiki/content";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
+import { getServerAuth } from "@/lib/auth/server";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -27,10 +28,13 @@ export default async function LocaleBlogPage({ params }: Props) {
   }
 
   const blogPosts = getAllBlogPosts(locale);
+  const auth = await getServerAuth();
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-8 text-4xl font-bold">Blog</h1>
+      <h1 className="mb-8 text-4xl font-bold">
+        {auth.isAuthenticated ? "Blog - Authenticated User" : "Blog - Guest User"}
+      </h1>
       <div className="space-y-8">
         {blogPosts.map((post) => (
           <article key={post.slug} className="border-b pb-8">
