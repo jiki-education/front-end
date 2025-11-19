@@ -1,0 +1,117 @@
+/* Main Content */
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Settings content area */
+.settings-content {
+    max-width: 774px;
+}
+
+/* Setting item cards */
+.setting-item {
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.setting-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 6px;
+    text-wrap-style: balance;
+}
+
+.setting-item p {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    text-wrap-style: balance;
+    max-width: 600px;
+}
+
+/* Remove text-wrap and max-width for danger zone paragraphs */
+.settings-content[data-tab-content="danger"] .setting-item p {
+    text-wrap-style: auto;
+    max-width: none;
+}
+
+/* Form field styling within settings */
+.setting-item .ui-form-field-large {
+    margin-bottom: 12px;
+    max-width: 530px;
+}
+
+.setting-item .ui-form-field-large:last-child {
+    margin-bottom: 0;
+}
+
+/* Button on new line */
+.button-row {
+    margin-top: 12px;
+}
+
+.button-row .ui-btn {
+    width: 100%;
+    max-width: 210px;
+}
+
+/* 2FA row layout */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.setting-row p {
+    flex: 1;
+    margin: 0;
+    max-width: 400px;
+}
+
+.setting-row .ui-btn {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 210px;
+}
+
+/* Warning text styling */
+.warning-text {
+    font-size: 13px;
+    color: #c53030;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.warning-text strong {
+    font-weight: 600;
+}
+
+/* Toggle row layout */
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.toggle-row p {
+    margin: 0;
+    flex: 1;
+    line-height: 1.5;
+}
+
+.toggle-row .ui-toggle-switch {
+    flex-shrink: 0;
+}
