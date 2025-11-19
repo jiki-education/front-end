@@ -28,6 +28,7 @@ interface AuthStore {
   refreshUser: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   resetPassword: (data: PasswordReset) => Promise<void>;
+  resendConfirmation: (email: string) => Promise<void>;
   clearError: () => void;
   setLoading: (loading: boolean) => void;
 }
@@ -255,6 +256,19 @@ export const useAuthStore = create<AuthStore>()(
           set({ isLoading: false });
         } catch (error) {
           const message = error instanceof Error ? error.message : "Failed to reset password";
+          set({ isLoading: false, error: message });
+          throw error;
+        }
+      },
+
+      // Resend confirmation instructions
+      resendConfirmation: async (email) => {
+        set({ isLoading: true, error: null });
+        try {
+          await authService.resendConfirmation(email);
+          set({ isLoading: false });
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to resend confirmation email";
           set({ isLoading: false, error: message });
           throw error;
         }

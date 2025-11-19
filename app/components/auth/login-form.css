@@ -23,6 +23,7 @@
     font-weight: 500;
     color: #1a365d;
     margin-bottom: 16px;
+    line-height: 1.3;
 }
 
 .form-subtitle {
@@ -97,16 +98,8 @@
 
 /* Fix placeholder styling */
 .ui-form-field-large input::placeholder {
-    color: #a0aec0;
-    opacity: 1;
-}
-
-.ui-form-field-large input:hover::placeholder {
     color: #718096;
-}
-
-.ui-form-field-large input:focus::placeholder {
-    color: #a0aec0;
+    opacity: 1;
 }
 
 @media (max-width: 968px) {

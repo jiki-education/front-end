@@ -5,11 +5,9 @@ import "./auth-layout.css";
 
 interface AuthLayoutProps {
   children: ReactNode;
-  title: string;
-  subtitle: ReactNode;
 }
 
-export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
+export function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <div className="flex flex-col lg:flex-row">
       {children}

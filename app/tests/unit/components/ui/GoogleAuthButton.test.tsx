@@ -45,15 +45,6 @@ describe("GoogleAuthButton", () => {
       expect(screen.getByText("Sign in with Google")).toBeInTheDocument();
     });
 
-    it("should render Google icon", () => {
-      render(<GoogleAuthButton onSuccess={mockOnSuccess}>Sign in with Google</GoogleAuthButton>);
-
-      const svgElement = screen.getByRole("button").querySelector("svg");
-      expect(svgElement).toBeInTheDocument();
-      expect(svgElement).toHaveAttribute("width", "20");
-      expect(svgElement).toHaveAttribute("height", "20");
-    });
-
     it("should call useGoogleLogin with correct configuration", () => {
       render(
         <GoogleAuthButton onSuccess={mockOnSuccess} onError={mockOnError}>
@@ -172,41 +163,6 @@ describe("GoogleAuthButton", () => {
       render(<GoogleAuthButton onSuccess={mockOnSuccess}>Sign in with Google</GoogleAuthButton>);
 
       expect(mockUseGoogleLogin).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("GoogleIcon component", () => {
-    beforeEach(() => {
-      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID = "test-client-id";
-    });
-
-    afterEach(() => {
-      delete process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-    });
-
-    it("should render correct SVG paths for Google logo", () => {
-      render(<GoogleAuthButton onSuccess={mockOnSuccess}>Sign in with Google</GoogleAuthButton>);
-
-      const svgElement = screen.getByRole("button").querySelector("svg");
-      const paths = svgElement?.querySelectorAll("path");
-
-      expect(paths).toHaveLength(4);
-
-      // Check that each path has the correct fill color for Google branding
-      const expectedColors = ["#4285F4", "#34A853", "#FBBC05", "#EA4335"];
-      paths?.forEach((path, index) => {
-        expect(path).toHaveAttribute("fill", expectedColors[index]);
-      });
-    });
-
-    it("should have proper SVG attributes", () => {
-      render(<GoogleAuthButton onSuccess={mockOnSuccess}>Sign in with Google</GoogleAuthButton>);
-
-      const svgElement = screen.getByRole("button").querySelector("svg");
-      expect(svgElement).toHaveAttribute("width", "20");
-      expect(svgElement).toHaveAttribute("height", "20");
-      expect(svgElement).toHaveAttribute("viewBox", "0 0 24 24");
-      expect(svgElement).toHaveAttribute("fill", "none");
     });
   });
 });

@@ -11,10 +11,7 @@ export const metadata: Metadata = {
 export default function ForgotPasswordPage() {
   return (
     <AuthPageWrapper>
-      <AuthLayout
-        title="Forgot your password?"
-        subtitle={<>If you&apos;ve forgotten your password, use the form below to request a link to change it.</>}
-      >
+      <AuthLayout>
         <ForgotPasswordForm />
       </AuthLayout>
     </AuthPageWrapper>

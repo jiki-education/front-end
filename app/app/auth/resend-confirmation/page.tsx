@@ -1,18 +1,18 @@
 import { AuthPageWrapper } from "@/components/auth/AuthPageWrapper";
 import { AuthLayout } from "@/components/ui/AuthLayout";
-import { SignupForm } from "@/components/auth/SignupForm";
+import { ResendConfirmationForm } from "@/components/auth/ResendConfirmationForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign Up - Jiki",
-  description: "Create your Jiki account"
+  title: "Resend Confirmation - Jiki",
+  description: "Resend confirmation instructions"
 };
 
-export default function SignupPage() {
+export default function ResendConfirmationPage() {
   return (
     <AuthPageWrapper>
       <AuthLayout>
-        <SignupForm />
+        <ResendConfirmationForm />
       </AuthLayout>
     </AuthPageWrapper>
   );

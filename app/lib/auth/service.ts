@@ -171,6 +171,14 @@ export async function resetPassword(data: PasswordReset): Promise<void> {
 }
 
 /**
+ * Resend confirmation instructions
+ * POST /auth/confirmation
+ */
+export async function resendConfirmation(email: string): Promise<void> {
+  await api.post("/auth/confirmation", { user: { email } });
+}
+
+/**
  * Get current user from /internal/me endpoint
  * GET /internal/me
  */
