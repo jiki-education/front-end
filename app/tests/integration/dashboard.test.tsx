@@ -57,6 +57,18 @@ jest.mock("@/lib/auth/hooks", () => ({
   useRequireAuth: jest.fn()
 }));
 
+// Mock the auth store
+const mockLogout = jest.fn().mockImplementation(() => {
+  window.localStorage.removeItem("auth-storage");
+  window.sessionStorage.clear();
+});
+
+jest.mock("@/stores/authStore", () => ({
+  useAuthStore: () => ({
+    logout: mockLogout
+  })
+}));
+
 // Mock the levels API
 jest.mock("@/lib/api/levels", () => ({
   fetchLevelsWithProgress: jest.fn()
@@ -137,6 +149,7 @@ describe("Dashboard Page", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockPush.mockClear();
+    mockLogout.mockClear();
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
 
     // Default mock for useRequireAuth - can be overridden in individual tests
