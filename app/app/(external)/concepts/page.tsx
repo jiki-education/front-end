@@ -6,7 +6,6 @@ import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
-import "./concepts.css";
 
 export default function ConceptsPage() {
   const { isAuthenticated, isReady } = useAuth();
