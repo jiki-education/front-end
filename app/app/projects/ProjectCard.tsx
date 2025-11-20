@@ -1,7 +1,7 @@
 import { type ProjectData } from "@/lib/api/projects";
 import Link from "next/link";
 import { ProjectIcon } from "@/components/ProjectIcon";
-import styles from "./projects.module.css";
+import styles from "./ProjectCard.module.css";
 
 interface ProjectCardProps {
   project: ProjectData & {

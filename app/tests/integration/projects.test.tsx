@@ -4,7 +4,6 @@ import ProjectsPage from "@/app/projects/page";
 import { fetchProjects } from "@/lib/api/projects";
 import { useRequireAuth } from "@/lib/auth/hooks";
 import type { User } from "@/types/auth";
-import styles from "@/app/projects/projects.module.css";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({
@@ -218,6 +217,6 @@ describe("Projects Integration", () => {
     // Check that the grid container has correct classes
     // The grid container should contain the project cards
     const gridContainer = screen.getAllByText("Project 1")[0].closest("a")?.parentElement;
-    expect(gridContainer).toHaveClass(styles.cardsGrid);
+    expect(gridContainer).toHaveClass("grid");
   });
 });
