@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
-import styles from "./LoginForm.module.css";
+import styles from "./AuthForm.module.css";
 
 export function ResendConfirmationForm() {
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
@@ -48,12 +48,10 @@ export function ResendConfirmationForm() {
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>
-          <h1 className={styles.formTitle}>Resend confirmation instructions</h1>
-          <p className={styles.formSubtitle}>
-            Not received a confirmation email? Use the form below and we&apos;ll send you another.
-          </p>
-        </div>
+        <header>
+          <h1>Resend confirmation instructions</h1>
+          <p>Not received a confirmation email? Use the form below and we&apos;ll send you another.</p>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {error && (

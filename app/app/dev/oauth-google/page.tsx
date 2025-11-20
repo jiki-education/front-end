@@ -6,7 +6,7 @@
  */
 
 import { useAuthStore } from "@/stores/authStore";
-import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 import { useState } from "react";
 
 export default function GoogleOAuthTestPage() {

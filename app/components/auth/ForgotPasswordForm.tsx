@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
-import styles from "./LoginForm.module.css";
+import styles from "./AuthForm.module.css";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
@@ -48,12 +48,10 @@ export function ForgotPasswordForm() {
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>
-          <h1 className={styles.formTitle}>Forgot your password?</h1>
-          <p className={styles.formSubtitle}>
-            If you&apos;ve forgotten your password, use the form below to request a link to change it.
-          </p>
-        </div>
+        <header>
+          <h1>Forgot your password?</h1>
+          <p>If you&apos;ve forgotten your password, use the form below to request a link to change it.</p>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {error && (

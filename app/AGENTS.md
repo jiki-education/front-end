@@ -30,6 +30,7 @@ Context files explain how everything works. If the human MENTIONS something that
 Load the relevant context files from `.context/` directory based on your task:
 
 - **[.context/coding-style.md](.context/coding-style.md)** - **ALWAYS READ THIS FIRST** - Coding style and file organization guidelines
+- [.context/css-styles.md](.context/css-styles.md) - CSS styling approaches and principles (Tailwind, UI Kit, CSS Modules)
 - [.context/about-jiki.md](.context/about-jiki.md) - Overview of Jiki platform and business model
 - [.context/commands.md](.context/commands.md) - Development commands and scripts. **ALWAYS READ THIS FILE WHEN STARTING ON A TASK**.
 - [.context/tech-stack.md](.context/tech-stack.md) - Technologies, frameworks, and dependencies

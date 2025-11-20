@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import styles from "./LoginForm.module.css";
+import styles from "./AuthForm.module.css";
 
 export function LoginForm() {
   const router = useRouter();
@@ -66,26 +66,22 @@ export function LoginForm() {
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>
-          <h1 className={styles.formTitle}>Log In</h1>
-          <p className={styles.formSubtitle}>
+        <header>
+          <h1>Log In</h1>
+          <p>
             Don&apos;t have an account?{" "}
             <Link href="/auth/signup" className="ui-link">
               Sign up for free.
             </Link>
           </p>
-        </div>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
             Log In with Google
           </GoogleAuthButton>
 
-          <div className={styles.divider}>
-            <div className={styles.dividerLine}></div>
-            <span className={styles.dividerText}>OR</span>
-            <div className={styles.dividerLine}></div>
-          </div>
+          <div className={styles.divider}>OR</div>
 
           {error && (
             <div id="success-message" className={styles.successMessage} style={{ display: "block" }}>

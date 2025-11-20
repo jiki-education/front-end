@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import styles from "./LoginForm.module.css";
+import styles from "./AuthForm.module.css";
 
 export function SignupForm() {
   const router = useRouter();
@@ -70,27 +70,23 @@ export function SignupForm() {
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
-        <div className={styles.formHeader}>
-          <h1 className={styles.formTitle}>Sign Up</h1>
-          <p className={styles.formSubtitle}>
+        <header>
+          <h1>Sign Up</h1>
+          <p>
             Already got an account?{" "}
             <Link href="/auth/login" className="ui-link">
               Log in
             </Link>
             .
           </p>
-        </div>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
             Sign Up with Google
           </GoogleAuthButton>
 
-          <div className={styles.divider}>
-            <div className={styles.dividerLine}></div>
-            <span className={styles.dividerText}>OR</span>
-            <div className={styles.dividerLine}></div>
-          </div>
+          <div className={styles.divider}>OR</div>
 
           {error && (
             <div className={styles.successMessage} style={{ display: "block" }}>
@@ -158,7 +154,7 @@ export function SignupForm() {
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
 
-          <div className="footer-links">
+          <div className={styles.footerLinks}>
             <p>
               Didn&apos;t receive your confirmation email?{" "}
               <Link href="/auth/resend-confirmation" className="ui-link">
