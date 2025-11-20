@@ -1,0 +1,128 @@
+/**
+ * Theme Variables
+ * Root color definitions and dark theme overrides
+ */
+
+:root {
+    /* Blue Scale (Azure Radiance) */
+    --color-blue-50: #eff5ff;
+    --color-blue-100: #dbe8fe;
+    --color-blue-200: #bfd7fe;
+    --color-blue-300: #93bbfd;
+    --color-blue-400: #609afa;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2570eb;
+    --color-blue-700: #1d64d8;
+    --color-blue-800: #1e55af;
+    --color-blue-900: #1e478a;
+    --color-blue-950: #172e54;
+
+    /* Purple Scale (Amethyst) */
+    --color-purple-50: #faf5ff;
+    --color-purple-100: #f4e8ff;
+    --color-purple-200: #ebd5ff;
+    --color-purple-300: #dab4fe;
+    --color-purple-400: #c184fc;
+    --color-purple-500: #a855f7;
+    --color-purple-600: #9133ea;
+    --color-purple-700: #7a22ce;
+    --color-purple-800: #6621a8;
+    --color-purple-900: #531c87;
+    --color-purple-950: #370764;
+
+    /* Green Scale (Mountain Meadow) */
+    --color-green-50: #ecfdf7;
+    --color-green-100: #d1faec;
+    --color-green-200: #a7f3da;
+    --color-green-300: #6ee7bf;
+    --color-green-400: #34d39e;
+    --color-green-500: #10b981;
+    --color-green-600: #059666;
+    --color-green-700: #047852;
+    --color-green-800: #065f42;
+    --color-green-900: #064e36;
+    --color-green-950: #022c1e;
+
+    /* Gray Scale */
+    --color-gray-50: #f6f7f9;
+    --color-gray-100: #eceef2;
+    --color-gray-200: #d5d9e2;
+    --color-gray-300: #b1bbc8;
+    --color-gray-400: #8695aa;
+    --color-gray-500: #64748b;
+    --color-gray-600: #526077;
+    --color-gray-700: #434e61;
+    --color-gray-800: #3a4252;
+    --color-gray-900: #343a46;
+    --color-gray-950: #23272e;
+
+    /* Red Scale (Coral Red) */
+    --color-red-50: #fef2f2;
+    --color-red-100: #fee2e2;
+    --color-red-200: #fecaca;
+    --color-red-300: #fca5a5;
+    --color-red-400: #f87171;
+    --color-red-500: #ef4444;
+    --color-red-600: #dc2626;
+    --color-red-700: #b91c1c;
+    --color-red-800: #991b1b;
+    --color-red-900: #7f1d1d;
+    --color-red-950: #450a0a;
+
+    /* Shadow Colors - Blue */
+    --color-blue-500-6: color-mix(in srgb, var(--color-blue-500) 6%, transparent);
+    --color-blue-500-10: color-mix(in srgb, var(--color-blue-500) 10%, transparent);
+    --color-blue-500-15: color-mix(in srgb, var(--color-blue-500) 15%, transparent);
+    --color-blue-500-20: color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+    --color-blue-500-30: color-mix(in srgb, var(--color-blue-500) 30%, transparent);
+    --color-blue-500-40: color-mix(in srgb, var(--color-blue-500) 40%, transparent);
+    --color-blue-600-6: color-mix(in srgb, var(--color-blue-600) 6%, transparent);
+
+    /* Shadow Colors - Red */
+    --color-red-500-20: color-mix(in srgb, var(--color-red-500) 20%, transparent);
+    --color-red-500-30: color-mix(in srgb, var(--color-red-500) 30%, transparent);
+    --color-red-500-40: color-mix(in srgb, var(--color-red-500) 40%, transparent);
+
+    /* Shadow Colors - Gray */
+    --color-gray-900-30: color-mix(in srgb, var(--color-gray-900) 30%, transparent);
+}
+
+[data-theme="dark"] {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Semantic color tokens for dark theme */
+    --color-background-primary: #0a0a0a;
+    --color-background-secondary: #1a1a1a;
+    --color-background-tertiary: #262626;
+    --color-text-primary: #ededed;
+    --color-text-secondary: #a3a3a3;
+    --color-text-tertiary: #737373;
+    --color-text-muted: #525252;
+    --color-border-primary: #404040;
+    --color-border-secondary: #525252;
+    --color-surface-elevated: #1f1f1f;
+    --color-surface-overlay: rgba(255, 255, 255, 0.05);
+
+    /* Interactive elements - adjusted for dark theme */
+    --color-button-primary-bg: #8b5cf6;
+    --color-button-primary-text: #ffffff;
+    --color-button-secondary-bg: #374151;
+    --color-button-secondary-text: #d1d5db;
+    --color-link-primary: #60a5fa;
+    --color-link-hover: #93c5fd;
+
+    /* Status colors - dark theme variants */
+    --color-success-bg: #064e3b;
+    --color-success-text: #6ee7b7;
+    --color-success-border: #10b981;
+    --color-error-bg: #7f1d1d;
+    --color-error-text: #fca5a5;
+    --color-error-border: #ef4444;
+    --color-warning-bg: #78350f;
+    --color-warning-text: #fcd34d;
+    --color-warning-border: #f59e0b;
+    --color-info-bg: #1e3a8a;
+    --color-info-text: #93c5fd;
+    --color-info-border: #3b82f6;
+}

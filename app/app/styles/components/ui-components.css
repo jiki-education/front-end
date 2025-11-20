@@ -1,0 +1,273 @@
+/**
+ * UI Components
+ * Buttons, forms, links, and toggle switches
+ */
+
+/* ========================================
+   BUTTON COMPONENTS
+   ======================================== */
+
+/* Button Base Styles - Standard Size */
+.ui-btn {
+    padding: 14px 20px;
+    border: 2px solid;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Button Base Styles - Large Size */
+.ui-btn-large {
+    padding: 16px 20px;
+    border: 2px solid;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Primary Button */
+.ui-btn-primary {
+    border-color: var(--color-blue-500);
+    color: white;
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
+    box-shadow: 0 2px 8px var(--color-blue-500-30);
+}
+
+.ui-btn-primary:hover {
+    border-color: var(--color-blue-600);
+    box-shadow:
+        0 0 0 4px var(--color-blue-500-20),
+        0 4px 16px var(--color-blue-500-40);
+}
+
+/* Secondary Button */
+.ui-btn-secondary {
+    background: white;
+    color: var(--color-blue-500);
+    border-color: var(--color-blue-300);
+    box-shadow: 0 2px 8px var(--color-blue-500-30);
+}
+
+.ui-btn-secondary:hover {
+    background: white;
+    border-color: var(--color-blue-500);
+    box-shadow:
+        0 0 0 4px var(--color-blue-500-20),
+        0 4px 16px var(--color-blue-500-40);
+}
+
+/* Tertiary Button */
+.ui-btn-tertiary {
+    border-color: var(--color-gray-200);
+    color: var(--color-gray-950);
+    background: white;
+    box-shadow: 0 2px 8px var(--color-gray-900-30);
+}
+
+.ui-btn-tertiary:hover {
+    border-color: var(--color-blue-500);
+    box-shadow:
+        0 0 0 4px var(--color-blue-500-10),
+        0 4px 16px var(--color-blue-500-20);
+}
+
+/* Danger Button */
+.ui-btn-danger {
+    background: white;
+    color: var(--color-red-500);
+    border-color: var(--color-red-300);
+    box-shadow: 0 2px 8px var(--color-red-500-30);
+}
+
+.ui-btn-danger:hover {
+    background: white;
+    border-color: var(--color-red-500);
+    box-shadow:
+        0 0 0 4px var(--color-red-500-20),
+        0 4px 16px var(--color-red-500-40);
+}
+
+/* Loading Button State */
+.ui-btn-loading {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0.8;
+}
+
+.ui-btn-loading::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: ui-spin 0.6s linear infinite;
+}
+
+/* Secondary button loading state has different spinner colors */
+.ui-btn-secondary.ui-btn-loading::before {
+    border-color: var(--color-blue-500-30);
+    border-top-color: var(--color-blue-500);
+}
+
+/* Danger button loading state has red spinner */
+.ui-btn-danger.ui-btn-loading::before {
+    border-color: var(--color-red-500-30);
+    border-top-color: var(--color-red-500);
+}
+
+/* ========================================
+   FORM FIELD COMPONENTS
+   ======================================== */
+
+.ui-form-field-large {
+    position: relative;
+
+    /* Label - Large */
+    > label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin-bottom: 8px;
+        transition: color 0.3s ease;
+    }
+
+    &:focus-within > label {
+        color: var(--color-blue-500);
+    }
+
+    /* Input Wrapper - Large */
+    > div {
+        position: relative;
+
+        /* Input with icon has extra left padding */
+        &:has(svg) input {
+            padding-left: 48px;
+        }
+
+        &:focus-within svg {
+            color: var(--color-blue-500);
+        }
+    }
+
+    /* Input - Large */
+    input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid var(--color-gray-200);
+        border-radius: 12px;
+        font-size: 16px;
+        background: white;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: var(--color-blue-500);
+            box-shadow: 0 0 0 2px var(--color-blue-500-10);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: var(--color-blue-500);
+            box-shadow: 0 0 0 4px var(--color-blue-500-15);
+        }
+    }
+
+    /* Icons - Large (Optional) */
+    svg {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Error Message */
+    .ui-form-field-error-message {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-red-500);
+        margin-top: 4px;
+    }
+
+    /* Error state */
+    &.ui-form-field-error input {
+        border-color: var(--color-red-500);
+        animation: ui-shake 0.5s;
+
+        &:focus {
+            border-color: var(--color-blue-500);
+            box-shadow: 0 0 0 4px var(--color-blue-500-15);
+        }
+    }
+}
+
+/* ========================================
+   LINK COMPONENTS
+   ======================================== */
+
+.ui-link {
+    color: var(--color-blue-500);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.ui-link:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   TOGGLE SWITCH COMPONENT
+   ======================================== */
+
+.ui-toggle-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--color-gray-300);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.ui-toggle-switch.active {
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
+}
+
+.ui-toggle-switch::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.ui-toggle-switch.active::after {
+    transform: translateX(20px);
+}
