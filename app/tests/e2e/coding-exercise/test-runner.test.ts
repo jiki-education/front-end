@@ -21,18 +21,18 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons to appear first (indicates tests have run)
-    await page.waitForSelector(".test-selector-buttons .test-button", { timeout: 10000 });
+    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
 
     // Then wait for the test result view to appear
     await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
 
     // Check that test suite results show (2 regular tests + 1 bonus test)
-    const testButtons = await page.$$(".test-selector-buttons .test-button");
+    const testButtons = await page.$$("[class*='testSelectorButtons'] [class*='testButton']");
     expect(testButtons.length).toBe(3);
 
     // Check test status
     const testStatus = await page.evaluate(() => {
-      const buttons = document.querySelectorAll(".test-selector-buttons .test-button");
+      const buttons = document.querySelectorAll("[class*='testSelectorButtons'] [class*='testButton']");
       return Array.from(buttons).map((btn) => btn.classList.contains("pass"));
     });
 
@@ -63,14 +63,14 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons to appear first
-    await page.waitForSelector(".test-selector-buttons .test-button", { timeout: 10000 });
+    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
 
     // Then wait for test result view
     await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
 
     // Check that tests fail
-    const testStatus = await page.$eval(".test-selector-buttons", (el) => {
-      const buttons = el.querySelectorAll(".test-button");
+    const testStatus = await page.$eval('[class*="testSelectorButtons"]', (el) => {
+      const buttons = el.querySelectorAll('[class*="testButton"]');
       return Array.from(buttons).map((btn) => btn.classList.contains("fail"));
     });
 
@@ -78,7 +78,7 @@ describe("Test Runner E2E", () => {
     expect(testStatus).toEqual([true, true, true]);
 
     // Check for error message
-    const errorMessage = await page.$(".scenario-lhs-content");
+    const errorMessage = await page.$("[class*='scenarioLhsContent']");
     expect(errorMessage).toBeTruthy();
   });
 
@@ -94,10 +94,10 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test results and buttons
-    await page.waitForSelector(".test-selector-buttons .test-button", { timeout: 10000 });
+    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
 
     // Click second test button
-    const testButtons = await page.$$(".test-selector-buttons .test-button");
+    const testButtons = await page.$$("[class*='testSelectorButtons'] [class*='testButton']");
     expect(testButtons.length).toBe(3); // 2 regular + 1 bonus
     await testButtons[1].click();
 
@@ -122,7 +122,7 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons first
-    await page.waitForSelector(".test-selector-buttons .test-button", { timeout: 10000 });
+    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
 
     // Then wait for scrubber to appear
     await page.waitForSelector('[data-testid="scrubber"]', { timeout: 5000 });

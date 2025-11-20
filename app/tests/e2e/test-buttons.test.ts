@@ -44,7 +44,7 @@ describe("Test Buttons E2E", () => {
 
       for (const button of regularButtons) {
         const classes = await button.evaluate((el) => el.className);
-        expect(classes).toContain("test-button");
+        expect(classes).toMatch(/testButton/);
         // Should have either 'pass' or 'fail' class
         expect(classes.includes("pass") || classes.includes("fail")).toBe(true);
       }
