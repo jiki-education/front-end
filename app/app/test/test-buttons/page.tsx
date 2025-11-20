@@ -7,6 +7,8 @@ import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorP
 import { InspectedTestResultView } from "@/components/coding-exercise/ui/test-results-view/InspectedTestResultView";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef } from "react";
+import styles from "@/components/coding-exercise/CodingExercise.module.css";
+import { assembleClassNames } from "@/utils/assemble-classnames";
 
 const initialCode = `move()
 move()
@@ -64,7 +66,11 @@ export default function TestButtonsTestPage() {
                     <button
                       key={test.slug}
                       onClick={() => orchestrator.setCurrentTest(test)}
-                      className={`test-button ${test.status} ${currentTest?.slug === test.slug ? "selected" : ""}`}
+                      className={assembleClassNames(
+                        styles.testButton,
+                        test.status,
+                        currentTest?.slug === test.slug ? "selected" : ""
+                      )}
                       style={{
                         padding: "8px 12px",
                         border: `1px solid ${test.status === "pass" ? "#10b981" : "#ef4444"}`,
@@ -94,7 +100,11 @@ export default function TestButtonsTestPage() {
                     <button
                       key={test.slug}
                       onClick={() => orchestrator.setCurrentTest(test)}
-                      className={`test-button ${test.status} ${currentTest?.slug === test.slug ? "selected" : ""}`}
+                      className={assembleClassNames(
+                        styles.testButton,
+                        test.status,
+                        currentTest?.slug === test.slug ? "selected" : ""
+                      )}
                       style={{
                         padding: "8px 12px",
                         border: `1px solid ${test.status === "pass" ? "#10b981" : "#ef4444"}`,
