@@ -20,16 +20,11 @@
 @source inline("text-error-500");
 
 /* ============================================
-   THEME - CSS Variables
+   THEME
    ============================================ */
-@import "./styles/base/theme.css";
-
-/* ============================================
-   DESIGN TOKENS
-   ============================================ */
-@import "./styles/tokens/colors.css";
-@import "./styles/tokens/typography.css";
-@import "./styles/tokens/spacing.css";
+@import "./styles/theme/colors.css";
+@import "./styles/theme/typography.css";
+@import "./styles/theme/spacing.css";
 
 /* ============================================
    UTILITIES
