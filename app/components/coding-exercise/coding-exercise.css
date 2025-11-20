@@ -18,14 +18,14 @@
 
 .cm-breakpoint-marker {
     &:after {
-        @apply bg-orange;
+        background: var(--color-orange);
     }
 }
 
 .cm-idle-marker {
     &:after {
         opacity: 0;
-        @apply bg-orange;
+        background: var(--color-orange);
     }
 
     &:hover,
