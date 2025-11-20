@@ -1,8 +1,9 @@
 /**
- * Secure Cookie Storage for Refresh Tokens
- * Provides XSS-resistant storage using cookies with proper security flags
+ * Secure Cookie Storage for Authentication Tokens
+ * Provides cookie-based storage with proper security flags
  */
 
+const ACCESS_TOKEN_COOKIE = "jiki_access_token";
 const REFRESH_TOKEN_COOKIE = "jiki_refresh_token";
 
 interface CookieOptions {
@@ -147,5 +148,43 @@ export function removeRefreshTokenCookie(): void {
  */
 export function hasRefreshTokenCookie(): boolean {
   const token = getRefreshTokenCookie();
+  return token !== null && token.trim() !== "";
+}
+
+/**
+ * Store access token in cookie
+ * Uses expiry from JWT token (typically 1 hour)
+ */
+export function setAccessTokenCookie(token: string, expiryMs?: number): void {
+  const options: CookieOptions = {
+    sameSite: "strict" // CSRF protection
+  };
+
+  if (expiryMs) {
+    options.expires = new Date(expiryMs);
+  }
+
+  setSecureCookie(ACCESS_TOKEN_COOKIE, token, options);
+}
+
+/**
+ * Retrieve access token from cookie
+ */
+export function getAccessTokenCookie(): string | null {
+  return getCookie(ACCESS_TOKEN_COOKIE);
+}
+
+/**
+ * Remove access token cookie (for logout)
+ */
+export function removeAccessTokenCookie(): void {
+  deleteCookie(ACCESS_TOKEN_COOKIE);
+}
+
+/**
+ * Check if access token cookie exists and is not empty
+ */
+export function hasAccessTokenCookie(): boolean {
+  const token = getAccessTokenCookie();
   return token !== null && token.trim() !== "";
 }

@@ -6,7 +6,7 @@ describe("Blog Page E2E", () => {
 
   it("should load the blog index page", async () => {
     const heading = await page.$eval("h1", (el) => el.textContent);
-    expect(heading).toBe("Blog");
+    expect(heading).toBe("Blog - Guest User");
   });
 
   it("should display blog posts", async () => {

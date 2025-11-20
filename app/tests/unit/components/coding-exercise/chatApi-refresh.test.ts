@@ -4,7 +4,7 @@
 
 import { sendChatMessage, ChatApiError } from "@/components/coding-exercise/lib/chatApi";
 import { refreshAccessToken } from "@/lib/auth/refresh";
-import { getToken } from "@/lib/auth/storage";
+import { getAccessToken } from "@/lib/auth/storage";
 import { getChatApiUrl } from "@/lib/api/config";
 
 // Mock dependencies
@@ -13,7 +13,7 @@ jest.mock("@/lib/auth/storage");
 jest.mock("@/lib/api/config");
 
 const mockRefreshAccessToken = refreshAccessToken as jest.MockedFunction<typeof refreshAccessToken>;
-const mockGetToken = getToken as jest.MockedFunction<typeof getToken>;
+const mockGetAccessToken = getAccessToken as jest.MockedFunction<typeof getAccessToken>;
 const mockGetChatApiUrl = getChatApiUrl as jest.MockedFunction<typeof getChatApiUrl>;
 
 // Mock fetch and web APIs
@@ -70,7 +70,7 @@ describe("Chat API Refresh Token Integration", () => {
 
   it("should retry request after successful token refresh when token expired", async () => {
     // Setup: initial token, refresh token available
-    mockGetToken
+    mockGetAccessToken
       .mockReturnValueOnce("expired_token") // First call returns expired token
       .mockReturnValueOnce("new_token"); // Second call returns new token
 
@@ -132,7 +132,7 @@ describe("Chat API Refresh Token Integration", () => {
   });
 
   it("should not retry for invalid_token errors", async () => {
-    mockGetToken.mockReturnValue("invalid_token");
+    mockGetAccessToken.mockReturnValue("invalid_token");
 
     mockFetch.mockResolvedValueOnce({
       ok: false,
@@ -155,7 +155,7 @@ describe("Chat API Refresh Token Integration", () => {
   });
 
   it("should throw error if refresh fails", async () => {
-    mockGetToken.mockReturnValue("expired_token");
+    mockGetAccessToken.mockReturnValue("expired_token");
     mockRefreshAccessToken.mockResolvedValueOnce(null); // Refresh failed
 
     mockFetch.mockResolvedValueOnce({
@@ -175,7 +175,7 @@ describe("Chat API Refresh Token Integration", () => {
   });
 
   it("should handle non-401 errors normally", async () => {
-    mockGetToken.mockReturnValue("valid_token");
+    mockGetAccessToken.mockReturnValue("valid_token");
 
     mockFetch.mockResolvedValueOnce({
       ok: false,

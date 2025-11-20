@@ -1,4 +1,4 @@
-import { getToken } from "@/lib/auth/storage";
+import { getAccessToken } from "@/lib/auth/storage";
 import { getApiUrl } from "@/lib/api/config";
 import type { SignatureData } from "./chat-types";
 
@@ -13,7 +13,7 @@ export async function saveConversation(
   assistantMessage: string,
   signature: SignatureData
 ): Promise<void> {
-  const token = getToken();
+  const token = getAccessToken();
   if (!token) {
     console.warn("No token available to save conversation");
     return;

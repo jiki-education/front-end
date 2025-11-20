@@ -4,7 +4,7 @@
 
 import { googleLogin } from "@/lib/auth/service";
 import { api } from "@/lib/api";
-import { setToken, setRefreshToken, getTokenExpiry } from "@/lib/auth/storage";
+import { setAccessToken, setRefreshToken, getTokenExpiry } from "@/lib/auth/storage";
 import type { AuthResponse, User } from "@/types/auth";
 
 // Mock dependencies
@@ -12,7 +12,7 @@ jest.mock("@/lib/api");
 jest.mock("@/lib/auth/storage");
 
 const mockApi = api as jest.Mocked<typeof api>;
-const mockSetToken = setToken as jest.MockedFunction<typeof setToken>;
+const mockSetAccessToken = setAccessToken as jest.MockedFunction<typeof setAccessToken>;
 const mockSetRefreshToken = setRefreshToken as jest.MockedFunction<typeof setRefreshToken>;
 const mockGetTokenExpiry = getTokenExpiry as jest.MockedFunction<typeof getTokenExpiry>;
 
@@ -51,7 +51,7 @@ describe("Auth Service - googleLogin", () => {
 
     expect(result).toEqual(mockUser);
     expect(mockApi.post).toHaveBeenCalledWith("/auth/google", { code: "auth-code-123" });
-    expect(mockSetToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
     expect(mockSetRefreshToken).toHaveBeenCalledWith("refresh-token-456");
   });
 
@@ -70,7 +70,7 @@ describe("Auth Service - googleLogin", () => {
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetToken).toHaveBeenCalledWith("header-token-789", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token-789", expect.any(Number));
   });
 
   it("should handle token in lowercase authorization header", async () => {
@@ -88,7 +88,7 @@ describe("Auth Service - googleLogin", () => {
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetToken).toHaveBeenCalledWith("lowercase-token-789", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("lowercase-token-789", expect.any(Number));
   });
 
   it("should prefer header token over body token", async () => {
@@ -105,7 +105,7 @@ describe("Auth Service - googleLogin", () => {
 
     await googleLogin("auth-code-123");
 
-    expect(mockSetToken).toHaveBeenCalledWith("header-token", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token", expect.any(Number));
   });
 
   it("should handle different token field names in response body", async () => {
@@ -134,7 +134,7 @@ describe("Auth Service - googleLogin", () => {
 
       await googleLogin("auth-code-123");
 
-      expect(mockSetToken).toHaveBeenCalledWith(testCase.value, expect.any(Number));
+      expect(mockSetAccessToken).toHaveBeenCalledWith(testCase.value, expect.any(Number));
     }
   });
 
@@ -149,7 +149,7 @@ describe("Auth Service - googleLogin", () => {
 
     await googleLogin("auth-code-123");
 
-    expect(mockSetToken).toHaveBeenCalledWith("access-token-123", undefined);
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", undefined);
   });
 
   it("should handle missing access token gracefully", async () => {
@@ -168,7 +168,7 @@ describe("Auth Service - googleLogin", () => {
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetToken).not.toHaveBeenCalled();
+    expect(mockSetAccessToken).not.toHaveBeenCalled();
     expect(mockSetRefreshToken).toHaveBeenCalledWith("refresh-token-456");
   });
 
@@ -189,7 +189,7 @@ describe("Auth Service - googleLogin", () => {
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
     expect(mockSetRefreshToken).not.toHaveBeenCalled();
   });
 
@@ -208,7 +208,7 @@ describe("Auth Service - googleLogin", () => {
     await googleLogin("auth-code-123");
 
     // Should fall back to body token
-    expect(mockSetToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
   });
 
   it("should handle API errors properly", async () => {
@@ -217,7 +217,7 @@ describe("Auth Service - googleLogin", () => {
 
     await expect(googleLogin("invalid-code")).rejects.toThrow("Google OAuth API error");
 
-    expect(mockSetToken).not.toHaveBeenCalled();
+    expect(mockSetAccessToken).not.toHaveBeenCalled();
     expect(mockSetRefreshToken).not.toHaveBeenCalled();
   });
 
@@ -226,7 +226,7 @@ describe("Auth Service - googleLogin", () => {
 
     await expect(googleLogin("auth-code-123")).rejects.toThrow("Network error");
 
-    expect(mockSetToken).not.toHaveBeenCalled();
+    expect(mockSetAccessToken).not.toHaveBeenCalled();
     expect(mockSetRefreshToken).not.toHaveBeenCalled();
   });
 

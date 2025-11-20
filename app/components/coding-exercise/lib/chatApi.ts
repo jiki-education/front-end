@@ -1,4 +1,4 @@
-import { getToken } from "@/lib/auth/storage";
+import { getAccessToken } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
@@ -64,7 +64,7 @@ async function performChatRequest(
   callbacks: StreamCallbacks,
   token?: string
 ): Promise<void> {
-  const authToken = token || getToken();
+  const authToken = token || getAccessToken();
   if (!authToken) {
     throw new ChatApiError("No authentication token available");
   }

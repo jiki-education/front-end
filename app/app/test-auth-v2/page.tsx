@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/lib/api";
-import { getToken, getRefreshToken } from "@/lib/auth/storage";
+import { getAccessToken, getRefreshToken } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/service";
 import { useAuthStore } from "@/stores/authStore";
 import { useState } from "react";
@@ -37,7 +37,7 @@ export default function TestAuthV2Page() {
       await login({ email, password });
       addResult("✅ Login successful!");
 
-      const token = getToken();
+      const token = getAccessToken();
       if (token) {
         addResult(`✅ Token stored: ${token.substring(0, 30)}...`);
       } else {
@@ -50,7 +50,7 @@ export default function TestAuthV2Page() {
 
   const testLevels = async () => {
     addResult("Testing /v1/levels endpoint...");
-    const token = getToken();
+    const token = getAccessToken();
 
     if (!token) {
       addResult("❌ No token found. Please login first.");
@@ -74,7 +74,7 @@ export default function TestAuthV2Page() {
 
   const testDirectFetch = async () => {
     addResult("Testing direct fetch to /v1/levels...");
-    const token = getToken();
+    const token = getAccessToken();
 
     if (!token) {
       addResult("❌ No token found. Please login first.");
@@ -136,7 +136,7 @@ export default function TestAuthV2Page() {
 
   const testAutoRefresh = async () => {
     addResult("Testing automatic refresh on 401...");
-    const originalToken = getToken();
+    const originalToken = getAccessToken();
 
     if (!originalToken) {
       addResult("❌ No access token found. Please login first.");
@@ -144,19 +144,19 @@ export default function TestAuthV2Page() {
     }
 
     // Manually set a fake expired token to trigger auto-refresh
-    sessionStorage.setItem("jiki_auth_token", "fake.expired.token");
+    document.cookie = "jiki_access_token=fake.expired.token; path=/";
     addResult("Set fake expired token to trigger 401...");
 
     try {
       const response = await api.get("/internal/levels");
       addResult("✅ Auto-refresh worked! Got levels despite fake token!");
-      addResult(`Token after auto-refresh: ${getToken()?.substring(0, 30)}...`);
+      addResult(`Token after auto-refresh: ${getAccessToken()?.substring(0, 30)}...`);
       setLevels(response.data);
     } catch (error: any) {
       addResult(`❌ Auto-refresh failed: ${error.message}`);
       // Restore original token if auto-refresh failed
       if (originalToken) {
-        sessionStorage.setItem("jiki_auth_token", originalToken);
+        document.cookie = `jiki_access_token=${originalToken}; path=/`;
         addResult("Restored original token");
       }
     }
@@ -199,7 +199,7 @@ export default function TestAuthV2Page() {
                   </>
                 )}
                 <p className="text-xs text-gray-600 break-all" suppressHydrationWarning>
-                  <span className="font-medium">Access Token:</span> {getToken() || "None"}
+                  <span className="font-medium">Access Token:</span> {getAccessToken() || "None"}
                 </p>
                 <p className="text-xs text-gray-600 break-all" suppressHydrationWarning>
                   <span className="font-medium">Refresh Token:</span> {getRefreshToken() || "None"}
@@ -339,8 +339,8 @@ export default function TestAuthV2Page() {
           </ol>
           <div className="mt-4 p-3 bg-green-50 text-green-700 rounded text-sm">
             <strong>Refresh Token Features:</strong> The system now uses dual tokens - short-lived access tokens (1hr)
-            stored in sessionStorage and long-lived refresh tokens (30d) in localStorage. Test functions 5 & 6 validate
-            this functionality.
+            stored in cookies and long-lived refresh tokens (30d) in localStorage. Test functions 5 & 6 validate this
+            functionality.
           </div>
         </div>
       </div>
