@@ -1,3 +1,5 @@
+"use client";
+
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function AuthExternalLayout({ children }: { children: React.ReactNode }) {

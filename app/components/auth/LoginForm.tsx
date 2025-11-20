@@ -5,10 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import GoogleIcon from "../../icons/google.svg";
 import "./login-form.css";
 
 export function LoginForm() {
@@ -18,20 +17,6 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-
-  const googleLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      googleAuth(codeResponse.code)
-        .then(() => {
-          router.push("/dashboard");
-        })
-        .catch(() => {
-          console.error("ERROR WITH GOOGLE LOGIN");
-        });
-    },
-    onError: () => console.error("ERROR WITH GOOGLE LOGIN"),
-    flow: "auth-code"
-  });
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -68,9 +53,15 @@ export function LoginForm() {
     }
   };
 
-  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
-    return null;
-  }
+  const handleGoogleSuccess = (code: string) => {
+    googleAuth(code)
+      .then(() => {
+        router.push("/dashboard");
+      })
+      .catch(() => {
+        console.error("ERROR WITH GOOGLE LOGIN");
+      });
+  };
 
   return (
     <div className="left-side">
@@ -86,15 +77,9 @@ export function LoginForm() {
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <button
-            type="button"
-            className="ui-btn-large ui-btn-tertiary"
-            style={{ width: "100%" }}
-            onClick={() => googleLogin()}
-          >
-            <GoogleIcon />
+          <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
             Log In with Google
-          </button>
+          </GoogleAuthButton>
 
           <div className="divider">
             <div className="divider-line"></div>
