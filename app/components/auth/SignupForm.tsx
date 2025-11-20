@@ -8,7 +8,7 @@ import { useState } from "react";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import "./login-form.css";
+import styles from "./LoginForm.module.css";
 
 export function SignupForm() {
   const router = useRouter();
@@ -68,11 +68,11 @@ export function SignupForm() {
   };
 
   return (
-    <div className="left-side">
-      <div className="form-container">
-        <div className="form-header">
-          <h1 className="form-title">Sign Up</h1>
-          <p className="form-subtitle">
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <div className={styles.formHeader}>
+          <h1 className={styles.formTitle}>Sign Up</h1>
+          <p className={styles.formSubtitle}>
             Already got an account?{" "}
             <Link href="/auth/login" className="ui-link">
               Log in
@@ -86,14 +86,14 @@ export function SignupForm() {
             Sign Up with Google
           </GoogleAuthButton>
 
-          <div className="divider">
-            <div className="divider-line"></div>
-            <span className="divider-text">OR</span>
-            <div className="divider-line"></div>
+          <div className={styles.divider}>
+            <div className={styles.dividerLine}></div>
+            <span className={styles.dividerText}>OR</span>
+            <div className={styles.dividerLine}></div>
           </div>
 
           {error && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {error}
             </div>
           )}

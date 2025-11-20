@@ -8,7 +8,7 @@ import { useState } from "react";
 import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import "./login-form.css";
+import styles from "./LoginForm.module.css";
 
 export function LoginForm() {
   const router = useRouter();
@@ -64,11 +64,11 @@ export function LoginForm() {
   };
 
   return (
-    <div className="left-side">
-      <div className="form-container">
-        <div className="form-header">
-          <h1 className="form-title">Log In</h1>
-          <p className="form-subtitle">
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <div className={styles.formHeader}>
+          <h1 className={styles.formTitle}>Log In</h1>
+          <p className={styles.formSubtitle}>
             Don&apos;t have an account?{" "}
             <Link href="/auth/signup" className="ui-link">
               Sign up for free.
@@ -81,14 +81,14 @@ export function LoginForm() {
             Log In with Google
           </GoogleAuthButton>
 
-          <div className="divider">
-            <div className="divider-line"></div>
-            <span className="divider-text">OR</span>
-            <div className="divider-line"></div>
+          <div className={styles.divider}>
+            <div className={styles.dividerLine}></div>
+            <span className={styles.dividerText}>OR</span>
+            <div className={styles.dividerLine}></div>
           </div>
 
           {error && (
-            <div id="success-message" className="success-message" style={{ display: "block" }}>
+            <div id="success-message" className={styles.successMessage} style={{ display: "block" }}>
               {error}
             </div>
           )}
@@ -144,7 +144,7 @@ export function LoginForm() {
               )}
             </div>
 
-            <div className="forgot-password">
+            <div className={styles.forgotPassword}>
               <Link href="/auth/forgot-password" className="ui-link">
                 Forgot your password?
               </Link>
@@ -161,7 +161,7 @@ export function LoginForm() {
             {isLoading ? "Logging in..." : "Log In"}
           </button>
 
-          <div className="footer-links">
+          <div className={styles.footerLinks}>
             <p>
               Didn&apos;t receive your confirmation email?{" "}
               <Link href="/auth/resend-confirmation" className="ui-link">
