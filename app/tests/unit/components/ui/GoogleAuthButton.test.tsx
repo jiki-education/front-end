@@ -99,34 +99,7 @@ describe("GoogleAuthButton", () => {
       render(<GoogleAuthButton onSuccess={mockOnSuccess}>Sign in with Google</GoogleAuthButton>);
 
       const button = screen.getByRole("button");
-      expect(button).toHaveClass(
-        "w-full",
-        "px-20",
-        "py-16",
-        "border-2",
-        "border-[#e2e8f0]",
-        "rounded-xl",
-        "text-[17px]",
-        "font-medium",
-        "text-[#1a365d]",
-        "bg-white",
-        "shadow-sm",
-        "transition-all",
-        "duration-300",
-        "flex",
-        "items-center",
-        "justify-center",
-        "gap-3",
-        "hover:border-[#3b82f6]",
-        "hover:shadow-lg",
-        "hover:shadow-blue-100",
-        "focus:outline-none",
-        "focus:ring-4",
-        "focus:ring-blue-100",
-        "disabled:opacity-50",
-        "disabled:cursor-not-allowed",
-        "cursor-pointer"
-      );
+      expect(button).toHaveClass("ui-btn ui-btn-tertiary");
     });
 
     it("should handle different children content", () => {
