@@ -121,7 +121,7 @@
     }
 }
 
-.scenario-rhs {
+.scenarioRhs {
     @apply h-fill overflow-auto;
 
     &.javascript {
@@ -138,10 +138,10 @@
     }
 }
 
-.test-selector-buttons {
+.testSelectorButtons {
     @apply flex gap-x-4;
 
-    .test-button {
+    .testButton {
         @apply flex-shrink-0;
     }
 
@@ -156,13 +156,13 @@
             @apply mr-2;
         }
 
-        .test-button {
+        .testButton {
             letter-spacing: 2px;
         }
     }
 }
 
-.test-button {
+.testButton {
     @apply relative p-4 w-[40px] h-[40px] grid place-content-center;
     transition: background-color 0.3s ease-out;
     @apply font-medium;

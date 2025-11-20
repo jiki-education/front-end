@@ -67,25 +67,6 @@ export function TestResultsButtons() {
           {idx + 1}
         </button>
       ))}
-
-      <style jsx>{`
-        .test-button.pass {
-          border-color: var(--color-success-border);
-          color: var(--color-success-text);
-        }
-        .test-button.fail {
-          border-color: var(--color-error-border);
-          color: var(--color-error-text);
-        }
-        .test-button.selected {
-          background-color: var(--color-link-primary) !important;
-          border-color: var(--color-link-primary);
-          color: var(--color-button-primary-text);
-        }
-        .test-button.selected:hover {
-          background-color: var(--color-link-hover) !important;
-        }
-      `}</style>
     </div>
   );
 }
