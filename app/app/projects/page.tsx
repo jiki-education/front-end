@@ -1,6 +1,6 @@
 "use client";
 
-import "./projects.css";
+import styles from "./projects.module.css";
 import { fetchProjects, type ProjectData, type ProjectsResponse } from "@/lib/api/projects";
 import { useRequireAuth } from "@/lib/auth/hooks";
 import Sidebar from "@/components/index-page/sidebar/Sidebar";
@@ -126,7 +126,7 @@ export default function ProjectsPage() {
                 </p>
               </div>
             ) : (
-              <div className="cards-grid">
+              <div className={styles.cardsGrid}>
                 {filteredProjects.map((project) => (
                   <ProjectCard key={project.slug} project={project} />
                 ))}

@@ -1,7 +1,7 @@
 /* Projects page specific styles */
 
 /* Project Cards Grid */
-.cards-grid {
+.cardsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 24px;
@@ -34,7 +34,7 @@
 }
 
 /* Status Badge */
-.card .status-badge {
+.card .statusBadge {
     position: absolute;
     top: 0;
     right: 20px;
@@ -49,7 +49,7 @@
     transition: all 0.4s ease;
 }
 
-.card:hover .status-badge {
+.card:hover .statusBadge {
     background: var(--color-blue-500);
     color: white;
 }
@@ -63,7 +63,7 @@
     transition: opacity 0.3s ease;
 }
 
-.card .hero .project-icon {
+.card .hero .projectIcon {
     width: 180px;
     height: 180px;
     display: flex;
@@ -72,20 +72,20 @@
     margin-bottom: 16px;
 }
 
-.card .hero .project-icon img,
-.card .hero .project-icon svg {
+.card .hero .projectIcon img,
+.card .hero .projectIcon svg {
     width: 180px;
     height: 180px;
     object-fit: contain;
 }
 
-.card .hero .project-title {
+.card .hero .projectTitle {
     font-size: 22px;
     font-weight: 600;
     color: var(--color-gray-900);
 }
 
-.card .hero .progress-bar {
+.card .hero .progressBar {
     width: 100%;
     height: 6px;
     background: var(--color-gray-200);
@@ -94,7 +94,7 @@
     margin-top: 20px;
 }
 
-.card .hero .progress-bar .progress-fill {
+.card .hero .progressBar .progressFill {
     height: 100%;
     background: linear-gradient(90deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
     border-radius: 10px;
@@ -120,7 +120,7 @@
     z-index: 2;
 }
 
-.card .content .project-title {
+.card .content .projectTitle {
     font-size: 25px;
     font-weight: 600;
     color: var(--color-gray-900);
@@ -135,19 +135,19 @@
     max-width: 320px;
 }
 
-.card .content .stats-row {
+.card .content .statsRow {
     display: flex;
     justify-content: center;
     gap: 20px;
     font-size: 14px;
 }
 
-.card .content .stats-row .skills {
+.card .content .statsRow .skills {
     color: var(--color-blue-500);
     font-weight: 600;
 }
 
-.card .content .stats-row .completed {
+.card .content .statsRow .completed {
     color: var(--color-gray-600);
     font-weight: 500;
 }
@@ -157,7 +157,7 @@
 }
 
 /* Action Link */
-.card .action-link {
+.card .actionLink {
     position: absolute;
     bottom: 20px;
     right: 20px;
@@ -170,11 +170,11 @@
     z-index: 3;
 }
 
-.card .action-link::after {
+.card .actionLink::after {
     content: "Get started >";
 }
 
-.card:hover .action-link {
+.card:hover .actionLink {
     opacity: 1;
 }
 
@@ -183,7 +183,7 @@
     border-color: var(--color-purple-400);
 }
 
-.card[data-state="in-progress"] .status-badge {
+.card[data-state="in-progress"] .statusBadge {
     background: rgba(168, 85, 247, 0.1);
     color: var(--color-purple-500);
 }
@@ -195,20 +195,20 @@
         0 4px 16px rgba(168, 85, 247, 0.2);
 }
 
-.card[data-state="in-progress"]:hover .status-badge {
+.card[data-state="in-progress"]:hover .statusBadge {
     background: var(--color-purple-500);
     color: white;
 }
 
-.card[data-state="in-progress"] .hero .progress-bar .progress-fill {
+.card[data-state="in-progress"] .hero .progressBar .progressFill {
     animation: fillProgress 1.5s ease-out forwards 0.3s;
 }
 
-.card[data-state="in-progress"] .action-link {
+.card[data-state="in-progress"] .actionLink {
     color: var(--color-purple-500);
 }
 
-.card[data-state="in-progress"] .action-link::after {
+.card[data-state="in-progress"] .actionLink::after {
     content: "Continue >";
 }
 
@@ -219,7 +219,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.card[data-state="complete"] .status-badge {
+.card[data-state="complete"] .statusBadge {
     background: var(--color-green-500);
     color: white;
 }
@@ -231,20 +231,20 @@
         0 4px 16px rgba(16, 185, 129, 0.2);
 }
 
-.card[data-state="complete"]:hover .status-badge {
+.card[data-state="complete"]:hover .statusBadge {
     background: var(--color-green-500);
     color: white;
 }
 
-.card[data-state="complete"] .hero .progress-bar .progress-fill {
+.card[data-state="complete"] .hero .progressBar .progressFill {
     background: var(--color-green-500);
 }
 
-.card[data-state="complete"] .action-link {
+.card[data-state="complete"] .actionLink {
     color: var(--color-green-500);
 }
 
-.card[data-state="complete"] .action-link::after {
+.card[data-state="complete"] .actionLink::after {
     content: "Take a look >";
 }
 
@@ -256,16 +256,16 @@
     cursor: default;
 }
 
-.card[data-state="locked"] .status-badge {
+.card[data-state="locked"] .statusBadge {
     background: var(--color-gray-100);
     color: var(--color-gray-600);
 }
 
-.card[data-state="locked"] .hero .progress-bar {
+.card[data-state="locked"] .hero .progressBar {
     display: none;
 }
 
-.card[data-state="locked"] .action-link {
+.card[data-state="locked"] .actionLink {
     display: none;
 }
 
@@ -286,6 +286,6 @@
 }
 
 /* Not started cards (no data-state) have default width */
-.card:not([data-state]) .hero .progress-bar .progress-fill {
+.card:not([data-state]) .hero .progressBar .progressFill {
     width: var(--target-width);
 }
