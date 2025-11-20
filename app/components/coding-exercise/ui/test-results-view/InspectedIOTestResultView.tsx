@@ -5,6 +5,7 @@ import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { IOTestExpect } from "../../lib/test-results-types";
 import { PassMessage } from "./PassMessage";
 import { IOTestResultView } from "./IOTestResultView";
+import styles from "../../CodingExercise.module.css";
 
 export function InspectedIOTestResultView() {
   const orchestrator = useOrchestrator();
@@ -19,9 +20,9 @@ export function InspectedIOTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames("c-scenario", currentTest.status === "fail" ? "fail" : "pass")}>
+    <div className={assembleClassNames(styles.scenario, currentTest.status === "fail" ? "fail" : "pass")}>
       <div data-ci="inspected-test-result-view" className="flex-grow overflow-scroll">
-        <div className="scenario-lhs-content">
+        <div className={styles.scenarioLhsContent}>
           <h3>
             <strong>Scenario: </strong>
             {currentTest.name}

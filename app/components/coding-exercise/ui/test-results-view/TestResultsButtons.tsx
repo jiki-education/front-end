@@ -4,6 +4,7 @@ import { assembleClassNames } from "../../../../utils/assemble-classnames";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestResult } from "../../lib/test-results-types";
+import styles from "../../CodingExercise.module.css";
 
 const TRANSITION_DELAY = 0.1;
 
@@ -36,7 +37,7 @@ export function TestResultsButtons() {
 
   return (
     <div
-      className="test-selector-buttons"
+      className={styles.testSelectorButtons}
       style={{
         display: "flex",
         gap: "8px",
@@ -57,7 +58,8 @@ export function TestResultsButtons() {
             transition: "all 0.2s ease"
           }}
           className={assembleClassNames(
-            "test-button bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
+            styles.testButton,
+            "bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
             test.status,
             currentTest?.slug === test.slug ? "selected" : ""
           )}
