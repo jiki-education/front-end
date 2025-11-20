@@ -7,8 +7,8 @@ import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
 import "./login-form.css";
 
-export function ForgotPasswordForm() {
-  const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
+export function ResendConfirmationForm() {
+  const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -37,11 +37,11 @@ export function ForgotPasswordForm() {
     }
 
     try {
-      await requestPasswordReset(email);
-      setSuccessMessage("If an account with that email exists, you&apos;ll receive reset instructions shortly.");
+      await resendConfirmation(email);
+      setSuccessMessage("If an account with that email exists, you&apos;ll receive confirmation instructions shortly.");
       setEmail("");
     } catch (err) {
-      console.error("Password reset request failed:", err);
+      console.error("Resend confirmation failed:", err);
     }
   };
 
@@ -49,9 +49,9 @@ export function ForgotPasswordForm() {
     <div className="left-side">
       <div className="form-container">
         <div className="form-header">
-          <h1 className="form-title">Forgot your password?</h1>
+          <h1 className="form-title">Resend confirmation instructions</h1>
           <p className="form-subtitle">
-            If you&apos;ve forgotten your password, use the form below to request a link to change it.
+            Not received a confirmation email? Use the form below and we&apos;ll send you another.
           </p>
         </div>
 
@@ -69,12 +69,12 @@ export function ForgotPasswordForm() {
           )}
 
           <div className="ui-form-field-large" id="email-field" style={{ marginBottom: "8px" }}>
-            <label htmlFor="reset-email">Email</label>
+            <label htmlFor="confirmation-email">Email</label>
             <div>
               <EmailIcon />
               <input
                 type="email"
-                id="reset-email"
+                id="confirmation-email"
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => {
@@ -100,12 +100,12 @@ export function ForgotPasswordForm() {
             style={{ width: "100%" }}
             disabled={isLoading}
           >
-            {isLoading ? "Sending..." : "Send Reset Link"}
+            {isLoading ? "Sending..." : "Resend confirmation instructions"}
           </button>
 
           <div className="footer-links">
             <p>
-              Remembered your password?{" "}
+              Already confirmed?{" "}
               <Link href="/auth/login" className="ui-link">
                 Log in
               </Link>

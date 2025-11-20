@@ -1,0 +1,91 @@
+/* Right side - Gradient background */
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    color: white;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #667eea 100%);
+}
+
+.logo-large {
+    font-size: 72px;
+    font-weight: 500;
+    z-index: 1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    line-height: 1;
+}
+
+.tagline {
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+    z-index: 1;
+    line-height: 1.3;
+    text-wrap-style: balance;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 18px;
+    text-align: center;
+    opacity: 0.95;
+    max-width: 500px;
+    line-height: 1.6;
+    z-index: 1;
+    text-wrap-style: balance;
+    margin-bottom: 52px;
+}
+
+.creators-badge {
+    text-align: center;
+    z-index: 1;
+}
+
+.creators-badge .label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+}
+
+.creators-badge .brand {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+}
+
+@media (max-width: 968px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .right-side {
+        min-height: 300px;
+        padding: 40px 30px;
+    }
+
+    .logo-large {
+        font-size: 48px;
+    }
+
+    .tagline {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .left-side {
+        padding: 40px 30px;
+    }
+}

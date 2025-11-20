@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
+const { execSync } = require("child_process");
 
 const ICONS_DIR = path.join(__dirname, "../icons");
 const OUTPUT_FILE = path.join(__dirname, "../components/ui-kit/icon-types.ts");
@@ -34,3 +35,22 @@ export type IconName = ${typeUnion};
 fs.writeFileSync(OUTPUT_FILE, content, "utf8");
 // eslint-disable-next-line no-console
 console.log(`✅ Generated icon types for ${iconNames.length} icons`);
+
+// Format the file with Prettier
+const outputFileRelative = path.relative(path.join(__dirname, ".."), OUTPUT_FILE);
+try {
+  execSync(`pnpm exec prettier --write ${OUTPUT_FILE}`, { stdio: "inherit" });
+  // eslint-disable-next-line no-console
+  console.log(`💅 Formatted ${outputFileRelative}`);
+} catch (error) {
+  console.error(`⚠️ Failed to format ${outputFileRelative}:`, error.message);
+}
+
+// Stage the file with git
+try {
+  execSync(`git add ${OUTPUT_FILE}`, { stdio: "inherit" });
+  // eslint-disable-next-line no-console
+  console.log(`📝 Staged ${outputFileRelative}`);
+} catch (error) {
+  console.error(`⚠️ Failed to stage ${outputFileRelative}:`, error.message);
+}
