@@ -1,5 +1,5 @@
 /* Main Content */
-.main-content {
+.mainContent {
     margin-left: 260px;
     flex: 1;
     padding: 40px;
@@ -11,19 +11,19 @@
 }
 
 /* Settings content area */
-.settings-content {
+.settingsContent {
     max-width: 774px;
 }
 
 /* Setting item cards */
-.setting-item {
+.settingItem {
     padding: 20px;
     background: #f8fafc;
     border-radius: 12px;
     margin-bottom: 16px;
 }
 
-.setting-item h3 {
+.settingItem h3 {
     font-size: 18px;
     font-weight: 600;
     color: var(--color-gray-800);
@@ -31,7 +31,7 @@
     text-wrap-style: balance;
 }
 
-.setting-item p {
+.settingItem p {
     font-size: 16px;
     color: var(--color-gray-500);
     line-height: 1.5;
@@ -41,77 +41,77 @@
 }
 
 /* Remove text-wrap and max-width for danger zone paragraphs */
-.settings-content[data-tab-content="danger"] .setting-item p {
+.settingsContent[data-tab-content="danger"] .settingItem p {
     text-wrap-style: auto;
     max-width: none;
 }
 
 /* Form field styling within settings */
-.setting-item .ui-form-field-large {
+.settingItem .ui-form-field-large {
     margin-bottom: 12px;
     max-width: 530px;
 }
 
-.setting-item .ui-form-field-large:last-child {
+.settingItem .ui-form-field-large:last-child {
     margin-bottom: 0;
 }
 
 /* Button on new line */
-.button-row {
+.buttonRow {
     margin-top: 12px;
 }
 
-.button-row .ui-btn {
+.buttonRow .ui-btn {
     width: 100%;
     max-width: 210px;
 }
 
 /* 2FA row layout */
-.setting-row {
+.settingRow {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
 }
 
-.setting-row p {
+.settingRow p {
     flex: 1;
     margin: 0;
     max-width: 400px;
 }
 
-.setting-row .ui-btn {
+.settingRow .ui-btn {
     flex-shrink: 0;
     width: 100%;
     max-width: 210px;
 }
 
 /* Warning text styling */
-.warning-text {
+.warningText {
     font-size: 13px;
     color: #c53030;
     margin-top: 8px;
     line-height: 1.5;
 }
 
-.warning-text strong {
+.warningText strong {
     font-weight: 600;
 }
 
 /* Toggle row layout */
-.toggle-row {
+.toggleRow {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
 }
 
-.toggle-row p {
+.toggleRow p {
     margin: 0;
     flex: 1;
     line-height: 1.5;
 }
 
-.toggle-row .ui-toggle-switch {
+.toggleRow .ui-toggle-switch {
     flex-shrink: 0;
 }
