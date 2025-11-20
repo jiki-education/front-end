@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuthStore } from "@/stores/authStore";
 import { useRequireAuth } from "@/lib/auth/hooks";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
+import { useLogoutActions } from "./lib/useLogoutActions";
 import toast from "react-hot-toast";
 import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
@@ -22,6 +23,7 @@ type TabType = "account" | "learning" | "notifications" | "privacy" | "danger";
 export default function SettingsPage() {
   const { isAuthenticated, isLoading: authLoading, user } = useRequireAuth();
   const { refreshUser } = useAuthStore();
+  const { isLoggingOut, handleLogoutFromThisDevice, handleLogoutFromAllDevices } = useLogoutActions();
 
   // State for checkout flows
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
@@ -150,6 +152,27 @@ export default function SettingsPage() {
               )}
               {activeTab === "danger" && (
                 <div className="settings-content">
+                  <div className="setting-item">
+                    <h3>Session Management</h3>
+                    <p style={{ marginBottom: "8px" }}>Manage your active sessions across all devices.</p>
+                    <div className="gap-8 flex flex-col w-[250px]">
+                      <button
+                        className="ui-btn ui-btn-secondary"
+                        onClick={handleLogoutFromThisDevice}
+                        disabled={isLoggingOut}
+                      >
+                        Log out of this device
+                      </button>
+                      <button
+                        className="ui-btn ui-btn-danger"
+                        onClick={handleLogoutFromAllDevices}
+                        disabled={isLoggingOut}
+                      >
+                        Log out of all devices
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="setting-item">
                     <h3>Delete Account</h3>
                     <p style={{ marginBottom: "8px" }}>
