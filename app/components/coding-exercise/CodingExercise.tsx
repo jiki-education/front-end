@@ -5,7 +5,7 @@ import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import Orchestrator, { useOrchestratorStore } from "./lib/Orchestrator";
 import OrchestratorProvider from "./lib/OrchestratorProvider";
-import "./coding-exercise.css";
+import "./codemirror.css";
 import CodeEditor from "./ui/CodeEditor";
 import HintsView from "./ui/HintsView";
 import InstructionsPanel from "./ui/InstructionsPanel";
