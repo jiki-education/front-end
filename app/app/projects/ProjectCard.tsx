@@ -1,6 +1,6 @@
 import { type ProjectData } from "@/lib/api/projects";
-import Image from "next/image";
 import Link from "next/link";
+import { ProjectIcon } from "@/components/ProjectIcon";
 import "./projects.css";
 
 interface ProjectCardProps {
@@ -37,11 +37,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <div className="card" data-state={dataState} style={{ "--target-width": `${progress}%` } as React.CSSProperties}>
       <div className="status-badge">{currentStatus.text}</div>
       <div className="hero">
-        {project.iconUrl && (
-          <div className="project-icon">
-            <Image src={project.iconUrl} alt={project.title} width={48} height={48} unoptimized />
-          </div>
-        )}
+        <div className="project-icon">
+          <ProjectIcon slug={project.slug} />
+        </div>
         <div className="project-title">{project.title}</div>
         <div className="progress-bar">
           <div className="progress-fill"></div>
