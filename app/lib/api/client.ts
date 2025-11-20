@@ -18,6 +18,13 @@ export class ApiError extends Error {
   }
 }
 
+export class AuthenticationError extends ApiError {
+  constructor(statusText: string, data?: unknown) {
+    super(401, statusText, data);
+    this.name = "AuthenticationError";
+  }
+}
+
 export interface RequestOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
   params?: Record<string, string | number | boolean>;
@@ -133,7 +140,9 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
             // Fall through to throw original 401 error
           }
         }
-        // If token not expired or refresh failed, throw original 401 error
+        // If token not expired or refresh failed, throw authentication error
+        // This will be caught by components that can handle redirects properly
+        throw new AuthenticationError(response.statusText, data);
       }
 
       throw new ApiError(response.status, response.statusText, data);

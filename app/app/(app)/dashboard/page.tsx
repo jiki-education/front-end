@@ -4,12 +4,15 @@ import ExercisePath from "@/components/index-page/exercise-path/ExercisePath";
 import InfoPanel from "@/components/index-page/info-panel/InfoPanel";
 import Sidebar from "@/components/index-page/sidebar/Sidebar";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
+import { AuthenticationError } from "@/lib/api/client";
 import { useRequireAuth } from "@/lib/auth/hooks";
 import type { LevelWithProgress } from "@/types/levels";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const { isAuthenticated, isLoading: authLoading, isReady } = useRequireAuth();
+  const router = useRouter();
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
   const [levelsLoading, setLevelsLoading] = useState(true);
   const [levelsError, setLevelsError] = useState<string | null>(null);
@@ -17,7 +20,12 @@ export default function DashboardPage() {
   // Load levels when authenticated
   useEffect(() => {
     async function loadLevels() {
-      if (!isReady || !isAuthenticated) {
+      if (!isReady) {
+        return;
+      }
+
+      if (!isAuthenticated) {
+        setLevelsLoading(false);
         return;
       }
 
@@ -27,6 +35,17 @@ export default function DashboardPage() {
         setLevels(data);
       } catch (error) {
         console.error("Failed to fetch levels:", error);
+
+        // Handle authentication errors by redirecting to login
+        if (error instanceof AuthenticationError) {
+          // Clear auth storage
+          localStorage.removeItem("auth-storage");
+          sessionStorage.clear();
+          // Redirect to login
+          router.push("/auth/login");
+          return;
+        }
+
         setLevelsError(error instanceof Error ? error.message : "Failed to load levels");
       } finally {
         setLevelsLoading(false);
@@ -34,7 +53,7 @@ export default function DashboardPage() {
     }
 
     void loadLevels();
-  }, [isAuthenticated, isReady]);
+  }, [isAuthenticated, isReady, router]);
 
   if (authLoading || levelsLoading) {
     return (
