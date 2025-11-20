@@ -1,3 +1,5 @@
+@reference "../../app/globals.css";
+
 .cm-breakpoint-gutter .cm-gutterElement {
     @apply flex;
 }
