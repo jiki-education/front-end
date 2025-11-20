@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { LoadingSkeleton, InlineLoading, ConceptCardsLoadingSkeleton } from "@/components/concepts-page/LoadingStates";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 describe("LoadingSkeleton", () => {
   it("renders without crashing", () => {
@@ -52,18 +53,18 @@ describe("InlineLoading", () => {
 describe("ConceptCardsLoadingSkeleton", () => {
   it("renders without crashing", () => {
     const { container } = render(<ConceptCardsLoadingSkeleton />);
-    expect(container.querySelector(".concepts-grid")).toBeInTheDocument();
+    expect(container.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 
   it("renders skeleton concept cards", () => {
     const { container } = render(<ConceptCardsLoadingSkeleton />);
-    const skeletonCards = container.querySelectorAll(".concept-card");
+    const skeletonCards = container.querySelectorAll(`[class*="${styles.conceptCard}"]`);
     expect(skeletonCards.length).toBe(6);
   });
 
   it("has animate-pulse class on skeleton cards", () => {
     const { container } = render(<ConceptCardsLoadingSkeleton />);
-    const firstCard = container.querySelector(".concept-card");
+    const firstCard = container.querySelector(`[class*="${styles.conceptCard}"]`);
     expect(firstCard).toHaveClass("animate-pulse");
   });
 });

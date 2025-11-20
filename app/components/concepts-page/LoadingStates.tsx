@@ -1,3 +1,5 @@
+import styles from "@/app/(external)/concepts/concepts.module.css";
+
 interface LoadingSkeletonProps {
   withSidebar: boolean;
 }
@@ -55,17 +57,17 @@ export function InlineLoading({ isAuthenticated }: InlineLoadingProps) {
 
 export function ConceptCardsLoadingSkeleton() {
   return (
-    <div className="concepts-grid">
+    <div className={styles.conceptsGrid}>
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="concept-card animate-pulse">
-          <div className="concept-icon">
+        <div key={i} className={`${styles.conceptCard} animate-pulse`}>
+          <div className={styles.conceptIcon}>
             <div className="w-24 h-24 bg-gray-200 rounded"></div>
           </div>
-          <div className="concept-content">
-            <div className="concept-title">
+          <div className={styles.conceptContent}>
+            <div className={styles.conceptTitle}>
               <div className="h-5 w-3/4 bg-gray-200 rounded mb-2"></div>
             </div>
-            <div className="concept-description">
+            <div className={styles.conceptDescription}>
               <div className="h-4 w-full bg-gray-200 rounded mb-1"></div>
               <div className="h-4 w-5/6 bg-gray-200 rounded mb-3"></div>
             </div>
