@@ -10,6 +10,9 @@
         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
     --font-poppins: var(--font-poppins);
+    --font-mono:
+        var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+        monospace;
 
     /* Font sizes */
     --text-12: 12px;
@@ -19,6 +22,7 @@
     --text-16: 16px;
     --text-17: 17px;
     --text-18: 18px;
+    --text-19: 19px;
     --text-20: 20px;
     --text-21: 21px;
     --text-22: 22px;
@@ -29,10 +33,12 @@
     --text-31: 31px;
     --text-32: 32px;
     --text-34: 34px;
+    --text-36: 36px;
     --text-39: 39px;
     --text-40: 40px;
     --text-48: 48px;
     --text-54: 54px;
+    --text-56: 56px;
     --text-64: 64px;
     --text-100: 100%;
 

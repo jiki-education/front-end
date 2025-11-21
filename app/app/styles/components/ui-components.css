@@ -7,12 +7,9 @@
    BUTTON COMPONENTS
    ======================================== */
 
-/* Button Base Styles - Standard Size */
+/* Button Base Styles */
 .ui-btn {
-    padding: 14px 20px;
     border: 2px solid;
-    border-radius: 12px;
-    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -24,21 +21,17 @@
     text-decoration: none;
 }
 
-/* Button Base Styles - Large Size */
+/* Button Size Variants */
+.ui-btn-small {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
 .ui-btn-large {
     padding: 16px 20px;
-    border: 2px solid;
     border-radius: 12px;
     font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    text-align: center;
-    text-decoration: none;
 }
 
 /* Primary Button */
