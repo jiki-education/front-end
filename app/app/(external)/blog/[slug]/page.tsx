@@ -1,8 +1,6 @@
 import { getAllBlogPosts, getBlogPost } from "@jiki/content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getServerAuth } from "@/lib/auth/server";
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
 import BlogPostContent from "./BlogPostContent";
 import CTABlock from "@/components/blog/CTABlock";
 import RelatedArticles from "@/components/blog/RelatedArticles";
@@ -39,26 +37,6 @@ export default async function BlogPostPage({ params }: Props) {
     post = getBlogPost(slug, "en");
   } catch {
     notFound();
-  }
-
-  const auth = await getServerAuth();
-
-  if (auth.isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-bg-secondary theme-transition">
-        <Sidebar activeItem="blog" />
-        <div className="ml-[260px]">
-          <main className="p-6">
-            <div className="mx-auto max-w-4xl">
-              <header className="mb-8">
-                <h1 className="text-4xl font-bold text-text-primary">Blog Post - Authenticated User</h1>
-              </header>
-              <BlogPostContent post={post} variant="authenticated" />
-            </div>
-          </main>
-        </div>
-      </div>
-    );
   }
 
   // Mock related posts from the reference design

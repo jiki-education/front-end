@@ -147,7 +147,7 @@ export function SignupForm() {
           <button
             type="submit"
             id="submit-btn"
-            className="ui-btn-large ui-btn-primary submit-btn"
+            className="ui-btn ui-btn-large ui-btn-primary submit-btn"
             style={{ width: "100%" }}
             disabled={isLoading}
           >

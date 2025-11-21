@@ -1,5 +1,6 @@
 import SearchIcon from "../../public/icons/search.svg";
 import { useRef } from "react";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsSearchProps {
   searchQuery: string;
@@ -26,8 +27,8 @@ export default function ConceptsSearch({
   };
   return (
     <div>
-      <div className="search-bar">
-        <SearchIcon className="search-icon" />
+      <div className={styles.searchBar}>
+        <SearchIcon className={styles.searchIcon} />
         <input
           ref={inputRef}
           type="text"

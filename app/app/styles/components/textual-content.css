@@ -221,3 +221,32 @@
         font-size: var(--text-20);
     }
 }
+
+/* Typography - Base Variant */
+.ui-textual-content-base {
+    font-size: var(--text-18);
+
+    h2 {
+        font-size: var(--text-32);
+    }
+
+    h3 {
+        font-size: var(--text-24);
+    }
+
+    code {
+        font-size: var(--text-16);
+    }
+
+    pre code {
+        font-size: var(--text-14);
+    }
+
+    .admonition-title {
+        font-size: var(--text-16);
+    }
+
+    .admonition-content {
+        font-size: var(--text-18);
+    }
+}
