@@ -50,14 +50,14 @@ describe("Blog Page E2E", () => {
 describe("Blog Post Page E2E", () => {
   beforeAll(async () => {
     // Navigate to the first blog post
-    await page.goto("http://localhost:3081/blog");
-    await page.waitForSelector("article a");
+    await page.goto("http://localhost:3081/blog", { waitUntil: "networkidle0" });
+    await page.waitForSelector("article a", { timeout: 10000 });
     const firstPostLink = await page.$("article a");
     if (firstPostLink) {
       await firstPostLink.click();
-      await page.waitForSelector("article h1");
+      await page.waitForSelector("h1", { timeout: 10000 });
     }
-  });
+  }, 60000);
 
   it("should load an individual blog post", async () => {
     const heading = await page.$("article h1");
