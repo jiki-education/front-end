@@ -23,7 +23,8 @@ interface AuthStore {
   signup: (userData: SignupData) => Promise<void>;
   googleLogin: (code: string) => Promise<void>;
   googleAuth: (code: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: (logoutService?: () => Promise<void>) => Promise<void>;
+  clearAuthState: () => void;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
@@ -136,10 +137,10 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       // Logout action
-      logout: async () => {
+      logout: async (logoutService = authService.logout) => {
         set({ isLoading: true });
         try {
-          await authService.logout();
+          await logoutService();
         } catch (error) {
           console.error("Logout error:", error);
         } finally {
@@ -152,6 +153,17 @@ export const useAuthStore = create<AuthStore>()(
             error: null
           });
         }
+      },
+
+      // Clear authentication state (for internal use)
+      clearAuthState: () => {
+        removeAccessToken();
+        set({
+          user: null,
+          isAuthenticated: false,
+          isLoading: false,
+          error: null
+        });
       },
 
       // Check authentication status

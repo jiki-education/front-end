@@ -146,6 +146,23 @@ export async function logout(): Promise<void> {
 }
 
 /**
+ * User logout from all devices
+ * DELETE /auth/logout/all
+ */
+export async function logoutFromAllDevices(): Promise<void> {
+  try {
+    await api.delete("/auth/logout/all");
+  } catch (error) {
+    // Log error but don't throw - we still want to clear local state
+    console.error("Logout from all devices API call failed:", error);
+  }
+
+  // Always clear local tokens regardless of API response
+  const { removeAccessToken } = await import("@/lib/auth/storage");
+  removeAccessToken(); // This now also clears refresh token
+}
+
+/**
  * Refresh access token using refresh token
  * This now uses the standalone refresh module to avoid circular dependencies
  */
