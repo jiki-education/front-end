@@ -74,51 +74,6 @@
     color: var(--color-blue-500);
 }
 
-/* Search Bar */
-.searchBar {
-    margin-top: 2px;
-    margin-bottom: 32px;
-    position: relative;
-}
-
-.searchIcon {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    color: var(--color-gray-400);
-}
-
-.searchBar:focus-within .searchIcon {
-    color: var(--color-blue-500);
-}
-
-.searchBar input {
-    width: 100%;
-    padding: 14px 16px 14px 48px;
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
-    border: 2px solid var(--color-gray-200);
-    border-radius: 12px;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.searchBar input:hover {
-    border-color: var(--color-blue-500);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-}
-
-.searchBar input:focus {
-    outline: none;
-    border-color: var(--color-blue-500);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-}
-
 /* Concepts Grid */
 .conceptsGrid {
     display: grid;

@@ -1,6 +1,5 @@
 import SearchIcon from "../../public/icons/search.svg";
 import { useRef } from "react";
-import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsSearchProps {
   searchQuery: string;
@@ -27,8 +26,8 @@ export default function ConceptsSearch({
   };
   return (
     <div>
-      <div className={styles.searchBar}>
-        <SearchIcon className={styles.searchIcon} />
+      <div className="ui-search-input">
+        <SearchIcon />
         <input
           ref={inputRef}
           type="text"
@@ -37,22 +36,7 @@ export default function ConceptsSearch({
           onChange={onSearchChange}
         />
         {searchQuery && (
-          <button
-            onClick={handleClearSearch}
-            style={{
-              position: "absolute",
-              right: "16px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
+          <button onClick={handleClearSearch} type="button">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
