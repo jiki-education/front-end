@@ -33,6 +33,55 @@ import styles from "./MyComponent.module.css";
 
 **When to use which approach:** Ask the human when deciding which styling approach to use for a specific component or feature.
 
+## CSS Module Naming Convention
+
+**CRITICAL:** CSS Module class names MUST use **camelCase**, not kebab-case.
+
+### Correct ✅
+
+```css
+.conceptCard {
+  padding: 24px;
+}
+
+.mainContent {
+  margin-left: 260px;
+}
+
+.breadcrumbItem {
+  display: flex;
+}
+```
+
+Usage in TypeScript:
+
+```tsx
+import styles from "./concepts.module.css";
+<div className={styles.conceptCard}>  {/* TypeScript property access */}
+<div className={styles.mainContent}>
+<div className={styles.breadcrumbItem}>
+```
+
+### Incorrect ❌
+
+```css
+.concept-card {
+  /* DON'T use kebab-case */
+  padding: 24px;
+}
+
+.main-content {
+  /* DON'T use kebab-case */
+  margin-left: 260px;
+}
+```
+
+### Why camelCase?
+
+TypeScript imports require valid JavaScript property names. `styles.conceptCard` works, but `styles.concept-card` is a syntax error. While you can work around this with bracket notation (`styles['concept-card']`), this is verbose and loses TypeScript autocomplete benefits.
+
+**Always use camelCase for CSS Module class names.**
+
 ## CSS Principles
 
 ### Nesting
@@ -114,3 +163,36 @@ With CSS:
 This reduces DOM clutter and makes the markup more semantic and maintainable.
 
 **Reference:** See `components/auth/AuthForm.module.css` for examples of these principles in practice.
+
+## Testing with CSS Modules
+
+CSS Modules generate scoped, hashed class names at build time (e.g., `conceptCard_a1b2c3d4`). This means tests cannot use simple string class selectors.
+
+### Correct Way ✅
+
+Import the CSS module in your test and use pattern matching:
+
+```tsx
+import styles from "@/app/(external)/concepts/concepts.module.css";
+
+// Query using the hashed class name from the styles object
+expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
+
+// For multiple elements
+const cards = document.querySelectorAll(`[class*="${styles.conceptCard}"]`);
+expect(cards.length).toBe(6);
+```
+
+### Incorrect Way ❌
+
+```tsx
+// DON'T use string class names - these won't match the hashed classes
+expect(document.querySelector(".concepts-grid")).toBeInTheDocument(); // ❌ Won't work
+expect(document.querySelector(".conceptCard")).toBeInTheDocument(); // ❌ Won't work
+```
+
+### Why Pattern Matching?
+
+CSS Modules transform `.conceptCard` into something like `.conceptCard_a1b2c3d4`. The `[class*="${styles.conceptCard}"]` selector matches any element whose class attribute contains the hashed class name.
+
+**Always import the CSS module in tests and use the styles object for queries.**
