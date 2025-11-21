@@ -28,9 +28,7 @@ export default function ConceptCard({ concept }: ConceptCardProps) {
         {concept.subConceptCount && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
-            <span>
-              <span className={styles.countNumber}>{concept.subConceptCount}</span> sub-concepts
-            </span>
+            <span>{concept.subConceptCount} sub-concepts</span>
           </div>
         )}
       </div>
