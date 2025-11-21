@@ -23,8 +23,7 @@ describe("ConceptCard", () => {
   it("renders sub-concept count when provided", () => {
     const conceptWithSubConcepts = { ...mockConcept, subConceptCount: 5 };
     render(<ConceptCard concept={conceptWithSubConcepts} isAuthenticated={false} />);
-    expect(screen.getByText("5")).toBeInTheDocument();
-    expect(screen.getByText("sub-concepts")).toBeInTheDocument();
+    expect(screen.getByText("5 sub-concepts")).toBeInTheDocument();
   });
 
   it("does not render sub-concept count when not provided", () => {

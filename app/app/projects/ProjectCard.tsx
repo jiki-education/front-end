@@ -1,7 +1,7 @@
 import { type ProjectData } from "@/lib/api/projects";
 import Link from "next/link";
 import { ProjectIcon } from "@/components/ProjectIcon";
-import "./projects.css";
+import styles from "./ProjectCard.module.css";
 
 interface ProjectCardProps {
   project: ProjectData & {
@@ -34,27 +34,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const dataState = project.status ? dataStateMap[project.status] : undefined;
 
   const cardContent = (
-    <div className="card" data-state={dataState} style={{ "--target-width": `${progress}%` } as React.CSSProperties}>
-      <div className="status-badge">{currentStatus.text}</div>
-      <div className="hero">
-        <div className="project-icon">
+    <div
+      className={styles.card}
+      data-state={dataState}
+      style={{ "--target-width": `${progress}%` } as React.CSSProperties}
+    >
+      <div className={styles.statusBadge}>{currentStatus.text}</div>
+      <div className={styles.hero}>
+        <div className={styles.projectIcon}>
           <ProjectIcon slug={project.slug} />
         </div>
-        <div className="project-title">{project.title}</div>
-        <div className="progress-bar">
-          <div className="progress-fill"></div>
+        <div className={styles.projectTitle}>{project.title}</div>
+        <div className={styles.progressBar}>
+          <div className={styles.progressFill}></div>
         </div>
       </div>
-      <div className="content">
-        <div className="project-title">{project.title}</div>
-        <div className="description">{project.description}</div>
+      <div className={styles.content}>
+        <div className={styles.projectTitle}>{project.title}</div>
+        <div className={styles.description}>{project.description}</div>
         {project.skills && (
-          <div className="stats-row">
-            <span className="skills">{project.skills}</span>
+          <div className={styles.statsRow}>
+            <span className={styles.skills}>{project.skills}</span>
           </div>
         )}
       </div>
-      {isClickable && <div className="action-link"></div>}
+      {isClickable && <div className={styles.actionLink}></div>}
     </div>
   );
 

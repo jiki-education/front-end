@@ -4,7 +4,7 @@
 
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 import { useGoogleLogin } from "@react-oauth/google";
 
 // Mock react-oauth/google

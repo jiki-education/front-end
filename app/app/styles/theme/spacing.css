@@ -1,0 +1,58 @@
+/**
+ * Spacing Tokens
+ * Border widths, border radius, z-index, and spacing values
+ */
+
+@theme inline {
+    /* Border widths */
+    --border-width-1: 1px;
+    --border-width-2: 2px;
+
+    /* Border radius */
+    --radius-none: 0;
+    --radius-3: 3px;
+    --radius-5: 5px;
+    --radius-6: 6px;
+    --radius-8: 8px;
+    --radius-12: 12px;
+    --radius-16: 16px;
+    --radius-24: 24px;
+    --radius-32: 32px;
+    --radius-100: 100px;
+    --radius-circle: 100%;
+
+    /* Z-index */
+    --z-index-tooltip: 80;
+    --z-index-tooltip-content: 81;
+
+    /* Spacing tokens */
+    --spacing-auto: auto;
+    --spacing-0: 0px;
+    --spacing-2: 2px;
+    --spacing-4: 4px;
+    --spacing-6: 6px;
+    --spacing-8: 8px;
+    --spacing-10: 10px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-28: 28px;
+    --spacing-32: 32px;
+    --spacing-36: 36px;
+    --spacing-40: 40px;
+    --spacing-44: 44px;
+    --spacing-48: 48px;
+    --spacing-52: 52px;
+    --spacing-56: 56px;
+    --spacing-60: 60px;
+    --spacing-64: 64px;
+    --spacing-72: 72px;
+    --spacing-80: 80px;
+    --spacing-84: 84px;
+    --spacing-88: 88px;
+    --spacing-96: 96px;
+    --spacing-128: 128px;
+    --spacing-140: 140px;
+    --spacing-fill: 100%;
+}

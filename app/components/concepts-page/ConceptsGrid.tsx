@@ -3,6 +3,7 @@ import ConceptCard from "./ConceptCard";
 import { EmptyState } from "./ErrorStates";
 import { InlineLoading } from "./LoadingStates";
 import { mockConcepts } from "@/lib/data/mockConcepts";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsGridProps {
   concepts: ConceptListItem[];
@@ -24,7 +25,7 @@ export default function ConceptsGrid({
     return (
       <>
         {isLoading && <InlineLoading isAuthenticated={isAuthenticated} />}
-        <div className="concepts-grid">
+        <div className={styles.conceptsGrid}>
           {mockConcepts.map((concept) => (
             <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
           ))}
@@ -45,7 +46,7 @@ export default function ConceptsGrid({
           isAuthenticated={isAuthenticated}
         />
       ) : (
-        <div className="concepts-grid">
+        <div className={styles.conceptsGrid}>
           {mockConcepts.map((concept) => (
             <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
           ))}

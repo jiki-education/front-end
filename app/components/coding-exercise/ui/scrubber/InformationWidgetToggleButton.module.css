@@ -1,4 +1,4 @@
-.information-widget-toggle-btn {
+.informationWidgetToggleBtn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -12,28 +12,28 @@
     color: #6b7280;
 }
 
-.information-widget-toggle-btn:hover:not(:disabled) {
+.informationWidgetToggleBtn:hover:not(:disabled) {
     background-color: #f3f4f6;
     color: #374151;
 }
 
-.information-widget-toggle-btn.active {
+.informationWidgetToggleBtn.active {
     background-color: #3b82f6;
     border-color: #3b82f6;
     color: #ffffff;
 }
 
-.information-widget-toggle-btn.active:hover:not(:disabled) {
+.informationWidgetToggleBtn.active:hover:not(:disabled) {
     background-color: #2563eb;
     border-color: #2563eb;
 }
 
-.information-widget-toggle-btn:disabled {
+.informationWidgetToggleBtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.information-widget-toggle-btn .info-icon {
+.informationWidgetToggleBtn .infoIcon {
     width: 16px;
     height: 16px;
 }

@@ -3,6 +3,7 @@ import { InspectedIOTestResultView } from "@/components/coding-exercise/ui/test-
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import { useOrchestrator } from "@/components/coding-exercise/lib/OrchestratorContext";
 import type { IOTestResult, IOTestExpect } from "@/components/coding-exercise/lib/test-results-types";
+import styles from "@/components/coding-exercise/CodingExercise.module.css";
 
 // Mock dependencies
 jest.mock("@/components/coding-exercise/lib/Orchestrator");
@@ -178,7 +179,7 @@ describe("InspectedIOTestResultView", () => {
 
     const { container } = render(<InspectedIOTestResultView />);
 
-    const scenarioDiv = container.querySelector(".c-scenario");
+    const scenarioDiv = container.querySelector(`.${styles.scenario}`);
     expect(scenarioDiv).toHaveClass("fail");
   });
 
@@ -193,7 +194,7 @@ describe("InspectedIOTestResultView", () => {
 
     const { container } = render(<InspectedIOTestResultView />);
 
-    const scenarioDiv = container.querySelector(".c-scenario");
+    const scenarioDiv = container.querySelector(`.${styles.scenario}`);
     expect(scenarioDiv).toHaveClass("pass");
   });
 });

@@ -4,6 +4,7 @@ import { assembleClassNames } from "../../../../utils/assemble-classnames";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestResult } from "../../lib/test-results-types";
+import styles from "../../CodingExercise.module.css";
 
 const TRANSITION_DELAY = 0.1;
 
@@ -36,7 +37,7 @@ export function TestResultsButtons() {
 
   return (
     <div
-      className="test-selector-buttons"
+      className={styles.testSelectorButtons}
       style={{
         display: "flex",
         gap: "8px",
@@ -57,7 +58,8 @@ export function TestResultsButtons() {
             transition: "all 0.2s ease"
           }}
           className={assembleClassNames(
-            "test-button bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
+            styles.testButton,
+            "bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
             test.status,
             currentTest?.slug === test.slug ? "selected" : ""
           )}
@@ -65,25 +67,6 @@ export function TestResultsButtons() {
           {idx + 1}
         </button>
       ))}
-
-      <style jsx>{`
-        .test-button.pass {
-          border-color: var(--color-success-border);
-          color: var(--color-success-text);
-        }
-        .test-button.fail {
-          border-color: var(--color-error-border);
-          color: var(--color-error-text);
-        }
-        .test-button.selected {
-          background-color: var(--color-link-primary) !important;
-          border-color: var(--color-link-primary);
-          color: var(--color-button-primary-text);
-        }
-        .test-button.selected:hover {
-          background-color: var(--color-link-hover) !important;
-        }
-      `}</style>
     </div>
   );
 }

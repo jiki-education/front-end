@@ -1,0 +1,129 @@
+/* Left side - Form area */
+.leftSide {
+    flex: 1;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 60px;
+}
+
+.formContainer {
+    width: 100%;
+    max-width: 420px;
+
+    header {
+        margin-bottom: 40px;
+
+        h1 {
+            font-size: 48px;
+            font-weight: 500;
+            color: #1a365d;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 19px;
+            color: #718096;
+            text-wrap-style: balance;
+        }
+    }
+}
+
+.divider {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    &::before,
+    &::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+    }
+}
+
+.forgotPassword {
+    text-align: right;
+    font-size: 15px;
+}
+
+.footerLinks {
+    text-align: center;
+
+    p {
+        font-size: 15px;
+        color: #4a5568;
+        text-wrap-style: balance;
+    }
+}
+
+.successMessage {
+    background: #e0f5d2;
+    border: 2px solid #78ce4d;
+    border-radius: 8px;
+    padding: 16px;
+    color: #2e571d;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-wrap-style: balance;
+}
+
+.creatorsBadge {
+    text-align: center;
+    z-index: 1;
+
+    .label {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 6px;
+    }
+
+    .brand {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 500;
+    }
+}
+
+/* Fix placeholder styling */
+.formFieldPlaceholder input::placeholder {
+    color: #718096;
+    opacity: 1;
+}
+
+@media (max-width: 968px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .rightSide {
+        min-height: 300px;
+        padding: 40px 30px;
+    }
+
+    .logoLarge {
+        font-size: 48px;
+    }
+
+    .tagline {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+
+    .leftSide {
+        padding: 40px 30px;
+    }
+}

@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import { readonlyCompartment } from "./setup/editorCompartments";
+import styles from "../../CodingExercise.module.css";
 
 export { readonlyCompartment };
 export type ViewRef = React.MutableRefObject<EditorView | null>;
@@ -14,8 +15,8 @@ export function CodeMirror() {
   const editorRef = useMemo(() => orchestrator.setupEditor(), [orchestrator]);
 
   return (
-    <div className="editor-wrapper">
-      <div id="bootcamp-cm-editor" data-testid="codemirror-editor" className="editor" ref={editorRef} />
+    <div className={styles.editorWrapper}>
+      <div id="bootcamp-cm-editor" data-testid="codemirror-editor" className={styles.editor} ref={editorRef} />
     </div>
   );
 }

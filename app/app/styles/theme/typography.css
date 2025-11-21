@@ -1,0 +1,63 @@
+/**
+ * Typography Tokens
+ * Font families, sizes, and line heights
+ */
+
+@theme inline {
+    /* Font family configuration */
+    --font-sans:
+        var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-poppins: var(--font-poppins);
+
+    /* Font sizes */
+    --text-12: 12px;
+    --text-13: 13px;
+    --text-14: 14px;
+    --text-15: 15px;
+    --text-16: 16px;
+    --text-17: 17px;
+    --text-18: 18px;
+    --text-20: 20px;
+    --text-21: 21px;
+    --text-22: 22px;
+    --text-23: 23px;
+    --text-24: 24px;
+    --text-25: 25px;
+    --text-28: 28px;
+    --text-31: 31px;
+    --text-32: 32px;
+    --text-34: 34px;
+    --text-39: 39px;
+    --text-40: 40px;
+    --text-48: 48px;
+    --text-54: 54px;
+    --text-64: 64px;
+    --text-100: 100%;
+
+    /* Legacy line height token */
+    --leading-100: 1;
+    --padding-10: 10px;
+    --padding-20: 20px;
+
+    /* Line heights - semantic */
+    --leading-none: 1;
+    --leading-tight: 125%;
+    --leading-regular: 138%;
+    --leading-paragraph: 150%;
+    --leading-code: 160%;
+    --leading-huge: 170%;
+
+    /* Line heights - numeric */
+    --leading-100: 100%;
+    --leading-120: 120%;
+    --leading-130: 130%;
+    --leading-140: 140%;
+    --leading-150: 150%;
+    --leading-160: 160%;
+    --leading-170: 170%;
+    --leading-180: 180%;
+    --leading-190: 190%;
+    --leading-200: 200%;
+}

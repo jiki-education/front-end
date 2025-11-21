@@ -5,6 +5,7 @@ import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
 import { PassMessage } from "./PassMessage";
 import { VisualTestResultView } from "./VisualTestResultView";
+import styles from "../../CodingExercise.module.css";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();
@@ -48,7 +49,7 @@ export function InspectedVisualTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames("c-scenario", currentTest.status === "fail" ? "fail" : "pass")}>
+    <div className={assembleClassNames(styles.scenario, currentTest.status === "fail" ? "fail" : "pass")}>
       <InspectedVisualTestResultViewLHS
         // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
         firstExpect={firstExpect}
@@ -74,8 +75,8 @@ export function InspectedVisualTestResultViewLHS({
   firstExpect: VisualTestExpect | null;
 }) {
   return (
-    <div data-ci="inspected-test-result-view" className="scenario-lhs">
-      <div className="scenario-lhs-content">
+    <div data-ci="inspected-test-result-view" className={styles.scenarioLhs}>
+      <div className={styles.scenarioLhsContent}>
         <h3>
           <strong>Scenario: </strong>
           {currentTest.name}

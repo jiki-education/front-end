@@ -10,7 +10,7 @@ import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionSection from "./subscription/SubscriptionSection";
 import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
 import Sidebar from "@/components/index-page/sidebar/Sidebar";
-import "./settings.css";
+import styles from "./Settings.module.css";
 import SettingsIcon from "@/icons/settings.svg";
 import AccountSettingsIcon from "@/icons/account-settings.svg";
 import LearningSettingsIcon from "@/icons/learning-settings.svg";
@@ -84,8 +84,8 @@ export default function SettingsPage() {
       <Sidebar activeItem="settings" />
 
       {/* Main Content */}
-      <div className="main-content">
-        <div className="container">
+      <div className={styles.mainContent}>
+        <div className={styles.container}>
           {/* Page Header */}
           <header className="ui-page-header">
             <h1>
@@ -151,8 +151,8 @@ export default function SettingsPage() {
                 <div className="text-center text-text-secondary py-8">Privacy settings coming soon...</div>
               )}
               {activeTab === "danger" && (
-                <div className="settings-content">
-                  <div className="setting-item">
+                <div className={styles.settingsContent}>
+                  <div className={styles.settingItem}>
                     <h3>Session Management</h3>
                     <p style={{ marginBottom: "8px" }}>Manage your active sessions across all devices.</p>
                     <div className="gap-8 flex flex-col w-[250px]">
@@ -173,16 +173,16 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  <div className="setting-item">
+                  <div className={styles.settingItem}>
                     <h3>Delete Account</h3>
                     <p style={{ marginBottom: "8px" }}>
                       Permanently delete your account and all associated data. This action cannot be undone.
                     </p>
-                    <p className="warning-text">
+                    <p className={styles.warningText}>
                       ⚠️ <strong>Warning:</strong> This will permanently delete your account, all your progress,
                       completed exercises, and personal data. This action is irreversible.
                     </p>
-                    <div className="button-row">
+                    <div className={styles.buttonRow}>
                       <button className="ui-btn ui-btn-danger">Delete Account</button>
                     </div>
                   </div>

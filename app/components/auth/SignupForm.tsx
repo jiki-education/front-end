@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { GoogleAuthButton } from "@/components/ui/GoogleAuthButton";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
-import "./login-form.css";
+import styles from "./AuthForm.module.css";
 
 export function SignupForm() {
   const router = useRouter();
@@ -68,32 +68,28 @@ export function SignupForm() {
   };
 
   return (
-    <div className="left-side">
-      <div className="form-container">
-        <div className="form-header">
-          <h1 className="form-title">Sign Up</h1>
-          <p className="form-subtitle">
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <header>
+          <h1>Sign Up</h1>
+          <p>
             Already got an account?{" "}
             <Link href="/auth/login" className="ui-link">
               Log in
             </Link>
             .
           </p>
-        </div>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
             Sign Up with Google
           </GoogleAuthButton>
 
-          <div className="divider">
-            <div className="divider-line"></div>
-            <span className="divider-text">OR</span>
-            <div className="divider-line"></div>
-          </div>
+          <div className={styles.divider}>OR</div>
 
           {error && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {error}
             </div>
           )}
@@ -158,7 +154,7 @@ export function SignupForm() {
             {isLoading ? "Signing up..." : "Sign Up"}
           </button>
 
-          <div className="footer-links">
+          <div className={styles.footerLinks}>
             <p>
               Didn&apos;t receive your confirmation email?{" "}
               <Link href="/auth/resend-confirmation" className="ui-link">

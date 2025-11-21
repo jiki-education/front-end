@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
-import "./login-form.css";
+import styles from "./AuthForm.module.css";
 
 export function ResendConfirmationForm() {
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
@@ -46,24 +46,22 @@ export function ResendConfirmationForm() {
   };
 
   return (
-    <div className="left-side">
-      <div className="form-container">
-        <div className="form-header">
-          <h1 className="form-title">Resend confirmation instructions</h1>
-          <p className="form-subtitle">
-            Not received a confirmation email? Use the form below and we&apos;ll send you another.
-          </p>
-        </div>
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <header>
+          <h1>Resend confirmation instructions</h1>
+          <p>Not received a confirmation email? Use the form below and we&apos;ll send you another.</p>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {error && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {error}
             </div>
           )}
 
           {successMessage && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {successMessage}
             </div>
           )}
@@ -103,7 +101,7 @@ export function ResendConfirmationForm() {
             {isLoading ? "Sending..." : "Resend confirmation instructions"}
           </button>
 
-          <div className="footer-links">
+          <div className={styles.footerLinks}>
             <p>
               Already confirmed?{" "}
               <Link href="/auth/login" className="ui-link">

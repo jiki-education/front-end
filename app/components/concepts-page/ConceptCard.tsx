@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import SubConceptIcon from "../../public/icons/subconcept.svg";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptCardData {
   slug: string;
@@ -17,19 +18,17 @@ interface ConceptCardProps {
 
 export default function ConceptCard({ concept }: ConceptCardProps) {
   return (
-    <Link className="concept-card" href={`/concepts/${concept.slug || ""}`}>
-      <div className="concept-icon">
+    <Link className={styles.conceptCard} href={`/concepts/${concept.slug || ""}`}>
+      <div className={styles.conceptIcon}>
         <Image src={"/" + concept.iconSrc} alt={concept.title} width={24} height={24} unoptimized />
       </div>
-      <div className="concept-content">
-        <div className="concept-title">{concept.title}</div>
-        <div className="concept-description">{concept.description}</div>
+      <div className={styles.conceptContent}>
+        <div className={styles.conceptTitle}>{concept.title}</div>
+        <div className={styles.conceptDescription}>{concept.description}</div>
         {concept.subConceptCount && (
-          <div className="sub-concept-count">
+          <div className={styles.subConceptCount}>
             <SubConceptIcon />
-            <span>
-              <span className="count-number">{concept.subConceptCount}</span> sub-concepts
-            </span>
+            <span>{concept.subConceptCount} sub-concepts</span>
           </div>
         )}
       </div>

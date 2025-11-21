@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import ConceptsGrid from "@/components/concepts-page/ConceptsGrid";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 const mockConcepts = [
   {
@@ -33,7 +34,7 @@ describe("ConceptsGrid", () => {
         isAuthenticated={false}
       />
     );
-    expect(document.querySelector(".concepts-grid")).toBeInTheDocument();
+    expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 
   it("shows loading state when isLoading is true", () => {
@@ -72,6 +73,6 @@ describe("ConceptsGrid", () => {
         isAuthenticated={true}
       />
     );
-    expect(document.querySelector(".concepts-grid")).toBeInTheDocument();
+    expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 });

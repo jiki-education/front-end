@@ -37,17 +37,17 @@ describe("Test Completion and Navigation E2E", () => {
     expect(scrubberValueAtEnd).toBeGreaterThan(0);
 
     // Wait for test selector buttons to load
-    await page.waitForSelector(".test-selector-buttons", { timeout: 5000 });
+    await page.waitForSelector('[class*="testSelectorButtons"]', { timeout: 5000 });
 
     // Switch to second test
-    const secondButton = await page.$(".test-selector-buttons button:nth-child(2)");
+    const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
     await secondButton?.click();
 
     // Wait a bit for state to update
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     // Switch back to first test
-    const firstButton = await page.$(".test-selector-buttons button:first-child");
+    const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
     await firstButton?.click();
 
     // Verify immediately (don't wait for animation to potentially play)
@@ -66,7 +66,7 @@ describe("Test Completion and Navigation E2E", () => {
 
   it("should auto-play when switching between scenarios during initial playback", async () => {
     // Wait for test selector buttons to load
-    await page.waitForSelector(".test-selector-buttons", { timeout: 5000 });
+    await page.waitForSelector('[class*="testSelectorButtons"]', { timeout: 5000 });
 
     // First test should auto-play by default
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -79,7 +79,7 @@ describe("Test Completion and Navigation E2E", () => {
     expect(isPlayingFirst).toBe(true);
 
     // Quickly switch to second test while first is still playing
-    const secondButton = await page.$(".test-selector-buttons button:nth-child(2)");
+    const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
     await secondButton?.click();
 
     // Wait a bit for state to update

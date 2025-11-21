@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
-import "./login-form.css";
+import styles from "./AuthForm.module.css";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
@@ -46,24 +46,22 @@ export function ForgotPasswordForm() {
   };
 
   return (
-    <div className="left-side">
-      <div className="form-container">
-        <div className="form-header">
-          <h1 className="form-title">Forgot your password?</h1>
-          <p className="form-subtitle">
-            If you&apos;ve forgotten your password, use the form below to request a link to change it.
-          </p>
-        </div>
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <header>
+          <h1>Forgot your password?</h1>
+          <p>If you&apos;ve forgotten your password, use the form below to request a link to change it.</p>
+        </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {error && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {error}
             </div>
           )}
 
           {successMessage && (
-            <div className="success-message" style={{ display: "block" }}>
+            <div className={styles.successMessage} style={{ display: "block" }}>
               {successMessage}
             </div>
           )}
@@ -103,7 +101,7 @@ export function ForgotPasswordForm() {
             {isLoading ? "Sending..." : "Send Reset Link"}
           </button>
 
-          <div className="footer-links">
+          <div className={styles.footerLinks}>
             <p>
               Remembered your password?{" "}
               <Link href="/auth/login" className="ui-link">

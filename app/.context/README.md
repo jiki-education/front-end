@@ -21,6 +21,7 @@ General documentation that applies across the entire codebase:
 - **[about-jiki.md](./about-jiki.md)** - Overview of Jiki platform and business model
 - **[architecture.md](./architecture.md)** - Frontend architecture and design decisions
 - **[coding-style.md](./coding-style.md)** - Coding style and file organization guidelines
+- **[css-styles.md](./css-styles.md)** - CSS styling approaches and principles (Tailwind, UI Kit, CSS Modules)
 - **[commands.md](./commands.md)** - Development commands and scripts
 - **[dark-light-theme-system.md](./dark-light-theme-system.md)** - Complete dark/light theme system implementation
 - **[deployment.md](./deployment.md)** - Deployment process and configuration
@@ -117,6 +118,7 @@ All context files should include:
 
 - **The product?** → [about-jiki.md](./about-jiki.md)
 - **Code style?** → [coding-style.md](./coding-style.md)
+- **CSS styling?** → [css-styles.md](./css-styles.md)
 - **Architecture?** → [architecture.md](./architecture.md)
 - **Content (blog/articles)?** → [content.md](./content.md)
 - **API integration?** → [api.md](./api.md)
