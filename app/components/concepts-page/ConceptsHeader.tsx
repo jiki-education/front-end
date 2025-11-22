@@ -1,5 +1,6 @@
 import Breadcrumb from "./Breadcrumb";
 import FolderIcon from "../../public/icons/folder.svg";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsHeaderProps {
   isAuthenticated: boolean;
@@ -16,8 +17,8 @@ export default function ConceptsHeader({ isAuthenticated }: ConceptsHeaderProps)
     <header>
       <Breadcrumb items={breadcrumbItems} />
 
-      <h1 className="page-heading">
-        <FolderIcon className="heading-icon" />
+      <h1 className={styles.pageHeading}>
+        <FolderIcon className={styles.headingIcon} />
         Concept Library
       </h1>
 

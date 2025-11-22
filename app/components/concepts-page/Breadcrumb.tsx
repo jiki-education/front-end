@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface BreadcrumbItem {
   label: string;
@@ -24,12 +25,12 @@ export default function Breadcrumb({ conceptTitle, items }: BreadcrumbProps) {
   ];
 
   return (
-    <div className="breadcrumb">
+    <div className={styles.breadcrumb}>
       {breadcrumbItems.map((item, index) => (
         <span
           key={index}
-          className={`breadcrumb-item ${
-            item.isLabel ? "breadcrumb-label" : item.isCurrent ? "breadcrumb-current" : ""
+          className={`${styles.breadcrumbItem} ${
+            item.isLabel ? styles.breadcrumbLabel : item.isCurrent ? styles.breadcrumbCurrent : ""
           }`}
         >
           {item.href && !item.isCurrent ? <Link href={item.href}>{item.label}</Link> : item.label}

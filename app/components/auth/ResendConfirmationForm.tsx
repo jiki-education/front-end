@@ -94,7 +94,7 @@ export function ResendConfirmationForm() {
           <button
             type="submit"
             id="submit-btn"
-            className="ui-btn-large ui-btn-primary"
+            className="ui-btn ui-btn-large ui-btn-primary"
             style={{ width: "100%" }}
             disabled={isLoading}
           >

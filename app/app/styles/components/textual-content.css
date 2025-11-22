@@ -1,0 +1,252 @@
+/**
+ * Textual Content Styling
+ * Wrapper class for markdown-rendered content with typography and callout boxes
+ */
+
+.ui-textual-content {
+    background: white;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: var(--spacing-60) var(--spacing-80) 0 var(--spacing-80);
+    color: #2d3748;
+    line-height: var(--leading-180);
+
+    /* Typography */
+    h2 {
+        font-weight: 700;
+        color: #1a202c;
+        margin: var(--spacing-48) 0 var(--spacing-24) 0;
+        line-height: var(--leading-120);
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    h3 {
+        font-weight: 600;
+        color: #1a202c;
+        margin: var(--spacing-40) 0 var(--spacing-20) 0;
+        line-height: var(--leading-130);
+    }
+
+    p {
+        margin-bottom: var(--spacing-20);
+
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: var(--spacing-72);
+        }
+    }
+
+    strong {
+        color: #1a202c;
+        font-weight: 600;
+    }
+
+    a {
+        color: var(--color-blue-500);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    /* Inline Code */
+    code {
+        background: #f1f5f9;
+        padding: var(--spacing-2) var(--spacing-6);
+        border-radius: var(--radius-4);
+        font-family: var(--font-mono);
+        color: #c026d3;
+    }
+
+    /* Code Blocks */
+    pre {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: var(--radius-16);
+        padding: var(--spacing-28) var(--spacing-32);
+        margin: var(--spacing-20) 0;
+        overflow-x: auto;
+        position: relative;
+
+        code {
+            font-family: var(--font-mono);
+            color: #1a202c;
+            line-height: var(--leading-170);
+            background: none;
+            padding: 0;
+        }
+    }
+
+    /* Syntax Highlighting */
+    .code-keyword {
+        color: #7c3aed;
+        font-weight: 600;
+    }
+
+    .code-string {
+        color: #059669;
+    }
+
+    .code-comment {
+        color: #64748b;
+        font-style: italic;
+    }
+
+    /* Admonition Base */
+    .admonition {
+        border-radius: var(--radius-12);
+        padding: var(--spacing-24) var(--spacing-28);
+        margin: var(--spacing-20) 0;
+    }
+
+    .admonition-title {
+        font-weight: 700;
+        margin-bottom: var(--spacing-12);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    .admonition-content {
+        color: #2d3748;
+        line-height: var(--leading-170);
+    }
+
+    /* Purple Info Box */
+    .admonition-info {
+        background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+        border: 2px solid #d8b4fe;
+
+        .admonition-title {
+            color: #7e22ce;
+        }
+
+        .admonition-content strong {
+            color: #7e22ce;
+            font-weight: 600;
+        }
+    }
+
+    /* Key Point Box (Blue) */
+    .admonition-key-point {
+        background: #fff;
+        border: 2px solid #667eea;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+
+        .admonition-title {
+            color: #667eea;
+        }
+    }
+
+    /* Warning Box (Yellow/Amber) */
+    .admonition-warning {
+        background: var(--color-amber-100);
+        border-left: 4px solid var(--color-amber-500);
+        border-radius: 0 var(--radius-12) var(--radius-12) 0;
+        padding: var(--spacing-20) var(--spacing-24);
+
+        .admonition-title {
+            color: var(--color-amber-800);
+        }
+
+        .admonition-content {
+            color: var(--color-amber-900);
+            line-height: var(--leading-160);
+        }
+    }
+
+    /* Try It Box (Dashed Border) */
+    .admonition-try-it {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border: 3px dashed #667eea;
+        padding: var(--spacing-28) var(--spacing-32);
+
+        .admonition-title {
+            color: #667eea;
+        }
+
+        .admonition-content {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* Typography - Large Variant */
+.ui-textual-content-large {
+    font-size: var(--text-19);
+
+    h2 {
+        font-size: var(--text-36);
+    }
+
+    h3 {
+        font-size: var(--text-28);
+    }
+
+    code {
+        font-size: var(--text-18);
+    }
+
+    pre code {
+        font-size: var(--text-14);
+    }
+
+    .admonition-title {
+        font-size: var(--text-18);
+    }
+
+    .admonition-icon {
+        font-size: var(--text-20);
+    }
+
+    .admonition-content {
+        font-size: var(--text-18);
+    }
+
+    .admonition-warning {
+        .admonition-title {
+            font-size: var(--text-17);
+        }
+
+        .admonition-content {
+            font-size: var(--text-17);
+        }
+    }
+
+    .admonition-try-it .admonition-title {
+        font-size: var(--text-20);
+    }
+}
+
+/* Typography - Base Variant */
+.ui-textual-content-base {
+    font-size: var(--text-18);
+
+    h2 {
+        font-size: var(--text-32);
+    }
+
+    h3 {
+        font-size: var(--text-24);
+    }
+
+    code {
+        font-size: var(--text-16);
+    }
+
+    pre code {
+        font-size: var(--text-14);
+    }
+
+    .admonition-title {
+        font-size: var(--text-16);
+    }
+
+    .admonition-content {
+        font-size: var(--text-18);
+    }
+}

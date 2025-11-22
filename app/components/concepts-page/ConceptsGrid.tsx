@@ -47,8 +47,12 @@ export default function ConceptsGrid({
         />
       ) : (
         <div className={styles.conceptsGrid}>
-          {mockConcepts.map((concept) => (
-            <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
+          {concepts.map((concept) => (
+            <ConceptCard
+              key={concept.slug}
+              concept={{ ...concept, iconSrc: concept.iconSrc || "images/concept-icons/icon-default.png" }}
+              isAuthenticated={isAuthenticated}
+            />
           ))}
         </div>
       )}

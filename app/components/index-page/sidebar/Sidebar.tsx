@@ -2,6 +2,7 @@
 
 import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { NavigationItem } from "./NavigationItem";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "./Logo";
@@ -24,8 +25,6 @@ const navigationItems: Array<{
 }> = [
   { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon },
-  { id: "blog", label: "Blog", href: "/blog", icon: FolderIcon },
-  { id: "articles", label: "Articles", href: "/articles", icon: FolderIcon },
   { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
@@ -76,6 +75,22 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         <div className="flex items-center justify-between">
           <span className="text-sm text-text-secondary">Theme</span>
           <ThemeToggle />
+        </div>
+
+        {/* Blog & Articles Links */}
+        <div className="space-y-1">
+          <Link
+            href="/blog"
+            className="block w-full px-4 py-2 text-sm text-text-secondary hover:bg-bg-hover rounded-lg transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/articles"
+            className="block w-full px-4 py-2 text-sm text-text-secondary hover:bg-bg-hover rounded-lg transition-colors"
+          >
+            Articles
+          </Link>
         </div>
 
         <button
