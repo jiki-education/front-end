@@ -1,12 +1,10 @@
 "use client";
 
-import { assembleClassNames } from "../../../../utils/assemble-classnames";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestResult } from "../../lib/test-results-types";
 import styles from "../../CodingExercise.module.css";
-
-const TRANSITION_DELAY = 0.1;
+import { assembleClassNames } from "@/utils/assemble-classnames";
 
 export function TestResultsButtons() {
   const orchestrator = useOrchestrator();
@@ -36,37 +34,24 @@ export function TestResultsButtons() {
   }
 
   return (
-    <div
-      className={styles.testSelectorButtons}
-      style={{
-        display: "flex",
-        gap: "8px",
-        flexWrap: "wrap"
-      }}
-    >
-      {testSuiteResult.tests.map((test, idx) => (
-        <button
-          key={test.slug + idx}
-          onClick={() => handleTestResultSelection(test)}
-          style={{
-            transitionDelay: `${idx * TRANSITION_DELAY}s`,
-            padding: "8px 12px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontSize: "14px",
-            fontWeight: "500",
-            transition: "all 0.2s ease"
-          }}
-          className={assembleClassNames(
-            styles.testButton,
-            "bg-bg-primary border border-border-primary text-text-secondary hover:bg-bg-secondary",
-            test.status,
-            currentTest?.slug === test.slug ? "selected" : ""
-          )}
-        >
-          {idx + 1}
-        </button>
-      ))}
+    <div className={styles.v14DotsSection}>
+      <div className={styles.v14Dots}>
+        {testSuiteResult.tests.map((test, idx) => {
+          return (
+            <button
+              key={test.slug + idx}
+              onClick={() => handleTestResultSelection(test)}
+              style={{}}
+              className={assembleClassNames(
+                styles.v14Dot,
+                styles[`${test.status}ed`],
+                currentTest?.slug === test.slug ? styles.active : ""
+              )}
+            />
+          );
+        })}
+      </div>
+      <div className={styles.v14StatusLine}></div>
     </div>
   );
 }

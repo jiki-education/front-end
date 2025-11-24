@@ -7,6 +7,7 @@ import InstructionsPanel from "./ui/InstructionsPanel";
 import TasksView from "./ui/TasksView";
 import ConsoleTab from "./ui/test-results-view/ConsoleTab";
 import type Orchestrator from "./lib/Orchestrator";
+import styles from "./CodingExercise.module.css";
 
 interface RHSProps {
   orchestrator: Orchestrator;
@@ -46,7 +47,7 @@ export function RHS({ orchestrator }: RHSProps) {
   };
 
   return (
-    <div className="w-1/3 border-l border-gray-200 flex flex-col bg-white">
+    <div className={styles.rightColumn}>
       <div className="border-b border-gray-200 p-4">
         <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
       </div>

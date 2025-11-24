@@ -84,7 +84,7 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="flex flex-col h-screen bg-gray-50 coding-exercise-container">
+      <div className="flex flex-col h-screen bg-gray-50">
         <div className={styles.topBar}>
           <div className={styles.logo}>{orchestrator.getExerciseTitle()}</div>
 
@@ -93,14 +93,12 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           </div>
         </div>
 
-        <div className="flex flex-1 overflow-hidden">
-          <div className="flex-1 flex flex-col">
+        <div className={styles.exerciseContainer}>
+          <div className={styles.codeEditor}>
             <CodeEditor />
-            <div className="bg-white border-t border-gray-200 px-4 py-3">
-              <RunButton />
-            </div>
-            <ScenariosPanel />
+            <RunButton />
           </div>
+          <ScenariosPanel />
 
           <RHS orchestrator={orchestrator} />
         </div>

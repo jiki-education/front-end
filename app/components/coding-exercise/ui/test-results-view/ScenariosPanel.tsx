@@ -22,9 +22,7 @@ export default function ScenariosPanel() {
 
   return (
     <>
-      <div className="border-t border-gray-200 p-4 max-h-[50%] flex flex-col overflow-hidden">
-        <TestResultsView />
-      </div>
+      <TestResultsView />
 
       {/* Scrubber - show when there is a current test (will be disabled if no frames) */}
       {currentTest && (
