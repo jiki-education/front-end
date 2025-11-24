@@ -7,16 +7,10 @@ import Orchestrator, { useOrchestratorStore } from "./lib/Orchestrator";
 import OrchestratorProvider from "./lib/OrchestratorProvider";
 import "./codemirror.css";
 import CodeEditor from "./ui/CodeEditor";
-import HintsView from "./ui/HintsView";
-import InstructionsPanel from "./ui/InstructionsPanel";
 import RunButton from "./ui/RunButton";
-import TabPanel from "./ui/TabPanel";
-import TasksView from "./ui/TasksView";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
-import ConsoleTab from "./ui/test-results-view/ConsoleTab";
-import LanguageToggle from "./ui/LanguageToggle";
-import FunctionsView from "./ui/FunctionsView";
-import ChatPanel from "./ui/ChatPanel";
+import styles from "./CodingExercise.module.css";
+import { RHS } from "./RHS";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -91,16 +85,16 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
       <div className="flex flex-col h-screen bg-gray-50 coding-exercise-container">
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <h1 className="text-2xl font-bold text-gray-900">{orchestrator.getExerciseTitle()}</h1>
-        </header>
+        <div className={styles.topBar}>
+          <div className={styles.logo}>{orchestrator.getExerciseTitle()}</div>
+
+          <div className={styles.topBarActions}>
+            <button className={styles.closeButton}>×</button>
+          </div>
+        </div>
 
         <div className="flex flex-1 overflow-hidden">
           <div className="flex-1 flex flex-col">
-            <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
-              <LanguageToggle />
-            </div>
             <CodeEditor />
             <div className="bg-white border-t border-gray-200 px-4 py-3">
               <RunButton />
@@ -108,43 +102,7 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
             <ScenariosPanel />
           </div>
 
-          <div className="w-1/3 border-l border-gray-200 flex flex-col bg-white">
-            <TabPanel
-              tabs={[
-                {
-                  id: "instructions",
-                  label: "Instructions",
-                  content: <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} />
-                },
-                {
-                  id: "tasks",
-                  label: "Tasks",
-                  content: <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />
-                },
-                {
-                  id: "functions",
-                  label: "Functions",
-                  content: <FunctionsView functions={orchestrator.getExercise().functions} />
-                },
-                {
-                  id: "hints",
-                  label: "Hints",
-                  content: <HintsView hints={orchestrator.getExercise().hints} />
-                },
-                {
-                  id: "console",
-                  label: "Console",
-                  content: <ConsoleTab />
-                },
-                {
-                  id: "chat",
-                  label: "Chat",
-                  content: <ChatPanel />
-                }
-              ]}
-              defaultActiveTab="instructions"
-            />
-          </div>
+          <RHS orchestrator={orchestrator} />
         </div>
 
         <div className="bg-white border-t border-gray-200 px-6 py-4">
