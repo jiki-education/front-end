@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import type { Frame } from "@jiki/interpreters";
 import type { AnimationTimeline } from "../../lib/AnimationTimeline";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import styles from "../../CodingExercise.module.css";
 
 interface ScrubberInputProps {
   frames: Frame[];
@@ -18,7 +19,7 @@ const ScrubberInput = forwardRef<HTMLInputElement, ScrubberInputProps>(
         data-testid="scrubber-range-input"
         disabled={!enabled}
         type="range"
-        className="w-full"
+        className={styles.scrubber}
         onKeyUp={(event) => handleOnKeyUp(event, animationTimeline)}
         onKeyDown={(event) => handleOnKeyDown(event, animationTimeline, frames)}
         min={calculateMinInputValue(frames)}

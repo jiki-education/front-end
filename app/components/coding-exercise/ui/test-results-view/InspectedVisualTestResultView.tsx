@@ -5,6 +5,7 @@ import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
 import { VisualTestResultView } from "./VisualTestResultView";
 import styles from "../../CodingExercise.module.css";
+import Scrubber from "../scrubber/Scrubber";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();
@@ -48,20 +49,26 @@ export function InspectedVisualTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames(styles.scenario, currentTest.status === "fail" ? "fail" : "pass")}>
-      <InspectedVisualTestResultViewLHS
-        // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
-        firstExpect={firstExpect}
-        currentTest={currentTest}
-      />
+    <div className={assembleClassNames(styles.visualPlayer, currentTest.status === "fail" ? "fail" : "pass")}>
+      <div className={styles.playerCanvas}>
+        <div className={styles.playerContentRow}>
+          <div className={styles.contentBelowTabs}>
+            <InspectedVisualTestResultViewLHS
+              // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
+              firstExpect={firstExpect}
+              currentTest={currentTest}
+            />
 
-      <div
-        className={assembleClassNames(
-          "flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink",
-          isSpotlightActive && "spotlight"
-        )}
-        ref={viewContainerRef}
-      />
+            <div
+              className={assembleClassNames(
+                "flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink",
+                isSpotlightActive && "spotlight"
+              )}
+              ref={viewContainerRef}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -85,6 +92,7 @@ export function InspectedVisualTestResultViewLHS({
 
         <TestResultInfo firstExpect={firstExpect} />
       </div>
+      <Scrubber />
     </div>
   );
 }
