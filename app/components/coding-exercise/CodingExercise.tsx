@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
-import Orchestrator, { useOrchestratorStore } from "./lib/Orchestrator";
+import Orchestrator from "./lib/Orchestrator";
 import OrchestratorProvider from "./lib/OrchestratorProvider";
 import "./codemirror.css";
 import CodeEditor from "./ui/CodeEditor";
@@ -79,9 +79,6 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
 
 // Separate component that assumes orchestrator is loaded
 function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator }) {
-  // Call the hook directly with the orchestrator
-  const { status, error } = useOrchestratorStore(orchestrator);
-
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
       <div className="flex flex-col h-screen bg-gray-50">
@@ -101,18 +98,6 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
           <ScenariosPanel />
 
           <RHS orchestrator={orchestrator} />
-        </div>
-
-        <div className="bg-white border-t border-gray-200 px-6 py-4">
-          <div className="flex items-center gap-4">
-            <div className="text-sm">
-              {status === "idle" && <span className="text-gray-600">Ready</span>}
-              {status === "running" && <span className="text-blue-600">Running...</span>}
-              {status === "success" && <span className="text-green-600">Success</span>}
-              {status === "error" && <span className="text-red-600">Error</span>}
-            </div>
-            {error && <div className="text-sm text-red-600">{error}</div>}
-          </div>
         </div>
       </div>
     </OrchestratorProvider>

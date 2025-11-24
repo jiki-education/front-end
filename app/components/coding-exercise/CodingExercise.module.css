@@ -1901,7 +1901,7 @@
 .editorWrapper {
     width: 800px;
     overflow: hidden;
-    @apply h-[60%] flex-grow-0;
+    @apply h-full flex-grow-0;
     @apply rounded-5;
     @apply border-2 border-bootcamp-light-purple;
 }

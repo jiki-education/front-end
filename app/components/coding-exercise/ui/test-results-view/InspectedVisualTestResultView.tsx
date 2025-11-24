@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
-import { PassMessage } from "./PassMessage";
 import { VisualTestResultView } from "./VisualTestResultView";
 import styles from "../../CodingExercise.module.css";
 
@@ -75,14 +74,15 @@ export function InspectedVisualTestResultViewLHS({
   firstExpect: VisualTestExpect | null;
 }) {
   return (
-    <div data-ci="inspected-test-result-view" className={styles.scenarioLhs}>
-      <div className={styles.scenarioLhsContent}>
-        <h3>
-          <strong>Scenario: </strong>
+    <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
+      <div
+        className={assembleClassNames(styles.testDescription, currentTest.status === "fail" ? styles.stateFailed : "")}
+      >
+        <p>
+          <span className={styles.instructionLabel}>Scenario: </span>
           {currentTest.name}
-        </h3>
+        </p>
 
-        {currentTest.status === "pass" && <PassMessage testIdx={0} />}
         <TestResultInfo firstExpect={firstExpect} />
       </div>
     </div>

@@ -51,7 +51,7 @@ export function TestResultsButtons() {
           );
         })}
       </div>
-      <div className={styles.v14StatusLine}></div>
+      <div className={assembleClassNames(styles.v14StatusLine, styles[`${currentTest?.status}ed`])}></div>
     </div>
   );
 }
