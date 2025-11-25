@@ -1,132 +1,127 @@
 import React from "react";
 import { assembleClassNames } from "@/utils/assemble-classnames";
-import { useLocalStorage } from "@uidotdev/usehooks";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useEffect } from "react";
 
 type Direction = "horizontal" | "vertical";
 
-interface ResizableOptions {
-  initialSize: number;
-  direction: Direction;
-  localStorageId: string;
-  primaryMinSize?: number;
-  secondaryMinSize?: number;
-  onChange?: (newSizes: { primarySize: number; secondarySize: number }) => void;
-}
+export function useResizablePanels() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const verticalDividerRef = useRef<HTMLButtonElement>(null);
+  const horizontalDividerRef = useRef<HTMLButtonElement>(null);
 
-export function useResizablePanels({
-  initialSize,
-  direction,
-  localStorageId,
-  primaryMinSize = 250,
-  secondaryMinSize = 250,
-  onChange
-}: ResizableOptions) {
-  const [primarySize, setPrimarySize] = useLocalStorage(localStorageId, initialSize);
-  const [secondarySize, setSecondarySize] = useState(() => {
-    if (typeof window === "undefined") {
-      return 400;
-    } // SSR fallback
-    return (direction === "horizontal" ? window.innerWidth : window.innerHeight) - primarySize;
-  });
+  const isDraggingVertical = useRef(false);
+  const isDraggingHorizontal = useRef(false);
 
-  const startSizeRef = useRef(primarySize);
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (typeof window === "undefined") {
-      return;
+  // Set initial CSS custom property for horizontal divider width
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty("--lhs-width", "50%");
     }
-    const containerSize = direction === "horizontal" ? window.innerWidth : window.innerHeight;
-    const startCoordinate = direction === "horizontal" ? e.clientX : e.clientY;
+  }, []);
 
-    startSizeRef.current = primarySize;
+  const handleVerticalMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDraggingVertical.current = true;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+
+    const container = containerRef.current;
+    const verticalDivider = verticalDividerRef.current;
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
-      const currentCoordinate = direction === "horizontal" ? moveEvent.clientX : moveEvent.clientY;
-      const delta = currentCoordinate - startCoordinate;
-      const newPrimarySize = Math.max(
-        primaryMinSize,
-        Math.min(startSizeRef.current + delta, containerSize - secondaryMinSize)
-      );
+      if (!isDraggingVertical.current || !container || !verticalDivider) {
+        return;
+      }
 
-      setPrimarySize(newPrimarySize);
-      setSecondarySize(containerSize - newPrimarySize);
-      if (onChange) {
-        onChange({
-          primarySize: newPrimarySize,
-          secondarySize: containerSize - newPrimarySize
-        });
+      const containerRect = container.getBoundingClientRect();
+      const offsetX = moveEvent.clientX - containerRect.left;
+      const percentage = (offsetX / containerRect.width) * 100;
+
+      if (percentage >= 30 && percentage <= 70) {
+        container.style.gridTemplateColumns = `${percentage}% ${100 - percentage}%`;
+        container.style.setProperty("--lhs-width", `${percentage}%`);
+        verticalDivider.style.left = `${percentage}%`;
       }
     };
 
     const handleMouseUp = () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      if (isDraggingVertical.current) {
+        isDraggingVertical.current = false;
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      }
     };
 
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-  const handleResize = () => {
-    if (typeof window === "undefined") {
-      return;
-    }
-    const containerSize = direction === "horizontal" ? window.innerWidth : window.innerHeight;
+  const handleHorizontalMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isDraggingHorizontal.current = true;
+    document.body.style.cursor = "row-resize";
+    document.body.style.userSelect = "none";
 
-    const newPrimarySize = Math.min(primarySize, containerSize - 300);
-    if (onChange) {
-      onChange({
-        primarySize: newPrimarySize,
-        secondarySize: containerSize - newPrimarySize
-      });
-    }
-    setPrimarySize(newPrimarySize);
-    setSecondarySize(containerSize - newPrimarySize);
-  };
+    const container = containerRef.current;
+    const horizontalDivider = horizontalDividerRef.current;
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      if (!isDraggingHorizontal.current || !container || !horizontalDivider) {
+        return;
+      }
 
-    window.addEventListener("resize", handleResize);
+      const containerRect = container.getBoundingClientRect();
+      const offsetY = moveEvent.clientY - containerRect.top;
+      const pixelPosition = offsetY;
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
+      if (pixelPosition >= 200 && pixelPosition <= containerRect.height - 200) {
+        horizontalDivider.style.top = pixelPosition + "px";
+        container.style.gridTemplateRows = `${pixelPosition}px 1fr`;
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [primarySize, direction]);
+
+    const handleMouseUp = () => {
+      if (isDraggingHorizontal.current) {
+        isDraggingHorizontal.current = false;
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
 
   return {
-    primarySize,
-    secondarySize,
-    handleMouseDown
+    containerRef,
+    verticalDividerRef,
+    horizontalDividerRef,
+    handleVerticalMouseDown,
+    handleHorizontalMouseDown
   };
 }
 
-export function Resizer({
-  handleMouseDown,
-  direction,
-  className = "",
-  style = {}
-}: {
-  handleMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  direction: Direction;
-  className?: string;
-  style?: React.CSSProperties;
-}) {
+export const Resizer = React.forwardRef<
+  HTMLButtonElement,
+  {
+    handleMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    direction: Direction;
+    className?: string;
+    style?: React.CSSProperties;
+  }
+>(({ handleMouseDown, direction, className = "", style = {} }, ref) => {
   return (
     <button
+      ref={ref}
       onMouseDown={handleMouseDown}
-      className={assembleClassNames(
-        "",
-        className,
-        direction === "horizontal" ? "cursor-col-resize" : "cursor-row-resize"
-      )}
+      className={assembleClassNames(className, direction === "vertical" ? "cursor-col-resize" : "cursor-row-resize")}
       style={style}
-    >
-      {direction === "horizontal" ? "⋮" : "⋯"}
-    </button>
+    />
   );
-}
+});
+
+Resizer.displayName = "Resizer";

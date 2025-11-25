@@ -59,13 +59,15 @@ export function InspectedVisualTestResultView() {
               currentTest={currentTest}
             />
 
-            <div
-              className={assembleClassNames(
-                "flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink",
-                isSpotlightActive && "spotlight"
-              )}
-              ref={viewContainerRef}
-            />
+            <div className={styles.rightVideoContainer}>
+              <div
+                className={assembleClassNames(
+                  "w-auto h-full max-h-full aspect-square shrink [container-type:size] relative",
+                  isSpotlightActive && "spotlight"
+                )}
+                ref={viewContainerRef}
+              />
+            </div>
           </div>
         </div>
       </div>

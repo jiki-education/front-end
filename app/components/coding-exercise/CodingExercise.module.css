@@ -86,14 +86,14 @@
 
 .exerciseContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 342px minmax(250px, 1fr);
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 342px 1fr;
     flex: 1;
-    row-gap: 8px;
-    column-gap: 8px;
     background: #fafbfc;
     overflow: hidden;
     position: relative;
+    column-gap: 16px;
+    row-gap: 8px;
 }
 
 .verticalDivider {
@@ -147,14 +147,14 @@
     z-index: 10;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
-    margin: 8px 0 0 8px;
+    margin: 8px;
 }
 
 .horizontalDivider {
     position: absolute;
-    left: 8px;
-    right: calc(50% + 4px);
-    top: 346px;
+    left: 0;
+    width: var(--lhs-width, 50%);
+    top: 342px;
     height: 8px;
     background: #fafbfc;
     cursor: row-resize;
@@ -1918,15 +1918,14 @@
 }
 
 .editorWrapper {
-    width: 800px;
+    width: 100%;
     overflow: hidden;
     @apply h-full flex-grow-0;
     @apply rounded-5;
-    @apply border-2 border-bootcamp-light-purple;
 }
 
 .editor {
-    width: 800px;
+    width: 100%;
     height: 100%;
     background: var(--color-background-primary);
     overflow-y: auto;

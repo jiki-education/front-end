@@ -80,69 +80,44 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
 
 // Separate component that assumes orchestrator is loaded
 function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator }) {
-  const { primarySize, secondarySize, handleMouseDown } = useResizablePanels({
-    initialSize: 600,
-    direction: "horizontal",
-    localStorageId: "coding-exercise-horizontal-split",
-    primaryMinSize: 400,
-    secondaryMinSize: 300
-  });
-
-  const { 
-    primarySize: codeEditorHeight, 
-    secondarySize: scenariosHeight, 
-    handleMouseDown: handleHorizontalMouseDown 
-  } = useResizablePanels({
-    initialSize: 342,
-    direction: "vertical",
-    localStorageId: "coding-exercise-vertical-split",
-    primaryMinSize: 200,
-    secondaryMinSize: 250
-  });
+  const { containerRef, verticalDividerRef, horizontalDividerRef, handleVerticalMouseDown, handleHorizontalMouseDown } =
+    useResizablePanels();
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
       <div className="flex flex-col h-screen bg-gray-50">
         <div className={styles.topBar}>
           <div className={styles.logo}>{orchestrator.getExerciseTitle()}</div>
-
           <div className={styles.topBarActions}>
             <button className={styles.closeButton}>×</button>
           </div>
         </div>
 
-        <div className={styles.exerciseContainer}>
-          <div style={{ width: `${primarySize}px` }}>
-            <div 
-              className={styles.codeEditor}
-              style={{ height: `${codeEditorHeight}px` }}
-            >
-              <CodeEditor />
-              <RunButton />
-            </div>
-            
-            <Resizer 
-              handleMouseDown={handleHorizontalMouseDown}
-              direction="vertical"
-              className={styles.horizontalDivider}
-              style={{ top: `${codeEditorHeight}px` }}
-            />
-            
-            <div style={{ height: `${scenariosHeight}px` }}>
-              <ScenariosPanel />
-            </div>
+        <div ref={containerRef} className={`${styles.exerciseContainer}`}>
+          {/* LHS */}
+          <div className={styles.codeEditor}>
+            <CodeEditor />
+            <RunButton />
           </div>
-          
-          <Resizer 
-            handleMouseDown={handleMouseDown}
+
+          <Resizer
+            ref={horizontalDividerRef}
+            handleMouseDown={handleHorizontalMouseDown}
             direction="horizontal"
-            className={styles.verticalDivider}
-            style={{ left: `${primarySize - 4}px` }}
+            className={`${styles.horizontalDivider}`}
           />
-          
-          <div style={{ width: `${secondarySize}px` }}>
-            <RHS orchestrator={orchestrator} />
-          </div>
+
+          <ScenariosPanel />
+
+          <Resizer
+            ref={verticalDividerRef}
+            handleMouseDown={handleVerticalMouseDown}
+            direction="vertical"
+            className={`${styles.verticalDivider}`}
+          />
+
+          {/* RHS */}
+          <RHS orchestrator={orchestrator} />
         </div>
       </div>
     </OrchestratorProvider>
