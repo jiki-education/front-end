@@ -1,4 +1,4 @@
-import SearchIcon from "../../public/icons/search.svg";
+import SearchIcon from "../../public/static/icons/search.svg";
 import { useRef } from "react";
 
 interface ConceptsSearchProps {

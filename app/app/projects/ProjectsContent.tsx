@@ -4,11 +4,11 @@ import { fetchProjects, type ProjectData, type ProjectsResponse } from "@/lib/ap
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { useEffect, useState } from "react";
-import AllIcon from "../../public/icons/all.svg";
-import InProgressIcon from "../../public/icons/in-progress.svg";
-import CompleteIcon from "../../public/icons/complete.svg";
-import LockedIcon from "../../public/icons/locked.svg";
-import ProjectsIcon from "../../public/icons/projects.svg";
+import AllIcon from "../../public/static/icons/all.svg";
+import InProgressIcon from "../../public/static/icons/in-progress.svg";
+import CompleteIcon from "../../public/static/icons/complete.svg";
+import LockedIcon from "../../public/static/icons/locked.svg";
+import ProjectsIcon from "../../public/static/icons/projects.svg";
 import { ProjectCard } from "./ProjectCard";
 import { mockProjects } from "./mockProjects";
 import { NoProjectsFound } from "./NoProjectsFound";

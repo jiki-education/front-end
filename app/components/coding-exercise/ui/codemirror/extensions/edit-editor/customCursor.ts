@@ -49,7 +49,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         create: () => {
           const dom = document.createElement("div");
           dom.innerHTML = `
-          <img src="/robot.png" width='50' height='50' class='rounded-8'>
+          <img src="/static/robot.png" width='50' height='50' class='rounded-8'>
           `;
           dom.className = "cm-tooltip-cursor";
           return { dom };

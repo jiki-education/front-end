@@ -6,11 +6,11 @@ import { NavigationItem } from "./NavigationItem";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "./Logo";
 import type { ComponentType } from "react";
-import HouseIcon from "../../../public/icons/house.svg";
-import ProjectsIcon from "../../../public/icons/projects.svg";
-import MedalIcon from "../../../public/icons/medal.svg";
-import SettingsIcon from "../../../public/icons/settings.svg";
-import FolderIcon from "../../../public/icons/folder.svg";
+import HouseIcon from "../../../public/static/icons/house.svg";
+import ProjectsIcon from "../../../public/static/icons/projects.svg";
+import MedalIcon from "../../../public/static/icons/medal.svg";
+import SettingsIcon from "../../../public/static/icons/settings.svg";
+import FolderIcon from "../../../public/static/icons/folder.svg";
 
 interface SidebarProps {
   activeItem?: string;
