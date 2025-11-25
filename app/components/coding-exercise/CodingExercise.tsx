@@ -11,6 +11,7 @@ import RunButton from "./ui/RunButton";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import styles from "./CodingExercise.module.css";
 import { RHS } from "./RHS";
+import { useResizablePanels, Resizer } from "./useResize";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -79,6 +80,26 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
 
 // Separate component that assumes orchestrator is loaded
 function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator }) {
+  const { primarySize, secondarySize, handleMouseDown } = useResizablePanels({
+    initialSize: 600,
+    direction: "horizontal",
+    localStorageId: "coding-exercise-horizontal-split",
+    primaryMinSize: 400,
+    secondaryMinSize: 300
+  });
+
+  const { 
+    primarySize: codeEditorHeight, 
+    secondarySize: scenariosHeight, 
+    handleMouseDown: handleHorizontalMouseDown 
+  } = useResizablePanels({
+    initialSize: 342,
+    direction: "vertical",
+    localStorageId: "coding-exercise-vertical-split",
+    primaryMinSize: 200,
+    secondaryMinSize: 250
+  });
+
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
       <div className="flex flex-col h-screen bg-gray-50">
@@ -91,13 +112,37 @@ function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator })
         </div>
 
         <div className={styles.exerciseContainer}>
-          <div className={styles.codeEditor}>
-            <CodeEditor />
-            <RunButton />
+          <div style={{ width: `${primarySize}px` }}>
+            <div 
+              className={styles.codeEditor}
+              style={{ height: `${codeEditorHeight}px` }}
+            >
+              <CodeEditor />
+              <RunButton />
+            </div>
+            
+            <Resizer 
+              handleMouseDown={handleHorizontalMouseDown}
+              direction="vertical"
+              className={styles.horizontalDivider}
+              style={{ top: `${codeEditorHeight}px` }}
+            />
+            
+            <div style={{ height: `${scenariosHeight}px` }}>
+              <ScenariosPanel />
+            </div>
           </div>
-          <ScenariosPanel />
-
-          <RHS orchestrator={orchestrator} />
+          
+          <Resizer 
+            handleMouseDown={handleMouseDown}
+            direction="horizontal"
+            className={styles.verticalDivider}
+            style={{ left: `${primarySize - 4}px` }}
+          />
+          
+          <div style={{ width: `${secondarySize}px` }}>
+            <RHS orchestrator={orchestrator} />
+          </div>
         </div>
       </div>
     </OrchestratorProvider>
