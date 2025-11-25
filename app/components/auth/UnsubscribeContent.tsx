@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { api } from "@/lib/api/client";
+import { api, ApiError } from "@/lib/api/client";
 import { AuthLayout } from "@/components/ui/AuthLayout";
 import styles from "./AuthForm.module.css";
 
@@ -24,9 +24,38 @@ export function UnsubscribeContent() {
       try {
         await api.post(`/auth/unsubscribe/${token}`);
         setStatus("success");
-      } catch {
+      } catch (error) {
+        // Log error for debugging (truncate token for privacy)
+        console.error("Unsubscribe failed:", {
+          token: token.length > 8 ? token.slice(0, 8) + "..." : token,
+          error
+        });
+
         setStatus("error");
-        setErrorMessage("This unsubscribe link is invalid or has expired.");
+
+        if (error instanceof ApiError) {
+          // Handle specific API error responses
+          switch (error.status) {
+            case 404:
+            case 422:
+              setErrorMessage("This unsubscribe link is invalid or has expired.");
+              break;
+            case 429:
+              setErrorMessage("Too many requests. Please wait a moment and try again.");
+              break;
+            case 500:
+            case 502:
+            case 503:
+            case 504:
+              setErrorMessage("Service temporarily unavailable. Please try again later.");
+              break;
+            default:
+              setErrorMessage("Unable to process your request. Please contact support if this continues.");
+          }
+        } else {
+          // Handle network errors or other unexpected errors
+          setErrorMessage("Network error. Please check your connection and try again.");
+        }
       }
     };
 
