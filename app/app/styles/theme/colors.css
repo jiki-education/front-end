@@ -116,6 +116,43 @@
     --color-bootcamp-light-purple: #e6e6fa;
 }
 
+:root {
+    /* Semantic color tokens for light theme */
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f8f9fa;
+    --color-background-tertiary: #e9ecef;
+    --color-text-primary: #171717;
+    --color-text-secondary: #6b7280;
+    --color-text-tertiary: #9ca3af;
+    --color-text-muted: #d1d5db;
+    --color-border-primary: #e5e7eb;
+    --color-border-secondary: #d1d5db;
+    --color-surface-elevated: #ffffff;
+    --color-surface-overlay: rgba(0, 0, 0, 0.05);
+
+    /* Interactive elements - light theme */
+    --color-button-primary-bg: #8b5cf6;
+    --color-button-primary-text: #ffffff;
+    --color-button-secondary-bg: #f3f4f6;
+    --color-button-secondary-text: #374151;
+    --color-link-primary: #2563eb;
+    --color-link-hover: #1d4ed8;
+
+    /* Status colors - light theme */
+    --color-success-bg: #ecfdf5;
+    --color-success-text: #065f46;
+    --color-success-border: #10b981;
+    --color-error-bg: #fef2f2;
+    --color-error-text: #991b1b;
+    --color-error-border: #ef4444;
+    --color-warning-bg: #fffbeb;
+    --color-warning-text: #92400e;
+    --color-warning-border: #f59e0b;
+    --color-info-bg: #eff6ff;
+    --color-info-text: #1e40af;
+    --color-info-border: #3b82f6;
+}
+
 @theme inline {
     /* Semantic tokens for new theming system */
     --color-bg-primary: var(--color-background-primary);
