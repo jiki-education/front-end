@@ -28,7 +28,7 @@ function GoogleAuthButtonInner({ children, onSuccess, onError }: GoogleAuthButto
 
 export function GoogleAuthButton(props: GoogleAuthButtonProps) {
   // Don't render if Google OAuth client ID is not configured
-  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+  if (!process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID) {
     return null;
   }
 
