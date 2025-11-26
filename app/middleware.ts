@@ -136,6 +136,15 @@ export function middleware(request: NextRequest) {
   });
   response.headers.set("Content-Security-Policy", cspHeader);
 
+  // Set Cache-Control headers for public routes when user is not authenticated
+  const isAuthenticated = request.cookies.has("jiki_access_token");
+  const isCacheableRoute = path.startsWith("/blog") || path === "/auth/signup" || path === "/auth/login";
+
+  if (!isAuthenticated && isCacheableRoute) {
+    // Cache public pages for 1 hour for unauthenticated users
+    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+  }
+
   return response;
 }
 
