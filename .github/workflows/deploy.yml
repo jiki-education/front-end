@@ -26,12 +26,42 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Validate required environment variables
+        run: |
+          missing_vars=()
+
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            missing_vars+=("CLOUDFLARE_API_TOKEN")
+          fi
+
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            missing_vars+=("CLOUDFLARE_ACCOUNT_ID")
+          fi
+
+          if [ -z "${{ secrets.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID }}" ]; then
+            missing_vars+=("NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID")
+          fi
+
+          if [ -z "${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}" ]; then
+            missing_vars+=("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY")
+          fi
+
+          if [ ${#missing_vars[@]} -ne 0 ]; then
+            echo "❌ Error: The following required secrets are not set:"
+            printf '  - %s\n' "${missing_vars[@]}"
+            exit 1
+          fi
+
+          echo "✅ All required environment variables are set"
+
       - name: Deploy to Cloudflare Workers
         run: pnpm run deploy
         working-directory: app
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
 
   deploy-llm-chat-proxy:
     runs-on: ubuntu-latest
