@@ -33,6 +33,7 @@
 @import "./styles/utilities/transitions.css";
 @import "./styles/utilities/accessibility.css";
 @import "./styles/utilities/body.css";
+@import "./styles/utilities/z-index.css";
 
 /* ============================================
    COMPONENTS

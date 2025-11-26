@@ -24,8 +24,8 @@ export function BaseModal({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`relative bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 ${className}`}
-      overlayClassName={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${overlayClassName}`}
+      className={`relative bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 z-modal ${className}`}
+      overlayClassName={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-modal-backdrop ${overlayClassName}`}
       ariaHideApp={false}
     >
       {title && (
