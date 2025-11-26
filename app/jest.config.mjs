@@ -9,6 +9,7 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
+    "^@static/(.*)$": "<rootDir>/public/static/$1",
     "^@jiki/interpreters$": "<rootDir>/../interpreters",
     "^@jiki/curriculum$": "<rootDir>/../curriculum",
     "^marked$": "<rootDir>/__mocks__/marked.js"

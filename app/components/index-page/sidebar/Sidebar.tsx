@@ -7,11 +7,11 @@ import { NavigationItem } from "./NavigationItem";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "./Logo";
 import type { ComponentType } from "react";
-import HouseIcon from "../../../public/icons/house.svg";
-import ProjectsIcon from "../../../public/icons/projects.svg";
-import MedalIcon from "../../../public/icons/medal.svg";
-import SettingsIcon from "../../../public/icons/settings.svg";
-import FolderIcon from "../../../public/icons/folder.svg";
+import HouseIcon from "@static/icons/house.svg";
+import ProjectsIcon from "@static/icons/projects.svg";
+import MedalIcon from "@static/icons/medal.svg";
+import SettingsIcon from "@static/icons/settings.svg";
+import FolderIcon from "@static/icons/folder.svg";
 
 interface SidebarProps {
   activeItem?: string;

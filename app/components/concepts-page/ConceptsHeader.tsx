@@ -1,5 +1,5 @@
 import Breadcrumb from "./Breadcrumb";
-import FolderIcon from "../../public/icons/folder.svg";
+import FolderIcon from "@static/icons/folder.svg";
 import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsHeaderProps {

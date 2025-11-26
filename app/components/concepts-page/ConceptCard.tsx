@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import SubConceptIcon from "../../public/icons/subconcept.svg";
+import SubConceptIcon from "@static/icons/subconcept.svg";
 import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptCardData {
