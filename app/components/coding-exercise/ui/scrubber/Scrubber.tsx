@@ -12,7 +12,7 @@ import styles from "../../CodingExercise.module.css";
 export default function Scrubber() {
   const orchestrator = useOrchestrator();
   const { currentTest, currentTestTime, hasCodeBeenEdited, isSpotlightActive } = useOrchestratorStore(orchestrator);
-  const rangeRef = useRef<HTMLInputElement>(null);
+  const rangeRef = useRef<HTMLDivElement>(null);
 
   // Default values when no test is available
   const frames = currentTest?.frames ?? [];
