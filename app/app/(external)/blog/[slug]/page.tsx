@@ -1,9 +1,9 @@
 import { getAllBlogPosts, getBlogPost } from "@jiki/content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getServerAuth } from "@/lib/auth/server";
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
 import BlogPostContent from "./BlogPostContent";
+import CTABlock from "@/components/blog/CTABlock";
+import RelatedArticles from "@/components/blog/RelatedArticles";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,32 +39,76 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const auth = await getServerAuth();
-
-  if (auth.isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-bg-secondary theme-transition">
-        <Sidebar activeItem="blog" />
-        <div className="ml-[260px]">
-          <main className="p-6">
-            <div className="mx-auto max-w-4xl">
-              <header className="mb-8">
-                <h1 className="text-4xl font-bold text-text-primary">Blog Post - Authenticated User</h1>
-              </header>
-              <BlogPostContent post={post} variant="authenticated" />
-            </div>
-          </main>
-        </div>
-      </div>
-    );
-  }
+  // Mock related posts from the reference design
+  const relatedPosts = [
+    {
+      slug: "object-oriented-october",
+      title: "It's Object Oriented October",
+      date: "2023-10-01",
+      excerpt:
+        "This month we're exploring Object Oriented Languages including C#, Crystal, Ruby and PowerShell. Learn what makes each language unique and discover their standout features.",
+      author: { name: "Jiki Team", bio: "", avatar: "" },
+      tags: ["#12in23"],
+      seo: { description: "", keywords: [] },
+      featured: false,
+      coverImage: "/api/placeholder/400/240",
+      content: "",
+      locale: "en"
+    },
+    {
+      slug: "introducing-48in24",
+      title: "Introducing #48in24",
+      date: "2024-01-06",
+      excerpt:
+        "New year, new challenge! We're launching a year-long journey through 48 different exercises. Earn Bronze, Silver, and Gold awards by completing exercises across multiple languages.",
+      author: { name: "Jiki Team", bio: "", avatar: "" },
+      tags: ["#48in24"],
+      seo: { description: "", keywords: [] },
+      featured: false,
+      coverImage: "/api/placeholder/400/240",
+      content: "",
+      locale: "en"
+    },
+    {
+      slug: "appy-august",
+      title: "It's Appy August!",
+      date: "2023-08-01",
+      excerpt:
+        "Exploring 14 languages designed for building applications - from web apps to native mobile, desktop, and domain-specific applications. Discover ABAP, CoffeeScript, Dart, Elm, Java, JavaScript, and more!",
+      author: { name: "Jiki Team", bio: "", avatar: "" },
+      tags: ["#12in23"],
+      seo: { description: "", keywords: [] },
+      featured: false,
+      coverImage: "/api/placeholder/400/240",
+      content: "",
+      locale: "en"
+    }
+  ];
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-12">
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900">Blog Post - Guest User</h1>
-      </header>
+    <>
       <BlogPostContent post={post} variant="unauthenticated" />
-    </div>
+
+      {/* Minimal CTA */}
+      <CTABlock
+        variant="minimal"
+        title="Try Jiki for free"
+        subtitle="10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month."
+        buttonText="Get started now"
+        buttonHref="/signup"
+      />
+
+      {/* Related Articles */}
+      <RelatedArticles articles={relatedPosts} />
+
+      {/* Gradient CTA */}
+      <CTABlock
+        variant="gradient"
+        title="Ready to Start Your Coding Journey?"
+        subtitle="Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!"
+        buttonText="Sign Up to Jiki"
+        buttonHref="/signup"
+      />
+    </>
   );
 }

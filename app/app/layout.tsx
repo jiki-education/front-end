@@ -3,7 +3,7 @@ import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { ThemeProvider } from "@/lib/theme";
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Source_Code_Pro } from "next/font/google";
 import { headers } from "next/headers";
 import Script from "next/script";
 import "../src/utils/whyDidYouRender";
@@ -12,7 +12,13 @@ import "./globals.css";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"]
+  weight: ["400", "500", "600", "700", "800"]
+});
+
+const sourceCodePro = Source_Code_Pro({
+  variable: "--font-source-code-pro",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"]
 });
 
 // const geistSans = Geist({
@@ -41,7 +47,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark" data-theme="dark">
       {/*<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>*/}
-      <body className={`${poppins.variable} antialiased ui-body`}>
+      <body className={`${poppins.variable} ${sourceCodePro.variable} antialiased ui-body`}>
         <Script src="/static/theme-script.js" strategy="beforeInteractive" nonce={nonce} />
         <ThemeProvider>
           <AuthProvider>

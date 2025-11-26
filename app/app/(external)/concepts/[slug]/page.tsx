@@ -10,6 +10,8 @@ import { mockConcepts } from "@/lib/data/mockConcepts";
 import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
 import { ConceptsLayout, ConceptCard } from "@/components/concepts-page";
 import { Breadcrumb, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
+import ConceptHero from "@/components/concepts/ConceptHero";
+import ConceptLayout from "@/components/concepts/ConceptLayout";
 import styles from "../concepts.module.css";
 
 interface Props {
@@ -200,40 +202,13 @@ export default function ConceptDetailPage({ params }: Props) {
 
   return (
     <ConceptsLayout withSidebar={withSidebar}>
-      <nav className="mb-4">
-        <button
-          onClick={() => router.push("/concepts")}
-          className="text-blue-600 hover:text-blue-800 flex items-center gap-2"
-        >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Concepts
-        </button>
-      </nav>
+      <Breadcrumb conceptSlug={slug} conceptTitle={concept.title} />
 
-      <h1 className="mb-6 text-5xl font-bold text-gray-900">{concept.title}</h1>
-      <p className="mb-6 text-xl text-gray-600 leading-relaxed">{concept.description}</p>
+      <ConceptLayout>
+        <ConceptHero category="Flow Control" title={concept.title} intro={concept.description} />
 
-      {(concept.standard_video_provider || concept.premium_video_provider) && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <div className="flex items-center gap-2 text-blue-800">
-            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="font-medium">Video content available for this concept</span>
-          </div>
-          {concept.premium_video_provider && (
-            <p className="mt-2 text-sm text-blue-700">Premium video content available for subscribers</p>
-          )}
-        </div>
-      )}
-
-      <MarkdownContent content={concept.content_html} />
+        <MarkdownContent content={concept.content_html} variant="base" />
+      </ConceptLayout>
     </ConceptsLayout>
   );
 }

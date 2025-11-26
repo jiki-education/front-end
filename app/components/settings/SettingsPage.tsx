@@ -157,14 +157,14 @@ export default function SettingsPage() {
                     <p style={{ marginBottom: "8px" }}>Manage your active sessions across all devices.</p>
                     <div className="gap-8 flex flex-col w-[250px]">
                       <button
-                        className="ui-btn ui-btn-secondary"
+                        className="ui-btn ui-btn-large ui-btn-secondary"
                         onClick={handleLogoutFromThisDevice}
                         disabled={isLoggingOut}
                       >
                         Log out of this device
                       </button>
                       <button
-                        className="ui-btn ui-btn-danger"
+                        className="ui-btn ui-btn-large ui-btn-danger"
                         onClick={handleLogoutFromAllDevices}
                         disabled={isLoggingOut}
                       >
@@ -183,7 +183,7 @@ export default function SettingsPage() {
                       completed exercises, and personal data. This action is irreversible.
                     </p>
                     <div className={styles.buttonRow}>
-                      <button className="ui-btn ui-btn-danger">Delete Account</button>
+                      <button className="ui-btn ui-btn-large ui-btn-danger">Delete Account</button>
                     </div>
                   </div>
                 </div>
