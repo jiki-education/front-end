@@ -11,12 +11,35 @@ export function useResizablePanels() {
 
   const isDraggingVertical = useRef(false);
   const isDraggingHorizontal = useRef(false);
+  const activeListenersRef = useRef<{
+    vertical?: { move: (e: MouseEvent) => void; up: () => void };
+    horizontal?: { move: (e: MouseEvent) => void; up: () => void };
+  }>({});
 
   // Set initial CSS custom property for horizontal divider width
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.style.setProperty("--lhs-width", "50%");
     }
+  }, []);
+
+  // Cleanup effect to remove any active event listeners on unmount
+  useEffect(() => {
+    const listenersRef = activeListenersRef;
+    return () => {
+      const listeners = listenersRef.current;
+      if (listeners.vertical) {
+        document.removeEventListener("mousemove", listeners.vertical.move);
+        document.removeEventListener("mouseup", listeners.vertical.up);
+      }
+      if (listeners.horizontal) {
+        document.removeEventListener("mousemove", listeners.horizontal.move);
+        document.removeEventListener("mouseup", listeners.horizontal.up);
+      }
+      // Reset cursor and user selection
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
   }, []);
 
   const handleVerticalMouseDown = (e: React.MouseEvent) => {
@@ -51,8 +74,12 @@ export function useResizablePanels() {
         document.body.style.userSelect = "";
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
+        activeListenersRef.current.vertical = undefined;
       }
     };
+
+    // Store listeners for cleanup
+    activeListenersRef.current.vertical = { move: handleMouseMove, up: handleMouseUp };
 
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -89,8 +116,12 @@ export function useResizablePanels() {
         document.body.style.userSelect = "";
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
+        activeListenersRef.current.horizontal = undefined;
       }
     };
+
+    // Store listeners for cleanup
+    activeListenersRef.current.horizontal = { move: handleMouseMove, up: handleMouseUp };
 
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
