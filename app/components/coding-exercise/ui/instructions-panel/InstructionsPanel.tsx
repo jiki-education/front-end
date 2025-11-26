@@ -6,6 +6,7 @@ import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import ConceptLibrary from "./ConceptLibrary";
 import { mockInstructionsData } from "./mockInstructionsData";
+import styles from "./instructions-panel.module.css";
 
 interface InstructionsPanelProps {
   instructions: string;
@@ -60,9 +61,19 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
 
   // Navigation functions
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
-    sectionRef.current?.scrollIntoView({ 
-      behavior: "smooth",
-      block: "start"
+    if (!sectionRef.current || !scrollContainerRef.current) {
+      return;
+    }
+    
+    const container = scrollContainerRef.current;
+    const targetElement = sectionRef.current;
+    const containerTop = container.getBoundingClientRect().top;
+    const targetTop = targetElement.getBoundingClientRect().top;
+    const scrollOffset = targetTop - containerTop + container.scrollTop + 30;
+    
+    container.scrollTo({
+      top: scrollOffset,
+      behavior: "smooth"
     });
   };
 
@@ -78,7 +89,7 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
   };
 
   return (
-    <div className={`h-full flex flex-col ${className}`}>
+    <div className={`${styles.container} ${className}`}>
       {/* Dynamic Header */}
       <DynamicHeader
         isExpanded={isExpanded}
@@ -93,7 +104,7 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
       {/* Scrollable Content */}
       <div 
         ref={scrollContainerRef}
-        className="flex-1 overflow-auto px-6 py-6 bg-gray-50 scroll-smooth"
+        className={styles.scrollableContent}
       >
         {/* Instructions Section */}
         <div ref={instructionsRef}>

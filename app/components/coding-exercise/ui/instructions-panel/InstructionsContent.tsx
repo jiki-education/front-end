@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import styles from "./instructions-panel.module.css";
 
 interface InstructionsContentProps {
   instructions: string;
@@ -10,9 +11,9 @@ export default function InstructionsContent({
   className = "" 
 }: InstructionsContentProps) {
   return (
-    <div className={`mb-8 ${className}`}>
+    <div className={`${styles.instructionsContainer} ${className}`}>
       <div 
-        className="prose prose-sm max-w-none text-gray-700"
+        className={styles.instructionsContent}
         dangerouslySetInnerHTML={{ 
           __html: marked(instructions) 
         }}

@@ -78,10 +78,10 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <div className="border-b border-gray-200 p-4">
+      <div className="p-4">
         <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
       </div>
-      <div className="flex-1 overflow-auto p-4">{renderTabContent()}</div>
+      <div className="flex-1 overflow-auto">{renderTabContent()}</div>
     </div>
   );
 }

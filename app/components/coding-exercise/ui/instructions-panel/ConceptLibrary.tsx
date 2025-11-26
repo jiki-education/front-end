@@ -1,5 +1,6 @@
 import ConceptCard from "@/components/concepts-page/ConceptCard";
 import type { ConceptCardData } from "@/components/concepts-page/ConceptCard";
+import styles from "./instructions-panel.module.css";
 
 interface ConceptLibraryProps {
   concepts: ConceptCardData[];
@@ -11,9 +12,9 @@ export default function ConceptLibrary({
   className = "" 
 }: ConceptLibraryProps) {
   return (
-    <div className={`mb-8 ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Concept Library</h3>
-      <div className="flex flex-col gap-4">
+    <div className={`${styles.conceptsContainer} ${className}`}>
+      <h3 className={styles.conceptsTitle}>Concept Library</h3>
+      <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
           <ConceptCard
             key={index}
