@@ -28,7 +28,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--color-purple-500) 0%, #ED4799 100%);
+    background: linear-gradient(90deg, var(--color-blue-500) 0%, #ed4799 100%);
 }
 
 .expandedHeader {
@@ -42,7 +42,8 @@
 .expandedGrid {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: 1rem;
+    column-gap: 16px;
+    row-gap: 4px;
     align-items: center;
 }
 
@@ -61,8 +62,9 @@
 }
 
 .exerciseInfoText {
-    font-size: 0.875rem;
-    color: var(--color-gray-600);
+    font-size: 1rem;
+    font-weight: 500;
+    color: #8b5cf6;
 }
 
 .navigationButtonsExpanded {
@@ -70,8 +72,8 @@
 }
 
 .exerciseTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 900;
     color: var(--color-gray-900);
 }
 
@@ -82,8 +84,8 @@
 }
 
 .sectionTitle {
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: var(--color-gray-900);
 }
 
@@ -95,16 +97,20 @@
 }
 
 .navigationButton {
-    padding: 0.5rem;
+    padding: 12px;
     background-color: white;
     border: 1px solid var(--color-gray-200);
-    border-radius: 0.375rem;
+    border-radius: 8px;
     transition: colors 0.2s;
     cursor: pointer;
 }
 
+.collapsedHeader .navigationButton {
+    padding: 8px;
+}
+
 .navigationButtonActive {
-    background-color: var(--color-purple-500);
+    background-color: #8b5cf6;
     color: var(--color-purple-100);
 }
 
@@ -161,7 +167,7 @@
     color: var(--color-purple-700);
     padding: 0.125rem 0.5rem;
     border-radius: 0.25rem;
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Source Code Pro", monospace;
     font-size: 0.875rem;
     font-weight: 500;
 }
@@ -233,7 +239,7 @@
 }
 
 .functionSignature {
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Source Code Pro", monospace;
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--color-blue-600);
@@ -272,7 +278,7 @@
 }
 
 .functionExample {
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Source Code Pro", monospace;
     font-size: 0.75rem;
     color: var(--color-gray-600);
     background-color: var(--color-gray-50);

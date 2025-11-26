@@ -11,11 +11,7 @@ export interface FunctionInfo {
 
 // Mock data object - this will come from orchestrator later
 export const mockInstructionsData = {
-  instructions: `# Acronym Generator Challenge
-
-Convert a phrase to its acronym by taking the first letter of each word and converting it to uppercase.
-
-## What is an Acronym?
+  instructions: `## What is an Acronym?
 
 An acronym is an abbreviation formed from the initial letters of words in a phrase. For example:
 - "Portable Network Graphics" becomes "PNG"
@@ -71,64 +67,49 @@ Your solution should correctly handle all the test cases and produce the expecte
   functions: [
     {
       name: "concatenate",
-      description: "Joins two strings together to create a new string. This is essential for building up your acronym letter by letter.",
+      description:
+        "Joins two strings together to create a new string. This is essential for building up your acronym letter by letter.",
       signature: "concatenate(str1, str2)",
-      examples: [
-        'concatenate("A", "B") → "AB"',
-        'concatenate("Hello", " World") → "Hello World"'
-      ],
+      examples: ['concatenate("A", "B") → "AB"', 'concatenate("Hello", " World") → "Hello World"'],
       category: "String Operations"
     },
     {
-      name: "to_upper_case", 
-      description: "Converts all characters in a string to uppercase. Use this to ensure your final acronym is properly capitalized.",
+      name: "to_upper_case",
+      description:
+        "Converts all characters in a string to uppercase. Use this to ensure your final acronym is properly capitalized.",
       signature: "to_upper_case(text)",
-      examples: [
-        'to_upper_case("png") → "PNG"',
-        'to_upper_case("Hello World") → "HELLO WORLD"'
-      ],
+      examples: ['to_upper_case("png") → "PNG"', 'to_upper_case("Hello World") → "HELLO WORLD"'],
       category: "String Operations"
     },
     {
       name: "get_character",
-      description: "Retrieves the character at a specific position in a string. Essential for iterating through the input text character by character.",
+      description:
+        "Retrieves the character at a specific position in a string. Essential for iterating through the input text character by character.",
       signature: "get_character(text, index)",
-      examples: [
-        'get_character("Hello", 0) → "H"',
-        'get_character("Hello", 4) → "o"'
-      ],
+      examples: ['get_character("Hello", 0) → "H"', 'get_character("Hello", 4) → "o"'],
       category: "String Access"
     },
     {
       name: "string_length",
-      description: "Returns the total number of characters in a string. Useful for loop conditions when iterating through text.",
+      description:
+        "Returns the total number of characters in a string. Useful for loop conditions when iterating through text.",
       signature: "string_length(text)",
-      examples: [
-        'string_length("Hello") → 5',
-        'string_length("") → 0'
-      ],
+      examples: ['string_length("Hello") → 5', 'string_length("") → 0'],
       category: "String Access"
     },
     {
       name: "is_letter",
-      description: "Checks if a character is a letter (A-Z, a-z). Helpful for identifying valid word characters vs separators.",
+      description:
+        "Checks if a character is a letter (A-Z, a-z). Helpful for identifying valid word characters vs separators.",
       signature: "is_letter(character)",
-      examples: [
-        'is_letter("A") → true',
-        'is_letter(" ") → false',
-        'is_letter("-") → false'
-      ],
+      examples: ['is_letter("A") → true', 'is_letter(" ") → false', 'is_letter("-") → false'],
       category: "Character Testing"
     },
     {
       name: "is_space",
       description: "Checks if a character is a space or whitespace character. Use this to identify word boundaries.",
       signature: "is_space(character)",
-      examples: [
-        'is_space(" ") → true',
-        'is_space("A") → false',
-        'is_space("\\t") → true'
-      ],
+      examples: ['is_space(" ") → true', 'is_space("A") → false', 'is_space("\\t") → true'],
       category: "Character Testing"
     }
   ] as FunctionInfo[],

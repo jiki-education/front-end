@@ -1,6 +1,6 @@
 import FileIcon from "@/icons/file.svg";
 import FolderIcon from "@/icons/folder.svg";
-import SearchIcon from "@/icons/search.svg";
+import ProjectIcon from "@/icons/projects.svg";
 import styles from "./instructions-panel.module.css";
 
 interface NavigationButtonsProps {
@@ -23,9 +23,7 @@ export default function NavigationButtons({
       <button
         onClick={onNavigateToInstructions}
         className={`${styles.navigationButton} ${
-          activeSection === "instructions" 
-            ? styles.navigationButtonActive
-            : styles.navigationButtonInactive
+          activeSection === "instructions" ? styles.navigationButtonActive : styles.navigationButtonInactive
         }`}
         title="Instructions"
       >
@@ -34,24 +32,20 @@ export default function NavigationButtons({
       <button
         onClick={onNavigateToFunctions}
         className={`${styles.navigationButton} ${
-          activeSection === "functions" 
-            ? styles.navigationButtonActive
-            : styles.navigationButtonInactive
+          activeSection === "functions" ? styles.navigationButtonActive : styles.navigationButtonInactive
         }`}
         title="Functions"
       >
-        <FolderIcon width={16} height={16} />
+        <ProjectIcon width={16} height={16} />
       </button>
       <button
         onClick={onNavigateToConceptLibrary}
         className={`${styles.navigationButton} ${
-          activeSection === "concept-library" 
-            ? styles.navigationButtonActive
-            : styles.navigationButtonInactive
+          activeSection === "concept-library" ? styles.navigationButtonActive : styles.navigationButtonInactive
         }`}
         title="Concept Library"
       >
-        <SearchIcon width={16} height={16} />
+        <FolderIcon width={16} height={16} />
       </button>
     </div>
   );
