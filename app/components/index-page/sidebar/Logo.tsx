@@ -1,4 +1,4 @@
-import JikiLogo from "../../../public/static/icons/jiki-logo.svg";
+import JikiLogo from "@static/icons/jiki-logo.svg";
 export function Logo() {
   return (
     <div className="logo">

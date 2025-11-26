@@ -158,6 +158,15 @@ All static assets served from the `public` directory must be placed in `public/s
 - **`public/static/*.js`** - Static JavaScript files (e.g., theme-script.js)
 - **`public/static/*.png`** - Root-level images (e.g., robot.png)
 
+**Import using `@static` alias:**
+
+```typescript
+import Logo from "@static/icons/logo.svg";
+import Image from "next/image";
+
+<Image src="/static/images/photo.png" alt="Photo" />
+```
+
 **Why `/static/`?** This organization enables simple Cloudflare cache rules - authenticated users bypass cache for dynamic pages but always cache `/static/*` assets. See `terraform/cloudflare/cache_rules.tf`.
 
 **IMPORTANT:** When adding new static assets (images, fonts, audio, etc.), always place them in `public/static/` to ensure proper caching behavior. If you need to add a new type of static asset, update the Terraform cache rule expression in `cache_rules.tf` to explicitly include it.

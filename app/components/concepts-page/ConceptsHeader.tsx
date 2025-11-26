@@ -1,5 +1,5 @@
 import Breadcrumb from "./Breadcrumb";
-import FolderIcon from "../../public/static/icons/folder.svg";
+import FolderIcon from "@static/icons/folder.svg";
 
 interface ConceptsHeaderProps {
   isAuthenticated: boolean;
