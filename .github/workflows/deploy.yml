@@ -28,7 +28,7 @@ jobs:
         with:
           path: |
             ${{ github.workspace }}/app/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('app/**/*.js', 'app/**/*.jsx', 'app/**/*.ts', 'app/**/*.tsx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.md', '**/*.py', '**/*.javascript', '**/*.jiki') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
