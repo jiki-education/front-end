@@ -9,8 +9,8 @@ export const API_CONFIG = {
     chatUrl: process.env.NEXT_PUBLIC_CHAT_API_URL || "http://localhost:3063"
   },
   production: {
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "https://api.jiki.com",
-    chatUrl: process.env.NEXT_PUBLIC_CHAT_API_URL || "https://chat.jiki.com"
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || "https://api.jiki.io",
+    chatUrl: process.env.NEXT_PUBLIC_CHAT_API_URL || "https://chat.jiki.io"
   }
 } as const;
 

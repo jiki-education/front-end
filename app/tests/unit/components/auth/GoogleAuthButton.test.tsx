@@ -27,11 +27,11 @@ describe("GoogleAuthButton", () => {
   describe("when Google Client ID is configured", () => {
     beforeEach(() => {
       // Mock environment variable
-      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID = "test-client-id";
+      process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID = "test-client-id";
     });
 
     afterEach(() => {
-      delete process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+      delete process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
     });
 
     it("should render button with children text", () => {
@@ -122,7 +122,7 @@ describe("GoogleAuthButton", () => {
 
   describe("when Google Client ID is not configured", () => {
     beforeEach(() => {
-      delete process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+      delete process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
     });
 
     it("should not render anything when client ID is not configured", () => {

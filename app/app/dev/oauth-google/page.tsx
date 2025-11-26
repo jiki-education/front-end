@@ -73,8 +73,8 @@ export default function GoogleOAuthTestPage() {
           <div className="text-sm text-blue-800 space-y-1">
             <p>
               <strong>Google Client ID:</strong>{" "}
-              {process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-                ? `${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID.substring(0, 20)}...`
+              {process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+                ? `${process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID.substring(0, 20)}...`
                 : "Not configured"}
             </p>
             <p>

@@ -63,11 +63,11 @@ describe("Basic Auth Integration Tests", () => {
     });
 
     // Set Google Client ID to enable forms
-    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID = "test-client-id";
+    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID = "test-client-id";
   });
 
   afterEach(() => {
-    delete process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    delete process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
   });
 
   describe("Auth Store Integration", () => {
@@ -121,17 +121,17 @@ describe("Basic Auth Integration Tests", () => {
 
   describe("Environment Configuration", () => {
     it("should handle missing Google Client ID gracefully", () => {
-      delete process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+      delete process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
 
       // Test that components handle missing environment variables properly
-      expect(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID).toBeUndefined();
+      expect(process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID).toBeUndefined();
     });
 
     it("should work with Google Client ID present", () => {
-      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID = "test-client-id";
+      process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID = "test-client-id";
 
       // Test that components work when environment is properly configured
-      expect(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID).toBe("test-client-id");
+      expect(process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID).toBe("test-client-id");
     });
   });
 });
