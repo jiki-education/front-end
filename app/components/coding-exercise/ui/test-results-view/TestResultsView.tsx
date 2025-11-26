@@ -19,7 +19,6 @@ export default function TestResultsView() {
   }
 
   const hasTests = testSuiteResult.tests.length > 0;
-  const _allTestsPassed = testSuiteResult.tests.every((test) => test.status === "pass");
 
   return (
     <div className={styles.testResultsArea}>

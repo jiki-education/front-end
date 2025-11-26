@@ -96,8 +96,9 @@ describe("Scrubber Component", () => {
       );
 
       const input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input).toBeDisabled();
-      expect(input.value).toBe("0"); // Default time
+      expect(input).toHaveAttribute("aria-disabled", "true");
+      expect(input).toHaveAttribute("tabIndex", "-1");
+      expect(input).toHaveAttribute("aria-valuenow", "0"); // Default time
     });
   });
 
@@ -125,7 +126,8 @@ describe("Scrubber Component", () => {
       const prevButton = screen.getByLabelText("Previous frame");
       const nextButton = screen.getByLabelText("Next frame");
 
-      expect(input).toBeDisabled();
+      expect(input).toHaveAttribute("aria-disabled", "true");
+      expect(input).toHaveAttribute("tabIndex", "-1");
       expect(prevButton).toBeDisabled();
       expect(nextButton).toBeDisabled();
     });
@@ -150,7 +152,8 @@ describe("Scrubber Component", () => {
       );
 
       const input = screen.getByRole("slider");
-      expect(input).toBeDisabled();
+      expect(input).toHaveAttribute("aria-disabled", "true");
+      expect(input).toHaveAttribute("tabIndex", "-1");
     });
 
     it("should be disabled when less than 2 frames", () => {
@@ -172,7 +175,8 @@ describe("Scrubber Component", () => {
       );
 
       const input = screen.getByRole("slider");
-      expect(input).toBeDisabled();
+      expect(input).toHaveAttribute("aria-disabled", "true");
+      expect(input).toHaveAttribute("tabIndex", "-1");
     });
 
     it("should be enabled when all conditions are met", () => {
@@ -196,7 +200,8 @@ describe("Scrubber Component", () => {
       );
 
       const input = screen.getByRole("slider");
-      expect(input).not.toBeDisabled();
+      expect(input).toHaveAttribute("aria-disabled", "false");
+      expect(input).toHaveAttribute("tabIndex", "0");
     });
   });
 
@@ -251,8 +256,9 @@ describe("Scrubber Component", () => {
       );
 
       const input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input.value).toBe("150");
-      expect(input).not.toBeDisabled();
+      expect(input).toHaveAttribute("aria-valuenow", "150");
+      expect(input).toHaveAttribute("aria-disabled", "false");
+      expect(input).toHaveAttribute("tabIndex", "0");
     });
 
     it("should pass correct props to FrameStepperButtons", () => {

@@ -405,7 +405,7 @@ export class EditorManager {
 
   initializeEditor(
     code: { storedAt?: string; code: string; readonlyRanges?: { from: number; to: number }[] },
-    exercise: unknown,
+    _exercise: unknown,
     unfoldableFunctionNames: string[]
   ) {
     const localStorageResult = loadCodeMirrorContent(this.exerciseSlug);

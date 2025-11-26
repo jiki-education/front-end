@@ -54,7 +54,7 @@ describe("getBreakpointLines", () => {
 
   it("should return line numbers for single breakpoint", () => {
     // Mock a breakpoint at position 100 (line 3)
-    mockBreakpoints.between = jest.fn((start, end, callback) => {
+    mockBreakpoints.between = jest.fn((_start, _end, callback) => {
       callback(100);
     });
 
@@ -66,7 +66,7 @@ describe("getBreakpointLines", () => {
 
   it("should return line numbers for multiple breakpoints", () => {
     // Mock breakpoints at positions 50, 150, 250
-    mockBreakpoints.between = jest.fn((start, end, callback) => {
+    mockBreakpoints.between = jest.fn((_start, _end, callback) => {
       callback(50); // Line 2
       callback(150); // Line 4
       callback(250); // Line 6
@@ -81,7 +81,7 @@ describe("getBreakpointLines", () => {
   });
 
   it("should handle breakpoints at document boundaries", () => {
-    mockBreakpoints.between = jest.fn((start, end, callback) => {
+    mockBreakpoints.between = jest.fn((_start, _end, callback) => {
       callback(0); // First position - Line 1
       callback(999); // Last position - Line 20
     });
@@ -93,7 +93,7 @@ describe("getBreakpointLines", () => {
 
   it("should preserve order of breakpoints", () => {
     // Mock breakpoints in non-sequential order
-    mockBreakpoints.between = jest.fn((start, end, callback) => {
+    mockBreakpoints.between = jest.fn((_start, _end, callback) => {
       callback(200); // Line 5
       callback(50); // Line 2
       callback(350); // Line 8
@@ -108,7 +108,7 @@ describe("getBreakpointLines", () => {
 
   it("should handle multiple breakpoints on same line", () => {
     // Mock multiple breakpoints that resolve to same line
-    mockBreakpoints.between = jest.fn((start, end, callback) => {
+    mockBreakpoints.between = jest.fn((_start, _end, callback) => {
       callback(100); // Line 3
       callback(101); // Also Line 3
       callback(102); // Also Line 3
@@ -163,7 +163,7 @@ describe("getBreakpointLines", () => {
     ];
 
     testPositions.forEach(({ pos, expectedLine }) => {
-      mockBreakpoints.between = jest.fn((start, end, callback) => {
+      mockBreakpoints.between = jest.fn((_start, _end, callback) => {
         callback(pos);
       });
 

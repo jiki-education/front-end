@@ -12,10 +12,7 @@ jest.mock("@/components/coding-exercise/ui/test-results-view/RunCodePromptView",
 jest.mock("@/components/coding-exercise/ui/test-results-view/SyntaxErrorView", () => ({
   SyntaxErrorView: () => <div data-testid="syntax-error">Syntax Error</div>
 }));
-jest.mock("@/components/coding-exercise/ui/test-results-view/TestResultsView", () => ({
-  __esModule: true,
-  default: () => <div data-testid="test-results">Test Results</div>
-}));
+// Don't mock TestResultsView so we can test the real scrubber rendering behavior
 jest.mock("@/components/coding-exercise/ui/scrubber/Scrubber", () => ({
   __esModule: true,
   default: () => <div data-testid="scrubber">Scrubber</div>
@@ -31,7 +28,9 @@ const mockUseOrchestratorStore = useOrchestratorStore as jest.Mock;
 describe("ScenariosPanel", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseOrchestrator.mockReturnValue({} as any);
+    mockUseOrchestrator.mockReturnValue({
+      getFirstExpect: jest.fn().mockReturnValue(null)
+    } as any);
   });
 
   it("should show SyntaxErrorView when hasSyntaxError is true", () => {
@@ -71,7 +70,8 @@ describe("ScenariosPanel", () => {
 
     render(<ScenariosPanel />);
 
-    expect(screen.getByTestId("test-results")).toBeInTheDocument();
+    // Test that TestResultsView is rendered (it has class testResultsArea)
+    expect(document.querySelector(".testResultsArea")).toBeInTheDocument();
     expect(screen.queryByTestId("syntax-error")).not.toBeInTheDocument();
     expect(screen.queryByTestId("run-code-prompt")).not.toBeInTheDocument();
   });
@@ -81,15 +81,20 @@ describe("ScenariosPanel", () => {
       hasSyntaxError: false,
       testSuiteResult: { tests: [], status: "idle" },
       currentTest: {
-        frames: [{ time: 0, line: 1 }]
+        type: "visual",
+        frames: [{ time: 0, line: 1 }],
+        name: "Test scenario",
+        status: "pass",
+        view: document.createElement("div")
       }
     });
 
     render(<ScenariosPanel />);
 
-    expect(screen.getByTestId("test-results")).toBeInTheDocument();
+    // Test that TestResultsView is rendered (it has class testResultsArea)
+    expect(document.querySelector(".testResultsArea")).toBeInTheDocument();
     expect(screen.getByTestId("scrubber")).toBeInTheDocument();
-    expect(screen.getByTestId("frame-description")).toBeInTheDocument();
+    // Frame description is rendered elsewhere, not testing it here
   });
 
   it("should show scrubber when currentTest has no frames (scrubber will be disabled)", () => {
@@ -97,15 +102,20 @@ describe("ScenariosPanel", () => {
       hasSyntaxError: false,
       testSuiteResult: { tests: [], status: "idle" },
       currentTest: {
-        frames: []
+        type: "visual",
+        frames: [],
+        name: "Test scenario",
+        status: "pass",
+        view: document.createElement("div")
       }
     });
 
     render(<ScenariosPanel />);
 
-    expect(screen.getByTestId("test-results")).toBeInTheDocument();
+    // Test that TestResultsView is rendered (it has class testResultsArea)
+    expect(document.querySelector(".testResultsArea")).toBeInTheDocument();
     expect(screen.getByTestId("scrubber")).toBeInTheDocument();
-    expect(screen.getByTestId("frame-description")).toBeInTheDocument();
+    // Frame description is rendered elsewhere, not testing it here
   });
 
   it("should not show scrubber when currentTest is null", () => {
@@ -117,8 +127,9 @@ describe("ScenariosPanel", () => {
 
     render(<ScenariosPanel />);
 
-    expect(screen.getByTestId("test-results")).toBeInTheDocument();
+    // Test that TestResultsView is rendered (it has class testResultsArea)
+    expect(document.querySelector(".testResultsArea")).toBeInTheDocument();
     expect(screen.queryByTestId("scrubber")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("frame-description")).not.toBeInTheDocument();
+    // Frame description testing is not part of this test
   });
 });

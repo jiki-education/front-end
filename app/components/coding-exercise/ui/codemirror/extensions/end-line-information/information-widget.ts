@@ -165,9 +165,9 @@ export class InformationWidget extends WidgetType {
       ]
     }).then(({ y, middlewareData }) => {
       // Find the vertical divider to align with its position
-      const verticalDivider = document.querySelector('.verticalDivider') as HTMLElement;
+      const verticalDivider = document.querySelector(".verticalDivider") as HTMLElement;
       let x: number;
-      
+
       if (verticalDivider) {
         // Get the vertical divider's position and align the tooltip with it
         const dividerRect = verticalDivider.getBoundingClientRect();
@@ -177,7 +177,7 @@ export class InformationWidget extends WidgetType {
         const editorRect = editor.getBoundingClientRect();
         x = editorRect.right + 10;
       }
-      
+
       const { arrow } = middlewareData;
       if (!this.tooltip) {
         return;
@@ -248,7 +248,7 @@ export class InformationWidget extends WidgetType {
     // Also listen for resize events which will be triggered when divider moves
     window.addEventListener("resize", this.handleScroll);
     window.addEventListener("storage", this.handleStorage);
-    
+
     // Listen for mouse events on the document to catch divider dragging
     document.addEventListener("mousemove", this.handleScroll);
   }

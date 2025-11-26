@@ -2,7 +2,6 @@
 /* eslint-disable */
 
 import * as ts from "typescript";
-import * as fs from "fs";
 import * as path from "path";
 
 interface ExportInfo {
@@ -31,7 +30,6 @@ interface AnalyzerOptions {
 
 class UnusedExportsAnalyzer {
   private program: ts.Program;
-  private checker: ts.TypeChecker;
   private exports = new Map<string, ExportInfo>();
   private options: AnalyzerOptions;
 
@@ -48,7 +46,6 @@ class UnusedExportsAnalyzer {
     // Don't filter files - we need all files to find usages
     // The filtering happens in shouldAnalyzeFile() method
     this.program = ts.createProgram(parsedConfig.fileNames, parsedConfig.options);
-    this.checker = this.program.getTypeChecker();
 
     // Validate target file exists if specified
     if (options.targetFile) {

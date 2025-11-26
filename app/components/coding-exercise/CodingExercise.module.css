@@ -669,7 +669,7 @@
     flex: 1;
     height: 8px;
     margin-right: 8px;
-    background: #E2E8F0;
+    background: #e2e8f0;
     border-radius: 4px;
     position: relative;
     cursor: pointer;
@@ -686,7 +686,7 @@
 }
 
 .scrubberProgress::after {
-    content: '';
+    content: "";
     position: absolute;
     right: -10px;
     top: 50%;
@@ -694,11 +694,13 @@
     width: 20px;
     height: 20px;
     background: #3b82f6;
-    border: 3px solid #FFFFFF;
+    border: 3px solid #ffffff;
     border-radius: 50%;
     box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 .scrubber:hover .scrubberProgress::after {
