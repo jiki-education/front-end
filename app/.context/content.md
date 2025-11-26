@@ -173,17 +173,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 ## Images
 
-Images are symlinked from the content package for local development:
+Images are symlinked from the content package source:
 
 ```bash
-public/images/blog -> ../../../content/dist/images/blog
-public/images/articles -> ../../../content/dist/images/articles
-public/images/avatars -> ../../../content/dist/images/avatars
+public/static/images/blog -> ../../../../content/images/blog
+public/static/images/articles -> ../../../../content/images/articles
+public/static/images/avatars -> ../../../../content/images/avatars
 ```
 
-- **Local development**: Symlinks provide instant access without copying
-- **Production**: Script at `scripts/copy-content-images.sh` available for S3/CDN upload
-- Images in `public/images/{blog,articles,avatars}/` are gitignored
+- Symlinks point to source images in `content/images/` (not `content/dist/images/`)
+- Source images are committed to git and always available
+- No build step required - images work in both development and deployment
+- Symlinks are tracked in git for consistent deployment
 
 ## Locale Handling
 
