@@ -19,10 +19,10 @@ describe("Test Switching E2E", () => {
   describe("Test switching with pause state", () => {
     it("should show scrubber at beginning when switching to second test after pausing first", async () => {
       // Wait for test selector buttons to load
-      await page.waitForSelector('[class*="testSelectorButtons"]', { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test button
-      const firstButton = await page.$('[class*="testSelectorButtons"] button:first-child');
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button to appear (animation is playing)
@@ -35,7 +35,7 @@ describe("Test Switching E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Click second test button
-      const secondButton = await page.$('[class*="testSelectorButtons"] button:nth-child(2)');
+      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
       await secondButton?.click();
 
       // Wait a bit for state to update
@@ -52,10 +52,10 @@ describe("Test Switching E2E", () => {
     });
 
     it("should not auto-play when switching to second test after pausing first", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button
@@ -66,7 +66,7 @@ describe("Test Switching E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Click second test
-      const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
+      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
       await secondButton?.click();
 
       // Wait a bit
@@ -84,10 +84,10 @@ describe("Test Switching E2E", () => {
 
   describe("Test switching with saved positions", () => {
     it("should restore saved position when switching back to first test", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button
@@ -104,7 +104,7 @@ describe("Test Switching E2E", () => {
       });
 
       // Click second test
-      const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
+      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
       await secondButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -124,10 +124,10 @@ describe("Test Switching E2E", () => {
 
   describe("Test switching with auto-play", () => {
     it("should auto-play second test when switching while first test is playing", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test (should auto-play)
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for auto-play to start
@@ -141,7 +141,7 @@ describe("Test Switching E2E", () => {
       expect(isPlaying).toBe(true);
 
       // Click second test while first is playing
-      const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
+      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
       await secondButton?.click();
 
       // Wait a bit
@@ -157,10 +157,10 @@ describe("Test Switching E2E", () => {
     });
 
     it("should NOT auto-play second test after pausing first test", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button
@@ -186,7 +186,7 @@ describe("Test Switching E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Click second test
-      const secondButton = await page.$("[class*='testSelectorButtons'] button:nth-child(2)");
+      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
       await secondButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -202,10 +202,10 @@ describe("Test Switching E2E", () => {
 
   describe("Running code resets positions", () => {
     it("should clear saved positions when running tests again", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button and pause
@@ -240,10 +240,10 @@ describe("Test Switching E2E", () => {
     });
 
     it("should start from beginning after running tests again", async () => {
-      await page.waitForSelector("[class*='testSelectorButtons']", { timeout: 5000 });
+      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
 
       // Click first test
-      const firstButton = await page.$("[class*='testSelectorButtons'] button:first-child");
+      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
       await firstButton?.click();
 
       // Wait for pause button and pause partway through

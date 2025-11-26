@@ -35,7 +35,7 @@ export function TestResultsButtons() {
 
   return (
     <div className={styles.v14DotsSection}>
-      <div className={styles.v14Dots}>
+      <div className={styles.v14Dots} data-testid="test-selector-buttons">
         {testSuiteResult.tests.map((test, idx) => {
           return (
             <button

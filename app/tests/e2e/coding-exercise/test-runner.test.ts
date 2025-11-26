@@ -21,19 +21,22 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons to appear first (indicates tests have run)
-    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
+    await page.waitForSelector("[data-testid='test-selector-buttons'] [class*='v14Dot']", { timeout: 10000 });
 
     // Then wait for the test result view to appear
     await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
 
     // Check that test suite results show (2 regular tests + 1 bonus test)
-    const testButtons = await page.$$("[class*='testSelectorButtons'] [class*='testButton']");
+    const testButtons = await page.$$("[data-testid='test-selector-buttons'] [class*='v14Dot']");
     expect(testButtons.length).toBe(3);
 
-    // Check test status
+    // Check test status - look for CSS module class containing 'passed'
     const testStatus = await page.evaluate(() => {
-      const buttons = document.querySelectorAll("[class*='testSelectorButtons'] [class*='testButton']");
-      return Array.from(buttons).map((btn) => btn.classList.contains("pass"));
+      const buttons = document.querySelectorAll("[data-testid='test-selector-buttons'] [class*='v14Dot']");
+      return Array.from(buttons).map((btn) => {
+        // Check if any class contains 'passed' (CSS modules generate long class names)
+        return Array.from(btn.classList).some((cls) => cls.includes("passed"));
+      });
     });
 
     // First two tests should pass (regular tests), bonus test should fail
@@ -63,22 +66,25 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons to appear first
-    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
+    await page.waitForSelector("[data-testid='test-selector-buttons'] [class*='v14Dot']", { timeout: 10000 });
 
     // Then wait for test result view
     await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
 
     // Check that tests fail
-    const testStatus = await page.$eval('[class*="testSelectorButtons"]', (el) => {
-      const buttons = el.querySelectorAll('[class*="testButton"]');
-      return Array.from(buttons).map((btn) => btn.classList.contains("fail"));
+    const testStatus = await page.$eval('[data-testid="test-selector-buttons"]', (el) => {
+      const buttons = el.querySelectorAll('[class*="v14Dot"]');
+      return Array.from(buttons).map((btn) => {
+        // Check if any class contains 'failed' (CSS modules generate long class names)
+        return Array.from(btn.classList).some((cls) => cls.includes("failed"));
+      });
     });
 
     // All tests should fail (2 regular + 1 bonus)
     expect(testStatus).toEqual([true, true, true]);
 
-    // Check for error message
-    const errorMessage = await page.$("[class*='scenarioLhsContent']");
+    // Check for error message in the inspected test result view
+    const errorMessage = await page.$('[data-ci="inspected-test-result-view"]');
     expect(errorMessage).toBeTruthy();
   });
 
@@ -94,10 +100,10 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test results and buttons
-    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
+    await page.waitForSelector("[data-testid='test-selector-buttons'] [class*='v14Dot']", { timeout: 10000 });
 
     // Click second test button
-    const testButtons = await page.$$("[class*='testSelectorButtons'] [class*='testButton']");
+    const testButtons = await page.$$("[data-testid='test-selector-buttons'] [class*='v14Dot']");
     expect(testButtons.length).toBe(3); // 2 regular + 1 bonus
     await testButtons[1].click();
 
@@ -122,7 +128,7 @@ describe("Test Runner E2E", () => {
     await page.click('[data-testid="run-button"]');
 
     // Wait for test buttons first
-    await page.waitForSelector("[class*='testSelectorButtons'] [class*='testButton']", { timeout: 10000 });
+    await page.waitForSelector("[data-testid='test-selector-buttons'] [class*='v14Dot']", { timeout: 10000 });
 
     // Then wait for scrubber to appear
     await page.waitForSelector('[data-testid="scrubber"]', { timeout: 5000 });
@@ -131,10 +137,10 @@ describe("Test Runner E2E", () => {
     const scrubberInput = await page.$('[data-testid="scrubber-range-input"]');
     expect(scrubberInput).toBeTruthy();
 
-    // Get the max value (total frames)
+    // Get the max value (total frames) from aria-valuemax
     const maxFrames = await page.$eval('[data-testid="scrubber-range-input"]', (el) => {
-      const inputEl = el as HTMLInputElement;
-      return parseInt(inputEl.max);
+      const ariaMax = el.getAttribute("aria-valuemax");
+      return ariaMax ? parseInt(ariaMax) : NaN;
     });
 
     // Should have at least 5 frames (one per move() call)
