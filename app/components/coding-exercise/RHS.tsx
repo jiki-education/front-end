@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { PageTabs } from "@/components/ui-kit/PageTabs/PageTabs";
+import FileIcon from "@/icons/file.svg";
+import CompleteIcon from "@/icons/complete.svg";
+import FolderIcon from "@/icons/folder.svg";
+import BugIcon from "@/icons/bug.svg";
+import WindowIcon from "@/icons/window.svg";
+import EmailIcon from "@/icons/email.svg";
 import ChatPanel from "./ui/ChatPanel";
 import FunctionsView from "./ui/FunctionsView";
 import HintsView from "./ui/HintsView";
-import InstructionsPanel from "./ui/InstructionsPanel";
+import { InstructionsPanel } from "./ui/instructions-panel";
 import TasksView from "./ui/TasksView";
 import ConsoleTab from "./ui/test-results-view/ConsoleTab";
 import type Orchestrator from "./lib/Orchestrator";
@@ -18,12 +24,36 @@ export function RHS({ orchestrator }: RHSProps) {
 
   // Define tabs data for PageTabs
   const tabs = [
-    { id: "instructions", label: "Instructions" },
-    { id: "tasks", label: "Tasks" },
-    { id: "functions", label: "Functions" },
-    { id: "hints", label: "Hints" },
-    { id: "console", label: "Console" },
-    { id: "chat", label: "Chat" }
+    { 
+      id: "instructions", 
+      label: "Instructions",
+      icon: <FileIcon width={18} height={18} className="mr-2" />
+    },
+    { 
+      id: "tasks", 
+      label: "Tasks",
+      icon: <CompleteIcon width={18} height={18} className="mr-2" />
+    },
+    { 
+      id: "functions", 
+      label: "Functions",
+      icon: <FolderIcon width={18} height={18} className="mr-2" />
+    },
+    { 
+      id: "hints", 
+      label: "Hints",
+      icon: <BugIcon width={18} height={18} className="mr-2" />
+    },
+    { 
+      id: "console", 
+      label: "Console",
+      icon: <WindowIcon width={18} height={18} className="mr-2" />
+    },
+    { 
+      id: "chat", 
+      label: "Chat",
+      icon: <EmailIcon width={18} height={18} className="mr-2" />
+    }
   ];
 
   // Function to render content based on active tab
