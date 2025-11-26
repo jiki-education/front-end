@@ -7,12 +7,9 @@
    BUTTON COMPONENTS
    ======================================== */
 
-/* Button Base Styles - Standard Size */
+/* Button Base Styles */
 .ui-btn {
-    padding: 14px 20px;
     border: 2px solid;
-    border-radius: 12px;
-    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -24,21 +21,17 @@
     text-decoration: none;
 }
 
-/* Button Base Styles - Large Size */
+/* Button Size Variants */
+.ui-btn-small {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
 .ui-btn-large {
     padding: 16px 20px;
-    border: 2px solid;
     border-radius: 12px;
     font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    text-align: center;
-    text-decoration: none;
 }
 
 /* Primary Button */
@@ -221,6 +214,88 @@
         &:focus {
             border-color: var(--color-blue-500);
             box-shadow: 0 0 0 4px var(--color-blue-500-15);
+        }
+    }
+}
+
+/* ========================================
+   SEARCH INPUT COMPONENTS
+   ======================================== */
+
+.ui-search-input {
+    position: relative;
+    margin-top: 2px;
+    margin-bottom: 32px;
+
+    /* Search Icon */
+    svg:first-child {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+        transition: color 0.3s ease;
+        color: var(--color-gray-400);
+    }
+
+    /* Input Field */
+    input {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+        font-size: 16px;
+        font-family: var(--font-sans);
+        border: 2px solid var(--color-gray-200);
+        border-radius: 12px;
+        background: white;
+        transition: all 0.3s ease;
+        color: var(--color-gray-900);
+
+        &::placeholder {
+            color: var(--color-gray-400);
+        }
+
+        &:hover {
+            border-color: var(--color-blue-500);
+            box-shadow: 0 0 0 2px var(--color-blue-500-10);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: var(--color-blue-500);
+            box-shadow: 0 0 0 4px var(--color-blue-500-15);
+        }
+    }
+
+    /* Icon changes color on focus */
+    &:focus-within svg:first-child {
+        color: var(--color-blue-500);
+    }
+
+    /* Clear Button */
+    button {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-gray-400);
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--color-gray-600);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
         }
     }
 }
