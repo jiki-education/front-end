@@ -145,10 +145,15 @@ export function middleware(request: NextRequest) {
     response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
   }
 
+  // Cache favicon for 1 hour
+  if (path === "/favicon.ico") {
+    response.headers.set("Cache-Control", "public, max-age=3600");
+  }
+
   return response;
 }
 
 export const config = {
   // Apply middleware to all routes
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"]
+  matcher: ["/((?!_next/static|_next/image).*)"]
 };
