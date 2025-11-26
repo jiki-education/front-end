@@ -99,7 +99,7 @@ describe("BreakpointStepperButtons Component", () => {
   });
 
   describe("button rendering", () => {
-    it("should have correct data-testid attribute on container", () => {
+    it("should render buttons without a wrapping container", () => {
       const mockOrchestrator = createMockOrchestrator();
       const currentFrame = createMockFrame(200, { line: 2 });
 
@@ -108,15 +108,18 @@ describe("BreakpointStepperButtons Component", () => {
         breakpoints: [1, 2, 3]
       });
 
-      const { container } = render(
+      render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
           <BreakpointStepperButtons enabled={true} />
         </OrchestratorTestProvider>
       );
 
-      const buttonsContainer = container.querySelector('[data-testid="breakpoint-stepper-buttons"]');
-      expect(buttonsContainer).toBeInTheDocument();
-      expect(buttonsContainer).toHaveClass("breakpoint-stepper-buttons");
+      // Component now renders as a React Fragment, so buttons are rendered directly
+      const prevButton = screen.getByLabelText("Previous breakpoint");
+      const nextButton = screen.getByLabelText("Next breakpoint");
+
+      expect(prevButton).toBeInTheDocument();
+      expect(nextButton).toBeInTheDocument();
     });
 
     it("should render both previous and next buttons", () => {

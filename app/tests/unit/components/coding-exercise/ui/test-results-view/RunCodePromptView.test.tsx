@@ -12,6 +12,6 @@ describe("RunCodePromptView", () => {
     const { container } = render(<RunCodePromptView />);
 
     const promptDiv = container.firstChild as HTMLElement;
-    expect(promptDiv).toHaveClass("bg-gray-50", "border", "border-gray-200", "rounded-lg", "p-4");
+    expect(promptDiv).toHaveClass("bg-gray-50", "border", "border-gray-200", "rounded-lg", "p-8", "m-8");
   });
 });

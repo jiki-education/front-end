@@ -7,11 +7,12 @@ import FrameStepperButtons from "./FrameStepperButtons";
 import InformationWidgetToggleButton from "./InformationWidgetToggleButton";
 import PlayPauseButton from "./PlayPauseButton";
 import ScrubberInput from "./ScrubberInput";
+import styles from "../../CodingExercise.module.css";
 
 export default function Scrubber() {
   const orchestrator = useOrchestrator();
   const { currentTest, currentTestTime, hasCodeBeenEdited, isSpotlightActive } = useOrchestratorStore(orchestrator);
-  const rangeRef = useRef<HTMLInputElement>(null);
+  const rangeRef = useRef<HTMLDivElement>(null);
 
   // Default values when no test is available
   const frames = currentTest?.frames ?? [];
@@ -44,7 +45,7 @@ export default function Scrubber() {
         rangeRef.current?.focus();
       }}
       tabIndex={-1}
-      className="relative group flex-1 flex items-center"
+      className={styles.controlBar}
     >
       {currentTest?.type === "visual" && <PlayPauseButton disabled={!isEnabled} />}
       <ScrubberInput

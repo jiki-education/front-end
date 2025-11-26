@@ -26,7 +26,7 @@ describe("PageTabs", () => {
     it("renders tab icons when provided", () => {
       render(<PageTabs tabs={defaultTabs} activeTabId="tab-1" onTabChange={mockHandlers.onTabChange} />);
 
-      defaultTabs.forEach((tab, index) => {
+      defaultTabs.forEach((_tab, index) => {
         const icon = screen.getByTestId(`tab-${index + 1}-icon`);
         expect(icon).toBeInTheDocument();
       });

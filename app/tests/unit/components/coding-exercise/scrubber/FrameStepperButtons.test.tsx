@@ -75,20 +75,23 @@ describe("FrameStepperButtons Component", () => {
       expect(screen.getByLabelText("Next frame")).toBeInTheDocument();
     });
 
-    it("should have correct data-testid attribute on container", () => {
+    it("should render buttons without a wrapping container", () => {
       const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with current frame
       setupStoreMock();
-      const { container } = render(
+      render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
           <FrameStepperButtons enabled={true} />
         </OrchestratorTestProvider>
       );
 
-      const buttonsContainer = container.querySelector('[data-testid="frame-stepper-buttons"]');
-      expect(buttonsContainer).toBeInTheDocument();
-      expect(buttonsContainer).toHaveClass("frame-stepper-buttons");
+      // Component now renders as a React Fragment, so buttons are rendered directly
+      const prevButton = screen.getByLabelText("Previous frame");
+      const nextButton = screen.getByLabelText("Next frame");
+
+      expect(prevButton).toBeInTheDocument();
+      expect(nextButton).toBeInTheDocument();
     });
   });
 

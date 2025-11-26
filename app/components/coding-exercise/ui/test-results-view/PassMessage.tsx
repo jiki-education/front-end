@@ -39,7 +39,6 @@ function stringToHash(input: string, testIdx: number): number {
   return hash;
 }
 
-// ty djipity
 const congratsMessages = [
   "Well done!",
   "Nice work!",

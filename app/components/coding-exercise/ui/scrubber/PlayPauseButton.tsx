@@ -1,5 +1,6 @@
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import styles from "../../CodingExercise.module.css";
 
 interface PlayPauseButtonProps {
   disabled: boolean;
@@ -27,10 +28,10 @@ export default function PlayPauseButton({ disabled }: PlayPauseButtonProps) {
     <button
       data-ci={isPlaying ? "pause-button" : "play-button"}
       disabled={disabled}
-      className="play-pause-button"
+      className={styles.playBtn}
       onClick={handleClick}
     >
-      <span style={{ fontSize: "32px", lineHeight: 1 }}>{isPlaying ? "⏸️" : "▶️"}</span>
+      {isPlaying ? "⏸️" : "️▶"}
     </button>
   );
 }

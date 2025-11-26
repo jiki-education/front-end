@@ -1,5 +1,6 @@
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
+import styles from "../CodingExercise.module.css";
 
 export default function RunButton() {
   const orchestrator = useOrchestrator();
@@ -14,7 +15,7 @@ export default function RunButton() {
       data-testid="run-button"
       onClick={handleRunCode}
       disabled={status === "running"}
-      className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+      className={styles.checkButton}
     >
       {status === "running" ? "Running..." : "Run Code"}
     </button>

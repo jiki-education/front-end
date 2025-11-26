@@ -124,7 +124,6 @@ export function debounce<T extends (...args: any[]) => any>(
     }
     // Restart the timer
     const timeSinceLastCall = time - (lastCallTime || 0);
-    const _timeSinceLastInvoke = time - lastInvokeTime;
     const timeWaiting = wait - timeSinceLastCall;
 
     timeoutId = setTimeout(timerExpired, timeWaiting);

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
 import ScrubberInput from "@/components/coding-exercise/ui/scrubber/ScrubberInput";
 import { createMockAnimationTimeline, createMockFrame } from "@/tests/mocks";
@@ -30,7 +29,8 @@ function createMockOrchestrator(): Orchestrator {
     setIsSpotlightActive: jest.fn(),
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
     runCode: jest.fn(),
-    getStore: jest.fn()
+    getStore: jest.fn(),
+    snapToNearestFrame: jest.fn()
   } as unknown as Orchestrator;
 }
 
@@ -51,8 +51,8 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      let input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input.min).toBe("-1");
+      let slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-valuemin", "-1");
 
       // Test with 2 or more frames
       rerender(
@@ -61,8 +61,8 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input.min).toBe("0");
+      slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-valuemin", "0");
     });
 
     it("should use duration directly without scaling", () => {
@@ -83,8 +83,8 @@ describe("ScrubberInput Component", () => {
           </OrchestratorTestProvider>
         );
 
-        const input = screen.getByRole("slider") as HTMLInputElement;
-        expect(input.max).toBe(expected);
+        const slider = screen.getByRole("slider");
+        expect(slider).toHaveAttribute("aria-valuemax", expected.toString());
 
         rerender(<></>);
       });
@@ -100,8 +100,8 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input.value).toBe("2500");
+      const slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-valuenow", "2500");
     });
 
     it("should handle null animationTimeline", () => {
@@ -113,8 +113,8 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider") as HTMLInputElement;
-      expect(input.max).toBe("0"); // Default duration of 0
+      const slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-valuemax", "0"); // Default duration of 0
     });
 
     it("should use animation timeline duration directly in microseconds without scaling", () => {
@@ -131,9 +131,9 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider") as HTMLInputElement;
+      const slider = screen.getByRole("slider");
       // Should be 400000 (the duration in microseconds), not 400000000 (duration * 1000)
-      expect(input.max).toBe("400000");
+      expect(slider).toHaveAttribute("aria-valuemax", "400000");
     });
   });
 
@@ -148,8 +148,9 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider");
-      expect(input).toBeDisabled();
+      const slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-disabled", "true");
+      expect(slider).toHaveAttribute("tabIndex", "-1");
     });
 
     it("should be enabled when enabled prop is true", () => {
@@ -162,49 +163,109 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider");
-      expect(input).not.toBeDisabled();
+      const slider = screen.getByRole("slider");
+      expect(slider).toHaveAttribute("aria-disabled", "false");
+      expect(slider).toHaveAttribute("tabIndex", "0");
     });
   });
 
-  describe("onChange handler", () => {
-    it("should call setCurrentTestTime when value changes", () => {
+  describe("onMouseDown handler", () => {
+    it("should call setCurrentTestTime when mouse is pressed", () => {
       const mockOrchestrator = createMockOrchestrator();
       const mockTimeline = createMockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
 
-      render(
-        <OrchestratorTestProvider orchestrator={mockOrchestrator}>
-          <ScrubberInput frames={createMockFrames(5)} animationTimeline={mockTimeline} time={0} enabled={true} />
-        </OrchestratorTestProvider>
-      );
+      const TestWrapper = () => {
+        const ref = React.useRef<HTMLDivElement>(null);
+        return (
+          <OrchestratorTestProvider orchestrator={mockOrchestrator}>
+            <ScrubberInput
+              ref={ref}
+              frames={createMockFrames(5)}
+              animationTimeline={mockTimeline}
+              time={0}
+              enabled={true}
+            />
+          </OrchestratorTestProvider>
+        );
+      };
 
-      const input = screen.getByRole("slider");
-      fireEvent.change(input, { target: { value: "300" } });
+      render(<TestWrapper />);
 
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300);
+      const slider = screen.getByRole("slider");
+
+      // Mock getBoundingClientRect to simulate slider dimensions
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+
+      // Simulate mouse down at 60% position (clientX = 60)
+      fireEvent.mouseDown(slider, { clientX: 60 });
+
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
+      // With 60% position on a 500000 microsecond timeline, should be around 300000
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000);
     });
 
-    it("should handle multiple value changes", () => {
+    it("should handle multiple mouse interactions", () => {
       const mockOrchestrator = createMockOrchestrator();
       const mockTimeline = createMockAnimationTimeline({ duration: 500000 }); // 500ms in microseconds
 
-      render(
-        <OrchestratorTestProvider orchestrator={mockOrchestrator}>
-          <ScrubberInput frames={createMockFrames(5)} animationTimeline={mockTimeline} time={0} enabled={true} />
-        </OrchestratorTestProvider>
-      );
+      const TestWrapper = () => {
+        const ref = React.useRef<HTMLDivElement>(null);
+        return (
+          <OrchestratorTestProvider orchestrator={mockOrchestrator}>
+            <ScrubberInput
+              ref={ref}
+              frames={createMockFrames(5)}
+              animationTimeline={mockTimeline}
+              time={0}
+              enabled={true}
+            />
+          </OrchestratorTestProvider>
+        );
+      };
 
-      const input = screen.getByRole("slider");
+      render(<TestWrapper />);
 
-      fireEvent.change(input, { target: { value: "100" } });
-      fireEvent.change(input, { target: { value: "200" } });
-      fireEvent.change(input, { target: { value: "350" } });
+      const slider = screen.getByRole("slider");
+
+      // Mock getBoundingClientRect
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+
+      // Simulate first mouse interaction
+      fireEvent.mouseDown(slider, { clientX: 20 }); // 20% = 100000
+      fireEvent.mouseUp(document);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(100000);
+
+      // Simulate second mouse interaction
+      fireEvent.mouseDown(slider, { clientX: 40 }); // 40% = 200000
+      fireEvent.mouseUp(document);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(200000);
+
+      // Simulate third mouse interaction
+      fireEvent.mouseDown(slider, { clientX: 70 }); // 70% = 350000
+      fireEvent.mouseUp(document);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(350000);
 
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(3);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenNthCalledWith(1, 100);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenNthCalledWith(2, 200);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenNthCalledWith(3, 350);
     });
   });
 
@@ -226,8 +287,24 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider");
-      fireEvent.mouseUp(input);
+      const slider = screen.getByRole("slider");
+
+      // Mock getBoundingClientRect
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+
+      // Mouse down followed by mouse up should trigger snap
+      fireEvent.mouseDown(slider, { clientX: 50 });
+      fireEvent.mouseUp(document);
 
       expect(mockOrchestrator.snapToNearestFrame).toHaveBeenCalled();
     });
@@ -244,8 +321,24 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByRole("slider");
-      fireEvent.mouseUp(input);
+      const slider = screen.getByRole("slider");
+
+      // Mock getBoundingClientRect
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+
+      // Mouse down followed by mouse up should trigger snap
+      fireEvent.mouseDown(slider, { clientX: 50 });
+      fireEvent.mouseUp(document);
 
       // snapToNearestFrame is always called, it handles the null case internally
       expect(mockOrchestrator.snapToNearestFrame).toHaveBeenCalled();
@@ -312,8 +405,8 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      expect(ref.current?.type).toBe("range");
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current?.getAttribute("role")).toBe("slider");
     });
   });
 
@@ -328,9 +421,9 @@ describe("ScrubberInput Component", () => {
         </OrchestratorTestProvider>
       );
 
-      const input = screen.getByTestId("scrubber-range-input");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("type", "range");
+      const slider = screen.getByTestId("scrubber-range-input");
+      expect(slider).toBeInTheDocument();
+      expect(slider).toHaveAttribute("role", "slider");
     });
   });
 });

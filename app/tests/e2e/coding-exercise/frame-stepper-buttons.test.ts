@@ -5,25 +5,23 @@ describe("FrameStepper Buttons E2E", () => {
   });
 
   it("should render with initial state - prev button disabled, next button enabled", async () => {
-    // Wait for the buttons to be rendered
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    // Wait for the buttons to be rendered by waiting for one of them
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
-    // Get the buttons
-    const buttons = await page.$$('[data-testid="frame-stepper-buttons"] button');
-    expect(buttons).toHaveLength(2);
+    // Get the buttons by their aria labels
+    const prevButton = await page.$('button[aria-label="Previous frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
+    expect(prevButton).not.toBeNull();
+    expect(nextButton).not.toBeNull();
 
     // Check initial state - prev button should be disabled (at first frame)
-    const prevButtonDisabled = await page.$eval(
-      '[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]',
-      (el) => el.hasAttribute("disabled")
+    const prevButtonDisabled = await page.$eval('button[aria-label="Previous frame"]', (el) =>
+      el.hasAttribute("disabled")
     );
     expect(prevButtonDisabled).toBe(true);
 
     // Next button should be enabled (frames available)
-    const nextButtonDisabled = await page.$eval(
-      '[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]',
-      (el) => el.hasAttribute("disabled")
-    );
+    const nextButtonDisabled = await page.$eval('button[aria-label="Next frame"]', (el) => el.hasAttribute("disabled"));
     expect(nextButtonDisabled).toBe(false);
 
     // Verify initial frame info
@@ -38,9 +36,9 @@ describe("FrameStepper Buttons E2E", () => {
   }, 20000); // 20s timeout for navigation + compilation
 
   it("should navigate forward through frames with next button", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Next frame"]');
 
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
 
     // Click next button to go to frame 2
     await nextButton?.click();
@@ -70,10 +68,10 @@ describe("FrameStepper Buttons E2E", () => {
   }, 40000);
 
   it("should navigate backward through frames with prev button", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
-    const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const prevButton = await page.$('button[aria-label="Previous frame"]');
 
     // First navigate to frame 3
     await nextButton?.click();
@@ -107,9 +105,9 @@ describe("FrameStepper Buttons E2E", () => {
   });
 
   it("should disable next button at last frame", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
 
     // Navigate to the last frame (frame 5)
     for (let i = 0; i < 4; i++) {
@@ -125,25 +123,21 @@ describe("FrameStepper Buttons E2E", () => {
     expect(frameLine).toContain("Line: 5");
 
     // Check that next button is now disabled
-    const nextButtonDisabled = await page.$eval(
-      '[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]',
-      (el) => el.hasAttribute("disabled")
-    );
+    const nextButtonDisabled = await page.$eval('button[aria-label="Next frame"]', (el) => el.hasAttribute("disabled"));
     expect(nextButtonDisabled).toBe(true);
 
     // Prev button should still be enabled
-    const prevButtonDisabled = await page.$eval(
-      '[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]',
-      (el) => el.hasAttribute("disabled")
+    const prevButtonDisabled = await page.$eval('button[aria-label="Previous frame"]', (el) =>
+      el.hasAttribute("disabled")
     );
     expect(prevButtonDisabled).toBe(false);
   });
 
   it("should properly enable/disable buttons during navigation", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
-    const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const prevButton = await page.$('button[aria-label="Previous frame"]');
 
     // Initially: prev disabled, next enabled
     let prevDisabled = await prevButton?.evaluate((el) => el.hasAttribute("disabled"));
@@ -187,10 +181,10 @@ describe("FrameStepper Buttons E2E", () => {
   });
 
   it("should handle complete forward and backward navigation cycle", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
-    const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const prevButton = await page.$('button[aria-label="Previous frame"]');
 
     // Track all frame descriptions during forward navigation
     const forwardFrames: string[] = [];
@@ -237,10 +231,10 @@ describe("FrameStepper Buttons E2E", () => {
   });
 
   it("should not navigate when buttons are disabled", async () => {
-    await page.waitForSelector('[data-testid="frame-stepper-buttons"]');
+    await page.waitForSelector('button[aria-label="Previous frame"]');
 
     // At initial state, prev button should be disabled
-    const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+    const prevButton = await page.$('button[aria-label="Previous frame"]');
 
     // Try to click the disabled prev button
     await prevButton?.click();
@@ -251,7 +245,7 @@ describe("FrameStepper Buttons E2E", () => {
     expect(frameDescription).toContain("Frame 1");
 
     // Navigate to last frame
-    const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+    const nextButton = await page.$('button[aria-label="Next frame"]');
     for (let i = 0; i < 4; i++) {
       await nextButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -283,7 +277,7 @@ describe("FrameStepper Buttons E2E", () => {
       expect(foldedLines).toContain("2");
 
       // Navigate with next button - should skip from frame 1 to frame 3
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       await nextButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -299,7 +293,7 @@ describe("FrameStepper Buttons E2E", () => {
       await page.waitForSelector('[data-testid="fold-line-3"]');
 
       // First navigate to frame 4
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       for (let i = 0; i < 3; i++) {
         await nextButton?.click();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -314,7 +308,7 @@ describe("FrameStepper Buttons E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate back with prev button
-      const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+      const prevButton = await page.$('button[aria-label="Previous frame"]');
       await prevButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -339,7 +333,7 @@ describe("FrameStepper Buttons E2E", () => {
       expect(foldedLines).toContain("3");
 
       // Navigate with next button - should skip from frame 1 to frame 4
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       await nextButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -359,7 +353,7 @@ describe("FrameStepper Buttons E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate to frame 3 (skipping frame 2)
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       await nextButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -371,7 +365,7 @@ describe("FrameStepper Buttons E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate back with prev button
-      const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+      const prevButton = await page.$('button[aria-label="Previous frame"]');
       await prevButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -404,7 +398,7 @@ describe("FrameStepper Buttons E2E", () => {
       expect(foldedLines).toContain("None");
 
       // Navigate should now visit all frames normally
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       await nextButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -417,7 +411,7 @@ describe("FrameStepper Buttons E2E", () => {
       await page.waitForSelector('[data-testid="fold-lines-2-3"]');
 
       // Navigate to frame 5
-      const nextButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Next frame"]');
+      const nextButton = await page.$('button[aria-label="Next frame"]');
       for (let i = 0; i < 4; i++) {
         await nextButton?.click();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -440,7 +434,7 @@ describe("FrameStepper Buttons E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Navigate back to frame 1
-      const prevButton = await page.$('[data-testid="frame-stepper-buttons"] button[aria-label="Previous frame"]');
+      const prevButton = await page.$('button[aria-label="Previous frame"]');
       await prevButton?.click();
       await new Promise((resolve) => setTimeout(resolve, 100));
 

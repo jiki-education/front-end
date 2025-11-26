@@ -164,9 +164,20 @@ export class InformationWidget extends WidgetType {
         arrow({ element: this.arrowElement })
       ]
     }).then(({ y, middlewareData }) => {
-      // attach to actual editor's right side instead of a random external store value - like panel's location
-      const editorRect = editor.getBoundingClientRect();
-      const x = editorRect.right + 10;
+      // Find the vertical divider to align with its position
+      const verticalDivider = document.querySelector(".verticalDivider") as HTMLElement;
+      let x: number;
+
+      if (verticalDivider) {
+        // Get the vertical divider's position and align the tooltip with it
+        const dividerRect = verticalDivider.getBoundingClientRect();
+        x = dividerRect.right + 10;
+      } else {
+        // Fallback to editor's right edge if divider not found
+        const editorRect = editor.getBoundingClientRect();
+        x = editorRect.right + 10;
+      }
+
       const { arrow } = middlewareData;
       if (!this.tooltip) {
         return;
@@ -234,7 +245,12 @@ export class InformationWidget extends WidgetType {
       }
     }
 
+    // Also listen for resize events which will be triggered when divider moves
+    window.addEventListener("resize", this.handleScroll);
     window.addEventListener("storage", this.handleStorage);
+
+    // Listen for mouse events on the document to catch divider dragging
+    document.addEventListener("mousemove", this.handleScroll);
   }
 
   private cleanup() {
@@ -242,6 +258,8 @@ export class InformationWidget extends WidgetType {
       for (const container of this.scrollContainers) {
         container.removeEventListener("scroll", this.handleScroll);
       }
+      window.removeEventListener("resize", this.handleScroll);
+      document.removeEventListener("mousemove", this.handleScroll);
     }
 
     if (this.handleStorage) {

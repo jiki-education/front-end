@@ -62,7 +62,7 @@ describe("getFoldedLines", () => {
 
   it("should return all line numbers for a single folded range", () => {
     // Mock a fold from position 100 to 200 (lines 3-5)
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(100, 200);
     });
 
@@ -75,7 +75,7 @@ describe("getFoldedLines", () => {
 
   it("should return line numbers for multiple folded ranges", () => {
     // Mock multiple folded ranges
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(50, 100); // Lines 2-3
       callback(200, 250); // Lines 5-6
     });
@@ -87,7 +87,7 @@ describe("getFoldedLines", () => {
 
   it("should handle single-line fold", () => {
     // Mock a fold that spans only one line
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(100, 149); // Both positions are on line 3
     });
 
@@ -108,7 +108,7 @@ describe("getFoldedLines", () => {
 
   it("should handle large folded ranges", () => {
     // Mock a large fold from lines 2 to 10
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(50, 450);
     });
 
@@ -132,7 +132,7 @@ describe("getFoldedLines", () => {
 
   it("should handle overlapping folded ranges", () => {
     // Mock overlapping folds
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(50, 150); // Lines 2-4
       callback(100, 200); // Lines 3-5 (overlaps with previous)
     });
@@ -145,7 +145,7 @@ describe("getFoldedLines", () => {
 
   it("should handle fold at document boundaries", () => {
     // Mock fold at start and end of document
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(0, 49); // Line 1
       callback(950, 999); // Lines 20-20
     });
@@ -157,7 +157,7 @@ describe("getFoldedLines", () => {
 
   it("should preserve order of lines in folded ranges", () => {
     // Mock folds added in non-sequential order
-    mockFoldRanges.between = jest.fn((start, end, callback) => {
+    mockFoldRanges.between = jest.fn((_start, _end, callback) => {
       callback(300, 350); // Lines 7-8
       callback(50, 100); // Lines 2-3
       callback(200, 250); // Lines 5-6
@@ -211,7 +211,7 @@ describe("getFoldedLines", () => {
     ];
 
     testCases.forEach(({ from, to, expectedLines }) => {
-      mockFoldRanges.between = jest.fn((start, end, callback) => {
+      mockFoldRanges.between = jest.fn((_start, _end, callback) => {
         callback(from, to);
       });
 

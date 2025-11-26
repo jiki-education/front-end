@@ -1,7 +1,8 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef, useCallback, useEffect } from "react";
 import type { Frame } from "@jiki/interpreters";
 import type { AnimationTimeline } from "../../lib/AnimationTimeline";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import styles from "../../CodingExercise.module.css";
 
 interface ScrubberInputProps {
   frames: Frame[];
@@ -10,28 +11,117 @@ interface ScrubberInputProps {
   enabled: boolean;
 }
 
-const ScrubberInput = forwardRef<HTMLInputElement, ScrubberInputProps>(
+const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
   ({ frames, animationTimeline, time, enabled }, ref) => {
     const orchestrator = useOrchestrator();
+    const isDraggingRef = useRef(false);
+
+    const min = calculateMinInputValue(frames);
+    const max = calculateMaxInputValue(animationTimeline ?? { duration: 0 });
+    const currentValue = time ?? 0;
+
+    // Calculate progress percentage
+    const progress = max > min ? ((currentValue - min) / (max - min)) * 100 : 0;
+
+    const getValueFromMousePosition = useCallback(
+      (clientX: number) => {
+        if (!ref || typeof ref === "function" || !ref.current) {
+          return currentValue;
+        }
+
+        const rect = ref.current.getBoundingClientRect();
+        const percentage = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        return min + (max - min) * percentage;
+      },
+      [min, max, currentValue, ref]
+    );
+
+    const handleMouseDown = useCallback(
+      (event: React.MouseEvent) => {
+        if (!enabled) {
+          return;
+        }
+
+        event.preventDefault();
+        isDraggingRef.current = true;
+
+        const newValue = getValueFromMousePosition(event.clientX);
+        orchestrator.setCurrentTestTime(newValue);
+
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [enabled, getValueFromMousePosition, orchestrator]
+    );
+
+    const handleMouseMove = useCallback(
+      (event: MouseEvent) => {
+        if (!isDraggingRef.current) {
+          return;
+        }
+
+        const newValue = getValueFromMousePosition(event.clientX);
+        orchestrator.setCurrentTestTime(newValue);
+      },
+      [getValueFromMousePosition, orchestrator]
+    );
+
+    const handleMouseUp = useCallback(() => {
+      isDraggingRef.current = false;
+      orchestrator.snapToNearestFrame();
+
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orchestrator]);
+
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent) => {
+        if (!enabled) {
+          return;
+        }
+        handleOnKeyDown(event as any, animationTimeline, frames);
+      },
+      [enabled, animationTimeline, frames]
+    );
+
+    const handleKeyUp = useCallback(
+      (event: React.KeyboardEvent) => {
+        if (!enabled) {
+          return;
+        }
+        handleOnKeyUp(event as any, animationTimeline);
+      },
+      [enabled, animationTimeline]
+    );
+
+    // Cleanup event listeners on unmount
+    useEffect(() => {
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
-      <input
-        data-testid="scrubber-range-input"
-        disabled={!enabled}
-        type="range"
-        className="w-full"
-        onKeyUp={(event) => handleOnKeyUp(event, animationTimeline)}
-        onKeyDown={(event) => handleOnKeyDown(event, animationTimeline, frames)}
-        min={calculateMinInputValue(frames)}
-        max={calculateMaxInputValue(animationTimeline ?? { duration: 0 })}
+      <div
         ref={ref}
-        onInput={updateInputBackground}
-        value={time ?? 0}
-        onChange={(event) => {
-          handleChange(event, orchestrator);
-          updateInputBackground();
-        }}
-        onMouseUp={() => handleOnMouseUp(orchestrator)}
-      />
+        className={styles.scrubber}
+        data-testid="scrubber-range-input"
+        tabIndex={enabled ? 0 : -1}
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={currentValue}
+        aria-disabled={!enabled}
+        onMouseDown={handleMouseDown}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+      >
+        <div className={styles.scrubberProgress} style={{ width: `${progress}%` }} />
+      </div>
     );
   }
 );
@@ -44,34 +134,12 @@ export default ScrubberInput;
 /* EVENT HANDLERS */
 /* **************** */
 
-function handleChange(event: React.ChangeEvent<HTMLInputElement>, orchestrator: ReturnType<typeof useOrchestrator>) {
-  const newValue = Number(event.target.value);
-  orchestrator.setCurrentTestTime(newValue);
-  // updateInputBackground() - commented out
-}
-
-function handleOnKeyUp(_event: React.KeyboardEvent<HTMLInputElement>, _animationTimeline: AnimationTimeline | null) {
+function handleOnKeyUp(_event: React.KeyboardEvent, _animationTimeline: AnimationTimeline | null) {
   // TODO: Implement keyboard shortcuts
 }
 
-function handleOnKeyDown(
-  _event: React.KeyboardEvent<HTMLInputElement>,
-  _animationTimeline: AnimationTimeline | null,
-  _frames: Frame[]
-) {
+function handleOnKeyDown(_event: React.KeyboardEvent, _animationTimeline: AnimationTimeline | null, _frames: Frame[]) {
   // TODO: Implement keyboard shortcuts
-}
-
-// When we're sliding along the scrubber, we can sort of sit in between two
-// frames, and that's fine. It allows the user to watch the animation back.
-// But when they let go of the mouse we need to lock onto a frame. So this
-// does that. It grabs the nearest frame to the current scrub and moves to it.
-function handleOnMouseUp(orchestrator: ReturnType<typeof useOrchestrator>) {
-  orchestrator.snapToNearestFrame();
-}
-
-function updateInputBackground() {
-  // TODO: Implement if needed for visual feedback
 }
 
 /* **************** */

@@ -126,7 +126,7 @@ describe("useKeyboard", () => {
   it("should always use latest handler via ref", () => {
     let capturedHandler: ((e: KeyboardEvent) => void) | undefined;
 
-    mockOn.mockImplementation((keys, handler) => {
+    mockOn.mockImplementation((_keys, handler) => {
       capturedHandler = handler;
       return jest.fn();
     });

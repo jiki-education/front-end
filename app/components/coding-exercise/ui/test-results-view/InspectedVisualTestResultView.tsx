@@ -3,9 +3,9 @@ import { useEffect, useMemo, useRef } from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
-import { PassMessage } from "./PassMessage";
 import { VisualTestResultView } from "./VisualTestResultView";
 import styles from "../../CodingExercise.module.css";
+import Scrubber from "../scrubber/Scrubber";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();
@@ -49,20 +49,28 @@ export function InspectedVisualTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames(styles.scenario, currentTest.status === "fail" ? "fail" : "pass")}>
-      <InspectedVisualTestResultViewLHS
-        // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
-        firstExpect={firstExpect}
-        currentTest={currentTest}
-      />
+    <div className={assembleClassNames(styles.visualPlayer, currentTest.status === "fail" ? "fail" : "pass")}>
+      <div className={styles.playerCanvas}>
+        <div className={styles.playerContentRow}>
+          <div className={styles.contentBelowTabs}>
+            <InspectedVisualTestResultViewLHS
+              // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
+              firstExpect={firstExpect}
+              currentTest={currentTest}
+            />
 
-      <div
-        className={assembleClassNames(
-          "flex-grow relative p-2.5 bg-white [container-type:size] min-w-[300px] aspect-square flex-shrink",
-          isSpotlightActive && "spotlight"
-        )}
-        ref={viewContainerRef}
-      />
+            <div className={styles.rightVideoContainer}>
+              <div
+                className={assembleClassNames(
+                  "w-auto h-full max-h-full aspect-square shrink [container-type:size] relative",
+                  isSpotlightActive && "spotlight"
+                )}
+                ref={viewContainerRef}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -75,16 +83,18 @@ export function InspectedVisualTestResultViewLHS({
   firstExpect: VisualTestExpect | null;
 }) {
   return (
-    <div data-ci="inspected-test-result-view" className={styles.scenarioLhs}>
-      <div className={styles.scenarioLhsContent}>
-        <h3>
-          <strong>Scenario: </strong>
+    <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
+      <div
+        className={assembleClassNames(styles.testDescription, currentTest.status === "fail" ? styles.stateFailed : "")}
+      >
+        <p>
+          <span className={styles.instructionLabel}>Scenario: </span>
           {currentTest.name}
-        </h3>
+        </p>
 
-        {currentTest.status === "pass" && <PassMessage testIdx={0} />}
         <TestResultInfo firstExpect={firstExpect} />
       </div>
+      <Scrubber />
     </div>
   );
 }
