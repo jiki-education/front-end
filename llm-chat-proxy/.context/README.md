@@ -193,7 +193,7 @@ Target metrics:
 1. **JWT Secret Protection**: Never log or expose the JWT secret
 2. **Input Validation**: Sanitize all user inputs (code, questions)
 3. **Rate Limiting**: Prevent abuse and control costs
-4. **CORS**: Restrict origins to jiki.app and localhost
+4. **CORS**: Restrict origins to jiki.io (production) and localhost (development)
 5. **Internal API Secret**: Use for Rails API authentication
 6. **Error Messages**: Don't leak implementation details
 
