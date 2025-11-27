@@ -100,17 +100,13 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Generate nonce for inline scripts
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-
   const isProduction = process.env.NODE_ENV === "production";
 
   // Set Content Security Policy headers
-  // In development, allow unsafe-inline for Next.js dev scripts
-  // In production, use strict nonce-based CSP
+  // Allow unsafe-inline for Next.js inline scripts (required for RSC flight data)
   const cspHeader = `
     default-src 'self';
-    script-src 'self' https://js.stripe.com https://accounts.google.com ${isProduction ? `'nonce-${nonce}' 'strict-dynamic'` : "'unsafe-inline' 'unsafe-eval'"};
+    script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com ${isProduction ? "" : "'unsafe-eval'"};
     style-src 'self' 'unsafe-inline' https://accounts.google.com;
     img-src 'self' blob: data: https://*.stripe.com;
     font-src 'self';
@@ -126,14 +122,7 @@ export function middleware(request: NextRequest) {
     .replace(/\s{2,}/g, " ")
     .trim();
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-nonce", nonce);
-
-  const response = NextResponse.next({
-    request: {
-      headers: requestHeaders
-    }
-  });
+  const response = NextResponse.next();
   response.headers.set("Content-Security-Policy", cspHeader);
 
   // Set Cache-Control headers for public routes when user is not authenticated
