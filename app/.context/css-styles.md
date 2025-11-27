@@ -196,3 +196,93 @@ expect(document.querySelector(".conceptCard")).toBeInTheDocument(); // ❌ Won't
 CSS Modules transform `.conceptCard` into something like `.conceptCard_a1b2c3d4`. The `[class*="${styles.conceptCard}"]` selector matches any element whose class attribute contains the hashed class name.
 
 **Always import the CSS module in tests and use the styles object for queries.**
+
+## Z-Index System
+
+Jiki uses a centralized z-index system to prevent z-index conflicts and ensure proper layering across the application.
+
+### How It Works
+
+**CSS Variables:** Z-index values are defined as CSS variables in `app/styles/theme/spacing.css`:
+
+```css
+/* Z-index System - Layered from bottom to top */
+--z-index-base: 1;
+--z-index-dropdown: 10;
+--z-index-sticky: 20;
+--z-index-fixed: 30;
+--z-index-overlay-backdrop: 40;
+--z-index-resizer: 50;
+--z-index-popover: 60;
+--z-index-tooltip: 80;
+--z-index-tooltip-content: 81;
+--z-index-modal-backdrop: 1000;
+--z-index-modal: 1001;
+--z-index-spotlight-backdrop: 1100;
+--z-index-spotlight: 1200;
+--z-index-notification: 1300;
+```
+
+**Utility Classes:** Custom utility classes are provided in `app/styles/utilities/z-index.css` using `@layer utilities` to integrate with Tailwind:
+
+```css
+@layer utilities {
+  .z-base {
+    z-index: var(--z-index-base);
+  }
+  .z-dropdown {
+    z-index: var(--z-index-dropdown);
+  }
+  /* ... etc */
+}
+```
+
+### Usage
+
+Use these z-index classes like any other Tailwind utility:
+
+```tsx
+// Modal backdrop
+<div className="fixed inset-0 bg-black bg-opacity-50 z-modal-backdrop">
+
+// Modal content
+<div className="relative bg-white rounded-lg shadow-xl z-modal">
+
+// Dropdown
+<div className="absolute bg-white border rounded-lg z-dropdown">
+
+// Tooltip
+<div className="absolute bg-gray-900 text-white rounded z-tooltip">
+```
+
+### Available Classes
+
+- `z-base` (1) - Basic layering
+- `z-dropdown` (10) - Dropdowns and form elements
+- `z-sticky` (20) - Sticky elements
+- `z-fixed` (30) - Fixed positioned elements
+- `z-overlay-backdrop` (40) - General overlay backdrops
+- `z-resizer` (50) - Resize handles and draggable elements
+- `z-popover` (60) - Popovers and floating elements
+- `z-tooltip` (80) - Tooltips
+- `z-tooltip-content` (81) - Tooltip content (higher than tooltip trigger)
+- `z-modal-backdrop` (1000) - Modal backdrops
+- `z-modal` (1001) - Modal content
+- `z-spotlight-backdrop` (1100) - Spotlight/tutorial overlays
+- `z-spotlight` (1200) - Spotlight content
+- `z-notification` (1300) - Toast notifications (highest)
+
+### Why This Approach?
+
+1. **Centralized Management:** All z-index values are defined in one place
+2. **Semantic Names:** Classes have meaningful names that indicate their purpose
+3. **Tailwind Integration:** Works seamlessly with other Tailwind utilities
+4. **No Conflicts:** Predefined hierarchy prevents z-index wars
+5. **Easy Maintenance:** Update values in one place to affect entire system
+
+### Rules
+
+- **Never use hardcoded z-index values** in CSS or inline styles
+- **Always use the predefined utility classes** for consistent layering
+- **Choose the appropriate semantic class** for your use case
+- **Don't create custom z-index values** without adding them to the central system
