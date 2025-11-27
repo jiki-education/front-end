@@ -119,22 +119,19 @@ export function middleware(request: NextRequest) {
   //   return new NextResponse("Not Found", { status: 404 });
   // }
 
+  //
   // Block access to /dev and test routes in production
+  //
   const isTestRoute = path.startsWith("/dev") || path.startsWith("/test");
-
-  if (isTestRoute) {
-    // Only allow in development mode
-    const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
-
-    if (!isDevelopment) {
-      // Return 404 if not in development
-      return new NextResponse(null, { status: 404 });
-    }
+  const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
+  if (isTestRoute && !isDevelopment) {
+    return new NextResponse(null, { status: 404 });
   }
 
-  const isAuthenticated = request.cookies.has("jiki_access_token");
-
+  //
   // Rewrite unauthenticated /blog requests to static variant
+  //
+  const isAuthenticated = request.cookies.has("jiki_access_token");
   if (!isAuthenticated && path === "/blog") {
     const url = request.nextUrl.clone();
     url.pathname = "/external/blog";
@@ -147,6 +144,9 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  //
+  // Happy path!
+  //
   const response = NextResponse.next();
   setCSP(response);
 
