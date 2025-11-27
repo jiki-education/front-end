@@ -76,7 +76,7 @@ export function LessonTooltip({
               ref={refs.setFloating}
               style={floatingStyles}
               {...getFloatingProps()}
-              className="z-50 bg-white rounded-xl shadow-xl border border-gray-200 p-16 w-fit"
+              className="z-resizer bg-white rounded-xl shadow-xl border border-gray-200 p-16 w-fit"
               role="dialog"
               aria-labelledby={headingId}
               aria-describedby={descriptionId}

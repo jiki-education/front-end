@@ -50,7 +50,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
 
   if (checkoutState.type === "error") {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-modal-backdrop">
         <div className="bg-bg-primary rounded-lg shadow-xl max-w-md w-full p-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <p className="text-sm text-red-800">Error: {checkoutState.error.message}</p>
@@ -96,7 +96,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-modal-backdrop"
       role="dialog"
       aria-modal="true"
       aria-labelledby="checkout-modal-title"
