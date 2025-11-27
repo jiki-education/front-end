@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import { useAuth } from "@/lib/auth/hooks";
+import ExternalHeader from "./external";
 
 export default function Header() {
   const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return <ExternalHeader />;
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 h-72 bg-white border-b-2 border-gray-200 flex items-center justify-between px-40 z-[1000]">
@@ -16,20 +21,9 @@ export default function Header() {
       </Link>
 
       <div className="flex items-center gap-12">
-        {isAuthenticated ? (
-          <Link href="/dashboard" className="ui-btn ui-btn-small ui-btn-primary">
-            Back to Jiki →
-          </Link>
-        ) : (
-          <>
-            <Link href="/auth/login" className="ui-btn ui-btn-small ui-btn-secondary">
-              Login
-            </Link>
-            <Link href="/auth/signup" className="ui-btn ui-btn-small ui-btn-primary">
-              Sign Up
-            </Link>
-          </>
-        )}
+        <Link href="/dashboard" className="ui-btn ui-btn-small ui-btn-primary">
+          Back to Jiki →
+        </Link>
       </div>
     </header>
   );

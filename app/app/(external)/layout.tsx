@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/header";
+import Header from "@/components/header/internal";
 import Footer from "@/components/footer";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth/hooks";

@@ -86,8 +86,14 @@ export function middleware(request: NextRequest) {
     return authResponse;
   }
 
-  // Block access to /dev and test routes in production
   const path = request.nextUrl.pathname;
+
+  // Block direct access to external routes
+  // if (path.startsWith("/external")) {
+  //   return new NextResponse("Not Found", { status: 404 });
+  // }
+
+  // Block access to /dev and test routes in production
   const isTestRoute = path.startsWith("/dev") || path.startsWith("/test");
 
   if (isTestRoute) {
@@ -122,17 +128,23 @@ export function middleware(request: NextRequest) {
     .replace(/\s{2,}/g, " ")
     .trim();
 
+  const isAuthenticated = request.cookies.has("jiki_access_token");
+
+  // Rewrite unauthenticated /blog requests to static variant
+  if (!isAuthenticated && path === "/blog") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/external/blog";
+
+    const response = NextResponse.rewrite(url);
+
+    response.headers.set("Content-Security-Policy", cspHeader);
+    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+
+    return response;
+  }
+
   const response = NextResponse.next();
   response.headers.set("Content-Security-Policy", cspHeader);
-
-  // Set Cache-Control headers for public routes when user is not authenticated
-  const isAuthenticated = request.cookies.has("jiki_access_token");
-  const isCacheableRoute = path.startsWith("/blog") || path === "/auth/signup" || path === "/auth/login";
-
-  if (!isAuthenticated && isCacheableRoute) {
-    // Cache public pages for 1 hour for unauthenticated users
-    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
-  }
 
   // Cache favicon for 1 hour
   if (path === "/favicon.ico") {
