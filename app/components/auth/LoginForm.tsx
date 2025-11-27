@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
+import { AuthenticationError } from "@/lib/api/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -12,11 +13,12 @@ import styles from "./AuthForm.module.css";
 
 export function LoginForm() {
   const router = useRouter();
-  const { login, googleAuth, isLoading, error, clearError } = useAuthStore();
+  const { login, googleAuth, isLoading, clearError } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [hasAuthError, setHasAuthError] = useState(false);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -40,6 +42,7 @@ export function LoginForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     clearError();
+    setHasAuthError(false);
 
     if (!validate()) {
       return;
@@ -50,6 +53,16 @@ export function LoginForm() {
       router.push("/dashboard");
     } catch (err) {
       console.error("Login failed:", err);
+      // Check if it's an authentication error (wrong credentials)
+      if (
+        err instanceof AuthenticationError ||
+        (err instanceof Error &&
+          (err.message.includes("401") ||
+            err.message.includes("Unauthorized") ||
+            err.message.includes("Invalid credentials")))
+      ) {
+        setHasAuthError(true);
+      }
     }
   };
 
@@ -83,13 +96,7 @@ export function LoginForm() {
 
           <div className={styles.divider}>OR</div>
 
-          {error && (
-            <div id="success-message" className={styles.successMessage} style={{ display: "block" }}>
-              {error}
-            </div>
-          )}
-
-          <div className="ui-form-field-large">
+          <div className={`ui-form-field-large ${hasAuthError ? "ui-form-field-error" : ""}`}>
             <label htmlFor="login-email">Email</label>
             <div>
               <EmailIcon />
@@ -103,6 +110,9 @@ export function LoginForm() {
                   if (validationErrors.email) {
                     setValidationErrors({ ...validationErrors, email: "" });
                   }
+                  if (hasAuthError) {
+                    setHasAuthError(false);
+                  }
                 }}
                 required
               />
@@ -115,7 +125,7 @@ export function LoginForm() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
-            <div className="ui-form-field-large" id="password-field">
+            <div className={`ui-form-field-large ${hasAuthError ? "ui-form-field-error" : ""}`} id="password-field">
               <label htmlFor="login-password">Password</label>
               <div>
                 <PasswordIcon />
@@ -129,6 +139,9 @@ export function LoginForm() {
                     if (validationErrors.password) {
                       setValidationErrors({ ...validationErrors, password: "" });
                     }
+                    if (hasAuthError) {
+                      setHasAuthError(false);
+                    }
                   }}
                   required
                 />
@@ -136,6 +149,11 @@ export function LoginForm() {
               {validationErrors.password && (
                 <div id="password-error-message" className="ui-form-field-error-message" style={{ display: "block" }}>
                   {validationErrors.password}
+                </div>
+              )}
+              {hasAuthError && !validationErrors.password && (
+                <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                  Invalid email or password
                 </div>
               )}
             </div>
