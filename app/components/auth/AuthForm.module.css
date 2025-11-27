@@ -78,7 +78,7 @@
 
 .creatorsBadge {
     text-align: center;
-    z-index: 1;
+    z-index: var(--z-index-base);
 
     .label {
         font-size: 10px;

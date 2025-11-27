@@ -9,7 +9,7 @@
     font-size: 14px;
     font-weight: 440;
     text-transform: none;
-    z-index: 3;
+    z-index: var(--z-index-base);
     transition: all 0.4s ease;
 }
 
@@ -70,7 +70,7 @@
     background: rgba(255, 255, 255, 0.98);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 2;
+    z-index: var(--z-index-base);
 
     .projectTitle {
         font-size: 25px;
@@ -115,7 +115,7 @@
     text-decoration: none;
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 3;
+    z-index: var(--z-index-base);
 
     &::after {
         content: "Get started >";

@@ -14,7 +14,7 @@ export default function NavigationLoadingOverlay({
   }
 
   return (
-    <div className="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 flex items-center justify-center transition-opacity duration-200 ease-in-out">
+    <div className="fixed inset-0 bg-white/95 backdrop-blur-sm z-resizer flex items-center justify-center transition-opacity duration-200 ease-in-out">
       <div className="text-center">
         {/* Simplified spinner using Tailwind's animate-spin */}
         <div className="relative">

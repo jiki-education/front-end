@@ -13,9 +13,9 @@ describe("NavigationLoadingOverlay", () => {
       const { container } = render(<NavigationLoadingOverlay isVisible={true} />);
 
       // Check for the overlay container
-      const overlay = container.querySelector(".fixed.inset-0.z-50");
+      const overlay = container.querySelector(".fixed.inset-0.z-resizer");
       expect(overlay).toBeInTheDocument();
-      expect(overlay).toHaveClass("fixed", "inset-0", "z-50");
+      expect(overlay).toHaveClass("fixed", "inset-0", "z-resizer");
     });
   });
 

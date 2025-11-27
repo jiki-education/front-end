@@ -17,7 +17,7 @@
 .logoLarge {
     font-size: 72px;
     font-weight: 500;
-    z-index: 1;
+    z-index: var(--z-index-base);
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     margin-bottom: 40px;
     line-height: 1;
@@ -27,7 +27,7 @@
     font-size: 32px;
     font-weight: 500;
     text-align: center;
-    z-index: 1;
+    z-index: var(--z-index-base);
     line-height: 1.3;
     text-wrap-style: balance;
     margin-bottom: 20px;
@@ -39,14 +39,14 @@
     opacity: 0.95;
     max-width: 500px;
     line-height: 1.6;
-    z-index: 1;
+    z-index: var(--z-index-base);
     text-wrap-style: balance;
     margin-bottom: 52px;
 }
 
 .creatorsBadge {
     text-align: center;
-    z-index: 1;
+    z-index: var(--z-index-base);
 }
 
 .creatorsBadge .label {
