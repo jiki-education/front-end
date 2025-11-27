@@ -43,14 +43,14 @@ export default function DynamicHeader({
               className={styles.exerciseIconImage}
             />
           </div>
-          
+
           {/* Top row: Exercise info */}
           <div className={styles.exerciseInfo}>
             <p className={styles.exerciseInfoText}>
               Exercise {exerciseData.progress} - {exerciseData.level}
             </p>
           </div>
-          
+
           {/* Navigation buttons - center aligned */}
           <NavigationButtons
             activeSection={activeSection}
@@ -59,7 +59,7 @@ export default function DynamicHeader({
             onNavigateToConceptLibrary={onNavigateToConceptLibrary}
             className={styles.navigationButtonsExpanded}
           />
-          
+
           {/* Bottom row: Exercise title */}
           <div>
             <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
@@ -70,7 +70,7 @@ export default function DynamicHeader({
         <div className={styles.collapsedGrid}>
           {/* LHS - Dynamic section title */}
           <h2 className={styles.sectionTitle}>{getSectionTitle()}</h2>
-          
+
           {/* RHS - Navigation buttons */}
           <NavigationButtons
             activeSection={activeSection}

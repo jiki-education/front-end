@@ -7,20 +7,13 @@ interface ConceptLibraryProps {
   className?: string;
 }
 
-export default function ConceptLibrary({ 
-  concepts, 
-  className = "" 
-}: ConceptLibraryProps) {
+export default function ConceptLibrary({ concepts, className = "" }: ConceptLibraryProps) {
   return (
     <div className={`${styles.conceptsContainer} ${className}`}>
       <h3 className={styles.conceptsTitle}>Concept Library</h3>
       <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
-          <ConceptCard
-            key={index}
-            concept={concept}
-            isAuthenticated={false}
-          />
+          <ConceptCard key={index} concept={concept} isAuthenticated={false} />
         ))}
       </div>
     </div>

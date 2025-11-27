@@ -6,16 +6,13 @@ interface InstructionsContentProps {
   className?: string;
 }
 
-export default function InstructionsContent({ 
-  instructions, 
-  className = "" 
-}: InstructionsContentProps) {
+export default function InstructionsContent({ instructions, className = "" }: InstructionsContentProps) {
   return (
     <div className={`${styles.instructionsContainer} ${className}`}>
-      <div 
+      <div
         className={styles.instructionsContent}
-        dangerouslySetInnerHTML={{ 
-          __html: marked(instructions) 
+        dangerouslySetInnerHTML={{
+          __html: marked(instructions)
         }}
       />
     </div>

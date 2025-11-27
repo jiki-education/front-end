@@ -24,33 +24,33 @@ export function RHS({ orchestrator }: RHSProps) {
 
   // Define tabs data for PageTabs
   const tabs = [
-    { 
-      id: "instructions", 
+    {
+      id: "instructions",
       label: "Instructions",
       icon: <FileIcon width={18} height={18} className="mr-2" />
     },
-    { 
-      id: "tasks", 
+    {
+      id: "tasks",
       label: "Tasks",
       icon: <CompleteIcon width={18} height={18} className="mr-2" />
     },
-    { 
-      id: "functions", 
+    {
+      id: "functions",
       label: "Functions",
       icon: <FolderIcon width={18} height={18} className="mr-2" />
     },
-    { 
-      id: "hints", 
+    {
+      id: "hints",
       label: "Hints",
       icon: <BugIcon width={18} height={18} className="mr-2" />
     },
-    { 
-      id: "console", 
+    {
+      id: "console",
       label: "Console",
       icon: <WindowIcon width={18} height={18} className="mr-2" />
     },
-    { 
-      id: "chat", 
+    {
+      id: "chat",
       label: "Chat",
       icon: <EmailIcon width={18} height={18} className="mr-2" />
     }

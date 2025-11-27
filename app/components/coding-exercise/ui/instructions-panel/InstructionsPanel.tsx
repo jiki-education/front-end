@@ -64,13 +64,13 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
     if (!sectionRef.current || !scrollContainerRef.current) {
       return;
     }
-    
+
     const container = scrollContainerRef.current;
     const targetElement = sectionRef.current;
     const containerTop = container.getBoundingClientRect().top;
     const targetTop = targetElement.getBoundingClientRect().top;
     const scrollOffset = targetTop - containerTop + container.scrollTop + 30;
-    
+
     container.scrollTo({
       top: scrollOffset,
       behavior: "smooth"
@@ -100,12 +100,9 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
         onNavigateToConceptLibrary={() => scrollToSection(conceptLibraryRef)}
         getSectionTitle={getSectionTitle}
       />
-      
+
       {/* Scrollable Content */}
-      <div 
-        ref={scrollContainerRef}
-        className={styles.scrollableContent}
-      >
+      <div ref={scrollContainerRef} className={styles.scrollableContent}>
         {/* Instructions Section */}
         <div ref={instructionsRef}>
           <InstructionsContent instructions={mockInstructionsData.instructions} />

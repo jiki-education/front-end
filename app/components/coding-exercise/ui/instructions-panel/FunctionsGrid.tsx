@@ -6,10 +6,7 @@ interface FunctionsGridProps {
   className?: string;
 }
 
-export default function FunctionsGrid({ 
-  functions, 
-  className = "" 
-}: FunctionsGridProps) {
+export default function FunctionsGrid({ functions, className = "" }: FunctionsGridProps) {
   return (
     <div className={`${styles.functionsContainer} ${className}`}>
       <h3 className={styles.functionsTitle}>Available Functions</h3>
@@ -17,12 +14,8 @@ export default function FunctionsGrid({
         {functions.map((func, index) => (
           <div key={index} className={styles.functionCard}>
             <div className={styles.functionHeader}>
-              <div className={styles.functionSignature}>
-                {func.signature}
-              </div>
-              <span className={styles.functionCategory}>
-                {func.category}
-              </span>
+              <div className={styles.functionSignature}>{func.signature}</div>
+              <span className={styles.functionCategory}>{func.category}</span>
             </div>
             <p className={styles.functionDescription}>{func.description}</p>
             {func.examples && func.examples.length > 0 && (
