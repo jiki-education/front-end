@@ -139,7 +139,7 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.rewrite(url);
 
     setCSP(response);
-    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+    // response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
 
     return response;
   }
