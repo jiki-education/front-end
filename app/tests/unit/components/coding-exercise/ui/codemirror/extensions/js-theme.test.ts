@@ -11,8 +11,8 @@ describe("js-theme", () => {
         gutterBackground: "#FFFFFF",
         gutterForeground: "#4D4D4C80",
         lineHighlight: "#D6ECFA80",
-        selection: "#D5D1F2",
-        selectionMatch: "#D5D1F2"
+        selection: "#3B82F6",
+        selectionMatch: "#3B82F6"
       });
     });
 

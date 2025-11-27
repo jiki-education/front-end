@@ -31,7 +31,7 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
 
         const rect = ref.current.getBoundingClientRect();
         const percentage = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-        return min + (max - min) * percentage;
+        return Math.round(min + (max - min) * percentage);
       },
       [min, max, currentValue, ref]
     );
