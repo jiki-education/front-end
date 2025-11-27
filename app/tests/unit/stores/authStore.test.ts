@@ -111,7 +111,6 @@ describe("AuthStore - Google Authentication", () => {
       expect(state.user).toBeNull();
       expect(state.isAuthenticated).toBe(false);
       expect(state.isLoading).toBe(false);
-      expect(state.error).toBe("Google authentication failed");
     });
 
     it("should handle non-Error exceptions gracefully", async () => {
@@ -122,7 +121,9 @@ describe("AuthStore - Google Authentication", () => {
       await expect(googleLogin("test-code")).rejects.toBe("String error");
 
       const state = useAuthStore.getState();
-      expect(state.error).toBe("Google login failed");
+      expect(state.user).toBeNull();
+      expect(state.isAuthenticated).toBe(false);
+      expect(state.isLoading).toBe(false);
     });
 
     it("should call authService.googleLogin with correct parameters", async () => {

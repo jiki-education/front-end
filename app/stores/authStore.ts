@@ -46,23 +46,20 @@ export const useAuthStore = create<AuthStore>()(
 
       // Login action
       login: async (credentials) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true });
         try {
           const user = await authService.login(credentials);
           set({
             user,
             isAuthenticated: true,
             isLoading: false,
-            error: null,
             hasCheckedAuth: true
           });
         } catch (error) {
-          const message = error instanceof Error ? error.message : "Login failed";
           set({
             user: null,
             isAuthenticated: false,
-            isLoading: false,
-            error: message
+            isLoading: false
           });
           throw error; // Re-throw for component handling
         }
@@ -70,23 +67,20 @@ export const useAuthStore = create<AuthStore>()(
 
       // Google login action (internal)
       googleLogin: async (credential) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true });
         try {
           const user = await authService.googleLogin(credential);
           set({
             user,
             isAuthenticated: true,
             isLoading: false,
-            error: null,
             hasCheckedAuth: true
           });
         } catch (error) {
-          const message = error instanceof Error ? error.message : "Google login failed";
           set({
             user: null,
             isAuthenticated: false,
-            isLoading: false,
-            error: message
+            isLoading: false
           });
           throw error; // Re-throw for component handling
         }
@@ -114,23 +108,20 @@ export const useAuthStore = create<AuthStore>()(
 
       // Signup action
       signup: async (userData) => {
-        set({ isLoading: true, error: null });
+        set({ isLoading: true });
         try {
           const user = await authService.signup(userData);
           set({
             user,
             isAuthenticated: true,
             isLoading: false,
-            error: null,
             hasCheckedAuth: true
           });
         } catch (error) {
-          const message = error instanceof Error ? error.message : "Signup failed";
           set({
             user: null,
             isAuthenticated: false,
-            isLoading: false,
-            error: message
+            isLoading: false
           });
           throw error;
         }

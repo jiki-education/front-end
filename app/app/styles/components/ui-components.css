@@ -208,14 +208,21 @@
     }
 
     /* Error state */
+    &.ui-form-field-error > div {
+        animation: ui-shake 0.5s;
+    }
+
     &.ui-form-field-error input {
         border-color: var(--color-red-500);
-        animation: ui-shake 0.5s;
 
         &:focus {
             border-color: var(--color-blue-500);
             box-shadow: 0 0 0 4px var(--color-blue-500-15);
         }
+    }
+
+    &.ui-form-field-error svg {
+        color: var(--color-red-500);
     }
 }
 
