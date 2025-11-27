@@ -86,7 +86,7 @@
 
 .exerciseContainer {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 342px 1fr;
     flex: 1;
     background: var(--color-gray-50);

@@ -61,7 +61,10 @@ export function useResizablePanels() {
       const percentage = (offsetX / containerRect.width) * 100;
 
       if (percentage >= 30 && percentage <= 70) {
-        container.style.gridTemplateColumns = `${percentage}% ${100 - percentage}%`;
+        // Use fr units instead of percentages to work better with gaps and margins
+        const leftFr = percentage / 50; // Convert percentage to fr ratio (50% = 1fr)
+        const rightFr = (100 - percentage) / 50;
+        container.style.gridTemplateColumns = `${leftFr}fr ${rightFr}fr`;
         container.style.setProperty("--lhs-width", `${percentage}%`);
         verticalDivider.style.left = `${percentage}%`;
       }
