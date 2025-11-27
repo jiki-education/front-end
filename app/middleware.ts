@@ -8,6 +8,32 @@ import type { NextRequest } from "next/server";
 const BASIC_AUTH_USER = "jiki";
 const BASIC_AUTH_PASSWORD = "ave-fetching-chloe-packed";
 
+function setCSP(response: NextResponse): void {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  // Set Content Security Policy headers
+  // Allow unsafe-inline for Next.js inline scripts (required for RSC flight data)
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com ${isProduction ? "" : "'unsafe-eval'"};
+    style-src 'self' 'unsafe-inline' https://accounts.google.com;
+    img-src 'self' blob: data: https://*.stripe.com;
+    font-src 'self';
+    connect-src 'self' https://api.jiki.io https://chat.jiki.io https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
+    frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
+    worker-src 'self' blob:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    ${isProduction ? "upgrade-insecure-requests;" : ""}
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
+  response.headers.set("Content-Security-Policy", cspHeader);
+}
+
 function checkBasicAuth(request: NextRequest): NextResponse | null {
   // Only apply basic auth in production
   if (process.env.NODE_ENV !== "production") {
@@ -106,28 +132,6 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const isProduction = process.env.NODE_ENV === "production";
-
-  // Set Content Security Policy headers
-  // Allow unsafe-inline for Next.js inline scripts (required for RSC flight data)
-  const cspHeader = `
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com ${isProduction ? "" : "'unsafe-eval'"};
-    style-src 'self' 'unsafe-inline' https://accounts.google.com;
-    img-src 'self' blob: data: https://*.stripe.com;
-    font-src 'self';
-    connect-src 'self' https://api.jiki.io https://chat.jiki.io https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
-    frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
-    worker-src 'self' blob:;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    ${isProduction ? "upgrade-insecure-requests;" : ""}
-  `
-    .replace(/\s{2,}/g, " ")
-    .trim();
-
   const isAuthenticated = request.cookies.has("jiki_access_token");
 
   // Rewrite unauthenticated /blog requests to static variant
@@ -137,14 +141,14 @@ export function middleware(request: NextRequest) {
 
     const response = NextResponse.rewrite(url);
 
-    response.headers.set("Content-Security-Policy", cspHeader);
+    setCSP(response);
     response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
 
     return response;
   }
 
   const response = NextResponse.next();
-  response.headers.set("Content-Security-Policy", cspHeader);
+  setCSP(response);
 
   // Cache favicon for 1 hour
   if (path === "/favicon.ico") {
