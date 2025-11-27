@@ -13,7 +13,7 @@ import styles from "./AuthForm.module.css";
 
 export function LoginForm() {
   const router = useRouter();
-  const { login, googleAuth, isLoading, clearError } = useAuthStore();
+  const { login, googleAuth, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +41,6 @@ export function LoginForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    clearError();
     setHasAuthError(false);
 
     if (!validate()) {
@@ -54,15 +53,11 @@ export function LoginForm() {
     } catch (err) {
       console.error("Login failed:", err);
       // Check if it's an authentication error (wrong credentials)
-      if (
-        err instanceof AuthenticationError ||
-        (err instanceof Error &&
-          (err.message.includes("401") ||
-            err.message.includes("Unauthorized") ||
-            err.message.includes("Invalid credentials")))
-      ) {
+      if (err instanceof AuthenticationError) {
         setHasAuthError(true);
       }
+      // If not an AuthenticationError, it's likely a network/server error
+      // Don't show field-specific error for those cases
     }
   };
 

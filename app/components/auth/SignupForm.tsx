@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
+import { ApiError } from "@/lib/api/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -12,7 +13,7 @@ import styles from "./AuthForm.module.css";
 
 export function SignupForm() {
   const router = useRouter();
-  const { signup, googleAuth, isLoading, clearError } = useAuthStore();
+  const { signup, googleAuth, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +42,6 @@ export function SignupForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    clearError();
     setHasAuthError(false);
     setAuthErrorField(null);
 
@@ -59,9 +59,17 @@ export function SignupForm() {
       router.push("/dashboard");
     } catch (err) {
       console.error("Signup failed:", err);
-      // For signup errors, assume it's usually about email already existing
-      setHasAuthError(true);
-      setAuthErrorField("email");
+
+      if (err instanceof ApiError) {
+        // Handle specific HTTP status codes
+        if (err.status === 409 || err.status === 422) {
+          // 409 Conflict or 422 Unprocessable Entity - likely email already exists
+          setHasAuthError(true);
+          setAuthErrorField("email");
+        }
+        // For other API errors (500, 503, etc.), don't show field-specific error
+      }
+      // For network errors or other non-API errors, don't show field-specific error
     }
   };
 
