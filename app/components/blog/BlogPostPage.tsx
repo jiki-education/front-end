@@ -1,22 +1,23 @@
 import { getAllBlogPosts, getBlogPost } from "@jiki/content";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import BlogPostContent from "./BlogPostContent";
-import CTABlock from "@/components/blog/CTABlock";
-import RelatedArticles from "@/components/blog/RelatedArticles";
+import CTABlock from "./CTABlock";
+import RelatedArticles from "./RelatedArticles";
 
-interface Props {
-  params: Promise<{ slug: string }>;
+interface BlogPostPageProps {
+  slug: string;
+  authenticated: boolean;
 }
 
-export function generateStaticParams() {
+// Helper for generateStaticParams
+export function getBlogPostStaticParams() {
   const blogPosts = getAllBlogPosts("en");
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-
+// Helper for generateMetadata
+export function getBlogPostMetadata(slug: string): Metadata {
   try {
     const post = getBlogPost(slug, "en");
     return {
@@ -29,9 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-
+export default function BlogPostPage({ slug, authenticated }: BlogPostPageProps) {
   let post;
   try {
     post = getBlogPost(slug, "en");
@@ -84,6 +83,10 @@ export default async function BlogPostPage({ params }: Props) {
       locale: "en"
     }
   ];
+
+  if (authenticated) {
+    return <BlogPostContent post={post} variant="authenticated" />;
+  }
 
   return (
     <>

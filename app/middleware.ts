@@ -132,7 +132,7 @@ export function middleware(request: NextRequest) {
   // Rewrite unauthenticated /blog requests to static variant
   //
   const isAuthenticated = request.cookies.has("jiki_access_token");
-  if (!isAuthenticated && path === "/blog") {
+  if (!isAuthenticated && path.startsWith("/blog")) {
     const url = request.nextUrl.clone();
     url.pathname = `/external${path}`;
 
