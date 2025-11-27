@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 // Basic authentication credentials
 // NOTE: These credentials are intentionally hardcoded and not considered secrets.
@@ -134,7 +134,7 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = request.cookies.has("jiki_access_token");
   if (!isAuthenticated && path === "/blog") {
     const url = request.nextUrl.clone();
-    url.pathname = "/external/blog";
+    url.pathname = `/external${path}`;
 
     const response = NextResponse.rewrite(url);
 
