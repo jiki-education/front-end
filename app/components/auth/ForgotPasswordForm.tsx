@@ -8,7 +8,7 @@ import EmailIcon from "../../icons/email.svg";
 import styles from "./AuthForm.module.css";
 
 export function ForgotPasswordForm() {
-  const { requestPasswordReset, isLoading, error, clearError } = useAuthStore();
+  const { requestPasswordReset, isLoading, clearError } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -54,12 +54,6 @@ export function ForgotPasswordForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {error && (
-            <div className={styles.successMessage} style={{ display: "block" }}>
-              {error}
-            </div>
-          )}
-
           {successMessage && (
             <div className={styles.successMessage} style={{ display: "block" }}>
               {successMessage}
