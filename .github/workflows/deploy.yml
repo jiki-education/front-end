@@ -2,7 +2,7 @@ name: Deploy Cloudflare Workers
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/sri-csp-implementation]
 
 jobs:
   deploy-app:
