@@ -5,7 +5,7 @@ import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
 
 export function GlobalModalProvider() {
-  const { isOpen, modalName, modalProps } = useModalStore();
+  const { isOpen, modalName, modalProps, overlayClassName } = useModalStore();
 
   // Get the current modal component
   const ModalComponent = modalName ? availableModals[modalName as keyof typeof availableModals] : null;
@@ -16,7 +16,11 @@ export function GlobalModalProvider() {
 
   // Pass modal props to the modal component
   return (
-    <BaseModal isOpen={isOpen} onRequestClose={hideModal}>
+    <BaseModal 
+      isOpen={isOpen} 
+      onRequestClose={hideModal}
+      overlayClassName={overlayClassName}
+    >
       <ModalComponent {...modalProps} />
     </BaseModal>
   );

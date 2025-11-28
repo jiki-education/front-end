@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import Modal from "react-modal";
+import styles from "@/app/styles/components/modals.module.css";
 
 interface BaseModalProps {
   isOpen: boolean;
@@ -24,8 +25,8 @@ export function BaseModal({
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`relative bg-white rounded-lg shadow-xl p-6 max-w-2xl w-full mx-4 z-modal ${className}`}
-      overlayClassName={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-modal-backdrop ${overlayClassName}`}
+      className={`${styles.modal} ${className}`}
+      overlayClassName={`${styles.modalOverlay} ${overlayClassName}`}
       ariaHideApp={false}
     >
       {title && (
