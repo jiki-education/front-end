@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/stores/authStore";
+import { ApiError } from "@/lib/api/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -12,11 +13,13 @@ import styles from "./AuthForm.module.css";
 
 export function SignupForm() {
   const router = useRouter();
-  const { signup, googleAuth, isLoading, error, clearError } = useAuthStore();
+  const { signup, googleAuth, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [hasAuthError, setHasAuthError] = useState(false);
+  const [authErrorField, setAuthErrorField] = useState<string | null>(null);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -29,8 +32,8 @@ export function SignupForm() {
 
     if (!password) {
       errors.password = "Password is required";
-    } else if (password.length < 8) {
-      errors.password = "Password must be at least 8 characters";
+    } else if (password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
     }
 
     setValidationErrors(errors);
@@ -39,9 +42,11 @@ export function SignupForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    clearError();
+    setHasAuthError(false);
+    setAuthErrorField(null);
 
     if (!validate()) {
+      // Don't set auth error for validation errors - let validation errors handle their own styling
       return;
     }
 
@@ -54,6 +59,17 @@ export function SignupForm() {
       router.push("/dashboard");
     } catch (err) {
       console.error("Signup failed:", err);
+
+      if (err instanceof ApiError) {
+        // Handle specific HTTP status codes
+        if (err.status === 409 || err.status === 422) {
+          // 409 Conflict or 422 Unprocessable Entity - likely email already exists
+          setHasAuthError(true);
+          setAuthErrorField("email");
+        }
+        // For other API errors (500, 503, etc.), don't show field-specific error
+      }
+      // For network errors or other non-API errors, don't show field-specific error
     }
   };
 
@@ -88,13 +104,9 @@ export function SignupForm() {
 
           <div className={styles.divider}>OR</div>
 
-          {error && (
-            <div className={styles.successMessage} style={{ display: "block" }}>
-              {error}
-            </div>
-          )}
-
-          <div className="ui-form-field-large">
+          <div
+            className={`ui-form-field-large ${validationErrors.email || (hasAuthError && authErrorField === "email") ? "ui-form-field-error" : ""}`}
+          >
             <label htmlFor="signup-email">Email</label>
             <div>
               <EmailIcon />
@@ -108,6 +120,10 @@ export function SignupForm() {
                   if (validationErrors.email) {
                     setValidationErrors({ ...validationErrors, email: "" });
                   }
+                  if (hasAuthError && authErrorField === "email") {
+                    setHasAuthError(false);
+                    setAuthErrorField(null);
+                  }
                 }}
                 required
               />
@@ -117,9 +133,18 @@ export function SignupForm() {
                 {validationErrors.email}
               </div>
             )}
+            {hasAuthError && authErrorField === "email" && !validationErrors.email && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                This email is already registered
+              </div>
+            )}
           </div>
 
-          <div className="ui-form-field-large" id="password-field" style={{ marginBottom: "8px" }}>
+          <div
+            className={`ui-form-field-large ${validationErrors.password ? "ui-form-field-error" : ""}`}
+            id="password-field"
+            style={{ marginBottom: "8px" }}
+          >
             <label htmlFor="signup-password">Password</label>
             <div>
               <PasswordIcon />

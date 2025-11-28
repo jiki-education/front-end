@@ -1,0 +1,49 @@
+/**
+ * Z-index Utilities
+ * Provides utility classes for our layered z-index system
+ */
+
+@layer utilities {
+    .z-base {
+        z-index: var(--z-index-base);
+    }
+    .z-dropdown {
+        z-index: var(--z-index-dropdown);
+    }
+    .z-sticky {
+        z-index: var(--z-index-sticky);
+    }
+    .z-fixed {
+        z-index: var(--z-index-fixed);
+    }
+    .z-overlay-backdrop {
+        z-index: var(--z-index-overlay-backdrop);
+    }
+    .z-resizer {
+        z-index: var(--z-index-resizer);
+    }
+    .z-popover {
+        z-index: var(--z-index-popover);
+    }
+    .z-tooltip {
+        z-index: var(--z-index-tooltip);
+    }
+    .z-tooltip-content {
+        z-index: var(--z-index-tooltip-content);
+    }
+    .z-modal-backdrop {
+        z-index: var(--z-index-modal-backdrop);
+    }
+    .z-modal {
+        z-index: var(--z-index-modal);
+    }
+    .z-spotlight-backdrop {
+        z-index: var(--z-index-spotlight-backdrop);
+    }
+    .z-spotlight {
+        z-index: var(--z-index-spotlight);
+    }
+    .z-notification {
+        z-index: var(--z-index-notification);
+    }
+}

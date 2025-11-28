@@ -110,7 +110,7 @@ export const FormFieldWithRenderProps = forwardRef<HTMLInputElement, FormFieldWi
         {/* Input container with icon support */}
         <div className="relative">
           {renderIcon && (
-            <div className="absolute left-16 top-1/2 transform -translate-y-1/2 z-10">
+            <div className="absolute left-16 top-1/2 transform -translate-y-1/2 z-dropdown">
               {renderIcon({ isFocused, hasError })}
             </div>
           )}

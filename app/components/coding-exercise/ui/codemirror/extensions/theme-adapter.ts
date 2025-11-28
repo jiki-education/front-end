@@ -10,8 +10,8 @@ export const LIGHT_EDITOR_COLORS = {
   gutterBackground: "#FFFFFF",
   gutterForeground: "#4D4D4C80",
   lineHighlight: "#D6ECFA80",
-  selection: "#D5D1F2",
-  selectionMatch: "#D5D1F2"
+  selection: "#3B82F6",
+  selectionMatch: "#3B82F6"
 };
 
 // Dark theme colors
@@ -22,8 +22,8 @@ export const DARK_EDITOR_COLORS = {
   gutterBackground: "#1a1a1a",
   gutterForeground: "#71717a",
   lineHighlight: "#374151",
-  selection: "#374151",
-  selectionMatch: "#374151"
+  selection: "#2563EB",
+  selectionMatch: "#2563EB"
 };
 
 // Light theme syntax highlighting

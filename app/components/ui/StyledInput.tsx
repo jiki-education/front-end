@@ -138,7 +138,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
           {label}
         </label>
         <div className={`relative ${error ? "form-field-error" : ""}`}>
-          <div className="absolute left-16 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute left-16 top-1/2 -translate-y-1/2 z-dropdown">
             {icon === "email" && (
               <>
                 <EmailIconDefault focused={isFocused || isHovered} />

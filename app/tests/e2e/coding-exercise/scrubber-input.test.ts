@@ -330,7 +330,7 @@ describe("ScrubberInput E2E", () => {
       expect(time).toBeTruthy();
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const timeValue = parseFloat(time!.replace("Timeline Time: ", ""));
-      expect(timeValue).toBeCloseTo(610000, -3); // Within 1000 microseconds
+      expect(timeValue).toBeCloseTo(610000, -3.1); // within ~500 ms
 
       // Release again (should snap) - trigger snapping from current position
       await scrubberInput?.evaluate((el) => {

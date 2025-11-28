@@ -23,9 +23,6 @@ body {
         "Segoe UI",
         Roboto,
         sans-serif;
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
 
     &::after {
         content: "";
@@ -36,7 +33,7 @@ body {
         height: 100vh;
         background: rgba(0, 0, 0, 0);
         pointer-events: none;
-        z-index: 999;
+        z-index: var(--z-index-spotlight-backdrop);
         transition: background-color 2.5s ease-in-out;
     }
 
@@ -46,7 +43,7 @@ body {
 
     .spotlight {
         position: relative;
-        z-index: 1000;
+        z-index: var(--z-index-spotlight);
     }
 }
 

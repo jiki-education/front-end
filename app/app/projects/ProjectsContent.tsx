@@ -110,7 +110,7 @@ export function ProjectsContent({ isAuthenticated, isReady }: ProjectsContentPro
           <p>Build real applications and games to practice your coding skills.</p>
         </header>
 
-        <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+        <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
         {filteredProjects.length === 0 ? (
           <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />

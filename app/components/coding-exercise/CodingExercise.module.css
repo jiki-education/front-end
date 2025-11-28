@@ -86,7 +86,7 @@
 
 .exerciseContainer {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 342px 1fr;
     flex: 1;
     background: var(--color-gray-50);
@@ -104,7 +104,7 @@
     width: 8px;
     background: var(--color-gray-50);
     cursor: col-resize;
-    z-index: 50;
+    z-index: var(--z-index-resizer);
     transform: translateX(-50%);
     transition: background 0.2s;
 }
@@ -144,7 +144,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    z-index: 10;
+    z-index: var(--z-index-dropdown);
     border-radius: 8px;
     border: 1px solid var(--color-gray-200);
     margin: 8px;
@@ -158,7 +158,7 @@
     height: 8px;
     background: var(--color-gray-50);
     cursor: row-resize;
-    z-index: 50;
+    z-index: var(--z-index-resizer);
     transition: background 0.2s;
 }
 
@@ -182,7 +182,7 @@
     position: absolute;
     bottom: 9px;
     right: 16px;
-    z-index: 100;
+    z-index: var(--z-index-fixed);
 }
 
 /* Test Results Area */
@@ -669,6 +669,7 @@
     flex: 1;
     height: 8px;
     margin-right: 8px;
+    margin-left: 8px;
     background: var(--color-gray-200);
     border-radius: 4px;
     position: relative;
@@ -980,7 +981,7 @@
 
 .tabContentSection.chatSection > * {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-index-base);
 }
 
 .tabSectionTitle {
@@ -1888,7 +1889,7 @@
 
             @apply absolute bottom-[-10px] left-[50%];
             transform: translateX(-50%);
-            z-index: 100;
+            z-index: var(--z-index-fixed);
 
             width: 0;
             height: 0;

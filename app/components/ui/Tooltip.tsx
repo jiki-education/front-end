@@ -78,7 +78,7 @@ export default function Tooltip({
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
-            className="z-50 px-2 py-1.5 text-xs bg-surface-elevated border border-border-primary text-text-primary rounded-md shadow-lg max-w-xs"
+            className="z-resizer px-2 py-1.5 text-xs bg-surface-elevated border border-border-primary text-text-primary rounded-md shadow-lg max-w-xs"
             role="tooltip"
           >
             {content}

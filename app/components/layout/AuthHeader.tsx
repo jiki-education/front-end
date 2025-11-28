@@ -19,7 +19,7 @@ export function AuthHeader({ title }: AuthHeaderProps) {
   }, []);
 
   return (
-    <header className="bg-bg-primary border-b border-border-primary sticky top-0 z-50 p-20">
+    <header className="bg-bg-primary border-b border-border-primary sticky top-0 z-resizer p-20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Title */}
