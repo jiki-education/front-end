@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" data-theme="dark">
+    <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} antialiased ui-body`}>
         <Script src="/static/theme-script.js" strategy="beforeInteractive" />
         <ThemeProvider>
