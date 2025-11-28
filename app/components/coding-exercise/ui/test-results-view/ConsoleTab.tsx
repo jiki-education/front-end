@@ -2,11 +2,13 @@
 
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 
 interface LogLineProps {
   log: { time: number; output: string };
   isActive: boolean;
   index: number;
+  lineNumber?: number;
 }
 
 export default function ConsoleTab() {
@@ -17,16 +19,39 @@ export default function ConsoleTab() {
     return <div className="console-tab-empty text-gray-500 text-center p-5 italic">No console output</div>;
   }
 
+  // Pre-compute line numbers for all log lines to avoid O(n*m) complexity
+  const logLineNumbers = currentTest.logLines.map((log) => {
+    // Find the frame that corresponds to this log time (or the closest frame before it)
+    let closestFrame = null;
+    for (const frame of currentTest.frames) {
+      if (frame.time <= log.time) {
+        closestFrame = frame;
+      } else {
+        break;
+      }
+    }
+    return closestFrame?.line;
+  });
+
   return (
-    <div className="console-tab bg-gray-900 text-gray-300 font-mono text-xs p-2 overflow-y-auto h-full" role="log">
-      {currentTest.logLines.map((log, index) => (
-        <LogLine key={index} log={log} isActive={currentTestTime >= log.time} index={index} />
-      ))}
+    <div className="console-tab bg-purple-50 text-purple-900 font-mono text-xs p-2 overflow-y-auto h-full" role="log">
+      {currentTest.logLines.map((log, index) => {
+        const logLineNumber = logLineNumbers[index];
+        return (
+          <LogLine
+            key={index}
+            log={log}
+            isActive={currentTestTime >= log.time}
+            index={index}
+            lineNumber={logLineNumber}
+          />
+        );
+      })}
     </div>
   );
 }
 
-function LogLine({ log, isActive, index }: LogLineProps) {
+function LogLine({ log, isActive, index, lineNumber }: LogLineProps) {
   const orchestrator = useOrchestrator();
 
   const handleClick = () => {
@@ -35,19 +60,20 @@ function LogLine({ log, isActive, index }: LogLineProps) {
 
   return (
     <div
-      className={`log-line py-0.5 cursor-pointer hover:bg-gray-700 ${
-        isActive ? "opacity-100 bg-gray-800" : "opacity-40"
-      }`}
+      className={`log-line py-0.5 cursor-pointer hover:bg-purple-200 ${isActive ? "bg-purple-300" : ""}`}
       onClick={handleClick}
       data-testid={`log-line-${index}`}
     >
-      <span className="log-timestamp text-gray-500 mr-2">{formatTimestamp(log.time)}</span>
+      <span className="log-timestamp text-purple-600 mr-2">{formatTimestamp(log.time)}</span>
+      {lineNumber !== undefined && <span className="log-line-number text-purple-500 mr-2">L{lineNumber}</span>}
       <span>{log.output}</span>
     </div>
   );
 }
 
 function formatTimestamp(time: number): string {
-  const seconds = (time / 1000000).toFixed(3);
-  return `${seconds}s`;
+  const timeInMs = time / TIME_SCALE_FACTOR;
+  const seconds = Math.floor(timeInMs / 1000);
+  const milliseconds = timeInMs % 1000;
+  return `${seconds.toString().padStart(2, "0")}:${milliseconds.toString().padStart(3, "0")}`;
 }
