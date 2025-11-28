@@ -11,7 +11,7 @@ export default async function AppBlogPage() {
     return <BlogPage authenticated={false} />;
   }
 
-  // Authenticated UI with sidebar
+  // Authenticated UI with header/footer
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />

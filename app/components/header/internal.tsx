@@ -1,16 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { useAuth } from "@/lib/auth/hooks";
-import ExternalHeader from "./external";
 
 export default function Header() {
-  const { isAuthenticated } = useAuth();
-
-  if (!isAuthenticated) {
-    return <ExternalHeader />;
-  }
-
   return (
     <header className="fixed top-0 left-0 right-0 h-72 bg-white border-b-2 border-gray-200 flex items-center justify-between px-40 z-modal">
       <Link
