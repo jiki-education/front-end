@@ -17,13 +17,28 @@ const mockRouter = {
   prefetch: jest.fn()
 };
 
+let mockPathname = "/dashboard";
+
 jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(() => mockRouter)
+  useRouter: jest.fn(() => mockRouter),
+  usePathname: jest.fn(() => mockPathname)
 }));
 
 // Mock the auth store
 jest.mock("@/stores/authStore", () => ({
   useAuthStore: jest.fn()
+}));
+
+// Mock external URL detection
+const mockIsExternalUrl = jest.fn((pathname: string) => pathname.startsWith("/blog"));
+jest.mock("@/lib/routing/external-urls", () => ({
+  isExternalUrl: (pathname: string) => mockIsExternalUrl(pathname)
+}));
+
+// Mock token removal
+const mockRemoveAccessToken = jest.fn();
+jest.mock("@/lib/auth/storage", () => ({
+  removeAccessToken: () => mockRemoveAccessToken()
 }));
 
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
@@ -32,6 +47,9 @@ describe("Auth Hooks - Race Condition Prevention", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockPush.mockClear();
+    mockRemoveAccessToken.mockClear();
+    mockIsExternalUrl.mockClear();
+    mockPathname = "/dashboard"; // Reset to default
   });
 
   describe("useRequireAuth", () => {
@@ -242,36 +260,11 @@ describe("Auth Hooks - Race Condition Prevention", () => {
       expect(result.current.isAuthenticated).toBe(false);
     });
 
-    it("should call callbacks when authentication state is determined", async () => {
-      const onAuthenticated = jest.fn();
-      const onUnauthenticated = jest.fn();
+    it("should redirect to external URL when unauthenticated on external route", async () => {
+      // Set pathname to an external URL
+      mockPathname = "/blog";
 
-      // Start with checking state
-      mockUseAuthStore.mockReturnValue({
-        isAuthenticated: false,
-        isLoading: true,
-        user: null,
-        hasCheckedAuth: false,
-        login: jest.fn(),
-        signup: jest.fn(),
-        logout: jest.fn(),
-        checkAuth: jest.fn(),
-        requestPasswordReset: jest.fn(),
-        resetPassword: jest.fn(),
-        clearError: jest.fn(),
-        setLoading: jest.fn(),
-        error: null
-      });
-
-      const { rerender } = renderHook(() =>
-        useRequireAuth({
-          onAuthenticated,
-          onUnauthenticated,
-          redirectTo: "/login"
-        })
-      );
-
-      // Complete auth check with unauthenticated result
+      // Simulate completed auth check with unauthenticated user
       mockUseAuthStore.mockReturnValue({
         isAuthenticated: false,
         isLoading: false,
@@ -288,14 +281,71 @@ describe("Auth Hooks - Race Condition Prevention", () => {
         error: null
       });
 
-      rerender();
+      renderHook(() => useRequireAuth());
 
       await waitFor(() => {
-        expect(onUnauthenticated).toHaveBeenCalledTimes(1);
+        expect(mockRemoveAccessToken).toHaveBeenCalled();
+        expect(mockPush).toHaveBeenCalledWith("/blog");
+      });
+    });
+
+    it("should redirect to login when unauthenticated on internal route", async () => {
+      // Set pathname to an internal URL
+      mockPathname = "/dashboard";
+
+      // Simulate completed auth check with unauthenticated user
+      mockUseAuthStore.mockReturnValue({
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
+        hasCheckedAuth: true,
+        login: jest.fn(),
+        signup: jest.fn(),
+        logout: jest.fn(),
+        checkAuth: jest.fn(),
+        requestPasswordReset: jest.fn(),
+        resetPassword: jest.fn(),
+        clearError: jest.fn(),
+        setLoading: jest.fn(),
+        error: null
       });
 
-      expect(onAuthenticated).not.toHaveBeenCalled();
-      expect(mockPush).toHaveBeenCalledWith("/login");
+      renderHook(() => useRequireAuth());
+
+      await waitFor(() => {
+        expect(mockRemoveAccessToken).toHaveBeenCalled();
+        expect(mockPush).toHaveBeenCalledWith("/auth/login");
+      });
+    });
+
+    it("should clear access token before redirecting unauthenticated users", async () => {
+      mockUseAuthStore.mockReturnValue({
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
+        hasCheckedAuth: true,
+        login: jest.fn(),
+        signup: jest.fn(),
+        logout: jest.fn(),
+        checkAuth: jest.fn(),
+        requestPasswordReset: jest.fn(),
+        resetPassword: jest.fn(),
+        clearError: jest.fn(),
+        setLoading: jest.fn(),
+        error: null
+      });
+
+      renderHook(() => useRequireAuth());
+
+      await waitFor(() => {
+        expect(mockRemoveAccessToken).toHaveBeenCalled();
+        expect(mockPush).toHaveBeenCalled();
+      });
+
+      // Verify removeAccessToken was called before router.push
+      const removeTokenCallOrder = mockRemoveAccessToken.mock.invocationCallOrder[0];
+      const pushCallOrder = mockPush.mock.invocationCallOrder[0];
+      expect(removeTokenCallOrder).toBeLessThan(pushCallOrder);
     });
   });
 

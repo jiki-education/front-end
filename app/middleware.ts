@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isExternalUrl } from "@/lib/routing/external-urls";
 
 // Basic authentication credentials
 // NOTE: These credentials are intentionally hardcoded and not considered secrets.
@@ -129,10 +130,10 @@ export function middleware(request: NextRequest) {
   }
 
   //
-  // Rewrite unauthenticated /blog requests to static variant
+  // Rewrite unauthenticated external URL requests to static variant
   //
   const isAuthenticated = request.cookies.has("jiki_access_token");
-  if (!isAuthenticated && path.startsWith("/blog")) {
+  if (!isAuthenticated && isExternalUrl(path)) {
     const url = request.nextUrl.clone();
     url.pathname = `/external${path}`;
 
