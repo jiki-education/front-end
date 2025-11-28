@@ -13,7 +13,7 @@ interface LogLineProps {
 
 export default function ConsoleTab() {
   const orchestrator = useOrchestrator();
-  const { currentTest, currentFrame } = useOrchestratorStore(orchestrator);
+  const { currentTest, currentTestTime } = useOrchestratorStore(orchestrator);
 
   if (!currentTest || currentTest.logLines.length === 0) {
     return <div className="console-tab-empty text-gray-500 text-center p-5 italic">No console output</div>;
@@ -41,7 +41,7 @@ export default function ConsoleTab() {
           <LogLine
             key={index}
             log={log}
-            isActive={currentFrame?.line === logLineNumber}
+            isActive={currentTestTime >= log.time}
             index={index}
             lineNumber={logLineNumber}
           />

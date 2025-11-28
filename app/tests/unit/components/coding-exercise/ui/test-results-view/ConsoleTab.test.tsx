@@ -223,7 +223,7 @@ describe("ConsoleTab Component", () => {
   });
 
   describe("timeline interaction", () => {
-    it("should show active state for log line that matches current frame line", () => {
+    it("should show active state for log lines up to current test time", () => {
       const frames = [
         {
           line: 1,
@@ -260,7 +260,8 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentFrame: frames[1] // Frame on line 2
+          currentFrame: frames[1], // Frame on line 2
+          currentTestTime: 200000 // At second log time
         })
       );
 
@@ -270,8 +271,8 @@ describe("ConsoleTab Component", () => {
       const secondLog = screen.getByTestId("log-line-1");
       const thirdLog = screen.getByTestId("log-line-2");
 
-      // Only second log should be active (matches currentFrame.line = 2)
-      expect(firstLog).not.toHaveClass("bg-purple-300");
+      // First two logs should be active (time-based: currentTestTime >= log.time)
+      expect(firstLog).toHaveClass("bg-purple-300");
       expect(secondLog).toHaveClass("bg-purple-300");
       expect(thirdLog).not.toHaveClass("bg-purple-300");
     });
