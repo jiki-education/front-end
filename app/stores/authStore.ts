@@ -186,7 +186,16 @@ export const useAuthStore = create<AuthStore>()(
             // Validate token using the auth service (now without circular dependency)
             const isValid = await authService.validateToken();
             if (!isValid) {
-              // Token is invalid or expired, clear auth state
+              // Token is invalid or expired, try to refresh it
+              const newToken = await authService.refreshAccessToken();
+
+              if (newToken) {
+                // Refresh successful, update state
+                set({ isLoading: false, hasCheckedAuth: true });
+                return;
+              }
+
+              // Refresh failed, clear auth state
               removeAccessToken();
               set({
                 user: null,
