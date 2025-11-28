@@ -175,7 +175,8 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
+      // Only refresh token should be removed on 401
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
 
@@ -191,8 +192,9 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // Should NOT remove tokens on server errors (transient)
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
 
     it("should handle network errors", async () => {
@@ -201,8 +203,9 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // Should NOT remove tokens on network errors (might work later)
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
 
     it("should handle missing refresh token", async () => {
@@ -284,8 +287,10 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // JSON parsing error is a code/data issue, not an auth issue
+      // Should NOT remove tokens
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
   });
 

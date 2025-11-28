@@ -3,13 +3,7 @@
  * Standalone refresh logic that doesn't depend on the API client to avoid circular dependencies
  */
 
-import {
-  getRefreshToken,
-  getTokenExpiry,
-  setAccessToken,
-  removeAccessToken,
-  removeRefreshToken
-} from "@/lib/auth/storage";
+import { getRefreshToken, getTokenExpiry, setAccessToken, removeRefreshToken } from "@/lib/auth/storage";
 import { getApiUrl } from "@/lib/api/config";
 
 interface RefreshResponse {
@@ -88,9 +82,14 @@ async function performRefresh(refreshToken: string): Promise<string | null> {
 
     if (!response.ok) {
       console.error("Refresh token request failed:", response.status, response.statusText);
-      // Clear invalid tokens
-      removeAccessToken();
-      removeRefreshToken();
+      // Only remove refresh token if it's invalid (401 Unauthorized)
+      // For other errors (5xx, network issues), keep tokens for retry
+      if (response.status === 401) {
+        console.error("Refresh token invalid or expired");
+        removeRefreshToken();
+      } else {
+        console.error("Refresh failed with status", response.status, "- keeping tokens for retry");
+      }
       return null;
     }
 
@@ -123,10 +122,8 @@ async function performRefresh(refreshToken: string): Promise<string | null> {
     console.error("No access token in refresh response");
     return null;
   } catch (error) {
-    console.error("Failed to refresh access token:", error);
-    // Clear tokens on network/other errors
-    removeAccessToken();
-    removeRefreshToken();
+    // Network error or other exception - keep tokens, might work on retry
+    console.error("Network error during token refresh, keeping tokens:", error);
     return null;
   }
 }

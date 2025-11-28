@@ -4,7 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
-import { hasValidToken, removeAccessToken } from "@/lib/auth/storage";
+import { hasValidToken, removeAccessToken, removeRefreshToken } from "@/lib/auth/storage";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -135,8 +135,9 @@ export const useAuthStore = create<AuthStore>()(
         } catch (error) {
           console.error("Logout error:", error);
         } finally {
-          // Always clear state regardless of API response
+          // Always clear both tokens regardless of API response
           removeAccessToken();
+          removeRefreshToken();
           set({
             user: null,
             isAuthenticated: false,
@@ -149,6 +150,7 @@ export const useAuthStore = create<AuthStore>()(
       // Clear authentication state (for internal use)
       clearAuthState: () => {
         removeAccessToken();
+        removeRefreshToken();
         set({
           user: null,
           isAuthenticated: false,
@@ -195,8 +197,9 @@ export const useAuthStore = create<AuthStore>()(
                 return;
               }
 
-              // Refresh failed, clear auth state
+              // Refresh failed, clear both tokens explicitly
               removeAccessToken();
+              removeRefreshToken();
               set({
                 user: null,
                 isAuthenticated: false,

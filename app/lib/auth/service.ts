@@ -140,9 +140,10 @@ export async function logout(): Promise<void> {
     console.error("Logout API call failed:", error);
   }
 
-  // Always clear local tokens regardless of API response
-  const { removeAccessToken } = await import("@/lib/auth/storage");
-  removeAccessToken(); // This now also clears refresh token
+  // Always clear both tokens regardless of API response
+  const { removeAccessToken, removeRefreshToken } = await import("@/lib/auth/storage");
+  removeAccessToken();
+  removeRefreshToken();
 }
 
 /**
@@ -157,9 +158,10 @@ export async function logoutFromAllDevices(): Promise<void> {
     console.error("Logout from all devices API call failed:", error);
   }
 
-  // Always clear local tokens regardless of API response
-  const { removeAccessToken } = await import("@/lib/auth/storage");
-  removeAccessToken(); // This now also clears refresh token
+  // Always clear both tokens regardless of API response
+  const { removeAccessToken, removeRefreshToken } = await import("@/lib/auth/storage");
+  removeAccessToken();
+  removeRefreshToken();
 }
 
 /**

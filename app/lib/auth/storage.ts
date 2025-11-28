@@ -22,16 +22,17 @@ export function getAccessToken(): string | null {
 }
 
 /**
- * Remove stored JWT access token and refresh token
+ * Remove stored JWT access token
+ * Note: Does not remove refresh token - caller must handle that explicitly
  */
 export function removeAccessToken(): void {
   removeAccessTokenCookie();
-  removeRefreshToken(); // Also clear refresh token
 }
 
 /**
  * Check if access token exists and is valid
  * Validates JWT exp claim
+ * Note: This is a pure function - it does NOT remove expired tokens
  */
 export function hasValidToken(): boolean {
   const token = getAccessToken();
@@ -44,8 +45,8 @@ export function hasValidToken(): boolean {
   if (payload && payload.exp) {
     const expiryMs = payload.exp * 1000;
     if (Date.now() > expiryMs) {
-      // Token has expired according to JWT claim
-      removeAccessToken();
+      // Token has expired - just return false
+      // Caller is responsible for token cleanup
       return false;
     }
   }

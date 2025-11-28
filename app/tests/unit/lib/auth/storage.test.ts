@@ -107,14 +107,24 @@ describe("Auth Storage", () => {
   });
 
   describe("Combined Token Management", () => {
-    it("should remove both access and refresh tokens", () => {
+    it("should remove only access token (not refresh token)", () => {
       removeAccessToken();
 
       // Verify access token removal (cookies)
       expect(mockCookieStorage.removeAccessTokenCookie).toHaveBeenCalled();
 
-      // Verify refresh token removal (localStorage)
+      // Verify refresh token is NOT removed
+      expect(mockLocalStorage.removeItem).not.toHaveBeenCalled();
+    });
+
+    it("should remove refresh token independently", () => {
+      removeRefreshToken();
+
+      // Verify only refresh token removal
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("jiki_refresh_token");
+
+      // Verify access token is NOT removed
+      expect(mockCookieStorage.removeAccessTokenCookie).not.toHaveBeenCalled();
     });
 
     it("should handle token validation with cookies", () => {
