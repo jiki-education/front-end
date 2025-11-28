@@ -2,6 +2,7 @@
 
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 
 interface LogLineProps {
   log: { time: number; output: string };
@@ -18,25 +19,24 @@ export default function ConsoleTab() {
     return <div className="console-tab-empty text-gray-500 text-center p-5 italic">No console output</div>;
   }
 
-  // Helper function to find line number for a log entry based on timestamp
-  const getLineNumberForLog = (logTime: number): number | undefined => {
+  // Pre-compute line numbers for all log lines to avoid O(n*m) complexity
+  const logLineNumbers = currentTest.logLines.map((log) => {
     // Find the frame that corresponds to this log time (or the closest frame before it)
     let closestFrame = null;
     for (const frame of currentTest.frames) {
-      if (frame.time <= logTime) {
+      if (frame.time <= log.time) {
         closestFrame = frame;
       } else {
         break;
       }
     }
-
     return closestFrame?.line;
-  };
+  });
 
   return (
     <div className="console-tab bg-purple-50 text-purple-900 font-mono text-xs p-2 overflow-y-auto h-full" role="log">
       {currentTest.logLines.map((log, index) => {
-        const logLineNumber = getLineNumberForLog(log.time);
+        const logLineNumber = logLineNumbers[index];
         return (
           <LogLine
             key={index}
@@ -72,8 +72,8 @@ function LogLine({ log, isActive, index, lineNumber }: LogLineProps) {
 }
 
 function formatTimestamp(time: number): string {
-  const totalSeconds = time / 1000000;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = Math.floor(totalSeconds % 60);
-  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}:`;
+  const timeInMs = time / TIME_SCALE_FACTOR;
+  const seconds = Math.floor(timeInMs / 1000);
+  const milliseconds = timeInMs % 1000;
+  return `${seconds.toString().padStart(2, "0")}:${milliseconds.toString().padStart(3, "0")}`;
 }

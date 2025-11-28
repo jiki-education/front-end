@@ -189,7 +189,7 @@ describe("ConsoleTab Component", () => {
       expect(logLine).toHaveClass("log-line", "py-0.5", "cursor-pointer", "hover:bg-purple-200");
 
       // Check timestamp
-      const timestamp = screen.getByText("00:00:");
+      const timestamp = screen.getByText("00:100");
       expect(timestamp).toBeInTheDocument();
       expect(timestamp).toHaveClass("log-timestamp", "text-purple-600", "mr-2");
 
@@ -215,10 +215,10 @@ describe("ConsoleTab Component", () => {
 
       render(<ConsoleTab />);
 
-      expect(screen.getByText("00:00:")).toBeInTheDocument(); // 0 microseconds
-      expect(screen.getByText("00:01:")).toBeInTheDocument(); // 1.5 seconds rounds down to 1 second
-      expect(screen.getByText("00:10:")).toBeInTheDocument(); // 10 seconds
-      expect(screen.getByText("02:00:")).toBeInTheDocument(); // 2 minutes
+      expect(screen.getByText("00:000")).toBeInTheDocument(); // 0 microseconds
+      expect(screen.getByText("01:500")).toBeInTheDocument(); // 1.5 seconds
+      expect(screen.getByText("10:000")).toBeInTheDocument(); // 10 seconds
+      expect(screen.getByText("120:000")).toBeInTheDocument(); // 2 minutes (120 seconds)
     });
   });
 
