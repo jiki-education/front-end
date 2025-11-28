@@ -38,6 +38,8 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
 
     const handleScroll = () => {
       const scrollTop = scrollContainer.scrollTop;
+      const scrollHeight = scrollContainer.scrollHeight;
+      const clientHeight = scrollContainer.clientHeight;
       const _instructionsTop = instructionsRef.current?.offsetTop || 0;
       const functionsTop = functionsRef.current?.offsetTop || 0;
       const conceptLibraryTop = conceptLibraryRef.current?.offsetTop || 0;
@@ -45,8 +47,14 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
       // Update expansion state - expanded when at very top (within 20px)
       setIsExpanded(scrollTop <= 20);
 
+      // Check if user has scrolled to the bottom (within 5px threshold)
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+
       // Update active section
-      if (scrollTop >= conceptLibraryTop - 100) {
+      if (isAtBottom) {
+        // Always switch to concept library when at the bottom
+        setActiveSection("concept-library");
+      } else if (scrollTop >= conceptLibraryTop - 100) {
         setActiveSection("concept-library");
       } else if (scrollTop >= functionsTop - 100) {
         setActiveSection("functions");

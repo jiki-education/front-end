@@ -126,30 +126,30 @@ Your solution should correctly handle all the test cases and produce the expecte
       title: "Iteration and Loops",
       description: "Going through each element in a sequence one by one to process data systematically.",
       iconSrc: "static/images/concept-icons/icon-loops.png"
-    },
-    {
-      slug: "conditional-logic",
-      title: "Conditional Logic",
-      description: "Making decisions in code based on different conditions and boolean logic.",
-      iconSrc: "static/images/concept-icons/icon-conditionals.png"
-    },
-    {
-      slug: "functions",
-      title: "Functions",
-      description: "Reusable blocks of code that perform specific tasks and can accept parameters.",
-      iconSrc: "static/images/concept-icons/icon-functions.png"
-    },
-    {
-      slug: "variables",
-      title: "Variables",
-      description: "Storage containers for data values that can be referenced and manipulated.",
-      iconSrc: "static/images/concept-icons/icon-variables.png"
-    },
-    {
-      slug: "arrays",
-      title: "Arrays",
-      description: "Ordered collections of data elements that can be accessed by index position.",
-      iconSrc: "static/images/concept-icons/icon-arrays.png"
     }
+    // {
+    //   slug: "conditional-logic",
+    //   title: "Conditional Logic",
+    //   description: "Making decisions in code based on different conditions and boolean logic.",
+    //   iconSrc: "static/images/concept-icons/icon-conditionals.png"
+    // },
+    // {
+    //   slug: "functions",
+    //   title: "Functions",
+    //   description: "Reusable blocks of code that perform specific tasks and can accept parameters.",
+    //   iconSrc: "static/images/concept-icons/icon-functions.png"
+    // },
+    // {
+    //   slug: "variables",
+    //   title: "Variables",
+    //   description: "Storage containers for data values that can be referenced and manipulated.",
+    //   iconSrc: "static/images/concept-icons/icon-variables.png"
+    // },
+    // {
+    //   slug: "arrays",
+    //   title: "Arrays",
+    //   description: "Ordered collections of data elements that can be accessed by index position.",
+    //   iconSrc: "static/images/concept-icons/icon-arrays.png"
+    // }
   ] as ConceptCardData[]
 };
