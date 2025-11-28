@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { MembershipTier } from "@/lib/pricing";
 
 interface ModalState {
   isOpen: boolean;
@@ -68,4 +69,45 @@ export const showConfirmation = (props: {
 // Convenience function for info modals
 export const showInfo = (props: { title?: string; content: string | React.ReactNode; buttonText?: string }) => {
   showModal("info-modal", props);
+};
+
+// Convenience function for subscription modals
+export const showSubscriptionModal = (props: {
+  triggerContext?: "chat-gate" | "feature-gate" | "general" | "settings";
+  suggestedTier?: "premium" | "max";
+  headline?: string;
+  description?: string;
+  featuresContext?: {
+    feature: string;
+    benefits: string[];
+  };
+  onSuccess?: (tier: MembershipTier) => void;
+  onCancel?: () => void;
+}) => {
+  showModal("subscription-modal", props);
+};
+
+// Convenience function for subscription success modals
+export const showSubscriptionSuccess = (props: {
+  tier: MembershipTier;
+  triggerContext?: string;
+  nextSteps?: {
+    title: string;
+    description: string;
+    action?: () => void;
+    buttonText?: string;
+  };
+  onClose?: () => void;
+}) => {
+  showModal("subscription-success-modal", props);
+};
+
+// Convenience function for subscription checkout modal
+export const showSubscriptionCheckout = (props: {
+  clientSecret: string;
+  selectedTier: MembershipTier;
+  onCancel?: () => void;
+  onSuccess?: () => void;
+}) => {
+  showModal("subscription-checkout-modal", props);
 };

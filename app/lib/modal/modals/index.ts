@@ -7,6 +7,9 @@ import { InfoModal } from "./InfoModal";
 import { NetworkErrorModal } from "./NetworkErrorModal";
 import { SessionExpiredModal } from "./SessionExpiredModal";
 import { RateLimitModal } from "./RateLimitModal";
+import { SubscriptionModal } from "./SubscriptionModal";
+import { SubscriptionSuccessModal } from "./SubscriptionSuccessModal";
+import { SubscriptionCheckoutModal } from "./SubscriptionCheckoutModal";
 
 // Export all modals
 export {
@@ -18,7 +21,10 @@ export {
   InfoModal,
   NetworkErrorModal,
   SessionExpiredModal,
-  RateLimitModal
+  RateLimitModal,
+  SubscriptionModal,
+  SubscriptionSuccessModal,
+  SubscriptionCheckoutModal
 };
 
 // Available modals registry
@@ -31,5 +37,8 @@ export const availableModals = {
   "level-milestone-modal": LevelMilestoneModal,
   "network-error-modal": NetworkErrorModal,
   "session-expired-modal": SessionExpiredModal,
-  "rate-limit-modal": RateLimitModal
+  "rate-limit-modal": RateLimitModal,
+  "subscription-modal": SubscriptionModal,
+  "subscription-success-modal": SubscriptionSuccessModal,
+  "subscription-checkout-modal": SubscriptionCheckoutModal
 };

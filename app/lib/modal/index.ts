@@ -2,7 +2,16 @@
 export { GlobalModalProvider } from "./GlobalModalProvider";
 
 // Export the modal functions for global usage
-export { hideModal, showConfirmation, showInfo, showModal, useModalStore } from "./store";
+export {
+  hideModal,
+  showConfirmation,
+  showInfo,
+  showModal,
+  showSubscriptionModal,
+  showSubscriptionSuccess,
+  showSubscriptionCheckout,
+  useModalStore
+} from "./store";
 
 // Export modal types if needed
 export type { availableModals } from "./modals";
