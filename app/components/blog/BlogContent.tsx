@@ -3,19 +3,17 @@ import type { ProcessedPost } from "@jiki/content";
 
 interface BlogContentProps {
   blogPosts: ProcessedPost[];
-  variant?: "authenticated" | "unauthenticated";
+  authenticated: boolean;
 }
 
-export default function BlogContent({ blogPosts, variant = "unauthenticated" }: BlogContentProps) {
-  const isAuthenticated = variant === "authenticated";
-
+export default function BlogContent({ blogPosts, authenticated }: BlogContentProps) {
   return (
     <div className="space-y-12">
       {blogPosts.map((post) => (
         <article
           key={post.slug}
           className={
-            isAuthenticated
+            authenticated
               ? "border-b border-border-primary pb-12 last:border-0"
               : "border-b border-gray-200 pb-12 last:border-0"
           }
@@ -23,7 +21,7 @@ export default function BlogContent({ blogPosts, variant = "unauthenticated" }: 
           <Link href={`/blog/${post.slug}`} className="group">
             <h2
               className={
-                isAuthenticated
+                authenticated
                   ? "mb-3 text-3xl font-bold text-text-primary transition-colors group-hover:text-link-primary"
                   : "mb-3 text-3xl font-bold text-gray-900 transition-colors group-hover:text-blue-600"
               }
@@ -33,7 +31,7 @@ export default function BlogContent({ blogPosts, variant = "unauthenticated" }: 
           </Link>
           <div
             className={
-              isAuthenticated
+              authenticated
                 ? "mb-4 flex items-center gap-3 text-sm text-text-secondary"
                 : "mb-4 flex items-center gap-3 text-sm text-gray-600"
             }
@@ -50,7 +48,7 @@ export default function BlogContent({ blogPosts, variant = "unauthenticated" }: 
           </div>
           <p
             className={
-              isAuthenticated
+              authenticated
                 ? "mb-4 text-lg leading-relaxed text-text-primary"
                 : "mb-4 text-lg leading-relaxed text-gray-700"
             }
@@ -62,7 +60,7 @@ export default function BlogContent({ blogPosts, variant = "unauthenticated" }: 
               <span
                 key={tag}
                 className={
-                  isAuthenticated
+                  authenticated
                     ? "rounded-full bg-info-bg px-3 py-1 text-sm text-info-text"
                     : "rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700"
                 }

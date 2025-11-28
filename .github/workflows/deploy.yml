@@ -35,13 +35,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Calculate script hashes
-        id: hashes
-        run: |
-          THEME_SCRIPT_HASH="sha256-$(cat app/public/static/theme-script.js | openssl sha256 -binary | openssl base64)"
-          echo "SCRIPT_HASH_THEME_SCRIPT=$THEME_SCRIPT_HASH" >> $GITHUB_ENV
-          echo "✅ Generated theme script hash: $THEME_SCRIPT_HASH"
-
       - name: Validate required environment variables
         run: |
           missing_vars=()
@@ -78,7 +71,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-          SCRIPT_HASH_THEME_SCRIPT: ${{ env.SCRIPT_HASH_THEME_SCRIPT }}
 
   deploy-llm-chat-proxy:
     runs-on: ubuntu-latest

@@ -1,5 +1,6 @@
 import { getServerAuth } from "@/lib/auth/server";
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
+import Header from "@/components/header/internal";
+import Footer from "@/components/footer";
 import BlogPage from "@/components/blog/BlogPage";
 
 export default async function AppBlogPage() {
@@ -12,13 +13,12 @@ export default async function AppBlogPage() {
 
   // Authenticated UI with sidebar
   return (
-    <div className="min-h-screen bg-bg-secondary theme-transition">
-      <Sidebar activeItem="blog" />
-      <div className="ml-[260px]">
-        <main className="p-6">
-          <BlogPage authenticated />
-        </main>
-      </div>
+    <div className="min-h-screen flex flex-col bg-white">
+      <Header />
+      <main className="flex-1 mt-[70px]">
+        <BlogPage authenticated />
+      </main>
+      <Footer />
     </div>
   );
 }
