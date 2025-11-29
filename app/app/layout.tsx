@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { ThemeProvider } from "@/lib/theme";
@@ -39,6 +40,7 @@ export default function RootLayout({
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
+            <GlobalErrorHandler />
           </AuthProvider>
         </ThemeProvider>
       </body>

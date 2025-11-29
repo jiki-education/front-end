@@ -48,6 +48,8 @@ export default function LessonPage({ params }: PageProps) {
       } catch (err) {
         if (!cancelled) {
           console.error("Failed to fetch lesson:", err);
+          // Auth/network/rate-limit errors never reach here (handled globally)
+          // Only application errors (404, 500, validation) reach this catch block
           setError(err instanceof Error ? err.message : "Failed to load lesson");
         }
       } finally {

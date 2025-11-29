@@ -34,6 +34,8 @@ export function BaseModal({
         </div>
       )}
       <div className="modal-content">{children}</div>
+      {/* TODO: Add support for non-dismissible modals
+          Hide this button when dismissible=false prop is passed */}
       <button
         onClick={onRequestClose}
         className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"

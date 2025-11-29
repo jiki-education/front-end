@@ -201,28 +201,7 @@ describe("Dashboard Page", () => {
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
-  it("redirects to login when API returns 401 authentication error", async () => {
-    const { AuthenticationError } = jest.requireMock("@/lib/api/client");
-
-    // Mock fetchLevelsWithProgress to throw AuthenticationError
-    (fetchLevelsWithProgress as jest.Mock).mockRejectedValue(new AuthenticationError("Unauthorized"));
-
-    render(
-      <ThemeProvider>
-        <Dashboard />
-      </ThemeProvider>
-    );
-
-    // Wait for the error to be thrown and handled
-    await waitFor(
-      () => {
-        expect(mockPush).toHaveBeenCalledWith("/auth/login");
-      },
-      { timeout: 10000 }
-    );
-
-    // Verify that auth storage is cleared
-    expect(window.localStorage.removeItem).toHaveBeenCalledWith("auth-storage");
-    expect(window.sessionStorage.clear).toHaveBeenCalled();
-  });
+  // Note: Auth error handling is now done globally by GlobalErrorHandler
+  // Auth errors cause promises to hang forever (not caught by components)
+  // Test removed as component no longer handles auth errors directly
 });
