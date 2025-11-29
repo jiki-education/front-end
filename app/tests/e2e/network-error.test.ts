@@ -282,7 +282,7 @@ describe("Network Error Handling E2E", () => {
       // Verify modal has "Connection Error" message
       const modalText = await helpers.getModalText();
       expect(modalText).toContain("Connection Error");
-      expect(modalText).toContain("retrying automatically");
+      expect(modalText).toContain("Retrying automatically");
 
       // Restore network
       helpers.setupSuccessfulResponses();

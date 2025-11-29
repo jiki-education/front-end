@@ -1,36 +1,23 @@
 /**
  * Integration tests for GlobalErrorHandler
- * Tests interaction between error handler store and modal system
+ * Tests that GlobalErrorHandler renders appropriate modals for different error types
  */
 
 import React from "react";
-import { render, act, waitFor } from "@testing-library/react";
+import { render, act, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
-import * as modalStore from "@/lib/modal/store";
 import { useErrorHandlerStore } from "@/lib/api/errorHandlerStore";
-
-// Mock modal store
-jest.mock("@/lib/modal/store", () => ({
-  showModal: jest.fn(),
-  hideModal: jest.fn(),
-  useModalStore: jest.fn(() => ({
-    isOpen: false,
-    modalName: null,
-    modalProps: {}
-  }))
-}));
 
 describe("GlobalErrorHandler Integration", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
     // Reset error handler store
     useErrorHandlerStore.setState({ criticalError: null });
   });
 
   describe("NetworkError Handling", () => {
-    it("should show network modal when NetworkError is set", async () => {
+    it("should render network error modal when NetworkError is set", async () => {
       render(<GlobalErrorHandler />);
 
       const networkError = new NetworkError("Connection lost");
@@ -40,10 +27,8 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith("network-error-modal", {
-          error: networkError,
-          dismissible: false
-        });
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
+        expect(screen.getByText(/having trouble connecting/i)).toBeInTheDocument();
       });
     });
 
@@ -57,7 +42,7 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalled();
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
       });
 
       // Clear error
@@ -66,13 +51,13 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.hideModal).toHaveBeenCalled();
+        expect(screen.queryByText("Connection Error")).not.toBeInTheDocument();
       });
     });
   });
 
   describe("AuthenticationError Handling", () => {
-    it("should show session expired modal when AuthenticationError is set", async () => {
+    it("should render session expired modal when AuthenticationError is set", async () => {
       render(<GlobalErrorHandler />);
 
       const authError = new AuthenticationError("Unauthorized", { error: "Invalid token" });
@@ -82,14 +67,13 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith("session-expired-modal", {
-          error: authError,
-          dismissible: false
-        });
+        expect(screen.getByText("Session Expired")).toBeInTheDocument();
+        expect(screen.getByText(/session has expired/i)).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: /reload page/i })).toBeInTheDocument();
       });
     });
 
-    it("should not show close button for session expired modal", async () => {
+    it("should render reload button for session expired modal", async () => {
       render(<GlobalErrorHandler />);
 
       const authError = new AuthenticationError("Unauthorized");
@@ -99,18 +83,14 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          "session-expired-modal",
-          expect.objectContaining({
-            dismissible: false
-          })
-        );
+        const reloadButton = screen.getByRole("button", { name: /reload page/i });
+        expect(reloadButton).toBeInTheDocument();
       });
     });
   });
 
   describe("RateLimitError Handling", () => {
-    it("should show rate limit modal when RateLimitError is set", async () => {
+    it("should render rate limit modal when RateLimitError is set", async () => {
       render(<GlobalErrorHandler />);
 
       const rateLimitError = new RateLimitError("Too Many Requests", 60);
@@ -120,14 +100,12 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith("rate-limit-modal", {
-          error: rateLimitError,
-          dismissible: false
-        });
+        expect(screen.getByText("Too Many Requests")).toBeInTheDocument();
+        expect(screen.getByText(/wait before trying again/i)).toBeInTheDocument();
       });
     });
 
-    it("should pass retryAfterSeconds to modal", async () => {
+    it("should display countdown timer with retryAfterSeconds", async () => {
       render(<GlobalErrorHandler />);
 
       const rateLimitError = new RateLimitError("Too Many Requests", 120);
@@ -137,20 +115,14 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          "rate-limit-modal",
-          expect.objectContaining({
-            error: expect.objectContaining({
-              retryAfterSeconds: 120
-            })
-          })
-        );
+        // Should show initial countdown value
+        expect(screen.getByText(/120s/)).toBeInTheDocument();
       });
     });
   });
 
   describe("Multiple Errors", () => {
-    it("should switch modals when error type changes", async () => {
+    it("should switch modal content when error type changes", async () => {
       render(<GlobalErrorHandler />);
 
       // First show network error
@@ -160,13 +132,8 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith("network-error-modal", {
-          error: networkError,
-          dismissible: false
-        });
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
       });
-
-      jest.clearAllMocks();
 
       // Then show auth error
       const authError = new AuthenticationError("Unauthorized");
@@ -175,10 +142,8 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith("session-expired-modal", {
-          error: authError,
-          dismissible: false
-        });
+        expect(screen.getByText("Session Expired")).toBeInTheDocument();
+        expect(screen.queryByText("Connection Error")).not.toBeInTheDocument();
       });
     });
 
@@ -197,17 +162,13 @@ describe("GlobalErrorHandler Integration", () => {
 
       // Should show auth error modal (last error wins)
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenLastCalledWith(
-          "session-expired-modal",
-          expect.objectContaining({
-            dismissible: false
-          })
-        );
+        expect(screen.getByText("Session Expired")).toBeInTheDocument();
+        expect(screen.queryByText("Connection Error")).not.toBeInTheDocument();
       });
     });
   });
 
-  describe("Modal Persistence", () => {
+  describe("Modal Visibility", () => {
     it("should keep modal visible while error persists", async () => {
       render(<GlobalErrorHandler />);
 
@@ -218,14 +179,14 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalled();
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
       });
 
       // Verify error is still set
       expect(useErrorHandlerStore.getState().criticalError).toBe(networkError);
 
-      // Note: hideModal is called initially when component mounts with no error
-      // So we can't assert it wasn't called, just that showModal was called
+      // Modal should still be visible
+      expect(screen.getByText("Connection Error")).toBeInTheDocument();
     });
 
     it("should hide modal when error is cleared", async () => {
@@ -237,10 +198,8 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalled();
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
       });
-
-      jest.clearAllMocks();
 
       // Clear error
       act(() => {
@@ -248,88 +207,29 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.hideModal).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe("Error Object Propagation", () => {
-    it("should pass error object to NetworkError modal", async () => {
-      render(<GlobalErrorHandler />);
-
-      const networkError = new NetworkError("Connection lost", new Error("Fetch failed"));
-
-      act(() => {
-        useErrorHandlerStore.getState().setCriticalError(networkError);
-      });
-
-      await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          "network-error-modal",
-          expect.objectContaining({
-            error: networkError
-          })
-        );
-      });
-    });
-
-    it("should pass error object to AuthenticationError modal", async () => {
-      render(<GlobalErrorHandler />);
-
-      const authError = new AuthenticationError("Unauthorized", { message: "Token expired" });
-
-      act(() => {
-        useErrorHandlerStore.getState().setCriticalError(authError);
-      });
-
-      await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          "session-expired-modal",
-          expect.objectContaining({
-            error: authError
-          })
-        );
-      });
-    });
-
-    it("should pass error object to RateLimitError modal", async () => {
-      render(<GlobalErrorHandler />);
-
-      const rateLimitError = new RateLimitError("Too Many Requests", 30, { reason: "API quota exceeded" });
-
-      act(() => {
-        useErrorHandlerStore.getState().setCriticalError(rateLimitError);
-      });
-
-      await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          "rate-limit-modal",
-          expect.objectContaining({
-            error: rateLimitError
-          })
-        );
+        expect(screen.queryByText("Connection Error")).not.toBeInTheDocument();
       });
     });
   });
 
   describe("No Error State", () => {
-    it("should not show modal when no error is set", () => {
-      render(<GlobalErrorHandler />);
+    it("should not render modal when no error is set", () => {
+      const { container } = render(<GlobalErrorHandler />);
 
-      // No error set, no modal should be shown
-      expect(modalStore.showModal).not.toHaveBeenCalled();
+      // No error set, no modal should be rendered
+      expect(container).toBeEmptyDOMElement();
     });
 
-    it("should hide modal immediately when starting with no error", () => {
-      render(<GlobalErrorHandler />);
+    it("should not render modal when starting with no error", () => {
+      const { container } = render(<GlobalErrorHandler />);
 
-      // Component starts with no error, should call hideModal to ensure clean state
-      expect(modalStore.hideModal).toHaveBeenCalled();
+      // Component starts with no error, should render nothing
+      expect(container).toBeEmptyDOMElement();
     });
   });
 
-  describe("Dismissible Property", () => {
-    it("should always pass dismissible: false for network errors", async () => {
+  describe("Modal Non-Dismissibility", () => {
+    it("should render network error modal without close button", async () => {
       render(<GlobalErrorHandler />);
 
       act(() => {
@@ -337,16 +237,14 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          expect.any(String),
-          expect.objectContaining({
-            dismissible: false
-          })
-        );
+        expect(screen.getByText("Connection Error")).toBeInTheDocument();
       });
+
+      // Modal should not have a close button (aria-label="Close modal" from BaseModal)
+      expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument();
     });
 
-    it("should always pass dismissible: false for auth errors", async () => {
+    it("should render auth error modal without close button", async () => {
       render(<GlobalErrorHandler />);
 
       act(() => {
@@ -354,16 +252,15 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          expect.any(String),
-          expect.objectContaining({
-            dismissible: false
-          })
-        );
+        expect(screen.getByText("Session Expired")).toBeInTheDocument();
       });
+
+      // Should have Reload Page button but no close button
+      expect(screen.getByRole("button", { name: /reload page/i })).toBeInTheDocument();
+      expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument();
     });
 
-    it("should always pass dismissible: false for rate limit errors", async () => {
+    it("should render rate limit modal without close button", async () => {
       render(<GlobalErrorHandler />);
 
       act(() => {
@@ -371,13 +268,11 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(modalStore.showModal).toHaveBeenCalledWith(
-          expect.any(String),
-          expect.objectContaining({
-            dismissible: false
-          })
-        );
+        expect(screen.getByText("Too Many Requests")).toBeInTheDocument();
       });
+
+      // Modal should not have a close button
+      expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument();
     });
   });
 });

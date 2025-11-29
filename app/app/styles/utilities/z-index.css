@@ -43,6 +43,9 @@
     .z-spotlight {
         z-index: var(--z-index-spotlight);
     }
+    .z-error-modal-backdrop {
+        z-index: var(--z-index-error-modal-backdrop);
+    }
     .z-notification {
         z-index: var(--z-index-notification);
     }
