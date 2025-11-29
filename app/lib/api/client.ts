@@ -130,9 +130,8 @@ async function retryWithExponentialBackoff<T>(fn: () => Promise<T>): Promise<T> 
       if (error instanceof RateLimitError) {
         setCriticalError(error);
         await sleep(error.retryAfterSeconds * 1000); // Convert to milliseconds
-        clearCriticalError();
         attempt = 0; // Reset attempt counter after rate limit
-        continue; // Retry immediately
+        continue; // Retry immediately (modal clears on success at line 119)
       }
 
       // Non-network errors (404, 500, validation) - throw immediately
