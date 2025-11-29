@@ -92,7 +92,10 @@ const helpers = {
    */
   setupAuthError() {
     page.on("request", (request) => {
-      if (request.url().includes("/internal/")) {
+      const url = request.url();
+
+      // Intercept both internal API calls and refresh token endpoint
+      if (url.includes("/internal/") || url.includes("/auth/refresh")) {
         void request.respond({
           status: 401,
           contentType: "application/json",
