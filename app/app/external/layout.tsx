@@ -1,5 +1,5 @@
-import Footer from "@/components/footer";
-import ExternalHeader from "@/components/header/external";
+import Footer from "@/components/layout/footer";
+import ExternalHeader from "@/components/layout/header/external";
 
 export default function ExternalLayout({
   children

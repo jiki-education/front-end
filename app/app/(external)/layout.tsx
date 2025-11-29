@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "@/components/header/internal";
-import Footer from "@/components/footer";
-import { usePathname } from "next/navigation";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header/internal";
 import { useAuth } from "@/lib/auth/hooks";
+import { usePathname } from "next/navigation";
 
 export default function ExternalLayout({
   children

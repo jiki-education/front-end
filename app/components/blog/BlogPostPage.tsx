@@ -8,18 +8,19 @@ import RelatedArticles from "./RelatedArticles";
 interface BlogPostPageProps {
   slug: string;
   authenticated: boolean;
+  locale: string;
 }
 
 // Helper for generateStaticParams
-export function getBlogPostStaticParams() {
-  const blogPosts = getAllBlogPosts("en");
+export function getBlogPostStaticParams(locale: string = "en") {
+  const blogPosts = getAllBlogPosts(locale);
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
 // Helper for generateMetadata
-export function getBlogPostMetadata(slug: string): Metadata {
+export function getBlogPostMetadata(slug: string, locale: string = "en"): Metadata {
   try {
-    const post = getBlogPost(slug, "en");
+    const post = getBlogPost(slug, locale);
     return {
       title: post.title,
       description: post.seo.description,
@@ -30,10 +31,10 @@ export function getBlogPostMetadata(slug: string): Metadata {
   }
 }
 
-export default function BlogPostPage({ slug, authenticated }: BlogPostPageProps) {
+export default function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
   let post;
   try {
-    post = getBlogPost(slug, "en");
+    post = getBlogPost(slug, locale);
   } catch {
     notFound();
   }

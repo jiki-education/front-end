@@ -4,9 +4,14 @@ import type { ProcessedPost } from "@jiki/content";
 interface BlogContentProps {
   blogPosts: ProcessedPost[];
   authenticated: boolean;
+  locale: string;
 }
 
-export default function BlogContent({ blogPosts, authenticated }: BlogContentProps) {
+export default function BlogContent({ blogPosts, authenticated, locale }: BlogContentProps) {
+  const getPostUrl = (slug: string) => {
+    return locale === "en" ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
+  };
+
   return (
     <div className="space-y-12">
       {blogPosts.map((post) => (
@@ -18,7 +23,7 @@ export default function BlogContent({ blogPosts, authenticated }: BlogContentPro
               : "border-b border-gray-200 pb-12 last:border-0"
           }
         >
-          <Link href={`/blog/${post.slug}`} className="group">
+          <Link href={getPostUrl(post.slug)} className="group">
             <h2
               className={
                 authenticated

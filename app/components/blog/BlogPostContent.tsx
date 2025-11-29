@@ -1,4 +1,3 @@
-import Image from "next/image";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import type { ProcessedPost } from "@jiki/content";
 
@@ -7,45 +6,7 @@ interface BlogPostContentProps {
   variant?: "authenticated" | "unauthenticated";
 }
 
-export default function BlogPostContent({ post, variant = "unauthenticated" }: BlogPostContentProps) {
-  const isAuthenticated = variant === "authenticated";
-
-  // Authenticated variant - keep simple design
-  if (isAuthenticated) {
-    return (
-      <article>
-        <header className="mb-48">
-          <h1 className="mb-24 text-5xl font-bold text-text-primary">{post.title}</h1>
-          <div className="mb-24 flex items-center gap-16 text-text-secondary">
-            <time dateTime={post.date} className="text-sm">
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-              })}
-            </time>
-            <span className="text-sm">•</span>
-            <span className="text-sm">By {post.author.name}</span>
-          </div>
-          {post.coverImage && (
-            <div className="relative mb-32 aspect-video w-full overflow-hidden rounded-12 shadow-lg">
-              <Image src={post.coverImage} alt={post.title} fill className="object-cover" />
-            </div>
-          )}
-          <div className="flex flex-wrap gap-8">
-            {post.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-info-bg px-12 py-4 text-sm text-info-text">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </header>
-        <MarkdownContent content={post.content} />
-      </article>
-    );
-  }
-
-  // Unauthenticated variant - purple gradient header
+export default function BlogPostContent({ post }: BlogPostContentProps) {
   return (
     <>
       {/* Purple Gradient Header */}

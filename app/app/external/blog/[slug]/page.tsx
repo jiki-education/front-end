@@ -6,15 +6,15 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return getBlogPostStaticParams();
+  return getBlogPostStaticParams("en");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  return getBlogPostMetadata(slug);
+  return getBlogPostMetadata(slug, "en");
 }
 
 export default async function ExternalBlogPostPage({ params }: Props) {
   const { slug } = await params;
-  return <BlogPostPage slug={slug} authenticated={false} />;
+  return <BlogPostPage slug={slug} authenticated={false} locale="en" />;
 }
