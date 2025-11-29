@@ -3,10 +3,10 @@
  * Simple, type-safe API client for backend communication with JWT support
  */
 
-import { getAccessToken, parseJwtPayload } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
+import { getAccessToken, parseJwtPayload } from "@/lib/auth/storage";
 import { getApiUrl } from "./config";
-import { setCriticalError, clearCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
+import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
 
 // Retry configuration
 const INITIAL_RETRY_DELAY_MS = 50;
@@ -158,7 +158,11 @@ async function retryWithExponentialBackoff<T>(fn: () => Promise<T>): Promise<T> 
 /**
  * Generic API request handler
  */
-async function request<T = unknown>(path: string, options: RequestOptions = {}): Promise<ApiResponse<T>> {
+async function request<T = unknown>(
+  path: string,
+  options: RequestOptions = {},
+  useRetries: boolean = true
+): Promise<ApiResponse<T>> {
   const { body, params, headers = {}, ...restOptions } = options;
 
   // Build URL with query params
@@ -199,88 +203,95 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
     requestOptions.body = JSON.stringify(body);
   }
 
-  try {
-    return await retryWithExponentialBackoff(async () => {
-      const response = await fetch(url.toString(), requestOptions);
+  // Define the fetch function
+  const performFetch = async (): Promise<ApiResponse<T>> => {
+    const response = await fetch(url.toString(), requestOptions);
 
-      // Parse response
-      let data: T;
-      const contentType = response.headers.get("content-type");
+    // Parse response
+    let data: T;
+    const contentType = response.headers.get("content-type");
 
-      if (contentType?.includes("application/json")) {
-        data = await response.json();
-      } else {
-        data = (await response.text()) as T;
+    if (contentType?.includes("application/json")) {
+      data = await response.json();
+    } else {
+      data = (await response.text()) as T;
+    }
+
+    // Handle error responses
+    if (!response.ok) {
+      // Handle 429 Rate Limit
+      if (response.status === 429) {
+        const retryAfter = response.headers.get("Retry-After");
+        const retryAfterSeconds = parseRetryAfter(retryAfter);
+        throw new RateLimitError(response.statusText, retryAfterSeconds, data);
       }
 
-      // Handle error responses
-      if (!response.ok) {
-        // Handle 429 Rate Limit
-        if (response.status === 429) {
-          const retryAfter = response.headers.get("Retry-After");
-          const retryAfterSeconds = parseRetryAfter(retryAfter);
-          throw new RateLimitError(response.statusText, retryAfterSeconds, data);
-        }
+      // Handle 401 Unauthorized with automatic token refresh
+      if (response.status === 401) {
+        // Only attempt refresh if token is actually expired
+        // This prevents unnecessary refresh token consumption on authorization errors
+        const shouldRefresh = isTokenActuallyExpired(token);
 
-        // Handle 401 Unauthorized with automatic token refresh
-        if (response.status === 401) {
-          // Only attempt refresh if token is actually expired
-          // This prevents unnecessary refresh token consumption on authorization errors
-          const shouldRefresh = isTokenActuallyExpired(token);
+        if (shouldRefresh) {
+          try {
+            const newAccessToken = await refreshAccessToken();
 
-          if (shouldRefresh) {
-            try {
-              const newAccessToken = await refreshAccessToken();
+            if (newAccessToken) {
+              // Refresh succeeded! Retry the original request with new token
+              requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
+              const retryResponse = await fetch(url.toString(), {
+                ...requestOptions,
+                headers: requestHeaders
+              });
 
-              if (newAccessToken) {
-                // Refresh succeeded! Retry the original request with new token
-                requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
-                const retryResponse = await fetch(url.toString(), {
-                  ...requestOptions,
-                  headers: requestHeaders
-                });
+              let retryData: T;
+              const retryContentType = retryResponse.headers.get("content-type");
 
-                let retryData: T;
-                const retryContentType = retryResponse.headers.get("content-type");
-
-                if (retryContentType?.includes("application/json")) {
-                  retryData = await retryResponse.json();
-                } else {
-                  retryData = (await retryResponse.text()) as T;
-                }
-
-                if (!retryResponse.ok) {
-                  throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
-                }
-
-                return {
-                  data: retryData,
-                  status: retryResponse.status,
-                  headers: retryResponse.headers
-                };
+              if (retryContentType?.includes("application/json")) {
+                retryData = await retryResponse.json();
+              } else {
+                retryData = (await retryResponse.text()) as T;
               }
 
-              // Refresh failed - tokens already cleared by refresh module
-              // Fall through to throw 401 error
-            } catch (refreshError) {
-              console.error("Token refresh failed:", refreshError);
-              // Fall through to throw original 401 error
-            }
-          }
-          // If token not expired or refresh failed, throw authentication error
-          // This will be caught by components that can handle redirects properly
-          throw new AuthenticationError(response.statusText, data);
-        }
+              if (!retryResponse.ok) {
+                throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
+              }
 
-        throw new ApiError(response.status, response.statusText, data);
+              return {
+                data: retryData,
+                status: retryResponse.status,
+                headers: retryResponse.headers
+              };
+            }
+
+            // Refresh failed - tokens already cleared by refresh module
+            // Fall through to throw 401 error
+          } catch (refreshError) {
+            console.error("Token refresh failed:", refreshError);
+            // Fall through to throw original 401 error
+          }
+        }
+        // If token not expired or refresh failed, throw authentication error
+        // This will be caught by components that can handle redirects properly
+        throw new AuthenticationError(response.statusText, data);
       }
 
-      return {
-        data,
-        status: response.status,
-        headers: response.headers
-      };
-    });
+      throw new ApiError(response.status, response.statusText, data);
+    }
+
+    return {
+      data,
+      status: response.status,
+      headers: response.headers
+    };
+  };
+
+  try {
+    // Either use retries or call directly
+    if (useRetries) {
+      return await retryWithExponentialBackoff(performFetch);
+    }
+    return await performFetch();
   } catch (error) {
     // Re-throw ApiError (including AuthenticationError) and NetworkError
     if (error instanceof ApiError || error instanceof NetworkError) {
@@ -319,23 +330,23 @@ function isTokenActuallyExpired(token: string | null): boolean {
  * API Client with convenient methods
  */
 export const api = {
-  get<T = unknown>(path: string, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "GET" });
+  get<T = unknown>(path: string, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "GET" }, useRetries);
   },
 
-  post<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "POST", body });
+  post<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "POST", body }, useRetries);
   },
 
-  put<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "PUT", body });
+  put<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "PUT", body }, useRetries);
   },
 
-  patch<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "PATCH", body });
+  patch<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "PATCH", body }, useRetries);
   },
 
-  delete<T = unknown>(path: string, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "DELETE" });
+  delete<T = unknown>(path: string, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "DELETE" }, useRetries);
   }
 };

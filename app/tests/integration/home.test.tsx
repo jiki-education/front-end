@@ -81,19 +81,16 @@ describe("Home Page (Server Component)", () => {
     expect(mockRedirect).toHaveBeenCalledWith("/dashboard");
   });
 
-  it("shows landing page when access token is expired", async () => {
-    // Mock expired token cookie - server treats as unauthenticated
+  it("redirects to dashboard when access token is expired", async () => {
+    // Mock expired token cookie - server treats as authenticated (client will refresh)
     mockCookies.mockReturnValue({
       get: jest.fn().mockReturnValue({ value: "expired.jwt.token" })
     });
 
-    const HomePage = await Home();
-    render(HomePage);
-
-    // Expired tokens are treated as unauthenticated on server
-    // Client-side will attempt refresh via ClientAuthGuard if needed
-    expect(screen.getByText("Welcome to Jiki")).toBeInTheDocument();
-    expect(mockRedirect).not.toHaveBeenCalled();
+    // Server treats expired JWT as authenticated - redirects to dashboard
+    // Client-side ClientAuthGuard will handle token refresh
+    await expect(Home()).rejects.toThrow("NEXT_REDIRECT: /dashboard");
+    expect(mockRedirect).toHaveBeenCalledWith("/dashboard");
   });
 
   it("displays feature cards on landing page", async () => {

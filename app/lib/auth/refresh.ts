@@ -3,7 +3,7 @@
  * Standalone refresh logic that doesn't depend on the API client to avoid circular dependencies
  */
 
-import { getRefreshToken, getTokenExpiry, setAccessToken, removeRefreshToken } from "@/lib/auth/storage";
+import { getRefreshToken, setAccessToken, removeRefreshToken } from "@/lib/auth/storage";
 import { getApiUrl } from "@/lib/api/config";
 
 interface RefreshResponse {
@@ -114,8 +114,7 @@ async function performRefresh(refreshToken: string): Promise<string | null> {
 
     if (newAccessToken) {
       // Store new access token
-      const expiry = getTokenExpiry(newAccessToken);
-      setAccessToken(newAccessToken, expiry || undefined);
+      setAccessToken(newAccessToken);
       return newAccessToken;
     }
 

@@ -3,15 +3,15 @@
  * Secure JWT token management for authentication
  */
 
-import { setAccessTokenCookie, getAccessTokenCookie, removeAccessTokenCookie } from "@/lib/auth/cookie-storage";
+import { getAccessTokenCookie, removeAccessTokenCookie, setAccessTokenCookie } from "@/lib/auth/cookie-storage";
 
 const REFRESH_TOKEN_KEY = "jiki_refresh_token";
 
 /**
  * Store JWT access token in cookie
  */
-export function setAccessToken(token: string, expiryMs?: number): void {
-  setAccessTokenCookie(token, expiryMs);
+export function setAccessToken(token: string): void {
+  setAccessTokenCookie(token);
 }
 
 /**
@@ -34,7 +34,7 @@ export function removeAccessToken(): void {
  * Validates JWT exp claim
  * Note: This is a pure function - it does NOT remove expired tokens
  */
-export function hasValidToken(): boolean {
+export function hasToken(): boolean {
   const token = getAccessToken();
   if (!token) {
     return false;
@@ -42,13 +42,12 @@ export function hasValidToken(): boolean {
 
   // Check JWT exp claim
   const payload = parseJwtPayload(token);
-  if (payload && payload.exp) {
-    const expiryMs = payload.exp * 1000;
-    if (Date.now() > expiryMs) {
-      // Token has expired - just return false
-      // Caller is responsible for token cleanup
-      return false;
-    }
+  if (!payload) {
+    return false;
+  }
+
+  if (!payload.sub) {
+    return false;
   }
 
   return true;

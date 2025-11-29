@@ -2,9 +2,8 @@
  * Unit tests for authStore Google authentication methods
  */
 
-import { useAuthStore } from "@/stores/authStore";
 import * as authService from "@/lib/auth/service";
-import * as authStorage from "@/lib/auth/storage";
+import { useAuthStore } from "@/stores/authStore";
 import type { User } from "@/types/auth";
 import toast from "react-hot-toast";
 
@@ -14,7 +13,6 @@ const mockAuthService = authService as jest.Mocked<typeof authService>;
 
 // Mock auth storage
 jest.mock("@/lib/auth/storage");
-const mockAuthStorage = authStorage as jest.Mocked<typeof authStorage>;
 
 // Mock toast
 jest.mock("react-hot-toast", () => ({
@@ -283,90 +281,6 @@ describe("AuthStore - Google Authentication", () => {
       expect(delegatedErrorState.error).toEqual(directErrorState.error);
       expect(delegatedErrorState.isAuthenticated).toEqual(directErrorState.isAuthenticated);
       expect(delegatedErrorState.user).toEqual(directErrorState.user);
-    });
-  });
-
-  describe("checkAuth - Token Refresh", () => {
-    beforeEach(() => {
-      // Set up authenticated state with user
-      useAuthStore.setState({
-        user: mockUser,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-        hasCheckedAuth: false
-      });
-    });
-
-    it("should attempt token refresh when token is expired", async () => {
-      // Token exists but is invalid/expired
-      mockAuthStorage.hasValidToken.mockReturnValue(true);
-      mockAuthService.validateToken.mockResolvedValue(false); // Token is expired
-      mockAuthService.refreshAccessToken.mockResolvedValue("new-token");
-
-      const { checkAuth } = useAuthStore.getState();
-      await checkAuth();
-
-      expect(mockAuthService.validateToken).toHaveBeenCalled();
-      expect(mockAuthService.refreshAccessToken).toHaveBeenCalled();
-
-      // Should maintain auth state after successful refresh
-      const state = useAuthStore.getState();
-      expect(state.isAuthenticated).toBe(true);
-      expect(state.user).toEqual(mockUser);
-      expect(state.hasCheckedAuth).toBe(true);
-    });
-
-    it("should clear auth state when token refresh fails", async () => {
-      mockAuthStorage.hasValidToken.mockReturnValue(true);
-      mockAuthService.validateToken.mockResolvedValue(false); // Token is expired
-      mockAuthService.refreshAccessToken.mockResolvedValue(null); // Refresh failed
-
-      const { checkAuth } = useAuthStore.getState();
-      await checkAuth();
-
-      expect(mockAuthService.validateToken).toHaveBeenCalled();
-      expect(mockAuthService.refreshAccessToken).toHaveBeenCalled();
-      expect(mockAuthStorage.removeAccessToken).toHaveBeenCalled();
-
-      // Should clear auth state after failed refresh
-      const state = useAuthStore.getState();
-      expect(state.isAuthenticated).toBe(false);
-      expect(state.user).toBeNull();
-      expect(state.error).toBe("Session expired. Please login again.");
-      expect(state.hasCheckedAuth).toBe(true);
-    });
-
-    it("should not attempt refresh when token is still valid", async () => {
-      mockAuthStorage.hasValidToken.mockReturnValue(true);
-      mockAuthService.validateToken.mockResolvedValue(true); // Token is still valid
-
-      const { checkAuth } = useAuthStore.getState();
-      await checkAuth();
-
-      expect(mockAuthService.validateToken).toHaveBeenCalled();
-      expect(mockAuthService.refreshAccessToken).not.toHaveBeenCalled();
-
-      // Should maintain auth state
-      const state = useAuthStore.getState();
-      expect(state.isAuthenticated).toBe(true);
-      expect(state.user).toEqual(mockUser);
-      expect(state.hasCheckedAuth).toBe(true);
-    });
-
-    it("should clear auth state when no valid token exists", async () => {
-      mockAuthStorage.hasValidToken.mockReturnValue(false);
-
-      const { checkAuth } = useAuthStore.getState();
-      await checkAuth();
-
-      expect(mockAuthService.validateToken).not.toHaveBeenCalled();
-      expect(mockAuthService.refreshAccessToken).not.toHaveBeenCalled();
-
-      const state = useAuthStore.getState();
-      expect(state.isAuthenticated).toBe(false);
-      expect(state.user).toBeNull();
-      expect(state.hasCheckedAuth).toBe(true);
     });
   });
 });

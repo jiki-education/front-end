@@ -14,7 +14,7 @@ export interface ServerAuthState {
 
 /**
  * Get authentication state from server-side cookie
- * Checks JWT validity and expiry
+ * Treats expired JWT as authenticated (client will handle refresh)
  *
  * @returns Server auth state with authentication status and user info
  */
@@ -33,20 +33,11 @@ export async function getServerAuth(): Promise<ServerAuthState> {
       return { isAuthenticated: false, userId: null, token: null };
     }
 
-    // Check if token is expired
-    if (payload.exp && Date.now() > payload.exp * 1000) {
-      return { isAuthenticated: false, userId: null, token: null };
-    }
-
-    // Check if sub exists (required for valid token)
-    if (!payload.sub) {
-      return { isAuthenticated: false, userId: null, token: null };
-    }
-
-    // Token is valid and not expired
+    // User has a JWT (even if expired) - treat as authenticated
+    // Client-side will handle token refresh automatically
     return {
       isAuthenticated: true,
-      userId: parseInt(payload.sub, 10),
+      userId: payload.sub ? parseInt(payload.sub, 10) : null,
       token: accessToken
     };
   } catch (error) {

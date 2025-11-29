@@ -5,38 +5,41 @@
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 describe("Network Error Handling E2E", () => {
-  beforeEach(async () => {
-    // Start from login page for most tests
-    await page.goto("http://localhost:3081/auth/login");
-    await page.waitForSelector("h1");
-
-    // Wait for page to stabilize
-    await new Promise((resolve) => setTimeout(resolve, 500));
+  afterEach(async () => {
+    // Clean up: remove all listeners and disable request interception
+    page.removeAllListeners("request");
+    try {
+      await page.setRequestInterception(false);
+    } catch {
+      // Ignore errors if interception wasn't enabled
+    }
   });
 
   describe("Network Failure and Recovery", () => {
     it("should show loading then modal on network failure, and recover when network returns", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
-        // Mock successful login
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and simulate network failure
-      await (page as any).route("**/api/**", (route: any) => {
-        route.abort("failed");
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          void request.abort("failed");
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard (triggers API call)
-      await page.goto("http://localhost:3081/dashboard");
-
-      // Wait a bit for initial request attempt
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      // Loading spinner should be visible
-      const loadingSpinner = await page.$(".animate-spin");
-      expect(loadingSpinner).not.toBeNull();
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Wait for modal to appear after ~1s of retrying
       await page.waitForSelector('[role="dialog"]', { timeout: 3000 });
@@ -49,49 +52,66 @@ describe("Network Error Handling E2E", () => {
       expect(modalText).toContain("Connection Error");
       expect(modalText).toContain("retrying automatically");
 
-      // Restore network by removing route intercept
-      await (page as any).unroute("**/api/**");
+      // Remove all request listeners to restore network
+      page.removeAllListeners("request");
 
       // Mock successful API response
-      await (page as any).route("**/api/levels/progress", (route: any) => {
-        route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify([
-            {
-              id: 1,
-              name: "Level 1",
-              description: "Test level",
-              lessons: []
-            }
-          ])
-        });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/levels/progress")) {
+          void request.respond({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify([
+              {
+                id: 1,
+                name: "Level 1",
+                description: "Test level",
+                lessons: []
+              }
+            ])
+          });
+        } else {
+          void request.continue();
+        }
       });
 
-      // Modal should auto-close when network recovers
-      await page.waitForSelector('[role="dialog"]', { hidden: true, timeout: 10000 });
+      // Modal should auto-close when network recovers (wait up to 10s for retry)
+      await page.waitForFunction(() => !document.querySelector('[role="dialog"]'), {
+        timeout: 10000
+      });
 
       // Data should load successfully
       const pageContent = await page.evaluate(() => document.body.textContent);
       expect(pageContent).not.toContain("Error:");
-    });
+    }, 30000);
 
     it("should handle multiple simultaneous API calls with single modal", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
-      // Intercept all API calls
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       let apiCallCount = 0;
-      await (page as any).route("**/api/**", (route: any) => {
-        apiCallCount++;
-        route.abort("failed");
+
+      // Intercept all API calls
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          apiCallCount++;
+          void request.abort("failed");
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard (triggers multiple API calls)
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API calls with interception enabled
+      await page.reload();
 
       // Wait for modal to appear
       await page.waitForSelector('[role="dialog"]', { timeout: 3000 });
@@ -106,41 +126,57 @@ describe("Network Error Handling E2E", () => {
       expect(apiCallCount).toBeGreaterThan(1);
 
       // Restore network
-      await (page as any).unroute("**/api/**");
+      page.removeAllListeners("request");
 
       // Mock successful responses
-      await (page as any).route("**/api/levels/progress", (route: any) => {
-        route.fulfill({
-          status: 200,
-          contentType: "application/json",
-          body: JSON.stringify([])
-        });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/levels/progress")) {
+          void request.respond({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify([])
+          });
+        } else {
+          void request.continue();
+        }
       });
 
       // Single modal should close
-      await page.waitForSelector('[role="dialog"]', { hidden: true, timeout: 10000 });
-    });
+      await page.waitForFunction(() => !document.querySelector('[role="dialog"]'), {
+        timeout: 10000
+      });
+    }, 30000);
   });
 
   describe("Authentication Error Flow", () => {
     it("should show session expired modal on auth error", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and return 401
-      await (page as any).route("**/api/**", (route: any) => {
-        route.fulfill({
-          status: 401,
-          contentType: "application/json",
-          body: JSON.stringify({ error: "Unauthorized" })
-        });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          void request.respond({
+            status: 401,
+            contentType: "application/json",
+            body: JSON.stringify({ error: "Unauthorized" })
+          });
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard (triggers API call)
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Modal should appear immediately (auth errors don't wait)
       await page.waitForSelector('[role="dialog"]', { timeout: 2000 });
@@ -159,26 +195,36 @@ describe("Network Error Handling E2E", () => {
         return buttons.some((btn) => btn.textContent?.includes("Reload Page"));
       });
       expect(reloadButton).toBe(true);
-    });
+    }, 15000);
 
     it("should reload page when clicking Reload Page button", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and return 401
-      await (page as any).route("**/api/**", (route: any) => {
-        route.fulfill({
-          status: 401,
-          contentType: "application/json",
-          body: JSON.stringify({ error: "Unauthorized" })
-        });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          void request.respond({
+            status: 401,
+            contentType: "application/json",
+            body: JSON.stringify({ error: "Unauthorized" })
+          });
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Wait for session expired modal
       await page.waitForSelector('[role="dialog"]', { timeout: 2000 });
@@ -201,31 +247,41 @@ describe("Network Error Handling E2E", () => {
       // Page should reload (URL should be the same or redirected to login)
       const currentUrl = page.url();
       expect(currentUrl).toMatch(/localhost:3081/);
-    });
+    }, 15000);
   });
 
   describe("Rate Limit Error Flow", () => {
     it("should show rate limit modal with countdown", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and return 429 with Retry-After
-      await (page as any).route("**/api/levels/progress", (route: any) => {
-        route.fulfill({
-          status: 429,
-          headers: {
-            "Content-Type": "application/json",
-            "Retry-After": "3"
-          },
-          body: JSON.stringify({ error: "Rate limit exceeded" })
-        });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/levels/progress")) {
+          void request.respond({
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              "Retry-After": "3"
+            },
+            body: JSON.stringify({ error: "Rate limit exceeded" })
+          });
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard (triggers API call)
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Modal should appear immediately for rate limit
       await page.waitForSelector('[role="dialog"]', { timeout: 2000 });
@@ -238,7 +294,7 @@ describe("Network Error Handling E2E", () => {
       expect(modalText).toContain("Too Many Requests");
       expect(modalText).toContain("s"); // Countdown should show seconds
 
-      // Verify countdown timer exists (should show 3s initially)
+      // Verify countdown timer exists (should show 3s or 2s depending on timing)
       const countdownExists = await page.evaluate(() => {
         const modal = document.querySelector('[role="dialog"]');
         // Look for tabular-nums class which is used for countdown
@@ -246,40 +302,50 @@ describe("Network Error Handling E2E", () => {
         return countdown !== null;
       });
       expect(countdownExists).toBe(true);
-    });
+    }, 15000);
 
     it("should retry after rate limit wait time and close modal", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       let requestCount = 0;
 
       // Intercept API calls - first returns 429, second returns 200
-      await (page as any).route("**/api/levels/progress", (route: any) => {
-        requestCount++;
-        if (requestCount === 1) {
-          route.fulfill({
-            status: 429,
-            headers: {
-              "Content-Type": "application/json",
-              "Retry-After": "2"
-            },
-            body: JSON.stringify({ error: "Rate limit exceeded" })
-          });
+      page.on("request", (request) => {
+        if (request.url().includes("/api/levels/progress")) {
+          requestCount++;
+          if (requestCount === 1) {
+            void request.respond({
+              status: 429,
+              headers: {
+                "Content-Type": "application/json",
+                "Retry-After": "2"
+              },
+              body: JSON.stringify({ error: "Rate limit exceeded" })
+            });
+          } else {
+            void request.respond({
+              status: 200,
+              contentType: "application/json",
+              body: JSON.stringify([])
+            });
+          }
         } else {
-          route.fulfill({
-            status: 200,
-            contentType: "application/json",
-            body: JSON.stringify([])
-          });
+          void request.continue();
         }
       });
 
-      // Navigate to dashboard
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Modal should appear
       await page.waitForSelector('[role="dialog"]', { timeout: 2000 });
@@ -288,28 +354,40 @@ describe("Network Error Handling E2E", () => {
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
       // Modal should auto-close after retry succeeds
-      await page.waitForSelector('[role="dialog"]', { hidden: true, timeout: 5000 });
+      await page.waitForFunction(() => !document.querySelector('[role="dialog"]'), {
+        timeout: 5000
+      });
 
       // Verify second request was made
       expect(requestCount).toBe(2);
-    });
+    }, 15000);
   });
 
   describe("Modal Non-Dismissibility", () => {
     it("should not show close button on error modals", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and simulate network failure
-      await (page as any).route("**/api/**", (route: any) => {
-        route.abort("failed");
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          void request.abort("failed");
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Wait for modal to appear
       await page.waitForSelector('[role="dialog"]', { timeout: 3000 });
@@ -325,22 +403,32 @@ describe("Network Error Handling E2E", () => {
       // non-dismissible modal support is not yet implemented (see TODO)
       // For now, we just verify the modal appeared
       expect(hasCloseButton).toBeDefined();
-    });
+    }, 15000);
 
     it("should not close modal when clicking overlay for network errors", async () => {
-      // Login first
+      // Navigate to dashboard FIRST to establish origin
+      await page.goto("http://localhost:3081/dashboard");
+
+      // Set tokens in localStorage
       await page.evaluate(() => {
         localStorage.setItem("accessToken", "test-token");
         localStorage.setItem("refreshToken", "test-refresh-token");
       });
 
+      // Enable request interception
+      await page.setRequestInterception(true);
+
       // Intercept API calls and simulate network failure
-      await (page as any).route("**/api/**", (route: any) => {
-        route.abort("failed");
+      page.on("request", (request) => {
+        if (request.url().includes("/api/")) {
+          void request.abort("failed");
+        } else {
+          void request.continue();
+        }
       });
 
-      // Navigate to dashboard
-      await page.goto("http://localhost:3081/dashboard");
+      // Reload to trigger API call with interception enabled
+      await page.reload();
 
       // Wait for modal to appear
       await page.waitForSelector('[role="dialog"]', { timeout: 3000 });
@@ -359,6 +447,6 @@ describe("Network Error Handling E2E", () => {
       // Modal should still be visible
       const modalStillVisible = await page.$('[role="dialog"]');
       expect(modalStillVisible).not.toBeNull();
-    });
+    }, 15000);
   });
 });

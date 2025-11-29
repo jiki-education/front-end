@@ -153,16 +153,16 @@ export function hasRefreshTokenCookie(): boolean {
 
 /**
  * Store access token in cookie
- * Uses expiry from JWT token (typically 1 hour)
+ * Cookie lasts 1 year - JWT inside can expire and will be refreshed automatically
  */
-export function setAccessTokenCookie(token: string, expiryMs?: number): void {
+export function setAccessTokenCookie(token: string): void {
   const options: CookieOptions = {
-    sameSite: "strict" // CSRF protection
+    sameSite: "strict", // CSRF protection
+    // Don't set cookie expiration based on JWT expiration!
+    // The JWT can be expired inside the cookie - we'll refresh it
+    // Instead, use a long maxAge (1 year) to keep user logged in
+    maxAge: 365 * 24 * 60 * 60 // 1 year in seconds
   };
-
-  if (expiryMs) {
-    options.expires = new Date(expiryMs);
-  }
 
   setSecureCookie(ACCESS_TOKEN_COOKIE, token, options);
 }

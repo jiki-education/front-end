@@ -4,7 +4,7 @@
  */
 
 import { api } from "@/lib/api";
-import { getTokenExpiry, setAccessToken, setRefreshToken } from "@/lib/auth/storage";
+import { setAccessToken, setRefreshToken } from "@/lib/auth/storage";
 import type {
   AuthResponse,
   LoginCredentials,
@@ -52,8 +52,7 @@ export async function login(credentials: LoginCredentials): Promise<User> {
 
   // Store access token (short-lived, cookie)
   if (accessToken) {
-    const expiry = getTokenExpiry(accessToken);
-    setAccessToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -84,8 +83,7 @@ export async function signup(userData: SignupData): Promise<User> {
 
   // Store access token (short-lived, cookie)
   if (accessToken) {
-    const expiry = getTokenExpiry(accessToken);
-    setAccessToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -116,8 +114,7 @@ export async function googleLogin(code: string): Promise<User> {
 
   // Store access token (short-lived, cookie)
   if (accessToken) {
-    const expiry = getTokenExpiry(accessToken);
-    setAccessToken(accessToken, expiry || undefined);
+    setAccessToken(accessToken);
   }
 
   // Store refresh token (long-lived, localStorage)
@@ -201,8 +198,8 @@ export async function resendConfirmation(email: string): Promise<void> {
  * Get current user from /internal/me endpoint
  * GET /internal/me
  */
-export async function getCurrentUser(): Promise<User> {
-  const response = await api.get<{ user: User }>("/internal/me");
+export async function getCurrentUser(useRetries: boolean = true): Promise<User> {
+  const response = await api.get<{ user: User }>("/internal/me", undefined, useRetries);
   return response.data.user;
 }
 

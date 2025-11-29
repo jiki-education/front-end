@@ -3,15 +3,15 @@
  */
 
 import {
-  setAccessToken,
   getAccessToken,
-  removeAccessToken,
-  hasValidToken,
-  parseJwtPayload,
-  getTokenExpiry,
-  setRefreshToken,
   getRefreshToken,
-  removeRefreshToken
+  getTokenExpiry,
+  hasToken,
+  parseJwtPayload,
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken
 } from "@/lib/auth/storage";
 
 // Mock the cookie storage module
@@ -44,13 +44,12 @@ describe("Auth Storage", () => {
   });
 
   describe("Access Token Management (Cookies)", () => {
-    it("should store access token in cookies", () => {
+    it("should store access token in cookies with 1-year expiration", () => {
       const testToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTk5OTk5OTl9.test";
-      const expiry = Date.now() + 3600000; // 1 hour from now
 
-      setAccessToken(testToken, expiry);
+      setAccessToken(testToken);
 
-      expect(mockCookieStorage.setAccessTokenCookie).toHaveBeenCalledWith(testToken, expiry);
+      expect(mockCookieStorage.setAccessTokenCookie).toHaveBeenCalledWith(testToken);
     });
 
     it("should retrieve access token from cookies", () => {
@@ -132,7 +131,7 @@ describe("Auth Storage", () => {
 
       mockCookieStorage.getAccessTokenCookie.mockReturnValue(validToken);
 
-      const result = hasValidToken();
+      const result = hasToken();
 
       expect(result).toBe(true);
     });
@@ -216,7 +215,7 @@ describe("Auth Storage", () => {
 // Helper functions for creating test JWTs
 function createValidJWT(): string {
   const futureExp = Math.floor((Date.now() + 3600000) / 1000);
-  return createJWTWithPayload({ exp: futureExp });
+  return createJWTWithPayload({ exp: futureExp, sub: "123" });
 }
 
 function createJWTWithPayload(payload: any): string {
