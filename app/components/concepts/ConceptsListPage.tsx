@@ -1,8 +1,8 @@
 "use client";
 
 import Pagination from "@/components/ui/Pagination";
-import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts-page";
-import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
+import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts";
+import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
 import { useState, useEffect } from "react";

@@ -1,5 +1,5 @@
+import Breadcrumb from "@/components/concepts/Breadcrumb";
 import { render, screen } from "@testing-library/react";
-import Breadcrumb from "@/components/concepts-page/Breadcrumb";
 
 describe("Breadcrumb", () => {
   it("renders without crashing", () => {

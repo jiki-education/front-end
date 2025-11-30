@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
-import ConceptsGrid from "@/components/concepts-page/ConceptsGrid";
 import styles from "@/app/(external)/concepts/concepts.module.css";
+import ConceptsGrid from "@/components/concepts/ConceptsGrid";
+import { render, screen } from "@testing-library/react";
 
 const mockConcepts = [
   {

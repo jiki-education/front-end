@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import ConceptsSearch from "@/components/concepts-page/ConceptsSearch";
+import ConceptsSearch from "@/components/concepts/ConceptsSearch";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("ConceptsSearch", () => {
   const defaultProps = {

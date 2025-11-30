@@ -1,6 +1,6 @@
-import Breadcrumb from "./Breadcrumb";
-import FolderIcon from "@static/icons/folder.svg";
 import styles from "@/app/(external)/concepts/concepts.module.css";
+import FolderIcon from "@static/icons/folder.svg";
+import Breadcrumb from "./Breadcrumb";
 
 interface ConceptsHeaderProps {
   isAuthenticated: boolean;

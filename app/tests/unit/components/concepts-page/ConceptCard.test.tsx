@@ -1,5 +1,5 @@
+import ConceptCard from "@/components/concepts/ConceptCard";
 import { render, screen } from "@testing-library/react";
-import ConceptCard from "@/components/concepts-page/ConceptCard";
 
 const mockConcept = {
   slug: "test-concept",

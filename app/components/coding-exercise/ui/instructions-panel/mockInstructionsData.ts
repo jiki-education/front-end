@@ -1,4 +1,4 @@
-import type { ConceptCardData } from "@/components/concepts-page/ConceptCard";
+import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 
 // Type definitions for the enhanced instruction data
 export interface FunctionInfo {
@@ -36,10 +36,10 @@ Your goal is to create a function that processes a text string and extracts the 
 function createAcronym(phrase) {
   let result = "";
   let isNewWord = true;
-  
+
   for (let i = 0; i < phrase.length; i++) {
     let char = get_character(phrase, i);
-    
+
     if (char === " " || char === "-") {
       isNewWord = true;
     } else if (isNewWord) {
@@ -47,7 +47,7 @@ function createAcronym(phrase) {
       isNewWord = false;
     }
   }
-  
+
   return to_upper_case(result);
 }
 \`\`\`
@@ -55,7 +55,7 @@ function createAcronym(phrase) {
 ## Edge Cases to Consider
 
 - **Multiple spaces**: Handle consecutive spaces between words
-- **Hyphenated words**: Treat hyphens as word separators  
+- **Hyphenated words**: Treat hyphens as word separators
 - **Leading/trailing spaces**: Ignore spaces at the beginning or end
 - **Empty strings**: Return empty string for empty input
 - **Single words**: Should return first letter only

@@ -1,5 +1,5 @@
-import { ConceptCard } from "@/components/concepts-page";
-import { Breadcrumb, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
+import { ConceptCard } from "@/components/concepts";
+import { Breadcrumb, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { mockConcepts } from "@/lib/data/mockConcepts";
 import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
 import styles from "@/styles/modules/concepts.module.css";

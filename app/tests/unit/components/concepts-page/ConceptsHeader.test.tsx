@@ -1,5 +1,5 @@
+import ConceptsHeader from "@/components/concepts/ConceptsHeader";
 import { render, screen } from "@testing-library/react";
-import ConceptsHeader from "@/components/concepts-page/ConceptsHeader";
 
 describe("ConceptsHeader", () => {
   it("renders without crashing", () => {

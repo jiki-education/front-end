@@ -1,9 +1,9 @@
+import styles from "@/app/(external)/concepts/concepts.module.css";
+import { mockConcepts } from "@/lib/data/mockConcepts";
 import type { ConceptListItem } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";
 import { EmptyState } from "./ErrorStates";
 import { InlineLoading } from "./LoadingStates";
-import { mockConcepts } from "@/lib/data/mockConcepts";
-import styles from "@/app/(external)/concepts/concepts.module.css";
 
 interface ConceptsGridProps {
   concepts: ConceptListItem[];
