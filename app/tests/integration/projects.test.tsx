@@ -18,7 +18,7 @@ jest.mock("@/lib/auth/hooks", () => ({
   useRequireAuth: jest.fn()
 }));
 
-jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar({ activeItem }: { activeItem: string }) {
     return (
       <div data-testid="sidebar">

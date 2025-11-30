@@ -5,14 +5,12 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useAuthStore } from "@/stores/authStore";
-import { useRequireAuth } from "@/lib/auth/hooks";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import toast from "react-hot-toast";
 import SettingsPage from "@/components/settings/SettingsPage";
 
 // Mock dependencies
 jest.mock("@/stores/authStore");
-jest.mock("@/lib/auth/hooks");
 jest.mock("@/lib/subscriptions/verification");
 
 // Mock react-hot-toast with proper jest.mock
@@ -27,13 +25,12 @@ jest.mock("react-hot-toast", () => ({
 }));
 
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
-const mockUseRequireAuth = useRequireAuth as jest.MockedFunction<typeof useRequireAuth>;
 const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunction<typeof extractAndClearSessionId>;
 const mockVerifyPaymentSession = verifyPaymentSession as jest.MockedFunction<typeof verifyPaymentSession>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
 // Mock Sidebar and SubscriptionSection since we're testing the payment flow
-jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar() {
     return <div data-testid="sidebar">Sidebar</div>;
   };
@@ -69,39 +66,21 @@ describe("SettingsPage Payment Verification", () => {
     jest.clearAllMocks();
 
     // Default mocks for authenticated state
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      user: mockUser,
-      isReady: true
-    });
-
     mockUseAuthStore.mockReturnValue({
       refreshUser: mockRefreshUser,
       user: mockUser,
       isAuthenticated: true,
       isLoading: false,
+      hasCheckedAuth: true,
       error: null,
       login: jest.fn(),
       logout: jest.fn(),
-      register: jest.fn()
-    });
+      register: jest.fn(),
+      checkAuth: jest.fn()
+    } as any);
 
     // Default: no session_id in URL
     mockExtractAndClearSessionId.mockReturnValue(null);
-  });
-
-  it("renders loading state when auth is loading", () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: false,
-      isLoading: true,
-      user: null,
-      isReady: false
-    });
-
-    render(<SettingsPage />);
-
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renders settings page when authenticated without session_id", () => {
@@ -113,18 +92,25 @@ describe("SettingsPage Payment Verification", () => {
     expect(mockVerifyPaymentSession).not.toHaveBeenCalled();
   });
 
-  it("does not process session_id when user is not authenticated", () => {
-    mockUseRequireAuth.mockReturnValue({
+  it("does not process session_id when user is not available", () => {
+    // Update mock to have no user
+    mockUseAuthStore.mockReturnValue({
+      refreshUser: mockRefreshUser,
+      user: null,
       isAuthenticated: false,
       isLoading: false,
-      user: null,
-      isReady: true
-    });
+      hasCheckedAuth: true,
+      error: null,
+      login: jest.fn(),
+      logout: jest.fn(),
+      register: jest.fn(),
+      checkAuth: jest.fn()
+    } as any);
     mockExtractAndClearSessionId.mockReturnValue("cs_test_123");
 
     render(<SettingsPage />);
 
-    // Should not process verification when not authenticated
+    // Should not process verification when user is not available
     expect(mockVerifyPaymentSession).not.toHaveBeenCalled();
   });
 

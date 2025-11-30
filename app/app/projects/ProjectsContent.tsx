@@ -21,12 +21,7 @@ const tabs: TabItem[] = [
   { id: "locked", label: "Locked", icon: <LockedIcon />, color: "gray" }
 ];
 
-interface ProjectsContentProps {
-  isAuthenticated: boolean;
-  isReady: boolean;
-}
-
-export function ProjectsContent({ isAuthenticated, isReady }: ProjectsContentProps) {
+export function ProjectsContent() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [projectsLoading, setProjectsLoading] = useState(false);
   const [projectsError, setProjectsError] = useState<string | null>(null);
@@ -52,11 +47,6 @@ export function ProjectsContent({ isAuthenticated, isReady }: ProjectsContentPro
 
   useEffect(() => {
     async function loadProjects() {
-      if (!isReady || !isAuthenticated) {
-        setProjectsLoading(false);
-        return;
-      }
-
       try {
         setProjectsLoading(true);
         const response: ProjectsResponse = await fetchProjects();
@@ -70,7 +60,7 @@ export function ProjectsContent({ isAuthenticated, isReady }: ProjectsContentPro
     }
 
     void loadProjects();
-  }, [isAuthenticated, isReady]);
+  }, []);
 
   if (projectsLoading) {
     return (
@@ -100,31 +90,29 @@ export function ProjectsContent({ isAuthenticated, isReady }: ProjectsContentPro
   }
 
   return (
-    <main className="p-6">
-      <div className="max-w-screen-xl mx-auto">
-        <header className="ui-page-header">
-          <h1>
-            <ProjectsIcon />
-            Projects
-          </h1>
-          <p>Build real applications and games to practice your coding skills.</p>
-        </header>
+    <div className="max-w-screen-xl mx-auto py-32 px-48">
+      <header className="ui-page-header">
+        <h1>
+          <ProjectsIcon />
+          Projects
+        </h1>
+        <p>Build real applications and games to practice your coding skills.</p>
+      </header>
 
-        <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+      <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
-        {filteredProjects.length === 0 ? (
-          <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />
-        ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-            {mockProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
-        )}
-      </div>
-    </main>
+      {filteredProjects.length === 0 ? (
+        <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />
+      ) : (
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+          {mockProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

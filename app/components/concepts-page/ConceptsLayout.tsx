@@ -1,5 +1,5 @@
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
 import styles from "@/app/(external)/concepts/concepts.module.css";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
 
 interface ConceptsLayoutProps {
   children: React.ReactNode;

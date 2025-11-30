@@ -1,9 +1,9 @@
 "use client";
 
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
 import { useAuth } from "@/lib/auth/hooks";
-import Link from "next/link";
 import type { ProcessedPost } from "@jiki/content";
+import Link from "next/link";
 
 interface ArticlesContentProps {
   articles: ProcessedPost[];

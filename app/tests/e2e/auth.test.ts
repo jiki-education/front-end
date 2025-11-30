@@ -215,8 +215,14 @@ describe("Authentication E2E", () => {
       // Try to access dashboard
       await page.goto("http://localhost:3081/dashboard", { waitUntil: "domcontentloaded" });
 
-      // Wait for auth system to resolve and redirect
-      await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 5000 });
+      // With ClientAuthGuard, we should see either loading spinner or redirect quickly
+      // Wait for either the login page URL or auth-related content
+      try {
+        await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 2000 });
+      } catch {
+        // If redirect didn't happen via URL change, check if we're showing login UI
+        await page.waitForSelector('h1:has-text("Log In")', { timeout: 2000 });
+      }
 
       const url = page.url();
       expect(url).toContain("/auth/login");
