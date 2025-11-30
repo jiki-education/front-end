@@ -22,13 +22,13 @@ jest.mock("@/lib/auth/storage", () => ({
   parseJwtPayload: jest.fn((token: string) => {
     if (token === "valid.jwt.token") {
       return {
-        user_id: 123,
+        sub: "123",
         exp: Math.floor(Date.now() / 1000) + 3600 // Valid for 1 hour
       };
     }
     if (token === "expired.jwt.token") {
       return {
-        user_id: 123,
+        sub: "123",
         exp: Math.floor(Date.now() / 1000) - 3600 // Expired 1 hour ago
       };
     }
@@ -81,13 +81,14 @@ describe("Home Page (Server Component)", () => {
     expect(mockRedirect).toHaveBeenCalledWith("/dashboard");
   });
 
-  it("redirects to dashboard even with expired token (client handles refresh)", async () => {
-    // Mock expired token cookie - server treats as authenticated
+  it("redirects to dashboard when access token is expired", async () => {
+    // Mock expired token cookie - server treats as authenticated (client will refresh)
     mockCookies.mockReturnValue({
       get: jest.fn().mockReturnValue({ value: "expired.jwt.token" })
     });
 
-    // Server treats expired JWT as authenticated (client will handle refresh)
+    // Server treats expired JWT as authenticated - redirects to dashboard
+    // Client-side ClientAuthGuard will handle token refresh
     await expect(Home()).rejects.toThrow("NEXT_REDIRECT: /dashboard");
     expect(mockRedirect).toHaveBeenCalledWith("/dashboard");
   });

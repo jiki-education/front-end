@@ -1,6 +1,6 @@
+import { TooltipContent } from "@/components/dashboard/exercise-path/ui/TooltipContent";
+import type { Exercise } from "@/components/dashboard/lib/mockData";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { TooltipContent } from "@/components/index-page/exercise-path/ui/TooltipContent";
-import type { Exercise } from "@/components/index-page/lib/mockData";
 
 // Mock Next.js Link component
 jest.mock("next/link", () => {

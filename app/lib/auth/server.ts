@@ -37,7 +37,7 @@ export async function getServerAuth(): Promise<ServerAuthState> {
     // Client-side will handle token refresh automatically
     return {
       isAuthenticated: true,
-      userId: payload.user_id || null,
+      userId: payload.sub ? parseInt(payload.sub, 10) : null,
       token: accessToken
     };
   } catch (error) {

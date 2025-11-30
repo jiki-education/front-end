@@ -3,14 +3,14 @@
  */
 
 import { useAuthStore } from "@/stores/authStore";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { isExternalUrl } from "@/lib/routing/external-urls";
+import { removeAccessToken } from "@/lib/auth/storage";
 
 interface RequireAuthOptions {
   redirectTo?: string;
   redirectIfAuthenticated?: boolean;
-  onAuthenticated?: () => void;
-  onUnauthenticated?: () => void;
 }
 
 /**
@@ -20,18 +20,14 @@ interface RequireAuthOptions {
  * @param options Configuration options for auth behavior
  * @param options.redirectTo URL to redirect to when not authenticated (default: "/auth/login")
  * @param options.redirectIfAuthenticated If true, redirects to dashboard when authenticated
- * @param options.onAuthenticated Callback when user is authenticated (called once)
- * @param options.onUnauthenticated Callback when user is not authenticated (called once)
- *
- * Note: Callbacks are intentionally excluded from useEffect dependencies to prevent
- * infinite re-renders. They will only be called once per auth state change.
  *
  * @returns Object with auth state and loading status
  */
 export function useRequireAuth(options: RequireAuthOptions = {}) {
-  const { redirectTo = "/auth/login", redirectIfAuthenticated = false, onAuthenticated, onUnauthenticated } = options;
+  const { redirectTo = "/auth/login", redirectIfAuthenticated = false } = options;
 
   const router = useRouter();
+  const pathname = usePathname();
   const { isAuthenticated, isLoading: authLoading, user, hasCheckedAuth } = useAuthStore();
   const [isReady, setIsReady] = useState(false);
 
@@ -51,27 +47,28 @@ export function useRequireAuth(options: RequireAuthOptions = {}) {
 
     setIsReady(true);
 
+    // Use Case 1: Login/Signup pages - redirect authenticated users away
+    // If user is already logged in and visits /auth/login, send them to dashboard
     if (redirectIfAuthenticated && isAuthenticated) {
       router.push("/dashboard");
       return;
     }
 
+    // Use Case 2: Protected pages - redirect unauthenticated users
+    // If user is NOT logged in and visits a protected page, handle redirect
     if (!redirectIfAuthenticated && !isAuthenticated) {
-      if (onUnauthenticated) {
-        onUnauthenticated();
+      // Clear stale token before redirecting
+      removeAccessToken();
+
+      // Redirect based on URL type
+      if (isExternalUrl(pathname)) {
+        router.push(pathname); // Reload same page → shows external version
+      } else {
+        router.push(redirectTo); // Redirect to login
       }
-      router.push(redirectTo);
       return;
     }
-
-    if (isAuthenticated && onAuthenticated) {
-      onAuthenticated();
-    }
-    // Excluding callback functions from dependencies to prevent infinite re-renders
-    // when consumers pass inline functions. The callbacks are only used for side effects
-    // and don't affect the core auth logic flow.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, authLoading, hasCheckedAuth, router, redirectTo, redirectIfAuthenticated]);
+  }, [isAuthenticated, authLoading, hasCheckedAuth, router, redirectTo, redirectIfAuthenticated, pathname]);
 
   return {
     isAuthenticated,

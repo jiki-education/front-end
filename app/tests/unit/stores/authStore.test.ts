@@ -2,14 +2,17 @@
  * Unit tests for authStore Google authentication methods
  */
 
-import { useAuthStore } from "@/stores/authStore";
 import * as authService from "@/lib/auth/service";
+import { useAuthStore } from "@/stores/authStore";
 import type { User } from "@/types/auth";
 import toast from "react-hot-toast";
 
 // Mock auth service
 jest.mock("@/lib/auth/service");
 const mockAuthService = authService as jest.Mocked<typeof authService>;
+
+// Mock auth storage
+jest.mock("@/lib/auth/storage");
 
 // Mock toast
 jest.mock("react-hot-toast", () => ({

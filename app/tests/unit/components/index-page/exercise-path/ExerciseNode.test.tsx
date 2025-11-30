@@ -1,5 +1,5 @@
-import { ExerciseNode } from "@/components/index-page/exercise-path/ExerciseNode";
-import type { Exercise } from "@/components/index-page/lib/mockData";
+import { ExerciseNode } from "@/components/dashboard/exercise-path/ExerciseNode";
+import type { Exercise } from "@/components/dashboard/lib/mockData";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 

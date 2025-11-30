@@ -4,7 +4,7 @@
 
 import { googleLogin } from "@/lib/auth/service";
 import { api } from "@/lib/api";
-import { setAccessToken, setRefreshToken, getTokenExpiry } from "@/lib/auth/storage";
+import { setAccessToken, setRefreshToken } from "@/lib/auth/storage";
 import type { AuthResponse, User } from "@/types/auth";
 
 // Mock dependencies
@@ -14,7 +14,6 @@ jest.mock("@/lib/auth/storage");
 const mockApi = api as jest.Mocked<typeof api>;
 const mockSetAccessToken = setAccessToken as jest.MockedFunction<typeof setAccessToken>;
 const mockSetRefreshToken = setRefreshToken as jest.MockedFunction<typeof setRefreshToken>;
-const mockGetTokenExpiry = getTokenExpiry as jest.MockedFunction<typeof getTokenExpiry>;
 
 describe("Auth Service - googleLogin", () => {
   const mockUser: User = {
@@ -45,13 +44,11 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000); // 1 hour from now
-
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
     expect(mockApi.post).toHaveBeenCalledWith("/auth/google", { code: "auth-code-123" });
-    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123");
     expect(mockSetRefreshToken).toHaveBeenCalledWith("refresh-token-456");
   });
 
@@ -65,12 +62,11 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token-789", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token-789");
   });
 
   it("should handle token in lowercase authorization header", async () => {
@@ -83,12 +79,11 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetAccessToken).toHaveBeenCalledWith("lowercase-token-789", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("lowercase-token-789");
   });
 
   it("should prefer header token over body token", async () => {
@@ -101,11 +96,10 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
     await googleLogin("auth-code-123");
 
-    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("header-token");
   });
 
   it("should handle different token field names in response body", async () => {
@@ -130,26 +124,24 @@ describe("Auth Service - googleLogin", () => {
         status: 200
       };
       mockApi.post.mockResolvedValue(mockResponse);
-      mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
       await googleLogin("auth-code-123");
 
-      expect(mockSetAccessToken).toHaveBeenCalledWith(testCase.value, expect.any(Number));
+      expect(mockSetAccessToken).toHaveBeenCalledWith(testCase.value);
     }
   });
 
-  it("should store token without expiry when getTokenExpiry returns null", async () => {
+  it("should store token with 1-year cookie expiration", async () => {
     const mockResponse = {
       data: mockAuthResponse,
       headers: new Headers(),
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(null);
 
     await googleLogin("auth-code-123");
 
-    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", undefined);
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123");
   });
 
   it("should handle missing access token gracefully", async () => {
@@ -184,12 +176,11 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
     const result = await googleLogin("auth-code-123");
 
     expect(result).toEqual(mockUser);
-    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123");
     expect(mockSetRefreshToken).not.toHaveBeenCalled();
   });
 
@@ -203,12 +194,11 @@ describe("Auth Service - googleLogin", () => {
       status: 200
     };
     mockApi.post.mockResolvedValue(mockResponse);
-    mockGetTokenExpiry.mockReturnValue(Date.now() + 3600000);
 
     await googleLogin("auth-code-123");
 
     // Should fall back to body token
-    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123", expect.any(Number));
+    expect(mockSetAccessToken).toHaveBeenCalledWith("access-token-123");
   });
 
   it("should handle API errors properly", async () => {

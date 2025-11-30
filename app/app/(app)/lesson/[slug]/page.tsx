@@ -4,7 +4,6 @@ import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchLesson, type LessonData } from "@/lib/api/lessons";
-import { useRequireAuth } from "@/lib/auth/hooks";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,20 +16,15 @@ interface PageProps {
 
 export default function LessonPage({ params }: PageProps) {
   const router = useRouter();
-  const { isAuthenticated, isLoading: authLoading, isReady } = useRequireAuth();
   const [lesson, setLesson] = useState<LessonData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load lesson when authenticated
+  // Load lesson on mount
   useEffect(() => {
     let cancelled = false;
 
     async function loadLesson() {
-      if (!isReady || !isAuthenticated) {
-        return;
-      }
-
       try {
         setLoading(true);
         const resolvedParams = await params;
@@ -48,6 +42,8 @@ export default function LessonPage({ params }: PageProps) {
       } catch (err) {
         if (!cancelled) {
           console.error("Failed to fetch lesson:", err);
+          // Auth/network/rate-limit errors never reach here (handled globally)
+          // Only application errors (404, 500, validation) reach this catch block
           setError(err instanceof Error ? err.message : "Failed to load lesson");
         }
       } finally {
@@ -62,15 +58,11 @@ export default function LessonPage({ params }: PageProps) {
     return () => {
       cancelled = true;
     };
-  }, [params, isAuthenticated, isReady]);
+  }, [params]);
 
-  if (authLoading || loading) {
+  if (loading) {
     // Show loading page - will default to exercise type if not specified
     return <LessonLoadingPage type={lesson?.type} />;
-  }
-
-  if (!isAuthenticated) {
-    return null;
   }
 
   if (error || !lesson) {
