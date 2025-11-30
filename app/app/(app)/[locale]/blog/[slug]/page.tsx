@@ -1,9 +1,9 @@
+import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
+import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 import { getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
-import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
-import AuthenticatedLayout from "@/components/layout/authenticated";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -34,8 +34,8 @@ export default async function AuthenticatedLocaleBlogPostPage({ params }: Props)
   }
 
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedHeaderLayout>
       <BlogPostPage slug={slug} authenticated={true} locale={locale} />
-    </AuthenticatedLayout>
+    </AuthenticatedHeaderLayout>
   );
 }

@@ -1,8 +1,7 @@
 import Dashboard from "@/app/(app)/dashboard/page";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
-import { useRequireAuth } from "@/lib/auth/hooks";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 // Mock Next.js router
 const mockPush = jest.fn();
@@ -50,11 +49,6 @@ jest.mock("@static/icons/book.svg", () => ({
 jest.mock("@static/icons/lightbulb.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="lightbulb-icon" aria-hidden="true" />
-}));
-
-// Mock the auth hooks
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: jest.fn()
 }));
 
 // Mock the auth store
@@ -151,36 +145,9 @@ describe("Dashboard Page", () => {
     mockPush.mockClear();
     mockLogout.mockClear();
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
-
-    // Default mock for useRequireAuth - can be overridden in individual tests
-    (useRequireAuth as jest.Mock).mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: { id: "1", email: "test@test.com" }
-    });
   });
 
-  it("returns null when not authenticated", async () => {
-    (useRequireAuth as jest.Mock).mockReturnValue({
-      isAuthenticated: false,
-      isLoading: false,
-      isReady: true
-    });
-
-    const { container } = render(
-      <ThemeProvider>
-        <Dashboard />
-      </ThemeProvider>
-    );
-
-    // First it should show loading, then when levelsLoading becomes false and !isAuthenticated, return null
-    await waitFor(() => {
-      expect(container.firstChild).toBeNull();
-    });
-  });
-
-  it("renders without crashing when authenticated", () => {
+  it("renders without crashing", () => {
     const { container } = render(
       <ThemeProvider>
         <Dashboard />

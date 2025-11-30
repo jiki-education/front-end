@@ -1,5 +1,5 @@
-import { LessonTooltip } from "@/components/index-page/exercise-path/LessonTooltip";
-import type { Exercise } from "@/components/index-page/lib/mockData";
+import { LessonTooltip } from "@/components/dashboard/exercise-path/LessonTooltip";
+import type { Exercise } from "@/components/dashboard/lib/mockData";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";

@@ -1,6 +1,6 @@
-import ExercisePath from "@/components/index-page/exercise-path/ExercisePath";
-import * as mockData from "@/components/index-page/lib/mockData";
-import { render, screen, act } from "@testing-library/react";
+import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
+import * as mockData from "@/components/dashboard/lib/mockData";
+import { act, render, screen } from "@testing-library/react";
 import React from "react";
 
 // Mock Next.js router
@@ -11,18 +11,23 @@ jest.mock("next/navigation", () => ({
   }))
 }));
 
-jest.mock("@/components/index-page/lib/mockData");
+jest.mock("@/components/dashboard/lib/mockData");
+
+// Mock the API levels fetch function
+jest.mock("@/lib/api/levels", () => ({
+  fetchLevelsWithProgress: jest.fn().mockResolvedValue([])
+}));
 
 // Mock the API startLesson function
 jest.mock("@/lib/api/lessons", () => ({
   startLesson: jest.fn().mockResolvedValue(undefined)
 }));
 
-jest.mock("@/components/index-page/exercise-path/LessonTooltip", () => ({
+jest.mock("@/components/dashboard/exercise-path/LessonTooltip", () => ({
   LessonTooltip: ({ children }: { children: React.ReactNode }) => <>{children}</>
 }));
 
-jest.mock("@/components/index-page/exercise-path/PathConnection", () => ({
+jest.mock("@/components/dashboard/exercise-path/PathConnection", () => ({
   PathConnection: ({ from, to, completed }: any) => (
     <line
       data-testid="path-connection"

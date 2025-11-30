@@ -3,7 +3,6 @@
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import { fetchProject, type ProjectData } from "@/lib/api/projects";
-import { useRequireAuth } from "@/lib/auth/hooks";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,7 +15,6 @@ interface PageProps {
 
 export default function ProjectPage({ params }: PageProps) {
   const router = useRouter();
-  const { isAuthenticated, isLoading: authLoading, isReady } = useRequireAuth();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,11 +23,6 @@ export default function ProjectPage({ params }: PageProps) {
     let cancelled = false;
 
     async function loadProject() {
-      if (!isReady || !isAuthenticated) {
-        setLoading(false);
-        return;
-      }
-
       try {
         setLoading(true);
         const resolvedParams = await params;
@@ -64,14 +57,10 @@ export default function ProjectPage({ params }: PageProps) {
     return () => {
       cancelled = true;
     };
-  }, [params, isAuthenticated, isReady]);
+  }, [params]);
 
-  if (authLoading || loading) {
+  if (loading) {
     return <LessonLoadingPage type="exercise" />;
-  }
-
-  if (!isAuthenticated) {
-    return null;
   }
 
   if (error || !project) {

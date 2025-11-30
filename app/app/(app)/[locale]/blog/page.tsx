@@ -1,5 +1,5 @@
 import BlogPage from "@/components/blog/BlogPage";
-import AuthenticatedLayout from "@/components/layout/authenticated";
+import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 import { getAvailableLocales } from "@jiki/content";
 import { notFound, redirect } from "next/navigation";
@@ -29,8 +29,8 @@ export default async function AuthenticatedLocaleBlogPage({ params }: Props) {
 
   // Authenticated UI with header/footer
   return (
-    <AuthenticatedLayout>
+    <AuthenticatedHeaderLayout>
       <BlogPage authenticated locale={locale} />
-    </AuthenticatedLayout>
+    </AuthenticatedHeaderLayout>
   );
 }

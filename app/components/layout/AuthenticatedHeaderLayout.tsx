@@ -1,11 +1,11 @@
 import Footer from "./footer";
 import Header from "./header/internal";
 
-interface AuthenticatedLayoutProps {
+interface AuthenticatedHeaderLayoutProps {
   children: React.ReactNode;
 }
 
-export default function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
+export default function AuthenticatedHeaderLayout({ children }: AuthenticatedHeaderLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
