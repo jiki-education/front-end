@@ -1,48 +1,57 @@
 "use client";
 
-import { useAuth } from "@/lib/auth/hooks";
 import { fetchConcept } from "@/lib/api/concepts";
 import type { ConceptDetail } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import type { Metadata } from "next";
 import MarkdownContent from "@/components/content/MarkdownContent";
-import { mockConcepts } from "@/lib/data/mockConcepts";
 import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
-import { ConceptsLayout, ConceptCard } from "@/components/concepts-page";
-import { Breadcrumb, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
+import { ConceptsLayout } from "@/components/concepts-page";
+import { Breadcrumb } from "@/components/concepts-page";
 import ConceptHero from "@/components/concepts/ConceptHero";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
-import styles from "../concepts.module.css";
+import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
 
-interface Props {
-  params: Promise<{ slug: string }>;
+interface ConceptDetailPageProps {
+  slug: string;
+  authenticated: boolean;
 }
 
-export default function ConceptDetailPage({ params }: Props) {
+// Helper for generateMetadata
+export async function getConceptMetadata(slug: string): Promise<Metadata> {
+  try {
+    const concept = await fetchConcept(slug, true); // unscoped for metadata
+    return {
+      title: concept.title,
+      description: concept.description
+    };
+  } catch {
+    return { title: "Concept Not Found" };
+  }
+}
+
+export default function ConceptDetailPage({ slug, authenticated }: ConceptDetailPageProps) {
   const router = useRouter();
-  const { isAuthenticated, isReady } = useAuth();
   const [concept, setConcept] = useState<ConceptDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [slug, setSlug] = useState<string>("");
-  const withSidebar = isReady && isAuthenticated;
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const resolveParams = async () => {
-      const resolvedParams = await params;
-      setSlug(resolvedParams.slug);
-    };
-    void resolveParams();
-  }, [params]);
+    setIsReady(true);
+  }, []);
+
+  const withSidebar = isReady && authenticated;
 
   useEffect(() => {
     const loadConcept = async () => {
-      if (!isReady || !slug) {
+      if (!isReady) {
         return;
       }
 
       // For authenticated users with mock subconcepts, skip API call
-      if (isAuthenticated && slug in mockSubconcepts) {
+      if (authenticated && slug in mockSubconcepts) {
         setIsLoading(false);
         return;
       }
@@ -52,7 +61,7 @@ export default function ConceptDetailPage({ params }: Props) {
         setError(null);
 
         // Use unscoped=true for logged out users to show all concepts
-        const unscoped = !isAuthenticated;
+        const unscoped = !authenticated;
         const data = await fetchConcept(slug, unscoped);
         setConcept(data);
       } catch (err: any) {
@@ -70,39 +79,16 @@ export default function ConceptDetailPage({ params }: Props) {
     };
 
     void loadConcept();
-  }, [isAuthenticated, isReady, slug]);
+  }, [authenticated, isReady, slug]);
 
-  // Get current concept and subconcepts
-  const currentConcept = mockConcepts.find((c) => c.slug === slug);
-  const subconcepts = slug in mockSubconcepts ? mockSubconcepts[slug] : undefined;
+  // Check if this concept has subconcepts
+  const hasSubconcepts = slug in mockSubconcepts;
 
   // Show loading for subconcepts page
-  if (isAuthenticated && subconcepts && currentConcept && (!isReady || isLoading)) {
+  if (authenticated && hasSubconcepts && (!isReady || isLoading)) {
     return (
       <ConceptsLayout withSidebar={withSidebar}>
-        <Breadcrumb conceptSlug={slug} conceptTitle={currentConcept.title} />
-
-        <header>
-          <h1 className={styles.pageHeading}>
-            <svg
-              className={`${styles.headingIcon} w-8 h-8`}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7h18M8 12h8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {currentConcept.title}
-          </h1>
-        </header>
-
-        <ConceptCardsLoadingSkeleton />
+        <SubconceptsGrid slug={slug} isLoading={true} />
       </ConceptsLayout>
     );
   }
@@ -149,36 +135,10 @@ export default function ConceptDetailPage({ params }: Props) {
   }
 
   // Show subconcepts view for authenticated users when subconcepts exist
-  if (isAuthenticated && subconcepts && currentConcept) {
+  if (authenticated && hasSubconcepts) {
     return (
       <ConceptsLayout withSidebar={withSidebar}>
-        <Breadcrumb conceptSlug={slug} conceptTitle={currentConcept.title} />
-
-        <header>
-          <h1 className={styles.pageHeading}>
-            <svg
-              className={`${styles.headingIcon} w-8 h-8`}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7h18M8 12h8"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {currentConcept.title}
-          </h1>
-        </header>
-
-        <div className={styles.conceptsGrid}>
-          {subconcepts.map((subconcept) => (
-            <ConceptCard key={subconcept.slug} concept={subconcept} isAuthenticated={isAuthenticated} />
-          ))}
-        </div>
+        <SubconceptsGrid slug={slug} />
       </ConceptsLayout>
     );
   }

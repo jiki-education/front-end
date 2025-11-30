@@ -1,18 +1,27 @@
 "use client";
 
-import { useAuth } from "@/lib/auth/hooks";
 import Pagination from "@/components/ui/Pagination";
 import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts-page";
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts-page";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
+import { useState, useEffect } from "react";
 
-export default function ConceptsPage() {
-  const { isAuthenticated, isReady } = useAuth();
-  const withSidebar = isReady && isAuthenticated;
+interface ConceptsListPageProps {
+  authenticated: boolean;
+}
+
+export default function ConceptsListPage({ authenticated }: ConceptsListPageProps) {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
+
+  const withSidebar = isReady && authenticated;
 
   const { conceptsState, isLoading, error, loadConcepts } = useConcepts({
-    isAuthenticated,
+    isAuthenticated: authenticated,
     isReady
   });
 
@@ -30,7 +39,7 @@ export default function ConceptsPage() {
   // Always render static structure
   return (
     <ConceptsLayout withSidebar={withSidebar}>
-      <ConceptsHeader isAuthenticated={isAuthenticated} />
+      <ConceptsHeader isAuthenticated={authenticated} />
 
       <ConceptsSearch
         searchQuery={searchQuery}
@@ -39,7 +48,7 @@ export default function ConceptsPage() {
         debouncedSearchQuery={debouncedSearchQuery}
         isLoading={isLoading}
         totalCount={conceptsState.totalCount}
-        isAuthenticated={isAuthenticated}
+        isAuthenticated={authenticated}
       />
 
       {/* Show loading skeleton only for initial load or when no concepts exist */}
@@ -54,7 +63,7 @@ export default function ConceptsPage() {
             isLoading={isLoading}
             debouncedSearchQuery={debouncedSearchQuery}
             onClearSearch={clearSearch}
-            isAuthenticated={isAuthenticated}
+            isAuthenticated={authenticated}
           />
 
           {conceptsState.concepts.length > 0 && (

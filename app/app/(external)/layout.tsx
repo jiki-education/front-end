@@ -2,7 +2,6 @@
 
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header/internal";
-import { useAuth } from "@/lib/auth/hooks";
 import { usePathname } from "next/navigation";
 
 export default function ExternalLayout({
@@ -11,17 +10,10 @@ export default function ExternalLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const { isAuthenticated, isReady } = useAuth();
   const isAuthPage = pathname.startsWith("/auth");
-  const isConceptsPage = pathname.startsWith("/concepts");
 
   // Auth pages: no wrapper at all
   if (isAuthPage) {
-    return children;
-  }
-
-  // Concepts pages with authenticated user: no header/footer
-  if (isReady && isAuthenticated && isConceptsPage) {
     return children;
   }
 

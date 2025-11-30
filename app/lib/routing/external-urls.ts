@@ -23,5 +23,10 @@ export function isExternalUrl(pathname: string): boolean {
     return true;
   }
 
+  // Concepts routes
+  if (pathname === "/concepts" || pathname.startsWith("/concepts/")) {
+    return true;
+  }
+
   return false;
 }
