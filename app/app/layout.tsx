@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/lib/theme";
 import type { Metadata } from "next";
 import { Poppins, Source_Code_Pro } from "next/font/google";
 import Script from "next/script";
-import "../src/utils/whyDidYouRender";
+import "@/lib/whyDidYouRender";
 import "./globals.css";
 
 const poppins = Poppins({
