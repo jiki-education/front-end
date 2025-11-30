@@ -1,14 +1,13 @@
 import ArticleDetailPage, { getArticleMetadata } from "@/components/articles/ArticleDetailPage";
+import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 import { getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
-
-export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return getAllPostSlugsWithLocales("articles", SUPPORTED_LOCALES)
@@ -26,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return getArticleMetadata(slug, locale);
 }
 
-export default async function LocaleArticlePage({ params }: Props) {
+export default async function AuthenticatedLocaleArticlePage({ params }: Props) {
   const { locale, slug } = await params;
 
   // Redirect default locale to naked URL
@@ -34,5 +33,9 @@ export default async function LocaleArticlePage({ params }: Props) {
     redirect(`/articles/${slug}`);
   }
 
-  return <ArticleDetailPage slug={slug} authenticated={false} locale={locale} />;
+  return (
+    <AuthenticatedHeaderLayout>
+      <ArticleDetailPage slug={slug} authenticated={true} locale={locale} />
+    </AuthenticatedHeaderLayout>
+  );
 }

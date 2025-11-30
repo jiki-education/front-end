@@ -13,10 +13,15 @@ export function isExternalUrl(pathname: string): boolean {
     return true;
   }
 
-  // Add more external routes as needed:
-  // if (pathname === '/articles' || pathname.startsWith('/articles/')) {
-  //   return true;
-  // }
+  // Articles routes (current and localized)
+  if (pathname === "/articles" || pathname.startsWith("/articles/")) {
+    return true;
+  }
+
+  // Localized articles routes (e.g., /de/articles, /es/articles/...)
+  if (pathname.match(/^\/[a-z]{2}\/articles(\/|$)/)) {
+    return true;
+  }
 
   return false;
 }

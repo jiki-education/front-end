@@ -1,20 +1,19 @@
+import ArticlesPage from "@/components/articles/ArticlesPage";
+import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 import { getAvailableLocales } from "@jiki/content";
 import { notFound, redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
-import ArticlesPage from "@/components/articles/ArticlesPage";
 
 interface Props {
   params: Promise<{ locale: string }>;
 }
-
-export const dynamic = "force-static";
 
 export function generateStaticParams() {
   const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
   return locales.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }));
 }
 
-export default async function LocaleArticlesPage({ params }: Props) {
+export default async function AuthenticatedLocaleArticlesPage({ params }: Props) {
   const { locale } = await params;
 
   // Redirect default locale to naked URL
@@ -28,5 +27,10 @@ export default async function LocaleArticlesPage({ params }: Props) {
     notFound();
   }
 
-  return <ArticlesPage authenticated={false} locale={locale} />;
+  // Authenticated UI with header/footer
+  return (
+    <AuthenticatedHeaderLayout>
+      <ArticlesPage authenticated locale={locale} />
+    </AuthenticatedHeaderLayout>
+  );
 }
