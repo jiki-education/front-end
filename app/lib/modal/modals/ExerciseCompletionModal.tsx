@@ -2,10 +2,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Lottie from "react-lottie-player";
 import { hideModal, showModal } from "../store";
 import styles from "@/app/styles/components/modals.module.css";
 import timelineStyles from "@/app/styles/components/exercise-timeline.module.css";
 import projectStyles from "@/app/styles/components/project-card.module.css";
+import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
@@ -42,18 +44,31 @@ export function ExerciseCompletionModal({
   useEffect(() => {
     if (step === "project-unlocked") {
       // Re-show the modal with the special overlay class
-      showModal("exercise-completion-modal", {
-        onTidyCode,
-        onCompleteExercise,
-        onGoToProject,
-        onGoToDashboard,
-        exerciseTitle,
-        exerciseIcon,
-        unlockedProject,
-        initialStep: "project-unlocked"
-      }, styles.projectModalOverlay);
+      showModal(
+        "exercise-completion-modal",
+        {
+          onTidyCode,
+          onCompleteExercise,
+          onGoToProject,
+          onGoToDashboard,
+          exerciseTitle,
+          exerciseIcon,
+          unlockedProject,
+          initialStep: "project-unlocked"
+        },
+        styles.projectModalOverlay
+      );
     }
-  }, [step, onTidyCode, onCompleteExercise, onGoToProject, onGoToDashboard, exerciseTitle, exerciseIcon, unlockedProject]);
+  }, [
+    step,
+    onTidyCode,
+    onCompleteExercise,
+    onGoToProject,
+    onGoToDashboard,
+    exerciseTitle,
+    exerciseIcon,
+    unlockedProject
+  ]);
 
   const handleTidyCode = () => {
     onTidyCode?.();
@@ -74,6 +89,7 @@ export function ExerciseCompletionModal({
   };
 
   const handleContinue = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (unlockedProject) {
       setStep("project-unlocked");
     } else {
@@ -95,9 +111,7 @@ export function ExerciseCompletionModal({
     return (
       <>
         <h2 className={styles.modalTitle}>Project unlocked!</h2>
-        <p className={styles.modalMessage}>
-          All that practice means you&apos;re ready for a new project.
-        </p>
+        <p className={styles.modalMessage}>All that practice means you&apos;re ready for a new project.</p>
         <div className={projectStyles.projectCardSimple}>
           <div className={projectStyles.projectCardSimpleBackground}></div>
           <div className={projectStyles.projectCardSimpleBack}></div>
@@ -107,9 +121,7 @@ export function ExerciseCompletionModal({
               <img src={unlockedProject.icon} alt={unlockedProject.name} />
             </div>
             <div className={projectStyles.projectCardSimpleName}>{unlockedProject.name}</div>
-            <div className={projectStyles.projectCardSimpleDescription}>
-              {unlockedProject.description}
-            </div>
+            <div className={projectStyles.projectCardSimpleDescription}>{unlockedProject.description}</div>
           </div>
         </div>
         <div className={styles.modalButtonsDivider}></div>
@@ -136,7 +148,9 @@ export function ExerciseCompletionModal({
             <img src={exerciseIcon} alt="Exercise icon" />
             <div className={timelineStyles.exerciseIconGreenOverlay}></div>
           </div>
-          <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed} ${timelineStyles.timelineLineAnimateHalf}`}></div>
+          <div
+            className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed} ${timelineStyles.timelineLineAnimateHalf}`}
+          ></div>
           <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGrey}`}></div>
           <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed}`}></div>
         </div>
@@ -159,7 +173,8 @@ export function ExerciseCompletionModal({
       <>
         <h2 className={styles.modalTitle}>Are you sure?</h2>
         <p className={styles.modalMessage}>
-          Are you sure you want to mark this exercise as complete? You can always come back and improve your solution later.
+          Are you sure you want to mark this exercise as complete? You can always come back and improve your solution
+          later.
         </p>
         <div className={styles.modalButtonsDivider}></div>
         <div className={styles.modalButtons}>
@@ -176,6 +191,9 @@ export function ExerciseCompletionModal({
 
   return (
     <>
+      <div className={styles.modalCheckmark}>
+        <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
+      </div>
       <h2 className={styles.modalTitle}>All tests passed!</h2>
       <p className={styles.modalMessage}>
         Great work! You&apos;re ready to complete this exercise and move on to the next challenge.
