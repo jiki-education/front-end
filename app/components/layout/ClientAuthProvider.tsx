@@ -13,7 +13,7 @@ interface ClientAuthProviderProps {
  * avoiding duplicate checkAuth() calls and race conditions.
  */
 export function ClientAuthProvider({ children }: ClientAuthProviderProps) {
-  const { checkAuth, hasCheckedAuth, isLoading } = useAuthStore();
+  const { checkAuth, hasCheckedAuth } = useAuthStore();
   const initRef = useRef(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function ClientAuthProvider({ children }: ClientAuthProviderProps) {
 
   // Wait for initial auth check to complete before rendering children
   // Use the store's hasCheckedAuth as the single source of truth
-  if (!hasCheckedAuth && isLoading) {
+  if (!hasCheckedAuth) {
     return <LoadingSpinner />; // Or a loading spinner if preferred
   }
 
