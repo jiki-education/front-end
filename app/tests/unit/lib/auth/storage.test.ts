@@ -18,7 +18,8 @@ import {
 jest.mock("@/lib/auth/cookie-storage", () => ({
   setAccessTokenCookie: jest.fn(),
   getAccessTokenCookie: jest.fn(),
-  removeAccessTokenCookie: jest.fn()
+  removeAccessTokenCookie: jest.fn(),
+  REFRESH_TOKEN_COOKIE_NAME: "jiki_refresh_token"
 }));
 
 // Mock localStorage for refresh token tests

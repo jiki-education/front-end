@@ -4,8 +4,7 @@
  */
 
 import { getAccessTokenCookie, removeAccessTokenCookie, setAccessTokenCookie } from "@/lib/auth/cookie-storage";
-
-export const REFRESH_TOKEN_KEY = "jiki_refresh_token";
+import { REFRESH_TOKEN_COOKIE_NAME } from "@/lib/auth/cookie-storage";
 
 /**
  * Store JWT access token in cookie
@@ -97,7 +96,7 @@ export function setRefreshToken(token: string): void {
   }
 
   try {
-    localStorage.setItem(REFRESH_TOKEN_KEY, token);
+    localStorage.setItem(REFRESH_TOKEN_COOKIE_NAME, token);
   } catch (error) {
     console.error("Failed to store refresh token:", error);
   }
@@ -112,7 +111,7 @@ export function getRefreshToken(): string | null {
   }
 
   try {
-    return localStorage.getItem(REFRESH_TOKEN_KEY);
+    return localStorage.getItem(REFRESH_TOKEN_COOKIE_NAME);
   } catch (error) {
     console.error("Failed to retrieve refresh token:", error);
     return null;
@@ -128,7 +127,7 @@ export function removeRefreshToken(): void {
   }
 
   try {
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_COOKIE_NAME);
   } catch (error) {
     console.error("Failed to remove refresh token:", error);
   }

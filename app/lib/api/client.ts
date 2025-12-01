@@ -4,7 +4,7 @@
  */
 
 import { refreshAccessToken } from "@/lib/auth/refresh";
-import { getAccessToken, parseJwtPayload } from "@/lib/auth/storage";
+import { getAccessToken } from "@/lib/auth/storage";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
 
@@ -229,46 +229,43 @@ async function request<T = unknown>(
       if (response.status === 401) {
         // Only attempt refresh if token is actually expired
         // This prevents unnecessary refresh token consumption on authorization errors
-        const shouldRefresh = isTokenActuallyExpired(token);
 
-        if (shouldRefresh) {
-          try {
-            const newAccessToken = await refreshAccessToken();
+        try {
+          const newAccessToken = await refreshAccessToken();
 
-            if (newAccessToken) {
-              // Refresh succeeded! Retry the original request with new token
-              requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
-              const retryResponse = await fetch(url.toString(), {
-                ...requestOptions,
-                headers: requestHeaders
-              });
+          if (newAccessToken) {
+            // Refresh succeeded! Retry the original request with new token
+            requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
+            const retryResponse = await fetch(url.toString(), {
+              ...requestOptions,
+              headers: requestHeaders
+            });
 
-              let retryData: T;
-              const retryContentType = retryResponse.headers.get("content-type");
+            let retryData: T;
+            const retryContentType = retryResponse.headers.get("content-type");
 
-              if (retryContentType?.includes("application/json")) {
-                retryData = await retryResponse.json();
-              } else {
-                retryData = (await retryResponse.text()) as T;
-              }
-
-              if (!retryResponse.ok) {
-                throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
-              }
-
-              return {
-                data: retryData,
-                status: retryResponse.status,
-                headers: retryResponse.headers
-              };
+            if (retryContentType?.includes("application/json")) {
+              retryData = await retryResponse.json();
+            } else {
+              retryData = (await retryResponse.text()) as T;
             }
 
-            // Refresh failed - tokens already cleared by refresh module
-            // Fall through to throw 401 error
-          } catch (refreshError) {
-            console.error("Token refresh failed:", refreshError);
-            // Fall through to throw original 401 error
+            if (!retryResponse.ok) {
+              throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
+            }
+
+            return {
+              data: retryData,
+              status: retryResponse.status,
+              headers: retryResponse.headers
+            };
           }
+
+          // Refresh failed - tokens already cleared by refresh module
+          // Fall through to throw 401 error
+        } catch (refreshError) {
+          console.error("Token refresh failed:", refreshError);
+          // Fall through to throw original 401 error
         }
         // If token not expired or refresh failed, throw authentication error
         // This will be caught by components that can handle redirects properly
@@ -299,29 +296,6 @@ async function request<T = unknown>(
 
     // Handle other errors (shouldn't happen with retry logic, but keep as fallback)
     throw new Error(`Request failed: ${error}`);
-  }
-}
-
-/**
- * Check if token is actually expired to determine if refresh is warranted
- */
-function isTokenActuallyExpired(token: string | null): boolean {
-  if (!token) {
-    return false; // No token means 401 is not due to expiry
-  }
-
-  try {
-    const payload = parseJwtPayload(token);
-    if (!payload || !payload.exp) {
-      return false; // Can't determine expiry, assume not expired
-    }
-
-    // Check if token has expired (exp is in seconds, Date.now() is in milliseconds)
-    const expiryMs = payload.exp * 1000;
-    return Date.now() > expiryMs;
-  } catch (error) {
-    console.error("Failed to check token expiry:", error);
-    return false; // Assume not expired on error to avoid unnecessary refresh
   }
 }
 

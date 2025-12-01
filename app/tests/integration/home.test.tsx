@@ -1,4 +1,4 @@
-import RootPage from "@/app/(app)/page";
+import RootPage from "@/app/(hybrid)/page";
 import { render, screen } from "@testing-library/react";
 
 // Mock the server-side auth check

@@ -3,7 +3,7 @@
  * These routes will be served from the (external) route group when unauthenticated
  */
 export function isExternalUrl(pathname: string): boolean {
-  // Landing Page
+  // Landing Page & Dashboard should be synonmous
   if (pathname === "/") {
     return true;
   }

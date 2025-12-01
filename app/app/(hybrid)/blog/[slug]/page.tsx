@@ -1,5 +1,5 @@
 import BlogPostPage, { getBlogPostMetadata, getBlogPostStaticParams } from "@/components/blog/BlogPostPage";
-import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
+import HeaderLayout from "@/components/layout/HeaderLayout";
 import type { Metadata } from "next";
 
 interface Props {
@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AuthenticatedBlogPostPage({ params }: Props) {
   const { slug } = await params;
   return (
-    <AuthenticatedHeaderLayout>
+    <HeaderLayout>
       <BlogPostPage slug={slug} authenticated={true} locale="en" />
-    </AuthenticatedHeaderLayout>
+    </HeaderLayout>
   );
 }

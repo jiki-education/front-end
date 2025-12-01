@@ -221,7 +221,13 @@ describe("Authentication E2E", () => {
         await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 2000 });
       } catch {
         // If redirect didn't happen via URL change, check if we're showing login UI
-        await page.waitForSelector('h1:has-text("Log In")', { timeout: 2000 });
+        await page.waitForFunction(
+          () => {
+            const h1 = document.querySelector("h1");
+            return h1?.textContent.includes("Log In") ?? false;
+          },
+          { timeout: 2000 }
+        );
       }
 
       const url = page.url();

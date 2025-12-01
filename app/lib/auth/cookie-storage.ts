@@ -3,8 +3,8 @@
  * Provides cookie-based storage with proper security flags
  */
 
-const ACCESS_TOKEN_COOKIE = "jiki_access_token";
-const REFRESH_TOKEN_COOKIE = "jiki_refresh_token";
+export const ACCESS_TOKEN_COOKIE_NAME = "jiki_access_token";
+export const REFRESH_TOKEN_COOKIE_NAME = "jiki_refresh_token";
 
 interface CookieOptions {
   expires?: Date;
@@ -123,7 +123,7 @@ export function setRefreshTokenCookie(token: string): void {
   const thirtyDaysFromNow = new Date();
   thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
 
-  setSecureCookie(REFRESH_TOKEN_COOKIE, token, {
+  setSecureCookie(REFRESH_TOKEN_COOKIE_NAME, token, {
     expires: thirtyDaysFromNow,
     sameSite: "strict" // CSRF protection
   });
@@ -133,14 +133,14 @@ export function setRefreshTokenCookie(token: string): void {
  * Retrieve refresh token from secure cookie
  */
 export function getRefreshTokenCookie(): string | null {
-  return getCookie(REFRESH_TOKEN_COOKIE);
+  return getCookie(REFRESH_TOKEN_COOKIE_NAME);
 }
 
 /**
  * Remove refresh token cookie (for logout)
  */
 export function removeRefreshTokenCookie(): void {
-  deleteCookie(REFRESH_TOKEN_COOKIE);
+  deleteCookie(REFRESH_TOKEN_COOKIE_NAME);
 }
 
 /**
@@ -164,21 +164,21 @@ export function setAccessTokenCookie(token: string): void {
     maxAge: 365 * 24 * 60 * 60 // 1 year in seconds
   };
 
-  setSecureCookie(ACCESS_TOKEN_COOKIE, token, options);
+  setSecureCookie(ACCESS_TOKEN_COOKIE_NAME, token, options);
 }
 
 /**
  * Retrieve access token from cookie
  */
 export function getAccessTokenCookie(): string | null {
-  return getCookie(ACCESS_TOKEN_COOKIE);
+  return getCookie(ACCESS_TOKEN_COOKIE_NAME);
 }
 
 /**
  * Remove access token cookie (for logout)
  */
 export function removeAccessTokenCookie(): void {
-  deleteCookie(ACCESS_TOKEN_COOKIE);
+  deleteCookie(ACCESS_TOKEN_COOKIE_NAME);
 }
 
 /**
