@@ -1,6 +1,6 @@
-import { AuthPageWrapper } from "@/components/auth/AuthPageWrapper";
-import { AuthLayout } from "@/components/ui/AuthLayout";
+import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { ForgotPasswordForm } from "@/components/auth/ForgotPasswordForm";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <AuthPageWrapper>
+    <AuthGuard>
       <AuthLayout>
         <ForgotPasswordForm />
       </AuthLayout>
-    </AuthPageWrapper>
+    </AuthGuard>
   );
 }

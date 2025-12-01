@@ -1,4 +1,4 @@
-import { ClientAuthGuard } from "./ClientAuthGuard";
+import { AuthGuard } from "./AuthGuard";
 
 /**
  * Internal App Layout with Client-Side Authentication
@@ -28,5 +28,5 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <ClientAuthGuard>{children}</ClientAuthGuard>;
+  return <AuthGuard>{children}</AuthGuard>;
 }

@@ -13,6 +13,17 @@ First, run the development server:
 
 Open [http://localhost:3061](http://localhost:3061) with your browser to see the result.
 
+## Structure
+
+The app is broken into a few parts:
+
+- `app`: These are routes that use components to render.
+  - `(app)`: These are all authenticated routes.
+  - `(external)`: These are routes that can only be viewed when logged out (login, signup, etc.)
+  - `external`: These are logged-out versions of `(app)` routes. The middleware renders this instead of the `(app)` version if the user has no cookie.
+- `components`: These are the UI components rendered by the app.
+- `lib`: These are supporting libraries.
+
 ## Testing
 
 ### Running Tests

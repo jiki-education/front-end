@@ -1,7 +1,7 @@
+import ProjectsPage from "@/app/(app)/projects/page";
+import { fetchProjects } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import ProjectsPage from "@/app/projects/page";
-import { fetchProjects } from "@/lib/api/projects";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({

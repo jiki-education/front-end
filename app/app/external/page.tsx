@@ -1,16 +1,6 @@
-import { getServerAuth } from "@/lib/auth/server";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export default async function LandingPage() {
-  // Check auth server-side
-  const auth = await getServerAuth();
-
-  // Redirect authenticated users to dashboard
-  if (auth.isAuthenticated) {
-    redirect("/dashboard");
-  }
-
+export default function LandingPage() {
   // Render landing page for unauthenticated users
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">

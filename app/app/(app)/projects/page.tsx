@@ -1,7 +1,5 @@
-"use client";
-
+import AuthenticatedSidebarLayout from "../../../components/layout/AuthenticatedSidebarLayout";
 import { ProjectsContent } from "./ProjectsContent";
-import AuthenticatedSidebarLayout from "../../components/layout/AuthenticatedSidebarLayout";
 
 export default function ProjectsPage() {
   return (

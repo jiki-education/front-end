@@ -27,20 +27,7 @@ jest.mock("@/lib/subscriptions/verification", () => {
 
 const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunction<typeof extractAndClearSessionId>;
 
-// Mock auth hooks to return authenticated user
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: () => ({
-    isAuthenticated: true,
-    isLoading: false,
-    user: {
-      id: 1,
-      email: "test@example.com",
-      handle: "testuser",
-      membership_type: "premium"
-    }
-  })
-}));
-
+// Mock auth store to return authenticated user
 jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     refreshUser: jest.fn().mockResolvedValue(undefined),

@@ -3,6 +3,16 @@
  * These routes will be served from the (external) route group when unauthenticated
  */
 export function isExternalUrl(pathname: string): boolean {
+  // Landing Page
+  if (pathname === "/") {
+    return true;
+  }
+
+  // Unsubscribe page
+  if (pathname.startsWith("/unsubscribe/")) {
+    return true;
+  }
+
   // Blog routes (current and localized)
   if (pathname === "/blog" || pathname.startsWith("/blog/")) {
     return true;
