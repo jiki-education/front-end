@@ -1,12 +1,12 @@
-import { AuthProvider } from "@/components/auth/AuthProvider";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { ThemeProvider } from "@/lib/theme";
+import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
 import { Poppins, Source_Code_Pro } from "next/font/google";
 import Script from "next/script";
-import "@/lib/whyDidYouRender";
+import { AuthProvider } from "../components/layout/AuthProvider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -35,14 +35,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} antialiased ui-body`}>
         <Script src="/static/theme-script.js" strategy="beforeInteractive" />
-        <ThemeProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <ThemeProvider>
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
             <GlobalErrorHandler />
-          </AuthProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

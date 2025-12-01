@@ -1,25 +1,30 @@
-import Home from "@/app/external/page";
+import RootPage from "@/app/(app)/page";
 import { render, screen } from "@testing-library/react";
 
+// Mock the server-side auth check
+jest.mock("@/lib/auth/server-storage", () => ({
+  hasServersideAccessToken: jest.fn().mockResolvedValue(false)
+}));
+
 describe("Home Page (Landing Page)", () => {
-  it("shows landing page content", () => {
-    render(<Home />);
+  it("shows landing page content", async () => {
+    render(await RootPage());
 
     expect(screen.getByText("Welcome to Jiki")).toBeInTheDocument();
     expect(screen.getByText("Login")).toBeInTheDocument();
     expect(screen.getByText("Sign Up")).toBeInTheDocument();
   });
 
-  it("displays feature cards", () => {
-    render(<Home />);
+  it("displays feature cards", async () => {
+    render(await RootPage());
 
     expect(screen.getByText("Interactive Learning")).toBeInTheDocument();
     expect(screen.getByText("Track Progress")).toBeInTheDocument();
     expect(screen.getByText("Real Projects")).toBeInTheDocument();
   });
 
-  it("has working login and signup links", () => {
-    render(<Home />);
+  it("has working login and signup links", async () => {
+    render(await RootPage());
 
     const loginLink = screen.getByRole("link", { name: "Login" });
     const signupLink = screen.getByRole("link", { name: "Sign Up" });

@@ -12,6 +12,13 @@ jest.mock("@/lib/api/projects", () => ({
   fetchProjects: jest.fn()
 }));
 
+jest.mock("@/lib/auth/authStore", () => ({
+  useAuthStore: jest.fn(() => ({
+    isAuthenticated: true,
+    hasCheckedAuth: true
+  }))
+}));
+
 jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar({ activeItem }: { activeItem: string }) {
     return <div data-testid="sidebar">Sidebar - {activeItem}</div>;

@@ -1,4 +1,4 @@
-import styles from "@/app/(external)/concepts/concepts.module.css";
+import styles from "@/app/styles/modules/concepts.module.css";
 
 interface LoadingSkeletonProps {
   withSidebar: boolean;

@@ -5,7 +5,7 @@
 
 import { getAccessTokenCookie, removeAccessTokenCookie, setAccessTokenCookie } from "@/lib/auth/cookie-storage";
 
-const REFRESH_TOKEN_KEY = "jiki_refresh_token";
+export const REFRESH_TOKEN_KEY = "jiki_refresh_token";
 
 /**
  * Store JWT access token in cookie

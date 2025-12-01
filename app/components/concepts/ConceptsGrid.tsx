@@ -1,4 +1,4 @@
-import styles from "@/app/(external)/concepts/concepts.module.css";
+import styles from "@/app/styles/modules/concepts.module.css";
 import { mockConcepts } from "@/lib/data/mockConcepts";
 import type { ConceptListItem } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";

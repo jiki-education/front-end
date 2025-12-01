@@ -130,26 +130,18 @@ export function middleware(request: NextRequest) {
   }
 
   //
-  // Rewrite unauthenticated external URL requests to static variant
-  //
-  const isAuthenticated = request.cookies.has("jiki_access_token");
-  if (!isAuthenticated && isExternalUrl(path)) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/external${path}`;
-
-    const response = NextResponse.rewrite(url);
-
-    setCSP(response);
-    // response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
-
-    return response;
-  }
-
-  //
   // Happy path!
   //
   const response = NextResponse.next();
   setCSP(response);
+
+  //
+  // Rewrite unauthenticated external URL requests to static variant
+  //
+  const isAuthenticated = request.cookies.has("jiki_access_token");
+  if (!isAuthenticated && isExternalUrl(path)) {
+    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+  }
 
   // Cache favicon for 1 hour
   if (path === "/favicon.ico") {

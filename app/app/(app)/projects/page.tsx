@@ -1,10 +1,10 @@
-import AuthenticatedSidebarLayout from "../../../components/layout/AuthenticatedSidebarLayout";
+import SidebarLayout from "../../../components/layout/SidebarLayout";
 import { ProjectsContent } from "./ProjectsContent";
 
 export default function ProjectsPage() {
   return (
-    <AuthenticatedSidebarLayout activeItem="projects">
+    <SidebarLayout activeItem="projects">
       <ProjectsContent />
-    </AuthenticatedSidebarLayout>
+    </SidebarLayout>
   );
 }

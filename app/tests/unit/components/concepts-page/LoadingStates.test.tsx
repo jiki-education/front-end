@@ -1,4 +1,4 @@
-import styles from "@/app/(external)/concepts/concepts.module.css";
+import styles from "@/app/styles/modules/concepts.module.css";
 import { ConceptCardsLoadingSkeleton, InlineLoading, LoadingSkeleton } from "@/components/concepts/LoadingStates";
 import { render, screen } from "@testing-library/react";
 

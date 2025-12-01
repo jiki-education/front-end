@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import styles from "@/app/(external)/concepts/concepts.module.css";
+import styles from "@/app/styles/modules/concepts.module.css";
 
 interface BreadcrumbItem {
   label: string;

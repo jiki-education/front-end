@@ -1,16 +1,16 @@
 import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
 import InfoPanel from "@/components/dashboard/info-panel/InfoPanel";
-import AuthenticatedSidebarLayout from "../../../components/layout/AuthenticatedSidebarLayout";
+import SidebarLayout from "../../../components/layout/SidebarLayout";
 
 export default function DashboardPage() {
   return (
-    <AuthenticatedSidebarLayout>
+    <SidebarLayout activeItem="dashboard">
       <div className="flex">
         <main className="flex-1 p-6">
           <ExercisePath />
         </main>
         <InfoPanel />
       </div>
-    </AuthenticatedSidebarLayout>
+    </SidebarLayout>
   );
 }
