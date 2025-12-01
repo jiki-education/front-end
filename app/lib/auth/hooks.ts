@@ -2,11 +2,11 @@
  * Authentication hooks for managing auth state and redirects
  */
 
-import { useAuthStore } from "@/stores/authStore";
-import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { isExternalUrl } from "@/lib/routing/external-urls";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { removeAccessToken } from "@/lib/auth/storage";
+import { isExternalUrl } from "@/lib/routing/external-urls";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface RequireAuthOptions {
   redirectTo?: string;

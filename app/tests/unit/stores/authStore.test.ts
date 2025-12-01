@@ -2,8 +2,8 @@
  * Unit tests for authStore Google authentication methods
  */
 
+import { useAuthStore } from "@/lib/auth/authStore";
 import * as authService from "@/lib/auth/service";
-import { useAuthStore } from "@/stores/authStore";
 import type { User } from "@/types/auth";
 import toast from "react-hot-toast";
 

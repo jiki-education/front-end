@@ -1,14 +1,14 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
-import { exercises } from "@jiki/curriculum";
-import { getAccessToken } from "@/lib/auth/storage";
-import { useState, useEffect, useRef, useCallback } from "react";
 import {
   sendChatMessage,
   type ChatRequestPayload,
   type StreamCallbacks
 } from "@/components/coding-exercise/lib/chatApi";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { getAccessToken } from "@/lib/auth/storage";
+import { exercises } from "@jiki/curriculum";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Types
 interface ChatMessage {

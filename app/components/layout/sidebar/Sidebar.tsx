@@ -1,17 +1,17 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { NavigationItem } from "./NavigationItem";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { Logo } from "./Logo";
-import type { ComponentType } from "react";
-import HouseIcon from "@static/icons/house.svg";
-import ProjectsIcon from "@static/icons/projects.svg";
-import MedalIcon from "@static/icons/medal.svg";
-import SettingsIcon from "@static/icons/settings.svg";
+import { useAuthStore } from "@/lib/auth/authStore";
 import FolderIcon from "@static/icons/folder.svg";
+import HouseIcon from "@static/icons/house.svg";
+import MedalIcon from "@static/icons/medal.svg";
+import ProjectsIcon from "@static/icons/projects.svg";
+import SettingsIcon from "@static/icons/settings.svg";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type { ComponentType } from "react";
+import { Logo } from "./Logo";
+import { NavigationItem } from "./NavigationItem";
 
 interface SidebarProps {
   activeItem?: string;

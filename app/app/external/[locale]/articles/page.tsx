@@ -1,7 +1,7 @@
+import ArticlesPage from "@/components/articles/ArticlesPage";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@jiki/content";
 import { notFound, redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
-import ArticlesPage from "@/components/articles/ArticlesPage";
 
 interface Props {
   params: Promise<{ locale: string }>;

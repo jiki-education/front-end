@@ -1,8 +1,8 @@
 import ArticleDetailPage, { getArticleMetadata } from "@/components/articles/ArticleDetailPage";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;

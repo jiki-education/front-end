@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { getMockUserProgress } from "../lib/mockData";
 import { LeaderboardCard } from "./LeaderboardCard";
 import { ProgressCard } from "./ProgressCard";

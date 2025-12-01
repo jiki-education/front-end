@@ -1,7 +1,7 @@
+import BlogPage from "@/components/blog/BlogPage";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@jiki/content";
 import { notFound, redirect } from "next/navigation";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
-import BlogPage from "@/components/blog/BlogPage";
 
 interface Props {
   params: Promise<{ locale: string }>;

@@ -1,10 +1,10 @@
 "use client";
 
+import { assembleClassNames } from "@/lib/assemble-classnames";
+import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestResult } from "../../lib/test-results-types";
-import styles from "../../CodingExercise.module.css";
-import { assembleClassNames } from "@/utils/assemble-classnames";
 
 export function TestResultsButtons() {
   const orchestrator = useOrchestrator();

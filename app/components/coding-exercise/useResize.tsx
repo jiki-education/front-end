@@ -1,6 +1,5 @@
-import React from "react";
-import { assembleClassNames } from "@/utils/assemble-classnames";
-import { useRef, useEffect } from "react";
+import { assembleClassNames } from "@/lib/assemble-classnames";
+import React, { useEffect, useRef } from "react";
 
 type Direction = "horizontal" | "vertical";
 

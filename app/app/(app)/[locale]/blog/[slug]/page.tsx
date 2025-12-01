@@ -1,6 +1,6 @@
 import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
 import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAllPostSlugsWithLocales } from "@jiki/content";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";

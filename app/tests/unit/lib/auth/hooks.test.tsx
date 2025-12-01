@@ -2,8 +2,8 @@
  * Unit tests for auth hooks to prevent race conditions during authentication
  */
 
-import { useRequireAuth, useAuth } from "@/lib/auth/hooks";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { useAuth, useRequireAuth } from "@/lib/auth/hooks";
 import { renderHook, waitFor } from "@testing-library/react";
 
 // Mock Next.js router
@@ -25,7 +25,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock the auth store
-jest.mock("@/stores/authStore", () => ({
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: jest.fn()
 }));
 

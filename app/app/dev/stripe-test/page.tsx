@@ -5,9 +5,9 @@
  * Development-only page for testing Stripe subscription flows
  */
 
-import { useEffect } from "react";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
-import { useAuthStore } from "@/stores/authStore";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { AuthenticatedSection } from "./components/AuthenticatedSection";
 

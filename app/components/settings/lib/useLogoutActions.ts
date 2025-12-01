@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { logoutFromAllDevices as logoutFromAllDevicesService } from "@/lib/auth/service";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 export function useLogoutActions() {

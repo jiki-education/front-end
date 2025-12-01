@@ -41,7 +41,7 @@ jest.mock("@/lib/auth/hooks", () => ({
   })
 }));
 
-jest.mock("@/stores/authStore", () => ({
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     refreshUser: jest.fn().mockResolvedValue(undefined),
     user: {

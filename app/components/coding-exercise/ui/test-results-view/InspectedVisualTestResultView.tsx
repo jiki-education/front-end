@@ -1,11 +1,11 @@
-import { assembleClassNames } from "@/utils/assemble-classnames";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import { useEffect, useMemo, useRef } from "react";
+import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
-import { VisualTestResultView } from "./VisualTestResultView";
-import styles from "../../CodingExercise.module.css";
 import Scrubber from "../scrubber/Scrubber";
+import { VisualTestResultView } from "./VisualTestResultView";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();

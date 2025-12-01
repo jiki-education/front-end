@@ -1,15 +1,15 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
 import { ApiError } from "@/lib/api/client";
+import { useAuthStore } from "@/lib/auth/authStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
-import { GoogleAuthButton } from "./GoogleAuthButton";
-import PasswordIcon from "../../icons/password.svg";
 import EmailIcon from "../../icons/email.svg";
+import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
   const router = useRouter();

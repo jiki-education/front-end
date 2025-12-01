@@ -2,15 +2,15 @@
  * Tests for SettingsPage component - focusing on payment verification flow
  */
 
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import { useAuthStore } from "@/stores/authStore";
-import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
-import toast from "react-hot-toast";
 import SettingsPage from "@/components/settings/SettingsPage";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
+import { render, screen, waitFor } from "@testing-library/react";
+import React from "react";
+import toast from "react-hot-toast";
 
 // Mock dependencies
-jest.mock("@/stores/authStore");
+jest.mock("@/lib/auth/authStore");
 jest.mock("@/lib/subscriptions/verification");
 
 // Mock react-hot-toast with proper jest.mock

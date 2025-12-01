@@ -57,7 +57,7 @@ const mockLogout = jest.fn().mockImplementation(() => {
   window.sessionStorage.clear();
 });
 
-jest.mock("@/stores/authStore", () => ({
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     logout: mockLogout
   })

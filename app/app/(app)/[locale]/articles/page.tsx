@@ -1,6 +1,6 @@
 import ArticlesPage from "@/components/articles/ArticlesPage";
 import AuthenticatedHeaderLayout from "@/components/layout/AuthenticatedHeaderLayout";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/config/locales";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@jiki/content";
 import { notFound, redirect } from "next/navigation";
 
