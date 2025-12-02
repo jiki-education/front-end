@@ -68,8 +68,9 @@ export function generateCacheKey(request: Request, deployId: string): string {
   const normalizedParams = normalizeSearchParams(url.searchParams);
 
   // Differentiate HTML vs RSC requests by RSC header
-  // RSC requests include "RSC: 1" header during client-side navigation
-  const rscHeader = request.headers.get("RSC") || request.headers.get("rsc");
+  // RSC requests include "rsc: 1" header during client-side navigation
+  // Note: headers.get() is case-insensitive per Fetch API spec
+  const rscHeader = request.headers.get("rsc");
   const requestType = rscHeader === "1" ? "rsc" : "html";
 
   return `${baseUrl}${normalizedParams}#${requestType}:${deployId}`;
