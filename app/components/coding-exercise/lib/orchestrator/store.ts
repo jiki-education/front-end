@@ -191,6 +191,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
             showModal("exercise-completion-modal", {
               exerciseTitle: state.exerciseTitle,
               exerciseIcon: "/static/images/project-icons/icon-space-invaders.png", // TODO: Get from exercise
+              initialStep: "success",
               onTidyCode: () => {
                 // Close modal and enable complete button in header
                 get().setShouldShowCompleteButton(true);

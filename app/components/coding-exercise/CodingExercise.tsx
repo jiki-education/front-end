@@ -14,6 +14,8 @@ import { RHS } from "./RHS";
 import { useResizablePanels, Resizer } from "./useResize";
 import { useOrchestratorStore } from "./lib/orchestrator/store";
 import { showModal } from "@/lib/modal/store";
+import { markLessonComplete } from "@/lib/api/lessons";
+import { useRouter } from "next/navigation";
 import "../../app/styles/components/ui-components.css";
 
 interface CodingExerciseProps {
@@ -109,28 +111,41 @@ function CodingExerciseInner() {
 
   const orchestrator = useOrchestratorContext();
   const { shouldShowCompleteButton, exerciseTitle, isExerciseCompleted } = useOrchestratorStore(orchestrator);
+  const router = useRouter();
 
   const handleCompleteExercise = () => {
     showModal("exercise-completion-modal", {
       exerciseTitle: exerciseTitle,
       exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
       initialStep: "confirmation",
-      onCompleteExercise: () => {
-        // Handle exercise completion using exercise slug from store
+      onCompleteExercise: async () => {
+        // Use the same completion logic as the store
+        const state = orchestrator.store.getState();
         try {
-          // Re-show the modal with completion step - response data is now in the store
+          const response = await markLessonComplete(state.exerciseSlug);
+          const events = response?.meta?.events || [];
+          state.setCompletionResponse(events);
+          state.setIsExerciseCompleted(true);
+
+          // Re-show modal with completion response data
           showModal("exercise-completion-modal", {
             exerciseTitle: exerciseTitle,
             exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+            completionResponse: events,
             initialStep: "completed",
-            onCompleteExercise: () => {}, // Prevent infinite loop
+            onTidyCode: () => {
+              state.setShouldShowCompleteButton(true);
+            },
+            onCompleteExercise: () => {}, // No-op since already completed
             onGoToProject: () => {
-              // TODO: Navigate to the unlocked project
+              router.push("/projects");
             },
             onGoToDashboard: () => {
-              // TODO: Navigate to dashboard
+              router.push("/dashboard");
             }
           });
+
+          console.warn("Exercise completed successfully!");
         } catch (error) {
           console.error("Failed to mark lesson as complete:", error);
         }
@@ -154,7 +169,9 @@ function CodingExerciseInner() {
               Complete Exercise
             </button>
           )}
-          <button className={styles.closeButton}>×</button>
+          <button onClick={() => router.push("/dashboard")} className={styles.closeButton}>
+            ×
+          </button>
         </div>
       </div>
 

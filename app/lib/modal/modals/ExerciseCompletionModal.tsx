@@ -94,7 +94,15 @@ export function ExerciseCompletionModal({
   };
 
   const handleShowConfirmation = () => {
-    setStep("confirmation");
+    // If this modal was auto-opened after tests passed (initialStep is "success"),
+    // skip confirmation and go directly to completion.
+    // If manually opened from header (initialStep is "confirmation"),
+    // show the confirmation step.
+    if (initialStep === "success") {
+      handleCompleteExercise();
+    } else {
+      setStep("confirmation");
+    }
   };
 
   const handleCancel = () => {
