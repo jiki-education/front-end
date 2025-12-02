@@ -2,6 +2,28 @@ import type { Frame } from "@jiki/interpreters";
 import type { TaskProgress, Language } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 
+// Completion response types
+export interface UnlockedConcept {
+  title: string;
+  slug: string;
+  description: string;
+  content_html: string;
+}
+
+export interface UnlockedProject {
+  slug: string;
+  title: string;
+  description: string;
+}
+
+export interface CompletionResponseData {
+  type: "concept_unlocked" | "project_unlocked";
+  data: {
+    concept?: UnlockedConcept;
+    project?: UnlockedProject;
+  };
+}
+
 // Exercise context types
 export type ExerciseContext = { type: "lesson"; slug: string } | { type: "project"; slug: string };
 
@@ -30,6 +52,9 @@ export interface OrchestratorState {
   isSpotlightActive: boolean;
   wasSuccessModalShown: boolean;
   hasEverHadSuccessfulRun: boolean;
+  shouldShowCompleteButton: boolean;
+  isExerciseCompleted: boolean;
+  completionResponse: CompletionResponseData[];
   foldedLines: number[]; // Line numbers that are currently folded in the editor
   language: Language;
 
@@ -94,6 +119,9 @@ export interface OrchestratorActions {
   setIsSpotlightActive: (value: boolean) => void;
   setWasSuccessModalShown: (value: boolean) => void;
   setHasEverHadSuccessfulRun: (value: boolean) => void;
+  setShouldShowCompleteButton: (value: boolean) => void;
+  setIsExerciseCompleted: (value: boolean) => void;
+  setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;
   setLanguage: (language: OrchestratorState["language"]) => void;
 

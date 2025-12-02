@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import Orchestrator from "./lib/Orchestrator";
-import OrchestratorProvider from "./lib/OrchestratorProvider";
+import OrchestratorProvider, { useOrchestratorContext } from "./lib/OrchestratorProvider";
 import "./codemirror.css";
 import CodeEditor from "./ui/CodeEditor";
 import RunButton from "./ui/RunButton";
@@ -12,6 +12,9 @@ import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import styles from "./CodingExercise.module.css";
 import { RHS } from "./RHS";
 import { useResizablePanels, Resizer } from "./useResize";
+import { useOrchestratorStore } from "./lib/orchestrator/store";
+import { showModal } from "@/lib/modal/store";
+import "../../app/styles/components/ui-components.css";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -49,6 +52,19 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
             : { type: "lesson" as const, slug: exerciseSlug };
 
         orchestratorRef.current = new Orchestrator(exercise, "jikiscript", context);
+
+        // Fetch completion status
+        try {
+          const { fetchUserLesson } = await import("@/lib/api/lessons");
+          const userLesson = await fetchUserLesson(exerciseSlug);
+          const isCompleted = userLesson.status === "completed";
+          orchestratorRef.current.setIsExerciseCompleted(isCompleted);
+        } catch (error) {
+          // If we can't fetch user lesson (not logged in, no internet, etc.), assume not completed
+          console.warn("Could not fetch user lesson status:", error);
+          orchestratorRef.current.setIsExerciseCompleted(false);
+        }
+
         setIsLoading(false);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : "Unknown error");
@@ -80,46 +96,99 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
 
 // Separate component that assumes orchestrator is loaded
 function CodingExerciseContent({ orchestrator }: { orchestrator: Orchestrator }) {
+  return (
+    <OrchestratorProvider orchestrator={orchestrator}>
+      <CodingExerciseInner />
+    </OrchestratorProvider>
+  );
+}
+
+function CodingExerciseInner() {
   const { containerRef, verticalDividerRef, horizontalDividerRef, handleVerticalMouseDown, handleHorizontalMouseDown } =
     useResizablePanels();
 
+  const orchestrator = useOrchestratorContext();
+  const { shouldShowCompleteButton, exerciseTitle, isExerciseCompleted } = useOrchestratorStore(orchestrator);
+
+  const handleCompleteExercise = () => {
+    showModal("exercise-completion-modal", {
+      exerciseTitle: exerciseTitle,
+      exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+      initialStep: "confirmation",
+      onCompleteExercise: () => {
+        // Handle exercise completion using exercise slug from store
+        try {
+          // Re-show the modal with completion step - response data is now in the store
+          showModal("exercise-completion-modal", {
+            exerciseTitle: exerciseTitle,
+            exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+            initialStep: "completed",
+            onCompleteExercise: () => {}, // Prevent infinite loop
+            onGoToProject: () => {
+              // TODO: Navigate to the unlocked project
+            },
+            onGoToDashboard: () => {
+              // TODO: Navigate to dashboard
+            }
+          });
+        } catch (error) {
+          console.error("Failed to mark lesson as complete:", error);
+        }
+      }
+    });
+  };
+
   return (
-    <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="flex flex-col h-screen bg-gray-50">
-        <div className={styles.topBar}>
-          <div className={styles.logo}>{orchestrator.getExerciseTitle()}</div>
-          <div className={styles.topBarActions}>
-            <button className={styles.closeButton}>×</button>
-          </div>
-        </div>
-
-        <div ref={containerRef} className={`${styles.exerciseContainer}`}>
-          {/* LHS */}
-          <div className={styles.codeEditor}>
-            <CodeEditor />
-            <RunButton />
-          </div>
-
-          <Resizer
-            ref={horizontalDividerRef}
-            handleMouseDown={handleHorizontalMouseDown}
-            direction="horizontal"
-            className={`${styles.horizontalDivider}`}
-          />
-
-          <ScenariosPanel />
-
-          <Resizer
-            ref={verticalDividerRef}
-            handleMouseDown={handleVerticalMouseDown}
-            direction="vertical"
-            className={`${styles.verticalDivider}`}
-          />
-
-          {/* RHS */}
-          <RHS orchestrator={orchestrator} />
+    <div className="flex flex-col h-screen bg-gray-50">
+      <div className={styles.topBar}>
+        <div className={styles.logo}>{String(exerciseTitle)}</div>
+        <div className={styles.topBarActions}>
+          {isExerciseCompleted && (
+            <div className={styles.completedTag}>
+              <div className={styles.completedTick}>✓</div>
+              Completed!
+            </div>
+          )}
+          {shouldShowCompleteButton && !isExerciseCompleted && (
+            <button onClick={handleCompleteExercise} className="ui-btn ui-btn-primary ui-btn-small">
+              Complete Exercise
+            </button>
+          )}
+          <button className={styles.closeButton}>×</button>
         </div>
       </div>
-    </OrchestratorProvider>
+
+      <div ref={containerRef} className={`${styles.exerciseContainer}`}>
+        {/* LHS */}
+        <div className={styles.codeEditor}>
+          <CodeEditor />
+          <RunButton />
+        </div>
+
+        <Resizer
+          ref={horizontalDividerRef}
+          handleMouseDown={handleHorizontalMouseDown}
+          direction="horizontal"
+          className={`${styles.horizontalDivider}`}
+        />
+
+        <ScenariosPanel />
+
+        <Resizer
+          ref={verticalDividerRef}
+          handleMouseDown={handleVerticalMouseDown}
+          direction="vertical"
+          className={`${styles.verticalDivider}`}
+        />
+
+        {/* RHS - need to get orchestrator from context */}
+        <RHSWithOrchestrator />
+      </div>
+    </div>
   );
+}
+
+function RHSWithOrchestrator() {
+  const orchestrator = useOrchestratorContext();
+  return <RHS orchestrator={orchestrator} />;
 }

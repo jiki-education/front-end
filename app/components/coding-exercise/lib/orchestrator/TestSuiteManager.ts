@@ -103,7 +103,7 @@ export class TestSuiteManager {
             files: [
               {
                 filename: "solution.js", // or appropriate extension
-                content: code
+                code: code
               }
             ]
           }

@@ -19,6 +19,9 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       isSpotlightActive: false,
       wasSuccessModalShown: false,
       hasEverHadSuccessfulRun: false,
+      shouldShowCompleteButton: false,
+      isExerciseCompleted: false,
+      completionResponse: [],
       foldedLines: [],
       language: "jikiscript" as const,
 
@@ -97,6 +100,9 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       setIsSpotlightActive: jest.fn(),
       setWasSuccessModalShown: jest.fn(),
       setHasEverHadSuccessfulRun: jest.fn(),
+      setShouldShowCompleteButton: jest.fn(),
+      setIsExerciseCompleted: jest.fn(),
+      setCompletionResponse: jest.fn(),
       setFoldedLines: jest.fn(),
       setLanguage: jest.fn(),
 

@@ -8,7 +8,7 @@ class SoundManager {
   private muted: boolean;
 
   private constructor(options: SoundManagerOptions = {}) {
-    this.basePath = options.basePath || "/sounds";
+    this.basePath = options.basePath || "/static/sounds";
     this.globalVolume = options.defaultVolume || 0.5;
     this.muted = options.muted || false;
 

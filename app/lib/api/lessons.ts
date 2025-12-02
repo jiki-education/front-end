@@ -52,8 +52,9 @@ export async function fetchLesson(slug: string): Promise<LessonData> {
 /**
  * Mark a lesson as completed
  */
-export async function markLessonComplete(slug: string): Promise<void> {
-  await api.patch(`/internal/user_lessons/${slug}/complete`);
+export async function markLessonComplete(slug: string): Promise<any> {
+  const response = await api.patch(`/internal/user_lessons/${slug}/complete`);
+  return response.data;
 }
 
 /**

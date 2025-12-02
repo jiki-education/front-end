@@ -20,7 +20,7 @@ export function ConfirmationModal({
   cancelText = "Cancel",
   onConfirm,
   onCancel,
-  variant = "default"
+  variant: _variant = "default"
 }: ConfirmationModalProps) {
   const handleConfirm = () => {
     onConfirm?.();
@@ -32,10 +32,9 @@ export function ConfirmationModal({
     hideModal();
   };
 
-
   return (
     <>
-      <h2 className={styles.modalTitle}>Are you sure?</h2>
+      <h2 className={styles.modalTitle}>{title}</h2>
       <p className={styles.modalMessage}>{message}</p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>

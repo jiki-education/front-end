@@ -12,7 +12,13 @@ import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import type { TestExpect, TestResult } from "./test-results-types";
-import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
+import type {
+  ExerciseContext,
+  InformationWidgetData,
+  OrchestratorStore,
+  UnderlineRange,
+  CompletionResponseData
+} from "./types";
 
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
@@ -192,6 +198,18 @@ class Orchestrator {
 
   setShouldAutoRunCode(shouldAutoRun: boolean) {
     this.store.getState().setShouldAutoRunCode(shouldAutoRun);
+  }
+
+  setShouldShowCompleteButton(show: boolean) {
+    this.store.getState().setShouldShowCompleteButton(show);
+  }
+
+  setIsExerciseCompleted(completed: boolean) {
+    this.store.getState().setIsExerciseCompleted(completed);
+  }
+
+  setCompletionResponse(response: CompletionResponseData[]) {
+    this.store.getState().setCompletionResponse(response);
   }
 
   // Play/pause methods

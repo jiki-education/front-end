@@ -8,6 +8,8 @@ import styles from "@/app/styles/components/modals.module.css";
 import timelineStyles from "@/app/styles/components/exercise-timeline.module.css";
 import projectStyles from "@/app/styles/components/project-card.module.css";
 import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
+import SoundManager from "@/lib/sound/SoundManager";
+import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
@@ -21,7 +23,8 @@ interface ExerciseCompletionModalProps {
     description: string;
     icon: string;
   };
-  initialStep?: "success" | "confirmation" | "completed" | "project-unlocked";
+  initialStep?: "success" | "confirmation" | "completed" | "concept-unlocked" | "project-unlocked";
+  completionResponse?: CompletionResponseData[];
 }
 
 export function ExerciseCompletionModal({
@@ -36,14 +39,27 @@ export function ExerciseCompletionModal({
     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
     icon: "/static/images/project-icons/icon-space-invaders.png"
   },
-  initialStep = "success"
+  initialStep = "success",
+  completionResponse = []
 }: ExerciseCompletionModalProps) {
-  const [step, setStep] = useState<"success" | "confirmation" | "completed" | "project-unlocked">(initialStep);
+  const [step, setStep] = useState<"success" | "confirmation" | "completed" | "concept-unlocked" | "project-unlocked">(
+    initialStep
+  );
+
+  // completionResponse is now passed as a prop instead of reading from orchestrator context
+
+  // Play success sound when the modal opens on the success step
+  useEffect(() => {
+    if (step === "success") {
+      const soundManager = SoundManager.getInstance();
+      soundManager.play("success");
+    }
+  }, [step]);
 
   // Update overlay class when step changes to project-unlocked
   useEffect(() => {
     if (step === "project-unlocked") {
-      // Re-show the modal with the special overlay class
+      // Re-show the modal with the special overlay class and preserve completionResponse
       showModal(
         "exercise-completion-modal",
         {
@@ -54,6 +70,7 @@ export function ExerciseCompletionModal({
           exerciseTitle,
           exerciseIcon,
           unlockedProject,
+          completionResponse,
           initialStep: "project-unlocked"
         },
         styles.projectModalOverlay
@@ -67,7 +84,8 @@ export function ExerciseCompletionModal({
     onGoToDashboard,
     exerciseTitle,
     exerciseIcon,
-    unlockedProject
+    unlockedProject,
+    completionResponse
   ]);
 
   const handleTidyCode = () => {
@@ -89,8 +107,24 @@ export function ExerciseCompletionModal({
   };
 
   const handleContinue = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (unlockedProject) {
+    // Check if we have unlocked concepts to show first
+    const unlockedConcept = completionResponse.find((item) => item.type === "concept_unlocked")?.data.concept;
+    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
+
+    if (unlockedConcept) {
+      setStep("concept-unlocked");
+    } else if (unlockedProjectData) {
+      setStep("project-unlocked");
+    } else {
+      hideModal();
+    }
+  };
+
+  const handleContinueFromConcept = () => {
+    // After showing concept, check if we have unlocked projects
+    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
+
+    if (unlockedProjectData) {
       setStep("project-unlocked");
     } else {
       hideModal();
@@ -107,7 +141,57 @@ export function ExerciseCompletionModal({
     hideModal();
   };
 
+  if (step === "concept-unlocked") {
+    const unlockedConcept = completionResponse.find((item) => item.type === "concept_unlocked")?.data.concept;
+
+    if (!unlockedConcept) {
+      // Fallback if no concept data
+      return (
+        <>
+          <h2 className={styles.modalTitle}>Concept unlocked!</h2>
+          <p className={styles.modalMessage}>You&apos;ve unlocked a new concept to explore.</p>
+          <div className={styles.modalButtonsDivider}></div>
+          <div className={styles.modalButtons}>
+            <button onClick={handleContinueFromConcept} className={styles.btnPrimary}>
+              Continue
+            </button>
+          </div>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <h2 className={styles.modalTitle}>Concept unlocked!</h2>
+        <p className={styles.modalMessage}>
+          You&apos;ve unlocked a new concept: <strong>{unlockedConcept.title}</strong>
+        </p>
+        <div className={styles.conceptUnlockedCard}>
+          <h3 className={styles.conceptTitle}>{unlockedConcept.title}</h3>
+          <p className={styles.conceptDescription}>{unlockedConcept.description}</p>
+        </div>
+        <div className={styles.modalButtonsDivider}></div>
+        <div className={styles.modalButtons}>
+          <button onClick={handleContinueFromConcept} className={styles.btnPrimary}>
+            Continue
+          </button>
+        </div>
+      </>
+    );
+  }
+
   if (step === "project-unlocked") {
+    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
+
+    // Fallback to hardcoded data if no project data in response
+    const projectToShow = unlockedProjectData
+      ? {
+          name: unlockedProjectData.title,
+          description: unlockedProjectData.description,
+          icon: `/static/images/project-icons/icon-${unlockedProjectData.slug}.png` // TODO: Get actual icon from project data
+        }
+      : unlockedProject;
+
     return (
       <>
         <h2 className={styles.modalTitle}>Project unlocked!</h2>
@@ -118,10 +202,10 @@ export function ExerciseCompletionModal({
           <div className={projectStyles.projectCardSimpleFront}>
             <div className={projectStyles.projectCardSimpleNewLabel}>New</div>
             <div className={projectStyles.projectCardSimpleIcon}>
-              <img src={unlockedProject.icon} alt={unlockedProject.name} />
+              <img src={projectToShow.icon} alt={projectToShow.name} />
             </div>
-            <div className={projectStyles.projectCardSimpleName}>{unlockedProject.name}</div>
-            <div className={projectStyles.projectCardSimpleDescription}>{unlockedProject.description}</div>
+            <div className={projectStyles.projectCardSimpleName}>{projectToShow.name}</div>
+            <div className={projectStyles.projectCardSimpleDescription}>{projectToShow.description}</div>
           </div>
         </div>
         <div className={styles.modalButtonsDivider}></div>

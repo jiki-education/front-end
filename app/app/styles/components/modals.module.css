@@ -159,3 +159,28 @@
     width: 144px;
     height: 144px;
 }
+
+/* Concept unlocked card styling */
+.conceptUnlockedCard {
+    background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+}
+
+.conceptTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 8px 0;
+}
+
+.conceptDescription {
+    font-size: 14px;
+    color: #92400e;
+    line-height: 1.5;
+    margin: 0;
+}

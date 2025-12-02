@@ -2,17 +2,12 @@ import type { ExerciseDefinition, TaskProgress, Scenario } from "@jiki/curriculu
 import type { StoreApi } from "zustand/vanilla";
 import type { TestSuiteResult } from "../test-results-types";
 import type { OrchestratorStore } from "../types";
-import SoundManager from "@/lib/sound/SoundManager";
 
 /**
  * Manages task completion status and progress tracking
  */
 export class TaskManager {
-  private readonly soundManager: SoundManager;
-
-  constructor(private readonly store: StoreApi<OrchestratorStore>) {
-    this.soundManager = SoundManager.getInstance();
-  }
+  constructor(private readonly store: StoreApi<OrchestratorStore>) {}
 
   /**
    * Initialize task progress for an exercise
@@ -72,7 +67,7 @@ export class TaskManager {
       if (updatedData) {
         taskProgress.set(taskId, updatedData.progress);
 
-        // Track newly completed tasks for sound effects
+        // Track newly completed tasks
         if (updatedData.isNowCompleted && !completedTasks.has(taskId)) {
           newlyCompletedTasks.push(taskId);
         }
@@ -87,11 +82,6 @@ export class TaskManager {
       taskProgress,
       completedTasks
     }));
-
-    // Play sound effect for newly completed tasks
-    if (newlyCompletedTasks.length > 0) {
-      this.soundManager.play("task-completed");
-    }
 
     // Update current task to first incomplete task
     this.setCurrentTaskToFirstIncomplete(exercise);
