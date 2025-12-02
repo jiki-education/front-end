@@ -3,8 +3,10 @@
  *
  * Generates normalized cache keys with:
  * - Allowlisted query parameters (page, criteria, _rsc)
- * - Accept header (to differentiate HTML vs RSC requests)
+ * - RSC header (to differentiate HTML vs RSC requests)
  * - Deploy ID (git SHA) for automatic invalidation on deploy
+ *
+ * Note: _rsc is a cache buster added by Next.js for RSC requests.
  */
 
 const ALLOWED_PARAMS = new Set(["page", "criteria", "_rsc"]);
