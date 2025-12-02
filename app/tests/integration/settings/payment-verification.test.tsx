@@ -27,21 +27,8 @@ jest.mock("@/lib/subscriptions/verification", () => {
 
 const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunction<typeof extractAndClearSessionId>;
 
-// Mock auth hooks to return authenticated user
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: () => ({
-    isAuthenticated: true,
-    isLoading: false,
-    user: {
-      id: 1,
-      email: "test@example.com",
-      handle: "testuser",
-      membership_type: "premium"
-    }
-  })
-}));
-
-jest.mock("@/stores/authStore", () => ({
+// Mock auth store to return authenticated user
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     refreshUser: jest.fn().mockResolvedValue(undefined),
     user: {
@@ -60,7 +47,7 @@ jest.mock("@/stores/authStore", () => ({
 }));
 
 // Mock components to focus on the verification logic
-jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar() {
     return <div data-testid="sidebar">Sidebar</div>;
   };

@@ -1,10 +1,10 @@
 import { AuthHeader } from "@/components/layout/AuthHeader";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { render, screen, waitFor } from "@testing-library/react";
 
 // Mock the auth store
-jest.mock("@/stores/authStore");
+jest.mock("@/lib/auth/authStore");
 
 // Mock Next.js router
 jest.mock("next/navigation", () => ({

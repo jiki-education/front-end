@@ -3,16 +3,16 @@
  * Tests only the core functionality that doesn't require Google provider
  */
 
-import React from "react";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/stores/authStore";
+import React from "react";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
-jest.mock("@/stores/authStore", () => ({
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: jest.fn()
 }));
 

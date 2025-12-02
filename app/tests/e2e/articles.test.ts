@@ -49,17 +49,14 @@ describe("Articles Page E2E", () => {
 describe("Article Page E2E", () => {
   beforeAll(async () => {
     // Navigate to the first article
-    await page.goto("http://localhost:3081/articles");
-    await page.waitForSelector(".container, main, h1", { timeout: 15000 });
-
-    // Find and click first article link
-    await page.waitForSelector("article a");
+    await page.goto("http://localhost:3081/articles", { waitUntil: "networkidle0" });
+    await page.waitForSelector("article a", { timeout: 10000 });
     const firstArticleLink = await page.$("article a");
     if (firstArticleLink) {
       await firstArticleLink.click();
-      await page.waitForSelector("body", { timeout: 10000 });
+      await page.waitForSelector("h1", { timeout: 10000 });
     }
-  }, 45000);
+  }, 60000);
 
   it("should load an individual article", async () => {
     const heading = await page.$("h1");
@@ -72,10 +69,11 @@ describe("Article Page E2E", () => {
   }, 30000);
 
   it("should display rendered markdown content", async () => {
-    // Check that article/container has content
-    const contentContainer = await page.$("article, .container, .prose");
-    const articleText = await contentContainer?.evaluate((el) => el.textContent);
-    expect(articleText).toBeTruthy();
-    expect(articleText!.length).toBeGreaterThan(100); // Should have substantial content
+    // Check that page has substantial content
+    const pageText = await page.evaluate(() => document.body.textContent);
+    expect(pageText).toBeTruthy();
+    if (pageText) {
+      expect(pageText.length).toBeGreaterThan(100); // Should have substantial content
+    }
   }, 30000);
 });

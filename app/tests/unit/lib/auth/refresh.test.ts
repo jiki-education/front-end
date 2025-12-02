@@ -30,7 +30,6 @@ describe("refresh.ts - Token Refresh Module", () => {
   describe("Successful Refresh Flow", () => {
     it("should successfully refresh token from response headers", async () => {
       const newAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDA5OTk5OTl9.new_token";
-      const mockExpiry = 1700999999000;
 
       // Mock successful response with token in headers
       const mockHeaders = {
@@ -51,7 +50,6 @@ describe("refresh.ts - Token Refresh Module", () => {
       } as any;
 
       mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(mockExpiry);
 
       const result = await refreshAccessToken();
 
@@ -61,12 +59,11 @@ describe("refresh.ts - Token Refresh Module", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh_token: "valid_refresh_token" })
       });
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken);
     });
 
     it("should successfully refresh token from response body when not in headers", async () => {
       const newAccessToken = "body_token_123";
-      const mockExpiry = 1700999999000;
 
       // Mock response without auth header, token in body
       const mockHeaders = {
@@ -89,76 +86,11 @@ describe("refresh.ts - Token Refresh Module", () => {
       } as any;
 
       mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(mockExpiry);
 
       const result = await refreshAccessToken();
 
       expect(result).toBe(newAccessToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, mockExpiry);
-    });
-
-    it("should handle token expiry extraction correctly", async () => {
-      const newAccessToken = "token_with_expiry";
-      const extractedExpiry = 1700888888000;
-
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${newAccessToken}`;
-          }
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({ message: "Success" })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(extractedExpiry);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBe(newAccessToken);
-      expect(mockStorage.getTokenExpiry).toHaveBeenCalledWith(newAccessToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, extractedExpiry);
-    });
-
-    it("should store token without expiry when getTokenExpiry returns null", async () => {
-      const newAccessToken = "token_no_expiry";
-
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${newAccessToken}`;
-          }
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(null);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBe(newAccessToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken, undefined);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken);
     });
   });
 
@@ -175,7 +107,8 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
+      // Only refresh token should be removed on 401
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
       expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
     });
 
@@ -191,8 +124,9 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // Should NOT remove tokens on server errors (transient)
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
 
     it("should handle network errors", async () => {
@@ -201,8 +135,9 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // Should NOT remove tokens on network errors (might work later)
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
 
     it("should handle missing refresh token", async () => {
@@ -284,8 +219,10 @@ describe("refresh.ts - Token Refresh Module", () => {
       const result = await refreshAccessToken();
 
       expect(result).toBeNull();
-      expect(mockStorage.removeAccessToken).toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      // JSON parsing error is a code/data issue, not an auth issue
+      // Should NOT remove tokens
+      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
+      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
     });
   });
 
@@ -555,7 +492,7 @@ describe("refresh.ts - Token Refresh Module", () => {
 
       const result = await refreshAccessToken();
       expect(result).toBe(headerToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(headerToken, 1700999999000);
+      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(headerToken);
     });
 
     it("should handle various content types properly", async () => {

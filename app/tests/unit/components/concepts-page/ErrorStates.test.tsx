@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { ErrorState, EmptyState } from "@/components/concepts-page/ErrorStates";
+import { EmptyState, ErrorState } from "@/components/concepts/ErrorStates";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("ErrorState", () => {
   const defaultProps = {

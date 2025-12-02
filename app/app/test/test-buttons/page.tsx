@@ -4,11 +4,11 @@ import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 // TestResultsButtons component is not used - we're rendering buttons inline for this test
 // import { TestResultsButtons } from "@/components/coding-exercise/ui/test-results-view/TestResultsButtons";
+import styles from "@/components/coding-exercise/CodingExercise.module.css";
 import { InspectedTestResultView } from "@/components/coding-exercise/ui/test-results-view/InspectedTestResultView";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef } from "react";
-import styles from "@/components/coding-exercise/CodingExercise.module.css";
-import { assembleClassNames } from "@/utils/assemble-classnames";
 
 const initialCode = `move()
 move()

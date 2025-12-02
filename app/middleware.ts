@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { isExternalUrl } from "./lib/routing/external-urls";
 
 // Basic authentication credentials
 // NOTE: These credentials are intentionally hardcoded and not considered secrets.
@@ -7,6 +8,32 @@ import type { NextRequest } from "next/server";
 // production security. Username: jiki, Password: ave-fetching-chloe-packed
 const BASIC_AUTH_USER = "jiki";
 const BASIC_AUTH_PASSWORD = "ave-fetching-chloe-packed";
+
+function setCSP(response: NextResponse): void {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  // Set Content Security Policy headers
+  // Allow unsafe-inline for Next.js inline scripts (required for RSC flight data)
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com ${isProduction ? "" : "'unsafe-eval'"};
+    style-src 'self' 'unsafe-inline' https://accounts.google.com;
+    img-src 'self' blob: data: https://*.stripe.com;
+    font-src 'self';
+    connect-src 'self' https://api.jiki.io https://chat.jiki.io https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
+    frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
+    worker-src 'self' blob:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    ${isProduction ? "upgrade-insecure-requests;" : ""}
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
+  response.headers.set("Content-Security-Policy", cspHeader);
+}
 
 function checkBasicAuth(request: NextRequest): NextResponse | null {
   // Only apply basic auth in production
@@ -86,57 +113,40 @@ export function middleware(request: NextRequest) {
     return authResponse;
   }
 
-  // Block access to /dev and test routes in production
   const path = request.nextUrl.pathname;
+
+  // Block direct access to external routes
+  // if (path.startsWith("/external")) {
+  //   return new NextResponse("Not Found", { status: 404 });
+  // }
+
+  //
+  // Block access to /dev and test routes in production
+  //
   const isTestRoute = path.startsWith("/dev") || path.startsWith("/test");
-
-  if (isTestRoute) {
-    // Only allow in development mode
-    const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
-
-    if (!isDevelopment) {
-      // Return 404 if not in development
-      return new NextResponse(null, { status: 404 });
-    }
+  const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
+  if (isTestRoute && !isDevelopment) {
+    return new NextResponse(null, { status: 404 });
   }
 
-  const isProduction = process.env.NODE_ENV === "production";
-
-  // Set Content Security Policy headers
-  // Allow unsafe-inline for Next.js inline scripts (required for RSC flight data)
-  const cspHeader = `
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://js.stripe.com https://accounts.google.com ${isProduction ? "" : "'unsafe-eval'"};
-    style-src 'self' 'unsafe-inline' https://accounts.google.com;
-    img-src 'self' blob: data: https://*.stripe.com;
-    font-src 'self';
-    connect-src 'self' https://api.jiki.io https://chat.jiki.io https://api.stripe.com https://accounts.google.com ${isProduction ? "" : "http://localhost:* https://localhost:* ws://localhost:* ws://127.0.0.1:*"};
-    frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://accounts.google.com;
-    worker-src 'self' blob:;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    ${isProduction ? "upgrade-insecure-requests;" : ""}
-  `
-    .replace(/\s{2,}/g, " ")
-    .trim();
-
+  //
+  // Happy path!
+  //
   const response = NextResponse.next();
-  response.headers.set("Content-Security-Policy", cspHeader);
+  setCSP(response);
 
-  // Set Cache-Control headers for public routes when user is not authenticated
+  //
+  // Rewrite unauthenticated external URL requests to static variant
+  //
   const isAuthenticated = request.cookies.has("jiki_access_token");
-  const isCacheableRoute = path.startsWith("/blog") || path === "/auth/signup" || path === "/auth/login";
-
-  if (!isAuthenticated && isCacheableRoute) {
-    // Cache public pages for 1 hour for unauthenticated users
-    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+  if (!isAuthenticated && isExternalUrl(path)) {
+    response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");
+    response.headers.set("Vary", "Cookie");
   }
 
-  // Cache favicon for 1 hour
+  // Cache favicon for 10 minutes
   if (path === "/favicon.ico") {
-    response.headers.set("Cache-Control", "public, max-age=3600");
+    response.headers.set("Cache-Control", "public, max-age=600");
   }
 
   return response;

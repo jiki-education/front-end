@@ -85,3 +85,50 @@ The following secrets must be configured in repository settings:
 - **Content Security Policy**: Nonce-based script execution in production
 - **Process.env Support**: Via `nodejs_compat_populate_process_env` compatibility flag
 - **Basic Auth**: Protects production site during pre-launch phase
+
+## Edge Caching
+
+Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for edge caching of unauthenticated public content.
+
+**How It Works**:
+
+1. Worker wrapper intercepts requests before OpenNext worker
+2. Checks if route is cacheable and user is unauthenticated
+3. Returns cached response if available (cache hit)
+4. On cache miss, delegates to OpenNext and caches the response
+
+**Cache Strategy**:
+
+- **Worker Cache API TTL**: 1 day (86400 seconds) - includes deploy ID for auto-invalidation
+- **Cache-Control Headers**: 10 minutes (600 seconds) - for CDN/zone cache without deploy ID awareness
+- **Cached Routes** (unauthenticated only):
+  - Landing page (`/`)
+  - Blog routes (`/blog`, `/blog/*`, `/[locale]/blog/*`)
+  - Article routes (`/articles/*`, `/[locale]/articles/*`)
+  - Concept routes (`/concepts/*`)
+  - Unsubscribe pages (`/unsubscribe/*`)
+- **Static Assets**: `/_next/*`, `/static/*`, `/favicon.ico` already cached by OpenNext (not handled by wrapper)
+
+**Cache Key Generation**:
+
+- Includes pathname and locale
+- Allows only `page` and `criteria` query parameters (all others stripped)
+- Includes deploy ID (git SHA) for automatic invalidation on deploy
+
+**Cache Invalidation**:
+
+- Worker Cache: Automatic on deployment (deploy ID in cache key) + 1 day TTL
+- CDN/Zone Cache: 10 minutes TTL (no deploy ID awareness)
+- Production-only (cache disabled in development/preview)
+
+**Debugging**:
+
+- Response headers: `X-Cache: HIT` or `X-Cache: MISS`
+- Cache only active when `ENVIRONMENT=production` and `DEPLOY_ID` is set
+- Local development bypasses wrapper (uses Next.js dev server)
+
+**Implementation Files**:
+
+- `worker-wrapper.js` - Main wrapper entry point
+- `lib/cache/cache-key-generator.ts` - Cache key normalization logic
+- `lib/cache/cacheable-routes.ts` - Route eligibility checker

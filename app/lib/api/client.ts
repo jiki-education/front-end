@@ -3,9 +3,15 @@
  * Simple, type-safe API client for backend communication with JWT support
  */
 
-import { getAccessToken, parseJwtPayload } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
+import { getAccessToken } from "@/lib/auth/storage";
 import { getApiUrl } from "./config";
+import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
+
+// Retry configuration
+const INITIAL_RETRY_DELAY_MS = 50;
+const MAX_RETRY_DELAY_MS = 5000;
+const SHOW_MODAL_AFTER_MS = 1000;
 
 export class ApiError extends Error {
   constructor(
@@ -25,6 +31,27 @@ export class AuthenticationError extends ApiError {
   }
 }
 
+export class NetworkError extends Error {
+  constructor(
+    message: string,
+    public originalError?: Error
+  ) {
+    super(`Network error: ${message}`);
+    this.name = "NetworkError";
+  }
+}
+
+export class RateLimitError extends ApiError {
+  constructor(
+    statusText: string,
+    public retryAfterSeconds: number,
+    data?: unknown
+  ) {
+    super(429, statusText, data);
+    this.name = "RateLimitError";
+  }
+}
+
 export interface RequestOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
   params?: Record<string, string | number | boolean>;
@@ -37,9 +64,104 @@ export interface ApiResponse<T = unknown> {
 }
 
 /**
+ * Helper function to sleep for a specified duration
+ */
+async function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Calculate exponential backoff delay (capped at max)
+ */
+function calculateBackoffDelay(attempt: number): number {
+  return Math.min(INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt), MAX_RETRY_DELAY_MS);
+}
+
+/**
+ * Parse Retry-After header (supports both seconds and HTTP date)
+ */
+function parseRetryAfter(retryAfterHeader: string | null): number {
+  if (!retryAfterHeader) {
+    return 60; // Default to 60 seconds if header missing
+  }
+
+  // Try parsing as seconds (numeric)
+  const seconds = parseInt(retryAfterHeader, 10);
+  if (!isNaN(seconds)) {
+    return seconds;
+  }
+
+  // Try parsing as HTTP date
+  try {
+    const retryDate = new Date(retryAfterHeader);
+    const now = new Date();
+    const diffSeconds = Math.ceil((retryDate.getTime() - now.getTime()) / 1000);
+    return Math.max(diffSeconds, 0); // Don't return negative
+  } catch {
+    return 60; // Default to 60 seconds if parsing fails
+  }
+}
+
+/**
+ * Retry a function with infinite backoff
+ * Handles network errors, auth errors, and rate limiting
+ */
+async function retryWithExponentialBackoff<T>(fn: () => Promise<T>): Promise<T> {
+  const startTime = Date.now();
+  let attempt = 0;
+
+  while (true) {
+    // Infinite loop - never give up!
+    try {
+      const result = await fn();
+
+      // Success! Clear any error that was shown
+      clearCriticalError();
+
+      return result;
+    } catch (error) {
+      // Authentication error - show modal and hang forever
+      if (error instanceof AuthenticationError) {
+        setCriticalError(error);
+        await new Promise(() => {}); // Hang forever, never resolves
+      }
+
+      // Rate limit error - show modal, wait specified time, retry
+      if (error instanceof RateLimitError) {
+        setCriticalError(error);
+        await sleep(error.retryAfterSeconds * 1000); // Convert to milliseconds
+        attempt = 0; // Reset attempt counter after rate limit
+        continue; // Retry immediately (modal clears on success at line 119)
+      }
+
+      // Non-network errors (404, 500, validation) - throw immediately
+      if (!(error instanceof TypeError)) {
+        throw error;
+      }
+
+      // Network error - show modal after 1s, retry infinitely
+      const elapsedTime = Date.now() - startTime;
+      const currentError = useErrorHandlerStore.getState().criticalError;
+
+      if (!currentError && elapsedTime >= SHOW_MODAL_AFTER_MS) {
+        setCriticalError(new NetworkError("Connection lost"));
+      }
+
+      const delay = calculateBackoffDelay(attempt);
+      await sleep(delay);
+      attempt++;
+    }
+  }
+}
+
+/**
  * Generic API request handler
  */
-async function request<T = unknown>(path: string, options: RequestOptions = {}): Promise<ApiResponse<T>> {
+async function request<T = unknown>(
+  path: string,
+  options: RequestOptions = {},
+  useRetries: boolean = true
+): Promise<ApiResponse<T>> {
   const { body, params, headers = {}, ...restOptions } = options;
 
   // Build URL with query params
@@ -80,7 +202,8 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
     requestOptions.body = JSON.stringify(body);
   }
 
-  try {
+  // Define the fetch function
+  const performFetch = async (): Promise<ApiResponse<T>> => {
     const response = await fetch(url.toString(), requestOptions);
 
     // Parse response
@@ -95,50 +218,54 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
 
     // Handle error responses
     if (!response.ok) {
+      // Handle 429 Rate Limit
+      if (response.status === 429) {
+        const retryAfter = response.headers.get("Retry-After");
+        const retryAfterSeconds = parseRetryAfter(retryAfter);
+        throw new RateLimitError(response.statusText, retryAfterSeconds, data);
+      }
+
       // Handle 401 Unauthorized with automatic token refresh
       if (response.status === 401) {
         // Only attempt refresh if token is actually expired
         // This prevents unnecessary refresh token consumption on authorization errors
-        const shouldRefresh = isTokenActuallyExpired(token);
 
-        if (shouldRefresh) {
-          try {
-            const newAccessToken = await refreshAccessToken();
+        try {
+          const newAccessToken = await refreshAccessToken();
 
-            if (newAccessToken) {
-              // Refresh succeeded! Retry the original request with new token
-              requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
-              const retryResponse = await fetch(url.toString(), {
-                ...requestOptions,
-                headers: requestHeaders
-              });
+          if (newAccessToken) {
+            // Refresh succeeded! Retry the original request with new token
+            requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
+            const retryResponse = await fetch(url.toString(), {
+              ...requestOptions,
+              headers: requestHeaders
+            });
 
-              let retryData: T;
-              const retryContentType = retryResponse.headers.get("content-type");
+            let retryData: T;
+            const retryContentType = retryResponse.headers.get("content-type");
 
-              if (retryContentType?.includes("application/json")) {
-                retryData = await retryResponse.json();
-              } else {
-                retryData = (await retryResponse.text()) as T;
-              }
-
-              if (!retryResponse.ok) {
-                throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
-              }
-
-              return {
-                data: retryData,
-                status: retryResponse.status,
-                headers: retryResponse.headers
-              };
+            if (retryContentType?.includes("application/json")) {
+              retryData = await retryResponse.json();
+            } else {
+              retryData = (await retryResponse.text()) as T;
             }
 
-            // Refresh failed - tokens already cleared by refresh module
-            // Fall through to throw 401 error
-          } catch (refreshError) {
-            console.error("Token refresh failed:", refreshError);
-            // Fall through to throw original 401 error
+            if (!retryResponse.ok) {
+              throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
+            }
+
+            return {
+              data: retryData,
+              status: retryResponse.status,
+              headers: retryResponse.headers
+            };
           }
+
+          // Refresh failed - tokens already cleared by refresh module
+          // Fall through to throw 401 error
+        } catch (refreshError) {
+          console.error("Token refresh failed:", refreshError);
+          // Fall through to throw original 401 error
         }
         // If token not expired or refresh failed, throw authentication error
         // This will be caught by components that can handle redirects properly
@@ -153,42 +280,22 @@ async function request<T = unknown>(path: string, options: RequestOptions = {}):
       status: response.status,
       headers: response.headers
     };
+  };
+
+  try {
+    // Either use retries or call directly
+    if (useRetries) {
+      return await retryWithExponentialBackoff(performFetch);
+    }
+    return await performFetch();
   } catch (error) {
-    // Re-throw ApiError
-    if (error instanceof ApiError) {
+    // Re-throw ApiError (including AuthenticationError) and NetworkError
+    if (error instanceof ApiError || error instanceof NetworkError) {
       throw error;
     }
 
-    // Handle network errors
-    if (error instanceof TypeError) {
-      throw new Error(`Network error: ${error.message}`);
-    }
-
-    // Handle other errors
+    // Handle other errors (shouldn't happen with retry logic, but keep as fallback)
     throw new Error(`Request failed: ${error}`);
-  }
-}
-
-/**
- * Check if token is actually expired to determine if refresh is warranted
- */
-function isTokenActuallyExpired(token: string | null): boolean {
-  if (!token) {
-    return false; // No token means 401 is not due to expiry
-  }
-
-  try {
-    const payload = parseJwtPayload(token);
-    if (!payload || !payload.exp) {
-      return false; // Can't determine expiry, assume not expired
-    }
-
-    // Check if token has expired (exp is in seconds, Date.now() is in milliseconds)
-    const expiryMs = payload.exp * 1000;
-    return Date.now() > expiryMs;
-  } catch (error) {
-    console.error("Failed to check token expiry:", error);
-    return false; // Assume not expired on error to avoid unnecessary refresh
   }
 }
 
@@ -196,23 +303,23 @@ function isTokenActuallyExpired(token: string | null): boolean {
  * API Client with convenient methods
  */
 export const api = {
-  get<T = unknown>(path: string, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "GET" });
+  get<T = unknown>(path: string, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "GET" }, useRetries);
   },
 
-  post<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "POST", body });
+  post<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "POST", body }, useRetries);
   },
 
-  put<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "PUT", body });
+  put<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "PUT", body }, useRetries);
   },
 
-  patch<T = unknown>(path: string, body?: unknown, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "PATCH", body });
+  patch<T = unknown>(path: string, body?: unknown, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "PATCH", body }, useRetries);
   },
 
-  delete<T = unknown>(path: string, options?: RequestOptions) {
-    return request<T>(path, { ...options, method: "DELETE" });
+  delete<T = unknown>(path: string, options?: RequestOptions, useRetries?: boolean) {
+    return request<T>(path, { ...options, method: "DELETE" }, useRetries);
   }
 };

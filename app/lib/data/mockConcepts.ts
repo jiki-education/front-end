@@ -1,4 +1,4 @@
-import type { ConceptCardData } from "@/components/concepts-page/ConceptCard";
+import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 
 export const mockConcepts: ConceptCardData[] = [
   {

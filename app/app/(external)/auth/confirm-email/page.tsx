@@ -1,7 +1,7 @@
-import { AuthPageWrapper } from "@/components/auth/AuthPageWrapper";
+import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { ConfirmEmailForm } from "@/components/auth/ConfirmEmailForm";
-import { Suspense } from "react";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Confirm Email - Jiki",
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 function ConfirmEmailContent() {
   return (
-    <AuthPageWrapper>
+    <AuthGuard>
       <ConfirmEmailForm />
-    </AuthPageWrapper>
+    </AuthGuard>
   );
 }
 

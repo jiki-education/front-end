@@ -1,5 +1,5 @@
-import ConceptCard from "@/components/concepts-page/ConceptCard";
-import type { ConceptCardData } from "@/components/concepts-page/ConceptCard";
+import type { ConceptCardData } from "@/components/concepts/ConceptCard";
+import ConceptCard from "@/components/concepts/ConceptCard";
 import styles from "./instructions-panel.module.css";
 
 interface ConceptLibraryProps {

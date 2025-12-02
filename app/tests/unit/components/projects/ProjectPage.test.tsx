@@ -1,9 +1,7 @@
+import ProjectPage from "@/app/(app)/projects/[slug]/page";
+import { fetchProject } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import ProjectPage from "@/app/projects/[slug]/page";
-import { fetchProject } from "@/lib/api/projects";
-import { useRequireAuth } from "@/lib/auth/hooks";
-import type { User } from "@/types/auth";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({
@@ -12,10 +10,6 @@ jest.mock("next/navigation", () => ({
 
 jest.mock("@/lib/api/projects", () => ({
   fetchProject: jest.fn()
-}));
-
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: jest.fn()
 }));
 
 jest.mock("@/components/coding-exercise/CodingExercise", () => {
@@ -36,20 +30,9 @@ jest.mock("@/components/lesson/LessonLoadingPage", () => {
 
 const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 const mockFetchProject = fetchProject as jest.MockedFunction<typeof fetchProject>;
-const mockUseRequireAuth = useRequireAuth as jest.MockedFunction<typeof useRequireAuth>;
 
 describe("ProjectPage", () => {
   const mockPush = jest.fn();
-  const mockUser: User = {
-    id: 1,
-    handle: "testuser",
-    email: "test@example.com",
-    name: "Test User",
-    created_at: "2023-01-01T00:00:00Z",
-    membership_type: "standard",
-    subscription_status: "never_subscribed",
-    subscription: null
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -64,42 +47,6 @@ describe("ProjectPage", () => {
     } as any);
   });
 
-  it("should show loading state initially", () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: false,
-      isLoading: true,
-      isReady: false,
-      user: null
-    });
-
-    const params = Promise.resolve({ slug: "test-project" });
-
-    render(<ProjectPage params={params} />);
-
-    expect(screen.getByTestId("loading-page")).toHaveTextContent("Loading - exercise");
-  });
-
-  it("should return null when not authenticated", async () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: false,
-      isLoading: false,
-      isReady: true,
-      user: null
-    });
-
-    const params = Promise.resolve({ slug: "test-project" });
-
-    const { container } = render(<ProjectPage params={params} />);
-
-    // Wait for the component to finish loading
-    await waitFor(
-      () => {
-        expect(container.firstChild).toBeNull();
-      },
-      { timeout: 3000 }
-    );
-  });
-
   it("should render coding exercise for unlocked project", async () => {
     const mockProject = {
       slug: "test-project",
@@ -108,13 +55,6 @@ describe("ProjectPage", () => {
       status: "unlocked" as const,
       exercise_slug: "test-exercise"
     };
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
 
     mockFetchProject.mockResolvedValue(mockProject);
 
@@ -139,13 +79,6 @@ describe("ProjectPage", () => {
       status: "locked" as const
     };
 
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
-
     mockFetchProject.mockResolvedValue(mockProject);
 
     const params = Promise.resolve({ slug: "locked-project" });
@@ -163,13 +96,6 @@ describe("ProjectPage", () => {
   });
 
   it("should show error state when fetch fails", async () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
-
     mockFetchProject.mockRejectedValue(new Error("Project not found"));
 
     const params = Promise.resolve({ slug: "invalid-project" });
@@ -191,13 +117,6 @@ describe("ProjectPage", () => {
       status: "unlocked" as const
       // No exercise_slug provided
     };
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
 
     mockFetchProject.mockResolvedValue(mockProject);
 
@@ -222,13 +141,6 @@ describe("ProjectPage", () => {
       status: "started" as const,
       exercise_slug: "started-exercise"
     };
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
 
     mockFetchProject.mockResolvedValue(mockProject);
 

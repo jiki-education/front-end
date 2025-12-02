@@ -3,22 +3,23 @@
  */
 
 import {
-  setAccessToken,
   getAccessToken,
-  removeAccessToken,
-  hasValidToken,
-  parseJwtPayload,
-  getTokenExpiry,
-  setRefreshToken,
   getRefreshToken,
-  removeRefreshToken
+  getTokenExpiry,
+  hasToken,
+  parseJwtPayload,
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken
 } from "@/lib/auth/storage";
 
 // Mock the cookie storage module
 jest.mock("@/lib/auth/cookie-storage", () => ({
   setAccessTokenCookie: jest.fn(),
   getAccessTokenCookie: jest.fn(),
-  removeAccessTokenCookie: jest.fn()
+  removeAccessTokenCookie: jest.fn(),
+  REFRESH_TOKEN_COOKIE_NAME: "jiki_refresh_token"
 }));
 
 // Mock localStorage for refresh token tests
@@ -44,13 +45,12 @@ describe("Auth Storage", () => {
   });
 
   describe("Access Token Management (Cookies)", () => {
-    it("should store access token in cookies", () => {
+    it("should store access token in cookies with 1-year expiration", () => {
       const testToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTk5OTk5OTl9.test";
-      const expiry = Date.now() + 3600000; // 1 hour from now
 
-      setAccessToken(testToken, expiry);
+      setAccessToken(testToken);
 
-      expect(mockCookieStorage.setAccessTokenCookie).toHaveBeenCalledWith(testToken, expiry);
+      expect(mockCookieStorage.setAccessTokenCookie).toHaveBeenCalledWith(testToken);
     });
 
     it("should retrieve access token from cookies", () => {
@@ -107,14 +107,24 @@ describe("Auth Storage", () => {
   });
 
   describe("Combined Token Management", () => {
-    it("should remove both access and refresh tokens", () => {
+    it("should remove only access token (not refresh token)", () => {
       removeAccessToken();
 
       // Verify access token removal (cookies)
       expect(mockCookieStorage.removeAccessTokenCookie).toHaveBeenCalled();
 
-      // Verify refresh token removal (localStorage)
+      // Verify refresh token is NOT removed
+      expect(mockLocalStorage.removeItem).not.toHaveBeenCalled();
+    });
+
+    it("should remove refresh token independently", () => {
+      removeRefreshToken();
+
+      // Verify only refresh token removal
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith("jiki_refresh_token");
+
+      // Verify access token is NOT removed
+      expect(mockCookieStorage.removeAccessTokenCookie).not.toHaveBeenCalled();
     });
 
     it("should handle token validation with cookies", () => {
@@ -122,7 +132,7 @@ describe("Auth Storage", () => {
 
       mockCookieStorage.getAccessTokenCookie.mockReturnValue(validToken);
 
-      const result = hasValidToken();
+      const result = hasToken();
 
       expect(result).toBe(true);
     });
@@ -206,7 +216,7 @@ describe("Auth Storage", () => {
 // Helper functions for creating test JWTs
 function createValidJWT(): string {
   const futureExp = Math.floor((Date.now() + 3600000) / 1000);
-  return createJWTWithPayload({ exp: futureExp });
+  return createJWTWithPayload({ exp: futureExp, sub: "123" });
 }
 
 function createJWTWithPayload(payload: any): string {

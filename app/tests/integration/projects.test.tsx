@@ -1,9 +1,7 @@
+import ProjectsPage from "@/app/(app)/projects/page";
+import { fetchProjects } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import ProjectsPage from "@/app/projects/page";
-import { fetchProjects } from "@/lib/api/projects";
-import { useRequireAuth } from "@/lib/auth/hooks";
-import type { User } from "@/types/auth";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({
@@ -14,11 +12,14 @@ jest.mock("@/lib/api/projects", () => ({
   fetchProjects: jest.fn()
 }));
 
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: jest.fn()
+jest.mock("@/lib/auth/authStore", () => ({
+  useAuthStore: jest.fn(() => ({
+    isAuthenticated: true,
+    hasCheckedAuth: true
+  }))
 }));
 
-jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar({ activeItem }: { activeItem: string }) {
     return (
       <div data-testid="sidebar">
@@ -39,20 +40,9 @@ jest.mock("@/components/index-page/sidebar/Sidebar", () => {
 
 const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 const mockFetchProjects = fetchProjects as jest.MockedFunction<typeof fetchProjects>;
-const mockUseRequireAuth = useRequireAuth as jest.MockedFunction<typeof useRequireAuth>;
 
 describe("Projects Integration", () => {
   const mockPush = jest.fn();
-  const mockUser: User = {
-    id: 1,
-    handle: "testuser",
-    email: "test@example.com",
-    name: "Test User",
-    created_at: "2023-01-01T00:00:00Z",
-    membership_type: "standard",
-    subscription_status: "never_subscribed",
-    subscription: null
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -65,13 +55,6 @@ describe("Projects Integration", () => {
       forward: jest.fn(),
       refresh: jest.fn()
     } as any);
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
   });
 
   it("should display projects with different status states", async () => {
@@ -152,13 +135,6 @@ describe("Projects Integration", () => {
         total_count: 0,
         total_pages: 1
       }
-    });
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
     });
 
     render(<ProjectsPage />);

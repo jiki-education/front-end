@@ -1,9 +1,7 @@
+import ProjectsPage from "@/app/(app)/projects/page";
+import { fetchProjects } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
-import ProjectsPage from "@/app/projects/page";
-import { fetchProjects } from "@/lib/api/projects";
-import { useRequireAuth } from "@/lib/auth/hooks";
-import type { User } from "@/types/auth";
 
 // Mock dependencies
 jest.mock("next/navigation", () => ({
@@ -14,11 +12,14 @@ jest.mock("@/lib/api/projects", () => ({
   fetchProjects: jest.fn()
 }));
 
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: jest.fn()
+jest.mock("@/lib/auth/authStore", () => ({
+  useAuthStore: jest.fn(() => ({
+    isAuthenticated: true,
+    hasCheckedAuth: true
+  }))
 }));
 
-jest.mock("@/components/index-page/sidebar/Sidebar", () => {
+jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar({ activeItem }: { activeItem: string }) {
     return <div data-testid="sidebar">Sidebar - {activeItem}</div>;
   };
@@ -26,20 +27,8 @@ jest.mock("@/components/index-page/sidebar/Sidebar", () => {
 
 const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 const mockFetchProjects = fetchProjects as jest.MockedFunction<typeof fetchProjects>;
-const mockUseRequireAuth = useRequireAuth as jest.MockedFunction<typeof useRequireAuth>;
 
 describe("ProjectsPage", () => {
-  const mockUser: User = {
-    id: 1,
-    handle: "testuser",
-    email: "test@example.com",
-    name: "Test User",
-    created_at: "2023-01-01T00:00:00Z",
-    membership_type: "standard",
-    subscription_status: "never_subscribed",
-    subscription: null
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -51,34 +40,6 @@ describe("ProjectsPage", () => {
       forward: jest.fn(),
       refresh: jest.fn()
     } as any);
-  });
-
-  it("should show loading state initially", () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: false,
-      isLoading: true,
-      isReady: false,
-      user: null
-    });
-
-    render(<ProjectsPage />);
-
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
-  });
-
-  it("should return null when not authenticated", async () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: false,
-      isLoading: false,
-      isReady: true,
-      user: null
-    });
-
-    const { container } = render(<ProjectsPage />);
-
-    await waitFor(() => {
-      expect(container.firstChild).toBeNull();
-    });
   });
 
   it("should render projects page with sidebar", async () => {
@@ -104,13 +65,6 @@ describe("ProjectsPage", () => {
       }
     };
 
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
-
     mockFetchProjects.mockResolvedValue(mockProjects);
 
     render(<ProjectsPage />);
@@ -126,13 +80,6 @@ describe("ProjectsPage", () => {
   });
 
   it("should show message when no projects available", async () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
-
     mockFetchProjects.mockResolvedValue({
       results: [],
       meta: {
@@ -150,13 +97,6 @@ describe("ProjectsPage", () => {
   });
 
   it("should show error state when fetch fails", async () => {
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
-
     mockFetchProjects.mockRejectedValue(new Error("Failed to fetch"));
 
     render(<ProjectsPage />);
@@ -184,13 +124,6 @@ describe("ProjectsPage", () => {
         total_pages: 1
       }
     };
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
 
     mockFetchProjects.mockResolvedValue(mockProjects);
 
@@ -221,13 +154,6 @@ describe("ProjectsPage", () => {
         total_pages: 1
       }
     };
-
-    mockUseRequireAuth.mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: mockUser
-    });
 
     mockFetchProjects.mockResolvedValue(mockProjects);
 

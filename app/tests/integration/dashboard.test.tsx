@@ -1,8 +1,7 @@
 import Dashboard from "@/app/(app)/dashboard/page";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
-import { useRequireAuth } from "@/lib/auth/hooks";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 // Mock Next.js router
 const mockPush = jest.fn();
@@ -52,18 +51,13 @@ jest.mock("@static/icons/lightbulb.svg", () => ({
   default: () => <div data-testid="lightbulb-icon" aria-hidden="true" />
 }));
 
-// Mock the auth hooks
-jest.mock("@/lib/auth/hooks", () => ({
-  useRequireAuth: jest.fn()
-}));
-
 // Mock the auth store
 const mockLogout = jest.fn().mockImplementation(() => {
   window.localStorage.removeItem("auth-storage");
   window.sessionStorage.clear();
 });
 
-jest.mock("@/stores/authStore", () => ({
+jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     logout: mockLogout
   })
@@ -151,36 +145,9 @@ describe("Dashboard Page", () => {
     mockPush.mockClear();
     mockLogout.mockClear();
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
-
-    // Default mock for useRequireAuth - can be overridden in individual tests
-    (useRequireAuth as jest.Mock).mockReturnValue({
-      isAuthenticated: true,
-      isLoading: false,
-      isReady: true,
-      user: { id: "1", email: "test@test.com" }
-    });
   });
 
-  it("returns null when not authenticated", async () => {
-    (useRequireAuth as jest.Mock).mockReturnValue({
-      isAuthenticated: false,
-      isLoading: false,
-      isReady: true
-    });
-
-    const { container } = render(
-      <ThemeProvider>
-        <Dashboard />
-      </ThemeProvider>
-    );
-
-    // First it should show loading, then when levelsLoading becomes false and !isAuthenticated, return null
-    await waitFor(() => {
-      expect(container.firstChild).toBeNull();
-    });
-  });
-
-  it("renders without crashing when authenticated", () => {
+  it("renders without crashing", () => {
     const { container } = render(
       <ThemeProvider>
         <Dashboard />
@@ -201,28 +168,7 @@ describe("Dashboard Page", () => {
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
-  it("redirects to login when API returns 401 authentication error", async () => {
-    const { AuthenticationError } = jest.requireMock("@/lib/api/client");
-
-    // Mock fetchLevelsWithProgress to throw AuthenticationError
-    (fetchLevelsWithProgress as jest.Mock).mockRejectedValue(new AuthenticationError("Unauthorized"));
-
-    render(
-      <ThemeProvider>
-        <Dashboard />
-      </ThemeProvider>
-    );
-
-    // Wait for the error to be thrown and handled
-    await waitFor(
-      () => {
-        expect(mockPush).toHaveBeenCalledWith("/auth/login");
-      },
-      { timeout: 10000 }
-    );
-
-    // Verify that auth storage is cleared
-    expect(window.localStorage.removeItem).toHaveBeenCalledWith("auth-storage");
-    expect(window.sessionStorage.clear).toHaveBeenCalled();
-  });
+  // Note: Auth error handling is now done globally by GlobalErrorHandler
+  // Auth errors cause promises to hang forever (not caught by components)
+  // Test removed as component no longer handles auth errors directly
 });

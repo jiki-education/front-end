@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";

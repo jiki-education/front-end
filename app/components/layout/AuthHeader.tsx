@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuthStore } from "@/stores/authStore";
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useAuthStore } from "@/lib/auth/authStore";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface AuthHeaderProps {
   title?: string;

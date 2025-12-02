@@ -1,6 +1,6 @@
+import styles from "@/app/styles/modules/concepts.module.css";
+import { ConceptCardsLoadingSkeleton, InlineLoading, LoadingSkeleton } from "@/components/concepts/LoadingStates";
 import { render, screen } from "@testing-library/react";
-import { LoadingSkeleton, InlineLoading, ConceptCardsLoadingSkeleton } from "@/components/concepts-page/LoadingStates";
-import styles from "@/app/(external)/concepts/concepts.module.css";
 
 describe("LoadingSkeleton", () => {
   it("renders without crashing", () => {

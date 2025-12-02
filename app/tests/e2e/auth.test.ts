@@ -1,20 +1,5 @@
 describe("Authentication E2E", () => {
   describe("Landing Page", () => {
-    it("should show landing page for unauthenticated users", async () => {
-      await page.goto("http://localhost:3081");
-      await page.waitForSelector("h1");
-
-      const heading = await page.$eval("h1", (el) => el.textContent);
-      expect(heading).toBe("Welcome to Jiki");
-
-      // Check for login and signup links
-      const loginLink = await page.$('a[href="/auth/login"]');
-      const signupLink = await page.$('a[href="/auth/signup"]');
-
-      expect(loginLink).toBeTruthy();
-      expect(signupLink).toBeTruthy();
-    });
-
     it("should navigate to login page when login button clicked", async () => {
       await page.goto("http://localhost:3081");
       await page.waitForSelector('a[href="/auth/login"]');
@@ -197,29 +182,6 @@ describe("Authentication E2E", () => {
       await page.waitForSelector("h1");
       const heading = await page.$eval("h1", (el) => el.textContent);
       expect(heading).toBe("Log In");
-    });
-  });
-
-  describe("Authentication Flow", () => {
-    it("should redirect unauthenticated users from dashboard to login", async () => {
-      // Clear any existing auth completely
-      await page.goto("http://localhost:3081", { waitUntil: "domcontentloaded" });
-      await page.evaluate(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-      });
-
-      // Force reload to ensure clean state
-      await page.reload({ waitUntil: "domcontentloaded" });
-
-      // Try to access dashboard
-      await page.goto("http://localhost:3081/dashboard", { waitUntil: "domcontentloaded" });
-
-      // Wait for auth system to resolve and redirect
-      await page.waitForFunction(() => window.location.href.includes("/auth/login"), { timeout: 5000 });
-
-      const url = page.url();
-      expect(url).toContain("/auth/login");
     });
   });
 

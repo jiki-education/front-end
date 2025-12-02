@@ -1,28 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAuthStore } from "@/stores/authStore";
-import { useRequireAuth } from "@/lib/auth/hooks";
-import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
-import { useLogoutActions } from "./lib/useLogoutActions";
-import toast from "react-hot-toast";
-import type { MembershipTier } from "@/lib/pricing";
-import SubscriptionSection from "./subscription/SubscriptionSection";
-import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
-import Sidebar from "@/components/index-page/sidebar/Sidebar";
-import styles from "./Settings.module.css";
-import SettingsIcon from "@/icons/settings.svg";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
 import AccountSettingsIcon from "@/icons/account-settings.svg";
+import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import LearningSettingsIcon from "@/icons/learning-settings.svg";
 import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
 import PrivacySettingsIcon from "@/icons/privacy-settings.svg";
-import DangerSettingsIcon from "@/icons/danger-settings.svg";
+import SettingsIcon from "@/icons/settings.svg";
+import { useAuthStore } from "@/lib/auth/authStore";
+import type { MembershipTier } from "@/lib/pricing";
+import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useLogoutActions } from "./lib/useLogoutActions";
+import styles from "./Settings.module.css";
+import SubscriptionErrorBoundary from "./subscription/SubscriptionErrorBoundary";
+import SubscriptionSection from "./subscription/SubscriptionSection";
 
 type TabType = "account" | "learning" | "notifications" | "privacy" | "danger";
 
 export default function SettingsPage() {
-  const { isAuthenticated, isLoading: authLoading, user } = useRequireAuth();
-  const { refreshUser } = useAuthStore();
+  const { user, refreshUser } = useAuthStore();
   const { isLoggingOut, handleLogoutFromThisDevice, handleLogoutFromAllDevices } = useLogoutActions();
 
   // State for checkout flows
@@ -32,8 +30,8 @@ export default function SettingsPage() {
 
   // Handle post-payment redirect from Stripe
   useEffect(() => {
-    // Only process if user is authenticated
-    if (!isAuthenticated || !user) {
+    // Only process if user is available
+    if (!user) {
       return;
     }
 
@@ -62,22 +60,7 @@ export default function SettingsPage() {
 
       void verifyAndRefresh(sessionId);
     }
-  }, [isAuthenticated, user, refreshUser]);
-
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-bg-primary theme-transition">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-link-primary mx-auto"></div>
-          <p className="mt-4 text-text-secondary">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
+  }, [user, refreshUser]);
 
   return (
     <div className="min-h-screen bg-bg-secondary theme-transition">

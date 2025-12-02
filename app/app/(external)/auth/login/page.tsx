@@ -1,6 +1,6 @@
-import { AuthPageWrapper } from "@/components/auth/AuthPageWrapper";
-import { AuthLayout } from "@/components/ui/AuthLayout";
+import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <AuthPageWrapper>
+    <AuthGuard>
       <AuthLayout>
         <LoginForm />
       </AuthLayout>
-    </AuthPageWrapper>
+    </AuthGuard>
   );
 }

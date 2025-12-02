@@ -1,11 +1,11 @@
-import { assembleClassNames } from "@/utils/assemble-classnames";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import { useMemo } from "react";
+import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { IOTestExpect } from "../../lib/test-results-types";
-import { PassMessage } from "./PassMessage";
 import { IOTestResultView } from "./IOTestResultView";
-import styles from "../../CodingExercise.module.css";
+import { PassMessage } from "./PassMessage";
 
 export function InspectedIOTestResultView() {
   const orchestrator = useOrchestrator();

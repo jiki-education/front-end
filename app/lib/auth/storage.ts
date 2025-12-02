@@ -3,15 +3,14 @@
  * Secure JWT token management for authentication
  */
 
-import { setAccessTokenCookie, getAccessTokenCookie, removeAccessTokenCookie } from "@/lib/auth/cookie-storage";
-
-const REFRESH_TOKEN_KEY = "jiki_refresh_token";
+import { getAccessTokenCookie, removeAccessTokenCookie, setAccessTokenCookie } from "@/lib/auth/cookie-storage";
+import { REFRESH_TOKEN_COOKIE_NAME } from "@/lib/auth/cookie-storage";
 
 /**
  * Store JWT access token in cookie
  */
-export function setAccessToken(token: string, expiryMs?: number): void {
-  setAccessTokenCookie(token, expiryMs);
+export function setAccessToken(token: string): void {
+  setAccessTokenCookie(token);
 }
 
 /**
@@ -22,18 +21,19 @@ export function getAccessToken(): string | null {
 }
 
 /**
- * Remove stored JWT access token and refresh token
+ * Remove stored JWT access token
+ * Note: Does not remove refresh token - caller must handle that explicitly
  */
 export function removeAccessToken(): void {
   removeAccessTokenCookie();
-  removeRefreshToken(); // Also clear refresh token
 }
 
 /**
  * Check if access token exists and is valid
  * Validates JWT exp claim
+ * Note: This is a pure function - it does NOT remove expired tokens
  */
-export function hasValidToken(): boolean {
+export function hasToken(): boolean {
   const token = getAccessToken();
   if (!token) {
     return false;
@@ -41,13 +41,12 @@ export function hasValidToken(): boolean {
 
   // Check JWT exp claim
   const payload = parseJwtPayload(token);
-  if (payload && payload.exp) {
-    const expiryMs = payload.exp * 1000;
-    if (Date.now() > expiryMs) {
-      // Token has expired according to JWT claim
-      removeAccessToken();
-      return false;
-    }
+  if (!payload) {
+    return false;
+  }
+
+  if (!payload.sub) {
+    return false;
   }
 
   return true;
@@ -97,7 +96,7 @@ export function setRefreshToken(token: string): void {
   }
 
   try {
-    localStorage.setItem(REFRESH_TOKEN_KEY, token);
+    localStorage.setItem(REFRESH_TOKEN_COOKIE_NAME, token);
   } catch (error) {
     console.error("Failed to store refresh token:", error);
   }
@@ -112,7 +111,7 @@ export function getRefreshToken(): string | null {
   }
 
   try {
-    return localStorage.getItem(REFRESH_TOKEN_KEY);
+    return localStorage.getItem(REFRESH_TOKEN_COOKIE_NAME);
   } catch (error) {
     console.error("Failed to retrieve refresh token:", error);
     return null;
@@ -128,7 +127,7 @@ export function removeRefreshToken(): void {
   }
 
   try {
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_COOKIE_NAME);
   } catch (error) {
     console.error("Failed to remove refresh token:", error);
   }

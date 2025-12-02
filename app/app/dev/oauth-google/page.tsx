@@ -5,8 +5,8 @@
  * Development-only page for testing Google OAuth flows
  */
 
-import { useAuthStore } from "@/stores/authStore";
 import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { useState } from "react";
 
 export default function GoogleOAuthTestPage() {

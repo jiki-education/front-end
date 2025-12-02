@@ -7,7 +7,7 @@
     width: 260px;
     background: white;
     height: 100vh;
-    position: fixed;
+    position: sticky;
     left: 0;
     top: 0;
     padding: 20px 20px 32px 20px;

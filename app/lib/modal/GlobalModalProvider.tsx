@@ -4,6 +4,15 @@ import { BaseModal } from "./BaseModal";
 import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
 
+// TODO: Add support for non-dismissible modals
+// The GlobalErrorHandler passes dismissible: false for critical error modals,
+// but the modal system doesn't currently respect this prop.
+// Changes needed:
+// 1. BaseModal should accept dismissible prop (default true)
+// 2. Hide close button when dismissible=false
+// 3. Disable overlay click close when dismissible=false
+// 4. Pass dismissible prop from modalProps through GlobalModalProvider to BaseModal
+
 export function GlobalModalProvider() {
   const { isOpen, modalName, modalProps } = useModalStore();
 
