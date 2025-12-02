@@ -465,7 +465,7 @@ describe("Authentication Flows", () => {
       await assertSignUpButton();
     });
 
-    it("should render with invalid cookie", async () => {
+    it("should render with absent cookie", async () => {
       await setup("absent");
       await visitBlogPage();
       await assertBlogPage();
