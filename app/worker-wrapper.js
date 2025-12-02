@@ -52,6 +52,7 @@ const worker = {
         const cachedResponse = new Response(response.body, response);
         cachedResponse.headers.set("X-Cache", "HIT");
         cachedResponse.headers.set("X-Deploy-ID", deployId);
+        cachedResponse.headers.set("X-CACHE-KEY", cacheKey);
         return cachedResponse;
       }
 
