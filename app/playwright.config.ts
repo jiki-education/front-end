@@ -31,9 +31,10 @@ export default defineConfig({
     // Base URL for navigation
     baseURL: "http://localhost:3081",
 
-    // Default timeout for actions and assertions (5 seconds)
+    // Default timeout for actions and assertions
+    // CI needs longer timeouts due to slower compilation
     actionTimeout: 5000,
-    navigationTimeout: 5000,
+    navigationTimeout: process.env.CI ? 10000 : 5000,
 
     // Screenshot on failure
     screenshot: "only-on-failure",
