@@ -4,7 +4,7 @@ import SidebarLayout from "../../../components/layout/SidebarLayout";
 
 export default function DashboardPage() {
   return (
-    <SidebarLayout activeItem="dashboard">
+    <SidebarLayout activeItem="learn">
       <div className="flex">
         <main className="flex-1 p-6">
           <ExercisePath />

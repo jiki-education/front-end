@@ -1,6 +1,5 @@
 "use client";
 
-import Sidebar from "@/components/layout/sidebar/Sidebar";
 import AccountSettingsIcon from "@/icons/account-settings.svg";
 import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import LearningSettingsIcon from "@/icons/learning-settings.svg";
@@ -63,9 +62,7 @@ export default function SettingsPage() {
   }, [user, refreshUser]);
 
   return (
-    <div className="min-h-screen bg-bg-secondary theme-transition">
-      <Sidebar activeItem="settings" />
-
+    <>
       {/* Main Content */}
       <div className={styles.mainContent}>
         <div className={styles.container}>
@@ -175,6 +172,6 @@ export default function SettingsPage() {
           </main>
         </div>
       </div>
-    </div>
+    </>
   );
 }
