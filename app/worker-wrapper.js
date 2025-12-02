@@ -45,6 +45,10 @@ const worker = {
       const cache = await caches.open(CACHE_NAME);
       const cacheKey = generateCacheKey(request, deployId);
 
+      // Debug: Log RSC header value
+      const rscHeader = request.headers.get("rsc");
+      console.error("RSC Header:", rscHeader, "Cache Key:", cacheKey);
+
       // Try cache first
       let response = await cache.match(cacheKey);
       if (response) {
@@ -72,6 +76,7 @@ const worker = {
       const responseWithHeader = new Response(response.body, response);
       responseWithHeader.headers.set("X-Cache", "MISS");
       responseWithHeader.headers.set("X-Deploy-ID", deployId);
+      responseWithHeader.headers.set("X-CACHE-KEY", cacheKey);
       return responseWithHeader;
     } catch (error) {
       // On any cache error, fall back to OpenNext worker
