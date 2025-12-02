@@ -140,13 +140,13 @@ export function middleware(request: NextRequest) {
   //
   const isAuthenticated = request.cookies.has("jiki_access_token");
   if (!isAuthenticated && isExternalUrl(path)) {
-    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+    response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");
     response.headers.set("Vary", "Cookie");
   }
 
-  // Cache favicon for 1 hour
+  // Cache favicon for 10 minutes
   if (path === "/favicon.ico") {
-    response.headers.set("Cache-Control", "public, max-age=3600");
+    response.headers.set("Cache-Control", "public, max-age=600");
   }
 
   return response;
