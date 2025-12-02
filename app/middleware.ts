@@ -136,10 +136,12 @@ export function middleware(request: NextRequest) {
   setCSP(response);
 
   //
-  // Rewrite unauthenticated external URL requests to static variant
+  // Set cache headers for unauthenticated external URL requests
+  // Skip for RSC requests (client-side navigation)
   //
   const isAuthenticated = request.cookies.has("jiki_access_token");
-  if (!isAuthenticated && isExternalUrl(path)) {
+  const isRscRequest = request.headers.has("rsc");
+  if (!isAuthenticated && !isRscRequest && isExternalUrl(path)) {
     response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");
     response.headers.set("Vary", "Cookie");
   }
