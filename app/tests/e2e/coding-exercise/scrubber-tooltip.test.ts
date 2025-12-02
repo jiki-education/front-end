@@ -1,101 +1,71 @@
-describe("Scrubber Tooltip E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/scrubber-tooltip");
-    await page.waitForSelector('[data-testid="scrubber"]', { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Scrubber Tooltip E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/scrubber-tooltip");
+    await page.locator('[data-testid="scrubber"]').waitFor();
   });
 
-  describe("Tooltip on code edit", () => {
-    it("should show tooltip when code is edited", async () => {
+  test.describe("Tooltip on code edit", () => {
+    test("should show tooltip when code is edited", async ({ page }) => {
       // Initially, no tooltip should be visible
-      const tooltipCount = await page.$$eval('[role="tooltip"]', (els) => els.length);
+      const tooltipCount = await page.locator('[role="tooltip"]').count();
       expect(tooltipCount).toBe(0);
 
       // Click button to toggle code edited state
-      await page.click('[data-testid="toggle-code-edited"]');
+      await page.locator('[data-testid="toggle-code-edited"]').click();
 
       // Wait for state to update
-      await page.waitForFunction(
-        () => {
-          const element = document.querySelector('[data-testid="code-edited-status"]');
-          if (!element || !element.textContent) {
-            return false;
-          }
-          return element.textContent.includes("Yes");
-        },
-        { timeout: 1000 }
-      );
+      await expect(page.locator('[data-testid="code-edited-status"]')).toContainText("Yes");
 
       // Hover over the scrubber
-      const scrubber = await page.$('[data-testid="scrubber"]');
-      await scrubber?.hover();
+      await page.locator('[data-testid="scrubber"]').hover();
 
       // Wait for tooltip to appear
-      await page.waitForSelector('[role="tooltip"]', { timeout: 1000 });
+      const tooltip = page.locator('[role="tooltip"]');
+      await expect(tooltip).toBeVisible();
 
       // Check tooltip content
-      const tooltipText = await page.$eval('[role="tooltip"]', (el) => el.textContent);
-      expect(tooltipText).toContain("Code has been edited");
-      expect(tooltipText).toContain("Run tests to re-enable");
+      await expect(tooltip).toContainText("Code has been edited");
+      await expect(tooltip).toContainText("Run tests to re-enable");
     });
   });
 
-  describe("Tooltip for insufficient frames", () => {
-    it("should show tooltip when there are not enough frames", async () => {
+  test.describe("Tooltip for insufficient frames", () => {
+    test("should show tooltip when there are not enough frames", async ({ page }) => {
       // Click button to set single frame
-      await page.click('[data-testid="set-single-frame"]');
+      await page.locator('[data-testid="set-single-frame"]').click();
 
       // Wait for frame count to update
-      await page.waitForFunction(
-        () => {
-          const element = document.querySelector('[data-testid="frames-count"]');
-          if (!element || !element.textContent) {
-            return false;
-          }
-          return element.textContent.includes("1");
-        },
-        { timeout: 1000 }
-      );
+      await expect(page.locator('[data-testid="frames-count"]')).toContainText("1");
 
       // Hover over the scrubber
-      const scrubber = await page.$('[data-testid="scrubber"]');
-      await scrubber?.hover();
+      await page.locator('[data-testid="scrubber"]').hover();
 
       // Wait for tooltip to appear
-      await page.waitForSelector('[role="tooltip"]', { timeout: 1000 });
+      const tooltip = page.locator('[role="tooltip"]');
+      await expect(tooltip).toBeVisible();
 
       // Check tooltip content
-      const tooltipText = await page.$eval('[role="tooltip"]', (el) => el.textContent);
-      expect(tooltipText).toContain("Not enough frames to scrub through");
+      await expect(tooltip).toContainText("Not enough frames to scrub through");
     });
   });
 
-  describe("Tooltip interaction", () => {
-    it("should hide tooltip when mouse leaves scrubber", async () => {
+  test.describe("Tooltip interaction", () => {
+    test("should hide tooltip when mouse leaves scrubber", async ({ page }) => {
       // Click to set code as edited
-      await page.click('[data-testid="toggle-code-edited"]');
-      await page.waitForFunction(
-        () => {
-          const element = document.querySelector('[data-testid="code-edited-status"]');
-          if (!element || !element.textContent) {
-            return false;
-          }
-          return element.textContent.includes("Yes");
-        },
-        { timeout: 1000 }
-      );
+      await page.locator('[data-testid="toggle-code-edited"]').click();
+      await expect(page.locator('[data-testid="code-edited-status"]')).toContainText("Yes");
 
       // Hover to show tooltip
-      const scrubber = await page.$('[data-testid="scrubber"]');
-      await scrubber?.hover();
-      await page.waitForSelector('[role="tooltip"]', { timeout: 1000 });
+      await page.locator('[data-testid="scrubber"]').hover();
+      await expect(page.locator('[role="tooltip"]')).toBeVisible();
 
       // Move mouse away
       await page.mouse.move(0, 0);
 
       // Wait for tooltip to disappear
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      const tooltipCount = await page.$$eval('[role="tooltip"]', (els) => els.length);
-      expect(tooltipCount).toBe(0);
+      await expect(page.locator('[role="tooltip"]')).not.toBeVisible();
     });
   });
 });

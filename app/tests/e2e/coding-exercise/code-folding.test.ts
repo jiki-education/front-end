@@ -1,3 +1,5 @@
+import { test, expect } from "@playwright/test";
+
 /**
  * Code Folding E2E Tests
  *
@@ -18,41 +20,49 @@
  *    - Unfolding by clicking the same gutter doesn't always work
  *    - Manual controls (buttons) work more reliably than gutter clicks
  */
-describe("Code Folding E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/code-folding");
-    await page.waitForSelector('[data-testid="code-folding-container"]', { timeout: 5000 });
-    // Wait for CodeMirror to fully initialize
-    await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 500)));
+test.describe("Code Folding E2E", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/coding-exercise/code-folding");
+    await page.locator('[data-testid="code-folding-container"]').waitFor();
+    await page.close();
   });
 
-  describe("Initial State", () => {
-    it("should render with no folded lines initially", async () => {
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/code-folding");
+    await page.locator('[data-testid="code-folding-container"]').waitFor();
+    // Wait for CodeMirror to fully initialize
+    await page.locator(".cm-foldGutter").waitFor();
+  });
+
+  test.describe("Initial State", () => {
+    test("should render with no folded lines initially", async ({ page }) => {
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("None");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("0");
 
       // Verify editor is loaded
-      const editorLoaded = await page.$eval('[data-testid="editor-loaded"]', (el) => el.textContent);
+      const editorLoaded = await page.locator('[data-testid="editor-loaded"]').textContent();
       expect(editorLoaded).toBe("Yes");
     });
 
-    it("should display fold indicators in the gutter", async () => {
+    test("should display fold indicators in the gutter", async ({ page }) => {
       // Check that fold gutter exists
-      const foldGutterElements = await page.$$(".cm-foldGutter .cm-gutterElement");
-      expect(foldGutterElements.length).toBeGreaterThan(0);
+      const foldGutterElements = await page.locator(".cm-foldGutter .cm-gutterElement").count();
+      expect(foldGutterElements).toBeGreaterThan(0);
 
       // Check for fold indicators (arrows)
-      const foldIndicators = await page.$$(".cm-foldGutter .cm-foldPlaceholder");
+      const foldIndicators = await page.locator(".cm-foldGutter .cm-foldPlaceholder").count();
       // Should have indicators for foldable blocks
-      expect(foldIndicators.length).toBeGreaterThanOrEqual(0);
+      expect(foldIndicators).toBeGreaterThanOrEqual(0);
     });
   });
 
-  describe("Folding via Gutter Click", () => {
-    it("should fold a code block when clicking fold indicator", async () => {
+  test.describe("Folding via Gutter Click", () => {
+    test("should fold a code block when clicking fold indicator", async ({ page }) => {
       // Instead of clicking the unreliable fold gutter, programmatically fold a line
       // This simulates what would happen if the gutter click worked
       await page.evaluate(() => {
@@ -60,26 +70,32 @@ describe("Code Folding E2E", () => {
         orchestrator.setFoldedLines([4]); // Fold the first for loop
       });
 
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.waitForFunction(() => {
+        const count = document.querySelector('[data-testid="fold-count"]');
+        return parseInt(count?.textContent || "0") >= 1;
+      });
 
       // Check if fold was registered
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
-      expect(parseInt(foldCount)).toBeGreaterThanOrEqual(1);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
+      expect(parseInt(foldCount || "0")).toBeGreaterThanOrEqual(1);
 
       // Verify the fold appears in the list
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4");
     });
 
     // Skipped: The toggle-fold-4 button doesn't fold line 4, it folds lines 14-21 (the second for loop)
     // This is a mismatch between the button label and its actual behavior
-    it.skip("should unfold a code block when clicking again", async () => {
+    test.skip("should unfold a code block when clicking again", async ({ page }) => {
       // First, fold a block using manual control
-      await page.click('[data-testid="toggle-fold-4"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="toggle-fold-4"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("4");
+      });
 
       // Verify it's folded
-      let foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      let foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4");
 
       // Find the visible fold indicator for the folded block (it should have changed appearance)
@@ -103,220 +119,272 @@ describe("Code Folding E2E", () => {
         const isNotNull = await (visibleFoldGutter as any).evaluate((el: Element | null) => el !== null);
         if (isNotNull) {
           await (visibleFoldGutter as any).click();
-          await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+          await page.waitForFunction(() => {
+            const list = document.querySelector('[data-testid="folded-lines-list"]');
+            return list?.textContent?.includes("None");
+          });
         }
       }
 
       // Check if unfold was registered
-      foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("None");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("0");
     });
 
-    it("should fold multiple blocks independently", async () => {
+    test("should fold multiple blocks independently", async ({ page }) => {
       // Fold multiple sections using manual controls
-      await page.click('[data-testid="fold-multiple"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="fold-multiple"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("4") && list?.textContent?.includes("14");
+      });
 
       // Check multiple folds are registered
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4");
       expect(foldedLinesList).toContain("14");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("2");
 
       // Verify visual state shows collapsed sections
-      const collapsedIndicators = await page.$$(".cm-foldPlaceholder");
-      expect(collapsedIndicators.length).toBeGreaterThanOrEqual(0);
+      const collapsedIndicators = await page.locator(".cm-foldPlaceholder").count();
+      expect(collapsedIndicators).toBeGreaterThanOrEqual(0);
     });
   });
 
-  describe("Integration with Manual Controls", () => {
-    it("should expand all folded sections with button", async () => {
+  test.describe("Integration with Manual Controls", () => {
+    test("should expand all folded sections with button", async ({ page }) => {
       // First fold multiple sections
       await page.evaluate(() => {
         const orchestrator = (window as any).testOrchestrator;
         orchestrator.setFoldedLines([1, 4, 14]);
       });
 
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("1, 4, 14");
+      });
 
       // Verify folds exist
-      let foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      let foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("1, 4, 14");
 
       // Click expand all button
-      await page.click('[data-testid="clear-all-folds"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="clear-all-folds"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("None");
+      });
 
       // Check all folds were removed
-      foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("None");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("0");
     });
 
-    it("should fold specific sections with buttons", async () => {
+    test("should fold specific sections with buttons", async ({ page }) => {
       // Click fold for loops button
-      await page.click('[data-testid="fold-multiple"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="fold-multiple"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("4, 14");
+      });
 
       // Check specific lines were folded
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4, 14");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("2");
     });
 
-    it("should sync manual toggle buttons with fold state", async () => {
+    test("should sync manual toggle buttons with fold state", async ({ page }) => {
       // Click manual toggle for line 1
-      await page.click('[data-testid="toggle-fold-1"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="toggle-fold-1"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("1");
+      });
 
       // Verify fold appears in list
-      let foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      let foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("1");
 
       // Toggle it off
-      await page.click('[data-testid="toggle-fold-1"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="toggle-fold-1"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("None");
+      });
 
       // Verify it's removed
-      foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("None");
 
       // Check button visual state
-      const buttonClass = await page.$eval('[data-testid="toggle-fold-1"]', (el) => el.className);
+      const buttonClass = await page.locator('[data-testid="toggle-fold-1"]').getAttribute("class");
       expect(buttonClass).toContain("bg-gray-200");
       expect(buttonClass).not.toContain("bg-blue-500");
     });
   });
 
-  describe("Visual Feedback", () => {
-    it("should show folded line indicators in display", async () => {
+  test.describe("Visual Feedback", () => {
+    test("should show folded line indicators in display", async ({ page }) => {
       // Fold a line
-      await page.click('[data-testid="toggle-fold-4"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="toggle-fold-4"]').click();
+      await page.waitForFunction(() => {
+        const indicator = document.querySelector('[data-testid="folded-line-4"]');
+        return indicator !== null;
+      });
 
       // Check for visual indicator element
-      const foldedLineIndicator = await page.$('[data-testid="folded-line-4"]');
-      expect(foldedLineIndicator).not.toBeNull();
+      const foldedLineIndicator = page.locator('[data-testid="folded-line-4"]');
+      await expect(foldedLineIndicator).toBeVisible();
 
       // Verify the indicator shows the correct line
-      const indicatorText = await page.$eval('[data-testid="folded-line-4"]', (el) => el.textContent);
+      const indicatorText = await page.locator('[data-testid="folded-line-4"]').textContent();
       expect(indicatorText).toContain("Line 4");
     });
 
-    it("should update fold count correctly", async () => {
+    test("should update fold count correctly", async ({ page }) => {
       // Add multiple folds one by one
       const linesToFold = [1, 4, 14];
 
       for (let i = 0; i < linesToFold.length; i++) {
-        await page.click(`[data-testid="toggle-fold-${linesToFold[i]}"]`);
-        await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+        await page.locator(`[data-testid="toggle-fold-${linesToFold[i]}"]`).click();
+        await page.waitForFunction(
+          (expected) => {
+            const count = document.querySelector('[data-testid="fold-count"]');
+            return count?.textContent === String(expected);
+          },
+          i + 1
+        );
 
-        const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+        const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
         expect(foldCount).toBe(String(i + 1));
       }
 
       // Remove one fold
-      await page.click('[data-testid="toggle-fold-4"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+      await page.locator('[data-testid="toggle-fold-4"]').click();
+      await page.waitForFunction(() => {
+        const count = document.querySelector('[data-testid="fold-count"]');
+        return count?.textContent === "2";
+      });
 
-      const finalCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const finalCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(finalCount).toBe("2");
     });
   });
 
-  describe("Complex Scenarios", () => {
-    it("should maintain fold order when adding/removing", async () => {
+  test.describe("Complex Scenarios", () => {
+    test("should maintain fold order when adding/removing", async ({ page }) => {
       // Add folds out of order
       const linesToFold = [14, 1, 4];
       for (const line of linesToFold) {
-        await page.click(`[data-testid="toggle-fold-${line}"]`);
-        await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+        await page.locator(`[data-testid="toggle-fold-${line}"]`).click();
+        await page.waitForFunction(
+          (expectedLine) => {
+            const list = document.querySelector('[data-testid="folded-lines-list"]');
+            return list?.textContent?.includes(String(expectedLine));
+          },
+          line
+        );
       }
 
       // Verify they're sorted
-      let foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      let foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("1, 4, 14");
 
       // Remove middle fold
-      await page.click('[data-testid="toggle-fold-4"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+      await page.locator('[data-testid="toggle-fold-4"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        const text = list?.textContent || "";
+        // Check for "1, 14" pattern (not "1, 4, 14")
+        return text === "1, 14";
+      });
 
       // Verify remaining are still sorted
-      foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("1, 14");
     });
 
-    it("should handle rapid folding/unfolding", async () => {
+    test("should handle rapid folding/unfolding", async ({ page }) => {
       // Rapidly toggle multiple folds
-      const actions = [
-        () => page.click('[data-testid="toggle-fold-1"]'),
-        () => page.click('[data-testid="toggle-fold-4"]'),
-        () => page.click('[data-testid="toggle-fold-14"]'),
-        () => page.click('[data-testid="toggle-fold-4"]'), // Toggle off
-        () => page.click('[data-testid="toggle-fold-1"]'), // Toggle off
-        () => page.click('[data-testid="toggle-fold-4"]') // Toggle back on
-      ];
+      await page.locator('[data-testid="toggle-fold-1"]').click();
+      await page.waitForTimeout(50);
+      await page.locator('[data-testid="toggle-fold-4"]').click();
+      await page.waitForTimeout(50);
+      await page.locator('[data-testid="toggle-fold-14"]').click();
+      await page.waitForTimeout(50);
+      await page.locator('[data-testid="toggle-fold-4"]').click(); // Toggle off
+      await page.waitForTimeout(50);
+      await page.locator('[data-testid="toggle-fold-1"]').click(); // Toggle off
+      await page.waitForTimeout(50);
+      await page.locator('[data-testid="toggle-fold-4"]').click(); // Toggle back on
 
-      for (const action of actions) {
-        await action();
-        // Minimal wait between actions
-        await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 50)));
-      }
-
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        const text = list?.textContent || "";
+        // Check for "4, 14" pattern (not "1, 4, 14")
+        return text === "4, 14";
+      });
 
       // Final state should be: 4 and 14 folded
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4, 14");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("2");
     });
 
-    it("should preserve fold state when interacting with other features", async () => {
+    test("should preserve fold state when interacting with other features", async ({ page }) => {
       // Set up some folds
-      await page.click('[data-testid="fold-multiple"]');
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.locator('[data-testid="fold-multiple"]').click();
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("4, 14");
+      });
 
       // Verify initial fold state
-      let foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      let foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4, 14");
 
       // Simulate some other interaction (if there were other features)
       // For now, just wait as if user is reading code
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 500)));
+      await page.waitForTimeout(500);
 
       // Verify folds are still there
-      foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("4, 14");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("2");
     });
 
-    it("should handle edge cases gracefully", async () => {
+    test("should handle edge cases gracefully", async ({ page }) => {
       // Try to fold the same line multiple times rapidly
       for (let i = 0; i < 3; i++) {
-        await page.click('[data-testid="toggle-fold-1"]');
-        await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 50)));
+        await page.locator('[data-testid="toggle-fold-1"]').click();
+        await page.waitForTimeout(50);
       }
 
-      await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 200)));
+      await page.waitForFunction(() => {
+        const list = document.querySelector('[data-testid="folded-lines-list"]');
+        return list?.textContent?.includes("1");
+      });
 
       // Should end up with line 1 folded (odd number of clicks)
-      const foldedLinesList = await page.$eval('[data-testid="folded-lines-list"]', (el) => el.textContent);
+      const foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("1");
 
-      const foldCount = await page.$eval('[data-testid="fold-count"]', (el) => el.textContent);
+      const foldCount = await page.locator('[data-testid="fold-count"]').textContent();
       expect(foldCount).toBe("1");
     });
   });

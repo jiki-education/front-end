@@ -1,122 +1,86 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+ 
 // ESLint doesn't understand that textContent can be null and Array.find() can return undefined
 // These optional chains are defensive programming for DOM queries
 
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+ 
 // Type assertions to HTMLButtonElement are necessary to access the disabled property
 // which doesn't exist on the generic Element type returned by querySelectorAll
 
-describe("Quiz Page E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/quiz");
-    await page.waitForSelector("h1", { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Quiz Page E2E", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/quiz");
+    await page.locator("h1").waitFor();
+    await page.close();
   });
 
-  describe("Page Layout", () => {
-    it("should load the quiz test page", async () => {
-      const title = await page.$eval("h1", (el) => el.textContent);
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/quiz");
+    await page.locator("h1").waitFor();
+  });
+
+  test.describe("Page Layout", () => {
+    test("should load the quiz test page", async ({ page }) => {
+      const title = await page.locator("h1").textContent();
       expect(title).toBe("Quiz Test Page");
 
       // Check that all quiz type buttons are present
-      const buttons = await page.$$eval("button", (els) =>
-        els.map((el) => el.textContent?.trim()).filter((text) => text)
-      );
-      expect(buttons).toContain("Multiple Choice");
-      expect(buttons).toContain("Coding Quiz");
-      expect(buttons).toContain("Fill in the Blanks");
+      const buttons = await page.locator("button").allTextContents();
+      expect(buttons.map((b) => b.trim()).filter((t) => t)).toContain("Multiple Choice");
+      expect(buttons.map((b) => b.trim()).filter((t) => t)).toContain("Coding Quiz");
+      expect(buttons.map((b) => b.trim()).filter((t) => t)).toContain("Fill in the Blanks");
     });
 
-    it("should display the current question counter", async () => {
-      const counter = await page.$$eval("p", (els) => {
-        const el = els.find((e) => e.className.includes("text-gray-600"));
-        return el?.textContent || "";
-      });
+    test("should display the current question counter", async ({ page }) => {
+      const counter = await page.locator("p.text-gray-600").first().textContent();
       expect(counter).toContain("Question 1 of");
     });
   });
 
-  describe("Quiz Type Switching", () => {
-    it("should switch between quiz types", async () => {
+  test.describe("Quiz Type Switching", () => {
+    test("should switch between quiz types", async ({ page }) => {
       // Start with multiple choice
-      let counter = await page.$$eval("p", (els) => {
-        const el = els.find((e) => e.className.includes("text-gray-600"));
-        return el?.textContent || "";
-      });
+      const counter = await page.locator("p.text-gray-600").first().textContent();
       expect(counter).toContain("Multiple Choice");
 
       // Switch to coding quiz
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const codingBtn = buttons.find((btn) => btn.textContent?.includes("Coding Quiz"));
-        codingBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500)); // Wait for UI update
-      counter = await page.$$eval("p", (els) => {
-        const el = els.find((e) => e.className.includes("text-gray-600"));
-        return el?.textContent || "";
-      });
-      expect(counter).toContain("Coding:");
+      await page.getByRole("button", { name: "Coding Quiz" }).click();
+      await expect(page.locator("p.text-gray-600").first()).toContainText("Coding:");
 
       // Switch to fill-in quiz
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const fillBtn = buttons.find((btn) => btn.textContent?.includes("Fill in the Blanks"));
-        fillBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500)); // Wait for UI update
-      counter = await page.$$eval("p", (els) => {
-        const el = els.find((e) => e.className.includes("text-gray-600"));
-        return el?.textContent || "";
-      });
-      expect(counter).toContain("Fill in the Blanks:");
+      await page.getByRole("button", { name: "Fill in the Blanks" }).click();
+      await expect(page.locator("p.text-gray-600").first()).toContainText("Fill in the Blanks:");
     });
 
-    it("should highlight the active quiz type button", async () => {
+    test("should highlight the active quiz type button", async ({ page }) => {
       // Check initial state - Multiple Choice should be active (blue)
-      let className = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const mcButton = buttons.find((btn) => btn.textContent?.includes("Multiple Choice"));
-        return mcButton?.className || "";
-      });
-      expect(className).toContain("bg-blue-600");
+      let button = page.getByRole("button", { name: "Multiple Choice" });
+      await expect(button).toHaveClass(/bg-blue-600/);
 
       // Click Coding Quiz
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const codingBtn = buttons.find((btn) => btn.textContent?.includes("Coding Quiz"));
-        codingBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500)); // Wait for UI update
+      await page.getByRole("button", { name: "Coding Quiz" }).click();
 
       // Check Coding Quiz is now active
-      className = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const codingButton = buttons.find((btn) => btn.textContent?.includes("Coding Quiz"));
-        return codingButton?.className || "";
-      });
-      expect(className).toContain("bg-blue-600");
+      button = page.getByRole("button", { name: "Coding Quiz" });
+      await expect(button).toHaveClass(/bg-blue-600/);
 
       // Multiple Choice should no longer be active
-      className = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const mcButton = buttons.find((btn) => btn.textContent?.includes("Multiple Choice"));
-        return mcButton?.className || "";
-      });
-      expect(className).toContain("bg-white");
+      button = page.getByRole("button", { name: "Multiple Choice" });
+      await expect(button).toHaveClass(/bg-white/);
     });
   });
 
-  describe("Multiple Choice Quiz", () => {
-    it("should display quiz question and options", async () => {
+  test.describe("Multiple Choice Quiz", () => {
+    test("should display quiz question and options", async ({ page }) => {
       // Quiz card should be visible
-      const quizCard = await page.$(".bg-white.rounded-xl");
-      expect(quizCard).toBeTruthy();
+      const quizCard = page.locator(".bg-white.rounded-xl");
+      await expect(quizCard.first()).toBeVisible();
 
       // Look for quiz option buttons (they have letter prefixes like A., B., etc.)
-      const optionCount = await page.$$eval("button", (buttons) => {
+      const optionCount = await page.locator("button").evaluateAll((buttons) => {
         return buttons.filter((btn) => {
           const text = btn.textContent || "";
           return /^[A-Z]\./.test(text);
@@ -125,13 +89,13 @@ describe("Quiz Page E2E", () => {
       expect(optionCount).toBeGreaterThan(0);
     });
 
-    it("should allow selecting an option", async () => {
+    test("should allow selecting an option", async ({ page }) => {
       // Get all buttons and filter for quiz options
-      const options = await page.$$("button");
+      const options = await page.locator("button").all();
       const quizOptions = [];
       for (const option of options) {
-        const text = await option.evaluate((el) => el.textContent || "");
-        if (/^[A-Z]\./.test(text)) {
+        const text = await option.textContent();
+        if (text && /^[A-Z]\./.test(text)) {
           quizOptions.push(option);
         }
       }
@@ -141,21 +105,17 @@ describe("Quiz Page E2E", () => {
       await quizOptions[0].click();
 
       // Check that submit button is enabled
-      const isDisabled = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        return submitBtn ? (submitBtn as HTMLButtonElement).disabled : true;
-      });
-      expect(isDisabled).toBe(false);
+      const submitBtn = page.getByRole("button", { name: "Submit" });
+      await expect(submitBtn).toBeEnabled();
     });
 
-    it("should submit answer and show feedback", async () => {
+    test("should submit answer and show feedback", async ({ page }) => {
       // Get quiz option buttons
-      const options = await page.$$("button");
+      const options = await page.locator("button").all();
       const quizOptions = [];
       for (const option of options) {
-        const text = await option.evaluate((el) => el.textContent || "");
-        if (/^[A-Z]\./.test(text)) {
+        const text = await option.textContent();
+        if (text && /^[A-Z]\./.test(text)) {
           quizOptions.push(option);
         }
       }
@@ -165,201 +125,123 @@ describe("Quiz Page E2E", () => {
       await quizOptions[0].click();
 
       // Submit answer
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        submitBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500)); // Wait for feedback to appear
+      await page.getByRole("button", { name: "Submit" }).click();
 
       // Button should change to "Next Question"
-      const hasNextButton = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        return buttons.some((btn) => btn.textContent?.includes("Next Question"));
-      });
-      expect(hasNextButton).toBe(true);
+      await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
 
       // Feedback should be visible (look for info box)
-      const feedback = await page.$("div.rounded-lg.p-4");
-      expect(feedback).toBeTruthy();
+      const feedback = page.locator("div.rounded-lg.p-4");
+      await expect(feedback.first()).toBeVisible();
     });
 
-    it("should navigate to next question", async () => {
+    test("should navigate to next question", async ({ page }) => {
       // Select and submit first question
-      const options = await page.$$("button");
+      const options = await page.locator("button").all();
       const quizOptions = [];
       for (const option of options) {
-        const text = await option.evaluate((el) => el.textContent || "");
-        if (/^[A-Z]\./.test(text)) {
+        const text = await option.textContent();
+        if (text && /^[A-Z]\./.test(text)) {
           quizOptions.push(option);
         }
       }
       expect(quizOptions.length).toBeGreaterThan(0);
       await quizOptions[0].click();
 
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        submitBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500));
-
-      // Click next
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const nextBtn = buttons.find((btn) => btn.textContent?.includes("Next Question"));
-        nextBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500));
+      await page.getByRole("button", { name: "Submit" }).click();
+      await page.getByRole("button", { name: "Next Question" }).click();
 
       // Check question counter updated
-      const counter = await page.$$eval("p", (els) => {
-        const el = els.find((e) => e.className.includes("text-gray-600"));
-        return el?.textContent || "";
-      });
-      expect(counter).toContain("Question 2");
+      await expect(page.locator("p.text-gray-600").first()).toContainText("Question 2");
 
       // Submit button should be back
-      const hasSubmitButton = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        return buttons.some((btn) => btn.textContent?.includes("Submit"));
-      });
-      expect(hasSubmitButton).toBe(true);
+      await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
     });
   });
 
-  describe("Coding Quiz", () => {
-    beforeEach(async () => {
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const codingBtn = buttons.find((btn) => btn.textContent?.includes("Coding Quiz"));
-        codingBtn?.click();
-      });
-      await page.waitForSelector("textarea", { timeout: 5000 });
+  test.describe("Coding Quiz", () => {
+    test.beforeEach(async ({ page }) => {
+      await page.getByRole("button", { name: "Coding Quiz" }).click();
+      await page.locator("textarea").waitFor();
     });
 
-    it("should display code input area", async () => {
-      const codeInput = await page.$("textarea");
-      expect(codeInput).toBeTruthy();
+    test("should display code input area", async ({ page }) => {
+      const codeInput = page.locator("textarea");
+      await expect(codeInput).toBeVisible();
     });
 
-    it("should enable submit when code is entered", async () => {
+    test("should enable submit when code is entered", async ({ page }) => {
       // Submit should be disabled initially
-      let isDisabled = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        return submitBtn ? (submitBtn as HTMLButtonElement).disabled : true;
-      });
-      expect(isDisabled).toBe(true);
+      const submitBtn = page.getByRole("button", { name: "Submit" });
+      await expect(submitBtn).toBeDisabled();
 
       // Type code
-      await page.type("textarea", "console.log('test')");
+      await page.locator("textarea").fill("console.log('test')");
 
       // Submit should be enabled
-      isDisabled = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        return submitBtn ? (submitBtn as HTMLButtonElement).disabled : true;
-      });
-      expect(isDisabled).toBe(false);
+      await expect(submitBtn).toBeEnabled();
     });
 
-    it("should submit code and show feedback", async () => {
+    test("should submit code and show feedback", async ({ page }) => {
       // Enter code
-      await page.type("textarea", "console.log('test')");
+      await page.locator("textarea").fill("console.log('test')");
 
       // Submit
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        submitBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500));
+      await page.getByRole("button", { name: "Submit" }).click();
 
       // Should show feedback
-      const feedback = await page.$("div.rounded-lg.p-4");
-      expect(feedback).toBeTruthy();
+      const feedback = page.locator("div.rounded-lg.p-4");
+      await expect(feedback.first()).toBeVisible();
 
       // Button should change to "Next Question"
-      const hasNextButton = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        return buttons.some((btn) => btn.textContent?.includes("Next Question"));
-      });
-      expect(hasNextButton).toBe(true);
+      await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
     });
   });
 
-  describe("Fill in the Blanks Quiz", () => {
-    beforeEach(async () => {
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const fillBtn = buttons.find((btn) => btn.textContent?.includes("Fill in the Blanks"));
-        fillBtn?.click();
-      });
-      await page.waitForSelector("input[type='text']", { timeout: 5000 });
+  test.describe("Fill in the Blanks Quiz", () => {
+    test.beforeEach(async ({ page }) => {
+      await page.getByRole("button", { name: "Fill in the Blanks" }).click();
+      await page.locator("input[type='text']").first().waitFor();
     });
 
-    it("should display code with blank inputs", async () => {
-      const inputs = await page.$$("input[type='text']");
-      expect(inputs.length).toBeGreaterThan(0);
+    test("should display code with blank inputs", async ({ page }) => {
+      const inputs = await page.locator("input[type='text']").count();
+      expect(inputs).toBeGreaterThan(0);
     });
 
-    it("should enable submit when all blanks are filled", async () => {
-      const inputs = await page.$$("input[type='text']");
+    test("should enable submit when all blanks are filled", async ({ page }) => {
+      const inputs = await page.locator("input[type='text']").all();
 
       // Submit should be disabled initially
-      let isDisabled = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        return submitBtn ? (submitBtn as HTMLButtonElement).disabled : true;
-      });
-      expect(isDisabled).toBe(true);
+      const submitBtn = page.getByRole("button", { name: "Submit" });
+      await expect(submitBtn).toBeDisabled();
 
       // Fill all inputs
       for (const input of inputs) {
-        await input.type("test");
+        await input.fill("test");
       }
 
       // Submit should be enabled
-      isDisabled = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        return submitBtn ? (submitBtn as HTMLButtonElement).disabled : true;
-      });
-      expect(isDisabled).toBe(false);
+      await expect(submitBtn).toBeEnabled();
     });
 
-    it("should submit answers and show feedback", async () => {
-      const inputs = await page.$$("input[type='text']");
+    test("should submit answers and show feedback", async ({ page }) => {
+      const inputs = await page.locator("input[type='text']").all();
 
       // Fill all blanks
       for (const input of inputs) {
-        await input.type("answer");
+        await input.fill("answer");
       }
 
       // Submit
-      await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        const submitBtn = buttons.find((btn) => btn.textContent?.includes("Submit"));
-        submitBtn?.click();
-      });
-
-      await new Promise((r) => setTimeout(r, 500));
+      await page.getByRole("button", { name: "Submit" }).click();
 
       // Should show feedback
-      const feedback = await page.$("div.rounded-lg.p-4");
-      expect(feedback).toBeTruthy();
+      const feedback = page.locator("div.rounded-lg.p-4");
+      await expect(feedback.first()).toBeVisible();
 
       // Button should change to "Next Question"
-      const hasNextButton = await page.evaluate(() => {
-        const buttons = Array.from(document.querySelectorAll("button"));
-        return buttons.some((btn) => btn.textContent?.includes("Next Question"));
-      });
-      expect(hasNextButton).toBe(true);
+      await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
     });
   });
 });

@@ -1,25 +1,29 @@
-describe("Timeline Completion and Restart E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 5000 });
-  }, 20000);
+import { test, expect } from "@playwright/test";
 
-  it("should show play button when animation completes naturally", async () => {
+test.describe("Timeline Completion and Restart E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
+  });
+
+  test("should show play button when animation completes naturally", async ({ page }) => {
     // Enter valid code
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for auto-play to start and animation to complete
-    // The test runner's animations are quite short, so wait for completion
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === false;
+    }, { timeout: 10000 });
 
     // Check that isPlaying is false after completion
     const isPlaying = await page.evaluate(() => {
@@ -29,25 +33,29 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(isPlaying).toBe(false);
 
     // Verify play button is visible (should exist)
-    const playButton = await page.$('[data-ci="play-button"]');
-    expect(playButton).not.toBeNull();
+    const playButton = page.locator('[data-ci="play-button"]');
+    await expect(playButton).toBeVisible();
   });
 
-  it("should restart from beginning when clicking play after completion", async () => {
+  test("should restart from beginning when clicking play after completion", async ({ page }) => {
     // Enter valid code
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for animation to complete
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      const currentTest = orchestrator?.getStore().getState().currentTest;
+      return currentTest?.animationTimeline.completed || false;
+    }, { timeout: 10000 });
 
     // Verify animation is completed
     const completed = await page.evaluate(() => {
@@ -58,10 +66,13 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(completed).toBe(true);
 
     // Click play button
-    await page.click('[data-ci="play-button"]');
+    await page.locator('[data-ci="play-button"]').click();
 
-    // Wait just a moment for the restart to happen and animation to advance slightly
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for animation to start playing
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Verify time was reset to near beginning (animation will have advanced slightly after restart)
     const currentTime = await page.evaluate(() => {
@@ -79,21 +90,24 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(isPlaying).toBe(true);
   });
 
-  it("should resume from current position when clicking play after manual pause", async () => {
+  test("should resume from current position when clicking play after manual pause", async ({ page }) => {
     // Enter valid code
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
-    // Wait briefly for auto-play to start
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    // Wait for auto-play to start
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Verify playing - if not playing, animation completed too fast (which is fine, just verify the behavior differently)
     let isPlaying = await page.evaluate(() => {
@@ -111,8 +125,13 @@ describe("Timeline Completion and Restart E2E", () => {
       expect(completed).toBe(true);
 
       // Click play to restart
-      await page.click('[data-ci="play-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="play-button"]').click();
+
+      // Wait for animation to start
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === true;
+      });
 
       // Should be playing again from near start
       isPlaying = await page.evaluate(() => {
@@ -130,10 +149,13 @@ describe("Timeline Completion and Restart E2E", () => {
     }
 
     // Pause in the middle
-    await page.click('[data-ci="pause-button"]');
+    await page.locator('[data-ci="pause-button"]').click();
 
     // Wait for pause to take effect
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === false;
+    });
 
     // Get the current time after pause
     const timeAfterPause = await page.evaluate(() => {
@@ -150,12 +172,12 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(completed).toBe(false);
 
     // Click play again
-    await page.click('[data-ci="play-button"]');
+    await page.locator('[data-ci="play-button"]').click();
 
     // Wait for isPlaying to become true
     await page.waitForFunction(() => {
       const orchestrator = (window as any).testOrchestrator;
-      return orchestrator.getStore().getState().isPlaying === true;
+      return orchestrator?.getStore().getState().isPlaying === true;
     });
 
     // Verify time was NOT reset to 0 (should resume)
@@ -177,21 +199,24 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(isPlaying).toBe(true);
   });
 
-  it("should handle multiple complete/restart cycles", async () => {
+  test("should handle multiple complete/restart cycles", async ({ page }) => {
     // Enter valid code
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for first completion
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === false;
+    }, { timeout: 10000 });
 
     // Verify completed and not playing
     let isPlaying = await page.evaluate(() => {
@@ -201,8 +226,13 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(isPlaying).toBe(false);
 
     // Click play to restart (first restart)
-    await page.click('[data-ci="play-button"]');
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.locator('[data-ci="play-button"]').click();
+
+    // Wait for animation to start
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Verify playing again from near beginning
     isPlaying = await page.evaluate(() => {
@@ -219,7 +249,10 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(currentTime).toBeLessThan(250000);
 
     // Wait for second completion
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === false;
+    }, { timeout: 10000 });
 
     // Verify completed again
     isPlaying = await page.evaluate(() => {
@@ -229,8 +262,13 @@ describe("Timeline Completion and Restart E2E", () => {
     expect(isPlaying).toBe(false);
 
     // Restart one more time (second restart)
-    await page.click('[data-ci="play-button"]');
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.locator('[data-ci="play-button"]').click();
+
+    // Wait for animation to start
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Verify playing again from near beginning
     isPlaying = await page.evaluate(() => {

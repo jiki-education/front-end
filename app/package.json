@@ -14,7 +14,6 @@
     "test:e2e:watch": "node scripts/run-e2e-tests.js --watch",
     "test:e2e:headful": "HEADLESS=false node scripts/run-e2e-tests.js",
     "test:e2e:pw": "playwright test",
-    "test:e2e:pw:ui": "playwright test --ui",
     "test:e2e:pw:headed": "playwright test --headed",
     "test:e2e:pw:debug": "playwright test --debug",
     "test:e2e:pw:report": "playwright show-report playwright-report",

@@ -1,41 +1,43 @@
-describe("Home Page E2E", () => {
-  beforeAll(async () => {
-    await page.goto("http://localhost:3081");
-    await page.waitForSelector("h1");
+import { test, expect } from "@playwright/test";
+
+test.describe("Home Page E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await page.locator("h1").waitFor();
   });
 
-  it("should load the landing page", async () => {
+  test("should load the landing page", async ({ page }) => {
     const title = await page.title();
     expect(title).toBeTruthy();
 
     // Check for main heading
-    const heading = await page.$("h1");
-    expect(heading).toBeTruthy();
+    const heading = page.locator("h1");
+    await expect(heading).toBeVisible();
   });
 
-  it("should display welcome text", async () => {
-    const headingText = await page.$eval("h1", (el) => el.textContent);
+  test("should display welcome text", async ({ page }) => {
+    const headingText = await page.locator("h1").textContent();
     expect(headingText).toContain("Welcome to Jiki");
   });
 
-  it("should have login and signup links", async () => {
-    const loginLink = await page.$('a[href="/auth/login"]');
-    const signupLink = await page.$('a[href="/auth/signup"]');
+  test("should have login and signup links", async ({ page }) => {
+    const loginLink = page.locator('a[href="/auth/login"]');
+    const signupLink = page.locator('a[href="/auth/signup"]');
 
-    expect(loginLink).toBeTruthy();
-    expect(signupLink).toBeTruthy();
+    await expect(loginLink).toBeVisible();
+    await expect(signupLink).toBeVisible();
   });
 
-  it("should be responsive", async () => {
-    const viewport = page.viewport();
+  test("should be responsive", async ({ page }) => {
+    const viewport = page.viewportSize();
     expect(viewport).toBeTruthy();
 
-    await page.setViewport({ width: 375, height: 667 });
-    const mobileHeading = await page.$("h1");
-    expect(mobileHeading).toBeTruthy();
+    await page.setViewportSize({ width: 375, height: 667 });
+    const mobileHeading = page.locator("h1");
+    await expect(mobileHeading).toBeVisible();
 
-    await page.setViewport({ width: 1920, height: 1080 });
-    const desktopHeading = await page.$("h1");
-    expect(desktopHeading).toBeTruthy();
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    const desktopHeading = page.locator("h1");
+    await expect(desktopHeading).toBeVisible();
   });
 });

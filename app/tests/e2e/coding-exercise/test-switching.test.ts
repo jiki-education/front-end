@@ -1,45 +1,61 @@
-describe("Test Switching E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Test Switching E2E", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
+    await page.close();
+  });
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
 
     // Enter valid code to get test results
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
-  }, 20000);
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+  });
 
-  describe("Test switching with pause state", () => {
-    it("should show scrubber at beginning when switching to second test after pausing first", async () => {
+  test.describe("Test switching with pause state", () => {
+    test("should show scrubber at beginning when switching to second test after pausing first", async ({ page }) => {
       // Wait for test selector buttons to load
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test button
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button to appear (animation is playing)
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
+      await page.locator('[data-ci="pause-button"]').waitFor();
 
       // Pause the first test
-      await page.click('[data-ci="pause-button"]');
+      await page.locator('[data-ci="pause-button"]').click();
 
-      // Wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Wait for pause to take effect
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Click second test button
-      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
-      await secondButton?.click();
+      const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
+      await secondButton.click();
 
-      // Wait a bit for state to update
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Wait for state to update
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().currentTestTime === 100000;
+      });
 
       // Check that the scrubber shows beginning time (first frame time, typically 100000 microseconds)
       const currentTime = await page.evaluate(() => {
@@ -51,26 +67,32 @@ describe("Test Switching E2E", () => {
       expect(currentTime).toBe(100000);
     });
 
-    it("should not auto-play when switching to second test after pausing first", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+    test("should not auto-play when switching to second test after pausing first", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
+      await page.locator('[data-ci="pause-button"]').waitFor();
 
       // Pause
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Click second test
-      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
-      await secondButton?.click();
+      const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
+      await secondButton.click();
 
-      // Wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Wait for state to update
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Should NOT be playing
       const isPlaying = await page.evaluate(() => {
@@ -82,20 +104,23 @@ describe("Test Switching E2E", () => {
     });
   });
 
-  describe("Test switching with saved positions", () => {
-    it("should restore saved position when switching back to first test", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+  test.describe("Test switching with saved positions", () => {
+    test("should restore saved position when switching back to first test", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
+      await page.locator('[data-ci="pause-button"]').waitFor();
 
       // Pause at current position
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Get the paused time
       const pausedTime = await page.evaluate(() => {
@@ -104,13 +129,22 @@ describe("Test Switching E2E", () => {
       });
 
       // Click second test
-      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
-      await secondButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
+      await secondButton.click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().currentTestTime === 100000;
+      });
 
       // Click back to first test
-      await firstButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await firstButton.click();
+      await page.waitForFunction(
+        (expected) => {
+          const orchestrator = (window as any).testOrchestrator;
+          return orchestrator?.getStore().getState().currentTestTime === expected;
+        },
+        pausedTime
+      );
 
       // Should restore to paused position
       const restoredTime = await page.evaluate(() => {
@@ -122,16 +156,19 @@ describe("Test Switching E2E", () => {
     });
   });
 
-  describe("Test switching with auto-play", () => {
-    it("should auto-play second test when switching while first test is playing", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+  test.describe("Test switching with auto-play", () => {
+    test("should auto-play second test when switching while first test is playing", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test (should auto-play)
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for auto-play to start
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === true;
+      });
 
       // Verify first test is playing
       let isPlaying = await page.evaluate(() => {
@@ -141,11 +178,14 @@ describe("Test Switching E2E", () => {
       expect(isPlaying).toBe(true);
 
       // Click second test while first is playing
-      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
-      await secondButton?.click();
+      const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
+      await secondButton.click();
 
-      // Wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Wait for second test to start playing
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === true;
+      });
 
       // Second test should also auto-play
       isPlaying = await page.evaluate(() => {
@@ -156,23 +196,29 @@ describe("Test Switching E2E", () => {
       expect(isPlaying).toBe(true);
     });
 
-    it("should NOT auto-play second test after pausing first test", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+    test("should NOT auto-play second test after pausing first test", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
+      await page.locator('[data-ci="pause-button"]').waitFor();
 
       // Pause first test
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Manually click play
-      await page.click('[data-ci="play-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="play-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === true;
+      });
 
       // Verify shouldPlayOnTestChange remains false (manual play doesn't change auto-play preference)
       const shouldAutoPlay = await page.evaluate(() => {
@@ -182,13 +228,21 @@ describe("Test Switching E2E", () => {
       expect(shouldAutoPlay).toBe(false);
 
       // Pause again
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Click second test
-      const secondButton = await page.$('[data-testid="test-selector-buttons"] button:nth-child(2)');
-      await secondButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
+      await secondButton.click();
+
+      // Wait for state to stabilize
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Second test should NOT auto-play (pause disabled auto-play)
       const isPlaying = await page.evaluate(() => {
@@ -200,18 +254,21 @@ describe("Test Switching E2E", () => {
     });
   });
 
-  describe("Running code resets positions", () => {
-    it("should clear saved positions when running tests again", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+  test.describe("Running code resets positions", () => {
+    test("should clear saved positions when running tests again", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button and pause
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').waitFor();
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Verify we have saved times for the first test
       let testCurrentTimes = await page.evaluate(() => {
@@ -228,7 +285,14 @@ describe("Test Switching E2E", () => {
       });
 
       // Wait for tests to complete
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await page.waitForFunction(
+        (expectedSlug) => {
+          const orchestrator = (window as any).testOrchestrator;
+          const times = orchestrator?.getStore().getState().testCurrentTimes;
+          return Object.keys(times).length === 1 && Object.keys(times)[0] === expectedSlug;
+        },
+        firstTestSlug
+      );
 
       // Saved times should be cleared except for the first test (which gets reset immediately)
       testCurrentTimes = await page.evaluate(() => {
@@ -239,17 +303,20 @@ describe("Test Switching E2E", () => {
       expect(Object.keys(testCurrentTimes)).toEqual([firstTestSlug]);
     });
 
-    it("should start from beginning after running tests again", async () => {
-      await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+    test("should start from beginning after running tests again", async ({ page }) => {
+      await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
       // Click first test
-      const firstButton = await page.$('[data-testid="test-selector-buttons"] button:first-child');
-      await firstButton?.click();
+      const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
+      await firstButton.click();
 
       // Wait for pause button and pause partway through
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').waitFor();
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // Run tests again
       await page.evaluate(() => {
@@ -257,13 +324,13 @@ describe("Test Switching E2E", () => {
         void orchestrator.runCode();
       });
 
-      // Wait for tests to complete and animation to start
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
       // Wait for it to auto-play and then pause to check the reset worked
-      await page.waitForSelector('[data-ci="pause-button"]', { timeout: 2000 });
-      await page.click('[data-ci="pause-button"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-ci="pause-button"]').waitFor();
+      await page.locator('[data-ci="pause-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      });
 
       // First test should be at the paused position (which proves it restarted from beginning)
       const currentTime = await page.evaluate(() => {

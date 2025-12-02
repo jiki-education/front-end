@@ -92,8 +92,62 @@ Playwright's built-in features provide excellent performance:
 2. **Auto-managed dev server**: Playwright starts/stops the server automatically
 3. **Smart waiting**: Automatic waiting for elements and actions
 4. **Global timeouts**: 5s timeouts prevent slow tests
+5. **Global setup warmup**: `playwright-global-setup.ts` pre-compiles critical routes in CI
 
 **IMPORTANT**: Never override global timeouts. If tests fail with timeouts, fix the performance issue, don't increase the timeout.
+
+#### Global Setup (`playwright-global-setup.ts`)
+
+The global setup file runs **once** before all tests (before any workers are created):
+
+- **In CI**: Automatically warms up all critical Next.js routes to pre-compile them
+- **Locally**: Skipped by default for fast iteration (set `WARMUP=true` to enable)
+- **Purpose**: Prevents timeout failures from slow first-time compilation in CI
+
+Critical routes are pre-compiled:
+
+- `/test/test-buttons` - Complex test page
+- `/test/quiz` - Quiz test page
+- `/test/coding-exercise/*` - Coding exercise pages
+- `/auth/*` - Authentication pages
+
+**When to add routes**: Add new routes to `playwright-global-setup.ts` if they:
+
+- Take >3s to compile on first load
+- Cause test timeouts in CI
+- Are tested across multiple test files
+
+#### Per-File Warmup with `beforeAll`
+
+**ALWAYS add a `beforeAll` block for any common routes used in a test file.**
+
+This warms up page compilation once per worker, preventing slow first-test execution locally:
+
+```typescript
+test.describe("My Feature E2E", () => {
+  // Warm up page compilation once per worker
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/my-feature");
+    await page.locator("h1").waitFor();
+    await page.close();
+  });
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/my-feature");
+    // ... test setup
+  });
+});
+```
+
+**Why this pattern:**
+
+- Global setup is skipped locally (only runs in CI)
+- `beforeAll` warms up compilation once per worker locally
+- Prevents 3-4 second delays on first test in each worker
+- Example: test-buttons.test.ts, quiz.test.ts
+
+**Note**: `beforeAll` runs once per worker (not once globally), so with 6 workers it runs 6 times. Still faster than every test compiling individually.
 
 ### TypeScript Support
 

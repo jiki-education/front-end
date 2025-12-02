@@ -4,6 +4,9 @@ export default defineConfig({
   // Test directory
   testDir: "./tests/e2e",
 
+  // Global setup - runs once before all tests
+  globalSetup: require.resolve("./playwright-global-setup.ts"),
+
   // Parallel execution (default: all CPU cores)
   fullyParallel: true,
 
@@ -13,8 +16,8 @@ export default defineConfig({
   // Retry failed tests on CI
   retries: process.env.CI ? 2 : 0,
 
-  // Parallel workers
-  workers: process.env.CI ? 4 : undefined, // CI: 4 workers, Local: max cores
+  // Parallel workers (auto-detect based on available CPU cores)
+  workers: undefined,
 
   // Test reporter
   reporter: [
