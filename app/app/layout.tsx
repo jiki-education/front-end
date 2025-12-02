@@ -9,8 +9,6 @@ import Script from "next/script";
 import { AuthProvider } from "../components/layout/AuthProvider";
 import "./globals.css";
 
-export const dynamic = "force-dynamic";
-
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],

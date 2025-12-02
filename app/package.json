@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 3061 --turbo",
     "build": "next build",
-    "start": "next start --port=3061",
+    "start": "next start",
     "preview": "wrangler dev",
     "deploy": "npx opennextjs-cloudflare build && wrangler deploy",
     "test": "jest",

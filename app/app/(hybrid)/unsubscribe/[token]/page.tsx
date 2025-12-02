@@ -1,4 +1,4 @@
-import { UnsubscribeContent } from "./UnsubscribeContent";
+import { UnsubscribeContent } from "@/components/auth/UnsubscribeContent";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
