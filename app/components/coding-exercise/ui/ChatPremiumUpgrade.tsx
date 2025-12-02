@@ -1,7 +1,7 @@
 "use client";
 
 import { showSubscriptionModal } from "@/lib/modal";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 
 interface ChatPremiumUpgradeProps {
   className?: string;

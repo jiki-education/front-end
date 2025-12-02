@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { hideModal, showModal } from "../store";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
 import { PRICING_TIERS } from "@/lib/pricing";
@@ -43,7 +43,7 @@ export function SubscriptionModal({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state: any) => state.user);
 
   const premiumTier = PRICING_TIERS.premium;
   const maxTier = PRICING_TIERS.max;

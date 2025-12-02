@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
@@ -14,7 +14,7 @@ import type Orchestrator from "../lib/Orchestrator";
 
 export default function ChatPanel() {
   const orchestrator = useContext(OrchestratorContext);
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state: any) => state.user);
 
   if (!orchestrator) {
     return (

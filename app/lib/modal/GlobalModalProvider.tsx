@@ -34,7 +34,7 @@ export function GlobalModalProvider() {
   // Cast as any since each modal component validates its own props
   return (
     <BaseModal isOpen={isOpen} onRequestClose={hideModal} overlayClassName={overlayClassName}>
-      <ModalComponent {...modalProps} />
+      <ModalComponent {...(modalProps as any)} />
     </BaseModal>
   );
 }
