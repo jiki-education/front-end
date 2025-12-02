@@ -2,14 +2,13 @@
  * Cache key generator for Cloudflare Workers Cache API
  *
  * Generates normalized cache keys with:
- * - Allowlisted query parameters (page, criteria, _rsc)
- * - RSC header (to differentiate HTML vs RSC requests)
+ * - Allowlisted query parameters (page, criteria)
  * - Deploy ID (git SHA) for automatic invalidation on deploy
  *
- * Note: _rsc is a cache buster added by Next.js for RSC requests.
+ * Note: RSC requests (client-side navigation) are not cached, only HTML requests.
  */
 
-const ALLOWED_PARAMS = new Set(["page", "criteria", "_rsc"]);
+const ALLOWED_PARAMS = new Set(["page", "criteria"]);
 
 /**
  * Check if a query parameter is allowed in cache keys
@@ -21,7 +20,7 @@ export function isAllowedParam(key: string): boolean {
 /**
  * Normalize search params by filtering and sorting
  *
- * Only includes allowlisted params (page, criteria, _rsc) and sorts them
+ * Only includes allowlisted params (page, criteria) and sorts them
  * alphabetically for consistent cache keys.
  */
 export function normalizeSearchParams(searchParams: URLSearchParams): string {
@@ -46,19 +45,14 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
 /**
  * Generate a cache key for the Cache API
  *
- * Format: https://jiki.io/blog/post?page=1#rsc:abc1234
+ * Format: /blog/post?page=1#abc1234
  *
  * Components:
- * - Base URL with pathname (preserves locale)
- * - Normalized query params (page, criteria, _rsc)
- * - Request type (html or rsc based on RSC request header)
+ * - Pathname (preserves locale)
+ * - Normalized query params (page, criteria)
  * - Deploy ID (git SHA)
  *
- * The request type differentiates:
- * - HTML requests (no RSC header) - Initial page loads
- * - RSC requests (RSC: 1 header) - Client-side navigations
- *
- * Note: Auth state is not included because cache is only used for unauthenticated users
+ * Note: Only HTML requests are cached. RSC requests (client-side navigation) are not cached.
  *
  * @param request - The incoming request
  * @param deployId - Git SHA of current deployment
@@ -66,14 +60,7 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
  */
 export function generateCacheKey(request: Request, deployId: string): string {
   const url = new URL(request.url);
-  const baseUrl = `${url.protocol}//${url.host}${url.pathname}`;
   const normalizedParams = normalizeSearchParams(url.searchParams);
 
-  // Differentiate HTML vs RSC requests by RSC header
-  // RSC requests include "rsc: 1" header during client-side navigation
-  // Note: headers.get() is case-insensitive per Fetch API spec
-  const rscHeader = request.headers.get("rsc");
-  const requestType = rscHeader === "1" ? "rsc" : "html";
-
-  return `${baseUrl}${normalizedParams}#${requestType}:${deployId}`;
+  return `${url.pathname}${normalizedParams}#${deployId}`;
 }

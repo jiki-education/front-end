@@ -30,9 +30,11 @@ const worker = {
     // - No deploy ID (prevents caching without versioning)
     // - User is authenticated
     // - Route is not cacheable
+    // - RSC request (client-side navigation)
     //
     // Note: Static assets (_next/*, /static/*, favicon) already cached by OpenNext
-    if (!isProduction || !deployId || authenticated || !isCacheableRoute(pathname)) {
+    const isRscRequest = request.headers.has("rsc");
+    if (!isProduction || !deployId || authenticated || !isCacheableRoute(pathname) || isRscRequest) {
       return openNextWorker.fetch(request, env, ctx);
     }
 
@@ -41,13 +43,10 @@ const worker = {
     // - Has deploy ID
     // - Unauthenticated user
     // - Cacheable route
+    // - HTML request (not RSC)
     try {
       const cache = await caches.open(CACHE_NAME);
       const cacheKey = generateCacheKey(request, deployId);
-
-      // Debug: Log RSC header value
-      const rscHeader = request.headers.get("rsc");
-      console.error("RSC Header:", rscHeader, "Cache Key:", cacheKey);
 
       // Try cache first
       let response = await cache.match(cacheKey);
