@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
+import { getTestUrl } from "./helpers/getTestUrl";
 
 test.describe("Authentication Flows", () => {
   function handleOptionsRequest(route: Route) {
@@ -112,10 +113,10 @@ test.describe("Authentication Flows", () => {
   }
 
   async function awaitRedirectToLogin(page: Page) {
-    await page.waitForFunction(() => {
+    await page.waitForFunction((expectedUrl) => {
       const url = window.location.href;
-      return url === "http://localhost:3081/auth/login";
-    });
+      return url === expectedUrl;
+    }, getTestUrl("/auth/login"));
   }
 
   async function assertLoginPage(page: Page) {
@@ -123,7 +124,7 @@ test.describe("Authentication Flows", () => {
     await page.waitForTimeout(50);
 
     const url = page.url();
-    expect(url).toBe("http://localhost:3081/auth/login");
+    expect(url).toBe(getTestUrl("/auth/login"));
   }
 
   async function assertDashboardPage(page: Page) {
@@ -131,7 +132,7 @@ test.describe("Authentication Flows", () => {
     await page.waitForTimeout(50);
 
     const url = page.url();
-    expect(url).toBe("http://localhost:3081/dashboard");
+    expect(url).toBe(getTestUrl("/dashboard"));
   }
 
   async function assertBlogPage(page: Page) {
@@ -139,7 +140,7 @@ test.describe("Authentication Flows", () => {
     await page.waitForTimeout(50);
 
     const url = page.url();
-    expect(url).toBe("http://localhost:3081/blog");
+    expect(url).toBe(getTestUrl("/blog"));
   }
 
   async function assertSettingsPage(page: Page) {
@@ -147,7 +148,7 @@ test.describe("Authentication Flows", () => {
     await page.waitForTimeout(50);
 
     const url = page.url();
-    expect(url).toBe("http://localhost:3081/settings");
+    expect(url).toBe(getTestUrl("/settings"));
   }
 
   async function assertLandingPage(page: Page) {
@@ -169,17 +170,17 @@ test.describe("Authentication Flows", () => {
   }
 
   async function awaitRedirectToDashboard(page: Page) {
-    await page.waitForFunction(() => {
+    await page.waitForFunction((expectedUrl) => {
       const url = window.location.href;
-      return url === "http://localhost:3081/dashboard";
-    });
+      return url === expectedUrl;
+    }, getTestUrl("/dashboard"));
   }
 
   async function awaitRedirectToLandingPage(page: Page) {
-    await page.waitForFunction(() => {
+    await page.waitForFunction((expectedUrl) => {
       const url = window.location.href;
-      return url === "http://localhost:3081/";
-    });
+      return url === expectedUrl;
+    }, getTestUrl("/"));
   }
 
   test.describe("Visiting /settings", () => {

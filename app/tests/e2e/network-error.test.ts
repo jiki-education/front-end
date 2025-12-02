@@ -6,6 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
 import { test, expect, type Page } from "@playwright/test";
+import { getTestUrl } from "./helpers/getTestUrl";
 
 // Helper functions for DRYing up common test patterns
 const helpers = {
@@ -383,7 +384,7 @@ test.describe("Network Error Handling E2E", () => {
 
       // Page should reload (URL should be the same)
       const currentUrl = page.url();
-      expect(currentUrl).toBe("http://localhost:3081/test/network");
+      expect(currentUrl).toBe(getTestUrl("/test/network"));
     });
   });
 
