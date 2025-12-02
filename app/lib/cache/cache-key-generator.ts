@@ -7,7 +7,7 @@
  * - Deploy ID (git SHA) for automatic invalidation on deploy
  */
 
-const ALLOWED_PARAMS = new Set(["page", "criteria"]);
+const ALLOWED_PARAMS = new Set(["page", "criteria", "_rsc"]);
 
 /**
  * Check if a query parameter is allowed in cache keys
@@ -19,7 +19,7 @@ export function isAllowedParam(key: string): boolean {
 /**
  * Normalize search params by filtering and sorting
  *
- * Only includes allowlisted params (page, criteria) and sorts them
+ * Only includes allowlisted params (page, criteria, _rsc) and sorts them
  * alphabetically for consistent cache keys.
  */
 export function normalizeSearchParams(searchParams: URLSearchParams): string {
@@ -48,7 +48,7 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
  *
  * Components:
  * - Base URL with pathname (preserves locale)
- * - Normalized query params (only page and criteria)
+ * - Normalized query params (page, criteria, _rsc)
  * - Deploy ID (git SHA)
  *
  * Note: Auth state is not included because cache is only used for unauthenticated users
