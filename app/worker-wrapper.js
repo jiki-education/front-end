@@ -51,6 +51,7 @@ const worker = {
         // Cache hit - return cached response
         const cachedResponse = new Response(response.body, response);
         cachedResponse.headers.set("X-Cache", "HIT");
+        cachedResponse.headers.set("X-Deploy-ID", deployId);
         return cachedResponse;
       }
 
@@ -69,6 +70,7 @@ const worker = {
       // Add cache miss header
       const responseWithHeader = new Response(response.body, response);
       responseWithHeader.headers.set("X-Cache", "MISS");
+      responseWithHeader.headers.set("X-Deploy-ID", deployId);
       return responseWithHeader;
     } catch (error) {
       // On any cache error, fall back to OpenNext worker
