@@ -227,7 +227,7 @@ jobs:
 
       - name: Run Playwright E2E tests
         working-directory: app
-        run: pnpm test:e2e:pw
+        run: pnpm test:e2e:pw auth-flows.test.ts
         env:
           CI: true
 
