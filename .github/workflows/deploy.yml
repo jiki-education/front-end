@@ -2,7 +2,7 @@ name: Deploy Cloudflare Workers
 
 on:
   push:
-    branches: [main, feature/blog-edge-caching]
+    branches: [main]
 
 jobs:
   deploy-app:
