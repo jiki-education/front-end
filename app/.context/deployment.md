@@ -99,7 +99,8 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
 
 **Cache Strategy**:
 
-- **TTL**: 1 hour (3600 seconds)
+- **Worker Cache API TTL**: 1 day (86400 seconds) - includes deploy ID for auto-invalidation
+- **Cache-Control Headers**: 1 hour (3600 seconds) - for CDN/zone cache without deploy ID awareness
 - **Cached Routes** (unauthenticated only):
   - Landing page (`/`)
   - Blog routes (`/blog`, `/blog/*`, `/[locale]/blog/*`)
@@ -116,8 +117,8 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
 
 **Cache Invalidation**:
 
-- Automatic on deployment (deploy ID in cache key)
-- Time-based expiration after 1 hour
+- Worker Cache: Automatic on deployment (deploy ID in cache key) + 1 day TTL
+- CDN/Zone Cache: 1 hour TTL (no deploy ID awareness)
 - Production-only (cache disabled in development/preview)
 
 **Debugging**:

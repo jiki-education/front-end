@@ -15,6 +15,7 @@ import { isCacheableRoute, shouldCacheResponse } from "./lib/cache/cacheable-rou
 export { DOQueueHandler, DOShardedTagCache, BucketCachePurge } from "./.open-next/worker.js";
 
 const CACHE_NAME = "jiki-edge-cache";
+const CACHE_TTL = 86400;
 
 const worker = {
   async fetch(request, env, ctx) {
@@ -58,7 +59,10 @@ const worker = {
 
       // Cache response if it meets cacheability criteria
       if (shouldCacheResponse(response)) {
-        const responseToCache = response.clone();
+        const responseToCache = new Response(response.clone().body, response);
+        // Override Cache-Control for Worker cache (1 day) while keeping response headers as-is (1 hour)
+        // Because we use DEPLOY_ID as a key we can have longer caches safely.
+        responseToCache.headers.set("Cache-Control", `public, max-age=${CACHE_TTL}`);
         ctx.waitUntil(cache.put(cacheKey, responseToCache));
       }
 
