@@ -69,7 +69,7 @@ test.describe("Breakpoint Gutter E2E", () => {
       // Wait for state to update
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("2");
+        return list?.textContent.includes("2");
       });
 
       // Check breakpoint was added
@@ -120,7 +120,7 @@ test.describe("Breakpoint Gutter E2E", () => {
 
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("2");
+        return list?.textContent.includes("2");
       });
 
       // Verify breakpoint exists
@@ -132,7 +132,7 @@ test.describe("Breakpoint Gutter E2E", () => {
 
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("None");
+        return list?.textContent.includes("None");
       });
 
       // Check breakpoint was removed
@@ -151,7 +151,7 @@ test.describe("Breakpoint Gutter E2E", () => {
         await lineGutter[4].click();
         await page.waitForFunction(() => {
           const list = document.querySelector('[data-testid="breakpoints-list"]');
-          return list?.textContent?.includes("4");
+          return list?.textContent.includes("4");
         });
       }
 
@@ -163,7 +163,7 @@ test.describe("Breakpoint Gutter E2E", () => {
         await lineGutter[4].click();
         await page.waitForFunction(() => {
           const list = document.querySelector('[data-testid="breakpoints-list"]');
-          return list?.textContent?.includes("None");
+          return list?.textContent.includes("None");
         });
       }
 
@@ -175,7 +175,7 @@ test.describe("Breakpoint Gutter E2E", () => {
         await lineGutter[4].click();
         await page.waitForFunction(() => {
           const list = document.querySelector('[data-testid="breakpoints-list"]');
-          return list?.textContent?.includes("4");
+          return list?.textContent.includes("4");
         });
       }
 
@@ -194,7 +194,7 @@ test.describe("Breakpoint Gutter E2E", () => {
 
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("1, 3, 5, 7");
+        return list?.textContent.includes("1, 3, 5, 7");
       });
 
       // Verify breakpoints exist
@@ -206,7 +206,7 @@ test.describe("Breakpoint Gutter E2E", () => {
 
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("None");
+        return list?.textContent.includes("None");
       });
 
       // Check all breakpoints were removed
@@ -223,7 +223,7 @@ test.describe("Breakpoint Gutter E2E", () => {
 
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("2, 4, 6");
+        return list?.textContent.includes("2, 4, 6");
       });
 
       // Check breakpoints were set
@@ -243,7 +243,7 @@ test.describe("Breakpoint Gutter E2E", () => {
       await page.locator('[data-testid="toggle-line-3"]').click();
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return list?.textContent?.includes("3");
+        return list?.textContent.includes("3");
       });
 
       // Verify breakpoint appears in list and visually
@@ -259,7 +259,8 @@ test.describe("Breakpoint Gutter E2E", () => {
         await lineGutter[3].click();
         await page.waitForFunction(() => {
           const list = document.querySelector('[data-testid="breakpoints-list"]');
-          return !list?.textContent?.includes("3") || list?.textContent === "None";
+          const text = list?.textContent;
+          return !text?.includes("3") || text === "None";
         });
       }
 
@@ -281,13 +282,10 @@ test.describe("Breakpoint Gutter E2E", () => {
       const linesToAdd = [7, 2, 5, 1, 4];
       for (const line of linesToAdd) {
         await page.locator(`[data-testid="toggle-line-${line}"]`).click();
-        await page.waitForFunction(
-          (expectedLine) => {
-            const list = document.querySelector('[data-testid="breakpoints-list"]');
-            return list?.textContent?.includes(String(expectedLine));
-          },
-          line
-        );
+        await page.waitForFunction((expectedLine) => {
+          const list = document.querySelector('[data-testid="breakpoints-list"]');
+          return list?.textContent.includes(String(expectedLine));
+        }, line);
       }
 
       // Verify they're sorted
@@ -298,7 +296,7 @@ test.describe("Breakpoint Gutter E2E", () => {
       await page.locator('[data-testid="toggle-line-2"]').click();
       await page.waitForFunction(() => {
         const list = document.querySelector('[data-testid="breakpoints-list"]');
-        return !list?.textContent?.includes("2");
+        return !list?.textContent.includes("2");
       });
       await page.locator('[data-testid="toggle-line-5"]').click();
       await page.waitForFunction(() => {

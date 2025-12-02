@@ -1,8 +1,6 @@
- 
 // ESLint doesn't understand that textContent can be null and Array.find() can return undefined
 // These optional chains are defensive programming for DOM queries
 
- 
 // Type assertions to HTMLButtonElement are necessary to access the disabled property
 // which doesn't exist on the generic Element type returned by querySelectorAll
 

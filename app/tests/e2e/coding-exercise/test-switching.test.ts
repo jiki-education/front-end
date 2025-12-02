@@ -138,13 +138,10 @@ test.describe("Test Switching E2E", () => {
 
       // Click back to first test
       await firstButton.click();
-      await page.waitForFunction(
-        (expected) => {
-          const orchestrator = (window as any).testOrchestrator;
-          return orchestrator?.getStore().getState().currentTestTime === expected;
-        },
-        pausedTime
-      );
+      await page.waitForFunction((expected) => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().currentTestTime === expected;
+      }, pausedTime);
 
       // Should restore to paused position
       const restoredTime = await page.evaluate(() => {
@@ -285,14 +282,11 @@ test.describe("Test Switching E2E", () => {
       });
 
       // Wait for tests to complete
-      await page.waitForFunction(
-        (expectedSlug) => {
-          const orchestrator = (window as any).testOrchestrator;
-          const times = orchestrator?.getStore().getState().testCurrentTimes;
-          return Object.keys(times).length === 1 && Object.keys(times)[0] === expectedSlug;
-        },
-        firstTestSlug
-      );
+      await page.waitForFunction((expectedSlug) => {
+        const orchestrator = (window as any).testOrchestrator;
+        const times = orchestrator?.getStore().getState().testCurrentTimes;
+        return Object.keys(times).length === 1 && Object.keys(times)[0] === expectedSlug;
+      }, firstTestSlug);
 
       // Saved times should be cleared except for the first test (which gets reset immediately)
       testCurrentTimes = await page.evaluate(() => {

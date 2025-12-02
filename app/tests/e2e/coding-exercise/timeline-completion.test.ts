@@ -20,10 +20,13 @@ test.describe("Timeline Completion and Restart E2E", () => {
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for auto-play to start and animation to complete
-    await page.waitForFunction(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      return orchestrator?.getStore().getState().isPlaying === false;
-    }, { timeout: 10000 });
+    await page.waitForFunction(
+      () => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      },
+      { timeout: 10000 }
+    );
 
     // Check that isPlaying is false after completion
     const isPlaying = await page.evaluate(() => {
@@ -51,11 +54,14 @@ test.describe("Timeline Completion and Restart E2E", () => {
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for animation to complete
-    await page.waitForFunction(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      const currentTest = orchestrator?.getStore().getState().currentTest;
-      return currentTest?.animationTimeline.completed || false;
-    }, { timeout: 10000 });
+    await page.waitForFunction(
+      () => {
+        const orchestrator = (window as any).testOrchestrator;
+        const currentTest = orchestrator?.getStore().getState().currentTest;
+        return currentTest?.animationTimeline.completed || false;
+      },
+      { timeout: 10000 }
+    );
 
     // Verify animation is completed
     const completed = await page.evaluate(() => {
@@ -213,10 +219,13 @@ test.describe("Timeline Completion and Restart E2E", () => {
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for first completion
-    await page.waitForFunction(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      return orchestrator?.getStore().getState().isPlaying === false;
-    }, { timeout: 10000 });
+    await page.waitForFunction(
+      () => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      },
+      { timeout: 10000 }
+    );
 
     // Verify completed and not playing
     let isPlaying = await page.evaluate(() => {
@@ -249,10 +258,13 @@ test.describe("Timeline Completion and Restart E2E", () => {
     expect(currentTime).toBeLessThan(250000);
 
     // Wait for second completion
-    await page.waitForFunction(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      return orchestrator?.getStore().getState().isPlaying === false;
-    }, { timeout: 10000 });
+    await page.waitForFunction(
+      () => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === false;
+      },
+      { timeout: 10000 }
+    );
 
     // Verify completed again
     isPlaying = await page.evaluate(() => {
