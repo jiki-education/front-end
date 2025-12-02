@@ -176,13 +176,13 @@ pnpm test:watch  # Run unit tests in watch mode
 ### E2E Tests
 
 ```bash
-pnpm test:e2e:pw              # Run all Playwright E2E tests
-pnpm test:e2e:pw:ui           # Run in interactive UI mode
-pnpm test:e2e:pw:headed       # Run with visible browser (debugging)
-pnpm test:e2e:pw:debug        # Run in debug mode
+pnpm test:e2e              # Run all Playwright E2E tests
+pnpm test:e2e:headed       # Run with visible browser (debugging)
+pnpm test:e2e:debug        # Run in debug mode
+pnpm test:e2e:report       # View HTML report
 
 # Run specific test files
-pnpm test:e2e:pw auth-flows.test.ts network-error.test.ts
+pnpm test:e2e auth-flows.test.ts network-error.test.ts
 ```
 
 ### All Tests
@@ -480,8 +480,7 @@ The app workflow (`.github/workflows/app.yml`) includes multiple jobs:
 - **format**: Checks code style with Prettier
 - **lint**: Runs ESLint
 - **tests**: Runs Jest unit tests with coverage
-- **e2e-tests**: Runs legacy Puppeteer E2E tests (being phased out)
-- **e2e-tests-playwright**: Runs Playwright E2E tests (migrated tests)
+- **e2e-tests**: Runs Playwright E2E tests
 
 #### Important CI Notes
 

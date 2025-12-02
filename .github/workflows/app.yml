@@ -153,81 +153,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build application
-        working-directory: app
-        run: pnpm run build
-
-      - name: Install Puppeteer browser and dependencies
-        working-directory: app
-        run: |
-          # Install Chrome browser for Puppeteer
-          npx puppeteer browsers install chrome
-
-          # Install required system dependencies (Ubuntu 24.04 compatible)
-          sudo apt-get update
-          sudo apt-get install -y \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libdrm2 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            libgbm1 \
-            libxkbcommon0 \
-            libxss1 \
-            libgtk-3-0t64 \
-            libgbm-dev \
-            libatspi2.0-0 \
-            libcups2 \
-            libasound2t64
-
-      - name: Run E2E tests
-        working-directory: app
-        run: pnpm test:e2e
-        env:
-          HEADLESS: true
-          CI: true
-
-      - name: Upload test artifacts on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: e2e-screenshots
-          path: |
-            app/screenshots/
-            app/test-results/
-          retention-days: 7
-
-  e2e-tests-playwright:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Install Playwright browsers
         working-directory: app
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run Playwright E2E tests
         working-directory: app
-        run: pnpm test:e2e:pw auth-flows.test.ts network-error.test.ts
+        run: pnpm test:e2e
         env:
           CI: true
 

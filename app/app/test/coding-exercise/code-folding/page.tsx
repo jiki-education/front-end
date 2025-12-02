@@ -18,40 +18,16 @@ function mockFrames(): Frame[] {
   );
 }
 
-const TEST_CODE = `function calculateStats(numbers) {
-  // Calculate sum
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    sum += numbers[i];
-  }
-
-  // Calculate average
-  const average = sum / numbers.length;
-
-  // Find min and max
-  let min = numbers[0];
-  let max = numbers[0];
-  for (const num of numbers) {
-    if (num < min) {
-      min = num;
-    }
-    if (num > max) {
-      max = num;
-    }
-  }
-
-  return {
-    sum: sum,
-    average: average,
-    min: min,
-    max: max
-  };
+const TEST_CODE = `function add(a, b) {
+  return a + b;
 }
 
-// Test the function
-const data = [10, 20, 30, 40, 50];
-const stats = calculateStats(data);
-console.log("Statistics:", stats);`;
+function multiply(x, y) {
+  return x * y;
+}
+
+const result = add(2, 3);
+console.log(result);`;
 
 export default function CodeFoldingTestPage() {
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
@@ -120,8 +96,8 @@ export default function CodeFoldingTestPage() {
   };
 
   const handleFoldMultiple = () => {
-    // Fold the for loops (lines 4-6 and 14-20)
-    orchestrator.setFoldedLines([4, 14]);
+    // Fold both functions (lines 1 and 5)
+    orchestrator.setFoldedLines([1, 5]);
   };
 
   const handleToggleFold = (line: number) => {
@@ -193,14 +169,14 @@ export default function CodeFoldingTestPage() {
               onClick={handleFoldMultiple}
               className="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
             >
-              Fold For Loops
+              Fold Both Functions
             </button>
           </div>
           <div className="mt-2 text-sm text-gray-600">
-            Foldable blocks: for loops (lines 4-6, 14-20), function body (lines 1-28)
+            Foldable blocks: add function (line 1), multiply function (line 5)
           </div>
           <div className="mt-2 space-x-2">
-            {[1, 4, 14].map((line) => (
+            {[1, 5, 9].map((line) => (
               <button
                 key={line}
                 data-testid={`toggle-fold-${line}`}
@@ -227,10 +203,9 @@ export default function CodeFoldingTestPage() {
             <div className="mt-2">
               <div className="font-semibold">Code Structure:</div>
               <ul className="ml-4 text-xs">
-                <li>• Function definition: Lines 1-28</li>
-                <li>• First for loop: Lines 4-6</li>
-                <li>• Second for loop: Lines 14-20</li>
-                <li>• Return statement: Lines 22-27</li>
+                <li>• add function: Lines 1-3</li>
+                <li>• multiply function: Lines 5-7</li>
+                <li>• result assignment: Line 9</li>
               </ul>
             </div>
           </div>

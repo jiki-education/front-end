@@ -16,8 +16,8 @@ export default defineConfig({
   // Retry failed tests on CI
   retries: process.env.CI ? 2 : 0,
 
-  // Parallel workers (auto-detect based on available CPU cores)
-  workers: undefined,
+  // Parallel workers (limited to 4 to prevent server overload)
+  workers: 4,
 
   // Test reporter
   reporter: [

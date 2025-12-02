@@ -6,7 +6,6 @@
     "eslint-config-next",
     "tailwindcss",
     "@types/animejs",
-    "@types/puppeteer",
     "@typescript-eslint/eslint-plugin",
     "@welldone-software/why-did-you-render",
     "postcss"
