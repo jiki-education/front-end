@@ -33,8 +33,8 @@ export default defineConfig({
 
     // Default timeout for actions and assertions
     // CI needs longer timeouts due to slower compilation
-    actionTimeout: 5000,
-    navigationTimeout: process.env.CI ? 10000 : 5000,
+    actionTimeout: process.env.CI ? 30000 : 5000,
+    navigationTimeout: process.env.CI ? 30000 : 5000,
 
     // Screenshot on failure
     screenshot: "only-on-failure",
