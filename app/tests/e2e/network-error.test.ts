@@ -5,25 +5,27 @@
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
+import { test, expect, type Page } from "@playwright/test";
+
 // Helper functions for DRYing up common test patterns
 const helpers = {
   /**
    * Navigate to test page and wait for it to load
    */
-  async goToTestPage() {
-    await page.goto("http://localhost:3081/test/network");
-    await page.waitForSelector('[data-testid="load-levels-button"]');
+  async goToTestPage(page: Page) {
+    await page.goto("/test/network");
+    await page.locator('[data-testid="load-levels-button"]').waitFor();
   },
 
   /**
    * Simulate network failure by aborting all API requests
    */
-  setupNetworkFailure() {
-    page.on("request", (request) => {
-      if (request.url().includes("/api/") || request.url().includes("/internal/")) {
-        void request.abort("failed");
+  setupNetworkFailure(page: Page) {
+    void page.route("**/*", (route) => {
+      if (route.request().url().includes("/api/") || route.request().url().includes("/internal/")) {
+        void route.abort("failed");
       } else {
-        void request.continue();
+        void route.continue();
       }
     });
   },
@@ -31,13 +33,13 @@ const helpers = {
   /**
    * Restore network and mock successful API responses
    */
-  setupSuccessfulResponses() {
-    page.removeAllListeners("request");
-    page.on("request", (request) => {
-      const url = request.url();
+  async setupSuccessfulResponses(page: Page) {
+    await page.unroute("**/*");
+    await page.route("**/*", (route) => {
+      const url = route.request().url();
 
       if (url.includes("/internal/levels")) {
-        void request.respond({
+        void route.fulfill({
           status: 200,
           contentType: "application/json",
           headers: {
@@ -58,7 +60,7 @@ const helpers = {
           })
         });
       } else if (url.includes("/internal/concepts")) {
-        void request.respond({
+        void route.fulfill({
           status: 200,
           contentType: "application/json",
           headers: {
@@ -82,7 +84,7 @@ const helpers = {
           })
         });
       } else {
-        void request.continue();
+        void route.continue();
       }
     });
   },
@@ -90,13 +92,13 @@ const helpers = {
   /**
    * Simulate authentication error (401) responses
    */
-  setupAuthError() {
-    page.on("request", (request) => {
-      const url = request.url();
+  setupAuthError(page: Page) {
+    void page.route("**/*", (route) => {
+      const url = route.request().url();
 
       // Intercept both internal API calls and refresh token endpoint
       if (url.includes("/internal/") || url.includes("/auth/refresh")) {
-        void request.respond({
+        void route.fulfill({
           status: 401,
           contentType: "application/json",
           headers: {
@@ -107,7 +109,7 @@ const helpers = {
           body: JSON.stringify({ error: "Unauthorized" })
         });
       } else {
-        void request.continue();
+        void route.continue();
       }
     });
   },
@@ -115,13 +117,13 @@ const helpers = {
   /**
    * Simulate rate limit error (429) with Retry-After header
    */
-  setupRateLimitError(retryAfterSeconds: number = 3) {
-    page.on("request", (request) => {
-      const url = request.url();
+  setupRateLimitError(page: Page, retryAfterSeconds: number = 3) {
+    void page.route("**/*", (route) => {
+      const url = route.request().url();
 
       // Handle CORS preflight requests
-      if (request.method() === "OPTIONS" && url.includes("/internal/")) {
-        void request.respond({
+      if (route.request().method() === "OPTIONS" && url.includes("/internal/")) {
+        void route.fulfill({
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -131,7 +133,7 @@ const helpers = {
           body: ""
         });
       } else if (url.includes("/internal/")) {
-        void request.respond({
+        void route.fulfill({
           status: 429,
           headers: {
             "Content-Type": "application/json",
@@ -144,7 +146,7 @@ const helpers = {
           body: JSON.stringify({ error: "Rate limit exceeded" })
         });
       } else {
-        void request.continue();
+        void route.continue();
       }
     });
   },
@@ -153,15 +155,15 @@ const helpers = {
    * Simulate rate limit error that succeeds on retry
    * Returns 429 on first request, then 200 on subsequent requests
    */
-  setupRateLimitWithRetry(retryAfterSeconds: number = 2) {
+  setupRateLimitWithRetry(page: Page, retryAfterSeconds: number = 2) {
     let requestCount = 0;
 
-    page.on("request", (request) => {
-      const url = request.url();
+    void page.route("**/*", (route) => {
+      const url = route.request().url();
 
       // Handle CORS preflight requests
-      if (request.method() === "OPTIONS" && url.includes("/internal/")) {
-        void request.respond({
+      if (route.request().method() === "OPTIONS" && url.includes("/internal/")) {
+        void route.fulfill({
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -173,7 +175,7 @@ const helpers = {
       } else if (url.includes("/internal/levels")) {
         requestCount++;
         if (requestCount === 1) {
-          void request.respond({
+          void route.fulfill({
             status: 429,
             headers: {
               "Content-Type": "application/json",
@@ -186,7 +188,7 @@ const helpers = {
             body: JSON.stringify({ error: "Rate limit exceeded" })
           });
         } else {
-          void request.respond({
+          void route.fulfill({
             status: 200,
             contentType: "application/json",
             headers: {
@@ -208,7 +210,7 @@ const helpers = {
           });
         }
       } else {
-        void request.continue();
+        void route.continue();
       }
     });
 
@@ -218,21 +220,21 @@ const helpers = {
   /**
    * Wait for modal to appear
    */
-  async waitForModal(timeout = 3000) {
-    await page.waitForSelector('[role="dialog"]', { timeout });
+  async waitForModal(page: Page) {
+    await page.locator('[role="dialog"]').waitFor();
   },
 
   /**
    * Wait for modal to disappear
    */
-  async waitForModalToClose(timeout = 10000) {
+  async waitForModalToClose(page: Page, timeout = 10000) {
     await page.waitForFunction(() => !document.querySelector('[role="dialog"]'), { timeout });
   },
 
   /**
    * Get modal text content
    */
-  async getModalText() {
+  async getModalText(page: Page) {
     return await page.evaluate(() => {
       const modal = document.querySelector('[role="dialog"]');
       return modal?.textContent;
@@ -242,128 +244,104 @@ const helpers = {
   /**
    * Count number of modals shown
    */
-  async countModals() {
+  async countModals(page: Page) {
     return await page.evaluate(() => {
       return document.querySelectorAll('[role="dialog"]').length;
     });
   }
 };
 
-describe("Network Error Handling E2E", () => {
-  beforeEach(async () => {
-    // Tests run here
-  });
-
-  afterEach(async () => {
-    // Clean up: remove all listeners and disable request interception
-    page.removeAllListeners("request");
-    page.removeAllListeners("console");
-    try {
-      await page.setRequestInterception(false);
-    } catch {
-      // Ignore errors if interception wasn't enabled
-    }
-  });
-
-  describe("Network Failure and Recovery", () => {
-    it("should show loading then modal on network failure, and recover when network returns", async () => {
+test.describe("Network Error Handling E2E", () => {
+  test.describe("Network Failure and Recovery", () => {
+    test("should show loading then modal on network failure, and recover when network returns", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Simulate network failure
-      helpers.setupNetworkFailure();
+      helpers.setupNetworkFailure(page);
 
       // Click the button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Wait for modal to appear after ~1s of retrying
-      await helpers.waitForModal();
+      await helpers.waitForModal(page);
 
       // Verify modal has "Connection Error" message
-      const modalText = await helpers.getModalText();
+      const modalText = await helpers.getModalText(page);
       expect(modalText).toContain("Connection Error");
       expect(modalText).toContain("Retrying automatically");
 
       // Restore network
-      helpers.setupSuccessfulResponses();
+      await helpers.setupSuccessfulResponses(page);
 
       // Modal should auto-close when network recovers
-      await helpers.waitForModalToClose();
+      await helpers.waitForModalToClose(page);
 
       // Success message should appear
-      await page.waitForSelector('[data-testid="success-message"]', { timeout: 5000 });
-      const successText = await page.$eval('[data-testid="success-message"]', (el) => el.textContent);
+      await page.locator('[data-testid="success-message"]').waitFor();
+      const successText = await page.locator('[data-testid="success-message"]').textContent();
       expect(successText).toContain("Successfully loaded");
-    }, 30000);
+    });
 
-    it("should handle multiple simultaneous API calls with single modal", async () => {
+    test("should handle multiple simultaneous API calls with single modal", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       let apiCallCount = 0;
 
       // Track API calls and simulate network failure
-      page.on("request", (request) => {
-        if (request.url().includes("/internal/")) {
+      void page.route("**/*", (route) => {
+        if (route.request().url().includes("/internal/")) {
           apiCallCount++;
-          void request.abort("failed");
+          void route.abort("failed");
         } else {
-          void request.continue();
+          void route.continue();
         }
       });
 
       // Click button to trigger multiple simultaneous API calls
-      await page.click('[data-testid="load-multiple-button"]');
+      await page.locator('[data-testid="load-multiple-button"]').click();
 
       // Wait for modal to appear
-      await helpers.waitForModal();
+      await helpers.waitForModal(page);
 
       // Count how many modals are shown (should be only 1)
-      const modalCount = await helpers.countModals();
+      const modalCount = await helpers.countModals(page);
       expect(modalCount).toBe(1);
 
       // Verify multiple API calls were attempted (2: levels + concepts)
       expect(apiCallCount).toBeGreaterThanOrEqual(2);
 
       // Restore network with successful responses
-      helpers.setupSuccessfulResponses();
+      await helpers.setupSuccessfulResponses(page);
 
       // Single modal should close
-      await helpers.waitForModalToClose();
+      await helpers.waitForModalToClose(page);
 
       // Success message should appear
-      await page.waitForSelector('[data-testid="success-message"]', { timeout: 5000 });
-      const successText = await page.$eval('[data-testid="success-message"]', (el) => el.textContent);
+      await page.locator('[data-testid="success-message"]').waitFor();
+      const successText = await page.locator('[data-testid="success-message"]').textContent();
       expect(successText).toContain("Successfully loaded");
       expect(successText).toContain("concepts"); // Should show both levels and concepts
-    }, 30000);
+    });
   });
 
-  describe("Authentication Error Flow", () => {
-    it("should show session expired modal on auth error", async () => {
+  test.describe("Authentication Error Flow", () => {
+    test("should show session expired modal on auth error", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Set up 401 auth error responses
-      helpers.setupAuthError();
+      helpers.setupAuthError(page);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Modal should appear immediately (auth errors don't wait, no retry)
-      await page.waitForSelector('[role="dialog"]', { timeout: 2000 });
+      await page.locator('[role="dialog"]').waitFor({ timeout: 2000 });
 
       // Verify modal content
-      const modalText = await helpers.getModalText();
+      const modalText = await helpers.getModalText(page);
       expect(modalText).toContain("Session Expired");
       expect(modalText).toContain("Reload Page");
 
@@ -373,23 +351,20 @@ describe("Network Error Handling E2E", () => {
         return buttons.some((btn) => btn.textContent?.includes("Reload Page"));
       });
       expect(reloadButton).toBe(true);
-    }, 15000);
+    });
 
-    it("should reload page when clicking Reload Page button", async () => {
+    test("should reload page when clicking Reload Page button", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Set up 401 auth error responses
-      helpers.setupAuthError();
+      helpers.setupAuthError(page);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Wait for session expired modal
-      await helpers.waitForModal(2000);
+      await helpers.waitForModal(page);
 
       // Listen for navigation (page reload)
       const navigationPromise = page.waitForNavigation();
@@ -409,28 +384,25 @@ describe("Network Error Handling E2E", () => {
       // Page should reload (URL should be the same)
       const currentUrl = page.url();
       expect(currentUrl).toBe("http://localhost:3081/test/network");
-    }, 15000);
+    });
   });
 
-  describe("Rate Limit Error Flow", () => {
-    it("should show rate limit modal with countdown", async () => {
+  test.describe("Rate Limit Error Flow", () => {
+    test("should show rate limit modal with countdown", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Set up rate limit error with 3 second retry-after
-      helpers.setupRateLimitError(3);
+      helpers.setupRateLimitError(page, 3);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Modal should appear immediately for rate limit
-      await helpers.waitForModal(2000);
+      await helpers.waitForModal(page);
 
       // Verify modal content
-      const modalText = await helpers.getModalText();
+      const modalText = await helpers.getModalText(page);
       expect(modalText).toContain("Too Many Requests");
       expect(modalText).toContain("s"); // Countdown should show seconds
 
@@ -442,56 +414,50 @@ describe("Network Error Handling E2E", () => {
         return countdown !== null;
       });
       expect(countdownExists).toBe(true);
-    }, 15000);
+    });
 
-    it("should retry after rate limit wait time and close modal", async () => {
+    test("should retry after rate limit wait time and close modal", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Set up rate limit error that succeeds on retry
-      const tracker = helpers.setupRateLimitWithRetry(2);
+      const tracker = helpers.setupRateLimitWithRetry(page, 2);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Modal should appear
-      await helpers.waitForModal(1000);
+      await helpers.waitForModal(page);
 
       // Modal should auto-close after retry succeeds (give at least 2s + 1s buffer)
-      await helpers.waitForModalToClose(5000);
+      await helpers.waitForModalToClose(page, 5000);
 
       // Verify second request was made
       expect(tracker.getRequestCount()).toBe(2);
 
       // Success message should appear
-      await page.waitForSelector('[data-testid="success-message"]', { timeout: 5000 });
-      const successText = await page.$eval('[data-testid="success-message"]', (el) => el.textContent);
+      await page.locator('[data-testid="success-message"]').waitFor();
+      const successText = await page.locator('[data-testid="success-message"]').textContent();
       expect(successText).toContain("Successfully loaded");
-    }, 15000);
+    });
   });
 
-  describe("Modal Non-Dismissibility", () => {
+  test.describe("Modal Non-Dismissibility", () => {
     // TODO: Implement non-dismissible modal feature
     // Currently error modals CAN be dismissed (have close button and clickable overlay)
     // These tests document the desired behavior that error modals should NOT be dismissible
-    it.skip("should not show close button on error modals", async () => {
+    test.skip("should not show close button on error modals", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Simulate network failure
-      helpers.setupNetworkFailure();
+      helpers.setupNetworkFailure(page);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Wait for modal to appear
-      await helpers.waitForModal();
+      await helpers.waitForModal(page);
 
       // Check for close button (X button in top right)
       const hasCloseButton = await page.evaluate(() => {
@@ -502,24 +468,21 @@ describe("Network Error Handling E2E", () => {
 
       // Error modals should not have a close button
       expect(hasCloseButton).toBe(false);
-    }, 15000);
+    });
 
     // TODO: Implement non-dismissible modal feature
-    it.skip("should not close modal when clicking overlay for network errors", async () => {
+    test.skip("should not close modal when clicking overlay for network errors", async ({ page }) => {
       // Navigate to test page
-      await helpers.goToTestPage();
-
-      // Enable request interception
-      await page.setRequestInterception(true);
+      await helpers.goToTestPage(page);
 
       // Simulate network failure
-      helpers.setupNetworkFailure();
+      helpers.setupNetworkFailure(page);
 
       // Click button to trigger API call
-      await page.click('[data-testid="load-levels-button"]');
+      await page.locator('[data-testid="load-levels-button"]').click();
 
       // Wait for modal to appear
-      await helpers.waitForModal();
+      await helpers.waitForModal(page);
 
       // Try clicking overlay (outside modal)
       await page.evaluate(() => {
@@ -530,11 +493,11 @@ describe("Network Error Handling E2E", () => {
       });
 
       // Wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await page.waitForTimeout(500);
 
       // Modal should still be visible
-      const modalStillVisible = await page.$('[role="dialog"]');
-      expect(modalStillVisible).not.toBeNull();
-    }, 15000);
+      const modalStillVisible = page.locator('[role="dialog"]');
+      await expect(modalStillVisible).toBeVisible();
+    });
   });
 });
