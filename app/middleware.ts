@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isExternalUrl } from "./lib/routing/external-urls";
 
 // Basic authentication credentials
 // NOTE: These credentials are intentionally hardcoded and not considered secrets.
@@ -137,11 +138,11 @@ export function middleware(request: NextRequest) {
   //
   // Rewrite unauthenticated external URL requests to static variant
   //
-  // const isAuthenticated = request.cookies.has("jiki_access_token");
-  // if (!isAuthenticated && isExternalUrl(path)) {
-  //   response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
-  //   response.headers.set("Vary", "Cookie");
-  // }
+  const isAuthenticated = request.cookies.has("jiki_access_token");
+  if (!isAuthenticated && isExternalUrl(path)) {
+    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
+    response.headers.set("Vary", "Cookie");
+  }
 
   // Cache favicon for 1 hour
   if (path === "/favicon.ico") {
