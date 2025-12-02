@@ -38,7 +38,7 @@ export default function ConceptsListPage({ authenticated }: ConceptsListPageProp
 
   // Always render static structure
   return (
-    <ConceptsLayout withSidebar={withSidebar}>
+    <ConceptsLayout>
       <ConceptsHeader isAuthenticated={authenticated} />
 
       <ConceptsSearch
