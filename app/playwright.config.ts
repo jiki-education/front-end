@@ -20,8 +20,8 @@ export default defineConfig({
   reporter: [
     ["html", { outputFolder: "playwright-report" }],
     ["list"], // Console output
-    ...(process.env.CI ? [["github" as const]] : []), // GitHub annotations
-  ],
+    ...(process.env.CI ? [["github"]] : []) // GitHub annotations
+  ] as Array<["html", { outputFolder: string }] | ["list"] | ["github"]>,
 
   // Global test settings
   use: {
@@ -35,15 +35,15 @@ export default defineConfig({
     trace: "on-first-retry",
 
     // Video on failure
-    video: "retain-on-failure",
+    video: "retain-on-failure"
   },
 
   // Browser projects
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
+      use: { ...devices["Desktop Chrome"] }
+    }
   ],
 
   // Dev server configuration
@@ -53,6 +53,6 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 30000,
     stdout: "pipe",
-    stderr: "pipe",
-  },
+    stderr: "pipe"
+  }
 });

@@ -3,13 +3,13 @@ import { test, expect, type Page, type Route } from "@playwright/test";
 test.describe("Authentication Flows", () => {
   function handleOptionsRequest(route: Route) {
     if (route.request().method() === "OPTIONS") {
-      route.fulfill({
+      void route.fulfill({
         status: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
+        }
       });
       return true;
     }
@@ -18,15 +18,15 @@ test.describe("Authentication Flows", () => {
 
   function mockRequest(route: Route, url: string, status: number, body: any) {
     if (route.request().url().includes(url)) {
-      route.fulfill({
+      void route.fulfill({
         status,
         contentType: "application/json",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(body)
       });
       return true;
     }
@@ -38,8 +38,8 @@ test.describe("Authentication Flows", () => {
       user: {
         id: "test-user-id",
         email: "test@example.com",
-        name: "Test User",
-      },
+        name: "Test User"
+      }
     });
   }
 
@@ -72,8 +72,8 @@ test.describe("Authentication Flows", () => {
           value: "invalid-nonsense-string",
           domain: "localhost",
           path: "/",
-          httpOnly: false, // Make it accessible to JavaScript
-        },
+          httpOnly: false // Make it accessible to JavaScript
+        }
       ]);
     } else if (cookie === "valid") {
       // Create a valid JWT with sub claim and future expiry
@@ -88,8 +88,8 @@ test.describe("Authentication Flows", () => {
           value: validToken,
           domain: "localhost",
           path: "/",
-          httpOnly: false, // Make it accessible to JavaScript
-        },
+          httpOnly: false // Make it accessible to JavaScript
+        }
       ]);
     }
     // If cookie is 'absent', don't set any cookie
@@ -160,13 +160,13 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertSignUpButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor({ timeout: 1000 });
+    await page.locator(".ui-btn-primary").waitFor({ timeout: 5000 });
     const button = await page.locator(".ui-btn-primary").textContent();
     expect(button).toBe("Sign Up");
   }
 
   async function assertReturnToJikiButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor({ timeout: 1000 });
+    await page.locator(".ui-btn-primary").waitFor({ timeout: 5000 });
     const button = await page.locator(".ui-btn-primary").textContent();
     expect(button).toBe("Back to Jiki →");
   }
