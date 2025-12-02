@@ -7,7 +7,7 @@
     "dev": "npm-run-all generate:content --parallel dev:next dev:watch",
     "dev:next": "next dev --port 3061 --turbo",
     "dev:watch": "onchange '../content/src/**' -- node scripts/generate-content.js",
-    "build": "next build",
+    "build": "npm run generate:content && next build",
     "start": "next start",
     "preview": "wrangler dev",
     "deploy": "DEPLOY_ID=$(git rev-parse --short HEAD) && npx opennextjs-cloudflare build && wrangler deploy --var DEPLOY_ID:$DEPLOY_ID",
