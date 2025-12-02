@@ -28,6 +28,10 @@ export default defineConfig({
     // Base URL for navigation
     baseURL: "http://localhost:3081",
 
+    // Default timeout for actions and assertions (5 seconds)
+    actionTimeout: 5000,
+    navigationTimeout: 5000,
+
     // Screenshot on failure
     screenshot: "only-on-failure",
 
@@ -36,6 +40,11 @@ export default defineConfig({
 
     // Video on failure
     video: "retain-on-failure"
+  },
+
+  // Default timeout for expect() assertions
+  expect: {
+    timeout: 5000
   },
 
   // Browser projects

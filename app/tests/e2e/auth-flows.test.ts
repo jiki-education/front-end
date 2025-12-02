@@ -112,13 +112,10 @@ test.describe("Authentication Flows", () => {
   }
 
   async function awaitRedirectToLogin(page: Page) {
-    await page.waitForFunction(
-      () => {
-        const url = window.location.href;
-        return url === "http://localhost:3081/auth/login";
-      },
-      { timeout: 5000 }
-    );
+    await page.waitForFunction(() => {
+      const url = window.location.href;
+      return url === "http://localhost:3081/auth/login";
+    });
   }
 
   async function assertLoginPage(page: Page) {
@@ -154,41 +151,35 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertLandingPage(page: Page) {
-    await page.locator("h1").waitFor({ timeout: 3000 });
+    await page.locator("h1").waitFor();
     const heading = await page.locator("h1").textContent();
     expect(heading).toBe("Welcome to Jiki");
   }
 
   async function assertSignUpButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor({ timeout: 5000 });
+    await page.locator(".ui-btn-primary").waitFor();
     const button = await page.locator(".ui-btn-primary").textContent();
     expect(button).toBe("Sign Up");
   }
 
   async function assertReturnToJikiButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor({ timeout: 5000 });
+    await page.locator(".ui-btn-primary").waitFor();
     const button = await page.locator(".ui-btn-primary").textContent();
     expect(button).toBe("Back to Jiki →");
   }
 
   async function awaitRedirectToDashboard(page: Page) {
-    await page.waitForFunction(
-      () => {
-        const url = window.location.href;
-        return url === "http://localhost:3081/dashboard";
-      },
-      { timeout: 5000 }
-    );
+    await page.waitForFunction(() => {
+      const url = window.location.href;
+      return url === "http://localhost:3081/dashboard";
+    });
   }
 
   async function awaitRedirectToLandingPage(page: Page) {
-    await page.waitForFunction(
-      () => {
-        const url = window.location.href;
-        return url === "http://localhost:3081/";
-      },
-      { timeout: 5000 }
-    );
+    await page.waitForFunction(() => {
+      const url = window.location.href;
+      return url === "http://localhost:3081/";
+    });
   }
 
   test.describe("Visiting /settings", () => {
