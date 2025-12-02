@@ -8,6 +8,7 @@ export interface ProjectData {
   description: string;
   status?: ProjectStatus;
   exercise_slug?: string;
+  user_progress?: UserProjectData | null;
 }
 
 export interface ProjectsResponse {
@@ -22,6 +23,25 @@ export interface ProjectsResponse {
 export interface ProjectSubmissionFile {
   filename: string;
   code: string;
+}
+
+export interface UserProjectSubmissionFile {
+  filename: string;
+  content: string;
+}
+
+export interface UserProjectSubmission {
+  uuid: string;
+  files: UserProjectSubmissionFile[];
+}
+
+export interface UserProjectData {
+  project_slug: string;
+  status: "completed" | "started";
+  conversation: any[];
+  data: {
+    last_submission: UserProjectSubmission | null;
+  };
 }
 
 /**
@@ -67,6 +87,22 @@ export function startProject(slug: string): void {
   // This could be implemented later if explicit start tracking is needed
   // eslint-disable-next-line no-console
   console.log(`Project ${slug} accessed - will be started on first submission`);
+}
+
+/**
+ * Fetch user's progress on a specific project
+ */
+export async function fetchUserProject(slug: string): Promise<UserProjectData | null> {
+  try {
+    const response = await api.get<{ user_project: UserProjectData }>(`/internal/user_projects/${slug}`);
+    return response.data.user_project;
+  } catch (error: any) {
+    // Return null if user hasn't started the project yet (404)
+    if (error.response?.status === 404) {
+      return null;
+    }
+    throw error;
+  }
 }
 
 /**
