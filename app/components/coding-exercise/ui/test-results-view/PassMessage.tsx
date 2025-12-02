@@ -9,21 +9,7 @@ export function PassMessage({ testIdx }: PassMessageProps) {
   const orchestrator = useOrchestrator();
   const { exerciseTitle } = useOrchestratorStore(orchestrator);
 
-  return (
-    <div className="bg-success-bg border border-success-border rounded-lg p-4">
-      <div className="flex items-center">
-        <div className="flex-shrink-0">
-          <div className="w-5 h-5 rounded-full bg-success-border flex items-center justify-center">
-            <span className="text-button-primary-text text-xs">✓</span>
-          </div>
-        </div>
-        <div className="ml-3">
-          <h3 className="text-sm font-medium text-success-text">Test Passed!</h3>
-          <p className="text-sm text-success-text mt-1">{congratsMessages[stringToHash(exerciseTitle, testIdx)]}</p>
-        </div>
-      </div>
-    </div>
-  );
+  return <p className="font-semibold">{congratsMessages[stringToHash(exerciseTitle, testIdx)]}</p>;
 }
 
 function stringToHash(input: string, testIdx: number): number {

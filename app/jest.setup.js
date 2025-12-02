@@ -120,3 +120,25 @@ jest.mock("@/lib/theme/useTheme", () => ({
     systemTheme: "light"
   })
 }));
+
+// Mock lottie-web to prevent canvas errors in test environment
+jest.mock("lottie-web", () => ({
+  loadAnimation: jest.fn(),
+  destroy: jest.fn(),
+  setSpeed: jest.fn(),
+  setDirection: jest.fn(),
+  play: jest.fn(),
+  pause: jest.fn(),
+  stop: jest.fn()
+}));
+
+// Mock react-lottie-player
+jest.mock("react-lottie-player", () => {
+  return function LottiePlayer(props) {
+    return React.createElement("div", {
+      ...props,
+      "data-testid": "lottie-player",
+      style: props.style
+    });
+  };
+});

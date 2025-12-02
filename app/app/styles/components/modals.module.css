@@ -1,0 +1,186 @@
+/**
+ * Modal Design System
+ * 
+ * CSS Module for react-modal components
+ */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal {
+    background: white;
+    border-radius: 20px;
+    padding: 48px 50px 32px 50px;
+    max-width: 560px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    border: 3px solid #3b82f6;
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.2),
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 40px 80px rgba(255, 255, 255, 0.5);
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modalTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    white-space: nowrap;
+}
+
+.modalMessage {
+    font-size: 16px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.modalMessage strong {
+    color: #1a202c;
+}
+
+.modalButtons {
+    display: flex;
+    gap: 12px;
+}
+
+.modal .modalButtonsDivider {
+    width: calc(100% + 64px);
+    height: 1px;
+    background: #e2e8f0;
+    margin-bottom: 24px;
+    margin-left: -32px;
+    margin-right: -32px;
+}
+
+.btnPrimary {
+    flex: 1;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2570eb 100%);
+    color: white;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Poppins", sans-serif;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btnPrimary:hover {
+    border-color: #2570eb;
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.2),
+        0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+.btnSecondary {
+    flex: 1;
+    padding: 12px 24px;
+    background: transparent;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: "Poppins", sans-serif;
+}
+
+.btnSecondary:hover {
+    border-color: #94a3b8;
+    color: #1a202c;
+}
+
+/* Project modal special styling */
+.projectModalOverlay .modal {
+    background: linear-gradient(180deg, #f5f3ff 0%, #fdf2f8 100%);
+    position: relative;
+}
+
+.projectModalOverlay .modal::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 115px;
+    background-image: url("/static/images/decorations/celebration-background.png");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    border-radius: 20px 20px 0 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.projectModalOverlay .modal > * {
+    position: relative;
+    z-index: 1;
+}
+
+.modalCheckmark {
+    width: 144px;
+    height: 144px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.modalCheckmark svg {
+    width: 144px;
+    height: 144px;
+}
+
+/* Concept unlocked card styling */
+.conceptUnlockedCard {
+    background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+}
+
+.conceptTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 8px 0;
+}
+
+.conceptDescription {
+    font-size: 14px;
+    color: #92400e;
+    line-height: 1.5;
+    margin: 0;
+}

@@ -66,7 +66,7 @@ describe("TestSuiteManager", () => {
           files: [
             {
               filename: "solution.js",
-              content: mockCode
+              code: mockCode
             }
           ]
         }

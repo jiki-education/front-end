@@ -483,7 +483,7 @@ describe("Store Auto-Play Behavior", () => {
         // Trigger the callback
         onCompleteCallback();
 
-        expect(showModal).toHaveBeenCalledWith("exercise-success-modal");
+        expect(showModal).toHaveBeenCalledWith("exercise-completion-modal", expect.any(Object));
         expect(store.getState().wasSuccessModalShown).toBe(true);
         expect(store.getState().isSpotlightActive).toBe(false);
       });

@@ -91,6 +91,23 @@ export default function TestGlobalModals() {
             Show Modal with Custom Props
           </button>
         </div>
+
+        <div className="border rounded-lg p-4">
+          <h2 className="text-xl font-semibold mb-2">Exercise Completion Modal</h2>
+          <button
+            onClick={() =>
+              showModal("exercise-completion-modal", {
+                onTidyCode: () => {},
+                onCompleteExercise: () => {},
+                onGoToProject: () => {},
+                onGoToDashboard: () => {}
+              })
+            }
+            className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
+          >
+            Show Exercise Completion Modal
+          </button>
+        </div>
       </div>
 
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">

@@ -1,4 +1,5 @@
 import { showModal } from "@/lib/modal";
+import { markLessonComplete } from "@/lib/api/lessons";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import { useStore } from "zustand";
@@ -27,6 +28,9 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
       isSpotlightActive: false,
       wasSuccessModalShown: false,
       hasEverHadSuccessfulRun: false,
+      shouldShowCompleteButton: false,
+      isExerciseCompleted: false,
+      completionResponse: [],
       foldedLines: [],
       language: language,
 
@@ -181,10 +185,46 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           const state = get();
           state.setIsPlaying(false);
 
-          // Check if all tests passed and we haven't shown the modal yet
+          // Check if all tests passed and we haven't shown the modal yet and exercise is not already completed
           const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
-          if (allTestsPassed && !state.wasSuccessModalShown) {
-            showModal("exercise-success-modal");
+          if (allTestsPassed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
+            showModal("exercise-completion-modal", {
+              exerciseTitle: state.exerciseTitle,
+              exerciseIcon: "/static/images/project-icons/icon-space-invaders.png", // TODO: Get from exercise
+              initialStep: "success",
+              onTidyCode: () => {
+                // Close modal and enable complete button in header
+                get().setShouldShowCompleteButton(true);
+              },
+              onCompleteExercise: async () => {
+                // Handle exercise completion using exercise slug from store
+                try {
+                  const response = await markLessonComplete(state.exerciseSlug);
+
+                  const events = response?.meta?.events || [];
+                  get().setCompletionResponse(events);
+
+                  // Update local state to show completed tag
+                  get().setIsExerciseCompleted(true);
+
+                  // Re-show modal with completion response data
+                  showModal("exercise-completion-modal", {
+                    exerciseTitle: state.exerciseTitle,
+                    exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+                    completionResponse: events,
+                    initialStep: "completed",
+                    onTidyCode: () => {
+                      get().setShouldShowCompleteButton(true);
+                    },
+                    onCompleteExercise: () => {} // No-op since already completed
+                  });
+
+                  console.warn("Exercise completed successfully!");
+                } catch (error) {
+                  console.error("Failed to mark lesson as complete:", error);
+                }
+              }
+            });
             state.setWasSuccessModalShown(true);
             state.setIsSpotlightActive(false);
           }
@@ -257,6 +297,9 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
       setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
       setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
       setHasEverHadSuccessfulRun: (value) => set({ hasEverHadSuccessfulRun: value }),
+      setShouldShowCompleteButton: (value) => set({ shouldShowCompleteButton: value }),
+      setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
+      setCompletionResponse: (response) => set({ completionResponse: response }),
       setFoldedLines: (lines) => {
         set({ foldedLines: lines });
 
@@ -295,8 +338,8 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
         const allTestsPassed = result ? result.tests.every((test) => test.status === "pass") : false;
         const state = get();
 
-        // Only enable spotlight if all tests passed AND this is the first time we've had a successful run
-        const shouldActivateSpotlight = allTestsPassed && !state.hasEverHadSuccessfulRun;
+        // Only enable spotlight if all tests passed AND this is the first time we've had a successful run AND exercise is not already completed
+        const shouldActivateSpotlight = allTestsPassed && !state.hasEverHadSuccessfulRun && !state.isExerciseCompleted;
 
         // Set the test suite result and reset things.
         set({
@@ -533,6 +576,9 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       isSpotlightActive: state.isSpotlightActive,
       wasSuccessModalShown: state.wasSuccessModalShown,
       hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun,
+      shouldShowCompleteButton: state.shouldShowCompleteButton,
+      isExerciseCompleted: state.isExerciseCompleted,
+      completionResponse: state.completionResponse,
       foldedLines: state.foldedLines,
       language: state.language,
 
