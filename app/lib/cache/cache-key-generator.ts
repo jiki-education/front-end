@@ -2,8 +2,8 @@
  * Cache key generator for Cloudflare Workers Cache API
  *
  * Generates normalized cache keys with:
- * - Allowlisted query parameters (page, criteria)
- * - Authentication state
+ * - Allowlisted query parameters (page, criteria, _rsc)
+ * - Accept header (to differentiate HTML vs RSC requests)
  * - Deploy ID (git SHA) for automatic invalidation on deploy
  */
 
@@ -44,12 +44,17 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
 /**
  * Generate a cache key for the Cache API
  *
- * Format: https://jiki.io/blog/post?page=1#abc1234
+ * Format: https://jiki.io/blog/post?page=1#rsc:abc1234
  *
  * Components:
  * - Base URL with pathname (preserves locale)
  * - Normalized query params (page, criteria, _rsc)
+ * - Request type (html or rsc based on RSC request header)
  * - Deploy ID (git SHA)
+ *
+ * The request type differentiates:
+ * - HTML requests (no RSC header) - Initial page loads
+ * - RSC requests (RSC: 1 header) - Client-side navigations
  *
  * Note: Auth state is not included because cache is only used for unauthenticated users
  *
@@ -62,5 +67,10 @@ export function generateCacheKey(request: Request, deployId: string): string {
   const baseUrl = `${url.protocol}//${url.host}${url.pathname}`;
   const normalizedParams = normalizeSearchParams(url.searchParams);
 
-  return `${baseUrl}${normalizedParams}#${deployId}`;
+  // Differentiate HTML vs RSC requests by RSC header
+  // RSC requests include "RSC: 1" header during client-side navigation
+  const rscHeader = request.headers.get("RSC") || request.headers.get("rsc");
+  const requestType = rscHeader === "1" ? "rsc" : "html";
+
+  return `${baseUrl}${normalizedParams}#${requestType}:${deployId}`;
 }
