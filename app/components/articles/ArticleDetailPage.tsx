@@ -1,4 +1,4 @@
-import { getAllArticles, getArticle } from "@jiki/content";
+import { getAllArticles, getArticle } from "@/lib/content/loader";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ArticleDetailContent from "./ArticleDetailContent";
@@ -12,15 +12,15 @@ interface ArticleDetailPageProps {
 }
 
 // Helper for generateStaticParams
-export function getArticleStaticParams(locale: string = "en") {
-  const articles = getAllArticles(locale);
+export async function getArticleStaticParams(locale: string = "en") {
+  const articles = await getAllArticles(locale);
   return articles.map((article) => ({ slug: article.slug }));
 }
 
 // Helper for generateMetadata
-export function getArticleMetadata(slug: string, locale: string = "en"): Metadata {
+export async function getArticleMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
   try {
-    const article = getArticle(slug, locale);
+    const article = await getArticle(slug, locale);
     return {
       title: article.title,
       description: article.seo.description,
@@ -31,10 +31,10 @@ export function getArticleMetadata(slug: string, locale: string = "en"): Metadat
   }
 }
 
-export default function ArticleDetailPage({ slug, authenticated, locale }: ArticleDetailPageProps) {
+export default async function ArticleDetailPage({ slug, authenticated, locale }: ArticleDetailPageProps) {
   let article;
   try {
-    article = getArticle(slug, locale);
+    article = await getArticle(slug, locale);
   } catch {
     notFound();
   }

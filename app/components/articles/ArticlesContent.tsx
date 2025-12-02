@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ProcessedPost } from "@jiki/content";
+import type { ProcessedPost } from "@/lib/content/generated/types";
 
 interface ArticlesContentProps {
   articles: ProcessedPost[];

@@ -1,12 +1,13 @@
-import { describe, it, expect } from "vitest";
-import { validateFrontmatter, validateAuthors, validateNoDuplicateSlugs, ValidationError } from "../src/validator.js";
-import type { AuthorRegistry } from "../src/types.js";
+import {
+  validateFrontmatter,
+  validateAuthors,
+  validateNoDuplicateSlugs,
+  ValidationError
+} from "@/lib/content/validator";
+import type { AuthorRegistry } from "@/lib/content/types";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const IMAGES_DIR = path.join(__dirname, "..", "images");
+const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "images");
 
 const validAuthors: AuthorRegistry = {
   ihid: {

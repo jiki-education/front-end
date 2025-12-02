@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const ICONS_DIR = path.join(__dirname, "../icons");
 const OUTPUT_FILE = path.join(__dirname, "../components/ui-kit/icon-types.ts");

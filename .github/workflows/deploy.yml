@@ -2,7 +2,7 @@ name: Deploy Cloudflare Workers
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/content-build-time-generation]
 
 jobs:
   deploy-app:
@@ -62,6 +62,10 @@ jobs:
           fi
 
           echo "✅ All required environment variables are set"
+
+      - name: Generate content bundle
+        run: pnpm run generate:content
+        working-directory: app
 
       - name: Deploy to Cloudflare Workers
         run: pnpm run deploy
