@@ -97,10 +97,10 @@ export default function TestGlobalModals() {
           <button
             onClick={() =>
               showModal("exercise-completion-modal", {
-                onTidyCode: () => { },
-                onCompleteExercise: () => { },
-                onGoToProject: () => { },
-                onGoToDashboard: () => { }
+                onTidyCode: () => {},
+                onCompleteExercise: () => {},
+                onGoToProject: () => {},
+                onGoToDashboard: () => {}
               })
             }
             className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"

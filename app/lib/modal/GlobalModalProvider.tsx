@@ -25,11 +25,7 @@ export function GlobalModalProvider() {
 
   // Pass modal props to the modal component
   return (
-    <BaseModal 
-      isOpen={isOpen} 
-      onRequestClose={hideModal}
-      overlayClassName={overlayClassName}
-    >
+    <BaseModal isOpen={isOpen} onRequestClose={hideModal} overlayClassName={overlayClassName}>
       <ModalComponent {...modalProps} />
     </BaseModal>
   );
