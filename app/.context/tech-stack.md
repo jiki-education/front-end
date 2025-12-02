@@ -37,7 +37,7 @@ The compiler is configured in `next.config.ts` with `experimental.reactCompiler:
 
 - **Linting**: ESLint 9 with Next.js config
 - **Formatting**: Prettier with consistent code style
-- **Testing**: Jest (unit), Puppeteer (E2E)
+- **Testing**: Jest (unit), Playwright (E2E)
 - **Build Tool**: webpack (Turbopack disabled due to pnpm workspace incompatibility)
 - **Type Checking**: TypeScript strict mode enabled
 - **Git Hooks**: Husky for pre-commit checks

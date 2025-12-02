@@ -5,7 +5,7 @@
 The project uses two testing approaches:
 
 - **Unit/Integration Tests**: Jest with React Testing Library for component and logic testing
-- **E2E Tests**: Puppeteer with Jest for full browser automation testing
+- **E2E Tests**: Playwright for full browser automation testing
 
 ## Test Structure
 
@@ -34,41 +34,38 @@ The project uses two testing approaches:
 
 #### E2E Test Best Practices
 
-**IMPORTANT: Never use `waitUntil: "networkidle2"`**
+**CRITICAL: NEVER specify custom timeouts in E2E tests**
 
-❌ **DON'T** use `networkidle2`:
+Global timeouts are configured in `playwright.config.ts`:
+
+- `actionTimeout`: 5s (clicks, fills, etc.)
+- `navigationTimeout`: 5s (page navigations)
+- `expect` timeout: 5s (assertions)
+
+❌ **NEVER** add custom timeouts:
 
 ```typescript
-// BAD - Slow and unreliable
-await page.goto(url, { waitUntil: "networkidle2" });
-await page.waitForNavigation({ waitUntil: "networkidle2" });
+// BAD - Violates global timeout policy
+await page.waitForSelector("h1", { timeout: 10000 });
+await page.locator("button").click({ timeout: 3000 });
+await expect(page.locator("div")).toBeVisible({ timeout: 15000 });
 ```
 
-✅ **DO** use `waitForSelector()`:
+✅ **ALWAYS** use global timeouts:
 
 ```typescript
-// GOOD - Fast and explicit
-await page.goto(url);
-await page.waitForSelector("h1"); // Wait for specific content
+// GOOD - Uses global 5s timeout
+await page.waitForSelector("h1");
+await page.locator("button").click();
+await expect(page.locator("div")).toBeVisible();
 ```
 
 **Why**:
 
-- `networkidle2` waits for network idle, but **doesn't guarantee React has rendered**
-- Auth checks complete instantly (synchronous localStorage), so network is idle before UI updates
-- `waitForSelector()` waits for the exact element you need
-- Much faster and more reliable in practice
-
-**Pattern for navigation**:
-
-```typescript
-// Navigate to new page
-await page.click('a[href="/some-page"]');
-await page.waitForSelector("h1"); // Wait for page-specific content
-
-// NOT
-await page.waitForNavigation({ waitUntil: "networkidle2" }); // ❌ Slow and unreliable
-```
+- Global timeouts ensure consistent test behavior
+- If a test needs longer timeouts, it indicates a performance problem to fix
+- Prevents slow, unreliable tests that mask real issues
+- Simplifies test maintenance
 
 ## Configuration
 
@@ -81,23 +78,22 @@ await page.waitForNavigation({ waitUntil: "networkidle2" }); // ❌ Slow and unr
 
 ### E2E Test Configuration
 
-- **Jest Config**: `jest.e2e.config.mjs` - Separate Jest configuration for E2E tests
-- **Puppeteer Config**: `jest-puppeteer.config.js` - Browser launch settings
-- **Test Runner**: `scripts/run-e2e-tests.js` - Manages shared dev server for all tests
-- Test environment: `jest-environment-puppeteer`
-- Shared dev server on port 3081 for all tests (started once, shared across test files)
-- Headless mode by default (set `HEADLESS=false` for debugging)
+- **Playwright Config**: `playwright.config.ts` - All Playwright settings
+- **Global Timeouts**: 5s for all actions, navigation, and assertions (configured globally)
+- **Dev Server**: Auto-managed by Playwright on port 3081
+- **Workers**: 6 workers locally, 4 on CI for parallel test execution
+- **Browser**: Chromium only
 
 #### E2E Performance Optimization
 
-E2E tests use a custom runner script that:
+Playwright's built-in features provide excellent performance:
 
-1. Starts a single Next.js dev server on port 3081 before tests
-2. Runs all test files against this shared server
-3. Automatically cleans up the server and port after tests complete
-4. Handles interrupts gracefully with proper cleanup
+1. **Parallel execution**: Tests run in parallel across multiple workers
+2. **Auto-managed dev server**: Playwright starts/stops the server automatically
+3. **Smart waiting**: Automatic waiting for elements and actions
+4. **Global timeouts**: 5s timeouts prevent slow tests
 
-This shared-server approach dramatically improves test speed by eliminating per-test-file server startup overhead (from ~20s per test file to ~2-5s).
+**IMPORTANT**: Never override global timeouts. If tests fail with timeouts, fix the performance issue, don't increase the timeout.
 
 ### TypeScript Support
 
@@ -126,12 +122,13 @@ pnpm test:watch  # Run unit tests in watch mode
 ### E2E Tests
 
 ```bash
-pnpm test:e2e          # Run E2E tests with shared server (fast)
-pnpm test:e2e:watch    # Run E2E tests in watch mode
-pnpm test:e2e:headful  # Run E2E tests with visible browser (debugging)
+pnpm test:e2e:pw              # Run all Playwright E2E tests
+pnpm test:e2e:pw:ui           # Run in interactive UI mode
+pnpm test:e2e:pw:headed       # Run with visible browser (debugging)
+pnpm test:e2e:pw:debug        # Run in debug mode
 
 # Run specific test files
-pnpm test:e2e -- tests/e2e/home.test.ts
+pnpm test:e2e:pw auth-flows.test.ts network-error.test.ts
 ```
 
 ### All Tests
@@ -159,18 +156,19 @@ describe('Component Name', () => {
 ### E2E Test Structure
 
 ```typescript
-describe("Feature E2E", () => {
-  // IMPORTANT: Avoid using networkidle2 with beforeEach as it can cause timeouts
-  // Instead, wait for specific elements to appear
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test-page");
-    await page.waitForSelector('[data-testid="container"]', { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Feature E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test-page");
+    // Wait for specific elements - uses global 5s timeout
+    await page.locator('[data-testid="container"]').waitFor();
   });
 
-  it("performs user interaction", async () => {
-    await page.click('button[type="submit"]');
-    await page.waitForNavigation();
-    const result = await page.$eval(".result", (el) => el.textContent);
+  test("performs user interaction", async ({ page }) => {
+    await page.locator('button[type="submit"]').click();
+    await page.locator(".result").waitFor();
+    const result = await page.locator(".result").textContent();
     expect(result).toContain("Success");
   });
 });
@@ -178,35 +176,21 @@ describe("Feature E2E", () => {
 
 #### E2E Test Lifecycle Hooks
 
-**Important Discovery**: Using `beforeEach` with `waitUntil: "networkidle2"` can cause test timeouts. Instead:
-
-- **For test isolation**: Use `beforeEach` without `waitUntil` parameter, then wait for specific elements
-- **For single test setup**: Use `beforeAll` with `waitUntil: "networkidle2"` if needed
-- **Best practice**: Always wait for specific elements rather than network idle state
-
-Example patterns:
+Use Playwright's fixture-based `page` parameter in all test hooks:
 
 ```typescript
-// ✅ GOOD: beforeEach without networkidle2
-beforeEach(async () => {
-  await page.goto("http://localhost:3081/test-page");
-  await page.waitForSelector('[data-testid="container"]');
+// ✅ GOOD: Using page fixture
+test.beforeEach(async ({ page }) => {
+  await page.goto("/test-page");
+  await page.locator('[data-testid="container"]').waitFor();
 });
 
-// ❌ BAD: Can cause timeouts
-beforeEach(async () => {
-  await page.goto("http://localhost:3081/test-page", {
-    waitUntil: "networkidle2"
-  });
-});
-
-// ✅ OK: beforeAll with networkidle2 (for non-repeating setup)
-beforeAll(async () => {
-  await page.goto("http://localhost:3081", {
-    waitUntil: "networkidle2"
-  });
+test("example test", async ({ page }) => {
+  // Test logic here
 });
 ```
+
+**REMEMBER**: Never add custom `timeout` options - global 5s timeouts are configured in `playwright.config.ts`.
 
 ### E2E Test Page Setup Patterns
 
@@ -271,13 +255,15 @@ export default function TestPage() {
 #### E2E Test Structure for Orchestrator-based Tests
 
 ```typescript
-describe("Feature E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/feature-page");
-    await page.waitForSelector('[data-testid="test-container"]');
+import { test, expect } from "@playwright/test";
+
+test.describe("Feature E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/feature-page");
+    await page.locator('[data-testid="test-container"]').waitFor();
   });
 
-  it("should interact with orchestrator state", async () => {
+  test("should interact with orchestrator state", async ({ page }) => {
     // Access the orchestrator through window
     await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
@@ -286,7 +272,7 @@ describe("Feature E2E", () => {
     });
 
     // Verify UI updates
-    const breakpoints = await page.$eval('[data-testid="breakpoints"]', (el) => el.textContent);
+    const breakpoints = await page.locator('[data-testid="breakpoints"]').textContent();
     expect(breakpoints).toBe("1, 3, 5");
   });
 });
@@ -425,20 +411,23 @@ const store = createMockOrchestratorStore({
     - This allows testing internal state without modifying production code
     - Example: `orchestrator['_cachedCurrentFrame']` instead of `orchestrator._cachedCurrentFrame`
 13. **E2E test element selection**:
-    - Use `page.$$` to select multiple elements (returns array of ElementHandle)
-    - Use `page.$` to select a single element (returns ElementHandle or null)
-    - Example: `const buttons = await page.$$('button.action')` to get all action buttons
+    - Use `page.locator()` for all element selection (returns Locator)
+    - Use `page.locator().all()` to get multiple elements
+    - Example: `const buttons = await page.locator('button.action').all()`
+    - Locators auto-wait and auto-retry, making tests more reliable
 
 ## CI/CD Integration
 
 ### GitHub Actions
 
-Four separate workflows run in parallel for better performance and clarity:
+The app workflow (`.github/workflows/app.yml`) includes multiple jobs:
 
-- **Formatting** (`.github/workflows/formatting.yml`): Checks code style with Prettier
-- **Unit Tests** (`.github/workflows/unit-tests.yml`): Runs linting and Jest unit tests with coverage
-- **E2E Tests** (`.github/workflows/e2e-tests.yml`): Runs Puppeteer browser automation tests
-- **Type Check** (`.github/workflows/typecheck.yml`): Validates TypeScript types across the codebase
+- **typecheck**: Validates TypeScript types
+- **format**: Checks code style with Prettier
+- **lint**: Runs ESLint
+- **tests**: Runs Jest unit tests with coverage
+- **e2e-tests**: Runs legacy Puppeteer E2E tests (being phased out)
+- **e2e-tests-playwright**: Runs Playwright E2E tests (migrated tests)
 
 #### Important CI Notes
 
@@ -462,6 +451,6 @@ Four separate workflows run in parallel for better performance and clarity:
 
 ### E2E Testing
 
-- `puppeteer`: Headless Chrome automation
-- `jest-puppeteer`: Jest preset for Puppeteer integration
-- `ts-jest`: TypeScript support for Jest
+- `@playwright/test`: Modern browser automation and testing framework
+- Built-in TypeScript support
+- Auto-managed dev server and parallel execution
