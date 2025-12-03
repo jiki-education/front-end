@@ -43,6 +43,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate content
+        working-directory: app
+        run: pnpm run generate:content
+
       - name: Run typecheck
         working-directory: app
         run: npx tsc --noEmit
@@ -152,6 +156,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Generate content
+        working-directory: app
+        run: pnpm run generate:content
 
       - name: Install Playwright browsers
         working-directory: app

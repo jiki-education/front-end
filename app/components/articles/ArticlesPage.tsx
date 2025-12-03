@@ -1,4 +1,4 @@
-import { getAllArticles } from "@jiki/content";
+import { getAllArticles } from "@/lib/content/loader";
 import ArticlesContent from "./ArticlesContent";
 
 interface ArticlesPageProps {
@@ -6,8 +6,8 @@ interface ArticlesPageProps {
   locale: string;
 }
 
-export default function ArticlesPage({ authenticated, locale }: ArticlesPageProps) {
-  const articles = getAllArticles(locale);
+export default async function ArticlesPage({ authenticated, locale }: ArticlesPageProps) {
+  const articles = await getAllArticles(locale);
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
       <header className="mb-12">

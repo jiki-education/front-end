@@ -46,14 +46,6 @@ if [ $? -ne 0 ]; then
 fi
 cd ..
 
-echo "Building content..."
-cd content && pnpm run build
-if [ $? -ne 0 ]; then
-  echo "❌ Failed to build content"
-  FAILED=true
-fi
-cd ..
-
 if [ "$FAILED" = true ]; then
   echo "\n❌ Build failed in one or more packages"
   exit 1

@@ -1,5 +1,5 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
-import type { ProcessedPost } from "@jiki/content";
+import type { ProcessedPost } from "@/lib/content/generated/types";
 
 interface BlogPostContentProps {
   post: ProcessedPost;

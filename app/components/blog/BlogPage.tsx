@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "@jiki/content";
+import { getAllBlogPosts } from "@/lib/content/loader";
 import BlogContent from "./BlogContent";
 
 interface BlogPageProps {
@@ -6,8 +6,8 @@ interface BlogPageProps {
   locale: string;
 }
 
-export default function BlogPage({ authenticated, locale }: BlogPageProps) {
-  const blogPosts = getAllBlogPosts(locale);
+export default async function BlogPage({ authenticated, locale }: BlogPageProps) {
+  const blogPosts = await getAllBlogPosts(locale);
   return (
     <div className="container mx-auto max-w-5xl px-4 py-12">
       <header className="mb-12">

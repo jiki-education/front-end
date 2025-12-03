@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: "./tests/e2e",
 
   // Global setup - runs once before all tests
-  globalSetup: require.resolve("./playwright-global-setup.ts"),
+  globalSetup: "./playwright-global-setup.ts",
 
   // Parallel execution (default: all CPU cores)
   fullyParallel: true,

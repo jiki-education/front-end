@@ -1,14 +1,10 @@
 ---
 title: "A Jiki JavaScript módjai: Értelmes Mód és Paritás Mód"
-date: "2025-01-15"
 excerpt: "Ismerd meg a Jiki két JavaScript módját - az Értelmes Módot kezdőknek és a Paritás Módot a valódi JavaScripthez - és azt, hogyan segítenek ezek a hatékony tanulásban."
-author: "ihid"
 tags: ["javascript", "learning", "modes", "reference"]
 seo:
   description: "Teljes útmutató a Jiki JavaScript Értelmes Módjához és Paritás Módjához a hatékony tanuláshoz"
   keywords: ["jiki javascript", "értelmes mód", "paritás mód", "javascript tanulás", "javascript kezdőknek"]
-featured: false
-coverImage: "/images/articles/javascript-modes.jpg"
 ---
 
 # A Jiki JavaScript Módjainak Megértése

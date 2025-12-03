@@ -88,31 +88,31 @@ describe("cache-key-generator", () => {
     it("generates cache key with pathname and deploy ID", () => {
       const request = new Request("https://jiki.io/blog");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/blog#abc1234");
+      expect(result).toBe("/blog#abc1234");
     });
 
     it("includes allowed query params", () => {
       const request = new Request("https://jiki.io/blog?page=2");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/blog?page=2#abc1234");
+      expect(result).toBe("/blog?page=2#abc1234");
     });
 
     it("strips disallowed query params", () => {
       const request = new Request("https://jiki.io/blog?page=1&utm_source=google&ref=twitter");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/blog?page=1#abc1234");
+      expect(result).toBe("/blog?page=1#abc1234");
     });
 
     it("preserves locale in pathname", () => {
       const request = new Request("https://jiki.io/de/blog?page=1");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/de/blog?page=1#abc1234");
+      expect(result).toBe("/de/blog?page=1#abc1234");
     });
 
     it("sorts allowed params", () => {
       const request = new Request("https://jiki.io/blog?page=2&criteria=popular");
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/blog?criteria=popular&page=2#abc1234");
+      expect(result).toBe("/blog?criteria=popular&page=2#abc1234");
     });
 
     it("generates same key regardless of disallowed param order", () => {
@@ -130,8 +130,8 @@ describe("cache-key-generator", () => {
       const key1 = generateCacheKey(request, "abc1234");
       const key2 = generateCacheKey(request, "def5678");
 
-      expect(key1).toBe("https://jiki.io/blog#abc1234");
-      expect(key2).toBe("https://jiki.io/blog#def5678");
+      expect(key1).toBe("/blog#abc1234");
+      expect(key2).toBe("/blog#def5678");
       expect(key1).not.toBe(key2);
     });
 
@@ -150,13 +150,13 @@ describe("cache-key-generator", () => {
         "https://jiki.io/de/articles?criteria=top&page=3&utm_source=google&utm_medium=cpc&ref=home"
       );
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("https://jiki.io/de/articles?criteria=top&page=3#abc1234");
+      expect(result).toBe("/de/articles?criteria=top&page=3#abc1234");
     });
 
-    it("preserves protocol and host", () => {
-      const request = new Request("https://jiki.io/blog");
+    it("strips _rsc param from cache key", () => {
+      const request = new Request("https://jiki.io/blog?_rsc=1mj2u&page=2");
       const result = generateCacheKey(request, deployId);
-      expect(result).toContain("https://jiki.io");
+      expect(result).toBe("/blog?page=2#abc1234");
     });
   });
 });

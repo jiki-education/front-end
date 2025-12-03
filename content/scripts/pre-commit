@@ -1,47 +1,14 @@
 #!/bin/sh
-# Get absolute path to content directory and change to it
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-CONTENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-cd "$CONTENT_DIR" || exit 1
 
-echo "Running pre-commit checks..."
+# Content pre-commit: format markdown files
 
-# Run TypeScript type checking
-echo "🔷 Running TypeScript type check..."
-pnpm exec tsc --noEmit
+echo "📝 Running content format check..."
+pnpm run format:check
+
 if [ $? -ne 0 ]; then
-    echo "❌ TypeScript type check failed. Commit aborted."
-    exit 1
+  echo "❌ Content format check failed"
+  echo "💡 Run 'pnpm run format' in content/ to fix"
+  exit 1
 fi
 
-# Run formatter on changed files only
-echo "💅 Formatting changed files..."
-STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^content/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^content/||' || true)
-if [ -n "$STAGED_FILES_RELATIVE" ]; then
-    echo "Formatting: $STAGED_FILES_RELATIVE"
-    # Convert relative paths to absolute paths for prettier
-    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$CONTENT_DIR/|")
-    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
-    # Re-add formatted files (use paths relative to current directory, which is CONTENT_DIR)
-    git add $STAGED_FILES_RELATIVE
-else
-    echo "No files to format"
-fi
-
-# Run lint check (treating warnings as errors)
-echo "🔍 Running lint check..."
-pnpm run lint --max-warnings=0
-if [ $? -ne 0 ]; then
-    echo "❌ Lint check failed (errors or warnings found). Commit aborted."
-    exit 1
-fi
-
-# Run tests
-echo "🧪 Running tests..."
-pnpm test
-if [ $? -ne 0 ]; then
-    echo "❌ Tests failed. Commit aborted."
-    exit 1
-fi
-
-echo "✅ All checks passed!"
+echo "✅ Content format check passed"

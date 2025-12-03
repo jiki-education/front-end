@@ -1,4 +1,4 @@
-import { getAllBlogPosts, getBlogPost } from "@jiki/content";
+import { getAllBlogPosts, getBlogPost } from "@/lib/content/loader";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import BlogPostContent from "./BlogPostContent";
@@ -12,15 +12,15 @@ interface BlogPostPageProps {
 }
 
 // Helper for generateStaticParams
-export function getBlogPostStaticParams(locale: string = "en") {
-  const blogPosts = getAllBlogPosts(locale);
+export async function getBlogPostStaticParams(locale: string = "en") {
+  const blogPosts = await getAllBlogPosts(locale);
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
 // Helper for generateMetadata
-export function getBlogPostMetadata(slug: string, locale: string = "en"): Metadata {
+export async function getBlogPostMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
   try {
-    const post = getBlogPost(slug, locale);
+    const post = await getBlogPost(slug, locale);
     return {
       title: post.title,
       description: post.seo.description,
@@ -31,10 +31,10 @@ export function getBlogPostMetadata(slug: string, locale: string = "en"): Metada
   }
 }
 
-export default function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
+export default async function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
   let post;
   try {
-    post = getBlogPost(slug, locale);
+    post = await getBlogPost(slug, locale);
   } catch {
     notFound();
   }

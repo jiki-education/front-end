@@ -1,14 +1,10 @@
 ---
 title: "Understanding Jiki's JavaScript: Sensible Mode vs Parity Mode"
-date: "2025-01-15"
 excerpt: "Learn about Jiki's two JavaScript modes - Sensible Mode for beginners and Parity Mode for real-world JavaScript - and how they help you learn effectively."
-author: "ihid"
 tags: ["javascript", "learning", "modes", "reference"]
 seo:
   description: "Complete guide to Jiki's JavaScript Sensible Mode and Parity Mode for effective learning"
   keywords: ["jiki javascript", "sensible mode", "parity mode", "learn javascript", "javascript for beginners"]
-featured: false
-coverImage: "/images/articles/javascript-modes.jpg"
 ---
 
 # Understanding Jiki's JavaScript Modes

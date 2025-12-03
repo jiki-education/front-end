@@ -44,10 +44,8 @@ yarn-error.log*
 next-env.d.ts
 .claude/settings.local.json
 
-# content images (copied from content package)
-public/images/blog/
-public/images/articles/
-public/images/avatars/
+# generated content (build-time generation)
+lib/content/generated/
 
 # cloudflare workers
 .open-next/

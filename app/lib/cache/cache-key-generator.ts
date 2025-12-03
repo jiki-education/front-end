@@ -3,8 +3,9 @@
  *
  * Generates normalized cache keys with:
  * - Allowlisted query parameters (page, criteria)
- * - Authentication state
  * - Deploy ID (git SHA) for automatic invalidation on deploy
+ *
+ * Note: RSC requests (client-side navigation) are not cached, only HTML requests.
  */
 
 const ALLOWED_PARAMS = new Set(["page", "criteria"]);
@@ -44,14 +45,14 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
 /**
  * Generate a cache key for the Cache API
  *
- * Format: https://jiki.io/blog/post?page=1#abc1234
+ * Format: /blog/post?page=1#abc1234
  *
  * Components:
- * - Base URL with pathname (preserves locale)
- * - Normalized query params (only page and criteria)
+ * - Pathname (preserves locale)
+ * - Normalized query params (page, criteria)
  * - Deploy ID (git SHA)
  *
- * Note: Auth state is not included because cache is only used for unauthenticated users
+ * Note: Only HTML requests are cached. RSC requests (client-side navigation) are not cached.
  *
  * @param request - The incoming request
  * @param deployId - Git SHA of current deployment
@@ -59,8 +60,7 @@ export function normalizeSearchParams(searchParams: URLSearchParams): string {
  */
 export function generateCacheKey(request: Request, deployId: string): string {
   const url = new URL(request.url);
-  const baseUrl = `${url.protocol}//${url.host}${url.pathname}`;
   const normalizedParams = normalizeSearchParams(url.searchParams);
 
-  return `${baseUrl}${normalizedParams}#${deployId}`;
+  return `${url.pathname}${normalizedParams}#${deployId}`;
 }

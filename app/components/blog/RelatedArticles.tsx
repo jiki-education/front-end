@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ProcessedPost } from "@jiki/content";
+import type { ProcessedPost } from "@/lib/content/generated/types";
 
 interface RelatedArticlesProps {
   articles: ProcessedPost[];

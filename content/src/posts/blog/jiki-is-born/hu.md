@@ -1,14 +1,10 @@
 ---
 title: "Elindult a Jiki: Új út a programozástanuláshoz"
-date: "2025-01-15"
 excerpt: "Nagy örömmel jelentjük be a Jiki elindulását! Ez egy interaktív platform, amely gyakorlati feladatokon és irányított gyakorlatokon keresztül segíti a teljesen kezdőket a programozás tanulásában."
-author: "ihid"
 tags: ["announcement", "launch", "beginners"]
 seo:
   description: "Bemutatkozik a Jiki - egy interaktív programozástanuló platform teljesen kezdőknek, az Exercism csapatától"
   keywords: ["jiki", "programozás tanulása", "programozás kezdőknek", "programozásoktatás", "exercism"]
-featured: true
-coverImage: "/images/blog/jiki-launch.jpg"
 ---
 
 # Üdvözlünk a Jiki platformon!
