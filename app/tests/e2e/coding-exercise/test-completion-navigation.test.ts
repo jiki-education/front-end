@@ -1,24 +1,27 @@
-describe("Test Completion and Navigation E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Test Completion and Navigation E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
 
     // Enter valid code to get test results
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
-    await page.keyboard.down(modifier);
-    await page.keyboard.press("a");
-    await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.keyboard.press(`${modifier}+a`);
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
-  }, 20000);
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+  });
 
-  it("should NOT restart scenario when navigating away and back after completion", async () => {
+  test("should NOT restart scenario when navigating away and back after completion", async ({ page }) => {
     // Wait for animation to complete (first test auto-plays by default)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return !orchestrator.getStore().getState().isPlaying;
+    });
 
     // Verify animation has stopped (completed)
     const isPlayingAfterCompletion = await page.evaluate(() => {
@@ -37,18 +40,28 @@ describe("Test Completion and Navigation E2E", () => {
     expect(scrubberValueAtEnd).toBeGreaterThan(0);
 
     // Wait for test selector buttons to load
-    await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+    await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
     // Switch to second test
-    const secondButton = await page.$("[data-testid='test-selector-buttons'] button:nth-child(2)");
-    await secondButton?.click();
+    await page.locator("[data-testid='test-selector-buttons'] button").nth(1).click();
 
-    // Wait a bit for state to update
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for state to update
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      const currentTest = orchestrator.getStore().getState().currentTest;
+      return currentTest?.slug !== "test-1";
+    });
 
     // Switch back to first test
-    const firstButton = await page.$("[data-testid='test-selector-buttons'] button:first-child");
-    await firstButton?.click();
+    await page.locator("[data-testid='test-selector-buttons'] button").first().click();
+
+    // Wait for state to update - just check that we have a currentTest
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      const currentTest = orchestrator.getStore().getState().currentTest;
+      // Just check that we have a currentTest, don't rely on slug matching
+      return currentTest !== null && currentTest !== undefined;
+    });
 
     // Verify immediately (don't wait for animation to potentially play)
     const stateAfterReturn = await page.evaluate(() => {
@@ -64,12 +77,15 @@ describe("Test Completion and Navigation E2E", () => {
     expect(stateAfterReturn.currentTestTime).toBe(scrubberValueAtEnd);
   });
 
-  it("should auto-play when switching between scenarios during initial playback", async () => {
+  test("should auto-play when switching between scenarios during initial playback", async ({ page }) => {
     // Wait for test selector buttons to load
-    await page.waitForSelector('[data-testid="test-selector-buttons"]', { timeout: 5000 });
+    await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
     // First test should auto-play by default
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator.getStore().getState().isPlaying;
+    });
 
     // Verify first test is auto-playing
     const isPlayingFirst = await page.evaluate(() => {
@@ -79,11 +95,14 @@ describe("Test Completion and Navigation E2E", () => {
     expect(isPlayingFirst).toBe(true);
 
     // Quickly switch to second test while first is still playing
-    const secondButton = await page.$("[data-testid='test-selector-buttons'] button:nth-child(2)");
-    await secondButton?.click();
+    await page.locator("[data-testid='test-selector-buttons'] button").nth(1).click();
 
-    // Wait a bit for state to update
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for state to update
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      const currentTest = orchestrator.getStore().getState().currentTest;
+      return currentTest?.slug !== "test-1";
+    });
 
     // Second test should also auto-play (this is correct behavior)
     const isPlayingSecond = await page.evaluate(() => {

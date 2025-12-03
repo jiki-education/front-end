@@ -153,47 +153,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build application
+      - name: Install Playwright browsers
         working-directory: app
-        run: pnpm run build
+        run: pnpm exec playwright install --with-deps chromium
 
-      - name: Install Puppeteer browser and dependencies
-        working-directory: app
-        run: |
-          # Install Chrome browser for Puppeteer
-          npx puppeteer browsers install chrome
-
-          # Install required system dependencies (Ubuntu 24.04 compatible)
-          sudo apt-get update
-          sudo apt-get install -y \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libdrm2 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            libgbm1 \
-            libxkbcommon0 \
-            libxss1 \
-            libgtk-3-0t64 \
-            libgbm-dev \
-            libatspi2.0-0 \
-            libcups2 \
-            libasound2t64
-
-      - name: Run E2E tests
+      - name: Run Playwright E2E tests
         working-directory: app
         run: pnpm test:e2e
         env:
-          HEADLESS: true
           CI: true
 
-      - name: Upload test artifacts on failure
+      - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-screenshots
-          path: |
-            app/screenshots/
-            app/test-results/
+          name: playwright-report
+          path: app/playwright-report/
           retention-days: 7

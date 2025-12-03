@@ -1,85 +1,84 @@
-describe("Blog Page E2E", () => {
-  beforeAll(async () => {
-    await page.goto("http://localhost:3081/blog");
-    await page.waitForSelector("h1");
+import { test, expect } from "@playwright/test";
+
+test.describe("Blog Page E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/blog");
+    await page.locator("h1").waitFor();
   });
 
-  it("should load the blog index page", async () => {
-    const heading = await page.$eval("h1", (el) => el.textContent);
+  test("should load the blog index page", async ({ page }) => {
+    const heading = await page.locator("h1").textContent();
     expect(heading).toBe("Blog");
   });
 
-  it("should display blog posts", async () => {
+  test("should display blog posts", async ({ page }) => {
     // Check for at least one blog post
-    const articles = await page.$$("article");
-    expect(articles.length).toBeGreaterThan(0);
+    const articles = await page.locator("article").count();
+    expect(articles).toBeGreaterThan(0);
   });
 
-  it("should display the first blog post with title and excerpt", async () => {
+  test("should display the first blog post with title and excerpt", async ({ page }) => {
     // Check first post has title
-    const firstPostTitle = await page.$eval("article h2", (el) => el.textContent);
+    const firstPostTitle = await page.locator("article h2").first().textContent();
     expect(firstPostTitle).toBeTruthy();
 
     // Check first post has excerpt
-    const firstPostExcerpt = await page.$eval("article p", (el) => el.textContent);
+    const firstPostExcerpt = await page.locator("article p").first().textContent();
     expect(firstPostExcerpt).toBeTruthy();
   });
 
-  it("should display post metadata (date and author)", async () => {
+  test("should display post metadata (date and author)", async ({ page }) => {
     // Check for date
-    const date = await page.$("article time");
-    expect(date).toBeTruthy();
+    const date = page.locator("article time").first();
+    await expect(date).toBeVisible();
 
     // Check for author
-    const authorText = await page.$eval("article", (el) => el.textContent);
+    const authorText = await page.locator("article").first().textContent();
     expect(authorText).toContain("By ");
   });
 
-  it("should display tags for the post", async () => {
+  test("should display tags for the post", async ({ page }) => {
     // Check for at least one tag
-    const tags = await page.$$("article span");
-    expect(tags.length).toBeGreaterThan(0);
+    const tags = await page.locator("article span").count();
+    expect(tags).toBeGreaterThan(0);
   });
 
-  it("should have links to individual blog posts", async () => {
-    const postLink = await page.$('article a[href^="/blog/"]');
-    expect(postLink).toBeTruthy();
+  test("should have links to individual blog posts", async ({ page }) => {
+    const postLink = page.locator('article a[href^="/blog/"]').first();
+    await expect(postLink).toBeVisible();
   });
 });
 
-describe("Blog Post Page E2E", () => {
-  beforeAll(async () => {
+test.describe("Blog Post Page E2E", () => {
+  test.beforeEach(async ({ page }) => {
     // Navigate to the first blog post
-    await page.goto("http://localhost:3081/blog", { waitUntil: "networkidle0" });
-    await page.waitForSelector("article a", { timeout: 10000 });
-    const firstPostLink = await page.$("article a");
-    if (firstPostLink) {
-      await firstPostLink.click();
-      await page.waitForSelector("h1", { timeout: 10000 });
-    }
-  }, 60000);
-
-  it("should load an individual blog post", async () => {
-    const heading = await page.$("h1");
-    expect(heading).toBeTruthy();
+    await page.goto("/blog");
+    await page.locator("article a").first().waitFor();
+    await page.locator("article a").first().click();
+    await page.locator("h1").waitFor();
   });
 
-  it("should display post title", async () => {
-    const title = await page.$eval("h1", (el) => el.textContent);
+  test("should load an individual blog post", async ({ page }) => {
+    const heading = page.locator("h1");
+    await expect(heading).toBeVisible();
+  });
+
+  test("should display post title", async ({ page }) => {
+    const title = await page.locator("h1").textContent();
     expect(title).toBeTruthy();
   });
 
-  it("should display post metadata", async () => {
+  test("should display post metadata", async ({ page }) => {
     // Check for date
-    const date = await page.$("time");
-    expect(date).toBeTruthy();
+    const date = page.locator("time");
+    await expect(date).toBeVisible();
 
     // Check for author - in the purple header for unauthenticated users
     const pageText = await page.evaluate(() => document.body.textContent);
     expect(pageText).toContain("by ");
   });
 
-  it("should display rendered markdown content", async () => {
+  test("should display rendered markdown content", async ({ page }) => {
     // Check that page has substantial content beyond the header
     const pageText = await page.evaluate(() => document.body.textContent);
     expect(pageText).toBeTruthy();

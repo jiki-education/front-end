@@ -1,79 +1,75 @@
-describe("Articles Page E2E", () => {
-  beforeAll(async () => {
-    await page.goto("http://localhost:3081/articles");
-    await page.waitForSelector("body", { timeout: 15000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Articles Page E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/articles");
     // Wait for articles content to load - look for the container div or h1
-    await page.waitForSelector(".container, main, h1", { timeout: 10000 });
-  }, 30000);
+    await page.locator("h1").waitFor();
+  });
 
-  it("should load the articles index page", async () => {
+  test("should load the articles index page", async ({ page }) => {
     // Look for the h1 heading
-    const heading = await page.$eval("h1", (el) => el.textContent);
+    const heading = await page.locator("h1").textContent();
     expect(heading).toBe("Articles");
-  }, 30000);
+  });
 
-  it("should display articles", async () => {
+  test("should display articles", async ({ page }) => {
     // Check for at least one article
-    const articles = await page.$$("article");
-    expect(articles.length).toBeGreaterThan(0);
-  }, 30000);
+    const articles = await page.locator("article").count();
+    expect(articles).toBeGreaterThan(0);
+  });
 
-  it("should display the first article with title and excerpt", async () => {
+  test("should display the first article with title and excerpt", async ({ page }) => {
     // Check first article has title
-    const firstArticleTitle = await page.$eval("article h2", (el) => el.textContent);
+    const firstArticleTitle = await page.locator("article h2").first().textContent();
     expect(firstArticleTitle).toBeTruthy();
 
     // Check first article has excerpt
-    const firstArticleExcerpt = await page.$eval("article p", (el) => el.textContent);
+    const firstArticleExcerpt = await page.locator("article p").first().textContent();
     expect(firstArticleExcerpt).toBeTruthy();
-  }, 30000);
+  });
 
-  it("should display tags for the article", async () => {
+  test("should display tags for the article", async ({ page }) => {
     // Check for at least one tag span
-    const tags = await page.$$("article span");
-    expect(tags.length).toBeGreaterThan(0);
-  }, 30000);
+    const tags = await page.locator("article span").count();
+    expect(tags).toBeGreaterThan(0);
+  });
 
-  it("should have links to individual articles", async () => {
-    const articleLink = await page.$('article a[href^="/articles/"]');
-    expect(articleLink).toBeTruthy();
-  }, 30000);
+  test("should have links to individual articles", async ({ page }) => {
+    const articleLink = page.locator('article a[href^="/articles/"]').first();
+    await expect(articleLink).toBeVisible();
+  });
 
-  it("should display articles in a grid layout", async () => {
+  test("should display articles in a grid layout", async ({ page }) => {
     // Check for grid layout class
-    const container = await page.$(".grid");
-    expect(container).toBeTruthy();
-  }, 30000);
+    const container = page.locator(".grid");
+    await expect(container).toBeVisible();
+  });
 });
 
-describe("Article Page E2E", () => {
-  beforeAll(async () => {
+test.describe("Article Page E2E", () => {
+  test.beforeEach(async ({ page }) => {
     // Navigate to the first article
-    await page.goto("http://localhost:3081/articles", { waitUntil: "networkidle0" });
-    await page.waitForSelector("article a", { timeout: 10000 });
-    const firstArticleLink = await page.$("article a");
-    if (firstArticleLink) {
-      await firstArticleLink.click();
-      await page.waitForSelector("h1", { timeout: 10000 });
-    }
-  }, 60000);
+    await page.goto("/articles");
+    await page.locator("article a").first().waitFor();
+    await page.locator("article a").first().click();
+    await page.locator("h1").waitFor();
+  });
 
-  it("should load an individual article", async () => {
-    const heading = await page.$("h1");
-    expect(heading).toBeTruthy();
-  }, 30000);
+  test("should load an individual article", async ({ page }) => {
+    const heading = page.locator("h1");
+    await expect(heading).toBeVisible();
+  });
 
-  it("should display article title", async () => {
-    const title = await page.$eval("h1", (el) => el.textContent);
+  test("should display article title", async ({ page }) => {
+    const title = await page.locator("h1").textContent();
     expect(title).toBeTruthy();
-  }, 30000);
+  });
 
-  it("should display rendered markdown content", async () => {
+  test("should display rendered markdown content", async ({ page }) => {
     // Check that page has substantial content
     const pageText = await page.evaluate(() => document.body.textContent);
     expect(pageText).toBeTruthy();
-    if (pageText) {
-      expect(pageText.length).toBeGreaterThan(100); // Should have substantial content
-    }
-  }, 30000);
+    expect(pageText.length).toBeGreaterThan(100); // Should have substantial content
+  });
 });

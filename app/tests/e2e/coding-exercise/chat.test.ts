@@ -1,10 +1,12 @@
-describe("Chat E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 10000 });
-  }, 20000);
+import { test, expect } from "@playwright/test";
 
-  it("should have chat components available in the codebase", async () => {
+test.describe("Chat E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
+  });
+
+  test("should have chat components available in the codebase", async ({ page }) => {
     // Basic test to verify chat integration exists
     // This test validates that the chat system is properly integrated
 
@@ -13,12 +15,12 @@ describe("Chat E2E", () => {
     expect(title).toBeTruthy();
 
     // Check for coding exercise interface
-    const editor = await page.$(".cm-editor");
-    expect(editor).toBeTruthy();
+    const editor = page.locator(".cm-editor");
+    await expect(editor).toBeVisible();
 
     // Look for any buttons that might include chat functionality
-    const buttons = await page.$$("button");
-    expect(buttons.length).toBeGreaterThan(0);
+    const buttons = await page.locator("button").count();
+    expect(buttons).toBeGreaterThan(0);
 
     // Verify the page has loaded without errors
     const bodyText = await page.evaluate(() => document.body.textContent);
@@ -26,22 +28,22 @@ describe("Chat E2E", () => {
     expect(bodyText.length).toBeGreaterThan(0);
   });
 
-  it("should load chat-related components without errors", async () => {
+  test("should load chat-related components without errors", async ({ page }) => {
     // Test that validates chat components can be loaded
 
     // Check for potential tab interface
-    const allElements = await page.$$("*");
-    expect(allElements.length).toBeGreaterThan(10);
+    const allElements = await page.locator("*").count();
+    expect(allElements).toBeGreaterThan(10);
 
     // Look for any elements that might be part of tab system
-    const potentialTabs = await page.$$('[role="tab"], [role="tabpanel"], button');
-    expect(potentialTabs.length).toBeGreaterThan(0);
+    const potentialTabs = await page.locator('[role="tab"], [role="tabpanel"], button').count();
+    expect(potentialTabs).toBeGreaterThan(0);
 
     // This test passes if no major errors prevent the page from loading
     expect(true).toBe(true);
   });
 
-  it("should verify chat files are properly integrated", async () => {
+  test("should verify chat files are properly integrated", async ({ page }) => {
     // This test verifies the implementation is complete by checking
     // that the page loads successfully with all our chat components
 

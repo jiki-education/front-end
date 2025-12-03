@@ -1,25 +1,22 @@
-describe("IO Test Updates E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/io-test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 5000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("IO Test Updates E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/io-test-runner");
+    await page.locator(".cm-editor").waitFor();
 
     // Enter valid code to get test results
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
-    await page.keyboard.down(modifier);
-    await page.keyboard.press("a");
-    await page.keyboard.up(modifier);
-    await page.type(".cm-content", 'function acronym with phrase do\n  return "CAT"\nend');
+    await page.keyboard.press(`${modifier}+a`);
+    await page.locator(".cm-content").pressSequentially('function acronym with phrase do\n  return "CAT"\nend');
 
     // Run tests
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
-  }, 20000);
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+  });
 
-  it("should update actual value when running code multiple times", async () => {
-    // Wait a bit for initial results to render
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
+  test("should update actual value when running code multiple times", async ({ page }) => {
     // Check first run - actual should be "CAT", expected should be "PNG"
     let firstExpect = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
@@ -31,12 +28,10 @@ describe("IO Test Updates E2E", () => {
     expect(firstExpect.pass).toBe(false);
 
     // Change code to return "PNG" (correct answer)
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
-    await page.keyboard.down(modifier);
-    await page.keyboard.press("a");
-    await page.keyboard.up(modifier);
-    await page.type(".cm-content", 'function acronym with phrase do\n  return "PNG"\nend');
+    await page.keyboard.press(`${modifier}+a`);
+    await page.locator(".cm-content").pressSequentially('function acronym with phrase do\n  return "PNG"\nend');
 
     // Run tests again
     await page.evaluate(() => {
@@ -44,8 +39,12 @@ describe("IO Test Updates E2E", () => {
       void orchestrator.runCode();
     });
 
-    // Wait for tests to complete
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for orchestrator state to update
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      const firstExpect = orchestrator.getFirstExpect();
+      return firstExpect.actual === "PNG";
+    });
 
     // Check second run - actual should now be "PNG", expected still "PNG"
     firstExpect = await page.evaluate(() => {

@@ -18,17 +18,17 @@
 - `pnpm test:watch` - Run unit tests in watch mode
 - `npx tsc --noEmit` - Run after tests to check for TypeScript errors
 
-### E2E Tests
+### E2E Tests (Playwright)
 
-- `pnpm test:e2e` - Run E2E tests with shared server (fast)
-- `pnpm test:e2e:watch` - Run E2E tests in watch mode
-- `pnpm test:e2e:headful` - Run E2E tests with visible browser
-- `pnpm test:all` - Run both unit and E2E tests
-- `pnpm test:e2e -- tests/e2e/home.test.ts` - Run specific test file
+- `pnpm test:e2e:pw` - Run all Playwright E2E tests
+- `pnpm test:e2e:pw:ui` - Run Playwright tests in interactive UI mode
+- `pnpm test:e2e:pw:headed` - Run Playwright tests with visible browser
+- `pnpm test:e2e:pw:debug` - Run Playwright tests in debug mode
+- `pnpm test:e2e:pw auth-flows.test.ts network-error.test.ts` - Run specific test files
 
 ### Setup
 
-- `npx puppeteer browsers install chrome` - Install Chrome browser for Puppeteer E2E tests (required after fresh clone)
+- `pnpm exec playwright install chromium` - Install Chromium browser for Playwright E2E tests (required after fresh clone)
 
 ## Code Quality Commands
 

@@ -1,204 +1,210 @@
-describe("FrameStepper Buttons E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/frame-stepper-buttons");
-    await page.waitForSelector('[data-testid="frame-stepper-container"]');
+import { test, expect } from "@playwright/test";
+
+test.describe("FrameStepper Buttons E2E", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/coding-exercise/frame-stepper-buttons");
+    await page.locator('[data-testid="frame-stepper-container"]').waitFor();
+    await page.close();
   });
 
-  it("should render with initial state - prev button disabled, next button enabled", async () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/frame-stepper-buttons");
+    await page.locator('[data-testid="frame-stepper-container"]').waitFor();
+  });
+
+  test("should render with initial state - prev button disabled, next button enabled", async ({ page }) => {
     // Wait for the buttons to be rendered by waiting for one of them
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
     // Get the buttons by their aria labels
-    const prevButton = await page.$('button[aria-label="Previous frame"]');
-    const nextButton = await page.$('button[aria-label="Next frame"]');
-    expect(prevButton).not.toBeNull();
-    expect(nextButton).not.toBeNull();
+    const prevButtonCount = await page.locator('button[aria-label="Previous frame"]').count();
+    const nextButtonCount = await page.locator('button[aria-label="Next frame"]').count();
+    expect(prevButtonCount).toBeGreaterThan(0);
+    expect(nextButtonCount).toBeGreaterThan(0);
 
     // Check initial state - prev button should be disabled (at first frame)
-    const prevButtonDisabled = await page.$eval('button[aria-label="Previous frame"]', (el) =>
-      el.hasAttribute("disabled")
-    );
+    const prevButtonDisabled = await page.locator('button[aria-label="Previous frame"]').isDisabled();
     expect(prevButtonDisabled).toBe(true);
 
     // Next button should be enabled (frames available)
-    const nextButtonDisabled = await page.$eval('button[aria-label="Next frame"]', (el) => el.hasAttribute("disabled"));
+    const nextButtonDisabled = await page.locator('button[aria-label="Next frame"]').isDisabled();
     expect(nextButtonDisabled).toBe(false);
 
     // Verify initial frame info
-    const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 1");
 
-    const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 1");
 
-    const frameTime = await page.$eval('[data-testid="frame-time"]', (el) => el.textContent);
+    const frameTime = await page.locator('[data-testid="frame-time"]').textContent();
     expect(frameTime).toContain("Timeline Time: 0");
-  }, 20000); // 20s timeout for navigation + compilation
+  });
 
-  it("should navigate forward through frames with next button", async () => {
-    await page.waitForSelector('button[aria-label="Next frame"]');
+  test("should navigate forward through frames with next button", async ({ page }) => {
+    await page.locator('button[aria-label="Next frame"]').waitFor();
 
-    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
 
     // Click next button to go to frame 2
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Allow state update
+    await nextButton.click();
+    await page.waitForTimeout(100); // Allow state update
 
-    let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 2");
 
-    let frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    let frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 2");
 
-    let frameTime = await page.$eval('[data-testid="frame-time"]', (el) => el.textContent);
+    let frameTime = await page.locator('[data-testid="frame-time"]').textContent();
     expect(frameTime).toContain("Timeline Time: 100");
 
     // Click next button to go to frame 3
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await nextButton.click();
+    await page.waitForTimeout(100);
 
-    frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 3");
 
-    frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 3");
 
-    frameTime = await page.$eval('[data-testid="frame-time"]', (el) => el.textContent);
+    frameTime = await page.locator('[data-testid="frame-time"]').textContent();
     expect(frameTime).toContain("Timeline Time: 200");
-  }, 40000);
+  });
 
-  it("should navigate backward through frames with prev button", async () => {
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+  test("should navigate backward through frames with prev button", async ({ page }) => {
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
-    const nextButton = await page.$('button[aria-label="Next frame"]');
-    const prevButton = await page.$('button[aria-label="Previous frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
+    const prevButton = page.locator('button[aria-label="Previous frame"]');
 
     // First navigate to frame 3
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await nextButton.click();
+    await page.waitForTimeout(100);
+    await nextButton.click();
+    await page.waitForTimeout(100);
 
     // Verify we're at frame 3
-    let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 3");
 
     // Now test going back with prev button
-    await prevButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await prevButton.click();
+    await page.waitForTimeout(100);
 
-    frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 2");
 
-    let frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    let frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 2");
 
     // Go back to frame 1
-    await prevButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await prevButton.click();
+    await page.waitForTimeout(100);
 
-    frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 1");
 
-    frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 1");
   });
 
-  it("should disable next button at last frame", async () => {
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+  test("should disable next button at last frame", async ({ page }) => {
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
-    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
 
     // Navigate to the last frame (frame 5)
     for (let i = 0; i < 4; i++) {
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await nextButton.click();
+      await page.waitForTimeout(100);
     }
 
     // Verify we're at the last frame
-    const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 5");
 
-    const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+    const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
     expect(frameLine).toContain("Line: 5");
 
     // Check that next button is now disabled
-    const nextButtonDisabled = await page.$eval('button[aria-label="Next frame"]', (el) => el.hasAttribute("disabled"));
+    const nextButtonDisabled = await page.locator('button[aria-label="Next frame"]').isDisabled();
     expect(nextButtonDisabled).toBe(true);
 
     // Prev button should still be enabled
-    const prevButtonDisabled = await page.$eval('button[aria-label="Previous frame"]', (el) =>
-      el.hasAttribute("disabled")
-    );
+    const prevButtonDisabled = await page.locator('button[aria-label="Previous frame"]').isDisabled();
     expect(prevButtonDisabled).toBe(false);
   });
 
-  it("should properly enable/disable buttons during navigation", async () => {
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+  test("should properly enable/disable buttons during navigation", async ({ page }) => {
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
-    const nextButton = await page.$('button[aria-label="Next frame"]');
-    const prevButton = await page.$('button[aria-label="Previous frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
+    const prevButton = page.locator('button[aria-label="Previous frame"]');
 
     // Initially: prev disabled, next enabled
-    let prevDisabled = await prevButton?.evaluate((el) => el.hasAttribute("disabled"));
-    let nextDisabled = await nextButton?.evaluate((el) => el.hasAttribute("disabled"));
+    let prevDisabled = await prevButton.isDisabled();
+    let nextDisabled = await nextButton.isDisabled();
     expect(prevDisabled).toBe(true);
     expect(nextDisabled).toBe(false);
 
     // Go to frame 2
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await nextButton.click();
+    await page.waitForTimeout(100);
 
     // Both buttons should be enabled in middle frames
-    prevDisabled = await prevButton?.evaluate((el) => el.hasAttribute("disabled"));
-    nextDisabled = await nextButton?.evaluate((el) => el.hasAttribute("disabled"));
+    prevDisabled = await prevButton.isDisabled();
+    nextDisabled = await nextButton.isDisabled();
     expect(prevDisabled).toBe(false);
     expect(nextDisabled).toBe(false);
 
     // Navigate to last frame
     for (let i = 0; i < 3; i++) {
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await nextButton.click();
+      await page.waitForTimeout(100);
     }
 
     // At last frame: prev enabled, next disabled
-    prevDisabled = await prevButton?.evaluate((el) => el.hasAttribute("disabled"));
-    nextDisabled = await nextButton?.evaluate((el) => el.hasAttribute("disabled"));
+    prevDisabled = await prevButton.isDisabled();
+    nextDisabled = await nextButton.isDisabled();
     expect(prevDisabled).toBe(false);
     expect(nextDisabled).toBe(true);
 
     // Go back to first frame
     for (let i = 0; i < 4; i++) {
-      await prevButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await prevButton.click();
+      await page.waitForTimeout(100);
     }
 
     // Back at first frame: prev disabled, next enabled
-    prevDisabled = await prevButton?.evaluate((el) => el.hasAttribute("disabled"));
-    nextDisabled = await nextButton?.evaluate((el) => el.hasAttribute("disabled"));
+    prevDisabled = await prevButton.isDisabled();
+    nextDisabled = await nextButton.isDisabled();
     expect(prevDisabled).toBe(true);
     expect(nextDisabled).toBe(false);
   });
 
-  it("should handle complete forward and backward navigation cycle", async () => {
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+  test("should handle complete forward and backward navigation cycle", async ({ page }) => {
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
-    const nextButton = await page.$('button[aria-label="Next frame"]');
-    const prevButton = await page.$('button[aria-label="Previous frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
+    const prevButton = page.locator('button[aria-label="Previous frame"]');
 
     // Track all frame descriptions during forward navigation
     const forwardFrames: string[] = [];
 
     // Get initial frame
-    let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     forwardFrames.push(frameDescription || "");
 
     // Navigate forward through all frames
     for (let i = 1; i <= 4; i++) {
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
-      frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       forwardFrames.push(frameDescription || "");
     }
 
@@ -215,10 +221,10 @@ describe("FrameStepper Buttons E2E", () => {
 
     // Navigate backward through all frames
     for (let i = 4; i >= 1; i--) {
-      await prevButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await prevButton.click();
+      await page.waitForTimeout(100);
 
-      frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       backwardFrames.push(frameDescription || "");
     }
 
@@ -230,198 +236,198 @@ describe("FrameStepper Buttons E2E", () => {
     expect(backwardFrames[3]).toContain("Frame 1");
   });
 
-  it("should not navigate when buttons are disabled", async () => {
-    await page.waitForSelector('button[aria-label="Previous frame"]');
+  test("should not navigate when buttons are disabled", async ({ page }) => {
+    await page.locator('button[aria-label="Previous frame"]').waitFor();
 
     // At initial state, prev button should be disabled
-    const prevButton = await page.$('button[aria-label="Previous frame"]');
+    const prevButton = page.locator('button[aria-label="Previous frame"]');
 
     // Try to click the disabled prev button
-    await prevButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await prevButton.click({ force: true });
+    await page.waitForTimeout(100);
 
     // Should still be at frame 1
-    let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 1");
 
     // Navigate to last frame
-    const nextButton = await page.$('button[aria-label="Next frame"]');
+    const nextButton = page.locator('button[aria-label="Next frame"]');
     for (let i = 0; i < 4; i++) {
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await nextButton.click();
+      await page.waitForTimeout(100);
     }
 
     // Verify at last frame
-    frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 5");
 
     // Try to click the disabled next button
-    await nextButton?.click();
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await nextButton.click({ force: true });
+    await page.waitForTimeout(100);
 
     // Should still be at frame 5
-    frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+    frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
     expect(frameDescription).toContain("Frame 5");
   });
 
-  describe("Line Folding Integration", () => {
-    it("should skip folded lines when navigating with next button", async () => {
-      await page.waitForSelector('[data-testid="fold-line-2"]');
+  test.describe("Line Folding Integration", () => {
+    test("should skip folded lines when navigating with next button", async ({ page }) => {
+      await page.locator('[data-testid="fold-line-2"]').waitFor();
 
       // Fold line 2
-      await page.click('[data-testid="fold-line-2"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-line-2"]').click();
+      await page.waitForTimeout(100);
 
       // Verify line 2 is folded
-      const foldedLines = await page.$eval('[data-testid="folded-lines"]', (el) => el.textContent);
+      const foldedLines = await page.locator('[data-testid="folded-lines"]').textContent();
       expect(foldedLines).toContain("2");
 
       // Navigate with next button - should skip from frame 1 to frame 3
-      const nextButton = await page.$('button[aria-label="Next frame"]');
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const nextButton = page.locator('button[aria-label="Next frame"]');
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
       // Should be at frame 3 (skipping frame 2)
-      const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 3");
 
-      const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+      const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
       expect(frameLine).toContain("Line: 3");
     });
 
-    it("should skip folded lines when navigating with prev button", async () => {
-      await page.waitForSelector('[data-testid="fold-line-3"]');
+    test("should skip folded lines when navigating with prev button", async ({ page }) => {
+      await page.locator('[data-testid="fold-line-3"]').waitFor();
 
       // First navigate to frame 4
-      const nextButton = await page.$('button[aria-label="Next frame"]');
+      const nextButton = page.locator('button[aria-label="Next frame"]');
       for (let i = 0; i < 3; i++) {
-        await nextButton?.click();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await nextButton.click();
+        await page.waitForTimeout(100);
       }
 
       // Verify at frame 4
-      let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 4");
 
       // Now fold line 3
-      await page.click('[data-testid="fold-line-3"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-line-3"]').click();
+      await page.waitForTimeout(100);
 
       // Navigate back with prev button
-      const prevButton = await page.$('button[aria-label="Previous frame"]');
-      await prevButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const prevButton = page.locator('button[aria-label="Previous frame"]');
+      await prevButton.click();
+      await page.waitForTimeout(100);
 
       // Should be at frame 2 (skipping frame 3)
-      frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 2");
 
-      const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+      const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
       expect(frameLine).toContain("Line: 2");
     });
 
-    it("should handle multiple folded lines", async () => {
-      await page.waitForSelector('[data-testid="fold-lines-2-3"]');
+    test("should handle multiple folded lines", async ({ page }) => {
+      await page.locator('[data-testid="fold-lines-2-3"]').waitFor();
 
       // Fold lines 2 and 3
-      await page.click('[data-testid="fold-lines-2-3"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-lines-2-3"]').click();
+      await page.waitForTimeout(100);
 
       // Verify both lines are folded
-      const foldedLines = await page.$eval('[data-testid="folded-lines"]', (el) => el.textContent);
+      const foldedLines = await page.locator('[data-testid="folded-lines"]').textContent();
       expect(foldedLines).toContain("2");
       expect(foldedLines).toContain("3");
 
       // Navigate with next button - should skip from frame 1 to frame 4
-      const nextButton = await page.$('button[aria-label="Next frame"]');
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const nextButton = page.locator('button[aria-label="Next frame"]');
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
       // Should be at frame 4 (skipping frames 2 and 3)
-      const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 4");
 
-      const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+      const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
       expect(frameLine).toContain("Line: 4");
     });
 
-    it("should update navigation when lines are unfolded", async () => {
-      await page.waitForSelector('[data-testid="fold-line-2"]');
+    test("should update navigation when lines are unfolded", async ({ page }) => {
+      await page.locator('[data-testid="fold-line-2"]').waitFor();
 
       // Fold line 2
-      await page.click('[data-testid="fold-line-2"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-line-2"]').click();
+      await page.waitForTimeout(100);
 
       // Navigate to frame 3 (skipping frame 2)
-      const nextButton = await page.$('button[aria-label="Next frame"]');
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const nextButton = page.locator('button[aria-label="Next frame"]');
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
-      let frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      let frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 3");
 
       // Unfold line 2
-      await page.click('[data-testid="unfold-line-2"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="unfold-line-2"]').click();
+      await page.waitForTimeout(100);
 
       // Navigate back with prev button
-      const prevButton = await page.$('button[aria-label="Previous frame"]');
-      await prevButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const prevButton = page.locator('button[aria-label="Previous frame"]');
+      await prevButton.click();
+      await page.waitForTimeout(100);
 
       // Should now be at frame 2 (no longer skipped)
-      frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 2");
 
-      const frameLine = await page.$eval('[data-testid="frame-line"]', (el) => el.textContent);
+      const frameLine = await page.locator('[data-testid="frame-line"]').textContent();
       expect(frameLine).toContain("Line: 2");
     });
 
-    it("should clear all folded lines", async () => {
-      await page.waitForSelector('[data-testid="fold-lines-2-3"]');
+    test("should clear all folded lines", async ({ page }) => {
+      await page.locator('[data-testid="fold-lines-2-3"]').waitFor();
 
       // Fold multiple lines
-      await page.click('[data-testid="fold-lines-2-3"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-lines-2-3"]').click();
+      await page.waitForTimeout(100);
 
       // Verify lines are folded
-      let foldedLines = await page.$eval('[data-testid="folded-lines"]', (el) => el.textContent);
+      let foldedLines = await page.locator('[data-testid="folded-lines"]').textContent();
       expect(foldedLines).toContain("2");
       expect(foldedLines).toContain("3");
 
       // Clear all folds
-      await page.click('[data-testid="clear-folded-lines"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="clear-folded-lines"]').click();
+      await page.waitForTimeout(100);
 
       // Verify no lines are folded
-      foldedLines = await page.$eval('[data-testid="folded-lines"]', (el) => el.textContent);
+      foldedLines = await page.locator('[data-testid="folded-lines"]').textContent();
       expect(foldedLines).toContain("None");
 
       // Navigate should now visit all frames normally
-      const nextButton = await page.$('button[aria-label="Next frame"]');
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const nextButton = page.locator('button[aria-label="Next frame"]');
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
       // Should be at frame 2 (not skipped)
-      const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 2");
     });
 
-    it("should properly disable buttons when all intermediate frames are folded", async () => {
-      await page.waitForSelector('[data-testid="fold-lines-2-3"]');
+    test("should properly disable buttons when all intermediate frames are folded", async ({ page }) => {
+      await page.locator('[data-testid="fold-lines-2-3"]').waitFor();
 
       // Navigate to frame 5
-      const nextButton = await page.$('button[aria-label="Next frame"]');
+      const nextButton = page.locator('button[aria-label="Next frame"]');
       for (let i = 0; i < 4; i++) {
-        await nextButton?.click();
-        await new Promise((resolve) => setTimeout(resolve, 100));
+        await nextButton.click();
+        await page.waitForTimeout(100);
       }
 
       // Fold lines 2, 3, and 4
-      await page.click('[data-testid="fold-lines-2-3"]');
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      await page.click('[data-testid="fold-line-2"]'); // This shouldn't duplicate since 2 is already folded
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.locator('[data-testid="fold-lines-2-3"]').click();
+      await page.waitForTimeout(100);
+      await page.locator('[data-testid="fold-line-2"]').click(); // This shouldn't duplicate since 2 is already folded
+      await page.waitForTimeout(100);
 
       // Add folding for line 4
       await page.evaluate(() => {
@@ -431,22 +437,22 @@ describe("FrameStepper Buttons E2E", () => {
         const newFoldedLines = [...new Set([...currentState.foldedLines, 4])];
         store.getState().setFoldedLines(newFoldedLines);
       });
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await page.waitForTimeout(100);
 
       // Navigate back to frame 1
-      const prevButton = await page.$('button[aria-label="Previous frame"]');
-      await prevButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      const prevButton = page.locator('button[aria-label="Previous frame"]');
+      await prevButton.click();
+      await page.waitForTimeout(100);
 
       // Should jump directly to frame 1
-      const frameDescription = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      const frameDescription = await page.locator('[data-testid="current-frame"]').textContent();
       expect(frameDescription).toContain("Frame 1");
 
       // Now next button should take us directly to frame 5
-      await nextButton?.click();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await nextButton.click();
+      await page.waitForTimeout(100);
 
-      const finalFrame = await page.$eval('[data-testid="current-frame"]', (el) => el.textContent);
+      const finalFrame = await page.locator('[data-testid="current-frame"]').textContent();
       expect(finalFrame).toContain("Frame 5");
     });
   });

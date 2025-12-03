@@ -35,8 +35,11 @@ pnpm test
 # Run tests in watch mode (re-runs on file changes)
 pnpm test:watch
 
-# Run E2E browser tests
-pnpm test:e2e
+# Run E2E browser tests (Playwright)
+pnpm test:e2e:pw
+
+# Run E2E tests with UI
+pnpm test:e2e:pw:ui
 
 # Run all tests (unit, integration, and E2E)
 pnpm test:all
@@ -44,10 +47,10 @@ pnpm test:all
 
 ### E2E Test Setup
 
-Before running E2E tests for the first time, install the Chrome browser for Puppeteer:
+Before running Playwright E2E tests for the first time, install Chromium:
 
 ```bash
-npx puppeteer browsers install chrome
+pnpm exec playwright install chromium
 ```
 
 ### Test Structure

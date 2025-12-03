@@ -1,26 +1,31 @@
-describe("Auto-Play Timeline E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081/test/coding-exercise/test-runner");
-    await page.waitForSelector(".cm-editor", { timeout: 5000 });
-  }, 20000);
+import { test, expect } from "@playwright/test";
 
-  it("should auto-play timeline after running tests successfully", async () => {
+test.describe("Auto-Play Timeline E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/coding-exercise/test-runner");
+    await page.locator(".cm-editor").waitFor();
+  });
+
+  test("should auto-play timeline after running tests successfully", async ({ page }) => {
     // Clear and enter valid code
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     // Click Run Code
-    await page.click('[data-testid="run-button"]');
+    await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test results
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
-    // Wait a bit for auto-play to start
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for auto-play to start
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Check that animation is playing (isPlaying should be true)
     const isPlaying = await page.evaluate(() => {
@@ -31,26 +36,32 @@ describe("Auto-Play Timeline E2E", () => {
     expect(isPlaying).toBe(true);
   });
 
-  it("should NOT auto-play after user manually pauses", async () => {
+  test("should NOT auto-play after user manually pauses", async ({ page }) => {
     // Run tests first
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for auto-play to start
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Click pause button
-    await page.click('[data-ci="pause-button"]');
+    await page.locator('[data-ci="pause-button"]').click();
 
-    // Wait a bit
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Wait for pause to take effect
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().shouldPlayOnTestChange === false;
+    });
 
     // Verify shouldAutoPlay is false
     const shouldAutoPlay = await page.evaluate(() => {
@@ -60,17 +71,20 @@ describe("Auto-Play Timeline E2E", () => {
     expect(shouldAutoPlay).toBe(false);
 
     // Run tests again (modify code slightly to trigger re-run)
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()\n");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()\n");
 
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
-    // Wait a bit
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for auto-play to start
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Should be playing (after running code, shouldAutoPlay is set to true)
     // So it SHOULD auto-play again
@@ -83,23 +97,26 @@ describe("Auto-Play Timeline E2E", () => {
     expect(isPlayingAfterRerun).toBe(true);
   });
 
-  it("should set shouldAutoPlay flag when running tests again", async () => {
+  test("should set shouldAutoPlay flag when running tests again", async ({ page }) => {
     // Run tests first
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for auto-play
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Pause
-    await page.click('[data-ci="pause-button"]');
+    await page.locator('[data-ci="pause-button"]').click();
 
     // Verify shouldAutoPlay is false
     let shouldAutoPlay = await page.evaluate(() => {
@@ -109,11 +126,14 @@ describe("Auto-Play Timeline E2E", () => {
     expect(shouldAutoPlay).toBe(false);
 
     // Run tests again
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
-    // Wait a bit
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Wait for shouldAutoPlay to be set to true
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().shouldPlayOnTestChange === true;
+    });
 
     // shouldAutoPlay should be set to true
     shouldAutoPlay = await page.evaluate(() => {
@@ -130,20 +150,23 @@ describe("Auto-Play Timeline E2E", () => {
     expect(isPlaying).toBe(true);
   });
 
-  it("should NOT auto-play when syntax error occurs", async () => {
+  test("should NOT auto-play when syntax error occurs", async ({ page }) => {
     // Enter invalid code (syntax error)
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "invalid syntax here!!!");
+    await page.locator(".cm-content").pressSequentially("invalid syntax here!!!");
 
     // Click Run Code
-    await page.click('[data-testid="run-button"]');
+    await page.locator('[data-testid="run-button"]').click();
 
     // Wait for error to be shown
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().hasSyntaxError === true;
+    });
 
     // Check that hasSyntaxError is true
     const hasSyntaxError = await page.evaluate(() => {
@@ -160,30 +183,36 @@ describe("Auto-Play Timeline E2E", () => {
     expect(isPlaying).toBe(false);
 
     // Verify no play button exists (timeline shouldn't be shown for syntax errors)
-    const playButton = await page.$('[data-ci="play-button"]');
-    expect(playButton).toBeNull();
+    const playButton = await page.locator('[data-ci="play-button"]').count();
+    expect(playButton).toBe(0);
   });
 
-  it("should play timeline when user manually clicks play button after pause", async () => {
+  test("should play timeline when user manually clicks play button after pause", async ({ page }) => {
     // Run tests
-    await page.click(".cm-content");
+    await page.locator(".cm-content").click();
     const modifier = process.platform === "darwin" ? "Meta" : "Control";
     await page.keyboard.down(modifier);
     await page.keyboard.press("a");
     await page.keyboard.up(modifier);
-    await page.type(".cm-content", "move()\nmove()\nmove()\nmove()\nmove()");
+    await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
-    await page.click('[data-testid="run-button"]');
-    await page.waitForSelector('[data-ci="inspected-test-result-view"]', { timeout: 5000 });
+    await page.locator('[data-testid="run-button"]').click();
+    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Wait for auto-play
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === true;
+    });
 
     // Pause
-    await page.click('[data-ci="pause-button"]');
+    await page.locator('[data-ci="pause-button"]').click();
 
-    // Wait a bit
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Wait for pause to take effect
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().isPlaying === false;
+    });
 
     // Verify paused
     let isPlaying = await page.evaluate(() => {
@@ -200,7 +229,7 @@ describe("Auto-Play Timeline E2E", () => {
     expect(shouldAutoPlay).toBe(false);
 
     // Now manually click play
-    await page.click('[data-ci="play-button"]');
+    await page.locator('[data-ci="play-button"]').click();
 
     // Check immediately that it started playing (don't wait or timeline might complete)
     isPlaying = await page.evaluate(() => {

@@ -1,14 +1,16 @@
-describe("Navigation E2E", () => {
-  beforeEach(async () => {
-    await page.goto("http://localhost:3081");
-    await page.waitForSelector("body", { timeout: 10000 });
+import { test, expect } from "@playwright/test";
+
+test.describe("Navigation E2E", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await page.locator("body").waitFor();
   });
 
-  it("should navigate between pages", async () => {
+  test("should navigate between pages", async ({ page }) => {
     // Wait for page to fully load before getting links
-    await page.waitForSelector("main", { timeout: 10000 });
+    await page.locator("main").waitFor();
 
-    const links = await page.$$eval('a[href^="/"]', (linkElements) =>
+    const links = await page.locator('a[href^="/"]').evaluateAll((linkElements) =>
       linkElements.map((link) => ({
         href: link.getAttribute("href"),
         text: (link.textContent || "").trim()
@@ -27,31 +29,31 @@ describe("Navigation E2E", () => {
 
     // Test only first 2 non-auth links to avoid timeout
     for (const link of nonAuthLinks.slice(0, 2)) {
-      await page.goto(`http://localhost:3081${link.href}`);
-      await page.waitForSelector("body", { timeout: 10000 });
+      await page.goto(link.href!);
+      await page.locator("body").waitFor();
 
       const url = page.url();
-      expect(url).toContain(link.href);
+      expect(url).toContain(link.href!);
 
       await page.goBack();
-      await page.waitForSelector("body", { timeout: 10000 });
+      await page.locator("body").waitFor();
     }
-  }, 60000);
+  });
 
-  it("should handle 404 pages gracefully", async () => {
-    await page.goto("http://localhost:3081/non-existent-page");
-    await page.waitForSelector("body", { timeout: 10000 });
+  test("should handle 404 pages gracefully", async ({ page }) => {
+    await page.goto("/non-existent-page");
+    await page.locator("body").waitFor();
 
-    const body = await page.$("body");
-    expect(body).toBeTruthy();
-  }, 30000);
+    const body = page.locator("body");
+    await expect(body).toBeVisible();
+  });
 
-  it("should measure page load performance", async () => {
+  test("should measure page load performance", async ({ page }) => {
     const startTime = Date.now();
-    await page.goto("http://localhost:3081");
-    await page.waitForSelector("main", { timeout: 10000 });
+    await page.goto("/");
+    await page.locator("main").waitFor();
     const loadTime = Date.now() - startTime;
 
     expect(loadTime).toBeLessThan(10000);
-  }, 30000);
+  });
 });
