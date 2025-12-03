@@ -11,20 +11,16 @@ interface SidebarLayoutProps {
 }
 
 export default function SidebarLayout({ activeItem, children }: SidebarLayoutProps) {
-  const { isAuthenticated } = useAuthStore();
-  if (isAuthenticated) {
-    return (
-      <div className="min-h-screen flex bg-white">
-        <Sidebar activeItem={activeItem} />
-        <main className="flex-1 mt-[70px]">{children}</main>
-      </div>
-    );
-  }
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <ExternalHeader />
+      <Header activeItem={activeItem} />
       <main className="flex-1 mt-[70px]">{children}</main>
       <Footer />
     </div>
   );
+}
+
+function Header({ activeItem }: { activeItem: string }) {
+  const { isAuthenticated } = useAuthStore();
+  return isAuthenticated ? <Sidebar activeItem={activeItem} /> : <ExternalHeader />;
 }
