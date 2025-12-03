@@ -18,6 +18,8 @@ export interface Level {
 export interface UserLevel {
   level_slug: string;
   user_lessons: UserLesson[];
+  completed_at?: string;
+  current?: boolean;
 }
 
 // API Response types
@@ -33,4 +35,5 @@ export interface UserLevelsResponse {
 export interface LevelWithProgress extends Level {
   userProgress?: UserLevel;
   status?: "not_started" | "started" | "completed";
+  milestoneStatus?: "not_ready" | "ready_for_completion" | "completed";
 }

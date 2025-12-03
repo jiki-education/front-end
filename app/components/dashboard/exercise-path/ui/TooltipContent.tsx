@@ -33,6 +33,37 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
       onNavigate(exercise.route); // Let parent handle navigation with loading state
     }
   };
+
+  // Determine the context-aware description and button text
+  const getContextualContent = () => {
+    if (exercise.locked) {
+      return {
+        description: "Complete the previous lesson to unlock this one.",
+        buttonText: "Locked",
+        buttonStyle: "bg-gray-400 cursor-not-allowed text-white",
+        disabled: true
+      };
+    }
+    
+    if (exercise.completed) {
+      return {
+        description: "You've completed this lesson! You can review it anytime or continue to the next challenge.",
+        buttonText: "Review Lesson",
+        buttonStyle: "bg-gray-100 hover:bg-gray-200 text-gray-700",
+        disabled: false
+      };
+    }
+    
+    return {
+      description: exercise.description,
+      buttonText: "Start Lesson",
+      buttonStyle: "bg-blue-500 hover:bg-blue-600 text-white",
+      disabled: false
+    };
+  };
+
+  const contextualContent = getContextualContent();
+
   return (
     <div className="flex items-start gap-3">
       <div className={`mt-1 ${getDifficultyColor(exercise.difficulty)}`}>
@@ -43,7 +74,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
           {exercise.title}
         </h3>
         <p id={descriptionId} className="text-sm text-gray-600 mt-1">
-          {exercise.description}
+          {contextualContent.description}
         </p>
 
         <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
@@ -75,17 +106,22 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
           </div>
         )}
 
-        <Link
-          href={exercise.route}
-          onClick={handleLessonStart}
-          className={`mt-4 w-full px-4 py-2 rounded-lg font-medium text-sm transition-colors inline-block text-center ${
-            exercise.completed
-              ? "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
-          }`}
-        >
-          {exercise.completed ? "Review Lesson" : "Start Lesson"}
-        </Link>
+        {contextualContent.disabled ? (
+          <button
+            disabled
+            className={`mt-4 w-full px-4 py-2 rounded-lg font-medium text-sm transition-colors ${contextualContent.buttonStyle}`}
+          >
+            {contextualContent.buttonText}
+          </button>
+        ) : (
+          <Link
+            href={exercise.route}
+            onClick={handleLessonStart}
+            className={`mt-4 w-full px-4 py-2 rounded-lg font-medium text-sm transition-colors inline-block text-center ${contextualContent.buttonStyle}`}
+          >
+            {contextualContent.buttonText}
+          </Link>
+        )}
       </div>
     </div>
   );

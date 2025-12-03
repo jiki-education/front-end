@@ -10,12 +10,18 @@ import NavigationLoadingOverlay from "@/components/common/NavigationLoadingOverl
 import { ExerciseNode } from "./ExerciseNode";
 import { LessonTooltip } from "./LessonTooltip";
 import { PathConnection } from "./PathConnection";
+import { MilestoneButton } from "./ui/MilestoneButton";
+import { showModal } from "@/lib/modal";
+import { completeLevelMilestone } from "@/lib/api/levels";
 
 interface LevelSection {
   levelSlug: string;
   levelTitle: string;
   lessons: Exercise[];
   isLocked: boolean;
+  milestoneStatus: "not_ready" | "ready_for_completion" | "completed";
+  completedLessonsCount: number;
+  xpEarned: number;
 }
 
 function mapLevelsToSections(levels: LevelWithProgress[]): LevelSection[] {
@@ -75,15 +81,34 @@ function mapLevelsToSections(levels: LevelWithProgress[]): LevelSection[] {
       };
     });
 
+    // Calculate milestone status
+    const completedLessonsCount = lessons.filter((l) => l.completed).length;
+    const allLessonsCompleted = completedLessonsCount === lessons.length;
+    const isLevelCompleted = level.userProgress?.completed_at != null;
+    
+    let milestoneStatus: "not_ready" | "ready_for_completion" | "completed" = "not_ready";
+    if (isLevelCompleted) {
+      milestoneStatus = "completed";
+    } else if (allLessonsCompleted && !isLevelLocked) {
+      milestoneStatus = "ready_for_completion";
+    }
+
+    // Calculate XP earned from this level
+    const xpEarned = lessons.reduce((total, lesson) => total + (lesson.completed ? lesson.xpReward : 0), 0);
+
     sections.push({
       levelSlug: level.slug,
       levelTitle,
       lessons,
-      isLocked: isLevelLocked
+      isLocked: isLevelLocked,
+      milestoneStatus,
+      completedLessonsCount,
+      xpEarned
     });
 
-    // Update y position for next level (account for header + lessons)
-    yPosition += 80 + lessons.length * 120;
+    // Update y position for next level (account for header + lessons + potential milestone button)
+    const milestoneButtonSpace = milestoneStatus === "ready_for_completion" ? 100 : 0;
+    yPosition += 80 + lessons.length * 120 + milestoneButtonSpace;
   });
 
   return sections;
@@ -95,6 +120,7 @@ export default function ExercisePath() {
   const [levelsLoading, setLevelsLoading] = useState(true);
   const [levelsError, setLevelsError] = useState<string | null>(null);
   const [clickedLessonId, setClickedLessonId] = useState<string | null>(null);
+  const [levelCompletionInProgress, setLevelCompletionInProgress] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   // Load levels on mount
@@ -133,16 +159,62 @@ export default function ExercisePath() {
     });
   };
 
+  const handleMilestoneClick = (section: LevelSection) => {
+    if (section.milestoneStatus !== "ready_for_completion" || levelCompletionInProgress) {
+      return;
+    }
+
+    setLevelCompletionInProgress(section.levelSlug);
+
+    try {
+      // Show level milestone modal
+      showModal("level-milestone-modal", {
+        levelTitle: section.levelTitle,
+        completedLessonsCount: section.completedLessonsCount,
+        totalLessonsCount: section.lessons.length,
+        xpEarned: section.xpEarned,
+        onContinue: async () => {
+          try {
+            // Call the API to complete the level milestone
+            await completeLevelMilestone(section.levelSlug);
+            
+            // Refresh the levels data to show the updated state
+            const updatedLevels = await fetchLevelsWithProgress();
+            setLevels(updatedLevels);
+            
+            // Level completion successful - state is updated via setLevels
+          } catch (error) {
+            console.error("Failed to complete level milestone:", error);
+            // TODO: Show error toast
+          } finally {
+            setLevelCompletionInProgress(null);
+          }
+        },
+        onGoToDashboard: () => {
+          setLevelCompletionInProgress(null);
+          // Already on dashboard, just close modal
+        }
+      });
+    } catch (error) {
+      console.error("Failed to show milestone modal:", error);
+      setLevelCompletionInProgress(null);
+    }
+  };
+
   const sections = useMemo(() => {
     if (levels.length === 0) {
       // Return mock data formatted as sections for development
       const mockExercises = generateMockExercises();
+      const completedLessonsCount = mockExercises.filter(e => e.completed).length;
       return [
         {
           levelSlug: "mock",
           levelTitle: "Mock Exercises",
           lessons: mockExercises,
-          isLocked: false
+          isLocked: false,
+          milestoneStatus: completedLessonsCount === mockExercises.length ? "ready_for_completion" : "not_ready",
+          completedLessonsCount,
+          xpEarned: mockExercises.reduce((total, lesson) => total + (lesson.completed ? lesson.xpReward : 0), 0)
         }
       ];
     }
@@ -272,6 +344,22 @@ export default function ExercisePath() {
                   </LessonTooltip>
                 </div>
               ))}
+              
+              {/* Milestone Button - show when level is ready for completion */}
+              {section.milestoneStatus === "ready_for_completion" && section.lessons.length > 0 && (
+                <div
+                  className="absolute left-1/2 transform -translate-x-1/2"
+                  style={{
+                    top: `${section.lessons[section.lessons.length - 1].position.y + 80}px`
+                  }}
+                >
+                  <MilestoneButton
+                    levelTitle={section.levelTitle}
+                    onClick={() => handleMilestoneClick(section)}
+                    disabled={levelCompletionInProgress === section.levelSlug}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </div>

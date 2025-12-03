@@ -184,3 +184,49 @@
     line-height: 1.5;
     margin: 0;
 }
+
+/* Achievement summary styling for level milestone modal */
+.achievementSummary {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin: 32px 0;
+    padding: 24px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #0ea5e9;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(14, 165, 233, 0.1);
+}
+
+.achievementItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.achievementIcon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.achievementDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.achievementValue {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin-bottom: 4px;
+}
+
+.achievementLabel {
+    font-size: 12px;
+    color: #0369a1;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}

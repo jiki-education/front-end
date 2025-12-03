@@ -11,6 +11,11 @@ export async function fetchUserLevels(): Promise<UserLevel[]> {
   return response.data.user_levels;
 }
 
+export async function completeLevelMilestone(levelSlug: string): Promise<any> {
+  const response = await api.patch(`/internal/user_levels/${levelSlug}/complete`);
+  return response.data;
+}
+
 export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
   const [levels, userLevels] = await Promise.all([fetchLevels(), fetchUserLevels()]);
 
