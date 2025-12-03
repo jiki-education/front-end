@@ -1,6 +1,14 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Orchestrator-CodeMirror E2E", () => {
+  // Warm up the page compilation before running tests
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/test/coding-exercise/orchestrator-codemirror");
+    await page.locator(".cm-editor").waitFor();
+    await page.close();
+  });
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/test/coding-exercise/orchestrator-codemirror");
     await page.locator("body").waitFor();
@@ -57,10 +65,15 @@ test.describe("Orchestrator-CodeMirror E2E", () => {
       await page.locator(".cm-lineNumbers .cm-gutterElement").nth(1).click();
 
       // Wait for breakpoint to be added
-      await page.waitForFunction((expectedCount) => {
-        const markers = document.querySelectorAll(".cm-breakpoint-marker");
-        return markers.length === expectedCount;
-      }, initialCount + 1);
+      const expectedCountAfterAdd = initialCount + 1;
+      await page.waitForFunction(
+        (count) => {
+          const markers = document.querySelectorAll(".cm-breakpoint-marker");
+          return markers.length === count;
+        },
+        expectedCountAfterAdd,
+        { timeout: 10000 }
+      );
 
       // Verify breakpoint was added
       let currentCount = await page.locator(".cm-breakpoint-marker").count();
@@ -70,10 +83,14 @@ test.describe("Orchestrator-CodeMirror E2E", () => {
       await page.locator(".cm-lineNumbers .cm-gutterElement").nth(1).click();
 
       // Wait for breakpoint to be removed
-      await page.waitForFunction((expectedCount) => {
-        const markers = document.querySelectorAll(".cm-breakpoint-marker");
-        return markers.length === expectedCount;
-      }, initialCount);
+      await page.waitForFunction(
+        (count) => {
+          const markers = document.querySelectorAll(".cm-breakpoint-marker");
+          return markers.length === count;
+        },
+        initialCount,
+        { timeout: 10000 }
+      );
 
       // Verify breakpoint was removed
       currentCount = await page.locator(".cm-breakpoint-marker").count();

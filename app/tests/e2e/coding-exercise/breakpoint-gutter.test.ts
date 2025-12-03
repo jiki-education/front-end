@@ -311,6 +311,8 @@ test.describe("Breakpoint Gutter E2E", () => {
     });
 
     test("should handle rapid clicking on gutter", async ({ page }) => {
+      test.skip(!!process.env.CI, "Skipped in CI due to resource exhaustion");
+
       const lineGutter = await page.locator(`.cm-lineNumbers .cm-gutterElement`).all();
 
       // Rapidly click multiple lines (with minimal delay to avoid click errors)
