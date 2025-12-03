@@ -9,110 +9,149 @@ export class ValidationError extends Error {
   }
 }
 
-export function validateFrontmatter(
+export interface Config {
+  date: string;
+  author: string;
+  featured: boolean;
+  coverImage: string;
+}
+
+/**
+ * Validate config.json structural metadata
+ */
+export function validateConfig(
   slug: string,
-  frontmatter: unknown,
+  config: unknown,
   authors: AuthorRegistry,
   imagesDir: string
+): asserts config is Config {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Post '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  // Validate required fields
+  const requiredFields = ["date", "author", "featured", "coverImage"];
+  for (const field of requiredFields) {
+    if (!(field in cfg)) {
+      throw new ValidationError(`Post '${slug}' config.json missing required field: ${field}`);
+    }
+  }
+
+  // Validate date format (YYYY-MM-DD)
+  if (typeof cfg.date !== "string") {
+    throw new ValidationError(`Post '${slug}' config.json has invalid date: must be string`);
+  }
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(cfg.date)) {
+    throw new ValidationError(
+      `Post '${slug}' config.json has invalid date format: '${cfg.date}' (expected YYYY-MM-DD)`
+    );
+  }
+
+  // Validate it's an actual date
+  const dateObj = new Date(cfg.date);
+  if (isNaN(dateObj.getTime())) {
+    throw new ValidationError(`Post '${slug}' config.json has invalid date: '${cfg.date}' is not a valid date`);
+  }
+
+  // Validate author
+  if (typeof cfg.author !== "string" || cfg.author.trim() === "") {
+    throw new ValidationError(`Post '${slug}' config.json has invalid author: must be non-empty string`);
+  }
+
+  // Validate author exists
+  if (!(cfg.author in authors)) {
+    throw new ValidationError(`Post '${slug}' config.json references unknown author: '${cfg.author}'`);
+  }
+
+  // Validate featured
+  if (typeof cfg.featured !== "boolean") {
+    throw new ValidationError(`Post '${slug}' config.json has invalid featured: must be boolean`);
+  }
+
+  // Validate coverImage
+  if (typeof cfg.coverImage !== "string" || cfg.coverImage.trim() === "") {
+    throw new ValidationError(`Post '${slug}' config.json has invalid coverImage: must be non-empty string`);
+  }
+
+  // Validate cover image exists
+  const coverImagePath = cfg.coverImage.replace(/^\/images\//, "").replace(/^\/static\/images\//, "");
+  const coverImageFullPath = path.join(imagesDir, coverImagePath);
+
+  if (!fs.existsSync(coverImageFullPath)) {
+    throw new ValidationError(`Post '${slug}' config.json references missing cover image: ${coverImagePath}`);
+  }
+}
+
+/**
+ * Validate markdown frontmatter (translatable fields only)
+ * Structural fields (date, author, featured, coverImage) are ignored if present
+ */
+export function validateFrontmatter(
+  slug: string,
+  locale: string,
+  frontmatter: unknown
 ): asserts frontmatter is Frontmatter {
   if (frontmatter === null || typeof frontmatter !== "object") {
-    throw new ValidationError(`Post '${slug}' has invalid frontmatter: not an object`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid frontmatter: not an object`);
   }
 
   const fm = frontmatter as Record<string, unknown>;
 
-  // Validate required fields
-  const requiredFields = ["title", "date", "excerpt", "author", "tags", "seo", "featured", "coverImage"];
+  // Validate required translatable fields
+  const requiredFields = ["title", "excerpt", "tags", "seo"];
   for (const field of requiredFields) {
     if (!(field in fm)) {
-      throw new ValidationError(`Post '${slug}' missing required frontmatter field: ${field}`);
+      throw new ValidationError(`Post '${slug}' (${locale}) missing required frontmatter field: ${field}`);
     }
   }
 
   // Validate types
   if (typeof fm.title !== "string" || fm.title.trim() === "") {
-    throw new ValidationError(`Post '${slug}' has invalid title: must be non-empty string`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid title: must be non-empty string`);
   }
 
   if (typeof fm.excerpt !== "string" || fm.excerpt.trim() === "") {
-    throw new ValidationError(`Post '${slug}' has invalid excerpt: must be non-empty string`);
-  }
-
-  if (typeof fm.author !== "string" || fm.author.trim() === "") {
-    throw new ValidationError(`Post '${slug}' has invalid author: must be non-empty string`);
-  }
-
-  if (typeof fm.featured !== "boolean") {
-    throw new ValidationError(`Post '${slug}' has invalid featured: must be boolean`);
-  }
-
-  if (typeof fm.coverImage !== "string" || fm.coverImage.trim() === "") {
-    throw new ValidationError(`Post '${slug}' has invalid coverImage: must be non-empty string`);
-  }
-
-  // Validate date format (YYYY-MM-DD)
-  if (typeof fm.date !== "string") {
-    throw new ValidationError(`Post '${slug}' has invalid date: must be string`);
-  }
-
-  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-  if (!dateRegex.test(fm.date)) {
-    throw new ValidationError(`Post '${slug}' has invalid date format: '${fm.date}' (expected YYYY-MM-DD)`);
-  }
-
-  // Validate it's an actual date
-  const dateObj = new Date(fm.date);
-  if (isNaN(dateObj.getTime())) {
-    throw new ValidationError(`Post '${slug}' has invalid date: '${fm.date}' is not a valid date`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid excerpt: must be non-empty string`);
   }
 
   // Validate tags
   if (!Array.isArray(fm.tags)) {
-    throw new ValidationError(`Post '${slug}' has invalid tags: must be array`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid tags: must be array`);
   }
 
   if (fm.tags.length === 0) {
-    throw new ValidationError(`Post '${slug}' has invalid tags: array cannot be empty`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid tags: array cannot be empty`);
   }
 
   for (const tag of fm.tags) {
     if (typeof tag !== "string" || tag.trim() === "") {
-      throw new ValidationError(`Post '${slug}' has invalid tag: must be non-empty string`);
+      throw new ValidationError(`Post '${slug}' (${locale}) has invalid tag: must be non-empty string`);
     }
   }
 
   // Validate SEO
   if (fm.seo === null || fm.seo === undefined || typeof fm.seo !== "object") {
-    throw new ValidationError(`Post '${slug}' has invalid seo: must be object`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid seo: must be object`);
   }
 
   const seo = fm.seo as Record<string, unknown>;
 
   if (typeof seo.description !== "string" || seo.description.trim() === "") {
-    throw new ValidationError(`Post '${slug}' has invalid seo.description: must be non-empty string`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid seo.description: must be non-empty string`);
   }
 
   if (!Array.isArray(seo.keywords) || seo.keywords.length === 0) {
-    throw new ValidationError(`Post '${slug}' has invalid seo.keywords: must be non-empty array`);
+    throw new ValidationError(`Post '${slug}' (${locale}) has invalid seo.keywords: must be non-empty array`);
   }
 
   for (const keyword of seo.keywords) {
     if (typeof keyword !== "string" || keyword.trim() === "") {
-      throw new ValidationError(`Post '${slug}' has invalid seo.keyword: must be non-empty string`);
+      throw new ValidationError(`Post '${slug}' (${locale}) has invalid seo.keyword: must be non-empty string`);
     }
-  }
-
-  // Validate author exists
-  if (!(fm.author in authors)) {
-    throw new ValidationError(`Post '${slug}' references unknown author: '${fm.author}'`);
-  }
-
-  // Validate cover image exists
-  const coverImagePath = fm.coverImage.replace(/^\/images\//, "");
-  const coverImageFullPath = path.join(imagesDir, coverImagePath);
-
-  if (!fs.existsSync(coverImageFullPath)) {
-    throw new ValidationError(`Post '${slug}' references missing cover image: ${coverImagePath}`);
   }
 }
 

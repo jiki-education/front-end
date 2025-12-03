@@ -1,7 +1,12 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { validateFrontmatter, validateAuthors, validateNoDuplicateSlugs } from "@/lib/content/validator";
+import {
+  validateConfig,
+  validateFrontmatter,
+  validateAuthors,
+  validateNoDuplicateSlugs
+} from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
 
@@ -30,6 +35,21 @@ describe("Content Validation", () => {
         describe(`Blog post: ${slug}`, () => {
           const postDir = path.join(blogDir, slug);
 
+          it("should have config.json file", () => {
+            const configFile = path.join(postDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have valid config.json", () => {
+            const configFile = path.join(postDir, "config.json");
+            const configContent = fs.readFileSync(configFile, "utf-8");
+            const config = JSON.parse(configContent);
+
+            expect(() => {
+              validateConfig(slug, config, authors, IMAGES_DIR);
+            }).not.toThrow();
+          });
+
           it("should have en.md file", () => {
             const enFile = path.join(postDir, "en.md");
             expect(fs.existsSync(enFile)).toBe(true);
@@ -46,7 +66,7 @@ describe("Content Validation", () => {
               const parsed = matter(fileContent);
 
               expect(() => {
-                validateFrontmatter(slug, parsed.data, authors, IMAGES_DIR);
+                validateFrontmatter(slug, locale, parsed.data);
               }).not.toThrow();
             });
           });
@@ -67,6 +87,21 @@ describe("Content Validation", () => {
         describe(`Article: ${slug}`, () => {
           const postDir = path.join(articlesDir, slug);
 
+          it("should have config.json file", () => {
+            const configFile = path.join(postDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have valid config.json", () => {
+            const configFile = path.join(postDir, "config.json");
+            const configContent = fs.readFileSync(configFile, "utf-8");
+            const config = JSON.parse(configContent);
+
+            expect(() => {
+              validateConfig(slug, config, authors, IMAGES_DIR);
+            }).not.toThrow();
+          });
+
           it("should have en.md file", () => {
             const enFile = path.join(postDir, "en.md");
             expect(fs.existsSync(enFile)).toBe(true);
@@ -83,7 +118,7 @@ describe("Content Validation", () => {
               const parsed = matter(fileContent);
 
               expect(() => {
-                validateFrontmatter(slug, parsed.data, authors, IMAGES_DIR);
+                validateFrontmatter(slug, locale, parsed.data);
               }).not.toThrow();
             });
           });

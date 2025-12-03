@@ -1,14 +1,10 @@
 ---
 title: "Jiki is Born: A New Way to Learn Coding"
-date: "2025-01-15"
 excerpt: "We're thrilled to announce the launch of Jiki, an interactive platform designed to help complete beginners learn to code through hands-on practice and guided exercises."
-author: "ihid"
 tags: ["announcement", "launch", "beginners"]
 seo:
   description: "Announcing Jiki - an interactive learn-to-code platform for complete beginners by the Exercism team"
   keywords: ["jiki", "learn to code", "programming for beginners", "coding education", "exercism"]
-featured: true
-coverImage: "/images/blog/jiki-launch.jpg"
 ---
 
 # Welcome to Jiki!

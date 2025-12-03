@@ -82,10 +82,12 @@ content/
 │   └── posts/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
-│       │       ├── en.md     # English (required)
-│       │       └── hu.md     # Hungarian (optional)
+│       │       ├── config.json  # Structural metadata (required)
+│       │       ├── en.md        # English (required)
+│       │       └── hu.md        # Hungarian (optional)
 │       └── articles/         # Evergreen articles
 │           └── [slug]/
+│               ├── config.json  # Structural metadata (required)
 │               ├── en.md
 │               └── hu.md
 ├── images/
@@ -108,8 +110,9 @@ Content is organized **slug-first**, not language-first:
 
 ```
 posts/blog/jiki-is-born/
-├── en.md    # Required
-└── hu.md    # Optional
+├── config.json  # Structural metadata
+├── en.md        # English content (required)
+└── hu.md        # Hungarian content (optional)
 ```
 
 This structure:
@@ -117,23 +120,33 @@ This structure:
 - Makes translations easy to manage
 - Ensures slug consistency
 - Allows adding new languages without restructuring
+- Centralizes structural metadata in config.json
 
-### Frontmatter Schema
+### Metadata Structure
 
-All posts use comprehensive frontmatter with required fields:
+Posts use a split metadata structure for better maintainability:
+
+**config.json** (structural metadata, shared across all languages):
+
+```json
+{
+  "date": "2025-01-15",
+  "author": "ihid",
+  "featured": true,
+  "coverImage": "/images/blog/getting-started.jpg"
+}
+```
+
+**Markdown frontmatter** (translatable content):
 
 ```yaml
 ---
 title: "Getting Started with Jiki"
-date: "2025-01-15"
 excerpt: "Learn how to start your coding journey"
-author: "jeremy"
 tags: ["beginners", "tutorial"]
 seo:
   description: "Complete guide to starting with Jiki"
   keywords: ["learn to code", "jiki"]
-featured: true
-coverImage: "/images/blog/getting-started.jpg"
 ---
 ```
 
@@ -185,11 +198,12 @@ pnpm run format:check      # Check formatting
 ### Adding a New Blog Post
 
 1. **Create post directory**: `src/posts/blog/[slug]/`
-2. **Add English version**: `en.md` with complete frontmatter
-3. **Optionally add translations**: `hu.md` with translated content
-4. **Add cover image**: Place in `images/blog/`
-5. **Generate content**: `cd ../app && pnpm run generate:content`
-6. **Run tests**: `pnpm test -- content` to validate
+2. **Create config.json**: Add structural metadata (date, author, featured, coverImage)
+3. **Add English version**: `en.md` with translatable frontmatter (title, excerpt, tags, seo)
+4. **Optionally add translations**: `hu.md`, `ja.md`, etc. with translated content
+5. **Add cover image**: Place in `images/blog/`
+6. **Generate content**: `cd ../app && pnpm run generate:content`
+7. **Run tests**: `pnpm test -- content` to validate
 
 ### Adding a New Article
 
@@ -212,8 +226,8 @@ Same process as blog post, but in `src/posts/articles/[slug]/`
 ### Adding a New Language
 
 1. **Add locale file**: `src/posts/blog/[slug]/xx.md` (where xx is locale code)
-2. **Translate frontmatter and content**
-3. **Keep structural fields consistent**: `author`, `date`, `coverImage` stay the same
+2. **Translate frontmatter and content**: Only translatable fields (title, excerpt, tags, seo)
+3. **No need to duplicate structural metadata**: config.json is shared across all languages
 4. **Regenerate content**: App will pick up new language
 
 ## Type Architecture
@@ -294,11 +308,12 @@ export async function generateStaticParams() {
 ## Important Rules
 
 1. **English required** - Every post must have `en.md`
-2. **Data only** - This package contains no TypeScript code
-3. **App validates** - All validation happens in app package
-4. **Slug consistency** - Same slug across all locales
-5. **Author registry** - All authors in `authors.json`
-6. **No build process** - Content consumed directly by app
+2. **Config required** - Every post must have `config.json` with structural metadata
+3. **Data only** - This package contains no TypeScript code
+4. **App validates** - All validation happens in app package
+5. **Slug consistency** - Same slug across all locales
+6. **Author registry** - All authors in `authors.json`
+7. **No build process** - Content consumed directly by app
 
 ## Common Tasks
 

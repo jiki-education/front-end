@@ -53,7 +53,7 @@ function fixImagePaths(content, frontmatter) {
 /**
  * Process a single markdown file into a ProcessedPost object
  */
-function processMarkdownFile(filePath, slug, locale) {
+function processMarkdownFile(filePath, slug, locale, config) {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const parsed = matter(fileContent);
   const frontmatter = parsed.data;
@@ -64,16 +64,16 @@ function processMarkdownFile(filePath, slug, locale) {
   // Render markdown to HTML
   const html = marked.parse(fixedContent);
 
-  // Expand author
-  const author = authorsData[frontmatter.author];
+  // Expand author from config
+  const author = authorsData[config.author];
   if (!author) {
-    throw new Error(`Author not found: ${frontmatter.author} in ${filePath}`);
+    throw new Error(`Author not found: ${config.author} in ${filePath}`);
   }
 
   return {
     slug,
     title: fixedFrontmatter.title,
-    date: fixedFrontmatter.date,
+    date: config.date,
     excerpt: fixedFrontmatter.excerpt,
     author,
     tags: fixedFrontmatter.tags || [],
@@ -81,8 +81,8 @@ function processMarkdownFile(filePath, slug, locale) {
       description: fixedFrontmatter.excerpt,
       keywords: []
     },
-    featured: fixedFrontmatter.featured || false,
-    coverImage: fixedFrontmatter.coverImage || "",
+    featured: config.featured || false,
+    coverImage: config.coverImage || "",
     content: html,
     locale
   };
@@ -106,6 +106,28 @@ function processContentDirectory(type) {
   for (const slugDir of slugDirs) {
     const slug = slugDir.name;
     const slugPath = path.join(typeDir, slug);
+
+    // Read config.json for structural metadata
+    const configPath = path.join(slugPath, "config.json");
+    if (!fs.existsSync(configPath)) {
+      throw new Error(`Missing config.json for ${type}/${slug}`);
+    }
+
+    let config;
+    try {
+      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    } catch (error) {
+      throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
+    }
+
+    // Validate required config fields
+    const requiredFields = ["date", "author", "featured", "coverImage"];
+    for (const field of requiredFields) {
+      if (config[field] === undefined) {
+        throw new Error(`Missing required field "${field}" in ${configPath}`);
+      }
+    }
+
     const files = fs.readdirSync(slugPath, { withFileTypes: true }).filter((f) => f.isFile() && f.name.endsWith(".md"));
 
     content[slug] = {};
@@ -115,7 +137,7 @@ function processContentDirectory(type) {
       const filePath = path.join(slugPath, file.name);
 
       try {
-        content[slug][locale] = processMarkdownFile(filePath, slug, locale);
+        content[slug][locale] = processMarkdownFile(filePath, slug, locale, config);
       } catch (error) {
         console.error(`Error processing ${filePath}:`, error.message);
         throw error;

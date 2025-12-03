@@ -1,14 +1,10 @@
 ---
 title: "Jikiの誕生：プログラミング学習の新しいカタチ"
-date: "2025-01-15"
 excerpt: "実践的な演習とていねいなガイドを通じて、プログラミング初心者が楽しく学べるインタラクティブなプラットフォーム「Jiki」の公開をお知らせします。"
-author: "ihid"
 tags: ["announcement", "launch", "beginners"]
 seo:
   description: "Exercismチームが贈る、完全初心者向けのインタラクティブなプログラミング学習プラットフォームJikiの誕生"
   keywords: ["jiki", "プログラミング学習", "初心者向けプログラミング", "コーディング教育", "exercism"]
-featured: true
-coverImage: "/images/blog/jiki-launch.jpg"
 ---
 
 # Jikiへようこそ！
