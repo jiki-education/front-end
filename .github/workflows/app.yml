@@ -157,6 +157,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate content
+        working-directory: app
+        run: pnpm run generate:content
+
       - name: Install Playwright browsers
         working-directory: app
         run: pnpm exec playwright install --with-deps chromium
