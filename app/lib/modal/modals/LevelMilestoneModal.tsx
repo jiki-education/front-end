@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Lottie from "react-lottie-player";
 import { hideModal } from "../store";
 import styles from "@/app/styles/components/modals.module.css";
@@ -24,8 +24,6 @@ export function LevelMilestoneModal({
   onContinue,
   onGoToDashboard
 }: LevelMilestoneModalProps) {
-  const [showAnimation, setShowAnimation] = useState(true);
-
   // Play celebration sound when the modal opens
   useEffect(() => {
     const soundManager = SoundManager.getInstance();
@@ -44,20 +42,12 @@ export function LevelMilestoneModal({
 
   return (
     <>
-      {showAnimation && (
-        <div className={styles.modalCheckmark}>
-          <Lottie 
-            animationData={checkmarkAnimationData} 
-            play 
-            loop={false} 
-            style={{ height: 144, width: 144 }}
-            onComplete={() => setShowAnimation(false)}
-          />
-        </div>
-      )}
-      
+      <div className={styles.modalCheckmark}>
+        <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
+      </div>
+
       <h2 className={styles.modalTitle}>🎉 Level Complete!</h2>
-      
+
       <p className={styles.modalMessage}>
         Congratulations! You&apos;ve successfully completed <strong>{levelTitle}</strong> and mastered all its concepts.
       </p>
@@ -67,11 +57,13 @@ export function LevelMilestoneModal({
         <div className={styles.achievementItem}>
           <div className={styles.achievementIcon}>📚</div>
           <div className={styles.achievementDetails}>
-            <div className={styles.achievementValue}>{completedLessonsCount}/{totalLessonsCount}</div>
+            <div className={styles.achievementValue}>
+              {completedLessonsCount}/{totalLessonsCount}
+            </div>
             <div className={styles.achievementLabel}>Lessons Completed</div>
           </div>
         </div>
-        
+
         <div className={styles.achievementItem}>
           <div className={styles.achievementIcon}>⭐</div>
           <div className={styles.achievementDetails}>
@@ -86,7 +78,7 @@ export function LevelMilestoneModal({
       </p>
 
       <div className={styles.modalButtonsDivider}></div>
-      
+
       <div className={styles.modalButtons}>
         <button onClick={handleGoToDashboard} className={styles.btnSecondary}>
           Go to Dashboard

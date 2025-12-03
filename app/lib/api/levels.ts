@@ -25,15 +25,14 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
   return levels.map((level) => {
     const userProgress = userLevelMap.get(level.slug);
 
-    // Determine overall level status based on lesson progress
+    // Use the backend's completion data instead of calculating manually
     let status: "not_started" | "started" | "completed" = "not_started";
     if (userProgress) {
-      const completedCount = userProgress.user_lessons.filter((l) => l.status === "completed").length;
-      const startedCount = userProgress.user_lessons.filter((l) => l.status === "started").length;
-
-      if (completedCount === level.lessons.length) {
+      // Level is "completed" if the backend says it's completed
+      if (userProgress.completed_at != null) {
         status = "completed";
-      } else if (completedCount > 0 || startedCount > 0) {
+      } else if (userProgress.user_lessons.length > 0) {
+        // Level is "started" if there are any lesson records (started or completed)
         status = "started";
       }
     }

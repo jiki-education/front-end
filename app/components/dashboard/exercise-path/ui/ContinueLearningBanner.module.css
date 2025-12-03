@@ -1,0 +1,122 @@
+.banner {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    transition: all 0.3s ease-out;
+    min-width: 20rem;
+    max-width: 28rem;
+}
+
+.banner.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.banner.hidden {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+}
+
+.container {
+    background: linear-gradient(to right, #3b82f6, #1e40af);
+    color: white;
+    border-radius: 0.5rem;
+    box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainContent {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.iconContainer {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.textContent {
+    flex: 1;
+    min-width: 0;
+}
+
+.title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.nextLesson {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.metadata {
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.75rem;
+}
+
+.startButton {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.startButton:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dismissButton {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.dismissButton:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dismissIcon {
+    width: 1rem;
+    height: 1rem;
+}
