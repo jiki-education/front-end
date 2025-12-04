@@ -1,0 +1,43 @@
+Hey, welcome to the next lesson. And in this lesson, we're looking at strings. And this is going to be another introductory lesson.
+
+We're going to be looking at strings a lot more throughout the course, digging into the different elements of strings, how you use them. You're going to be practising using them a lot in different exercises. So this is just going to give you a brief overview, a brief introduction as to how strings are different in Go to other languages you've maybe come from. 
+
+And I am presuming you know what strings are in a programming context, that you've got some experience using strings. If you haven't, there's going to be another video linked somewhere around here that you should be able to go to, that you can watch and learn a little bit about what the fundamentals of strings are if you've never used them or come across them before. So let's take a look at how strings are different in Go to in other languages you've maybe used. 
+
+And the first thing to understand is that in Go, strings are a sequence of bytes, not a sequence of characters. And this is quite a fundamental difference to other languages. Most languages I've ever used, if I think of a string, I just think well you've got a load of letters, they're joined together and you can do things with them and run functions on them, call methods on them, whatever. 
+
+In Go, things are a little bit more complex, a little bit different. And that's because strings are a sequence of bytes. So let's have a look at a couple of languages and see how that differs.
+
+So if we go to Ruby, a language I've used for many years, and we run something like put the, and get the first letter out of that, that's going to print out the letter T. If we go into Python and do the same thing, if we say print the and the first letter of that and we run Python 3, I forgot to save the file, we run Python 3, we're going to see we get a T shown there. JavaScript's the same. If we do console.log and we do V and we look at the first letter there and we run JavaScript, we're going to get the letter T. But in Go, things are a little bit different. 
+
+If we do the same thing here, so we take V and look at the first, not in this case character, but the first byte and we run that, what we're going to get out is the number 116, which might be quite unexpected. Now, those of you that know a little bit about bytes, maybe you've done some lower level programming, you will not be surprised that the number here is 116. And if we look at a few different things, 97 is the byte number in ASCII for A. It'll probably be familiar to some of you. 
+
+65 is the equivalent for capital A. And they increment, so capital B is 66, etc. Now, if you want to deal with characters, so if you want something like this to return a letter, not this byte code, you're going to need to use something called runes. And runes are similar concept to Unicode code points, which you may be familiar with. 
+
+We're going to be looking lots at runes. We've got a whole lesson dedicated to runes later on in the course. So, I'm not going to go into detail on that now.
+
+But the first thing when you're just building a conceptual understanding of what a string is in Go is to realise that it's a sequence of bytes. And if you were to index it and look at the first byte, you get a byte back. It's not a sequence of characters where you get the first character back. 
+
+Now, the second thing to know about strings in Go is that they're immutable. Now, this is pretty common, pretty normal. Again, JavaScript, Python, same thing. 
+
+Once you've got a string, you can't change it. You can't edit it or mess with it. If you want to do something with that string, you need to build a new string with that as its base. 
+
+And we'll have a look at that in Go in a second. So, those are the two main things that are different about Go. We're just going to have a little look at how you initialise strings, some of the strings functions, the strings package, and then we will let you get into an exercise where you can actually start messing around with some of this. 
+
+So, if we take a look, you can see here that you initialise strings as you do in many languages by using double quotes. So, if we wrote something like constant name equals Jane in double quotes, and then we output that, we're going to see that we get Jane output on the console. If you want to use things like new lines, you can use the new line character slash n, which again will be familiar to many of you. 
+
+If we did something like, I don't know, my friend is, let me put that in there, and then we output that, we're going to see that we get that new line character, that slash n is interpreted when it's printed out literally as a new line, and you could do the same with a tab character, for example, and you get a tab inserted in there. You can also do string concatenation where you add strings together. So, if we change this to say my friend is something along those lines, and then that, we're going to see my friend is Jane. 
+
+So, you can concatenate strings together. Now, most of the functionality you're actually going to use around strings is in the strings package, and that's got lots of different useful functions. I recommend going and having a look at the docs. 
+
+I'll point you into the link in a second, but let's look at a couple of them. So, the first one that we're going to look at, we'll just make a string lowercase. So, we can say string start to lower. 
+
+That will import the strings package for us as well, which is helpful. Thank you, VS Code. And if we do something like up and down, and then print that out, and run that, we now get a down-cased version of this. 
+
+If we want to print out something repeated multiple times, for example, you might want to repeat the letter, the word go, because we love go so much. We want print it out lots of times. We can use the repeat function within strings, and we can print out go, go, go. 
+
+And of course, you could, if you wanted to, nest these functions as well, like this, and get a lowercase go, go, go as well. So, the place to go for these is pkg.go.dev, as always, and have a look at the strings package. So, I think that's it for this brief overview. 
+
+As I say, we're going to be digging into strings a lot more as we go on. You're going to be solving an exercise now around creating marketing messages for a shop that's open just down the road from you. To solve this, you're going to need to look at different functions in this strings package. 
+
+So, get those docs up and have a browse through and see what you want. If you get stuck, you'll probably find the answers by looking deeper in those docs, but there are also some hints as well that give you a clue as to what functions you should be using. Good luck, and I'll see you in the next lesson.

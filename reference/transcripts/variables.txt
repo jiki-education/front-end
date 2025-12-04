@@ -1,0 +1,413 @@
+Okay. So, in week one, we looked at functions. You've been using functions lots in the last week. 
+
+You've used these three functions that you can see on the screen. You've also used functions like rect and circle and changing the colours and other functions as well. And I told you to think of the code being run as Jiki. 
+
+This is Jiki. As Jiki looking at some code on a whiteboard and then go in and finding the functions that you ask him to find and using them. Now, throughout this course, we're going to carry on zooming out a lot. 
+
+Today, we're going to zoom out and we're going to look at the next set of shelves along the line, which are these, which are variables. For some reason, my colours have gone yellow. They're not supposed to look yellow, but when we look at the diagrams on the concepts page later, you'll be able to be able to see them. 
+
+But we've got functions. That's this first set of shelves. You can see functions. 
+
+They've got these, they're little machines. We're going to be looking at functions in a bit that have got some more inputs and things. And then you've got these. 
+
+These are boxes. It's their little boxes. They've got little handles and they have these labels on.
+
+And these boxes are what we're going to use throughout the course, throughout your whole career in programming to store information. So, Jiki has these functions that he can use at any point, but he also has these variables, these boxes that he can put things in throughout the programmes that you write. And then you can go and get these things out again later. 
+
+And just like how every function has a name that we saw, so the functions here have move and turn right as their names. These boxes also have labels on. This is a box that's got a label for name.
+
+And each box contains one thing. Each box contains, in this case, a string and that string is Jeremy. So, you can see Jiki here putting a string called Jeremy into a box called name.
+
+We've got a load of shelves, we've got boxes, Jiki can put things in boxes. He can stick a label on the box and he can put some sort of what we call value, a number, a string, whatever inside that box. 
+
+So, we're going to spend a lot of time in this session and you're going to spend pretty much the whole of next week, not the whole of next week, but the whole of next week in your coding time at least, making lots of boxes and then using the things that you put in those boxes. So, we're going to look at lots and lots of examples in a minute of how this all works, but I'm going to show you what the code looks like to just make boxes first, and then we'll see where they're used and how they're used in a little bit. So, this is a line of code. 
+
+It's a new line of code, you've not seen it before, and it has on it two keywords that you're going to see for the first time. First of these keywords is set, and the second one of these keywords is to. And when we want to create a box and put something in it, these are the keywords that we're going to use. 
+
+And these keywords are special words that are reserved. Every different programming language has their own set of words. These two are just ones that Jiki understands.
+
+You remember we had that slide at the beginning of the video last time with all of the different people who can understand those languages and run those languages. In JikiScript, which is the language Jiki understands, the word set is one of the instructions he knows how to deal with, and then he also knows how to deal with this word to. So, what does it mean to set name to Jeremy? Well, I'm sure you can guess what it means, but let's go through what it means. 
+
+So, when Jiki sees this line of code on his whiteboard, he sort of breaks it into two halves. So, to start with, he sees set name, and he knows that he needs to make a new box. And so, he puts together a new box. 
+
+You can imagine him unpacking his cardboard box and putting it all out. Nice box. And he sees that the label that you want is this label name in this case. 
+
+And so, he gets out his pen and he draws on the label the word name. And then he deals with the second half of this instruction, which is to Jeremy. And this means he gets a piece of paper and he writes Jeremy on the piece of paper as a string.
+
+And then he puts that piece of paper into the box. So, now he's got this box with name on its label. So, he knows if you ever mention name again, he knows he has to go and find the box that was called name. 
+
+And if he was to look inside the box, he would find a piece of paper inside a string that has the word Jeremy on. And he goes and he puts that back on his shelf and it's there. And then at any other time in the whole of the programme that you ever want to use that name, you can, I'll show you how in a bit, but you can tell him to use that name.
+
+And he will go and he'll get that box off the shelf, find the box that's got name on it, and he will get out the piece of paper that's in it. 
+
+If you get stuck at any point in the week, just come back to these instructions and just really think through really slowly what I'm saying here. And I really want you to have this mental model. Like, I know we discussed in the first thing about how it can maybe feel a bit childish to imagine Jiki inside a computer.
+
+I really want you to have this mental model. I've been coding for a long time, 30 plus years, and I still in my head, imagine when I write code that I'm putting something in a box and I'm going to get it out later. And my mental model is more complex. 
+
+I have a lot more stuff to do with boxes in my head. But I honestly still think of boxes. Like, it's still very, very to me, that's the way I think of things. 
+
+And I want you to really internalise this. And as you're writing the code, I don't want you just seeing words and all of these weird keywords and what does set mean and what does... I want you to think very clearly. If I see set, calm down, set. 
+
+Okay, that means I'm making a new box. Okay. I put the label of the box first, then I say what it's going into, to Jeremy. 
+
+Okay. That means I'm going to put... I want you to have that narrative that's just there in your head when you're reading code. 
+
+So, we're going to look at another instruction, another keyword. And that keyword is change. So, we've seen set. 
+
+Set means put the box together. Now, we're going to look at another keyword that you can understand, which means change. So, this instruction here is change name to Aaron.
+
+We've got a new keyword, change. We've not seen it before, which you can guess what it means. It means to change what's in the box.
+
+Jiki's going to go to the box and he's going to say, okay, we want to change the box. So, I need to take in whatever's in there. And he takes what was in there. 
+
+And we know it was Jeremy because we just put it in there. He's going to get that out and he's just going to throw it in the bin. We don't need that anymore. 
+
+Name's now empty. So, we need to put something else in it. We don't have empty boxes in JikiScript. 
+
+That's not a thing. In some languages, you can get empty boxes, but in JikiScript, there's never an empty box. You're never going to have an empty box at the end of a line of code. 
+
+When that line of code finishes, there's always something in the box. So, he gets rid of the thing that was in there, which was Jeremy, and he puts that in the bin. That's gone. 
+
+And then we see, okay, we're going to put Alan in there instead. So, he gets a new piece of paper. He writes Alan on it and boom, into the box. 
+
+So, at the end of this line of code, we've changed what's in the box from Jeremy. That's gone. That's in the bin. 
+
+It's forgotten. We can never get that again. It's done.
+
+And instead now, if we went and looked in that box later on in our programme, we'd see that the word Alan is in there instead as a string.
+
+The way I'd like you to think of it is change is an instruction. I really like the idea that we give Jiki instructions, and then Jiki follows those instructions. So, the instruction we're giving here is change, and then name is the label on the box. You can think of it as the box as well, but I think the clarity will come if you think of it as change name means find the box with the label name on.
+
+This is where I think things can get really complex really quickly for beginners, is when they learn all of these concepts and they're trying to then keep all of these concepts in mind when they're programming. I don't ever do that. When I'm coding, I don't think of memory allocation unless I'm coding in a language that that's essential for, which is not JavaScript, which is what we're looking at. You never need to think about memory allocation in JavaScript. So yeah, all you need to think about is there is a box and that box now contains the name Alan instead.
+
+That's all that I would be thinking about. When I'm solving the exercises this week, I've just sat down and done that this afternoon, I have thought about lots of boxes and what's in the box at each point. And that's all I'm thinking about.
+
+I don't want to be confusing your mental model or anyone else's at the moment by making it more complex than I think it really often ever needs to be. 
+
+In reality, when you tell Jiki to do something, you know, he's doing, there's lots of steps he has to take that are largely invisible to you. So he has to get something out. He has to throw it away.
+
+He has to write something on a piece of paper. He has to put that in. He has to put the box back on the shelf. 
+
+There's a whole load of little tiny steps he needs to do. What I want you to think about like more is what's the situation before the line of code has been run? And what's the situation once the line of code has been run? So, if we go back a second to one of the drawings we've just done. So, let's just jump for a second back into here just for a second. 
+
+So, if we're here with this fill, in fact, let's choose, let's just delete all of this for a second. Okay. So, we have a state of affairs here that is before this line of code has run and after.
+
+So, before we run this line of code, there is no yellow circle. So, our world before that line of code is no yellow circle. Once we run that line of code, we have a yellow circle. 
+
+Our world has changed. It now has a yellow circle in it. And that's how I want you to really think about every line of code as you go through this whole thing. 
+
+There's a state before the line of code has run and there's a state afterwards. And the line of code might have lots of little steps and lots of things that might get complex. But certainly for a keyword thing like change, all that really matters is what was the state of the world before you ran that line of code and what's the state of the world after. 
+
+So, before there was a box that had the label name on that had a piece of paper called Jeremy in it. And after there's a box on the shelf with the label name that now has a piece of paper that says Alan on. And really, that's the only thing you need to think about. 
+
+When we use the set keyword, before that, the shelves are empty. Once we use the set keyword, there's now a box on the shelf that's got the label and got the piece of paper in it. All of the fiddly stuff that happens in between, you don't need to think about really too much.
+
+As long as you sort of understand that, yeah, Jiki's getting rid of that thing and putting St. Klaus in. And the real reason I have made a big deal of this throwing away thing is so that you remember when you change something that you take out what's in there and put something in instead. Because one thing that can confuse people sometimes is they think, okay, do we now have Jeremy and Alan both inside that box? And what I want you to remember is that you can only have one thing inside the box. 
+
+In this case, you've got a string that was Jeremy when you set it and now you've got a string that is Alan. And so, that's really the thing I want you to get clear.
+
+Are change and set functions? No. Change and set are keywords. 
+
+They are different functions. They are special words that Jiki understands. There are lots of keywords. 
+
+Pretty much every language has keywords. And they're not functions, they're not machines. Think of functions as machines that Jiki goes and picks up off the shelves and uses. 
+
+These are instructions that you're giving to Jiki. And that's why I sort of want you to think of this word instruction. Because this set really is like, it's an instruction. 
+
+It's you telling Jiki what to do. Whereas when you are using a function, you're telling Jiki, the thing you're telling Jiki to do is go and use that function and get it off the shelf and use it. Whereas these keywords, and they appear in a different colour in the editor, you'll see in a second, they are instructions to Jiki.
+
+Just to reinforce what people have said, to those of you that know about memory allocation, all of this, you don't need to think about any of that.
+
+I'm going to say for years, like, unless you're working specifically in some language that you need it, like, you can go years without thinking about this and still be a really good developer. So, I hope Jiki never goes on strike too. Trust me, when I'm sitting there and making Jiki and helping Jiki understand more instructions, Jiki often goes on strike and Jiki and I often fall out. 
+
+But by the time we give Jiki to you, hopefully Jiki is well behaved.
+
+The name Jiki, I'll answer that another time. There's a couple of versions of Jiki. The Jiki that you're using is written in JavaScript, but there's other secret versions of Jiki as well written in other languages. 
+
+These keywords, and there's a few of them, you can't use them as your own labels. 
+
+So, you couldn't have a label that sits on your box that is set or a label that's on your box that is two. If you try and do that, it will just not work and you'll get an error. We say that keywords are reserved words. 
+
+They're words that you're not allowed to use for your own meanings. Whenever you use the word set, Jiki expects it to be used in a way that Jiki knows how to use.
+
+It's important to understand that each box has to have a unique label on it.
+
+So, once you have a box that has the label name on, you can't then set a new box. You can't use the set keyword to set another box with name. When that happens, Jiki is going to look at shelves and be like, hold on, there's already a box with name on. 
+
+I can't make two boxes with name on. The whole universe will explode if I try and make two boxes that have both got the name label on and the whole world will actually explode. So, you will get an error if you try and set name on line one and then set name again on line two. 
+
+Once you've got the box on the shelf with this label name on, if you want to change what's in it, you have to use the change keyword. You can't use the set keyword again.
+
+The next thing just to understand as well.
+
+We have all of these shelves and on these shelves we have boxes and every box has to have its own unique label. You also can't have a box that shares a name with a function. If you remember, we've got these shelves with boxes on to all the variables and we've also got our shelves with all our functions on. 
+
+If we had got a box that has, sorry, a function, a machine that has the name move, we can't then use move as a box, as a variable later on. Once something is on one of our shelves, whether it's a function name, a machine, or whether it's a variable, a box, once we've used that label, we can't then reuse that label for something else. And again, Jiki's whole universe will just explode if you try and do it. 
+
+He'll be like, there's already a box called move. I can't, there's already a machine, a function called move. I can't also put a box with the same label. 
+
+Once you use a label once in your programme, it's then reserved. And that's really important to know.
+
+So, set creates the box. Once you've created it, you can't recreate it exactly. Instead, you use change to change what's inside it. 
+
+So, variables and functions are not the same things. So, we're going to look at some examples. There's enough theory we've gone through here. 
+
+I think it's important to dig in some code, look at some examples. But to just try and answer that question, functions are things that do things. So, turn right, it does something in your programme. 
+
+If you think back to the maze, when you called move or turn right, that is an instruction for the, for the, for Jiki. Well, no, let's not use that language, that'll confuse you. When you use turn right, that is a machine that Jiki runs that makes the character turn right. 
+
+When you use the move function, Jiki gets the move function and that makes the character move. The boxes are just storing pieces of information, and we'll see, we'll see why and how in a second. They're storing piece of information like numbers and strings and other things. 
+
+So, functions are machines that Jiki can use to do things. Variables are boxes that Jiki stores things in. And keywords like set or change, those are instructions to Jiki. 
+
+Those are you telling Jiki to do something with either the functions or with the variables. So, yeah, if you want two boxes to, if you want two different names in your programme. So, if you want to put together a sentence that's got two names in it. 
+
+So, for example, you've got a sentence which is Jeremy is friends with DJ. And you've got Jeremy and DJ as two names. You would need two different boxes. 
+
+And in that situation, you'd probably have a box which would be like name one and another box which would be called name two. And those would be two different boxes on the shelf. So, you'd say set name one to Jeremy and set name two to DJ. 
+
+And then you would do something that uses those two boxes to put them together into a sentence later on.
+
+Let's have a little look at some code. 
+
+I'm just going to take a, we're going to look at some code and then hopefully this will clarify how everything sits together a little bit. Before everyone gets a bit overwhelmed with all of these different things. So, let me just decide if I'm going to move on to one slide first.
+
+Okay. So, let's spin up some code here. So, we're all very, very familiar at this point with these three lines of code. 
+
+Everyone knows that this first line of code changes the colour that we're using to yellow. And that this second line of code creates a circle. And that is therefore going to be going to be yellow. 
+
+So, where might we want to use variables in this? Well, there's four different things that would benefit from having a variable here. So, the first one is if we want to store this colour yellow in something that's a bit more meaningful, that helps us remember what that is. So, we might want to create a variable for this using the set keyword that we've just learned, which is called the sun colour. 
+
+And we might set it to be yellow. Now, this line of code here, hopefully everyone remembers. Let's just jump back into the slides we looked at a second ago.
+
+So, I wish I could get rid of some of this annotation. Let me see if I can undo a million times to get rid of some annotations. Drawn too much on here now. 
+
+There we go. Beautiful. So, you've now seen this. 
+
+Set name to Jeremy. And instead, we're now looking at set sun colour to yellow. So, take a second just in your own minds and just think about what this line of code is doing. 
+
+What is set sun colour to yellow doing? Just take a moment to think that through. I'll put this up as a reminder for you. So, hopefully, the conclusion you came to is that we see here we've got set name to Jeremy. 
+
+And we see on here, we have set sun colour to yellow. Hopefully, you can see those two things are pretty much the same. So, Jiki is going to get a box. 
+
+Exactly. Going to get a box and put a label on it of sun colour. My handwriting is terrible. 
+
+And in that sun colour, rather than putting my name, they're going to put yellow. And that's going to go in here. So, rather than changing the value, they're going to create a new box. That's the key thing to think about here. Set means to create a new box. And then at the end of this, we're going to end up with a shelf that has a box with the label with sun colour on it.
+
+So, now, let's do something useful. We've now got yellow in here twice. The reason we are setting the sun colour to be yellow is that rather than specifying here that we want it to be yellow, what we want to do is just say, OK, we want to use sun colour.
+
+And in doing this, we can now use this function, fill colour hex, and we can use the value yellow that we've stored in this box, and we can put it into the function. 
+
+So, let's look through and just think for a second about what is going on here. So, we've got these two different lines of code. Here, I use sky colour in the thing you've just seen. 
+
+We've used sun colour. We've got the first line, which sets the box and gives it, puts the string blue in it. And then we've got the second line that we're looking at here that's probably a bit scary and a bit, yeah, a bit intimidating, which here is fill colour hex, sun colour. 
+
+Let's break it down. It's not, it's not, it's, it's, it's unfamiliar. It's not hard, I promise. 
+
+It's just unfamiliar. So, we've got two things. We've got this fill colour hex, which uses the fill colour hex function. 
+
+So, Jiki's going to go, he's going to get that machine off the shelf. And then we've got sky colour. So, he's using the fill colour hex with the contents of the sky colour box, or in our example over here, he's using the contents of the sun colour box. 
+
+So, let's think through exactly what's happening. So, firstly, he's going to go and get the sky colour box and get the thing that's inside. So, it's blue.
+
+Then he's going to go and he's going to get the fill colour hex machine off the shelves. And then he's going to use this machine and he's going to put blue into the machine. And that's going to do exactly what fill colour hex has already done. 
+
+Okay. So, you understand the fill colour hex function. You've been using the fill colour hex function for a few days now. 
+
+You know it just changes the fill colour to a value that in this case is yellow or blue. All we're doing by using this sky colour here is telling Jiki to go and get the box off the shelf that's got the label sky colour, find what's inside it and use that as the value instead of just manually specifying the value by typing it directly in there. Okay. 
+
+So, let's look at some examples. 
+
+So, hopefully, you can all see now, if I can find my mouse, there's a few more things we can do here. So, we can say, set the sun radius to be 15. And then we can say, okay, let's use the sun radius. 
+
+And we can say, set the sun x to be 75. And we can use the sun x. In fact, we can call it cx, or in fact, centre x is better. Let's be really explicit. 
+
+And then sun centre y to 30. And if we run this, it all still works exactly the same as it did before.
+
+The fill colour hex function literally sort of sets the ink in the pen. That's the way to think about it. It changes the ink in the pen. And then every time we use that pen to draw a circle, to draw anything afterwards, it just uses whatever ink was the last ink that was put in there.
+
+Fill colour hex is a function that's on Jiki's shelves of functions. When you start an exercise, I, in the background, put these functions on the shelves so that Jiki knows what functions are there. So, the functions that I've given you for this exercise are circle and fill colour hex and, I guess, ellipse and rectangle. All of those different functions are on Jiki's shelves and the labels they have on them are this and this.
+
+I could have called this function anything I wanted to in the world. And in a couple of sessions time, you're going to start making your own functions that you can call whatever you want, that can do lots of things.
+
+I called it fill colour hex because fill and colour are pretty normal words and because you're going to use fill colour RGB and you're going to use fill colour HSL as well. So, I just thought that was a useful way of doing it. And hex, because of everything I explained in the first session about these colours.
+
+It's not a special magic thing, like Jiki doesn't have any special knowledge of what fill colour hex is. It's not like, it's not part of a language Jiki knows. It's just that the machine that happens to be put on the shelves, the name I've given it is that.
+
+So, Jiki, when you write circle, Jiki is literally going and looking for a machine that's got the circle label on it. And if Jiki doesn't find a machine with the circle label, then Jiki will sort of say, I don't know how to do this, which just collapses in a world of pain, but it should give you a nice error message.
+
+But if we change this, it's not like we're building it into Jiki's knowledge. It's not like the language, the functions aren't part of the language. They're just different things that are on shelves. Every single programme you ever write could have different functions in it. None of these functions are special to Jiki script or do anything particularly magical.
+
+They're just functions that happen. They're just like machines I've built and put on the shelves for you to use. They're not something that Jiki has any innate knowledge about, basically, unlike the keywords, which are things that are built into Jiki. Jiki knows what those keyword means.
+
+The functions are the machines he has to hand today in his workshop, those are the machines that just happen to be there.
+
+Let's look at this through an example. I think it'd be really helpful to look at a duck and to recreate this duck and to explain why all of these things that we've been doing are useful. 
+
+So, let's draw that duck together, the rubber duck. Reminder, rubber duck, you should all have rubber ducks and you'll see why. So, we're going to start off with, I have to look at a rubber duck. 
+
+So, it's got a circle for a face. So, let's put a circle and let's put a circle, I don't know, let's start, put it in the middle. Let's make it yellow. 
+
+So, fill colour, hex. Hopefully, everything I'm doing as I'm writing this, it should feel like not too wild for you to see. Let's put a background colour in as well. 
+
+Sky blue, I think that's actually a colour. Don't know, let's see. Rectangle 00100. 
+
+Yes, it is beautiful. Okay. Let's move it just down a little bit. 
+
+So, to 35 and make it a little bit bigger. Okay. So, we've got rubber duck head. 
+
+Let's move it down just a little bit more. Okay. So, we want to put, start off by putting this little red hat on top.
+
+So, let's think through how we would put this little red hat on top. So, we know that we want to set a colour, red, and we know that we want to, say, put a rectangle on there. We need to work out where to put this rectangle, first of all. 
+
+So, have a think just for a second, everyone, and just work out how do we get the rectangle. It's sort of like going here. So, it'll be slightly on top of this, like just inset into here.
+
+What do we, how big do we want it to be? Have a think. What would you write? What code would you write to make this happen? I haven't done any of this in preparation, by the way. I'm just drawing this for the first time and I'm not very good at drawing. 
+
+So, we're working this out together. So, I want to sort of put it, I guess, probably on the top of the head, and then probably like three in from that. And I want it to be half the, half of the, I don't want it to be half of the width of the head, or a third of the width of the head, third of the radius. 
+
+Let's say third of the radius. So, the way that we've been doing things so far would be, I would say, okay, so I want it to be a third of the width. I want it to be a certain height. 
+
+So, let's say I want it to be a height of five. Now, my radius here is 25. So, that's a whole diameter of 50. 
+
+So, I want it to be a third of that. So, let's say it's about 18 across. And then let's say I want it to be on top of this. 
+
+So, I know that this is centred 40 down, 25 radius. So, it's 15. So, I want to come down to about 17.
+
+So, I'm going to do something like this. It's in the wrong place. Okay. 
+
+So, yeah, it needs to come to the left a bit. So, how far to the left? 41, 9. It needs to be up a bit. No, the other way.
+
+You see how this is quite a painful way to do things? I don't feel like I'm really thinking things through very well here. It just feels all a bit arbitrary and a bit hacky. But it's like a legitimate way of doing it. 
+
+The reason it's hard is because there's not actually any relationships being specified between things. I'm just trying to hold in my head all of these different things, all of these different numbers, and then piece things together. And that feels like really painful in my head. 
+
+Like, it's already quite overwhelming. Like, I'm just feeling a little bit stressed. I'm getting a little bit sweaty just sort of trying to do that live on a video. 
+
+For you solving an exercise, that's going to feel stressful. And there's a better way to do this. So, let's start off and use some of the variables we've just learned about to think about this. 
+
+So, we've got a few things that we can specify. So, we've got a head radius of 25. And we've got a head centre x of 50. 
+
+And we've got a head centre y of 40. So, we can put these in. Oops. 
+
+Sorry. So, this is where I start writing in the wrong language. This was predictable.
+
+This was going to happen. It's writing JikiScript. It helps. 
+
+So, let's set our head up. Always add some comments. Lots of code. 
+
+Let's add some comments. So, let's say the duck's head is here. So, we've got the head centre at 50 here. 
+
+We've got its down head centre is at 40. And its radius is 25. So, we've now put our circle. 
+
+We've used some values. Now, let's think about this hat. So, what do we actually want the hat to be? We talked about this. 
+
+So, we want the hat to have, let's use some things. So, the hat height. Well, this is just something we can choose. 
+
+Let's say we want it to be 5. So, we put this in. Let's say we want the hat's width. So, the hat's width, we actually want to specify as a relationship to this. 
+
+So, we want the hat's width really to be probably the head's radius over 2. And we can use that in the function. If I can stop using equal signs everywhere. And we can say, okay, well, we want this to be centralised, but I don't have to work this out every time. 
+
+It's quite annoying to work out 41 in my head. So, I can say, okay, the hat's x is the centre of the whole thing. So, it's the duck's centre x, or the head centre x, sorry, which is here. 
+
+So, the centre point. And then it's minus half of the width. So, we can say minus the hat's width over 2. And I can use 2. And we can say, okay, now we can use the hat x. Okay, now it's perfectly central. 
+
+And now we can say, okay, where do we want the hat to be? And we can say, okay, well, let's set the hat's y to be the head's centre y. And then let's say we want it, so that's going to put it here, but we want it to be up a bit. So, we can say, okay, minus the hat's radius. That'll put it on top of the hat. 
+
+Okay. And then we want to bring it down a couple. So, we could say, okay, let's bring that down a couple. 
+
+Okay. And that's going to put it around the right place, but we need to take its height into consideration. These, the y's actually always confuse me a little bit. 
+
+So, we've got the centre of the thing minus its radius. We want to take it up minus 2. So, here we go. Okay. 
+
+So, now we have this little rectangle on top that's based not on a load of arbitrary stuff that we're having to hold in our head, but actually based on relations to this other thing that we've got. And if we now moved the head centre from over here and moved it a little bit to the left, the whole thing will move with it. And if we move it down a little bit, the hat moves with it.
+
+And so, suddenly, you're actually using some code. Rather than you just specifying inputs into things, and then every time you want to move something, you have to update all the numbers, we can just have one or two numbers that we specify at the top, and a load of relationships to those numbers that we can then use. And I'm going to jump ahead just for a second. 
+
+I'm just going to show you something. So, this is a sprouting flower. This is one of your challenges for the week.
+
+And there's a lot of code here that you're going to write. But everything you're seeing in that sprouting flower is just exactly what I've shown you. And I'm emphasising this here because this sprouting flower is quite tricky. 
+
+This is not a 10-minute job. Even for the mighty DJ sitting in the chat, it's at least going to take him 15 minutes, maybe five minutes. He'll see that as a challenge. 
+
+But this is a challenge that's going to take you three hours, a lot of you, maybe four hours. But nothing in here is any more difficult than what you've just seen, where we're setting relationships between things. And as time progresses, things can change, and they can move, and all of these things are going to happen. 
+
+So, which drawing was I in? I think I was in a weather one, wasn't I? So, let's just sort of slow down a little bit, and let's move this back into the middle. And I just want everyone just to take a couple of minutes, just quietly, just, again, take a deep breath. I'm just going to read through each of these lines of code with you.
+
+And I just want you to really just calmly think through, visualising Jiki in his warehouse, what's happening at each line of code. And I want you just to really calmly do that. Forget these first two lines. 
+
+I'm just going to start here. And just work with me slowly, just in your own mind, just think this through. So, set head centre X to 50. 
+
+Just think through what you think Jiki's doing in his warehouse. I'll just pause. Okay. 
+
+So, Jiki is going and getting a box, writing head centre X on the label, putting the number 50 in it, putting it on the shelf. Okay. The end of this line, there's the shelf, it's got one box on, head centre X. Next line. 
+
+I'm going to go back a little bit as well, so we can walk through. So, okay. So, now we're back here. 
+
+So, next line, what's it doing? Okay. New box, head centre Y, new box label, putting 40 in, putting it on the shelf. What's on the shelf now? Two boxes, head centre X box, it's got 50 in it, head centre Y box got 40 in it.
+
+Okay. Next line, head radius to 25. Three boxes on the shelf at the end of this. 
+
+This one's a new box with the label head radius 25. Okay. Fill colour hex yellow. 
+
+What's Jiki doing? Pause for a second, think what's Jiki doing? Okay. He's going to the shelves, getting the machine, the function off the shelf that's got the fill colour hex label on it. And he knows it's a machine, because you've used brackets. 
+
+That's how he knows it's a machine and not a box. And he's gone, and he's got written yellow on a piece of paper, and he's run the machine, and he's put yellow into it. Okay. 
+
+So, now we have the ink colour. The ink colour in our programme has been set to yellow. Okay. 
+
+Next line. This is the big line. The scary line, circle, head centre X, head centre Y, head radius.
+
+Take a second, think through very slowly the process. Take it, what's Jiki doing? First, step by step by step. What's he getting off the shelves? Just think it through. 
+
+Okay. I'm just going to jump over here and just remind you a second. Okay.
+
+So, slightly different example, but same thing. So, he's going to the shelves and he's getting the things he needs. So, he's getting head centre X, he's getting head centre Y. He's getting head radius. 
+
+He's getting the things that are in there. So, he's getting pulling out of the head centre X box, pulling out the number 50. Go and get in the head centre Y box pulling out the number 40. 
+
+Go and get the head radius box, pulling out the number 25. He's going to get the circle machine and then he's using the circle machine with all of these three things put in.
+
+Okay, then we're doing the same thing. New box, new label, put a five in it. New box, hat width. What's Jiki doing here? Let's think through what Jiki's doing here.
+
+So Jiki's going and getting this head radius box off the shelf and he's looking at what's inside. He's getting the head radius - it's 25 - and he's saying okay, he's going to do a bit of maths. This division sign tells him to do a bit of maths. So he's going to get the head radius box, see what's in it - 25 - and he's going to divide it by 2. And that's going to give him 12.5. So he's going to create a new variable, a new box with this hat width label, and in it he's going to put the number 12.5.
+
+The next one is going to create a new box which is hat X, and he's going to do the same thing. He's going to get the head centre X from up here, which is 50, and he's going to then do a bit of maths. He's going to use the hat width, which is 12.5, and he's going to divide that by 2. So that's going to give 6.25, and he's going to put that value in.
+
+So you see how Jiki is doing all of the maths for you? See how I tell you the programme isn't about maths - we're going to get the computers to do the maths for us. I don't have to think in my head anymore, "okay, I have to do 12.5 divided by 2, that's 6.25" - I'm not good with maths, I can't do all this mental arithmetic in my head, it's painful for me to do. But I can tell Jiki to do it for me. I can tell Jiki to go and get something out of this box, do some maths, and put it somewhere.
+
+I'm calling the things inside the boxes values. So if I talk about values, I'm going to say values inside labelled boxes.
+
+The whole point of this is about these fundamentals. Get these things rock-solid. Once you get a couple of weeks into the course, you will have enough coding knowledge to be able to make any programme on earth. That's not an exaggeration. You will be at a point where you are able to use all of the fundamental concepts of programming and you can make anything.
+
+Now, if you tried to make anything with just those fundamentals, you'd probably struggle because there are lots of easier ways to do it as you learn more advanced things. But you'll get to a point where you can do anything, and the only thing that will hold you back is how overwhelming it gets and how complex it gets. And the reason it will get overwhelming and complex is because these beginning things don't feel tactile.
+
+So the core thing to anyone that finds this maybe a bit easy at this stage - and of course lots of people will, because lots of people on the course can already code - challenge yourself to do the exercises really well. The exercises are where the learning is. Even though you might find the teaching sessions a bit slow, I still think the exercises will challenge you and push you in interesting ways.
+
+Let's look at an important concept about hard-coded numbers versus using variables. Imagine instead I had put all these values in directly, got rid of the variables, done the maths manually, and put the numbers in. So now, exactly the same, nothing's changed except one thing: I've had to manually work all of these numbers out instead of using code, which feels like a bit of a pain in the first place.
+
+But two, if I now move something, the hat's going to stay where it is because these are just numbers that are in this rectangle. There's nothing about these numbers that have any meaning. They're just hard-coded numbers. That's the phrase we use - hard coded. I've coded these numbers myself, and because I've coded these numbers myself, they're fixed. They can't change. There's nothing about these numbers that can ever change.
+
+But when I have this line instead, rather than me having hard-coded the numbers, these numbers all are using each other's values. So when I then move this over here, the hat moves with it. When I move it back or down, the hat moves around with it. And it's not magic. The reason it's moving around is because we've created variables that all reference things that have come before. The width references the head's radius. The hat X represents the head centre. The hat Y represents the head's Y. So we've been able to create these relationships between things that mean now there's some intelligence in our coding. We're not just manually drawing things anymore, which doesn't get us very far as developers. We're actually adding a little bit of intelligence into the code.
+
+We're going to learn another concept. We've learned variables. This keyword is the repeat keyword. We're going to learn a new concept here, which is what we call code blocks.
+
+So far, we've learned everything in a linear way. What do I mean by that? A linear way - lots of lines of code that all just run in order. So all of these lines of code just run one after another. We do this one first, we do this one next, this one, this one, this one, etc. Linear. One long line of code that we just keep going through from start to finish, and then we're done.
+
+That's useful. We can do some cool stuff with that, as we've just seen. But it's very limiting. There's only so much that we can do until we need to start varying what code gets run based on different situations. And a lot of what we're going to be learning about in the remainder of this course are these different times when different code runs in different ways.
+
+So we're going to start off by looking at a repeat block. A repeat block is something that says we want some code and we want to run it lots of times. We want to run it repeatedly.
+
+We've got a new keyword here, which is repeat. And that keyword is an instruction to Jiki. It's an instruction to Jiki that for some amount of times - in this case four times - Jiki is going to run this piece of code.
+
+We then have this do and end, which start a block. So all of the things in between this do and this end are what the repeat is talking about. So the repeat will do everything in here however many times you tell it to.
+
+If you have used other languages before, you might have used curly brackets. This does the same as do and end. Or you might in Python have used a colon, which is the same as do. Python doesn't have ends, it just uses spaces. But we don't worry about that. What you care about is JikiScript. And in JikiScript, we have an instruction, and then the thing that it's talking about is between the do and the end. So this bit here gets repeated over and over again.
+
+The example I was going to show you here - I want you to visualise this first in your head and then we'll look at it in code - let's say we're back in the maze world and we've got these instructions move and turn left. We all know what those do. Move moves someone forward, turn left turns them left.
+
+So if we have this block of code: repeat four times, do move, turn left. What we're saying is we want Jiki to start here, use the move function, then use the turn left function, and then do the same thing again. Use the move function, use turn left function. And then do the same thing again: use move, use turn left. And then a fourth time: move, then turn left.
+
+So if our starting position is here, we firstly start off by moving and turning left. And then we do it again. We move and we turn left. And then we do it again. We move and we turn left. And again, we move and we turn left. And then by the end of the fourth time, we're back to where we started. And we haven't had to write move, turn left, move, turn left, move, turn left, move, turn left. We've just used this repeat command, this repeat instruction, to tell Jiki to do the same thing four times in a row. 
+
+Now we're going to look in a minute at lots of ways we're going to use this, but let's just stop there. 

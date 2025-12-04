@@ -1,0 +1,219 @@
+Hello insiders, it's been a while since I made one of these, my apologies for that, it's been a pretty difficult couple of months, as many of you know. I made the decision about a month ago to make Jonathan and Loretta both redundant to save some costs, and as part of really reshaping how I'm thinking about XISM. So that was really tough, I've also been dealing with a load of health things in my extended family which has been relentless and hard as well. 
+
+So all in all, it's been a difficult couple of months, I've been trying to really focus the time and energy I have on moving XISM forward and doing some coding, but it's meant things like this and maybe some of the marketing activities and things have been a bit let go of, which I now need to re-grasp a little bit, but that's what it is. But yeah, sorry if you've been hoping for videos and not had them, I appreciate your patience in it. So firstly, just to talk about that first decision a little bit, I discussed it on one of the community calls, but I'm aware lots of you weren't on the community call, but I basically took stock over a month, I really spent a lot of, I guess June, where are we now? Yeah, June, trying to make sense of the journey we'd been on and where we'd got to and what the next stages look like. 
+
+And I came to the conclusion that where we were shifting our focus, so on trying to generate partnerships and advertising revenue and things like this, was going to take up so much of my time and potentially so much of Eric's time as well, that there was a risk that we sort of became an advertising company that did a bit of education on the side, rather than an education not-for-profit that was spending a little bit of its energy on trying to fundraise. And that was sort of a hard realisation to come to, but a really important one, and it was making me feel a lot of cognitive dissonance. You know, the reason that we work on exism is that we want to do something that's good, we want to do something that's fun, and I felt like I was having less and less and less of my time actually doing stuff I enjoyed.
+
+Also the same for Eric, and it just really wasn't a sustainable point to get to. I think both me and Eric had got to the point where neither of us particularly wanted to carry on with exism in the form it was at, and yeah, it was difficult. I mean, this is against the counter side of course of if we don't have money we can't have jobs anyway. 
+
+So that's the cognitive dissonance. We either need money, or we need money, but we also need to be using the things we want to do. So I sort of came to the conclusion that we have two choices. 
+
+We either continue down the route we're on, focussing on advertising, focussing on partnerships, maybe focussing on premium stuff a little bit as well and features there, or we focus on just making exism as good as it possibly can be, and hope people support us either through donations inside us as yourselves, or maybe through premium, but not by making premium the best thing ever, but more focussing premium on being a way to help support us with some nice extra features. So that was the decision, well I came to the decision, the second one that I want to focus on, making exism better. I want to be spending more of my time actually doing stuff I enjoy as well, so coding, making the platform better, working a bit on the educational side, and I was just getting no time to do that. 
+
+So we made the decision, I think it was a bit of a shock for both Loretta and Jonathan because they were starting to make progress. We had got probably four partnership and advertising deals done, so there was definitely some momentum there and I just want to say a thank you again to Loretta and then more recently Jonathan helping out with that as well for all of the work that went into that. But yeah, so it was painful and a shock, but definitely the right thing. 
+
+I felt a lot happier over the last month despite the pain of everything. I've done more coding in the last month than I think I have in the last 12 months, and that's made some tangible improvements to the site. The site's got a lot faster.
+
+I went through and have eliminated every query that takes longer than, I don't know, 100 milliseconds on average. We had a lot of queries that for some power users, Bob moaned about it a lot and I was glad to be able to fix it for Bob, but I know for lots of you things around mentoring, once you've got above a certain amount of solutions, just became really slow. Database indexes just weren't coping after a certain point. 
+
+So we had some times for Bob, there were queries that for an even average mentor would take like 50 milliseconds, for Bob were taking 50 seconds, which was obviously crazy and not acceptable and was also just putting a lot of strain on the database in general and just slowing things down. We also had some background jobs that were causing a bit of pain, a few N plus ones. I'd already done some work on that, but I found a few more. 
+
+But the long and short of it is we've really sped up the site, taken a lot of sort of load off the database. And that's been fun work, sort of just, it's that sort of work where you spend 10 hours just trying to track down why things are slow, trying different indexes, experimenting with reworking queries. It's quite nerdy stuff, I quite enjoy it.
+
+But yeah, so it's been nice to sort of make some tangible benefits. We've got some old PRs that have been sitting around for a long time merged as well. Some practical things that help maintain a flag that you can do, which means when you update solutions, it doesn't have the consequence of causing millions of test runs to be rerun. 
+
+I did last night, finished another PR that's been outstanding for a while around the same sort of thing for representations, how you can now expire representations. So if exercises change dramatically, we don't give the incorrect previous feedback, but we allow for new feedback, various tweaks like that. But also just like quality of life tweaks for people using the site as well. 
+
+So yeah, it's been really nice to be working on stuff. All of this does leave us with a giant hole, like in 12 months from now, XSIM will probably won't run out of money. We'll probably have enough to cover server costs, but it certainly won't be able to be paying for me or Aaron. 
+
+So I've decided fundamentally just to kick that can down the road. We're going to make XSIM as good as we can. We're going to do a couple of things to improve stuff.
+
+I'm putting together a course for Go, like a video upgrade. That's what this setup and green screen and everything has been done for. So yeah, it's gonna be a video upgrade for the Go course, probably around $99. 
+
+And my hope is that we can generate four or 5k a month off that. If we can get to that point, then we will be able to then replicate that for other tracks, and that might be a way of funding things. It's quite nice because it's like a build it once, and then it sort of lasts for everything. 
+
+So basically for each exercise, I'm going through and putting a video together that talks through the concept. I'm just piggybacking off what Francisco, Andre, and others have written for Go, but just sort of fleshing it out a bit, few more details, a bit more of sort of a handholding walkthrough feel. Then letting people get on with the exercise as normal, and then taking them through the next concept. 
+
+So it's really teaching those concepts in maybe a bit more depth than we currently do just with the introductions. So I'm going to experiment with Go. We're going to see how that goes, excuse the pun, and then make a decision from there. 
+
+My aim is to film it during August. I'm here in my flat. This is just my apartment, by the way. 
+
+I could drop the green screen behind, and there's a tiny kitchen below, and I could flip the camera, and there's just my living room. It's basically just this one room that I live in. So yeah, I'm here for the next month before I'm going to be a bit more nomadic. 
+
+So I'm just going to try and blitz through and get it all done in August and launch towards the end of August or beginning of September. So yeah, feeling excited about experimenting with that. I don't necessarily hold out hope that it's going to be like a magical thing. 
+
+But if we at least got to the point where we had, I don't know, four or five courses that were generating a couple of K each, that would enable servers to run, me to still be working on stuff. Maybe we get to point Eric's still working on stuff. So we'll see. 
+
+I think myself, Eric, and Aaron are all happy with this idea that we basically just spend a year making XSIM as good as we can, having as much fun as we can doing it. And if we all have to go and get jobs in a year's time, well, we'll have a great platform that is sort of sitting there and just working really well. So that's the approach we're going to take. 
+
+Yeah, and so it goes. I'm excited about it. I feel much more positive than I have done about XSIM for a long time, which is really nice. 
+
+And I think hopefully that will show through in terms of us actually making improvements to the site as well. So a couple of the tangible things. We're going to start working through now different pages on the site. 
+
+And I guess streamlining is the main word I want to use, like pull out as much noise, increase the signal everywhere. Not necessarily simplify things, like sometimes actually I'm going to add bits that make things maybe more complex from a technical perspective, but that streamline the experience. So one example is that you, as of hopefully like, yeah, I'm hopefully going to get this merged this evening. 
+
+So as of this evening, which will be before you see this probably, I'm going to merge a PR that shows automated feedback within like in a modal at the end of the editor. So you solve an exercise in the editor, you hit run test, your test passed, you hit submit, and it gives you the automated feedback there and then without going to a different page, without having to navigate somewhere else. So that's not really simplifying things. 
+
+It's adding another modal, adding another step, but it streamlines the process a lot more. So rather than someone then having to wait for the feedback, click, go have a look over here, come back into the editor. If someone's using the editor, it becomes a much more streamlined experience.
+
+Then I'm going to make other changes in a similar vein. So we're going to change the way the concept trees work a little bit to be more like you're working through a course. So the end of each exercise, we suggest you then move on to another exercise.
+
+So rather than, we've had this discussion for a long time between breadth versus depth. So do you start on concept exercise one and just linearly work through to concept exercise 20 and then that's it? Or do you start on concept exercise one and then practise that with lots of practise exercises, then move on to concept exercise two? And from all of the data I've looked at and from my own experience and other people's experiences that I know of, most people work linearly down the concept exercise tree. And then sometimes we'll go and try an exercise here and there outside of that. 
+
+And so I'm going to streamline the experience for that. So you're going to work through the concept tree. You can still, if you want to, go off and do practise exercises. 
+
+I'm not going to change the unlocking behaviour or anything, certainly not as a first pass, but I'm going to make the sort of default behaviour of the track be that you walk through that syllabus. But another consequence of that is that on the very start of a track, you choose whether you want to solve it in learning mode or practise mode. And we give a distinction and give a decision between those two and let people choose.
+
+So hopefully that means if someone's learning, I don't know, Go as an example, they'll be able to come onto the Go track, say they're learning it, work through the thing with video or without video and then go and explore the practise exercises. If somebody just wants to play with Go and practise, we just give them that option from day one and we sort of get the syllabus and stuff out of the way. So those are some top level changes to that. 
+
+I'm also then going to be adding in changes to the main track page. I'm going to get rid of the sort of activity feed that you have down the left with all of your like, you solve this, then this, this your iteration, because I think it adds a lot of noise and not a lot of signal. We're going to replace that with a block of track trophies. 
+
+I'll come back to that in a second, but that has the consequence of like moving everything else up in the page as well. So that moves your mentoring slots up, moves the news up. I still want to find a better home for where the news goes. 
+
+Maybe we use a bit of the space on the right. I think we can use the space on the right of that bit better in general. So yeah, reshaping slightly that page. 
+
+Track trophies are going to be fun. They're sort of like badges, but scoped to a track. That's the best way of thinking of them.
+
+So there's going to be up to 12 trophies that you can get per track. We've chosen, I think, the first five or six that are going to be generic across all tracks. And then each track can choose which six trophies it wants for its track.
+
+So you get a track if you have a mentoring session in which you iterate your solution. You get a trophy for that. You get a trophy if you get 50% of the way through a track, 50% of the practise exercises. 
+
+You get a trophy for completing all the learning exercises. You get a trophy for completing everything in a track. There's another one, I can't remember what.
+
+So those are like the generic ones. But then we're going to give tracks the ability to put together trophies for different things that are more relevant to their language. So for example, solving five functional exercises, there'll be a trophy for that that you can opt into, or maybe five OOP exercises or something.
+
+But the point of these trophies is the things that we want to actively gamify in a track to encourage people to do. So whereas badges are more around just fun, unlockable things, there's some of that gamification, deliberate gamification in there. But there's also just generally fun stuff. 
+
+These are things that we want to gamify for a student's learning experience. So for example, we think that getting mentored is a really valuable thing. So you get a trophy for that. 
+
+Another one of the generic trophies I'd forgotten is looking at 20 community solutions. Once you've looked at 20 community solutions, you get the trophy. That's something we want to actively gamify within a track.
+
+So when we're thinking of the trophies that individual tracks can opt into, we've not chosen those yet. We're going to let maintainers and mentors in the community choose those. Please speak up. 
+
+And there is a thread as well, just to say on the forum where people have put lots of ideas in there. So please just come and drop your ideas and just search for trophies on the forum and you'll find it. But yeah, we really want to make sure that we're gamifying the right things. 
+
+So have a think from that perspective. What is it that you think would really benefit people solving your track? What is it on the go track that means this is a really good set of things for them to have learned or done? And that's how we're going to try and do it. And one other thing, the six track specific trophies, once you've chosen them, they're permanent. 
+
+So you might not want to choose all six on day one. You might just want to go with one or two and then see what comes over the next month or two. You can always add more tracks, but we're going to limit it to six generic tracks and six track specific trophies. 
+
+Six generic trophies, six track specific trophies. I'm now worrying how many times I've said track when I've meant trophy. So we're going to launch those in the next week or so. 
+
+I've done all of the work pretty much for the generic stuff. We just need to programme the individual trophies now. I think Eric's going to work on that for afternoon or so this week. 
+
+And then yeah, we'll at least launch the six generic ones probably next week, but maybe some of the track specific ones too. So I'm excited about that. It's going to be a really fun, nice addition. 
+
+I'm going to stop for a swig of coffee. That's nice. Good. 
+
+So that's trophies and the track page. I'm also going to change the top bar of the track a little bit. I think it's just going to change the labels a little bit.
+
+We're going to have learn practise. I think just make the build tab for insiders as a tab. Maybe I put it for everyone on the dropdown. 
+
+Maybe it's insiders for everyone. I'm not sure. And I'm going to rename it as well because we're going to actually add a tab, which is build, which is for when we add projects. 
+
+So I talked a little bit about this on the community call a while back, still planning on doing that. And probably in September, maybe October is adding actual projects. So things that might take a weekend to do, we're going to let each track sort of create their own, but a bit like sort of concept exercises, we're going to recommend that people reuse things from each other. 
+
+We're going to try and make quite a nice effort to design these up so they feel quite sort of polished and plush. So there'll probably be a bit of manual work that goes into making them rather than just being sort of powered off GitHub. I'm going to talk a bit more about that. 
+
+I can't remember if there's a forum post. I'll put one together if I can't find one. So check for projects on the forum and see.
+
+But yeah, that's going to be really fun as well. I'm really looking forward to that. But that's probably going to be the build tab. 
+
+So it's going to be learn, practise, and build are going to be the three tabs for those. And then we'll rename the existing build tab to like maintenance or something. I don't know. 
+
+Behind the scenes, maybe BTS tab. So those are the track page things. Then I'm going to work on the solution page, which is one of the most maybe problematic pages on Xism. 
+
+But I've got lots of ideas on how to simplify that. I'm going to base it around what Francisco put together with a sort of tick boxes for each solution. A bit more like what we made in V2, I think. 
+
+But yeah, excited to do that. And that's going to be a really impactful thing. For that, I need a bit of creativity and space.
+
+So I'm just trying to get I want to sort of have a week where I can just really work on that without any other distractions. So trying to get all this other low hanging fruit done and then going to focus in on that. So excited about that. 
+
+Yeah. So those are some of the main updates, I think, for the development work. There's loads of other just quality of life stuff that we're doing as well. 
+
+Aaron's starting to work through just lots of sort of issues that have been open for a while. I've put together a spreadsheet with all of the issues in that have ever been opened and starting to use that as a bit of a reference as well. I'm sure Eric will be working lots on lots of little things here and there as well, just for general improvements. 
+
+So yeah, feeling positive about stuff on the development front. I think there was a question, I think Francisco asked, around have I thought any more about the volunteering and community side of things? The answer to that is no. I think with Jonathan leaving, we obviously lose a huge amount of resource in the community area. 
+
+And also with Loretta leaving, she's got so much expertise in that as well. I think I feel like the current setup's working quite well in terms of I think maintainers are feeling freer than they have done for a long time. And there's still lots going on. 
+
+There were lots of improvements to tracks. I feel like there's not a lot of frustration or complaining, complain in a good way, that I've heard over the last few months. So I'm sort of comfortable with like maybe the pace of the community side being slow, but the quality of life for maintainers being higher as a trade off.
+
+I don't think I have the energy or appetite to try and do a big community piece. I think I have to be honest with myself about that. It takes up so much energy and so much time.
+
+I just don't think it's a good use of my time. I think it's better to have slow, but high quality improvements to tracks going on, which we've definitely been having. And yeah, we have been getting new people in. 
+
+We've had lots of really great contributions from new people, just often on tracks that don't have like existing benevolent dictators. So we've now got an amazing C++ syllabus. Meatball's been doing stuff all over the place.
+
+We've had lots of other people as well that have been working on things. And I think it does work just to give people the sort of autonomy on tracks to go and do things. When we've tried to do collaborative things like on Rust, it does just feel like there's a lot to manage. 
+
+Whereas if one person just takes the reins and does a bit of stuff, I feel like we make more progress on it. So no, I haven't thought about it. It doesn't feel like it's high on my priority list at the moment. 
+
+I don't feel like I have the ideas without a community manager to manage it that mean we can make much progress with it. So I guess it comes down to if anyone else has ideas, I'm really happy to hear them. But I also feel like the status quo at the moment is the least painful it's been for a long time. 
+
+And if you disagree with that, I'd love to hear that and know that. But yeah, that's sort of where I'm at with that. There was a question as well about making... I haven't got any internet on my laptop in this room at the moment, I just realised. 
+
+So now I'm trying to remember. The only reason I have my laptop here is so I can look at Discord. And Discord has refreshed itself and is now in no internet mode. 
+
+So I can't see the actual questions you've asked. But another question was around sending updates to students about when there are new things happening on the track. This is something I want to do.
+
+There's two places I want to do it. More coffee. We're going to be putting a newsletter together in August that's going to start to have some of this stuff in it. 
+
+So that's going to go out every month. I would also like to do it through notifications and stuff. We need to be slightly careful that we don't end up sending loads of notifications to people about stuff that they don't care about. 
+
+At the moment, all notifications are about them, their solution, their students, their badges. Just about their learning. So if we're going to start sending notifications that say we've added an exercise, we've done this, I want to be careful that we don't end up annoying people with those notifications.
+
+And again, reducing the signal to noise ratio. So I need to think about it a little bit. But I also am not against the idea. 
+
+I do quite like the idea. I'd almost like to have another notifications tab, which is about updates to exercises. But I think we're probably pushing it once we've got notifications, site notifications, badges, and testimonials, all as little icons. 
+
+Maybe not. Maybe that's the solution. It's 400 little things at the top that all just flash all the time.
+
+But yeah, I definitely want to get more info to students about what's changed and what we've improved in XSYM. I feel like it's a massive thing we should do more. I think it would really increase positive usage of people that would benefit from it. 
+
+So yeah, that's my answer to that. So I don't know, but it is something I want to do, and it is something, yeah, we're going to do. We launch Appy August tomorrow, maybe today, by the time you get this. 
+
+I don't know when I'm over two hours. Absolutely exhausted by the end of that, we both were. But it's fun and it's cool, and I think Eric's going to put brief introduction videos together for most of them as well now, because he did so much prep for all of them. 
+
+So yeah, excited for that. But yeah, it should be a big month now with all of that stuff. What was the third question on Discord? I might need to just turn internet on.
+
+That's where everything goes wrong when my laptop crashes. Let's see. How is the chat GPT plugin being viewed? Well, it's a premium update in general, so we've had 220 people sign up for premium.
+
+75% of them are still subscribed and active. I haven't had any feedback, good or bad. I haven't really looked at anything to do with it.
+
+Sorry, the honest answer, I don't know. There was some marginal hating on it from people at the beginning, some of which was entirely unjustified and some of which was entirely sensible and wise. I've talked about this, I think, either in another Insiders video or another video in general.
+
+And there's a lot of very valid concern about chat GPT stopping people from learning by being almost a cheat for them. But also, I think if you get stuck, it's a really valid thing. Some people just hate chat GPT because of licencing stuff.
+
+I think away from general, I hate chat GPT, like vitriol, I think some people have found it useful and some people probably don't care. That'd probably be my take on it. But I really haven't had any feedback, good or bad on it. 
+
+I should look at usage at some point, but I haven't done that yet. So maybe I'll put an update in the forum or the Insiders channel answering that question a little bit. But yeah, I've been, I was chatting to Loretta earlier about premium in general and trying to decide if I feel like it was a good decision or a bad decision. 
+
+Now we're like a couple of months in. I took the banner off the top of the site that says Exism needs your money and replaced it with a premium one and our donations pretty much stopped. So I think like, we need banner, we need that banner at the top. 
+
+I put it back on and people started donating again. So we really need that banner at the top. And I think it's made me feel a little bit like we should be definitely nudging people more to donate in the site. 
+
+But I think maybe the solution is to try and get people to sign up to premium as a way of supporting Exism. I think that's sort of the route I'm coming around to is premium is the, if you're enjoying, this is why I didn't turn the internet on because otherwise I get notification sounds buzzing. If you're enjoying Exism, sign up to premium as a way of supporting us.
+
+I feel like that's the right approach to take. So yeah, I'm still exploring that mentally. I'm trying to not, I haven't had, just haven't had space to really think about it too much.
+
+But I definitely think having these extra locked away features is nice. But I would rather make the rest of the site good than just really work on premium, making premium good. And so I don't want it to become like a distraction. 
+
+And I think if I can add in link psychologically supporting Exism and getting premium a bit more tightly, and also then add nudges around the site, like after your fifth exercise be like, if you're enjoying Exism, please consider supporting us either with a donation or by joining premium. I feel like adding those nudge modals in will help as well. So we have a PR for that at the end of mentoring, which I'm going to get over the line. 
+
+I'm off on Wednesday, Thursday and Friday. I'm having three days off. So maybe not this week, but the week after I'll get that over the line.
+
+So yeah, that's sort of my thoughts on premium. So I don't know directly about chatGPT to answer that question. But yeah, I think in terms of, I'm just going to check, that wasn't a notification with another question on Discord, because it was a Discord beep.
+
+No, it wasn't. So it was the chatGPT Discord that I seem to get notified about all the time. Yeah, that's my sort of thinking on where things are at with premium stuff.
+
+So I guess that's my general update. I think there's nothing massively else to tell you all about other than just tonnes of PRs have been getting merged, which has just felt really nice. Do you go and take a look? If you're interested in optimising database stuff, when you've got millions and tens of millions of rows and tables, there's a lot of really interesting stuff I've been doing. 
+
+Like ping me if you want to talk about it. I did a YouTube live stream as well on how tooling works. If you've not seen that, check out on YouTube. 
+
+The resolution of that was terrible, sorry. But it was fun to do, and hopefully it was useful to do as well. So yeah, do go and check that out.
+
+But yeah, I think that's pretty much my update for now. Hopefully that gives you all a flavour of what's going on. Please let me know if there's anything you would like to see in these videos, if you've got any more questions. 
+
+Thank you, everyone, for being an insider and for supporting Xism. And thank you as well to Bobahop for complaining loudly enough that I finally fixed the performance everywhere. Oh, and happy birthday to Aaron, whose birthday it was on Sunday, yesterday. 
+
+That's it. I hope you've enjoyed this, and I hope to see you around on Discord soon. Thanks for watching.
