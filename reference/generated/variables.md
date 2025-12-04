@@ -28,13 +28,13 @@
 
 [ANIMATION: Jiki's notepad showing a list of several names]
 
-**NARRATION**: And this is exactly what variables do in programming. They're a way for our programmes to remember information and store it, so that we can use it later.
+**NARRATION**: And this is exactly what variables do in programming. They're a way for our programs to remember information and store it, so that we can use it later.
 
 ---
 
 ## Section 2: Transition to Inside the Computer (~30 seconds)
 
-**NARRATION**: But what's actually happening inside the computer when we write code to do this? Let's zoom in and have a look at what's going on in Jiki's world when he's running our programmes.
+**NARRATION**: But what's actually happening inside the computer when we write code to do this? Let's zoom in and have a look at what's going on in Jiki's world when he's running our programs.
 
 [ANIMATION: Visual "zoom in" effect, transitioning from party scene to Jiki's warehouse]
 
@@ -50,7 +50,7 @@
 
 [ANIMATION: Camera pans across warehouse shelves]
 
-**NARRATION**: Now, you remember from when we learned about functions that some of these shelves contain machines. These machines are the functions that Jiki can use to do different things in our programmes.
+**NARRATION**: Now, you remember from when we learned about functions that some of these shelves contain machines. These machines are the functions that Jiki can use to do different things in our programs.
 
 [ANIMATION: Some shelves showing "machines" with labels like "circle", "rectangle", etc.]
 
@@ -152,7 +152,7 @@
 
 [ANIMATION: Paper going into a bin, maybe a "whoosh" or disposal effect]
 
-**NARRATION**: It's gone. It's disposed of. We can never get that back. "Sarah" is not in the box anymore. In fact, "Sarah" doesn't exist anymore in this programme at all. It's been thrown away.
+**NARRATION**: It's gone. It's disposed of. We can never get that back. "Sarah" is not in the box anymore. In fact, "Sarah" doesn't exist anymore in this program at all. It's been thrown away.
 
 **NARRATION**: And I really want you to understand this, because this is quite crucial. The box can only hold one thing at a time. So, when we change what's in the box, the old value gets taken out and thrown away. It's gone forever.
 

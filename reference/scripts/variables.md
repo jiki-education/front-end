@@ -126,9 +126,9 @@ He finds it, opens it up, and takes out the piece of paper, which has "Sarah" wr
 Then he heads over to the `greet` machine, puts the piece of paper into the input of the machine, and runs the machine.
 [Machine should have a speech bubble that says "Hello, Sarah!"]
 
-## Section 6: Conclsuion
+## Section 6: Conclusion
 
-Did you get it right? Nearly everyone misses a little step when they're thinking about this at first, but with practice your visualisaton will get really good and everything will be a lot easier in the long run.
+Did you get it right? Nearly everyone misses a little step when they're thinking about this at first, but with practice your visualisation will get really good and everything will be a lot easier in the long run.
 
 Remember, when you see the word "let" in your code, I want you to think, "Okay, we're making a new box.". Really get that clear in your mind.
 

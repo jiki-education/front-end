@@ -604,7 +604,7 @@ While adapted for writing, blogs maintain Jeremy's core voice:
 ### Still Present
 
 - **Contractions:** "I'm", "we're", "it's" (never "I am", "we are", "it is")
-- **British English:** "optimising", "programme", "realisation"
+- **British English:** "optimising", "realisation"
 - **Some hedging:** "I think", "probably", "quite" (but less than transcripts)
 - **Conversational:** "So yeah", "I guess", "to be honest" (sparingly)
 - **Enthusiasm:** Exclamation marks, bold emphasis, genuine excitement

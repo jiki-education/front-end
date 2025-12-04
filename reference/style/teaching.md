@@ -534,7 +534,7 @@ Career/long-term references appear 4-6 times per session.
 > "I've been coding for a long time, 30 plus years, and I still in my head, imagine when I write code that I'm putting something in a box and I'm going to get it out later. And my mental model is more complex. I have a lot more stuff to do with boxes in my head. But I honestly still think of boxes. Like, it's still very, very to me, that's the way I think of things."
 
 **Example 2 - Fundamentals value:**
-> "The whole point of this is about these fundamentals. Get these things rock-solid. Once you get a couple of weeks into the course, you will have enough coding knowledge to be able to make any programme on earth. That's not an exaggeration."
+> "The whole point of this is about these fundamentals. Get these things rock-solid. Once you get a couple of weeks into the course, you will have enough coding knowledge to be able to make any program on earth. That's not an exaggeration."
 
 **Example 3 - Building for future:**
 > "And the only thing that will hold you back is how overwhelming it gets and how complex it gets. And the reason it will get overwhelming and complex is because these beginning things don't feel tactile. So the core thing... challenge yourself to do the exercises really well."

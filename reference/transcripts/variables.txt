@@ -12,7 +12,7 @@ They've got these, they're little machines. We're going to be looking at functio
 
 These are boxes. It's their little boxes. They've got little handles and they have these labels on.
 
-And these boxes are what we're going to use throughout the course, throughout your whole career in programming to store information. So, Jiki has these functions that he can use at any point, but he also has these variables, these boxes that he can put things in throughout the programmes that you write. And then you can go and get these things out again later. 
+And these boxes are what we're going to use throughout the course, throughout your whole career in programming to store information. So, Jiki has these functions that he can use at any point, but he also has these variables, these boxes that he can put things in throughout the programs that you write. And then you can go and get these things out again later. 
 
 And just like how every function has a name that we saw, so the functions here have move and turn right as their names. These boxes also have labels on. This is a box that's got a label for name.
 
@@ -36,7 +36,7 @@ And so, he gets out his pen and he draws on the label the word name. And then he
 
 And then he puts that piece of paper into the box. So, now he's got this box with name on its label. So, he knows if you ever mention name again, he knows he has to go and find the box that was called name. 
 
-And if he was to look inside the box, he would find a piece of paper inside a string that has the word Jeremy on. And he goes and he puts that back on his shelf and it's there. And then at any other time in the whole of the programme that you ever want to use that name, you can, I'll show you how in a bit, but you can tell him to use that name.
+And if he was to look inside the box, he would find a piece of paper inside a string that has the word Jeremy on. And he goes and he puts that back on his shelf and it's there. And then at any other time in the whole of the program that you ever want to use that name, you can, I'll show you how in a bit, but you can tell him to use that name.
 
 And he will go and he'll get that box off the shelf, find the box that's got name on it, and he will get out the piece of paper that's in it. 
 
@@ -74,7 +74,7 @@ So, at the end of this line of code, we've changed what's in the box from Jeremy
 
 It's forgotten. We can never get that again. It's done.
 
-And instead now, if we went and looked in that box later on in our programme, we'd see that the word Alan is in there instead as a string.
+And instead now, if we went and looked in that box later on in our program, we'd see that the word Alan is in there instead as a string.
 
 The way I'd like you to think of it is change is an instruction. I really like the idea that we give Jiki instructions, and then Jiki follows those instructions. So, the instruction we're giving here is change, and then name is the label on the box. You can think of it as the box as well, but I think the clarity will come if you think of it as change name means find the box with the label name on.
 
@@ -146,13 +146,13 @@ If we had got a box that has, sorry, a function, a machine that has the name mov
 
 He'll be like, there's already a box called move. I can't, there's already a machine, a function called move. I can't also put a box with the same label. 
 
-Once you use a label once in your programme, it's then reserved. And that's really important to know.
+Once you use a label once in your program, it's then reserved. And that's really important to know.
 
 So, set creates the box. Once you've created it, you can't recreate it exactly. Instead, you use change to change what's inside it. 
 
 So, variables and functions are not the same things. So, we're going to look at some examples. There's enough theory we've gone through here. 
 
-I think it's important to dig in some code, look at some examples. But to just try and answer that question, functions are things that do things. So, turn right, it does something in your programme. 
+I think it's important to dig in some code, look at some examples. But to just try and answer that question, functions are things that do things. So, turn right, it does something in your program. 
 
 If you think back to the maze, when you called move or turn right, that is an instruction for the, for the, for Jiki. Well, no, let's not use that language, that'll confuse you. When you use turn right, that is a machine that Jiki runs that makes the character turn right. 
 
@@ -160,7 +160,7 @@ When you use the move function, Jiki gets the move function and that makes the c
 
 So, functions are machines that Jiki can use to do things. Variables are boxes that Jiki stores things in. And keywords like set or change, those are instructions to Jiki. 
 
-Those are you telling Jiki to do something with either the functions or with the variables. So, yeah, if you want two boxes to, if you want two different names in your programme. So, if you want to put together a sentence that's got two names in it. 
+Those are you telling Jiki to do something with either the functions or with the variables. So, yeah, if you want two boxes to, if you want two different names in your program. So, if you want to put together a sentence that's got two names in it. 
 
 So, for example, you've got a sentence which is Jeremy is friends with DJ. And you've got Jeremy and DJ as two names. You would need two different boxes. 
 
@@ -236,7 +236,7 @@ It's not a special magic thing, like Jiki doesn't have any special knowledge of 
 
 So, Jiki, when you write circle, Jiki is literally going and looking for a machine that's got the circle label on it. And if Jiki doesn't find a machine with the circle label, then Jiki will sort of say, I don't know how to do this, which just collapses in a world of pain, but it should give you a nice error message.
 
-But if we change this, it's not like we're building it into Jiki's knowledge. It's not like the language, the functions aren't part of the language. They're just different things that are on shelves. Every single programme you ever write could have different functions in it. None of these functions are special to Jiki script or do anything particularly magical.
+But if we change this, it's not like we're building it into Jiki's knowledge. It's not like the language, the functions aren't part of the language. They're just different things that are on shelves. Every single program you ever write could have different functions in it. None of these functions are special to Jiki script or do anything particularly magical.
 
 They're just functions that happen. They're just like machines I've built and put on the shelves for you to use. They're not something that Jiki has any innate knowledge about, basically, unlike the keywords, which are things that are built into Jiki. Jiki knows what those keyword means.
 
@@ -354,7 +354,7 @@ What's Jiki doing? Pause for a second, think what's Jiki doing? Okay. He's going
 
 That's how he knows it's a machine and not a box. And he's gone, and he's got written yellow on a piece of paper, and he's run the machine, and he's put yellow into it. Okay. 
 
-So, now we have the ink colour. The ink colour in our programme has been set to yellow. Okay. 
+So, now we have the ink colour. The ink colour in our program has been set to yellow. Okay. 
 
 Next line. This is the big line. The scary line, circle, head centre X, head centre Y, head radius.
 
@@ -374,11 +374,11 @@ So Jiki's going and getting this head radius box off the shelf and he's looking 
 
 The next one is going to create a new box which is hat X, and he's going to do the same thing. He's going to get the head centre X from up here, which is 50, and he's going to then do a bit of maths. He's going to use the hat width, which is 12.5, and he's going to divide that by 2. So that's going to give 6.25, and he's going to put that value in.
 
-So you see how Jiki is doing all of the maths for you? See how I tell you the programme isn't about maths - we're going to get the computers to do the maths for us. I don't have to think in my head anymore, "okay, I have to do 12.5 divided by 2, that's 6.25" - I'm not good with maths, I can't do all this mental arithmetic in my head, it's painful for me to do. But I can tell Jiki to do it for me. I can tell Jiki to go and get something out of this box, do some maths, and put it somewhere.
+So you see how Jiki is doing all of the maths for you? See how I tell you the program isn't about maths - we're going to get the computers to do the maths for us. I don't have to think in my head anymore, "okay, I have to do 12.5 divided by 2, that's 6.25" - I'm not good with maths, I can't do all this mental arithmetic in my head, it's painful for me to do. But I can tell Jiki to do it for me. I can tell Jiki to go and get something out of this box, do some maths, and put it somewhere.
 
 I'm calling the things inside the boxes values. So if I talk about values, I'm going to say values inside labelled boxes.
 
-The whole point of this is about these fundamentals. Get these things rock-solid. Once you get a couple of weeks into the course, you will have enough coding knowledge to be able to make any programme on earth. That's not an exaggeration. You will be at a point where you are able to use all of the fundamental concepts of programming and you can make anything.
+The whole point of this is about these fundamentals. Get these things rock-solid. Once you get a couple of weeks into the course, you will have enough coding knowledge to be able to make any program on earth. That's not an exaggeration. You will be at a point where you are able to use all of the fundamental concepts of programming and you can make anything.
 
 Now, if you tried to make anything with just those fundamentals, you'd probably struggle because there are lots of easier ways to do it as you learn more advanced things. But you'll get to a point where you can do anything, and the only thing that will hold you back is how overwhelming it gets and how complex it gets. And the reason it will get overwhelming and complex is because these beginning things don't feel tactile.
 
