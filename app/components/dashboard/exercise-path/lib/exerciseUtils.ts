@@ -1,6 +1,6 @@
-import type { Exercise } from "../../lib/mockData";
+import type { LessonData } from "../types";
 
-export function getExerciseTypeIcon(type: Exercise["type"]) {
+export function getExerciseTypeIcon(type: LessonData["type"]) {
   switch (type) {
     case "coding":
       return "CodingIcon";
@@ -13,7 +13,7 @@ export function getExerciseTypeIcon(type: Exercise["type"]) {
   }
 }
 
-export function getDifficultyColor(difficulty: Exercise["difficulty"]) {
+export function getDifficultyColor(difficulty: LessonData["difficulty"]) {
   switch (difficulty) {
     case "easy":
       return "text-green-600";
@@ -26,7 +26,7 @@ export function getDifficultyColor(difficulty: Exercise["difficulty"]) {
   }
 }
 
-export function getDifficultyBadgeClasses(difficulty: Exercise["difficulty"]) {
+export function getDifficultyBadgeClasses(difficulty: LessonData["difficulty"]) {
   switch (difficulty) {
     case "easy":
       return "bg-green-100 text-green-700";
@@ -39,7 +39,7 @@ export function getDifficultyBadgeClasses(difficulty: Exercise["difficulty"]) {
   }
 }
 
-export function getTypeLabel(type: Exercise["type"]) {
+export function getTypeLabel(type: LessonData["type"]) {
   switch (type) {
     case "coding":
       return "Exercise";
@@ -53,5 +53,8 @@ export function getTypeLabel(type: Exercise["type"]) {
 }
 
 export function formatDifficulty(difficulty: string) {
+  if (!difficulty) {
+    return "Easy"; // Default fallback
+  }
   return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
 }

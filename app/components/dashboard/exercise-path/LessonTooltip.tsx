@@ -14,12 +14,12 @@ import {
 } from "@floating-ui/react";
 import type { ReactElement } from "react";
 import { cloneElement, isValidElement, useId, useState } from "react";
-import type { Exercise } from "../lib/mockData";
+import type { LessonData } from "./types";
 import { TooltipContent } from "./ui/TooltipContent";
 
 interface LessonTooltipProps {
   children: ReactElement;
-  exercise: Exercise;
+  exercise: LessonData;
   placement?: Placement;
   offset?: number;
   onNavigate?: (route: string) => void;
@@ -63,7 +63,8 @@ export function LessonTooltip({
 
   const childrenWithRef = cloneElement(children, {
     ref: refs.setReference,
-    ...getReferenceProps()
+    ...getReferenceProps(),
+    "data-tooltip-open": isOpen
   } as any);
 
   return (
@@ -76,7 +77,6 @@ export function LessonTooltip({
               ref={refs.setFloating}
               style={floatingStyles}
               {...getFloatingProps()}
-              className="z-resizer bg-white rounded-xl shadow-xl border border-gray-200 p-16 w-fit"
               role="dialog"
               aria-labelledby={headingId}
               aria-describedby={descriptionId}

@@ -1,0 +1,112 @@
+/* Base tooltip styles */
+.tooltip {
+  border: 2px solid;
+  border-radius: 12px;
+  background: white;
+  padding: 24px;
+  text-align: center;
+  min-width: 320px;
+  max-width: 360px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Available lesson tooltip */
+.tooltip.available {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+}
+
+/* Completed lesson tooltip */
+.tooltip.completed {
+  border-color: #10b981;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+/* Locked lesson tooltip */
+.tooltip.locked {
+  border-color: #94a3b8;
+  box-shadow: 0 8px 24px rgba(148, 163, 184, 0.3);
+}
+
+/* Title styling */
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+/* Message/description styling */
+.message {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Button container */
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* Secondary button (Close) */
+.btnSecondary {
+  flex: 1;
+  padding: 12px 20px;
+  background: white;
+  color: #475569;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btnSecondary:hover {
+  border-color: #cbd5e1;
+  color: #1a202c;
+}
+
+/* Primary button (Start/Continue/Review) */
+.btnPrimary {
+  flex: 1;
+  padding: 12px 20px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btnPrimary:hover {
+  background: #059669;
+}
+
+/* Locked button styling */
+.btnLocked {
+  flex: 1;
+  padding: 12px 20px;
+  background: #94a3b8;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btnLocked:hover {
+  background: #64748b;
+}

@@ -2,13 +2,15 @@ import { useState } from "react";
 import { showModal } from "@/lib/modal";
 import { completeLevelMilestone, fetchLevelsWithProgress } from "@/lib/api/levels";
 import type { LevelWithProgress } from "@/types/levels";
-import type { LevelSection } from "../lib/levelSectionMapper";
+import type { LevelSectionData } from "../types";
 
 export function useMilestoneHandler(setLevels: (levels: LevelWithProgress[]) => void) {
   const [levelCompletionInProgress, setLevelCompletionInProgress] = useState<string | null>(null);
 
-  const handleMilestoneClick = (section: LevelSection) => {
-    if (section.milestoneStatus !== "ready_for_completion" || levelCompletionInProgress) {
+  const handleMilestoneClick = (section: LevelSectionData) => {
+    // Check if milestone is ready (all lessons completed but level not completed)
+    const isReady = section.completedLessonsCount === section.lessons.length && section.status !== "completed";
+    if (!isReady || levelCompletionInProgress) {
       return;
     }
 

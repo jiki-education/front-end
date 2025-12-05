@@ -1,15 +1,12 @@
 import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
-import InfoPanel from "@/components/dashboard/info-panel/InfoPanel";
 import SidebarLayout from "../../../components/layout/SidebarLayout";
+import styles from './dashboard.module.css'
 
 export default function DashboardPage() {
   return (
     <SidebarLayout activeItem="learn">
-      <div className="flex">
-        <main className="flex-1 p-6">
-          <ExercisePath />
-        </main>
-        <InfoPanel />
+      <div className={styles.mainContent}>
+        <ExercisePath />
       </div>
     </SidebarLayout>
   );

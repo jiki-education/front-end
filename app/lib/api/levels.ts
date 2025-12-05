@@ -1,4 +1,4 @@
-import type { Level, LevelWithProgress, LevelsResponse, UserLevel, UserLevelsResponse } from "@/types/levels";
+import type { Level, LevelWithProgress, LessonWithProgress, LevelsResponse, UserLevel, UserLevelsResponse } from "@/types/levels";
 import { api } from "./client";
 
 export async function fetchLevels(): Promise<Level[]> {
@@ -25,22 +25,36 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
   return levels.map((level) => {
     const userProgress = userLevelMap.get(level.slug);
 
-    // Use the backend's completion data instead of calculating manually
-    let status: "not_started" | "started" | "completed" = "not_started";
-    if (userProgress) {
-      // Level is "completed" if the backend says it's completed
-      if (userProgress.completed_at != null) {
-        status = "completed";
-      } else if (userProgress.user_lessons.length > 0) {
-        // Level is "started" if there are any lesson records (started or completed)
+    // Create a map of lesson progress for this level
+    const lessonProgressMap = new Map(
+      userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul.status]) || []
+    );
+
+    // Process lessons with their status
+    const lessons: LessonWithProgress[] = level.lessons.map((lesson) => ({
+      slug: lesson.slug,
+      type: lesson.type,
+      status: lessonProgressMap.get(lesson.slug) || "not_started"
+    }));
+
+    // Calculate level status
+    let status: "not_started" | "started" | "completed" | "ready_for_completion" = "not_started";
+    
+    if (userProgress?.completed_at != null) {
+      status = "completed";
+    } else if (userProgress) {
+      const completedLessons = lessons.filter((l) => l.status === "completed");
+      if (completedLessons.length === lessons.length) {
+        status = "ready_for_completion";
+      } else if (completedLessons.length > 0 || lessons.some((l) => l.status === "started")) {
         status = "started";
       }
     }
 
     return {
-      ...level,
-      userProgress,
-      status
+      slug: level.slug,
+      status,
+      lessons
     };
   });
 }
