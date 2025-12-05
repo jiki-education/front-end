@@ -25,7 +25,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
   const getContextualContent = () => {
     if (exercise.locked) {
       return {
-        description: "Complete the previous lesson to unlock this one.",
+        description: "This lesson is locked yet. Complete the previous lesson to unlock it.",
         buttonText: "Locked",
         disabled: true,
         tooltipClass: styles.locked
@@ -34,7 +34,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
     
     if (exercise.completed) {
       return {
-        description: `${getTypeLabel(exercise.type)} - ${exercise.estimatedTime} min - ${exercise.xpReward} XP`,
+        description: "You can review this lesson now.",
         buttonText: "Review",
         disabled: false,
         tooltipClass: styles.completed
@@ -42,7 +42,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
     }
     
     return {
-      description: `${getTypeLabel(exercise.type)} - ${exercise.estimatedTime} min - ${exercise.xpReward} XP`,
+      description: `Ready to start this ${getTypeLabel(exercise.type).toLowerCase()} lesson.`,
       buttonText: "Start",
       disabled: false,
       tooltipClass: styles.available

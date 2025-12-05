@@ -3,6 +3,9 @@ import { MilestoneCard } from "./MilestoneCard";
 import type { LevelSectionData } from "../types";
 import styles from "../ExercisePath.module.css";
 import { useEffect } from "react";
+import CodingIcon from "@static/icons/coding.svg";
+import VideoIcon from "@static/icons/video.svg";
+import QuizIcon from "@static/icons/quiz.svg";
 
 interface LevelSectionProps {
   section: LevelSectionData;
@@ -49,7 +52,22 @@ export function LevelSection({
             </div>
             <div className={styles.partContent}>
               <div className={`${styles.partNumber} ${styles[lesson.type]}`}>
-                {lesson.type === 'video' ? 'Video' : lesson.type === 'quiz' ? 'Quiz' : 'Coding'}
+                {lesson.type === 'video' ? (
+                  <>
+                    <VideoIcon className={styles.partNumberIcon} />
+                    Video
+                  </>
+                ) : lesson.type === 'quiz' ? (
+                  <>
+                    <QuizIcon className={styles.partNumberIcon} />
+                    Quiz
+                  </>
+                ) : (
+                  <>
+                    <CodingIcon className={styles.partNumberIcon} />
+                    Coding
+                  </>
+                )}
               </div>
               <div className={styles.partTitle}>{lesson.title}</div>
               <div className={styles.partDescription}>{lesson.description}</div>

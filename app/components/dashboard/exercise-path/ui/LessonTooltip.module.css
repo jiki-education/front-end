@@ -12,34 +12,34 @@
 
 /* Available lesson tooltip */
 .tooltip.available {
-  border-color: #3b82f6;
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+  border-color: var(--color-purple-500);
+  box-shadow: 0 8px 24px var(--color-purple-500-30);
 }
 
 /* Completed lesson tooltip */
 .tooltip.completed {
-  border-color: #10b981;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+  border-color: var(--color-green-500);
+  box-shadow: 0 8px 24px var(--color-green-500-30);
 }
 
 /* Locked lesson tooltip */
 .tooltip.locked {
-  border-color: #94a3b8;
-  box-shadow: 0 8px 24px rgba(148, 163, 184, 0.3);
+  border-color: var(--color-gray-400);
+  box-shadow: 0 8px 24px var(--color-gray-400-30);
 }
 
 /* Title styling */
 .title {
   font-size: 18px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-gray-900);
   margin-bottom: 12px;
 }
 
 /* Message/description styling */
 .message {
   font-size: 15px;
-  color: #64748b;
+  color: var(--color-gray-500);
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -55,8 +55,8 @@
   flex: 1;
   padding: 12px 20px;
   background: white;
-  color: #475569;
-  border: 2px solid #e2e8f0;
+  color: var(--color-gray-600);
+  border: 2px solid var(--color-gray-200);
   border-radius: 10px;
   font-size: 15px;
   font-weight: 500;
@@ -66,15 +66,14 @@
 }
 
 .btnSecondary:hover {
-  border-color: #cbd5e1;
-  color: #1a202c;
+  border-color: var(--color-gray-300);
+  color: var(--color-gray-900);
 }
 
 /* Primary button (Start/Continue/Review) */
 .btnPrimary {
   flex: 1;
   padding: 12px 20px;
-  background: #10b981;
   color: white;
   border: none;
   border-radius: 10px;
@@ -88,15 +87,29 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.btnPrimary:hover {
-  background: #059669;
+/* Available lesson button (Start) */
+.tooltip.available .btnPrimary {
+  background: var(--color-purple-500);
+}
+
+.tooltip.available .btnPrimary:hover {
+  background: var(--color-purple-600);
+}
+
+/* Completed lesson button (Review) */
+.tooltip.completed .btnPrimary {
+  background: var(--color-green-500);
+}
+
+.tooltip.completed .btnPrimary:hover {
+  background: var(--color-green-600);
 }
 
 /* Locked button styling */
 .btnLocked {
   flex: 1;
   padding: 12px 20px;
-  background: #94a3b8;
+  background: var(--color-gray-400);
   color: white;
   border: none;
   border-radius: 10px;
@@ -108,5 +121,5 @@
 }
 
 .btnLocked:hover {
-  background: #64748b;
+  background: var(--color-gray-500);
 }
