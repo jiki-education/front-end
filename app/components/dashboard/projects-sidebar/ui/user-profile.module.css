@@ -1,0 +1,435 @@
+.userProfileCard {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+
+.userProfileCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: #cbd5e0;
+}
+
+.userProfileHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.userAvatar {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
+    position: relative;
+    flex-shrink: 0;
+    padding: 3px;
+}
+
+.userAvatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.countryBadge {
+    position: absolute;
+    bottom: -6px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.userInfo {
+    flex: 1;
+    margin-left: 11px;
+}
+
+.userNameRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.userName {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: -1px;
+}
+
+.statusEmojiBtn {
+    width: 32px;
+    height: 24px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.statusEmojiBtn:hover {
+    background: #e2e8f0;
+    transform: scale(1.1);
+}
+
+.currentStatusEmoji {
+    font-size: 14px;
+}
+
+.statusEmojiTooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a202c;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+
+.statusEmojiTooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a202c;
+}
+
+.statusEmojiBtn:hover .statusEmojiTooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.statusEmojiMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 12px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    z-index: 1000;
+    display: none;
+    white-space: nowrap;
+}
+
+.statusEmojiMenu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e2e8f0;
+}
+
+.statusEmojiMenu::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 13px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+}
+
+.statusEmojiMenu.active {
+    display: block;
+}
+
+.statusOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.statusOption:hover {
+    background: #f1f5f9;
+}
+
+.statusEmoji {
+    font-size: 18px;
+}
+
+.statusText {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.userHandle {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.streakBadge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.streakIcon {
+    font-size: 14px;
+}
+
+.streakNumber {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.streakText {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.userStats {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.userStatItem {
+    text-align: center;
+    flex: 1;
+}
+
+.userStatLabel {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.userStatValue {
+    display: block;
+    font-size: 14px;
+    color: #1a202c;
+    font-weight: 600;
+}
+
+.userQuickStats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.quickStatItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.quickStatIcon {
+    width: 20px;
+    height: 20px;
+    color: #64748b;
+}
+
+.quickStatNumber {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.profileBadgesSection {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 16px;
+}
+
+.profileBadgesTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7c3aed;
+    margin-bottom: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profileBadgesTitle::before,
+.profileBadgesTitle::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.profileBadges {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.profileBadge {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid #a855f7;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.profileBadge:hover {
+    transform: scale(1.12) translateY(-2px);
+}
+
+.profileBadge:nth-child(1) {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.profileBadge:nth-child(1):hover {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.profileBadge:nth-child(2) {
+    border-color: #a855f7;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.profileBadge:nth-child(2):hover {
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3), 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.profileBadge:nth-child(3) {
+    border-color: #a855f7;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.profileBadge:nth-child(3):hover {
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3), 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.profileBadge:nth-child(4) {
+    border-color: #e2e8f0;
+    box-shadow: none;
+    background: #f8fafc;
+}
+
+.profileBadge:nth-child(4):hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.profileBadge.empty {
+    border-color: #e2e8f0;
+    border-style: dashed;
+    box-shadow: none;
+    background: #f8fafc;
+    cursor: default;
+}
+
+.profileBadge.empty:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: white;
+    border-style: solid;
+    background: #a855f7;
+    cursor: pointer;
+}
+
+.profileBadge.empty:hover .badgeMore {
+    color: transparent;
+}
+
+.profileBadge.empty:hover .badgeMore::after {
+    content: '→';
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.badgeMore {
+    font-size: 16px;
+    font-weight: 600;
+    color: #94a3b8;
+    position: relative;
+}
+
+.profileBadge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.badgeNewTag {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2570eb 100%);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    animation: pulseBadge 2s ease-in-out infinite;
+}
