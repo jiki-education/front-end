@@ -1,0 +1,389 @@
+/* Learning Path Container */
+.learningPath {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 30px 0 150px 0;
+    position: relative;
+    margin-left: 10px;
+    margin-right: -45px;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+/* Lesson Part Cards */
+.lessonPart {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--color-gray-50);
+    border: 2px solid var(--color-gray-100);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    max-width: 485px;
+    margin: 0 auto;
+    min-height: 120px;
+}
+
+.lessonPart:hover {
+    border-color: var(--color-gray-300);
+}
+
+/* Lesson States */
+.lessonPart.complete {
+    background: var(--color-green-50);
+    border-color: var(--color-green-500);
+}
+
+.lessonPart.complete:hover {
+    border-color: var(--color-green-500);
+    background: white;
+}
+
+.lessonPart.complete::after {
+    content: "✓";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: var(--color-green-500);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px var(--color-green-500-30);
+    z-index: 999;
+}
+
+.lessonPart.inProgress {
+    background: white;
+    border: 3px solid var(--color-purple-500);
+    box-shadow: 0 4px 12px var(--color-purple-500-20);
+    animation: slowPulse 3s ease-in-out infinite;
+}
+
+.lessonPart.inProgress:hover {
+    border-color: var(--color-purple-600);
+    animation: none;
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px var(--color-purple-500-30);
+    background: var(--color-purple-500-6);
+}
+
+.lessonPart.locked {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.lessonPart.locked:hover {
+    transform: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.lessonPart.locked::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: var(--color-gray-200)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E")
+        no-repeat center;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px var(--color-gray-200-50);
+    color: var(--color-gray-400);
+    z-index: 999;
+}
+
+/* Part Icon */
+.partIcon {
+    width: 87px;
+    height: 87px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.partIcon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.lessonPart.locked .partIcon img {
+    filter: grayscale(100%) opacity(0.5);
+}
+
+/* Part Content */
+.partContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.partNumber {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-blue-500);
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    padding: 3px 10px;
+    background: white;
+    border-radius: 10px;
+}
+
+.partNumberIcon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* State-specific part number styling */
+.lessonPart.inProgress .partNumber {
+    color: var(--color-purple-500);
+    border: 1px solid var(--color-purple-500-30);
+}
+
+.lessonPart.complete .partNumber {
+    color: var(--color-green-500);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--color-green-500-30);
+}
+
+.partTitle {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 2px;
+}
+
+.partDescription {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+}
+
+/* Start Card */
+.startCard {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: -8px;
+}
+
+.startCardContent h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-600) 100%);
+    padding: 12px 48px;
+    border-radius: 40px;
+    border: 3px solid var(--color-green-500-40);
+    box-shadow: 0 2px 8px var(--color-green-500-30);
+    animation: startCardPulse 2s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.startCard:hover .startCardContent h2 {
+    border-color: var(--color-green-500);
+    animation: none;
+    transform: scale(1.05);
+}
+
+.startCardIcon,
+.startCardSubtitle {
+    display: none;
+}
+
+/* Milestone Cards */
+.milestoneCard {
+    border-radius: 100px;
+    padding: 24px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.milestoneCard:hover {
+    transform: scale(1.05);
+}
+
+.milestoneCard.completed {
+    background: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-600) 100%);
+    border: 3px solid var(--color-green-500);
+    box-shadow: 0 4px 12px var(--color-green-500-30);
+}
+
+.milestoneCard.completed:hover {
+    box-shadow: 0 6px 16px var(--color-green-500-50);
+}
+
+.milestoneCard.readyForCompletion {
+    background: linear-gradient(135deg, var(--color-purple-500-15) 0%, var(--color-purple-400-15) 100%);
+    border: 2px solid var(--color-purple-500-30);
+    box-shadow: 0 4px 12px var(--color-purple-500-20);
+    padding: 12px;
+}
+
+.milestoneCard.locked {
+    background: var(--color-gray-200);
+    border-color: var(--color-gray-200);
+    opacity: 0.5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 230px;
+    padding: 12px;
+}
+
+.milestoneCardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.milestoneLabel {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+}
+
+.milestoneCard.readyForCompletion .milestoneLabel {
+    color: var(--color-purple-500);
+}
+
+.milestoneCard.locked .milestoneLabel {
+    color: var(--color-gray-500);
+}
+
+.milestoneCard p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.milestoneCard h3,
+.milestoneCardIcon {
+    display: none;
+}
+
+/* Progress Bar */
+.milestoneProgressBar {
+    width: 100%;
+    height: 6px;
+    background: var(--color-purple-500-20);
+    border-radius: 3px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.milestoneProgressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-purple-500), var(--color-purple-400));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Connecting Lines */
+.lessonPart::before,
+.startCard::before,
+.milestoneCard::before {
+    content: "";
+    position: absolute;
+    background: var(--color-gray-200);
+    width: 3px;
+    height: 20px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.startCard::before {
+    display: none;
+}
+
+.lessonPart.complete::before {
+    background: var(--color-green-500);
+}
+
+.lessonPart.inProgress::before {
+    background: var(--color-purple-500);
+}
+
+.milestoneCard::before {
+    height: 40px;
+    top: -40px;
+}
+
+.milestoneCard.completed::before {
+    background: var(--color-green-500);
+}
+
+.milestoneCard + .lessonPart::before {
+    height: 40px;
+    top: -40px;
+}
+
+/* Status Badge - Hidden */
+.statusBadge,
+.partStatus {
+    display: none;
+}
+
+/* Keyframes */
+@keyframes slowPulse {
+    0%,
+    100% {
+        box-shadow: 0 4px 12px var(--color-purple-500-20);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 24px var(--color-purple-500-40);
+        transform: scale(1.02);
+    }
+}
+
+@keyframes startCardPulse {
+    0%,
+    100% {
+        border-color: var(--color-green-500-40);
+        box-shadow: 0 2px 8px var(--color-green-500-30);
+    }
+    50% {
+        border-color: var(--color-green-500-80);
+        box-shadow: 0 4px 16px var(--color-green-500-50);
+    }
+}

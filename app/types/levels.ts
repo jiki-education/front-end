@@ -4,6 +4,12 @@ export interface Lesson {
   type: "exercise" | "video";
 }
 
+export interface LessonWithProgress {
+  slug: string;
+  type: "exercise" | "video";
+  status: "not_started" | "started" | "completed";
+}
+
 export interface UserLesson {
   lesson_slug: string;
   status: "not_started" | "started" | "completed";
@@ -18,6 +24,8 @@ export interface Level {
 export interface UserLevel {
   level_slug: string;
   user_lessons: UserLesson[];
+  completed_at?: string;
+  current?: boolean;
 }
 
 // API Response types
@@ -30,7 +38,8 @@ export interface UserLevelsResponse {
 }
 
 // Combined type for UI
-export interface LevelWithProgress extends Level {
-  userProgress?: UserLevel;
-  status?: "not_started" | "started" | "completed";
+export interface LevelWithProgress {
+  slug: string;
+  status: "not_started" | "started" | "completed" | "ready_for_completion";
+  lessons: LessonWithProgress[];
 }

@@ -1,0 +1,125 @@
+/* Base tooltip styles */
+.tooltip {
+    border: 2px solid;
+    border-radius: 12px;
+    background: white;
+    padding: 24px;
+    text-align: center;
+    min-width: 320px;
+    max-width: 360px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Available lesson tooltip */
+.tooltip.available {
+    border-color: var(--color-purple-500);
+    box-shadow: 0 8px 24px var(--color-purple-500-30);
+}
+
+/* Completed lesson tooltip */
+.tooltip.completed {
+    border-color: var(--color-green-500);
+    box-shadow: 0 8px 24px var(--color-green-500-30);
+}
+
+/* Locked lesson tooltip */
+.tooltip.locked {
+    border-color: var(--color-gray-400);
+    box-shadow: 0 8px 24px var(--color-gray-400-30);
+}
+
+/* Title styling */
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 12px;
+}
+
+/* Message/description styling */
+.message {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Button container */
+.buttons {
+    display: flex;
+    gap: 12px;
+}
+
+/* Secondary button (Close) */
+.btnSecondary {
+    flex: 1;
+    padding: 12px 20px;
+    background: white;
+    color: var(--color-gray-600);
+    border: 2px solid var(--color-gray-200);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+.btnSecondary:hover {
+    border-color: var(--color-gray-300);
+    color: var(--color-gray-900);
+}
+
+/* Primary button (Start/Continue/Review) */
+.btnPrimary {
+    flex: 1;
+    padding: 12px 20px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Available lesson button (Start) */
+.tooltip.available .btnPrimary {
+    background: var(--color-purple-500);
+}
+
+.tooltip.available .btnPrimary:hover {
+    background: var(--color-purple-600);
+}
+
+/* Completed lesson button (Review) */
+.tooltip.completed .btnPrimary {
+    background: var(--color-green-500);
+}
+
+.tooltip.completed .btnPrimary:hover {
+    background: var(--color-green-600);
+}
+
+/* Locked button styling */
+.btnLocked {
+    flex: 1;
+    padding: 12px 20px;
+    background: var(--color-gray-400);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: not-allowed;
+    transition: all 0.2s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+.btnLocked:hover {
+    background: var(--color-gray-500);
+}

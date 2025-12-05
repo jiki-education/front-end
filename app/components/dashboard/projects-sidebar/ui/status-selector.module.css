@@ -1,0 +1,113 @@
+.statusEmojiBtn {
+    width: 32px;
+    height: 24px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.statusEmojiBtn:hover {
+    background: #e2e8f0;
+}
+
+.currentStatusEmoji {
+    font-size: 14px;
+}
+
+.statusEmojiTooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a202c;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+    pointer-events: none;
+}
+
+.statusEmojiTooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a202c;
+}
+
+.statusEmojiBtn:hover .statusEmojiTooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.statusEmojiMenu {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    z-index: 1000;
+    white-space: nowrap;
+}
+
+.statusEmojiMenu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #e2e8f0;
+}
+
+.statusEmojiMenu::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 13px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid white;
+}
+
+.statusOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.statusOption:hover {
+    background: #f1f5f9;
+}
+
+.statusEmoji {
+    font-size: 18px;
+}
+
+.statusText {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}

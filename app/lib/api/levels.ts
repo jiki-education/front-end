@@ -1,4 +1,11 @@
-import type { Level, LevelWithProgress, LevelsResponse, UserLevel, UserLevelsResponse } from "@/types/levels";
+import type {
+  Level,
+  LevelWithProgress,
+  LessonWithProgress,
+  LevelsResponse,
+  UserLevel,
+  UserLevelsResponse
+} from "@/types/levels";
 import { api } from "./client";
 
 export async function fetchLevels(): Promise<Level[]> {
@@ -11,6 +18,11 @@ export async function fetchUserLevels(): Promise<UserLevel[]> {
   return response.data.user_levels;
 }
 
+export async function completeLevelMilestone(levelSlug: string): Promise<any> {
+  const response = await api.patch(`/internal/user_levels/${levelSlug}/complete`);
+  return response.data;
+}
+
 export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
   const [levels, userLevels] = await Promise.all([fetchLevels(), fetchUserLevels()]);
 
@@ -20,23 +32,34 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
   return levels.map((level) => {
     const userProgress = userLevelMap.get(level.slug);
 
-    // Determine overall level status based on lesson progress
-    let status: "not_started" | "started" | "completed" = "not_started";
-    if (userProgress) {
-      const completedCount = userProgress.user_lessons.filter((l) => l.status === "completed").length;
-      const startedCount = userProgress.user_lessons.filter((l) => l.status === "started").length;
+    // Create a map of lesson progress for this level
+    const lessonProgressMap = new Map(userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul.status]) || []);
 
-      if (completedCount === level.lessons.length) {
-        status = "completed";
-      } else if (completedCount > 0 || startedCount > 0) {
+    // Process lessons with their status
+    const lessons: LessonWithProgress[] = level.lessons.map((lesson) => ({
+      slug: lesson.slug,
+      type: lesson.type,
+      status: lessonProgressMap.get(lesson.slug) || "not_started"
+    }));
+
+    // Calculate level status
+    let status: "not_started" | "started" | "completed" | "ready_for_completion" = "not_started";
+
+    if (userProgress?.completed_at != null) {
+      status = "completed";
+    } else if (userProgress) {
+      const completedLessons = lessons.filter((l) => l.status === "completed");
+      if (completedLessons.length === lessons.length) {
+        status = "ready_for_completion";
+      } else if (completedLessons.length > 0 || lessons.some((l) => l.status === "started")) {
         status = "started";
       }
     }
 
     return {
-      ...level,
-      userProgress,
-      status
+      slug: level.slug,
+      status,
+      lessons
     };
   });
 }

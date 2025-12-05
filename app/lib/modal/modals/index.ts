@@ -2,6 +2,7 @@ import { ConfirmationModal } from "./ConfirmationModal";
 import { ExampleModal } from "./ExampleModal";
 import { ExerciseSuccessModal } from "./ExerciseSuccessModal";
 import { ExerciseCompletionModal } from "./ExerciseCompletionModal";
+import { LevelMilestoneModal } from "./LevelMilestoneModal";
 import { InfoModal } from "./InfoModal";
 import { NetworkErrorModal } from "./NetworkErrorModal";
 import { SessionExpiredModal } from "./SessionExpiredModal";
@@ -12,11 +13,12 @@ export {
   ConfirmationModal,
   ExampleModal,
   ExerciseSuccessModal,
+  ExerciseCompletionModal,
+  LevelMilestoneModal,
   InfoModal,
   NetworkErrorModal,
   SessionExpiredModal,
-  RateLimitModal,
-  ExerciseCompletionModal
+  RateLimitModal
 };
 
 // Available modals registry
@@ -25,8 +27,9 @@ export const availableModals = {
   "confirmation-modal": ConfirmationModal,
   "info-modal": InfoModal,
   "exercise-success-modal": ExerciseSuccessModal,
+  "exercise-completion-modal": ExerciseCompletionModal,
+  "level-milestone-modal": LevelMilestoneModal,
   "network-error-modal": NetworkErrorModal,
   "session-expired-modal": SessionExpiredModal,
-  "rate-limit-modal": RateLimitModal,
-  "exercise-completion-modal": ExerciseCompletionModal
+  "rate-limit-modal": RateLimitModal
 };

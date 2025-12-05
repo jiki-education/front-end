@@ -42,8 +42,6 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     setIsReady(true);
   }, []);
 
-  const withSidebar = isReady && authenticated;
-
   useEffect(() => {
     const loadConcept = async () => {
       if (!isReady) {
@@ -87,7 +85,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   // Show loading for subconcepts page
   if (authenticated && hasSubconcepts && (!isReady || isLoading)) {
     return (
-      <ConceptsLayout withSidebar={withSidebar}>
+      <ConceptsLayout>
         <SubconceptsGrid slug={slug} isLoading={true} />
       </ConceptsLayout>
     );
@@ -96,7 +94,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   // Show loading for regular concept detail page
   if (!isReady || isLoading) {
     return (
-      <ConceptsLayout withSidebar={withSidebar}>
+      <ConceptsLayout>
         <div className="animate-pulse">
           <div className="mb-12">
             <div className="mb-6 h-12 w-3/4 bg-gray-200 rounded"></div>
@@ -110,7 +108,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
 
   if (error) {
     return (
-      <ConceptsLayout withSidebar={withSidebar}>
+      <ConceptsLayout>
         <div className="text-center">
           <div className="mb-4 text-red-600 text-lg">{error}</div>
           <div className="space-x-4">
@@ -137,7 +135,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   // Show subconcepts view for authenticated users when subconcepts exist
   if (authenticated && hasSubconcepts) {
     return (
-      <ConceptsLayout withSidebar={withSidebar}>
+      <ConceptsLayout>
         <SubconceptsGrid slug={slug} />
       </ConceptsLayout>
     );
@@ -146,7 +144,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   // Fallback to original detail view for concepts without subconcepts or non-authenticated users
   if (!concept) {
     return (
-      <ConceptsLayout withSidebar={withSidebar}>
+      <ConceptsLayout>
         <div className="text-center">
           <p className="text-gray-600 text-lg">Concept not found.</p>
           <button
@@ -161,7 +159,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   }
 
   return (
-    <ConceptsLayout withSidebar={withSidebar}>
+    <ConceptsLayout>
       <Breadcrumb conceptSlug={slug} conceptTitle={concept.title} />
 
       <ConceptLayout>

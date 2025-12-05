@@ -47,11 +47,6 @@ jest.mock("@/lib/auth/authStore", () => ({
 }));
 
 // Mock components to focus on the verification logic
-jest.mock("@/components/layout/sidebar/Sidebar", () => {
-  return function MockSidebar() {
-    return <div data-testid="sidebar">Sidebar</div>;
-  };
-});
 
 jest.mock("@/components/settings/subscription/SubscriptionSection", () => {
   return function MockSubscriptionSection() {
@@ -171,7 +166,6 @@ describe("Payment Verification Integration", () => {
 
     render(<SettingsPage />);
 
-    expect(screen.getByTestId("sidebar")).toBeInTheDocument();
     expect(screen.getByTestId("subscription")).toBeInTheDocument();
 
     // No verification should occur
