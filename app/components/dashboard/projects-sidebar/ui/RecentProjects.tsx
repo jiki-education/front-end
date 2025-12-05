@@ -1,5 +1,6 @@
-import { Project } from "../lib/mockData";
+import type { Project } from "../lib/mockData";
 import styles from "../projects-sidebar.module.css";
+import Image from "next/image";
 
 interface RecentProjectsProps {
   projects: Project[];
@@ -8,36 +9,19 @@ interface RecentProjectsProps {
   onViewAllClick?: () => void;
 }
 
-function ProjectCard({ project, onClick }: { 
-  project: Project; 
-  onClick?: (projectId: string) => void; 
-}) {
+function ProjectCard({ project, onClick }: { project: Project; onClick?: (projectId: string) => void }) {
   const getStatusText = () => {
-    if (project.status === 'not-started') return 'Not started';
+    if (project.status === "not-started") {
+      return "Not started";
+    }
     return `${project.progress}% done`;
   };
 
-  const getStatusColor = () => {
-    switch (project.status) {
-      case 'in-progress': return 'bg-blue-500';
-      case 'completed': return 'bg-green-500';
-      case 'not-started': return 'bg-gray-300';
-      default: return 'bg-gray-300';
-    }
-  };
-
   return (
-    <button
-      onClick={() => onClick?.(project.id)}
-      className={styles.statCard}
-      data-status={project.status}
-    >
+    <button onClick={() => onClick?.(project.id)} className={styles.statCard} data-status={project.status}>
       {/* Project Icon */}
       <div className={styles.statCardEmoji}>
-        <img 
-          src={project.icon} 
-          alt={project.name}
-        />
+        <Image src={project.icon} alt={project.name} width={24} height={24} />
       </div>
 
       {/* Project Title */}
@@ -48,21 +32,13 @@ function ProjectCard({ project, onClick }: {
 
       {/* Progress Bar */}
       <div className={styles.cardProgressBar}>
-        <div 
-          className={styles.cardProgressFill}
-          style={{ width: `${project.progress}%` }}
-        />
+        <div className={styles.cardProgressFill} style={{ width: `${project.progress}%` }} />
       </div>
     </button>
   );
 }
 
-export function RecentProjects({ 
-  projects, 
-  unlockedCount, 
-  onProjectClick, 
-  onViewAllClick 
-}: RecentProjectsProps) {
+export function RecentProjects({ projects, unlockedCount, onProjectClick, onViewAllClick }: RecentProjectsProps) {
   return (
     <div className={styles.sectionBox}>
       {/* Section Header */}
@@ -74,19 +50,12 @@ export function RecentProjects({
       {/* Project Cards Grid */}
       <div className={styles.projectCards}>
         {projects.map((project) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            onClick={onProjectClick}
-          />
+          <ProjectCard key={project.id} project={project} onClick={onProjectClick} />
         ))}
       </div>
 
       {/* View All Button */}
-      <button
-        onClick={onViewAllClick}
-        className={styles.viewAllBtn}
-      >
+      <button onClick={onViewAllClick} className={styles.viewAllBtn}>
         View All Projects
       </button>
     </div>

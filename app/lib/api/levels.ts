@@ -1,4 +1,11 @@
-import type { Level, LevelWithProgress, LessonWithProgress, LevelsResponse, UserLevel, UserLevelsResponse } from "@/types/levels";
+import type {
+  Level,
+  LevelWithProgress,
+  LessonWithProgress,
+  LevelsResponse,
+  UserLevel,
+  UserLevelsResponse
+} from "@/types/levels";
 import { api } from "./client";
 
 export async function fetchLevels(): Promise<Level[]> {
@@ -26,9 +33,7 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
     const userProgress = userLevelMap.get(level.slug);
 
     // Create a map of lesson progress for this level
-    const lessonProgressMap = new Map(
-      userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul.status]) || []
-    );
+    const lessonProgressMap = new Map(userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul.status]) || []);
 
     // Process lessons with their status
     const lessons: LessonWithProgress[] = level.lessons.map((lesson) => ({
@@ -39,7 +44,7 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
 
     // Calculate level status
     let status: "not_started" | "started" | "completed" | "ready_for_completion" = "not_started";
-    
+
     if (userProgress?.completed_at != null) {
       status = "completed";
     } else if (userProgress) {

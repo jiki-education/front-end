@@ -7,7 +7,7 @@ import { useLessonNavigation } from "./hooks/useLessonNavigation";
 import { useMilestoneHandler } from "./hooks/useMilestoneHandler";
 import { useLevels } from "./hooks/useLevels";
 import { LevelSection } from "./ui/LevelSection";
-import styles from './ExercisePath.module.css'
+import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
 
 export default function ExercisePath() {
@@ -30,8 +30,8 @@ export default function ExercisePath() {
         <LevelSection
           key={section.levelSlug}
           section={section}
-          clickedLessonId={clickedLessonId}
-          levelCompletionInProgress={levelCompletionInProgress}
+          _clickedLessonId={clickedLessonId}
+          _levelCompletionInProgress={levelCompletionInProgress}
           onLessonClick={setClickedLessonId}
           onLessonNavigation={handleLessonNavigation}
           onMilestoneClick={handleMilestoneClick}

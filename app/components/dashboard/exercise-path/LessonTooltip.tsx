@@ -38,39 +38,6 @@ export function LessonTooltip({
   const fixedPositionRef = useRef<{ x: number; y: number } | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
-  // Update tooltip position during scroll when open
-  const updateTooltipPosition = useCallback(() => {
-    if (isOpen && refs.reference.current && fixedPositionRef.current) {
-      const rect = refs.reference.current.getBoundingClientRect();
-      // Calculate the offset from the original position when tooltip was opened
-      const offsetX = fixedPositionRef.current.x - (rect.left + rect.width / 2);
-      const offsetY = fixedPositionRef.current.y - rect.bottom;
-      
-      // Update tooltip position to maintain the same relative position
-      setTooltipPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.bottom + offsetValue
-      });
-    }
-  }, [isOpen, offsetValue]);
-
-  // Listen to scroll events when tooltip is open
-  useEffect(() => {
-    if (isOpen) {
-      const handleScroll = () => {
-        updateTooltipPosition();
-      };
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      document.addEventListener('scroll', handleScroll, { passive: true });
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        document.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, [isOpen, updateTooltipPosition]);
-
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: (open: boolean) => {
@@ -111,6 +78,36 @@ export function LessonTooltip({
   });
   const { getReferenceProps, getFloatingProps } = useInteractions([click, role, dismiss]);
 
+  // Update tooltip position during scroll when open
+  const updateTooltipPosition = useCallback(() => {
+    if (isOpen && refs.reference.current && fixedPositionRef.current) {
+      const rect = refs.reference.current.getBoundingClientRect();
+
+      // Update tooltip position to maintain the same relative position
+      setTooltipPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.bottom + offsetValue
+      });
+    }
+  }, [isOpen, offsetValue, refs.reference]);
+
+  // Listen to scroll events when tooltip is open
+  useEffect(() => {
+    if (isOpen) {
+      const handleScroll = () => {
+        updateTooltipPosition();
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      document.addEventListener("scroll", handleScroll, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        document.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [isOpen, updateTooltipPosition]);
+
   if (!isValidElement(children)) {
     return null;
   }
@@ -122,7 +119,7 @@ export function LessonTooltip({
   } as any);
 
   // Use dynamic tooltip position that follows scroll but ignores scale animation
-  const tooltipStyles = tooltipPosition 
+  const tooltipStyles = tooltipPosition
     ? {
         position: "fixed" as const,
         left: tooltipPosition.x,

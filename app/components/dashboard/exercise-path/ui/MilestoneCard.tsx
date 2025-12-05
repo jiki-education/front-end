@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styles from "../ExercisePath.module.css";
 
 interface MilestoneCardProps {
@@ -10,13 +9,7 @@ interface MilestoneCardProps {
   progressPercentage?: number;
 }
 
-export function MilestoneCard({
-  status,
-  label,
-  title,
-  description,
-  progressPercentage
-}: MilestoneCardProps) {
+export function MilestoneCard({ status, label, title, description, progressPercentage }: MilestoneCardProps) {
   return (
     <div className={`${styles.milestoneCard} ${styles[status]}`}>
       <div className={styles.milestoneCardContent}>
@@ -25,10 +18,7 @@ export function MilestoneCard({
         {description && <p>{description}</p>}
         {status === "readyForCompletion" && progressPercentage !== undefined && (
           <div className={styles.milestoneProgressBar}>
-            <div
-              className={styles.milestoneProgressFill}
-              style={{ width: `${progressPercentage}%` }}
-            />
+            <div className={styles.milestoneProgressFill} style={{ width: `${progressPercentage}%` }} />
           </div>
         )}
       </div>

@@ -44,30 +44,33 @@ export function useLevels() {
         return {
           id: `${level.slug}-${lesson.slug}`,
           slug: lesson.slug,
-          title: lesson.slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+          title: lesson.slug
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" "),
           type: lesson.type,
           completed: lesson.status === "completed",
           locked,
           description: lesson.type === "video" ? "Video lesson" : "Interactive exercise",
-          estimatedTime: lesson.type === "video" ? 15 : 10,
-          difficulty: levelIndex < 2 ? "easy" : levelIndex < 4 ? "medium" : "hard",
-          xpReward: 10 + (levelIndex >= 2 ? 5 : 0) + (levelIndex >= 4 ? 5 : 0),
           route: `/lesson/${lesson.slug}`,
-          position: { x: 0, y: 0 }, // Not needed for tooltip but required by interface
+          position: { x: 0, y: 0 } // Not needed for tooltip but required by interface
         };
       });
 
-      const completedLessonsCount = lessons.filter(l => l.completed).length;
+      const completedLessonsCount = lessons.filter((l) => l.completed).length;
 
       return {
         levelSlug: level.slug,
-        levelTitle: level.slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+        levelTitle: level.slug
+          .split("-")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" "),
         levelIndex: levelIndex + 1, // 1-based indexing for display
         lessons,
         isLocked: lessons.length > 0 ? lessons[0].locked : false,
         status: level.status === "ready_for_completion" ? "started" : level.status,
         completedLessonsCount,
-        xpEarned: completedLessonsCount * 10,
+        xpEarned: completedLessonsCount * 10
       };
     });
   }, [levels]);

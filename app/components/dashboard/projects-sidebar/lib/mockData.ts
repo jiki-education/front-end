@@ -29,7 +29,7 @@ export interface Badge {
   image: string;
   alt: string;
   isNew?: boolean;
-  variant?: 'new' | 'purple' | 'default';
+  variant?: "new" | "purple" | "default";
 }
 
 export interface Project {
@@ -37,7 +37,7 @@ export interface Project {
   name: string;
   icon: string;
   progress: number;
-  status: 'in-progress' | 'not-started' | 'completed';
+  status: "in-progress" | "not-started" | "completed";
 }
 
 export interface GlobalActivity {
@@ -46,72 +46,72 @@ export interface GlobalActivity {
 }
 
 export const STATUS_OPTIONS: StatusOption[] = [
-  { emoji: '🔥', text: "Feeling motivated, let's go!" },
-  { emoji: '⏰', text: 'Long session time! (60+ mins)' },
-  { emoji: '⚡', text: 'Just a quicky (20 mins)' },
-  { emoji: '❤️', text: 'I LOVE CODE TODAY!' },
-  { emoji: '🥱', text: 'Just showing up today' },
+  { emoji: "🔥", text: "Feeling motivated, let's go!" },
+  { emoji: "⏰", text: "Long session time! (60+ mins)" },
+  { emoji: "⚡", text: "Just a quicky (20 mins)" },
+  { emoji: "❤️", text: "I LOVE CODE TODAY!" },
+  { emoji: "🥱", text: "Just showing up today" }
 ];
 
 export function getMockUserProfile(): UserProfile {
   return {
-    name: 'Nic',
-    handle: 'japermian',
-    avatar: '/static/images/avatars/nicole.png',
-    countryFlag: '🇩🇪',
-    currentStatus: { emoji: '🔥', text: "Feeling motivated, let's go!" },
+    name: "Nic",
+    handle: "japermian",
+    avatar: "/static/images/avatars/nicole.png",
+    countryFlag: "🇩🇪",
+    currentStatus: { emoji: "🔥", text: "Feeling motivated, let's go!" },
     streak: {
       count: 7,
-      unit: 'Day Streak',
+      unit: "Day Streak"
     },
     stats: {
       skillsLearned: 8,
-      cohort: 'Jan 2025',
+      cohort: "Jan 2025"
     },
     quickStats: {
       completedExercises: 4,
-      badges: 12,
+      badges: 12
     },
     badges: [
       {
-        id: '1',
-        image: 'static/images/achievement-icons/About-Us-1--Streamline-Manila.png',
-        alt: 'First Achievement Badge',
+        id: "1",
+        image: "static/images/achievement-icons/About-Us-1--Streamline-Manila.png",
+        alt: "First Achievement Badge",
         isNew: true,
-        variant: 'new',
+        variant: "new"
       },
       {
-        id: '2',
-        image: 'static/images/achievement-icons/About-Us-2--Streamline-Manila.png',
-        alt: 'Second Achievement Badge',
-        variant: 'purple',
+        id: "2",
+        image: "static/images/achievement-icons/About-Us-2--Streamline-Manila.png",
+        alt: "Second Achievement Badge",
+        variant: "purple"
       },
       {
-        id: '3',
-        image: 'static/images/achievement-icons/Approval--Streamline-Manila.png',
-        alt: 'Approval Badge',
-        variant: 'purple',
+        id: "3",
+        image: "static/images/achievement-icons/Approval--Streamline-Manila.png",
+        alt: "Approval Badge",
+        variant: "purple"
       },
       {
-        id: '4',
-        image: 'static/images/achievement-icons/About-Us-1--Streamline-Manila.png',
-        alt: 'First Achievement Badge',
+        id: "4",
+        image: "static/images/achievement-icons/About-Us-1--Streamline-Manila.png",
+        alt: "First Achievement Badge",
         isNew: true,
-        variant: 'new',
+        variant: "new"
       },
       {
-        id: '5',
-        image: 'static/images/achievement-icons/About-Us-2--Streamline-Manila.png',
-        alt: 'Second Achievement Badge',
-        variant: 'purple',
+        id: "5",
+        image: "static/images/achievement-icons/About-Us-2--Streamline-Manila.png",
+        alt: "Second Achievement Badge",
+        variant: "purple"
       },
       {
-        id: '6',
-        image: 'static/images/achievement-icons/Approval--Streamline-Manila.png',
-        alt: 'Approval Badge',
-        variant: 'purple',
-      },
-    ],
+        id: "6",
+        image: "static/images/achievement-icons/Approval--Streamline-Manila.png",
+        alt: "Approval Badge",
+        variant: "purple"
+      }
+    ]
   };
 }
 
@@ -120,27 +120,27 @@ export function getMockProjects(): { projects: Project[]; unlockedCount: number 
     unlockedCount: 4,
     projects: [
       {
-        id: 'snake',
-        name: 'Snake',
-        icon: '/static/images/project-icons/icon-snake.png',
+        id: "snake",
+        name: "Snake",
+        icon: "/static/images/project-icons/icon-snake.png",
         progress: 45,
-        status: 'in-progress',
+        status: "in-progress"
       },
       {
-        id: 'tictactoe',
-        name: 'Tic-Tac-Toe',
-        icon: '/static/images/project-icons/icon-tictactoe.png',
+        id: "tictactoe",
+        name: "Tic-Tac-Toe",
+        icon: "/static/images/project-icons/icon-tictactoe.png",
         progress: 20,
-        status: 'in-progress',
+        status: "in-progress"
       },
       {
-        id: 'calculator',
-        name: 'Calculator',
-        icon: '/static/images/project-icons/icon-calculator.png',
+        id: "calculator",
+        name: "Calculator",
+        icon: "/static/images/project-icons/icon-calculator.png",
         progress: 0,
-        status: 'not-started',
-      },
-    ],
+        status: "not-started"
+      }
+    ]
   };
 }
 
@@ -149,37 +149,37 @@ export function getMockBadges(): { badges: Badge[]; earnedCount: number } {
     earnedCount: 12,
     badges: [
       {
-        id: 'new-badge',
-        image: '/static/images/achievement-icons/About-Us-2--Streamline-Manila.png',
-        alt: 'New Badge',
+        id: "new-badge",
+        image: "/static/images/achievement-icons/About-Us-2--Streamline-Manila.png",
+        alt: "New Badge",
         isNew: true,
-        variant: 'new',
+        variant: "new"
       },
       {
-        id: 'first-badge',
-        image: '/static/images/achievement-icons/About-Us-1--Streamline-Manila.png',
-        alt: 'First Badge',
-        variant: 'default',
+        id: "first-badge",
+        image: "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png",
+        alt: "First Badge",
+        variant: "default"
       },
       {
-        id: 'analyze-badge',
-        image: '/static/images/achievement-icons/Analyze-Data--Streamline-Manila.png',
-        alt: 'Third Badge',
-        variant: 'default',
+        id: "analyze-badge",
+        image: "/static/images/achievement-icons/Analyze-Data--Streamline-Manila.png",
+        alt: "Third Badge",
+        variant: "default"
       },
       {
-        id: 'analyze-badge-2',
-        image: '/static/images/achievement-icons/Analyze-Data-2--Streamline-Manila.png',
-        alt: 'Fourth Badge',
-        variant: 'default',
-      },
-    ],
+        id: "analyze-badge-2",
+        image: "/static/images/achievement-icons/Analyze-Data-2--Streamline-Manila.png",
+        alt: "Fourth Badge",
+        variant: "default"
+      }
+    ]
   };
 }
 
 export function getMockGlobalActivity(): GlobalActivity {
   return {
     codingNow: 14327,
-    thisWeek: '19.4M',
+    thisWeek: "19.4M"
   };
 }

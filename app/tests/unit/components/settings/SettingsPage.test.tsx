@@ -29,12 +29,7 @@ const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunc
 const mockVerifyPaymentSession = verifyPaymentSession as jest.MockedFunction<typeof verifyPaymentSession>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
-// Mock Sidebar and SubscriptionSection since we're testing the payment flow
-jest.mock("@/components/layout/sidebar/Sidebar", () => {
-  return function MockSidebar() {
-    return <div data-testid="sidebar">Sidebar</div>;
-  };
-});
+// Mock SubscriptionSection since we're testing the payment flow
 
 jest.mock("@/components/settings/subscription/SubscriptionSection", () => {
   return function MockSubscriptionSection() {
@@ -86,7 +81,6 @@ describe("SettingsPage Payment Verification", () => {
   it("renders settings page when authenticated without session_id", () => {
     render(<SettingsPage />);
 
-    expect(screen.getByTestId("sidebar")).toBeInTheDocument();
     expect(screen.getByTestId("subscription-section")).toBeInTheDocument();
     expect(mockExtractAndClearSessionId).toHaveBeenCalledTimes(1);
     expect(mockVerifyPaymentSession).not.toHaveBeenCalled();

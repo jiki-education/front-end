@@ -1,4 +1,4 @@
-import { GlobalActivity as GlobalActivityType } from "../lib/mockData";
+import type { GlobalActivity as GlobalActivityType } from "../lib/mockData";
 import styles from "../projects-sidebar.module.css";
 
 interface GlobalActivityProps {
@@ -7,7 +7,7 @@ interface GlobalActivityProps {
 
 export function GlobalActivity({ activity }: GlobalActivityProps) {
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('en-US').format(num);
+    return new Intl.NumberFormat("en-US").format(num);
   };
 
   return (
@@ -24,15 +24,11 @@ export function GlobalActivity({ activity }: GlobalActivityProps) {
       {/* Stats Grid */}
       <div className={styles.statsGrid}>
         <div className={styles.statBox}>
-          <div className={styles.number}>
-            {formatNumber(activity.codingNow)}
-          </div>
+          <div className={styles.number}>{formatNumber(activity.codingNow)}</div>
           <div className={styles.label}>Coding Now</div>
         </div>
         <div className={styles.statBox}>
-          <div className={styles.number}>
-            {activity.thisWeek}
-          </div>
+          <div className={styles.number}>{activity.thisWeek}</div>
           <div className={styles.label}>This Week</div>
         </div>
       </div>

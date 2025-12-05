@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { MouseEvent } from "react";
-import type { LessonData } from "../../types";
+import type { LessonData } from "../types";
 import { getTypeLabel } from "../lib/exerciseUtils";
-import styles from './LessonTooltip.module.css';
+import styles from "./LessonTooltip.module.css";
 
 interface TooltipContentProps {
   exercise: LessonData;
@@ -31,7 +31,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
         tooltipClass: styles.locked
       };
     }
-    
+
     if (exercise.completed) {
       return {
         description: "You can review this lesson now.",
@@ -40,7 +40,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
         tooltipClass: styles.completed
       };
     }
-    
+
     return {
       description: `Ready to start this ${getTypeLabel(exercise.type).toLowerCase()} lesson.`,
       buttonText: "Start",
@@ -64,17 +64,13 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
         <button onClick={onClose} className={styles.btnSecondary}>
           Close
         </button>
-        
+
         {contextualContent.disabled ? (
           <button disabled className={styles.btnLocked}>
             {contextualContent.buttonText}
           </button>
         ) : (
-          <Link
-            href={exercise.route}
-            onClick={handleLessonStart}
-            className={styles.btnPrimary}
-          >
+          <Link href={exercise.route} onClick={handleLessonStart} className={styles.btnPrimary}>
             {contextualContent.buttonText}
           </Link>
         )}

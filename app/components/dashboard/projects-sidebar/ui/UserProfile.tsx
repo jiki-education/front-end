@@ -2,8 +2,8 @@
 "use client";
 
 import type { UserProfile as UserProfileType, StatusOption } from "../lib/mockData";
-import { StatusSelector } from './StatusSelector';
-import style from './user-profile.module.css'
+import { StatusSelector } from "./StatusSelector";
+import style from "./user-profile.module.css";
 
 interface UserProfileProps {
   profile: UserProfileType;
@@ -11,7 +11,6 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ profile, onStatusChange }: UserProfileProps) {
-
   return (
     <div className={style.userProfileCard}>
       <div className={style.userProfileHeader}>
@@ -22,10 +21,7 @@ export function UserProfile({ profile, onStatusChange }: UserProfileProps) {
         <div className={style.userInfo}>
           <div className={style.userNameRow}>
             <div className={style.userName}>{profile.name}</div>
-            <StatusSelector
-              currentStatus={profile.currentStatus}
-              onStatusChange={onStatusChange}
-            />
+            <StatusSelector currentStatus={profile.currentStatus} onStatusChange={onStatusChange} />
           </div>
           <div className={style.userHandle}>{profile.handle}</div>
         </div>
@@ -41,7 +37,7 @@ export function UserProfile({ profile, onStatusChange }: UserProfileProps) {
           {profile.badges.slice(0, 3).map((badge) => (
             <div
               key={badge.id}
-              className={`${style.profileBadge} ${badge.variant === 'new' ? style.new : badge.variant === 'purple' ? style.purple : ''}`}
+              className={`${style.profileBadge} ${badge.variant === "new" ? style.new : badge.variant === "purple" ? style.purple : ""}`}
             >
               {badge.isNew && <span className={style.badgeNewTag}>NEW</span>}
               <img src={badge.image} alt={badge.alt} />

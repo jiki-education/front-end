@@ -18,9 +18,6 @@ export interface LessonData {
   completed: boolean;
   locked: boolean;
   description: string;
-  estimatedTime: number;
-  difficulty: "easy" | "medium" | "hard";
-  xpReward: number;
   route: string;
   position: { x: number; y: number };
 }

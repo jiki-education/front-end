@@ -2,15 +2,15 @@ import { LessonTooltip } from "../LessonTooltip";
 import { MilestoneCard } from "./MilestoneCard";
 import type { LevelSectionData } from "../types";
 import styles from "../ExercisePath.module.css";
-import { useEffect } from "react";
 import CodingIcon from "@static/icons/coding.svg";
 import VideoIcon from "@static/icons/video.svg";
 import QuizIcon from "@static/icons/quiz.svg";
+import Image from "next/image";
 
 interface LevelSectionProps {
   section: LevelSectionData;
-  clickedLessonId: string | null;
-  levelCompletionInProgress: string | null;
+  _clickedLessonId: string | null;
+  _levelCompletionInProgress: string | null;
   onLessonClick: (lessonId: string) => void;
   onLessonNavigation: (route: string) => void;
   onMilestoneClick: (section: LevelSectionData) => void;
@@ -18,18 +18,15 @@ interface LevelSectionProps {
 
 export function LevelSection({
   section,
-  clickedLessonId,
-  levelCompletionInProgress,
+  _clickedLessonId,
+  _levelCompletionInProgress,
   onLessonClick,
   onLessonNavigation,
-  onMilestoneClick,
+  onMilestoneClick
 }: LevelSectionProps) {
   if (section.lessons.length === 0) {
     return null;
   }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => { console.log('section', section) }, [section])
 
   return (
     <>
@@ -48,16 +45,16 @@ export function LevelSection({
               {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
             </div>
             <div className={styles.partIcon}>
-              <img src="/static/images/concept-icons/icon-variables.png" alt="Video" />
+              <Image src="/static/images/concept-icons/icon-variables.png" alt="Video" width={24} height={24} />
             </div>
             <div className={styles.partContent}>
               <div className={`${styles.partNumber} ${styles[lesson.type]}`}>
-                {lesson.type === 'video' ? (
+                {lesson.type === "video" ? (
                   <>
                     <VideoIcon className={styles.partNumberIcon} />
                     Video
                   </>
-                ) : lesson.type === 'quiz' ? (
+                ) : lesson.type === "quiz" ? (
                   <>
                     <QuizIcon className={styles.partNumberIcon} />
                     Quiz

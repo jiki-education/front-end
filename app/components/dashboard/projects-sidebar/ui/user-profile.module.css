@@ -10,7 +10,6 @@
     position: relative;
 }
 
-
 .userProfileCard:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     border-color: #cbd5e0;
@@ -75,8 +74,6 @@
     color: #1a202c;
     margin-bottom: -1px;
 }
-
-
 
 .userHandle {
     font-size: 13px;
@@ -192,7 +189,7 @@
 
 .profileBadgesTitle::before,
 .profileBadgesTitle::after {
-    content: '';
+    content: "";
     flex: 1;
     height: 1px;
     background: #e2e8f0;
@@ -229,7 +226,9 @@
 }
 
 .profileBadge:nth-child(1):hover {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.3),
+        0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .profileBadge:nth-child(2) {
@@ -238,7 +237,9 @@
 }
 
 .profileBadge:nth-child(2):hover {
-    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3), 0 4px 12px rgba(168, 85, 247, 0.3);
+    box-shadow:
+        0 0 0 4px rgba(168, 85, 247, 0.3),
+        0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
 .profileBadge:nth-child(3) {
@@ -247,7 +248,9 @@
 }
 
 .profileBadge:nth-child(3):hover {
-    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3), 0 4px 12px rgba(168, 85, 247, 0.3);
+    box-shadow:
+        0 0 0 4px rgba(168, 85, 247, 0.3),
+        0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
 .profileBadge:nth-child(4) {
@@ -283,7 +286,7 @@
 }
 
 .profileBadge.empty:hover .badgeMore::after {
-    content: '→';
+    content: "→";
     color: white;
     position: absolute;
     left: 50%;

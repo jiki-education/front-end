@@ -10,7 +10,6 @@ interface ContinueLearningBannerProps {
     title: string;
     route: string;
     type: ExerciseType;
-    estimatedTime: number;
   } | null;
   onStartLesson: (lessonId: string, route: string) => void;
 }
@@ -70,8 +69,7 @@ export function ContinueLearningBanner({ nextLesson, onStartLesson }: ContinueLe
               <div className={styles.title}>Continue Learning</div>
               <div className={styles.nextLesson}>Next: {nextLesson.title}</div>
               <div className={styles.metadata}>
-                {nextLesson.type === "video" ? "Video" : nextLesson.type === "quiz" ? "Quiz" : "Exercise"} •{" "}
-                {nextLesson.estimatedTime} min
+                {nextLesson.type === "video" ? "Video" : nextLesson.type === "quiz" ? "Quiz" : "Exercise"}
               </div>
             </div>
             <button onClick={handleStartClick} className={styles.startButton}>

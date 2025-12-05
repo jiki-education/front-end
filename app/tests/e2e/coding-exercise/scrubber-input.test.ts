@@ -321,7 +321,6 @@ test.describe("ScrubberInput E2E", () => {
       time = await page.locator('[data-testid="timeline-time"]').textContent();
       // Should be close to 610000 (allowing for mouse position calculation variance)
       expect(time).toBeTruthy();
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const timeValue = parseFloat(time!.replace("Timeline Time: ", ""));
       expect(timeValue).toBeCloseTo(610000, -3.1); // within ~500 ms
 
