@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { useFloating, autoUpdate, offset, flip, shift, useClick, useDismiss, useInteractions } from '@floating-ui/react';
+import { useFloating, autoUpdate, offset, shift, useClick, useDismiss, useInteractions } from '@floating-ui/react';
 import type { StatusOption } from '../lib/mockData';
 import { STATUS_OPTIONS } from '../lib/mockData';
 import style from './status-selector.module.css';
@@ -17,9 +17,9 @@ export function StatusSelector({ currentStatus, onStatusChange }: StatusSelector
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
+    placement: 'bottom-start',
     middleware: [
-      offset(8),
-      flip(),
+      offset(4),
       shift({ padding: 8 })
     ],
     whileElementsMounted: autoUpdate,

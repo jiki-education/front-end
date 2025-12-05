@@ -2,11 +2,11 @@
             width: 37.125%;
             padding: 20px 40px 40px 30px;
             background: white;
-            overflow-y: visible;
             position: sticky;
             top: 0;
             align-self: flex-start;
             height: 100vh;
+            overflow-y: auto;
         }
 
         /* Presence Card - Variation 2: Card with Stats Grid */

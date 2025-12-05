@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import {
   getMockUserProfile,
   getMockProjects,
   getMockBadges,
   getMockGlobalActivity,
-  type StatusOption
+  type StatusOption,
+  type UserProfile as UserProfileType
 } from "./lib/mockData";
 import { UserProfile } from "./ui/UserProfile";
 import { RecentProjects } from "./ui/RecentProjects";
@@ -30,9 +32,17 @@ export function ProjectsSidebar({
   onViewAllBadgesClick,
   onUpgradeClick,
 }: ProjectsSidebarProps = {}) {
-  const userProfile = getMockUserProfile();
+  const [userProfile, setUserProfile] = useState<UserProfileType>(getMockUserProfile());
   const { projects, unlockedCount } = getMockProjects();
   const globalActivity = getMockGlobalActivity();
+
+  const handleStatusChange = (status: StatusOption) => {
+    setUserProfile(prev => ({
+      ...prev,
+      currentStatus: status
+    }));
+    onStatusChange?.(status);
+  };
 
   return (
     <aside className={styles.projectsSidebar}>
@@ -40,7 +50,7 @@ export function ProjectsSidebar({
         {/* User Profile Card */}
         <UserProfile
           profile={userProfile}
-          onStatusChange={onStatusChange}
+          onStatusChange={handleStatusChange}
         />
 
         {/* Recent Projects */}
