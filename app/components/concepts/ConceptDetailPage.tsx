@@ -4,7 +4,6 @@ import { fetchConcept } from "@/lib/api/concepts";
 import type { ConceptDetail } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { Metadata } from "next";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
 import { ConceptsLayout } from "@/components/concepts";
@@ -16,19 +15,6 @@ import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
 interface ConceptDetailPageProps {
   slug: string;
   authenticated: boolean;
-}
-
-// Helper for generateMetadata
-export async function getConceptMetadata(slug: string): Promise<Metadata> {
-  try {
-    const concept = await fetchConcept(slug, true); // unscoped for metadata
-    return {
-      title: concept.title,
-      description: concept.description
-    };
-  } catch {
-    return { title: "Concept Not Found" };
-  }
 }
 
 export default function ConceptDetailPage({ slug, authenticated }: ConceptDetailPageProps) {

@@ -1,0 +1,14 @@
+import type { Metadata } from "next";
+import { fetchConcept } from "@/lib/api/concepts";
+
+export async function getConceptMetadata(slug: string): Promise<Metadata> {
+  try {
+    const concept = await fetchConcept(slug, true); // unscoped for metadata
+    return {
+      title: concept.title,
+      description: concept.description
+    };
+  } catch {
+    return { title: "Concept Not Found" };
+  }
+}

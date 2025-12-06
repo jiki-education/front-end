@@ -6,7 +6,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Loops",
     description:
       "Direct how your program runs and makes decisions. Use loops to repeat code and conditionals to choose paths.",
-    iconSrc: "images/concept-icons/icon-loops.png",
+    iconSrc: "static/images/concept-icons/icon-loops.png",
     subConceptCount: 6
   },
   {
@@ -14,14 +14,14 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Variables",
     description:
       "Store and manipulate data in your programs. Learn about different data types and how to use them effectively.",
-    iconSrc: "images/concept-icons/icon-variables.png",
+    iconSrc: "static/images/concept-icons/icon-variables.png",
     subConceptCount: 4
   },
   {
     slug: "functions",
     title: "Functions",
     description: "Organize your code into reusable blocks. Master parameters, return values, and function composition.",
-    iconSrc: "images/concept-icons/icon-functions.png",
+    iconSrc: "static/images/concept-icons/icon-functions.png",
     subConceptCount: 8
   },
   {
@@ -29,7 +29,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Arrays",
     description:
       "Organize and store collections of data efficiently. Learn to manipulate lists and iterate through elements.",
-    iconSrc: "images/concept-icons/icon-arrays.png",
+    iconSrc: "static/images/concept-icons/icon-arrays.png",
     subConceptCount: 5
   },
   {
@@ -37,7 +37,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Conditionals",
     description:
       "Make decisions in your code based on different conditions. Learn if statements, switch cases, and logical operators.",
-    iconSrc: "images/concept-icons/icon-conditionals.png",
+    iconSrc: "static/images/concept-icons/icon-conditionals.png",
     subConceptCount: 7
   },
   {
@@ -45,7 +45,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Classes",
     description:
       "Model real-world entities using classes and objects. Understand inheritance, encapsulation, and polymorphism.",
-    iconSrc: "images/concept-icons/icon-classes.png",
+    iconSrc: "static/images/concept-icons/icon-classes.png",
     subConceptCount: 10
   },
   {
@@ -53,7 +53,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Strings",
     description:
       "Work with text data in your programs. Learn string manipulation, formatting, and text processing techniques.",
-    iconSrc: "images/concept-icons/icon-strings.png",
+    iconSrc: "static/images/concept-icons/icon-strings.png",
     subConceptCount: 6
   },
   {
@@ -61,7 +61,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Objects",
     description:
       "Create and work with complex data structures. Learn about object properties, methods, and data modeling.",
-    iconSrc: "images/concept-icons/icon-objects.png",
+    iconSrc: "static/images/concept-icons/icon-objects.png",
     subConceptCount: 9
   },
   {
@@ -69,7 +69,7 @@ export const mockConcepts: ConceptCardData[] = [
     title: "Asynchronous Programming",
     description:
       "Handle time-dependent operations and concurrent execution. Master promises, async/await, and event handling.",
-    iconSrc: "images/concept-icons/icon-async.png",
+    iconSrc: "static/images/concept-icons/icon-async.png",
     subConceptCount: 12
   }
 ];

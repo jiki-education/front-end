@@ -50,7 +50,7 @@ export default function ConceptsGrid({
           {concepts.map((concept) => (
             <ConceptCard
               key={concept.slug}
-              concept={{ ...concept, iconSrc: concept.iconSrc || "images/concept-icons/icon-default.png" }}
+              concept={{ ...concept, iconSrc: concept.iconSrc || "static/images/concept-icons/icon-default.png" }}
               isAuthenticated={isAuthenticated}
             />
           ))}
