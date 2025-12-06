@@ -1,6 +1,6 @@
 "use client";
 
-import { showConfirmation, showInfo, showModal } from "@/lib/modal";
+import { showConfirmation, showInfo, showModal, showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal";
 
 export default function TestGlobalModals() {
   return (
@@ -107,13 +107,94 @@ export default function TestGlobalModals() {
           >
             Show Exercise Completion Modal
           </button>
+          <h2 className="text-xl font-semibold mb-2">Subscription Modals</h2>
+          <div className="space-x-2 space-y-2">
+            <button
+              onClick={() =>
+                showSubscriptionModal({
+                  triggerContext: "chat-gate",
+                  suggestedTier: "premium",
+                  featuresContext: {
+                    feature: "AI Chat Assistant",
+                    benefits: [
+                      "Get instant help with coding exercises",
+                      "Ask questions and receive explanations",
+                      "Personalized hints and guidance"
+                    ]
+                  },
+                  onSuccess: (tier) => {
+                    showSubscriptionSuccess({
+                      tier,
+                      triggerContext: "chat-gate",
+                      nextSteps: {
+                        title: "Start Chatting",
+                        description: "Your AI assistant is ready to help with your coding exercises.",
+                        buttonText: "Try Chat Now"
+                      }
+                    });
+                  },
+                  onCancel: () => console.debug("Subscription cancelled")
+                })
+              }
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Chat Gate Modal
+            </button>
+
+            <button
+              onClick={() =>
+                showSubscriptionModal({
+                  triggerContext: "feature-gate",
+                  suggestedTier: "max",
+                  featuresContext: {
+                    feature: "Advanced Features",
+                    benefits: ["Unlimited AI assistance", "Priority support", "Advanced coding exercises"]
+                  }
+                })
+              }
+              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+            >
+              Feature Gate Modal
+            </button>
+
+            <button
+              onClick={() =>
+                showSubscriptionModal({
+                  triggerContext: "general",
+                  headline: "Custom Headline",
+                  description: "Custom description for general upgrade."
+                })
+              }
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+            >
+              General Modal
+            </button>
+
+            <button
+              onClick={() =>
+                showSubscriptionSuccess({
+                  tier: "premium",
+                  triggerContext: "general"
+                })
+              }
+              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+            >
+              Success Modal
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
         <h3 className="font-semibold mb-2">Usage Example:</h3>
         <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto">
-          {`import { showModal, showConfirmation, showInfo } from '@/lib/modal';
+          {`import { 
+  showModal, 
+  showConfirmation, 
+  showInfo,
+  showSubscriptionModal,
+  showSubscriptionSuccess 
+} from '@/lib/modal';
 
 // Anywhere in your component:
 showModal('example-modal', { title: 'Hello!' });
@@ -127,6 +208,22 @@ await showConfirmation({
 showInfo({
   title: 'Success',
   content: 'Operation completed!'
+});
+
+// Subscription modals:
+showSubscriptionModal({
+  triggerContext: 'chat-gate',
+  suggestedTier: 'premium',
+  featuresContext: {
+    feature: 'AI Chat Assistant',
+    benefits: ['Ask questions', 'Get explanations']
+  },
+  onSuccess: (tier) => {
+    showSubscriptionSuccess({ 
+      tier, 
+      triggerContext: 'chat-gate' 
+    });
+  }
 });`}
         </pre>
       </div>

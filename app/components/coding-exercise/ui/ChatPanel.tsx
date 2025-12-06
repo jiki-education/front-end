@@ -4,13 +4,17 @@ import { useContext, useEffect, useRef } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { tierIncludes } from "@/lib/pricing";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import ChatStatus from "./ChatStatus";
+import ChatPremiumUpgrade from "./ChatPremiumUpgrade";
 import type Orchestrator from "../lib/Orchestrator";
 
 export default function ChatPanel() {
   const orchestrator = useContext(OrchestratorContext);
+  const user = useAuthStore((state: any) => state.user);
 
   if (!orchestrator) {
     return (
@@ -18,6 +22,13 @@ export default function ChatPanel() {
         <p className="text-sm text-gray-500">Chat unavailable</p>
       </div>
     );
+  }
+
+  // Check if user has premium access (premium or max tier)
+  const hasPremiumAccess = user && tierIncludes(user.membership_type, "premium");
+
+  if (!hasPremiumAccess) {
+    return <ChatPremiumUpgrade />;
   }
 
   return <ChatPanelContent orchestrator={orchestrator} />;
