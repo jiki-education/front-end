@@ -49,7 +49,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: null,
-          currentTestTime: 0
+          currentFrame: undefined
         })
       );
 
@@ -68,7 +68,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 0
+          currentFrame: undefined
         })
       );
 
@@ -87,7 +87,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 400000 // Show all logs
+          currentFrame: undefined // No specific line highlighted
         })
       );
 
@@ -97,8 +97,8 @@ describe("ConsoleTab Component", () => {
       expect(consoleContainer).toBeInTheDocument();
       expect(consoleContainer).toHaveClass(
         "console-tab",
-        "bg-gray-900",
-        "text-gray-300",
+        "bg-purple-50",
+        "text-purple-900",
         "font-mono",
         "text-xs",
         "p-2",
@@ -107,14 +107,14 @@ describe("ConsoleTab Component", () => {
       );
     });
 
-    it("should render all log lines when currentTestTime shows all", () => {
+    it("should render all log lines when frames exist", () => {
       const logLines = createPythonLogLines();
       const testResult = createMockTestResult({ logLines });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 400000 // After all log times
+          currentFrame: undefined // After all log times
         })
       );
 
@@ -148,7 +148,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 500000
+          currentFrame: undefined
         })
       );
 
@@ -178,7 +178,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 200000
+          currentFrame: undefined
         })
       );
 
@@ -186,12 +186,12 @@ describe("ConsoleTab Component", () => {
 
       const logLine = screen.getByTestId("log-line-0");
       expect(logLine).toBeInTheDocument();
-      expect(logLine).toHaveClass("log-line", "py-0.5", "cursor-pointer", "hover:bg-gray-700");
+      expect(logLine).toHaveClass("log-line", "py-0.5", "cursor-pointer", "hover:bg-purple-200");
 
       // Check timestamp
-      const timestamp = screen.getByText("0.100s");
+      const timestamp = screen.getByText("00:100");
       expect(timestamp).toBeInTheDocument();
-      expect(timestamp).toHaveClass("log-timestamp", "text-gray-500", "mr-2");
+      expect(timestamp).toHaveClass("log-timestamp", "text-purple-600", "mr-2");
 
       // Check output content
       expect(screen.getByText("print('Hello from Python!')")).toBeInTheDocument();
@@ -202,39 +202,66 @@ describe("ConsoleTab Component", () => {
         { time: 0, output: "Start" },
         { time: 1500000, output: "1.5 seconds" }, // 1.5 seconds in microseconds
         { time: 10000000, output: "10 seconds" }, // 10 seconds in microseconds
-        { time: 500000, output: "Half second" } // 0.5 seconds in microseconds
+        { time: 120000000, output: "2 minutes" } // 2 minutes in microseconds
       ];
       const testResult = createMockTestResult({ logLines });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 20000000 // Show all
+          currentFrame: undefined // No line highlighted
         })
       );
 
       render(<ConsoleTab />);
 
-      expect(screen.getByText("0.000s")).toBeInTheDocument(); // 0 microseconds
-      expect(screen.getByText("1.500s")).toBeInTheDocument(); // 1.5 seconds
-      expect(screen.getByText("10.000s")).toBeInTheDocument(); // 10 seconds
-      expect(screen.getByText("0.500s")).toBeInTheDocument(); // 0.5 seconds
+      expect(screen.getByText("00:000")).toBeInTheDocument(); // 0 microseconds
+      expect(screen.getByText("01:500")).toBeInTheDocument(); // 1.5 seconds
+      expect(screen.getByText("10:000")).toBeInTheDocument(); // 10 seconds
+      expect(screen.getByText("120:000")).toBeInTheDocument(); // 2 minutes (120 seconds)
     });
   });
 
   describe("timeline interaction", () => {
-    it("should show active state for log lines when currentTestTime >= log.time", () => {
-      const logLines = [
-        { time: 100000, output: "First log" }, // 0.1s
-        { time: 200000, output: "Second log" }, // 0.2s
-        { time: 300000, output: "Third log" } // 0.3s
+    it("should show active state for log lines up to current test time", () => {
+      const frames = [
+        {
+          line: 1,
+          time: 100000,
+          timeInMs: 100,
+          code: "console.log('First log')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "First log"
+        },
+        {
+          line: 2,
+          time: 200000,
+          timeInMs: 200,
+          code: "console.log('Second log')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "Second log"
+        },
+        {
+          line: 3,
+          time: 300000,
+          timeInMs: 300,
+          code: "console.log('Third log')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "Third log"
+        }
       ];
-      const testResult = createMockTestResult({ logLines });
+      const logLines = [
+        { time: 100000, output: "First log" },
+        { time: 200000, output: "Second log" },
+        { time: 300000, output: "Third log" }
+      ];
+      const testResult = createMockTestResult({ logLines, frames });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 250000 // 0.25s - should show first two logs as active
+          currentFrame: frames[1], // Frame on line 2
+          currentTestTime: 200000 // At second log time
         })
       );
 
@@ -244,26 +271,41 @@ describe("ConsoleTab Component", () => {
       const secondLog = screen.getByTestId("log-line-1");
       const thirdLog = screen.getByTestId("log-line-2");
 
-      // First two should be active (opacity-100 bg-gray-800)
-      expect(firstLog).toHaveClass("opacity-100", "bg-gray-800");
-      expect(secondLog).toHaveClass("opacity-100", "bg-gray-800");
-
-      // Third should be inactive (opacity-40)
-      expect(thirdLog).toHaveClass("opacity-40");
-      expect(thirdLog).not.toHaveClass("bg-gray-800");
+      // First two logs should be active (time-based: currentTestTime >= log.time)
+      expect(firstLog).toHaveClass("bg-purple-300");
+      expect(secondLog).toHaveClass("bg-purple-300");
+      expect(thirdLog).not.toHaveClass("bg-purple-300");
     });
 
-    it("should show inactive state for log lines when currentTestTime < log.time", () => {
-      const logLines = [
-        { time: 100000, output: "Future log" },
-        { time: 200000, output: "Another future log" }
+    it("should show inactive state for log lines when no current frame matches", () => {
+      const frames = [
+        {
+          line: 1,
+          time: 100000,
+          timeInMs: 100,
+          code: "console.log('First log')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "First log"
+        },
+        {
+          line: 2,
+          time: 200000,
+          timeInMs: 200,
+          code: "console.log('Second log')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "Second log"
+        }
       ];
-      const testResult = createMockTestResult({ logLines });
+      const logLines = [
+        { time: 100000, output: "First log" },
+        { time: 200000, output: "Second log" }
+      ];
+      const testResult = createMockTestResult({ logLines, frames });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 50000 // Before any logs
+          currentFrame: undefined // No current frame
         })
       );
 
@@ -272,11 +314,9 @@ describe("ConsoleTab Component", () => {
       const firstLog = screen.getByTestId("log-line-0");
       const secondLog = screen.getByTestId("log-line-1");
 
-      // Both should be inactive
-      expect(firstLog).toHaveClass("opacity-40");
-      expect(firstLog).not.toHaveClass("bg-gray-800");
-      expect(secondLog).toHaveClass("opacity-40");
-      expect(secondLog).not.toHaveClass("bg-gray-800");
+      // Both should be inactive (no bg-purple-300)
+      expect(firstLog).not.toHaveClass("bg-purple-300");
+      expect(secondLog).not.toHaveClass("bg-purple-300");
     });
 
     it("should call orchestrator.setCurrentTestTime when log line is clicked", () => {
@@ -286,7 +326,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 0
+          currentFrame: undefined
         })
       );
 
@@ -316,7 +356,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 400000
+          currentFrame: undefined
         })
       );
 
@@ -347,7 +387,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 300000
+          currentFrame: undefined
         })
       );
 
@@ -379,7 +419,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 600000
+          currentFrame: undefined
         })
       );
 
@@ -407,7 +447,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 400000
+          currentFrame: undefined
         })
       );
 
@@ -434,7 +474,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 0
+          currentFrame: undefined
         })
       );
 
@@ -463,7 +503,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 200000
+          currentFrame: undefined
         })
       );
 
@@ -485,7 +525,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 100000
+          currentFrame: undefined
         })
       );
 
@@ -513,7 +553,7 @@ describe("ConsoleTab Component", () => {
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentTestTime: 200000
+          currentFrame: undefined
         })
       );
 
