@@ -1,5 +1,6 @@
-import ConceptDetailPage, { getConceptMetadata } from "@/components/concepts/ConceptDetailPage";
+import ConceptDetailPage from "@/components/concepts/ConceptDetailPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
+import { getConceptMetadata } from "@/lib/concepts/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
