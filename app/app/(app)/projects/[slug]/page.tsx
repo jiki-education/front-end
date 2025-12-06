@@ -19,6 +19,13 @@ export default function ProjectPage({ params }: PageProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Update document title when project loads
+  useEffect(() => {
+    if (project) {
+      document.title = `${project.title} - Jiki`;
+    }
+  }, [project]);
+
   useEffect(() => {
     let cancelled = false;
 

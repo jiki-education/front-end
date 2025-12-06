@@ -20,6 +20,13 @@ export default function LessonPage({ params }: PageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Update document title when lesson loads
+  useEffect(() => {
+    if (lesson) {
+      document.title = `${lesson.title} - Jiki`;
+    }
+  }, [lesson]);
+
   // Load lesson on mount
   useEffect(() => {
     let cancelled = false;
