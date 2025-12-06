@@ -10,7 +10,6 @@ import CompleteIcon from "@static/icons/complete.svg";
 import LockedIcon from "@static/icons/locked.svg";
 import ProjectsIcon from "@static/icons/projects.svg";
 import { ProjectCard } from "./ProjectCard";
-import { mockProjects } from "./mockProjects";
 import { NoProjectsFound } from "./NoProjectsFound";
 
 const tabs: TabItem[] = [
@@ -106,9 +105,6 @@ export function ProjectsContent() {
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-          {mockProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
