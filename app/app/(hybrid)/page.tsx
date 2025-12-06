@@ -1,6 +1,13 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { hasServersideAccessToken } from "../../lib/auth/server-storage";
+
+export const metadata: Metadata = {
+  title: "Jiki - Learn to Code Through Interactive Exercises",
+  description:
+    "Master programming through hands-on coding exercises and real-world projects. Join thousands of learners practicing with instant feedback and expert mentorship."
+};
 
 export default async function RootPage() {
   const hasToken = await hasServersideAccessToken();

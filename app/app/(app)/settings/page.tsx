@@ -1,12 +1,11 @@
-"use client";
+import type { Metadata } from "next";
+import SettingsContent from "./SettingsContent";
 
-import SidebarLayout from "@/components/layout/SidebarLayout";
-import SettingsPage from "@/components/settings/SettingsPage";
+export const metadata: Metadata = {
+  title: "Settings - Jiki",
+  description: "Manage your account settings, subscription, and preferences."
+};
 
 export default function Settings() {
-  return (
-    <SidebarLayout activeItem="settings">
-      <SettingsPage />
-    </SidebarLayout>
-  );
+  return <SettingsContent />;
 }
