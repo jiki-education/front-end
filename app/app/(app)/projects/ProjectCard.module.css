@@ -9,7 +9,7 @@
     font-size: 14px;
     font-weight: 440;
     text-transform: none;
-    z-index: var(--z-index-base);
+    z-index: var(--z-index-tooltip);
     transition: all 0.4s ease;
 }
 
