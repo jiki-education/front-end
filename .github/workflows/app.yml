@@ -165,6 +165,9 @@ jobs:
         working-directory: app
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Configure local.jiki.io DNS
+        run: echo "127.0.0.1 local.jiki.io" | sudo tee -a /etc/hosts
+
       - name: Run Playwright E2E tests
         working-directory: app
         run: pnpm test:e2e
