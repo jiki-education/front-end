@@ -51,3 +51,5 @@ lib/content/generated/
 .open-next/
 .wrangler/
 .dev.vars
+
+app/test-results/
