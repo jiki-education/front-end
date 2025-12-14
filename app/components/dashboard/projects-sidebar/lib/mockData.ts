@@ -122,21 +122,21 @@ export function getMockProjects(): { projects: Project[]; unlockedCount: number 
       {
         id: "snake",
         name: "Snake",
-        icon: "/static/images/project-icons/icon-snake.png",
+        icon: "/static/images/projects/snake.png",
         progress: 45,
         status: "in-progress"
       },
       {
         id: "tictactoe",
         name: "Tic-Tac-Toe",
-        icon: "/static/images/project-icons/icon-tictactoe.png",
+        icon: "/static/images/projects/tictactoe.png",
         progress: 20,
         status: "in-progress"
       },
       {
         id: "calculator",
         name: "Calculator",
-        icon: "/static/images/project-icons/icon-calculator.png",
+        icon: "/static/images/projects/generic.png",
         progress: 0,
         status: "not-started"
       }
