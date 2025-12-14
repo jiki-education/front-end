@@ -1,10 +1,12 @@
+"use server";
+
 import { cookies } from "next/headers";
-import { ACCESS_TOKEN_COOKIE_NAME } from "./cookie-storage";
 
 /**
- * Retrieve stored JWT access token from cookie
+ * Server-side auth token check
+ * For use in Server Components only
  */
 export async function hasServersideAccessToken() {
   const serverCookies = await cookies();
-  return !!serverCookies.get(ACCESS_TOKEN_COOKIE_NAME);
+  return serverCookies.has("jiki_access_token");
 }

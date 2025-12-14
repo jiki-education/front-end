@@ -1,12 +1,12 @@
 import { useAuthStore } from "@/lib/auth/authStore";
-import { logoutFromAllDevices as logoutFromAllDevicesService } from "@/lib/auth/service";
+import { logoutFromAllDevicesAction } from "@/lib/auth/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 export function useLogoutActions() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const { logout: logoutFromStore } = useAuthStore();
+  const { logout: logoutFromStore, setNoUser } = useAuthStore();
   const router = useRouter();
 
   const handleLogoutFromThisDevice = async () => {
@@ -40,8 +40,9 @@ export function useLogoutActions() {
     toast.loading("Logging out from all devices...");
 
     try {
-      // Use the centralized logout logic with the "all devices" service
-      await logoutFromStore(logoutFromAllDevicesService);
+      // Call the Server Action to logout from all devices
+      await logoutFromAllDevicesAction();
+      setNoUser(null);
 
       toast.dismiss();
       toast.success("Logged out from all devices successfully");

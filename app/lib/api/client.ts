@@ -1,10 +1,11 @@
+"use client";
+
 /**
  * API Client
  * Simple, type-safe API client for backend communication with JWT support
  */
 
 import { refreshAccessToken } from "@/lib/auth/refresh";
-import { getAccessToken } from "@/lib/auth/storage";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
 
@@ -172,10 +173,7 @@ async function request<T = unknown>(
     });
   }
 
-  // Get auth token
-  const token = getAccessToken();
-
-  // Prepare request options
+  // Prepare request options (NO TOKEN ACCESS - cookies sent automatically)
   const requestHeaders: Record<string, string> = {
     "Content-Type": "application/json"
   };
@@ -187,14 +185,10 @@ async function request<T = unknown>(
     }
   });
 
-  // Add Authorization header if token exists
-  if (token) {
-    requestHeaders["Authorization"] = `Bearer ${token}`;
-  }
-
   const requestOptions: RequestInit = {
     ...restOptions,
-    headers: requestHeaders
+    headers: requestHeaders,
+    credentials: "include" // CRITICAL: Send cookies with requests
   };
 
   // Add body if present
@@ -227,19 +221,13 @@ async function request<T = unknown>(
 
       // Handle 401 Unauthorized with automatic token refresh
       if (response.status === 401) {
-        // Only attempt refresh if token is actually expired
-        // This prevents unnecessary refresh token consumption on authorization errors
-
+        // Attempt to refresh the token (Server Action updates httpOnly cookie)
         try {
-          const newAccessToken = await refreshAccessToken();
+          const refreshResult = await refreshAccessToken();
 
-          if (newAccessToken) {
-            // Refresh succeeded! Retry the original request with new token
-            requestHeaders["Authorization"] = `Bearer ${newAccessToken}`;
-            const retryResponse = await fetch(url.toString(), {
-              ...requestOptions,
-              headers: requestHeaders
-            });
+          if (refreshResult) {
+            // Refresh succeeded! Cookie already updated by Server Action - retry the original request
+            const retryResponse = await fetch(url.toString(), requestOptions);
 
             let retryData: T;
             const retryContentType = retryResponse.headers.get("content-type");
@@ -261,13 +249,13 @@ async function request<T = unknown>(
             };
           }
 
-          // Refresh failed - tokens already cleared by refresh module
+          // Refresh failed - tokens already cleared by Server Action
           // Fall through to throw 401 error
-        } catch (refreshError) {
-          console.error("Token refresh failed:", refreshError);
+        } catch {
           // Fall through to throw original 401 error
         }
-        // If token not expired or refresh failed, throw authentication error
+
+        // If refresh failed, throw authentication error
         // This will be caught by components that can handle redirects properly
         throw new AuthenticationError(response.statusText, data);
       }

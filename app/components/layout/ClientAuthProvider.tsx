@@ -27,7 +27,7 @@ export function ClientAuthProvider({ children }: ClientAuthProviderProps) {
   // Wait for initial auth check to complete before rendering children
   // Use the store's hasCheckedAuth as the single source of truth
   if (!hasCheckedAuth) {
-    return <LoadingSpinner />; // Or a loading spinner if preferred
+    return <LoadingSpinner />;
   }
 
   return <>{children}</>;

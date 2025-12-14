@@ -4,7 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
-import { removeAccessToken, removeRefreshToken } from "@/lib/auth/storage";
+import { loginAction, signupAction, googleLoginAction, logoutAction, clearAuthCookies } from "@/lib/auth/actions";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { AuthenticationError } from "@/lib/api/client";
 import toast from "react-hot-toast";
@@ -47,8 +47,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   login: async (credentials) => {
     set({ isLoading: true });
     try {
-      const user = await authService.login(credentials);
-      get().setUser(user);
+      const result = await loginAction(credentials);
+      if (!result.success || !result.user) {
+        throw new Error(result.error || "Login failed");
+      }
+      get().setUser(result.user);
     } catch (error) {
       get().setNoUser();
       throw error; // Re-throw for component handling
@@ -59,8 +62,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   googleLogin: async (credential) => {
     set({ isLoading: true });
     try {
-      const user = await authService.googleLogin(credential);
-      get().setUser(user);
+      const result = await googleLoginAction(credential);
+      if (!result.success || !result.user) {
+        throw new Error(result.error || "Google login failed");
+      }
+      get().setUser(result.user);
     } catch (error) {
       get().setNoUser();
       throw error; // Re-throw for component handling
@@ -83,7 +89,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       toast.dismiss();
       const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
       toast.error(errorMessage);
-      console.error("Google OAuth error:", error);
     }
   },
 
@@ -91,8 +96,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   signup: async (userData) => {
     set({ isLoading: true });
     try {
-      const user = await authService.signup(userData);
-      get().setUser(user);
+      const result = await signupAction(userData);
+      if (!result.success || !result.user) {
+        throw new Error(result.error || "Signup failed");
+      }
+      get().setUser(result.user);
     } catch (error) {
       get().setNoUser();
       throw error;
@@ -100,16 +108,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Logout action
-  logout: async (logoutService = authService.logout) => {
+  logout: async () => {
     set({ isLoading: true });
     try {
-      await logoutService();
-    } catch (error) {
-      console.error("Logout error:", error);
+      await logoutAction(); // Clears httpOnly cookies
     } finally {
-      // Always clear both tokens regardless of API response
-      removeAccessToken();
-      removeRefreshToken();
       get().setNoUser(null);
     }
   },
@@ -154,15 +157,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       const user = await authService.getCurrentUser(false);
       get().setUser(user);
     } catch (error) {
-      // Only clear tokens if it's an authentication error (401)
-      // Network errors are retried infinitely by API client and won't reach here
+      // On auth error, just set no user
       if (error instanceof AuthenticationError) {
-        removeAccessToken();
-        removeRefreshToken();
+        await clearAuthCookies();
         get().setNoUser("Authentication check failed");
       } else {
         // Other API error (shouldn't happen) - don't clear tokens
-        console.error("Unexpected error during auth check:", error);
         get().setNoUser();
       }
     }
@@ -174,7 +174,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       const user = await authService.getCurrentUser();
       set({ user });
     } catch (error) {
-      console.error("Failed to refresh user:", error);
       throw error;
     }
   },

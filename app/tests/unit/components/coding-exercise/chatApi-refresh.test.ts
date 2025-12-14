@@ -1,19 +1,16 @@
 /**
- * Integration tests for chat API refresh token functionality
+ * Integration tests for chat API refresh token functionality with httpOnly cookies
  */
 
 import { sendChatMessage, ChatApiError } from "@/components/coding-exercise/lib/chatApi";
 import { refreshAccessToken } from "@/lib/auth/refresh";
-import { getAccessToken } from "@/lib/auth/storage";
 import { getChatApiUrl } from "@/lib/api/config";
 
 // Mock dependencies
 jest.mock("@/lib/auth/refresh");
-jest.mock("@/lib/auth/storage");
 jest.mock("@/lib/api/config");
 
 const mockRefreshAccessToken = refreshAccessToken as jest.MockedFunction<typeof refreshAccessToken>;
-const mockGetAccessToken = getAccessToken as jest.MockedFunction<typeof getAccessToken>;
 const mockGetChatApiUrl = getChatApiUrl as jest.MockedFunction<typeof getChatApiUrl>;
 
 // Mock fetch and web APIs
@@ -47,7 +44,7 @@ if (typeof TextDecoder === "undefined") {
   } as any;
 }
 
-describe("Chat API Refresh Token Integration", () => {
+describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
   const mockPayload = {
     exerciseSlug: "test-exercise",
     code: "console.log('test');",
@@ -68,15 +65,8 @@ describe("Chat API Refresh Token Integration", () => {
     mockGetChatApiUrl.mockReturnValue("http://localhost:8787/chat");
   });
 
-  it("should retry request after successful token refresh when token expired", async () => {
-    // Setup: initial token, refresh token available
-    mockGetAccessToken
-      .mockReturnValueOnce("expired_token") // First call returns expired token
-      .mockReturnValueOnce("new_token"); // Second call returns new token
-
-    mockRefreshAccessToken.mockResolvedValueOnce("new_token");
-
-    // First request fails with token_expired
+  it("should retry request after successful token refresh on 401", async () => {
+    // First request fails with 401 (token expired in cookie)
     mockFetch.mockResolvedValueOnce({
       ok: false,
       status: 401,
@@ -87,7 +77,10 @@ describe("Chat API Refresh Token Integration", () => {
       json: () => ({ error: "token_expired", message: "Token has expired" })
     });
 
-    // Second request succeeds - mock a simple readable stream
+    // Refresh succeeds (Server Action updates httpOnly cookie)
+    mockRefreshAccessToken.mockResolvedValueOnce(true);
+
+    // Second request succeeds with updated cookie
     const mockBody = {
       getReader: () => ({
         read: jest
@@ -110,54 +103,27 @@ describe("Chat API Refresh Token Integration", () => {
     // Verify two fetch calls were made
     expect(mockFetch).toHaveBeenCalledTimes(2);
 
-    // First call with expired token
+    // Both calls should use credentials: 'include' (NO Authorization header)
     expect(mockFetch).toHaveBeenNthCalledWith(1, "http://localhost:8787/chat", {
       method: "POST",
       headers: {
-        Authorization: "Bearer expired_token",
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify(mockPayload)
     });
 
-    // Second call with new token
     expect(mockFetch).toHaveBeenNthCalledWith(2, "http://localhost:8787/chat", {
       method: "POST",
       headers: {
-        Authorization: "Bearer new_token",
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify(mockPayload)
     });
   });
 
-  it("should not retry for invalid_token errors", async () => {
-    mockGetAccessToken.mockReturnValue("invalid_token");
-
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 401,
-      statusText: "Unauthorized",
-      headers: {
-        get: () => "application/json"
-      },
-      json: () => ({ error: "invalid_token", message: "Invalid token" })
-    });
-
-    const error = await sendChatMessage(mockPayload, mockCallbacks).catch((e) => e);
-
-    expect(error).toBeInstanceOf(ChatApiError);
-    expect(error.status).toBe(401);
-
-    // Should not attempt refresh for invalid tokens
-    expect(mockRefreshAccessToken).not.toHaveBeenCalled();
-    expect(mockFetch).toHaveBeenCalledTimes(1);
-  });
-
   it("should throw error if refresh fails", async () => {
-    mockGetAccessToken.mockReturnValue("expired_token");
-    mockRefreshAccessToken.mockResolvedValueOnce(null); // Refresh failed
-
     mockFetch.mockResolvedValueOnce({
       ok: false,
       status: 401,
@@ -168,15 +134,16 @@ describe("Chat API Refresh Token Integration", () => {
       json: () => ({ error: "token_expired", message: "Token has expired" })
     });
 
+    // Refresh fails (Server Action couldn't refresh token)
+    mockRefreshAccessToken.mockResolvedValueOnce(false);
+
     await expect(sendChatMessage(mockPayload, mockCallbacks)).rejects.toThrow(ChatApiError);
 
     expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
     expect(mockFetch).toHaveBeenCalledTimes(1); // Only original call, no retry
   });
 
-  it("should handle non-401 errors normally", async () => {
-    mockGetAccessToken.mockReturnValue("valid_token");
-
+  it("should handle non-401 errors normally without refresh attempt", async () => {
     mockFetch.mockResolvedValueOnce({
       ok: false,
       status: 500,
@@ -192,5 +159,28 @@ describe("Chat API Refresh Token Integration", () => {
     // Should not attempt refresh for non-auth errors
     expect(mockRefreshAccessToken).not.toHaveBeenCalled();
     expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should send cookies automatically without Authorization header", async () => {
+    const mockBody = {
+      getReader: () => ({
+        read: jest
+          .fn()
+          .mockResolvedValueOnce({ done: false, value: new Uint8Array([116, 101, 115, 116]) })
+          .mockResolvedValueOnce({ done: true })
+      })
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      body: mockBody
+    });
+
+    await sendChatMessage(mockPayload, mockCallbacks);
+
+    // Verify NO Authorization header, only credentials: 'include'
+    const fetchCall = mockFetch.mock.calls[0][1];
+    expect(fetchCall?.headers).not.toHaveProperty("Authorization");
+    expect(fetchCall?.credentials).toBe("include");
   });
 });

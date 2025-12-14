@@ -13,6 +13,7 @@ interface AuthProviderProps {
  */
 export async function AuthGuard({ children }: AuthProviderProps) {
   const hasToken = await hasServersideAccessToken();
+
   if (!hasToken) {
     return <>{children}</>;
   }

@@ -3,16 +3,13 @@
  */
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import * as authService from "@/lib/auth/service";
+import { googleLoginAction } from "@/lib/auth/actions";
 import type { User } from "@/types/auth";
 import toast from "react-hot-toast";
 
-// Mock auth service
-jest.mock("@/lib/auth/service");
-const mockAuthService = authService as jest.Mocked<typeof authService>;
-
-// Mock auth storage
-jest.mock("@/lib/auth/storage");
+// Mock auth actions
+jest.mock("@/lib/auth/actions");
+const mockGoogleLoginAction = googleLoginAction as jest.MockedFunction<typeof googleLoginAction>;
 
 // Mock toast
 jest.mock("react-hot-toast", () => ({
@@ -65,7 +62,7 @@ describe("AuthStore - Google Authentication", () => {
 
   describe("googleLogin", () => {
     it("should successfully authenticate with Google and update store state", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       const { googleLogin } = useAuthStore.getState();
       await googleLogin("test-code");
@@ -79,11 +76,11 @@ describe("AuthStore - Google Authentication", () => {
     });
 
     it("should set loading state during authentication", async () => {
-      let resolvePromise: (user: User) => void;
-      const authPromise = new Promise<User>((resolve) => {
+      let resolvePromise: (result: { success: boolean; user: User }) => void;
+      const authPromise = new Promise<{ success: boolean; user: User }>((resolve) => {
         resolvePromise = resolve;
       });
-      mockAuthService.googleLogin.mockReturnValue(authPromise);
+      mockGoogleLoginAction.mockReturnValue(authPromise);
 
       const { googleLogin } = useAuthStore.getState();
       const authCall = googleLogin("test-code");
@@ -94,7 +91,7 @@ describe("AuthStore - Google Authentication", () => {
       expect(loadingState.error).toBeNull();
 
       // Resolve the promise
-      resolvePromise!(mockUser);
+      resolvePromise!({ success: true, user: mockUser });
       await authCall;
 
       // Check final state
@@ -103,8 +100,7 @@ describe("AuthStore - Google Authentication", () => {
     });
 
     it("should handle authentication errors and update store state", async () => {
-      const error = new Error("Google authentication failed");
-      mockAuthService.googleLogin.mockRejectedValue(error);
+      mockGoogleLoginAction.mockResolvedValue({ success: false, error: "Google authentication failed" });
 
       const { googleLogin } = useAuthStore.getState();
 
@@ -116,12 +112,12 @@ describe("AuthStore - Google Authentication", () => {
       expect(state.isLoading).toBe(false);
     });
 
-    it("should handle non-Error exceptions gracefully", async () => {
-      mockAuthService.googleLogin.mockRejectedValue("String error");
+    it("should handle action errors gracefully", async () => {
+      mockGoogleLoginAction.mockRejectedValue(new Error("Network error"));
 
       const { googleLogin } = useAuthStore.getState();
 
-      await expect(googleLogin("test-code")).rejects.toBe("String error");
+      await expect(googleLogin("test-code")).rejects.toThrow("Network error");
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();
@@ -129,20 +125,20 @@ describe("AuthStore - Google Authentication", () => {
       expect(state.isLoading).toBe(false);
     });
 
-    it("should call authService.googleLogin with correct parameters", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+    it("should call googleLoginAction with correct parameters", async () => {
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       const { googleLogin } = useAuthStore.getState();
       await googleLogin("test-auth-code");
 
-      expect(mockAuthService.googleLogin).toHaveBeenCalledWith("test-auth-code");
-      expect(mockAuthService.googleLogin).toHaveBeenCalledTimes(1);
+      expect(mockGoogleLoginAction).toHaveBeenCalledWith("test-auth-code");
+      expect(mockGoogleLoginAction).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("googleAuth", () => {
     it("should successfully authenticate and show success toast", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
@@ -160,7 +156,7 @@ describe("AuthStore - Google Authentication", () => {
 
     it("should show success toast with email when name is not available", async () => {
       const userWithoutName = { ...mockUser, name: null };
-      mockAuthService.googleLogin.mockResolvedValue(userWithoutName);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: userWithoutName });
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
@@ -173,38 +169,37 @@ describe("AuthStore - Google Authentication", () => {
       await googleAuth("");
 
       expect(mockToast.error).toHaveBeenCalledWith("No authorization code received from Google");
-      expect(mockAuthService.googleLogin).not.toHaveBeenCalled();
+      expect(mockGoogleLoginAction).not.toHaveBeenCalled();
     });
 
     it("should handle authentication errors and show error toast", async () => {
       const error = new Error("Network error");
-      mockAuthService.googleLogin.mockRejectedValue(error);
+      mockGoogleLoginAction.mockRejectedValue(error);
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
 
       expect(mockToast.dismiss).toHaveBeenCalled();
       expect(mockToast.error).toHaveBeenCalledWith("Network error");
-      expect(console.error).toHaveBeenCalledWith("Google OAuth error:", error);
     });
 
-    it("should handle non-Error exceptions gracefully with generic message", async () => {
-      mockAuthService.googleLogin.mockRejectedValue("Unknown error");
+    it("should handle action failure with generic message", async () => {
+      mockGoogleLoginAction.mockResolvedValue({ success: false, error: "Invalid code" });
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
 
-      expect(mockToast.error).toHaveBeenCalledWith("Google authentication failed");
+      expect(mockToast.error).toHaveBeenCalledWith("Invalid code");
     });
 
     it("should call googleLogin internally and inherit its behavior", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
 
-      // Verify the underlying googleLogin was called
-      expect(mockAuthService.googleLogin).toHaveBeenCalledWith("test-code");
+      // Verify the underlying googleLoginAction was called
+      expect(mockGoogleLoginAction).toHaveBeenCalledWith("test-code");
 
       // Verify store state matches googleLogin behavior
       const state = useAuthStore.getState();
@@ -214,7 +209,7 @@ describe("AuthStore - Google Authentication", () => {
     });
 
     it("should show loading toast and dismiss it after completion", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       const { googleAuth } = useAuthStore.getState();
       await googleAuth("test-code");
@@ -226,7 +221,7 @@ describe("AuthStore - Google Authentication", () => {
 
   describe("googleAuth and googleLogin integration", () => {
     it("should ensure googleAuth properly delegates to googleLogin", async () => {
-      mockAuthService.googleLogin.mockResolvedValue(mockUser);
+      mockGoogleLoginAction.mockResolvedValue({ success: true, user: mockUser });
 
       // Test googleLogin directly
       const { googleLogin } = useAuthStore.getState();
@@ -256,7 +251,7 @@ describe("AuthStore - Google Authentication", () => {
 
     it("should maintain error consistency between googleAuth and googleLogin", async () => {
       const error = new Error("Test error");
-      mockAuthService.googleLogin.mockRejectedValue(error);
+      mockGoogleLoginAction.mockRejectedValue(error);
 
       // Test googleLogin error handling
       const { googleLogin } = useAuthStore.getState();

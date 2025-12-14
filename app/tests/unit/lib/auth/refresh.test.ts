@@ -1,633 +1,167 @@
 /**
- * Unit tests for refresh token module
- * Tests critical authentication flow including race conditions and error handling
+ * Unit tests for refresh token module - Server Action based implementation
  */
 
 import { refreshAccessToken, isCurrentlyRefreshing } from "@/lib/auth/refresh";
-import * as storage from "@/lib/auth/storage";
-import * as apiConfig from "@/lib/api/config";
+import { refreshTokenAction } from "@/lib/auth/actions";
 
-// Mock dependencies
-jest.mock("@/lib/auth/storage");
-jest.mock("@/lib/api/config");
+// Mock Server Actions
+jest.mock("@/lib/auth/actions");
 
-// Mock global fetch
-global.fetch = jest.fn();
+const mockRefreshTokenAction = refreshTokenAction as jest.MockedFunction<typeof refreshTokenAction>;
 
-describe("refresh.ts - Token Refresh Module", () => {
-  const mockStorage = jest.mocked(storage);
-  const mockApiConfig = jest.mocked(apiConfig);
-  const mockFetch = jest.mocked(fetch);
-
+describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-
-    // Default mock implementations
-    mockApiConfig.getApiUrl.mockReturnValue("http://localhost:3060/auth/refresh");
-    mockStorage.getRefreshToken.mockReturnValue("valid_refresh_token");
   });
 
   describe("Successful Refresh Flow", () => {
-    it("should successfully refresh token from response headers", async () => {
-      const newAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDA5OTk5OTl9.new_token";
-
-      // Mock successful response with token in headers
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          const headers: { [key: string]: string } = {
-            authorization: `Bearer ${newAccessToken}`,
-            "content-type": "application/json"
-          };
-          return headers[key.toLowerCase()] || null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({ message: "Token refreshed" })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
+    it("should successfully refresh token via Server Action", async () => {
+      mockRefreshTokenAction.mockResolvedValueOnce({
+        success: true,
+        user: {
+          id: 123,
+          handle: "test",
+          email: "test@example.com",
+          name: "Test User",
+          created_at: "2024-01-01",
+          membership_type: "standard",
+          subscription_status: "never_subscribed",
+          subscription: null
+        }
+      });
 
       const result = await refreshAccessToken();
 
-      expect(result).toBe(newAccessToken);
-      expect(mockFetch).toHaveBeenCalledWith("http://localhost:3060/auth/refresh", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ refresh_token: "valid_refresh_token" })
-      });
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken);
+      expect(result).toBe(true);
+      expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
     });
 
-    it("should successfully refresh token from response body when not in headers", async () => {
-      const newAccessToken = "body_token_123";
-
-      // Mock response without auth header, token in body
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          const headers: { [key: string]: string } = {
-            "content-type": "application/json"
-          };
-          return headers[key.toLowerCase()] || null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({
-          access_token: newAccessToken,
-          message: "Token refreshed"
-        })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
+    it("should return true boolean instead of actual token", async () => {
+      mockRefreshTokenAction.mockResolvedValueOnce({ success: true });
 
       const result = await refreshAccessToken();
 
-      expect(result).toBe(newAccessToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(newAccessToken);
+      // Returns true since actual token is in httpOnly cookie
+      expect(result).toBe(true);
+      expect(typeof result).toBe("boolean");
     });
   });
 
   describe("Failed Refresh Scenarios", () => {
-    it("should handle 401 unauthorized response", async () => {
-      const mockResponse = {
-        ok: false,
-        status: 401,
-        statusText: "Unauthorized"
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
+    it("should return null when Server Action fails", async () => {
+      mockRefreshTokenAction.mockResolvedValueOnce({
+        success: false,
+        error: "Refresh token expired"
+      });
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
-      // Only refresh token should be removed on 401
-      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).toHaveBeenCalled();
+      expect(result).toBe(false);
+      expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
     });
 
-    it("should handle 500 server error response", async () => {
-      const mockResponse = {
-        ok: false,
-        status: 500,
-        statusText: "Internal Server Error"
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
+    it("should return null when Server Action throws error", async () => {
+      mockRefreshTokenAction.mockRejectedValueOnce(new Error("Network error"));
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
-      // Should NOT remove tokens on server errors (transient)
-      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
+      expect(result).toBe(false);
     });
 
-    it("should handle network errors", async () => {
-      mockFetch.mockRejectedValue(new Error("Network error"));
+    it("should return null when Server Action returns no user", async () => {
+      mockRefreshTokenAction.mockResolvedValueOnce({
+        success: false,
+        error: "Invalid refresh token"
+      });
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
-      // Should NOT remove tokens on network errors (might work later)
-      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
-    });
-
-    it("should handle missing refresh token", async () => {
-      mockStorage.getRefreshToken.mockReturnValue(null);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBeNull();
-      expect(mockFetch).not.toHaveBeenCalled();
-      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
-    });
-
-    it("should handle invalid content type response", async () => {
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "content-type") {
-            return "text/html";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBeNull();
-    });
-
-    it("should handle missing access token in response", async () => {
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({ message: "No token provided" })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBeNull();
-    });
-
-    it("should handle JSON parsing errors", async () => {
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockRejectedValue(new Error("Invalid JSON"))
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-
-      const result = await refreshAccessToken();
-
-      expect(result).toBeNull();
-      // JSON parsing error is a code/data issue, not an auth issue
-      // Should NOT remove tokens
-      expect(mockStorage.removeAccessToken).not.toHaveBeenCalled();
-      expect(mockStorage.removeRefreshToken).not.toHaveBeenCalled();
+      expect(result).toBe(false);
     });
   });
 
   describe("Race Condition Prevention", () => {
-    it("should prevent concurrent refresh requests", async () => {
-      const newAccessToken = "concurrent_token";
+    it("should not make multiple refresh calls when called concurrently", async () => {
+      mockRefreshTokenAction.mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve({ success: true }), 100))
+      );
 
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${newAccessToken}`;
-          }
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
+      // Call refresh multiple times concurrently
+      const [result1, result2, result3] = await Promise.all([
+        refreshAccessToken(),
+        refreshAccessToken(),
+        refreshAccessToken()
+      ]);
 
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
+      // All should get the same result
+      expect(result1).toBe(true);
+      expect(result2).toBe(true);
+      expect(result3).toBe(true);
 
-      // Mock a slow response
-      mockFetch.mockImplementation(() => new Promise((resolve) => setTimeout(() => resolve(mockResponse), 100)));
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-      // Start multiple refresh requests concurrently
-      const promise1 = refreshAccessToken();
-      const promise2 = refreshAccessToken();
-      const promise3 = refreshAccessToken();
-
-      // All should return the same token
-      const [result1, result2, result3] = await Promise.all([promise1, promise2, promise3]);
-
-      expect(result1).toBe(newAccessToken);
-      expect(result2).toBe(newAccessToken);
-      expect(result3).toBe(newAccessToken);
-
-      // fetch should only be called once despite multiple requests
-      expect(mockFetch).toHaveBeenCalledTimes(1);
+      // But only one Server Action call should have been made
+      expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
     });
 
-    it("should track refreshing state correctly", async () => {
-      const newAccessToken = "state_tracking_token";
-
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${newAccessToken}`;
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
-
-      mockFetch.mockImplementation(() => new Promise((resolve) => setTimeout(() => resolve(mockResponse), 50)));
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-      // State should be false initially
-      expect(isCurrentlyRefreshing()).toBe(false);
-
-      // Start refresh
-      const refreshPromise = refreshAccessToken();
-
-      // State should be true during refresh
-      expect(isCurrentlyRefreshing()).toBe(true);
-
-      // Wait for completion
-      await refreshPromise;
-
-      // State should be false after completion
-      expect(isCurrentlyRefreshing()).toBe(false);
-    });
-
-    it("should reset state after failed refresh", async () => {
-      mockFetch.mockRejectedValue(new Error("Network failure"));
-
-      expect(isCurrentlyRefreshing()).toBe(false);
-
-      const refreshPromise = refreshAccessToken();
-      expect(isCurrentlyRefreshing()).toBe(true);
-
-      const result = await refreshPromise;
-      expect(result).toBeNull();
-      expect(isCurrentlyRefreshing()).toBe(false);
-    });
-
-    it("should handle multiple refresh attempts after failure", async () => {
-      // First call fails
-      mockFetch.mockRejectedValueOnce(new Error("Network error"));
+    it("should allow new refresh after previous one completes", async () => {
+      mockRefreshTokenAction.mockResolvedValueOnce({ success: true }).mockResolvedValueOnce({ success: true });
 
       const result1 = await refreshAccessToken();
-      expect(result1).toBeNull();
-      expect(isCurrentlyRefreshing()).toBe(false);
-
-      // Second call succeeds
-      const newAccessToken = "retry_success_token";
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${newAccessToken}`;
-          }
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
+      expect(result1).toBe(true);
 
       const result2 = await refreshAccessToken();
-      expect(result2).toBe(newAccessToken);
+      expect(result2).toBe(true);
+
+      expect(mockRefreshTokenAction).toHaveBeenCalledTimes(2);
+    });
+
+    it("should reset refresh state after failure", async () => {
+      mockRefreshTokenAction
+        .mockResolvedValueOnce({ success: false, error: "Failed" })
+        .mockResolvedValueOnce({ success: true });
+
+      const result1 = await refreshAccessToken();
+      expect(result1).toBe(false);
+      expect(isCurrentlyRefreshing()).toBe(false);
+
+      const result2 = await refreshAccessToken();
+      expect(result2).toBe(true);
+      expect(mockRefreshTokenAction).toHaveBeenCalledTimes(2);
+    });
+
+    it("should correctly report refreshing state", async () => {
+      mockRefreshTokenAction.mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve({ success: true }), 50))
+      );
+
+      expect(isCurrentlyRefreshing()).toBe(false);
+
+      const refreshPromise = refreshAccessToken();
+      expect(isCurrentlyRefreshing()).toBe(true);
+
+      await refreshPromise;
       expect(isCurrentlyRefreshing()).toBe(false);
     });
   });
 
-  describe("Response Parsing Scenarios", () => {
-    it("should extract token from Authorization header (case insensitive)", async () => {
-      const newAccessToken = "case_insensitive_token";
-
-      // Test different header casing
-      const testCases = ["Authorization", "authorization", "AUTHORIZATION"];
-
-      for (const _headerName of testCases) {
-        const mockHeaders = {
-          get: jest.fn((key: string) => {
-            if (key.toLowerCase() === "authorization") {
-              return `Bearer ${newAccessToken}`;
-            }
-            if (key.toLowerCase() === "content-type") {
-              return "application/json";
-            }
-            return null;
-          })
-        };
-
-        const mockResponse = {
-          ok: true,
-          status: 200,
-          headers: mockHeaders,
-          json: jest.fn().mockResolvedValue({})
-        } as any;
-
-        mockFetch.mockResolvedValue(mockResponse);
-        mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-        const result = await refreshAccessToken();
-        expect(result).toBe(newAccessToken);
-
-        // Reset mocks for next iteration
-        jest.clearAllMocks();
-        mockStorage.getRefreshToken.mockReturnValue("valid_refresh_token");
-        mockApiConfig.getApiUrl.mockReturnValue("http://localhost:3060/auth/refresh");
-      }
-    });
-
-    it("should handle malformed Authorization header", async () => {
-      const malformedHeaders = [
-        "InvalidFormat",
-        "Bearer", // No token part
-        "NotBearer token123",
-        "Bearer token1 token2 extra" // Too many parts
-      ];
-
-      for (const malformedHeader of malformedHeaders) {
-        const mockHeaders = {
-          get: jest.fn((key: string) => {
-            if (key.toLowerCase() === "authorization") {
-              return malformedHeader;
-            }
-            if (key.toLowerCase() === "content-type") {
-              return "application/json";
-            }
-            return null;
-          })
-        };
-
-        const mockResponse = {
-          ok: true,
-          status: 200,
-          headers: mockHeaders,
-          json: jest.fn().mockResolvedValue({ access_token: "fallback_token" })
-        } as any;
-
-        mockFetch.mockResolvedValue(mockResponse);
-        mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-        const result = await refreshAccessToken();
-        // Should fall back to body token
-        expect(result).toBe("fallback_token");
-
-        // Reset mocks for next iteration
-        jest.clearAllMocks();
-        mockStorage.getRefreshToken.mockReturnValue("valid_refresh_token");
-        mockApiConfig.getApiUrl.mockReturnValue("http://localhost:3060/auth/refresh");
-      }
-    });
-
-    it("should handle missing Authorization header gracefully", async () => {
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null; // No authorization header
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({ access_token: "body_only_token" })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
+  describe("Error Handling", () => {
+    it("should handle Server Action timeout gracefully", async () => {
+      mockRefreshTokenAction.mockImplementation(
+        () => new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 100))
+      );
 
       const result = await refreshAccessToken();
-      expect(result).toBe("body_only_token");
+
+      expect(result).toBe(false);
+      expect(isCurrentlyRefreshing()).toBe(false);
     });
 
-    it("should prefer header token over body token when both exist", async () => {
-      const headerToken = "header_priority_token";
-      const bodyToken = "body_token";
-
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return `Bearer ${headerToken}`;
-          }
-          if (key.toLowerCase() === "content-type") {
-            return "application/json";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({ access_token: bodyToken })
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-      const result = await refreshAccessToken();
-      expect(result).toBe(headerToken);
-      expect(mockStorage.setAccessToken).toHaveBeenCalledWith(headerToken);
-    });
-
-    it("should handle various content types properly", async () => {
-      const contentTypes = [
-        "application/json",
-        "application/json; charset=utf-8",
-        "text/plain", // Should fail
-        "APPLICATION/JSON", // Should fail (case sensitive)
-        "", // Should fail
-        null // Should fail
-      ];
-
-      const validTypes = contentTypes.slice(0, 2);
-      const invalidTypes = contentTypes.slice(2);
-
-      // Test valid content types
-      for (const contentType of validTypes) {
-        const mockHeaders = {
-          get: jest.fn((key: string) => {
-            if (key.toLowerCase() === "content-type") {
-              return contentType;
-            }
-            return null; // No authorization header, token should come from body
-          })
-        };
-
-        const mockResponse = {
-          ok: true,
-          status: 200,
-          headers: mockHeaders,
-          json: jest.fn().mockResolvedValue({ access_token: "valid_token" })
-        } as any;
-
-        mockFetch.mockResolvedValue(mockResponse);
-        mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-        const result = await refreshAccessToken();
-        expect(result).toBe("valid_token");
-
-        // Reset mocks for next iteration
-        jest.clearAllMocks();
-        mockStorage.getRefreshToken.mockReturnValue("valid_refresh_token");
-        mockApiConfig.getApiUrl.mockReturnValue("http://localhost:3060/auth/refresh");
-      }
-
-      // Test invalid content types
-      for (const contentType of invalidTypes) {
-        const mockHeaders = {
-          get: jest.fn((key: string) => {
-            if (key.toLowerCase() === "content-type") {
-              return contentType;
-            }
-            return null;
-          })
-        };
-
-        const mockResponse = {
-          ok: true,
-          status: 200,
-          headers: mockHeaders,
-          json: jest.fn().mockResolvedValue({ access_token: "invalid_content_type_token" })
-        } as any;
-
-        mockFetch.mockResolvedValue(mockResponse);
-
-        const result = await refreshAccessToken();
-        expect(result).toBeNull();
-
-        // Reset mocks for next iteration
-        jest.clearAllMocks();
-        mockStorage.getRefreshToken.mockReturnValue("valid_refresh_token");
-        mockApiConfig.getApiUrl.mockReturnValue("http://localhost:3060/auth/refresh");
-      }
-    });
-  });
-
-  describe("API Configuration Integration", () => {
-    it("should use correct API endpoint from config", async () => {
-      const customApiUrl = "https://api.example.com/auth/refresh";
-      mockApiConfig.getApiUrl.mockReturnValue(customApiUrl);
-
-      const mockHeaders = {
-        get: jest.fn((key: string) => {
-          if (key.toLowerCase() === "authorization") {
-            return "Bearer test_token";
-          }
-          return null;
-        })
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
+    it("should reset state even when Server Action throws unexpected error", async () => {
+      mockRefreshTokenAction.mockRejectedValueOnce(new Error("Unexpected error"));
 
       await refreshAccessToken();
 
-      expect(mockApiConfig.getApiUrl).toHaveBeenCalledWith("/auth/refresh");
-      expect(mockFetch).toHaveBeenCalledWith(customApiUrl, expect.any(Object));
-    });
-
-    it("should include correct request headers and body", async () => {
-      const refreshToken = "specific_refresh_token_123";
-      mockStorage.getRefreshToken.mockReturnValue(refreshToken);
-
-      const mockHeaders = {
-        get: jest.fn(() => "Bearer response_token")
-      };
-
-      const mockResponse = {
-        ok: true,
-        status: 200,
-        headers: mockHeaders,
-        json: jest.fn().mockResolvedValue({})
-      } as any;
-
-      mockFetch.mockResolvedValue(mockResponse);
-      mockStorage.getTokenExpiry.mockReturnValue(1700999999000);
-
-      await refreshAccessToken();
-
-      expect(mockFetch).toHaveBeenCalledWith("http://localhost:3060/auth/refresh", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          refresh_token: refreshToken
-        })
-      });
+      expect(isCurrentlyRefreshing()).toBe(false);
     });
   });
 });

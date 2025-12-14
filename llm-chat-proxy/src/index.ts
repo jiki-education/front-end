@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { getCookie } from "hono/cookie";
 import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
 import { buildPrompt } from "./prompt-builder";
@@ -46,11 +47,22 @@ app.post("/chat", async (c) => {
   try {
     console.log("[Chat] Incoming request");
 
-    // 1. Extract and verify JWT
-    const authHeader = c.req.header("Authorization");
-    console.log("[Chat] Auth header present:", !!authHeader);
+    // 1. Extract and verify JWT from Authorization header first, then cookie (fallback)
+    let token: string | undefined;
 
-    const token = authHeader?.replace("Bearer ", "");
+    // Try Authorization header first (explicit authentication takes priority)
+    const authHeader = c.req.header("Authorization");
+    if (authHeader) {
+      token = authHeader.replace("Bearer ", "");
+      console.log("[Chat] ✓ Token from Authorization header");
+    } else {
+      // Fallback to cookie (new httpOnly approach)
+      const cookieToken = getCookie(c, "jiki_access_token");
+      if (cookieToken) {
+        token = cookieToken;
+        console.log("[Chat] ✓ Token from cookie (fallback)");
+      }
+    }
 
     if (token === undefined) {
       console.log("[Chat] ❌ No token provided");

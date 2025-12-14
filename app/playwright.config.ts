@@ -29,7 +29,7 @@ export default defineConfig({
   // Global test settings
   use: {
     // Base URL for navigation
-    baseURL: "http://localhost:3081",
+    baseURL: "http://local.jiki.io:3081",
 
     // Default timeout for actions and assertions
     // CI needs longer timeouts due to slower compilation
@@ -62,7 +62,7 @@ export default defineConfig({
   // Dev server configuration
   webServer: {
     command: "pnpm next dev --port 3081",
-    url: "http://localhost:3081",
+    url: "http://local.jiki.io:3081",
     reuseExistingServer: !process.env.CI,
     timeout: 30000,
     stdout: "pipe",
