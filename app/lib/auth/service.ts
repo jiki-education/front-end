@@ -1,174 +1,19 @@
+'use client';
+
 /**
  * Authentication Service
  * API integration for authentication endpoints
+ *
+ * Note: Login/signup/logout are now handled by Server Actions in @/lib/auth/actions.ts
+ * This file contains only the remaining API integration functions
  */
 
 import { api } from "@/lib/api";
-import { setAccessToken, setRefreshToken } from "@/lib/auth/storage";
 import type {
-  AuthResponse,
-  LoginCredentials,
   PasswordReset,
   PasswordResetRequest,
-  SignupData,
   User
 } from "@/types/auth";
-
-/**
- * Extract JWT token from Authorization header
- */
-function extractTokenFromHeaders(headers: Headers): string | null {
-  const authHeader = headers.get("Authorization") || headers.get("authorization");
-  if (!authHeader) {
-    return null;
-  }
-
-  // Format: "Bearer <token>"
-  const parts = authHeader.split(" ");
-  if (parts.length !== 2 || parts[0].toLowerCase() !== "bearer") {
-    return null;
-  }
-
-  return parts[1];
-}
-
-/**
- * User login
- * POST /auth/login
- */
-export async function login(credentials: LoginCredentials): Promise<User> {
-  const response = await api.post<AuthResponse>("/auth/login", { user: credentials });
-
-  // Try to extract JWT access token from response headers first
-  let accessToken = extractTokenFromHeaders(response.headers);
-
-  // If not in headers, check response body
-  if (!accessToken) {
-    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
-  }
-
-  // Extract refresh token from response body
-  const refreshToken = response.data.refresh_token;
-
-  // Store access token (short-lived, cookie)
-  if (accessToken) {
-    setAccessToken(accessToken);
-  }
-
-  // Store refresh token (long-lived, localStorage)
-  if (refreshToken) {
-    setRefreshToken(refreshToken);
-  }
-
-  return response.data.user;
-}
-
-/**
- * User signup
- * POST /auth/signup
- */
-export async function signup(userData: SignupData): Promise<User> {
-  const response = await api.post<AuthResponse>("/auth/signup", { user: userData });
-
-  // Try to extract JWT access token from response headers first
-  let accessToken = extractTokenFromHeaders(response.headers);
-
-  // If not in headers, check response body
-  if (!accessToken) {
-    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
-  }
-
-  // Extract refresh token from response body
-  const refreshToken = response.data.refresh_token;
-
-  // Store access token (short-lived, cookie)
-  if (accessToken) {
-    setAccessToken(accessToken);
-  }
-
-  // Store refresh token (long-lived, localStorage)
-  if (refreshToken) {
-    setRefreshToken(refreshToken);
-  }
-
-  return response.data.user;
-}
-
-/**
- * Google OAuth login
- * POST /auth/google
- */
-export async function googleLogin(code: string): Promise<User> {
-  const response = await api.post<AuthResponse>("/auth/google", { code });
-
-  // Try to extract JWT access token from response headers first
-  let accessToken = extractTokenFromHeaders(response.headers);
-
-  // If not in headers, check response body
-  if (!accessToken) {
-    accessToken = response.data.token || response.data.jwt || response.data.access_token || null;
-  }
-
-  // Extract refresh token from response body
-  const refreshToken = response.data.refresh_token;
-
-  // Store access token (short-lived, cookie)
-  if (accessToken) {
-    setAccessToken(accessToken);
-  }
-
-  // Store refresh token (long-lived, localStorage)
-  if (refreshToken) {
-    setRefreshToken(refreshToken);
-  }
-
-  return response.data.user;
-}
-
-/**
- * User logout
- * DELETE /auth/logout
- */
-export async function logout(): Promise<void> {
-  try {
-    await api.delete("/auth/logout");
-  } catch (error) {
-    // Log error but don't throw - we still want to clear local state
-    console.error("Logout API call failed:", error);
-  }
-
-  // Always clear both tokens regardless of API response
-  const { removeAccessToken, removeRefreshToken } = await import("@/lib/auth/storage");
-  removeAccessToken();
-  removeRefreshToken();
-}
-
-/**
- * User logout from all devices
- * DELETE /auth/logout/all
- */
-export async function logoutFromAllDevices(): Promise<void> {
-  try {
-    await api.delete("/auth/logout/all");
-  } catch (error) {
-    // Log error but don't throw - we still want to clear local state
-    console.error("Logout from all devices API call failed:", error);
-  }
-
-  // Always clear both tokens regardless of API response
-  const { removeAccessToken, removeRefreshToken } = await import("@/lib/auth/storage");
-  removeAccessToken();
-  removeRefreshToken();
-}
-
-/**
- * Refresh access token using refresh token
- * This now uses the standalone refresh module to avoid circular dependencies
- */
-export async function refreshAccessToken(): Promise<string | null> {
-  const { refreshAccessToken: performRefresh } = await import("@/lib/auth/refresh");
-  return performRefresh();
-}
 
 /**
  * Request password reset
@@ -201,39 +46,4 @@ export async function resendConfirmation(email: string): Promise<void> {
 export async function getCurrentUser(useRetries: boolean = true): Promise<User> {
   const response = await api.get<{ user: User }>("/internal/me", undefined, useRetries);
   return response.data.user;
-}
-
-/**
- * Validate current token
- * Checks JWT expiry client-side and validates token structure
- */
-export async function validateToken(): Promise<boolean> {
-  try {
-    const { getAccessToken, parseJwtPayload } = await import("@/lib/auth/storage");
-    const token = getAccessToken();
-
-    if (!token) {
-      return false;
-    }
-
-    // Parse JWT to check expiry
-    const payload = parseJwtPayload(token);
-    if (!payload) {
-      return false;
-    }
-
-    // Check if token has expired (exp is in seconds)
-    if (payload.exp) {
-      const expiryMs = payload.exp * 1000;
-      if (Date.now() > expiryMs) {
-        return false;
-      }
-    }
-
-    // Token structure is valid and not expired
-    return true;
-  } catch (error) {
-    console.error("Token validation failed:", error);
-    return false;
-  }
 }

@@ -1,60 +1,15 @@
 /**
  * Token Storage Utilities
- * Secure JWT token management for authentication
+ * JWT parsing utilities for server-side use
+ *
+ * Note: Tokens are now stored in httpOnly cookies and cannot be accessed from client-side JavaScript.
+ * All token management is handled by Server Actions in @/lib/auth/actions.ts
  */
-
-import { getAccessTokenCookie, removeAccessTokenCookie, setAccessTokenCookie } from "@/lib/auth/cookie-storage";
-import { REFRESH_TOKEN_COOKIE_NAME } from "@/lib/auth/cookie-storage";
-
-/**
- * Store JWT access token in cookie
- */
-export function setAccessToken(token: string): void {
-  setAccessTokenCookie(token);
-}
-
-/**
- * Retrieve stored JWT access token from cookie
- */
-export function getAccessToken(): string | null {
-  return getAccessTokenCookie();
-}
-
-/**
- * Remove stored JWT access token
- * Note: Does not remove refresh token - caller must handle that explicitly
- */
-export function removeAccessToken(): void {
-  removeAccessTokenCookie();
-}
-
-/**
- * Check if access token exists and is valid
- * Validates JWT exp claim
- * Note: This is a pure function - it does NOT remove expired tokens
- */
-export function hasToken(): boolean {
-  const token = getAccessToken();
-  if (!token) {
-    return false;
-  }
-
-  // Check JWT exp claim
-  const payload = parseJwtPayload(token);
-  if (!payload) {
-    return false;
-  }
-
-  if (!payload.sub) {
-    return false;
-  }
-
-  return true;
-}
 
 /**
  * Parse JWT payload (without verification)
  * Note: This doesn't validate the token, only decodes it
+ * For server-side use only
  */
 export function parseJwtPayload(token: string): Record<string, any> | null {
   try {
@@ -69,13 +24,13 @@ export function parseJwtPayload(token: string): Record<string, any> | null {
 
     return JSON.parse(jsonPayload);
   } catch (error) {
-    console.error("Failed to parse JWT:", error);
     return null;
   }
 }
 
 /**
  * Get token expiry from JWT payload
+ * For server-side use only
  */
 export function getTokenExpiry(token: string): number | null {
   const payload = parseJwtPayload(token);
@@ -85,50 +40,4 @@ export function getTokenExpiry(token: string): number | null {
 
   // JWT exp is in seconds, convert to milliseconds
   return payload.exp * 1000;
-}
-
-/**
- * Store refresh token in localStorage (persists across browser sessions)
- */
-export function setRefreshToken(token: string): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.setItem(REFRESH_TOKEN_COOKIE_NAME, token);
-  } catch (error) {
-    console.error("Failed to store refresh token:", error);
-  }
-}
-
-/**
- * Retrieve stored refresh token from localStorage
- */
-export function getRefreshToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  try {
-    return localStorage.getItem(REFRESH_TOKEN_COOKIE_NAME);
-  } catch (error) {
-    console.error("Failed to retrieve refresh token:", error);
-    return null;
-  }
-}
-
-/**
- * Remove stored refresh token from localStorage
- */
-export function removeRefreshToken(): void {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  try {
-    localStorage.removeItem(REFRESH_TOKEN_COOKIE_NAME);
-  } catch (error) {
-    console.error("Failed to remove refresh token:", error);
-  }
 }

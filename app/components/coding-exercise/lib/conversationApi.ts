@@ -1,4 +1,3 @@
-import { getAccessToken } from "@/lib/auth/storage";
 import { getApiUrl } from "@/lib/api/config";
 import type { SignatureData } from "./chat-types";
 
@@ -13,40 +12,28 @@ export async function saveConversation(
   assistantMessage: string,
   signature: SignatureData
 ): Promise<void> {
-  const token = getAccessToken();
-  if (!token) {
-    console.warn("No token available to save conversation");
-    return;
-  }
-
   try {
     // Estimate tokens (rough approximation: 4 chars ≈ 1 token)
     const userMessageTokens = Math.ceil(userMessage.length / 4);
     const assistantMessageTokens = Math.ceil(assistantMessage.length / 4);
 
     // Save user message
-    await saveUserMessage(
-      {
-        context_type: "lesson",
-        context_identifier: exerciseSlug,
-        content: userMessage,
-        tokens: userMessageTokens
-      },
-      token
-    );
+    await saveUserMessage({
+      context_type: "lesson",
+      context_identifier: exerciseSlug,
+      content: userMessage,
+      tokens: userMessageTokens
+    });
 
     // Save assistant message with signature
-    await saveAssistantMessage(
-      {
-        context_type: "lesson",
-        context_identifier: exerciseSlug,
-        content: assistantMessage,
-        tokens: assistantMessageTokens,
-        timestamp: signature.timestamp,
-        signature: signature.signature
-      },
-      token
-    );
+    await saveAssistantMessage({
+      context_type: "lesson",
+      context_identifier: exerciseSlug,
+      content: assistantMessage,
+      tokens: assistantMessageTokens,
+      timestamp: signature.timestamp,
+      signature: signature.signature
+    });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     console.error("Failed to save conversation:", errorMessage);
@@ -54,21 +41,19 @@ export async function saveConversation(
   }
 }
 
-async function saveUserMessage(
-  payload: {
-    context_type: string;
-    context_identifier: string;
-    content: string;
-    tokens: number;
-  },
-  token: string
-): Promise<void> {
+async function saveUserMessage(payload: {
+  context_type: string;
+  context_identifier: string;
+  content: string;
+  tokens: number;
+}): Promise<void> {
   const response = await fetch(getApiUrl("/internal/assistant_conversations/user_messages"), {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json"
+      // NO Authorization header - cookie sent automatically
     },
+    credentials: 'include', // CRITICAL: Sends httpOnly cookies
     body: JSON.stringify(payload)
   });
 
@@ -77,23 +62,21 @@ async function saveUserMessage(
   }
 }
 
-async function saveAssistantMessage(
-  payload: {
-    context_type: string;
-    context_identifier: string;
-    content: string;
-    tokens: number;
-    timestamp: string;
-    signature: string;
-  },
-  token: string
-): Promise<void> {
+async function saveAssistantMessage(payload: {
+  context_type: string;
+  context_identifier: string;
+  content: string;
+  tokens: number;
+  timestamp: string;
+  signature: string;
+}): Promise<void> {
   const response = await fetch(getApiUrl("/internal/assistant_conversations/assistant_messages"), {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json"
+      // NO Authorization header - cookie sent automatically
     },
+    credentials: 'include', // CRITICAL: Sends httpOnly cookies
     body: JSON.stringify(payload)
   });
 

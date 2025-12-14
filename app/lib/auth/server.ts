@@ -41,7 +41,6 @@ export async function getServerAuth(): Promise<ServerAuthState> {
       token: accessToken
     };
   } catch (error) {
-    console.error("Failed to parse JWT in server auth:", error);
     return { isAuthenticated: false, userId: null, token: null };
   }
 }

@@ -6,7 +6,6 @@ import {
   type StreamCallbacks
 } from "@/components/coding-exercise/lib/chatApi";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { getAccessToken } from "@/lib/auth/storage";
 import { exercises } from "@jiki/curriculum";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -114,12 +113,6 @@ export default function LLMChatTestPage() {
 
   const handleSendQuestion = async () => {
     if (!question.trim()) {
-      return;
-    }
-
-    const token = getAccessToken();
-    if (!token) {
-      setChatError("No authentication token found");
       return;
     }
 
@@ -284,12 +277,6 @@ export default function LLMChatTestPage() {
     timestamp: string,
     signatureValue: string
   ) {
-    const token = getAccessToken();
-    if (!token) {
-      console.error("No token available to save conversation");
-      return;
-    }
-
     try {
       // Estimate tokens (rough approximation: 4 chars ≈ 1 token)
       const userMessageTokens = Math.ceil(userMessage.length / 4);
@@ -308,9 +295,9 @@ export default function LLMChatTestPage() {
       const userResponse = await fetch("http://localhost:3060/internal/assistant_conversations/user_messages", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
+        credentials: 'include', // Send cookies
         body: JSON.stringify(userPayload)
       });
 
@@ -341,9 +328,9 @@ export default function LLMChatTestPage() {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
           },
+          credentials: 'include', // Send cookies
           body: JSON.stringify(assistantPayload)
         }
       );

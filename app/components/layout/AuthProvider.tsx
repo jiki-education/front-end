@@ -17,6 +17,7 @@ export async function AuthProvider({ children }: AuthProviderProps) {
   // So we called the LoggedOutAuthProvider, which sets the store correctly
   // clientside and then we render the children directly.
   const hasToken = await hasServersideAccessToken();
+
   if (!hasToken) {
     return (
       <>

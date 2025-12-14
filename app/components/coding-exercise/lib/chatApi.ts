@@ -1,4 +1,3 @@
-import { getAccessToken } from "@/lib/auth/storage";
 import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
@@ -37,49 +36,34 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
     history: payload.history.slice(-5)
   };
 
-  try {
-    await performChatRequest(truncatedPayload, callbacks);
-  } catch (error) {
-    if (error instanceof ChatApiError && error.status === 401 && error.data) {
-      // Check if this is a token_expired error that we can refresh
-      const errorData = error.data as any;
-      if (errorData?.error === "token_expired") {
-        // Attempt token refresh
-        const newToken = await refreshAccessToken();
-        if (newToken) {
-          // Retry with the new token directly to avoid redundant storage round-trip
-          await performChatRequest(truncatedPayload, callbacks, newToken);
-          return;
-        }
-        // If refresh failed, the refresh module already cleared tokens
-        // Fall through to throw the original error
-      }
-    }
-    throw error;
-  }
+  await performChatRequest(truncatedPayload, callbacks);
 }
 
 async function performChatRequest(
   payload: ChatRequestPayload,
-  callbacks: StreamCallbacks,
-  token?: string
+  callbacks: StreamCallbacks
 ): Promise<void> {
-  const authToken = token || getAccessToken();
-  if (!authToken) {
-    throw new ChatApiError("No authentication token available");
-  }
-
   try {
     const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${authToken}`,
         "Content-Type": "application/json"
+        // NO Authorization header - cookie sent automatically
       },
+      credentials: 'include', // CRITICAL: Sends httpOnly cookies
       body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
+      // Handle 401 with token refresh
+      if (response.status === 401) {
+        const refreshResult = await refreshAccessToken();
+        if (refreshResult) {
+          // Cookie updated by Server Action - retry request
+          return performChatRequest(payload, callbacks);
+        }
+      }
+
       // Parse error response to get detailed error info
       let errorData: unknown;
       try {
