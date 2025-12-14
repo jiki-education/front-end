@@ -7,7 +7,8 @@ test.describe("Authentication Flows", () => {
       void route.fulfill({
         status: 200,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+          "Access-Control-Allow-Credentials": "true",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization"
         }
@@ -23,7 +24,8 @@ test.describe("Authentication Flows", () => {
         status,
         contentType: "application/json",
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+          "Access-Control-Allow-Credentials": "true",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization"
         },
@@ -44,72 +46,135 @@ test.describe("Authentication Flows", () => {
     });
   }
 
+  async function setupExpiredTokenRefreshMock(page: Page) {
+    // Stub refreshAccessToken to return success
+    await page.addInitScript(() => {
+      (window as any).__mockRefreshAccessToken = () => {
+        return true;
+      };
+    });
+
+    // Track /internal/me calls to simulate expired then refreshed token
+    let internalMeCalls = 0;
+
+    await page.route("**/*", (route) => {
+      if (handleOptionsRequest(route)) {
+        return;
+      }
+
+      // First call to /internal/me returns 401 (expired token)
+      // After refresh, subsequent calls return 200
+      if (route.request().url().includes("/internal/me")) {
+        internalMeCalls++;
+        if (internalMeCalls === 1) {
+          void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
+        } else {
+          void mockValidInternalMeApiCall(route);
+        }
+        return;
+      }
+
+      // Stub /auth/refresh with successful token refresh, or continue with other requests
+      void (
+        mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) || route.continue()
+      );
+    });
+  }
+
   async function setup(page: Page, cookie: "absent" | "invalid" | "valid") {
     // Clear all auth state and cookies
     await page.goto("/", { waitUntil: "domcontentloaded" });
-
-    // Clear browser storage
     await page.context().clearCookies();
 
-    await page.evaluate((cookieType) => {
+    await page.evaluate(() => {
       localStorage.clear();
       sessionStorage.clear();
+    });
 
-      // Set refresh token in localStorage for valid case (needed for refresh flow)
-      if (cookieType === "valid") {
-        const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-        const payload = btoa(JSON.stringify({ sub: "test-user-id", exp: 9999999999 }));
-        const signature = "fake-signature";
-        const refreshToken = `${header}.${payload}.${signature}`;
-        localStorage.setItem("jiki_refresh_token", refreshToken);
-      }
-    }, cookie);
+    if (cookie === "valid") {
+      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+      const payload = btoa(JSON.stringify({ sub: "test-user-id", exp: 9999999999 }));
+      const signature = "fake-signature";
+      const refreshToken = `${header}.${payload}.${signature}`;
 
-    // Set cookie based on type
-    if (cookie === "invalid") {
+      const accessPayload = btoa(
+        JSON.stringify({
+          sub: "test-user-id",
+          exp: Math.floor(Date.now() / 1000) + 300
+        })
+      );
+      const accessToken = `${header}.${accessPayload}.${signature}`;
+
       await page.context().addCookies([
         {
-          name: "jiki_access_token",
-          value: "invalid-nonsense-string",
-          domain: "localhost",
+          name: "jiki_refresh_token",
+          value: refreshToken,
+          domain: ".local.jiki.io",
           path: "/",
-          httpOnly: false // Make it accessible to JavaScript
+          httpOnly: true,
+          secure: false,
+          sameSite: "Strict"
+        },
+        {
+          name: "jiki_access_token",
+          value: accessToken,
+          domain: ".local.jiki.io",
+          path: "/",
+          httpOnly: true,
+          secure: false,
+          sameSite: "Strict"
         }
       ]);
-    } else if (cookie === "valid") {
-      // Create a valid JWT with sub claim and future expiry
-      const header = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64");
-      const payload = Buffer.from(JSON.stringify({ sub: "test-user-id", exp: 9999999999 })).toString("base64");
-      const signature = "fake-signature";
-      const validToken = `${header}.${payload}.${signature}`;
-
+    } else if (cookie === "invalid") {
       await page.context().addCookies([
         {
           name: "jiki_access_token",
-          value: validToken,
-          domain: "localhost",
+          value: "invalid.token.here",
+          domain: ".local.jiki.io",
           path: "/",
-          httpOnly: false // Make it accessible to JavaScript
+          httpOnly: true,
+          secure: false,
+          sameSite: "Strict"
+        },
+        {
+          name: "jiki_refresh_token",
+          value: "invalid.token.here",
+          domain: ".local.jiki.io",
+          path: "/",
+          httpOnly: true,
+          secure: false,
+          sameSite: "Strict"
         }
       ]);
     }
-    // If cookie is 'absent', don't set any cookie
   }
 
-  async function visitDashboard(page: Page) {
-    await page.goto("/dashboard", { waitUntil: "domcontentloaded" });
+  async function visitDashboard(page: Page, waitForLoad: boolean = true) {
+    if (waitForLoad) {
+      await page.goto("/dashboard", { waitUntil: "domcontentloaded" });
+    } else {
+      void page.goto("/dashboard");
+    }
   }
 
   async function visitSettingsPage(page: Page) {
     await page.goto("/settings", { waitUntil: "domcontentloaded" });
   }
 
-  async function visitLandingPath(page: Page) {
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+  async function visitLandingPath(page: Page, waitForLoad: boolean = true) {
+    if (waitForLoad) {
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+    } else {
+      void page.goto("/");
+    }
   }
 
-  async function visitBlogPage(page: Page) {
-    await page.goto("/blog", { waitUntil: "domcontentloaded" });
+  async function visitBlogPage(page: Page, waitForLoad: boolean = true) {
+    if (waitForLoad) {
+      await page.goto("/blog", { waitUntil: "domcontentloaded" });
+    } else {
+      void page.goto("/blog");
+    }
   }
 
   async function awaitRedirectToLogin(page: Page) {
@@ -131,8 +196,8 @@ test.describe("Authentication Flows", () => {
     // Wait for dashboard to load
     await page.waitForTimeout(50);
 
-    const url = page.url();
-    expect(url).toBe(getTestUrl("/dashboard"));
+    const url = new URL(page.url());
+    expect(url.pathname).toBe("/dashboard");
   }
 
   async function assertBlogPage(page: Page) {
@@ -141,6 +206,9 @@ test.describe("Authentication Flows", () => {
 
     const url = page.url();
     expect(url).toBe(getTestUrl("/blog"));
+
+    // Verify blog content is present
+    await expect(page.getByRole("heading", { name: "Blog" })).toBeVisible();
   }
 
   async function assertSettingsPage(page: Page) {
@@ -149,6 +217,9 @@ test.describe("Authentication Flows", () => {
 
     const url = page.url();
     expect(url).toBe(getTestUrl("/settings"));
+
+    // Verify authenticated content is present
+    await expect(page.getByText("Danger Zone")).toBeVisible();
   }
 
   async function assertLandingPage(page: Page) {
@@ -164,23 +235,21 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertReturnToJikiButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor();
+    await page.locator(".ui-btn-primary", { hasText: "Back to Jiki →" }).waitFor();
     const button = await page.locator(".ui-btn-primary").textContent();
     expect(button).toBe("Back to Jiki →");
   }
 
   async function awaitRedirectToDashboard(page: Page) {
-    await page.waitForFunction((expectedUrl) => {
-      const url = window.location.href;
-      return url === expectedUrl;
-    }, getTestUrl("/dashboard"));
+    await page.waitForFunction(() => {
+      return window.location.pathname === "/dashboard";
+    });
   }
 
   async function awaitRedirectToLandingPage(page: Page) {
-    await page.waitForFunction((expectedUrl) => {
-      const url = window.location.href;
-      return url === expectedUrl;
-    }, getTestUrl("/"));
+    await page.waitForFunction(() => {
+      return window.location.pathname === "/";
+    });
   }
 
   test.describe("Visiting /settings", () => {
@@ -230,33 +299,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid expired token", async ({ page }) => {
       await setup(page, "valid");
-
-      // Track /internal/me calls to simulate expired then refreshed token
-      let internalMeCalls = 0;
-
-      await page.route("**/*", (route) => {
-        if (handleOptionsRequest(route)) {
-          return;
-        }
-
-        // First call to /internal/me returns 401 (expired token)
-        // After refresh, subsequent calls return 200
-        if (route.request().url().includes("/internal/me")) {
-          internalMeCalls++;
-          if (internalMeCalls === 1) {
-            void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
-          } else {
-            void mockValidInternalMeApiCall(route);
-          }
-          return;
-        }
-
-        // Stub /auth/refresh with successful token refresh, or continue with other requests
-        void (
-          mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) ||
-          route.continue()
-        );
-      });
+      await setupExpiredTokenRefreshMock(page);
 
       await visitSettingsPage(page);
       await assertSettingsPage(page);
@@ -266,16 +309,26 @@ test.describe("Authentication Flows", () => {
   test.describe("Visiting /dashboard", () => {
     test("should redirect to /auth/login without jiki_refresh_token", async ({ page }) => {
       await setup(page, "absent");
-      await visitDashboard(page);
+      await visitDashboard(page, false);
       await awaitRedirectToLandingPage(page);
       await assertLandingPage(page);
     });
 
-    test("should redirect to /auth/login with invalid jiki_refresh_token", async ({ page }) => {
+    test("should redirect to / with invalid jiki_refresh_token", async ({ page }) => {
       await setup(page, "invalid");
-      await visitDashboard(page);
-      await awaitRedirectToLogin(page);
-      await assertLoginPage(page);
+
+      await page.route("**/*", (route) => {
+        void (
+          handleOptionsRequest(route) ||
+          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
+          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
+          route.continue()
+        );
+      });
+
+      await visitDashboard(page, false);
+      await awaitRedirectToLandingPage(page);
+      await assertLandingPage(page);
     });
 
     test("should redirect to / with valid jiki_refresh_token that the server rejects", async ({ page }) => {
@@ -310,33 +363,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid expired token", async ({ page }) => {
       await setup(page, "valid");
-
-      // Track /internal/me calls to simulate expired then refreshed token
-      let internalMeCalls = 0;
-
-      await page.route("**/*", (route) => {
-        if (handleOptionsRequest(route)) {
-          return;
-        }
-
-        // First call to /internal/me returns 401 (expired token)
-        // After refresh, subsequent calls return 200
-        if (route.request().url().includes("/internal/me")) {
-          internalMeCalls++;
-          if (internalMeCalls === 1) {
-            void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
-          } else {
-            void mockValidInternalMeApiCall(route);
-          }
-          return;
-        }
-
-        // Stub /auth/refresh with successful token refresh, or continue with other requests
-        void (
-          mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) ||
-          route.continue()
-        );
-      });
+      await setupExpiredTokenRefreshMock(page);
 
       await visitDashboard(page);
       await assertDashboardPage(page);
@@ -362,7 +389,7 @@ test.describe("Authentication Flows", () => {
         );
       });
 
-      await visitLandingPath(page);
+      await visitLandingPath(page, false);
       await awaitRedirectToDashboard(page);
       await awaitRedirectToLandingPage(page);
       await assertLandingPage(page);
@@ -469,33 +496,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid expired token", async ({ page }) => {
       await setup(page, "valid");
-
-      // Track /internal/me calls to simulate expired then refreshed token
-      let internalMeCalls = 0;
-
-      await page.route("**/*", (route) => {
-        if (handleOptionsRequest(route)) {
-          return;
-        }
-
-        // First call to /internal/me returns 401 (expired token)
-        // After refresh, subsequent calls return 200
-        if (route.request().url().includes("/internal/me")) {
-          internalMeCalls++;
-          if (internalMeCalls === 1) {
-            void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
-          } else {
-            void mockValidInternalMeApiCall(route);
-          }
-          return;
-        }
-
-        // Stub /auth/refresh with successful token refresh, or continue with other requests
-        void (
-          mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) ||
-          route.continue()
-        );
-      });
+      await setupExpiredTokenRefreshMock(page);
 
       await visitBlogPage(page);
       await assertBlogPage(page);

@@ -4,7 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
-import { loginAction, signupAction, googleLoginAction, logoutAction } from "@/lib/auth/actions";
+import { loginAction, signupAction, googleLoginAction, logoutAction, clearAuthCookies } from "@/lib/auth/actions";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { AuthenticationError } from "@/lib/api/client";
 import toast from "react-hot-toast";
@@ -157,8 +157,9 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       const user = await authService.getCurrentUser(false);
       get().setUser(user);
     } catch (error) {
-      // On auth error, just set no user - cookies are httpOnly so can't be cleared client-side
+      // On auth error, just set no user
       if (error instanceof AuthenticationError) {
+        await clearAuthCookies();
         get().setNoUser("Authentication check failed");
       } else {
         // Other API error (shouldn't happen) - don't clear tokens

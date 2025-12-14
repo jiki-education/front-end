@@ -78,7 +78,7 @@ describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
     });
 
     // Refresh succeeds (Server Action updates httpOnly cookie)
-    mockRefreshAccessToken.mockResolvedValueOnce("new_token");
+    mockRefreshAccessToken.mockResolvedValueOnce(true);
 
     // Second request succeeds with updated cookie
     const mockBody = {
@@ -135,7 +135,7 @@ describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
     });
 
     // Refresh fails (Server Action couldn't refresh token)
-    mockRefreshAccessToken.mockResolvedValueOnce(null);
+    mockRefreshAccessToken.mockResolvedValueOnce(false);
 
     await expect(sendChatMessage(mockPayload, mockCallbacks)).rejects.toThrow(ChatApiError);
 

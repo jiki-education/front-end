@@ -33,18 +33,18 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
 
       const result = await refreshAccessToken();
 
-      expect(result).toBe("refreshed");
+      expect(result).toBe(true);
       expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
     });
 
-    it("should return placeholder string instead of actual token", async () => {
+    it("should return true boolean instead of actual token", async () => {
       mockRefreshTokenAction.mockResolvedValueOnce({ success: true });
 
       const result = await refreshAccessToken();
 
-      // Returns placeholder since actual token is in httpOnly cookie
-      expect(result).toBe("refreshed");
-      expect(typeof result).toBe("string");
+      // Returns true since actual token is in httpOnly cookie
+      expect(result).toBe(true);
+      expect(typeof result).toBe("boolean");
     });
   });
 
@@ -57,7 +57,7 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
+      expect(result).toBe(false);
       expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
     });
 
@@ -66,7 +66,7 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
+      expect(result).toBe(false);
     });
 
     it("should return null when Server Action returns no user", async () => {
@@ -77,7 +77,7 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
+      expect(result).toBe(false);
     });
   });
 
@@ -95,9 +95,9 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
       ]);
 
       // All should get the same result
-      expect(result1).toBe("refreshed");
-      expect(result2).toBe("refreshed");
-      expect(result3).toBe("refreshed");
+      expect(result1).toBe(true);
+      expect(result2).toBe(true);
+      expect(result3).toBe(true);
 
       // But only one Server Action call should have been made
       expect(mockRefreshTokenAction).toHaveBeenCalledTimes(1);
@@ -107,10 +107,10 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
       mockRefreshTokenAction.mockResolvedValueOnce({ success: true }).mockResolvedValueOnce({ success: true });
 
       const result1 = await refreshAccessToken();
-      expect(result1).toBe("refreshed");
+      expect(result1).toBe(true);
 
       const result2 = await refreshAccessToken();
-      expect(result2).toBe("refreshed");
+      expect(result2).toBe(true);
 
       expect(mockRefreshTokenAction).toHaveBeenCalledTimes(2);
     });
@@ -121,11 +121,11 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
         .mockResolvedValueOnce({ success: true });
 
       const result1 = await refreshAccessToken();
-      expect(result1).toBeNull();
+      expect(result1).toBe(false);
       expect(isCurrentlyRefreshing()).toBe(false);
 
       const result2 = await refreshAccessToken();
-      expect(result2).toBe("refreshed");
+      expect(result2).toBe(true);
       expect(mockRefreshTokenAction).toHaveBeenCalledTimes(2);
     });
 
@@ -152,7 +152,7 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
 
       const result = await refreshAccessToken();
 
-      expect(result).toBeNull();
+      expect(result).toBe(false);
       expect(isCurrentlyRefreshing()).toBe(false);
     });
 

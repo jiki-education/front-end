@@ -1,8 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
 import type { LoginCredentials, SignupData, User } from "@/types/auth";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 const COOKIE_CONFIG = {
   httpOnly: true,
@@ -30,7 +30,7 @@ interface AuthResult {
 /**
  * Clear authentication cookies and revalidate routes
  */
-async function clearAuthCookies(): Promise<void> {
+export async function clearAuthCookies(): Promise<void> {
   const cookieStore = await cookies();
 
   // Delete with same domain/path used to set them

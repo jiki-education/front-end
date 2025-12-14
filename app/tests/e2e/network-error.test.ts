@@ -44,7 +44,8 @@ const helpers = {
           status: 200,
           contentType: "application/json",
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization"
           },
@@ -65,7 +66,8 @@ const helpers = {
           status: 200,
           contentType: "application/json",
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization"
           },
@@ -103,7 +105,8 @@ const helpers = {
           status: 401,
           contentType: "application/json",
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization"
           },
@@ -127,7 +130,8 @@ const helpers = {
         void route.fulfill({
           status: 200,
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization"
           },
@@ -139,7 +143,8 @@ const helpers = {
           headers: {
             "Content-Type": "application/json",
             "Retry-After": retryAfterSeconds.toString(),
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization",
             "Access-Control-Expose-Headers": "Retry-After"
@@ -167,7 +172,8 @@ const helpers = {
         void route.fulfill({
           status: 200,
           headers: {
-            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+            "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization"
           },
@@ -181,7 +187,8 @@ const helpers = {
             headers: {
               "Content-Type": "application/json",
               "Retry-After": retryAfterSeconds.toString(),
-              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+              "Access-Control-Allow-Credentials": "true",
               "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type, Authorization",
               "Access-Control-Expose-Headers": "Retry-After"
@@ -193,7 +200,8 @@ const helpers = {
             status: 200,
             contentType: "application/json",
             headers: {
-              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
+              "Access-Control-Allow-Credentials": "true",
               "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
               "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },

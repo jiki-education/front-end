@@ -4,9 +4,8 @@ import { hasServersideAccessToken } from "../../lib/auth/server-storage";
 
 export default async function RootPage() {
   const hasToken = await hasServersideAccessToken();
-
   if (hasToken) {
-    redirect("/dashboard");
+    return redirect("/dashboard");
   }
 
   return <LandingPage />;
