@@ -39,10 +39,7 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
   await performChatRequest(truncatedPayload, callbacks);
 }
 
-async function performChatRequest(
-  payload: ChatRequestPayload,
-  callbacks: StreamCallbacks
-): Promise<void> {
+async function performChatRequest(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
   try {
     const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
@@ -50,7 +47,7 @@ async function performChatRequest(
         "Content-Type": "application/json"
         // NO Authorization header - cookie sent automatically
       },
-      credentials: 'include', // CRITICAL: Sends httpOnly cookies
+      credentials: "include", // CRITICAL: Sends httpOnly cookies
       body: JSON.stringify(payload)
     });
 

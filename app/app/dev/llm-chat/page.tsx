@@ -297,7 +297,7 @@ export default function LLMChatTestPage() {
         headers: {
           "Content-Type": "application/json"
         },
-        credentials: 'include', // Send cookies
+        credentials: "include", // Send cookies
         body: JSON.stringify(userPayload)
       });
 
@@ -330,7 +330,7 @@ export default function LLMChatTestPage() {
           headers: {
             "Content-Type": "application/json"
           },
-          credentials: 'include', // Send cookies
+          credentials: "include", // Send cookies
           body: JSON.stringify(assistantPayload)
         }
       );

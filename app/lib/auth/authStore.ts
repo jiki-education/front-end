@@ -49,7 +49,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       const result = await loginAction(credentials);
       if (!result.success || !result.user) {
-        throw new Error(result.error || 'Login failed');
+        throw new Error(result.error || "Login failed");
       }
       get().setUser(result.user);
     } catch (error) {
@@ -64,7 +64,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       const result = await googleLoginAction(credential);
       if (!result.success || !result.user) {
-        throw new Error(result.error || 'Google login failed');
+        throw new Error(result.error || "Google login failed");
       }
       get().setUser(result.user);
     } catch (error) {
@@ -98,7 +98,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       const result = await signupAction(userData);
       if (!result.success || !result.user) {
-        throw new Error(result.error || 'Signup failed');
+        throw new Error(result.error || "Signup failed");
       }
       get().setUser(result.user);
     } catch (error) {

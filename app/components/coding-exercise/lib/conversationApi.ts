@@ -53,7 +53,7 @@ async function saveUserMessage(payload: {
       "Content-Type": "application/json"
       // NO Authorization header - cookie sent automatically
     },
-    credentials: 'include', // CRITICAL: Sends httpOnly cookies
+    credentials: "include", // CRITICAL: Sends httpOnly cookies
     body: JSON.stringify(payload)
   });
 
@@ -76,7 +76,7 @@ async function saveAssistantMessage(payload: {
       "Content-Type": "application/json"
       // NO Authorization header - cookie sent automatically
     },
-    credentials: 'include', // CRITICAL: Sends httpOnly cookies
+    credentials: "include", // CRITICAL: Sends httpOnly cookies
     body: JSON.stringify(payload)
   });
 

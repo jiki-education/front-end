@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { cookies } from "next/headers";
 
@@ -8,5 +8,5 @@ import { cookies } from "next/headers";
  */
 export async function hasServersideAccessToken() {
   const serverCookies = await cookies();
-  return serverCookies.has('jiki_access_token');
+  return serverCookies.has("jiki_access_token");
 }

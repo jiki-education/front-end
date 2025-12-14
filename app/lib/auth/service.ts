@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Authentication Service
@@ -9,11 +9,7 @@
  */
 
 import { api } from "@/lib/api";
-import type {
-  PasswordReset,
-  PasswordResetRequest,
-  User
-} from "@/types/auth";
+import type { PasswordReset, PasswordResetRequest, User } from "@/types/auth";
 
 /**
  * Request password reset

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 /**
  * Token Refresh Module
  * Standalone refresh logic using Server Actions
  */
 
-import { refreshTokenAction } from '@/lib/auth/actions';
+import { refreshTokenAction } from "@/lib/auth/actions";
 
 // Refresh state management - centralized to prevent race conditions
 let isRefreshing = false;
@@ -47,8 +47,8 @@ async function performRefresh(): Promise<string | null> {
 
     // Token already updated in httpOnly cookie by Server Action
     // Return placeholder to indicate success
-    return 'refreshed';
-  } catch (error) {
+    return "refreshed";
+  } catch {
     return null;
   }
 }

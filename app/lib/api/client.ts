@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * API Client
@@ -188,7 +188,7 @@ async function request<T = unknown>(
   const requestOptions: RequestInit = {
     ...restOptions,
     headers: requestHeaders,
-    credentials: 'include' // CRITICAL: Send cookies with requests
+    credentials: "include" // CRITICAL: Send cookies with requests
   };
 
   // Add body if present
@@ -251,7 +251,7 @@ async function request<T = unknown>(
 
           // Refresh failed - tokens already cleared by Server Action
           // Fall through to throw 401 error
-        } catch (refreshError) {
+        } catch {
           // Fall through to throw original 401 error
         }
 
