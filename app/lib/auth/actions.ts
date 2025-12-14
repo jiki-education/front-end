@@ -7,7 +7,9 @@ import type { LoginCredentials, SignupData, User } from "@/types/auth";
 const COOKIE_CONFIG = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
+  // Note: Using 'strict' for better security. If OAuth redirects fail (cookies not sent
+  // during cross-site navigation), switch back to 'lax'
+  sameSite: "strict" as const,
   domain: process.env.NODE_ENV === "production" ? ".jiki.io" : ".local.jiki.io",
   path: "/"
 };
@@ -84,6 +86,9 @@ export async function loginAction(credentials: LoginCredentials): Promise<AuthRe
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
 
+    // Revalidate to update server components with new auth state
+    revalidatePath("/", "layout");
+
     return { success: true, user: data.user };
   } catch {
     return { success: false, error: "Network error" };
@@ -124,6 +129,9 @@ export async function signupAction(userData: SignupData): Promise<AuthResult> {
       ...COOKIE_CONFIG,
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
+
+    // Revalidate to update server components with new auth state
+    revalidatePath("/", "layout");
 
     return { success: true, user: data.user };
   } catch {
@@ -166,6 +174,9 @@ export async function googleLoginAction(code: string): Promise<AuthResult> {
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
 
+    // Revalidate to update server components with new auth state
+    revalidatePath("/", "layout");
+
     return { success: true, user: data.user };
   } catch {
     return { success: false, error: "Network error" };
@@ -204,6 +215,9 @@ export async function refreshTokenAction(): Promise<AuthResult> {
       ...COOKIE_CONFIG,
       maxAge: ACCESS_TOKEN_MAX_AGE
     });
+
+    // Revalidate to update server components with refreshed auth state
+    revalidatePath("/", "layout");
 
     const data = await response.json();
     return { success: true, user: data.user };

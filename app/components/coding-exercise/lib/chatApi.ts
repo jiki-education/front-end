@@ -39,7 +39,11 @@ export async function sendChatMessage(payload: ChatRequestPayload, callbacks: St
   await performChatRequest(truncatedPayload, callbacks);
 }
 
-async function performChatRequest(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
+async function performChatRequest(
+  payload: ChatRequestPayload,
+  callbacks: StreamCallbacks,
+  attempt: number = 0
+): Promise<void> {
   try {
     const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
@@ -52,12 +56,12 @@ async function performChatRequest(payload: ChatRequestPayload, callbacks: Stream
     });
 
     if (!response.ok) {
-      // Handle 401 with token refresh
-      if (response.status === 401) {
+      // Handle 401 with token refresh (but only retry once)
+      if (response.status === 401 && attempt < 1) {
         const refreshResult = await refreshAccessToken();
         if (refreshResult) {
-          // Cookie updated by Server Action - retry request
-          return performChatRequest(payload, callbacks);
+          // Cookie updated by Server Action - retry request ONCE
+          return performChatRequest(payload, callbacks, attempt + 1);
         }
       }
 
