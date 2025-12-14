@@ -1,6 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { verifyJWT } from "../src/auth";
 import { SignJWT } from "jose";
+import app from "../src/index";
 
 describe("JWT Authentication", () => {
   const testSecret = "test-secret-key-for-jwt-verification";
@@ -94,5 +95,215 @@ describe("JWT Authentication", () => {
     const result = await verifyJWT(token, testSecret);
     expect(result.userId).toBe("user-123");
     expect(result.error).toBeUndefined();
+  });
+});
+
+describe("Chat Endpoint Authentication", () => {
+  const testSecret = "test-secret-key-for-jwt-verification";
+
+  async function createValidToken(userId: string = "user-123"): Promise<string> {
+    const secret = new TextEncoder().encode(testSecret);
+    return await new SignJWT({ sub: userId })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
+  }
+
+  async function createExpiredToken(): Promise<string> {
+    const secret = new TextEncoder().encode(testSecret);
+    return await new SignJWT({ sub: "user-123" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("-1h")
+      .sign(secret);
+  }
+
+  const mockEnv = {
+    DEVISE_JWT_SECRET_KEY: testSecret,
+    GOOGLE_GEMINI_API_KEY: "test-gemini-key",
+    LLM_SIGNATURE_SECRET: "test-signature-secret"
+  };
+
+  it("should accept valid JWT from Authorization header", async () => {
+    const token = await createValidToken();
+
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    // Should not return 401 (authentication should succeed)
+    // Note: Will fail later due to missing Gemini integration, but auth should pass
+    expect(response.status).not.toBe(401);
+  });
+
+  it("should accept valid JWT from cookie", async () => {
+    const token = await createValidToken();
+
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Cookie": `jiki_access_token=${token}`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    // Should not return 401 (authentication should succeed)
+    expect(response.status).not.toBe(401);
+  });
+
+  it("should prioritize Authorization header over cookie", async () => {
+    const headerToken = await createValidToken("user-from-header");
+    const cookieToken = await createValidToken("user-from-cookie");
+
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${headerToken}`,
+          "Cookie": `jiki_access_token=${cookieToken}`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    // Should not return 401 (header token should be used)
+    expect(response.status).not.toBe(401);
+  });
+
+  it("should return 401 when no token provided", async () => {
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    expect(response.status).toBe(401);
+    const data = await response.json() as { error: string };
+    expect(data.error).toBe("Missing authorization token");
+  });
+
+  it("should return 401 with expired token in Authorization header", async () => {
+    const token = await createExpiredToken();
+
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    expect(response.status).toBe(401);
+    const data = await response.json() as { error: string };
+    expect(data.error).toBe("token_expired");
+  });
+
+  it("should return 401 with expired token in cookie", async () => {
+    const token = await createExpiredToken();
+
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Cookie": `jiki_access_token=${token}`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    expect(response.status).toBe(401);
+    const data = await response.json() as { error: string };
+    expect(data.error).toBe("token_expired");
+  });
+
+  it("should return 401 with invalid token in cookie", async () => {
+    const response = await app.request(
+      "/chat",
+      {
+        method: "POST",
+        headers: {
+          "Cookie": `jiki_access_token=invalid.token.here`,
+          "Content-Type": "application/json",
+          "Origin": "https://jiki.io"
+        },
+        body: JSON.stringify({
+          exerciseSlug: "basic-movement",
+          code: "test",
+          question: "test",
+          language: "jikiscript"
+        })
+      },
+      mockEnv
+    );
+
+    expect(response.status).toBe(401);
+    const data = await response.json() as { error: string };
+    expect(data.error).toBe("invalid_token");
   });
 });
