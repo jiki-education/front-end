@@ -103,10 +103,7 @@ describe("Chat Endpoint Authentication", () => {
 
   async function createValidToken(userId: string = "user-123"): Promise<string> {
     const secret = new TextEncoder().encode(testSecret);
-    return await new SignJWT({ sub: userId })
-      .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("1h")
-      .sign(secret);
+    return await new SignJWT({ sub: userId }).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(secret);
   }
 
   async function createExpiredToken(): Promise<string> {
@@ -131,9 +128,9 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -158,9 +155,9 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Cookie": `jiki_access_token=${token}`,
+          Cookie: `jiki_access_token=${token}`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -185,10 +182,10 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${headerToken}`,
-          "Cookie": `jiki_access_token=${cookieToken}`,
+          Authorization: `Bearer ${headerToken}`,
+          Cookie: `jiki_access_token=${cookieToken}`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -211,7 +208,7 @@ describe("Chat Endpoint Authentication", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -224,7 +221,7 @@ describe("Chat Endpoint Authentication", () => {
     );
 
     expect(response.status).toBe(401);
-    const data = await response.json() as { error: string };
+    const data = (await response.json()) as { error: string };
     expect(data.error).toBe("Missing authorization token");
   });
 
@@ -236,9 +233,9 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -251,7 +248,7 @@ describe("Chat Endpoint Authentication", () => {
     );
 
     expect(response.status).toBe(401);
-    const data = await response.json() as { error: string };
+    const data = (await response.json()) as { error: string };
     expect(data.error).toBe("token_expired");
   });
 
@@ -263,9 +260,9 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Cookie": `jiki_access_token=${token}`,
+          Cookie: `jiki_access_token=${token}`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -278,7 +275,7 @@ describe("Chat Endpoint Authentication", () => {
     );
 
     expect(response.status).toBe(401);
-    const data = await response.json() as { error: string };
+    const data = (await response.json()) as { error: string };
     expect(data.error).toBe("token_expired");
   });
 
@@ -288,9 +285,9 @@ describe("Chat Endpoint Authentication", () => {
       {
         method: "POST",
         headers: {
-          "Cookie": `jiki_access_token=invalid.token.here`,
+          Cookie: `jiki_access_token=invalid.token.here`,
           "Content-Type": "application/json",
-          "Origin": "https://jiki.io"
+          Origin: "https://jiki.io"
         },
         body: JSON.stringify({
           exerciseSlug: "basic-movement",
@@ -303,7 +300,7 @@ describe("Chat Endpoint Authentication", () => {
     );
 
     expect(response.status).toBe(401);
-    const data = await response.json() as { error: string };
+    const data = (await response.json()) as { error: string };
     expect(data.error).toBe("invalid_token");
   });
 });

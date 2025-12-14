@@ -57,7 +57,7 @@ app.post("/chat", async (c) => {
       console.log("[Chat] ✓ Token from Authorization header");
     } else {
       // Fallback to cookie (new httpOnly approach)
-      const cookieToken = getCookie(c, 'jiki_access_token');
+      const cookieToken = getCookie(c, "jiki_access_token");
       if (cookieToken) {
         token = cookieToken;
         console.log("[Chat] ✓ Token from cookie (fallback)");
