@@ -1,5 +1,5 @@
 import { RuntimeError, type RuntimeErrorType, type StaticError } from "./error";
-import type { Expression } from "./expression";
+import { FunctionCallExpression, LiteralExpression, type Expression } from "./expression";
 import { Location } from "./location";
 import { Parser } from "./parser";
 import { Executor } from "./executor";
@@ -12,6 +12,7 @@ import type { InterpretResult } from "../shared/interfaces";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
 import { StdlibFunctionsForLibrary, filteredStdLibFunctions } from "./stdlib";
+import { extractFunctionCallExpressions } from "./helpers";
 
 export interface FrameContext {
   result: any;
@@ -103,6 +104,10 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         functionCallLog: {},
         statements: [],
       },
+      assertors: {
+        assertAllArgumentsAreVariables: () =>  true 
+      }
+
     };
   }
   return interpreter.execute();

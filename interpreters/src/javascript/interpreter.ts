@@ -49,6 +49,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         functionCallLog: {},
         statements: statements,
       },
+      assertors: result.assertors,
     };
   } catch (error: unknown) {
     // Only parsing/compilation errors are returned as errors
@@ -61,6 +62,9 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         functionCallLog: {},
         statements: [],
       },
+      assertors: {
+        assertAllArgumentsAreVariables: () => true  // Defensive: don't fail on parse errors
+      }
     };
   }
 }

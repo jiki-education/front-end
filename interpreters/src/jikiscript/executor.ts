@@ -82,7 +82,7 @@ import { describeFrame } from "./frameDescribers";
 import { executeFunctionCallExpression } from "./executor/executeFunctionCallExpression";
 import { executeIfStatement } from "./executor/executeIfStatement";
 import didYouMean from "didyoumean";
-import { formatJikiObject } from "./helpers";
+import { extractFunctionCallExpressions, formatJikiObject } from "./helpers";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import * as Jiki from "./jikiObjects";
 import { executeMethodCallExpression } from "./executor/executeMethodCallExpression";
@@ -297,6 +297,19 @@ export class Executor {
         functionCallLog: this.functionCallLog,
         statements: statements,
       },
+
+      assertors: {
+        assertAllArgumentsAreVariables: () => {
+
+          return extractFunctionCallExpressions(statements).
+          every((expr: FunctionCallExpression) => {
+            return expr.args.every((arg: Expression) => {
+              return !(arg instanceof LiteralExpression)
+            })
+          })
+        }
+        
+      }
     };
   }
 
