@@ -23,8 +23,9 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
     }
   }, [isAuthenticated, hasCheckedAuth, router]);
 
-  // Show loading spinner while auth is checking/refreshing or redirecting
-  if (!hasCheckedAuth) {
+  // Show nothing while auth is checking (loading spinner shown by ClientAuthInitializer above)
+  // or while redirecting authenticated users to dashboard
+  if (!hasCheckedAuth || isAuthenticated) {
     return null;
   }
 
