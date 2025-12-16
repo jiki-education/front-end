@@ -6,7 +6,7 @@ import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
 import { Poppins, Source_Code_Pro } from "next/font/google";
 import Script from "next/script";
-import { AuthProvider } from "../components/layout/AuthProvider";
+import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -35,14 +35,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} antialiased ui-body`}>
         <Script src="/static/theme-script.js" strategy="beforeInteractive" />
-        <AuthProvider>
+        <ServerAuthProvider>
           <ThemeProvider>
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
             <GlobalErrorHandler />
           </ThemeProvider>
-        </AuthProvider>
+        </ServerAuthProvider>
       </body>
     </html>
   );

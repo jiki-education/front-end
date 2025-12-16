@@ -35,8 +35,8 @@ General documentation that applies across the entire codebase:
 - **[lessons.md](./lessons.md)** - Lesson system for videos and exercises
 - **[exercises.md](./exercises.md)** - Exercise system structure and creation guide
 - **[content.md](./content.md)** - Content integration for blog posts and articles
-- **[api.md](./api.md)** - Backend API client and usage patterns
-- **[auth.md](./auth.md)** - JWT authentication system and auth flow
+- **[api.md](./api.md)** - Backend API client with cookie-based authentication
+- **[auth.md](./auth.md)** - JWT authentication with httpOnly cookies and Server Actions
 - **[stripe.md](./stripe.md)** - Stripe subscription system with 9 states and API integration
 - **[settings-page.md](./settings-page.md)** - Settings page with subscription management and Stripe integration
 

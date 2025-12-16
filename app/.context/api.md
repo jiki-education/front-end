@@ -12,6 +12,31 @@ The API client lives in `/lib/api/` with three main files:
 - **client.ts** - Core request logic and error handling
 - **index.ts** - Public exports for clean imports
 
+## Authentication
+
+The API client automatically handles authentication via httpOnly cookies:
+
+- **Cookie-based auth**: Tokens stored in httpOnly cookies (managed by Server Actions)
+- **Automatic transmission**: All requests include `credentials: 'include'` to send cookies
+- **No manual headers**: Authorization headers not needed - cookies sent automatically
+- **Auto-refresh**: 401 responses trigger automatic token refresh via Server Actions
+- **XSS protection**: Cookies inaccessible to JavaScript for security
+
+**Important**: When making custom fetch calls outside the API client, always include `credentials: 'include'`:
+
+```typescript
+// ✅ CORRECT: Include credentials to send cookies
+const response = await fetch(url, {
+  credentials: "include"
+  // ... other options
+});
+
+// ❌ WRONG: Cookies won't be sent
+const response = await fetch(url, {
+  // ... missing credentials
+});
+```
+
 ## Usage
 
 ### Basic Requests

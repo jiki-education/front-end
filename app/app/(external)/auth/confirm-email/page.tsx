@@ -1,4 +1,3 @@
-import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { ConfirmEmailForm } from "@/components/auth/ConfirmEmailForm";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -9,11 +8,7 @@ export const metadata: Metadata = {
 };
 
 function ConfirmEmailContent() {
-  return (
-    <AuthGuard>
-      <ConfirmEmailForm />
-    </AuthGuard>
-  );
+  return <ConfirmEmailForm />;
 }
 
 export default function ConfirmEmailPage() {
