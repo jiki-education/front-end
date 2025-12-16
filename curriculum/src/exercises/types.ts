@@ -99,8 +99,8 @@ export interface VisualTestExpect {
 export interface IOTestExpect {
   type: "io";
   pass: boolean;
-  actual: string | number | boolean | null | undefined;
-  expected: string | number | boolean; // Expected value is always defined
+  actual: IOValue;
+  expected: IOExpectedValue;
   diff: Change[]; // Diff from 'diff' library
   matcher: string; // e.g., 'toBe', 'toEqual'
   codeRun?: string;

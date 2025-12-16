@@ -1,6 +1,6 @@
 function findAnagrams(target, possibilities) {
   const lowerTarget = target.toLowerCase();
-  const sortedTarget = lowerTarget.split('').sort().join('');
+  const sortedTarget = lowerTarget.split("").sort().join("");
   const results = [];
 
   for (const candidate of possibilities) {
@@ -12,7 +12,7 @@ function findAnagrams(target, possibilities) {
     }
 
     // Check if it's an anagram by comparing sorted versions
-    const sortedCandidate = lowerCandidate.split('').sort().join('');
+    const sortedCandidate = lowerCandidate.split("").sort().join("");
     if (sortedTarget === sortedCandidate) {
       results.push(candidate);
     }
