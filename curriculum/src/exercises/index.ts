@@ -4,7 +4,8 @@ import type { ExerciseDefinition } from "./types";
 export const exercises = {
   "basic-movement": () => import("./basic-movement"),
   "maze-solve-basic": () => import("./maze-solve-basic"),
-  acronym: () => import("./acronym")
+  acronym: () => import("./acronym"),
+  anagram: () => import("./anagram")
   // Future exercises will be added here:
   // 'loop-basics': () => import('./loop-basics'),
   // 'conditionals': () => import('./conditionals'),
