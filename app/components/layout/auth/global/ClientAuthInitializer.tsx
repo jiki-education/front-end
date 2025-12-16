@@ -8,16 +8,23 @@ interface ClientAuthProviderProps {
 }
 
 /**
- * AuthProvider ensures authentication is checked once at app startup.
- * It prevents children from rendering until the initial auth check is complete,
- * avoiding duplicate checkAuth() calls and race conditions.
+ * Client-side initializer that validates the access token via API.
+ *
+ * Used by ServerAuthProvider when an access token cookie exists server-side.
+ * Makes an API call to validate the token and populate the auth store with
+ * user data. Shows a loading spinner until validation completes to prevent
+ * flash of unauthenticated content (FOUC).
  */
 export function ClientAuthInitializer({ children }: ClientAuthProviderProps) {
   const { checkAuth, hasCheckedAuth } = useAuthStore();
   const initRef = useRef(false);
 
   useEffect(() => {
-    // Use ref to ensure we only initialize once, avoiding race conditions
+    // Ref guard prevents duplicate checkAuth() calls from:
+    // 1. React Strict Mode double-mounting (development)
+    // 2. Zustand selector instability causing dependency array changes
+    // 3. Rapid parent re-renders before store state updates
+    // Works in concert with ServerAuthProvider routing and store-level guards
     if (!initRef.current && !hasCheckedAuth) {
       initRef.current = true;
       void checkAuth();

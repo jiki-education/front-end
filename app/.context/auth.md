@@ -113,7 +113,7 @@ Used in `app/(external)/layout.tsx` for login/signup pages:
 
 - Global `ServerAuthProvider` initializes auth exactly once
 - All guards wait for `hasCheckedAuth` from the global store
-- No duplicate `checkAuth()` calls or race conditions
+- Defense-in-depth prevents duplicate `checkAuth()` calls and race conditions (see below)
 
 **Hierarchical Organization:**
 
@@ -127,6 +127,35 @@ Used in `app/(external)/layout.tsx` for login/signup pages:
 - Server components provide fast initial checks
 - Client components handle full validation and interactivity
 - Loading states prevent layout shift and flashing content
+
+**Defense in Depth: Race Condition Prevention:**
+
+The auth system uses multiple layers of protection to prevent duplicate `checkAuth()` calls:
+
+1. **Architectural Layer (ServerAuthProvider)**
+   - Routes to appropriate initializer based on server-side cookie presence
+   - Ensures only one initializer (ClientAuthInitializer OR ClientLoggedOutAuthInitializer) renders
+   - Prevents architectural race conditions (only one code path executes)
+
+2. **Component Layer (Ref Guard in ClientAuthInitializer)**
+   - Prevents React-specific race conditions:
+     - React Strict Mode double-mounting in development
+     - Zustand selector instability causing dependency array changes
+     - Rapid parent re-renders before store state updates
+   - Uses `useRef` to track initialization across component lifecycle
+   - Essential despite architectural routing because React can remount components
+
+3. **Store Layer (Internal Guards in authStore.ts)**
+   - Checks `hasCheckedAuth` and `isLoading` flags before executing
+   - Provides final safety net if previous layers fail
+   - Ensures idempotency at the data layer
+
+**Why all three layers are necessary:**
+
+- Architectural layer alone can't prevent React remounting
+- Ref guard alone wouldn't help if wrong initializer was chosen
+- Store guards alone would allow unnecessary function calls
+- Together they provide comprehensive protection with zero performance cost
 
 ### Why This Architecture?
 

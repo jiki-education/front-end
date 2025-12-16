@@ -1,18 +1,19 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
- * Client-side authentication guard
+ * Client-side guard that redirects authenticated users from public auth pages.
  *
- * Only rendered when server-side auth check succeeds
+ * Used by ServerAuthGuard when a token is detected server-side. Waits for
+ * global auth initialization to complete, then redirects authenticated users
+ * to the dashboard (preventing them from seeing login/signup pages).
  */
 export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, hasCheckedAuth } = useAuthStore();
   const router = useRouter();
-  const pathname = usePathname();
 
   // Handle unexpected authenticated user by redirecting
   // them back to the dashboard
@@ -20,7 +21,7 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
     if (hasCheckedAuth && isAuthenticated) {
       router.push("/dashboard");
     }
-  }, [isAuthenticated, hasCheckedAuth, pathname, router]);
+  }, [isAuthenticated, hasCheckedAuth, router]);
 
   // Show loading spinner while auth is checking/refreshing or redirecting
   if (!hasCheckedAuth) {

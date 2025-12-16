@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
- * AuthProvider ensures authentication is checked once at app startup.
- * It prevents children from rendering until the initial auth check is complete,
- * avoiding duplicate checkAuth() calls and race conditions.
+ * Client-side initializer that sets the auth store to logged-out state.
+ *
+ * Used by ServerAuthProvider when no access token cookie is present server-side.
+ * Synchronously initializes the store without making an API call, allowing
+ * immediate rendering of public pages.
  */
 export function ClientLoggedOutAuthInitializer() {
   const { setNoUser } = useAuthStore();

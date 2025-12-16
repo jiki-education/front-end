@@ -6,9 +6,11 @@ import { useEffect } from "react";
 import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
- * Client-side authentication guard
+ * Client-side guard that redirects unauthenticated users from protected pages.
  *
- * Only rendered when server-side auth check succeeds
+ * Used in app/(app)/layout.tsx to protect authenticated routes. Waits for
+ * global auth initialization to complete, then redirects unauthenticated users
+ * to either the external version of the page (if available) or to /auth/login.
  */
 export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, hasCheckedAuth } = useAuthStore();
