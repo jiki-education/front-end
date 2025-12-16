@@ -1,9 +1,9 @@
-import { AuthGuard } from "./AuthGuard";
+import { ServerAuthGuard } from "../../components/layout/auth/external/ServerAuthGuard";
 
 export default function ExternalLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <AuthGuard>{children}</AuthGuard>;
+  return <ServerAuthGuard>{children}</ServerAuthGuard>;
 }

@@ -12,7 +12,7 @@ interface ClientAuthProviderProps {
  * It prevents children from rendering until the initial auth check is complete,
  * avoiding duplicate checkAuth() calls and race conditions.
  */
-export function ClientAuthProvider({ children }: ClientAuthProviderProps) {
+export function ClientAuthInitializer({ children }: ClientAuthProviderProps) {
   const { checkAuth, hasCheckedAuth } = useAuthStore();
   const initRef = useRef(false);
 

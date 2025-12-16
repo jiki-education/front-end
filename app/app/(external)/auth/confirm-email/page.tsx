@@ -1,5 +1,5 @@
-import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { ConfirmEmailForm } from "@/components/auth/ConfirmEmailForm";
+import { ServerAuthGuard } from "@/components/layout/auth/external/ServerAuthGuard";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 function ConfirmEmailContent() {
   return (
-    <AuthGuard>
+    <ServerAuthGuard>
       <ConfirmEmailForm />
-    </AuthGuard>
+    </ServerAuthGuard>
   );
 }
 

@@ -1,5 +1,5 @@
-import { AuthGuard } from "@/app/(external)/AuthGuard";
 import { SignupForm } from "@/components/auth/SignupForm";
+import { ServerAuthGuard } from "@/components/layout/auth/external/ServerAuthGuard";
 import { AuthLayout } from "@/components/ui/AuthLayout";
 import type { Metadata } from "next";
 
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function SignupPage() {
   return (
-    <AuthGuard>
+    <ServerAuthGuard>
       <AuthLayout>
         <SignupForm />
       </AuthLayout>
-    </AuthGuard>
+    </ServerAuthGuard>
   );
 }

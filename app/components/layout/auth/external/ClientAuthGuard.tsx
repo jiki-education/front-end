@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAuthStore } from "../../lib/auth/authStore";
+import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
  * Client-side authentication guard
