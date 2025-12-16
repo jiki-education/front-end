@@ -1,0 +1,14 @@
+{
+  "slug": "anagram",
+  "title": "Anagram",
+  "instructions": "At a garage sale, you find a lovely vintage typewriter at a bargain price! However, all words it types are garbled - it rearranges the letters due to random delays. You realize this quirk allows you to generate anagrams!\n\nCreate a function called `find_anagrams(word, possibilities)` that takes a target word (a string) and a list of possible anagrams, and returns which of the possibilities are actually anagrams of the target.\n\nAn anagram is a rearrangement of letters to form a new word. For example, 'owns' is an anagram of 'snow'. Important rules:\n\n- A word is NOT its own anagram (e.g., 'stop' is not an anagram of 'stop')\n- Matching is case-insensitive (e.g., 'PoTS' is an anagram of 'sTOp')\n- Return anagrams with their original casing from the possibilities list\n- Results should be sorted alphabetically\n\nExample: find_anagrams('stone', ['stone', 'Seton', 'banana', 'tons', 'notes', 'tones']) returns ['Seton', 'notes', 'tones']",
+  "estimatedMinutes": 20,
+  "levelId": "everything",
+  "hints": [
+    "Convert both the target and each candidate to lowercase for comparison",
+    "Use sort_string() to check if two words have the same letters",
+    "Remember to filter out the target word itself (case-insensitive comparison)",
+    "Use push() to build up your results list",
+    "Sort the final results alphabetically"
+  ]
+}

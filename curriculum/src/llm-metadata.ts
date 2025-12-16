@@ -9,6 +9,7 @@
 // Import LLM metadata for all exercises
 // NOTE: Add new exercises here as they're created
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
+import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as basicMovementLLM } from "./exercises/basic-movement/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 
@@ -23,6 +24,7 @@ export interface LLMMetadata {
  */
 const llmMetadataRegistry = {
   acronym: acronymLLM,
+  anagram: anagramLLM,
   "basic-movement": basicMovementLLM,
   "maze-solve-basic": mazeSolveBasicLLM
 } as const;

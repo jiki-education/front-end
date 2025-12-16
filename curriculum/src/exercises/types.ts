@@ -65,14 +65,20 @@ export interface VisualScenario {
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
 
+// Recursive type to support nested arrays in IO scenarios
+export type IOValue = string | number | boolean | null | undefined | IOValue[];
+
+// Expected value must be defined (no null/undefined)
+export type IOExpectedValue = string | number | boolean | IOExpectedValue[];
+
 export interface IOScenario {
   slug: string;
   name: string;
   description: string;
   taskId: string; // References the task this scenario belongs to
   functionName: string; // The function to call
-  args: Array<string | number | boolean | null | undefined>; // Arguments to pass to the function
-  expected: string | number | boolean; // Expected return value (must be defined)
+  args: Array<IOValue>; // Arguments to pass to the function (supports arrays, null, undefined)
+  expected: IOExpectedValue; // Expected return value (must be defined, supports arrays but not null/undefined)
   matcher?: "toBe" | "toEqual" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
 }
 
@@ -93,8 +99,8 @@ export interface VisualTestExpect {
 export interface IOTestExpect {
   type: "io";
   pass: boolean;
-  actual: string | number | boolean | null | undefined;
-  expected: string | number | boolean; // Expected value is always defined
+  actual: IOValue;
+  expected: IOExpectedValue;
   diff: Change[]; // Diff from 'diff' library
   matcher: string; // e.g., 'toBe', 'toEqual'
   codeRun?: string;

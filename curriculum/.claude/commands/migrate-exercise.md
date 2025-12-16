@@ -1,0 +1,308 @@
+---
+description: Migrate exercise(s) from Bootcamp to Jiki curriculum format
+argument-hint: [exercise-slug]
+---
+
+# Migrate Exercise from Bootcamp to Jiki
+
+I'll help you migrate an exercise from the Exercism Bootcamp format to the Jiki curriculum format. This command follows the comprehensive migration guide in `.context/exercise-migration.md`.
+
+**⚠️ CRITICAL REMINDERS:**
+
+1. Copy bootcamp `example.jiki` EXACTLY - don't rewrite it
+2. Register stdlib functions in the level file
+3. Register LLM metadata in `src/llm-metadata.ts`
+4. Run `pnpm typecheck` before `pnpm test`
+
+## Step 0: Read Migration Documentation
+
+First, let me read the migration guide and language conversion reference:
+
+```bash
+cat .context/exercise-migration.md
+cat .context/language-conversion.md
+cat .context/exercises.md
+```
+
+## Step 1: Locate and Analyze Bootcamp Exercise
+
+The exercise to migrate is: **$ARGUMENTS**
+
+Let me find and analyze the bootcamp exercise:
+
+```bash
+find /Users/iHiD/Code/exercism/website/bootcamp_content -name "$ARGUMENTS" -type d
+```
+
+Once located, I'll read all the bootcamp files:
+
+- `config.json` - Tests, tasks, metadata, stdlib functions
+- `introduction.md` - Instructions and hints
+- `task-*.md` - Task descriptions
+- `example.jiki` - Solution code (⚠️ will copy EXACTLY)
+- `stub.jiki` - Starter code
+
+## Step 2: Identify Exercise Type and Requirements
+
+Based on the bootcamp exercise, I'll determine:
+
+1. **Exercise Type**: IO (return value testing) or Visual (animations)
+   - Check `tests_type` in config.json
+
+2. **Stdlib Functions**: Which functions does the solution use?
+   - Check `stdlib_functions` in config.json
+   - ⚠️ These MUST be added to the level file!
+
+3. **Array Support**: Does it use arrays in args/expected?
+   - If yes: Already supported via `IOValue` type
+
+4. **Level Mapping**: What level should this be?
+   - Map bootcamp level number to Jiki levelId
+   - Default: "everything" for advanced exercises
+
+## Step 3: Create File Structure
+
+I'll create the exercise directory with all 9 required files:
+
+```bash
+mkdir -p src/exercises/$ARGUMENTS
+cd src/exercises/$ARGUMENTS
+touch metadata.json Exercise.ts scenarios.ts llm-metadata.ts index.ts
+touch solution.jiki solution.javascript solution.py
+touch stub.jiki stub.javascript stub.py
+```
+
+## Step 4: Extract and Convert Content
+
+I'll create each file following the migration guide:
+
+### 4.1: metadata.json
+
+- Extract title, description from config.json
+- Convert introduction.md to instructions
+- Map level to levelId
+- Extract hints
+
+### 4.2: Exercise.ts
+
+For IO exercises, minimal class:
+
+```typescript
+import { IOExercise } from "../../Exercise";
+import metadata from "./metadata.json";
+
+export default class [Name]Exercise extends IOExercise {
+  static slug = metadata.slug;
+  static availableFunctions = [];
+}
+```
+
+### 4.3: scenarios.ts
+
+- Convert `tasks` array to TypeScript `Task[]`
+- Convert `tests` to `IOScenario[]`
+- Map fields:
+  - `slug` → `slug`
+  - `function` → `functionName`
+  - `args[]` → `args[]`
+  - `checks[0].value` → `expected`
+- Handle bonus tasks separately
+
+### 4.4: solution.jiki
+
+**⚠️ CRITICAL:** Copy bootcamp `example.jiki` EXACTLY
+
+- Do NOT rewrite or improve
+- Do NOT change variable names
+- Do NOT simplify logic
+- **Just copy verbatim**
+
+### 4.5: solution.javascript
+
+Convert from Jikiscript using `.context/language-conversion.md`:
+
+- Function names: snake_case → camelCase
+- Variable names: snake_case → camelCase
+- Replace stdlib functions with native methods
+- Use native array/string methods
+
+### 4.6: solution.py
+
+Convert from Jikiscript using `.context/language-conversion.md`:
+
+- Keep snake_case naming
+- Replace stdlib functions with native methods
+- Use Python idioms (list comprehension, etc.)
+- Booleans: `true` → `True`
+
+### 4.7: stub files
+
+Create starter code for all 3 languages with:
+
+- Function signature
+- Step-by-step comments
+- Consistent structure
+
+### 4.8: llm-metadata.ts
+
+Create teaching guidance:
+
+- Exercise description and concepts
+- Task-specific guidance
+- Common mistakes
+- Teaching strategies
+
+### 4.9: index.ts
+
+Export complete IOExerciseDefinition with:
+
+- All imports (solutions, stubs, metadata)
+- Functions documentation (stdlib functions used)
+- Type: "io"
+
+## Step 5: Critical Registrations
+
+### 5.1: Register Stdlib Functions (if any)
+
+⚠️ **CRITICAL** - Check `config.json` for `stdlib_functions`
+
+If the exercise uses `push`, `sort_string`, etc., add to level file:
+
+```bash
+# For "everything" level
+# Edit src/levels/everything.ts
+# Add to allowedStdlibFunctions array
+```
+
+### 5.2: Register LLM Metadata
+
+⚠️ **CRITICAL** - Must register in `src/llm-metadata.ts`
+
+1. Import: `import { llmMetadata as [name]LLM } from "./exercises/$ARGUMENTS/llm-metadata";`
+2. Add to registry: `"$ARGUMENTS": [name]LLM,`
+
+### 5.3: Register Exercise
+
+Add to `src/exercises/index.ts`:
+
+```typescript
+export const exercises = {
+  // ... existing
+  $ARGUMENTS: () => import("./$ARGUMENTS")
+} as const;
+```
+
+## Step 6: Type Check and Testing
+
+### 6.1: Type Check (Must Pass First!)
+
+```bash
+pnpm typecheck
+```
+
+If type errors, fix before proceeding to tests.
+
+### 6.2: Run Tests
+
+```bash
+pnpm test
+```
+
+**What gets tested:**
+
+- LLM metadata completeness
+- Solution validation (all non-bonus scenarios)
+- Type safety
+
+All 80+ tests should pass, including the new exercise.
+
+## Step 7: Quality Assurance
+
+Before committing, ensure:
+
+- [ ] All 9 files created
+- [ ] Bootcamp solution.jiki copied exactly (not rewritten)
+- [ ] Solutions work in all 3 languages
+- [ ] Stdlib functions registered in level
+- [ ] LLM metadata registered in registry
+- [ ] Exercise registered in index.ts
+- [ ] `pnpm typecheck` passes
+- [ ] `pnpm test` passes (all tests)
+
+## Step 8: Commit and PR
+
+If all checks pass:
+
+1. Create feature branch
+2. Commit with descriptive message
+3. Push to remote
+4. Create pull request
+
+```bash
+git checkout -b migrate-$ARGUMENTS
+git add .
+git commit -m "Migrate $ARGUMENTS exercise from Bootcamp
+
+- Migrated from bootcamp string-puzzles/$ARGUMENTS
+- Created all 9 required files (metadata, Exercise, scenarios, llm-metadata, index, solutions×3, stubs×3)
+- Registered stdlib functions in level: [list them]
+- Registered LLM metadata in src/llm-metadata.ts
+- All tests passing (80+)
+
+🤖 Generated with Claude Code"
+git push -u origin migrate-$ARGUMENTS
+gh pr create --title "Migrate $ARGUMENTS exercise" --body "$(cat <<'EOF'
+## Summary
+
+Migrated the **$ARGUMENTS** exercise from Exercism Bootcamp to Jiki curriculum format.
+
+## Changes
+
+### New Files
+- ✅ `src/exercises/$ARGUMENTS/` - Complete exercise directory
+- ✅ All 9 required files created
+- ✅ Solutions for Jikiscript, JavaScript, Python
+- ✅ Stubs for all 3 languages
+
+### Registrations
+- ✅ Stdlib functions added to level (if needed)
+- ✅ LLM metadata registered
+- ✅ Exercise registered in exercises index
+
+### Testing
+- ✅ TypeScript compilation passes
+- ✅ All tests pass (80+)
+- ✅ Solution validated for all scenarios
+
+## Migration Notes
+
+[Any special notes about this migration]
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+## Common Issues and Solutions
+
+### Issue: Exercise returns `undefined`
+
+**Cause:** Stdlib functions not registered
+**Fix:** Add to level's `allowedStdlibFunctions` array
+
+### Issue: LLM metadata test fails
+
+**Cause:** Not registered in `src/llm-metadata.ts`
+**Fix:** Import and add to `llmMetadataRegistry`
+
+### Issue: Type errors for arrays
+
+**Cause:** Using old type definition
+**Fix:** Type system already supports arrays via `IOValue` - just use them
+
+### Issue: Solution doesn't work
+
+**Cause:** Rewrote Jikiscript instead of copying exactly
+**Fix:** Copy bootcamp `example.jiki` verbatim
+
+Let's begin the migration!
