@@ -1,4 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Test Pages - Jiki",
+  description: "Component test pages for development and E2E testing."
+};
 
 export default function TestIndexPage() {
   const testPages = [
