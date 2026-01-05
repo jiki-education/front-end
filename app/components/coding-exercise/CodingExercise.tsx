@@ -113,6 +113,13 @@ function CodingExerciseInner() {
   const { shouldShowCompleteButton, exerciseTitle, isExerciseCompleted } = useOrchestratorStore(orchestrator);
   const router = useRouter();
 
+  // Update document title when exerciseTitle loads
+  useEffect(() => {
+    if (exerciseTitle) {
+      document.title = `${exerciseTitle} - Jiki`;
+    }
+  }, [exerciseTitle]);
+
   const handleCompleteExercise = () => {
     showModal("exercise-completion-modal", {
       exerciseTitle: exerciseTitle,
