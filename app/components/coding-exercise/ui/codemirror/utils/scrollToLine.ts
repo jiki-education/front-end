@@ -5,6 +5,12 @@ export function scrollToLine(view: EditorView | null, line: number): void {
     return;
   }
   const doc = view.state.doc;
+
+  // Safety check to prevent RangeError for invalid line numbers
+  if (line <= 0 || line > doc.lines) {
+    return;
+  }
+
   const linePos = doc.line(line);
   const lineBlock = view.lineBlockAt(linePos.from);
   // TODO: Check why if it's really always truthy or not

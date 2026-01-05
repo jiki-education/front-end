@@ -65,6 +65,12 @@ function lineInformationWidget(view: EditorView, onClose: (view: EditorView) => 
     widget: new InformationWidget(html, status, view, onClose),
     side: 1
   });
+
+  // Additional safety check before calling doc.line() to prevent RangeError
+  if (widgetData.line > view.state.doc.lines || widgetData.line <= 0) {
+    return Decoration.none;
+  }
+
   const lastPosOfLine = view.state.doc.line(widgetData.line).to;
 
   widgets.push(deco.range(lastPosOfLine));
