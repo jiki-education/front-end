@@ -94,19 +94,75 @@ export default function TestGlobalModals() {
 
         <div className="border rounded-lg p-4">
           <h2 className="text-xl font-semibold mb-2">Exercise Completion Modal</h2>
-          <button
-            onClick={() =>
-              showModal("exercise-completion-modal", {
-                onTidyCode: () => {},
-                onCompleteExercise: () => {},
-                onGoToProject: () => {},
-                onGoToDashboard: () => {}
-              })
-            }
-            className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
-          >
-            Show Exercise Completion Modal
-          </button>
+          <div className="space-x-2 space-y-2">
+            <button
+              onClick={() =>
+                showModal("exercise-completion-modal", {
+                  onTidyCode: () => console.debug("Tidy code clicked"),
+                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onGoToProject: () => console.debug("Go to project clicked"),
+                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
+                  exerciseTitle: "Test Exercise",
+                  initialStep: "success"
+                })
+              }
+              className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
+            >
+              Success Step
+            </button>
+
+            <button
+              onClick={() =>
+                showModal("exercise-completion-modal", {
+                  onTidyCode: () => console.debug("Tidy code clicked"),
+                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onGoToProject: () => console.debug("Go to project clicked"),
+                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
+                  exerciseTitle: "Test Exercise",
+                  initialStep: "confirmation"
+                })
+              }
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Confirmation Step
+            </button>
+
+            <button
+              onClick={() =>
+                showModal("exercise-completion-modal", {
+                  onTidyCode: () => console.debug("Tidy code clicked"),
+                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onGoToProject: () => console.debug("Go to project clicked"),
+                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
+                  exerciseTitle: "Navigate the Maze",
+                  initialStep: "difficulty-rating"
+                })
+              }
+              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+            >
+              🆕 Rating Step (Difficulty + Fun)
+            </button>
+
+            <button
+              onClick={() =>
+                showModal("exercise-completion-modal", {
+                  onTidyCode: () => console.debug("Tidy code clicked"),
+                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onGoToProject: () => console.debug("Go to project clicked"),
+                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
+                  exerciseTitle: "Test Exercise",
+                  initialStep: "completed"
+                })
+              }
+              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+            >
+              Completed Step
+            </button>
+          </div>
+          <p className="text-sm text-gray-600 mt-2">
+            🆕 Test the new combined rating step! Click through the full flow: Success → Confirmation → Rate Experience
+            (Difficulty + Fun) → Completed
+          </p>
           <h2 className="text-xl font-semibold mb-2">Subscription Modals</h2>
           <div className="space-x-2 space-y-2">
             <button
