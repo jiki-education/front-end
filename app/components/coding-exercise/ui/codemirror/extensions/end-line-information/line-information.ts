@@ -52,7 +52,7 @@ function lineInformationWidget(view: EditorView, onClose: (view: EditorView) => 
   const shouldShowWidget = view.state.field(showInfoWidgetField);
   const widgetData = view.state.field(informationWidgetDataField);
 
-  if (widgetData.line > view.state.doc.lines || widgetData.line === 0) {
+  if (widgetData.line > view.state.doc.lines || widgetData.line <= 0) {
     return Decoration.none;
   }
   if (!shouldShowWidget) {
@@ -65,6 +65,7 @@ function lineInformationWidget(view: EditorView, onClose: (view: EditorView) => 
     widget: new InformationWidget(html, status, view, onClose),
     side: 1
   });
+
   const lastPosOfLine = view.state.doc.line(widgetData.line).to;
 
   widgets.push(deco.range(lastPosOfLine));

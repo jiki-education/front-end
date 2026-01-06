@@ -11,6 +11,7 @@ describe("scrollToLine", () => {
     mockView = {
       state: {
         doc: {
+          lines: 25, // Mock: document has 25 lines
           line: jest.fn((lineNum: number) => ({
             from: (lineNum - 1) * 50, // Mock: each line starts at lineNum * 50
             to: lineNum * 50
@@ -54,15 +55,15 @@ describe("scrollToLine", () => {
     expect(scrollToSpy).toHaveBeenCalledWith({ top: -290 });
   });
 
-  it("should handle large line numbers", () => {
-    scrollToLine(mockView as EditorView, 100);
+  it("should handle large line numbers within document bounds", () => {
+    scrollToLine(mockView as EditorView, 20); // Use valid line number within document bounds
 
-    expect(mockView.state!.doc.line).toHaveBeenCalledWith(100);
-    expect(mockView.lineBlockAt).toHaveBeenCalledWith(4950); // (100-1) * 50
+    expect(mockView.state!.doc.line).toHaveBeenCalledWith(20);
+    expect(mockView.lineBlockAt).toHaveBeenCalledWith(950); // (20-1) * 50
 
-    // Line block: top=9900, bottom=9920, height=20
-    // Centered position: 9900 - 300 + 10 = 9610
-    expect(scrollToSpy).toHaveBeenCalledWith({ top: 9610 });
+    // Line block: top=1900, bottom=1920, height=20
+    // Centered position: 1900 - 300 + 10 = 1610
+    expect(scrollToSpy).toHaveBeenCalledWith({ top: 1610 });
   });
 
   it("should not scroll if view is null", () => {
@@ -131,5 +132,23 @@ describe("scrollToLine", () => {
       scrollToLine(mockView as EditorView, line);
       expect(scrollToSpy).toHaveBeenCalledWith({ top: expectedTop });
     });
+  });
+
+  it("should not scroll for invalid line numbers", () => {
+    const invalidLines = [0, -1, 26, 100]; // 0, negative, and beyond doc.lines (25)
+
+    invalidLines.forEach((line) => {
+      scrollToSpy.mockClear();
+      scrollToLine(mockView as EditorView, line);
+      expect(scrollToSpy).not.toHaveBeenCalled();
+      expect(mockView.state!.doc.line).not.toHaveBeenCalledWith(line);
+    });
+  });
+
+  it("should handle line number exactly equal to document length", () => {
+    scrollToLine(mockView as EditorView, 25); // Exactly at doc.lines
+
+    expect(mockView.state!.doc.line).toHaveBeenCalledWith(25);
+    expect(scrollToSpy).toHaveBeenCalled();
   });
 });
