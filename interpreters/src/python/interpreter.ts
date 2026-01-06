@@ -5,6 +5,8 @@ import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
+import { extractCallExpressions } from "./assertion-helpers";
+import { LiteralExpression, type Expression, CallExpression } from "./expression";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
@@ -137,5 +139,14 @@ export function evaluateFunction(
       functionCallLog: callResult.meta.functionCallLog,
       statements: statements, // Return the original student code statements
     },
+    assertors: {
+      assertAllArgumentsAreVariables: () => {
+        return extractCallExpressions(statements).every((expr: CallExpression) => {
+          return expr.args.every((arg: Expression) => {
+            return !(arg instanceof LiteralExpression);
+          });
+        });
+      }
+    }
   };
 }

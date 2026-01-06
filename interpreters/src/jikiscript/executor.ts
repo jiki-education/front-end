@@ -10,7 +10,6 @@ import type {
   FunctionLookupExpression,
   GetElementExpression,
   GroupingExpression,
-  LiteralExpression,
   LogicalExpression,
   SetElementExpression,
   UnaryExpression,
@@ -22,6 +21,7 @@ import type {
   AccessorExpression,
   ThisExpression,
 } from "./expression";
+import { LiteralExpression } from "./expression";
 import { Location, Span } from "./location";
 import type {
   BlockStatement,

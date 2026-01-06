@@ -1,6 +1,7 @@
 import type { Location } from "./location";
 import { JikiObject } from "./jikiObjects";
-import { Statement, Expression } from "typescript";
+import type { Statement } from "./statement";
+import type { Expression } from "./expression";
 import { FunctionCallExpression } from "./expression";
 
 export function formatJikiObject(value?: any): string {
