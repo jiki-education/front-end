@@ -26,7 +26,7 @@ const navigationItems: Array<{
   { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon },
   { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
-  { id: "achievements", label: "Achievements", href: "", icon: MedalIcon },
+  { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
 ];
 

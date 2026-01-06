@@ -1,0 +1,312 @@
+.badgesGallery {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Base badge card styles */
+.badgeCard {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid #e2e8f0;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.badgeCard:hover {
+    transform: scale(1.05);
+}
+
+/* Earned badge styles */
+.badgeCard.earned {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-width: 3px;
+}
+
+/* Color themes for earned badges */
+.badgeCard.earned.green {
+    border-color: #10b981;
+}
+
+.badgeCard.earned.blue {
+    border-color: #3b82f6;
+}
+
+.badgeCard.earned.gold:not(.new) {
+    border-color: #8b5cf6;
+}
+
+.badgeCard.earned.pink {
+    border-color: #ec4899;
+}
+
+.badgeCard.earned.purple {
+    border-color: #8b5cf6;
+}
+
+.badgeCard.earned.teal {
+    border-color: #14b8a6;
+}
+
+/* New badge special styling */
+.badgeCard.new {
+    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
+    border: 3px solid #f59e0b !important;
+}
+
+.badgeCard.new:hover {
+    transform: scale(1.05);
+}
+
+/* Locked badge styles */
+.badgeCard.locked {
+    opacity: 0.6;
+    background: #f8fafc;
+    position: relative;
+    border-style: dotted;
+}
+
+.badgeCard.locked:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Position NEW ribbon relative to card - outside of card-front to avoid clipping */
+.badgeCard.new .newRibbon {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    z-index: 50;
+    opacity: 0;
+    animation: showRibbon 0.3s ease-out 1.5s forwards;
+}
+
+@keyframes showRibbon {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Overflow hidden on card-front for shimmer */
+.badgeCard.new .cardFront {
+    overflow: hidden;
+}
+
+/* NEW Badge Ribbon */
+.newRibbon {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: #3b82f6;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    z-index: 10;
+    animation: pulseBadge 2s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
+    }
+}
+
+/* Card structure for new badges */
+.cardBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.cardFront {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.shimmerOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s infinite;
+    border-radius: 16px;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* New badge shimmer overlay */
+.badgeCard.new .shimmerOverlay {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 30%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 70%,
+        transparent 100%
+    );
+    z-index: 30;
+    pointer-events: none;
+    animation: shimmerFront 1.2s ease-in-out 1.5s 2;
+    border-radius: 14px;
+}
+
+@keyframes shimmerFront {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Badge content styles */
+.badgeIconWrapper {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badgeIconWrapper img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Gold badge icon glow animation */
+.badgeCard.earned.new.gold .badgeIconWrapper {
+    animation: iconGlowGold 2s ease-in-out infinite;
+}
+
+@keyframes iconGlowGold {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(245, 158, 11, 0.2),
+            0 6px 20px rgba(245, 158, 11, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(245, 158, 11, 0.4),
+            0 8px 30px rgba(245, 158, 11, 0.6),
+            0 0 40px rgba(245, 158, 11, 0.4);
+    }
+}
+
+/* Sparkle effect for NEW badges */
+.badgeCard.earned.new .badgeIconWrapper::before,
+.badgeCard.earned.new .badgeIconWrapper::after {
+    content: "✨";
+    position: absolute;
+    font-size: 20px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.badgeCard.earned.new .badgeIconWrapper::before {
+    top: -8px;
+    left: -8px;
+    animation-delay: 0s;
+}
+
+.badgeCard.earned.new .badgeIconWrapper::after {
+    bottom: -8px;
+    right: -8px;
+    animation-delay: 1s;
+}
+
+@keyframes sparkle {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+/* Locked badge icon styles */
+.badgeCard.locked .badgeIconWrapper {
+    background: #f1f5f9;
+    border-color: #cbd5e0;
+}
+
+.badgeCard.locked .badgeIconWrapper img {
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
+.badgeTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.badgeSubtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.badgeDate {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
