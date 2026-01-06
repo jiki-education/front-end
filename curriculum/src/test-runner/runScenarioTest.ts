@@ -1,5 +1,6 @@
 import { jikiscript, javascript, python } from "@jiki/interpreters";
-import type { VisualExercise, IOExercise } from "../Exercise";
+import type { IOExercise } from "../IOExercise";
+import type { VisualExercise } from "../VisualExercise";
 import type { VisualScenario, IOScenario, TestExpect, ExerciseDefinition } from "../exercises/types";
 import { getLanguageFeatures } from "../levels";
 import type { Language } from "../types";

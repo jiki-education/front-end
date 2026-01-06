@@ -97,12 +97,12 @@ export default function LessonPage({ params }: PageProps) {
   // // TODO: Map lesson slug to exercise slug from curriculum
   // // For now, use a simple mapping to available exercises
   // const exerciseSlugMap: Record<string, any> = {
-  //   "solve-a-maze": "basic-movement",
-  //   "win-space-invaders": "basic-movement",
-  //   "solve-a-maze-with-numbers": "basic-movement"
+  //   "solve-a-maze": "maze-solve-basic",
+  //   "win-space-invaders": "maze-solve-basic",
+  //   "solve-a-maze-with-numbers": "maze-solve-basic"
   // };
 
-  // const exerciseSlug = exerciseSlugMap[lesson.slug] || "basic-movement";
+  // const exerciseSlug = exerciseSlugMap[lesson.slug] || "maze-solve-basic";
 
   return <CodingExercise exerciseSlug={lesson.slug as ExerciseSlug} />;
 }

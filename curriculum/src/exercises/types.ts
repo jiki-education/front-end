@@ -1,4 +1,5 @@
-import type { IOExercise, VisualExercise } from "../Exercise";
+import type { IOExercise } from "../IOExercise";
+import type { VisualExercise } from "../VisualExercise";
 import type { LevelId } from "../levels";
 import type { Change } from "diff";
 import type { Language } from "../types";

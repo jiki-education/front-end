@@ -1,0 +1,17 @@
+{
+  "slug": "sprouting-flower",
+  "title": "Sprouting Flower",
+  "instructions": "Your task is to make a flower that grows over 60 iterations.\n\nThe key to this exercise is to build relationships between the different elements. This is a key skill in programming.\n\n## How to solve it\n\nThe key component of this is the center of the flower. Everything else can be calculated off that center point. On each iteration of the loop, the center point should move up by 1 (before drawing).\n\nHere are some other things you need to know:\n\n- The top-left of the drawing canvas is 0,0. The bottom-right is 100,100.\n- The radius of the flower starts at 0 and should increase by 0.4 on each iteration (before drawing)\n- The radius of the pistil (the middle yellow bit of the flower) starts at 0 and should increase by 0.1 on each iteration (before drawing).\n- The stem should start at the center of the flower and reach the ground.\n- The stem's width is 10% of the stem's height (so stem_height / 10).\n- Everything is centered on the horizontal axis.\n- The leaves sit flush against the stalk on each side.\n- The leaves sit half way down the stem.\n- The x_radius of the leaves is 50% the radius of the flower.\n- The y_radius of the leaves is 20% of the radius of the flower.\n\nIt is essential to work on one thing at a time:\n\n- Start by drawing the pink flower and getting it to move up.\n- Then get it to grow.\n- Add the smaller yellow center.\n- Add the stem.\n- Add the left leaf.\n- Add the right leaf.\n\nUse the scrubber bar to scroll through the code and work out where things are going wrong.",
+  "estimatedMinutes": 20,
+  "levelId": "everything",
+  "hints": [
+    "Set up variables for flower_center_x, flower_center_y, and flower_radius before the loop",
+    "On each iteration, decrease flower_center_y by 1 and increase flower_radius by 0.4",
+    "Calculate all other measurements based on the flower center and radius",
+    "The stem height is ground_top - flower_center_y",
+    "The stem width is stem_height / 10",
+    "The leaves' x_radius is flower_radius * 0.5",
+    "The leaves' y_radius is flower_radius * 0.2",
+    "Remember to update all variables before drawing each frame"
+  ]
+}

@@ -37,7 +37,7 @@ export default function LLMChatTestPage() {
 
   // Exercise and code state
   const exerciseSlugs = Object.keys(exercises);
-  const [selectedExercise, setSelectedExercise] = useState<string>("basic-movement");
+  const [selectedExercise, setSelectedExercise] = useState<string>("maze-solve-basic");
   const [selectedLanguage, setSelectedLanguage] = useState<"javascript" | "python" | "jikiscript">("jikiscript");
   const [code, setCode] = useState<string>("");
   const [isLoadingExercise, setIsLoadingExercise] = useState(false);

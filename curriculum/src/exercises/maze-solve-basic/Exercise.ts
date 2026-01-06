@@ -1,5 +1,5 @@
 import { type ExecutionContext } from "@jiki/interpreters";
-import { VisualExercise } from "../../Exercise";
+import { VisualExercise } from "@/src/VisualExercise";
 import metadata from "./metadata.json";
 
 type Direction = "up" | "right" | "down" | "left";

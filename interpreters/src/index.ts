@@ -6,7 +6,7 @@ export * as python from "./python/index.js";
 
 // Export shared types and constants
 export { TIME_SCALE_FACTOR, type Frame } from "./shared/frames.js";
-export { type ExecutionContext } from "./shared/interfaces.js";
+export { type ExecutionContext, type ExternalFunction, type InterpretResult } from "./shared/interfaces.js";
 export { type CompilationResult, type SyntaxError } from "./shared/errors.js";
 
 // Export Shared namespace for cross-interpreter types
