@@ -23,7 +23,13 @@ interface ExerciseCompletionModalProps {
     description: string;
     icon: string;
   };
-  initialStep?: "success" | "confirmation" | "completed" | "concept-unlocked" | "project-unlocked";
+  initialStep?:
+    | "success"
+    | "confirmation"
+    | "difficulty-rating"
+    | "completed"
+    | "concept-unlocked"
+    | "project-unlocked";
   completionResponse?: CompletionResponseData[];
 }
 
@@ -42,9 +48,11 @@ export function ExerciseCompletionModal({
   initialStep = "success",
   completionResponse = []
 }: ExerciseCompletionModalProps) {
-  const [step, setStep] = useState<"success" | "confirmation" | "completed" | "concept-unlocked" | "project-unlocked">(
-    initialStep
-  );
+  const [step, setStep] = useState<
+    "success" | "confirmation" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked"
+  >(initialStep);
+  const [difficultyRating, setDifficultyRating] = useState<number>(3); // Default to "Just right"
+  const [funRating, setFunRating] = useState<number>(3); // Default to middle (neutral)
 
   // completionResponse is now passed as a prop instead of reading from orchestrator context
 
@@ -110,6 +118,11 @@ export function ExerciseCompletionModal({
   };
 
   const handleCompleteExercise = () => {
+    setStep("difficulty-rating");
+  };
+
+  const handleRatingsSubmit = () => {
+    // TODO: Send both ratings to API when endpoint is ready
     setStep("completed");
     onCompleteExercise?.();
   };
@@ -223,6 +236,72 @@ export function ExerciseCompletionModal({
           </button>
           <button onClick={handleGoToDashboard} className={styles.btnPrimary}>
             Go to Dashboard
+          </button>
+        </div>
+      </>
+    );
+  }
+
+  if (step === "difficulty-rating") {
+    const funEmojis = ["😢", "😞", "😐", "😊", "😁"];
+
+    return (
+      <>
+        <h2 className={styles.modalTitle}>Rate your experience</h2>
+        <p className={styles.modalMessage}>Help us improve by rating {exerciseTitle} on difficulty and fun.</p>
+
+        <div className={styles.difficultyRatingContainer}>
+          <div className={styles.difficultyRatingTitle}>Rate the difficulty</div>
+
+          <div className={styles.difficultySliderContainer}>
+            <div className={styles.difficultySlider}>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <button
+                  key={rating}
+                  className={`${styles.difficultyDot} ${difficultyRating === rating ? styles.selected : ""}`}
+                  onClick={() => setDifficultyRating(rating)}
+                  aria-label={`Rate difficulty as ${rating} out of 5`}
+                />
+              ))}
+            </div>
+
+            <div className={styles.difficultyLabels}>
+              <span className={`${styles.difficultyLabel} ${styles.leftLabel}`}>Too easy</span>
+              <span className={`${styles.difficultyLabel} ${styles.centerLabel}`}>Just right</span>
+              <span className={`${styles.difficultyLabel} ${styles.rightLabel}`}>Too hard</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.funRatingContainer}>
+          <div className={styles.funRatingTitle}>Rate the fun factor</div>
+
+          <div className={styles.funSliderContainer}>
+            <div className={styles.funSlider}>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <button
+                  key={rating}
+                  className={`${styles.funDot} ${funRating === rating ? styles.selected : ""}`}
+                  onClick={() => setFunRating(rating)}
+                  aria-label={`Rate fun as ${rating} out of 5`}
+                >
+                  {funEmojis[rating - 1]}
+                </button>
+              ))}
+            </div>
+
+            <div className={styles.funLabels}>
+              <span className={`${styles.funLabel} ${styles.leftLabel}`}>No fun</span>
+              <span className={`${styles.funLabel} ${styles.centerLabel}`}>Pretty good</span>
+              <span className={`${styles.funLabel} ${styles.rightLabel}`}>Amazing!</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.modalButtonsDivider}></div>
+        <div className={styles.modalButtons}>
+          <button onClick={handleRatingsSubmit} className={styles.btnPrimary}>
+            Continue
           </button>
         </div>
       </>
