@@ -3,6 +3,7 @@
 import { fetchProjects, type ProjectData, type ProjectsResponse } from "@/lib/api/projects";
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
+import { PageHeader } from "@/components/ui-kit/PageHeader";
 import { useEffect, useState } from "react";
 import AllIcon from "@static/icons/all.svg";
 import InProgressIcon from "@static/icons/in-progress.svg";
@@ -90,15 +91,11 @@ export function ProjectsContent() {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto py-32 px-48">
-      <header className="ui-page-header">
-        <h1>
-          <ProjectsIcon />
-          Projects
-        </h1>
-        <p>Build real applications and games to practice your coding skills.</p>
-      </header>
-
+    <PageHeader
+      icon={<ProjectsIcon />}
+      title="Projects"
+      description="Build real applications and games to practice your coding skills."
+    >
       <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
       {filteredProjects.length === 0 ? (
@@ -113,6 +110,6 @@ export function ProjectsContent() {
           ))}
         </div>
       )}
-    </div>
+    </PageHeader>
   );
 }
