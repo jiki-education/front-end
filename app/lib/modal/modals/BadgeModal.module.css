@@ -1,3 +1,17 @@
+/* Badge Modal Overlay */
+.badgeModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
 /* Badge Modal Styles */
 .modalContainer {
     background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
