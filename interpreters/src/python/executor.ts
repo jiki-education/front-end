@@ -212,8 +212,8 @@ export class Executor {
               return !(arg instanceof LiteralExpression);
             });
           });
-        }
-      }
+        },
+      },
     };
   }
 

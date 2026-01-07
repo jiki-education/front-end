@@ -6,7 +6,8 @@ import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
 import { extractCallExpressions } from "./assertion-helpers";
-import { LiteralExpression, type Expression, CallExpression } from "./expression";
+import type { CallExpression } from "./expression";
+import { LiteralExpression, type Expression } from "./expression";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
@@ -67,8 +68,8 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         statements: [],
       },
       assertors: {
-        assertAllArgumentsAreVariables: () => true  // Defensive: don't fail on parse errors
-      }
+        assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
+      },
     };
   }
 }
@@ -146,7 +147,7 @@ export function evaluateFunction(
             return !(arg instanceof LiteralExpression);
           });
         });
-      }
-    }
+      },
+    },
   };
 }

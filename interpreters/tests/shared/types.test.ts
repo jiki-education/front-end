@@ -1,12 +1,5 @@
 import { test, expect, describe } from "vitest";
-import {
-  Shared,
-  isNumber,
-  isString,
-  isBoolean,
-  isList,
-  isDictionary,
-} from "../../src/index";
+import { Shared, isNumber, isString, isBoolean, isList, isDictionary } from "../../src/index";
 import * as jikiscript from "../../src/jikiscript/jikiObjects";
 import * as javascript from "../../src/javascript/jsObjects";
 import * as python from "../../src/python/jikiObjects";
@@ -166,12 +159,8 @@ describe("Shared type namespace", () => {
     });
 
     test("Shared.List accepts all interpreter List types", () => {
-      const jikiList: Shared.List = new jikiscript.List([
-        new jikiscript.Number(1),
-      ]);
-      const jsList: Shared.List = new javascript.JSArray([
-        new javascript.JSNumber(2),
-      ]);
+      const jikiList: Shared.List = new jikiscript.List([new jikiscript.Number(1)]);
+      const jsList: Shared.List = new javascript.JSArray([new javascript.JSNumber(2)]);
       const pyList: Shared.List = new python.PyList([new python.PyNumber(3)]);
 
       expect(jikiList.length).toBe(1);

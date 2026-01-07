@@ -6,9 +6,7 @@ import { CallExpression } from "./expression";
  * Extract all CallExpression nodes from an AST tree
  * Uses the children() method to recursively traverse the tree
  */
-export function extractCallExpressions(
-  tree: Statement[] | Expression[]
-): CallExpression[] {
+export function extractCallExpressions(tree: Statement[] | Expression[]): CallExpression[] {
   return extractExpressions(tree, CallExpression);
 }
 
@@ -25,11 +23,14 @@ export function extractExpressions<T extends Expression>(
   type: new (...args: any[]) => T
 ): T[] {
   // Filter null/undefined, then map to results and flatten
-  return tree
-    .filter((obj) => obj)
-    .map((elem: Statement | Expression) => {
-      const res = elem instanceof type ? [elem] : [];
-      return res.concat(extractExpressions<T>(elem.children(), type));
-    })
-    .flat();
+  return (
+    tree
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      .filter(obj => obj)
+      .map((elem: Statement | Expression) => {
+        const res = elem instanceof type ? [elem] : [];
+        return res.concat(extractExpressions<T>(elem.children(), type));
+      })
+      .flat()
+  );
 }

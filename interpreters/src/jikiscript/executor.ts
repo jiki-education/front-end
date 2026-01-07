@@ -300,16 +300,13 @@ export class Executor {
 
       assertors: {
         assertAllArgumentsAreVariables: () => {
-
-          return extractFunctionCallExpressions(statements).
-          every((expr: FunctionCallExpression) => {
+          return extractFunctionCallExpressions(statements).every((expr: FunctionCallExpression) => {
             return expr.args.every((arg: Expression) => {
-              return !(arg instanceof LiteralExpression)
-            })
-          })
-        }
-        
-      }
+              return !(arg instanceof LiteralExpression);
+            });
+          });
+        },
+      },
     };
   }
 

@@ -7,6 +7,7 @@
 ### ✅ Phase 1: DrawExercise Infrastructure (Mostly Complete)
 
 **Completed:**
+
 1. ✅ Created `src/exercises/DrawExercise/` directory structure
 2. ✅ Copied helper files from bootcamp (exact copies):
    - `shapes.ts` (243 lines) - Shape classes, SVG rendering functions
@@ -26,12 +27,12 @@
    - ✅ Commented out `random_number` function (requires language-specific constructor)
    - ⚠️ **HAS TYPE ERRORS**: See issues below
 
-**Not Started:**
-5. ❌ Create `src/exercises/DrawExercise/index.ts` export file
+**Not Started:** 5. ❌ Create `src/exercises/DrawExercise/index.ts` export file
 
 ### ⚠️ Current Type Errors (from `pnpm typecheck`)
 
 **DrawExercise.ts issues:**
+
 1. **Import errors**:
    - `InterpretResult` not exported from `@jiki/interpreters` (it's in `jikiscript.InterpretResult`)
    - `Shared`, `isNumber`, `isString` export issues (need to verify actual export names)
@@ -48,12 +49,9 @@
    - DrawExercise provides: `func: (ctx: ExecutionContext, ...args) => void` (with parameters)
    - This is a fundamental design issue - drawing functions take arguments but VisualExercise doesn't support that
 
-**checks.ts issues:**
-5. Parameter `requiredPercentage` has implicit `any` type (line 3)
+**checks.ts issues:** 5. Parameter `requiredPercentage` has implicit `any` type (line 3)
 
-**retrievers.ts issues:**
-6. Parameters `p1`, `p2` in arrow function have implicit `any` type (line 89)
-7. Parameters `a`, `b`, `c` in arrow function have implicit `any` type (line 102)
+**retrievers.ts issues:** 6. Parameters `p1`, `p2` in arrow function have implicit `any` type (line 89) 7. Parameters `a`, `b`, `c` in arrow function have implicit `any` type (line 102)
 
 **Architecture Note:**
 The user refactored Exercise into VisualExercise and IOExercise. The `availableFunctions` signature mismatch suggests DrawExercise may need special handling since drawing functions require parameters.
@@ -61,10 +59,12 @@ The user refactored Exercise into VisualExercise and IOExercise. The `availableF
 ### ✅ Phase 2: Sprouting Flower Exercise Files
 
 **Created:**
+
 1. ✅ Created `src/exercises/sprouting-flower/` directory
 2. ✅ Created `metadata.json` (2211 bytes) with full instructions and hints
 
 **Empty files (not started):**
+
 - `Exercise.ts` (0 bytes)
 - `scenarios.ts` (0 bytes)
 - `llm-metadata.ts` (0 bytes)
@@ -85,6 +85,7 @@ The user refactored Exercise into VisualExercise and IOExercise. The `availableF
 **Status:** ✅ All Jiki type conversions complete, ⚠️ Has compilation errors
 
 **Remaining fixes needed:**
+
 1. **Fix imports** - Correct the import paths for `InterpretResult`, `Shared`, type guards
 2. **Fix property initialization** - Add `!` assertions for `canvas` and `tooltip`
 3. **Fix method name** - Change `getCurrentTime()` to `getCurrentTimeInMs()`
@@ -98,11 +99,13 @@ The user refactored Exercise into VisualExercise and IOExercise. The `availableF
 5. **Add type annotations** in `checks.ts` and `retrievers.ts` for implicit `any` parameters
 
 **File to create:**
+
 - `src/exercises/DrawExercise/index.ts` - Export all public APIs
 
 ### Phase 2: Create SproutingFlowerExercise
 
 **File: `src/exercises/sprouting-flower/Exercise.ts`**
+
 ```typescript
 import { DrawExercise } from "../DrawExercise";
 import metadata from "./metadata.json";
@@ -143,6 +146,7 @@ export default class SproutingFlowerExercise extends DrawExercise {
 **File: `src/exercises/sprouting-flower/scenarios.ts`**
 
 Use `VisualScenario` type with shape retrieval in expectations:
+
 ```typescript
 expectations(exercise) {
   const ex = exercise as SproutingFlowerExercise;
@@ -160,6 +164,7 @@ expectations(exercise) {
 ```
 
 **Required validations (from bootcamp `config.json`):**
+
 1. First Flower Head: `circle(50, 89, 0.4)`
 2. Final Flower Head: `circle(50, 30, 24)`
 3. First Pistil: `circle(50, 89, 0.1)`
@@ -174,9 +179,11 @@ expectations(exercise) {
 ### Phase 4: Create Solutions
 
 **File: `src/exercises/sprouting-flower/solution.jiki`**
+
 - ⚠️ **CRITICAL**: Copy bootcamp `example.jiki` EXACTLY - do not modify
 
 **Files: `solution.javascript` and `solution.py`**
+
 - Convert using `.context/language-conversion.md`
 - Snake_case → camelCase for JS
 - Keep snake_case for Python
@@ -184,6 +191,7 @@ expectations(exercise) {
 ### Phase 5: Create Stubs
 
 Create starter code for all 3 languages with:
+
 - Initial variable setup comments
 - 60-iteration loop structure
 - Sky and ground drawing (already provided)
@@ -194,6 +202,7 @@ Create starter code for all 3 languages with:
 **File: `src/exercises/sprouting-flower/llm-metadata.ts`**
 
 Teaching guidance focusing on:
+
 - Variable relationships (everything calculated from flower center)
 - Incremental updates (flower_center_y decreases each iteration)
 - Mathematical relationships (stem_width = stem_height / 10)
@@ -202,6 +211,7 @@ Teaching guidance focusing on:
 ### Phase 7: Create Exercise Index
 
 **File: `src/exercises/sprouting-flower/index.ts`**
+
 - Import all solutions/stubs
 - Document drawing functions in `functions` array
 - Export `VisualExerciseDefinition`
@@ -209,11 +219,13 @@ Teaching guidance focusing on:
 ### Phase 8: Registrations
 
 1. **Exercise registry** (`src/exercises/index.ts`):
+
    ```typescript
    "sprouting-flower": () => import("./sprouting-flower")
    ```
 
 2. **LLM metadata registry** (`src/llm-metadata.ts`):
+
    ```typescript
    import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
    // ...
@@ -234,14 +246,17 @@ Teaching guidance focusing on:
 ## Known Issues to Resolve
 
 ### 1. ✅ DrawExercise.ts Type Conversions - COMPLETE
+
 **Status**: All `instanceof Jiki.*` converted to `isNumber()` type guards
 **Remaining**: Compilation errors (see Phase 1 above)
 
 ### 2. ⚠️ availableFunctions Signature Mismatch - RESOLVED
+
 **Problem**: Drawing functions need parameters but VisualExercise doesn't support them
 
 **Bootcamp Solution**:
 In bootcamp, the Exercise base class uses the `ExternalFunction` type from the interpreter:
+
 ```typescript
 // From bootcamp executor.ts
 export type ExternalFunction = {
@@ -259,24 +274,28 @@ The `func: Function` type is generic and accepts any function signature.
 
 **Jiki Curriculum Has This Too**:
 `@jiki/interpreters` exports `ExternalFunction` from `shared/interfaces.ts`:
+
 ```typescript
 export interface ExternalFunction {
   name: string;
-  func: Function;  // Same as bootcamp!
+  func: Function; // Same as bootcamp!
   description: string;
   arity?: Arity;
 }
 ```
 
 **Solution**:
+
 - Change VisualExercise to use `ExternalFunction` type from `@jiki/interpreters`
 - This matches bootcamp's pattern and supports parameterized functions
 - DrawExercise can then use the same type
 
 ### 3. ✅ Animation Methods - VERIFIED
+
 **Status**: `addAnimation()`, `animateIntoView()`, `animateOutOfView()` all exist in VisualExercise
 
 ### 4. ⚠️ random_number Function - COMMENTED OUT
+
 **Status**: Commented out, not needed for sprouting-flower
 **Future**: Would need language-specific constructor (jikiscript.Number, javascript.JSNumber, python.PyNumber)
 

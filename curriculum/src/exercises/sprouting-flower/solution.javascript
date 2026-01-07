@@ -28,14 +28,14 @@ for (let i = 0; i < 60; i = i + 1) {
   stemTop = flowerCenterY;
   stemHeight = groundTop - flowerCenterY;
   stemWidth = stemHeight / 10;
-  stemLeft = flowerCenterX - (stemWidth / 2);
+  stemLeft = flowerCenterX - stemWidth / 2;
 
-  leafTop = stemTop + (stemHeight / 2);
+  leafTop = stemTop + stemHeight / 2;
   leafXRadius = flowerRadius * 0.5;
   leafYRadius = flowerRadius * 0.2;
 
   leftLeafLeft = stemLeft - leafXRadius;
-  rightLeafLeft = stemLeft + stemWidth  + leafXRadius;
+  rightLeafLeft = stemLeft + stemWidth + leafXRadius;
 
   // Sky
   fillColorHex("#ADD8E6");

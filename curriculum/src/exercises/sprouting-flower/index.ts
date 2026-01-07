@@ -19,14 +19,12 @@ const functions: FunctionDoc[] = [
   },
   {
     name: "circle(x, y, radius)",
-    description:
-      "Draws a **circle** at center position (x, y) with the specified radius.",
+    description: "Draws a **circle** at center position (x, y) with the specified radius.",
     usage: "circle(50, 50, 10);"
   },
   {
     name: "ellipse(x, y, x_radius, y_radius)",
-    description:
-      "Draws an **ellipse** at center position (x, y) with the specified x_radius and y_radius.",
+    description: "Draws an **ellipse** at center position (x, y) with the specified x_radius and y_radius.",
     usage: "ellipse(50, 50, 20, 10);"
   },
   {

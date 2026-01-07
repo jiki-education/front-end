@@ -1,19 +1,13 @@
 def find_anagrams(target, possibilities):
-    lower_target = target.lower()
-    sorted_target = ''.join(sorted(lower_target))
+    target_lower = target.lower()
+    sorted_target = "".join(sorted(target_lower))
     results = []
 
-    for candidate in possibilities:
-        lower_candidate = candidate.lower()
+    for word in possibilities:
+        word_lower = word.lower()
+        if target_lower != word_lower:
+            sorted_word = "".join(sorted(word_lower))
+            if sorted_target == sorted_word:
+                results.append(word)
 
-        # Skip if it's the same word (case-insensitive)
-        if lower_target == lower_candidate:
-            continue
-
-        # Check if it's an anagram by comparing sorted versions
-        sorted_candidate = ''.join(sorted(lower_candidate))
-        if sorted_target == sorted_candidate:
-            results.append(candidate)
-
-    # Sort results alphabetically (case-insensitive)
-    return sorted(results, key=lambda x: x.lower())
+    return results
