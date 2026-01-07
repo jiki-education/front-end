@@ -9,33 +9,18 @@ import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import BadgesCssModule from "./BadgeCard.module.css";
-import { transformBadgeData } from "./lib/badgeTransforms";
 import { useBadgeActions } from "./lib/useBadgeActions";
 import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
 import { AchievementsErrorState } from "./ui/AchievementsErrorState";
-// Badge interface for component props
-export interface Badge {
-  id: string;
-  title: string;
-  subtitle: string;
-  iconSrc: string;
-  iconAlt: string;
-  state: "earned" | "locked";
-  color?: "pink" | "gold" | "purple" | "teal" | "blue" | "green";
-  isNew?: boolean;
-  date: string;
-}
 
 const tabs: TabItem[] = [
   { id: "badges", label: "Badges", color: "blue" },
   { id: "certificates", label: "Certificates", color: "purple" }
 ];
 
-
 export function AchievementsContent() {
   const [activeTab, setActiveTab] = useState("badges");
-  const [badges, setBadges] = useState<Badge[]>([]);
-  const [badgeApiData, setBadgeApiData] = useState<BadgeData[]>([]);
+  const [badges, setBadges] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,9 +29,7 @@ export function AchievementsContent() {
       try {
         setLoading(true);
         const response = await fetchBadges();
-        setBadgeApiData(response.badges);
-        const transformedBadges = response.badges.map(transformBadgeData);
-        setBadges(transformedBadges);
+        setBadges(response.badges);
       } catch (err) {
         console.error("Failed to fetch badges:", err);
         setError(err instanceof Error ? err.message : "Failed to load badges");
@@ -58,7 +41,7 @@ export function AchievementsContent() {
     void loadBadges();
   }, []);
 
-  const { handleBadgeClick } = useBadgeActions(badges, badgeApiData, setBadges);
+  const { handleBadgeClick } = useBadgeActions(badges, setBadges);
 
   if (loading) {
     return <AchievementsLoadingState />;

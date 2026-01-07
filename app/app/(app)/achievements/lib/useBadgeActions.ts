@@ -1,26 +1,21 @@
 import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
-import type { Badge } from "../AchievementsContent";
+import { isNewBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./badgeUtils";
 
-export function useBadgeActions(
-  badges: Badge[],
-  badgeApiData: BadgeData[],
-  setBadges: React.Dispatch<React.SetStateAction<Badge[]>>
-) {
+export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<React.SetStateAction<BadgeData[]>>) {
   const handleBadgeClick = async (badgeId: string) => {
-    const badge = badges.find((b) => b.id === badgeId);
-    const apiBadge = badgeApiData.find((b) => b.id.toString() === badgeId);
+    const badge = badges.find((b) => b.id.toString() === badgeId);
 
-    if (!badge || !apiBadge) {
+    if (!badge) {
       return;
     }
 
     // If badge is unrevealed (new), reveal it first
-    if (badge.isNew) {
+    if (isNewBadge(badge)) {
       try {
-        await revealBadge(parseInt(badgeId));
+        await revealBadge(badge.id);
         // Update local state to mark as revealed
-        setBadges((prev) => prev.map((b) => (b.id === badgeId ? { ...b, isNew: false } : b)));
+        setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
       } catch (err) {
         console.error("Failed to reveal badge:", err);
       }
@@ -28,17 +23,17 @@ export function useBadgeActions(
 
     // Create modal data from badge info with real stats
     const modalData = {
-      title: badge.title,
-      date: badge.date,
-      description: badge.subtitle,
-      stat: `${apiBadge.num_awardees} learners have earned this badge`,
-      color: badge.color as "pink" | "gold" | "purple" | "teal" | "blue",
-      icon: badge.iconSrc,
-      isNew: badge.isNew
+      title: badge.name,
+      date: getBadgeDate(badge),
+      description: badge.description,
+      stat: `${badge.num_awardees} learners have earned this badge`,
+      color: getBadgeColor(badge),
+      icon: getBadgeIconSrc(badge),
+      isNew: isNewBadge(badge)
     };
 
     // Use flip modal for new badges, regular modal for others
-    const modalType = badge.isNew ? "flip-badge-modal" : "badge-modal";
+    const modalType = isNewBadge(badge) ? "flip-badge-modal" : "badge-modal";
     showModal(modalType, { badgeData: modalData });
   };
 

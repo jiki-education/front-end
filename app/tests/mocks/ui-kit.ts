@@ -56,7 +56,7 @@ export function createMockFormFieldProps(overrides: Record<string, unknown> = {}
 export function createMockPageHeaderProps(overrides: Record<string, unknown> = {}) {
   return {
     title: "Test Page",
-    subtitle: "Test subtitle",
+    description: "Test description",
     icon: React.createElement(MockProjectsIcon, {} as any),
     ...overrides
   };

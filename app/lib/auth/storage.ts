@@ -23,7 +23,7 @@ export function parseJwtPayload(token: string): Record<string, any> | null {
     );
 
     return JSON.parse(jsonPayload);
-  } catch (error) {
+  } catch {
     return null;
   }
 }

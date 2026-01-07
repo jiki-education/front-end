@@ -4,6 +4,7 @@ import { hideModal } from "../store";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import styles from "./BadgeModal.module.css";
 import { useState } from "react";
+import Image from "next/image";
 
 interface FlipBadgeModalProps {
   badgeData: BadgeModalData;
@@ -31,7 +32,7 @@ export function FlipBadgeModal({ badgeData }: FlipBadgeModalProps) {
 
           {/* Badge Icon */}
           <div className={styles.flipModalIcon}>
-            <img src={imageSrc} alt={badgeData.title} onError={handleImageError} />
+            <Image src={imageSrc} alt={badgeData.title} width={80} height={80} onError={handleImageError} />
           </div>
 
           {/* Title and Date */}

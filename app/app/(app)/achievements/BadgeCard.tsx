@@ -1,30 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from "./BadgeCard.module.css";
 import { useState } from "react";
+import type { BadgeData } from "@/lib/api/badges";
+import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
-  badge: {
-    id: string;
-    title: string;
-    subtitle: string;
-    iconSrc: string;
-    iconAlt: string;
-    state: "earned" | "locked";
-    color?: "pink" | "gold" | "purple" | "teal" | "blue" | "green";
-    isNew?: boolean;
-    date: string;
-  };
+  badge: BadgeData;
   onClick?: (badgeId: string) => void;
 }
 
-const FALLBACK_IMAGE = "/static/About-Us-1--Streamline-Manila.png";
+const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
 
 export function BadgeCard({ badge, onClick }: BadgeCardProps) {
-  const [imageSrc, setImageSrc] = useState(badge.iconSrc);
+  const [imageSrc, setImageSrc] = useState(getBadgeIconSrc(badge));
   const [imageError, setImageError] = useState(false);
 
+  const isNew = isNewBadge(badge);
+  const isEarned = isEarnedBadge(badge);
+  const badgeDate = getBadgeDate(badge);
+  const badgeColor = getBadgeColor(badge);
+
   const handleClick = () => {
-    if (badge.state === "earned" && onClick) {
-      onClick(badge.id);
+    if (isEarned && onClick) {
+      onClick(badge.id.toString());
     }
   };
 
@@ -38,17 +36,15 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
   const getClassNames = () => {
     const classNames = [styles.badgeCard];
 
-    if (badge.state === "earned") {
+    if (isEarned) {
       classNames.push(styles.earned);
-      if (badge.color) {
-        classNames.push(styles[badge.color]);
-      }
-      if (badge.isNew) {
+      classNames.push(styles[badgeColor]);
+      if (isNew) {
         classNames.push(styles.new);
       }
     }
 
-    if (badge.state === "locked") {
+    if (!isEarned) {
       classNames.push(styles.locked);
     }
 
@@ -60,33 +56,33 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
       className={getClassNames()}
       data-type="achievement"
       onClick={handleClick}
-      style={{ cursor: badge.state === "earned" ? "pointer" : "default" }}
+      style={{ cursor: isEarned ? "pointer" : "default" }}
     >
-      {badge.isNew && badge.state === "earned" && <div className={styles.newRibbon}>NEW</div>}
+      {isNew && isEarned && <div className={styles.newRibbon}>NEW</div>}
 
-      {badge.state === "earned" && badge.isNew && (
+      {isEarned && isNew && (
         <>
           <div className={styles.cardBack}></div>
           <div className={styles.cardFront}>
             <div className={styles.shimmerOverlay}></div>
             <div className={styles.badgeIconWrapper}>
-              <img src={imageSrc} alt={badge.iconAlt} onError={handleImageError} />
+              <img src={imageSrc} alt={badge.name} onError={handleImageError} />
             </div>
-            <div className={styles.badgeTitle}>{badge.title}</div>
-            <div className={styles.badgeSubtitle}>{badge.subtitle}</div>
-            <div className={styles.badgeDate}>{badge.date}</div>
+            <div className={styles.badgeTitle}>{badge.name}</div>
+            <div className={styles.badgeSubtitle}>{badge.description}</div>
+            <div className={styles.badgeDate}>{badgeDate}</div>
           </div>
         </>
       )}
 
-      {(badge.state === "locked" || (badge.state === "earned" && !badge.isNew)) && (
+      {(!isEarned || !isNew) && (
         <>
           <div className={styles.badgeIconWrapper}>
-            <img src={imageSrc} alt={badge.iconAlt} onError={handleImageError} />
+            <img src={imageSrc} alt={badge.name} onError={handleImageError} />
           </div>
-          <div className={styles.badgeTitle}>{badge.title}</div>
-          <div className={styles.badgeSubtitle}>{badge.subtitle}</div>
-          <div className={styles.badgeDate}>{badge.date}</div>
+          <div className={styles.badgeTitle}>{badge.name}</div>
+          <div className={styles.badgeSubtitle}>{badge.description}</div>
+          <div className={styles.badgeDate}>{badgeDate}</div>
         </>
       )}
     </div>
