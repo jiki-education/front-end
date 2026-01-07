@@ -27,7 +27,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as SproutingFlowerExercise;
 
       // The retriever methods require InterpretResult as first param but don't use it
-      // Pass null as a placeholder
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = null as any;
 
       return [
@@ -100,7 +100,7 @@ export const scenarios: VisualScenario[] = [
           actual: ex.getEllipseAt(result, 65, 60, 12, 4.8) ? "found" : "not found",
           expected: "found",
           errorHtml: "The final Right Leaf isn't correct."
-        },
+        }
       ];
     }
   }

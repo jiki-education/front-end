@@ -12,7 +12,7 @@ export class Line extends Shape {
     public fillColor: Color,
     element: SVGElement
   ) {
-    super(element)
+    super(element);
   }
 }
 
@@ -26,7 +26,7 @@ export class Rectangle extends Shape {
     public fillColor: Color,
     element: SVGElement
   ) {
-    super(element)
+    super(element);
   }
 }
 
@@ -39,7 +39,7 @@ export class Circle extends Shape {
     public fillColor: Color,
     element: SVGElement
   ) {
-    super(element)
+    super(element);
   }
 }
 
@@ -53,7 +53,7 @@ export class Ellipse extends Shape {
     public fillColor: Color,
     element: SVGElement
   ) {
-    super(element)
+    super(element);
   }
 }
 
@@ -69,46 +69,47 @@ export class Triangle extends Shape {
     public fillColor: Color,
     element: SVGElement
   ) {
-    super(element)
+    super(element);
   }
 }
 
 export type Color =
-  | { type: 'hex'; color: string }
-  | { type: 'rgb'; color: [number, number, number] }
-  | { type: 'rgba'; color: [number, number, number, number] }
-  | { type: 'hsl'; color: [number, number, number] }
+  | { type: "hex"; color: string }
+  | { type: "rgb"; color: [number, number, number] }
+  | { type: "rgba"; color: [number, number, number, number] }
+  | { type: "hsl"; color: [number, number, number] };
 
-const svgNS = 'http://www.w3.org/2000/svg'
+const svgNS = "http://www.w3.org/2000/svg";
 
 function createSVG(children: SVGElement[]) {
-  const svg = document.createElementNS(svgNS, 'svg')
+  const svg = document.createElementNS(svgNS, "svg");
 
   // Create the SVG element
-  svg.setAttribute('viewBox', `0 0 100 100`) // Set viewBox for relative coordinates
-  svg.setAttribute('overflow', 'visible')
+  svg.setAttribute("viewBox", `0 0 100 100`); // Set viewBox for relative coordinates
+  svg.setAttribute("overflow", "visible");
 
-  svg.style.opacity = '0'
-  svg.id = 'svg-' + generateRandomId()
+  svg.style.opacity = "0";
+  svg.id = "svg-" + generateRandomId();
 
   // Add children
-  if (children) {
-    children.forEach((child: SVGElement) => svg.appendChild(child))
+  if (children.length > 0) {
+    children.forEach((child: SVGElement) => svg.appendChild(child));
   }
 
-  return svg
+  return svg;
 }
 
 function colorToString(color: Color) {
-  if (color.type === 'hex') {
-    return color.color
-  } else if (color.type === 'rgb') {
-    return 'rgb(' + color.color.join(',') + ')'
-  } else if (color.type === 'rgba') {
-    return 'rgba(' + color.color.join(',') + ')'
-  } else {
-    return `hsl(${color.color[0]}, ${color.color[1]}%, ${color.color[2]}%)`
+  if (color.type === "hex") {
+    return color.color;
   }
+  if (color.type === "rgb") {
+    return "rgb(" + color.color.join(",") + ")";
+  }
+  if (color.type === "rgba") {
+    return "rgba(" + color.color.join(",") + ")";
+  }
+  return `hsl(${color.color[0]}, ${color.color[1]}%, ${color.color[2]}%)`;
 }
 
 function createSVGElement(
@@ -118,15 +119,15 @@ function createSVGElement(
   strokeWidth: number,
   attrs: Record<string, string | number>
 ) {
-  const elem = document.createElementNS(svgNS, type)
-  elem.setAttribute('stroke', colorToString(strokeColor))
-  elem.setAttribute('stroke-width', strokeWidth.toString())
-  elem.setAttribute('fill', colorToString(fillColor))
+  const elem = document.createElementNS(svgNS, type);
+  elem.setAttribute("stroke", colorToString(strokeColor));
+  elem.setAttribute("stroke-width", strokeWidth.toString());
+  elem.setAttribute("fill", colorToString(fillColor));
 
   for (const key in attrs) {
-    elem.setAttribute(key, String(attrs[key]))
+    elem.setAttribute(key, String(attrs[key]));
   }
-  return elem
+  return elem;
 }
 export function line(
   x1: number,
@@ -138,14 +139,14 @@ export function line(
   strokeWidth: number,
   fillColor: Color
 ) {
-  const rect = createSVGElement('line', fillColor, strokeColor, strokeWidth, {
+  const rect = createSVGElement("line", fillColor, strokeColor, strokeWidth, {
     x1: x1.toString(),
     y1: y1.toString(),
     x2: x2.toString(),
-    y2: y2.toString(),
-  })
+    y2: y2.toString()
+  });
 
-  return createSVG([rect])
+  return createSVG([rect]);
 }
 
 export function rect(
@@ -157,14 +158,14 @@ export function rect(
   strokeWidth: number,
   fillColor: Color
 ) {
-  const rect = createSVGElement('rect', fillColor, strokeColor, strokeWidth, {
+  const rect = createSVGElement("rect", fillColor, strokeColor, strokeWidth, {
     x: x.toString(),
     y: y.toString(),
     width: width.toString(),
-    height: height.toString(),
-  })
+    height: height.toString()
+  });
 
-  return createSVG([rect])
+  return createSVG([rect]);
 }
 
 export function circle(
@@ -175,19 +176,13 @@ export function circle(
   strokeWidth: number,
   fillColor: Color
 ) {
-  const circle = createSVGElement(
-    'circle',
-    fillColor,
-    strokeColor,
-    strokeWidth,
-    {
-      cx: cx.toString(),
-      cy: cy.toString(),
-      r: radius.toString(),
-    }
-  )
+  const circle = createSVGElement("circle", fillColor, strokeColor, strokeWidth, {
+    cx: cx.toString(),
+    cy: cy.toString(),
+    r: radius.toString()
+  });
 
-  return createSVG([circle])
+  return createSVG([circle]);
 }
 
 export function ellipse(
@@ -199,20 +194,14 @@ export function ellipse(
   strokeWidth: number,
   fillColor: Color
 ) {
-  const ellipse = createSVGElement(
-    'ellipse',
-    fillColor,
-    strokeColor,
-    strokeWidth,
-    {
-      cx: cx.toString(),
-      cy: cy.toString(),
-      rx: rx.toString(),
-      ry: ry.toString(),
-    }
-  )
+  const ellipse = createSVGElement("ellipse", fillColor, strokeColor, strokeWidth, {
+    cx: cx.toString(),
+    cy: cy.toString(),
+    rx: rx.toString(),
+    ry: ry.toString()
+  });
 
-  return createSVG([ellipse])
+  return createSVG([ellipse]);
 }
 
 export function triangle(
@@ -226,18 +215,12 @@ export function triangle(
   strokeWidth: number,
   fillColor: Color
 ) {
-  const polygon = createSVGElement(
-    'polygon',
-    fillColor,
-    strokeColor,
-    strokeWidth,
-    {
-      points: `${x1},${y1} ${x2},${y2} ${x3},${y3}`,
-    }
-  )
-  return createSVG([polygon])
+  const polygon = createSVGElement("polygon", fillColor, strokeColor, strokeWidth, {
+    points: `${x1},${y1} ${x2},${y2} ${x3},${y3}`
+  });
+  return createSVG([polygon]);
 }
 
 function generateRandomId(): string {
-  return Math.random().toString(36).slice(2, 11)
+  return Math.random().toString(36).slice(2, 11);
 }

@@ -5,6 +5,7 @@ import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
 export abstract class VisualExercise {
   animations: Animation[] = [];
   view!: HTMLElement;
+  id!: string;
   protected abstract get slug(): string;
 
   abstract availableFunctions: ExternalFunction[];
@@ -12,6 +13,7 @@ export abstract class VisualExercise {
   abstract getState(): Record<string, number | string | boolean>;
 
   constructor() {
+    this.id = Math.random().toString(36).substring(2, 11);
     this.createView();
     this.populateView();
   }
@@ -25,44 +27,36 @@ export abstract class VisualExercise {
     document.body.appendChild(this.view);
   }
 
-  protected populateView() { }
+  protected populateView() {}
 
   getView(): HTMLElement {
     return this.view;
   }
 
   public addAnimation(animation: Animation) {
-    this.animations.push(animation)
+    this.animations.push(animation);
   }
 
-  public animateIntoView(
-    executionCtx: ExecutionContext,
-    targets: string,
-    options = { duration: 1, offset: 0 }
-  ) {
+  public animateIntoView(executionCtx: ExecutionContext, targets: string, options = { duration: 1, offset: 0 }) {
     this.addAnimation({
       targets,
       duration: options.duration,
       transformations: {
-        opacity: 1,
+        opacity: 1
       },
-      offset: executionCtx.getCurrentTimeInMs() + options.offset,
+      offset: executionCtx.getCurrentTimeInMs() + options.offset
     });
     executionCtx.fastForward(1);
   }
 
-  public animateOutOfView(
-    executionCtx: ExecutionContext,
-    targets: string,
-    options = { duration: 1, offset: 0 }
-  ) {
+  public animateOutOfView(executionCtx: ExecutionContext, targets: string, options = { duration: 1, offset: 0 }) {
     this.addAnimation({
       targets,
       duration: options.duration,
       transformations: {
-        opacity: 0,
+        opacity: 0
       },
-      offset: executionCtx.getCurrentTimeInMs() + options.offset,
+      offset: executionCtx.getCurrentTimeInMs() + options.offset
     });
     executionCtx.fastForward(1);
   }
@@ -86,4 +80,3 @@ export interface Animation {
     gridColumn?: number;
   };
 }
-
