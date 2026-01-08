@@ -1,0 +1,16 @@
+/* ============================================================================
+   BADGE CARD - MAIN MODULE
+   ============================================================================ */
+
+/* Import all badge card component styles */
+@import "./BadgeCard/Gallery.module.css";
+@import "./BadgeCard/BaseCard.module.css";
+@import "./BadgeCard/States.module.css";
+@import "./BadgeCard/ColorThemes.module.css";
+@import "./BadgeCard/CardStructure.module.css";
+@import "./BadgeCard/NewRibbon.module.css";
+@import "./BadgeCard/ShimmerEffects.module.css";
+@import "./BadgeCard/IconWrapper.module.css";
+@import "./BadgeCard/Typography.module.css";
+@import "./BadgeCard/NewBadgeBack.module.css";
+@import "./BadgeCard/Animations.module.css";

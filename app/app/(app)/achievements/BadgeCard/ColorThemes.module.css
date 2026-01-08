@@ -1,0 +1,27 @@
+/* ============================================================================
+   COLOR THEMES
+   ============================================================================ */
+
+.badgeCard.earned.blue {
+    border-color: #3b82f6;
+}
+
+.badgeCard.earned.gold:not(.new) {
+    border-color: #8b5cf6;
+}
+
+.badgeCard.earned.green {
+    border-color: #10b981;
+}
+
+.badgeCard.earned.pink {
+    border-color: #ec4899;
+}
+
+.badgeCard.earned.purple {
+    border-color: #8b5cf6;
+}
+
+.badgeCard.earned.teal {
+    border-color: #14b8a6;
+}

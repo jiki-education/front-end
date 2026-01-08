@@ -1,0 +1,52 @@
+/* ============================================================================
+   CARD STRUCTURE (for flipping new badges)
+   ============================================================================ */
+
+.cardBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.cardFront {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+/* New badge card front with flip animation */
+.badgeCard.new .cardFront,
+.badgeCard.new .card-front,
+.badge-card.new .card-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    border-radius: 14px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    transform-style: preserve-3d;
+    animation:
+        flipInFront 1.5s ease-out forwards,
+        cardPulseGold 0.4s ease-out 1.5s;
+    overflow: hidden;
+}

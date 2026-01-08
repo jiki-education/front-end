@@ -1,0 +1,24 @@
+/* ============================================================================
+   BASE BADGE CARD
+   ============================================================================ */
+
+.badgeCard {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid #e2e8f0;
+    height: 280px;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.badgeCard:hover {
+    transform: scale(1.05);
+}

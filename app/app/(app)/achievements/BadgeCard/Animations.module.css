@@ -1,0 +1,122 @@
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+@keyframes cardPulseGold {
+    0% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 20px rgba(245, 158, 11, 0);
+    }
+}
+
+@keyframes emphasize {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.25);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes flipInBack {
+    0% {
+        transform: rotateY(0deg);
+    }
+    60% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes flipInFront {
+    0% {
+        transform: rotateY(-180deg);
+    }
+    60% {
+        transform: rotateY(-180deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes iconGlow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(var(--glow-color), 0.2),
+            0 6px 20px rgba(var(--glow-color), 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(var(--glow-color), 0.4),
+            0 8px 30px rgba(var(--glow-color), 0.6),
+            0 0 40px rgba(var(--glow-color), 0.4);
+    }
+}
+
+@keyframes pulseBadge {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes shimmerFront {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes showRibbon {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes sparkle {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}

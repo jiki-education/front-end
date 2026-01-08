@@ -3,6 +3,7 @@
 import { BaseModal } from "./BaseModal";
 import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
+import badgeStyles from "./modals/BadgeModal.module.css";
 
 // TODO: Add support for non-dismissible modals
 // The GlobalErrorHandler passes dismissible: false for critical error modals,
@@ -28,6 +29,19 @@ export function GlobalModalProvider() {
   if (!ModalComponent) {
     console.warn(`Unknown modal name: ${modalName}`);
     return null;
+  }
+
+  // Badge modals render directly without BaseModal wrapper since they have custom styling
+  const isBadgeModal = modalName === "badge-modal" || modalName === "flip-badge-modal";
+
+  if (isBadgeModal) {
+    return (
+      <div className={badgeStyles.badgeModalOverlay} onClick={hideModal}>
+        <div onClick={(e) => e.stopPropagation()}>
+          <ModalComponent {...(modalProps as any)} />
+        </div>
+      </div>
+    );
   }
 
   // Pass modal props to the modal component

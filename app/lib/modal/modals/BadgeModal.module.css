@@ -1,0 +1,426 @@
+/* Badge Modal Overlay */
+.badgeModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+/* Badge Modal Styles */
+.modalContainer {
+    background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
+    border-radius: 28px;
+    max-width: 560px;
+    width: 90%;
+    position: relative;
+    animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modalHeader {
+    padding: 36px 40px 24px;
+    text-align: center;
+    position: relative;
+    background: transparent;
+    border-radius: 28px 28px 0 0;
+    flex-shrink: 0;
+}
+
+.modalBadgeIcon {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 6px solid;
+    background: white;
+    position: relative;
+}
+
+.modalBadgeIcon.green {
+    border-color: #10b981;
+    box-shadow:
+        0 0 0 5px rgba(16, 185, 129, 0.2),
+        0 10px 28px rgba(16, 185, 129, 0.4);
+}
+
+.modalBadgeIcon.blue {
+    border-color: #3b82f6;
+    box-shadow:
+        0 0 0 5px rgba(59, 130, 246, 0.2),
+        0 10px 28px rgba(59, 130, 246, 0.4);
+}
+
+.modalBadgeIcon.gold {
+    border-color: #f59e0b;
+    box-shadow:
+        0 0 0 5px rgba(245, 158, 11, 0.2),
+        0 10px 28px rgba(245, 158, 11, 0.4);
+}
+
+.modalBadgeIcon.pink {
+    border-color: #ec4899;
+    box-shadow:
+        0 0 0 5px rgba(236, 72, 153, 0.2),
+        0 10px 28px rgba(236, 72, 153, 0.4);
+}
+
+.modalBadgeIcon.purple {
+    border-color: #8b5cf6;
+    box-shadow:
+        0 0 0 5px rgba(139, 92, 246, 0.2),
+        0 10px 28px rgba(139, 92, 246, 0.4);
+}
+
+.modalBadgeIcon.teal {
+    border-color: #14b8a6;
+    box-shadow:
+        0 0 0 5px rgba(20, 184, 166, 0.2),
+        0 10px 28px rgba(20, 184, 166, 0.4);
+}
+
+.modalBadgeIcon img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.modalTitle {
+    font-size: 38px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: -6px;
+}
+
+.modalDate {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.modalBody {
+    padding: 0 40px 26px;
+    flex-shrink: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.modalDescription {
+    font-size: 18px;
+    color: white;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.modalStatBox {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 2px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modalStatLabel {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.modalStatValue {
+    font-size: 17px;
+    font-weight: 400;
+    color: white;
+    line-height: 1.4;
+}
+
+.modalButtonWrapper {
+    padding: 24px 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    border-radius: 0 0 24px 24px;
+}
+
+.closeButton {
+    width: 100%;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2570eb 100%);
+    color: white;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.closeButton:hover {
+    border-color: #2570eb;
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.2),
+        0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Flip Badge Modal Styles */
+.flipModalContainer {
+    perspective: 1000px;
+    width: 560px;
+    max-width: 90%;
+    height: auto;
+}
+
+.flipModalCard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    animation: growIn 0.4s ease-out;
+}
+
+@keyframes growIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.flipModalFront {
+    width: 100%;
+    border-radius: 28px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 40px;
+    text-align: center;
+    background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
+    z-index: 2;
+    position: relative;
+    overflow: hidden;
+}
+
+.flipModalFront::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 30%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 70%,
+        transparent 100%
+    );
+    animation: modalShimmer 3s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes modalShimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.flipModalNewTag {
+    display: inline-block;
+    background: #3b82f6;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 10;
+    border: none;
+}
+
+.flipModalIcon {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 5px solid #db2777;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow:
+        0 0 40px rgba(236, 72, 153, 0.6),
+        0 0 80px rgba(168, 85, 247, 0.4),
+        0 8px 32px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalIcon::before,
+.flipModalIcon::after {
+    content: "✨";
+    position: absolute;
+    font-size: 28px;
+    animation: modalSparkle 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.flipModalIcon::before {
+    top: -12px;
+    left: -12px;
+    animation-delay: 0s;
+}
+
+.flipModalIcon::after {
+    bottom: -12px;
+    right: -12px;
+    animation-delay: 1.5s;
+}
+
+@keyframes modalSparkle {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
+}
+
+.flipModalIcon img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.flipModalTitle {
+    font-size: 38px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: -6px;
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalDate {
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    background: transparent;
+    padding: 0;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalDescription {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 420px;
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalStatBox {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    padding: 20px 32px;
+    border-radius: 16px;
+    margin-bottom: 26px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalStatLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.flipModalStatValue {
+    font-size: 17px;
+    font-weight: 400;
+    color: white;
+}
+
+.flipModalButtonWrapper {
+    padding-top: 24px;
+    margin-top: auto;
+    width: calc(100% + 80px);
+    max-width: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: -40px;
+    margin-right: -40px;
+    margin-bottom: -48px;
+    padding: 24px 40px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 28px 28px;
+    position: relative;
+    z-index: 10;
+}
+
+.flipModalClose {
+    background: #3b82f6;
+    color: white;
+    border: 2px solid white;
+    padding: 18px 60px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+    width: 100%;
+}
+
+.flipModalClose:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+}

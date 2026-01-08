@@ -10,6 +10,8 @@ import { RateLimitModal } from "./RateLimitModal";
 import { SubscriptionModal } from "./SubscriptionModal";
 import { SubscriptionSuccessModal } from "./SubscriptionSuccessModal";
 import { SubscriptionCheckoutModal } from "./SubscriptionCheckoutModal";
+import { BadgeModal } from "./BadgeModal";
+import { FlipBadgeModal } from "./FlipBadgeModal";
 
 // Export all modals
 export {
@@ -24,7 +26,9 @@ export {
   RateLimitModal,
   SubscriptionModal,
   SubscriptionSuccessModal,
-  SubscriptionCheckoutModal
+  SubscriptionCheckoutModal,
+  BadgeModal,
+  FlipBadgeModal
 };
 
 // Available modals registry
@@ -40,5 +44,7 @@ export const availableModals = {
   "rate-limit-modal": RateLimitModal,
   "subscription-modal": SubscriptionModal,
   "subscription-success-modal": SubscriptionSuccessModal,
-  "subscription-checkout-modal": SubscriptionCheckoutModal
+  "subscription-checkout-modal": SubscriptionCheckoutModal,
+  "badge-modal": BadgeModal,
+  "flip-badge-modal": FlipBadgeModal
 };

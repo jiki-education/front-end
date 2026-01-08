@@ -1,0 +1,52 @@
+.certificatesEmptyState {
+    display: none;
+    min-height: 400px;
+    grid-column: 1 / -1;
+}
+
+.certificatesEmptyState.show {
+    display: block;
+}
+
+.emptyStateWrapper {
+    width: 100%;
+    padding: 105px 40px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(59, 130, 246, 0.04);
+}
+
+.emptyStateWrapper .iconCircle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+}
+
+.emptyStateWrapper .iconCircle svg {
+    width: 60px;
+    height: 60px;
+}
+
+.emptyStateWrapper h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 12px;
+}
+
+.emptyStateWrapper p {
+    font-size: 16px;
+    color: #64748b;
+    max-width: 480px;
+    line-height: 1.6;
+}

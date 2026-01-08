@@ -1,0 +1,38 @@
+/* ============================================================================
+   TYPOGRAPHY
+   ============================================================================ */
+
+.badgeTitle {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.badgeCard[data-type="certificate"] .badgeTitle {
+    font-size: 18px;
+}
+
+.badgeCard.certificate-suggested .badgeTitle {
+    color: #0f172a;
+}
+
+.badgeCard.locked .badgeTitle {
+    color: #94a3b8;
+}
+
+.badgeSubtitle {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.badgeDate {
+    font-size: 12px;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 12px;
+}

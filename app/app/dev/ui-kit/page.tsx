@@ -165,7 +165,7 @@ export default function UIKitDemoPage() {
             <p className="text-gray-600 text-sm mb-24">
               Standard page header with title and subtitle. Used at the top of main content areas.
             </p>
-            <PageHeader title="Dashboard" subtitle="Manage your account and settings" />
+            <PageHeader title="Dashboard" description="Manage your account and settings" icon={<span>📊</span>} />
           </div>
         </section>
 
