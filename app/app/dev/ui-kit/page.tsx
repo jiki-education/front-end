@@ -2,12 +2,6 @@
 
 import { Button, ButtonGroup, FormField, FormFieldGroup, PageHeader, PageTabs, Link } from "@/components/ui-kit";
 import { Icon } from "@/components/ui-kit/Icon";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Dev: UI Kit Demo - Jiki",
-  description: "Interactive demo of all UI kit components and their variants."
-};
 
 export default function UIKitDemoPage() {
   return (

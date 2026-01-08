@@ -147,6 +147,7 @@ This pattern makes components readable from high-level to low-level details.
 - **Mobile-first responsive design** with Tailwind
 - **Path alias** `@/*` maps to project root for clean imports
 - **Commit regularly** to save progress (but never on main branch)
+- **Never add metadata to `/dev` routes** - Development pages under `/dev/` use `"use client"` for interactive testing and cannot export metadata. Next.js does not allow metadata exports from client components.
 
 ### Static Assets Organization
 
