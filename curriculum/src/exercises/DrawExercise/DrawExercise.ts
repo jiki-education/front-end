@@ -28,6 +28,12 @@ export abstract class DrawExercise extends VisualExercise {
     super();
   }
 
+  protected createView() {
+    super.createView();
+    // Add the generic exercise-draw class for CSS styling
+    this.view.classList.add("exercise-draw");
+  }
+
   protected populateView() {
     Object.assign(this.view.style, {
       display: "none",

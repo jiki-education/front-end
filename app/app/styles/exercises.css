@@ -1,0 +1,16 @@
+/**
+ * Exercise-specific styles
+ *
+ * This file imports all exercise-specific CSS files.
+ * Each exercise has its own CSS file in the exercises/ directory.
+ */
+
+@import "./exercises/draw.css";
+@import "./exercises/maze.css";
+@import "./exercises/breakout.css";
+@import "./exercises/digital-clock.css";
+@import "./exercises/rock-paper-scissors.css";
+@import "./exercises/space-invaders.css";
+@import "./exercises/tic-tac-toe.css";
+@import "./exercises/weather.css";
+@import "./exercises/wordle.css";

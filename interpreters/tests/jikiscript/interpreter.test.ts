@@ -460,7 +460,7 @@ describe("timing", () => {
       expect(frames).toBeArrayOfSize(2);
       expect(frames[0].time).toBe(0);
       expect(frames[1].time).toBeCloseTo(1);
-      expect(frames[1].timeInMs).toBe(0); // 1 microsecond rounds to 0ms
+      expect(frames[1].timeInMs).toBeCloseTo(0.001); // 1 microsecond = 0.001ms (precise, not rounded)
     });
   });
 
@@ -487,9 +487,9 @@ describe("timing", () => {
       expect(frames).toBeArrayOfSize(3);
       expect(frames[0].time).toBe(0);
       expect(frames[1].time).toBeCloseTo(5001);
-      expect(frames[1].timeInMs).toBe(5); // 5001 microseconds rounds to 5ms
+      expect(frames[1].timeInMs).toBeCloseTo(5.001); // 5001 microseconds = 5.001ms (precise, not rounded)
       expect(frames[2].time).toBeCloseTo(5002);
-      expect(frames[2].timeInMs).toBe(5); // 5002 microseconds rounds to 5ms
+      expect(frames[2].timeInMs).toBeCloseTo(5.002); // 5002 microseconds = 5.002ms (precise, not rounded)
     });
 
     test("from user code is not possible", () => {

@@ -252,11 +252,8 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MyExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.position === 100,
-          actual: ex.position,
-          expected: 100,
-          errorHtml: "Expected position to be 100"
+          errorHtml: "Expected position to be 100, but got " + ex.position
         }
       ];
     }

@@ -458,7 +458,7 @@ export class Executor {
       result: result || undefined,
       error,
       time: this.time,
-      timeInMs: Math.round(this.time / TIME_SCALE_FACTOR),
+      timeInMs: this.time / TIME_SCALE_FACTOR,
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: {}, // JavaScript doesn't have external functions yet

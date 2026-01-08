@@ -1234,7 +1234,7 @@ export class Executor {
       // The interpeter time is in microseconds.
       // The timeInMs is in milliseconds for animations.
       time: this.time,
-      timeInMs: Math.round(this.time / TIME_SCALE_FACTOR),
+      timeInMs: this.time / TIME_SCALE_FACTOR,
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: this.externalFunctionDescriptions,
