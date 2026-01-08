@@ -8,12 +8,6 @@ import {
 import { useAuthStore } from "@/lib/auth/authStore";
 import { exercises } from "@jiki/curriculum";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Dev: LLM Chat Test - Jiki",
-  description: "Development page for testing LLM chat proxy with SSE streaming."
-};
 
 // Types
 interface ChatMessage {
