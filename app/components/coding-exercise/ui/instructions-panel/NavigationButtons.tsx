@@ -1,6 +1,6 @@
-import FileIcon from "@/icons/file.svg";
+import InstructionsIcon from "@/icons/instructions.svg";
 import FolderIcon from "@/icons/folder.svg";
-import ProjectIcon from "@/icons/projects.svg";
+import FunctionsIcon from "@/icons/functions.svg";
 import styles from "./instructions-panel.module.css";
 
 interface NavigationButtonsProps {
@@ -27,7 +27,7 @@ export default function NavigationButtons({
         }`}
         title="Instructions"
       >
-        <FileIcon width={16} height={16} />
+        <InstructionsIcon width={20} height={20} />
       </button>
       <button
         onClick={onNavigateToFunctions}
@@ -36,7 +36,7 @@ export default function NavigationButtons({
         }`}
         title="Functions"
       >
-        <ProjectIcon width={16} height={16} />
+        <FunctionsIcon width={20} height={20} />
       </button>
       <button
         onClick={onNavigateToConceptLibrary}
@@ -45,7 +45,7 @@ export default function NavigationButtons({
         }`}
         title="Concept Library"
       >
-        <FolderIcon width={16} height={16} />
+        <FolderIcon width={20} height={20} />
       </button>
     </div>
   );

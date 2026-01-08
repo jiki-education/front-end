@@ -27,16 +27,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 3px;
     background: linear-gradient(90deg, var(--color-blue-500) 0%, #ed4799 100%);
 }
 
 .expandedHeader {
-    padding: 1.5rem;
+    padding: 16px 32px;
 }
 
 .collapsedHeader {
-    padding: 1rem 1.5rem;
+    padding: 8px 32px;
 }
 
 .expandedGrid {
@@ -62,9 +62,9 @@
 }
 
 .exerciseInfoText {
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 500;
-    color: #8b5cf6;
+    color: #64748b;
 }
 
 .navigationButtonsExpanded {
@@ -72,9 +72,10 @@
 }
 
 .exerciseTitle {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--color-gray-900);
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
 }
 
 .collapsedGrid {
@@ -84,8 +85,8 @@
 }
 
 .sectionTitle {
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--color-gray-900);
 }
 
@@ -96,26 +97,41 @@
     gap: 0.5rem;
 }
 
-.navigationButton {
-    padding: 12px;
-    background-color: white;
-    border: 1px solid var(--color-gray-200);
+.navigationButtonActive {
+    border: 2px solid rgb(196, 181, 253);
+    color: rgb(124, 58, 237);
     border-radius: 8px;
-    transition: colors 0.2s;
-    cursor: pointer;
 }
 
 .collapsedHeader .navigationButton {
     padding: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    svg {
+        width: 16px;
+        height: 16px;
+    }
 }
 
-.navigationButtonActive {
-    background-color: #8b5cf6;
-    color: var(--color-purple-100);
+.navigationButton {
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: white;
+    transition: 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navigationButtonInactive {
     color: var(--color-gray-400);
+    border: 2px solid rgb(226, 232, 240);
 }
 
 .navigationButtonInactive:hover {

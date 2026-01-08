@@ -5,7 +5,7 @@
  * To regenerate manually: pnpm run icons:generate
  * Auto-regenerates during development via bin/dev watch mode
  *
- * Available icons: account-settings, all, bootcamp-cross-red, bootcamp-tick-green, bug, chevron-right, coding, complete, danger-settings, email, file, folder, globe, google, house, in-progress, jiki-logo, jiki-logo-collapsed, learning-settings, locked, medal, next, notifications-settings, open-book, password, play, privacy-settings, projects, quiz, readonly-lock, search, settings, subconcept, vercel, video, window
+ * Available icons: account-settings, all, bootcamp-cross-red, bootcamp-tick-green, bug, chat, chevron-right, coding, complete, danger-settings, email, file, folder, functions, globe, google, hamburger, hint, house, in-progress, instructions, jiki-logo, jiki-logo-collapsed, learning-settings, locked, log, medal, notifications-settings, open-book, password, play, privacy-settings, projects, quiz, readonly-lock, search, settings, subconcept, vercel, video, window
  */
 
 export type IconName =
@@ -14,6 +14,7 @@ export type IconName =
   | "bootcamp-cross-red"
   | "bootcamp-tick-green"
   | "bug"
+  | "chat"
   | "chevron-right"
   | "coding"
   | "complete"
@@ -21,16 +22,20 @@ export type IconName =
   | "email"
   | "file"
   | "folder"
+  | "functions"
   | "globe"
   | "google"
+  | "hamburger"
+  | "hint"
   | "house"
   | "in-progress"
+  | "instructions"
   | "jiki-logo"
   | "jiki-logo-collapsed"
   | "learning-settings"
   | "locked"
+  | "log"
   | "medal"
-  | "next"
   | "notifications-settings"
   | "open-book"
   | "password"
