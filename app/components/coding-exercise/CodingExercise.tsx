@@ -163,7 +163,7 @@ function CodingExerciseInner() {
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       <div className={styles.topBar}>
-        <div className={styles.logo}>{String(exerciseTitle)}</div>
+        <div className={styles.logo}>JIKI</div>
         <div className={styles.topBarActions}>
           {isExerciseCompleted && (
             <div className={styles.completedTag}>
