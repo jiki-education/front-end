@@ -6,14 +6,22 @@ import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import ConceptLibrary from "./ConceptLibrary";
 import { mockInstructionsData } from "./mockInstructionsData";
+import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
 
 interface InstructionsPanelProps {
   instructions: string;
+  functions: FunctionInfo[];
+  conceptSlugs?: string[];
   className?: string;
 }
 
-export default function InstructionsPanel({ instructions: _instructions, className = "" }: InstructionsPanelProps) {
+export default function InstructionsPanel({
+  instructions,
+  functions,
+  conceptSlugs: _conceptSlugs,
+  className = ""
+}: InstructionsPanelProps) {
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -113,16 +121,22 @@ export default function InstructionsPanel({ instructions: _instructions, classNa
       <div ref={scrollContainerRef} className={styles.scrollableContent}>
         {/* Instructions Section */}
         <div ref={instructionsRef}>
-          <InstructionsContent instructions={mockInstructionsData.instructions} />
+          <InstructionsContent instructions={instructions} />
         </div>
 
         {/* Functions Section */}
         <div ref={functionsRef}>
-          <FunctionsGrid functions={mockInstructionsData.functions} />
+          <FunctionsGrid functions={functions} />
         </div>
 
         {/* Concept Library Section */}
         <div ref={conceptLibraryRef}>
+          {/* TODO: Fetch concept data from API based on conceptSlugs
+              When conceptSlugs is provided, use fetchConcepts() from @/lib/api/concepts
+              to get full ConceptCardData for each slug. This should happen either:
+              1. In the Orchestrator during exercise initialization, OR
+              2. In this component using useEffect and async state
+              For now, using mock data as placeholder. */}
           <ConceptLibrary concepts={mockInstructionsData.conceptLibrary} />
         </div>
       </div>

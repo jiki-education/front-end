@@ -61,6 +61,7 @@ export default function IOTestRunnerPage() {
       instructions: "This is a test exercise for IO tests",
       estimatedMinutes: 5,
       levelId: "fundamentals",
+      functions: [],
       stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
       solutions: { javascript: "", python: "", jikiscript: "" },
       ExerciseClass: TestIOExercise,

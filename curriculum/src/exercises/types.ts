@@ -20,9 +20,12 @@ interface BaseExerciseDefinition {
   solutions: Record<Language, string>;
   stubs: Record<Language, string>;
 
+  // Documentation
+  functions: FunctionInfo[]; // Available functions for this exercise
+
   // Optional
   hints?: string[];
-  functions?: FunctionDoc[];
+  conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
 }
 
 // Visual exercises with animations and state checking
@@ -42,10 +45,12 @@ export interface IOExerciseDefinition extends BaseExerciseDefinition {
 // Discriminated union of exercise types
 export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition;
 
-export interface FunctionDoc {
+export interface FunctionInfo {
   name: string;
   description: string;
-  usage: string;
+  signature: string;
+  examples?: string[];
+  category: string;
 }
 
 export interface Task {

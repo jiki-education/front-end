@@ -1,7 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import type { IOExerciseDefinition, FunctionDoc } from "../types";
+import type { IOExerciseDefinition, FunctionInfo } from "../types";
 
 import solutionJavascript from "./solution.javascript";
 import solutionPython from "./solution.py";
@@ -10,16 +10,20 @@ import stubJavascript from "./stub.javascript";
 import stubPython from "./stub.py";
 import stubJikiscript from "./stub.jiki";
 
-const functions: FunctionDoc[] = [
+const functions: FunctionInfo[] = [
   {
-    name: "concatenate(a, b)",
+    name: "concatenate",
+    signature: "concatenate(a, b)",
     description: "Combine two strings together (provided by level stdlib)",
-    usage: 'concatenate("hello", "world") // returns "helloworld"'
+    examples: ['concatenate("hello", "world") → "helloworld"', 'concatenate("A", "B") → "AB"'],
+    category: "String Operations"
   },
   {
-    name: "to_upper_case(text)",
+    name: "to_upper_case",
+    signature: "to_upper_case(text)",
     description: "Convert a string to uppercase (provided by level stdlib)",
-    usage: 'to_upper_case("hello") // returns "HELLO"'
+    examples: ['to_upper_case("hello") → "HELLO"', 'to_upper_case("png") → "PNG"'],
+    category: "String Operations"
   }
 ];
 

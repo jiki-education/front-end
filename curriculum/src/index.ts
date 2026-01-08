@@ -9,7 +9,7 @@ export type { Language } from "./types";
 // Export all types needed by consumers
 export type {
   ExerciseDefinition,
-  FunctionDoc,
+  FunctionInfo,
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,

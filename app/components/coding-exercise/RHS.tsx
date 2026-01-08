@@ -58,9 +58,16 @@ export function RHS({ orchestrator }: RHSProps) {
 
   // Function to render content based on active tab
   const renderTabContent = () => {
+    const exercise = orchestrator.getExercise();
     switch (activeTab) {
       case "instructions":
-        return <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} />;
+        return (
+          <InstructionsPanel
+            instructions={orchestrator.getExerciseInstructions()}
+            functions={exercise.functions}
+            conceptSlugs={exercise.conceptSlugs}
+          />
+        );
       case "tasks":
         return <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />;
       case "functions":
@@ -72,7 +79,13 @@ export function RHS({ orchestrator }: RHSProps) {
       case "chat":
         return <ChatPanel />;
       default:
-        return <InstructionsPanel instructions={orchestrator.getExerciseInstructions()} />;
+        return (
+          <InstructionsPanel
+            instructions={orchestrator.getExerciseInstructions()}
+            functions={exercise.functions}
+            conceptSlugs={exercise.conceptSlugs}
+          />
+        );
     }
   };
 
