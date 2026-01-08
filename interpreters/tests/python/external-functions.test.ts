@@ -298,4 +298,94 @@ describe("Python External Functions", () => {
       );
     });
   });
+
+  describe("external function return values - native wrapping", () => {
+    it("returns native number, wrapped as PyNumber", () => {
+      const getNative: ExternalFunction = {
+        name: "get_native",
+        func: () => 42, // Native number
+        description: "returns native number",
+        arity: 0,
+      };
+
+      const result = interpret("x = get_native()", { externalFunctions: [getNative] });
+
+      expect(result.error).toBeNull();
+      expect(result.success).toBe(true);
+      const frame = result.frames.find(f => f.result?.jikiObject?.value === 42);
+      expect(frame?.result?.jikiObject?.value).toBe(42);
+      expect(frame?.result?.jikiObject?.type).toBe("number");
+    });
+
+    it("returns native string, wrapped as PyString", () => {
+      const getString: ExternalFunction = {
+        name: "get_string",
+        func: () => "hello", // Native string
+        description: "returns native string",
+        arity: 0,
+      };
+
+      const result = interpret("x = get_string()", { externalFunctions: [getString] });
+
+      expect(result.error).toBeNull();
+      expect(result.success).toBe(true);
+      const frame = result.frames.find(f => f.result?.jikiObject?.value === "hello");
+      expect(frame?.result?.jikiObject?.value).toBe("hello");
+      expect(frame?.result?.jikiObject?.type).toBe("string");
+    });
+
+    it("returns native list, wrapped as PyList", () => {
+      const getList: ExternalFunction = {
+        name: "get_list",
+        func: () => [1, 2, 3], // Native array
+        description: "returns native list",
+        arity: 0,
+      };
+
+      const result = interpret("x = get_list()", { externalFunctions: [getList] });
+
+      expect(result.error).toBeNull();
+      expect(result.success).toBe(true);
+      const frame = result.frames.find(f => {
+        const obj = f.result?.jikiObject;
+        return obj && "value" in obj && Array.isArray(obj.value);
+      });
+      expect(frame?.result?.jikiObject).toBeDefined();
+      expect(frame?.result?.jikiObject?.type).toBe("list");
+    });
+
+    it("returns undefined, wrapped as PyNone", () => {
+      const returnNothing: ExternalFunction = {
+        name: "return_nothing",
+        func: () => undefined,
+        description: "returns undefined",
+        arity: 0,
+      };
+
+      const result = interpret("x = return_nothing()", { externalFunctions: [returnNothing] });
+
+      expect(result.error).toBeNull();
+      expect(result.success).toBe(true);
+      const frame = result.frames.find(f => f.result?.jikiObject?.type === "none");
+      expect(frame?.result?.jikiObject?.type).toBe("none");
+      expect(frame?.result?.jikiObject?.value).toBeNull();
+    });
+
+    it("returns null, wrapped as PyNone", () => {
+      const returnNull: ExternalFunction = {
+        name: "return_null",
+        func: () => null,
+        description: "returns null",
+        arity: 0,
+      };
+
+      const result = interpret("x = return_null()", { externalFunctions: [returnNull] });
+
+      expect(result.error).toBeNull();
+      expect(result.success).toBe(true);
+      const frame = result.frames.find(f => f.result?.jikiObject?.type === "none");
+      expect(frame?.result?.jikiObject?.type).toBe("none");
+      expect(frame?.result?.jikiObject?.value).toBeNull();
+    });
+  });
 });

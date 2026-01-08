@@ -10,7 +10,7 @@ import type {
 } from "../evaluation-result";
 import { isNumber } from "../checks";
 import type { JikiObject } from "../jikiObjects";
-import { unwrapJikiObject } from "../jikiObjects";
+import { unwrapJikiObject, wrapJSToJikiObject } from "../jikiObjects";
 import type { Location } from "../location";
 import { CustomFunctionError } from "../interpreter";
 
@@ -65,7 +65,7 @@ export function executeFunctionCallExpression(
   guardArityOnCallExpression(executor, arity, args, expression.location, callee.name);
 
   const fnName = callee.name;
-  let value: JikiObject | void;
+  let returnedNativeValue: any | void;
 
   executor.addFunctionToCallStack(fnName, expression);
 
@@ -75,7 +75,7 @@ export function executeFunctionCallExpression(
     executor.addFunctionCallToLog(fnName, argResults);
 
     // Reset this so it's not used in functions
-    value = executor.withThis(null, () =>
+    returnedNativeValue = executor.withThis(null, () =>
       callee.function.call(
         executor.getExecutionContext(),
         args.map(arg => arg.jikiObject?.toArg())
@@ -98,7 +98,11 @@ export function executeFunctionCallExpression(
     executor.popCallStack();
   }
 
-  const jikiObject = value as JikiObject;
+  const jikiObject = (
+    returnedNativeValue !== undefined && returnedNativeValue !== null
+      ? wrapJSToJikiObject(returnedNativeValue)
+      : undefined
+  ) as JikiObject;
   return {
     type: "FunctionCallExpression",
     jikiObject: jikiObject,

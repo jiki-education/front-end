@@ -362,4 +362,98 @@ describe("JavaScript External Functions", () => {
       );
     });
   });
+
+  describe("external function return values - native wrapping", () => {
+    it("returns native number, wrapped as JSNumber", () => {
+      const externalFunction: ExternalFunction = {
+        name: "getNative",
+        func: () => 42, // Native number, not JSNumber(42)
+        description: "returns native number",
+        arity: 0,
+      };
+
+      const result = interpret("let x = getNative();", {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      expect(result.frames.length).toBeGreaterThan(0);
+      const frame = result.frames.find(f => f.result?.jikiObject?.value === 42);
+      expect(frame?.result?.jikiObject).toBeInstanceOf(JSNumber);
+      expect(frame?.result?.jikiObject?.value).toBe(42);
+    });
+
+    it("returns native string, wrapped as JSString", () => {
+      const externalFunction: ExternalFunction = {
+        name: "getString",
+        func: () => "hello", // Native string
+        description: "returns native string",
+        arity: 0,
+      };
+
+      const result = interpret("let x = getString();", {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      const frame = result.frames.find(f => f.result?.jikiObject?.value === "hello");
+      expect(frame?.result?.jikiObject).toBeInstanceOf(JSString);
+      expect(frame?.result?.jikiObject?.value).toBe("hello");
+    });
+
+    it("returns native array, wrapped as JSArray", () => {
+      const externalFunction: ExternalFunction = {
+        name: "getArray",
+        func: () => [1, 2, 3], // Native array
+        description: "returns native array",
+        arity: 0,
+      };
+
+      const result = interpret("let x = getArray();", {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      const frame = result.frames.find(f => {
+        const obj = f.result?.jikiObject;
+        return obj && "value" in obj && Array.isArray(obj.value);
+      });
+      expect(frame?.result?.jikiObject).toBeDefined();
+      expect(frame?.result?.jikiObject?.type).toBe("list");
+    });
+
+    it("returns undefined, wrapped as JSUndefined", () => {
+      const externalFunction: ExternalFunction = {
+        name: "returnNothing",
+        func: () => undefined,
+        description: "returns undefined",
+        arity: 0,
+      };
+
+      const result = interpret("let x = returnNothing();", {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      const frame = result.frames.find(f => f.result?.jikiObject?.type === "undefined");
+      expect(frame?.result?.jikiObject?.type).toBe("undefined");
+    });
+
+    it("returns null, wrapped as JSNull", () => {
+      const externalFunction: ExternalFunction = {
+        name: "returnNull",
+        func: () => null,
+        description: "returns null",
+        arity: 0,
+      };
+
+      const result = interpret("let x = returnNull();", {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      const frame = result.frames.find(f => f.result?.jikiObject?.type === "null");
+      expect(frame?.result?.jikiObject?.type).toBe("null");
+    });
+  });
 });
