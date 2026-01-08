@@ -101,7 +101,7 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 1,
             name: "First Steps",
-            icon: "first-steps.png",
+            icon: "test-icon-1",
             description: "Completed your first exercise",
             state: "revealed",
             num_awardees: 100,
@@ -110,7 +110,7 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 2,
             name: "Code Warrior",
-            icon: "code-warrior.png",
+            icon: "test-icon-2",
             description: "Completed 10 exercises",
             state: "unrevealed",
             num_awardees: 50,
@@ -119,7 +119,7 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 3,
             name: "Learning Journey",
-            icon: "learning.png",
+            icon: "test-icon-3",
             description: "Spent 5 hours learning",
             state: "locked",
             num_awardees: 25
@@ -144,7 +144,7 @@ async function setupBadgesMocks(page: Page) {
           badge: {
             id: 2,
             name: "Code Warrior",
-            icon: "code-warrior.png",
+            icon: "test-icon-2",
             description: "Completed 10 exercises",
             revealed: true,
             unlocked_at: "2024-01-02T00:00:00Z"
@@ -175,34 +175,39 @@ test.describe("Badge Reveal E2E", () => {
     const allBadges = page.locator('[data-type="achievement"]');
     await expect(allBadges).toHaveCount(3);
 
-    // Find an unrevealed badge by looking for one that has a "NEW" ribbon
-    const unrevealedBadge = page.locator('[data-type="achievement"]:has-text("NEW")').first();
+    // Find the Code Warrior badge specifically (we know from mock it should be unrevealed)
+    const codeWarriorBadge = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
 
-    // Ensure the unrevealed badge is visible
-    await unrevealedBadge.waitFor();
+    // Ensure the Code Warrior badge is visible
+    await codeWarriorBadge.waitFor();
 
     // Verify the badge has the NEW ribbon text (indicating it's unrevealed)
-    await expect(unrevealedBadge).toContainText("NEW");
+    await expect(codeWarriorBadge).toContainText("NEW");
 
     // Verify the badge name is "Code Warrior" as per our mock data
-    await expect(unrevealedBadge).toContainText("Code Warrior");
+    await expect(codeWarriorBadge).toContainText("Code Warrior");
 
-    // For now, let's just verify that the badge click does something
-    // We'll click it and see if any modal-related elements appear
+    // This is our unrevealed badge to click
+    const unrevealedBadge = codeWarriorBadge;
+
+    // Click the unrevealed badge to trigger the reveal
     await unrevealedBadge.click();
 
     // Wait a moment for any async operations
     await page.waitForTimeout(1000);
 
-    // Let's check if any modal appeared at all (various selectors)
+    // Verify that the Code Warrior badge no longer has the NEW ribbon
+    const codeWarriorAfterClick = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
+    const codeWarriorHasNew = await codeWarriorAfterClick.locator(':text("NEW")').count();
+    expect(codeWarriorHasNew).toBe(0);
+
+    // Verify that a modal appeared (which might have "New Badge!" text)
     const modalElements = await page
-      .locator('[class*="modal"], [data-modal], [class*="Modal"], [class*="overlay"], [class*="Overlay"]')
+      .locator('[class*="modal"], [data-modal], [class*="Modal"], [class*="BadgeModal"]')
       .count();
+    expect(modalElements).toBeGreaterThan(0);
 
-    // For debugging: let's just verify that we got this far
-    console.debug(`Found ${modalElements} potential modal elements after click`);
-
-    // Simplified assertion: after click, the badge should still exist
-    await expect(unrevealedBadge).toBeVisible();
+    // Verify the Code Warrior badge is still visible (just without NEW)
+    await expect(codeWarriorAfterClick).toBeVisible();
   });
 });
