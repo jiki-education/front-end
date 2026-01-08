@@ -6,19 +6,19 @@
     border-bottom: 1px solid var(--color-gray-200);
     display: flex;
     align-items: center;
-    padding: 12px 24px;
+    padding: 0 24px;
     gap: 24px;
     flex-shrink: 0;
 }
 
 .logo {
     font-size: 28px;
-    font-weight: 700;
     background: linear-gradient(135deg, var(--color-blue-400) 0%, var(--color-blue-600) 100%);
+    letter-spacing: 2px;
+    font-weight: 600;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: 2px;
 }
 
 .progressContainer {
