@@ -13,6 +13,7 @@ import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as basicMovementLLM } from "./exercises/basic-movement/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
+import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -28,7 +29,8 @@ const llmMetadataRegistry = {
   anagram: anagramLLM,
   "basic-movement": basicMovementLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
-  "sprouting-flower": sproutingFlowerLLM
+  "sprouting-flower": sproutingFlowerLLM,
+  penguin: penguinLLM
 } as const;
 
 /**

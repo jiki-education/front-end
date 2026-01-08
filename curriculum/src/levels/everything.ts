@@ -17,6 +17,7 @@ export const everythingLevel: Level = {
           "rectangle",
           "circle",
           "ellipse",
+          "triangle",
           "fill_color_hex"
         ]
       }
