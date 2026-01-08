@@ -99,6 +99,7 @@ export interface IOTestExpect {
   expected: IOExpectedValue;
   diff: Change[]; // Diff from 'diff' library
   matcher: string; // e.g., 'toBe', 'toEqual'
+  codeRun?: string; // The function call that was executed, for display
   errorHtml?: string;
 }
 

@@ -111,7 +111,6 @@ export function runIOScenario(
   const codeRun = `${scenario.functionName}(${argsStr})`;
 
   const expect: IOTestExpect = {
-    type: "io",
     pass,
     actual,
     expected: scenario.expected,

@@ -41,7 +41,6 @@ describe("InspectedIOTestResultView", () => {
   });
 
   const createMockExpect = (actual: any, expected: any): IOTestExpect => ({
-    type: "io",
     pass: actual === expected,
     actual,
     expected,
