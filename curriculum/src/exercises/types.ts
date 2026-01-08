@@ -62,7 +62,7 @@ export interface VisualScenario {
   name: string;
   description: string;
   taskId: string; // References the task this scenario belongs to
-  setup: (exercise: VisualExercise) => void;
+  setup?: (exercise: VisualExercise) => void;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
 
@@ -88,23 +88,17 @@ export type Scenario = VisualScenario | IOScenario;
 
 // Visual test expectation - for state checks in visual exercises
 export interface VisualTestExpect {
-  type: "visual";
   pass: boolean;
-  actual: string | number | boolean;
-  expected?: string | number | boolean;
   errorHtml?: string;
-  codeRun?: string;
 }
 
 // IO test expectation - for function return value checks
 export interface IOTestExpect {
-  type: "io";
   pass: boolean;
   actual: IOValue;
   expected: IOExpectedValue;
   diff: Change[]; // Diff from 'diff' library
   matcher: string; // e.g., 'toBe', 'toEqual'
-  codeRun?: string;
   errorHtml?: string;
 }
 

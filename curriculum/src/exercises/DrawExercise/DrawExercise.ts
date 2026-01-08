@@ -102,39 +102,39 @@ export abstract class DrawExercise extends VisualExercise {
   public getState() {
     return {};
   }
-  public numElements(_: InterpretResult) {
+  public numElements(): number {
     return this.shapes.length;
   }
-  public getLineAt(_: InterpretResult, x1: number, y1: number, x2: number, y2: number) {
-    return getLineAt(this.shapes, x1, y1, x2, y2);
+  public hasLineAt(x1: number, y1: number, x2: number, y2: number): boolean {
+    return getLineAt(this.shapes, x1, y1, x2, y2) !== undefined;
   }
-  public getRectangleAt(_: InterpretResult, x: number, y: number, width: number, height: number) {
-    return getRectangleAt(this.shapes, x, y, width, height);
+  public hasRectangleAt(x: number, y: number, width: number, height: number): boolean {
+    return getRectangleAt(this.shapes, x, y, width, height) !== undefined;
   }
-  public getCircleAt(_: InterpretResult, cx: number, cy: number, radius: number) {
-    return getCircleAt(this.shapes, cx, cy, radius);
+  public hasCircleAt(cx: number, cy: number, radius: number): boolean {
+    return getCircleAt(this.shapes, cx, cy, radius) !== undefined;
   }
-  public getEllipseAt(_: InterpretResult, x: number, y: number, rx: number, ry: number) {
-    return getEllipseAt(this.shapes, x, y, rx, ry);
+  public hasEllipseAt(x: number, y: number, rx: number, ry: number): boolean {
+    return getEllipseAt(this.shapes, x, y, rx, ry) !== undefined;
   }
-  public getTriangleAt(_: InterpretResult, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number) {
-    return getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3);
+  public hasTriangleAt(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): boolean {
+    return getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3) !== undefined;
   }
 
   // These all delegate to checks.
-  public checkUniqueColoredLines(_: InterpretResult, count: number) {
+  public checkUniqueColoredLines(count: number) {
     return checkUniqueColoredLines(this.shapes, count);
   }
 
-  public checkUniqueColoredRectangles(_: InterpretResult, count: number) {
+  public checkUniqueColoredRectangles(count: number) {
     return checkUniqueColoredRectangles(this.shapes, count);
   }
 
-  public checkUniqueColoredCircles(_: InterpretResult, count: number) {
+  public checkUniqueColoredCircles(count: number) {
     return checkUniqueColoredCircles(this.shapes, count);
   }
 
-  public checkCanvasCoverage(_: InterpretResult, requiredPercentage: number) {
+  public checkCanvasCoverage(requiredPercentage: number) {
     return checkCanvasCoverage(this.shapes, requiredPercentage);
   }
 

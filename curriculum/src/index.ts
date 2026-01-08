@@ -23,6 +23,7 @@ export type {
 } from "./exercises/types";
 
 // Export the base Exercise classes and Animation type
+export { Exercise } from "./Exercise";
 export { IOExercise } from "./IOExercise";
 export { VisualExercise, type Animation } from "./VisualExercise";
 

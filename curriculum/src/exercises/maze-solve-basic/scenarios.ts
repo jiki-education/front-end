@@ -42,17 +42,11 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MazeSolveBasicExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.characterRow === 6 && ex.characterCol === 6,
-          actual: `[${ex.characterRow}, ${ex.characterCol}]`,
-          expected: "[6, 6]",
           errorHtml: "You didn't reach the end of the maze."
         },
         {
-          type: "visual" as const,
           pass: ex.getGameResult() === "win",
-          actual: ex.getGameResult() ?? "playing",
-          expected: "win",
           errorHtml: "You didn't reach the end of the maze."
         }
       ];
@@ -87,17 +81,11 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MazeSolveBasicExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.characterRow === 6 && ex.characterCol === 6,
-          actual: `[${ex.characterRow}, ${ex.characterCol}]`,
-          expected: "[6, 6]",
           errorHtml: "You didn't reach the end of the maze."
         },
         {
-          type: "visual" as const,
           pass: ex.getGameResult() === "win",
-          actual: ex.getGameResult() ?? "playing",
-          expected: "win",
           errorHtml: "You didn't reach the end of the maze."
         }
       ];

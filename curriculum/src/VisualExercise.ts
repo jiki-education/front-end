@@ -1,11 +1,11 @@
 import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
+import { Exercise } from "./Exercise";
 
 // Base exercise class for visual exercises with animations and state
 
-export abstract class VisualExercise {
+export abstract class VisualExercise extends Exercise {
   animations: Animation[] = [];
   view!: HTMLElement;
-  id!: string;
   protected abstract get slug(): string;
 
   abstract availableFunctions: ExternalFunction[];
@@ -13,7 +13,7 @@ export abstract class VisualExercise {
   abstract getState(): Record<string, number | string | boolean>;
 
   constructor() {
-    this.id = Math.random().toString(36).substring(2, 11);
+    super();
     this.createView();
     this.populateView();
   }

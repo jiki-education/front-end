@@ -19,86 +19,48 @@ export const scenarios: VisualScenario[] = [
     description: "Take it one step at a time!",
     taskId: "draw-scene",
 
-    setup(_exercise) {
-      // No setup needed - this is a drawing exercise
-    },
-
     expectations(exercise) {
       const ex = exercise as SproutingFlowerExercise;
 
-      // The retriever methods require InterpretResult as first param but don't use it
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result = null as any;
-
       return [
         {
-          type: "visual" as const,
-          pass: ex.getCircleAt(result, 50, 89, 0.4) !== undefined,
-          actual: ex.getCircleAt(result, 50, 89, 0.4) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasCircleAt(50, 89, 0.4),
           errorHtml: "The first Flower Head isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getCircleAt(result, 50, 30, 24) !== undefined,
-          actual: ex.getCircleAt(result, 50, 30, 24) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasCircleAt(50, 30, 24),
           errorHtml: "The final Flower Head isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getCircleAt(result, 50, 89, 0.1) !== undefined,
-          actual: ex.getCircleAt(result, 50, 89, 0.1) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasCircleAt(50, 89, 0.1),
           errorHtml: "The first Pistil isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getCircleAt(result, 50, 30, 6) !== undefined,
-          actual: ex.getCircleAt(result, 50, 30, 6) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasCircleAt(50, 30, 6),
           errorHtml: "The final Pistil isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getRectangleAt(result, 49.95, 89, 0.1, 1) !== undefined,
-          actual: ex.getRectangleAt(result, 49.95, 89, 0.1, 1) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasRectangleAt(49.95, 89, 0.1, 1),
           errorHtml: "The first Stem isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getRectangleAt(result, 47, 30, 6, 60) !== undefined,
-          actual: ex.getRectangleAt(result, 47, 30, 6, 60) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasRectangleAt(47, 30, 6, 60),
           errorHtml: "The final Stem isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getEllipseAt(result, 49.75, 89.5, 0.2, 0.08) !== undefined,
-          actual: ex.getEllipseAt(result, 49.75, 89.5, 0.2, 0.08) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasEllipseAt(49.75, 89.5, 0.2, 0.08),
           errorHtml: "The first Left Leaf isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getEllipseAt(result, 35, 60, 12, 4.8) !== undefined,
-          actual: ex.getEllipseAt(result, 35, 60, 12, 4.8) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasEllipseAt(35, 60, 12, 4.8),
           errorHtml: "The final Left Leaf isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getEllipseAt(result, 50.25, 89.5, 0.2, 0.08) !== undefined,
-          actual: ex.getEllipseAt(result, 50.25, 89.5, 0.2, 0.08) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasEllipseAt(50.25, 89.5, 0.2, 0.08),
           errorHtml: "The first Right Leaf isn't correct."
         },
         {
-          type: "visual" as const,
-          pass: ex.getEllipseAt(result, 65, 60, 12, 4.8) !== undefined,
-          actual: ex.getEllipseAt(result, 65, 60, 12, 4.8) ? "found" : "not found",
-          expected: "found",
+          pass: ex.hasEllipseAt(65, 60, 12, 4.8),
           errorHtml: "The final Right Leaf isn't correct."
         }
       ];

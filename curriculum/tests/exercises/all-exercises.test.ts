@@ -62,7 +62,7 @@ describe("All Exercises - Solution Validation", () => {
           const failureMessages = failures.map((f) => {
             const expectFailures = f.expects
               .filter((e) => !e.pass)
-              .map((e) => `  - Expected: ${e.expected}, Got: ${e.actual}`)
+              .map((e) => (e.errorHtml !== undefined && e.errorHtml !== "" ? `  - ${e.errorHtml}` : "  - Test failed"))
               .join("\n");
 
             return `Scenario "${f.name}" (${f.slug}) failed:\n${expectFailures}`;
