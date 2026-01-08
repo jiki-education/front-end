@@ -32,23 +32,22 @@ export default function DynamicHeader({
     <div className={`${styles.dynamicHeader} ${isExpanded ? styles.expandedHeader : styles.collapsedHeader}`}>
       {isExpanded ? (
         /* Expanded Header */
-        <div className={styles.expandedGrid}>
-          {/* Exercise Icon - spans 2 rows */}
-          <div className={styles.exerciseIcon}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-16">
             <Image
               src={exerciseData.icon}
               alt="Exercise Icon"
-              width={64}
-              height={64}
+              width={80}
+              height={80}
               className={styles.exerciseIconImage}
             />
-          </div>
 
-          {/* Top row: Exercise info */}
-          <div className={styles.exerciseInfo}>
-            <p className={styles.exerciseInfoText}>
-              Exercise {exerciseData.progress} - {exerciseData.level}
-            </p>
+            <div className="flex flex-col gap-4">
+              <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
+              <p className={styles.exerciseInfoText}>
+                Exercise {exerciseData.progress} • {exerciseData.level}
+              </p>
+            </div>
           </div>
 
           {/* Navigation buttons - center aligned */}
@@ -61,9 +60,6 @@ export default function DynamicHeader({
           />
 
           {/* Bottom row: Exercise title */}
-          <div>
-            <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
-          </div>
         </div>
       ) : (
         /* Collapsed Header */

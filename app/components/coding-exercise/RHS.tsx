@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { PageTabs } from "@/components/ui-kit/PageTabs/PageTabs";
-import FileIcon from "@/icons/file.svg";
-import CompleteIcon from "@/icons/complete.svg";
-import FolderIcon from "@/icons/folder.svg";
-import BugIcon from "@/icons/bug.svg";
-import WindowIcon from "@/icons/window.svg";
-import EmailIcon from "@/icons/email.svg";
+import HamburgerIcon from "@/icons/hamburger.svg";
+import HintIcon from "@/icons/hint.svg";
+import LogIcon from "@/icons/log.svg";
+import ChatIcon from "@/icons/chat.svg";
 import ChatPanel from "./ui/ChatPanel";
 import FunctionsView from "./ui/FunctionsView";
 import HintsView from "./ui/HintsView";
@@ -27,32 +25,22 @@ export function RHS({ orchestrator }: RHSProps) {
     {
       id: "instructions",
       label: "Instructions",
-      icon: <FileIcon width={18} height={18} className="mr-2" />
+      icon: <HamburgerIcon width={18} height={18} className="mr-2" />
     },
     {
-      id: "tasks",
-      label: "Tasks",
-      icon: <CompleteIcon width={18} height={18} className="mr-2" />
+      id: "chat",
+      label: "Talk to Jiki",
+      icon: <ChatIcon width={18} height={18} className="mr-2" />
     },
     {
-      id: "functions",
-      label: "Functions",
-      icon: <FolderIcon width={18} height={18} className="mr-2" />
+      id: "console",
+      label: "Log",
+      icon: <LogIcon width={18} height={18} className="mr-2" />
     },
     {
       id: "hints",
       label: "Hints",
-      icon: <BugIcon width={18} height={18} className="mr-2" />
-    },
-    {
-      id: "console",
-      label: "Console",
-      icon: <WindowIcon width={18} height={18} className="mr-2" />
-    },
-    {
-      id: "chat",
-      label: "Chat",
-      icon: <EmailIcon width={18} height={18} className="mr-2" />
+      icon: <HintIcon width={18} height={18} className="mr-2" />
     }
   ];
 
@@ -91,9 +79,7 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <div className="p-4">
-        <PageTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
-      </div>
+      <PageTabs className="py-[3px] px-[32px]" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
       <div className="flex-1 overflow-auto">{renderTabContent()}</div>
     </div>
   );
