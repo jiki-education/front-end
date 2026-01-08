@@ -1,0 +1,35 @@
+/* ============================================================================
+   BADGE CARD STATES
+   ============================================================================ */
+
+/* Earned badges */
+.badgeCard.earned {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-width: 3px;
+}
+
+/* New badges */
+.badgeCard.new,
+.badge-card.new {
+    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
+    border: 3px solid #f59e0b !important;
+    perspective: 1000px;
+    position: relative;
+}
+
+.badgeCard.new:hover {
+    transform: scale(1.05);
+}
+
+/* Locked badges */
+.badgeCard.locked {
+    opacity: 0.6;
+    background: #f8fafc;
+    position: relative;
+    border-style: dotted;
+}
+
+.badgeCard.locked:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
