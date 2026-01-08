@@ -1,3 +1,7 @@
+/* ============================================================================
+   GALLERY LAYOUT
+   ============================================================================ */
+
 .badgesGallery {
     flex: 1;
     display: grid;
@@ -5,7 +9,6 @@
     gap: 20px;
 }
 
-/* Responsive grid - snap to fewer columns at higher breakpoints */
 @media (min-width: 768px) {
     .badgesGallery {
         grid-template-columns: repeat(2, 1fr);
@@ -18,7 +21,10 @@
     }
 }
 
-/* Base badge card styles */
+/* ============================================================================
+   BASE BADGE CARD
+   ============================================================================ */
+
 .badgeCard {
     background: white;
     border-radius: 16px;
@@ -40,16 +46,45 @@
     transform: scale(1.05);
 }
 
-/* Earned badge styles */
+/* ============================================================================
+   BADGE CARD STATES
+   ============================================================================ */
+
+/* Earned badges */
 .badgeCard.earned {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border-width: 3px;
 }
 
-/* Color themes for earned badges */
-.badgeCard.earned.green {
-    border-color: #10b981;
+/* New badges */
+.badgeCard.new,
+.badge-card.new {
+    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
+    border: 3px solid #f59e0b !important;
+    perspective: 1000px;
+    position: relative;
 }
+
+.badgeCard.new:hover {
+    transform: scale(1.05);
+}
+
+/* Locked badges */
+.badgeCard.locked {
+    opacity: 0.6;
+    background: #f8fafc;
+    position: relative;
+    border-style: dotted;
+}
+
+.badgeCard.locked:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* ============================================================================
+   COLOR THEMES
+   ============================================================================ */
 
 .badgeCard.earned.blue {
     border-color: #3b82f6;
@@ -57,6 +92,10 @@
 
 .badgeCard.earned.gold:not(.new) {
     border-color: #8b5cf6;
+}
+
+.badgeCard.earned.green {
+    border-color: #10b981;
 }
 
 .badgeCard.earned.pink {
@@ -71,105 +110,10 @@
     border-color: #14b8a6;
 }
 
-/* New badge special styling */
-.badgeCard.new {
-    background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
-    border: 3px solid #f59e0b !important;
-}
+/* ============================================================================
+   CARD STRUCTURE (for flipping new badges)
+   ============================================================================ */
 
-.badgeCard.new:hover {
-    transform: scale(1.05);
-}
-
-/* Locked badge styles */
-.badgeCard.locked {
-    opacity: 0.6;
-    background: #f8fafc;
-    position: relative;
-    border-style: dotted;
-}
-
-.badgeCard.locked:hover {
-    opacity: 1;
-    transform: scale(1.05);
-}
-
-/* Position NEW ribbon relative to card - outside of card-front to avoid clipping */
-.badgeCard.new .newRibbon {
-    position: absolute;
-    top: -10px;
-    right: 12px;
-    z-index: 50;
-    opacity: 0;
-    animation: showRibbon 0.3s ease-out 1.5s forwards;
-}
-
-@keyframes showRibbon {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Overflow hidden on card-front for shimmer */
-.badgeCard.new .cardFront {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
-    border-radius: 14px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 20px;
-    transform-style: preserve-3d;
-    animation:
-        flipInFront 1.5s ease-out forwards,
-        cardPulseGold 0.4s ease-out 1.5s;
-    overflow: hidden;
-}
-
-/* NEW Badge Ribbon */
-.newRibbon {
-    position: absolute;
-    top: -10px;
-    right: 12px;
-    background: #3b82f6;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    z-index: 10;
-    animation: pulseBadge 2s ease-in-out infinite;
-}
-
-@keyframes pulseBadge {
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    }
-    50% {
-        transform: scale(1.1);
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
-    }
-}
-
-/* Card structure for new badges */
 .cardBack {
     position: absolute;
     top: 0;
@@ -193,6 +137,63 @@
     background: transparent;
 }
 
+/* New badge card front with flip animation */
+.badgeCard.new .cardFront,
+.badgeCard.new .card-front,
+.badge-card.new .card-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    border-radius: 14px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    transform-style: preserve-3d;
+    animation:
+        flipInFront 1.5s ease-out forwards,
+        cardPulseGold 0.4s ease-out 1.5s;
+    overflow: hidden;
+}
+
+/* ============================================================================
+   NEW BADGE RIBBON
+   ============================================================================ */
+
+.newRibbon {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: #3b82f6;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    z-index: 10;
+    animation: pulseBadge 2s ease-in-out infinite;
+}
+
+.badgeCard.new .newRibbon {
+    z-index: 50;
+    opacity: 0;
+    animation: showRibbon 0.3s ease-out 1.5s forwards;
+}
+
+/* ============================================================================
+   SHIMMER EFFECTS
+   ============================================================================ */
+
 .shimmerOverlay {
     position: absolute;
     top: 0;
@@ -204,22 +205,9 @@
     border-radius: 16px;
 }
 
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-/* New badge shimmer overlay */
 .badgeCard.new .shimmerOverlay {
-    position: absolute;
     top: 0;
     left: -100%;
-    width: 100%;
-    height: 100%;
     background: linear-gradient(
         120deg,
         transparent 0%,
@@ -234,16 +222,10 @@
     border-radius: 14px;
 }
 
-@keyframes shimmerFront {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 100%;
-    }
-}
+/* ============================================================================
+   BADGE ICON WRAPPER
+   ============================================================================ */
 
-/* Badge content styles */
 .badgeIconWrapper {
     width: 80px;
     height: 80px;
@@ -264,37 +246,7 @@
     object-fit: contain;
 }
 
-/* New badge glow animations */
-.badgeCard.earned.new .badgeIconWrapper {
-    --glow-color: 245, 158, 11; /* Default gold */
-    animation: iconGlow 2s ease-in-out infinite;
-}
-
-.badgeCard.earned.new.pink .badgeIconWrapper {
-    --glow-color: 236, 72, 153;
-}
-
-@keyframes iconGlow {
-    0%,
-    100% {
-        box-shadow:
-            0 0 0 3px rgba(var(--glow-color), 0.2),
-            0 6px 20px rgba(var(--glow-color), 0.3);
-    }
-    50% {
-        box-shadow:
-            0 0 0 6px rgba(var(--glow-color), 0.4),
-            0 8px 30px rgba(var(--glow-color), 0.6),
-            0 0 40px rgba(var(--glow-color), 0.4);
-    }
-}
-
-/* Earned badge styles with colored rings */
-.badgeCard.earned.green .badgeIconWrapper {
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-}
-
+/* Icon wrapper color themes */
 .badgeCard.earned.blue .badgeIconWrapper {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
@@ -303,6 +255,11 @@
 .badgeCard.earned.gold .badgeIconWrapper {
     border-color: #f59e0b;
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.badgeCard.earned.green .badgeIconWrapper {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 .badgeCard.earned.pink .badgeIconWrapper {
@@ -320,12 +277,34 @@
     box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
 }
 
-/* Glow effect for NEW badge icons */
+/* Locked badge icon styles */
+.badgeCard.locked .badgeIconWrapper {
+    background: #f1f5f9;
+    border-color: #cbd5e0;
+}
+
+.badgeCard.locked .badgeIconWrapper img {
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
+/* ============================================================================
+   NEW BADGE GLOW & SPARKLE EFFECTS
+   ============================================================================ */
+
 .badgeCard.earned.new .badgeIconWrapper {
+    --glow-color: 245, 158, 11;
     animation: iconGlow 2s ease-in-out infinite;
 }
 
-/* Sparkle effect for NEW badges */
+.badgeCard.earned.new.blue .badgeIconWrapper {
+    --glow-color: 59, 130, 246;
+}
+
+.badgeCard.earned.new.pink .badgeIconWrapper {
+    --glow-color: 236, 72, 153;
+}
+
 .badgeCard.earned.new .badgeIconWrapper::before,
 .badgeCard.earned.new .badgeIconWrapper::after {
     content: "✨";
@@ -346,28 +325,15 @@
     animation-delay: 1s;
 }
 
-@keyframes sparkle {
-    0%,
-    100% {
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1) rotate(180deg);
-    }
+/* New badge emphasis after flip */
+.badgeCard.new .badgeIconWrapper {
+    animation: emphasize 0.6s ease-out 1.5s;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
-/* Locked badge icon styles */
-.badgeCard.locked .badgeIconWrapper {
-    background: #f1f5f9;
-    border-color: #cbd5e0;
-}
-
-.badgeCard.locked .badgeIconWrapper img {
-    opacity: 0.4;
-    filter: grayscale(100%);
-}
+/* ============================================================================
+   TYPOGRAPHY
+   ============================================================================ */
 
 .badgeTitle {
     font-size: 17px;
@@ -377,16 +343,16 @@
     line-height: 1.2;
 }
 
-.badgeCard.locked .badgeTitle {
-    color: #94a3b8;
+.badgeCard[data-type="certificate"] .badgeTitle {
+    font-size: 18px;
 }
 
 .badgeCard.certificate-suggested .badgeTitle {
     color: #0f172a;
 }
 
-.badgeCard[data-type="certificate"] .badgeTitle {
-    font-size: 18px;
+.badgeCard.locked .badgeTitle {
+    color: #94a3b8;
 }
 
 .badgeSubtitle {
@@ -404,7 +370,10 @@
     margin-top: 12px;
 }
 
-.badgeCard.new .cardBack {
+/* New badge card back with lock icon */
+.badgeCard.new .cardBack,
+.badgeCard.new .card-back,
+.badge-card.new .card-back {
     position: absolute;
     top: 0;
     left: 0;
@@ -423,7 +392,9 @@
     animation: flipInBack 1.5s ease-out forwards;
 }
 
-.badgeCard.new .cardBack::before {
+.badgeCard.new .cardBack::before,
+.badgeCard.new .card-back::before,
+.badge-card.new .card-back::before {
     content: "";
     position: absolute;
     width: 48px;
@@ -434,7 +405,9 @@
     background-size: contain;
 }
 
-.badgeCard.new .cardBack::after {
+.badgeCard.new .cardBack::after,
+.badgeCard.new .card-back::after,
+.badge-card.new .card-back::after {
     content: "";
     position: absolute;
     top: 0;
@@ -452,43 +425,17 @@
     animation: shimmer 1s ease-in-out infinite;
 }
 
-@keyframes shimmer {
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+@keyframes cardPulseGold {
     0% {
-        left: -100%;
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
     }
     100% {
-        left: 100%;
+        box-shadow: 0 0 0 20px rgba(245, 158, 11, 0);
     }
-}
-
-@keyframes flipInFront {
-    0% {
-        transform: rotateY(-180deg);
-    }
-    60% {
-        transform: rotateY(-180deg);
-    }
-    100% {
-        transform: rotateY(0deg);
-    }
-}
-
-@keyframes flipInBack {
-    0% {
-        transform: rotateY(0deg);
-    }
-    60% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(180deg);
-    }
-}
-
-/* Emphasis effect after card flips */
-.badgeCard.new .badgeIconWrapper {
-    animation: emphasize 0.6s ease-out 1.5s;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes emphasize {
@@ -509,15 +456,94 @@
     }
 }
 
-@keyframes cardPulseGold {
+@keyframes flipInBack {
     0% {
-        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+        transform: rotateY(0deg);
+    }
+    60% {
+        transform: rotateY(0deg);
     }
     100% {
-        box-shadow: 0 0 0 20px rgba(245, 158, 11, 0);
+        transform: rotateY(180deg);
     }
 }
 
-.badgeCard.earned.new.blue .badgeIconWrapper {
-    --glow-color: 59, 130, 246;
+@keyframes flipInFront {
+    0% {
+        transform: rotateY(-180deg);
+    }
+    60% {
+        transform: rotateY(-180deg);
+    }
+    100% {
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes iconGlow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 3px rgba(var(--glow-color), 0.2),
+            0 6px 20px rgba(var(--glow-color), 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(var(--glow-color), 0.4),
+            0 8px 30px rgba(var(--glow-color), 0.6),
+            0 0 40px rgba(var(--glow-color), 0.4);
+    }
+}
+
+@keyframes pulseBadge {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes shimmerFront {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes showRibbon {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes sparkle {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
 }
