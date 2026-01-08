@@ -1,4 +1,5 @@
-import type { IOExercise, VisualExercise } from "../Exercise";
+import type { IOExercise } from "../IOExercise";
+import type { VisualExercise } from "../VisualExercise";
 import type { LevelId } from "../levels";
 import type { Change } from "diff";
 import type { Language } from "../types";
@@ -19,9 +20,12 @@ interface BaseExerciseDefinition {
   solutions: Record<Language, string>;
   stubs: Record<Language, string>;
 
+  // Documentation
+  functions: FunctionInfo[]; // Available functions for this exercise
+
   // Optional
   hints?: string[];
-  functions?: FunctionDoc[];
+  conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
 }
 
 // Visual exercises with animations and state checking
@@ -41,10 +45,12 @@ export interface IOExerciseDefinition extends BaseExerciseDefinition {
 // Discriminated union of exercise types
 export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition;
 
-export interface FunctionDoc {
+export interface FunctionInfo {
   name: string;
   description: string;
-  usage: string;
+  signature: string;
+  examples?: string[];
+  category: string;
 }
 
 export interface Task {
@@ -61,7 +67,7 @@ export interface VisualScenario {
   name: string;
   description: string;
   taskId: string; // References the task this scenario belongs to
-  setup: (exercise: VisualExercise) => void;
+  setup?: (exercise: VisualExercise) => void;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
 
@@ -87,23 +93,18 @@ export type Scenario = VisualScenario | IOScenario;
 
 // Visual test expectation - for state checks in visual exercises
 export interface VisualTestExpect {
-  type: "visual";
   pass: boolean;
-  actual: string | number | boolean;
-  expected?: string | number | boolean;
   errorHtml?: string;
-  codeRun?: string;
 }
 
 // IO test expectation - for function return value checks
 export interface IOTestExpect {
-  type: "io";
   pass: boolean;
   actual: IOValue;
   expected: IOExpectedValue;
   diff: Change[]; // Diff from 'diff' library
   matcher: string; // e.g., 'toBe', 'toEqual'
-  codeRun?: string;
+  codeRun?: string; // The function call that was executed, for display
   errorHtml?: string;
 }
 

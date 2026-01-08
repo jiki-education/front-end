@@ -922,13 +922,17 @@ export interface IOScenario {
 
 **Symptom:** Test fails with "expected undefined to be defined" for LLM metadata.
 
-### 4. Forgetting Language Files
+### 4. Error Handling
+
+When adapting bootcamp code, preserve the same error handling patterns. Use `executionCtx.logicError()` for user-facing validation errors (the same as bootcamp uses) rather than throwing plain JavaScript errors.
+
+### 5. Forgetting Language Files
 
 ❌ Only creating `.jiki` files
 
 ✅ Create all three: `.jiki`, `.javascript`, `.py`
 
-### 5. Inconsistent Naming
+### 6. Inconsistent Naming
 
 ❌ Using different function names across languages
 

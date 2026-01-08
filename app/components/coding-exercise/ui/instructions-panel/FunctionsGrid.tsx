@@ -1,4 +1,4 @@
-import type { FunctionInfo } from "./mockInstructionsData";
+import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
 
 interface FunctionsGridProps {

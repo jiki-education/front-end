@@ -2,7 +2,7 @@ import "./exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import type { VisualExerciseDefinition, FunctionDoc } from "../types";
+import type { VisualExerciseDefinition, FunctionInfo } from "../types";
 
 import solutionJavascript from "./solution.javascript";
 import solutionPython from "./solution.py";
@@ -11,24 +11,30 @@ import stubJavascript from "./stub.javascript";
 import stubPython from "./stub.py";
 import stubJikiscript from "./stub.jiki";
 
-const functions: FunctionDoc[] = [
+const functions: FunctionInfo[] = [
   {
-    name: "move()",
+    name: "move",
+    signature: "move()",
     description:
       "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
-    usage: "move();"
+    examples: ["move()"],
+    category: "Movement"
   },
   {
-    name: "turn_left()",
+    name: "turn_left",
+    signature: "turn_left()",
     description:
       "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-    usage: "turn_left();"
+    examples: ["turn_left()"],
+    category: "Movement"
   },
   {
-    name: "turn_right()",
+    name: "turn_right",
+    signature: "turn_right()",
     description:
       "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-    usage: "turn_right();"
+    examples: ["turn_right()"],
+    category: "Movement"
   }
 ];
 

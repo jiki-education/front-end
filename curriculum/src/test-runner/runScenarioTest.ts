@@ -1,5 +1,6 @@
 import { jikiscript, javascript, python } from "@jiki/interpreters";
-import type { VisualExercise, IOExercise } from "../Exercise";
+import type { IOExercise } from "../IOExercise";
+import type { VisualExercise } from "../VisualExercise";
 import type { VisualScenario, IOScenario, TestExpect, ExerciseDefinition } from "../exercises/types";
 import { getLanguageFeatures } from "../levels";
 import type { Language } from "../types";
@@ -42,7 +43,7 @@ export function runVisualScenarioTest(
   const exercise = new ExerciseClass();
 
   // Run setup to initialize exercise state
-  scenario.setup(exercise);
+  scenario.setup?.(exercise);
 
   // Get language features for this level
   const languageFeatures = getLanguageFeatures(levelId, language);
@@ -145,10 +146,7 @@ export function runIOScenarioTest(
   // The app's test runner creates proper IOTestExpect with diff
   const expects: TestExpect[] = [
     {
-      type: "visual" as const, // Using visual type for curriculum tests
       pass,
-      actual: result.error ? "error" : String(result.value),
-      expected: String(scenario.expected),
       errorHtml: pass
         ? ""
         : `Expected ${scenario.functionName}(${scenario.args.map((a) => JSON.stringify(a)).join(", ")}) to return ${JSON.stringify(scenario.expected)}, but got ${result.error ? "error" : JSON.stringify(result.value)}`

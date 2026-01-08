@@ -9,7 +9,7 @@ export type { Language } from "./types";
 // Export all types needed by consumers
 export type {
   ExerciseDefinition,
-  FunctionDoc,
+  FunctionInfo,
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,
@@ -23,7 +23,9 @@ export type {
 } from "./exercises/types";
 
 // Export the base Exercise classes and Animation type
-export { Exercise, IOExercise, VisualExercise, type Animation } from "./Exercise";
+export { Exercise } from "./Exercise";
+export { IOExercise } from "./IOExercise";
+export { VisualExercise, type Animation } from "./VisualExercise";
 
 // Export mock implementations for testing
 export { TestExercise } from "./mocks";

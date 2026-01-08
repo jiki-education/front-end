@@ -5,6 +5,9 @@ import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
+import { extractCallExpressions } from "./assertion-helpers";
+import type { CallExpression } from "./expression";
+import { LiteralExpression, type Expression } from "./expression";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
@@ -51,6 +54,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         functionCallLog: {},
         statements: statements,
       },
+      assertors: result.assertors,
     };
   } catch (error: unknown) {
     // Only parsing/compilation errors are returned as errors
@@ -62,6 +66,9 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       meta: {
         functionCallLog: {},
         statements: [],
+      },
+      assertors: {
+        assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
       },
     };
   }
@@ -132,6 +139,15 @@ export function evaluateFunction(
     meta: {
       functionCallLog: callResult.meta.functionCallLog,
       statements: statements, // Return the original student code statements
+    },
+    assertors: {
+      assertAllArgumentsAreVariables: () => {
+        return extractCallExpressions(statements).every((expr: CallExpression) => {
+          return expr.args.every((arg: Expression) => {
+            return !(arg instanceof LiteralExpression);
+          });
+        });
+      },
     },
   };
 }

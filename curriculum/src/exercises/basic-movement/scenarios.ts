@@ -35,10 +35,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.position === 100,
-          actual: ex.position,
-          expected: 100,
           errorHtml: `Expected position to be 100 but got ${ex.position}. Did you call move() 5 times?`
         }
       ];
@@ -59,10 +56,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.position === 150,
-          actual: ex.position,
-          expected: 150,
           errorHtml: `Expected position to be 150 but got ${ex.position}. Did you call move() 5 times?`
         }
       ];
@@ -83,10 +77,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as BasicMovementExercise;
       return [
         {
-          type: "visual" as const,
           pass: ex.position === 200,
-          actual: ex.position,
-          expected: 200,
           errorHtml: `Expected position to be 200 but got ${ex.position}. Did you call move() 10 times?`
         }
       ];

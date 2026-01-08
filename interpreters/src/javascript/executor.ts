@@ -69,6 +69,7 @@ import { executeBreakStatement, BreakFlowControlError } from "./executor/execute
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
 import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
+import { extractCallExpressions } from "./assertion-helpers";
 
 // Execution context for JavaScript stdlib
 export type ExecutionContext = SharedExecutionContext & {
@@ -124,6 +125,9 @@ export interface ExecutorResult {
   frames: Frame[];
   error: null; // Always null - runtime errors become frames
   success: boolean;
+  assertors: {
+    assertAllArgumentsAreVariables: () => boolean;
+  };
 }
 
 export class Executor {
@@ -214,6 +218,16 @@ export class Executor {
       frames: this.frames,
       error: null, // Always null - runtime errors are in frames
       success: !this.frames.find(f => f.status === "ERROR"),
+
+      assertors: {
+        assertAllArgumentsAreVariables: () => {
+          return extractCallExpressions(statements).every((expr: CallExpression) => {
+            return expr.args.every((arg: Expression) => {
+              return !(arg instanceof LiteralExpression);
+            });
+          });
+        },
+      },
     };
   }
 
@@ -444,7 +458,7 @@ export class Executor {
       result: result || undefined,
       error,
       time: this.time,
-      timeInMs: Math.round(this.time / TIME_SCALE_FACTOR),
+      timeInMs: this.time / TIME_SCALE_FACTOR,
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: {}, // JavaScript doesn't have external functions yet

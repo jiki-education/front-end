@@ -15,7 +15,8 @@ describe("All Exercises - Solution Validation", () => {
    * Note: Bonus scenarios are excluded because they typically require different solutions.
    */
 
-  const languages = ["jikiscript"] as const; // TODO: Re-enable "javascript", "python" when solutions are fixed
+  //const languages = ["jikiscript", "javascript", "python"] as const;
+  const languages = ["jikiscript"] as const;
 
   for (const [slug, loader] of Object.entries(exercises)) {
     for (const language of languages) {
@@ -26,13 +27,13 @@ describe("All Exercises - Solution Validation", () => {
         // Import solution file for this language
         let solution: string;
         try {
-          const ext = language === "jikiscript" ? "jiki" : language === "javascript" ? "js" : "py";
+          const ext = language === "jikiscript" ? "jiki" : language === "javascript" ? "javascript" : "py";
           const solutionModule = await import(`../../src/exercises/${slug}/solution.${ext}?raw`);
           solution = solutionModule.default;
         } catch {
           throw new Error(
             `Failed to load ${language} solution file for exercise "${slug}".\n` +
-              `Expected file: src/exercises/${slug}/solution.${language === "jikiscript" ? "jiki" : language === "javascript" ? "js" : "py"}\n` +
+              `Expected file: src/exercises/${slug}/solution.${language === "jikiscript" ? "jiki" : language === "javascript" ? "javascript" : "py"}\n` +
               `Make sure the solution file exists and is properly formatted.`
           );
         }
@@ -61,7 +62,7 @@ describe("All Exercises - Solution Validation", () => {
           const failureMessages = failures.map((f) => {
             const expectFailures = f.expects
               .filter((e) => !e.pass)
-              .map((e) => `  - Expected: ${e.expected}, Got: ${e.actual}`)
+              .map((e) => (e.errorHtml !== undefined && e.errorHtml !== "" ? `  - ${e.errorHtml}` : "  - Test failed"))
               .join("\n");
 
             return `Scenario "${f.name}" (${f.slug}) failed:\n${expectFailures}`;

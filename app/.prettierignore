@@ -34,3 +34,6 @@ yarn-error.log*
 
 # Cache
 .cache
+
+# Generated files
+components/ui-kit/icon-types.ts

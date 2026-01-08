@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
-import Orchestrator from "./lib/Orchestrator";
-import OrchestratorProvider, { useOrchestratorContext } from "./lib/OrchestratorProvider";
+import { markLessonComplete } from "@/lib/api/lessons";
+import { showModal } from "@/lib/modal/store";
+import { exercises, type ExerciseSlug } from "@jiki/curriculum";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import "../../app/styles/components/ui-components.css";
 import "./codemirror.css";
+import styles from "./CodingExercise.module.css";
+import Orchestrator from "./lib/Orchestrator";
+import { useOrchestratorStore } from "./lib/orchestrator/store";
+import OrchestratorProvider, { useOrchestratorContext } from "./lib/OrchestratorProvider";
+import { RHS } from "./RHS";
 import CodeEditor from "./ui/CodeEditor";
 import RunButton from "./ui/RunButton";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
-import styles from "./CodingExercise.module.css";
-import { RHS } from "./RHS";
-import { useResizablePanels, Resizer } from "./useResize";
-import { useOrchestratorStore } from "./lib/orchestrator/store";
-import { showModal } from "@/lib/modal/store";
-import { markLessonComplete } from "@/lib/api/lessons";
-import { useRouter } from "next/navigation";
-import "../../app/styles/components/ui-components.css";
+import { Resizer, useResizablePanels } from "./useResize";
 
 interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
@@ -161,7 +161,7 @@ function CodingExerciseInner() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">
       <div className={styles.topBar}>
         <div className={styles.logo}>{String(exerciseTitle)}</div>
         <div className={styles.topBarActions}>

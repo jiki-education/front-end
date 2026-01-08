@@ -1,5 +1,5 @@
 import { type ExecutionContext } from "@jiki/interpreters";
-import { VisualExercise } from "../../Exercise";
+import { VisualExercise } from "../../VisualExercise";
 import metadata from "./metadata.json";
 
 export default class BasicMovementExercise extends VisualExercise {

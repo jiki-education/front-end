@@ -111,9 +111,12 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   const testIdx =
     testSuiteResult && currentTest ? testSuiteResult.tests.findIndex((test) => test.slug === currentTest.slug) : 0;
 
-  // Visual test
+  // Get error message
   let errorHtml = firstExpect.errorHtml || "";
-  errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
+  // Only replace {value} template for IO tests (which have actual property)
+  if ("actual" in firstExpect) {
+    errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
+  }
 
   return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
 }

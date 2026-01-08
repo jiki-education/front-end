@@ -1,7 +1,7 @@
-import { showModal } from "@/lib/modal";
 import { markLessonComplete } from "@/lib/api/lessons";
-import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
+import { showModal } from "@/lib/modal";
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
@@ -167,7 +167,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
 
         // Check if we have a saved time for this test
         const savedTime = state.testCurrentTimes[test.slug];
-        const timeToUse = savedTime !== undefined ? savedTime : (test.frames.at(0)?.time ?? 0);
+        let timeToUse = savedTime !== undefined ? savedTime : (test.frames.at(0)?.time ?? 0);
 
         set({
           currentTest: test,
@@ -230,10 +230,34 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           }
         });
 
+        // In this effect, we only care about error frames. Find the first
+        // or get out of here.
+        const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
+
+        if (errorFrame) {
+          // We want to turn on the info widget on if there's an error
+          get().setShouldShowInformationWidget(true);
+
+          // If we have a breakpoint frame, we want to jump there.
+          const breakpointFrame = BreakpointManager.findPrevBreakpointFrame(
+            errorFrame,
+            test.frames,
+            state.breakpoints,
+            state.foldedLines
+          );
+          if (breakpointFrame) {
+            // Update the time to jump to to the breakpoint frame
+            timeToUse = breakpointFrame.time;
+          } else {
+            // Trigger frame calculations with the restored/initial time
+            timeToUse = errorFrame.time;
+          }
+        }
+
         // Trigger frame calculations with the restored/initial time
         get().setCurrentTestTime(timeToUse, "nearest", true);
 
-        if (state.shouldPlayOnTestChange && test.animationTimeline) {
+        if (!errorFrame && state.shouldPlayOnTestChange && test.animationTimeline) {
           get().setIsPlaying(true);
         }
       },
@@ -278,12 +302,15 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           return;
         }
 
+        // TODO: Parse this as markdown
+        const infoWidgetHtml = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
+
         set({
           currentFrame: frame,
           highlightedLine: frame.line,
           // Update information widget data whenever frame changes
           informationWidgetData: {
-            html: frame.generateDescription() || "",
+            html: infoWidgetHtml,
             line: frame.line,
             status: frame.status
           }

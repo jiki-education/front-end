@@ -89,7 +89,7 @@ Handles video lesson playback:
 For coding exercises:
 
 - Maps lesson slugs to exercise slugs in the curriculum
-- Currently uses `basic-movement` as default (temporary)
+- Currently uses `maze-solve-basic` as default (temporary)
 - Future: Backend should provide exercise slug mapping
 
 ## API Integration
@@ -163,7 +163,7 @@ const mockLessonData: LessonData = {
 
 ## Current Limitations & TODOs
 
-1. **Exercise Mapping**: Currently hardcoded to `basic-movement`
+1. **Exercise Mapping**: Currently hardcoded to `maze-solve-basic`
    - TODO: Backend should provide curriculum exercise slug
    - Or: Create exercises matching lesson slugs
 

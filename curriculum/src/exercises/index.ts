@@ -5,7 +5,8 @@ export const exercises = {
   "basic-movement": () => import("./basic-movement"),
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
-  anagram: () => import("./anagram")
+  anagram: () => import("./anagram"),
+  "sprouting-flower": () => import("./sprouting-flower")
   // Future exercises will be added here:
   // 'loop-basics': () => import('./loop-basics'),
   // 'conditionals': () => import('./conditionals'),

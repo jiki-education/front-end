@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function CodingExerciseDevPage() {
-  return <CodingExercise exerciseSlug="acronym" />;
+  return <CodingExercise exerciseSlug="sprouting-flower" />;
 }

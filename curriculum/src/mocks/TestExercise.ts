@@ -1,14 +1,14 @@
-import { type ExecutionContext } from "@jiki/interpreters";
-import { Exercise } from "../Exercise";
+import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { VisualExercise } from "../VisualExercise";
 
-export class TestExercise extends Exercise {
+export class TestExercise extends VisualExercise {
   protected get slug() {
     return "test-exercise";
   }
   position: number = 0;
   counter: number = 0;
 
-  availableFunctions = [
+  availableFunctions: ExternalFunction[] = [
     {
       name: "move",
       func: this.move.bind(this),

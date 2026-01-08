@@ -1,3 +1,5 @@
+import type { Animation as CurriculumAnimation } from "@jiki/curriculum";
+import { TIME_SCALE_FACTOR, type Frame } from "@jiki/interpreters";
 import {
   createTimeline,
   type AnimationParams,
@@ -6,8 +8,6 @@ import {
   type Timeline,
   type TimelinePosition
 } from "animejs";
-import { TIME_SCALE_FACTOR, type Frame } from "@jiki/interpreters";
-import type { Animation as CurriculumAnimation } from "@jiki/curriculum";
 
 export type Animation =
   | (AnimationParams & { targets?: TargetsParam })

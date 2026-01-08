@@ -43,6 +43,9 @@ const nextConfig: NextConfig = {
   transpilePackages: ["interpreters", "@jiki/curriculum"],
   allowedDevOrigins: ["localhost", "local.jiki.io"],
   webpack: (config) => {
+    // Enable symlink resolution
+    config.resolve.symlinks = true;
+
     // For webpack (production builds)
     config.module.rules.push(
       {

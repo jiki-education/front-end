@@ -10,7 +10,6 @@ import type {
   FunctionLookupExpression,
   GetElementExpression,
   GroupingExpression,
-  LiteralExpression,
   LogicalExpression,
   SetElementExpression,
   UnaryExpression,
@@ -22,6 +21,7 @@ import type {
   AccessorExpression,
   ThisExpression,
 } from "./expression";
+import { LiteralExpression } from "./expression";
 import { Location, Span } from "./location";
 import type {
   BlockStatement,
@@ -82,7 +82,7 @@ import { describeFrame } from "./frameDescribers";
 import { executeFunctionCallExpression } from "./executor/executeFunctionCallExpression";
 import { executeIfStatement } from "./executor/executeIfStatement";
 import didYouMean from "didyoumean";
-import { formatJikiObject } from "./helpers";
+import { extractFunctionCallExpressions, formatJikiObject } from "./helpers";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import * as Jiki from "./jikiObjects";
 import { executeMethodCallExpression } from "./executor/executeMethodCallExpression";
@@ -296,6 +296,16 @@ export class Executor {
       meta: {
         functionCallLog: this.functionCallLog,
         statements: statements,
+      },
+
+      assertors: {
+        assertAllArgumentsAreVariables: () => {
+          return extractFunctionCallExpressions(statements).every((expr: FunctionCallExpression) => {
+            return expr.args.every((arg: Expression) => {
+              return !(arg instanceof LiteralExpression);
+            });
+          });
+        },
       },
     };
   }
@@ -1224,7 +1234,7 @@ export class Executor {
       // The interpeter time is in microseconds.
       // The timeInMs is in milliseconds for animations.
       time: this.time,
-      timeInMs: Math.round(this.time / TIME_SCALE_FACTOR),
+      timeInMs: this.time / TIME_SCALE_FACTOR,
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: this.externalFunctionDescriptions,

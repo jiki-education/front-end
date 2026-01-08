@@ -13,8 +13,8 @@ The curriculum defines a platform-agnostic animation format:
 ```typescript
 interface Animation {
   targets: string; // CSS selector for animated element(s)
-  offset: number; // Start time in milliseconds
-  duration?: number; // Animation duration (default: 300ms)
+  offset: number; // Start time in milliseconds (precise, can be fractional)
+  duration?: number; // Animation duration in ms (default: 300ms)
   easing?: string; // Easing function (default: "easeInOutQuad")
   transformations: {
     left?: number; // Absolute position
@@ -61,7 +61,7 @@ func: (ctx: ExecutionContext) => {
   this.playerX += 50;
   this.animations.push({
     targets: "#player",
-    offset: ctx.currentTime,
+    offset: ctx.getCurrentTimeInMs(),
     duration: 300,
     transformations: {
       translateX: this.playerX
@@ -79,7 +79,7 @@ func: (ctx: ExecutionContext) => {
   // Move player
   this.animations.push({
     targets: "#player",
-    offset: ctx.currentTime,
+    offset: ctx.getCurrentTimeInMs(),
     duration: 500,
     transformations: { translateY: -50 }
   });
@@ -87,7 +87,7 @@ func: (ctx: ExecutionContext) => {
   // Fade out obstacle
   this.animations.push({
     targets: "#obstacle-1",
-    offset: ctx.currentTime, // Same time
+    offset: ctx.getCurrentTimeInMs(), // Same time
     duration: 500,
     transformations: { opacity: 0 }
   });
@@ -100,7 +100,7 @@ Chain animations using offsets:
 
 ```typescript
 func: (ctx: ExecutionContext) => {
-  const startTime = ctx.currentTime;
+  const startTime = ctx.getCurrentTimeInMs();
 
   // First: Move right
   this.animations.push({
@@ -128,18 +128,19 @@ The `ExecutionContext` from interpreters provides accurate timing:
 
 ```typescript
 interface ExecutionContext {
-  currentTime: number; // Current execution time in ms
-  frameNumber: number; // Current execution frame
+  getCurrentTimeInMs(): number; // Returns current execution time in ms (precise, can be fractional)
+  fastForward(milliseconds: number): void; // Advances execution time
   // ... other properties
 }
 ```
 
 ### Time Management Best Practices
 
-1. **Always use ctx.currentTime**: Ensures sync with code execution
+1. **Always use ctx.getCurrentTimeInMs()**: Ensures sync with code execution (precise fractional ms)
 2. **Account for duration**: When chaining, add duration to offset
 3. **Consider overlap**: Animations can run simultaneously
 4. **Default durations**: Use 300ms for standard movements
+5. **Precision**: Times are fractional ms from the interpreter, not rounded
 
 ## Animation Properties
 
@@ -178,7 +179,7 @@ Select multiple elements:
 ```typescript
 this.animations.push({
   targets: ".enemy", // All elements with class "enemy"
-  offset: ctx.currentTime,
+  offset: ctx.getCurrentTimeInMs(),
   transformations: { scale: 0 }
 });
 ```
@@ -192,13 +193,13 @@ func: (ctx: ExecutionContext) => {
   if (this.hasKey) {
     this.animations.push({
       targets: "#door",
-      offset: ctx.currentTime,
+      offset: ctx.getCurrentTimeInMs(),
       transformations: { opacity: 0 }
     });
   } else {
     this.animations.push({
       targets: "#player",
-      offset: ctx.currentTime,
+      offset: ctx.getCurrentTimeInMs(),
       duration: 100,
       transformations: { translateX: this.playerX - 10 } // Bounce back
     });
@@ -299,7 +300,7 @@ moveInDirection(direction: string, ctx: ExecutionContext) {
 
   this.animations.push({
     targets: "#player",
-    offset: ctx.currentTime,
+    offset: ctx.getCurrentTimeInMs(),
     duration: 300,
     transformations: {
       translateX: this.x,
@@ -316,7 +317,7 @@ collectItem(itemId: string, ctx: ExecutionContext) {
   // Fade out item
   this.animations.push({
     targets: `#${itemId}`,
-    offset: ctx.currentTime,
+    offset: ctx.getCurrentTimeInMs(),
     duration: 200,
     transformations: { opacity: 0, scale: 1.2 }
   });
@@ -324,7 +325,7 @@ collectItem(itemId: string, ctx: ExecutionContext) {
   // Update score display
   this.animations.push({
     targets: "#score",
-    offset: ctx.currentTime + 200,
+    offset: ctx.getCurrentTimeInMs() + 200,
     duration: 300,
     easing: "easeOutElastic",
     transformations: { scale: 1.1 }

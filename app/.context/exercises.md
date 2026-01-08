@@ -56,11 +56,11 @@ Create `metadata.json` with exercise metadata (slug, title, instructions, estima
 
 ### 3. Implement Exercise Class (Exercise.ts)
 
-Create the exercise implementation extending the base Exercise class from `@jiki/curriculum`. See `@jiki/curriculum/src/exercises/basic-movement/Exercise.ts` for a complete example.
+Create the exercise implementation extending the base Exercise class from `@jiki/curriculum`. See `@jiki/curriculum/src/exercises/maze-solve-basic/Exercise.ts` for a complete example.
 
 ### 4. Define Tasks and Scenarios (scenarios.ts)
 
-Define the tasks and test scenarios. See `@jiki/curriculum/src/exercises/basic-movement/scenarios.ts` for a complete example.
+Define the tasks and test scenarios. See `@jiki/curriculum/src/exercises/maze-solve-basic/scenarios.ts` for a complete example.
 
 ### 5. Create Solution and Stub Files
 
@@ -94,6 +94,5 @@ Exercises are loaded asynchronously and passed to the Orchestrator. The Orchestr
 
 See `@jiki/curriculum/src/exercises/` for complete exercise implementations:
 
-- `basic-movement/` - Simple visual exercise with movement commands
+- `maze-solve-basic/` - Visual maze navigation exercise
 - `acronym/` - IO-based exercise for text processing
-- `maze-solve-basic/` - More complex visual maze navigation

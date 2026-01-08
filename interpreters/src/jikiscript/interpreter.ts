@@ -103,6 +103,9 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         functionCallLog: {},
         statements: [],
       },
+      assertors: {
+        assertAllArgumentsAreVariables: () => true,
+      },
     };
   }
   return interpreter.execute();
@@ -287,6 +290,7 @@ export class Interpreter {
         ...exprExec.meta,
         statements: generalExec.meta.statements,
       },
+      assertors: generalExec.assertors,
     };
   }
 
@@ -321,6 +325,7 @@ export class Interpreter {
         ...exprExec.meta,
         statements: generalExec.meta.statements,
       },
+      assertors: generalExec.assertors,
     };
   }
 

@@ -1,7 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import type { VisualExerciseDefinition, FunctionDoc } from "../types";
+import type { VisualExerciseDefinition, FunctionInfo } from "../types";
 
 import solutionJavascript from "./solution.javascript";
 import solutionPython from "./solution.py";
@@ -10,30 +10,38 @@ import stubJavascript from "./stub.javascript";
 import stubPython from "./stub.py";
 import stubJikiscript from "./stub.jiki";
 
-const functions: FunctionDoc[] = [
+const functions: FunctionInfo[] = [
   {
-    name: "moveUp()",
+    name: "moveUp",
+    signature: "moveUp()",
     description:
       "Moves the character **one step up** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveUp();"
+    examples: ["moveUp()"],
+    category: "Movement"
   },
   {
-    name: "moveDown()",
+    name: "moveDown",
+    signature: "moveDown()",
     description:
       "Moves the character **one step down** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveDown();"
+    examples: ["moveDown()"],
+    category: "Movement"
   },
   {
-    name: "moveLeft()",
+    name: "moveLeft",
+    signature: "moveLeft()",
     description:
       "Moves the character **one step left** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveLeft();"
+    examples: ["moveLeft()"],
+    category: "Movement"
   },
   {
-    name: "moveRight()",
+    name: "moveRight",
+    signature: "moveRight()",
     description:
       "Moves the character **one step right** in the maze. The character will only move if the target position is not blocked by a wall.",
-    usage: "moveRight();"
+    examples: ["moveRight()"],
+    category: "Movement"
   }
 ];
 

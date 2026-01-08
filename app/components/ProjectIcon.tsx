@@ -17,7 +17,7 @@ function IconFallback() {
  */
 function getProjectIcon(projectSlug: string): ComponentType<SVGProps<SVGSVGElement>> {
   return lazy(() =>
-    import(`../../curriculum/images/projects/${projectSlug}.svg`).catch(() => {
+    import(`../icons/projects/${projectSlug}.svg`).catch(() => {
       // If icon doesn't exist, return a fallback empty SVG component
       return { default: IconFallback };
     })

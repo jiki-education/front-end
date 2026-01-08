@@ -65,4 +65,7 @@ export interface InterpretResult {
   success: boolean;
   error: InterpreterError | null;
   meta: Meta;
+  assertors: {
+    assertAllArgumentsAreVariables: () => boolean;
+  };
 }

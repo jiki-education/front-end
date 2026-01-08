@@ -28,8 +28,8 @@ export function runVisualScenario(
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
 
-  // Run setup
-  scenario.setup(exercise);
+  // Run setup (if provided)
+  scenario.setup?.(exercise);
 
   // Execute student code with selected interpreter
   const interpreter = getInterpreter(language);
