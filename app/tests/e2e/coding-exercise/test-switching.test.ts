@@ -35,6 +35,13 @@ test.describe("Test Switching E2E", () => {
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
 
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
+
       // Wait for pause button to appear (animation is playing)
       await page.locator('[data-ci="pause-button"]').waitFor();
 
@@ -74,6 +81,13 @@ test.describe("Test Switching E2E", () => {
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
 
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
+
       // Wait for pause button
       await page.locator('[data-ci="pause-button"]').waitFor();
 
@@ -111,6 +125,13 @@ test.describe("Test Switching E2E", () => {
       // Click first test
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
+
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
 
       // Wait for pause button
       await page.locator('[data-ci="pause-button"]').waitFor();
@@ -160,6 +181,13 @@ test.describe("Test Switching E2E", () => {
       // Click first test (should auto-play)
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
+
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
 
       // Wait for auto-play to start
       await page.waitForFunction(() => {
@@ -260,6 +288,13 @@ test.describe("Test Switching E2E", () => {
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
 
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
+
       // Wait for pause button and pause
       await page.locator('[data-ci="pause-button"]').waitFor();
       await page.locator('[data-ci="pause-button"]').click();
@@ -305,6 +340,13 @@ test.describe("Test Switching E2E", () => {
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
 
+      // Wait for the test to be set and animation timeline to be available
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
+
       // Wait for pause button and pause partway through
       await page.locator('[data-ci="pause-button"]').waitFor();
       await page.locator('[data-ci="pause-button"]').click();
@@ -320,6 +362,12 @@ test.describe("Test Switching E2E", () => {
       });
 
       // Wait for it to auto-play and then pause to check the reset worked
+      // First ensure the test is set up with animation timeline
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        const state = orchestrator?.getStore().getState();
+        return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
+      });
       await page.locator('[data-ci="pause-button"]').waitFor();
       await page.locator('[data-ci="pause-button"]').click();
       await page.waitForFunction(() => {
