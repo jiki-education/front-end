@@ -9,13 +9,13 @@ interface FunctionsGridProps {
 export default function FunctionsGrid({ functions, className = "" }: FunctionsGridProps) {
   return (
     <div className={`${styles.functionsContainer} ${className}`}>
-      <h3 className={styles.functionsTitle}>Available Functions</h3>
+      <h2>Functions</h2>
+      <p className={styles.functionSectionInfo}>Available functions you can use in your code.</p>
       <div className={styles.functionsList}>
         {functions.map((func, index) => (
           <div key={index} className={styles.functionCard}>
             <div className={styles.functionHeader}>
               <div className={styles.functionSignature}>{func.signature}</div>
-              <span className={styles.functionCategory}>{func.category}</span>
             </div>
             <p className={styles.functionDescription}>{func.description}</p>
             {func.examples && func.examples.length > 0 && (
