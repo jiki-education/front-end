@@ -36,5 +36,14 @@ export function getBadgeColor(badge: BadgeData): "pink" | "gold" | "purple" | "t
 
 export function getBadgeIconSrc(badge: BadgeData): string {
   // Use backend icon if available, fallback to placeholder
-  return badge.icon || "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
+  if (!badge.icon) {
+    return "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
+  }
+
+  // If icon is a relative path (doesn't start with / or http), make it absolute
+  if (!badge.icon.startsWith("/") && !badge.icon.startsWith("http")) {
+    return `/static/images/achievement-icons/${badge.icon}.png`;
+  }
+
+  return badge.icon;
 }

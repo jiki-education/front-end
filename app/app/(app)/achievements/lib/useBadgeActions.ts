@@ -10,11 +10,14 @@ export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<R
       return;
     }
 
+    // Capture isNew status before potentially updating badge state
+    const wasNewBadge = isNewBadge(badge);
+
     // If badge is unrevealed (new), reveal it first
-    if (isNewBadge(badge)) {
+    if (wasNewBadge) {
       try {
         await revealBadge(badge.id);
-        // Update local state to mark as revealed
+        // Update local state to mark as revealed only after successful API call
         setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
       } catch (err) {
         console.error("Failed to reveal badge:", err);
@@ -29,11 +32,11 @@ export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<R
       stat: `${badge.num_awardees} learners have earned this badge`,
       color: getBadgeColor(badge),
       icon: getBadgeIconSrc(badge),
-      isNew: isNewBadge(badge)
+      isNew: wasNewBadge
     };
 
     // Use flip modal for new badges, regular modal for others
-    const modalType = isNewBadge(badge) ? "flip-badge-modal" : "badge-modal";
+    const modalType = wasNewBadge ? "flip-badge-modal" : "badge-modal";
     showModal(modalType, { badgeData: modalData });
   };
 

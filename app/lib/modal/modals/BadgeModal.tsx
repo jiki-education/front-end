@@ -10,7 +10,7 @@ interface BadgeModalProps {
   badgeData: BadgeModalData;
 }
 
-const FALLBACK_IMAGE = "/static/About-Us-1--Streamline-Manila.png";
+const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
 
 export function BadgeModal({ badgeData }: BadgeModalProps) {
   const [imageSrc, setImageSrc] = useState(badgeData.icon);
