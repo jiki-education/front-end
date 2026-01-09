@@ -148,4 +148,84 @@ describe("interpret", () => {
       expect(Jiki.unwrapJikiObject((lastFrame as TestAugmentedFrame).variables)["original"].value).toBe(6);
     });
   });
+
+  describe("external function return values - native wrapping", () => {
+    test("returns native number, wrapped as Number", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "getNative",
+            func: (_ctx: EvaluationContext) => 42, // Native number, not Number(42)
+            description: "",
+          },
+        ],
+      };
+      const { frames } = interpret("set x to getNative()", context);
+      const lastFrame = frames[frames.length - 1];
+      expect((lastFrame as TestAugmentedFrame).variables?.x).toBeInstanceOf(Jiki.Number);
+      expect(unwrapJikiObject((lastFrame as TestAugmentedFrame).variables?.x)).toBe(42);
+    });
+
+    test("returns native string, wrapped as JikiString", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "getString",
+            func: (_ctx: EvaluationContext) => "hello",
+            description: "",
+          },
+        ],
+      };
+      const { frames } = interpret("set x to getString()", context);
+      const lastFrame = frames[frames.length - 1];
+      expect((lastFrame as TestAugmentedFrame).variables?.x).toBeInstanceOf(Jiki.JikiString);
+      expect(unwrapJikiObject((lastFrame as TestAugmentedFrame).variables?.x)).toBe("hello");
+    });
+
+    test("returns native array, wrapped as List", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "getArray",
+            func: (_ctx: EvaluationContext) => [1, 2, 3],
+            description: "",
+          },
+        ],
+      };
+      const { frames } = interpret("set x to getArray()", context);
+      const lastFrame = frames[frames.length - 1];
+      expect((lastFrame as TestAugmentedFrame).variables?.x).toBeInstanceOf(Jiki.List);
+      expect(unwrapJikiObject((lastFrame as TestAugmentedFrame).variables?.x)).toEqual([1, 2, 3]);
+    });
+
+    test("returns undefined, variable is undefined", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "returnNothing",
+            func: (_ctx: EvaluationContext) => undefined,
+            description: "",
+          },
+        ],
+      };
+      const { frames } = interpret("set x to returnNothing()", context);
+      const lastFrame = frames[frames.length - 1];
+      expect((lastFrame as TestAugmentedFrame).variables?.x).toBeUndefined();
+    });
+
+    test("returns null, variable is undefined", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "returnNull",
+            func: (_ctx: EvaluationContext) => null,
+            description: "",
+          },
+        ],
+      };
+      const { frames } = interpret("set x to returnNull()", context);
+      const lastFrame = frames[frames.length - 1];
+      expect((lastFrame as TestAugmentedFrame).variables?.x).toBeUndefined();
+    });
+  });
 });

@@ -13,7 +13,7 @@ describe("JavaScript Call Descriptions", () => {
   it("should describe standalone function calls", () => {
     const testFunc: ExternalFunction = {
       name: "testFunc",
-      func: (context: ExecutionContext) => new JSNumber(42),
+      func: (context: ExecutionContext) => 42,
       description: "test function",
       arity: 0,
     };
@@ -52,7 +52,7 @@ describe("JavaScript Call Descriptions", () => {
         if (!(a instanceof JSNumber) || !(b instanceof JSNumber)) {
           throw new Error("add expects numbers");
         }
-        return new JSNumber(a.value + b.value);
+        return a.value + b.value;
       },
       description: "adds numbers",
       arity: 2,
@@ -80,7 +80,7 @@ describe("JavaScript Call Descriptions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("double expects a number");
         }
-        return new JSNumber(n.value * 2);
+        return n.value * 2;
       },
       description: "doubles a number",
       arity: 1,
@@ -109,7 +109,7 @@ describe("JavaScript Call Descriptions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("isEven expects a number");
         }
-        return new JSBoolean(n.value % 2 === 0);
+        return n.value % 2 === 0;
       },
       description: "checks if even",
       arity: 1,
@@ -144,7 +144,7 @@ describe("JavaScript Call Descriptions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("foobar expects a number");
         }
-        return new JSNumber(n.value * 10);
+        return n.value * 10;
       },
       description: "multiplies by 10",
       arity: 1,

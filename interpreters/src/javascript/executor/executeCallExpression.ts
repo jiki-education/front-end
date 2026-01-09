@@ -2,7 +2,7 @@ import type { Executor } from "../executor";
 import { RuntimeError } from "../executor";
 import type { CallExpression } from "../expression";
 import type { EvaluationResult, EvaluationResultCallExpression } from "../evaluation-result";
-import { JSStdLibFunction, JSUndefined } from "../jikiObjects";
+import { createJSObject, JSStdLibFunction, JSUndefined } from "../jikiObjects";
 import type { JikiObject } from "../jikiObjects";
 import type { Arity } from "../../shared/interfaces";
 import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from "../functions";
@@ -53,7 +53,8 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   try {
     // External functions receive and return JikiObjects
-    const result = callable.call(executionContext, argJikiObjects);
+    const returnedNativeValue = callable.call(executionContext, argJikiObjects);
+    const result = createJSObject(returnedNativeValue);
 
     // Guard that external functions actually return JikiObjects (runtime safety check)
     executor.guardNonJikiObject(result, expression.location);
