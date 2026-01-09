@@ -9,7 +9,7 @@ import FunctionsView from "./ui/FunctionsView";
 import HintsView from "./ui/HintsView";
 import { InstructionsPanel } from "./ui/instructions-panel";
 import TasksView from "./ui/TasksView";
-import ConsoleTab from "./ui/test-results-view/ConsoleTab";
+import LogPanel from "./ui/LogPanel";
 import type Orchestrator from "./lib/Orchestrator";
 import styles from "./CodingExercise.module.css";
 
@@ -33,7 +33,7 @@ export function RHS({ orchestrator }: RHSProps) {
       icon: <ChatIcon width={18} height={18} className="mr-2" />
     },
     {
-      id: "console",
+      id: "log",
       label: "Log",
       icon: <LogIcon width={18} height={18} className="mr-2" />
     },
@@ -62,8 +62,8 @@ export function RHS({ orchestrator }: RHSProps) {
         return <FunctionsView functions={orchestrator.getExercise().functions} />;
       case "hints":
         return <HintsView hints={orchestrator.getExercise().hints} />;
-      case "console":
-        return <ConsoleTab />;
+      case "log":
+        return <LogPanel />;
       case "chat":
         return <ChatPanel />;
       default:
@@ -80,7 +80,7 @@ export function RHS({ orchestrator }: RHSProps) {
   return (
     <div className={styles.rightColumn}>
       <PageTabs className="py-[3px] px-[32px]" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
-      <div className="flex-1 overflow-auto">{renderTabContent()}</div>
+      <div className="flex-1 overflow-auto bg-white">{renderTabContent()}</div>
     </div>
   );
 }

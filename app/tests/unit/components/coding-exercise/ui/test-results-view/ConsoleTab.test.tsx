@@ -1,6 +1,6 @@
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import { useOrchestrator } from "@/components/coding-exercise/lib/OrchestratorContext";
-import ConsoleTab from "@/components/coding-exercise/ui/test-results-view/ConsoleTab";
+import ConsoleTab from "@/components/coding-exercise/ui/LogPanel";
 import { createMockOrchestrator, createMockOrchestratorStore, createMockTestResult } from "@/tests/mocks";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
