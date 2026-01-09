@@ -36,7 +36,7 @@
 
 .hintRevealBtn {
     display: flex;
-    alignitems: center;
+    align-items: center;
     gap: 6px;
     background: #f3e8ff;
     border: 1px solid #ffffff;
@@ -44,7 +44,6 @@
     padding: 6px 12px;
     color: #7c3aed;
     font-size: 14px;
-    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
     flex-shrink: 0;
