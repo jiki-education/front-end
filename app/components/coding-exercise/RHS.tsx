@@ -6,7 +6,7 @@ import LogIcon from "@/icons/log.svg";
 import ChatIcon from "@/icons/chat.svg";
 import ChatPanel from "./ui/ChatPanel";
 import FunctionsView from "./ui/FunctionsView";
-import HintsView from "./ui/HintsView";
+import HintsPanel from "./ui/HintsPanel";
 import { InstructionsPanel } from "./ui/instructions-panel";
 import TasksView from "./ui/TasksView";
 import LogPanel from "./ui/LogPanel";
@@ -61,7 +61,7 @@ export function RHS({ orchestrator }: RHSProps) {
       case "functions":
         return <FunctionsView functions={orchestrator.getExercise().functions} />;
       case "hints":
-        return <HintsView hints={orchestrator.getExercise().hints} />;
+        return <HintsPanel hints={orchestrator.getExercise().hints} />;
       case "log":
         return <LogPanel />;
       case "chat":
