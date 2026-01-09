@@ -25,10 +25,6 @@ import { JSDictionary } from "./JSDictionary";
 
 // Helper function to create JSObjects from JavaScript values
 export function createJSObject(value: any): JikiObject {
-  // If already a JikiObject, return as-is (for backward compatibility)
-  if (value instanceof JikiObject) {
-    return value;
-  }
   if (value === null) {
     return new JSNull();
   } else if (value === undefined) {

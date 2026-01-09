@@ -8,7 +8,7 @@ describe("JavaScript External Functions", () => {
   it("should call an external function with no arguments", () => {
     const externalFunction: ExternalFunction = {
       name: "getAnswer",
-      func: (context: ExecutionContext) => new JSNumber(42),
+      func: (context: ExecutionContext) => 42,
       description: "returns the answer to everything",
       arity: 0,
     };
@@ -29,7 +29,7 @@ describe("JavaScript External Functions", () => {
         if (!(a instanceof JSNumber) || !(b instanceof JSNumber)) {
           throw new Error("add expects numbers");
         }
-        return new JSNumber(a.value + b.value);
+        return a.value + b.value;
       },
       description: "adds two numbers",
       arity: 2,
@@ -54,7 +54,7 @@ describe("JavaScript External Functions", () => {
           }
           return acc + arg.value;
         }, 0);
-        return new JSNumber(sum);
+        return sum;
       },
       description: "sums all arguments",
       arity: [0, Infinity],
@@ -84,7 +84,7 @@ describe("JavaScript External Functions", () => {
         if (!(a instanceof JSNumber) || !(b instanceof JSNumber)) {
           throw new Error("twoArgs expects numbers");
         }
-        return new JSNumber(a.value + b.value);
+        return a.value + b.value;
       },
       description: "needs two arguments",
       arity: 2,
@@ -106,7 +106,7 @@ describe("JavaScript External Functions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("double expects a number");
         }
-        return new JSNumber(n.value * 2);
+        return n.value * 2;
       },
       description: "doubles a number",
       arity: 1,
@@ -128,7 +128,7 @@ describe("JavaScript External Functions", () => {
         if (!(a instanceof JSNumber) || !(b instanceof JSNumber)) {
           throw new Error("multiply expects numbers");
         }
-        return new JSNumber(a.value * b.value);
+        return a.value * b.value;
       },
       description: "multiplies two numbers",
       arity: 2,
@@ -154,7 +154,7 @@ describe("JavaScript External Functions", () => {
   it("should respect CallExpression node restrictions", () => {
     const externalFunction: ExternalFunction = {
       name: "test",
-      func: (context: ExecutionContext) => new JSNumber(1),
+      func: (context: ExecutionContext) => 1,
       description: "test function",
       arity: 0,
     };
@@ -177,7 +177,7 @@ describe("JavaScript External Functions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("abs expects a number");
         }
-        return new JSNumber(Math.abs(n.value));
+        return Math.abs(n.value);
       },
       description: "absolute value",
       arity: 1,
@@ -189,7 +189,7 @@ describe("JavaScript External Functions", () => {
         if (!(a instanceof JSNumber) || !(b instanceof JSNumber)) {
           throw new Error("max expects numbers");
         }
-        return new JSNumber(Math.max(a.value, b.value));
+        return Math.max(a.value, b.value);
       },
       description: "maximum of two numbers",
       arity: 2,
@@ -211,7 +211,7 @@ describe("JavaScript External Functions", () => {
         if (!(name instanceof JSString)) {
           throw new Error("greet expects a string");
         }
-        return new JSString(`Hello, ${name.value}!`);
+        return `Hello, ${name.value}!`;
       },
       description: "greets a person",
       arity: 1,
@@ -233,7 +233,7 @@ describe("JavaScript External Functions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("isPositive expects a number");
         }
-        return new JSBoolean(n.value > 0);
+        return n.value > 0;
       },
       description: "checks if positive",
       arity: 1,
@@ -255,7 +255,7 @@ describe("JavaScript External Functions", () => {
         if (!(n instanceof JSNumber)) {
           throw new Error("isEven expects a number");
         }
-        return new JSBoolean(n.value % 2 === 0);
+        return n.value % 2 === 0;
       },
       description: "checks if even",
       arity: 1,
@@ -287,7 +287,7 @@ describe("JavaScript External Functions", () => {
           if (direction.value === "off-edge") {
             context.logicError("You can't walk through walls! The character is at the edge of the maze.");
           }
-          return new JSString("OK");
+          return "OK";
         },
         description: "Moves the character in a direction",
         arity: 1,
@@ -337,7 +337,7 @@ describe("JavaScript External Functions", () => {
           if (value.value < 0) {
             throw new Error("Negative values not allowed");
           }
-          return new JSNumber(value.value * 2);
+          return value.value * 2;
         },
         description: "Function that might throw",
         arity: 1,
