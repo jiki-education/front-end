@@ -1,0 +1,107 @@
+.consoleOutput {
+    background: #ffffff;
+    padding: 0;
+}
+
+.consoleLogEntry {
+    display: flex;
+    gap: 20px;
+    padding: 8px 0px 8px 0px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #dbeafe;
+    margin: 0;
+    transition: none;
+}
+
+.consoleLogEntry:hover {
+    background: #eff6ff;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    border-radius: 4px;
+    transition: none;
+}
+
+.consoleLogEntry.highlighted {
+    border: 1px solid #3b82f6;
+    border-radius: 4px;
+    background: #eff6ff;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.consoleLogTimestamp {
+    color: #94a3b8;
+    font-size: 14px;
+    font-family: "Source Code Pro", monospace;
+    flex-shrink: 0;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+}
+
+.consoleLogLineWrapper {
+    display: flex;
+    min-width: 50px;
+    justify-content: center;
+}
+
+.consoleLogLine {
+    color: #1e40af;
+    font-size: 11px;
+    font-family: "Source Code Pro", monospace;
+    font-weight: 600;
+    flex-shrink: 0;
+    background: #dbeafe;
+    padding: 2px 6px;
+    border-radius: 4px;
+    min-width: 36px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+
+.consoleLogEntry:hover .consoleLogLine {
+    color: #3b82f6;
+    background: #ffffff;
+    border: 1px solid #3b82f6;
+}
+
+.consoleLogEntry.highlighted .consoleLogLine {
+    color: #ffffff;
+    background: #3b82f6;
+    border: 1px solid #3b82f6;
+}
+
+.consoleLogContent {
+    font-family: "Source Code Pro", monospace;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.6;
+    flex: 1;
+    word-break: break-word;
+}
+
+.consoleLogString {
+    color: #a78bfa;
+}
+
+.consoleLogNumber {
+    color: #f472b6;
+}
+
+.consoleLogBoolean {
+    color: #dc2626;
+}
+
+.consoleLogObject {
+    color: #2563eb;
+}

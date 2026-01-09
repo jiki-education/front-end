@@ -14,14 +14,19 @@
 }
 
 /* DynamicHeader styles */
-.dynamicHeader {
+.dynamicHeader,
+.panelHeader {
     flex-shrink: 0;
     background: linear-gradient(90deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     transition: all 0.3s;
     position: relative;
 }
 
-.dynamicHeader::after {
+.panelHeader {
+}
+
+.dynamicHeader::after,
+.panelHeader::after {
     content: "";
     position: absolute;
     bottom: 0;
