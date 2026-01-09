@@ -1,4 +1,4 @@
-import HintsView from "@/components/coding-exercise/ui/HintsView";
+import HintsView from "@/components/coding-exercise/ui/HintsPanel";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
