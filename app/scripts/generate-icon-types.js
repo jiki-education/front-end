@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -45,13 +46,4 @@ try {
   console.log(`💅 Formatted ${outputFileRelative}`);
 } catch (error) {
   console.error(`⚠️ Failed to format ${outputFileRelative}:`, error.message);
-}
-
-// Stage the file with git
-try {
-  execSync(`git add ${OUTPUT_FILE}`, { stdio: "inherit" });
-  // eslint-disable-next-line no-console
-  console.log(`📝 Staged ${outputFileRelative}`);
-} catch (error) {
-  console.error(`⚠️ Failed to stage ${outputFileRelative}:`, error.message);
 }

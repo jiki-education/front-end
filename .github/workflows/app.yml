@@ -45,7 +45,11 @@ jobs:
 
       - name: Generate content
         working-directory: app
-        run: pnpm run generate:content
+        run: pnpm run content:generate
+
+      - name: Generate icon types
+        working-directory: app
+        run: pnpm run icons:generate
 
       - name: Run typecheck
         working-directory: app
@@ -95,6 +99,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate icon types
+        working-directory: app
+        run: pnpm run icons:generate
+
       - name: Run linter
         working-directory: app
         run: pnpm run lint
@@ -121,6 +129,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Generate icon types
+        working-directory: app
+        run: pnpm run icons:generate
 
       - name: Run unit tests
         working-directory: app
@@ -159,7 +171,11 @@ jobs:
 
       - name: Generate content
         working-directory: app
-        run: pnpm run generate:content
+        run: pnpm run content:generate
+
+      - name: Generate icon types
+        working-directory: app
+        run: pnpm run icons:generate
 
       - name: Install Playwright browsers
         working-directory: app
