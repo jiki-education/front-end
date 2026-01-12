@@ -152,7 +152,7 @@
     border-radius: 1px;
 }
 
-.verticalDivider::before {
+/* .verticalDivider::before {
     content: "";
     position: absolute;
     top: 0;
@@ -160,7 +160,7 @@
     bottom: 0;
     width: 1px;
     background: var(--color-gray-200);
-}
+} */
 
 /* Code Editor */
 .codeEditor {
@@ -174,7 +174,7 @@
     z-index: var(--z-index-dropdown);
     border-radius: 8px;
     border: 1px solid var(--color-gray-200);
-    margin: 8px;
+    margin: 8px 4px 4px 8px;
 }
 
 .horizontalDivider {
@@ -223,7 +223,7 @@
     border-radius: 8px 8px 0 8px;
     border: 1px solid var(--color-gray-200);
     min-height: 200px;
-    margin: 8px;
+    margin: 4px 4px 8px 8px;
 }
 
 /* V14 Dot Indicators */
@@ -852,6 +852,8 @@
     overflow: hidden;
     background: var(--color-gray-50);
     position: relative;
+    border-left: 1px solid var(--color-gray-200);
+    margin-left: 4px;
 }
 
 .topTabBar {

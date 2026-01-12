@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
@@ -45,12 +45,12 @@ const chatHeader = {
 };
 
 function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
-  // Toggle this to use mock data for styling
-  const USE_MOCK_DATA = process.env.NODE_ENV === "development";
+  // State for mock mode toggle
+  const [useMockMode, setUseMockMode] = useState(false);
 
   const realChat = useChat(orchestrator);
   const mockChat = useMockChat();
-  const chat = USE_MOCK_DATA ? mockChat : realChat;
+  const chat = useMockMode ? mockChat : realChat;
 
   const conversationLoader = useConversationLoader(chat.context.exerciseSlug);
   const hasLoadedConversationRef = useRef(false);
@@ -58,7 +58,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   // Load conversation on mount (skip if using mock data)
   useEffect(() => {
     if (
-      !USE_MOCK_DATA &&
+      !useMockMode &&
       !conversationLoader.isLoading &&
       conversationLoader.conversation.length > 0 &&
       !hasLoadedConversationRef.current
@@ -67,22 +67,32 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
       hasLoadedConversationRef.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversationLoader.isLoading, conversationLoader.conversation, chat.loadConversation, USE_MOCK_DATA]);
+  }, [conversationLoader.isLoading, conversationLoader.conversation, chat.loadConversation, useMockMode]);
 
-  const hasConversationError = !USE_MOCK_DATA && conversationLoader.error && !conversationLoader.isLoading;
+  const hasConversationError = !useMockMode && conversationLoader.error && !conversationLoader.isLoading;
 
   return (
     <div className="bg-white h-full flex flex-col">
       <PanelHeader {...chatHeader} />
 
-      {!USE_MOCK_DATA && conversationLoader.isLoading ? (
+      {!useMockMode && conversationLoader.isLoading ? (
         <div className="flex-1 flex items-center justify-center">
           <InlineLoading isAuthenticated={true} />
         </div>
       ) : (
         <div className="flex-1 flex flex-col min-h-0">
           {chat.messages.length > 0 && (
-            <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-end">
+            <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-end gap-2">
+              <button
+                onClick={() => setUseMockMode(!useMockMode)}
+                className={`text-xs px-2 py-1 rounded ${
+                  useMockMode
+                    ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                Mock {useMockMode ? "ON" : "OFF"}
+              </button>
               <button
                 onClick={chat.clearConversation}
                 disabled={chat.isDisabled}

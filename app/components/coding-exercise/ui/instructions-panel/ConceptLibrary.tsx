@@ -15,7 +15,7 @@ export default function ConceptLibrary({ concepts, className = "" }: ConceptLibr
       <p className={styles.sectionInfo}>Key concepts used in this exercise.</p>
       <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
-          <ConceptCard key={index} concept={concept} isAuthenticated={false} />
+          <ConceptCard smallVersion key={index} concept={concept} isAuthenticated={false} />
         ))}
       </div>
 

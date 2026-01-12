@@ -79,7 +79,12 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <PageTabs className="py-[3px] px-[32px]" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+      <PageTabs
+        className="py-[3px] px-[32px] bg-white"
+        tabs={tabs}
+        activeTabId={activeTab}
+        onTabChange={setActiveTab}
+      />
       <div className="flex-1 overflow-auto bg-white">{renderTabContent()}</div>
     </div>
   );

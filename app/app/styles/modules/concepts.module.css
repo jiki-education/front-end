@@ -95,6 +95,20 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
+.conceptCard.small {
+    padding: 14px 16px;
+    .conceptTitle {
+        font-size: 15px;
+    }
+    .conceptIcon {
+        width: 60px;
+        height: 60px;
+    }
+    .conceptDescription {
+        font-size: 13px;
+    }
+}
+
 .conceptCard:hover {
     border-color: var(--color-blue-500);
     box-shadow:
