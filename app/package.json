@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all generate:content --parallel dev:next dev:watch",
+    "dev": "npm-run-all icons:generate content:generate --parallel dev:next content:watch",
     "dev:next": "next dev --port 3061 --turbo",
-    "dev:watch": "onchange '../content/src/**' -- node scripts/generate-content.js",
-    "build": "npm run generate:content && next build",
+    "build": "npm run content:generate && next build",
     "start": "next start",
     "preview": "wrangler dev",
     "deploy": "DEPLOY_ID=$(git rev-parse --short HEAD) && npx opennextjs-cloudflare build && wrangler deploy --var DEPLOY_ID:$DEPLOY_ID",
-    "generate:content": "node scripts/generate-content.js",
+    "content:generate": "node scripts/generate-content.js",
+    "content:watch": "onchange '../content/src/**' -- node scripts/generate-content.js",
+    "icons:generate": "node scripts/generate-icon-types.js",
+    "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
@@ -22,9 +24,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "knip": "knip",
-    "icons:generate": "node scripts/generate-icon-types.js",
-    "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate"
+    "knip": "knip"
   },
   "dependencies": {
     "@codemirror/commands": "^6.8.1",
