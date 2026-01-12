@@ -31,7 +31,7 @@ import {
 } from "./statement";
 import type { EvaluationResult, EvaluationResultExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
-import { TIME_SCALE_FACTOR, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
+import { timeToMs, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
 import { createBaseExecutionContext } from "../shared/executionContext";
 import type { LanguageFeatures, NodeType } from "./interfaces";
@@ -123,7 +123,7 @@ export interface ExecutorResult {
 
 export class Executor {
   private readonly frames: Frame[] = [];
-  public readonly logLines: Array<{ time: number; output: string }> = [];
+  public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
   public time: number = 0;
   private readonly timePerFrame: number = 1;
   private totalLoopIterations = 0;
@@ -362,7 +362,7 @@ export class Executor {
       result: result || undefined,
       error,
       time: this.time,
-      timeInMs: this.time / TIME_SCALE_FACTOR,
+      timeInMs: timeToMs(this.time),
       generateDescription: () => describeFrame(frame),
       context: context,
     };
@@ -431,7 +431,7 @@ export class Executor {
   }
 
   public log(output: string): void {
-    this.logLines.push({ time: this.time, output });
+    this.logLines.push({ time: this.time, timeInMs: timeToMs(this.time), output });
   }
 
   /**
@@ -445,7 +445,7 @@ export class Executor {
     value: any;
     jikiObject?: JikiObject;
     frames: Frame[];
-    logLines: Array<{ time: number; output: string }>;
+    logLines: Array<{ time: number; timeInMs: number; output: string }>;
     success: boolean;
     error: null;
     meta: {

@@ -62,7 +62,7 @@ export interface Meta {
 // Shared InterpretResult interface used by all interpreters
 export interface InterpretResult {
   frames: Frame[];
-  logLines: Array<{ time: number; output: string }>;
+  logLines: Array<{ time: number; timeInMs: number; output: string }>;
   success: boolean;
   error: InterpreterError | null;
   meta: Meta;
