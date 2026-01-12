@@ -2,6 +2,33 @@
 
 This document tracks the historical development and changes specific to the JikiScript interpreter.
 
+## 2026-01-12: Removal of External State Management System
+
+- **Removed**: External state management system from JikiScript interpreter
+- **Components Removed**:
+  - `repeat_until_game_over` statement and all related parsing/execution logic
+  - `maxRepeatUntilGameOverIterations` language feature
+  - `state` and `updateState` from ExecutionContext interface
+  - `externalState` property and `updateState()` method from Executor
+  - `state` parameter from EvaluationContext interface and Executor constructor
+- **Rationale**:
+  - The external state system allowed curriculum exercises to maintain application state (e.g., game state) accessible to student code
+  - This feature was never used by any curriculum exercises
+  - Removing it simplifies the interpreter architecture and reduces unnecessary complexity
+- **Implementation**:
+  - Two-stage removal: first removed `repeat_until_game_over` statement, then removed state infrastructure
+  - All tests updated to remove state-dependent tests
+  - ExecutionContext still provides all other capabilities (evaluate, executeBlock, logicError, etc.)
+- **Impact**:
+  - Executor constructor signature changed from 6 parameters to 5 parameters
+  - ExecutionContext interface simplified by removing 2 fields
+  - Removed 3 test cases and ~60 lines of implementation code
+  - All 2835 tests pass after removal
+- **Benefits**:
+  - Simpler, more focused interpreter architecture
+  - Reduced cognitive overhead for understanding the execution model
+  - Cleaner ExecutionContext interface for external functions
+
 ## 2025-10-03: Removal of Executor Location Tracking
 
 - **Removed**: `private location: Location` field from JikiScript executor

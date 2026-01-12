@@ -62,7 +62,6 @@ export class Scanner {
     property: "PROPERTY",
     repeat: "REPEAT",
     repeat_forever: "REPEAT_FOREVER",
-    repeat_until_game_over: "REPEAT_UNTIL_GAME_OVER",
     return: "RETURN",
     set: "SET",
     to: "TO",
@@ -107,7 +106,6 @@ export class Scanner {
       excludeList: undefined,
       timePerFrame: 1,
       repeatDelay: 0,
-      maxRepeatUntilGameOverIterations: 100,
       maxTotalLoopIterations: 10000,
       maxTotalExecutionTime: 10000000, // 10 seconds (in microseconds)
       allowGlobals: false,

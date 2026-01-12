@@ -37,7 +37,6 @@ import {
   FunctionStatement,
   IfStatement,
   RepeatStatement,
-  RepeatUntilGameOverStatement,
   ReturnStatement,
   SetVariableStatement,
   ChangeVariableStatement,
@@ -283,9 +282,6 @@ export class Parser {
     }
     if (this.match("REPEAT_FOREVER")) {
       return this.repeatForeverStatement();
-    }
-    if (this.match("REPEAT_UNTIL_GAME_OVER")) {
-      return this.repeatUntilGameOverStatement();
     }
     // if (this.match('WHILE')) return this.whileStatement()
     if (this.match("FOR")) {
@@ -545,17 +541,6 @@ export class Parser {
     return new RepeatStatement(keyword, condition, counter, statements, Location.between(keyword, this.previous()));
   }
 
-  private repeatUntilGameOverStatement(): Statement {
-    const keyword = this.previous();
-
-    const counter = this.counter();
-    this.consumeDo("repeat_until_game_over");
-    this.consumeEndOfLine();
-
-    const statements = this.block("repeat_until_game_over");
-
-    return new RepeatUntilGameOverStatement(keyword, counter, statements, Location.between(keyword, this.previous()));
-  }
   private repeatForeverStatement(): Statement {
     const keyword = this.previous();
     const counter = this.counter();
@@ -1354,7 +1339,6 @@ export function parse(
       excludeList: undefined,
       timePerFrame: 1,
       repeatDelay: 0,
-      maxRepeatUntilGameOverIterations: 100,
       maxTotalLoopIterations: 10000,
       maxTotalExecutionTime: 10000000, // 10 seconds (in microseconds)
       allowGlobals: false,
