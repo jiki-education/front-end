@@ -119,5 +119,7 @@ export default function ProjectPage({ params }: PageProps) {
   // Use exercise_slug from project data, fallback to project slug
   const exerciseSlug = (project.exercise_slug || project.slug) as ExerciseSlug;
 
-  return <CodingExercise exerciseSlug={exerciseSlug} projectSlug={project.slug} isProject={true} />;
+  return (
+    <CodingExercise language="jikiscript" exerciseSlug={exerciseSlug} projectSlug={project.slug} isProject={true} />
+  );
 }

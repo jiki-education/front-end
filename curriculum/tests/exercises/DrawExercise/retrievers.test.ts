@@ -5,9 +5,9 @@ import {
   getEllipseAt,
   getTriangleAt,
   getLineAt
-} from "../../../src/exercises/DrawExercise/retrievers";
-import type { Shape } from "../../../src/exercises/DrawExercise/shapes";
-import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../../src/exercises/DrawExercise/shapes";
+} from "../../../src/exercise-categories/draw/retrievers";
+import type { Shape } from "../../../src/exercise-categories/draw/shapes";
+import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../../src/exercise-categories/draw/shapes";
 
 // Helper to create mock SVG elements
 function createMockSVGElement(): SVGElement {

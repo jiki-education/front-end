@@ -26,6 +26,7 @@ export abstract class DrawExercise extends VisualExercise {
 
   constructor() {
     super();
+    this.populateView();
   }
 
   protected createView() {

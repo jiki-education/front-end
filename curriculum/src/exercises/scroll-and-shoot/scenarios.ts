@@ -1,5 +1,5 @@
 import type { Task, VisualScenario } from "../types";
-import type ScrollAndShootExercise from "./Exercise";
+import type ScrollAndShootExercise from "./ScrollAndShootExercise";
 
 export const tasks = [
   {

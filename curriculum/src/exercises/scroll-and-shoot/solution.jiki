@@ -4,7 +4,7 @@ set right_boundary to 10
 set direction to "right"
 set position to 0
 
-repeat 1000 times do
+repeat 1200 times do
   if is_alien_above() do
     shoot()
   end

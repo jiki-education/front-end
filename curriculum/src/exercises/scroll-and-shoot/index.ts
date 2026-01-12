@@ -1,4 +1,4 @@
-import ExerciseClass from "./Exercise";
+import ExerciseClass from "./ScrollAndShootExercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
 import type { VisualExerciseDefinition, FunctionInfo } from "../types";

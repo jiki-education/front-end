@@ -1,10 +1,8 @@
-import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
-import metadata from "./metadata.json";
+import type { ExecutionContext } from "@jiki/interpreters";
 
 type GameStatus = "running" | "won" | "lost";
 type AlienStatus = "alive" | "dead";
-
 class Alien {
   public status: AlienStatus;
   public lastKilledAt?: number;
@@ -12,14 +10,14 @@ class Alien {
 
   public constructor(
     public elem: HTMLElement,
-    public row: number,
-    public col: number,
-    public type: number
+    _row: number,
+    _col: number,
+    _type: number
   ) {
     this.status = "alive";
   }
 
-  public isAlive(time: number): boolean {
+  public isAlive(time: number) {
     if (this.status === "alive") {
       return true;
     }
@@ -31,9 +29,9 @@ class Alien {
   }
 }
 
-export default class ScrollAndShootExercise extends VisualExercise {
+export default class SpaceInvadersExercise extends VisualExercise {
   protected get slug() {
-    return metadata.slug;
+    return "space-invaders";
   }
 
   private gameStatus: GameStatus = "running";
@@ -53,63 +51,22 @@ export default class ScrollAndShootExercise extends VisualExercise {
   private laser!: HTMLElement;
   private aliens: (Alien | null)[][] = [];
   private startingAliens: (Alien | null)[][] = [];
-  private lastShotAt = 0;
-
-  availableFunctions = [
-    {
-      name: "move_left",
-      func: this.moveLeft.bind(this),
-      description: "Move the laser cannon to the left"
-    },
-    {
-      name: "move_right",
-      func: this.moveRight.bind(this),
-      description: "Move the laser cannon to the right"
-    },
-    {
-      name: "shoot",
-      func: this.shoot.bind(this),
-      description: "Shoot the laser upwards"
-    },
-    {
-      name: "is_alien_above",
-      func: this.isAlienAbove.bind(this),
-      description: "Check if there is an alien above the laser cannon"
-    }
-  ];
+  private lastShotAt = -100;
 
   constructor() {
     super();
+    this.populateView();
   }
 
   protected populateView() {
-    this.view.style.cssText = `
-      width: 100%;
-      height: 500px;
-      position: relative;
-      background-color: #222;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.05), black);
-      overflow: hidden;
-    `;
-
-    // Calculate initial laser position (12% is the starting position)
-    const initialLeft = this.laserStart;
-
     this.laser = document.createElement("div");
     this.laser.classList.add("laser");
-    this.laser.style.cssText = `
-      --laser-width: 20%;
-      position: absolute;
-      bottom: 2%;
-      left: ${initialLeft}%;
-      width: var(--laser-width);
-      height: calc(var(--laser-width) * (115 / 200));
-      transform: translateX(-50%);
-      background-size: cover;
-      background-image: url('/static/images/exercise-assets/space-invaders/laser.svg');
-      z-index: 20;
-    `;
+    this.laser.style.left = `${this.laserPositions[this.laserPosition]}%`;
     this.view.appendChild(this.laser);
+  }
+
+  public getState() {
+    return { gameStatus: this.gameStatus };
   }
 
   public setupAliens(rows: number[][]) {
@@ -119,61 +76,34 @@ export default class ScrollAndShootExercise extends VisualExercise {
         return this.addAlien(rowIdx, colIdx, type);
       });
     });
-    this.startingAliens = JSON.parse(JSON.stringify(this.aliens.map(row =>
-      row.map(alien => alien ? { ...alien, elem: alien.elem } : null)
-    )));
+    this.startingAliens = JSON.parse(JSON.stringify(this.aliens));
   }
 
   public enableAlienRespawning() {
     this.features.alienRespawning = true;
   }
 
-  private addAlien(row: number, col: number, type: number): Alien {
+  private addAlien(row: number, col: number, type: number) {
     const alien = document.createElement("div");
     alien.classList.add("alien");
     alien.id = `alien-${Math.random().toString(36).slice(2, 11)}`;
-    alien.style.cssText = `
-      --alien-width: 8%;
-      position: absolute;
-      left: ${this.laserStart + col * this.laserStep}%;
-      top: ${10 + row * 11}%;
-      width: var(--alien-width);
-      height: calc(var(--alien-width) * (160 / 200));
-      transform: translateX(-50%);
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      filter: invert(1);
-    `;
+    alien.style.left = `${this.laserStart + col * this.laserStep}%`;
+    alien.style.top = `${10 + row * 11}%`;
 
-    const parts = [
-      { name: "tl", svg: "a1-tl.svg" },
-      { name: "tr", svg: "a1-tr.svg" },
-      { name: "bl", svg: "a1-bl.svg" },
-      { name: "br", svg: "a1-br.svg" }
-    ];
-
-    parts.forEach((part) => {
-      const partElem = document.createElement("div");
-      partElem.classList.add(part.name);
-      partElem.style.cssText = `
-        background-size: cover;
-        background-image: url('/static/images/exercise-assets/space-invaders/${part.svg}');
-      `;
-      alien.appendChild(partElem);
+    const parts = ["tl", "tr", "bl", "br"];
+    parts.forEach((pos) => {
+      const part = document.createElement("div");
+      part.classList.add(pos);
+      alien.appendChild(part);
     });
-
     this.view.appendChild(alien);
+
     return new Alien(alien, row, col, type);
   }
 
-  private killAlien(
-    executionCtx: ExecutionContext,
-    alien: Alien,
-    shot: HTMLElement
-  ) {
+  private killAlien(executionCtx: ExecutionContext, alien: Alien, shot: HTMLElement) {
     const deathTime = executionCtx.getCurrentTimeInMs() + this.shotDuration;
     alien.status = "dead";
-
     [
       ["tl", -10, -10, -180],
       ["tr", 10, -10, 180],
@@ -192,14 +122,12 @@ export default class ScrollAndShootExercise extends VisualExercise {
         offset: deathTime
       });
     });
-
     this.addAnimation({
       targets: `#${this.view.id} #${shot.id}`,
       duration: 1,
       transformations: { opacity: 0 },
       offset: deathTime
     });
-
     executionCtx.fastForward(1);
     this.respawnAlien(executionCtx, alien);
   }
@@ -227,7 +155,6 @@ export default class ScrollAndShootExercise extends VisualExercise {
 
     const respawnsAt = executionCtx.getCurrentTimeInMs() + this.shotDuration + 1000;
     alien.respawnsAt = respawnsAt;
-
     ["tl", "tr", "bl", "br"].forEach((pos) => {
       this.addAnimation({
         targets: `#${this.view.id} #${alien.elem.id} .${pos}`,
@@ -250,19 +177,16 @@ export default class ScrollAndShootExercise extends VisualExercise {
       duration: this.moveDuration,
       transformations: {
         opacity: 1,
-        left: this.laserPositions[this.laserPosition]
+        left: `${this.laserPositions[this.laserPosition]}%`
       },
       offset: executionCtx.getCurrentTimeInMs()
     });
     executionCtx.fastForward(this.moveDuration);
   }
 
-  private allAliensDead(executionCtx: ExecutionContext): boolean {
+  private allAliensDead(executionCtx: ExecutionContext) {
     return this.aliens.every((row) =>
-      row.every(
-        (alien) =>
-          alien === null || !alien.isAlive(executionCtx.getCurrentTimeInMs())
-      )
+      row.every((alien) => alien === null || !alien.isAlive(executionCtx.getCurrentTimeInMs()))
     );
   }
 
@@ -285,17 +209,16 @@ export default class ScrollAndShootExercise extends VisualExercise {
   public shoot(executionCtx: ExecutionContext) {
     if (this.lastShotAt > executionCtx.getCurrentTimeInMs() - 50) {
       executionCtx.logicError(
-        "Oh no! Your laser cannon overheated from shooting too fast! You need to move before you can shoot a second time."
+        "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time."
       );
     }
     this.lastShotAt = executionCtx.getCurrentTimeInMs();
 
-    let targetRow: number | null = null;
+    let targetRow = null;
     let targetAlien: Alien | null = null;
-
     this.aliens.forEach((row, rowIdx) => {
       const alien = row[this.laserPosition];
-      if (alien === null) {
+      if (alien == null) {
         return;
       }
       if (!alien.isAlive(executionCtx.getCurrentTimeInMs())) {
@@ -306,27 +229,22 @@ export default class ScrollAndShootExercise extends VisualExercise {
       targetAlien = row[this.laserPosition];
     });
 
-    let targetTop: string | number;
+    let targetTop;
     if (targetRow === null) {
       targetTop = -10;
     } else {
-      targetTop = 10 + targetRow * 11;
+      targetTop = `${10 + targetRow * 11}%`;
     }
 
+    // TODO: Vary speed based on distance
     const duration = this.shotDuration;
 
     const shot = document.createElement("div");
     shot.classList.add("shot");
     shot.id = `shot-${Math.random().toString(36).slice(2, 11)}`;
-    shot.style.cssText = `
-      position: absolute;
-      left: ${this.laserPositions[this.laserPosition]}%;
-      top: 85%;
-      width: 4px;
-      height: 15px;
-      background: #0f0;
-      opacity: 0;
-    `;
+    shot.style.left = `${this.laserPositions[this.laserPosition]}%`;
+    shot.style.top = "85%";
+    shot.style.opacity = "0";
     this.view.appendChild(shot);
 
     this.addAnimation({
@@ -335,7 +253,6 @@ export default class ScrollAndShootExercise extends VisualExercise {
       transformations: { opacity: 1 },
       offset: executionCtx.getCurrentTimeInMs()
     });
-
     this.addAnimation({
       targets: `#${this.view.id} #${shot.id}`,
       duration: duration,
@@ -359,7 +276,6 @@ export default class ScrollAndShootExercise extends VisualExercise {
 
   public moveLeft(executionCtx: ExecutionContext) {
     if (this.laserPosition === this.minLaserPosition) {
-      this.gameStatus = "lost";
       executionCtx.logicError("Oh no, you tried to move off the edge!");
     }
 
@@ -369,7 +285,6 @@ export default class ScrollAndShootExercise extends VisualExercise {
 
   public moveRight(executionCtx: ExecutionContext) {
     if (this.laserPosition === this.maxLaserPosition) {
-      this.gameStatus = "lost";
       executionCtx.logicError("Oh no, you tried to move off the edge!");
     }
 
@@ -377,10 +292,84 @@ export default class ScrollAndShootExercise extends VisualExercise {
     this.moveLaser(executionCtx);
   }
 
-  public getState() {
-    return {
-      gameStatus: this.gameStatus,
-      laserPosition: this.laserPosition
-    };
+  public getStartingAliensInRow(executionCtx: ExecutionContext, row: number): boolean[] {
+    if (typeof row !== "number") {
+      executionCtx.logicError("Oh no, the row input you provided is not a number.");
+    }
+
+    if (row < 1 || row > this.startingAliens.length) {
+      executionCtx.logicError(
+        `Oh no, you tried to access a row of aliens that doesn't exist. You asked for row ${row}, but there are only ${this.startingAliens.length} rows of aliens.`
+      );
+    }
+
+    const reversedAliens = this.startingAliens.slice().reverse();
+    return reversedAliens[row - 1].map((alien) => alien !== null);
   }
+
+  public getStartingAliens(_: ExecutionContext): boolean[][] {
+    return this.startingAliens.map((row) => row.map((alien) => alien !== null));
+  }
+
+  public fireFireworks(executionCtx: ExecutionContext) {
+    if (!this.allAliensDead(executionCtx)) {
+      executionCtx.logicError("You need to defeat all the aliens before you can celebrate!");
+    }
+    // VisualExercise doesn't have fireFireworks, so just mark as won
+    this.gameStatus = "won";
+    executionCtx.fastForward(2500);
+  }
+
+  public wasFireworksCalledInsideRepeatLoop(_result: unknown): boolean {
+    // TODO: Re-implement when AST analysis is available
+    return false;
+  }
+
+  public availableFunctions = [
+    {
+      name: "move_left",
+      func: this.moveLeft.bind(this),
+      description: "moved the laser canon to the left"
+    },
+    {
+      name: "moveLeft",
+      func: this.moveLeft.bind(this),
+      description: "moved the laser canon to the left"
+    },
+    {
+      name: "move_right",
+      func: this.moveRight.bind(this),
+      description: "moved the laser canon to the right"
+    },
+    {
+      name: "moveRight",
+      func: this.moveRight.bind(this),
+      description: "moved the laser canon to the right"
+    },
+    {
+      name: "shoot",
+      func: this.shoot.bind(this),
+      description: "shot the laser upwards"
+    },
+    {
+      name: "is_alien_above",
+      func: this.isAlienAbove.bind(this),
+      description: "determined if there was an alien above the laser canon"
+    },
+    {
+      name: "get_starting_aliens_in_row",
+      func: this.getStartingAliensInRow.bind(this),
+      description: "retrieved the starting positions of row ${arg1} of aliens"
+    },
+    {
+      name: "getStartingAliens",
+      func: this.getStartingAliens.bind(this),
+      description: "retrieved the starting positions of row ${arg1} of aliens"
+    },
+    {
+      name: "fire_fireworks",
+      func: this.fireFireworks.bind(this),
+      description: "fired off celebratory fireworks"
+    }
+  ];
 }

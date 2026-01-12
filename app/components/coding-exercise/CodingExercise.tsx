@@ -19,12 +19,18 @@ import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import { Resizer, useResizablePanels } from "./useResize";
 
 interface CodingExerciseProps {
+  language: "javascript" | "jikiscript" | "python";
   exerciseSlug: ExerciseSlug;
   projectSlug?: string;
   isProject?: boolean;
 }
 
-export default function CodingExercise({ exerciseSlug, projectSlug, isProject = false }: CodingExerciseProps) {
+export default function CodingExercise({
+  language,
+  exerciseSlug,
+  projectSlug,
+  isProject = false
+}: CodingExerciseProps) {
   // Use ref to store the orchestrator instance to prevent recreation
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +59,7 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
             ? { type: "project" as const, slug: projectSlug }
             : { type: "lesson" as const, slug: exerciseSlug };
 
-        orchestratorRef.current = new Orchestrator(exercise, "javascript", context);
+        orchestratorRef.current = new Orchestrator(exercise, language, context);
 
         // Fetch completion status
         try {

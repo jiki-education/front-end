@@ -15,6 +15,11 @@ export default class MazeSolveBasicExercise extends VisualExercise {
   rotation: number = 0; // Continuous rotation value in degrees
   grid: number[][] = [];
 
+  constructor() {
+    super();
+    this.populateView();
+  }
+
   availableFunctions = [
     {
       name: "move",

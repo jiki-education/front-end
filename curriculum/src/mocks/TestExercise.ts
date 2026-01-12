@@ -8,6 +8,11 @@ export class TestExercise extends VisualExercise {
   position: number = 0;
   counter: number = 0;
 
+  constructor() {
+    super();
+    this.populateView();
+  }
+
   availableFunctions: ExternalFunction[] = [
     {
       name: "move",

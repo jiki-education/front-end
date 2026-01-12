@@ -60,19 +60,21 @@ Based on the bootcamp exercise, I'll determine:
    - Map bootcamp level number to Jiki levelId
    - Default: "everything" for advanced exercises
 
-## Step 3: Create File Structure
+## Step 3: Copy existing content
 
-I'll create the exercise directory with all 9 required files:
+I'll create the exercise directory and then using `cp` will copy over all the relevant files from the bootcamp (including stubs, solutions and the exercise file).
 
-```bash
-mkdir -p src/exercises/$ARGUMENTS
-cd src/exercises/$ARGUMENTS
-touch metadata.json Exercise.ts scenarios.ts llm-metadata.ts index.ts
-touch solution.jiki solution.javascript solution.py
-touch stub.jiki stub.javascript stub.py
+Making the MINIMAL POSSIBLE CHANGES, I will then bring the files in line with the standards of this codebase.
+
+I will then create any missing files, resulting in:
+
+```
+metadata.json Exercise.ts scenarios.ts llm-metadata.ts index.ts
+solution.jiki solution.javascript solution.py
+stub.jiki stub.javascript stub.py
 ```
 
-## Step 4: Extract and Convert Content
+I will not refactor or optimise the code, other than to bring it in line with the types and structure (e.g. VisualExercise/IOExercise, returning raw values not Jiki values, etc) of the current codebase.
 
 I'll create each file following the migration guide:
 
