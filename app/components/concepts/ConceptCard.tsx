@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SubConceptIcon from "@static/icons/subconcept.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 
 interface ConceptCardData {
   slug: string;
@@ -14,11 +15,15 @@ interface ConceptCardData {
 interface ConceptCardProps {
   concept: ConceptCardData;
   isAuthenticated: boolean;
+  smallVersion?: boolean;
 }
 
-export default function ConceptCard({ concept }: ConceptCardProps) {
+export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
   return (
-    <Link className={styles.conceptCard} href={`/concepts/${concept.slug || ""}`}>
+    <Link
+      className={assembleClassNames(styles.conceptCard, smallVersion && styles.small)}
+      href={`/concepts/${concept.slug || ""}`}
+    >
       <div className={styles.conceptIcon}>
         <Image src={"/" + concept.iconSrc} alt={concept.title} width={24} height={24} unoptimized />
       </div>

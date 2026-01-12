@@ -64,7 +64,7 @@
         gap: 8px;
 
         &:hover {
-            color: var(--color-blue-500);
+            color: var(--color-purple-500);
         }
 
         /* Tab Icon */
@@ -76,7 +76,7 @@
 
         /* Active state - default blue */
         &.active {
-            color: var(--color-blue-500);
+            color: var(--color-purple-500);
 
             &::after {
                 content: "";
@@ -85,7 +85,7 @@
                 left: 0;
                 right: 0;
                 height: 2px;
-                background: var(--color-blue-500);
+                background: var(--color-purple-500);
                 border-radius: 2px;
             }
         }

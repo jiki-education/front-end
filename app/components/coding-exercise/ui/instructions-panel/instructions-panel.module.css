@@ -9,34 +9,39 @@
     flex: 1;
     overflow: auto;
     padding: 1.5rem;
-    background-color: var(--color-gray-50);
+    background-color: white;
     scroll-behavior: smooth;
 }
 
 /* DynamicHeader styles */
-.dynamicHeader {
+.dynamicHeader,
+.panelHeader {
     flex-shrink: 0;
     background: linear-gradient(90deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     transition: all 0.3s;
     position: relative;
 }
 
-.dynamicHeader::after {
+.panelHeader {
+}
+
+.dynamicHeader::after,
+.panelHeader::after {
     content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4px;
+    height: 3px;
     background: linear-gradient(90deg, var(--color-blue-500) 0%, #ed4799 100%);
 }
 
 .expandedHeader {
-    padding: 1.5rem;
+    padding: 16px 32px;
 }
 
 .collapsedHeader {
-    padding: 1rem 1.5rem;
+    padding: 8px 32px;
 }
 
 .expandedGrid {
@@ -62,9 +67,9 @@
 }
 
 .exerciseInfoText {
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 500;
-    color: #8b5cf6;
+    color: #64748b;
 }
 
 .navigationButtonsExpanded {
@@ -72,9 +77,10 @@
 }
 
 .exerciseTitle {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--color-gray-900);
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
 }
 
 .collapsedGrid {
@@ -84,8 +90,8 @@
 }
 
 .sectionTitle {
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--color-gray-900);
 }
 
@@ -96,26 +102,41 @@
     gap: 0.5rem;
 }
 
-.navigationButton {
-    padding: 12px;
-    background-color: white;
-    border: 1px solid var(--color-gray-200);
+.navigationButtonActive {
+    border: 2px solid rgb(196, 181, 253);
+    color: rgb(124, 58, 237);
     border-radius: 8px;
-    transition: colors 0.2s;
-    cursor: pointer;
 }
 
 .collapsedHeader .navigationButton {
     padding: 8px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    svg {
+        width: 16px;
+        height: 16px;
+    }
 }
 
-.navigationButtonActive {
-    background-color: #8b5cf6;
-    color: var(--color-purple-100);
+.navigationButton {
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: white;
+    transition: 0.2s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navigationButtonInactive {
     color: var(--color-gray-400);
+    border: 2px solid rgb(226, 232, 240);
 }
 
 .navigationButtonInactive:hover {
@@ -131,27 +152,29 @@
 .instructionsContent {
     max-width: none;
     color: var(--color-gray-700);
+    padding: 0;
 }
 
 .instructionsContent h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-gray-900);
-    margin-bottom: 1rem;
+    color: #1a202c;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    line-height: 1.2;
 }
 
 .instructionsContent h2 {
-    font-size: 1.25rem;
+    color: #1a202c;
+    font-size: 24px;
     font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: 0.75rem;
-    margin-top: 1.5rem;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 .instructionsContent h3 {
+    color: #1a202c;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-gray-900);
     margin-bottom: 0.5rem;
     margin-top: 1.25rem;
 }
@@ -211,11 +234,22 @@
     margin-bottom: 2rem;
 }
 
-.functionsTitle {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: 1rem;
+.functionContainer,
+.conceptsContainer {
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 1px solid #e2e8f0;
+    }
+    .sectionInfo {
+        color: #64748b;
+        font-size: 15px;
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
 }
 
 .functionsList {
@@ -225,10 +259,12 @@
 }
 
 .functionCard {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    border: 1px solid var(--color-gray-200);
+    color: #2d3748;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
 }
 
 .functionHeader {
@@ -240,22 +276,17 @@
 
 .functionSignature {
     font-family: "Source Code Pro", monospace;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-blue-600);
-}
-
-.functionCategory {
-    font-size: 0.75rem;
-    background-color: var(--color-blue-100);
-    color: var(--color-blue-700);
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4338ca;
+    margin-bottom: 8px;
+    background: #e0e7ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
 }
 
 .functionDescription {
-    color: var(--color-gray-600);
-    font-size: 0.875rem;
     margin-bottom: 0.75rem;
 }
 
@@ -267,7 +298,6 @@
 .functionExamplesLabel {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--color-gray-500);
     margin-bottom: 0.5rem;
 }
 
@@ -280,7 +310,6 @@
 .functionExample {
     font-family: "Source Code Pro", monospace;
     font-size: 0.75rem;
-    color: var(--color-gray-600);
     background-color: var(--color-gray-50);
     padding: 0.5rem;
     border-radius: 0.25rem;
@@ -292,14 +321,39 @@
 }
 
 .conceptsTitle {
-    font-size: 1.125rem;
+    font-size: 15px;
     font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid #e2e8f0;
 }
 
 .conceptsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.openConceptLibraryBtn {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-bottom: 32px;
+    width: 100%;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 15px;
+    font-weight: 500;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.openConceptLibraryBtn:hover {
+    border-color: #3b82f6 !important;
+    background: #f0f9ff !important;
 }

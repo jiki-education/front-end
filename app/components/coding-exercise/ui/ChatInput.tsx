@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
+import styles from "./chat-panel.module.css";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -11,7 +12,7 @@ interface ChatInputProps {
 export default function ChatInput({
   onSendMessage,
   disabled = false,
-  placeholder = "Ask a question about your code..."
+  placeholder = "Type your question here..."
 }: ChatInputProps) {
   const [message, setMessage] = useState("");
 
@@ -23,31 +24,33 @@ export default function ChatInput({
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !disabled) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !disabled) {
       e.preventDefault();
       handleSend();
     }
   };
 
   return (
-    <div className="flex gap-2 p-3 border-t border-gray-200 bg-white">
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        disabled={disabled}
-        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-      />
-      <button
-        onClick={handleSend}
-        disabled={disabled || !message.trim()}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-medium"
-      >
-        Send
-      </button>
+    <div className={styles.chatInputContainer}>
+      <div className="flex items-start gap-3">
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-semibold text-xs flex-shrink-0 mt-4 relative z-10">
+          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-px h-[14px] bg-[#e2e8f0] -z-10" />N
+        </div>
+        <div className="flex-1 relative">
+          <textarea
+            className={styles.chatInput}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            disabled={disabled}
+          />
+          <div className={styles.chatInputHint}>
+            <span>⌘ ↵</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

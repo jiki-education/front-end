@@ -1,0 +1,57 @@
+import { useRouter } from "next/navigation";
+import { showModal } from "@/lib/modal/store";
+import { markLessonComplete } from "@/lib/api/lessons";
+import type Orchestrator from "../lib/Orchestrator";
+
+interface UseExerciseCompletionProps {
+  orchestrator: Orchestrator;
+  exerciseTitle: string;
+}
+
+export function useExerciseCompletion({ orchestrator, exerciseTitle }: UseExerciseCompletionProps) {
+  const router = useRouter();
+
+  const handleCompleteExercise = () => {
+    showModal("exercise-completion-modal", {
+      exerciseTitle: exerciseTitle,
+      exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+      initialStep: "confirmation",
+      onCompleteExercise: async () => {
+        // Use the same completion logic as the store
+        const state = orchestrator.store.getState();
+        try {
+          const response = await markLessonComplete(state.exerciseSlug);
+          const events = response?.meta?.events || [];
+          state.setCompletionResponse(events);
+          state.setIsExerciseCompleted(true);
+
+          // Re-show modal with completion response data
+          showModal("exercise-completion-modal", {
+            exerciseTitle: exerciseTitle,
+            exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+            completionResponse: events,
+            initialStep: "completed",
+            onTidyCode: () => {
+              state.setShouldShowCompleteButton(true);
+            },
+            onCompleteExercise: () => {}, // No-op since already completed
+            onGoToProject: () => {
+              router.push("/projects");
+            },
+            onGoToDashboard: () => {
+              router.push("/dashboard");
+            }
+          });
+
+          console.warn("Exercise completed successfully!");
+        } catch (error) {
+          console.error("Failed to mark lesson as complete:", error);
+        }
+      }
+    });
+  };
+
+  return {
+    handleCompleteExercise
+  };
+}

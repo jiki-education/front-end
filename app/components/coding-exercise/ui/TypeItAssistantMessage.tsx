@@ -1,6 +1,7 @@
 import TypeIt from "typeit-react";
-import { marked } from "marked";
 import type { StreamStatus } from "../lib/chat-types";
+import { processMessageContent } from "./messageUtils";
+import styles from "./chat-panel.module.css";
 
 interface TypeItAssistantMessageProps {
   content: string;
@@ -18,16 +19,12 @@ export default function TypeItAssistantMessage({
   // Show thinking state
   if (status === "thinking") {
     return (
-      <div className="flex gap-3">
-        <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-          <span className="text-blue-600 text-sm font-semibold">AI</span>
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="text-sm font-medium text-gray-900 mb-1">Assistant (thinking...)</div>
-          <div className="text-sm text-gray-700 whitespace-pre-wrap">
-            AI is thinking...
-            <span className="animate-pulse">▊</span>
-          </div>
+      <div className={styles.response}>
+        <div className={styles.avatar}>J</div>
+        <div className={styles.responseContent}>
+          <p>
+            AI is thinking...<span className="animate-pulse">▊</span>
+          </p>
         </div>
       </div>
     );
@@ -35,28 +32,23 @@ export default function TypeItAssistantMessage({
 
   // Show typing or completed message
   return (
-    <div className="flex gap-3">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-        <span className="text-blue-600 text-sm font-semibold">AI</span>
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium text-gray-900 mb-1">Assistant</div>
-        <div className="text-sm text-gray-700 prose prose-sm max-w-none prose-code:before:content-[''] prose-code:after:content-[''] prose-code:bg-blue-100 prose-code:px-2 prose-code:py-1 prose-code:rounded">
-          {status === "typing" && content ? (
-            <TypeIt
-              options={{
-                speed: typingSpeed,
-                afterComplete: () => {
-                  onTypingComplete?.();
-                }
-              }}
-            >
-              {content}
-            </TypeIt>
-          ) : (
-            <div dangerouslySetInnerHTML={{ __html: marked.parse(content) }} />
-          )}
-        </div>
+    <div className={styles.response}>
+      <div className={styles.avatar}>J</div>
+      <div className={styles.responseContent}>
+        {status === "typing" && content ? (
+          <TypeIt
+            options={{
+              speed: typingSpeed,
+              afterComplete: () => {
+                onTypingComplete?.();
+              }
+            }}
+          >
+            {content}
+          </TypeIt>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: processMessageContent(content) }} />
+        )}
       </div>
     </div>
   );
