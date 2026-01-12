@@ -46,6 +46,24 @@ export function runVisualScenario(
   // Run expectations
   const expects = scenario.expectations(exercise);
 
+  // Execute code checks if present - add results to expects array
+  if (scenario.codeChecks && scenario.codeChecks.length > 0) {
+    for (const check of scenario.codeChecks) {
+      try {
+        const checkPassed = check.pass(result, language);
+        expects.push({
+          pass: checkPassed,
+          errorHtml: checkPassed ? undefined : check.errorHtml
+        });
+      } catch (error) {
+        expects.push({
+          pass: false,
+          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+        });
+      }
+    }
+  }
+
   // Build animation timeline
   // Frames already have time (microseconds) and timeInMs (milliseconds) from interpreter
   const frames = result.frames;
@@ -55,8 +73,9 @@ export function runVisualScenario(
 
   // Animation timeline is ready for scrubber
 
-  // Determine status
-  const status = expects.every((e) => e.pass) ? "pass" : "fail";
+  // Determine status - fail if any expectation fails OR if any frame has an error
+  const hasFrameError = frames.some((f) => f.status === "ERROR");
+  const status = expects.every((e) => e.pass) && !hasFrameError ? "pass" : "fail";
 
   return {
     type: "visual",

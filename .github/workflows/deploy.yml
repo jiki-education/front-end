@@ -64,7 +64,11 @@ jobs:
           echo "✅ All required environment variables are set"
 
       - name: Generate content bundle
-        run: pnpm run generate:content
+        run: pnpm run content:generate
+        working-directory: app
+
+      - name: Generate icon types
+        run: pnpm run icons:generate
         working-directory: app
 
       - name: Deploy to Cloudflare Workers

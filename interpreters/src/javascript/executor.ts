@@ -35,7 +35,7 @@ import type { EvaluationResult, EvaluationResultExpression, EvaluationResultCall
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
 import { translate } from "./translator";
-import { TIME_SCALE_FACTOR, type Frame, type FrameExecutionStatus } from "../shared/frames";
+import { timeToMs, type Frame, type FrameExecutionStatus } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
 import { createBaseExecutionContext } from "../shared/executionContext";
 import type { EvaluationContext } from "./interpreter";
@@ -136,7 +136,7 @@ export class Executor {
   private readonly timePerFrame: number = 1;
   private totalLoopIterations = 0;
   private readonly maxTotalLoopIterations: number;
-  public readonly logLines: Array<{ time: number; output: string }> = [];
+  public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
 
@@ -458,7 +458,7 @@ export class Executor {
       result: result || undefined,
       error,
       time: this.time,
-      timeInMs: this.time / TIME_SCALE_FACTOR,
+      timeInMs: timeToMs(this.time),
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: {}, // JavaScript doesn't have external functions yet
@@ -538,7 +538,7 @@ export class Executor {
 
   // Get execution context for stdlib functions
   public log(output: string): void {
-    this.logLines.push({ time: this.time, output });
+    this.logLines.push({ time: this.time, timeInMs: timeToMs(this.time), output });
   }
 
   public getExecutionContext(): ExecutionContext {
@@ -561,12 +561,13 @@ export class Executor {
     value: any;
     jikiObject?: JikiObject;
     frames: Frame[];
-    logLines: Array<{ time: number; output: string }>;
+    logLines: Array<{ time: number; timeInMs: number; output: string }>;
     success: boolean;
     error: null;
     meta: {
       functionCallLog: Record<string, Record<string, number>>;
       statements: Statement[];
+      sourceCode: string;
     };
   } {
     try {
@@ -606,6 +607,7 @@ export class Executor {
         meta: {
           functionCallLog: {},
           statements: [statement],
+          sourceCode: this.sourceCode,
         },
       };
     } catch (error) {
@@ -635,6 +637,7 @@ export class Executor {
           meta: {
             functionCallLog: {},
             statements: [statement],
+            sourceCode: this.sourceCode,
           },
         };
       }

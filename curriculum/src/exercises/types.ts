@@ -3,6 +3,7 @@ import type { VisualExercise } from "../VisualExercise";
 import type { LevelId } from "../levels";
 import type { Change } from "diff";
 import type { Language } from "../types";
+import type { InterpretResult } from "@jiki/interpreters";
 
 // Base properties shared by all exercise definitions
 interface BaseExerciseDefinition {
@@ -69,6 +70,7 @@ export interface VisualScenario {
   taskId: string; // References the task this scenario belongs to
   setup?: (exercise: VisualExercise) => void;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
+  codeChecks?: CodeCheck[]; // Optional code quality checks
 }
 
 // Recursive type to support nested arrays in IO scenarios
@@ -76,6 +78,18 @@ export type IOValue = string | number | boolean | null | undefined | IOValue[];
 
 // Expected value must be defined (no null/undefined)
 export type IOExpectedValue = string | number | boolean | IOExpectedValue[];
+
+// Code quality check result
+export interface CodeCheckExpect {
+  pass: boolean;
+  errorHtml?: string;
+}
+
+// Code check definition
+export interface CodeCheck {
+  pass: (result: InterpretResult, language: Language) => boolean;
+  errorHtml?: string;
+}
 
 export interface IOScenario {
   slug: string;
@@ -86,6 +100,7 @@ export interface IOScenario {
   args: Array<IOValue>; // Arguments to pass to the function (supports arrays, null, undefined)
   expected: IOExpectedValue; // Expected return value (must be defined, supports arrays but not null/undefined)
   matcher?: "toBe" | "toEqual" | "toBeGreaterThan" | "toBeLessThan"; // Comparison method (defaults to toEqual)
+  codeChecks?: CodeCheck[]; // Optional code quality checks
 }
 
 // Union type for all scenario types
@@ -106,6 +121,7 @@ export interface IOTestExpect {
   matcher: string; // e.g., 'toBe', 'toEqual'
   codeRun?: string; // The function call that was executed, for display
   errorHtml?: string;
+  codeCheckResults?: CodeCheckExpect[]; // Code quality check results (if any)
 }
 
 // Union type for all test expectations

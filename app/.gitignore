@@ -47,6 +47,9 @@ next-env.d.ts
 # generated content (build-time generation)
 lib/content/generated/
 
+# generated icon types (build-time generation)
+components/ui-kit/icon-types.ts
+
 # cloudflare workers
 .open-next/
 .wrangler/

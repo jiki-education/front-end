@@ -53,6 +53,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       meta: {
         functionCallLog: {},
         statements: statements,
+        sourceCode: sourceCode,
       },
       assertors: result.assertors,
     };
@@ -66,6 +67,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       meta: {
         functionCallLog: {},
         statements: [],
+        sourceCode: sourceCode,
       },
       assertors: {
         assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
@@ -139,6 +141,7 @@ export function evaluateFunction(
     meta: {
       functionCallLog: callResult.meta.functionCallLog,
       statements: statements, // Return the original student code statements
+      sourceCode: sourceCode,
     },
     assertors: {
       assertAllArgumentsAreVariables: () => {

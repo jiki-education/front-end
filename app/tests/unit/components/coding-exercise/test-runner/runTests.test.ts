@@ -146,7 +146,7 @@ describe("runTests", () => {
       // Both should pass with the mocked data
       expect(result.tests[0].status).toBe("pass");
       expect(result.tests[1].status).toBe("pass");
-      expect(result.status).toBe("pass");
+      expect(result.passed).toBe(true);
     });
 
     it("should set codeRun to the student code for each test", () => {

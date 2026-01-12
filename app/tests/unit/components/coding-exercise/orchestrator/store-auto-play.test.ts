@@ -72,7 +72,7 @@ describe("Store Auto-Play Behavior", () => {
 
       const testResults = {
         tests: [createMockTest("test-1")],
-        status: "pass" as const
+        passed: true
       };
 
       store.getState().setTestSuiteResult(testResults);
@@ -95,7 +95,7 @@ describe("Store Auto-Play Behavior", () => {
 
       const testResults = {
         tests: [createMockTest("test-1"), createMockTest("test-2")],
-        status: "pass" as const
+        passed: true
       };
 
       store.getState().setTestSuiteResult(testResults);
@@ -112,7 +112,7 @@ describe("Store Auto-Play Behavior", () => {
 
       const testResults = {
         tests: [createMockTest("test-1")],
-        status: "pass" as const
+        passed: true
       };
 
       store.getState().setTestSuiteResult(testResults);
@@ -129,7 +129,7 @@ describe("Store Auto-Play Behavior", () => {
 
       const testResults = {
         tests: [test1, test2],
-        status: "pass" as const
+        passed: true
       };
 
       store.getState().setTestSuiteResult(testResults);
@@ -146,7 +146,7 @@ describe("Store Auto-Play Behavior", () => {
 
       const testResults = {
         tests: [createMockTest("test-1")],
-        status: "pass" as const
+        passed: true
       };
 
       store.getState().setTestSuiteResult(testResults);
@@ -348,7 +348,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [createMockTest("test-1"), createMockTest("test-2")],
-          status: "pass" as const
+          passed: true
         };
 
         store.getState().setTestSuiteResult(testResults);
@@ -367,7 +367,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [createMockTest("test-1"), createMockTest("test-2")],
-          status: "pass" as const
+          passed: true
         };
 
         // First successful run
@@ -397,7 +397,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [failedTest, createMockTest("test-2")],
-          status: "fail" as const
+          passed: false
         };
 
         store.getState().setTestSuiteResult(testResults);
@@ -419,7 +419,7 @@ describe("Store Auto-Play Behavior", () => {
         // Failed run - should remain false
         const failedResults = {
           tests: [{ ...createMockTest("test-1"), status: "fail" as const }],
-          status: "fail" as const
+          passed: false
         };
         store.getState().setTestSuiteResult(failedResults);
         expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
@@ -427,7 +427,7 @@ describe("Store Auto-Play Behavior", () => {
         // Successful run - should become true
         const successResults = {
           tests: [createMockTest("test-1")],
-          status: "pass" as const
+          passed: true
         };
         store.getState().setTestSuiteResult(successResults);
         expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
@@ -450,7 +450,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [createMockTest("test-1")],
-          status: "pass" as const
+          passed: true
         };
 
         // Run tests again (without code changes)
@@ -472,7 +472,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [test1],
-          status: "pass" as const
+          passed: true
         };
 
         store.getState().setTestSuiteResult(testResults);
@@ -498,7 +498,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [test1],
-          status: "pass" as const
+          passed: true
         };
 
         store.getState().setTestSuiteResult(testResults);
@@ -528,7 +528,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [failedTest],
-          status: "fail" as const
+          passed: false
         };
 
         store.getState().setTestSuiteResult(testResults);
@@ -552,7 +552,7 @@ describe("Store Auto-Play Behavior", () => {
 
         const testResults = {
           tests: [test1],
-          status: "pass" as const
+          passed: true
         };
 
         store.getState().setTestSuiteResult(testResults);

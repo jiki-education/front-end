@@ -1,4 +1,4 @@
-import type { IOScenario, Language } from "@jiki/curriculum";
+import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -61,12 +61,14 @@ export function runIOScenario(
 
   let actual: any;
   let errorHtml: string | undefined;
-  let pass = false;
+  let functionalPass = false;
   let frames: Frame[] = [];
   let logLines: Array<{ time: number; output: string }> = [];
 
+  let interpretResult: any;
+
   try {
-    const result = interpreter.evaluateFunction(
+    interpretResult = interpreter.evaluateFunction(
       studentCode,
       {
         externalFunctions: availableFunctions.map((func) => ({
@@ -81,16 +83,16 @@ export function runIOScenario(
       ...scenario.args
     );
 
-    if (result.error) {
-      errorHtml = `<p>Error: ${result.error.message}</p>`;
+    if (interpretResult.error) {
+      errorHtml = `<p>Error: ${interpretResult.error.message}</p>`;
       actual = undefined;
     } else {
-      actual = result.value;
+      actual = interpretResult.value;
     }
 
     // Capture frames and logs from execution
-    frames = result.frames;
-    logLines = result.logLines;
+    frames = interpretResult.frames;
+    logLines = interpretResult.logLines;
   } catch (error) {
     errorHtml = `<p>Error: ${error instanceof Error ? error.message : String(error)}</p>`;
     actual = undefined;
@@ -99,8 +101,38 @@ export function runIOScenario(
   // Compare actual vs expected
   const matcher = scenario.matcher || "toEqual";
   if (!errorHtml) {
-    pass = compareValues(actual, scenario.expected, matcher);
+    functionalPass = compareValues(actual, scenario.expected, matcher);
   }
+
+  // Execute code checks if present
+  let codeCheckResults: CodeCheckExpect[] | undefined;
+  let allCodeChecksPassed = true;
+
+  if (scenario.codeChecks && scenario.codeChecks.length > 0 && interpretResult) {
+    codeCheckResults = scenario.codeChecks.map((check) => {
+      try {
+        const checkPassed = check.pass(interpretResult, language);
+        if (!checkPassed) {
+          allCodeChecksPassed = false;
+        }
+        return {
+          pass: checkPassed,
+          errorHtml: checkPassed ? undefined : check.errorHtml
+        };
+      } catch (error) {
+        allCodeChecksPassed = false;
+        return {
+          pass: false,
+          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+        };
+      }
+    });
+  }
+
+  // Overall pass requires functional test, all code checks to pass, and no frame errors
+  const hasFrameError = frames.some((f) => f.status === "ERROR");
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- functionalPass can be false when errorHtml is set
+  const overallPass = functionalPass && allCodeChecksPassed && !hasFrameError;
 
   // Generate diff
   const diff = generateDiff(scenario.expected, actual);
@@ -109,17 +141,31 @@ export function runIOScenario(
   const argsStr = scenario.args.map((arg) => JSON.stringify(arg)).join(", ");
   const codeRun = `${scenario.functionName}(${argsStr})`;
 
+  // Determine which error to show:
+  // - If functional test failed, show its error
+  // - If functional passed but code check failed, show first failing code check's error
+  let displayErrorHtml;
+  if (functionalPass) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- allCodeChecksPassed can be false when code checks fail
+    if (!allCodeChecksPassed) {
+      displayErrorHtml = codeCheckResults?.find((r) => !r.pass)?.errorHtml;
+    }
+  } else {
+    displayErrorHtml = errorHtml;
+  }
+
   const expect: IOTestExpect = {
-    pass,
+    pass: overallPass,
     actual,
     expected: scenario.expected,
     diff,
     matcher,
     codeRun,
-    errorHtml
+    errorHtml: displayErrorHtml,
+    codeCheckResults
   };
 
-  const status = pass ? "pass" : "fail";
+  const status = overallPass ? "pass" : "fail";
 
   return {
     type: "io",

@@ -99,6 +99,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       meta: {
         functionCallLog: {},
         statements: [],
+        sourceCode: sourceCode,
       },
       assertors: {
         assertAllArgumentsAreVariables: () => true,
