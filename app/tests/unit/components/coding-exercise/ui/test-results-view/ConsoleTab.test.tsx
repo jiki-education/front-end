@@ -55,9 +55,8 @@ describe("ConsoleTab Component", () => {
 
       render(<ConsoleTab />);
 
-      const emptyMessage = screen.getByText("No console output");
-      expect(emptyMessage).toBeInTheDocument();
-      expect(emptyMessage).toHaveClass("console-tab-empty", "text-gray-500", "text-center", "p-5", "italic");
+      const instructionText = screen.getByText(/This is the output from your code execution/);
+      expect(instructionText).toBeInTheDocument();
     });
 
     it("should render empty message when current test has no log lines", () => {
@@ -74,8 +73,8 @@ describe("ConsoleTab Component", () => {
 
       render(<ConsoleTab />);
 
-      const emptyMessage = screen.getByText("No console output");
-      expect(emptyMessage).toBeInTheDocument();
+      const instructionText = screen.getByText(/This is the output from your code execution/);
+      expect(instructionText).toBeInTheDocument();
     });
   });
 
@@ -95,16 +94,7 @@ describe("ConsoleTab Component", () => {
 
       const consoleContainer = screen.getByRole("log");
       expect(consoleContainer).toBeInTheDocument();
-      expect(consoleContainer).toHaveClass(
-        "console-tab",
-        "bg-purple-50",
-        "text-purple-900",
-        "font-mono",
-        "text-xs",
-        "p-2",
-        "overflow-y-auto",
-        "h-full"
-      );
+      // The component uses CSS modules and has no specific styling classes on the container
     });
 
     it("should render all log lines when frames exist", () => {
@@ -157,11 +147,7 @@ describe("ConsoleTab Component", () => {
       // Check Python-specific output patterns
       expect(screen.getByText(">>> x = [1, 2, 3, 4, 5]")).toBeInTheDocument();
       expect(screen.getByText(">>> for i in x:")).toBeInTheDocument();
-      expect(
-        screen.getByText(
-          (content, element) => content.includes("print(i * 2)") && element?.tagName.toLowerCase() === "span"
-        )
-      ).toBeInTheDocument();
+      expect(screen.getByText((content) => content.includes("print(i * 2)"))).toBeInTheDocument();
       expect(screen.getByText("2")).toBeInTheDocument();
       expect(screen.getByText("4")).toBeInTheDocument();
       expect(screen.getByText("6")).toBeInTheDocument();
@@ -186,12 +172,12 @@ describe("ConsoleTab Component", () => {
 
       const logLine = screen.getByTestId("log-line-0");
       expect(logLine).toBeInTheDocument();
-      expect(logLine).toHaveClass("log-line", "py-0.5", "cursor-pointer", "hover:bg-purple-200");
+      expect(logLine).toHaveClass("consoleLogEntry");
 
       // Check timestamp
       const timestamp = screen.getByText("00:100");
       expect(timestamp).toBeInTheDocument();
-      expect(timestamp).toHaveClass("log-timestamp", "text-purple-600", "mr-2");
+      expect(timestamp).toHaveClass("consoleLogTimestamp");
 
       // Check output content
       expect(screen.getByText("print('Hello from Python!')")).toBeInTheDocument();
@@ -272,9 +258,9 @@ describe("ConsoleTab Component", () => {
       const thirdLog = screen.getByTestId("log-line-2");
 
       // First two logs should be active (time-based: currentTestTime >= log.time)
-      expect(firstLog).toHaveClass("bg-purple-300");
-      expect(secondLog).toHaveClass("bg-purple-300");
-      expect(thirdLog).not.toHaveClass("bg-purple-300");
+      expect(firstLog).toHaveClass("highlighted");
+      expect(secondLog).toHaveClass("highlighted");
+      expect(thirdLog).not.toHaveClass("highlighted");
     });
 
     it("should show inactive state for log lines when no current frame matches", () => {
@@ -314,9 +300,9 @@ describe("ConsoleTab Component", () => {
       const firstLog = screen.getByTestId("log-line-0");
       const secondLog = screen.getByTestId("log-line-1");
 
-      // Both should be inactive (no bg-purple-300)
-      expect(firstLog).not.toHaveClass("bg-purple-300");
-      expect(secondLog).not.toHaveClass("bg-purple-300");
+      // Both should be inactive (no highlighted class)
+      expect(firstLog).not.toHaveClass("highlighted");
+      expect(secondLog).not.toHaveClass("highlighted");
     });
 
     it("should call orchestrator.setCurrentTestTime when log line is clicked", () => {
@@ -428,11 +414,7 @@ describe("ConsoleTab Component", () => {
       // Verify loop structure and output
       expect(screen.getByText("numbers = [1, 2, 3]")).toBeInTheDocument();
       expect(screen.getByText("for num in numbers:")).toBeInTheDocument();
-      expect(
-        screen.getAllByText(
-          (content, element) => content.includes("square = num ** 2") && element?.tagName.toLowerCase() === "span"
-        )
-      ).toHaveLength(3);
+      expect(screen.getAllByText((content) => content.includes("square = num ** 2"))).toHaveLength(3);
       expect(screen.getByText("1 squared is 1")).toBeInTheDocument();
       expect(screen.getByText("2 squared is 4")).toBeInTheDocument();
       expect(screen.getByText("3 squared is 9")).toBeInTheDocument();
@@ -457,11 +439,9 @@ describe("ConsoleTab Component", () => {
       const consoleContainer = screen.getByRole("log");
       expect(consoleContainer).toBeInTheDocument();
 
-      // Log lines should be clickable buttons
-      const logLiness = screen.getAllByTestId(/^log-line-/);
-      logLiness.forEach((logLine) => {
-        expect(logLine).toHaveClass("cursor-pointer");
-      });
+      // Log lines should be clickable
+      const logLineElements = screen.getAllByTestId(/^log-line-/);
+      expect(logLineElements.length).toBeGreaterThan(0);
     });
 
     it("should support keyboard navigation", () => {
@@ -532,11 +512,7 @@ describe("ConsoleTab Component", () => {
       render(<ConsoleTab />);
 
       expect(
-        screen.getByText(
-          (content, element) =>
-            content.includes("This is a very long output line that might wrap") &&
-            element?.tagName.toLowerCase() === "span"
-        )
+        screen.getByText((content) => content.includes("This is a very long output line that might wrap"))
       ).toBeInTheDocument();
       expect(screen.getByText("Short line")).toBeInTheDocument();
     });

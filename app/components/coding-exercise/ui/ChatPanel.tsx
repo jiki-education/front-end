@@ -4,8 +4,8 @@ import { useContext, useEffect, useRef } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
-import { useAuthStore } from "@/lib/auth/authStore";
-import { tierIncludes } from "@/lib/pricing";
+// import { useAuthStore } from "@/lib/auth/authStore";
+// import { tierIncludes } from "@/lib/pricing";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import ChatStatus from "./ChatStatus";
@@ -18,7 +18,7 @@ import { useMockChat } from "../lib/useMockChat";
 
 export default function ChatPanel() {
   const orchestrator = useContext(OrchestratorContext);
-  const user = useAuthStore((state: any) => state.user);
+  // const user = useAuthStore((state: any) => state.user);
 
   if (!orchestrator) {
     return (
@@ -29,7 +29,7 @@ export default function ChatPanel() {
   }
 
   // Check if user has premium access (premium or max tier)
-  const hasPremiumAccess = user && tierIncludes(user.membership_type, "premium");
+  // const hasPremiumAccess = user && tierIncludes(user.membership_type, "premium");
 
   // if (!hasPremiumAccess) {
   //   return <ChatPremiumUpgrade />;
@@ -47,11 +47,11 @@ const chatHeader = {
 function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   // Toggle this to use mock data for styling
   const USE_MOCK_DATA = process.env.NODE_ENV === "development";
-  
+
   const realChat = useChat(orchestrator);
   const mockChat = useMockChat();
   const chat = USE_MOCK_DATA ? mockChat : realChat;
-  
+
   const conversationLoader = useConversationLoader(chat.context.exerciseSlug);
   const hasLoadedConversationRef = useRef(false);
 
@@ -74,7 +74,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   return (
     <div className="bg-white h-full flex flex-col">
       <PanelHeader {...chatHeader} />
-      
+
       {!USE_MOCK_DATA && conversationLoader.isLoading ? (
         <div className="flex-1 flex items-center justify-center">
           <InlineLoading isAuthenticated={true} />
@@ -96,7 +96,9 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
           {hasConversationError && (
             <div className="px-4 py-2 bg-yellow-50 border-b border-yellow-200">
               <div className="flex items-center justify-between">
-                <p className="text-sm text-yellow-800">Failed to load conversation history: {conversationLoader.error}</p>
+                <p className="text-sm text-yellow-800">
+                  Failed to load conversation history: {conversationLoader.error}
+                </p>
                 <button
                   onClick={conversationLoader.retry}
                   className="text-xs text-yellow-600 hover:text-yellow-800 underline"

@@ -22,7 +22,9 @@ export default function TypeItAssistantMessage({
       <div className={styles.response}>
         <div className={styles.avatar}>J</div>
         <div className={styles.responseContent}>
-          <p>AI is thinking...<span className="animate-pulse">▊</span></p>
+          <p>
+            AI is thinking...<span className="animate-pulse">▊</span>
+          </p>
         </div>
       </div>
     );
