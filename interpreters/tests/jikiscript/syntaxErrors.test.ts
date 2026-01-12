@@ -787,13 +787,6 @@ describe("UnexpectedClosingBracket", () => {
         `)
       ).toThrow("UnexpectedClosingBracket: lexeme: )");
     });
-    test("repeat_until_game_over", () => {
-      expect(() =>
-        parse(`
-          repeat_until_game_over) do
-        `)
-      ).toThrow("UnexpectedClosingBracket: lexeme: )");
-    });
     test("repeat_forever", () => {
       expect(() =>
         parse(`

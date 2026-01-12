@@ -179,20 +179,6 @@ export class RepeatForeverStatement extends Statement {
   }
 }
 
-export class RepeatUntilGameOverStatement extends Statement {
-  constructor(
-    public keyword: Token,
-    public counter: Token | null,
-    public body: Statement[],
-    public location: Location
-  ) {
-    super("RepeatUntilGameOverStatement");
-  }
-  public children() {
-    return this.body;
-  }
-}
-
 export class ReturnStatement extends Statement {
   constructor(
     public keyword: Token,

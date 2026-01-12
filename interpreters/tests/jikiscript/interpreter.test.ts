@@ -498,29 +498,6 @@ describe("timing", () => {
       expect(frames[0].status).toBe("ERROR");
       expect(frames[0].time).toBe(0);
     });
-
-    test("manipulate state", () => {
-      const state = { count: 10 };
-      const incrementFunction = ({ state }: ExecutionContext) => {
-        state.count++;
-      };
-      const context = {
-        externalFunctions: [
-          {
-            name: "increment",
-            func: incrementFunction,
-            description: "",
-          },
-        ],
-        state,
-      };
-      const { frames } = interpret("increment()", context);
-      expect(state.count).toBe(11);
-
-      expect(frames).toBeArrayOfSize(1);
-      expect(frames[0].status).toBe("SUCCESS");
-      expect(frames[0].time).toBe(0);
-    });
   });
 });
 

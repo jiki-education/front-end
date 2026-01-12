@@ -38,7 +38,6 @@ export interface LanguageFeatures {
   timePerFrame: number;
   repeatDelay: number;
   maxTotalLoopIterations: number;
-  maxRepeatUntilGameOverIterations: number;
   maxTotalExecutionTime: number;
   allowGlobals: boolean;
   customFunctionDefinitionMode: boolean;
@@ -52,7 +51,6 @@ export interface InputLanguageFeatures {
   timePerFrame?: number;
   repeatDelay?: number;
   maxTotalLoopIterations?: number;
-  maxRepeatUntilGameOverIterations?: number;
   maxTotalExecutionTime?: number;
   allowGlobals?: boolean;
   customFunctionDefinitionMode?: boolean;
@@ -78,7 +76,6 @@ export interface EvaluationContext {
   customFunctions?: CustomFunction[];
   classes?: Jiki.Class[];
   languageFeatures?: InputLanguageFeatures;
-  state?: Record<string, any>;
   wrapTopLevelStatements?: boolean;
 }
 
@@ -141,7 +138,6 @@ export function evaluateExpression(
 export class Interpreter {
   private readonly parser: Parser;
 
-  private readonly state: Record<string, any> = {};
   private readonly languageFeatures: LanguageFeatures;
   private readonly externalFunctions: ExternalFunction[] = [];
   private readonly customFunctions: CallableCustomFunction[] = [];
@@ -155,9 +151,6 @@ export class Interpreter {
     context: EvaluationContext
   ) {
     // Set the instance variables based on the context that's been passed in.
-    if (context.state !== undefined) {
-      this.state = context.state;
-    }
     this.externalFunctions = context.externalFunctions ? context.externalFunctions : [];
 
     this.customFunctions = this.parseCustomFunctions(context.customFunctions ? context.customFunctions : []);
@@ -168,7 +161,6 @@ export class Interpreter {
       excludeList: undefined,
       timePerFrame: 1,
       repeatDelay: 0,
-      maxRepeatUntilGameOverIterations: 100,
       maxTotalLoopIterations: 10000,
       maxTotalExecutionTime: 10000000, // 10 seconds (in microseconds)
       allowGlobals: false,
@@ -251,8 +243,7 @@ export class Interpreter {
       this.languageFeatures,
       this.externalFunctions,
       this.customFunctions,
-      this.classes,
-      this.state
+      this.classes
     );
     return executor.execute(this.statements);
   }

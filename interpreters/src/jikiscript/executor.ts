@@ -28,7 +28,6 @@ import type {
   FunctionStatement,
   IfStatement,
   RepeatStatement,
-  RepeatUntilGameOverStatement,
   ReturnStatement,
   Statement,
   SetVariableStatement,
@@ -113,10 +112,8 @@ import { executeClassLookupExpression } from "./executor/executeClassLookupExpre
 import { executeChangePropertyStatement } from "./executor/executeChangePropertyStatement";
 
 export type ExecutionContext = SharedExecutionContext & {
-  state: Record<string, any>;
   evaluate: Function;
   executeBlock: Function;
-  updateState: Function;
   logicError: (message: string) => never;
   withThis: Function;
   contextualThis: Jiki.Instance | null;
@@ -138,7 +135,6 @@ export class Executor {
   private readonly timePerFrame: number;
   private totalLoopIterations = 0;
   private readonly maxTotalLoopIterations: number = 0;
-  private readonly maxRepeatUntilGameOverIterations: number = 0;
   public customFunctionDefinitionMode: boolean;
   private readonly addSuccessFrames: boolean;
 
@@ -158,8 +154,7 @@ export class Executor {
     private readonly languageFeatures: LanguageFeatures,
     private readonly externalFunctions: ExternalFunction[],
     private readonly customFunctions: CallableCustomFunction[],
-    private readonly classes: Jiki.Class[],
-    private externalState: Record<string, any> = {}
+    private readonly classes: Jiki.Class[]
   ) {
     for (let externalFunction of externalFunctions) {
       const func = externalFunction.func;
@@ -194,15 +189,9 @@ export class Executor {
     this.timePerFrame = this.languageFeatures.timePerFrame;
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations;
 
-    this.maxRepeatUntilGameOverIterations = this.languageFeatures.maxRepeatUntilGameOverIterations;
-
     this.customFunctionDefinitionMode = this.languageFeatures.customFunctionDefinitionMode;
 
     this.addSuccessFrames = this.languageFeatures.addSuccessFrames;
-  }
-
-  public updateState(name: string, value: any) {
-    this.externalState[name] = value;
   }
 
   // Environment wrapper methods
@@ -539,7 +528,7 @@ export class Executor {
   }
 
   private retrieveCounterVariableNameForLoop(
-    statement: ForeachStatement | RepeatStatement | RepeatForeverStatement | RepeatUntilGameOverStatement
+    statement: ForeachStatement | RepeatStatement | RepeatForeverStatement
   ): string | null {
     if (statement.counter === null) {
       return null;
@@ -747,27 +736,6 @@ export class Executor {
     });
   }
 
-  public visitRepeatUntilGameOverStatement(statement: RepeatUntilGameOverStatement): void {
-    let iteration = 0; // Count is a guard against infinite looping
-    const counterVariableName = this.retrieveCounterVariableNameForLoop(statement);
-
-    this.executeLoop(() => {
-      while (!this.externalState.gameOver) {
-        iteration++;
-        if (iteration >= this.maxRepeatUntilGameOverIterations) {
-          this.error("StateErrorMaxIterationsReachedInLoop", statement.keyword.location, {
-            max: this.maxRepeatUntilGameOverIterations,
-          });
-        }
-
-        this.guardInfiniteLoop(statement.keyword.location);
-        this.executeLoopIteration(statement.body, iteration, [], counterVariableName);
-
-        // Delay repeat for things like animations
-        this.time += this.languageFeatures.repeatDelay;
-      }
-    });
-  }
   public visitRepeatForeverStatement(statement: RepeatForeverStatement): void {
     var iteration = 0; // Count is a guard against infinite looping
     const counterVariableName = this.retrieveCounterVariableNameForLoop(statement);
@@ -1283,10 +1251,8 @@ export class Executor {
   public getExecutionContext(): ExecutionContext {
     return {
       ...createBaseExecutionContext.call(this),
-      state: this.externalState,
       executeBlock: this.executeBlock.bind(this),
       evaluate: this.evaluate.bind(this),
-      updateState: this.updateState.bind(this),
       logicError: this.logicError.bind(this) as (message: string) => never,
       withThis: this.withThis.bind(this),
       contextualThis: this.contextualThis,

@@ -220,38 +220,6 @@ describe("StateErrorMaxIterationsReachedInLoop", () => {
       expect(frame.error!.message).toBe(`MaxIterationsReached: max: ${maxIterations}`);
     });
   });
-  describe("repeat_until_game_over", () => {
-    test("default value", () => {
-      const code = `repeat_until_game_over do
-                    end`;
-
-      const { frames } = interpret(code);
-      expectFrameToBeError(frames[0], "repeat_until_game_over", "StateErrorMaxIterationsReachedInLoop");
-      expect(frames[0].error!.message).toBe(`MaxIterationsReached: max: 100`);
-    });
-    test("custom maxTotalLoopIterations", () => {
-      const code = `repeat_until_game_over do
-                    end`;
-
-      const maxIterations = 50;
-      const { frames } = interpret(code, {
-        languageFeatures: { maxTotalLoopIterations: maxIterations },
-      });
-      expectFrameToBeError(frames[0], "repeat_until_game_over", "StateErrorMaxIterationsReachedInLoop");
-      expect(frames[0].error!.message).toBe(`MaxIterationsReached: max: ${maxIterations}`);
-    });
-  });
-  test("custom maxRepeatUntilGameOverIterations", () => {
-    const code = `repeat_until_game_over do
-                  end`;
-
-    const maxIterations = 50;
-    const { frames } = interpret(code, {
-      languageFeatures: { maxRepeatUntilGameOverIterations: maxIterations },
-    });
-    expectFrameToBeError(frames[0], "repeat_until_game_over", "StateErrorMaxIterationsReachedInLoop");
-    expect(frames[0].error!.message).toBe(`MaxIterationsReached: max: ${maxIterations}`);
-  });
 });
 test("StateErrorInfiniteRecursionDetectedInFunction", () => {
   const code = `function foo do
