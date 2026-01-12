@@ -3,6 +3,13 @@
 export const TIME_SCALE_FACTOR = 1000;
 
 /**
+ * Convert time from microseconds to milliseconds
+ */
+export function timeToMs(time: number): number {
+  return time / TIME_SCALE_FACTOR;
+}
+
+/**
  * Shared frame execution status used by all interpreters
  */
 export type FrameExecutionStatus = "SUCCESS" | "ERROR";

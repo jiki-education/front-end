@@ -74,7 +74,7 @@ import type { CallableCustomFunction } from "./interpreter";
 import type { InterpretResult } from "../shared/interfaces";
 import type { LanguageFeatures } from "./interpreter";
 
-import { TIME_SCALE_FACTOR, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
+import { timeToMs, type Frame, type FrameExecutionStatus, type TestAugmentedFrame } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
 import { createBaseExecutionContext } from "../shared/executionContext";
 import { describeFrame } from "./frameDescribers";
@@ -130,7 +130,7 @@ export interface ExternalFunction {
 export class Executor {
   [key: string]: any; // Allow dynamic method access
   private readonly frames: Frame[] = [];
-  public readonly logLines: Array<{ time: number; output: string }> = [];
+  public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
   public time: number = 0;
   private readonly timePerFrame: number;
   private totalLoopIterations = 0;
@@ -301,7 +301,7 @@ export class Executor {
   }
 
   public log(output: string): void {
-    this.logLines.push({ time: this.time, output });
+    this.logLines.push({ time: this.time, timeInMs: timeToMs(this.time), output });
   }
 
   public evaluateSingleExpression(statement: Statement) {
@@ -1205,7 +1205,7 @@ export class Executor {
       // The interpeter time is in microseconds.
       // The timeInMs is in milliseconds for animations.
       time: this.time,
-      timeInMs: this.time / TIME_SCALE_FACTOR,
+      timeInMs: timeToMs(this.time),
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: this.externalFunctionDescriptions,
