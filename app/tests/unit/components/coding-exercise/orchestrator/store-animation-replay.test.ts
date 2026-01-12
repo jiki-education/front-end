@@ -65,7 +65,7 @@ describe("Store Animation Replay Bug", () => {
 
     const firstResults = {
       tests: [firstTest],
-      status: "pass" as const
+      passed: true
     };
 
     store.getState().setTestSuiteResult(firstResults);
@@ -96,7 +96,7 @@ describe("Store Animation Replay Bug", () => {
 
     const secondResults = {
       tests: [secondTest],
-      status: "pass" as const
+      passed: true
     };
 
     store.getState().setTestSuiteResult(secondResults);
@@ -116,7 +116,7 @@ describe("Store Animation Replay Bug", () => {
 
     const firstResults = {
       tests: [firstTest],
-      status: "fail" as const
+      passed: false
     };
 
     // Manually set isPlaying to true to simulate the bug state
@@ -148,7 +148,7 @@ describe("Store Animation Replay Bug", () => {
 
     const secondResults = {
       tests: [secondTest],
-      status: "pass" as const
+      passed: true
     };
 
     store.getState().setTestSuiteResult(secondResults);

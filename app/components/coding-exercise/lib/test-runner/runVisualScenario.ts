@@ -73,8 +73,9 @@ export function runVisualScenario(
 
   // Animation timeline is ready for scrubber
 
-  // Determine status
-  const status = expects.every((e) => e.pass) ? "pass" : "fail";
+  // Determine status - fail if any expectation fails OR if any frame has an error
+  const hasFrameError = frames.some((f) => f.status === "ERROR");
+  const status = expects.every((e) => e.pass) && !hasFrameError ? "pass" : "fail";
 
   return {
     type: "visual",

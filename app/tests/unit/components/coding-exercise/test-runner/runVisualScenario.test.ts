@@ -217,6 +217,84 @@ describe("runVisualScenario", () => {
     });
   });
 
+  describe("frame errors", () => {
+    it("should fail when any frame has ERROR status even if expectations pass", () => {
+      (jikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [
+          { time: 100, line: 1, status: "SUCCESS" },
+          { time: 200, line: 2, status: "SUCCESS" },
+          { time: 300, line: 3, status: "ERROR", error: { message: "Timeout" } }
+        ],
+        logLines: [],
+        meta: { sourceCode: "move()" }
+      });
+
+      const scenario: VisualScenario = {
+        slug: "frame-error-test",
+        name: "Frame Error Test",
+        description: "Test with frame error",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
+      };
+
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(result.status).toBe("fail");
+      expect(result.expects[0].pass).toBe(true); // Expectations still pass
+      expect(result.frames).toHaveLength(3);
+      expect(result.frames[2].status).toBe("ERROR");
+    });
+
+    it("should pass when all frames have SUCCESS status and expectations pass", () => {
+      (jikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [
+          { time: 100, line: 1, status: "SUCCESS" },
+          { time: 200, line: 2, status: "SUCCESS" }
+        ],
+        logLines: [],
+        meta: { sourceCode: "move()" }
+      });
+
+      const scenario: VisualScenario = {
+        slug: "all-success-test",
+        name: "All Success Test",
+        description: "Test with all success frames",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
+      };
+
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(result.status).toBe("pass");
+    });
+
+    it("should fail when frame has ERROR status even if code checks pass", () => {
+      (jikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [{ time: 100, line: 1, status: "ERROR", error: { message: "Infinite loop detected" } }],
+        logLines: [],
+        meta: { sourceCode: "move()" }
+      });
+
+      const passingCodeCheck: CodeCheck = {
+        pass: jest.fn().mockReturnValue(true),
+        errorHtml: "Should not appear"
+      };
+
+      const scenario: VisualScenario = {
+        slug: "frame-error-with-code-check",
+        name: "Frame Error With Code Check",
+        description: "Test frame error with passing code check",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        codeChecks: [passingCodeCheck]
+      };
+
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(result.status).toBe("fail");
+    });
+  });
+
   describe("backward compatibility", () => {
     it("should work correctly when scenario has no code checks", () => {
       const scenario: VisualScenario = {
