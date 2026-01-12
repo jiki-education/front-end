@@ -14,15 +14,20 @@ export function useTimelineHeight(refs: TimelineUpdateRefs, deps: React.Dependen
     }
 
     const firstAvatar = chatMessagesRef.current.querySelector(`.${styles.avatar}`);
+
     if (!firstAvatar) {
       return;
     }
 
-    const scrollWrapperHeight = scrollWrapperRef.current.scrollHeight;
-    const avatarOffsetTop = (firstAvatar as HTMLElement).offsetTop;
-    const timelineHeight = scrollWrapperHeight - avatarOffsetTop - 28 - 32;
+    // Get positions relative to the container
+    const containerRect = scrollWrapperRef.current.getBoundingClientRect();
+    const firstAvatarRect = (firstAvatar as HTMLElement).getBoundingClientRect();
 
-    chatMessagesRef.current.style.setProperty("--timeline-height", `${timelineHeight}px`);
+    // Timeline should extend from first avatar to bottom of container + 32px
+    // The avatar's ::after starts at top: 28px (avatar height), so we calculate from there
+    const timelineHeight = containerRect.bottom - firstAvatarRect.top - 28;
+
+    chatMessagesRef.current.style.setProperty("--timeline-height", `${Math.max(0, timelineHeight)}px`);
   };
 
   useEffect(() => {
