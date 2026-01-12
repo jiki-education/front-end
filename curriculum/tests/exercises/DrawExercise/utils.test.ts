@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { aToR, rToA } from "../../../src/exercises/DrawExercise/utils";
+import { aToR, rToA } from "../../../src/exercise-categories/draw/utils";
 
 describe("Coordinate Utilities", () => {
   describe("3.1 aToR (Absolute to Relative)", () => {

@@ -8,6 +8,11 @@ export default class BasicMovementExercise extends VisualExercise {
   }
   position: number = 0;
 
+  constructor() {
+    super();
+    this.populateView();
+  }
+
   availableFunctions = [
     {
       name: "move",

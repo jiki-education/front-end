@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Shape, Circle, Rectangle, Ellipse, Triangle, Line } from "../../../src/exercises/DrawExercise/shapes";
+import { Shape, Circle, Rectangle, Ellipse, Triangle, Line } from "../../../src/exercise-categories/draw/shapes";
 
 // Helper to create mock SVG elements
 function createMockSVGElement(): SVGElement {

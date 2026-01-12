@@ -204,8 +204,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );
@@ -214,8 +213,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );
@@ -237,8 +235,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );
@@ -247,8 +244,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );
@@ -270,8 +266,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );
@@ -280,8 +275,7 @@ describe("runTests", () => {
         expect.objectContaining({
           externalFunctions: expect.any(Array),
           languageFeatures: expect.objectContaining({
-            timePerFrame: 1,
-            maxTotalLoopIterations: 1000
+            timePerFrame: 1
           })
         })
       );

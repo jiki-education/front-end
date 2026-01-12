@@ -7,7 +7,8 @@ export const exercises = {
   acronym: () => import("./acronym"),
   anagram: () => import("./anagram"),
   "sprouting-flower": () => import("./sprouting-flower"),
-  penguin: () => import("./penguin")
+  penguin: () => import("./penguin"),
+  "scroll-and-shoot": () => import("./scroll-and-shoot")
   // Future exercises will be added here:
   // 'loop-basics': () => import('./loop-basics'),
   // 'conditionals': () => import('./conditionals'),

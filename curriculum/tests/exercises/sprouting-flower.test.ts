@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { SproutingFlowerExercise } from "../../src/exercises/sprouting-flower/Exercise";
-import { DrawExercise } from "../../src/exercises/DrawExercise";
+import { DrawExercise } from "../../src/exercise-categories/draw";
 import { VisualExercise } from "../../src/VisualExercise";
 
 describe("SproutingFlowerExercise", () => {

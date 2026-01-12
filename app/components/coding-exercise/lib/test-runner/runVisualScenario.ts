@@ -39,8 +39,7 @@ export function runVisualScenario(
       func: func.func
     })) as any,
     languageFeatures: {
-      timePerFrame: 1,
-      maxTotalLoopIterations: 1000
+      timePerFrame: 1
     }
   });
 

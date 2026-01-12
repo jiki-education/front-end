@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function CodingExerciseDevPage() {
-  return <CodingExercise exerciseSlug="sprouting-flower" />;
+  return <CodingExercise exerciseSlug="scroll-and-shoot" language="jikiscript" />;
 }

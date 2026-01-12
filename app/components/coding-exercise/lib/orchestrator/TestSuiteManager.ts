@@ -144,6 +144,8 @@ export class TestSuiteManager {
         this.taskManager.updateTaskProgress(testResults, exercise);
       }
     } catch (error) {
+      console.error(error);
+
       // Check if it's a SyntaxError (has location property)
       if (error && typeof error === "object" && "location" in error) {
         this.handleSyntaxError(error as SyntaxError);

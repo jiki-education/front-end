@@ -15,7 +15,6 @@ export abstract class VisualExercise extends Exercise {
   constructor() {
     super();
     this.createView();
-    this.populateView();
   }
 
   protected createView() {
@@ -69,8 +68,8 @@ export interface Animation {
   easing?: string; // Easing function name
   transformations: {
     // Subset of anime.js AnimationParams that exercises use
-    left?: number;
-    top?: number;
+    left?: number | string;
+    top?: number | string;
     translateX?: number;
     translateY?: number;
     rotate?: number;

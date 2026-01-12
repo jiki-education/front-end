@@ -14,6 +14,7 @@ import { llmMetadata as basicMovementLLM } from "./exercises/basic-movement/llm-
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
+import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -30,7 +31,8 @@ const llmMetadataRegistry = {
   "basic-movement": basicMovementLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
-  penguin: penguinLLM
+  penguin: penguinLLM,
+  "scroll-and-shoot": scrollAndShootLLM
 } as const;
 
 /**

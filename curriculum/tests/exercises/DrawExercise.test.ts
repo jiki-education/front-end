@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { DrawExercise } from "../../src/exercises/DrawExercise";
+import { DrawExercise } from "../../src/exercise-categories/draw";
 import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
 import type { Shared } from "@jiki/interpreters";
-import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../src/exercises/DrawExercise/shapes";
+import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../src/exercise-categories/draw/shapes";
 
 // Concrete test implementation of DrawExercise
 class TestDrawExercise extends DrawExercise {

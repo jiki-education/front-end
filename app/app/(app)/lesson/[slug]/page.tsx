@@ -104,5 +104,5 @@ export default function LessonPage({ params }: PageProps) {
 
   // const exerciseSlug = exerciseSlugMap[lesson.slug] || "maze-solve-basic";
 
-  return <CodingExercise exerciseSlug={lesson.slug as ExerciseSlug} />;
+  return <CodingExercise language="jikiscript" exerciseSlug={lesson.slug as ExerciseSlug} />;
 }

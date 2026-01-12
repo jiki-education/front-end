@@ -4,9 +4,9 @@ import {
   checkUniqueColoredCircles,
   checkUniqueColoredRectangles,
   checkUniqueColoredLines
-} from "../../../src/exercises/DrawExercise/checks";
-import type { Shape } from "../../../src/exercises/DrawExercise/shapes";
-import { Circle, Rectangle, Line } from "../../../src/exercises/DrawExercise/shapes";
+} from "../../../src/exercise-categories/draw/checks";
+import type { Shape } from "../../../src/exercise-categories/draw/shapes";
+import { Circle, Rectangle, Line } from "../../../src/exercise-categories/draw/shapes";
 
 // Helper to create mock SVG elements
 function createMockSVGElement(): SVGElement {
