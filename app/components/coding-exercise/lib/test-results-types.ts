@@ -3,7 +3,7 @@ import type { AnimationTimeline } from "./AnimationTimeline";
 
 // Import expect types from curriculum (single source of truth)
 import type { IOTestExpect, VisualTestExpect } from "@jiki/curriculum";
-export type { IOTestExpect, TestExpect, VisualTestExpect, CodeCheckExpect } from "@jiki/curriculum";
+export type { CodeCheckExpect, IOTestExpect, TestExpect, VisualTestExpect } from "@jiki/curriculum";
 
 export interface TestFrame {
   description: string;
@@ -53,7 +53,7 @@ export function isIOTest(test: TestResult): test is IOTestResult {
 
 export interface TestSuiteResult {
   tests: TestResult[];
-  status: "pass" | "fail" | "running" | "idle";
+  passed: boolean;
 }
 
 export interface TestResultsState {

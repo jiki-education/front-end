@@ -129,8 +129,10 @@ export function runIOScenario(
     });
   }
 
-  // Overall pass requires both functional test and all code checks to pass
-  const overallPass = functionalPass && allCodeChecksPassed;
+  // Overall pass requires functional test, all code checks to pass, and no frame errors
+  const hasFrameError = frames.some((f) => f.status === "ERROR");
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- functionalPass can be false when errorHtml is set
+  const overallPass = functionalPass && allCodeChecksPassed && !hasFrameError;
 
   // Generate diff
   const diff = generateDiff(scenario.expected, actual);

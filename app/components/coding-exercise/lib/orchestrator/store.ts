@@ -186,8 +186,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           state.setIsPlaying(false);
 
           // Check if all tests passed and we haven't shown the modal yet and exercise is not already completed
-          const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
-          if (allTestsPassed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
+          if (state.testSuiteResult?.passed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
             showModal("exercise-completion-modal", {
               exerciseTitle: state.exerciseTitle,
               exerciseIcon: "/static/images/project-icons/icon-space-invaders.png", // TODO: Get from exercise
@@ -361,25 +360,23 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
 
       // Test results actions
       setTestSuiteResult: (result) => {
-        // Check if all tests passed
-        const allTestsPassed = result ? result.tests.every((test) => test.status === "pass") : false;
         const state = get();
 
         // Only enable spotlight if all tests passed AND this is the first time we've had a successful run AND exercise is not already completed
-        const shouldActivateSpotlight = allTestsPassed && !state.hasEverHadSuccessfulRun && !state.isExerciseCompleted;
+        const shouldActivateSpotlight = result?.passed && !state.hasEverHadSuccessfulRun && !state.isExerciseCompleted;
 
         // Set the test suite result and reset things.
         set({
           testSuiteResult: result,
           shouldPlayOnTestChange: true,
           hasCodeBeenEdited: false,
-          status: "success",
+          status: "success", // This will get reset via the setCurrentTest below.
           testCurrentTimes: {},
           // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
           // Enable spotlight only on first successful run
           isSpotlightActive: shouldActivateSpotlight,
           // Mark that we've had a successful run if all tests passed
-          hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun || allTestsPassed,
+          hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun || result?.passed,
           // Reset playing state to allow animations to play on new test suite
           isPlaying: false
         });

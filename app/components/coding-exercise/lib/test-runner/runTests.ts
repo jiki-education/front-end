@@ -1,8 +1,8 @@
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
-import { jikiscript, javascript, python } from "@jiki/interpreters";
+import { javascript, jikiscript, python } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
-import { runVisualScenario } from "./runVisualScenario";
 import { runIOScenario } from "./runIOScenario";
+import { runVisualScenario } from "./runVisualScenario";
 
 // Map language to interpreter
 const interpreters = {
@@ -68,12 +68,9 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
     }
   }
 
-  // Determine overall status
-  const status = tests.every((t) => t.status === "pass") ? "pass" : "fail";
-
   const result: TestSuiteResult = {
     tests,
-    status
+    passed: tests.every((t) => t.status === "pass")
   };
 
   return result;

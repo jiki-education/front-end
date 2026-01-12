@@ -314,6 +314,95 @@ describe("runIOScenario", () => {
     });
   });
 
+  describe("frame errors", () => {
+    it("should fail when any frame has ERROR status even if functional test passes", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        value: "HW",
+        error: null,
+        frames: [
+          { time: 100, line: 1, status: "SUCCESS" },
+          { time: 200, line: 2, status: "ERROR", error: { message: "Timeout" } }
+        ],
+        logLines: [],
+        meta: { sourceCode: "function acronym() { return 'HW'; }" }
+      });
+
+      const scenario: IOScenario = {
+        slug: "frame-error-test",
+        name: "Frame Error Test",
+        description: "Test with frame error",
+        taskId: "task-1",
+        functionName: "acronym",
+        args: ["Hello World"],
+        expected: "HW"
+      };
+
+      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript");
+
+      expect(result.status).toBe("fail");
+      expect(result.expects[0].actual).toBe("HW"); // Functional result is correct
+      expect(result.frames).toHaveLength(2);
+      expect(result.frames[1].status).toBe("ERROR");
+    });
+
+    it("should pass when all frames have SUCCESS status and functional test passes", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        value: "HW",
+        error: null,
+        frames: [
+          { time: 100, line: 1, status: "SUCCESS" },
+          { time: 200, line: 2, status: "SUCCESS" }
+        ],
+        logLines: [],
+        meta: { sourceCode: "function acronym() { return 'HW'; }" }
+      });
+
+      const scenario: IOScenario = {
+        slug: "all-success-test",
+        name: "All Success Test",
+        description: "Test with all success frames",
+        taskId: "task-1",
+        functionName: "acronym",
+        args: ["Hello World"],
+        expected: "HW"
+      };
+
+      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript");
+
+      expect(result.status).toBe("pass");
+    });
+
+    it("should fail when frame has ERROR status even if code checks pass", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        value: "HW",
+        error: null,
+        frames: [{ time: 100, line: 1, status: "ERROR", error: { message: "Infinite loop" } }],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const passingCodeCheck: CodeCheck = {
+        pass: jest.fn().mockReturnValue(true),
+        errorHtml: "Should not appear"
+      };
+
+      const scenario: IOScenario = {
+        slug: "frame-error-with-code-check",
+        name: "Frame Error With Code Check",
+        description: "Test frame error with passing code check",
+        taskId: "task-1",
+        functionName: "acronym",
+        args: ["Hello World"],
+        expected: "HW",
+        codeChecks: [passingCodeCheck]
+      };
+
+      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript");
+
+      expect(result.status).toBe("fail");
+    });
+  });
+
   describe("backward compatibility", () => {
     it("should work correctly when scenario has no code checks", () => {
       (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
