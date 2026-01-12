@@ -53,7 +53,7 @@ export default function CodingExercise({ exerciseSlug, projectSlug, isProject = 
             ? { type: "project" as const, slug: projectSlug }
             : { type: "lesson" as const, slug: exerciseSlug };
 
-        orchestratorRef.current = new Orchestrator(exercise, "jikiscript", context);
+        orchestratorRef.current = new Orchestrator(exercise, "javascript", context);
 
         // Fetch completion status
         try {
