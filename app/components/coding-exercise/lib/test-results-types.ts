@@ -3,7 +3,7 @@ import type { AnimationTimeline } from "./AnimationTimeline";
 
 // Import expect types from curriculum (single source of truth)
 import type { IOTestExpect, VisualTestExpect } from "@jiki/curriculum";
-export type { IOTestExpect, TestExpect, VisualTestExpect } from "@jiki/curriculum";
+export type { IOTestExpect, TestExpect, VisualTestExpect, CodeCheckExpect } from "@jiki/curriculum";
 
 export interface TestFrame {
   description: string;

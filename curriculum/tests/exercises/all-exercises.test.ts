@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { exercises } from "../../src/exercises";
-import { runExerciseTests } from "../../src/test-runner";
+import { runExerciseTests } from "../runScenarioTest";
 
 describe("All Exercises - Solution Validation", () => {
   /**

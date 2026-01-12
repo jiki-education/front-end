@@ -27,6 +27,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+tests/**/*.js
+tests/**/*.d.ts
+tests/**/*.map
 
 # claude
 .claude/settings.local.json

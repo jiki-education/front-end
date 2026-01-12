@@ -567,6 +567,7 @@ export class Executor {
     meta: {
       functionCallLog: Record<string, Record<string, number>>;
       statements: Statement[];
+      sourceCode: string;
     };
   } {
     try {
@@ -606,6 +607,7 @@ export class Executor {
         meta: {
           functionCallLog: {},
           statements: [statement],
+          sourceCode: this.sourceCode,
         },
       };
     } catch (error) {
@@ -635,6 +637,7 @@ export class Executor {
           meta: {
             functionCallLog: {},
             statements: [statement],
+            sourceCode: this.sourceCode,
           },
         };
       }
