@@ -46,6 +46,24 @@ export function runVisualScenario(
   // Run expectations
   const expects = scenario.expectations(exercise);
 
+  // Execute code checks if present - add results to expects array
+  if (scenario.codeChecks && scenario.codeChecks.length > 0) {
+    for (const check of scenario.codeChecks) {
+      try {
+        const checkPassed = check.pass(result, language);
+        expects.push({
+          pass: checkPassed,
+          errorHtml: checkPassed ? undefined : check.errorHtml
+        });
+      } catch (error) {
+        expects.push({
+          pass: false,
+          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+        });
+      }
+    }
+  }
+
   // Build animation timeline
   // Frames already have time (microseconds) and timeInMs (milliseconds) from interpreter
   const frames = result.frames;

@@ -285,6 +285,7 @@ export class Executor {
       meta: {
         functionCallLog: this.functionCallLog,
         statements: statements,
+        sourceCode: this.sourceCode,
       },
 
       assertors: {
@@ -335,6 +336,7 @@ export class Executor {
         meta: {
           functionCallLog: this.functionCallLog,
           statements: [statement],
+          sourceCode: this.sourceCode,
         },
       };
     } catch (error) {
@@ -370,6 +372,7 @@ export class Executor {
           meta: {
             functionCallLog: this.functionCallLog,
             statements: [statement],
+            sourceCode: this.sourceCode,
           },
         };
       }

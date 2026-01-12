@@ -1,9 +1,16 @@
 import { jikiscript, javascript, python } from "@jiki/interpreters";
-import type { IOExercise } from "../IOExercise";
-import type { VisualExercise } from "../VisualExercise";
-import type { VisualScenario, IOScenario, TestExpect, ExerciseDefinition } from "../exercises/types";
-import { getLanguageFeatures } from "../levels";
-import type { Language } from "../types";
+import type { InterpretResult } from "@jiki/interpreters";
+import type { IOExercise } from "../src/IOExercise";
+import type { VisualExercise } from "../src/VisualExercise";
+import type {
+  VisualScenario,
+  IOScenario,
+  TestExpect,
+  CodeCheckExpect,
+  ExerciseDefinition
+} from "../src/exercises/types";
+import { getLanguageFeatures } from "../src/levels";
+import type { Language } from "../src/types";
 
 /**
  * Helper to get the appropriate interpreter for a language
@@ -103,7 +110,7 @@ export function runIOScenarioTest(
 
   // Call the student's function using evaluateFunction
   const interpreter = getInterpreter(language);
-  const result = interpreter.evaluateFunction(
+  const evaluationResult = interpreter.evaluateFunction(
     studentCode,
     {
       externalFunctions,
@@ -122,41 +129,70 @@ export function runIOScenarioTest(
   const matcher = scenario.matcher ?? "toEqual";
   let pass = false;
 
-  if (result.error) {
+  if (evaluationResult.error) {
     pass = false;
   } else {
     switch (matcher) {
       case "toBe":
-        pass = result.value === scenario.expected;
+        pass = evaluationResult.value === scenario.expected;
         break;
       case "toEqual":
         // Deep equality comparison
-        pass = JSON.stringify(result.value) === JSON.stringify(scenario.expected);
+        pass = JSON.stringify(evaluationResult.value) === JSON.stringify(scenario.expected);
         break;
       case "toBeGreaterThan":
-        pass = result.value > scenario.expected;
+        pass = evaluationResult.value > scenario.expected;
         break;
       case "toBeLessThan":
-        pass = result.value < scenario.expected;
+        pass = evaluationResult.value < scenario.expected;
         break;
     }
   }
+
+  // Execute code checks if present
+  let codeCheckResults: CodeCheckExpect[] | undefined;
+  let allCodeChecksPassed = true;
+
+  if (scenario.codeChecks && scenario.codeChecks.length > 0) {
+    codeCheckResults = scenario.codeChecks.map((check) => {
+      try {
+        const checkPassed = check.pass(evaluationResult as InterpretResult, language);
+        if (!checkPassed) allCodeChecksPassed = false;
+
+        return {
+          pass: checkPassed,
+          errorHtml: checkPassed ? undefined : check.errorHtml
+        };
+      } catch (error) {
+        // If check throws error, treat as failure
+        allCodeChecksPassed = false;
+        return {
+          pass: false,
+          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+        };
+      }
+    });
+  }
+
+  // Update overall pass to include code checks
+  const overallPass = pass && allCodeChecksPassed;
 
   // Build TestExpect (note: this is for curriculum testing, not app testing)
   // The app's test runner creates proper IOTestExpect with diff
   const expects: TestExpect[] = [
     {
-      pass,
-      errorHtml: pass
-        ? ""
-        : `Expected ${scenario.functionName}(${scenario.args.map((a) => JSON.stringify(a)).join(", ")}) to return ${JSON.stringify(scenario.expected)}, but got ${result.error ? "error" : JSON.stringify(result.value)}`
+      pass: overallPass,
+      errorHtml: !overallPass
+        ? `Expected ${scenario.functionName}(${scenario.args.map((a) => JSON.stringify(a)).join(", ")}) to return ${JSON.stringify(scenario.expected)}, but got ${evaluationResult.error ? "error" : JSON.stringify(evaluationResult.value)}`
+        : "",
+      codeCheckResults
     }
   ];
 
   return {
     slug: scenario.slug,
     name: scenario.name,
-    status: pass ? "pass" : "fail",
+    status: overallPass ? "pass" : "fail",
     expects
   };
 }

@@ -8,6 +8,8 @@ export type { Language } from "./types";
 
 // Export all types needed by consumers
 export type {
+  CodeCheck,
+  CodeCheckExpect,
   ExerciseDefinition,
   FunctionInfo,
   IOExerciseDefinition,
@@ -33,17 +35,10 @@ export { TestExercise } from "./mocks";
 // Export levels - language feature definitions for each level
 export { getLanguageFeatures, getLevel, levels, type Level, type LevelId } from "./levels";
 
-// Export test runner for curriculum validation
-export {
-  runAllIOScenarios,
-  runAllVisualScenarios,
-  runExerciseTests,
-  runIOScenarioTest,
-  runVisualScenarioTest,
-  type ScenarioTestResult
-} from "./test-runner";
-
 // Export LLM metadata types and accessor
 // NOTE: This will NOT be bundled in app builds due to tree-shaking
 // Only llm-chat-proxy should import this
 export { getLLMMetadata, type LLMMetadata } from "./llm-metadata";
+
+// Export code check utilities
+export { countLinesOfCode, getSourceCode } from "./utils/code-checks";

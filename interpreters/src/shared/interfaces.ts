@@ -56,6 +56,7 @@ export type InterpreterError = JSSyntaxError | PySyntaxError | JikiError;
 export interface Meta {
   functionCallLog: Record<string, Record<string, number>>;
   statements: JSStatement[] | PyStatement[] | JikiStatement[];
+  sourceCode: string;
 }
 
 // Shared InterpretResult interface used by all interpreters
