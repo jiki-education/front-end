@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import type { ChatMessage, StreamStatus } from "../lib/chat-types";
 import TypeItAssistantMessage from "./TypeItAssistantMessage";
-import { processMessageContent } from "./messageUtils";
+import ChatMessageItem from "./ChatMessageItem";
+import { useTimelineHeight } from "../lib/useTimelineHeight";
+import { useAutoScroll } from "../lib/useAutoScroll";
+import { useTypingScroll } from "../lib/useTypingScroll";
 import styles from "./chat-panel.module.css";
-
 
 interface ChatMessagesProps {
   messages: ChatMessage[];
@@ -16,26 +18,16 @@ interface ChatMessagesProps {
 
 export default function ChatMessages({ messages, currentResponse, status, onTypingComplete }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
+  const scrollWrapperRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when new messages arrive or response updates
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, currentResponse]);
-
-  // Continuous scrolling during typing animation
-  useEffect(() => {
-    if (status === "typing") {
-      const intervalId = setInterval(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100); // Scroll every 100ms during typing
-
-      return () => clearInterval(intervalId);
-    }
-  }, [status]);
+  useTimelineHeight({ chatMessagesRef, scrollWrapperRef }, [messages, currentResponse]);
+  useAutoScroll(messagesEndRef, [messages, currentResponse]);
+  useTypingScroll(messagesEndRef, status);
 
   return (
-    <div className={styles.chatScrollWrapper}>
-      <div className={styles.chatMessages}>
+    <div ref={scrollWrapperRef} className={styles.chatScrollWrapper}>
+      <div ref={chatMessagesRef} className={styles.chatMessages}>
         {messages.length === 0 && !currentResponse && (
           <div className="text-center text-gray-500 text-sm">
             Start a conversation! Ask questions about your code, the exercise, or request help with specific tasks.
@@ -43,7 +35,7 @@ export default function ChatMessages({ messages, currentResponse, status, onTypi
         )}
 
         {messages.map((message, index) => (
-          <ChatMessageItem key={index} message={message} />
+          <ChatMessageItem key={`message-${index}`} message={message} />
         ))}
 
         {(currentResponse || status === "thinking" || status === "typing") && (
@@ -55,27 +47,3 @@ export default function ChatMessages({ messages, currentResponse, status, onTypi
     </div>
   );
 }
-
-function ChatMessageItem({ message }: { message: ChatMessage }) {
-  const isUser = message.role === "user";
-
-  // Parse markdown content and process for special formatting
-  const htmlContent = processMessageContent(message.content);
-
-  if (isUser) {
-    return (
-      <div className={styles.prompt}>
-        <div className={styles.avatar}>N</div>
-        <div className={styles.promptContent} dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      </div>
-    );
-  } else {
-    return (
-      <div className={styles.response}>
-        <div className={styles.avatar}>J</div>
-        <div className={styles.responseContent} dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      </div>
-    );
-  }
-}
-

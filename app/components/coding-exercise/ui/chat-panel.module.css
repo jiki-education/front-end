@@ -58,22 +58,16 @@
     z-index: 3;
 }
 
-.chatMessages .prompt .avatar::after,
-.chatMessages .response .avatar::after {
+.chatMessages > :first-child .avatar::after {
     content: "";
     position: absolute;
     top: 28px;
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
-    height: 200px;
+    height: var(--timeline-height, 100vh);
     background: #e2e8f0;
     z-index: -1;
-}
-
-.chatMessages .prompt:last-child .avatar::after,
-.chatMessages .response:last-child .avatar::after {
-    height: 90px;
 }
 
 .chatMessages .prompt .avatar {
@@ -153,7 +147,7 @@
     background: #a78bfa;
     display: flex;
     align-items: center;
-    justifyContent: center;
+    justifycontent: center;
     font-size: 18px;
     flex-shrink: 0;
 }
@@ -312,4 +306,60 @@
         transform: translateY(-8px);
         opacity: 1;
     }
+}
+
+.chatInputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 10px 32px 0 32px;
+    margin: 0;
+    background: #f8fafc;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+.chatInput {
+    position: relative;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #e9d5ff;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-family: "Poppins", sans-serif;
+    transition:
+        border-color 0.2s,
+        height 0.3s ease;
+    background: #ffffff;
+    resize: none;
+    height: 86px;
+    width: 100%;
+}
+
+.chatInput:focus {
+    outline: none;
+    border-color: #c4b5fd;
+    height: 240px;
+}
+
+.chatInput::placeholder {
+    color: #94a3b8;
+}
+
+.chatInputHint {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    font-size: 16px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    z-index: 10;
+    padding-bottom: 12px;
 }
