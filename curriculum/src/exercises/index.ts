@@ -19,7 +19,7 @@ export type ExerciseSlug = keyof typeof exercises;
  * Retrieves an exercise definition by its slug.
  * Used by the LLM chat proxy to get exercise context for prompt building.
  *
- * @param slug - The exercise slug (e.g., "basic-movement")
+ * @param slug - The exercise slug (e.g., "maze-solve-basic")
  * @returns The exercise definition or null if not found
  */
 export async function getExercise(slug: string): Promise<ExerciseDefinition | null> {

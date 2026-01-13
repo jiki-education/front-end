@@ -109,7 +109,7 @@ Headers:
 Body:
   {
     user_id: "123",
-    exercise_slug: "basic-movement",
+    exercise_slug: "maze-solve-basic",
     messages: [
       { role: "user", content: "...", tokens: 50 },
       { role: "assistant", content: "...", tokens: 120 }
@@ -172,7 +172,7 @@ curl -X POST http://localhost:8787/chat \
   -H "Authorization: Bearer <valid-jwt>" \
   -H "Content-Type: application/json" \
   -d '{
-    "exerciseSlug": "basic-movement",
+    "exerciseSlug": "maze-solve-basic",
     "code": "console.log(\"test\");",
     "question": "How do I fix this?"
   }'

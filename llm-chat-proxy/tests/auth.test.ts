@@ -133,7 +133,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -160,7 +160,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -188,7 +188,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -211,7 +211,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -238,7 +238,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -265,7 +265,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
@@ -290,7 +290,7 @@ describe("Chat Endpoint Authentication", () => {
           Origin: "https://jiki.io"
         },
         body: JSON.stringify({
-          exerciseSlug: "basic-movement",
+          exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
           language: "jikiscript"
