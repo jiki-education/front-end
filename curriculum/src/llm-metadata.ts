@@ -15,6 +15,7 @@ import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
 import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
+import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -32,7 +33,8 @@ const llmMetadataRegistry = {
   "sprouting-flower": sproutingFlowerLLM,
   penguin: penguinLLM,
   "scroll-and-shoot": scrollAndShootLLM,
-  "jumbled-house": jumbledHouseLLM
+  "jumbled-house": jumbledHouseLLM,
+  "finish-wall": finishWallLLM
 } as const;
 
 /**
