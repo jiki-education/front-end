@@ -1,0 +1,12 @@
+{
+  "slug": "chop-shop",
+  "title": "The Chop Shop",
+  "instructions": "You run a small hairdressing salon that focusses on speed over quality. People might leave a little rough around the edges, but they're not having to spend too long in the chair.\n\nYou offer a few different services from styling to full haircuts, which take different times to complete. You run the salon on a first-come, first-serve basis. There's no appointment system.\n\nAs it gets towards the end of the day, you need a way of knowing if you have time for any new people that come into the shop.\n\nWrite a function called `can_fit_in` which takes three inputs:\n- The first is the haircuts that you have in the queue already (list of strings)\n- The second is the haircut that the new person wants (string)\n- The third is the amount of minutes left in the day (number)\n\nReturn a boolean for whether you can fit the person in.\n\nThe styles you offer are:\n- Mohawk: 20 minutes\n- Slicked-Back Pixie: 15 minutes\n- Bob: 25 minutes\n- Shave and Polish: 15 minutes\n- Afro Trim: 45 minutes\n- Up-do: 30 minutes",
+  "estimatedMinutes": 15,
+  "levelId": "everything",
+  "hints": [
+    "Create a helper function that maps haircut names to their duration in minutes",
+    "Loop through the queue and subtract each haircut's time from the remaining time",
+    "Check if there's enough time left for the new haircut"
+  ]
+}
