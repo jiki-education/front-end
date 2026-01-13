@@ -11,14 +11,9 @@
     flex-shrink: 0;
 }
 
-.logo {
-    font-size: 28px;
-    background: linear-gradient(135deg, var(--color-blue-400) 0%, var(--color-blue-600) 100%);
-    letter-spacing: 2px;
-    font-weight: 600;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo svg {
+    height: 32px;
+    width: 64px;
 }
 
 .progressContainer {

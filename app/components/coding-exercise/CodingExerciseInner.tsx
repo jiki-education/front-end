@@ -12,6 +12,7 @@ import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import { RHS } from "./RHS";
 import styles from "./CodingExercise.module.css";
 import "../../app/styles/components/ui-components.css";
+import JikiLogo from "@static/icons/jiki-logo.svg";
 
 export default function CodingExerciseInner() {
   const { containerRef, verticalDividerRef, horizontalDividerRef, handleVerticalMouseDown, handleHorizontalMouseDown } =
@@ -36,7 +37,9 @@ export default function CodingExerciseInner() {
   return (
     <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">
       <div className={styles.topBar}>
-        <div className={styles.logo}>JIKI</div>
+        <div className={styles.logo}>
+          <JikiLogo />
+        </div>
         <div className={styles.topBarActions}>
           {isExerciseCompleted && (
             <div className={styles.completedTag}>
