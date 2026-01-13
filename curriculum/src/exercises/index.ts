@@ -9,10 +9,8 @@ export const exercises = {
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
   "jumbled-house": () => import("./jumbled-house"),
-  "fix-wall": () => import("./fix-wall")
-  // Future exercises will be added here:
-  // 'loop-basics': () => import('./loop-basics'),
-  // 'conditionals': () => import('./conditionals'),
+  "fix-wall": () => import("./fix-wall"),
+  "structured-house": () => import("./structured-house")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
