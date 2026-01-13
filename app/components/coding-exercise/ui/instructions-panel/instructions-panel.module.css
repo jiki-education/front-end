@@ -234,12 +234,29 @@
     margin-bottom: 2rem;
 }
 
-.functionContainer,
+.instructionsContainer,
+.functionsContainer,
 .conceptsContainer {
     h2 {
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 12px;
+    }
+}
+
+.functionsContainer,
+.conceptsContainer {
+    & > p {
+        font-size: 15px;
+        color: #64748b;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+}
+
+.functionsContainer,
+.conceptsContainer {
+    h2 {
         margin-top: 50px;
         padding-top: 40px;
         border-top: 1px solid #e2e8f0;

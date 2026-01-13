@@ -1,3 +1,4 @@
+import { marked } from "marked";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
 
@@ -17,7 +18,12 @@ export default function FunctionsGrid({ functions, className = "" }: FunctionsGr
             <div className={styles.functionHeader}>
               <div className={styles.functionSignature}>{func.signature}</div>
             </div>
-            <p className={styles.functionDescription}>{func.description}</p>
+            <div
+              className={styles.functionDescription}
+              dangerouslySetInnerHTML={{
+                __html: marked(func.description)
+              }}
+            />
             {func.examples && func.examples.length > 0 && (
               <div className={styles.functionExamples}>
                 <p className={styles.functionExamplesLabel}>Examples:</p>
