@@ -4,7 +4,12 @@
 
 This guide explains how to migrate exercises from the Exercism Bootcamp format (JSON-based, single language) to the Jiki curriculum format (TypeScript-based, multi-language).
 
-**Scope:** This guide covers **IO exercises** (function return value testing). For visual exercises with animations, refer to `.context/exercises.md`.
+**Two Exercise Types:**
+
+1. **IO Exercises** (`tests_type: "io"`) - Test function return values
+2. **Visual Exercises** (`tests_type: "state"`) - Test visual canvas state (drawing exercises)
+
+Check the bootcamp `config.json` field `tests_type` to determine which type you're migrating.
 
 **Prerequisites:**
 
@@ -66,6 +71,12 @@ curriculum/src/exercises/[exercise]/
 | Instructions  | Separate markdown file | Inline in `metadata.json`                    |
 | Type safety   | None                   | Full TypeScript validation                   |
 | Code files    | `.jiki` only           | `.jiki`, `.javascript`, `.py`                |
+
+---
+
+# Part 1: IO Exercise Migration
+
+This section covers migrating exercises with `tests_type: "io"` - exercises that test function return values.
 
 ## Step-by-Step Migration Process
 
@@ -1076,7 +1087,7 @@ Use this checklist for each migration:
 - **Complex helpers** - Shows comprehensive helper function decomposition
 - **Level registration** - Required adding stdlib functions to "everything" level
 
-## Next Steps
+## Next Steps (IO Exercises)
 
 After successful migration:
 
@@ -1085,7 +1096,377 @@ After successful migration:
 3. **Migrate next exercise** using this guide
 4. **Share learnings** if you encounter new edge cases
 
-For visual exercise migration (when needed), refer to:
+---
 
-- `.context/exercises.md` - Visual exercise creation guide
-- This guide's patterns still apply for file structure and metadata
+# Part 2: Visual Exercise Migration
+
+This section covers migrating exercises with `tests_type: "state"` - exercises that test visual/game state rather than function return values.
+
+## Visual Exercise Overview
+
+Visual exercises test state rather than return values. They include:
+
+- **Drawing exercises** - Extend `DrawExercise`, test shapes on a canvas (walls, houses, patterns)
+- **Game exercises** - Extend custom base classes, test game state (scroll-and-shoot, mazes)
+- **Animation exercises** - Test animated sequences and transitions
+
+This section focuses on **drawing exercises** since they're the most common. For game/animation exercises, examine existing examples like `scroll-and-shoot` or `maze-solve-basic`.
+
+**Key differences from IO exercises:**
+
+| Aspect     | IO Exercise             | Visual Exercise                             |
+| ---------- | ----------------------- | ------------------------------------------- |
+| Base class | `IOExercise`            | `DrawExercise`                              |
+| Test type  | Return value comparison | Shape position/size checks                  |
+| Scenarios  | `IOScenario[]`          | `VisualScenario[]`                          |
+| Definition | `IOExerciseDefinition`  | `VisualExerciseDefinition`                  |
+| Setup      | None                    | May need background images, stroke settings |
+
+## Visual Exercise File Structure
+
+Same 11 files as IO exercises:
+
+```
+curriculum/src/exercises/[exercise]/
+├── metadata.json                # Basic metadata
+├── Exercise.ts                  # Extends DrawExercise
+├── scenarios.ts                 # Tasks and VisualScenario[]
+├── llm-metadata.ts             # AI assistant guidance
+├── index.ts                     # VisualExerciseDefinition export
+├── solution.jiki                # Jikiscript solution
+├── solution.javascript          # JavaScript solution
+├── solution.py                  # Python solution
+├── stub.jiki                   # Jikiscript starter
+├── stub.javascript             # JavaScript starter
+└── stub.py                     # Python starter
+```
+
+## Step-by-Step Visual Migration
+
+### Step 1: Identify Visual Exercise
+
+Check bootcamp `config.json`:
+
+```json
+{
+  "tests_type": "state",
+  "project_type": "draw",
+  "exercise_functions": ["rectangle", "fill_color_hex", "circle", "triangle"]
+}
+```
+
+- `tests_type: "state"` confirms visual exercise
+- `exercise_functions` lists which drawing functions are needed
+
+### Step 2: Create Exercise.ts (DrawExercise)
+
+Visual exercises extend `DrawExercise` and select available functions:
+
+```typescript
+import { DrawExercise } from "../../exercise-categories/draw";
+import metadata from "./metadata.json";
+
+export class FixWallExercise extends DrawExercise {
+  protected get slug() {
+    return metadata.slug;
+  }
+
+  public get availableFunctions() {
+    // Select only the functions needed for this exercise
+    const { rectangle, fill_color_hex } = this.getAllAvailableFunctions();
+    return [rectangle, fill_color_hex];
+  }
+
+  // Setup helpers for scenarios (see Step 3)
+  public setupBackground(imageUrl: string) {
+    this.canvas.style.backgroundImage = `url(${imageUrl})`;
+    this.canvas.style.backgroundSize = "cover";
+    this.canvas.style.backgroundPosition = "center";
+  }
+
+  public setupStroke(width: number, color: string) {
+    this.strokeWidth = width;
+    this.strokeColor = { type: "hex", color };
+  }
+}
+
+export default FixWallExercise;
+```
+
+**Available drawing functions from `getAllAvailableFunctions()`:**
+
+- `rectangle` - Draw rectangles
+- `circle` - Draw circles
+- `triangle` - Draw triangles
+- `ellipse` - Draw ellipses
+- `line` - Draw lines
+- `fill_color_hex` - Set fill color (hex)
+- `fill_color_rgb` - Set fill color (RGB)
+- `fill_color_hsl` - Set fill color (HSL)
+- `clear` - Clear canvas
+
+### Step 3: Handle setup_functions
+
+Bootcamp visual exercises often have `setup_functions` in their tests:
+
+```json
+{
+  "setup_functions": [
+    ["changeStrokeWidth", [0.4]],
+    ["strokeColorHex", ["#7f3732"]],
+    ["setBackgroundImage", ["https://assets.exercism.org/bootcamp/graphics/wall.png"]]
+  ]
+}
+```
+
+**Convert to scenario setup():**
+
+Since `DrawExercise` methods like `setBackgroundImage` require `ExecutionContext`, add public helper methods to your Exercise class (see Step 2), then use them in scenarios:
+
+```typescript
+export const scenarios: VisualScenario[] = [
+  {
+    slug: "fill-holes",
+    name: "Fill the holes",
+    taskId: "fill-holes",
+
+    setup(exercise) {
+      const ex = exercise as FixWallExercise;
+      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/wall.png");
+      ex.setupStroke(0.4, "#7f3732");
+    },
+
+    expectations(exercise) {
+      // ... shape checks
+    }
+  }
+];
+```
+
+### Step 4: Convert Checks to Expectations
+
+Bootcamp uses `getRectangleAt`, `getCircleAt`, etc. in checks:
+
+```json
+{
+  "checks": [
+    {
+      "function": "getRectangleAt(10, 10, 20, 10)",
+      "matcher": "toBeDefined",
+      "error_html": "The top hole isn't filled correctly."
+    }
+  ]
+}
+```
+
+**Convert to Jiki expectations:**
+
+```typescript
+expectations(exercise) {
+  const ex = exercise as FixWallExercise;
+
+  return [
+    {
+      pass: ex.hasRectangleAt(10, 10, 20, 10),
+      errorHtml: "The top hole isn't filled correctly."
+    },
+    {
+      pass: ex.hasRectangleAt(70, 30, 20, 10),
+      errorHtml: "The middle hole isn't filled correctly."
+    }
+  ];
+}
+```
+
+**Available shape check methods on DrawExercise:**
+
+| Method                                  | Parameters        | Description            |
+| --------------------------------------- | ----------------- | ---------------------- |
+| `hasRectangleAt(x, y, width, height)`   | Position and size | Check rectangle exists |
+| `hasCircleAt(centerX, centerY, radius)` | Center and radius | Check circle exists    |
+| `hasTriangleAt(x1, y1, x2, y2, x3, y3)` | Three vertices    | Check triangle exists  |
+| `hasEllipseAt(cx, cy, rx, ry)`          | Center and radii  | Check ellipse exists   |
+| `hasLineAt(x1, y1, x2, y2)`             | Two endpoints     | Check line exists      |
+| `numElements()`                         | None              | Count total shapes     |
+
+### Step 5: Handle Code Checks (Optional)
+
+Some bootcamp exercises have code quality checks:
+
+```json
+{
+  "function": "assertAllArgumentsAreVariables()",
+  "matcher": "toBeTrue",
+  "error_html": "You should use variables for all function inputs."
+}
+```
+
+**Supported code checks in Jiki:**
+
+The interpreters provide some assertors via `InterpretResult.assertors`:
+
+```typescript
+codeChecks: [
+  {
+    pass: (result) => result.assertors.assertAllArgumentsAreVariables(),
+    errorHtml: "All function arguments should be variables, not hard-coded values."
+  }
+];
+```
+
+**Not yet supported:**
+
+- `wasFunctionCalled(name, args, count)` - Check function call count
+- `numFunctionCallsInCode(name)` - Check how many times function appears in code
+
+For unsupported checks, either skip them or document as bonus challenges.
+
+### Step 6: Create index.ts (VisualExerciseDefinition)
+
+```typescript
+import ExerciseClass from "./Exercise";
+import { tasks, scenarios } from "./scenarios";
+import metadata from "./metadata.json";
+import type { VisualExerciseDefinition, FunctionInfo } from "../types";
+
+import solutionJavascript from "./solution.javascript";
+import solutionPython from "./solution.py";
+import solutionJikiscript from "./solution.jiki";
+import stubJavascript from "./stub.javascript";
+import stubPython from "./stub.py";
+import stubJikiscript from "./stub.jiki";
+
+const functions: FunctionInfo[] = [
+  {
+    name: "rectangle",
+    signature: "rectangle(left, top, width, height)",
+    description: "Draw a rectangle at position (left, top) with the given width and height",
+    examples: ["rectangle(10, 10, 20, 10)", "rectangle(0, 0, 100, 50)"],
+    category: "Drawing Shapes"
+  },
+  {
+    name: "fill_color_hex",
+    signature: "fill_color_hex(color)",
+    description: "Set the fill color using a hex color code",
+    examples: ['fill_color_hex("#AA4A44")', 'fill_color_hex("#FF0000")'],
+    category: "Colors"
+  }
+];
+
+const exerciseDefinition: VisualExerciseDefinition = {
+  type: "visual", // NOT "io"
+  ...metadata,
+  ExerciseClass,
+  tasks,
+  scenarios,
+  functions,
+  solutions: {
+    javascript: solutionJavascript,
+    python: solutionPython,
+    jikiscript: solutionJikiscript
+  },
+  stubs: {
+    javascript: stubJavascript,
+    python: stubPython,
+    jikiscript: stubJikiscript
+  }
+};
+
+export default exerciseDefinition;
+```
+
+### Step 7: Convert Solutions
+
+**Jikiscript:** Copy bootcamp `example.jiki` exactly.
+
+**JavaScript:** Convert function names to camelCase, add semicolons:
+
+- `fill_color_hex` → `fillColorHex`
+- `set x to 0` → `let x = 0;`
+- `change x to x + 1` → `x = x + 1;`
+- `repeat 5 times do` → `for (let i = 0; i < 5; i++) {`
+
+**Python:** Keep snake_case, use `#` comments, no semicolons:
+
+- `fill_color_hex` stays as `fill_color_hex`
+- `set x to 0` → `x = 0`
+- `repeat 5 times do` → `for i in range(5):`
+
+## Visual Exercise Examples
+
+### Example: fix-wall (Intro exercise)
+
+**Bootcamp:** Simple exercise using `rectangle` and `fill_color_hex` to fill holes.
+
+**Key features:**
+
+- Background image setup
+- Three rectangle position checks
+- Minimal starter code
+
+### Example: finish-wall (Loop exercise)
+
+**Bootcamp:** Uses `repeat` loop to draw 5 bricks.
+
+**Key features:**
+
+- Loop iteration
+- Multiple rectangle checks at calculated positions
+- Demonstrates pattern repetition
+
+### Example: build-wall (Nested loops)
+
+**Bootcamp:** Uses nested loops and conditionals to draw 55 bricks.
+
+**Key features:**
+
+- Nested loops (rows and columns)
+- Conditional logic (alternating row patterns)
+- Multiple position checks sampling key locations
+
+### Example: structured-house (Variables exercise)
+
+**Bootcamp:** Same visual result as jumbled-house but requires variables.
+
+**Key features:**
+
+- Code check: `assertAllArgumentsAreVariables()`
+- Variables instead of hard-coded values
+- Position checks for house components
+
+## Quick Visual Migration Checklist
+
+**Setup:**
+
+- [ ] Create exercise directory
+- [ ] Copy bootcamp `example.jiki` and `stub.jiki`
+
+**Exercise.ts:**
+
+- [ ] Extend `DrawExercise`
+- [ ] Select functions via `getAllAvailableFunctions()`
+- [ ] Add `setupBackground()` if exercise has background image
+- [ ] Add `setupStroke()` if exercise needs stroke settings
+
+**scenarios.ts:**
+
+- [ ] Use `VisualScenario[]` type
+- [ ] Add `setup()` function if needed
+- [ ] Convert `getRectangleAt` → `hasRectangleAt` in expectations
+- [ ] Add `codeChecks` if exercise has code quality requirements
+
+**index.ts:**
+
+- [ ] Use `VisualExerciseDefinition` type
+- [ ] Set `type: "visual"`
+- [ ] Use `FunctionInfo[]` for functions documentation
+
+**Registrations:**
+
+- [ ] Register in `src/exercises/index.ts`
+- [ ] Register LLM metadata in `src/llm-metadata.ts`
+
+**Testing:**
+
+- [ ] `pnpm typecheck` passes
+- [ ] `pnpm test` passes
