@@ -196,7 +196,9 @@ import metadata from "./metadata.json";
 
 // Exercises that share common logic inherit from a base class in exercise-categories/
 export default class MazeSolveBasicExercise extends MazeExercise {
-  static slug = metadata.slug;
+  protected get slug() {
+    return metadata.slug;
+  }
 }
 ```
 
