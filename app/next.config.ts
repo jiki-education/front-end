@@ -35,7 +35,16 @@ const nextConfig: NextConfig = {
         as: "*.js"
       },
       "*.svg": {
-        loaders: ["@svgr/webpack"],
+        loaders: [
+          {
+            loader: "@svgr/webpack",
+            options: {
+              svgoConfig: {
+                plugins: [{ name: "preset-default" }, { name: "removeUnusedNS" }, { name: "removeDimensions" }]
+              }
+            }
+          }
+        ],
         as: "*.js"
       }
     }
@@ -72,7 +81,16 @@ const nextConfig: NextConfig = {
     // Add SVGR loader
     config.module.rules.push({
       test: /\.svg$/i,
-      use: ["@svgr/webpack"]
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            svgoConfig: {
+              plugins: [{ name: "preset-default" }, { name: "removeUnusedNS" }, { name: "removeDimensions" }]
+            }
+          }
+        }
+      ]
     });
 
     return config;
