@@ -10,6 +10,7 @@
 // NOTE: Add new exercises here as they're created
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
+import { llmMetadata as hammingLLM } from "./exercises/hamming/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
@@ -32,6 +33,7 @@ export interface LLMMetadata {
 const llmMetadataRegistry = {
   acronym: acronymLLM,
   anagram: anagramLLM,
+  hamming: hammingLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
   penguin: penguinLLM,
