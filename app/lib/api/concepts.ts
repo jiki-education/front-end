@@ -50,3 +50,19 @@ export async function fetchConcept(slug: string, unscoped?: boolean): Promise<Co
   const response = await api.get<{ concept: ConceptDetail }>(endpoint);
   return response.data.concept;
 }
+
+/**
+ * Fetch multiple concepts by their slugs
+ * @param slugs - Array of concept slugs to fetch
+ * @returns Array of concept items
+ */
+export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptListItem[]> {
+  if (slugs.length === 0) {
+    return [];
+  }
+
+  const response = await api.get<{ results: ConceptListItem[] }>("/internal/concepts", {
+    params: { slugs: slugs.join(",") }
+  });
+  return response.data.results;
+}
