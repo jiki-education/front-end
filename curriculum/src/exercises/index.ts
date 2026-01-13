@@ -12,7 +12,8 @@ export const exercises = {
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
-  "structured-house": () => import("./structured-house")
+  "structured-house": () => import("./structured-house"),
+  sunset: () => import("./sunset")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
