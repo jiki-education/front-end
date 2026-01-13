@@ -9,10 +9,13 @@ export function useLevels() {
 
   useEffect(() => {
     async function loadLevels() {
-      setLevelsLoading(true);
-      const data = await fetchLevelsWithProgress();
-      setLevels(data);
-      setLevelsLoading(false);
+      try {
+        setLevelsLoading(true);
+        const data = await fetchLevelsWithProgress();
+        setLevels(data);
+      } finally {
+        setLevelsLoading(false);
+      }
     }
 
     void loadLevels();
