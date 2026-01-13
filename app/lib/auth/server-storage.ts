@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { ACCESS_TOKEN_COOKIE_NAME } from "./actions";
+import { ACCESS_TOKEN_COOKIE_NAME } from "./cookie-config";
 
 /**
  * Server-side auth token check
