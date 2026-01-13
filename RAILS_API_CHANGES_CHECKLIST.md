@@ -214,7 +214,7 @@ The frontend will POST to `/api/llm/conversations`:
 
 ```json
 {
-  "exercise_slug": "basic-movement",
+  "exercise_slug": "maze-solve-basic",
   "user_message": "How do I solve this?",
   "assistant_message": "Try breaking it down step by step...",
   "user_message_tokens": 10,
@@ -330,7 +330,7 @@ userId:exerciseSlug:assistantMessage:timestamp
 
 Example:
 ```
-123:basic-movement:Try using the move_forward function:2025-10-31T08:15:30.123Z
+123:maze-solve-basic:Try using the move_forward function:2025-10-31T08:15:30.123Z
 ```
 
 This string is then signed with HMAC-SHA256 using the shared secret.

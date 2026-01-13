@@ -616,7 +616,7 @@ After creating `llm-metadata.ts`, you MUST register it in `src/llm-metadata.ts`:
 
 ```typescript
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
-import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata"; // Add this
+import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 ```
 
 **2. Add to registry:**
@@ -624,8 +624,7 @@ import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata"; //
 ```typescript
 const llmMetadataRegistry = {
   acronym: acronymLLM,
-  anagram: anagramLLM, // Add this
-  "basic-movement": basicMovementLLM,
+  anagram: anagramLLM,
   "maze-solve-basic": mazeSolveBasicLLM
 } as const;
 ```
@@ -701,7 +700,6 @@ Add to `src/exercises/index.ts`:
 
 ```typescript
 export const exercises = {
-  "basic-movement": () => import("./basic-movement"),
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym") // Add this line
   // ...

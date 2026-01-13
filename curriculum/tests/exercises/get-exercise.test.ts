@@ -3,11 +3,11 @@ import { getExercise } from "../../src";
 
 describe("getExercise", () => {
   it("should return exercise definition for valid slug", async () => {
-    const exercise = await getExercise("basic-movement");
+    const exercise = await getExercise("maze-solve-basic");
 
     expect(exercise).not.toBeNull();
-    expect(exercise?.slug).toBe("basic-movement");
-    expect(exercise?.title).toBe("Basic Movement");
+    expect(exercise?.slug).toBe("maze-solve-basic");
+    expect(exercise?.title).toBe("Manually Solve a Maze");
     expect(exercise?.tasks).toBeDefined();
     expect(exercise?.scenarios).toBeDefined();
   });

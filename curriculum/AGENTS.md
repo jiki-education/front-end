@@ -190,35 +190,49 @@ pnpm run format       # Format with Prettier
 ### Example Exercise Structure
 
 ```typescript
-// src/exercises/basic-movement/Exercise.ts
-import { Exercise } from "../../Exercise";
+// src/exercises/maze-solve-basic/Exercise.ts
+import MazeExercise from "../../exercise-categories/maze/MazeExercise";
+import metadata from "./metadata.json";
+
+// Exercises that share common logic inherit from a base class in exercise-categories/
+export default class MazeSolveBasicExercise extends MazeExercise {
+  protected get slug() {
+    return metadata.slug;
+  }
+}
+```
+
+For exercises with unique logic, define it directly:
+
+```typescript
+// src/exercises/custom-exercise/Exercise.ts
+import { VisualExercise } from "../../VisualExercise";
 import type { ExecutionContext } from "@jiki/interpreters";
 
-export class BasicMovementExercise extends Exercise {
-  private playerX = 0;
-  private playerY = 0;
+export default class CustomExercise extends VisualExercise {
+  protected get slug() {
+    return "custom-exercise";
+  }
 
-  // Functions unique to this exercise (defined in snake_case)
+  private position = 0;
+
   availableFunctions = [
     {
-      name: "move_right", // Base name in snake_case
+      name: "move", // snake_case for function names
       func: (ctx: ExecutionContext) => {
-        this.playerX += 10;
+        this.position += 10;
         this.animations.push({
-          targets: "#player",
-          offset: ctx.currentTime,
-          transformations: { translateX: this.playerX }
+          targets: `#${this.view.id} .character`,
+          offset: ctx.getCurrentTimeInMs(),
+          transformations: { translateX: this.position }
         });
       },
-      description: "Move the player right by 10 units"
+      description: "Move the character right by 10 units"
     }
   ];
 
   getState() {
-    return {
-      playerX: this.playerX,
-      playerY: this.playerY
-    };
+    return { position: this.position };
   }
 }
 ```

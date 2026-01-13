@@ -63,7 +63,7 @@ Streams an AI response for a coding question.
 
 ```json
 {
-  "exerciseSlug": "basic-movement",
+  "exerciseSlug": "maze-solve-basic",
   "code": "console.log('hello');",
   "question": "How do I fix this?",
   "history": [
