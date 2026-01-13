@@ -1,0 +1,15 @@
+{
+  "slug": "matching-socks",
+  "title": "Matching Socks",
+  "instructions": "There's little in life more annoying than having odd socks where you can't find its partner. So one day you finally decide to sort those socks out!\n\nYou get all of the clean clothes from your drawers and put them into one basket. Then you go searching under every surface and behind every cushion to find any other clothes lying around, and put them in a second basket of dirty items.\n\nYou now have two baskets and want to go through, finding whether each sock has a pair or not.\n\nWrite a function called `matching_socks`. It takes two inputs, the clean basket and the dirty basket - both as lists of strings. Return a list of all the pairs of socks.\n\nFor example:\n- If the clean basket contains: `[\"left blue sock\", \"green sweater\"]`\n- And the dirty basket contains: `[\"blue shorts\", \"right blue sock\", \"left green sock\"]`\n- You should return `[\"blue socks\"]`\n\nThe descriptions follow these rules:\n- They are always lower case.\n- They are always one or more words separated by spaces.\n- For things that can be pairs, they will always start with `\"left \"` or `\"right \"`",
+  "estimatedMinutes": 30,
+  "levelId": "everything",
+  "hints": [
+    "Start by writing helper functions like length(), starts_with(), and ends_with()",
+    "A function to check if something is a sock could be helpful",
+    "You might need a function that can remove the 'left '/'right ' prefix",
+    "Consider a function that switches 'left' and 'right' around",
+    "A function to add an element to a list only if it's not already there will help with duplicates",
+    "Extract all socks from both baskets first, then look for matching pairs"
+  ]
+}
