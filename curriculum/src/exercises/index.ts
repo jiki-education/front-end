@@ -8,7 +8,8 @@ export const exercises = {
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
-  "jumbled-house": () => import("./jumbled-house")
+  "jumbled-house": () => import("./jumbled-house"),
+  "fix-wall": () => import("./fix-wall")
   // Future exercises will be added here:
   // 'loop-basics': () => import('./loop-basics'),
   // 'conditionals': () => import('./conditionals'),
