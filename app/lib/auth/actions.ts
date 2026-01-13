@@ -3,23 +3,13 @@
 import type { LoginCredentials, SignupData, User } from "@/types/auth";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-
-const COOKIE_CONFIG = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  // Note: Using 'strict' for better security. If OAuth redirects fail (cookies not sent
-  // during cross-site navigation), switch back to 'lax'
-  sameSite: "strict" as const,
-  domain: process.env.NODE_ENV === "production" ? ".jiki.io" : ".local.jiki.io",
-  path: "/"
-};
-
-// This is a very long cookie, but the actual JWT inside only lives for
-// few minutes. This allows us to check for the presence of the cookie
-// to see if the user SHOULD be logged in, but we still have the security
-// of the short-lived JWT inside it.
-const ACCESS_TOKEN_MAX_AGE = 365 * 24 * 60 * 60; // 1 year in seconds
-const REFRESH_TOKEN_MAX_AGE = 5 * 365 * 24 * 60 * 60; // 5 years in seconds
+import {
+  ACCESS_TOKEN_COOKIE_NAME,
+  REFRESH_TOKEN_COOKIE_NAME,
+  COOKIE_OPTIONS,
+  ACCESS_TOKEN_MAX_AGE,
+  REFRESH_TOKEN_MAX_AGE
+} from "./cookie-config";
 
 interface AuthResult {
   success: boolean;
@@ -35,14 +25,14 @@ export async function clearAuthCookies(): Promise<void> {
 
   // Delete with same domain/path used to set them
   cookieStore.delete({
-    name: "jiki_access_token",
-    domain: COOKIE_CONFIG.domain,
-    path: COOKIE_CONFIG.path
+    name: ACCESS_TOKEN_COOKIE_NAME,
+    domain: COOKIE_OPTIONS.domain,
+    path: COOKIE_OPTIONS.path
   });
   cookieStore.delete({
-    name: "jiki_refresh_token",
-    domain: COOKIE_CONFIG.domain,
-    path: COOKIE_CONFIG.path
+    name: REFRESH_TOKEN_COOKIE_NAME,
+    domain: COOKIE_OPTIONS.domain,
+    path: COOKIE_OPTIONS.path
   });
 
   // Clear Next.js cache to ensure fresh renders
@@ -76,13 +66,13 @@ export async function loginAction(credentials: LoginCredentials): Promise<AuthRe
     // Set httpOnly cookies
     const cookieStore = await cookies();
 
-    cookieStore.set("jiki_access_token", accessToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      ...COOKIE_OPTIONS,
       maxAge: ACCESS_TOKEN_MAX_AGE
     });
 
-    cookieStore.set("jiki_refresh_token", refreshToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      ...COOKIE_OPTIONS,
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
 
@@ -120,13 +110,13 @@ export async function signupAction(userData: SignupData): Promise<AuthResult> {
 
     const cookieStore = await cookies();
 
-    cookieStore.set("jiki_access_token", accessToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      ...COOKIE_OPTIONS,
       maxAge: ACCESS_TOKEN_MAX_AGE
     });
 
-    cookieStore.set("jiki_refresh_token", refreshToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      ...COOKIE_OPTIONS,
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
 
@@ -164,13 +154,13 @@ export async function googleLoginAction(code: string): Promise<AuthResult> {
 
     const cookieStore = await cookies();
 
-    cookieStore.set("jiki_access_token", accessToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      ...COOKIE_OPTIONS,
       maxAge: ACCESS_TOKEN_MAX_AGE
     });
 
-    cookieStore.set("jiki_refresh_token", refreshToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      ...COOKIE_OPTIONS,
       maxAge: REFRESH_TOKEN_MAX_AGE
     });
 
@@ -186,7 +176,7 @@ export async function googleLoginAction(code: string): Promise<AuthResult> {
 export async function refreshTokenAction(): Promise<AuthResult> {
   try {
     const cookieStore = await cookies();
-    const refreshToken = cookieStore.get("jiki_refresh_token")?.value;
+    const refreshToken = cookieStore.get(REFRESH_TOKEN_COOKIE_NAME)?.value;
 
     if (!refreshToken) {
       return { success: false, error: "No refresh token" };
@@ -211,8 +201,8 @@ export async function refreshTokenAction(): Promise<AuthResult> {
     }
 
     // Update access token cookie
-    cookieStore.set("jiki_access_token", newAccessToken, {
-      ...COOKIE_CONFIG,
+    cookieStore.set(ACCESS_TOKEN_COOKIE_NAME, newAccessToken, {
+      ...COOKIE_OPTIONS,
       maxAge: ACCESS_TOKEN_MAX_AGE
     });
 
@@ -231,7 +221,7 @@ export async function logoutAction(): Promise<void> {
 
   // Try to call Rails logout endpoint (best effort)
   try {
-    const accessToken = cookieStore.get("jiki_access_token")?.value;
+    const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
     if (accessToken) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
         method: "DELETE",
@@ -254,7 +244,7 @@ export async function logoutFromAllDevicesAction(): Promise<void> {
 
   // Try to call Rails logout/all endpoint (best effort)
   try {
-    const accessToken = cookieStore.get("jiki_access_token")?.value;
+    const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME)?.value;
     if (accessToken) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout/all`, {
         method: "DELETE",

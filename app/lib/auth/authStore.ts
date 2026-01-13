@@ -6,7 +6,8 @@
 import * as authService from "@/lib/auth/service";
 import { loginAction, signupAction, googleLoginAction, logoutAction, clearAuthCookies } from "@/lib/auth/actions";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
-import { AuthenticationError } from "@/lib/api/client";
+import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
+import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
@@ -140,6 +141,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Check authentication status
+  // Handles network errors and rate limiting with retry logic matching the API client
   checkAuth: async () => {
     const currentState = get();
 
@@ -150,20 +152,53 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
     set({ isLoading: true });
 
-    try {
-      // Fetch fresh user data from server without retries
-      // API client automatically handles token refresh on 401
-      // useRetries: false prevents infinite hangs on auth errors
-      const user = await authService.getCurrentUser(false);
-      get().setUser(user);
-    } catch (error) {
-      // On auth error, just set no user
-      if (error instanceof AuthenticationError) {
-        await clearAuthCookies();
-        get().setNoUser("Authentication check failed");
-      } else {
-        // Other API error (shouldn't happen) - don't clear tokens
+    // Retry configuration matching API client
+    const INITIAL_RETRY_DELAY_MS = 50;
+    const MAX_RETRY_DELAY_MS = 5000;
+    const SHOW_MODAL_AFTER_MS = 1000;
+    const startTime = Date.now();
+    let attempt = 0;
+
+    while (true) {
+      try {
+        // Fetch fresh user data from server without retries
+        // API client automatically handles token refresh on 401
+        // useRetries: false prevents infinite hangs on auth errors
+        const user = await authService.getCurrentUser(false);
+        clearCriticalError();
+        get().setUser(user);
+        return;
+      } catch (error) {
+        // Auth error - clear cookies and set logged out
+        if (error instanceof AuthenticationError) {
+          await clearAuthCookies();
+          get().setNoUser("Authentication check failed");
+          return;
+        }
+
+        // Rate limit error - show modal, wait specified time, retry
+        if (error instanceof RateLimitError) {
+          setCriticalError(error);
+          await new Promise((resolve) => setTimeout(resolve, error.retryAfterSeconds * 1000));
+          attempt = 0; // Reset attempt counter
+          continue;
+        }
+
+        // Network error (TypeError) - show modal and retry with backoff
+        if (error instanceof TypeError) {
+          const elapsedTime = Date.now() - startTime;
+          if (elapsedTime >= SHOW_MODAL_AFTER_MS) {
+            setCriticalError(new NetworkError("Connection lost"));
+          }
+          const delay = Math.min(INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt), MAX_RETRY_DELAY_MS);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          attempt++;
+          continue;
+        }
+
+        // Other error - give up
         get().setNoUser();
+        return;
       }
     }
   },

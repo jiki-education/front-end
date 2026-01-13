@@ -6,7 +6,6 @@ import type { LevelSectionData } from "../types";
 export function useLevels() {
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
   const [levelsLoading, setLevelsLoading] = useState(true);
-  const [levelsError, setLevelsError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadLevels() {
@@ -14,9 +13,6 @@ export function useLevels() {
         setLevelsLoading(true);
         const data = await fetchLevelsWithProgress();
         setLevels(data);
-      } catch (error) {
-        console.error("Failed to fetch levels:", error);
-        setLevelsError(error instanceof Error ? error.message : "Failed to load levels");
       } finally {
         setLevelsLoading(false);
       }
@@ -79,7 +75,6 @@ export function useLevels() {
     levels,
     setLevels,
     levelSections,
-    levelsLoading,
-    levelsError
+    levelsLoading
   };
 }
