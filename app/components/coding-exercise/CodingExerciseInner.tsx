@@ -34,7 +34,7 @@ export default function CodingExerciseInner() {
   }, [exerciseTitle]);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">
       <div className={styles.topBar}>
         <div className={styles.logo}>JIKI</div>
         <div className={styles.topBarActions}>

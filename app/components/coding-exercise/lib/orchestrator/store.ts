@@ -24,6 +24,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
       status: "idle",
       error: null,
       currentTest: null,
+      currentTestIdx: 0,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
@@ -158,6 +159,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
         if (!test) {
           set({
             currentTest: test,
+            currentTestIdx: 0,
             currentTestTime: 0,
             currentFrame: undefined,
             highlightedLine: 0
@@ -165,12 +167,16 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           return;
         }
 
+        // Find the index of this test in the test suite
+        const testIdx = state.testSuiteResult?.tests.findIndex((t) => t.slug === test.slug) ?? 0;
+
         // Check if we have a saved time for this test
         const savedTime = state.testCurrentTimes[test.slug];
         let timeToUse = savedTime !== undefined ? savedTime : (test.frames.at(0)?.time ?? 0);
 
         set({
           currentTest: test,
+          currentTestIdx: testIdx,
           currentFrame: undefined,
           highlightedLine: 0
         });
@@ -258,6 +264,18 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
 
         if (!errorFrame && state.shouldPlayOnTestChange && test.animationTimeline) {
           get().setIsPlaying(true);
+        }
+      },
+
+      setCurrentTestIdx: (idx) => {
+        const state = get();
+
+        // Always update the index (works for both preview and test results mode)
+        set({ currentTestIdx: idx });
+
+        // If we have test results, also update currentTest to match
+        if (state.testSuiteResult && state.testSuiteResult.tests[idx]) {
+          get().setCurrentTest(state.testSuiteResult.tests[idx]);
         }
       },
 
@@ -532,6 +550,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           status: "idle",
           error: null,
           currentTest: null,
+          currentTestIdx: 0,
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
           wasSuccessModalShown: false,
@@ -596,6 +615,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       status: state.status,
       error: state.error,
       currentTest: state.currentTest,
+      currentTestIdx: state.currentTestIdx,
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       wasSuccessModalShown: state.wasSuccessModalShown,

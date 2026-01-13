@@ -15,6 +15,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       status: "idle" as const,
       error: null,
       currentTest: null,
+      currentTestIdx: 0,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
@@ -81,6 +82,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       setStatus: jest.fn(),
       setError: jest.fn(),
       setCurrentTest: jest.fn(),
+      setCurrentTestIdx: jest.fn(),
       setCurrentFrame: jest.fn(),
       setCurrentTestTime: (time: number) =>
         set((state) => {

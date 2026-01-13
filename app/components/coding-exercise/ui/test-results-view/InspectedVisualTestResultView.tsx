@@ -1,44 +1,16 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
 import Scrubber from "../scrubber/Scrubber";
+import { VisualTestCanvas } from "./VisualTestCanvas";
 import { VisualTestResultView } from "./VisualTestResultView";
 
 export function InspectedVisualTestResultView() {
   const orchestrator = useOrchestrator();
   const { currentTest, isSpotlightActive } = useOrchestratorStore(orchestrator);
-
-  const viewContainerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!currentTest || currentTest.type !== "visual") {
-      return;
-    }
-    if (!viewContainerRef.current) {
-      return;
-    }
-
-    if (viewContainerRef.current.children.length > 0) {
-      const oldView = viewContainerRef.current.children[0] as HTMLElement;
-      document.body.appendChild(oldView);
-      oldView.style.display = "none";
-    }
-
-    viewContainerRef.current.innerHTML = "";
-    currentTest.view.classList.add(
-      "container-size",
-      "aspect-square",
-      "max-h-[100cqh]",
-      "max-w-[100cqw]",
-      "bg-white",
-      "relative"
-    );
-    viewContainerRef.current.appendChild(currentTest.view);
-    currentTest.view.style.display = "block";
-  }, [currentTest]);
 
   // Recompute firstExpect whenever currentTest changes
   // eslint-disable-next-line react-hooks/exhaustive-deps -- orchestrator is stable from context, including it breaks everything.
@@ -59,15 +31,7 @@ export function InspectedVisualTestResultView() {
               currentTest={currentTest}
             />
 
-            <div className={styles.rightVideoContainer}>
-              <div
-                className={assembleClassNames(
-                  "w-auto h-full max-h-full aspect-square shrink [container-type:size] relative",
-                  isSpotlightActive && "spotlight"
-                )}
-                ref={viewContainerRef}
-              />
-            </div>
+            <VisualTestCanvas view={currentTest.view} isSpotlightActive={isSpotlightActive} />
           </div>
         </div>
       </div>

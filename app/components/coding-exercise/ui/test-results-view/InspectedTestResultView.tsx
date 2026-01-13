@@ -1,19 +1,14 @@
-import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
-import { InspectedVisualTestResultView } from "./InspectedVisualTestResultView";
-import { InspectedIOTestResultView } from "./InspectedIOTestResultView";
+import { InspectedIOTestView } from "./InspectedIOTestView";
+import { InspectedVisualTestView } from "./InspectedVisualTestView";
 
 export function InspectedTestResultView() {
   const orchestrator = useOrchestrator();
-  const { currentTest } = useOrchestratorStore(orchestrator);
+  const exercise = orchestrator.getExercise();
 
-  if (!currentTest) {
-    return null;
+  if (exercise.type === "visual") {
+    return <InspectedVisualTestView />;
   }
 
-  if (currentTest.type === "visual") {
-    return <InspectedVisualTestResultView />;
-  }
-
-  return <InspectedIOTestResultView />;
+  return <InspectedIOTestView />;
 }
