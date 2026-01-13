@@ -1,4 +1,4 @@
-import "./exercise.css";
+import "../../exercise-categories/maze/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";

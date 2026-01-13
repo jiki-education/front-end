@@ -438,7 +438,7 @@ Add to `src/exercises/index.ts`:
 
 ```typescript
 export const exercises = {
-  "basic-movement": () => import("./basic-movement"),
+  "maze-solve-basic": () => import("./maze-solve-basic"),
   "my-exercise": () => import("./my-exercise") // Add your exercise
   // ...
 } as const;

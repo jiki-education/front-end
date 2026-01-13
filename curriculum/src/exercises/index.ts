@@ -2,7 +2,6 @@ import type { ExerciseDefinition } from "./types";
 
 // Auto-generated or manually maintained registry
 export const exercises = {
-  "basic-movement": () => import("./basic-movement"),
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
   anagram: () => import("./anagram"),
