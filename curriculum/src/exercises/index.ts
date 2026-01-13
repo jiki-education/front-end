@@ -5,6 +5,7 @@ export const exercises = {
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
   anagram: () => import("./anagram"),
+  "guest-list": () => import("./guest-list"),
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
