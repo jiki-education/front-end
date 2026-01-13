@@ -20,6 +20,7 @@ import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metada
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
 import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
+import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -42,7 +43,8 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
-  sunset: sunsetLLM
+  sunset: sunsetLLM,
+  rainbow: rainbowLLM
 } as const;
 
 /**
