@@ -125,8 +125,9 @@ class Orchestrator {
     this.store.getState().setCurrentTestTime(time);
 
     // Also seek to the relevant spot on the animation timeline if it exists (visual tests only)
-    // This is what powers the stepper buttons.
-    this.store.getState().currentTest?.animationTimeline?.seek(time);
+    // This is what powers the stepper buttons. We want to mute callbacks as we don't want the
+    // microsecond to ms conversion changing the currentTestTime value we've just set and losing precision.
+    this.store.getState().currentTest?.animationTimeline?.seek(time, true);
   }
 
   setFoldedLines(lines: number[]) {
