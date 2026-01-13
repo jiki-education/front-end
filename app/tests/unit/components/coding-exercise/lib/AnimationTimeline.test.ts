@@ -219,16 +219,26 @@ describe("AnimationTimeline", () => {
     it("should seek to specific time with conversion from microseconds to milliseconds", () => {
       // 50000 microseconds = 50 milliseconds (using Math.round)
       animationTimeline.seek(50000);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(50);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(50, false);
 
       // Test rounding
       animationTimeline.seek(50500);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(51);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(51, false);
     });
 
     it("should handle seeking to zero", () => {
       animationTimeline.seek(0);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(0);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0, false);
+    });
+
+    it("should pass muteCallbacks=false by default", () => {
+      animationTimeline.seek(30000);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(30, false);
+    });
+
+    it("should pass muteCallbacks=true when specified", () => {
+      animationTimeline.seek(30000, true);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(30, true);
     });
   });
 
@@ -325,12 +335,12 @@ describe("AnimationTimeline", () => {
 
     it("should handle seeking beyond timeline duration", () => {
       animationTimeline.seek(1000000); // microseconds
-      expect(mockTimeline.seek).toHaveBeenCalledWith(1000); // converted to ms
+      expect(mockTimeline.seek).toHaveBeenCalledWith(1000, false); // converted to ms
     });
 
     it("should handle negative seek values", () => {
       animationTimeline.seek(-10000); // microseconds
-      expect(mockTimeline.seek).toHaveBeenCalledWith(-10); // converted to ms
+      expect(mockTimeline.seek).toHaveBeenCalledWith(-10, false); // converted to ms
     });
 
     it("should handle updateScrubber with valid timeline", () => {

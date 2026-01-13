@@ -34,16 +34,7 @@ export default function LogPanel() {
 
   // Pre-compute line numbers for all log lines to avoid O(n*m) complexity
   const logLineNumbers = currentTest.logLines.map((log) => {
-    // Find the frame that corresponds to this log time (or the closest frame before it)
-    let closestFrame = null;
-    for (const frame of currentTest.frames) {
-      if (frame.time <= log.time) {
-        closestFrame = frame;
-      } else {
-        break;
-      }
-    }
-    return closestFrame?.line;
+    return currentTest.frames.find((frame) => frame.time === log.time)?.line;
   });
 
   return (
@@ -62,7 +53,7 @@ export default function LogPanel() {
               <LogLine
                 key={index}
                 log={log}
-                isActive={currentTestTime >= log.time}
+                isActive={currentTestTime === log.time}
                 index={index}
                 lineNumber={logLineNumber}
               />

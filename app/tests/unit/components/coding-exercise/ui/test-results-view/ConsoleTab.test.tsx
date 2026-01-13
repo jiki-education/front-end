@@ -257,8 +257,8 @@ describe("ConsoleTab Component", () => {
       const secondLog = screen.getByTestId("log-line-1");
       const thirdLog = screen.getByTestId("log-line-2");
 
-      // First two logs should be active (time-based: currentTestTime >= log.time)
-      expect(firstLog).toHaveClass("highlighted");
+      // Only the log at exact currentTestTime should be highlighted
+      expect(firstLog).not.toHaveClass("highlighted");
       expect(secondLog).toHaveClass("highlighted");
       expect(thirdLog).not.toHaveClass("highlighted");
     });

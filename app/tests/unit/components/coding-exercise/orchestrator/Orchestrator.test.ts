@@ -210,12 +210,42 @@ describe("Orchestrator", () => {
 
       orchestrator.play();
       expect(orchestrator.getStore().getState().currentTestTime).toBe(0);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(0);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0, true);
       expect(orchestrator.getStore().getState().isPlaying).toBe(true);
 
       // Complete again
       onCompleteCallback(mockTimeline);
       expect(orchestrator.getStore().getState().isPlaying).toBe(false);
+    });
+  });
+
+  describe("setCurrentTestTime", () => {
+    it("should mute animation timeline callbacks when seeking to preserve precision", () => {
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const orchestrator = new Orchestrator(exercise, "jikiscript");
+      const mockTimeline = createMockAnimationTimeline();
+
+      orchestrator.setCurrentTest({
+        type: "visual" as const,
+        slug: "test-1",
+        name: "Test 1",
+        status: "pass" as const,
+        expects: [],
+        view: document.createElement("div"),
+        frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
+        logLines: [],
+        animationTimeline: mockTimeline
+      });
+
+      // Clear any seek calls from setCurrentTest
+      (mockTimeline.seek as jest.Mock).mockClear();
+
+      // Call setCurrentTestTime directly
+      orchestrator.setCurrentTestTime(50000);
+
+      // Should call seek with muteCallbacks=true to prevent the animation's onUpdate
+      // callback from overwriting the precise time value with a rounded ms->microseconds conversion
+      expect(mockTimeline.seek).toHaveBeenCalledWith(50000, true);
     });
   });
 
@@ -589,7 +619,7 @@ describe("Orchestrator", () => {
 
       const state = orchestrator.getStore().getState();
       expect(state.currentTestTime).toBe(0);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(0);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0, true);
       expect(mockTimeline.play).toHaveBeenCalled();
     });
 

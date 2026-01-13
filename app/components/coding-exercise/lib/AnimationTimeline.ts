@@ -108,9 +108,9 @@ export class AnimationTimeline {
   //   this.animationTimeline.seek(this.animationTimeline.duration);
   // }
 
-  public seek(time: number) {
+  public seek(time: number, muteCallbacks = false) {
     // Convert microseconds to milliseconds for AnimeJS
-    this.animationTimeline.seek(Math.round(time / TIME_SCALE_FACTOR));
+    this.animationTimeline.seek(Math.round(time / TIME_SCALE_FACTOR), muteCallbacks);
   }
 
   public play(cb?: () => void) {
