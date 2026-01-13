@@ -1,0 +1,13 @@
+{
+  "slug": "rainbow-ball",
+  "title": "Rainbow Ball",
+  "instructions": "Your job is to create a ball that randomly bounces around the canvas, drawing a rainbow in its wake!\n\n### Drawing\n\n- The first circle you draw should be at `(5, 5)`.\n- All the circles should have a radius of `10`.\n- The color of the circle should use HSL, starting with a hue of `100` (green), a saturation of `80` (bold colors), and a luminosity of `50` (mid-brightness).\n\n### Animating\n\n- To start with, in each iteration you should move the ball `2` to the right and `1` down.\n- The hue should increase by `1` each time, until it gets to the maximum (`255`) then start reducing again.\n\n### Bouncing\n\n- Once the ball reaches the edge of the canvas it should change direction.\n- To make things more fun you should change direction using the `random_number(min, max)` function.\n\n### To pass the checks\n\n- The first few circles must be correct.\n- Over 80% of the canvas gets painted.\n- At least 255 different colored circles.\n\n### Functions\n\n- `circle(x, y, radius)` - Draw a circle\n- `fill_color_hsl(hue, saturation, luminance)` - Set fill color using HSL\n- `random_number(min, max)` - Get a random number between min and max",
+  "estimatedMinutes": 20,
+  "levelId": "everything",
+  "hints": [
+    "Use variables for x_direction and y_direction to control movement",
+    "When hitting an edge, use random_number to choose a new direction",
+    "The hue_direction variable controls whether hue increases or decreases",
+    "You'll need around 500-1000 iterations to cover 80% of the canvas"
+  ]
+}
