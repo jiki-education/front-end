@@ -16,6 +16,9 @@ import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
 import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
+import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
+import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
+import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -34,7 +37,10 @@ const llmMetadataRegistry = {
   penguin: penguinLLM,
   "scroll-and-shoot": scrollAndShootLLM,
   "jumbled-house": jumbledHouseLLM,
-  "build-wall": buildWallLLM
+  "build-wall": buildWallLLM,
+  "finish-wall": finishWallLLM,
+  "fix-wall": fixWallLLM,
+  "structured-house": structuredHouseLLM
 } as const;
 
 /**

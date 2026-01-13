@@ -1,0 +1,13 @@
+{
+  "slug": "fix-wall",
+  "title": "Fix the Wall",
+  "instructions": "This exercise introduces you to the `rectangle` and `fill_color_hex` functions.\n\n### Drawing Rectangles\n\nTo draw rectangles, we use the `rectangle` function with 4 inputs:\n\n- `left`: The left side of the rectangle\n- `top`: The top of the rectangle\n- `width`: How wide the rectangle is\n- `height`: How high the rectangle is\n\n### Changing colors\n\nYou can use the `fill_color_hex(color)` function to set the color of something. The input is always a string and can either be a hex color (e.g. `\"#ff0000\"`) or an HTML Color (e.g. `\"red\"`).\n\nYou need to use that function every time you want to **change** the color, before you draw the shape.\n\n## Instructions\n\nYour job is to use three brick-colored rectangles to fill the holes in the wall.\n\nYou can check [HTML Color Codes](https://htmlcolorcodes.com/colors/brick-red/) to find a good hex code for the color of the bricks. Remember to input it as a string.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check where something needs to go.\n\nTo make your life easier, the top, left, height and widths are all divisible by 10.",
+  "estimatedMinutes": 10,
+  "levelId": "everything",
+  "hints": [
+    "Set the fill color before drawing rectangles",
+    "Use a brick-like color such as #AA4A44",
+    "The holes are at positions that are divisible by 10",
+    "Each hole is 20 wide and 10 tall"
+  ]
+}
