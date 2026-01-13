@@ -45,7 +45,8 @@ const chatHeader = {
 };
 
 function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
-  // State for mock mode toggle
+  // State for mock mode toggle (only enabled in development)
+  const isDevelopment = process.env.NODE_ENV === "development";
   const [useMockMode, setUseMockMode] = useState(false);
 
   const realChat = useChat(orchestrator);
@@ -83,16 +84,18 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
         <div className="flex-1 flex flex-col min-h-0">
           {chat.messages.length > 0 && (
             <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-end gap-2">
-              <button
-                onClick={() => setUseMockMode(!useMockMode)}
-                className={`text-xs px-2 py-1 rounded ${
-                  useMockMode
-                    ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                    : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                Mock {useMockMode ? "ON" : "OFF"}
-              </button>
+              {isDevelopment && (
+                <button
+                  onClick={() => setUseMockMode(!useMockMode)}
+                  className={`text-xs px-2 py-1 rounded ${
+                    useMockMode
+                      ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                      : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  Mock {useMockMode ? "ON" : "OFF"}
+                </button>
+              )}
               <button
                 onClick={chat.clearConversation}
                 disabled={chat.isDisabled}

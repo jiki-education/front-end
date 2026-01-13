@@ -5,7 +5,8 @@ import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import ConceptLibrary from "./ConceptLibrary";
-import { mockInstructionsData } from "./mockInstructionsData";
+import { fetchConceptsBySlugs } from "@/lib/api/concepts";
+import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
 
@@ -13,29 +14,68 @@ interface InstructionsPanelProps {
   instructions: string;
   functions: FunctionInfo[];
   conceptSlugs?: string[];
+  exerciseTitle: string;
+  levelId: string;
   className?: string;
 }
 
 export default function InstructionsPanel({
   instructions,
   functions,
-  conceptSlugs: _conceptSlugs,
+  conceptSlugs,
+  exerciseTitle,
+  levelId,
   className = ""
 }: InstructionsPanelProps) {
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
+  const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
+  const [isLoadingConcepts, setIsLoadingConcepts] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const instructionsRef = useRef<HTMLDivElement>(null);
   const functionsRef = useRef<HTMLDivElement>(null);
   const conceptLibraryRef = useRef<HTMLDivElement>(null);
 
-  // Mock exercise data - this would come from orchestrator
+  // Build exercise data from props
   const exerciseData: ExerciseData = {
-    title: "Acronym Generator Challenge",
-    progress: "5 of 12",
-    level: "Functions",
-    icon: "/static/images/project-icons/icon-calculator.png"
+    title: exerciseTitle,
+    progress: "", // TODO: Get actual progress from API/orchestrator when available
+    level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
+    icon: "/static/images/project-icons/icon-calculator.png" // TODO: Add icon field to exercise definition
   };
+
+  // Fetch concepts when conceptSlugs change
+  useEffect(() => {
+    async function loadConcepts() {
+      if (!conceptSlugs || conceptSlugs.length === 0) {
+        setConcepts([]);
+        return;
+      }
+
+      setIsLoadingConcepts(true);
+      try {
+        const conceptData = await fetchConceptsBySlugs(conceptSlugs);
+
+        // Transform API response to ConceptCardData format
+        const transformedConcepts: ConceptCardData[] = conceptData.map((concept) => ({
+          slug: concept.slug,
+          title: concept.title,
+          description: concept.description,
+          iconSrc: concept.iconSrc || "static/icons/concept-default.svg",
+          subConceptCount: undefined // This field is not in the API response
+        }));
+
+        setConcepts(transformedConcepts);
+      } catch (error) {
+        console.error("Failed to fetch concepts:", error);
+        setConcepts([]); // Fall back to empty array on error
+      } finally {
+        setIsLoadingConcepts(false);
+      }
+    }
+
+    void loadConcepts();
+  }, [conceptSlugs]);
 
   // Handle scroll to update active section
   useEffect(() => {
@@ -131,13 +171,22 @@ export default function InstructionsPanel({
 
         {/* Concept Library Section */}
         <div ref={conceptLibraryRef}>
-          {/* TODO: Fetch concept data from API based on conceptSlugs
-              When conceptSlugs is provided, use fetchConcepts() from @/lib/api/concepts
-              to get full ConceptCardData for each slug. This should happen either:
-              1. In the Orchestrator during exercise initialization, OR
-              2. In this component using useEffect and async state
-              For now, using mock data as placeholder. */}
-          <ConceptLibrary concepts={mockInstructionsData.conceptLibrary} />
+          {isLoadingConcepts ? (
+            <div className={styles.conceptsContainer}>
+              <h2 className={styles.conceptsTitle}>Library</h2>
+              <p className={styles.sectionInfo}>Loading concepts...</p>
+            </div>
+          ) : concepts.length > 0 ? (
+            <ConceptLibrary concepts={concepts} />
+          ) : (
+            conceptSlugs &&
+            conceptSlugs.length > 0 && (
+              <div className={styles.conceptsContainer}>
+                <h2 className={styles.conceptsTitle}>Library</h2>
+                <p className={styles.sectionInfo}>No concepts available for this exercise.</p>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>
