@@ -44,6 +44,7 @@ describe("CodeEditor", () => {
       status: "idle",
       error: null,
       currentTest: null,
+      currentTestIdx: 0,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,

@@ -48,6 +48,7 @@ export interface OrchestratorState {
   status: "idle" | "running" | "success" | "error";
   error: string | null;
   currentTest: TestResult | null;
+  currentTestIdx: number; // Index of current test/scenario (synced with currentTest)
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
   wasSuccessModalShown: boolean;
@@ -113,6 +114,7 @@ export interface OrchestratorActions {
   setStatus: (status: OrchestratorState["status"]) => void;
   setError: (error: string | null) => void;
   setCurrentTest: (test: TestResult | null) => void;
+  setCurrentTestIdx: (idx: number) => void;
   setCurrentFrame: (frame: Frame) => void;
   setCurrentTestTime: (time: number, nearestOrExactFrame?: "nearest" | "exact", force?: boolean) => void;
   setHasCodeBeenEdited: (value: boolean) => void;

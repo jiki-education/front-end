@@ -14,7 +14,7 @@
     "content:watch": "onchange '../content/src/**' -- node scripts/generate-content.js",
     "icons:generate": "node scripts/generate-icon-types.js",
     "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate",
-    "test": "jest",
+    "test": "pnpm run icons:generate && jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",

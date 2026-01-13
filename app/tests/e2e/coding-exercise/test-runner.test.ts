@@ -22,18 +22,18 @@ test.describe("Test Runner E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test buttons to appear first (indicates tests have run)
-    await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").first().waitFor();
+    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
 
     // Then wait for the test result view to appear
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Check that test suite results show (2 regular tests + 1 bonus test)
-    const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").all();
+    const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").all();
     expect(testButtons.length).toBe(3);
 
     // Check test status - look for CSS module class containing 'passed'
     const testStatus = await page.evaluate(() => {
-      const buttons = document.querySelectorAll("[data-testid='test-selector-buttons'] [class*='v14Dot']");
+      const buttons = document.querySelectorAll("[data-testid='test-selector-buttons'] [class*='Dot']");
       return Array.from(buttons).map((btn) => {
         // Check if any class contains 'passed' (CSS modules generate long class names)
         return Array.from(btn.classList).some((cls) => cls.includes("passed"));
@@ -67,14 +67,14 @@ test.describe("Test Runner E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test buttons to appear first
-    await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").first().waitFor();
+    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
 
     // Then wait for test result view
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
     // Check that tests fail
     const testStatus = await page.locator('[data-testid="test-selector-buttons"]').evaluate((el) => {
-      const buttons = el.querySelectorAll('[class*="v14Dot"]');
+      const buttons = el.querySelectorAll('[class*="Dot"]');
       return Array.from(buttons).map((btn) => {
         // Check if any class contains 'failed' (CSS modules generate long class names)
         return Array.from(btn.classList).some((cls) => cls.includes("failed"));
@@ -101,16 +101,16 @@ test.describe("Test Runner E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test results and buttons
-    await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").first().waitFor();
+    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
 
     // Click second test button
-    const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").all();
+    const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").all();
     expect(testButtons.length).toBe(3); // 2 regular + 1 bonus
     await testButtons[1].click();
 
     // Wait for view update using waitForFunction instead of setTimeout
     await page.waitForFunction(() => {
-      return document.querySelector("[data-testid='test-selector-buttons'] [class*='v14Dot']") !== null;
+      return document.querySelector("[data-testid='test-selector-buttons'] [class*='Dot']") !== null;
     });
 
     // Verify that we clicked and can interact with the second test button
@@ -130,7 +130,7 @@ test.describe("Test Runner E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test buttons first
-    await page.locator("[data-testid='test-selector-buttons'] [class*='v14Dot']").first().waitFor();
+    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
 
     // Then wait for scrubber to appear
     await page.locator('[data-testid="scrubber"]').waitFor();

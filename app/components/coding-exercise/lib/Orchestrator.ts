@@ -116,6 +116,10 @@ class Orchestrator {
     this.store.getState().setCurrentTest(test);
   }
 
+  setCurrentTestIdx(idx: number) {
+    this.store.getState().setCurrentTestIdx(idx);
+  }
+
   /*
     This method is specifically for when we want to set a specific time.
     It's not for side-effects (e.g. when the animation is playing and we
