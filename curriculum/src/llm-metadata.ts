@@ -9,6 +9,7 @@
 // Import LLM metadata for all exercises
 // NOTE: Add new exercises here as they're created
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
+import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
@@ -33,6 +34,7 @@ export interface LLMMetadata {
  */
 const llmMetadataRegistry = {
   acronym: acronymLLM,
+  "after-party": afterPartyLLM,
   anagram: anagramLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
