@@ -1,0 +1,27 @@
+function letter_values do
+  set values to [
+    ["AEIOULNRST", 1],
+    ["DG", 2],
+    ["BCMP", 3],
+    ["FHVWY", 4],
+    ["K", 5],
+    ["JX", 8],
+    ["QZ", 10]
+  ]
+  set dict to {}
+  for each pair in values do
+    for each letter in pair[1] do
+      change dict[letter] to pair[2]
+    end
+  end
+  return dict
+end
+
+function scrabble_score with word do
+  set scores to letter_values()
+  set score to 0
+  for each letter in word do
+    change score to score + scores[to_upper_case(letter)]
+  end
+  return score
+end
