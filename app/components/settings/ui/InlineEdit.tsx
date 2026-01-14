@@ -77,7 +77,7 @@ export default function InlineEdit({
 
   return (
     <div className="ui-form-field-large">
-      <label className="text-sm text-text-secondary">{label}</label>
+      <label className="text-sm">{label}</label>
       {isEditing ? (
         <div>
           <div className="flex gap-8">
