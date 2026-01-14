@@ -118,29 +118,16 @@
             }
         }
 
-        /* Orange variant (if needed in future) */
-        &[data-color="orange"]:hover {
-            color: var(--color-orange-400);
+        /* Amber variant (if needed in future) */
+        &[data-color="amber"]:hover {
+            color: var(--color-amber-400);
         }
 
-        &[data-color="orange"].active {
-            color: var(--color-orange-500);
+        &[data-color="amber"].active {
+            color: var(--color-amber-500);
 
             &::after {
-                background: var(--color-orange-500);
-            }
-        }
-
-        /* Yellow variant (if needed in future) */
-        &[data-color="yellow"]:hover {
-            color: var(--color-yellow-400);
-        }
-
-        &[data-color="yellow"].active {
-            color: var(--color-yellow-500);
-
-            &::after {
-                background: var(--color-yellow-500);
+                background: var(--color-amber-500);
             }
         }
     }
