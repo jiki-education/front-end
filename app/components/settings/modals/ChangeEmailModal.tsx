@@ -58,7 +58,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
   };
 
   return (
-    <div className="p-24 max-w-md mx-auto text-left ui-form-field-large">
+    <div className="p-24 max-w-md mx-auto text-left">
       <h2 className="text-2xl font-bold mb-16">Change Email Address</h2>
 
       <div className="bg-blue-50 text-blue-700 p-12 rounded-md text-sm mb-16">
@@ -70,12 +70,12 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-16 ">
-        <div>
+        <div className="ui-form-field-large">
           <label className="block text-sm font-semibold mb-1">Current Email</label>
           <input type="email" value={currentEmail} disabled />
         </div>
 
-        <div>
+        <div className="ui-form-field-large">
           <label htmlFor="new-email" className="block text-sm font-semibold mb-1">
             New Email Address
           </label>
@@ -90,7 +90,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
           />
         </div>
 
-        <div>
+        <div className="ui-form-field-large">
           <label htmlFor="current-password" className="block text-sm font-semibold mb-1">
             Confirm with Current Password
           </label>

@@ -62,7 +62,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
       <h2 className="text-2xl font-bold mb-16">Change Password</h2>
 
       <form onSubmit={handleSubmit} className="space-y-16">
-        <div>
+        <div className="ui-form-field-large">
           <label htmlFor="current-password" className="block text-sm font-medium mb-1">
             Current Password
           </label>
@@ -77,7 +77,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
           />
         </div>
 
-        <div>
+        <div className="ui-form-field-large">
           <label htmlFor="new-password" className="block text-sm font-medium mb-1">
             New Password
           </label>
@@ -92,7 +92,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
           <p className="text-xs text-text-secondary mt-1">Must be at least 8 characters long</p>
         </div>
 
-        <div>
+        <div className="ui-form-field-large">
           <label htmlFor="confirm-password" className="block text-sm font-medium mb-1">
             Confirm New Password
           </label>
