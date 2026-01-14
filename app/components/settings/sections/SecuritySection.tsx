@@ -20,13 +20,11 @@ export default function SecuritySection({ updatePassword }: SecuritySectionProps
     <div className={styles.settingItem}>
       <h3>Security</h3>
       <div className="space-y-16 ui-form-field-large">
-        <div>
-          <label className="text-sm text-text-secondary">Password</label>
-          <input type="password" value="••••••••" readOnly />
-          <button onClick={handlePasswordChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8">
-            Change Password
-          </button>
-        </div>
+        <label className="text-sm text-text-secondary">Password</label>
+        <input type="password" value="••••••••" readOnly />
+        <button onClick={handlePasswordChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8">
+          Change Password
+        </button>
       </div>
     </div>
   );

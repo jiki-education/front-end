@@ -53,7 +53,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
   return (
     <div className={styles.settingItem}>
       <h3>Profile Information</h3>
-      <div className="space-y-4 ui-form-field-large">
+      <div className="space-y-16">
         <InlineEdit
           label="Name"
           value={settings.name || ""}
@@ -70,10 +70,10 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
           validation={validateHandle}
         />
 
-        <div>
-          <label className="text-sm text-text-secondary">Email</label>
+        <div className="ui-form-field-large">
+          <label className="text-sm font-semibold">Email</label>
           <input type="email" value={settings.email || ""} placeholder="Enter your email" readOnly />
-          <button onClick={handleEmailChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8">
+          <button onClick={handleEmailChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8 mb-16">
             Change Email
           </button>
           {settings.unconfirmed_email && (
