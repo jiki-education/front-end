@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import styles from "@/app/styles/components/modals.module.css";
+import modalStyles from "@/app/styles/components/modals.module.css";
+import ratingStyles from "./DifficultyRatingStep.module.css";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 
 interface DifficultyRatingStepProps {
   exerciseTitle: string;
@@ -9,70 +11,71 @@ interface DifficultyRatingStepProps {
 }
 
 export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: DifficultyRatingStepProps) {
-  const [difficultyRating, setDifficultyRating] = useState<number>(3);
-  const [funRating, setFunRating] = useState<number>(3);
-  const funEmojis = ["😢", "😞", "😐", "😊", "😁"];
+  const [difficultyRating, setDifficultyRating] = useState<number>(2); // Default to "Just right" (index 2)
+  const [funRating, setFunRating] = useState<number>(4); // Default to "Amazing!" (index 4)
+  const difficultyLabels = ["Too easy", "Easy", "Just right", "Hard", "Too hard"];
+  const funEmojis = ["😫", "😐", "🙂", "😊", "😄"];
+  const funLabels = ["Frustrating", "", "Pretty good", "", "Amazing!"];
 
   const handleSubmit = () => {
-    onRatingsSubmit(difficultyRating, funRating);
+    onRatingsSubmit(difficultyRating + 1, funRating + 1); // Convert 0-indexed to 1-5 rating
   };
 
   return (
     <>
-      <h2 className={styles.modalTitle}>Rate your experience</h2>
-      <p className={styles.modalMessage}>Help us improve by rating {exerciseTitle} on difficulty and fun.</p>
+      <h2 className={modalStyles.modalTitle}>Rate your experience</h2>
+      <p className={modalStyles.modalMessage}>Help us improve {exerciseTitle} by rating it.</p>
 
-      <div className={styles.difficultyRatingContainer}>
-        <div className={styles.difficultyRatingTitle}>Rate the difficulty</div>
+      <div className={ratingStyles.ratingSection}>
+        <div className={ratingStyles.ratingLabel}>Rate the difficulty</div>
 
-        <div className={styles.difficultySliderContainer}>
-          <div className={styles.difficultySlider}>
-            {[1, 2, 3, 4, 5].map((rating) => (
-              <button
-                key={rating}
-                className={`${styles.difficultyDot} ${difficultyRating === rating ? styles.selected : ""}`}
-                onClick={() => setDifficultyRating(rating)}
-                aria-label={`Rate difficulty as ${rating} out of 5`}
-              />
-            ))}
-          </div>
-
-          <div className={styles.difficultyLabels}>
-            <span className={`${styles.difficultyLabel} ${styles.leftLabel}`}>Too easy</span>
-            <span className={`${styles.difficultyLabel} ${styles.centerLabel}`}>Just right</span>
-            <span className={`${styles.difficultyLabel} ${styles.rightLabel}`}>Too hard</span>
+        <div className="relative">
+          <div className="relative">
+            <div className={ratingStyles.sliderTrack}></div>
+            <div className={ratingStyles.sliderOptions}>
+              {difficultyLabels.map((label, index) => (
+                <button
+                  key={index}
+                  className={`${ratingStyles.sliderOption} ${difficultyRating === index ? ratingStyles.selected : ""}`}
+                  onClick={() => setDifficultyRating(index)}
+                  aria-label={`Rate difficulty as ${label}`}
+                >
+                  <div className={ratingStyles.sliderDot}></div>
+                  <span className={ratingStyles.sliderLabel} data-text={label}>
+                    {label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className={styles.funRatingContainer}>
-        <div className={styles.funRatingTitle}>Rate the fun factor</div>
+      <div className={assembleClassNames(ratingStyles.ratingSection, ratingStyles.highlighted)}>
+        <div className={ratingStyles.ratingLabel}>Rate the fun factor</div>
 
-        <div className={styles.funSliderContainer}>
-          <div className={styles.funSlider}>
-            {[1, 2, 3, 4, 5].map((rating) => (
+        <div className={ratingStyles.emojiRatingContainer}>
+          <div className={ratingStyles.emojiRatingLine}></div>
+          <div className={ratingStyles.emojiRating}>
+            {funEmojis.map((emoji, index) => (
               <button
-                key={rating}
-                className={`${styles.funDot} ${funRating === rating ? styles.selected : ""}`}
-                onClick={() => setFunRating(rating)}
-                aria-label={`Rate fun as ${rating} out of 5`}
+                key={index}
+                className={`${ratingStyles.emojiOption} ${funRating === index ? ratingStyles.selected : ""}`}
+                onClick={() => setFunRating(index)}
+                aria-label={`Rate fun as ${funLabels[index] || `option ${index + 1}`}`}
               >
-                {funEmojis[rating - 1]}
+                <div className={ratingStyles.emojiCircle}>{emoji}</div>
+                <span className={ratingStyles.emojiLabel} data-text={funLabels[index]}>
+                  {funLabels[index]}
+                </span>
               </button>
             ))}
           </div>
-
-          <div className={styles.funLabels}>
-            <span className={`${styles.funLabel} ${styles.leftLabel}`}>No fun</span>
-            <span className={`${styles.funLabel} ${styles.centerLabel}`}>Pretty good</span>
-            <span className={`${styles.funLabel} ${styles.rightLabel}`}>Amazing!</span>
-          </div>
         </div>
       </div>
 
-      <div className={styles.modalButtonsDivider}></div>
-      <div className={styles.modalButtons}>
-        <button onClick={handleSubmit} className={styles.btnPrimary}>
+      <div className={modalStyles.modalButtons}>
+        <button onClick={handleSubmit} className={modalStyles.btnPrimary}>
           Continue
         </button>
       </div>
