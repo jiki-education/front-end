@@ -18,7 +18,7 @@
 }
 
 .badgeCard.new:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 /* Locked badges */
@@ -31,5 +31,5 @@
 
 .badgeCard.locked:hover {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
