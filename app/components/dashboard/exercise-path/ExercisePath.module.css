@@ -184,26 +184,20 @@
 
 /* Start Card */
 .startCard {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
     display: flex;
     align-items: center;
-    position: relative;
-    gap: 8;
-    text-align: center;
-    max-width: 400px;
-    margin: -8px auto -2px;
-    font-size: 16px;
-    font-weight: 500;
+    justify-content: center;
+    gap: 10px;
     color: white;
-    background: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-600) 100%);
-    padding: 12px 48px;
-    border-radius: 40px;
-    border: 3px solid var(--color-green-500-40);
-    box-shadow: 0 2px 8px var(--color-green-500-30);
-
-    span {
-    }
-    h2 {
-    }
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    width: fit-content;
+    justify-self: center;
 }
 
 /* Milestone Cards */
