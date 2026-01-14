@@ -21,17 +21,11 @@ export function getBadgeDate(badge: BadgeData): string {
   return distance.replace("ago", "").trim() === "today" ? "Earned today" : `Earned ${distance}`;
 }
 
-export function getBadgeColor(badge: BadgeData): "pink" | "gold" | "purple" | "teal" | "blue" | "green" {
-  // TODO: These colors should probably come from the backend instead of hardcoded mapping
-  const colorMap: Record<string, "pink" | "gold" | "purple" | "teal" | "blue" | "green"> = {
-    Member: "pink",
-    "Maze Navigator": "gold",
-    "Array Expert": "purple",
-    "Loop Legend": "teal",
-    "Function Pro": "blue",
-    Debugger: "purple"
-  };
-  return colorMap[badge.name] ?? "blue";
+export function getBadgeColor(badge: BadgeData): "blue" | "gold" {
+  if (badge.state === "unrevealed") {
+    return "gold";
+  }
+  return "blue";
 }
 
 export function getBadgeIconSrc(badge: BadgeData): string {

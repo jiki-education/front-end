@@ -2,7 +2,7 @@
 "use client";
 
 import type { UserProfile as UserProfileType, StatusOption } from "../lib/mockData";
-import { StatusSelector } from "./StatusSelector";
+// import { StatusSelector } from "./StatusSelector";
 import style from "./user-profile.module.css";
 
 interface UserProfileProps {
@@ -10,7 +10,7 @@ interface UserProfileProps {
   onStatusChange?: (status: StatusOption) => void;
 }
 
-export function UserProfile({ profile, onStatusChange }: UserProfileProps) {
+export function UserProfile({ profile, onStatusChange: _onStatusChange }: UserProfileProps) {
   return (
     <div className={style.userProfileCard}>
       <div className={style.userProfileHeader}>
@@ -21,7 +21,7 @@ export function UserProfile({ profile, onStatusChange }: UserProfileProps) {
         <div className={style.userInfo}>
           <div className={style.userNameRow}>
             <div className={style.userName}>{profile.name}</div>
-            <StatusSelector currentStatus={profile.currentStatus} onStatusChange={onStatusChange} />
+            {/*<StatusSelector currentStatus={profile.currentStatus} onStatusChange={onStatusChange} />*/}
           </div>
           <div className={style.userHandle}>{profile.handle}</div>
         </div>

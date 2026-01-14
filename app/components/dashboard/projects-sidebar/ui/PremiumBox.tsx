@@ -15,8 +15,7 @@ export function PremiumBox({ onUpgradeClick }: PremiumBoxProps) {
 
       {/* Description */}
       <div className={styles.premiumText}>
-        Jiki&apos;s friendly AI will support you while you learn to code. Start talking to Jiki now and find out how
-        this will accelerate your learning and make it a lot more fun!
+        Jiki&apos;s friendly AI will support you while you learn to code. Blah blah blah.
       </div>
 
       {/* Upgrade Button */}

@@ -47,7 +47,7 @@ export function useLevels() {
           type: lesson.type,
           completed: lesson.status === "completed",
           locked,
-          description: lesson.type === "video" ? "Video lesson" : "Interactive exercise",
+          description: lesson.type === "video" ? "Video lesson (description)" : "Interactive exercise (description)",
           route: `/lesson/${lesson.slug}`,
           position: { x: 0, y: 0 } // Not needed for tooltip but required by interface
         };

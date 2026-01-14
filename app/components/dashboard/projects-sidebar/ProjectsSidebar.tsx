@@ -4,14 +4,12 @@ import { useState } from "react";
 import {
   getMockUserProfile,
   getMockProjects,
-  getMockGlobalActivity,
   type StatusOption,
   type UserProfile as UserProfileType
 } from "./lib/mockData";
 import { UserProfile } from "./ui/UserProfile";
 import { RecentProjects } from "./ui/RecentProjects";
 import { PremiumBox } from "./ui/PremiumBox";
-import { GlobalActivity } from "./ui/GlobalActivity";
 import styles from "./projects-sidebar.module.css";
 
 interface ProjectsSidebarProps {
@@ -33,7 +31,7 @@ export function ProjectsSidebar({
 }: ProjectsSidebarProps = {}) {
   const [userProfile, setUserProfile] = useState<UserProfileType>(getMockUserProfile());
   const { projects, unlockedCount } = getMockProjects();
-  const globalActivity = getMockGlobalActivity();
+  //const globalActivity = getMockGlobalActivity();
 
   const handleStatusChange = (status: StatusOption) => {
     setUserProfile((prev) => ({
@@ -61,7 +59,7 @@ export function ProjectsSidebar({
         <PremiumBox onUpgradeClick={onUpgradeClick} />
 
         {/* Global Activity */}
-        <GlobalActivity activity={globalActivity} />
+        {/*<GlobalActivity activity={globalActivity} />*/}
       </div>
     </aside>
   );
