@@ -3,25 +3,10 @@
    ============================================================================ */
 
 .badgeCard.earned.blue {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-700);
+    background: color-mix(in srgb, white 60%, var(--color-blue-50));
 }
 
 .badgeCard.earned.gold:not(.new) {
-    border-color: #8b5cf6;
-}
-
-.badgeCard.earned.green {
-    border-color: #10b981;
-}
-
-.badgeCard.earned.pink {
-    border-color: #ec4899;
-}
-
-.badgeCard.earned.purple {
-    border-color: #8b5cf6;
-}
-
-.badgeCard.earned.teal {
-    border-color: #14b8a6;
+    border-color: var(--color-gold-700);
 }

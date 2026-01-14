@@ -61,7 +61,7 @@ export function AchievementsContent() {
 
       {activeTab === "badges" && (
         <div className={BadgesCssModule.badgesGallery}>
-          {badges.map((badge) => (
+          {sortBadges(badges).map((badge) => (
             <BadgeCard key={badge.id} badge={badge} onClick={handleBadgeClick} />
           ))}
         </div>
@@ -70,4 +70,9 @@ export function AchievementsContent() {
       <CertificatesEmptyState show={activeTab === "certificates"} />
     </PageHeader>
   );
+}
+
+function sortBadges(badges: BadgeData[]): BadgeData[] {
+  const stateOrder = { unrevealed: 0, revealed: 1, locked: 2 };
+  return badges.toSorted((a, b) => stateOrder[a.state] - stateOrder[b.state]);
 }
