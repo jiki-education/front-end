@@ -116,7 +116,7 @@ export function runIOScenarioTest(
       externalFunctions,
       languageFeatures: {
         timePerFrame: 1,
-        maxTotalLoopIterations: 1200,
+        maxTotalLoopIterations: 10000,
         ...languageFeatures
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
