@@ -43,7 +43,8 @@ test.describe("Test Switching E2E", () => {
       });
 
       // Wait for pause button to appear (animation is playing)
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Use a longer timeout and state: 'visible' to ensure the button is rendered
+      await page.locator('[data-ci="pause-button"]').waitFor({ state: "visible", timeout: 5000 });
 
       // Pause the first test
       await page.locator('[data-ci="pause-button"]').click();
