@@ -20,7 +20,7 @@ export default function SubscriptionTab({
   selectedTier,
   setSelectedTier,
   clientSecret,
-  setClientSecret,
+  setClientSecret
 }: SubscriptionTabProps) {
   return (
     <SubscriptionErrorBoundary>

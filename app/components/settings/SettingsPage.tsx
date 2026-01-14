@@ -79,7 +79,10 @@ export default function SettingsPage() {
               <AccountSettingsIcon />
               Account
             </button>
-            <button className={activeTab === "subscription" ? "active" : ""} onClick={() => setActiveTab("subscription")}>
+            <button
+              className={activeTab === "subscription" ? "active" : ""}
+              onClick={() => setActiveTab("subscription")}
+            >
               {/* <SubscriptionIcon /> */}
               Subscription
             </button>

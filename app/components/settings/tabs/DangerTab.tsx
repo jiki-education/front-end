@@ -35,8 +35,8 @@ export default function DangerTab() {
           Permanently delete your account and all associated data. This action cannot be undone.
         </p>
         <p className={styles.warningText}>
-          ⚠️ <strong>Warning:</strong> This will permanently delete your account, all your progress,
-          completed exercises, and personal data. This action is irreversible.
+          ⚠️ <strong>Warning:</strong> This will permanently delete your account, all your progress, completed
+          exercises, and personal data. This action is irreversible.
         </p>
         <div className={styles.buttonRow}>
           <button className="ui-btn ui-btn-large ui-btn-danger">Delete Account</button>
