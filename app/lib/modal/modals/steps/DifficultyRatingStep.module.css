@@ -8,7 +8,6 @@
 
 .ratingSection.highlighted {
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    padding: 24px;
 }
 
 .ratingLabel {
@@ -19,14 +18,6 @@
 }
 
 /* Difficulty Slider */
-.sliderContainer {
-    position: relative;
-}
-
-.sliderOptionsContainer {
-    position: relative;
-}
-
 .sliderTrack {
     position: absolute;
     top: 12px;
@@ -107,10 +98,6 @@
 }
 
 /* Fun Factor Rating */
-.emojiRatingContainer {
-    position: relative;
-}
-
 .emojiRating {
     display: flex;
     justify-content: space-between;
@@ -169,14 +156,14 @@
     color: #475569;
     white-space: nowrap;
     transition: color 0.2s ease;
-    min-height: 20px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    min-height: 20px;
 }
 
-/* Use pseudo-element to prevent layout shift from bold text */
+/* Prevent layout shift when text becomes bold */
 .emojiLabel::after {
     content: attr(data-text);
     font-weight: 600;

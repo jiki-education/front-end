@@ -54,7 +54,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       <div className={assembleClassNames(ratingStyles.ratingSection, ratingStyles.highlighted)}>
         <div className={ratingStyles.ratingLabel}>Rate the fun factor</div>
 
-        <div className={ratingStyles.emojiRatingContainer}>
+        <div className="relative">
           <div className={ratingStyles.emojiRatingLine}></div>
           <div className={ratingStyles.emojiRating}>
             {funEmojis.map((emoji, index) => (
