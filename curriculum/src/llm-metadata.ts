@@ -19,6 +19,7 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as nucleotideCountLLM } from "./exercises/nucleotide-count/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -40,7 +41,8 @@ const llmMetadataRegistry = {
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
-  "structured-house": structuredHouseLLM
+  "structured-house": structuredHouseLLM,
+  "nucleotide-count": nucleotideCountLLM
 } as const;
 
 /**
