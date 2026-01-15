@@ -44,7 +44,12 @@ export function AchievementsContent() {
     void loadBadges();
   }, []);
 
-  const { handleBadgeClick } = useBadgeActions(badges, setBadges, setSpinningBadgeId, setRecentlyRevealedIds);
+  const { handleBadgeClick, cleanup } = useBadgeActions(badges, setBadges, setSpinningBadgeId, setRecentlyRevealedIds);
+
+  useEffect(() => {
+    // Cleanup on unmount
+    return cleanup;
+  }, [cleanup]);
 
   if (loading) {
     return <AchievementsLoadingState />;

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
 import { isNewBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./badgeUtils";
@@ -8,6 +9,7 @@ export function useBadgeActions(
   setSpinningBadgeId: React.Dispatch<React.SetStateAction<number | null>>,
   setRecentlyRevealedIds: React.Dispatch<React.SetStateAction<Set<number>>>
 ) {
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const handleBadgeClick = async (badgeId: string) => {
     const badge = badges.find((b) => b.id.toString() === badgeId);
 
@@ -47,7 +49,11 @@ export function useBadgeActions(
         ? () => {
             // When modal closes for a new badge, trigger spin animation then update state
             setSpinningBadgeId(badge.id);
-            setTimeout(() => {
+            // Clear any existing timeout before setting a new one
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => {
               setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
               setRecentlyRevealedIds((prev) => new Set(prev).add(badge.id));
               setSpinningBadgeId(null);
@@ -57,5 +63,11 @@ export function useBadgeActions(
     });
   };
 
-  return { handleBadgeClick };
+  const cleanup = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  return { handleBadgeClick, cleanup };
 }

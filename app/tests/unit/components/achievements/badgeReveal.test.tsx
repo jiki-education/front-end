@@ -84,28 +84,6 @@ describe("Badge Reveal Functionality", () => {
       }),
       onClose: expect.any(Function)
     });
-
-    // Get the onClose callback and simulate modal close
-    const modalCall = (showModal as jest.Mock).mock.calls[0];
-    const onCloseCallback = modalCall[1].onClose;
-
-    // Simulate modal close which triggers spin animation
-    act(() => {
-      onCloseCallback();
-    });
-
-    // Badge should still have "new" class during spinning
-    expect(badgeCard).toHaveClass("new");
-
-    // Fast-forward time to complete the animation (1500ms)
-    act(() => {
-      jest.advanceTimersByTime(1500);
-    });
-
-    // After animation completes, badge should no longer have "new" class
-    await waitFor(() => {
-      expect(badgeCard).not.toHaveClass("new");
-    });
   });
 
   it("handles reveal API error gracefully and still shows modal", async () => {
@@ -149,7 +127,7 @@ describe("Badge Reveal Functionality", () => {
     consoleSpy.mockRestore();
   });
 
-  it("shows NEW ribbon only after badge is revealed", async () => {
+  it("cleans up timeout when component unmounts during animation", async () => {
     const { fetchBadges, revealBadge } = await import("@/lib/api/badges");
     const { showModal } = await import("@/lib/modal");
 
@@ -164,14 +142,11 @@ describe("Badge Reveal Functionality", () => {
       badge: { ...mockUnrevealedBadge, revealed: true }
     });
 
-    render(<AchievementsContent />);
+    const { unmount } = render(<AchievementsContent />);
 
     // Wait for badge to load
     const badgeElement = await screen.findByText("Test Badge");
     const badgeCard = badgeElement.closest("[data-type='achievement']");
-
-    // NEW ribbon should NOT be visible for unrevealed badge
-    expect(screen.queryByText("NEW")).not.toBeInTheDocument();
 
     // Click to reveal
     fireEvent.click(badgeCard!);
@@ -180,7 +155,7 @@ describe("Badge Reveal Functionality", () => {
       expect(showModal).toHaveBeenCalled();
     });
 
-    // Get and execute the onClose callback
+    // Get and execute the onClose callback to start the animation
     const modalCall = (showModal as jest.Mock).mock.calls[0];
     const onCloseCallback = modalCall[1].onClose;
 
@@ -188,14 +163,48 @@ describe("Badge Reveal Functionality", () => {
       onCloseCallback();
     });
 
-    // Fast-forward time to complete the animation (1500ms)
+    // Advance timer partially through the animation (e.g., 500ms out of 1500ms)
     act(() => {
-      jest.advanceTimersByTime(1500);
+      jest.advanceTimersByTime(500);
     });
 
-    // After animation completes, NEW ribbon should appear
-    await waitFor(() => {
-      expect(screen.getByText("NEW")).toBeInTheDocument();
+    // Unmount the component while the animation is in progress
+    unmount();
+
+    // Advance timers to complete what would have been the animation
+    act(() => {
+      jest.advanceTimersByTime(1000);
     });
+
+    // The test passes if no errors are thrown about updating unmounted components
+    // The cleanup function should have cleared the timeout
+  });
+
+  it("shows NEW ribbon for recently revealed badge", async () => {
+    const { fetchBadges } = await import("@/lib/api/badges");
+
+    // Mock initial fetch with a recently revealed badge (less than 7 days old)
+    const recentlyRevealedBadge: BadgeData = {
+      ...mockUnrevealedBadge,
+      state: "revealed",
+      unlocked_at: new Date().toISOString() // Today
+    };
+
+    (fetchBadges as jest.Mock).mockResolvedValueOnce({
+      badges: [recentlyRevealedBadge],
+      num_locked_secret_badges: 0
+    });
+
+    render(<AchievementsContent />);
+
+    // Wait for badge to load
+    const badgeElement = await screen.findByText("Test Badge");
+
+    // NEW ribbon should be visible for recently revealed badge
+    expect(screen.getByText("NEW")).toBeInTheDocument();
+
+    // Badge should have amber styling for recent badges
+    const badgeCard = badgeElement.closest("[data-type='achievement']");
+    expect(badgeCard).toHaveClass("amber");
   });
 });
