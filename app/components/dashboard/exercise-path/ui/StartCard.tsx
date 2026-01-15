@@ -1,4 +1,5 @@
 import styles from "../ExercisePath.module.css";
+import StartFlagIcon from "@/icons/start-flag.svg";
 
 interface StartCardProps {
   completed?: boolean;
@@ -7,8 +8,8 @@ interface StartCardProps {
 export function StartCard({ completed: _completed = false }: StartCardProps) {
   return (
     <div className={styles.startCard}>
-      <span>🎌</span>
-      <h2>The start of your coding journey</h2>
+      <StartFlagIcon height={18} width={18} />
+      <h2>The Start of your Journey</h2>
     </div>
   );
 }
