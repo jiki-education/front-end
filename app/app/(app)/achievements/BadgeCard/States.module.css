@@ -8,9 +8,8 @@
     border-width: 3px;
 }
 
-/* New badges */
-.badgeCard.new,
-.badge-card.new {
+/* New badges (unrevealed) */
+.badgeCard.new {
     background: linear-gradient(135deg, #fde68a 0%, #fef3c7 100%);
     border: 3px solid #f59e0b !important;
     perspective: 1000px;
