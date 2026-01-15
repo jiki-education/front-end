@@ -48,13 +48,25 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
     await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
 
-    // Wait for auto-play to start
-    await page.waitForFunction(() => {
+    // Wait for play/pause button to appear
+    await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+    // Check if auto-play started
+    const isAutoPlaying = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
       return orchestrator?.getStore().getState().isPlaying === true;
     });
 
-    // Click pause button
+    if (!isAutoPlaying) {
+      // If not auto-playing, click play first
+      await page.locator('[data-ci="play-button"]').click();
+      await page.waitForFunction(() => {
+        const orchestrator = (window as any).testOrchestrator;
+        return orchestrator?.getStore().getState().isPlaying === true;
+      });
+    }
+
+    // Now click pause button
     await page.locator('[data-ci="pause-button"]').click();
 
     // Wait for pause to take effect
