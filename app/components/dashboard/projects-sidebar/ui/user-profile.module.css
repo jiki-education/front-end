@@ -283,11 +283,14 @@
     content: "→";
     color: white;
     position: absolute;
-    left: 50%;
+    left: 0;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     font-size: 20px;
     font-weight: 700;
+    width: 100%;
+    text-align: center;
+    line-height: 1;
 }
 
 .badgeMore {

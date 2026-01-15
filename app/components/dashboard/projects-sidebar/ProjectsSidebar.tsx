@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import {
-  getMockUserProfile,
-  getMockProjects,
-  type StatusOption,
-  type UserProfile as UserProfileType
-} from "./lib/mockData";
+import { useState, useMemo, useEffect } from "react";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { fetchProjects, type ProjectData } from "@/lib/api/projects";
+import { getMockUserProfile, type StatusOption, type UserProfile as UserProfileType } from "./lib/mockData";
 import { UserProfile } from "./ui/UserProfile";
 import { RecentProjects } from "./ui/RecentProjects";
 import { PremiumBox } from "./ui/PremiumBox";
@@ -29,15 +26,55 @@ export function ProjectsSidebar({
   _onViewAllBadgesClick,
   onUpgradeClick
 }: ProjectsSidebarProps = {}) {
-  const [userProfile, setUserProfile] = useState<UserProfileType>(getMockUserProfile());
-  const { projects, unlockedCount } = getMockProjects();
+  const user = useAuthStore((state) => state.user);
+  const mockProfile = getMockUserProfile();
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+  const [projectsLoading, setProjectsLoading] = useState(true);
+
+  // Merge real user data with mock data for now
+  const userProfile = useMemo<UserProfileType>(
+    () => ({
+      ...mockProfile,
+      name: user?.name || mockProfile.name,
+      handle: user?.handle || mockProfile.handle
+    }),
+    [user, mockProfile]
+  );
+
+  const [currentStatus, setCurrentStatus] = useState<StatusOption>(mockProfile.currentStatus);
+
+  // Load real projects
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        setProjectsLoading(true);
+        const response = await fetchProjects({ per: 100 }); // Get all projects
+        setProjects(response.results);
+      } catch (error) {
+        console.error("Failed to load projects:", error);
+      } finally {
+        setProjectsLoading(false);
+      }
+    }
+
+    if (user) {
+      void loadProjects();
+    }
+  }, [user]);
+
+  // Filter to get recent/in-progress projects (up to 3)
+  const recentProjects = useMemo(() => {
+    return projects.filter((p) => p.status === "started" || p.status === "unlocked").slice(0, 3);
+  }, [projects]);
+
+  // Count unlocked projects
+  const unlockedCount = useMemo(() => {
+    return projects.filter((p) => p.status !== "locked").length;
+  }, [projects]);
   //const globalActivity = getMockGlobalActivity();
 
   const handleStatusChange = (status: StatusOption) => {
-    setUserProfile((prev) => ({
-      ...prev,
-      currentStatus: status
-    }));
+    setCurrentStatus(status);
     onStatusChange?.(status);
   };
 
@@ -45,21 +82,19 @@ export function ProjectsSidebar({
     <aside className={styles.projectsSidebar}>
       <div>
         {/* User Profile Card */}
-        <UserProfile profile={userProfile} onStatusChange={handleStatusChange} />
+        <UserProfile profile={{ ...userProfile, currentStatus }} onStatusChange={handleStatusChange} />
 
         {/* Recent Projects */}
         <RecentProjects
-          projects={projects}
+          projects={recentProjects}
           unlockedCount={unlockedCount}
           onProjectClick={onProjectClick}
           onViewAllClick={onViewAllProjectsClick}
+          loading={projectsLoading}
         />
 
         {/* Premium Box */}
         <PremiumBox onUpgradeClick={onUpgradeClick} />
-
-        {/* Global Activity */}
-        {/*<GlobalActivity activity={globalActivity} />*/}
       </div>
     </aside>
   );

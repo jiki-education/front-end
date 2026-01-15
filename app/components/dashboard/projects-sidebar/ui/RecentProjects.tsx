@@ -1,63 +1,108 @@
-import type { Project } from "../lib/mockData";
-import styles from "../projects-sidebar.module.css";
+import Link from "next/link";
 import Image from "next/image";
+import type { ProjectData } from "@/lib/api/projects";
+import styles from "../projects-sidebar.module.css";
 
 interface RecentProjectsProps {
-  projects: Project[];
+  projects: ProjectData[];
   unlockedCount: number;
   onProjectClick?: (projectId: string) => void;
   onViewAllClick?: () => void;
+  loading?: boolean;
 }
 
-function ProjectCard({ project, onClick }: { project: Project; onClick?: (projectId: string) => void }) {
+function ProjectCard({ project }: { project: ProjectData }) {
   const getStatusText = () => {
-    if (project.status === "not-started") {
-      return "Not started";
+    switch (project.status) {
+      case "locked":
+        return "Locked";
+      case "unlocked":
+        return "Not started";
+      case "started":
+        return "In progress";
+      case "completed":
+        return "Completed";
+      case undefined:
+      default:
+        return "Available";
     }
-    return `${project.progress}% done`;
+  };
+
+  const getProjectIcon = () => {
+    // Return path to project icon image
+    return `/static/images/project-icons/icon-${project.slug}.png`;
   };
 
   return (
-    <button onClick={() => onClick?.(project.id)} className={styles.statCard} data-status={project.status}>
+    <Link href={`/projects/${project.slug}`} className={styles.statCard} data-status={project.status}>
       {/* Project Icon */}
       <div className={styles.statCardEmoji}>
-        <Image src={project.icon} alt={project.name} width={24} height={24} />
+        <Image
+          src={getProjectIcon()}
+          alt={project.title}
+          width={24}
+          height={24}
+          onError={(e) => {
+            // Fallback to a default icon if project-specific icon doesn't exist
+            (e.target as HTMLImageElement).src = "/static/images/project-icons/icon-default.png";
+          }}
+        />
       </div>
 
       {/* Project Title */}
-      <div className={styles.statCardTitle}>{project.name}</div>
+      <div className={styles.statCardTitle}>{project.title}</div>
 
       {/* Progress Text */}
       <div className={styles.statCardProgress}>{getStatusText()}</div>
 
-      {/* Progress Bar */}
+      {/* Progress Bar - simplified for now since we don't have progress % */}
       <div className={styles.cardProgressBar}>
-        <div className={styles.cardProgressFill} style={{ width: `${project.progress}%` }} />
+        <div
+          className={styles.cardProgressFill}
+          style={{
+            width: project.status === "completed" ? "100%" : project.status === "started" ? "50%" : "0%"
+          }}
+        />
       </div>
-    </button>
+    </Link>
   );
 }
 
-export function RecentProjects({ projects, unlockedCount, onProjectClick, onViewAllClick }: RecentProjectsProps) {
+export function RecentProjects({ projects, unlockedCount, loading }: RecentProjectsProps) {
   return (
     <div className={styles.sectionBox}>
       {/* Section Header */}
       <div className={styles.sectionTitle}>
         Recent Projects
-        <span className={styles.unlockedCount}>{unlockedCount} unlocked</span>
+        {unlockedCount > 0 && <span className={styles.unlockedCount}>{unlockedCount} unlocked</span>}
       </div>
 
-      {/* Project Cards Grid */}
-      <div className={styles.projectCards}>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} onClick={onProjectClick} />
-        ))}
-      </div>
+      {/* Loading state */}
+      {loading ? (
+        <div className={styles.projectCards}>
+          <div className={styles.loadingPlaceholder}>Loading projects...</div>
+        </div>
+      ) : projects.length > 0 ? (
+        /* Project Cards Grid */
+        <div className={styles.projectCards}>
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      ) : (
+        /* No projects placeholder */
+        <div className={styles.noProjectsPlaceholder}>
+          <div className={styles.noProjectsIcon}>🚀</div>
+          <div className={styles.noProjectsText}>Continue your journey to unlock projects</div>
+        </div>
+      )}
 
-      {/* View All Button */}
-      <button onClick={onViewAllClick} className={styles.viewAllBtn}>
-        View All Projects
-      </button>
+      {/* View All Button - only show if there are projects */}
+      {projects.length > 0 && (
+        <Link href="/projects" className={styles.viewAllBtn}>
+          View All Projects
+        </Link>
+      )}
     </div>
   );
 }
