@@ -19,7 +19,7 @@ export function PremiumBox({ onUpgradeClick }: PremiumBoxProps) {
       </div>
 
       {/* Upgrade Button */}
-      <button onClick={onUpgradeClick} className={styles.upgradeBtn}>
+      <button onClick={onUpgradeClick} className="ui-btn ui-btn-small ui-btn-purple ui-btn-secondary w-full">
         Try Jiki AI for free
       </button>
     </div>
