@@ -12,6 +12,7 @@ import BadgesCssModule from "./BadgeCard.module.css";
 import { useBadgeActions } from "./lib/useBadgeActions";
 import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
 import { AchievementsErrorState } from "./ui/AchievementsErrorState";
+import { isRecentBadge } from "./lib/badgeUtils";
 
 const tabs: TabItem[] = [
   { id: "badges", label: "Badges", color: "blue" },
@@ -69,7 +70,7 @@ export function AchievementsContent() {
               badge={badge}
               onClick={handleBadgeClick}
               isSpinning={spinningBadgeId === badge.id}
-              showNewRibbon={recentlyRevealedIds.has(badge.id)}
+              showNewRibbon={recentlyRevealedIds.has(badge.id) || isRecentBadge(badge)}
             />
           ))}
         </div>
@@ -83,12 +84,12 @@ export function AchievementsContent() {
 function sortBadges(badges: BadgeData[], recentlyRevealedIds: Set<number>): BadgeData[] {
   return badges.toSorted((a, b) => {
     // Determine category for each badge
-    // Priority: 1=unrevealed, 2=new (recently revealed), 3=revealed, 4=locked, 5=secret (not implemented yet)
+    // Priority: 1=unrevealed, 2=new (recently revealed or less than a week old), 3=revealed, 4=locked
     const getCategory = (badge: BadgeData): number => {
       if (badge.state === "unrevealed") {
         return 1;
       }
-      if (badge.state === "revealed" && recentlyRevealedIds.has(badge.id)) {
+      if (badge.state === "revealed" && (recentlyRevealedIds.has(badge.id) || isRecentBadge(badge))) {
         return 2;
       }
       if (badge.state === "revealed") {

@@ -40,7 +40,14 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
 
     if (isEarned) {
       classNames.push(styles.earned);
-      classNames.push(styles[badgeColor]);
+
+      // Apply amber theme for recently revealed badges
+      if (showNewRibbon) {
+        classNames.push(styles.amber);
+      } else {
+        classNames.push(styles[badgeColor]);
+      }
+
       if (isNew) {
         classNames.push(styles.new);
         if (isSpinning) {
@@ -72,6 +79,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
             <div className={styles.shimmerOverlay}></div>
             <div className={styles.badgeIconWrapper}>
               <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+              <div className={styles.badgeRibbon}></div>
             </div>
             <div className={styles.badgeTitle}>{badge.name}</div>
             <div className={styles.badgeSubtitle}>{badge.description}</div>
@@ -84,6 +92,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
         <>
           <div className={styles.badgeIconWrapper}>
             <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+            <div className={styles.badgeRibbon}></div>
           </div>
           <div className={styles.badgeTitle}>{badge.name}</div>
           <div className={styles.badgeSubtitle}>{badge.description}</div>

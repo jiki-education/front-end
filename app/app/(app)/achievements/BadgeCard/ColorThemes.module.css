@@ -10,3 +10,18 @@
 .badgeCard.earned.gold:not(.new) {
     border-color: var(--color-gold-700);
 }
+
+/* Amber theme for recently revealed badges */
+.badgeCard.earned.amber {
+    border-color: var(--color-amber-600);
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, white 85%, var(--color-amber-100)),
+        color-mix(in srgb, white 75%, var(--color-amber-200))
+    );
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+.badgeCard.earned.amber:hover {
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}

@@ -80,6 +80,18 @@
     }
 }
 
+@keyframes pulseAmber {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.6);
+    }
+}
+
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);

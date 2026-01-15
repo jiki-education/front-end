@@ -6,7 +6,7 @@
     position: absolute;
     top: -10px;
     right: 12px;
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
     color: white;
     padding: 4px 10px;
     border-radius: 12px;
@@ -16,11 +16,82 @@
     letter-spacing: 0.5px;
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
     z-index: 10;
-    animation: pulseBadge 2s ease-in-out infinite;
 }
 
 .badgeCard.new .newRibbon {
     z-index: 50;
     opacity: 0;
     animation: showRibbon 0.3s ease-out 1.5s forwards;
+}
+
+.badgeRibbon {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 36px;
+    height: 20px;
+    z-index: 0;
+}
+
+.badgeRibbon::before,
+.badgeRibbon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 18px;
+    height: 20px;
+    background: currentColor;
+    opacity: 0.6;
+}
+
+.badgeRibbon::before {
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+    transform-origin: top center;
+    transform: rotate(15deg);
+}
+
+.badgeRibbon::after {
+    right: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+    transform-origin: top center;
+    transform: rotate(-15deg);
+}
+
+/* Ribbon colors matching border colors */
+.badgeCard.earned.green .badgeRibbon {
+    color: #10b981;
+}
+
+.badgeCard.earned.blue .badgeRibbon {
+    color: #3b82f6;
+}
+
+.badgeCard.earned.gold .badgeRibbon {
+    color: #f59e0b;
+}
+
+.badgeCard.earned.amber .badgeRibbon {
+    color: var(--color-amber-600);
+}
+
+.badgeCard.earned.pink .badgeRibbon {
+    color: #ec4899;
+}
+
+.badgeCard.earned.purple .badgeRibbon {
+    color: #3b82f6;
+}
+
+.badgeCard.earned.teal .badgeRibbon {
+    color: #14b8a6;
+}
+
+.badgeCard.locked .badgeRibbon {
+    color: #b1bbc8;
+}
+
+.badgeCard.secret .badgeRibbon {
+    color: #b1bbc8;
 }
