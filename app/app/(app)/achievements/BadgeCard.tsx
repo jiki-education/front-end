@@ -7,11 +7,13 @@ import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc
 interface BadgeCardProps {
   badge: BadgeData;
   onClick?: (badgeId: string) => void;
+  isSpinning?: boolean;
+  showNewRibbon?: boolean;
 }
 
 const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
 
-export function BadgeCard({ badge, onClick }: BadgeCardProps) {
+export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
   const [imageSrc, setImageSrc] = useState(getBadgeIconSrc(badge));
   const [imageError, setImageError] = useState(false);
 
@@ -41,6 +43,9 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
       classNames.push(styles[badgeColor]);
       if (isNew) {
         classNames.push(styles.new);
+        if (isSpinning) {
+          classNames.push(styles.spinning);
+        }
       }
     }
 
@@ -58,7 +63,7 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
       onClick={handleClick}
       style={{ cursor: isEarned ? "pointer" : "default" }}
     >
-      {isNew && isEarned && <div className={styles.newRibbon}>NEW</div>}
+      {showNewRibbon && !isSpinning && <div className={styles.newRibbon}>NEW</div>}
 
       {isEarned && isNew && (
         <>

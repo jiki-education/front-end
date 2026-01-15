@@ -21,6 +21,13 @@
     z-index: 10;
     overflow: hidden;
     transform-style: preserve-3d;
+    /* No animation by default - padlock just shows */
+}
+
+/* Only animate when spinning class is added */
+.badgeCard.new.spinning .cardBack,
+.badgeCard.new.spinning .card-back,
+.badge-card.new.spinning .card-back {
     animation: flipInBack 1.5s ease-out forwards;
 }
 

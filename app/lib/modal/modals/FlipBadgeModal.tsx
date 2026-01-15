@@ -8,11 +8,12 @@ import Image from "next/image";
 
 interface FlipBadgeModalProps {
   badgeData: BadgeModalData;
+  onClose?: () => void;
 }
 
 const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
 
-export function FlipBadgeModal({ badgeData }: FlipBadgeModalProps) {
+export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
   const [imageSrc, setImageSrc] = useState(badgeData.icon);
   const [imageError, setImageError] = useState(false);
 
@@ -50,7 +51,13 @@ export function FlipBadgeModal({ badgeData }: FlipBadgeModalProps) {
 
           {/* Action Button */}
           <div className={styles.flipModalButtonWrapper}>
-            <button onClick={hideModal} className={styles.flipModalClose}>
+            <button
+              onClick={() => {
+                onClose?.();
+                hideModal();
+              }}
+              className={styles.flipModalClose}
+            >
               Keep Going!
             </button>
           </div>

@@ -2,7 +2,12 @@ import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
 import { isNewBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./badgeUtils";
 
-export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<React.SetStateAction<BadgeData[]>>) {
+export function useBadgeActions(
+  badges: BadgeData[],
+  setBadges: React.Dispatch<React.SetStateAction<BadgeData[]>>,
+  setSpinningBadgeId: React.Dispatch<React.SetStateAction<number | null>>,
+  setRecentlyRevealedIds: React.Dispatch<React.SetStateAction<Set<number>>>
+) {
   const handleBadgeClick = async (badgeId: string) => {
     const badge = badges.find((b) => b.id.toString() === badgeId);
 
@@ -13,12 +18,11 @@ export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<R
     // Capture isNew status before potentially updating badge state
     const wasNewBadge = isNewBadge(badge);
 
-    // If badge is unrevealed (new), reveal it first
+    // If badge is unrevealed (new), reveal it via API but don't update state yet
     if (wasNewBadge) {
       try {
         await revealBadge(badge.id);
-        // Update local state to mark as revealed only after successful API call
-        setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
+        // Don't update the badge state yet - wait for modal to close
       } catch (err) {
         console.error("Failed to reveal badge:", err);
       }
@@ -37,7 +41,20 @@ export function useBadgeActions(badges: BadgeData[], setBadges: React.Dispatch<R
 
     // Use flip modal for new badges, regular modal for others
     const modalType = wasNewBadge ? "flip-badge-modal" : "badge-modal";
-    showModal(modalType, { badgeData: modalData });
+    showModal(modalType, {
+      badgeData: modalData,
+      onClose: wasNewBadge
+        ? () => {
+            // When modal closes for a new badge, trigger spin animation then update state
+            setSpinningBadgeId(badge.id);
+            setTimeout(() => {
+              setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
+              setRecentlyRevealedIds((prev) => new Set(prev).add(badge.id));
+              setSpinningBadgeId(null);
+            }, 1500); // Match the animation duration
+          }
+        : undefined
+    });
   };
 
   return { handleBadgeClick };
