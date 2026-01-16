@@ -1,9 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+// Configure longer timeouts for this test suite
+test.use({
+  navigationTimeout: 30000,
+  actionTimeout: 10000
+});
+
 test.describe("Auto-Play Timeline E2E", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/test/coding-exercise/test-runner");
-    await page.locator(".cm-editor").waitFor();
+    // Increase timeout for navigation as test pages can be slow to compile initially
+    await page.goto("/test/coding-exercise/test-runner", { timeout: 30000, waitUntil: "domcontentloaded" });
+    await page.locator(".cm-editor").waitFor({ timeout: 10000 });
   });
 
   test("should auto-play timeline after running tests successfully", async ({ page }) => {

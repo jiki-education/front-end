@@ -20,13 +20,18 @@ export function useBadgeActions(
     // Capture isNew status before potentially updating badge state
     const wasNewBadge = isNewBadge(badge);
 
+    // Track whether the reveal API call succeeded
+    let revealSucceeded = false;
+
     // If badge is unrevealed (new), reveal it via API but don't update state yet
     if (wasNewBadge) {
       try {
         await revealBadge(badge.id);
+        revealSucceeded = true;
         // Don't update the badge state yet - wait for modal to close
       } catch (err) {
         console.error("Failed to reveal badge:", err);
+        // revealSucceeded remains false
       }
     }
 
@@ -47,17 +52,20 @@ export function useBadgeActions(
       badgeData: modalData,
       onClose: wasNewBadge
         ? () => {
-            // When modal closes for a new badge, trigger spin animation then update state
-            setSpinningBadgeId(badge.id);
-            // Clear any existing timeout before setting a new one
-            if (timeoutRef.current) {
-              clearTimeout(timeoutRef.current);
+            // Only update state if the reveal API call succeeded
+            if (revealSucceeded) {
+              // When modal closes for a new badge, trigger spin animation then update state
+              setSpinningBadgeId(badge.id);
+              // Clear any existing timeout before setting a new one
+              if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+              }
+              timeoutRef.current = setTimeout(() => {
+                setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
+                setRecentlyRevealedIds((prev) => new Set(prev).add(badge.id));
+                setSpinningBadgeId(null);
+              }, 1500); // Match the animation duration
             }
-            timeoutRef.current = setTimeout(() => {
-              setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
-              setRecentlyRevealedIds((prev) => new Set(prev).add(badge.id));
-              setSpinningBadgeId(null);
-            }, 1500); // Match the animation duration
           }
         : undefined
     });
