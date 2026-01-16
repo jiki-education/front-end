@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
+import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { getMockUserProfile, type StatusOption, type UserProfile as UserProfileType } from "./lib/mockData";
 import { UserProfile } from "./ui/UserProfile";
 import { RecentProjects } from "./ui/RecentProjects";
@@ -30,6 +31,8 @@ export function ProjectsSidebar({
   const mockProfile = getMockUserProfile();
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [projectsLoading, setProjectsLoading] = useState(true);
+  const [badges, setBadges] = useState<BadgeData[]>([]);
+  const [badgesLoading, setBadgesLoading] = useState(true);
 
   // Merge real user data with mock data for now
   const userProfile = useMemo<UserProfileType>(
@@ -43,23 +46,37 @@ export function ProjectsSidebar({
 
   const [currentStatus, setCurrentStatus] = useState<StatusOption>(mockProfile.currentStatus);
 
-  // Load real projects
+  // Load real projects and badges
   useEffect(() => {
-    async function loadProjects() {
+    async function loadData() {
+      if (!user) {
+        return;
+      }
+
+      // Load projects
       try {
         setProjectsLoading(true);
-        const response = await fetchProjects({ per: 100 }); // Get all projects
-        setProjects(response.results);
+        const projectResponse = await fetchProjects({ per: 100 }); // Get all projects
+        setProjects(projectResponse.results);
       } catch (error) {
         console.error("Failed to load projects:", error);
       } finally {
         setProjectsLoading(false);
       }
+
+      // Load badges
+      try {
+        setBadgesLoading(true);
+        const badgeResponse = await fetchBadges();
+        setBadges(badgeResponse.badges);
+      } catch (error) {
+        console.error("Failed to load badges:", error);
+      } finally {
+        setBadgesLoading(false);
+      }
     }
 
-    if (user) {
-      void loadProjects();
-    }
+    void loadData();
   }, [user]);
 
   // Filter to get recent/in-progress projects (up to 3)
@@ -82,7 +99,12 @@ export function ProjectsSidebar({
     <aside className={styles.projectsSidebar}>
       <div>
         {/* User Profile Card */}
-        <UserProfile profile={{ ...userProfile, currentStatus }} onStatusChange={handleStatusChange} />
+        <UserProfile
+          profile={{ ...userProfile, currentStatus }}
+          onStatusChange={handleStatusChange}
+          realBadges={badges}
+          badgesLoading={badgesLoading}
+        />
 
         {/* Recent Projects */}
         <RecentProjects
