@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, differenceInDays } from "date-fns";
 import type { BadgeData } from "@/lib/api/badges";
 
 export function isNewBadge(badge: BadgeData): boolean {
@@ -7,6 +7,18 @@ export function isNewBadge(badge: BadgeData): boolean {
 
 export function isEarnedBadge(badge: BadgeData): boolean {
   return badge.state === "revealed" || badge.state === "unrevealed";
+}
+
+export function isRecentBadge(badge: BadgeData): boolean {
+  // Check if badge is revealed and earned within the last 7 days
+  if (badge.state !== "revealed" || !badge.unlocked_at) {
+    return false;
+  }
+
+  const unlockedDate = new Date(badge.unlocked_at);
+  const daysSinceUnlock = differenceInDays(new Date(), unlockedDate);
+
+  return daysSinceUnlock <= 7;
 }
 
 export function getBadgeDate(badge: BadgeData): string {
