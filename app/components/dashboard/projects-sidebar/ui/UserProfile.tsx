@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Link from "next/link";
 import type { UserProfile as UserProfileType, StatusOption } from "../lib/mockData";
 // import { StatusSelector } from "./StatusSelector";
 import style from "./user-profile.module.css";
@@ -44,9 +45,9 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange }: UserPr
             </div>
           ))}
           {profile.badges.length > 3 && (
-            <div className={`${style.profileBadge} ${style.empty}`}>
+            <Link href="/achievements" className={`${style.profileBadge} ${style.empty}`}>
               <span className={style.badgeMore}>+{profile.badges.length - 3}</span>
-            </div>
+            </Link>
           )}
         </div>
       </div>
