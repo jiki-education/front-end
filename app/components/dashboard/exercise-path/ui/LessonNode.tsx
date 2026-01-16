@@ -4,24 +4,32 @@ import VideoIcon from "@static/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
 import Image from "next/image";
+import { forwardRef } from "react";
 import type { LessonData } from "../types";
 import styles from "../ExercisePath.module.css";
 
 interface LessonNodeProps {
   lesson: LessonData;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-export function LessonNode({ lesson, onClick }: LessonNodeProps) {
+export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function LessonNode({ lesson, onClick }, ref) {
+  const handleClick = (e: React.MouseEvent) => {
+    if (lesson.locked) {
+      e.stopPropagation();
+      return;
+    }
+    if (onClick) {
+      e.stopPropagation();
+      onClick(e);
+    }
+  };
+
   return (
     <div
+      ref={ref}
       className={`${styles.lessonPart} ${lesson.completed ? styles.complete : lesson.locked ? styles.locked : styles.inProgress}`}
-      onClick={() => {
-        if (lesson.locked) {
-          return;
-        }
-        onClick?.();
-      }}
+      onClick={handleClick}
     >
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
@@ -59,4 +67,4 @@ export function LessonNode({ lesson, onClick }: LessonNodeProps) {
       </div>
     </div>
   );
-}
+});
