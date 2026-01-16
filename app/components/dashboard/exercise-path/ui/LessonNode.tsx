@@ -1,6 +1,8 @@
 import CodingIcon from "@static/icons/coding.svg";
 import QuizIcon from "@static/icons/quiz.svg";
 import VideoIcon from "@static/icons/video.svg";
+import VideoLibIcon from "@/icons/video-lib.svg";
+import QuizCardIcon from "@/icons/quiz-card.svg";
 import Image from "next/image";
 import type { LessonData } from "../types";
 import styles from "../ExercisePath.module.css";
@@ -25,7 +27,13 @@ export function LessonNode({ lesson, onClick }: LessonNodeProps) {
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
       <div className={styles.partIcon}>
-        <Image src="/static/images/concept-icons/icon-variables.png" alt="Video" width={24} height={24} />
+        {lesson.type === "video" ? (
+          <VideoLibIcon width={64} height={64} />
+        ) : lesson.type === "quiz" ? (
+          <QuizCardIcon width={64} height={64} />
+        ) : (
+          <Image src="/static/images/concept-icons/icon-variables.png" alt="Exercise" width={24} height={24} />
+        )}
       </div>
       <div className={styles.partContent}>
         <div className={`${styles.partNumber} ${styles[lesson.type]}`}>
