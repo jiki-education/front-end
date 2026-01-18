@@ -14,7 +14,8 @@ export type ButtonVariant = "primary" | "secondary";
  * Props for the Button component
  */
 export interface ButtonProps
-  extends BaseUIProps,
+  extends
+    BaseUIProps,
     DisableableProps,
     LoadingProps,
     IconProps,
