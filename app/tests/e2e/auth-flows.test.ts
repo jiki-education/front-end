@@ -39,9 +39,14 @@ test.describe("Authentication Flows", () => {
   function mockValidInternalMeApiCall(route: Route) {
     return mockRequest(route, "/internal/me", 200, {
       user: {
-        id: "test-user-id",
+        handle: "test-user",
         email: "test@example.com",
-        name: "Test User"
+        name: "Test User",
+        membership_type: "standard",
+        subscription_status: "never_subscribed",
+        subscription: null,
+        provider: "email",
+        email_confirmed: true
       }
     });
   }
