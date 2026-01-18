@@ -2,7 +2,7 @@ import Link from "next/link";
 import SubConceptIcon from "@static/icons/subconcept.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
-import { ConceptIcon } from "@/components/ConceptIcon";
+import { ConceptIcon } from "@/components/icons/ConceptIcon";
 
 interface ConceptCardData {
   slug: string;
@@ -13,7 +13,6 @@ interface ConceptCardData {
 
 interface ConceptCardProps {
   concept: ConceptCardData;
-  isAuthenticated: boolean;
   smallVersion?: boolean;
 }
 

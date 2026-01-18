@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import type { UserProfile as UserProfileType, StatusOption } from "../lib/mockData";
-import type { BadgeData } from "@/lib/api/badges";
-import style from "./user-profile.module.css";
-import { showModal } from "@/lib/modal";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
-import { getBadgeDate, getBadgeColor, isEarnedBadge, isNewBadge } from "@/app/(app)/achievements/lib/badgeUtils";
-import { BadgeIcon } from "@/components/BadgeIcon";
+import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "@/app/(app)/achievements/lib/badgeUtils";
+import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import type { BadgeData } from "@/lib/api/badges";
+import { showModal } from "@/lib/modal";
+import Link from "next/link";
+import type { StatusOption, UserProfile as UserProfileType } from "../lib/mockData";
+import style from "./user-profile.module.css";
 
 interface UserProfileProps {
   profile: UserProfileType;

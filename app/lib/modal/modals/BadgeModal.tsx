@@ -1,9 +1,9 @@
 "use client";
 
-import { hideModal } from "../store";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
+import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { hideModal } from "../store";
 import styles from "./BadgeModal.module.css";
-import { BadgeIcon } from "@/components/BadgeIcon";
 
 interface BadgeModalProps {
   badgeData: BadgeModalData;

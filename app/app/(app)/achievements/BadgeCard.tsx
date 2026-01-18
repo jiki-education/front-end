@@ -1,7 +1,7 @@
-import styles from "./BadgeCard.module.css";
+import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import type { BadgeData } from "@/lib/api/badges";
-import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor } from "./lib/badgeUtils";
-import { BadgeIcon } from "@/components/BadgeIcon";
+import styles from "./BadgeCard.module.css";
+import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
   badge: BadgeData;
