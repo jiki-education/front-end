@@ -1,11 +1,17 @@
-import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
-import nextTypescript from "eslint-config-next/typescript";
-import tseslint from "@typescript-eslint/parser";
+import { FlatCompat } from "@eslint/eslintrc";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname
+});
 
 const eslintConfig = [
   // Next.js recommended configs (React, a11y, performance) + baseline TypeScript
-  ...nextCoreWebVitals,
-  ...nextTypescript,
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
 
   {
     ignores: [
@@ -46,7 +52,7 @@ const eslintConfig = [
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      parser: tseslint,
+      parser: await import("@typescript-eslint/parser"),
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname
@@ -145,7 +151,7 @@ const eslintConfig = [
       // Warn if async functions don't use `await` inside.
       "@typescript-eslint/require-await": "warn",
 
-      // Warn when fields/params could be marked readonly but aren’t.
+      // Warn when fields/params could be marked readonly but aren't.
       "@typescript-eslint/prefer-readonly": "warn",
 
       // === Naming conventions ===
@@ -173,10 +179,8 @@ const eslintConfig = [
 
       // === React Compiler rules ===
       // Disable overly strict React Compiler rules that flag common patterns.
-      // These rules are new in eslint-config-next 16 and would require significant
-      // code changes to comply with. We can enable them incrementally later.
-      "react-hooks/rules-of-hooks": "error", // Keep this enabled - it's essential
-      "react-hooks/exhaustive-deps": "warn", // Keep this enabled
+      // These rules are new in eslint-plugin-react-hooks v5 and would require
+      // significant code changes to comply with. We can enable them incrementally later.
       "react-hooks/set-state-in-effect": "off",
       "react-hooks/refs": "off",
       "react-hooks/purity": "off",
