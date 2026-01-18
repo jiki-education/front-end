@@ -29,17 +29,28 @@ const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunc
 const mockVerifyPaymentSession = verifyPaymentSession as jest.MockedFunction<typeof verifyPaymentSession>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
-// Mock SubscriptionSection since we're testing the payment flow
-
-jest.mock("@/components/settings/subscription/SubscriptionSection", () => {
-  return function MockSubscriptionSection() {
-    return <div data-testid="subscription-section">Subscription Section</div>;
+// Mock the tab components that SettingsPage actually imports
+jest.mock("@/components/settings/tabs/AccountTab", () => {
+  return function MockAccountTab() {
+    return <div data-testid="account-tab">Account Tab</div>;
   };
 });
 
-jest.mock("@/components/settings/subscription/SubscriptionErrorBoundary", () => {
-  return function MockSubscriptionErrorBoundary({ children }: { children: React.ReactNode }) {
-    return <div data-testid="subscription-error-boundary">{children}</div>;
+jest.mock("@/components/settings/tabs/SubscriptionTab", () => {
+  return function MockSubscriptionTab() {
+    return <div data-testid="subscription-tab">Subscription Tab</div>;
+  };
+});
+
+jest.mock("@/components/settings/tabs/NotificationsTab", () => {
+  return function MockNotificationsTab() {
+    return <div data-testid="notifications-tab">Notifications Tab</div>;
+  };
+});
+
+jest.mock("@/components/settings/tabs/DangerTab", () => {
+  return function MockDangerTab() {
+    return <div data-testid="danger-tab">Danger Tab</div>;
   };
 });
 
@@ -81,7 +92,8 @@ describe("SettingsPage Payment Verification", () => {
   it("renders settings page when authenticated without session_id", () => {
     render(<SettingsPage />);
 
-    expect(screen.getByTestId("subscription-section")).toBeInTheDocument();
+    // Account tab is the default tab shown
+    expect(screen.getByTestId("account-tab")).toBeInTheDocument();
     expect(mockExtractAndClearSessionId).toHaveBeenCalledTimes(1);
     expect(mockVerifyPaymentSession).not.toHaveBeenCalled();
   });

@@ -15,12 +15,11 @@ export function PremiumBox({ onUpgradeClick }: PremiumBoxProps) {
 
       {/* Description */}
       <div className={styles.premiumText}>
-        Jiki&apos;s friendly AI will support you while you learn to code. Start talking to Jiki now and find out how
-        this will accelerate your learning and make it a lot more fun!
+        Jiki&apos;s friendly AI will support you while you learn to code. Blah blah blah.
       </div>
 
       {/* Upgrade Button */}
-      <button onClick={onUpgradeClick} className={styles.upgradeBtn}>
+      <button onClick={onUpgradeClick} className="ui-btn ui-btn-small ui-btn-purple ui-btn-secondary w-full">
         Try Jiki AI for free
       </button>
     </div>

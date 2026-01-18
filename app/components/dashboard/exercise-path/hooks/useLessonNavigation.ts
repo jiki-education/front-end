@@ -4,7 +4,7 @@ import { startLesson } from "@/lib/api/lessons";
 
 export function useLessonNavigation() {
   const router = useRouter();
-  const [clickedLessonId, setClickedLessonId] = useState<string | null>(null);
+  const [clickedLessonSlug, setClickedLessonSlug] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleLessonNavigation = (lessonRoute: string) => {
@@ -22,8 +22,8 @@ export function useLessonNavigation() {
 
   return {
     handleLessonNavigation,
-    clickedLessonId,
-    setClickedLessonId,
+    clickedLessonSlug,
+    setClickedLessonSlug,
     isPending
   };
 }

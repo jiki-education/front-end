@@ -1,0 +1,10 @@
+# Helper functions you might find useful:
+# - A function to get the length of a string
+# - A function to check if a string starts with another string
+# - A function to check if a string ends with another string
+# - A function to remove characters from the start of a string
+
+# The main function that gets called.
+def matching_socks(clean, dirty):
+    # Your code here
+    pass

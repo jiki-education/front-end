@@ -4,6 +4,6 @@ export interface BadgeModalData {
   description: string;
   stat: string;
   color: "pink" | "gold" | "blue" | "green" | "purple" | "teal";
-  icon: string;
+  slug: string;
   isNew: boolean;
 }

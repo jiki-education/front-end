@@ -42,8 +42,19 @@ test.describe("Test Switching E2E", () => {
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
 
-      // Wait for pause button to appear (animation is playing)
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button to appear (could be either depending on auto-play state)
+      // Use a longer timeout and state: 'visible' to ensure the button is rendered
+      await page
+        .locator('[data-ci="pause-button"], [data-ci="play-button"]')
+        .first()
+        .waitFor({ state: "visible", timeout: 5000 });
+
+      // If it's a play button, click it to start playing
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor({ state: "visible", timeout: 5000 });
+      }
 
       // Pause the first test
       await page.locator('[data-ci="pause-button"]').click();
@@ -88,8 +99,15 @@ test.describe("Test Switching E2E", () => {
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
 
-      // Wait for pause button
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button to appear
+      await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+      // Start playing if needed
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor();
+      }
 
       // Pause
       await page.locator('[data-ci="pause-button"]').click();
@@ -133,8 +151,15 @@ test.describe("Test Switching E2E", () => {
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
 
-      // Wait for pause button
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button to appear
+      await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+      // Start playing if needed
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor();
+      }
 
       // Pause at current position
       await page.locator('[data-ci="pause-button"]').click();
@@ -229,8 +254,15 @@ test.describe("Test Switching E2E", () => {
       const firstButton = page.locator('[data-testid="test-selector-buttons"] button').first();
       await firstButton.click();
 
-      // Wait for pause button
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button to appear
+      await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+      // Start playing if needed
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor();
+      }
 
       // Pause first test
       await page.locator('[data-ci="pause-button"]').click();
@@ -295,8 +327,15 @@ test.describe("Test Switching E2E", () => {
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
 
-      // Wait for pause button and pause
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button and ensure playing
+      await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+      // Start playing if needed
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor();
+      }
       await page.locator('[data-ci="pause-button"]').click();
       await page.waitForFunction(() => {
         const orchestrator = (window as any).testOrchestrator;
@@ -347,8 +386,15 @@ test.describe("Test Switching E2E", () => {
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
 
-      // Wait for pause button and pause partway through
-      await page.locator('[data-ci="pause-button"]').waitFor();
+      // Wait for play/pause button and ensure playing before pausing partway through
+      await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
+
+      // Start playing if needed
+      const playButton = await page.locator('[data-ci="play-button"]').isVisible();
+      if (playButton) {
+        await page.locator('[data-ci="play-button"]').click();
+        await page.locator('[data-ci="pause-button"]').waitFor();
+      }
       await page.locator('[data-ci="pause-button"]').click();
       await page.waitForFunction(() => {
         const orchestrator = (window as any).testOrchestrator;
