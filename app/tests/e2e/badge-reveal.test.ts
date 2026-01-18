@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
+import { createMockUser } from "../mocks/user";
 
 function mockRequest(route: Route, url: string, status: number, body: any) {
   if (route.request().url().includes(url)) {
@@ -82,20 +83,7 @@ async function setupBadgesMocks(page: Page) {
     }
 
     // Mock /internal/me for authentication check
-    if (
-      mockRequest(route, "/internal/me", 200, {
-        user: {
-          handle: "test-user",
-          email: "test@example.com",
-          name: "Test User",
-          membership_type: "standard",
-          subscription_status: "never_subscribed",
-          subscription: null,
-          provider: "email",
-          email_confirmed: true
-        }
-      })
-    ) {
+    if (mockRequest(route, "/internal/me", 200, { user: createMockUser() })) {
       return;
     }
 
