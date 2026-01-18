@@ -1,0 +1,209 @@
+/**
+ * Button Components
+ * All button-related styles extracted from ui-components.css
+ */
+
+/* ========================================
+   BUTTON COMPONENTS
+   ======================================== */
+
+/* Button Base Styles */
+.ui-btn {
+    /* Default color scheme (blue) */
+    --primary-color: var(--color-blue-500);
+    --primary-color-dark: var(--color-blue-600);
+    --primary-color-light: var(--color-blue-300);
+    --primary-shadow: var(--color-blue-500-30);
+    --primary-shadow-light: var(--color-blue-500-20);
+    --primary-shadow-lighter: var(--color-blue-500-10);
+    --primary-shadow-dark: var(--color-blue-500-40);
+
+    border: 2px solid;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Button Size Variants */
+.ui-btn-small {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.ui-btn-large {
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+/* Primary Button */
+.ui-btn-primary {
+    border-color: var(--primary-color);
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+    box-shadow: 0 2px 8px var(--primary-shadow);
+}
+
+.ui-btn-primary:hover {
+    border-color: var(--primary-color-dark);
+    box-shadow:
+        0 0 0 4px var(--primary-shadow-light),
+        0 4px 16px var(--primary-shadow-dark);
+}
+
+/* Secondary Button */
+.ui-btn-secondary {
+    background: white;
+    color: var(--primary-color);
+    border-color: var(--primary-color-light);
+    box-shadow: 0 2px 8px var(--primary-shadow);
+}
+
+.ui-btn-secondary:hover {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow:
+        0 0 0 4px var(--primary-shadow-light),
+        0 4px 16px var(--primary-shadow-dark);
+}
+
+/* Tertiary Button */
+.ui-btn-tertiary {
+    border-color: var(--color-gray-200);
+    color: var(--color-gray-950);
+    background: white;
+    box-shadow: 0 2px 8px var(--color-gray-900-30);
+}
+
+.ui-btn-tertiary:hover {
+    border-color: var(--primary-color);
+    box-shadow:
+        0 0 0 4px var(--primary-shadow-lighter),
+        0 4px 16px var(--primary-shadow-light);
+}
+
+/* Danger Button */
+.ui-btn-danger {
+    --primary-color: var(--color-red-500);
+    --primary-color-dark: var(--color-red-600);
+    --primary-color-light: var(--color-red-300);
+    --primary-shadow: var(--color-red-500-30);
+    --primary-shadow-light: var(--color-red-500-20);
+    --primary-shadow-dark: var(--color-red-500-40);
+
+    background: white;
+    color: var(--primary-color);
+    border-color: var(--primary-color-light);
+    box-shadow: 0 2px 8px var(--primary-shadow);
+}
+
+.ui-btn-danger:hover {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow:
+        0 0 0 4px var(--primary-shadow-light),
+        0 4px 16px var(--primary-shadow-dark);
+}
+
+/* Loading Button State */
+.ui-btn-loading {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0.8;
+}
+
+.ui-btn-loading::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: ui-spin 0.6s linear infinite;
+}
+
+/* Secondary button loading state has different spinner colors */
+.ui-btn-secondary.ui-btn-loading::before,
+.ui-btn-danger.ui-btn-loading::before {
+    border-color: var(--primary-shadow);
+    border-top-color: var(--primary-color);
+}
+
+/* ========================================
+   COLOR MODIFIERS
+   ======================================== */
+
+/* Purple Color Modifier */
+.ui-btn-purple {
+    --primary-color: var(--color-purple-500);
+    --primary-color-dark: var(--color-purple-600);
+    --primary-color-light: var(--color-purple-300);
+    --primary-shadow: var(--color-purple-500-30);
+    --primary-shadow-light: var(--color-purple-500-20);
+    --primary-shadow-lighter: var(--color-purple-500-15);
+    --primary-shadow-dark: var(--color-purple-500-40);
+}
+
+/* Green Color Modifier */
+.ui-btn-green {
+    --primary-color: var(--color-green-500);
+    --primary-color-dark: var(--color-green-600);
+    --primary-color-light: var(--color-green-300);
+    --primary-shadow: var(--color-green-500-30);
+    --primary-shadow-light: color-mix(in srgb, var(--color-green-500) 20%, transparent);
+    --primary-shadow-lighter: color-mix(in srgb, var(--color-green-500) 10%, transparent);
+    --primary-shadow-dark: var(--color-green-500-40);
+}
+
+/* Amber Color Modifier */
+.ui-btn-amber {
+    --primary-color: var(--color-amber-500);
+    --primary-color-dark: var(--color-amber-600);
+    --primary-color-light: var(--color-amber-300);
+    --primary-shadow: color-mix(in srgb, var(--color-amber-500) 30%, transparent);
+    --primary-shadow-light: color-mix(in srgb, var(--color-amber-500) 20%, transparent);
+    --primary-shadow-lighter: color-mix(in srgb, var(--color-amber-500) 10%, transparent);
+    --primary-shadow-dark: color-mix(in srgb, var(--color-amber-500) 40%, transparent);
+}
+
+/* Red Color Modifier */
+.ui-btn-red {
+    --primary-color: var(--color-red-500);
+    --primary-color-dark: var(--color-red-600);
+    --primary-color-light: var(--color-red-300);
+    --primary-shadow: var(--color-red-500-30);
+    --primary-shadow-light: var(--color-red-500-20);
+    --primary-shadow-lighter: color-mix(in srgb, var(--color-red-500) 10%, transparent);
+    --primary-shadow-dark: var(--color-red-500-40);
+}
+
+/* Gray Color Modifier */
+.ui-btn-gray {
+    --primary-color: var(--color-gray-500);
+    --primary-color-dark: var(--color-gray-600);
+    --primary-color-light: var(--color-gray-300);
+    --primary-shadow: var(--color-gray-400-30);
+    --primary-shadow-light: color-mix(in srgb, var(--color-gray-500) 20%, transparent);
+    --primary-shadow-lighter: color-mix(in srgb, var(--color-gray-500) 10%, transparent);
+    --primary-shadow-dark: color-mix(in srgb, var(--color-gray-500) 40%, transparent);
+}
+
+/* For amber secondary buttons, use darker text for better readability */
+.ui-btn-secondary.ui-btn-amber {
+    color: var(--color-amber-600);
+}
+
+/* For gray secondary buttons, use darker text */
+.ui-btn-secondary.ui-btn-gray {
+    color: var(--color-gray-600);
+}

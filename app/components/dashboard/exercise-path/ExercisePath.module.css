@@ -76,7 +76,7 @@
     animation: none;
     transform: scale(1.02);
     box-shadow: 0 8px 24px var(--color-purple-500-30);
-    background: var(--color-purple-500-6);
+    background: color-mix(in oklch, var(--color-purple-500) 6%, white);
 }
 
 .lessonPart.locked {
@@ -184,40 +184,20 @@
 
 /* Start Card */
 .startCard {
-    background: transparent;
-    border: none;
-    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: -8px;
-}
-
-.startCardContent h2 {
-    font-size: 16px;
-    font-weight: 700;
+    justify-content: center;
+    gap: 10px;
     color: white;
-    background: linear-gradient(135deg, var(--color-green-500) 0%, var(--color-green-600) 100%);
-    padding: 12px 48px;
-    border-radius: 40px;
-    border: 3px solid var(--color-green-500-40);
-    box-shadow: 0 2px 8px var(--color-green-500-30);
-    animation: startCardPulse 2s ease-in-out infinite;
-    transition: transform 0.3s ease;
-}
-
-.startCard:hover .startCardContent h2 {
-    border-color: var(--color-green-500);
-    animation: none;
-    transform: scale(1.05);
-}
-
-.startCardIcon,
-.startCardSubtitle {
-    display: none;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    width: fit-content;
+    justify-self: center;
 }
 
 /* Milestone Cards */
@@ -236,7 +216,7 @@
 }
 
 .milestoneCard:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .milestoneCard.completed {

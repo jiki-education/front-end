@@ -1,9 +1,9 @@
 "use client";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
-import type { LessonData } from "@/lib/api/lessons";
+import type { LessonWithData } from "@/types/lesson";
 
 // Mock data for the dev page (matching backend structure)
-const mockLessonData: LessonData = {
+const mockLessonData: LessonWithData = {
   slug: "welcome-video",
   type: "video",
   title: "Welcome!",

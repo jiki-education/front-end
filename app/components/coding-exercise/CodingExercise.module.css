@@ -1649,7 +1649,7 @@
 }
 
 .chatSendButton:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 4px 12px var(--color-blue-500-30);
 }
 
