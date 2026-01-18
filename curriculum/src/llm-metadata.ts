@@ -23,6 +23,7 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as mealPrepLLM } from "./exercises/meal-prep/llm-metadata";
 import { llmMetadata as matchingSocksLLM } from "./exercises/matching-socks/llm-metadata";
 import { llmMetadata as reverseStringLLM } from "./exercises/reverse-string/llm-metadata";
 import { llmMetadata as proteinTranslationLLM } from "./exercises/protein-translation/llm-metadata";
@@ -55,6 +56,7 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
+  "meal-prep": mealPrepLLM,
   "matching-socks": matchingSocksLLM,
   "reverse-string": reverseStringLLM,
   "protein-translation": proteinTranslationLLM,
