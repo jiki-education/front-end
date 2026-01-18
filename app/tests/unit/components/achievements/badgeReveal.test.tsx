@@ -16,7 +16,7 @@ jest.mock("@/lib/modal", () => ({
 const mockUnrevealedBadge: BadgeData = {
   id: 42,
   name: "Test Badge",
-  icon: "/test-icon.png",
+  slug: "test-badge",
   description: "A test badge for revealing",
   state: "unrevealed",
   num_awardees: 10,
@@ -49,7 +49,7 @@ describe("Badge Reveal Functionality", () => {
       badge: {
         id: 42,
         name: "Test Badge",
-        icon: "/test-icon.png",
+        slug: "test-badge",
         description: "A test badge for revealing",
         revealed: true,
         unlocked_at: "2024-01-01T00:00:00Z"

@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import styles from "./BadgeCard.module.css";
-import { useState } from "react";
 import type { BadgeData } from "@/lib/api/badges";
-import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./lib/badgeUtils";
+import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor } from "./lib/badgeUtils";
+import { BadgeIcon } from "@/components/BadgeIcon";
 
 interface BadgeCardProps {
   badge: BadgeData;
@@ -11,12 +10,7 @@ interface BadgeCardProps {
   showNewRibbon?: boolean;
 }
 
-const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
-
 export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
-  const [imageSrc, setImageSrc] = useState(getBadgeIconSrc(badge));
-  const [imageError, setImageError] = useState(false);
-
   const isNew = isNewBadge(badge);
   const isEarned = isEarnedBadge(badge);
   const badgeDate = getBadgeDate(badge);
@@ -25,13 +19,6 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
   const handleClick = () => {
     if (isEarned && onClick) {
       onClick(badge.id.toString());
-    }
-  };
-
-  const handleImageError = () => {
-    if (!imageError) {
-      setImageError(true);
-      setImageSrc(FALLBACK_IMAGE);
     }
   };
 
@@ -78,7 +65,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
           <div className={styles.cardFront}>
             <div className={styles.shimmerOverlay}></div>
             <div className={styles.badgeIconWrapper}>
-              <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+              <BadgeIcon slug={badge.slug} />
               <div className={styles.badgeRibbon}></div>
             </div>
             <div className={styles.badgeTitle}>{badge.name}</div>
@@ -91,7 +78,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
       {(!isEarned || !isNew) && (
         <>
           <div className={styles.badgeIconWrapper}>
-            <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+            <BadgeIcon slug={badge.slug} />
             <div className={styles.badgeRibbon}></div>
           </div>
           <div className={styles.badgeTitle}>{badge.name}</div>

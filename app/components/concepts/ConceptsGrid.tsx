@@ -48,11 +48,7 @@ export default function ConceptsGrid({
       ) : (
         <div className={styles.conceptsGrid}>
           {concepts.map((concept) => (
-            <ConceptCard
-              key={concept.slug}
-              concept={{ ...concept, iconSrc: concept.iconSrc || "static/images/concept-icons/icon-default.png" }}
-              isAuthenticated={isAuthenticated}
-            />
+            <ConceptCard key={concept.slug} concept={concept} isAuthenticated={isAuthenticated} />
           ))}
         </div>
       )}

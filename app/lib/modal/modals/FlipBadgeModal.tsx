@@ -3,27 +3,14 @@
 import { hideModal } from "../store";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import styles from "./BadgeModal.module.css";
-import { useState } from "react";
-import Image from "next/image";
+import { BadgeIcon } from "@/components/BadgeIcon";
 
 interface FlipBadgeModalProps {
   badgeData: BadgeModalData;
   onClose?: () => void;
 }
 
-const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
-
 export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
-  const [imageSrc, setImageSrc] = useState(badgeData.icon);
-  const [imageError, setImageError] = useState(false);
-
-  const handleImageError = () => {
-    if (!imageError) {
-      setImageError(true);
-      setImageSrc(FALLBACK_IMAGE);
-    }
-  };
-
   return (
     <div className={styles.flipModalContainer}>
       <div className={styles.flipModalCard}>
@@ -33,7 +20,7 @@ export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
 
           {/* Badge Icon */}
           <div className={styles.flipModalIcon}>
-            <Image src={imageSrc} alt={badgeData.title} width={80} height={80} onError={handleImageError} />
+            <BadgeIcon slug={badgeData.slug} width={80} height={80} />
           </div>
 
           {/* Title and Date */}

@@ -1,23 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import type { UserProfile as UserProfileType, StatusOption } from "../lib/mockData";
 import type { BadgeData } from "@/lib/api/badges";
-// import { StatusSelector } from "./StatusSelector";
 import style from "./user-profile.module.css";
 import { showModal } from "@/lib/modal";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
-import {
-  getBadgeDate,
-  getBadgeColor,
-  getBadgeIconSrc,
-  isEarnedBadge,
-  isNewBadge
-} from "@/app/(app)/achievements/lib/badgeUtils";
-
-const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
+import { getBadgeDate, getBadgeColor, isEarnedBadge, isNewBadge } from "@/app/(app)/achievements/lib/badgeUtils";
+import { BadgeIcon } from "@/components/BadgeIcon";
 
 interface UserProfileProps {
   profile: UserProfileType;
@@ -27,8 +17,6 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadges, badgesLoading }: UserProfileProps) {
-  const [badgeImageErrors, setBadgeImageErrors] = useState<Record<string, boolean>>({});
-
   const handleBadgeClick = (badge: BadgeData) => {
     if (!isEarnedBadge(badge)) {
       return; // Only show modal for earned badges
@@ -41,7 +29,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
       description: badge.description,
       stat: `${badge.num_awardees} learners have earned this badge`,
       color: getBadgeColor(badge),
-      icon: getBadgeIconSrc(badge),
+      slug: badge.slug,
       isNew: isNewBadge(badge)
     };
 
@@ -49,17 +37,6 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
     showModal("badge-modal", {
       badgeData: modalData
     });
-  };
-
-  const handleBadgeImageError = (badgeId: number) => {
-    setBadgeImageErrors((prev) => ({ ...prev, [badgeId]: true }));
-  };
-
-  const getBadgeImageSrc = (badge: BadgeData) => {
-    if (badgeImageErrors[badge.id]) {
-      return FALLBACK_IMAGE;
-    }
-    return getBadgeIconSrc(badge);
   };
 
   // Use real badges if available, otherwise fall back to mock data
@@ -71,6 +48,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
     <div className={style.userProfileCard}>
       <div className={style.userProfileHeader}>
         <div className={style.userAvatar}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={profile.avatar} alt="User Avatar" />
           <div className={style.countryBadge}>{profile.countryFlag}</div>
         </div>
@@ -108,7 +86,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
                   style={{ cursor: "pointer" }}
                 >
                   {isNewBadge(badge) && <span className={style.badgeNewTag}>NEW</span>}
-                  <img src={getBadgeImageSrc(badge)} alt={badge.name} onError={() => handleBadgeImageError(badge.id)} />
+                  <BadgeIcon slug={badge.slug} />
                 </div>
               ))}
               {totalEarnedBadges > 3 && (
