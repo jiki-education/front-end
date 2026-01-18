@@ -1,16 +1,16 @@
 "use client";
 
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
-import type { LessonData } from "@/lib/api/lessons";
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showConfirmation } from "@/lib/modal";
+import type { LessonWithData } from "@/types/lesson";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import MuxPlayer from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 interface VideoExerciseProps {
-  lessonData: LessonData;
+  lessonData: LessonWithData;
 }
 
 export default function VideoExercise({ lessonData }: VideoExerciseProps) {
