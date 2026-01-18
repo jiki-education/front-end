@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import type { LevelWithProgress } from "@/types/levels";
-import type { LevelSectionData } from "../types";
+import type { LessonDisplayData, LevelSectionData } from "../types";
 
 export function useLevels() {
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
@@ -24,7 +24,7 @@ export function useLevels() {
   // Convert our simplified data to the format LevelSection expects
   const levelSections = useMemo(() => {
     return levels.map((level, levelIndex): LevelSectionData => {
-      const lessons = level.lessons.map((lesson, lessonIndex) => {
+      const lessons: LessonDisplayData[] = level.lessons.map((lesson, lessonIndex) => {
         // Simple locking logic: first lesson is always unlocked, others unlock if previous is completed
         let locked = false;
         if (levelIndex === 0 && lessonIndex === 0) {
@@ -38,18 +38,18 @@ export function useLevels() {
         }
 
         return {
-          id: `${level.slug}-${lesson.slug}`,
-          slug: lesson.slug,
-          title: lesson.slug
-            .split("-")
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(" "),
-          type: lesson.type,
+          lesson: {
+            slug: lesson.slug,
+            type: lesson.type,
+            title: lesson.slug
+              .split("-")
+              .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(" "),
+            description: lesson.type === "video" ? "Video lesson" : "Interactive exercise"
+          },
           completed: lesson.status === "completed",
           locked,
-          description: lesson.type === "video" ? "Video lesson (description)" : "Interactive exercise (description)",
-          route: `/lesson/${lesson.slug}`,
-          position: { x: 0, y: 0 } // Not needed for tooltip but required by interface
+          route: `/lesson/${lesson.slug}`
         };
       });
 
