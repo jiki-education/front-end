@@ -56,14 +56,14 @@ jest.mock("@/components/settings/tabs/DangerTab", () => {
 
 describe("SettingsPage Payment Verification", () => {
   const mockUser = {
-    id: 1,
     email: "test@example.com",
     handle: "testuser",
     name: "Test User",
-    created_at: "2024-01-01T00:00:00Z",
     membership_type: "standard" as const,
     subscription_status: "never_subscribed" as const,
-    subscription: null
+    subscription: null,
+    provider: "email",
+    email_confirmed: true
   };
 
   const mockRefreshUser = jest.fn();

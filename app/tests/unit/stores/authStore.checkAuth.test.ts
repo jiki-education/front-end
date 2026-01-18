@@ -31,14 +31,14 @@ const mockClearCriticalError = errorHandlerStore.clearCriticalError as jest.Mock
 
 describe("authStore.checkAuth", () => {
   const mockUser: User = {
-    id: 123,
     handle: "testuser",
     email: "test@example.com",
     name: "Test User",
-    created_at: "2023-01-01T00:00:00Z",
     membership_type: "standard",
     subscription_status: "never_subscribed",
-    subscription: null
+    subscription: null,
+    provider: "email",
+    email_confirmed: true
   };
 
   beforeEach(() => {

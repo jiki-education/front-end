@@ -38,7 +38,7 @@ export function getSubscriptionState(user: User): SubscriptionState {
       "Detected user with active subscription status but standard tier. " +
         "This may indicate a data sync issue between Stripe and the application. " +
         "Treating as previously subscribed.",
-      { subscription_status, membership_type, user_id: user.id }
+      { subscription_status, membership_type, user_handle: user.handle }
     );
     return "previously_subscribed";
   }
