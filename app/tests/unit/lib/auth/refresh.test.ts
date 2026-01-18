@@ -20,14 +20,14 @@ describe("refresh.ts - Token Refresh Module (Server Actions)", () => {
       mockRefreshTokenAction.mockResolvedValueOnce({
         success: true,
         user: {
-          id: 123,
           handle: "test",
           email: "test@example.com",
           name: "Test User",
-          created_at: "2024-01-01",
           membership_type: "standard",
           subscription_status: "never_subscribed",
-          subscription: null
+          subscription: null,
+          provider: "email",
+          email_confirmed: true
         }
       });
 

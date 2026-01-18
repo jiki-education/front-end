@@ -39,16 +39,18 @@ export interface UpdateSubscriptionRequest {
 }
 
 export interface UpdateSubscriptionResponse {
+  success: boolean;
   tier: MembershipTier;
+  effective_at: string; // ISO 8601 date string
   subscription_valid_until: string; // ISO 8601 date string
 }
 
 export interface CancelSubscriptionResponse {
-  status: "cancelling";
-  access_until: string; // ISO 8601 date string
+  success: boolean;
+  cancels_at: string; // ISO 8601 date string
 }
 
 export interface ReactivateSubscriptionResponse {
-  status: "active";
+  success: boolean;
   subscription_valid_until: string; // ISO 8601 date string
 }

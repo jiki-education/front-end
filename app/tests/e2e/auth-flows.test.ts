@@ -1,5 +1,6 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
 import { getTestUrl } from "./helpers/getTestUrl";
+import { createMockUser } from "../mocks/user";
 
 test.describe("Authentication Flows", () => {
   function handleOptionsRequest(route: Route) {
@@ -37,13 +38,7 @@ test.describe("Authentication Flows", () => {
   }
 
   function mockValidInternalMeApiCall(route: Route) {
-    return mockRequest(route, "/internal/me", 200, {
-      user: {
-        id: "test-user-id",
-        email: "test@example.com",
-        name: "Test User"
-      }
-    });
+    return mockRequest(route, "/internal/me", 200, { user: createMockUser() });
   }
 
   async function setupExpiredTokenRefreshMock(page: Page) {
