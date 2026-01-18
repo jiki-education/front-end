@@ -25,10 +25,8 @@
     background: transparent;
 }
 
-/* New badge card front with flip animation */
-.badgeCard.new .cardFront,
-.badgeCard.new .card-front,
-.badge-card.new .card-front {
+/* New badge card front - hidden initially behind the back */
+.badgeCard.new .cardFront {
     position: absolute;
     top: 0;
     left: 0;
@@ -45,8 +43,13 @@
     justify-content: center;
     padding: 24px 20px;
     transform-style: preserve-3d;
+    transform: rotateY(-180deg); /* Start flipped away */
+    overflow: hidden;
+}
+
+/* Only animate when spinning class is added */
+.badgeCard.new.spinning .cardFront {
     animation:
         flipInFront 1.5s ease-out forwards,
         cardPulseGold 0.4s ease-out 1.5s;
-    overflow: hidden;
 }

@@ -1,0 +1,12 @@
+{
+  "slug": "reverse-string",
+  "title": "Reverse String",
+  "instructions": "Reversing strings (reading them from right to left, rather than from left to right) is a surprisingly common task in programming.\n\nFor example, in bioinformatics, reversing the sequence of DNA or RNA strings is often important for various analyses, such as finding complementary strands or identifying palindromic sequences.\n\nYour task is to create a function called `reverse`, which takes a string as its input, and returns the reversed version.\n\nExamples:\n- Turn \"stressed\" into \"desserts\"\n- Turn \"strops\" into \"sports\"\n- Turn \"racecar\" into \"racecar\" (a palindrome)",
+  "estimatedMinutes": 10,
+  "levelId": "everything",
+  "hints": [
+    "Think about how you would reverse a word manually with pen and paper",
+    "For each character, prepend it to your result instead of appending",
+    "Use concatenate() to add each character to the front of your result"
+  ]
+}

@@ -9,8 +9,12 @@
 // Import LLM metadata for all exercises
 // NOTE: Add new exercises here as they're created
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
+import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as guestListLLM } from "./exercises/guest-list/llm-metadata";
+import { llmMetadata as hammingLLM } from "./exercises/hamming/llm-metadata";
+import { llmMetadata as formalDinnerLLM } from "./exercises/formal-dinner/llm-metadata";
+import { llmMetadata as drivingTestLLM } from "./exercises/driving-test/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
@@ -20,6 +24,11 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as reverseStringLLM } from "./exercises/reverse-string/llm-metadata";
+import { llmMetadata as proteinTranslationLLM } from "./exercises/protein-translation/llm-metadata";
+import { llmMetadata as pangramLLM } from "./exercises/pangram/llm-metadata";
+import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
+import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -32,8 +41,12 @@ export interface LLMMetadata {
  */
 const llmMetadataRegistry = {
   acronym: acronymLLM,
+  "after-party": afterPartyLLM,
   anagram: anagramLLM,
   "guest-list": guestListLLM,
+  hamming: hammingLLM,
+  "formal-dinner": formalDinnerLLM,
+  "driving-test": drivingTestLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
   penguin: penguinLLM,
@@ -42,7 +55,12 @@ const llmMetadataRegistry = {
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
-  "structured-house": structuredHouseLLM
+  "structured-house": structuredHouseLLM,
+  "reverse-string": reverseStringLLM,
+  "protein-translation": proteinTranslationLLM,
+  pangram: pangramLLM,
+  sunset: sunsetLLM,
+  rainbow: rainbowLLM
 } as const;
 
 /**

@@ -3,7 +3,7 @@ import { api } from "./client";
 export interface BadgeData {
   id: number;
   name: string;
-  icon: string;
+  slug: string;
   description: string;
   state: "locked" | "unrevealed" | "revealed";
   num_awardees: number;
@@ -19,7 +19,7 @@ export interface RevealBadgeResponse {
   badge: {
     id: number;
     name: string;
-    icon: string;
+    slug: string;
     description: string;
     revealed: boolean;
     unlocked_at: string;

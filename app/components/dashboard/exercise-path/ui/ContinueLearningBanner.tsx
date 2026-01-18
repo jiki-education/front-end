@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { ExerciseType } from "../../lib/mockData";
+import type { LessonType } from "@/types/lesson";
 import styles from "./ContinueLearningBanner.module.css";
 
 interface ContinueLearningBannerProps {
@@ -9,7 +9,7 @@ interface ContinueLearningBannerProps {
     id: string;
     title: string;
     route: string;
-    type: ExerciseType;
+    type: LessonType;
   } | null;
   onStartLesson: (lessonId: string, route: string) => void;
 }
