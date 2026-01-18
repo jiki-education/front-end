@@ -4,6 +4,7 @@ import type { ExerciseDefinition } from "./types";
 export const exercises = {
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
+  "after-party": () => import("./after-party"),
   anagram: () => import("./anagram"),
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
