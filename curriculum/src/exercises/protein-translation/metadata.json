@@ -1,0 +1,14 @@
+{
+  "slug": "protein-translation",
+  "title": "Protein Translation",
+  "instructions": "RNA can be broken into three-nucleotide sequences called codons, and then translated to a protein. For example:\n\n1. RNA: \"AUGUUUUCU\"\n2. Codons: \"AUG\", \"UUU\", \"UCU\"\n3. Protein: \"Methionine\", \"Phenylalanine\", \"Serine\"\n\nThere are also three terminating codons (STOP codons: UAA, UAG, UGA). If you encounter any of these, all translation ends and the protein is terminated.\n\nYour task is to write a function `translate_rna` that takes an RNA sequence and returns the list of amino acids.\n\nCodon mappings:\n- AUG -> Methionine\n- UUU, UUC -> Phenylalanine\n- UUA, UUG -> Leucine\n- UCU, UCC, UCA, UCG -> Serine\n- UAU, UAC -> Tyrosine\n- UGU, UGC -> Cysteine\n- UGG -> Tryptophan\n- UAA, UAG, UGA -> STOP",
+  "estimatedMinutes": 25,
+  "levelId": "everything",
+  "hints": [
+    "Break the problem into two parts: (1) split RNA into codons, (2) translate codons to proteins",
+    "Use a dictionary to map codons to amino acids",
+    "Remember that each codon is exactly 3 characters",
+    "Use the 'indexed by' syntax to track your position in the string",
+    "Use 'break' to stop when you encounter a STOP codon"
+  ]
+}

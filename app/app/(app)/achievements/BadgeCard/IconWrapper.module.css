@@ -33,6 +33,11 @@
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
+.badgeCard.earned.amber .badgeIconWrapper {
+    border-color: var(--color-amber-500);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
 .badgeCard.earned.green .badgeIconWrapper {
     border-color: #10b981;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
@@ -81,21 +86,28 @@
     --glow-color: 236, 72, 153;
 }
 
-.badgeCard.earned.new .badgeIconWrapper::before,
-.badgeCard.earned.new .badgeIconWrapper::after {
+/* Amber badges with NEW ribbon should have amber glow */
+.badgeCard.earned.amber .badgeIconWrapper {
+    --glow-color: 245, 158, 11;
+    animation: iconGlow 2s ease-in-out infinite;
+}
+
+/* Sparkle effects for amber (recently revealed) badges */
+.badgeCard.earned.amber .badgeIconWrapper::before,
+.badgeCard.earned.amber .badgeIconWrapper::after {
     content: "✨";
     position: absolute;
     font-size: 20px;
     animation: sparkle 2s ease-in-out infinite;
 }
 
-.badgeCard.earned.new .badgeIconWrapper::before {
+.badgeCard.earned.amber .badgeIconWrapper::before {
     top: -8px;
     left: -8px;
     animation-delay: 0s;
 }
 
-.badgeCard.earned.new .badgeIconWrapper::after {
+.badgeCard.earned.amber .badgeIconWrapper::after {
     bottom: -8px;
     right: -8px;
     animation-delay: 1s;

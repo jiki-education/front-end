@@ -1,20 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
-import styles from "./BadgeCard.module.css";
-import { useState } from "react";
+import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import type { BadgeData } from "@/lib/api/badges";
-import { isNewBadge, isEarnedBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./lib/badgeUtils";
+import styles from "./BadgeCard.module.css";
+import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
   badge: BadgeData;
   onClick?: (badgeId: string) => void;
+  isSpinning?: boolean;
+  showNewRibbon?: boolean;
 }
 
-const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
-
-export function BadgeCard({ badge, onClick }: BadgeCardProps) {
-  const [imageSrc, setImageSrc] = useState(getBadgeIconSrc(badge));
-  const [imageError, setImageError] = useState(false);
-
+export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
   const isNew = isNewBadge(badge);
   const isEarned = isEarnedBadge(badge);
   const badgeDate = getBadgeDate(badge);
@@ -26,21 +22,24 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
     }
   };
 
-  const handleImageError = () => {
-    if (!imageError) {
-      setImageError(true);
-      setImageSrc(FALLBACK_IMAGE);
-    }
-  };
-
   const getClassNames = () => {
     const classNames = [styles.badgeCard];
 
     if (isEarned) {
       classNames.push(styles.earned);
-      classNames.push(styles[badgeColor]);
+
+      // Apply amber theme for recently revealed badges
+      if (showNewRibbon) {
+        classNames.push(styles.amber);
+      } else {
+        classNames.push(styles[badgeColor]);
+      }
+
       if (isNew) {
         classNames.push(styles.new);
+        if (isSpinning) {
+          classNames.push(styles.spinning);
+        }
       }
     }
 
@@ -58,7 +57,7 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
       onClick={handleClick}
       style={{ cursor: isEarned ? "pointer" : "default" }}
     >
-      {isNew && isEarned && <div className={styles.newRibbon}>NEW</div>}
+      {showNewRibbon && !isSpinning && <div className={styles.newRibbon}>NEW</div>}
 
       {isEarned && isNew && (
         <>
@@ -66,7 +65,8 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
           <div className={styles.cardFront}>
             <div className={styles.shimmerOverlay}></div>
             <div className={styles.badgeIconWrapper}>
-              <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+              <BadgeIcon slug={badge.slug} />
+              <div className={styles.badgeRibbon}></div>
             </div>
             <div className={styles.badgeTitle}>{badge.name}</div>
             <div className={styles.badgeSubtitle}>{badge.description}</div>
@@ -78,7 +78,8 @@ export function BadgeCard({ badge, onClick }: BadgeCardProps) {
       {(!isEarned || !isNew) && (
         <>
           <div className={styles.badgeIconWrapper}>
-            <img src={imageSrc} alt={badge.name} onError={handleImageError} />
+            <BadgeIcon slug={badge.slug} />
+            <div className={styles.badgeRibbon}></div>
           </div>
           <div className={styles.badgeTitle}>{badge.name}</div>
           <div className={styles.badgeSubtitle}>{badge.description}</div>

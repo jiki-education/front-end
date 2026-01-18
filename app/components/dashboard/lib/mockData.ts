@@ -1,16 +1,15 @@
-export type ExerciseType = "quiz" | "video" | "coding";
+import type { LessonType } from "@/types/lesson";
 
 export interface Exercise {
   id: string;
   title: string;
   description: string;
-  type: ExerciseType;
+  type: LessonType;
   difficulty: "easy" | "medium" | "hard";
   completed: boolean;
   locked: boolean;
   xpReward: number;
   estimatedTime: number;
-  position: { x: number; y: number };
   route: string;
 }
 
@@ -20,13 +19,12 @@ export function generateMockExercises(): Exercise[] {
       id: "1",
       title: "Getting Started with Python",
       description: "Your first program",
-      type: "coding",
+      type: "exercise",
       difficulty: "easy",
       completed: true,
       locked: false,
       xpReward: 10,
       estimatedTime: 5,
-      position: { x: 0, y: 0 },
       route: "/dev/coding-exercise"
     },
     {
@@ -39,7 +37,6 @@ export function generateMockExercises(): Exercise[] {
       locked: false,
       xpReward: 15,
       estimatedTime: 10,
-      position: { x: 0, y: 150 },
       route: "/test/quiz"
     },
     {
@@ -52,20 +49,18 @@ export function generateMockExercises(): Exercise[] {
       locked: false,
       xpReward: 20,
       estimatedTime: 15,
-      position: { x: -100, y: 300 },
       route: "/dev/video-exercise"
     },
     {
       id: "4",
       title: "Working with Lists",
       description: "Work with collections",
-      type: "coding",
+      type: "exercise",
       difficulty: "medium",
       completed: false,
       locked: false,
       xpReward: 25,
       estimatedTime: 20,
-      position: { x: 100, y: 300 },
       route: "/dev/coding-exercise"
     },
     {
@@ -78,7 +73,6 @@ export function generateMockExercises(): Exercise[] {
       locked: true,
       xpReward: 30,
       estimatedTime: 20,
-      position: { x: 0, y: 450 },
       route: "/test/quiz"
     },
     {
@@ -91,20 +85,18 @@ export function generateMockExercises(): Exercise[] {
       locked: true,
       xpReward: 35,
       estimatedTime: 25,
-      position: { x: -100, y: 600 },
       route: "/dev/video-exercise"
     },
     {
       id: "7",
       title: "Design Patterns Workshop",
       description: "Object-oriented programming",
-      type: "coding",
+      type: "exercise",
       difficulty: "hard",
       completed: false,
       locked: true,
       xpReward: 40,
       estimatedTime: 30,
-      position: { x: 100, y: 600 },
       route: "/dev/coding-exercise"
     },
     {
@@ -117,7 +109,6 @@ export function generateMockExercises(): Exercise[] {
       locked: true,
       xpReward: 45,
       estimatedTime: 35,
-      position: { x: 0, y: 750 },
       route: "/dev/video-exercise"
     },
     {
@@ -130,20 +121,18 @@ export function generateMockExercises(): Exercise[] {
       locked: true,
       xpReward: 50,
       estimatedTime: 30,
-      position: { x: -100, y: 900 },
       route: "/test/quiz"
     },
     {
       id: "10",
       title: "Build a Web Application",
       description: "Build something amazing",
-      type: "coding",
+      type: "exercise",
       difficulty: "hard",
       completed: false,
       locked: true,
       xpReward: 100,
       estimatedTime: 60,
-      position: { x: 0, y: 1050 },
       route: "/dev/coding-exercise"
     }
   ];

@@ -5,11 +5,12 @@
  * Uses CSS classes from global styles for consistent styling.
  */
 
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import type { PageTabsProps } from "./types";
 
 export function PageTabs({ tabs, activeTabId, onTabChange, className = "", ...props }: PageTabsProps) {
   return (
-    <div className={`ui-page-tabs ${className}`.trim()} {...props}>
+    <div className={assembleClassNames("ui-page-tabs", className)} {...props}>
       {tabs.map((tab) => {
         const isActive = tab.id === activeTabId;
 

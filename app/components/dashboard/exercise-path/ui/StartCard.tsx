@@ -1,20 +1,15 @@
 import styles from "../ExercisePath.module.css";
-import Image from "next/image";
+import StartFlagIcon from "@/icons/start-flag.svg";
 
 interface StartCardProps {
   completed?: boolean;
 }
 
-export function StartCard({ completed = false }: StartCardProps) {
+export function StartCard({ completed: _completed = false }: StartCardProps) {
   return (
-    <div className={`${styles.startCard} ${completed ? styles.complete : ""}`}>
-      <div className={styles.startCardIcon}>
-        <Image src="/static/images/start.png" alt="Start" width={48} height={48} />
-      </div>
-      <div className={styles.startCardContent}>
-        <h2>Start Here</h2>
-      </div>
-      <p className={styles.startCardSubtitle}>Begin your journey!</p>
+    <div className={styles.startCard}>
+      <StartFlagIcon height={18} width={18} />
+      <h2>The Start of your Journey</h2>
     </div>
   );
 }

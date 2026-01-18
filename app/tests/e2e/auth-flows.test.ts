@@ -262,6 +262,17 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to /auth/login with invalid jiki_refresh_token", async ({ page }) => {
       await setup(page, "invalid");
+
+      // Stub 401 responses for invalid tokens
+      await page.route("**/*", (route) => {
+        void (
+          handleOptionsRequest(route) ||
+          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
+          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
+          route.continue()
+        );
+      });
+
       await visitSettingsPage(page);
       await awaitRedirectToLogin(page);
       await assertLoginPage(page);

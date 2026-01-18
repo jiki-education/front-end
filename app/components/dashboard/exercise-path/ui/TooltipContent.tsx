@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { MouseEvent } from "react";
-import type { LessonData } from "../types";
+import type { LessonDisplayData } from "../types";
 import { getTypeLabel } from "../lib/exerciseUtils";
 import styles from "./LessonTooltip.module.css";
 
 interface TooltipContentProps {
-  exercise: LessonData;
+  exercise: LessonDisplayData;
   onClose: () => void;
   onNavigate?: (route: string) => void;
   headingId?: string;
@@ -42,7 +42,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
     }
 
     return {
-      description: `Ready to start this ${getTypeLabel(exercise.type).toLowerCase()} lesson.`,
+      description: `Ready to start this ${getTypeLabel(exercise.lesson.type).toLowerCase()} lesson.`,
       buttonText: "Start",
       disabled: false,
       tooltipClass: styles.available
@@ -54,7 +54,7 @@ export function TooltipContent({ exercise, onClose, onNavigate, headingId, descr
   return (
     <div className={`${styles.tooltip} ${contextualContent.tooltipClass}`}>
       <h3 id={headingId} className={styles.title}>
-        {exercise.title}
+        {exercise.lesson.title}
       </h3>
       <p id={descriptionId} className={styles.message}>
         {contextualContent.description}

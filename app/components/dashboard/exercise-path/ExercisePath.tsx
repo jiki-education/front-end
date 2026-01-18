@@ -11,7 +11,7 @@ import { StartCard } from "./ui/StartCard";
 
 export default function ExercisePath() {
   const { levelSections, setLevels, levelsLoading } = useLevels();
-  const { handleLessonNavigation, clickedLessonId, setClickedLessonId, isPending } = useLessonNavigation();
+  const { handleLessonNavigation, clickedLessonSlug, setClickedLessonSlug, isPending } = useLessonNavigation();
   const { handleMilestoneClick, levelCompletionInProgress } = useMilestoneHandler(setLevels);
 
   if (levelsLoading) {
@@ -26,9 +26,9 @@ export default function ExercisePath() {
         <LevelSection
           key={section.levelSlug}
           section={section}
-          _clickedLessonId={clickedLessonId}
+          _clickedLessonSlug={clickedLessonSlug}
           _levelCompletionInProgress={levelCompletionInProgress}
-          onLessonClick={setClickedLessonId}
+          onLessonClick={setClickedLessonSlug}
           onLessonNavigation={handleLessonNavigation}
           onMilestoneClick={handleMilestoneClick}
         />

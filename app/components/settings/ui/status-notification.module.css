@@ -1,0 +1,32 @@
+.notification {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+
+    p {
+        margin: 0;
+    }
+}
+
+.warning {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning-text);
+}
+
+.info {
+    background-color: var(--color-info-bg);
+    color: var(--color-info-text);
+}
+
+.error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+}
+
+.success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+}

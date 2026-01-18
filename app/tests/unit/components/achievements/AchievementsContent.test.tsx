@@ -17,7 +17,7 @@ const mockBadges: BadgeData[] = [
   {
     id: 1,
     name: "Member",
-    icon: "/test-icon.png",
+    slug: "member",
     description: "Welcome to Jiki!",
     state: "revealed",
     num_awardees: 100,
@@ -26,7 +26,7 @@ const mockBadges: BadgeData[] = [
   {
     id: 2,
     name: "First Lesson",
-    icon: "/lesson-icon.png",
+    slug: "first-lesson",
     description: "Complete your first lesson",
     state: "unrevealed",
     num_awardees: 50,
@@ -35,7 +35,7 @@ const mockBadges: BadgeData[] = [
   {
     id: 3,
     name: "Locked Badge",
-    icon: "/locked-icon.png",
+    slug: "locked-badge",
     description: "This badge is locked",
     state: "locked",
     num_awardees: 25
