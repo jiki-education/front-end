@@ -24,12 +24,18 @@ function getExerciseIcon(exerciseSlug: string): ComponentType<SVGProps<SVGSVGEle
   );
 }
 
-export function ExerciseIcon({ slug }: { slug: string }) {
+interface ExerciseIconProps {
+  slug: string;
+  width?: number;
+  height?: number;
+}
+
+export function ExerciseIcon({ slug, width = 48, height = 48 }: ExerciseIconProps) {
   const IconComponent = getExerciseIcon(slug);
 
   return (
     <Suspense fallback={<IconFallback />}>
-      <IconComponent width={48} height={48} />
+      <IconComponent width={width} height={height} />
     </Suspense>
   );
 }

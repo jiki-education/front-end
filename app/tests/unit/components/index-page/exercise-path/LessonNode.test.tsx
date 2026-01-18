@@ -1,27 +1,35 @@
-import type { LessonData } from "@/components/dashboard/exercise-path/types";
+import type { LessonDisplayData } from "@/components/dashboard/exercise-path/types";
 import { LessonNode } from "@/components/dashboard/exercise-path/ui/LessonNode";
+import type { Lesson } from "@/types/lesson";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-function createMockLesson(overrides?: Partial<LessonData>): LessonData {
+function createMockLessonDisplayData(overrides?: {
+  lesson?: Partial<Lesson>;
+  completed?: boolean;
+  locked?: boolean;
+  route?: string;
+}): LessonDisplayData {
   return {
-    id: "1",
-    slug: "test-lesson",
-    title: "Test Lesson",
-    description: "Test description",
-    type: "coding",
-    completed: false,
-    locked: false,
-    route: "/test",
-    position: { x: 0, y: 0 },
-    ...overrides
+    lesson: {
+      slug: "test-lesson",
+      title: "Test Lesson",
+      description: "Test description",
+      type: "exercise",
+      ...overrides?.lesson
+    },
+    completed: overrides?.completed ?? false,
+    locked: overrides?.locked ?? false,
+    route: overrides?.route ?? "/test"
   };
 }
 
 describe("LessonNode", () => {
   it("renders lesson title and description", () => {
-    const lesson = createMockLesson({
-      title: "Python Basics",
-      description: "Learn the basics"
+    const lesson = createMockLessonDisplayData({
+      lesson: {
+        title: "Python Basics",
+        description: "Learn the basics"
+      }
     });
 
     render(<LessonNode lesson={lesson} />);
@@ -31,18 +39,18 @@ describe("LessonNode", () => {
   });
 
   it("displays correct label for different lesson types", () => {
-    const { rerender } = render(<LessonNode lesson={createMockLesson({ type: "coding" })} />);
+    const { rerender } = render(<LessonNode lesson={createMockLessonDisplayData({ lesson: { type: "exercise" } })} />);
     expect(screen.getByText("Exercise")).toBeInTheDocument();
 
-    rerender(<LessonNode lesson={createMockLesson({ type: "video" })} />);
+    rerender(<LessonNode lesson={createMockLessonDisplayData({ lesson: { type: "video" } })} />);
     expect(screen.getByText("Video")).toBeInTheDocument();
 
-    rerender(<LessonNode lesson={createMockLesson({ type: "quiz" })} />);
+    rerender(<LessonNode lesson={createMockLessonDisplayData({ lesson: { type: "quiz" } })} />);
     expect(screen.getByText("Quiz")).toBeInTheDocument();
   });
 
   it("displays correct status for incomplete unlocked lesson", () => {
-    const lesson = createMockLesson({
+    const lesson = createMockLessonDisplayData({
       completed: false,
       locked: false
     });
@@ -53,7 +61,7 @@ describe("LessonNode", () => {
   });
 
   it("displays correct status for completed lesson", () => {
-    const lesson = createMockLesson({
+    const lesson = createMockLessonDisplayData({
       completed: true,
       locked: false
     });
@@ -64,7 +72,7 @@ describe("LessonNode", () => {
   });
 
   it("displays correct status for locked lesson", () => {
-    const lesson = createMockLesson({
+    const lesson = createMockLessonDisplayData({
       completed: false,
       locked: true
     });
@@ -76,7 +84,7 @@ describe("LessonNode", () => {
 
   it("calls onClick handler when clicked", () => {
     const onClick = jest.fn();
-    const lesson = createMockLesson({ locked: false });
+    const lesson = createMockLessonDisplayData({ locked: false });
 
     render(<LessonNode lesson={lesson} onClick={onClick} />);
 
@@ -88,7 +96,7 @@ describe("LessonNode", () => {
 
   it("does not call onClick when lesson is locked", () => {
     const onClick = jest.fn();
-    const lesson = createMockLesson({ locked: true });
+    const lesson = createMockLessonDisplayData({ locked: true });
 
     render(<LessonNode lesson={lesson} onClick={onClick} />);
 
@@ -99,7 +107,7 @@ describe("LessonNode", () => {
   });
 
   it("does not throw when onClick is not provided", () => {
-    const lesson = createMockLesson();
+    const lesson = createMockLessonDisplayData();
 
     render(<LessonNode lesson={lesson} />);
 

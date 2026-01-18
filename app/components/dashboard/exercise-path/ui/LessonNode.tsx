@@ -3,13 +3,13 @@ import QuizIcon from "@static/icons/quiz.svg";
 import VideoIcon from "@static/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
-import Image from "next/image";
 import { forwardRef } from "react";
-import type { LessonData } from "../types";
+import type { LessonDisplayData } from "../types";
 import styles from "../ExercisePath.module.css";
+import { ExerciseIcon } from "../../../ExerciseIcon";
 
 interface LessonNodeProps {
-  lesson: LessonData;
+  lesson: LessonDisplayData;
   onClick?: (e: React.MouseEvent) => void;
 }
 
@@ -35,22 +35,22 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
       <div className={styles.partIcon}>
-        {lesson.type === "video" ? (
+        {lesson.lesson.type === "video" ? (
           <VideoLibIcon width={64} height={64} />
-        ) : lesson.type === "quiz" ? (
+        ) : lesson.lesson.type === "quiz" ? (
           <QuizCardIcon width={64} height={64} />
         ) : (
-          <Image src="/static/images/concept-icons/icon-variables.png" alt="Exercise" width={24} height={24} />
+          <ExerciseIcon slug={lesson.lesson.slug} width={64} height={64} />
         )}
       </div>
       <div className={styles.partContent}>
-        <div className={`${styles.partNumber} ${styles[lesson.type]}`}>
-          {lesson.type === "video" ? (
+        <div className={`${styles.partNumber} ${styles[lesson.lesson.type]}`}>
+          {lesson.lesson.type === "video" ? (
             <>
               <VideoIcon className={styles.partNumberIcon} />
               Video
             </>
-          ) : lesson.type === "quiz" ? (
+          ) : lesson.lesson.type === "quiz" ? (
             <>
               <QuizIcon className={styles.partNumberIcon} />
               Quiz
@@ -62,8 +62,8 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
             </>
           )}
         </div>
-        <div className={styles.partTitle}>{lesson.title}</div>
-        <div className={styles.partDescription}>{lesson.description}</div>
+        <div className={styles.partTitle}>{lesson.lesson.title}</div>
+        <div className={styles.partDescription}>{lesson.lesson.description}</div>
       </div>
     </div>
   );

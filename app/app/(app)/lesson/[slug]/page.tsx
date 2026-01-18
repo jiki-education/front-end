@@ -3,7 +3,8 @@
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
-import { fetchLesson, type LessonData } from "@/lib/api/lessons";
+import { fetchLesson } from "@/lib/api/lessons";
+import type { LessonWithData } from "@/types/lesson";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ interface PageProps {
 
 export default function LessonPage({ params }: PageProps) {
   const router = useRouter();
-  const [lesson, setLesson] = useState<LessonData | null>(null);
+  const [lesson, setLesson] = useState<LessonWithData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

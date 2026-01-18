@@ -5,16 +5,16 @@ import { MilestoneCard } from "./MilestoneCard";
 
 interface LevelSectionProps {
   section: LevelSectionData;
-  _clickedLessonId: string | null;
+  _clickedLessonSlug: string | null;
   _levelCompletionInProgress: string | null;
-  onLessonClick: (lessonId: string) => void;
+  onLessonClick: (lessonSlug: string) => void;
   onLessonNavigation: (route: string) => void;
   onMilestoneClick: (section: LevelSectionData) => void;
 }
 
 export function LevelSection({
   section,
-  _clickedLessonId,
+  _clickedLessonSlug,
   _levelCompletionInProgress,
   onLessonClick,
   onLessonNavigation,
@@ -27,8 +27,8 @@ export function LevelSection({
   return (
     <>
       {section.lessons.map((lesson) => (
-        <LessonTooltip key={lesson.id} exercise={lesson} placement="bottom" onNavigate={onLessonNavigation}>
-          <LessonNode lesson={lesson} onClick={(_e) => onLessonClick(lesson.id)} />
+        <LessonTooltip key={lesson.lesson.slug} exercise={lesson} placement="bottom" onNavigate={onLessonNavigation}>
+          <LessonNode lesson={lesson} onClick={(_e) => onLessonClick(lesson.lesson.slug)} />
         </LessonTooltip>
       ))}
 
