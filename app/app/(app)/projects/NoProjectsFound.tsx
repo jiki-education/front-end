@@ -14,16 +14,16 @@ export function NoProjectsFound({ totalProjectsCount, activeTabId }: NoProjectsF
         message = "No projects available.";
         break;
       case "in-progress":
-        message = "You haven't started any projects yet.";
+        message = "No projects in progress. Start a project to see it here!";
         break;
       case "not-started":
-        message = "All projects have been started!";
+        message = "No projects waiting to be started. Great job keeping up!";
         break;
       case "complete":
-        message = "You haven't completed any projects yet.";
+        message = "No completed projects yet. Keep working to finish your first project!";
         break;
       case "locked":
-        message = "No locked projects.";
+        message = "All projects are unlocked! You have access to everything.";
         break;
       default:
         message = "No projects found.";

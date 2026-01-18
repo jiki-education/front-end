@@ -1,14 +1,10 @@
 "use client";
 
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { useAuthStore } from "@/lib/auth/authStore";
 import FolderIcon from "@static/icons/folder.svg";
 import HouseIcon from "@static/icons/house.svg";
 import MedalIcon from "@static/icons/medal.svg";
 import ProjectsIcon from "@static/icons/projects.svg";
 import SettingsIcon from "@static/icons/settings.svg";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import type { ComponentType } from "react";
 import { Logo } from "./Logo";
 import { NavigationItem } from "./NavigationItem";
@@ -31,14 +27,6 @@ const navigationItems: Array<{
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
-  const router = useRouter();
-  const { user, logout } = useAuthStore();
-
-  const handleLogout = async () => {
-    await logout();
-    router.push("/");
-  };
-
   return (
     <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">
       <Logo />
@@ -62,46 +50,6 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         <span className="icon">⭐</span>
         <span>Upgrade to Premium</span>
       </a>
-
-      <div className="p-4 border-t border-border-primary space-y-3 mt-auto">
-        {user && (
-          <div className="text-sm">
-            <div className="font-semibold text-text-primary">Signed in as:</div>
-            <div className="truncate text-text-secondary">{user.email}</div>
-          </div>
-        )}
-
-        {/* Theme Toggle */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-text-secondary">Theme</span>
-          <ThemeToggle />
-        </div>
-
-        {/* Blog & Articles Links */}
-        <div className="space-y-1">
-          <Link
-            href="/blog"
-            className="block w-full px-4 py-2 text-sm text-text-secondary hover:bg-bg-hover rounded-lg transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/articles"
-            className="block w-full px-4 py-2 text-sm text-text-secondary hover:bg-bg-hover rounded-lg transition-colors"
-          >
-            Articles
-          </Link>
-        </div>
-
-        <button
-          onClick={handleLogout}
-          className="w-full px-4 py-2 text-sm text-error-text hover:bg-error-bg rounded-lg transition-colors focus-ring"
-        >
-          Sign Out
-        </button>
-
-        <div className="text-xs text-text-muted text-center">Version 1.0.0</div>
-      </div>
     </aside>
   );
 }

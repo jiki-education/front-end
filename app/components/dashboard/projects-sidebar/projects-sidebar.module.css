@@ -1,7 +1,6 @@
 .projectsSidebar {
     width: 37.125%;
     padding: 20px 40px 40px 30px;
-    background: white;
     position: sticky;
     top: 0;
     align-self: flex-start;
@@ -174,7 +173,7 @@
 }
 
 .statCard:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .statCardEmoji {
@@ -242,25 +241,35 @@
     border-radius: 3px;
 }
 
+.statCard[data-status="started"] .cardProgressFill,
 .statCard[data-status="in-progress"] .cardProgressFill {
     background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
 }
 
+.statCard[data-status="completed"] .cardProgressFill,
 .statCard[data-status="complete"] .cardProgressFill {
     background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
 }
 
+.statCard[data-status="unlocked"] .cardProgressFill,
 .statCard[data-status="not-started"] .cardProgressFill {
     background: #cbd5e0;
     width: 0%;
 }
 
+.statCard[data-status="locked"] .cardProgressFill {
+    background: #e2e8f0;
+    width: 0%;
+}
+
 /* Project card status indicators */
+.statCard[data-status="completed"] .statCardProgress,
 .statCard[data-status="complete"] .statCardProgress {
     color: #10b981;
     font-weight: 600;
 }
 
+.statCard[data-status="started"],
 .statCard[data-status="in-progress"] {
     background: white;
     border-color: #a855f7;
@@ -270,10 +279,12 @@
         0 0 0 4px rgba(236, 72, 153, 0.1);
 }
 
+.statCard[data-status="started"]:hover,
 .statCard[data-status="in-progress"]:hover {
     border-color: #a855f7;
 }
 
+.statCard[data-status="started"] .statCardProgress,
 .statCard[data-status="in-progress"] .statCardProgress {
     color: #a855f7;
     font-weight: 600;
@@ -414,7 +425,7 @@
 
 /* View All Button */
 .viewAllBtn {
-    display: none;
+    display: block;
     width: 100%;
     padding: 14px 20px;
     margin-top: 16px;
@@ -439,6 +450,33 @@
         0 4px 16px rgba(59, 130, 246, 0.4);
 }
 
+/* Placeholder states */
+.loadingPlaceholder {
+    padding: 40px 20px;
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+}
+
+.noProjectsPlaceholder {
+    padding: 40px 20px;
+    text-align: center;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.noProjectsIcon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.noProjectsText {
+    color: #718096;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 /* Premium Box */
 .premiumBox {
     background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
@@ -446,12 +484,12 @@
     padding: 24px;
     text-align: center;
     color: white;
-    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.35);
+    box-shadow: 0 3px 10px #c084fc;
 }
 
 .premiumIcon {
     font-size: 32px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .premiumTitle {
@@ -461,7 +499,7 @@
 }
 
 .premiumText {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 16px;
     opacity: 0.95;
 }

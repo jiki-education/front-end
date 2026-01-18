@@ -61,7 +61,6 @@ export default function InstructionsPanel({
           slug: concept.slug,
           title: concept.title,
           description: concept.description,
-          iconSrc: concept.iconSrc || "static/icons/concept-default.svg",
           subConceptCount: undefined // This field is not in the API response
         }));
 
