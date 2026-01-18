@@ -1,0 +1,184 @@
+.ratingSection {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.ratingSection.highlighted {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.ratingLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 20px;
+}
+
+/* Difficulty Slider */
+.sliderTrack {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    height: 3px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    z-index: 0;
+}
+
+.sliderOptions {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.sliderOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+}
+
+.sliderDot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.sliderOption:hover .sliderDot {
+    border-color: #3b82f6;
+    transform: scale(1.1);
+}
+
+.sliderOption.selected .sliderDot {
+    border-color: #93c5fd;
+    background: #3b82f6;
+}
+
+.sliderLabel {
+    font-size: 14px;
+    color: #64748b;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20px;
+}
+
+/* Prevent layout shift when text becomes bold */
+.sliderLabel::after {
+    content: attr(data-text);
+    font-weight: 600;
+    visibility: hidden;
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.sliderOption:hover .sliderLabel {
+    color: #475569;
+}
+
+.sliderOption.selected .sliderLabel {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* Fun Factor Rating */
+.emojiRating {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.emojiRatingLine {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    right: 28px;
+    height: 3px;
+    background: #f5d78e;
+    border-radius: 2px;
+    z-index: 0;
+}
+
+.emojiOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+}
+
+.emojiCircle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #f5d78e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    transition: all 0.2s ease;
+}
+
+.emojiOption:hover .emojiCircle {
+    border-color: #f59e0b;
+    background: #f9d67a;
+    transform: scale(1.05);
+}
+
+.emojiOption.selected .emojiCircle {
+    border-color: #f59e0b;
+    background: #f9d67a;
+}
+
+.emojiLabel {
+    font-size: 14px;
+    color: #475569;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20px;
+}
+
+/* Prevent layout shift when text becomes bold */
+.emojiLabel::after {
+    content: attr(data-text);
+    font-weight: 600;
+    visibility: hidden;
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.emojiOption:hover .emojiLabel {
+    color: #1e293b;
+}
+
+.emojiOption.selected .emojiLabel {
+    color: #b45309;
+    font-weight: 600;
+}

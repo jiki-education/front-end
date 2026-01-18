@@ -1,15 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useEffect } from "react";
-import Lottie from "react-lottie-player";
-import { hideModal, showModal } from "../store";
-import styles from "@/app/styles/components/modals.module.css";
-import timelineStyles from "@/app/styles/components/exercise-timeline.module.css";
-import projectStyles from "@/app/styles/components/project-card.module.css";
-import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
-import SoundManager from "@/lib/sound/SoundManager";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
+import { useExerciseCompletionModal } from "./hooks/useExerciseCompletionModal";
+
+import { SuccessStep } from "./steps/SuccessStep";
+import { ConfirmationStep } from "./steps/ConfirmationStep";
+import { DifficultyRatingStep } from "./steps/DifficultyRatingStep";
+import { CompletedStep } from "./steps/CompletedStep";
+import { ConceptUnlockedStep } from "./steps/ConceptUnlockedStep";
+import { ProjectUnlockedStep } from "./steps/ProjectUnlockedStep";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
@@ -48,44 +47,7 @@ export function ExerciseCompletionModal({
   initialStep = "success",
   completionResponse = []
 }: ExerciseCompletionModalProps) {
-  const [step, setStep] = useState<
-    "success" | "confirmation" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked"
-  >(initialStep);
-  const [difficultyRating, setDifficultyRating] = useState<number>(3); // Default to "Just right"
-  const [funRating, setFunRating] = useState<number>(3); // Default to middle (neutral)
-
-  // completionResponse is now passed as a prop instead of reading from orchestrator context
-
-  // Play success sound when the modal opens on the success step
-  useEffect(() => {
-    if (step === "success") {
-      const soundManager = SoundManager.getInstance();
-      soundManager.play("success");
-    }
-  }, [step]);
-
-  // Update overlay class when step changes to project-unlocked
-  useEffect(() => {
-    if (step === "project-unlocked") {
-      // Re-show the modal with the special overlay class and preserve completionResponse
-      showModal(
-        "exercise-completion-modal",
-        {
-          onTidyCode,
-          onCompleteExercise,
-          onGoToProject,
-          onGoToDashboard,
-          exerciseTitle,
-          exerciseIcon,
-          unlockedProject,
-          completionResponse,
-          initialStep: "project-unlocked"
-        },
-        styles.projectModalOverlay
-      );
-    }
-  }, [
-    step,
+  const { step, handlers } = useExerciseCompletionModal({
     onTidyCode,
     onCompleteExercise,
     onGoToProject,
@@ -93,291 +55,39 @@ export function ExerciseCompletionModal({
     exerciseTitle,
     exerciseIcon,
     unlockedProject,
+    initialStep,
     completionResponse
-  ]);
+  });
 
-  const handleTidyCode = () => {
-    onTidyCode?.();
-    hideModal();
-  };
-
-  const handleShowConfirmation = () => {
-    // If this modal was auto-opened after tests passed (initialStep is "success"),
-    // skip confirmation and go directly to completion.
-    // If manually opened from header (initialStep is "confirmation"),
-    // show the confirmation step.
-    if (initialStep === "success") {
-      handleCompleteExercise();
-    } else {
-      setStep("confirmation");
-    }
-  };
-
-  const handleCancel = () => {
-    setStep("success");
-  };
-
-  const handleCompleteExercise = () => {
-    setStep("difficulty-rating");
-  };
-
-  const handleRatingsSubmit = () => {
-    // TODO: Send both ratings to API when endpoint is ready
-    setStep("completed");
-    onCompleteExercise?.();
-  };
-
-  const handleContinue = () => {
-    // Check if we have unlocked concepts to show first
-    const unlockedConcept = completionResponse.find((item) => item.type === "concept_unlocked")?.data.concept;
-    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
-
-    if (unlockedConcept) {
-      setStep("concept-unlocked");
-    } else if (unlockedProjectData) {
-      setStep("project-unlocked");
-    } else {
-      hideModal();
-    }
-  };
-
-  const handleContinueFromConcept = () => {
-    // After showing concept, check if we have unlocked projects
-    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
-
-    if (unlockedProjectData) {
-      setStep("project-unlocked");
-    } else {
-      hideModal();
-    }
-  };
-
-  const handleGoToProject = () => {
-    onGoToProject?.();
-    hideModal();
-  };
-
-  const handleGoToDashboard = () => {
-    onGoToDashboard?.();
-    hideModal();
-  };
-
-  if (step === "concept-unlocked") {
-    const unlockedConcept = completionResponse.find((item) => item.type === "concept_unlocked")?.data.concept;
-
-    if (!unlockedConcept) {
-      // Fallback if no concept data
+  switch (step) {
+    case "concept-unlocked":
       return (
-        <>
-          <h2 className={styles.modalTitle}>Concept unlocked!</h2>
-          <p className={styles.modalMessage}>You&apos;ve unlocked a new concept to explore.</p>
-          <div className={styles.modalButtonsDivider}></div>
-          <div className={styles.modalButtons}>
-            <button onClick={handleContinueFromConcept} className={styles.btnPrimary}>
-              Continue
-            </button>
-          </div>
-        </>
+        <ConceptUnlockedStep completionResponse={completionResponse} onContinue={handlers.handleContinueFromConcept} />
       );
-    }
 
-    return (
-      <>
-        <h2 className={styles.modalTitle}>Concept unlocked!</h2>
-        <p className={styles.modalMessage}>
-          You&apos;ve unlocked a new concept: <strong>{unlockedConcept.title}</strong>
-        </p>
-        <div className={styles.conceptUnlockedCard}>
-          <h3 className={styles.conceptTitle}>{unlockedConcept.title}</h3>
-          <p className={styles.conceptDescription}>{unlockedConcept.description}</p>
-        </div>
-        <div className={styles.modalButtonsDivider}></div>
-        <div className={styles.modalButtons}>
-          <button onClick={handleContinueFromConcept} className={styles.btnPrimary}>
-            Continue
-          </button>
-        </div>
-      </>
-    );
+    case "project-unlocked":
+      return (
+        <ProjectUnlockedStep
+          completionResponse={completionResponse}
+          unlockedProject={unlockedProject}
+          onGoToProject={handlers.handleGoToProject}
+          onGoToDashboard={handlers.handleGoToDashboard}
+        />
+      );
+
+    case "difficulty-rating":
+      return <DifficultyRatingStep exerciseTitle={exerciseTitle} onRatingsSubmit={handlers.handleRatingsSubmit} />;
+
+    case "completed":
+      return (
+        <CompletedStep exerciseTitle={exerciseTitle} exerciseIcon={exerciseIcon} onContinue={handlers.handleContinue} />
+      );
+
+    case "confirmation":
+      return <ConfirmationStep onCancel={handlers.handleCancel} onCompleteExercise={handlers.handleCompleteExercise} />;
+
+    case "success":
+    default:
+      return <SuccessStep onTidyCode={handlers.handleTidyCode} onShowConfirmation={handlers.handleShowConfirmation} />;
   }
-
-  if (step === "project-unlocked") {
-    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
-
-    // Fallback to hardcoded data if no project data in response
-    const projectToShow = unlockedProjectData
-      ? {
-          name: unlockedProjectData.title,
-          description: unlockedProjectData.description,
-          icon: `/static/images/project-icons/icon-${unlockedProjectData.slug}.png` // TODO: Get actual icon from project data
-        }
-      : unlockedProject;
-
-    return (
-      <>
-        <h2 className={styles.modalTitle}>Project unlocked!</h2>
-        <p className={styles.modalMessage}>All that practice means you&apos;re ready for a new project.</p>
-        <div className={projectStyles.projectCardSimple}>
-          <div className={projectStyles.projectCardSimpleBackground}></div>
-          <div className={projectStyles.projectCardSimpleBack}></div>
-          <div className={projectStyles.projectCardSimpleFront}>
-            <div className={projectStyles.projectCardSimpleNewLabel}>New</div>
-            <div className={projectStyles.projectCardSimpleIcon}>
-              <img src={projectToShow.icon} alt={projectToShow.name} />
-            </div>
-            <div className={projectStyles.projectCardSimpleName}>{projectToShow.name}</div>
-            <div className={projectStyles.projectCardSimpleDescription}>{projectToShow.description}</div>
-          </div>
-        </div>
-        <div className={styles.modalButtonsDivider}></div>
-        <div className={styles.modalButtons}>
-          <button onClick={handleGoToProject} className={styles.btnSecondary}>
-            Go to Project
-          </button>
-          <button onClick={handleGoToDashboard} className={styles.btnPrimary}>
-            Go to Dashboard
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  if (step === "difficulty-rating") {
-    const funEmojis = ["😢", "😞", "😐", "😊", "😁"];
-
-    return (
-      <>
-        <h2 className={styles.modalTitle}>Rate your experience</h2>
-        <p className={styles.modalMessage}>Help us improve by rating {exerciseTitle} on difficulty and fun.</p>
-
-        <div className={styles.difficultyRatingContainer}>
-          <div className={styles.difficultyRatingTitle}>Rate the difficulty</div>
-
-          <div className={styles.difficultySliderContainer}>
-            <div className={styles.difficultySlider}>
-              {[1, 2, 3, 4, 5].map((rating) => (
-                <button
-                  key={rating}
-                  className={`${styles.difficultyDot} ${difficultyRating === rating ? styles.selected : ""}`}
-                  onClick={() => setDifficultyRating(rating)}
-                  aria-label={`Rate difficulty as ${rating} out of 5`}
-                />
-              ))}
-            </div>
-
-            <div className={styles.difficultyLabels}>
-              <span className={`${styles.difficultyLabel} ${styles.leftLabel}`}>Too easy</span>
-              <span className={`${styles.difficultyLabel} ${styles.centerLabel}`}>Just right</span>
-              <span className={`${styles.difficultyLabel} ${styles.rightLabel}`}>Too hard</span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.funRatingContainer}>
-          <div className={styles.funRatingTitle}>Rate the fun factor</div>
-
-          <div className={styles.funSliderContainer}>
-            <div className={styles.funSlider}>
-              {[1, 2, 3, 4, 5].map((rating) => (
-                <button
-                  key={rating}
-                  className={`${styles.funDot} ${funRating === rating ? styles.selected : ""}`}
-                  onClick={() => setFunRating(rating)}
-                  aria-label={`Rate fun as ${rating} out of 5`}
-                >
-                  {funEmojis[rating - 1]}
-                </button>
-              ))}
-            </div>
-
-            <div className={styles.funLabels}>
-              <span className={`${styles.funLabel} ${styles.leftLabel}`}>No fun</span>
-              <span className={`${styles.funLabel} ${styles.centerLabel}`}>Pretty good</span>
-              <span className={`${styles.funLabel} ${styles.rightLabel}`}>Amazing!</span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.modalButtonsDivider}></div>
-        <div className={styles.modalButtons}>
-          <button onClick={handleRatingsSubmit} className={styles.btnPrimary}>
-            Continue
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  if (step === "completed") {
-    return (
-      <>
-        <div className={timelineStyles.exerciseTimeline}>
-          <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineGreen}`}></div>
-          <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGreen}`}></div>
-          <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineAnimate}`}></div>
-          <div className={timelineStyles.exerciseIconBox}>
-            <img src={exerciseIcon} alt="Exercise icon" />
-            <div className={timelineStyles.exerciseIconGreenOverlay}></div>
-          </div>
-          <div
-            className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed} ${timelineStyles.timelineLineAnimateHalf}`}
-          ></div>
-          <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGrey}`}></div>
-          <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed}`}></div>
-        </div>
-        <h2 className={styles.modalTitle}>Exercise completed!</h2>
-        <p className={styles.modalMessage}>
-          Great work completing {exerciseTitle}! Ready to continue to the next exercise?
-        </p>
-        <div className={styles.modalButtonsDivider}></div>
-        <div className={styles.modalButtons}>
-          <button onClick={handleContinue} className={styles.btnPrimary}>
-            Continue
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  if (step === "confirmation") {
-    return (
-      <>
-        <h2 className={styles.modalTitle}>Are you sure?</h2>
-        <p className={styles.modalMessage}>
-          Are you sure you want to mark this exercise as complete? You can always come back and improve your solution
-          later.
-        </p>
-        <div className={styles.modalButtonsDivider}></div>
-        <div className={styles.modalButtons}>
-          <button onClick={handleCancel} className={styles.btnSecondary}>
-            Cancel
-          </button>
-          <button onClick={handleCompleteExercise} className={styles.btnPrimary}>
-            Yes, Complete
-          </button>
-        </div>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <div className={styles.modalCheckmark}>
-        <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
-      </div>
-      <h2 className={styles.modalTitle}>All tests passed!</h2>
-      <p className={styles.modalMessage}>
-        Great work! You&apos;re ready to complete this exercise and move on to the next challenge.
-      </p>
-      <div className={styles.modalButtonsDivider}></div>
-      <div className={styles.modalButtons}>
-        <button onClick={handleTidyCode} className={styles.btnSecondary}>
-          Tidy code first
-        </button>
-        <button onClick={handleShowConfirmation} className={styles.btnPrimary}>
-          Complete Exercise
-        </button>
-      </div>
-    </>
-  );
 }

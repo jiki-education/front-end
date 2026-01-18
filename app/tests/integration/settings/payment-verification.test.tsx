@@ -5,8 +5,7 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import SettingsPage from "@/components/settings/SettingsPage";
-import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { extractAndClearSessionId } from "@/lib/subscriptions/verification";
+import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import toast from "react-hot-toast";
 
 // Mock the API call
@@ -14,18 +13,14 @@ jest.mock("@/lib/api/subscriptions", () => ({
   verifyCheckoutSession: jest.fn()
 }));
 
-const mockVerifyCheckoutSession = verifyCheckoutSession as jest.MockedFunction<typeof verifyCheckoutSession>;
-
 // Mock the verification utilities
-jest.mock("@/lib/subscriptions/verification", () => {
-  const actual = jest.requireActual("@/lib/subscriptions/verification");
-  return {
-    ...actual,
-    extractAndClearSessionId: jest.fn()
-  };
-});
+jest.mock("@/lib/subscriptions/verification", () => ({
+  extractAndClearSessionId: jest.fn(),
+  verifyPaymentSession: jest.fn()
+}));
 
 const mockExtractAndClearSessionId = extractAndClearSessionId as jest.MockedFunction<typeof extractAndClearSessionId>;
+const mockVerifyPaymentSession = verifyPaymentSession as jest.MockedFunction<typeof verifyPaymentSession>;
 
 // Mock auth store to return authenticated user
 jest.mock("@/lib/auth/authStore", () => ({
@@ -47,16 +42,28 @@ jest.mock("@/lib/auth/authStore", () => ({
 }));
 
 // Mock components to focus on the verification logic
-
-jest.mock("@/components/settings/subscription/SubscriptionSection", () => {
-  return function MockSubscriptionSection() {
-    return <div data-testid="subscription">Subscription</div>;
+// Mock the tab components that SettingsPage actually imports
+jest.mock("@/components/settings/tabs/AccountTab", () => {
+  return function MockAccountTab() {
+    return <div data-testid="account-tab">Account Tab</div>;
   };
 });
 
-jest.mock("@/components/settings/subscription/SubscriptionErrorBoundary", () => {
-  return function MockErrorBoundary({ children }: { children: React.ReactNode }) {
-    return <div>{children}</div>;
+jest.mock("@/components/settings/tabs/SubscriptionTab", () => {
+  return function MockSubscriptionTab() {
+    return <div data-testid="subscription">Subscription Tab</div>;
+  };
+});
+
+jest.mock("@/components/settings/tabs/NotificationsTab", () => {
+  return function MockNotificationsTab() {
+    return <div data-testid="notifications-tab">Notifications Tab</div>;
+  };
+});
+
+jest.mock("@/components/settings/tabs/DangerTab", () => {
+  return function MockDangerTab() {
+    return <div data-testid="danger-tab">Danger Tab</div>;
   };
 });
 
@@ -76,6 +83,9 @@ const mockToast = toast as jest.Mocked<typeof toast>;
 describe("Payment Verification Integration", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // Reset all mocks to their default state
+    mockExtractAndClearSessionId.mockReturnValue(null);
+    mockVerifyPaymentSession.mockReset();
   });
 
   afterEach(() => {
@@ -86,17 +96,16 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction
     mockExtractAndClearSessionId.mockReturnValue("cs_test_success123");
 
-    // Mock successful API response
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      status: "complete"
+    // Mock successful payment verification
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: true
     });
 
     render(<SettingsPage />);
 
     // Verify the complete flow
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_success123");
+      expect(mockVerifyPaymentSession).toHaveBeenCalledWith("cs_test_success123");
     });
 
     // Check that session ID was extracted
@@ -112,12 +121,15 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction
     mockExtractAndClearSessionId.mockReturnValue("cs_test_invalid456");
 
-    mockVerifyCheckoutSession.mockRejectedValue(new Error("Session expired"));
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: false,
+      error: "Session expired"
+    });
 
     render(<SettingsPage />);
 
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_invalid456");
+      expect(mockVerifyPaymentSession).toHaveBeenCalledWith("cs_test_invalid456");
     });
 
     expect(mockExtractAndClearSessionId).toHaveBeenCalled();
@@ -130,12 +142,15 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction
     mockExtractAndClearSessionId.mockReturnValue("cs_test_network_error");
 
-    mockVerifyCheckoutSession.mockRejectedValue(new Error("Network error"));
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: false,
+      error: "Network error"
+    });
 
     render(<SettingsPage />);
 
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_network_error");
+      expect(mockVerifyPaymentSession).toHaveBeenCalledWith("cs_test_network_error");
     });
 
     expect(mockToast.error).toHaveBeenCalledWith("Failed to verify payment: Network error");
@@ -145,15 +160,14 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction (simulates extraction from complex URL)
     mockExtractAndClearSessionId.mockReturnValue("cs_test_789");
 
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      status: "complete"
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: true
     });
 
     render(<SettingsPage />);
 
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_789");
+      expect(mockVerifyPaymentSession).toHaveBeenCalledWith("cs_test_789");
     });
 
     // Session ID should have been extracted
@@ -166,10 +180,11 @@ describe("Payment Verification Integration", () => {
 
     render(<SettingsPage />);
 
-    expect(screen.getByTestId("subscription")).toBeInTheDocument();
+    // Check that the page renders (account tab is visible by default)
+    expect(screen.getByTestId("account-tab")).toBeInTheDocument();
 
     // No verification should occur
-    expect(mockVerifyCheckoutSession).not.toHaveBeenCalled();
+    expect(mockVerifyPaymentSession).not.toHaveBeenCalled();
     expect(mockToast.loading).not.toHaveBeenCalled();
   });
 
@@ -177,15 +192,14 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction
     mockExtractAndClearSessionId.mockReturnValue("cs_test_malformed");
 
-    mockVerifyCheckoutSession.mockResolvedValue({
-      status: "complete"
-      // Missing success property
-    } as any);
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: true
+    });
 
     render(<SettingsPage />);
 
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_malformed");
+      expect(mockVerifyPaymentSession).toHaveBeenCalledWith("cs_test_malformed");
     });
 
     // Should show success since API didn't throw
@@ -196,21 +210,20 @@ describe("Payment Verification Integration", () => {
     // Mock session ID extraction to return value first time, then null
     mockExtractAndClearSessionId.mockReturnValueOnce("cs_test_rerender").mockReturnValue(null);
 
-    mockVerifyCheckoutSession.mockResolvedValue({
-      success: true,
-      status: "complete"
+    mockVerifyPaymentSession.mockResolvedValue({
+      success: true
     });
 
     const { rerender } = render(<SettingsPage />);
 
     await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledTimes(1);
+      expect(mockVerifyPaymentSession).toHaveBeenCalledTimes(1);
     });
 
     // Simulate state update that causes re-render
     rerender(<SettingsPage />);
 
     // Should not call verification again since session_id was cleared
-    expect(mockVerifyCheckoutSession).toHaveBeenCalledTimes(1);
+    expect(mockVerifyPaymentSession).toHaveBeenCalledTimes(1);
   });
 });

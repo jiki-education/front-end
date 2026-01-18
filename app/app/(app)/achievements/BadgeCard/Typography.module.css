@@ -10,14 +10,6 @@
     line-height: 1.2;
 }
 
-.badgeCard[data-type="certificate"] .badgeTitle {
-    font-size: 18px;
-}
-
-.badgeCard.certificate-suggested .badgeTitle {
-    color: #0f172a;
-}
-
 .badgeCard.locked .badgeTitle {
     color: #94a3b8;
 }

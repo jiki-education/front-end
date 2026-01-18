@@ -184,8 +184,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
           continue;
         }
 
-        // Network error (TypeError) - show modal and retry with backoff
-        if (error instanceof TypeError) {
+        // Network error - show modal and retry with backoff
+        if (error instanceof NetworkError) {
           const elapsedTime = Date.now() - startTime;
           if (elapsedTime >= SHOW_MODAL_AFTER_MS) {
             setCriticalError(new NetworkError("Connection lost"));

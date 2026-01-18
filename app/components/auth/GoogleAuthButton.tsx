@@ -20,7 +20,7 @@ function GoogleAuthButtonInner({ children, onSuccess, onError }: GoogleAuthButto
 
   return (
     <button type="button" onClick={() => login()} className="ui-btn ui-btn-large ui-btn-tertiary">
-      <GoogleIcon />
+      <GoogleIcon className="w-[24] h-[24]" />
       {children}
     </button>
   );
