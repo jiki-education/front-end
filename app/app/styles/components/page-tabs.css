@@ -38,6 +38,8 @@
 
         /* Active state - creates underline */
         &.active {
+            color: var(--color-blue-500); /* Default active text color */
+
             &::after {
                 content: "";
                 position: absolute;
@@ -46,6 +48,7 @@
                 right: 0;
                 height: 2px;
                 border-radius: 2px;
+                background: var(--color-blue-500); /* Default underline color */
             }
         }
 
