@@ -11,6 +11,7 @@
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
+import { llmMetadata as drivingTestLLM } from "./exercises/driving-test/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
@@ -36,6 +37,7 @@ const llmMetadataRegistry = {
   acronym: acronymLLM,
   "after-party": afterPartyLLM,
   anagram: anagramLLM,
+  "driving-test": drivingTestLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
   penguin: penguinLLM,
