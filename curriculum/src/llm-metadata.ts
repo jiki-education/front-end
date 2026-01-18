@@ -11,6 +11,7 @@
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
+import { llmMetadata as hammingLLM } from "./exercises/hamming/llm-metadata";
 import { llmMetadata as formalDinnerLLM } from "./exercises/formal-dinner/llm-metadata";
 import { llmMetadata as drivingTestLLM } from "./exercises/driving-test/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
@@ -38,6 +39,7 @@ const llmMetadataRegistry = {
   acronym: acronymLLM,
   "after-party": afterPartyLLM,
   anagram: anagramLLM,
+  hamming: hammingLLM,
   "formal-dinner": formalDinnerLLM,
   "driving-test": drivingTestLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
