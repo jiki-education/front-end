@@ -17,6 +17,7 @@ export const exercises = {
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
   "structured-house": () => import("./structured-house"),
+  "nucleotide-count": () => import("./nucleotide-count"),
   "meal-prep": () => import("./meal-prep"),
   "matching-socks": () => import("./matching-socks"),
   "reverse-string": () => import("./reverse-string"),
