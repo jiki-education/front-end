@@ -46,7 +46,7 @@ export default function SubconceptsGrid({ slug, isLoading = false }: Subconcepts
       ) : (
         <div className={styles.conceptsGrid}>
           {subconcepts.map((subconcept) => (
-            <ConceptCard key={subconcept.slug} concept={subconcept} isAuthenticated={true} />
+            <ConceptCard key={subconcept.slug} concept={subconcept} />
           ))}
         </div>
       )}

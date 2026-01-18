@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
-import { isNewBadge, getBadgeDate, getBadgeColor, getBadgeIconSrc } from "./badgeUtils";
+import { isNewBadge, getBadgeDate, getBadgeColor } from "./badgeUtils";
 
 export function useBadgeActions(
   badges: BadgeData[],
@@ -42,7 +42,7 @@ export function useBadgeActions(
       description: badge.description,
       stat: `${badge.num_awardees} learners have earned this badge`,
       color: getBadgeColor(badge),
-      icon: getBadgeIconSrc(badge),
+      slug: badge.slug,
       isNew: wasNewBadge
     };
 

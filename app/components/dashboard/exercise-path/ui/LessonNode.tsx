@@ -6,7 +6,7 @@ import QuizCardIcon from "@/icons/quiz-card.svg";
 import { forwardRef } from "react";
 import type { LessonDisplayData } from "../types";
 import styles from "../ExercisePath.module.css";
-import { ExerciseIcon } from "../../../ExerciseIcon";
+import { ExerciseIcon } from "../../../icons/ExerciseIcon";
 
 interface LessonNodeProps {
   lesson: LessonDisplayData;
