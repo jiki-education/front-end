@@ -1,9 +1,5 @@
 import { lazy, Suspense, type ComponentType, type SVGProps } from "react";
 
-function IconFallback() {
-  return <svg width={48} height={48} />;
-}
-
 type IconType = "badges" | "concepts" | "projects" | "exercises";
 
 // Cache to prevent creating new lazy components on every render
@@ -16,18 +12,21 @@ const iconCache = new Map<string, ComponentType<SVGProps<SVGSVGElement>>>();
  * Results are cached to prevent memory leaks and ensure stable component references.
  * SVGR (configured in next.config.ts) converts each SVG to a React component.
  *
- * If an icon doesn't exist, a fallback empty SVG is returned instead of throwing an error.
+ * If an icon doesn't exist, the provided fallback is used instead.
  */
-function getIcon(type: IconType, slug: string): ComponentType<SVGProps<SVGSVGElement>> {
+function getIcon(
+  type: IconType,
+  slug: string,
+  Fallback: ComponentType<SVGProps<SVGSVGElement>>
+): ComponentType<SVGProps<SVGSVGElement>> {
   const key = `${type}/${slug}`;
   if (!iconCache.has(key)) {
     iconCache.set(
       key,
       lazy(() =>
-        import(`../../icons/${type}/${slug}.svg`).catch(() => {
-          // If icon doesn't exist, return a fallback empty SVG component
-          return { default: IconFallback };
-        })
+        import(`../../icons/${type}/${slug}.svg`).catch(() => ({
+          default: Fallback
+        }))
       )
     );
   }
@@ -42,13 +41,14 @@ export interface IconProps {
 
 interface IconWithFallbackProps extends IconProps {
   type: IconType;
+  fallback: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
-export function IconWithFallback({ type, slug, width = 48, height = 48 }: IconWithFallbackProps) {
-  const IconComponent = getIcon(type, slug);
+export function IconWithFallback({ type, slug, fallback: Fallback, width = 48, height = 48 }: IconWithFallbackProps) {
+  const IconComponent = getIcon(type, slug, Fallback);
 
   return (
-    <Suspense fallback={<IconFallback />}>
+    <Suspense fallback={<Fallback width={width} height={height} />}>
       <IconComponent width={width} height={height} />
     </Suspense>
   );
