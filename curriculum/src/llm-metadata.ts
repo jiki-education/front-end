@@ -23,6 +23,7 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as proteinTranslationLLM } from "./exercises/protein-translation/llm-metadata";
 import { llmMetadata as pangramLLM } from "./exercises/pangram/llm-metadata";
 import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
 import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
@@ -52,6 +53,7 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
+  "protein-translation": proteinTranslationLLM
   pangram: pangramLLM
   sunset: sunsetLLM,
   rainbow: rainbowLLM
