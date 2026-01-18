@@ -175,17 +175,7 @@ const eslintConfig = [
       "no-console": ["warn", { allow: ["warn", "error", "debug"] }],
 
       // Warn when else is redundant after return.
-      "no-else-return": "warn",
-
-      // === React Compiler rules ===
-      // Disable overly strict React Compiler rules that flag common patterns.
-      // These rules are new in eslint-plugin-react-hooks v5 and would require
-      // significant code changes to comply with. We can enable them incrementally later.
-      "react-hooks/set-state-in-effect": "off",
-      "react-hooks/refs": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/immutability": "off",
-      "react-hooks/static-components": "off"
+      "no-else-return": "warn"
     }
   }
 ];
