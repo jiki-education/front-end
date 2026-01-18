@@ -3,25 +3,25 @@
    ============================================================================ */
 
 .badgeCard.earned.blue {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-700);
+    background: color-mix(in srgb, white 60%, var(--color-blue-50));
 }
 
 .badgeCard.earned.gold:not(.new) {
-    border-color: #8b5cf6;
+    border-color: var(--color-gold-700);
 }
 
-.badgeCard.earned.green {
-    border-color: #10b981;
+/* Amber theme for recently revealed badges */
+.badgeCard.earned.amber {
+    border-color: var(--color-amber-600);
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, white 85%, var(--color-amber-100)),
+        color-mix(in srgb, white 75%, var(--color-amber-200))
+    );
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 
-.badgeCard.earned.pink {
-    border-color: #ec4899;
-}
-
-.badgeCard.earned.purple {
-    border-color: #8b5cf6;
-}
-
-.badgeCard.earned.teal {
-    border-color: #14b8a6;
+.badgeCard.earned.amber:hover {
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }

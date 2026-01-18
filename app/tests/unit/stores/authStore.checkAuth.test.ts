@@ -5,7 +5,7 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import * as authService from "@/lib/auth/service";
-import { AuthenticationError, RateLimitError } from "@/lib/api/client";
+import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { clearAuthCookies } from "@/lib/auth/actions";
 import * as errorHandlerStore from "@/lib/api/errorHandlerStore";
 import type { User } from "@/types/auth";
@@ -87,7 +87,7 @@ describe("authStore.checkAuth", () => {
 
   it("retries on network error and succeeds when network returns", async () => {
     // First call fails with network error, second succeeds
-    mockGetCurrentUser.mockRejectedValueOnce(new TypeError("Failed to fetch")).mockResolvedValueOnce(mockUser);
+    mockGetCurrentUser.mockRejectedValueOnce(new NetworkError("Failed to fetch")).mockResolvedValueOnce(mockUser);
 
     const checkAuthPromise = useAuthStore.getState().checkAuth();
 

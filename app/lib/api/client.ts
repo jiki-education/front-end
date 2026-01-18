@@ -282,7 +282,12 @@ async function request<T = unknown>(
       throw error;
     }
 
-    // Handle other errors (shouldn't happen with retry logic, but keep as fallback)
+    // Convert network errors (TypeError from fetch) to NetworkError
+    if (error instanceof TypeError) {
+      throw new NetworkError(error.message, error);
+    }
+
+    // Handle other errors (shouldn't happen, but keep as fallback)
     throw new Error(`Request failed: ${error}`);
   }
 }

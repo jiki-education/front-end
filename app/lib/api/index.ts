@@ -6,3 +6,7 @@
 export { api, ApiError, AuthenticationError, NetworkError, RateLimitError } from "./client";
 export type { ApiResponse, RequestOptions } from "./client";
 export { getApiConfig, getApiUrl } from "./config";
+
+// Settings API
+export * from "./settings";
+export type * from "./types/settings";
