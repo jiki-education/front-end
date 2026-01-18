@@ -1,17 +1,11 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname
-});
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
+import tseslint from "@typescript-eslint/parser";
 
 const eslintConfig = [
   // Next.js recommended configs (React, a11y, performance) + baseline TypeScript
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
 
   {
     ignores: [
@@ -52,7 +46,7 @@ const eslintConfig = [
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      parser: await import("@typescript-eslint/parser"),
+      parser: tseslint,
       parserOptions: {
         project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname
