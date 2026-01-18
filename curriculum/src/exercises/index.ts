@@ -17,6 +17,7 @@ export const exercises = {
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
   "structured-house": () => import("./structured-house"),
+  pangram: () => import("./pangram")
   sunset: () => import("./sunset"),
   rainbow: () => import("./rainbow")
 } as const;
