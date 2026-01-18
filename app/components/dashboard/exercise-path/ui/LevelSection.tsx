@@ -28,7 +28,7 @@ export function LevelSection({
     <>
       {section.lessons.map((lesson) => (
         <LessonTooltip key={lesson.id} exercise={lesson} placement="bottom" onNavigate={onLessonNavigation}>
-          <LessonNode lesson={lesson} onClick={() => onLessonClick(lesson.id)} />
+          <LessonNode lesson={lesson} onClick={(_e) => onLessonClick(lesson.id)} />
         </LessonTooltip>
       ))}
 

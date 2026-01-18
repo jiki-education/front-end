@@ -1,31 +1,47 @@
 import CodingIcon from "@static/icons/coding.svg";
 import QuizIcon from "@static/icons/quiz.svg";
 import VideoIcon from "@static/icons/video.svg";
+import VideoLibIcon from "@/icons/video-lib.svg";
+import QuizCardIcon from "@/icons/quiz-card.svg";
 import Image from "next/image";
+import { forwardRef } from "react";
 import type { LessonData } from "../types";
 import styles from "../ExercisePath.module.css";
 
 interface LessonNodeProps {
   lesson: LessonData;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-export function LessonNode({ lesson, onClick }: LessonNodeProps) {
+export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function LessonNode({ lesson, onClick }, ref) {
+  const handleClick = (e: React.MouseEvent) => {
+    if (lesson.locked) {
+      e.stopPropagation();
+      return;
+    }
+    if (onClick) {
+      e.stopPropagation();
+      onClick(e);
+    }
+  };
+
   return (
     <div
+      ref={ref}
       className={`${styles.lessonPart} ${lesson.completed ? styles.complete : lesson.locked ? styles.locked : styles.inProgress}`}
-      onClick={() => {
-        if (lesson.locked) {
-          return;
-        }
-        onClick?.();
-      }}
+      onClick={handleClick}
     >
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
       <div className={styles.partIcon}>
-        <Image src="/static/images/concept-icons/icon-variables.png" alt="Video" width={24} height={24} />
+        {lesson.type === "video" ? (
+          <VideoLibIcon width={64} height={64} />
+        ) : lesson.type === "quiz" ? (
+          <QuizCardIcon width={64} height={64} />
+        ) : (
+          <Image src="/static/images/concept-icons/icon-variables.png" alt="Exercise" width={24} height={24} />
+        )}
       </div>
       <div className={styles.partContent}>
         <div className={`${styles.partNumber} ${styles[lesson.type]}`}>
@@ -51,4 +67,4 @@ export function LessonNode({ lesson, onClick }: LessonNodeProps) {
       </div>
     </div>
   );
-}
+});
