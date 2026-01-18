@@ -1,12 +1,11 @@
-// Lesson types
-export interface Lesson {
-  slug: string;
-  type: "exercise" | "video";
-}
+import type { Lesson, LessonType } from "./lesson";
+
+// Re-export for convenience
+export type { Lesson, LessonType };
 
 export interface LessonWithProgress {
   slug: string;
-  type: "exercise" | "video";
+  type: LessonType;
   status: "not_started" | "started" | "completed";
 }
 

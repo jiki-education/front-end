@@ -1,8 +1,8 @@
-import type { LessonData } from "../types";
+import type { LessonType } from "@/types/lesson";
 
-export function getExerciseTypeIcon(type: LessonData["type"]) {
+export function getExerciseTypeIcon(type: LessonType) {
   switch (type) {
-    case "coding":
+    case "exercise":
       return "CodingIcon";
     case "video":
       return "VideoIcon";
@@ -13,9 +13,9 @@ export function getExerciseTypeIcon(type: LessonData["type"]) {
   }
 }
 
-export function getTypeLabel(type: LessonData["type"]) {
+export function getTypeLabel(type: LessonType) {
   switch (type) {
-    case "coding":
+    case "exercise":
       return "Exercise";
     case "video":
       return "Video Lesson";

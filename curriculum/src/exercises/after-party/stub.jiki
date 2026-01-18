@@ -1,0 +1,9 @@
+// You might want to create helper functions first:
+// - A function to calculate the length of a string
+// - A function to check if a string starts with another string
+
+function on_guest_list with names, person do
+  // Go through each name in names
+  // If the name starts with person's first name (followed by space or end), return true
+  // If none of the names match, return false
+end

@@ -4,8 +4,11 @@ import type { ExerciseDefinition } from "./types";
 export const exercises = {
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
+  "after-party": () => import("./after-party"),
   anagram: () => import("./anagram"),
   hamming: () => import("./hamming"),
+  "formal-dinner": () => import("./formal-dinner"),
+  "driving-test": () => import("./driving-test"),
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
@@ -13,7 +16,9 @@ export const exercises = {
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
-  "structured-house": () => import("./structured-house")
+  "structured-house": () => import("./structured-house"),
+  sunset: () => import("./sunset"),
+  rainbow: () => import("./rainbow")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

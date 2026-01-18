@@ -1,28 +1,9 @@
 import { api } from "./client";
 import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
-
-export interface VideoSource {
-  host: string; // Backend uses 'host' instead of 'provider'
-  id: string; // The Mux playback ID
-}
-
-export interface LessonData {
-  slug: string;
-  type: "exercise" | "video";
-  title: string;
-  description?: string;
-  data?:
-    | {
-        sources?: VideoSource[];
-        // Add other data fields as needed
-      }
-    | any; // Allow any structure for now to debug
-}
+import type { LessonWithData } from "@/types/lesson";
 
 export interface LessonResponse {
-  lesson?: LessonData;
-  // The API might return the data directly without wrapping in "lesson"
-  [key: string]: any;
+  lesson: LessonWithData;
 }
 
 export interface UserLessonData {
@@ -39,14 +20,9 @@ export interface UserLessonResponse {
 /**
  * Fetch lesson details by slug
  */
-export async function fetchLesson(slug: string): Promise<LessonData> {
-  const response = await api.get<any>(`/internal/lessons/${slug}`);
-
-  // Handle different response structures
-  // If the response has a "lesson" key, use it; otherwise, assume the response is the lesson data
-  const lessonData: LessonData = response.data.lesson || response.data;
-
-  return lessonData;
+export async function fetchLesson(slug: string): Promise<LessonWithData> {
+  const response = await api.get<LessonResponse>(`/internal/lessons/${slug}`);
+  return response.data.lesson;
 }
 
 /**

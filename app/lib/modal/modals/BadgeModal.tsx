@@ -1,34 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { hideModal } from "../store";
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
+import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { hideModal } from "../store";
 import styles from "./BadgeModal.module.css";
-import { useState } from "react";
 
 interface BadgeModalProps {
   badgeData: BadgeModalData;
 }
 
-const FALLBACK_IMAGE = "/static/images/achievement-icons/About-Us-1--Streamline-Manila.png";
-
 export function BadgeModal({ badgeData }: BadgeModalProps) {
-  const [imageSrc, setImageSrc] = useState(badgeData.icon);
-  const [imageError, setImageError] = useState(false);
-
-  const handleImageError = () => {
-    if (!imageError) {
-      setImageError(true);
-      setImageSrc(FALLBACK_IMAGE);
-    }
-  };
-
   return (
     <div className={styles.modalContainer}>
       {/* Modal Header */}
       <div className={styles.modalHeader}>
         <div className={`${styles.modalBadgeIcon} ${styles[badgeData.color]}`}>
-          <img src={imageSrc} alt={badgeData.title} onError={handleImageError} />
+          <BadgeIcon slug={badgeData.slug} />
         </div>
         <h2 className={styles.modalTitle}>{badgeData.title}</h2>
         <div className={styles.modalDate}>{badgeData.date}</div>
