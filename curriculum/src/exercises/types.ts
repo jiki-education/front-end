@@ -73,11 +73,11 @@ export interface VisualScenario {
   codeChecks?: CodeCheck[]; // Optional code quality checks
 }
 
-// Recursive type to support nested arrays in IO scenarios
-export type IOValue = string | number | boolean | null | undefined | IOValue[];
+// Recursive type to support nested arrays and objects in IO scenarios
+export type IOValue = string | number | boolean | null | undefined | IOValue[] | { [key: string]: IOValue };
 
 // Expected value must be defined (no null/undefined)
-export type IOExpectedValue = string | number | boolean | IOExpectedValue[];
+export type IOExpectedValue = string | number | boolean | IOExpectedValue[] | { [key: string]: IOExpectedValue };
 
 // Code quality check result
 export interface CodeCheckExpect {

@@ -1,0 +1,10 @@
+// Define the on_guest_list function
+// The first input is the guest list.
+// The second input is the name of the person.
+// Return if the person is on the list.
+
+function on_guest_list with list, person do
+  // Loop through each name in the list
+  // If the name matches, return true
+  // If you finish without finding a match, return false
+end

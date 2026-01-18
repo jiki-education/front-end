@@ -14,14 +14,14 @@ const mockHandlers = handlers as jest.Mocked<typeof handlers>;
 // Mock user data for different subscription states
 function createMockUser(overrides?: Partial<User>): User {
   return {
-    id: 1,
     handle: "test-user",
     email: "test@example.com",
     name: "Test User",
-    created_at: "2024-01-01T00:00:00Z",
     membership_type: "standard",
     subscription_status: "never_subscribed",
     subscription: null,
+    provider: "email",
+    email_confirmed: true,
     ...overrides
   };
 }

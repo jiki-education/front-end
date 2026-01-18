@@ -12,6 +12,7 @@ export { createMockScenario } from "./scenario";
 export { createMockTask } from "./task";
 export { createMockTestResult } from "./test-result";
 export { createMockTestSuiteResult } from "./test-suite-result";
+export { createMockUser } from "./user";
 
 // UI Kit mocks
 export {

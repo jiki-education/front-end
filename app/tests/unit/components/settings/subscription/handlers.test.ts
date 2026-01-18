@@ -92,7 +92,9 @@ describe("Subscription handlers", () => {
     it("upgrades to Max successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       mockSubscriptionApi.updateSubscription.mockResolvedValue({
+        success: true,
         tier: "max",
+        effective_at: "2024-01-01T00:00:00Z",
         subscription_valid_until: "2024-12-31T23:59:59Z"
       });
 
@@ -130,7 +132,9 @@ describe("Subscription handlers", () => {
     it("upgrades to Premium successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       mockSubscriptionApi.updateSubscription.mockResolvedValue({
+        success: true,
         tier: "premium",
+        effective_at: "2024-01-01T00:00:00Z",
         subscription_valid_until: "2024-12-31T23:59:59Z"
       });
 
@@ -146,7 +150,9 @@ describe("Subscription handlers", () => {
     it("downgrades to Premium successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       mockSubscriptionApi.updateSubscription.mockResolvedValue({
+        success: true,
         tier: "premium",
+        effective_at: "2024-01-01T00:00:00Z",
         subscription_valid_until: "2024-12-31T23:59:59Z"
       });
 
@@ -162,8 +168,8 @@ describe("Subscription handlers", () => {
     it("cancels subscription successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       const mockResponse = {
-        status: "cancelling" as const,
-        access_until: "2024-12-31T23:59:59Z"
+        success: true,
+        cancels_at: "2024-12-31T23:59:59Z"
       };
       mockSubscriptionApi.cancelSubscription.mockResolvedValue(mockResponse);
 
@@ -192,7 +198,7 @@ describe("Subscription handlers", () => {
     it("reactivates subscription successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       mockSubscriptionApi.reactivateSubscription.mockResolvedValue({
-        status: "active",
+        success: true,
         subscription_valid_until: "2024-12-31T23:59:59Z"
       });
 

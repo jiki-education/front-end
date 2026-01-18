@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
+import { createMockUser } from "../mocks/user";
 
 function mockRequest(route: Route, url: string, status: number, body: any) {
   if (route.request().url().includes(url)) {
@@ -82,15 +83,7 @@ async function setupBadgesMocks(page: Page) {
     }
 
     // Mock /internal/me for authentication check
-    if (
-      mockRequest(route, "/internal/me", 200, {
-        user: {
-          id: "test-user-id",
-          email: "test@example.com",
-          name: "Test User"
-        }
-      })
-    ) {
+    if (mockRequest(route, "/internal/me", 200, { user: createMockUser() })) {
       return;
     }
 
@@ -181,11 +174,13 @@ test.describe("Badge Reveal E2E", () => {
     // Ensure the Code Warrior badge is visible
     await codeWarriorBadge.waitFor();
 
-    // Verify the badge has the NEW ribbon text (indicating it's unrevealed)
-    await expect(codeWarriorBadge).toContainText("NEW");
-
     // Verify the badge name is "Code Warrior" as per our mock data
     await expect(codeWarriorBadge).toContainText("Code Warrior");
+
+    // The badge should have the "new" class styling (shimmer effect) but not the NEW ribbon yet
+    // The NEW ribbon only appears after it's been revealed
+    const badgeClasses = await codeWarriorBadge.getAttribute("class");
+    expect(badgeClasses).toContain("new");
 
     // This is our unrevealed badge to click
     const unrevealedBadge = codeWarriorBadge;
@@ -193,21 +188,36 @@ test.describe("Badge Reveal E2E", () => {
     // Click the unrevealed badge to trigger the reveal
     await unrevealedBadge.click();
 
-    // Wait a moment for any async operations
-    await page.waitForTimeout(1000);
+    // Wait for the modal to appear
+    const modal = page.locator('[class*="modal"], [data-modal], [class*="Modal"], [class*="BadgeModal"]').first();
+    await modal.waitFor({ state: "visible", timeout: 5000 });
 
-    // Verify that the Code Warrior badge no longer has the NEW ribbon
-    const codeWarriorAfterClick = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
-    const codeWarriorHasNew = await codeWarriorAfterClick.locator(':text("NEW")').count();
-    expect(codeWarriorHasNew).toBe(0);
-
-    // Verify that a modal appeared (which might have "New Badge!" text)
+    // Verify that a modal appeared
     const modalElements = await page
       .locator('[class*="modal"], [data-modal], [class*="Modal"], [class*="BadgeModal"]')
       .count();
     expect(modalElements).toBeGreaterThan(0);
 
-    // Verify the Code Warrior badge is still visible (just without NEW)
+    // Close the modal by clicking the "Keep Going!" button
+    const closeButton = page.locator('button:has-text("Keep Going!")').first();
+    await closeButton.waitFor({ state: "visible", timeout: 5000 });
+    await closeButton.click({ force: true }); // Force click in case of overlay issues
+
+    // Wait for modal to be hidden
+    await modal.waitFor({ state: "hidden", timeout: 5000 });
+
+    // Wait for animation to complete
+    await page.waitForTimeout(1600); // 1500ms animation + small buffer
+
+    // After revealing, the badge should now have the NEW ribbon
+    const codeWarriorAfterClick = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
+
+    // Verify the badge now shows the NEW ribbon (it appears after reveal)
+    const codeWarriorHasNew = await codeWarriorAfterClick.locator(':text("NEW")').count();
+    expect(codeWarriorHasNew).toBe(1);
+
+    // Verify the Code Warrior badge is still visible with the NEW ribbon
     await expect(codeWarriorAfterClick).toBeVisible();
+    await expect(codeWarriorAfterClick).toContainText("NEW");
   });
 });

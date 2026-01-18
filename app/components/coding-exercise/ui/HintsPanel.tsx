@@ -16,7 +16,7 @@ export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
   const [revealedHints, setRevealedHints] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    console.log("hints", hints);
+    console.debug("hints", hints);
   }, [hints]);
 
   if (!hints || hints.length === 0) {

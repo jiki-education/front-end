@@ -1,8 +1,10 @@
 "use client";
 
+import type { LessonType } from "@/types/lesson";
+
 interface LessonLoadingPageProps {
   title?: string;
-  type?: "video" | "exercise";
+  type?: LessonType;
 }
 
 export default function LessonLoadingPage({ title, type }: LessonLoadingPageProps) {

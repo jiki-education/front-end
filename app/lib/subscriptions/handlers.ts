@@ -109,7 +109,7 @@ export async function handleCancelSubscription(refreshUser: RefreshUserFn) {
   try {
     const response = await cancelSubscription();
     toast.success(
-      `Subscription canceled. You'll keep access until ${new Date(response.access_until).toLocaleDateString()}`
+      `Subscription canceled. You'll keep access until ${new Date(response.cancels_at).toLocaleDateString()}`
     );
     await refreshUser();
   } catch (error) {
