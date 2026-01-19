@@ -4,7 +4,6 @@ import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import { PanelHeader } from "./PanelHeader";
-import LogIcon from "@/icons/log.svg";
 import style from "./log-panel.module.css";
 
 interface LogLineProps {
@@ -19,15 +18,15 @@ export default function LogPanel() {
   const { currentTest, currentTestTime } = useOrchestratorStore(orchestrator);
 
   if (!currentTest || currentTest.logLines.length === 0) {
+    const description = (
+      <>
+        This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
+        <code>console.log()</code> to log values.
+      </>
+    );
     return (
       <div role="log">
-        <PanelHeader title="Log" description="You can see your logs here" icon={<LogIcon height={42} width={42} />} />
-        <div className="py-24 px-32">
-          <p className="mb-20 text-[#4B5563]">
-            This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
-            <code>console.log()</code> to log values.
-          </p>
-        </div>
+        <PanelHeader title="Scenario Log" description={description} />
       </div>
     );
   }
@@ -37,15 +36,17 @@ export default function LogPanel() {
     return currentTest.frames.find((frame) => frame.time === log.time)?.line;
   });
 
+  const description = (
+    <>
+      This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
+      <code>console.log()</code> to log values.
+    </>
+  );
+
   return (
     <div role="log">
-      <PanelHeader title="Log" description="You can see your logs here" icon={<LogIcon height={42} width={42} />} />
+      <PanelHeader title="Scenario Log" description={description} />
       <div className="py-24 px-32">
-        <p className="mb-20 text-[#4B5563]">
-          This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
-          <code>console.log()</code> to log values.
-        </p>
-
         <div className={style.consoleOutput}>
           {currentTest.logLines.map((log, index) => {
             const logLineNumber = logLineNumbers[index];
