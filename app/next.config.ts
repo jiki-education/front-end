@@ -3,9 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
-  experimental: {
-    reactCompiler: true
-  },
+  reactCompiler: true,
   async headers() {
     return Promise.resolve([
       {
