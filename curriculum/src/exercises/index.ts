@@ -6,6 +6,7 @@ export const exercises = {
   acronym: () => import("./acronym"),
   "after-party": () => import("./after-party"),
   anagram: () => import("./anagram"),
+  "chop-shop": () => import("./chop-shop"),
   "guest-list": () => import("./guest-list"),
   hamming: () => import("./hamming"),
   "formal-dinner": () => import("./formal-dinner"),
