@@ -1,0 +1,149 @@
+/* Animation Keyframes for Exercise Path Components */
+
+@keyframes lessonComplete {
+    0% {
+        transform: scale(1);
+        background: white;
+        border-color: var(--color-purple-500);
+    }
+    50% {
+        transform: scale(1.05);
+        background: var(--color-green-100);
+    }
+    100% {
+        transform: scale(1);
+        background: var(--color-green-50);
+        border-color: var(--color-green-500);
+    }
+}
+
+@keyframes lineGrowAndCounterScale {
+    0% {
+        transform: translateX(-50%) scaleY(0);
+    }
+    50% {
+        /* Line grows while parent scales to 1.05 - counter with 0.95 */
+        transform: translateX(-50%) scaleY(0.95);
+    }
+    100% {
+        /* Line at full height, parent back to scale 1 */
+        transform: translateX(-50%) scaleY(1);
+    }
+}
+
+@keyframes checkmarkAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes lessonUnlock {
+    0% {
+        /* Start as locked - gray and semi-transparent */
+        opacity: 0.5;
+        background: var(--color-gray-50);
+        border: 3px solid var(--color-gray-100);
+    }
+    100% {
+        /* End as unlocked/in-progress - purple border, full opacity */
+        opacity: 1;
+        background: white;
+        border: 3px solid var(--color-purple-500);
+        box-shadow: 0 4px 12px var(--color-purple-500-20);
+    }
+}
+
+@keyframes pulsing {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px var(--color-purple-500-20);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px var(--color-purple-500-40);
+    }
+}
+
+@keyframes counterPulse {
+    0%,
+    100% {
+        transform: translateX(-50%) scaleY(1);
+    }
+    50% {
+        transform: translateX(-50%) scaleY(0.98);
+    }
+}
+
+@keyframes counterSlowPulse {
+    0%,
+    100% {
+        transform: translateX(-50%) scaleY(1);
+    }
+    50% {
+        transform: translateX(-50%) scaleY(0.98);
+    }
+}
+
+@keyframes lockOpen {
+    0% {
+        /* Closed lock */
+        background-image: url("/static/icons/locked.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-color: var(--color-gray-200);
+        opacity: 1;
+    }
+    0.1%,
+    90% {
+        /* Instant switch to unlocked, stays for ~30 seconds */
+        background-image: url("/static/icons/unlocked.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-color: var(--color-purple-200);
+        opacity: 1;
+    }
+    100% {
+        /* Slowly fade out over last 3 seconds */
+        background-image: url("/static/icons/unlocked.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-color: var(--color-purple-200);
+        opacity: 0;
+    }
+}
+
+@keyframes iconColorize {
+    0% {
+        filter: grayscale(100%) opacity(0.5) blur(2px);
+        transform: scale(0.9);
+    }
+    50% {
+        filter: grayscale(50%) opacity(0.8) blur(0px);
+        transform: scale(1.1);
+    }
+    100% {
+        filter: grayscale(0%) opacity(1) blur(0px);
+        transform: scale(1);
+    }
+}
+
+@keyframes slowPulse {
+    0%,
+    100% {
+        box-shadow: 0 4px 12px var(--color-purple-500-20);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 24px var(--color-purple-500-40);
+        transform: scale(1.02);
+    }
+}
