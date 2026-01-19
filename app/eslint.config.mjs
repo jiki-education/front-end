@@ -171,16 +171,11 @@ const eslintConfig = [
       "no-else-return": "warn",
 
       // === React Compiler rules ===
-      // Disable overly strict React Compiler rules that flag common patterns.
-      // These rules are enabled by default in eslint-config-next 16.x and would
-      // require significant code changes to comply with.
-      // TODO: Incrementally enable these rules and fix violations
+      // Some React Compiler rules are disabled as they flag common patterns
+      // that would require significant architectural changes to comply with.
       // See: https://github.com/jiki-education/front-end/pull/212
       "react-hooks/set-state-in-effect": "off",
-      "react-hooks/refs": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/immutability": "off",
-      "react-hooks/static-components": "off"
+      "react-hooks/refs": "off"
     }
   }
 ];
