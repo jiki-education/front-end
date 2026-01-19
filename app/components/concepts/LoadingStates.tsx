@@ -1,4 +1,5 @@
-import styles from "@/app/styles/modules/concepts.module.css";
+import conceptStyles from "@/app/styles/modules/concepts.module.css";
+import styles from "./LoadingStates.module.css";
 
 interface LoadingSkeletonProps {
   withSidebar: boolean;
@@ -57,21 +58,14 @@ export function InlineLoading({ isAuthenticated }: InlineLoadingProps) {
 
 export function ConceptCardsLoadingSkeleton() {
   return (
-    <div className={styles.conceptsGrid}>
+    <div className={conceptStyles.conceptsGrid}>
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className={`${styles.conceptCard} animate-pulse`}>
-          <div className={styles.conceptIcon}>
-            <div className="w-24 h-24 bg-gray-200 rounded"></div>
-          </div>
-          <div className={styles.conceptContent}>
-            <div className={styles.conceptTitle}>
-              <div className="h-5 w-3/4 bg-gray-200 rounded mb-2"></div>
-            </div>
-            <div className={styles.conceptDescription}>
-              <div className="h-4 w-full bg-gray-200 rounded mb-1"></div>
-              <div className="h-4 w-5/6 bg-gray-200 rounded mb-3"></div>
-            </div>
-            <div className="h-6 w-24 bg-gray-200 rounded"></div>
+        <div key={i} className={styles.placeholderCard}>
+          <div className={styles.placeholderIcon}></div>
+          <div className={styles.placeholderContent}>
+            <div className={styles.placeholderTitle}></div>
+            <div className={styles.placeholderDescription}></div>
+            <div className={styles.placeholderDescription2}></div>
           </div>
         </div>
       ))}
