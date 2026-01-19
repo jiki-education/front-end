@@ -13,6 +13,8 @@ export function UnsubscribeContent() {
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  /* eslint-disable react-hooks/set-state-in-effect */
+  // Runs unsubscribe API call on mount - async initialization pattern
   useEffect(() => {
     if (!token) {
       setStatus("error");
@@ -61,6 +63,7 @@ export function UnsubscribeContent() {
 
     void unsubscribe();
   }, [token]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   return (
     <AuthLayout>

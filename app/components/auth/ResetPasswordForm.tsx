@@ -4,25 +4,18 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { resetPassword, isLoading, error, clearError } = useAuthStore();
 
-  const [token, setToken] = useState("");
+  const [token] = useState(() => searchParams.get("reset_password_token") || searchParams.get("token") || "");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
-
-  useEffect(() => {
-    const tokenParam = searchParams.get("reset_password_token") || searchParams.get("token");
-    if (tokenParam) {
-      setToken(tokenParam);
-    }
-  }, [searchParams]);
 
   const validate = () => {
     const errors: Record<string, string> = {};

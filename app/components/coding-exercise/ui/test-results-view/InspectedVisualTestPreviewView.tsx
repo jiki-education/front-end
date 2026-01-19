@@ -13,6 +13,8 @@ export function InspectedVisualTestPreviewView() {
 
   const [view, setView] = useState<HTMLElement | null>(null);
 
+  /* eslint-disable react-hooks/set-state-in-effect */
+  // Initialize view from exercise instance - view is created inside effect and must be stored in state
   useEffect(() => {
     // Create fresh exercise instance
     const exerciseInstance = new exercise.ExerciseClass();
@@ -30,6 +32,7 @@ export function InspectedVisualTestPreviewView() {
       document.body.appendChild(v);
     };
   }, [currentTestIdx, exercise.ExerciseClass, scenario]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (!view) {
     return null;

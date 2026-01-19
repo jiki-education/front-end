@@ -1,5 +1,8 @@
 "use client";
 
+// Test page initializes orchestrator in useEffect for E2E testing
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider, { useOrchestratorContext } from "@/components/coding-exercise/lib/OrchestratorProvider";
 import CodeEditor from "@/components/coding-exercise/ui/CodeEditor";
