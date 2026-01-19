@@ -10,6 +10,16 @@ import { forwardRef } from "react";
 import type { ButtonProps, ButtonVariant } from "./types";
 import { TRANSITION_CLASSES } from "../types";
 
+function Spinner({ variant }: { variant: ButtonVariant }) {
+  const spinnerClasses = [
+    "w-[18px] h-[18px] border-2 rounded-full",
+    "animate-[ui-spin_0.6s_linear_infinite]",
+    variant === "primary" ? "border-white/30 border-t-white" : "border-blue-500/30 border-t-blue-500"
+  ].join(" ");
+
+  return <div className={spinnerClasses} />;
+}
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -86,17 +96,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         .flat()
         .filter(Boolean)
         .join(" ")
-    };
-
-    // Loading spinner component
-    const Spinner = ({ variant }: { variant: ButtonVariant }) => {
-      const spinnerClasses = [
-        "w-[18px] h-[18px] border-2 rounded-full",
-        "animate-[ui-spin_0.6s_linear_infinite]",
-        variant === "primary" ? "border-white/30 border-t-white" : "border-blue-500/30 border-t-blue-500"
-      ].join(" ");
-
-      return <div className={spinnerClasses} />;
     };
 
     const finalClasses = [baseClasses, variantClasses[variant], className].filter(Boolean).join(" ");

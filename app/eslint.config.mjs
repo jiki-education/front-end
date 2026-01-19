@@ -174,10 +174,8 @@ const eslintConfig = [
       // Some React Compiler rules are disabled as they flag common patterns
       // that would require significant architectural changes to comply with.
       // See: https://github.com/jiki-education/front-end/pull/212
-      "react-hooks/refs": "off",
-      "react-hooks/purity": "off",
-      "react-hooks/immutability": "off",
-      "react-hooks/static-components": "off"
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/refs": "off"
     }
   }
 ];

@@ -313,16 +313,12 @@ describe("useKeyboard Integration Tests", () => {
     });
 
     it("should handle rapid component mounting/unmounting", async () => {
-      const handlers: jest.Mock[] = [];
       const CYCLE_COUNT = 5;
+      // Pre-populate handlers array before component renders
+      const handlers: jest.Mock[] = Array.from({ length: CYCLE_COUNT }, () => jest.fn());
 
       function TestComponent({ id }: { id: number }) {
-        if (!handlers[id]) {
-          handlers[id] = jest.fn();
-        }
-        const handler = handlers[id];
-
-        useKeyboard(`ctrl+${id}`, handler);
+        useKeyboard(`ctrl+${id}`, handlers[id]);
         return <div data-testid={`component-${id}`}>Component {id}</div>;
       }
 
@@ -359,9 +355,8 @@ describe("useKeyboard Integration Tests", () => {
           }
         }
 
-        // Clear mocks (handlers array can be sparse)
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        handlers.forEach((h) => h?.mockClear());
+        // Clear mocks for next iteration
+        handlers.forEach((h) => h.mockClear());
 
         // Go to next component
         if (i < CYCLE_COUNT * 2 - 1) {
