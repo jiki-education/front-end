@@ -13,10 +13,12 @@ export function AuthHeader({ title }: AuthHeaderProps) {
   const { user, isAuthenticated, isLoading } = useAuthStore();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch by only rendering auth-dependent content after mount
+  /* eslint-disable react-hooks/set-state-in-effect */
+  // Hydration protection - prevents mismatch between server/client render of auth state
   useEffect(() => {
     setMounted(true);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   return (
     <header className="bg-bg-primary border-b border-border-primary sticky top-0 z-resizer p-20">

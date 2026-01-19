@@ -1,5 +1,8 @@
 "use client";
 
+// Dev page uses setState in useEffect to track component lifecycle for debugging
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { keyboard, useKeyboard } from "@/lib/keyboard";
 import Link from "next/link";
 import { useEffect, useState } from "react";

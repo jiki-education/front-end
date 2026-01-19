@@ -1,4 +1,8 @@
 "use client";
+
+// Test page initializes orchestrator in useEffect for E2E testing
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { createMockFrame } from "@/tests/mocks";
 
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
