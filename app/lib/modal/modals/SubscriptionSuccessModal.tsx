@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { hideModal } from "../store";
 import { PRICING_TIERS } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
@@ -18,6 +19,9 @@ interface SubscriptionSuccessModalProps {
 
 export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onClose }: SubscriptionSuccessModalProps) {
   const tierInfo = PRICING_TIERS[tier];
+
+  // Calculate renewal date once at render time to avoid calling Date.now() during render
+  const [renewalDate] = useState(() => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString());
 
   const getContextualContent = () => {
     switch (triggerContext) {
@@ -145,8 +149,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
       {/* Footer Info */}
       <div className="pt-4 border-t border-border-secondary">
         <p className="text-xs text-text-tertiary">
-          Your subscription will renew automatically on{" "}
-          {new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()}. Manage your subscription in Settings.
+          Your subscription will renew automatically on {renewalDate}. Manage your subscription in Settings.
         </p>
       </div>
     </div>
