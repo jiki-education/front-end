@@ -39,7 +39,16 @@ export function useExerciseCompletion({ orchestrator, exerciseTitle }: UseExerci
               router.push("/projects");
             },
             onGoToDashboard: () => {
-              router.push("/dashboard");
+              // Check for unlocked lesson in the stored events
+              const unlockedEvent = events.find((e: any) => e.type === "lesson_unlocked");
+              const unlockedLessonSlug = unlockedEvent?.data?.lesson_slug;
+
+              // Navigate to dashboard with completed and optionally unlocked lesson
+              if (unlockedLessonSlug) {
+                router.push(`/dashboard?completed=${state.exerciseSlug}&unlocked=${unlockedLessonSlug}`);
+              } else {
+                router.push(`/dashboard?completed=${state.exerciseSlug}`);
+              }
             }
           });
 

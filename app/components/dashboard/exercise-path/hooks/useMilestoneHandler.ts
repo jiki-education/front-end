@@ -24,9 +24,20 @@ export function useMilestoneHandler(setLevels: (levels: LevelWithProgress[]) => 
         xpEarned: section.xpEarned,
         onContinue: async () => {
           try {
-            await completeLevelMilestone(section.levelSlug);
+            const response = await completeLevelMilestone(section.levelSlug);
+
+            // Check for unlocked lesson in the API response
+            const unlockedEvent = response?.meta?.events?.find((e: any) => e.type === "lesson_unlocked");
+            const unlockedLessonSlug = unlockedEvent?.data?.lesson_slug;
+
             const updatedLevels = await fetchLevelsWithProgress();
             setLevels(updatedLevels);
+
+            // If a lesson was unlocked (first lesson of next level), trigger animation
+            if (unlockedLessonSlug) {
+              // Navigate to reload with the unlocked lesson for animation
+              window.location.href = `/dashboard?unlocked=${unlockedLessonSlug}`;
+            }
           } catch (error) {
             console.error("Failed to complete level milestone:", error);
           } finally {
