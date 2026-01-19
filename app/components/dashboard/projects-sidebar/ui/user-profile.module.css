@@ -264,6 +264,7 @@
     box-shadow: none;
     background: #f8fafc;
     cursor: default;
+    padding: 0;
 }
 
 .profileBadge.empty:hover {
@@ -286,11 +287,11 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
-    font-weight: 700;
-    width: 100%;
-    text-align: center;
-    line-height: 1;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 14 14'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M8.56066 0.93934c-0.58579 -0.585787 -1.53553         -0.585787 -2.12132 0 -0.58579 0.58579 -0.58579 1.53553 0 2.12132l2.43617 2.43617H1.5c-0.828427 0 -1.5 0.67157 -1.5 1.5 0 0.82842 0.671573 1.5 1.5 1.5h7.38185L6.43934 10.9393c-0.58579 0.5858 -0.58579 1.5356 0   2.1214 0.58579 0.5857 1.53553 0.5857 2.12132 0l5.00004 -5.00004c0.5857 -0.58579 0.5857 -1.53553 0 -2.12132l-5.00004 -5Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: white;
 }
 
 .badgeMore {
