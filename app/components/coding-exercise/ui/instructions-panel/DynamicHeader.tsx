@@ -37,8 +37,8 @@ export default function DynamicHeader({
             <Image
               src={exerciseData.icon}
               alt="Exercise Icon"
-              width={80}
-              height={80}
+              width={54}
+              height={54}
               className={styles.exerciseIconImage}
             />
 

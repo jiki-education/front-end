@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { PanelHeader } from "./PanelHeader";
-import HintIcon from "@/icons/hint.svg";
 import EyeClosedIcon from "@/icons/eye-close.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
 import style from "./hints-panel.module.css";
@@ -35,8 +34,7 @@ export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
     <div className={`${className}`}>
       <PanelHeader
         title="Hints"
-        description="Get helpful tips if you're stuck on this exercise"
-        icon={<HintIcon width={42} height={42} />}
+        description="If you're stuck on this exercise, these hints can help guide you in the right direction. Click on a hint to reveal helpful tips."
       />
 
       <div className="py-24 px-32">
