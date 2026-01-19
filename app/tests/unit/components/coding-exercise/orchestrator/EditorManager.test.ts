@@ -47,6 +47,10 @@ jest.mock("@/components/coding-exercise/ui/codemirror/extensions", () => ({
   changeMultiLineHighlightEffect: { of: jest.fn() }
 }));
 
+jest.mock("@/components/coding-exercise/ui/codemirror/extensions/end-line-information/cleanup", () => ({
+  cleanupAllInformationTooltips: jest.fn()
+}));
+
 jest.mock("@/components/coding-exercise/ui/codemirror/extensions/breakpoint", () => ({
   breakpointEffect: { of: jest.fn(), is: jest.fn() }
 }));

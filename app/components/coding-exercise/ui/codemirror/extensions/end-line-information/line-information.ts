@@ -4,6 +4,7 @@ import type { ViewUpdate } from "@codemirror/view";
 import { Decoration, type DecorationSet, EditorView, ViewPlugin } from "@codemirror/view";
 import { highlightedLineField } from "../lineHighlighter";
 import { placeholderTheme } from "../placeholder-widget";
+import { cleanupAllInformationTooltips } from "./cleanup";
 import { InformationWidget } from "./information-widget";
 
 export const showInfoWidgetEffect = StateEffect.define<boolean>();
@@ -56,6 +57,8 @@ function lineInformationWidget(view: EditorView, onClose: (view: EditorView) => 
     return Decoration.none;
   }
   if (!shouldShowWidget) {
+    // Clean up any existing tooltips when widget should be hidden
+    cleanupAllInformationTooltips();
     return Decoration.none;
   }
 

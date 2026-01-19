@@ -1,6 +1,7 @@
 "use client";
 
 import { assembleClassNames } from "@/lib/assemble-classnames";
+import { processMessageContent } from "../messageUtils";
 import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
@@ -18,8 +19,9 @@ export function TestResultsButtons() {
       // Set information widget data for single frame tests
       if (test.frames.length === 1) {
         const frame = test.frames[0];
+        const description = frame.generateDescription() || "";
         orchestrator.setInformationWidgetData({
-          html: frame.generateDescription() || "",
+          html: processMessageContent(description),
           line: frame.line,
           status: frame.status
         });

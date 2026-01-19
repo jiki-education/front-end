@@ -58,6 +58,14 @@ export function useExerciseLoader({ language, exerciseSlug, projectSlug, isProje
     };
 
     void loadExercise();
+
+    // Cleanup function to destroy orchestrator when component unmounts
+    return () => {
+      if (orchestratorRef.current) {
+        orchestratorRef.current.destroy();
+        orchestratorRef.current = null;
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

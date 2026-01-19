@@ -6,6 +6,7 @@ import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
+import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
 import type { OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
@@ -319,8 +320,8 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
           return;
         }
 
-        // TODO: Parse this as markdown
-        const infoWidgetHtml = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
+        const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
+        const infoWidgetHtml = processMessageContent(rawContent);
 
         set({
           currentFrame: frame,
