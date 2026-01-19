@@ -35,12 +35,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} antialiased ui-body`}>
         <Script src="/static/theme-script.js" strategy="beforeInteractive" />
+        <GlobalErrorHandler />
         <ServerAuthProvider>
           <ThemeProvider>
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
-            <GlobalErrorHandler />
           </ThemeProvider>
         </ServerAuthProvider>
       </body>
