@@ -13,7 +13,6 @@ export function InspectedVisualTestPreviewView() {
 
   const [view, setView] = useState<HTMLElement | null>(null);
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   // Initialize view from exercise instance - view is created inside effect and must be stored in state
   useEffect(() => {
     // Create fresh exercise instance
@@ -32,7 +31,6 @@ export function InspectedVisualTestPreviewView() {
       document.body.appendChild(v);
     };
   }, [currentTestIdx, exercise.ExerciseClass, scenario]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (!view) {
     return null;
@@ -46,10 +44,7 @@ export function InspectedVisualTestPreviewView() {
             {/* LHS: Scenario info only (no test results, no scrubber) */}
             <div className={styles.leftColumnContent}>
               <div className={styles.testDescription}>
-                <p>
-                  <span className={styles.instructionLabel}>Scenario: </span>
-                  {scenario.name}
-                </p>
+                <span className={styles.instructionLabel}>{scenario.name}</span>
                 {scenario.description && <p className="text-sm text-gray-600 mt-2">{scenario.description}</p>}
               </div>
             </div>

@@ -51,10 +51,7 @@ export function InspectedVisualTestResultViewLHS({
       <div
         className={assembleClassNames(styles.testDescription, currentTest.status === "fail" ? styles.stateFailed : "")}
       >
-        <p>
-          <span className={styles.instructionLabel}>Scenario: </span>
-          {currentTest.name}
-        </p>
+        <span className={styles.instructionLabel}>{currentTest.name}</span>
 
         <TestResultInfo firstExpect={firstExpect} />
       </div>

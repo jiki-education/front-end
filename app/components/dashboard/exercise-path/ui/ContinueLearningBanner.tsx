@@ -18,7 +18,6 @@ export function ContinueLearningBanner({ nextLesson, onStartLesson }: ContinueLe
   const [isVisible, setIsVisible] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   // Timer-based banner display - setState in timer callback is standard pattern
   useEffect(() => {
     if (!nextLesson) {
@@ -46,7 +45,6 @@ export function ContinueLearningBanner({ nextLesson, onStartLesson }: ContinueLe
       return () => clearTimeout(animateTimer);
     }
   }, [shouldShow]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleStartClick = () => {
     if (nextLesson) {

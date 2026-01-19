@@ -12,7 +12,6 @@ export function ConfirmEmailForm() {
 
   const [status, setStatus] = useState<"confirming" | "success" | "error">("confirming");
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   // Runs email confirmation on mount - async initialization pattern
   useEffect(() => {
     if (!token) {
@@ -42,7 +41,6 @@ export function ConfirmEmailForm() {
 
     confirmEmail();
   }, [token, router]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (status === "confirming") {
     return (
