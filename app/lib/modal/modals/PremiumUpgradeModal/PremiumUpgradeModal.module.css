@@ -6,12 +6,26 @@
     position: relative;
     width: 100%;
     margin: 0 auto;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
 }
 
 /* Custom modal width override */
 :global(.premiumModalWidth) {
     max-width: 900px !important;
     width: 90% !important;
+    padding: 40px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+@media (max-width: 768px) {
+    :global(.premiumModalWidth) {
+        padding: 24px 16px !important;
+        max-height: 100vh !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+    }
 }
 
 /* Removed modalHeader and modalInner - no longer needed */
@@ -282,34 +296,157 @@
 }
 
 /* Responsive Design */
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    :global(.premiumModalWidth) {
+        max-width: 750px !important;
+        width: 95% !important;
+    }
+
+    .mainHeading {
+        font-size: 34px;
+    }
+
+    .plansContainer {
+        gap: 30px;
+    }
+
+    .leftSide,
+    .rightSide {
+        min-width: 320px;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
+    :global(.premiumModalWidth) {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
     .modalContent {
         padding: 0;
+        gap: 20px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .plansContainer {
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
+        width: 100%;
     }
 
     .arrowDecoration {
         display: none;
     }
 
-    .mainHeading {
-        font-size: 28px;
+    .leftSide {
+        min-width: unset;
+        width: 100%;
+        padding: 0 10px;
     }
 
-    .premiumPrice .amount {
-        font-size: 40px;
+    .mainHeading {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .mainSubheading {
+        font-size: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .planSection {
+        padding: 16px 20px;
+        border-radius: 10px;
+    }
+
+    .planName {
+        font-size: 24px;
+    }
+
+    .planFeatures li {
+        font-size: 14px;
+    }
+
+    .planNote {
+        font-size: 13px;
     }
 
     .rightSide {
-        padding: 20px;
+        min-width: unset;
         width: 100%;
+        padding: 24px 20px;
+        border-radius: 10px;
     }
 
-    .leftSide {
-        margin-right: 0;
+    .premiumName {
+        font-size: 20px;
+    }
+
+    .premiumPrice .amount {
+        font-size: 36px;
+    }
+
+    .premiumPrice .period {
+        font-size: 14px;
+    }
+
+    .annualNote {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .upgradeButton {
+        padding: 12px 20px;
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    .premiumFeatures li {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .skipLink {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .mainHeading {
+        font-size: 24px;
+    }
+
+    .mainSubheading {
+        font-size: 14px;
+    }
+
+    .planSection {
+        padding: 14px 16px;
+    }
+
+    .planName {
+        font-size: 20px;
+    }
+
+    .premiumPrice .amount {
+        font-size: 32px;
+    }
+
+    .upgradeButton {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .buttonAvatar {
+        width: 24px;
+        height: 24px;
     }
 }
