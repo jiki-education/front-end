@@ -49,7 +49,7 @@ describe("Store Animation Replay Bug", () => {
 
   it("should reset isPlaying when setting new test suite results", () => {
     const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-    const store = createOrchestratorStore(exercise, "jikiscript");
+    const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
     // First test run - with frames (will auto-play)
     const firstTest = createMockTest("test-1", [
@@ -109,7 +109,7 @@ describe("Store Animation Replay Bug", () => {
 
   it("should allow animation to play after empty/failed first run", () => {
     const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-    const store = createOrchestratorStore(exercise, "jikiscript");
+    const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
     // First test run - empty repeat loop (no frames)
     const firstTest = createMockTest("test-1", []);

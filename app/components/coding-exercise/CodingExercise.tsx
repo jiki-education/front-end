@@ -4,26 +4,20 @@ import type { ExerciseSlug } from "@jiki/curriculum";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
+import type { ExerciseContext } from "./lib/types";
 import "./codemirror.css";
 
 interface CodingExerciseProps {
   language: "javascript" | "jikiscript" | "python";
   exerciseSlug: ExerciseSlug;
-  projectSlug?: string;
-  isProject?: boolean;
+  context: ExerciseContext;
 }
 
-export default function CodingExercise({
-  language,
-  exerciseSlug,
-  projectSlug,
-  isProject = false
-}: CodingExerciseProps) {
+export default function CodingExercise({ language, exerciseSlug, context }: CodingExerciseProps) {
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,
-    projectSlug,
-    isProject
+    context
   });
 
   // Error state

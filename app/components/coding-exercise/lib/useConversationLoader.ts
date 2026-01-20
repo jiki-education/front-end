@@ -8,29 +8,29 @@ export interface ConversationLoaderState {
   error: string | null;
 }
 
-export function useConversationLoader(exerciseSlug: string) {
+export function useConversationLoader(contextSlug: string) {
   const [state, setState] = useState<ConversationLoaderState>({
     conversation: [],
     isLoading: true,
     error: null
   });
 
-  // Cache to prevent redundant API calls for the same exercise
+  // Cache to prevent redundant API calls for the same context
   const cacheRef = useRef<Record<string, ChatMessage[]>>({});
   const loadedRef = useRef<string | null>(null);
 
   const loadConversation = useCallback(
     async (forceReload = false) => {
-      if (!exerciseSlug) {
+      if (!contextSlug) {
         setState((prev) => ({ ...prev, isLoading: false }));
         return;
       }
 
       // Check cache first unless forcing reload
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (!forceReload && cacheRef.current[exerciseSlug] && loadedRef.current === exerciseSlug) {
+      if (!forceReload && cacheRef.current[contextSlug] && loadedRef.current === contextSlug) {
         setState({
-          conversation: cacheRef.current[exerciseSlug],
+          conversation: cacheRef.current[contextSlug],
           isLoading: false,
           error: null
         });
@@ -40,14 +40,14 @@ export function useConversationLoader(exerciseSlug: string) {
       try {
         setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
-        const userLessonData = await fetchUserLesson(exerciseSlug);
+        const userLessonData = await fetchUserLesson(contextSlug);
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const conversation = userLessonData.conversation || [];
 
         // Cache the result
-        cacheRef.current[exerciseSlug] = conversation;
-        loadedRef.current = exerciseSlug;
+        cacheRef.current[contextSlug] = conversation;
+        loadedRef.current = contextSlug;
 
         setState({
           conversation,
@@ -60,8 +60,8 @@ export function useConversationLoader(exerciseSlug: string) {
           // If user lesson doesn't exist yet, that's okay - start with empty conversation
           if (error.message.includes("User lesson not found")) {
             const emptyConversation: ChatMessage[] = [];
-            cacheRef.current[exerciseSlug] = emptyConversation;
-            loadedRef.current = exerciseSlug;
+            cacheRef.current[contextSlug] = emptyConversation;
+            loadedRef.current = contextSlug;
 
             setState({
               conversation: emptyConversation,
@@ -81,7 +81,7 @@ export function useConversationLoader(exerciseSlug: string) {
         });
       }
     },
-    [exerciseSlug]
+    [contextSlug]
   );
 
   // Load conversation data on mount - async data fetching pattern

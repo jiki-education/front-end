@@ -15,7 +15,7 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript");
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -61,7 +61,7 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript");
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -105,7 +105,7 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript");
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
       const state = store.getState();
 
       const frame1 = createMockFrame(0, { line: 1 });

@@ -38,6 +38,7 @@ describe("CodeEditor", () => {
     // Default mock implementation
     mockUseOrchestratorStore.mockReturnValue({
       exerciseSlug: "test-uuid",
+      context: { type: "lesson" as const, slug: "test-lesson" },
       exerciseTitle: "Test Exercise",
       code: "const x = 1;",
       output: "",

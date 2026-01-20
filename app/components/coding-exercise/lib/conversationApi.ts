@@ -7,7 +7,7 @@ export interface ConversationSaveError extends Error {
 }
 
 export async function saveConversation(
-  exerciseSlug: string,
+  contextSlug: string,
   userMessage: string,
   assistantMessage: string,
   signature: SignatureData
@@ -20,7 +20,7 @@ export async function saveConversation(
     // Save user message
     await saveUserMessage({
       context_type: "lesson",
-      context_identifier: exerciseSlug,
+      context_identifier: contextSlug,
       content: userMessage,
       tokens: userMessageTokens
     });
@@ -28,7 +28,7 @@ export async function saveConversation(
     // Save assistant message with signature
     await saveAssistantMessage({
       context_type: "lesson",
-      context_identifier: exerciseSlug,
+      context_identifier: contextSlug,
       content: assistantMessage,
       tokens: assistantMessageTokens,
       timestamp: signature.timestamp,

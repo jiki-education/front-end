@@ -1,3 +1,5 @@
+import type { ExerciseSlug } from "@jiki/curriculum";
+
 // Shared video source type
 export interface VideoSource {
   host: string;
@@ -19,6 +21,6 @@ export interface Lesson {
 export type LessonWithData = Lesson &
   (
     | { type: "video"; data: { sources: VideoSource[] } }
-    | { type: "exercise"; data?: Record<string, unknown> }
+    | { type: "exercise"; data: { slug: ExerciseSlug } }
     | { type: "quiz"; data?: Record<string, unknown> }
   );

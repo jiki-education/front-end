@@ -30,11 +30,11 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
 
-  constructor(exercise: ExerciseDefinition, language: Language, context?: ExerciseContext) {
+  constructor(exercise: ExerciseDefinition, language: Language, context: ExerciseContext) {
     this.exercise = exercise;
 
-    // Create instance-specific store with exercise and language
-    this.store = createOrchestratorStore(exercise, language);
+    // Create instance-specific store with exercise, language, and context
+    this.store = createOrchestratorStore(exercise, language, context);
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);

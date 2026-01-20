@@ -13,10 +13,10 @@ jest.mock("@/lib/api/projects", () => ({
 }));
 
 jest.mock("@/components/coding-exercise/CodingExercise", () => {
-  return function MockCodingExercise({ exerciseSlug, projectSlug, isProject }: any) {
+  return function MockCodingExercise({ exerciseSlug, context }: any) {
     return (
       <div data-testid="coding-exercise">
-        Exercise: {exerciseSlug}, Project: {projectSlug}, IsProject: {String(isProject)}
+        Exercise: {exerciseSlug}, Context: {context.type}/{context.slug}
       </div>
     );
   };
@@ -67,7 +67,7 @@ describe("ProjectPage", () => {
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: test-exercise, Project: test-project, IsProject: true"
+      "Exercise: test-exercise, Context: project/test-project"
     );
   });
 
@@ -129,7 +129,7 @@ describe("ProjectPage", () => {
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: fallback-project, Project: fallback-project, IsProject: true"
+      "Exercise: fallback-project, Context: project/fallback-project"
     );
   });
 
@@ -153,7 +153,7 @@ describe("ProjectPage", () => {
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: started-exercise, Project: started-project, IsProject: true"
+      "Exercise: started-exercise, Context: project/started-project"
     );
   });
 });

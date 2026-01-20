@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
+import type { ExerciseContext } from "../lib/types";
 
 interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
   exerciseSlug: ExerciseSlug;
-  projectSlug?: string;
-  isProject?: boolean;
+  context: ExerciseContext;
 }
 
-export function useExerciseLoader({ language, exerciseSlug, projectSlug, isProject = false }: UseExerciseLoaderProps) {
+export function useExerciseLoader({ language, exerciseSlug, context }: UseExerciseLoaderProps) {
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -29,19 +29,13 @@ export function useExerciseLoader({ language, exerciseSlug, projectSlug, isProje
         // Load the exercise module
         const exercise = (await loader()).default;
 
-        // Create orchestrator only once and store in ref
-        // Pass hardcoded jikiscript language and exercise context
-        const context =
-          isProject && projectSlug
-            ? { type: "project" as const, slug: projectSlug }
-            : { type: "lesson" as const, slug: exerciseSlug };
-
+        // Create orchestrator with exercise, language, and context
         orchestratorRef.current = new Orchestrator(exercise, language, context);
 
-        // Fetch completion status
+        // Fetch completion status using the context slug (lessonSlug for lessons, projectSlug for projects)
         try {
           const { fetchUserLesson } = await import("@/lib/api/lessons");
-          const userLesson = await fetchUserLesson(exerciseSlug);
+          const userLesson = await fetchUserLesson(context.slug);
           const isCompleted = userLesson.status === "completed";
           orchestratorRef.current.setIsExerciseCompleted(isCompleted);
         } catch (error) {
