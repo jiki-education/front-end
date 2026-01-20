@@ -12,20 +12,15 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.use(
   "/chat",
   cors({
-    origin: (origin, c) => {
-      // Detect environment based on request hostname
-      const hostname = new URL(c.req.url).hostname;
-      const isProduction = hostname === "chat.jiki.io";
-
-      // Exact domain matching to prevent bypass attacks
-      const allowedOrigins = isProduction
-        ? ["https://jiki.io"] // Production: only jiki.io
-        : [
-            // Development: allow local origins
-            "http://localhost:3061",
-            "http://local.jiki.io:3061",
-            "https://jiki.io" // Allow testing prod domain in dev
-          ];
+    origin: (origin) => {
+      // All allowed origins - check the origin header directly
+      const allowedOrigins = [
+        // Production
+        "https://jiki.io",
+        // Development
+        "http://localhost:3061",
+        "http://local.jiki.io:3061"
+      ];
 
       if (allowedOrigins.includes(origin)) {
         return origin;

@@ -71,9 +71,22 @@ describe("JWT Authentication", () => {
     expect(result.error).toBe("missing_claim");
   });
 
-  it("should handle JWT with non-string sub claim", async () => {
+  it("should accept JWT with numeric sub claim (Rails compatibility)", async () => {
     const secret = new TextEncoder().encode(testSecret);
-    const token = await new SignJWT({ sub: 123 } as any)
+    const token = await new SignJWT({ sub: 123, exercise_slug: "maze-solve-basic" } as any)
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
+
+    const result = await verifyJWT(token, testSecret);
+    expect(result.userId).toBe("123");
+    expect(result.exerciseSlug).toBe("maze-solve-basic");
+    expect(result.error).toBeUndefined();
+  });
+
+  it("should reject JWT with invalid sub claim type", async () => {
+    const secret = new TextEncoder().encode(testSecret);
+    const token = await new SignJWT({ sub: { id: 123 }, exercise_slug: "maze-solve-basic" } as any)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("1h")
       .sign(secret);
