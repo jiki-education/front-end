@@ -13,6 +13,7 @@ import {
   informationWidgetDataEffect,
   showInfoWidgetEffect
 } from "../../ui/codemirror/extensions";
+import { cleanupAllInformationTooltips } from "../../ui/codemirror/extensions/end-line-information/cleanup";
 import { breakpointEffect } from "../../ui/codemirror/extensions/breakpoint";
 import {
   INFO_HIGHLIGHT_COLOR,
@@ -107,6 +108,9 @@ export class EditorManager {
     if (this.saveDebounced) {
       this.saveDebounced.cancel();
     }
+
+    // Clean up any remaining tooltips before destroying editor
+    cleanupAllInformationTooltips();
 
     // Destroy the editor view to remove it from DOM
     this.editorView.destroy();

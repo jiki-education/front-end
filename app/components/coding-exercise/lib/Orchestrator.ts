@@ -356,6 +356,24 @@ class Orchestrator {
   setCurrentTask(taskId: string): void {
     this.taskManager.setCurrentTask(taskId);
   }
+
+  // Clean up method to destroy the orchestrator and its managers
+  destroy(): void {
+    // Clean up the editor manager if it exists
+    if (this.editorManager) {
+      this.editorManager.cleanup();
+      this.editorManager = null;
+    }
+
+    // Clean up animation timeline if current test has one
+    const currentTest = this.store.getState().currentTest;
+    if (currentTest?.animationTimeline) {
+      currentTest.animationTimeline.destroy();
+    }
+
+    // Clear any callbacks
+    this.editorRefCallback = null;
+  }
 }
 
 // Re-export the hook from store.ts

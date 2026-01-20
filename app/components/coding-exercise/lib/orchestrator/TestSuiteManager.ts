@@ -1,5 +1,6 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
+import { processMessageContent } from "../../ui/messageUtils";
 import type { TestSuiteResult, TestExpect } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
 
@@ -44,7 +45,7 @@ export class TestSuiteManager {
 
     // Location is always present in SyntaxError
     state.setInformationWidgetData({
-      html: error.message,
+      html: processMessageContent(error.message),
       line: error.location.line,
       status: "ERROR"
     });

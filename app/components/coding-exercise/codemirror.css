@@ -221,8 +221,6 @@
     &.error {
         @apply bg-surface-elevated border-2 border-error-border;
 
-        @apply p-0;
-
         filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
 
         h2 {
@@ -248,9 +246,6 @@
             & > *:last-child {
                 margin-bottom: 0;
             }
-        }
-        & > .content {
-            @apply p-0;
         }
 
         .tooltip-arrow {

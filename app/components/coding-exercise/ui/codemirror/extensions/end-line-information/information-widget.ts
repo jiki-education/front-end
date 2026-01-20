@@ -7,6 +7,7 @@ import { arrow, autoUpdate, computePosition, offset, shift } from "@floating-ui/
 import hljs from "highlight.js/lib/core";
 import "highlight.js/styles/default.min.css";
 import { addHighlight, removeAllHighlightEffect } from "../edit-editor/highlightRange";
+import { cleanupAllInformationTooltips } from "./cleanup";
 
 export class InformationWidget extends WidgetType {
   private tooltip: HTMLElement | null = null;
@@ -34,6 +35,10 @@ export class InformationWidget extends WidgetType {
     this.initializeObserver();
 
     return this.referenceElement;
+  }
+
+  destroy(): void {
+    this.cleanup();
   }
 
   private createRefElement() {
@@ -115,6 +120,10 @@ export class InformationWidget extends WidgetType {
         }
       });
     }
+  }
+
+  static cleanupAllTooltips() {
+    cleanupAllInformationTooltips();
   }
 
   private applyHighlighting(element: HTMLElement) {

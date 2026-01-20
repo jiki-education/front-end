@@ -106,6 +106,11 @@ jest.mock("@/components/coding-exercise/ui/codemirror/extensions", () => ({
   showInfoWidgetEffect: { of: jest.fn() }
 }));
 
+// Mock cleanup utility
+jest.mock("@/components/coding-exercise/ui/codemirror/extensions/end-line-information/cleanup", () => ({
+  cleanupAllInformationTooltips: jest.fn()
+}));
+
 // Mock utility functions
 jest.mock("@/components/coding-exercise/ui/codemirror/utils/getBreakpointLines", () => ({
   getBreakpointLines: jest.fn(() => [])
