@@ -35,9 +35,8 @@ export function GlobalErrorHandler() {
   useEffect(() => {
     if (criticalError instanceof NetworkError) {
       showModal("connection-error-modal");
-    } else if (criticalError) {
-      // Keep using inline modal for other error types for now
     } else {
+      // Hide the modal system modal when switching to other error types or no error
       hideModal();
     }
   }, [criticalError]);
@@ -57,42 +56,9 @@ export function GlobalErrorHandler() {
       overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-error-modal-backdrop"
       ariaHideApp={false}
     >
-      {criticalError instanceof NetworkError && <NetworkErrorContent />}
       {criticalError instanceof AuthenticationError && <AuthErrorContent />}
       {criticalError instanceof RateLimitError && <RateLimitContent countdown={countdown} />}
     </Modal>
-  );
-}
-
-/**
- * Network Error Content
- * Shows when connection is lost - auto-recovers when connection returns
- */
-function NetworkErrorContent() {
-  return (
-    <div className="text-center">
-      <div className="mb-4 flex justify-center">
-        <svg
-          className="w-16 h-16 text-orange-500"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"
-          />
-        </svg>
-      </div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">Connection Error</h2>
-      <p className="text-gray-600 mb-4">We&apos;re having trouble connecting. Retrying automatically...</p>
-      <div className="flex justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-      </div>
-    </div>
   );
 }
 
