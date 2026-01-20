@@ -1,4 +1,3 @@
-import { LessonTooltip } from "../LessonTooltip";
 import type { LevelSectionData } from "../types";
 import { LessonNode } from "./LessonNode";
 import { MilestoneCard } from "./MilestoneCard";
@@ -7,8 +6,8 @@ interface LevelSectionProps {
   section: LevelSectionData;
   _clickedLessonSlug: string | null;
   _levelCompletionInProgress: string | null;
-  onLessonClick: (lessonSlug: string) => void;
-  onLessonNavigation: (route: string) => void;
+  onLessonClick: (lessonSlug: string, route: string) => void;
+  _onLessonNavigation: (route: string) => void;
   onMilestoneClick: (section: LevelSectionData) => void;
 }
 
@@ -17,7 +16,7 @@ export function LevelSection({
   _clickedLessonSlug,
   _levelCompletionInProgress,
   onLessonClick,
-  onLessonNavigation,
+  _onLessonNavigation,
   onMilestoneClick
 }: LevelSectionProps) {
   if (section.lessons.length === 0) {
@@ -27,9 +26,11 @@ export function LevelSection({
   return (
     <>
       {section.lessons.map((lesson) => (
-        <LessonTooltip key={lesson.lesson.slug} exercise={lesson} placement="bottom" onNavigate={onLessonNavigation}>
-          <LessonNode lesson={lesson} onClick={(_e) => onLessonClick(lesson.lesson.slug)} />
-        </LessonTooltip>
+        <LessonNode
+          key={lesson.lesson.slug}
+          lesson={lesson}
+          onClick={(_e) => onLessonClick(lesson.lesson.slug, lesson.route)}
+        />
       ))}
 
       {/* Always show milestone - it's the divider between levels */}

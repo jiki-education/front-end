@@ -14,6 +14,11 @@ export default function ExercisePath() {
   const { handleLessonNavigation, clickedLessonSlug, setClickedLessonSlug, isPending } = useLessonNavigation();
   const { handleMilestoneClick, levelCompletionInProgress } = useMilestoneHandler(setLevels);
 
+  const handleLessonClick = (lessonSlug: string, route: string) => {
+    setClickedLessonSlug(lessonSlug);
+    handleLessonNavigation(route);
+  };
+
   if (levelsLoading) {
     return <LoadingState />;
   }
@@ -28,8 +33,8 @@ export default function ExercisePath() {
           section={section}
           _clickedLessonSlug={clickedLessonSlug}
           _levelCompletionInProgress={levelCompletionInProgress}
-          onLessonClick={setClickedLessonSlug}
-          onLessonNavigation={handleLessonNavigation}
+          onLessonClick={handleLessonClick}
+          _onLessonNavigation={handleLessonNavigation}
           onMilestoneClick={handleMilestoneClick}
         />
       ))}
