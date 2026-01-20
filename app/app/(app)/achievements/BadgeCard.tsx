@@ -1,4 +1,5 @@
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
 import type { BadgeData } from "@/lib/api/badges";
 import styles from "./BadgeCard.module.css";
 import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
@@ -57,7 +58,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
       onClick={handleClick}
       style={{ cursor: isEarned ? "pointer" : "default" }}
     >
-      {showNewRibbon && !isSpinning && <div className={styles.newRibbon}>NEW</div>}
+      {showNewRibbon && !isSpinning && <BadgeNewLabel className={styles.newRibbon} />}
 
       {isEarned && isNew && (
         <>

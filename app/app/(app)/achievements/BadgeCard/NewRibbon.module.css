@@ -2,20 +2,9 @@
    NEW BADGE RIBBON
    ============================================================================ */
 
+/* Positioning override for the shared BadgeNewLabel component */
 .newRibbon {
-    position: absolute;
-    top: -10px;
-    right: 12px;
-    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    z-index: 10;
+    /* Inherits styles from BadgeNewLabel component */
 }
 
 .badgeCard.new .newRibbon {
