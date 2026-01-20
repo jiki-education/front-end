@@ -15,7 +15,7 @@ import badgeStyles from "./modals/BadgeModal.module.css";
 // 4. Pass dismissible prop from modalProps through GlobalModalProvider to BaseModal
 
 export function GlobalModalProvider() {
-  const { isOpen, modalName, modalProps, overlayClassName } = useModalStore();
+  const { isOpen, modalName, modalProps, overlayClassName, modalClassName } = useModalStore();
 
   if (!isOpen || !modalName) {
     return null;
@@ -62,6 +62,7 @@ export function GlobalModalProvider() {
       isOpen={isOpen}
       onRequestClose={hideModal}
       overlayClassName={overlayClassName}
+      className={modalClassName}
       fullscreen={isFullscreenModal}
     >
       <ModalComponent {...(modalProps as any)} />

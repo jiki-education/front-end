@@ -1,10 +1,6 @@
-import Link from "next/link";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Development Tools - Jiki",
-  description: "Development utilities and testing pages for the Jiki platform."
-};
+import Link from "next/link";
 
 export default function DevPage() {
   return (
@@ -78,6 +74,12 @@ export default function DevPage() {
               <span className="text-gray-600 text-sm ml-2">
                 - Test all global modals including subscription, confirmation, and info modals
               </span>
+            </li>
+            <li>
+              <Link href="/dev/premium-upgrade-modal-test" className="text-blue-600 hover:underline">
+                Premium Upgrade Modal Test
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- Test the new premium upgrade modal with clean design</span>
             </li>
           </ul>
         </div>
