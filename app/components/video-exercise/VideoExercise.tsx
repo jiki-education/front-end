@@ -83,8 +83,18 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
 
     try {
       setIsMarking(true);
-      await markLessonComplete(lessonData.slug);
-      router.push("/dashboard");
+      const response = await markLessonComplete(lessonData.slug);
+
+      // Check for unlocked lesson in the API response
+      const unlockedEvent = response?.meta?.events?.find((e: any) => e.type === "lesson_unlocked");
+      const unlockedLessonSlug = unlockedEvent?.data?.lesson_slug;
+
+      // Navigate to dashboard with completed and optionally unlocked lesson
+      if (unlockedLessonSlug) {
+        router.push(`/dashboard?completed=${lessonData.slug}&unlocked=${unlockedLessonSlug}`);
+      } else {
+        router.push(`/dashboard?completed=${lessonData.slug}`);
+      }
     } catch (error) {
       console.error("Failed to mark lesson as complete:", error);
     } finally {

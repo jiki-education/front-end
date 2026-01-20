@@ -1,3 +1,6 @@
+/* Import animations */
+@import "./animations.module.css";
+
 /* Learning Path Container */
 .learningPath {
     display: grid;
@@ -18,7 +21,7 @@
     gap: 16px;
     padding: 16px 24px;
     background: var(--color-gray-50);
-    border: 2px solid var(--color-gray-100);
+    border: 3px solid var(--color-gray-100);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
@@ -45,6 +48,29 @@
     background: white;
 }
 
+/* Unlocked state - for lessons that were just unlocked */
+.lessonPart.unlocked {
+    background: white;
+    border: 3px solid var(--color-purple-500);
+    box-shadow: 0 4px 12px var(--color-purple-500-20);
+    opacity: 1;
+    /* Subtle animation only on hover for better performance */
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    /* GPU acceleration */
+    transform: translateZ(0);
+}
+
+.lessonPart.unlocked:hover {
+    transform: translateZ(0) scale(1.02);
+    box-shadow: 0 6px 16px var(--color-purple-500-30);
+}
+
+.lessonPart.unlocked::before {
+    background: var(--color-purple-500);
+}
+
 .lessonPart.complete::after {
     content: "✓";
     position: absolute;
@@ -69,14 +95,28 @@
     border: 3px solid var(--color-purple-500);
     box-shadow: 0 4px 12px var(--color-purple-500-20);
     animation: slowPulse 3s ease-in-out infinite;
+    /* Optimize with GPU acceleration */
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.lessonPart.inProgress::before {
+    animation: counterSlowPulse 3s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0) translateX(-50%);
 }
 
 .lessonPart.inProgress:hover {
     border-color: var(--color-purple-600);
     animation: none;
-    transform: scale(1.02);
+    transform: translateZ(0) scale(1.02);
     box-shadow: 0 8px 24px var(--color-purple-500-30);
     background: color-mix(in oklch, var(--color-purple-500) 6%, white);
+}
+
+.lessonPart.inProgress:hover::before {
+    /* Counter-scale to keep the line at original size */
+    transform: translateX(-50%) scaleY(0.98);
 }
 
 .lessonPart.locked {
@@ -97,12 +137,13 @@
     right: 16px;
     width: 28px;
     height: 28px;
-    background: var(--color-gray-200)
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E")
-        no-repeat center;
+    background-color: var(--color-gray-200);
+    background-image: url("/static/icons/locked.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 14px;
     border-radius: 50%;
     box-shadow: 0 2px 8px var(--color-gray-200-50);
-    color: var(--color-gray-400);
     z-index: 999;
 }
 
@@ -338,32 +379,110 @@
 }
 
 /* Status Badge - Hidden */
-.statusBadge,
-.partStatus {
+.statusBadge {
     display: none;
 }
 
-/* Keyframes */
-@keyframes slowPulse {
-    0%,
-    100% {
-        box-shadow: 0 4px 12px var(--color-purple-500-20);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 8px 24px var(--color-purple-500-40);
-        transform: scale(1.02);
-    }
+/* Animation Classes */
+.lessonPart.animatingComplete {
+    animation: lessonComplete 0.8s ease-out forwards;
 }
 
-@keyframes startCardPulse {
-    0%,
-    100% {
-        border-color: var(--color-green-500-40);
-        box-shadow: 0 2px 8px var(--color-green-500-30);
-    }
-    50% {
-        border-color: var(--color-green-500-80);
-        box-shadow: 0 4px 16px var(--color-green-500-50);
+.lessonPart.animatingUnlock {
+    animation:
+        lessonUnlock 0.8s ease-out forwards,
+        slowPulse 3s ease-in-out infinite 0.8s;
+    /* Start from locked state appearance */
+    opacity: 0.5;
+    position: relative;
+    overflow: visible;
+    transform: scale(1); /* Ensure initial scale is set */
+}
+
+/* Show connecting line immediately when unlocking */
+.lessonPart.animatingUnlock::before {
+    content: "";
+    position: absolute;
+    background: var(--color-purple-500) !important;
+    width: 3px;
+    height: 20px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Animate the icon from grayscale to color during unlock */
+.lessonPart.animatingUnlock .partIcon img {
+    animation: iconColorize 0.8s ease-out forwards;
+}
+
+/* Checkmark appear animation for completion */
+.lessonPart.animatingComplete::after {
+    content: "✓";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: var(--color-green-500);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px var(--color-green-500-30);
+    z-index: 999;
+    animation: checkmarkAppear 0.4s ease-out 0.4s backwards;
+}
+
+/* Lock icon disappear animation for unlock */
+.lessonPart.animatingUnlock::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--color-gray-200);
+    background-image: url("/static/icons/locked.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 14px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px var(--color-gray-200-50);
+    z-index: 999;
+    animation: lockOpen 33s ease-out forwards;
+    transform-origin: center;
+}
+
+/* Connecting line animation for completion */
+.lessonPart.animatingComplete::before {
+    content: "";
+    position: absolute;
+    background: var(--color-green-500);
+    width: 3px;
+    height: 20px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top;
+    animation: lineGrowAndCounterScale 0.8s ease-out forwards;
+}
+
+/* Remove counter animation for unlocked lessons to improve performance */
+/* The main element no longer pulses, so ::before doesn't need counter-animation */
+
+/* Respect user's motion preferences globally */
+@media (prefers-reduced-motion: reduce) {
+    .lessonPart.unlocked,
+    .lessonPart.inProgress,
+    .lessonPart.unlocked::before,
+    .lessonPart.inProgress::before {
+        animation: none !important;
     }
 }

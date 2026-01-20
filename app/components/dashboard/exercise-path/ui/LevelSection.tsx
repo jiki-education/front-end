@@ -1,4 +1,5 @@
 import type { LevelSectionData } from "../types";
+import type { AnimationState } from "../hooks/useProgressAnimation";
 import { LessonNode } from "./LessonNode";
 import { MilestoneCard } from "./MilestoneCard";
 
@@ -9,6 +10,8 @@ interface LevelSectionProps {
   onLessonClick: (lessonSlug: string, route: string) => void;
   _onLessonNavigation: (route: string) => void;
   onMilestoneClick: (section: LevelSectionData) => void;
+  animationState?: AnimationState;
+  recentlyUnlockedLessons?: Set<string>;
 }
 
 export function LevelSection({
@@ -17,7 +20,9 @@ export function LevelSection({
   _levelCompletionInProgress,
   onLessonClick,
   _onLessonNavigation,
-  onMilestoneClick
+  onMilestoneClick,
+  animationState,
+  recentlyUnlockedLessons
 }: LevelSectionProps) {
   if (section.lessons.length === 0) {
     return null;
@@ -30,6 +35,8 @@ export function LevelSection({
           key={lesson.lesson.slug}
           lesson={lesson}
           onClick={(_e) => onLessonClick(lesson.lesson.slug, lesson.route)}
+          animationState={animationState}
+          isRecentlyUnlocked={recentlyUnlockedLessons?.has(lesson.lesson.slug) || false}
         />
       ))}
 
