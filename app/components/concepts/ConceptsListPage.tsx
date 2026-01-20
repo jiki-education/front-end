@@ -14,12 +14,10 @@ interface ConceptsListPageProps {
 export default function ConceptsListPage({ authenticated }: ConceptsListPageProps) {
   const [isReady, setIsReady] = useState(false);
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   // Hydration protection - delays rendering of auth-dependent UI until client mount
   useEffect(() => {
     setIsReady(true);
   }, []);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const withSidebar = isReady && authenticated;
 

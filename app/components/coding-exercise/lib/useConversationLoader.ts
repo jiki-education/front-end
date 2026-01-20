@@ -84,12 +84,10 @@ export function useConversationLoader(exerciseSlug: string) {
     [exerciseSlug]
   );
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   // Load conversation data on mount - async data fetching pattern
   useEffect(() => {
     void loadConversation();
   }, [loadConversation]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const retry = useCallback(() => {
     void loadConversation(true); // Force reload on retry

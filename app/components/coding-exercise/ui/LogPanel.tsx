@@ -36,10 +36,12 @@ export default function LogPanel() {
     return currentTest.frames.find((frame) => frame.time === log.time)?.line;
   });
 
+  const scenarioStatusClass = currentTest.status === "pass" ? style.scenarioPass : style.scenarioFail;
   const description = (
     <>
-      This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
-      <code>console.log()</code> to log values.
+      This is the output from your code execution for{" "}
+      <span className={`${style.scenarioName} ${scenarioStatusClass}`}>{currentTest.name}</span> scenario. Here you can
+      analyse the changes you&apos;ve made. Use <code>console.log()</code> to log values.
     </>
   );
 

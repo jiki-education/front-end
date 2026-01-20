@@ -13,7 +13,7 @@ export function GlobalErrorHandler() {
   useEffect(() => {
     if (criticalError instanceof RateLimitError) {
       // Initialize countdown from error - this syncs local state with external error state
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setCountdown(criticalError.retryAfterSeconds);
 
       const interval = setInterval(() => {
