@@ -10,7 +10,7 @@ import {
 } from "@/app/(app)/achievements/lib/badgeUtils";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
-import LockIcon from "@static/icons/locked.svg";
+import UnlockIcon from "@/icons/unlocked-thin.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import Link from "next/link";
@@ -144,7 +144,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
                     {isNew && <BadgeNewLabel className={style.newLabel} />}
                     {isUnrevealed ? (
                       <div className={style.cardBack}>
-                        <LockIcon className={style.lockIcon} />
+                        <UnlockIcon className={style.unlockIcon} />
                       </div>
                     ) : (
                       <div className={style.badgeIconWrapper}>

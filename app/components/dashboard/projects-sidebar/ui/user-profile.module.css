@@ -234,12 +234,14 @@
     background: white;
     border-color: #f59e0b;
     overflow: visible; /* Changed from hidden to visible to allow new label to show */
+    animation: subtle-pulse 2s ease-in-out infinite;
 }
 
 .profileBadge.unrevealed:hover {
     box-shadow:
         0 0 0 4px rgba(245, 158, 11, 0.3),
         0 4px 12px rgba(245, 158, 11, 0.3);
+    animation: subtle-pulse-hover 2s ease-in-out infinite;
 }
 
 /* Card back for unrevealed badges - golden gradient with padlock */
@@ -276,8 +278,8 @@
     animation: shimmer 2s ease-in-out infinite;
 }
 
-/* Lock icon styling */
-.lockIcon {
+/* Unlock icon styling */
+.unlockIcon {
     width: 28px;
     height: 28px;
     color: rgba(255, 255, 255, 0.9);
