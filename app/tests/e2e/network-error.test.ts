@@ -275,10 +275,10 @@ test.describe("Network Error Handling E2E", () => {
       // Wait for modal to appear after ~1s of retrying
       await helpers.waitForModal(page);
 
-      // Verify modal has "Connection Error" message
+      // Verify modal has the new connection error message
       const modalText = await helpers.getModalText(page);
-      expect(modalText).toContain("Connection Error");
-      expect(modalText).toContain("Retrying automatically");
+      expect(modalText).toContain("Whoops! Lost connection");
+      expect(modalText).toContain("Jiki got a little tangled up and dropped the connection");
 
       // Restore network
       await helpers.setupSuccessfulResponses(page);
