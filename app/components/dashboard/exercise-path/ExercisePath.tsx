@@ -26,13 +26,14 @@ export default function ExercisePath() {
     if (completedLesson || unlockedLesson) {
       // Trigger animation with both completed and unlocked lessons
       // If only unlocked is present (from milestone completion), completed will be null
-      void triggerCompletionAnimation(completedLesson, unlockedLesson);
-
-      // Clean up the URL params
-      const newUrl = new URL(window.location.href);
-      newUrl.searchParams.delete("completed");
-      newUrl.searchParams.delete("unlocked");
-      window.history.replaceState({}, "", newUrl);
+      void triggerCompletionAnimation(completedLesson, unlockedLesson).then(() => {
+        // Clean up the URL params only after animation completes
+        // This prevents losing animation state on page refresh during the animation
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.delete("completed");
+        newUrl.searchParams.delete("unlocked");
+        window.history.replaceState({}, "", newUrl);
+      });
     }
   }, [triggerCompletionAnimation]);
 

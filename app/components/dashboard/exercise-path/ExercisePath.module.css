@@ -55,6 +55,16 @@
     box-shadow: 0 4px 12px var(--color-purple-500-20);
     opacity: 1;
     animation: pulsing 2s ease-in-out infinite;
+    animation-play-state: paused;
+    will-change: transform;
+}
+
+/* Only animate when in viewport and not reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+    .lessonPart.unlocked:hover,
+    .lessonPart.unlocked:focus-visible {
+        animation-play-state: running;
+    }
 }
 
 .lessonPart.unlocked::before {
@@ -85,10 +95,20 @@
     border: 3px solid var(--color-purple-500);
     box-shadow: 0 4px 12px var(--color-purple-500-20);
     animation: slowPulse 3s ease-in-out infinite;
+    will-change: transform;
 }
 
 .lessonPart.inProgress::before {
     animation: counterSlowPulse 3s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Pause animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+    .lessonPart.inProgress,
+    .lessonPart.inProgress::before {
+        animation: none;
+    }
 }
 
 .lessonPart.inProgress:hover {
@@ -462,4 +482,21 @@
 /* Counter-scale ::before for pulsing animation */
 .lessonPart.unlocked::before {
     animation: counterPulse 2s ease-in-out infinite;
+    animation-play-state: paused;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .lessonPart.unlocked:hover::before,
+    .lessonPart.unlocked:focus-visible::before {
+        animation-play-state: running;
+    }
+}
+
+/* Disable all infinite animations for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+    .lessonPart.unlocked,
+    .lessonPart.unlocked::before {
+        animation: none;
+    }
 }
