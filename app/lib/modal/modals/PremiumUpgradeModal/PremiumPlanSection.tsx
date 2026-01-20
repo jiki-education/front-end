@@ -26,7 +26,13 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       <p className={styles.annualNote}>(That&apos;s only $0.50 a day)</p>
 
       <button className={styles.upgradeButton} onClick={onUpgrade} disabled={isLoading}>
-        {user?.avatar && <Image src={user.avatar} alt="User" className={styles.buttonAvatar} width={24} height={24} />}
+        <Image
+          src={user?.avatar || "/static/icons/concepts/fallback.svg"}
+          alt="User"
+          className={styles.buttonAvatar}
+          width={24}
+          height={24}
+        />
         {isLoading ? "Processing..." : "Upgrade to Premium"}
       </button>
 
