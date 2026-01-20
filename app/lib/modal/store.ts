@@ -6,10 +6,11 @@ interface ModalState {
   modalName: string | null;
   modalProps: Record<string, any>;
   overlayClassName?: string;
+  modalClassName?: string;
 }
 
 interface ModalActions {
-  showModal: (name: string, props?: Record<string, any>, overlayClassName?: string) => void;
+  showModal: (name: string, props?: Record<string, any>, overlayClassName?: string, modalClassName?: string) => void;
   hideModal: () => void;
 }
 
@@ -22,14 +23,16 @@ const useModalStore = create<ModalStore>((set) => ({
   modalName: null,
   modalProps: {},
   overlayClassName: undefined,
+  modalClassName: undefined,
 
   // Actions
-  showModal: (name, props = {}, overlayClassName) =>
+  showModal: (name, props = {}, overlayClassName, modalClassName) =>
     set({
       isOpen: true,
       modalName: name,
       modalProps: props,
-      overlayClassName
+      overlayClassName,
+      modalClassName
     }),
 
   hideModal: () =>
@@ -37,7 +40,8 @@ const useModalStore = create<ModalStore>((set) => ({
       isOpen: false,
       modalName: null,
       modalProps: {},
-      overlayClassName: undefined
+      overlayClassName: undefined,
+      modalClassName: undefined
     })
 }));
 
@@ -45,8 +49,13 @@ const useModalStore = create<ModalStore>((set) => ({
 export { useModalStore };
 
 // Export convenience functions that can be called from anywhere
-export const showModal = (name: string, props?: Record<string, any>, overlayClassName?: string) => {
-  useModalStore.getState().showModal(name, props, overlayClassName);
+export const showModal = (
+  name: string,
+  props?: Record<string, any>,
+  overlayClassName?: string,
+  modalClassName?: string
+) => {
+  useModalStore.getState().showModal(name, props, overlayClassName, modalClassName);
 };
 
 export const hideModal = () => {

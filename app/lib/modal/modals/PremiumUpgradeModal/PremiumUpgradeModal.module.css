@@ -1,0 +1,315 @@
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Custom modal width override */
+:global(.premiumModalWidth) {
+    max-width: 900px !important;
+    width: 90% !important;
+}
+
+/* Removed modalHeader and modalInner - no longer needed */
+
+/* Removed closeButton styles - using modal's built-in close */
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 380px;
+    overflow: visible;
+}
+
+.mainHeading {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--color-gray-900, #111827);
+    line-height: 1.15;
+    margin-bottom: 12px;
+    margin-top: 0;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.mainHeading .highlight {
+    background: linear-gradient(135deg, var(--color-purple-500, #8b5cf6) 0%, var(--color-primary-500, #3b82f6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+}
+
+.mainHeading .highlight img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: auto;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.mainSubheading {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.planSection {
+    background: transparent;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border: 2px solid var(--color-gray-100);
+}
+
+.planPill {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--color-gray-100);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    margin-bottom: 16px;
+}
+
+.planName {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--color-gray-900);
+}
+
+.planPrice {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    margin-bottom: 14px;
+}
+
+.planFeatures {
+    list-style: none;
+}
+
+.planFeatures li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    color: var(--color-gray-600);
+    margin-bottom: 5px;
+}
+
+.planFeatures li svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-gray-400);
+    flex-shrink: 0;
+}
+
+.planNote {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+.rightSide {
+    flex: 1;
+    min-width: 360px;
+    background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%);
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.upgradePill {
+    display: inline-flex;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.premiumName {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 8px;
+}
+
+.premiumPrice {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 1px;
+    line-height: 1.2;
+}
+
+.premiumPrice .amount {
+    font-family: var(--font-baloo-2, "Baloo 2", sans-serif);
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--color-gray-900);
+}
+
+.premiumPrice .period {
+    font-size: 16px;
+    color: var(--color-gray-600);
+}
+
+.annualNote {
+    font-size: 15px;
+    color: var(--color-purple-500);
+    margin-bottom: 24px;
+}
+
+.upgradeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--color-purple-500);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 28px;
+    font-family: inherit;
+}
+
+.upgradeButton:hover {
+    background: var(--color-purple-600);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+.upgradeButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+.buttonAvatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.premiumFeatures {
+    list-style: none;
+    text-align: left;
+}
+
+.premiumFeatures li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-gray-700);
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.premiumFeatures li:last-child {
+    margin-bottom: 0;
+}
+
+.premiumFeatures li svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-purple-500);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.arrowDecoration {
+    position: absolute;
+    top: 140px;
+    left: calc(36% - 10px);
+    width: 150px;
+    height: auto;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.plansContainer {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+
+.skipLink {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 16px;
+    color: var(--color-gray-500);
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 1px solid var(--color-gray-300);
+    transition: color 0.2s ease;
+}
+
+.skipLink:hover {
+    color: var(--color-gray-700);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modalContent {
+        padding: 0;
+    }
+
+    .plansContainer {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .arrowDecoration {
+        display: none;
+    }
+
+    .mainHeading {
+        font-size: 28px;
+    }
+
+    .premiumPrice .amount {
+        font-size: 40px;
+    }
+
+    .rightSide {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .leftSide {
+        margin-right: 0;
+    }
+}

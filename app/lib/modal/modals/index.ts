@@ -14,6 +14,7 @@ import { BadgeModal } from "./BadgeModal";
 import { FlipBadgeModal } from "./FlipBadgeModal";
 import { ChangePasswordModal } from "@/components/settings/modals/ChangePasswordModal";
 import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal";
+import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 
 // Export all modals
 export {
@@ -32,7 +33,8 @@ export {
   BadgeModal,
   FlipBadgeModal,
   ChangePasswordModal,
-  ChangeEmailModal
+  ChangeEmailModal,
+  PremiumUpgradeModal
 };
 
 // Available modals registry
@@ -52,5 +54,6 @@ export const availableModals = {
   "badge-modal": BadgeModal,
   "flip-badge-modal": FlipBadgeModal,
   "change-password-modal": ChangePasswordModal,
-  "change-email-modal": ChangeEmailModal
+  "change-email-modal": ChangeEmailModal,
+  "premium-upgrade-modal": PremiumUpgradeModal
 };
