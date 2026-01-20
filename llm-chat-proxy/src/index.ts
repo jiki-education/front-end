@@ -32,6 +32,8 @@ app.use(
       }
       return "";
     },
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "OPTIONS"],
     credentials: true
   })
 );
