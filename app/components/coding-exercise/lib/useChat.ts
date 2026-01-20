@@ -26,8 +26,7 @@ export function useChat(orchestrator: Orchestrator) {
 
     // Fetch new token
     tokenFetchInProgress.current = fetchChatToken({
-      lessonSlug: context.contextSlug,
-      exerciseSlug: context.exerciseSlug
+      lessonSlug: context.contextSlug
     });
 
     try {
@@ -37,7 +36,7 @@ export function useChat(orchestrator: Orchestrator) {
     } finally {
       tokenFetchInProgress.current = null;
     }
-  }, [chatState, context.contextSlug, context.exerciseSlug]);
+  }, [chatState, context.contextSlug]);
 
   // Perform the actual chat request with a given token
   const performChatRequest = useCallback(

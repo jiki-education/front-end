@@ -185,8 +185,8 @@ export default function LLMChatTestPage() {
       // Get or reuse chat token
       let token = chatToken;
       if (!token) {
-        addDebugEvent("request", { type: "fetch_token", lessonSlug: selectedExercise, exerciseSlug: selectedExercise });
-        token = await fetchChatToken({ lessonSlug: selectedExercise, exerciseSlug: selectedExercise });
+        addDebugEvent("request", { type: "fetch_token", lessonSlug: selectedExercise });
+        token = await fetchChatToken({ lessonSlug: selectedExercise });
         setChatToken(token);
         addDebugEvent("response", { type: "token_received" });
       }
@@ -198,7 +198,7 @@ export default function LLMChatTestPage() {
         if (err instanceof ChatTokenExpiredError) {
           addDebugEvent("sse", { type: "token_expired", retrying: true });
           setChatToken(null);
-          const newToken = await fetchChatToken({ lessonSlug: selectedExercise, exerciseSlug: selectedExercise });
+          const newToken = await fetchChatToken({ lessonSlug: selectedExercise });
           setChatToken(newToken);
           await performRequest(newToken);
         } else {

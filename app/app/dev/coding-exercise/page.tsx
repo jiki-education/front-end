@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 export default function CodingExerciseDevPage() {
   return (
     <CodingExercise
-      exerciseSlug="scroll-and-shoot"
+      exerciseSlug="maze-solve-basic"
       language="jikiscript"
-      context={{ type: "lesson", slug: "scroll-and-shoot" }}
+      context={{ type: "lesson", slug: "maze-solve-basic" }}
     />
   );
 }

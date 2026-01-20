@@ -135,7 +135,10 @@ describe("Chat Endpoint Authentication", () => {
 
   async function createTokenWithoutExerciseSlug(): Promise<string> {
     const secret = new TextEncoder().encode(testSecret);
-    return await new SignJWT({ sub: "user-123" }).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(secret);
+    return await new SignJWT({ sub: "user-123" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
   }
 
   const mockEnv = {
@@ -275,5 +278,4 @@ describe("Chat Endpoint Authentication", () => {
     const data = (await response.json()) as { error: string };
     expect(data.error).toBe("token_expired");
   });
-
 });

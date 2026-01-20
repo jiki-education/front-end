@@ -14,7 +14,6 @@ export class ChatTokenError extends Error {
 
 export interface FetchChatTokenParams {
   lessonSlug: string;
-  exerciseSlug: string;
 }
 
 export interface ChatTokenResponse {
@@ -33,8 +32,7 @@ async function performTokenRequest(params: FetchChatTokenParams, attempt: number
     },
     credentials: "include", // Session cookie auth
     body: JSON.stringify({
-      lessonSlug: params.lessonSlug,
-      exerciseSlug: params.exerciseSlug
+      lesson_slug: params.lessonSlug
     })
   });
 
