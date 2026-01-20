@@ -1,0 +1,69 @@
+.placeholderCard {
+    padding: 24px;
+    background: white;
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.placeholderIcon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    border-radius: 12px;
+    flex-shrink: 0;
+    animation: shimmer 1.5s infinite;
+}
+
+.placeholderContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.placeholderTitle {
+    height: 20px;
+    width: 60%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.5s infinite;
+}
+
+.placeholderDescription {
+    height: 14px;
+    width: 90%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+    animation-delay: 0.1s;
+}
+
+.placeholderDescription2 {
+    height: 14px;
+    width: 70%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+    animation-delay: 0.2s;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.conceptsGrid.searching .placeholderCard {
+    display: flex;
+}

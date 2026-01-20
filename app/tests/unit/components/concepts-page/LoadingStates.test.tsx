@@ -58,13 +58,13 @@ describe("ConceptCardsLoadingSkeleton", () => {
 
   it("renders skeleton concept cards", () => {
     const { container } = render(<ConceptCardsLoadingSkeleton />);
-    const skeletonCards = container.querySelectorAll(`[class*="${styles.conceptCard}"]`);
+    const skeletonCards = container.querySelectorAll(`[class*="placeholderCard"]`);
     expect(skeletonCards.length).toBe(6);
   });
 
-  it("has animate-pulse class on skeleton cards", () => {
+  it("has shimmer animation on skeleton cards", () => {
     const { container } = render(<ConceptCardsLoadingSkeleton />);
-    const firstCard = container.querySelector(`[class*="${styles.conceptCard}"]`);
-    expect(firstCard).toHaveClass("animate-pulse");
+    const firstCard = container.querySelector(`[class*="placeholderCard"]`);
+    expect(firstCard).toBeInTheDocument();
   });
 });

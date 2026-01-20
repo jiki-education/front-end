@@ -1,5 +1,7 @@
 import SearchIcon from "@static/icons/search.svg";
+import CrossIcon from "@/icons/cross.svg";
 import { useRef } from "react";
+import styles from "./ConceptsSearch.module.css";
 
 interface ConceptsSearchProps {
   searchQuery: string;
@@ -26,7 +28,7 @@ export default function ConceptsSearch({
   };
   return (
     <div>
-      <div className="ui-search-input">
+      <div className={`ui-search-input ${styles.searchBar} ${searchQuery ? styles.hasValue : ""}`}>
         <SearchIcon />
         <input
           ref={inputRef}
@@ -35,13 +37,9 @@ export default function ConceptsSearch({
           value={searchQuery}
           onChange={onSearchChange}
         />
-        {searchQuery && (
-          <button onClick={handleClearSearch} type="button">
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        )}
+        <button onClick={handleClearSearch} type="button" className={styles.searchClearBtn}>
+          <CrossIcon />
+        </button>
       </div>
 
       {/* Search Results Info */}

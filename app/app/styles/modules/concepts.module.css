@@ -2,6 +2,7 @@
 .mainContent {
     flex: 1;
     padding: 40px;
+    min-height: 100vh;
 }
 
 .container {
