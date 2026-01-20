@@ -52,10 +52,18 @@ export function GlobalModalProvider() {
     );
   }
 
+  // Check if this modal should be fullscreen
+  const isFullscreenModal = modalName === "connection-error-modal";
+
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
   return (
-    <BaseModal isOpen={isOpen} onRequestClose={hideModal} overlayClassName={overlayClassName}>
+    <BaseModal
+      isOpen={isOpen}
+      onRequestClose={hideModal}
+      overlayClassName={overlayClassName}
+      fullscreen={isFullscreenModal}
+    >
       <ModalComponent {...(modalProps as any)} />
     </BaseModal>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useErrorHandlerStore } from "@/lib/api/errorHandlerStore";
 import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
+import { showModal, hideModal } from "@/lib/modal";
 
 export function GlobalErrorHandler() {
   const { criticalError } = useErrorHandlerStore();
@@ -30,12 +31,23 @@ export function GlobalErrorHandler() {
     }
   }, [criticalError]);
 
-  // No error - render nothing
-  if (!criticalError) {
+  // Handle modal display based on error type
+  useEffect(() => {
+    if (criticalError instanceof NetworkError) {
+      showModal("connection-error-modal");
+    } else if (criticalError) {
+      // Keep using inline modal for other error types for now
+    } else {
+      hideModal();
+    }
+  }, [criticalError]);
+
+  // No error or NetworkError (handled by modal system) - render nothing
+  if (!criticalError || criticalError instanceof NetworkError) {
     return null;
   }
 
-  // Render modal with error-specific content
+  // Render inline modal for non-network errors
   return (
     <Modal
       isOpen={true}

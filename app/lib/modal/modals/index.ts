@@ -1,4 +1,5 @@
 import { ConfirmationModal } from "./ConfirmationModal";
+import { ConnectionErrorModal } from "./ConnectionErrorModal";
 import { ExampleModal } from "./ExampleModal";
 import { ExerciseSuccessModal } from "./ExerciseSuccessModal";
 import { ExerciseCompletionModal } from "./ExerciseCompletionModal";
@@ -18,6 +19,7 @@ import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal"
 // Export all modals
 export {
   ConfirmationModal,
+  ConnectionErrorModal,
   ExampleModal,
   ExerciseSuccessModal,
   ExerciseCompletionModal,
@@ -39,6 +41,7 @@ export {
 export const availableModals = {
   "example-modal": ExampleModal,
   "confirmation-modal": ConfirmationModal,
+  "connection-error-modal": ConnectionErrorModal,
   "info-modal": InfoModal,
   "exercise-success-modal": ExerciseSuccessModal,
   "exercise-completion-modal": ExerciseCompletionModal,
