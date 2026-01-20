@@ -19,12 +19,17 @@ export function formatChatError(error: unknown): string {
   }
 
   if (error instanceof ChatApiError) {
+    if (error.status === 403) {
+      // Exercise mismatch - token was for a different exercise
+      return "Exercise mismatch. Please refresh and try again.";
+    }
     if (error.status === 401) {
       // Check specific error type for better user messaging
       if (error.data && typeof error.data === "object") {
         const errorData = error.data as any;
         if (errorData.error === "token_expired") {
-          return "Session expired. Refreshing authentication...";
+          // This is shown after auto-retry has failed
+          return "Session expired. Please try again.";
         }
         if (errorData.error === "invalid_token") {
           return "Authentication failed. Please sign in again.";

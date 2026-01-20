@@ -96,6 +96,11 @@ export default function LLMChatTestPage() {
     void loadExerciseCode(selectedExercise);
   }, [selectedExercise, loadExerciseCode]);
 
+  // Clear cached token when exercise changes (token is exercise-scoped)
+  useEffect(() => {
+    setChatToken(null);
+  }, [selectedExercise]);
+
   // Auto-scroll response area
   useEffect(() => {
     if (responseRef.current) {
