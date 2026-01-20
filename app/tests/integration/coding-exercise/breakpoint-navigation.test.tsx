@@ -13,7 +13,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
     slug: "test-uuid",
     stubs: { javascript: "// test code", python: "// test code", jikiscript: "// test code" }
   });
-  const orchestrator = new Orchestrator(exercise, "jikiscript");
+  const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
   // Set up test state with proper animation timeline mock
   orchestrator.getStore().setState({

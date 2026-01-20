@@ -40,7 +40,9 @@ export default function BreakpointGutterTestPage() {
     slug: "test-breakpoint-gutter",
     stubs: { javascript: TEST_CODE, python: TEST_CODE, jikiscript: TEST_CODE }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
+  const orchestratorRef = useRef<Orchestrator>(
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+  );
   const orchestrator = orchestratorRef.current;
 
   // Get state from orchestrator store

@@ -7,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function CodingExerciseDevPage() {
-  return <CodingExercise exerciseSlug="scroll-and-shoot" language="jikiscript" />;
+  return (
+    <CodingExercise
+      exerciseSlug="scroll-and-shoot"
+      language="jikiscript"
+      context={{ type: "lesson", slug: "scroll-and-shoot" }}
+    />
+  );
 }

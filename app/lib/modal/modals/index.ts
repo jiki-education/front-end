@@ -1,10 +1,10 @@
 import { ConfirmationModal } from "./ConfirmationModal";
+import { ConnectionErrorModal } from "./ConnectionErrorModal";
 import { ExampleModal } from "./ExampleModal";
 import { ExerciseSuccessModal } from "./ExerciseSuccessModal";
 import { ExerciseCompletionModal } from "./ExerciseCompletionModal";
 import { LevelMilestoneModal } from "./LevelMilestoneModal";
 import { InfoModal } from "./InfoModal";
-import { NetworkErrorModal } from "./NetworkErrorModal";
 import { SessionExpiredModal } from "./SessionExpiredModal";
 import { RateLimitModal } from "./RateLimitModal";
 import { SubscriptionModal } from "./SubscriptionModal";
@@ -19,12 +19,12 @@ import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 // Export all modals
 export {
   ConfirmationModal,
+  ConnectionErrorModal,
   ExampleModal,
   ExerciseSuccessModal,
   ExerciseCompletionModal,
   LevelMilestoneModal,
   InfoModal,
-  NetworkErrorModal,
   SessionExpiredModal,
   RateLimitModal,
   SubscriptionModal,
@@ -41,11 +41,11 @@ export {
 export const availableModals = {
   "example-modal": ExampleModal,
   "confirmation-modal": ConfirmationModal,
+  "connection-error-modal": ConnectionErrorModal,
   "info-modal": InfoModal,
   "exercise-success-modal": ExerciseSuccessModal,
   "exercise-completion-modal": ExerciseCompletionModal,
   "level-milestone-modal": LevelMilestoneModal,
-  "network-error-modal": NetworkErrorModal,
   "session-expired-modal": SessionExpiredModal,
   "rate-limit-modal": RateLimitModal,
   "subscription-modal": SubscriptionModal,

@@ -93,6 +93,16 @@ export default function TestGlobalModals() {
         </div>
 
         <div className="border rounded-lg p-4">
+          <h2 className="text-xl font-semibold mb-2">Connection Error Modal</h2>
+          <button
+            onClick={() => showModal("connection-error-modal")}
+            className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors"
+          >
+            Show Connection Error Modal
+          </button>
+        </div>
+
+        <div className="border rounded-lg p-4">
           <h2 className="text-xl font-semibold mb-2">Exercise Completion Modal</h2>
           <div className="space-x-2 space-y-2">
             <button

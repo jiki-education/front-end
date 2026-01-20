@@ -9,7 +9,7 @@ interface OrchestratorTestProviderProps {
 }
 
 export default function OrchestratorTestProvider({
-  orchestrator = new Orchestrator(createMockExercise(), "jikiscript"),
+  orchestrator = new Orchestrator(createMockExercise(), "jikiscript", { type: "lesson", slug: "test-lesson" }),
   children
 }: OrchestratorTestProviderProps) {
   return <OrchestratorProvider orchestrator={orchestrator}>{children}</OrchestratorProvider>;

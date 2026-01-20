@@ -49,7 +49,7 @@ export function useChat(orchestrator: Orchestrator) {
                 // Save signature data if present
                 if (signature) {
                   chatState.setSignature(signature);
-                  void saveConversation(context.exerciseSlug, message, fullResponse, signature);
+                  void saveConversation(context.contextSlug, message, fullResponse, signature);
                 }
 
                 // Set status to typing to start the TypeIt animation

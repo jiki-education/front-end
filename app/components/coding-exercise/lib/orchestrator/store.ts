@@ -8,17 +8,22 @@ import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
 import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
-import type { OrchestratorState, OrchestratorStore } from "../types";
+import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
 
 const ONE_MINUTE = 60 * 1000;
 
 // Factory function to create an instance-specific store
-export function createOrchestratorStore(exercise: ExerciseDefinition, language: Language): StoreApi<OrchestratorStore> {
+export function createOrchestratorStore(
+  exercise: ExerciseDefinition,
+  language: Language,
+  context: ExerciseContext
+): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => ({
       exerciseSlug: exercise.slug,
+      context,
       exerciseTitle: exercise.title,
       code: exercise.stubs[language],
       output: "",
@@ -205,7 +210,7 @@ export function createOrchestratorStore(exercise: ExerciseDefinition, language: 
               onCompleteExercise: async () => {
                 // Handle exercise completion using exercise slug from store
                 try {
-                  const response = await markLessonComplete(state.exerciseSlug);
+                  const response = await markLessonComplete(state.context.slug);
 
                   const events = response?.meta?.events || [];
                   get().setCompletionResponse(events);
@@ -610,6 +615,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
     orchestrator.getStore(),
     useShallow((state) => ({
       exerciseSlug: state.exerciseSlug,
+      context: state.context,
       exerciseTitle: state.exerciseTitle,
       code: state.code,
       output: state.output,

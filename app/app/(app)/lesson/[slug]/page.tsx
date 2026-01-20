@@ -5,7 +5,6 @@ import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchLesson } from "@/lib/api/lessons";
 import type { LessonWithData } from "@/types/lesson";
-import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -94,16 +93,28 @@ export default function LessonPage({ params }: PageProps) {
     return <VideoExercise lessonData={lesson} />;
   }
 
-  // // Default to coding exercise for "exercise" type
-  // // TODO: Map lesson slug to exercise slug from curriculum
-  // // For now, use a simple mapping to available exercises
-  // const exerciseSlugMap: Record<string, any> = {
-  //   "solve-a-maze": "maze-solve-basic",
-  //   "win-space-invaders": "maze-solve-basic",
-  //   "solve-a-maze-with-numbers": "maze-solve-basic"
-  // };
+  if (lesson.type === "exercise") {
+    return (
+      <CodingExercise
+        language="jikiscript"
+        exerciseSlug={lesson.data.slug}
+        context={{ type: "lesson", slug: lesson.slug }}
+      />
+    );
+  }
 
-  // const exerciseSlug = exerciseSlugMap[lesson.slug] || "maze-solve-basic";
-
-  return <CodingExercise language="jikiscript" exerciseSlug={lesson.slug as ExerciseSlug} />;
+  // Quiz type - not yet implemented
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <p className="text-gray-600 mb-4">Quiz lessons are not yet implemented</p>
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Back to Dashboard
+        </button>
+      </div>
+    </div>
+  );
 }

@@ -18,7 +18,7 @@ describe("InformationWidgetToggleButton", () => {
       slug: "test-uuid",
       stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
     });
-    orchestrator = new Orchestrator(exercise, "jikiscript");
+    orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
     // Mock the editorManager methods
     orchestrator.showInformationWidget = jest.fn();
     orchestrator.hideInformationWidget = jest.fn();

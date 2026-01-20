@@ -11,6 +11,7 @@ interface BaseModalProps {
   children: ReactNode;
   className?: string;
   overlayClassName?: string;
+  fullscreen?: boolean;
 }
 
 export function BaseModal({
@@ -19,17 +20,23 @@ export function BaseModal({
   title,
   children,
   className = "",
-  overlayClassName = ""
+  overlayClassName = "",
+  fullscreen = false
 }: BaseModalProps) {
+  // For fullscreen modals, use special classes
+  const modalClass = fullscreen ? styles.modalFullscreen : `${styles.modal} ${className}`;
+
+  const overlayClass = fullscreen ? styles.modalOverlayFullscreen : `${styles.modalOverlay} ${overlayClassName}`;
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      className={`${styles.modal} ${className}`}
-      overlayClassName={`${styles.modalOverlay} ${overlayClassName}`}
+      className={modalClass}
+      overlayClassName={overlayClass}
       ariaHideApp={false}
     >
-      {title && (
+      {title && !fullscreen && (
         <div className="mb-4 pb-4 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
         </div>
@@ -37,21 +44,23 @@ export function BaseModal({
       <div className="modal-content">{children}</div>
       {/* TODO: Add support for non-dismissible modals
           Hide this button when dismissible=false prop is passed */}
-      <button
-        onClick={onRequestClose}
-        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-        aria-label="Close modal"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      {!fullscreen && (
+        <button
+          onClick={onRequestClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="Close modal"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      )}
     </Modal>
   );
 }

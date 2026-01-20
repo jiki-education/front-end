@@ -23,7 +23,9 @@ export default function TestingPage({
     slug: "testing-ui",
     stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
+  const orchestratorRef = useRef<Orchestrator>(
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+  );
   const orchestrator = orchestratorRef.current;
 
   return (
