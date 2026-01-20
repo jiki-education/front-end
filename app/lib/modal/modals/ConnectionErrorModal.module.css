@@ -116,7 +116,7 @@
     width: 24px;
     height: 24px;
     border: 3px solid var(--color-gray-200);
-    border-top-color: var(--color-primary-500);
+    border-top-color: var(--color-blue-500);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -169,7 +169,7 @@
 }
 
 .helpText a {
-    color: var(--color-primary-500);
+    color: var(--color-blue-500);
     text-decoration: none;
     font-weight: 500;
 }
