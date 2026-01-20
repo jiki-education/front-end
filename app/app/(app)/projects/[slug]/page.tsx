@@ -120,6 +120,10 @@ export default function ProjectPage({ params }: PageProps) {
   const exerciseSlug = (project.exercise_slug || project.slug) as ExerciseSlug;
 
   return (
-    <CodingExercise language="jikiscript" exerciseSlug={exerciseSlug} projectSlug={project.slug} isProject={true} />
+    <CodingExercise
+      language="jikiscript"
+      exerciseSlug={exerciseSlug}
+      context={{ type: "project", slug: project.slug }}
+    />
   );
 }

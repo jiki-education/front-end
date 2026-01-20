@@ -42,6 +42,7 @@ export interface InformationWidgetData {
 // Public read-only state that components can access
 export interface OrchestratorState {
   exerciseSlug: string;
+  context: ExerciseContext;
   exerciseTitle: string; // Exercise title for UI display
   code: string;
   output: string;

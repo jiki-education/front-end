@@ -3,7 +3,7 @@ import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
 
 export interface ChatRequestPayload {
-  exerciseSlug: string;
+  exerciseSlug: string; // The curriculum exercise slug (for LLM proxy)
   code: string;
   question: string;
   language: string;

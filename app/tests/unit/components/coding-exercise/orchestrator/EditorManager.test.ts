@@ -114,7 +114,7 @@ describe("EditorManager", () => {
       slug: "test-uuid",
       stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
     });
-    store = createOrchestratorStore(mockExercise, "jikiscript");
+    store = createOrchestratorStore(mockExercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
     mockRunCode = jest.fn();
     const mockElement = document.createElement("div");
 

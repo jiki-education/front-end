@@ -23,7 +23,9 @@ export default function TestButtonsTestPage() {
     stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
     title: "Test Buttons E2E Test"
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
+  const orchestratorRef = useRef<Orchestrator>(
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+  );
   const orchestrator = orchestratorRef.current;
 
   // Use the orchestrator store hook

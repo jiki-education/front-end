@@ -3,14 +3,16 @@
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showConfirmation } from "@/lib/modal";
-import type { LessonWithData } from "@/types/lesson";
+import type { Lesson, VideoSource } from "@/types/lesson";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import MuxPlayer from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
+
 interface VideoExerciseProps {
-  lessonData: LessonWithData;
+  lessonData: VideoLesson;
 }
 
 export default function VideoExercise({ lessonData }: VideoExerciseProps) {
@@ -25,14 +27,8 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
 
   // Extract video source from lesson data
   // Backend returns: data.sources[0] = {host: 'mux', id: 'playbackId'}
-  let playbackId = "";
-  let videoSource = null;
-
-  if (lessonData.data?.sources && Array.isArray(lessonData.data.sources) && lessonData.data.sources.length > 0) {
-    videoSource = lessonData.data.sources[0];
-    // Extract the id which is the Mux playback ID
-    playbackId = videoSource.id || "";
-  }
+  const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
+  const playbackId = videoSource?.id ?? "";
 
   useEffect(() => {
     // Start playing immediately when component mounts

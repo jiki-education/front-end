@@ -37,7 +37,7 @@ export default function FrameStepperButtonsTestPage() {
         jikiscript: "// Test code for frame stepping"
       }
     });
-    const orch = new Orchestrator(exercise, "jikiscript");
+    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
     // Create test frames and set up the test state
     const frames = mockFrames();

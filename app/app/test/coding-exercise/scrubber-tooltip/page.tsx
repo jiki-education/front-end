@@ -27,7 +27,9 @@ export default function ScrubberTooltipTestPage() {
       jikiscript: `console.log("Line 1");\nconsole.log("Line 2");`
     }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
+  const orchestratorRef = useRef<Orchestrator>(
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+  );
   const orchestrator = orchestratorRef.current;
 
   const { hasCodeBeenEdited, currentTest } = useOrchestratorStore(orchestrator);

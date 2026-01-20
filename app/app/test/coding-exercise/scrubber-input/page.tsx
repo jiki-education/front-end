@@ -32,7 +32,9 @@ export default function ScrubberInputTestPage() {
       jikiscript: `// Test code for scrubber input\nconsole.log("Line 1");\nconsole.log("Line 2");\nconsole.log("Line 3");`
     }
   });
-  const orchestratorRef = useRef<Orchestrator>(new Orchestrator(exercise, "jikiscript"));
+  const orchestratorRef = useRef<Orchestrator>(
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+  );
   const orchestrator = orchestratorRef.current;
   const scrubberRef = useRef<HTMLInputElement>(null);
 
