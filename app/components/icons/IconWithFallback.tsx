@@ -44,7 +44,7 @@ interface IconWithFallbackProps extends IconProps {
   fallback: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
-/* eslint-disable react-hooks/static-components */
+/* Next16: eslint-disable react-hooks/static-components */
 // getIcon returns a cached lazy component - the iconCache ensures stable references across renders
 export function IconWithFallback({ type, slug, fallback: Fallback, width = 48, height = 48 }: IconWithFallbackProps) {
   const IconComponent = getIcon(type, slug, Fallback);
@@ -55,4 +55,4 @@ export function IconWithFallback({ type, slug, fallback: Fallback, width = 48, h
     </Suspense>
   );
 }
-/* eslint-enable react-hooks/static-components */
+/* Next16: eslint-enable react-hooks/static-components */

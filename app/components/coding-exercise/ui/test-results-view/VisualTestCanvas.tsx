@@ -26,7 +26,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
     view.classList.add("container-size", "aspect-square", "max-h-[100cqh]", "max-w-[100cqw]", "bg-white", "relative");
     viewContainerRef.current.appendChild(view);
     // Intentional DOM manipulation to show the view element
-    // eslint-disable-next-line react-hooks/immutability
+    // Next16: eslint-disable-next-line react-hooks/immutability
     view.style.display = "block";
 
     return () => {
