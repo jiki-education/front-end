@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { getCookie } from "hono/cookie";
 import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
 import { buildPrompt } from "./prompt-builder";
@@ -47,27 +46,14 @@ app.post("/chat", async (c) => {
   try {
     console.log("[Chat] Incoming request");
 
-    // 1. Extract and verify JWT from Authorization header first, then cookie (fallback)
-    let token: string | undefined;
-
-    // Try Authorization header first (explicit authentication takes priority)
+    // 1. Extract and verify JWT from Authorization header
     const authHeader = c.req.header("Authorization");
-    if (authHeader) {
-      token = authHeader.replace("Bearer ", "");
-      console.log("[Chat] ✓ Token from Authorization header");
-    } else {
-      // Fallback to cookie (new httpOnly approach)
-      const cookieToken = getCookie(c, "jiki_access_token");
-      if (cookieToken) {
-        token = cookieToken;
-        console.log("[Chat] ✓ Token from cookie (fallback)");
-      }
-    }
-
-    if (token === undefined) {
-      console.log("[Chat] ❌ No token provided");
+    if (!authHeader) {
+      console.log("[Chat] ❌ No Authorization header");
       return c.json({ error: "Missing authorization token" }, 401);
     }
+
+    const token = authHeader.replace("Bearer ", "");
 
     console.log("[Chat] Token (first 20 chars):", token.substring(0, 20) + "...");
 
@@ -103,6 +89,18 @@ app.post("/chat", async (c) => {
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
+    }
+
+    // 2b. Validate exerciseSlug in request matches JWT claim
+    if (jwtResult.exerciseSlug !== exerciseSlug) {
+      console.log(`[Chat] ❌ Exercise mismatch: JWT=${jwtResult.exerciseSlug}, body=${exerciseSlug}`);
+      return c.json(
+        {
+          error: "exercise_mismatch",
+          message: "Exercise does not match token"
+        },
+        403
+      );
     }
 
     // 3. Build prompt (uses curriculum package)

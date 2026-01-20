@@ -2,6 +2,7 @@ import { jwtVerify } from "jose";
 
 export interface JWTResult {
   userId: string | null;
+  exerciseSlug?: string;
   error?: "expired" | "invalid" | "missing_claim";
 }
 
@@ -26,7 +27,13 @@ export async function verifyJWT(token: string, secret: string): Promise<JWTResul
       return { userId: null, error: "missing_claim" };
     }
 
-    return { userId: payload.sub };
+    // Exercise slug is required for chat tokens
+    if (typeof payload.exercise_slug !== "string") {
+      console.log("Invalid token: missing or invalid exercise_slug claim");
+      return { userId: null, error: "missing_claim" };
+    }
+
+    return { userId: payload.sub, exerciseSlug: payload.exercise_slug };
   } catch (error) {
     console.error("JWT verification failed:", error);
 
