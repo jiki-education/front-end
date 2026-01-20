@@ -1,14 +1,87 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
-import { sendChatMessage } from "./chatApi";
+import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
 import { saveConversation } from "./conversationApi";
+import { fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
   const chatState = useChatState();
   const context = useChatContext(orchestrator);
+  const tokenFetchInProgress = useRef<Promise<string> | null>(null);
+
+  // Get existing token or fetch a new one
+  const ensureValidToken = useCallback(async (): Promise<string> => {
+    // Return existing token if available
+    if (chatState.chatToken) {
+      return chatState.chatToken;
+    }
+
+    // If a fetch is already in progress, wait for it
+    if (tokenFetchInProgress.current) {
+      return tokenFetchInProgress.current;
+    }
+
+    // Fetch new token
+    tokenFetchInProgress.current = fetchChatToken({
+      lessonSlug: context.contextSlug,
+      exerciseSlug: context.exerciseSlug
+    });
+
+    try {
+      const token = await tokenFetchInProgress.current;
+      chatState.setChatToken(token);
+      return token;
+    } finally {
+      tokenFetchInProgress.current = null;
+    }
+  }, [chatState, context.contextSlug, context.exerciseSlug]);
+
+  // Perform the actual chat request with a given token
+  const performChatRequest = useCallback(
+    async (message: string, token: string) => {
+      await sendChatMessage(
+        {
+          exerciseSlug: context.exerciseSlug,
+          code: context.currentCode,
+          question: message,
+          language: context.language,
+          history: chatState.messages,
+          nextTaskId: context.currentTaskId || undefined
+        },
+        {
+          onTextChunk: (text) => {
+            chatState.setCurrentResponse(text);
+          },
+          onSignature: (signature) => {
+            chatState.setSignature(signature);
+          },
+          onError: (error) => {
+            chatState.setError(error);
+            chatState.setStatus("error");
+          },
+          onComplete: (fullResponse, signature) => {
+            if (fullResponse.trim()) {
+              chatState.setCurrentResponse(fullResponse);
+
+              if (signature) {
+                chatState.setSignature(signature);
+                void saveConversation(context.contextSlug, message, fullResponse, signature);
+              }
+
+              chatState.setStatus("typing");
+            } else {
+              chatState.setStatus("idle");
+            }
+          }
+        },
+        token
+      );
+    },
+    [chatState, context]
+  );
 
   const sendMessage = useCallback(
     async (message: string) => {
@@ -20,55 +93,28 @@ export function useChat(orchestrator: Orchestrator) {
       chatState.addUserMessageImmediately(message);
 
       try {
-        await sendChatMessage(
-          {
-            exerciseSlug: context.exerciseSlug,
-            code: context.currentCode,
-            question: message,
-            language: context.language,
-            history: chatState.messages,
-            nextTaskId: context.currentTaskId || undefined
-          },
-          {
-            onTextChunk: (text) => {
-              // Just update the response, keep status as thinking until complete
-              chatState.setCurrentResponse(text);
-            },
-            onSignature: (signature) => {
-              chatState.setSignature(signature);
-            },
-            onError: (error) => {
-              chatState.setError(error);
-              chatState.setStatus("error");
-            },
-            onComplete: (fullResponse, signature) => {
-              if (fullResponse.trim()) {
-                // Set the response content and start typing animation
-                chatState.setCurrentResponse(fullResponse);
+        // Get a valid token
+        const token = await ensureValidToken();
 
-                // Save signature data if present
-                if (signature) {
-                  chatState.setSignature(signature);
-                  void saveConversation(context.contextSlug, message, fullResponse, signature);
-                }
-
-                // Set status to typing to start the TypeIt animation
-                // DON'T add to history yet - wait for typing to complete
-                chatState.setStatus("typing");
-              } else {
-                // No response, go back to idle
-                chatState.setStatus("idle");
-              }
-            }
+        try {
+          await performChatRequest(message, token);
+        } catch (error) {
+          // If token expired, clear it, get new one, and retry once
+          if (error instanceof ChatTokenExpiredError) {
+            chatState.clearChatToken();
+            const newToken = await ensureValidToken();
+            await performChatRequest(message, newToken);
+          } else {
+            throw error;
           }
-        );
+        }
       } catch (error) {
         const errorMessage = formatChatError(error);
         chatState.setError(errorMessage);
         chatState.setStatus("error");
       }
     },
-    [chatState, context]
+    [chatState, ensureValidToken, performChatRequest]
   );
 
   const clearConversation = useCallback(() => {

@@ -7,7 +7,8 @@ export function useChatState() {
     currentResponse: "",
     status: "idle",
     error: null,
-    signature: null
+    signature: null,
+    chatToken: null
   });
 
   const setStatus = useCallback((status: StreamStatus) => {
@@ -24,6 +25,14 @@ export function useChatState() {
 
   const setSignature = useCallback((signature: SignatureData | null) => {
     setState((prev) => ({ ...prev, signature }));
+  }, []);
+
+  const setChatToken = useCallback((chatToken: string) => {
+    setState((prev) => ({ ...prev, chatToken }));
+  }, []);
+
+  const clearChatToken = useCallback(() => {
+    setState((prev) => ({ ...prev, chatToken: null }));
   }, []);
 
   const addMessage = useCallback((message: ChatMessage) => {
@@ -56,7 +65,8 @@ export function useChatState() {
       currentResponse: "",
       status: "idle",
       error: null,
-      signature: null
+      signature: null,
+      chatToken: null
     });
   }, []);
 
@@ -98,6 +108,8 @@ export function useChatState() {
     setError,
     setCurrentResponse,
     setSignature,
+    setChatToken,
+    clearChatToken,
     addMessage,
     addMessageToHistory,
     addUserMessageImmediately,

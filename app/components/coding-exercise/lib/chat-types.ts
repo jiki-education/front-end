@@ -26,4 +26,5 @@ export interface ChatState {
   status: StreamStatus;
   error: string | null;
   signature: SignatureData | null;
+  chatToken: string | null;
 }

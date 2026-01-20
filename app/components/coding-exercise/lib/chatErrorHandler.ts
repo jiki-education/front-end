@@ -1,6 +1,23 @@
-import { ChatApiError } from "./chatApi";
+import { ChatApiError, ChatTokenExpiredError } from "./chatApi";
+import { ChatTokenError } from "./chatTokenApi";
 
 export function formatChatError(error: unknown): string {
+  // ChatTokenExpiredError should rarely show (auto-retry handles it)
+  if (error instanceof ChatTokenExpiredError) {
+    return "Session expired. Please try again.";
+  }
+
+  // ChatTokenError - errors fetching the token
+  if (error instanceof ChatTokenError) {
+    if (error.status === 401) {
+      return "Authentication failed. Please sign in again.";
+    }
+    if (error.status && error.status >= 500) {
+      return "Server error while initializing chat. Please try again.";
+    }
+    return "Failed to initialize chat. Please try again.";
+  }
+
   if (error instanceof ChatApiError) {
     if (error.status === 401) {
       // Check specific error type for better user messaging
