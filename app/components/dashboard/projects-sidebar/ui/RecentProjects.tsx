@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ProjectData } from "@/lib/api/projects";
 import { ProjectCard } from "./ProjectCard";
 import { EmptyProjectsState } from "./EmptyProjectsState";
+import { RecentProjectsSkeleton } from "./RecentProjectsSkeleton";
 import styles from "../projects-sidebar.module.css";
 
 interface RecentProjectsProps {
@@ -13,16 +14,9 @@ interface RecentProjectsProps {
 }
 
 export function RecentProjects({ projects, unlockedCount, loading }: RecentProjectsProps) {
-  // If loading, show loading state in a section box
+  // If loading, show skeleton
   if (loading) {
-    return (
-      <div className={styles.sectionBox}>
-        <div className={styles.sectionTitle}>Recent Projects</div>
-        <div className={styles.projectCards}>
-          <div className={styles.loadingPlaceholder}>Loading projects...</div>
-        </div>
-      </div>
-    );
+    return <RecentProjectsSkeleton />;
   }
 
   // If no projects, show empty state without wrapper

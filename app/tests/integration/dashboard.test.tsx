@@ -1,7 +1,9 @@
 import Dashboard from "@/app/(app)/dashboard/page";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
+import { fetchProjects } from "@/lib/api/projects";
+import { fetchBadges } from "@/lib/api/badges";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
-import { render, screen } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 
 // Mock Next.js router
 const mockPush = jest.fn();
@@ -66,6 +68,16 @@ jest.mock("@/lib/auth/authStore", () => ({
 // Mock the levels API
 jest.mock("@/lib/api/levels", () => ({
   fetchLevelsWithProgress: jest.fn()
+}));
+
+// Mock the projects API
+jest.mock("@/lib/api/projects", () => ({
+  fetchProjects: jest.fn()
+}));
+
+// Mock the badges API
+jest.mock("@/lib/api/badges", () => ({
+  fetchBadges: jest.fn()
 }));
 
 // Mock AuthenticationError
@@ -145,9 +157,11 @@ describe("Dashboard Page", () => {
     mockPush.mockClear();
     mockLogout.mockClear();
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
+    (fetchProjects as jest.Mock).mockResolvedValue({ results: [] });
+    (fetchBadges as jest.Mock).mockResolvedValue({ badges: [] });
   });
 
-  it("renders without crashing", () => {
+  it("renders without crashing", async () => {
     const { container } = render(
       <ThemeProvider>
         <Dashboard />
@@ -156,16 +170,23 @@ describe("Dashboard Page", () => {
 
     // Should render some content (not null)
     expect(container.firstChild).not.toBeNull();
+
+    // Wait for all async updates to complete
+    await waitFor(() => {
+      expect(fetchLevelsWithProgress).toHaveBeenCalled();
+    });
   });
 
-  it("displays loading state while fetching levels", () => {
-    render(
+  it("displays loading skeleton while fetching levels", () => {
+    const { container } = render(
       <ThemeProvider>
         <Dashboard />
       </ThemeProvider>
     );
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    // Check for skeleton elements using class names
+    const skeletons = container.querySelectorAll("[class*='skeleton']");
+    expect(skeletons.length).toBeGreaterThan(0);
   });
 
   // Note: Auth error handling is now done globally by GlobalErrorHandler
