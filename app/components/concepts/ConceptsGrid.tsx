@@ -2,7 +2,6 @@ import styles from "@/app/styles/modules/concepts.module.css";
 import { mockConcepts } from "@/lib/data/mockConcepts";
 import type { ConceptListItem } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";
-import { EmptyState } from "./ErrorStates";
 import { InlineLoading } from "./LoadingStates";
 
 interface ConceptsGridProps {
@@ -17,11 +16,10 @@ export default function ConceptsGrid({
   concepts,
   isLoading,
   debouncedSearchQuery,
-  onClearSearch,
+  onClearSearch: _onClearSearch,
   isAuthenticated
 }: ConceptsGridProps) {
-  // Show mock concepts when authenticated, regardless of API data
-  if (isAuthenticated) {
+  if (isAuthenticated && !debouncedSearchQuery) {
     return (
       <>
         {isLoading && <InlineLoading isAuthenticated={isAuthenticated} />}
@@ -34,24 +32,16 @@ export default function ConceptsGrid({
     );
   }
 
-  // Original logic for non-authenticated users
+  // Show actual search results or regular concepts
   return (
     <>
       {isLoading && concepts.length > 0 && <InlineLoading isAuthenticated={isAuthenticated} />}
 
-      {concepts.length === 0 && !isLoading ? (
-        <EmptyState
-          debouncedSearchQuery={debouncedSearchQuery}
-          onClearSearch={onClearSearch}
-          isAuthenticated={isAuthenticated}
-        />
-      ) : (
-        <div className={styles.conceptsGrid}>
-          {concepts.map((concept) => (
-            <ConceptCard key={concept.slug} concept={concept} />
-          ))}
-        </div>
-      )}
+      <div className={styles.conceptsGrid}>
+        {concepts.map((concept) => (
+          <ConceptCard key={concept.slug} concept={concept} />
+        ))}
+      </div>
     </>
   );
 }

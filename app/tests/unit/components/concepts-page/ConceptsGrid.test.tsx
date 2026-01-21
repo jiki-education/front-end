@@ -50,8 +50,8 @@ describe("ConceptsGrid", () => {
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
-  it("shows empty state when no concepts and not loading", () => {
-    render(
+  it("renders empty grid when no concepts and not loading", () => {
+    const { container } = render(
       <ConceptsGrid
         concepts={[]}
         isLoading={false}
@@ -60,7 +60,9 @@ describe("ConceptsGrid", () => {
         isAuthenticated={false}
       />
     );
-    expect(screen.getByText('No concepts found for "test search"')).toBeInTheDocument();
+    const grid = container.querySelector(`.${styles.conceptsGrid}`);
+    expect(grid).toBeInTheDocument();
+    expect(grid?.children.length).toBe(0);
   });
 
   it("renders concepts grid when authenticated", () => {

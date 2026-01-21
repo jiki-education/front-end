@@ -36,39 +36,19 @@ describe("ErrorState", () => {
 });
 
 describe("EmptyState", () => {
-  const defaultProps = {
-    debouncedSearchQuery: "",
-    onClearSearch: jest.fn(),
-    isAuthenticated: false
-  };
-
-  it("renders without crashing", () => {
-    render(<EmptyState {...defaultProps} />);
-    expect(screen.getByText("No concepts available at the moment.")).toBeInTheDocument();
+  it("renders nothing when no search query is provided", () => {
+    const { container } = render(<EmptyState debouncedSearchQuery="" />);
+    expect(container.firstChild).toBeNull();
   });
 
-  it("shows no search results message when search query is provided", () => {
-    render(<EmptyState {...defaultProps} debouncedSearchQuery="test" />);
-    expect(screen.getByText('No concepts found for "test"')).toBeInTheDocument();
+  it("shows no results message when search query is provided", () => {
+    render(<EmptyState debouncedSearchQuery="test" />);
+    expect(screen.getByText(/0 results for/)).toBeInTheDocument();
+    expect(screen.getByText("test")).toBeInTheDocument();
   });
 
-  it("shows clear search button when search query is provided", () => {
-    render(<EmptyState {...defaultProps} debouncedSearchQuery="test" />);
-    expect(screen.getByRole("button", { name: "Clear search" })).toBeInTheDocument();
-  });
-
-  it("calls onClearSearch when clear search button is clicked", () => {
-    const mockOnClearSearch = jest.fn();
-    render(<EmptyState {...defaultProps} debouncedSearchQuery="test" onClearSearch={mockOnClearSearch} />);
-
-    const clearButton = screen.getByRole("button", { name: "Clear search" });
-    fireEvent.click(clearButton);
-
-    expect(mockOnClearSearch).toHaveBeenCalled();
-  });
-
-  it("does not show clear search button when no search query", () => {
-    render(<EmptyState {...defaultProps} />);
-    expect(screen.queryByRole("button", { name: "Clear search" })).not.toBeInTheDocument();
+  it("shows try different search term message", () => {
+    render(<EmptyState debouncedSearchQuery="test" />);
+    expect(screen.getByText("Try a different search term or browse the library.")).toBeInTheDocument();
   });
 });

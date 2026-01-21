@@ -45,3 +45,33 @@
 .searchBar.hasValue input {
     padding-right: 44px;
 }
+
+.noResults {
+    display: block;
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.noResultsIcon {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    color: #94a3b8;
+}
+
+.noResultsTitle {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.noResultsMessage {
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    color: #64748b;
+    white-space: nowrap;
+}
