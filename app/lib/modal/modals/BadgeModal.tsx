@@ -36,7 +36,7 @@ export function BadgeModal({ badgeData, firstTime, onClose }: BadgeModalProps) {
         <div className={styles.factValue}>{badgeData.funFact}</div>
 
         {/* Action Button */}
-        <button onClick={hideModal} className="ui-btn ui-btn-xlarge ui-btn-for-colorful-background w-[100%]">
+        <button onClick={handleClose} className="ui-btn ui-btn-xlarge ui-btn-for-colorful-background w-[100%]">
           Keep Going!
         </button>
       </div>
