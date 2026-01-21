@@ -24,6 +24,7 @@
     border-style: dotted;
 }
 
-.badgeCard.locked:hover {
-    opacity: 1;
+.badgeCard.new:hover,
+.badgeCard.earned:hover {
+    transform: scale(1.02);
 }

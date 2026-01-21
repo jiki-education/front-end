@@ -18,7 +18,3 @@
     justify-content: center;
     aspect-ratio: 1;
 }
-
-.badgeCard:hover {
-    transform: scale(1.02);
-}
