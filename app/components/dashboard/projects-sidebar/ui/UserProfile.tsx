@@ -1,8 +1,16 @@
 "use client";
 
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
-import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "@/app/(app)/achievements/lib/badgeUtils";
+import {
+  getBadgeColor,
+  getBadgeDate,
+  isEarnedBadge,
+  isNewBadge,
+  isRecentBadge
+} from "@/app/(app)/achievements/lib/badgeUtils";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
+import UnlockIcon from "@/icons/unlocked-thin.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import Link from "next/link";
@@ -39,8 +47,52 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
     });
   };
 
+  // Sort badges the same way as achievements page: unrevealed, new, revealed
+  const sortBadges = (badges: BadgeData[]): BadgeData[] => {
+    return badges.toSorted((a, b) => {
+      // Determine category for each badge
+      // Priority: 1=unrevealed, 2=new (recently revealed or less than a week old), 3=revealed
+      const getCategory = (badge: BadgeData): number => {
+        if (badge.state === "unrevealed") {
+          return 1;
+        }
+        if (badge.state === "revealed" && isRecentBadge(badge)) {
+          return 2;
+        }
+        if (badge.state === "revealed") {
+          return 3;
+        }
+        return 4; // locked badges (shouldn't appear in earned badges but for safety)
+      };
+
+      const categoryA = getCategory(a);
+      const categoryB = getCategory(b);
+
+      // Primary sort by category
+      if (categoryA !== categoryB) {
+        return categoryA - categoryB;
+      }
+
+      // Secondary sort by unlock date (most recent first for earned badges)
+      if (a.unlocked_at && b.unlocked_at) {
+        return new Date(b.unlocked_at).getTime() - new Date(a.unlocked_at).getTime();
+      }
+
+      // If only one has a date, the one with date comes first
+      if (a.unlocked_at && !b.unlocked_at) {
+        return -1;
+      }
+      if (!a.unlocked_at && b.unlocked_at) {
+        return 1;
+      }
+
+      // Keep original order if no dates
+      return 0;
+    });
+  };
+
   // Use real badges if available, otherwise fall back to mock data
-  const displayBadges = realBadges && !badgesLoading ? realBadges.filter(isEarnedBadge).slice(0, 3) : null;
+  const displayBadges = realBadges && !badgesLoading ? sortBadges(realBadges.filter(isEarnedBadge)).slice(0, 3) : null;
 
   const totalEarnedBadges = realBadges ? realBadges.filter(isEarnedBadge).length : profile.badges.length;
 
@@ -78,17 +130,30 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
           ) : displayBadges && displayBadges.length > 0 ? (
             // Show real badges
             <>
-              {displayBadges.map((badge) => (
-                <div
-                  key={badge.id}
-                  className={`${style.profileBadge} ${isNewBadge(badge) ? style.new : ""}`}
-                  onClick={() => handleBadgeClick(badge)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {isNewBadge(badge) && <span className={style.badgeNewTag}>NEW</span>}
-                  <BadgeIcon slug={badge.slug} />
-                </div>
-              ))}
+              {displayBadges.map((badge) => {
+                const isUnrevealed = badge.state === "unrevealed";
+                const isNew = isUnrevealed || isRecentBadge(badge);
+                const badgeColor = getBadgeColor(badge);
+                return (
+                  <div
+                    key={badge.id}
+                    className={`${style.profileBadge} ${isUnrevealed ? style.unrevealed : ""} ${isNew && !isUnrevealed ? style.new : ""} ${style[badgeColor]}`}
+                    onClick={() => handleBadgeClick(badge)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {isNew && <BadgeNewLabel className={style.newLabel} />}
+                    {isUnrevealed ? (
+                      <div className={style.cardBack}>
+                        <UnlockIcon className={style.unlockIcon} />
+                      </div>
+                    ) : (
+                      <div className={style.badgeIconWrapper}>
+                        <BadgeIcon slug={badge.slug} />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
               {totalEarnedBadges > 3 && (
                 <Link href="/achievements" className={`${style.profileBadge} ${style.empty}`}>
                   <span className={style.badgeMore}>+{totalEarnedBadges - 3}</span>
