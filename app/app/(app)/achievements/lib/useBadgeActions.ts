@@ -35,12 +35,12 @@ export function useBadgeActions(
       }
     }
 
-    // Create modal data from badge info with real stats
+    // Create modal data from badge info
     const modalData = {
       title: badge.name,
       date: getBadgeDate(badge),
       description: badge.description,
-      stat: `${badge.num_awardees} learners have earned this badge`,
+      funFact: badge.fun_fact,
       color: getBadgeColor(badge),
       slug: badge.slug,
       isNew: wasNewBadge
