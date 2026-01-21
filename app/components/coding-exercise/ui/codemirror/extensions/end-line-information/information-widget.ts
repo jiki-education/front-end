@@ -73,6 +73,9 @@ export class InformationWidget extends WidgetType {
       this.onClose(this.view);
     };
 
+    // Append close button to the tooltip itself for absolute positioning
+    this.tooltip.appendChild(closeButton);
+
     this.tooltip.querySelectorAll("code").forEach((ct) => {
       ct.addEventListener("mouseenter", () => {
         const from = ct.getAttribute("data-hl-from");
@@ -90,20 +93,6 @@ export class InformationWidget extends WidgetType {
         this.view.dispatch({ effects: removeAllHighlightEffect.of() });
       });
     });
-
-    const header = (this.tooltip.querySelector(".error h2") ?? this.tooltip.querySelector("h3")) as HTMLHeadingElement;
-
-    if (header) {
-      header.prepend(closeButton);
-
-      if (header.tagName === "H3") {
-        Object.assign(header.style, {
-          display: "flex",
-          flexDirection: "row-reverse",
-          justifyContent: "space-between"
-        });
-      }
-    }
 
     this.applyHighlighting(this.tooltip);
 

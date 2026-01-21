@@ -2,6 +2,7 @@
 
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { CloseButton } from "@/components/ui-kit";
 import { hideModal } from "../store";
 import styles from "./BadgeModal.module.css";
 
@@ -12,6 +13,7 @@ interface BadgeModalProps {
 export function BadgeModal({ badgeData }: BadgeModalProps) {
   return (
     <div className={styles.container}>
+      <CloseButton onClick={hideModal} className="absolute top-[16px] right-[16px]" variant="default" />
       {/* Modal Header */}
       <div className={styles.header}>
         <div className={`${styles.badgeIcon} ${styles[badgeData.color]}`}>

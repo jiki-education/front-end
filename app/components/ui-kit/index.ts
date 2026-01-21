@@ -10,6 +10,7 @@
 
 // Component exports
 export { Button, ButtonGroup, useButtonGroup, ButtonWithRenderProps } from "./Button";
+export { CloseButton } from "./CloseButton";
 export { FormField, FormFieldGroup, useFormFieldGroup, FormFieldWithRenderProps } from "./FormField";
 export { PageHeader } from "./PageHeader";
 export { PageTabs, TabContainer, useTabContainer, TabPanel, PageTabsWithRenderProps } from "./PageTabs";

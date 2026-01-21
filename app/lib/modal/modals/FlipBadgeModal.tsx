@@ -2,6 +2,7 @@
 
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { CloseButton } from "@/components/ui-kit";
 import { hideModal } from "../store";
 import styles from "./BadgeModal.module.css";
 
@@ -11,12 +12,16 @@ interface FlipBadgeModalProps {
 }
 
 export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
+  const handleClose = () => {
+    onClose?.();
+    hideModal();
+  };
+
   return (
     <div className={styles.flipContainer}>
       <div className={styles.flipCard}>
         <div className={styles.flipFront}>
-          {/* New Badge Tag */}
-          <div className={styles.flipNewTag}>New Badge!</div>
+          <CloseButton onClick={handleClose} variant="default" />
 
           {/* Badge Icon */}
           <div className={styles.flipIcon}>
@@ -38,13 +43,7 @@ export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
 
           {/* Action Button */}
           <div className={styles.flipButtonWrapper}>
-            <button
-              onClick={() => {
-                onClose?.();
-                hideModal();
-              }}
-              className={styles.flipClose}
-            >
+            <button onClick={handleClose} className={styles.flipModalClose}>
               Keep Going!
             </button>
           </div>
