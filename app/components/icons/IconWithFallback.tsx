@@ -35,8 +35,8 @@ function getIcon(
 
 export interface IconProps {
   slug: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 interface IconWithFallbackProps extends IconProps {

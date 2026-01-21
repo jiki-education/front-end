@@ -12,32 +12,21 @@ interface BadgeModalProps {
 export function BadgeModal({ badgeData }: BadgeModalProps) {
   return (
     <div className={styles.container}>
-      {/* Modal Header */}
-      <div className={styles.header}>
-        <div className={`${styles.badgeIcon} ${styles[badgeData.color]}`}>
-          <BadgeIcon slug={badgeData.slug} />
-        </div>
-        <h2 className={styles.title}>{badgeData.title}</h2>
-        <div className={styles.date}>{badgeData.date}</div>
+      <div className={`${styles.badgeIcon} ${styles[badgeData.color]}`}>
+        <BadgeIcon slug={badgeData.slug} />
       </div>
+      <h2 className={styles.title}>{badgeData.title}</h2>
 
-      {/* Modal Body */}
-      <div className={styles.body}>
-        <p className={styles.description}>{badgeData.description}</p>
+      <p className={styles.description}>{badgeData.description}</p>
 
-        {/* Fun Fact Box */}
-        <div className={styles.factBox}>
-          <div className={styles.factLabel}>Fun Fact</div>
-          <div className={styles.factValue}>{badgeData.funFact}</div>
-        </div>
-      </div>
+      {/* Fun Fact Box */}
+      <div className={styles.factLabel}>Fun Fact</div>
+      <div className={styles.factValue}>{badgeData.funFact}</div>
 
       {/* Action Button */}
-      <div className={styles.buttonWrapper}>
-        <button onClick={hideModal} className="ui-btn ui-btn-large ui-btn-primary w-[100%]">
-          Keep Going!
-        </button>
-      </div>
+      <button onClick={hideModal} className="ui-btn ui-btn-xlarge ui-btn-for-colorful-background w-[100%]">
+        Keep Going!
+      </button>
     </div>
   );
 }
