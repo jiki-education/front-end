@@ -56,7 +56,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
         if (badge.state === "unrevealed") {
           return 1;
         }
-        if (badge.state === "revealed" && isNewBadge(badge)) {
+        if (badge.state === "revealed" && isRecentBadge(badge)) {
           return 2;
         }
         if (badge.state === "revealed") {
