@@ -1,5 +1,6 @@
 import { ConfirmationModal } from "./ConfirmationModal";
 import { ConnectionErrorModal } from "./ConnectionErrorModal";
+import { AuthErrorModal } from "./AuthErrorModal";
 import { ExampleModal } from "./ExampleModal";
 import { ExerciseSuccessModal } from "./ExerciseSuccessModal";
 import { ExerciseCompletionModal } from "./ExerciseCompletionModal";
@@ -20,6 +21,7 @@ import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 export {
   ConfirmationModal,
   ConnectionErrorModal,
+  AuthErrorModal,
   ExampleModal,
   ExerciseSuccessModal,
   ExerciseCompletionModal,
@@ -42,6 +44,7 @@ export const availableModals = {
   "example-modal": ExampleModal,
   "confirmation-modal": ConfirmationModal,
   "connection-error-modal": ConnectionErrorModal,
+  "auth-error-modal": AuthErrorModal,
   "info-modal": InfoModal,
   "exercise-success-modal": ExerciseSuccessModal,
   "exercise-completion-modal": ExerciseCompletionModal,
