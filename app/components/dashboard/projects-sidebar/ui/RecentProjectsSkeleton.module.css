@@ -1,0 +1,49 @@
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #eceef2 0%, #f6f7f9 25%, #eceef2 50%, #f6f7f9 75%, #eceef2 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: 8px;
+}
+
+.skeletonProjectsBox {
+    text-align: center;
+    padding: 28px 20px;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%);
+    border-radius: 12px;
+    border: 2px dashed rgba(168, 85, 247, 0.15);
+    margin-bottom: 20px;
+}
+
+.skeletonProjectsIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    margin: 0 auto 12px;
+}
+
+.skeletonProjectsTitle {
+    width: 120px;
+    height: 18px;
+    margin: 0 auto 8px;
+}
+
+.skeletonProjectsText {
+    width: 80%;
+    height: 14px;
+    margin: 0 auto 6px;
+}
+
+.skeletonProjectsTextShort {
+    width: 60%;
+    height: 14px;
+    margin: 0 auto;
+}

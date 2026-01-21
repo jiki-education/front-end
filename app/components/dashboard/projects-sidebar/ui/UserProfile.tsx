@@ -15,6 +15,7 @@ import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import Link from "next/link";
 import type { StatusOption, UserProfile as UserProfileType } from "../lib/mockData";
+import { UserProfileSkeleton } from "./UserProfileSkeleton";
 import style from "./user-profile.module.css";
 
 interface UserProfileProps {
@@ -25,6 +26,11 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadges, badgesLoading }: UserProfileProps) {
+  // Show skeleton while loading
+  if (badgesLoading) {
+    return <UserProfileSkeleton />;
+  }
+
   const handleBadgeClick = (badge: BadgeData) => {
     if (!isEarnedBadge(badge)) {
       return; // Only show modal for earned badges
@@ -91,8 +97,8 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
     });
   };
 
-  // Use real badges if available, otherwise fall back to mock data
-  const displayBadges = realBadges && !badgesLoading ? sortBadges(realBadges.filter(isEarnedBadge)).slice(0, 3) : null;
+  // Use real badges if available
+  const displayBadges = realBadges ? sortBadges(realBadges.filter(isEarnedBadge)).slice(0, 3) : null;
 
   const totalEarnedBadges = realBadges ? realBadges.filter(isEarnedBadge).length : profile.badges.length;
 
@@ -120,14 +126,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
       <div className={style.profileBadgesSection}>
         <div className={style.profileBadgesTitle}>Badges</div>
         <div className={style.profileBadges}>
-          {badgesLoading ? (
-            // Show loading skeletons while badges are loading
-            <>
-              <div className={style.profileBadgeSkeleton} />
-              <div className={style.profileBadgeSkeleton} />
-              <div className={style.profileBadgeSkeleton} />
-            </>
-          ) : displayBadges && displayBadges.length > 0 ? (
+          {displayBadges && displayBadges.length > 0 ? (
             // Show real badges
             <>
               {displayBadges.map((badge) => {
