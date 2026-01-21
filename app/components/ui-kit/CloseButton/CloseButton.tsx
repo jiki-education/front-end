@@ -11,7 +11,11 @@ export function CloseButton({ variant = "default", size = "default", className =
   const variantClass = variant === "light" ? styles.light : "";
 
   return (
-    <button className={`${styles.closeButton} ${variantClass} ${sizeClass} ${className}`} aria-label="Close" {...props}>
+    <button
+      className={`${styles.closeButton} ${variantClass} ${sizeClass} ${className}`}
+      aria-label="Close modal"
+      {...props}
+    >
       ×
     </button>
   );

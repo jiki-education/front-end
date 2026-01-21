@@ -14,6 +14,56 @@
     text-align: center;
 }
 
+/* Needed to ensure shimmer stays below content */
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.firstTime {
+    overflow: hidden;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent 0%,
+            transparent 30%,
+            rgba(255, 255, 255, 0.6) 50%,
+            transparent 70%,
+            transparent 100%
+        );
+        animation: modalShimmer 3s ease-in-out infinite;
+        z-index: 1;
+    }
+    .badgeIcon {
+        &::before,
+        &::after {
+            content: "✨";
+            position: absolute;
+            font-size: 28px;
+            animation: modalSparkle 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        &::before {
+            top: -12px;
+            left: -12px;
+            animation-delay: 0s;
+        }
+
+        &::after {
+            bottom: -12px;
+            right: -12px;
+            animation-delay: 1.5s;
+        }
+    }
+}
+
 .badgeIcon {
     width: 130px;
     height: 130px;
@@ -126,210 +176,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     background: transparent;
     border-radius: 0 0 24px 24px;
-}
-
-/* Flip Badge Modal Styles */
-.flipContainer {
-    perspective: 1000px;
-    width: 560px;
-    max-width: 90%;
-    height: auto;
-}
-
-.flipCard {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    transition: transform 0.8s ease;
-    animation: growIn 0.4s ease-out;
-}
-
-.flipFront {
-    width: 100%;
-    border-radius: 28px;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 40px;
-    text-align: center;
-    background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
-    z-index: 2;
-    position: relative;
-    overflow: hidden;
-
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent 0%,
-            transparent 30%,
-            rgba(255, 255, 255, 0.6) 50%,
-            transparent 70%,
-            transparent 100%
-        );
-        animation: modalShimmer 3s ease-in-out infinite;
-        z-index: 1;
-    }
-}
-
-.flipNewTag {
-    display: inline-block;
-    background: #3b82f6;
-    color: white;
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-    position: relative;
-    z-index: 10;
-    border: none;
-}
-
-.flipIcon {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 5px solid #db2777;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    box-shadow:
-        0 0 40px rgba(236, 72, 153, 0.6),
-        0 0 80px rgba(168, 85, 247, 0.4),
-        0 8px 32px rgba(0, 0, 0, 0.2);
-    position: relative;
-    z-index: 10;
-
-    &::before,
-    &::after {
-        content: "✨";
-        position: absolute;
-        font-size: 28px;
-        animation: modalSparkle 3s ease-in-out infinite;
-        pointer-events: none;
-    }
-
-    &::before {
-        top: -12px;
-        left: -12px;
-        animation-delay: 0s;
-    }
-
-    &::after {
-        bottom: -12px;
-        right: -12px;
-        animation-delay: 1.5s;
-    }
-
-    img {
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-    }
-}
-
-.flipTitle {
-    font-size: 38px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: -6px;
-    position: relative;
-    z-index: 10;
-}
-
-.flipDate {
-    font-size: 18px;
-    color: white;
-    font-weight: 600;
-    background: transparent;
-    padding: 0;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 10;
-}
-
-.flipDescription {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.95);
-    line-height: 1.6;
-    margin-bottom: 32px;
-    max-width: 420px;
-    position: relative;
-    z-index: 10;
-}
-
-.flipFactBox {
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    padding: 20px 32px;
-    border-radius: 16px;
-    margin-bottom: 26px;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-.flipFactLabel {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-}
-
-.flipFactValue {
-    font-size: 17px;
-    font-weight: 400;
-    color: white;
-}
-
-.flipButtonWrapper {
-    padding-top: 24px;
-    margin-top: auto;
-    width: calc(100% + 80px);
-    max-width: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-left: -40px;
-    margin-right: -40px;
-    margin-bottom: -48px;
-    padding: 24px 40px;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 28px 28px;
-    position: relative;
-    z-index: 10;
-}
-
-.flipClose {
-    background: #3b82f6;
-    color: white;
-    border: 2px solid white;
-    padding: 18px 60px;
-    border-radius: 16px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
-    width: 100%;
-
-    &:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
-    }
 }
 
 /* Keyframes */
