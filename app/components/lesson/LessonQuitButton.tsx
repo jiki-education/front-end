@@ -1,7 +1,8 @@
 "use client";
 
+import { CloseButton } from "@/components/ui-kit";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import { showConfirmation } from "@/lib/modal";
-import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface LessonQuitButtonProps {
@@ -30,12 +31,11 @@ export function LessonQuitButton({ onQuit, className = "" }: LessonQuitButtonPro
   };
 
   return (
-    <button
+    <CloseButton
       onClick={handleQuit}
-      className={`absolute top-4 right-4 p-2 rounded-full bg-white/90 hover:bg-white text-gray-600 hover:text-gray-900 transition-all shadow-sm hover:shadow-md ${className}`}
+      variant="light"
+      className={assembleClassNames(className, "absolute top-[16px] right-[16px]")}
       aria-label="Quit lesson"
-    >
-      <X className="w-[32px] h-[32px]" />
-    </button>
+    />
   );
 }

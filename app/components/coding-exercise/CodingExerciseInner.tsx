@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { CloseButton } from "@/components/ui-kit";
 import { useOrchestratorContext } from "./lib/OrchestratorProvider";
 import { useResizablePanels, Resizer } from "./useResize";
 import { useOrchestratorStore } from "./lib/orchestrator/store";
@@ -52,9 +53,12 @@ export default function CodingExerciseInner() {
               Complete Exercise
             </button>
           )}
-          <button onClick={() => router.push("/dashboard")} className={styles.closeButton}>
-            ×
-          </button>
+          <CloseButton
+            onClick={() => router.push("/dashboard")}
+            variant="light"
+            size="small"
+            aria-label="Close exercise"
+          />
         </div>
       </div>
 
