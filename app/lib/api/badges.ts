@@ -22,6 +22,7 @@ export interface RevealBadgeResponse {
     name: string;
     slug: string;
     description: string;
+    fun_fact: string;
     revealed: boolean;
     unlocked_at: string;
   };
