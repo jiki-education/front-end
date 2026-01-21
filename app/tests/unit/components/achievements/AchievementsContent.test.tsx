@@ -19,6 +19,7 @@ const mockBadges: BadgeData[] = [
     name: "Member",
     slug: "member",
     description: "Welcome to Jiki!",
+    fun_fact: "This was the first badge ever created",
     state: "revealed",
     num_awardees: 100,
     unlocked_at: "2024-01-01T00:00:00Z"
@@ -28,6 +29,7 @@ const mockBadges: BadgeData[] = [
     name: "First Lesson",
     slug: "first-lesson",
     description: "Complete your first lesson",
+    fun_fact: "Most users earn this within their first day",
     state: "unrevealed",
     num_awardees: 50,
     unlocked_at: "2024-01-02T00:00:00Z"
@@ -37,6 +39,7 @@ const mockBadges: BadgeData[] = [
     name: "Locked Badge",
     slug: "locked-badge",
     description: "This badge is locked",
+    fun_fact: "Only 1% of users have this badge",
     state: "locked",
     num_awardees: 25
   }

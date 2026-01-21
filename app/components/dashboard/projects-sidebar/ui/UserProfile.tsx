@@ -35,7 +35,7 @@ export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadg
       title: badge.name,
       date: getBadgeDate(badge),
       description: badge.description,
-      stat: `${badge.num_awardees} learners have earned this badge`,
+      funFact: badge.fun_fact,
       color: getBadgeColor(badge),
       slug: badge.slug,
       isNew: isNewBadge(badge)

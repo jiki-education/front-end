@@ -18,6 +18,7 @@ const mockUnrevealedBadge: BadgeData = {
   name: "Test Badge",
   slug: "test-badge",
   description: "A test badge for revealing",
+  fun_fact: "This is a fun fact about the badge",
   state: "unrevealed",
   num_awardees: 10,
   unlocked_at: "2024-01-01T00:00:00Z"
@@ -79,7 +80,7 @@ describe("Badge Reveal Functionality", () => {
       badgeData: expect.objectContaining({
         title: "Test Badge",
         description: "A test badge for revealing",
-        stat: "10 learners have earned this badge",
+        funFact: "This is a fun fact about the badge",
         isNew: true
       }),
       onClose: expect.any(Function)

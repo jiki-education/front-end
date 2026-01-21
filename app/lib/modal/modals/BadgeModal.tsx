@@ -25,10 +25,10 @@ export function BadgeModal({ badgeData }: BadgeModalProps) {
       <div className={styles.modalBody}>
         <p className={styles.modalDescription}>{badgeData.description}</p>
 
-        {/* Community Stat Box */}
+        {/* Fun Fact Box */}
         <div className={styles.modalStatBox}>
-          <div className={styles.modalStatLabel}>Community Stat</div>
-          <div className={styles.modalStatValue}>{badgeData.stat}</div>
+          <div className={styles.modalStatLabel}>Fun Fact</div>
+          <div className={styles.modalStatValue}>{badgeData.funFact}</div>
         </div>
       </div>
 

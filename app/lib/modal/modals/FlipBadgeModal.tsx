@@ -30,10 +30,10 @@ export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
           {/* Description */}
           <p className={styles.flipModalDescription}>{badgeData.description}</p>
 
-          {/* Community Stat Box */}
+          {/* Fun Fact Box */}
           <div className={styles.flipModalStatBox}>
-            <div className={styles.flipModalStatLabel}>Community Stat</div>
-            <div className={styles.flipModalStatValue}>{badgeData.stat}</div>
+            <div className={styles.flipModalStatLabel}>Fun Fact</div>
+            <div className={styles.flipModalStatValue}>{badgeData.funFact}</div>
           </div>
 
           {/* Action Button */}

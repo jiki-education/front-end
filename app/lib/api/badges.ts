@@ -5,6 +5,7 @@ export interface BadgeData {
   name: string;
   slug: string;
   description: string;
+  fun_fact: string;
   state: "locked" | "unrevealed" | "revealed";
   num_awardees: number;
   unlocked_at?: string;
