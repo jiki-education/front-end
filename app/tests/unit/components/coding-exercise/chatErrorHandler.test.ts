@@ -8,9 +8,14 @@ describe("chatErrorHandler", () => {
       expect(formatChatError(error)).toBe("Authentication expired. Please refresh the page.");
     });
 
-    it("formats token expired errors", () => {
+    it("formats token expired errors (shown after auto-retry fails)", () => {
       const error = new ChatApiError("Token expired", 401, { error: "token_expired", message: "Token has expired" });
-      expect(formatChatError(error)).toBe("Session expired. Refreshing authentication...");
+      expect(formatChatError(error)).toBe("Session expired. Please try again.");
+    });
+
+    it("formats exercise mismatch errors", () => {
+      const error = new ChatApiError("Forbidden", 403, { error: "exercise_mismatch" });
+      expect(formatChatError(error)).toBe("Exercise mismatch. Please refresh and try again.");
     });
 
     it("formats invalid token errors", () => {

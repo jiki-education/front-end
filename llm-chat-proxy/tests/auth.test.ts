@@ -6,16 +6,16 @@ import app from "../src/index";
 describe("JWT Authentication", () => {
   const testSecret = "test-secret-key-for-jwt-verification";
 
-  it("should verify valid JWT", async () => {
-    // Create a valid test JWT
+  it("should verify valid JWT with exercise_slug", async () => {
     const secret = new TextEncoder().encode(testSecret);
-    const token = await new SignJWT({ sub: "user-123" })
+    const token = await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic" })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("1h")
       .sign(secret);
 
     const result = await verifyJWT(token, testSecret);
     expect(result.userId).toBe("user-123");
+    expect(result.exerciseSlug).toBe("maze-solve-basic");
     expect(result.error).toBeUndefined();
   });
 
@@ -28,7 +28,7 @@ describe("JWT Authentication", () => {
 
   it("should reject expired JWT", async () => {
     const secret = new TextEncoder().encode(testSecret);
-    const token = await new SignJWT({ sub: "user-123" })
+    const token = await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic" })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("-1h") // Expired 1 hour ago
       .sign(secret);
@@ -40,7 +40,7 @@ describe("JWT Authentication", () => {
 
   it("should reject JWT with wrong secret", async () => {
     const secret = new TextEncoder().encode("wrong-secret");
-    const token = await new SignJWT({ sub: "user-123" })
+    const token = await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic" })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("1h")
       .sign(secret);
@@ -48,6 +48,18 @@ describe("JWT Authentication", () => {
     const result = await verifyJWT(token, testSecret);
     expect(result.userId).toBeNull();
     expect(result.error).toBe("invalid");
+  });
+
+  it("should reject JWT without exercise_slug claim", async () => {
+    const secret = new TextEncoder().encode(testSecret);
+    const token = await new SignJWT({ sub: "user-123" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
+
+    const result = await verifyJWT(token, testSecret);
+    expect(result.userId).toBeNull();
+    expect(result.error).toBe("missing_claim");
   });
 
   it("should reject JWT without sub claim", async () => {
@@ -59,9 +71,22 @@ describe("JWT Authentication", () => {
     expect(result.error).toBe("missing_claim");
   });
 
-  it("should handle JWT with non-string sub claim", async () => {
+  it("should accept JWT with numeric sub claim (Rails compatibility)", async () => {
     const secret = new TextEncoder().encode(testSecret);
-    const token = await new SignJWT({ sub: 123 } as any)
+    const token = await new SignJWT({ sub: 123, exercise_slug: "maze-solve-basic" } as any)
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
+
+    const result = await verifyJWT(token, testSecret);
+    expect(result.userId).toBe("123");
+    expect(result.exerciseSlug).toBe("maze-solve-basic");
+    expect(result.error).toBeUndefined();
+  });
+
+  it("should reject JWT with invalid sub claim type", async () => {
+    const secret = new TextEncoder().encode(testSecret);
+    const token = await new SignJWT({ sub: { id: 123 }, exercise_slug: "maze-solve-basic" } as any)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("1h")
       .sign(secret);
@@ -75,7 +100,7 @@ describe("JWT Authentication", () => {
     const secret = new TextEncoder().encode(testSecret);
     // Create token that expired 1 second ago
     const expiredTime = Math.floor(Date.now() / 1000) - 1;
-    const token = await new SignJWT({ sub: "user-123", exp: expiredTime })
+    const token = await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic", exp: expiredTime })
       .setProtectedHeader({ alg: "HS256" })
       .sign(secret);
 
@@ -88,12 +113,13 @@ describe("JWT Authentication", () => {
     const secret = new TextEncoder().encode(testSecret);
     // Create token that expires 1 hour in the future
     const futureTime = Math.floor(Date.now() / 1000) + 3600;
-    const token = await new SignJWT({ sub: "user-123", exp: futureTime })
+    const token = await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic", exp: futureTime })
       .setProtectedHeader({ alg: "HS256" })
       .sign(secret);
 
     const result = await verifyJWT(token, testSecret);
     expect(result.userId).toBe("user-123");
+    expect(result.exerciseSlug).toBe("maze-solve-basic");
     expect(result.error).toBeUndefined();
   });
 });
@@ -101,16 +127,30 @@ describe("JWT Authentication", () => {
 describe("Chat Endpoint Authentication", () => {
   const testSecret = "test-secret-key-for-jwt-verification";
 
-  async function createValidToken(userId: string = "user-123"): Promise<string> {
+  async function createValidToken(
+    userId: string = "user-123",
+    exerciseSlug: string = "maze-solve-basic"
+  ): Promise<string> {
     const secret = new TextEncoder().encode(testSecret);
-    return await new SignJWT({ sub: userId }).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(secret);
+    return await new SignJWT({ sub: userId, exercise_slug: exerciseSlug })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(secret);
   }
 
   async function createExpiredToken(): Promise<string> {
     const secret = new TextEncoder().encode(testSecret);
-    return await new SignJWT({ sub: "user-123" })
+    return await new SignJWT({ sub: "user-123", exercise_slug: "maze-solve-basic" })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("-1h")
+      .sign(secret);
+  }
+
+  async function createTokenWithoutExerciseSlug(): Promise<string> {
+    const secret = new TextEncoder().encode(testSecret);
+    return await new SignJWT({ sub: "user-123" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
       .sign(secret);
   }
 
@@ -147,15 +187,15 @@ describe("Chat Endpoint Authentication", () => {
     expect(response.status).not.toBe(401);
   });
 
-  it("should accept valid JWT from cookie", async () => {
-    const token = await createValidToken();
+  it("should return 403 when exerciseSlug does not match token", async () => {
+    const token = await createValidToken("user-123", "different-exercise");
 
     const response = await app.request(
       "/chat",
       {
         method: "POST",
         headers: {
-          Cookie: `jiki_access_token=${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
           Origin: "https://jiki.io"
         },
@@ -169,21 +209,20 @@ describe("Chat Endpoint Authentication", () => {
       mockEnv
     );
 
-    // Should not return 401 (authentication should succeed)
-    expect(response.status).not.toBe(401);
+    expect(response.status).toBe(403);
+    const data = (await response.json()) as { error: string };
+    expect(data.error).toBe("exercise_mismatch");
   });
 
-  it("should prioritize Authorization header over cookie", async () => {
-    const headerToken = await createValidToken("user-from-header");
-    const cookieToken = await createValidToken("user-from-cookie");
+  it("should return 401 when token is missing exercise_slug claim", async () => {
+    const token = await createTokenWithoutExerciseSlug();
 
     const response = await app.request(
       "/chat",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${headerToken}`,
-          Cookie: `jiki_access_token=${cookieToken}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
           Origin: "https://jiki.io"
         },
@@ -197,8 +236,9 @@ describe("Chat Endpoint Authentication", () => {
       mockEnv
     );
 
-    // Should not return 401 (header token should be used)
-    expect(response.status).not.toBe(401);
+    expect(response.status).toBe(401);
+    const data = (await response.json()) as { error: string };
+    expect(data.error).toBe("invalid_token");
   });
 
   it("should return 401 when no token provided", async () => {
@@ -250,57 +290,5 @@ describe("Chat Endpoint Authentication", () => {
     expect(response.status).toBe(401);
     const data = (await response.json()) as { error: string };
     expect(data.error).toBe("token_expired");
-  });
-
-  it("should return 401 with expired token in cookie", async () => {
-    const token = await createExpiredToken();
-
-    const response = await app.request(
-      "/chat",
-      {
-        method: "POST",
-        headers: {
-          Cookie: `jiki_access_token=${token}`,
-          "Content-Type": "application/json",
-          Origin: "https://jiki.io"
-        },
-        body: JSON.stringify({
-          exerciseSlug: "maze-solve-basic",
-          code: "test",
-          question: "test",
-          language: "jikiscript"
-        })
-      },
-      mockEnv
-    );
-
-    expect(response.status).toBe(401);
-    const data = (await response.json()) as { error: string };
-    expect(data.error).toBe("token_expired");
-  });
-
-  it("should return 401 with invalid token in cookie", async () => {
-    const response = await app.request(
-      "/chat",
-      {
-        method: "POST",
-        headers: {
-          Cookie: `jiki_access_token=invalid.token.here`,
-          "Content-Type": "application/json",
-          Origin: "https://jiki.io"
-        },
-        body: JSON.stringify({
-          exerciseSlug: "maze-solve-basic",
-          code: "test",
-          question: "test",
-          language: "jikiscript"
-        })
-      },
-      mockEnv
-    );
-
-    expect(response.status).toBe(401);
-    const data = (await response.json()) as { error: string };
-    expect(data.error).toBe("invalid_token");
   });
 });

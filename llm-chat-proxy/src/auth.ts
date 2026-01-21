@@ -2,6 +2,7 @@ import { jwtVerify } from "jose";
 
 export interface JWTResult {
   userId: string | null;
+  exerciseSlug?: string;
   error?: "expired" | "invalid" | "missing_claim";
 }
 
@@ -20,13 +21,20 @@ export async function verifyJWT(token: string, secret: string): Promise<JWTResul
       algorithms: ["HS256"]
     });
 
-    // User ID is in the 'sub' claim
-    if (typeof payload.sub !== "string") {
+    // User ID is in the 'sub' claim (accept string or number)
+    if (typeof payload.sub !== "string" && typeof payload.sub !== "number") {
       console.log("Invalid token: missing or invalid sub claim");
       return { userId: null, error: "missing_claim" };
     }
+    const userId = String(payload.sub);
 
-    return { userId: payload.sub };
+    // Exercise slug is required for chat tokens
+    if (typeof payload.exercise_slug !== "string") {
+      console.log("Invalid token: missing or invalid exercise_slug claim");
+      return { userId: null, error: "missing_claim" };
+    }
+
+    return { userId, exerciseSlug: payload.exercise_slug };
   } catch (error) {
     console.error("JWT verification failed:", error);
 

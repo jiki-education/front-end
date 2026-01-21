@@ -1,16 +1,13 @@
 /**
- * Integration tests for chat API refresh token functionality with httpOnly cookies
+ * Integration tests for chat API JWT authentication
  */
 
-import { sendChatMessage, ChatApiError } from "@/components/coding-exercise/lib/chatApi";
-import { refreshAccessToken } from "@/lib/auth/refresh";
+import { sendChatMessage, ChatApiError, ChatTokenExpiredError } from "@/components/coding-exercise/lib/chatApi";
 import { getChatApiUrl } from "@/lib/api/config";
 
 // Mock dependencies
-jest.mock("@/lib/auth/refresh");
 jest.mock("@/lib/api/config");
 
-const mockRefreshAccessToken = refreshAccessToken as jest.MockedFunction<typeof refreshAccessToken>;
 const mockGetChatApiUrl = getChatApiUrl as jest.MockedFunction<typeof getChatApiUrl>;
 
 // Mock fetch and web APIs
@@ -44,7 +41,7 @@ if (typeof TextDecoder === "undefined") {
   } as any;
 }
 
-describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
+describe("Chat API JWT Authentication", () => {
   const mockPayload = {
     exerciseSlug: "test-exercise",
     code: "console.log('test');",
@@ -60,27 +57,15 @@ describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
     onComplete: jest.fn()
   };
 
+  const mockChatToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U";
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockGetChatApiUrl.mockReturnValue("http://localhost:8787/chat");
   });
 
-  it("should retry request after successful token refresh on 401", async () => {
-    // First request fails with 401 (token expired in cookie)
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 401,
-      statusText: "Unauthorized",
-      headers: {
-        get: () => "application/json"
-      },
-      json: () => ({ error: "token_expired", message: "Token has expired" })
-    });
-
-    // Refresh succeeds (Server Action updates httpOnly cookie)
-    mockRefreshAccessToken.mockResolvedValueOnce(true);
-
-    // Second request succeeds with updated cookie
+  it("should send request with JWT in Authorization header", async () => {
     const mockBody = {
       getReader: () => ({
         read: jest
@@ -95,73 +80,21 @@ describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
       body: mockBody
     });
 
-    await sendChatMessage(mockPayload, mockCallbacks);
+    await sendChatMessage(mockPayload, mockCallbacks, mockChatToken);
 
-    // Verify refresh was called
-    expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
-
-    // Verify two fetch calls were made
-    expect(mockFetch).toHaveBeenCalledTimes(2);
-
-    // Both calls should use credentials: 'include' (NO Authorization header)
-    expect(mockFetch).toHaveBeenNthCalledWith(1, "http://localhost:8787/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify(mockPayload)
-    });
-
-    expect(mockFetch).toHaveBeenNthCalledWith(2, "http://localhost:8787/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify(mockPayload)
-    });
-  });
-
-  it("should throw error if refresh fails", async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 401,
-      statusText: "Unauthorized",
-      headers: {
-        get: () => "application/json"
-      },
-      json: () => ({ error: "token_expired", message: "Token has expired" })
-    });
-
-    // Refresh fails (Server Action couldn't refresh token)
-    mockRefreshAccessToken.mockResolvedValueOnce(false);
-
-    await expect(sendChatMessage(mockPayload, mockCallbacks)).rejects.toThrow(ChatApiError);
-
-    expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
-    expect(mockFetch).toHaveBeenCalledTimes(1); // Only original call, no retry
-  });
-
-  it("should handle non-401 errors normally without refresh attempt", async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: false,
-      status: 500,
-      statusText: "Internal Server Error",
-      headers: {
-        get: () => "application/json"
-      },
-      json: () => ({ error: "server_error", message: "Server error" })
-    });
-
-    await expect(sendChatMessage(mockPayload, mockCallbacks)).rejects.toThrow(ChatApiError);
-
-    // Should not attempt refresh for non-auth errors
-    expect(mockRefreshAccessToken).not.toHaveBeenCalled();
+    // Verify Authorization header is present
     expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenCalledWith("http://localhost:8787/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${mockChatToken}`
+      },
+      body: JSON.stringify(mockPayload)
+    });
   });
 
-  it("should send cookies automatically without Authorization header", async () => {
+  it("should NOT include credentials: include (no cookies)", async () => {
     const mockBody = {
       getReader: () => ({
         read: jest
@@ -176,11 +109,74 @@ describe("Chat API Refresh Token Integration (httpOnly Cookies)", () => {
       body: mockBody
     });
 
-    await sendChatMessage(mockPayload, mockCallbacks);
+    await sendChatMessage(mockPayload, mockCallbacks, mockChatToken);
 
-    // Verify NO Authorization header, only credentials: 'include'
     const fetchCall = mockFetch.mock.calls[0][1];
-    expect(fetchCall?.headers).not.toHaveProperty("Authorization");
-    expect(fetchCall?.credentials).toBe("include");
+    expect(fetchCall?.credentials).toBeUndefined();
+  });
+
+  it("should throw ChatTokenExpiredError on 401 with token_expired", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+      statusText: "Unauthorized",
+      headers: {
+        get: () => "application/json"
+      },
+      json: () => ({ error: "token_expired", message: "Token has expired" })
+    });
+
+    await expect(sendChatMessage(mockPayload, mockCallbacks, mockChatToken)).rejects.toThrow(ChatTokenExpiredError);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should throw ChatApiError on 401 without token_expired error", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+      statusText: "Unauthorized",
+      headers: {
+        get: () => "application/json"
+      },
+      json: () => ({ error: "invalid_token", message: "Invalid token" })
+    });
+
+    await expect(sendChatMessage(mockPayload, mockCallbacks, mockChatToken)).rejects.toThrow(ChatApiError);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should handle non-401 errors normally", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
+      headers: {
+        get: () => "application/json"
+      },
+      json: () => ({ error: "server_error", message: "Server error" })
+    });
+
+    await expect(sendChatMessage(mockPayload, mockCallbacks, mockChatToken)).rejects.toThrow(ChatApiError);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call onComplete with response text on success", async () => {
+    const mockBody = {
+      getReader: () => ({
+        read: jest
+          .fn()
+          .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode("Hello world") })
+          .mockResolvedValueOnce({ done: true })
+      })
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      body: mockBody
+    });
+
+    await sendChatMessage(mockPayload, mockCallbacks, mockChatToken);
+
+    expect(mockCallbacks.onComplete).toHaveBeenCalledWith("Hello world", null);
   });
 });

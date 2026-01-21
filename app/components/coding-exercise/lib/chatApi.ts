@@ -1,4 +1,3 @@
-import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getChatApiUrl } from "@/lib/api/config";
 import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
 
@@ -29,42 +28,43 @@ export class ChatApiError extends Error {
   }
 }
 
-export async function sendChatMessage(payload: ChatRequestPayload, callbacks: StreamCallbacks): Promise<void> {
+export class ChatTokenExpiredError extends Error {
+  constructor(message: string = "Chat token expired") {
+    super(message);
+    this.name = "ChatTokenExpiredError";
+  }
+}
+
+export async function sendChatMessage(
+  payload: ChatRequestPayload,
+  callbacks: StreamCallbacks,
+  chatToken: string
+): Promise<void> {
   // Truncate history to last 5 messages at the API boundary for clarity
   const truncatedPayload = {
     ...payload,
     history: payload.history.slice(-5)
   };
 
-  await performChatRequest(truncatedPayload, callbacks);
+  await performChatRequest(truncatedPayload, callbacks, chatToken);
 }
 
 async function performChatRequest(
   payload: ChatRequestPayload,
   callbacks: StreamCallbacks,
-  attempt: number = 0
+  chatToken: string
 ): Promise<void> {
   try {
     const response = await fetch(getChatApiUrl("/chat"), {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
-        // NO Authorization header - cookie sent automatically
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${chatToken}`
       },
-      credentials: "include", // CRITICAL: Sends httpOnly cookies
       body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
-      // Handle 401 with token refresh (but only retry once)
-      if (response.status === 401 && attempt < 1) {
-        const refreshResult = await refreshAccessToken();
-        if (refreshResult) {
-          // Cookie updated by Server Action - retry request ONCE
-          return performChatRequest(payload, callbacks, attempt + 1);
-        }
-      }
-
       // Parse error response to get detailed error info
       let errorData: unknown;
       try {
@@ -78,6 +78,14 @@ async function performChatRequest(
         errorData = { error: "unknown", message: "Failed to parse error response" };
       }
 
+      // Check for token_expired error - let caller handle refresh
+      if (response.status === 401 && errorData && typeof errorData === "object") {
+        const errorObj = errorData as Record<string, unknown>;
+        if (errorObj.error === "token_expired") {
+          throw new ChatTokenExpiredError();
+        }
+      }
+
       throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status, errorData);
     }
 
@@ -87,7 +95,7 @@ async function performChatRequest(
 
     await handleStreamingResponse(response.body, callbacks);
   } catch (error) {
-    if (error instanceof ChatApiError) {
+    if (error instanceof ChatApiError || error instanceof ChatTokenExpiredError) {
       throw error;
     }
     const message = error instanceof Error ? error.message : "Unknown error";

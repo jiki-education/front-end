@@ -2,9 +2,11 @@
 
 import {
   sendChatMessage,
+  ChatTokenExpiredError,
   type ChatRequestPayload,
   type StreamCallbacks
 } from "@/components/coding-exercise/lib/chatApi";
+import { fetchChatToken } from "@/components/coding-exercise/lib/chatTokenApi";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { exercises } from "@jiki/curriculum";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -53,6 +55,7 @@ export default function LLMChatTestPage() {
   const [chatError, setChatError] = useState<string | null>(null);
   const [debugInfo, setDebugInfo] = useState<DebugEvent[]>([]);
   const [showDebug, setShowDebug] = useState(false);
+  const [chatToken, setChatToken] = useState<string | null>(null);
 
   // Refs
   const responseRef = useRef<HTMLDivElement>(null);
@@ -92,6 +95,11 @@ export default function LLMChatTestPage() {
   useEffect(() => {
     void loadExerciseCode(selectedExercise);
   }, [selectedExercise, loadExerciseCode]);
+
+  // Clear cached token when exercise changes (token is exercise-scoped)
+  useEffect(() => {
+    setChatToken(null);
+  }, [selectedExercise]);
 
   // Auto-scroll response area
   useEffect(() => {
@@ -173,8 +181,35 @@ export default function LLMChatTestPage() {
       }
     };
 
+    // Helper to make the actual request
+    const performRequest = async (token: string) => {
+      await sendChatMessage(requestPayload, callbacks, token);
+    };
+
     try {
-      await sendChatMessage(requestPayload, callbacks);
+      // Get or reuse chat token
+      let token = chatToken;
+      if (!token) {
+        addDebugEvent("request", { type: "fetch_token", lessonSlug: selectedExercise });
+        token = await fetchChatToken({ lessonSlug: selectedExercise });
+        setChatToken(token);
+        addDebugEvent("response", { type: "token_received" });
+      }
+
+      try {
+        await performRequest(token);
+      } catch (err) {
+        // If token expired, clear it, get new one, and retry
+        if (err instanceof ChatTokenExpiredError) {
+          addDebugEvent("sse", { type: "token_expired", retrying: true });
+          setChatToken(null);
+          const newToken = await fetchChatToken({ lessonSlug: selectedExercise });
+          setChatToken(newToken);
+          await performRequest(newToken);
+        } else {
+          throw err;
+        }
+      }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Unknown error";
       setChatError(errorMessage);
@@ -191,6 +226,7 @@ export default function LLMChatTestPage() {
     setChatError(null);
     setDebugInfo([]);
     setStatus("idle");
+    setChatToken(null);
   };
 
   return (
