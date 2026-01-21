@@ -16,8 +16,7 @@
 .modalContainer {
     background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
     border-radius: 28px;
-    max-width: 600px;
-    min-width: 600px;
+    max-width: 560px;
     width: 90%;
     position: relative;
     animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -193,8 +192,7 @@
 /* Flip Badge Modal Styles */
 .flipModalContainer {
     perspective: 1000px;
-    width: 600px;
-    min-width: 600px;
+    width: 560px;
     max-width: 90%;
     height: auto;
 }
