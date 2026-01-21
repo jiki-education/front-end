@@ -12,38 +12,38 @@ interface FlipBadgeModalProps {
 
 export function FlipBadgeModal({ badgeData, onClose }: FlipBadgeModalProps) {
   return (
-    <div className={styles.flipModalContainer}>
-      <div className={styles.flipModalCard}>
-        <div className={styles.flipModalFront}>
+    <div className={styles.flipContainer}>
+      <div className={styles.flipCard}>
+        <div className={styles.flipFront}>
           {/* New Badge Tag */}
-          <div className={styles.flipModalNewTag}>New Badge!</div>
+          <div className={styles.flipNewTag}>New Badge!</div>
 
           {/* Badge Icon */}
-          <div className={styles.flipModalIcon}>
+          <div className={styles.flipIcon}>
             <BadgeIcon slug={badgeData.slug} width={80} height={80} />
           </div>
 
           {/* Title and Date */}
-          <h2 className={styles.flipModalTitle}>{badgeData.title}</h2>
-          <div className={styles.flipModalDate}>{badgeData.date}</div>
+          <h2 className={styles.flipTitle}>{badgeData.title}</h2>
+          <div className={styles.flipDate}>{badgeData.date}</div>
 
           {/* Description */}
-          <p className={styles.flipModalDescription}>{badgeData.description}</p>
+          <p className={styles.flipDescription}>{badgeData.description}</p>
 
           {/* Fun Fact Box */}
-          <div className={styles.flipModalStatBox}>
-            <div className={styles.flipModalStatLabel}>Fun Fact</div>
-            <div className={styles.flipModalStatValue}>{badgeData.funFact}</div>
+          <div className={styles.flipFactBox}>
+            <div className={styles.flipFactLabel}>Fun Fact</div>
+            <div className={styles.flipFactValue}>{badgeData.funFact}</div>
           </div>
 
           {/* Action Button */}
-          <div className={styles.flipModalButtonWrapper}>
+          <div className={styles.flipButtonWrapper}>
             <button
               onClick={() => {
                 onClose?.();
                 hideModal();
               }}
-              className={styles.flipModalClose}
+              className={styles.flipClose}
             >
               Keep Going!
             </button>

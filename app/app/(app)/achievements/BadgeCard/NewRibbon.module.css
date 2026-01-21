@@ -7,13 +7,13 @@
     /* Inherits styles from BadgeNewLabel component */
 }
 
-.badgeCard.new .newRibbon {
+.card.new .newRibbon {
     z-index: 50;
     opacity: 0;
     animation: showRibbon 0.3s ease-out 1.5s forwards;
 }
 
-.badgeRibbon {
+.ribbon {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -23,8 +23,8 @@
     z-index: 0;
 }
 
-.badgeRibbon::before,
-.badgeRibbon::after {
+.ribbon::before,
+.ribbon::after {
     content: "";
     position: absolute;
     top: 0;
@@ -34,14 +34,14 @@
     opacity: 0.6;
 }
 
-.badgeRibbon::before {
+.ribbon::before {
     left: 0;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
     transform-origin: top center;
     transform: rotate(15deg);
 }
 
-.badgeRibbon::after {
+.ribbon::after {
     right: 0;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
     transform-origin: top center;
@@ -49,38 +49,38 @@
 }
 
 /* Ribbon colors matching border colors */
-.badgeCard.earned.green .badgeRibbon {
+.card.earned.green .ribbon {
     color: #10b981;
 }
 
-.badgeCard.earned.blue .badgeRibbon {
+.card.earned.blue .ribbon {
     color: #3b82f6;
 }
 
-.badgeCard.earned.gold .badgeRibbon {
+.card.earned.gold .ribbon {
     color: #f59e0b;
 }
 
-.badgeCard.earned.amber .badgeRibbon {
+.card.earned.amber .ribbon {
     color: var(--color-amber-600);
 }
 
-.badgeCard.earned.pink .badgeRibbon {
+.card.earned.pink .ribbon {
     color: #ec4899;
 }
 
-.badgeCard.earned.purple .badgeRibbon {
+.card.earned.purple .ribbon {
     color: #3b82f6;
 }
 
-.badgeCard.earned.teal .badgeRibbon {
+.card.earned.teal .ribbon {
     color: #14b8a6;
 }
 
-.badgeCard.locked .badgeRibbon {
+.card.locked .ribbon {
     color: #b1bbc8;
 }
 
-.badgeCard.secret .badgeRibbon {
+.card.secret .ribbon {
     color: #b1bbc8;
 }

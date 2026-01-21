@@ -3,7 +3,7 @@
    ============================================================================ */
 
 /* New badge card back with lock icon */
-.badgeCard.new .cardBack {
+.card.new .cardBack {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,11 +23,11 @@
 }
 
 /* Only animate when spinning class is added */
-.badgeCard.new.spinning .cardBack {
+.card.new.spinning .cardBack {
     animation: flipInBack 1.5s ease-out forwards;
 }
 
-.badgeCard.new .cardBack::before {
+.card.new .cardBack::before {
     content: "";
     position: absolute;
     width: 48px;
@@ -38,7 +38,7 @@
     background-size: contain;
 }
 
-.badgeCard.new .cardBack::after {
+.card.new .cardBack::after {
     content: "";
     position: absolute;
     top: 0;

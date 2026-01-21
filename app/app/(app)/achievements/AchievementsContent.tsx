@@ -68,7 +68,7 @@ export function AchievementsContent() {
       <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === "badges" && (
-        <div className={BadgesCssModule.badgesGallery}>
+        <div className={BadgesCssModule.gallery}>
           {sortBadges(badges, recentlyRevealedIds).map((badge) => (
             <BadgeCard
               key={badge.id}

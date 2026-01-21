@@ -26,7 +26,7 @@
 }
 
 /* New badge card front - hidden initially behind the back */
-.badgeCard.new .cardFront {
+.card.new .cardFront {
     position: absolute;
     top: 0;
     left: 0;
@@ -48,7 +48,7 @@
 }
 
 /* Only animate when spinning class is added */
-.badgeCard.new.spinning .cardFront {
+.card.new.spinning .cardFront {
     animation:
         flipInFront 1.5s ease-out forwards,
         cardPulseGold 0.4s ease-out 1.5s;

@@ -1,22 +1,8 @@
-/* Badge Modal Overlay */
-.badgeModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(15, 23, 42, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-}
-
 /* Badge Modal Styles */
-.modalContainer {
+.container {
     background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
     border-radius: 28px;
-    max-width: 560px;
+    max-width: 500px;
     width: 90%;
     position: relative;
     animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -26,18 +12,7 @@
     flex-direction: column;
 }
 
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.modalHeader {
+.header {
     padding: 36px 40px 24px;
     text-align: center;
     position: relative;
@@ -46,7 +21,7 @@
     flex-shrink: 0;
 }
 
-.modalBadgeIcon {
+.badgeIcon {
     width: 130px;
     height: 130px;
     margin: 0 auto 20px;
@@ -57,78 +32,78 @@
     border: 6px solid;
     background: white;
     position: relative;
+
+    &.green {
+        border-color: #10b981;
+        box-shadow:
+            0 0 0 5px rgba(16, 185, 129, 0.2),
+            0 10px 28px rgba(16, 185, 129, 0.4);
+    }
+
+    &.blue {
+        border-color: #3b82f6;
+        box-shadow:
+            0 0 0 5px rgba(59, 130, 246, 0.2),
+            0 10px 28px rgba(59, 130, 246, 0.4);
+    }
+
+    &.gold {
+        border-color: #f59e0b;
+        box-shadow:
+            0 0 0 5px rgba(245, 158, 11, 0.2),
+            0 10px 28px rgba(245, 158, 11, 0.4);
+    }
+
+    &.pink {
+        border-color: #ec4899;
+        box-shadow:
+            0 0 0 5px rgba(236, 72, 153, 0.2),
+            0 10px 28px rgba(236, 72, 153, 0.4);
+    }
+
+    &.purple {
+        border-color: #8b5cf6;
+        box-shadow:
+            0 0 0 5px rgba(139, 92, 246, 0.2),
+            0 10px 28px rgba(139, 92, 246, 0.4);
+    }
+
+    &.teal {
+        border-color: #14b8a6;
+        box-shadow:
+            0 0 0 5px rgba(20, 184, 166, 0.2),
+            0 10px 28px rgba(20, 184, 166, 0.4);
+    }
+
+    img {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+    }
 }
 
-.modalBadgeIcon.green {
-    border-color: #10b981;
-    box-shadow:
-        0 0 0 5px rgba(16, 185, 129, 0.2),
-        0 10px 28px rgba(16, 185, 129, 0.4);
-}
-
-.modalBadgeIcon.blue {
-    border-color: #3b82f6;
-    box-shadow:
-        0 0 0 5px rgba(59, 130, 246, 0.2),
-        0 10px 28px rgba(59, 130, 246, 0.4);
-}
-
-.modalBadgeIcon.gold {
-    border-color: #f59e0b;
-    box-shadow:
-        0 0 0 5px rgba(245, 158, 11, 0.2),
-        0 10px 28px rgba(245, 158, 11, 0.4);
-}
-
-.modalBadgeIcon.pink {
-    border-color: #ec4899;
-    box-shadow:
-        0 0 0 5px rgba(236, 72, 153, 0.2),
-        0 10px 28px rgba(236, 72, 153, 0.4);
-}
-
-.modalBadgeIcon.purple {
-    border-color: #8b5cf6;
-    box-shadow:
-        0 0 0 5px rgba(139, 92, 246, 0.2),
-        0 10px 28px rgba(139, 92, 246, 0.4);
-}
-
-.modalBadgeIcon.teal {
-    border-color: #14b8a6;
-    box-shadow:
-        0 0 0 5px rgba(20, 184, 166, 0.2),
-        0 10px 28px rgba(20, 184, 166, 0.4);
-}
-
-.modalBadgeIcon img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-}
-
-.modalTitle {
+.title {
     font-size: 38px;
     font-weight: 700;
     color: white;
     margin-bottom: -6px;
 }
 
-.modalDate {
+.date {
     font-size: 14px;
     color: white;
     font-weight: 600;
     margin-top: 8px;
 }
 
-.modalBody {
+.body {
     padding: 0 40px 26px;
     flex-shrink: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-.modalDescription {
+.description {
     font-size: 18px;
     color: white;
     line-height: 1.5;
@@ -136,7 +111,7 @@
     text-align: center;
 }
 
-.modalStatBox {
+.factBox {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     padding: 20px;
@@ -145,7 +120,7 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.modalStatLabel {
+.factLabel {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
@@ -154,50 +129,29 @@
     margin-bottom: 6px;
 }
 
-.modalStatValue {
+.factValue {
     font-size: 17px;
     font-weight: 400;
     color: white;
     line-height: 1.4;
 }
 
-.modalButtonWrapper {
+.buttonWrapper {
     padding: 24px 40px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     background: transparent;
     border-radius: 0 0 24px 24px;
 }
 
-.closeButton {
-    width: 100%;
-    padding: 16px 20px;
-    background: linear-gradient(135deg, #3b82f6 0%, #2570eb 100%);
-    color: white;
-    border: 2px solid #3b82f6;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.closeButton:hover {
-    border-color: #2570eb;
-    box-shadow:
-        0 0 0 4px rgba(59, 130, 246, 0.2),
-        0 4px 16px rgba(59, 130, 246, 0.4);
-}
-
 /* Flip Badge Modal Styles */
-.flipModalContainer {
+.flipContainer {
     perspective: 1000px;
     width: 560px;
     max-width: 90%;
     height: auto;
 }
 
-.flipModalCard {
+.flipCard {
     width: 100%;
     height: 100%;
     position: relative;
@@ -207,18 +161,7 @@
     animation: growIn 0.4s ease-out;
 }
 
-@keyframes growIn {
-    0% {
-        transform: scale(0.3);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.flipModalFront {
+.flipFront {
     width: 100%;
     border-radius: 28px;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
@@ -231,37 +174,28 @@
     z-index: 2;
     position: relative;
     overflow: hidden;
-}
 
-.flipModalFront::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent 0%,
-        transparent 30%,
-        rgba(255, 255, 255, 0.6) 50%,
-        transparent 70%,
-        transparent 100%
-    );
-    animation: modalShimmer 3s ease-in-out infinite;
-    z-index: 1;
-}
-
-@keyframes modalShimmer {
-    0% {
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
         left: -100%;
-    }
-    100% {
-        left: 100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent 0%,
+            transparent 30%,
+            rgba(255, 255, 255, 0.6) 50%,
+            transparent 70%,
+            transparent 100%
+        );
+        animation: modalShimmer 3s ease-in-out infinite;
+        z-index: 1;
     }
 }
 
-.flipModalNewTag {
+.flipNewTag {
     display: inline-block;
     background: #3b82f6;
     color: white;
@@ -277,7 +211,7 @@
     border: none;
 }
 
-.flipModalIcon {
+.flipIcon {
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -293,48 +227,36 @@
         0 8px 32px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 10;
-}
 
-.flipModalIcon::before,
-.flipModalIcon::after {
-    content: "✨";
-    position: absolute;
-    font-size: 28px;
-    animation: modalSparkle 3s ease-in-out infinite;
-    pointer-events: none;
-}
-
-.flipModalIcon::before {
-    top: -12px;
-    left: -12px;
-    animation-delay: 0s;
-}
-
-.flipModalIcon::after {
-    bottom: -12px;
-    right: -12px;
-    animation-delay: 1.5s;
-}
-
-@keyframes modalSparkle {
-    0%,
-    100% {
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
+    &::before,
+    &::after {
+        content: "✨";
+        position: absolute;
+        font-size: 28px;
+        animation: modalSparkle 3s ease-in-out infinite;
+        pointer-events: none;
     }
-    50% {
-        opacity: 1;
-        transform: scale(1) rotate(180deg);
+
+    &::before {
+        top: -12px;
+        left: -12px;
+        animation-delay: 0s;
+    }
+
+    &::after {
+        bottom: -12px;
+        right: -12px;
+        animation-delay: 1.5s;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
     }
 }
 
-.flipModalIcon img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.flipModalTitle {
+.flipTitle {
     font-size: 38px;
     font-weight: 700;
     color: white;
@@ -343,7 +265,7 @@
     z-index: 10;
 }
 
-.flipModalDate {
+.flipDate {
     font-size: 18px;
     color: white;
     font-weight: 600;
@@ -354,7 +276,7 @@
     z-index: 10;
 }
 
-.flipModalDescription {
+.flipDescription {
     font-size: 18px;
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
@@ -364,7 +286,7 @@
     z-index: 10;
 }
 
-.flipModalStatBox {
+.flipFactBox {
     background: rgba(255, 255, 255, 0.15);
     border: none;
     padding: 20px 32px;
@@ -375,7 +297,7 @@
     z-index: 10;
 }
 
-.flipModalStatLabel {
+.flipFactLabel {
     font-size: 14px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
@@ -384,13 +306,13 @@
     margin-bottom: 6px;
 }
 
-.flipModalStatValue {
+.flipFactValue {
     font-size: 17px;
     font-weight: 400;
     color: white;
 }
 
-.flipModalButtonWrapper {
+.flipButtonWrapper {
     padding-top: 24px;
     margin-top: auto;
     width: calc(100% + 80px);
@@ -406,7 +328,7 @@
     z-index: 10;
 }
 
-.flipModalClose {
+.flipClose {
     background: #3b82f6;
     color: white;
     border: 2px solid white;
@@ -418,9 +340,53 @@
     transition: all 0.3s ease;
     box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
     width: 100%;
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+    }
 }
 
-.flipModalClose:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
+/* Keyframes */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes growIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalShimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes modalSparkle {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+    }
 }

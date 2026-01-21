@@ -2,7 +2,7 @@
    BASE BADGE CARD
    ============================================================================ */
 
-.badgeCard {
+.card {
     background: white;
     border-radius: 16px;
     padding: 24px 20px;
@@ -19,6 +19,6 @@
     aspect-ratio: 1;
 }
 
-.badgeCard:hover {
+.card:hover {
     transform: scale(1.02);
 }
