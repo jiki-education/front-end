@@ -53,7 +53,7 @@ export function GlobalModalProvider() {
   }
 
   // Check if this modal should be fullscreen
-  const isFullscreenModal = modalName === "connection-error-modal";
+  const isFullscreenModal = modalName === "connection-error-modal" || modalName === "rate-limit-modal";
 
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
