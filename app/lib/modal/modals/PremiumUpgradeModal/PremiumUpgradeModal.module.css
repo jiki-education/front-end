@@ -10,8 +10,8 @@
     overflow-y: auto;
 }
 
-/* Custom modal width override */
-:global(.premiumModalWidth) {
+/* Custom modal width override - exported as a local class */
+.premiumModalWidth {
     max-width: 900px !important;
     width: 90% !important;
     padding: 40px !important;
@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 768px) {
-    :global(.premiumModalWidth) {
+    .premiumModalWidth {
         padding: 24px 16px !important;
         max-height: 100vh !important;
         height: 100vh !important;
@@ -299,7 +299,7 @@
 
 /* Tablet styles */
 @media (max-width: 1024px) {
-    :global(.premiumModalWidth) {
+    .premiumModalWidth {
         max-width: 750px !important;
         width: 95% !important;
     }
@@ -320,7 +320,7 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-    :global(.premiumModalWidth) {
+    .premiumModalWidth {
         max-width: 100% !important;
         width: 100% !important;
     }

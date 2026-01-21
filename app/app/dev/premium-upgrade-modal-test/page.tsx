@@ -1,6 +1,7 @@
 "use client";
 
 import { showModal } from "@/lib/modal";
+import styles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {
@@ -15,7 +16,7 @@ export default function PremiumUpgradeModalTest() {
         }
       },
       undefined, // overlayClassName
-      "premiumModalWidth" // modalClassName
+      styles.premiumModalWidth // modalClassName
     );
   };
 
