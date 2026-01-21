@@ -10,7 +10,7 @@ import {
 } from "@/app/(app)/achievements/lib/badgeUtils";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
-import UnlockIcon from "@/icons/unlocked-thin.svg";
+import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import Link from "next/link";
