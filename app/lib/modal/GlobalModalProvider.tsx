@@ -55,6 +55,9 @@ export function GlobalModalProvider() {
   // Check if this modal should be fullscreen
   const isFullscreenModal = modalName === "connection-error-modal";
 
+  // Check if this is a confirmation modal (should not have close button)
+  const isConfirmationModal = modalName === "confirmation-modal";
+
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
   return (
@@ -64,6 +67,7 @@ export function GlobalModalProvider() {
       overlayClassName={overlayClassName}
       className={modalClassName}
       fullscreen={isFullscreenModal}
+      hideCloseButton={isConfirmationModal}
     >
       <ModalComponent {...(modalProps as any)} />
     </BaseModal>
