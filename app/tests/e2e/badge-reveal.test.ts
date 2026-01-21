@@ -94,8 +94,10 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 1,
             name: "First Steps",
+            slug: "first-steps",
             icon: "test-icon-1",
             description: "Completed your first exercise",
+            fun_fact: "This is the most common first badge earned",
             state: "revealed",
             num_awardees: 100,
             unlocked_at: "2024-01-01T00:00:00Z"
@@ -103,8 +105,10 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 2,
             name: "Code Warrior",
+            slug: "code-warrior",
             icon: "test-icon-2",
             description: "Completed 10 exercises",
+            fun_fact: "Only 10% of users reach this milestone",
             state: "unrevealed",
             num_awardees: 50,
             unlocked_at: "2024-01-02T00:00:00Z"
@@ -112,8 +116,10 @@ async function setupBadgesMocks(page: Page) {
           {
             id: 3,
             name: "Learning Journey",
+            slug: "learning-journey",
             icon: "test-icon-3",
             description: "Spent 5 hours learning",
+            fun_fact: "The average time to earn this is 2 weeks",
             state: "locked",
             num_awardees: 25
           }
