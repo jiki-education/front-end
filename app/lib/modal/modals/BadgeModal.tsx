@@ -13,7 +13,7 @@ interface BadgeModalProps {
 export function BadgeModal({ badgeData }: BadgeModalProps) {
   return (
     <div className={styles.modalContainer}>
-      <CloseButton onClick={hideModal} variant="default" />
+      <CloseButton onClick={hideModal} className="absolute top-[16px] right-[16px]" variant="default" />
       {/* Modal Header */}
       <div className={styles.modalHeader}>
         <div className={`${styles.modalBadgeIcon} ${styles[badgeData.color]}`}>
