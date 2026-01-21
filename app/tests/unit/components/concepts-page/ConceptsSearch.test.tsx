@@ -54,8 +54,14 @@ describe("ConceptsSearch", () => {
     expect(screen.getByText('5 results for "test"')).toBeInTheDocument();
   });
 
-  it("shows searching state when loading", () => {
-    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" isLoading={true} />);
+  it("shows searching state when loading with results", () => {
+    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" isLoading={true} totalCount={1} />);
     expect(screen.getByText("Searching...")).toBeInTheDocument();
+  });
+
+  it("shows empty state when no results found", () => {
+    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" totalCount={0} isLoading={false} />);
+    expect(screen.getByText(/0 results for/)).toBeInTheDocument();
+    expect(screen.getByText("Try a different search term or browse the library.")).toBeInTheDocument();
   });
 });
