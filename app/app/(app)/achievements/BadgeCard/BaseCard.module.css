@@ -18,7 +18,3 @@
     justify-content: center;
     aspect-ratio: 1;
 }
-
-.card:hover {
-    transform: scale(1.02);
-}

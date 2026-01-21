@@ -24,6 +24,7 @@
     border-style: dotted;
 }
 
-.card.locked:hover {
-    opacity: 1;
+.card.new:hover,
+.card.earned:hover {
+    transform: scale(1.02);
 }
