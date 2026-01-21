@@ -49,6 +49,12 @@
     font-size: 17px;
 }
 
+.ui-btn-xlarge {
+    padding: 18px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
 /* Primary Button */
 .ui-btn-primary {
     border-color: var(--primary-color);
@@ -143,6 +149,22 @@
 .ui-btn-danger.ui-btn-loading::before {
     border-color: var(--primary-shadow);
     border-top-color: var(--primary-color);
+}
+
+/* UI button on colorful bg */
+.ui-btn-for-colorful-background {
+    background: white;
+    color: #7c3aed;
+    border: 2px solid #c4b5fd;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    &:hover {
+        border-color: #7c3aed;
+        box-shadow:
+            0 0 0 4px rgba(124, 58, 237, 0.2),
+            0 4px 20px rgba(0, 0, 0, 0.15);
+    }
 }
 
 /* ========================================

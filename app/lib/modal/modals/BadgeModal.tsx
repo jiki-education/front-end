@@ -14,32 +14,23 @@ export function BadgeModal({ badgeData }: BadgeModalProps) {
   return (
     <div className={styles.container}>
       <CloseButton onClick={hideModal} className="absolute top-[16px] right-[16px]" variant="default" />
-      {/* Modal Header */}
-      <div className={styles.header}>
-        <div className={`${styles.badgeIcon} ${styles[badgeData.color]}`}>
-          <BadgeIcon slug={badgeData.slug} />
-        </div>
-        <h2 className={styles.title}>{badgeData.title}</h2>
-        <div className={styles.date}>{badgeData.date}</div>
+      
+      <div className={`${styles.badgeIcon} ${styles[badgeData.color]}`}>
+        <BadgeIcon slug={badgeData.slug} />
       </div>
 
-      {/* Modal Body */}
-      <div className={styles.body}>
-        <p className={styles.description}>{badgeData.description}</p>
+      <h2 className={styles.title}>{badgeData.title}</h2>
 
-        {/* Fun Fact Box */}
-        <div className={styles.factBox}>
-          <div className={styles.factLabel}>Fun Fact</div>
-          <div className={styles.factValue}>{badgeData.funFact}</div>
-        </div>
-      </div>
+      <p className={styles.description}>{badgeData.description}</p>
+
+      {/* Fun Fact Box */}
+      <div className={styles.factLabel}>Fun Fact</div>
+      <div className={styles.factValue}>{badgeData.funFact}</div>
 
       {/* Action Button */}
-      <div className={styles.buttonWrapper}>
-        <button onClick={hideModal} className="ui-btn ui-btn-large ui-btn-primary w-[100%]">
-          Keep Going!
-        </button>
-      </div>
+      <button onClick={hideModal} className="ui-btn ui-btn-xlarge ui-btn-for-colorful-background w-[100%]">
+        Keep Going!
+      </button>
     </div>
   );
 }
