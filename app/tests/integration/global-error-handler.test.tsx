@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { render, act, waitFor, screen } from "@testing-library/react";
+import { render, act, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
@@ -65,7 +65,7 @@ describe("GlobalErrorHandler Integration", () => {
   });
 
   describe("AuthenticationError Handling", () => {
-    it("should render session expired modal when AuthenticationError is set", async () => {
+    it("should call showModal with auth-error-modal when AuthenticationError is set", async () => {
       render(<GlobalErrorHandler />);
 
       const authError = new AuthenticationError("Unauthorized", { error: "Invalid token" });
@@ -75,13 +75,11 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText("Session Expired")).toBeInTheDocument();
-        expect(screen.getByText(/session has expired/i)).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: /reload page/i })).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("auth-error-modal");
       });
     });
 
-    it("should render reload button for session expired modal", async () => {
+    it("should call hideModal when AuthenticationError is cleared", async () => {
       render(<GlobalErrorHandler />);
 
       const authError = new AuthenticationError("Unauthorized");
@@ -91,14 +89,22 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        const reloadButton = screen.getByRole("button", { name: /reload page/i });
-        expect(reloadButton).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("auth-error-modal");
+      });
+
+      // Clear error
+      act(() => {
+        useErrorHandlerStore.getState().clearCriticalError();
+      });
+
+      await waitFor(() => {
+        expect(modalModule.hideModal).toHaveBeenCalled();
       });
     });
   });
 
   describe("RateLimitError Handling", () => {
-    it("should render rate limit modal when RateLimitError is set", async () => {
+    it("should call showModal with rate-limit-modal when RateLimitError is set", async () => {
       render(<GlobalErrorHandler />);
 
       const rateLimitError = new RateLimitError("Too Many Requests", 60);
@@ -108,12 +114,13 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText("Too Many Requests")).toBeInTheDocument();
-        expect(screen.getByText(/wait before trying again/i)).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("rate-limit-modal", {
+          retryAfterSeconds: 60
+        });
       });
     });
 
-    it("should display countdown timer with retryAfterSeconds", async () => {
+    it("should pass retryAfterSeconds to rate limit modal", async () => {
       render(<GlobalErrorHandler />);
 
       const rateLimitError = new RateLimitError("Too Many Requests", 120);
@@ -123,8 +130,9 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        // Should show initial countdown value
-        expect(screen.getByText(/120s/)).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("rate-limit-modal", {
+          retryAfterSeconds: 120
+        });
       });
     });
   });
@@ -150,9 +158,7 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText("Session Expired")).toBeInTheDocument();
-        // NetworkError modal should be hidden via modal system
-        expect(modalModule.hideModal).toHaveBeenCalled();
+        expect(modalModule.showModal).toHaveBeenCalledWith("auth-error-modal");
       });
     });
 
@@ -179,9 +185,7 @@ describe("GlobalErrorHandler Integration", () => {
 
       // Should show auth error modal (last error wins)
       await waitFor(() => {
-        expect(screen.getByText("Session Expired")).toBeInTheDocument();
-        // hideModal should be called to hide the network error modal
-        expect(modalModule.hideModal).toHaveBeenCalled();
+        expect(modalModule.showModal).toHaveBeenCalledWith("auth-error-modal");
       });
     });
   });
@@ -264,7 +268,7 @@ describe("GlobalErrorHandler Integration", () => {
       });
     });
 
-    it("should render auth error modal without close button", async () => {
+    it("should show auth error modal via modal system", async () => {
       render(<GlobalErrorHandler />);
 
       act(() => {
@@ -272,15 +276,11 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText("Session Expired")).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("auth-error-modal");
       });
-
-      // Should have Reload Page button but no close button
-      expect(screen.getByRole("button", { name: /reload page/i })).toBeInTheDocument();
-      expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument();
     });
 
-    it("should render rate limit modal without close button", async () => {
+    it("should show rate limit modal via modal system", async () => {
       render(<GlobalErrorHandler />);
 
       act(() => {
@@ -288,11 +288,10 @@ describe("GlobalErrorHandler Integration", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText("Too Many Requests")).toBeInTheDocument();
+        expect(modalModule.showModal).toHaveBeenCalledWith("rate-limit-modal", {
+          retryAfterSeconds: 60
+        });
       });
-
-      // Modal should not have a close button
-      expect(screen.queryByLabelText(/close/i)).not.toBeInTheDocument();
     });
   });
 });

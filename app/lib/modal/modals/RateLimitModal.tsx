@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 import styles from "./RateLimitModal.module.css";
 
-export function RateLimitModal() {
-  const [timeLeft, setTimeLeft] = useState(15);
+interface RateLimitModalProps {
+  retryAfterSeconds?: number;
+}
+
+export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) {
+  const [timeLeft, setTimeLeft] = useState(retryAfterSeconds);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          // Auto-refresh logic would go here
+          // Auto-refresh the page when countdown reaches 0
+          window.location.reload();
           return 0;
         }
         return prev - 1;
@@ -19,9 +24,9 @@ export function RateLimitModal() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [retryAfterSeconds]);
 
-  const dashOffset = 125.6 - (125.6 * timeLeft) / 15;
+  const dashOffset = 125.6 - (125.6 * timeLeft) / retryAfterSeconds;
 
   return (
     <div className={styles.container}>
