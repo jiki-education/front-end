@@ -46,10 +46,9 @@ export function useBadgeActions(
       isNew: wasNewBadge
     };
 
-    // Use flip modal for new badges, regular modal for others
-    const modalType = wasNewBadge ? "flip-badge-modal" : "badge-modal";
-    showModal(modalType, {
+    showModal("badge-modal", {
       badgeData: modalData,
+      firstTime: wasNewBadge,
       onClose: wasNewBadge
         ? () => {
             // Only update state if the reveal API call succeeded

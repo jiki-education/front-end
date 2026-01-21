@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import { AchievementsContent } from "@/app/(app)/achievements/AchievementsContent";
 import type { BadgeData } from "@/lib/api/badges";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 // Mock the API module
 jest.mock("@/lib/api/badges", () => ({
@@ -76,13 +76,14 @@ describe("Badge Reveal Functionality", () => {
     });
 
     // Verify modal was shown with correct type for new badge and onClose callback
-    expect(showModal).toHaveBeenCalledWith("flip-badge-modal", {
+    expect(showModal).toHaveBeenCalledWith("badge-modal", {
       badgeData: expect.objectContaining({
         title: "Test Badge",
         description: "A test badge for revealing",
         funFact: "This is a fun fact about the badge",
         isNew: true
       }),
+      firstTime: true,
       onClose: expect.any(Function)
     });
   });
@@ -117,11 +118,12 @@ describe("Badge Reveal Functionality", () => {
     // Modal should still be shown even if reveal fails
     const { showModal } = await import("@/lib/modal");
     expect(showModal).toHaveBeenCalledWith(
-      "flip-badge-modal",
+      "badge-modal",
       expect.objectContaining({
         badgeData: expect.objectContaining({
           isNew: true
-        })
+        }),
+        firstTime: true
       })
     );
 
