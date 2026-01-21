@@ -37,6 +37,12 @@
     font-size: 15px;
 }
 
+.ui-btn-default {
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
 .ui-btn-large {
     padding: 16px 20px;
     border-radius: 12px;
