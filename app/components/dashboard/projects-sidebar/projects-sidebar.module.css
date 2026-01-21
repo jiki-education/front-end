@@ -1,3 +1,4 @@
+/* Main Sidebar Container */
 .projectsSidebar {
     width: 37.125%;
     padding: 20px 40px 40px 30px;
@@ -8,7 +9,288 @@
     overflow-y: auto;
 }
 
-/* Presence Card - Variation 2: Card with Stats Grid */
+/* Section Box - Common container for sidebar sections */
+.sectionBox {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+/* Section Title */
+.sectionTitle {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 16px;
+}
+
+.sectionTitle .unlockedCount {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* Project Cards Grid */
+.projectCards {
+    display: flex;
+    gap: 12px;
+}
+
+/* Individual Project Card */
+.statCard {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    flex: 1;
+}
+
+.statCard:hover {
+    transform: scale(1.02);
+}
+
+/* Project Card Icon */
+.statCardEmoji {
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.statCardEmoji img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(1846%) hue-rotate(201deg) brightness(99%)
+        contrast(95%);
+}
+
+/* Project Card Title */
+.statCardTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a202c;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+    width: 90%;
+    text-align: center;
+}
+
+/* Project Card Progress Text */
+.statCardProgress {
+    font-size: 13px;
+    font-weight: 500;
+    color: #718096;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Progress Bar */
+.cardProgressBar {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    height: 6px;
+    background: #f1f5f9;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardProgressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    transition: width 0.3s ease;
+    border-radius: 3px;
+}
+
+/* Project Status Styles */
+.statCard[data-status="started"] .cardProgressFill,
+.statCard[data-status="in-progress"] .cardProgressFill {
+    background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
+}
+
+.statCard[data-status="completed"] .cardProgressFill,
+.statCard[data-status="complete"] .cardProgressFill {
+    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+}
+
+.statCard[data-status="unlocked"] .cardProgressFill,
+.statCard[data-status="not-started"] .cardProgressFill {
+    background: #cbd5e0;
+    width: 0%;
+}
+
+.statCard[data-status="locked"] .cardProgressFill {
+    background: #e2e8f0;
+    width: 0%;
+}
+
+.statCard[data-status="completed"] .statCardProgress,
+.statCard[data-status="complete"] .statCardProgress {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.statCard[data-status="started"],
+.statCard[data-status="in-progress"] {
+    background: white;
+    border-color: #a855f7;
+    border-width: 2px;
+    box-shadow:
+        0 0 6px rgba(236, 72, 153, 0.25),
+        0 0 0 4px rgba(236, 72, 153, 0.1);
+}
+
+.statCard[data-status="started"]:hover,
+.statCard[data-status="in-progress"]:hover {
+    border-color: #a855f7;
+}
+
+.statCard[data-status="started"] .statCardProgress,
+.statCard[data-status="in-progress"] .statCardProgress {
+    color: #a855f7;
+    font-weight: 600;
+}
+
+/* View All Button */
+.viewAllBtn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 16px;
+    background: white;
+    border: 2px solid #bfd7fe;
+    border-radius: 12px;
+    color: #3b82f6;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.viewAllBtn:hover {
+    border-color: #3b82f6;
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.2),
+        0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Loading State */
+.loadingPlaceholder {
+    padding: 40px 20px;
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Projects Empty State */
+.projectsEmptyState {
+    text-align: center;
+    padding: 28px 20px;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, rgba(59, 130, 246, 0.06) 100%);
+    border-radius: 12px;
+    border: 2px dashed rgba(168, 85, 247, 0.3);
+    margin-bottom: 20px;
+}
+
+.projectsEmptyIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.projectsEmptyTitle {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+}
+
+.projectsEmptyText {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* Premium Box */
+.premiumBox {
+    background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 3px 10px #c084fc;
+}
+
+.premiumIcon {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.premiumTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.premiumText {
+    font-size: 16px;
+    margin-bottom: 16px;
+    opacity: 0.95;
+}
+
+/* Global Activity Card (Presence) */
 .presenceCard {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
     border-radius: 16px;
@@ -63,466 +345,4 @@
 .presenceCard .statBox .label {
     font-size: 13px;
     color: #64748b;
-}
-
-/* Section Box */
-.sectionBox {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 2px solid #e2e8f0;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-/* Badges Box */
-.badgesBox {
-    display: none;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(59, 130, 246, 0.15) 0%,
-            rgba(251, 191, 36, 0.15) 30%,
-            rgba(236, 72, 153, 0.15) 65%,
-            rgba(167, 139, 250, 0.15) 100%
-        ),
-        repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            rgba(255, 255, 255, 0.3) 10px,
-            rgba(255, 255, 255, 0.3) 20px
-        ),
-        white;
-}
-
-.sectionHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-}
-
-.sectionTitle {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 16px;
-}
-
-.sectionTitle .unlockedCount {
-    margin-left: auto;
-    font-size: 14px;
-    font-weight: 500;
-    color: #64748b;
-}
-
-.sectionHeader .sectionTitle {
-    margin-bottom: 0;
-}
-
-.unlockCount {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
-    border: 2px solid #10b981;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #059669;
-}
-
-.unlockCountIcon {
-    font-size: 14px;
-}
-
-.sectionSubtitle {
-    font-size: 13px;
-    color: #718096;
-    margin-bottom: 16px;
-}
-
-/* Project Cards */
-.projectCards {
-    display: flex;
-    gap: 12px;
-}
-
-.statCard {
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1;
-    flex: 1;
-}
-
-.statCard:hover {
-    transform: scale(1.02);
-}
-
-.statCardEmoji {
-    width: 70px;
-    height: 70px;
-    margin: 0;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.statCardEmoji img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(1846%) hue-rotate(201deg) brightness(99%)
-        contrast(95%);
-}
-
-.statCardTitle {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1a202c;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 10;
-    width: 90%;
-    text-align: center;
-}
-
-.statCardProgress {
-    font-size: 13px;
-    font-weight: 500;
-    color: #718096;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Progress Bar */
-.cardProgressBar {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
-    height: 6px;
-    background: #f1f5f9;
-    border-radius: 3px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-}
-
-.cardProgressFill {
-    height: 100%;
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
-    transition: width 0.3s ease;
-    border-radius: 3px;
-}
-
-.statCard[data-status="started"] .cardProgressFill,
-.statCard[data-status="in-progress"] .cardProgressFill {
-    background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
-}
-
-.statCard[data-status="completed"] .cardProgressFill,
-.statCard[data-status="complete"] .cardProgressFill {
-    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
-}
-
-.statCard[data-status="unlocked"] .cardProgressFill,
-.statCard[data-status="not-started"] .cardProgressFill {
-    background: #cbd5e0;
-    width: 0%;
-}
-
-.statCard[data-status="locked"] .cardProgressFill {
-    background: #e2e8f0;
-    width: 0%;
-}
-
-/* Project card status indicators */
-.statCard[data-status="completed"] .statCardProgress,
-.statCard[data-status="complete"] .statCardProgress {
-    color: #10b981;
-    font-weight: 600;
-}
-
-.statCard[data-status="started"],
-.statCard[data-status="in-progress"] {
-    background: white;
-    border-color: #a855f7;
-    border-width: 2px;
-    box-shadow:
-        0 0 6px rgba(236, 72, 153, 0.25),
-        0 0 0 4px rgba(236, 72, 153, 0.1);
-}
-
-.statCard[data-status="started"]:hover,
-.statCard[data-status="in-progress"]:hover {
-    border-color: #a855f7;
-}
-
-.statCard[data-status="started"] .statCardProgress,
-.statCard[data-status="in-progress"] .statCardProgress {
-    color: #a855f7;
-    font-weight: 600;
-}
-
-/* Badge Collection - Circular Badges with Colored Rings */
-.badgeCollection {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-}
-
-.collectionBadge {
-    width: 70px;
-    height: 70px;
-    background: white;
-    border: 4px solid;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 10px;
-    position: relative;
-}
-
-.collectionBadge img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.collectionBadge:hover {
-    transform: scale(1.12) translateY(-2px);
-}
-
-.badgeNew {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    background: linear-gradient(135deg, #3b82f6 0%, #2570eb 100%);
-    color: white;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 3px 6px;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    animation: pulseBadge 2s ease-in-out infinite;
-}
-
-@keyframes pulseBadge {
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    }
-    50% {
-        transform: scale(1.1);
-        box-shadow: 0 4px 16px rgba(59, 130, 246, 0.6);
-    }
-}
-
-.collectionBadge:nth-child(1) {
-    border: 4px solid #a855f7;
-    background: white;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.collectionBadge:nth-child(1):hover {
-    box-shadow:
-        0 0 0 4px #c084fc,
-        0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.collectionBadge:nth-child(2) {
-    border: 4px solid #a855f7;
-    background: white;
-    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
-}
-
-.collectionBadge:nth-child(2):hover {
-    box-shadow:
-        0 0 0 4px #c084fc,
-        0 4px 12px rgba(236, 72, 153, 0.3);
-}
-
-.collectionBadge:nth-child(3) {
-    border: 4px solid #8b5cf6;
-    background: white;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-.collectionBadge:nth-child(3):hover {
-    box-shadow:
-        0 0 0 4px #a78bfa,
-        0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-.collectionBadge:nth-child(4) {
-    border: 4px solid #10b981;
-    background: white;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.collectionBadge:nth-child(4):hover {
-    box-shadow:
-        0 0 0 4px #34d399,
-        0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.collectionBadge:nth-child(5) {
-    border: 4px solid #3b82f6;
-    background: white;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.collectionBadge:nth-child(5):hover {
-    box-shadow:
-        0 0 0 4px #60a5fa,
-        0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.collectionBadge:nth-child(6) {
-    border: 4px solid #14b8a6;
-    background: white;
-    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-}
-
-.collectionBadge:nth-child(6):hover {
-    box-shadow:
-        0 0 0 4px #2dd4bf,
-        0 4px 12px rgba(20, 184, 166, 0.3);
-}
-
-/* View All Button */
-.viewAllBtn {
-    display: block;
-    width: 100%;
-    padding: 14px 20px;
-    margin-top: 16px;
-    background: white;
-    border: 2px solid #bfd7fe;
-    border-radius: 12px;
-    color: #3b82f6;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    font-family: "Poppins", sans-serif;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.viewAllBtn:hover {
-    border-color: #3b82f6;
-    box-shadow:
-        0 0 0 4px rgba(59, 130, 246, 0.2),
-        0 4px 16px rgba(59, 130, 246, 0.4);
-}
-
-/* Placeholder states */
-.loadingPlaceholder {
-    padding: 40px 20px;
-    text-align: center;
-    color: #718096;
-    font-size: 14px;
-}
-
-.noProjectsPlaceholder {
-    padding: 40px 20px;
-    text-align: center;
-    border: 2px dashed #e2e8f0;
-    border-radius: 12px;
-    background: #f8fafc;
-}
-
-.noProjectsIcon {
-    font-size: 48px;
-    margin-bottom: 12px;
-}
-
-.noProjectsText {
-    color: #718096;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* Premium Box */
-.premiumBox {
-    background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 3px 10px #c084fc;
-}
-
-.premiumIcon {
-    font-size: 32px;
-    margin-bottom: 6px;
-}
-
-.premiumTitle {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.premiumText {
-    font-size: 16px;
-    margin-bottom: 16px;
-    opacity: 0.95;
-}
-
-.upgradeBtn {
-    display: block;
-    width: 100%;
-    background: white;
-    color: #a855f7;
-    padding: 14px 20px;
-    border: 2px solid white;
-    border-radius: 12px;
-    font-weight: 500;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: "Poppins", sans-serif;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
-    text-align: center;
-}
-
-.upgradeBtn:hover {
-    box-shadow:
-        0 0 0 4px rgba(255, 255, 255, 0.2),
-        0 4px 16px rgba(255, 255, 255, 0.4);
 }
