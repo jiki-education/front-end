@@ -24,7 +24,7 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
   };
 
   const getClassNames = () => {
-    const classNames = [styles.badgeCard];
+    const classNames = [styles.card];
 
     if (isEarned) {
       classNames.push(styles.earned);
@@ -65,9 +65,9 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
           <div className={styles.cardBack}></div>
           <div className={styles.cardFront}>
             <div className={styles.shimmerOverlay}></div>
-            <div className={styles.badgeIconWrapper}>
+            <div className={styles.iconWrapper}>
               <BadgeIcon slug={badge.slug} />
-              <div className={styles.badgeRibbon}></div>
+              <div className={styles.ribbon}></div>
             </div>
             <div className={styles.badgeTitle}>{badge.name}</div>
             <div className={styles.badgeSubtitle}>{badge.description}</div>
@@ -78,9 +78,9 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
 
       {(!isEarned || !isNew) && (
         <>
-          <div className={styles.badgeIconWrapper}>
+          <div className={styles.iconWrapper}>
             <BadgeIcon slug={badge.slug} />
-            <div className={styles.badgeRibbon}></div>
+            <div className={styles.ribbon}></div>
           </div>
           <div className={styles.badgeTitle}>{badge.name}</div>
           <div className={styles.badgeSubtitle}>{badge.description}</div>

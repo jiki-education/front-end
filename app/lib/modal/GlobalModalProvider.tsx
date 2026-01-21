@@ -3,7 +3,7 @@
 import { BaseModal } from "./BaseModal";
 import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
-import badgeStyles from "./modals/BadgeModal.module.css";
+import styles from "./GlobalModalProvider.module.css";
 
 // TODO: Add support for non-dismissible modals
 // The GlobalErrorHandler passes dismissible: false for critical error modals,
@@ -35,7 +35,10 @@ export function GlobalModalProvider() {
   const isBadgeModal = modalName === "badge-modal" || modalName === "flip-badge-modal";
 
   if (isBadgeModal) {
-    const handleOverlayClick = () => {
+    const handleOverlayClick = (e: React.MouseEvent) => {
+      if (e.target !== e.currentTarget) {
+        return;
+      }
       // Call onClose if it exists in modalProps
       if (typeof modalProps.onClose === "function") {
         modalProps.onClose();
@@ -44,10 +47,8 @@ export function GlobalModalProvider() {
     };
 
     return (
-      <div className={badgeStyles.badgeModalOverlay} onClick={handleOverlayClick}>
-        <div onClick={(e) => e.stopPropagation()}>
-          <ModalComponent {...(modalProps as any)} />
-        </div>
+      <div className={styles.overlay} onClick={handleOverlayClick}>
+        <ModalComponent {...(modalProps as any)} />
       </div>
     );
   }
@@ -55,6 +56,9 @@ export function GlobalModalProvider() {
   // Check if this modal should be fullscreen
   const isFullscreenModal =
     modalName === "connection-error-modal" || modalName === "rate-limit-modal" || modalName === "auth-error-modal";
+
+  // Check if this is a confirmation modal (should not have close button)
+  const isConfirmationModal = modalName === "confirmation-modal";
 
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
@@ -65,6 +69,7 @@ export function GlobalModalProvider() {
       overlayClassName={overlayClassName}
       className={modalClassName}
       fullscreen={isFullscreenModal}
+      hideCloseButton={isConfirmationModal}
     >
       <ModalComponent {...(modalProps as any)} />
     </BaseModal>
