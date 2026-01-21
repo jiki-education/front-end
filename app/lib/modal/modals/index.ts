@@ -11,7 +11,6 @@ import { SubscriptionModal } from "./SubscriptionModal";
 import { SubscriptionSuccessModal } from "./SubscriptionSuccessModal";
 import { SubscriptionCheckoutModal } from "./SubscriptionCheckoutModal";
 import { BadgeModal } from "./BadgeModal";
-import { FlipBadgeModal } from "./FlipBadgeModal";
 import { ChangePasswordModal } from "@/components/settings/modals/ChangePasswordModal";
 import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
@@ -31,7 +30,6 @@ export {
   SubscriptionSuccessModal,
   SubscriptionCheckoutModal,
   BadgeModal,
-  FlipBadgeModal,
   ChangePasswordModal,
   ChangeEmailModal,
   PremiumUpgradeModal
@@ -52,7 +50,6 @@ export const availableModals = {
   "subscription-success-modal": SubscriptionSuccessModal,
   "subscription-checkout-modal": SubscriptionCheckoutModal,
   "badge-modal": BadgeModal,
-  "flip-badge-modal": FlipBadgeModal,
   "change-password-modal": ChangePasswordModal,
   "change-email-modal": ChangeEmailModal,
   "premium-upgrade-modal": PremiumUpgradeModal
