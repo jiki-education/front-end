@@ -1,0 +1,93 @@
+@keyframes shimmer {
+  0% {
+      background-position: 200% 0;
+  }
+  100% {
+      background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+      90deg,
+      #eceef2 0%,
+      #f6f7f9 25%,
+      #eceef2 50%,
+      #f6f7f9 75%,
+      #eceef2 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.skeletonProfileCard {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.skeletonProfileHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skeletonAvatar {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeletonProfileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonName {
+  width: 60px;
+  height: 18px;
+}
+
+.skeletonHandle {
+  width: 80px;
+  height: 14px;
+}
+
+.skeletonStreak {
+  width: 100px;
+  height: 32px;
+  border-radius: 20px;
+}
+
+.skeletonBadgesSection {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f6f7f9;
+  border-radius: 12px;
+}
+
+.skeletonBadgesTitle {
+  width: 60px;
+  height: 14px;
+  margin: 0 auto 12px;
+}
+
+.skeletonBadges {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.skeletonBadgeCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
