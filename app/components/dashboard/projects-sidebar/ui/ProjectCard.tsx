@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import type { ProjectData } from "@/lib/api/projects";
 import styles from "../projects-sidebar.module.css";
 
@@ -24,22 +24,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
     }
   };
 
-  const getProjectIcon = () => {
-    return `/static/images/project-icons/icon-${project.slug}.png`;
-  };
-
   return (
     <Link href={`/projects/${project.slug}`} className={styles.statCard} data-status={project.status}>
       <div className={styles.statCardEmoji}>
-        <Image
-          src={getProjectIcon()}
-          alt={project.title}
-          width={24}
-          height={24}
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/static/images/project-icons/icon-default.png";
-          }}
-        />
+        <ProjectIcon slug={project.slug} width={24} height={24} />
       </div>
 
       <div className={styles.statCardTitle}>{project.title}</div>

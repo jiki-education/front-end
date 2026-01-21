@@ -1,16 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { ExerciseIcon } from "@/components/icons/ExerciseIcon";
 import styles from "@/app/styles/components/modals.module.css";
 import timelineStyles from "@/app/styles/components/exercise-timeline.module.css";
 
 interface CompletedStepProps {
   exerciseTitle: string;
-  exerciseIcon: string;
+  exerciseSlug: string;
   onContinue: () => void;
 }
 
-export function CompletedStep({ exerciseTitle, exerciseIcon, onContinue }: CompletedStepProps) {
+export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue }: CompletedStepProps) {
   return (
     <>
       <div className={timelineStyles.exerciseTimeline}>
@@ -18,7 +18,7 @@ export function CompletedStep({ exerciseTitle, exerciseIcon, onContinue }: Compl
         <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGreen}`}></div>
         <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineAnimate}`}></div>
         <div className={timelineStyles.exerciseIconBox}>
-          <img src={exerciseIcon} alt="Exercise icon" />
+          <ExerciseIcon slug={exerciseSlug} />
           <div className={timelineStyles.exerciseIconGreenOverlay}></div>
         </div>
         <div

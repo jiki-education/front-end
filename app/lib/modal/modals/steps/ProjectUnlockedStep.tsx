@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import styles from "@/app/styles/components/modals.module.css";
 import projectStyles from "@/app/styles/components/project-card.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
@@ -10,7 +10,7 @@ interface ProjectUnlockedStepProps {
   unlockedProject: {
     name: string;
     description: string;
-    icon: string;
+    slug: string;
   };
   onGoToProject: () => void;
   onGoToDashboard: () => void;
@@ -28,7 +28,7 @@ export function ProjectUnlockedStep({
     ? {
         name: unlockedProjectData.title,
         description: unlockedProjectData.description,
-        icon: `/static/images/project-icons/icon-${unlockedProjectData.slug}.png`
+        slug: unlockedProjectData.slug
       }
     : unlockedProject;
 
@@ -42,7 +42,7 @@ export function ProjectUnlockedStep({
         <div className={projectStyles.projectCardSimpleFront}>
           <div className={projectStyles.projectCardSimpleNewLabel}>New</div>
           <div className={projectStyles.projectCardSimpleIcon}>
-            <img src={projectToShow.icon} alt={projectToShow.name} />
+            <ProjectIcon slug={projectToShow.slug} />
           </div>
           <div className={projectStyles.projectCardSimpleName}>{projectToShow.name}</div>
           <div className={projectStyles.projectCardSimpleDescription}>{projectToShow.description}</div>

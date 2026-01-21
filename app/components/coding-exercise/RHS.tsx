@@ -55,6 +55,7 @@ export function RHS({ orchestrator }: RHSProps) {
             functions={exercise.functions}
             conceptSlugs={exercise.conceptSlugs}
             exerciseTitle={exercise.title}
+            exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
           />
         );
@@ -75,6 +76,7 @@ export function RHS({ orchestrator }: RHSProps) {
             functions={exercise.functions}
             conceptSlugs={exercise.conceptSlugs}
             exerciseTitle={exercise.title}
+            exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
           />
         );

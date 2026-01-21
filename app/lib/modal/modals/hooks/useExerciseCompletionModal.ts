@@ -18,11 +18,11 @@ interface UseExerciseCompletionModalProps {
   onGoToProject?: () => void;
   onGoToDashboard?: () => void;
   exerciseTitle: string;
-  exerciseIcon: string;
+  exerciseSlug: string;
   unlockedProject: {
     name: string;
     description: string;
-    icon: string;
+    slug: string;
   };
   initialStep: ModalStep;
   completionResponse: CompletionResponseData[];
@@ -34,7 +34,7 @@ export function useExerciseCompletionModal({
   onGoToProject,
   onGoToDashboard,
   exerciseTitle,
-  exerciseIcon,
+  exerciseSlug,
   unlockedProject,
   initialStep,
   completionResponse
@@ -61,7 +61,7 @@ export function useExerciseCompletionModal({
           onGoToProject,
           onGoToDashboard,
           exerciseTitle,
-          exerciseIcon,
+          exerciseSlug,
           unlockedProject,
           completionResponse,
           initialStep: "project-unlocked"
@@ -76,7 +76,7 @@ export function useExerciseCompletionModal({
     onGoToProject,
     onGoToDashboard,
     exerciseTitle,
-    exerciseIcon,
+    exerciseSlug,
     unlockedProject,
     completionResponse
   ]);

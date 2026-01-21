@@ -20,12 +20,14 @@ export default function CodingExerciseInner() {
     useResizablePanels();
 
   const orchestrator = useOrchestratorContext();
-  const { shouldShowCompleteButton, exerciseTitle, isExerciseCompleted } = useOrchestratorStore(orchestrator);
+  const { shouldShowCompleteButton, exerciseTitle, exerciseSlug, isExerciseCompleted } =
+    useOrchestratorStore(orchestrator);
   const router = useRouter();
 
   const { handleCompleteExercise } = useExerciseCompletion({
     orchestrator,
-    exerciseTitle
+    exerciseTitle,
+    exerciseSlug
   });
 
   // Update document title when exerciseTitle loads

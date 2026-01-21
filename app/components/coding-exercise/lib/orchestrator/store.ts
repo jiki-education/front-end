@@ -201,7 +201,7 @@ export function createOrchestratorStore(
           if (state.testSuiteResult?.passed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
             showModal("exercise-completion-modal", {
               exerciseTitle: state.exerciseTitle,
-              exerciseIcon: "/static/images/project-icons/icon-space-invaders.png", // TODO: Get from exercise
+              exerciseSlug: state.exerciseSlug,
               initialStep: "success",
               onTidyCode: () => {
                 // Close modal and enable complete button in header
@@ -221,7 +221,7 @@ export function createOrchestratorStore(
                   // Re-show modal with completion response data
                   showModal("exercise-completion-modal", {
                     exerciseTitle: state.exerciseTitle,
-                    exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+                    exerciseSlug: state.exerciseSlug,
                     completionResponse: events,
                     initialStep: "completed",
                     onTidyCode: () => {
