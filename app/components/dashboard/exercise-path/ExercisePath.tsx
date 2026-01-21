@@ -1,7 +1,7 @@
 "use client";
 
 import NavigationLoadingOverlay from "@/components/common/NavigationLoadingOverlay";
-import { LoadingState } from "./ui/LoadingState";
+import { ExercisePathSkeleton } from "./ui/ExercisePathSkeleton";
 import { useLessonNavigation } from "./hooks/useLessonNavigation";
 import { useMilestoneHandler } from "./hooks/useMilestoneHandler";
 import { useLevels } from "./hooks/useLevels";
@@ -43,7 +43,7 @@ export default function ExercisePath() {
   };
 
   if (levelsLoading) {
-    return <LoadingState />;
+    return <ExercisePathSkeleton />;
   }
 
   return (

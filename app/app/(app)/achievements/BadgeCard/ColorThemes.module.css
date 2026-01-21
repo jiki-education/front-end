@@ -2,17 +2,17 @@
    COLOR THEMES
    ============================================================================ */
 
-.badgeCard.earned.blue {
+.card.earned.blue {
     border-color: var(--color-blue-700);
     background: color-mix(in srgb, white 60%, var(--color-blue-50));
 }
 
-.badgeCard.earned.gold:not(.new) {
+.card.earned.gold:not(.new) {
     border-color: var(--color-gold-700);
 }
 
 /* Amber theme for recently revealed badges */
-.badgeCard.earned.amber {
+.card.earned.amber {
     border-color: var(--color-amber-600);
     background: linear-gradient(
         135deg,
@@ -22,6 +22,6 @@
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 
-.badgeCard.earned.amber:hover {
+.card.earned.amber:hover {
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
