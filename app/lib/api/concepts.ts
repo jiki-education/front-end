@@ -66,3 +66,15 @@ export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptList
   });
   return response.data.results;
 }
+
+/**
+ * Fetch subconcepts for a parent concept
+ * @param parentSlug - The parent concept's slug
+ * @returns Array of subconcept items
+ */
+export async function fetchSubconcepts(parentSlug: string): Promise<ConceptListItem[]> {
+  const response = await api.get<{ results: ConceptListItem[] }>("/internal/concepts", {
+    params: { parent_slug: parentSlug }
+  });
+  return response.data.results;
+}

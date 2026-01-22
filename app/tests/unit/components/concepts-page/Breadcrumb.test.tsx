@@ -7,39 +7,34 @@ describe("Breadcrumb", () => {
     expect(screen.getByText("Library:")).toBeInTheDocument();
   });
 
-  it("renders default breadcrumb items when no items provided", () => {
-    render(<Breadcrumb conceptTitle="Test Concept" />);
+  it("renders All Concepts as current when no conceptTitle provided", () => {
+    render(<Breadcrumb />);
     expect(screen.getByText("Library:")).toBeInTheDocument();
     expect(screen.getByText("All Concepts")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "All Concepts" })).not.toBeInTheDocument();
+  });
+
+  it("renders concept title with link to All Concepts when conceptTitle provided", () => {
+    render(<Breadcrumb conceptTitle="Test Concept" />);
+    expect(screen.getByText("Library:")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "All Concepts" })).toHaveAttribute("href", "/concepts");
     expect(screen.getByText("Test Concept")).toBeInTheDocument();
   });
 
-  it("renders custom breadcrumb items when provided", () => {
-    const items = [
-      { label: "Home", href: "/" },
-      { label: "Current Page", isCurrent: true }
+  it("renders ancestors as links", () => {
+    const ancestors = [
+      { title: "Parent Concept", slug: "parent-concept" },
+      { title: "Grandparent", slug: "grandparent" }
     ];
-    render(<Breadcrumb items={items} />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Current Page")).toBeInTheDocument();
+    render(<Breadcrumb conceptTitle="Current Concept" ancestors={ancestors} />);
+
+    expect(screen.getByRole("link", { name: "Parent Concept" })).toHaveAttribute("href", "/concepts/parent-concept");
+    expect(screen.getByRole("link", { name: "Grandparent" })).toHaveAttribute("href", "/concepts/grandparent");
+    expect(screen.getByText("Current Concept")).toBeInTheDocument();
   });
 
-  it("renders links for items with href", () => {
-    const items = [
-      { label: "Home", href: "/" },
-      { label: "Current Page", isCurrent: true }
-    ];
-    render(<Breadcrumb items={items} />);
-    const homeLink = screen.getByRole("link", { name: "Home" });
-    expect(homeLink).toHaveAttribute("href", "/");
-  });
-
-  it("does not render links for current items", () => {
-    const items = [
-      { label: "Home", href: "/" },
-      { label: "Current Page", isCurrent: true }
-    ];
-    render(<Breadcrumb items={items} />);
-    expect(screen.queryByRole("link", { name: "Current Page" })).not.toBeInTheDocument();
+  it("does not render link for current concept", () => {
+    render(<Breadcrumb conceptTitle="Current Concept" />);
+    expect(screen.queryByRole("link", { name: "Current Concept" })).not.toBeInTheDocument();
   });
 });

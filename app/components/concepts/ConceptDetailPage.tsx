@@ -5,7 +5,6 @@ import type { ConceptDetail } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import MarkdownContent from "@/components/content/MarkdownContent";
-import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
 import ConceptHero from "@/components/concepts/ConceptHero";
@@ -31,12 +30,6 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   useEffect(() => {
     const loadConcept = async () => {
       if (!isReady) {
-        return;
-      }
-
-      // For authenticated users with mock subconcepts, skip API call
-      if (authenticated && slug in mockSubconcepts) {
-        setIsLoading(false);
         return;
       }
 
@@ -66,18 +59,9 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   }, [authenticated, isReady, slug]);
 
   // Check if this concept has subconcepts
-  const hasSubconcepts = slug in mockSubconcepts;
+  const hasSubconcepts = concept && concept.children_count > 0;
 
-  // Show loading for subconcepts page
-  if (authenticated && hasSubconcepts && (!isReady || isLoading)) {
-    return (
-      <ConceptsLayout>
-        <SubconceptsGrid slug={slug} isLoading={true} />
-      </ConceptsLayout>
-    );
-  }
-
-  // Show loading for regular concept detail page
+  // Show loading state
   if (!isReady || isLoading) {
     return (
       <ConceptsLayout>
@@ -146,7 +130,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
 
   return (
     <ConceptsLayout>
-      <Breadcrumb conceptSlug={slug} conceptTitle={concept.title} />
+      <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
 
       <ConceptLayout>
         <ConceptHero category="Flow Control" title={concept.title} intro={concept.description} />

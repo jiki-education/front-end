@@ -64,6 +64,7 @@ describe("useConcepts", () => {
           slug: "test",
           title: "Test",
           description: "Test concept",
+          children_count: 0,
           standard_video_provider: null,
           standard_video_id: null,
           premium_video_provider: null,

@@ -1,7 +1,13 @@
+export interface ConceptAncestor {
+  title: string;
+  slug: string;
+}
+
 export interface ConceptListItem {
   title: string;
   slug: string;
   description: string;
+  children_count: number;
   standard_video_provider: string | null;
   standard_video_id: string | null;
   premium_video_provider: string | null;
@@ -13,6 +19,8 @@ export interface ConceptDetail {
   slug: string;
   description: string;
   content_html: string;
+  children_count: number;
+  ancestors: ConceptAncestor[];
   standard_video_provider: string | null;
   standard_video_id: string | null;
   premium_video_provider: string | null;

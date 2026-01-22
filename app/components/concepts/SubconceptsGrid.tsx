@@ -1,25 +1,54 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ConceptCard } from "@/components/concepts";
 import { Breadcrumb, ConceptCardsLoadingSkeleton } from "@/components/concepts";
-import { mockConcepts } from "@/lib/data/mockConcepts";
-import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
+import { fetchConcept, fetchSubconcepts } from "@/lib/api/concepts";
+import type { ConceptDetail, ConceptListItem } from "@/types/concepts";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 interface SubconceptsGridProps {
   slug: string;
-  isLoading?: boolean;
 }
 
-export default function SubconceptsGrid({ slug, isLoading = false }: SubconceptsGridProps) {
-  const currentConcept = mockConcepts.find((c) => c.slug === slug);
-  const subconcepts = slug in mockSubconcepts ? mockSubconcepts[slug] : undefined;
+export default function SubconceptsGrid({ slug }: SubconceptsGridProps) {
+  const [parentConcept, setParentConcept] = useState<ConceptDetail | null>(null);
+  const [subconcepts, setSubconcepts] = useState<ConceptListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!currentConcept || !subconcepts) {
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const [conceptData, subconceptsData] = await Promise.all([fetchConcept(slug), fetchSubconcepts(slug)]);
+
+        setParentConcept(conceptData);
+        setSubconcepts(subconceptsData);
+      } catch (err) {
+        console.error("Error fetching subconcepts:", err);
+        setError("Failed to load subconcepts");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void loadData();
+  }, [slug]);
+
+  if (isLoading) {
+    return <ConceptCardsLoadingSkeleton />;
+  }
+
+  if (error || !parentConcept) {
     return null;
   }
 
   return (
     <>
-      <Breadcrumb conceptSlug={slug} conceptTitle={currentConcept.title} />
+      <Breadcrumb conceptTitle={parentConcept.title} ancestors={parentConcept.ancestors} />
 
       <header>
         <h1 className={styles.pageHeading}>
@@ -37,19 +66,23 @@ export default function SubconceptsGrid({ slug, isLoading = false }: Subconcepts
               strokeLinejoin="round"
             />
           </svg>
-          {currentConcept.title}
+          {parentConcept.title}
         </h1>
       </header>
 
-      {isLoading ? (
-        <ConceptCardsLoadingSkeleton />
-      ) : (
-        <div className={styles.conceptsGrid}>
-          {subconcepts.map((subconcept) => (
-            <ConceptCard key={subconcept.slug} concept={subconcept} />
-          ))}
-        </div>
-      )}
+      <div className={styles.conceptsGrid}>
+        {subconcepts.map((subconcept) => (
+          <ConceptCard
+            key={subconcept.slug}
+            concept={{
+              slug: subconcept.slug,
+              title: subconcept.title,
+              description: subconcept.description,
+              subConceptCount: subconcept.children_count
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }

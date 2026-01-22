@@ -8,14 +8,9 @@ interface ConceptsHeaderProps {
 }
 
 export default function ConceptsHeader({ isAuthenticated }: ConceptsHeaderProps) {
-  const breadcrumbItems = [
-    { label: "Library:", isLabel: true },
-    { label: "All Concepts", isCurrent: true }
-  ];
-
   return (
     <header>
-      <Breadcrumb items={breadcrumbItems} />
+      <Breadcrumb />
 
       <h1 className={styles.pageHeading}>
         <FolderIcon className={styles.headingIcon} />
