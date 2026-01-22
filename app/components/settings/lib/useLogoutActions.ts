@@ -16,18 +16,15 @@ export function useLogoutActions() {
     setIsLoggingOut(true);
     toast.loading("Logging out...");
 
-    try {
-      await logoutFromStore();
-      toast.dismiss();
+    const result = await logoutFromStore();
+    toast.dismiss();
+    if (result.success) {
       toast.success("Logged out successfully");
       router.push("/auth/login");
-    } catch (error) {
-      toast.dismiss();
-      toast.error("Failed to log out. Please try again.");
-      console.error("Logout error:", error);
-    } finally {
-      setIsLoggingOut(false);
+    } else {
+      toast.error("Logout failed - couldn't reach server");
     }
+    setIsLoggingOut(false);
   };
 
   return {

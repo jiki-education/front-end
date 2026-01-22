@@ -24,7 +24,7 @@ interface AuthStore {
   signup: (userData: SignupData) => Promise<void>;
   googleLogin: (code: string) => Promise<void>;
   googleAuth: (code: string) => Promise<void>;
-  logout: (logoutService?: () => Promise<void>) => Promise<void>;
+  logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
@@ -168,10 +168,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         method: "DELETE",
         credentials: "include"
       });
-    } catch {
-      // Silently fail - Rails clears session regardless
-    } finally {
       get().setNoUser(null);
+      return { success: true };
+    } catch {
+      // Network error - couldn't reach server, keep user logged in locally
+      set({ isLoading: false });
+      return { success: false, error: "network" };
     }
   },
 
