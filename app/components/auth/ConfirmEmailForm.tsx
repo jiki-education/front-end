@@ -3,44 +3,39 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-// import { api } from "@/lib/api/client"; // TODO: Re-enable when backend implements confirmation endpoint
+import { confirmEmail as confirmEmailApi } from "@/lib/auth/service";
+import { useAuthStore } from "@/lib/auth/authStore";
 
 export function ConfirmEmailForm() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const [status, setStatus] = useState<"confirming" | "success" | "error">("confirming");
 
-  // Runs email confirmation on mount - async initialization pattern
   useEffect(() => {
     if (!token) {
       setStatus("error");
       return;
     }
 
-    const confirmEmail = () => {
+    const doConfirmEmail = async () => {
       try {
-        // TODO: Backend doesn't have email confirmation endpoint yet
-        // Uncomment when backend implements /auth/confirmation endpoint
-        // await api.get("/auth/confirmation", {
-        //   params: { confirmation_token: token }
-        // });
-
-        // For now, assume confirmation is successful
+        const user = await confirmEmailApi(token);
+        setUser(user);
         setStatus("success");
 
-        // Redirect after 2 seconds
         setTimeout(() => {
-          router.push("/auth/login?confirmed=true");
+          router.push("/dashboard");
         }, 2000);
       } catch {
         setStatus("error");
       }
     };
 
-    confirmEmail();
-  }, [token, router]);
+    void doConfirmEmail();
+  }, [token, router, setUser]);
 
   if (status === "confirming") {
     return (
@@ -65,7 +60,7 @@ export function ConfirmEmailForm() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900">Email Confirmed!</h2>
           <p className="mt-2 text-sm text-gray-600">Your email has been confirmed successfully.</p>
-          <p className="mt-2 text-sm text-gray-500">Redirecting to login...</p>
+          <p className="mt-2 text-sm text-gray-500">Redirecting to dashboard...</p>
         </div>
       </div>
     );

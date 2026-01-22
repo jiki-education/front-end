@@ -6,7 +6,7 @@
 import * as authService from "@/lib/auth/service";
 import { getApiUrl } from "@/lib/api/config";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
-import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
+import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
 import toast from "react-hot-toast";
 import { create } from "zustand";
@@ -21,7 +21,7 @@ interface AuthStore {
 
   // Actions
   login: (credentials: LoginCredentials) => Promise<void>;
-  signup: (userData: SignupData) => Promise<void>;
+  signup: (userData: SignupData) => Promise<User>;
   googleLogin: (code: string) => Promise<void>;
   googleAuth: (code: string) => Promise<void>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
@@ -129,6 +129,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Signup action - calls Rails directly
+  // Returns user data so caller can check email_confirmed status
   signup: async (userData) => {
     set({ isLoading: true });
     try {
@@ -145,7 +146,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         if (response.status === 401) {
           throw new AuthenticationError(message, errorData);
         }
-        throw new Error(message);
+        throw new ApiError(response.status, message, errorData);
       }
 
       const data = await response.json();
@@ -153,7 +154,15 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         throw new Error("Invalid response from server");
       }
 
-      get().setUser(data.user);
+      // Only set authenticated user if email is confirmed (e.g., Google OAuth)
+      // Unconfirmed users should not be logged in
+      if (data.user.email_confirmed) {
+        get().setUser(data.user);
+      } else {
+        set({ isLoading: false });
+      }
+
+      return data.user;
     } catch (error) {
       get().setNoUser();
       throw error;

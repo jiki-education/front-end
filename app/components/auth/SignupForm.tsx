@@ -51,12 +51,17 @@ export function SignupForm() {
     }
 
     try {
-      await signup({
+      const user = await signup({
         email,
         password,
         password_confirmation: password
       });
-      router.push("/dashboard");
+
+      if (user.email_confirmed) {
+        router.push("/dashboard");
+      } else {
+        router.push(`/auth/check-email?email=${encodeURIComponent(email)}`);
+      }
     } catch (err) {
       console.error("Signup failed:", err);
 
