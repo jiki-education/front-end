@@ -1,0 +1,248 @@
+.container {
+    text-align: center;
+    padding: 40px 40px 10px 40px;
+    max-width: 520px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.robotContainer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 16px;
+}
+
+.robot {
+    width: 200px;
+    height: 200px;
+}
+
+/* Robot SVG illustration */
+.robotBody {
+    fill: #e2e8f0;
+    stroke: #94a3b8;
+    stroke-width: 2;
+}
+
+.robotEye {
+    fill: #3b82f6;
+}
+
+.robotEye.tired {
+    fill: #94a3b8;
+}
+
+.robotAntenna {
+    stroke: #94a3b8;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+/* Tired breathing animation */
+.robotChest {
+    animation: breathe 3s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes breathe {
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(1.02);
+    }
+}
+
+/* Drooping head animation */
+.robotHeadGroup {
+    animation: droop 4s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+@keyframes droop {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+/* Blinking tired eyes */
+.eyeLid {
+    fill: #cbd5e1;
+    animation: blink 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes blink {
+    0%,
+    45%,
+    55%,
+    100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.1);
+    }
+}
+
+/* Z's floating animation */
+.zzz {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    fill: var(--color-gray-400);
+    opacity: 0;
+}
+
+.zzz1 {
+    animation: floatZ 3s ease-in-out infinite;
+}
+
+.zzz2 {
+    animation: floatZ 3s ease-in-out infinite 0.5s;
+}
+
+.zzz3 {
+    animation: floatZ 3s ease-in-out infinite 1s;
+}
+
+@keyframes floatZ {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.8);
+    }
+    20% {
+        opacity: 0.7;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(15px, -25px) scale(1.2);
+    }
+}
+
+/* Sweat drop */
+.sweat {
+    fill: #93c5fd;
+    animation: sweatDrop 2.5s ease-in-out infinite;
+}
+
+@keyframes sweatDrop {
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(8px);
+    }
+    90% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.statusCard {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 2px solid var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+}
+
+.timerRing {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    margin-left: -48px;
+}
+
+.timerRing svg {
+    transform: rotate(-90deg);
+}
+
+.timerRing .bg {
+    stroke: var(--color-gray-200);
+}
+
+.timerRing .progress {
+    stroke: var(--color-blue-500);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.timerNumber {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+}
+
+.statusText {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    text-align: center;
+}
+
+.statusSubtext {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    margin-top: 4px;
+}
+
+.helpText {
+    margin-top: 32px;
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.helpText strong {
+    color: var(--color-gray-700);
+}

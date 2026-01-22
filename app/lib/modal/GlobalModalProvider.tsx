@@ -54,7 +54,8 @@ export function GlobalModalProvider() {
   }
 
   // Check if this modal should be fullscreen
-  const isFullscreenModal = modalName === "connection-error-modal";
+  const isFullscreenModal =
+    modalName === "connection-error-modal" || modalName === "rate-limit-modal" || modalName === "auth-error-modal";
 
   // Check if this is a confirmation modal (should not have close button)
   const isConfirmationModal = modalName === "confirmation-modal";
