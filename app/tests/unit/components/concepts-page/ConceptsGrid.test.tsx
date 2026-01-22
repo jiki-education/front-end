@@ -27,24 +27,25 @@ const mockConcepts = [
 
 describe("ConceptsGrid", () => {
   it("renders without crashing", () => {
-    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} isAuthenticated={false} />);
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} />);
     expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 
   it("shows loading state when isLoading is true", () => {
-    render(<ConceptsGrid concepts={mockConcepts} isLoading={true} isAuthenticated={false} />);
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={true} />);
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renders empty grid when no concepts and not loading", () => {
-    const { container } = render(<ConceptsGrid concepts={[]} isLoading={false} isAuthenticated={false} />);
+    const { container } = render(<ConceptsGrid concepts={[]} isLoading={false} />);
     const grid = container.querySelector(`.${styles.conceptsGrid}`);
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
   });
 
-  it("renders concepts grid when authenticated", () => {
-    render(<ConceptsGrid concepts={[]} isLoading={false} isAuthenticated={true} />);
-    expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
+  it("renders concepts in grid", () => {
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} />);
+    expect(screen.getByText("Concept 1")).toBeInTheDocument();
+    expect(screen.getByText("Concept 2")).toBeInTheDocument();
   });
 });

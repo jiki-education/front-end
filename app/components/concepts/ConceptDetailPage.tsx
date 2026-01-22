@@ -14,32 +14,21 @@ import styles from "@/app/styles/modules/concepts.module.css";
 
 interface ConceptDetailPageProps {
   slug: string;
-  authenticated: boolean;
 }
 
-export default function ConceptDetailPage({ slug, authenticated }: ConceptDetailPageProps) {
+export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
   const router = useRouter();
   const [concept, setConcept] = useState<ConceptDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    setIsReady(true);
-  }, []);
 
   useEffect(() => {
     const loadConcept = async () => {
-      if (!isReady) {
-        return;
-      }
-
       try {
         setIsLoading(true);
         setError(null);
 
-        const scope = authenticated ? "internal" : "external";
-        const data = await fetchConcept(slug, scope);
+        const data = await fetchConcept(slug);
         setConcept(data);
       } catch (err: any) {
         if (err.status === 404) {
@@ -56,13 +45,13 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     };
 
     void loadConcept();
-  }, [authenticated, isReady, slug]);
+  }, [slug]);
 
   // Check if this concept has subconcepts
   const hasSubconcepts = concept && concept.children_count > 0;
 
   // Show loading state
-  if (!isReady || isLoading) {
+  if (isLoading) {
     return (
       <ConceptsLayout>
         <div className="animate-pulse">
@@ -102,8 +91,8 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     );
   }
 
-  // Show subconcepts view for authenticated users when subconcepts exist
-  if (authenticated && hasSubconcepts) {
+  // Show subconcepts view when subconcepts exist
+  if (hasSubconcepts) {
     return (
       <ConceptsLayout>
         <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
@@ -133,7 +122,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     );
   }
 
-  // Fallback to original detail view for concepts without subconcepts or non-authenticated users
+  // Fallback to original detail view for concepts without subconcepts
   if (!concept) {
     return (
       <ConceptsLayout>

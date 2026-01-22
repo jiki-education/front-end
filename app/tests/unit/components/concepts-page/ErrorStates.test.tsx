@@ -1,25 +1,35 @@
 import { EmptyState, ErrorState } from "@/components/concepts/ErrorStates";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { useAuthStore } from "@/lib/auth/authStore";
+
+jest.mock("@/lib/auth/authStore");
+const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
 
 describe("ErrorState", () => {
   const defaultProps = {
     error: "Something went wrong",
-    onRetry: jest.fn(),
-    withSidebar: false
+    onRetry: jest.fn()
   };
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("renders without crashing", () => {
+    mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
     render(<ErrorState {...defaultProps} />);
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
   });
 
   it("displays error message and retry button", () => {
+    mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
     render(<ErrorState {...defaultProps} />);
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Try Again" })).toBeInTheDocument();
   });
 
   it("calls onRetry when retry button is clicked", () => {
+    mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
     const mockOnRetry = jest.fn();
     render(<ErrorState {...defaultProps} onRetry={mockOnRetry} />);
 
@@ -29,9 +39,16 @@ describe("ErrorState", () => {
     expect(mockOnRetry).toHaveBeenCalled();
   });
 
-  it("renders with sidebar layout when withSidebar is true", () => {
-    const { container } = render(<ErrorState {...defaultProps} withSidebar={true} />);
+  it("renders with sidebar layout when authenticated", () => {
+    mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: true } as any));
+    const { container } = render(<ErrorState {...defaultProps} />);
     expect(container.querySelector(".ml-\\[260px\\]")).toBeInTheDocument();
+  });
+
+  it("renders without sidebar layout when not authenticated", () => {
+    mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
+    const { container } = render(<ErrorState {...defaultProps} />);
+    expect(container.querySelector(".container")).toBeInTheDocument();
   });
 });
 

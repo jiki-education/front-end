@@ -22,7 +22,7 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
         setIsLoading(true);
         setError(null);
 
-        const subconceptsData = await fetchSubconcepts(parentSlug, "internal");
+        const subconceptsData = await fetchSubconcepts(parentSlug);
         setSubconcepts(subconceptsData);
       } catch (err) {
         console.error("Error fetching subconcepts:", err);

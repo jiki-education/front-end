@@ -78,7 +78,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
 
       {!useMockMode && conversationLoader.isLoading ? (
         <div className="flex-1 flex items-center justify-center">
-          <InlineLoading isAuthenticated={true} />
+          <InlineLoading />
         </div>
       ) : (
         <div className="flex-1 flex flex-col min-h-0">

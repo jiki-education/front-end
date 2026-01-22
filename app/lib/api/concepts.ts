@@ -1,10 +1,19 @@
 import { api } from "./client";
+import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptListItem, ConceptDetail } from "@/types/concepts";
 
-type ApiScope = "internal" | "external";
+/**
+ * Get the API scope based on authentication state.
+ * Client-side: uses auth store
+ * Server-side: defaults to "external" (for public metadata)
+ */
+function getApiScope(): "internal" | "external" {
+  const isClient = typeof window !== "undefined";
+  const isAuthenticated = isClient ? useAuthStore.getState().isAuthenticated : false;
+  return isAuthenticated ? "internal" : "external";
+}
 
 interface FetchConceptsOptions {
-  scope: ApiScope;
   title?: string;
   page?: number;
 }
@@ -22,8 +31,8 @@ interface ConceptsResponse {
  * Fetch list of concepts
  * @param options - Search and pagination options
  */
-export async function fetchConcepts(options: FetchConceptsOptions): Promise<ConceptsResponse> {
-  const { scope, title, page } = options;
+export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise<ConceptsResponse> {
+  const { title, page } = options;
 
   const params: Record<string, string | number | boolean> = {};
 
@@ -35,7 +44,7 @@ export async function fetchConcepts(options: FetchConceptsOptions): Promise<Conc
     params.page = page;
   }
 
-  const endpoint = `/${scope}/concepts`;
+  const endpoint = `/${getApiScope()}/concepts`;
   const response = await api.get<ConceptsResponse>(endpoint, { params });
   return response.data;
 }
@@ -43,10 +52,9 @@ export async function fetchConcepts(options: FetchConceptsOptions): Promise<Conc
 /**
  * Fetch single concept by slug
  * @param slug - The concept slug
- * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  */
-export async function fetchConcept(slug: string, scope: ApiScope): Promise<ConceptDetail> {
-  const endpoint = `/${scope}/concepts/${slug}`;
+export async function fetchConcept(slug: string): Promise<ConceptDetail> {
+  const endpoint = `/${getApiScope()}/concepts/${slug}`;
   const response = await api.get<{ concept: ConceptDetail }>(endpoint);
   return response.data.concept;
 }
@@ -54,15 +62,14 @@ export async function fetchConcept(slug: string, scope: ApiScope): Promise<Conce
 /**
  * Fetch multiple concepts by their slugs
  * @param slugs - Array of concept slugs to fetch
- * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  * @returns Array of concept items
  */
-export async function fetchConceptsBySlugs(slugs: string[], scope: ApiScope): Promise<ConceptListItem[]> {
+export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptListItem[]> {
   if (slugs.length === 0) {
     return [];
   }
 
-  const endpoint = `/${scope}/concepts`;
+  const endpoint = `/${getApiScope()}/concepts`;
   const response = await api.get<{ results: ConceptListItem[] }>(endpoint, {
     params: { slugs: slugs.join(",") }
   });
@@ -72,11 +79,10 @@ export async function fetchConceptsBySlugs(slugs: string[], scope: ApiScope): Pr
 /**
  * Fetch subconcepts for a parent concept
  * @param parentSlug - The parent concept's slug
- * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  * @returns Array of subconcept items
  */
-export async function fetchSubconcepts(parentSlug: string, scope: ApiScope): Promise<ConceptListItem[]> {
-  const endpoint = `/${scope}/concepts`;
+export async function fetchSubconcepts(parentSlug: string): Promise<ConceptListItem[]> {
+  const endpoint = `/${getApiScope()}/concepts`;
   const response = await api.get<{ results: ConceptListItem[] }>(endpoint, {
     params: { parent_slug: parentSlug }
   });

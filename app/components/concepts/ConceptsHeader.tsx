@@ -1,13 +1,13 @@
+"use client";
+
 import styles from "@/app/styles/modules/concepts.module.css";
 import FolderIcon from "@static/icons/folder.svg";
 import Breadcrumb from "./Breadcrumb";
+import { useAuthStore } from "@/lib/auth/authStore";
 
-interface ConceptsHeaderProps {
-  isAuthenticated: boolean;
-  hideSearch?: boolean;
-}
+export default function ConceptsHeader() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-export default function ConceptsHeader({ isAuthenticated }: ConceptsHeaderProps) {
   return (
     <header>
       <Breadcrumb />

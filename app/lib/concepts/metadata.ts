@@ -3,7 +3,7 @@ import { fetchConcept } from "@/lib/api/concepts";
 
 export async function getConceptMetadata(slug: string): Promise<Metadata> {
   try {
-    const concept = await fetchConcept(slug, "external");
+    const concept = await fetchConcept(slug);
     return {
       title: concept.title,
       description: concept.description

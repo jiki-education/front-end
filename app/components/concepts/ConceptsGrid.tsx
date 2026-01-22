@@ -6,13 +6,12 @@ import { InlineLoading } from "./LoadingStates";
 interface ConceptsGridProps {
   concepts: ConceptListItem[];
   isLoading: boolean;
-  isAuthenticated: boolean;
 }
 
-export default function ConceptsGrid({ concepts, isLoading, isAuthenticated }: ConceptsGridProps) {
+export default function ConceptsGrid({ concepts, isLoading }: ConceptsGridProps) {
   return (
     <>
-      {isLoading && concepts.length > 0 && <InlineLoading isAuthenticated={isAuthenticated} />}
+      {isLoading && concepts.length > 0 && <InlineLoading />}
 
       <div className={styles.conceptsGrid}>
         {concepts.map((concept) => (

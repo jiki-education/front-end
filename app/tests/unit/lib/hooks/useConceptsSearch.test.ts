@@ -13,24 +13,19 @@ describe("useConceptsSearch", () => {
   });
 
   it("initializes with empty search query", () => {
-    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts, false));
+    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts));
 
     expect(result.current.searchQuery).toBe("");
     expect(result.current.debouncedSearchQuery).toBe("");
   });
 
-  it("does not call loadConcepts when not ready", () => {
-    renderHook(() => useConceptsSearch(mockLoadConcepts, false));
-    expect(mockLoadConcepts).not.toHaveBeenCalled();
-  });
-
-  it("calls loadConcepts when ready", () => {
-    renderHook(() => useConceptsSearch(mockLoadConcepts, true));
+  it("calls loadConcepts on mount", () => {
+    renderHook(() => useConceptsSearch(mockLoadConcepts));
     expect(mockLoadConcepts).toHaveBeenCalledWith(1, "");
   });
 
   it("updates search query when handleSearchChange is called", () => {
-    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts, false));
+    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts));
 
     act(() => {
       result.current.handleSearchChange({ target: { value: "test" } } as React.ChangeEvent<HTMLInputElement>);
@@ -40,7 +35,7 @@ describe("useConceptsSearch", () => {
   });
 
   it("clears search query when clearSearch is called", () => {
-    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts, false));
+    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts));
 
     act(() => {
       result.current.handleSearchChange({ target: { value: "test" } } as React.ChangeEvent<HTMLInputElement>);
@@ -56,7 +51,7 @@ describe("useConceptsSearch", () => {
   });
 
   it("provides all expected return values", () => {
-    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts, false));
+    const { result } = renderHook(() => useConceptsSearch(mockLoadConcepts));
 
     expect(typeof result.current.searchQuery).toBe("string");
     expect(typeof result.current.debouncedSearchQuery).toBe("string");
