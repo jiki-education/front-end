@@ -2,7 +2,7 @@
 
 /**
  * API Client
- * Simple, type-safe API client for backend communication with JWT support
+ * Simple, type-safe API client for backend communication with session cookie support
  */
 
 import { getApiUrl } from "./config";
