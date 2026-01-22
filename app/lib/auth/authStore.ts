@@ -227,8 +227,14 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         get().setUser(user);
         return;
       } catch (error) {
-        // Auth error - session invalid, set logged out
+        // Auth error - session invalid, clear cookie and set logged out
         if (error instanceof AuthenticationError) {
+          // Clear the session cookie by calling logout endpoint
+          // Don't catch errors - let network errors bubble up to global error handler
+          await fetch(getApiUrl("/auth/logout"), {
+            method: "DELETE",
+            credentials: "include"
+          });
           get().setNoUser("Authentication check failed");
           return;
         }

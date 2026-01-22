@@ -21,12 +21,15 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (hasCheckedAuth && !isAuthenticated) {
       // If there is an external version of this page, redirect there
+      if (pathname === "/dashboard") {
+        router.push("/");
+        return;
+      }
       if (isExternalUrl(pathname)) {
         router.push(pathname);
         return; // Reload same page → shows external version
       }
-      // For all other internal pages (including /dashboard), redirect to login
-      router.push("/auth/login");
+      router.push("/auth/login"); // Redirect to login
     }
   }, [isAuthenticated, hasCheckedAuth, pathname, router]);
 

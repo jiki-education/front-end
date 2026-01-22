@@ -16,6 +16,10 @@ jest.mock("@/lib/api/errorHandlerStore", () => ({
   clearCriticalError: jest.fn()
 }));
 
+// Mock fetch for logout calls
+const mockFetch = jest.fn(() => Promise.resolve({ ok: true }));
+global.fetch = mockFetch as unknown as typeof fetch;
+
 const mockGetCurrentUser = authService.getCurrentUser as jest.MockedFunction<typeof authService.getCurrentUser>;
 const mockSetCriticalError = errorHandlerStore.setCriticalError as jest.MockedFunction<
   typeof errorHandlerStore.setCriticalError
@@ -47,6 +51,7 @@ describe("authStore.checkAuth", () => {
       hasCheckedAuth: false
     });
     jest.clearAllMocks();
+    mockFetch.mockClear();
   });
 
   afterEach(() => {
@@ -67,10 +72,16 @@ describe("authStore.checkAuth", () => {
     expect(mockClearCriticalError).toHaveBeenCalled();
   });
 
-  it("sets logged out on AuthenticationError", async () => {
+  it("sets logged out on AuthenticationError and calls logout to clear cookie", async () => {
     mockGetCurrentUser.mockRejectedValue(new AuthenticationError("Unauthorized"));
 
     await useAuthStore.getState().checkAuth();
+
+    // Should call logout endpoint to clear the session cookie
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringContaining("/auth/logout"),
+      expect.objectContaining({ method: "DELETE", credentials: "include" })
+    );
 
     const state = useAuthStore.getState();
     expect(state.user).toBeNull();
