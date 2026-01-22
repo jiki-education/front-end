@@ -1,0 +1,115 @@
+.benefitsLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin: 24px 0 16px 0;
+}
+
+.premiumBenefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 48px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    padding: 0 20px;
+}
+
+.premiumBenefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 16px;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+}
+
+.premiumBenefit svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.premiumBenefit strong {
+    color: var(--color-gray-900);
+    font-weight: 600;
+}
+
+.benefitsFooter {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin: 0 20px;
+    padding: 16px 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+}
+
+.benefitsFooter a {
+    color: var(--color-gray-500);
+    text-decoration: underline;
+}
+
+.benefitsFooter a:hover {
+    color: var(--color-gray-700);
+}
+
+/* Benefits section with purple fill */
+.benefitsSection {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    padding: 40px 32px 36px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefitsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1px;
+}
+
+.splashDecoration {
+    width: 42px;
+    height: auto;
+    flex-shrink: 0;
+    opacity: 0.45;
+}
+
+.splashLeft {
+    transform: scaleX(-1) rotate(40deg) translate(-10px, 7px);
+}
+
+.splashRight {
+    transform: rotate(40deg) translate(-10px, 7px);
+}
+
+.benefitsSection h3 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+.benefitsSection > p {
+    text-align: center;
+    font-size: 16px;
+    color: var(--color-gray-500);
+    margin-bottom: 0;
+}
+
+.benefitsSubtitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: #7c3aed;
+    letter-spacing: -0.2px;
+}
+
+.gradientText {
+    background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

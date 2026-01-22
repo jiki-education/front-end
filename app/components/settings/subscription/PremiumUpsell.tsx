@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import styles from "./PremiumUpsell.module.css";
 
 interface PremiumUpsellProps {
@@ -7,10 +8,34 @@ interface PremiumUpsellProps {
   className?: string;
 }
 
-export default function PremiumUpsell({ 
+interface Feature {
+  title: string;
+  description: string;
+}
+
+const features: Feature[] = [
+  {
+    title: "Unlimited AI help",
+    description: "Get personalised guidance from Jiki whenever you're stuck"
+  },
+  {
+    title: "Unlimited content",
+    description: "Access all exercises, projects, and learning paths"
+  },
+  {
+    title: "Certificates",
+    description: "Earn shareable certificates when you complete courses"
+  },
+  {
+    title: "Ad-free",
+    description: "Enjoy a distraction-free learning experience"
+  }
+];
+
+export default function PremiumUpsell({
   onUpgrade,
   isLoading: externalLoading = false,
-  className = "" 
+  className = ""
 }: PremiumUpsellProps) {
   const [internalLoading, setInternalLoading] = useState(false);
   const isLoading = externalLoading || internalLoading;
@@ -23,6 +48,7 @@ export default function PremiumUpsell({
       setInternalLoading(false);
     }
   };
+
   return (
     <div className={`${styles.premiumUpsell} ${className}`}>
       <h2 className={styles.premiumUpsellHeadline}>
@@ -33,42 +59,14 @@ export default function PremiumUpsell({
       </p>
 
       <div className={styles.premiumUpsellFeatures}>
-        <div className={styles.premiumFeature}>
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#9333ea" fillOpacity="0.15"/>
-            <path d="M8 12L11 15L16 9" stroke="#9333ea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <div>
-            <strong>Unlimited AI help:</strong> Get personalised guidance from Jiki whenever you&apos;re stuck
+        {features.map((feature, index) => (
+          <div key={index} className={styles.premiumFeature}>
+            <CheckmarkCircle />
+            <div>
+              <strong>{feature.title}:</strong> {feature.description}
+            </div>
           </div>
-        </div>
-        <div className={styles.premiumFeature}>
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#9333ea" fillOpacity="0.15"/>
-            <path d="M8 12L11 15L16 9" stroke="#9333ea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <div>
-            <strong>Unlimited content:</strong> Access all exercises, projects, and learning paths
-          </div>
-        </div>
-        <div className={styles.premiumFeature}>
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#9333ea" fillOpacity="0.15"/>
-            <path d="M8 12L11 15L16 9" stroke="#9333ea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <div>
-            <strong>Certificates:</strong> Earn shareable certificates when you complete courses
-          </div>
-        </div>
-        <div className={styles.premiumFeature}>
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#9333ea" fillOpacity="0.15"/>
-            <path d="M8 12L11 15L16 9" stroke="#9333ea" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <div>
-            <strong>Ad-free:</strong> Enjoy a distraction-free learning experience
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className={styles.premiumUpsellCard}>
@@ -82,7 +80,7 @@ export default function PremiumUpsell({
             <p className={styles.premiumUpsellNote}>That&apos;s only $0.13 a day</p>
           </div>
         </div>
-        <button 
+        <button
           className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-default ${isLoading ? "ui-btn-loading" : ""}`}
           onClick={handleUpgrade}
           disabled={isLoading}

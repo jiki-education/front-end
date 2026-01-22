@@ -3,6 +3,7 @@ import type { MembershipTier } from "@/lib/pricing";
 import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
 import PremiumUpsell from "./PremiumUpsell";
+import BenefitSection from "./BenefitSection";
 import PaymentHistory from "../payment-history";
 import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
@@ -61,10 +62,12 @@ export default function SubscriptionSection({
       {/* Current Plan - rendered outside of SettingsCard */}
       <SubscriptionStatus tier={currentTier} status={subscriptionStatus} nextBillingDate={nextBillingDate} />
 
-      {/* Premium Upsell - shown only for free users */}
-      {currentTier === "standard" && <PremiumUpsell onUpgrade={handleUpgradeToPremium} isLoading={isLoading} />}
-
-      {/* Subscription Management - will be rendered in another section below */}
+      {/* Premium Upsell for free users or Benefit Section for premium users */}
+      {currentTier === "standard" ? (
+        <PremiumUpsell onUpgrade={handleUpgradeToPremium} isLoading={isLoading} />
+      ) : (
+        <BenefitSection />
+      )}
 
       {/* Payment History - always shown, will handle its own empty state */}
       <PaymentHistory />
