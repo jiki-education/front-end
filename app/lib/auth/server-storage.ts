@@ -1,13 +1,13 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { SESSION_COOKIE_NAME } from "./cookie-config";
+import { AUTHENTICATION_COOKIE_NAME } from "./cookie-config";
 
 /**
  * Server-side session cookie check
  * For use in Server Components only
  */
-export async function hasSessionCookie() {
+export async function hasAuthenticationCookie() {
   const serverCookies = await cookies();
-  return serverCookies.has(SESSION_COOKIE_NAME);
+  return serverCookies.has(AUTHENTICATION_COOKIE_NAME);
 }

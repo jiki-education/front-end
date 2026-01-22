@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
+import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { getTestUrl } from "./helpers/getTestUrl";
 import { createMockUser } from "../mocks/user";
 
@@ -45,7 +46,7 @@ test.describe("Authentication Flows", () => {
     if (route.request().url().includes("/auth/logout")) {
       // Clear cookies via Playwright API (more reliable than Set-Cookie header in mocks)
       const page = route.request().frame().page();
-      void page.context().clearCookies({ name: "jiki_session" });
+      void page.context().clearCookies({ name: AUTHENTICATION_COOKIE_NAME });
       void route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -76,7 +77,7 @@ test.describe("Authentication Flows", () => {
       // Set a valid session cookie (actual value doesn't matter - server validates)
       await page.context().addCookies([
         {
-          name: "jiki_session",
+          name: AUTHENTICATION_COOKIE_NAME,
           value: "valid-session-cookie-for-testing",
           domain: ".local.jiki.io",
           path: "/",
@@ -88,7 +89,7 @@ test.describe("Authentication Flows", () => {
     } else if (cookie === "invalid") {
       await page.context().addCookies([
         {
-          name: "jiki_session",
+          name: AUTHENTICATION_COOKIE_NAME,
           value: "invalid-session-cookie",
           domain: ".local.jiki.io",
           path: "/",

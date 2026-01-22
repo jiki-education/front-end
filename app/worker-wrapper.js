@@ -7,6 +7,7 @@
 
 // @ts-expect-error: Will be resolved by wrangler build
 import openNextWorker from "./.open-next/worker.js";
+import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { generateCacheKey } from "./lib/cache/cache-key-generator";
 import { isCacheableRoute, shouldCacheResponse } from "./lib/cache/cacheable-routes";
 
@@ -23,7 +24,7 @@ const worker = {
     const deployId = env.DEPLOY_ID;
     const isProduction = env.ENVIRONMENT === "production";
     const pathname = new URL(request.url).pathname;
-    const authenticated = request.headers.get("Cookie")?.includes("jiki_session");
+    const authenticated = request.headers.get("Cookie")?.includes(AUTHENTICATION_COOKIE_NAME);
 
     // Skip cache if:
     // - Not production

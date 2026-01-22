@@ -1,4 +1,5 @@
 import { test, expect, type Page, type Route } from "@playwright/test";
+import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { createMockUser } from "../mocks/user";
 
 function mockRequest(route: Route, url: string, status: number, body: any) {
@@ -32,7 +33,7 @@ async function setupAuthentication(page: Page) {
   // Set session cookie (actual value doesn't matter - server validates)
   await page.context().addCookies([
     {
-      name: "jiki_session",
+      name: AUTHENTICATION_COOKIE_NAME,
       value: "valid-session-cookie-for-testing",
       domain: ".local.jiki.io",
       path: "/",
