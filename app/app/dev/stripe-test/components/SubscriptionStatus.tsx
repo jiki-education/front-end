@@ -24,7 +24,7 @@ export function SubscriptionStatus({ user }: SubscriptionStatusProps) {
         nextBillingDate={
           user.subscription?.subscription_valid_until
             ? new Date(user.subscription.subscription_valid_until).toLocaleDateString()
-            : undefined
+            : null
         }
         className="!bg-transparent !border-0 !p-0" // Override styling for dev page
       />

@@ -106,21 +106,19 @@ export default function SettingsPage() {
 
           {/* Tab Content */}
           <main className="p-6">
-            <div className="space-y-6">
-              {activeTab === "account" && <AccountTab />}
-              {activeTab === "subscription" && (
-                <SubscriptionTab
-                  user={user}
-                  refreshUser={refreshUser}
-                  selectedTier={selectedTier}
-                  setSelectedTier={setSelectedTier}
-                  clientSecret={clientSecret}
-                  setClientSecret={setClientSecret}
-                />
-              )}
-              {activeTab === "notifications" && <NotificationsTab />}
-              {activeTab === "danger" && <DangerTab />}
-            </div>
+            {activeTab === "account" && <AccountTab />}
+            {activeTab === "subscription" && (
+              <SubscriptionTab
+                user={user}
+                refreshUser={refreshUser}
+                selectedTier={selectedTier}
+                setSelectedTier={setSelectedTier}
+                clientSecret={clientSecret}
+                setClientSecret={setClientSecret}
+              />
+            )}
+            {activeTab === "notifications" && <NotificationsTab />}
+            {activeTab === "danger" && <DangerTab />}
           </main>
         </div>
       </div>

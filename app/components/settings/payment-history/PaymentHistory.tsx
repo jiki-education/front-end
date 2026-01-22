@@ -1,57 +1,36 @@
 import PaymentHistoryTable from "./PaymentHistoryTable";
 import styles from "./PaymentHistory.module.css";
 import settingsStyles from "../Settings.module.css";
-import type { PaymentHistoryProps } from "./types";
+import { usePayments } from "./usePayments";
 
-// Mock data for demonstration - will be replaced with API data
-const mockPayments = [
-  {
-    id: "1",
-    date: "2026-01-15",
-    amount: 9.99,
-    type: "Recurring" as const,
-    method: "Stripe" as const
-  },
-  {
-    id: "2",
-    date: "2025-12-15",
-    amount: 9.99,
-    type: "Recurring" as const,
-    method: "Stripe" as const
-  },
-  {
-    id: "3",
-    date: "2025-11-15",
-    amount: 9.99,
-    type: "Recurring" as const,
-    method: "Stripe" as const
-  }
-];
+export default function PaymentHistory({ className = "" }: { className?: string }) {
+  const { payments, isLoading, error } = usePayments();
 
-export default function PaymentHistory({ 
-  payments = mockPayments,
-  isLoading = false,
-  onDownloadReceipt = (payment) => {
-    console.log("Download receipt for payment:", payment);
-    // TODO: Implement actual receipt download
-  },
-  className = ""
-}: PaymentHistoryProps) {
+  const handleDownloadReceipt = (payment: { receiptUrl?: string }) => {
+    if (payment.receiptUrl) {
+      window.open(payment.receiptUrl, "_blank");
+    }
+  };
   return (
     <div className={`${settingsStyles.settingItem} ${className}`} style={{ marginBottom: 0 }}>
       <h3>Payment History</h3>
       <p>View and download receipts for your past payments.</p>
-      
+
       {isLoading ? (
         <div className={styles.loadingState}>
           <div className={styles.spinner}></div>
           <span>Loading payment history...</span>
         </div>
+      ) : error ? (
+        <div className={styles.errorState}>
+          <p>Unable to load payment history. Please try again later.</p>
+        </div>
+      ) : payments.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p>No payment history available.</p>
+        </div>
       ) : (
-        <PaymentHistoryTable 
-          payments={payments}
-          onDownloadReceipt={onDownloadReceipt}
-        />
+        <PaymentHistoryTable payments={payments} onDownloadReceipt={handleDownloadReceipt} />
       )}
     </div>
   );

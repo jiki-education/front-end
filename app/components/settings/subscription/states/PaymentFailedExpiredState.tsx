@@ -1,26 +1,20 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
 
 interface PaymentFailedExpiredStateProps {
-  previousTier: "premium" | "max";
+  previousTier: "premium";
   onResubscribeToPremium: () => void;
-  onResubscribeToMax: () => void;
   isLoading?: boolean;
 }
 
 export default function PaymentFailedExpiredState({
   previousTier,
   onResubscribeToPremium,
-  onResubscribeToMax,
   isLoading = false
 }: PaymentFailedExpiredStateProps) {
   const tierInfo = {
     premium: {
       name: "Premium",
-      price: "$3"
-    },
-    max: {
-      name: "Max",
-      price: "$9"
+      price: "$3.99"
     }
   };
 
@@ -71,33 +65,12 @@ export default function PaymentFailedExpiredState({
               <li>• Community access</li>
             </ul>
             <SubscriptionButton
-              variant={previousTier === "premium" ? "primary" : "secondary"}
+              variant="primary"
               onClick={onResubscribeToPremium}
               loading={isLoading}
               className="w-full"
             >
-              {previousTier === "premium" ? "Restore Premium" : "Resubscribe to Premium"}
-            </SubscriptionButton>
-          </div>
-
-          <div className="border border-border-secondary rounded p-4">
-            <h4 className="font-medium text-text-primary mb-2">Max</h4>
-            <p className="text-2xl font-bold text-text-primary mb-1">
-              $9<span className="text-sm font-normal">/month</span>
-            </p>
-            <ul className="text-sm text-text-secondary space-y-1 mb-4">
-              <li>• Everything in Premium</li>
-              <li>• AI-powered hints</li>
-              <li>• Priority support</li>
-              <li>• Exclusive content</li>
-            </ul>
-            <SubscriptionButton
-              variant={previousTier === "max" ? "primary" : "secondary"}
-              onClick={onResubscribeToMax}
-              loading={isLoading}
-              className="w-full"
-            >
-              {previousTier === "max" ? "Restore Max" : "Resubscribe to Max"}
+              Restore Premium
             </SubscriptionButton>
           </div>
         </div>

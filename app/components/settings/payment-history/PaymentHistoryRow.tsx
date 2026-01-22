@@ -6,10 +6,7 @@ interface PaymentHistoryRowProps {
   onDownloadReceipt: (payment: Payment) => void;
 }
 
-export default function PaymentHistoryRow({ 
-  payment, 
-  onDownloadReceipt 
-}: PaymentHistoryRowProps) {
+export default function PaymentHistoryRow({ payment, onDownloadReceipt }: PaymentHistoryRowProps) {
   const formatAmount = (amount: number) => {
     return `$${amount.toFixed(2)}`;
   };
@@ -31,10 +28,7 @@ export default function PaymentHistoryRow({
       <td className={styles.paymentType}>{payment.type}</td>
       <td className={styles.paymentMethod}>{payment.method}</td>
       <td className={styles.paymentAction}>
-        <button 
-          className={`${styles.uiBtn} ${styles.uiBtnSmall} ${styles.uiBtnSecondary}`}
-          onClick={() => onDownloadReceipt(payment)}
-        >
+        <button className="ui-btn ui-btn-small ui-btn-secondary" onClick={() => onDownloadReceipt(payment)}>
           Download Receipt
         </button>
       </td>

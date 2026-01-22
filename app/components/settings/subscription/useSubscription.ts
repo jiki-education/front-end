@@ -34,12 +34,12 @@ export function useSubscription({
   // Create subscription data from user data
   const subscriptionData: SubscriptionData | null = user
     ? {
-      tier: user.membership_type,
-      status: user.subscription_status,
-      nextBillingDate: user.subscription?.subscription_valid_until,
-      graceEndDate: user.subscription?.grace_period_ends_at || undefined,
-      previousTier: undefined // This would need to come from API
-    }
+        tier: user.membership_type,
+        status: user.subscription_status,
+        nextBillingDate: user.subscription?.subscription_valid_until,
+        graceEndDate: user.subscription?.grace_period_ends_at || undefined,
+        previousTier: undefined // This would need to come from API
+      }
     : null;
 
   // Helper function to format date
@@ -88,12 +88,9 @@ export function useSubscription({
           setSelectedTier,
           setClientSecret
         });
-      } else if (user.membership_type === "premium") {
+      } else {
         // Already on premium - this shouldn't happen if UI is correct
         toast.error("Already on Premium tier");
-      } else {
-        // Max tier users trying to "upgrade" to premium is invalid
-        toast.error("Cannot downgrade from Max to Premium tier");
       }
     });
 
@@ -106,7 +103,7 @@ export function useSubscription({
       if (user.membership_type === "standard") {
         // New subscription - use checkout flow
         await handlers.handleSubscribe({
-          tier: "max",
+          tier: "premium",
           userEmail: user.email,
           setSelectedTier,
           setClientSecret
@@ -185,7 +182,7 @@ export function useSubscription({
         return;
       }
       await handlers.handleSubscribe({
-        tier: "max",
+        tier: "premium",
         userEmail: user.email,
         setSelectedTier,
         setClientSecret
@@ -217,7 +214,7 @@ export function useSubscription({
         return;
       }
       await handlers.handleSubscribe({
-        tier: "max",
+        tier: "premium",
         userEmail: user.email,
         setSelectedTier,
         setClientSecret

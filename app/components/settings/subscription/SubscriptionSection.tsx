@@ -6,6 +6,7 @@ import PremiumUpsell from "./PremiumUpsell";
 import PaymentHistory from "../payment-history";
 import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 
 // Lazy load CheckoutModal since it's only shown when needed
 const CheckoutModal = lazy(() => import("./CheckoutModal"));
@@ -29,21 +30,15 @@ export default function SubscriptionSection({
   setClientSecret,
   className = ""
 }: SubscriptionSectionProps) {
-  const {
-    isLoading,
-    currentTier,
-    subscriptionStatus,
-    nextBillingDate,
-    handleUpgradeToPremium,
-    handleCheckoutCancel
-  } = useSubscription({
-    user,
-    refreshUser,
-    selectedTier,
-    setSelectedTier,
-    clientSecret,
-    setClientSecret
-  });
+  const { isLoading, currentTier, subscriptionStatus, nextBillingDate, handleUpgradeToPremium, handleCheckoutCancel } =
+    useSubscription({
+      user,
+      refreshUser,
+      selectedTier,
+      setSelectedTier,
+      clientSecret,
+      setClientSecret
+    });
 
   // If no user, show loading state
   if (!user) {
@@ -62,28 +57,17 @@ export default function SubscriptionSection({
   }
 
   return (
-    <div style={{ maxWidth: "774px" }} className={className}>
+    <div style={{ maxWidth: "774px" }} className={assembleClassNames(className, "space-y-[16px]")}>
       {/* Current Plan - rendered outside of SettingsCard */}
-      <SubscriptionStatus
-        tier={currentTier}
-        status={subscriptionStatus}
-        nextBillingDate={nextBillingDate}
-      />
+      <SubscriptionStatus tier={currentTier} status={subscriptionStatus} nextBillingDate={nextBillingDate} />
 
       {/* Premium Upsell - shown only for free users */}
-      {currentTier === "standard" && (
-        <PremiumUpsell
-          onUpgrade={handleUpgradeToPremium}
-          isLoading={isLoading}
-        />
-      )}
+      {currentTier === "standard" && <PremiumUpsell onUpgrade={handleUpgradeToPremium} isLoading={isLoading} />}
 
       {/* Subscription Management - will be rendered in another section below */}
 
-      {/* Payment History - shown for users with subscription history */}
-      {/* {(currentTier !== "standard" || subscriptionStatus !== "never_subscribed") && ( */}
+      {/* Payment History - always shown, will handle its own empty state */}
       <PaymentHistory />
-      {/* )} */}
 
       {/* Checkout Modal */}
       {clientSecret && selectedTier && (

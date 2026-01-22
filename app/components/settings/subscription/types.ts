@@ -15,7 +15,6 @@ export type SubscriptionState =
   | "never_subscribed"
   | "incomplete_payment"
   | "active_premium"
-  | "active_max"
   | "cancelling_scheduled"
   | "payment_failed_grace"
   | "payment_failed_expired"
@@ -36,17 +35,13 @@ export interface SubscriptionData {
 
 export interface SubscriptionActions {
   onUpgradeToPremium: () => void | Promise<void>;
-  onUpgradeToMax: () => void | Promise<void>;
-  onDowngradeToPremium: () => void | Promise<void>;
   onUpdatePayment: () => void | Promise<void>;
   onCancel: () => void | Promise<void>;
   onReactivate: () => void | Promise<void>;
   onRetryPayment: () => void | Promise<void>;
   onResubscribeToPremium: () => void | Promise<void>;
-  onResubscribeToMax: () => void | Promise<void>;
   onCompletePayment: () => void | Promise<void>;
   onTryPremiumAgain: () => void | Promise<void>;
-  onTryMaxAgain: () => void | Promise<void>;
 }
 
 export interface SubscriptionStateProps {
@@ -56,7 +51,6 @@ export interface SubscriptionStateProps {
 // State-specific prop interfaces
 export interface NeverSubscribedProps extends SubscriptionStateProps {
   onUpgradeToPremium: SubscriptionActions["onUpgradeToPremium"];
-  onUpgradeToMax: SubscriptionActions["onUpgradeToMax"];
 }
 
 export interface ActiveSubscriptionProps extends SubscriptionStateProps {
@@ -65,13 +59,7 @@ export interface ActiveSubscriptionProps extends SubscriptionStateProps {
   onCancel: SubscriptionActions["onCancel"];
 }
 
-export interface ActivePremiumProps extends ActiveSubscriptionProps {
-  onUpgradeToMax: SubscriptionActions["onUpgradeToMax"];
-}
-
-export interface ActiveMaxProps extends ActiveSubscriptionProps {
-  onDowngradeToPremium: SubscriptionActions["onDowngradeToPremium"];
-}
+export type ActivePremiumProps = ActiveSubscriptionProps;
 
 export interface CancellingScheduledProps extends SubscriptionStateProps {
   cancellationDate: string;
@@ -91,14 +79,12 @@ export interface PaymentFailedGraceProps extends SubscriptionStateProps {
 export interface PaymentFailedExpiredProps extends SubscriptionStateProps {
   previousTier: Exclude<MembershipTier, "standard">;
   onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
-  onResubscribeToMax: SubscriptionActions["onResubscribeToMax"];
 }
 
 export interface PreviouslySubscribedProps extends SubscriptionStateProps {
   previousTier: Exclude<MembershipTier, "standard">;
   lastActiveDate?: string;
   onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
-  onResubscribeToMax: SubscriptionActions["onResubscribeToMax"];
 }
 
 export interface IncompletePaymentProps extends SubscriptionStateProps {
@@ -108,7 +94,6 @@ export interface IncompletePaymentProps extends SubscriptionStateProps {
 
 export interface IncompleteExpiredProps extends SubscriptionStateProps {
   onTryPremiumAgain: SubscriptionActions["onTryPremiumAgain"];
-  onTryMaxAgain: SubscriptionActions["onTryMaxAgain"];
 }
 
 // Error handling types
@@ -138,26 +123,16 @@ export interface PlanInfo {
 
 export interface PlansConfig {
   premium: PlanInfo;
-  max: PlanInfo;
 }
 
 export const PLANS: PlansConfig = {
   premium: {
     id: "premium",
     name: "Premium",
-    price: "$3",
-    priceAmount: 3,
+    price: "$3.99",
+    priceAmount: 3.99,
     currency: "USD",
     interval: "month",
-    features: ["Advanced exercises", "Progress tracking", "Community access"]
-  },
-  max: {
-    id: "max",
-    name: "Max",
-    price: "$9",
-    priceAmount: 9,
-    currency: "USD",
-    interval: "month",
-    features: ["Everything in Premium", "AI-powered hints", "Priority support", "Exclusive content"]
+    features: ["Unlimited AI help", "Access to all exercises", "Certificates", "Ad-free experience"]
   }
 } as const;

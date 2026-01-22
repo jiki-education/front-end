@@ -88,20 +88,20 @@ describe("Subscription handlers", () => {
     });
   });
 
-  describe("handleUpgradeToMax", () => {
-    it("upgrades to Max successfully", async () => {
+  describe("handleUpgradeToPremium", () => {
+    it("upgrades to Premium successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
       mockSubscriptionApi.updateSubscription.mockResolvedValue({
         success: true,
-        tier: "max",
+        tier: "premium",
         effective_at: "2024-01-01T00:00:00Z",
         subscription_valid_until: "2024-12-31T23:59:59Z"
       });
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
-      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("max");
-      expect(mockToast.success).toHaveBeenCalledWith("Successfully upgraded to Max!");
+      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("premium");
+      expect(mockToast.success).toHaveBeenCalledWith("Successfully upgraded to Premium!");
       expect(mockRefreshUser).toHaveBeenCalled();
     });
 
@@ -110,7 +110,7 @@ describe("Subscription handlers", () => {
       const mockError = new Error("Upgrade failed");
       mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Upgrade failed");
       expect(console.error).toHaveBeenCalledWith(mockError);
@@ -122,7 +122,7 @@ describe("Subscription handlers", () => {
       const mockError = { message: "Generic error" };
       mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
     });

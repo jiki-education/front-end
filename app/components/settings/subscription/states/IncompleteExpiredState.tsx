@@ -2,15 +2,10 @@ import SubscriptionButton from "../../ui/SubscriptionButton";
 
 interface IncompleteExpiredStateProps {
   onTryPremiumAgain: () => void;
-  onTryMaxAgain: () => void;
   isLoading?: boolean;
 }
 
-export default function IncompleteExpiredState({
-  onTryPremiumAgain,
-  onTryMaxAgain,
-  isLoading = false
-}: IncompleteExpiredStateProps) {
+export default function IncompleteExpiredState({ onTryPremiumAgain, isLoading = false }: IncompleteExpiredStateProps) {
   return (
     <div className="space-y-4">
       <div className="bg-red-50 border border-red-200 rounded p-4">
@@ -61,9 +56,6 @@ export default function IncompleteExpiredState({
               <li>• Priority support</li>
               <li>• Exclusive content</li>
             </ul>
-            <SubscriptionButton variant="primary" onClick={onTryMaxAgain} loading={isLoading} className="w-full">
-              Try Again with Max
-            </SubscriptionButton>
           </div>
         </div>
       </div>

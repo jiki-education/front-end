@@ -35,7 +35,7 @@ export interface PortalSessionResponse {
 }
 
 export interface UpdateSubscriptionRequest {
-  product: "premium" | "max";
+  product: "premium";
 }
 
 export interface UpdateSubscriptionResponse {

@@ -8,10 +8,10 @@ describe("PRICING_TIERS", () => {
   it("defines standard tier correctly", () => {
     expect(PRICING_TIERS.standard).toEqual({
       id: "standard",
-      name: "Standard",
+      name: "Free",
       price: 0,
       description: "Perfect for getting started",
-      features: ["Access to free courses", "Basic coding exercises", "Community support"]
+      features: ["Access to free courses", "Basic coding exercises", "Community support", "1 AI help per month"]
     });
   });
 
@@ -19,32 +19,23 @@ describe("PRICING_TIERS", () => {
     expect(PRICING_TIERS.premium).toEqual({
       id: "premium",
       name: "Premium",
-      price: 3,
+      price: 3.99,
       description: "Unlock advanced features",
-      features: ["All Standard features", "Access to premium courses", "Advanced coding exercises", "Priority support"],
+      features: [
+        "All Free features",
+        "Unlimited AI help",
+        "Access to all exercises",
+        "Certificates",
+        "Ad-free experience"
+      ],
       highlighted: true
     });
   });
 
-  it("defines max tier correctly", () => {
-    expect(PRICING_TIERS.max).toEqual({
-      id: "max",
-      name: "Max",
-      price: 10,
-      description: "Everything you need to master coding",
-      features: [
-        "All Premium features",
-        "Unlimited AI assistance",
-        "One-on-one mentorship",
-        "Career guidance",
-        "Certification programs"
-      ]
-    });
-  });
+  // Max tier removed - only standard and premium now
 
   it("has prices in ascending order", () => {
     expect(PRICING_TIERS.standard.price).toBeLessThan(PRICING_TIERS.premium.price);
-    expect(PRICING_TIERS.premium.price).toBeLessThan(PRICING_TIERS.max.price);
   });
 });
 
@@ -58,14 +49,10 @@ describe("getPricingTier", () => {
   it("returns premium tier", () => {
     const tier = getPricingTier("premium");
     expect(tier.id).toBe("premium");
-    expect(tier.price).toBe(3);
+    expect(tier.price).toBe(3.99);
   });
 
-  it("returns max tier", () => {
-    const tier = getPricingTier("max");
-    expect(tier.id).toBe("max");
-    expect(tier.price).toBe(10);
-  });
+  // Max tier removed - only standard and premium now
 });
 
 describe("tierIncludes", () => {
@@ -77,9 +64,7 @@ describe("tierIncludes", () => {
     expect(tierIncludes("standard", "premium")).toBe(false);
   });
 
-  it("standard tier does not include max features", () => {
-    expect(tierIncludes("standard", "max")).toBe(false);
-  });
+  // Max tier removed - only standard and premium now
 
   it("premium tier includes standard features", () => {
     expect(tierIncludes("premium", "standard")).toBe(true);
@@ -89,27 +74,15 @@ describe("tierIncludes", () => {
     expect(tierIncludes("premium", "premium")).toBe(true);
   });
 
-  it("premium tier does not include max features", () => {
-    expect(tierIncludes("premium", "max")).toBe(false);
-  });
+  // Max tier removed - only standard and premium now
 
-  it("max tier includes standard features", () => {
-    expect(tierIncludes("max", "standard")).toBe(true);
-  });
-
-  it("max tier includes premium features", () => {
-    expect(tierIncludes("max", "premium")).toBe(true);
-  });
-
-  it("max tier includes max features", () => {
-    expect(tierIncludes("max", "max")).toBe(true);
-  });
+  // Max tier removed - only standard and premium now
 
   // Test all tier combinations for completeness
-  const tiers: MembershipTier[] = ["standard", "premium", "max"];
+  const tiers: MembershipTier[] = ["standard", "premium"];
   tiers.forEach((userTier) => {
     tiers.forEach((requiredTier) => {
-      const tierOrder = { standard: 0, premium: 1, max: 2 };
+      const tierOrder = { standard: 0, premium: 1 };
       const expected = tierOrder[userTier] >= tierOrder[requiredTier];
 
       it(`${userTier} ${expected ? "includes" : "does not include"} ${requiredTier}`, () => {
@@ -122,10 +95,9 @@ describe("tierIncludes", () => {
 describe("getAllTiers", () => {
   it("returns all tiers in correct order", () => {
     const tiers = getAllTiers();
-    expect(tiers).toHaveLength(3);
+    expect(tiers).toHaveLength(2);
     expect(tiers[0].id).toBe("standard");
     expect(tiers[1].id).toBe("premium");
-    expect(tiers[2].id).toBe("max");
   });
 
   it("returns tier objects with all required properties", () => {
@@ -144,6 +116,5 @@ describe("getAllTiers", () => {
     const tiers = getAllTiers();
     expect(tiers[0]).toBe(PRICING_TIERS.standard);
     expect(tiers[1]).toBe(PRICING_TIERS.premium);
-    expect(tiers[2]).toBe(PRICING_TIERS.max);
   });
 });

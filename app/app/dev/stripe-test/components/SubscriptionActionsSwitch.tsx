@@ -101,9 +101,6 @@ function getSubscriptionState(user: User): SubscriptionState {
     if (membership_type === "premium") {
       return "active_premium";
     }
-    if (membership_type === "max") {
-      return "active_max";
-    }
   }
 
   // Cancelling (scheduled for end of period)
