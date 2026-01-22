@@ -2,6 +2,7 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
@@ -9,8 +10,9 @@ import styles from "./AuthForm.module.css";
 
 export function ResendConfirmationForm() {
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
+  const searchParams = useSearchParams();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(searchParams.get("email") || "");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
 

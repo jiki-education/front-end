@@ -60,21 +60,26 @@ export function SignupForm() {
     }
 
     try {
-      await signup({
+      const user = await signup({
         email,
         password,
         password_confirmation: password
       });
-      const redirectTo = getPostAuthRedirect(returnTo);
-      if (redirectTo.startsWith("http")) {
-        try {
-          window.location.href = redirectTo;
-        } catch (redirectErr) {
-          console.error("Redirect failed:", redirectErr);
-          router.push("/dashboard");
+
+      if (user.email_confirmed) {
+        const redirectTo = getPostAuthRedirect(returnTo);
+        if (redirectTo.startsWith("http")) {
+          try {
+            window.location.href = redirectTo;
+          } catch (redirectErr) {
+            console.error("Redirect failed:", redirectErr);
+            router.push("/dashboard");
+          }
+        } else {
+          router.push(redirectTo);
         }
       } else {
-        router.push(redirectTo);
+        router.push(`/auth/check-email?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
       console.error("Signup failed:", err);
