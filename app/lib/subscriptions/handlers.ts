@@ -69,18 +69,6 @@ export async function handleOpenPortal() {
   }
 }
 
-export async function handleUpgradeToMax(refreshUser: RefreshUserFn) {
-  try {
-    await updateSubscription("max");
-    toast.success("Successfully upgraded to Max!");
-    await refreshUser();
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
-    toast.error(errorMessage);
-    console.error(error);
-  }
-}
-
 export async function handleUpgradeToPremium(refreshUser: RefreshUserFn) {
   try {
     await updateSubscription("premium");
@@ -88,18 +76,6 @@ export async function handleUpgradeToPremium(refreshUser: RefreshUserFn) {
     await refreshUser();
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
-    toast.error(errorMessage);
-    console.error(error);
-  }
-}
-
-export async function handleDowngradeToPremium(refreshUser: RefreshUserFn) {
-  try {
-    await updateSubscription("premium");
-    toast.success("Successfully downgraded to Premium!");
-    await refreshUser();
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to downgrade subscription";
     toast.error(errorMessage);
     console.error(error);
   }
@@ -185,9 +161,7 @@ export async function handleDeleteStripeHistory({
 export const settingsHandlers = {
   subscribe: (params: Omit<SubscribeParams, "returnPath">) => handleSubscribe({ ...params, returnPath: "/settings" }),
   openPortal: handleOpenPortal,
-  upgradeToMax: handleUpgradeToMax,
   upgradeToPremium: handleUpgradeToPremium,
-  downgradeToPremium: handleDowngradeToPremium,
   cancel: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
   retryPayment: handleRetryPayment
@@ -197,9 +171,7 @@ export const devHandlers = {
   subscribe: handleSubscribe,
   cancel: handleCheckoutCancel,
   openPortal: handleOpenPortal,
-  upgradeToMax: handleUpgradeToMax,
   upgradeToPremium: handleUpgradeToPremium,
-  downgradeToPremium: handleDowngradeToPremium,
   cancelSubscription: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
   retryPayment: handleRetryPayment,

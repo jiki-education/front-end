@@ -146,24 +146,6 @@ describe("Subscription handlers", () => {
     });
   });
 
-  describe("handleDowngradeToPremium", () => {
-    it("downgrades to Premium successfully", async () => {
-      const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
-      mockSubscriptionApi.updateSubscription.mockResolvedValue({
-        success: true,
-        tier: "premium",
-        effective_at: "2024-01-01T00:00:00Z",
-        subscription_valid_until: "2024-12-31T23:59:59Z"
-      });
-
-      await handlers.handleDowngradeToPremium(mockRefreshUser);
-
-      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("premium");
-      expect(mockToast.success).toHaveBeenCalledWith("Successfully downgraded to Premium!");
-      expect(mockRefreshUser).toHaveBeenCalled();
-    });
-  });
-
   describe("handleCancelSubscription", () => {
     it("cancels subscription successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
@@ -241,7 +223,7 @@ describe("Subscription handlers", () => {
       const mockError = new Error("Custom error message");
       mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Custom error message");
     });
@@ -251,7 +233,7 @@ describe("Subscription handlers", () => {
       const mockError = "String error";
       mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
     });
@@ -261,7 +243,7 @@ describe("Subscription handlers", () => {
       const mockError = { code: "UNKNOWN" };
       mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
 
-      await handlers.handleUpgradeToMax(mockRefreshUser);
+      await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
     });

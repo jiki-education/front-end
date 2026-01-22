@@ -133,7 +133,6 @@ describe("SubscriptionSection", () => {
     beforeEach(() => {
       mockHandlers.handleSubscribe.mockImplementation(() => Promise.resolve());
       mockHandlers.handleUpgradeToPremium.mockImplementation(() => Promise.resolve());
-      mockHandlers.handleDowngradeToPremium.mockImplementation(() => Promise.resolve());
       mockHandlers.handleOpenPortal.mockImplementation(() => Promise.resolve());
       mockHandlers.handleCancelSubscription.mockImplementation(() => Promise.resolve());
       mockHandlers.handleReactivateSubscription.mockImplementation(() => Promise.resolve());

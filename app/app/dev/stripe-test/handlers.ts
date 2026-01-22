@@ -18,9 +18,7 @@ export type { SubscribeParams, CheckoutCancelParams, RefreshUserFn, DeleteStripe
 export const handleSubscribe = devHandlers.subscribe;
 export const handleCheckoutCancel = devHandlers.cancel;
 export const handleOpenPortal = devHandlers.openPortal;
-export const handleUpgradeToMax = devHandlers.upgradeToMax;
 export const handleUpgradeToPremium = devHandlers.upgradeToPremium;
-export const handleDowngradeToPremium = devHandlers.downgradeToPremium;
 export const handleCancelSubscription = devHandlers.cancelSubscription;
 export const handleReactivateSubscription = devHandlers.reactivate;
 export const handleRetryPayment = devHandlers.retryPayment;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPayments, type ApiPayment, PaymentsError } from "@/lib/api/payments";
+import { fetchPayments, type ApiPayment } from "@/lib/api/payments";
 import type { Payment } from "./types";
 
 function formatDate(dateString: string): string {
@@ -42,7 +42,7 @@ export function usePayments() {
         const mappedPayments = apiPayments.map(mapApiPaymentToPayment);
         setPayments(mappedPayments);
       } catch (err) {
-        if (err instanceof PaymentsError) {
+        if (err instanceof Error) {
           console.error("Failed to fetch payments:", err);
           setError(err.message);
         } else {

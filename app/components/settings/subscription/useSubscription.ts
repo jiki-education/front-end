@@ -94,43 +94,6 @@ export function useSubscription({
       }
     });
 
-  const handleUpgradeToMax = () =>
-    handleAsyncOperation(async () => {
-      if (!user) {
-        return;
-      }
-
-      if (user.membership_type === "standard") {
-        // New subscription - use checkout flow
-        await handlers.handleSubscribe({
-          tier: "premium",
-          userEmail: user.email,
-          setSelectedTier,
-          setClientSecret
-        });
-      } else {
-        // Existing subscription - upgrade
-        await handlers.handleUpgradeToMax(refreshUser);
-      }
-    });
-
-  const handleDowngradeToPremium = () => {
-    showConfirmation({
-      title: "Downgrade to Premium",
-      message:
-        "You'll lose access to Max-exclusive features like AI-powered hints and priority support, but keep all Premium features. Changes take effect at your next billing cycle.",
-      variant: "default",
-      onConfirm: () => {
-        void handleAsyncOperation(async () => {
-          await handlers.handleDowngradeToPremium(refreshUser);
-        });
-      },
-      onCancel: () => {
-        // User cancelled the action
-      }
-    });
-  };
-
   const handleUpdatePayment = () =>
     handleAsyncOperation(async () => {
       await handlers.handleOpenPortal();
@@ -176,19 +139,6 @@ export function useSubscription({
       });
     });
 
-  const handleResubscribeToMax = () =>
-    handleAsyncOperation(async () => {
-      if (!user) {
-        return;
-      }
-      await handlers.handleSubscribe({
-        tier: "premium",
-        userEmail: user.email,
-        setSelectedTier,
-        setClientSecret
-      });
-    });
-
   const handleCompletePayment = () =>
     handleAsyncOperation(async () => {
       // For incomplete payment, direct to portal to complete setup
@@ -196,19 +146,6 @@ export function useSubscription({
     });
 
   const handleTryPremiumAgain = () =>
-    handleAsyncOperation(async () => {
-      if (!user) {
-        return;
-      }
-      await handlers.handleSubscribe({
-        tier: "premium",
-        userEmail: user.email,
-        setSelectedTier,
-        setClientSecret
-      });
-    });
-
-  const handleTryMaxAgain = () =>
     handleAsyncOperation(async () => {
       if (!user) {
         return;
@@ -242,17 +179,13 @@ export function useSubscription({
 
     // Handlers
     handleUpgradeToPremium,
-    handleUpgradeToMax,
-    handleDowngradeToPremium,
     handleUpdatePayment,
     handleCancel,
     handleReactivate,
     handleRetryPayment,
     handleResubscribeToPremium,
-    handleResubscribeToMax,
     handleCompletePayment,
     handleTryPremiumAgain,
-    handleTryMaxAgain,
     handleCheckoutCancel
   };
 }

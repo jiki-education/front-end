@@ -4,7 +4,6 @@ import {
   NeverSubscribedActions,
   IncompletePaymentActions,
   ActivePremiumActions,
-  ActiveMaxActions,
   CancellingScheduledActions,
   PaymentFailedGracePeriodActions,
   PaymentFailedGraceExpiredActions,
@@ -16,7 +15,6 @@ type SubscriptionState =
   | "never_subscribed"
   | "incomplete_payment"
   | "active_premium"
-  | "active_max"
   | "cancelling_scheduled"
   | "payment_failed_grace"
   | "payment_failed_expired"
@@ -51,8 +49,6 @@ export function SubscriptionActionsSwitch({
       return <IncompletePaymentActions />;
     case "active_premium":
       return <ActivePremiumActions refreshUser={refreshUser} />;
-    case "active_max":
-      return <ActiveMaxActions refreshUser={refreshUser} />;
     case "cancelling_scheduled":
       return <CancellingScheduledActions refreshUser={refreshUser} />;
     case "payment_failed_grace":
