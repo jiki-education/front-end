@@ -6,22 +6,17 @@
 import { useAuthStore } from "@/lib/auth/authStore";
 import * as authService from "@/lib/auth/service";
 import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
-import { clearAuthCookies } from "@/lib/auth/actions";
 import * as errorHandlerStore from "@/lib/api/errorHandlerStore";
 import type { User } from "@/types/auth";
 
 // Mock dependencies
 jest.mock("@/lib/auth/service");
-jest.mock("@/lib/auth/actions", () => ({
-  clearAuthCookies: jest.fn()
-}));
 jest.mock("@/lib/api/errorHandlerStore", () => ({
   setCriticalError: jest.fn(),
   clearCriticalError: jest.fn()
 }));
 
 const mockGetCurrentUser = authService.getCurrentUser as jest.MockedFunction<typeof authService.getCurrentUser>;
-const mockClearAuthCookies = clearAuthCookies as jest.MockedFunction<typeof clearAuthCookies>;
 const mockSetCriticalError = errorHandlerStore.setCriticalError as jest.MockedFunction<
   typeof errorHandlerStore.setCriticalError
 >;
@@ -72,12 +67,11 @@ describe("authStore.checkAuth", () => {
     expect(mockClearCriticalError).toHaveBeenCalled();
   });
 
-  it("clears cookies and sets logged out on AuthenticationError", async () => {
+  it("sets logged out on AuthenticationError", async () => {
     mockGetCurrentUser.mockRejectedValue(new AuthenticationError("Unauthorized"));
 
     await useAuthStore.getState().checkAuth();
 
-    expect(mockClearAuthCookies).toHaveBeenCalled();
     const state = useAuthStore.getState();
     expect(state.user).toBeNull();
     expect(state.isAuthenticated).toBe(false);
@@ -152,7 +146,5 @@ describe("authStore.checkAuth", () => {
     expect(state.user).toBeNull();
     expect(state.isAuthenticated).toBe(false);
     expect(state.hasCheckedAuth).toBe(true);
-    // Should not clear cookies for unknown errors
-    expect(mockClearAuthCookies).not.toHaveBeenCalled();
   });
 });

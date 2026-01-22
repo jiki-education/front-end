@@ -142,13 +142,3 @@ jest.mock("react-lottie-player", () => {
     });
   };
 });
-
-// Mock Server Actions to prevent Next.js server module errors in tests
-jest.mock("@/lib/auth/actions", () => ({
-  loginAction: jest.fn(),
-  signupAction: jest.fn(),
-  googleLoginAction: jest.fn(),
-  refreshTokenAction: jest.fn(),
-  logoutAction: jest.fn(),
-  logoutFromAllDevicesAction: jest.fn()
-}));

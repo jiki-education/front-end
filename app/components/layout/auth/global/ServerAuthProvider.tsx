@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { hasServersideAccessToken } from "../../../../lib/auth/server-storage";
+import { hasSessionCookie } from "../../../../lib/auth/server-storage";
 import { ClientAuthInitializer } from "./ClientAuthInitializer";
 import { ClientLoggedOutAuthInitializer } from "./ClientLoggedOutAuthInitializer";
 
@@ -13,12 +13,12 @@ interface ServerAuthProviderProps {
  * avoiding duplicate checkAuth() calls and race conditions.
  */
 export async function ServerAuthProvider({ children }: ServerAuthProviderProps) {
-  // If we don't have a serverside access token then we know we're logged out
-  // So we called the LoggedOutAuthProvider, which sets the store correctly
-  // clientside and then we render the children directly.
-  const hasToken = await hasServersideAccessToken();
+  // If we don't have a session cookie then we know we're logged out.
+  // Render ClientLoggedOutAuthInitializer which sets the store correctly
+  // clientside, then render the children directly.
+  const hasCookie = await hasSessionCookie();
 
-  if (!hasToken) {
+  if (!hasCookie) {
     return (
       <>
         <ClientLoggedOutAuthInitializer />

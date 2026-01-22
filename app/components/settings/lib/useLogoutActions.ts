@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/lib/auth/authStore";
-import { logoutFromAllDevicesAction } from "@/lib/auth/actions";
+import { getApiUrl } from "@/lib/api/config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -40,8 +40,11 @@ export function useLogoutActions() {
     toast.loading("Logging out from all devices...");
 
     try {
-      // Call the Server Action to logout from all devices
-      await logoutFromAllDevicesAction();
+      // Call Rails logout/all endpoint directly
+      await fetch(getApiUrl("/auth/logout/all"), {
+        method: "DELETE",
+        credentials: "include"
+      });
       setNoUser(null);
 
       toast.dismiss();

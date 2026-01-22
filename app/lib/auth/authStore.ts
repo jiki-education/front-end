@@ -4,7 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
-import { loginAction, signupAction, googleLoginAction, logoutAction, clearAuthCookies } from "@/lib/auth/actions";
+import { getApiUrl } from "@/lib/api/config";
 import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
 import { AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
@@ -44,33 +44,59 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   error: null,
   hasCheckedAuth: false,
 
-  // Login action
+  // Login action - calls Rails directly
   login: async (credentials) => {
     set({ isLoading: true });
     try {
-      const result = await loginAction(credentials);
-      if (!result.success || !result.user) {
-        throw new Error(result.error || "Login failed");
+      const response = await fetch(getApiUrl("/auth/login"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ user: credentials })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || "Login failed");
       }
-      get().setUser(result.user);
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error("Invalid response from server");
+      }
+
+      get().setUser(data.user);
     } catch (error) {
       get().setNoUser();
-      throw error; // Re-throw for component handling
+      throw error;
     }
   },
 
-  // Google login action (internal)
-  googleLogin: async (credential) => {
+  // Google login action - calls Rails directly
+  googleLogin: async (code) => {
     set({ isLoading: true });
     try {
-      const result = await googleLoginAction(credential);
-      if (!result.success || !result.user) {
-        throw new Error(result.error || "Google login failed");
+      const response = await fetch(getApiUrl("/auth/google"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ code })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || "Google login failed");
       }
-      get().setUser(result.user);
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error("Invalid response from server");
+      }
+
+      get().setUser(data.user);
     } catch (error) {
       get().setNoUser();
-      throw error; // Re-throw for component handling
+      throw error;
     }
   },
 
@@ -93,26 +119,44 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-  // Signup action
+  // Signup action - calls Rails directly
   signup: async (userData) => {
     set({ isLoading: true });
     try {
-      const result = await signupAction(userData);
-      if (!result.success || !result.user) {
-        throw new Error(result.error || "Signup failed");
+      const response = await fetch(getApiUrl("/auth/signup"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ user: userData })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || "Signup failed");
       }
-      get().setUser(result.user);
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error("Invalid response from server");
+      }
+
+      get().setUser(data.user);
     } catch (error) {
       get().setNoUser();
       throw error;
     }
   },
 
-  // Logout action
+  // Logout action - calls Rails directly
   logout: async () => {
     set({ isLoading: true });
     try {
-      await logoutAction(); // Clears httpOnly cookies
+      await fetch(getApiUrl("/auth/logout"), {
+        method: "DELETE",
+        credentials: "include"
+      });
+    } catch {
+      // Silently fail - Rails clears session regardless
     } finally {
       get().setNoUser(null);
     }
@@ -162,16 +206,14 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     while (true) {
       try {
         // Fetch fresh user data from server without retries
-        // API client automatically handles token refresh on 401
         // useRetries: false prevents infinite hangs on auth errors
         const user = await authService.getCurrentUser(false);
         clearCriticalError();
         get().setUser(user);
         return;
       } catch (error) {
-        // Auth error - clear cookies and set logged out
+        // Auth error - session invalid, set logged out
         if (error instanceof AuthenticationError) {
-          await clearAuthCookies();
           get().setNoUser("Authentication check failed");
           return;
         }

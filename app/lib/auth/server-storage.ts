@@ -1,13 +1,13 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { ACCESS_TOKEN_COOKIE_NAME } from "./cookie-config";
+import { SESSION_COOKIE_NAME } from "./cookie-config";
 
 /**
- * Server-side auth token check
+ * Server-side session cookie check
  * For use in Server Components only
  */
-export async function hasServersideAccessToken() {
+export async function hasSessionCookie() {
   const serverCookies = await cookies();
-  return serverCookies.has(ACCESS_TOKEN_COOKIE_NAME);
+  return serverCookies.has(SESSION_COOKIE_NAME);
 }

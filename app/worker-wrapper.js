@@ -23,7 +23,7 @@ const worker = {
     const deployId = env.DEPLOY_ID;
     const isProduction = env.ENVIRONMENT === "production";
     const pathname = new URL(request.url).pathname;
-    const authenticated = request.headers.get("Cookie")?.includes("jiki_access_token");
+    const authenticated = request.headers.get("Cookie")?.includes("jiki_session");
 
     // Skip cache if:
     // - Not production

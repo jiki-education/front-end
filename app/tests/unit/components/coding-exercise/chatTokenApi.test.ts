@@ -4,13 +4,10 @@
 
 import { fetchChatToken, ChatTokenError } from "@/components/coding-exercise/lib/chatTokenApi";
 import { getApiUrl } from "@/lib/api/config";
-import { refreshAccessToken } from "@/lib/auth/refresh";
 
 jest.mock("@/lib/api/config");
-jest.mock("@/lib/auth/refresh");
 
 const mockGetApiUrl = getApiUrl as jest.MockedFunction<typeof getApiUrl>;
-const mockRefreshAccessToken = refreshAccessToken as jest.MockedFunction<typeof refreshAccessToken>;
 
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
@@ -56,8 +53,7 @@ describe("chatTokenApi", () => {
       expect(requestBody).toEqual({ lesson_slug: "my-exercise-slug" });
     });
 
-    it("should retry on 401 after successful session refresh", async () => {
-      // First call returns 401
+    it("should throw ChatTokenError on 401 errors", async () => {
       mockFetch.mockResolvedValueOnce({
         ok: false,
         status: 401,
@@ -65,67 +61,9 @@ describe("chatTokenApi", () => {
         headers: { get: () => "application/json" },
         json: () => Promise.resolve({ error: "unauthorized" })
       });
-
-      // Session refresh succeeds
-      mockRefreshAccessToken.mockResolvedValueOnce(true);
-
-      // Second call succeeds
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve({ token: mockToken })
-      });
-
-      const result = await fetchChatToken({ lessonSlug: "test-exercise" });
-
-      expect(result).toBe(mockToken);
-      expect(mockFetch).toHaveBeenCalledTimes(2);
-      expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
-    });
-
-    it("should not retry on 401 if session refresh fails", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 401,
-        statusText: "Unauthorized",
-        headers: { get: () => "application/json" },
-        json: () => Promise.resolve({ error: "unauthorized" })
-      });
-
-      // Session refresh fails
-      mockRefreshAccessToken.mockResolvedValueOnce(false);
 
       await expect(fetchChatToken({ lessonSlug: "test-exercise" })).rejects.toThrow(ChatTokenError);
       expect(mockFetch).toHaveBeenCalledTimes(1);
-      expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
-    });
-
-    it("should not retry more than once on repeated 401", async () => {
-      // First call returns 401
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 401,
-        statusText: "Unauthorized",
-        headers: { get: () => "application/json" },
-        json: () => Promise.resolve({ error: "unauthorized" })
-      });
-
-      // Session refresh succeeds
-      mockRefreshAccessToken.mockResolvedValueOnce(true);
-
-      // Second call also returns 401
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 401,
-        statusText: "Unauthorized",
-        headers: { get: () => "application/json" },
-        json: () => Promise.resolve({ error: "unauthorized" })
-      });
-
-      await expect(fetchChatToken({ lessonSlug: "test-exercise" })).rejects.toThrow(ChatTokenError);
-      // Should have tried twice, but NOT a third time
-      expect(mockFetch).toHaveBeenCalledTimes(2);
-      // Session refresh only called once (for the first 401)
-      expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
     });
 
     it("should throw ChatTokenError on non-401 errors", async () => {
@@ -138,8 +76,6 @@ describe("chatTokenApi", () => {
       });
 
       await expect(fetchChatToken({ lessonSlug: "test-exercise" })).rejects.toThrow(ChatTokenError);
-      // Should not attempt session refresh for non-401 errors
-      expect(mockRefreshAccessToken).not.toHaveBeenCalled();
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
 
