@@ -4,6 +4,7 @@ import AccountSettingsIcon from "@/icons/account-settings.svg";
 import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
 import SettingsIcon from "@/icons/settings.svg";
+import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { MembershipTier } from "@/lib/pricing";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
@@ -83,7 +84,7 @@ export default function SettingsPage() {
               className={activeTab === "subscription" ? "active" : ""}
               onClick={() => setActiveTab("subscription")}
             >
-              {/* <SubscriptionIcon /> */}
+              <SubscriptionIcon />
               Subscription
             </button>
             <button
