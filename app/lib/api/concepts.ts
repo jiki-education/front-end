@@ -70,10 +70,12 @@ export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptList
 /**
  * Fetch subconcepts for a parent concept
  * @param parentSlug - The parent concept's slug
+ * @param unscoped - If true, uses external endpoint for unauthenticated users
  * @returns Array of subconcept items
  */
-export async function fetchSubconcepts(parentSlug: string): Promise<ConceptListItem[]> {
-  const response = await api.get<{ results: ConceptListItem[] }>("/internal/concepts", {
+export async function fetchSubconcepts(parentSlug: string, unscoped?: boolean): Promise<ConceptListItem[]> {
+  const endpoint = unscoped ? "/external/concepts" : "/internal/concepts";
+  const response = await api.get<{ results: ConceptListItem[] }>(endpoint, {
     params: { parent_slug: parentSlug }
   });
   return response.data.results;
