@@ -57,7 +57,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || "Login failed");
+        const message = errorData.error?.message || "Login failed";
+        // Throw AuthenticationError for 401 so forms can detect invalid credentials
+        if (response.status === 401) {
+          throw new AuthenticationError(message, errorData);
+        }
+        throw new Error(message);
       }
 
       const data = await response.json();
@@ -85,7 +90,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || "Google login failed");
+        const message = errorData.error?.message || "Google login failed";
+        if (response.status === 401) {
+          throw new AuthenticationError(message, errorData);
+        }
+        throw new Error(message);
       }
 
       const data = await response.json();
@@ -132,7 +141,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || "Signup failed");
+        const message = errorData.error?.message || "Signup failed";
+        if (response.status === 401) {
+          throw new AuthenticationError(message, errorData);
+        }
+        throw new Error(message);
       }
 
       const data = await response.json();
