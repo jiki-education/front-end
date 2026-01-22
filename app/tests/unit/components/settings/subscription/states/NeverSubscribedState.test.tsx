@@ -7,7 +7,6 @@ import NeverSubscribedState from "@/components/settings/subscription/states/Neve
 describe("NeverSubscribedState", () => {
   const mockProps = {
     onUpgradeToPremium: jest.fn(),
-    onUpgradeToMax: jest.fn(),
     isLoading: false
   };
 
@@ -29,22 +28,15 @@ describe("NeverSubscribedState", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
       expect(screen.getByText("Premium")).toBeInTheDocument();
-      expect(screen.getByText("$3")).toBeInTheDocument();
-      expect(screen.getByText(/All Standard features/)).toBeInTheDocument();
-      expect(screen.getByText(/Access to premium courses/)).toBeInTheDocument();
-      expect(screen.getByText(/Advanced coding exercises/)).toBeInTheDocument();
+      expect(screen.getByText("$3.99")).toBeInTheDocument();
+      expect(screen.getByText(/All Free features/)).toBeInTheDocument();
+      expect(screen.getByText(/Unlimited AI help/)).toBeInTheDocument();
+      expect(screen.getByText(/Access to all exercises/)).toBeInTheDocument();
+      expect(screen.getByText(/Certificates/)).toBeInTheDocument();
+      expect(screen.getByText(/Ad-free experience/)).toBeInTheDocument();
     });
 
-    it("displays Max plan option", () => {
-      render(<NeverSubscribedState {...mockProps} />);
-
-      expect(screen.getByText("Max")).toBeInTheDocument();
-      expect(screen.getByText("$10")).toBeInTheDocument();
-      expect(screen.getByText(/All Premium features/)).toBeInTheDocument();
-      expect(screen.getByText(/Unlimited AI assistance/)).toBeInTheDocument();
-      expect(screen.getByText(/One-on-one mentorship/)).toBeInTheDocument();
-      expect(screen.getByText(/Career guidance/)).toBeInTheDocument();
-    });
+    // Max tier has been removed - only Premium tier now
   });
 
   describe("Button interactions", () => {
@@ -57,56 +49,42 @@ describe("NeverSubscribedState", () => {
       expect(mockProps.onUpgradeToPremium).toHaveBeenCalledTimes(1);
     });
 
-    it("calls onUpgradeToMax when Max button is clicked", () => {
-      render(<NeverSubscribedState {...mockProps} />);
-
-      const maxButton = screen.getByRole("button", { name: /upgrade to max/i });
-      fireEvent.click(maxButton);
-
-      expect(mockProps.onUpgradeToMax).toHaveBeenCalledTimes(1);
-    });
+    // Max tier has been removed - only Premium tier now
   });
 
   describe("Loading state", () => {
-    it("disables buttons when loading", () => {
+    it("disables button when loading", () => {
       render(<NeverSubscribedState {...mockProps} isLoading={true} />);
 
       const premiumButton = screen.getByRole("button", { name: /upgrade to premium/i });
-      const maxButton = screen.getByRole("button", { name: /upgrade to max/i });
 
       expect(premiumButton).toBeDisabled();
-      expect(maxButton).toBeDisabled();
     });
 
-    it("shows loading state on buttons when loading", () => {
+    it("shows loading state on button when loading", () => {
       render(<NeverSubscribedState {...mockProps} isLoading={true} />);
 
       // Look for loading indicators or text changes
       // The exact implementation would depend on the SubscriptionButton component
       const premiumButton = screen.getByRole("button", { name: /upgrade to premium/i });
-      const maxButton = screen.getByRole("button", { name: /upgrade to max/i });
 
       expect(premiumButton).toBeDisabled();
-      expect(maxButton).toBeDisabled();
     });
 
-    it("enables buttons when not loading", () => {
+    it("enables button when not loading", () => {
       render(<NeverSubscribedState {...mockProps} isLoading={false} />);
 
       const premiumButton = screen.getByRole("button", { name: /upgrade to premium/i });
-      const maxButton = screen.getByRole("button", { name: /upgrade to max/i });
 
       expect(premiumButton).not.toBeDisabled();
-      expect(maxButton).not.toBeDisabled();
     });
   });
 
   describe("Accessibility", () => {
-    it("provides proper button roles", () => {
+    it("provides proper button role", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
       expect(screen.getByRole("button", { name: /upgrade to premium/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /upgrade to max/i })).toBeInTheDocument();
     });
 
     it("has proper heading structure", () => {
@@ -120,35 +98,28 @@ describe("NeverSubscribedState", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
       const premiumButton = screen.getByRole("button", { name: /upgrade to premium/i });
-      const maxButton = screen.getByRole("button", { name: /upgrade to max/i });
 
       expect(premiumButton).toHaveAccessibleName();
-      expect(maxButton).toHaveAccessibleName();
     });
   });
 
   describe("Plan comparison", () => {
-    it("shows clear feature differences between plans", () => {
+    it("shows Premium plan features", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
       // Premium features
-      expect(screen.getByText(/All Standard features/)).toBeInTheDocument();
-      expect(screen.getByText(/Access to premium courses/)).toBeInTheDocument();
-      expect(screen.getByText(/Advanced coding exercises/)).toBeInTheDocument();
-      expect(screen.getByText(/Priority support/)).toBeInTheDocument();
-
-      // Max additional features
-      expect(screen.getByText(/All Premium features/)).toBeInTheDocument();
-      expect(screen.getByText(/Unlimited AI assistance/)).toBeInTheDocument();
-      expect(screen.getByText(/One-on-one mentorship/)).toBeInTheDocument();
-      expect(screen.getByText(/Career guidance/)).toBeInTheDocument();
+      expect(screen.getByText(/All Free features/)).toBeInTheDocument();
+      expect(screen.getByText(/Unlimited AI help/)).toBeInTheDocument();
+      expect(screen.getByText(/Access to all exercises/)).toBeInTheDocument();
+      expect(screen.getByText(/Certificates/)).toBeInTheDocument();
+      expect(screen.getByText(/Ad-free experience/)).toBeInTheDocument();
     });
 
     it("shows pricing information clearly", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
-      expect(screen.getByText("$3")).toBeInTheDocument();
-      expect(screen.getByText("$10")).toBeInTheDocument();
+      expect(screen.getByText("$3.99")).toBeInTheDocument();
+      expect(screen.getByText("/month")).toBeInTheDocument();
     });
   });
 
@@ -160,7 +131,6 @@ describe("NeverSubscribedState", () => {
 
       expect(screen.getByText("Upgrade Your Plan")).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /upgrade to premium/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /upgrade to max/i })).toBeInTheDocument();
     });
   });
 });

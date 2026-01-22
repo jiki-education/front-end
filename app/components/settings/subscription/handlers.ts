@@ -16,9 +16,7 @@ export type SubscribeParams = Omit<SharedSubscribeParams, "returnPath">;
 // Re-export handlers with settings-specific configuration
 export const handleSubscribe = settingsHandlers.subscribe;
 export const handleOpenPortal = settingsHandlers.openPortal;
-export const handleUpgradeToMax = settingsHandlers.upgradeToMax;
 export const handleUpgradeToPremium = settingsHandlers.upgradeToPremium;
-export const handleDowngradeToPremium = settingsHandlers.downgradeToPremium;
 export const handleCancelSubscription = settingsHandlers.cancel;
 export const handleReactivateSubscription = settingsHandlers.reactivate;
 export const handleRetryPayment = settingsHandlers.retryPayment;

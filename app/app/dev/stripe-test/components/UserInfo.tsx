@@ -39,8 +39,6 @@ function getTierBadgeColor(tier: MembershipTier): string {
       return "bg-gray-100 text-gray-800";
     case "premium":
       return "bg-blue-100 text-blue-800";
-    case "max":
-      return "bg-purple-100 text-purple-800";
     default:
       return "bg-gray-100 text-gray-800";
   }

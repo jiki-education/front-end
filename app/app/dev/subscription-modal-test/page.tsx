@@ -177,7 +177,7 @@ export default function SubscriptionModalTest() {
             <button
               onClick={() =>
                 showSubscriptionSuccess({
-                  tier: "max",
+                  tier: "premium",
                   triggerContext: "chat-gate",
                   nextSteps: {
                     title: "Get Started with AI Chat",
@@ -189,7 +189,7 @@ export default function SubscriptionModalTest() {
               }
               className="w-full px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm"
             >
-              Max Success + Next Steps
+              Premium Success + Next Steps
             </button>
           </div>
         </div>

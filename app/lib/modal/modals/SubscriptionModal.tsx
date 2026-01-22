@@ -46,7 +46,6 @@ export function SubscriptionModal({
   const user = useAuthStore((state: any) => state.user);
 
   const premiumTier = PRICING_TIERS.premium;
-  const maxTier = PRICING_TIERS.max;
 
   // Default content based on context
   const getDefaultContent = () => {
@@ -79,7 +78,7 @@ export function SubscriptionModal({
   const finalHeadline = headline || defaultContent.headline;
   const finalDescription = description || defaultContent.description;
 
-  const handleTierSelection = async (tier: "premium" | "max") => {
+  const handleTierSelection = async (tier: "premium") => {
     if (!user) {
       toast.error("Please log in to upgrade your account");
       return;
@@ -162,7 +161,7 @@ export function SubscriptionModal({
       )}
 
       {/* Tier Selection */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Premium Tier */}
         <div
           className={`border rounded-lg p-6 relative transition-all ${
@@ -187,7 +186,7 @@ export function SubscriptionModal({
           </div>
 
           <ul className="space-y-2 mb-6">
-            {premiumTier.features.map((feature, index) => (
+            {premiumTier.features.map((feature: string, index: number) => (
               <li key={index} className="flex items-start text-sm text-text-secondary">
                 <span className="text-green-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true">
                   ✓
@@ -205,53 +204,6 @@ export function SubscriptionModal({
             ariaLabel={`Subscribe to ${premiumTier.name} plan for $${premiumTier.price} per month`}
           >
             Choose Premium
-          </SubscriptionButton>
-        </div>
-
-        {/* Max Tier */}
-        <div
-          className={`border rounded-lg p-6 relative transition-all ${
-            suggestedTier === "max"
-              ? "border-purple-500 bg-purple-50 ring-2 ring-purple-200"
-              : "border-border-secondary bg-bg-primary hover:border-border-primary"
-          }`}
-        >
-          {(suggestedTier === "max" || !suggestedTier) && (
-            <div className="absolute -top-3 left-4">
-              <span className="bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
-                {suggestedTier === "max" ? "Recommended" : "Most Popular"}
-              </span>
-            </div>
-          )}
-
-          <div className="mb-4">
-            <h3 className="text-xl font-bold text-text-primary">{maxTier.name}</h3>
-            <div className="mt-2">
-              <span className="text-3xl font-bold text-text-primary">${maxTier.price}</span>
-              <span className="text-text-secondary">/month</span>
-            </div>
-            <p className="text-text-secondary text-sm mt-2">{maxTier.description}</p>
-          </div>
-
-          <ul className="space-y-2 mb-6">
-            {maxTier.features.map((feature, index) => (
-              <li key={index} className="flex items-start text-sm text-text-secondary">
-                <span className="text-green-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true">
-                  ✓
-                </span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <SubscriptionButton
-            variant="primary"
-            onClick={() => handleTierSelection("max")}
-            loading={isLoading}
-            className="w-full"
-            ariaLabel={`Subscribe to ${maxTier.name} plan for $${maxTier.price} per month`}
-          >
-            Choose Max
           </SubscriptionButton>
         </div>
       </div>

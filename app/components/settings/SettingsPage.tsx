@@ -4,6 +4,7 @@ import AccountSettingsIcon from "@/icons/account-settings.svg";
 import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
 import SettingsIcon from "@/icons/settings.svg";
+import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { MembershipTier } from "@/lib/pricing";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
@@ -83,7 +84,7 @@ export default function SettingsPage() {
               className={activeTab === "subscription" ? "active" : ""}
               onClick={() => setActiveTab("subscription")}
             >
-              {/* <SubscriptionIcon /> */}
+              <SubscriptionIcon />
               Subscription
             </button>
             <button
@@ -105,21 +106,19 @@ export default function SettingsPage() {
 
           {/* Tab Content */}
           <main className="p-6">
-            <div className="space-y-6">
-              {activeTab === "account" && <AccountTab />}
-              {activeTab === "subscription" && (
-                <SubscriptionTab
-                  user={user}
-                  refreshUser={refreshUser}
-                  selectedTier={selectedTier}
-                  setSelectedTier={setSelectedTier}
-                  clientSecret={clientSecret}
-                  setClientSecret={setClientSecret}
-                />
-              )}
-              {activeTab === "notifications" && <NotificationsTab />}
-              {activeTab === "danger" && <DangerTab />}
-            </div>
+            {activeTab === "account" && <AccountTab />}
+            {activeTab === "subscription" && (
+              <SubscriptionTab
+                user={user}
+                refreshUser={refreshUser}
+                selectedTier={selectedTier}
+                setSelectedTier={setSelectedTier}
+                clientSecret={clientSecret}
+                setClientSecret={setClientSecret}
+              />
+            )}
+            {activeTab === "notifications" && <NotificationsTab />}
+            {activeTab === "danger" && <DangerTab />}
           </main>
         </div>
       </div>

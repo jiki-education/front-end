@@ -16,7 +16,7 @@ import type {
 
 /**
  * Create a Stripe checkout session for a subscription
- * @param product - Membership tier/product (premium or max)
+ * @param product - Membership tier/product (premium)
  * @param returnUrl - Optional return URL after payment completion
  * @param customerEmail - Optional customer email for pre-filling and Link authentication
  * @returns Checkout session with client secret
@@ -57,10 +57,10 @@ export async function verifyCheckoutSession(sessionId: string): Promise<{ succes
 
 /**
  * Update subscription tier (upgrade or downgrade)
- * @param product - Target membership tier (premium or max)
+ * @param product - Target membership tier (premium)
  * @returns Updated subscription details
  */
-export async function updateSubscription(product: "premium" | "max"): Promise<UpdateSubscriptionResponse> {
+export async function updateSubscription(product: "premium"): Promise<UpdateSubscriptionResponse> {
   const response = await api.post<UpdateSubscriptionResponse>("/internal/subscriptions/update", {
     product
   } as UpdateSubscriptionRequest);

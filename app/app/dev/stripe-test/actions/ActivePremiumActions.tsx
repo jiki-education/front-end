@@ -1,4 +1,4 @@
-import { handleUpgradeToMax, handleCancelSubscription, handleOpenPortal } from "../handlers";
+import { handleCancelSubscription, handleOpenPortal } from "../handlers";
 
 export function ActivePremiumActions({ refreshUser }: { refreshUser: () => Promise<void> }) {
   return (
@@ -7,13 +7,6 @@ export function ActivePremiumActions({ refreshUser }: { refreshUser: () => Promi
         <h3 className="text-lg font-semibold text-green-700">Active Premium</h3>
         <p className="text-sm text-gray-600">Full access to premium features</p>
       </div>
-
-      <button
-        onClick={() => handleUpgradeToMax(refreshUser)}
-        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
-      >
-        Upgrade to Max - $10/month
-      </button>
 
       <button
         onClick={handleOpenPortal}

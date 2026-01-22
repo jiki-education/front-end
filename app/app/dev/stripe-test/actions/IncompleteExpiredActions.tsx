@@ -24,13 +24,6 @@ export function IncompleteExpiredActions({
         Start Fresh Checkout - Premium
       </button>
 
-      <button
-        onClick={() => handleSubscribe({ tier: "max", userEmail, setSelectedTier, setClientSecret })}
-        className="w-full px-4 py-3 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition-colors"
-      >
-        Start Fresh Checkout - Max
-      </button>
-
       <div className="mt-4 pt-4 border-t border-gray-200">
         <p className="text-xs text-gray-500">Checkout session abandoned or expired</p>
       </div>
