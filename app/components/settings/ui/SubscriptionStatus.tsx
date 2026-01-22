@@ -64,7 +64,7 @@ export default function SubscriptionStatus({
   if (isActiveSubscription) {
     // Active paid subscription
     return (
-      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
+      <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`} style={{ marginBottom: 0 }}>
         <div className="flex items-center justify-between mb-3">
           <h3>Current Plan</h3>
           <div
@@ -90,7 +90,7 @@ export default function SubscriptionStatus({
   // Free plan (not subscribed)
   if (tier === "standard" || status === "never_subscribed") {
     return (
-      <div className={`${styles.settingItem} ${className}`}>
+      <div className={`${styles.settingItem} ${className}`} style={{ marginBottom: 0 }}>
         <h3>Current Plan</h3>
         <p style={{ marginBottom: 0 }}>
           You are on the <strong>Free</strong> plan. This gives you all the content plus Jiki AI to help you out for one exercise per month.

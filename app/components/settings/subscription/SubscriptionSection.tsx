@@ -2,8 +2,8 @@ import { lazy, Suspense } from "react";
 import type { MembershipTier } from "@/lib/pricing";
 import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
-import SubscriptionStateSwitch from "./SubscriptionStateSwitch";
 import PremiumUpsell from "./PremiumUpsell";
+import PaymentHistory from "../payment-history";
 import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
 
@@ -31,23 +31,10 @@ export default function SubscriptionSection({
 }: SubscriptionSectionProps) {
   const {
     isLoading,
-    subscriptionState,
     currentTier,
     subscriptionStatus,
-    subscriptionData,
     nextBillingDate,
     handleUpgradeToPremium,
-    handleUpgradeToMax,
-    handleDowngradeToPremium,
-    handleUpdatePayment,
-    handleCancel,
-    handleReactivate,
-    handleRetryPayment,
-    handleResubscribeToPremium,
-    handleResubscribeToMax,
-    handleCompletePayment,
-    handleTryPremiumAgain,
-    handleTryMaxAgain,
     handleCheckoutCancel
   } = useSubscription({
     user,
@@ -75,47 +62,28 @@ export default function SubscriptionSection({
   }
 
   return (
-    <>
+    <div style={{ maxWidth: "774px" }} className={className}>
       {/* Current Plan - rendered outside of SettingsCard */}
-      <SubscriptionStatus 
-        tier={currentTier} 
+      <SubscriptionStatus
+        tier={currentTier}
         status={subscriptionStatus}
         nextBillingDate={nextBillingDate}
-        className={className}
       />
 
       {/* Premium Upsell - shown only for free users */}
       {currentTier === "standard" && (
-        <PremiumUpsell 
+        <PremiumUpsell
           onUpgrade={handleUpgradeToPremium}
-          className="mt-4"
+          isLoading={isLoading}
         />
       )}
 
       {/* Subscription Management - will be rendered in another section below */}
-      <SettingsCard
-        title="Subscription Management"
-        description="Manage your subscription and billing"
-        className="mt-4"
-      >
-        <SubscriptionStateSwitch
-          subscriptionState={subscriptionState!}
-          subscriptionData={subscriptionData!}
-          isLoading={isLoading}
-          onUpgradeToPremium={handleUpgradeToPremium}
-          onUpgradeToMax={handleUpgradeToMax}
-          onDowngradeToPremium={handleDowngradeToPremium}
-          onUpdatePayment={handleUpdatePayment}
-          onCancel={handleCancel}
-          onReactivate={handleReactivate}
-          onRetryPayment={handleRetryPayment}
-          onResubscribeToPremium={handleResubscribeToPremium}
-          onResubscribeToMax={handleResubscribeToMax}
-          onCompletePayment={handleCompletePayment}
-          onTryPremiumAgain={handleTryPremiumAgain}
-          onTryMaxAgain={handleTryMaxAgain}
-        />
-      </SettingsCard>
+
+      {/* Payment History - shown for users with subscription history */}
+      {/* {(currentTier !== "standard" || subscriptionStatus !== "never_subscribed") && ( */}
+      <PaymentHistory />
+      {/* )} */}
 
       {/* Checkout Modal */}
       {clientSecret && selectedTier && (
@@ -132,6 +100,6 @@ export default function SubscriptionSection({
           <CheckoutModal clientSecret={clientSecret} selectedTier={selectedTier} onCancel={handleCheckoutCancel} />
         </Suspense>
       )}
-    </>
+    </div>
   );
 }

@@ -1,14 +1,28 @@
+import { useState } from "react";
 import styles from "./PremiumUpsell.module.css";
 
 interface PremiumUpsellProps {
-  onUpgrade: () => void;
+  onUpgrade: () => void | Promise<void>;
+  isLoading?: boolean;
   className?: string;
 }
 
 export default function PremiumUpsell({ 
   onUpgrade,
+  isLoading: externalLoading = false,
   className = "" 
 }: PremiumUpsellProps) {
+  const [internalLoading, setInternalLoading] = useState(false);
+  const isLoading = externalLoading || internalLoading;
+
+  const handleUpgrade = async () => {
+    setInternalLoading(true);
+    try {
+      await onUpgrade();
+    } finally {
+      setInternalLoading(false);
+    }
+  };
   return (
     <div className={`${styles.premiumUpsell} ${className}`}>
       <h2 className={styles.premiumUpsellHeadline}>
@@ -69,10 +83,11 @@ export default function PremiumUpsell({
           </div>
         </div>
         <button 
-          className={styles.uiBtnPrimaryPurple}
-          onClick={onUpgrade}
+          className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-default ${isLoading ? "ui-btn-loading" : ""}`}
+          onClick={handleUpgrade}
+          disabled={isLoading}
         >
-          Upgrade to Premium
+          {isLoading ? "Processing..." : "Upgrade to Premium"}
         </button>
       </div>
     </div>
