@@ -38,9 +38,8 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
         setIsLoading(true);
         setError(null);
 
-        // Use unscoped=true for logged out users to show all concepts
-        const unscoped = !authenticated;
-        const data = await fetchConcept(slug, unscoped);
+        const scope = authenticated ? "internal" : "external";
+        const data = await fetchConcept(slug, scope);
         setConcept(data);
       } catch (err: any) {
         if (err.status === 404) {

@@ -56,7 +56,7 @@ export default function InstructionsPanel({
 
       setIsLoadingConcepts(true);
       try {
-        const conceptData = await fetchConceptsBySlugs(conceptSlugs);
+        const conceptData = await fetchConceptsBySlugs(conceptSlugs, "internal");
 
         // Transform API response to ConceptCardData format
         const transformedConcepts: ConceptCardData[] = conceptData.map((concept) => ({

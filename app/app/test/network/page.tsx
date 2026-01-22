@@ -32,7 +32,7 @@ export default function NetworkTestPage() {
     setLevels([]);
     setConcepts([]);
     try {
-      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), fetchConcepts()]);
+      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), fetchConcepts({ scope: "internal" })]);
       setLevels(levelsData);
       setConcepts(conceptsData.results);
     } catch (err) {

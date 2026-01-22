@@ -51,7 +51,7 @@ describe("useConcepts", () => {
     });
 
     expect(mockFetchConcepts).toHaveBeenCalledWith({
-      unscoped: true,
+      scope: "external",
       page: 1,
       title: undefined
     });

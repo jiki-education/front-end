@@ -34,9 +34,9 @@ export function useConcepts({ isAuthenticated, isReady }: UseConceptsOptions) {
         setIsLoading(true);
         setError(null);
 
-        const unscoped = !isAuthenticated;
+        const scope = isAuthenticated ? "internal" : "external";
         const response = await fetchConcepts({
-          unscoped,
+          scope,
           page,
           title: title || undefined
         });

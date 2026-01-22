@@ -1,8 +1,10 @@
 import { api } from "./client";
 import type { ConceptListItem, ConceptDetail } from "@/types/concepts";
 
+type ApiScope = "internal" | "external";
+
 interface FetchConceptsOptions {
-  unscoped?: boolean;
+  scope: ApiScope;
   title?: string;
   page?: number;
 }
@@ -20,8 +22,8 @@ interface ConceptsResponse {
  * Fetch list of concepts
  * @param options - Search and pagination options
  */
-export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise<ConceptsResponse> {
-  const { unscoped, title, page } = options;
+export async function fetchConcepts(options: FetchConceptsOptions): Promise<ConceptsResponse> {
+  const { scope, title, page } = options;
 
   const params: Record<string, string | number | boolean> = {};
 
@@ -33,8 +35,7 @@ export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise
     params.page = page;
   }
 
-  // Use external endpoint for unscoped (unauthenticated) requests, internal for authenticated
-  const endpoint = unscoped ? "/external/concepts" : "/internal/concepts";
+  const endpoint = `/${scope}/concepts`;
   const response = await api.get<ConceptsResponse>(endpoint, { params });
   return response.data;
 }
@@ -42,11 +43,10 @@ export async function fetchConcepts(options: FetchConceptsOptions = {}): Promise
 /**
  * Fetch single concept by slug
  * @param slug - The concept slug
- * @param unscoped - If true, returns concept regardless of user authentication/unlock status
+ * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  */
-export async function fetchConcept(slug: string, unscoped?: boolean): Promise<ConceptDetail> {
-  // Use external endpoint for unscoped (unauthenticated) requests, internal for authenticated
-  const endpoint = unscoped ? `/external/concepts/${slug}` : `/internal/concepts/${slug}`;
+export async function fetchConcept(slug: string, scope: ApiScope): Promise<ConceptDetail> {
+  const endpoint = `/${scope}/concepts/${slug}`;
   const response = await api.get<{ concept: ConceptDetail }>(endpoint);
   return response.data.concept;
 }
@@ -54,14 +54,16 @@ export async function fetchConcept(slug: string, unscoped?: boolean): Promise<Co
 /**
  * Fetch multiple concepts by their slugs
  * @param slugs - Array of concept slugs to fetch
+ * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  * @returns Array of concept items
  */
-export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptListItem[]> {
+export async function fetchConceptsBySlugs(slugs: string[], scope: ApiScope): Promise<ConceptListItem[]> {
   if (slugs.length === 0) {
     return [];
   }
 
-  const response = await api.get<{ results: ConceptListItem[] }>("/internal/concepts", {
+  const endpoint = `/${scope}/concepts`;
+  const response = await api.get<{ results: ConceptListItem[] }>(endpoint, {
     params: { slugs: slugs.join(",") }
   });
   return response.data.results;
@@ -70,11 +72,11 @@ export async function fetchConceptsBySlugs(slugs: string[]): Promise<ConceptList
 /**
  * Fetch subconcepts for a parent concept
  * @param parentSlug - The parent concept's slug
- * @param unscoped - If true, uses external endpoint for unauthenticated users
+ * @param scope - API scope: "internal" for authenticated, "external" for unauthenticated
  * @returns Array of subconcept items
  */
-export async function fetchSubconcepts(parentSlug: string, unscoped?: boolean): Promise<ConceptListItem[]> {
-  const endpoint = unscoped ? "/external/concepts" : "/internal/concepts";
+export async function fetchSubconcepts(parentSlug: string, scope: ApiScope): Promise<ConceptListItem[]> {
+  const endpoint = `/${scope}/concepts`;
   const response = await api.get<{ results: ConceptListItem[] }>(endpoint, {
     params: { parent_slug: parentSlug }
   });
