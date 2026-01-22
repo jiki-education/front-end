@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { hasSessionCookie } from "../../../../lib/auth/server-storage";
+import { hasAuthenticationCookie } from "../../../../lib/auth/server-storage";
 import { ClientAuthInitializer } from "./ClientAuthInitializer";
 import { ClientLoggedOutAuthInitializer } from "./ClientLoggedOutAuthInitializer";
 
@@ -16,7 +16,7 @@ export async function ServerAuthProvider({ children }: ServerAuthProviderProps) 
   // If we don't have a session cookie then we know we're logged out.
   // Render ClientLoggedOutAuthInitializer which sets the store correctly
   // clientside, then render the children directly.
-  const hasCookie = await hasSessionCookie();
+  const hasCookie = await hasAuthenticationCookie();
 
   if (!hasCookie) {
     return (

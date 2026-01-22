@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { hasSessionCookie } from "../../../../lib/auth/server-storage";
+import { hasAuthenticationCookie } from "../../../../lib/auth/server-storage";
 import { ClientAuthGuard } from "./ClientAuthGuard";
 
 interface ServerAuthGuardProps {
@@ -16,7 +16,7 @@ interface ServerAuthGuardProps {
  * Used in app/(external)/layout.tsx to protect auth pages from authenticated users.
  */
 export async function ServerAuthGuard({ children }: ServerAuthGuardProps) {
-  const hasCookie = await hasSessionCookie();
+  const hasCookie = await hasAuthenticationCookie();
 
   if (!hasCookie) {
     return <>{children}</>;

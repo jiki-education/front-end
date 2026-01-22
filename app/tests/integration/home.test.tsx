@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 // Mock the server-side auth check
 jest.mock("@/lib/auth/server-storage", () => ({
-  hasSessionCookie: jest.fn().mockResolvedValue(false)
+  hasAuthenticationCookie: jest.fn().mockResolvedValue(false)
 }));
 
 describe("Home Page (Landing Page)", () => {

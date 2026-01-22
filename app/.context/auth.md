@@ -274,7 +274,7 @@ export function isExternalUrl(pathname: string): boolean {
 ```typescript
 // middleware.ts
 export function middleware(request: NextRequest) {
-  const isAuthenticated = request.cookies.has("jiki_session");
+  const isAuthenticated = request.cookies.has("jiki_user_id");
 
   if (!isAuthenticated && isExternalUrl(path)) {
     // Rewrite /blog → /external/blog
@@ -743,7 +743,7 @@ Middleware automatically routes requests based on authentication status.
 
 ### Token Not Being Sent
 
-- Verify cookies exist: Check browser DevTools → Application → Cookies → `jiki_session`
+- Verify cookies exist: Check browser DevTools → Application → Cookies → `jiki_user_id`
 - Check domain: Cookies should be scoped to `.jiki.io` (prod) or `.local.jiki.io` (dev)
 - Ensure using `credentials: 'include'` in fetch calls
 - Verify API client imports: `import { api } from "@/lib/api/client"`

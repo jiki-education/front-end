@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { isExternalUrl } from "./lib/routing/external-urls";
 
 // Basic authentication credentials
@@ -140,7 +141,7 @@ export function middleware(request: NextRequest) {
   // Set cache headers for unauthenticated external URL requests
   // Skip for RSC requests (client-side navigation)
   //
-  const isAuthenticated = request.cookies.has("jiki_session");
+  const isAuthenticated = request.cookies.has(AUTHENTICATION_COOKIE_NAME);
   const isRscRequest = request.headers.has("rsc");
   if (!isAuthenticated && !isRscRequest && isExternalUrl(path)) {
     response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");

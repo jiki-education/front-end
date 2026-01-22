@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { hasSessionCookie } from "../../lib/auth/server-storage";
+import { hasAuthenticationCookie } from "../../lib/auth/server-storage";
 
 export const metadata: Metadata = {
   title: "Jiki - Learn to Code Through Interactive Exercises",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootPage() {
-  const hasCookie = await hasSessionCookie();
+  const hasCookie = await hasAuthenticationCookie();
   if (hasCookie) {
     return redirect("/dashboard");
   }
