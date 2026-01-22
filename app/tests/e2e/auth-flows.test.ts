@@ -41,41 +41,6 @@ test.describe("Authentication Flows", () => {
     return mockRequest(route, "/internal/me", 200, { user: createMockUser() });
   }
 
-  async function setupExpiredTokenRefreshMock(page: Page) {
-    // Stub refreshAccessToken to return success
-    await page.addInitScript(() => {
-      (window as any).__mockRefreshAccessToken = () => {
-        return true;
-      };
-    });
-
-    // Track /internal/me calls to simulate expired then refreshed token
-    let internalMeCalls = 0;
-
-    await page.route("**/*", (route) => {
-      if (handleOptionsRequest(route)) {
-        return;
-      }
-
-      // First call to /internal/me returns 401 (expired token)
-      // After refresh, subsequent calls return 200
-      if (route.request().url().includes("/internal/me")) {
-        internalMeCalls++;
-        if (internalMeCalls === 1) {
-          void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
-        } else {
-          void mockValidInternalMeApiCall(route);
-        }
-        return;
-      }
-
-      // Stub /auth/refresh with successful token refresh, or continue with other requests
-      void (
-        mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) || route.continue()
-      );
-    });
-  }
-
   async function setup(page: Page, cookie: "absent" | "invalid" | "valid") {
     // Clear all auth state and cookies
     await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -87,58 +52,28 @@ test.describe("Authentication Flows", () => {
     });
 
     if (cookie === "valid") {
-      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-      const payload = btoa(JSON.stringify({ sub: "test-user-id", exp: 9999999999 }));
-      const signature = "fake-signature";
-      const refreshToken = `${header}.${payload}.${signature}`;
-
-      const accessPayload = btoa(
-        JSON.stringify({
-          sub: "test-user-id",
-          exp: Math.floor(Date.now() / 1000) + 300
-        })
-      );
-      const accessToken = `${header}.${accessPayload}.${signature}`;
-
+      // Set a valid session cookie (actual value doesn't matter - server validates)
       await page.context().addCookies([
         {
-          name: "jiki_refresh_token",
-          value: refreshToken,
+          name: "jiki_session",
+          value: "valid-session-cookie-for-testing",
           domain: ".local.jiki.io",
           path: "/",
           httpOnly: true,
           secure: false,
-          sameSite: "Strict"
-        },
-        {
-          name: "jiki_access_token",
-          value: accessToken,
-          domain: ".local.jiki.io",
-          path: "/",
-          httpOnly: true,
-          secure: false,
-          sameSite: "Strict"
+          sameSite: "Lax"
         }
       ]);
     } else if (cookie === "invalid") {
       await page.context().addCookies([
         {
-          name: "jiki_access_token",
-          value: "invalid.token.here",
+          name: "jiki_session",
+          value: "invalid-session-cookie",
           domain: ".local.jiki.io",
           path: "/",
           httpOnly: true,
           secure: false,
-          sameSite: "Strict"
-        },
-        {
-          name: "jiki_refresh_token",
-          value: "invalid.token.here",
-          domain: ".local.jiki.io",
-          path: "/",
-          httpOnly: true,
-          secure: false,
-          sameSite: "Strict"
+          sameSite: "Lax"
         }
       ]);
     }
@@ -241,29 +176,22 @@ test.describe("Authentication Flows", () => {
     });
   }
 
-  async function awaitRedirectToLandingPage(page: Page) {
-    await page.waitForFunction(() => {
-      return window.location.pathname === "/";
-    });
-  }
-
   test.describe("Visiting /settings", () => {
-    test("should redirect to /auth/login without jiki_refresh_token", async ({ page }) => {
+    test("should redirect to /auth/login without session cookie", async ({ page }) => {
       await setup(page, "absent");
       await visitSettingsPage(page);
       await awaitRedirectToLogin(page);
       await assertLoginPage(page);
     });
 
-    test("should redirect to /auth/login with invalid jiki_refresh_token", async ({ page }) => {
+    test("should redirect to /auth/login with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
 
-      // Stub 401 responses for invalid tokens
+      // Stub 401 responses for invalid session
       await page.route("**/*", (route) => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
@@ -273,7 +201,7 @@ test.describe("Authentication Flows", () => {
       await assertLoginPage(page);
     });
 
-    test("should redirect to /auth/login with valid jiki_refresh_token that the server rejects", async ({ page }) => {
+    test("should redirect to /auth/login with session cookie that the server rejects", async ({ page }) => {
       await setup(page, "valid");
 
       // Stub 401 responses from auth endpoints
@@ -281,7 +209,6 @@ test.describe("Authentication Flows", () => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
@@ -291,21 +218,13 @@ test.describe("Authentication Flows", () => {
       await assertLoginPage(page);
     });
 
-    test("should render with valid token", async ({ page }) => {
+    test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
 
       // Stub successful auth responses
       await page.route("**/*", (route) => {
         void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
       });
-
-      await visitSettingsPage(page);
-      await assertSettingsPage(page);
-    });
-
-    test("should render with valid expired token", async ({ page }) => {
-      await setup(page, "valid");
-      await setupExpiredTokenRefreshMock(page);
 
       await visitSettingsPage(page);
       await assertSettingsPage(page);
@@ -313,31 +232,30 @@ test.describe("Authentication Flows", () => {
   });
 
   test.describe("Visiting /dashboard", () => {
-    test("should redirect to /auth/login without jiki_refresh_token", async ({ page }) => {
+    test("should redirect to /auth/login without session cookie", async ({ page }) => {
       await setup(page, "absent");
       await visitDashboard(page, false);
-      await awaitRedirectToLandingPage(page);
-      await assertLandingPage(page);
+      await awaitRedirectToLogin(page);
+      await assertLoginPage(page);
     });
 
-    test("should redirect to / with invalid jiki_refresh_token", async ({ page }) => {
+    test("should redirect to /auth/login with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
 
       await page.route("**/*", (route) => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
 
       await visitDashboard(page, false);
-      await awaitRedirectToLandingPage(page);
-      await assertLandingPage(page);
+      await awaitRedirectToLogin(page);
+      await assertLoginPage(page);
     });
 
-    test("should redirect to / with valid jiki_refresh_token that the server rejects", async ({ page }) => {
+    test("should redirect to /auth/login with session cookie that the server rejects", async ({ page }) => {
       await setup(page, "valid");
 
       // Stub 401 responses from auth endpoints
@@ -345,31 +263,22 @@ test.describe("Authentication Flows", () => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
 
       await visitDashboard(page);
-      await awaitRedirectToLandingPage(page);
-      await assertLandingPage(page);
+      await awaitRedirectToLogin(page);
+      await assertLoginPage(page);
     });
 
-    test("should render with valid token", async ({ page }) => {
+    test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
 
       // Stub successful auth responses
       await page.route("**/*", (route) => {
         void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
       });
-
-      await visitDashboard(page);
-      await assertDashboardPage(page);
-    });
-
-    test("should render with valid expired token", async ({ page }) => {
-      await setup(page, "valid");
-      await setupExpiredTokenRefreshMock(page);
 
       await visitDashboard(page);
       await assertDashboardPage(page);
@@ -383,78 +292,24 @@ test.describe("Authentication Flows", () => {
       await assertLandingPage(page);
     });
 
-    test("should render with invalid cookie", async ({ page }) => {
+    test("should redirect to /auth/login with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
 
       await page.route("**/*", (route) => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
 
-      await visitLandingPath(page, false);
-      await awaitRedirectToDashboard(page);
-      await awaitRedirectToLandingPage(page);
-      await assertLandingPage(page);
-    });
-
-    test("should redirect to /dashboard with valid expired token", async ({ page }) => {
-      await setup(page, "valid");
-
-      // Track /internal/me calls to simulate expired then refreshed token
-      let internalMeCalls = 0;
-
-      await page.route("**/*", (route) => {
-        if (handleOptionsRequest(route)) {
-          return;
-        }
-
-        // First call to /internal/me returns 401 (expired token)
-        // After refresh, subsequent calls return 200
-        if (route.request().url().includes("/internal/me")) {
-          internalMeCalls++;
-          if (internalMeCalls === 1) {
-            void mockRequest(route, "/internal/me", 401, { error: "Unauthorized" });
-          } else {
-            void mockValidInternalMeApiCall(route);
-          }
-          return;
-        }
-
-        // Stub /auth/refresh with successful token refresh, or continue with other requests
-        void (
-          mockRequest(route, "/auth/refresh", 200, { access_token: "new-access-token-after-refresh" }) ||
-          route.continue()
-        );
-      });
-
+      // With invalid cookie: / → /dashboard (server redirect) → /auth/login (auth fails)
       await visitLandingPath(page);
-      await awaitRedirectToDashboard(page);
-      await assertDashboardPage(page);
+      await awaitRedirectToLogin(page);
+      await assertLoginPage(page);
     });
 
-    test("should render with invalid cookie (duplicate)", async ({ page }) => {
-      await setup(page, "invalid");
-
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
-          route.continue()
-        );
-      });
-
-      await visitLandingPath(page);
-      await awaitRedirectToDashboard(page);
-      await awaitRedirectToLandingPage(page);
-      await assertLandingPage(page);
-    });
-
-    test("should redirect to /dashboard with valid cookie", async ({ page }) => {
+    test("should redirect to /dashboard with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
 
       // Mock successful auth check
@@ -476,21 +331,13 @@ test.describe("Authentication Flows", () => {
       await assertSignUpButton(page);
     });
 
-    test("should render with absent cookie", async ({ page }) => {
-      await setup(page, "absent");
-      await visitBlogPage(page);
-      await assertBlogPage(page);
-      await assertSignUpButton(page);
-    });
-
-    test("should render with invalid cookie", async ({ page }) => {
+    test("should render with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
 
       await page.route("**/*", (route) => {
         void (
           handleOptionsRequest(route) ||
           mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockRequest(route, "/auth/refresh", 401, { error: "Invalid refresh token" }) ||
           route.continue()
         );
       });
@@ -500,16 +347,7 @@ test.describe("Authentication Flows", () => {
       await assertSignUpButton(page);
     });
 
-    test("should render with valid expired token", async ({ page }) => {
-      await setup(page, "valid");
-      await setupExpiredTokenRefreshMock(page);
-
-      await visitBlogPage(page);
-      await assertBlogPage(page);
-      await assertReturnToJikiButton(page);
-    });
-
-    test("should render with valid cookie", async ({ page }) => {
+    test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
 
       // Mock successful auth check
