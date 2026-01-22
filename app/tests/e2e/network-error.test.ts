@@ -351,7 +351,7 @@ test.describe("Network Error Handling E2E", () => {
 
       // Verify modal content
       const modalText = await helpers.getModalText(page);
-      expect(modalText).toContain("Session Expired");
+      expect(modalText).toContain("You've been Logged out");
       expect(modalText).toContain("Reload Page");
 
       // Verify "Reload Page" button exists
@@ -412,15 +412,15 @@ test.describe("Network Error Handling E2E", () => {
 
       // Verify modal content
       const modalText = await helpers.getModalText(page);
-      expect(modalText).toContain("Too Many Requests");
+      expect(modalText).toContain("You've moved too fast");
       expect(modalText).toContain("s"); // Countdown should show seconds
 
       // Verify countdown timer exists (should show 3s or 2s depending on timing)
       const countdownExists = await page.evaluate(() => {
         const modal = document.querySelector('[role="dialog"]');
-        // Look for tabular-nums class which is used for countdown
-        const countdown = modal?.querySelector(".tabular-nums");
-        return countdown !== null;
+        // Look for the countdown number in the modal text
+        const modalText = modal?.textContent || "";
+        return /\d+\s*second/.test(modalText);
       });
       expect(countdownExists).toBe(true);
     });
