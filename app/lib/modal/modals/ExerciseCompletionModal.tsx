@@ -16,11 +16,11 @@ interface ExerciseCompletionModalProps {
   onGoToProject?: () => void;
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
-  exerciseIcon?: string;
+  exerciseSlug?: string;
   unlockedProject?: {
     name: string;
     description: string;
-    icon: string;
+    slug: string;
   };
   initialStep?:
     | "success"
@@ -38,11 +38,11 @@ export function ExerciseCompletionModal({
   onGoToProject,
   onGoToDashboard,
   exerciseTitle = "Navigate the Maze",
-  exerciseIcon = "/static/images/project-icons/icon-space-invaders.png",
+  exerciseSlug = "maze-instructions",
   unlockedProject = {
     name: "Space Invaders",
     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
-    icon: "/static/images/project-icons/icon-space-invaders.png"
+    slug: "space-invaders"
   },
   initialStep = "success",
   completionResponse = []
@@ -53,7 +53,7 @@ export function ExerciseCompletionModal({
     onGoToProject,
     onGoToDashboard,
     exerciseTitle,
-    exerciseIcon,
+    exerciseSlug,
     unlockedProject,
     initialStep,
     completionResponse
@@ -80,7 +80,7 @@ export function ExerciseCompletionModal({
 
     case "completed":
       return (
-        <CompletedStep exerciseTitle={exerciseTitle} exerciseIcon={exerciseIcon} onContinue={handlers.handleContinue} />
+        <CompletedStep exerciseTitle={exerciseTitle} exerciseSlug={exerciseSlug} onContinue={handlers.handleContinue} />
       );
 
     case "confirmation":

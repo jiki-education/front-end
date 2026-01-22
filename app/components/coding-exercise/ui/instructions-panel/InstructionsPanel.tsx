@@ -15,6 +15,7 @@ interface InstructionsPanelProps {
   functions: FunctionInfo[];
   conceptSlugs?: string[];
   exerciseTitle: string;
+  exerciseSlug: string;
   levelId: string;
   className?: string;
 }
@@ -24,6 +25,7 @@ export default function InstructionsPanel({
   functions,
   conceptSlugs,
   exerciseTitle,
+  exerciseSlug,
   levelId,
   className = ""
 }: InstructionsPanelProps) {
@@ -41,7 +43,7 @@ export default function InstructionsPanel({
     title: exerciseTitle,
     progress: "", // TODO: Get actual progress from API/orchestrator when available
     level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
-    icon: "/static/images/project-icons/icon-calculator.png" // TODO: Add icon field to exercise definition
+    exerciseSlug
   };
 
   // Fetch concepts when conceptSlugs change

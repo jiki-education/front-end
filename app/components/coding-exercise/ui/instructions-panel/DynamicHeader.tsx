@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ExerciseIcon } from "@/components/icons/ExerciseIcon";
 import NavigationButtons from "./NavigationButtons";
 import styles from "./instructions-panel.module.css";
 
@@ -6,7 +6,7 @@ interface ExerciseData {
   title: string;
   progress: string;
   level: string;
-  icon: string;
+  exerciseSlug: string;
 }
 
 interface DynamicHeaderProps {
@@ -34,13 +34,7 @@ export default function DynamicHeader({
         /* Expanded Header */
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-16">
-            <Image
-              src={exerciseData.icon}
-              alt="Exercise Icon"
-              width={54}
-              height={54}
-              className={styles.exerciseIconImage}
-            />
+            <ExerciseIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
 
             <div className="flex flex-col gap-4">
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>

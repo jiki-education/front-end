@@ -16,42 +16,40 @@ git checkout -b feature-branch-name
 
 This file provides guidance to AI agents when working with code in this repository.
 
-## Context Documentation
+## Context Files
 
-Context files explain how everything works. If the human MENTIONS something that MIGHT BE explained by one or more of these files, READ THE FILES before putting together any plan or action.
+The `.context/` directory contains detailed documentation for this codebase. **Read any files relevant to the task you are working on. Even if the file is only tangentially relevant, read it to be sure.**
 
-### Documentation Structure
+You can read these files at **any point during your work** - even in the middle of implementing a plan if appropriate.
 
-- **[.context/README.md](.context/README.md)** - **ALWAYS READ THIS FILE BEFORE WORKING ON ANY INSTRUCTION. THIS IS THE FIRST THING YOU DO WHEN A HUMAN GIVES YOU AN INSTRUCTION** - Overview of all context documentation
-- **[.context/coding-exercise/README.md](.context/coding-exercise/README.md)** - Complex exercise system overview
+| File              | When to Read                                               |
+| ----------------- | ---------------------------------------------------------- |
+| `coding-style.md` | **Always read first** - coding style and file organization |
+| `commands.md`     | Running dev server, tests, builds, linting                 |
+| `testing.md`      | Writing or editing tests                                   |
+| `eslint.md`       | Fixing lint errors, adding lint exceptions                 |
+| `css-styles.md`   | CSS styling (Tailwind, UI Kit, CSS Modules)                |
+| `images.md`       | Working with icons, SVGs, or images                        |
+| `architecture.md` | Understanding project structure                            |
+| `tech-stack.md`   | Technologies, frameworks, dependencies                     |
+| `modals.md`       | Global modal system                                        |
+| `toasts.md`       | Toast notifications                                        |
+| `content.md`      | Blog posts and articles integration                        |
+| `about-jiki.md`   | Jiki platform overview                                     |
+| `deployment.md`   | Deployment process                                         |
+| `git.md`          | Git hooks configuration                                    |
 
-### General Context Files
+### Coding Exercise Context Files
 
-Load the relevant context files from `.context/` directory based on your task:
+When working on the coding exercise component, also read from `.context/coding-exercise/`:
 
-- **[.context/coding-style.md](.context/coding-style.md)** - **ALWAYS READ THIS FIRST** - Coding style and file organization guidelines
-- [.context/css-styles.md](.context/css-styles.md) - CSS styling approaches and principles (Tailwind, UI Kit, CSS Modules)
-- [.context/about-jiki.md](.context/about-jiki.md) - Overview of Jiki platform and business model
-- [.context/commands.md](.context/commands.md) - Development commands and scripts. **ALWAYS READ THIS FILE WHEN STARTING ON A TASK**.
-- [.context/tech-stack.md](.context/tech-stack.md) - Technologies, frameworks, and dependencies
-- [.context/architecture.md](.context/architecture.md) - Frontend architecture and design decisions
-- [.context/deployment.md](.context/deployment.md) - Deployment process and configuration
-- [.context/git.md](.context/git.md) - Git hooks configuration
-- [.context/testing.md](.context/testing.md) - Testing setup and guidelines. **ALWAYS READ THIS BEFORE EDITING OR ADDING TESTS.**
-- [.context/eslint.md](.context/eslint.md) - ESLint configuration and how to handle lint errors. **ALWAYS READ THIS BEFORE LINTING**
-- [.context/toasts.md](.context/toasts.md) - Toast notifications with react-hot-toast
-- [.context/modals.md](.context/modals.md) - Global modal system
-- [.context/content.md](.context/content.md) - Content integration for blog posts and articles
-
-### Complex Exercise Context Files
-
-When working on the complex exercise component, load these files from `.context/coding-exercise/`:
-
-- [.context/coding-exercise/orchestrator-pattern.md](.context/coding-exercise/orchestrator-pattern.md) - Orchestrator pattern for complex state management
-- [.context/coding-exercise/codemirror.md](.context/coding-exercise/codemirror.md) - CodeMirror editor integration
-- [.context/coding-exercise/scrubber-frames.md](.context/coding-exercise/scrubber-frames.md) - Frame system and timeline
-- [.context/coding-exercise/scrubber-implementation.md](.context/coding-exercise/scrubber-implementation.md) - Scrubber UI implementation
-- [.context/coding-exercise/test-runner.md](.context/coding-exercise/test-runner.md) - Test execution system
+| File                         | When to Read                         |
+| ---------------------------- | ------------------------------------ |
+| `orchestrator-pattern.md`    | State management, orchestrator class |
+| `codemirror.md`              | Code editor integration              |
+| `scrubber-frames.md`         | Frame system and timeline            |
+| `scrubber-implementation.md` | Scrubber UI                          |
+| `test-runner.md`             | Test execution system                |
 
 ## Quick Start
 

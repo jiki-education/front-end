@@ -6,15 +6,16 @@ import type Orchestrator from "../lib/Orchestrator";
 interface UseExerciseCompletionProps {
   orchestrator: Orchestrator;
   exerciseTitle: string;
+  exerciseSlug: string;
 }
 
-export function useExerciseCompletion({ orchestrator, exerciseTitle }: UseExerciseCompletionProps) {
+export function useExerciseCompletion({ orchestrator, exerciseTitle, exerciseSlug }: UseExerciseCompletionProps) {
   const router = useRouter();
 
   const handleCompleteExercise = () => {
     showModal("exercise-completion-modal", {
       exerciseTitle: exerciseTitle,
-      exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+      exerciseSlug: exerciseSlug,
       initialStep: "confirmation",
       onCompleteExercise: async () => {
         // Use the same completion logic as the store
@@ -28,7 +29,7 @@ export function useExerciseCompletion({ orchestrator, exerciseTitle }: UseExerci
           // Re-show modal with completion response data
           showModal("exercise-completion-modal", {
             exerciseTitle: exerciseTitle,
-            exerciseIcon: "/static/images/project-icons/icon-space-invaders.png",
+            exerciseSlug: exerciseSlug,
             completionResponse: events,
             initialStep: "completed",
             onTidyCode: () => {
