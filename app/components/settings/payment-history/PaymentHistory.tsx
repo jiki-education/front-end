@@ -12,7 +12,7 @@ export default function PaymentHistory({ className = "" }: { className?: string 
     }
   };
   return (
-    <div className={`${settingsStyles.settingItem} ${className}`} style={{ marginBottom: 0 }}>
+    <div className={`${settingsStyles.settingItem} ${className}`}>
       <h3>Payment History</h3>
       <p>View and download receipts for your past payments.</p>
 

@@ -1,0 +1,18 @@
+.settingRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.settingRow p {
+    flex: 1;
+    margin: 0;
+    max-width: 400px;
+}
+
+.settingRow .ui-btn {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 210px;
+}

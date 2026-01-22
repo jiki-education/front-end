@@ -4,6 +4,7 @@ import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
 import PremiumUpsell from "./PremiumUpsell";
 import BenefitSection from "./BenefitSection";
+import { CancelSection } from "./CancelSection";
 import PaymentHistory from "../payment-history";
 import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
@@ -31,15 +32,22 @@ export default function SubscriptionSection({
   setClientSecret,
   className = ""
 }: SubscriptionSectionProps) {
-  const { isLoading, currentTier, subscriptionStatus, nextBillingDate, handleUpgradeToPremium, handleCheckoutCancel } =
-    useSubscription({
-      user,
-      refreshUser,
-      selectedTier,
-      setSelectedTier,
-      clientSecret,
-      setClientSecret
-    });
+  const {
+    isLoading,
+    currentTier,
+    subscriptionStatus,
+    nextBillingDate,
+    handleUpgradeToPremium,
+    handleCancel,
+    handleCheckoutCancel
+  } = useSubscription({
+    user,
+    refreshUser,
+    selectedTier,
+    setSelectedTier,
+    clientSecret,
+    setClientSecret
+  });
 
   // If no user, show loading state
   if (!user) {
@@ -71,6 +79,9 @@ export default function SubscriptionSection({
 
       {/* Payment History - always shown, will handle its own empty state */}
       <PaymentHistory />
+
+      {/* Cancel Section - only show for premium users */}
+      {currentTier !== "standard" && <CancelSection onCancelClick={handleCancel} />}
 
       {/* Checkout Modal */}
       {clientSecret && selectedTier && (

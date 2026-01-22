@@ -1,116 +1,116 @@
 .premiumUpsell {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-  border-radius: 16px;
-  padding: 40px;
-  text-align: center;
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
 }
 
 .premiumUpsellHeadline {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--color-gray-900);
-  margin: 0 0 12px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin: 0 0 12px 0;
 }
 
 .premiumUpsellHeadline .highlight {
-  background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .premiumUpsellSubtitle {
-  font-size: 16px;
-  color: var(--color-gray-500);
-  margin: 0 0 32px 0;
+    font-size: 16px;
+    color: var(--color-gray-500);
+    margin: 0 0 32px 0;
 }
 
 .premiumUpsellFeatures {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px 40px;
-  text-align: left;
-  max-width: 680px;
-  margin: 0 auto 32px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 40px;
+    text-align: left;
+    max-width: 680px;
+    margin: 0 auto 32px auto;
 }
 
 .premiumFeature {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 15px;
-  color: var(--color-gray-600);
-  line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--color-gray-600);
+    line-height: 1.5;
 }
 
 .premiumFeature svg {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  margin-top: 2px;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .premiumFeature strong {
-  color: var(--color-gray-700);
+    color: var(--color-gray-700);
 }
 
 .premiumUpsellCard {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 16px;
-  padding: 24px 32px;
-  max-width: 680px;
-  margin: 0 auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 16px;
+    padding: 24px 32px;
+    max-width: 680px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .premiumUpsellCardInfo {
-  display: flex;
-  align-items: center;
-  gap: 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
 }
 
 .premiumUpsellTitle {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-gray-900);
-  margin: 0;
-  white-space: nowrap;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin: 0;
+    white-space: nowrap;
 }
 
 .premiumUpsellPricing {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 32px;
-  border-left: 1px solid var(--color-gray-200);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 32px;
+    border-left: 1px solid var(--color-gray-200);
 }
 
 .premiumUpsellPrice {
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-  line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    line-height: 1;
 }
 
 .premiumUpsellPrice .amount {
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--color-gray-900);
+    font-family: "Baloo 2", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--color-gray-900);
 }
 
 .premiumUpsellPrice .period {
-  font-size: 15px;
-  color: var(--color-gray-500);
+    font-size: 15px;
+    color: var(--color-gray-500);
 }
 
 .premiumUpsellNote {
-  font-size: 13px;
-  color: #9333ea;
-  margin: 2px 0 0 0;
-  white-space: nowrap;
+    font-size: 13px;
+    color: #9333ea;
+    margin: 2px 0 0 0;
+    white-space: nowrap;
 }

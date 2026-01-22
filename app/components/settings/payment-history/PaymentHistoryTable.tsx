@@ -7,10 +7,7 @@ interface PaymentHistoryTableProps {
   onDownloadReceipt: (payment: Payment) => void;
 }
 
-export default function PaymentHistoryTable({ 
-  payments, 
-  onDownloadReceipt 
-}: PaymentHistoryTableProps) {
+export default function PaymentHistoryTable({ payments, onDownloadReceipt }: PaymentHistoryTableProps) {
   if (payments.length === 0) {
     return (
       <div className={styles.emptyState}>
@@ -32,11 +29,7 @@ export default function PaymentHistoryTable({
       </thead>
       <tbody>
         {payments.map((payment) => (
-          <PaymentHistoryRow
-            key={payment.id}
-            payment={payment}
-            onDownloadReceipt={onDownloadReceipt}
-          />
+          <PaymentHistoryRow key={payment.id} payment={payment} onDownloadReceipt={onDownloadReceipt} />
         ))}
       </tbody>
     </table>
