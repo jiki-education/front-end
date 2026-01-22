@@ -74,6 +74,7 @@ export default function BenefitSection({ className = "" }: BenefitSectionProps) 
       </div>
 
       <p className={styles.benefitsFooter}>
+        {/* TODO: Replace placeholder links with real URLs or remove until available */}
         Got a question? Learn more about <a href="#">what&apos;s included</a> or <a href="#">contact support</a>.
       </p>
     </div>

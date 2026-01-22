@@ -4,6 +4,13 @@ import type { Payment } from "./types";
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
+
+  // Validate the date
+  if (isNaN(date.getTime())) {
+    console.error(`Invalid date string: ${dateString}`);
+    return "Date unavailable";
+  }
+
   return date
     .toLocaleDateString("en-US", {
       year: "numeric",
@@ -14,6 +21,17 @@ function formatDate(dateString: string): string {
 }
 
 function formatAmount(amountInCents: number): number {
+  // Validate the amount
+  if (!Number.isFinite(amountInCents)) {
+    console.error(`Invalid amount: ${amountInCents}`);
+    return 0;
+  }
+
+  if (amountInCents < 0) {
+    console.error(`Negative amount: ${amountInCents}`);
+    return 0;
+  }
+
   return amountInCents / 100;
 }
 
@@ -34,28 +52,41 @@ export function usePayments() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function loadPayments() {
       try {
         setIsLoading(true);
         setError(null);
         const apiPayments = await fetchPayments();
-        const mappedPayments = apiPayments.map(mapApiPaymentToPayment);
-        setPayments(mappedPayments);
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error("Failed to fetch payments:", err);
-          setError(err.message);
-        } else {
-          console.error("Unexpected error fetching payments:", err);
-          setError("An unexpected error occurred");
+
+        if (!cancelled) {
+          const mappedPayments = apiPayments.map(mapApiPaymentToPayment);
+          setPayments(mappedPayments);
         }
-        setPayments([]);
+      } catch (err) {
+        if (!cancelled) {
+          if (err instanceof Error) {
+            console.error("Failed to fetch payments:", err);
+            setError(err.message);
+          } else {
+            console.error("Unexpected error fetching payments:", err);
+            setError("An unexpected error occurred");
+          }
+          setPayments([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (!cancelled) {
+          setIsLoading(false);
+        }
       }
     }
 
     void loadPayments();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return { payments, isLoading, error };

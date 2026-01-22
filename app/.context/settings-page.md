@@ -22,7 +22,6 @@ components/settings/
 │   └── states/                          # Individual state components
 │       ├── NeverSubscribedState.tsx
 │       ├── ActivePremiumState.tsx
-│       ├── ActiveMaxState.tsx
 │       ├── CancellingScheduledState.tsx
 │       ├── PaymentFailedGraceState.tsx
 │       ├── PaymentFailedExpiredState.tsx
