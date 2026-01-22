@@ -2,10 +2,9 @@
 
 /**
  * API Client
- * Simple, type-safe API client for backend communication with JWT support
+ * Simple, type-safe API client for backend communication with session cookie support
  */
 
-import { refreshAccessToken } from "@/lib/auth/refresh";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
 
@@ -219,44 +218,8 @@ async function request<T = unknown>(
         throw new RateLimitError(response.statusText, retryAfterSeconds, data);
       }
 
-      // Handle 401 Unauthorized with automatic token refresh
+      // Handle 401 Unauthorized - session invalid, needs re-login
       if (response.status === 401) {
-        // Attempt to refresh the token (Server Action updates httpOnly cookie)
-        try {
-          const refreshResult = await refreshAccessToken();
-
-          if (refreshResult) {
-            // Refresh succeeded! Cookie already updated by Server Action - retry the original request
-            const retryResponse = await fetch(url.toString(), requestOptions);
-
-            let retryData: T;
-            const retryContentType = retryResponse.headers.get("content-type");
-
-            if (retryContentType?.includes("application/json")) {
-              retryData = await retryResponse.json();
-            } else {
-              retryData = (await retryResponse.text()) as T;
-            }
-
-            if (!retryResponse.ok) {
-              throw new ApiError(retryResponse.status, retryResponse.statusText, retryData);
-            }
-
-            return {
-              data: retryData,
-              status: retryResponse.status,
-              headers: retryResponse.headers
-            };
-          }
-
-          // Refresh failed - tokens already cleared by Server Action
-          // Fall through to throw 401 error
-        } catch {
-          // Fall through to throw original 401 error
-        }
-
-        // If refresh failed, throw authentication error
-        // This will be caught by components that can handle redirects properly
         throw new AuthenticationError(response.statusText, data);
       }
 

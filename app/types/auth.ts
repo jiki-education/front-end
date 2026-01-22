@@ -42,10 +42,6 @@ export interface PasswordReset {
 export interface AuthResponse {
   user: User;
   message?: string;
-  token?: string; // JWT token if returned in body
-  jwt?: string; // Alternative field name
-  access_token?: string; // Another alternative
-  refresh_token?: string; // Long-lived refresh token from dual-token system
 }
 
 export interface ApiError {

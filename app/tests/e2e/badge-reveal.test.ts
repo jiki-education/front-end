@@ -29,39 +29,16 @@ async function setupAuthentication(page: Page) {
     sessionStorage.clear();
   });
 
-  // Create valid JWT tokens
-  const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-  const payload = btoa(JSON.stringify({ sub: "test-user-id", exp: 9999999999 }));
-  const signature = "fake-signature";
-  const refreshToken = `${header}.${payload}.${signature}`;
-
-  const accessPayload = btoa(
-    JSON.stringify({
-      sub: "test-user-id",
-      exp: Math.floor(Date.now() / 1000) + 300
-    })
-  );
-  const accessToken = `${header}.${accessPayload}.${signature}`;
-
-  // Set authentication cookies
+  // Set session cookie (actual value doesn't matter - server validates)
   await page.context().addCookies([
     {
-      name: "jiki_refresh_token",
-      value: refreshToken,
+      name: "jiki_session",
+      value: "valid-session-cookie-for-testing",
       domain: ".local.jiki.io",
       path: "/",
       httpOnly: true,
       secure: false,
-      sameSite: "Strict"
-    },
-    {
-      name: "jiki_access_token",
-      value: accessToken,
-      domain: ".local.jiki.io",
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      sameSite: "Strict"
+      sameSite: "Lax"
     }
   ]);
 }

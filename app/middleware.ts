@@ -140,7 +140,7 @@ export function middleware(request: NextRequest) {
   // Set cache headers for unauthenticated external URL requests
   // Skip for RSC requests (client-side navigation)
   //
-  const isAuthenticated = request.cookies.has("jiki_access_token");
+  const isAuthenticated = request.cookies.has("jiki_session");
   const isRscRequest = request.headers.has("rsc");
   if (!isAuthenticated && !isRscRequest && isExternalUrl(path)) {
     response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");

@@ -1,5 +1,4 @@
 import { getApiUrl } from "@/lib/api/config";
-import { refreshAccessToken } from "@/lib/auth/refresh";
 
 export class ChatTokenError extends Error {
   constructor(
@@ -21,30 +20,18 @@ export interface ChatTokenResponse {
 }
 
 export async function fetchChatToken(params: FetchChatTokenParams): Promise<string> {
-  return performTokenRequest(params, 0);
-}
-
-async function performTokenRequest(params: FetchChatTokenParams, attempt: number): Promise<string> {
   const response = await fetch(getApiUrl("/internal/assistant_conversations"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    credentials: "include", // Session cookie auth
+    credentials: "include",
     body: JSON.stringify({
       lesson_slug: params.lessonSlug
     })
   });
 
   if (!response.ok) {
-    // Handle 401 with session refresh (but only retry once)
-    if (response.status === 401 && attempt < 1) {
-      const refreshResult = await refreshAccessToken();
-      if (refreshResult) {
-        return performTokenRequest(params, attempt + 1);
-      }
-    }
-
     let errorData: unknown;
     try {
       const contentType = response.headers.get("content-type");

@@ -20,16 +20,6 @@ jest.mock("@/lib/api/errorHandlerStore", () => ({
   }
 }));
 
-// Mock auth modules
-jest.mock("@/lib/auth/storage", () => ({
-  getAccessToken: jest.fn(() => "test-token"),
-  parseJwtPayload: jest.fn(() => ({ exp: Date.now() / 1000 + 3600 }))
-}));
-
-jest.mock("@/lib/auth/refresh", () => ({
-  refreshAccessToken: jest.fn()
-}));
-
 jest.mock("@/lib/api/config", () => ({
   getApiUrl: jest.fn((path) => `https://api.example.com${path}`)
 }));
