@@ -43,6 +43,9 @@ test.describe("Authentication Flows", () => {
 
   function mockLogoutRequest(route: Route) {
     if (route.request().url().includes("/auth/logout")) {
+      // Clear cookies via Playwright API (more reliable than Set-Cookie header in mocks)
+      const page = route.request().frame().page();
+      void page.context().clearCookies({ name: "jiki_session" });
       void route.fulfill({
         status: 200,
         contentType: "application/json",
@@ -50,9 +53,7 @@ test.describe("Authentication Flows", () => {
           "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
           "Access-Control-Allow-Credentials": "true",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-          // Clear the session cookie by setting it to expire in the past
-          "Set-Cookie": "jiki_session=; Path=/; Domain=.local.jiki.io; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly"
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
         },
         body: JSON.stringify({})
       });
