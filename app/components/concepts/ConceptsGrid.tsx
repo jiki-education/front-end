@@ -6,18 +6,10 @@ import { InlineLoading } from "./LoadingStates";
 interface ConceptsGridProps {
   concepts: ConceptListItem[];
   isLoading: boolean;
-  debouncedSearchQuery: string;
-  onClearSearch: () => void;
   isAuthenticated: boolean;
 }
 
-export default function ConceptsGrid({
-  concepts,
-  isLoading,
-  debouncedSearchQuery: _debouncedSearchQuery,
-  onClearSearch: _onClearSearch,
-  isAuthenticated
-}: ConceptsGridProps) {
+export default function ConceptsGrid({ concepts, isLoading, isAuthenticated }: ConceptsGridProps) {
   return (
     <>
       {isLoading && concepts.length > 0 && <InlineLoading isAuthenticated={isAuthenticated} />}

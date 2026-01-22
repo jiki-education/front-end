@@ -59,13 +59,7 @@ export default function ConceptsListPage({ authenticated }: ConceptsListPageProp
         <ErrorState error={error} onRetry={retryLoad} withSidebar={withSidebar} />
       ) : (
         <>
-          <ConceptsGrid
-            concepts={conceptsState.concepts}
-            isLoading={isLoading}
-            debouncedSearchQuery={debouncedSearchQuery}
-            onClearSearch={clearSearch}
-            isAuthenticated={authenticated}
-          />
+          <ConceptsGrid concepts={conceptsState.concepts} isLoading={isLoading} isAuthenticated={authenticated} />
 
           {conceptsState.concepts.length > 0 && (
             <Pagination

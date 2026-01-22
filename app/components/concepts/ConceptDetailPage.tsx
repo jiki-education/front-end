@@ -10,6 +10,7 @@ import { Breadcrumb } from "@/components/concepts";
 import ConceptHero from "@/components/concepts/ConceptHero";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
 import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
+import styles from "@/app/styles/modules/concepts.module.css";
 
 interface ConceptDetailPageProps {
   slug: string;
@@ -106,7 +107,29 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
   if (authenticated && hasSubconcepts) {
     return (
       <ConceptsLayout>
-        <SubconceptsGrid slug={slug} />
+        <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
+
+        <header>
+          <h1 className={styles.pageHeading}>
+            <svg
+              className={`${styles.headingIcon} w-8 h-8`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7h18M8 12h8"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            {concept.title}
+          </h1>
+        </header>
+
+        <SubconceptsGrid parentSlug={concept.slug} />
       </ConceptsLayout>
     );
   }

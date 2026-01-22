@@ -27,56 +27,24 @@ const mockConcepts = [
 
 describe("ConceptsGrid", () => {
   it("renders without crashing", () => {
-    render(
-      <ConceptsGrid
-        concepts={mockConcepts}
-        isLoading={false}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} isAuthenticated={false} />);
     expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 
   it("shows loading state when isLoading is true", () => {
-    render(
-      <ConceptsGrid
-        concepts={mockConcepts}
-        isLoading={true}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={true} isAuthenticated={false} />);
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renders empty grid when no concepts and not loading", () => {
-    const { container } = render(
-      <ConceptsGrid
-        concepts={[]}
-        isLoading={false}
-        debouncedSearchQuery="test search"
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    const { container } = render(<ConceptsGrid concepts={[]} isLoading={false} isAuthenticated={false} />);
     const grid = container.querySelector(`.${styles.conceptsGrid}`);
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
   });
 
   it("renders concepts grid when authenticated", () => {
-    render(
-      <ConceptsGrid
-        concepts={[]}
-        isLoading={false}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={true}
-      />
-    );
+    render(<ConceptsGrid concepts={[]} isLoading={false} isAuthenticated={true} />);
     expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 });
