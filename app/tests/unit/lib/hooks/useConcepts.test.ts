@@ -54,6 +54,7 @@ describe("useConcepts", () => {
           title: "Test",
           description: "Test concept",
           children_count: 0,
+          user_may_access: true,
           standard_video_provider: null,
           standard_video_id: null,
           premium_video_provider: null,

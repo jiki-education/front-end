@@ -21,7 +21,8 @@ export default function ConceptsGrid({ concepts, isLoading }: ConceptsGridProps)
               slug: concept.slug,
               title: concept.title,
               description: concept.description,
-              subConceptCount: concept.children_count
+              subConceptCount: concept.children_count,
+              userMayAccess: concept.user_may_access
             }}
           />
         ))}

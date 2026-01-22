@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SubConceptIcon from "@static/icons/subconcept.svg";
+import LockedIcon from "@static/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { ConceptIcon } from "@/components/icons/ConceptIcon";
@@ -9,6 +10,7 @@ interface ConceptCardData {
   title: string;
   description: string;
   subConceptCount?: number;
+  userMayAccess?: boolean;
 }
 
 interface ConceptCardProps {
@@ -17,11 +19,10 @@ interface ConceptCardProps {
 }
 
 export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
-  return (
-    <Link
-      className={assembleClassNames(styles.conceptCard, smallVersion && styles.small)}
-      href={`/concepts/${concept.slug || ""}`}
-    >
+  const isLocked = concept.userMayAccess === false;
+
+  const cardContent = (
+    <>
       <div className={styles.conceptIcon}>
         <ConceptIcon slug={concept.slug} width={100} height={100} />
       </div>
@@ -35,6 +36,24 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
           </div>
         )}
       </div>
+      {isLocked && <LockedIcon className={styles.lockedIcon} />}
+    </>
+  );
+
+  if (isLocked) {
+    return (
+      <div className={assembleClassNames(styles.conceptCard, styles.locked, smallVersion && styles.small)}>
+        {cardContent}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      className={assembleClassNames(styles.conceptCard, smallVersion && styles.small)}
+      href={`/concepts/${concept.slug || ""}`}
+    >
+      {cardContent}
     </Link>
   );
 }

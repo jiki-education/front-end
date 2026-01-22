@@ -52,7 +52,8 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
             slug: subconcept.slug,
             title: subconcept.title,
             description: subconcept.description,
-            subConceptCount: subconcept.children_count
+            subConceptCount: subconcept.children_count,
+            userMayAccess: subconcept.user_may_access
           }}
         />
       ))}
