@@ -76,53 +76,7 @@
     text-wrap-style: balance;
 }
 
-.creatorsBadge {
-    text-align: center;
-    z-index: var(--z-index-base);
-
-    .label {
-        font-size: 10px;
-        color: rgba(255, 255, 255, 0.4);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 6px;
-    }
-
-    .brand {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.75);
-        font-weight: 500;
-    }
-}
-
-/* Fix placeholder styling */
-.formFieldPlaceholder input::placeholder {
-    color: var(--color-text-secondary);
-    opacity: 1;
-}
-
 @media (max-width: 968px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .rightSide {
-        min-height: 300px;
-        padding: 40px 30px;
-    }
-
-    .logoLarge {
-        font-size: 48px;
-    }
-
-    .tagline {
-        font-size: 24px;
-    }
-
-    .description {
-        font-size: 16px;
-    }
-
     .leftSide {
         padding: 40px 30px;
     }
