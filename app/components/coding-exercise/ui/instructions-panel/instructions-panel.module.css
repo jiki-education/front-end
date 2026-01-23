@@ -292,7 +292,7 @@
     color: #2d3748;
     padding: 16px;
     margin-bottom: 16px;
-    background: #ffffff;
+    background: white;
     border-radius: 8px;
     border: 2px solid var(--color-gray-200);
 }
@@ -377,13 +377,13 @@
     color: var(--color-gray-600);
     font-size: 15px;
     font-weight: 500;
-    border: 2px solid #ffffff;
+    border: 2px solid white;
     border-radius: 8px;
     padding: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
 .openConceptLibraryBtn:hover {
-    border-color: #3b82f6 !important;
+    border-color: var(--color-blue-500) !important;
     background: #f0f9ff !important;
 }

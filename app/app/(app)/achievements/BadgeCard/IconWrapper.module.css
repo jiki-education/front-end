@@ -24,12 +24,12 @@
 
 /* Icon wrapper color themes */
 .card.earned.blue .iconWrapper {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .card.earned.gold .iconWrapper {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 

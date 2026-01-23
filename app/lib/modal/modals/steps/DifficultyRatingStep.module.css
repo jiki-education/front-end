@@ -7,7 +7,7 @@
 }
 
 .ratingSection.highlighted {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    background: linear-gradient(135deg, var(--color-amber-100) 0%, var(--color-amber-200) 100%);
 }
 
 .ratingLabel {
@@ -56,13 +56,13 @@
 }
 
 .sliderOption:hover .sliderDot {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     transform: scale(1.1);
 }
 
 .sliderOption.selected .sliderDot {
-    border-color: #93c5fd;
-    background: #3b82f6;
+    border-color: var(--color-blue-300);
+    background: var(--color-blue-500);
 }
 
 .sliderLabel {
@@ -93,7 +93,7 @@
 }
 
 .sliderOption.selected .sliderLabel {
-    color: #3b82f6;
+    color: var(--color-blue-500);
     font-weight: 600;
 }
 
@@ -141,13 +141,13 @@
 }
 
 .emojiOption:hover .emojiCircle {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     background: #f9d67a;
     transform: scale(1.05);
 }
 
 .emojiOption.selected .emojiCircle {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     background: #f9d67a;
 }
 
@@ -179,6 +179,6 @@
 }
 
 .emojiOption.selected .emojiLabel {
-    color: #b45309;
+    color: var(--color-amber-700);
     font-weight: 600;
 }

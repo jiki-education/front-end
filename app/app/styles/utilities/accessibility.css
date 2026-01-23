@@ -27,14 +27,14 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
     :root {
-        --color-border-primary: #000000;
-        --color-border-secondary: #000000;
+        --color-border-primary: black;
+        --color-border-secondary: black;
         --color-text-secondary: var(--color-text-primary);
     }
 
     [data-theme="dark"] {
-        --color-border-primary: #ffffff;
-        --color-border-secondary: #ffffff;
+        --color-border-primary: white;
+        --color-border-secondary: white;
         --color-text-secondary: var(--color-text-primary);
     }
 }

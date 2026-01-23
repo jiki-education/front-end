@@ -8,7 +8,7 @@
 .logo {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--color-blue-400) 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -37,7 +37,7 @@
 }
 
 .robotEye {
-    fill: #3b82f6;
+    fill: var(--color-blue-500);
 }
 
 .robotEye.off {
@@ -51,7 +51,7 @@
 }
 
 .spark {
-    fill: #fbbf24;
+    fill: var(--color-amber-400);
     animation: spark 0.8s ease-in-out infinite;
 }
 

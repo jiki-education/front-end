@@ -1,5 +1,5 @@
 .premiumUpsell {
-    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     border-radius: 16px;
     padding: 40px;
     text-align: center;
@@ -13,7 +13,7 @@
 }
 
 .premiumUpsellHeadline .highlight {
-    background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, var(--color-purple-600) 0%, var(--color-blue-500) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -110,7 +110,7 @@
 
 .premiumUpsellNote {
     font-size: 13px;
-    color: #9333ea;
+    color: var(--color-purple-600);
     margin: 2px 0 0 0;
     white-space: nowrap;
 }

@@ -23,7 +23,7 @@
     width: 66px;
     height: 66px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
+    background: linear-gradient(135deg, var(--color-purple-500), #ec4899, var(--color-blue-500));
     position: relative;
     flex-shrink: 0;
     padding: 3px;
@@ -207,7 +207,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    border: 3px solid #a855f7;
+    border: 3px solid var(--color-purple-500);
     background: white;
     display: flex;
     align-items: center;
@@ -232,7 +232,7 @@
 /* Unrevealed badges (golden background with padlock) */
 .profileBadge.unrevealed {
     background: white;
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     overflow: visible; /* Changed from hidden to visible to allow new label to show */
     animation: subtle-pulse 2s ease-in-out infinite;
 }
@@ -251,7 +251,7 @@
     left: -3px;
     right: -3px;
     bottom: -3px;
-    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    background: linear-gradient(135deg, var(--color-amber-500) 0%, var(--color-amber-400) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -289,7 +289,7 @@
 
 /* Color classes for badges based on their state */
 .profileBadge.blue:not(.unrevealed) {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
@@ -300,7 +300,7 @@
 }
 
 .profileBadge.gold {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
@@ -358,7 +358,7 @@
     box-shadow: none;
     border-color: white;
     border-style: solid;
-    background: #a855f7;
+    background: var(--color-purple-500);
     cursor: pointer;
 }
 
