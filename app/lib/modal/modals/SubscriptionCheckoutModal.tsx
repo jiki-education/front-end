@@ -24,13 +24,6 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
   const checkoutState = useCheckout();
   const tierInfo = PRICING_TIERS[selectedTier];
 
-  useEffect(() => {
-    if (checkoutState.type === "success") {
-      const { checkout } = checkoutState;
-      checkout.changeAppearance({ inputs: "condensed" });
-    }
-  }, [checkoutState]);
-
   // Focus management for form accessibility
   useEffect(() => {
     // Focus the form when it loads
@@ -125,7 +118,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
         <button
           type="submit"
           disabled={isLoading}
-          className="ui-btn ui-btn-large ui-btn-primary ui-btn-purple w-full"
+          className="mt-10 ui-btn ui-btn-large ui-btn-primary ui-btn-purple w-full"
           id="submit-btn"
         >
           {isLoading ? "Processing..." : "Pay"}
@@ -134,10 +127,6 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
         <p className={styles.footerText}>
           <ShieldIcon />
           Secured by <span className={styles.stripeBrand}>stripe</span>
-        </p>
-
-        <p className={styles.termsText}>
-          By subscribing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
         </p>
       </form>
     </div>
@@ -150,8 +139,39 @@ export function SubscriptionCheckoutModal({ clientSecret, selectedTier, onCancel
     hideModal();
   };
 
+  const appearance = {
+    inputs: "condensed" as const,
+    labels: "auto" as const,
+
+    variables: {
+      fontFamily: '"Poppins", "-apple-system", "system-ui", "Segoe UI", Roboto, sans-serif',
+      borderRadius: "10px",
+      spacingUnit: "5px",
+      fontSmooth: "always",
+      colorText: "#343a46", // Should match gray-900
+      colorDanger: "#ef4444", // Should match red-900
+      gridRowSpacing: "10px"
+    },
+
+    rules: {
+      ".Tab": {
+        borderRadius: "10px"
+      },
+      ".Tab--selected": {
+        borderColor: "#2570eb"
+      },
+      ".Error": {
+        marginTop: "12px",
+        fontWeight: "500"
+      },
+      ".Input": {
+        lineHeight: "1"
+      }
+    }
+  };
+
   return (
-    <CheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
+    <CheckoutProvider stripe={stripePromise} options={{ clientSecret, elementsOptions: { appearance } }}>
       <CheckoutForm selectedTier={selectedTier} onCancel={handleCancel} />
     </CheckoutProvider>
   );
