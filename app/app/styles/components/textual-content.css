@@ -55,7 +55,7 @@
 
     /* Inline Code */
     code {
-        background: #f1f5f9;
+        background: var(--color-gray-100);
         padding: var(--spacing-2) var(--spacing-6);
         border-radius: var(--radius-4);
         font-family: var(--font-mono);
@@ -64,8 +64,8 @@
 
     /* Code Blocks */
     pre {
-        background: #ffffff;
-        border: 2px solid #e2e8f0;
+        background: white;
+        border: 2px solid var(--color-gray-200);
         border-radius: var(--radius-16);
         padding: var(--spacing-28) var(--spacing-32);
         margin: var(--spacing-20) 0;
@@ -88,11 +88,11 @@
     }
 
     .code-string {
-        color: #059669;
+        color: var(--color-green-600);
     }
 
     .code-comment {
-        color: #64748b;
+        color: var(--color-gray-500);
         font-style: italic;
     }
 
@@ -118,22 +118,22 @@
 
     /* Purple Info Box */
     .admonition-info {
-        background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-        border: 2px solid #d8b4fe;
+        background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
+        border: 2px solid var(--color-purple-300);
 
         .admonition-title {
-            color: #7e22ce;
+            color: var(--color-purple-700);
         }
 
         .admonition-content strong {
-            color: #7e22ce;
+            color: var(--color-purple-700);
             font-weight: 600;
         }
     }
 
     /* Key Point Box (Blue) */
     .admonition-key-point {
-        background: #fff;
+        background: white;
         border: 2px solid #667eea;
         box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
 

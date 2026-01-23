@@ -14,7 +14,7 @@
     max-width: 20px;
     max-height: 20px;
     border: none;
-    background-color: #cbd5e1;
+    background-color: var(--color-gray-300);
     border-radius: 50%;
     cursor: pointer;
     display: none;
@@ -27,7 +27,7 @@
 }
 
 .searchClearBtn:hover {
-    background-color: #94a3b8;
+    background-color: var(--color-gray-400);
 }
 
 .searchClearBtn svg {
@@ -35,7 +35,7 @@
     height: 10px;
     min-width: 10px;
     min-height: 10px;
-    color: #475569;
+    color: var(--color-gray-600);
 }
 
 .searchBar.hasValue .searchClearBtn {
@@ -58,20 +58,20 @@
     width: 64px;
     height: 64px;
     margin: 0 auto 20px;
-    color: #94a3b8;
+    color: var(--color-gray-400);
 }
 
 .noResultsTitle {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
     font-weight: 600;
-    color: #334155;
+    color: var(--color-gray-700);
     margin-bottom: 8px;
 }
 
 .noResultsMessage {
     font-family: "Poppins", sans-serif;
     font-size: 15px;
-    color: #64748b;
+    color: var(--color-gray-500);
     white-space: nowrap;
 }

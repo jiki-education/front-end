@@ -120,6 +120,8 @@
 }
 
 .lessonPart.locked {
+    background: var(--color-gray-100);
+    border: 3px solid var(--color-gray-200);
     opacity: 0.5;
     cursor: pointer;
 }
@@ -229,7 +231,7 @@
     font-weight: 600;
     padding: 12px 24px;
     border-radius: 50px;
-    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-purple-500) 100%);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -8,12 +8,12 @@
         }
         &.result-player_1 {
             .player-1 {
-                @apply border-bootcamp-purple;
+                @apply border-purple-600;
             }
         }
         &.result-player_2 {
             .player-2 {
-                @apply border-bootcamp-purple;
+                @apply border-purple-600;
             }
         }
         .player-1 {

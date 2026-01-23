@@ -50,15 +50,15 @@
 
 /* Ribbon colors matching border colors */
 .card.earned.green .ribbon {
-    color: #10b981;
+    color: var(--color-green-500);
 }
 
 .card.earned.blue .ribbon {
-    color: #3b82f6;
+    color: var(--color-blue-500);
 }
 
 .card.earned.gold .ribbon {
-    color: #f59e0b;
+    color: var(--color-amber-500);
 }
 
 .card.earned.amber .ribbon {
@@ -70,7 +70,7 @@
 }
 
 .card.earned.purple .ribbon {
-    color: #3b82f6;
+    color: var(--color-blue-500);
 }
 
 .card.earned.teal .ribbon {

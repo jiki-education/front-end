@@ -91,7 +91,7 @@ export const testStyles = {
   },
   statusText: {
     fontWeight: "500",
-    color: "#059669"
+    color: "var(--color-green-600)"
   },
   checkbox: {
     marginRight: "8px",

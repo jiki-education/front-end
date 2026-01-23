@@ -24,12 +24,12 @@
 
 /* Icon wrapper color themes */
 .card.earned.blue .iconWrapper {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .card.earned.gold .iconWrapper {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
@@ -39,7 +39,7 @@
 }
 
 .card.earned.green .iconWrapper {
-    border-color: #10b981;
+    border-color: var(--color-green-500);
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
@@ -60,8 +60,8 @@
 
 /* Locked badge icon styles */
 .card.locked .iconWrapper {
-    background: #f1f5f9;
-    border-color: #cbd5e0;
+    background: var(--color-gray-100);
+    border-color: var(--color-gray-300);
 }
 
 .card.locked .iconWrapper img {

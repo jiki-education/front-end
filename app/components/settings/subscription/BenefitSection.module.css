@@ -56,7 +56,7 @@
 
 /* Benefits section with purple fill */
 .benefitsSection {
-    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     padding: 40px 32px 36px;
     border-radius: 16px;
     position: relative;
@@ -108,7 +108,7 @@
 }
 
 .gradientText {
-    background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, var(--color-purple-600) 0%, var(--color-blue-500) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

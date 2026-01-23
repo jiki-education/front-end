@@ -1,5 +1,5 @@
 .consoleOutput {
-    background: #ffffff;
+    background: white;
     padding: 0;
 }
 
@@ -10,13 +10,13 @@
     font-size: 13px;
     cursor: pointer;
     border: 1px solid transparent;
-    border-bottom: 1px solid #dbeafe;
+    border-bottom: 1px solid var(--color-blue-100);
     margin: 0;
     transition: none;
 }
 
 .consoleLogEntry:hover {
-    background: #eff6ff;
+    background: var(--color-blue-50);
     padding-left: 8px;
     padding-right: 8px;
     margin-left: -8px;
@@ -26,9 +26,9 @@
 }
 
 .consoleLogEntry.highlighted {
-    border: 1px solid #3b82f6;
+    border: 1px solid var(--color-blue-500);
     border-radius: 4px;
-    background: #eff6ff;
+    background: var(--color-blue-50);
     padding-left: 8px;
     padding-right: 8px;
     margin-left: -8px;
@@ -36,7 +36,7 @@
 }
 
 .consoleLogTimestamp {
-    color: #94a3b8;
+    color: var(--color-gray-400);
     font-size: 14px;
     font-family: "Source Code Pro", monospace;
     flex-shrink: 0;
@@ -53,12 +53,12 @@
 }
 
 .consoleLogLine {
-    color: #1e40af;
+    color: var(--color-blue-800);
     font-size: 11px;
     font-family: "Source Code Pro", monospace;
     font-weight: 600;
     flex-shrink: 0;
-    background: #dbeafe;
+    background: var(--color-blue-100);
     padding: 2px 6px;
     border-radius: 4px;
     min-width: 36px;
@@ -70,21 +70,21 @@
 }
 
 .consoleLogEntry:hover .consoleLogLine {
-    color: #3b82f6;
-    background: #ffffff;
-    border: 1px solid #3b82f6;
+    color: var(--color-blue-500);
+    background: white;
+    border: 1px solid var(--color-blue-500);
 }
 
 .consoleLogEntry.highlighted .consoleLogLine {
-    color: #ffffff;
-    background: #3b82f6;
-    border: 1px solid #3b82f6;
+    color: white;
+    background: var(--color-blue-500);
+    border: 1px solid var(--color-blue-500);
 }
 
 .consoleLogContent {
     font-family: "Source Code Pro", monospace;
     font-size: 14px;
-    color: #334155;
+    color: var(--color-gray-700);
     line-height: 1.6;
     flex: 1;
     word-break: break-word;
@@ -99,7 +99,7 @@
 }
 
 .consoleLogBoolean {
-    color: #dc2626;
+    color: var(--color-red-600);
 }
 
 .consoleLogObject {

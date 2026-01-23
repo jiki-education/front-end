@@ -75,10 +75,11 @@ export default function TestButtonsTestPage() {
                       )}
                       style={{
                         padding: "8px 12px",
-                        border: `1px solid ${test.status === "pass" ? "#10b981" : "#ef4444"}`,
+                        border: `1px solid ${test.status === "pass" ? "var(--color-green-500)" : "#ef4444"}`,
                         borderRadius: "6px",
                         backgroundColor: currentTest === test ? "#3b82f6" : "#fff",
-                        color: currentTest === test ? "#fff" : test.status === "pass" ? "#10b981" : "#ef4444",
+                        color:
+                          currentTest === test ? "#fff" : test.status === "pass" ? "var(--color-green-500)" : "#ef4444",
                         cursor: "pointer",
                         fontSize: "14px",
                         fontWeight: "500"
@@ -109,10 +110,11 @@ export default function TestButtonsTestPage() {
                       )}
                       style={{
                         padding: "8px 12px",
-                        border: `1px solid ${test.status === "pass" ? "#10b981" : "#ef4444"}`,
+                        border: `1px solid ${test.status === "pass" ? "var(--color-green-500)" : "#ef4444"}`,
                         borderRadius: "6px",
                         backgroundColor: currentTest === test ? "#3b82f6" : "#fff",
-                        color: currentTest === test ? "#fff" : test.status === "pass" ? "#10b981" : "#ef4444",
+                        color:
+                          currentTest === test ? "#fff" : test.status === "pass" ? "var(--color-green-500)" : "#ef4444",
                         cursor: "pointer",
                         fontSize: "14px",
                         fontWeight: "500"

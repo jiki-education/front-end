@@ -7,7 +7,7 @@
 .logo {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--color-blue-400) 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -30,21 +30,21 @@
 
 /* Robot SVG illustration */
 .robotBody {
-    fill: #e2e8f0;
-    stroke: #94a3b8;
+    fill: var(--color-gray-200);
+    stroke: var(--color-gray-400);
     stroke-width: 2;
 }
 
 .robotEye {
-    fill: #3b82f6;
+    fill: var(--color-blue-500);
 }
 
 .robotEye.tired {
-    fill: #94a3b8;
+    fill: var(--color-gray-400);
 }
 
 .robotAntenna {
-    stroke: #94a3b8;
+    stroke: var(--color-gray-400);
     stroke-width: 3;
     stroke-linecap: round;
 }
@@ -83,7 +83,7 @@
 
 /* Blinking tired eyes */
 .eyeLid {
-    fill: #cbd5e1;
+    fill: var(--color-gray-300);
     animation: blink 4s ease-in-out infinite;
     transform-origin: center;
 }
@@ -139,7 +139,7 @@
 
 /* Sweat drop */
 .sweat {
-    fill: #93c5fd;
+    fill: var(--color-blue-300);
     animation: sweatDrop 2.5s ease-in-out infinite;
 }
 
@@ -237,8 +237,8 @@
     font-size: 16px;
     color: var(--color-gray-500);
     line-height: 1.6;
-    background: #fef3c7;
-    border: 1px solid #fcd34d;
+    background: var(--color-amber-100);
+    border: 1px solid var(--color-amber-300);
     border-radius: 12px;
     padding: 16px 20px;
 }

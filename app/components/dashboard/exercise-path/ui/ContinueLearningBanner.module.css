@@ -20,7 +20,7 @@
 }
 
 .container {
-    background: linear-gradient(to right, #3b82f6, #1e40af);
+    background: linear-gradient(to right, var(--color-blue-500), var(--color-blue-800));
     color: white;
     border-radius: 0.5rem;
     box-shadow:

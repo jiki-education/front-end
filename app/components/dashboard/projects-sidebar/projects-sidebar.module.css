@@ -15,7 +15,7 @@
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
@@ -34,7 +34,7 @@
     margin-left: auto;
     font-size: 14px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 /* Project Cards Grid */
@@ -46,7 +46,7 @@
 /* Individual Project Card */
 .statCard {
     background: white;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     border-radius: 16px;
     padding: 16px;
     text-align: center;
@@ -122,7 +122,7 @@
     left: 12px;
     right: 12px;
     height: 6px;
-    background: #f1f5f9;
+    background: var(--color-gray-100);
     border-radius: 3px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -130,7 +130,7 @@
 
 .cardProgressFill {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(90deg, var(--color-blue-500) 0%, #2563eb 100%);
     transition: width 0.3s ease;
     border-radius: 3px;
 }
@@ -138,35 +138,35 @@
 /* Project Status Styles */
 .statCard[data-status="started"] .cardProgressFill,
 .statCard[data-status="in-progress"] .cardProgressFill {
-    background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
+    background: linear-gradient(90deg, var(--color-purple-500) 0%, var(--color-purple-400) 100%);
 }
 
 .statCard[data-status="completed"] .cardProgressFill,
 .statCard[data-status="complete"] .cardProgressFill {
-    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+    background: linear-gradient(90deg, var(--color-green-500) 0%, var(--color-green-400) 100%);
 }
 
 .statCard[data-status="unlocked"] .cardProgressFill,
 .statCard[data-status="not-started"] .cardProgressFill {
-    background: #cbd5e0;
+    background: var(--color-gray-300);
     width: 0%;
 }
 
 .statCard[data-status="locked"] .cardProgressFill {
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     width: 0%;
 }
 
 .statCard[data-status="completed"] .statCardProgress,
 .statCard[data-status="complete"] .statCardProgress {
-    color: #10b981;
+    color: var(--color-green-500);
     font-weight: 600;
 }
 
 .statCard[data-status="started"],
 .statCard[data-status="in-progress"] {
     background: white;
-    border-color: #a855f7;
+    border-color: var(--color-purple-500);
     border-width: 2px;
     box-shadow:
         0 0 6px rgba(236, 72, 153, 0.25),
@@ -175,12 +175,12 @@
 
 .statCard[data-status="started"]:hover,
 .statCard[data-status="in-progress"]:hover {
-    border-color: #a855f7;
+    border-color: var(--color-purple-500);
 }
 
 .statCard[data-status="started"] .statCardProgress,
 .statCard[data-status="in-progress"] .statCardProgress {
-    color: #a855f7;
+    color: var(--color-purple-500);
     font-weight: 600;
 }
 
@@ -193,7 +193,7 @@
     background: white;
     border: 2px solid #bfd7fe;
     border-radius: 12px;
-    color: #3b82f6;
+    color: var(--color-blue-500);
     font-size: 14px;
     font-weight: 500;
     text-align: center;
@@ -205,7 +205,7 @@
 }
 
 .viewAllBtn:hover {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     box-shadow:
         0 0 0 4px rgba(59, 130, 246, 0.2),
         0 4px 16px rgba(59, 130, 246, 0.4);
@@ -250,7 +250,7 @@
 .projectsEmptyTitle {
     font-size: 18px;
     font-weight: 700;
-    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -259,18 +259,18 @@
 
 .projectsEmptyText {
     font-size: 14px;
-    color: #64748b;
+    color: var(--color-gray-500);
     line-height: 1.5;
 }
 
 /* Premium Box */
 .premiumBox {
-    background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+    background: linear-gradient(135deg, var(--color-purple-400) 0%, var(--color-purple-500) 100%);
     border-radius: 16px;
     padding: 24px;
     text-align: center;
     color: white;
-    box-shadow: 0 3px 10px #c084fc;
+    box-shadow: 0 3px 10px var(--color-purple-400);
 }
 
 .premiumIcon {
@@ -319,7 +319,7 @@
 
 .presenceCard .headerText p {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 .presenceCard .statsGrid {
@@ -338,11 +338,11 @@
 .presenceCard .statBox .number {
     font-size: 20px;
     font-weight: 700;
-    color: #3b82f6;
+    color: var(--color-blue-500);
     margin-bottom: 4px;
 }
 
 .presenceCard .statBox .label {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-gray-500);
 }

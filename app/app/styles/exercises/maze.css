@@ -59,7 +59,7 @@
             /* width: var(--cellWidth);
         height: var(--cellWidth); */
             background-color: white;
-            border: 0.5px solid #000;
+            border: 0.5px solid black;
             @apply relative;
             & .emoji {
                 @apply absolute inset-0;

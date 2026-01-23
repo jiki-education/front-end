@@ -1,6 +1,6 @@
 /* Badge Modal Styles */
 .container {
-    background: linear-gradient(160deg, #f472b6 0%, #a855f7 40%, #6366f1 100%);
+    background: linear-gradient(160deg, #f472b6 0%, var(--color-purple-500) 40%, #6366f1 100%);
     border-radius: 28px;
     max-width: 500px;
     width: 90%;
@@ -77,21 +77,21 @@
     position: relative;
 
     &.green {
-        border-color: #10b981;
+        border-color: var(--color-green-500);
         box-shadow:
             0 0 0 5px rgba(16, 185, 129, 0.2),
             0 10px 28px rgba(16, 185, 129, 0.4);
     }
 
     &.blue {
-        border-color: #3b82f6;
+        border-color: var(--color-blue-500);
         box-shadow:
             0 0 0 5px rgba(59, 130, 246, 0.2),
             0 10px 28px rgba(59, 130, 246, 0.4);
     }
 
     &.gold {
-        border-color: #f59e0b;
+        border-color: var(--color-amber-500);
         box-shadow:
             0 0 0 5px rgba(245, 158, 11, 0.2),
             0 10px 28px rgba(245, 158, 11, 0.4);

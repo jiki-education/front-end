@@ -4,7 +4,7 @@
     padding: 20px;
     margin-top: 5px;
     margin-bottom: 20px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
@@ -23,7 +23,7 @@
     width: 66px;
     height: 66px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
+    background: linear-gradient(135deg, var(--color-purple-500), #ec4899, var(--color-blue-500));
     position: relative;
     flex-shrink: 0;
     padding: 3px;
@@ -116,7 +116,7 @@
     gap: 12px;
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--color-gray-200);
 }
 
 .userStatItem {
@@ -127,7 +127,7 @@
 .userStatLabel {
     display: block;
     font-size: 12px;
-    color: #64748b;
+    color: var(--color-gray-500);
     font-weight: 500;
     margin-bottom: 4px;
 }
@@ -155,7 +155,7 @@
 .quickStatIcon {
     width: 20px;
     height: 20px;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 .quickStatNumber {
@@ -185,7 +185,7 @@
     content: "";
     flex: 1;
     height: 1px;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
 }
 
 .profileBadges {
@@ -207,7 +207,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    border: 3px solid #a855f7;
+    border: 3px solid var(--color-purple-500);
     background: white;
     display: flex;
     align-items: center;
@@ -232,7 +232,7 @@
 /* Unrevealed badges (golden background with padlock) */
 .profileBadge.unrevealed {
     background: white;
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     overflow: visible; /* Changed from hidden to visible to allow new label to show */
     animation: subtle-pulse 2s ease-in-out infinite;
 }
@@ -251,7 +251,7 @@
     left: -3px;
     right: -3px;
     bottom: -3px;
-    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    background: linear-gradient(135deg, var(--color-amber-500) 0%, var(--color-amber-400) 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -289,7 +289,7 @@
 
 /* Color classes for badges based on their state */
 .profileBadge.blue:not(.unrevealed) {
-    border-color: #3b82f6;
+    border-color: var(--color-blue-500);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
@@ -300,7 +300,7 @@
 }
 
 .profileBadge.gold {
-    border-color: #f59e0b;
+    border-color: var(--color-amber-500);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
@@ -345,10 +345,10 @@
 }
 
 .profileBadge.empty {
-    border-color: #e2e8f0;
+    border-color: var(--color-gray-200);
     border-style: dashed;
     box-shadow: none;
-    background: #f8fafc;
+    background: var(--color-gray-50);
     cursor: default;
     padding: 0;
 }
@@ -358,7 +358,7 @@
     box-shadow: none;
     border-color: white;
     border-style: solid;
-    background: #a855f7;
+    background: var(--color-purple-500);
     cursor: pointer;
 }
 
@@ -383,7 +383,7 @@
 .badgeMore {
     font-size: 16px;
     font-weight: 600;
-    color: #94a3b8;
+    color: var(--color-gray-400);
     position: relative;
 }
 
@@ -411,25 +411,25 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    border: 3px solid #e2e8f0;
-    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    border: 3px solid var(--color-gray-200);
+    background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     cursor: default;
 }
 
 .profileBadgeSkeleton:nth-child(1) {
-    border-color: #e2e8f0;
+    border-color: var(--color-gray-200);
     opacity: 1;
 }
 
 .profileBadgeSkeleton:nth-child(2) {
-    border-color: #e2e8f0;
+    border-color: var(--color-gray-200);
     opacity: 0.8;
 }
 
 .profileBadgeSkeleton:nth-child(3) {
-    border-color: #e2e8f0;
+    border-color: var(--color-gray-200);
     opacity: 0.6;
 }
 

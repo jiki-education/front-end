@@ -11,7 +11,7 @@
             .main-icon {
                 @apply rounded-3;
                 aspect-ratio: 1;
-                background: #fff;
+                background: white;
                 width: 49%;
             }
         }
@@ -31,7 +31,7 @@
             @apply grid grid-cols-3;
             @apply flex-shrink-0;
             div {
-                background: #fff;
+                background: white;
                 margin: 2px;
 
                 aspect-ratio: 1;

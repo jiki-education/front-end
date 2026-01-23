@@ -20,7 +20,14 @@
 }
 
 .skeleton {
-    background: linear-gradient(90deg, #eceef2 0%, #f6f7f9 25%, #eceef2 50%, #f6f7f9 75%, #eceef2 100%);
+    background: linear-gradient(
+        90deg,
+        var(--color-gray-100) 0%,
+        var(--color-gray-50) 25%,
+        var(--color-gray-100) 50%,
+        var(--color-gray-50) 75%,
+        var(--color-gray-100) 100%
+    );
     background-size: 200% 100%;
     animation: shimmer 1.5s ease-in-out infinite;
     border-radius: 8px;
@@ -42,7 +49,7 @@
     background: white;
     border-radius: 12px;
     padding: 16px 24px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     display: flex;
     align-items: center;
     gap: 16px;
@@ -56,7 +63,7 @@
 .skeletonCard::before {
     content: "";
     position: absolute;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     z-index: 0;
     width: 3px;
     height: 20px;
@@ -70,7 +77,7 @@
 }
 
 .skeletonCardFeatured {
-    border-color: #e2e8f0;
+    border-color: var(--color-gray-200);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -120,7 +127,7 @@
 .skeletonMilestone::before {
     content: "";
     position: absolute;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     z-index: 0;
     width: 3px;
     height: 40px;

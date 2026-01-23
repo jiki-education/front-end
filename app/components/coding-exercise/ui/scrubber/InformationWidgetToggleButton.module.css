@@ -6,7 +6,7 @@
     height: 32px;
     border: 1px solid #d1d5db;
     border-radius: 6px;
-    background-color: #ffffff;
+    background-color: white;
     cursor: pointer;
     transition: all 0.2s ease;
     color: #6b7280;
@@ -18,9 +18,9 @@
 }
 
 .informationWidgetToggleBtn.active {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
-    color: #ffffff;
+    background-color: var(--color-blue-500);
+    border-color: var(--color-blue-500);
+    color: white;
 }
 
 .informationWidgetToggleBtn.active:hover:not(:disabled) {

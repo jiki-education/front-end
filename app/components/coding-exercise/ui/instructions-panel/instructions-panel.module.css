@@ -82,7 +82,7 @@
 .exerciseInfoText {
     font-size: 15px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 .navigationButtonsExpanded {
@@ -261,7 +261,7 @@
 .conceptsContainer {
     & > p {
         font-size: 15px;
-        color: #64748b;
+        color: var(--color-gray-500);
         margin-top: 0;
         margin-bottom: 20px;
     }
@@ -272,10 +272,10 @@
     h2 {
         margin-top: 50px;
         padding-top: 40px;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid var(--color-gray-200);
     }
     .sectionInfo {
-        color: #64748b;
+        color: var(--color-gray-500);
         font-size: 15px;
         margin-bottom: 20px;
         margin-top: 0;
@@ -292,9 +292,9 @@
     color: #2d3748;
     padding: 16px;
     margin-bottom: 16px;
-    background: #ffffff;
+    background: white;
     border-radius: 8px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
 }
 
 .functionHeader {
@@ -356,7 +356,7 @@
     margin-bottom: 12px;
     margin-top: 50px;
     padding-top: 40px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--color-gray-200);
 }
 
 .conceptsList {
@@ -373,17 +373,17 @@
     margin-top: 10px;
     margin-bottom: 32px;
     width: 100%;
-    background: #f8fafc;
-    color: #475569;
+    background: var(--color-gray-50);
+    color: var(--color-gray-600);
     font-size: 15px;
     font-weight: 500;
-    border: 2px solid #ffffff;
+    border: 2px solid white;
     border-radius: 8px;
     padding: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
 .openConceptLibraryBtn:hover {
-    border-color: #3b82f6 !important;
+    border-color: var(--color-blue-500) !important;
     background: #f0f9ff !important;
 }

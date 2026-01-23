@@ -2,7 +2,7 @@
     position: absolute;
     top: -10px;
     right: 12px;
-    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-purple-500) 100%);
     color: white;
     padding: 4px 10px;
     border-radius: 12px;

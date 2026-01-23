@@ -8,7 +8,7 @@
 .logo {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--color-blue-400) 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -31,27 +31,27 @@
 
 /* Robot SVG illustration */
 .robotBody {
-    fill: #e2e8f0;
-    stroke: #94a3b8;
+    fill: var(--color-gray-200);
+    stroke: var(--color-gray-400);
     stroke-width: 2;
 }
 
 .robotEye {
-    fill: #3b82f6;
+    fill: var(--color-blue-500);
 }
 
 .robotEye.off {
-    fill: #cbd5e1;
+    fill: var(--color-gray-300);
 }
 
 .robotAntenna {
-    stroke: #94a3b8;
+    stroke: var(--color-gray-400);
     stroke-width: 3;
     stroke-linecap: round;
 }
 
 .spark {
-    fill: #fbbf24;
+    fill: var(--color-amber-400);
     animation: spark 0.8s ease-in-out infinite;
 }
 
@@ -76,14 +76,14 @@
 }
 
 .cable {
-    stroke: #64748b;
+    stroke: var(--color-gray-500);
     stroke-width: 4;
     stroke-linecap: round;
     fill: none;
 }
 
 .cableEnd {
-    fill: #475569;
+    fill: var(--color-gray-600);
 }
 
 .title {

@@ -20,14 +20,14 @@
 
 .cm-breakpoint-marker {
     &:after {
-        background: var(--color-orange);
+        background: var(--color-amber-500);
     }
 }
 
 .cm-idle-marker {
     &:after {
         opacity: 0;
-        background: var(--color-orange);
+        background: var(--color-amber-500);
     }
 
     &:hover,
@@ -169,7 +169,7 @@
     }
 
     & :not(pre) > code {
-        @apply bg-thick-border-blue px-[6px] py-[1px] rounded-5;
+        @apply bg-blue-50 px-[6px] py-[1px] rounded-5;
     }
 
     pre + p {
