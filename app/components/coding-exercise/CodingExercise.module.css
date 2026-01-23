@@ -1698,7 +1698,7 @@
     @apply flex justify-between flex-grow;
 
     .scenarioLhs {
-        @apply border-r-2 border-bootcamp-light-purple;
+        @apply border-r-2 border-purple-50;
         @apply flex flex-col;
 
         .scenarioLhsContent {
@@ -1736,7 +1736,7 @@
             }
             .errorMessage {
                 @apply text-16 leading-140 font-normal;
-                @apply text-dark-red;
+                @apply text-red-600;
                 @apply mb-12;
                 @apply flex items-center gap-8;
                 img {
@@ -1766,15 +1766,15 @@
         }
     }
     &.pass {
-        @apply border-bootcamp-success-dark;
+        @apply border-green-500;
         .scenarioLhs {
-            @apply bg-bootcamp-success-light;
+            @apply bg-green-50;
         }
     }
     &.fail {
-        @apply border-bootcamp-fail-dark;
+        @apply border-red-400;
         .scenarioLhs {
-            @apply bg-bootcamp-fail-light;
+            @apply bg-red-50;
         }
 
         span.addedPart,
@@ -1782,12 +1782,12 @@
             @apply whitespace-pre;
         }
         span.addedPart {
-            @apply bg-bootcamp-success-light;
-            @apply border-b-1 border-bootcamp-success-dark;
+            @apply bg-green-50;
+            @apply border-b-1 border-green-500;
         }
         span.removedPart {
-            @apply bg-bootcamp-fail-light;
-            @apply border-b-1 border-bootcamp-fail-dark;
+            @apply bg-red-50;
+            @apply border-b-1 border-red-400;
         }
     }
     .ioTestResultInfo {
@@ -1866,40 +1866,40 @@
         @apply border-border-primary;
         background-color: var(--color-background-primary);
         &.selected {
-            @apply border-bootcamp-purple;
+            @apply border-purple-600;
         }
         &:after {
-            @apply border-t-6 border-bootcamp-purple;
+            @apply border-t-6 border-purple-600;
         }
     }
 
     &.pass {
         border-color: var(--color-green-200);
-        @apply bg-bootcamp-success-light;
-        @apply text-bootcamp-success-dark;
+        @apply bg-green-50;
+        @apply text-green-500;
         background-image: url("/icons/bootcamp-tick-green.svg");
         background-size: 12px;
         background-position: 24px 0px;
         &.selected {
-            @apply border-bootcamp-success-dark;
+            @apply border-green-500;
         }
         &:after {
-            @apply border-t-6 border-bootcamp-success-dark;
+            @apply border-t-6 border-green-500;
         }
     }
 
     &.fail {
         border-color: var(--color-error-border);
         background-color: var(--color-error-bg);
-        @apply text-bootcamp-fail-text;
+        @apply text-red-400;
         background-image: url("/icons/bootcamp-cross-red.svg");
         background-size: 9px;
         background-position: 25px 2px;
         &.selected {
-            @apply border-bootcamp-fail-dark;
+            @apply border-red-400;
         }
         &:after {
-            @apply border-t-6 border-bootcamp-fail-dark;
+            @apply border-t-6 border-red-400;
         }
     }
 

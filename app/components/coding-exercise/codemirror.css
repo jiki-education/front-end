@@ -169,7 +169,7 @@
     }
 
     & :not(pre) > code {
-        @apply bg-thick-border-blue px-[6px] py-[1px] rounded-5;
+        @apply bg-blue-50 px-[6px] py-[1px] rounded-5;
     }
 
     pre + p {

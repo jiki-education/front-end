@@ -100,17 +100,13 @@ export default function ThemeTestPage() {
             </div>
           </div>
 
-          {/* Legacy Bootcamp Colors */}
+          {/* Status Variants */}
           <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Legacy Bootcamp</h2>
+            <h2 className="text-xl font-semibold text-text-primary mb-4">Status Variants</h2>
             <div className="space-y-2">
-              <div className="bg-bootcamp-success-light text-bootcamp-success-text p-2 rounded border border-bootcamp-success-dark">
-                Success (legacy)
-              </div>
-              <div className="bg-bootcamp-fail-light text-bootcamp-fail-text p-2 rounded border border-bootcamp-fail-dark">
-                Fail (legacy)
-              </div>
-              <div className="bg-bootcamp-light-purple text-text-primary p-2 rounded">Light Purple (legacy)</div>
+              <div className="bg-green-50 text-green-900 p-2 rounded border border-green-500">Success variant</div>
+              <div className="bg-red-50 text-red-400 p-2 rounded border border-red-400">Fail variant</div>
+              <div className="bg-purple-50 text-text-primary p-2 rounded">Light Purple variant</div>
             </div>
           </div>
         </div>
