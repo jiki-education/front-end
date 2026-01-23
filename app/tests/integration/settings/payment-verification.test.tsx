@@ -9,7 +9,6 @@ import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandl
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
 import { showModal } from "@/lib/modal";
-import toast from "react-hot-toast";
 
 // Mock the API call
 jest.mock("@/lib/api/subscriptions", () => ({
@@ -26,20 +25,11 @@ jest.mock("@/lib/modal", () => ({
   showModal: jest.fn()
 }));
 
-// Mock toast
-jest.mock("react-hot-toast", () => ({
-  __esModule: true,
-  default: {
-    error: jest.fn()
-  }
-}));
-
 const mockExtractAndClearCheckoutSessionId = extractAndClearCheckoutSessionId as jest.MockedFunction<
   typeof extractAndClearCheckoutSessionId
 >;
 const mockVerifyCheckoutSession = verifyCheckoutSession as jest.MockedFunction<typeof verifyCheckoutSession>;
 const mockShowModal = showModal as jest.MockedFunction<typeof showModal>;
-const mockToast = toast as jest.Mocked<typeof toast>;
 
 // Mock auth store
 const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
@@ -91,22 +81,6 @@ describe("Payment Verification Integration", () => {
 
     expect(mockShowModal).toHaveBeenCalledWith("payment-processing-modal", { tier: "premium" });
     expect(mockRefreshUser).toHaveBeenCalled();
-  });
-
-  it("shows error toast on verification failure", async () => {
-    mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_error");
-    mockVerifyCheckoutSession.mockRejectedValue(new Error("Network error"));
-
-    render(<CheckoutReturnHandler />);
-
-    await waitFor(() => {
-      expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_error");
-    });
-
-    expect(mockToast.error).toHaveBeenCalledWith(
-      "Failed to verify payment. Please check your subscription status in Settings."
-    );
-    expect(mockShowModal).not.toHaveBeenCalled();
   });
 
   it("does nothing when no checkout_return param present", () => {

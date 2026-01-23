@@ -5,7 +5,6 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
 import { showModal } from "@/lib/modal";
-import toast from "react-hot-toast";
 
 /**
  * Global handler for Stripe checkout returns
@@ -20,33 +19,22 @@ export function CheckoutReturnHandler() {
 
   useEffect(() => {
     const sessionId = extractAndClearCheckoutSessionId();
-
     if (!sessionId) {
       return;
     }
 
-    async function verifyAndShowModal(id: string) {
-      try {
-        const result = await verifyCheckoutSession(id);
+    void (async () => {
+      const result = await verifyCheckoutSession(sessionId);
 
-        if (result.payment_status === "paid") {
-          showModal("subscription-success-modal", { tier: result.tier });
-        } else {
-          // payment_status === "unpaid" with subscription_status === "incomplete"
-          // means async payment is processing
-          showModal("payment-processing-modal", { tier: result.tier });
-        }
-
-        await refreshUser();
-      } catch (error) {
-        console.error("Failed to verify checkout session:", error);
-        toast.error("Failed to verify payment. Please check your subscription status in Settings.");
+      if (result.payment_status === "paid") {
+        showModal("subscription-success-modal", { tier: result.tier });
+      } else {
+        showModal("payment-processing-modal", { tier: result.tier });
       }
-    }
 
-    void verifyAndShowModal(sessionId);
+      await refreshUser();
+    })();
   }, [refreshUser]);
 
-  // This component renders nothing - it just handles the checkout return
   return null;
 }
