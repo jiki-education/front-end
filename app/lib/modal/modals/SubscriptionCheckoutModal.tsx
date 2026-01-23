@@ -170,8 +170,16 @@ export function SubscriptionCheckoutModal({ clientSecret, selectedTier, onCancel
     }
   };
 
+  const options = {
+    clientSecret,
+    elementsOptions: {
+      fonts: [{ cssSrc: "https://fonts.googleapis.com/css?family=Poppins" }],
+      appearance
+    }
+  };
+
   return (
-    <CheckoutProvider stripe={stripePromise} options={{ clientSecret, elementsOptions: { appearance } }}>
+    <CheckoutProvider stripe={stripePromise} options={options}>
       <CheckoutForm selectedTier={selectedTier} onCancel={handleCancel} />
     </CheckoutProvider>
   );
