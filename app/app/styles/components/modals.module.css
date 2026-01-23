@@ -12,9 +12,12 @@
     bottom: 0;
     background: rgba(15, 23, 42, 0.6);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     z-index: 10000;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 40px 0;
 }
 
 .modal {

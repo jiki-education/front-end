@@ -4,7 +4,6 @@
     justify-content: space-between;
     margin-bottom: 16px;
     padding-bottom: 16px;
-    padding-top: 20px;
     border-bottom: 1px solid var(--color-gray-100);
 }
 
@@ -40,23 +39,6 @@
 .orderPrice .period {
     font-size: 14px;
     color: var(--color-gray-500);
-}
-
-.termsText {
-    font-size: 14px;
-    color: var(--color-gray-500);
-    text-align: center;
-    margin-top: 12px;
-    line-height: 1.4;
-}
-
-.termsText a {
-    color: var(--color-gray-500);
-    text-decoration: underline;
-}
-
-.termsText a:hover {
-    color: var(--color-gray-600);
 }
 
 /* Security & Terms */
@@ -137,14 +119,14 @@
 }
 
 .errorBannerTitle {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--color-red-600);
     margin-bottom: 2px;
 }
 
 .errorBannerMessage {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-red-500);
     line-height: 1.4;
 }

@@ -113,7 +113,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
         )}
 
         {/* Payment and Billing Section */}
-        <PaymentElement options={{ layout: "tabs" }} />
+        <PaymentElement options={{ layout: "tabs", wallets: { link: "never" } }} />
 
         <button
           type="submit"

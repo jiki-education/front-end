@@ -37,6 +37,7 @@ export function BaseModal({
       onRequestClose={onRequestClose}
       className={modalClass}
       overlayClassName={overlayClass}
+      bodyOpenClassName="ReactModal__Body--open"
       ariaHideApp={false}
     >
       {title && !fullscreen && (
