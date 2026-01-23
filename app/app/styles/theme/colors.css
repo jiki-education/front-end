@@ -122,32 +122,12 @@
     /* Shadow Colors */
     --color-blue-shadow: rgba(59, 130, 246, 0.3);
     --color-blue-shadow-hover: rgba(59, 130, 246, 0.2);
-    --color-shadow-subtle: rgba(0, 0, 0, 0.06);
-
-    /* Legacy tokens for backward compatibility */
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-thick-border-blue: #f4f6ff;
-    --color-bootcamp-success-light: #edfff6;
-    --color-bootcamp-success-dark: #00bf63;
-    --color-bootcamp-success-text: #006032;
-    --color-bootcamp-fail-light: #fff7f7;
-    --color-bootcamp-fail-dark: #ff5757;
-    --color-bootcamp-fail-text: #ff5757;
-    --color-bootcamp-purple: #7029f5;
-    --color-bootcamp-light-purple: #efedff;
-    --color-bootcamp-very-light-purple: #f6f5ff;
-    --color-primary-blue: rgb(46 87 232);
-    --color-text-color-1: #130b43;
-    --color-dark-red: #d03b3b;
-    --font-mono: var(--font-geist-mono);
-    --color-orange: #ff8c00;
-    --color-bootcamp-light-purple: #e6e6fa;
+    --color-shadow-subtle: rgb(from black r g b / 0.06);
 }
 
 :root {
     /* Semantic color tokens for light theme */
-    --color-background-primary: #ffffff;
+    --color-background-primary: white;
     --color-background-secondary: var(--color-gray-50);
     --color-background-tertiary: var(--color-gray-200);
     --color-text-primary: var(--color-gray-900);
@@ -156,12 +136,12 @@
     --color-text-muted: var(--color-gray-300);
     --color-border-primary: var(--color-gray-200);
     --color-border-secondary: var(--color-gray-300);
-    --color-surface-elevated: #ffffff;
-    --color-surface-overlay: rgba(0, 0, 0, 0.05);
+    --color-surface-elevated: white;
+    --color-surface-overlay: rgb(from black r g b / 0.05);
 
     /* Interactive elements - light theme */
     --color-button-primary-bg: #8b5cf6;
-    --color-button-primary-text: #ffffff;
+    --color-button-primary-text: white;
     --color-button-secondary-bg: var(--color-gray-100);
     --color-button-secondary-text: var(--color-gray-700);
     --color-link-primary: var(--color-blue-600);
@@ -230,11 +210,11 @@
     --color-border-primary: #404040;
     --color-border-secondary: #525252;
     --color-surface-elevated: #1f1f1f;
-    --color-surface-overlay: rgba(255, 255, 255, 0.05);
+    --color-surface-overlay: rgb(from white r g b / 0.05);
 
     /* Interactive elements - adjusted for dark theme */
     --color-button-primary-bg: #8b5cf6;
-    --color-button-primary-text: #ffffff;
+    --color-button-primary-text: white;
     --color-button-secondary-bg: #374151;
     --color-button-secondary-text: var(--color-gray-300);
     --color-link-primary: var(--color-blue-400);
