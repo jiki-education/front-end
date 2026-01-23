@@ -44,14 +44,12 @@
 
 @keyframes lessonUnlock {
     0% {
-        /* Start as locked - gray and semi-transparent */
-        opacity: 0.5;
+        /* Start as locked - gray background, 2px border */
         background: var(--color-gray-50);
-        border: 3px solid var(--color-gray-100);
+        border: 2px solid var(--color-gray-100);
     }
     100% {
-        /* End as unlocked/in-progress - purple border, full opacity */
-        opacity: 1;
+        /* End as unlocked/in-progress - purple border, 3px */
         background: white;
         border: 3px solid var(--color-purple-500);
         box-shadow: 0 4px 12px var(--color-purple-500-20);
@@ -145,5 +143,14 @@
     50% {
         box-shadow: 0 8px 24px var(--color-purple-500-40);
         transform: scale(1.02);
+    }
+}
+
+@keyframes childOpacityUnlock {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
     }
 }

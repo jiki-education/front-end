@@ -1,5 +1,6 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import styles from "./ExercisePathSkeleton.module.css";
+import { Fragment } from "react";
 
 const SKELETON_LEVELS = [
   { cardsCount: 4, hasMilestone: true },
@@ -30,14 +31,14 @@ export function ExercisePathSkeleton() {
 
       {/* Levels with cards and milestones */}
       {SKELETON_LEVELS.map((level, levelIndex) => (
-        <div key={levelIndex}>
+        <Fragment key={levelIndex}>
           {Array.from({ length: level.cardsCount }).map((_, cardIndex) => {
             const isFeatured = isFirstCard;
             isFirstCard = false;
             return <div key={cardIndex}>{renderSkeletonCard(isFeatured)}</div>;
           })}
           {level.hasMilestone && <div className={assembleClassNames(styles.skeleton, styles.skeletonMilestone)} />}
-        </div>
+        </Fragment>
       ))}
     </div>
   );

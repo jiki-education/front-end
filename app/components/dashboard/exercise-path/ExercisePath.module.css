@@ -120,16 +120,9 @@
 }
 
 .lessonPart.locked {
-    background: var(--color-gray-100);
-    border: 3px solid var(--color-gray-200);
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.lessonPart.locked:hover {
-    transform: none;
-    border-color: transparent;
-    box-shadow: none;
+    background: var(--color-gray-50);
+    border: 2px solid var(--color-gray-200);
+    cursor: not-allowed;
 }
 
 .lessonPart.locked::after {
@@ -139,7 +132,7 @@
     right: 16px;
     width: 28px;
     height: 28px;
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-300);
     background-image: url("/static/icons/locked.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -147,6 +140,7 @@
     border-radius: 50%;
     box-shadow: 0 2px 8px var(--color-gray-200-50);
     z-index: 999;
+    opacity: 0.3;
 }
 
 /* Part Icon */
@@ -169,6 +163,18 @@
 
 .lessonPart.locked .partIcon img {
     filter: grayscale(100%) opacity(0.5);
+}
+
+.lessonPart.locked .partIcon {
+    opacity: 0.5;
+}
+
+.lessonPart.locked .statusBadge {
+    opacity: 0.5;
+}
+
+.lessonPart.locked .partContent {
+    opacity: 0.5;
 }
 
 /* Part Content */
@@ -282,10 +288,14 @@
 .milestoneCard.locked {
     background: var(--color-gray-200);
     border-color: var(--color-gray-200);
-    opacity: 0.5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 230px;
     padding: 12px;
+    cursor: not-allowed;
+}
+
+.milestoneCard.locked .milestoneCardContent {
+    opacity: 0.5;
 }
 
 .milestoneCardContent {
@@ -394,11 +404,15 @@
     animation:
         lessonUnlock 0.8s ease-out forwards,
         slowPulse 3s ease-in-out infinite 0.8s;
-    /* Start from locked state appearance */
-    opacity: 0.5;
     position: relative;
     overflow: visible;
     transform: scale(1); /* Ensure initial scale is set */
+}
+
+.lessonPart.animatingUnlock .partIcon,
+.lessonPart.animatingUnlock .partContent {
+    opacity: 0.5;
+    animation: childOpacityUnlock 0.8s ease-out forwards;
 }
 
 /* Show connecting line immediately when unlocking */
