@@ -117,7 +117,7 @@
     --color-gray-200-50: color-mix(in srgb, var(--color-gray-200) 50%, transparent);
 
     /* Error Colors */
-    --color-error-500: #ef4444;
+    --color-error-500: var(--color-red-500);
 
     /* Shadow Colors */
     --color-blue-shadow: rgba(59, 130, 246, 0.3);
@@ -148,38 +148,38 @@
 :root {
     /* Semantic color tokens for light theme */
     --color-background-primary: #ffffff;
-    --color-background-secondary: #f8f9fa;
-    --color-background-tertiary: #e9ecef;
-    --color-text-primary: #171717;
-    --color-text-secondary: #6b7280;
-    --color-text-tertiary: #9ca3af;
-    --color-text-muted: #d1d5db;
-    --color-border-primary: #e5e7eb;
-    --color-border-secondary: #d1d5db;
+    --color-background-secondary: var(--color-gray-50);
+    --color-background-tertiary: var(--color-gray-200);
+    --color-text-primary: var(--color-gray-900);
+    --color-text-secondary: var(--color-gray-500);
+    --color-text-tertiary: var(--color-gray-400);
+    --color-text-muted: var(--color-gray-300);
+    --color-border-primary: var(--color-gray-200);
+    --color-border-secondary: var(--color-gray-300);
     --color-surface-elevated: #ffffff;
     --color-surface-overlay: rgba(0, 0, 0, 0.05);
 
     /* Interactive elements - light theme */
     --color-button-primary-bg: #8b5cf6;
     --color-button-primary-text: #ffffff;
-    --color-button-secondary-bg: #f3f4f6;
-    --color-button-secondary-text: #374151;
-    --color-link-primary: #2563eb;
-    --color-link-hover: #1d4ed8;
+    --color-button-secondary-bg: var(--color-gray-100);
+    --color-button-secondary-text: var(--color-gray-700);
+    --color-link-primary: var(--color-blue-600);
+    --color-link-hover: var(--color-blue-700);
 
     /* Status colors - light theme */
     --color-success-bg: var(--color-green-50);
     --color-success-text: var(--color-green-800);
     --color-success-border: var(--color-green-500);
-    --color-error-bg: #fef2f2;
-    --color-error-text: #991b1b;
-    --color-error-border: #ef4444;
-    --color-warning-bg: #fffbeb;
-    --color-warning-text: #92400e;
-    --color-warning-border: #f59e0b;
-    --color-info-bg: #eff6ff;
+    --color-error-bg: var(--color-red-50);
+    --color-error-text: var(--color-red-800);
+    --color-error-border: var(--color-red-500);
+    --color-warning-bg: var(--color-amber-50);
+    --color-warning-text: var(--color-amber-800);
+    --color-warning-border: var(--color-amber-500);
+    --color-info-bg: var(--color-blue-50);
     --color-info-text: #1e40af;
-    --color-info-border: #3b82f6;
+    --color-info-border: var(--color-blue-500);
 }
 
 @theme inline {
@@ -236,21 +236,21 @@
     --color-button-primary-bg: #8b5cf6;
     --color-button-primary-text: #ffffff;
     --color-button-secondary-bg: #374151;
-    --color-button-secondary-text: #d1d5db;
-    --color-link-primary: #60a5fa;
-    --color-link-hover: #93c5fd;
+    --color-button-secondary-text: var(--color-gray-300);
+    --color-link-primary: var(--color-blue-400);
+    --color-link-hover: var(--color-blue-300);
 
     /* Status colors - dark theme variants */
     --color-success-bg: var(--color-green-900);
     --color-success-text: var(--color-green-300);
     --color-success-border: var(--color-green-500);
-    --color-error-bg: #7f1d1d;
-    --color-error-text: #fca5a5;
-    --color-error-border: #ef4444;
-    --color-warning-bg: #78350f;
-    --color-warning-text: #fcd34d;
-    --color-warning-border: #f59e0b;
+    --color-error-bg: var(--color-red-900);
+    --color-error-text: var(--color-red-300);
+    --color-error-border: var(--color-red-500);
+    --color-warning-bg: var(--color-amber-900);
+    --color-warning-text: var(--color-amber-300);
+    --color-warning-border: var(--color-amber-500);
     --color-info-bg: #1e3a8a;
-    --color-info-text: #93c5fd;
-    --color-info-border: #3b82f6;
+    --color-info-text: var(--color-blue-300);
+    --color-info-border: var(--color-blue-500);
 }
