@@ -130,6 +130,12 @@ Components follow a top-to-bottom flow:
 
 This pattern makes components readable from high-level to low-level details.
 
+## Colors
+
+Always use colors from the standard palettes defined in `app/styles/theme/colors.css`. Use variable names or tailwind classes, not arbitrary colors. Note that the color palettes in this (blue, green, etc) may not be 1-1 with "normal" palettes such as tailwind. Consider the colors in this file to be canonical.
+
+If you need an arbitrary color, always confirm with the user first, explaining why it's required. If the color is close to a color in our palettes, suggest that to the user as an alternative.
+
 ## Architecture Principles
 
 - **Feature isolation**: Each feature is self-contained with its own components, logic, and tests
