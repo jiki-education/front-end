@@ -24,7 +24,7 @@ const helpers = {
   setupNetworkFailure(page: Page) {
     void page.route("**/*", (route) => {
       const url = route.request().url();
-      if (url.includes("/api/") || url.includes("/external/")) {
+      if (url.includes("/api/") || url.includes("/internal/") || url.includes("/external/")) {
         void route.abort("failed");
       } else {
         void route.continue();
@@ -40,7 +40,7 @@ const helpers = {
     await page.route("**/*", (route) => {
       const url = route.request().url();
 
-      if (url.includes("/external/levels")) {
+      if (url.includes("/internal/levels")) {
         void route.fulfill({
           status: 200,
           contentType: "application/json",
@@ -100,8 +100,8 @@ const helpers = {
     void page.route("**/*", (route) => {
       const url = route.request().url();
 
-      // Intercept both external API calls and refresh token endpoint
-      if (url.includes("/external/") || url.includes("/auth/refresh")) {
+      // Intercept internal, external API calls and refresh token endpoint
+      if (url.includes("/internal/") || url.includes("/external/") || url.includes("/auth/refresh")) {
         void route.fulfill({
           status: 401,
           contentType: "application/json",
@@ -127,7 +127,7 @@ const helpers = {
       const url = route.request().url();
 
       // Handle CORS preflight requests
-      if (route.request().method() === "OPTIONS" && url.includes("/external/")) {
+      if (route.request().method() === "OPTIONS" && (url.includes("/internal/") || url.includes("/external/"))) {
         void route.fulfill({
           status: 200,
           headers: {
@@ -138,7 +138,7 @@ const helpers = {
           },
           body: ""
         });
-      } else if (url.includes("/external/")) {
+      } else if (url.includes("/internal/") || url.includes("/external/")) {
         void route.fulfill({
           status: 429,
           headers: {
@@ -169,7 +169,7 @@ const helpers = {
       const url = route.request().url();
 
       // Handle CORS preflight requests
-      if (route.request().method() === "OPTIONS" && url.includes("/external/")) {
+      if (route.request().method() === "OPTIONS" && (url.includes("/internal/") || url.includes("/external/"))) {
         void route.fulfill({
           status: 200,
           headers: {
@@ -180,7 +180,7 @@ const helpers = {
           },
           body: ""
         });
-      } else if (url.includes("/external/levels")) {
+      } else if (url.includes("/internal/levels")) {
         requestCount++;
         if (requestCount === 1) {
           void route.fulfill({
@@ -301,7 +301,8 @@ test.describe("Network Error Handling E2E", () => {
 
       // Track API calls and simulate network failure
       void page.route("**/*", (route) => {
-        if (route.request().url().includes("/external/")) {
+        const url = route.request().url();
+        if (url.includes("/internal/") || url.includes("/external/")) {
           apiCallCount++;
           void route.abort("failed");
         } else {
