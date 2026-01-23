@@ -211,14 +211,6 @@
         0 4px 16px rgba(59, 130, 246, 0.4);
 }
 
-/* Loading State */
-.loadingPlaceholder {
-    padding: 40px 20px;
-    text-align: center;
-    color: #718096;
-    font-size: 14px;
-}
-
 /* Projects Empty State */
 .projectsEmptyState {
     text-align: center;

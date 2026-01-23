@@ -38,12 +38,6 @@
     text-decoration: underline;
 }
 
-.breadcrumbSeparator {
-    color: var(--color-gray-300);
-    font-size: 15px;
-    line-height: 1;
-}
-
 .breadcrumbCurrent {
     color: var(--color-blue-500);
     font-weight: 600;

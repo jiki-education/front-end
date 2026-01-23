@@ -115,36 +115,11 @@
     flex-shrink: 0;
 }
 
-/* Settings section header */
-.settingSection {
-    margin-bottom: 32px;
-}
-
-.settingSection h2 {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--color-gray-900);
-    margin-bottom: 8px;
-}
-
-.sectionDescription {
-    font-size: 16px;
-    color: var(--color-gray-500);
-    line-height: 1.5;
-}
-
 /* Settings grid layout */
 .settingsGrid {
     display: flex;
     flex-direction: column;
     gap: 16px;
-}
-
-/* Save section */
-.saveSection {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid var(--color-gray-200);
 }
 
 /* Current plan styling */
