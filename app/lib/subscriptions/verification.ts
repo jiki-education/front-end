@@ -43,28 +43,32 @@ export async function verifyPaymentSession(sessionId: string): Promise<Verificat
 }
 
 /**
- * Extracts session_id from URL search params and clears it from the URL
+ * Extracts checkout_session_id from URL search params and clears it from the URL
  *
- * @returns The session_id if found, null otherwise
+ * Only extracts if checkout_return=true is present (indicating a Stripe redirect)
+ *
+ * @returns The checkout_session_id if found, null otherwise
  *
  * @example
- * const sessionId = extractAndClearSessionId();
+ * const sessionId = extractAndClearCheckoutSessionId();
  * if (sessionId) {
  *   await verifyPaymentSession(sessionId);
  * }
  */
-export function extractAndClearSessionId(): string | null {
+export function extractAndClearCheckoutSessionId(): string | null {
   if (typeof window === "undefined") {
     return null;
   }
 
   const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get("session_id");
+  const isCheckoutReturn = urlParams.get("checkout_return") === "true";
+  const sessionId = urlParams.get("checkout_session_id");
 
-  if (sessionId) {
-    // Clear the session_id from URL
+  if (isCheckoutReturn && sessionId) {
+    // Clear the checkout params from URL
     window.history.replaceState({}, "", window.location.pathname);
+    return sessionId;
   }
 
-  return sessionId;
+  return null;
 }

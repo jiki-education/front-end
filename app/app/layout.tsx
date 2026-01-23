@@ -1,3 +1,4 @@
+import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
@@ -44,6 +45,7 @@ export default function RootLayout({
         <GlobalErrorHandler />
         <ServerAuthProvider>
           <ThemeProvider>
+            <CheckoutReturnHandler />
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />

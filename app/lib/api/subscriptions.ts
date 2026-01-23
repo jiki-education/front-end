@@ -11,7 +11,8 @@ import type {
   UpdateSubscriptionRequest,
   UpdateSubscriptionResponse,
   CancelSubscriptionResponse,
-  ReactivateSubscriptionResponse
+  ReactivateSubscriptionResponse,
+  VerifyCheckoutResponse
 } from "@/types/subscription";
 
 /**
@@ -46,10 +47,10 @@ export async function createPortalSession(): Promise<PortalSessionResponse> {
 /**
  * Verify a checkout session and sync subscription status
  * @param sessionId - Stripe checkout session ID
- * @returns Verification result
+ * @returns Verification result with payment status and tier
  */
-export async function verifyCheckoutSession(sessionId: string): Promise<{ success: boolean; status: string }> {
-  const response = await api.post<{ success: boolean; status: string }>("/internal/subscriptions/verify_checkout", {
+export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCheckoutResponse> {
+  const response = await api.post<VerifyCheckoutResponse>("/internal/subscriptions/verify_checkout", {
     session_id: sessionId
   });
   return response.data;

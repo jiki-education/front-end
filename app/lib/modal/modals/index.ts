@@ -14,6 +14,7 @@ import { SubscriptionCheckoutModal } from "./SubscriptionCheckoutModal";
 import { BadgeModal } from "./BadgeModal";
 import { ChangePasswordModal } from "@/components/settings/modals/ChangePasswordModal";
 import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal";
+import { PaymentProcessingModal } from "./PaymentProcessingModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 
 // Export all modals
@@ -34,6 +35,7 @@ export {
   BadgeModal,
   ChangePasswordModal,
   ChangeEmailModal,
+  PaymentProcessingModal,
   PremiumUpgradeModal
 };
 
@@ -55,5 +57,6 @@ export const availableModals = {
   "badge-modal": BadgeModal,
   "change-password-modal": ChangePasswordModal,
   "change-email-modal": ChangeEmailModal,
+  "payment-processing-modal": PaymentProcessingModal,
   "premium-upgrade-modal": PremiumUpgradeModal
 };
