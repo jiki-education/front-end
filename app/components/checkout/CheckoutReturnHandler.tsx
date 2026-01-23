@@ -24,11 +24,8 @@ export function CheckoutReturnHandler() {
     }
 
     void verifyCheckoutSession(sessionId).then((result) => {
-      if (result.payment_status === "paid") {
-        showModal("subscription-success-modal", { tier: result.tier });
-      } else {
-        showModal("payment-processing-modal", { tier: result.tier });
-      }
+      const modal = result.payment_status === "paid" ? "subscription-success-modal" : "payment-processing-modal";
+      showModal(modal, { tier: result.tier });
       void refreshUser();
     });
   }, [refreshUser]);
