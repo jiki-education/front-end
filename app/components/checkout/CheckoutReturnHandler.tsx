@@ -23,17 +23,14 @@ export function CheckoutReturnHandler() {
       return;
     }
 
-    void (async () => {
-      const result = await verifyCheckoutSession(sessionId);
-
+    void verifyCheckoutSession(sessionId).then((result) => {
       if (result.payment_status === "paid") {
         showModal("subscription-success-modal", { tier: result.tier });
       } else {
         showModal("payment-processing-modal", { tier: result.tier });
       }
-
-      await refreshUser();
-    })();
+      void refreshUser();
+    });
   }, [refreshUser]);
 
   return null;
