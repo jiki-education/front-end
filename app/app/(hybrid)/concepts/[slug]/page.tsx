@@ -16,7 +16,7 @@ export default async function AppConceptPage({ params }: Props) {
 
   return (
     <SidebarLayout activeItem="concepts">
-      <ConceptDetailPage slug={slug} authenticated />
+      <ConceptDetailPage slug={slug} />
     </SidebarLayout>
   );
 }

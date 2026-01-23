@@ -9,12 +9,7 @@ interface ConceptsState {
   totalCount: number;
 }
 
-interface UseConceptsOptions {
-  isAuthenticated: boolean;
-  isReady: boolean;
-}
-
-export function useConcepts({ isAuthenticated, isReady }: UseConceptsOptions) {
+export function useConcepts() {
   const [conceptsState, setConceptsState] = useState<ConceptsState>({
     concepts: [],
     currentPage: 1,
@@ -24,38 +19,29 @@ export function useConcepts({ isAuthenticated, isReady }: UseConceptsOptions) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadConcepts = useCallback(
-    async (page: number = 1, title?: string) => {
-      if (!isReady) {
-        return;
-      }
+  const loadConcepts = useCallback(async (page: number = 1, title?: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-      try {
-        setIsLoading(true);
-        setError(null);
+      const response = await fetchConcepts({
+        page,
+        title: title || undefined
+      });
 
-        const unscoped = !isAuthenticated;
-        const response = await fetchConcepts({
-          unscoped,
-          page,
-          title: title || undefined
-        });
-
-        setConceptsState({
-          concepts: response.results,
-          currentPage: response.meta.current_page,
-          totalPages: response.meta.total_pages,
-          totalCount: response.meta.total_count
-        });
-      } catch (err) {
-        setError("Failed to load concepts. Please try again later.");
-        console.error("Error fetching concepts:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [isReady, isAuthenticated]
-  );
+      setConceptsState({
+        concepts: response.results,
+        currentPage: response.meta.current_page,
+        totalPages: response.meta.total_pages,
+        totalCount: response.meta.total_count
+      });
+    } catch (err) {
+      setError("Failed to load concepts. Please try again later.");
+      console.error("Error fetching concepts:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   return {
     conceptsState,

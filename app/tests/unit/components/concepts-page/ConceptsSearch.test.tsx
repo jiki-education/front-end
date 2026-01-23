@@ -8,8 +8,7 @@ describe("ConceptsSearch", () => {
     onClearSearch: jest.fn(),
     debouncedSearchQuery: "",
     isLoading: false,
-    totalCount: 0,
-    isAuthenticated: false
+    totalCount: 0
   };
 
   it("renders without crashing", () => {

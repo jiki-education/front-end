@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AppConceptsPage() {
   return (
     <SidebarLayout activeItem="concepts">
-      <ConceptsListPage authenticated />
+      <ConceptsListPage />
     </SidebarLayout>
   );
 }

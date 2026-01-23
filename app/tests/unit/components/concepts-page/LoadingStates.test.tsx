@@ -27,24 +27,18 @@ describe("LoadingSkeleton", () => {
 
 describe("InlineLoading", () => {
   it("renders without crashing", () => {
-    render(<InlineLoading isAuthenticated={false} />);
+    render(<InlineLoading />);
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("displays loading text and spinner", () => {
-    render(<InlineLoading isAuthenticated={false} />);
+    render(<InlineLoading />);
     expect(screen.getByText("Loading...")).toBeInTheDocument();
     expect(document.querySelector(".animate-spin")).toBeInTheDocument();
   });
 
-  it("applies authenticated styles when isAuthenticated is true", () => {
-    const { container } = render(<InlineLoading isAuthenticated={true} />);
-    const loadingElement = container.querySelector(".inline-flex");
-    expect(loadingElement).toHaveClass("text-info-text");
-  });
-
-  it("applies unauthenticated styles when isAuthenticated is false", () => {
-    const { container } = render(<InlineLoading isAuthenticated={false} />);
+  it("applies blue styles", () => {
+    const { container } = render(<InlineLoading />);
     const loadingElement = container.querySelector(".inline-flex");
     expect(loadingElement).toHaveClass("text-blue-600");
   });

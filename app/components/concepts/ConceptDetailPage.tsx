@@ -5,48 +5,30 @@ import type { ConceptDetail } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import MarkdownContent from "@/components/content/MarkdownContent";
-import { mockSubconcepts } from "@/lib/data/mockSubconcepts";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
 import ConceptHero from "@/components/concepts/ConceptHero";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
 import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
+import styles from "@/app/styles/modules/concepts.module.css";
 
 interface ConceptDetailPageProps {
   slug: string;
-  authenticated: boolean;
 }
 
-export default function ConceptDetailPage({ slug, authenticated }: ConceptDetailPageProps) {
+export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
   const router = useRouter();
   const [concept, setConcept] = useState<ConceptDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    setIsReady(true);
-  }, []);
 
   useEffect(() => {
     const loadConcept = async () => {
-      if (!isReady) {
-        return;
-      }
-
-      // For authenticated users with mock subconcepts, skip API call
-      if (authenticated && slug in mockSubconcepts) {
-        setIsLoading(false);
-        return;
-      }
-
       try {
         setIsLoading(true);
         setError(null);
 
-        // Use unscoped=true for logged out users to show all concepts
-        const unscoped = !authenticated;
-        const data = await fetchConcept(slug, unscoped);
+        const data = await fetchConcept(slug);
         setConcept(data);
       } catch (err: any) {
         if (err.status === 404) {
@@ -63,22 +45,13 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     };
 
     void loadConcept();
-  }, [authenticated, isReady, slug]);
+  }, [slug]);
 
   // Check if this concept has subconcepts
-  const hasSubconcepts = slug in mockSubconcepts;
+  const hasSubconcepts = concept && concept.children_count > 0;
 
-  // Show loading for subconcepts page
-  if (authenticated && hasSubconcepts && (!isReady || isLoading)) {
-    return (
-      <ConceptsLayout>
-        <SubconceptsGrid slug={slug} isLoading={true} />
-      </ConceptsLayout>
-    );
-  }
-
-  // Show loading for regular concept detail page
-  if (!isReady || isLoading) {
+  // Show loading state
+  if (isLoading) {
     return (
       <ConceptsLayout>
         <div className="animate-pulse">
@@ -118,16 +91,38 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
     );
   }
 
-  // Show subconcepts view for authenticated users when subconcepts exist
-  if (authenticated && hasSubconcepts) {
+  // Show subconcepts view when subconcepts exist
+  if (hasSubconcepts) {
     return (
       <ConceptsLayout>
-        <SubconceptsGrid slug={slug} />
+        <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
+
+        <header>
+          <h1 className={styles.pageHeading}>
+            <svg
+              className={`${styles.headingIcon} w-8 h-8`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 7V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7h18M8 12h8"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            {concept.title}
+          </h1>
+        </header>
+
+        <SubconceptsGrid parentSlug={concept.slug} />
       </ConceptsLayout>
     );
   }
 
-  // Fallback to original detail view for concepts without subconcepts or non-authenticated users
+  // Fallback to original detail view for concepts without subconcepts
   if (!concept) {
     return (
       <ConceptsLayout>
@@ -146,7 +141,7 @@ export default function ConceptDetailPage({ slug, authenticated }: ConceptDetail
 
   return (
     <ConceptsLayout>
-      <Breadcrumb conceptSlug={slug} conceptTitle={concept.title} />
+      <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
 
       <ConceptLayout>
         <ConceptHero category="Flow Control" title={concept.title} intro={concept.description} />

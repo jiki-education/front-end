@@ -1,14 +1,18 @@
+"use client";
+
 import NoResultsIcon from "@/icons/no-results.svg";
 import styles from "@/components/concepts/ConceptsSearch.module.css";
+import { useAuthStore } from "@/lib/auth/authStore";
 
 interface ErrorStateProps {
   error: string;
   onRetry: () => void;
-  withSidebar: boolean;
 }
 
-export function ErrorState({ error, onRetry, withSidebar }: ErrorStateProps) {
-  if (withSidebar) {
+export function ErrorState({ error, onRetry }: ErrorStateProps) {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  if (isAuthenticated) {
     return (
       <div className="ml-[260px] p-6">
         <div className="text-center">

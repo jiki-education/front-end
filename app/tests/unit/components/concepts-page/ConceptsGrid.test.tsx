@@ -7,6 +7,8 @@ const mockConcepts = [
     slug: "concept-1",
     title: "Concept 1",
     description: "Description 1",
+    children_count: 0,
+    user_may_access: true,
     standard_video_provider: null,
     standard_video_id: null,
     premium_video_provider: null,
@@ -16,6 +18,8 @@ const mockConcepts = [
     slug: "concept-2",
     title: "Concept 2",
     description: "Description 2",
+    children_count: 3,
+    user_may_access: true,
     standard_video_provider: null,
     standard_video_id: null,
     premium_video_provider: null,
@@ -25,56 +29,25 @@ const mockConcepts = [
 
 describe("ConceptsGrid", () => {
   it("renders without crashing", () => {
-    render(
-      <ConceptsGrid
-        concepts={mockConcepts}
-        isLoading={false}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} />);
     expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
   });
 
   it("shows loading state when isLoading is true", () => {
-    render(
-      <ConceptsGrid
-        concepts={mockConcepts}
-        isLoading={true}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={true} />);
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renders empty grid when no concepts and not loading", () => {
-    const { container } = render(
-      <ConceptsGrid
-        concepts={[]}
-        isLoading={false}
-        debouncedSearchQuery="test search"
-        onClearSearch={jest.fn()}
-        isAuthenticated={false}
-      />
-    );
+    const { container } = render(<ConceptsGrid concepts={[]} isLoading={false} />);
     const grid = container.querySelector(`.${styles.conceptsGrid}`);
     expect(grid).toBeInTheDocument();
     expect(grid?.children.length).toBe(0);
   });
 
-  it("renders concepts grid when authenticated", () => {
-    render(
-      <ConceptsGrid
-        concepts={[]}
-        isLoading={false}
-        debouncedSearchQuery=""
-        onClearSearch={jest.fn()}
-        isAuthenticated={true}
-      />
-    );
-    expect(document.querySelector(`[class*="${styles.conceptsGrid}"]`)).toBeInTheDocument();
+  it("renders concepts in grid", () => {
+    render(<ConceptsGrid concepts={mockConcepts} isLoading={false} />);
+    expect(screen.getByText("Concept 1")).toBeInTheDocument();
+    expect(screen.getByText("Concept 2")).toBeInTheDocument();
   });
 });

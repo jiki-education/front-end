@@ -183,3 +183,22 @@
     color: #9ca3af;
     transition: color 0.3s ease;
 }
+
+/* Locked Concept Card */
+.conceptCard.locked {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.conceptCard.locked:hover {
+    border-color: var(--color-gray-100);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.lockedIcon {
+    width: 48px;
+    height: 48px;
+    margin-left: 32px;
+    color: var(--color-gray-200);
+    vertical-align: middle;
+}

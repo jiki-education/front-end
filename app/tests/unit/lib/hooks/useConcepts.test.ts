@@ -11,7 +11,7 @@ describe("useConcepts", () => {
   });
 
   it("initializes with correct default state", () => {
-    const { result } = renderHook(() => useConcepts({ isAuthenticated: false, isReady: false }));
+    const { result } = renderHook(() => useConcepts());
 
     expect(result.current.conceptsState).toEqual({
       concepts: [],
@@ -23,17 +23,7 @@ describe("useConcepts", () => {
     expect(result.current.error).toBe(null);
   });
 
-  it("does not call loadConcepts when not ready", async () => {
-    const { result } = renderHook(() => useConcepts({ isAuthenticated: false, isReady: false }));
-
-    await act(async () => {
-      await result.current.loadConcepts(1);
-    });
-
-    expect(mockFetchConcepts).not.toHaveBeenCalled();
-  });
-
-  it("calls fetchConcepts when ready", async () => {
+  it("calls fetchConcepts when loadConcepts is called", async () => {
     const mockResponse = {
       results: [],
       meta: {
@@ -44,14 +34,13 @@ describe("useConcepts", () => {
     };
     mockFetchConcepts.mockResolvedValue(mockResponse);
 
-    const { result } = renderHook(() => useConcepts({ isAuthenticated: false, isReady: true }));
+    const { result } = renderHook(() => useConcepts());
 
     await act(async () => {
       await result.current.loadConcepts(1);
     });
 
     expect(mockFetchConcepts).toHaveBeenCalledWith({
-      unscoped: true,
       page: 1,
       title: undefined
     });
@@ -64,6 +53,8 @@ describe("useConcepts", () => {
           slug: "test",
           title: "Test",
           description: "Test concept",
+          children_count: 0,
+          user_may_access: true,
           standard_video_provider: null,
           standard_video_id: null,
           premium_video_provider: null,
@@ -78,7 +69,7 @@ describe("useConcepts", () => {
     };
     mockFetchConcepts.mockResolvedValue(mockResponse);
 
-    const { result } = renderHook(() => useConcepts({ isAuthenticated: false, isReady: true }));
+    const { result } = renderHook(() => useConcepts());
 
     await act(async () => {
       await result.current.loadConcepts(1);
@@ -97,7 +88,7 @@ describe("useConcepts", () => {
   it("handles errors correctly", async () => {
     mockFetchConcepts.mockRejectedValue(new Error("Fetch failed"));
 
-    const { result } = renderHook(() => useConcepts({ isAuthenticated: false, isReady: true }));
+    const { result } = renderHook(() => useConcepts());
 
     await act(async () => {
       await result.current.loadConcepts(1);
@@ -105,5 +96,28 @@ describe("useConcepts", () => {
 
     expect(result.current.error).toBe("Failed to load concepts. Please try again later.");
     expect(result.current.isLoading).toBe(false);
+  });
+
+  it("passes title parameter when provided", async () => {
+    const mockResponse = {
+      results: [],
+      meta: {
+        current_page: 1,
+        total_pages: 1,
+        total_count: 0
+      }
+    };
+    mockFetchConcepts.mockResolvedValue(mockResponse);
+
+    const { result } = renderHook(() => useConcepts());
+
+    await act(async () => {
+      await result.current.loadConcepts(1, "search term");
+    });
+
+    expect(mockFetchConcepts).toHaveBeenCalledWith({
+      page: 1,
+      title: "search term"
+    });
   });
 });

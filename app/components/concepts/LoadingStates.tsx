@@ -32,16 +32,10 @@ export function LoadingSkeleton({ withSidebar }: LoadingSkeletonProps) {
   );
 }
 
-interface InlineLoadingProps {
-  isAuthenticated: boolean;
-}
-
-export function InlineLoading({ isAuthenticated }: InlineLoadingProps) {
-  const textStyles = isAuthenticated ? "text-info-text bg-info-bg" : "text-blue-600 bg-blue-50";
-
+export function InlineLoading() {
   return (
     <div className="mb-4 text-center">
-      <div className={`inline-flex items-center px-4 py-2 text-sm ${textStyles} rounded-lg`}>
+      <div className="inline-flex items-center px-4 py-2 text-sm text-blue-600 bg-blue-50 rounded-lg">
         <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path

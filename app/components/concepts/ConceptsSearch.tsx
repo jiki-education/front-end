@@ -11,7 +11,6 @@ interface ConceptsSearchProps {
   debouncedSearchQuery: string;
   isLoading: boolean;
   totalCount: number;
-  isAuthenticated: boolean;
 }
 
 export default function ConceptsSearch({
