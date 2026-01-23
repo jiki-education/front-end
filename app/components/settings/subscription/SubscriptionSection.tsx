@@ -15,17 +15,11 @@ interface SubscriptionSectionProps {
 }
 
 export default function SubscriptionSection({ user, refreshUser, className = "" }: SubscriptionSectionProps) {
-  const {
-    isLoading,
-    currentTier,
-    subscriptionStatus,
-    nextBillingDate,
-    handleUpgradeToPremium,
-    handleCancel
-  } = useSubscription({
-    user,
-    refreshUser
-  });
+  const { isLoading, currentTier, subscriptionStatus, nextBillingDate, handleUpgradeToPremium, handleCancel } =
+    useSubscription({
+      user,
+      refreshUser
+    });
 
   // If no user, show loading state
   if (!user) {

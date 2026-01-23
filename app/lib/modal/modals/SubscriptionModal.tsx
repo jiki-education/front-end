@@ -86,7 +86,7 @@ export function SubscriptionModal({
     try {
       // Close this modal first
       hideModal();
-      
+
       // handleSubscribe will show the checkout modal
       await handleSubscribe({
         tier,

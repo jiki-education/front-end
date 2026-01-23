@@ -43,7 +43,7 @@ export async function handleSubscribe({ tier, userEmail, returnPath }: Subscribe
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createCheckoutSession(tier, returnUrl, userEmail);
-    
+
     // Show the checkout modal using the global modal system
     showModal("subscription-checkout-modal", {
       clientSecret: response.client_secret,
