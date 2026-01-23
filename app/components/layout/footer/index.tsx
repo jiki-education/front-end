@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#1a202c] text-[#cbd5e0] mt-60 pb-40">
+    <footer className="relative bg-[#1a202c] text-gray-300 mt-60 pb-40">
       {/* Wave SVG decoration */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none -translate-y-full">
         <svg
@@ -29,27 +29,24 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-base font-bold text-white mb-16">About</h3>
           <div className="flex flex-col gap-12">
-            <Link href="/about" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/about" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               About Jiki
             </Link>
-            <Link href="/team" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/team" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Our team
             </Link>
             <Link
               href="/contributors"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Contributors
             </Link>
-            <Link
-              href="/partners"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
-            >
+            <Link href="/partners" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Partners
             </Link>
             <Link
               href="/supporters"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Individual supporters
             </Link>
@@ -60,22 +57,19 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-base font-bold text-white mb-16">Get Involved</h3>
           <div className="flex flex-col gap-12">
-            <Link
-              href="/insiders"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
-            >
+            <Link href="/insiders" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Jiki Insiders
             </Link>
             <Link
               href="/contribute"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Contribute
             </Link>
-            <Link href="/mentor" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/mentor" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Mentor
             </Link>
-            <Link href="/donate" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/donate" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Donate
             </Link>
           </div>
@@ -85,24 +79,24 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-base font-bold text-white mb-16">Legal</h3>
           <div className="flex flex-col gap-12">
-            <Link href="/terms" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/terms" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Terms of usage
             </Link>
-            <Link href="/privacy" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/privacy" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Privacy policy
             </Link>
-            <Link href="/cookies" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/cookies" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Cookie policy
             </Link>
             <Link
               href="/code-of-conduct"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Code of conduct
             </Link>
             <Link
               href="/accessibility"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Accessibility statement
             </Link>
@@ -113,21 +107,21 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-base font-bold text-white mb-16">Keep in Touch</h3>
           <div className="flex flex-col gap-12">
-            <Link href="/blog" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/blog" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Jiki&apos;s blog
             </Link>
             <Link
               href="https://github.com"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Discuss on GitHub
             </Link>
-            <Link href="/contact" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/contact" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Contact us
             </Link>
             <Link
               href="/report-abuse"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Report abuse
             </Link>
@@ -138,24 +132,24 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-base font-bold text-white mb-16">Get Help</h3>
           <div className="flex flex-col gap-12">
-            <Link href="/docs" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/docs" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Jiki&apos;s Docs
             </Link>
             <Link
               href="/getting-started"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Getting started
             </Link>
-            <Link href="/faqs" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/faqs" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               FAQs
             </Link>
-            <Link href="/cli" className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500">
+            <Link href="/cli" className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500">
               Installing the CLI
             </Link>
             <Link
               href="/cli-walkthrough"
-              className="text-[#cbd5e0] no-underline text-sm transition-colors hover:text-blue-500"
+              className="text-gray-300 no-underline text-sm transition-colors hover:text-blue-500"
             >
               Interactive CLI Walkthrough
             </Link>

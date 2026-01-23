@@ -148,7 +148,7 @@
 
 .statCard[data-status="unlocked"] .cardProgressFill,
 .statCard[data-status="not-started"] .cardProgressFill {
-    background: #cbd5e0;
+    background: var(--color-gray-300);
     width: 0%;
 }
 

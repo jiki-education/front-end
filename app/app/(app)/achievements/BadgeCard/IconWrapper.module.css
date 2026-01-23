@@ -61,7 +61,7 @@
 /* Locked badge icon styles */
 .card.locked .iconWrapper {
     background: var(--color-gray-100);
-    border-color: #cbd5e0;
+    border-color: var(--color-gray-300);
 }
 
 .card.locked .iconWrapper img {
