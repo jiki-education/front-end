@@ -5,7 +5,6 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { hideModal } from "../store";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
 import { PRICING_TIERS } from "@/lib/pricing";
-import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import toast from "react-hot-toast";
 
@@ -27,7 +26,6 @@ interface SubscriptionModalProps {
   };
 
   // Callbacks
-  onSuccess?: (tier: MembershipTier) => void;
   onCancel?: () => void;
 }
 
@@ -37,7 +35,6 @@ export function SubscriptionModal({
   headline,
   description,
   featuresContext,
-  onSuccess: _onSuccess,
   onCancel
 }: SubscriptionModalProps) {
   const [isLoading, setIsLoading] = useState(false);

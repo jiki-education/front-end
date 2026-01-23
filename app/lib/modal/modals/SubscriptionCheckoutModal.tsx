@@ -14,7 +14,6 @@ interface SubscriptionCheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
   onCancel?: () => void;
-  onSuccess?: () => void;
 }
 
 function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier; onCancel: () => void }) {
@@ -145,12 +144,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
   );
 }
 
-export function SubscriptionCheckoutModal({
-  clientSecret,
-  selectedTier,
-  onCancel,
-  onSuccess: _onSuccess
-}: SubscriptionCheckoutModalProps) {
+export function SubscriptionCheckoutModal({ clientSecret, selectedTier, onCancel }: SubscriptionCheckoutModalProps) {
   const handleCancel = () => {
     onCancel?.();
     hideModal();

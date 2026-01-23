@@ -132,24 +132,6 @@ describe("Subscription handlers", () => {
     });
   });
 
-  describe("handleUpgradeToPremium", () => {
-    it("upgrades to Premium successfully", async () => {
-      const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
-      mockSubscriptionApi.updateSubscription.mockResolvedValue({
-        success: true,
-        tier: "premium",
-        effective_at: "2024-01-01T00:00:00Z",
-        subscription_valid_until: "2024-12-31T23:59:59Z"
-      });
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("premium");
-      expect(mockToast.success).toHaveBeenCalledWith("Successfully upgraded to Premium!");
-      expect(mockRefreshUser).toHaveBeenCalled();
-    });
-  });
-
   describe("handleCancelSubscription", () => {
     it("cancels subscription successfully", async () => {
       const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
