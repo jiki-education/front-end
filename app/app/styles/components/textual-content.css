@@ -88,7 +88,7 @@
     }
 
     .code-string {
-        color: #059669;
+        color: var(--color-green-600);
     }
 
     .code-comment {

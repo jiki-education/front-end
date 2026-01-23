@@ -128,7 +128,7 @@ export const darkStyles: TagStyle[] = [
   },
   {
     tag: [t.string, t.special(t.string)],
-    color: "#10b981"
+    color: "var(--color-green-500)"
   },
   {
     tag: [t.keyword, t.controlKeyword, t.definitionKeyword, t.moduleKeyword],
@@ -194,7 +194,7 @@ export const darkStyles: TagStyle[] = [
   },
   {
     tag: [t.attributeValue],
-    color: "#10b981"
+    color: "var(--color-green-500)"
   },
   {
     tag: t.namespace,

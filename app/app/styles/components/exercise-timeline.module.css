@@ -23,7 +23,7 @@
 }
 
 .timelineBoxGreen {
-    background: #ecfdf5;
+    background: var(--color-green-50);
     border-color: rgba(16, 185, 129, 0.4);
     display: flex;
     align-items: center;
@@ -140,7 +140,7 @@
     inset: -3px;
     border-radius: 14px;
     padding: 3px;
-    background: linear-gradient(135deg, var(--color-blue-500) 0%, #10b981 100%);
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-green-500) 100%);
     -webkit-mask:
         linear-gradient(white 0 0) content-box,
         linear-gradient(white 0 0);
@@ -194,7 +194,7 @@
     bottom: 0;
     background: rgba(16, 185, 129, 0.85);
     border-radius: 10px;
-    border: 3px solid #10b981;
+    border: 3px solid var(--color-green-500);
     opacity: 0;
     animation: greenOverlayFadeInOut 1s ease-out 0.4s forwards;
     display: flex;

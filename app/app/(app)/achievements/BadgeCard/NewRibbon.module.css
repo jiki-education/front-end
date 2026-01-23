@@ -50,7 +50,7 @@
 
 /* Ribbon colors matching border colors */
 .card.earned.green .ribbon {
-    color: #10b981;
+    color: var(--color-green-500);
 }
 
 .card.earned.blue .ribbon {

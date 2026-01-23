@@ -31,18 +31,18 @@
     --color-purple-900: #531c87;
     --color-purple-950: #370764;
 
-    /* Green Scale (Mountain Meadow) */
-    --color-green-50: #ecfdf7;
-    --color-green-100: #d1faec;
-    --color-green-200: #a7f3da;
-    --color-green-300: #6ee7bf;
-    --color-green-400: #34d39e;
+    /* Green Scale (using Tailwind emerald palette) */
+    --color-green-50: #ecfdf5;
+    --color-green-100: #d1fae5;
+    --color-green-200: #a7f3d0;
+    --color-green-300: #6ee7b7;
+    --color-green-400: #34d399;
     --color-green-500: #10b981;
-    --color-green-600: #059666;
-    --color-green-700: #047852;
-    --color-green-800: #065f42;
-    --color-green-900: #064e36;
-    --color-green-950: #022c1e;
+    --color-green-600: #059669;
+    --color-green-700: #047857;
+    --color-green-800: #065f46;
+    --color-green-900: #064e3b;
+    --color-green-950: #022c22;
 
     /* Gray Scale (using Tailwind slate palette) */
     --color-gray-50: #f8fafc;
@@ -168,9 +168,9 @@
     --color-link-hover: #1d4ed8;
 
     /* Status colors - light theme */
-    --color-success-bg: #ecfdf5;
-    --color-success-text: #065f46;
-    --color-success-border: #10b981;
+    --color-success-bg: var(--color-green-50);
+    --color-success-text: var(--color-green-800);
+    --color-success-border: var(--color-green-500);
     --color-error-bg: #fef2f2;
     --color-error-text: #991b1b;
     --color-error-border: #ef4444;
@@ -241,9 +241,9 @@
     --color-link-hover: #93c5fd;
 
     /* Status colors - dark theme variants */
-    --color-success-bg: #064e3b;
-    --color-success-text: #6ee7b7;
-    --color-success-border: #10b981;
+    --color-success-bg: var(--color-green-900);
+    --color-success-text: var(--color-green-300);
+    --color-success-border: var(--color-green-500);
     --color-error-bg: #7f1d1d;
     --color-error-text: #fca5a5;
     --color-error-border: #ef4444;
