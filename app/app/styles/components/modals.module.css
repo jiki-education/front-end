@@ -33,6 +33,14 @@
     animation: modalIn 0.3s ease;
 }
 
+/* Close button positioning */
+.modalCloseButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
 /* Fullscreen modal styles */
 .modalOverlayFullscreen {
     position: fixed;

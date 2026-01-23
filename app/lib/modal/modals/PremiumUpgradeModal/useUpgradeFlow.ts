@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
-import { showModal, hideModal } from "../../store";
+import { hideModal } from "../../store";
 import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
 
@@ -11,9 +10,7 @@ interface UseUpgradeFlowProps {
   onCancel?: () => void;
 }
 
-export function useUpgradeFlow({ setIsLoading, onSuccess, onCancel }: UseUpgradeFlowProps) {
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
+export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: _onCancel }: UseUpgradeFlowProps) {
   const user = useAuthStore((state: any) => state.user);
 
   const handleUpgrade = async () => {
@@ -24,13 +21,17 @@ export function useUpgradeFlow({ setIsLoading, onSuccess, onCancel }: UseUpgrade
 
     setIsLoading(true);
     try {
+      // Close the current modal
+      hideModal();
+      
+      // handleSubscribe will show the checkout modal
       await handleSubscribe({
         tier: "premium",
         userEmail: user.email,
-        setSelectedTier,
-        setClientSecret,
         returnPath: window.location.pathname
       });
+      
+      // Note: The checkout modal is now triggered directly by handleSubscribe
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("Failed to start checkout process. Please try again.");
@@ -38,20 +39,6 @@ export function useUpgradeFlow({ setIsLoading, onSuccess, onCancel }: UseUpgrade
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (clientSecret && selectedTier) {
-      hideModal();
-      setTimeout(() => {
-        showModal("subscription-checkout-modal", {
-          clientSecret,
-          selectedTier,
-          onCancel: () => onCancel?.(),
-          onSuccess: () => onSuccess?.(selectedTier)
-        });
-      }, 100);
-    }
-  }, [clientSecret, selectedTier, onCancel, onSuccess]);
 
   return { handleUpgrade };
 }

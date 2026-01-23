@@ -1,0 +1,43 @@
+.orderHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  padding-top: 20px;
+  border-bottom: 1px solid #f3f4f6; /* gray-100 */
+}
+
+.orderTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%); /* purple-500 to blue-500 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.orderBilling {
+  font-size: 14px;
+  color: #6b7280; /* gray-500 */
+}
+
+.orderPrice {
+  text-align: right;
+  align-self: flex-end;
+}
+
+.orderPrice .amount {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827; /* gray-900 */
+  line-height: 1;
+}
+
+.orderPrice .period {
+  font-size: 14px;
+  color: #6b7280; /* gray-500 */
+}

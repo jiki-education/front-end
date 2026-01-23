@@ -6,7 +6,6 @@ import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
-import type { MembershipTier } from "@/lib/pricing";
 import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -21,9 +20,6 @@ type TabType = "account" | "subscription" | "notifications" | "danger";
 export default function SettingsPage() {
   const { user, refreshUser } = useAuthStore();
 
-  // State for checkout flows
-  const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("account");
 
   // Handle post-payment redirect from Stripe
@@ -47,9 +43,6 @@ export default function SettingsPage() {
           // Payment successful - refresh user data to show new subscription tier
           toast.success("Payment verified! Your subscription has been updated.");
           await refreshUser();
-          // Clear checkout state
-          setSelectedTier(null);
-          setClientSecret(null);
         } else {
           // Payment failed or session invalid
           toast.error(`Failed to verify payment: ${result.error}`);
@@ -107,16 +100,7 @@ export default function SettingsPage() {
           {/* Tab Content */}
           <main className="p-6">
             {activeTab === "account" && <AccountTab />}
-            {activeTab === "subscription" && (
-              <SubscriptionTab
-                user={user}
-                refreshUser={refreshUser}
-                selectedTier={selectedTier}
-                setSelectedTier={setSelectedTier}
-                clientSecret={clientSecret}
-                setClientSecret={setClientSecret}
-              />
-            )}
+            {activeTab === "subscription" && <SubscriptionTab user={user} refreshUser={refreshUser} />}
             {activeTab === "notifications" && <NotificationsTab />}
             {activeTab === "danger" && <DangerTab />}
           </main>

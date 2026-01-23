@@ -13,14 +13,13 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
+import { showModal } from "@/lib/modal";
 import toast from "react-hot-toast";
 
 // Types for handler functions
 export interface SubscribeParams {
   tier: MembershipTier;
   userEmail?: string;
-  setSelectedTier: (tier: MembershipTier) => void;
-  setClientSecret: (secret: string) => void;
   returnPath?: string; // Optional return path, defaults to current location
 }
 
@@ -40,19 +39,19 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Core subscription handlers
-export async function handleSubscribe({
-  tier,
-  userEmail,
-  setSelectedTier,
-  setClientSecret,
-  returnPath
-}: SubscribeParams) {
+export async function handleSubscribe({ tier, userEmail, returnPath }: SubscribeParams) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createCheckoutSession(tier, returnUrl, userEmail);
-    setSelectedTier(tier);
-    setClientSecret(response.client_secret);
-    toast.success("Checkout session created");
+    
+    // Show the checkout modal using the global modal system
+    showModal("subscription-checkout-modal", {
+      clientSecret: response.client_secret,
+      selectedTier: tier,
+      onCancel: () => {
+        // Modal cancelled - no need to do anything as modal state is managed internally
+      }
+    });
   } catch (error) {
     toast.error("Failed to create checkout session");
     console.error(error);

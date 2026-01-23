@@ -47,7 +47,11 @@ export function BaseModal({
       <div className="modal-content">{children}</div>
       {/* TODO: Add support for non-dismissible modals
           Hide this button when dismissible=false prop is passed */}
-      {!fullscreen && !hideCloseButton && <CloseButton onClick={onRequestClose} variant="light" />}
+      {!fullscreen && !hideCloseButton && (
+        <div className={styles.modalCloseButton}>
+          <CloseButton onClick={onRequestClose} variant="light" />
+        </div>
+      )}
     </Modal>
   );
 }
