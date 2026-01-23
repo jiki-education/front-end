@@ -177,16 +177,30 @@ describe("Dashboard Page", () => {
     });
   });
 
-  it("displays loading skeleton while fetching levels", () => {
+  it("displays loading skeleton while fetching levels", async () => {
+    // Delay the API response to ensure loading state persists beyond 100ms
+    (fetchLevelsWithProgress as jest.Mock).mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve(mockLevelsData), 200))
+    );
+
     const { container } = render(
       <ThemeProvider>
         <Dashboard />
       </ThemeProvider>
     );
 
-    // Check for skeleton elements using class names
-    const skeletons = container.querySelectorAll("[class*='skeleton']");
-    expect(skeletons.length).toBeGreaterThan(0);
+    // Initially no skeletons (within the 100ms delay)
+    let skeletons = container.querySelectorAll("[class*='skeleton']");
+    expect(skeletons.length).toBe(0);
+
+    // Wait for 100ms delay to pass and check for skeleton elements
+    await waitFor(
+      () => {
+        skeletons = container.querySelectorAll("[class*='skeleton']");
+        expect(skeletons.length).toBeGreaterThan(0);
+      },
+      { timeout: 150 }
+    );
   });
 
   // Note: Auth error handling is now done globally by GlobalErrorHandler

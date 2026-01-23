@@ -5,8 +5,10 @@ import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
+import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 export default function ConceptsListPage() {
   const { conceptsState, isLoading, error, loadConcepts } = useConcepts();
+  const shouldShowSkeleton = useDelayedLoading(isLoading && conceptsState.concepts.length === 0);
 
   const { searchQuery, debouncedSearchQuery, handleSearchChange, clearSearch } = useConceptsSearch(loadConcepts);
 
@@ -29,7 +31,7 @@ export default function ConceptsListPage() {
         totalCount={conceptsState.totalCount}
       />
 
-      {isLoading && conceptsState.concepts.length === 0 ? (
+      {shouldShowSkeleton ? (
         <ConceptCardsLoadingSkeleton />
       ) : error && conceptsState.concepts.length === 0 ? (
         <ErrorState error={error} onRetry={retryLoad} />

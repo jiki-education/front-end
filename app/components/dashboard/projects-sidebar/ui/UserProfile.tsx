@@ -13,6 +13,7 @@ import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
 import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
+import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import Link from "next/link";
 import type { StatusOption, UserProfile as UserProfileType } from "../lib/mockData";
 import { UserProfileSkeleton } from "./UserProfileSkeleton";
@@ -26,8 +27,10 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ profile, onStatusChange: _onStatusChange, realBadges, badgesLoading }: UserProfileProps) {
+  const shouldShowSkeleton = useDelayedLoading(badgesLoading ?? false);
+
   // Show skeleton while loading
-  if (badgesLoading) {
+  if (shouldShowSkeleton) {
     return <UserProfileSkeleton />;
   }
 

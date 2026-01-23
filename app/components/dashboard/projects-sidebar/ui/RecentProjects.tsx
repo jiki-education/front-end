@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ProjectData } from "@/lib/api/projects";
+import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { ProjectCard } from "./ProjectCard";
 import { EmptyProjectsState } from "./EmptyProjectsState";
 import { RecentProjectsSkeleton } from "./RecentProjectsSkeleton";
@@ -14,8 +15,10 @@ interface RecentProjectsProps {
 }
 
 export function RecentProjects({ projects, unlockedCount, loading }: RecentProjectsProps) {
+  const shouldShowSkeleton = useDelayedLoading(loading ?? false);
+
   // If loading, show skeleton
-  if (loading) {
+  if (shouldShowSkeleton) {
     return <RecentProjectsSkeleton />;
   }
 
