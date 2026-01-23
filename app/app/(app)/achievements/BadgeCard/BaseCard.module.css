@@ -10,7 +10,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     width: 250px;
     display: flex;
     flex-direction: column;

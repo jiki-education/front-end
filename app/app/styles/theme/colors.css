@@ -44,18 +44,18 @@
     --color-green-900: #064e36;
     --color-green-950: #022c1e;
 
-    /* Gray Scale */
-    --color-gray-50: #f6f7f9;
-    --color-gray-100: #eceef2;
-    --color-gray-200: #d5d9e2;
-    --color-gray-300: #b1bbc8;
-    --color-gray-400: #8695aa;
+    /* Gray Scale (using Tailwind slate palette) */
+    --color-gray-50: #f8fafc;
+    --color-gray-100: #f1f5f9;
+    --color-gray-200: #e2e8f0;
+    --color-gray-300: #cbd5e1;
+    --color-gray-400: #94a3b8;
     --color-gray-500: #64748b;
-    --color-gray-600: #526077;
-    --color-gray-700: #434e61;
-    --color-gray-800: #3a4252;
-    --color-gray-900: #343a46;
-    --color-gray-950: #23272e;
+    --color-gray-600: #475569;
+    --color-gray-700: #334155;
+    --color-gray-800: #1e293b;
+    --color-gray-900: #0f172a;
+    --color-gray-950: #020617;
 
     /* Red Scale (Coral Red) */
     --color-red-50: #fef2f2;

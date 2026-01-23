@@ -46,7 +46,7 @@
 
 .emptyStateWrapper p {
     font-size: 16px;
-    color: #64748b;
+    color: var(--color-gray-500);
     max-width: 480px;
     line-height: 1.6;
 }

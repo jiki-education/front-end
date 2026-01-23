@@ -31,8 +31,8 @@
 
 /* Robot SVG illustration */
 .robotBody {
-    fill: #e2e8f0;
-    stroke: #94a3b8;
+    fill: var(--color-gray-200);
+    stroke: var(--color-gray-400);
     stroke-width: 2;
 }
 
@@ -41,11 +41,11 @@
 }
 
 .robotEye.off {
-    fill: #cbd5e1;
+    fill: var(--color-gray-300);
 }
 
 .robotAntenna {
-    stroke: #94a3b8;
+    stroke: var(--color-gray-400);
     stroke-width: 3;
     stroke-linecap: round;
 }
@@ -76,14 +76,14 @@
 }
 
 .cable {
-    stroke: #64748b;
+    stroke: var(--color-gray-500);
     stroke-width: 4;
     stroke-linecap: round;
     fill: none;
 }
 
 .cableEnd {
-    fill: #475569;
+    fill: var(--color-gray-600);
 }
 
 .title {

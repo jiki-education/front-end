@@ -36,7 +36,7 @@
 }
 
 .consoleLogTimestamp {
-    color: #94a3b8;
+    color: var(--color-gray-400);
     font-size: 14px;
     font-family: "Source Code Pro", monospace;
     flex-shrink: 0;
@@ -84,7 +84,7 @@
 .consoleLogContent {
     font-family: "Source Code Pro", monospace;
     font-size: 14px;
-    color: #334155;
+    color: var(--color-gray-700);
     line-height: 1.6;
     flex: 1;
     word-break: break-word;

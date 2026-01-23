@@ -5,18 +5,18 @@
 .badgeTitle {
     font-size: 17px;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--color-gray-900);
     margin-bottom: 4px;
     line-height: 1.2;
 }
 
 .card.locked .badgeTitle {
-    color: #94a3b8;
+    color: var(--color-gray-400);
 }
 
 .badgeSubtitle {
     font-size: 14px;
-    color: #64748b;
+    color: var(--color-gray-500);
     line-height: 1.4;
     margin-bottom: 8px;
 }

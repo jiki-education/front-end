@@ -155,7 +155,7 @@ With CSS:
     content: "";
     flex: 1;
     height: 1px;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
   }
 }
 ```

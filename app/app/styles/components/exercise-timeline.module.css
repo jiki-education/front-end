@@ -17,7 +17,7 @@
 .timelineBox {
     width: 40px;
     height: 40px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     border-radius: 8px;
     background: white;
 }
@@ -38,8 +38,8 @@
 }
 
 .timelineBoxGrey {
-    background: #f8fafc;
-    border-color: #f1f5f9;
+    background: var(--color-gray-50);
+    border-color: var(--color-gray-100);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +55,7 @@
 .timelineLine {
     width: 24px;
     height: 4px;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
 }
 
 .timelineLineGreen {
@@ -63,7 +63,7 @@
 }
 
 .timelineLineAnimate {
-    background: linear-gradient(to right, rgba(16, 163, 163, 0.5) 50%, #e2e8f0 50%);
+    background: linear-gradient(to right, rgba(16, 163, 163, 0.5) 50%, var(--color-gray-200) 50%);
     background-size: 200% 100%;
     background-position: right;
     animation: lineToGreen 0.2s ease-out forwards;
@@ -80,13 +80,13 @@
 
 .timelineLineDashed {
     background: none;
-    border-top: 4px dashed #e2e8f0;
+    border-top: 4px dashed var(--color-gray-200);
 }
 
 .timelineLineAnimateHalf {
     position: relative;
     background: none;
-    border-top: 4px dashed #e2e8f0;
+    border-top: 4px dashed var(--color-gray-200);
 }
 
 .timelineLineAnimateHalf::before {
@@ -114,7 +114,7 @@
     height: 120px;
     border-radius: 12px;
     overflow: visible;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     position: relative;
     animation: borderToGreen 1s ease-out 0.4s forwards;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -125,7 +125,7 @@
 @keyframes borderToGreen {
     0%,
     60% {
-        border-color: #e2e8f0;
+        border-color: var(--color-gray-200);
         border-width: 2px;
     }
     100% {

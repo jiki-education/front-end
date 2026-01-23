@@ -15,7 +15,7 @@
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
@@ -34,7 +34,7 @@
     margin-left: auto;
     font-size: 14px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 /* Project Cards Grid */
@@ -46,7 +46,7 @@
 /* Individual Project Card */
 .statCard {
     background: white;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--color-gray-200);
     border-radius: 16px;
     padding: 16px;
     text-align: center;
@@ -122,7 +122,7 @@
     left: 12px;
     right: 12px;
     height: 6px;
-    background: #f1f5f9;
+    background: var(--color-gray-100);
     border-radius: 3px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -153,7 +153,7 @@
 }
 
 .statCard[data-status="locked"] .cardProgressFill {
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     width: 0%;
 }
 
@@ -259,7 +259,7 @@
 
 .projectsEmptyText {
     font-size: 14px;
-    color: #64748b;
+    color: var(--color-gray-500);
     line-height: 1.5;
 }
 
@@ -319,7 +319,7 @@
 
 .presenceCard .headerText p {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-gray-500);
 }
 
 .presenceCard .statsGrid {
@@ -344,5 +344,5 @@
 
 .presenceCard .statBox .label {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-gray-500);
 }

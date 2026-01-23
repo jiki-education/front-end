@@ -55,7 +55,7 @@
 
     /* Inline Code */
     code {
-        background: #f1f5f9;
+        background: var(--color-gray-100);
         padding: var(--spacing-2) var(--spacing-6);
         border-radius: var(--radius-4);
         font-family: var(--font-mono);
@@ -65,7 +65,7 @@
     /* Code Blocks */
     pre {
         background: #ffffff;
-        border: 2px solid #e2e8f0;
+        border: 2px solid var(--color-gray-200);
         border-radius: var(--radius-16);
         padding: var(--spacing-28) var(--spacing-32);
         margin: var(--spacing-20) 0;
@@ -92,7 +92,7 @@
     }
 
     .code-comment {
-        color: #64748b;
+        color: var(--color-gray-500);
         font-style: italic;
     }
 

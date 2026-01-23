@@ -89,7 +89,7 @@
 
 .modalMessage {
     font-size: 16px;
-    color: #64748b;
+    color: var(--color-gray-500);
     line-height: 1.6;
     margin-bottom: 32px;
 }
@@ -106,7 +106,7 @@
 .modal .modalButtonsDivider {
     width: calc(100% + 64px);
     height: 1px;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     margin-bottom: 24px;
     margin-left: -32px;
     margin-right: -32px;
@@ -138,8 +138,8 @@
     flex: 1;
     padding: 12px 24px;
     background: transparent;
-    color: #64748b;
-    border: 2px solid #e2e8f0;
+    color: var(--color-gray-500);
+    border: 2px solid var(--color-gray-200);
     border-radius: 10px;
     font-size: 15px;
     font-weight: 500;
@@ -149,7 +149,7 @@
 }
 
 .btnSecondary:hover {
-    border-color: #94a3b8;
+    border-color: var(--color-gray-400);
     color: #1a202c;
 }
 
@@ -269,8 +269,8 @@
 .difficultyRatingContainer {
     margin: 32px 0;
     padding: 32px 24px;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    border: 2px solid #e2e8f0;
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-gray-100) 100%);
+    border: 2px solid var(--color-gray-200);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
@@ -304,7 +304,7 @@
     left: 16px;
     right: 16px;
     height: 4px;
-    background: #e2e8f0;
+    background: var(--color-gray-200);
     border-radius: 2px;
     transform: translateY(-50%);
     z-index: 1;
@@ -315,7 +315,7 @@
     height: 24px;
     border-radius: 50%;
     background: white;
-    border: 3px solid #e2e8f0;
+    border: 3px solid var(--color-gray-200);
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
@@ -355,7 +355,7 @@
 .difficultyLabel {
     font-size: 14px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--color-gray-500);
     text-align: center;
     flex: 1;
 }
