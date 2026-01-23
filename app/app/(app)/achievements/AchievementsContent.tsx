@@ -26,6 +26,7 @@ export function AchievementsContent() {
   const [error, setError] = useState<string | null>(null);
   const [spinningBadgeId, setSpinningBadgeId] = useState<number | null>(null);
   const [recentlyRevealedIds, setRecentlyRevealedIds] = useState<Set<number>>(new Set());
+  const [sortedBadgeIds, setSortedBadgeIds] = useState<number[]>([]);
 
   useEffect(() => {
     async function loadBadges() {
@@ -33,6 +34,9 @@ export function AchievementsContent() {
         setLoading(true);
         const response = await fetchBadges();
         setBadges(response.badges);
+        // Sort badges once and lock in the order to prevent jumping when badges are revealed
+        const sorted = sortBadgesInitial(response.badges);
+        setSortedBadgeIds(sorted.map((b) => b.id));
       } catch (err) {
         console.error("Failed to fetch badges:", err);
         setError(err instanceof Error ? err.message : "Failed to load badges");
@@ -69,7 +73,7 @@ export function AchievementsContent() {
 
       {activeTab === "badges" && (
         <div className={BadgesCssModule.gallery}>
-          {sortBadges(badges, recentlyRevealedIds).map((badge) => (
+          {sortBadgesByLockedOrder(badges, sortedBadgeIds).map((badge) => (
             <BadgeCard
               key={badge.id}
               badge={badge}
@@ -86,15 +90,15 @@ export function AchievementsContent() {
   );
 }
 
-function sortBadges(badges: BadgeData[], recentlyRevealedIds: Set<number>): BadgeData[] {
+function sortBadgesInitial(badges: BadgeData[]): BadgeData[] {
   return badges.toSorted((a, b) => {
     // Determine category for each badge
-    // Priority: 1=unrevealed, 2=new (recently revealed or less than a week old), 3=revealed, 4=locked
+    // Priority: 1=unrevealed, 2=new (less than a week old), 3=revealed, 4=locked
     const getCategory = (badge: BadgeData): number => {
       if (badge.state === "unrevealed") {
         return 1;
       }
-      if (badge.state === "revealed" && (recentlyRevealedIds.has(badge.id) || isRecentBadge(badge))) {
+      if (badge.state === "revealed" && isRecentBadge(badge)) {
         return 2;
       }
       if (badge.state === "revealed") {
@@ -129,4 +133,12 @@ function sortBadges(badges: BadgeData[], recentlyRevealedIds: Set<number>): Badg
     // Keep original order if no dates
     return 0;
   });
+}
+
+function sortBadgesByLockedOrder(badges: BadgeData[], sortedIds: number[]): BadgeData[] {
+  // Create a map for quick lookup
+  const badgeMap = new Map(badges.map((b) => [b.id, b]));
+
+  // Return badges in the locked order, filtering out any that no longer exist
+  return sortedIds.map((id) => badgeMap.get(id)).filter((badge): badge is BadgeData => badge !== undefined);
 }
