@@ -45,10 +45,10 @@ export default function RootLayout({
         <GlobalErrorHandler />
         <ServerAuthProvider>
           <ThemeProvider>
-            <CheckoutReturnHandler />
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
+            <CheckoutReturnHandler />
           </ThemeProvider>
         </ServerAuthProvider>
       </body>

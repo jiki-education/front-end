@@ -15,9 +15,13 @@ import { showModal } from "@/lib/modal";
  * Add this component to the app layout to handle checkout returns on any page.
  */
 export function CheckoutReturnHandler() {
-  const { refreshUser } = useAuthStore();
+  const { refreshUser, hasCheckedAuth, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
+    if (!hasCheckedAuth || !isAuthenticated) {
+      return;
+    }
+
     const sessionId = extractAndClearCheckoutSessionId();
     if (!sessionId) {
       return;
@@ -28,7 +32,7 @@ export function CheckoutReturnHandler() {
       showModal(modal, { tier: result.tier });
       void refreshUser();
     });
-  }, [refreshUser]);
+  }, [hasCheckedAuth, isAuthenticated, refreshUser]);
 
   return null;
 }

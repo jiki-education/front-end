@@ -35,7 +35,9 @@ const mockShowModal = showModal as jest.MockedFunction<typeof showModal>;
 const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
 jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
-    refreshUser: mockRefreshUser
+    refreshUser: mockRefreshUser,
+    hasCheckedAuth: true,
+    isAuthenticated: true
   })
 }));
 
