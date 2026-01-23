@@ -120,7 +120,7 @@
 }
 
 .lessonPart.locked {
-    background: var(--color-gray-100);
+    background: var(--color-gray-50);
     border: 2px solid var(--color-gray-200);
     cursor: not-allowed;
 }
