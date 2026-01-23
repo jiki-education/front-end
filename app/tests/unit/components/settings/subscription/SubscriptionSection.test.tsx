@@ -37,10 +37,6 @@ function createMockUser(overrides?: Partial<User>): User {
 
 describe("SubscriptionSection", () => {
   const defaultProps = {
-    selectedTier: null,
-    setSelectedTier: jest.fn(),
-    clientSecret: null,
-    setClientSecret: jest.fn(),
     refreshUser: jest.fn()
   };
 
@@ -97,36 +93,7 @@ describe("SubscriptionSection", () => {
   });
 
   describe("Checkout modal", () => {
-    it("renders checkout modal when clientSecret and selectedTier are present", async () => {
-      const user = createMockUser();
-
-      const { container } = render(
-        <SubscriptionSection user={user} {...defaultProps} clientSecret="test-secret" selectedTier="premium" />
-      );
-
-      // Wait for component to render
-      await waitFor(() => {
-        expect(screen.getByText("Current Plan")).toBeInTheDocument();
-      });
-
-      // Verify component renders
-      expect(container.firstChild).toBeInTheDocument();
-    });
-
-    it("does not render checkout modal when clientSecret is null", async () => {
-      const user = createMockUser();
-
-      const { container } = render(
-        <SubscriptionSection user={user} {...defaultProps} clientSecret={null} selectedTier="premium" />
-      );
-
-      await waitFor(() => {
-        expect(screen.getByText("Current Plan")).toBeInTheDocument();
-      });
-
-      // Verify component renders
-      expect(container.firstChild).toBeInTheDocument();
-    });
+    // Note: Checkout modal tests removed - modal is now handled by global modal system
   });
 
   describe("Handler functions", () => {
@@ -141,17 +108,8 @@ describe("SubscriptionSection", () => {
 
     it("handles upgrade to Premium for standard user", async () => {
       const user = createMockUser();
-      const setSelectedTier = jest.fn();
-      const setClientSecret = jest.fn();
 
-      render(
-        <SubscriptionSection
-          user={user}
-          {...defaultProps}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      render(<SubscriptionSection user={user} {...defaultProps} />);
 
       // Verify the component renders without errors
       await waitFor(() => {

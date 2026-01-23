@@ -1,5 +1,3 @@
-import { lazy, Suspense } from "react";
-import type { MembershipTier } from "@/lib/pricing";
 import SettingsCard from "../ui/SettingsCard";
 import SubscriptionStatus from "../ui/SubscriptionStatus";
 import PremiumUpsell from "./PremiumUpsell";
@@ -10,44 +8,18 @@ import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
 import { assembleClassNames } from "@/lib/assemble-classnames";
 
-// Lazy load CheckoutModal since it's only shown when needed
-const CheckoutModal = lazy(() => import("./CheckoutModal"));
-
 interface SubscriptionSectionProps {
   user: User | null;
   refreshUser: () => Promise<void>;
-  selectedTier: MembershipTier | null;
-  setSelectedTier: (tier: MembershipTier | null) => void;
-  clientSecret: string | null;
-  setClientSecret: (secret: string | null) => void;
   className?: string;
 }
 
-export default function SubscriptionSection({
-  user,
-  refreshUser,
-  selectedTier,
-  setSelectedTier,
-  clientSecret,
-  setClientSecret,
-  className = ""
-}: SubscriptionSectionProps) {
-  const {
-    isLoading,
-    currentTier,
-    subscriptionStatus,
-    nextBillingDate,
-    handleUpgradeToPremium,
-    handleCancel,
-    handleCheckoutCancel
-  } = useSubscription({
-    user,
-    refreshUser,
-    selectedTier,
-    setSelectedTier,
-    clientSecret,
-    setClientSecret
-  });
+export default function SubscriptionSection({ user, refreshUser, className = "" }: SubscriptionSectionProps) {
+  const { isLoading, currentTier, subscriptionStatus, nextBillingDate, handleUpgradeToPremium, handleCancel } =
+    useSubscription({
+      user,
+      refreshUser
+    });
 
   // If no user, show loading state
   if (!user) {
@@ -83,21 +55,7 @@ export default function SubscriptionSection({
       {/* Cancel Section - only show for premium users */}
       {currentTier !== "standard" && <CancelSection onCancelClick={handleCancel} />}
 
-      {/* Checkout Modal */}
-      {clientSecret && selectedTier && (
-        <Suspense
-          fallback={
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-modal-backdrop">
-              <div className="bg-white p-6 rounded-lg">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-center">Loading checkout...</p>
-              </div>
-            </div>
-          }
-        >
-          <CheckoutModal clientSecret={clientSecret} selectedTier={selectedTier} onCancel={handleCheckoutCancel} />
-        </Suspense>
-      )}
+      {/* Checkout Modal is handled by the global modal system */}
     </div>
   );
 }

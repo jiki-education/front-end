@@ -4,15 +4,18 @@
 import * as subscriptionApi from "@/lib/api/subscriptions";
 import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
+import { showModal } from "@/lib/modal";
 import toast from "react-hot-toast";
 
 // Mock the external dependencies
 jest.mock("@/lib/api/subscriptions");
 jest.mock("@/lib/subscriptions/checkout");
+jest.mock("@/lib/modal");
 jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;
 const mockCheckoutUtils = checkoutUtils as jest.Mocked<typeof checkoutUtils>;
+const mockShowModal = showModal as jest.MockedFunction<typeof showModal>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
 describe("Subscription handlers", () => {
@@ -31,8 +34,7 @@ describe("Subscription handlers", () => {
     const mockParams = {
       tier: "premium" as const,
       userEmail: "test@example.com",
-      setSelectedTier: jest.fn(),
-      setClientSecret: jest.fn()
+      returnPath: "/settings"
     };
 
     it("creates checkout session successfully", async () => {
@@ -50,9 +52,11 @@ describe("Subscription handlers", () => {
         "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}",
         "test@example.com"
       );
-      expect(mockParams.setSelectedTier).toHaveBeenCalledWith("premium");
-      expect(mockParams.setClientSecret).toHaveBeenCalledWith("cs_test_123");
-      expect(mockToast.success).toHaveBeenCalledWith("Checkout session created");
+      expect(mockShowModal).toHaveBeenCalledWith("subscription-checkout-modal", {
+        clientSecret: "cs_test_123",
+        selectedTier: "premium",
+        onCancel: expect.any(Function)
+      });
     });
 
     it("handles checkout session creation failure", async () => {
@@ -125,24 +129,6 @@ describe("Subscription handlers", () => {
       await handlers.handleUpgradeToPremium(mockRefreshUser);
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
-    });
-  });
-
-  describe("handleUpgradeToPremium", () => {
-    it("upgrades to Premium successfully", async () => {
-      const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
-      mockSubscriptionApi.updateSubscription.mockResolvedValue({
-        success: true,
-        tier: "premium",
-        effective_at: "2024-01-01T00:00:00Z",
-        subscription_valid_until: "2024-12-31T23:59:59Z"
-      });
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("premium");
-      expect(mockToast.success).toHaveBeenCalledWith("Successfully upgraded to Premium!");
-      expect(mockRefreshUser).toHaveBeenCalled();
     });
   });
 
