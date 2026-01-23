@@ -121,7 +121,7 @@
 
 .lessonPart.locked {
     background: var(--color-gray-100);
-    border: 3px solid var(--color-gray-200);
+    border: 2px solid var(--color-gray-200);
     cursor: not-allowed;
 }
 
