@@ -6,9 +6,7 @@ import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { extractAndClearSessionId, verifyPaymentSession } from "@/lib/subscriptions/verification";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import styles from "./Settings.module.css";
 import AccountTab from "./tabs/AccountTab";
 import DangerTab from "./tabs/DangerTab";
@@ -21,37 +19,6 @@ export default function SettingsPage() {
   const { user, refreshUser } = useAuthStore();
 
   const [activeTab, setActiveTab] = useState<TabType>("account");
-
-  // Handle post-payment redirect from Stripe
-  useEffect(() => {
-    // Only process if user is available
-    if (!user) {
-      return;
-    }
-
-    // Extract session_id from URL and remove it (to prevent re-processing on refresh)
-    const sessionId = extractAndClearSessionId();
-
-    if (sessionId) {
-      // Verify the checkout session with our backend and sync subscription data
-      async function verifyAndRefresh(id: string) {
-        toast.loading("Verifying payment...");
-        const result = await verifyPaymentSession(id);
-        toast.dismiss();
-
-        if (result.success) {
-          // Payment successful - refresh user data to show new subscription tier
-          toast.success("Payment verified! Your subscription has been updated.");
-          await refreshUser();
-        } else {
-          // Payment failed or session invalid
-          toast.error(`Failed to verify payment: ${result.error}`);
-        }
-      }
-
-      void verifyAndRefresh(sessionId);
-    }
-  }, [user, refreshUser]);
 
   return (
     <>

@@ -54,3 +54,10 @@ export interface ReactivateSubscriptionResponse {
   success: boolean;
   subscription_valid_until: string; // ISO 8601 date string
 }
+
+export interface VerifyCheckoutResponse {
+  success: boolean;
+  tier: MembershipTier;
+  payment_status: "paid" | "unpaid";
+  subscription_status: "active" | "incomplete";
+}

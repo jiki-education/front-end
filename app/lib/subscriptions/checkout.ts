@@ -20,5 +20,5 @@
 export function createCheckoutReturnUrl(pathname: string, origin?: string): string {
   const baseOrigin = origin || (typeof window !== "undefined" ? window.location.origin : "");
   const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
-  return `${baseOrigin}${normalizedPath}?session_id={CHECKOUT_SESSION_ID}`;
+  return `${baseOrigin}${normalizedPath}?checkout_return=true&checkout_session_id={CHECKOUT_SESSION_ID}`;
 }
