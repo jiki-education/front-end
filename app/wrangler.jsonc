@@ -1,7 +1,7 @@
 {
   "name": "jiki-app",
   "main": "worker-wrapper.js",
-  "compatibility_date": "2024-09-23",
+  "compatibility_date": "2025-08-16",
   "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env", "global_fetch_strictly_public"],
   "vars": {
     "ENVIRONMENT": "production"
