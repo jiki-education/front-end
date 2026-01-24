@@ -14,7 +14,10 @@ export const exercises = {
   "fix-wall": () => import("./fix-wall"),
   "structured-house": () => import("./structured-house"),
   sunset: () => import("./sunset"),
-  rainbow: () => import("./rainbow")
+  rainbow: () => import("./rainbow"),
+  "rna-transcription": () => import("./rna-transcription"),
+  "scrabble-score": () => import("./scrabble-score"),
+  "two-fer": () => import("./two-fer")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -21,6 +21,9 @@ import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
 import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
 import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
+import { llmMetadata as rnaTranscriptionLLM } from "./exercises/rna-transcription/llm-metadata";
+import { llmMetadata as scrabbleScoreLLM } from "./exercises/scrabble-score/llm-metadata";
+import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -44,7 +47,10 @@ const llmMetadataRegistry = {
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
   sunset: sunsetLLM,
-  rainbow: rainbowLLM
+  rainbow: rainbowLLM,
+  "rna-transcription": rnaTranscriptionLLM,
+  "scrabble-score": scrabbleScoreLLM,
+  "two-fer": twoFerLLM
 } as const;
 
 /**
