@@ -1,3 +1,4 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 import path from "path";
 
@@ -97,4 +98,22 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "thalamus-ai",
+  project: "jiki-front-end",
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+
+  // Disable server-side auto-instrumentation for Cloudflare Workers compatibility
+  // These prevent Node.js-only packages (require-in-the-middle) from being bundled
+  autoInstrumentServerFunctions: false,
+  autoInstrumentMiddleware: false,
+  autoInstrumentAppDirectory: false,
+
+  webpack: {
+    automaticVercelMonitors: false,
+    treeshake: {
+      removeDebugLogging: true
+    }
+  }
+});
