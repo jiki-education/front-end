@@ -28,6 +28,7 @@
       "MissingRightBraceInDictionary": "MissingRightBraceInDictionary",
       "UnexpectedRightBrace": "UnexpectedRightBrace",
       "UnimplementedToken": "UnimplementedToken: token: {{tokenType}}: lexeme: {{lexeme}}",
+      "PermanentlyExcludedToken": "PermanentlyExcludedToken: token: {{tokenType}}: lexeme: {{lexeme}}",
       "UnknownCharacter": "Unknown character",
       "UnterminatedComment": "UnterminatedComment",
       "UnterminatedString": "Did you forget to add end quote?",
@@ -62,6 +63,10 @@
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}",
       "MaxIterationsReached": "MaxIterationsReached: max: {{max}}"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",
+      "DisabledFeatureIncludeListViolation": "IncludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}"
     }
   }
 }

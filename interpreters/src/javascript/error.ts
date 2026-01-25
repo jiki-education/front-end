@@ -28,6 +28,7 @@ export type SyntaxErrorType =
   | "UnexpectedRightBrace"
   | "UnexpectedTokenInTemplateLiteral"
   | "UnimplementedToken"
+  | "PermanentlyExcludedToken"
   | "UnknownCharacter"
   | "UnterminatedComment"
   | "UnterminatedString"
