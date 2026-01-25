@@ -25,11 +25,11 @@ Before doing anything else, read these files to understand the writing style and
    Read: front-end/content/.context/tone-of-voice.md
    ```
 
-2. **Example Blog Post** (for tone reference):
+2. **Example Article** (for tone and format reference):
 
    ```
-   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/en.md
-   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/config.json
+   Read: front-end/content/src/posts/articles/why-is-this-feature-not-implemented/en.md
+   Read: front-end/content/src/posts/articles/why-is-this-feature-not-implemented/config.json
    ```
 
 3. **Frontmatter Schema**:
