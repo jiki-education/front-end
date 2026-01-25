@@ -48,27 +48,29 @@ Ask the user to provide as much detail as possible about the blog post. Use the 
 Ask about:
 
 - **What is this post announcing or explaining?** (Be specific - a new feature, an update, a milestone, a reflection?)
+- **What's the story behind this?** (The journey, the decisions made, what was learned along the way - this often produces the most compelling content)
 - **Who is the primary audience?** (Existing users, potential learners, the broader community?)
-- **What are the key points you want to cover?**
+- **What's the core theme?** (e.g., social mobility, making coding accessible, learning by doing)
 - **Is there a call to action?** (Sign up, try something, give feedback, spread the word?)
-- **Any specific details, numbers, or dates to include?**
 
 ### Follow-up Questions
 
 Based on their answers, ask clarifying questions until you have a clear picture:
 
+- **The journey**: What challenges did you face? What did you learn? What surprised you?
+- **Decisions**: What key decisions were made and why? (e.g., pricing, technical choices, scope)
+- **Different audiences**: Will the CTA differ for different readers? (e.g., beginners vs experienced devs)
 - If announcing a feature: What problem does it solve? How does it work?
 - If sharing news: What's the backstory? Why does it matter?
-- If asking for community involvement: What specifically should people do?
 - What tone feels right? (More excited? More reflective? More technical?)
 
-**Keep asking until you feel confident you understand what they want.**
+**Keep asking until you feel confident you understand what they want. The best posts come from understanding the full story, not just the announcement.**
 
 ---
 
 ## Phase 3: Agree on Structure
 
-Based on the information gathered, propose an outline following Jeremy's typical blog structure:
+Based on the information gathered, propose an outline. **Let the story drive the structure** rather than forcing a generic template. A typical structure might be:
 
 ```markdown
 ## Proposed Structure
@@ -79,6 +81,15 @@ Based on the information gathered, propose an outline following Jeremy's typical
 4. **Get Involved / Call to Action** - [What readers can do]
 5. **Conclusion** - [Forward-looking + gratitude]
 ```
+
+But the actual structure should emerge from the user's story. For example, "The Backstory of Jiki" used:
+
+- Before Jiki, there was Exercism (the problem)
+- Jiki's Journey to fruition (with subsections: experience, bootcamp, foot-guns, i18n, freemium)
+- What Jiki is and where I want it to go
+- Give it a try
+
+**Key principle**: Identify the core theme early (e.g., social mobility) and ensure later sections connect back to it.
 
 Present the proposed structure with brief notes on what each section will cover.
 
@@ -143,6 +154,7 @@ When writing, ensure you:
 - [ ] Include some hedging (I think, probably)
 - [ ] Show genuine enthusiasm
 - [ ] Be honest about challenges
+- [ ] Use short, punchy emotional statements where appropriate (e.g., "And that sucks.")
 
 **Structure**
 
@@ -150,8 +162,16 @@ When writing, ensure you:
 - [ ] Use clear ## and ### headers
 - [ ] Include **bold** for key terms (10-20 instances)
 - [ ] Use lists for clarity
+- [ ] Connect later sections back to the core theme established early
 - [ ] End with call to action
 - [ ] Close with gratitude ("Thanks for reading 🙂")
+
+**Calls to Action**
+
+- [ ] Consider different audiences and acknowledge them honestly
+- [ ] Example: "If you're a beginner, I hope you enjoy this - tell me where you get stuck"
+- [ ] Example: "If you're an experienced dev, this isn't designed for you - it'll feel basic and slow. But for newbies it feels fast and intense!"
+- [ ] This honest acknowledgment of different audiences is distinctive and builds trust
 
 **Formatting**
 
