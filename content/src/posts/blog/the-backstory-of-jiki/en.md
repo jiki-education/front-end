@@ -63,7 +63,7 @@ I've written custom interpreters for both languages that just strip the noise ou
 
 Another key feature I knew I needed to add was making Jiki multilingual.
 
-Most people don't speak English. Most programming resources are in English. This needed fixing.
+Most people don't speak English. Most programming resources are in English. That's a huge barrier for people who often have the least money to spend on resources. And it's something I really want to fix.
 
 So in building Jiki, we created it so that everything could be multilingual - the content, exercises, AI helper and videos. My plan is to launch with English for the beta, then release a handful of new languages each month, until we're covering 95% of the world by the end of the year.
 
