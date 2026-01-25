@@ -9,7 +9,7 @@ This guide documents Jeremy's written blog voice - how he structures posts, uses
 ### Core Patterns
 
 - **Contractions:** "I'm", "we're", "it's" (never "I am", "we are", "it is")
-- **British English:** "optimising", "realisation", "quite", "whilst", "a bit", "loads of"
+- **British English:** "optimising", "realisation", "quite", "a bit", "loads of"
 - **Some hedging:** "I think", "probably", "quite" (but less than in spoken transcripts)
 - **Conversational:** "So yeah", "I guess", "to be honest" (sparingly)
 - **Enthusiasm:** Exclamation marks, bold emphasis, genuine excitement
@@ -25,7 +25,7 @@ This guide documents Jeremy's written blog voice - how he structures posts, uses
 
 ### Word Choice
 
-- **British English**: "quite", "whilst", "a bit", "loads of"
+- **British English**: "quite", "a bit", "loads of"
 - **Casual qualifiers**: "a little bit", "I don't know"
 - **Emotional honesty**: "to be honest", "I feel like"
 
@@ -83,7 +83,6 @@ This guide documents Jeremy's written blog voice - how he structures posts, uses
 - "Quite" (as intensifier)
 - "A load of" / "loads of"
 - "A bit"
-- "Whilst"
 - "Have a look"
 - "Have a browse"
 
@@ -637,7 +636,6 @@ When relevant, include participation incentives:
 
 - "color" instead of "colour"
 - "optimize" instead of "optimise"
-- "while" instead of "whilst"
 - "very" instead of "quite"
 
 ---
@@ -666,7 +664,7 @@ When relevant, include participation incentives:
 ### Voice
 
 - [ ] Use contractions (it's, we're, I'm)
-- [ ] British English (quite, whilst, optimising)
+- [ ] British English (quite, optimising)
 - [ ] Inclusive "we/our" language
 - [ ] Some hedging (I think, probably) but less than transcripts
 - [ ] Genuine enthusiasm and excitement

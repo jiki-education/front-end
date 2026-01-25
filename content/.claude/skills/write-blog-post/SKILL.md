@@ -26,8 +26,8 @@ Before doing anything else, read these files to understand the writing style and
 2. **Example Blog Post**:
 
    ```
-   Read: front-end/content/src/posts/blog/jiki-is-born/en.md
-   Read: front-end/content/src/posts/blog/jiki-is-born/config.json
+   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/en.md
+   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/config.json
    ```
 
 3. **Frontmatter Schema**:
@@ -138,8 +138,8 @@ When writing, ensure you:
 **Voice**
 
 - [ ] Use contractions (it's, we're, I'm)
-- [ ] Use British English (whilst, quite, optimising)
-- [ ] Use inclusive "we/our" language
+- [ ] Use British English (quite, optimising)
+- [ ] Use inclusive "we/our" language (say we not I unless it REALLY is just about me)
 - [ ] Include some hedging (I think, probably)
 - [ ] Show genuine enthusiasm
 - [ ] Be honest about challenges
