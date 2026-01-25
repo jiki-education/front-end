@@ -40,8 +40,8 @@ export class Parser {
   private readonly languageFeatures: LanguageFeatures;
 
   constructor(context: EvaluationContext = {}) {
-    this.scanner = new Scanner();
     this.languageFeatures = context.languageFeatures || {};
+    this.scanner = new Scanner(this.languageFeatures);
   }
 
   private isNodeAllowed(nodeType: NodeType): boolean {

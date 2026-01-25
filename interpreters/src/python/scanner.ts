@@ -3,10 +3,11 @@
  * This scanner produces tokens for Python syntax.
  */
 
-import { SyntaxError } from "./error";
+import { SyntaxError, DisabledLanguageFeatureError } from "./error";
 import type { Token, TokenType } from "./token";
 import { Location } from "../shared/location";
 import { translate } from "./translator";
+import type { LanguageFeatures } from "./interfaces";
 
 export class Scanner {
   private tokens: Token[] = [];
@@ -17,6 +18,51 @@ export class Scanner {
   private sourceCode: string = "";
   private currentIndentLevel: number = 0;
   private atLineStart: boolean = true;
+  private readonly languageFeatures: LanguageFeatures;
+
+  /**
+   * PERMANENTLY EXCLUDED TOKENS
+   * These Python features are intentionally NOT supported due to
+   * promoting confusing practices for learners.
+   */
+  private static readonly PERMANENTLY_EXCLUDED_TOKENS: TokenType[] = [
+    "GLOBAL", // Modifies global scope - confusing for learners
+    "NONLOCAL", // Modifies enclosing scope - confusing for learners
+    "ASSERT", // Debugging tool, not core to learning
+  ];
+
+  /**
+   * NOT YET IMPLEMENTED TOKENS
+   * Planned for future implementation. Students see the same message
+   * as features disabled for their exercise level.
+   */
+  private static readonly NOT_YET_IMPLEMENTED_TOKENS: TokenType[] = [
+    // OOP
+    "CLASS",
+    // Exception handling
+    "TRY",
+    "EXCEPT",
+    "FINALLY",
+    "RAISE",
+    // Async
+    "ASYNC",
+    "AWAIT",
+    // Generators
+    "YIELD",
+    // Context managers
+    "WITH",
+    "AS",
+    // Modules
+    "IMPORT",
+    "FROM",
+    // Other
+    "DEL",
+    "IS",
+    "LAMBDA",
+    "PASS",
+    // Operators
+    "SEMICOLON",
+  ];
 
   private static readonly keywords: Record<string, TokenType> = {
     and: "AND",
@@ -85,7 +131,9 @@ export class Scanner {
     "#": this.tokenizeComment,
   };
 
-  constructor() {}
+  constructor(languageFeatures: LanguageFeatures = {}) {
+    this.languageFeatures = languageFeatures;
+  }
 
   public scanTokens(source: string): Token[] {
     this.sourceCode = source;
@@ -187,46 +235,27 @@ export class Scanner {
   private addToken(type: TokenType, literal?: any): void {
     const text = this.sourceCode.substring(this.start, this.current);
 
-    // Check for unimplemented tokens
-    const unimplementedTokens: TokenType[] = [
-      // Statement keywords
-      "AS",
-      "ASSERT",
-      "ASYNC",
-      "AWAIT",
-      // "BREAK", - Implemented for for loops
-      "CLASS",
-      // "CONTINUE", - Implemented for for loops
-      // "DEF", - Implemented for user-defined functions
-      "DEL",
-      "EXCEPT",
-      "FINALLY",
-      // "FOR", - Implemented for for-in loops
-      "FROM",
-      "GLOBAL",
-      "IMPORT",
-      // "IN", - Implemented for for-in loops
-      "IS",
-      "LAMBDA",
-      "NONLOCAL",
-      // "NOT", - Already implemented as unary operator
-      "PASS",
-      "RAISE",
-      // "RETURN", - Implemented for user-defined functions
-      "TRY",
-      // "WHILE", - Implemented for while loops
-      "WITH",
-      "YIELD",
-      // Operators
-      // "COMMA", - Already implemented for list literals
-      // "DOT", - Implemented for attribute access
-      // "PERCENT", - Already implemented as binary operator
-      "SEMICOLON",
-      // "LEFT_BRACKET", - Already implemented for list literals
-      // "RIGHT_BRACKET", - Already implemented for list literals
-    ];
+    // Check if feature is disabled for exercise
+    this.verifyEnabled(type, text);
 
-    if (unimplementedTokens.includes(type)) {
+    // Check for permanently excluded tokens
+    if (Scanner.PERMANENTLY_EXCLUDED_TOKENS.includes(type)) {
+      throw new SyntaxError(
+        translate("error.syntax.PermanentlyExcludedToken", {
+          tokenType: type,
+          lexeme: text,
+        }),
+        Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
+        "PermanentlyExcludedToken",
+        {
+          tokenType: type,
+          lexeme: text,
+        }
+      );
+    }
+
+    // Check for not yet implemented tokens
+    if (Scanner.NOT_YET_IMPLEMENTED_TOKENS.includes(type)) {
       throw new SyntaxError(
         translate("error.syntax.UnimplementedToken", {
           tokenType: type,
@@ -247,6 +276,32 @@ export class Scanner {
       literal: literal,
       location: Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
     });
+  }
+
+  private verifyEnabled(tokenType: TokenType, lexeme: string): void {
+    if (this.languageFeatures.excludeList?.includes(tokenType)) {
+      throw new DisabledLanguageFeatureError(
+        translate("error.disabledLanguageFeature.DisabledFeatureExcludeListViolation", {
+          tokenType,
+          lexeme,
+        }),
+        Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
+        "DisabledFeatureExcludeListViolation",
+        { tokenType, lexeme }
+      );
+    }
+
+    if (this.languageFeatures.includeList && !this.languageFeatures.includeList.includes(tokenType)) {
+      throw new DisabledLanguageFeatureError(
+        translate("error.disabledLanguageFeature.DisabledFeatureIncludeListViolation", {
+          tokenType,
+          lexeme,
+        }),
+        Location.fromLineOffset(this.start + 1, this.current + 1, this.line, this.lineOffset),
+        "DisabledFeatureIncludeListViolation",
+        { tokenType, lexeme }
+      );
+    }
   }
 
   // Tokenizer methods for basic symbols
