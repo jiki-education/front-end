@@ -568,54 +568,86 @@ export class Scanner {
   private addToken(type: TokenType, literal: any = null): void {
     this.verifyEnabled(type, this.lexeme());
 
-    // Check for unimplemented tokens
-    const unimplementedTokens: TokenType[] = [
-      // Statement keywords
-      "CASE",
-      "CATCH",
-      "CLASS",
+    /**
+     * PERMANENTLY EXCLUDED TOKENS
+     * These JavaScript features are intentionally NOT supported in this
+     * educational interpreter. They will NEVER be implemented due to:
+     * - Promoting bad practices (var, with)
+     * - Being too advanced/confusing for educational purposes (yield, delete)
+     * - Not being part of this version of the language (import, export)
+     * - Bitwise operations being rarely needed for learning
+     */
+    const PERMANENTLY_EXCLUDED_TOKENS: TokenType[] = [
+      // Bad practices
+      "VAR", // Use 'let' or 'const' instead - var has confusing scoping rules
+      "WITH", // Deprecated and creates ambiguous code
+      // Not useful for education
       "DEBUGGER",
-      "DEFAULT",
-      "DELETE",
-      "DO",
-      "EXPORT",
-      "EXTENDS",
-      "FINALLY",
-      "IMPORT",
-      "IN",
-      "INSTANCEOF",
-      "NEW",
-      "SUPER",
-      "SWITCH",
-      "THIS",
-      "THROW",
-      "TRY",
-      "TYPEOF",
-      "VAR",
       "VOID",
-      "WITH",
+      // Too advanced/confusing
       "YIELD",
-      // Operators and syntax
+      "DELETE",
+      // Not part of this version
+      "IMPORT",
+      "EXPORT",
+      // Bitwise operators
       "AMPERSAND",
-      "CARET",
-      "PERCENT",
       "PIPE",
-      "QUESTION",
+      "CARET",
       "TILDE",
-      "ARROW",
-      "AND_EQUAL",
-      "DIVIDE_EQUAL",
       "LEFT_SHIFT",
-      "MINUS_EQUAL",
-      "MODULO_EQUAL",
-      "MULTIPLY_EQUAL",
-      "OR_EQUAL",
-      "PLUS_EQUAL",
       "RIGHT_SHIFT",
+      "AND_EQUAL",
+      "OR_EQUAL",
       "XOR_EQUAL",
     ];
 
-    if (unimplementedTokens.includes(type)) {
+    /**
+     * NOT YET IMPLEMENTED TOKENS
+     * These JavaScript features ARE planned for future implementation
+     * but haven't been built yet. Students see the same message as
+     * features disabled for their exercise level.
+     */
+    const NOT_YET_IMPLEMENTED_TOKENS: TokenType[] = [
+      // Object-oriented features
+      "CLASS",
+      "EXTENDS",
+      "NEW",
+      "SUPER",
+      "THIS",
+      // Exception handling
+      "TRY",
+      "CATCH",
+      "FINALLY",
+      "THROW",
+      // Control flow
+      "SWITCH",
+      "CASE",
+      "DEFAULT",
+      "DO",
+      // Operators
+      "IN",
+      "INSTANCEOF",
+      "TYPEOF",
+      "QUESTION", // Ternary operator
+      "ARROW",
+      "PERCENT", // Modulo
+      // Compound assignments
+      "PLUS_EQUAL",
+      "MINUS_EQUAL",
+      "MULTIPLY_EQUAL",
+      "DIVIDE_EQUAL",
+      "MODULO_EQUAL",
+    ];
+
+    if (PERMANENTLY_EXCLUDED_TOKENS.includes(type)) {
+      this.error("PermanentlyExcludedToken", {
+        tokenType: type,
+        lexeme: this.lexeme(),
+      });
+    }
+
+    if (NOT_YET_IMPLEMENTED_TOKENS.includes(type)) {
       this.error("UnimplementedToken", {
         tokenType: type,
         lexeme: this.lexeme(),
