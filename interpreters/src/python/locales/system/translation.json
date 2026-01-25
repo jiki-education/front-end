@@ -11,6 +11,7 @@
       "UnexpectedCharacter": "UnexpectedCharacter",
       "UnexpectedIndentation": "UnexpectedIndentation",
       "UnimplementedToken": "UnimplementedToken: token: {{tokenType}}: lexeme: {{lexeme}}",
+      "PermanentlyExcludedToken": "PermanentlyExcludedToken: token: {{tokenType}}: lexeme: {{lexeme}}",
       "UnknownCharacter": "UnknownCharacter: lexeme: {{lexeme}}",
       "UnterminatedComment": "UnterminatedComment",
       "UnterminatedString": "UnterminatedString",
@@ -53,6 +54,10 @@
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "MaxIterationsReached": "MaxIterationsReached: max: {{max}}"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",
+      "DisabledFeatureIncludeListViolation": "IncludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}"
     }
   }
 }

@@ -5,7 +5,9 @@ export type DisabledLanguageFeatureErrorType =
   | "ComparisonDisabled"
   | "FunctionsDisabled"
   | "LogicalDisabled"
-  | "ConditionalDisabled";
+  | "ConditionalDisabled"
+  | "DisabledFeatureExcludeListViolation"
+  | "DisabledFeatureIncludeListViolation";
 
 export class DisabledLanguageFeatureError extends Error {
   constructor(
@@ -30,6 +32,7 @@ export type SyntaxErrorType =
   | "UnexpectedCharacter"
   | "UnexpectedIndentation"
   | "UnimplementedToken"
+  | "PermanentlyExcludedToken"
   | "UnknownCharacter"
   | "UnterminatedComment"
   | "UnterminatedString"
