@@ -19,15 +19,15 @@ But here's the thing: whilst Exercism was designed for developers who already kn
 
 That never sat quite right with me. My motivation with Exercism has always been about **social mobility** - helping people who need that help the most. Programming can genuinely change lives and open doors that might otherwise stay closed. So watching these beginners arrive, full of enthusiasm, and then having to tell them "sorry, this isn't for you yet" felt like a failure on my part.
 
-I started exploring the "learn to code" landscape to understand what was out there for them. And whilst there's a **huge** amount of resources - courses, videos, tutorials, bootcamps - I realised something was missing. Most of them don't get to the heart of what I believe programming actually is: **fun problem solving**.
+I started exploring the "learn to code" landscape to understand what was out there for them. And whilst there's a **huge** amount of resources, I realised something was missing. Most of them don't get to the heart of what I believe programming actually is: **fun problem solving**.
 
-Instead, they give you videos to watch, quizzes to take, and certificates to print out. They teach you syntax and theory, but they don't really let you _make_ things. And I think that's why so many people give up. It's not that coding is too hard - it's that the way they're being taught doesn't feel like coding at all.
+Instead, they give you videos to watch, quizzes to take, and certificates to print out. They teach you syntax and theory, but they don't really let you **make** things. And I think that's why so many people give up. It's not that coding is too hard - it's that the way they're being taught doesn't feel like coding at all.
 
-So I realised that one of the most important things I could do was to help those 500 people a day who were signing up to Exercism, looking for somewhere to start.
+So I realised that one of the most important things I could do was to help those 200,000 people a year who were signing up to Exercism, looking for somewhere to start.
 
 ## Designing Jiki from experience
 
-When I think about how I learned to code, it wasn't through courses or tutorials. I started at about eight years old, and I learned by **building things**. Games, websites, little tools - whatever I found interesting. Nobody gave me a curriculum. I just made stuff, got stuck, figured it out, and made more stuff.
+When I think about how I learned to code, it wasn't through courses or tutorials. I started at eight years old, long before I had the internet. I learned by **building things**. Games, websites, little tools - whatever I found interesting. Nobody gave me a curriculum. I just made stuff, got stuck, figured it out, and made more stuff.
 
 That experience has shaped everything about how I think about learning. I believe people learn to code by **coding** - not by watching someone else do it, not by answering multiple choice questions, but by actually writing code and solving problems.
 
