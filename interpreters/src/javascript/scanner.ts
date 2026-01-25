@@ -60,6 +60,78 @@ export class Scanner {
     yield: "YIELD",
   };
 
+  /**
+   * PERMANENTLY EXCLUDED TOKENS
+   * These JavaScript features are intentionally NOT supported in this
+   * educational interpreter. They will NEVER be implemented due to:
+   * - Promoting bad practices (var, with)
+   * - Being too advanced/confusing for educational purposes (yield, delete)
+   * - Not being part of this version of the language (import, export)
+   * - Bitwise operations being rarely needed for learning
+   */
+  private static readonly PERMANENTLY_EXCLUDED_TOKENS: TokenType[] = [
+    // Bad practices
+    "VAR", // Use 'let' or 'const' instead - var has confusing scoping rules
+    "WITH", // Deprecated and creates ambiguous code
+    // Not useful for education
+    "DEBUGGER",
+    "VOID",
+    // Too advanced/confusing
+    "YIELD",
+    "DELETE",
+    // Not part of this version
+    "IMPORT",
+    "EXPORT",
+    // Bitwise operators
+    "AMPERSAND",
+    "PIPE",
+    "CARET",
+    "TILDE",
+    "LEFT_SHIFT",
+    "RIGHT_SHIFT",
+    "AND_EQUAL",
+    "OR_EQUAL",
+    "XOR_EQUAL",
+  ];
+
+  /**
+   * NOT YET IMPLEMENTED TOKENS
+   * These JavaScript features ARE planned for future implementation
+   * but haven't been built yet. Students see the same message as
+   * features disabled for their exercise level.
+   */
+  private static readonly NOT_YET_IMPLEMENTED_TOKENS: TokenType[] = [
+    // Object-oriented features
+    "CLASS",
+    "EXTENDS",
+    "NEW",
+    "SUPER",
+    "THIS",
+    // Exception handling
+    "TRY",
+    "CATCH",
+    "FINALLY",
+    "THROW",
+    // Control flow
+    "SWITCH",
+    "CASE",
+    "DEFAULT",
+    "DO",
+    // Operators
+    "IN",
+    "INSTANCEOF",
+    "TYPEOF",
+    "QUESTION", // Ternary operator
+    "ARROW",
+    "PERCENT", // Modulo
+    // Compound assignments
+    "PLUS_EQUAL",
+    "MINUS_EQUAL",
+    "MULTIPLY_EQUAL",
+    "DIVIDE_EQUAL",
+    "MODULO_EQUAL",
+  ];
+
   private readonly tokenizers: Record<string, Function> = {
     "(": this.tokenizeLeftParanthesis,
     ")": this.tokenizeRightParanthesis,
@@ -568,86 +640,14 @@ export class Scanner {
   private addToken(type: TokenType, literal: any = null): void {
     this.verifyEnabled(type, this.lexeme());
 
-    /**
-     * PERMANENTLY EXCLUDED TOKENS
-     * These JavaScript features are intentionally NOT supported in this
-     * educational interpreter. They will NEVER be implemented due to:
-     * - Promoting bad practices (var, with)
-     * - Being too advanced/confusing for educational purposes (yield, delete)
-     * - Not being part of this version of the language (import, export)
-     * - Bitwise operations being rarely needed for learning
-     */
-    const PERMANENTLY_EXCLUDED_TOKENS: TokenType[] = [
-      // Bad practices
-      "VAR", // Use 'let' or 'const' instead - var has confusing scoping rules
-      "WITH", // Deprecated and creates ambiguous code
-      // Not useful for education
-      "DEBUGGER",
-      "VOID",
-      // Too advanced/confusing
-      "YIELD",
-      "DELETE",
-      // Not part of this version
-      "IMPORT",
-      "EXPORT",
-      // Bitwise operators
-      "AMPERSAND",
-      "PIPE",
-      "CARET",
-      "TILDE",
-      "LEFT_SHIFT",
-      "RIGHT_SHIFT",
-      "AND_EQUAL",
-      "OR_EQUAL",
-      "XOR_EQUAL",
-    ];
-
-    /**
-     * NOT YET IMPLEMENTED TOKENS
-     * These JavaScript features ARE planned for future implementation
-     * but haven't been built yet. Students see the same message as
-     * features disabled for their exercise level.
-     */
-    const NOT_YET_IMPLEMENTED_TOKENS: TokenType[] = [
-      // Object-oriented features
-      "CLASS",
-      "EXTENDS",
-      "NEW",
-      "SUPER",
-      "THIS",
-      // Exception handling
-      "TRY",
-      "CATCH",
-      "FINALLY",
-      "THROW",
-      // Control flow
-      "SWITCH",
-      "CASE",
-      "DEFAULT",
-      "DO",
-      // Operators
-      "IN",
-      "INSTANCEOF",
-      "TYPEOF",
-      "QUESTION", // Ternary operator
-      "ARROW",
-      "PERCENT", // Modulo
-      // Compound assignments
-      "PLUS_EQUAL",
-      "MINUS_EQUAL",
-      "MULTIPLY_EQUAL",
-      "DIVIDE_EQUAL",
-      "MODULO_EQUAL",
-    ];
-
-    if (PERMANENTLY_EXCLUDED_TOKENS.includes(type)) {
+    if (Scanner.PERMANENTLY_EXCLUDED_TOKENS.includes(type)) {
       this.error("PermanentlyExcludedToken", {
         tokenType: type,
         lexeme: this.lexeme(),
       });
     }
 
-    if (NOT_YET_IMPLEMENTED_TOKENS.includes(type)) {
+    if (Scanner.NOT_YET_IMPLEMENTED_TOKENS.includes(type)) {
       this.error("UnimplementedToken", {
         tokenType: type,
         lexeme: this.lexeme(),
