@@ -21,7 +21,7 @@ const validConfig = {
   date: "2025-01-15",
   author: "ihid",
   featured: false,
-  coverImage: "/images/blog/jiki-launch.jpg"
+  coverImage: "/images/blog/hello-world.jpg"
 };
 
 const validFrontmatter = {
