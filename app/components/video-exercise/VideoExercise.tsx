@@ -1,7 +1,7 @@
 "use client";
 
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
-import { markLessonComplete } from "@/lib/api/lessons";
+import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import MuxPlayer from "@mux/mux-player-react";
@@ -92,6 +92,8 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
   const [isMarking, setIsMarking] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
   const [isInitializing, setIsInitializing] = useState(true);
+  const [showCheckmark, setShowCheckmark] = useState(false);
+  const [isAlreadyCompleted, setIsAlreadyCompleted] = useState(false);
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
 
   // Extract video source from lesson data
@@ -100,6 +102,20 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
   const playbackId = videoSource?.id ?? "";
 
   useEffect(() => {
+    // Check if lesson is already completed
+    fetchUserLesson(lessonData.slug)
+      .then((userLesson) => {
+        if (userLesson.status === "completed") {
+          setIsAlreadyCompleted(true);
+          setVideoWatched(true);
+          setVideoProgress(100);
+          setShowCheckmark(true);
+        }
+      })
+      .catch(() => {
+        // User lesson doesn't exist yet, that's fine
+      });
+
     // Start playing immediately when component mounts
     setIsInitializing(false);
     if (playerRef.current) {
@@ -109,11 +125,18 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
         setIsVideoVisible(true);
       });
     }
-  }, []);
+  }, [lessonData.slug]);
 
   const handleVideoEnd = () => {
+    // If already completed, don't re-trigger animations
+    if (isAlreadyCompleted) {
+      return;
+    }
+
     setVideoWatched(true);
     setVideoProgress(100);
+    // Delay the checkmark animation slightly
+    setTimeout(() => setShowCheckmark(true), 100);
   };
 
   const handleVideoPlay = () => {
@@ -121,6 +144,11 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
   };
 
   const handleTimeUpdate = () => {
+    // Don't update progress if lesson was already completed
+    if (isAlreadyCompleted) {
+      return;
+    }
+
     if (playerRef.current) {
       const currentTime = playerRef.current.currentTime || 0;
       const duration = playerRef.current.duration || 1;
@@ -131,6 +159,12 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
 
   const handleContinue = async () => {
     if (isMarking) {
+      return;
+    }
+
+    // If already completed, just navigate to dashboard
+    if (isAlreadyCompleted) {
+      router.push(`/dashboard`);
       return;
     }
 
@@ -207,25 +241,32 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
       </div>
 
       {/* Floating Pill */}
-      <div className={styles.floatingPill}>
+      <div className={`${styles.floatingPill} ${!videoWatched ? styles.floatingPillDisabled : ""}`}>
         <div className={styles.pillInfo}>
           <div className={styles.pillRing}>
             <svg width="72" height="72" viewBox="0 0 72 72">
               <circle className={styles.pillRingBg} cx="36" cy="36" r="28" />
               <circle
-                className={styles.pillRingFill}
+                className={`${styles.pillRingFill} ${videoWatched ? styles.pillRingComplete : ""}`}
                 cx="36"
                 cy="36"
                 r="28"
-                style={{ strokeDashoffset: 176 * (1 - videoProgress / 100) }}
+                style={{ strokeDashoffset: isAlreadyCompleted ? 0 : 176 * (1 - videoProgress / 100) }}
               />
             </svg>
-            <span className={styles.pillPercentage}>{Math.round(videoProgress)}%</span>
+            <span className={`${styles.pillPercentage} ${showCheckmark ? styles.hidden : ""}`}>
+              {videoWatched ? "100%" : `${Math.round(videoProgress)}%`}
+            </span>
+            <div className={`${styles.pillCheck} ${showCheckmark ? styles.visible : ""}`}>
+              <svg viewBox="0 0 24 24">
+                <path d="M6 12l4 4 8-8" />
+              </svg>
+            </div>
           </div>
           <div className={styles.pillText}>
-            <span className={styles.label}>Lesson Progress</span>
+            <span className={styles.label}>{videoWatched ? "Lesson Complete" : "Lesson Progress"}</span>
             <span className={styles.value}>
-              Watching <span className={styles.videoTitle}>{lessonData.title}</span>
+              {videoWatched ? "Finished" : "Watching"} <span className={styles.videoTitle}>{lessonData.title}</span>
             </span>
           </div>
         </div>
@@ -233,14 +274,18 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
         <div className={styles.continueWrapper}>
           <ContinueTooltip disabled={videoWatched}>
             <button
-              className={styles.continuePillButton}
+              className={`ui-btn ui-btn-default ${
+                videoWatched ? "ui-btn-primary ui-btn-green" : "ui-btn-secondary ui-btn-gray"
+              } ${isMarking ? "ui-btn-loading" : ""}`}
               onClick={handleContinue}
               disabled={!videoWatched || isMarking}
             >
-              {isMarking ? "Saving..." : "Continue"}
-              <svg viewBox="0 0 24 24">
-                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
-              </svg>
+              {isMarking ? "Saving..." : isAlreadyCompleted ? "Continue to Dashboard" : "Continue"}
+              {!isMarking && (
+                <svg viewBox="0 0 24 24" className={styles.buttonIcon}>
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                </svg>
+              )}
             </button>
           </ContinueTooltip>
         </div>
