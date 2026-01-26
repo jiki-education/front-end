@@ -67,7 +67,12 @@ export function SignupForm() {
       });
       const redirectTo = getPostAuthRedirect(returnTo);
       if (redirectTo.startsWith("http")) {
-        window.location.href = redirectTo;
+        try {
+          window.location.href = redirectTo;
+        } catch (redirectErr) {
+          console.error("Redirect failed:", redirectErr);
+          router.push("/dashboard");
+        }
       } else {
         router.push(redirectTo);
       }
@@ -92,7 +97,12 @@ export function SignupForm() {
       .then(() => {
         const redirectTo = getPostAuthRedirect(returnTo);
         if (redirectTo.startsWith("http")) {
-          window.location.href = redirectTo;
+          try {
+            window.location.href = redirectTo;
+          } catch (redirectErr) {
+            console.error("Redirect failed:", redirectErr);
+            router.push("/dashboard");
+          }
         } else {
           router.push(redirectTo);
         }

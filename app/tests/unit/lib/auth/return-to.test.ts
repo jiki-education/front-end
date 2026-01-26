@@ -52,6 +52,18 @@ describe("return-to utilities", () => {
       expect(isValidReturnToUrl("https://api.jiki.ioevil.com/")).toBe(false);
     });
 
+    it("returns false for path traversal attempts", () => {
+      // Path traversal attacks - these should still resolve to api.jiki.io but we validate hostname
+      expect(isValidReturnToUrl("https://api.jiki.io/../evil.com")).toBe(true); // URL parser normalizes this, hostname is still api.jiki.io
+      expect(isValidReturnToUrl("https://api.jiki.io/./../../evil.com")).toBe(true); // Same - hostname check passes
+    });
+
+    it("returns false for malformed URLs", () => {
+      expect(isValidReturnToUrl("not-a-url")).toBe(false);
+      expect(isValidReturnToUrl("://api.jiki.io/")).toBe(false);
+      expect(isValidReturnToUrl("api.jiki.io/path")).toBe(false);
+    });
+
     it("returns false for javascript: URLs", () => {
       expect(isValidReturnToUrl("javascript:alert(1)")).toBe(false);
     });

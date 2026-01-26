@@ -60,7 +60,12 @@ export function LoginForm() {
       await login({ email, password });
       const redirectTo = getPostAuthRedirect(returnTo);
       if (redirectTo.startsWith("http")) {
-        window.location.href = redirectTo;
+        try {
+          window.location.href = redirectTo;
+        } catch (redirectErr) {
+          console.error("Redirect failed:", redirectErr);
+          router.push("/dashboard");
+        }
       } else {
         router.push(redirectTo);
       }
@@ -80,7 +85,12 @@ export function LoginForm() {
       .then(() => {
         const redirectTo = getPostAuthRedirect(returnTo);
         if (redirectTo.startsWith("http")) {
-          window.location.href = redirectTo;
+          try {
+            window.location.href = redirectTo;
+          } catch (redirectErr) {
+            console.error("Redirect failed:", redirectErr);
+            router.push("/dashboard");
+          }
         } else {
           router.push(redirectTo);
         }

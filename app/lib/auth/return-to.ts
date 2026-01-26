@@ -14,8 +14,12 @@ export function isValidReturnToUrl(url: string | null): boolean {
   if (!url) {
     return false;
   }
-  // Allow both http and https for dev/prod flexibility
-  return /^https?:\/\/api\.jiki\.io\//.test(url);
+  try {
+    const parsed = new URL(url);
+    return parsed.hostname === "api.jiki.io" && (parsed.protocol === "http:" || parsed.protocol === "https:");
+  } catch {
+    return false;
+  }
 }
 
 /**
