@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ProcessedPost } from "@/lib/content/generated/types";
+import type { ProcessedBlogPost } from "@/lib/content/generated/types";
 
 interface RelatedArticlesProps {
-  articles: ProcessedPost[];
+  articles: ProcessedBlogPost[];
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {

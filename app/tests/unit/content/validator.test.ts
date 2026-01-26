@@ -1,5 +1,6 @@
 import {
-  validateConfig,
+  validateBlogConfig,
+  validateArticleConfig,
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
@@ -17,11 +18,18 @@ const validAuthors: AuthorRegistry = {
   }
 };
 
-const validConfig = {
+const validBlogConfig = {
   date: "2025-01-15",
   author: "ihid",
   featured: false,
   coverImage: "/images/blog/hello-world.jpg"
+};
+
+const validArticleConfig = {
+  date: "2025-01-15",
+  author: "ihid",
+  featured: false,
+  listed: true
 };
 
 const validFrontmatter = {
@@ -34,46 +42,82 @@ const validFrontmatter = {
   }
 };
 
-describe("validateConfig", () => {
+describe("validateBlogConfig", () => {
   it("should accept valid config", () => {
     expect(() => {
-      validateConfig("test-post", validConfig, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", validBlogConfig, validAuthors, IMAGES_DIR);
     }).not.toThrow();
   });
 
   it("should reject config without date", () => {
-    const { date: _date, ...invalid } = validConfig;
+    const { date: _date, ...invalid } = validBlogConfig;
     expect(() => {
-      validateConfig("test-post", invalid, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", invalid, validAuthors, IMAGES_DIR);
     }).toThrow(ValidationError);
   });
 
   it("should reject invalid date format", () => {
-    const invalid = { ...validConfig, date: "01-15-2025" };
+    const invalid = { ...validBlogConfig, date: "01-15-2025" };
     expect(() => {
-      validateConfig("test-post", invalid, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", invalid, validAuthors, IMAGES_DIR);
     }).toThrow(/invalid date format/);
   });
 
   it("should reject non-existent author", () => {
-    const invalid = { ...validConfig, author: "nonexistent" };
+    const invalid = { ...validBlogConfig, author: "nonexistent" };
     expect(() => {
-      validateConfig("test-post", invalid, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", invalid, validAuthors, IMAGES_DIR);
     }).toThrow(/unknown author/);
   });
 
   it("should reject non-boolean featured field", () => {
-    const invalid = { ...validConfig, featured: "yes" };
+    const invalid = { ...validBlogConfig, featured: "yes" };
     expect(() => {
-      validateConfig("test-post", invalid, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", invalid, validAuthors, IMAGES_DIR);
     }).toThrow(/featured.*must be boolean/);
   });
 
   it("should reject non-existent cover image", () => {
-    const invalid = { ...validConfig, coverImage: "/images/blog/nonexistent.jpg" };
+    const invalid = { ...validBlogConfig, coverImage: "/images/blog/nonexistent.jpg" };
     expect(() => {
-      validateConfig("test-post", invalid, validAuthors, IMAGES_DIR);
+      validateBlogConfig("test-post", invalid, validAuthors, IMAGES_DIR);
     }).toThrow(/missing cover image/);
+  });
+});
+
+describe("validateArticleConfig", () => {
+  it("should accept valid config", () => {
+    expect(() => {
+      validateArticleConfig("test-article", validArticleConfig, validAuthors);
+    }).not.toThrow();
+  });
+
+  it("should reject config without date", () => {
+    const { date: _date, ...invalid } = validArticleConfig;
+    expect(() => {
+      validateArticleConfig("test-article", invalid, validAuthors);
+    }).toThrow(ValidationError);
+  });
+
+  it("should reject config without listed field", () => {
+    const { listed: _listed, ...invalid } = validArticleConfig;
+    expect(() => {
+      validateArticleConfig("test-article", invalid, validAuthors);
+    }).toThrow(/missing required field.*listed/);
+  });
+
+  it("should reject non-boolean listed field", () => {
+    const invalid = { ...validArticleConfig, listed: "yes" };
+    expect(() => {
+      validateArticleConfig("test-article", invalid, validAuthors);
+    }).toThrow(/listed.*must be boolean/);
+  });
+
+  it("should accept listed: false", () => {
+    const config = { ...validArticleConfig, listed: false };
+    expect(() => {
+      validateArticleConfig("test-article", config, validAuthors);
+    }).not.toThrow();
   });
 });
 

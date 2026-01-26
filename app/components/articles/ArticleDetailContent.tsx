@@ -1,8 +1,8 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
-import type { ProcessedPost } from "@/lib/content/generated/types";
+import type { ProcessedArticle } from "@/lib/content/generated/types";
 
 interface ArticleDetailContentProps {
-  article: ProcessedPost;
+  article: ProcessedArticle;
   variant?: "authenticated" | "unauthenticated";
 }
 

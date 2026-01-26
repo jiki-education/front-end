@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { ProcessedPost } from "@/lib/content/generated/types";
+import type { ProcessedArticle } from "@/lib/content/generated/types";
 
 interface ArticlesContentProps {
-  articles: ProcessedPost[];
+  articles: ProcessedArticle[];
   authenticated: boolean;
   locale: string;
 }

@@ -9,36 +9,24 @@ export class ValidationError extends Error {
   }
 }
 
-export interface Config {
+export interface BlogConfig {
   date: string;
   author: string;
   featured: boolean;
   coverImage: string;
 }
 
+export interface ArticleConfig {
+  date: string;
+  author: string;
+  featured: boolean;
+  listed: boolean;
+}
+
 /**
- * Validate config.json structural metadata
+ * Validate common config fields (date, author, featured)
  */
-export function validateConfig(
-  slug: string,
-  config: unknown,
-  authors: AuthorRegistry,
-  imagesDir: string
-): asserts config is Config {
-  if (config === null || typeof config !== "object") {
-    throw new ValidationError(`Post '${slug}' has invalid config.json: not an object`);
-  }
-
-  const cfg = config as Record<string, unknown>;
-
-  // Validate required fields
-  const requiredFields = ["date", "author", "featured", "coverImage"];
-  for (const field of requiredFields) {
-    if (!(field in cfg)) {
-      throw new ValidationError(`Post '${slug}' config.json missing required field: ${field}`);
-    }
-  }
-
+function validateCommonConfigFields(slug: string, cfg: Record<string, unknown>, authors: AuthorRegistry): void {
   // Validate date format (YYYY-MM-DD)
   if (typeof cfg.date !== "string") {
     throw new ValidationError(`Post '${slug}' config.json has invalid date: must be string`);
@@ -71,6 +59,32 @@ export function validateConfig(
   if (typeof cfg.featured !== "boolean") {
     throw new ValidationError(`Post '${slug}' config.json has invalid featured: must be boolean`);
   }
+}
+
+/**
+ * Validate blog post config.json
+ */
+export function validateBlogConfig(
+  slug: string,
+  config: unknown,
+  authors: AuthorRegistry,
+  imagesDir: string
+): asserts config is BlogConfig {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Post '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  // Validate required fields
+  const requiredFields = ["date", "author", "featured", "coverImage"];
+  for (const field of requiredFields) {
+    if (!(field in cfg)) {
+      throw new ValidationError(`Post '${slug}' config.json missing required field: ${field}`);
+    }
+  }
+
+  validateCommonConfigFields(slug, cfg, authors);
 
   // Validate coverImage
   if (typeof cfg.coverImage !== "string" || cfg.coverImage.trim() === "") {
@@ -83,6 +97,36 @@ export function validateConfig(
 
   if (!fs.existsSync(coverImageFullPath)) {
     throw new ValidationError(`Post '${slug}' config.json references missing cover image: ${coverImagePath}`);
+  }
+}
+
+/**
+ * Validate article config.json
+ */
+export function validateArticleConfig(
+  slug: string,
+  config: unknown,
+  authors: AuthorRegistry
+): asserts config is ArticleConfig {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Article '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  // Validate required fields (no coverImage for articles)
+  const requiredFields = ["date", "author", "featured", "listed"];
+  for (const field of requiredFields) {
+    if (!(field in cfg)) {
+      throw new ValidationError(`Article '${slug}' config.json missing required field: ${field}`);
+    }
+  }
+
+  validateCommonConfigFields(slug, cfg, authors);
+
+  // Validate listed
+  if (typeof cfg.listed !== "boolean") {
+    throw new ValidationError(`Article '${slug}' config.json has invalid listed: must be boolean`);
   }
 }
 
