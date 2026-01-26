@@ -70,7 +70,7 @@ test.describe("Blog Post Page E2E", () => {
 
   test("should display post metadata", async ({ page }) => {
     // Check for date
-    const date = page.locator("time");
+    const date = page.locator("time").first();
     await expect(date).toBeVisible();
 
     // Check for author - in the purple header for unauthenticated users
