@@ -1,11 +1,11 @@
 import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
-import type { SubscriptionStatus } from "../subscription/types";
+import type { SubscriptionStatus as SubscriptionStatusType } from "../subscription/types";
 import styles from "../Settings.module.css";
 
 interface SubscriptionStatusProps {
   tier: MembershipTier;
-  status: SubscriptionStatus;
+  status: SubscriptionStatusType;
   nextBillingDate: string | null;
   className?: string;
 }
@@ -13,6 +13,7 @@ interface SubscriptionStatusProps {
 export default function SubscriptionStatus({ tier, status, nextBillingDate, className = "" }: SubscriptionStatusProps) {
   const tierDetails = PRICING_TIERS[tier];
   const isActiveSubscription = tier !== "standard" && status === "active";
+  const isCancelling = tier !== "standard" && status === "cancelling";
 
   // Status badge configuration
   const statusConfig = {
@@ -60,15 +61,8 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
     // Active paid subscription
     return (
       <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between">
           <h3>Current Plan</h3>
-          <div
-            className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
-            role="status"
-            aria-label={`Subscription status: ${statusInfo.text}`}
-          >
-            {statusInfo.text}
-          </div>
         </div>
         <p>
           You are on the <span className={styles.gradientText}>Jiki {tierDetails.name}</span> plan at{" "}
@@ -79,6 +73,36 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
             </>
           )}
           .
+        </p>
+      </div>
+    );
+  }
+
+  // Cancelling subscription
+  if (isCancelling) {
+    const daysRemaining = calculateDaysRemaining(nextBillingDate);
+
+    return (
+      <div className={`${styles.settingItem} ${styles.currentPlanItemCancelled} ${className}`}>
+        <h3>Current Plan</h3>
+        <p>
+          Your Jiki Premium subscription has been cancelled.
+          {daysRemaining !== null && (
+            <>
+              {" "}
+              You have{" "}
+              <strong>
+                {daysRemaining} {daysRemaining === 1 ? "day" : "days"}
+              </strong>{" "}
+              remaining to enjoy all Premium features.
+            </>
+          )}
+          {nextBillingDate && (
+            <>
+              {" "}
+              Your Premium plan will end on <strong>{nextBillingDate}</strong>.
+            </>
+          )}
         </p>
       </div>
     );
@@ -142,4 +166,20 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
       </div>
     </div>
   );
+}
+
+function calculateDaysRemaining(dateString: string | null): number | null {
+  if (!dateString) {
+    return null;
+  }
+
+  const endDate = new Date(dateString);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  endDate.setHours(0, 0, 0, 0);
+
+  const diffTime = endDate.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  return diffDays > 0 ? diffDays : 0;
 }

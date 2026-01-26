@@ -24,10 +24,11 @@ describe("SubscriptionStatus", () => {
   });
 
   describe("Status display", () => {
-    it("displays Active status", () => {
+    it("displays active premium subscription", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
-      expect(screen.getByText("Active")).toBeInTheDocument();
+      expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
+      expect(screen.getByText(/\$3\.99\/month/)).toBeInTheDocument();
     });
 
     it("displays Canceled status", () => {
@@ -44,11 +45,12 @@ describe("SubscriptionStatus", () => {
       expect(screen.getByText("Payment failed - please update payment method")).toBeInTheDocument();
     });
 
-    it("displays Cancelling status", () => {
+    it("displays cancelling status with end date", () => {
       render(<SubscriptionStatus tier="premium" status="cancelling" nextBillingDate="2024-12-31" />);
 
-      expect(screen.getByText("Cancelling")).toBeInTheDocument();
-      expect(screen.getByText("Cancellation scheduled - access until period end")).toBeInTheDocument();
+      expect(screen.getByText(/Your Jiki Premium subscription has been cancelled/)).toBeInTheDocument();
+      expect(screen.getByText(/Your Premium plan will end on/)).toBeInTheDocument();
+      expect(screen.getByText("2024-12-31")).toBeInTheDocument();
     });
 
     it("displays Incomplete status", () => {
@@ -97,11 +99,11 @@ describe("SubscriptionStatus", () => {
       expect(screen.queryByText("Not Subscribed")).not.toBeInTheDocument();
     });
 
-    it("shows status badge for premium tier", () => {
+    it("shows premium plan details for premium tier", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
       expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText("Active")).toBeInTheDocument();
+      expect(screen.getByText(/\$3\.99\/month/)).toBeInTheDocument();
     });
 
     // Max tier removed - only standard and premium now
@@ -118,13 +120,11 @@ describe("SubscriptionStatus", () => {
   });
 
   describe("Accessibility", () => {
-    it("provides proper aria labels", () => {
+    it("renders accessible heading for current plan", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
-      // Component provides aria-label for subscription status
-      expect(screen.getByLabelText("Subscription status: Active")).toBeInTheDocument();
+      // Component provides heading for current plan section
+      expect(screen.getByRole("heading", { name: "Current Plan" })).toBeInTheDocument();
     });
-
-    // Screen reader text tests removed - component doesn't include sr-only text elements
   });
 });
