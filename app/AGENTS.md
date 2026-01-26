@@ -22,22 +22,22 @@ The `.context/` directory contains detailed documentation for this codebase. **R
 
 You can read these files at **any point during your work** - even in the middle of implementing a plan if appropriate.
 
-| File              | When to Read                                               |
-| ----------------- | ---------------------------------------------------------- |
-| `coding-style.md` | **Always read first** - coding style and file organization |
-| `commands.md`     | Running dev server, tests, builds, linting                 |
-| `testing.md`      | Writing or editing tests                                   |
-| `eslint.md`       | Fixing lint errors, adding lint exceptions                 |
-| `css-styles.md`   | CSS styling (Tailwind, UI Kit, CSS Modules)                |
-| `images.md`       | Working with icons, SVGs, or images                        |
-| `architecture.md` | Understanding project structure                            |
-| `tech-stack.md`   | Technologies, frameworks, dependencies                     |
-| `modals.md`       | Global modal system                                        |
-| `toasts.md`       | Toast notifications                                        |
-| `content.md`      | Blog posts and articles integration                        |
-| `about-jiki.md`   | Jiki platform overview                                     |
-| `deployment.md`   | Deployment process                                         |
-| `git.md`          | Git hooks configuration                                    |
+| File              | When to Read                                                 |
+| ----------------- | ------------------------------------------------------------ |
+| `coding-style.md` | **Always read first** - coding style and file organization   |
+| `commands.md`     | **Always read** - running dev server, tests, builds, linting |
+| `testing.md`      | Writing or editing tests                                     |
+| `eslint.md`       | Fixing lint errors, adding lint exceptions                   |
+| `css-styles.md`   | CSS styling (Tailwind, UI Kit, CSS Modules)                  |
+| `images.md`       | Working with icons, SVGs, or images                          |
+| `architecture.md` | Understanding project structure                              |
+| `tech-stack.md`   | Technologies, frameworks, dependencies                       |
+| `modals.md`       | Global modal system                                          |
+| `toasts.md`       | Toast notifications                                          |
+| `content.md`      | Blog posts and articles integration                          |
+| `about-jiki.md`   | Jiki platform overview                                       |
+| `deployment.md`   | Deployment process                                           |
+| `git.md`          | Git hooks configuration                                      |
 
 ### Coding Exercise Context Files
 
@@ -64,14 +64,14 @@ Starts the development server on http://localhost:3071
 ### Build, TypeScript & Lint
 
 ```bash
-npx tsc --noEmit # Check TypeScript types (use this instead of build)
+pnpm typecheck   # Check TypeScript types (run from monorepo root)
 pnpm run lint    # Run ESLint
 pnpm run build   # Production build with Turbopack (AVOID - breaks dev server)
 ```
 
 **IMPORTANT**:
 
-- **Always use `npx tsc --noEmit` for TypeScript checking** instead of `pnpm run build`. Running the build command can cause the dev server to break with ENOENT errors for buildManifest.js.tmp files due to Turbopack cache conflicts.
+- **Always use `pnpm typecheck` for TypeScript checking** (run from the monorepo root) instead of `pnpm run build`. Running the build command can cause the dev server to break with ENOENT errors for buildManifest.js.tmp files due to Turbopack cache conflicts.
 - Before fixing any ESLint errors, always read `.context/eslint.md` for guidelines on handling lint issues and when to add exception comments.
 
 ## Project Structure Patterns
@@ -184,7 +184,7 @@ import Image from "next/image";
 - Integration tests go in `tests/integration/` directory
 - E2E tests go in `tests/e2e/` directory
 - Never place test files alongside source files
-- **ALWAYS run `npx tsc --noEmit` after running tests to check for TypeScript errors**
+- **ALWAYS run `pnpm typecheck` after running tests to check for TypeScript errors**
 
 ## Important Rules
 

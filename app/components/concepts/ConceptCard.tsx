@@ -29,7 +29,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
       <div className={styles.conceptContent}>
         <div className={styles.conceptTitle}>{concept.title}</div>
         <div className={styles.conceptDescription}>{concept.description}</div>
-        {concept.subConceptCount && (
+        {(concept.subConceptCount ?? 0) > 0 && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
             <span>{concept.subConceptCount} sub-concepts</span>

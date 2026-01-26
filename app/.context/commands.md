@@ -3,7 +3,7 @@
 ## Core Commands
 
 - `./bin/dev-claude` - Start development server on port 3071 (for AI assistants)
-- `npx tsc --noEmit` - Check TypeScript types (preferred for type checking)
+- `pnpm typecheck` - Check TypeScript types (run from monorepo root)
 - `pnpm run lint` - Run ESLint for code quality checks
 - `pnpm run format` - Format code with Prettier
 - `pnpm run format:check` - Check code formatting without changing files
@@ -16,7 +16,7 @@
 
 - `pnpm test` - Run unit tests once
 - `pnpm test:watch` - Run unit tests in watch mode
-- `npx tsc --noEmit` - Run after tests to check for TypeScript errors
+- `pnpm typecheck` - Run after tests to check for TypeScript errors
 
 ### E2E Tests (Playwright)
 
@@ -60,4 +60,4 @@ The dev server runs on port 3061 by default:
 
 - **Build Command**: Avoid using `pnpm run build` during development as it can cause the dev server to break with ENOENT errors for buildManifest.js.tmp files
 - **Turbopack**: Currently disabled due to incompatibility with pnpm workspaces and the interpreters package. Using webpack instead
-- **Type Checking**: Always use `npx tsc --noEmit` for type checking instead of the build command
+- **Type Checking**: Always use `pnpm typecheck` (from monorepo root) for type checking instead of the build command
