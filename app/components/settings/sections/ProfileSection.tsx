@@ -1,8 +1,7 @@
 "use client";
 
-import { showModal } from "@/lib/modal/store";
 import type { UserSettings } from "@/lib/api/types/settings";
-import InlineEdit from "../ui/InlineEdit";
+import EditableField from "../ui/EditableField";
 import StatusNotification from "../ui/StatusNotification";
 import styles from "../Settings.module.css";
 
@@ -10,19 +9,10 @@ interface ProfileSectionProps {
   settings: UserSettings;
   updateName: (name: string) => Promise<void>;
   updateHandle: (handle: string) => Promise<void>;
-  updateEmail: (email: string, sudoPassword: string) => Promise<void>;
+  updateEmail: (email: string) => Promise<void>;
 }
 
 export default function ProfileSection({ settings, updateName, updateHandle, updateEmail }: ProfileSectionProps) {
-  const handleEmailChange = () => {
-    showModal("change-email-modal", {
-      currentEmail: settings.email,
-      onSave: async (newEmail: string, currentPassword: string) => {
-        await updateEmail(newEmail, currentPassword);
-      }
-    });
-  };
-
   // Validation functions
   const validateName = (value: string): string | null => {
     if (!value.trim()) {
@@ -50,47 +40,64 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
     return null;
   };
 
+  const validateEmail = (value: string): string | null => {
+    if (!value.trim()) {
+      return "Email cannot be empty";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      return "Please enter a valid email address";
+    }
+    return null;
+  };
+
   return (
-    <div className={styles.settingItem}>
-      <h3>Profile Information</h3>
-      <div className="space-y-16">
-        <InlineEdit
+    <>
+      <div className={styles.accountField}>
+        <EditableField
           label="Name"
           value={settings.name || ""}
           onSave={updateName}
           placeholder="Enter your name"
           validation={validateName}
+          updateButtonText="Update Name"
         />
+      </div>
 
-        <InlineEdit
+      <div className={styles.accountField}>
+        <EditableField
           label="Handle"
           value={settings.handle || ""}
           onSave={updateHandle}
           placeholder="Enter your handle"
           validation={validateHandle}
+          updateButtonText="Update Handle"
         />
-
-        <div className="ui-form-field-large">
-          <label className="text-sm font-semibold">Email</label>
-          <input type="email" value={settings.email || ""} placeholder="Enter your email" readOnly />
-          <button onClick={handleEmailChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8 mb-16">
-            Change Email
-          </button>
-          {settings.unconfirmed_email && (
-            <StatusNotification variant="info">
-              <p>
-                Confirmation pending for: <strong>{settings.unconfirmed_email}</strong>
-              </p>
-              <p className="text-xs mt-1">Please check your email to confirm the change.</p>
-            </StatusNotification>
-          )}
-          {!settings.email_confirmed && !settings.unconfirmed_email && (
-            <StatusNotification variant="warning">
-              <p>Your email address is not confirmed.</p>
-            </StatusNotification>
-          )}
-        </div>
       </div>
-    </div>
+
+      <div className={styles.accountField}>
+        <EditableField
+          label="Email"
+          value={settings.email || ""}
+          onSave={updateEmail}
+          type="email"
+          placeholder="Enter your email"
+          validation={validateEmail}
+          updateButtonText="Update Email"
+        />
+        {settings.unconfirmed_email && (
+          <StatusNotification variant="info">
+            <p>
+              Confirmation pending for: <strong>{settings.unconfirmed_email}</strong>
+            </p>
+            <p className="text-xs mt-1">Please check your email to confirm the change.</p>
+          </StatusNotification>
+        )}
+        {!settings.email_confirmed && !settings.unconfirmed_email && (
+          <StatusNotification variant="warning">
+            <p>Your email address is not confirmed.</p>
+          </StatusNotification>
+        )}
+      </div>
+    </>
   );
 }

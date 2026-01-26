@@ -11,7 +11,7 @@
 
 /* Settings content area */
 .settingsContent {
-    max-width: 774px;
+    max-width: 660px;
 }
 
 /* Setting item cards */
@@ -20,6 +20,19 @@
     background: var(--color-gray-50);
     border-radius: 12px;
     margin-bottom: 16px;
+}
+
+/* Account field cards (Profile & Security sections) */
+.accountField {
+    &:first-child {
+        padding-bottom: 24px;
+    }
+    &:not(:first-child) {
+        padding: 24px 0;
+    }
+    &:not(:last-child) {
+        border-bottom: 1px solid var(--color-gray-200);
+    }
 }
 
 .settingItem h3 {
