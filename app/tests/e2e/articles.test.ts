@@ -1,6 +1,14 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Articles Page E2E", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await page.goto("/articles");
+    await page.locator("h1").waitFor();
+    await page.close();
+  });
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/articles");
     // Wait for articles content to load - look for the container div or h1
