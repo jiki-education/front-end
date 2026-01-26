@@ -1,0 +1,12 @@
+{
+  "slug": "two-fer",
+  "title": "Two-Fer",
+  "instructions": "In some English accents, when you say 'two for' quickly, it sounds like 'two fer'. Two-for-one is a way of saying that if you buy one, you also get one for free.\n\nImagine a bakery that has a holiday offer where you can buy two cookies for the price of one. You take the offer and decide to give the extra cookie to someone else.\n\nYour task is to determine what you will say as you give away the extra cookie.\n\nIf you know the person's name (e.g. Alice), then you will say: 'One for Alice, one for me.'\n\nIf you don't know the person's name, you will say: 'One for you, one for me.'\n\nWrite a function called `two_fer` that accepts a name string and returns the appropriate dialogue. If the name is empty, use 'you' instead.",
+  "estimatedMinutes": 10,
+  "levelId": "everything",
+  "hints": [
+    "Check if the name is empty",
+    "Use concatenate() to build the result string",
+    "The pattern is 'One for [name], one for me.'"
+  ]
+}

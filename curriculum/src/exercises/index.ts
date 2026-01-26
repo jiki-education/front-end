@@ -26,7 +26,10 @@ export const exercises = {
   "protein-translation": () => import("./protein-translation"),
   pangram: () => import("./pangram"),
   sunset: () => import("./sunset"),
-  rainbow: () => import("./rainbow")
+  rainbow: () => import("./rainbow"),
+  "rna-transcription": () => import("./rna-transcription"),
+  "scrabble-score": () => import("./scrabble-score"),
+  "two-fer": () => import("./two-fer")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

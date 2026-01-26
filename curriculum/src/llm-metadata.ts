@@ -33,6 +33,9 @@ import { llmMetadata as proteinTranslationLLM } from "./exercises/protein-transl
 import { llmMetadata as pangramLLM } from "./exercises/pangram/llm-metadata";
 import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
 import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
+import { llmMetadata as rnaTranscriptionLLM } from "./exercises/rna-transcription/llm-metadata";
+import { llmMetadata as scrabbleScoreLLM } from "./exercises/scrabble-score/llm-metadata";
+import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -68,7 +71,10 @@ const llmMetadataRegistry = {
   "protein-translation": proteinTranslationLLM,
   pangram: pangramLLM,
   sunset: sunsetLLM,
-  rainbow: rainbowLLM
+  rainbow: rainbowLLM,
+  "rna-transcription": rnaTranscriptionLLM,
+  "scrabble-score": scrabbleScoreLLM,
+  "two-fer": twoFerLLM
 } as const;
 
 /**
