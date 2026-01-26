@@ -39,12 +39,14 @@ export default function TypeItAssistantMessage({
       <div className={styles.responseContent}>
         {status === "typing" && content ? (
           <TypeIt
+            as="div"
             options={{
               strings: [processMessageContent(content)],
               speed: typingSpeed,
               html: true,
               lifeLike: true,
               cursor: false,
+              waitUntilVisible: true,
               afterComplete: () => {
                 onTypingComplete?.();
               }

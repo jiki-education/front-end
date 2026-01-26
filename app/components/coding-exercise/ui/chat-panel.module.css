@@ -307,6 +307,11 @@
     }
 }
 
+/* Remove TypeIt's ::before pseudo-element */
+[data-typeit-id]:before {
+    display: none !important;
+}
+
 .chatInputContainer {
     position: relative;
     display: flex;
