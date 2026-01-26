@@ -87,7 +87,7 @@
     font-size: 16px;
     font-weight: 700;
     box-shadow: 0 2px 8px var(--color-green-500-30);
-    z-index: 999;
+    z-index: 10;
 }
 
 .lessonPart.inProgress {
@@ -139,7 +139,7 @@
     background-size: 14px 14px;
     border-radius: 50%;
     box-shadow: 0 2px 8px var(--color-gray-200-50);
-    z-index: 999;
+    z-index: 10;
     opacity: 0.3;
 }
 
@@ -452,7 +452,7 @@
     font-size: 16px;
     font-weight: 700;
     box-shadow: 0 2px 8px var(--color-green-500-30);
-    z-index: 999;
+    z-index: 10;
     animation: checkmarkAppear 0.4s ease-out 0.4s backwards;
 }
 
@@ -471,7 +471,7 @@
     background-size: 14px 14px;
     border-radius: 50%;
     box-shadow: 0 2px 8px var(--color-gray-200-50);
-    z-index: 999;
+    z-index: 10;
     animation: lockOpen 33s ease-out forwards;
     transform-origin: center;
 }

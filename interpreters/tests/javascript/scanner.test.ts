@@ -495,79 +495,135 @@ describe.skip("synthetic", () => {
   });
 });
 
-// UNIMPLEMENTED TOKENS
+// TOKEN AVAILABILITY
+// Tokens are categorized into:
+// 1. Permanently Excluded - will never be available in this version of JavaScript
+// 2. Not Yet Implemented - planned for future implementation
 // When implementing a token, move it from this section to the appropriate section above
 // and uncomment it in the test arrays.
-describe("JavaScript - Unimplemented Tokens", () => {
-  describe("Unimplemented Keywords", () => {
-    const unimplementedKeywords = [
-      { token: "case", type: "CASE" },
-      { token: "catch", type: "CATCH" },
-      { token: "class", type: "CLASS" },
-      { token: "debugger", type: "DEBUGGER" },
-      { token: "default", type: "DEFAULT" },
-      { token: "delete", type: "DELETE" },
-      { token: "do", type: "DO" },
-      { token: "export", type: "EXPORT" },
-      { token: "extends", type: "EXTENDS" },
-      { token: "finally", type: "FINALLY" },
-      { token: "import", type: "IMPORT" },
-      { token: "in", type: "IN" },
-      { token: "instanceof", type: "INSTANCEOF" },
-      { token: "new", type: "NEW" },
-      { token: "super", type: "SUPER" },
-      { token: "switch", type: "SWITCH" },
-      { token: "this", type: "THIS" },
-      { token: "throw", type: "THROW" },
-      { token: "try", type: "TRY" },
-      { token: "typeof", type: "TYPEOF" },
-      { token: "var", type: "VAR" },
-      { token: "void", type: "VOID" },
-      { token: "with", type: "WITH" },
-      { token: "yield", type: "YIELD" },
-    ];
+describe("JavaScript - Token Availability", () => {
+  describe("Permanently Excluded Tokens", () => {
+    describe("Keywords", () => {
+      const permanentlyExcludedKeywords = [
+        { token: "var", type: "VAR" },
+        { token: "with", type: "WITH" },
+        { token: "debugger", type: "DEBUGGER" },
+        { token: "void", type: "VOID" },
+        { token: "yield", type: "YIELD" },
+        { token: "delete", type: "DELETE" },
+        { token: "import", type: "IMPORT" },
+        { token: "export", type: "EXPORT" },
+      ];
 
-    unimplementedKeywords.forEach(({ token, type }) => {
-      test(`should error on '${token}' keyword`, () => {
-        const result = interpret(`${token};`);
-        expect(result.error).toBeDefined();
-        expect(result.error?.type).toBe("UnimplementedToken");
-        expect(result.error?.context).toEqual({
-          tokenType: type,
-          lexeme: token,
+      permanentlyExcludedKeywords.forEach(({ token, type }) => {
+        test(`should error on '${token}' keyword as permanently excluded`, () => {
+          const result = interpret(`${token};`);
+          expect(result.error).toBeDefined();
+          expect(result.error?.type).toBe("PermanentlyExcludedToken");
+          expect(result.error?.context).toEqual({
+            tokenType: type,
+            lexeme: token,
+          });
+        });
+      });
+    });
+
+    describe("Bitwise Operators", () => {
+      const permanentlyExcludedOperators = [
+        { code: "5 & 3", token: "&", type: "AMPERSAND" },
+        { code: "5 | 3", token: "|", type: "PIPE" },
+        { code: "5 ^ 3", token: "^", type: "CARET" },
+        { code: "~5", token: "~", type: "TILDE" },
+        { code: "x << 2", token: "<<", type: "LEFT_SHIFT" },
+        { code: "x >> 2", token: ">>", type: "RIGHT_SHIFT" },
+        { code: "x &= 3", token: "&=", type: "AND_EQUAL" },
+        { code: "x |= 3", token: "|=", type: "OR_EQUAL" },
+        { code: "x ^= 3", token: "^=", type: "XOR_EQUAL" },
+      ];
+
+      permanentlyExcludedOperators.forEach(({ code, token, type }) => {
+        test(`should error on '${token}' operator as permanently excluded`, () => {
+          const result = interpret(code + ";");
+          expect(result.error).toBeDefined();
+          expect(result.error?.type).toBe("PermanentlyExcludedToken");
+          expect(result.error?.context.tokenType).toBe(type);
         });
       });
     });
   });
 
-  describe("Unimplemented Operators", () => {
-    const unimplementedOperators = [
-      { code: "5 & 3", token: "&", type: "AMPERSAND" },
-      { code: "5 ^ 3", token: "^", type: "CARET" },
-      { code: "5 % 2", token: "%", type: "PERCENT" },
-      { code: "5 | 3", token: "|", type: "PIPE" },
-      { code: "true ? 1 : 2", token: "?", type: "QUESTION" },
-      { code: "~5", token: "~", type: "TILDE" },
-      { code: "() => 5", token: "=>", type: "ARROW" },
-      { code: "x &= 3", token: "&=", type: "AND_EQUAL" },
-      { code: "x /= 2", token: "/=", type: "DIVIDE_EQUAL" },
-      { code: "x << 2", token: "<<", type: "LEFT_SHIFT" },
-      { code: "x -= 2", token: "-=", type: "MINUS_EQUAL" },
-      { code: "x %= 2", token: "%=", type: "MODULO_EQUAL" },
-      { code: "x *= 2", token: "*=", type: "MULTIPLY_EQUAL" },
-      { code: "x |= 3", token: "|=", type: "OR_EQUAL" },
-      { code: "x += 2", token: "+=", type: "PLUS_EQUAL" },
-      { code: "x >> 2", token: ">>", type: "RIGHT_SHIFT" },
-      { code: "x ^= 3", token: "^=", type: "XOR_EQUAL" },
-    ];
+  describe("Not Yet Implemented Tokens", () => {
+    describe("Keywords", () => {
+      const notYetImplementedKeywords = [
+        { token: "case", type: "CASE" },
+        { token: "catch", type: "CATCH" },
+        { token: "class", type: "CLASS" },
+        { token: "default", type: "DEFAULT" },
+        { token: "do", type: "DO" },
+        { token: "extends", type: "EXTENDS" },
+        { token: "finally", type: "FINALLY" },
+        { token: "in", type: "IN" },
+        { token: "instanceof", type: "INSTANCEOF" },
+        { token: "new", type: "NEW" },
+        { token: "super", type: "SUPER" },
+        { token: "switch", type: "SWITCH" },
+        { token: "this", type: "THIS" },
+        { token: "throw", type: "THROW" },
+        { token: "try", type: "TRY" },
+        { token: "typeof", type: "TYPEOF" },
+      ];
 
-    unimplementedOperators.forEach(({ code, token, type }) => {
-      test(`should error on '${token}' operator`, () => {
-        const result = interpret(code + ";");
-        expect(result.error).toBeDefined();
-        expect(result.error?.type).toBe("UnimplementedToken");
-        expect(result.error?.context.tokenType).toBe(type);
+      notYetImplementedKeywords.forEach(({ token, type }) => {
+        test(`should error on '${token}' keyword as not yet implemented`, () => {
+          const result = interpret(`${token};`);
+          expect(result.error).toBeDefined();
+          expect(result.error?.type).toBe("UnimplementedToken");
+          expect(result.error?.context).toEqual({
+            tokenType: type,
+            lexeme: token,
+          });
+        });
       });
+    });
+
+    describe("Operators", () => {
+      const notYetImplementedOperators = [
+        { code: "5 % 2", token: "%", type: "PERCENT" },
+        { code: "true ? 1 : 2", token: "?", type: "QUESTION" },
+        { code: "() => 5", token: "=>", type: "ARROW" },
+        { code: "x += 2", token: "+=", type: "PLUS_EQUAL" },
+        { code: "x -= 2", token: "-=", type: "MINUS_EQUAL" },
+        { code: "x *= 2", token: "*=", type: "MULTIPLY_EQUAL" },
+        { code: "x /= 2", token: "/=", type: "DIVIDE_EQUAL" },
+        { code: "x %= 2", token: "%=", type: "MODULO_EQUAL" },
+      ];
+
+      notYetImplementedOperators.forEach(({ code, token, type }) => {
+        test(`should error on '${token}' operator as not yet implemented`, () => {
+          const result = interpret(code + ";");
+          expect(result.error).toBeDefined();
+          expect(result.error?.type).toBe("UnimplementedToken");
+          expect(result.error?.context.tokenType).toBe(type);
+        });
+      });
+    });
+  });
+
+  describe("Disabled Language Features", () => {
+    test("exclude list blocks tokens with correct error type", () => {
+      const result = interpret("let x = 5;", {
+        languageFeatures: { excludeList: ["LET"] },
+      });
+      expect(result.error).toBeDefined();
+      expect(result.error?.type).toBe("DisabledFeatureExcludeListViolation");
+    });
+
+    test("include list blocks unlisted tokens with correct error type", () => {
+      const result = interpret("let x = 5;", {
+        languageFeatures: { includeList: ["NUMBER", "IDENTIFIER", "EQUAL", "SEMICOLON", "EOF"] },
+      });
+      expect(result.error).toBeDefined();
+      expect(result.error?.type).toBe("DisabledFeatureIncludeListViolation");
     });
   });
 });

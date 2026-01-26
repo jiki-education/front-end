@@ -29,6 +29,16 @@
     };
     ```
 
+## UI/UX Issues
+
+### Medium Priority
+
+- [ ] **Add proper Terms of Service and Privacy Policy links**
+  - **File**: `lib/modal/modals/SubscriptionCheckoutModal.tsx:146-148`
+  - **Issue**: The Terms of Service and Privacy Policy links in the checkout modal are using placeholder "#" hrefs
+  - **Fix**: Replace with actual links to the Terms of Service and Privacy Policy pages
+  - **Implementation**: Update the links once the actual pages/routes are available
+
 ## Completed Items
 
 ### 2024-01-22

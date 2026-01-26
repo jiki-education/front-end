@@ -1,4 +1,3 @@
-import type { MembershipTier } from "@/lib/pricing";
 import type { User } from "@/types/auth";
 import {
   NeverSubscribedActions,
@@ -24,27 +23,14 @@ type SubscriptionState =
 interface SubscriptionActionsSwitchProps {
   user: User;
   refreshUser: () => Promise<void>;
-  setSelectedTier: (tier: MembershipTier) => void;
-  setClientSecret: (secret: string) => void;
 }
 
-export function SubscriptionActionsSwitch({
-  user,
-  refreshUser,
-  setSelectedTier,
-  setClientSecret
-}: SubscriptionActionsSwitchProps) {
+export function SubscriptionActionsSwitch({ user, refreshUser }: SubscriptionActionsSwitchProps) {
   const state = getSubscriptionState(user);
 
   switch (state) {
     case "never_subscribed":
-      return (
-        <NeverSubscribedActions
-          userEmail={user.email}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      return <NeverSubscribedActions userEmail={user.email} />;
     case "incomplete_payment":
       return <IncompletePaymentActions />;
     case "active_premium":
@@ -54,37 +40,13 @@ export function SubscriptionActionsSwitch({
     case "payment_failed_grace":
       return <PaymentFailedGracePeriodActions refreshUser={refreshUser} />;
     case "payment_failed_expired":
-      return (
-        <PaymentFailedGraceExpiredActions
-          userEmail={user.email}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      return <PaymentFailedGraceExpiredActions userEmail={user.email} />;
     case "previously_subscribed":
-      return (
-        <PreviouslySubscribedActions
-          userEmail={user.email}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      return <PreviouslySubscribedActions userEmail={user.email} />;
     case "incomplete_expired":
-      return (
-        <IncompleteExpiredActions
-          userEmail={user.email}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      return <IncompleteExpiredActions userEmail={user.email} />;
     default:
-      return (
-        <NeverSubscribedActions
-          userEmail={user.email}
-          setSelectedTier={setSelectedTier}
-          setClientSecret={setClientSecret}
-        />
-      );
+      return <NeverSubscribedActions userEmail={user.email} />;
   }
 }
 

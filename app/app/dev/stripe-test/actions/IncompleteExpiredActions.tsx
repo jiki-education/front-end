@@ -1,15 +1,6 @@
-import type { MembershipTier } from "@/lib/pricing";
 import { handleSubscribe } from "../handlers";
 
-export function IncompleteExpiredActions({
-  userEmail,
-  setSelectedTier,
-  setClientSecret
-}: {
-  userEmail: string;
-  setSelectedTier: (tier: MembershipTier) => void;
-  setClientSecret: (secret: string) => void;
-}) {
+export function IncompleteExpiredActions({ userEmail }: { userEmail: string }) {
   return (
     <div className="space-y-3">
       <div className="mb-4">
@@ -18,7 +9,7 @@ export function IncompleteExpiredActions({
       </div>
 
       <button
-        onClick={() => handleSubscribe({ tier: "premium", userEmail, setSelectedTier, setClientSecret })}
+        onClick={() => handleSubscribe({ tier: "premium", userEmail })}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Start Fresh Checkout - Premium

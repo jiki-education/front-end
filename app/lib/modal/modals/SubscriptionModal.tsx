@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { hideModal, showModal } from "../store";
+import { hideModal } from "../store";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
 import { PRICING_TIERS } from "@/lib/pricing";
-import type { MembershipTier } from "@/lib/pricing";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import toast from "react-hot-toast";
 
@@ -27,7 +26,6 @@ interface SubscriptionModalProps {
   };
 
   // Callbacks
-  onSuccess?: (tier: MembershipTier) => void;
   onCancel?: () => void;
 }
 
@@ -37,12 +35,9 @@ export function SubscriptionModal({
   headline,
   description,
   featuresContext,
-  onSuccess,
   onCancel
 }: SubscriptionModalProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedTier, setSelectedTier] = useState<MembershipTier | null>(null);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const user = useAuthStore((state: any) => state.user);
 
   const premiumTier = PRICING_TIERS.premium;
@@ -86,16 +81,15 @@ export function SubscriptionModal({
 
     setIsLoading(true);
     try {
+      // Close this modal first
+      hideModal();
+
+      // handleSubscribe will show the checkout modal
       await handleSubscribe({
         tier,
         userEmail: user.email,
-        setSelectedTier,
-        setClientSecret,
         returnPath: window.location.pathname
       });
-
-      // handleSubscribe will set the clientSecret and selectedTier
-      // When those are set, we'll transition to the checkout modal
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("Failed to start checkout process. Please try again.");
@@ -109,29 +103,7 @@ export function SubscriptionModal({
     hideModal();
   };
 
-  // When we have both clientSecret and selectedTier, transition to checkout modal
-  useEffect(() => {
-    if (clientSecret && selectedTier) {
-      // Close this modal and show the checkout modal
-      hideModal();
-
-      // Small delay to ensure modal transition is smooth
-      setTimeout(() => {
-        showModal("subscription-checkout-modal", {
-          clientSecret,
-          selectedTier,
-          onCancel: () => {
-            // When checkout is cancelled, we can optionally show success or just close
-            onCancel?.();
-          },
-          onSuccess: () => {
-            // When checkout succeeds, show the success modal
-            onSuccess?.(selectedTier);
-          }
-        });
-      }, 100);
-    }
-  }, [clientSecret, selectedTier, onCancel, onSuccess]);
+  // Note: Checkout modal is now triggered directly by handleSubscribe
 
   return (
     <div className="space-y-6 max-w-4xl">

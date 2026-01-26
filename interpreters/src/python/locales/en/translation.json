@@ -10,7 +10,8 @@
       "ParseError": "Parse error in Python code syntax.",
       "UnexpectedCharacter": "Unexpected character encountered in code.",
       "UnexpectedIndentation": "Unexpected indentation found. Check your code structure.",
-      "UnimplementedToken": "The '{{lexeme}}' feature is not yet implemented.",
+      "UnimplementedToken": "The `{{lexeme}}` feature is not available yet at your current level.",
+      "PermanentlyExcludedToken": "The `{{lexeme}}` feature is not available in this version of Python.",
       "UnknownCharacter": "Unknown character encountered in code.",
       "UnterminatedComment": "Unterminated comment. Multi-line comments must be properly closed.",
       "UnterminatedString": "Unterminated string literal. Make sure to close your string quotes.",
@@ -53,6 +54,10 @@
       "MethodNotYetImplemented": "The method '{{method}}' is not yet implemented.",
       "MethodNotYetAvailable": "The method '{{method}}' is not yet available.",
       "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}."
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",
+      "DisabledFeatureIncludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level."
     }
   }
 }

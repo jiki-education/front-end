@@ -51,6 +51,11 @@ body {
     container-type: size;
 }
 
+/* Modal scroll lock - prevents body scroll when modal is open */
+.ReactModal__Body--open {
+    overflow: hidden;
+}
+
 /* Coding exercise specific styles */
 .coding-exercise-container {
     overflow: hidden;

@@ -2,10 +2,11 @@
 
 import { ApiError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
@@ -13,6 +14,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { signup, googleAuth, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
@@ -20,6 +22,13 @@ export function SignupForm() {
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authErrorField, setAuthErrorField] = useState<string | null>(null);
+
+  const returnTo = searchParams.get("return_to");
+
+  // Store return_to in sessionStorage on mount so it persists across page navigations
+  useEffect(() => {
+    storeReturnTo(returnTo);
+  }, [returnTo]);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -56,7 +65,17 @@ export function SignupForm() {
         password,
         password_confirmation: password
       });
-      router.push("/dashboard");
+      const redirectTo = getPostAuthRedirect(returnTo);
+      if (redirectTo.startsWith("http")) {
+        try {
+          window.location.href = redirectTo;
+        } catch (redirectErr) {
+          console.error("Redirect failed:", redirectErr);
+          router.push("/dashboard");
+        }
+      } else {
+        router.push(redirectTo);
+      }
     } catch (err) {
       console.error("Signup failed:", err);
 
@@ -76,7 +95,17 @@ export function SignupForm() {
   const handleGoogleSuccess = (code: string) => {
     googleAuth(code)
       .then(() => {
-        router.push("/dashboard");
+        const redirectTo = getPostAuthRedirect(returnTo);
+        if (redirectTo.startsWith("http")) {
+          try {
+            window.location.href = redirectTo;
+          } catch (redirectErr) {
+            console.error("Redirect failed:", redirectErr);
+            router.push("/dashboard");
+          }
+        } else {
+          router.push(redirectTo);
+        }
       })
       .catch(() => {
         console.error("ERROR WITH GOOGLE SIGNUP");
@@ -90,7 +119,7 @@ export function SignupForm() {
           <h1>Sign Up</h1>
           <p>
             Already got an account?{" "}
-            <Link href="/auth/login" className="ui-link">
+            <Link href={buildUrlWithReturnTo("/auth/login", returnTo)} className="ui-link">
               Log in
             </Link>
             .

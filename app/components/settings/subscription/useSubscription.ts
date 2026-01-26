@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { showConfirmation } from "@/lib/modal";
-import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
 import toast from "react-hot-toast";
 import { getSubscriptionState } from "./utils";
@@ -10,20 +9,9 @@ import type { User, SubscriptionData } from "./types";
 interface UseSubscriptionProps {
   user: User | null;
   refreshUser: () => Promise<void>;
-  selectedTier: MembershipTier | null;
-  setSelectedTier: (tier: MembershipTier | null) => void;
-  clientSecret: string | null;
-  setClientSecret: (secret: string | null) => void;
 }
 
-export function useSubscription({
-  user,
-  refreshUser,
-  selectedTier,
-  setSelectedTier,
-  clientSecret,
-  setClientSecret
-}: UseSubscriptionProps) {
+export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   // Get subscription state and data
@@ -84,9 +72,7 @@ export function useSubscription({
         // New subscription - use checkout flow
         await handlers.handleSubscribe({
           tier: "premium",
-          userEmail: user.email,
-          setSelectedTier,
-          setClientSecret
+          userEmail: user.email
         });
       } else {
         // Already on premium - this shouldn't happen if UI is correct
@@ -133,9 +119,7 @@ export function useSubscription({
       }
       await handlers.handleSubscribe({
         tier: "premium",
-        userEmail: user.email,
-        setSelectedTier,
-        setClientSecret
+        userEmail: user.email
       });
     });
 
@@ -152,17 +136,9 @@ export function useSubscription({
       }
       await handlers.handleSubscribe({
         tier: "premium",
-        userEmail: user.email,
-        setSelectedTier,
-        setClientSecret
+        userEmail: user.email
       });
     });
-
-  // Checkout flow handlers
-  const handleCheckoutCancel = () => {
-    setClientSecret(null);
-    setSelectedTier(null);
-  };
 
   return {
     // State
@@ -174,8 +150,6 @@ export function useSubscription({
     subscriptionData,
     tierDetails,
     nextBillingDate,
-    selectedTier,
-    clientSecret,
 
     // Handlers
     handleUpgradeToPremium,
@@ -185,7 +159,6 @@ export function useSubscription({
     handleRetryPayment,
     handleResubscribeToPremium,
     handleCompletePayment,
-    handleTryPremiumAgain,
-    handleCheckoutCancel
+    handleTryPremiumAgain
   };
 }

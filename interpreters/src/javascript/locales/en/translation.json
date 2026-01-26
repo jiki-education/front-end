@@ -27,7 +27,8 @@
       "DuplicateDictionaryKey": "Duplicate key '{{key}}' in object literal.",
       "MissingRightBraceInDictionary": "Missing closing brace '}' to close the object.",
       "UnexpectedRightBrace": "Unexpected closing brace '}' found.",
-      "UnimplementedToken": "The '{{lexeme}}' feature is not yet implemented.",
+      "UnimplementedToken": "The `{{lexeme}}` feature is not available yet at your current level.",
+      "PermanentlyExcludedToken": "The `{{lexeme}}` feature is not available in this version of JavaScript.",
       "UnknownCharacter": "Unknown character encountered in code.",
       "UnterminatedComment": "Unterminated comment. Multi-line comments must be closed with '*/'.",
       "UnterminatedString": "Did you forget to add end quote?",
@@ -62,6 +63,10 @@
       "MethodNotYetAvailable": "The method '{{method}}' is not available at your current learning level. Keep progressing to unlock this feature!",
       "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter.",
       "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}."
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",
+      "DisabledFeatureIncludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level."
     }
   }
 }

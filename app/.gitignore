@@ -56,3 +56,6 @@ components/ui-kit/icon-types.ts
 .dev.vars
 
 app/test-results/
+
+# Sentry Config File
+.env.sentry-build-plugin
