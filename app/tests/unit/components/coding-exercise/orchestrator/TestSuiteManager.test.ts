@@ -172,7 +172,15 @@ describe("TestSuiteManager", () => {
       expect(state.setHasSyntaxError).toHaveBeenCalledWith(true);
       expect(state.setTestSuiteResult).toHaveBeenCalledWith(null);
       expect(state.setInformationWidgetData).toHaveBeenCalledWith({
-        html: "Unexpected token",
+        html: `<div>
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+          <path d="M12 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <circle cx="12" cy="16.5" r="1" fill="currentColor" />
+        </svg>
+        Oops, something went wrong!
+      </div>
+      Unexpected token`,
         line: 5,
         status: "ERROR"
       });

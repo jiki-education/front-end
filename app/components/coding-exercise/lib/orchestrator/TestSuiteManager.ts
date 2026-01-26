@@ -51,7 +51,7 @@ export class TestSuiteManager {
           <path d="M12 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           <circle cx="12" cy="16.5" r="1" fill="currentColor" />
         </svg>
-        Oops! Something went wrong.
+        Oops, something went wrong!
       </div>
       ${processMessageContent(error.message)}
     `.trim();

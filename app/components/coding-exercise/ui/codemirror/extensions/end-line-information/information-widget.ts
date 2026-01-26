@@ -72,10 +72,8 @@ export class InformationWidget extends WidgetType {
     closeButton.innerHTML = "×";
     closeButton.className = `${closeButtonStyles.closeButton} ${tooltipStyles.closeButton}`;
     closeButton.classList.add(closeButtonStyles.small);
-    // Add light variant for description tooltips (white background)
-    if (this.status !== "ERROR") {
-      closeButton.classList.add(closeButtonStyles.light);
-    }
+    // Add light variant for all tooltips (both have white/light backgrounds)
+    closeButton.classList.add(closeButtonStyles.light);
     closeButton.setAttribute("aria-label", "Close tooltip");
     closeButton.onclick = () => {
       this.onClose(this.view);
