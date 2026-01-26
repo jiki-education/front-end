@@ -14,7 +14,7 @@ export function CancelSection({ onCancelClick }: CancelSectionProps) {
           If you cancel, you&apos;ll lose access to Premium features at the end of your billing period. You can always
           resubscribe later.
         </p>
-        <button className="ui-btn ui-btn-small" onClick={onCancelClick}>
+        <button className="ui-btn ui-btn-small ui-btn-secondary ui-btn-gray" onClick={onCancelClick}>
           Cancel
         </button>
       </div>

@@ -55,7 +55,6 @@ export default function SubscriptionSection({ user, refreshUser, className = "" 
       {/* Cancel Section - only show for premium users */}
       {currentTier !== "standard" && <CancelSection onCancelClick={handleCancel} />}
 
-      {/* Checkout Modal is handled by the global modal system */}
     </div>
   );
 }

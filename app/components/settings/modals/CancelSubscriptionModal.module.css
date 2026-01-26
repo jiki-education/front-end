@@ -1,0 +1,52 @@
+/* CancelSubscriptionModal styles */
+/* Shared styles for CancelSubscriptionConfirmModal and CancelSubscriptionSuccessModal */
+
+.content {
+    padding: 40px 32px 32px;
+}
+
+.icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.iconWarning {
+}
+
+.iconSuccess {
+}
+
+.title {
+}
+
+.message {
+}
+
+.benefitsPanel {
+}
+
+.benefitsTitle {
+}
+
+.benefitItem {
+}
+
+.confirmationDate {
+}
+
+.dateLabel {
+}
+
+.dateValue {
+}
+
+.resubscribeNote {
+}
+
+.buttons {
+}
