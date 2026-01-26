@@ -52,7 +52,12 @@ export function describeFrame(frame: JikiScriptFrame, context?: DescriptionConte
   }
 
   return deepTrim(`
-  <h3>What happened</h3>
+  <div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+    </svg> 
+    What happened
+  </div>
   ${description.result}
   <hr/>
   <h3>Steps Jiki Took</h3>
