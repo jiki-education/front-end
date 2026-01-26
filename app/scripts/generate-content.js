@@ -35,36 +35,33 @@ try {
 }
 
 /**
- * Fix image paths in markdown content and frontmatter
+ * Fix image paths in markdown content
  * Rewrites /images/ to /static/images/ for correct public/ serving
  */
-function fixImagePaths(content, frontmatter) {
-  // Fix markdown image syntax: ![alt](/images/...) -> ![alt](/static/images/...)
-  const fixedContent = content.replace(/!\[([^\]]*)\]\(\/images\//g, "![$1](/static/images/");
-
-  // Fix frontmatter coverImage
-  if (frontmatter.coverImage && frontmatter.coverImage.startsWith("/images/")) {
-    frontmatter.coverImage = frontmatter.coverImage.replace("/images/", "/static/images/");
-  }
-
-  return { content: fixedContent, frontmatter };
+function fixImagePaths(content) {
+  return content.replace(/!\[([^\]]*)\]\(\/images\//g, "![$1](/static/images/");
 }
 
 /**
- * Process a single markdown file into a ProcessedPost object
+ * Fix coverImage path in config
  */
-function processMarkdownFile(filePath, slug, locale, config) {
+function fixCoverImagePath(coverImage) {
+  if (coverImage && coverImage.startsWith("/images/")) {
+    return coverImage.replace("/images/", "/static/images/");
+  }
+  return coverImage;
+}
+
+/**
+ * Parse markdown file and return common fields
+ */
+function parseMarkdownFile(filePath, slug, locale, config) {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const parsed = matter(fileContent);
   const frontmatter = parsed.data;
-
-  // Fix image paths
-  const { content: fixedContent, frontmatter: fixedFrontmatter } = fixImagePaths(parsed.content, frontmatter);
-
-  // Render markdown to HTML
+  const fixedContent = fixImagePaths(parsed.content);
   const html = marked.parse(fixedContent);
 
-  // Expand author from config
   const author = authorsData[config.author];
   if (!author) {
     throw new Error(`Author not found: ${config.author} in ${filePath}`);
@@ -72,45 +69,42 @@ function processMarkdownFile(filePath, slug, locale, config) {
 
   return {
     slug,
-    title: fixedFrontmatter.title,
+    title: frontmatter.title,
     date: config.date,
-    excerpt: fixedFrontmatter.excerpt,
+    excerpt: frontmatter.excerpt,
     author,
-    tags: fixedFrontmatter.tags || [],
-    seo: fixedFrontmatter.seo || {
-      description: fixedFrontmatter.excerpt,
+    tags: frontmatter.tags || [],
+    seo: frontmatter.seo || {
+      description: frontmatter.excerpt,
       keywords: []
     },
     featured: config.featured || false,
-    coverImage: config.coverImage || "",
     content: html,
     locale
   };
 }
 
 /**
- * Process all markdown files in a content type directory (blog or articles)
- * Returns: { slug: { locale: ProcessedPost } }
+ * Process blog posts directory
  */
-function processContentDirectory(type) {
-  const typeDir = path.join(CONTENT_DIR, type);
+function processBlogPosts() {
+  const blogDir = path.join(CONTENT_DIR, "blog");
   const content = {};
 
-  if (!fs.existsSync(typeDir)) {
-    // console.warn(`Content directory not found: ${typeDir}`);
+  if (!fs.existsSync(blogDir)) {
     return content;
   }
 
-  const slugDirs = fs.readdirSync(typeDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
+  const requiredFields = ["date", "author", "featured", "coverImage"];
+  const slugDirs = fs.readdirSync(blogDir, { withFileTypes: true }).filter((d) => d.isDirectory());
 
   for (const slugDir of slugDirs) {
     const slug = slugDir.name;
-    const slugPath = path.join(typeDir, slug);
-
-    // Read config.json for structural metadata
+    const slugPath = path.join(blogDir, slug);
     const configPath = path.join(slugPath, "config.json");
+
     if (!fs.existsSync(configPath)) {
-      throw new Error(`Missing config.json for ${type}/${slug}`);
+      throw new Error(`Missing config.json for blog/${slug}`);
     }
 
     let config;
@@ -120,24 +114,88 @@ function processContentDirectory(type) {
       throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
     }
 
-    // Validate required config fields
-    const requiredFields = ["date", "author", "featured", "coverImage"];
     for (const field of requiredFields) {
       if (config[field] === undefined) {
         throw new Error(`Missing required field "${field}" in ${configPath}`);
       }
     }
 
-    const files = fs.readdirSync(slugPath, { withFileTypes: true }).filter((f) => f.isFile() && f.name.endsWith(".md"));
-
+    const mdFiles = fs
+      .readdirSync(slugPath, { withFileTypes: true })
+      .filter((f) => f.isFile() && f.name.endsWith(".md"));
     content[slug] = {};
 
-    for (const file of files) {
+    for (const file of mdFiles) {
       const locale = path.basename(file.name, ".md");
       const filePath = path.join(slugPath, file.name);
 
       try {
-        content[slug][locale] = processMarkdownFile(filePath, slug, locale, config);
+        const basePost = parseMarkdownFile(filePath, slug, locale, config);
+        content[slug][locale] = {
+          ...basePost,
+          coverImage: fixCoverImagePath(config.coverImage) || ""
+        };
+      } catch (error) {
+        console.error(`Error processing ${filePath}:`, error.message);
+        throw error;
+      }
+    }
+  }
+
+  return content;
+}
+
+/**
+ * Process articles directory
+ */
+function processArticles() {
+  const articlesDir = path.join(CONTENT_DIR, "articles");
+  const content = {};
+
+  if (!fs.existsSync(articlesDir)) {
+    return content;
+  }
+
+  const requiredFields = ["date", "author", "featured", "listed"];
+  const slugDirs = fs.readdirSync(articlesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+
+  for (const slugDir of slugDirs) {
+    const slug = slugDir.name;
+    const slugPath = path.join(articlesDir, slug);
+    const configPath = path.join(slugPath, "config.json");
+
+    if (!fs.existsSync(configPath)) {
+      throw new Error(`Missing config.json for articles/${slug}`);
+    }
+
+    let config;
+    try {
+      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    } catch (error) {
+      throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
+    }
+
+    for (const field of requiredFields) {
+      if (config[field] === undefined) {
+        throw new Error(`Missing required field "${field}" in ${configPath}`);
+      }
+    }
+
+    const mdFiles = fs
+      .readdirSync(slugPath, { withFileTypes: true })
+      .filter((f) => f.isFile() && f.name.endsWith(".md"));
+    content[slug] = {};
+
+    for (const file of mdFiles) {
+      const locale = path.basename(file.name, ".md");
+      const filePath = path.join(slugPath, file.name);
+
+      try {
+        const basePost = parseMarkdownFile(filePath, slug, locale, config);
+        content[slug][locale] = {
+          ...basePost,
+          listed: config.listed
+        };
       } catch (error) {
         console.error(`Error processing ${filePath}:`, error.message);
         throw error;
@@ -151,10 +209,17 @@ function processContentDirectory(type) {
 /**
  * Generate individual translation file (Level 3)
  */
-function generateTranslationFile(post) {
-  return `import type { ProcessedPost } from "../types";
+function generateBlogPostFile(post) {
+  return `import type { ProcessedBlogPost } from "../types";
 
-export const post: ProcessedPost = ${JSON.stringify(post, null, 2)};
+export const post: ProcessedBlogPost = ${JSON.stringify(post, null, 2)};
+`;
+}
+
+function generateArticleFile(post) {
+  return `import type { ProcessedArticle } from "../types";
+
+export const post: ProcessedArticle = ${JSON.stringify(post, null, 2)};
 `;
 }
 
@@ -203,7 +268,7 @@ function generateTypesFile() {
   return `// Auto-generated file - do not edit manually
 // Generated by scripts/generate-content.js at build time
 
-export interface ProcessedPost {
+export interface ProcessedBlogPost {
   slug: string;
   title: string;
   date: string;
@@ -222,6 +287,26 @@ export interface ProcessedPost {
   content: string;
   locale: string;
 }
+
+export interface ProcessedArticle {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  tags: string[];
+  seo: {
+    description: string;
+    keywords: string[];
+  };
+  featured: boolean;
+  listed: boolean;
+  content: string;
+  locale: string;
+}
 `;
 }
 
@@ -232,8 +317,8 @@ function generateContent() {
   console.log("🚀 Generating content bundle...\n");
 
   // Process all content
-  const blog = processContentDirectory("blog");
-  const articles = processContentDirectory("articles");
+  const blog = processBlogPosts();
+  const articles = processArticles();
 
   // Create output directories
   const blogDir = path.join(OUTPUT_DIR, "blog");
@@ -249,28 +334,24 @@ function generateContent() {
   // Generate blog files
   let totalTranslations = 0;
   for (const [slug, locales] of Object.entries(blog)) {
-    // Generate individual translation files (Level 3)
     for (const [locale, post] of Object.entries(locales)) {
       const filename = path.join(blogDir, `${slug}.${locale}.ts`);
-      fs.writeFileSync(filename, generateTranslationFile(post));
+      fs.writeFileSync(filename, generateBlogPostFile(post));
       totalTranslations++;
     }
 
-    // Generate locale registry (Level 2)
     const localeRegistryFile = path.join(blogDir, `${slug}.ts`);
     fs.writeFileSync(localeRegistryFile, generateLocaleRegistryFile(slug, Object.keys(locales)));
   }
 
   // Generate article files
   for (const [slug, locales] of Object.entries(articles)) {
-    // Generate individual translation files (Level 3)
     for (const [locale, post] of Object.entries(locales)) {
       const filename = path.join(articlesDir, `${slug}.${locale}.ts`);
-      fs.writeFileSync(filename, generateTranslationFile(post));
+      fs.writeFileSync(filename, generateArticleFile(post));
       totalTranslations++;
     }
 
-    // Generate locale registry (Level 2)
     const localeRegistryFile = path.join(articlesDir, `${slug}.ts`);
     fs.writeFileSync(localeRegistryFile, generateLocaleRegistryFile(slug, Object.keys(locales)));
   }

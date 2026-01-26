@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { ProcessedPost } from "@/lib/content/generated/types";
+import type { ProcessedBlogPost } from "@/lib/content/generated/types";
 
 interface BlogContentProps {
-  blogPosts: ProcessedPost[];
+  blogPosts: ProcessedBlogPost[];
   authenticated: boolean;
   locale: string;
 }

@@ -2,7 +2,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import {
-  validateConfig,
+  validateBlogConfig,
+  validateArticleConfig,
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs
@@ -46,7 +47,7 @@ describe("Content Validation", () => {
             const config = JSON.parse(configContent);
 
             expect(() => {
-              validateConfig(slug, config, authors, IMAGES_DIR);
+              validateBlogConfig(slug, config, authors, IMAGES_DIR);
             }).not.toThrow();
           });
 
@@ -98,7 +99,7 @@ describe("Content Validation", () => {
             const config = JSON.parse(configContent);
 
             expect(() => {
-              validateConfig(slug, config, authors, IMAGES_DIR);
+              validateArticleConfig(slug, config, authors);
             }).not.toThrow();
           });
 

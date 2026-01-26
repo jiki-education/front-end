@@ -53,6 +53,23 @@
         }
     }
 
+    /* Lists */
+    ul {
+        list-style: disc;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    ol {
+        list-style: auto;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    li {
+        margin-bottom: 4px;
+    }
+
     /* Inline Code */
     code {
         background: var(--color-gray-100);

@@ -1,15 +1,11 @@
 export interface Frontmatter {
   title: string;
-  date: string;
   excerpt: string;
-  author: string;
   tags: string[];
   seo: {
     description: string;
     keywords: string[];
   };
-  featured: boolean;
-  coverImage: string;
 }
 
 export interface Author {
@@ -17,7 +13,7 @@ export interface Author {
   avatar: string;
 }
 
-export interface ProcessedPost {
+export interface ProcessedBlogPost {
   slug: string;
   title: string;
   date: string;
@@ -30,6 +26,23 @@ export interface ProcessedPost {
   };
   featured: boolean;
   coverImage: string;
+  content: string; // Rendered HTML
+  locale: string;
+}
+
+export interface ProcessedArticle {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  author: Author;
+  tags: string[];
+  seo: {
+    description: string;
+    keywords: string[];
+  };
+  featured: boolean;
+  listed: boolean;
   content: string; // Rendered HTML
   locale: string;
 }

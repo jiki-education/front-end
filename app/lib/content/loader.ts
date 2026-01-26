@@ -11,7 +11,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unused-vars */
 
 import { blogPosts, articles } from "./generated";
-import type { ProcessedPost } from "./generated/types";
+import type { ProcessedBlogPost, ProcessedArticle } from "./generated/types";
 
 /**
  * Get a single blog post by slug and locale
@@ -19,7 +19,7 @@ import type { ProcessedPost } from "./generated/types";
  *
  * @throws Error if the post doesn't exist at all
  */
-export async function getBlogPost(slug: string, locale: string): Promise<ProcessedPost> {
+export async function getBlogPost(slug: string, locale: string): Promise<ProcessedBlogPost> {
   // Level 1: Load post's locale registry
   const postLoader = blogPosts[slug as keyof typeof blogPosts];
   if (!postLoader) {
@@ -50,7 +50,7 @@ export async function getBlogPost(slug: string, locale: string): Promise<Process
  * Falls back to English for posts that don't have the requested locale
  * Returns posts sorted by date (newest first)
  */
-export async function getAllBlogPosts(locale: string): Promise<ProcessedPost[]> {
+export async function getAllBlogPosts(locale: string): Promise<ProcessedBlogPost[]> {
   const postLoaders = Object.entries(blogPosts);
 
   const posts = await Promise.all(
@@ -76,7 +76,7 @@ export async function getAllBlogPosts(locale: string): Promise<ProcessedPost[]> 
   );
 
   return posts
-    .filter((post: ProcessedPost | null): post is ProcessedPost => post !== null)
+    .filter((post: ProcessedBlogPost | null): post is ProcessedBlogPost => post !== null)
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
@@ -86,7 +86,7 @@ export async function getAllBlogPosts(locale: string): Promise<ProcessedPost[]> 
  *
  * @throws Error if the article doesn't exist at all
  */
-export async function getArticle(slug: string, locale: string): Promise<ProcessedPost> {
+export async function getArticle(slug: string, locale: string): Promise<ProcessedArticle> {
   // Level 1: Load article's locale registry
   const articleLoader = articles[slug as keyof typeof articles];
   if (!articleLoader) {
@@ -117,7 +117,7 @@ export async function getArticle(slug: string, locale: string): Promise<Processe
  * Falls back to English for articles that don't have the requested locale
  * Returns articles sorted alphabetically by title
  */
-export async function getAllArticles(locale: string): Promise<ProcessedPost[]> {
+export async function getAllArticles(locale: string): Promise<ProcessedArticle[]> {
   const articleLoaders = Object.entries(articles);
 
   const articlesList = await Promise.all(
@@ -143,8 +143,19 @@ export async function getAllArticles(locale: string): Promise<ProcessedPost[]> {
   );
 
   return articlesList
-    .filter((article: ProcessedPost | null): article is ProcessedPost => article !== null)
+    .filter((article: ProcessedArticle | null): article is ProcessedArticle => article !== null)
     .sort((a, b) => a.title.localeCompare(b.title));
+}
+
+/**
+ * Get all LISTED articles for a specific locale
+ * Excludes articles where listed=false
+ * Falls back to English for articles that don't have the requested locale
+ * Returns articles sorted alphabetically by title
+ */
+export async function getListedArticles(locale: string): Promise<ProcessedArticle[]> {
+  const allArticles = await getAllArticles(locale);
+  return allArticles.filter((article) => article.listed);
 }
 
 /**

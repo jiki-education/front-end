@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/lib/content/loader";
+import { getListedArticles } from "@/lib/content/loader";
 import ArticlesContent from "./ArticlesContent";
 
 interface ArticlesPageProps {
@@ -7,7 +7,7 @@ interface ArticlesPageProps {
 }
 
 export default async function ArticlesPage({ authenticated, locale }: ArticlesPageProps) {
-  const articles = await getAllArticles(locale);
+  const articles = await getListedArticles(locale);
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
       <header className="mb-12">

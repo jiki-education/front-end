@@ -1,9 +1,9 @@
-import { getAllArticles, getArticle } from "@/lib/content/loader";
+import { getListedArticles, getArticle } from "@/lib/content/loader";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ArticleDetailContent from "./ArticleDetailContent";
 import CTABlock from "../blog/CTABlock";
-import RelatedArticles from "../blog/RelatedArticles";
+import RecentArticles from "./RecentArticles";
 
 interface ArticleDetailPageProps {
   slug: string;
@@ -13,7 +13,7 @@ interface ArticleDetailPageProps {
 
 // Helper for generateStaticParams
 export async function getArticleStaticParams(locale: string = "en") {
-  const articles = await getAllArticles(locale);
+  const articles = await getListedArticles(locale);
   return articles.map((article) => ({ slug: article.slug }));
 }
 
@@ -39,51 +39,12 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
     notFound();
   }
 
-  // Mock related articles (same pattern as blog)
-  const relatedArticles = [
-    {
-      slug: "react-hooks-guide",
-      title: "Complete Guide to React Hooks",
-      date: "2024-01-15",
-      excerpt:
-        "Master React Hooks with this comprehensive guide covering useState, useEffect, useContext, and custom hooks with practical examples.",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["React", "JavaScript"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    },
-    {
-      slug: "typescript-fundamentals",
-      title: "TypeScript Fundamentals",
-      date: "2024-02-01",
-      excerpt:
-        "Learn the fundamentals of TypeScript including types, interfaces, generics, and how to integrate TypeScript into your projects.",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["TypeScript", "JavaScript"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    },
-    {
-      slug: "git-workflow-best-practices",
-      title: "Git Workflow Best Practices",
-      date: "2024-02-15",
-      excerpt:
-        "Discover best practices for Git workflows including branching strategies, commit conventions, and collaboration techniques for teams.",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["Git", "DevOps"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    }
-  ];
+  // Get recent listed articles, excluding the current one
+  const allArticles = await getListedArticles(locale);
+  const recentArticles = allArticles
+    .filter((a) => a.slug !== slug)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   if (authenticated) {
     return <ArticleDetailContent article={article} variant="authenticated" />;
@@ -102,8 +63,8 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
         buttonHref="/signup"
       />
 
-      {/* Related Articles */}
-      <RelatedArticles articles={relatedArticles} />
+      {/* Recent Articles */}
+      <RecentArticles articles={recentArticles} />
 
       {/* Gradient CTA */}
       <CTABlock
