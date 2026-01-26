@@ -1,0 +1,117 @@
+/* CancelSubscriptionModal styles */
+/* Shared styles for CancelSubscriptionConfirmModal and CancelSubscriptionSuccessModal */
+
+.icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.iconWarning {
+    background: var(--color-red-50);
+    svg {
+        width: 32px;
+        height: 32px;
+        color: var(--color-red-500);
+    }
+}
+
+.iconSuccess {
+    background: var(--color-green-50);
+    svg {
+        width: 32px;
+        height: 32px;
+        color: var(--color-green-500);
+    }
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.message {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.benefitsPanel {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+
+    h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-purple-600);
+        margin-bottom: 16px;
+    }
+}
+
+.benefitsTitle {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-purple-600);
+    margin-bottom: 16px;
+}
+
+.benefitItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: var(--color-gray-700);
+
+    svg {
+        width: 20px;
+        height: 20px;
+        color: #a855f7;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+}
+
+.confirmationDate {
+    background: var(--color-gray-50);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.dateLabel {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin-bottom: 4px;
+}
+
+.dateValue {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+}
+
+.resubscribeNote {
+    color: var(--color-gray-500);
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

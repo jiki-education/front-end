@@ -15,11 +15,18 @@ interface SubscriptionSectionProps {
 }
 
 export default function SubscriptionSection({ user, refreshUser, className = "" }: SubscriptionSectionProps) {
-  const { isLoading, currentTier, subscriptionStatus, nextBillingDate, handleUpgradeToPremium, handleCancel } =
-    useSubscription({
-      user,
-      refreshUser
-    });
+  const {
+    isLoading,
+    currentTier,
+    subscriptionStatus,
+    nextBillingDate,
+    handleUpgradeToPremium,
+    handleCancel,
+    handleReactivate
+  } = useSubscription({
+    user,
+    refreshUser
+  });
 
   // If no user, show loading state
   if (!user) {
@@ -46,16 +53,16 @@ export default function SubscriptionSection({ user, refreshUser, className = "" 
       {currentTier === "standard" ? (
         <PremiumUpsell onUpgrade={handleUpgradeToPremium} isLoading={isLoading} />
       ) : (
-        <BenefitSection />
+        <BenefitSection isCancelling={subscriptionStatus === "cancelling"} onResubscribe={handleReactivate} />
       )}
 
       {/* Payment History - always shown, will handle its own empty state */}
       <PaymentHistory />
 
-      {/* Cancel Section - only show for premium users */}
-      {currentTier !== "standard" && <CancelSection onCancelClick={handleCancel} />}
-
-      {/* Checkout Modal is handled by the global modal system */}
+      {/* Cancel Section - only show for premium users who haven't already cancelled */}
+      {currentTier !== "standard" && subscriptionStatus !== "cancelling" && (
+        <CancelSection onCancelClick={handleCancel} />
+      )}
     </div>
   );
 }

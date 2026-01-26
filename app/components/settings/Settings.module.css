@@ -34,9 +34,7 @@
     font-size: 16px;
     color: var(--color-gray-500);
     line-height: 1.5;
-    margin-bottom: 12px;
     text-wrap-style: balance;
-    max-width: 600px;
 }
 
 /* Remove text-wrap and max-width for danger zone paragraphs */
@@ -76,7 +74,6 @@
 .settingRow p {
     flex: 1;
     margin: 0;
-    max-width: 400px;
 }
 
 .settingRow .ui-btn {
@@ -126,6 +123,13 @@
 .currentPlanItem {
     background: linear-gradient(135deg, #f0f9ff 0%, var(--color-amber-100) 100%);
     border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+/* Cancelled plan styling */
+.currentPlanItemCancelled {
+    p {
+        max-width: none;
+    }
 }
 
 /* Gradient text for plan name */

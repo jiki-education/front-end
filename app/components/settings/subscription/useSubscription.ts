@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { showConfirmation } from "@/lib/modal";
+import { showModal } from "@/lib/modal";
 import { PRICING_TIERS } from "@/lib/pricing";
 import toast from "react-hot-toast";
 import { getSubscriptionState } from "./utils";
@@ -86,18 +86,12 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
     });
 
   const handleCancel = () => {
-    showConfirmation({
-      title: "Cancel Subscription",
-      message:
-        "Are you sure you want to cancel your subscription? You'll continue to have access until your current billing period ends, but you won't be charged again.",
-      variant: "danger",
-      onConfirm: () => {
-        void handleAsyncOperation(async () => {
-          await handlers.handleCancelSubscription(refreshUser);
-        });
-      },
-      onCancel: () => {
-        // User cancelled the action - no toast needed
+    const premiumEndDate = nextBillingDate || "your billing period end";
+
+    showModal("cancel-subscription-confirm-modal", {
+      premiumEndDate,
+      onConfirmCancel: async () => {
+        await handlers.handleCancelSubscription(refreshUser);
       }
     });
   };
