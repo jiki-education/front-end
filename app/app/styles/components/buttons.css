@@ -86,19 +86,36 @@
         0 4px 16px var(--primary-shadow-dark);
 }
 
-/* Tertiary Button */
+/* Tertiary Button - white background with slate border */
 .ui-btn-tertiary {
-    border-color: var(--color-gray-200);
-    color: var(--color-gray-950);
     background: white;
-    box-shadow: 0 2px 8px var(--color-gray-900-30);
+    color: var(--color-gray-600);
+    border-color: var(--color-gray-300);
+    box-shadow: 0 2px 8px var(--color-gray-400-30);
 }
 
 .ui-btn-tertiary:hover {
-    border-color: var(--primary-color);
+    background: white;
+    border-color: var(--color-gray-400);
     box-shadow:
-        0 0 0 4px var(--primary-shadow-lighter),
-        0 4px 16px var(--primary-shadow-light);
+        0 0 0 4px var(--color-gray-500-10),
+        0 4px 16px var(--color-gray-500-20);
+}
+
+/* Subtle Button - tinted slate background */
+.ui-btn-subtle {
+    background: var(--color-gray-500-20);
+    color: var(--color-gray-600);
+    border-color: var(--color-gray-300);
+    box-shadow: 0 2px 8px var(--color-gray-500-10);
+}
+
+.ui-btn-subtle:hover {
+    background: var(--color-gray-400-30);
+    border-color: var(--color-gray-400);
+    box-shadow:
+        0 0 0 4px var(--color-gray-500-10),
+        0 4px 16px var(--color-gray-500-20);
 }
 
 /* Danger Button */
@@ -149,6 +166,21 @@
 .ui-btn-danger.ui-btn-loading::before {
     border-color: var(--primary-shadow);
     border-top-color: var(--primary-color);
+}
+
+/* Tertiary and Subtle button loading states use slate spinner */
+.ui-btn-tertiary.ui-btn-loading::before,
+.ui-btn-subtle.ui-btn-loading::before {
+    border-color: var(--color-gray-400-30);
+    border-top-color: var(--color-gray-600);
+}
+
+/* Disabled Button State */
+.ui-btn:disabled,
+.ui-btn-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* UI button on colorful bg */

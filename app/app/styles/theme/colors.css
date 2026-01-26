@@ -113,6 +113,8 @@
 
     /* Shadow Colors - Gray */
     --color-gray-400-30: color-mix(in srgb, var(--color-gray-400) 30%, transparent);
+    --color-gray-500-10: color-mix(in srgb, var(--color-gray-500) 10%, transparent);
+    --color-gray-500-20: color-mix(in srgb, var(--color-gray-500) 20%, transparent);
     --color-gray-900-30: color-mix(in srgb, var(--color-gray-900) 30%, transparent);
     --color-gray-200-50: color-mix(in srgb, var(--color-gray-200) 50%, transparent);
 
