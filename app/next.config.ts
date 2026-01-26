@@ -98,7 +98,7 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default withSentryConfig(nextConfig, {
+const sentryConfig = withSentryConfig(nextConfig, {
   org: "thalamus-ai",
   project: "jiki-front-end",
   silent: !process.env.CI,
@@ -117,3 +117,6 @@ export default withSentryConfig(nextConfig, {
     }
   }
 });
+
+// Only use Sentry build wrapper in production to avoid build overhead in dev/test
+export default process.env.NODE_ENV === "production" ? sentryConfig : nextConfig;
