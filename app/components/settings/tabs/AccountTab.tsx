@@ -6,12 +6,11 @@ import { useSettingsStore } from "@/lib/settings/settingsStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ProfileSection from "../sections/ProfileSection";
 import SecuritySection from "../sections/SecuritySection";
-import PreferencesSection from "../sections/PreferencesSection";
 import styles from "../Settings.module.css";
 
 export default function AccountTab() {
   const { user } = useAuthStore();
-  const { settings, loading, fetchSettings, updateName, updateHandle, updateLocale, updateEmail, updatePassword } =
+  const { settings, loading, fetchSettings, updateName, updateHandle, updateEmail, updatePassword } =
     useSettingsStore();
 
   // Fetch settings on mount
@@ -39,8 +38,6 @@ export default function AccountTab() {
       />
 
       <SecuritySection updatePassword={updatePassword} />
-
-      <PreferencesSection settings={settings} updateLocale={updateLocale} />
     </div>
   );
 }

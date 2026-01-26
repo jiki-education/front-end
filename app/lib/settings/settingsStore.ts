@@ -24,7 +24,7 @@ interface SettingsState {
   fetchSettings: () => Promise<void>;
   updateSetting: (params: UpdateSettingParams) => Promise<void>;
   updateName: (name: string) => Promise<void>;
-  updateEmail: (email: string, sudoPassword: string) => Promise<void>;
+  updateEmail: (email: string) => Promise<void>;
   updatePassword: (newPassword: string, sudoPassword: string) => Promise<void>;
   updateLocale: (locale: string) => Promise<void>;
   updateHandle: (handle: string) => Promise<void>;
@@ -117,8 +117,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     return get().updateSetting({ field: "name", value: name });
   },
 
-  updateEmail: async (email: string, sudoPassword: string) => {
-    return get().updateSetting({ field: "email", value: email, sudoPassword });
+  updateEmail: async (email: string) => {
+    return get().updateSetting({ field: "email", value: email });
   },
 
   updatePassword: async (newPassword: string, sudoPassword: string) => {

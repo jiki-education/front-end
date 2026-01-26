@@ -65,7 +65,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Tab Content */}
-          <main className="p-6">
+          <main>
             {activeTab === "account" && <AccountTab />}
             {activeTab === "subscription" && <SubscriptionTab user={user} refreshUser={refreshUser} />}
             {activeTab === "notifications" && <NotificationsTab />}

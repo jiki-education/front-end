@@ -1,6 +1,6 @@
 "use client";
 
-import { showModal } from "@/lib/modal/store";
+import PasswordField from "../ui/PasswordField";
 import styles from "../Settings.module.css";
 
 interface SecuritySectionProps {
@@ -8,24 +8,9 @@ interface SecuritySectionProps {
 }
 
 export default function SecuritySection({ updatePassword }: SecuritySectionProps) {
-  const handlePasswordChange = () => {
-    showModal("change-password-modal", {
-      onSave: async (newPassword: string, currentPassword: string) => {
-        await updatePassword(newPassword, currentPassword);
-      }
-    });
-  };
-
   return (
-    <div className={styles.settingItem}>
-      <h3>Security</h3>
-      <div className="ui-form-field-large">
-        <label className="text-sm text-text-secondary">Password</label>
-        <input type="password" value="••••••••" readOnly />
-        <button onClick={handlePasswordChange} className="ui-btn ui-btn-secondary ui-btn-small mt-8">
-          Change Password
-        </button>
-      </div>
+    <div className={styles.accountField}>
+      <PasswordField onSave={updatePassword} />
     </div>
   );
 }
