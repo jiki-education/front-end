@@ -64,7 +64,7 @@ export default defineConfig({
     command: "pnpm next dev --port 3081",
     url: "http://local.jiki.io:3081",
     reuseExistingServer: !process.env.CI,
-    timeout: 30000,
+    timeout: process.env.CI ? 60000 : 30000,
     stdout: "pipe",
     stderr: "pipe"
   }
