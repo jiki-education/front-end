@@ -35,7 +35,10 @@ async function globalSetup(_config: FullConfig) {
       "/auth/forgot-password",
       "/auth/reset-password?token=test",
       "/articles",
-      "/blog"
+      "/blog",
+      "/settings",
+      "/achievements",
+      "/dashboard"
     ];
 
     for (const route of routes) {

@@ -164,8 +164,8 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertSettingsPage(page: Page) {
-    // Wait for settings page to load
-    await page.waitForTimeout(50);
+    // Wait for settings page content to load
+    await page.getByText("Danger Zone").waitFor();
 
     const url = page.url();
     expect(url).toBe(getTestUrl("/settings"));
