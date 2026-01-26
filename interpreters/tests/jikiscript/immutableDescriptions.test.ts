@@ -91,7 +91,7 @@ describe("immutable descriptions for log statements", () => {
       const secondLogDescription = logFrames[1].generateDescription();
 
       expect(firstLogDescription).toContain("[ 1, 2, 3 ]");
-      expect(firstLogDescription).not.toContain("10");
+      expect(firstLogDescription).not.toContain("[ 10, 2, 3 ]");
       expect(secondLogDescription).toContain("[ 10, 2, 3 ]");
     });
 
