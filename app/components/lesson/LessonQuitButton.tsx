@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 interface LessonQuitButtonProps {
   onQuit?: () => void;
   className?: string;
+  variant?: "default" | "light";
 }
 
-export function LessonQuitButton({ onQuit, className = "" }: LessonQuitButtonProps) {
+export function LessonQuitButton({ onQuit, className = "", variant = "light" }: LessonQuitButtonProps) {
   const router = useRouter();
 
   const handleQuit = () => {
@@ -33,7 +34,7 @@ export function LessonQuitButton({ onQuit, className = "" }: LessonQuitButtonPro
   return (
     <CloseButton
       onClick={handleQuit}
-      variant="light"
+      variant={variant}
       className={assembleClassNames(className, "absolute top-[16px] right-[16px]")}
       aria-label="Quit lesson"
     />
