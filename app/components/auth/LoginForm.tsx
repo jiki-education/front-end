@@ -2,10 +2,11 @@
 
 import { AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
@@ -13,12 +14,20 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, googleAuth, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
+
+  const returnTo = searchParams.get("return_to");
+
+  // Store return_to in sessionStorage on mount so it persists across page navigations
+  useEffect(() => {
+    storeReturnTo(returnTo);
+  }, [returnTo]);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -49,7 +58,12 @@ export function LoginForm() {
 
     try {
       await login({ email, password });
-      router.push("/dashboard");
+      const redirectTo = getPostAuthRedirect(returnTo);
+      if (redirectTo.startsWith("http")) {
+        window.location.href = redirectTo;
+      } else {
+        router.push(redirectTo);
+      }
     } catch (err) {
       console.error("Login failed:", err);
       // Check if it's an authentication error (wrong credentials)
@@ -64,7 +78,12 @@ export function LoginForm() {
   const handleGoogleSuccess = (code: string) => {
     googleAuth(code)
       .then(() => {
-        router.push("/dashboard");
+        const redirectTo = getPostAuthRedirect(returnTo);
+        if (redirectTo.startsWith("http")) {
+          window.location.href = redirectTo;
+        } else {
+          router.push(redirectTo);
+        }
       })
       .catch(() => {
         console.error("ERROR WITH GOOGLE LOGIN");
@@ -78,7 +97,7 @@ export function LoginForm() {
           <h1>Log In</h1>
           <p>
             Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" className="ui-link">
+            <Link href={buildUrlWithReturnTo("/auth/signup", returnTo)} className="ui-link">
               Sign up for free.
             </Link>
           </p>
