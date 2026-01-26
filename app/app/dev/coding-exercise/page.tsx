@@ -10,7 +10,7 @@ export default function CodingExerciseDevPage() {
   return (
     <CodingExercise
       exerciseSlug="maze-solve-basic"
-      language="jikiscript"
+      language="javascript"
       context={{ type: "lesson", slug: "maze-solve-basic" }}
     />
   );

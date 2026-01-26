@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import BlogPostContent from "./BlogPostContent";
 import CTABlock from "./CTABlock";
-import RelatedArticles from "./RelatedArticles";
+import RecentBlogPosts from "./RecentBlogPosts";
 
 interface BlogPostPageProps {
   slug: string;
@@ -39,51 +39,12 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     notFound();
   }
 
-  // Mock related posts from the reference design
-  const relatedPosts = [
-    {
-      slug: "object-oriented-october",
-      title: "It's Object Oriented October",
-      date: "2023-10-01",
-      excerpt:
-        "This month we're exploring Object Oriented Languages including C#, Crystal, Ruby and PowerShell. Learn what makes each language unique and discover their standout features.",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["#12in23"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    },
-    {
-      slug: "introducing-48in24",
-      title: "Introducing #48in24",
-      date: "2024-01-06",
-      excerpt:
-        "New year, new challenge! We're launching a year-long journey through 48 different exercises. Earn Bronze, Silver, and Gold awards by completing exercises across multiple languages.",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["#48in24"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    },
-    {
-      slug: "appy-august",
-      title: "It's Appy August!",
-      date: "2023-08-01",
-      excerpt:
-        "Exploring 14 languages designed for building applications - from web apps to native mobile, desktop, and domain-specific applications. Discover ABAP, CoffeeScript, Dart, Elm, Java, JavaScript, and more!",
-      author: { name: "Jiki Team", bio: "", avatar: "" },
-      tags: ["#12in23"],
-      seo: { description: "", keywords: [] },
-      featured: false,
-      coverImage: "/api/placeholder/400/240",
-      content: "",
-      locale: "en"
-    }
-  ];
+  // Get recent blog posts, excluding the current one
+  const allPosts = await getAllBlogPosts(locale);
+  const recentPosts = allPosts
+    .filter((p) => p.slug !== slug)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   if (authenticated) {
     return <BlogPostContent post={post} variant="authenticated" />;
@@ -102,8 +63,8 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
         buttonHref="/signup"
       />
 
-      {/* Related Articles */}
-      <RelatedArticles articles={relatedPosts} />
+      {/* Recent Posts */}
+      <RecentBlogPosts posts={recentPosts} />
 
       {/* Gradient CTA */}
       <CTABlock
