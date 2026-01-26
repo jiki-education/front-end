@@ -52,9 +52,10 @@ export default function SubscriptionSection({ user, refreshUser, className = "" 
       {/* Payment History - always shown, will handle its own empty state */}
       <PaymentHistory />
 
-      {/* Cancel Section - only show for premium users */}
-      {currentTier !== "standard" && <CancelSection onCancelClick={handleCancel} />}
-
+      {/* Cancel Section - only show for premium users who haven't already cancelled */}
+      {currentTier !== "standard" && subscriptionStatus !== "cancelling" && (
+        <CancelSection onCancelClick={handleCancel} />
+      )}
     </div>
   );
 }
