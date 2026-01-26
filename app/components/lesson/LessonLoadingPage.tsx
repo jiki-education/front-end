@@ -38,6 +38,10 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
                     d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
+              ) : type === "choose_language" ? (
+                <svg className="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                </svg>
               ) : (
                 <svg className="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -62,9 +66,7 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
             <p className="text-lg text-gray-600 font-medium mb-2">
               Loading<span className="animate-pulse">...</span>
             </p>
-            <p className="text-sm text-gray-500">
-              {type === "video" ? "Preparing video lesson" : "Setting up code editor"}
-            </p>
+            <p className="text-sm text-gray-500">{getLoadingMessage(type)}</p>
           </div>
 
           {/* Simplified progress bar */}
@@ -75,14 +77,40 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
           {/* Quick tips while loading */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
             <p className="text-xs text-gray-600 text-center opacity-0 animate-[fadeIn_1s_ease-in-out_500ms_forwards]">
-              💡 Tip:{" "}
-              {type === "video"
-                ? "You can adjust video playback speed using the controls"
-                : "Use Cmd/Ctrl + Enter to quickly run your code"}
+              {getTipMessage(type)}
             </p>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function getLoadingMessage(type?: LessonType): string {
+  switch (type) {
+    case "video":
+      return "Preparing video lesson";
+    case "choose_language":
+      return "Loading language options";
+    case "exercise":
+    case "quiz":
+    case undefined:
+      return "Setting up code editor";
+  }
+}
+
+function getTipMessage(type?: LessonType): string {
+  const tip = (() => {
+    switch (type) {
+      case "video":
+        return "You can adjust video playback speed using the controls";
+      case "choose_language":
+        return "Choose the language you want to learn with";
+      case "exercise":
+      case "quiz":
+      case undefined:
+        return "Use Cmd/Ctrl + Enter to quickly run your code";
+    }
+  })();
+  return `\u{1F4A1} Tip: ${tip}`;
 }

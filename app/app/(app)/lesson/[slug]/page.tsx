@@ -1,9 +1,12 @@
 "use client";
 
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
+import LanguageChoiceLesson from "@/components/language-choice/LanguageChoiceLesson";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
+import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchLesson } from "@/lib/api/lessons";
+import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,6 +20,7 @@ interface PageProps {
 export default function LessonPage({ params }: PageProps) {
   const router = useRouter();
   const [lesson, setLesson] = useState<LessonWithData | null>(null);
+  const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,11 +31,11 @@ export default function LessonPage({ params }: PageProps) {
     }
   }, [lesson]);
 
-  // Load lesson on mount
+  // Load lesson and user course on mount
   useEffect(() => {
     let cancelled = false;
 
-    async function loadLesson() {
+    async function loadData() {
       try {
         setLoading(true);
         const resolvedParams = await params;
@@ -40,11 +44,12 @@ export default function LessonPage({ params }: PageProps) {
           return;
         }
 
-        const lessonData = await fetchLesson(resolvedParams.slug);
+        const [lessonData, userCourseData] = await Promise.all([fetchLesson(resolvedParams.slug), fetchUserCourse()]);
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!cancelled) {
           setLesson(lessonData);
+          setUserCourse(userCourseData);
         }
       } catch (err) {
         if (!cancelled) {
@@ -60,7 +65,7 @@ export default function LessonPage({ params }: PageProps) {
       }
     }
 
-    void loadLesson();
+    void loadData();
 
     return () => {
       cancelled = true;
@@ -96,11 +101,15 @@ export default function LessonPage({ params }: PageProps) {
   if (lesson.type === "exercise") {
     return (
       <CodingExercise
-        language="jikiscript"
+        language={userCourse?.language || "javascript"}
         exerciseSlug={lesson.data.slug}
         context={{ type: "lesson", slug: lesson.slug }}
       />
     );
+  }
+
+  if (lesson.type === "choose_language") {
+    return <LanguageChoiceLesson lessonData={lesson} />;
   }
 
   // Quiz type - not yet implemented
