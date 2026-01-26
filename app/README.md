@@ -36,10 +36,10 @@ pnpm test
 pnpm test:watch
 
 # Run E2E browser tests (Playwright)
-pnpm test:e2e:pw
+pnpm test:e2e
 
-# Run E2E tests with UI
-pnpm test:e2e:pw:ui
+# Run E2E tests with visible browser
+pnpm test:e2e:headed
 
 # Run all tests (unit, integration, and E2E)
 pnpm test:all

@@ -20,11 +20,10 @@
 
 ### E2E Tests (Playwright)
 
-- `pnpm test:e2e:pw` - Run all Playwright E2E tests
-- `pnpm test:e2e:pw:ui` - Run Playwright tests in interactive UI mode
-- `pnpm test:e2e:pw:headed` - Run Playwright tests with visible browser
-- `pnpm test:e2e:pw:debug` - Run Playwright tests in debug mode
-- `pnpm test:e2e:pw auth-flows.test.ts network-error.test.ts` - Run specific test files
+- `pnpm test:e2e` - Run all Playwright E2E tests
+- `pnpm test:e2e:headed` - Run Playwright tests with visible browser
+- `pnpm test:e2e:debug` - Run Playwright tests in debug mode
+- `pnpm test:e2e auth-flows.test.ts network-error.test.ts` - Run specific test files
 
 ### Setup
 

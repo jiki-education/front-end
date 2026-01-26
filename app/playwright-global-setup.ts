@@ -33,15 +33,21 @@ async function globalSetup(_config: FullConfig) {
       "/auth/login",
       "/auth/signup",
       "/auth/forgot-password",
-      "/auth/reset-password?token=test"
+      "/auth/reset-password?token=test",
+      "/articles",
+      "/blog",
+      "/settings",
+      "/achievements",
+      "/dashboard"
     ];
 
     for (const route of routes) {
       // eslint-disable-next-line no-console
       console.log(`  - Warming up ${route}...`);
       await page.goto(`http://localhost:3081${route}`);
-      // Wait for the page to be fully loaded
-      await page.waitForLoadState("networkidle");
+      // Wait for the page to be loaded - use "load" instead of "networkidle"
+      // as networkidle can hang indefinitely if the page has polling/websockets
+      await page.waitForLoadState("load");
     }
 
     // eslint-disable-next-line no-console
