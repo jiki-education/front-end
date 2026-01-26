@@ -1,6 +1,8 @@
 import TypeIt from "typeit-react";
 import type { StreamStatus } from "../lib/chat-types";
 import { processMessageContent } from "./messageUtils";
+// #TODO continue working on this
+// import { processMessageForTyping } from "./processMessageForTyping";
 import styles from "./chat-panel.module.css";
 
 interface TypeItAssistantMessageProps {
@@ -37,15 +39,19 @@ export default function TypeItAssistantMessage({
       <div className={styles.responseContent}>
         {status === "typing" && content ? (
           <TypeIt
+            as="div"
             options={{
+              strings: [processMessageContent(content)],
               speed: typingSpeed,
+              html: true,
+              lifeLike: true,
+              cursor: false,
+              waitUntilVisible: true,
               afterComplete: () => {
                 onTypingComplete?.();
               }
             }}
-          >
-            {content}
-          </TypeIt>
+          />
         ) : (
           <div dangerouslySetInnerHTML={{ __html: processMessageContent(content) }} />
         )}
