@@ -8,6 +8,8 @@ import hljs from "highlight.js/lib/core";
 import "highlight.js/styles/default.min.css";
 import { addHighlight, removeAllHighlightEffect } from "../edit-editor/highlightRange";
 import { cleanupAllInformationTooltips } from "./cleanup";
+import closeButtonStyles from "@/components/ui-kit/CloseButton/CloseButton.module.css";
+import tooltipStyles from "./informationTooltip.module.css";
 
 export class InformationWidget extends WidgetType {
   private tooltip: HTMLElement | null = null;
@@ -53,22 +55,26 @@ export class InformationWidget extends WidgetType {
 
   private createTooltip() {
     this.tooltip = document.createElement("div");
-    this.tooltip.classList.add("information-tooltip");
+    this.tooltip.className = tooltipStyles.informationTooltip;
     const content = document.createElement("div");
-    content.classList.add("content");
+    content.className = tooltipStyles.content;
     content.innerHTML = this.tooltipHtml;
     this.tooltip.appendChild(content);
 
     if (this.status === "ERROR") {
-      this.tooltip.classList.add("error");
+      this.tooltip.classList.add(tooltipStyles.error);
     } else {
-      this.tooltip.classList.add("description");
+      this.tooltip.classList.add(tooltipStyles.description);
     }
     document.body.appendChild(this.tooltip);
 
     const closeButton = document.createElement("button");
-    closeButton.innerHTML = "&times;";
-    closeButton.classList.add("tooltip-close");
+    closeButton.innerHTML = "×";
+    closeButton.className = `${closeButtonStyles.closeButton} ${tooltipStyles.closeButton}`;
+    closeButton.classList.add(closeButtonStyles.small);
+    // Add light variant for all tooltips (both have white/light backgrounds)
+    closeButton.classList.add(closeButtonStyles.light);
+    closeButton.setAttribute("aria-label", "Close tooltip");
     closeButton.onclick = () => {
       this.onClose(this.view);
     };
@@ -100,7 +106,7 @@ export class InformationWidget extends WidgetType {
   }
 
   private cleanupDuplicateTooltips() {
-    const tooltips = document.querySelectorAll(".information-tooltip");
+    const tooltips = document.querySelectorAll(`.${tooltipStyles.informationTooltip}`);
 
     if (tooltips.length > 1) {
       tooltips.forEach((tooltip, index) => {
@@ -128,7 +134,7 @@ export class InformationWidget extends WidgetType {
       return;
     }
     this.arrowElement = document.createElement("div");
-    this.arrowElement.classList.add("tooltip-arrow");
+    this.arrowElement.className = tooltipStyles.tooltipArrow;
     this.tooltip.prepend(this.arrowElement);
   }
 

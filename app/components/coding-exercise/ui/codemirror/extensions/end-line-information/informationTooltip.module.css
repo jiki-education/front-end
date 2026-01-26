@@ -1,0 +1,164 @@
+.informationTooltip {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 81; /* z-tooltip-content */
+    border-radius: 8px;
+    max-width: 600px;
+    max-height: min(90vh, 800px);
+    transition: opacity 0.3s ease;
+    font-size: 16px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For absolute positioning of close button */
+}
+
+.closeButton {
+    position: absolute !important;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.content {
+    padding: 20px;
+    overflow: auto;
+    flex: 1;
+}
+
+.informationTooltip code {
+    overflow-wrap: break-word;
+}
+
+.informationTooltip code[data-hl-from] {
+    cursor: help;
+}
+
+.informationTooltip :not(pre) > code {
+    padding: 1px 6px;
+    border-radius: 5px;
+}
+
+/* Code styling for description/normal tooltips */
+.description :not(pre) > code {
+    background-color: var(--color-blue-50);
+    color: var(--color-blue-600);
+}
+
+/* Code styling for error tooltips */
+.error :not(pre) > code {
+    background-color: var(--color-red-50);
+    color: var(--color-red-600);
+}
+
+.informationTooltip pre + p {
+    margin-top: 24px; /* mt-6 = 6 * 4px */
+}
+
+.informationTooltip pre {
+    margin-top: 8px; /* mt-2 = 2 * 4px */
+}
+
+.informationTooltip p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.informationTooltip ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.tooltipArrow {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid;
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: -10px;
+}
+
+.description {
+    background-color: var(--color-surface-elevated);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-info-border);
+    filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
+    overflow: hidden; /* Ensure proper border radius clipping */
+}
+
+.description .tooltipArrow {
+    border-right-color: var(--color-info-border);
+}
+
+.description hr {
+    margin: 16px 0;
+    color: var(--color-gray-200);
+}
+
+.description h3 {
+    fonr-weight: 500;
+    margin-bottom: 10px;
+}
+
+.error {
+    background-color: var(--color-surface-elevated);
+    border: 2px solid var(--color-red-500);
+    filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
+    overflow: hidden; /* Ensure proper border radius clipping */
+    min-width: 400px; /* Ensure enough width for "Oops" text */
+}
+
+.error h2 {
+    color: var(--color-red-500);
+    font-weight: 600;
+    margin: 0;
+    background-color: var(--color-error-bg);
+    border-bottom: 1px solid var(--color-red-500);
+}
+
+.error .content {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-elevated);
+    overflow: auto;
+    flex: 1;
+}
+
+.error .content > *:first-child {
+    margin-top: 0;
+}
+
+.error .content > *:last-child {
+    margin-bottom: 0;
+}
+
+.error .tooltipArrow {
+    border-right-color: var(--color-red-500);
+}
+
+/* Tooltip section title styling - targets first div in content */
+.informationTooltip .content > div:first-child {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-blue-600);
+}
+
+.informationTooltip .content > div:first-child svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Error tooltip title styling - override color for errors */
+.error .content > div:first-child {
+    color: var(--color-red-500);
+}
+
+.error .content > div:first-child svg {
+    color: var(--color-red-500);
+}
