@@ -10,6 +10,7 @@ export interface UserLessonData {
   lesson_slug: string;
   status: "started" | "completed";
   conversation: ChatMessage[];
+  conversation_allowed: boolean;
   data: any;
 }
 

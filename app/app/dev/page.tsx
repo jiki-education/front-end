@@ -87,6 +87,12 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- All ui-btn variants and styles</span>
             </li>
+            <li>
+              <Link href="/dev/chat-panel-states" className="text-blue-600 hover:underline">
+                Chat Panel States
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- All chat panel state components</span>
+            </li>
           </ul>
         </div>
 
