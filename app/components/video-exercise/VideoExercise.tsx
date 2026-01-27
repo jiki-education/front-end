@@ -213,6 +213,9 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}
               onTimeUpdate={handleTimeUpdate}
+              onCanPlay={() => {
+                void playerRef.current?.play();
+              }}
             />
           ) : (
             <div className={styles.noVideoPlaceholder}>
