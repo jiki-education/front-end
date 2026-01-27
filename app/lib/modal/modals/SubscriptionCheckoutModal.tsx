@@ -61,11 +61,11 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
     );
   }
 
+  // At this point, checkoutState.type is guaranteed to be "success" due to early returns
+  const { checkout } = checkoutState;
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    // At this point, checkoutState.type is guaranteed to be "success" due to early returns
-    const { checkout } = checkoutState;
 
     setIsLoading(true);
     setMessage(null);
@@ -117,7 +117,7 @@ function CheckoutForm({ selectedTier, onCancel }: { selectedTier: MembershipTier
 
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || !checkout.canConfirm}
           className="mt-10 ui-btn ui-btn-large ui-btn-primary ui-btn-purple w-full"
           id="submit-btn"
         >
