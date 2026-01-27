@@ -18,15 +18,17 @@ export default function Scrubber() {
   const frames = currentTest?.frames ?? [];
   const animationTimeline = currentTest?.animationTimeline ?? null;
   const time = currentTestTime;
-  const isEnabled = !!currentTest && !hasCodeBeenEdited && !isSpotlightActive && frames.length >= 2;
 
-  // Determine the disabled reason for the tooltip
-  const getDisabledReason = () => {
+  // Scrubbing requires 2+ frames
+  const isScrubberEnabled = !!currentTest && !hasCodeBeenEdited && !isSpotlightActive && frames.length >= 2;
+
+  // Information widget toggle only requires a current test with at least 1 frame
+  const isInformationToggleEnabled = !!currentTest && !hasCodeBeenEdited && !isSpotlightActive && frames.length >= 1;
+
+  // Tooltip reasons - separated by what they affect
+  const getGlobalDisabledReason = () => {
     if (hasCodeBeenEdited) {
       return "Scrubber disabled: Code has been edited. Run tests to re-enable.";
-    }
-    if (frames.length < 2) {
-      return "Scrubber disabled: Not enough frames to scrub through.";
     }
     if (isSpotlightActive) {
       return "Scrubber disabled: Spotlight mode is active.";
@@ -34,41 +36,82 @@ export default function Scrubber() {
     return null;
   };
 
-  const disabledReason = getDisabledReason();
+  const getScrubberOnlyDisabledReason = () => {
+    if (frames.length < 2) {
+      return "Scrubber disabled: Not enough frames to scrub through.";
+    }
+    return null;
+  };
 
-  const scrubberContent = (
-    <div
-      data-testid="scrubber"
-      id="scrubber"
-      onClick={() => {
-        // we wanna focus the range input, so keyboard shortcuts work
-        rangeRef.current?.focus();
-      }}
-      tabIndex={-1}
-      className={styles.controlBar}
-    >
-      {currentTest?.type === "visual" && <PlayPauseButton disabled={!isEnabled} />}
+  const globalDisabledReason = getGlobalDisabledReason();
+  const scrubberOnlyDisabledReason = getScrubberOnlyDisabledReason();
+
+  const scrubberControls = (
+    <>
+      {currentTest?.type === "visual" && <PlayPauseButton disabled={!isScrubberEnabled} />}
       <ScrubberInput
         ref={rangeRef}
         frames={frames}
         animationTimeline={animationTimeline}
         time={time}
-        enabled={isEnabled}
+        enabled={isScrubberEnabled}
       />
-      <FrameStepperButtons enabled={isEnabled} />
-      <BreakpointStepperButtons enabled={isEnabled} />
-      <InformationWidgetToggleButton disabled={!isEnabled} />
-    </div>
+      <FrameStepperButtons enabled={isScrubberEnabled} />
+      <BreakpointStepperButtons enabled={isScrubberEnabled} />
+    </>
   );
 
-  // Wrap with tooltip only if there's a disabled reason
-  if (disabledReason) {
+  const wrappedScrubberControls = <div className={styles.scrubberControlsWrapper}>{scrubberControls}</div>;
+
+  const toggleButton = <InformationWidgetToggleButton disabled={!isInformationToggleEnabled} />;
+
+  // If global reason (code edited, spotlight), wrap entire control bar with tooltip
+  if (globalDisabledReason) {
     return (
-      <Tooltip content={disabledReason} placement="top" disabled={false} className={styles.disabledTooltip} disableFlip>
-        {scrubberContent}
+      <Tooltip
+        content={globalDisabledReason}
+        placement="top"
+        disabled={false}
+        className={styles.disabledTooltip}
+        disableFlip
+      >
+        <div
+          data-testid="scrubber"
+          id="scrubber"
+          onClick={() => rangeRef.current?.focus()}
+          tabIndex={-1}
+          className={styles.controlBar}
+        >
+          {wrappedScrubberControls}
+          {toggleButton}
+        </div>
       </Tooltip>
     );
   }
 
-  return scrubberContent;
+  // If only scrubber-specific reason (not enough frames), wrap only scrubber controls
+  return (
+    <div
+      data-testid="scrubber"
+      id="scrubber"
+      onClick={() => rangeRef.current?.focus()}
+      tabIndex={-1}
+      className={styles.controlBar}
+    >
+      {scrubberOnlyDisabledReason ? (
+        <Tooltip
+          content={scrubberOnlyDisabledReason}
+          placement="top"
+          disabled={false}
+          className={styles.disabledTooltip}
+          disableFlip
+        >
+          {wrappedScrubberControls}
+        </Tooltip>
+      ) : (
+        wrappedScrubberControls
+      )}
+      {toggleButton}
+    </div>
+  );
 }

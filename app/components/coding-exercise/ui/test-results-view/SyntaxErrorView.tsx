@@ -1,14 +1,22 @@
-// import Image from "next/image";
+import styles from "./SyntaxErrorView.module.css";
+
 export function SyntaxErrorView() {
   return (
-    <div className="border-t-1 border-borderColor6">
-      <div className="text-center py-40 px-40 max-w-[600px] mx-auto">
-        {/* <Image src="/bug.svg" alt="An image of a bug" className={`w-[48px] h-[48px] m-auto mb-20 filter-textColor6`} /> */}
-        <div className="text-h5 mb-6 text-textColor6">Oops! Jiki couldn&apos;t understand your code.</div>
-        <div className="mb-20 text-textColor6 leading-160 text-16 text-balance">
-          No need to panic. Read and fix the error in the message above, then press &quot;Check Scenarios&quot; to try
-          again.
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <div className={styles.robotIcon}>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="#ffffff"
+              d="M4.5 21c-0.4125 0 -0.765585 -0.1469 -1.05925 -0.44075C3.146915 20.2656 3 19.9125 3 19.5V9c0 -1.66665 0.583335 -3.08335 1.75 -4.25C5.91665 3.583335 7.33335 3 9 3h6c1.66665 0 3.08335 0.583335 4.25 1.75 1.16665 1.16665 1.75 2.58335 1.75 4.25v10.5c0 0.4125 -0.14685 0.7656 -0.4405 1.05925C20.26565 20.8531 19.9125 21 19.5 21H4.5Zm0 -1.5h15V9c0 -1.25 -0.4375 -2.3125 -1.3125 -3.1875S16.25 4.5 15 4.5H9c-1.25 0 -2.3125 0.4375 -3.1875 1.3125S4.5 7.75 4.5 9v10.5Zm4.49775 -7.75c-0.48185 0 -0.8936 -0.1716 -1.23525 -0.51475 -0.34165 -0.34315 -0.5125 -0.75565 -0.5125 -1.2375s0.1716 -0.8936 0.51475 -1.23525c0.34315 -0.34165 0.75565 -0.5125 1.2375 -0.5125s0.8936 0.1716 1.23525 0.51475c0.34165 0.34315 0.5125 0.75565 0.5125 1.2375s-0.1716 0.8936 -0.51475 1.23525c-0.34315 0.34165 -0.75565 0.5125 -1.2375 0.5125Zm6 0c-0.48185 0 -0.8936 -0.1716 -1.23525 -0.51475 -0.34165 -0.34315 -0.5125 -0.75565 -0.5125 -1.2375s0.1716 -0.8936 0.51475 -1.23525c0.34315 -0.34165 0.75565 -0.5125 1.2375 -0.5125s0.8936 0.1716 1.23525 0.51475c0.34165 0.34315 0.5125 0.75565 0.5125 1.2375s-0.1716 0.8936 -0.51475 1.23525c-0.34315 0.34165 -0.75565 0.5125 -1.2375 0.5125ZM7.25 19.5v-2.75c0 -0.4125 0.1469 -0.76565 0.44075 -1.0595 0.29365 -0.29365 0.64675 -0.4405 1.05925 -0.4405h6.5c0.4125 0 0.76565 0.14685 1.0595 0.4405 0.29365 0.29385 0.4405 0.647 0.4405 1.0595V19.5h-1.5v-2.75h-2.5V19.5h-1.5v-2.75h-2.5V19.5h-1.5Z"
+              strokeWidth="0.5"
+            />
+          </svg>
         </div>
+        <h3 className={styles.heading}>Jiki couldn&apos;t understand your code.</h3>
+        <p className={styles.message}>
+          No need to panic. Read and fix the error in the message above, and then run the code again.
+        </p>
       </div>
     </div>
   );
