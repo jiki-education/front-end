@@ -58,7 +58,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   const hasLoadedConversationRef = useRef(false);
 
   const conversationAllowed = conversationLoader.conversationAllowed;
-  const hasExistingConversation = conversationLoader.conversation.length > 0;
+  const hasExistingConversation = conversationLoader.conversation.length > 0 || chat.messages.length > 0;
 
   // Load conversation on mount (skip if using mock data)
   useEffect(() => {
@@ -140,7 +140,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
       case "premium-user-blocked":
         return <PremiumUserBlocked messages={conversationLoader.conversation} />;
       case "premium-user-can-start":
-        return <PremiumUserCanStart />;
+        return <PremiumUserCanStart onSendMessage={chat.sendMessage} />;
       case "in-progress":
         return null;
     }

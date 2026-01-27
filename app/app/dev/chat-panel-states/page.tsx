@@ -44,6 +44,10 @@ export default function ChatPanelStatesDevPage() {
     console.debug("Start chat clicked");
   };
 
+  const handleSendMessage = (message: string) => {
+    console.debug("Message sent:", message);
+  };
+
   const renderComponent = () => {
     switch (selectedState) {
       case "free-user-can-start":
@@ -55,7 +59,7 @@ export default function ChatPanelStatesDevPage() {
       case "premium-user-blocked":
         return <PremiumUserBlocked messages={mockMessages} />;
       case "premium-user-can-start":
-        return <PremiumUserCanStart />;
+        return <PremiumUserCanStart onSendMessage={handleSendMessage} />;
     }
   };
 
