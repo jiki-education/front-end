@@ -1,6 +1,5 @@
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import ConceptCard from "@/components/concepts/ConceptCard";
-import ExternalLinkIcon from "@/icons/external-link.svg";
 import styles from "./instructions-panel.module.css";
 
 interface ConceptLibraryProps {
@@ -19,9 +18,8 @@ export default function ConceptLibrary({ concepts, className = "" }: ConceptLibr
         ))}
       </div>
 
-      <a className={styles.openConceptLibraryBtn} href="">
-        <span className="underline">Open Concept Library</span>
-        <ExternalLinkIcon />
+      <a className="ui-btn ui-btn-default w-full ui-btn-gray ui-btn-secondary" href="">
+        Open Concept Library
       </a>
     </div>
   );

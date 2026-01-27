@@ -81,6 +81,12 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- Test the new premium upgrade modal with clean design</span>
             </li>
+            <li>
+              <Link href="/dev/buttons" className="text-blue-600 hover:underline">
+                Buttons
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- All ui-btn variants and styles</span>
+            </li>
           </ul>
         </div>
 
