@@ -1,7 +1,7 @@
 import BlogPage from "@/components/blog/BlogPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content/loader";
+import { getAvailableLocales } from "@/lib/content";
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 

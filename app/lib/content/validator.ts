@@ -19,7 +19,6 @@ export interface BlogConfig {
 export interface ArticleConfig {
   date: string;
   author: string;
-  featured: boolean;
   listed: boolean;
 }
 
@@ -114,15 +113,39 @@ export function validateArticleConfig(
 
   const cfg = config as Record<string, unknown>;
 
-  // Validate required fields (no coverImage for articles)
-  const requiredFields = ["date", "author", "featured", "listed"];
+  // Validate required fields (no coverImage or featured for articles)
+  const requiredFields = ["date", "author", "listed"];
   for (const field of requiredFields) {
     if (!(field in cfg)) {
       throw new ValidationError(`Article '${slug}' config.json missing required field: ${field}`);
     }
   }
 
-  validateCommonConfigFields(slug, cfg, authors);
+  // Validate date format (YYYY-MM-DD)
+  if (typeof cfg.date !== "string") {
+    throw new ValidationError(`Article '${slug}' config.json has invalid date: must be string`);
+  }
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(cfg.date)) {
+    throw new ValidationError(
+      `Article '${slug}' config.json has invalid date format: '${cfg.date}' (expected YYYY-MM-DD)`
+    );
+  }
+
+  const dateObj = new Date(cfg.date);
+  if (isNaN(dateObj.getTime())) {
+    throw new ValidationError(`Article '${slug}' config.json has invalid date: '${cfg.date}' is not a valid date`);
+  }
+
+  // Validate author
+  if (typeof cfg.author !== "string" || cfg.author.trim() === "") {
+    throw new ValidationError(`Article '${slug}' config.json has invalid author: must be non-empty string`);
+  }
+
+  if (!(cfg.author in authors)) {
+    throw new ValidationError(`Article '${slug}' config.json references unknown author: '${cfg.author}'`);
+  }
 
   // Validate listed
   if (typeof cfg.listed !== "boolean") {
@@ -232,5 +255,27 @@ export function validateNoDuplicateSlugs(slugs: string[]): void {
 
   if (duplicates.size > 0) {
     throw new ValidationError(`Duplicate slugs detected: ${Array.from(duplicates).join(", ")}`);
+  }
+}
+
+// Required locales that must exist for all content
+export const REQUIRED_LOCALES = ["en", "hu"] as const;
+
+/**
+ * Validate that all required locale files exist for a content item
+ */
+export function validateRequiredLocales(
+  type: "blog" | "article",
+  slug: string,
+  slugDir: string,
+  existingLocales: string[]
+): void {
+  for (const locale of REQUIRED_LOCALES) {
+    if (!existingLocales.includes(locale)) {
+      const expectedFile = path.join(slugDir, `${locale}.md`);
+      throw new ValidationError(
+        `${type === "blog" ? "Blog post" : "Article"} '${slug}' is missing required locale file: ${expectedFile}`
+      );
+    }
   }
 }

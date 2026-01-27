@@ -6,7 +6,8 @@ import {
   validateArticleConfig,
   validateFrontmatter,
   validateAuthors,
-  validateNoDuplicateSlugs
+  validateNoDuplicateSlugs,
+  validateRequiredLocales
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -51,12 +52,14 @@ describe("Content Validation", () => {
             }).not.toThrow();
           });
 
-          it("should have en.md file", () => {
-            const enFile = path.join(postDir, "en.md");
-            expect(fs.existsSync(enFile)).toBe(true);
-          });
-
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
+          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+
+          it("should have all required locale files", () => {
+            expect(() => {
+              validateRequiredLocales("blog", slug, postDir, existingLocales);
+            }).not.toThrow();
+          });
 
           mdFiles.forEach((mdFile) => {
             const locale = path.basename(mdFile, ".md");
@@ -103,12 +106,14 @@ describe("Content Validation", () => {
             }).not.toThrow();
           });
 
-          it("should have en.md file", () => {
-            const enFile = path.join(postDir, "en.md");
-            expect(fs.existsSync(enFile)).toBe(true);
-          });
-
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
+          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+
+          it("should have all required locale files", () => {
+            expect(() => {
+              validateRequiredLocales("article", slug, postDir, existingLocales);
+            }).not.toThrow();
+          });
 
           mdFiles.forEach((mdFile) => {
             const locale = path.basename(mdFile, ".md");

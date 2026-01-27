@@ -1,7 +1,7 @@
 import ArticleDetailPage, { getArticleMetadata } from "@/components/articles/ArticleDetailPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAllPostSlugsWithLocales } from "@/lib/content/loader";
+import { getAllPostSlugsWithLocales } from "@/lib/content";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 

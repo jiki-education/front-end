@@ -1,7 +1,7 @@
 ---
 title: "Why Is This Feature Not Implemented?"
 excerpt: "Learn why certain language features are excluded from Jiki and how this helps you learn more effectively."
-tags: ["reference", "javascript", "python", "learning"]
+tags: ["exercises"]
 seo:
   description: "Understanding why Jiki excludes certain JavaScript and Python features to help beginners learn"
   keywords: ["jiki", "javascript", "python", "excluded features", "foot-guns", "learning"]

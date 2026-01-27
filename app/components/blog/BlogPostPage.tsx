@@ -1,6 +1,6 @@
-import { getAllBlogPosts, getBlogPost } from "@/lib/content/loader";
-import { notFound } from "next/navigation";
+import { getAllBlogPosts, getBlogPost } from "@/lib/content";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import BlogPostContent from "./BlogPostContent";
 import CTABlock from "./CTABlock";
 import RecentBlogPosts from "./RecentBlogPosts";
