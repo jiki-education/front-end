@@ -8,6 +8,7 @@ import SettingsIcon from "@static/icons/settings.svg";
 import type { ComponentType } from "react";
 import { Logo } from "./Logo";
 import { NavigationItem } from "./NavigationItem";
+import { MoreMenu } from "./MoreMenu";
 
 interface SidebarProps {
   activeItem?: string;
@@ -43,6 +44,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
               icon={item.icon}
             />
           ))}
+          <MoreMenu isActive={activeItem === "more"} />
         </ul>
       </nav>
 
