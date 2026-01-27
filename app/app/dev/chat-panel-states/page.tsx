@@ -8,6 +8,7 @@ import {
   PremiumUserBlocked,
   PremiumUserCanStart
 } from "@/components/coding-exercise/ui/chat-panel-states";
+import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 
 type StateId =
   | "free-user-can-start"
@@ -24,6 +25,18 @@ const states: { id: StateId; label: string }[] = [
   { id: "premium-user-can-start", label: "Premium User Can Start" }
 ];
 
+const mockMessages: ChatMessage[] = [
+  {
+    role: "assistant",
+    content:
+      "Great question! The `forEach` loop is iterating through each alien in your array. The issue is that you're checking the position before moving the alien..."
+  },
+  {
+    role: "user",
+    content: "Ah I think I understand now. So I need to move first, then check?"
+  }
+];
+
 export default function ChatPanelStatesDevPage() {
   const [selectedState, setSelectedState] = useState<StateId>("free-user-can-start");
 
@@ -38,7 +51,7 @@ export default function ChatPanelStatesDevPage() {
       case "free-user-limit-reached":
         return <FreeUserLimitReached />;
       case "free-user-limit-reached-with-history":
-        return <FreeUserLimitReachedWithHistory />;
+        return <FreeUserLimitReachedWithHistory messages={mockMessages} />;
       case "premium-user-blocked":
         return <PremiumUserBlocked />;
       case "premium-user-can-start":
