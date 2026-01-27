@@ -69,10 +69,12 @@ test.describe("Test Switching E2E", () => {
       const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
       await secondButton.click();
 
-      // Wait for state to update
+      // Wait for the second test to be fully loaded by checking its slug.
+      // We intentionally avoid checking currentTestTime === 100000 (the first frame time)
+      // because it creates a race condition - the exact value may only be present momentarily.
       await page.waitForFunction(() => {
         const orchestrator = (window as any).testOrchestrator;
-        return orchestrator?.getStore().getState().currentTestTime === 100000;
+        return orchestrator?.getStore().getState().currentTest?.slug === "test-scenario-2";
       });
 
       // Check that the scrubber shows beginning time (first frame time, typically 100000 microseconds)
@@ -177,9 +179,13 @@ test.describe("Test Switching E2E", () => {
       // Click second test
       const secondButton = page.locator('[data-testid="test-selector-buttons"] button').nth(1);
       await secondButton.click();
+      // Wait for the second test to be fully loaded by checking its slug.
+      // We intentionally avoid checking currentTestTime === 100000 (the first frame time)
+      // because auto-play starts immediately and advances the time past that value,
+      // creating a race condition where the exact value is only present momentarily.
       await page.waitForFunction(() => {
         const orchestrator = (window as any).testOrchestrator;
-        return orchestrator?.getStore().getState().currentTestTime === 100000;
+        return orchestrator?.getStore().getState().currentTest?.slug === "test-scenario-2";
       });
 
       // Click back to first test
@@ -407,29 +413,28 @@ test.describe("Test Switching E2E", () => {
         void orchestrator.runCode();
       });
 
-      // Wait for it to auto-play and then pause to check the reset worked
-      // First ensure the test is set up with animation timeline
+      // Wait for the test to be loaded, then immediately pause via API.
+      // We use API-based pause instead of clicking the UI button because UI latency
+      // (~200ms for button render + click) would let the animation advance too far,
+      // making it impossible to verify the time reset to the beginning.
       await page.waitForFunction(() => {
         const orchestrator = (window as any).testOrchestrator;
         const state = orchestrator?.getStore().getState();
         return state.currentTest && state.currentTest.animationTimeline && state.currentTest.type === "visual";
       });
-      await page.locator('[data-ci="pause-button"]').waitFor();
-      await page.locator('[data-ci="pause-button"]').click();
-      await page.waitForFunction(() => {
-        const orchestrator = (window as any).testOrchestrator;
-        return orchestrator?.getStore().getState().isPlaying === false;
+      await page.evaluate(() => {
+        (window as any).testOrchestrator.pause();
       });
 
-      // First test should be at the paused position (which proves it restarted from beginning)
+      // Verify time is near the beginning (first frame is at 100000μs = 100ms)
       const currentTime = await page.evaluate(() => {
         const orchestrator = (window as any).testOrchestrator;
         return orchestrator.getStore().getState().currentTestTime;
       });
 
-      // Should be at a small time (less than 250ms), proving it restarted
-      // Using 250ms threshold to account for E2E timing variability
-      expect(currentTime).toBeLessThan(250000);
+      // Should be at or very near the first frame time (100000μs), proving it restarted.
+      // Allow small margin for timing, but much tighter than the old 250000 threshold.
+      expect(currentTime).toBeLessThan(150000);
     });
   });
 });
