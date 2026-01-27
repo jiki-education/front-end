@@ -8,6 +8,7 @@ export interface GetArticlesOptions {
   locale?: string;
   tag?: ArticleTagSlug | null;
   page?: number;
+  listedOnly?: boolean;
 }
 
 export interface GetArticlesResult {
@@ -19,13 +20,13 @@ export interface GetArticlesResult {
 
 /**
  * Get articles with optional tag filtering and pagination
- * Returns only listed articles, sorted alphabetically by title
+ * By default returns only listed articles, sorted alphabetically by title
  */
 export async function getArticles(options: GetArticlesOptions = {}): Promise<GetArticlesResult> {
-  const { locale = "en", tag = null, page = 1 } = options;
+  const { locale = "en", tag = null, page = 1, listedOnly = true } = options;
 
   const allArticles = await getAllArticles(locale);
-  let filteredArticles = allArticles.filter((article) => article.listed);
+  let filteredArticles = listedOnly ? allArticles.filter((article) => article.listed) : allArticles;
 
   // Filter by tag if provided
   if (tag) {
