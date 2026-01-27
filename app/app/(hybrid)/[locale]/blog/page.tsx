@@ -1,12 +1,13 @@
 import BlogPage from "@/components/blog/BlogPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content/loader";
+import { getAvailableLocales } from "@/lib/content";
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateStaticParams() {
@@ -33,8 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function AuthenticatedLocaleBlogPage({ params }: Props) {
+export default async function AuthenticatedLocaleBlogPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { page } = await searchParams;
 
   // Redirect default locale to naked URL
   if (locale === DEFAULT_LOCALE) {
@@ -50,7 +52,7 @@ export default async function AuthenticatedLocaleBlogPage({ params }: Props) {
   // Authenticated UI with header/footer
   return (
     <AuthenticatedHeaderLayout>
-      <BlogPage authenticated locale={locale} />
+      <BlogPage authenticated locale={locale} page={page} />
     </AuthenticatedHeaderLayout>
   );
 }

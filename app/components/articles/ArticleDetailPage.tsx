@@ -1,9 +1,8 @@
-import { getListedArticles, getArticle } from "@/lib/content/loader";
-import { notFound } from "next/navigation";
+import { getArticle, getAllArticles } from "@/lib/content";
 import type { Metadata } from "next";
-import ArticleDetailContent from "./ArticleDetailContent";
+import { notFound } from "next/navigation";
 import CTABlock from "../blog/CTABlock";
-import RecentArticles from "./RecentArticles";
+import ArticleDetailContent from "./ArticleDetailContent";
 
 interface ArticleDetailPageProps {
   slug: string;
@@ -13,7 +12,7 @@ interface ArticleDetailPageProps {
 
 // Helper for generateStaticParams
 export async function getArticleStaticParams(locale: string = "en") {
-  const articles = await getListedArticles(locale);
+  const articles = await getAllArticles(locale);
   return articles.map((article) => ({ slug: article.slug }));
 }
 
@@ -39,13 +38,6 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
     notFound();
   }
 
-  // Get recent listed articles, excluding the current one
-  const allArticles = await getListedArticles(locale);
-  const recentArticles = allArticles
-    .filter((a) => a.slug !== slug)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
-
   if (authenticated) {
     return <ArticleDetailContent article={article} variant="authenticated" />;
   }
@@ -62,9 +54,6 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
         buttonText="Get started now"
         buttonHref="/signup"
       />
-
-      {/* Recent Articles */}
-      <RecentArticles articles={recentArticles} />
 
       {/* Gradient CTA */}
       <CTABlock
