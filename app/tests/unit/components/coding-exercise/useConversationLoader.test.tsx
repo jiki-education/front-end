@@ -28,6 +28,7 @@ describe("useConversationLoader", () => {
       lesson_slug: "test-exercise",
       status: "started",
       conversation: mockConversation,
+      conversation_allowed: true,
       data: {}
     });
 
@@ -93,6 +94,7 @@ describe("useConversationLoader", () => {
       lesson_slug: "cached-exercise",
       status: "started",
       conversation: mockConversation,
+      conversation_allowed: true,
       data: {}
     });
 
@@ -124,12 +126,14 @@ describe("useConversationLoader", () => {
         lesson_slug: "exercise-1",
         status: "started",
         conversation: mockConversation1,
+        conversation_allowed: true,
         data: {}
       })
       .mockResolvedValueOnce({
         lesson_slug: "exercise-2",
         status: "started",
         conversation: mockConversation2,
+        conversation_allowed: true,
         data: {}
       });
 
@@ -160,6 +164,7 @@ describe("useConversationLoader", () => {
       lesson_slug: "retry-exercise",
       status: "started",
       conversation: [{ role: "user", content: "Retry successful" }],
+      conversation_allowed: true,
       data: {}
     });
 

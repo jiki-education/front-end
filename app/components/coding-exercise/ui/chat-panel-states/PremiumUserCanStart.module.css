@@ -1,0 +1,122 @@
+.rotatingText {
+    color: var(--color-purple-600);
+    font-weight: 500;
+}
+
+.typingCursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--color-purple-500);
+    margin-left: 2px;
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+}
+
+@keyframes blink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.chatInputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 0 16px 0;
+    width: 100%;
+}
+
+.chatInputWrapper {
+    position: relative;
+}
+
+.chatInput {
+    position: relative;
+    padding: 14px 16px 56px 16px;
+    border: 2px solid var(--color-purple-200);
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: "Poppins", sans-serif;
+    transition:
+        border-color 0.2s,
+        height 0.1s ease;
+    background: white;
+    resize: none;
+    min-height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.chatInput:focus {
+    outline: none;
+    border-color: var(--color-purple-300);
+}
+
+.chatInput::placeholder {
+    color: var(--color-gray-400);
+}
+
+.chatSendButton {
+    position: absolute;
+    bottom: 19px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--color-purple-100);
+    color: var(--color-purple-500);
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    border: none;
+    border-radius: 8px;
+    cursor: default;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+.chatSendButtonActive {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-600) 100%);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--color-purple-500-30);
+    opacity: 1;
+}
+
+.chatSendButtonActive:hover {
+    box-shadow:
+        0 0 0 3px var(--color-purple-500-20),
+        0 4px 12px var(--color-purple-500-40);
+}
+
+.chatSendButton svg {
+    width: 16px;
+    height: 16px;
+}
+
+.includedText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin: 5px 0 0 0;
+}
+
+.checkIcon {
+    color: var(--color-gray-500);
+}

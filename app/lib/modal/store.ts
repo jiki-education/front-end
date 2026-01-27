@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { MembershipTier } from "@/lib/pricing";
+import confirmationStyles from "@/app/styles/components/confirmation-modal.module.css";
 
 interface ModalState {
   isOpen: boolean;
@@ -72,7 +73,7 @@ export const showConfirmation = (props: {
   onCancel?: () => void;
   variant?: "default" | "danger";
 }) => {
-  showModal("confirmation-modal", props);
+  showModal("confirmation-modal", props, undefined, confirmationStyles.modal);
 };
 
 // Convenience function for info modals

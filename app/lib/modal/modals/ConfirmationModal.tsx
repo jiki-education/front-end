@@ -1,7 +1,7 @@
 "use client";
 
 import { hideModal } from "../store";
-import styles from "@/app/styles/components/modals.module.css";
+import styles from "@/app/styles/components/confirmation-modal.module.css";
 
 interface ConfirmationModalProps {
   title?: string;
@@ -36,12 +36,11 @@ export function ConfirmationModal({
     <>
       <h2 className={styles.modalTitle}>{title}</h2>
       <p className={styles.modalMessage}>{message}</p>
-      <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={handleCancel} className={styles.btnSecondary}>
+        <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-small">
           {cancelText}
         </button>
-        <button onClick={handleConfirm} className={styles.btnPrimary}>
+        <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-small">
           {confirmText}
         </button>
       </div>
