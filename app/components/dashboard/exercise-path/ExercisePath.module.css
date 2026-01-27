@@ -407,6 +407,7 @@
     position: relative;
     overflow: visible;
     transform: scale(1); /* Ensure initial scale is set */
+    cursor: pointer; /* Override locked cursor during unlock animation */
 }
 
 .lessonPart.animatingUnlock .partIcon,
