@@ -308,7 +308,7 @@
 }
 
 /* Remove TypeIt's ::before pseudo-element */
-[data-typeit-id]:before {
+.responseContent :global([data-typeit-id])::before {
     display: none !important;
 }
 
