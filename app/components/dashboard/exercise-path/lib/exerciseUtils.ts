@@ -8,8 +8,8 @@ export function getExerciseTypeIcon(type: LessonType) {
       return "VideoIcon";
     case "quiz":
       return "QuizIcon";
-    default:
-      return null;
+    case "choose_language":
+      return "ChoiceIcon";
   }
 }
 
@@ -21,7 +21,7 @@ export function getTypeLabel(type: LessonType) {
       return "Video Lesson";
     case "quiz":
       return "Quiz";
-    default:
-      return type;
+    case "choose_language":
+      return "Language Choice";
   }
 }

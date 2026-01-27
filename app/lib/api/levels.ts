@@ -6,15 +6,20 @@ import type {
   UserLevel,
   UserLevelsResponse
 } from "@/types/levels";
+import { CURRENT_COURSE_SLUG } from "@/lib/constants/course";
 import { api } from "./client";
 
 export async function fetchLevels(): Promise<Level[]> {
-  const response = await api.get<LevelsResponse>("/internal/levels");
+  const response = await api.get<LevelsResponse>("/internal/levels", {
+    params: { course_slug: CURRENT_COURSE_SLUG }
+  });
   return response.data.levels;
 }
 
 export async function fetchUserLevels(): Promise<UserLevel[]> {
-  const response = await api.get<UserLevelsResponse>("/internal/user_levels");
+  const response = await api.get<UserLevelsResponse>("/internal/user_levels", {
+    params: { course_slug: CURRENT_COURSE_SLUG }
+  });
   return response.data.user_levels;
 }
 

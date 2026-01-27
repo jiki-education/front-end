@@ -1,14 +1,10 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { getMockUserProgress } from "../lib/mockData";
 import { LeaderboardCard } from "./LeaderboardCard";
-import { ProgressCard } from "./ProgressCard";
-import { StreakCard } from "./StreakCard";
 
 export default function InfoPanel() {
   const { user } = useAuthStore();
-  const userProgress = getMockUserProgress();
 
   // Get initials from user name or email
   const getInitials = () => {
@@ -37,11 +33,8 @@ export default function InfoPanel() {
             {getInitials()}
           </div>
           <h2 className="text-xl font-semibold text-gray-900">{displayName}</h2>
-          <p className="text-sm text-gray-500">Level {userProgress.currentLevel}</p>
         </div>
 
-        <ProgressCard progress={userProgress} />
-        <StreakCard streak={userProgress.streak} />
         <LeaderboardCard />
       </div>
     </aside>

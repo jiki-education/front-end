@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
-import type { LevelWithProgress } from "@/types/levels";
+import type { LessonType, LevelWithProgress } from "@/types/levels";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 
 export function useLevels() {
@@ -45,7 +45,7 @@ export function useLevels() {
               .split("-")
               .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
               .join(" "),
-            description: lesson.type === "video" ? "Video lesson" : "Interactive exercise"
+            description: getLessonDescription(lesson.type)
           },
           completed: lesson.status === "completed",
           locked,
@@ -77,4 +77,17 @@ export function useLevels() {
     levelSections,
     levelsLoading
   };
+}
+
+function getLessonDescription(type: LessonType): string {
+  switch (type) {
+    case "video":
+      return "Video lesson";
+    case "choose_language":
+      return "Choose your programming language";
+    case "quiz":
+      return "Quiz";
+    case "exercise":
+      return "Interactive exercise";
+  }
 }

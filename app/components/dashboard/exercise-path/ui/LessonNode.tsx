@@ -76,6 +76,8 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
           <VideoLibIcon width={64} height={64} />
         ) : lesson.lesson.type === "quiz" ? (
           <QuizCardIcon width={64} height={64} />
+        ) : lesson.lesson.type === "choose_language" ? (
+          <ChooseLanguageIcon />
         ) : (
           <ExerciseIcon slug={lesson.lesson.slug} width={64} height={64} />
         )}
@@ -92,6 +94,11 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
               <QuizIcon className={styles.partNumberIcon} />
               Quiz
             </>
+          ) : lesson.lesson.type === "choose_language" ? (
+            <>
+              <ChooseLanguageSmallIcon className={styles.partNumberIcon} />
+              Choice
+            </>
           ) : (
             <>
               <CodingIcon className={styles.partNumberIcon} />
@@ -105,3 +112,19 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
     </div>
   );
 });
+
+function ChooseLanguageIcon() {
+  return (
+    <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+    </svg>
+  );
+}
+
+function ChooseLanguageSmallIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+    </svg>
+  );
+}
