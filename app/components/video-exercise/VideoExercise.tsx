@@ -205,7 +205,6 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
               ref={playerRef}
               playbackId={playbackId}
               streamType="on-demand"
-              title={lessonData.title}
               autoPlay
               loop={false}
               muted={false}
