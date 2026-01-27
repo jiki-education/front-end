@@ -9,9 +9,13 @@ import { useEffect } from "react";
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
-      void import("@sentry/nextjs").then((Sentry) => {
-        Sentry.captureException(error);
-      });
+      import("@sentry/nextjs")
+        .then((Sentry) => {
+          Sentry.captureException(error);
+        })
+        .catch(() => {
+          // Sentry failed to load - nothing we can do
+        });
     }
   }, [error]);
 
