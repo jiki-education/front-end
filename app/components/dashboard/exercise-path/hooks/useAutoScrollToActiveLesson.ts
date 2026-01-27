@@ -24,7 +24,9 @@ export function useAutoScrollToActiveLesson(levelSections: LevelSectionData[], i
           break;
         }
       }
-      if (activeLessonSlug) { break };
+      if (activeLessonSlug) {
+        break;
+      }
     }
 
     if (!activeLessonSlug) {
