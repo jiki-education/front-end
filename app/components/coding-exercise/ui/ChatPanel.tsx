@@ -4,12 +4,18 @@ import { useContext, useEffect, useRef, useState } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
-// import { useAuthStore } from "@/lib/auth/authStore";
-// import { tierIncludes } from "@/lib/pricing";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { tierIncludes } from "@/lib/pricing";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import ChatStatus from "./ChatStatus";
-// import ChatPremiumUpgrade from "./ChatPremiumUpgrade";
+import {
+  FreeUserCanStart,
+  FreeUserLimitReached,
+  FreeUserLimitReachedWithHistory,
+  PremiumUserBlocked,
+  PremiumUserCanStart
+} from "./chat-panel-states";
 import type Orchestrator from "../lib/Orchestrator";
 import ChatIcon from "@/icons/chat.svg";
 import { PanelHeader } from "./PanelHeader";
@@ -18,7 +24,6 @@ import { useMockChat } from "../lib/useMockChat";
 
 export default function ChatPanel() {
   const orchestrator = useContext(OrchestratorContext);
-  // const user = useAuthStore((state: any) => state.user);
 
   if (!orchestrator) {
     return (
@@ -27,13 +32,6 @@ export default function ChatPanel() {
       </div>
     );
   }
-
-  // Check if user has premium access (premium or max tier)
-  // const hasPremiumAccess = user && tierIncludes(user.membership_type, "premium");
-
-  // if (!hasPremiumAccess) {
-  //   return <ChatPremiumUpgrade />;
-  // }
 
   return <ChatPanelContent orchestrator={orchestrator} />;
 }
@@ -45,6 +43,9 @@ const chatHeader = {
 };
 
 function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
+  const user = useAuthStore((state) => state.user);
+  const isPremium = user ? tierIncludes(user.membership_type, "premium") : false;
+
   // State for mock mode toggle (only enabled in development)
   const isDevelopment = process.env.NODE_ENV === "development";
   const [useMockMode, setUseMockMode] = useState(false);
@@ -55,6 +56,9 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
 
   const conversationLoader = useConversationLoader(chat.context.exerciseSlug);
   const hasLoadedConversationRef = useRef(false);
+
+  const conversationAllowed = conversationLoader.conversationAllowed;
+  const hasExistingConversation = conversationLoader.conversation.length > 0;
 
   // Load conversation on mount (skip if using mock data)
   useEffect(() => {
@@ -72,6 +76,47 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
 
   const hasConversationError = !useMockMode && conversationLoader.error && !conversationLoader.isLoading;
 
+  // Determine which state to render based on the matrix:
+  // Premium | conversation_allowed | Conversation Exists | Result
+  // --------|---------------------|---------------------|--------
+  // Yes     | false               | -                   | PremiumUserBlocked
+  // Yes     | true                | No                  | PremiumUserCanStart
+  // Yes     | true                | Yes                 | in-progress conversation
+  // No      | true                | No                  | FreeUserCanStart
+  // No      | true                | Yes                 | in-progress conversation
+  // No      | false               | Yes                 | FreeUserLimitReachedWithHistory
+  // No      | false               | No                  | FreeUserLimitReached
+  const renderState = () => {
+    if (isPremium) {
+      if (!conversationAllowed) {
+        return <PremiumUserBlocked />;
+      }
+      if (!hasExistingConversation) {
+        return <PremiumUserCanStart />;
+      }
+      // Has conversation - show in-progress
+      return null;
+    } else {
+      // Non-premium (free) user
+      if (conversationAllowed) {
+        if (!hasExistingConversation) {
+          return <FreeUserCanStart />;
+        }
+        // Has conversation - show in-progress
+        return null;
+      } else {
+        // Conversation not allowed (limit reached)
+        if (hasExistingConversation) {
+          return <FreeUserLimitReachedWithHistory />;
+        }
+        return <FreeUserLimitReached />;
+      }
+    }
+  };
+
+  const stateComponent = renderState();
+  const showInProgressConversation = stateComponent === null;
+
   return (
     <div className="bg-white h-full flex flex-col">
       <PanelHeader {...chatHeader} />
@@ -80,7 +125,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
         <div className="flex-1 flex items-center justify-center">
           <InlineLoading />
         </div>
-      ) : (
+      ) : showInProgressConversation ? (
         <div className="flex-1 flex flex-col min-h-0">
           {chat.messages.length > 0 && (
             <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-end gap-2">
@@ -139,6 +184,8 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
 
           <ChatInput onSendMessage={chat.sendMessage} disabled={chat.isDisabled} />
         </div>
+      ) : (
+        stateComponent
       )}
     </div>
   );
