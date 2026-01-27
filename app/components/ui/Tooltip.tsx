@@ -21,6 +21,8 @@ interface TooltipProps {
   offset?: number;
   delay?: number;
   disabled?: boolean;
+  className?: string;
+  disableFlip?: boolean;
 }
 
 export default function Tooltip({
@@ -29,7 +31,9 @@ export default function Tooltip({
   placement = "top",
   offset: offsetValue = 8,
   delay = 200,
-  disabled = false
+  disabled = false,
+  className,
+  disableFlip = false
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,9 +44,13 @@ export default function Tooltip({
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(offsetValue),
-      flip({
-        fallbackAxisSideDirection: "start"
-      }),
+      ...(disableFlip
+        ? []
+        : [
+            flip({
+              fallbackAxisSideDirection: "start"
+            })
+          ]),
       shift({ padding: 5 })
     ]
   });
@@ -78,7 +86,10 @@ export default function Tooltip({
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
-            className="z-resizer px-2 py-1.5 text-xs bg-surface-elevated border border-border-primary text-text-primary rounded-md shadow-lg max-w-xs"
+            className={
+              className ??
+              "z-resizer px-2 py-1.5 text-xs bg-surface-elevated border border-border-primary text-text-primary rounded-md shadow-lg max-w-xs"
+            }
             role="tooltip"
           >
             {content}

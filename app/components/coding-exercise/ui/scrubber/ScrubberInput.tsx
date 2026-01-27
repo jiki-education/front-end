@@ -108,7 +108,7 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
     return (
       <div
         ref={ref}
-        className={styles.scrubber}
+        className={`${styles.scrubber} ${!enabled ? styles.disabled : ""}`}
         data-testid="scrubber-range-input"
         tabIndex={enabled ? 0 : -1}
         role="slider"

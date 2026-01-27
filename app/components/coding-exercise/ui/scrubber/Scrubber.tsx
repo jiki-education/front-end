@@ -57,14 +57,14 @@ export default function Scrubber() {
       />
       <FrameStepperButtons enabled={isEnabled} />
       <BreakpointStepperButtons enabled={isEnabled} />
-      <InformationWidgetToggleButton disabled={hasCodeBeenEdited || isSpotlightActive} />
+      <InformationWidgetToggleButton disabled={!isEnabled} />
     </div>
   );
 
   // Wrap with tooltip only if there's a disabled reason
   if (disabledReason) {
     return (
-      <Tooltip content={disabledReason} placement="top" disabled={false}>
+      <Tooltip content={disabledReason} placement="top" disabled={false} className={styles.disabledTooltip} disableFlip>
         {scrubberContent}
       </Tooltip>
     );

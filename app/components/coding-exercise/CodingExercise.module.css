@@ -657,6 +657,29 @@
 }
 
 /* Playback Controls */
+.disabledTooltip {
+    background: var(--color-gray-800);
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    z-index: 99999;
+    position: relative;
+}
+
+.disabledTooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--color-gray-800);
+}
+
 .controlBar {
     display: flex;
     align-items: center;
@@ -684,6 +707,11 @@
 .playBtn:hover {
     background: var(--color-blue-600);
     box-shadow: 0 0 0 3px var(--color-blue-500-30);
+}
+
+.playBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .scrubber {
@@ -730,6 +758,11 @@
     box-shadow: 0 3px 10px var(--color-blue-500-40);
 }
 
+.scrubber.disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
 .navBtn {
     width: 24px;
     height: 24px;
@@ -751,6 +784,11 @@
 .navBtn:hover {
     background: var(--color-blue-500);
     color: var(--color-background-primary);
+}
+
+.navBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .navBtn + .navBtn {
@@ -781,6 +819,11 @@
 .codeNavBtn:hover {
     background: var(--color-purple-600);
     border-color: var(--color-purple-600);
+}
+
+.codeNavBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .codeNavBtn + .codeNavBtn {
@@ -835,6 +878,11 @@
 
 .toggleBtn.on:hover::after {
     background: white;
+}
+
+.toggleBtn:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 /* Right Column */
