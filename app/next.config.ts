@@ -98,25 +98,29 @@ const nextConfig: NextConfig = {
   }
 };
 
-const sentryConfig = withSentryConfig(nextConfig, {
-  org: "thalamus-ai",
-  project: "jiki-front-end",
-  silent: !process.env.CI,
-  widenClientFileUpload: true,
-
-  // Disable server-side auto-instrumentation for Cloudflare Workers compatibility
-  // These prevent Node.js-only packages (require-in-the-middle) from being bundled
-  autoInstrumentServerFunctions: false,
-  autoInstrumentMiddleware: false,
-  autoInstrumentAppDirectory: false,
-
-  webpack: {
-    automaticVercelMonitors: false,
-    treeshake: {
-      removeDebugLogging: true
-    }
-  }
-});
-
 // Only use Sentry build wrapper in production to avoid build overhead in dev/test
-export default process.env.NODE_ENV === "production" ? sentryConfig : nextConfig;
+let config: NextConfig = nextConfig;
+
+if (process.env.NODE_ENV === "production") {
+  config = withSentryConfig(nextConfig, {
+    org: "thalamus-ai",
+    project: "jiki-front-end",
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+
+    // Disable server-side auto-instrumentation for Cloudflare Workers compatibility
+    // These prevent Node.js-only packages (require-in-the-middle) from being bundled
+    autoInstrumentServerFunctions: false,
+    autoInstrumentMiddleware: false,
+    autoInstrumentAppDirectory: false,
+
+    webpack: {
+      automaticVercelMonitors: false,
+      treeshake: {
+        removeDebugLogging: true
+      }
+    }
+  });
+}
+
+export default config;
