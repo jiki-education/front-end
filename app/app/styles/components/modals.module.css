@@ -12,7 +12,7 @@
     bottom: 0;
     background: rgba(15, 23, 42, 0.6);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     z-index: 10000;
     overflow-y: auto;

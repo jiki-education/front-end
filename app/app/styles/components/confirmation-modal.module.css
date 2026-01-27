@@ -1,0 +1,36 @@
+/**
+ * Confirmation Modal Styles
+ */
+
+.modal {
+    max-width: 400px;
+    width: auto;
+    padding: 32px;
+}
+
+.modalTitle {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 12px;
+    white-space: nowrap;
+}
+
+.modalMessage {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.modalMessage strong {
+    color: #1a202c;
+}
+
+.modalButtons {
+    button {
+        width: 100%;
+    }
+    display: flex;
+    gap: 12px;
+}
