@@ -61,7 +61,7 @@ export default defineConfig({
 
   // Dev server configuration
   webServer: {
-    command: "pnpm next dev --port 3081",
+    command: "pnpm next dev --turbo --port 3081",
     url: "http://local.jiki.io:3081",
     reuseExistingServer: !process.env.CI,
     timeout: process.env.CI ? 60000 : 30000,
