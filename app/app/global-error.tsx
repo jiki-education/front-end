@@ -3,13 +3,20 @@
 // reports them to Sentry, and shows a fallback error page to the user.
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
 import NextError from "next/error";
 import { useEffect } from "react";
 
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
-    Sentry.captureException(error);
+    if (process.env.NODE_ENV === "production") {
+      import("@sentry/nextjs")
+        .then((Sentry) => {
+          Sentry.captureException(error);
+        })
+        .catch(() => {
+          // Sentry failed to load - nothing we can do
+        });
+    }
   }, [error]);
 
   return (
