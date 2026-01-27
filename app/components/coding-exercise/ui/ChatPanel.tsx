@@ -86,40 +86,73 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   // No      | true                | Yes                 | in-progress conversation
   // No      | false               | Yes                 | FreeUserLimitReachedWithHistory
   // No      | false               | No                  | FreeUserLimitReached
-  const renderState = () => {
+  type ChatState =
+    | "in-progress"
+    | "free-user-can-start"
+    | "free-user-limit-reached"
+    | "free-user-limit-reached-with-history"
+    | "premium-user-blocked"
+    | "premium-user-can-start";
+
+  const getChatState = (): ChatState => {
     if (isPremium) {
       if (!conversationAllowed) {
-        return <PremiumUserBlocked />;
+        return "premium-user-blocked";
       }
       if (!hasExistingConversation) {
-        return <PremiumUserCanStart />;
+        return "premium-user-can-start";
       }
-      // Has conversation - show in-progress
-      return null;
-    } else {
-      // Non-premium (free) user
-      if (conversationAllowed) {
-        if (!hasExistingConversation) {
-          return <FreeUserCanStart />;
+      return "in-progress";
+    }
+    if (conversationAllowed) {
+      if (!hasExistingConversation) {
+        return "free-user-can-start";
+      }
+      return "in-progress";
+    }
+    if (hasExistingConversation) {
+      return "free-user-limit-reached-with-history";
+    }
+    return "free-user-limit-reached";
+  };
+
+  // Track when free user has confirmed they want to start chatting
+  const [freeUserConfirmedStart, setFreeUserConfirmedStart] = useState(false);
+
+  const chatState = getChatState();
+  const showHeader = chatState !== "free-user-can-start" || freeUserConfirmedStart;
+
+  const handleFreeUserStartChat = () => {
+    setFreeUserConfirmedStart(true);
+  };
+
+  const renderStateComponent = () => {
+    switch (chatState) {
+      case "free-user-can-start":
+        if (freeUserConfirmedStart) {
+          return null;
         }
-        // Has conversation - show in-progress
-        return null;
-      } else {
-        // Conversation not allowed (limit reached)
-        if (hasExistingConversation) {
-          return <FreeUserLimitReachedWithHistory />;
-        }
+        return <FreeUserCanStart onStartChat={handleFreeUserStartChat} />;
+      case "free-user-limit-reached":
         return <FreeUserLimitReached />;
-      }
+      case "free-user-limit-reached-with-history":
+        return <FreeUserLimitReachedWithHistory />;
+      case "premium-user-blocked":
+        return <PremiumUserBlocked />;
+      case "premium-user-can-start":
+        return <PremiumUserCanStart />;
+      case "in-progress":
+        return null;
     }
   };
 
-  const stateComponent = renderState();
-  const showInProgressConversation = stateComponent === null;
+  const stateComponent = renderStateComponent();
+  const showInProgressConversation =
+    chatState === "in-progress" || (chatState === "free-user-can-start" && freeUserConfirmedStart);
 
   return (
-    <div className="bg-white h-full flex flex-col">
-      <PanelHeader {...chatHeader} />
+    <div className="bg-white h-full flex flex-col py-16">
+      {showHeader && <PanelHeader {...chatHeader} />}
 
       {!useMockMode && conversationLoader.isLoading ? (
         <div className="flex-1 flex items-center justify-center">
