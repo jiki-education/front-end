@@ -120,7 +120,8 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   const [freeUserConfirmedStart, setFreeUserConfirmedStart] = useState(false);
 
   const chatState = getChatState();
-  const showHeader = chatState !== "free-user-can-start" || freeUserConfirmedStart;
+  const showHeader =
+    (chatState !== "free-user-can-start" || freeUserConfirmedStart) && chatState !== "premium-user-can-start";
 
   const handleFreeUserStartChat = () => {
     setFreeUserConfirmedStart(true);

@@ -52,7 +52,7 @@ export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanSta
 
   return (
     <div className={sharedStyles.container}>
-      <div className={sharedStyles.content}>
+      <div className={sharedStyles.content} style={{ width: "100%" }}>
         <div className={sharedStyles.avatar}>
           <ChatBubbleIcon width={32} height={32} />
         </div>
