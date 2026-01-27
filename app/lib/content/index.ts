@@ -7,12 +7,14 @@
 // Article loaders
 export { getArticle } from "./getArticle";
 export { getAllArticles } from "./getAllArticles";
-export { getArticles, getListedArticles } from "./getArticles";
+export { getArticles } from "./getArticles";
 export type { GetArticlesOptions, GetArticlesResult } from "./getArticles";
 
 // Blog post loaders
 export { getBlogPost } from "./getBlogPost";
 export { getAllBlogPosts } from "./getAllBlogPosts";
+export { getBlogPosts } from "./getBlogPosts";
+export type { GetBlogPostsOptions, GetBlogPostsResult } from "./getBlogPosts";
 
 // Utilities
 export { getAllPostSlugsWithLocales, getAvailableLocales } from "./loader";

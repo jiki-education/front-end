@@ -24,7 +24,8 @@ export interface GetArticlesResult {
 export async function getArticles(options: GetArticlesOptions = {}): Promise<GetArticlesResult> {
   const { locale = "en", tag = null, page = 1 } = options;
 
-  let filteredArticles = await getListedArticles(locale);
+  const allArticles = await getAllArticles(locale);
+  let filteredArticles = allArticles.filter((article) => article.listed);
 
   // Filter by tag if provided
   if (tag) {
@@ -44,14 +45,4 @@ export async function getArticles(options: GetArticlesOptions = {}): Promise<Get
     totalPages,
     currentPage: page
   };
-}
-
-/**
- * Get all LISTED articles for a specific locale
- * Excludes articles where listed=false
- * Returns articles sorted alphabetically by title
- */
-export async function getListedArticles(locale: string): Promise<ProcessedArticle[]> {
-  const allArticles = await getAllArticles(locale);
-  return allArticles.filter((article) => article.listed);
 }

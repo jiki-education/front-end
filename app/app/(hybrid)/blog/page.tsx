@@ -8,11 +8,16 @@ export const metadata: Metadata = {
     "Read the latest articles about programming, coding challenges, and learning tips from the Jiki community."
 };
 
-export default function AppBlogPage() {
-  // Always render authenticated view since ClientAuthGuard ensures user is authenticated
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function AppBlogPage({ searchParams }: Props) {
+  const { page } = await searchParams;
+
   return (
     <HeaderLayout>
-      <BlogPage authenticated locale="en" />
+      <BlogPage authenticated locale="en" page={page} />
     </HeaderLayout>
   );
 }
