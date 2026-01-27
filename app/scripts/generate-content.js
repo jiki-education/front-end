@@ -78,7 +78,6 @@ function parseMarkdownFile(filePath, slug, locale, config) {
       description: frontmatter.excerpt,
       keywords: []
     },
-    featured: config.featured || false,
     content: html,
     locale
   };
@@ -133,6 +132,7 @@ function processBlogPosts() {
         const basePost = parseMarkdownFile(filePath, slug, locale, config);
         content[slug][locale] = {
           ...basePost,
+          featured: config.featured,
           coverImage: fixCoverImagePath(config.coverImage) || ""
         };
       } catch (error) {
@@ -156,7 +156,7 @@ function processArticles() {
     return content;
   }
 
-  const requiredFields = ["date", "author", "featured", "listed"];
+  const requiredFields = ["date", "author", "listed"];
   const slugDirs = fs.readdirSync(articlesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
 
   for (const slugDir of slugDirs) {
@@ -302,7 +302,6 @@ export interface ProcessedArticle {
     description: string;
     keywords: string[];
   };
-  featured: boolean;
   listed: boolean;
   content: string;
   locale: string;

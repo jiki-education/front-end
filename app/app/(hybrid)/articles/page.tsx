@@ -7,10 +7,16 @@ export const metadata: Metadata = {
   description: "Explore in-depth programming tutorials, guides, and technical articles to level up your coding skills."
 };
 
-export default function AppArticlesPage() {
+interface Props {
+  searchParams: Promise<{ tag?: string; page?: string }>;
+}
+
+export default async function AppArticlesPage({ searchParams }: Props) {
+  const { tag, page } = await searchParams;
+
   return (
     <HeaderLayout>
-      <ArticlesPage authenticated locale="en" />
+      <ArticlesPage authenticated locale="en" tag={tag} page={page} />
     </HeaderLayout>
   );
 }

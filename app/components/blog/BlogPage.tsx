@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "@/lib/content/loader";
+import { getAllBlogPosts } from "@/lib/content";
 import BlogContent from "./BlogContent";
 
 interface BlogPageProps {

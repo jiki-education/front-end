@@ -1,8 +1,8 @@
-import { getListedArticles, getArticle } from "@/lib/content/loader";
-import { notFound } from "next/navigation";
+import { getArticle, getListedArticles } from "@/lib/content";
 import type { Metadata } from "next";
-import ArticleDetailContent from "./ArticleDetailContent";
+import { notFound } from "next/navigation";
 import CTABlock from "../blog/CTABlock";
+import ArticleDetailContent from "./ArticleDetailContent";
 import RecentArticles from "./RecentArticles";
 
 interface ArticleDetailPageProps {
