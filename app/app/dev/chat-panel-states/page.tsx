@@ -53,7 +53,7 @@ export default function ChatPanelStatesDevPage() {
       case "free-user-limit-reached-with-history":
         return <FreeUserLimitReachedWithHistory messages={mockMessages} />;
       case "premium-user-blocked":
-        return <PremiumUserBlocked />;
+        return <PremiumUserBlocked messages={mockMessages} />;
       case "premium-user-can-start":
         return <PremiumUserCanStart />;
     }

@@ -81,9 +81,11 @@
     padding: 14px 16px;
     min-height: 86px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 4px;
 }
 
 .footerText {
@@ -107,4 +109,20 @@
 
 .upgradeLink:hover {
     text-decoration: underline;
+}
+
+.footerLink {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footerLinkGray {
+    color: var(--color-gray-500);
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.footerLinkGray:hover {
+    color: var(--color-gray-600);
 }

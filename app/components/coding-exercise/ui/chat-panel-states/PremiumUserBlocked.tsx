@@ -1,9 +1,12 @@
+import type { ChatMessage } from "../../lib/chat-types";
+import LockedConversation from "./LockedConversation";
+
+interface PremiumUserBlockedProps {
+  messages?: ChatMessage[];
+}
+
 // Premium user, conversation not allowed
-// Temporary block (e.g., rate limit, maintenance)
-export default function PremiumUserBlocked() {
-  return (
-    <div className="flex-1 flex items-center justify-center p-4">
-      <p className="text-gray-600">Premium user temporarily cannot start conversation</p>
-    </div>
-  );
+// Temporary block due to fair use limits
+export default function PremiumUserBlocked({ messages = [] }: PremiumUserBlockedProps) {
+  return <LockedConversation messages={messages} variant="premium-blocked" />;
 }

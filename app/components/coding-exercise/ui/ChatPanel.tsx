@@ -138,7 +138,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
       case "free-user-limit-reached-with-history":
         return <FreeUserLimitReachedWithHistory messages={conversationLoader.conversation} />;
       case "premium-user-blocked":
-        return <PremiumUserBlocked />;
+        return <PremiumUserBlocked messages={conversationLoader.conversation} />;
       case "premium-user-can-start":
         return <PremiumUserCanStart />;
       case "in-progress":
