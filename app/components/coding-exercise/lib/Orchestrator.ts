@@ -302,6 +302,10 @@ class Orchestrator {
     return this.exercise;
   }
 
+  isProject(): boolean {
+    return this.store.getState().context.type === "project";
+  }
+
   // Initialize editor with code, exercise data, and localStorage synchronization - delegate to EditorManager
   // UNUSED: This function is currently not called.
   initializeEditor(

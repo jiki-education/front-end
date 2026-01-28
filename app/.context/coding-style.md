@@ -79,6 +79,17 @@ function formatValue(value: number): string {
 - Keep functions small and focused on a single responsibility
 - Group related functionality together
 - Check TypeScript types with `npx tsc --noEmit` (not `pnpm run build` which can break dev server)
+- Always wrap return statements in braces, even for single-line returns:
+
+```typescript
+// ✅ Good
+if (isLoading) {
+  return "loading";
+}
+
+// ❌ Bad
+if (isLoading) return "loading";
+```
 
 ### React Specific
 

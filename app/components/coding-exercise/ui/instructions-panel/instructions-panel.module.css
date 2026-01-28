@@ -366,25 +366,23 @@
     margin-bottom: 16px;
 }
 
-.openConceptLibraryBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 10px;
-    margin-bottom: 32px;
-    width: 100%;
-    background: var(--color-gray-50);
-    color: var(--color-gray-600);
+/* Library section description text */
+.libraryDescription {
+    color: var(--color-gray-500);
     font-size: 15px;
-    font-weight: 500;
-    border: 2px solid white;
-    border-radius: 8px;
-    padding: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
-.openConceptLibraryBtn:hover {
-    border-color: var(--color-blue-500) !important;
-    background: #f0f9ff !important;
+
+/* Library empty/projects state box */
+.libraryPlaceholderBox {
+    text-align: center;
+    padding: 20px;
+    color: var(--color-gray-500);
+    font-size: 15px;
+    line-height: 1.6;
+    background: var(--color-gray-50);
+    border-radius: 12px;
+    border: 2px dashed var(--color-gray-200);
+    margin-bottom: 20px;
 }

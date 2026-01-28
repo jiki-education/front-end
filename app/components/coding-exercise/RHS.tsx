@@ -57,6 +57,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
+            isProject={orchestrator.isProject()}
           />
         );
       case "tasks":
@@ -78,6 +79,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
+            isProject={orchestrator.isProject()}
           />
         );
     }

@@ -111,6 +111,7 @@
 }
 
 .conceptCard:not(.locked):hover {
+    background: var(--color-blue-50);
     border-color: var(--color-blue-500);
     box-shadow:
         0 0 0 4px var(--color-blue-500-10),
