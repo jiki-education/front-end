@@ -99,3 +99,28 @@
     height: 16px;
     color: var(--color-gray-400);
 }
+
+@media (max-width: 1024px) {
+    .blogPostsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .blogPostsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .blogPostCard {
+        padding: 24px;
+    }
+
+    .postTitle {
+        font-size: 20px;
+    }
+
+    .postExcerpt {
+        font-size: 15px;
+    }
+}

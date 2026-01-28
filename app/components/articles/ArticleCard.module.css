@@ -54,3 +54,17 @@
     overflow: hidden;
     flex-grow: 1;
 }
+
+@media (max-width: 768px) {
+    .articleCard {
+        padding: 20px;
+    }
+
+    .articleTitle {
+        font-size: 18px;
+    }
+
+    .articleExcerpt {
+        font-size: 14px;
+    }
+}

@@ -17,13 +17,9 @@ export default async function BlogPage({ authenticated: _, locale, page }: BlogP
 
   const [latestPost, ...remainingPosts] = posts;
 
-  if (!latestPost) {
-    return null;
-  }
-
   return (
     <div className={styles.pageWrapper}>
-      <div className="p-40">
+      <div className={styles.pageContent}>
         <PageHeader
           label="Blog"
           title="News, insights and witterings"

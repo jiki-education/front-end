@@ -112,3 +112,40 @@
 .featuredLatestLink:hover {
     gap: 12px;
 }
+
+@media (max-width: 1024px) {
+    .featuredLatestPost {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px;
+    }
+
+    .featuredLatestTitle {
+        font-size: 28px;
+    }
+
+    .featuredLatestExcerpt {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .featuredLatestPost {
+        padding: 24px;
+        gap: 24px;
+    }
+
+    .featuredLatestMetaRow {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .featuredLatestTitle {
+        font-size: 24px;
+    }
+
+    .featuredLatestDate,
+    .featuredLatestAuthor {
+        font-size: 14px;
+    }
+}

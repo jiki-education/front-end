@@ -29,3 +29,19 @@
     color: var(--color-gray-500);
     line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+    .pageLabel {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .pageTitle {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .pageSubtitle {
+        font-size: 16px;
+    }
+}

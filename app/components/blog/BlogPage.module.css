@@ -9,3 +9,19 @@
         14px 14px,
         14px 14px;
 }
+
+.pageContent {
+    padding: 160px;
+}
+
+@media (max-width: 1024px) {
+    .pageContent {
+        padding: 80px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pageContent {
+        padding: 40px 20px;
+    }
+}

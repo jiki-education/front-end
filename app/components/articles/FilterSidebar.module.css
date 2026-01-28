@@ -83,3 +83,34 @@
         }
     }
 }
+
+@media (max-width: 1024px) {
+    .filterSidebar {
+        width: 100%;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    .filterTags {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .filterHelp {
+        flex: 1;
+        min-width: 200px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .filterSidebar {
+        flex-direction: column;
+    }
+
+    .filterHelp {
+        padding: 20px;
+    }
+}

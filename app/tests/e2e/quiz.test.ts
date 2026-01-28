@@ -10,7 +10,7 @@ test.describe("Quiz Page E2E", () => {
   // Warm up the page compilation before running tests in parallel
   test.beforeAll(async ({ browser }) => {
     const page = await browser.newPage();
-    await page.goto("/test/quiz");
+    await page.goto("/test/quiz", { timeout: 30000 });
     await page.locator("h1").waitFor();
     await page.close();
   });

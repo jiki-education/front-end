@@ -25,7 +25,7 @@ export default async function ArticlesPage({ authenticated: _, locale, tag, page
 
   return (
     <div className={styles.pageWrapper}>
-      <div className="p-40">
+      <div className={styles.pageContent}>
         <PageHeader
           label="Articles"
           title="Help and resources"
