@@ -1,0 +1,17 @@
+.contentLayout {
+    display: flex;
+    gap: 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.contentMain {
+    flex: 1;
+}
+
+.articlesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-bottom: 64px;
+}

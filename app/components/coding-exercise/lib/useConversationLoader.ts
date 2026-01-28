@@ -51,8 +51,9 @@ export function useConversationLoader(contextSlug: string) {
 
         const userLessonData = await fetchUserLesson(contextSlug);
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- API response may not match TypeScript types
         const conversation = userLessonData.conversation || [];
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- API response may not match TypeScript types
         const conversationAllowed = userLessonData.conversation_allowed ?? true;
 
         // Cache the result

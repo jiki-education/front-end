@@ -17,11 +17,19 @@ export default async function BlogPage({ authenticated: _, locale, page }: BlogP
 
   const [latestPost, ...remainingPosts] = posts;
 
+  if (!latestPost) {
+    return null;
+  }
+
   return (
     <div className={styles.pageWrapper}>
       <div className="p-40">
-        <PageHeader />
-        {latestPost && <FeaturedLatestPost post={latestPost} locale={locale} />}
+        <PageHeader
+          label="Blog"
+          title="News, insights and witterings"
+          subtitle="Deep dives into programming languages, coding challenges, and the art of learning to code."
+        />
+        <FeaturedLatestPost post={latestPost} locale={locale} />
         {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} locale={locale} />}
         <BlogPagination currentPage={currentPage} totalPages={totalPages} />
       </div>

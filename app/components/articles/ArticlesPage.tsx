@@ -1,5 +1,7 @@
 import { getArticles, ARTICLE_TAG_SLUGS, type ArticleTagSlug } from "@/lib/content";
+import PageHeader from "@/components/blog/PageHeader";
 import ArticlesContent from "./ArticlesContent";
+import styles from "./ArticlesPage.module.css";
 
 interface ArticlesPageProps {
   authenticated: boolean;
@@ -22,19 +24,22 @@ export default async function ArticlesPage({ authenticated: _, locale, tag, page
   });
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-12">
-      <header className="mb-12">
-        <h1 className="mb-4 text-5xl font-bold text-text-primary">Articles</h1>
-        <p className="text-lg text-text-secondary">In-depth guides and tutorials for learning to code</p>
-      </header>
-      <ArticlesContent
-        articles={articles}
-        locale={locale}
-        selectedTag={validTag}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        tagSlugs={ARTICLE_TAG_SLUGS}
-      />
+    <div className={styles.pageWrapper}>
+      <div className="p-40">
+        <PageHeader
+          label="Articles"
+          title="Help and resources"
+          subtitle="Guides, tutorials, and answers to help you get the most out of Jiki."
+        />
+        <ArticlesContent
+          articles={articles}
+          locale={locale}
+          selectedTag={validTag}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          tagSlugs={ARTICLE_TAG_SLUGS}
+        />
+      </div>
     </div>
   );
 }

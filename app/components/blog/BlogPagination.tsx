@@ -25,11 +25,6 @@ export default function BlogPagination({ currentPage, totalPages }: BlogPaginati
   };
 
   return (
-    <Pagination
-      currentPage={currentPage}
-      totalPages={totalPages}
-      onPageChange={handlePageChange}
-      className="mt-12"
-    />
+    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} className="mt-12" />
   );
 }
