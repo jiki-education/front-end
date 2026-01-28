@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
-import ConceptLibrary from "./ConceptLibrary";
+import LibrarySection from "./LibrarySection";
 import { fetchConceptsBySlugs } from "@/lib/api/concepts";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
@@ -17,6 +17,7 @@ interface InstructionsPanelProps {
   exerciseTitle: string;
   exerciseSlug: string;
   levelId: string;
+  isProject?: boolean;
   className?: string;
 }
 
@@ -27,6 +28,7 @@ export default function InstructionsPanel({
   exerciseTitle,
   exerciseSlug,
   levelId,
+  isProject = false,
   className = ""
 }: InstructionsPanelProps) {
   const [activeSection, setActiveSection] = useState("instructions");
@@ -172,22 +174,7 @@ export default function InstructionsPanel({
 
         {/* Concept Library Section */}
         <div ref={conceptLibraryRef}>
-          {isLoadingConcepts ? (
-            <div className={styles.conceptsContainer}>
-              <h2 className={styles.conceptsTitle}>Library</h2>
-              <p className={styles.sectionInfo}>Loading concepts...</p>
-            </div>
-          ) : concepts.length > 0 ? (
-            <ConceptLibrary concepts={concepts} />
-          ) : (
-            conceptSlugs &&
-            conceptSlugs.length > 0 && (
-              <div className={styles.conceptsContainer}>
-                <h2 className={styles.conceptsTitle}>Library</h2>
-                <p className={styles.sectionInfo}>No concepts available for this exercise.</p>
-              </div>
-            )
-          )}
+          <LibrarySection concepts={concepts} isLoading={isLoadingConcepts} isProject={isProject} />
         </div>
       </div>
     </div>
