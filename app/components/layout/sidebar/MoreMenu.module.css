@@ -25,10 +25,10 @@
     width: 100%;
     padding: 12px;
     border-radius: 8px;
-    color: var(--color-gray-700);
+    color: var(--color-gray-500);
     text-decoration: none;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
     background: none;
     border: none;
     cursor: pointer;
