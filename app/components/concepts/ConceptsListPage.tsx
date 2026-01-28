@@ -5,13 +5,10 @@ import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
-import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 export default function ConceptsListPage() {
   const { conceptsState, isLoading, error, loadConcepts } = useConcepts();
-  const shouldShowSkeleton = useDelayedLoading(isLoading && conceptsState.concepts.length === 0);
-
   const { searchQuery, debouncedSearchQuery, handleSearchChange, clearSearch } = useConceptsSearch(loadConcepts);
 
   const handlePageChange = (page: number) => {
@@ -20,14 +17,14 @@ export default function ConceptsListPage() {
 
   const retryLoad = () => void loadConcepts(1, debouncedSearchQuery);
 
-  const allConceptsLocked =
-    conceptsState.concepts.length > 0 && conceptsState.concepts.every((c) => c.user_may_access === false);
+  // Show empty state only if there are no unlocked concepts globally
+  const showEmptyState = conceptsState.unlockedCount === 0 && conceptsState.concepts.length > 0;
 
   return (
     <ConceptsLayout>
       <ConceptsHeader />
 
-      {allConceptsLocked ? (
+      {showEmptyState ? (
         <p className={styles.conceptsDescription}>Here you can review and revisit the concepts you&apos;ve learned.</p>
       ) : (
         <ConceptsSearch
@@ -35,25 +32,23 @@ export default function ConceptsListPage() {
           onSearchChange={handleSearchChange}
           onClearSearch={clearSearch}
           debouncedSearchQuery={debouncedSearchQuery}
-          isLoading={isLoading}
           totalCount={conceptsState.totalCount}
         />
       )}
 
-      {shouldShowSkeleton ? (
+      {isLoading ? (
         <ConceptCardsLoadingSkeleton />
       ) : error && conceptsState.concepts.length === 0 ? (
         <ErrorState error={error} onRetry={retryLoad} />
       ) : (
         <>
-          <ConceptsGrid concepts={conceptsState.concepts} isLoading={isLoading} />
+          <ConceptsGrid concepts={conceptsState.concepts} showEmptyState={showEmptyState} />
 
-          {conceptsState.concepts.length > 0 && conceptsState.concepts.some((c) => c.user_may_access !== false) && (
+          {conceptsState.concepts.length > 0 && conceptsState.unlockedCount > 0 && (
             <Pagination
               currentPage={conceptsState.currentPage}
               totalPages={conceptsState.totalPages}
               onPageChange={handlePageChange}
-              className="mt-12"
             />
           )}
         </>

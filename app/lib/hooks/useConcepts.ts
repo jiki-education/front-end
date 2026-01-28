@@ -7,6 +7,7 @@ interface ConceptsState {
   currentPage: number;
   totalPages: number;
   totalCount: number;
+  unlockedCount: number;
 }
 
 export function useConcepts() {
@@ -14,7 +15,8 @@ export function useConcepts() {
     concepts: [],
     currentPage: 1,
     totalPages: 1,
-    totalCount: 0
+    totalCount: 0,
+    unlockedCount: 0
   });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +35,8 @@ export function useConcepts() {
         concepts: response.results,
         currentPage: response.meta.current_page,
         totalPages: response.meta.total_pages,
-        totalCount: response.meta.total_count
+        totalCount: response.meta.total_count,
+        unlockedCount: response.meta.unlocked_count
       });
     } catch (err) {
       setError("Failed to load concepts. Please try again later.");

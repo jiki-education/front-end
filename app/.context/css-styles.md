@@ -1,5 +1,9 @@
 # CSS Styling Guidelines
 
+## Colors
+
+**IMPORTANT**: Always use colors from `app/styles/theme/colors.css`. Never use arbitrary hex colors from design mockups - always map them to existing color variables. If a design uses `#e2e8f0`, use `var(--color-gray-200)` instead. If a close match doesn't exist, ask before adding new colors.
+
 ## Three Styling Approaches
 
 Jiki uses three different styling approaches depending on the use case:
