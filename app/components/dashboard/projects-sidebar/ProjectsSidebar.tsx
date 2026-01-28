@@ -2,6 +2,8 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { tierIncludes } from "@/lib/pricing";
+import { showModal } from "@/lib/modal";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { getMockUserProfile, type StatusOption, type UserProfile as UserProfileType } from "./lib/mockData";
@@ -9,6 +11,7 @@ import { UserProfile } from "./ui/UserProfile";
 import { RecentProjects } from "./ui/RecentProjects";
 import { PremiumBox } from "./ui/PremiumBox";
 import styles from "./projects-sidebar.module.css";
+import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 
 interface ProjectsSidebarProps {
   onStatusChange?: (status: StatusOption) => void;
@@ -95,6 +98,14 @@ export function ProjectsSidebar({
     onStatusChange?.(status);
   };
 
+  const handleUpgradeClick = () => {
+    if (onUpgradeClick) {
+      onUpgradeClick();
+    } else {
+      showModal("premium-upgrade-modal", {}, undefined, premiumModalStyles.premiumModalWidth);
+    }
+  };
+
   return (
     <aside className={styles.projectsSidebar}>
       <div>
@@ -115,8 +126,10 @@ export function ProjectsSidebar({
           loading={projectsLoading}
         />
 
-        {/* Premium Box */}
-        <PremiumBox onUpgradeClick={onUpgradeClick} />
+        {/* Premium Box - only show for non-premium users */}
+        {!tierIncludes(user?.membership_type ?? "standard", "premium") && (
+          <PremiumBox onUpgradeClick={handleUpgradeClick} />
+        )}
       </div>
     </aside>
   );
