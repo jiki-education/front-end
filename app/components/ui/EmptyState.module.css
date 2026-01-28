@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: rgba(59, 130, 246, 0.04);
+    background: var(--color-blue-500-4);
 }
 
 .wrapper .iconCircle {
@@ -24,19 +24,19 @@
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    background: linear-gradient(135deg, var(--color-blue-500-10) 0%, var(--color-blue-500-5) 100%);
 }
 
 .wrapper .iconCircle svg {
     width: 60px;
     height: 60px;
-    color: #3b82f6;
+    color: var(--color-blue-500);
 }
 
 .wrapper h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #1a202c;
+    color: var(--color-gray-900);
     margin-bottom: 12px;
 }
 

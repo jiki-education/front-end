@@ -180,7 +180,7 @@
     height: 14px;
     flex-shrink: 0;
     display: block;
-    color: #9ca3af;
+    color: var(--color-gray-400);
     transition: color 0.3s ease;
 }
 
@@ -230,7 +230,7 @@
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
-    color: #8494a7;
+    color: var(--color-gray-400);
 }
 
 .lockBadge svg {
