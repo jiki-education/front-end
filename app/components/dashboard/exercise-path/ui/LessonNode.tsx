@@ -20,6 +20,7 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
   { lesson, onClick, animationState, isRecentlyUnlocked },
   ref
 ) {
+  const isInProgress = !lesson.completed && !lesson.locked;
   const handleClick = (e: React.MouseEvent) => {
     if (lesson.locked) {
       e.stopPropagation();
@@ -67,7 +68,12 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
   };
 
   return (
-    <div ref={ref} className={getClassName()} onClick={handleClick}>
+    <div
+      ref={ref}
+      className={getClassName()}
+      onClick={handleClick}
+      data-active-lesson={isInProgress ? lesson.lesson.slug : undefined}
+    >
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>

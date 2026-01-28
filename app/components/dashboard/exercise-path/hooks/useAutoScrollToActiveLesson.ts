@@ -34,19 +34,20 @@ export function useAutoScrollToActiveLesson(levelSections: LevelSectionData[], i
       return;
     }
 
-    // Use requestAnimationFrame to ensure DOM is ready
+    // Use double requestAnimationFrame to ensure DOM and styles are fully ready
     requestAnimationFrame(() => {
-      // Find the lesson element by looking for the inProgress class
-      const activeElement = document.querySelector('[class*="inProgress"]');
+      requestAnimationFrame(() => {
+        const activeElement = document.querySelector(`[data-active-lesson="${activeLessonSlug}"]`);
 
-      if (activeElement) {
-        activeElement.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-      }
+        if (activeElement) {
+          activeElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
 
-      hasScrolledRef.current = true;
+        hasScrolledRef.current = true;
+      });
     });
   }, [levelSections, isLoading]);
 }
