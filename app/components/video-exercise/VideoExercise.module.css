@@ -232,6 +232,11 @@
 
 .pillText .videoTitle {
     color: rgb(196, 181, 253);
+    transition: color 300ms ease;
+}
+
+.pillText .videoTitleComplete {
+    color: var(--color-green-400);
 }
 
 .continueWrapper {
