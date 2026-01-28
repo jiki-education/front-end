@@ -92,7 +92,7 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
           <div className={style.name}>{profile.name}</div>
           <div className={style.handle}>{profile.handle}</div>
         </div>
-        {Streak(profile)}
+        <Streak profile={profile} />
       </div>
       <div className={style.badgesSection}>
         <div className={style.badgesTitle}>Badges</div>
@@ -141,7 +141,7 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
     </div>
   );
 }
-function Streak(profile: UserProfileData) {
+function Streak({ profile }: { profile: UserProfileData }) {
   let emoji: string;
   let variantClass: string;
   let count: number;
