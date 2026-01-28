@@ -20,14 +20,24 @@ import Link from "next/link";
 import style from "./UserProfile.module.css";
 import { UserProfileSkeleton } from "./UserProfileSkeleton";
 
-export interface UserProfileData {
+interface UserProfileBase {
   name: string;
   handle: string;
   avatarUrl: string;
   icon: string;
-  streaksEnabled: boolean;
-  streakCount: number;
 }
+
+interface UserProfileWithStreaks extends UserProfileBase {
+  streaksEnabled: true;
+  currentStreak: number;
+}
+
+interface UserProfileWithActiveDays extends UserProfileBase {
+  streaksEnabled: false;
+  totalActiveDays: number;
+}
+
+export type UserProfileData = UserProfileWithStreaks | UserProfileWithActiveDays;
 
 interface UserProfileProps {
   profile: UserProfileData | null;
@@ -134,25 +144,30 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
 function Streak(profile: UserProfileData) {
   let emoji: string;
   let variantClass: string;
+  let count: number;
 
   if (!profile.streaksEnabled) {
     emoji = "🎓";
     variantClass = style.activeDays;
-  } else if (profile.streakCount === 0) {
+    count = profile.totalActiveDays;
+  } else if (profile.currentStreak === 0) {
     emoji = "😢";
     variantClass = style.noStreak;
-  } else if (profile.streakCount === 1) {
+    count = profile.currentStreak;
+  } else if (profile.currentStreak === 1) {
     emoji = "🚀";
     variantClass = style.oneDayStreak;
+    count = profile.currentStreak;
   } else {
     emoji = "🔥";
     variantClass = style.multiDayStreak;
+    count = profile.currentStreak;
   }
 
   return (
     <div className={`${style.streak} ${variantClass}`}>
       <span className={style.streakIcon}>{emoji}</span>
-      <span className={style.streakNumber}>{profile.streakCount}</span>
+      <span className={style.streakNumber}>{count}</span>
     </div>
   );
 }

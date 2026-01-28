@@ -33,14 +33,18 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
       return null;
     }
 
-    return {
+    const base = {
       name: user.name || user.handle,
       handle: user.handle,
       avatarUrl: profileData.avatar_url,
-      icon: profileData.icon,
-      streaksEnabled: profileData.streaks_enabled,
-      streakCount: profileData.streaks_enabled ? profileData.current_streak : profileData.total_active_days
+      icon: profileData.icon
     };
+
+    if (profileData.streaks_enabled) {
+      return { ...base, streaksEnabled: true as const, currentStreak: profileData.current_streak };
+    }
+
+    return { ...base, streaksEnabled: false as const, totalActiveDays: profileData.total_active_days };
   }, [user, profileData]);
 
   useEffect(() => {
