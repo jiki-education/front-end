@@ -1,0 +1,31 @@
+.mainContent {
+    flex: 1;
+    max-width: 100%;
+    padding: 0;
+    background: transparent;
+}
+
+.contentWrapper {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.contentWrapperFull {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.articleContent {
+    min-width: 0;
+}
+
+.rightPanel {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+}
