@@ -17,7 +17,8 @@ describe("useConcepts", () => {
       concepts: [],
       currentPage: 1,
       totalPages: 1,
-      totalCount: 0
+      totalCount: 0,
+      unlockedCount: 0
     });
     expect(result.current.isLoading).toBe(true);
     expect(result.current.error).toBe(null);
@@ -29,7 +30,8 @@ describe("useConcepts", () => {
       meta: {
         current_page: 1,
         total_pages: 1,
-        total_count: 0
+        total_count: 0,
+        unlocked_count: 0
       }
     };
     mockFetchConcepts.mockResolvedValue(mockResponse);
@@ -64,7 +66,8 @@ describe("useConcepts", () => {
       meta: {
         current_page: 1,
         total_pages: 2,
-        total_count: 10
+        total_count: 10,
+        unlocked_count: 5
       }
     };
     mockFetchConcepts.mockResolvedValue(mockResponse);
@@ -79,7 +82,8 @@ describe("useConcepts", () => {
       concepts: mockResponse.results,
       currentPage: 1,
       totalPages: 2,
-      totalCount: 10
+      totalCount: 10,
+      unlockedCount: 5
     });
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(null);
@@ -104,7 +108,8 @@ describe("useConcepts", () => {
       meta: {
         current_page: 1,
         total_pages: 1,
-        total_count: 0
+        total_count: 0,
+        unlocked_count: 0
       }
     };
     mockFetchConcepts.mockResolvedValue(mockResponse);

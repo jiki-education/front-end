@@ -47,8 +47,14 @@ This project uses SVGR to automatically convert SVG files into React components.
 
 ### Importing SVG as Component
 
+**IMPORTANT**: Always use `@/icons/` for importing SVG icons, NOT `@static/icons/`. The `@static` alias breaks compilation.
+
 ```tsx
+// CORRECT - use @/icons/
 import IconName from "@/icons/icon-name.svg";
+
+// INCORRECT - breaks compilation
+// import IconName from "@static/icons/icon-name.svg";
 
 // Use as component
 <IconName className="w-6 h-6" />;

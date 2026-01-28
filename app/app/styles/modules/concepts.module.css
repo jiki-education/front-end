@@ -68,6 +68,12 @@
     color: var(--color-blue-500);
 }
 
+.conceptsDescription {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    margin-bottom: 32px;
+}
+
 /* Concepts Grid */
 .conceptsGrid {
     display: grid;
@@ -82,7 +88,7 @@
     border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid var(--color-gray-100);
+    border: 2px solid var(--color-gray-200);
     display: flex;
     align-items: center;
     gap: 20px;
@@ -104,19 +110,19 @@
     }
 }
 
-.conceptCard:hover {
+.conceptCard:not(.locked):hover {
     border-color: var(--color-blue-500);
     box-shadow:
-        0 0 0 4px rgba(59, 130, 246, 0.1),
-        0 4px 16px rgba(59, 130, 246, 0.2);
+        0 0 0 4px var(--color-blue-500-10),
+        0 4px 16px var(--color-blue-500-20);
 }
 
-.conceptCard:hover .subConceptCount {
-    background: rgba(59, 130, 246, 0.1);
+.conceptCard:not(.locked):hover .subConceptCount {
+    background: var(--color-blue-500-10);
     border-color: transparent;
 }
 
-.conceptCard:hover .subConceptCount svg {
+.conceptCard:not(.locked):hover .subConceptCount svg {
     color: var(--color-blue-600);
 }
 
@@ -161,7 +167,7 @@
     gap: 6px;
     padding: 7px 12px;
     background: var(--color-gray-50);
-    border: 1px solid var(--color-gray-100);
+    border: 1px solid var(--color-gray-200);
     border-radius: 10px;
     font-size: 14px;
     color: var(--color-gray-500);
@@ -174,25 +180,60 @@
     height: 14px;
     flex-shrink: 0;
     display: block;
-    color: #9ca3af;
+    color: var(--color-gray-400);
     transition: color 0.3s ease;
+}
+
+.conceptCard:has(.subConceptCount) {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        4px 4px 0 0 white,
+        6px 6px 0 0 var(--color-gray-200),
+        8px 8px 0 0 white,
+        10px 10px 0 0 var(--color-gray-200);
 }
 
 /* Locked Concept Card */
 .conceptCard.locked {
+    position: relative;
     cursor: not-allowed;
-    opacity: 0.6;
+    background: var(--color-gray-50);
+    border-color: var(--color-gray-200);
 }
 
 .conceptCard.locked:hover {
-    border-color: var(--color-gray-100);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-color: var(--color-gray-200);
+    box-shadow: none;
 }
 
-.lockedIcon {
-    width: 48px;
-    height: 48px;
-    margin-left: 32px;
-    color: var(--color-gray-200);
-    vertical-align: middle;
+.conceptCard.locked .conceptIcon {
+    filter: grayscale(100%) opacity(0.4);
+}
+
+.conceptCard.locked .conceptTitle {
+    color: var(--color-gray-400);
+}
+
+.conceptCard.locked .conceptDescription {
+    color: var(--color-gray-400);
+}
+
+.lockBadge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-gray-100);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-400);
+}
+
+.lockBadge svg {
+    width: 14px;
+    height: 14px;
 }

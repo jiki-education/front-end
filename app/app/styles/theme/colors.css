@@ -84,6 +84,8 @@
     --color-amber-950: #451a03;
 
     /* Shadow Colors - Blue */
+    --color-blue-500-4: color-mix(in srgb, var(--color-blue-500) 4%, transparent);
+    --color-blue-500-5: color-mix(in srgb, var(--color-blue-500) 5%, transparent);
     --color-blue-500-6: color-mix(in srgb, var(--color-blue-500) 6%, transparent);
     --color-blue-500-10: color-mix(in srgb, var(--color-blue-500) 10%, transparent);
     --color-blue-500-15: color-mix(in srgb, var(--color-blue-500) 15%, transparent);
