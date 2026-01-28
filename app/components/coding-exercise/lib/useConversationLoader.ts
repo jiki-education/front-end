@@ -53,7 +53,8 @@ export function useConversationLoader(contextSlug: string) {
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const conversation = userLessonData.conversation || [];
-        const conversationAllowed = userLessonData.conversation_allowed;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const conversationAllowed = userLessonData.conversation_allowed ?? true;
 
         // Cache the result
         cacheRef.current[contextSlug] = { conversation, conversationAllowed };
