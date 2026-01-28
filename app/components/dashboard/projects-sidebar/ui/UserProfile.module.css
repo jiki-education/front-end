@@ -1,4 +1,4 @@
-.userProfileCard {
+.card {
     background: white;
     border-radius: 16px;
     padding: 20px;
@@ -11,7 +11,7 @@
     overflow: hidden;
 }
 
-.userProfileHeader {
+.header {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -19,7 +19,7 @@
     position: relative;
 }
 
-.userAvatar {
+.avatar {
     width: 66px;
     height: 66px;
     border-radius: 50%;
@@ -29,14 +29,14 @@
     padding: 3px;
 }
 
-.userAvatar img {
+.avatar img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.countryBadge {
+.iconBadge {
     position: absolute;
     bottom: -6px;
     right: -10px;
@@ -47,37 +47,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
     border: 3px solid white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
 }
 
-.userInfo {
+.info {
     flex: 1;
     margin-left: 11px;
 }
 
-.userNameRow {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    position: relative;
-}
-
-.userName {
+.name {
     font-size: 18px;
     font-weight: 600;
     color: #1a202c;
     margin-bottom: -1px;
 }
 
-.userHandle {
+.handle {
     font-size: 13px;
     color: #718096;
     margin-bottom: 4px;
 }
 
-.streakBadge {
+.streak {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -85,10 +78,9 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
     padding: 6px 10px;
     border-radius: 20px;
-    border: 2px solid #fb923c;
+    border: 2px solid;
 }
 
 .streakIcon {
@@ -99,76 +91,50 @@
 .streakNumber {
     font-size: 14px;
     font-weight: 700;
-    color: #ea580c;
     line-height: 1;
 }
 
-.streakText {
-    font-size: 13px;
-    font-weight: 500;
+.noStreak {
+    background: linear-gradient(135deg, var(--color-gray-500-10) 0%, var(--color-gray-500-20) 100%);
+    border-color: var(--color-gray-400);
+}
+
+.noStreak .streakNumber {
+    color: var(--color-gray-600);
+}
+
+.oneDayStreak {
+    background: linear-gradient(135deg, var(--color-blue-500-10) 0%, var(--color-blue-500-20) 100%);
+    border-color: var(--color-blue-500);
+}
+
+.oneDayStreak .streakNumber {
+    color: var(--color-blue-500);
+}
+
+.multiDayStreak {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+    border-color: #fb923c;
+}
+
+.multiDayStreak .streakNumber {
     color: #ea580c;
-    line-height: 1;
 }
 
-.userStats {
-    display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid var(--color-gray-200);
+.activeDays {
+    background: linear-gradient(135deg, var(--color-green-500-10) 0%, var(--color-green-500-20) 100%);
+    border-color: var(--color-green-500);
 }
 
-.userStatItem {
-    text-align: center;
-    flex: 1;
+.activeDays .streakNumber {
+    color: var(--color-green-500);
 }
 
-.userStatLabel {
-    display: block;
-    font-size: 12px;
-    color: var(--color-gray-500);
-    font-weight: 500;
-    margin-bottom: 4px;
-}
-
-.userStatValue {
-    display: block;
-    font-size: 14px;
-    color: #1a202c;
-    font-weight: 600;
-}
-
-.userQuickStats {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 16px;
-}
-
-.quickStatItem {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.quickStatIcon {
-    width: 20px;
-    height: 20px;
-    color: var(--color-gray-500);
-}
-
-.quickStatNumber {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a202c;
-}
-
-.profileBadgesSection {
+.badgesSection {
     margin-top: 16px;
 }
 
-.profileBadgesTitle {
+.badgesTitle {
     font-size: 14px;
     font-weight: 600;
     color: #7c3aed;
@@ -180,22 +146,22 @@
     gap: 8px;
 }
 
-.profileBadgesTitle::before,
-.profileBadgesTitle::after {
+.badgesTitle::before,
+.badgesTitle::after {
     content: "";
     flex: 1;
     height: 1px;
     background: var(--color-gray-200);
 }
 
-.profileBadges {
+.badges {
     display: flex;
     gap: 12px;
     justify-content: center;
 }
 
 /* Adjust NEW label position for smaller badges */
-.profileBadge .newLabel {
+.badge .newLabel {
     top: -8px;
     right: -8px;
     padding: 2px 6px;
@@ -203,7 +169,7 @@
     border-radius: 8px;
 }
 
-.profileBadge {
+.badge {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -221,23 +187,23 @@
     z-index: 1;
 }
 
-.profileBadge:hover:not(.new) {
+.badge:hover:not(.new) {
     transform: scale(1.12) translateY(-2px);
 }
 
-.profileBadge.new:hover {
+.badge.new:hover {
     animation: subtle-pulse-hover 2s ease-in-out infinite;
 }
 
 /* Unrevealed badges (golden background with padlock) */
-.profileBadge.unrevealed {
+.badge.unrevealed {
     background: white;
     border-color: var(--color-amber-500);
     overflow: visible; /* Changed from hidden to visible to allow new label to show */
     animation: subtle-pulse 2s ease-in-out infinite;
 }
 
-.profileBadge.unrevealed:hover {
+.badge.unrevealed:hover {
     box-shadow:
         0 0 0 4px rgba(245, 158, 11, 0.3),
         0 4px 12px rgba(245, 158, 11, 0.3);
@@ -288,30 +254,30 @@
 }
 
 /* Color classes for badges based on their state */
-.profileBadge.blue:not(.unrevealed) {
+.badge.blue:not(.unrevealed) {
     border-color: var(--color-blue-500);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.profileBadge.blue:not(.unrevealed):hover {
+.badge.blue:not(.unrevealed):hover {
     box-shadow:
         0 0 0 4px rgba(59, 130, 246, 0.3),
         0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.profileBadge.gold {
+.badge.gold {
     border-color: var(--color-amber-500);
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
-.profileBadge.gold:hover {
+.badge.gold:hover {
     box-shadow:
         0 0 0 4px rgba(245, 158, 11, 0.3),
         0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 /* New badge state adds extra styling */
-.profileBadge.new {
+.badge.new {
     animation: subtle-pulse 2s ease-in-out infinite;
 }
 
@@ -344,7 +310,7 @@
     }
 }
 
-.profileBadge.empty {
+.badge.empty {
     border-color: var(--color-gray-200);
     border-style: dashed;
     box-shadow: none;
@@ -353,7 +319,7 @@
     padding: 0;
 }
 
-.profileBadge.empty:hover {
+.badge.empty:hover {
     transform: none;
     box-shadow: none;
     border-color: white;
@@ -362,11 +328,11 @@
     cursor: pointer;
 }
 
-.profileBadge.empty:hover .badgeMore {
+.badge.empty:hover .badgeMore {
     color: transparent;
 }
 
-.profileBadge.empty:hover .badgeMore::after {
+.badge.empty:hover .badgeMore::after {
     content: "→";
     color: white;
     position: absolute;
@@ -407,7 +373,7 @@
 /* Badge NEW label now uses shared BadgeNewLabel component */
 
 /* Skeleton loading states */
-.profileBadgeSkeleton {
+.badgeSkeleton {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -418,17 +384,17 @@
     cursor: default;
 }
 
-.profileBadgeSkeleton:nth-child(1) {
+.badgeSkeleton:nth-child(1) {
     border-color: var(--color-gray-200);
     opacity: 1;
 }
 
-.profileBadgeSkeleton:nth-child(2) {
+.badgeSkeleton:nth-child(2) {
     border-color: var(--color-gray-200);
     opacity: 0.8;
 }
 
-.profileBadgeSkeleton:nth-child(3) {
+.badgeSkeleton:nth-child(3) {
     border-color: var(--color-gray-200);
     opacity: 0.6;
 }

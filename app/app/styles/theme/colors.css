@@ -106,6 +106,8 @@
     --color-purple-500-40: color-mix(in srgb, var(--color-purple-500) 40%, transparent);
 
     /* Shadow Colors - Green */
+    --color-green-500-10: color-mix(in srgb, var(--color-green-500) 10%, transparent);
+    --color-green-500-20: color-mix(in srgb, var(--color-green-500) 20%, transparent);
     --color-green-500-30: color-mix(in srgb, var(--color-green-500) 30%, transparent);
     --color-green-500-40: color-mix(in srgb, var(--color-green-500) 40%, transparent);
     --color-green-500-50: color-mix(in srgb, var(--color-green-500) 50%, transparent);

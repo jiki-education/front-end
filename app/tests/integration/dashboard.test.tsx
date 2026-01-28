@@ -2,6 +2,7 @@ import Dashboard from "@/app/(app)/dashboard/page";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { fetchProjects } from "@/lib/api/projects";
 import { fetchBadges } from "@/lib/api/badges";
+import { fetchProfile } from "@/lib/api/profile";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { render, waitFor } from "@testing-library/react";
 
@@ -60,9 +61,22 @@ const mockLogout = jest.fn().mockImplementation(() => {
 });
 
 jest.mock("@/lib/auth/authStore", () => ({
-  useAuthStore: () => ({
-    logout: mockLogout
-  })
+  useAuthStore: (selector?: (state: Record<string, unknown>) => unknown) => {
+    const state = {
+      user: {
+        handle: "testuser",
+        name: "Test User",
+        email: "test@example.com",
+        membership_type: "standard",
+        subscription_status: "inactive",
+        subscription: null,
+        provider: "github",
+        email_confirmed: true
+      },
+      logout: mockLogout
+    };
+    return selector ? selector(state) : state;
+  }
 }));
 
 // Mock the levels API
@@ -78,6 +92,11 @@ jest.mock("@/lib/api/projects", () => ({
 // Mock the badges API
 jest.mock("@/lib/api/badges", () => ({
   fetchBadges: jest.fn()
+}));
+
+// Mock the profile API
+jest.mock("@/lib/api/profile", () => ({
+  fetchProfile: jest.fn()
 }));
 
 // Mock AuthenticationError
@@ -159,6 +178,14 @@ describe("Dashboard Page", () => {
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
     (fetchProjects as jest.Mock).mockResolvedValue({ results: [] });
     (fetchBadges as jest.Mock).mockResolvedValue({ badges: [] });
+    (fetchProfile as jest.Mock).mockResolvedValue({
+      profile: {
+        avatar_url: "/static/images/avatars/test.png",
+        icon: "flag",
+        streaks_enabled: true,
+        current_streak: 5
+      }
+    });
   });
 
   it("renders without crashing", async () => {
@@ -189,14 +216,10 @@ describe("Dashboard Page", () => {
       </ThemeProvider>
     );
 
-    // Initially no skeletons (within the 100ms delay)
-    let skeletons = container.querySelectorAll("[class*='skeleton']");
-    expect(skeletons.length).toBe(0);
-
-    // Wait for 100ms delay to pass and check for skeleton elements
+    // Wait for skeleton elements to appear while loading
     await waitFor(
       () => {
-        skeletons = container.querySelectorAll("[class*='skeleton']");
+        const skeletons = container.querySelectorAll("[class*='skeleton']");
         expect(skeletons.length).toBeGreaterThan(0);
       },
       { timeout: 150 }

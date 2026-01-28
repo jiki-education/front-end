@@ -1,6 +1,6 @@
 import { lazy, Suspense, type ComponentType, type SVGProps } from "react";
 
-type IconType = "badges" | "concepts" | "projects" | "exercises";
+type IconType = "badges" | "concepts" | "profile" | "projects" | "exercises";
 
 // Cache to prevent creating new lazy components on every render
 const iconCache = new Map<string, ComponentType<SVGProps<SVGSVGElement>>>();
@@ -49,8 +49,11 @@ interface IconWithFallbackProps extends IconProps {
 export function IconWithFallback({ type, slug, fallback: Fallback, width = 48, height = 48 }: IconWithFallbackProps) {
   const IconComponent = getIcon(type, slug, Fallback);
 
+  const widthPx = typeof width === "number" ? `${width}px` : width;
+  const heightPx = typeof height === "number" ? `${height}px` : height;
+
   return (
-    <Suspense fallback={<Fallback width={width} height={height} />}>
+    <Suspense fallback={<div style={{ width: widthPx, height: heightPx }} />}>
       <IconComponent width={width} height={height} />
     </Suspense>
   );

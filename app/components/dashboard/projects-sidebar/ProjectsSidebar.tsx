@@ -1,65 +1,63 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useAuthStore } from "@/lib/auth/authStore";
-import { tierIncludes } from "@/lib/pricing";
-import { showModal } from "@/lib/modal";
-import { fetchProjects, type ProjectData } from "@/lib/api/projects";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
-import { getMockUserProfile, type StatusOption, type UserProfile as UserProfileType } from "./lib/mockData";
-import { UserProfile } from "./ui/UserProfile";
-import { RecentProjects } from "./ui/RecentProjects";
-import { PremiumBox } from "./ui/PremiumBox";
-import styles from "./projects-sidebar.module.css";
+import { fetchProfile, type ProfileData } from "@/lib/api/profile";
+import { fetchProjects, type ProjectData } from "@/lib/api/projects";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { showModal } from "@/lib/modal";
 import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { tierIncludes } from "@/lib/pricing";
+import { useEffect, useMemo, useState } from "react";
+import styles from "./projects-sidebar.module.css";
+import { PremiumBox } from "./ui/PremiumBox";
+import { RecentProjects } from "./ui/RecentProjects";
+import { UserProfile, type UserProfileData } from "./ui/UserProfile";
 
 interface ProjectsSidebarProps {
-  onStatusChange?: (status: StatusOption) => void;
   onProjectClick?: (projectId: string) => void;
   onViewAllProjectsClick?: () => void;
-  _onBadgeClick?: (badgeId: string) => void;
-  _onViewAllBadgesClick?: () => void;
   onUpgradeClick?: () => void;
 }
 
-export function ProjectsSidebar({
-  onStatusChange,
-  onProjectClick,
-  onViewAllProjectsClick,
-  _onBadgeClick,
-  _onViewAllBadgesClick,
-  onUpgradeClick
-}: ProjectsSidebarProps = {}) {
-  const user = useAuthStore((state) => state.user);
-  const mockProfile = getMockUserProfile();
+export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClick }: ProjectsSidebarProps = {}) {
+  const user = useAuthStore((state) => state.user)!;
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [profileLoading, setProfileLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [projectsLoading, setProjectsLoading] = useState(true);
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [badgesLoading, setBadgesLoading] = useState(true);
 
-  // Merge real user data with mock data for now
-  const userProfile = useMemo<UserProfileType>(
-    () => ({
-      ...mockProfile,
-      name: user?.name || mockProfile.name,
-      handle: user?.handle || mockProfile.handle
-    }),
-    [user, mockProfile]
-  );
+  const userProfile = useMemo<UserProfileData | null>(() => {
+    if (!profileData) {
+      return null;
+    }
 
-  const [currentStatus, setCurrentStatus] = useState<StatusOption>(mockProfile.currentStatus);
+    return {
+      name: user.name || user.handle,
+      handle: user.handle,
+      avatarUrl: profileData.avatar_url,
+      icon: profileData.icon,
+      streaksEnabled: profileData.streaks_enabled,
+      streakCount: profileData.streaks_enabled ? profileData.current_streak : profileData.total_active_days
+    };
+  }, [user, profileData]);
 
-  // Load real projects and badges
   useEffect(() => {
     async function loadData() {
-      if (!user) {
-        return;
+      try {
+        setProfileLoading(true);
+        const profileResponse = await fetchProfile();
+        setProfileData(profileResponse.profile);
+      } catch (error) {
+        console.error("Failed to load profile:", error);
+      } finally {
+        setProfileLoading(false);
       }
 
-      // Load projects
       try {
         setProjectsLoading(true);
-        const projectResponse = await fetchProjects({ per: 100 }); // Get all projects
+        const projectResponse = await fetchProjects({ per: 100 });
         setProjects(projectResponse.results);
       } catch (error) {
         console.error("Failed to load projects:", error);
@@ -67,7 +65,6 @@ export function ProjectsSidebar({
         setProjectsLoading(false);
       }
 
-      // Load badges
       try {
         setBadgesLoading(true);
         const badgeResponse = await fetchBadges();
@@ -91,12 +88,6 @@ export function ProjectsSidebar({
   const unlockedCount = useMemo(() => {
     return projects.filter((p) => p.status !== "locked").length;
   }, [projects]);
-  //const globalActivity = getMockGlobalActivity();
-
-  const handleStatusChange = (status: StatusOption) => {
-    setCurrentStatus(status);
-    onStatusChange?.(status);
-  };
 
   const handleUpgradeClick = () => {
     if (onUpgradeClick) {
@@ -110,12 +101,7 @@ export function ProjectsSidebar({
     <aside className={styles.projectsSidebar}>
       <div>
         {/* User Profile Card */}
-        <UserProfile
-          profile={{ ...userProfile, currentStatus }}
-          onStatusChange={handleStatusChange}
-          realBadges={badges}
-          badgesLoading={badgesLoading}
-        />
+        <UserProfile profile={userProfile} badges={badges} loading={profileLoading || badgesLoading} />
 
         {/* Recent Projects */}
         <RecentProjects
@@ -127,9 +113,7 @@ export function ProjectsSidebar({
         />
 
         {/* Premium Box - only show for non-premium users */}
-        {!tierIncludes(user?.membership_type ?? "standard", "premium") && (
-          <PremiumBox onUpgradeClick={handleUpgradeClick} />
-        )}
+        {!tierIncludes(user.membership_type, "premium") && <PremiumBox onUpgradeClick={handleUpgradeClick} />}
       </div>
     </aside>
   );
