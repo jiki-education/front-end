@@ -49,15 +49,15 @@ describe("ConceptCard", () => {
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 
-  it("shows lock icon when userMayAccess is false", () => {
+  it("shows lock badge when userMayAccess is false", () => {
     const lockedConcept = { ...mockConcept, userMayAccess: false };
-    const { container } = render(<ConceptCard concept={lockedConcept} />);
-    expect(container.querySelector("[class*='lockedIcon']")).toBeInTheDocument();
+    render(<ConceptCard concept={lockedConcept} />);
+    expect(screen.getByText("Locked")).toBeInTheDocument();
   });
 
-  it("does not show lock icon when userMayAccess is true", () => {
+  it("does not show lock badge when userMayAccess is true", () => {
     const accessibleConcept = { ...mockConcept, userMayAccess: true };
-    const { container } = render(<ConceptCard concept={accessibleConcept} />);
-    expect(container.querySelector("[class*='lockedIcon']")).not.toBeInTheDocument();
+    render(<ConceptCard concept={accessibleConcept} />);
+    expect(screen.queryByText("Locked")).not.toBeInTheDocument();
   });
 });

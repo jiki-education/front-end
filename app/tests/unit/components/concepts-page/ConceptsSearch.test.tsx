@@ -7,7 +7,6 @@ describe("ConceptsSearch", () => {
     onSearchChange: jest.fn(),
     onClearSearch: jest.fn(),
     debouncedSearchQuery: "",
-    isLoading: false,
     totalCount: 0
   };
 
@@ -48,18 +47,8 @@ describe("ConceptsSearch", () => {
     expect(mockOnClearSearch).toHaveBeenCalled();
   });
 
-  it("shows search results info when debouncedSearchQuery is provided", () => {
-    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" totalCount={5} />);
-    expect(screen.getByText('5 results for "test"')).toBeInTheDocument();
-  });
-
-  it("shows searching state when loading with results", () => {
-    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" isLoading={true} totalCount={1} />);
-    expect(screen.getByText("Searching...")).toBeInTheDocument();
-  });
-
   it("shows empty state when no results found", () => {
-    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" totalCount={0} isLoading={false} />);
+    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" totalCount={0} />);
     expect(screen.getByText(/0 results for/)).toBeInTheDocument();
     expect(screen.getByText("Try a different search term or browse the library.")).toBeInTheDocument();
   });
