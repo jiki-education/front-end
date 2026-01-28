@@ -11,13 +11,7 @@
 }
 
 .pageContent {
-    padding: 160px;
-}
-
-@media (max-width: 1024px) {
-    .pageContent {
-        padding: 80px 40px;
-    }
+    padding: 40px;
 }
 
 @media (max-width: 768px) {
