@@ -15,7 +15,7 @@ import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import Link from "next/link";
-import style from "../UserProfile.module.css";
+import style from "./Badges.module.css";
 
 export function Badges({ badges }: { badges?: BadgeData[] }) {
   const handleBadgeClick = (badge: BadgeData) => {

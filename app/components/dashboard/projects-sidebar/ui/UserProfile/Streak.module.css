@@ -1,0 +1,59 @@
+.streak {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    border: 2px solid;
+}
+
+.streakIcon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.streakNumber {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.noStreak {
+    background: linear-gradient(135deg, var(--color-gray-500-10) 0%, var(--color-gray-500-20) 100%);
+    border-color: var(--color-gray-400);
+}
+
+.noStreak .streakNumber {
+    color: var(--color-gray-600);
+}
+
+.oneDayStreak {
+    background: linear-gradient(135deg, var(--color-blue-500-10) 0%, var(--color-blue-500-20) 100%);
+    border-color: var(--color-blue-500);
+}
+
+.oneDayStreak .streakNumber {
+    color: var(--color-blue-500);
+}
+
+.multiDayStreak {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+    border-color: #fb923c;
+}
+
+.multiDayStreak .streakNumber {
+    color: #ea580c;
+}
+
+.activeDays {
+    background: linear-gradient(135deg, var(--color-green-500-10) 0%, var(--color-green-500-20) 100%);
+    border-color: var(--color-green-500);
+}
+
+.activeDays .streakNumber {
+    color: var(--color-green-500);
+}

@@ -1,5 +1,5 @@
 import type { UserProfileData } from "../UserProfile";
-import style from "../UserProfile.module.css";
+import style from "./Streak.module.css";
 
 export function Streak({ profile }: { profile: UserProfileData }) {
   let emoji: string;
