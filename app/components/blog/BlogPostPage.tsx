@@ -47,7 +47,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     .slice(0, 3);
 
   if (authenticated) {
-    return <BlogPostContent post={post} variant="authenticated" />;
+    return <BlogPostContent post={post} variant="authenticated" relatedPosts={recentPosts} locale={locale} />;
   }
 
   return (

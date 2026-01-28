@@ -4,8 +4,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ProcessedArticle } from "@/lib/content/generated/types";
 import type { ArticleTagSlug } from "@/lib/content";
 import Pagination from "@/components/ui/Pagination";
-import TagFilter from "./TagFilter";
+import FilterSidebar from "./FilterSidebar";
 import ArticleCard from "./ArticleCard";
+import styles from "./ArticlesContent.module.css";
 
 interface ArticlesContentProps {
   articles: ProcessedArticle[];
@@ -40,23 +41,25 @@ export default function ArticlesContent({
   };
 
   return (
-    <>
-      <TagFilter tagSlugs={tagSlugs} selectedTag={selectedTag} locale={locale} />
+    <div className={styles.contentLayout}>
+      <div className={styles.contentMain}>
+        <div className={styles.articlesGrid}>
+          {articles.map((article) => (
+            <ArticleCard key={article.slug} article={article} locale={locale} />
+          ))}
+        </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => (
-          <ArticleCard key={article.slug} article={article} locale={locale} />
-        ))}
+        {articles.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            className="mt-12"
+          />
+        )}
       </div>
 
-      {articles.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          className="mt-12"
-        />
-      )}
-    </>
+      <FilterSidebar tagSlugs={tagSlugs} selectedTag={selectedTag} locale={locale} />
+    </div>
   );
 }

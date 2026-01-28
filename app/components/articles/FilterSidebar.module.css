@@ -1,0 +1,116 @@
+.filterSidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 102px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.filterTags {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.filterTagsLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.filterTag {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background: linear-gradient(135deg, rgba(148, 163, 184, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%);
+    color: var(--color-purple-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &:hover {
+        background: linear-gradient(135deg, rgba(148, 163, 184, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%);
+    }
+
+    &.active {
+        background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-600) 100%);
+        color: white;
+    }
+}
+
+.filterHelp {
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-top: 16px;
+    text-align: left;
+}
+
+.filterHelpIcon {
+    margin-bottom: 12px;
+
+    svg {
+        width: 28px;
+        height: 28px;
+        color: var(--color-gray-400);
+    }
+}
+
+.filterHelpText {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin: 0;
+
+    a {
+        color: var(--color-blue-500);
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .filterSidebar {
+        width: 100%;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    .filterTags {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .filterHelp {
+        flex: 1;
+        min-width: 200px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .filterSidebar {
+        flex-direction: column;
+    }
+
+    .filterHelp {
+        padding: 20px;
+    }
+}

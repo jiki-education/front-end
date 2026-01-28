@@ -159,8 +159,8 @@ test.describe("Authentication Flows", () => {
     const url = page.url();
     expect(url).toBe(getTestUrl("/blog"));
 
-    // Verify blog content is present
-    await expect(page.getByRole("heading", { name: "Blog" })).toBeVisible();
+    // Verify blog content is present (title is "News, insights and witterings")
+    await expect(page.getByRole("heading", { name: "News, insights and witterings" })).toBeVisible();
   }
 
   async function assertSettingsPage(page: Page) {

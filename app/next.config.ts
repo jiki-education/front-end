@@ -7,6 +7,14 @@ const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.exercism.org"
+      }
+    ]
+  },
   async headers() {
     return Promise.resolve([
       {

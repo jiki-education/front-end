@@ -1,0 +1,21 @@
+.pageWrapper {
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgb(from var(--color-gray-100) r g b / 0.9) 0%, rgb(from white r g b / 0.9) 100%),
+        linear-gradient(90deg, var(--color-gray-300) 1px, transparent 1px),
+        linear-gradient(180deg, var(--color-gray-300) 1px, transparent 1px);
+    background-size:
+        100% 100%,
+        14px 14px,
+        14px 14px;
+}
+
+.pageContent {
+    padding: 40px;
+}
+
+@media (max-width: 768px) {
+    .pageContent {
+        padding: 40px 20px;
+    }
+}
