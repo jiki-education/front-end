@@ -190,6 +190,82 @@
             margin-bottom: 0;
         }
     }
+
+    /* Table Section */
+    .article-table-section {
+        margin: var(--spacing-32) 0;
+    }
+
+    /* Table */
+    .article-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 2px solid var(--color-gray-200);
+        border-radius: var(--radius-12);
+
+        th {
+            text-align: left;
+            font-size: var(--text-16);
+            font-weight: 500;
+            color: var(--color-gray-600);
+            padding: var(--spacing-16) var(--spacing-20);
+            background: var(--color-gray-50);
+            border-bottom: 2px solid var(--color-gray-200);
+
+            &:first-child {
+                border-right: 2px solid var(--color-gray-200);
+                border-top-left-radius: 10px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 10px;
+            }
+        }
+
+        td {
+            padding: var(--spacing-16) var(--spacing-20);
+            vertical-align: top;
+            border-bottom: 2px solid var(--color-gray-200);
+            font-size: var(--text-17);
+            color: var(--color-gray-700);
+            line-height: var(--leading-160);
+            background: white;
+
+            &:first-child {
+                border-right: 2px solid var(--color-gray-200);
+            }
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+
+            &:first-child {
+                border-bottom-left-radius: 10px;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 10px;
+            }
+        }
+
+        .feature-cell {
+            width: 220px;
+        }
+
+        .code-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
+            color: var(--color-purple-500);
+            padding: var(--spacing-4) var(--spacing-10);
+            border-radius: var(--radius-6);
+            font-family: var(--font-mono);
+            font-size: var(--text-15);
+            font-weight: 500;
+            margin-right: var(--spacing-4);
+            margin-bottom: var(--spacing-4);
+        }
+    }
 }
 
 /* Typography - Large Variant */
