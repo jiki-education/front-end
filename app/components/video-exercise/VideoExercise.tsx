@@ -95,6 +95,7 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [isAlreadyCompleted, setIsAlreadyCompleted] = useState(false);
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const hasAutoPlayedRef = useRef(false);
 
   // Extract video source from lesson data
   // Backend returns: data.sources[0] = {host: 'mux', id: 'playbackId'}
@@ -157,6 +158,13 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
     }
   };
 
+  const autoplay = () => {
+    if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
+      hasAutoPlayedRef.current = true;
+      void playerRef.current.play();
+    }
+  };
+
   const handleContinue = async () => {
     if (isMarking) {
       return;
@@ -205,8 +213,7 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
               ref={playerRef}
               playbackId={playbackId}
               streamType="on-demand"
-              title={lessonData.title}
-              autoPlay
+              autoPlay={true}
               loop={false}
               muted={false}
               volume={0.5}
@@ -214,6 +221,7 @@ export default function VideoExercise({ lessonData }: VideoExerciseProps) {
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}
               onTimeUpdate={handleTimeUpdate}
+              onCanPlay={autoplay}
             />
           ) : (
             <div className={styles.noVideoPlaceholder}>

@@ -57,6 +57,9 @@
 }
 
 .muxPlayer {
+    --seek-forward-button: none;
+    --time-range: none;
+
     position: absolute;
     inset: 0;
     width: 100%;
@@ -121,11 +124,6 @@
     backdrop-filter: blur(20px);
     margin-top: 24px;
     transition: all 300ms ease;
-}
-
-.floatingPillDisabled {
-    opacity: 0.6;
-    background: rgba(35, 35, 45, 0.8);
 }
 
 .pillInfo {
@@ -242,11 +240,10 @@
 
 /* Override UI button styles for stronger disabled state */
 .continueWrapper button:disabled {
-    opacity: 0.4;
-    background: rgba(50, 50, 60, 0.5) !important;
-    border-color: rgba(100, 100, 110, 0.3) !important;
-    color: rgba(150, 150, 160, 0.8) !important;
-    box-shadow: none !important;
+    background: color-mix(in srgb, var(--color-purple-500) 20%, transparent);
+    color: var(--color-purple-400);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--color-purple-500) 15%, transparent);
+    border: 1px solid var(--color-purple-400);
 }
 
 .customTooltip {
