@@ -22,8 +22,8 @@
     margin-bottom: 16px;
 }
 
-/* Account field cards (Profile & Security sections) */
-.accountField {
+/* Settings field - reusable padding/separator pattern */
+.settingsField {
     &:first-child {
         padding-bottom: 24px;
     }

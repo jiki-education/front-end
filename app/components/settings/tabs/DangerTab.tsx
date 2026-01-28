@@ -9,15 +9,17 @@ export default function DangerTab() {
 
   return (
     <div className={styles.settingsContent}>
-      <ActionField label="Session Management" description="Manage your active sessions across all devices.">
-        <button
-          className="ui-btn ui-btn-small ui-btn-danger w-[160px]"
-          onClick={handleLogoutFromThisDevice}
-          disabled={isLoggingOut}
-        >
-          Log out
-        </button>
-      </ActionField>
+      <div className={styles.settingsField}>
+        <ActionField label="Session Management" description="Manage your active sessions across all devices.">
+          <button
+            className="ui-btn ui-btn-small ui-btn-danger w-[160px]"
+            onClick={handleLogoutFromThisDevice}
+            disabled={isLoggingOut}
+          >
+            Log out
+          </button>
+        </ActionField>
+      </div>
     </div>
   );
 }
