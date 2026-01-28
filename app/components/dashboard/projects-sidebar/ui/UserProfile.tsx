@@ -1,23 +1,11 @@
 "use client";
 
-import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
-import {
-  getBadgeColor,
-  getBadgeDate,
-  isEarnedBadge,
-  isNewBadge,
-  isRecentBadge,
-  sortBadges
-} from "@/app/(app)/achievements/lib/badgeUtils";
-import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { ProfileIcon } from "@/components/icons/ProfileIcon";
-import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
-import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
-import { showModal } from "@/lib/modal";
-import Link from "next/link";
 import style from "./UserProfile.module.css";
+import { Badges } from "./UserProfile/Badges";
+import { Streak } from "./UserProfile/Streak";
 import { UserProfileSkeleton } from "./UserProfileSkeleton";
 
 interface UserProfileBase {
@@ -52,32 +40,6 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
     return <UserProfileSkeleton />;
   }
 
-  const handleBadgeClick = (badge: BadgeData) => {
-    if (!isEarnedBadge(badge)) {
-      return; // Only show modal for earned badges
-    }
-
-    // Map the badge data to BadgeModalData format
-    const modalData: BadgeModalData = {
-      title: badge.name,
-      date: getBadgeDate(badge),
-      description: badge.description,
-      funFact: badge.fun_fact,
-      color: getBadgeColor(badge),
-      slug: badge.slug,
-      isNew: isNewBadge(badge)
-    };
-
-    // Show the badge modal
-    showModal("badge-modal", {
-      badgeData: modalData
-    });
-  };
-
-  const earnedBadges = badges ? badges.filter(isEarnedBadge) : [];
-  const displayBadges = sortBadges(earnedBadges).slice(0, 3);
-  const totalEarnedBadges = earnedBadges.length;
-
   return (
     <div className={style.card}>
       <div className={style.header}>
@@ -94,80 +56,7 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
         </div>
         <Streak profile={profile} />
       </div>
-      <div className={style.badgesSection}>
-        <div className={style.badgesTitle}>Badges</div>
-        <div className={style.badges}>
-          {displayBadges.length > 0 ? (
-            // Show real badges
-            <>
-              {displayBadges.map((badge) => {
-                const isUnrevealed = badge.state === "unrevealed";
-                const isNew = isUnrevealed || isRecentBadge(badge);
-                const badgeColor = getBadgeColor(badge);
-                return (
-                  <div
-                    key={badge.id}
-                    className={`${style.badge} ${isUnrevealed ? style.unrevealed : ""} ${isNew && !isUnrevealed ? style.new : ""} ${style[badgeColor]}`}
-                    onClick={() => handleBadgeClick(badge)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {isNew && <BadgeNewLabel className={style.newLabel} />}
-                    {isUnrevealed ? (
-                      <div className={style.cardBack}>
-                        <UnlockIcon className={style.unlockIcon} />
-                      </div>
-                    ) : (
-                      <div className={style.badgeIconWrapper}>
-                        <BadgeIcon slug={badge.slug} />
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-              {totalEarnedBadges > 3 && (
-                <Link href="/achievements" className={`${style.badge} ${style.empty}`}>
-                  <span className={style.badgeMore}>+{totalEarnedBadges - 3}</span>
-                </Link>
-              )}
-            </>
-          ) : (
-            // No badges earned yet - show empty state
-            <Link href="/achievements" className={`${style.badge} ${style.empty}`}>
-              <span className={style.badgeMore}>→</span>
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-function Streak({ profile }: { profile: UserProfileData }) {
-  let emoji: string;
-  let variantClass: string;
-  let count: number;
-
-  if (!profile.streaksEnabled) {
-    emoji = "🎓";
-    variantClass = style.activeDays;
-    count = profile.totalActiveDays;
-  } else if (profile.currentStreak === 0) {
-    emoji = "😢";
-    variantClass = style.noStreak;
-    count = profile.currentStreak;
-  } else if (profile.currentStreak === 1) {
-    emoji = "🚀";
-    variantClass = style.oneDayStreak;
-    count = profile.currentStreak;
-  } else {
-    emoji = "🔥";
-    variantClass = style.multiDayStreak;
-    count = profile.currentStreak;
-  }
-
-  return (
-    <div className={`${style.streak} ${variantClass}`}>
-      <span className={style.streakIcon}>{emoji}</span>
-      <span className={style.streakNumber}>{count}</span>
+      <Badges badges={badges} />
     </div>
   );
 }
