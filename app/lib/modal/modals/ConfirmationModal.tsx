@@ -37,10 +37,10 @@ export function ConfirmationModal({
       <h2 className={styles.modalTitle}>{title}</h2>
       <p className={styles.modalMessage}>{message}</p>
       <div className={styles.modalButtons}>
-        <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-small">
+        <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-small whitespace-nowrap">
           {cancelText}
         </button>
-        <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-small">
+        <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-small whitespace-nowrap">
           {confirmText}
         </button>
       </div>
