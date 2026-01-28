@@ -1,14 +1,9 @@
-.certificatesEmptyState {
-    display: none;
+.emptyState {
     min-height: 400px;
     grid-column: 1 / -1;
 }
 
-.certificatesEmptyState.show {
-    display: block;
-}
-
-.emptyStateWrapper {
+.wrapper {
     width: 100%;
     padding: 105px 40px;
     border-radius: 20px;
@@ -17,10 +12,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: rgba(59, 130, 246, 0.04);
+    background: var(--color-blue-500-4);
 }
 
-.emptyStateWrapper .iconCircle {
+.wrapper .iconCircle {
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -29,22 +24,23 @@
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    background: linear-gradient(135deg, var(--color-blue-500-10) 0%, var(--color-blue-500-5) 100%);
 }
 
-.emptyStateWrapper .iconCircle svg {
+.wrapper .iconCircle svg {
     width: 60px;
     height: 60px;
+    color: var(--color-blue-500);
 }
 
-.emptyStateWrapper h2 {
+.wrapper h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #1a202c;
+    color: var(--color-gray-900);
     margin-bottom: 12px;
 }
 
-.emptyStateWrapper p {
+.wrapper p {
     font-size: 16px;
     color: var(--color-gray-500);
     max-width: 480px;

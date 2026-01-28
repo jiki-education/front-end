@@ -53,6 +53,7 @@ export function useConversationLoader(contextSlug: string) {
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- API response may not match TypeScript types
         const conversation = userLessonData.conversation || [];
+
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- API response may not match TypeScript types
         const conversationAllowed = userLessonData.conversation_allowed ?? true;
 

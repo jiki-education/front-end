@@ -24,6 +24,7 @@ interface ConceptsResponse {
     current_page: number;
     total_count: number;
     total_pages: number;
+    unlocked_count: number;
   };
 }
 

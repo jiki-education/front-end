@@ -1,4 +1,4 @@
-import SearchIcon from "@static/icons/search.svg";
+import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
 import { useRef } from "react";
 import styles from "./ConceptsSearch.module.css";
@@ -9,7 +9,6 @@ interface ConceptsSearchProps {
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClearSearch: () => void;
   debouncedSearchQuery: string;
-  isLoading: boolean;
   totalCount: number;
 }
 
@@ -18,7 +17,6 @@ export default function ConceptsSearch({
   onSearchChange,
   onClearSearch,
   debouncedSearchQuery,
-  isLoading,
   totalCount
 }: ConceptsSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,23 +40,8 @@ export default function ConceptsSearch({
         </button>
       </div>
 
-      {/* Search Results Info */}
-      {debouncedSearchQuery && totalCount > 0 && (
-        <div style={{ marginTop: "8px", fontSize: "14px", color: "var(--color-gray-500)" }}>
-          {isLoading ? (
-            <span>Searching...</span>
-          ) : (
-            <span>
-              {totalCount} result{totalCount !== 1 ? "s" : ""} for &quot;{debouncedSearchQuery}&quot;
-            </span>
-          )}
-        </div>
-      )}
-
       {/* No Results State */}
-      {debouncedSearchQuery && totalCount === 0 && !isLoading && (
-        <EmptyState debouncedSearchQuery={debouncedSearchQuery} />
-      )}
+      {debouncedSearchQuery && totalCount === 0 && <EmptyState debouncedSearchQuery={debouncedSearchQuery} />}
     </div>
   );
 }
