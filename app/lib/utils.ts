@@ -1,6 +1,16 @@
+import { format } from "date-fns";
+
 /**
  * Utility functions for the UI Kit
  */
+
+/**
+ * Formats a date string to "15th Nov 2025" format
+ */
+export function formatBlogDate(dateString: string): string {
+  const date = new Date(dateString);
+  return format(date, "do MMM yyyy");
+}
 
 /**
  * Formats a string to be used as a CSS class name

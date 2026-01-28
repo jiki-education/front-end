@@ -1,5 +1,8 @@
 import { getBlogPosts } from "@/lib/content";
-import BlogContent from "./BlogContent";
+import BlogPostsGrid from "./BlogPostsGrid";
+import FeaturedLatestPost from "./FeaturedLatestPost";
+import PageHeader from "./PageHeader";
+import styles from "./BlogPage.module.css";
 
 interface BlogPageProps {
   authenticated: boolean;
@@ -9,15 +12,17 @@ interface BlogPageProps {
 
 export default async function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
   const pageNum = page ? Math.max(1, parseInt(page, 10) || 1) : 1;
-  const { posts, totalPages, currentPage } = await getBlogPosts({ locale, page: pageNum });
+  const { posts } = await getBlogPosts({ locale, page: pageNum });
+
+  const [latestPost, ...remainingPosts] = posts;
 
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-12">
-      <header className="mb-12">
-        <h1 className="mb-4 text-5xl font-bold text-text-primary">Blog</h1>
-        <p className="text-lg text-text-secondary">Thoughts, tutorials, and insights about coding</p>
-      </header>
-      <BlogContent blogPosts={posts} locale={locale} currentPage={currentPage} totalPages={totalPages} />
+    <div className={styles.pageWrapper}>
+      <div className="p-40">
+        <PageHeader />
+        {latestPost && <FeaturedLatestPost post={latestPost} locale={locale} />}
+        {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} locale={locale} />}
+      </div>
     </div>
   );
 }
