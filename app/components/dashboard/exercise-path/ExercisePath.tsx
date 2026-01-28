@@ -1,6 +1,6 @@
 "use client";
 
-import NavigationLoadingOverlay from "@/components/common/NavigationLoadingOverlay";
+import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { ExercisePathSkeleton } from "./ui/ExercisePathSkeleton";
 import { useLessonNavigation } from "./hooks/useLessonNavigation";
 import { useMilestoneHandler } from "./hooks/useMilestoneHandler";
@@ -54,7 +54,7 @@ export default function ExercisePath() {
 
   return (
     <div className={styles.learningPath}>
-      <NavigationLoadingOverlay isVisible={isPending} />
+      {isPending && <LessonLoadingModal />}
       <StartCard />
       {levelSections.map((section) => (
         <LevelSection

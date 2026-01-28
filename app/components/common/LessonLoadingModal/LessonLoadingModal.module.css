@@ -1,0 +1,125 @@
+.container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-50);
+    gap: 32px;
+    z-index: var(--z-index-modal);
+}
+
+/* Animated Processing Visual */
+.processingVisual {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+/* Outer rotating ring */
+.outerRing {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--color-purple-500);
+    border-right-color: var(--color-blue-500);
+    animation: rotate 1.5s linear infinite;
+}
+
+/* Middle pulsing ring */
+.middleRing {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-bottom-color: var(--color-blue-400);
+    border-left-color: var(--color-purple-400);
+    animation: rotate 2s linear infinite reverse;
+}
+
+/* Inner content */
+.innerCircle {
+    position: absolute;
+    inset: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s ease-in-out infinite;
+
+    svg {
+        width: 36px;
+        height: 36px;
+        color: white;
+    }
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.95);
+        opacity: 0.9;
+    }
+}
+
+/* Loading Text */
+.loadingText {
+    text-align: center;
+}
+
+.loadingTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 8px;
+}
+
+.loadingSubtitle {
+    font-size: 15px;
+    color: var(--color-gray-500);
+}
+
+/* Animated ellipsis */
+.ellipsis {
+    display: inline-block;
+
+    span {
+        animation: ellipsis 1.4s infinite;
+        opacity: 0;
+
+        &:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+
+@keyframes ellipsis {
+    0%,
+    100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
-import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
+import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { fetchProject, type ProjectData } from "@/lib/api/projects";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
@@ -67,7 +67,7 @@ export default function ProjectPage({ params }: PageProps) {
   }, [params]);
 
   if (loading) {
-    return <LessonLoadingPage type="exercise" />;
+    return <LessonLoadingModal />;
   }
 
   if (error || !project) {
