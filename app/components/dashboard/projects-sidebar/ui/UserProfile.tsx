@@ -45,7 +45,14 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
       <div className={style.header}>
         <div className={style.avatar}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={profile.avatarUrl} alt="User Avatar" />
+          <img
+            src={profile.avatarUrl}
+            alt="User Avatar"
+            onError={(e) => {
+              e.currentTarget.src =
+                "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+            }}
+          />
           <div className={style.iconBadge}>
             <ProfileIcon slug={profile.icon} />
           </div>
