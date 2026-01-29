@@ -132,6 +132,25 @@ class SettingsApi {
     // If no updates were made, fetch current settings
     return settings || this.getSettings();
   }
+
+  /**
+   * Update streaks enabled setting
+   */
+  async updateStreaks(enabled: boolean): Promise<UserSettings> {
+    try {
+      const response = await api.patch<SettingsResponse>("/internal/settings/streaks", { enabled });
+      return response.data.settings;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        const errorData = error.data as SettingsError | undefined;
+
+        if (errorData?.error) {
+          throw new Error(errorData.error.message);
+        }
+      }
+      throw error;
+    }
+  }
 }
 
 // Export singleton instance
@@ -147,5 +166,6 @@ export const {
   updateLocale,
   updateHandle,
   updateNotification,
-  updateNotifications
+  updateNotifications,
+  updateStreaks
 } = settingsApi;

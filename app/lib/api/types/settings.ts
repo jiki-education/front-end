@@ -14,6 +14,7 @@ export interface UserSettings {
   receive_event_emails: boolean;
   receive_milestone_emails: boolean;
   receive_activity_emails: boolean;
+  streaks_enabled: boolean;
 }
 
 export interface SettingsResponse {

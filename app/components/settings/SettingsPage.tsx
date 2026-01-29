@@ -3,6 +3,7 @@
 import AccountSettingsIcon from "@/icons/account-settings.svg";
 import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
+import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -10,10 +11,11 @@ import { useState } from "react";
 import styles from "./Settings.module.css";
 import AccountTab from "./tabs/AccountTab";
 import DangerTab from "./tabs/DangerTab";
+import LearningTab from "./tabs/LearningTab";
 import NotificationsTab from "./tabs/NotificationsTab";
 import SubscriptionTab from "./tabs/SubscriptionTab";
 
-type TabType = "account" | "subscription" | "notifications" | "danger";
+type TabType = "account" | "subscription" | "learning" | "notifications" | "danger";
 
 export default function SettingsPage() {
   const { user, refreshUser } = useAuthStore();
@@ -54,6 +56,10 @@ export default function SettingsPage() {
               <NotificationsSettingsIcon />
               Notifications
             </button>
+            <button className={activeTab === "learning" ? "active" : ""} onClick={() => setActiveTab("learning")}>
+              <ProjectsIcon />
+              Learning
+            </button>
             <button
               className={activeTab === "danger" ? "active" : ""}
               data-color="red"
@@ -68,6 +74,7 @@ export default function SettingsPage() {
           <main>
             {activeTab === "account" && <AccountTab />}
             {activeTab === "subscription" && <SubscriptionTab user={user} refreshUser={refreshUser} />}
+            {activeTab === "learning" && <LearningTab />}
             {activeTab === "notifications" && <NotificationsTab />}
             {activeTab === "danger" && <DangerTab />}
           </main>
