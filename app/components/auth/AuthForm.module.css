@@ -76,6 +76,89 @@
     text-wrap-style: balance;
 }
 
+.confirmationMessage {
+    text-align: center;
+
+    h2 {
+        font-size: 36px;
+        font-weight: 500;
+        color: var(--color-gray-900);
+        margin-bottom: 28px;
+        line-height: 1.2;
+    }
+}
+
+.confirmationIcon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--color-blue-100) 0%, var(--color-blue-200) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--color-blue-600);
+}
+
+.confirmationCard {
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    padding: 24px 28px;
+}
+
+.confirmationText {
+    font-size: 17px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    text-wrap-style: balance;
+    margin-bottom: 2px;
+}
+
+.confirmationEmail {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--color-gray-900);
+    margin-bottom: 14px;
+}
+
+.confirmationHint {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    text-wrap-style: balance;
+}
+
+.confirmationIconError {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--color-red-100) 0%, var(--color-red-200) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--color-red-600);
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.confirmationCardText {
+    font-size: 17px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    text-wrap-style: balance;
+    margin-bottom: 20px;
+}
+
+.confirmationCardFooter {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin-top: 16px;
+}
+
 @media (max-width: 968px) {
     .leftSide {
         padding: 40px 30px;

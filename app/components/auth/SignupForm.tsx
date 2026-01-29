@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState, useEffect } from "react";
-import EmailIcon from "../../icons/email.svg";
-import PasswordIcon from "../../icons/password.svg";
+import EmailIcon from "@/icons/email.svg";
+import PasswordIcon from "@/icons/password.svg";
 import styles from "./AuthForm.module.css";
+import { CheckInboxMessage } from "./CheckInboxMessage";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
@@ -22,6 +23,7 @@ export function SignupForm() {
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authErrorField, setAuthErrorField] = useState<string | null>(null);
+  const [signupSuccessEmail, setSignupSuccessEmail] = useState<string | null>(null);
 
   const returnTo = searchParams.get("return_to");
 
@@ -79,7 +81,7 @@ export function SignupForm() {
           router.push(redirectTo);
         }
       } else {
-        router.push(`/auth/check-email?email=${encodeURIComponent(email)}`);
+        setSignupSuccessEmail(email);
       }
     } catch (err) {
       console.error("Signup failed:", err);
@@ -116,6 +118,10 @@ export function SignupForm() {
         console.error("ERROR WITH GOOGLE SIGNUP");
       });
   };
+
+  if (signupSuccessEmail) {
+    return <CheckInboxMessage email={signupSuccessEmail} />;
+  }
 
   return (
     <div className={styles.leftSide}>

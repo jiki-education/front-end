@@ -23,7 +23,7 @@ test.describe("Auth Signup and Login Flows", () => {
       await page.context().clearCookies();
     });
 
-    test("should redirect to check-email page on successful signup with unconfirmed email", async ({ page }) => {
+    test("should show check inbox message on successful signup with unconfirmed email", async ({ page }) => {
       const testEmail = "newuser@example.com";
 
       await page.route("**/*", (route) => {
@@ -55,11 +55,14 @@ test.describe("Auth Signup and Login Flows", () => {
       await page.locator("#signup-password").fill("password123");
       await page.locator('button[type="submit"]').click();
 
-      await page.waitForURL("**/auth/check-email**");
-      expect(page.url()).toContain("/auth/check-email");
-      expect(page.url()).toContain(encodeURIComponent(testEmail));
-
-      await expect(page.getByRole("heading", { name: "Check your email" })).toBeVisible();
+      // Should show inline confirmation message instead of redirecting
+      await expect(page.getByRole("heading", { name: "Check your inbox" })).toBeVisible();
+      await expect(page.getByText(testEmail)).toBeVisible();
+      await expect(page.getByText("We've sent a confirmation email to")).toBeVisible();
+      // Should have resend link with email parameter
+      await expect(
+        page.locator(`a[href*="/auth/resend-confirmation?email=${encodeURIComponent(testEmail)}"]`)
+      ).toBeVisible();
     });
 
     test("should redirect to dashboard on signup with confirmed email (e.g., Google OAuth)", async ({ page }) => {
@@ -344,14 +347,14 @@ test.describe("Auth Signup and Login Flows", () => {
 
       await page.goto("/auth/confirm-email?token=invalid-token");
 
-      await expect(page.getByText("Confirmation Failed")).toBeVisible();
-      await expect(page.getByText(/invalid or has expired/i)).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Link expired" })).toBeVisible();
+      await expect(page.getByText(/no longer valid/i)).toBeVisible();
     });
 
     test("should show error when no token provided", async ({ page }) => {
       await page.goto("/auth/confirm-email");
 
-      await expect(page.getByText("Confirmation Failed")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Link expired" })).toBeVisible();
     });
   });
 });

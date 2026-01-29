@@ -37,7 +37,7 @@ export function ForgotPasswordForm() {
 
     try {
       await requestPasswordReset(email);
-      setSuccessMessage("If an account with that email exists, you&apos;ll receive reset instructions shortly.");
+      setSuccessMessage("If an account with that email exists, you'll receive reset instructions shortly.");
       setEmail("");
     } catch (err) {
       console.error("Password reset request failed:", err);

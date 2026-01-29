@@ -53,8 +53,21 @@ jest.mock("@/components/auth/AuthForm.module.css", () => ({
   leftSide: "leftSide",
   formContainer: "formContainer",
   divider: "divider",
-  footerLinks: "footerLinks"
+  footerLinks: "footerLinks",
+  confirmationMessage: "confirmationMessage",
+  confirmationIcon: "confirmationIcon",
+  confirmationCard: "confirmationCard",
+  confirmationText: "confirmationText",
+  confirmationEmail: "confirmationEmail",
+  confirmationHint: "confirmationHint"
 }));
+
+// Mock EnvelopeIcon
+function MockEnvelopeIcon() {
+  return <span data-testid="envelope-icon" />;
+}
+MockEnvelopeIcon.displayName = "EnvelopeIcon";
+jest.mock("@/icons/envelope.svg", () => MockEnvelopeIcon);
 
 describe("SignupForm", () => {
   beforeEach(() => {
@@ -100,9 +113,9 @@ describe("SignupForm", () => {
       });
     });
 
-    it("redirects to /dashboard when return_to is invalid", async () => {
+    it("redirects to /dashboard when return_to is invalid and email is confirmed", async () => {
       mockSearchParamsGet.mockReturnValue("https://evil.com/phishing");
-      mockSignup.mockResolvedValue({});
+      mockSignup.mockResolvedValue({ email_confirmed: true });
 
       render(<SignupForm />);
 
@@ -115,9 +128,9 @@ describe("SignupForm", () => {
       });
     });
 
-    it("redirects to /dashboard when no return_to is provided", async () => {
+    it("redirects to /dashboard when no return_to is provided and email is confirmed", async () => {
       mockSearchParamsGet.mockReturnValue(null);
-      mockSignup.mockResolvedValue({});
+      mockSignup.mockResolvedValue({ email_confirmed: true });
 
       render(<SignupForm />);
 
@@ -130,10 +143,26 @@ describe("SignupForm", () => {
       });
     });
 
-    it("does not use router.push for valid external return_to URL", async () => {
+    it("shows check inbox message when email is not confirmed", async () => {
+      mockSearchParamsGet.mockReturnValue(null);
+      mockSignup.mockResolvedValue({ email_confirmed: false });
+
+      render(<SignupForm />);
+
+      fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "test@example.com" } });
+      fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+      fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole("heading", { name: /check your inbox/i })).toBeInTheDocument();
+      });
+      expect(mockRouterPush).not.toHaveBeenCalled();
+    });
+
+    it("does not use router.push for valid external return_to URL when email is confirmed", async () => {
       const returnToUrl = "https://api.jiki.io/auth/discourse/sso";
       mockSearchParamsGet.mockReturnValue(returnToUrl);
-      mockSignup.mockResolvedValue({});
+      mockSignup.mockResolvedValue({ email_confirmed: true });
 
       render(<SignupForm />);
 
@@ -182,7 +211,7 @@ describe("SignupForm", () => {
       expect(loginLink).toHaveAttribute("href", "/auth/login");
     });
 
-    it("uses sessionStorage return_to when URL param is cleared", async () => {
+    it("uses sessionStorage return_to when URL param is cleared and email is confirmed", async () => {
       // First render with return_to to store it
       const returnToUrl = "https://api.jiki.io/auth/discourse/sso";
       mockSearchParamsGet.mockReturnValue(returnToUrl);
@@ -194,7 +223,7 @@ describe("SignupForm", () => {
 
       // Second render without return_to param
       mockSearchParamsGet.mockReturnValue(null);
-      mockSignup.mockResolvedValue({});
+      mockSignup.mockResolvedValue({ email_confirmed: true });
 
       render(<SignupForm />);
 

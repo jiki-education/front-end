@@ -40,7 +40,7 @@ export function ResendConfirmationForm() {
 
     try {
       await resendConfirmation(email);
-      setSuccessMessage("If an account with that email exists, you&apos;ll receive confirmation instructions shortly.");
+      setSuccessMessage("If an account with that email exists, you'll receive confirmation instructions shortly.");
       setEmail("");
     } catch (err) {
       console.error("Resend confirmation failed:", err);
