@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { ErrorRobot } from "./components/ErrorRobot";
+import { ErrorPageContent } from "./components/ErrorPage";
+// global-error.tsx replaces the entire HTML tree including root layout,
+// so it must import globals.css directly to have any styles
 import "./globals.css";
 import styles from "./components/ErrorPage.module.css";
 
@@ -22,16 +24,13 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
     <html lang="en">
       <body className={styles.wrapper}>
         <div className={styles.container}>
-          <div className={styles.logo}>JIKI</div>
-
-          <ErrorRobot variant="serverError" />
-
-          <h1 className={styles.title}>Something went wrong</h1>
-          <p className={styles.subtitle}>We encountered an unexpected error. Sorry about that!</p>
-
-          <button onClick={reset} className={`ui-btn ui-btn-default ui-btn-primary ${styles.button}`}>
-            Try again &rarr;
-          </button>
+          <ErrorPageContent
+            variant="serverError"
+            title="Something went wrong"
+            message="We encountered an unexpected error. Sorry about that!"
+            actionLabel="Try again"
+            onAction={reset}
+          />
         </div>
       </body>
     </html>
