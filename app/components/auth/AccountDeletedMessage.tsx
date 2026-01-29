@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
-import styles from "./page.module.css";
+import styles from "./AccountDeletedMessage.module.css";
 
-export const metadata: Metadata = {
-  title: "Account Deleted - Jiki"
-};
-
-export default function AccountDeletedPage() {
+export function AccountDeletedMessage() {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>JIKI</div>
