@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ActionField from "../ui/ActionField";
 import styles from "../Settings.module.css";
 import Link from "next/link";
 
-const DEBOUNCE_MS = 500;
-
 export default function LearningTab() {
   const { settings, loading, fetchSettings, updateStreaks } = useSettingsStore();
-  const [localEnabled, setLocalEnabled] = useState<boolean | null>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Fetch settings on mount
   useEffect(() => {
@@ -21,40 +17,13 @@ export default function LearningTab() {
     }
   }, [settings, fetchSettings]);
 
-  // Sync local state with settings when settings load
-  useEffect(() => {
-    if (settings && localEnabled === null) {
-      setLocalEnabled(settings.streaks_enabled);
-    }
-  }, [settings, localEnabled]);
-
-  const handleToggle = () => {
-    if (localEnabled === null) {
+  const handleToggle = async () => {
+    if (!settings) {
       return;
     }
 
-    const newValue = !localEnabled;
-    setLocalEnabled(newValue);
-
-    // Clear any pending debounce
-    if (debounceRef.current) {
-      clearTimeout(debounceRef.current);
-    }
-
-    // Debounce the API call
-    debounceRef.current = setTimeout(() => {
-      void updateStreaks(newValue);
-    }, DEBOUNCE_MS);
+    await updateStreaks(!settings.streaks_enabled);
   };
-
-  // Cleanup debounce on unmount
-  useEffect(() => {
-    return () => {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
-      }
-    };
-  }, []);
 
   if (loading || !settings) {
     return (
@@ -64,7 +33,7 @@ export default function LearningTab() {
     );
   }
 
-  const enabled = localEnabled ?? settings.streaks_enabled;
+  const enabled = settings.streaks_enabled;
 
   return (
     <div className={styles.settingsContent}>
