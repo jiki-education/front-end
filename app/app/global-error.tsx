@@ -1,12 +1,11 @@
-// Root-level error boundary for Next.js App Router.
-// Catches unhandled errors that bubble up to the top (not caught by nested error.tsx files),
-// reports them to Sentry, and shows a fallback error page to the user.
 "use client";
 
-import NextError from "next/error";
 import { useEffect } from "react";
+import { ErrorRobot } from "./components/ErrorRobot";
+import "./globals.css";
+import styles from "./components/ErrorPage.module.css";
 
-export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
+export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
       import("@sentry/nextjs")
@@ -21,12 +20,19 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
 
   return (
     <html lang="en">
-      <body>
-        {/* `NextError` is the default Next.js error page component. Its type
-        definition requires a `statusCode` prop. However, since the App Router
-        does not expose status codes for errors, we simply pass 0 to render a
-        generic error message. */}
-        <NextError statusCode={0} />
+      <body className={styles.wrapper}>
+        <div className={styles.container}>
+          <div className={styles.logo}>JIKI</div>
+
+          <ErrorRobot variant="serverError" />
+
+          <h1 className={styles.title}>Something went wrong</h1>
+          <p className={styles.subtitle}>We encountered an unexpected error. Sorry about that!</p>
+
+          <button onClick={reset} className={`ui-btn ui-btn-default ui-btn-primary ${styles.button}`}>
+            Try again &rarr;
+          </button>
+        </div>
       </body>
     </html>
   );
