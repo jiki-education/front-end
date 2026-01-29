@@ -21,6 +21,7 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
+  const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
 
   const returnTo = searchParams.get("return_to");
 
@@ -51,6 +52,7 @@ export function LoginForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setHasAuthError(false);
+    setUnconfirmedEmail(null);
 
     if (!validate()) {
       return;
@@ -71,9 +73,14 @@ export function LoginForm() {
       }
     } catch (err) {
       console.error("Login failed:", err);
-      // Check if it's an authentication error (wrong credentials)
       if (err instanceof AuthenticationError) {
-        setHasAuthError(true);
+        // Check if the error is specifically for unconfirmed email
+        const errorData = err.data as { error?: { type?: string; email?: string } } | undefined;
+        if (errorData?.error?.type === "unconfirmed") {
+          setUnconfirmedEmail(errorData.error.email || email);
+        } else {
+          setHasAuthError(true);
+        }
       }
       // If not an AuthenticationError, it's likely a network/server error
       // Don't show field-specific error for those cases
@@ -120,7 +127,7 @@ export function LoginForm() {
 
           <div className={styles.divider}>OR</div>
 
-          <div className={`ui-form-field-large ${hasAuthError ? "ui-form-field-error" : ""}`}>
+          <div className={`ui-form-field-large ${hasAuthError || unconfirmedEmail ? "ui-form-field-error" : ""}`}>
             <label htmlFor="login-email">Email</label>
             <div>
               <EmailIcon />
@@ -137,6 +144,9 @@ export function LoginForm() {
                   if (hasAuthError) {
                     setHasAuthError(false);
                   }
+                  if (unconfirmedEmail) {
+                    setUnconfirmedEmail(null);
+                  }
                 }}
                 required
               />
@@ -149,7 +159,10 @@ export function LoginForm() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
-            <div className={`ui-form-field-large ${hasAuthError ? "ui-form-field-error" : ""}`} id="password-field">
+            <div
+              className={`ui-form-field-large ${hasAuthError || unconfirmedEmail ? "ui-form-field-error" : ""}`}
+              id="password-field"
+            >
               <label htmlFor="login-password">Password</label>
               <div>
                 <PasswordIcon />
@@ -166,6 +179,9 @@ export function LoginForm() {
                     if (hasAuthError) {
                       setHasAuthError(false);
                     }
+                    if (unconfirmedEmail) {
+                      setUnconfirmedEmail(null);
+                    }
                   }}
                   required
                 />
@@ -178,6 +194,17 @@ export function LoginForm() {
               {hasAuthError && !validationErrors.password && (
                 <div className="ui-form-field-error-message" style={{ display: "block" }}>
                   Invalid email or password
+                </div>
+              )}
+              {unconfirmedEmail && (
+                <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                  Please confirm your email before logging in.{" "}
+                  <Link
+                    href={`/auth/resend-confirmation?email=${encodeURIComponent(unconfirmedEmail)}`}
+                    className="ui-link"
+                  >
+                    Resend confirmation
+                  </Link>
                 </div>
               )}
             </div>

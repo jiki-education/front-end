@@ -36,6 +36,16 @@ export async function resendConfirmation(email: string): Promise<void> {
 }
 
 /**
+ * Confirm email address with token
+ * GET /auth/confirmation?confirmation_token=TOKEN
+ * Returns the user (auto-logged in via session cookie)
+ */
+export async function confirmEmail(token: string): Promise<User> {
+  const response = await api.get<{ user: User }>(`/auth/confirmation?confirmation_token=${encodeURIComponent(token)}`);
+  return response.data.user;
+}
+
+/**
  * Get current user from /internal/me endpoint
  * GET /internal/me
  */
