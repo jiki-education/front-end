@@ -1,0 +1,10 @@
+.tooltip {
+    background: var(--color-gray-800);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: var(--z-index-tooltip);
+}
