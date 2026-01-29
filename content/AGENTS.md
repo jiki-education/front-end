@@ -209,6 +209,8 @@ pnpm run format:check      # Check formatting
 
 Same process as blog post, but in `src/posts/articles/[slug]/`
 
+**Note**: Articles are **auto-discovered** from the directory structure. No manual registration in a config file is needed - the app's `generate:content` script automatically finds all article directories.
+
 ### Adding a New Author
 
 1. **Update `src/authors.json`**:
