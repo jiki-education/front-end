@@ -1,0 +1,85 @@
+.container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 12px;
+}
+
+.robot {
+    width: 200px;
+    height: 200px;
+}
+
+.body {
+    fill: var(--color-gray-200);
+    stroke: var(--color-gray-400);
+    stroke-width: 2;
+}
+
+.antenna {
+    stroke: var(--color-gray-400);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.antennaTop {
+    fill: var(--color-gray-400);
+}
+
+.mouth {
+    stroke: var(--color-gray-400);
+}
+
+/* Normal state (404) */
+.eye {
+    fill: var(--color-blue-500);
+}
+
+.questionMark {
+    fill: var(--color-gray-400);
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.chestLight {
+    fill: var(--color-gray-400);
+}
+
+/* Error state (500) */
+.eyeError {
+    fill: var(--color-red-500);
+}
+
+.exclamation {
+    fill: var(--color-red-400);
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.chestLightError {
+    fill: var(--color-red-400);
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
