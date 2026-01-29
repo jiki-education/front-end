@@ -16,6 +16,7 @@ import { ChangePasswordModal } from "@/components/settings/modals/ChangePassword
 import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal";
 import { CancelSubscriptionConfirmModal } from "@/components/settings/modals/CancelSubscriptionConfirmModal";
 import { CancelSubscriptionSuccessModal } from "@/components/settings/modals/CancelSubscriptionSuccessModal";
+import { DeleteAccountModal } from "@/components/settings/modals/DeleteAccountModal";
 import { PaymentProcessingModal } from "./PaymentProcessingModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 
@@ -39,6 +40,7 @@ export {
   ChangeEmailModal,
   CancelSubscriptionConfirmModal,
   CancelSubscriptionSuccessModal,
+  DeleteAccountModal,
   PaymentProcessingModal,
   PremiumUpgradeModal
 };
@@ -63,6 +65,7 @@ export const availableModals = {
   "change-email-modal": ChangeEmailModal,
   "cancel-subscription-confirm-modal": CancelSubscriptionConfirmModal,
   "cancel-subscription-success-modal": CancelSubscriptionSuccessModal,
+  "delete-account-modal": DeleteAccountModal,
   "payment-processing-modal": PaymentProcessingModal,
   "premium-upgrade-modal": PremiumUpgradeModal
 };
