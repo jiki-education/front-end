@@ -37,7 +37,6 @@
 
 .questionMark {
     fill: var(--color-gray-400);
-    font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-size: 24px;
     animation: float 2s ease-in-out infinite;
@@ -54,7 +53,6 @@
 
 .exclamation {
     fill: var(--color-red-400);
-    font-family: "Poppins", sans-serif;
     font-weight: 700;
     font-size: 24px;
     animation: pulse 1.5s ease-in-out infinite;
