@@ -8,13 +8,13 @@
     max-width: 950px;
     margin: 0 auto;
     padding: var(--spacing-60) var(--spacing-80) 0 var(--spacing-80);
-    color: #2d3748;
+    color: var(--color-gray-700);
     line-height: var(--leading-180);
 
     /* Typography */
     h2 {
         font-weight: 700;
-        color: #1a202c;
+        color: var(--color-gray-900);
         margin: var(--spacing-48) 0 var(--spacing-24) 0;
         line-height: var(--leading-120);
 
@@ -25,7 +25,7 @@
 
     h3 {
         font-weight: 600;
-        color: #1a202c;
+        color: var(--color-gray-900);
         margin: var(--spacing-40) 0 var(--spacing-20) 0;
         line-height: var(--leading-130);
     }
@@ -40,7 +40,7 @@
     }
 
     strong {
-        color: #1a202c;
+        color: var(--color-gray-900);
         font-weight: 600;
     }
 
@@ -76,7 +76,7 @@
         padding: var(--spacing-2) var(--spacing-6);
         border-radius: var(--radius-4);
         font-family: var(--font-mono);
-        color: #c026d3;
+        color: var(--color-purple-600);
     }
 
     /* Code Blocks */
@@ -91,7 +91,7 @@
 
         code {
             font-family: var(--font-mono);
-            color: #1a202c;
+            color: var(--color-gray-900);
             line-height: var(--leading-170);
             background: none;
             padding: 0;
@@ -100,7 +100,7 @@
 
     /* Syntax Highlighting */
     .code-keyword {
-        color: #7c3aed;
+        color: var(--color-purple-700);
         font-weight: 600;
     }
 
@@ -129,7 +129,7 @@
     }
 
     .admonition-content {
-        color: #2d3748;
+        color: var(--color-gray-700);
         line-height: var(--leading-170);
     }
 
@@ -151,11 +151,11 @@
     /* Key Point Box (Blue) */
     .admonition-key-point {
         background: white;
-        border: 2px solid #667eea;
-        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+        border: 2px solid var(--color-blue-500);
+        box-shadow: 0 4px 16px var(--color-blue-500-15);
 
         .admonition-title {
-            color: #667eea;
+            color: var(--color-blue-500);
         }
     }
 
@@ -178,12 +178,12 @@
 
     /* Try It Box (Dashed Border) */
     .admonition-try-it {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        border: 3px dashed #667eea;
+        background: linear-gradient(135deg, var(--color-blue-500-5) 0%, var(--color-purple-500-6) 100%);
+        border: 3px dashed var(--color-blue-500);
         padding: var(--spacing-28) var(--spacing-32);
 
         .admonition-title {
-            color: #667eea;
+            color: var(--color-blue-500);
         }
 
         .admonition-content {
