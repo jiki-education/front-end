@@ -1,7 +1,7 @@
 "use client";
 
 import type { ExerciseSlug } from "@jiki/curriculum";
-import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
+import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
@@ -31,7 +31,7 @@ export default function CodingExercise({ language, exerciseSlug, context }: Codi
 
   // Loading state
   if (isLoading) {
-    return <LessonLoadingPage type="exercise" />;
+    return <LessonLoadingModal />;
   }
 
   // At this point, orchestrator is guaranteed to be set

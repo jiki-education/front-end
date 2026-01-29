@@ -2,7 +2,7 @@
 
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LanguageChoiceLesson from "@/components/language-choice/LanguageChoiceLesson";
-import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
+import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchLesson } from "@/lib/api/lessons";
@@ -73,8 +73,7 @@ export default function LessonPage({ params }: PageProps) {
   }, [params]);
 
   if (loading) {
-    // Show loading page - will default to exercise type if not specified
-    return <LessonLoadingPage type={lesson?.type} />;
+    return <LessonLoadingModal />;
   }
 
   if (error || !lesson) {
