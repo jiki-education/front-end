@@ -172,37 +172,3 @@
 .ui-link:hover {
     text-decoration: underline;
 }
-
-/* ========================================
-   TOGGLE SWITCH COMPONENT
-   ======================================== */
-
-.ui-toggle-switch {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    background: var(--color-gray-300);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.ui-toggle-switch.active {
-    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
-}
-
-.ui-toggle-switch::after {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.ui-toggle-switch.active::after {
-    transform: translateX(20px);
-}

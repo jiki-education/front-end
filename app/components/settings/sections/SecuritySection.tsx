@@ -9,7 +9,7 @@ interface SecuritySectionProps {
 
 export default function SecuritySection({ updatePassword }: SecuritySectionProps) {
   return (
-    <div className={styles.accountField}>
+    <div className={styles.settingsField}>
       <PasswordField onSave={updatePassword} />
     </div>
   );

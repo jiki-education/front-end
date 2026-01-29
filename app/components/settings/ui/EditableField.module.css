@@ -9,13 +9,12 @@
 .labelGroup {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .label {
     display: flex;
     align-items: center;
-    gap: 8px;
     font-size: 15px;
     font-weight: 600;
     color: var(--color-gray-700);

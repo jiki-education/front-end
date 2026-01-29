@@ -52,7 +52,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
 
   return (
     <>
-      <div className={styles.accountField}>
+      <div className={styles.settingsField}>
         <EditableField
           label="Name"
           value={settings.name || ""}
@@ -63,7 +63,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
         />
       </div>
 
-      <div className={styles.accountField}>
+      <div className={styles.settingsField}>
         <EditableField
           label="Handle"
           value={settings.handle || ""}
@@ -74,7 +74,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
         />
       </div>
 
-      <div className={styles.accountField}>
+      <div className={styles.settingsField}>
         <EditableField
           label="Email"
           value={settings.email || ""}

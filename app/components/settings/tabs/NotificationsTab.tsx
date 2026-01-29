@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
 import type { NotificationSlug } from "@/lib/api/types/settings";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import ActionField from "../ui/ActionField";
 import styles from "../Settings.module.css";
 
 interface NotificationSetting {
@@ -115,16 +116,14 @@ export default function NotificationsTab() {
 
   return (
     <div className={styles.settingsContent}>
-      <div className={styles.settingsGrid}>
-        {NOTIFICATION_CONFIGS.map((notification) => (
-          <NotificationItem
-            key={notification.id}
-            notification={notification}
-            enabled={isEnabled(notification)}
-            onToggle={() => handleToggle(notification)}
-          />
-        ))}
-      </div>
+      {NOTIFICATION_CONFIGS.map((notification) => (
+        <NotificationItem
+          key={notification.id}
+          notification={notification}
+          enabled={isEnabled(notification)}
+          onToggle={() => handleToggle(notification)}
+        />
+      ))}
     </div>
   );
 }
@@ -137,10 +136,8 @@ interface NotificationItemProps {
 
 function NotificationItem({ notification, enabled, onToggle }: NotificationItemProps) {
   return (
-    <div className={styles.settingItem}>
-      <h3>{notification.title}</h3>
-      <div className={styles.toggleRow}>
-        <p>{notification.description}</p>
+    <div className={styles.settingsField}>
+      <ActionField label={notification.title} description={notification.description}>
         <button
           className={`ui-toggle-switch ${enabled ? "active" : ""} ${
             notification.disabled ? "opacity-50 cursor-not-allowed" : ""
@@ -151,7 +148,7 @@ function NotificationItem({ notification, enabled, onToggle }: NotificationItemP
           aria-checked={enabled}
           role="switch"
         />
-      </div>
+      </ActionField>
     </div>
   );
 }
