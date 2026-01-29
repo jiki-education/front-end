@@ -93,6 +93,14 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- All chat panel state components</span>
             </li>
+            <li>
+              <Link href="/dev/textual-content" className="text-blue-600 hover:underline">
+                Textual Content Styling
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - Typography and admonition styles for markdown content
+              </span>
+            </li>
           </ul>
         </div>
 
