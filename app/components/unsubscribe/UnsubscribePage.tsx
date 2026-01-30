@@ -10,7 +10,6 @@ import {
   type EmailPreferences
 } from "@/lib/api/emailPreferences";
 import NotificationsTab from "@/components/settings/tabs/NotificationsTab";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 interface UnsubscribePageProps {
   token: string;
@@ -89,18 +88,14 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-24">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return <p>Loading...</p>;
   }
 
   if (error && !preferences) {
     return (
-      <div className="max-w-xl mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold mb-4">Email Preferences</h1>
-        <p className="text-red-600">{error}</p>
+      <div>
+        <h1>Email Preferences</h1>
+        <p>{error}</p>
       </div>
     );
   }
@@ -114,25 +109,16 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
   const currentKeyValue = emailKey && preferences ? preferences[emailKey as keyof EmailPreferences] : null;
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-12">
-      <h1 className="text-2xl font-bold mb-4">Email Preferences</h1>
-      <p className="text-gray-600 mb-8">Manage which emails you receive from Jiki.</p>
+    <div>
+      <h1>Email Preferences</h1>
+      <p>Manage which emails you receive from Jiki.</p>
 
-      {successMessage && (
-        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded mb-6">
-          {successMessage}
-        </div>
-      )}
+      {successMessage && <p>{successMessage}</p>}
+      {error && <p>{error}</p>}
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded mb-6">{error}</div>}
-
-      <div className="space-y-4">
+      <div>
         {emailKey && preferences && (
-          <button
-            onClick={() => handleUpdatePreference(emailKey, !currentKeyValue)}
-            disabled={actionLoading}
-            className="w-full px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded font-medium disabled:opacity-50"
-          >
+          <button onClick={() => handleUpdatePreference(emailKey, !currentKeyValue)} disabled={actionLoading}>
             {actionLoading
               ? "Processing..."
               : currentKeyValue
@@ -141,11 +127,7 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
           </button>
         )}
 
-        <button
-          onClick={allUnsubscribed ? handleSubscribeAll : handleUnsubscribeAll}
-          disabled={actionLoading}
-          className="w-full px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded font-medium disabled:opacity-50"
-        >
+        <button onClick={allUnsubscribed ? handleSubscribeAll : handleUnsubscribeAll} disabled={actionLoading}>
           {actionLoading
             ? "Processing..."
             : allUnsubscribed
@@ -156,9 +138,9 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
 
       {isAuthenticated && (
         <>
-          <hr className="my-12" />
-          <h2 className="text-xl font-bold mb-4">Detailed Preferences</h2>
-          <p className="text-gray-600 mb-6">Fine-tune your email preferences below.</p>
+          <hr />
+          <h2>Detailed Preferences</h2>
+          <p>Fine-tune your email preferences below.</p>
           <NotificationsTab />
         </>
       )}

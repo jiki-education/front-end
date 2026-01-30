@@ -17,9 +17,9 @@ export default async function UnsubscribeRoute({ searchParams }: Props) {
   if (!token) {
     return (
       <HeaderLayout>
-        <div className="max-w-xl mx-auto px-4 py-12">
-          <h1 className="text-2xl font-bold mb-4">Email Preferences</h1>
-          <p className="text-red-600">Invalid link. Please use the link from your email.</p>
+        <div>
+          <h1>Email Preferences</h1>
+          <p>Invalid link. Please use the link from your email.</p>
         </div>
       </HeaderLayout>
     );
