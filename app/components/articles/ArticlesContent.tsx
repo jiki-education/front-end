@@ -3,9 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ProcessedArticle } from "@/lib/content/generated/types";
 import type { ArticleTagSlug } from "@/lib/content";
+import { useArticlesSearch } from "@/lib/hooks/useArticlesSearch";
 import Pagination from "@/components/ui/Pagination";
 import FilterSidebar from "./FilterSidebar";
 import ArticleCard from "./ArticleCard";
+import ArticlesSearch from "./ArticlesSearch";
 import styles from "./ArticlesContent.module.css";
 
 interface ArticlesContentProps {
@@ -28,6 +30,7 @@ export default function ArticlesContent({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { searchQuery, setSearchQuery, searchResults } = useArticlesSearch(locale);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -40,16 +43,27 @@ export default function ArticlesContent({
     router.push(queryString ? `${pathname}?${queryString}` : pathname);
   };
 
+  // Filter articles based on search results
+  const displayedArticles =
+    searchResults === null ? articles : articles.filter((article) => searchResults.includes(article.slug));
+
+  // Hide pagination when searching
+  const showPagination = searchResults === null && displayedArticles.length > 0;
+
   return (
     <div className={styles.contentLayout}>
       <div className={styles.contentMain}>
+        <div className={styles.searchWrapper}>
+          <ArticlesSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        </div>
+
         <div className={styles.articlesGrid}>
-          {articles.map((article) => (
+          {displayedArticles.map((article) => (
             <ArticleCard key={article.slug} article={article} locale={locale} />
           ))}
         </div>
 
-        {articles.length > 0 && (
+        {showPagination && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

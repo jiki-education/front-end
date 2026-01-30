@@ -8,6 +8,7 @@
 export { getArticle } from "./getArticle";
 export { getAllArticles } from "./getAllArticles";
 export { getArticles } from "./getArticles";
+export { getRelatedArticles } from "./getRelatedArticles";
 export type { GetArticlesOptions, GetArticlesResult } from "./getArticles";
 
 // Blog post loaders
