@@ -24,7 +24,12 @@ export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps)
   };
 
   const handleUpgradeClick = () => {
-    showModal("premium-upgrade-modal", {}, undefined, premiumModalStyles.premiumModalWidth);
+    showModal(
+      "premium-upgrade-modal",
+      {},
+      premiumModalStyles.premiumModalOverlay,
+      premiumModalStyles.premiumModalWidth
+    );
   };
 
   return (

@@ -6,26 +6,20 @@
     position: relative;
     width: 100%;
     margin: 0 auto;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
+}
+
+/* Overlay override - align to top so modal doesn't get cut off when content is tall */
+.premiumModalOverlay {
+    align-items: flex-start !important;
+    padding: 24px 0 !important;
 }
 
 /* Custom modal width override - exported as a local class */
 .premiumModalWidth {
-    min-width: 785px !important;
+    max-width: 785px !important;
     width: 90% !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
     padding: 32px 32px 16px 32px !important;
-}
-
-@media (max-width: 768px) {
-    .premiumModalWidth {
-        padding: 24px 16px !important;
-        max-height: 100vh !important;
-        height: 100vh !important;
-        border-radius: 0 !important;
-    }
+    margin: auto !important;
 }
 
 /* Removed modalHeader and modalInner - no longer needed */
@@ -36,7 +30,6 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 330px;
     overflow: visible;
 }
 
@@ -149,7 +142,6 @@
 
 .rightSide {
     flex: 1;
-    min-width: 340px;
     background: linear-gradient(180deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     padding: 30px 24px;
     display: flex;
@@ -272,7 +264,7 @@
 .arrowDecoration {
     position: absolute;
     top: 140px;
-    left: calc(36% - 10px);
+    left: calc(36% - 30px);
     width: 150px;
     height: auto;
     z-index: 10;
@@ -305,76 +297,71 @@
 
 /* Responsive Design */
 
-/* Tablet styles */
-@media (max-width: 1024px) {
+/* Tablet - stack layout */
+@media (max-width: 850px) {
     .premiumModalWidth {
-        max-width: 780px !important;
+        max-width: 480px !important;
         width: 95% !important;
-    }
-
-    .mainHeading {
-        font-size: 34px;
-    }
-
-    .plansContainer {
-        gap: 30px;
-    }
-
-    .leftSide,
-    .rightSide {
-        min-width: 280px;
-    }
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
-    .premiumModalWidth {
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-
-    .modalContent {
-        padding: 0;
-        gap: 20px;
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        padding: 28px 24px 16px 24px !important;
     }
 
     .plansContainer {
         flex-direction: column;
-        gap: 20px;
-        width: 100%;
+        gap: 24px;
     }
 
     .arrowDecoration {
         display: none;
     }
 
-    .leftSide {
-        min-width: unset;
-        width: 100%;
-        padding: 0 10px;
-    }
-
     .mainHeading {
-        font-size: 28px;
+        font-size: 32px;
         text-align: center;
     }
 
     .mainSubheading {
-        font-size: 15px;
         text-align: center;
-        margin-bottom: 20px;
     }
 
     .planSection {
         padding: 16px 20px;
+    }
+}
+
+/* Mobile styles - full width */
+@media (max-width: 540px) {
+    .premiumModalWidth {
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        padding: 24px 16px !important;
+    }
+
+    .modalContent {
+        padding: 0;
+        gap: 20px;
+    }
+
+    .plansContainer {
+        gap: 20px;
+    }
+
+    .mainHeading {
+        font-size: 28px;
+    }
+
+    .mainSubheading {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .planSection {
+        padding: 14px 16px;
         border-radius: 10px;
     }
 
     .planName {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .planFeatures li {
@@ -386,8 +373,6 @@
     }
 
     .rightSide {
-        min-width: unset;
-        width: 100%;
         padding: 24px 20px;
         border-radius: 10px;
     }
@@ -409,12 +394,6 @@
         margin-bottom: 20px;
     }
 
-    .upgradeButton {
-        padding: 12px 20px;
-        font-size: 15px;
-        margin-bottom: 24px;
-    }
-
     .premiumFeatures li {
         font-size: 14px;
         margin-bottom: 12px;
@@ -427,7 +406,7 @@
 }
 
 /* Small mobile styles */
-@media (max-width: 480px) {
+@media (max-width: 380px) {
     .mainHeading {
         font-size: 24px;
     }
@@ -437,7 +416,7 @@
     }
 
     .planSection {
-        padding: 14px 16px;
+        padding: 12px 14px;
     }
 
     .planName {
@@ -446,11 +425,6 @@
 
     .premiumPrice .amount {
         font-size: 32px;
-    }
-
-    .upgradeButton {
-        padding: 10px 16px;
-        font-size: 14px;
     }
 
     .buttonAvatar {

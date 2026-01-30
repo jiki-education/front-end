@@ -8,7 +8,12 @@ import styles from "./FreeUserCanStart.module.css";
 // They've used their free conversation limit
 export default function FreeUserLimitReached() {
   const handleUpgradeClick = () => {
-    showModal("premium-upgrade-modal", {}, undefined, premiumModalStyles.premiumModalWidth);
+    showModal(
+      "premium-upgrade-modal",
+      {},
+      premiumModalStyles.premiumModalOverlay,
+      premiumModalStyles.premiumModalWidth
+    );
   };
 
   return (

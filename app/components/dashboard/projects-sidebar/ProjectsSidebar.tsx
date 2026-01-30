@@ -97,7 +97,12 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     if (onUpgradeClick) {
       onUpgradeClick();
     } else {
-      showModal("premium-upgrade-modal", {}, undefined, premiumModalStyles.premiumModalWidth);
+      showModal(
+        "premium-upgrade-modal",
+        {},
+        premiumModalStyles.premiumModalOverlay,
+        premiumModalStyles.premiumModalWidth
+      );
     }
   };
 
