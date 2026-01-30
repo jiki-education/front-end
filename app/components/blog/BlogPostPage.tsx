@@ -1,4 +1,4 @@
-import { getAllBlogPosts, getBlogPost } from "@/lib/content";
+import { getAllBlogPosts, getBlogPost, getRelatedBlogPosts } from "@/lib/content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPostContent from "./BlogPostContent";
@@ -39,15 +39,12 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     notFound();
   }
 
-  // Get recent blog posts, excluding the current one
+  // Get related blog posts based on tag overlap
   const allPosts = await getAllBlogPosts(locale);
-  const recentPosts = allPosts
-    .filter((p) => p.slug !== slug)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3);
+  const relatedPosts = getRelatedBlogPosts(slug, allPosts, 3);
 
   if (authenticated) {
-    return <BlogPostContent post={post} variant="authenticated" relatedPosts={recentPosts} locale={locale} />;
+    return <BlogPostContent post={post} variant="authenticated" relatedPosts={relatedPosts} locale={locale} />;
   }
 
   return (
@@ -63,8 +60,8 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
         buttonHref="/signup"
       />
 
-      {/* Recent Posts */}
-      <RecentBlogPosts posts={recentPosts} />
+      {/* Related Posts */}
+      <RecentBlogPosts posts={relatedPosts} />
 
       {/* Gradient CTA */}
       <CTABlock
