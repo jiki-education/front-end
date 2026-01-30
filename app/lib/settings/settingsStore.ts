@@ -29,6 +29,7 @@ interface SettingsState {
   updateLocale: (locale: string) => Promise<void>;
   updateHandle: (handle: string) => Promise<void>;
   updateNotification: (params: UpdateNotificationParams) => Promise<void>;
+  updateStreaks: (enabled: boolean) => Promise<void>;
   clearCache: () => void;
 }
 
@@ -166,6 +167,34 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       set({ settings: currentSettings });
 
       const errorMessage = error instanceof Error ? error.message : "Failed to update notification preference";
+      toast.error(errorMessage);
+      throw error;
+    }
+  },
+
+  updateStreaks: async (enabled: boolean) => {
+    const { settings: currentSettings } = get();
+    if (!currentSettings) {
+      return;
+    }
+
+    // Optimistic update
+    const optimisticSettings = {
+      ...currentSettings,
+      streaks_enabled: enabled
+    };
+    set({ settings: optimisticSettings });
+
+    try {
+      const updatedSettings = await settingsApi.updateStreaks(enabled);
+      set({ settings: updatedSettings });
+
+      // Silent success for toggles (no toast needed)
+    } catch (error) {
+      // Rollback on error
+      set({ settings: currentSettings });
+
+      const errorMessage = error instanceof Error ? error.message : "Failed to update streaks setting";
       toast.error(errorMessage);
       throw error;
     }
