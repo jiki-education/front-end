@@ -31,17 +31,19 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       <p className={styles.annualNote}>(That&apos;s only ${dailyPrice} a day)</p>
 
       <button
-        className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple mb-24 w-full"
+        className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple mb-24 w-full ${isLoading ? "ui-btn-loading" : ""}`}
         onClick={onUpgrade}
         disabled={isLoading}
       >
-        <Image
-          src={user?.avatar || "/static/icons/concepts/fallback.svg"}
-          alt="User"
-          className={styles.buttonAvatar}
-          width={24}
-          height={24}
-        />
+        {!isLoading && (
+          <Image
+            src={user?.avatar || "/static/icons/concepts/fallback.svg"}
+            alt="User"
+            className={styles.buttonAvatar}
+            width={24}
+            height={24}
+          />
+        )}
         {isLoading ? "Processing..." : "Upgrade to Premium"}
       </button>
 

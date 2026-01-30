@@ -13,7 +13,7 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
-import { showModal } from "@/lib/modal";
+import { hideModal, showModal } from "@/lib/modal";
 import toast from "react-hot-toast";
 
 // Types for handler functions
@@ -44,6 +44,9 @@ export async function handleSubscribe({ tier, userEmail, returnPath }: Subscribe
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createCheckoutSession(tier, returnUrl, userEmail);
 
+    // Hide any currently open modal before showing checkout
+    hideModal();
+
     // Show the checkout modal using the global modal system
     showModal("subscription-checkout-modal", {
       clientSecret: response.client_secret,
@@ -55,6 +58,7 @@ export async function handleSubscribe({ tier, userEmail, returnPath }: Subscribe
   } catch (error) {
     toast.error("Failed to create checkout session");
     console.error(error);
+    throw error; // Re-throw so caller can handle loading state
   }
 }
 

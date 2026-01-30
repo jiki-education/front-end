@@ -1,6 +1,5 @@
 import { useAuthStore } from "@/lib/auth/authStore";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
-import { hideModal } from "../../store";
 import type { MembershipTier } from "@/lib/pricing";
 import toast from "react-hot-toast";
 
@@ -21,21 +20,16 @@ export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: 
 
     setIsLoading(true);
     try {
-      // Close the current modal
-      hideModal();
-
       // handleSubscribe will show the checkout modal
+      // It calls hideModal internally before showing the new modal
       await handleSubscribe({
         tier: "premium",
         userEmail: user.email,
         returnPath: window.location.pathname
       });
-
-      // Note: The checkout modal is now triggered directly by handleSubscribe
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("Failed to start checkout process. Please try again.");
-    } finally {
       setIsLoading(false);
     }
   };
