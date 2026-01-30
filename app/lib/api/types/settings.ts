@@ -10,7 +10,7 @@ export interface UserSettings {
   unconfirmed_email: string | null;
   email_confirmed: boolean;
   locale: string;
-  receive_product_updates: boolean;
+  receive_newsletters: boolean;
   receive_event_emails: boolean;
   receive_milestone_emails: boolean;
   receive_activity_emails: boolean;
@@ -34,10 +34,10 @@ export interface SettingsError {
   };
 }
 
-export type NotificationSlug = "product_updates" | "event_emails" | "milestone_emails" | "activity_emails";
+export type NotificationSlug = "newsletters" | "event_emails" | "milestone_emails" | "activity_emails";
 
 export const NOTIFICATION_FIELD_MAP: Record<NotificationSlug, keyof UserSettings> = {
-  product_updates: "receive_product_updates",
+  newsletters: "receive_newsletters",
   event_emails: "receive_event_emails",
   milestone_emails: "receive_milestone_emails",
   activity_emails: "receive_activity_emails"

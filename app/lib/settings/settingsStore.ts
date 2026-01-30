@@ -142,7 +142,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
 
     // Map slug to field name for optimistic update
     const fieldMap: Record<NotificationSlug, keyof UserSettings> = {
-      product_updates: "receive_product_updates",
+      newsletters: "receive_newsletters",
       event_emails: "receive_event_emails",
       milestone_emails: "receive_milestone_emails",
       activity_emails: "receive_activity_emails"
