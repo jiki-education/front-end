@@ -15,6 +15,7 @@ export type { GetArticlesOptions, GetArticlesResult } from "./getArticles";
 export { getBlogPost } from "./getBlogPost";
 export { getAllBlogPosts } from "./getAllBlogPosts";
 export { getBlogPosts } from "./getBlogPosts";
+export { getRelatedBlogPosts } from "./getRelatedBlogPosts";
 export type { GetBlogPostsOptions, GetBlogPostsResult } from "./getBlogPosts";
 
 // Utilities
