@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import type { MembershipTier } from "@/lib/pricing";
 import confirmationStyles from "@/app/styles/components/confirmation-modal.module.css";
+import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
+import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 
 interface ModalState {
   isOpen: boolean;
@@ -120,4 +122,14 @@ export const showSubscriptionCheckout = (props: {
   onSuccess?: () => void;
 }) => {
   showModal("subscription-checkout-modal", props);
+};
+
+// Convenience function for payment processing modal
+export const showPaymentProcessing = (props: { tier: MembershipTier; onClose?: () => void }) => {
+  showModal("payment-processing-modal", props, undefined, paymentProcessingStyles.modal);
+};
+
+// Convenience function for welcome to premium modal
+export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
+  showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
 };

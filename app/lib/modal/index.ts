@@ -10,6 +10,8 @@ export {
   showSubscriptionModal,
   showSubscriptionSuccess,
   showSubscriptionCheckout,
+  showPaymentProcessing,
+  showWelcomeToPremium,
   useModalStore
 } from "./store";
 
