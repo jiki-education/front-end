@@ -30,7 +30,7 @@ export default function ArticlesContent({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { searchQuery, setSearchQuery, searchResults } = useArticlesSearch(locale);
+  const { searchQuery, setSearchQuery, searchResults, isLoading } = useArticlesSearch(locale);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -54,13 +54,25 @@ export default function ArticlesContent({
     <div className={styles.contentLayout}>
       <div className={styles.contentMain}>
         <div className={styles.searchWrapper}>
-          <ArticlesSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+          <ArticlesSearch
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onClearSearch={() => setSearchQuery("")}
+            searchResults={searchResults}
+          />
         </div>
 
         <div className={styles.articlesGrid}>
-          {displayedArticles.map((article) => (
-            <ArticleCard key={article.slug} article={article} locale={locale} />
-          ))}
+          {isLoading ? (
+            <>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          ) : (
+            displayedArticles.map((article) => <ArticleCard key={article.slug} article={article} locale={locale} />)
+          )}
         </div>
 
         {showPagination && (
@@ -74,6 +86,18 @@ export default function ArticlesContent({
       </div>
 
       <FilterSidebar tagSlugs={tagSlugs} selectedTag={selectedTag} locale={locale} />
+    </div>
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <div className={styles.skeletonCard}>
+      <div className={styles.skeletonBadge} />
+      <div className={styles.skeletonTitle} />
+      <div className={styles.skeletonText} />
+      <div className={styles.skeletonText} />
+      <div className={styles.skeletonText} />
     </div>
   );
 }
