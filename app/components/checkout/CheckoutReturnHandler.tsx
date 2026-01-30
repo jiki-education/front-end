@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { showModal } from "@/lib/modal";
+import { showPaymentProcessing, showWelcomeToPremium } from "@/lib/modal";
 
 /**
  * Global handler for Stripe checkout returns
@@ -28,8 +28,11 @@ export function CheckoutReturnHandler() {
     }
 
     void verifyCheckoutSession(sessionId).then((result) => {
-      const modal = result.payment_status === "paid" ? "subscription-success-modal" : "payment-processing-modal";
-      showModal(modal, { tier: result.tier });
+      if (result.payment_status === "paid") {
+        showWelcomeToPremium();
+      } else {
+        showPaymentProcessing({ tier: result.tier });
+      }
       void refreshUser();
     });
   }, [hasCheckedAuth, isAuthenticated, refreshUser]);

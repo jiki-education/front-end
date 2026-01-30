@@ -63,7 +63,7 @@ describe("Subscription handlers", () => {
       const mockError = new Error("Network error");
       mockSubscriptionApi.createCheckoutSession.mockRejectedValue(mockError);
 
-      await handlers.handleSubscribe(mockParams);
+      await expect(handlers.handleSubscribe(mockParams)).rejects.toThrow("Network error");
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to create checkout session");
       expect(console.error).toHaveBeenCalledWith(mockError);

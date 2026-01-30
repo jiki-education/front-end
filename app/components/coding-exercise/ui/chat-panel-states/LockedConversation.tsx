@@ -28,7 +28,12 @@ export default function LockedConversation({ messages = [], variant }: LockedCon
   useTimelineHeight({ chatMessagesRef, scrollWrapperRef }, [messages]);
 
   const handleUpgradeClick = () => {
-    showModal("premium-upgrade-modal", {}, undefined, premiumModalStyles.premiumModalWidth);
+    showModal(
+      "premium-upgrade-modal",
+      {},
+      premiumModalStyles.premiumModalOverlay,
+      premiumModalStyles.premiumModalWidth
+    );
   };
 
   return (

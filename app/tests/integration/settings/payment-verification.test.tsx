@@ -8,7 +8,7 @@ import { render, waitFor } from "@testing-library/react";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { showModal } from "@/lib/modal";
+import { showWelcomeToPremium, showPaymentProcessing } from "@/lib/modal";
 
 // Mock the API call
 jest.mock("@/lib/api/subscriptions", () => ({
@@ -22,14 +22,16 @@ jest.mock("@/lib/subscriptions/verification", () => ({
 
 // Mock the modal system
 jest.mock("@/lib/modal", () => ({
-  showModal: jest.fn()
+  showWelcomeToPremium: jest.fn(),
+  showPaymentProcessing: jest.fn()
 }));
 
 const mockExtractAndClearCheckoutSessionId = extractAndClearCheckoutSessionId as jest.MockedFunction<
   typeof extractAndClearCheckoutSessionId
 >;
 const mockVerifyCheckoutSession = verifyCheckoutSession as jest.MockedFunction<typeof verifyCheckoutSession>;
-const mockShowModal = showModal as jest.MockedFunction<typeof showModal>;
+const mockShowWelcomeToPremium = showWelcomeToPremium as jest.MockedFunction<typeof showWelcomeToPremium>;
+const mockShowPaymentProcessing = showPaymentProcessing as jest.MockedFunction<typeof showPaymentProcessing>;
 
 // Mock auth store
 const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
@@ -62,7 +64,7 @@ describe("Payment Verification Integration", () => {
       expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_success123");
     });
 
-    expect(mockShowModal).toHaveBeenCalledWith("subscription-success-modal", { tier: "premium" });
+    expect(mockShowWelcomeToPremium).toHaveBeenCalled();
     expect(mockRefreshUser).toHaveBeenCalled();
   });
 
@@ -81,7 +83,7 @@ describe("Payment Verification Integration", () => {
       expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_processing");
     });
 
-    expect(mockShowModal).toHaveBeenCalledWith("payment-processing-modal", { tier: "premium" });
+    expect(mockShowPaymentProcessing).toHaveBeenCalledWith({ tier: "premium" });
     expect(mockRefreshUser).toHaveBeenCalled();
   });
 
@@ -91,7 +93,8 @@ describe("Payment Verification Integration", () => {
     render(<CheckoutReturnHandler />);
 
     expect(mockVerifyCheckoutSession).not.toHaveBeenCalled();
-    expect(mockShowModal).not.toHaveBeenCalled();
+    expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
+    expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
   });
 
   it("renders nothing (null)", () => {

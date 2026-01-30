@@ -15,8 +15,8 @@ export default function PremiumUpgradeModalTest() {
           console.debug("Upgrade cancelled");
         }
       },
-      undefined, // overlayClassName
-      styles.premiumModalWidth // modalClassName
+      styles.premiumModalOverlay,
+      styles.premiumModalWidth
     );
   };
 
