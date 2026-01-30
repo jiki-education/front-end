@@ -12,11 +12,11 @@
 
 /* Custom modal width override - exported as a local class */
 .premiumModalWidth {
-    max-width: 900px !important;
+    min-width: 785px !important;
     width: 90% !important;
-    padding: 40px !important;
     max-height: 90vh !important;
     overflow-y: auto !important;
+    padding: 32px 32px 16px 32px !important;
 }
 
 @media (max-width: 768px) {
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 380px;
+    min-width: 330px;
     overflow: visible;
 }
 
@@ -50,6 +50,7 @@
     overflow: visible;
     position: relative;
     z-index: 1;
+    text-align: left;
 }
 
 .mainHeading .highlight {
@@ -83,6 +84,7 @@
     color: var(--color-gray-500);
     line-height: 1.5;
     margin-bottom: 16px;
+    text-align: left;
 }
 
 .planSection {
@@ -90,6 +92,8 @@
     border-radius: 12px;
     padding: 20px 24px;
     border: 2px solid var(--color-gray-100);
+    text-align: left;
+    height: 100%;
 }
 
 .planPill {
@@ -104,8 +108,8 @@
 }
 
 .planName {
-    font-size: 34px;
-    font-weight: 800;
+    font-size: 24px;
+    font-weight: 600;
     color: var(--color-gray-900);
 }
 
@@ -145,7 +149,7 @@
 
 .rightSide {
     flex: 1;
-    min-width: 360px;
+    min-width: 340px;
     background: linear-gradient(180deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
     padding: 30px 24px;
     display: flex;
@@ -304,7 +308,7 @@
 /* Tablet styles */
 @media (max-width: 1024px) {
     .premiumModalWidth {
-        max-width: 750px !important;
+        max-width: 780px !important;
         width: 95% !important;
     }
 
@@ -318,7 +322,7 @@
 
     .leftSide,
     .rightSide {
-        min-width: 320px;
+        min-width: 280px;
     }
 }
 

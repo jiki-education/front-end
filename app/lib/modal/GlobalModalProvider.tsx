@@ -57,11 +57,12 @@ export function GlobalModalProvider() {
   const isFullscreenModal =
     modalName === "connection-error-modal" || modalName === "rate-limit-modal" || modalName === "auth-error-modal";
 
-  // Check if this is a confirmation modal (should not have close button)
-  const isConfirmationModal = modalName === "confirmation-modal";
+  // Check if this modal should not have a close button
+  const hideCloseButton = modalName === "confirmation-modal" || modalName === "premium-upgrade-modal";
 
   // Check if this modal should not close on overlay click
-  const shouldNotCloseOnOverlayClick = modalName === "subscription-checkout-modal";
+  const shouldNotCloseOnOverlayClick =
+    modalName === "subscription-checkout-modal" || modalName === "premium-upgrade-modal";
 
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
@@ -72,7 +73,7 @@ export function GlobalModalProvider() {
       overlayClassName={overlayClassName}
       className={modalClassName}
       fullscreen={isFullscreenModal}
-      hideCloseButton={isConfirmationModal}
+      hideCloseButton={hideCloseButton}
       shouldCloseOnOverlayClick={!shouldNotCloseOnOverlayClick}
     >
       <ModalComponent {...(modalProps as any)} />
