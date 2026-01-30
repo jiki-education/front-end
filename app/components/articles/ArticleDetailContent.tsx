@@ -1,12 +1,19 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
 import type { ProcessedArticle } from "@/lib/content/generated/types";
+import RelatedArticles from "./RelatedArticles";
 
 interface ArticleDetailContentProps {
   article: ProcessedArticle;
+  relatedArticles?: ProcessedArticle[];
+  locale?: string;
   variant?: "authenticated" | "unauthenticated";
 }
 
-export default function ArticleDetailContent({ article }: ArticleDetailContentProps) {
+export default function ArticleDetailContent({
+  article,
+  relatedArticles = [],
+  locale = "en"
+}: ArticleDetailContentProps) {
   return (
     <>
       {/* Purple Gradient Header */}
@@ -48,6 +55,9 @@ export default function ArticleDetailContent({ article }: ArticleDetailContentPr
 
       {/* Article Content */}
       <MarkdownContent content={article.content} />
+
+      {/* Related Articles */}
+      <RelatedArticles articles={relatedArticles} locale={locale} />
     </>
   );
 }

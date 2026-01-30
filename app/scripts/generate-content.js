@@ -11,6 +11,8 @@
  * Level 2: Locale registry per post (blog/slug.ts)
  * Level 3: Individual translations (blog/slug.locale.ts)
  *
+ * Also generates Lunr search indexes for articles (one per locale).
+ *
  * This eliminates runtime filesystem dependencies for Cloudflare Workers.
  */
 
@@ -19,11 +21,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { marked } from "marked";
+import lunr from "lunr";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
 const AUTHORS_FILE = path.join(__dirname, "../../content/src/authors.json");
 const OUTPUT_DIR = path.join(__dirname, "../lib/content/generated");
+const SEARCH_OUTPUT_DIR = path.join(__dirname, "../public/static/search");
 
 // Load authors
 let authorsData;
@@ -310,6 +314,68 @@ export interface ProcessedArticle {
 }
 
 /**
+ * Generate Lunr search indexes for articles (one per locale)
+ */
+function generateSearchIndexes(articles) {
+  // Group articles by locale
+  const articlesByLocale = {};
+
+  for (const [, locales] of Object.entries(articles)) {
+    for (const [locale, article] of Object.entries(locales)) {
+      if (!articlesByLocale[locale]) {
+        articlesByLocale[locale] = [];
+      }
+      // Only index listed articles
+      if (article.listed) {
+        articlesByLocale[locale].push(article);
+      }
+    }
+  }
+
+  // Create output directory
+  if (!fs.existsSync(SEARCH_OUTPUT_DIR)) {
+    fs.mkdirSync(SEARCH_OUTPUT_DIR, { recursive: true });
+  }
+
+  // Generate index for each locale
+  for (const [locale, localeArticles] of Object.entries(articlesByLocale)) {
+    const idx = lunr(function () {
+      this.ref("slug");
+      this.field("title", { boost: 10 });
+      this.field("excerpt", { boost: 5 });
+      this.field("description", { boost: 4 });
+      this.field("keywords", { boost: 3 });
+
+      for (const article of localeArticles) {
+        this.add({
+          slug: article.slug,
+          title: article.title,
+          excerpt: article.excerpt,
+          description: article.seo.description,
+          keywords: article.seo.keywords.join(" ")
+        });
+      }
+    });
+
+    // Also store article metadata for displaying results
+    const metadata = localeArticles.map((a) => ({
+      slug: a.slug,
+      title: a.title,
+      excerpt: a.excerpt
+    }));
+
+    const output = {
+      index: idx.toJSON(),
+      articles: metadata
+    };
+
+    const outputPath = path.join(SEARCH_OUTPUT_DIR, `articles-${locale}.json`);
+    fs.writeFileSync(outputPath, JSON.stringify(output));
+    console.log(`   🔍 Search index: articles-${locale}.json (${localeArticles.length} articles)`);
+  }
+}
+
+/**
  * Main generation function
  */
 function generateContent() {
@@ -363,7 +429,10 @@ function generateContent() {
   const typesFile = path.join(OUTPUT_DIR, "types.ts");
   fs.writeFileSync(typesFile, generateTypesFile());
 
-  console.log("✅ Content bundle generated successfully:\n");
+  // Generate search indexes for articles
+  generateSearchIndexes(articles);
+
+  console.log("\n✅ Content bundle generated successfully:\n");
   console.log(`   📝 Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   📝 Articles: ${Object.keys(articles).length} slugs`);
   console.log(`   🌐 Total translations: ${totalTranslations}`);

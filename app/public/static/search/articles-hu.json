@@ -1,0 +1,609 @@
+{
+  "index": {
+    "version": "2.3.9",
+    "fields": ["title", "excerpt", "description", "keywords"],
+    "fieldVectors": [
+      ["title/fair-usage-jiki-ai-policy", [0, 6, 1, 11.089, 2, 8.176, 3, 4.16, 4, 6]],
+      ["excerpt/fair-usage-jiki-ai-policy", [0, 3.245, 2, 4.421, 3, 2.25, 4, 3.245, 5, 2.305, 6, 8.387, 7, 8.387]],
+      ["description/fair-usage-jiki-ai-policy", [0, 2.841, 1, 5.25, 2, 3.871, 3, 1.97, 4, 2.841, 8, 7.344]],
+      ["keywords/fair-usage-jiki-ai-policy", [0, 1.933, 3, 1.34, 4, 1.933, 9, 4.997]],
+      ["title/streaks", [10, 9.849]],
+      ["excerpt/streaks", [10, 3.05, 11, 5.636, 12, 1.432, 13, 3.05, 14, 5.636, 15, 5.636, 16, 5.636, 17, 5.636]],
+      [
+        "description/streaks",
+        [
+          10, 1.862, 11, 3.44, 12, 0.874, 13, 1.862, 14, 3.44, 15, 5.272, 16, 3.44, 17, 3.44, 18, 1.862, 19, 4.812, 20,
+          4.812, 21, 4.812, 22, 4.812
+        ]
+      ],
+      ["keywords/streaks", [3, 1.34, 10, 1.933, 23, 4.997, 24, 4.997]],
+      ["title/support", [25, 18.201]],
+      ["excerpt/support", [3, 2.403, 18, 3.466, 26, 6.405, 27, 6.405, 28, 6.405, 29, 6.405]],
+      [
+        "description/support",
+        [
+          3, 1.349, 18, 2.95, 26, 3.595, 27, 3.595, 28, 3.595, 29, 3.595, 30, 5.029, 31, 5.029, 32, 5.029, 33, 5.029,
+          34, 5.029, 35, 5.029
+        ]
+      ],
+      ["keywords/support", [3, 1.34, 25, 3.572, 36, 4.997, 37, 4.997]],
+      ["title/what-do-i-get-for-premium", [38, 19.277, 39, 19.277, 40, 19.277]],
+      ["excerpt/what-do-i-get-for-premium", [3, 2.782, 41, 5.468, 42, 5.468, 43, 7.416]],
+      ["description/what-do-i-get-for-premium", [3, 2.268, 41, 4.457, 42, 4.457, 43, 6.045]],
+      ["keywords/what-do-i-get-for-premium", [3, 1.51, 41, 2.968, 42, 2.968]],
+      ["title/what-is-the-scrubber", [44, 19.277, 45, 19.277, 46, 7.457]],
+      ["excerpt/what-is-the-scrubber", [3, 2.579, 12, 1.746, 46, 3.719, 47, 6.873, 48, 9.614]],
+      ["description/what-is-the-scrubber", [3, 2.268, 46, 3.271, 49, 4.457, 50, 8.456]],
+      ["keywords/what-is-the-scrubber", [3, 1.51, 46, 2.178, 51, 5.631]],
+      ["title/when-will-this-feature-unlock", [49, 8.176, 52, 15.511, 53, 15.511, 54, 15.511, 55, 11.089]],
+      ["excerpt/when-will-this-feature-unlock", [3, 2.403, 5, 2.462, 12, 1.627, 13, 3.466, 56, 6.405, 57, 8.959]],
+      ["description/when-will-this-feature-unlock", [3, 2.454, 5, 2.514, 58, 9.148]],
+      ["keywords/when-will-this-feature-unlock", [3, 1.51, 5, 1.548, 59, 5.631]],
+      ["title/who-makes-runs-jiki", [18, 6, 60, 15.511, 61, 15.511, 62, 15.511, 63, 15.511]],
+      ["excerpt/who-makes-runs-jiki", [3, 2.403, 12, 1.627, 47, 6.405, 64, 6.405, 65, 6.405, 66, 8.959]],
+      ["description/who-makes-runs-jiki", [3, 2.268, 64, 6.045, 65, 6.045, 67, 6.045]],
+      ["keywords/who-makes-runs-jiki", [3, 1.51, 67, 4.026, 68, 5.631]],
+      [
+        "title/why-is-this-feature-not-implemented",
+        [49, 7.448, 55, 10.102, 69, 14.13, 70, 14.13, 71, 14.13, 72, 14.13]
+      ],
+      [
+        "excerpt/why-is-this-feature-not-implemented",
+        [3, 2.403, 12, 1.627, 13, 3.466, 56, 6.405, 73, 6.405, 74, 8.959]
+      ],
+      ["description/why-is-this-feature-not-implemented", [3, 2.454, 73, 6.54, 75, 9.148]],
+      ["keywords/why-is-this-feature-not-implemented", [3, 1.51, 5, 1.548, 76, 5.631]]
+    ],
+    "invertedIndex": [
+      [
+        "ai",
+        {
+          "_index": 4,
+          "title": { "fair-usage-jiki-ai-policy": {} },
+          "excerpt": { "fair-usage-jiki-ai-policy": {} },
+          "description": { "fair-usage-jiki-ai-policy": {} },
+          "keywords": { "fair-usage-jiki-ai-policy": {} }
+        }
+      ],
+      [
+        "arról",
+        { "_index": 14, "title": {}, "excerpt": { "streaks": {} }, "description": { "streaks": {} }, "keywords": {} }
+      ],
+      [
+        "az",
+        { "_index": 45, "title": { "what-is-the-scrubber": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      [
+        "csapat",
+        {
+          "_index": 67,
+          "title": {},
+          "excerpt": {},
+          "description": { "who-makes-runs-jiki": {} },
+          "keywords": { "who-makes-runs-jiki": {} }
+        }
+      ],
+      [
+        "csapatot",
+        { "_index": 66, "title": {}, "excerpt": { "who-makes-runs-jiki": {} }, "description": {}, "keywords": {} }
+      ],
+      [
+        "elérhet",
+        {
+          "_index": 54,
+          "title": { "when-will-this-feature-unlock": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "előfizeté",
+        {
+          "_index": 42,
+          "title": {},
+          "excerpt": { "what-do-i-get-for-premium": {} },
+          "description": { "what-do-i-get-for-premium": {} },
+          "keywords": { "what-do-i-get-for-premium": {} }
+        }
+      ],
+      [
+        "előnyei",
+        {
+          "_index": 43,
+          "title": {},
+          "excerpt": { "what-do-i-get-for-premium": {} },
+          "description": { "what-do-i-get-for-premium": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "ez",
+        {
+          "_index": 55,
+          "title": { "when-will-this-feature-unlock": {}, "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "fejleszté",
+        {
+          "_index": 76,
+          "title": {},
+          "excerpt": {},
+          "description": {},
+          "keywords": { "why-is-this-feature-not-implemented": {} }
+        }
+      ],
+      [
+        "fejlesztési",
+        {
+          "_index": 73,
+          "title": {},
+          "excerpt": { "why-is-this-feature-not-implemented": {} },
+          "description": { "why-is-this-feature-not-implemented": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "feloldá",
+        {
+          "_index": 59,
+          "title": {},
+          "excerpt": {},
+          "description": {},
+          "keywords": { "when-will-this-feature-unlock": {} }
+        }
+      ],
+      [
+        "feloldása",
+        {
+          "_index": 58,
+          "title": {},
+          "excerpt": {},
+          "description": { "when-will-this-feature-unlock": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "feloldásáról",
+        {
+          "_index": 57,
+          "title": {},
+          "excerpt": { "when-will-this-feature-unlock": {} },
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      ["fenn", { "_index": 20, "title": {}, "excerpt": {}, "description": { "streaks": {} }, "keywords": {} }],
+      [
+        "funkci",
+        {
+          "_index": 49,
+          "title": { "when-will-this-feature-unlock": {}, "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": { "what-is-the-scrubber": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "funkcióját",
+        { "_index": 48, "title": {}, "excerpt": { "what-is-the-scrubber": {} }, "description": {}, "keywords": {} }
+      ],
+      [
+        "funkciók",
+        {
+          "_index": 5,
+          "title": {},
+          "excerpt": { "fair-usage-jiki-ai-policy": {}, "when-will-this-feature-unlock": {} },
+          "description": { "when-will-this-feature-unlock": {} },
+          "keywords": { "when-will-this-feature-unlock": {}, "why-is-this-feature-not-implemented": {} }
+        }
+      ],
+      ["gyakori", { "_index": 32, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }],
+      [
+        "gyakorlatok",
+        { "_index": 51, "title": {}, "excerpt": {}, "description": {}, "keywords": { "what-is-the-scrubber": {} } }
+      ],
+      [
+        "használat",
+        { "_index": 9, "title": {}, "excerpt": {}, "description": {}, "keywords": { "fair-usage-jiki-ai-policy": {} } }
+      ],
+      [
+        "használati",
+        {
+          "_index": 1,
+          "title": { "fair-usage-jiki-ai-policy": {} },
+          "excerpt": {},
+          "description": { "fair-usage-jiki-ai-policy": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "használatához",
+        { "_index": 29, "title": {}, "excerpt": { "support": {} }, "description": { "support": {} }, "keywords": {} }
+      ],
+      [
+        "használatára",
+        { "_index": 6, "title": {}, "excerpt": { "fair-usage-jiki-ai-policy": {} }, "description": {}, "keywords": {} }
+      ],
+      [
+        "hogyan",
+        { "_index": 15, "title": {}, "excerpt": { "streaks": {} }, "description": { "streaks": {} }, "keywords": {} }
+      ],
+      [
+        "implementálva",
+        {
+          "_index": 72,
+          "title": { "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "irányelvek",
+        {
+          "_index": 2,
+          "title": { "fair-usage-jiki-ai-policy": {} },
+          "excerpt": { "fair-usage-jiki-ai-policy": {} },
+          "description": { "fair-usage-jiki-ai-policy": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "ismerj",
+        {
+          "_index": 47,
+          "title": {},
+          "excerpt": { "what-is-the-scrubber": {}, "who-makes-runs-jiki": {} },
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "jiki",
+        {
+          "_index": 3,
+          "title": { "fair-usage-jiki-ai-policy": {} },
+          "excerpt": {
+            "fair-usage-jiki-ai-policy": {},
+            "support": {},
+            "what-do-i-get-for-premium": {},
+            "what-is-the-scrubber": {},
+            "when-will-this-feature-unlock": {},
+            "who-makes-runs-jiki": {},
+            "why-is-this-feature-not-implemented": {}
+          },
+          "description": {
+            "fair-usage-jiki-ai-policy": {},
+            "support": {},
+            "what-do-i-get-for-premium": {},
+            "what-is-the-scrubber": {},
+            "when-will-this-feature-unlock": {},
+            "who-makes-runs-jiki": {},
+            "why-is-this-feature-not-implemented": {}
+          },
+          "keywords": {
+            "fair-usage-jiki-ai-policy": {},
+            "streaks": {},
+            "support": {},
+            "what-do-i-get-for-premium": {},
+            "what-is-the-scrubber": {},
+            "when-will-this-feature-unlock": {},
+            "who-makes-runs-jiki": {},
+            "why-is-this-feature-not-implemented": {}
+          }
+        }
+      ],
+      [
+        "jikin",
+        { "_index": 17, "title": {}, "excerpt": { "streaks": {} }, "description": { "streaks": {} }, "keywords": {} }
+      ],
+      [
+        "jikit",
+        { "_index": 63, "title": { "who-makes-runs-jiki": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      ["kapcsolat", { "_index": 37, "title": {}, "excerpt": {}, "description": {}, "keywords": { "support": {} } }],
+      [
+        "kapcsolatfelvét",
+        { "_index": 34, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }
+      ],
+      [
+        "kapok",
+        { "_index": 39, "title": { "what-do-i-get-for-premium": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      [
+        "ki",
+        { "_index": 60, "title": { "who-makes-runs-jiki": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      ["kérdésekr", { "_index": 33, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }],
+      [
+        "kérj",
+        { "_index": 26, "title": {}, "excerpt": { "support": {} }, "description": { "support": {} }, "keywords": {} }
+      ],
+      [
+        "készíti",
+        { "_index": 61, "title": { "who-makes-runs-jiki": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      ["lehetőségeket", { "_index": 35, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }],
+      ["lendületedet", { "_index": 22, "title": {}, "excerpt": {}, "description": { "streaks": {} }, "keywords": {} }],
+      [
+        "lesz",
+        {
+          "_index": 53,
+          "title": { "when-will-this-feature-unlock": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "ll",
+        {
+          "_index": 65,
+          "title": {},
+          "excerpt": { "who-makes-runs-jiki": {} },
+          "description": { "who-makes-runs-jiki": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "magyarázata",
+        { "_index": 50, "title": {}, "excerpt": {}, "description": { "what-is-the-scrubber": {} }, "keywords": {} }
+      ],
+      [
+        "meg",
+        {
+          "_index": 12,
+          "title": {},
+          "excerpt": {
+            "streaks": {},
+            "what-is-the-scrubber": {},
+            "when-will-this-feature-unlock": {},
+            "who-makes-runs-jiki": {},
+            "why-is-this-feature-not-implemented": {}
+          },
+          "description": { "streaks": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "mi",
+        { "_index": 44, "title": { "what-is-the-scrubber": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      [
+        "mikor",
+        {
+          "_index": 52,
+          "title": { "when-will-this-feature-unlock": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "mit",
+        { "_index": 38, "title": { "what-do-i-get-for-premium": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      [
+        "miért",
+        {
+          "_index": 69,
+          "title": { "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      ["motiváci", { "_index": 24, "title": {}, "excerpt": {}, "description": {}, "keywords": { "streaks": {} } }],
+      [
+        "még",
+        {
+          "_index": 71,
+          "title": { "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "mögött",
+        {
+          "_index": 64,
+          "title": {},
+          "excerpt": { "who-makes-runs-jiki": {} },
+          "description": { "who-makes-runs-jiki": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "működnek",
+        { "_index": 16, "title": {}, "excerpt": { "streaks": {} }, "description": { "streaks": {} }, "keywords": {} }
+      ],
+      [
+        "ninc",
+        {
+          "_index": 70,
+          "title": { "why-is-this-feature-not-implemented": {} },
+          "excerpt": {},
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "prémium",
+        {
+          "_index": 41,
+          "title": {},
+          "excerpt": { "what-do-i-get-for-premium": {} },
+          "description": { "what-do-i-get-for-premium": {} },
+          "keywords": { "what-do-i-get-for-premium": {} }
+        }
+      ],
+      [
+        "prémiumért",
+        { "_index": 40, "title": { "what-do-i-get-for-premium": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ],
+      [
+        "rólunk",
+        { "_index": 68, "title": {}, "excerpt": {}, "description": {}, "keywords": { "who-makes-runs-jiki": {} } }
+      ],
+      [
+        "s",
+        {
+          "_index": 18,
+          "title": { "who-makes-runs-jiki": {} },
+          "excerpt": { "support": {} },
+          "description": { "streaks": {}, "support": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "scrubber",
+        {
+          "_index": 46,
+          "title": { "what-is-the-scrubber": {} },
+          "excerpt": { "what-is-the-scrubber": {} },
+          "description": { "what-is-the-scrubber": {} },
+          "keywords": { "what-is-the-scrubber": {} }
+        }
+      ],
+      ["segítség", { "_index": 36, "title": {}, "excerpt": {}, "description": {}, "keywords": { "support": {} } }],
+      [
+        "segítséget",
+        { "_index": 27, "title": {}, "excerpt": { "support": {} }, "description": { "support": {} }, "keywords": {} }
+      ],
+      [
+        "sorozatok",
+        {
+          "_index": 10,
+          "title": { "streaks": {} },
+          "excerpt": { "streaks": {} },
+          "description": { "streaks": {} },
+          "keywords": { "streaks": {} }
+        }
+      ],
+      [
+        "számára",
+        { "_index": 8, "title": {}, "excerpt": {}, "description": { "fair-usage-jiki-ai-policy": {} }, "keywords": {} }
+      ],
+      ["találj", { "_index": 30, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }],
+      ["tanulá", { "_index": 23, "title": {}, "excerpt": {}, "description": {}, "keywords": { "streaks": {} } }],
+      ["tanulási", { "_index": 21, "title": {}, "excerpt": {}, "description": { "streaks": {} }, "keywords": {} }],
+      ["tarthatod", { "_index": 19, "title": {}, "excerpt": {}, "description": { "streaks": {} }, "keywords": {} }],
+      [
+        "temterv",
+        {
+          "_index": 75,
+          "title": {},
+          "excerpt": {},
+          "description": { "why-is-this-feature-not-implemented": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "temtervéről",
+        {
+          "_index": 74,
+          "title": {},
+          "excerpt": { "why-is-this-feature-not-implemented": {} },
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "tisztesség",
+        {
+          "_index": 0,
+          "title": { "fair-usage-jiki-ai-policy": {} },
+          "excerpt": { "fair-usage-jiki-ai-policy": {} },
+          "description": { "fair-usage-jiki-ai-policy": {} },
+          "keywords": { "fair-usage-jiki-ai-policy": {} }
+        }
+      ],
+      [
+        "tudj",
+        { "_index": 11, "title": {}, "excerpt": { "streaks": {} }, "description": { "streaks": {} }, "keywords": {} }
+      ],
+      [
+        "tudjon",
+        {
+          "_index": 56,
+          "title": {},
+          "excerpt": { "when-will-this-feature-unlock": {}, "why-is-this-feature-not-implemented": {} },
+          "description": {},
+          "keywords": {}
+        }
+      ],
+      [
+        "támogatá",
+        { "_index": 25, "title": { "support": {} }, "excerpt": {}, "description": {}, "keywords": { "support": {} } }
+      ],
+      [
+        "támogatást",
+        { "_index": 28, "title": {}, "excerpt": { "support": {} }, "description": { "support": {} }, "keywords": {} }
+      ],
+      [
+        "többet",
+        {
+          "_index": 13,
+          "title": {},
+          "excerpt": { "streaks": {}, "when-will-this-feature-unlock": {}, "why-is-this-feature-not-implemented": {} },
+          "description": { "streaks": {} },
+          "keywords": {}
+        }
+      ],
+      [
+        "vonatkoz",
+        { "_index": 7, "title": {}, "excerpt": { "fair-usage-jiki-ai-policy": {} }, "description": {}, "keywords": {} }
+      ],
+      ["válaszokat", { "_index": 31, "title": {}, "excerpt": {}, "description": { "support": {} }, "keywords": {} }],
+      [
+        "zemelteti",
+        { "_index": 62, "title": { "who-makes-runs-jiki": {} }, "excerpt": {}, "description": {}, "keywords": {} }
+      ]
+    ],
+    "pipeline": ["stemmer"]
+  },
+  "articles": [
+    {
+      "slug": "fair-usage-jiki-ai-policy",
+      "title": "Tisztességes használati irányelvek - Jiki AI",
+      "excerpt": "A Jiki AI funkciók tisztességes használatára vonatkozó irányelvek."
+    },
+    {
+      "slug": "streaks",
+      "title": "Sorozatok",
+      "excerpt": "Tudj meg többet arról, hogyan működnek a sorozatok a Jikin."
+    },
+    { "slug": "support", "title": "Támogatás", "excerpt": "Kérj segítséget és támogatást a Jiki használatához." },
+    {
+      "slug": "what-do-i-get-for-premium",
+      "title": "Mit kapok prémiumért?",
+      "excerpt": "A Jiki prémium előfizetés előnyei."
+    },
+    {
+      "slug": "what-is-the-scrubber",
+      "title": "Mi az a scrubber?",
+      "excerpt": "Ismerje meg a Jiki scrubber funkcióját."
+    },
+    {
+      "slug": "when-will-this-feature-unlock",
+      "title": "Mikor lesz elérhető ez a funkció?",
+      "excerpt": "Tudjon meg többet a Jiki funkciók feloldásáról."
+    },
+    {
+      "slug": "who-makes-runs-jiki",
+      "title": "Ki készíti és üzemelteti a Jikit?",
+      "excerpt": "Ismerje meg a Jiki mögött álló csapatot."
+    },
+    {
+      "slug": "why-is-this-feature-not-implemented",
+      "title": "Miért nincs még implementálva ez a funkció?",
+      "excerpt": "Tudjon meg többet a Jiki fejlesztési ütemtervéről."
+    }
+  ]
+}

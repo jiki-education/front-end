@@ -10,6 +10,10 @@
     min-width: 0;
 }
 
+.searchWrapper {
+    margin-bottom: 24px;
+}
+
 .articlesGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

@@ -35,6 +35,7 @@ You can read these files at **any point during your work** - even in the middle 
 | `modals.md`       | Global modal system                                          |
 | `toasts.md`       | Toast notifications                                          |
 | `content.md`      | Blog posts and articles integration                          |
+| `i18n.md`         | Internationalization, locales, search indexes                |
 | `about-jiki.md`   | Jiki platform overview                                       |
 | `deployment.md`   | Deployment process                                           |
 | `git.md`          | Git hooks configuration                                      |

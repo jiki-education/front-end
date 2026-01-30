@@ -1,4 +1,4 @@
-import { getArticle, getAllArticles } from "@/lib/content";
+import { getArticle, getAllArticles, getRelatedArticles } from "@/lib/content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CTABlock from "../blog/CTABlock";
@@ -38,13 +38,17 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
     notFound();
   }
 
+  // Get related articles based on tag overlap
+  const allArticles = await getAllArticles(locale);
+  const relatedArticles = getRelatedArticles(slug, allArticles, 3);
+
   if (authenticated) {
-    return <ArticleDetailContent article={article} variant="authenticated" />;
+    return <ArticleDetailContent article={article} relatedArticles={relatedArticles} locale={locale} />;
   }
 
   return (
     <>
-      <ArticleDetailContent article={article} variant="unauthenticated" />
+      <ArticleDetailContent article={article} relatedArticles={relatedArticles} locale={locale} />
 
       {/* Minimal CTA */}
       <CTABlock
