@@ -2,6 +2,7 @@
 
 import { ApiError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useAuth } from "@/lib/auth/useAuth";
 import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,7 +17,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { signup, googleAuth, isLoading } = useAuthStore();
+  const { signup, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,24 @@ export function SignupForm() {
   const [signupSuccessEmail, setSignupSuccessEmail] = useState<string | null>(null);
 
   const returnTo = searchParams.get("return_to");
+
+  const redirectAfterAuth = () => {
+    const redirectTo = getPostAuthRedirect(returnTo);
+    if (redirectTo.startsWith("http")) {
+      try {
+        window.location.href = redirectTo;
+      } catch (redirectErr) {
+        console.error("Redirect failed:", redirectErr);
+        router.push("/dashboard");
+      }
+    } else {
+      router.push(redirectTo);
+    }
+  };
+
+  const { handleAuthResponse, handleGoogleAuth, googleAuthError, TwoFactorForm } = useAuth({
+    onSuccess: redirectAfterAuth
+  });
 
   // Store return_to in sessionStorage on mount so it persists across page navigations
   useEffect(() => {
@@ -57,7 +76,6 @@ export function SignupForm() {
     setAuthErrorField(null);
 
     if (!validate()) {
-      // Don't set auth error for validation errors - let validation errors handle their own styling
       return;
     }
 
@@ -69,17 +87,7 @@ export function SignupForm() {
       });
 
       if (user.email_confirmed) {
-        const redirectTo = getPostAuthRedirect(returnTo);
-        if (redirectTo.startsWith("http")) {
-          try {
-            window.location.href = redirectTo;
-          } catch (redirectErr) {
-            console.error("Redirect failed:", redirectErr);
-            router.push("/dashboard");
-          }
-        } else {
-          router.push(redirectTo);
-        }
+        handleAuthResponse({ status: "success", user });
       } else {
         setSignupSuccessEmail(email);
       }
@@ -99,25 +107,9 @@ export function SignupForm() {
     }
   };
 
-  const handleGoogleSuccess = (code: string) => {
-    googleAuth(code)
-      .then(() => {
-        const redirectTo = getPostAuthRedirect(returnTo);
-        if (redirectTo.startsWith("http")) {
-          try {
-            window.location.href = redirectTo;
-          } catch (redirectErr) {
-            console.error("Redirect failed:", redirectErr);
-            router.push("/dashboard");
-          }
-        } else {
-          router.push(redirectTo);
-        }
-      })
-      .catch(() => {
-        console.error("ERROR WITH GOOGLE SIGNUP");
-      });
-  };
+  if (TwoFactorForm) {
+    return TwoFactorForm;
+  }
 
   if (signupSuccessEmail) {
     return <CheckInboxMessage email={signupSuccessEmail} />;
@@ -138,7 +130,7 @@ export function SignupForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
+          <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
             Sign Up with Google
           </GoogleAuthButton>
 
@@ -205,6 +197,11 @@ export function SignupForm() {
             {validationErrors.password && (
               <div id="password-error-message" className="ui-form-field-error-message" style={{ display: "block" }}>
                 {validationErrors.password}
+              </div>
+            )}
+            {googleAuthError && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                {googleAuthError}
               </div>
             )}
           </div>

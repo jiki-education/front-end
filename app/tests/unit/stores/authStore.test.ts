@@ -4,24 +4,10 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { User } from "@/types/auth";
-import toast from "react-hot-toast";
 
 // Mock fetch
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
-
-// Mock toast
-jest.mock("react-hot-toast", () => ({
-  __esModule: true,
-  default: {
-    loading: jest.fn(),
-    success: jest.fn(),
-    error: jest.fn(),
-    dismiss: jest.fn()
-  }
-}));
-
-const mockToast = toast as jest.Mocked<typeof toast>;
 
 // Mock console.error
 const originalConsoleError = console.error;
@@ -148,146 +134,6 @@ describe("AuthStore - Google Authentication", () => {
         })
       );
       expect(mockFetch).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe("googleAuth", () => {
-    it("should successfully authenticate and show success toast", async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ user: mockUser })
-      });
-
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-
-      // Verify toast notifications
-      expect(mockToast.loading).toHaveBeenCalledWith("Authenticating with Google...");
-      expect(mockToast.dismiss).toHaveBeenCalled();
-      expect(mockToast.success).toHaveBeenCalledWith("Welcome Test User!");
-
-      // Verify store state
-      const state = useAuthStore.getState();
-      expect(state.user).toEqual(mockUser);
-      expect(state.isAuthenticated).toBe(true);
-    });
-
-    it("should show success toast with email when name is not available", async () => {
-      const userWithoutName = { ...mockUser, name: null };
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ user: userWithoutName })
-      });
-
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-
-      expect(mockToast.success).toHaveBeenCalledWith("Welcome test@example.com!");
-    });
-
-    it("should handle empty code and show error toast", async () => {
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("");
-
-      expect(mockToast.error).toHaveBeenCalledWith("No authorization code received from Google");
-      expect(mockFetch).not.toHaveBeenCalled();
-    });
-
-    it("should handle authentication errors and show error toast", async () => {
-      mockFetch.mockRejectedValue(new Error("Network error"));
-
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-
-      expect(mockToast.dismiss).toHaveBeenCalled();
-      expect(mockToast.error).toHaveBeenCalledWith("Network error");
-    });
-
-    it("should handle action failure with error message", async () => {
-      mockFetch.mockResolvedValue({
-        ok: false,
-        json: () => Promise.resolve({ error: { message: "Invalid code" } })
-      });
-
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-
-      expect(mockToast.error).toHaveBeenCalledWith("Invalid code");
-    });
-
-    it("should show loading toast and dismiss it after completion", async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ user: mockUser })
-      });
-
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-
-      expect(mockToast.loading).toHaveBeenCalledWith("Authenticating with Google...");
-      expect(mockToast.dismiss).toHaveBeenCalled();
-    });
-  });
-
-  describe("googleAuth and googleLogin integration", () => {
-    it("should ensure googleAuth properly delegates to googleLogin", async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ user: mockUser })
-      });
-
-      // Test googleLogin directly
-      const { googleLogin } = useAuthStore.getState();
-      await googleLogin("test-code");
-      const directState = useAuthStore.getState();
-
-      // Reset store
-      useAuthStore.setState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null,
-        hasCheckedAuth: false
-      });
-
-      // Test googleAuth
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-      const delegatedState = useAuthStore.getState();
-
-      // States should match (excluding toast calls)
-      expect(delegatedState.user).toEqual(directState.user);
-      expect(delegatedState.isAuthenticated).toEqual(directState.isAuthenticated);
-      expect(delegatedState.hasCheckedAuth).toEqual(directState.hasCheckedAuth);
-      expect(delegatedState.error).toEqual(directState.error);
-    });
-
-    it("should maintain error consistency between googleAuth and googleLogin", async () => {
-      mockFetch.mockRejectedValue(new Error("Test error"));
-
-      // Test googleLogin error handling
-      const { googleLogin } = useAuthStore.getState();
-      await expect(googleLogin("test-code")).rejects.toThrow("Test error");
-      const directErrorState = useAuthStore.getState();
-
-      // Reset store
-      useAuthStore.setState({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null,
-        hasCheckedAuth: false
-      });
-
-      // Test googleAuth error handling
-      const { googleAuth } = useAuthStore.getState();
-      await googleAuth("test-code");
-      const delegatedErrorState = useAuthStore.getState();
-
-      // Error states should match
-      expect(delegatedErrorState.error).toEqual(directErrorState.error);
-      expect(delegatedErrorState.isAuthenticated).toEqual(directErrorState.isAuthenticated);
-      expect(delegatedErrorState.user).toEqual(directErrorState.user);
     });
   });
 });

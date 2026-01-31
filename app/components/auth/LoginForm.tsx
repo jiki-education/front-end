@@ -2,7 +2,7 @@
 
 import { AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
-import type { LoginResponse } from "@/types/auth";
+import { useAuth } from "@/lib/auth/useAuth";
 import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,16 +12,11 @@ import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
 import { GoogleAuthButton } from "./GoogleAuthButton";
-import { TwoFactorSetupForm } from "./TwoFactorSetupForm";
-import { TwoFactorVerifyForm } from "./TwoFactorVerifyForm";
-
-// Types
-type TwoFactorState = { type: "none" } | { type: "setup"; provisioningUri: string } | { type: "verify" };
 
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login, googleLogin, isLoading } = useAuthStore();
+  const { login, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,15 +24,7 @@ export function LoginForm() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
 
-  // 2FA state
-  const [twoFactorState, setTwoFactorState] = useState<TwoFactorState>({ type: "none" });
-
   const returnTo = searchParams.get("return_to");
-
-  // Store return_to in sessionStorage on mount so it persists across page navigations
-  useEffect(() => {
-    storeReturnTo(returnTo);
-  }, [returnTo]);
 
   const redirectAfterLogin = () => {
     const redirectTo = getPostAuthRedirect(returnTo);
@@ -52,6 +39,15 @@ export function LoginForm() {
       router.push(redirectTo);
     }
   };
+
+  const { handleAuthResponse, handleGoogleAuth, googleAuthError, TwoFactorForm } = useAuth({
+    onSuccess: redirectAfterLogin
+  });
+
+  // Store return_to in sessionStorage on mount so it persists across page navigations
+  useEffect(() => {
+    storeReturnTo(returnTo);
+  }, [returnTo]);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -72,22 +68,6 @@ export function LoginForm() {
     return Object.keys(errors).length === 0;
   };
 
-  // Unified handler for login responses (email or Google)
-  const handleLoginResponse = (result: LoginResponse) => {
-    if (result.status === "success") {
-      redirectAfterLogin();
-      return;
-    }
-
-    if (result.status === "2fa_setup_required") {
-      setTwoFactorState({ type: "setup", provisioningUri: result.provisioning_uri });
-      return;
-    }
-
-    // 2fa_required
-    setTwoFactorState({ type: "verify" });
-  };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setHasAuthError(false);
@@ -99,7 +79,7 @@ export function LoginForm() {
 
     try {
       const result = await login({ email, password });
-      handleLoginResponse(result);
+      handleAuthResponse(result);
     } catch (err) {
       console.error("Login failed:", err);
       if (err instanceof AuthenticationError) {
@@ -116,48 +96,10 @@ export function LoginForm() {
     }
   };
 
-  const handleGoogleSuccess = async (code: string) => {
-    try {
-      const result = await googleLogin(code);
-      handleLoginResponse(result);
-    } catch {
-      console.error("ERROR WITH GOOGLE LOGIN");
-    }
-  };
-
-  const handleTwoFactorCancel = () => {
-    setTwoFactorState({ type: "none" });
-  };
-
-  const handleSessionExpired = () => {
-    setTwoFactorState({ type: "none" });
-    setHasAuthError(true);
-  };
-
-  // Render 2FA Setup Form
-  if (twoFactorState.type === "setup") {
-    return (
-      <TwoFactorSetupForm
-        provisioningUri={twoFactorState.provisioningUri}
-        onSuccess={redirectAfterLogin}
-        onCancel={handleTwoFactorCancel}
-        onSessionExpired={handleSessionExpired}
-      />
-    );
+  if (TwoFactorForm) {
+    return TwoFactorForm;
   }
 
-  // Render 2FA Verify Form
-  if (twoFactorState.type === "verify") {
-    return (
-      <TwoFactorVerifyForm
-        onSuccess={redirectAfterLogin}
-        onCancel={handleTwoFactorCancel}
-        onSessionExpired={handleSessionExpired}
-      />
-    );
-  }
-
-  // Render Credentials Form
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -172,7 +114,7 @@ export function LoginForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
+          <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
             Log In with Google
           </GoogleAuthButton>
 
@@ -256,6 +198,11 @@ export function LoginForm() {
                   >
                     Resend confirmation
                   </Link>
+                </div>
+              )}
+              {googleAuthError && (
+                <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                  {googleAuthError}
                 </div>
               )}
             </div>

@@ -3,7 +3,7 @@
  */
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { AuthenticationError } from "@/lib/api/client";
+import { AuthenticationError, ApiError } from "@/lib/api/client";
 import type { User } from "@/types/auth";
 
 // Mock fetch
@@ -294,6 +294,132 @@ describe("AuthStore - Login", () => {
           })
         })
       );
+    });
+  });
+
+  describe("setup2FA", () => {
+    it("should set user state on success", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ user: mockUser })
+      });
+
+      const { setup2FA } = useAuthStore.getState();
+      await setup2FA("123456");
+
+      const state = useAuthStore.getState();
+      expect(state.user).toEqual(mockUser);
+      expect(state.isAuthenticated).toBe(true);
+      expect(state.isLoading).toBe(false);
+    });
+
+    it("should call fetch with correct parameters", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ user: mockUser })
+      });
+
+      const { setup2FA } = useAuthStore.getState();
+      await setup2FA("123456");
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining("/auth/setup-2fa"),
+        expect.objectContaining({
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify({ otp_code: "123456" })
+        })
+      );
+    });
+
+    it("should throw ApiError on failure", async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 422,
+        json: () => Promise.resolve({ error: { message: "Invalid code" } })
+      });
+
+      const { setup2FA } = useAuthStore.getState();
+
+      await expect(setup2FA("000000")).rejects.toThrow(ApiError);
+
+      const state = useAuthStore.getState();
+      expect(state.user).toBeNull();
+      expect(state.isAuthenticated).toBe(false);
+    });
+
+    it("should throw error when response has no user", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "success" })
+      });
+
+      const { setup2FA } = useAuthStore.getState();
+
+      await expect(setup2FA("123456")).rejects.toThrow("Invalid response from server");
+    });
+  });
+
+  describe("verify2FA", () => {
+    it("should set user state on success", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ user: mockUser })
+      });
+
+      const { verify2FA } = useAuthStore.getState();
+      await verify2FA("123456");
+
+      const state = useAuthStore.getState();
+      expect(state.user).toEqual(mockUser);
+      expect(state.isAuthenticated).toBe(true);
+      expect(state.isLoading).toBe(false);
+    });
+
+    it("should call fetch with correct parameters", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ user: mockUser })
+      });
+
+      const { verify2FA } = useAuthStore.getState();
+      await verify2FA("123456");
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining("/auth/verify-2fa"),
+        expect.objectContaining({
+          method: "POST",
+          credentials: "include",
+          body: JSON.stringify({ otp_code: "123456" })
+        })
+      );
+    });
+
+    it("should throw ApiError on failure", async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 422,
+        json: () => Promise.resolve({ error: { message: "Invalid code" } })
+      });
+
+      const { verify2FA } = useAuthStore.getState();
+
+      await expect(verify2FA("000000")).rejects.toThrow(ApiError);
+
+      const state = useAuthStore.getState();
+      expect(state.user).toBeNull();
+      expect(state.isAuthenticated).toBe(false);
+    });
+
+    it("should throw error when response has no user", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "success" })
+      });
+
+      const { verify2FA } = useAuthStore.getState();
+
+      await expect(verify2FA("123456")).rejects.toThrow("Invalid response from server");
     });
   });
 });

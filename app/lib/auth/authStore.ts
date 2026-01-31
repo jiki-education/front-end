@@ -8,7 +8,6 @@ import { getApiUrl } from "@/lib/api/config";
 import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User } from "@/types/auth";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
-import toast from "react-hot-toast";
 import { create } from "zustand";
 
 interface AuthStore {
@@ -25,7 +24,6 @@ interface AuthStore {
   verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData) => Promise<User>;
   googleLogin: (code: string) => Promise<LoginResponse>;
-  googleAuth: (code: string) => Promise<LoginResponse | undefined>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -196,33 +194,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     } catch (error) {
       get().setNoUser();
       throw error;
-    }
-  },
-
-  // Google authentication with UI feedback
-  // Returns the response so caller can handle 2FA flows
-  googleAuth: async (code): Promise<LoginResponse | undefined> => {
-    if (!code) {
-      toast.error("No authorization code received from Google");
-      return undefined;
-    }
-    try {
-      toast.loading("Authenticating with Google...");
-      const result = await get().googleLogin(code);
-      toast.dismiss();
-
-      // Only show welcome toast for successful login (not 2FA flows)
-      if (result.status === "success") {
-        const user = get().user;
-        toast.success(`Welcome ${user?.name || user?.email}!`);
-      }
-
-      return result;
-    } catch (error) {
-      toast.dismiss();
-      const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
-      toast.error(errorMessage);
-      return undefined;
     }
   },
 
