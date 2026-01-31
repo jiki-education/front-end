@@ -1,0 +1,68 @@
+.searchBar {
+    position: relative;
+}
+
+.searchClearBtn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    border: none;
+    background-color: var(--color-gray-300);
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+.searchClearBtn:hover {
+    background-color: var(--color-gray-400);
+}
+
+.searchClearBtn svg {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    color: var(--color-gray-600);
+}
+
+.searchBar.hasValue .searchClearBtn {
+    display: flex;
+}
+
+.searchBar.hasValue input {
+    padding-right: 44px;
+}
+
+.noResults {
+    grid-column: 1 / -1;
+    text-align: left;
+    padding: 0;
+    margin-top: -10px;
+}
+
+.noResultsTitle {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: 8px;
+}
+
+.noResultsMessage {
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    color: var(--color-gray-500);
+}

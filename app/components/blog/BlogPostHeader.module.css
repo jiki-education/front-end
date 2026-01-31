@@ -18,7 +18,7 @@
 
 .articleHeaderImage {
     width: 100%;
-    height: 400px;
+    aspect-ratio: 16/9;
     border-radius: 16px;
     background-color: var(--color-gray-200);
 }
