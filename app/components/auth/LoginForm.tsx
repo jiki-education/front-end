@@ -1,44 +1,27 @@
 "use client";
 
-import { ApiError, AuthenticationError } from "@/lib/api/client";
+import { AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import type { LoginResponse } from "@/types/auth";
 import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState, useEffect } from "react";
-import { QRCodeSVG } from "qrcode.react";
 import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
-import setupStyles from "./TwoFactorSetupForm.module.css";
-import verifyStyles from "./TwoFactorVerifyForm.module.css";
 import { GoogleAuthButton } from "./GoogleAuthButton";
-import { OTPInput } from "@/components/ui/OTPInput";
+import { TwoFactorSetupForm } from "./TwoFactorSetupForm";
+import { TwoFactorVerifyForm } from "./TwoFactorVerifyForm";
 
 // Types
 type TwoFactorState = { type: "none" } | { type: "setup"; provisioningUri: string } | { type: "verify" };
 
-interface TwoFactorSetupFormProps {
-  provisioningUri: string;
-  onSubmit: (code: string) => Promise<void>;
-  onCancel: () => void;
-  isLoading: boolean;
-  error: string | null;
-}
-
-interface TwoFactorVerifyFormProps {
-  onSubmit: (code: string) => Promise<void>;
-  onCancel: () => void;
-  isLoading: boolean;
-  error: string | null;
-}
-
-// Main Component
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { login, setup2FA, verify2FA, googleAuth, isLoading } = useAuthStore();
+  const { login, googleLogin, isLoading } = useAuthStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,7 +31,6 @@ export function LoginForm() {
 
   // 2FA state
   const [twoFactorState, setTwoFactorState] = useState<TwoFactorState>({ type: "none" });
-  const [twoFactorError, setTwoFactorError] = useState<string | null>(null);
 
   const returnTo = searchParams.get("return_to");
 
@@ -90,6 +72,22 @@ export function LoginForm() {
     return Object.keys(errors).length === 0;
   };
 
+  // Unified handler for login responses (email or Google)
+  const handleLoginResponse = (result: LoginResponse) => {
+    if (result.status === "success") {
+      redirectAfterLogin();
+      return;
+    }
+
+    if (result.status === "2fa_setup_required") {
+      setTwoFactorState({ type: "setup", provisioningUri: result.provisioning_uri });
+      return;
+    }
+
+    // 2fa_required
+    setTwoFactorState({ type: "verify" });
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setHasAuthError(false);
@@ -101,20 +99,7 @@ export function LoginForm() {
 
     try {
       const result = await login({ email, password });
-
-      // Handle response based on status
-      if (result.status === "success") {
-        redirectAfterLogin();
-        return;
-      }
-
-      if (result.status === "2fa_setup_required") {
-        setTwoFactorState({ type: "setup", provisioningUri: result.provisioning_uri });
-        return;
-      }
-
-      // Only remaining case is "2fa_required"
-      setTwoFactorState({ type: "verify" });
+      handleLoginResponse(result);
     } catch (err) {
       console.error("Login failed:", err);
       if (err instanceof AuthenticationError) {
@@ -131,79 +116,48 @@ export function LoginForm() {
     }
   };
 
-  const handle2FASubmit = async (code: string) => {
-    setTwoFactorError(null);
+  const handleGoogleSuccess = async (code: string) => {
     try {
-      if (twoFactorState.type === "setup") {
-        await setup2FA(code);
-      } else {
-        await verify2FA(code);
-      }
-      // Success - redirect
-      redirectAfterLogin();
-    } catch (err) {
-      console.error("2FA verification failed:", err);
-      if (err instanceof ApiError) {
-        const errorData = err.data as { error?: { type?: string; message?: string } } | undefined;
-        if (errorData?.error?.type === "session_expired") {
-          // Session expired - go back to credentials with message
-          setTwoFactorState({ type: "none" });
-          setTwoFactorError(null);
-          setHasAuthError(true);
-        } else {
-          setTwoFactorError(errorData?.error?.message || "Invalid verification code");
-        }
-      } else {
-        setTwoFactorError("Verification failed. Please try again.");
-      }
+      const result = await googleLogin(code);
+      handleLoginResponse(result);
+    } catch {
+      console.error("ERROR WITH GOOGLE LOGIN");
     }
   };
 
-  const handleCancel = () => {
-    setTwoFactorState({ type: "none" });
-    setTwoFactorError(null);
+  const handleTwoFactorSuccess = () => {
+    redirectAfterLogin();
   };
 
-  const handleGoogleSuccess = (code: string) => {
-    googleAuth(code)
-      .then(() => {
-        redirectAfterLogin();
-      })
-      .catch(() => {
-        console.error("ERROR WITH GOOGLE LOGIN");
-      });
+  const handleTwoFactorCancel = () => {
+    setTwoFactorState({ type: "none" });
+  };
+
+  const handleSessionExpired = () => {
+    setTwoFactorState({ type: "none" });
+    setHasAuthError(true);
   };
 
   // Render 2FA Setup Form
   if (twoFactorState.type === "setup") {
     return (
-      <div className={styles.leftSide}>
-        <div className={styles.formContainer}>
-          <TwoFactorSetupForm
-            provisioningUri={twoFactorState.provisioningUri}
-            onSubmit={handle2FASubmit}
-            onCancel={handleCancel}
-            isLoading={isLoading}
-            error={twoFactorError}
-          />
-        </div>
-      </div>
+      <TwoFactorSetupForm
+        provisioningUri={twoFactorState.provisioningUri}
+        onSuccess={handleTwoFactorSuccess}
+        onCancel={handleTwoFactorCancel}
+        onSessionExpired={handleSessionExpired}
+      />
     );
   }
 
   // Render 2FA Verify Form
   if (twoFactorState.type === "verify") {
     return (
-      <div className={styles.leftSide}>
-        <div className={styles.formContainer}>
-          <TwoFactorVerifyForm
-            onSubmit={handle2FASubmit}
-            onCancel={handleCancel}
-            isLoading={isLoading}
-            error={twoFactorError}
-          />
-        </div>
-      </div>
+      <TwoFactorVerifyForm
+        onSuccess={handleTwoFactorSuccess}
+        onCancel={handleTwoFactorCancel}
+        onSessionExpired={handleSessionExpired}
+      />
     );
   }
 
@@ -337,121 +291,6 @@ export function LoginForm() {
           </div>
         </form>
       </div>
-    </div>
-  );
-}
-
-// Sub-components
-function TwoFactorSetupForm({ provisioningUri, onSubmit, onCancel, isLoading, error }: TwoFactorSetupFormProps) {
-  const [otpCode, setOtpCode] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (otpCode.length !== 6) {
-      return;
-    }
-    await onSubmit(otpCode);
-    // Clear code on error (error will be set by parent)
-    setOtpCode("");
-  };
-
-  return (
-    <div className={setupStyles.container}>
-      <header className={setupStyles.header}>
-        <h1>Set Up Two-Factor Authentication</h1>
-        <p>Scan the QR code with your authenticator app to secure your account.</p>
-      </header>
-
-      <div className={setupStyles.qrCodeWrapper}>
-        <QRCodeSVG value={provisioningUri} size={200} level="M" />
-      </div>
-
-      <p className={setupStyles.instructions}>
-        Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.
-      </p>
-
-      <form onSubmit={handleSubmit}>
-        {error && <div className={setupStyles.errorMessage}>{error}</div>}
-
-        <div className={setupStyles.otpSection}>
-          <label>Enter the 6-digit code from your app</label>
-          <OTPInput value={otpCode} onChange={setOtpCode} disabled={isLoading} hasError={!!error} autoFocus />
-        </div>
-
-        <div className={setupStyles.actions}>
-          <button
-            type="submit"
-            className="ui-btn ui-btn-large ui-btn-primary"
-            style={{ width: "100%" }}
-            disabled={isLoading || otpCode.length !== 6}
-          >
-            {isLoading ? "Verifying..." : "Verify & Complete Setup"}
-          </button>
-
-          <button
-            type="button"
-            onClick={onCancel}
-            className="ui-btn ui-btn-large ui-btn-secondary"
-            style={{ width: "100%" }}
-            disabled={isLoading}
-          >
-            Cancel and sign in again
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-function TwoFactorVerifyForm({ onSubmit, onCancel, isLoading, error }: TwoFactorVerifyFormProps) {
-  const [otpCode, setOtpCode] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (otpCode.length !== 6) {
-      return;
-    }
-    await onSubmit(otpCode);
-    // Clear code on error (error will be set by parent)
-    setOtpCode("");
-  };
-
-  return (
-    <div className={verifyStyles.container}>
-      <header className={verifyStyles.header}>
-        <h1>Two-Factor Authentication</h1>
-        <p>Enter the 6-digit code from your authenticator app.</p>
-      </header>
-
-      <form onSubmit={handleSubmit}>
-        {error && <div className={verifyStyles.errorMessage}>{error}</div>}
-
-        <div className={verifyStyles.otpSection}>
-          <label>Verification code</label>
-          <OTPInput value={otpCode} onChange={setOtpCode} disabled={isLoading} hasError={!!error} autoFocus />
-        </div>
-
-        <div className={verifyStyles.actions}>
-          <button
-            type="submit"
-            className="ui-btn ui-btn-large ui-btn-primary"
-            style={{ width: "100%" }}
-            disabled={isLoading || otpCode.length !== 6}
-          >
-            {isLoading ? "Verifying..." : "Verify"}
-          </button>
-
-          <button
-            type="button"
-            onClick={onCancel}
-            className="ui-btn ui-btn-large ui-btn-secondary"
-            style={{ width: "100%" }}
-            disabled={isLoading}
-          >
-            Cancel and sign in again
-          </button>
-        </div>
-      </form>
     </div>
   );
 }

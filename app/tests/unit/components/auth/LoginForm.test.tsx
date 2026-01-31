@@ -17,15 +17,11 @@ jest.mock("next/navigation", () => ({
 
 // Mock auth store
 const mockLogin = jest.fn();
-const mockSetup2FA = jest.fn();
-const mockVerify2FA = jest.fn();
-const mockGoogleAuth = jest.fn();
+const mockGoogleLogin = jest.fn();
 jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     login: mockLogin,
-    setup2FA: mockSetup2FA,
-    verify2FA: mockVerify2FA,
-    googleAuth: mockGoogleAuth,
+    googleLogin: mockGoogleLogin,
     isLoading: false
   })
 }));
@@ -175,16 +171,16 @@ describe("LoginForm", () => {
       expect(mockRouterPush).not.toHaveBeenCalled();
     });
 
-    it("calls googleAuth for Google login", async () => {
+    it("calls googleLogin for Google login", async () => {
       mockSearchParamsGet.mockReturnValue(null);
-      mockGoogleAuth.mockResolvedValue({});
+      mockGoogleLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
       fireEvent.click(screen.getByTestId("google-auth-button"));
 
       await waitFor(() => {
-        expect(mockGoogleAuth).toHaveBeenCalledWith("mock-google-code");
+        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code");
       });
     });
 

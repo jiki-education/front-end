@@ -24,8 +24,8 @@ interface AuthStore {
   setup2FA: (otpCode: string) => Promise<void>;
   verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData) => Promise<User>;
-  googleLogin: (code: string) => Promise<void>;
-  googleAuth: (code: string) => Promise<void>;
+  googleLogin: (code: string) => Promise<LoginResponse>;
+  googleAuth: (code: string) => Promise<LoginResponse | undefined>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -153,7 +153,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Google login action - calls Rails directly
-  googleLogin: async (code) => {
+  // Returns the response so caller can handle 2FA flows (same as login)
+  googleLogin: async (code): Promise<LoginResponse> => {
     set({ isLoading: true });
     try {
       const response = await fetch(getApiUrl("/auth/google"), {
@@ -173,11 +174,25 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       }
 
       const data = await response.json();
-      if (!data.user) {
-        throw new Error("Invalid response from server");
+
+      // Handle 2FA responses - don't set user yet
+      if (data.status === "2fa_setup_required") {
+        set({ isLoading: false });
+        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
       }
 
-      get().setUser(data.user);
+      if (data.status === "2fa_required") {
+        set({ isLoading: false });
+        return { status: "2fa_required" };
+      }
+
+      // Normal login success
+      if (data.user) {
+        get().setUser(data.user);
+        return { status: "success", user: data.user };
+      }
+
+      throw new Error("Invalid response from server");
     } catch (error) {
       get().setNoUser();
       throw error;
@@ -185,21 +200,29 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Google authentication with UI feedback
-  googleAuth: async (code) => {
+  // Returns the response so caller can handle 2FA flows
+  googleAuth: async (code): Promise<LoginResponse | undefined> => {
     if (!code) {
       toast.error("No authorization code received from Google");
-      return;
+      return undefined;
     }
     try {
       toast.loading("Authenticating with Google...");
-      await get().googleLogin(code);
+      const result = await get().googleLogin(code);
       toast.dismiss();
-      const user = get().user;
-      toast.success(`Welcome ${user?.name || user?.email}!`);
+
+      // Only show welcome toast for successful login (not 2FA flows)
+      if (result.status === "success") {
+        const user = get().user;
+        toast.success(`Welcome ${user?.name || user?.email}!`);
+      }
+
+      return result;
     } catch (error) {
       toast.dismiss();
       const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
       toast.error(errorMessage);
+      return undefined;
     }
   },
 
