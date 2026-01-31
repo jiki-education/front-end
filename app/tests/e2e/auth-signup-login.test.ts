@@ -170,7 +170,7 @@ test.describe("Auth Signup and Login Flows", () => {
               "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
               "Access-Control-Allow-Credentials": "true"
             },
-            body: JSON.stringify({ user: createMockUser() })
+            body: JSON.stringify({ status: "success", user: createMockUser() })
           });
           return;
         }

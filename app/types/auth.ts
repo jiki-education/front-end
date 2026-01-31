@@ -61,6 +61,23 @@ export interface RailsAuthResponse {
   };
 }
 
+// 2FA Response Types
+export interface TwoFactorSetupRequired {
+  status: "2fa_setup_required";
+  provisioning_uri: string;
+}
+
+export interface TwoFactorRequired {
+  status: "2fa_required";
+}
+
+export interface LoginSuccess {
+  status: "success";
+  user: User;
+}
+
+export type LoginResponse = LoginSuccess | TwoFactorSetupRequired | TwoFactorRequired;
+
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;

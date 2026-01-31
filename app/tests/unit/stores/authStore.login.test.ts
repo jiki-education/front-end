@@ -51,11 +51,13 @@ describe("AuthStore - Login", () => {
     it("should successfully login and set user state", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ user: mockUser })
+        json: () => Promise.resolve({ status: "success", user: mockUser })
       });
 
       const { login } = useAuthStore.getState();
-      await login({ email: "test@example.com", password: "password123" });
+      const result = await login({ email: "test@example.com", password: "password123" });
+
+      expect(result).toEqual({ status: "success", user: mockUser });
 
       const state = useAuthStore.getState();
       expect(state.user).toEqual(mockUser);
@@ -65,10 +67,12 @@ describe("AuthStore - Login", () => {
     });
 
     it("should set loading state during login", async () => {
-      let resolvePromise: (value: { ok: boolean; json: () => Promise<{ user: User }> }) => void;
-      const fetchPromise = new Promise<{ ok: boolean; json: () => Promise<{ user: User }> }>((resolve) => {
-        resolvePromise = resolve;
-      });
+      let resolvePromise: (value: { ok: boolean; json: () => Promise<{ status: string; user: User }> }) => void;
+      const fetchPromise = new Promise<{ ok: boolean; json: () => Promise<{ status: string; user: User }> }>(
+        (resolve) => {
+          resolvePromise = resolve;
+        }
+      );
       mockFetch.mockReturnValue(fetchPromise);
 
       const { login } = useAuthStore.getState();
@@ -78,7 +82,7 @@ describe("AuthStore - Login", () => {
       expect(useAuthStore.getState().isLoading).toBe(true);
 
       // Resolve the promise
-      resolvePromise!({ ok: true, json: () => Promise.resolve({ user: mockUser }) });
+      resolvePromise!({ ok: true, json: () => Promise.resolve({ status: "success", user: mockUser }) });
       await loginPromise;
 
       // Check loading state is cleared
@@ -133,7 +137,7 @@ describe("AuthStore - Login", () => {
     it("should call fetch with correct parameters", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ user: mockUser })
+        json: () => Promise.resolve({ status: "success", user: mockUser })
       });
 
       const { login } = useAuthStore.getState();
@@ -160,6 +164,47 @@ describe("AuthStore - Login", () => {
       await expect(login({ email: "test@example.com", password: "password" })).rejects.toThrow(
         "Invalid response from server"
       );
+    });
+
+    it("should return 2fa_setup_required response without setting user", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            status: "2fa_setup_required",
+            provisioning_uri: "otpauth://totp/Test?secret=ABC123"
+          })
+      });
+
+      const { login } = useAuthStore.getState();
+      const result = await login({ email: "admin@example.com", password: "password123" });
+
+      expect(result).toEqual({
+        status: "2fa_setup_required",
+        provisioning_uri: "otpauth://totp/Test?secret=ABC123"
+      });
+
+      const state = useAuthStore.getState();
+      expect(state.user).toBeNull();
+      expect(state.isAuthenticated).toBe(false);
+      expect(state.isLoading).toBe(false);
+    });
+
+    it("should return 2fa_required response without setting user", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ status: "2fa_required" })
+      });
+
+      const { login } = useAuthStore.getState();
+      const result = await login({ email: "admin@example.com", password: "password123" });
+
+      expect(result).toEqual({ status: "2fa_required" });
+
+      const state = useAuthStore.getState();
+      expect(state.user).toBeNull();
+      expect(state.isAuthenticated).toBe(false);
+      expect(state.isLoading).toBe(false);
     });
   });
 

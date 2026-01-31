@@ -17,10 +17,14 @@ jest.mock("next/navigation", () => ({
 
 // Mock auth store
 const mockLogin = jest.fn();
+const mockSetup2FA = jest.fn();
+const mockVerify2FA = jest.fn();
 const mockGoogleAuth = jest.fn();
 jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     login: mockLogin,
+    setup2FA: mockSetup2FA,
+    verify2FA: mockVerify2FA,
     googleAuth: mockGoogleAuth,
     isLoading: false
   })
@@ -57,6 +61,30 @@ jest.mock("@/components/auth/AuthForm.module.css", () => ({
   footerLinks: "footerLinks"
 }));
 
+jest.mock("@/components/auth/TwoFactorSetupForm.module.css", () => ({
+  container: "container",
+  header: "header",
+  qrCodeWrapper: "qrCodeWrapper",
+  instructions: "instructions",
+  otpSection: "otpSection",
+  errorMessage: "errorMessage",
+  actions: "actions"
+}));
+
+jest.mock("@/components/auth/TwoFactorVerifyForm.module.css", () => ({
+  container: "container",
+  header: "header",
+  otpSection: "otpSection",
+  errorMessage: "errorMessage",
+  actions: "actions"
+}));
+
+jest.mock("@/components/ui/OTPInput.module.css", () => ({
+  container: "container",
+  input: "input",
+  inputError: "inputError"
+}));
+
 describe("LoginForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -84,7 +112,7 @@ describe("LoginForm", () => {
 
     it("calls login with correct credentials on form submit", async () => {
       mockSearchParamsGet.mockReturnValue(null);
-      mockLogin.mockResolvedValue({});
+      mockLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
@@ -99,7 +127,7 @@ describe("LoginForm", () => {
 
     it("redirects to /dashboard when return_to is invalid", async () => {
       mockSearchParamsGet.mockReturnValue("https://evil.com/phishing");
-      mockLogin.mockResolvedValue({});
+      mockLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
@@ -114,7 +142,7 @@ describe("LoginForm", () => {
 
     it("redirects to /dashboard when no return_to is provided", async () => {
       mockSearchParamsGet.mockReturnValue(null);
-      mockLogin.mockResolvedValue({});
+      mockLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
@@ -131,7 +159,7 @@ describe("LoginForm", () => {
       // When return_to is valid, the code should use window.location.href instead of router.push
       const returnToUrl = "https://api.jiki.io/auth/discourse/sso";
       mockSearchParamsGet.mockReturnValue(returnToUrl);
-      mockLogin.mockResolvedValue({});
+      mockLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
@@ -192,7 +220,7 @@ describe("LoginForm", () => {
 
       // Second render without return_to param
       mockSearchParamsGet.mockReturnValue(null);
-      mockLogin.mockResolvedValue({});
+      mockLogin.mockResolvedValue({ status: "success" });
 
       render(<LoginForm />);
 
@@ -244,6 +272,59 @@ describe("LoginForm", () => {
       expect(screen.getByRole("button", { name: /log in$/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /sign up for free/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /forgot your password/i })).toBeInTheDocument();
+    });
+  });
+
+  describe("2FA flow", () => {
+    it("shows 2FA setup form when login returns 2fa_setup_required", async () => {
+      mockLogin.mockResolvedValue({
+        status: "2fa_setup_required",
+        provisioning_uri: "otpauth://totp/Test?secret=ABC123"
+      });
+
+      render(<LoginForm />);
+
+      fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "admin@example.com" } });
+      fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+      fireEvent.click(screen.getByRole("button", { name: /log in$/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole("heading", { name: /set up two-factor authentication/i })).toBeInTheDocument();
+      });
+    });
+
+    it("shows 2FA verify form when login returns 2fa_required", async () => {
+      mockLogin.mockResolvedValue({ status: "2fa_required" });
+
+      render(<LoginForm />);
+
+      fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "admin@example.com" } });
+      fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+      fireEvent.click(screen.getByRole("button", { name: /log in$/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole("heading", { name: /two-factor authentication/i })).toBeInTheDocument();
+      });
+    });
+
+    it("returns to credentials form when cancel is clicked", async () => {
+      mockLogin.mockResolvedValue({ status: "2fa_required" });
+
+      render(<LoginForm />);
+
+      fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "admin@example.com" } });
+      fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+      fireEvent.click(screen.getByRole("button", { name: /log in$/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole("heading", { name: /two-factor authentication/i })).toBeInTheDocument();
+      });
+
+      fireEvent.click(screen.getByRole("button", { name: /cancel and sign in again/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole("heading", { name: /log in/i })).toBeInTheDocument();
+      });
     });
   });
 });
