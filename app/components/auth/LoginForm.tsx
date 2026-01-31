@@ -3,51 +3,24 @@
 import { AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
-import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const { login, isLoading } = useAuthStore();
+  const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
-
-  const returnTo = searchParams.get("return_to");
-
-  const redirectAfterLogin = () => {
-    const redirectTo = getPostAuthRedirect(returnTo);
-    if (redirectTo.startsWith("http")) {
-      try {
-        window.location.href = redirectTo;
-      } catch (redirectErr) {
-        console.error("Redirect failed:", redirectErr);
-        router.push("/dashboard");
-      }
-    } else {
-      router.push(redirectTo);
-    }
-  };
-
-  const { handleAuthResponse, handleGoogleAuth, googleAuthError, TwoFactorForm } = useAuth({
-    onSuccess: redirectAfterLogin
-  });
-
-  // Store return_to in sessionStorage on mount so it persists across page navigations
-  useEffect(() => {
-    storeReturnTo(returnTo);
-  }, [returnTo]);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -114,7 +87,7 @@ export function LoginForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <GoogleAuthButton onSuccess={handleGoogleAuth} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
+          <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
             Log In with Google
           </GoogleAuthButton>
 
