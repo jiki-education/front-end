@@ -125,10 +125,6 @@ export function LoginForm() {
     }
   };
 
-  const handleTwoFactorSuccess = () => {
-    redirectAfterLogin();
-  };
-
   const handleTwoFactorCancel = () => {
     setTwoFactorState({ type: "none" });
   };
@@ -143,7 +139,7 @@ export function LoginForm() {
     return (
       <TwoFactorSetupForm
         provisioningUri={twoFactorState.provisioningUri}
-        onSuccess={handleTwoFactorSuccess}
+        onSuccess={redirectAfterLogin}
         onCancel={handleTwoFactorCancel}
         onSessionExpired={handleSessionExpired}
       />
@@ -154,7 +150,7 @@ export function LoginForm() {
   if (twoFactorState.type === "verify") {
     return (
       <TwoFactorVerifyForm
-        onSuccess={handleTwoFactorSuccess}
+        onSuccess={redirectAfterLogin}
         onCancel={handleTwoFactorCancel}
         onSessionExpired={handleSessionExpired}
       />
