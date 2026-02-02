@@ -185,7 +185,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       }
 
       // Normal login success
-      if (data.user) {
+      if (data.status === "success" && data.user) {
         get().setUser(data.user);
         return { status: "success", user: data.user };
       }

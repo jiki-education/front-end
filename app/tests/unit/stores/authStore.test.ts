@@ -49,7 +49,7 @@ describe("AuthStore - Google Authentication", () => {
     it("should successfully authenticate with Google and update store state", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ user: mockUser })
+        json: () => Promise.resolve({ status: "success", user: mockUser })
       });
 
       const { googleLogin } = useAuthStore.getState();
@@ -79,7 +79,7 @@ describe("AuthStore - Google Authentication", () => {
       expect(loadingState.error).toBeNull();
 
       // Resolve the promise
-      resolvePromise!({ ok: true, json: () => Promise.resolve({ user: mockUser }) });
+      resolvePromise!({ ok: true, json: () => Promise.resolve({ status: "success", user: mockUser }) });
       await authCall;
 
       // Check final state
@@ -119,7 +119,7 @@ describe("AuthStore - Google Authentication", () => {
     it("should call fetch with correct parameters", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({ user: mockUser })
+        json: () => Promise.resolve({ status: "success", user: mockUser })
       });
 
       const { googleLogin } = useAuthStore.getState();
