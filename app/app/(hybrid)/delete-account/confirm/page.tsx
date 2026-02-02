@@ -1,31 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { confirmAccountDeletion } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { DeletingState, DeletedState, ExpiredLinkState } from "@/components/delete-account";
+import { ApiError } from "@/lib/api";
+import { DeletingState, DeletedState, ErrorState, ExpiredLinkState } from "@/components/delete-account";
+
+type Status = "deleting" | "success" | "expired" | "error";
 
 export default function DeleteAccountConfirmPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const setNoUser = useAuthStore((state) => state.setNoUser);
 
-  const [status, setStatus] = useState<"deleting" | "success" | "error">("deleting");
+  const [status, setStatus] = useState<Status>("deleting");
+  const hasStartedDeletion = useRef(false);
 
   useEffect(() => {
     if (!token) {
-      setStatus("error");
+      setStatus("expired");
       return;
     }
+
+    if (hasStartedDeletion.current) {
+      return;
+    }
+    hasStartedDeletion.current = true;
 
     const doDeleteAccount = async () => {
       try {
         await confirmAccountDeletion(token);
         setNoUser(null);
         setStatus("success");
-      } catch {
-        setStatus("error");
+      } catch (error) {
+        // 4xx errors indicate invalid/expired token
+        // 5xx or network errors are server-side issues
+        if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
+          setStatus("expired");
+        } else {
+          setStatus("error");
+        }
       }
     };
 
@@ -40,5 +55,9 @@ export default function DeleteAccountConfirmPage() {
     return <DeletedState />;
   }
 
-  return <ExpiredLinkState />;
+  if (status === "expired") {
+    return <ExpiredLinkState />;
+  }
+
+  return <ErrorState />;
 }
