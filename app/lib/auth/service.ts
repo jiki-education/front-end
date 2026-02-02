@@ -53,3 +53,19 @@ export async function getCurrentUser(useRetries: boolean = true): Promise<User> 
   const response = await api.get<{ user: User }>("/internal/me", undefined, useRetries);
   return response.data.user;
 }
+
+/**
+ * Request account deletion - sends confirmation email
+ * POST /auth/account_deletion/request
+ */
+export async function requestAccountDeletion(): Promise<void> {
+  await api.post("/auth/account_deletion/request");
+}
+
+/**
+ * Confirm account deletion with token
+ * POST /auth/account_deletion/confirm
+ */
+export async function confirmAccountDeletion(token: string): Promise<void> {
+  await api.post("/auth/account_deletion/confirm", { token });
+}
