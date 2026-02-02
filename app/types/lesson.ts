@@ -25,5 +25,5 @@ export type LessonWithData = Lesson &
     | { type: "video"; data: { sources: VideoSource[] } }
     | { type: "exercise"; data: { slug: ExerciseSlug } }
     | { type: "quiz"; data?: Record<string, unknown> }
-    | { type: "choose_language"; data: { language_options: ProgrammingLanguage[] } }
+    | { type: "choose_language"; data: { sources: VideoSource[]; language_options: ProgrammingLanguage[] } }
   );

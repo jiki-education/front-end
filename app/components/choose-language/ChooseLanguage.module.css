@@ -1,0 +1,304 @@
+.container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0;
+    transition: opacity 500ms;
+}
+
+.gridBackground::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cg opacity='0.5'%3E%3Cline x1='14' y1='0' x2='14' y2='14' stroke='%23444' stroke-width='1'/%3E%3Cline x1='0' y1='14' x2='14' y2='14' stroke='%23444' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),
+        rgba(32, 28, 48, 1);
+    background-repeat: repeat, no-repeat;
+    background-size: auto, cover;
+    z-index: 0;
+}
+
+.gridBackground > * {
+    position: relative;
+    z-index: 1;
+}
+
+.initializing {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.closeButton {
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 15px;
+    right: 24px;
+    z-index: 10;
+}
+
+.closeButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Progress Bar */
+.progressBar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 45px;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 24px;
+}
+
+.progressStep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid white;
+    flex-shrink: 0;
+}
+
+.progressStep.complete {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.progressLine {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.progressLine.complete {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Video Step Styles */
+.videoContainer {
+    position: relative;
+    width: 100%;
+    max-width: 66%;
+    max-height: calc(100vh - 200px);
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+        0 0 100px 20px rgba(0, 0, 0, 0.5),
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    flex-shrink: 1;
+}
+
+.videoAspectRatio {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+}
+
+.muxPlayer {
+    --seek-forward-button: none;
+    --time-range: none;
+
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 500ms;
+}
+
+.muxPlayerHidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.muxPlayerVisible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Video Instruction Text */
+.videoInstruction {
+    width: 100%;
+    max-width: 66%;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-top: 24px;
+}
+
+.skipButton {
+    color: white;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    padding: 0;
+}
+
+.skipButton:hover {
+    color: var(--color-purple-400);
+}
+
+/* Question Box / Language Selector Step */
+.questionBox {
+    width: 100%;
+    max-width: 66%;
+    aspect-ratio: 16 / 9;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 36px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.questionTitle {
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.optionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+}
+
+.optionBtn {
+    padding: 12px 18px;
+    background: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: var(--color-gray-700);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.optionBtn:hover {
+    border-color: var(--color-purple-400);
+    color: var(--color-gray-900);
+}
+
+.optionBtn.selected {
+    background: var(--color-purple-500);
+    border-color: white;
+    color: white;
+}
+
+.optionCheckbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-gray-300);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.optionCheckbox svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+}
+
+.optionBtn.selected .optionCheckbox {
+    background: white;
+    border-color: white;
+}
+
+.optionBtn.selected .optionCheckbox svg {
+    opacity: 1;
+    stroke: var(--color-purple-500);
+}
+
+.warningText {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+/* Button Row */
+.buttonRow {
+    width: 100%;
+    max-width: 66%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+/* Tooltip */
+.tooltipWrapper {
+    display: inline-flex;
+}
+
+.tooltipContainer {
+    z-index: 100;
+}
+
+.tooltip {
+    background: var(--color-gray-900);
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(5px);
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+}
+
+.tooltip.tooltipVisible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.tooltipArrow {
+    fill: var(--color-gray-900);
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.15));
+}
