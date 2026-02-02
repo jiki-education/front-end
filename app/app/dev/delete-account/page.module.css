@@ -1,0 +1,53 @@
+.stateNav {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.stateNavTitle {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-gray-200);
+    margin-bottom: 4px;
+}
+
+.button {
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-200);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-700);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+}
+
+.button:hover {
+    background: var(--color-gray-200);
+}
+
+.buttonActive {
+    composes: button;
+    background: var(--color-blue-500);
+    border-color: var(--color-blue-500);
+    color: white;
+}
+
+.buttonActive:hover {
+    background: var(--color-blue-600);
+}
