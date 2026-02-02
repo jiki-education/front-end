@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { FormEvent } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
 import { OTPInput } from "@/components/ui/OTPInput";
@@ -19,15 +18,14 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (otpCode.length !== 6) {
+  const handleSubmit = async (code: string) => {
+    if (code.length !== 6 || isLoading) {
       return;
     }
 
     setError(null);
     try {
-      await verify2FA(otpCode);
+      await verify2FA(code);
       onSuccess();
     } catch (err) {
       console.error("2FA verification failed:", err);
@@ -45,6 +43,13 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
     }
   };
 
+  const handleOtpChange = (value: string) => {
+    setOtpCode(value);
+    if (value.length === 6) {
+      void handleSubmit(value);
+    }
+  };
+
   return (
     <div className={authStyles.leftSide}>
       <div className={authStyles.formContainer}>
@@ -54,24 +59,17 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
             <p>Enter the 6-digit code from your authenticator app.</p>
           </header>
 
-          <form onSubmit={handleSubmit}>
+          <div>
             {error && <div className={styles.errorMessage}>{error}</div>}
 
             <div className={styles.otpSection}>
               <label>Verification code</label>
-              <OTPInput value={otpCode} onChange={setOtpCode} disabled={isLoading} hasError={!!error} autoFocus />
+              <OTPInput value={otpCode} onChange={handleOtpChange} disabled={isLoading} hasError={!!error} autoFocus />
             </div>
 
-            <div className={styles.actions}>
-              <button
-                type="submit"
-                className="ui-btn ui-btn-large ui-btn-primary"
-                style={{ width: "100%" }}
-                disabled={isLoading || otpCode.length !== 6}
-              >
-                {isLoading ? "Verifying..." : "Verify"}
-              </button>
+            {isLoading && <p className={styles.verifyingText}>Verifying...</p>}
 
+            <div className={styles.actions}>
               <button
                 type="button"
                 onClick={onCancel}
@@ -82,7 +80,7 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
                 Cancel and sign in again
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

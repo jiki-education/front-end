@@ -58,6 +58,12 @@
     margin-bottom: 20px;
 }
 
+.verifyingText {
+    font-size: 15px;
+    color: var(--color-gray-600);
+    margin-bottom: 16px;
+}
+
 .actions {
     display: flex;
     flex-direction: column;

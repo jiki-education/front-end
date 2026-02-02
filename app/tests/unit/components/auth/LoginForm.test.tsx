@@ -285,7 +285,7 @@ describe("LoginForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /log in$/i }));
 
       await waitFor(() => {
-        expect(screen.getByRole("heading", { name: /set up two-factor authentication/i })).toBeInTheDocument();
+        expect(screen.getByText(/scan the qr code/i)).toBeInTheDocument();
       });
     });
 
