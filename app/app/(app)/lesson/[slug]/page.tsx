@@ -1,7 +1,7 @@
 "use client";
 
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
-import LanguageChoiceLesson from "@/components/language-choice/LanguageChoiceLesson";
+import ChooseLanguage from "@/components/choose-language/ChooseLanguage";
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchUserCourse } from "@/lib/api/courses";
@@ -108,7 +108,7 @@ export default function LessonPage({ params }: PageProps) {
   }
 
   if (lesson.type === "choose_language") {
-    return <LanguageChoiceLesson lessonData={lesson} />;
+    return <ChooseLanguage lessonData={lesson} />;
   }
 
   // Quiz type - not yet implemented

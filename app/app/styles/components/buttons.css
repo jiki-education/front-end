@@ -267,3 +267,17 @@
 .ui-btn-secondary.ui-btn-gray {
     color: var(--color-gray-600);
 }
+
+/* Ghost Button - hollow design for dark backgrounds */
+.ui-btn-ghost {
+    background: transparent;
+    color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    box-shadow: none;
+}
+
+.ui-btn-ghost:hover {
+    background: var(--primary-shadow-light);
+    border-color: var(--primary-color-light);
+    box-shadow: none;
+}
