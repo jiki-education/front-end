@@ -24,18 +24,33 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          use_sticky_comment: true
           prompt: |
-            Please review this pull request and provide feedback on:
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage (especially note if any test coverage of remaining functionality has been removed and flag this)
+            Review this PR for potential issues. You are a second pair of eyes to catch things the author might have missed.
 
-            Use the repository's AGENTS.md for guidance on style and conventions.
+            Rules:
+            - Only mention things that might need checking
+            - No praise, approval, or positive observations
+            - No theoretical concerns - only flag concrete issues you can point to in the code
+            - If you're less than 70% confident something is wrong, don't mention it
+            - Be factual and specific
 
-            Presume the PR has been written by an AGENT, not a human, so you are a final firewall as to errors.
-            Be concise. Write one summary line, then only comment on things that a human should double-check. Use clear headings and bullet points. Flag with a row of ❗ if there is something seriously wrong.
+            Check for:
+            - Logic errors or bugs
+            - Missing test coverage for new code paths
+            - Obvious security issues
+            - Violations of patterns in AGENTS.md
 
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            Output format:
+            - One sentence summary of what the PR does
+            - Bullet list of items to investigate (if any), each with:
+              - File path and line number(s)
+              - What to check and why
+              - Enough context for another Claude to investigate without re-reading the whole PR
+            - If nothing needs checking, just say "No issues spotted."
 
-          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
+            Do not use emoji, urgency markers, or severity levels.
+
+            Use `gh pr comment` to leave your review.
+
+          claude_args: '--model claude-opus-4-5 --max-turns 15 --allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
