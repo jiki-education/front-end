@@ -1,0 +1,50 @@
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-50);
+    gap: 32px;
+}
+
+.delayed {
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+    animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.imageWrapper {
+    width: 560px;
+
+    img {
+        width: 100%;
+        height: auto;
+        opacity: 0.5;
+    }
+}
+
+.text {
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: var(--color-gray-500);
+}
