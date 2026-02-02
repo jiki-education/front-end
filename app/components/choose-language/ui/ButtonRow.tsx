@@ -10,6 +10,7 @@ interface ButtonRowProps {
   step: "video" | "selector";
   hasVisitedSelector: boolean;
   selectedLanguage: LanguageOption | null;
+  isSubmitting: boolean;
   onBackToVideo: () => void;
   onSelectLanguage: () => void;
   onConfirmChoice: () => void;
@@ -19,6 +20,7 @@ export function ButtonRow({
   step,
   hasVisitedSelector,
   selectedLanguage,
+  isSubmitting,
   onBackToVideo,
   onSelectLanguage,
   onConfirmChoice
@@ -55,12 +57,12 @@ export function ButtonRow({
       <ConfirmTooltip disabled={!!selectedLanguage}>
         <span className={styles.tooltipWrapper}>
           <button
-            className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${!selectedLanguage ? "ui-btn-disabled" : ""}`}
+            className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${!selectedLanguage || isSubmitting ? "ui-btn-disabled" : ""}`}
             onClick={onConfirmChoice}
-            disabled={!selectedLanguage}
+            disabled={!selectedLanguage || isSubmitting}
           >
-            <span>Confirm Choice</span>
-            {selectedLanguage && (
+            <span>{isSubmitting ? "Saving..." : "Confirm Choice"}</span>
+            {selectedLanguage && !isSubmitting && (
               <svg style={{ width: 18, height: 18, fill: "currentColor" }} viewBox="0 0 24 24">
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
               </svg>
