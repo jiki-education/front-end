@@ -17,6 +17,27 @@
     line-height: 1.6;
 }
 
+.subtitleSecondary {
+    composes: subtitle;
+    margin-top: 8px;
+}
+
+.homeLink {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: var(--color-blue-500);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.15s ease;
+}
+
+.homeLink:hover {
+    background: var(--color-blue-600);
+}
+
 .spinner {
     width: 48px;
     height: 48px;

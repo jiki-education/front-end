@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { confirmAccountDeletion } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { DeletingAccountMessage } from "@/components/auth/DeletingAccountMessage";
-import { AccountDeletedMessage } from "@/components/auth/AccountDeletedMessage";
-import { DeletionLinkExpiredMessage } from "@/components/auth/DeletionLinkExpiredMessage";
+import { DeletingState, DeletedState, ExpiredLinkState } from "@/components/delete-account";
 
 export default function DeleteAccountConfirmPage() {
   const searchParams = useSearchParams();
@@ -35,12 +33,12 @@ export default function DeleteAccountConfirmPage() {
   }, [token, setNoUser]);
 
   if (status === "deleting") {
-    return <DeletingAccountMessage />;
+    return <DeletingState />;
   }
 
   if (status === "success") {
-    return <AccountDeletedMessage />;
+    return <DeletedState />;
   }
 
-  return <DeletionLinkExpiredMessage />;
+  return <ExpiredLinkState />;
 }
