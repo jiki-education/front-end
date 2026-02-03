@@ -12,6 +12,8 @@ import LockedIcon from "@static/icons/locked.svg";
 import ProjectsIcon from "@static/icons/projects.svg";
 import { ProjectCard } from "./ProjectCard";
 import { NoProjectsFound } from "./NoProjectsFound";
+import { ProjectCardsLoadingSkeleton } from "./ProjectCardSkeleton";
+import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 
 const tabs: TabItem[] = [
   { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
@@ -23,9 +25,15 @@ const tabs: TabItem[] = [
 
 export function ProjectsContent() {
   const [projects, setProjects] = useState<ProjectData[]>([]);
-  const [projectsLoading, setProjectsLoading] = useState(false);
+  const [projectsLoading, setProjectsLoading] = useState(true);
   const [projectsError, setProjectsError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("all");
+
+  // Deferred loading pattern:
+  // - Only show skeleton if loading takes longer than 300ms
+  // - If data arrives within 300ms, skip the skeleton entirely (no flash)
+  // - This applies to ALL loads (initial and subsequent)
+  const showSkeleton = useDelayedLoading(projectsLoading, 300);
 
   const getFilteredProjects = () => {
     if (activeTab === "all") {
@@ -62,32 +70,39 @@ export function ProjectsContent() {
     void loadProjects();
   }, []);
 
-  if (projectsLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading projects...</p>
-        </div>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    if (showSkeleton) {
+      return <ProjectCardsLoadingSkeleton />;
+    }
 
-  if (projectsError) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {projectsError}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Retry
-          </button>
+    if (projectsError) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">Error: {projectsError}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
         </div>
+      );
+    }
+
+    if (filteredProjects.length === 0) {
+      return <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />;
+    }
+
+    return (
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
+        {filteredProjects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
+        ))}
       </div>
     );
-  }
+  };
 
   return (
     <PageHeader
@@ -96,16 +111,7 @@ export function ProjectsContent() {
       description="Build real applications and games to practice your coding skills."
     >
       <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
-
-      {filteredProjects.length === 0 ? (
-        <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />
-      ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      )}
+      {renderContent()}
     </PageHeader>
   );
 }

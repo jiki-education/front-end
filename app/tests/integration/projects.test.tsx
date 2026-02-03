@@ -96,12 +96,10 @@ describe("Projects Integration", () => {
 
     render(<ProjectsPage />);
 
+    // Wait for project content to load (accounts for deferred loading pattern)
     await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "Projects" })).toBeInTheDocument();
+      expect(screen.getAllByText("Beginner Project")).toHaveLength(2); // One in hero, one in content
     });
-
-    // Check that all projects are displayed (using more specific selectors to avoid duplicates)
-    expect(screen.getAllByText("Beginner Project")).toHaveLength(2); // One in hero, one in content
     expect(screen.getAllByText("Intermediate Project")).toHaveLength(2);
     expect(screen.getAllByText("Advanced Project")).toHaveLength(2);
     expect(screen.getAllByText("Expert Project")).toHaveLength(2);

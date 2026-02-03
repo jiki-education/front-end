@@ -1,0 +1,68 @@
+.skeletonCard {
+    background: white;
+    border: 3px solid var(--color-gray-200);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    height: 380px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+}
+
+.skeletonBadge {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 80px;
+    height: 32px;
+    background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+    background-size: 200% 100%;
+    border-radius: 0 0 12px 12px;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeletonIcon {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+    background-size: 200% 100%;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    animation: shimmer 1.5s infinite;
+    animation-delay: 0.1s;
+}
+
+.skeletonTitle {
+    width: 160px;
+    height: 24px;
+    background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer 1.5s infinite;
+    animation-delay: 0.2s;
+}
+
+.skeletonProgressBar {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+    animation: shimmer 1.5s infinite;
+    animation-delay: 0.3s;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
