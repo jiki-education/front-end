@@ -46,6 +46,7 @@ next-env.d.ts
 
 # generated content (build-time generation)
 lib/content/generated/
+public/static/search/
 
 # generated icon types (build-time generation)
 components/ui-kit/icon-types.ts
