@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    border: 2px solid var(--color-gray-300);
+    border-radius: 12px;
+    background: white;
+    color: var(--color-gray-900);
+    transition: all 0.2s ease;
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-blue-500);
+        box-shadow: 0 0 0 4px var(--color-blue-500-20);
+    }
+
+    &:hover:not(:focus):not(:disabled) {
+        border-color: var(--color-blue-400);
+    }
+
+    &:disabled {
+        background: var(--color-gray-100);
+        color: var(--color-gray-400);
+        cursor: not-allowed;
+    }
+}
+
+.inputError {
+    border-color: var(--color-red-500);
+
+    &:focus {
+        border-color: var(--color-red-500);
+        box-shadow: 0 0 0 4px var(--color-red-500-20);
+    }
+}

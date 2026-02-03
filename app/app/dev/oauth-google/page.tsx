@@ -17,7 +17,7 @@ export default function GoogleOAuthTestPage() {
     error: authError,
     login,
     logout,
-    googleAuth
+    googleLogin
   } = useAuthStore();
   const [oauthError, setOauthError] = useState<string | null>(null);
 
@@ -25,7 +25,11 @@ export default function GoogleOAuthTestPage() {
   const handleGoogleLoginSuccess = async (code: string) => {
     setOauthError(null);
     try {
-      await googleAuth(code);
+      const result = await googleLogin(code);
+      // Dev page doesn't need full 2FA UI - just log the response
+      if (result.status !== "success") {
+        console.debug("2FA required:", result.status);
+      }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
       setOauthError(errorMessage);

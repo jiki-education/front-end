@@ -5,10 +5,9 @@
 
 import * as authService from "@/lib/auth/service";
 import { getApiUrl } from "@/lib/api/config";
-import type { LoginCredentials, PasswordReset, SignupData, User } from "@/types/auth";
+import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User } from "@/types/auth";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
-import toast from "react-hot-toast";
 import { create } from "zustand";
 
 interface AuthStore {
@@ -20,10 +19,11 @@ interface AuthStore {
   hasCheckedAuth: boolean;
 
   // Actions
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<LoginResponse>;
+  setup2FA: (otpCode: string) => Promise<void>;
+  verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData) => Promise<User>;
-  googleLogin: (code: string) => Promise<void>;
-  googleAuth: (code: string) => Promise<void>;
+  googleLogin: (code: string) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -45,7 +45,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   hasCheckedAuth: false,
 
   // Login action - calls Rails directly
-  login: async (credentials) => {
+  // Returns the response so caller can handle 2FA flows
+  login: async (credentials): Promise<LoginResponse> => {
     set({ isLoading: true });
     try {
       const response = await fetch(getApiUrl("/auth/login"), {
@@ -66,19 +67,92 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       }
 
       const data = await response.json();
-      if (!data.user) {
-        throw new Error("Invalid response from server");
+
+      // Handle 2FA responses - don't set user yet
+      if (data.status === "2fa_setup_required") {
+        set({ isLoading: false });
+        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
       }
 
-      get().setUser(data.user);
+      if (data.status === "2fa_required") {
+        set({ isLoading: false });
+        return { status: "2fa_required" };
+      }
+
+      // Normal login success
+      if (data.status === "success" && data.user) {
+        get().setUser(data.user);
+        return { status: "success", user: data.user };
+      }
+
+      throw new Error("Invalid response from server");
     } catch (error) {
       get().setNoUser();
       throw error;
     }
   },
 
+  // Complete 2FA setup for first-time admin users
+  setup2FA: async (otpCode: string) => {
+    set({ isLoading: true });
+    try {
+      const response = await fetch(getApiUrl("/auth/setup-2fa"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ otp_code: otpCode })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const message = errorData.error?.message || "2FA setup failed";
+        throw new ApiError(response.status, message, errorData);
+      }
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error("Invalid response from server");
+      }
+
+      get().setUser(data.user);
+    } catch (error) {
+      set({ isLoading: false });
+      throw error;
+    }
+  },
+
+  // Verify 2FA code for returning admin users
+  verify2FA: async (otpCode: string) => {
+    set({ isLoading: true });
+    try {
+      const response = await fetch(getApiUrl("/auth/verify-2fa"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ otp_code: otpCode })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const message = errorData.error?.message || "2FA verification failed";
+        throw new ApiError(response.status, message, errorData);
+      }
+
+      const data = await response.json();
+      if (!data.user) {
+        throw new Error("Invalid response from server");
+      }
+
+      get().setUser(data.user);
+    } catch (error) {
+      set({ isLoading: false });
+      throw error;
+    }
+  },
+
   // Google login action - calls Rails directly
-  googleLogin: async (code) => {
+  // Returns the response so caller can handle 2FA flows (same as login)
+  googleLogin: async (code): Promise<LoginResponse> => {
     set({ isLoading: true });
     try {
       const response = await fetch(getApiUrl("/auth/google"), {
@@ -98,33 +172,28 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       }
 
       const data = await response.json();
-      if (!data.user) {
-        throw new Error("Invalid response from server");
+
+      // Handle 2FA responses - don't set user yet
+      if (data.status === "2fa_setup_required") {
+        set({ isLoading: false });
+        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
       }
 
-      get().setUser(data.user);
+      if (data.status === "2fa_required") {
+        set({ isLoading: false });
+        return { status: "2fa_required" };
+      }
+
+      // Normal login success
+      if (data.status === "success" && data.user) {
+        get().setUser(data.user);
+        return { status: "success", user: data.user };
+      }
+
+      throw new Error("Invalid response from server");
     } catch (error) {
       get().setNoUser();
       throw error;
-    }
-  },
-
-  // Google authentication with UI feedback
-  googleAuth: async (code) => {
-    if (!code) {
-      toast.error("No authorization code received from Google");
-      return;
-    }
-    try {
-      toast.loading("Authenticating with Google...");
-      await get().googleLogin(code);
-      toast.dismiss();
-      const user = get().user;
-      toast.success(`Welcome ${user?.name || user?.email}!`);
-    } catch (error) {
-      toast.dismiss();
-      const errorMessage = error instanceof Error ? error.message : "Google authentication failed";
-      toast.error(errorMessage);
     }
   },
 

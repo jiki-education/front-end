@@ -2,33 +2,25 @@
 
 import { AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { storeReturnTo, getPostAuthRedirect, buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { useAuth } from "@/lib/auth/useAuth";
+import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import EmailIcon from "../../icons/email.svg";
 import PasswordIcon from "../../icons/password.svg";
 import styles from "./AuthForm.module.css";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { login, googleAuth, isLoading } = useAuthStore();
+  const { login, isLoading } = useAuthStore();
+  const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
-
-  const returnTo = searchParams.get("return_to");
-
-  // Store return_to in sessionStorage on mount so it persists across page navigations
-  useEffect(() => {
-    storeReturnTo(returnTo);
-  }, [returnTo]);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -59,18 +51,8 @@ export function LoginForm() {
     }
 
     try {
-      await login({ email, password });
-      const redirectTo = getPostAuthRedirect(returnTo);
-      if (redirectTo.startsWith("http")) {
-        try {
-          window.location.href = redirectTo;
-        } catch (redirectErr) {
-          console.error("Redirect failed:", redirectErr);
-          router.push("/dashboard");
-        }
-      } else {
-        router.push(redirectTo);
-      }
+      const result = await login({ email, password });
+      handleAuthResponse(result);
     } catch (err) {
       console.error("Login failed:", err);
       if (err instanceof AuthenticationError) {
@@ -87,25 +69,9 @@ export function LoginForm() {
     }
   };
 
-  const handleGoogleSuccess = (code: string) => {
-    googleAuth(code)
-      .then(() => {
-        const redirectTo = getPostAuthRedirect(returnTo);
-        if (redirectTo.startsWith("http")) {
-          try {
-            window.location.href = redirectTo;
-          } catch (redirectErr) {
-            console.error("Redirect failed:", redirectErr);
-            router.push("/dashboard");
-          }
-        } else {
-          router.push(redirectTo);
-        }
-      })
-      .catch(() => {
-        console.error("ERROR WITH GOOGLE LOGIN");
-      });
-  };
+  if (TwoFactorForm) {
+    return TwoFactorForm;
+  }
 
   return (
     <div className={styles.leftSide}>
@@ -205,6 +171,11 @@ export function LoginForm() {
                   >
                     Resend confirmation
                   </Link>
+                </div>
+              )}
+              {googleAuthError && (
+                <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                  {googleAuthError}
                 </div>
               )}
             </div>

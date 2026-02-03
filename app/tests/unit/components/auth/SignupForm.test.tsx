@@ -17,11 +17,11 @@ jest.mock("next/navigation", () => ({
 
 // Mock auth store
 const mockSignup = jest.fn();
-const mockGoogleAuth = jest.fn();
+const mockGoogleLogin = jest.fn();
 jest.mock("@/lib/auth/authStore", () => ({
   useAuthStore: () => ({
     signup: mockSignup,
-    googleAuth: mockGoogleAuth,
+    googleLogin: mockGoogleLogin,
     isLoading: false
   })
 }));
@@ -178,16 +178,16 @@ describe("SignupForm", () => {
       expect(mockRouterPush).not.toHaveBeenCalled();
     });
 
-    it("calls googleAuth for Google signup", async () => {
+    it("calls googleLogin for Google signup", async () => {
       mockSearchParamsGet.mockReturnValue(null);
-      mockGoogleAuth.mockResolvedValue({});
+      mockGoogleLogin.mockResolvedValue({ status: "success" });
 
       render(<SignupForm />);
 
       fireEvent.click(screen.getByTestId("google-auth-button"));
 
       await waitFor(() => {
-        expect(mockGoogleAuth).toHaveBeenCalledWith("mock-google-code");
+        expect(mockGoogleLogin).toHaveBeenCalledWith("mock-google-code");
       });
     });
 
