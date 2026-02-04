@@ -69,13 +69,13 @@ describe("ProjectsPage", () => {
 
     render(<ProjectsPage />);
 
+    // Wait for project content to load (accounts for deferred loading pattern)
     await waitFor(() => {
-      expect(screen.getByText("Projects")).toBeInTheDocument();
+      expect(screen.getAllByText("Project 1")).toHaveLength(2); // One in hero, one in content
     });
 
     expect(screen.getByTestId("sidebar")).toHaveTextContent("Sidebar - projects");
     expect(screen.getByText(/Build real applications and games to practice your coding skills/)).toBeInTheDocument();
-    expect(screen.getAllByText("Project 1")).toHaveLength(2); // One in hero, one in content
     expect(screen.getAllByText("Project 2")).toHaveLength(2);
   });
 

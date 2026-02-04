@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
+import { setInternalNavigationCookie } from "./lib/middleware/internal-navigation";
 import { isExternalUrl } from "./lib/routing/external-urls";
 
 // Basic authentication credentials
@@ -136,6 +137,7 @@ export function middleware(request: NextRequest) {
   //
   const response = NextResponse.next();
   setCSP(response);
+  setInternalNavigationCookie(request, response);
 
   //
   // Set cache headers for unauthenticated external URL requests

@@ -5,11 +5,18 @@ import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
+import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 export default function ConceptsListPage() {
   const { conceptsState, isLoading, error, loadConcepts } = useConcepts();
   const { searchQuery, debouncedSearchQuery, handleSearchChange, clearSearch } = useConceptsSearch(loadConcepts);
+
+  // Deferred loading pattern:
+  // - Only show skeleton if loading takes longer than 300ms
+  // - If data arrives within 300ms, skip the skeleton entirely (no flash)
+  // - This applies to ALL loads (initial and subsequent)
+  const showSkeleton = useDelayedLoading(isLoading, 300);
 
   const handlePageChange = (page: number) => {
     void loadConcepts(page, debouncedSearchQuery);
@@ -24,7 +31,7 @@ export default function ConceptsListPage() {
     <ConceptsLayout>
       <ConceptsHeader />
 
-      {showEmptyState ? (
+      {showEmptyState || isLoading ? (
         <p className={styles.conceptsDescription}>Here you can review and revisit the concepts you&apos;ve learned.</p>
       ) : (
         <ConceptsSearch
@@ -36,7 +43,7 @@ export default function ConceptsListPage() {
         />
       )}
 
-      {isLoading ? (
+      {showSkeleton ? (
         <ConceptCardsLoadingSkeleton />
       ) : error && conceptsState.concepts.length === 0 ? (
         <ErrorState error={error} onRetry={retryLoad} />
