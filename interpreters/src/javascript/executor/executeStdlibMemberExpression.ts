@@ -1,9 +1,10 @@
 import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
-import { type Executor, RuntimeError } from "../executor";
+import { type Executor, RuntimeError, type RuntimeErrorType } from "../executor";
 import type { MemberExpression } from "../expression";
 import { type JikiObject, JSString, JSStdLibFunction } from "../jsObjects";
 import type { Property, Method } from "../stdlib";
 import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../stdlib";
+import { translate } from "../translator";
 
 // Generic stdlib member resolution
 export function executeStdlibMemberExpression(
@@ -178,12 +179,9 @@ export function executeStdlibMemberExpression(
 
   function handleStdlibError(error: unknown): never {
     if (error instanceof StdlibError) {
-      throw new RuntimeError(
-        `${error.errorType}: message: ${error.message}`,
-        expression.location,
-        error.errorType as any,
-        error.context
-      );
+      // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
+      const message = translate(`error.stdlib.${error.message}`, error.context);
+      throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     throw error;
   }

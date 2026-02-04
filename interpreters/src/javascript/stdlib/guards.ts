@@ -11,14 +11,11 @@ import { StdlibError } from "./index";
  */
 export function guardExactArgs(args: JikiObject[], expected: number, functionName: string): void {
   if (args.length !== expected) {
-    throw new StdlibError(
-      "InvalidNumberOfArguments",
-      `${functionName}() takes exactly ${expected} argument${expected === 1 ? "" : "s"} (${args.length} given)`,
-      {
-        expected,
-        received: args.length,
-      }
-    );
+    throw new StdlibError("InvalidNumberOfArguments", "StdlibExactArgs", {
+      functionName,
+      expected,
+      received: args.length,
+    });
   }
 }
 
@@ -32,19 +29,21 @@ export function guardExactArgs(args: JikiObject[], expected: number, functionNam
  */
 export function guardArgRange(args: JikiObject[], min: number, max: number, functionName: string): void {
   if (args.length < min || args.length > max) {
-    let message: string;
+    let translationKey: string;
+    let context: Record<string, any>;
+
     if (min === max) {
-      message = `${functionName}() takes exactly ${min} argument${min === 1 ? "" : "s"} (${args.length} given)`;
+      translationKey = "StdlibExactArgs";
+      context = { functionName, expected: min, received: args.length };
     } else if (max === Infinity) {
-      message = `${functionName}() takes at least ${min} argument${min === 1 ? "" : "s"} (${args.length} given)`;
+      translationKey = "StdlibAtLeastArgs";
+      context = { functionName, minimum: min, received: args.length };
     } else {
-      message = `${functionName}() takes from ${min} to ${max} arguments (${args.length} given)`;
+      translationKey = "StdlibArgRange";
+      context = { functionName, min, max, received: args.length };
     }
 
-    throw new StdlibError("InvalidNumberOfArguments", message, {
-      expected: min === max ? min : `${min}-${max}`,
-      received: args.length,
-    });
+    throw new StdlibError("InvalidNumberOfArguments", translationKey, context);
   }
 }
 
@@ -109,10 +108,11 @@ export function guardArgType(
   }
 
   if (!isValid) {
-    throw new StdlibError("TypeError", `${functionName}(): ${argName} must be a ${expectedType} (got ${actualType})`, {
+    throw new StdlibError("TypeError", "StdlibArgTypeMismatch", {
+      functionName,
+      argName,
       expected: expectedType,
       received: actualType,
-      argument: argName,
     });
   }
 }
@@ -126,8 +126,9 @@ export function guardArgType(
  */
 export function guardInteger(arg: JSNumber, functionName: string, argName: string = "index"): void {
   if (!Number.isInteger(arg.value)) {
-    throw new StdlibError("TypeError", `${functionName}(): ${argName} must be an integer`, {
-      argument: argName,
+    throw new StdlibError("TypeError", "StdlibArgMustBeInteger", {
+      functionName,
+      argName,
       value: arg.value,
     });
   }

@@ -1,5 +1,5 @@
 import type { Executor } from "../executor";
-import { RuntimeError } from "../executor";
+import { RuntimeError, type RuntimeErrorType } from "../executor";
 import type { CallExpression } from "../expression";
 import type { EvaluationResult, EvaluationResultCallExpression } from "../evaluation-result";
 import { createJSObject, JSStdLibFunction, JSUndefined } from "../jikiObjects";
@@ -9,6 +9,7 @@ import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from 
 import { LogicError } from "../error";
 import { Environment } from "../environment";
 import { StdlibError } from "../stdlib";
+import { translate } from "../translator";
 
 export function executeCallExpression(executor: Executor, expression: CallExpression): EvaluationResultCallExpression {
   // Evaluate the callee
@@ -186,14 +187,11 @@ function executeStdLibFunction(
       args: argResults,
     };
   } catch (error) {
-    // Convert StdlibError to RuntimeError
+    // Convert StdlibError to RuntimeError with translated message
     if (error instanceof StdlibError) {
-      throw new RuntimeError(
-        `${error.errorType}: message: ${error.message}`,
-        expression.location,
-        error.errorType as any,
-        error.context
-      );
+      // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
+      const message = translate(`error.stdlib.${error.message}`, error.context);
+      throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     // Re-throw other errors
     throw error;

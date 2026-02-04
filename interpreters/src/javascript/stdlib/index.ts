@@ -67,7 +67,7 @@ export function createNotYetImplementedStub(methodName: string): Method {
   return {
     arity: [0, 999], // Accept any reasonable number of arguments (999 is a practical upper limit)
     call: (_ctx: ExecutionContext, _obj: JikiObject, _args: JikiObject[]) => {
-      throw new StdlibError("MethodNotYetImplemented", `The method '${methodName}' is not yet implemented`, {
+      throw new StdlibError("MethodNotYetImplemented", "MethodNotYetImplemented", {
         method: methodName,
       });
     },
