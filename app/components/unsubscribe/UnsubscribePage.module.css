@@ -1,0 +1,180 @@
+/* Page background */
+.pageBackground {
+    background:
+        linear-gradient(180deg, rgba(241, 245, 249, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%),
+        linear-gradient(90deg, #cbd5e1 1px, transparent 1px), linear-gradient(180deg, #cbd5e1 1px, transparent 1px);
+    background-size:
+        100% 100%,
+        14px 14px,
+        14px 14px;
+    min-height: 100vh;
+}
+
+/* Shared page title styles */
+.pageTitle {
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 8px;
+}
+
+/* Shared page subtitle styles */
+.pageSubtitle {
+    font-size: 18px;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+}
+
+/* Page wrapper with left-aligned content */
+.pageWrapper {
+    max-width: 660px;
+    padding: 40px;
+}
+
+/* Page header */
+.pageHeader {
+    margin-bottom: 51px;
+}
+
+/* Content layout - stacked sections */
+.contentLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Section cards */
+.sectionCard {
+    padding: 32px;
+    background: white;
+    border: 2px solid var(--color-gray-200);
+    border-radius: 16px;
+
+    h2 {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--color-gray-900);
+        margin-bottom: 8px;
+    }
+
+    > p {
+        font-size: 16px;
+        color: var(--color-gray-500);
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+}
+
+/* Email type highlight */
+.emailTypeHighlight {
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
+
+/* Button with icon */
+.actionButton {
+    svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+}
+
+/* Shared inline message icon styles */
+.inlineMessageIcon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* Shared inline message base styles */
+.inlineMessage {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+}
+
+/* Inline success message (replaces button to avoid layout shift) */
+.inlineSuccessMessage {
+    composes: inlineMessage;
+    border-color: var(--color-green-300);
+    background: var(--color-green-50);
+    color: var(--color-green-600);
+}
+
+/* Inline error message (replaces button to avoid layout shift) */
+.inlineErrorMessage {
+    composes: inlineMessage;
+    border-color: var(--color-red-300);
+    background: var(--color-red-50);
+    color: var(--color-red-600);
+}
+
+/* Notification items list */
+.notificationList {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Notification item row */
+.notificationItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    &:first-child {
+        padding-bottom: 20px;
+    }
+
+    &:not(:first-child) {
+        padding: 20px 0;
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid var(--color-gray-200);
+    }
+}
+
+/* Notification info text */
+.notificationInfo {
+    flex: 1;
+
+    h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-gray-700);
+        margin-bottom: 4px;
+    }
+
+    p {
+        font-size: 14px;
+        color: var(--color-gray-500);
+        line-height: 1.4;
+        margin: 0;
+    }
+}
+
+/* Loading state */
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+/* Button row for form submission */
+.buttonRow {
+    margin-top: 24px;
+}

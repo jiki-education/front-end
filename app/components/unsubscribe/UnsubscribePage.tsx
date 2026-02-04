@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
 import { useAuthStore } from "@/lib/auth/authStore";
-import {
-  getEmailPreferences,
-  updateEmailPreference,
-  unsubscribeAll,
-  subscribeAll,
-  type EmailPreferences
-} from "@/lib/api/emailPreferences";
-import NotificationsTab from "@/components/settings/tabs/NotificationsTab";
+import type { EmailPreferences } from "@/lib/api/emailPreferences";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import UnsubscribeFromEmailSection from "./UnsubscribeFromEmailSection";
+import UnsubscribeFromAllSection from "./UnsubscribeFromAllSection";
+import ManageNotificationsSection from "./ManageNotificationsSection";
+import { useEmailPreferences } from "./useEmailPreferences";
+import styles from "./UnsubscribePage.module.css";
 
 interface UnsubscribePageProps {
   token: string;
@@ -18,142 +17,64 @@ interface UnsubscribePageProps {
 
 export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProps) {
   const { isAuthenticated } = useAuthStore();
-  const [preferences, setPreferences] = useState<EmailPreferences | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [actionLoading, setActionLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchPreferences() {
-      try {
-        const prefs = await getEmailPreferences(token);
-        setPreferences(prefs);
-      } catch {
-        setError("Unable to load your email preferences. The link may be invalid or expired.");
-      } finally {
-        setLoading(false);
-      }
-    }
-    void fetchPreferences();
-  }, [token]);
-
-  const handleUpdatePreference = async (key: string, value: boolean) => {
-    setActionLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const updatedPrefs = await updateEmailPreference(token, key, value);
-      setPreferences(updatedPrefs);
-      setSuccessMessage(
-        value
-          ? `You've been resubscribed to ${formatKeyName(key)}.`
-          : `You've been unsubscribed from ${formatKeyName(key)}.`
-      );
-    } catch {
-      setError("Failed to update your preferences. Please try again.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
-
-  const handleUnsubscribeAll = async () => {
-    setActionLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const updatedPrefs = await unsubscribeAll(token);
-      setPreferences(updatedPrefs);
-      setSuccessMessage("You've been unsubscribed from all emails.");
-    } catch {
-      setError("Failed to update your preferences. Please try again.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
-
-  const handleSubscribeAll = async () => {
-    setActionLoading(true);
-    setError(null);
-    setSuccessMessage(null);
-    try {
-      const updatedPrefs = await subscribeAll(token);
-      setPreferences(updatedPrefs);
-      setSuccessMessage("You've been resubscribed to all emails.");
-    } catch {
-      setError("Failed to update your preferences. Please try again.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
+  const {
+    preferences,
+    loading,
+    loadError,
+    actionStates,
+    handleUpdatePreference,
+    handleSavePreferences,
+    handleUnsubscribeAll
+  } = useEmailPreferences(token);
 
   if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error && !preferences) {
     return (
-      <div>
-        <h1>Email Preferences</h1>
-        <p>{error}</p>
+      <div className={styles.loadingContainer}>
+        <LoadingSpinner size="lg" />
       </div>
     );
   }
 
-  const allUnsubscribed =
-    preferences &&
-    !preferences.newsletters &&
-    !preferences.event_emails &&
-    !preferences.milestone_emails &&
-    !preferences.activity_emails;
+  if (loadError && !preferences) {
+    notFound();
+  }
+
   const currentKeyValue = emailKey && preferences ? preferences[emailKey as keyof EmailPreferences] : null;
 
   return (
-    <div>
-      <h1>Email Preferences</h1>
-      <p>Manage which emails you receive from Jiki.</p>
+    <div className={styles.pageWrapper}>
+      <header className={styles.pageHeader}>
+        <h1 className={styles.pageTitle}>Email Preferences</h1>
+        <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
+      </header>
 
-      {successMessage && <p>{successMessage}</p>}
-      {error && <p>{error}</p>}
-
-      <div>
+      <div className={styles.contentLayout}>
         {emailKey && preferences && (
-          <button onClick={() => handleUpdatePreference(emailKey, !currentKeyValue)} disabled={actionLoading}>
-            {actionLoading
-              ? "Processing..."
-              : currentKeyValue
-                ? `Unsubscribe from ${formatKeyName(emailKey)}`
-                : `Resubscribe to ${formatKeyName(emailKey)}`}
-          </button>
+          <UnsubscribeFromEmailSection
+            emailKey={emailKey}
+            isSubscribed={currentKeyValue ?? false}
+            loading={actionStates.emailKey === "loading"}
+            success={actionStates.emailKey === "success"}
+            error={actionStates.emailKey === "error"}
+            onUnsubscribe={() => handleUpdatePreference(emailKey as keyof EmailPreferences, false)}
+          />
         )}
 
-        <button onClick={allUnsubscribed ? handleSubscribeAll : handleUnsubscribeAll} disabled={actionLoading}>
-          {actionLoading
-            ? "Processing..."
-            : allUnsubscribed
-              ? "Resubscribe to all emails"
-              : "Unsubscribe from all emails"}
-        </button>
-      </div>
+        <UnsubscribeFromAllSection
+          loading={actionStates.all === "loading"}
+          success={actionStates.all === "success"}
+          error={actionStates.all === "error"}
+          onUnsubscribe={handleUnsubscribeAll}
+        />
 
-      {isAuthenticated && (
-        <>
-          <hr />
-          <h2>Detailed Preferences</h2>
-          <p>Fine-tune your email preferences below.</p>
-          <NotificationsTab />
-        </>
-      )}
+        {isAuthenticated && preferences && (
+          <ManageNotificationsSection
+            preferences={preferences}
+            loading={actionStates.preferences === "loading"}
+            onSave={handleSavePreferences}
+          />
+        )}
+      </div>
     </div>
   );
-}
-
-function formatKeyName(key: string): string {
-  const names: Record<string, string> = {
-    newsletters: "newsletters",
-    event_emails: "event emails",
-    milestone_emails: "milestone emails",
-    activity_emails: "activity emails"
-  };
-  return names[key] || key;
 }

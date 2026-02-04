@@ -33,6 +33,19 @@ export async function updateEmailPreference(token: string, key: string, value: b
   return response.data.preferences;
 }
 
+export async function updateEmailPreferences(
+  token: string,
+  preferences: Partial<EmailPreferences>
+): Promise<EmailPreferences> {
+  const response = await api.patch<EmailPreferencesResponse>(
+    `/external/email_preferences/${token}`,
+    preferences,
+    undefined,
+    false
+  );
+  return response.data.preferences;
+}
+
 export async function unsubscribeAll(token: string): Promise<EmailPreferences> {
   const response = await api.post<EmailPreferencesResponse>(
     `/external/email_preferences/${token}/unsubscribe_all`,
