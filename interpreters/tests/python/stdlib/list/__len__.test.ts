@@ -57,7 +57,7 @@ length = lst.__len__(42)
 
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("InvalidNumberOfArguments");
     });
   });
 });

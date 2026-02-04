@@ -1,9 +1,10 @@
 import type { EvaluationResultExpression, EvaluationResultAttributeExpression } from "../evaluation-result";
-import type { Executor } from "../executor";
+import { type Executor, RuntimeError } from "../executor";
 import type { AttributeExpression } from "../expression";
 import { type JikiObject, PyString, PyStdLibFunction } from "../jikiObjects";
 import type { Property, Method } from "../stdlib";
 import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../stdlib";
+import { translate } from "../translator";
 
 // Generic stdlib member resolution
 export function executeStdlibAttributeExpression(
@@ -148,7 +149,9 @@ export function executeStdlibAttributeExpression(
 
   function handleStdlibError(error: unknown): never {
     if (error instanceof StdlibError) {
-      executor.error(error.errorType, expression.location, error.context || { message: error.message });
+      // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
+      const message = translate(`error.stdlib.${error.message}`, error.context);
+      throw new RuntimeError(message, expression.location, error.errorType, error.context);
     }
     throw error;
   }

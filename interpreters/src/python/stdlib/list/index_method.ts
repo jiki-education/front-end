@@ -8,7 +8,7 @@ import { guardArgRange, guardArgType } from "../guards";
 // Named 'index_method' to avoid conflict with index.ts aggregator file
 export const index: Method = {
   arity: [1, 3], // value required, start and end optional
-  call: (_ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
+  call: (_ctx: ExecutionContext, obj: JikiObject | null, args: JikiObject[]) => {
     const list = obj as PyList;
 
     // Validate argument count (1-3 arguments)

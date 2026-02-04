@@ -7,7 +7,7 @@ import { guardNoArgs } from "../guards";
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const __len__: Method = {
   arity: 0,
-  call: (_ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
+  call: (_ctx: ExecutionContext, obj: JikiObject | null, args: JikiObject[]) => {
     const list = obj as PyList;
 
     // Validate no arguments

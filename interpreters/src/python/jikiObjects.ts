@@ -2,6 +2,7 @@
 import { JikiObject } from "../shared/jikiObject";
 export { JikiObject } from "../shared/jikiObject";
 export { PyStdLibFunction } from "./jikiObjects/PyStdLibFunction";
+export { PyBuiltinModule } from "./jikiObjects/PyBuiltinModule";
 
 export class PyNumber extends JikiObject {
   constructor(public readonly _value: number) {
