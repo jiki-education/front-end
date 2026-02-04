@@ -69,6 +69,7 @@ import { executeBreakStatement, BreakFlowControlError } from "./executor/execute
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
 import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
+import { mathMethods } from "./stdlib/math";
 import { extractCallExpressions } from "./assertion-helpers";
 
 // Execution context for JavaScript stdlib
@@ -167,6 +168,20 @@ export class Executor {
     }
     const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
     this.environment.define("console", consoleObject, Location.unknown);
+
+    // Register Math builtin object
+    const mathFunctions = new Map<string, JSStdLibFunction>();
+    for (const [name, method] of Object.entries(mathMethods)) {
+      const func = new JSStdLibFunction(
+        name,
+        method.arity,
+        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+        method.description
+      );
+      mathFunctions.set(name, func);
+    }
+    const mathObject = new JSBuiltinObject("Math", mathFunctions);
+    this.environment.define("Math", mathObject, Location.unknown);
 
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
