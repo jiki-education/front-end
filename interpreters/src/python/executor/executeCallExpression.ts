@@ -1,4 +1,5 @@
 import type { Executor } from "../executor";
+import { RuntimeError } from "../executor";
 import type { CallExpression } from "../expression";
 import type { EvaluationResultExpression, EvaluationResultCallExpression } from "../evaluation-result";
 import { createPyObject, PyStdLibFunction, PyNone } from "../jikiObjects";
@@ -8,6 +9,7 @@ import { isCallable, type PyCallable, PyUserDefinedFunction, ReturnValue } from 
 import { LogicError } from "../error";
 import { Environment } from "../environment";
 import { StdlibError } from "../stdlib";
+import { translate } from "../translator";
 
 export function executeCallExpression(executor: Executor, expression: CallExpression): EvaluationResultCallExpression {
   // Evaluate the callee
@@ -182,9 +184,11 @@ function executeStdLibFunction(
       args: argResults,
     };
   } catch (error) {
-    // Convert StdlibError to RuntimeError
+    // Convert StdlibError to RuntimeError with translated message
     if (error instanceof StdlibError) {
-      executor.error(error.errorType, expression.location, error.context || { message: error.message });
+      // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
+      const message = translate(`error.stdlib.${error.message}`, error.context);
+      throw new RuntimeError(message, expression.location, error.errorType, error.context);
     }
     // Re-throw other errors
     throw error;

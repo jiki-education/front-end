@@ -41,7 +41,8 @@ import type { PythonFrame } from "./frameDescribers";
 import { describeFrame } from "./frameDescribers";
 import { PyCallable, ReturnValue } from "./functions";
 import { builtinFunctions } from "./stdlib";
-import { PyStdLibFunction, unwrapPyObject } from "./jikiObjects";
+import { randomMethods } from "./stdlib/random";
+import { PyStdLibFunction, PyBuiltinModule, unwrapPyObject } from "./jikiObjects";
 
 // Import individual executors
 import { executeLiteralExpression } from "./executor/executeLiteralExpression";
@@ -154,6 +155,19 @@ export class Executor {
       );
       this.environment.define(name, builtinFunc);
     }
+
+    // Register the random module
+    const randomMethodMap = new Map<string, PyStdLibFunction>();
+    for (const [name, method] of Object.entries(randomMethods)) {
+      const methodFunc = new PyStdLibFunction(
+        name,
+        method.arity,
+        (_ctx: any, _thisObj: any, args: any[]) => method.call(this.getExecutionContext(), null, args),
+        method.description
+      );
+      randomMethodMap.set(name, methodFunc);
+    }
+    this.environment.define("random", new PyBuiltinModule("random", randomMethodMap));
 
     // Register external functions as PyCallable objects in the environment
     if (context.externalFunctions) {

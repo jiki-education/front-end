@@ -58,6 +58,15 @@
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",
       "DisabledFeatureIncludeListViolation": "IncludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}"
+    },
+    "stdlib": {
+      "StdlibExactArgs": "InvalidNumberOfArguments: functionName: {{functionName}}: expected: {{expected}}: received: {{received}}",
+      "StdlibAtLeastArgs": "InvalidNumberOfArguments: functionName: {{functionName}}: minimum: {{minimum}}: received: {{received}}",
+      "StdlibArgRange": "InvalidNumberOfArguments: functionName: {{functionName}}: min: {{min}}: max: {{max}}: received: {{received}}",
+      "StdlibArgTypeMismatch": "TypeError: functionName: {{functionName}}: argName: {{argName}}: expected: {{expected}}: received: {{received}}",
+      "StdlibArgMustBeInteger": "TypeError: functionName: {{functionName}}: argName: {{argName}}: value: {{value}}",
+      "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
+      "StdlibRandintMinGreaterThanMax": "ValueError: min: {{min}}: max: {{max}}"
     }
   }
 }

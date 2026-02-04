@@ -11,14 +11,11 @@ import { StdlibError } from "./index";
  */
 export function guardExactArgs(args: JikiObject[], expected: number, functionName: string): void {
   if (args.length !== expected) {
-    throw new StdlibError(
-      "TypeError",
-      `${functionName}() takes exactly ${expected} argument${expected === 1 ? "" : "s"} (${args.length} given)`,
-      {
-        expected,
-        received: args.length,
-      }
-    );
+    throw new StdlibError("InvalidNumberOfArguments", "StdlibExactArgs", {
+      functionName,
+      expected,
+      received: args.length,
+    });
   }
 }
 
@@ -32,21 +29,21 @@ export function guardExactArgs(args: JikiObject[], expected: number, functionNam
  */
 export function guardArgRange(args: JikiObject[], min: number, max: number, functionName: string): void {
   if (args.length < min || args.length > max) {
-    let message: string;
+    let translationKey: string;
+    let context: Record<string, any>;
+
     if (min === max) {
-      message = `${functionName}() takes exactly ${min} argument${min === 1 ? "" : "s"} (${args.length} given)`;
+      translationKey = "StdlibExactArgs";
+      context = { functionName, expected: min, received: args.length };
     } else if (max === Infinity) {
-      message = `${functionName}() takes at least ${min} argument${min === 1 ? "" : "s"} (${args.length} given)`;
-    } else if (min === 0) {
-      message = `${functionName}() takes at most ${max} argument${max === 1 ? "" : "s"} (${args.length} given)`;
+      translationKey = "StdlibAtLeastArgs";
+      context = { functionName, minimum: min, received: args.length };
     } else {
-      message = `${functionName}() takes from ${min} to ${max} positional arguments but ${args.length} were given`;
+      translationKey = "StdlibArgRange";
+      context = { functionName, min, max, received: args.length };
     }
 
-    throw new StdlibError("TypeError", message, {
-      expected: min === max ? min : `${min}-${max}`,
-      received: args.length,
-    });
+    throw new StdlibError("InvalidNumberOfArguments", translationKey, context);
   }
 }
 
@@ -58,7 +55,8 @@ export function guardArgRange(args: JikiObject[], min: number, max: number, func
  */
 export function guardNoArgs(args: JikiObject[], functionName: string): void {
   if (args.length !== 0) {
-    throw new StdlibError("TypeError", `${functionName}() takes no arguments (${args.length} given)`, {
+    throw new StdlibError("InvalidNumberOfArguments", "StdlibExactArgs", {
+      functionName,
       expected: 0,
       received: args.length,
     });
@@ -117,17 +115,12 @@ export function guardArgType(
   }
 
   if (!isValid) {
-    // Python-style error messages
-    const article = expectedType === "int" ? "an" : "a";
-    throw new StdlibError(
-      "TypeError",
-      `'${actualType}' object cannot be interpreted as ${article} ${expectedType === "number" ? "integer" : expectedType}`,
-      {
-        expected: expectedType,
-        received: actualType,
-        argument: argName,
-      }
-    );
+    throw new StdlibError("TypeError", "StdlibArgTypeMismatch", {
+      functionName,
+      argName,
+      expected: expectedType,
+      received: actualType,
+    });
   }
 }
 
@@ -140,8 +133,9 @@ export function guardArgType(
  */
 export function guardInteger(arg: PyNumber, functionName: string, argName: string = "argument"): void {
   if (!Number.isInteger(arg.value)) {
-    throw new StdlibError("TypeError", `'float' object cannot be interpreted as an integer`, {
-      argument: argName,
+    throw new StdlibError("TypeError", "StdlibArgMustBeInteger", {
+      functionName,
+      argName,
       value: arg.value,
     });
   }

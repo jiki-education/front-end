@@ -6,7 +6,7 @@ import { guardNoArgs } from "../guards";
 
 export const lower: Method = {
   arity: 0,
-  call: (_ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => {
+  call: (_ctx: ExecutionContext, obj: JikiObject | null, args: JikiObject[]) => {
     const str = obj as PyString;
 
     // Validate no arguments

@@ -2,8 +2,10 @@ import type { Executor } from "../executor";
 import type { AttributeExpression } from "../expression";
 import type { EvaluationResultAttributeExpression } from "../evaluation-result";
 import type { PyList } from "../jikiObjects";
+import type { PyBuiltinModule } from "../jikiObjects/PyBuiltinModule";
 import { executeStdlibAttributeExpression } from "./executeStdlibAttributeExpression";
 import { executeListAttributeExpression } from "./executeListAttributeExpression";
+import { executeBuiltinModuleAttributeExpression } from "./executeBuiltinModuleAttributeExpression";
 
 // Main entry point - dispatches to type-specific handlers
 export function executeAttributeExpression(
@@ -18,6 +20,9 @@ export function executeAttributeExpression(
   switch (object.type) {
     case "list":
       return executeListAttributeExpression(executor, expression, objectResult, object as PyList);
+
+    case "builtin-module":
+      return executeBuiltinModuleAttributeExpression(executor, expression, objectResult, object as PyBuiltinModule);
 
     // Future: dictionary, string, etc.
     // case "dictionary":

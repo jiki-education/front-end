@@ -14,7 +14,7 @@ export interface Property {
 
 export interface Method {
   arity: number | [number, number]; // exact or [min, max]
-  call: (ctx: ExecutionContext, obj: JikiObject, args: JikiObject[]) => JikiObject;
+  call: (ctx: ExecutionContext, obj: JikiObject | null, args: JikiObject[]) => JikiObject;
   description: string;
   isStub?: boolean; // Marks methods that are not yet implemented
 }
@@ -67,8 +67,8 @@ export class StdlibError extends Error {
 export function createNotYetImplementedStub(methodName: string): Method {
   return {
     arity: [0, 999], // Accept any reasonable number of arguments (999 is a practical upper limit)
-    call: (_ctx: ExecutionContext, _obj: JikiObject, _args: JikiObject[]) => {
-      throw new StdlibError("MethodNotYetImplemented", `The method '${methodName}' is not yet implemented`, {
+    call: (_ctx: ExecutionContext, _obj: JikiObject | null, _args: JikiObject[]) => {
+      throw new StdlibError("MethodNotYetImplemented", "MethodNotYetImplemented", {
         method: methodName,
       });
     },
