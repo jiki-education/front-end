@@ -105,7 +105,8 @@ export type RuntimeErrorType =
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
   | "MaxIterationsReached"
-  | "NonJikiObjectDetectedInExecution";
+  | "NonJikiObjectDetectedInExecution"
+  | "ValueError";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";

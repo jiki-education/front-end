@@ -70,6 +70,44 @@ describe("Math.randomInt()", () => {
   });
 });
 
+describe("Math.randomInt() error handling", () => {
+  it("throws TypeError for non-number first argument", () => {
+    const result = interpret(`Math.randomInt("a", 10);`);
+    expect(result.success).toBe(false);
+    expect(result.frames).toHaveLength(1);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.type).toBe("TypeError");
+  });
+
+  it("throws TypeError for non-number second argument", () => {
+    const result = interpret(`Math.randomInt(1, true);`);
+    expect(result.success).toBe(false);
+    expect(result.frames).toHaveLength(1);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.type).toBe("TypeError");
+  });
+
+  it("throws ValueError when min > max", () => {
+    const result = interpret(`Math.randomInt(10, 1);`);
+    expect(result.success).toBe(false);
+    expect(result.frames).toHaveLength(1);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.type).toBe("ValueError");
+  });
+
+  it("truncates float arguments to integers", () => {
+    // 1.9 truncates to 1, 3.1 truncates to 3, so range is [1, 3]
+    for (let i = 0; i < 50; i++) {
+      const result = interpret(`let x = Math.randomInt(1.9, 3.1);`);
+      expect(result.success).toBe(true);
+      const x = (result.frames[0] as any).variables.x.value;
+      expect(x).toBeGreaterThanOrEqual(1);
+      expect(x).toBeLessThanOrEqual(3);
+      expect(Number.isInteger(x)).toBe(true);
+    }
+  });
+});
+
 describe("Math object", () => {
   it("throws error for non-existent methods", () => {
     const result = interpret(`Math.notAMethod();`);

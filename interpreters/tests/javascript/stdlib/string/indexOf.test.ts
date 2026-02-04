@@ -168,7 +168,8 @@ describe("String.indexOf() method", () => {
     const errorFrame = result.frames.find(f => f.status === "ERROR");
     expect(errorFrame).toBeDefined();
     expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("TypeError");
-    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("searchString must be a string");
+    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("argName: searchString");
+    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("expected: string");
   });
 
   test("gives runtime error for non-number position", () => {
@@ -181,7 +182,8 @@ describe("String.indexOf() method", () => {
     const errorFrame = result.frames.find(f => f.status === "ERROR");
     expect(errorFrame).toBeDefined();
     expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("TypeError");
-    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("position must be a number");
+    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("argName: position");
+    expect((errorFrame as TestAugmentedFrame)?.error?.message).toContain("expected: number");
   });
 
   test("gives runtime error for too many arguments", () => {
