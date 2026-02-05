@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
 import NotificationItem, { type NotificationConfig } from "./NotificationItem";
 import CheckCircleIcon from "@/icons/check-circle.svg";
@@ -38,6 +38,10 @@ interface ManageNotificationsSectionProps {
 export default function ManageNotificationsSection({ preferences, loading, onSave }: ManageNotificationsSectionProps) {
   const [localPreferences, setLocalPreferences] = useState<EmailPreferences>(preferences);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    setLocalPreferences(preferences);
+  }, [preferences]);
 
   const handleToggle = (key: keyof EmailPreferences) => {
     setLocalPreferences((prev) => ({ ...prev, [key]: !prev[key] }));
