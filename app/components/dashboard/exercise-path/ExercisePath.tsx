@@ -6,12 +6,11 @@ import { useLessonNavigation } from "./hooks/useLessonNavigation";
 import { useMilestoneHandler } from "./hooks/useMilestoneHandler";
 import { useLevels } from "./hooks/useLevels";
 import { useLessonCompletionAnimation } from "./hooks/useLessonCompletionAnimation";
-import { useAutoScrollToActiveLesson } from "./hooks/useAutoScrollToActiveLesson";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { LevelSection } from "./ui/LevelSection";
 import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function ExercisePath() {
   const { levelSections, setLevels, levelsLoading } = useLevels();
@@ -20,8 +19,16 @@ export default function ExercisePath() {
   const { handleMilestoneClick, levelCompletionInProgress } = useMilestoneHandler(setLevels);
   const { animationState, triggerCompletionAnimation, recentlyUnlockedLessons } = useLessonCompletionAnimation();
 
-  // Auto-scroll to active lesson on initial load
-  useAutoScrollToActiveLesson(levelSections, levelsLoading);
+  const activeLessonSlug = useMemo(() => {
+    for (const section of levelSections) {
+      for (const lesson of section.lessons) {
+        if (!lesson.completed && !lesson.locked) {
+          return lesson.lesson.slug;
+        }
+      }
+    }
+    return null;
+  }, [levelSections]);
 
   // Listen for lesson completion events from URL params or other sources
   useEffect(() => {
@@ -67,6 +74,7 @@ export default function ExercisePath() {
           onMilestoneClick={handleMilestoneClick}
           animationState={animationState}
           recentlyUnlockedLessons={recentlyUnlockedLessons}
+          activeLessonSlug={activeLessonSlug}
         />
       ))}
     </div>

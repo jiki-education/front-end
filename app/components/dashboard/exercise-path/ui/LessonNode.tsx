@@ -3,7 +3,7 @@ import QuizIcon from "@static/icons/quiz.svg";
 import VideoIcon from "@static/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
-import { forwardRef } from "react";
+import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
 import styles from "../ExercisePath.module.css";
@@ -14,13 +14,18 @@ interface LessonNodeProps {
   onClick?: (e: React.MouseEvent) => void;
   animationState?: AnimationState;
   isRecentlyUnlocked?: boolean;
+  isActiveLesson?: boolean;
 }
 
-export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function LessonNode(
-  { lesson, onClick, animationState, isRecentlyUnlocked },
-  ref
-) {
-  const isInProgress = !lesson.completed && !lesson.locked;
+export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked, isActiveLesson }: LessonNodeProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isActiveLesson && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isActiveLesson]);
+
   const handleClick = (e: React.MouseEvent) => {
     if (lesson.locked) {
       e.stopPropagation();
@@ -68,12 +73,7 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
   };
 
   return (
-    <div
-      ref={ref}
-      className={getClassName()}
-      onClick={handleClick}
-      data-active-lesson={isInProgress ? lesson.lesson.slug : undefined}
-    >
+    <div ref={ref} className={getClassName()} onClick={handleClick}>
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
@@ -117,7 +117,7 @@ export const LessonNode = forwardRef<HTMLDivElement, LessonNodeProps>(function L
       </div>
     </div>
   );
-});
+}
 
 function ChooseLanguageIcon() {
   return (

@@ -123,6 +123,9 @@ importers:
       next:
         specifier: 15.5.9
         version: 15.5.9(@babel/core@7.28.6)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      qrcode.react:
+        specifier: ^4.2.0
+        version: 4.2.0(react@19.2.3)
       range-analyzer:
         specifier: 0.1.1-alpha.2
         version: 0.1.1-alpha.2

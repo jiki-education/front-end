@@ -12,6 +12,7 @@ interface LevelSectionProps {
   onMilestoneClick: (section: LevelSectionData) => void;
   animationState?: AnimationState;
   recentlyUnlockedLessons?: Set<string>;
+  activeLessonSlug?: string | null;
 }
 
 export function LevelSection({
@@ -22,7 +23,8 @@ export function LevelSection({
   _onLessonNavigation,
   onMilestoneClick,
   animationState,
-  recentlyUnlockedLessons
+  recentlyUnlockedLessons,
+  activeLessonSlug
 }: LevelSectionProps) {
   if (section.lessons.length === 0) {
     return null;
@@ -37,6 +39,7 @@ export function LevelSection({
           onClick={(_e) => onLessonClick(lesson.lesson.slug, lesson.route)}
           animationState={animationState}
           isRecentlyUnlocked={recentlyUnlockedLessons?.has(lesson.lesson.slug) || false}
+          isActiveLesson={lesson.lesson.slug === activeLessonSlug}
         />
       ))}
 
