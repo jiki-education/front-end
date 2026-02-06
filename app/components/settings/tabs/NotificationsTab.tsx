@@ -26,7 +26,7 @@ const NOTIFICATION_CONFIGS: NotificationSetting[] = [
     id: "features",
     title: "Emails about new features or content",
     description: "Stay updated with the latest features and content added to Jiki.",
-    apiSlug: "product_updates"
+    apiSlug: "newsletters"
   },
   {
     id: "livestreams",
@@ -65,7 +65,7 @@ export default function NotificationsTab() {
 
     // Get current value from settings
     const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      product_updates: "receive_product_updates",
+      newsletters: "receive_newsletters",
       event_emails: "receive_event_emails",
       milestone_emails: "receive_milestone_emails",
       activity_emails: "receive_activity_emails"
@@ -96,7 +96,7 @@ export default function NotificationsTab() {
     }
 
     const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      product_updates: "receive_product_updates",
+      newsletters: "receive_newsletters",
       event_emails: "receive_event_emails",
       milestone_emails: "receive_milestone_emails",
       activity_emails: "receive_activity_emails"
