@@ -39,7 +39,11 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
     whileElementsMounted: autoUpdate
   });
 
-  const { isMounted } = useTransitionStyles(context);
+  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
+    duration: 150,
+    initial: { opacity: 0, transform: "translateX(-4px)" },
+    open: { opacity: 1, transform: "translateX(0)" }
+  });
 
   const hover = useHover(context, { delay: { open: 0, close: 150 } });
   const click = useClick(context);
@@ -77,26 +81,32 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
 
       <FloatingPortal>
         {isMounted && (
-          <div ref={refs.setFloating} style={floatingStyles} className={styles.dropdownMenu} {...getFloatingProps()}>
-            <FloatingArrow
-              ref={arrowRef}
-              context={context}
-              fill="var(--color-surface-elevated)"
-              width={16}
-              height={8}
-            />
-            <button onClick={() => handleNavigation("/help")} className={styles.dropdownItem}>
-              Help Center
-            </button>
-            <button onClick={() => handleNavigation("/forum")} className={styles.dropdownItem}>
-              Forum
-            </button>
-            <button onClick={() => handleNavigation("/blog")} className={styles.dropdownItem}>
-              Blog
-            </button>
-            <button onClick={handleLogout} className={styles.dropdownItem}>
-              Log Out
-            </button>
+          <div
+            ref={refs.setFloating}
+            style={{ ...floatingStyles, zIndex: "var(--z-index-nav-popover)" }}
+            {...getFloatingProps()}
+          >
+            <div style={transitionStyles} className={styles.dropdownMenu}>
+              <FloatingArrow
+                ref={arrowRef}
+                context={context}
+                fill="var(--color-surface-elevated)"
+                width={16}
+                height={8}
+              />
+              <button onClick={() => handleNavigation("/help")} className={styles.dropdownItem}>
+                Help Center
+              </button>
+              <button onClick={() => handleNavigation("/forum")} className={styles.dropdownItem}>
+                Forum
+              </button>
+              <button onClick={() => handleNavigation("/blog")} className={styles.dropdownItem}>
+                Blog
+              </button>
+              <button onClick={handleLogout} className={styles.dropdownItem}>
+                Log Out
+              </button>
+            </div>
           </div>
         )}
       </FloatingPortal>

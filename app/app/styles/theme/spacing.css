@@ -32,6 +32,8 @@
     --z-index-popover: 60;
     --z-index-tooltip: 80;
     --z-index-tooltip-content: 81;
+    --z-index-nav: 100;
+    --z-index-nav-popover: 110;
     --z-index-modal-backdrop: 1000;
     --z-index-modal: 1001;
     --z-index-spotlight-backdrop: 1100;
