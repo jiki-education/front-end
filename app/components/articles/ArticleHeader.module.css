@@ -6,22 +6,10 @@
     background-size: auto, cover;
     padding: 60px 150px;
     margin-bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
 }
 
 .articleHeaderContent {
-    max-width: 600px;
-    order: -1;
-}
-
-.articleHeaderImage {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 16px;
-    background-color: var(--color-gray-200);
+    max-width: 100%;
 }
 
 .articleTitle {
@@ -68,13 +56,7 @@
 
 @media (max-width: 1024px) {
     .articleHeader {
-        grid-template-columns: 1fr;
         padding: 48px 40px;
-        gap: 32px;
-    }
-
-    .articleHeaderContent {
-        order: 0;
     }
 
     .articleTitle {
