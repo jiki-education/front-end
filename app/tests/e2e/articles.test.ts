@@ -22,14 +22,14 @@ test.describe("Articles Page E2E", () => {
   });
 
   test("should display articles", async ({ page }) => {
-    // Check for at least one article (h2 titles)
-    const articleTitles = await page.locator("h2").count();
+    // Check for at least one article (h4 titles)
+    const articleTitles = await page.locator("h4").count();
     expect(articleTitles).toBeGreaterThan(0);
   });
 
   test("should display the first article with title and excerpt", async ({ page }) => {
     // Check first article has title
-    const firstArticleTitle = await page.locator("h2").first().textContent();
+    const firstArticleTitle = await page.locator("h4").first().textContent();
     expect(firstArticleTitle).toBeTruthy();
 
     // Check first article has excerpt
