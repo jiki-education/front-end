@@ -29,3 +29,19 @@
     top: 24px;
     align-self: start;
 }
+
+@media (max-width: 1024px) {
+    .contentWrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 20px;
+    }
+
+    .contentWrapperFull {
+        padding: 40px 20px;
+    }
+
+    .rightPanel {
+        position: static;
+    }
+}

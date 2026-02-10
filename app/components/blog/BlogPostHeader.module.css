@@ -14,6 +14,7 @@
 
 .articleHeaderContent {
     max-width: 600px;
+    order: -1;
 }
 
 .articleHeaderImage {
@@ -63,4 +64,39 @@
 .metaIcon svg {
     width: 100%;
     height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .articleHeader {
+        grid-template-columns: 1fr;
+        padding: 48px 40px;
+        gap: 32px;
+    }
+
+    .articleHeaderContent {
+        order: 0;
+    }
+
+    .articleTitle {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .articleHeader {
+        padding: 32px 20px;
+    }
+
+    .articleTitle {
+        font-size: 28px;
+    }
+
+    .articleSubtitle {
+        font-size: 16px;
+    }
+
+    .articleMeta {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }

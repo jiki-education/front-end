@@ -343,3 +343,34 @@
         font-size: var(--text-18);
     }
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ui-textual-content {
+        padding: var(--spacing-32) var(--spacing-20) 0 var(--spacing-20);
+    }
+
+    .ui-textual-content-large {
+        font-size: var(--text-17);
+
+        h2 {
+            font-size: var(--text-28);
+        }
+
+        h3 {
+            font-size: var(--text-22);
+        }
+    }
+
+    .ui-textual-content-base {
+        font-size: var(--text-16);
+
+        h2 {
+            font-size: var(--text-24);
+        }
+
+        h3 {
+            font-size: var(--text-20);
+        }
+    }
+}

@@ -14,6 +14,7 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
 
   return (
     <header className={styles.articleHeader}>
+      <div className={styles.articleHeaderImage} />
       <div className={styles.articleHeaderContent}>
         <h1 className={styles.articleTitle}>{post.title}</h1>
         <p className={styles.articleSubtitle}>{post.excerpt}</p>
@@ -38,7 +39,6 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
           </div>
         </div>
       </div>
-      <div className={styles.articleHeaderImage} />
     </header>
   );
 }

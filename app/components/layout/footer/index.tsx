@@ -18,9 +18,9 @@ export default function Footer() {
       </div>
 
       {/* Footer content */}
-      <div className="max-w-[1200px] mx-auto px-40 pt-32 pb-0 flex justify-center gap-80 mb-40">
+      <div className="max-w-[1200px] mx-auto px-20 md:px-40 pt-32 pb-0 grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-center gap-y-32 gap-x-20 md:gap-x-40 lg:gap-80 mb-40">
         {/* Jiki Logo */}
-        <div className="flex flex-col items-start gap-8 -mt-12">
+        <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col items-start gap-8 lg:-mt-12">
           <div className="text-32 font-bold text-white tracking-4">JIKI</div>
           <div className="w-60 h-4 bg-gradient-to-r from-[#667eea] to-[#764ba2] rounded-3"></div>
         </div>
@@ -158,7 +158,7 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="max-w-[1200px] mx-auto px-40 pt-20 border-t border-[#2d3748] flex justify-center items-center">
+      <div className="max-w-[1200px] mx-auto px-20 md:px-40 pt-20 border-t border-[#2d3748] flex justify-center items-center">
         <div className="text-sm text-[#718096]">&copy; {currentYear} Jiki</div>
       </div>
     </footer>
