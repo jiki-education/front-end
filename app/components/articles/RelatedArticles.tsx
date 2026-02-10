@@ -1,5 +1,6 @@
 import type { ProcessedArticle } from "@/lib/content/generated/types";
 import ArticleCard from "./ArticleCard";
+import styles from "./RelatedArticles.module.css";
 
 interface RelatedArticlesProps {
   articles: ProcessedArticle[];
@@ -13,8 +14,8 @@ export default function RelatedArticles({ articles, locale }: RelatedArticlesPro
 
   return (
     <div>
-      <h2>Related Articles</h2>
-      <div>
+      <h3 className={styles.relatedArticlesTitle}>Related Articles</h3>
+      <div className={styles.relatedArticlesSection}>
         {articles.map((article) => (
           <ArticleCard key={article.slug} article={article} locale={locale} />
         ))}
