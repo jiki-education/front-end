@@ -184,11 +184,12 @@ jobs:
       - name: Configure local.jiki.io DNS
         run: echo "127.0.0.1 local.jiki.io" | sudo tee -a /etc/hosts
 
-      - name: Run Playwright E2E tests
+      - name: Run Playwright E2E tests (excluding auth)
         working-directory: app
         run: pnpm test:e2e
         env:
           CI: true
+          EXCLUDE_AUTH_TESTS: true
 
       - name: Upload Playwright report on failure
         if: failure()

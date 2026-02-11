@@ -1,0 +1,60 @@
+name: App E2E Auth Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  e2e-auth-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate content
+        working-directory: app
+        run: pnpm run content:generate
+
+      - name: Generate icon types
+        working-directory: app
+        run: pnpm run icons:generate
+
+      - name: Install Playwright browsers
+        working-directory: app
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Configure local.jiki.io DNS
+        run: echo "127.0.0.1 local.jiki.io" | sudo tee -a /etc/hosts
+
+      - name: Run auth E2E tests
+        working-directory: app
+        run: pnpm exec playwright test auth
+        env:
+          CI: true
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-auth
+          path: app/playwright-report/
+          retention-days: 7
