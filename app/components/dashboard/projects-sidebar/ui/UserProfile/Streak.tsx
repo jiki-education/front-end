@@ -1,5 +1,5 @@
 import type { UserProfileData } from "../UserProfile";
-import { StreakTooltip } from "./StreakTooltip";
+import Tooltip from "@/components/ui/Tooltip";
 import style from "./Streak.module.css";
 
 export function Streak({ profile }: { profile: UserProfileData }) {
@@ -31,11 +31,11 @@ export function Streak({ profile }: { profile: UserProfileData }) {
   }
 
   return (
-    <StreakTooltip content={tooltipText}>
+    <Tooltip content={tooltipText} variant="dark" arrow>
       <div className={`${style.streak} ${variantClass}`}>
         <span className={style.streakIcon}>{emoji}</span>
         <span className={style.streakNumber}>{count}</span>
       </div>
-    </StreakTooltip>
+    </Tooltip>
   );
 }

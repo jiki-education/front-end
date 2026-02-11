@@ -1,0 +1,31 @@
+.default {
+    z-index: var(--z-index-tooltip);
+    padding: 6px 8px;
+    font-size: 12px;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border-primary);
+    color: var(--color-text-primary);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 20rem;
+}
+
+.dark {
+    z-index: var(--z-index-tooltip);
+    background: var(--color-gray-800);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.arrow {
+    fill: var(--color-surface-elevated);
+}
+
+.arrowDark {
+    fill: var(--color-gray-800);
+}

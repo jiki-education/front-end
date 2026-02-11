@@ -1,7 +1,7 @@
 "use client";
 
 import type { ProgrammingLanguage } from "@/types/course";
-import { ConfirmTooltip } from "./ConfirmTooltip";
+import Tooltip from "@/components/ui/Tooltip";
 import styles from "../ChooseLanguage.module.css";
 
 type LanguageOption = ProgrammingLanguage | "random";
@@ -54,7 +54,7 @@ export function ButtonRow({
         <span>Back to video</span>
       </button>
 
-      <ConfirmTooltip disabled={!!selectedLanguage}>
+      <Tooltip content="Select one of the options to proceed." variant="dark" arrow disabled={!!selectedLanguage}>
         <span className={styles.tooltipWrapper}>
           <button
             className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${!selectedLanguage || isSubmitting ? "ui-btn-disabled" : ""}`}
@@ -69,7 +69,7 @@ export function ButtonRow({
             )}
           </button>
         </span>
-      </ConfirmTooltip>
+      </Tooltip>
     </div>
   );
 }

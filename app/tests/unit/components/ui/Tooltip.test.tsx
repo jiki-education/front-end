@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Tooltip from "@/components/ui/Tooltip";
+import styles from "@/components/ui/Tooltip.module.css";
 
 describe("Tooltip", () => {
   it("renders children without tooltip initially", () => {
@@ -27,10 +28,8 @@ describe("Tooltip", () => {
 
     const button = screen.getByRole("button", { name: "Hover me" });
 
-    // Hover over the button
     await user.hover(button);
 
-    // Wait for tooltip to appear after delay
     await waitFor(
       () => {
         expect(screen.getByRole("tooltip")).toBeInTheDocument();
@@ -51,13 +50,11 @@ describe("Tooltip", () => {
 
     const button = screen.getByRole("button", { name: "Hover me" });
 
-    // Hover to show tooltip
     await user.hover(button);
     await waitFor(() => {
       expect(screen.getByRole("tooltip")).toBeInTheDocument();
     });
 
-    // Move mouse away to hide tooltip
     await user.unhover(button);
     await waitFor(() => {
       expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
@@ -75,11 +72,103 @@ describe("Tooltip", () => {
 
     const button = screen.getByRole("button", { name: "Hover me" });
 
-    // Hover over the button
     await user.hover(button);
 
-    // Wait and verify tooltip does not appear
     await new Promise((resolve) => setTimeout(resolve, 100));
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
+
+  it("applies default variant styles", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Tooltip content="Default tooltip" delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
+    );
+
+    await user.hover(screen.getByRole("button"));
+
+    await waitFor(() => {
+      const tooltip = screen.getByRole("tooltip");
+      const styledContent = tooltip.firstElementChild!;
+      expect(styledContent.className).toContain(styles.default);
+    });
+  });
+
+  it("applies dark variant styles", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Tooltip content="Dark tooltip" variant="dark" delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
+    );
+
+    await user.hover(screen.getByRole("button"));
+
+    await waitFor(() => {
+      const tooltip = screen.getByRole("tooltip");
+      const styledContent = tooltip.firstElementChild!;
+      expect(styledContent.className).toContain(styles.dark);
+    });
+  });
+
+  it("renders arrow when arrow prop is true", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Tooltip content="With arrow" arrow delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
+    );
+
+    await user.hover(screen.getByRole("button"));
+
+    await waitFor(() => {
+      const tooltip = screen.getByRole("tooltip");
+      expect(tooltip).toBeInTheDocument();
+      const arrow = tooltip.querySelector("svg");
+      expect(arrow).toBeInTheDocument();
+    });
+  });
+
+  it("does not render arrow when arrow prop is false", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Tooltip content="No arrow" delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
+    );
+
+    await user.hover(screen.getByRole("button"));
+
+    await waitFor(() => {
+      const tooltip = screen.getByRole("tooltip");
+      expect(tooltip).toBeInTheDocument();
+      const arrow = tooltip.querySelector("svg");
+      expect(arrow).not.toBeInTheDocument();
+    });
+  });
+
+  it("uses className override instead of variant styles", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Tooltip content="Custom" className="custom-class" delay={0}>
+        <button>Hover me</button>
+      </Tooltip>
+    );
+
+    await user.hover(screen.getByRole("button"));
+
+    await waitFor(() => {
+      const tooltip = screen.getByRole("tooltip");
+      const styledContent = tooltip.firstElementChild!;
+      expect(styledContent.className).toContain("custom-class");
+      expect(styledContent.className).not.toContain(styles.default);
+      expect(styledContent.className).not.toContain(styles.dark);
+    });
   });
 });

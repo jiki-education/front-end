@@ -1,4 +1,4 @@
-import { ContinueTooltip } from "./ContinueTooltip";
+import Tooltip from "@/components/ui/Tooltip";
 import { ProgressRing } from "./ProgressRing";
 import styles from "../VideoExercise.module.css";
 
@@ -42,7 +42,7 @@ export function FloatingPill({
       </div>
 
       <div className={styles.continueWrapper}>
-        <ContinueTooltip disabled={videoWatched}>
+        <Tooltip content="Finish watching to continue" disabled={videoWatched}>
           <button
             className={`ui-btn ui-btn-default ${
               videoWatched ? "ui-btn-primary ui-btn-green" : "ui-btn-secondary ui-btn-gray"
@@ -57,7 +57,7 @@ export function FloatingPill({
               </svg>
             )}
           </button>
-        </ContinueTooltip>
+        </Tooltip>
       </div>
     </div>
   );
