@@ -137,6 +137,12 @@ test.describe("Auto-Play Timeline E2E", () => {
     // Pause
     await page.locator('[data-ci="pause-button"]').click();
 
+    // Wait for pause to take effect
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().shouldPlayOnTestChange === false;
+    });
+
     // Verify shouldAutoPlay is false
     let shouldAutoPlay = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
