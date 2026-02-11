@@ -264,41 +264,6 @@
     margin-top: 24px;
 }
 
-/* Tooltip */
 .tooltipWrapper {
     display: inline-flex;
-}
-
-.tooltipContainer {
-    z-index: 100;
-}
-
-.tooltip {
-    background: var(--color-gray-900);
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 10px 14px;
-    border-radius: 8px;
-    white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(5px);
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease,
-        visibility 0.2s ease;
-}
-
-.tooltip.tooltipVisible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.tooltipArrow {
-    fill: var(--color-gray-900);
-    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.15));
 }

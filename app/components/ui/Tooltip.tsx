@@ -1,9 +1,11 @@
 import type { ReactElement, ReactNode } from "react";
-import { cloneElement, isValidElement, useState } from "react";
+import { cloneElement, isValidElement, useRef, useState } from "react";
 import type { Placement } from "@floating-ui/react";
 import {
   autoUpdate,
+  arrow as arrowMiddleware,
   flip,
+  FloatingArrow,
   FloatingPortal,
   offset,
   shift,
@@ -11,8 +13,10 @@ import {
   useHover,
   useInteractions,
   useRole,
-  useDismiss
+  useDismiss,
+  useTransitionStyles
 } from "@floating-ui/react";
+import styles from "./Tooltip.module.css";
 
 interface TooltipProps {
   children: ReactElement;
@@ -23,6 +27,8 @@ interface TooltipProps {
   disabled?: boolean;
   className?: string;
   disableFlip?: boolean;
+  variant?: "default" | "dark";
+  arrow?: boolean;
 }
 
 export default function Tooltip({
@@ -30,12 +36,15 @@ export default function Tooltip({
   content,
   placement = "top",
   offset: offsetValue = 8,
-  delay = 200,
+  delay = 0,
   disabled = false,
   className,
-  disableFlip = false
+  disableFlip = false,
+  variant = "default",
+  arrow = false
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const arrowRef = useRef(null);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
@@ -51,7 +60,8 @@ export default function Tooltip({
               fallbackAxisSideDirection: "start"
             })
           ]),
-      shift({ padding: 5 })
+      shift({ padding: 5 }),
+      ...(arrow ? [arrowMiddleware({ element: arrowRef })] : [])
     ]
   });
 
@@ -68,6 +78,15 @@ export default function Tooltip({
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, role, dismiss]);
 
+  const slideTransform = getSlideTransform(context.placement);
+
+  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
+    duration: 150,
+    initial: { opacity: 0, transform: slideTransform },
+    open: { opacity: 1, transform: "translate(0, 0)" },
+    close: { opacity: 0, transform: slideTransform }
+  });
+
   if (!isValidElement(children)) {
     return null;
   }
@@ -77,25 +96,41 @@ export default function Tooltip({
     ...getReferenceProps()
   } as any);
 
+  const tooltipClassName = className ?? (variant === "dark" ? styles.dark : styles.default);
+  const arrowClassName = variant === "dark" ? styles.arrowDark : styles.arrow;
+
   return (
     <>
       {childrenWithRef}
-      {isOpen && !disabled && (
+      {isMounted && !disabled && (
         <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            style={floatingStyles}
-            {...getFloatingProps()}
-            className={
-              className ??
-              "z-resizer px-2 py-1.5 text-xs bg-surface-elevated border border-border-primary text-text-primary rounded-md shadow-lg max-w-xs"
-            }
-            role="tooltip"
-          >
-            {content}
+          <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
+            <div style={transitionStyles} className={tooltipClassName}>
+              {arrow && (
+                <FloatingArrow ref={arrowRef} context={context} className={arrowClassName} width={12} height={6} />
+              )}
+              {content}
+            </div>
           </div>
         </FloatingPortal>
       )}
     </>
   );
+}
+
+function getSlideTransform(placement: Placement): string {
+  const side = placement.split("-")[0];
+
+  switch (side) {
+    case "top":
+      return "translateY(4px)";
+    case "bottom":
+      return "translateY(-4px)";
+    case "left":
+      return "translateX(4px)";
+    case "right":
+      return "translateX(-4px)";
+    default:
+      return "translateY(4px)";
+  }
 }
