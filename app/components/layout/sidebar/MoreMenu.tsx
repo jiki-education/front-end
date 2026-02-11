@@ -103,6 +103,9 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
               <button onClick={() => handleNavigation("/blog")} className={styles.dropdownItem}>
                 Blog
               </button>
+              <button onClick={() => handleNavigation("/articles")} className={styles.dropdownItem}>
+                Articles
+              </button>
               <button onClick={handleLogout} className={styles.dropdownItem}>
                 Log Out
               </button>
