@@ -2,148 +2,179 @@
 
 ## Goal
 
-Align this repository with the curriculum defined in the planning repository at `/Users/iHiD/Code/jiki/scripts/curriculum.md`. That file is the source of truth for what levels and exercises should exist. The aim is to ensure:
+Align this repository with:
 
-1. All levels from the curriculum exist here with correct language features
-2. All exercises exist, work, and are assigned to their correct levels
-3. All tests pass
+1. **The curriculum plan** at `/Users/iHiD/Code/jiki/scripts/curriculum.md` — source of truth for what levels and exercises should exist
+2. **The API seed data** at `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json` — defines the level/lesson structure the app uses, with exercise slugs that must match exactly
+3. **The API projects seed** at `/Users/iHiD/Code/jiki/api/db/seeds/projects.json` — defines capstone projects
 
-## Reference
+The aim is to ensure:
 
-The curriculum planning file (`/Users/iHiD/Code/jiki/scripts/curriculum.md`) defines:
-
-- Each **h3 heading** is a level
-- Each **exercise** listed under a level belongs to that level
-- Exercises marked with a file path in `exercises/` have reference implementations in `/Users/iHiD/Code/jiki/scripts/exercises/`
+- All levels from the curriculum exist here with correct language features
+- All exercises exist, work, and are assigned to their correct levels
+- Exercise slugs match exactly between this repo and the API seed data
+- The API seed data includes all levels and exercises from the curriculum plan
+- All tests pass
 
 ## Available Skills
 
 You can use these slash commands to do the work:
 
-- **`/add-level [description]`** — Add a new level to the curriculum. Reads existing levels, discusses with the user, creates the level file and registers it.
-- **`/add-exercise [description or path]`** — Add a new exercise. Explores base classes, discusses with the user, creates all 11 required files and registers the exercise.
-- **`/migrate-exercise [exercise-slug]`** — Migrate an exercise from the Bootcamp format (in `/Users/iHiD/Code/exercism/website/bootcamp_content`). Copies existing content with minimal changes, creates all files and registrations.
+- **`/add-level [description]`** — Add a new level. Reads existing levels, discusses with the user, creates the level file and registers it.
+- **`/add-exercise [description or path]`** — Add a new exercise. Explores base classes, discusses with the user, creates all 11 required files and registers it.
+- **`/migrate-exercise [exercise-slug]`** — Migrate an exercise from Bootcamp (in `/Users/iHiD/Code/exercism/website/bootcamp_content`). Copies existing content with minimal changes.
 
-Use `/migrate-exercise` when the exercise already exists in the Bootcamp. Use `/add-exercise` when creating something new or when the reference is in the planning repo rather than the Bootcamp.
+Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exercise` when creating something new or when the reference is in the planning repo.
 
 ## Current State
 
-### Levels We Have
+### Levels
 
-| Level File           | Level ID          | Notes                                                                |
-| -------------------- | ----------------- | -------------------------------------------------------------------- |
-| `using-functions.ts` | `using-functions` | Matches curriculum                                                   |
-| `fundamentals.ts`    | `fundamentals`    | Does not map to a curriculum level — may need renaming/restructuring |
-| `variables.ts`       | `variables`       | Matches curriculum                                                   |
-| `everything.ts`      | `everything`      | Catch-all, not a real curriculum level                               |
+| #   | Curriculum Level             | Front-end Level File                     | API Seed Slug        | Status                                  |
+| --- | ---------------------------- | ---------------------------------------- | -------------------- | --------------------------------------- |
+| 1   | Using Functions              | `using-functions.ts` + `fundamentals.ts` | `using-functions`    | Merge fundamentals into using-functions |
+| 2   | Strings + Colors             | —                                        | `strings-and-colors` | MISSING in front-end                    |
+| 3   | Loops (Repeat Loop)          | —                                        | `repeat-loop`        | MISSING in front-end                    |
+| 4   | Variables                    | `variables.ts`                           | `variables`          | EXISTS                                  |
+| 5   | Basic State                  | —                                        | `basic-state`        | MISSING in front-end                    |
+| 6   | Functions that return things | —                                        | —                    | MISSING everywhere                      |
+| 7   | Conditionals                 | —                                        | —                    | MISSING everywhere                      |
+| 8   | Conditionals and state       | —                                        | —                    | MISSING everywhere                      |
+| —   | (catch-all)                  | `everything.ts`                          | —                    | Keep as testing/fallback level          |
 
-### Levels We Need (from curriculum.md)
+**Action: Rename `fundamentals` to `using-functions`** (merge its features into using-functions, then delete fundamentals.ts).
 
-1. **Using Functions** — exists
-2. **Strings + Colors** — MISSING
-3. **Loops** — MISSING
-4. **Variables** — exists
-5. **Basic State** — MISSING
-6. **Functions that return things** — MISSING
-7. **Conditionals** — MISSING
-8. **Conditionals and state** — MISSING
+### Exercise Slug Mismatches (API vs Front-end)
 
-### Exercises We Have
+These exercises exist in both but with different slugs — **must be reconciled**:
 
-These exercises exist and are implemented:
+| API Seed Slug     | Front-end Slug | Action Needed |
+| ----------------- | -------------- | ------------- |
+| `fix-the-wall`    | `fix-wall`     | Align slugs   |
+| `finish-the-wall` | `finish-wall`  | Align slugs   |
 
-| Exercise           | Current levelId | Curriculum Level                      |
-| ------------------ | --------------- | ------------------------------------- |
-| `maze-solve-basic` | everything      | Using Functions                       |
-| `fix-wall`         | everything      | Using Functions                       |
-| `penguin`          | everything      | Strings + Colors                      |
-| `jumbled-house`    | everything      | Strings + Colors                      |
-| `structured-house` | everything      | Variables                             |
-| `finish-wall`      | everything      | Basic State                           |
-| `rainbow`          | everything      | Basic State                           |
-| `sunset`           | everything      | Basic State                           |
-| `sprouting-flower` | everything      | Basic State (project)                 |
-| `scroll-and-shoot` | everything      | Conditionals / Conditionals and state |
-| `build-wall`       | everything      | Conditionals and state                |
+### Exercises in API Seed — Status in Front-end
 
-These exercises exist but are in the "Unused" section of curriculum.md (not yet placed in main path):
+**Using Functions level:**
+
+| API Slug                     | Front-end          | Status                                                      |
+| ---------------------------- | ------------------ | ----------------------------------------------------------- |
+| `maze-solve-basic`           | `maze-solve-basic` | EXISTS                                                      |
+| `space-invaders-solve-basic` | —                  | MISSING — new exercise (simple move+shoot, no conditionals) |
+| `fix-the-wall`               | `fix-wall`         | EXISTS (slug mismatch)                                      |
+| `sunshine`                   | —                  | MISSING — new draw exercise (circles)                       |
+
+**Strings and Colors level:**
+
+| API Slug        | Front-end       | Status                           |
+| --------------- | --------------- | -------------------------------- |
+| `foxy-face`     | —               | MISSING — has bootcamp reference |
+| `sun-and-rain`  | —               | MISSING — has bootcamp reference |
+| `jumbled-house` | `jumbled-house` | EXISTS                           |
+| `penguin`       | `penguin`       | EXISTS                           |
+
+**Repeat Loop level:**
+
+| API Slug                 | Front-end | Status                                                                   |
+| ------------------------ | --------- | ------------------------------------------------------------------------ |
+| `golf-rolling-ball-loop` | —         | MISSING — new exercise variant                                           |
+| `space-invaders-loop`    | —         | MISSING — new exercise variant (repeat loop version of scroll-and-shoot) |
+
+**Variables level:**
+
+| API Slug                   | Front-end          | Status                           |
+| -------------------------- | ------------------ | -------------------------------- |
+| `cloud-rain-sun-variables` | —                  | MISSING — has bootcamp reference |
+| `structured-house`         | `structured-house` | EXISTS                           |
+| `maze-variables`           | —                  | MISSING — has bootcamp reference |
+
+**Basic State level:**
+
+| API Slug            | Front-end     | Status                           |
+| ------------------- | ------------- | -------------------------------- |
+| `finish-the-wall`   | `finish-wall` | EXISTS (slug mismatch)           |
+| `golf-rolling-ball` | —             | MISSING — has bootcamp reference |
+| `rainbow`           | `rainbow`     | EXISTS                           |
+| `sunset`            | `sunset`      | EXISTS                           |
+
+**Projects:**
+
+| API Slug           | Front-end          | Status |
+| ------------------ | ------------------ | ------ |
+| `sprouting-flower` | `sprouting-flower` | EXISTS |
+
+### Exercises in Curriculum Plan but NOT in API Seed (levels 6-8)
+
+These are from levels that don't exist in the API yet. They need both front-end exercises AND API seed entries:
+
+**Functions that return things:** Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
+
+**Conditionals:** Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
+
+**Conditionals and state:** Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
+
+### Existing Exercises Not Yet in Curriculum Path
+
+These exist in the front-end but are in the "Unused" section of curriculum.md:
 
 `two-fer`, `driving-test`, `guest-list`, `hamming`, `rna-transcription`, `reverse-string`, `acronym`, `meal-prep`, `chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `pangram`, `scrabble-score`, `protein-translation`, `anagram`
 
-### Exercises We Need (from curriculum.md main path, not yet implemented)
+## Exercise Variants
 
-**Using Functions:**
+Some exercises appear at multiple levels with different complexity. These are **separate exercises with different slugs**, not the same exercise. For example:
 
-- Space Invaders (move, shoot) — new visual exercise
-- Sunshine — new visual exercise (circle drawing)
+- `space-invaders-solve-basic` (Using Functions) — just move + shoot, no loops
+- `space-invaders-loop` (Repeat Loop) — use repeat loop to be efficient
+- `scroll-and-shoot` (Conditionals) — full version with if/else, direction tracking
 
-**Strings + Colors:**
+- `golf-rolling-ball-loop` (Repeat Loop) — repeat-based ball movement
+- `golf-rolling-ball` (Basic State) — state-tracking ball movement
 
-- Foxy Face — has bootcamp reference
-- Cloud, Rain and Sun — has bootcamp reference
-
-**Loops:**
-
-- Golf Rolling Ball Loop — has bootcamp reference
-- Move() 5 times — needs design
-- Space Invaders Scroll and Shoot (repeat loop version) — variant of existing
-
-**Variables:**
-
-- Foxy Face (Use Variables) — has bootcamp reference
-- Traffic Light — has bootcamp reference
-- Maze with Variables — has bootcamp reference
-- Cloud, Rain and Sun (Variables) — has bootcamp reference
-- Traffic Light (Arithmetic) — has bootcamp reference
-
-**Basic State:**
-
-- Plant the Flowers — has bootcamp reference
-- Rolling Ball — has bootcamp reference
-
-**Functions that return things:**
-
-- Rainbow Splodges — has bootcamp reference
-- Plant the Flowers (Scenarios) — has bootcamp reference
-- Shot Checker — has bootcamp reference
-- Skyscraper — has bootcamp reference
-
-**Conditionals:**
-
-- Positive/negative/zero — has bootcamp reference
-- Digital Clock — has bootcamp reference
-- Leap Year — has bootcamp reference
-- Shot Checker (ball drop) — has bootcamp reference
-- Rock Paper Scissors — has bootcamp reference
-- Solve the maze (programmatic) — has bootcamp reference
-
-**Conditionals and state:**
-
-- Rainbow Ball — has bootcamp reference
+Each variant uses the same base class but has different scenarios, restrictions, and learning goals.
 
 ## Approach
 
-### Phase 1: Levels
+### Phase 1: Fix Foundations
 
-Add missing levels in order using `/add-level`. Each level should be inserted in the correct position in the `levels` array in `src/levels/index.ts`. The `everything` level should always remain last.
+1. **Merge `fundamentals` into `using-functions`**: Move stdlib functions and any unique features from `fundamentals.ts` into `using-functions.ts`, delete `fundamentals.ts`, update `src/levels/index.ts`
+2. **Fix slug mismatches**: Decide whether to rename in front-end or API, then align
+
+### Phase 2: Add Missing Levels (front-end)
+
+Add levels in order using `/add-level`. Each level inserted in correct position in `src/levels/index.ts`. The `everything` level stays last.
+
+1. `strings-and-colors`
+2. `repeat-loop`
+3. (variables already exists)
+4. `basic-state`
+5. `functions-that-return-things`
+6. `conditionals`
+7. `conditionals-and-state`
 
 After adding levels, update existing exercises to use their correct `levelId` in `metadata.json`.
 
-### Phase 2: Exercises with Bootcamp References
+### Phase 3: Add Missing Exercises (front-end)
 
-For exercises that have reference implementations in the Bootcamp, use `/migrate-exercise`.
+For exercises that have bootcamp references, use `/migrate-exercise`.
+For new exercises (variants, new concepts), use `/add-exercise`.
 
-### Phase 3: New Exercises
+Priority order: match the API seed data first (levels 1-5), then curriculum plan extras (levels 6-8).
 
-For exercises that don't have Bootcamp references, use `/add-exercise` with context from the planning repo's reference files.
+### Phase 4: Update API Seed Data
 
-### Phase 4: Level Assignment
+Once front-end exercises are ready for levels 6-8:
 
-Ensure every exercise's `metadata.json` has the correct `levelId` matching its position in the curriculum.
+1. Add new levels to `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`
+2. Add exercise lessons under each level
+3. Add any new projects to `/Users/iHiD/Code/jiki/api/db/seeds/projects.json`
+
+Ensure all exercise `data.slug` values match front-end exercise slugs exactly.
 
 ### Phase 5: Verification
 
 - `pnpm typecheck` — all types pass
 - `pnpm test` — all tests pass
 - `pnpm lint` — clean
+- Cross-reference: every exercise `data.slug` in API seed exists in `src/exercises/index.ts`
+- Cross-reference: every exercise in `src/exercises/` has correct `levelId`
 - Cross-reference against curriculum.md to confirm nothing is missing
