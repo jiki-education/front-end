@@ -48,8 +48,32 @@ Nothing yet
 
 - `maze-solve-basic` - Basic manual maze solving using only move() turn_left() turn_right()
 - `space-invaders-solve-basic` - Basic Space Invaders using sequential move() and shoot() calls
+- `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level, slug mismatch with API: fix-the-wall)
+- `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
+- `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
 
 ### Unimplemented
+
+## API Alignment Issues
+
+Changes needed in `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`:
+
+### Slug Fixes
+
+- [ ] Rename `fix-the-wall` → `fix-wall` in API seed
+- [ ] Rename `finish-the-wall` → `finish-wall` in API seed
+
+### Missing Levels
+
+- [ ] Add `functions-that-return-things` level to API seed
+- [ ] Add `conditionals` level to API seed
+- [ ] Add `conditionals-and-state` level to API seed
+
+### Missing Exercises (levels 6-8)
+
+- [ ] Add exercises for **Functions that return things**: Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
+- [ ] Add exercises for **Conditionals**: Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
+- [ ] Add exercises for **Conditionals and state**: Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
 
 ## Current State
 
@@ -86,14 +110,14 @@ These exercises exist in both but with different slugs — **must be reconciled*
 | ---------------------------- | ------------------ | ----------------------------------------------------------- |
 | `maze-solve-basic`           | `maze-solve-basic` | EXISTS                                                      |
 | `space-invaders-solve-basic` | —                  | MISSING — new exercise (simple move+shoot, no conditionals) |
-| `fix-the-wall`               | `fix-wall`         | EXISTS (slug mismatch)                                      |
-| `sunshine`                   | —                  | MISSING — new draw exercise (circles)                       |
+| `fix-the-wall`               | `fix-wall`         | IMPLEMENTED (slug mismatch)                                 |
+| `sunshine`                   | `sunshine`         | IMPLEMENTED                                                 |
 
 **Strings and Colors level:**
 
 | API Slug        | Front-end       | Status                           |
 | --------------- | --------------- | -------------------------------- |
-| `foxy-face`     | —               | MISSING — has bootcamp reference |
+| `foxy-face`     | `foxy-face`     | IMPLEMENTED                      |
 | `sun-and-rain`  | —               | MISSING — has bootcamp reference |
 | `jumbled-house` | `jumbled-house` | EXISTS                           |
 | `penguin`       | `penguin`       | EXISTS                           |

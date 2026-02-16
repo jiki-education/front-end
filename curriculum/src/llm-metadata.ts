@@ -38,6 +38,8 @@ import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
 import { llmMetadata as rnaTranscriptionLLM } from "./exercises/rna-transcription/llm-metadata";
 import { llmMetadata as scrabbleScoreLLM } from "./exercises/scrabble-score/llm-metadata";
 import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
+import { llmMetadata as sunshineLLM } from "./exercises/sunshine/llm-metadata";
+import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -78,7 +80,9 @@ const llmMetadataRegistry = {
   rainbow: rainbowLLM,
   "rna-transcription": rnaTranscriptionLLM,
   "scrabble-score": scrabbleScoreLLM,
-  "two-fer": twoFerLLM
+  "two-fer": twoFerLLM,
+  sunshine: sunshineLLM,
+  "foxy-face": foxyFaceLLM
 } as const;
 
 /**

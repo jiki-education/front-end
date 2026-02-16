@@ -31,7 +31,9 @@ export const exercises = {
   rainbow: () => import("./rainbow"),
   "rna-transcription": () => import("./rna-transcription"),
   "scrabble-score": () => import("./scrabble-score"),
-  "two-fer": () => import("./two-fer")
+  "two-fer": () => import("./two-fer"),
+  sunshine: () => import("./sunshine"),
+  "foxy-face": () => import("./foxy-face")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
