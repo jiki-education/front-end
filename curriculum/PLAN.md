@@ -1,340 +1,149 @@
-# Migration Plan: Sprouting Flower Exercise with DrawExercise Base Class
+# Curriculum Completion Plan
 
-## Current Branch: `migrate-sprouting-flower`
+## Goal
 
-## Summary of Work Completed
+Align this repository with the curriculum defined in the planning repository at `/Users/iHiD/Code/jiki/scripts/curriculum.md`. That file is the source of truth for what levels and exercises should exist. The aim is to ensure:
 
-### ✅ Phase 1: DrawExercise Infrastructure (Mostly Complete)
+1. All levels from the curriculum exist here with correct language features
+2. All exercises exist, work, and are assigned to their correct levels
+3. All tests pass
 
-**Completed:**
+## Reference
 
-1. ✅ Created `src/exercises/DrawExercise/` directory structure
-2. ✅ Copied helper files from bootcamp (exact copies):
-   - `shapes.ts` (243 lines) - Shape classes, SVG rendering functions
-   - `utils.ts` (18 lines) - Coordinate conversion (rToA/aToR)
-   - `retrievers.ts` (117 lines) - Shape retrieval functions
-3. ✅ Adapted `checks.ts` (73 lines):
-   - Removed bootcamp-specific imports
-   - Removed `assertAllArgumentsAreVariables` (now in interpreter)
-   - Kept validation functions: `checkCanvasCoverage`, `checkUniqueColoredRectangles`, etc.
-4. ✅ Copied and adapted `DrawExercise.ts` (609 lines):
-   - ✅ Changed imports: `@/interpreter/*` → `@jiki/interpreters`
-   - ✅ Changed class: `extends Exercise` → `extends VisualExercise`
-   - ✅ Changed constructor pattern to match VisualExercise
-   - ✅ Added `populateView()` method
-   - ✅ Updated ALL drawing methods to use `Shared.*` types and `isNumber()` type guards
-   - ✅ Replaced all `instanceof Shared.Number` with `isNumber()` calls (all 10 methods updated)
-   - ✅ Commented out `random_number` function (requires language-specific constructor)
-   - ⚠️ **HAS TYPE ERRORS**: See issues below
+The curriculum planning file (`/Users/iHiD/Code/jiki/scripts/curriculum.md`) defines:
 
-**Not Started:** 5. ❌ Create `src/exercises/DrawExercise/index.ts` export file
+- Each **h3 heading** is a level
+- Each **exercise** listed under a level belongs to that level
+- Exercises marked with a file path in `exercises/` have reference implementations in `/Users/iHiD/Code/jiki/scripts/exercises/`
 
-### ⚠️ Current Type Errors (from `pnpm typecheck`)
+## Available Skills
 
-**DrawExercise.ts issues:**
-
-1. **Import errors**:
-   - `InterpretResult` not exported from `@jiki/interpreters` (it's in `jikiscript.InterpretResult`)
-   - `Shared`, `isNumber`, `isString` export issues (need to verify actual export names)
-
-2. **Property initialization**:
-   - `canvas` and `tooltip` not initialized in constructor (declared in `populateView()`)
-   - Need to add `!` assertion or initialize in constructor
-
-3. **Method naming**:
-   - Line 513: `getCurrentTime()` should be `getCurrentTimeInMs()`
-
-4. **availableFunctions signature mismatch**:
-   - VisualExercise expects: `func: (ctx: ExecutionContext) => void`
-   - DrawExercise provides: `func: (ctx: ExecutionContext, ...args) => void` (with parameters)
-   - This is a fundamental design issue - drawing functions take arguments but VisualExercise doesn't support that
-
-**checks.ts issues:** 5. Parameter `requiredPercentage` has implicit `any` type (line 3)
-
-**retrievers.ts issues:** 6. Parameters `p1`, `p2` in arrow function have implicit `any` type (line 89) 7. Parameters `a`, `b`, `c` in arrow function have implicit `any` type (line 102)
-
-**Architecture Note:**
-The user refactored Exercise into VisualExercise and IOExercise. The `availableFunctions` signature mismatch suggests DrawExercise may need special handling since drawing functions require parameters.
-
-### ✅ Phase 2: Sprouting Flower Exercise Files
-
-**Created:**
-
-1. ✅ Created `src/exercises/sprouting-flower/` directory
-2. ✅ Created `metadata.json` (2211 bytes) with full instructions and hints
-
-**Empty files (not started):**
-
-- `Exercise.ts` (0 bytes)
-- `scenarios.ts` (0 bytes)
-- `llm-metadata.ts` (0 bytes)
-- `index.ts` (0 bytes)
-- `solution.jiki` (0 bytes)
-- `solution.javascript` (0 bytes)
-- `solution.py` (0 bytes)
-- `stub.jiki` (0 bytes)
-- `stub.javascript` (0 bytes)
-- `stub.py` (0 bytes)
-
----
-
-## Plan for Remaining Work
-
-### Phase 1: Fix DrawExercise.ts Type Errors
-
-**Status:** ✅ All Jiki type conversions complete, ⚠️ Has compilation errors
-
-**Remaining fixes needed:**
-
-1. **Fix imports** - Correct the import paths for `InterpretResult`, `Shared`, type guards
-2. **Fix property initialization** - Add `!` assertions for `canvas` and `tooltip`
-3. **Fix method name** - Change `getCurrentTime()` to `getCurrentTimeInMs()`
-4. **Fix availableFunctions signature** - Critical design issue:
-   - VisualExercise expects: `func: (ctx: ExecutionContext) => void`
-   - DrawExercise needs: `func: (ctx: ExecutionContext, ...args) => void`
-   - **Solution options**:
-     a. Override `availableFunctions` type in DrawExercise
-     b. Change VisualExercise to support parameterized functions
-     c. Make DrawExercise not extend VisualExercise
-5. **Add type annotations** in `checks.ts` and `retrievers.ts` for implicit `any` parameters
-
-**File to create:**
-
-- `src/exercises/DrawExercise/index.ts` - Export all public APIs
-
-### Phase 2: Create SproutingFlowerExercise
-
-**File: `src/exercises/sprouting-flower/Exercise.ts`**
-
-```typescript
-import { DrawExercise } from "../DrawExercise";
-import metadata from "./metadata.json";
-
-export default class SproutingFlowerExercise extends DrawExercise {
-  protected get slug() {
-    return metadata.slug;
-  }
-
-  // Expose drawing functions (inherited from DrawExercise)
-  availableFunctions = [
-    {
-      name: "rectangle",
-      func: this.rectangle.bind(this),
-      description: "Draw a rectangle at (x, y) with given width and height"
-    },
-    {
-      name: "circle",
-      func: this.circle.bind(this),
-      description: "Draw a circle at (x, y) with given radius"
-    },
-    {
-      name: "ellipse",
-      func: this.ellipse.bind(this),
-      description: "Draw an ellipse at (x, y) with x_radius and y_radius"
-    },
-    {
-      name: "fill_color_hex",
-      func: this.fillColorHex.bind(this),
-      description: "Set the fill color using a hex color code"
-    }
-  ];
-}
-```
-
-### Phase 3: Create Scenarios
+You can use these slash commands to do the work:
 
-**File: `src/exercises/sprouting-flower/scenarios.ts`**
+- **`/add-level [description]`** — Add a new level to the curriculum. Reads existing levels, discusses with the user, creates the level file and registers it.
+- **`/add-exercise [description or path]`** — Add a new exercise. Explores base classes, discusses with the user, creates all 11 required files and registers the exercise.
+- **`/migrate-exercise [exercise-slug]`** — Migrate an exercise from the Bootcamp format (in `/Users/iHiD/Code/exercism/website/bootcamp_content`). Copies existing content with minimal changes, creates all files and registrations.
 
-Use `VisualScenario` type with shape retrieval in expectations:
+Use `/migrate-exercise` when the exercise already exists in the Bootcamp. Use `/add-exercise` when creating something new or when the reference is in the planning repo rather than the Bootcamp.
 
-```typescript
-expectations(exercise) {
-  const ex = exercise as SproutingFlowerExercise;
-  return [
-    {
-      type: "visual" as const,
-      pass: ex.getCircleAt(null as any, 50, 89, 0.4) !== undefined,
-      actual: ex.getCircleAt(null as any, 50, 89, 0.4) ? "found" : "not found",
-      expected: "found",
-      errorHtml: "The first Flower Head isn't correct"
-    },
-    // ... 9 more shape checks
-  ];
-}
-```
+## Current State
 
-**Required validations (from bootcamp `config.json`):**
+### Levels We Have
 
-1. First Flower Head: `circle(50, 89, 0.4)`
-2. Final Flower Head: `circle(50, 30, 24)`
-3. First Pistil: `circle(50, 89, 0.1)`
-4. Final Pistil: `circle(50, 30, 6)`
-5. First Stem: `rectangle(49.95, 89, 0.1, 1)`
-6. Final Stem: `rectangle(47, 30, 6, 60)`
-7. First Left Leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`
-8. Final Left Leaf: `ellipse(35, 60, 12, 4.8)`
-9. First Right Leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`
-10. Final Right Leaf: `ellipse(65, 60, 12, 4.8)`
+| Level File           | Level ID          | Notes                                                                |
+| -------------------- | ----------------- | -------------------------------------------------------------------- |
+| `using-functions.ts` | `using-functions` | Matches curriculum                                                   |
+| `fundamentals.ts`    | `fundamentals`    | Does not map to a curriculum level — may need renaming/restructuring |
+| `variables.ts`       | `variables`       | Matches curriculum                                                   |
+| `everything.ts`      | `everything`      | Catch-all, not a real curriculum level                               |
 
-### Phase 4: Create Solutions
+### Levels We Need (from curriculum.md)
 
-**File: `src/exercises/sprouting-flower/solution.jiki`**
+1. **Using Functions** — exists
+2. **Strings + Colors** — MISSING
+3. **Loops** — MISSING
+4. **Variables** — exists
+5. **Basic State** — MISSING
+6. **Functions that return things** — MISSING
+7. **Conditionals** — MISSING
+8. **Conditionals and state** — MISSING
 
-- ⚠️ **CRITICAL**: Copy bootcamp `example.jiki` EXACTLY - do not modify
+### Exercises We Have
 
-**Files: `solution.javascript` and `solution.py`**
+These exercises exist and are implemented:
 
-- Convert using `.context/language-conversion.md`
-- Snake_case → camelCase for JS
-- Keep snake_case for Python
+| Exercise           | Current levelId | Curriculum Level                      |
+| ------------------ | --------------- | ------------------------------------- |
+| `maze-solve-basic` | everything      | Using Functions                       |
+| `fix-wall`         | everything      | Using Functions                       |
+| `penguin`          | everything      | Strings + Colors                      |
+| `jumbled-house`    | everything      | Strings + Colors                      |
+| `structured-house` | everything      | Variables                             |
+| `finish-wall`      | everything      | Basic State                           |
+| `rainbow`          | everything      | Basic State                           |
+| `sunset`           | everything      | Basic State                           |
+| `sprouting-flower` | everything      | Basic State (project)                 |
+| `scroll-and-shoot` | everything      | Conditionals / Conditionals and state |
+| `build-wall`       | everything      | Conditionals and state                |
 
-### Phase 5: Create Stubs
+These exercises exist but are in the "Unused" section of curriculum.md (not yet placed in main path):
 
-Create starter code for all 3 languages with:
+`two-fer`, `driving-test`, `guest-list`, `hamming`, `rna-transcription`, `reverse-string`, `acronym`, `meal-prep`, `chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `pangram`, `scrabble-score`, `protein-translation`, `anagram`
 
-- Initial variable setup comments
-- 60-iteration loop structure
-- Sky and ground drawing (already provided)
-- TODO comments for flower drawing
+### Exercises We Need (from curriculum.md main path, not yet implemented)
 
-### Phase 6: Create LLM Metadata
+**Using Functions:**
 
-**File: `src/exercises/sprouting-flower/llm-metadata.ts`**
+- Space Invaders (move, shoot) — new visual exercise
+- Sunshine — new visual exercise (circle drawing)
 
-Teaching guidance focusing on:
+**Strings + Colors:**
 
-- Variable relationships (everything calculated from flower center)
-- Incremental updates (flower_center_y decreases each iteration)
-- Mathematical relationships (stem_width = stem_height / 10)
-- Common mistakes (forgetting to update variables, using absolute values)
+- Foxy Face — has bootcamp reference
+- Cloud, Rain and Sun — has bootcamp reference
 
-### Phase 7: Create Exercise Index
+**Loops:**
 
-**File: `src/exercises/sprouting-flower/index.ts`**
+- Golf Rolling Ball Loop — has bootcamp reference
+- Move() 5 times — needs design
+- Space Invaders Scroll and Shoot (repeat loop version) — variant of existing
 
-- Import all solutions/stubs
-- Document drawing functions in `functions` array
-- Export `VisualExerciseDefinition`
+**Variables:**
 
-### Phase 8: Registrations
+- Foxy Face (Use Variables) — has bootcamp reference
+- Traffic Light — has bootcamp reference
+- Maze with Variables — has bootcamp reference
+- Cloud, Rain and Sun (Variables) — has bootcamp reference
+- Traffic Light (Arithmetic) — has bootcamp reference
 
-1. **Exercise registry** (`src/exercises/index.ts`):
+**Basic State:**
 
-   ```typescript
-   "sprouting-flower": () => import("./sprouting-flower")
-   ```
+- Plant the Flowers — has bootcamp reference
+- Rolling Ball — has bootcamp reference
 
-2. **LLM metadata registry** (`src/llm-metadata.ts`):
+**Functions that return things:**
 
-   ```typescript
-   import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
-   // ...
-   "sprouting-flower": sproutingFlowerLLM
-   ```
+- Rainbow Splodges — has bootcamp reference
+- Plant the Flowers (Scenarios) — has bootcamp reference
+- Shot Checker — has bootcamp reference
+- Skyscraper — has bootcamp reference
 
-3. **Drawing functions in level** (`src/levels/everything.ts`):
-   - Add to `allowedStdlibFunctions`: `rectangle`, `circle`, `ellipse`, `fill_color_hex`
+**Conditionals:**
 
-### Phase 9: Testing
+- Positive/negative/zero — has bootcamp reference
+- Digital Clock — has bootcamp reference
+- Leap Year — has bootcamp reference
+- Shot Checker (ball drop) — has bootcamp reference
+- Rock Paper Scissors — has bootcamp reference
+- Solve the maze (programmatic) — has bootcamp reference
 
-1. Run `pnpm typecheck` - must pass first
-2. Run `pnpm test` - validate all tests pass
-3. Manual testing required (visual exercise - needs frontend)
+**Conditionals and state:**
 
----
+- Rainbow Ball — has bootcamp reference
 
-## Known Issues to Resolve
+## Approach
 
-### 1. ✅ DrawExercise.ts Type Conversions - COMPLETE
+### Phase 1: Levels
 
-**Status**: All `instanceof Jiki.*` converted to `isNumber()` type guards
-**Remaining**: Compilation errors (see Phase 1 above)
+Add missing levels in order using `/add-level`. Each level should be inserted in the correct position in the `levels` array in `src/levels/index.ts`. The `everything` level should always remain last.
 
-### 2. ⚠️ availableFunctions Signature Mismatch - RESOLVED
+After adding levels, update existing exercises to use their correct `levelId` in `metadata.json`.
 
-**Problem**: Drawing functions need parameters but VisualExercise doesn't support them
+### Phase 2: Exercises with Bootcamp References
 
-**Bootcamp Solution**:
-In bootcamp, the Exercise base class uses the `ExternalFunction` type from the interpreter:
+For exercises that have reference implementations in the Bootcamp, use `/migrate-exercise`.
 
-```typescript
-// From bootcamp executor.ts
-export type ExternalFunction = {
-  name: string
-  func: Function  // Generic Function type - accepts any signature!
-  description: string
-  arity?: Arity
-}
+### Phase 3: New Exercises
 
-// From bootcamp Exercise.ts
-public availableFunctions!: ExternalFunction[]
-```
+For exercises that don't have Bootcamp references, use `/add-exercise` with context from the planning repo's reference files.
 
-The `func: Function` type is generic and accepts any function signature.
+### Phase 4: Level Assignment
 
-**Jiki Curriculum Has This Too**:
-`@jiki/interpreters` exports `ExternalFunction` from `shared/interfaces.ts`:
+Ensure every exercise's `metadata.json` has the correct `levelId` matching its position in the curriculum.
 
-```typescript
-export interface ExternalFunction {
-  name: string;
-  func: Function; // Same as bootcamp!
-  description: string;
-  arity?: Arity;
-}
-```
+### Phase 5: Verification
 
-**Solution**:
-
-- Change VisualExercise to use `ExternalFunction` type from `@jiki/interpreters`
-- This matches bootcamp's pattern and supports parameterized functions
-- DrawExercise can then use the same type
-
-### 3. ✅ Animation Methods - VERIFIED
-
-**Status**: `addAnimation()`, `animateIntoView()`, `animateOutOfView()` all exist in VisualExercise
-
-### 4. ⚠️ random_number Function - COMMENTED OUT
-
-**Status**: Commented out, not needed for sprouting-flower
-**Future**: Would need language-specific constructor (jikiscript.Number, javascript.JSNumber, python.PyNumber)
-
----
-
-## Success Criteria
-
-- [ ] DrawExercise.ts compiles with no type errors
-- [ ] All 4 DrawExercise helper files working (shapes, retrievers, checks, utils)
-- [ ] DrawExercise index.ts exports all public APIs
-- [ ] SproutingFlowerExercise extends DrawExercise correctly
-- [ ] All 11 sprouting-flower files created and non-empty
-- [ ] Solutions work in all 3 languages (Jiki, JS, Python)
-- [ ] LLM metadata registered
-- [ ] Exercise registered
-- [ ] `pnpm typecheck` passes
-- [ ] `pnpm test` passes (or shows expected behavior)
-- [ ] Ready for frontend integration testing
-
----
-
-## Estimated Remaining Work
-
-1. **Fix DrawExercise.ts compilation errors** - 30-45 minutes
-   - Fix imports (InterpretResult, Shared, type guards)
-   - Add property initialization assertions
-   - Fix getCurrentTime → getCurrentTimeInMs
-   - **CRITICAL**: Resolve availableFunctions signature (needs architecture decision)
-   - Add type annotations to checks.ts and retrievers.ts
-2. **Create DrawExercise index.ts** - 5 minutes
-3. **Create SproutingFlowerExercise** - 10 minutes
-4. **Create scenarios** - 20 minutes (10 shape validations)
-5. **Copy/convert solutions** - 30 minutes (copy Jiki, convert to JS/Python)
-6. **Create stubs** - 15 minutes
-7. **Create LLM metadata** - 15 minutes
-8. **Create exercise index** - 10 minutes
-9. **Registrations** - 10 minutes
-10. **Testing and fixes** - 30-60 minutes
-
-**Total**: ~3-4 hours remaining
-
-**Blocker**: The `availableFunctions` signature mismatch needs to be resolved before proceeding with compilation.
+- `pnpm typecheck` — all types pass
+- `pnpm test` — all tests pass
+- `pnpm lint` — clean
+- Cross-reference against curriculum.md to confirm nothing is missing
