@@ -1,5 +1,17 @@
 # Curriculum Completion Plan
 
+## How to Use This Plan
+
+This is a large, multi-step process. **Work through it one step at a time.** Don't try to do everything at once.
+
+The process has two passes:
+
+1. **Pass 1 — Scaffolding:** Get everything into the right place with the right structure. Create all levels, stub out all exercises, fix slugs, wire up registrations. The goal is for every level and exercise to exist and pass tests, even if the exercise content is placeholder. Don't get bogged down perfecting individual exercises during this pass.
+
+2. **Pass 2 — Refinement:** Go through each exercise and level one by one, refining content, polishing scenarios, improving solutions and stubs, and ensuring quality. This is where you make things good.
+
+Focus on completing each phase below before moving to the next. Commit after each meaningful unit of work.
+
 ## Goal
 
 Align this repository with:
