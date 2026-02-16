@@ -1,0 +1,7 @@
+# Create a process_game function that takes no inputs.
+# It should repeatedly guess words until it finds the target.
+#
+# Available functions:
+# - get_target_word(): Returns the secret target word
+# - common_words(): Returns a list of possible words
+# - add_word(row, word, states): Adds a word to the board

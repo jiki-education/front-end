@@ -1,0 +1,14 @@
+{
+  "slug": "wordle-solver",
+  "title": "Wordle: Solver",
+  "instructions": "Time to build a Wordle solver! You need to create a `process_game` function that takes no inputs and automatically solves the game.\n\nYou have three functions available:\n- `get_target_word()`: Returns the secret target word.\n- `common_words()`: Returns a list of 100+ possible words.\n- `add_word(row, word, states)`: Adds a word to the board at the given row (1-6) with its states.\n\nFor each guess, compare it to the target word to determine the states (correct/present/absent), then add it to the board. Keep guessing until you find the right word or use all 6 slots.\n\nThe best guess is the **first word** in the common_words list that matches your knowledge so far:\n- Has all 'correct' letters in the right places\n- Has all 'present' letters somewhere (but not in positions you know are wrong)\n- Has no 'absent' letters\n\n**Important:** Don't use get_target_word() to cheat - only use it for checking your guess to generate states.",
+  "estimatedMinutes": 30,
+  "levelId": "everything",
+  "hints": [
+    "Start by always guessing the first word from common_words()",
+    "Build a knowledge dictionary to track what you learn from each guess",
+    "Track which letters are absent, which are present, and which positions are correct",
+    "For each position, track which letters are definitely NOT there",
+    "Filter the word list based on your accumulated knowledge"
+  ]
+}
