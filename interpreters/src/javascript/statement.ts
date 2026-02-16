@@ -172,6 +172,22 @@ export class ContinueStatement extends Statement {
   }
 }
 
+export class RepeatStatement extends Statement {
+  constructor(
+    public keyword: Token,
+    public count: Expression,
+    public body: Statement,
+    public location: Location
+  ) {
+    super("RepeatStatement");
+  }
+  public children() {
+    const children: Expression[] = [this.count];
+    children.push(...this.body.children());
+    return children;
+  }
+}
+
 export class ForOfStatement extends Statement {
   constructor(
     public variable: Token,

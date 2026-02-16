@@ -10,6 +10,7 @@ import { describeReturnStatement } from "./describers/describeReturnStatement";
 import { describeBreakStatement } from "./describers/describeBreakStatement";
 import { describeContinueStatement } from "./describers/describeContinueStatement";
 import { describeForOfStatement } from "./describers/describeForOfStatement";
+import { describeRepeatStatement } from "./describers/describeRepeatStatement";
 
 // JavaScript-specific frame extending the shared base
 export interface JavaScriptFrame extends Frame {
@@ -71,6 +72,8 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
       return describeIfStatement(frame, context);
     case "ForOfStatement":
       return describeForOfStatement(frame, context);
+    case "RepeatStatement":
+      return describeRepeatStatement(frame, context);
     case "CallExpression": {
       const steps = describeCallExpression(frame.context as any, frame.result as any, context);
       const result = `<p>JavaScript called a function.</p>`;

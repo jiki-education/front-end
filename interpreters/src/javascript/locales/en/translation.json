@@ -40,7 +40,10 @@
       "MissingRightParenthesisAfterParameters": "Missing closing parenthesis ')' after function parameters.",
       "MissingLeftBraceBeforeFunctionBody": "Missing opening brace '{' before function body.",
       "BreakStatementNotAllowed": "Break statements are not allowed at your current learning level.",
-      "ContinueStatementNotAllowed": "Continue statements are not allowed at your current learning level."
+      "ContinueStatementNotAllowed": "Continue statements are not allowed at your current learning level.",
+      "RepeatStatementNotAllowed": "Repeat loops are not allowed at your current learning level.",
+      "MissingLeftParenAfterRepeat": "Missing opening parenthesis '(' after 'repeat'.",
+      "MissingRightParenAfterRepeatCount": "Missing closing parenthesis ')' after repeat count."
     },
     "runtime": {
       "ArgumentError": "{{message}}",
@@ -62,7 +65,10 @@
       "MethodNotYetImplemented": "The method '{{method}}' exists but has not been implemented yet. It will be available in a future version.",
       "MethodNotYetAvailable": "The method '{{method}}' is not available at your current learning level. Keep progressing to unlock this feature!",
       "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter.",
-      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}."
+      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}.",
+      "RepeatCountMustBeNumber": "repeat() requires a number, but got {{type}}.",
+      "RepeatCountMustBeNonNegative": "repeat() count must be 0 or greater, but got {{value}}.",
+      "RepeatCountTooHigh": "repeat() count {{value}} exceeds the maximum of {{max}} iterations."
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",

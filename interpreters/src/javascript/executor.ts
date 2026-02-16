@@ -25,6 +25,7 @@ import {
   IfStatement,
   ForStatement,
   ForOfStatement,
+  RepeatStatement,
   WhileStatement,
   FunctionDeclaration,
   ReturnStatement,
@@ -57,6 +58,7 @@ import { executeVariableDeclaration } from "./executor/executeVariableDeclaratio
 import { executeIfStatement } from "./executor/executeIfStatement";
 import { executeForStatement } from "./executor/executeForStatement";
 import { executeForOfStatement } from "./executor/executeForOfStatement";
+import { executeRepeatStatement } from "./executor/executeRepeatStatement";
 import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeTemplateLiteralExpression } from "./executor/executeTemplateLiteralExpression";
 import { executeArrayExpression } from "./executor/executeArrayExpression";
@@ -106,6 +108,9 @@ export type RuntimeErrorType =
   | "MethodNotYetAvailable"
   | "MaxIterationsReached"
   | "NonJikiObjectDetectedInExecution"
+  | "RepeatCountMustBeNumber"
+  | "RepeatCountMustBeNonNegative"
+  | "RepeatCountTooHigh"
   | "ValueError";
 
 export class RuntimeError extends Error {
@@ -311,6 +316,8 @@ export class Executor {
         executeForStatement(this, statement);
       } else if (statement instanceof ForOfStatement) {
         executeForOfStatement(this, statement);
+      } else if (statement instanceof RepeatStatement) {
+        executeRepeatStatement(this, statement);
       } else if (statement instanceof WhileStatement) {
         executeWhileStatement(this, statement);
       } else if (statement instanceof FunctionDeclaration) {
