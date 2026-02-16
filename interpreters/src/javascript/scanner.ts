@@ -44,6 +44,7 @@ export class Scanner {
     new: "NEW",
     null: "NULL",
     of: "OF",
+    repeat: "REPEAT",
     return: "RETURN",
     super: "SUPER",
     switch: "SWITCH",

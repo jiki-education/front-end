@@ -24,6 +24,7 @@ import {
   IfStatement,
   ForStatement,
   ForOfStatement,
+  RepeatStatement,
   WhileStatement,
   FunctionDeclaration,
   FunctionParameter,
@@ -31,7 +32,7 @@ import {
   BreakStatement,
   ContinueStatement,
 } from "./statement";
-import { type Token, type TokenType } from "./token";
+import { type Token, type TokenType, KeywordTokens } from "./token";
 import { translate } from "./translator";
 import type { LanguageFeatures, NodeType } from "./interfaces";
 import type { EvaluationContext } from "./interpreter";
@@ -83,6 +84,7 @@ export class Parser {
       IfStatement: "If statements",
       ForStatement: "For loops",
       ForOfStatement: "For...of loops",
+      RepeatStatement: "Repeat loops",
       WhileStatement: "While loops",
       BreakStatement: "Break statements",
       ContinueStatement: "Continue statements",
@@ -162,6 +164,11 @@ export class Parser {
       // Handle for loops
       if (this.match("FOR")) {
         return this.forStatement();
+      }
+
+      // Handle repeat loops
+      if (this.match("REPEAT")) {
+        return this.repeatStatement();
       }
 
       // Handle while loops
@@ -305,6 +312,20 @@ export class Parser {
     // Parse body
     const body = this.statement();
     return new WhileStatement(condition, body!, Location.between(whileToken, body!));
+  }
+
+  private repeatStatement(): Statement {
+    const repeatToken = this.previous();
+
+    // Check if RepeatStatement is allowed
+    this.checkNodeAllowed("RepeatStatement", "RepeatStatementNotAllowed", repeatToken.location);
+
+    this.consume("LEFT_PAREN", "MissingLeftParenAfterRepeat");
+    const count = this.expression();
+    this.consume("RIGHT_PAREN", "MissingRightParenAfterRepeatCount");
+
+    const body = this.statement();
+    return new RepeatStatement(repeatToken, count, body!, Location.between(repeatToken, body!));
   }
 
   private forStatement(): Statement {
@@ -634,8 +655,9 @@ export class Parser {
         this.checkNodeAllowed("MemberExpression", "MemberExpressionNotAllowed", this.previous().location);
 
         // Dot notation: obj.prop
+        // Keywords are allowed as property names after a dot (e.g. "abc".repeat(3))
         const propertyToken = this.advance();
-        if (propertyToken.type !== "IDENTIFIER") {
+        if (propertyToken.type !== "IDENTIFIER" && !KeywordTokens.includes(propertyToken.type as any)) {
           this.error("InvalidDictionaryKey", propertyToken.location);
         }
         const property = new LiteralExpression(propertyToken.lexeme, propertyToken.location);

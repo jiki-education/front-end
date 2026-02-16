@@ -20,6 +20,7 @@ const StatementKeywordTokens = [
   "IMPORT",
   "LET",
   "NEW",
+  "REPEAT",
   "RETURN",
   "SUPER",
   "SWITCH",

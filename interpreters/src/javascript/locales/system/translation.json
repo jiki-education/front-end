@@ -40,7 +40,10 @@
       "MissingRightParenthesisAfterParameters": "MissingRightParenthesisAfterParameters",
       "MissingLeftBraceBeforeFunctionBody": "MissingLeftBraceBeforeFunctionBody",
       "BreakStatementNotAllowed": "BreakStatementNotAllowed",
-      "ContinueStatementNotAllowed": "ContinueStatementNotAllowed"
+      "ContinueStatementNotAllowed": "ContinueStatementNotAllowed",
+      "RepeatStatementNotAllowed": "RepeatStatementNotAllowed",
+      "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
+      "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",
@@ -62,7 +65,10 @@
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
       "NonJikiObjectDetectedInExecution": "NonJikiObjectDetectedInExecution: receivedType: {{receivedType}}: receivedValue: {{receivedValue}}",
-      "MaxIterationsReached": "MaxIterationsReached: max: {{max}}"
+      "MaxIterationsReached": "MaxIterationsReached: max: {{max}}",
+      "RepeatCountMustBeNumber": "RepeatCountMustBeNumber: type: {{type}}",
+      "RepeatCountMustBeNonNegative": "RepeatCountMustBeNonNegative: value: {{value}}",
+      "RepeatCountTooHigh": "RepeatCountTooHigh: value: {{value}}: max: {{max}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

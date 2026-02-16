@@ -20,6 +20,7 @@ export type NodeType =
   | "IfStatement"
   | "ForStatement"
   | "ForOfStatement"
+  | "RepeatStatement"
   | "WhileStatement"
   | "BreakStatement"
   | "ContinueStatement";
