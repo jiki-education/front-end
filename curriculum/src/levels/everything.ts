@@ -32,9 +32,12 @@ export const everythingLevel: Level = {
         "IfStatement",
         "ForStatement",
         "ForOfStatement",
+        "RepeatStatement",
         "WhileStatement",
         "BreakStatement",
-        "ContinueStatement"
+        "ContinueStatement",
+        "FunctionDeclaration",
+        "ReturnStatement"
       ],
       languageFeatures: {
         allowTruthiness: true,

@@ -1,6 +1,16 @@
 import { usingFunctions } from "./using-functions";
-import { fundamentalsLevel } from "./fundamentals";
+import { stringsAndColors } from "./strings-and-colors";
+import { repeatLoop } from "./repeat-loop";
 import { variablesLevel } from "./variables";
+import { basicState } from "./basic-state";
+import { functionsThatReturnThings } from "./functions-that-return-things";
+import { conditionals } from "./conditionals";
+import { complexConditionals } from "./complex-conditionals";
+import { conditionalsAndState } from "./conditionals-and-state";
+import { makeYourOwnFunctions } from "./make-your-own-functions";
+import { addingInputsToYourFunctions } from "./adding-inputs-to-your-functions";
+import { addingReturnsToYourFunctions } from "./adding-returns-to-your-functions";
+import { stringConcatenationAndTemplates } from "./string-concatenation-and-templates";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -11,15 +21,19 @@ export * from "./types";
 // The levels registry - ordered progression of levels
 export const levels = [
   usingFunctions,
-  fundamentalsLevel,
+  stringsAndColors,
+  repeatLoop,
   variablesLevel,
+  basicState,
+  functionsThatReturnThings,
+  conditionals,
+  complexConditionals,
+  conditionalsAndState,
+  makeYourOwnFunctions,
+  addingInputsToYourFunctions,
+  addingReturnsToYourFunctions,
+  stringConcatenationAndTemplates,
   everythingLevel
-  // Future levels will be added here:
-  // controlFlowLevel,
-  // loopsLevel,
-  // functionsLevel,
-  // arraysLevel,
-  // objectsLevel,
 ] as const;
 
 export type LevelId = (typeof levels)[number]["id"];

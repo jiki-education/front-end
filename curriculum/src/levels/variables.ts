@@ -2,24 +2,14 @@ import type { Level } from "./types";
 
 export const variablesLevel: Level = {
   id: "variables",
-  title: "Variables and Assignments",
-  description: "Learn to declare variables, assign values, and perform basic operations",
-  educationalGoal: "",
+  title: "Variables",
+  description: "Learn to store and reuse values using variables.",
+  educationalGoal:
+    "Students learn to declare variables, use them in expressions, and perform arithmetic. Variables make code flexible and readable.",
 
   languageFeatures: {
     javascript: {
-      allowedNodes: [
-        // Everything from fundamentals
-        "ExpressionStatement",
-        "LiteralExpression",
-        "IdentifierExpression",
-        "MemberExpression",
-        // New additions for variables
-        "VariableDeclaration",
-        "AssignmentExpression",
-        "BinaryExpression", // For basic math operations
-        "UpdateExpression" // For ++ and --
-      ],
+      allowedNodes: ["VariableDeclaration", "IdentifierExpression", "BinaryExpression", "GroupingExpression"],
       languageFeatures: {
         allowShadowing: false,
         requireVariableInstantiation: true,
@@ -27,23 +17,6 @@ export const variablesLevel: Level = {
         allowTypeCoercion: false,
         enforceStrictEquality: true
       }
-    },
-    python: {
-      allowedNodes: [
-        // Everything from fundamentals
-        "ExpressionStatement",
-        "LiteralExpression",
-        "IdentifierExpression",
-        // New additions for variables
-        "AssignmentStatement",
-        "BinaryExpression", // For math operations
-        "UnaryExpression" // For unary operations
-      ],
-      languageFeatures: {
-        allowTruthiness: false,
-        allowTypeCoercion: false
-      }
     }
-    // Python support will be added when NodeType is defined in interpreters
   }
 };

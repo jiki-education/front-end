@@ -9,16 +9,7 @@ const usingFunctions: Level = {
     "Introduce function calls as the fundamental way to make programs do things. Students learn that programming is about calling functions to perform actions.",
   languageFeatures: {
     javascript: {
-      // TODO: CallExpression needs to be implemented in the interpreter
-      // For now using ExpressionStatement which wraps function calls
-      allowedNodes: ["ExpressionStatement"],
-      languageFeatures: {}
-    },
-    python: {
-      allowedNodes: [
-        "ExpressionStatement" // Wraps function calls
-        // Note: Python interpreter may need to add CallExpression support
-      ],
+      allowedNodes: ["ExpressionStatement", "CallExpression", "IdentifierExpression", "LiteralExpression"],
       languageFeatures: {}
     }
   }
