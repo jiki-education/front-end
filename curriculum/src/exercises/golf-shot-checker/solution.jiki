@@ -1,0 +1,13 @@
+set shot_length to get_shot_length()
+
+repeat shot_length times do
+  move_ball_right()
+end
+
+if shot_length >= 56 and shot_length <= 63 do
+  repeat 9 times do
+    move_ball_down()
+  end
+
+  fire_fireworks()
+end

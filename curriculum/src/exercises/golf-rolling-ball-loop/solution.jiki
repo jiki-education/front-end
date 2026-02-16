@@ -1,0 +1,3 @@
+repeat 60 times do
+  move_ball_right()
+end

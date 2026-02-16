@@ -1,0 +1,18 @@
+.exercise-golf {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .ball {
+        position: absolute;
+        width: 6%;
+        height: 6%;
+        margin-left: -3%;
+        margin-top: -3%;
+        background-color: white;
+        border: 1px solid #333;
+        border-radius: 50%;
+        z-index: 10;
+    }
+}
