@@ -21,3 +21,34 @@ pnpm run test   # Run tests
 ```
 
 See [CLAUDE.md](./CLAUDE.md) for detailed documentation about the curriculum structure and how to create exercises.
+
+## Curriculum
+
+This is the canonical curriculum structure. Each level contains a sequence of video and exercise lessons.
+
+```json
+[
+  {
+    "level": "using-functions",
+    "lessons": [
+      { "type": "video", "slug": "welcome-to-jiki" },
+      { "type": "exercise", "slug": "maze-solve-basic" },
+      { "type": "video", "slug": "using-functions" },
+      { "type": "exercise", "slug": "space-invaders-solve-basic" },
+      { "type": "video", "slug": "functions-taking-inputs" },
+      { "type": "exercise", "slug": "fix-wall" },
+      { "type": "exercise", "slug": "sunshine" }
+    ]
+  },
+  {
+    "level": "strings-and-colors",
+    "lessons": [
+      { "type": "video", "slug": "strings-and-colors" },
+      { "type": "exercise", "slug": "foxy-face" },
+      { "type": "exercise", "slug": "penguin" },
+      { "type": "exercise", "slug": "cloud-rain-sun" },
+      { "type": "exercise", "slug": "jumbled-house" }
+    ]
+  }
+]
+```

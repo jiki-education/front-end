@@ -3,7 +3,7 @@
   "title": "Fix the Wall",
   "instructions": "This exercise introduces you to the `rectangle` function.\n\n### Drawing Rectangles\n\nTo draw rectangles, we use the `rectangle` function with 5 inputs:\n\n- `left`: The left side of the rectangle\n- `top`: The top of the rectangle\n- `width`: How wide the rectangle is\n- `height`: How high the rectangle is\n- `color`: The color of the rectangle (a hex string like `\"#ff0000\"`)\n\n## Instructions\n\nYour job is to use three brick-colored rectangles to fill the holes in the wall.\n\nYou can check [HTML Color Codes](https://htmlcolorcodes.com/colors/brick-red/) to find a good hex code for the color of the bricks. Remember to input it as a string.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check where something needs to go.\n\nTo make your life easier, the top, left, height and widths are all divisible by 10.",
   "estimatedMinutes": 10,
-  "levelId": "everything",
+  "levelId": "using-functions",
   "hints": [
     "The color is the last argument to rectangle",
     "Use a brick-like color such as #AA4A44",

@@ -37,6 +37,8 @@ The curriculum repository:
 
 For detailed information about specific aspects of the curriculum:
 
+- **[README.md](README.md)** - Canonical curriculum structure (levels, videos, exercises in order)
+- **[PLAN.md](PLAN.md)** - Work-in-progress plan for completing the curriculum (status tracking, API alignment issues)
 - **[Exercises](.context/exercises.md)** - Creating and structuring exercises
 - **[Levels](.context/levels.md)** - Language features and AST node restrictions per level
 - **[Animations](.context/animations.md)** - Visual feedback system and animation patterns

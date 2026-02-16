@@ -40,6 +40,7 @@ import { llmMetadata as scrabbleScoreLLM } from "./exercises/scrabble-score/llm-
 import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
 import { llmMetadata as sunshineLLM } from "./exercises/sunshine/llm-metadata";
 import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
+import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -82,7 +83,8 @@ const llmMetadataRegistry = {
   "scrabble-score": scrabbleScoreLLM,
   "two-fer": twoFerLLM,
   sunshine: sunshineLLM,
-  "foxy-face": foxyFaceLLM
+  "foxy-face": foxyFaceLLM,
+  "cloud-rain-sun": cloudRainSunLLM
 } as const;
 
 /**

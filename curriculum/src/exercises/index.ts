@@ -33,7 +33,8 @@ export const exercises = {
   "scrabble-score": () => import("./scrabble-score"),
   "two-fer": () => import("./two-fer"),
   sunshine: () => import("./sunshine"),
-  "foxy-face": () => import("./foxy-face")
+  "foxy-face": () => import("./foxy-face"),
+  "cloud-rain-sun": () => import("./cloud-rain-sun")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

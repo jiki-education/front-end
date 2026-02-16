@@ -51,6 +51,7 @@ Nothing yet
 - `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level, slug mismatch with API: fix-the-wall)
 - `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
 - `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
+- `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
 
 ### Unimplemented
 
@@ -62,6 +63,7 @@ Changes needed in `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`:
 
 - [ ] Rename `fix-the-wall` → `fix-wall` in API seed
 - [ ] Rename `finish-the-wall` → `finish-wall` in API seed
+- [ ] Rename `cloud-rain-sun-variables` → `cloud-rain-sun` in API seed (and move from Variables to Strings and Colors level)
 
 ### Missing Levels
 

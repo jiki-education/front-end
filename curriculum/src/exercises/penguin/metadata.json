@@ -3,7 +3,7 @@
   "title": "Penguin",
   "instructions": "Your task is to make the penguin symmetrical.\n\nIt should look like this:\n\n![Penguin](https://assets.exercism.org/bootcamp/graphics/penguin-finished.png)\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle.\n\nWe've drawn the left hand side for you, and added `TODO` comments for each of the things you need to do.\n\nEach shape function takes a color as its last argument.\n\nFor the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.\n\nThe functions used in this exercise are:\n\n- `circle(center_x, center_y, radius, color)`\n- `rectangle(x, y, width, height, color)`\n- `ellipse(center_x, center_y, radius_x, radius_y, color)`\n- `triangle(x1,y1, x2,y2, x3,y3, color)`",
   "estimatedMinutes": 15,
-  "levelId": "everything",
+  "levelId": "strings-and-colors",
   "hints": [
     "Start by looking at the left wing and create a matching right wing",
     "Remember each shape function takes a color as its last argument",

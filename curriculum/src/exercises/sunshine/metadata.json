@@ -3,7 +3,7 @@
   "title": "Sunshine",
   "instructions": "This exercise introduces you to the `circle` function.\n\n### Drawing Circles\n\nTo draw circles, we use the `circle` function with 4 inputs:\n\n- `x`: The x position of the center of the circle\n- `y`: The y position of the center of the circle\n- `radius`: How big the circle is\n- `color`: The color of the circle (a hex string like `\"#ffed06\"`)\n\n## Instructions\n\nWe've drawn a light blue sky and some sun spikes for you. Don't worry about the triangles yet - we'll cover those separately shortly!\n\nYour job is to draw the sun itself by adding a yellow circle in the center of the canvas.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.",
   "estimatedMinutes": 5,
-  "levelId": "everything",
+  "levelId": "using-functions",
   "hints": [
     "The circle function takes 4 arguments: x, y, radius, color",
     "The sun should be centered in the middle of the canvas at (50, 50)",
