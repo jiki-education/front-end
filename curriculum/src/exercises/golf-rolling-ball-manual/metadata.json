@@ -1,0 +1,12 @@
+{
+  "slug": "golf-rolling-ball-manual",
+  "title": "Golf: Rolling Ball",
+  "instructions": "A golf ball is sitting on the course. Your job is to roll it into the hole!\n\nYou have one function:\n- `move_ball_right()` moves the ball one unit to the right\n\nThe ball needs to move **20 times** to reach the hole. Call `move_ball_right()` enough times to get it there!",
+  "estimatedMinutes": 5,
+  "levelId": "using-functions",
+  "hints": [
+    "Each call to move_ball_right() moves the ball one step",
+    "You need to call move_ball_right() exactly 20 times",
+    "Just write move_ball_right() on 20 separate lines"
+  ]
+}

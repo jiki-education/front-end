@@ -43,6 +43,7 @@ import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
 import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-metadata";
 import { llmMetadata as golfRollingBallLoopLLM } from "./exercises/golf-rolling-ball-loop/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
+import { llmMetadata as golfRollingBallManualLLM } from "./exercises/golf-rolling-ball-manual/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -88,7 +89,8 @@ const llmMetadataRegistry = {
   "foxy-face": foxyFaceLLM,
   "cloud-rain-sun": cloudRainSunLLM,
   "golf-rolling-ball-loop": golfRollingBallLoopLLM,
-  "golf-shot-checker": golfShotCheckerLLM
+  "golf-shot-checker": golfShotCheckerLLM,
+  "golf-rolling-ball-manual": golfRollingBallManualLLM
 } as const;
 
 /**
