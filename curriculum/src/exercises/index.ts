@@ -14,6 +14,7 @@ export const exercises = {
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
+  "space-invaders-solve-basic": () => import("./space-invaders-solve-basic"),
   "jumbled-house": () => import("./jumbled-house"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
