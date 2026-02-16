@@ -49,6 +49,33 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "cloud-rain-sun" },
       { "type": "exercise", "slug": "jumbled-house" }
     ]
+  },
+  {
+    "level": "repeat-loop",
+    "lessons": [
+      { "type": "exercise", "slug": "golf-rolling-ball-loop" },
+      { "type": "exercise", "slug": "space-invaders-repeat" }
+    ]
+  },
+  {
+    "level": "variables",
+    "lessons": []
+  },
+  {
+    "level": "basic-state",
+    "lessons": [
+      { "type": "exercise", "slug": "golf-rolling-ball-state" },
+      { "type": "exercise", "slug": "finish-wall" },
+      { "type": "exercise", "slug": "rainbow" },
+      { "type": "exercise", "slug": "sunset" },
+      { "type": "exercise", "slug": "plant-the-flowers" }
+    ]
   }
 ]
+```
+
+## Projects
+
+```json
+[{ "slug": "sprouting-flower" }]
 ```

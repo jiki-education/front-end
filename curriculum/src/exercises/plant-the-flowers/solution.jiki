@@ -1,0 +1,6 @@
+set position to 10
+
+repeat 9 times do
+  plant(position)
+  change position to position + 10
+end

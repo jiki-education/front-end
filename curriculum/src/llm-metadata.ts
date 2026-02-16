@@ -42,8 +42,12 @@ import { llmMetadata as sunshineLLM } from "./exercises/sunshine/llm-metadata";
 import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
 import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-metadata";
 import { llmMetadata as golfRollingBallLoopLLM } from "./exercises/golf-rolling-ball-loop/llm-metadata";
+import { llmMetadata as golfRollingBallStateLLM } from "./exercises/golf-rolling-ball-state/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
-import { llmMetadata as golfRollingBallManualLLM } from "./exercises/golf-rolling-ball-manual/llm-metadata";
+import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers/llm-metadata";
+import { llmMetadata as processGuessLLM } from "./exercises/process-guess/llm-metadata";
+import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-metadata";
+import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -89,8 +93,12 @@ const llmMetadataRegistry = {
   "foxy-face": foxyFaceLLM,
   "cloud-rain-sun": cloudRainSunLLM,
   "golf-rolling-ball-loop": golfRollingBallLoopLLM,
+  "golf-rolling-ball-state": golfRollingBallStateLLM,
   "golf-shot-checker": golfShotCheckerLLM,
-  "golf-rolling-ball-manual": golfRollingBallManualLLM
+  "plant-the-flowers": plantTheFlowersLLM,
+  "process-guess": processGuessLLM,
+  "process-game": processGameLLM,
+  "wordle-solver": wordleSolverLLM
 } as const;
 
 /**

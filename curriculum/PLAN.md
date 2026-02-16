@@ -52,6 +52,11 @@ Nothing yet
 - `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
 - `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
 - `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
+- `finish-wall` - Finish the Wall: use repeat loop to add top layer of bricks (Basic State level, slug mismatch with API: finish-the-wall)
+- `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
+- `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
+- `golf-rolling-ball-state` - Golf Rolling Ball State: track x variable and use move_ball_to(x) in a loop (Basic State level)
+- `plant-the-flowers` - Plant the Flowers: track position variable and plant 9 flowers using repeat loop (Basic State level)
 
 ### Unimplemented
 

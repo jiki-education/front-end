@@ -1,4 +1,4 @@
-import { type ExecutionContext } from "@jiki/interpreters";
+import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 
 export default class GolfExercise extends VisualExercise {
@@ -19,7 +19,7 @@ export default class GolfExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions = [
+  availableFunctions: ExternalFunction[] = [
     {
       name: "move_ball_right",
       func: this.moveBallRight.bind(this),
@@ -44,6 +44,22 @@ export default class GolfExercise extends VisualExercise {
 
   moveBallRight(executionCtx: ExecutionContext) {
     this.ballX += 1;
+    this.addAnimation({
+      targets: `#${this.view.id} .ball`,
+      offset: executionCtx.getCurrentTimeInMs(),
+      duration: this.moveDuration,
+      transformations: {
+        left: `${this.ballX}%`
+      }
+    });
+    executionCtx.fastForward(this.moveDuration);
+  }
+
+  moveBallTo(executionCtx: ExecutionContext, x: Shared.JikiObject) {
+    if (!isNumber(x)) {
+      return executionCtx.logicError("Position must be a number");
+    }
+    this.ballX = x.value;
     this.addAnimation({
       targets: `#${this.view.id} .ball`,
       offset: executionCtx.getCurrentTimeInMs(),

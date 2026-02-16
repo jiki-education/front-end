@@ -1,4 +1,11 @@
-import { type ExecutionContext, type Shared, isNumber, isList, isString } from "@jiki/interpreters";
+import {
+  type ExecutionContext,
+  type ExternalFunction,
+  type Shared,
+  isNumber,
+  isList,
+  isString
+} from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 
 type LetterState = "correct" | "present" | "absent";
@@ -206,7 +213,7 @@ export default class WordleExercise extends VisualExercise {
     super();
   }
 
-  availableFunctions = [] as any[];
+  availableFunctions: ExternalFunction[] = [];
 
   getState() {
     return {};
@@ -233,7 +240,12 @@ export default class WordleExercise extends VisualExercise {
     this.rowStates[rowIdx.value - 1] = stateValues;
   }
 
-  protected addWord(_executionCtx: ExecutionContext, rowIdx: Shared.JikiObject, _word: Shared.JikiObject, states: Shared.JikiObject) {
+  protected addWord(
+    _executionCtx: ExecutionContext,
+    rowIdx: Shared.JikiObject,
+    _word: Shared.JikiObject,
+    states: Shared.JikiObject
+  ) {
     if (!isNumber(rowIdx) || !isList(states)) return;
     const stateValues = states.value.map((s: Shared.JikiObject) => {
       if (isString(s)) return s.value as LetterState;

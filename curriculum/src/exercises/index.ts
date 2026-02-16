@@ -36,8 +36,12 @@ export const exercises = {
   "foxy-face": () => import("./foxy-face"),
   "cloud-rain-sun": () => import("./cloud-rain-sun"),
   "golf-rolling-ball-loop": () => import("./golf-rolling-ball-loop"),
+  "golf-rolling-ball-state": () => import("./golf-rolling-ball-state"),
   "golf-shot-checker": () => import("./golf-shot-checker"),
-  "golf-rolling-ball-manual": () => import("./golf-rolling-ball-manual")
+  "plant-the-flowers": () => import("./plant-the-flowers"),
+  "process-guess": () => import("./process-guess"),
+  "process-game": () => import("./process-game"),
+  "wordle-solver": () => import("./wordle-solver")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

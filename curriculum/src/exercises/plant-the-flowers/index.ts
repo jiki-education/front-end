@@ -1,4 +1,3 @@
-import "../../exercise-categories/golf/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
@@ -13,11 +12,11 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "move_ball_right",
-    signature: "move_ball_right()",
-    description: "Moves the ball **one unit to the right**.",
-    examples: ["move_ball_right()"],
-    category: "Movement"
+    name: "plant",
+    signature: "plant(position)",
+    description: "Plants a flower at the given **position**.",
+    examples: ["plant(10)", "plant(20)"],
+    category: "Gardening"
   }
 ];
 

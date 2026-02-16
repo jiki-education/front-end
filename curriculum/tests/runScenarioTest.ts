@@ -58,7 +58,7 @@ export function runVisualScenarioTest(
   // Execute student code with the exercise's available functions
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
   const interpreter = getInterpreter(language);
-  interpreter.interpret(studentCode, {
+  const interpreterContext = {
     externalFunctions: exercise.availableFunctions.map((func) => ({
       name: func.name,
       func: func.func,
@@ -70,7 +70,18 @@ export function runVisualScenarioTest(
       ...languageFeatures
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any
-  });
+  };
+
+  if (scenario.functionCall) {
+    interpreter.evaluateFunction(
+      studentCode,
+      interpreterContext,
+      scenario.functionCall.name,
+      ...scenario.functionCall.args
+    );
+  } else {
+    interpreter.interpret(studentCode, interpreterContext);
+  }
 
   // Run expectations to validate final state
   const expects = scenario.expectations(exercise);
