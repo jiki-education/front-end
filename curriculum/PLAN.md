@@ -10,7 +10,7 @@ The process has two passes:
 
 2. **Pass 2 — Refinement:** Go through each exercise and level one by one, refining content, polishing scenarios, improving solutions and stubs, and ensuring quality. This is where you make things good.
 
-Focus on completing each phase below before moving to the next. Commit after each meaningful unit of work.
+Focus on completing each phase below before moving to the next. Commit after each meaningful unit of work. **After each step, stop and discuss the results with the user. Only do work you're explicitly instructed to do — don't move ahead to the next step without being told to.**
 
 ## Goal
 
