@@ -8,8 +8,8 @@ function createMockSVGElement(): SVGElement {
 
 describe("Shape Classes", () => {
   describe("5.1 Circle Class", () => {
-    const strokeColor = { type: "hex" as const, color: "#333333" };
-    const fillColor = { type: "hex" as const, color: "#ff0000" };
+    const strokeColor = "#333333";
+    const fillColor = "#ff0000";
     const element = createMockSVGElement();
 
     it("Should construct with all parameters", () => {
@@ -36,18 +36,16 @@ describe("Shape Classes", () => {
       expect(typeof circle.radius).toBe("number");
     });
 
-    it("`strokeColor` should be a Color object", () => {
+    it("`strokeColor` should be a string", () => {
       const circle = new Circle(50, 60, 10, strokeColor, fillColor, element);
 
-      expect(circle.strokeColor).toHaveProperty("type");
-      expect(circle.strokeColor).toHaveProperty("color");
+      expect(typeof circle.strokeColor).toBe("string");
     });
 
-    it("`fillColor` should be a Color object", () => {
+    it("`fillColor` should be a string", () => {
       const circle = new Circle(50, 60, 10, strokeColor, fillColor, element);
 
-      expect(circle.fillColor).toHaveProperty("type");
-      expect(circle.fillColor).toHaveProperty("color");
+      expect(typeof circle.fillColor).toBe("string");
     });
 
     it("`element` should be an SVGElement", () => {
@@ -100,8 +98,8 @@ describe("Shape Classes", () => {
   });
 
   describe("5.2 Rectangle Class", () => {
-    const strokeColor = { type: "hex" as const, color: "#333333" };
-    const fillColor = { type: "hex" as const, color: "#ff0000" };
+    const strokeColor = "#333333";
+    const fillColor = "#ff0000";
     const element = createMockSVGElement();
 
     it("Should construct with all parameters", () => {
@@ -134,18 +132,16 @@ describe("Shape Classes", () => {
       expect(typeof rect.height).toBe("number");
     });
 
-    it("`strokeColor` should be a Color object", () => {
+    it("`strokeColor` should be a string", () => {
       const rect = new Rectangle(10, 20, 30, 40, strokeColor, fillColor, element);
 
-      expect(rect.strokeColor).toHaveProperty("type");
-      expect(rect.strokeColor).toHaveProperty("color");
+      expect(typeof rect.strokeColor).toBe("string");
     });
 
-    it("`fillColor` should be a Color object", () => {
+    it("`fillColor` should be a string", () => {
       const rect = new Rectangle(10, 20, 30, 40, strokeColor, fillColor, element);
 
-      expect(rect.fillColor).toHaveProperty("type");
-      expect(rect.fillColor).toHaveProperty("color");
+      expect(typeof rect.fillColor).toBe("string");
     });
 
     it("`element` should be an SVGElement", () => {
@@ -186,8 +182,8 @@ describe("Shape Classes", () => {
   });
 
   describe("5.3 Ellipse Class", () => {
-    const strokeColor = { type: "hex" as const, color: "#333333" };
-    const fillColor = { type: "hex" as const, color: "#ff0000" };
+    const strokeColor = "#333333";
+    const fillColor = "#ff0000";
     const element = createMockSVGElement();
 
     it("Should construct with all parameters", () => {
@@ -220,18 +216,16 @@ describe("Shape Classes", () => {
       expect(typeof ellipse.ry).toBe("number");
     });
 
-    it("`strokeColor` should be a Color object", () => {
+    it("`strokeColor` should be a string", () => {
       const ellipse = new Ellipse(50, 60, 20, 10, strokeColor, fillColor, element);
 
-      expect(ellipse.strokeColor).toHaveProperty("type");
-      expect(ellipse.strokeColor).toHaveProperty("color");
+      expect(typeof ellipse.strokeColor).toBe("string");
     });
 
-    it("`fillColor` should be a Color object", () => {
+    it("`fillColor` should be a string", () => {
       const ellipse = new Ellipse(50, 60, 20, 10, strokeColor, fillColor, element);
 
-      expect(ellipse.fillColor).toHaveProperty("type");
-      expect(ellipse.fillColor).toHaveProperty("color");
+      expect(typeof ellipse.fillColor).toBe("string");
     });
 
     it("`element` should be an SVGElement", () => {
@@ -272,8 +266,8 @@ describe("Shape Classes", () => {
   });
 
   describe("5.4 Triangle Class", () => {
-    const strokeColor = { type: "hex" as const, color: "#333333" };
-    const fillColor = { type: "hex" as const, color: "#ff0000" };
+    const strokeColor = "#333333";
+    const fillColor = "#ff0000";
     const element = createMockSVGElement();
 
     it("Should construct with all parameters", () => {
@@ -318,18 +312,16 @@ describe("Shape Classes", () => {
       expect(typeof triangle.y3).toBe("number");
     });
 
-    it("`strokeColor` should be a Color object", () => {
+    it("`strokeColor` should be a string", () => {
       const triangle = new Triangle(10, 10, 20, 20, 15, 30, strokeColor, fillColor, element);
 
-      expect(triangle.strokeColor).toHaveProperty("type");
-      expect(triangle.strokeColor).toHaveProperty("color");
+      expect(typeof triangle.strokeColor).toBe("string");
     });
 
-    it("`fillColor` should be a Color object", () => {
+    it("`fillColor` should be a string", () => {
       const triangle = new Triangle(10, 10, 20, 20, 15, 30, strokeColor, fillColor, element);
 
-      expect(triangle.fillColor).toHaveProperty("type");
-      expect(triangle.fillColor).toHaveProperty("color");
+      expect(typeof triangle.fillColor).toBe("string");
     });
 
     it("`element` should be an SVGElement", () => {
@@ -346,8 +338,8 @@ describe("Shape Classes", () => {
   });
 
   describe("5.5 Line Class", () => {
-    const strokeColor = { type: "hex" as const, color: "#333333" };
-    const fillColor = { type: "hex" as const, color: "#ff0000" };
+    const strokeColor = "#333333";
+    const fillColor = "#ff0000";
     const element = createMockSVGElement();
 
     it("Should construct with all parameters", () => {
@@ -380,18 +372,16 @@ describe("Shape Classes", () => {
       expect(typeof line.y2).toBe("number");
     });
 
-    it("`strokeColor` should be a Color object", () => {
+    it("`strokeColor` should be a string", () => {
       const line = new Line(10, 20, 30, 40, strokeColor, fillColor, element);
 
-      expect(line.strokeColor).toHaveProperty("type");
-      expect(line.strokeColor).toHaveProperty("color");
+      expect(typeof line.strokeColor).toBe("string");
     });
 
-    it("`fillColor` should be a Color object", () => {
+    it("`fillColor` should be a string", () => {
       const line = new Line(10, 20, 30, 40, strokeColor, fillColor, element);
 
-      expect(line.fillColor).toHaveProperty("type");
-      expect(line.fillColor).toHaveProperty("color");
+      expect(typeof line.fillColor).toBe("string");
     });
 
     it("`element` should be an SVGElement", () => {
@@ -404,69 +394,6 @@ describe("Shape Classes", () => {
       const line = new Line(10, 20, 30, 40, strokeColor, fillColor, element);
 
       expect(line).toBeInstanceOf(Shape);
-    });
-  });
-
-  describe("5.6 Color Type", () => {
-    it("Hex color should have type 'hex'", () => {
-      const color = { type: "hex" as const, color: "#ff0000" };
-
-      expect(color.type).toBe("hex");
-    });
-
-    it("Hex color should have string color property", () => {
-      const color = { type: "hex" as const, color: "#ff0000" };
-
-      expect(typeof color.color).toBe("string");
-    });
-
-    it("RGB color should have type 'rgb'", () => {
-      const color = { type: "rgb" as const, color: [255, 0, 0] as [number, number, number] };
-
-      expect(color.type).toBe("rgb");
-    });
-
-    it("RGB color should have [number, number, number] array", () => {
-      const color = { type: "rgb" as const, color: [255, 0, 0] as [number, number, number] };
-
-      expect(Array.isArray(color.color)).toBe(true);
-      expect(color.color.length).toBe(3);
-      expect(typeof color.color[0]).toBe("number");
-      expect(typeof color.color[1]).toBe("number");
-      expect(typeof color.color[2]).toBe("number");
-    });
-
-    it("RGBA color should have type 'rgba'", () => {
-      const color = { type: "rgba" as const, color: [255, 0, 0, 1] as [number, number, number, number] };
-
-      expect(color.type).toBe("rgba");
-    });
-
-    it("RGBA color should have [number, number, number, number] array", () => {
-      const color = { type: "rgba" as const, color: [255, 0, 0, 1] as [number, number, number, number] };
-
-      expect(Array.isArray(color.color)).toBe(true);
-      expect(color.color.length).toBe(4);
-      expect(typeof color.color[0]).toBe("number");
-      expect(typeof color.color[1]).toBe("number");
-      expect(typeof color.color[2]).toBe("number");
-      expect(typeof color.color[3]).toBe("number");
-    });
-
-    it("HSL color should have type 'hsl'", () => {
-      const color = { type: "hsl" as const, color: [0, 100, 50] as [number, number, number] };
-
-      expect(color.type).toBe("hsl");
-    });
-
-    it("HSL color should have [number, number, number] array", () => {
-      const color = { type: "hsl" as const, color: [0, 100, 50] as [number, number, number] };
-
-      expect(Array.isArray(color.color)).toBe(true);
-      expect(color.color.length).toBe(3);
-      expect(typeof color.color[0]).toBe("number");
-      expect(typeof color.color[1]).toBe("number");
-      expect(typeof color.color[2]).toBe("number");
     });
   });
 });

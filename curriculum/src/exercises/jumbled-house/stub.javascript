@@ -1,31 +1,23 @@
 // The sky
-fillColorHex("#add8e6");
-rectangle(0, 0, 100, 100);
+rectangle(0, 0, 100, 100, "#add8e6");
 
 // The grass
-fillColorHex("#3cb372");
-rectangle(0, 80, 100, 100);
+rectangle(0, 80, 100, 100, "#3cb372");
 
 // The frame of the house
-fillColorHex("#f0985b");
-rectangle(10, 20, 55, 30);
+rectangle(10, 20, 55, 30, "#f0985b");
 
 // The roof
-fillColorHex("#8b4513");
-triangle(26, 90, 60, 60, 100, 90);
+triangle(26, 90, 60, 60, 100, 90, "#8b4513");
 
 // The left window
-fillColorHex("#FFFFFF");
-rectangle(10, 15, 6, 7);
+rectangle(10, 15, 6, 7, "#FFFFFF");
 
 // The second window
-fillColorHex("#FFFFFF");
-rectangle(18, 55, 22, 23);
+rectangle(18, 55, 22, 23, "#FFFFFF");
 
 // The door
-fillColorHex("#A0512D");
-rectangle(83, 12, 10, 16);
+rectangle(83, 12, 10, 16, "#A0512D");
 
 // The door knob
-fillColorHex("#FFDF00");
-circle(91, 20, 1);
+circle(91, 20, 1, "#FFDF00");

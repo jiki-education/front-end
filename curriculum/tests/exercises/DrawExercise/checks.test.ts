@@ -13,8 +13,8 @@ function createMockSVGElement(): SVGElement {
   return document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGElement;
 }
 
-const defaultStrokeColor = { type: "hex" as const, color: "#333333" };
-const defaultFillColor = { type: "hex" as const, color: "#ff0000" };
+const defaultStrokeColor = "#333333";
+const defaultFillColor = "#ff0000";
 
 describe("Check Functions", () => {
   describe("4.1 checkCanvasCoverage", () => {
@@ -93,12 +93,8 @@ describe("Check Functions", () => {
 
   describe("4.2 checkUniqueColoredCircles", () => {
     it("Should return true when all circles have unique colors", () => {
-      const redFill = { type: "hex" as const, color: "#ff0000" };
-      const blueFill = { type: "hex" as const, color: "#0000ff" };
-      const greenStroke = { type: "hex" as const, color: "#00ff00" };
-
-      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, redFill, createMockSVGElement());
-      const circle2 = new Circle(20, 20, 5, greenStroke, blueFill, createMockSVGElement());
+      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, "#00ff00", "#0000ff", createMockSVGElement());
       const shapes: Shape[] = [circle1, circle2];
 
       const result = checkUniqueColoredCircles(shapes, 2);
@@ -134,11 +130,8 @@ describe("Check Functions", () => {
     });
 
     it("Should compare hex colors correctly", () => {
-      const redFill = { type: "hex" as const, color: "#ff0000" };
-      const blueFill = { type: "hex" as const, color: "#0000ff" };
-
-      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, redFill, createMockSVGElement());
-      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, blueFill, createMockSVGElement());
+      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, "#0000ff", createMockSVGElement());
       const shapes: Shape[] = [circle1, circle2];
 
       const result = checkUniqueColoredCircles(shapes, 2);
@@ -146,12 +139,19 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgb colors correctly", () => {
-      const rgbRed = { type: "rgb" as const, color: [255, 0, 0] as [number, number, number] };
-      const rgbBlue = { type: "rgb" as const, color: [0, 0, 255] as [number, number, number] };
+    it("Should detect duplicate colors with same stroke and fill", () => {
+      const circle1 = new Circle(10, 10, 5, "#333333", "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, "#333333", "#ff0000", createMockSVGElement());
+      const shapes: Shape[] = [circle1, circle2];
 
-      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, rgbRed, createMockSVGElement());
-      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, rgbBlue, createMockSVGElement());
+      const result = checkUniqueColoredCircles(shapes, 2);
+
+      expect(result).toBe(false);
+    });
+
+    it("Should treat different stroke colors as unique", () => {
+      const circle1 = new Circle(10, 10, 5, "#111111", "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, "#222222", "#ff0000", createMockSVGElement());
       const shapes: Shape[] = [circle1, circle2];
 
       const result = checkUniqueColoredCircles(shapes, 2);
@@ -159,25 +159,9 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgba colors correctly", () => {
-      const rgbaRed = { type: "rgba" as const, color: [255, 0, 0, 1] as [number, number, number, number] };
-      const rgbaBlue = { type: "rgba" as const, color: [0, 0, 255, 1] as [number, number, number, number] };
-
-      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, rgbaRed, createMockSVGElement());
-      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, rgbaBlue, createMockSVGElement());
-      const shapes: Shape[] = [circle1, circle2];
-
-      const result = checkUniqueColoredCircles(shapes, 2);
-
-      expect(result).toBe(true);
-    });
-
-    it("Should compare hsl colors correctly", () => {
-      const hslRed = { type: "hsl" as const, color: [0, 100, 50] as [number, number, number] };
-      const hslBlue = { type: "hsl" as const, color: [240, 100, 50] as [number, number, number] };
-
-      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, hslRed, createMockSVGElement());
-      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, hslBlue, createMockSVGElement());
+    it("Should treat different fill colors as unique", () => {
+      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, "#00ff00", createMockSVGElement());
       const shapes: Shape[] = [circle1, circle2];
 
       const result = checkUniqueColoredCircles(shapes, 2);
@@ -188,11 +172,8 @@ describe("Check Functions", () => {
 
   describe("4.3 checkUniqueColoredRectangles", () => {
     it("Should return true when all rectangles have unique colors", () => {
-      const redFill = { type: "hex" as const, color: "#ff0000" };
-      const blueFill = { type: "hex" as const, color: "#0000ff" };
-
-      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, redFill, createMockSVGElement());
-      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, blueFill, createMockSVGElement());
+      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, "#0000ff", createMockSVGElement());
       const shapes: Shape[] = [rect1, rect2];
 
       const result = checkUniqueColoredRectangles(shapes, 2);
@@ -228,11 +209,8 @@ describe("Check Functions", () => {
     });
 
     it("Should compare hex colors correctly", () => {
-      const redFill = { type: "hex" as const, color: "#ff0000" };
-      const blueFill = { type: "hex" as const, color: "#0000ff" };
-
-      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, redFill, createMockSVGElement());
-      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, blueFill, createMockSVGElement());
+      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, "#0000ff", createMockSVGElement());
       const shapes: Shape[] = [rect1, rect2];
 
       const result = checkUniqueColoredRectangles(shapes, 2);
@@ -240,12 +218,19 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgb colors correctly", () => {
-      const rgbRed = { type: "rgb" as const, color: [255, 0, 0] as [number, number, number] };
-      const rgbBlue = { type: "rgb" as const, color: [0, 0, 255] as [number, number, number] };
+    it("Should detect duplicate fill colors", () => {
+      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, "#aabbcc", createMockSVGElement());
+      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, "#aabbcc", createMockSVGElement());
+      const shapes: Shape[] = [rect1, rect2];
 
-      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, rgbRed, createMockSVGElement());
-      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, rgbBlue, createMockSVGElement());
+      const result = checkUniqueColoredRectangles(shapes, 2);
+
+      expect(result).toBe(false);
+    });
+
+    it("Should treat different fill colors as unique", () => {
+      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, "#112233", createMockSVGElement());
+      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, "#445566", createMockSVGElement());
       const shapes: Shape[] = [rect1, rect2];
 
       const result = checkUniqueColoredRectangles(shapes, 2);
@@ -253,28 +238,13 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgba colors correctly", () => {
-      const rgbaRed = { type: "rgba" as const, color: [255, 0, 0, 1] as [number, number, number, number] };
-      const rgbaBlue = { type: "rgba" as const, color: [0, 0, 255, 1] as [number, number, number, number] };
+    it("Should count unique colors across multiple rectangles", () => {
+      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, "#00ff00", createMockSVGElement());
+      const rect3 = new Rectangle(30, 30, 15, 15, defaultStrokeColor, "#0000ff", createMockSVGElement());
+      const shapes: Shape[] = [rect1, rect2, rect3];
 
-      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, rgbaRed, createMockSVGElement());
-      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, rgbaBlue, createMockSVGElement());
-      const shapes: Shape[] = [rect1, rect2];
-
-      const result = checkUniqueColoredRectangles(shapes, 2);
-
-      expect(result).toBe(true);
-    });
-
-    it("Should compare hsl colors correctly", () => {
-      const hslRed = { type: "hsl" as const, color: [0, 100, 50] as [number, number, number] };
-      const hslBlue = { type: "hsl" as const, color: [240, 100, 50] as [number, number, number] };
-
-      const rect1 = new Rectangle(10, 10, 5, 5, defaultStrokeColor, hslRed, createMockSVGElement());
-      const rect2 = new Rectangle(20, 20, 10, 10, defaultStrokeColor, hslBlue, createMockSVGElement());
-      const shapes: Shape[] = [rect1, rect2];
-
-      const result = checkUniqueColoredRectangles(shapes, 2);
+      const result = checkUniqueColoredRectangles(shapes, 3);
 
       expect(result).toBe(true);
     });
@@ -282,11 +252,8 @@ describe("Check Functions", () => {
 
   describe("4.4 checkUniqueColoredLines", () => {
     it("Should return true when all lines have unique colors", () => {
-      const redStroke = { type: "hex" as const, color: "#ff0000" };
-      const blueStroke = { type: "hex" as const, color: "#0000ff" };
-
-      const line1 = new Line(0, 0, 10, 10, redStroke, defaultFillColor, createMockSVGElement());
-      const line2 = new Line(20, 20, 30, 30, blueStroke, defaultFillColor, createMockSVGElement());
+      const line1 = new Line(0, 0, 10, 10, "#ff0000", defaultFillColor, createMockSVGElement());
+      const line2 = new Line(20, 20, 30, 30, "#0000ff", defaultFillColor, createMockSVGElement());
       const shapes: Shape[] = [line1, line2];
 
       const result = checkUniqueColoredLines(shapes, 2);
@@ -321,12 +288,9 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare hex colors correctly", () => {
-      const redStroke = { type: "hex" as const, color: "#ff0000" };
-      const blueStroke = { type: "hex" as const, color: "#0000ff" };
-
-      const line1 = new Line(0, 0, 10, 10, redStroke, defaultFillColor, createMockSVGElement());
-      const line2 = new Line(20, 20, 30, 30, blueStroke, defaultFillColor, createMockSVGElement());
+    it("Should compare hex stroke colors correctly", () => {
+      const line1 = new Line(0, 0, 10, 10, "#ff0000", defaultFillColor, createMockSVGElement());
+      const line2 = new Line(20, 20, 30, 30, "#0000ff", defaultFillColor, createMockSVGElement());
       const shapes: Shape[] = [line1, line2];
 
       const result = checkUniqueColoredLines(shapes, 2);
@@ -334,12 +298,19 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgb colors correctly", () => {
-      const rgbRed = { type: "rgb" as const, color: [255, 0, 0] as [number, number, number] };
-      const rgbBlue = { type: "rgb" as const, color: [0, 0, 255] as [number, number, number] };
+    it("Should detect duplicate stroke colors", () => {
+      const line1 = new Line(0, 0, 10, 10, "#aabbcc", defaultFillColor, createMockSVGElement());
+      const line2 = new Line(20, 20, 30, 30, "#aabbcc", defaultFillColor, createMockSVGElement());
+      const shapes: Shape[] = [line1, line2];
 
-      const line1 = new Line(0, 0, 10, 10, rgbRed, defaultFillColor, createMockSVGElement());
-      const line2 = new Line(20, 20, 30, 30, rgbBlue, defaultFillColor, createMockSVGElement());
+      const result = checkUniqueColoredLines(shapes, 2);
+
+      expect(result).toBe(false);
+    });
+
+    it("Should treat different stroke colors as unique", () => {
+      const line1 = new Line(0, 0, 10, 10, "#112233", defaultFillColor, createMockSVGElement());
+      const line2 = new Line(20, 20, 30, 30, "#445566", defaultFillColor, createMockSVGElement());
       const shapes: Shape[] = [line1, line2];
 
       const result = checkUniqueColoredLines(shapes, 2);
@@ -347,28 +318,13 @@ describe("Check Functions", () => {
       expect(result).toBe(true);
     });
 
-    it("Should compare rgba colors correctly", () => {
-      const rgbaRed = { type: "rgba" as const, color: [255, 0, 0, 1] as [number, number, number, number] };
-      const rgbaBlue = { type: "rgba" as const, color: [0, 0, 255, 1] as [number, number, number, number] };
+    it("Should count unique colors across multiple lines", () => {
+      const line1 = new Line(0, 0, 10, 10, "#ff0000", defaultFillColor, createMockSVGElement());
+      const line2 = new Line(20, 20, 30, 30, "#00ff00", defaultFillColor, createMockSVGElement());
+      const line3 = new Line(40, 40, 50, 50, "#0000ff", defaultFillColor, createMockSVGElement());
+      const shapes: Shape[] = [line1, line2, line3];
 
-      const line1 = new Line(0, 0, 10, 10, rgbaRed, defaultFillColor, createMockSVGElement());
-      const line2 = new Line(20, 20, 30, 30, rgbaBlue, defaultFillColor, createMockSVGElement());
-      const shapes: Shape[] = [line1, line2];
-
-      const result = checkUniqueColoredLines(shapes, 2);
-
-      expect(result).toBe(true);
-    });
-
-    it("Should compare hsl colors correctly", () => {
-      const hslRed = { type: "hsl" as const, color: [0, 100, 50] as [number, number, number] };
-      const hslBlue = { type: "hsl" as const, color: [240, 100, 50] as [number, number, number] };
-
-      const line1 = new Line(0, 0, 10, 10, hslRed, defaultFillColor, createMockSVGElement());
-      const line2 = new Line(20, 20, 30, 30, hslBlue, defaultFillColor, createMockSVGElement());
-      const shapes: Shape[] = [line1, line2];
-
-      const result = checkUniqueColoredLines(shapes, 2);
+      const result = checkUniqueColoredLines(shapes, 3);
 
       expect(result).toBe(true);
     });

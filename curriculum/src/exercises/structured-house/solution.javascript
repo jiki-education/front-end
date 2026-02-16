@@ -53,33 +53,25 @@ let knobCenterY = 81;
 let knobRadius = 1;
 
 // The sky
-fillColorHex(skyColor);
-rectangle(skyLeft, skyTop, skyWidth, skyHeight);
+rectangle(skyLeft, skyTop, skyWidth, skyHeight, skyColor);
 
 // The grass
-fillColorHex(grassColor);
-rectangle(grassLeft, grassTop, grassWidth, grassHeight);
+rectangle(grassLeft, grassTop, grassWidth, grassHeight, grassColor);
 
 // The frame of the house
-fillColorHex(houseColor);
-rectangle(houseLeft, houseTop, houseWidth, houseHeight);
+rectangle(houseLeft, houseTop, houseWidth, houseHeight, houseColor);
 
 // The roof
-fillColorHex(roofColor);
-triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY);
+triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY, roofColor);
 
 // The left window
-fillColorHex(windowColor);
-rectangle(window1Left, window1Top, windowWidth, windowHeight);
+rectangle(window1Left, window1Top, windowWidth, windowHeight, windowColor);
 
 // The second window
-fillColorHex(windowColor);
-rectangle(window2Left, window2Top, windowWidth, windowHeight);
+rectangle(window2Left, window2Top, windowWidth, windowHeight, windowColor);
 
 // The door
-fillColorHex(doorColor);
-rectangle(doorLeft, doorTop, doorWidth, doorHeight);
+rectangle(doorLeft, doorTop, doorWidth, doorHeight, doorColor);
 
 // The door knob
-fillColorHex(knobColor);
-circle(knobCenterX, knobCenterY, knobRadius);
+circle(knobCenterX, knobCenterY, knobRadius, knobColor);

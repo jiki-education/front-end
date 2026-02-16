@@ -5,6 +5,5 @@ for (let i = 0; i < 100; i++) {
   x = x + 1;
   hue = hue + 3;
 
-  fillColorHsl(hue, 50, 50);
-  rectangle(x, 0, 1, 100);
+  rectangle(x, 0, 1, 100, hslToHex(hue, 50, 50));
 }

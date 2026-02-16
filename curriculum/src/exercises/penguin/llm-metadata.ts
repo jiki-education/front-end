@@ -21,7 +21,7 @@ export const llmMetadata: LLMMetadata = {
 
         Key teaching points:
         1. Coordinate symmetry: For center at x=50, if left is at x=28, right is at x=72
-        2. Color management: Must set fill_color_hex() before each shape
+        2. Color management: Color is the last argument to each shape function
         3. Shape parameters: Understanding cx/cy for circles/ellipses vs x/y for rectangles
         4. Triangle modification: Change existing triangle coordinates (don't add new one)
 

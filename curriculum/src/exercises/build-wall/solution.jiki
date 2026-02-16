@@ -5,7 +5,6 @@ set col to -1
 set row to -1
 
 set num_iterations to 0
-fill_color_hex("#AA4A44")
 
 repeat 10 times do
   change row to row + 1
@@ -16,9 +15,9 @@ repeat 10 times do
     change col to -1.5
     change num_iterations to 6
   end
-  
+
   repeat num_iterations times do
     change col to col + 1
-    rectangle(col * width, row * height, width, height)
+    rectangle(col * width, row * height, width, height, "#AA4A44")
   end
 end

@@ -2,7 +2,7 @@
 export { DrawExercise } from "./DrawExercise";
 
 // Shape classes for type checking
-export { Shape, Circle, Rectangle, Line, Triangle, Ellipse, type Color } from "./shapes";
+export { Shape, Circle, Rectangle, Line, Triangle, Ellipse } from "./shapes";
 
 // Utility functions
 export { aToR, rToA } from "./utils";

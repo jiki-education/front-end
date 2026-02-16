@@ -13,33 +13,25 @@ let roofOverhang = 4;
 let roofLeft = houseLeft - roofOverhang;
 
 // The sky
-fillColorHex(skyColor);
-rectangle(skyLeft, skyTop, skyWidth, skyHeight);
+rectangle(skyLeft, skyTop, skyWidth, skyHeight, skyColor);
 
 // The grass
-fillColorHex("#3cb372");
-rectangle(0, 80, 100, 100);
+rectangle(0, 80, 100, 100, "#3cb372");
 
 // The frame of the house
-fillColorHex("#f0985b");
-rectangle(houseLeft, 50, 60, 40);
+rectangle(houseLeft, 50, 60, 40, "#f0985b");
 
 // The roof
-fillColorHex("#8b4513");
-triangle(roofLeft, 50, 50, 30, 84, 50);
+triangle(roofLeft, 50, 50, 30, 84, 50, "#8b4513");
 
 // The left window
-fillColorHex("#FFFFFF");
-rectangle(30, 55, 12, 13);
+rectangle(30, 55, 12, 13, "#FFFFFF");
 
 // The second window
-fillColorHex("#FFFFFF");
-rectangle(58, 55, 12, 13);
+rectangle(58, 55, 12, 13, "#FFFFFF");
 
 // The door
-fillColorHex("#A0512D");
-rectangle(43, 72, 14, 18);
+rectangle(43, 72, 14, 18, "#A0512D");
 
 // The door knob
-fillColorHex("#FFDF00");
-circle(55, 81, 1);
+circle(55, 81, 1, "#FFDF00");

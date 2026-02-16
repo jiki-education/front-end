@@ -109,7 +109,7 @@ export class <ClassName>Exercise extends DrawExercise {
 
   public get availableFunctions() {
     // Select only the drawing functions needed for this exercise
-    // Available: rectangle, circle, ellipse, line, triangle, fill_color_hex, etc.
+    // Available: rectangle, circle, ellipse, line, triangle, hsl_to_hex, rgb_to_hex, clear
     return [];
   }
 }

@@ -109,8 +109,8 @@ export default class MyExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, circle, fill_color_hex } = this.getAllAvailableFunctions();
-    return [rectangle, circle, fill_color_hex];
+    const { rectangle, circle } = this.getAllAvailableFunctions();
+    return [rectangle, circle];
   }
 }
 ```

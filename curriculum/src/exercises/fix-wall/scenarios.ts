@@ -5,9 +5,9 @@ export const tasks = [
   {
     id: "fill-holes" as const,
     name: "Fill the holes in the wall",
-    description: "Cover each hole with a brick-colored rectangle using fill_color_hex and rectangle functions.",
+    description: "Cover each hole with a brick-colored rectangle using the rectangle function.",
     hints: [
-      "Set the fill color first using fill_color_hex",
+      "The last argument to rectangle is the color",
       "Use a brick color like #AA4A44",
       "Draw three rectangles to cover the holes"
     ],

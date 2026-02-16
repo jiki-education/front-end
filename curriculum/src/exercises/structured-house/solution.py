@@ -53,33 +53,25 @@ knob_center_y = 81
 knob_radius = 1
 
 # The sky
-fill_color_hex(sky_color)
-rectangle(sky_left, sky_top, sky_width, sky_height)
+rectangle(sky_left, sky_top, sky_width, sky_height, sky_color)
 
 # The grass
-fill_color_hex(grass_color)
-rectangle(grass_left, grass_top, grass_width, grass_height)
+rectangle(grass_left, grass_top, grass_width, grass_height, grass_color)
 
 # The frame of the house
-fill_color_hex(house_color)
-rectangle(house_left, house_top, house_width, house_height)
+rectangle(house_left, house_top, house_width, house_height, house_color)
 
 # The roof
-fill_color_hex(roof_color)
-triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y)
+triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y, roof_color)
 
 # The left window
-fill_color_hex(window_color)
-rectangle(window1_left, window1_top, window_width, window_height)
+rectangle(window1_left, window1_top, window_width, window_height, window_color)
 
 # The second window
-fill_color_hex(window_color)
-rectangle(window2_left, window2_top, window_width, window_height)
+rectangle(window2_left, window2_top, window_width, window_height, window_color)
 
 # The door
-fill_color_hex(door_color)
-rectangle(door_left, door_top, door_width, door_height)
+rectangle(door_left, door_top, door_width, door_height, door_color)
 
 # The door knob
-fill_color_hex(knob_color)
-circle(knob_center_x, knob_center_y, knob_radius)
+circle(knob_center_x, knob_center_y, knob_radius, knob_color)

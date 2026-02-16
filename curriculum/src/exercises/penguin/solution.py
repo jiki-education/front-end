@@ -1,43 +1,31 @@
 # Light blue background
-fill_color_hex("#ADD8E6")
-rectangle(0, 0, 100, 100)
+rectangle(0, 0, 100, 100, "#ADD8E6")
 
 # Ground
-fill_color_hex("#ffffff")  # Ice ground
-rectangle(0, 70, 100, 30)  # Ice ground
+rectangle(0, 70, 100, 30, "#ffffff")
 
 # Penguin wings
-fill_color_hex("#000000")  # Black
-ellipse(28, 55, 10, 25)  # Left wing
-ellipse(72, 55, 10, 25)  # Right wing
+ellipse(28, 55, 10, 25, "#000000")
+ellipse(72, 55, 10, 25, "#000000")
 
 # Penguin body
-fill_color_hex("#000000")  # Black for the body
-ellipse(50, 53, 25, 40)  # Outer body (oval shape)
-fill_color_hex("#ffffff")  # White for the belly
-ellipse(50, 50, 21, 39)  # Inner belly (oval shape)
+ellipse(50, 53, 25, 40, "#000000")
+ellipse(50, 50, 21, 39, "#ffffff")
 
 # Penguin head
-fill_color_hex("#000000")  # Black
-circle(50, 31, 23)  # Head (circle)
-fill_color_hex("#ffffff")  # White for the face
-ellipse(41, 32, 11, 14)  # Left part of the face
-ellipse(59, 32, 11, 14)  # Right part of the face
-ellipse(50, 40, 16, 11)  # Lower part of the face
+circle(50, 31, 23, "#000000")
+ellipse(41, 32, 11, 14, "#ffffff")
+ellipse(59, 32, 11, 14, "#ffffff")
+ellipse(50, 40, 16, 11, "#ffffff")
 
 # Penguin eyes
-fill_color_hex("#000000")  # Black
-circle(42, 33, 3)  # Left eye
-fill_color_hex("#ffffff")  # White
-circle(43, 34, 1)  # Left iris
+circle(42, 33, 3, "#000000")
+circle(43, 34, 1, "#ffffff")
 
-fill_color_hex("#000000")  # Black
-circle(58, 33, 3)  # Right eye
-fill_color_hex("#ffffff")  # White
-circle(57, 34, 1)  # Right iris
+circle(58, 33, 3, "#000000")
+circle(57, 34, 1, "#ffffff")
 
 # Feet
-fill_color_hex("#FFA500")
-ellipse(40, 93, 7, 4)
-ellipse(60, 93, 7, 4)
-triangle(46, 38, 54, 38, 50, 47)
+ellipse(40, 93, 7, 4, "#FFA500")
+ellipse(60, 93, 7, 4, "#FFA500")
+triangle(46, 38, 54, 38, 50, 47, "#FFA500")

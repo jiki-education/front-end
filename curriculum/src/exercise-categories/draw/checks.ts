@@ -40,7 +40,7 @@ export function checkUniqueColoredRectangles(shapes: Shape[], count: number) {
       return;
     }
 
-    colors.add(`${shape.fillColor.type}-${shape.fillColor.color.toString()}`);
+    colors.add(shape.fillColor);
   });
   return colors.size >= count;
 }
@@ -51,7 +51,7 @@ export function checkUniqueColoredLines(shapes: Shape[], count: number) {
       return;
     }
 
-    colors.add(`${shape.strokeColor.color.toString()}`);
+    colors.add(shape.strokeColor);
   });
   return colors.size >= count;
 }
@@ -62,7 +62,7 @@ export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
     if (!(shape instanceof Circle)) {
       return;
     }
-    colors.add(`${shape.fillColor.type}-${shape.strokeColor.color.toString()}-${shape.fillColor.color.toString()}`);
+    colors.add(`${shape.strokeColor}-${shape.fillColor}`);
   });
   return colors.size >= count;
 }

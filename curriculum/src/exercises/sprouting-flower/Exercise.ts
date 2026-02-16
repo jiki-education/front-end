@@ -6,9 +6,8 @@ export class SproutingFlowerExercise extends DrawExercise {
     return metadata.slug;
   }
 
-  // Select only the drawing functions needed for this exercise
   public get availableFunctions() {
-    const { rectangle, circle, ellipse, fill_color_hex } = this.getAllAvailableFunctions();
-    return [rectangle, circle, ellipse, fill_color_hex];
+    const { rectangle, circle, ellipse } = this.getAllAvailableFunctions();
+    return [rectangle, circle, ellipse];
   }
 }

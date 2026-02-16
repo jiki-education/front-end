@@ -1151,7 +1151,7 @@ Check bootcamp `config.json`:
 {
   "tests_type": "state",
   "project_type": "draw",
-  "exercise_functions": ["rectangle", "fill_color_hex", "circle", "triangle"]
+  "exercise_functions": ["rectangle", "circle", "triangle"]
 }
 ```
 
@@ -1173,8 +1173,8 @@ export class FixWallExercise extends DrawExercise {
 
   public get availableFunctions() {
     // Select only the functions needed for this exercise
-    const { rectangle, fill_color_hex } = this.getAllAvailableFunctions();
-    return [rectangle, fill_color_hex];
+    const { rectangle } = this.getAllAvailableFunctions();
+    return [rectangle];
   }
 
   // Setup helpers for scenarios (see Step 3)
@@ -1186,7 +1186,7 @@ export class FixWallExercise extends DrawExercise {
 
   public setupStroke(width: number, color: string) {
     this.strokeWidth = width;
-    this.strokeColor = { type: "hex", color };
+    this.strokeColor = color;
   }
 }
 
@@ -1195,15 +1195,16 @@ export default FixWallExercise;
 
 **Available drawing functions from `getAllAvailableFunctions()`:**
 
-- `rectangle` - Draw rectangles
-- `circle` - Draw circles
-- `triangle` - Draw triangles
-- `ellipse` - Draw ellipses
-- `line` - Draw lines
-- `fill_color_hex` - Set fill color (hex)
-- `fill_color_rgb` - Set fill color (RGB)
-- `fill_color_hsl` - Set fill color (HSL)
+- `rectangle` - Draw a rectangle (x, y, width, height, color)
+- `circle` - Draw a circle (x, y, radius, color)
+- `triangle` - Draw a triangle (x1, y1, x2, y2, x3, y3, color)
+- `ellipse` - Draw an ellipse (x, y, rx, ry, color)
+- `line` - Draw a line (x1, y1, x2, y2, color)
+- `hsl_to_hex` - Convert HSL values to hex color string (h, s, l)
+- `rgb_to_hex` - Convert RGB values to hex color string (r, g, b)
 - `clear` - Clear canvas
+
+**Note:** Color is passed as the final argument to each shape function (as a hex string like `"#ff0000"`). Use `hsl_to_hex` or `rgb_to_hex` to convert other color formats.
 
 ### Step 3: Handle setup_functions
 
@@ -1339,17 +1340,10 @@ import stubJikiscript from "./stub.jiki";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(left, top, width, height)",
-    description: "Draw a rectangle at position (left, top) with the given width and height",
-    examples: ["rectangle(10, 10, 20, 10)", "rectangle(0, 0, 100, 50)"],
+    signature: "rectangle(left, top, width, height, color)",
+    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    examples: ['rectangle(10, 10, 20, 10, "#AA4A44")', 'rectangle(0, 0, 100, 50, "#FF0000")'],
     category: "Drawing Shapes"
-  },
-  {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code",
-    examples: ['fill_color_hex("#AA4A44")', 'fill_color_hex("#FF0000")'],
-    category: "Colors"
   }
 ];
 
@@ -1381,14 +1375,16 @@ export default exerciseDefinition;
 
 **JavaScript:** Convert function names to camelCase, add semicolons:
 
-- `fill_color_hex` → `fillColorHex`
+- `hsl_to_hex` → `hslToHex`
+- `rgb_to_hex` → `rgbToHex`
 - `set x to 0` → `let x = 0;`
 - `change x to x + 1` → `x = x + 1;`
 - `repeat 5 times do` → `for (let i = 0; i < 5; i++) {`
 
 **Python:** Keep snake_case, use `#` comments, no semicolons:
 
-- `fill_color_hex` stays as `fill_color_hex`
+- `hsl_to_hex` stays as `hsl_to_hex`
+- `rgb_to_hex` stays as `rgb_to_hex`
 - `set x to 0` → `x = 0`
 - `repeat 5 times do` → `for i in range(5):`
 
@@ -1396,7 +1392,7 @@ export default exerciseDefinition;
 
 ### Example: fix-wall (Intro exercise)
 
-**Bootcamp:** Simple exercise using `rectangle` and `fill_color_hex` to fill holes.
+**Bootcamp:** Simple exercise using `rectangle` to fill holes with colored rectangles.
 
 **Key features:**
 

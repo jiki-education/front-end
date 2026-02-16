@@ -3,14 +3,14 @@ import { aToR, rToA } from "./utils";
 import * as Shapes from "./shapes";
 import type { ExecutionContext, InterpretResult } from "@jiki/interpreters";
 import type { Shared } from "@jiki/interpreters";
-import { isNumber } from "@jiki/interpreters";
+import { isNumber, isString } from "@jiki/interpreters";
 import {
   checkCanvasCoverage,
   checkUniqueColoredLines,
   checkUniqueColoredCircles,
   checkUniqueColoredRectangles
 } from "./checks";
-import type { Shape, Color } from "./shapes";
+import type { Shape } from "./shapes";
 import { Circle, Line, Rectangle, Triangle, Ellipse } from "./shapes";
 import { getCircleAt, getLineAt, getEllipseAt, getRectangleAt, getTriangleAt } from "./retrievers";
 
@@ -20,9 +20,8 @@ export abstract class DrawExercise extends VisualExercise {
   protected shapes: Shape[] = [];
   private visibleShapes: Shape[] = [];
 
-  protected strokeColor: Color = { type: "hex", color: "#333333" };
+  protected strokeColor: string = "#333333";
   protected strokeWidth = 0;
-  protected fillColor: Color = { type: "hex", color: "#ff0000" };
 
   constructor() {
     super();
@@ -148,74 +147,14 @@ export abstract class DrawExercise extends VisualExercise {
   public assertAllArgumentsAreVariables(interpreterResult: InterpretResult) {
     return interpreterResult.assertors.assertAllArgumentsAreVariables();
   }
-  public strokeColorHex(_: ExecutionContext, color: Shared.String) {
-    this.strokeColor = { type: "hex", color: color.value };
-  }
   public setStrokeWidth(_: ExecutionContext, width: Shared.Number) {
     this.strokeWidth = width.value;
   }
   public changeStrokeWidth(_: ExecutionContext, width: number) {
     this.strokeWidth = width;
   }
-  public fillColorHex(_: ExecutionContext, color: Shared.String) {
-    this.fillColor = { type: "hex", color: color.value };
-  }
-  public fillColorRGB(
-    executionCtx: ExecutionContext,
-    red: Shared.JikiObject,
-    green: Shared.JikiObject,
-    blue: Shared.JikiObject
-  ) {
-    if (!isNumber(red) || !isNumber(green) || !isNumber(blue)) {
-      return executionCtx.logicError("All inputs must be numbers");
-    }
-    if (red.value < 0 || red.value > 255) {
-      return executionCtx.logicError("Red must be between 0 and 255");
-    }
-    if (green.value < 0 || green.value > 255) {
-      return executionCtx.logicError("Green must be between 0 and 255");
-    }
-    if (blue.value < 0 || blue.value > 255) {
-      return executionCtx.logicError("Blue must be between 0 and 255");
-    }
-    this.fillColor = {
-      type: "rgb",
-      color: [red.value, green.value, blue.value]
-    };
-  }
-  public fillColorRGBA(
-    executionCtx: ExecutionContext,
-    red: Shared.JikiObject,
-    green: Shared.JikiObject,
-    blue: Shared.JikiObject,
-    alpha: Shared.JikiObject
-  ) {
-    if (!isNumber(red) || !isNumber(green) || !isNumber(blue) || !isNumber(alpha)) {
-      return executionCtx.logicError("All inputs must be numbers");
-    }
-    if (red.value < 0 || red.value > 255) {
-      return executionCtx.logicError("Red must be between 0 and 255");
-    }
-    if (green.value < 0 || green.value > 255) {
-      return executionCtx.logicError("Green must be between 0 and 255");
-    }
-    if (blue.value < 0 || blue.value > 255) {
-      return executionCtx.logicError("Blue must be between 0 and 255");
-    }
-    if (alpha.value < 0 || alpha.value > 1) {
-      return executionCtx.logicError("Alpha must be between 0 and 1");
-    }
-    this.fillColor = {
-      type: "rgba",
-      color: [red.value, green.value, blue.value, alpha.value]
-    };
-  }
-  public fillColorHSL(
-    executionCtx: ExecutionContext,
-    h: Shared.JikiObject,
-    s: Shared.JikiObject,
-    l: Shared.JikiObject
-  ) {
+
+  public hslToHex(executionCtx: ExecutionContext, h: Shared.JikiObject, s: Shared.JikiObject, l: Shared.JikiObject) {
     if (!isNumber(h) || !isNumber(s) || !isNumber(l)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
@@ -228,17 +167,38 @@ export abstract class DrawExercise extends VisualExercise {
     if (l.value < 0 || l.value > 100) {
       return executionCtx.logicError("Luminosity must be between 0 and 100");
     }
-    this.fillColor = { type: "hsl", color: [h.value, s.value, l.value] };
+    return hslToHexString(h.value, s.value, l.value);
   }
+
+  public rgbToHex(executionCtx: ExecutionContext, r: Shared.JikiObject, g: Shared.JikiObject, b: Shared.JikiObject) {
+    if (!isNumber(r) || !isNumber(g) || !isNumber(b)) {
+      return executionCtx.logicError("All inputs must be numbers");
+    }
+    if (r.value < 0 || r.value > 255) {
+      return executionCtx.logicError("Red must be between 0 and 255");
+    }
+    if (g.value < 0 || g.value > 255) {
+      return executionCtx.logicError("Green must be between 0 and 255");
+    }
+    if (b.value < 0 || b.value > 255) {
+      return executionCtx.logicError("Blue must be between 0 and 255");
+    }
+    return rgbToHexString(r.value, g.value, b.value);
+  }
+
   public rectangle(
     executionCtx: ExecutionContext,
     x: Shared.JikiObject,
     y: Shared.JikiObject,
     width: Shared.JikiObject,
-    height: Shared.JikiObject
+    height: Shared.JikiObject,
+    color: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
       return executionCtx.logicError("All inputs must be numbers");
+    }
+    if (!isString(color)) {
+      return executionCtx.logicError("Color must be a string");
     }
     if (width.value < 0) {
       return executionCtx.logicError("Width must be greater than 0");
@@ -246,35 +206,40 @@ export abstract class DrawExercise extends VisualExercise {
     if (height.value < 0) {
       return executionCtx.logicError("Height must be greater than 0");
     }
+    const fillColor = color.value;
     const [absX, absY, absWidth, absHeight] = [x.value, y.value, width.value, height.value].map((val) => rToA(val));
 
-    const elem = Shapes.rect(absX, absY, absWidth, absHeight, this.strokeColor, this.strokeWidth, this.fillColor);
+    const elem = Shapes.rect(absX, absY, absWidth, absHeight, this.strokeColor, this.strokeWidth, fillColor);
     this.canvas.appendChild(elem);
 
-    const rect = new Rectangle(x.value, y.value, width.value, height.value, this.strokeColor, this.fillColor, elem);
+    const rect = new Rectangle(x.value, y.value, width.value, height.value, this.strokeColor, fillColor, elem);
     this.shapes.push(rect);
     this.visibleShapes.push(rect);
     this.animateShapeIntoView(executionCtx, elem);
-    // return rect
   }
   public line(
     executionCtx: ExecutionContext,
     x1: Shared.JikiObject,
     y1: Shared.JikiObject,
     x2: Shared.JikiObject,
-    y2: Shared.JikiObject
+    y2: Shared.JikiObject,
+    color: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
+    if (!isString(color)) {
+      return executionCtx.logicError("Color must be a string");
+    }
+    const fillColor = color.value;
     const [absX1, absY1, absX2, absY2] = [x1.value, y1.value, x2.value, y2.value].map((val) => rToA(val));
 
-    const elem = Shapes.line(absX1, absY1, absX2, absY2, this.strokeColor, this.strokeWidth, this.fillColor);
+    const elem = Shapes.line(absX1, absY1, absX2, absY2, this.strokeColor, this.strokeWidth, fillColor);
     this.canvas.appendChild(elem);
 
-    const line = new Line(x1.value, y1.value, x2.value, y2.value, this.strokeColor, this.fillColor, elem);
-    this.shapes.push(line);
-    this.visibleShapes.push(line);
+    const l = new Line(x1.value, y1.value, x2.value, y2.value, this.strokeColor, fillColor, elem);
+    this.shapes.push(l);
+    this.visibleShapes.push(l);
     this.animateShapeIntoView(executionCtx, elem);
   }
 
@@ -282,21 +247,25 @@ export abstract class DrawExercise extends VisualExercise {
     executionCtx: ExecutionContext,
     x: Shared.JikiObject,
     y: Shared.JikiObject,
-    radius: Shared.JikiObject
+    radius: Shared.JikiObject,
+    color: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
+    if (!isString(color)) {
+      return executionCtx.logicError("Color must be a string");
+    }
+    const fillColor = color.value;
     const [absX, absY, absRadius] = [x.value, y.value, radius.value].map((val) => rToA(val));
 
-    const elem = Shapes.circle(absX, absY, absRadius, this.strokeColor, this.strokeWidth, this.fillColor);
+    const elem = Shapes.circle(absX, absY, absRadius, this.strokeColor, this.strokeWidth, fillColor);
     this.canvas.appendChild(elem);
 
-    const circle = new Circle(x.value, y.value, radius.value, this.strokeColor, this.fillColor, elem);
-    this.shapes.push(circle);
-    this.visibleShapes.push(circle);
+    const c = new Circle(x.value, y.value, radius.value, this.strokeColor, fillColor, elem);
+    this.shapes.push(c);
+    this.visibleShapes.push(c);
     this.animateShapeIntoView(executionCtx, elem);
-    // return circle
   }
 
   public ellipse(
@@ -304,22 +273,25 @@ export abstract class DrawExercise extends VisualExercise {
     x: Shared.JikiObject,
     y: Shared.JikiObject,
     rx: Shared.JikiObject,
-    ry: Shared.JikiObject
+    ry: Shared.JikiObject,
+    color: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-
+    if (!isString(color)) {
+      return executionCtx.logicError("Color must be a string");
+    }
+    const fillColor = color.value;
     const [absX, absY, absRx, absRy] = [x.value, y.value, rx.value, ry.value].map((val) => rToA(val));
 
-    const elem = Shapes.ellipse(absX, absY, absRx, absRy, this.strokeColor, this.strokeWidth, this.fillColor);
+    const elem = Shapes.ellipse(absX, absY, absRx, absRy, this.strokeColor, this.strokeWidth, fillColor);
     this.canvas.appendChild(elem);
 
-    const ellipse = new Ellipse(x.value, y.value, rx.value, ry.value, this.strokeColor, this.fillColor, elem);
-    this.shapes.push(ellipse);
-    this.visibleShapes.push(ellipse);
+    const e = new Ellipse(x.value, y.value, rx.value, ry.value, this.strokeColor, fillColor, elem);
+    this.shapes.push(e);
+    this.visibleShapes.push(e);
     this.animateShapeIntoView(executionCtx, elem);
-    // return ellipse
   }
 
   public triangle(
@@ -329,11 +301,16 @@ export abstract class DrawExercise extends VisualExercise {
     x2: Shared.JikiObject,
     y2: Shared.JikiObject,
     x3: Shared.JikiObject,
-    y3: Shared.JikiObject
+    y3: Shared.JikiObject,
+    color: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
+    if (!isString(color)) {
+      return executionCtx.logicError("Color must be a string");
+    }
+    const fillColor = color.value;
     const [absX1, absY1, absX2, absY2, absX3, absY3] = [x1.value, y1.value, x2.value, y2.value, x3.value, y3.value].map(
       (val) => rToA(val)
     );
@@ -347,11 +324,11 @@ export abstract class DrawExercise extends VisualExercise {
       absY3,
       this.strokeColor,
       this.strokeWidth,
-      this.fillColor
+      fillColor
     );
     this.canvas.appendChild(elem);
 
-    const triangle = new Triangle(
+    const t = new Triangle(
       x1.value,
       y1.value,
       x2.value,
@@ -359,13 +336,12 @@ export abstract class DrawExercise extends VisualExercise {
       x3.value,
       y3.value,
       this.strokeColor,
-      this.fillColor,
+      fillColor,
       elem
     );
-    this.shapes.push(triangle);
-    this.visibleShapes.push(triangle);
+    this.shapes.push(t);
+    this.visibleShapes.push(t);
     this.animateShapeIntoView(executionCtx, elem);
-    // return triangle
   }
 
   protected animateShapeIntoView(executionCtx: ExecutionContext, elem: SVGElement) {
@@ -410,45 +386,97 @@ export abstract class DrawExercise extends VisualExercise {
         name: "rectangle",
         func: this.rectangle.bind(this),
         description:
-          "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
+          "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
       },
       triangle: {
         name: "triangle",
         func: this.triangle.bind(this),
         description:
-          "drew a rectangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
+          "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
       },
       circle: {
         name: "circle",
         func: this.circle.bind(this),
-        description: "drew a circle with its center at (${arg1}, ${arg2}), and a radius of ${arg3}"
+        description: "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
       },
       ellipse: {
         name: "ellipse",
         func: this.ellipse.bind(this),
         description:
-          "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
+          "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
+      },
+      line: {
+        name: "line",
+        func: this.line.bind(this),
+        description: "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"
       },
       clear: {
         name: "clear",
         func: this.clear.bind(this),
         description: "cleared the canvas"
       },
-      fill_color_hex: {
-        name: "fill_color_hex",
-        func: this.fillColorHex.bind(this),
-        description: "changed the fill color using a hex string"
+      hsl_to_hex: {
+        name: "hsl_to_hex",
+        func: this.hslToHex.bind(this),
+        description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, luminosity: ${arg3}) to a hex string"
       },
-      fill_color_rgb: {
-        name: "fill_color_rgb",
-        func: this.fillColorRGB.bind(this),
-        description: "changed the fill color using red, green and blue values"
-      },
-      fill_color_hsl: {
-        name: "fill_color_hsl",
-        func: this.fillColorHSL.bind(this),
-        description: "changed the fill color using hue, saturation and lumisity values"
+      rgb_to_hex: {
+        name: "rgb_to_hex",
+        func: this.rgbToHex.bind(this),
+        description: "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
       }
     };
   }
+}
+
+function hslToHexString(h: number, s: number, l: number): string {
+  s /= 100;
+  l /= 100;
+
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+
+  let r = 0,
+    g = 0,
+    b = 0;
+
+  if (h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else {
+    r = c;
+    g = 0;
+    b = x;
+  }
+
+  const toHex = (n: number) =>
+    Math.round((n + m) * 255)
+      .toString(16)
+      .padStart(2, "0");
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+function rgbToHexString(r: number, g: number, b: number): string {
+  const toHex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }

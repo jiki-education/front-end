@@ -13,41 +13,37 @@ import stubJikiscript from "./stub.jiki";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(x, y, width, height)",
-    description: "Draw a rectangle at position (x, y) with the given width and height",
-    examples: ["rectangle(0, 0, 100, 50)", "rectangle(house_left, house_top, house_width, house_height)"],
-    category: "Drawing Shapes"
-  },
-  {
-    name: "circle",
-    signature: "circle(center_x, center_y, radius)",
-    description: "Draw a circle centered at (center_x, center_y) with the given radius",
-    examples: ["circle(50, 50, 10)", "circle(knob_center_x, knob_center_y, knob_radius)"],
-    category: "Drawing Shapes"
-  },
-  {
-    name: "ellipse",
-    signature: "ellipse(center_x, center_y, radius_x, radius_y)",
-    description: "Draw an ellipse centered at (center_x, center_y) with horizontal and vertical radii",
-    examples: ["ellipse(50, 50, 20, 10)", "ellipse(30, 60, 15, 5)"],
-    category: "Drawing Shapes"
-  },
-  {
-    name: "triangle",
-    signature: "triangle(x1, y1, x2, y2, x3, y3)",
-    description: "Draw a triangle with three corner points",
+    signature: "rectangle(x, y, width, height, color)",
+    description: "Draw a rectangle at position (x, y) with the given width, height, and color",
     examples: [
-      "triangle(50, 20, 40, 40, 60, 40)",
-      "triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y)"
+      'rectangle(0, 0, 100, 50, "#add8e6")',
+      "rectangle(house_left, house_top, house_width, house_height, house_color)"
     ],
     category: "Drawing Shapes"
   },
   {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code",
-    examples: ['fill_color_hex("#FF0000")', "fill_color_hex(house_color)"],
-    category: "Colors"
+    name: "circle",
+    signature: "circle(center_x, center_y, radius, color)",
+    description: "Draw a circle centered at (center_x, center_y) with the given radius and color",
+    examples: ['circle(50, 50, 10, "#000000")', "circle(knob_center_x, knob_center_y, knob_radius, knob_color)"],
+    category: "Drawing Shapes"
+  },
+  {
+    name: "ellipse",
+    signature: "ellipse(center_x, center_y, radius_x, radius_y, color)",
+    description: "Draw an ellipse centered at (center_x, center_y) with horizontal and vertical radii and color",
+    examples: ['ellipse(50, 50, 20, 10, "#000000")', 'ellipse(30, 60, 15, 5, "#ffffff")'],
+    category: "Drawing Shapes"
+  },
+  {
+    name: "triangle",
+    signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
+    description: "Draw a triangle with three corner points and a color",
+    examples: [
+      'triangle(50, 20, 40, 40, 60, 40, "#8b4513")',
+      "triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y, roof_color)"
+    ],
+    category: "Drawing Shapes"
   }
 ];
 

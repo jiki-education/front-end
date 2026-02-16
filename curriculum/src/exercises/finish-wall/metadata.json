@@ -1,7 +1,7 @@
 {
   "slug": "finish-wall",
   "title": "Finish the Wall",
-  "instructions": "In this exercise, you use the `repeat` keyword to add the top layer to a wall.\n\nThe final wall should look like this - all the layers other than the top one are already complete. You need to add the final layer of 5 bricks.\n\n![Completed Wall](https://assets.exercism.org/bootcamp/graphics/completed-wall.png)\n\nThings you need to know:\n\n- Each brick is 10 high and 20 wide.\n- The `rectangle` function can only appear once in your code!\n- Use a loop to draw all 5 bricks efficiently.\n\n### Functions\n\nYou need two functions for this exercise:\n\n- `fill_color_hex(hex)`: Changes the color of whatever comes after it\n- `rectangle(left, top, width, height)`: Draws a rectangle.",
+  "instructions": "In this exercise, you use the `repeat` keyword to add the top layer to a wall.\n\nThe final wall should look like this - all the layers other than the top one are already complete. You need to add the final layer of 5 bricks.\n\n![Completed Wall](https://assets.exercism.org/bootcamp/graphics/completed-wall.png)\n\nThings you need to know:\n\n- Each brick is 10 high and 20 wide.\n- The `rectangle` function can only appear once in your code!\n- Use a loop to draw all 5 bricks efficiently.\n\n### Functions\n\nYou need one function for this exercise:\n\n- `rectangle(left, top, width, height, color)`: Draws a rectangle with the given color.",
   "estimatedMinutes": 10,
   "levelId": "everything",
   "hints": [
