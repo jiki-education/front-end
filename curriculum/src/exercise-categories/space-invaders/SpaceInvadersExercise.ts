@@ -47,6 +47,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
     (_, idx) => this.laserStart + idx * this.laserStep
   );
   private laserPosition = 0;
+  protected shotCooldown: number | false = 50;
   private features = { alienRespawning: false };
   private laser!: HTMLElement;
   private aliens: (Alien | null)[][] = [];
@@ -207,7 +208,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
   }
 
   public shoot(executionCtx: ExecutionContext) {
-    if (this.lastShotAt > executionCtx.getCurrentTimeInMs() - 50) {
+    if (this.shotCooldown !== false && this.lastShotAt > executionCtx.getCurrentTimeInMs() - this.shotCooldown) {
       executionCtx.logicError(
         "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time."
       );

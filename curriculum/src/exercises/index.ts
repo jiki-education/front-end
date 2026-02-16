@@ -15,6 +15,7 @@ export const exercises = {
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
   "space-invaders-solve-basic": () => import("./space-invaders-solve-basic"),
+  "space-invaders-repeat": () => import("./space-invaders-repeat"),
   "jumbled-house": () => import("./jumbled-house"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),

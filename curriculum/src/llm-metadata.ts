@@ -21,6 +21,7 @@ import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
 import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/llm-metadata";
 import { llmMetadata as spaceInvadersSolveBasicLLM } from "./exercises/space-invaders-solve-basic/llm-metadata";
+import { llmMetadata as spaceInvadersRepeatLLM } from "./exercises/space-invaders-repeat/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
@@ -61,6 +62,7 @@ const llmMetadataRegistry = {
   penguin: penguinLLM,
   "scroll-and-shoot": scrollAndShootLLM,
   "space-invaders-solve-basic": spaceInvadersSolveBasicLLM,
+  "space-invaders-repeat": spaceInvadersRepeatLLM,
   "jumbled-house": jumbledHouseLLM,
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,

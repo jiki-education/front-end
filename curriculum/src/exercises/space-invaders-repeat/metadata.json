@@ -1,0 +1,13 @@
+{
+  "slug": "space-invaders-repeat",
+  "title": "Space Invaders: Repeat",
+  "instructions": "The aliens are back, and there are more of them this time!\n\nYou have the same two functions as before:\n- `move()` moves your laser cannon one position to the right\n- `shoot()` fires the laser upwards\n\nBut this time, there's a pattern to the alien positions. Look carefully at where they are and use a **repeat loop** to destroy them all efficiently.\n\nYour solution must be **7 lines of code or fewer**.",
+  "estimatedMinutes": 10,
+  "levelId": "repeat-loop",
+  "hints": [
+    "Look at the pattern - the aliens are in every other column",
+    "What actions do you repeat for each group of aliens?",
+    "Use repeat(n) { ... } to run the same code multiple times",
+    "Count how many groups of aliens there are"
+  ]
+}
