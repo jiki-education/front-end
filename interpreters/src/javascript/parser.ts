@@ -88,6 +88,8 @@ export class Parser {
       WhileStatement: "While loops",
       BreakStatement: "Break statements",
       ContinueStatement: "Continue statements",
+      FunctionDeclaration: "Function declarations",
+      ReturnStatement: "Return statements",
     };
     return friendlyNames[nodeType] || nodeType;
   }
@@ -414,6 +416,9 @@ export class Parser {
   }
 
   private functionDeclaration(functionToken: Token): Statement {
+    // Check if FunctionDeclaration is allowed
+    this.checkNodeAllowed("FunctionDeclaration", "FunctionDeclarationNotAllowed", functionToken.location);
+
     // Parse function name
     const name = this.consume("IDENTIFIER", "MissingFunctionName");
 
@@ -447,6 +452,9 @@ export class Parser {
   }
 
   private returnStatement(returnToken: Token): Statement {
+    // Check if ReturnStatement is allowed
+    this.checkNodeAllowed("ReturnStatement", "ReturnStatementNotAllowed", returnToken.location);
+
     // Check if there's an expression to return
     let expression: Expression | null = null;
 
