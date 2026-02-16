@@ -38,6 +38,19 @@ You can use these slash commands to do the work:
 
 Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exercise` when creating something new or when the reference is in the planning repo.
 
+## Status
+
+### Fully Checked
+
+Nothing yet
+
+### Implemented
+
+- `maze-solve-basic` - Basic manual maze solving using only move() turn_left() turn_right()
+- `space-invaders-solve-basic` - Basic Space Invaders using sequential move() and shoot() calls
+
+### Unimplemented
+
 ## Current State
 
 ### Levels
