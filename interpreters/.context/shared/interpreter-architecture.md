@@ -223,6 +223,43 @@ function moveCharacter(ctx: ExecutionContext, direction: string) {
 }
 ```
 
+## Seeded Random Number Generation
+
+All interpreters support deterministic random number generation via a seeded PRNG (mulberry32). Pass `randomSeed` in the `EvaluationContext` to enable:
+
+```typescript
+// JavaScript
+interpret(`let x = Math.randomInt(0, 10);`, { randomSeed: 42 });
+
+// Python
+interpret(`x = random.randint(0, 10)`, { randomSeed: 42 });
+
+// JikiScript
+interpret(`set x to random_number(0, 10)`, {
+  languageFeatures: { allowedStdlibFunctions: ["random_number"] },
+  randomSeed: 42,
+});
+```
+
+### How It Works
+
+- The `ExecutionContext` includes a `random(): number` function that returns floats in [0, 1)
+- When `randomSeed` is provided, a seeded PRNG generates deterministic values
+- When no seed is provided, falls back to `Math.random()` (non-deterministic)
+- All stdlib random functions (`Math.randomInt`, `random.randint`, `random_number`) use `ctx.random()` internally
+
+### Key Property
+
+Shifted bounds with the same range size produce equivalent results:
+
+- `randomInt(0, 4)` equals `randomInt(1, 5) - 1` with the same seed
+- This is because the same underlying float maps through `Math.floor(r * rangeSize) + min`
+
+### Implementation
+
+- Shared utility: `src/shared/random.ts` — `createRandomFn(seed?)` factory
+- Each executor creates a `randomFn` from the seed and exposes it via `getExecutionContext()`
+
 ## Testing Requirements
 
 All interpreters MUST have consistent test categories:

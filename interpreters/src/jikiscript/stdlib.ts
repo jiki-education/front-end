@@ -71,12 +71,35 @@ export const StdlibFunctions: Record<string, ExternalFunction> = {
     func: sortString,
     description: "sorted the string",
   },
+  random_number: {
+    name: "random_number",
+    func: randomNumber,
+    description: "generated a random integer",
+    arity: 2,
+  },
 };
 //const funcsForLib = ["push", "concatenate"]
 const funcsForLib = Object.keys(StdlibFunctions).filter(key => key !== "sort_string");
 export const StdlibFunctionsForLibrary: ExternalFunction[] = Object.entries(StdlibFunctions)
   .filter(([key]) => funcsForLib.includes(key))
   .map(([_, v]) => v);
+
+function randomNumber(ctx: ExecutionContext, minObj: Jiki.JikiObject, maxObj: Jiki.JikiObject): Jiki.Number {
+  verifyType(minObj, Jiki.Number, "number", 1);
+  verifyType(maxObj, Jiki.Number, "number", 2);
+
+  const min = Math.trunc((minObj as Jiki.Number).value);
+  const max = Math.trunc((maxObj as Jiki.Number).value);
+
+  if (min > max) {
+    ctx.logicError(
+      `The first argument to <code>random_number</code> must be less than or equal to the second argument. You passed <code>${min}</code> and <code>${max}</code>.`
+    );
+  }
+
+  const result = Math.floor(ctx.random() * (max - min + 1)) + min;
+  return new Jiki.Number(result);
+}
 
 function sortString(_: ExecutionContext, str: Jiki.JikiObject): Jiki.JikiString {
   if (str instanceof Jiki.String) {

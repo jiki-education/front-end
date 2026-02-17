@@ -127,3 +127,52 @@ describe("Math object", () => {
     expect(x).toBe(7);
   });
 });
+
+describe("Math.randomInt() with randomSeed", () => {
+  it("produces deterministic results with the same seed", () => {
+    const result1 = interpret(`let x = Math.randomInt(0, 100);`, { randomSeed: 42 });
+    const result2 = interpret(`let x = Math.randomInt(0, 100);`, { randomSeed: 42 });
+    expect(result1.success).toBe(true);
+    expect(result2.success).toBe(true);
+    const x1 = (result1.frames[0] as any).variables.x.value;
+    const x2 = (result2.frames[0] as any).variables.x.value;
+    expect(x1).toBe(x2);
+  });
+
+  it("produces deterministic sequences across multiple calls", () => {
+    const code = `
+      let a = Math.randomInt(0, 100);
+      let b = Math.randomInt(0, 100);
+      let c = Math.randomInt(0, 100);
+    `;
+    const result1 = interpret(code, { randomSeed: 123 });
+    const result2 = interpret(code, { randomSeed: 123 });
+    expect(result1.success).toBe(true);
+    expect(result2.success).toBe(true);
+    const vars1 = (result1.frames[2] as any).variables;
+    const vars2 = (result2.frames[2] as any).variables;
+    expect(vars1.a.value).toBe(vars2.a.value);
+    expect(vars1.b.value).toBe(vars2.b.value);
+    expect(vars1.c.value).toBe(vars2.c.value);
+  });
+
+  it("different seeds produce different results", () => {
+    const result1 = interpret(`let x = Math.randomInt(0, 1000);`, { randomSeed: 1 });
+    const result2 = interpret(`let x = Math.randomInt(0, 1000);`, { randomSeed: 2 });
+    expect(result1.success).toBe(true);
+    expect(result2.success).toBe(true);
+    const x1 = (result1.frames[0] as any).variables.x.value;
+    const x2 = (result2.frames[0] as any).variables.x.value;
+    expect(x1).not.toBe(x2);
+  });
+
+  it("shifted bounds produce equivalent results with same seed", () => {
+    const result1 = interpret(`let x = Math.randomInt(0, 4);`, { randomSeed: 42 });
+    const result2 = interpret(`let x = Math.randomInt(1, 5) - 1;`, { randomSeed: 42 });
+    expect(result1.success).toBe(true);
+    expect(result2.success).toBe(true);
+    const x1 = (result1.frames[0] as any).variables.x.value;
+    const x2 = (result2.frames[0] as any).variables.x.value;
+    expect(x1).toBe(x2);
+  });
+});
