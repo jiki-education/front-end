@@ -114,12 +114,19 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "video", "slug": "and-and-or" },
       { "type": "exercise", "slug": "bouncer-dress-code" },
       { "type": "exercise", "slug": "golf-shot-checker" },
-      { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" }
+      { "type": "video", "slug": "modulo-and-not" },
+      { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" },
+      { "type": "video", "slug": "repeat-without-input" },
+      { "type": "exercise", "slug": "maze-automated-solve" }
     ]
   },
   {
     "level": "conditionals-and-state",
-    "lessons": [{ "type": "exercise", "slug": "rainbow-ball" }]
+    "lessons": [
+      { "type": "exercise", "slug": "build-wall" },
+      { "type": "exercise", "slug": "scroll-and-shoot" },
+      { "type": "exercise", "slug": "rainbow-ball" }
+    ]
   }
 ]
 ```

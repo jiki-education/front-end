@@ -80,7 +80,9 @@ Nothing yet
 - `bouncer-dress-code` - Bouncer Dress Code: use and/or for complex conditions (Complex Conditionals level)
 - `golf-shot-checker` - Shot Checker: use complex conditionals to validate golf shots (Complex Conditionals level)
 - `rock-paper-scissors-determine-winner` - Rock Paper Scissors: determine winner using complex conditionals (Complex Conditionals level)
-- `maze-automated-solve` - Programmatically Solve a Maze: left-hand rule algorithm with sensing functions (Conditionals level)
+- `maze-automated-solve` - Programmatically Solve a Maze: left-hand rule algorithm with sensing functions (Complex Conditionals level)
+- `build-wall` - Build the Wall: nested loops to build a full brick wall with alternating rows (Conditionals and State level)
+- `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
 - `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
 
 ### Unimplemented

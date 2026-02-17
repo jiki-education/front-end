@@ -3,7 +3,7 @@
   "title": "Programmatically Solve a Maze",
   "instructions": "In the first maze exercise you manually moved your character around the maze. Now you're ready to solve any maze programmatically using code!\n\nTo make that possible, you have three new functions:\n\n- `can_turn_left()`: returns `true` if the space to the character's left is not a wall.\n- `can_turn_right()`: returns `true` if the space to the character's right is not a wall.\n- `can_move()`: returns `true` if the space ahead of the character is not a wall.\n\nWith those three functions and the `move()`, `turn_left()` and `turn_right()` you had before, you can solve any maze.\n\nSpend a little time trying to work out how (maybe 15-30 minutes). Treat it as a fun logic puzzle. Get some paper and draw things out.\n\nThe algorithm is:\n- If you can turn left, turn left and move forward\n- Otherwise, if you can move forward, move forward\n- Otherwise if you can turn right, turn right and move forward\n- Otherwise turn around and move forward\n\nThis exercise is broken into different tasks. As you complete each task, more scenarios will pass!",
   "estimatedMinutes": 20,
-  "levelId": "conditionals",
+  "levelId": "complex-conditionals",
   "hints": [
     "Start by just moving forward in a straight line",
     "Then add: if there's a path to the left, take it",
