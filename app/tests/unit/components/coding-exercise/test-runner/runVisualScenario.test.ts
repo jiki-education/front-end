@@ -5,13 +5,16 @@ import { jikiscript } from "@jiki/interpreters";
 // Mock the interpreters module
 jest.mock("@jiki/interpreters", () => ({
   jikiscript: {
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    evaluateFunction: jest.fn()
   },
   javascript: {
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    evaluateFunction: jest.fn()
   },
   python: {
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    evaluateFunction: jest.fn()
   }
 }));
 
@@ -292,6 +295,161 @@ describe("runVisualScenario", () => {
       const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
 
       expect(result.status).toBe("fail");
+    });
+  });
+
+  describe("randomSeed pass-through", () => {
+    it("should pass randomSeed from scenario to interpreter context", () => {
+      const scenario: VisualScenario = {
+        slug: "seeded-test",
+        name: "Seeded Test",
+        description: "Test with random seed",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        randomSeed: 42
+      };
+
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.interpret).toHaveBeenCalledWith(
+        "move()",
+        expect.objectContaining({
+          randomSeed: 42
+        })
+      );
+    });
+
+    it("should pass undefined randomSeed when not specified", () => {
+      const scenario: VisualScenario = {
+        slug: "no-seed-test",
+        name: "No Seed Test",
+        description: "Test without random seed",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
+      };
+
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.interpret).toHaveBeenCalledWith(
+        "move()",
+        expect.objectContaining({
+          randomSeed: undefined
+        })
+      );
+    });
+  });
+
+  describe("functionCall support", () => {
+    it("should use evaluateFunction when scenario has functionCall", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        frames: [{ time: 100, line: 1, status: "SUCCESS" }],
+        logLines: [],
+        meta: { sourceCode: "function draw() {}" }
+      });
+
+      const scenario: VisualScenario = {
+        slug: "func-call-test",
+        name: "Function Call Test",
+        description: "Test with function call",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        functionCall: {
+          name: "draw",
+          args: [10, "red"]
+        }
+      };
+
+      const result = runVisualScenario(scenario, "function draw() {}", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.evaluateFunction).toHaveBeenCalledWith(
+        "function draw() {}",
+        expect.objectContaining({
+          externalFunctions: expect.any(Array),
+          languageFeatures: { timePerFrame: 1 }
+        }),
+        "draw",
+        10,
+        "red"
+      );
+      expect(jikiscript.interpret).not.toHaveBeenCalled();
+      expect(result.status).toBe("pass");
+    });
+
+    it("should use interpret when scenario has no functionCall", () => {
+      const scenario: VisualScenario = {
+        slug: "no-func-call",
+        name: "No Function Call",
+        description: "Test without function call",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
+      };
+
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.interpret).toHaveBeenCalled();
+      expect(jikiscript.evaluateFunction).not.toHaveBeenCalled();
+    });
+
+    it("should pass randomSeed alongside functionCall", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        frames: [{ time: 100, line: 1, status: "SUCCESS" }],
+        logLines: [],
+        meta: { sourceCode: "function draw() {}" }
+      });
+
+      const scenario: VisualScenario = {
+        slug: "func-with-seed",
+        name: "Function With Seed",
+        description: "Test with function call and random seed",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        functionCall: {
+          name: "draw",
+          args: [5]
+        },
+        randomSeed: 99
+      };
+
+      runVisualScenario(scenario, "function draw() {}", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.evaluateFunction).toHaveBeenCalledWith(
+        "function draw() {}",
+        expect.objectContaining({
+          randomSeed: 99
+        }),
+        "draw",
+        5
+      );
+    });
+
+    it("should handle functionCall with no args", () => {
+      (jikiscript.evaluateFunction as jest.Mock).mockReturnValue({
+        frames: [{ time: 100, line: 1, status: "SUCCESS" }],
+        logLines: [],
+        meta: { sourceCode: "function draw() {}" }
+      });
+
+      const scenario: VisualScenario = {
+        slug: "func-no-args",
+        name: "Function No Args",
+        description: "Test with function call with no args",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        functionCall: {
+          name: "draw",
+          args: []
+        }
+      };
+
+      runVisualScenario(scenario, "function draw() {}", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.evaluateFunction).toHaveBeenCalledWith(
+        "function draw() {}",
+        expect.objectContaining({
+          externalFunctions: expect.any(Array)
+        }),
+        "draw"
+      );
     });
   });
 

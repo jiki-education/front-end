@@ -37,10 +37,7 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   // Compile ONCE before running any scenarios
   const interpreter = getInterpreter(language);
   const compilationResult = interpreter.compile(studentCode, {
-    externalFunctions: availableFunctions.map((func) => ({
-      name: func.name,
-      func: func.func
-    })) as any,
+    externalFunctions: availableFunctions,
     languageFeatures: {
       timePerFrame: 1
     }
