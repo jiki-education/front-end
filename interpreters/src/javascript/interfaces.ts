@@ -23,7 +23,9 @@ export type NodeType =
   | "RepeatStatement"
   | "WhileStatement"
   | "BreakStatement"
-  | "ContinueStatement";
+  | "ContinueStatement"
+  | "FunctionDeclaration"
+  | "ReturnStatement";
 
 export interface LanguageFeatures {
   excludeList?: string[];

@@ -57,6 +57,8 @@ export type SyntaxErrorType =
   | "MissingRightParenAfterRepeatCount"
   | "BreakStatementNotAllowed"
   | "ContinueStatementNotAllowed"
+  | "FunctionDeclarationNotAllowed"
+  | "ReturnStatementNotAllowed"
   | "MissingRightParenthesisAfterArguments"
   | "MissingRightParenthesisAfterFunctionCall"
   // Function-related errors

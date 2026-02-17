@@ -72,7 +72,7 @@ import { executeContinueStatement, ContinueFlowControlError } from "./executor/e
 import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
-import { extractCallExpressions } from "./assertion-helpers";
+import { extractCallExpressions, extractVariableAssignments, snakeToCamel } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
 // Execution context for JavaScript stdlib
@@ -135,6 +135,7 @@ export interface ExecutorResult {
   success: boolean;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
+    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
   };
 }
 
@@ -250,6 +251,15 @@ export class Executor {
             return expr.args.every((arg: Expression) => {
               return !(arg instanceof LiteralExpression);
             });
+          });
+        },
+        assertNoLiteralNumberAssignments: (exclude: string[]) => {
+          const camelExclude = exclude.map(snakeToCamel);
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (camelExclude.includes(name)) {
+              return true;
+            }
+            return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
         },
       },

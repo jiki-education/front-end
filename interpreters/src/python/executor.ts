@@ -72,7 +72,7 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeAttributeExpression } from "./executor/executeAttributeExpression";
 import { executeFStringExpression } from "./executor/executeFStringExpression";
-import { extractCallExpressions } from "./assertion-helpers";
+import { extractCallExpressions, extractVariableAssignments } from "./assertion-helpers";
 
 // Execution context for Python stdlib (future use)
 export type ExecutionContext = SharedExecutionContext & {
@@ -122,6 +122,7 @@ export interface ExecutorResult {
   success: boolean;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
+    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
   };
 }
 
@@ -231,6 +232,14 @@ export class Executor {
             return expr.args.every((arg: Expression) => {
               return !(arg instanceof LiteralExpression);
             });
+          });
+        },
+        assertNoLiteralNumberAssignments: (exclude: string[]) => {
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (exclude.includes(name)) {
+              return true;
+            }
+            return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
         },
       },

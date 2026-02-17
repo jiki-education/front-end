@@ -105,6 +105,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       },
       assertors: {
         assertAllArgumentsAreVariables: () => true,
+        assertNoLiteralNumberAssignments: () => true,
       },
     };
   }

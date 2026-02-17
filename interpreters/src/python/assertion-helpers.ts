@@ -1,6 +1,14 @@
-import type { Statement } from "./statement";
 import type { Expression } from "./expression";
-import { CallExpression } from "./expression";
+import { CallExpression, SubscriptExpression } from "./expression";
+import {
+  type Statement,
+  AssignmentStatement,
+  BlockStatement,
+  IfStatement,
+  ForInStatement,
+  WhileStatement,
+  FunctionDeclaration,
+} from "./statement";
 
 /**
  * Extract all CallExpression nodes from an AST tree
@@ -33,4 +41,42 @@ export function extractExpressions<T extends Expression>(
       })
       .flat()
   );
+}
+
+export function extractVariableAssignments(statements: Statement[]): Array<{ name: string; value: Expression }> {
+  const results: Array<{ name: string; value: Expression }> = [];
+  for (const stmt of statements) {
+    if (stmt instanceof AssignmentStatement && !(stmt.target instanceof SubscriptExpression)) {
+      results.push({ name: stmt.target.lexeme, value: stmt.initializer });
+    }
+
+    // Recurse into sub-statements
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractVariableAssignments([sub]));
+    }
+  }
+  return results;
+}
+
+function getSubStatements(stmt: Statement): Statement[] {
+  if (stmt instanceof BlockStatement) {
+    return stmt.statements;
+  }
+  if (stmt instanceof IfStatement) {
+    const result = [stmt.thenBranch];
+    if (stmt.elseBranch) {
+      result.push(stmt.elseBranch);
+    }
+    return result;
+  }
+  if (stmt instanceof ForInStatement) {
+    return stmt.body;
+  }
+  if (stmt instanceof WhileStatement) {
+    return stmt.body;
+  }
+  if (stmt instanceof FunctionDeclaration) {
+    return stmt.body;
+  }
+  return [];
 }

@@ -5,7 +5,7 @@ import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
-import { extractCallExpressions } from "./assertion-helpers";
+import { extractCallExpressions, extractVariableAssignments } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, type Expression } from "./expression";
 
@@ -72,6 +72,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       },
       assertors: {
         assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
+        assertNoLiteralNumberAssignments: () => true,
       },
     };
   }
@@ -150,6 +151,14 @@ export function evaluateFunction(
           return expr.args.every((arg: Expression) => {
             return !(arg instanceof LiteralExpression);
           });
+        });
+      },
+      assertNoLiteralNumberAssignments: (exclude: string[]) => {
+        return extractVariableAssignments(statements).every(({ name, value }) => {
+          if (exclude.includes(name)) {
+            return true;
+          }
+          return !(value instanceof LiteralExpression && typeof value.value === "number");
         });
       },
     },
