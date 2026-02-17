@@ -59,7 +59,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   },
   {
     "level": "variables",
-    "lessons": []
+    "lessons": [{ "type": "exercise", "slug": "snowman" }]
   },
   {
     "level": "basic-state",

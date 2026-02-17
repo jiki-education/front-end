@@ -1,0 +1,14 @@
+{
+  "slug": "snowman",
+  "title": "Snowman",
+  "instructions": "Your task is to build a snowman by setting the right variable values so your snowman matches the image.\n\n<!-- TODO: Add target snowman image here -->\n\n### How it works\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- The code to draw the snowman is already written for you.\n- You need to set the correct values for the **7 variables** at the top of the code.\n- The snowman is made of three white circles (head, body, base) stacked on top of each other.\n- The base is the biggest circle, the body is medium, and the head is the smallest.\n- All three circles share the same `x` position (the snowman is centered).\n\n### Variables to set\n\n- `snowman_x` — the horizontal center of the snowman\n- `head_y`, `head_size` — the vertical center and radius of the head\n- `body_y`, `body_size` — the vertical center and radius of the body\n- `base_y`, `base_size` — the vertical center and radius of the base\n\n### Functions used in this exercise\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle",
+  "estimatedMinutes": 10,
+  "levelId": "variables",
+  "hints": [
+    "The snowman should be horizontally centered on the canvas (x = 50)",
+    "The base is the biggest circle and sits near the bottom",
+    "The body sits on top of the base and is smaller",
+    "The head is the smallest circle and sits on top of the body",
+    "Look at the background image carefully to estimate the y positions and sizes"
+  ]
+}

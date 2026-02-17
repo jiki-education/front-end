@@ -48,6 +48,7 @@ import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers
 import { llmMetadata as processGuessLLM } from "./exercises/process-guess/llm-metadata";
 import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-metadata";
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
+import { llmMetadata as snowmanLLM } from "./exercises/snowman/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -98,7 +99,8 @@ const llmMetadataRegistry = {
   "plant-the-flowers": plantTheFlowersLLM,
   "process-guess": processGuessLLM,
   "process-game": processGameLLM,
-  "wordle-solver": wordleSolverLLM
+  "wordle-solver": wordleSolverLLM,
+  snowman: snowmanLLM
 } as const;
 
 /**
