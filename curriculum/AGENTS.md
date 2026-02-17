@@ -1,5 +1,7 @@
 # Instructions for AI Assistants - Jiki Curriculum
 
+> **Note:** `CLAUDE.md` is a symlink to this file (`AGENTS.md`). They are the same file.
+
 ## ⚠️ CRITICAL: First Step for ANY Work
 
 **Before starting ANY task, you MUST create a feature branch:**
@@ -312,13 +314,14 @@ When adding new animation properties:
 
 ## Important Rules
 
-1. **Independence from rendering** - Don't depend on anime.js directly
-2. **Type safety first** - All interfaces must be properly typed
-3. **Backward compatibility** - Don't break existing exercise APIs
-4. **Clear documentation** - Document all public APIs
-5. **Test scenarios** - Each exercise needs testable scenarios
-6. **Language consistency** - Maintain feature parity between JS and Python
-7. **Function uniqueness** - Each exercise defines its own specific functions
+1. **All visual changes must use the animation system** - Never directly modify, update, or remove DOM elements in exercise function methods. The only DOM manipulation allowed is creating elements during `populateView()`. All other visual changes (moving, hiding, showing, transforming) must go through `this.animations.push()`. Direct DOM manipulation creates permanent changes that break timeline scrubbing — when users scrub backwards, animations reverse automatically, but direct DOM changes do not.
+2. **Independence from rendering** - Don't depend on anime.js directly
+3. **Type safety first** - All interfaces must be properly typed
+4. **Backward compatibility** - Don't break existing exercise APIs
+5. **Clear documentation** - Document all public APIs
+6. **Test scenarios** - Each exercise needs testable scenarios
+7. **Language consistency** - Maintain feature parity between JS and Python
+8. **Function uniqueness** - Each exercise defines its own specific functions
 
 ## Common Tasks
 

@@ -472,11 +472,12 @@ export interface Animation {
 
 ### Animation Best Practices
 
-1. **Use ExecutionContext for timing**: `offset: ctx.getCurrentTimeInMs()`
-2. **Fast-forward execution time**: `ctx.fastForward(durationMs)`
-3. **Use semantic selectors**: `#${this.view.id} .character`
-4. **Include appropriate durations**: Balance speed and visibility
-5. **Maintain state consistency**: Visual state should match internal state
+1. **All visual changes must use the animation system**: Never directly modify, update, or remove DOM elements in function methods. The only DOM manipulation allowed is creating elements during `populateView()`. All other visual changes must go through `this.animations.push()`. Direct DOM manipulation creates permanent changes that break timeline scrubbing — animations reverse automatically when scrubbing backwards, but direct DOM changes do not.
+2. **Use ExecutionContext for timing**: `offset: ctx.getCurrentTimeInMs()`
+3. **Fast-forward execution time**: `ctx.fastForward(durationMs)`
+4. **Use semantic selectors**: `#${this.view.id} .character`
+5. **Include appropriate durations**: Balance speed and visibility
+6. **Maintain state consistency**: Visual state should match internal state
 
 ### Example Animation
 
