@@ -1,23 +1,17 @@
 // Snowman (Arithmetic)
 
 // These are fixed
-set size to 5
+set head_radius to 5
 set snowman_x to 50
-set head_y to 20
+set ground_y to 80
 
 // Derive these from the variables above
-set head_radius to size * 2
-set body_radius to size * 3
-set base_radius to size * 4
+set body_radius to head_radius * 2
+set base_radius to head_radius * 3
 
-set body_y to head_y + head_radius + body_radius
-set base_y to body_y + body_radius + base_radius
-
-// Sky
-rectangle(0, 0, 100, 60, "#87CEEB")
-
-// Snowy ground
-rectangle(0, 60, 100, 40, "#F0F0F0")
+set base_y to ground_y - base_radius
+set body_y to base_y - base_radius - body_radius
+set head_y to body_y - body_radius - head_radius
 
 // Base (bottom, biggest)
 circle(snowman_x, base_y, base_radius, "white")

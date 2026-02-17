@@ -1,3 +1,3 @@
 repeat(60) {
-  moveBallRight();
+  rollRight();
 }

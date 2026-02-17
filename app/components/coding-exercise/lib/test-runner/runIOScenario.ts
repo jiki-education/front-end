@@ -71,10 +71,7 @@ export function runIOScenario(
     interpretResult = interpreter.evaluateFunction(
       studentCode,
       {
-        externalFunctions: availableFunctions.map((func) => ({
-          name: func.name,
-          func: func.func
-        })) as any,
+        externalFunctions: availableFunctions,
         languageFeatures: {
           timePerFrame: 1
         }

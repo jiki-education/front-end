@@ -1,13 +1,13 @@
 {
   "slug": "golf-shot-checker",
   "title": "Golf: Shot Checker",
-  "instructions": "You're on the golf course and the golfer has hit the ball. Your job is to move the ball and check if it lands in the hole!\n\nYou have four functions:\n- `move_ball_right()` moves the ball one unit to the right\n- `move_ball_down()` moves the ball one unit down\n- `get_shot_length()` returns how far the golfer hit the ball\n- `fire_fireworks()` celebrates a successful shot\n\nFirst, get the shot length and move the ball that many steps to the right. Then check: if the shot length is between 56 and 63 (inclusive), the ball is over the hole! Move it down 9 units to sink it, then fire the fireworks.\n\nIf the shot doesn't land over the hole, just leave the ball where it stops.",
+  "instructions": "You're on the golf course and the golfer has hit the ball. Your job is to roll the ball and check if it lands in the hole!\n\nYou have three functions:\n- `roll_to(x, y)` rolls the ball to position (x, y)\n- `get_shot_length()` returns how far the golfer hit the ball\n- `fire_fireworks()` celebrates the shot\n\nThe ball starts at x=29, y=75. Get the shot length, then roll the ball right one step at a time (shotLength + 1 steps). If the shot length is between 56 and 65 (inclusive), the ball is over the hole — roll it down 9 units to sink it. Then fire the fireworks!",
   "estimatedMinutes": 15,
-  "levelId": "complex-conditionals",
+  "levelId": "functions-that-return-things",
   "hints": [
     "Start by storing the shot length in a variable: set shot_length to get_shot_length()",
-    "Use a repeat loop to move the ball right by the shot length",
-    "Check if shot_length >= 56 and shot_length <= 63 to see if it's over the hole",
-    "If the ball is over the hole, move it down 9 times then fire fireworks"
+    "Use a repeat loop to roll the ball right, updating x each time",
+    "Check if shot_length >= 56 and shot_length <= 65 to see if it's over the hole",
+    "If the ball is over the hole, roll it down 9 times by updating y"
   ]
 }

@@ -13,10 +13,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "move_ball_to",
-    signature: "move_ball_to(x)",
-    description: "Moves the ball to position **x**.",
-    examples: ["move_ball_to(30)", "move_ball_to(50)"],
+    name: "roll_to",
+    signature: "roll_to(x)",
+    description: "Rolls the ball to position **x**.",
+    examples: ["roll_to(30)", "roll_to(50)"],
     category: "Movement"
   }
 ];

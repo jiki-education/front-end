@@ -1,23 +1,17 @@
 // Snowman (Arithmetic)
 
 // These are fixed
-let size = 5;
+let headRadius = 5;
 let snowmanX = 50;
-let headY = 20;
+let groundY = 80;
 
 // Derive these from the variables above
-let headRadius = size * 2;
-let bodyRadius = size * 3;
-let baseRadius = size * 4;
+let bodyRadius = headRadius * 2;
+let baseRadius = headRadius * 3;
 
-let bodyY = headY + headRadius + bodyRadius;
-let baseY = bodyY + bodyRadius + baseRadius;
-
-// Sky
-rectangle(0, 0, 100, 60, "#87CEEB");
-
-// Snowy ground
-rectangle(0, 60, 100, 40, "#F0F0F0");
+let baseY = groundY - baseRadius;
+let bodyY = baseY - baseRadius - bodyRadius;
+let headY = bodyY - bodyRadius - headRadius;
 
 // Base (bottom, biggest)
 circle(snowmanX, baseY, baseRadius, "white");

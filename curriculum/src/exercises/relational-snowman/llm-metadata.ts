@@ -10,7 +10,7 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches arithmetic with variables. Students derive snowman
-    dimensions from a single base variable using multiplication and addition.
+    dimensions from head_radius and ground_y using multiplication and subtraction.
     Key concepts: arithmetic expressions, variable relationships, relative positioning.
   `,
 
@@ -18,30 +18,32 @@ export const llmMetadata: LLMMetadata = {
     "build-relational-snowman": {
       description: `
         Students derive all sizes and positions from fixed variables using arithmetic.
+        The snowman sits on the ground and expands upward.
 
         Fixed variables:
-        - size = 5
+        - head_radius = 5
         - snowman_x = 50
-        - head_y = 20
+        - ground_y = 80
 
         Derived variables:
-        - head_radius = size * 2 = 10
-        - body_radius = size * 3 = 15
-        - base_radius = size * 4 = 20
-        - body_y = head_y + head_radius + body_radius = 45
-        - base_y = body_y + body_radius + base_radius = 80
+        - body_radius = head_radius * 2 = 10
+        - base_radius = head_radius * 3 = 15
+        - base_y = ground_y - base_radius = 65
+        - body_y = base_y - base_radius - body_radius = 40
+        - head_y = body_y - body_radius - head_radius = 25
 
         Key teaching points:
         1. Variables can be defined in terms of other variables
-        2. Multiplication for scaling (size * 2, size * 3, size * 4)
-        3. Addition for positioning (circles touch when distance = sum of radii)
-        4. Changing size would scale the entire snowman proportionally
+        2. Multiplication for scaling (head_radius * 2, head_radius * 3)
+        3. Subtraction for upward positioning from a ground line
+        4. Circles touch when distance between centers = sum of radii
+        5. Changing head_radius scales the entire snowman proportionally
 
         Common mistakes:
         - Hardcoding numbers instead of using expressions
         - Forgetting that circles touch at the sum of their radii
         - Using diameter instead of radius for positioning
-        - Getting the order wrong (body_y depends on head_radius and body_radius)
+        - Getting the subtraction order wrong (building upward from ground)
       `
     }
   }

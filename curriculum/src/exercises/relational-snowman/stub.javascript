@@ -1,26 +1,20 @@
 // Snowman (Arithmetic)
-// Rewrite the snowman so all the sizes are based on one variable.
-// The circles should touch each other and stack from top to bottom.
-// When you change size, the whole snowman should scale!
+// Rewrite the snowman so all the sizes are based on headRadius.
+// The circles should touch each other and stack from bottom to top.
+// When you change headRadius, the whole snowman should scale!
 
 // These are fixed
-let size = 5;
+let headRadius = 5;
 let snowmanX = 50;
-let headY = 20;
+let groundY = 80;
 
 // Derive these from the variables above
-let headRadius = 0;
 let bodyRadius = 0;
 let baseRadius = 0;
 
-let bodyY = 0;
 let baseY = 0;
-
-// Sky
-rectangle(0, 0, 100, 60, "#87CEEB");
-
-// Snowy ground
-rectangle(0, 60, 100, 40, "#F0F0F0");
+let bodyY = 0;
+let headY = 0;
 
 // Base (bottom, biggest)
 circle(snowmanX, baseY, baseRadius, "white");

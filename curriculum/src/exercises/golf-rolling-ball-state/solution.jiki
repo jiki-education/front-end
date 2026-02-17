@@ -2,5 +2,5 @@ set x to 28
 
 repeat 60 times do
   change x to x + 1
-  move_ball_to(x)
+  roll_to(x)
 end

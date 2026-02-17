@@ -8,9 +8,10 @@ export default class GolfRollingBallStateExercise extends GolfExercise {
 
   public availableFunctions = [
     {
-      name: "move_ball_to",
-      func: this.moveBallTo.bind(this),
-      description: "moved the ball to position ${arg1}"
+      name: "roll_to",
+      func: this.rollTo.bind(this),
+      description: "rolled the ball to position ${arg1}",
+      arity: 1 as const
     }
   ];
 }

@@ -10,7 +10,7 @@ export const tasks = [
     hints: [
       "Set a variable x to 28",
       "Use repeat 60 times do ... end",
-      "Inside the loop, increase x by 1 and call move_ball_to(x)"
+      "Inside the loop, increase x by 1 and call roll_to(x)"
     ],
     requiredScenarios: ["roll-ball"],
     bonus: false

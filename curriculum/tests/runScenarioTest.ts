@@ -59,11 +59,7 @@ export function runVisualScenarioTest(
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
   const interpreter = getInterpreter(language);
   const interpreterContext = {
-    externalFunctions: exercise.availableFunctions.map((func) => ({
-      name: func.name,
-      func: func.func,
-      description: func.description ?? ""
-    })),
+    externalFunctions: exercise.availableFunctions,
     languageFeatures: {
       timePerFrame: 1,
       maxTotalLoopIterations: 10000,
@@ -113,11 +109,7 @@ export function runIOScenarioTest(
 
   // Get available helper functions from the exercise class
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
-  const externalFunctions = ExerciseClass.availableFunctions.map((func) => ({
-    name: func.name,
-    func: func.func,
-    description: func.description ?? ""
-  }));
+  const externalFunctions = ExerciseClass.availableFunctions;
 
   // Call the student's function using evaluateFunction
   const interpreter = getInterpreter(language);

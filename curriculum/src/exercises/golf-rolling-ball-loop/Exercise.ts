@@ -8,9 +8,9 @@ export default class GolfRollingBallLoopExercise extends GolfExercise {
 
   public availableFunctions = [
     {
-      name: "move_ball_right",
-      func: this.moveBallRight.bind(this),
-      description: "moved the ball one unit to the right"
+      name: "roll_right",
+      func: this.rollRight.bind(this),
+      description: "rolled the ball one unit to the right"
     }
   ];
 }

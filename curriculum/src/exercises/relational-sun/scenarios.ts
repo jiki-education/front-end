@@ -43,6 +43,13 @@ export const scenarios: VisualScenario[] = [
             "The sun is not positioned correctly. sun_x should be canvas_size - gap - sun_radius, sun_y should be gap + sun_radius."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["canvas_size", "gap", "sun_radius"]),
+        errorHtml: "Variables like sun_x and sun_y should be calculated from other variables, not set to plain numbers."
+      }
+    ]
   }
 ];

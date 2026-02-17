@@ -79,6 +79,10 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "sunset" },
       { "type": "exercise", "slug": "plant-the-flowers" }
     ]
+  },
+  {
+    "level": "functions-that-return-things",
+    "lessons": [{ "type": "exercise", "slug": "golf-shot-checker" }]
   }
 ]
 ```

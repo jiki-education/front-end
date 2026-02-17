@@ -1,6 +1,7 @@
 import type { Location } from "./location";
 import { JikiObject } from "./jikiObjects";
 import type { Statement } from "./statement";
+import { SetVariableStatement, ChangeVariableStatement } from "./statement";
 import type { Expression } from "./expression";
 import { FunctionCallExpression } from "./expression";
 
@@ -51,4 +52,20 @@ export function extractExpressions<T extends Expression>(
       })
       .flat()
   );
+}
+
+export function extractVariableAssignments(
+  tree: (Statement | Expression)[]
+): Array<{ name: string; value: Expression }> {
+  const results: Array<{ name: string; value: Expression }> = [];
+  for (const node of tree) {
+    if (node instanceof SetVariableStatement) {
+      results.push({ name: node.name.lexeme, value: node.value });
+    }
+    if (node instanceof ChangeVariableStatement) {
+      results.push({ name: node.name.lexeme, value: node.value });
+    }
+    results.push(...extractVariableAssignments(node.children()));
+  }
+  return results;
 }

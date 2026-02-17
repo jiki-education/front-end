@@ -1,12 +1,12 @@
 {
   "slug": "golf-rolling-ball-loop",
   "title": "Golf: Rolling Ball",
-  "instructions": "A golf ball is sitting on the tee. Your job is to roll it into the hole!\n\nYou have one function:\n- `move_ball_right()` moves the ball one unit to the right\n\nThe ball needs to move **60 times** to reach the hole. Use a **repeat loop** to move it there efficiently.\n\nYour solution should be just 3 lines of code!",
+  "instructions": "A golf ball is sitting on the tee. Your job is to roll it into the hole!\n\nYou have one function:\n- `roll_right()` rolls the ball one unit to the right\n\nThe ball needs to move **60 times** to reach the hole. Use a **repeat loop** to roll it there efficiently.\n\nYour solution should be just 3 lines of code!",
   "estimatedMinutes": 5,
   "levelId": "repeat-loop",
   "hints": [
     "The ball needs to move 60 times to the right",
-    "Use a repeat loop instead of writing move_ball_right() 60 times",
+    "Use a repeat loop instead of writing roll_right() 60 times",
     "The repeat loop syntax is: repeat 60 times do ... end"
   ]
 }

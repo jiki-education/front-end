@@ -50,6 +50,13 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The green light is not correct. center_x should be radius*5, green_y should be radius*7."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["radius"]),
+        errorHtml: "All position and size variables should be calculated from the radius, not set to plain numbers."
+      }
+    ]
   }
 ];

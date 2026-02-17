@@ -13,17 +13,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "move_ball_right",
-    signature: "move_ball_right()",
-    description: "Moves the ball **one unit to the right**.",
-    examples: ["move_ball_right()"],
-    category: "Movement"
-  },
-  {
-    name: "move_ball_down",
-    signature: "move_ball_down()",
-    description: "Moves the ball **one unit down** (into the hole).",
-    examples: ["move_ball_down()"],
+    name: "roll_to",
+    signature: "roll_to(x, y)",
+    description: "Rolls the ball to position **(x, y)**.",
+    examples: ["roll_to(30, 75)", "roll_to(50, 84)"],
     category: "Movement"
   },
   {
@@ -36,7 +29,7 @@ const functions: FunctionInfo[] = [
   {
     name: "fire_fireworks",
     signature: "fire_fireworks()",
-    description: "Fires celebratory fireworks! **Only call this when the ball has landed in the hole.**",
+    description: "Fires celebratory fireworks!",
     examples: ["fire_fireworks()"],
     category: "Action"
   }

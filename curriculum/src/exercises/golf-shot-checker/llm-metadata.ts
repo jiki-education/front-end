@@ -9,12 +9,12 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise combines variables, functions that return values, repeat loops,
-    and complex conditionals (using 'and'). Students check if a golf shot lands
-    in a hole by comparing the shot length to a range (56-63).
+    This exercise teaches functions that return values. Students use get_shot_length()
+    to retrieve a value, then use it to control a repeat loop and a conditional.
+    The key concept is storing a return value in a variable and using it.
 
     The exercise has four scenarios: too short, too long, and the two boundary
-    values of the valid range.
+    values of the valid range (56-65).
   `,
 
   tasks: {
@@ -22,22 +22,28 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to:
         1. Call get_shot_length() and store the result in a variable
-        2. Use a repeat loop to move the ball right by the shot length
-        3. Check if shot_length >= 56 and shot_length <= 63
-        4. If yes, move ball down 9 times and fire fireworks
+        2. Track x and y positions, starting at x=29, y=75
+        3. Use a repeat loop (shotLength + 1 times) to roll the ball right
+        4. Check if shot_length >= 56 and shot_length <= 65
+        5. If yes, roll ball down 9 times (updating y)
+        6. Fire fireworks at the end
+
+        Key functions:
+        - roll_to(x, y): rolls the ball to position (x, y)
+        - get_shot_length(): returns the shot length
+        - fire_fireworks(): fires celebratory fireworks
 
         Common mistakes:
         - Forgetting to store the shot length in a variable
         - Using the wrong range for the hole check
         - Not combining conditions with 'and'
-        - Moving down or firing fireworks unconditionally
-        - Off-by-one errors in the range check
+        - Forgetting to update x or y before calling roll_to
+        - Off-by-one errors in the repeat count
 
         Teaching strategy:
+        - Focus on the return value concept: get_shot_length() gives you a number
         - Start with getting and using the shot length for horizontal movement
         - Then add the conditional check for the hole range
-        - Explain that 'and' requires both conditions to be true
-        - Use the too-short scenario first to debug basic movement
       `
     }
   }

@@ -1,13 +1,17 @@
-let shotLength = getShotLength();
+let x = 29
+let y = 75
+let shotLength = getShotLength()
 
-repeat(shotLength) {
-  moveBallRight();
+repeat(shotLength + 1) {
+  x = x + 1
+  rollTo(x, y)
 }
 
-if (shotLength >= 56 && shotLength <= 63) {
+if (shotLength >= 56 && shotLength <= 65) {
   repeat(9) {
-    moveBallDown();
+    y = y + 1
+    rollTo(x, y)
   }
-
-  fireFireworks();
 }
+
+fireFireworks()

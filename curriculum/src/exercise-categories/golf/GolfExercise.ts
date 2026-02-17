@@ -21,14 +21,14 @@ export default class GolfExercise extends VisualExercise {
 
   availableFunctions: ExternalFunction[] = [
     {
-      name: "move_ball_right",
-      func: this.moveBallRight.bind(this),
-      description: "moved the ball one unit to the right"
+      name: "roll_right",
+      func: this.rollRight.bind(this),
+      description: "rolled the ball one unit to the right"
     },
     {
-      name: "move_ball_down",
-      func: this.moveBallDown.bind(this),
-      description: "moved the ball one unit down"
+      name: "roll_to",
+      func: this.rollTo.bind(this),
+      description: "rolled the ball to the given position"
     },
     {
       name: "get_shot_length",
@@ -42,7 +42,7 @@ export default class GolfExercise extends VisualExercise {
     }
   ];
 
-  moveBallRight(executionCtx: ExecutionContext) {
+  rollRight(executionCtx: ExecutionContext) {
     this.ballX += 1;
     this.addAnimation({
       targets: `#${this.view.id} .ball`,
@@ -55,29 +55,23 @@ export default class GolfExercise extends VisualExercise {
     executionCtx.fastForward(this.moveDuration);
   }
 
-  moveBallTo(executionCtx: ExecutionContext, x: Shared.JikiObject) {
+  rollTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
     if (!isNumber(x)) {
-      return executionCtx.logicError("Position must be a number");
+      return executionCtx.logicError("x must be a number");
     }
     this.ballX = x.value;
-    this.addAnimation({
-      targets: `#${this.view.id} .ball`,
-      offset: executionCtx.getCurrentTimeInMs(),
-      duration: this.moveDuration,
-      transformations: {
-        left: `${this.ballX}%`
+    if (y !== undefined) {
+      if (!isNumber(y)) {
+        return executionCtx.logicError("y must be a number");
       }
-    });
-    executionCtx.fastForward(this.moveDuration);
-  }
-
-  moveBallDown(executionCtx: ExecutionContext) {
-    this.ballY += 1;
+      this.ballY = y.value;
+    }
     this.addAnimation({
       targets: `#${this.view.id} .ball`,
       offset: executionCtx.getCurrentTimeInMs(),
       duration: this.moveDuration,
       transformations: {
+        left: `${this.ballX}%`,
         top: `${this.ballY}%`
       }
     });

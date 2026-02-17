@@ -1,4 +1,5 @@
-// Get the shot length
-// Move the ball right by the shot length
-// Check if it's over the hole (56-63)
-// If so, move it down and fire fireworks
+// Get the shot length using getShotLength()
+// Roll the ball right by the shot length
+// Check if it's over the hole (56-65)
+// If so, roll it down into the hole
+// Fire fireworks!

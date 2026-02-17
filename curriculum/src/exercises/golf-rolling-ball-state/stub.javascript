@@ -1,2 +1,2 @@
-// Track the ball's position and move it to the hole
-// Use: let, for loop, moveBallTo(x)
+// Track the ball's position and roll it to the hole
+// Use: let, repeat, rollTo(x)
