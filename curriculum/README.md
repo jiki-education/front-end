@@ -116,6 +116,10 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "golf-shot-checker" },
       { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" }
     ]
+  },
+  {
+    "level": "conditionals-and-state",
+    "lessons": [{ "type": "exercise", "slug": "rainbow-ball" }]
   }
 ]
 ```

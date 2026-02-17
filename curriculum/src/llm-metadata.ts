@@ -65,6 +65,7 @@ import { llmMetadata as rainbowSplodgesLLM } from "./exercises/rainbow-splodges/
 import { llmMetadata as digitalClockLLM } from "./exercises/digital-clock/llm-metadata";
 import { llmMetadata as rockPaperScissorsDetermineWinnerLLM } from "./exercises/rock-paper-scissors-determine-winner/llm-metadata";
 import { llmMetadata as mazeAutomatedSolveLLM } from "./exercises/maze-automated-solve/llm-metadata";
+import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -132,7 +133,8 @@ const llmMetadataRegistry = {
   "rainbow-splodges": rainbowSplodgesLLM,
   "digital-clock": digitalClockLLM,
   "rock-paper-scissors-determine-winner": rockPaperScissorsDetermineWinnerLLM,
-  "maze-automated-solve": mazeAutomatedSolveLLM
+  "maze-automated-solve": mazeAutomatedSolveLLM,
+  "rainbow-ball": rainbowBallLLM
 } as const;
 
 /**
