@@ -1,0 +1,8 @@
+set count to num_flowers()
+set gap to 100 / (count + 1)
+set position to gap
+
+repeat count times do
+  plant(position)
+  change position to position + gap
+end

@@ -8,7 +8,8 @@ import {
   checkCanvasCoverage,
   checkUniqueColoredLines,
   checkUniqueColoredCircles,
-  checkUniqueColoredRectangles
+  checkUniqueColoredRectangles,
+  checkUniquePositionedCircles
 } from "./checks";
 import type { Shape } from "./shapes";
 import { Circle, Line, Rectangle, Triangle, Ellipse } from "./shapes";
@@ -138,6 +139,10 @@ export abstract class DrawExercise extends VisualExercise {
 
   public checkUniqueColoredCircles(count: number) {
     return checkUniqueColoredCircles(this.shapes, count);
+  }
+
+  public checkUniquePositionedCircles(count: number) {
+    return checkUniquePositionedCircles(this.shapes, count);
   }
 
   public checkCanvasCoverage(requiredPercentage: number) {

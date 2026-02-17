@@ -3,7 +3,8 @@ import {
   checkCanvasCoverage,
   checkUniqueColoredCircles,
   checkUniqueColoredRectangles,
-  checkUniqueColoredLines
+  checkUniqueColoredLines,
+  checkUniquePositionedCircles
 } from "../../../src/exercise-categories/draw/checks";
 import type { Shape } from "../../../src/exercise-categories/draw/shapes";
 import { Circle, Rectangle, Line } from "../../../src/exercise-categories/draw/shapes";
@@ -326,6 +327,42 @@ describe("Check Functions", () => {
 
       const result = checkUniqueColoredLines(shapes, 3);
 
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("4.5 checkUniquePositionedCircles", () => {
+    it("Should return true when circles have enough unique positions", () => {
+      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, defaultFillColor, createMockSVGElement());
+      const circle2 = new Circle(20, 20, 5, defaultStrokeColor, defaultFillColor, createMockSVGElement());
+      const circle3 = new Circle(30, 30, 5, defaultStrokeColor, defaultFillColor, createMockSVGElement());
+      const shapes: Shape[] = [circle1, circle2, circle3];
+
+      const result = checkUniquePositionedCircles(shapes, 3);
+      expect(result).toBe(true);
+    });
+
+    it("Should return false when circles share positions", () => {
+      const circle1 = new Circle(10, 10, 5, defaultStrokeColor, "#ff0000", createMockSVGElement());
+      const circle2 = new Circle(10, 10, 5, defaultStrokeColor, "#00ff00", createMockSVGElement());
+      const shapes: Shape[] = [circle1, circle2];
+
+      const result = checkUniquePositionedCircles(shapes, 2);
+      expect(result).toBe(false);
+    });
+
+    it("Should handle empty shapes array", () => {
+      const shapes: Shape[] = [];
+      const result = checkUniquePositionedCircles(shapes, 1);
+      expect(result).toBe(false);
+    });
+
+    it("Should ignore non-circle shapes", () => {
+      const rect = new Rectangle(10, 10, 5, 5, defaultStrokeColor, defaultFillColor, createMockSVGElement());
+      const circle = new Circle(20, 20, 5, defaultStrokeColor, defaultFillColor, createMockSVGElement());
+      const shapes: Shape[] = [rect, circle];
+
+      const result = checkUniquePositionedCircles(shapes, 1);
       expect(result).toBe(true);
     });
   });

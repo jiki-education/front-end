@@ -17,7 +17,9 @@ export const exercises = {
   "space-invaders-solve-basic": () => import("./space-invaders-solve-basic"),
   "space-invaders-repeat": () => import("./space-invaders-repeat"),
   "space-invaders-nested-repeat": () => import("./space-invaders-nested-repeat"),
+  "space-invaders-conditional": () => import("./space-invaders-conditional"),
   "jumbled-house": () => import("./jumbled-house"),
+  bouncer: () => import("./bouncer"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
@@ -40,6 +42,7 @@ export const exercises = {
   "golf-rolling-ball-state": () => import("./golf-rolling-ball-state"),
   "golf-shot-checker": () => import("./golf-shot-checker"),
   "plant-the-flowers": () => import("./plant-the-flowers"),
+  "plant-the-flowers-scenarios": () => import("./plant-the-flowers-scenarios"),
   "process-guess": () => import("./process-guess"),
   "process-game": () => import("./process-game"),
   "wordle-solver": () => import("./wordle-solver"),
@@ -49,7 +52,8 @@ export const exercises = {
   "relational-sun": () => import("./relational-sun"),
   "relational-traffic-lights": () => import("./relational-traffic-lights"),
   "cityscape-skyscraper": () => import("./cityscape-skyscraper"),
-  "cityscape-skyline": () => import("./cityscape-skyline")
+  "cityscape-skyline": () => import("./cityscape-skyline"),
+  "rainbow-splodges": () => import("./rainbow-splodges")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

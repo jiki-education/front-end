@@ -1,0 +1,12 @@
+{
+  "slug": "bouncer",
+  "title": "Bouncer",
+  "instructions": "You're a bouncer at a venue. Your job is to check someone's age and decide whether to open the door.\n\nYou have two functions:\n- `get_age()` returns the age of the person waiting outside\n- `open_door()` opens the door to let them in\n\nThe venue's policy is that only people **over 20** (not including 20) are allowed in. Get the person's age, and if they're old enough, open the door!",
+  "estimatedMinutes": 10,
+  "levelId": "conditionals",
+  "hints": [
+    "Start by storing the age in a variable: set age to get_age()",
+    "Use an if statement to check if age > 20",
+    "If the condition is true, call open_door() inside the if block"
+  ]
+}

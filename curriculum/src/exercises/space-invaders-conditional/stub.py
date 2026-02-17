@@ -1,0 +1,3 @@
+# Move across the screen checking each column
+# Use is_alien_above() to check before shooting
+# Use: if condition: ...

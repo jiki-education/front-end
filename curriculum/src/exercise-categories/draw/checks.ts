@@ -66,3 +66,14 @@ export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
   });
   return colors.size >= count;
 }
+
+export function checkUniquePositionedCircles(shapes: Shape[], count: number) {
+  let positions = new Set();
+  shapes.forEach((shape) => {
+    if (!(shape instanceof Circle)) {
+      return;
+    }
+    positions.add(`${shape.cx}-${shape.cy}`);
+  });
+  return positions.size >= count;
+}

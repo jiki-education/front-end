@@ -12,7 +12,8 @@ export {
   checkCanvasCoverage,
   checkUniqueColoredLines,
   checkUniqueColoredCircles,
-  checkUniqueColoredRectangles
+  checkUniqueColoredRectangles,
+  checkUniquePositionedCircles
 } from "./checks";
 
 // Retriever functions for scenarios

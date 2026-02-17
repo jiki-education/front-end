@@ -23,7 +23,9 @@ import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/l
 import { llmMetadata as spaceInvadersSolveBasicLLM } from "./exercises/space-invaders-solve-basic/llm-metadata";
 import { llmMetadata as spaceInvadersRepeatLLM } from "./exercises/space-invaders-repeat/llm-metadata";
 import { llmMetadata as spaceInvadersNestedRepeatLLM } from "./exercises/space-invaders-nested-repeat/llm-metadata";
+import { llmMetadata as spaceInvadersConditionalLLM } from "./exercises/space-invaders-conditional/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
+import { llmMetadata as bouncerLLM } from "./exercises/bouncer/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
@@ -46,6 +48,7 @@ import { llmMetadata as golfRollingBallLoopLLM } from "./exercises/golf-rolling-
 import { llmMetadata as golfRollingBallStateLLM } from "./exercises/golf-rolling-ball-state/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
 import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers/llm-metadata";
+import { llmMetadata as plantTheFlowersScenariosLLM } from "./exercises/plant-the-flowers-scenarios/llm-metadata";
 import { llmMetadata as processGuessLLM } from "./exercises/process-guess/llm-metadata";
 import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-metadata";
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
@@ -56,6 +59,7 @@ import { llmMetadata as relationalSunLLM } from "./exercises/relational-sun/llm-
 import { llmMetadata as relationalTrafficLightsLLM } from "./exercises/relational-traffic-lights/llm-metadata";
 import { llmMetadata as cityscapeSkyscraperLLM } from "./exercises/cityscape-skyscraper/llm-metadata";
 import { llmMetadata as cityscapeSkylineLLM } from "./exercises/cityscape-skyline/llm-metadata";
+import { llmMetadata as rainbowSplodgesLLM } from "./exercises/rainbow-splodges/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -82,7 +86,9 @@ const llmMetadataRegistry = {
   "space-invaders-solve-basic": spaceInvadersSolveBasicLLM,
   "space-invaders-repeat": spaceInvadersRepeatLLM,
   "space-invaders-nested-repeat": spaceInvadersNestedRepeatLLM,
+  "space-invaders-conditional": spaceInvadersConditionalLLM,
   "jumbled-house": jumbledHouseLLM,
+  bouncer: bouncerLLM,
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
@@ -105,6 +111,7 @@ const llmMetadataRegistry = {
   "golf-rolling-ball-state": golfRollingBallStateLLM,
   "golf-shot-checker": golfShotCheckerLLM,
   "plant-the-flowers": plantTheFlowersLLM,
+  "plant-the-flowers-scenarios": plantTheFlowersScenariosLLM,
   "process-guess": processGuessLLM,
   "process-game": processGameLLM,
   "wordle-solver": wordleSolverLLM,
@@ -114,7 +121,8 @@ const llmMetadataRegistry = {
   "relational-sun": relationalSunLLM,
   "relational-traffic-lights": relationalTrafficLightsLLM,
   "cityscape-skyscraper": cityscapeSkyscraperLLM,
-  "cityscape-skyline": cityscapeSkylineLLM
+  "cityscape-skyline": cityscapeSkylineLLM,
+  "rainbow-splodges": rainbowSplodgesLLM
 } as const;
 
 /**
