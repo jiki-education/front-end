@@ -172,9 +172,23 @@ export default class MyExercise extends VisualExercise {
 
 If the exercise uses stdlib functions (check solution.jiki for calls like `concatenate()`, `push()`, `sort_string()`, etc.), ensure they're in the appropriate level's `allowedStdlibFunctions` array (e.g., `src/levels/everything.ts`).
 
-## Step 6: Type Check and Testing
+## Step 6: Update README.md and PLAN.md
 
-### 6.1: Type Check First
+### 6.1: Update README.md
+
+Add the exercise to the correct level in the curriculum JSON structure in `README.md`. Insert it in the right position within the level's `"lessons"` array.
+
+### 6.2: Update PLAN.md
+
+Add the exercise to the **Implemented** section of `PLAN.md` with a brief description, following the format of existing entries:
+
+```
+- `exercise-name` - Brief description (Level Name level)
+```
+
+## Step 7: Type Check and Testing
+
+### 7.1: Type Check First
 
 ```bash
 pnpm typecheck
@@ -182,7 +196,7 @@ pnpm typecheck
 
 Fix any type errors before running tests.
 
-### 6.2: Run Tests
+### 7.2: Run Tests
 
 ```bash
 pnpm test
@@ -190,7 +204,7 @@ pnpm test
 
 All tests must pass, including automatic tests for the new exercise (LLM metadata, solution validation).
 
-## Step 7: Quality Assurance
+## Step 8: Quality Assurance
 
 Before committing, verify:
 
@@ -200,12 +214,14 @@ Before committing, verify:
 - [ ] Exercise registered in `src/exercises/index.ts`
 - [ ] LLM metadata registered in `src/llm-metadata.ts`
 - [ ] Stdlib functions registered in level file (if applicable)
+- [ ] Exercise added to `README.md` curriculum JSON
+- [ ] Exercise added to `PLAN.md` Implemented section
 - [ ] `pnpm typecheck` passes
 - [ ] `pnpm test` passes (all tests)
 - [ ] `pnpm lint` passes
 - [ ] `pnpm format:check` passes
 
-## Step 8: Commit and PR
+## Step 9: Commit and PR
 
 ```bash
 git add .

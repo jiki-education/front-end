@@ -27,6 +27,7 @@ import { llmMetadata as spaceInvadersConditionalLLM } from "./exercises/space-in
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
 import { llmMetadata as bouncerLLM } from "./exercises/bouncer/llm-metadata";
 import { llmMetadata as bouncerWristbandsLLM } from "./exercises/bouncer-wristbands/llm-metadata";
+import { llmMetadata as bouncerDressCodeLLM } from "./exercises/bouncer-dress-code/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
@@ -61,6 +62,9 @@ import { llmMetadata as relationalTrafficLightsLLM } from "./exercises/relationa
 import { llmMetadata as cityscapeSkyscraperLLM } from "./exercises/cityscape-skyscraper/llm-metadata";
 import { llmMetadata as cityscapeSkylineLLM } from "./exercises/cityscape-skyline/llm-metadata";
 import { llmMetadata as rainbowSplodgesLLM } from "./exercises/rainbow-splodges/llm-metadata";
+import { llmMetadata as digitalClockLLM } from "./exercises/digital-clock/llm-metadata";
+import { llmMetadata as rockPaperScissorsDetermineWinnerLLM } from "./exercises/rock-paper-scissors-determine-winner/llm-metadata";
+import { llmMetadata as mazeAutomatedSolveLLM } from "./exercises/maze-automated-solve/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -91,6 +95,7 @@ const llmMetadataRegistry = {
   "jumbled-house": jumbledHouseLLM,
   bouncer: bouncerLLM,
   "bouncer-wristbands": bouncerWristbandsLLM,
+  "bouncer-dress-code": bouncerDressCodeLLM,
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
@@ -124,7 +129,10 @@ const llmMetadataRegistry = {
   "relational-traffic-lights": relationalTrafficLightsLLM,
   "cityscape-skyscraper": cityscapeSkyscraperLLM,
   "cityscape-skyline": cityscapeSkylineLLM,
-  "rainbow-splodges": rainbowSplodgesLLM
+  "rainbow-splodges": rainbowSplodgesLLM,
+  "digital-clock": digitalClockLLM,
+  "rock-paper-scissors-determine-winner": rockPaperScissorsDetermineWinnerLLM,
+  "maze-automated-solve": mazeAutomatedSolveLLM
 } as const;
 
 /**

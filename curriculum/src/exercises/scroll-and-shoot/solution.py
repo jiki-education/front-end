@@ -4,7 +4,7 @@ right_boundary = 10
 direction = "right"
 position = 0
 
-repeat(1000):
+repeat():
     if is_alien_above():
         shoot()
 

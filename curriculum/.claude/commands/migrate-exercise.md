@@ -194,9 +194,23 @@ export const exercises = {
 } as const;
 ```
 
-## Step 6: Type Check and Testing
+## Step 6: Update README.md and PLAN.md
 
-### 6.1: Type Check (Must Pass First!)
+### 6.1: Update README.md
+
+Add the exercise to the correct level in the curriculum JSON structure in `README.md`. Insert it in the right position within the level's `"lessons"` array.
+
+### 6.2: Update PLAN.md
+
+Add the exercise to the **Implemented** section of `PLAN.md` with a brief description, following the format of existing entries:
+
+```
+- `exercise-name` - Brief description (Level Name level)
+```
+
+## Step 7: Type Check and Testing
+
+### 7.1: Type Check (Must Pass First!)
 
 ```bash
 pnpm typecheck
@@ -204,7 +218,7 @@ pnpm typecheck
 
 If type errors, fix before proceeding to tests.
 
-### 6.2: Run Tests
+### 7.2: Run Tests
 
 ```bash
 pnpm test
@@ -218,7 +232,7 @@ pnpm test
 
 All 80+ tests should pass, including the new exercise.
 
-## Step 7: Quality Assurance
+## Step 8: Quality Assurance
 
 Before committing, ensure:
 
@@ -228,10 +242,12 @@ Before committing, ensure:
 - [ ] Stdlib functions registered in level
 - [ ] LLM metadata registered in registry
 - [ ] Exercise registered in index.ts
+- [ ] Exercise added to `README.md` curriculum JSON
+- [ ] Exercise added to `PLAN.md` Implemented section
 - [ ] `pnpm typecheck` passes
 - [ ] `pnpm test` passes (all tests)
 
-## Step 8: Commit and PR
+## Step 9: Commit and PR
 
 If all checks pass:
 

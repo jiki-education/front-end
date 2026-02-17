@@ -1,0 +1,14 @@
+{
+  "slug": "bouncer-dress-code",
+  "title": "Bouncer: Dress Code",
+  "instructions": "The venue has a strict dress code tonight! As the bouncer, you need to check what the person is wearing and decide what to do.\n\nYou have these functions:\n- `get_outfit()` returns the name of the outfit the person is wearing (e.g. `\"ballgown\"`, `\"suit\"`, `\"jeans\"`)\n- `offer_champagne()` offers the person a glass of champagne\n- `let_in()` lets the person into the venue\n- `turn_away()` turns the person away\n\nThe dress code rules:\n- **Fancy** (`\"ballgown\"` or `\"tuxedo\"`): Offer champagne AND let them in\n- **Smart** (`\"suit\"` or `\"dress\"`): Let them in\n- **Anything else**: Turn them away",
+  "estimatedMinutes": 10,
+  "levelId": "complex-conditionals",
+  "hints": [
+    "Start by storing the outfit in a variable: set outfit to get_outfit()",
+    "Use 'or' to check for multiple outfits in one condition",
+    "For the fancy outfits: if outfit == \"ballgown\" or outfit == \"tuxedo\"",
+    "Remember to call both offer_champagne() and let_in() for fancy outfits",
+    "Use else at the end to turn away anyone not matching the dress code"
+  ]
+}

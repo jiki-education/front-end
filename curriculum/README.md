@@ -53,6 +53,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "repeat-loop",
     "lessons": [
+      { "type": "video", "slug": "repeat-loop" },
       { "type": "exercise", "slug": "golf-rolling-ball-loop" },
       { "type": "exercise", "slug": "space-invaders-repeat" }
     ]
@@ -87,11 +88,33 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "functions-that-return-things",
     "lessons": [
       { "type": "video", "slug": "functions-that-return-things" },
-      { "type": "exercise", "slug": "golf-shot-checker" },
+      { "type": "exercise", "slug": "rainbow-splodges" },
+      { "type": "video", "slug": "scenarios" },
+      { "type": "exercise", "slug": "plant-the-flowers-scenarios" },
       { "type": "exercise", "slug": "cityscape-skyscraper" },
       { "type": "video", "slug": "loops-in-loops" },
       { "type": "exercise", "slug": "space-invaders-nested-repeat" },
       { "type": "exercise", "slug": "cityscape-skyline" }
+    ]
+  },
+  {
+    "level": "conditionals",
+    "lessons": [
+      { "type": "video", "slug": "if-statements" },
+      { "type": "exercise", "slug": "bouncer" },
+      { "type": "exercise", "slug": "space-invaders-conditional" },
+      { "type": "video", "slug": "else-and-else-if" },
+      { "type": "exercise", "slug": "bouncer-wristbands" },
+      { "type": "exercise", "slug": "digital-clock" }
+    ]
+  },
+  {
+    "level": "complex-conditionals",
+    "lessons": [
+      { "type": "video", "slug": "and-and-or" },
+      { "type": "exercise", "slug": "bouncer-dress-code" },
+      { "type": "exercise", "slug": "golf-shot-checker" },
+      { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" }
     ]
   }
 ]

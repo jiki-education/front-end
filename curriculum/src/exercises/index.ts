@@ -21,6 +21,7 @@ export const exercises = {
   "jumbled-house": () => import("./jumbled-house"),
   bouncer: () => import("./bouncer"),
   "bouncer-wristbands": () => import("./bouncer-wristbands"),
+  "bouncer-dress-code": () => import("./bouncer-dress-code"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
@@ -54,7 +55,10 @@ export const exercises = {
   "relational-traffic-lights": () => import("./relational-traffic-lights"),
   "cityscape-skyscraper": () => import("./cityscape-skyscraper"),
   "cityscape-skyline": () => import("./cityscape-skyline"),
-  "rainbow-splodges": () => import("./rainbow-splodges")
+  "rainbow-splodges": () => import("./rainbow-splodges"),
+  "digital-clock": () => import("./digital-clock"),
+  "rock-paper-scissors-determine-winner": () => import("./rock-paper-scissors-determine-winner"),
+  "maze-automated-solve": () => import("./maze-automated-solve")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
