@@ -1,0 +1,13 @@
+{
+  "slug": "cityscape-skyscraper",
+  "title": "CityScape: Skyscraper",
+  "instructions": "Build a skyscraper on the city grid!\n\nYou have four functions:\n- `build_wall(x, y)` places a wall block at grid position (x, y)\n- `build_glass(x, y)` places a glass panel at grid position (x, y)\n- `build_entrance(x, y)` places an entrance door at grid position (x, y)\n- `num_floors()` returns how many floors the building should have\n\nThe building is 5 columns wide (x=1 to x=5). Build it from the bottom up:\n1. **Ground floor (y=1)**: wall, glass, entrance, glass, wall\n2. **Upper floors**: wall, glass, glass, glass, wall (use `num_floors() - 1` to know how many)\n3. **Roof (top row)**: wall, wall, wall, wall, wall\n\nUse a variable and a repeat loop for the upper floors!",
+  "estimatedMinutes": 10,
+  "levelId": "functions-that-return-things",
+  "hints": [
+    "Start by getting the number of upper floors: set floors to num_floors() - 1",
+    "Build the ground floor at y=1 with an entrance in the middle",
+    "Use a repeat loop for the upper floors, incrementing y each time",
+    "The roof goes on top of the last floor"
+  ]
+}

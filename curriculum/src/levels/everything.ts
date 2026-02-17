@@ -9,7 +9,15 @@ export const everythingLevel: Level = {
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["concatenate", "to_upper_case", "push", "sort_string", "concat", "keys"]
+        allowedStdlibFunctions: [
+          "concatenate",
+          "to_upper_case",
+          "push",
+          "sort_string",
+          "concat",
+          "keys",
+          "random_number"
+        ]
       }
     },
     javascript: {

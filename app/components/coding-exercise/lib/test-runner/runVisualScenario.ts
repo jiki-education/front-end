@@ -37,7 +37,8 @@ export function runVisualScenario(
     externalFunctions: exercise.availableFunctions,
     languageFeatures: {
       timePerFrame: 1
-    }
+    },
+    randomSeed: scenario.randomSeed
   };
 
   const result = scenario.functionCall

@@ -7,6 +7,11 @@ const functionsThatReturnThings: Level = {
   educationalGoal:
     "Students learn that functions can produce values, not just perform actions. They use return values in variable assignments and expressions.",
   languageFeatures: {
+    jikiscript: {
+      languageFeatures: {
+        allowedStdlibFunctions: ["random_number"]
+      }
+    },
     javascript: {
       allowedNodes: ["MemberExpression"],
       languageFeatures: {}

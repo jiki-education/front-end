@@ -75,6 +75,7 @@ export interface VisualScenario {
     name: string;
     args: IOValue[];
   };
+  randomSeed?: number; // Seed for deterministic random number generation
 }
 
 // Recursive type to support nested arrays and objects in IO scenarios

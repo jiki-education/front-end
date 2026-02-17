@@ -16,6 +16,7 @@ export const exercises = {
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
   "space-invaders-solve-basic": () => import("./space-invaders-solve-basic"),
   "space-invaders-repeat": () => import("./space-invaders-repeat"),
+  "space-invaders-nested-repeat": () => import("./space-invaders-nested-repeat"),
   "jumbled-house": () => import("./jumbled-house"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
@@ -46,7 +47,9 @@ export const exercises = {
   "traffic-lights": () => import("./traffic-lights"),
   "relational-snowman": () => import("./relational-snowman"),
   "relational-sun": () => import("./relational-sun"),
-  "relational-traffic-lights": () => import("./relational-traffic-lights")
+  "relational-traffic-lights": () => import("./relational-traffic-lights"),
+  "cityscape-skyscraper": () => import("./cityscape-skyscraper"),
+  "cityscape-skyline": () => import("./cityscape-skyline")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -22,6 +22,7 @@ import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
 import { llmMetadata as scrollAndShootLLM } from "./exercises/scroll-and-shoot/llm-metadata";
 import { llmMetadata as spaceInvadersSolveBasicLLM } from "./exercises/space-invaders-solve-basic/llm-metadata";
 import { llmMetadata as spaceInvadersRepeatLLM } from "./exercises/space-invaders-repeat/llm-metadata";
+import { llmMetadata as spaceInvadersNestedRepeatLLM } from "./exercises/space-invaders-nested-repeat/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
@@ -53,6 +54,8 @@ import { llmMetadata as trafficLightsLLM } from "./exercises/traffic-lights/llm-
 import { llmMetadata as relationalSnowmanLLM } from "./exercises/relational-snowman/llm-metadata";
 import { llmMetadata as relationalSunLLM } from "./exercises/relational-sun/llm-metadata";
 import { llmMetadata as relationalTrafficLightsLLM } from "./exercises/relational-traffic-lights/llm-metadata";
+import { llmMetadata as cityscapeSkyscraperLLM } from "./exercises/cityscape-skyscraper/llm-metadata";
+import { llmMetadata as cityscapeSkylineLLM } from "./exercises/cityscape-skyline/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -78,6 +81,7 @@ const llmMetadataRegistry = {
   "scroll-and-shoot": scrollAndShootLLM,
   "space-invaders-solve-basic": spaceInvadersSolveBasicLLM,
   "space-invaders-repeat": spaceInvadersRepeatLLM,
+  "space-invaders-nested-repeat": spaceInvadersNestedRepeatLLM,
   "jumbled-house": jumbledHouseLLM,
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
@@ -108,7 +112,9 @@ const llmMetadataRegistry = {
   "traffic-lights": trafficLightsLLM,
   "relational-snowman": relationalSnowmanLLM,
   "relational-sun": relationalSunLLM,
-  "relational-traffic-lights": relationalTrafficLightsLLM
+  "relational-traffic-lights": relationalTrafficLightsLLM,
+  "cityscape-skyscraper": cityscapeSkyscraperLLM,
+  "cityscape-skyline": cityscapeSkylineLLM
 } as const;
 
 /**

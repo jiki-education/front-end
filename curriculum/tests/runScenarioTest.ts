@@ -65,7 +65,8 @@ export function runVisualScenarioTest(
       maxTotalLoopIterations: 10000,
       ...languageFeatures
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any
+    } as any,
+    randomSeed: scenario.randomSeed
   };
 
   if (scenario.functionCall) {
