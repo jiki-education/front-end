@@ -2,7 +2,9 @@
 
 import CodingExercise from "@/components/coding-exercise/CodingExercise";
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
+import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchProject, type ProjectData } from "@/lib/api/projects";
+import type { UserCourse } from "@/types/course";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,6 +18,7 @@ interface PageProps {
 export default function ProjectPage({ params }: PageProps) {
   const router = useRouter();
   const [project, setProject] = useState<ProjectData | null>(null);
+  const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,11 +41,12 @@ export default function ProjectPage({ params }: PageProps) {
           return;
         }
 
-        const projectData = await fetchProject(resolvedParams.slug);
+        const [projectData, userCourseData] = await Promise.all([fetchProject(resolvedParams.slug), fetchUserCourse()]);
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!cancelled) {
           setProject(projectData);
+          setUserCourse(userCourseData);
 
           // Note: Project tracking will be automatically started when first submission is made
           // No need to explicitly start here until backend endpoints are available
@@ -124,6 +128,7 @@ export default function ProjectPage({ params }: PageProps) {
       language="jikiscript"
       exerciseSlug={exerciseSlug}
       context={{ type: "project", slug: project.slug }}
+      levelId={userCourse?.current_level_slug ?? undefined}
     />
   );
 }

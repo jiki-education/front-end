@@ -1,4 +1,5 @@
 import ProjectPage from "@/app/(app)/projects/[slug]/page";
+import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchProject } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,10 @@ jest.mock("next/navigation", () => ({
 
 jest.mock("@/lib/api/projects", () => ({
   fetchProject: jest.fn()
+}));
+
+jest.mock("@/lib/api/courses", () => ({
+  fetchUserCourse: jest.fn()
 }));
 
 jest.mock("@/components/coding-exercise/CodingExercise", () => {
@@ -30,6 +35,7 @@ jest.mock("@/components/lesson/LessonLoadingPage", () => {
 
 const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 const mockFetchProject = fetchProject as jest.MockedFunction<typeof fetchProject>;
+const mockFetchUserCourse = fetchUserCourse as jest.MockedFunction<typeof fetchUserCourse>;
 
 describe("ProjectPage", () => {
   const mockPush = jest.fn();
@@ -45,6 +51,14 @@ describe("ProjectPage", () => {
       forward: jest.fn(),
       refresh: jest.fn()
     } as any);
+
+    mockFetchUserCourse.mockResolvedValue({
+      course_slug: "coding-fundamentals",
+      language: "javascript",
+      language_chosen: true,
+      current_level_slug: "variables",
+      completed: false
+    });
   });
 
   it("should render coding exercise for unlocked project", async () => {
