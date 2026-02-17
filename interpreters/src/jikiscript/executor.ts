@@ -151,6 +151,7 @@ export class Executor {
   public contextualThis: Jiki.Instance | null = null;
   public _exerciseFinished: boolean = false;
   public randomFn: () => number;
+  public _exerciseFinished: boolean = false;
 
   constructor(
     private readonly sourceCode: string,

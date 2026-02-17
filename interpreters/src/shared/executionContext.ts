@@ -5,6 +5,7 @@ export function createBaseExecutionContext(this: {
   time: number;
   _exerciseFinished: boolean;
   randomFn: () => number;
+  _exerciseFinished: boolean;
 }): Omit<ExecutionContext, "logicError"> {
   return {
     fastForward: (milliseconds: number) => {
@@ -15,5 +16,8 @@ export function createBaseExecutionContext(this: {
       this._exerciseFinished = true;
     },
     random: this.randomFn,
+    exerciseFinished: () => {
+      this._exerciseFinished = true;
+    },
   };
 }
