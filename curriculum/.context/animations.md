@@ -52,6 +52,35 @@ timeline.add({
 }, 1000);
 ```
 
+## Critical Rule: No Direct DOM Manipulation
+
+**All visual changes must go through the animation system.** Never directly modify, update, or remove DOM elements in exercise function methods. The only DOM manipulation allowed is creating elements during `populateView()`. All other visual changes (moving, hiding, showing, transforming) must use `this.animations.push()`.
+
+**Why:** The frontend supports timeline scrubbing — users can scrub backwards and forwards through the animation timeline. Animations reverse automatically when scrubbing backwards, but direct DOM changes (e.g., `element.remove()`, `element.style.opacity = '0'`, `element.textContent = 'new'`) are permanent and will not reverse, causing the visual state to be wrong.
+
+**Wrong:**
+
+```typescript
+func: (ctx: ExecutionContext) => {
+  // BAD: This is a permanent change that won't reverse on scrub
+  this.view.querySelector(".item")!.remove();
+};
+```
+
+**Right:**
+
+```typescript
+func: (ctx: ExecutionContext) => {
+  // GOOD: This will reverse when the user scrubs backwards
+  this.animations.push({
+    targets: `#${this.view.id} .item`,
+    offset: ctx.getCurrentTimeInMs(),
+    duration: 200,
+    transformations: { opacity: 0 }
+  });
+};
+```
+
 ## Creating Animations
 
 ### Basic Movement
