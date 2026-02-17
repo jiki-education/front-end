@@ -18,6 +18,7 @@ export type NodeType =
   | "IfStatement"
   | "ForInStatement"
   | "WhileStatement"
+  | "RepeatStatement"
   | "BreakStatement"
   | "ContinueStatement"
   | "FunctionDeclaration"

@@ -148,6 +148,7 @@ export class Executor {
   protected functionCallLog: Record<string, Record<any, number>> = {};
   protected functionCallStack: String[] = [];
   public contextualThis: Jiki.Instance | null = null;
+  public _exerciseFinished: boolean = false;
 
   constructor(
     private readonly sourceCode: string,
@@ -752,6 +753,10 @@ export class Executor {
 
         this.guardInfiniteLoop(statement.location);
         this.executeLoopIteration(statement.body, iteration, [], counterVariableName);
+
+        if (this._exerciseFinished) {
+          break;
+        }
 
         // Delay repeat for things like animations
         this.time += this.languageFeatures.repeatDelay;

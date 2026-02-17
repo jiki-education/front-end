@@ -115,6 +115,19 @@ export class WhileStatement extends Statement {
   }
 }
 
+export class RepeatStatement extends Statement {
+  constructor(
+    public keyword: Token,
+    public body: Statement[],
+    public location: Location
+  ) {
+    super("RepeatStatement");
+  }
+  public children() {
+    return [];
+  }
+}
+
 export class BreakStatement extends Statement {
   constructor(
     public keyword: Token,

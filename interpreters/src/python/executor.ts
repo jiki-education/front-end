@@ -24,6 +24,7 @@ import {
   BlockStatement,
   ForInStatement,
   WhileStatement,
+  RepeatStatement,
   BreakStatement,
   ContinueStatement,
   FunctionDeclaration,
@@ -62,6 +63,7 @@ import {
   ContinueFlowControlError,
 } from "./executor/executeForInStatement";
 import { executeWhileStatement } from "./executor/executeWhileStatement";
+import { executeRepeatStatement } from "./executor/executeRepeatStatement";
 import { executeBreakStatement } from "./executor/executeBreakStatement";
 import { executeContinueStatement } from "./executor/executeContinueStatement";
 import { executeCallExpression } from "./executor/executeCallExpression";
@@ -125,6 +127,7 @@ export interface ExecutorResult {
 export class Executor {
   private readonly frames: Frame[] = [];
   public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
+  public _exerciseFinished: boolean = false;
   public time: number = 0;
   private readonly timePerFrame: number = 1;
   private totalLoopIterations = 0;
@@ -280,6 +283,8 @@ export class Executor {
         result = executeForInStatement(this, statement);
       } else if (statement instanceof WhileStatement) {
         result = executeWhileStatement(this, statement);
+      } else if (statement instanceof RepeatStatement) {
+        result = executeRepeatStatement(this, statement);
       } else if (statement instanceof BreakStatement) {
         executeBreakStatement(this, statement);
         result = null;

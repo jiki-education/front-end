@@ -53,6 +53,13 @@ export interface EvaluationResultWhileStatement {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultRepeatStatement {
+  type: "RepeatStatement";
+  iteration: number;
+  jikiObject?: undefined;
+  immutableJikiObject?: undefined;
+}
+
 export interface EvaluationResultReturnStatement {
   type: "ReturnStatement";
   expression?: EvaluationResultExpression;
@@ -156,6 +163,7 @@ export type EvaluationResultStatement =
   | EvaluationResultBlockStatement
   | EvaluationResultForInStatement
   | EvaluationResultWhileStatement
+  | EvaluationResultRepeatStatement
   | EvaluationResultFunctionDeclaration
   | EvaluationResultReturnStatement
   | EvaluationResultBreakStatement

@@ -175,14 +175,14 @@ export class ContinueStatement extends Statement {
 export class RepeatStatement extends Statement {
   constructor(
     public keyword: Token,
-    public count: Expression,
+    public count: Expression | null,
     public body: Statement,
     public location: Location
   ) {
     super("RepeatStatement");
   }
   public children() {
-    const children: Expression[] = [this.count];
+    const children: Expression[] = this.count ? [this.count] : [];
     children.push(...this.body.children());
     return children;
   }

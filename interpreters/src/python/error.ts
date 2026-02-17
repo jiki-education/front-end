@@ -53,6 +53,7 @@ export type SyntaxErrorType =
   | "IfStatementNotAllowed"
   | "ForInStatementNotAllowed"
   | "WhileStatementNotAllowed"
+  | "RepeatStatementNotAllowed"
   | "AttributeExpressionNotAllowed"
   | "BreakStatementNotAllowed"
   | "ContinueStatementNotAllowed"

@@ -34,6 +34,7 @@ export interface ExecutionContext {
   fastForward: (milliseconds: number) => void;
   getCurrentTimeInMs: () => number;
   logicError: (message: string) => never; // For custom functions to throw educational errors
+  exerciseFinished: () => void; // Signal that the exercise is complete; no-arg repeat loops will break
   languageFeatures?: JSLanguageFeatures | PythonLanguageFeatures | JikiScriptLanguageFeatures;
 }
 

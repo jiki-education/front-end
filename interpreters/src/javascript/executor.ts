@@ -144,6 +144,7 @@ export class Executor {
   private totalLoopIterations = 0;
   private readonly maxTotalLoopIterations: number;
   public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
+  public _exerciseFinished: boolean = false;
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
 

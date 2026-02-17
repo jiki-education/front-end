@@ -94,6 +94,7 @@ export class Scanner {
     or: "OR",
     pass: "PASS",
     raise: "RAISE",
+    repeat: "REPEAT",
     return: "RETURN",
     True: "TRUE",
     try: "TRY",

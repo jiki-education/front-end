@@ -27,6 +27,7 @@ import {
   ContinueStatement,
   FunctionDeclaration,
   FunctionParameter,
+  RepeatStatement,
   ReturnStatement,
 } from "./statement";
 import { type Token, type TokenType } from "./token";
@@ -80,6 +81,7 @@ export class Parser {
       IfStatement: "If statements",
       ForInStatement: "For loops",
       WhileStatement: "While loops",
+      RepeatStatement: "Repeat loops",
       BreakStatement: "Break statements",
       ContinueStatement: "Continue statements",
       FunctionDeclaration: "Function declarations",
@@ -128,6 +130,11 @@ export class Parser {
       // Check for while statement
       if (this.match("WHILE")) {
         return this.whileStatement();
+      }
+
+      // Check for repeat statement
+      if (this.match("REPEAT")) {
+        return this.repeatStatement();
       }
 
       // Check for break statement
@@ -631,6 +638,29 @@ export class Parser {
     const body = bodyBlock instanceof BlockStatement ? bodyBlock.statements : [bodyBlock];
 
     return new WhileStatement(condition, body, Location.between(whileToken, bodyBlock));
+  }
+
+  private repeatStatement(): Statement {
+    const repeatToken = this.previous();
+
+    // Check if RepeatStatement is allowed
+    this.checkNodeAllowed("RepeatStatement", "RepeatStatementNotAllowed", repeatToken.location);
+
+    // Parse the colon
+    this.consume("COLON", "MissingColon");
+
+    // Consume the newline after the colon
+    if (this.check("NEWLINE")) {
+      this.advance();
+    }
+
+    // Parse the block body
+    const bodyBlock = this.block();
+
+    // Extract statements from BlockStatement
+    const body = bodyBlock instanceof BlockStatement ? bodyBlock.statements : [bodyBlock];
+
+    return new RepeatStatement(repeatToken, body, Location.between(repeatToken, bodyBlock));
   }
 
   private breakStatement(): Statement {

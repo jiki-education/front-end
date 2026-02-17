@@ -10,6 +10,7 @@ import { describeForInStatement } from "./describers/describeForInStatement";
 import { describeWhileStatement } from "./describers/describeWhileStatement";
 import { describeBreakStatement } from "./describers/describeBreakStatement";
 import { describeContinueStatement } from "./describers/describeContinueStatement";
+import { describeRepeatStatement } from "./describers/describeRepeatStatement";
 import { describeReturnStatement } from "./describers/describeReturnStatement";
 
 // Python-specific frame extending the shared base
@@ -88,6 +89,9 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
 
     case "WhileStatement":
       return describeWhileStatement(frame, context);
+
+    case "RepeatStatement":
+      return describeRepeatStatement(frame, context);
 
     case "BreakStatement":
       return describeBreakStatement(frame, context);
