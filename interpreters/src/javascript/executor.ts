@@ -73,6 +73,7 @@ import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
 import { extractCallExpressions } from "./assertion-helpers";
+import { createRandomFn } from "../shared/random";
 
 // Execution context for JavaScript stdlib
 export type ExecutionContext = SharedExecutionContext & {
@@ -146,11 +147,13 @@ export class Executor {
   public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
+  public randomFn: () => number;
 
   constructor(
     private readonly sourceCode: string,
     context: EvaluationContext
   ) {
+    this.randomFn = createRandomFn(context.randomSeed);
     this.languageFeatures = {
       allowShadowing: false, // Default to false (shadowing disabled)
       allowTypeCoercion: false, // Default to false (type coercion disabled)

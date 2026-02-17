@@ -13,6 +13,7 @@ import { LiteralExpression, type Expression } from "./expression";
 export interface EvaluationContext {
   languageFeatures?: LanguageFeatures;
   externalFunctions?: ExternalFunction[];
+  randomSeed?: number; // Seed for deterministic random number generation
 }
 
 // Result type for evaluateFunction - extends InterpretResult with return value

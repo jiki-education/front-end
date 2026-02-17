@@ -110,6 +110,7 @@ import { executeMethodCallStatement } from "./executor/executeMethodCallStatemen
 import { executeFunctionLookupExpression } from "./executor/executeFunctionLookupExpression";
 import { executeClassLookupExpression } from "./executor/executeClassLookupExpression";
 import { executeChangePropertyStatement } from "./executor/executeChangePropertyStatement";
+import { createRandomFn } from "../shared/random";
 
 export type ExecutionContext = SharedExecutionContext & {
   evaluate: Function;
@@ -148,14 +149,17 @@ export class Executor {
   protected functionCallLog: Record<string, Record<any, number>> = {};
   protected functionCallStack: String[] = [];
   public contextualThis: Jiki.Instance | null = null;
+  public randomFn: () => number;
 
   constructor(
     private readonly sourceCode: string,
     private readonly languageFeatures: LanguageFeatures,
     private readonly externalFunctions: ExternalFunction[],
     private readonly customFunctions: CallableCustomFunction[],
-    private readonly classes: Jiki.Class[]
+    private readonly classes: Jiki.Class[],
+    randomFn?: () => number
   ) {
+    this.randomFn = randomFn || createRandomFn();
     for (let externalFunction of externalFunctions) {
       const func = externalFunction.func;
 

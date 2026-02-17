@@ -7,7 +7,7 @@ import { guardArgType } from "../guards";
 
 export const randomInt: Method = {
   arity: 2,
-  call: (_ctx: ExecutionContext, _thisObj: JikiObject, args: JikiObject[]) => {
+  call: (ctx: ExecutionContext, _thisObj: JikiObject, args: JikiObject[]) => {
     // Validate argument types
     guardArgType(args[0], "number", "randomInt", "min");
     guardArgType(args[1], "number", "randomInt", "max");
@@ -21,7 +21,7 @@ export const randomInt: Method = {
       throw new StdlibError("ValueError", "StdlibRandomIntMinGreaterThanMax", { min, max });
     }
 
-    const result = Math.floor(Math.random() * (max - min + 1)) + min;
+    const result = Math.floor(ctx.random() * (max - min + 1)) + min;
     return new JSNumber(result);
   },
   description: "returns a random integer between min and max (both inclusive)",

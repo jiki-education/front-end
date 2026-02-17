@@ -4,6 +4,60 @@ This document tracks the historical development, major changes, and architectura
 
 ## Major Architectural Changes
 
+### February 2026: Seeded PRNG for Deterministic Random Numbers
+
+**Date**: 2026-02-17
+
+**Problem**: Exercises using random number generation (`Math.randomInt` in JS, `random.randint` in Python, `random_number` in JikiScript) produced non-deterministic output, making frame-by-frame visualizations unreproducible across runs. Predetermined return values wouldn't work because students could use equivalent but different bounds (e.g., `randomInt(1,5) - 1` vs `randomInt(0,4)`).
+
+**Solution**: Added a seeded PRNG (mulberry32) that can be activated by passing `randomSeed` in the `EvaluationContext`. When seeded, all random functions produce deterministic sequences. Shifted bounds with the same range size produce equivalent results (e.g., `randomInt(0,4)` equals `randomInt(1,5) - 1`).
+
+**Usage**: Pass `randomSeed` in the context to any interpreter:
+
+```typescript
+// JavaScript
+interpret(`let x = Math.randomInt(0, 10);`, { randomSeed: 42 });
+
+// Python
+interpret(`x = random.randint(0, 10)`, { randomSeed: 42 });
+
+// JikiScript
+interpret(`set x to random_number(0, 10)`, {
+  languageFeatures: { allowedStdlibFunctions: ["random_number"] },
+  randomSeed: 42,
+});
+```
+
+**Changes Made**:
+
+1. **New shared utility**: `src/shared/random.ts` — mulberry32 seeded PRNG and `createRandomFn(seed?)` factory
+2. **Shared ExecutionContext**: Added `random: () => number` to `ExecutionContext` interface
+3. **EvaluationContext**: Added `randomSeed?: number` to all three interpreters' `EvaluationContext`
+4. **Executor threading**: All executors create a `randomFn` from the seed and expose it via `getExecutionContext()`
+5. **Stdlib updates**: JS `randomInt`, Python `randint`, and new JikiScript `random_number` use `ctx.random()` instead of `Math.random()`
+6. **New JikiScript stdlib function**: `random_number(min, max)` — returns a random integer in [min, max] inclusive
+
+**Files Created**:
+
+- `src/shared/random.ts`
+- `tests/jikiscript/randomNumber.test.ts`
+
+**Files Modified**:
+
+- `src/shared/interfaces.ts` — Added `random` to `ExecutionContext`
+- `src/shared/executionContext.ts` — Accepts and exposes `randomFn`
+- `src/javascript/interpreter.ts` — Added `randomSeed` to `EvaluationContext`
+- `src/javascript/executor.ts` — Creates and stores `randomFn`
+- `src/javascript/stdlib/math/randomInt.ts` — Uses `ctx.random()`
+- `src/python/interpreter.ts` — Added `randomSeed` to `EvaluationContext`
+- `src/python/executor.ts` — Creates and stores `randomFn`
+- `src/python/stdlib/random/randint.ts` — Uses `ctx.random()`
+- `src/jikiscript/interpreter.ts` — Added `randomSeed` to `EvaluationContext`, threads to executor
+- `src/jikiscript/executor.ts` — Accepts and stores `randomFn`
+- `src/jikiscript/stdlib.ts` — Added `random_number` function
+- `tests/javascript/math.test.ts` — Added seed determinism tests
+- `tests/python/random.test.ts` — Added seed determinism tests
+
 ### October 2025: JavaScript Array Query and Transformation Methods
 
 **Date**: 2025-10-08

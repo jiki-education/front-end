@@ -12,6 +12,7 @@ import type { InterpretResult } from "../shared/interfaces";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
 import { StdlibFunctionsForLibrary, filteredStdLibFunctions } from "./stdlib";
+import { createRandomFn } from "../shared/random";
 
 export interface FrameContext {
   result: any;
@@ -77,6 +78,7 @@ export interface EvaluationContext {
   classes?: Jiki.Class[];
   languageFeatures?: InputLanguageFeatures;
   wrapTopLevelStatements?: boolean;
+  randomSeed?: number; // Seed for deterministic random number generation
 }
 
 export type EvaluateFunctionResult = InterpretResult & {
@@ -144,6 +146,7 @@ export class Interpreter {
   private readonly customFunctions: CallableCustomFunction[] = [];
   private readonly classes: Jiki.Class[] = [];
   private readonly wrapTopLevelStatements = false;
+  private readonly randomFn: () => number;
 
   private statements: Statement[] = [];
 
@@ -152,6 +155,7 @@ export class Interpreter {
     context: EvaluationContext
   ) {
     // Set the instance variables based on the context that's been passed in.
+    this.randomFn = createRandomFn(context.randomSeed);
     this.externalFunctions = context.externalFunctions ? context.externalFunctions : [];
 
     this.customFunctions = this.parseCustomFunctions(context.customFunctions ? context.customFunctions : []);
@@ -244,7 +248,8 @@ export class Interpreter {
       this.languageFeatures,
       this.externalFunctions,
       this.customFunctions,
-      this.classes
+      this.classes,
+      this.randomFn
     );
     return executor.execute(this.statements);
   }
@@ -271,7 +276,8 @@ export class Interpreter {
       this.languageFeatures,
       this.externalFunctions,
       this.customFunctions,
-      this.classes
+      this.classes,
+      this.randomFn
     );
     const generalExec = executor.execute(this.statements);
     const exprExec = executor.evaluateSingleExpression(callingStatements[0]);
@@ -306,7 +312,8 @@ export class Interpreter {
       this.languageFeatures,
       this.externalFunctions,
       this.customFunctions,
-      this.classes
+      this.classes,
+      this.randomFn
     );
     const generalExec = executor.execute(this.statements);
     const exprExec = executor.evaluateSingleExpression(callingStatements[0]);

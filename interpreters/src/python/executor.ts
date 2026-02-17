@@ -43,6 +43,7 @@ import { PyCallable, ReturnValue } from "./functions";
 import { builtinFunctions } from "./stdlib";
 import { randomMethods } from "./stdlib/random";
 import { PyStdLibFunction, PyBuiltinModule, unwrapPyObject } from "./jikiObjects";
+import { createRandomFn } from "../shared/random";
 
 // Import individual executors
 import { executeLiteralExpression } from "./executor/executeLiteralExpression";
@@ -131,11 +132,13 @@ export class Executor {
   private readonly maxTotalLoopIterations: number;
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
+  public randomFn: () => number;
 
   constructor(
     private readonly sourceCode: string,
     context: EvaluationContext
   ) {
+    this.randomFn = createRandomFn(context.randomSeed);
     this.environment = new Environment();
     this.languageFeatures = {
       allowTruthiness: false, // Default to false for educational purposes
