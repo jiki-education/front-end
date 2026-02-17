@@ -73,22 +73,26 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "basic-state",
     "lessons": [
+      { "type": "video", "slug": "updating-variables" },
+      { "type": "exercise", "slug": "plant-the-flowers" },
       { "type": "exercise", "slug": "golf-rolling-ball-state" },
       { "type": "exercise", "slug": "finish-wall" },
+      { "type": "video", "slug": "colors-hsl-rgb" },
       { "type": "exercise", "slug": "rainbow" },
       { "type": "exercise", "slug": "sunset" },
-      { "type": "exercise", "slug": "plant-the-flowers" }
+      { "type": "project", "slug": "sprouting-flower" }
     ]
   },
   {
     "level": "functions-that-return-things",
-    "lessons": [{ "type": "exercise", "slug": "golf-shot-checker" }]
+    "lessons": [
+      { "type": "video", "slug": "functions-that-return-things" },
+      { "type": "exercise", "slug": "golf-shot-checker" },
+      { "type": "exercise", "slug": "cityscape-skyscraper" },
+      { "type": "video", "slug": "loops-in-loops" },
+      { "type": "exercise", "slug": "space-invaders-nested-repeat" },
+      { "type": "exercise", "slug": "cityscape-skyline" }
+    ]
   }
 ]
-```
-
-## Projects
-
-```json
-[{ "slug": "sprouting-flower" }]
 ```
