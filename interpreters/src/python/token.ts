@@ -28,6 +28,7 @@ const StatementKeywordTokens = [
   "OR",
   "PASS",
   "RAISE",
+  "REPEAT",
   "RETURN",
   "TRY",
   "WHILE",

@@ -1,10 +1,16 @@
 import type { Executor } from "../executor";
 import type { RepeatStatement } from "../statement";
-import type { EvaluationResultRepeatStatement } from "../evaluation-result";
+import type { EvaluationResultExpression, EvaluationResultRepeatStatement } from "../evaluation-result";
 import { Environment } from "../environment";
 import { JSNumber } from "../jikiObjects";
 
 export function executeRepeatStatement(executor: Executor, statement: RepeatStatement): void {
+  // No-argument repeat: runs forever until exerciseFinished
+  if (statement.count === null) {
+    executeLoop(executor, statement, executor.languageFeatures.maxTotalLoopIterations ?? 10000, null);
+    return;
+  }
+
   // Evaluate the count expression
   const countResult = executor.evaluate(statement.count);
   const count = countResult.jikiObject;
@@ -43,7 +49,15 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
     });
     return;
   }
+  executeLoop(executor, statement, count.value, countResult);
+}
 
+function executeLoop(
+  executor: Executor,
+  statement: RepeatStatement,
+  count: number,
+  countResult: EvaluationResultExpression | null
+) {
   // Create a new environment for the repeat loop (same scoping as for loop)
   const loopEnvironment = new Environment(executor.languageFeatures, executor.environment);
   const previous = executor.environment;
@@ -53,7 +67,7 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
 
     executor.executeLoop(() => {
       let iteration = 0;
-      while (iteration < count.value) {
+      while (iteration < count) {
         iteration++;
         executor.guardInfiniteLoop(statement.keyword.location);
 
@@ -68,6 +82,9 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
         executor.executeLoopIteration(() => {
           executor.executeStatement(statement.body);
         });
+        if (countResult == null && executor._exerciseFinished) {
+          break;
+        }
       }
     });
   } finally {

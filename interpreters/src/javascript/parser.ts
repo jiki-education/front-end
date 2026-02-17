@@ -321,7 +321,12 @@ export class Parser {
     this.checkNodeAllowed("RepeatStatement", "RepeatStatementNotAllowed", repeatToken.location);
 
     this.consume("LEFT_PAREN", "MissingLeftParenAfterRepeat");
-    const count = this.expression();
+
+    // Empty parens = no-argument repeat (runs forever)
+    let count: Expression | null = null;
+    if (!this.check("RIGHT_PAREN")) {
+      count = this.expression();
+    }
     this.consume("RIGHT_PAREN", "MissingRightParenAfterRepeatCount");
 
     const body = this.statement();

@@ -35,6 +35,7 @@ export interface ExecutionContext {
   getCurrentTimeInMs: () => number;
   random: () => number; // Returns a float in [0, 1). Seeded if randomSeed was provided.
   logicError: (message: string) => never; // For custom functions to throw educational errors
+  exerciseFinished: () => void; // Signal that the exercise is complete; no-arg repeat loops will break
   languageFeatures?: JSLanguageFeatures | PythonLanguageFeatures | JikiScriptLanguageFeatures;
 }
 

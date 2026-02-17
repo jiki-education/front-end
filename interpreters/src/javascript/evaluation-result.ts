@@ -54,7 +54,7 @@ export interface EvaluationResultContinueStatement {
 
 export interface EvaluationResultRepeatStatement {
   type: "RepeatStatement";
-  count: EvaluationResultExpression;
+  count: EvaluationResultExpression | null;
   iteration: number;
   jikiObject?: undefined;
   immutableJikiObject?: undefined;

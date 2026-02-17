@@ -136,3 +136,89 @@ describe("execute", () => {
     expect(lastFrame.error?.message).toMatch(/VariableNotDeclared: name: idx/);
   });
 });
+
+describe("no-arg repeat (repeat forever)", () => {
+  test("runs until exerciseFinished is called", () => {
+    const echos: string[] = [];
+    let callCount = 0;
+    const { frames } = interpret(
+      `
+      repeat do
+        echo("a")
+      end
+    `,
+      {
+        externalFunctions: [
+          {
+            name: "echo",
+            func: (ctx: any, n: Primitive) => {
+              echos.push(n.value.toString());
+              callCount++;
+              if (callCount >= 3) {
+                ctx.exerciseFinished();
+              }
+            },
+            description: "",
+          },
+        ],
+      }
+    );
+    expect(echos).toEqual(["a", "a", "a"]);
+  });
+
+  test("breaks at end of iteration, not mid-iteration", () => {
+    const echos: string[] = [];
+    let callCount = 0;
+    const { frames } = interpret(
+      `
+      repeat do
+        echo("before")
+        echo("after")
+      end
+    `,
+      {
+        externalFunctions: [
+          {
+            name: "echo",
+            func: (ctx: any, n: Primitive) => {
+              echos.push(n.value.toString());
+              callCount++;
+              if (callCount === 1) {
+                ctx.exerciseFinished();
+              }
+            },
+            description: "",
+          },
+        ],
+      }
+    );
+    // Should complete the first full iteration (both echoes) then stop
+    expect(echos).toEqual(["before", "after"]);
+  });
+
+  test("repeat do...end works with break", () => {
+    const echos: string[] = [];
+    const { frames } = interpret(
+      `
+      repeat indexed by idx do
+        if idx == 3 do
+          break
+        end
+        echo(idx)
+      end
+    `,
+      {
+        externalFunctions: [
+          {
+            name: "echo",
+            func: (_: any, n: Primitive) => {
+              echos.push(n.value.toString());
+            },
+            description: "",
+          },
+        ],
+      }
+    );
+    expect(echos).toEqual(["1", "2"]);
+  });
+});

@@ -530,6 +530,12 @@ export class Parser {
 
   private repeatStatement(): Statement {
     const keyword = this.previous();
+
+    // If next token is DO or INDEXED, this is a no-argument repeat (runs forever)
+    if (this.check("DO", "INDEXED")) {
+      return this.parseRepeatForever(keyword);
+    }
+
     const condition = this.expression();
     this.consume("TIMES", "MissingTimesInRepeatStatement");
     const counter = this.counter();
@@ -542,12 +548,15 @@ export class Parser {
   }
 
   private repeatForeverStatement(): Statement {
-    const keyword = this.previous();
+    return this.parseRepeatForever(this.previous());
+  }
+
+  private parseRepeatForever(keyword: Token): Statement {
     const counter = this.counter();
-    this.consumeDo("repeat_forever");
+    this.consumeDo("repeat");
     this.consumeEndOfLine();
 
-    const statements = this.block("repeat_forever");
+    const statements = this.block("repeat");
 
     return new RepeatForeverStatement(keyword, counter, statements, Location.between(keyword, this.previous()));
   }
