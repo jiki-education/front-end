@@ -1,6 +1,15 @@
-import type { Statement } from "./statement";
-import type { Expression } from "./expression";
-import { CallExpression } from "./expression";
+import { Expression, CallExpression, AssignmentExpression, MemberExpression } from "./expression";
+import {
+  type Statement,
+  VariableDeclaration,
+  BlockStatement,
+  IfStatement,
+  ForStatement,
+  WhileStatement,
+  RepeatStatement,
+  ForOfStatement,
+  FunctionDeclaration,
+} from "./statement";
 
 /**
  * Extract all CallExpression nodes from an AST tree
@@ -33,4 +42,64 @@ export function extractExpressions<T extends Expression>(
       })
       .flat()
   );
+}
+
+export function snakeToCamel(s: string): string {
+  return s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+}
+
+export function extractVariableAssignments(statements: Statement[]): Array<{ name: string; value: Expression }> {
+  const results: Array<{ name: string; value: Expression }> = [];
+  for (const stmt of statements) {
+    if (stmt instanceof VariableDeclaration && stmt.initializer) {
+      results.push({ name: stmt.name.lexeme, value: stmt.initializer });
+    }
+
+    // Find AssignmentExpression nodes in this statement's expression children
+    const assignExprs = extractExpressions([stmt], AssignmentExpression);
+    for (const expr of assignExprs) {
+      if (!(expr.target instanceof MemberExpression)) {
+        results.push({ name: expr.target.lexeme, value: expr.value });
+      }
+    }
+
+    // Recurse into sub-statements
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractVariableAssignments([sub]));
+    }
+  }
+  return results;
+}
+
+function getSubStatements(stmt: Statement): Statement[] {
+  if (stmt instanceof BlockStatement) {
+    return stmt.statements;
+  }
+  if (stmt instanceof IfStatement) {
+    const result = [stmt.thenBranch];
+    if (stmt.elseBranch) {
+      result.push(stmt.elseBranch);
+    }
+    return result;
+  }
+  if (stmt instanceof ForStatement) {
+    const result: Statement[] = [stmt.body];
+    if (stmt.init && !(stmt.init instanceof Expression)) {
+      result.push(stmt.init as unknown as Statement);
+    }
+    return result;
+  }
+  if (stmt instanceof WhileStatement) {
+    return [stmt.body];
+  }
+  if (stmt instanceof RepeatStatement) {
+    return [stmt.body];
+  }
+  if (stmt instanceof ForOfStatement) {
+    return [stmt.body];
+  }
+  if (stmt instanceof FunctionDeclaration) {
+    return stmt.body;
+  }
+  return [];
 }

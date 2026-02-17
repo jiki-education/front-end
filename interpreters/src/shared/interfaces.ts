@@ -70,5 +70,6 @@ export interface InterpretResult {
   meta: Meta;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
+    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
   };
 }

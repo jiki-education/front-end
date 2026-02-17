@@ -81,7 +81,7 @@ import { describeFrame } from "./frameDescribers";
 import { executeFunctionCallExpression } from "./executor/executeFunctionCallExpression";
 import { executeIfStatement } from "./executor/executeIfStatement";
 import didYouMean from "didyoumean";
-import { extractFunctionCallExpressions, formatJikiObject } from "./helpers";
+import { extractFunctionCallExpressions, extractVariableAssignments, formatJikiObject } from "./helpers";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import * as Jiki from "./jikiObjects";
 import { executeMethodCallExpression } from "./executor/executeMethodCallExpression";
@@ -149,8 +149,8 @@ export class Executor {
   protected functionCallLog: Record<string, Record<any, number>> = {};
   protected functionCallStack: String[] = [];
   public contextualThis: Jiki.Instance | null = null;
-  public _exerciseFinished: boolean = false;
   public randomFn: () => number;
+  public _exerciseFinished: boolean = false;
 
   constructor(
     private readonly sourceCode: string,
@@ -299,6 +299,14 @@ export class Executor {
             return expr.args.every((arg: Expression) => {
               return !(arg instanceof LiteralExpression);
             });
+          });
+        },
+        assertNoLiteralNumberAssignments: (exclude: string[]) => {
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (exclude.includes(name)) {
+              return true;
+            }
+            return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
         },
       },

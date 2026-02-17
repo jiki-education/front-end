@@ -41,6 +41,8 @@
       "MissingLeftBraceBeforeFunctionBody": "MissingLeftBraceBeforeFunctionBody",
       "BreakStatementNotAllowed": "BreakStatementNotAllowed",
       "ContinueStatementNotAllowed": "ContinueStatementNotAllowed",
+      "FunctionDeclarationNotAllowed": "FunctionDeclarationNotAllowed",
+      "ReturnStatementNotAllowed": "ReturnStatementNotAllowed",
       "RepeatStatementNotAllowed": "RepeatStatementNotAllowed",
       "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
       "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount"
