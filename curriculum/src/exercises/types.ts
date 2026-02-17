@@ -71,6 +71,11 @@ export interface VisualScenario {
   setup?: (exercise: VisualExercise) => void;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
   codeChecks?: CodeCheck[]; // Optional code quality checks
+  functionCall?: {
+    name: string;
+    args: IOValue[];
+  };
+  randomSeed?: number; // Seed for deterministic random number generation
 }
 
 // Recursive type to support nested arrays and objects in IO scenarios
