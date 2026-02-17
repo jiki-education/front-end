@@ -50,6 +50,9 @@ import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-meta
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
 import { llmMetadata as snowmanLLM } from "./exercises/snowman/llm-metadata";
 import { llmMetadata as trafficLightsLLM } from "./exercises/traffic-lights/llm-metadata";
+import { llmMetadata as relationalSnowmanLLM } from "./exercises/relational-snowman/llm-metadata";
+import { llmMetadata as relationalSunLLM } from "./exercises/relational-sun/llm-metadata";
+import { llmMetadata as relationalTrafficLightsLLM } from "./exercises/relational-traffic-lights/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -102,7 +105,10 @@ const llmMetadataRegistry = {
   "process-game": processGameLLM,
   "wordle-solver": wordleSolverLLM,
   snowman: snowmanLLM,
-  "traffic-lights": trafficLightsLLM
+  "traffic-lights": trafficLightsLLM,
+  "relational-snowman": relationalSnowmanLLM,
+  "relational-sun": relationalSunLLM,
+  "relational-traffic-lights": relationalTrafficLightsLLM
 } as const;
 
 /**

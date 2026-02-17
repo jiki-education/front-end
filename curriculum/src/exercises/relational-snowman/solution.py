@@ -1,13 +1,17 @@
-# Build a Snowman!
-# Set the variables so the snowman matches the image
+# Snowman (Arithmetic)
 
-snowman_x = 0
-head_y = 0
-head_radius = 0
-body_y = 0
-body_radius = 0
-base_y = 0
-base_radius = 0
+# These are fixed
+size = 5
+snowman_x = 50
+head_y = 20
+
+# Derive these from the variables above
+head_radius = size * 2
+body_radius = size * 3
+base_radius = size * 4
+
+body_y = head_y + head_radius + body_radius
+base_y = body_y + body_radius + base_radius
 
 # Sky
 rectangle(0, 0, 100, 60, "#87CEEB")

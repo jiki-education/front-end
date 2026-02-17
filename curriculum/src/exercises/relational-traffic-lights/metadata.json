@@ -1,0 +1,13 @@
+{
+  "slug": "relational-traffic-lights",
+  "title": "Relational Traffic Lights",
+  "instructions": "You're back with the traffic lights! This time, everything should be relative to the `radius` variable so the whole traffic light scales when you change it.\n\n<!-- TODO: Add target relational traffic lights image here -->\n\n### How it works\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- The color variables and `radius` are fixed for you.\n- You need to derive all position and size variables as multiples of `radius`.\n- The housing is a rectangle that surrounds all three lights with padding.\n- The three lights are evenly spaced vertically inside the housing.\n\n### Variables to derive\n\n- `center_x` — the horizontal center of all lights\n- `red_y`, `yellow_y`, `green_y` — the vertical centers of each light\n- `housing_x`, `housing_y` — the top-left corner of the housing rectangle\n- `housing_width`, `housing_height` — the size of the housing rectangle\n\nAll derived variables should be expressed as `radius * something`.\n\n### Functions used in this exercise\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle",
+  "estimatedMinutes": 15,
+  "levelId": "variables",
+  "hints": [
+    "The center_x is radius * 5 to position the traffic light on the canvas",
+    "The lights are spaced 2 radii apart: red_y = radius * 3, yellow_y = radius * 5, green_y = radius * 7",
+    "The housing starts 2 radii left of center and 2 radii above the top light",
+    "The housing width is radius * 4 and height is radius * 8"
+  ]
+}

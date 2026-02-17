@@ -43,7 +43,10 @@ export const exercises = {
   "process-game": () => import("./process-game"),
   "wordle-solver": () => import("./wordle-solver"),
   snowman: () => import("./snowman"),
-  "traffic-lights": () => import("./traffic-lights")
+  "traffic-lights": () => import("./traffic-lights"),
+  "relational-snowman": () => import("./relational-snowman"),
+  "relational-sun": () => import("./relational-sun"),
+  "relational-traffic-lights": () => import("./relational-traffic-lights")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

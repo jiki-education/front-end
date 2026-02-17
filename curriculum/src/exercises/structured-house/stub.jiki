@@ -1,37 +1,14 @@
-// Sky variables
+// Draw a house!
+// We've set up the colors for you.
+// Think about the relationships between things.
+// Can you make it so changing house_left and house_top
+// moves the entire house?
+
+// Colors
 set sky_color to "#add8e6"
-set sky_left to 0
-set sky_top to 0
-set sky_width to 100
-set sky_height to 100
-
-// House Frame variables
-set house_left to 20
-
-// Roof variables
-set roof_overhang to 4
-set roof_left to house_left - roof_overhang
-
-// The sky
-rectangle(sky_left, sky_top, sky_width, sky_height, sky_color)
-
-// The grass
-rectangle(0,80, 100, 100, "#3cb372")
-
-// The frame of the house
-rectangle(house_left,50, 60, 40, "#f0985b")
-
-// The roof
-triangle(roof_left,50, 50,30, 84,50, "#8b4513")
-
-// The left window
-rectangle(30,55, 12,13, "#FFFFFF")
-
-// The second window
-rectangle(58,55, 12, 13, "#FFFFFF")
-
-// The door
-rectangle(43,72, 14, 18, "#A0512D")
-
-// The door knob
-circle(55,81, 1, "#FFDF00")
+set grass_color to "#3cb372"
+set house_color to "#f0985b"
+set roof_color to "#8b4513"
+set window_color to "#FFFFFF"
+set door_color to "#A0512D"
+set knob_color to "#FFDF00"

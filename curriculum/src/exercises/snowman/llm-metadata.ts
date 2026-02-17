@@ -22,10 +22,9 @@ export const llmMetadata: LLMMetadata = {
 
         The variables:
         - snowman_x = 50 (centered horizontally)
-        - head_y = 27, head_size = 5 (smallest, top)
-        - body_y = 42, body_size = 10 (medium, middle)
-        - base_y = 72, base_size = 20 (largest, bottom)
-        - Size progression: base is 2x body, body is 2x head
+        - head_y = 33, head_radius = 10 (smallest, top)
+        - body_y = 50, body_radius = 15 (medium, middle)
+        - base_y = 72, base_radius = 20 (largest, bottom)
 
         Key teaching points:
         1. Variables store values that can be reused (snowman_x used in all 3 circles)

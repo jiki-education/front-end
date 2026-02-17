@@ -60,8 +60,14 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "variables",
     "lessons": [
+      { "type": "video", "slug": "creating-using-variables" },
       { "type": "exercise", "slug": "snowman" },
-      { "type": "exercise", "slug": "traffic-lights" }
+      { "type": "exercise", "slug": "traffic-lights" },
+      { "type": "video", "slug": "arithmetic-and-variables" },
+      { "type": "exercise", "slug": "relational-sun" },
+      { "type": "exercise", "slug": "relational-snowman" },
+      { "type": "exercise", "slug": "relational-traffic-lights" },
+      { "type": "project", "slug": "structured-house" }
     ]
   },
   {

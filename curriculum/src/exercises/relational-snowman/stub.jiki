@@ -1,13 +1,20 @@
-// Build a Snowman!
-// Set the variables so the snowman matches the image
+// Snowman (Arithmetic)
+// Rewrite the snowman so all the sizes are based on one variable.
+// The circles should touch each other and stack from top to bottom.
+// When you change size, the whole snowman should scale!
 
-set snowman_x to 0
-set head_y to 0
+// These are fixed
+set size to 5
+set snowman_x to 50
+set head_y to 20
+
+// Derive these from the variables above
 set head_radius to 0
-set body_y to 0
 set body_radius to 0
-set base_y to 0
 set base_radius to 0
+
+set body_y to 0
+set base_y to 0
 
 // Sky
 rectangle(0, 0, 100, 60, "#87CEEB")

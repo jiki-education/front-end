@@ -1,12 +1,17 @@
-// Build a Snowman!
+// Snowman (Arithmetic)
 
+// These are fixed
+let size = 5;
 let snowmanX = 50;
-let headY = 33;
-let headRadius = 10;
-let bodyY = 50;
-let bodyRadius = 15;
-let baseY = 72;
-let baseRadius = 20;
+let headY = 20;
+
+// Derive these from the variables above
+let headRadius = size * 2;
+let bodyRadius = size * 3;
+let baseRadius = size * 4;
+
+let bodyY = headY + headRadius + bodyRadius;
+let baseY = bodyY + bodyRadius + baseRadius;
 
 // Sky
 rectangle(0, 0, 100, 60, "#87CEEB");

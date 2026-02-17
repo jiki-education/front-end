@@ -1,12 +1,17 @@
-// Build a Snowman!
+// Snowman (Arithmetic)
 
+// These are fixed
+set size to 5
 set snowman_x to 50
-set head_y to 33
-set head_radius to 10
-set body_y to 50
-set body_radius to 15
-set base_y to 72
-set base_radius to 20
+set head_y to 20
+
+// Derive these from the variables above
+set head_radius to size * 2
+set body_radius to size * 3
+set base_radius to size * 4
+
+set body_y to head_y + head_radius + body_radius
+set base_y to body_y + body_radius + base_radius
 
 // Sky
 rectangle(0, 0, 100, 60, "#87CEEB")
