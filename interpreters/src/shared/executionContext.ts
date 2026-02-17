@@ -4,6 +4,7 @@ import type { ExecutionContext } from "./interfaces.js";
 export function createBaseExecutionContext(this: {
   time: number;
   _exerciseFinished: boolean;
+  randomFn: () => number;
 }): Omit<ExecutionContext, "logicError"> {
   return {
     fastForward: (milliseconds: number) => {
@@ -13,5 +14,6 @@ export function createBaseExecutionContext(this: {
     exerciseFinished: () => {
       this._exerciseFinished = true;
     },
+    random: this.randomFn,
   };
 }

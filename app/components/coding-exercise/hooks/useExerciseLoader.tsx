@@ -7,9 +7,10 @@ interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
+  levelId?: string;
 }
 
-export function useExerciseLoader({ language, exerciseSlug, context }: UseExerciseLoaderProps) {
+export function useExerciseLoader({ language, exerciseSlug, context, levelId }: UseExerciseLoaderProps) {
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -27,7 +28,10 @@ export function useExerciseLoader({ language, exerciseSlug, context }: UseExerci
         }
 
         // Load the exercise module
-        const exercise = (await loader()).default;
+        const loadedExercise = (await loader()).default;
+
+        // Override levelId if provided (used for projects where level comes from the API)
+        const exercise = levelId ? { ...loadedExercise, levelId } : loadedExercise;
 
         // Create orchestrator with exercise, language, and context
         orchestratorRef.current = new Orchestrator(exercise, language, context);

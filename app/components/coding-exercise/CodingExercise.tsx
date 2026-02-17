@@ -11,13 +11,15 @@ interface CodingExerciseProps {
   language: "javascript" | "jikiscript" | "python";
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
+  levelId?: string;
 }
 
-export default function CodingExercise({ language, exerciseSlug, context }: CodingExerciseProps) {
+export default function CodingExercise({ language, exerciseSlug, context, levelId }: CodingExerciseProps) {
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,
-    context
+    context,
+    levelId
   });
 
   // Error state

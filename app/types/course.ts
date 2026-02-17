@@ -10,9 +10,9 @@ export interface Course {
 export interface UserCourse {
   course_slug: string;
   language: ProgrammingLanguage | null;
-  enrolled_at: string;
-  started_at: string | null;
-  completed_at: string | null;
+  language_chosen: boolean;
+  current_level_slug: string | null;
+  completed: boolean;
 }
 
 export interface CoursesResponse {
