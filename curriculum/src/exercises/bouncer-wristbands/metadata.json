@@ -1,0 +1,13 @@
+{
+  "slug": "bouncer-wristbands",
+  "title": "Bouncer: Wristbands",
+  "instructions": "You're still working as a bouncer, but now the venue has a wristband system. Different age groups get different colored wristbands.\n\nYou have these functions:\n- `get_age()` returns the age of the person waiting outside\n- `child_wristband()` gives them a child wristband (under 13)\n- `teen_wristband()` gives them a teen wristband (13 to 17)\n- `adult_wristband()` gives them an adult wristband (18 to 64)\n- `senior_wristband()` gives them a senior wristband (65 and over)\n\nGet the person's age and give them the correct wristband!",
+  "estimatedMinutes": 10,
+  "levelId": "conditionals",
+  "hints": [
+    "Start by storing the age in a variable: set age to get_age()",
+    "Use if/else if/else to check the age ranges in order",
+    "Check the youngest group first (age < 13), then work upwards",
+    "The last group (seniors) doesn't need a condition — use else"
+  ]
+}

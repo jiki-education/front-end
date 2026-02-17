@@ -20,6 +20,7 @@ export const exercises = {
   "space-invaders-conditional": () => import("./space-invaders-conditional"),
   "jumbled-house": () => import("./jumbled-house"),
   bouncer: () => import("./bouncer"),
+  "bouncer-wristbands": () => import("./bouncer-wristbands"),
   "build-wall": () => import("./build-wall"),
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),

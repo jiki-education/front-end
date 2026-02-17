@@ -26,6 +26,7 @@ import { llmMetadata as spaceInvadersNestedRepeatLLM } from "./exercises/space-i
 import { llmMetadata as spaceInvadersConditionalLLM } from "./exercises/space-invaders-conditional/llm-metadata";
 import { llmMetadata as jumbledHouseLLM } from "./exercises/jumbled-house/llm-metadata";
 import { llmMetadata as bouncerLLM } from "./exercises/bouncer/llm-metadata";
+import { llmMetadata as bouncerWristbandsLLM } from "./exercises/bouncer-wristbands/llm-metadata";
 import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata";
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
@@ -89,6 +90,7 @@ const llmMetadataRegistry = {
   "space-invaders-conditional": spaceInvadersConditionalLLM,
   "jumbled-house": jumbledHouseLLM,
   bouncer: bouncerLLM,
+  "bouncer-wristbands": bouncerWristbandsLLM,
   "build-wall": buildWallLLM,
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
