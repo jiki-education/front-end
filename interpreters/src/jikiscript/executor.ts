@@ -149,7 +149,6 @@ export class Executor {
   protected functionCallLog: Record<string, Record<any, number>> = {};
   protected functionCallStack: String[] = [];
   public contextualThis: Jiki.Instance | null = null;
-  public _exerciseFinished: boolean = false;
   public randomFn: () => number;
   public _exerciseFinished: boolean = false;
 

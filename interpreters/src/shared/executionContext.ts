@@ -3,7 +3,6 @@ import type { ExecutionContext } from "./interfaces.js";
 
 export function createBaseExecutionContext(this: {
   time: number;
-  _exerciseFinished: boolean;
   randomFn: () => number;
   _exerciseFinished: boolean;
 }): Omit<ExecutionContext, "logicError"> {
@@ -12,9 +11,6 @@ export function createBaseExecutionContext(this: {
       this.time += milliseconds * TIME_SCALE_FACTOR;
     },
     getCurrentTimeInMs: () => this.time / TIME_SCALE_FACTOR,
-    exerciseFinished: () => {
-      this._exerciseFinished = true;
-    },
     random: this.randomFn,
     exerciseFinished: () => {
       this._exerciseFinished = true;
