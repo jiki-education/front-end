@@ -85,6 +85,8 @@ Nothing yet
 - `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
 - `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
+- `maze-walk` - Walk: define a walk(steps) function with a parameter to move multiple steps (Make Your Own Functions level)
+- `battle-procedures` - Battle Procedures: refactor scroll-and-shoot logic into three named functions (Make Your Own Functions level)
 - `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Adding Returns to Your Functions level)
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)
 - `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
@@ -113,6 +115,7 @@ Nothing yet
 - `niche-named-party` - Niche Named Party: bouncer exercise checking if a person's name starts with the required prefix using a starts_with helper function (Everything level)
 - `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
 - `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
+- `weather-symbols-part-1` - Weather Symbols (Part 1): map weather descriptions to lists of drawing components using if/else if (Lists level)
 
 ### Unimplemented
 

@@ -1,0 +1,13 @@
+{
+  "slug": "battle-procedures",
+  "title": "Battle Procedures",
+  "instructions": "In the last level, you learnt how to move a laser cannon back and forth, shooting down aliens. It worked, but the shooting logic was mixed in with everything else.\n\nIn this exercise, you'll extract the shooting logic into its own function called `shoot_if_alien_above`. This function should check if there's an alien above the laser cannon and shoot it if so.\n\nThe rest of the game logic (tracking position, changing direction at boundaries, moving the laser) stays in the repeat loop as before.\n\nCreate your `shoot_if_alien_above` function, then use it inside the repeat loop alongside the movement logic.",
+  "estimatedMinutes": 10,
+  "levelId": "make-your-own-functions",
+  "hints": [
+    "Define the function before the repeat loop",
+    "shoot_if_alien_above() needs to check is_alien_above() before calling shoot()",
+    "The movement and direction logic stays in the repeat loop, just like scroll-and-shoot",
+    "Remember to track position and direction with variables"
+  ]
+}

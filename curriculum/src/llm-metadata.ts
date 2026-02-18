@@ -85,6 +85,9 @@ import { llmMetadata as signPriceLLM } from "./exercises/sign-price/llm-metadata
 import { llmMetadata as nicheNamedPartyLLM } from "./exercises/niche-named-party/llm-metadata";
 import { llmMetadata as lowerPangramLLM } from "./exercises/lower-pangram/llm-metadata";
 import { llmMetadata as caesarCipherLLM } from "./exercises/caesar-cipher/llm-metadata";
+import { llmMetadata as mazeWalkLLM } from "./exercises/maze-walk/llm-metadata";
+import { llmMetadata as battleProceduresLLM } from "./exercises/battle-procedures/llm-metadata";
+import { llmMetadata as weatherSymbolsPart1LLM } from "./exercises/weather-symbols-part-1/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -172,7 +175,10 @@ const llmMetadataRegistry = {
   "sign-price": signPriceLLM,
   "niche-named-party": nicheNamedPartyLLM,
   "lower-pangram": lowerPangramLLM,
-  "caesar-cipher": caesarCipherLLM
+  "caesar-cipher": caesarCipherLLM,
+  "maze-walk": mazeWalkLLM,
+  "battle-procedures": battleProceduresLLM,
+  "weather-symbols-part-1": weatherSymbolsPart1LLM
 } as const;
 
 /**

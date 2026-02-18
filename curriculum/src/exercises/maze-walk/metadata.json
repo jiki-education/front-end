@@ -1,0 +1,12 @@
+{
+  "slug": "maze-walk",
+  "title": "Walk",
+  "instructions": "In the last exercise you created a `turn_around` function to tidy up your code.\n\nIn this exercise we want you to create a `walk` function that takes a number of steps as its input, and moves forward that many times.\n\nOnce you've written your function, the code below will use it alongside `turn_left()` and `turn_right()` to navigate through the maze.",
+  "estimatedMinutes": 10,
+  "levelId": "make-your-own-functions",
+  "hints": [
+    "Your function should be called walk and take one input called steps",
+    "Use repeat with the steps input to move forward multiple times",
+    "The function should call move() inside the repeat loop"
+  ]
+}

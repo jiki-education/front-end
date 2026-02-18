@@ -132,6 +132,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "make-your-own-functions",
     "lessons": [
       { "type": "exercise", "slug": "maze-turn-around" },
+      { "type": "exercise", "slug": "maze-walk" },
+      { "type": "exercise", "slug": "battle-procedures" },
       { "type": "exercise", "slug": "even-or-odd" },
       { "type": "exercise", "slug": "triangle" },
       { "type": "exercise", "slug": "collatz-conjecture" }
@@ -174,6 +176,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "meal-prep" },
       { "type": "exercise", "slug": "process-guess" },
       { "type": "exercise", "slug": "stars" },
+      { "type": "exercise", "slug": "weather-symbols-part-1" },
       { "type": "project", "slug": "extract-words" }
     ]
   },
