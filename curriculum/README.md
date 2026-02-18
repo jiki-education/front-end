@@ -134,26 +134,48 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   },
   {
     "level": "adding-inputs-to-your-functions",
-    "lessons": [{ "type": "exercise", "slug": "raindrops" }]
+    "lessons": []
+  },
+  {
+    "level": "adding-returns-to-your-functions",
+    "lessons": [
+      { "type": "exercise", "slug": "even-or-odd" },
+      { "type": "exercise", "slug": "triangle" },
+      { "type": "exercise", "slug": "collatz-conjecture" }
+    ]
   },
   {
     "level": "string-manipulation",
     "lessons": [
       { "type": "exercise", "slug": "hello" },
-      { "type": "exercise", "slug": "two-fer" }
+      { "type": "exercise", "slug": "two-fer" },
+      { "type": "exercise", "slug": "hamming" },
+      { "type": "exercise", "slug": "raindrops" }
+    ]
+  },
+  {
+    "level": "string-iteration",
+    "lessons": [
+      { "type": "exercise", "slug": "reverse-string" },
+      { "type": "exercise", "slug": "driving-test" }
     ]
   },
   {
     "level": "methods-and-properties",
     "lessons": [
+      { "type": "exercise", "slug": "pangram" },
       { "type": "exercise", "slug": "nucleotide" },
-      { "type": "exercise", "slug": "isbn-verifier" }
+      { "type": "exercise", "slug": "isbn-verifier" },
+      { "type": "project", "slug": "acronym" }
     ]
   },
   {
     "level": "lists",
     "lessons": [
+      { "type": "exercise", "slug": "guest-list" },
       { "type": "exercise", "slug": "lunchbox" },
+      { "type": "exercise", "slug": "meal-prep" },
+      { "type": "exercise", "slug": "process-guess" },
       { "type": "exercise", "slug": "stars" },
       { "type": "project", "slug": "extract-words" }
     ]
@@ -161,6 +183,10 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "dictionaries",
     "lessons": [{ "type": "exercise", "slug": "word-count" }]
+  },
+  {
+    "level": "multiple-functions",
+    "lessons": [{ "type": "exercise", "slug": "rna-transcription" }]
   }
 ]
 ```

@@ -84,18 +84,28 @@ Nothing yet
 - `build-wall` - Build the Wall: nested loops to build a full brick wall with alternating rows (Conditionals and State level)
 - `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
 - `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
-- `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Everything level)
-- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Everything level)
-- `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Everything level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
-- `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (Everything level)
+- `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Adding Returns to Your Functions level)
+- `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)
+- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
+- `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
+- `two-fer` - Two-Fer: greet someone with a cookie offer using concatenation (String Manipulation level)
+- `hamming` - Hamming: calculate Hamming distance between two DNA strands (String Manipulation level)
+- `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (String Manipulation level)
+- `reverse-string` - Reverse String: reverse a string character by character (String Iteration level)
+- `driving-test` - Driving Test: evaluate driving test results by iterating through marks (String Iteration level)
+- `pangram` - Pangram: check if a sentence uses every letter of the alphabet (Methods and Properties level)
 - `nucleotide` - Nucleotide: count occurrences of a specific nucleotide in a DNA strand (Methods and Properties level)
 - `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Methods and Properties level)
+- `acronym` - Acronym: convert a phrase to its acronym (Methods and Properties level, project)
+- `guest-list` - Guest List: check if someone is on the guest list (Lists level)
 - `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
+- `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)
+- `process-guess` - Wordle: Process Guess: process a Wordle guess and color the row (Lists level)
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
-- `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
+- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Multiple Functions level)
 
 ### Unimplemented
 
@@ -212,7 +222,7 @@ These are from levels that don't exist in the API yet. They need both front-end 
 
 These exist in the front-end but are in the "Unused" section of curriculum.md:
 
-`two-fer`, `driving-test`, `guest-list`, `hamming`, `rna-transcription`, `reverse-string`, `acronym`, `meal-prep`, `chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `pangram`, `scrabble-score`, `protein-translation`, `anagram`
+`chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `scrabble-score`, `protein-translation`, `anagram`, `process-game`, `wordle-solver`
 
 ## Exercise Variants
 
