@@ -1,4 +1,11 @@
-import { Expression, CallExpression, AssignmentExpression, MemberExpression } from "./expression";
+import {
+  Expression,
+  CallExpression,
+  AssignmentExpression,
+  MemberExpression,
+  ArrayExpression,
+  LiteralExpression,
+} from "./expression";
 import {
   type Statement,
   VariableDeclaration,
@@ -102,4 +109,78 @@ function getSubStatements(stmt: Statement): Statement[] {
     return stmt.body;
   }
   return [];
+}
+
+export function countLinesOfCode(sourceCode: string): number {
+  const lines = sourceCode.split("\n");
+  let inMultiLineComment = false;
+
+  return lines.filter(line => {
+    const trimmed = line.trim();
+    if (trimmed === "") {
+      return false;
+    }
+
+    if (trimmed.includes("/*")) {
+      inMultiLineComment = true;
+    }
+    if (inMultiLineComment) {
+      if (trimmed.includes("*/")) {
+        inMultiLineComment = false;
+      }
+      return false;
+    }
+
+    if (trimmed.startsWith("//")) {
+      return false;
+    }
+    return true;
+  }).length;
+}
+
+export function extractFunctionDeclarations(statements: Statement[]): FunctionDeclaration[] {
+  const results: FunctionDeclaration[] = [];
+  for (const stmt of statements) {
+    if (stmt instanceof FunctionDeclaration) {
+      results.push(stmt);
+    }
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractFunctionDeclarations([sub]));
+    }
+  }
+  return results;
+}
+
+export function extractMethodCalls(statements: Statement[]): { methodName: string }[] {
+  const calls = extractCallExpressions(statements);
+  return calls
+    .filter(
+      call =>
+        call.callee instanceof MemberExpression &&
+        !call.callee.computed &&
+        call.callee.property instanceof LiteralExpression &&
+        typeof call.callee.property.value === "string"
+    )
+    .map(call => ({
+      methodName: (call.callee as MemberExpression).property as LiteralExpression,
+    }))
+    .map(({ methodName }) => ({ methodName: methodName.value as string }));
+}
+
+export function countArrayExpressions(statements: Statement[]): number {
+  return extractExpressions(statements, ArrayExpression).length;
+}
+
+export function extractCallExpressionsExcludingFunctionBody(
+  statements: Statement[],
+  excludeFuncName: string
+): CallExpression[] {
+  const results: CallExpression[] = [];
+  for (const stmt of statements) {
+    if (stmt instanceof FunctionDeclaration && stmt.name.lexeme === excludeFuncName) {
+      continue;
+    }
+    results.push(...extractCallExpressions([stmt]));
+  }
+  return results;
 }

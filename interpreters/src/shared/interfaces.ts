@@ -71,5 +71,11 @@ export interface InterpretResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    countLinesOfCode: () => number;
+    assertMaxLinesOfCode: (limit: number) => boolean;
+    assertFunctionDefined: (name: string) => boolean;
+    assertMethodCalled: (methodName: string) => boolean;
+    countArrayLiterals: () => number;
+    assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
   };
 }
