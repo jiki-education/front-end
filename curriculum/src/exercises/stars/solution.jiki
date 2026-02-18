@@ -1,0 +1,9 @@
+function stars with count do
+  set result to []
+  set star to ""
+  repeat count times do
+    change star to concatenate(star, "*")
+    change result to push(result, star)
+  end
+  return result
+end
