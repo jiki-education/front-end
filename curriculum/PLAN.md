@@ -107,6 +107,7 @@ Nothing yet
 - `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
 - `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Multiple Functions level)
+- `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
 
 ### Unimplemented
 

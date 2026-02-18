@@ -158,6 +158,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "string-iteration",
     "lessons": [
       { "type": "exercise", "slug": "reverse-string" },
+      { "type": "exercise", "slug": "tile-rack" },
       { "type": "exercise", "slug": "driving-test" }
     ]
   },

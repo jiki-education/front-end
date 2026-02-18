@@ -1,0 +1,4 @@
+// The main function that gets called.
+function find_tile with rack, letter do
+  // Your code here
+end
