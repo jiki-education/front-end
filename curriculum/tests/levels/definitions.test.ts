@@ -89,8 +89,8 @@ describe("Level Definitions", () => {
     });
   });
 
-  describe("string-concatenation-and-templates level", () => {
-    const level = getLevel("string-concatenation-and-templates")!;
+  describe("string-manipulation level", () => {
+    const level = getLevel("string-manipulation")!;
 
     it("should introduce TemplateLiteralExpression", () => {
       const jsFeatures = level.languageFeatures.javascript!;

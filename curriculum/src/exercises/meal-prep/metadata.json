@@ -3,7 +3,7 @@
   "title": "Meal Prep",
   "instructions": "You're the sort of person that likes to pop to the shops each day to get whatever ingredients you need for dinner. It gives you a nice excuse to stretch your legs and chat to the local shopkeeper.\n\nEach day you choose a recipe, then check what's in the fridge, and note down what you need to buy.\n\nNow you've decided to make your life a little easier, by writing a program to do the hard work for you!\n\nWrite a function called `shopping_list`. It takes two inputs: the contents of your fridge as a list of strings, and the items in the recipe as a list of strings. It should return the things you need to buy, as a list of strings.",
   "estimatedMinutes": 15,
-  "levelId": "everything",
+  "levelId": "lists",
   "hints": [
     "Think about what you would do in the real world to compare two lists",
     "You need to check if each recipe item is already in the fridge",

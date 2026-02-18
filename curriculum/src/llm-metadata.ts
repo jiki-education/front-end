@@ -34,6 +34,7 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as nucleotideLLM } from "./exercises/nucleotide/llm-metadata";
 import { llmMetadata as nucleotideCountLLM } from "./exercises/nucleotide-count/llm-metadata";
 import { llmMetadata as mealPrepLLM } from "./exercises/meal-prep/llm-metadata";
 import { llmMetadata as matchingSocksLLM } from "./exercises/matching-socks/llm-metadata";
@@ -71,6 +72,7 @@ import { llmMetadata as mazeTurnAroundLLM } from "./exercises/maze-turn-around/l
 import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-metadata";
 import { llmMetadata as triangleLLM } from "./exercises/triangle/llm-metadata";
 import { llmMetadata as raindropsLLM } from "./exercises/raindrops/llm-metadata";
+import { llmMetadata as isbnVerifierLLM } from "./exercises/isbn-verifier/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -108,6 +110,7 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
+  nucleotide: nucleotideLLM,
   "nucleotide-count": nucleotideCountLLM,
   "meal-prep": mealPrepLLM,
   "matching-socks": matchingSocksLLM,
@@ -144,7 +147,8 @@ const llmMetadataRegistry = {
   "maze-turn-around": mazeTurnAroundLLM,
   "rainbow-ball": rainbowBallLLM,
   triangle: triangleLLM,
-  raindrops: raindropsLLM
+  raindrops: raindropsLLM,
+  "isbn-verifier": isbnVerifierLLM
 } as const;
 
 /**

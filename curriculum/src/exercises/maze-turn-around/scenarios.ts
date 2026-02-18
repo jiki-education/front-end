@@ -252,9 +252,8 @@ export const scenarios: VisualScenario[] = [
             return sourceCode.includes("function turnAround");
           } else if (language === "python") {
             return sourceCode.includes("def turn_around");
-          } else {
-            return sourceCode.includes("function turn_around");
           }
+          return sourceCode.includes("function turn_around");
         },
         errorHtml: "You should define a <code>turn_around</code> function and use it in your solution."
       }

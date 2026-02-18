@@ -130,14 +130,17 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   },
   {
     "level": "make-your-own-functions",
-    "lessons": [
-      { "type": "exercise", "slug": "maze-turn-around" }
-    ]
+    "lessons": [{ "type": "exercise", "slug": "maze-turn-around" }]
   },
   {
     "level": "adding-inputs-to-your-functions",
+    "lessons": [{ "type": "exercise", "slug": "raindrops" }]
+  },
+  {
+    "level": "methods-and-properties",
     "lessons": [
-      { "type": "exercise", "slug": "raindrops" }
+      { "type": "exercise", "slug": "nucleotide" },
+      { "type": "exercise", "slug": "isbn-verifier" }
     ]
   }
 ]

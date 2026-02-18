@@ -16,7 +16,8 @@ export const everythingLevel: Level = {
           "sort_string",
           "concat",
           "keys",
-          "random_number"
+          "random_number",
+          "number_to_string"
         ]
       }
     },

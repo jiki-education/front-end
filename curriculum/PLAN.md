@@ -89,6 +89,8 @@ Nothing yet
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Everything level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
 - `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (Everything level)
+- `nucleotide` - Nucleotide: count occurrences of a specific nucleotide in a DNA strand (Methods and Properties level)
+- `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Methods and Properties level)
 
 ### Unimplemented
 

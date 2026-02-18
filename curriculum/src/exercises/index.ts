@@ -28,6 +28,7 @@ export const exercises = {
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
   "structured-house": () => import("./structured-house"),
+  nucleotide: () => import("./nucleotide"),
   "nucleotide-count": () => import("./nucleotide-count"),
   "meal-prep": () => import("./meal-prep"),
   "matching-socks": () => import("./matching-socks"),
@@ -64,7 +65,8 @@ export const exercises = {
   "maze-turn-around": () => import("./maze-turn-around"),
   "rainbow-ball": () => import("./rainbow-ball"),
   triangle: () => import("./triangle"),
-  raindrops: () => import("./raindrops")
+  raindrops: () => import("./raindrops"),
+  "isbn-verifier": () => import("./isbn-verifier")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -10,7 +10,10 @@ import { conditionalsAndState } from "./conditionals-and-state";
 import { makeYourOwnFunctions } from "./make-your-own-functions";
 import { addingInputsToYourFunctions } from "./adding-inputs-to-your-functions";
 import { addingReturnsToYourFunctions } from "./adding-returns-to-your-functions";
-import { stringConcatenationAndTemplates } from "./string-concatenation-and-templates";
+import { stringManipulation } from "./string-manipulation";
+import { stringIteration } from "./string-iteration";
+import { methodsAndProperties } from "./methods-and-properties";
+import { lists } from "./lists";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -32,7 +35,10 @@ export const levels = [
   makeYourOwnFunctions,
   addingInputsToYourFunctions,
   addingReturnsToYourFunctions,
-  stringConcatenationAndTemplates,
+  stringManipulation,
+  stringIteration,
+  methodsAndProperties,
+  lists,
   everythingLevel
 ] as const;
 

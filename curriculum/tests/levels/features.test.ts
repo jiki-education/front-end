@@ -80,8 +80,8 @@ describe("Language Features", () => {
       expect(features.allowedNodes).not.toContain("TemplateLiteralExpression");
     });
 
-    it("should accumulate nodes up to string-concatenation-and-templates", () => {
-      const features = getLanguageFeatures("string-concatenation-and-templates", "javascript");
+    it("should accumulate nodes up to string-manipulation", () => {
+      const features = getLanguageFeatures("string-manipulation", "javascript");
 
       expect(features.allowedNodes).toContain("FunctionDeclaration");
       expect(features.allowedNodes).toContain("ReturnStatement");
