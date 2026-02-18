@@ -81,7 +81,16 @@ import { describeFrame } from "./frameDescribers";
 import { executeFunctionCallExpression } from "./executor/executeFunctionCallExpression";
 import { executeIfStatement } from "./executor/executeIfStatement";
 import didYouMean from "didyoumean";
-import { extractFunctionCallExpressions, extractVariableAssignments, formatJikiObject } from "./helpers";
+import {
+  extractFunctionCallExpressions,
+  extractVariableAssignments,
+  formatJikiObject,
+  countLinesOfCode,
+  extractFunctionStatements,
+  extractMethodCallExpressions,
+  countListExpressions,
+  extractFunctionCallExpressionsExcludingBody,
+} from "./helpers";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import * as Jiki from "./jikiObjects";
 import { executeMethodCallExpression } from "./executor/executeMethodCallExpression";
@@ -308,6 +317,19 @@ export class Executor {
             }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
+        },
+        countLinesOfCode: () => countLinesOfCode(this.sourceCode),
+        assertMaxLinesOfCode: (limit: number) => countLinesOfCode(this.sourceCode) <= limit,
+        assertFunctionDefined: (name: string) => {
+          return extractFunctionStatements(statements).some(fs => fs.name.lexeme === name);
+        },
+        assertMethodCalled: (methodName: string) => {
+          return extractMethodCallExpressions(statements).some(mc => mc.methodName.lexeme === methodName);
+        },
+        countArrayLiterals: () => countListExpressions(statements),
+        assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
+          const callsOutside = extractFunctionCallExpressionsExcludingBody(statements, funcName);
+          return callsOutside.some(call => call.callee.name.lexeme === funcName);
         },
       },
     };

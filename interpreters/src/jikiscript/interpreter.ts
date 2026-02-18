@@ -106,6 +106,12 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       assertors: {
         assertAllArgumentsAreVariables: () => true,
         assertNoLiteralNumberAssignments: () => true,
+        countLinesOfCode: () => 0,
+        assertMaxLinesOfCode: () => true,
+        assertFunctionDefined: () => true,
+        assertMethodCalled: () => true,
+        countArrayLiterals: () => 0,
+        assertFunctionCalledOutsideOwnDefinition: () => true,
       },
     };
   }

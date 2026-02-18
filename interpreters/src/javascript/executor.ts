@@ -72,7 +72,16 @@ import { executeContinueStatement, ContinueFlowControlError } from "./executor/e
 import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
-import { extractCallExpressions, extractVariableAssignments, snakeToCamel } from "./assertion-helpers";
+import {
+  extractCallExpressions,
+  extractVariableAssignments,
+  snakeToCamel,
+  countLinesOfCode,
+  extractFunctionDeclarations,
+  extractMethodCalls,
+  countArrayExpressions,
+  extractCallExpressionsExcludingFunctionBody,
+} from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
 // Execution context for JavaScript stdlib
@@ -136,6 +145,12 @@ export interface ExecutorResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    countLinesOfCode: () => number;
+    assertMaxLinesOfCode: (limit: number) => boolean;
+    assertFunctionDefined: (name: string) => boolean;
+    assertMethodCalled: (methodName: string) => boolean;
+    countArrayLiterals: () => number;
+    assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
   };
 }
 
@@ -261,6 +276,23 @@ export class Executor {
             }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
+        },
+        countLinesOfCode: () => countLinesOfCode(this.sourceCode),
+        assertMaxLinesOfCode: (limit: number) => countLinesOfCode(this.sourceCode) <= limit,
+        assertFunctionDefined: (name: string) => {
+          const camelName = snakeToCamel(name);
+          return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === camelName);
+        },
+        assertMethodCalled: (methodName: string) => {
+          return extractMethodCalls(statements).some(mc => mc.methodName === methodName);
+        },
+        countArrayLiterals: () => countArrayExpressions(statements),
+        assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
+          const camelName = snakeToCamel(funcName);
+          const callsOutside = extractCallExpressionsExcludingFunctionBody(statements, camelName);
+          return callsOutside.some(
+            call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === camelName
+          );
         },
       },
     };

@@ -1,5 +1,5 @@
 import type { Expression } from "./expression";
-import { CallExpression, SubscriptExpression } from "./expression";
+import { CallExpression, SubscriptExpression, AttributeExpression, ListExpression } from "./expression";
 import {
   type Statement,
   AssignmentStatement,
@@ -79,4 +79,77 @@ function getSubStatements(stmt: Statement): Statement[] {
     return stmt.body;
   }
   return [];
+}
+
+export function countLinesOfCode(sourceCode: string): number {
+  const lines = sourceCode.split("\n");
+
+  return lines.filter(line => {
+    const trimmed = line.trim();
+    if (trimmed === "") {
+      return false;
+    }
+    if (trimmed.startsWith("#")) {
+      return false;
+    }
+    return true;
+  }).length;
+}
+
+export function extractFunctionDeclarations(statements: Statement[]): FunctionDeclaration[] {
+  const results: FunctionDeclaration[] = [];
+  for (const stmt of statements) {
+    if (stmt instanceof FunctionDeclaration) {
+      results.push(stmt);
+    }
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractFunctionDeclarations([sub]));
+    }
+  }
+  return results;
+}
+
+function extractExpressionsDeep<T extends Expression>(statements: Statement[], type: new (...args: any[]) => T): T[] {
+  const results: T[] = [];
+  for (const stmt of statements) {
+    results.push(...extractExpressions([stmt], type));
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractExpressionsDeep([sub], type));
+    }
+  }
+  return results;
+}
+
+function extractCallExpressionsDeep(statements: Statement[]): CallExpression[] {
+  return extractExpressionsDeep(statements, CallExpression);
+}
+
+export function extractMethodCalls(statements: Statement[]): { methodName: string }[] {
+  const calls = extractCallExpressionsDeep(statements);
+  return calls
+    .filter(call => call.callee instanceof AttributeExpression)
+    .map(call => ({
+      methodName: (call.callee as AttributeExpression).attribute.lexeme,
+    }));
+}
+
+export function countListExpressions(statements: Statement[]): number {
+  return extractExpressionsDeep(statements, ListExpression).length;
+}
+
+export function extractCallExpressionsDeepExcluding(
+  statements: Statement[],
+  excludeFuncName: string
+): CallExpression[] {
+  const results: CallExpression[] = [];
+  for (const stmt of statements) {
+    if (stmt instanceof FunctionDeclaration && stmt.name.lexeme === excludeFuncName) {
+      continue;
+    }
+    results.push(...extractCallExpressions([stmt]));
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractCallExpressionsDeepExcluding([sub], excludeFuncName));
+    }
+  }
+  return results;
 }

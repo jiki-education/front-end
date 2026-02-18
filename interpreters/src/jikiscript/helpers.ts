@@ -1,9 +1,9 @@
 import type { Location } from "./location";
 import { JikiObject } from "./jikiObjects";
 import type { Statement } from "./statement";
-import { SetVariableStatement, ChangeVariableStatement } from "./statement";
+import { SetVariableStatement, ChangeVariableStatement, FunctionStatement } from "./statement";
 import type { Expression } from "./expression";
-import { FunctionCallExpression } from "./expression";
+import { FunctionCallExpression, MethodCallExpression, ListExpression } from "./expression";
 
 export function formatJikiObject(value?: any): string {
   if (value === undefined) {
@@ -66,6 +66,57 @@ export function extractVariableAssignments(
       results.push({ name: node.name.lexeme, value: node.value });
     }
     results.push(...extractVariableAssignments(node.children()));
+  }
+  return results;
+}
+
+export function countLinesOfCode(sourceCode: string): number {
+  const lines = sourceCode.split("\n");
+
+  return lines.filter(line => {
+    const trimmed = line.trim();
+    if (trimmed === "") {
+      return false;
+    }
+    if (trimmed.startsWith("//")) {
+      return false;
+    }
+    return true;
+  }).length;
+}
+
+export function extractFunctionStatements(tree: (Statement | Expression)[]): FunctionStatement[] {
+  const results: FunctionStatement[] = [];
+  for (const node of tree) {
+    if (node instanceof FunctionStatement) {
+      results.push(node);
+    }
+    results.push(...extractFunctionStatements(node.children()));
+  }
+  return results;
+}
+
+export function extractMethodCallExpressions(tree: (Statement | Expression)[]): MethodCallExpression[] {
+  return extractExpressions(tree, MethodCallExpression);
+}
+
+export function countListExpressions(tree: (Statement | Expression)[]): number {
+  return extractExpressions(tree, ListExpression).length;
+}
+
+export function extractFunctionCallExpressionsExcludingBody(
+  tree: (Statement | Expression)[],
+  excludeFuncName: string
+): FunctionCallExpression[] {
+  const results: FunctionCallExpression[] = [];
+  for (const node of tree) {
+    if (node instanceof FunctionStatement && node.name.lexeme === excludeFuncName) {
+      continue;
+    }
+    if (node instanceof FunctionCallExpression) {
+      results.push(node);
+    }
+    results.push(...extractFunctionCallExpressionsExcludingBody(node.children(), excludeFuncName));
   }
   return results;
 }
