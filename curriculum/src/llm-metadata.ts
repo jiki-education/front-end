@@ -155,7 +155,8 @@ const llmMetadataRegistry = {
   "isbn-verifier": isbnVerifierLLM,
   lunchbox: lunchboxLLM,
   stars: starsLLM,
-  "word-count": wordCountLLM
+  "word-count": wordCountLLM,
+  "extract-words": extractWordsLLM
 } as const;
 
 /**
