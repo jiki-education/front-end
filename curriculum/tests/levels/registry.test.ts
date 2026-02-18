@@ -22,6 +22,8 @@ describe("Level Registry", () => {
         "string-iteration",
         "methods-and-properties",
         "lists",
+        "dictionaries",
+        "multiple-functions",
         "everything"
       ]);
     });
@@ -73,7 +75,7 @@ describe("Level Registry", () => {
       expect(ids).toContain("using-functions");
       expect(ids).toContain("variables");
       expect(ids).toContain("everything");
-      expect(ids.length).toBe(17);
+      expect(ids.length).toBe(19);
     });
 
     it("should return IDs in definition order", () => {

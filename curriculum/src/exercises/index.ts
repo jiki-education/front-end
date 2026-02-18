@@ -69,7 +69,8 @@ export const exercises = {
   "isbn-verifier": () => import("./isbn-verifier"),
   lunchbox: () => import("./lunchbox"),
   stars: () => import("./stars"),
-  "word-count": () => import("./word-count")
+  "word-count": () => import("./word-count"),
+  "extract-words": () => import("./extract-words")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

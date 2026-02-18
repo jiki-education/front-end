@@ -14,6 +14,8 @@ import { stringManipulation } from "./string-manipulation";
 import { stringIteration } from "./string-iteration";
 import { methodsAndProperties } from "./methods-and-properties";
 import { lists } from "./lists";
+import { dictionaries } from "./dictionaries";
+import { multipleFunctions } from "./multiple-functions";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -39,6 +41,8 @@ export const levels = [
   stringIteration,
   methodsAndProperties,
   lists,
+  dictionaries,
+  multipleFunctions,
   everythingLevel
 ] as const;
 
