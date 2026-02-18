@@ -130,15 +130,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   },
   {
     "level": "make-your-own-functions",
-    "lessons": [{ "type": "exercise", "slug": "maze-turn-around" }]
-  },
-  {
-    "level": "adding-inputs-to-your-functions",
-    "lessons": []
-  },
-  {
-    "level": "adding-returns-to-your-functions",
     "lessons": [
+      { "type": "exercise", "slug": "maze-turn-around" },
       { "type": "exercise", "slug": "even-or-odd" },
       { "type": "exercise", "slug": "triangle" },
       { "type": "exercise", "slug": "collatz-conjecture" }

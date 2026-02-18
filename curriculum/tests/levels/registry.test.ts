@@ -16,8 +16,6 @@ describe("Level Registry", () => {
         "complex-conditionals",
         "conditionals-and-state",
         "make-your-own-functions",
-        "adding-inputs-to-your-functions",
-        "adding-returns-to-your-functions",
         "string-manipulation",
         "string-iteration",
         "methods-and-properties",
@@ -75,7 +73,7 @@ describe("Level Registry", () => {
       expect(ids).toContain("using-functions");
       expect(ids).toContain("variables");
       expect(ids).toContain("everything");
-      expect(ids.length).toBe(19);
+      expect(ids.length).toBe(17);
     });
 
     it("should return IDs in definition order", () => {

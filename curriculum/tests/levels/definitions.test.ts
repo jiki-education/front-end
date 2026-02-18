@@ -74,17 +74,9 @@ describe("Level Definitions", () => {
   describe("make-your-own-functions level", () => {
     const level = getLevel("make-your-own-functions")!;
 
-    it("should introduce FunctionDeclaration", () => {
+    it("should introduce FunctionDeclaration and ReturnStatement", () => {
       const jsFeatures = level.languageFeatures.javascript!;
       expect(jsFeatures.allowedNodes).toContain("FunctionDeclaration");
-    });
-  });
-
-  describe("adding-returns-to-your-functions level", () => {
-    const level = getLevel("adding-returns-to-your-functions")!;
-
-    it("should introduce ReturnStatement", () => {
-      const jsFeatures = level.languageFeatures.javascript!;
       expect(jsFeatures.allowedNodes).toContain("ReturnStatement");
     });
   });

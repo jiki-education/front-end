@@ -3,7 +3,7 @@
   "title": "Triangle",
   "instructions": "Your task is to create a function that checks whether a triangle is equilateral, isosceles, scalene, or invalid.\n\n### Triangles\n\n- An _equilateral_ triangle has all three sides the same length.\n- An _isosceles_ triangle has two sides the same length.\n- A _scalene_ triangle has all sides of different lengths.\n\nFor a triangle to be valid:\n\n- All sides have to be greater than 0\n- If you add together any two sides, the total must be larger than the third side.\n\n### The function\n\nThe function must be called `determine_triangle_type`. It must take three inputs, which will be numbers for the three sides of the triangle. It must return one of `\"invalid\"`, `\"equilateral\"`, `\"isosceles\"` or `\"scalene\"`.",
   "estimatedMinutes": 10,
-  "levelId": "adding-returns-to-your-functions",
+  "levelId": "make-your-own-functions",
   "hints": [
     "Start by checking if the triangle is invalid - check if any side is zero or if the sum of any two sides is less than or equal to the third",
     "Check for equilateral first - all three sides must be equal",

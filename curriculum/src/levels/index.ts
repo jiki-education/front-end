@@ -8,8 +8,6 @@ import { conditionals } from "./conditionals";
 import { complexConditionals } from "./complex-conditionals";
 import { conditionalsAndState } from "./conditionals-and-state";
 import { makeYourOwnFunctions } from "./make-your-own-functions";
-import { addingInputsToYourFunctions } from "./adding-inputs-to-your-functions";
-import { addingReturnsToYourFunctions } from "./adding-returns-to-your-functions";
 import { stringManipulation } from "./string-manipulation";
 import { stringIteration } from "./string-iteration";
 import { methodsAndProperties } from "./methods-and-properties";
@@ -35,8 +33,6 @@ export const levels = [
   complexConditionals,
   conditionalsAndState,
   makeYourOwnFunctions,
-  addingInputsToYourFunctions,
-  addingReturnsToYourFunctions,
   stringManipulation,
   stringIteration,
   methodsAndProperties,
