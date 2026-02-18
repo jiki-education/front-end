@@ -3,7 +3,7 @@
   "title": "RNA Transcription",
   "instructions": "Your task is to determine the RNA complement of a given DNA sequence.\n\nBoth DNA and RNA strands are a sequence of nucleotides.\n\nThe four nucleotides found in DNA are adenine (A), cytosine (C), guanine (G), and thymine (T).\n\nThe four nucleotides found in RNA are adenine (A), cytosine (C), guanine (G), and uracil (U).\n\nGiven a DNA strand, its transcribed RNA strand is formed by replacing each nucleotide with its complement:\n\n- G -> C\n- C -> G\n- T -> A\n- A -> U\n\nCreate a function called `dna_to_rna(dna)` that takes a DNA string as input and returns a string representing the RNA equivalent.",
   "estimatedMinutes": 15,
-  "levelId": "everything",
+  "levelId": "multiple-functions",
   "hints": [
     "You can iterate through each character in the DNA string",
     "For each nucleotide, find its RNA complement",

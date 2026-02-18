@@ -9,7 +9,7 @@ const stringManipulation: Level = {
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["concatenate"]
+        allowedStdlibFunctions: ["concatenate", "number_to_string"]
       }
     },
     javascript: {

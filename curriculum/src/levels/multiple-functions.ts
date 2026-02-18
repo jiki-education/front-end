@@ -1,11 +1,11 @@
 import type { Level } from "./types";
 
-const dictionaries: Level = {
-  id: "dictionaries",
-  title: "Dictionaries",
-  description: "Learn to work with dictionaries (key-value pairs) to store and look up data efficiently.",
+const multipleFunctions: Level = {
+  id: "multiple-functions",
+  title: "Using Multiple Functions Together",
+  description: "Learn to combine multiple functions to solve more complex problems.",
   educationalGoal:
-    "Students learn to create, access, and manipulate dictionaries, enabling them to map keys to values and perform efficient lookups.",
+    "Students learn to decompose problems into smaller functions and combine them to build more sophisticated solutions.",
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
@@ -28,4 +28,4 @@ const dictionaries: Level = {
   }
 };
 
-export { dictionaries };
+export { multipleFunctions };

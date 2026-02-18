@@ -3,7 +3,7 @@
   "title": "Wordle: Process Guess",
   "instructions": "Welcome to Wordle! The game works like this: there is a correct secret word, and you have 6 guesses to get it right. For each guess, if a letter is correct it goes green, if a letter is present in the word but in the wrong place it goes yellow, and if a letter is missing it goes grey.\n\nYour job is to create a function called `process_first_guess` that takes two inputs: the secret target word, and the guess the player has made. You should work out the state of each letter then call the `color_row(1, states)` function with a list of states for each letter: either `\"correct\"`, `\"present\"`, or `\"absent\"`.\n\nFor example, if the guess was correct, you would call:\n```\ncolor_row(1, [\"correct\", \"correct\", \"correct\", \"correct\", \"correct\"])\n```\n\nYou also have access to the `push(list, element)` function which adds an element to a list and returns the new list.",
   "estimatedMinutes": 15,
-  "levelId": "everything",
+  "levelId": "lists",
   "hints": [
     "Iterate through each letter of the guess using 'indexed by' to track position",
     "Compare each letter to the same position in the target word for 'correct'",
