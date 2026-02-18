@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef } from "react";
 import { debounce } from "lodash";
+import type { ReadonlyRange } from "@jiki/curriculum";
 import { saveCodeMirrorContent, type LocalStorageResult } from "./localStorage";
 
 export interface AutoSaveConfig {
@@ -10,8 +11,8 @@ export interface AutoSaveConfig {
 }
 
 export interface AutoSaveHook {
-  saveNow: (code: string, readonlyRanges?: { from: number; to: number }[]) => void;
-  saveDebounced: (code: string, readonlyRanges?: { from: number; to: number }[]) => void;
+  saveNow: (code: string, readonlyRanges?: ReadonlyRange[]) => void;
+  saveDebounced: (code: string, readonlyRanges?: ReadonlyRange[]) => void;
   cancelPendingSave: () => void;
   isSaving: boolean;
 }
@@ -33,7 +34,7 @@ export function useAutoSave({
   // This function is used by the debounced function below and needs a stable reference
   // to prevent the debounce from being recreated on every render
   const saveNow = useCallback(
-    (code: string, readonlyRanges?: { from: number; to: number }[]) => {
+    (code: string, readonlyRanges?: ReadonlyRange[]) => {
       if (isSavingRef.current) {
         return; // Prevent concurrent saves
       }
@@ -69,7 +70,7 @@ export function useAutoSave({
   // Without useMemo, a new debounced function would be created on every render,
   // losing pending invocations and breaking the debounce behavior
   const saveDebounced = useMemo(() => {
-    return debounce((code: string, readonlyRanges?: { from: number; to: number }[]) => {
+    return debounce((code: string, readonlyRanges?: ReadonlyRange[]) => {
       saveNow(code, readonlyRanges);
     }, debounceMs);
   }, [saveNow, debounceMs]);
@@ -100,13 +101,13 @@ export function useCodeMirrorAutoSave({ exerciseId, debounceMs = 500, onSaveSucc
   });
 
   // Create a callback optimized for CodeMirror usage
-  const autoSaveCallback = (code: string, readonlyRanges?: { from: number; to: number }[]) => {
+  const autoSaveCallback = (code: string, readonlyRanges?: ReadonlyRange[]) => {
     // Use debounced save for regular typing
     saveDebounced(code, readonlyRanges);
   };
 
   // Immediate save callback for critical moments (e.g., before navigation)
-  const saveImmediately = (code: string, readonlyRanges?: { from: number; to: number }[]) => {
+  const saveImmediately = (code: string, readonlyRanges?: ReadonlyRange[]) => {
     cancelPendingSave(); // Cancel any pending debounced saves
     saveNow(code, readonlyRanges);
   };

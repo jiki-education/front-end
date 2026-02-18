@@ -77,6 +77,12 @@
             @apply bg-no-repeat bg-center;
             @apply opacity-[0.4];
         }
+        .cm-partial-lock-marker {
+            background-image: url("/icons/readonly-lock-partial.svg");
+            background-size: 80%;
+            @apply bg-no-repeat bg-center;
+            @apply opacity-[0.4];
+        }
     }
 
     .cm-foldGutter {
@@ -103,6 +109,9 @@
     }
     .cm-lockedLine,
     .cm-lockedGutter {
+        background: var(--color-background-secondary);
+    }
+    .cm-partialLockedLine {
         background: var(--color-background-secondary);
     }
     .ͼ1 .cm-underline {

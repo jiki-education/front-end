@@ -3,10 +3,12 @@
  * Handles exercise-specific storage with error handling and fallbacks
  */
 
+import type { ReadonlyRange } from "@jiki/curriculum";
+
 export interface CodeMirrorLocalStorageData {
   code: string;
   storedAt: string;
-  readonlyRanges?: { from: number; to: number }[];
+  readonlyRanges?: ReadonlyRange[];
   exerciseId: string;
   version: number; // For future migrations
 }
@@ -80,7 +82,7 @@ function safeStringify<T>(data: T): LocalStorageResult<string> {
 export function saveCodeMirrorContent(
   exerciseId: string,
   code: string,
-  readonlyRanges?: { from: number; to: number }[]
+  readonlyRanges?: ReadonlyRange[]
 ): LocalStorageResult<void> {
   if (!isLocalStorageAvailable()) {
     return { success: false, error: "localStorage is not available" };

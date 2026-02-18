@@ -31,6 +31,7 @@ import { getCodeMirrorFieldValue } from "../../ui/codemirror/utils/getCodeMirror
 import { getFoldedLines as getCodeMirrorFoldedLines } from "../../ui/codemirror/utils/getFoldedLines";
 import { scrollToLine } from "../../ui/codemirror/utils/scrollToLine";
 import { updateUnfoldableFunctions } from "../../ui/codemirror/utils/unfoldableFunctionNames";
+import type { ReadonlyRange } from "@jiki/curriculum";
 import { loadCodeMirrorContent, saveCodeMirrorContent } from "../localStorage";
 import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "../types";
 
@@ -168,7 +169,7 @@ export class EditorManager {
   }
 
   private initializeAutoSave() {
-    const saveNow = (code: string, readonlyRanges?: { from: number; to: number }[]) => {
+    const saveNow = (code: string, readonlyRanges?: ReadonlyRange[]) => {
       if (this.isSaving) {
         return;
       }
@@ -190,7 +191,7 @@ export class EditorManager {
       }
     };
 
-    this.saveDebounced = debounce((code: string, readonlyRanges?: { from: number; to: number }[]) => {
+    this.saveDebounced = debounce((code: string, readonlyRanges?: ReadonlyRange[]) => {
       saveNow(code, readonlyRanges);
     }, 500);
   }
@@ -225,13 +226,13 @@ export class EditorManager {
     return value;
   }
 
-  autoSaveContent(code: string, readonlyRanges?: { from: number; to: number }[]) {
+  autoSaveContent(code: string, readonlyRanges?: ReadonlyRange[]) {
     if (this.saveDebounced) {
       this.saveDebounced(code, readonlyRanges);
     }
   }
 
-  saveImmediately(code: string, readonlyRanges?: { from: number; to: number }[]) {
+  saveImmediately(code: string, readonlyRanges?: ReadonlyRange[]) {
     if (this.saveDebounced) {
       this.saveDebounced.cancel();
     }
@@ -408,7 +409,7 @@ export class EditorManager {
   }
 
   initializeEditor(
-    code: { storedAt?: string; code: string; readonlyRanges?: { from: number; to: number }[] },
+    code: { storedAt?: string; code: string; readonlyRanges?: ReadonlyRange[] },
     _exercise: unknown,
     unfoldableFunctionNames: string[]
   ) {
@@ -442,11 +443,7 @@ export class EditorManager {
     }
   }
 
-  resetEditorToStub(
-    stubCode: string,
-    defaultReadonlyRanges: { from: number; to: number }[],
-    unfoldableFunctionNames: string[]
-  ) {
+  resetEditorToStub(stubCode: string, defaultReadonlyRanges: ReadonlyRange[], unfoldableFunctionNames: string[]) {
     saveCodeMirrorContent(this.exerciseSlug, stubCode, defaultReadonlyRanges);
 
     this.setupEditor(unfoldableFunctionNames, {
@@ -462,7 +459,7 @@ export class EditorManager {
 
   private setupEditor(
     unfoldableFunctionNames: string[],
-    { readonlyRanges, code }: { readonlyRanges?: { from: number; to: number }[]; code: string }
+    { readonlyRanges, code }: { readonlyRanges?: ReadonlyRange[]; code: string }
   ) {
     updateUnfoldableFunctions(this.editorView, unfoldableFunctionNames);
 

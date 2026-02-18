@@ -1,6 +1,6 @@
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showModal } from "@/lib/modal";
-import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
@@ -445,11 +445,7 @@ export function createOrchestratorStore(
       },
 
       // Exercise data initialization with priority logic
-      initializeExerciseData: (serverData?: {
-        code: string;
-        storedAt?: string;
-        readonlyRanges?: { from: number; to: number }[];
-      }) => {
+      initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => {
         const state = get();
         const localStorageResult = loadCodeMirrorContent(state.exerciseSlug);
 

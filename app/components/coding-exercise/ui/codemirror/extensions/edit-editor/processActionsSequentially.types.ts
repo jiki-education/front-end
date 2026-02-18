@@ -6,7 +6,7 @@ interface AddContent {
 
 interface MarkLinesAsReadonly {
   type: "mark-lines-as-readonly";
-  ranges: { from: number; to: number }[];
+  ranges: Array<{ fromLine: number; toLine: number; fromChar?: number; toChar?: number }>;
 }
 
 interface RemoveContent {

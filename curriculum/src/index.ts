@@ -15,6 +15,7 @@ export type {
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,
+  ReadonlyRange,
   VisualScenario,
   Scenario,
   Task,

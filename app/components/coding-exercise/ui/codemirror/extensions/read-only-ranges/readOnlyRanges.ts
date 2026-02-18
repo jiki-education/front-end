@@ -1,12 +1,10 @@
 import { StateEffect, StateField } from "@codemirror/state";
+import type { ReadonlyRange } from "@jiki/curriculum";
 import readOnlyRangesExtension from "./readOnlyRangesExtension";
 
-interface ReadOnlyRange {
-  from: number;
-  to: number;
-}
-export const updateReadOnlyRangesEffect = StateEffect.define<ReadOnlyRange[]>();
-export const readOnlyRangesStateField = StateField.define<ReadOnlyRange[]>({
+export type { ReadonlyRange };
+export const updateReadOnlyRangesEffect = StateEffect.define<ReadonlyRange[]>();
+export const readOnlyRangesStateField = StateField.define<ReadonlyRange[]>({
   create() {
     return [];
   },
@@ -17,9 +15,8 @@ export const readOnlyRangesStateField = StateField.define<ReadOnlyRange[]>({
       const newLine = tr.state.doc.lineAt(cursor).number;
       const diff = tr.state.doc.lines - tr.startState.doc.lines;
       return ranges.map((r) => {
-        const rangeLine = r.from;
-        if (rangeLine >= newLine) {
-          return { from: r.from + diff, to: r.to + diff };
+        if (r.fromLine >= newLine) {
+          return { ...r, fromLine: r.fromLine + diff, toLine: r.toLine + diff };
         }
         return r;
       });
@@ -33,8 +30,8 @@ export const readOnlyRangesStateField = StateField.define<ReadOnlyRange[]>({
       const lineDeletedAbove = lineAtCursor.number - 1;
 
       return ranges.map((r) => {
-        if (r.from > lineDeletedAbove) {
-          return { from: r.from - diff, to: r.to - diff };
+        if (r.fromLine > lineDeletedAbove) {
+          return { ...r, fromLine: r.fromLine - diff, toLine: r.toLine - diff };
         }
         return r;
       });
@@ -56,8 +53,8 @@ export function initReadOnlyRangesExtension() {
     readOnlyRangesExtension((state) => {
       return state.field(readOnlyRangesStateField).map((r) => {
         return {
-          from: state.doc.line(r.from).from,
-          to: state.doc.line(r.to).to
+          from: state.doc.line(r.fromLine).from + (r.fromChar ?? 0),
+          to: r.toChar !== undefined ? state.doc.line(r.toLine).from + r.toChar : state.doc.line(r.toLine).to
         };
       });
     })
