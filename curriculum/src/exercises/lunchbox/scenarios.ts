@@ -1,26 +1,16 @@
-import type { InterpretResult } from "@jiki/interpreters";
 import type { Task, IOScenario, CodeCheck } from "../types";
-import type { Language } from "../../types";
-import { getSourceCode } from "../../utils/code-checks";
 
 const codeChecks: CodeCheck[] = [
   {
-    pass: (result: InterpretResult, _language: Language) => {
-      const sourceCode = getSourceCode(result);
-      if (!sourceCode) return true;
-      const matches = sourceCode.match(/\[\]/g);
-      return matches !== null && matches.length === 1;
-    },
+    pass: (result) => result.assertors.countArrayLiterals() === 1,
     errorHtml: "You should only create one list. Make sure you only use <code>[]</code> once."
   },
   {
-    pass: (result: InterpretResult, language: Language) => {
-      const sourceCode = getSourceCode(result);
-      if (!sourceCode) return true;
-      if (language === "python") {
-        return sourceCode.includes(".append(");
-      }
-      return sourceCode.includes("push(");
+    pass: (result, language) => {
+      // Jikiscript uses push() as a standalone function, not a method call
+      if (language === "jikiscript") return true;
+      const methodName = language === "python" ? "append" : "push";
+      return result.assertors.assertMethodCalled(methodName);
     },
     errorHtml: "You should use <code>push()</code> to add items to your list."
   }

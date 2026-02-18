@@ -1,6 +1,5 @@
 import type { Task, VisualScenario } from "../types";
 import type BattleProceduresExercise from "./Exercise";
-import { getSourceCode } from "../../utils/code-checks";
 
 export const tasks = [
   {
@@ -48,16 +47,7 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result, language) => {
-          const sourceCode = getSourceCode(result);
-          if (!sourceCode) return true;
-          if (language === "javascript") {
-            return sourceCode.includes("function shootIfAlienAbove");
-          } else if (language === "python") {
-            return sourceCode.includes("def shoot_if_alien_above");
-          }
-          return sourceCode.includes("function shoot_if_alien_above");
-        },
+        pass: (result) => result.assertors.assertFunctionDefined("shoot_if_alien_above"),
         errorHtml: "You should define a <code>shoot_if_alien_above</code> function and use it in your solution."
       }
     ]

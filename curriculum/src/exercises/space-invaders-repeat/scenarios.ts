@@ -1,6 +1,5 @@
 import type { Task, VisualScenario } from "../types";
 import type SpaceInvadersRepeatExercise from "./Exercise";
-import { countLinesOfCode, getSourceCode } from "../../utils/code-checks";
 
 export const tasks = [
   {
@@ -49,11 +48,8 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result, language) => {
-          const sourceCode = getSourceCode(result);
-          if (!sourceCode) return true;
-          const loc = countLinesOfCode(sourceCode, language);
           const limit = language === "python" ? 6 : 7;
-          return loc <= limit;
+          return result.assertors.assertMaxLinesOfCode(limit);
         },
         errorHtml: "Your solution has too many lines of code. Try using a repeat loop to make it shorter!"
       }

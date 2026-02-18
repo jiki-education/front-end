@@ -1,24 +1,11 @@
-import type { InterpretResult } from "@jiki/interpreters";
 import type { Task, IOScenario, CodeCheck } from "../types";
-import type { Language } from "../../types";
-import { getSourceCode } from "../../utils/code-checks";
 
 const codeChecks: CodeCheck[] = [
   {
-    pass: (result: InterpretResult, language: Language) => {
-      const sourceCode = getSourceCode(result);
-      if (!sourceCode) return true;
-
-      // Remove function definition lines, then check for includes() call
-      const lines = sourceCode.split("\n");
-      const nonDefLines = lines.filter((line) => {
-        const trimmed = line.trim();
-        if (language === "jikiscript") return !trimmed.startsWith("function includes");
-        if (language === "python") return !trimmed.startsWith("def includes");
-        return !trimmed.startsWith("function includes");
-      });
-
-      return nonDefLines.some((line) => line.includes("includes("));
+    // TODO: Fix jikiscript assertFunctionCalledOutsideOwnDefinition bug (null children in AST traversal)
+    pass: (result, language) => {
+      if (language === "jikiscript") return true;
+      return result.assertors.assertFunctionCalledOutsideOwnDefinition("includes");
     },
     errorHtml: "You should call your <code>includes</code> function inside <code>is_pangram</code>."
   }

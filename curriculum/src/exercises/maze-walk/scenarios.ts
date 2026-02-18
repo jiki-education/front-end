@@ -1,6 +1,5 @@
 import type { Task, VisualScenario } from "../types";
 import type MazeWalkExercise from "./Exercise";
-import { getSourceCode } from "../../utils/code-checks";
 
 export const tasks = [
   {
@@ -57,16 +56,7 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result, language) => {
-          const sourceCode = getSourceCode(result);
-          if (!sourceCode) return true;
-          if (language === "javascript") {
-            return sourceCode.includes("function walk");
-          } else if (language === "python") {
-            return sourceCode.includes("def walk");
-          }
-          return sourceCode.includes("function walk");
-        },
+        pass: (result) => result.assertors.assertFunctionDefined("walk"),
         errorHtml:
           "You should define a <code>walk</code> function that takes a number of steps and moves forward that many times."
       }

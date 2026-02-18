@@ -1,6 +1,5 @@
 import type { Task, VisualScenario } from "../types";
 import type MazeTurnAroundExercise from "./Exercise";
-import { getSourceCode } from "../../utils/code-checks";
 
 export const tasks = [
   {
@@ -245,16 +244,7 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result, language) => {
-          const sourceCode = getSourceCode(result);
-          if (!sourceCode) return true;
-          if (language === "javascript") {
-            return sourceCode.includes("function turnAround");
-          } else if (language === "python") {
-            return sourceCode.includes("def turn_around");
-          }
-          return sourceCode.includes("function turn_around");
-        },
+        pass: (result) => result.assertors.assertFunctionDefined("turn_around"),
         errorHtml: "You should define a <code>turn_around</code> function and use it in your solution."
       }
     ]

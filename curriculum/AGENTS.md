@@ -322,6 +322,7 @@ When adding new animation properties:
 6. **Test scenarios** - Each exercise needs testable scenarios
 7. **Language consistency** - Maintain feature parity between JS and Python
 8. **Function uniqueness** - Each exercise defines its own specific functions
+9. **Code checks must use interpreter assertors** - All `codeChecks` in scenarios must use `result.assertors.*` methods from the interpreters package (e.g. `assertMaxLinesOfCode`, `assertFunctionDefined`, `assertMethodCalled`, `countArrayLiterals`, `assertFunctionCalledOutsideOwnDefinition`). Never use string pattern matching, regex, or manual source code inspection. The interpreters have the AST and tokenizer — the curriculum should not reimplement language knowledge.
 
 ## Common Tasks
 

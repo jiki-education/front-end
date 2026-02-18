@@ -39,6 +39,3 @@ export { getLanguageFeatures, getLevel, levels, type Level, type LevelId } from 
 // NOTE: This will NOT be bundled in app builds due to tree-shaking
 // Only llm-chat-proxy should import this
 export { getLLMMetadata, type LLMMetadata } from "./llm-metadata";
-
-// Export code check utilities
-export { countLinesOfCode, getSourceCode } from "./utils/code-checks";
