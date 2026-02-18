@@ -19,15 +19,16 @@ describe("createCheckoutSession", () => {
     jest.clearAllMocks();
   });
 
-  it("creates checkout session with product only", async () => {
+  it("creates checkout session with interval only", async () => {
     const mockResponse = { data: { client_secret: "cs_test_secret_123" }, status: 200, headers: {} } as any;
     mockedApiPost.mockResolvedValue(mockResponse);
 
-    const result = await createCheckoutSession("premium");
+    const result = await createCheckoutSession("monthly");
 
     expect(mockedApiPost).toHaveBeenCalledWith("/internal/subscriptions/checkout_session", {
-      product: "premium",
-      return_url: undefined
+      interval: "monthly",
+      return_url: undefined,
+      customer_email: undefined
     });
     expect(result).toEqual({ client_secret: "cs_test_secret_123" });
   });
@@ -37,11 +38,12 @@ describe("createCheckoutSession", () => {
     mockedApiPost.mockResolvedValue(mockResponse);
 
     const returnUrl = "https://example.com/subscribe?session_id={CHECKOUT_SESSION_ID}";
-    const result = await createCheckoutSession("max", returnUrl);
+    const result = await createCheckoutSession("annual", returnUrl);
 
     expect(mockedApiPost).toHaveBeenCalledWith("/internal/subscriptions/checkout_session", {
-      product: "max",
-      return_url: returnUrl
+      interval: "annual",
+      return_url: returnUrl,
+      customer_email: undefined
     });
     expect(result).toEqual({ client_secret: "cs_test_secret_456" });
   });
@@ -49,7 +51,7 @@ describe("createCheckoutSession", () => {
   it("propagates API errors", async () => {
     mockedApiPost.mockRejectedValue(new Error("Network error"));
 
-    await expect(createCheckoutSession("premium")).rejects.toThrow("Network error");
+    await expect(createCheckoutSession("monthly")).rejects.toThrow("Network error");
   });
 });
 

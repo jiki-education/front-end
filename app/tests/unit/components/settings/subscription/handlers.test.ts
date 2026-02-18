@@ -32,9 +32,8 @@ describe("Subscription handlers", () => {
 
   describe("handleSubscribe", () => {
     const mockParams = {
-      tier: "premium" as const,
-      userEmail: "test@example.com",
-      returnPath: "/settings"
+      interval: "monthly" as const,
+      userEmail: "test@example.com"
     };
 
     it("creates checkout session successfully", async () => {
@@ -48,7 +47,7 @@ describe("Subscription handlers", () => {
 
       expect(mockCheckoutUtils.createCheckoutReturnUrl).toHaveBeenCalledWith("/settings");
       expect(mockSubscriptionApi.createCheckoutSession).toHaveBeenCalledWith(
-        "premium",
+        "monthly",
         "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}",
         "test@example.com"
       );
@@ -89,46 +88,6 @@ describe("Subscription handlers", () => {
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to open customer portal");
       expect(console.error).toHaveBeenCalledWith(mockError);
-    });
-  });
-
-  describe("handleUpgradeToPremium", () => {
-    it("upgrades to Premium successfully", async () => {
-      const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
-      mockSubscriptionApi.updateSubscription.mockResolvedValue({
-        success: true,
-        tier: "premium",
-        effective_at: "2024-01-01T00:00:00Z",
-        subscription_valid_until: "2024-12-31T23:59:59Z"
-      });
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockSubscriptionApi.updateSubscription).toHaveBeenCalledWith("premium");
-      expect(mockToast.success).toHaveBeenCalledWith("Successfully upgraded to Premium!");
-      expect(mockRefreshUser).toHaveBeenCalled();
-    });
-
-    it("handles upgrade failure", async () => {
-      const mockRefreshUser = jest.fn();
-      const mockError = new Error("Upgrade failed");
-      mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockToast.error).toHaveBeenCalledWith("Upgrade failed");
-      expect(console.error).toHaveBeenCalledWith(mockError);
-      expect(mockRefreshUser).not.toHaveBeenCalled();
-    });
-
-    it("handles generic error objects", async () => {
-      const mockRefreshUser = jest.fn();
-      const mockError = { message: "Generic error" };
-      mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
     });
   });
 
@@ -200,38 +159,6 @@ describe("Subscription handlers", () => {
 
       expect(mockToast.error).toHaveBeenCalledWith("Failed to open customer portal");
       expect(console.error).toHaveBeenCalledWith(mockError);
-    });
-  });
-
-  describe("Error message handling", () => {
-    it("uses error message when Error object is provided", async () => {
-      const mockRefreshUser = jest.fn();
-      const mockError = new Error("Custom error message");
-      mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockToast.error).toHaveBeenCalledWith("Custom error message");
-    });
-
-    it("uses generic message when non-Error object is thrown", async () => {
-      const mockRefreshUser = jest.fn();
-      const mockError = "String error";
-      mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
-    });
-
-    it("uses generic message when error has no message property", async () => {
-      const mockRefreshUser = jest.fn();
-      const mockError = { code: "UNKNOWN" };
-      mockSubscriptionApi.updateSubscription.mockRejectedValue(mockError);
-
-      await handlers.handleUpgradeToPremium(mockRefreshUser);
-
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to upgrade subscription");
     });
   });
 });

@@ -71,7 +71,7 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
       if (user.membership_type === "standard") {
         // New subscription - use checkout flow
         await handlers.handleSubscribe({
-          tier: "premium",
+          interval: "monthly",
           userEmail: user.email
         });
       } else {
@@ -112,7 +112,7 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
         return;
       }
       await handlers.handleSubscribe({
-        tier: "premium",
+        interval: "monthly",
         userEmail: user.email
       });
     });
@@ -129,7 +129,7 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
         return;
       }
       await handlers.handleSubscribe({
-        tier: "premium",
+        interval: "monthly",
         userEmail: user.email
       });
     });

@@ -125,8 +125,8 @@ export const showSubscriptionCheckout = (props: {
 };
 
 // Convenience function for payment processing modal
-export const showPaymentProcessing = (props: { tier: MembershipTier; onClose?: () => void }) => {
-  showModal("payment-processing-modal", props, undefined, paymentProcessingStyles.modal);
+export const showPaymentProcessing = (props?: { onClose?: () => void }) => {
+  showModal("payment-processing-modal", props ?? {}, undefined, paymentProcessingStyles.modal);
 };
 
 // Convenience function for welcome to premium modal

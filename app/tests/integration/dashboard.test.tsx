@@ -70,6 +70,7 @@ jest.mock("@/lib/auth/authStore", () => ({
         membership_type: "standard",
         subscription_status: "inactive",
         subscription: null,
+        premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null },
         provider: "github",
         email_confirmed: true
       },

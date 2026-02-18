@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { hideModal } from "../../store";
 import { useAuthStore } from "@/lib/auth/authStore";
-import type { MembershipTier } from "@/lib/pricing";
 import { BasicPlanSection } from "./BasicPlanSection";
 import { PremiumPlanSection } from "./PremiumPlanSection";
 import { useUpgradeFlow } from "./useUpgradeFlow";
@@ -11,7 +10,7 @@ import styles from "./PremiumUpgradeModal.module.css";
 import Image from "next/image";
 
 interface PremiumUpgradeModalProps {
-  onSuccess?: (tier: MembershipTier) => void;
+  onSuccess?: () => void;
   onCancel?: () => void;
 }
 

@@ -3,7 +3,7 @@
  * Type definitions for authentication system
  */
 
-import type { MembershipTier } from "@/lib/pricing";
+import type { MembershipTier, PremiumPrices } from "@/lib/pricing";
 import type { SubscriptionStatus, SubscriptionDetails } from "./subscription";
 
 export interface User {
@@ -13,6 +13,7 @@ export interface User {
   membership_type: MembershipTier;
   subscription_status: SubscriptionStatus;
   subscription: SubscriptionDetails | null;
+  premium_prices: PremiumPrices;
   provider: string;
   email_confirmed: boolean;
 }

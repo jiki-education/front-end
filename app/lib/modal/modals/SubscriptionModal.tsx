@@ -73,7 +73,7 @@ export function SubscriptionModal({
   const finalHeadline = headline || defaultContent.headline;
   const finalDescription = description || defaultContent.description;
 
-  const handleTierSelection = async (tier: "premium") => {
+  const handleTierSelection = async () => {
     if (!user) {
       toast.error("Please log in to upgrade your account");
       return;
@@ -86,7 +86,7 @@ export function SubscriptionModal({
 
       // handleSubscribe will show the checkout modal
       await handleSubscribe({
-        tier,
+        interval: "monthly",
         userEmail: user.email,
         returnPath: window.location.pathname
       });
@@ -170,7 +170,7 @@ export function SubscriptionModal({
 
           <SubscriptionButton
             variant="secondary"
-            onClick={() => handleTierSelection("premium")}
+            onClick={() => handleTierSelection()}
             loading={isLoading}
             className="w-full"
             ariaLabel={`Subscribe to ${premiumTier.name} plan for $${premiumTier.price} per month`}

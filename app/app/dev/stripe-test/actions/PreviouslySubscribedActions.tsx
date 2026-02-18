@@ -9,7 +9,7 @@ export function PreviouslySubscribedActions({ userEmail }: { userEmail: string }
       </div>
 
       <button
-        onClick={() => handleSubscribe({ tier: "premium", userEmail })}
+        onClick={() => handleSubscribe({ interval: "monthly", userEmail })}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Re-subscribe to Premium - $3/month
