@@ -2,11 +2,7 @@ import type { Task, IOScenario, CodeCheck } from "../types";
 
 const codeChecks: CodeCheck[] = [
   {
-    // TODO: Fix jikiscript assertFunctionCalledOutsideOwnDefinition bug (null children in AST traversal)
-    pass: (result, language) => {
-      if (language === "jikiscript") return true;
-      return result.assertors.assertFunctionCalledOutsideOwnDefinition("includes");
-    },
+    pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("includes"),
     errorHtml: "You should call your <code>includes</code> function inside <code>is_pangram</code>."
   }
 ];

@@ -144,6 +144,28 @@ set x to 5`;
       expect(result.assertors.assertFunctionCalledOutsideOwnDefinition("includes")).toBe(false);
     });
 
+    test("returns true when called from a nested structure in another function", () => {
+      const code = `function includes with str, target do
+  for each character in str do
+    if target == character do
+      return true
+    end
+  end
+  return false
+end
+
+function is_pangram with sentence do
+  for each letter in "abcdefghijklmnopqrstuvwxyz" do
+    if not includes(sentence, letter) do
+      return false
+    end
+  end
+  return true
+end`;
+      const result = interpret(code);
+      expect(result.assertors.assertFunctionCalledOutsideOwnDefinition("includes")).toBe(true);
+    });
+
     test("returns true on parse error", () => {
       const result = interpret("set set set");
       expect(result.assertors.assertFunctionCalledOutsideOwnDefinition("includes")).toBe(true);
