@@ -127,6 +127,12 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "scroll-and-shoot" },
       { "type": "exercise", "slug": "rainbow-ball" }
     ]
+  },
+  {
+    "level": "make-your-own-functions",
+    "lessons": [
+      { "type": "exercise", "slug": "maze-turn-around" }
+    ]
   }
 ]
 ```

@@ -1,0 +1,12 @@
+{
+  "slug": "even-or-odd",
+  "title": "Even or Odd",
+  "instructions": "Write a function called `even_or_odd` that takes a number as its input and returns a string specifying whether the number is `\"Even\"` (0, 2, 4, 6, 8, etc), or `\"Odd\"` (1, 3, 5, 7, etc).\n\nTo approach this problem, think about what it is that actually makes a number odd or even. Remember that Jiki understands the remainder operator (`%`).",
+  "estimatedMinutes": 10,
+  "levelId": "everything",
+  "hints": [
+    "Even numbers have no remainder when divided by 2",
+    "Use the remainder operator (%) to check divisibility",
+    "number % 2 gives 0 for even numbers"
+  ]
+}

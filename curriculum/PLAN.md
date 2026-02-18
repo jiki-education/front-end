@@ -84,6 +84,10 @@ Nothing yet
 - `build-wall` - Build the Wall: nested loops to build a full brick wall with alternating rows (Conditionals and State level)
 - `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
 - `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
+- `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Everything level)
+- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Everything level)
+- `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Everything level)
+- `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
 
 ### Unimplemented
 

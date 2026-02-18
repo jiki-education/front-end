@@ -7,10 +7,12 @@ export const exercises = {
   "after-party": () => import("./after-party"),
   anagram: () => import("./anagram"),
   "chop-shop": () => import("./chop-shop"),
+  "collatz-conjecture": () => import("./collatz-conjecture"),
   "guest-list": () => import("./guest-list"),
   hamming: () => import("./hamming"),
   "formal-dinner": () => import("./formal-dinner"),
   "driving-test": () => import("./driving-test"),
+  "even-or-odd": () => import("./even-or-odd"),
   "sprouting-flower": () => import("./sprouting-flower"),
   penguin: () => import("./penguin"),
   "scroll-and-shoot": () => import("./scroll-and-shoot"),
@@ -59,7 +61,9 @@ export const exercises = {
   "digital-clock": () => import("./digital-clock"),
   "rock-paper-scissors-determine-winner": () => import("./rock-paper-scissors-determine-winner"),
   "maze-automated-solve": () => import("./maze-automated-solve"),
-  "rainbow-ball": () => import("./rainbow-ball")
+  "maze-turn-around": () => import("./maze-turn-around"),
+  "rainbow-ball": () => import("./rainbow-ball"),
+  triangle: () => import("./triangle")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

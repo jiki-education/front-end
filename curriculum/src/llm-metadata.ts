@@ -12,10 +12,12 @@ import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as chopShopLLM } from "./exercises/chop-shop/llm-metadata";
+import { llmMetadata as collatzConjectureLLM } from "./exercises/collatz-conjecture/llm-metadata";
 import { llmMetadata as guestListLLM } from "./exercises/guest-list/llm-metadata";
 import { llmMetadata as hammingLLM } from "./exercises/hamming/llm-metadata";
 import { llmMetadata as formalDinnerLLM } from "./exercises/formal-dinner/llm-metadata";
 import { llmMetadata as drivingTestLLM } from "./exercises/driving-test/llm-metadata";
+import { llmMetadata as evenOrOddLLM } from "./exercises/even-or-odd/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
 import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
 import { llmMetadata as penguinLLM } from "./exercises/penguin/llm-metadata";
@@ -65,7 +67,9 @@ import { llmMetadata as rainbowSplodgesLLM } from "./exercises/rainbow-splodges/
 import { llmMetadata as digitalClockLLM } from "./exercises/digital-clock/llm-metadata";
 import { llmMetadata as rockPaperScissorsDetermineWinnerLLM } from "./exercises/rock-paper-scissors-determine-winner/llm-metadata";
 import { llmMetadata as mazeAutomatedSolveLLM } from "./exercises/maze-automated-solve/llm-metadata";
+import { llmMetadata as mazeTurnAroundLLM } from "./exercises/maze-turn-around/llm-metadata";
 import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-metadata";
+import { llmMetadata as triangleLLM } from "./exercises/triangle/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -81,10 +85,12 @@ const llmMetadataRegistry = {
   "after-party": afterPartyLLM,
   anagram: anagramLLM,
   "chop-shop": chopShopLLM,
+  "collatz-conjecture": collatzConjectureLLM,
   "guest-list": guestListLLM,
   hamming: hammingLLM,
   "formal-dinner": formalDinnerLLM,
   "driving-test": drivingTestLLM,
+  "even-or-odd": evenOrOddLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
   "sprouting-flower": sproutingFlowerLLM,
   penguin: penguinLLM,
@@ -134,7 +140,9 @@ const llmMetadataRegistry = {
   "digital-clock": digitalClockLLM,
   "rock-paper-scissors-determine-winner": rockPaperScissorsDetermineWinnerLLM,
   "maze-automated-solve": mazeAutomatedSolveLLM,
-  "rainbow-ball": rainbowBallLLM
+  "maze-turn-around": mazeTurnAroundLLM,
+  "rainbow-ball": rainbowBallLLM,
+  triangle: triangleLLM
 } as const;
 
 /**
