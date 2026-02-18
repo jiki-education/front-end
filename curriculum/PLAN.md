@@ -111,6 +111,8 @@ Nothing yet
 - `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
 - `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
 - `niche-named-party` - Niche Named Party: bouncer exercise checking if a person's name starts with the required prefix using a starts_with helper function (Everything level)
+- `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
+- `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
 
 ### Unimplemented
 

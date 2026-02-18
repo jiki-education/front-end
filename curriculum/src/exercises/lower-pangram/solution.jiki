@@ -1,0 +1,17 @@
+function includes with str, target do
+  for each character in str do
+    if target == character do
+      return true
+    end
+  end
+  return false
+end
+
+function is_pangram with sentence do
+  for each letter in "abcdefghijklmnopqrstuvwxyz" do
+    if not includes(sentence, letter) do
+      return false
+    end
+  end
+  return true
+end

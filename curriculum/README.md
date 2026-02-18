@@ -190,7 +190,11 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   },
   {
     "level": "multiple-functions",
-    "lessons": [{ "type": "exercise", "slug": "rna-transcription" }]
+    "lessons": [
+      { "type": "exercise", "slug": "lower-pangram" },
+      { "type": "exercise", "slug": "rna-transcription" },
+      { "type": "project", "slug": "caesar-cipher" }
+    ]
   },
   {
     "level": "everything",
