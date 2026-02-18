@@ -133,6 +133,12 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "lessons": [
       { "type": "exercise", "slug": "maze-turn-around" }
     ]
+  },
+  {
+    "level": "adding-inputs-to-your-functions",
+    "lessons": [
+      { "type": "exercise", "slug": "raindrops" }
+    ]
   }
 ]
 ```

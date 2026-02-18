@@ -63,7 +63,8 @@ export const exercises = {
   "maze-automated-solve": () => import("./maze-automated-solve"),
   "maze-turn-around": () => import("./maze-turn-around"),
   "rainbow-ball": () => import("./rainbow-ball"),
-  triangle: () => import("./triangle")
+  triangle: () => import("./triangle"),
+  raindrops: () => import("./raindrops")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

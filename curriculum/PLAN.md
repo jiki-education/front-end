@@ -88,6 +88,7 @@ Nothing yet
 - `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Everything level)
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Everything level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
+- `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (Everything level)
 
 ### Unimplemented
 

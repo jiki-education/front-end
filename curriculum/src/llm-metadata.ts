@@ -70,6 +70,7 @@ import { llmMetadata as mazeAutomatedSolveLLM } from "./exercises/maze-automated
 import { llmMetadata as mazeTurnAroundLLM } from "./exercises/maze-turn-around/llm-metadata";
 import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-metadata";
 import { llmMetadata as triangleLLM } from "./exercises/triangle/llm-metadata";
+import { llmMetadata as raindropsLLM } from "./exercises/raindrops/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -142,7 +143,8 @@ const llmMetadataRegistry = {
   "maze-automated-solve": mazeAutomatedSolveLLM,
   "maze-turn-around": mazeTurnAroundLLM,
   "rainbow-ball": rainbowBallLLM,
-  triangle: triangleLLM
+  triangle: triangleLLM,
+  raindrops: raindropsLLM
 } as const;
 
 /**
