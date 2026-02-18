@@ -80,6 +80,7 @@ import { llmMetadata as extractWordsLLM } from "./exercises/extract-words/llm-me
 import { llmMetadata as helloLLM } from "./exercises/hello/llm-metadata";
 import { llmMetadata as threeLetterAcronymLLM } from "./exercises/three-letter-acronym/llm-metadata";
 import { llmMetadata as tileRackLLM } from "./exercises/tile-rack/llm-metadata";
+import { llmMetadata as tileSearchLLM } from "./exercises/tile-search/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -162,7 +163,8 @@ const llmMetadataRegistry = {
   "extract-words": extractWordsLLM,
   hello: helloLLM,
   "three-letter-acronym": threeLetterAcronymLLM,
-  "tile-rack": tileRackLLM
+  "tile-rack": tileRackLLM,
+  "tile-search": tileSearchLLM
 } as const;
 
 /**

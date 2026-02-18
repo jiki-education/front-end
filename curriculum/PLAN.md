@@ -108,6 +108,7 @@ Nothing yet
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
 - `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Multiple Functions level)
 - `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
+- `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
 
 ### Unimplemented
 
