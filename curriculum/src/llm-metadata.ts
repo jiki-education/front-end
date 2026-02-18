@@ -81,6 +81,8 @@ import { llmMetadata as helloLLM } from "./exercises/hello/llm-metadata";
 import { llmMetadata as threeLetterAcronymLLM } from "./exercises/three-letter-acronym/llm-metadata";
 import { llmMetadata as tileRackLLM } from "./exercises/tile-rack/llm-metadata";
 import { llmMetadata as tileSearchLLM } from "./exercises/tile-search/llm-metadata";
+import { llmMetadata as signPriceLLM } from "./exercises/sign-price/llm-metadata";
+import { llmMetadata as nicheNamedPartyLLM } from "./exercises/niche-named-party/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -164,7 +166,9 @@ const llmMetadataRegistry = {
   hello: helloLLM,
   "three-letter-acronym": threeLetterAcronymLLM,
   "tile-rack": tileRackLLM,
-  "tile-search": tileSearchLLM
+  "tile-search": tileSearchLLM,
+  "sign-price": signPriceLLM,
+  "niche-named-party": nicheNamedPartyLLM
 } as const;
 
 /**

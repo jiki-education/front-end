@@ -74,7 +74,9 @@ export const exercises = {
   hello: () => import("./hello"),
   "three-letter-acronym": () => import("./three-letter-acronym"),
   "tile-rack": () => import("./tile-rack"),
-  "tile-search": () => import("./tile-search")
+  "tile-search": () => import("./tile-search"),
+  "sign-price": () => import("./sign-price"),
+  "niche-named-party": () => import("./niche-named-party")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

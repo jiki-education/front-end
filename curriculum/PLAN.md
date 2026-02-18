@@ -109,6 +109,8 @@ Nothing yet
 - `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Multiple Functions level)
 - `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
 - `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
+- `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
+- `niche-named-party` - Niche Named Party: bouncer exercise checking if a person's name starts with the required prefix using a starts_with helper function (Everything level)
 
 ### Unimplemented
 

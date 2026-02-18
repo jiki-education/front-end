@@ -2,9 +2,9 @@ function find_tile with rack, letter do
   set position to 0
   for each tile in rack do
     if tile == letter do
-      return position
+      return concatenate("Move to position ", number_to_string(position))
     end
     change position to position + 1
   end
-  return -1
+  return "Error: Tile not on rack"
 end

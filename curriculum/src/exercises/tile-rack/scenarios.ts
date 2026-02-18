@@ -5,11 +5,11 @@ export const tasks = [
     id: "find-tile-position" as const,
     name: "Find Tile Position",
     description:
-      "Write a function that finds the position of a specific letter tile in the rack. Return -1 if the tile isn't there.",
+      'Write a function that finds the position of a specific letter tile in the rack. Return "Move to position X" if found, or "Error: Tile not on rack" if not.',
     hints: [
       "Track your position with a variable that starts at 0",
       "Loop through each tile and compare it to the letter you're looking for",
-      "Return the position as soon as you find a match",
+      'Return "Move to position X" as soon as you find a match (convert the position to a string)',
       "Increment the position after checking each tile"
     ],
     requiredScenarios: [
@@ -33,7 +33,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "A"],
-    expected: 0
+    expected: "Move to position 0"
   },
   {
     slug: "tile-in-middle",
@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "C"],
-    expected: 2
+    expected: "Move to position 2"
   },
   {
     slug: "tile-at-end",
@@ -51,7 +51,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "E"],
-    expected: 4
+    expected: "Move to position 4"
   },
   {
     slug: "tile-not-found",
@@ -60,7 +60,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "Z"],
-    expected: -1
+    expected: "Error: Tile not on rack"
   },
   {
     slug: "empty-rack",
@@ -69,7 +69,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["", "A"],
-    expected: -1
+    expected: "Error: Tile not on rack"
   },
   {
     slug: "first-of-duplicates",
@@ -78,7 +78,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["BANANA", "A"],
-    expected: 1
+    expected: "Move to position 1"
   },
   {
     slug: "longer-rack",
@@ -87,6 +87,6 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["SCRABBLE", "B"],
-    expected: 4
+    expected: "Move to position 4"
   }
 ];
