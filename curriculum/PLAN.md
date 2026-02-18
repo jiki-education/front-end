@@ -95,6 +95,7 @@ Nothing yet
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
+- `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
 
 ### Unimplemented
 

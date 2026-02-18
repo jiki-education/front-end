@@ -77,6 +77,7 @@ import { llmMetadata as lunchboxLLM } from "./exercises/lunchbox/llm-metadata";
 import { llmMetadata as starsLLM } from "./exercises/stars/llm-metadata";
 import { llmMetadata as wordCountLLM } from "./exercises/word-count/llm-metadata";
 import { llmMetadata as extractWordsLLM } from "./exercises/extract-words/llm-metadata";
+import { llmMetadata as helloLLM } from "./exercises/hello/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -156,7 +157,8 @@ const llmMetadataRegistry = {
   lunchbox: lunchboxLLM,
   stars: starsLLM,
   "word-count": wordCountLLM,
-  "extract-words": extractWordsLLM
+  "extract-words": extractWordsLLM,
+  hello: helloLLM
 } as const;
 
 /**

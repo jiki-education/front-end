@@ -70,7 +70,8 @@ export const exercises = {
   lunchbox: () => import("./lunchbox"),
   stars: () => import("./stars"),
   "word-count": () => import("./word-count"),
-  "extract-words": () => import("./extract-words")
+  "extract-words": () => import("./extract-words"),
+  hello: () => import("./hello")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

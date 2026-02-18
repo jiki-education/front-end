@@ -137,6 +137,13 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "lessons": [{ "type": "exercise", "slug": "raindrops" }]
   },
   {
+    "level": "string-manipulation",
+    "lessons": [
+      { "type": "exercise", "slug": "hello" },
+      { "type": "exercise", "slug": "two-fer" }
+    ]
+  },
+  {
     "level": "methods-and-properties",
     "lessons": [
       { "type": "exercise", "slug": "nucleotide" },
