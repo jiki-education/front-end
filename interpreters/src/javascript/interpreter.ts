@@ -5,9 +5,18 @@ import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
-import { extractCallExpressions, extractVariableAssignments, snakeToCamel } from "./assertion-helpers";
+import {
+  extractCallExpressions,
+  extractVariableAssignments,
+  snakeToCamel,
+  countLinesOfCode,
+  extractFunctionDeclarations,
+  extractMethodCalls,
+  countArrayExpressions,
+  extractCallExpressionsExcludingFunctionBody,
+} from "./assertion-helpers";
 import type { CallExpression } from "./expression";
-import { LiteralExpression, type Expression } from "./expression";
+import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
@@ -71,6 +80,12 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       assertors: {
         assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
         assertNoLiteralNumberAssignments: () => true,
+        countLinesOfCode: () => 0,
+        assertMaxLinesOfCode: () => true,
+        assertFunctionDefined: () => true,
+        assertMethodCalled: () => true,
+        countArrayLiterals: () => 0,
+        assertFunctionCalledOutsideOwnDefinition: () => true,
       },
     };
   }
@@ -146,6 +161,23 @@ export function evaluateFunction(
           }
           return !(value instanceof LiteralExpression && typeof value.value === "number");
         });
+      },
+      countLinesOfCode: () => countLinesOfCode(sourceCode),
+      assertMaxLinesOfCode: (limit: number) => countLinesOfCode(sourceCode) <= limit,
+      assertFunctionDefined: (name: string) => {
+        const camelName = snakeToCamel(name);
+        return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === camelName);
+      },
+      assertMethodCalled: (methodName: string) => {
+        return extractMethodCalls(statements).some(mc => mc.methodName === methodName);
+      },
+      countArrayLiterals: () => countArrayExpressions(statements),
+      assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
+        const camelName = snakeToCamel(funcName);
+        const callsOutside = extractCallExpressionsExcludingFunctionBody(statements, camelName);
+        return callsOutside.some(
+          call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === camelName
+        );
       },
     },
   };

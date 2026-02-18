@@ -72,7 +72,15 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeAttributeExpression } from "./executor/executeAttributeExpression";
 import { executeFStringExpression } from "./executor/executeFStringExpression";
-import { extractCallExpressions, extractVariableAssignments } from "./assertion-helpers";
+import {
+  extractCallExpressions,
+  extractVariableAssignments,
+  countLinesOfCode,
+  extractFunctionDeclarations,
+  extractMethodCalls,
+  countListExpressions,
+  extractCallExpressionsDeepExcluding,
+} from "./assertion-helpers";
 
 // Execution context for Python stdlib (future use)
 export type ExecutionContext = SharedExecutionContext & {
@@ -123,6 +131,12 @@ export interface ExecutorResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    countLinesOfCode: () => number;
+    assertMaxLinesOfCode: (limit: number) => boolean;
+    assertFunctionDefined: (name: string) => boolean;
+    assertMethodCalled: (methodName: string) => boolean;
+    countArrayLiterals: () => number;
+    assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
   };
 }
 
@@ -241,6 +255,21 @@ export class Executor {
             }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
+        },
+        countLinesOfCode: () => countLinesOfCode(this.sourceCode),
+        assertMaxLinesOfCode: (limit: number) => countLinesOfCode(this.sourceCode) <= limit,
+        assertFunctionDefined: (name: string) => {
+          return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === name);
+        },
+        assertMethodCalled: (methodName: string) => {
+          return extractMethodCalls(statements).some(mc => mc.methodName === methodName);
+        },
+        countArrayLiterals: () => countListExpressions(statements),
+        assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
+          const callsOutside = extractCallExpressionsDeepExcluding(statements, funcName);
+          return callsOutside.some(
+            call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === funcName
+          );
         },
       },
     };
