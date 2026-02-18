@@ -1,0 +1,11 @@
+{
+  "slug": "three-letter-acronym",
+  "title": "Three Letter Acronym",
+  "instructions": "An acronym is a word formed from the first letters of other words. For example, 'Portable Network Graphics' becomes 'PNG'.\n\nWrite a function called `acronym` that takes three words and returns a three-letter acronym by taking the first letter of each word.\n\nFor example, if given 'Cascading', 'Style', and 'Sheets', you should return 'CSS'.",
+  "estimatedMinutes": 5,
+  "levelId": "string-manipulation",
+  "hints": [
+    "You can get the first character of a string using [1]",
+    "Use concatenate() to join the three characters together"
+  ]
+}

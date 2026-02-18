@@ -78,6 +78,8 @@ import { llmMetadata as starsLLM } from "./exercises/stars/llm-metadata";
 import { llmMetadata as wordCountLLM } from "./exercises/word-count/llm-metadata";
 import { llmMetadata as extractWordsLLM } from "./exercises/extract-words/llm-metadata";
 import { llmMetadata as helloLLM } from "./exercises/hello/llm-metadata";
+import { llmMetadata as threeLetterAcronymLLM } from "./exercises/three-letter-acronym/llm-metadata";
+import { llmMetadata as tileRackLLM } from "./exercises/tile-rack/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -158,7 +160,9 @@ const llmMetadataRegistry = {
   stars: starsLLM,
   "word-count": wordCountLLM,
   "extract-words": extractWordsLLM,
-  hello: helloLLM
+  hello: helloLLM,
+  "three-letter-acronym": threeLetterAcronymLLM,
+  "tile-rack": tileRackLLM
 } as const;
 
 /**

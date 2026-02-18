@@ -89,6 +89,7 @@ Nothing yet
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)
 - `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
 - `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
+- `three-letter-acronym` - Three Letter Acronym: build a 3-letter acronym from first letters of 3 words using string indexing and concatenate (String Manipulation level)
 - `two-fer` - Two-Fer: greet someone with a cookie offer using concatenation (String Manipulation level)
 - `hamming` - Hamming: calculate Hamming distance between two DNA strands (String Manipulation level)
 - `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (String Manipulation level)

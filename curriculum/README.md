@@ -148,6 +148,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "string-manipulation",
     "lessons": [
       { "type": "exercise", "slug": "hello" },
+      { "type": "exercise", "slug": "three-letter-acronym" },
       { "type": "exercise", "slug": "two-fer" },
       { "type": "exercise", "slug": "hamming" },
       { "type": "exercise", "slug": "raindrops" }
