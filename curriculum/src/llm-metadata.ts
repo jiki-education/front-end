@@ -73,6 +73,9 @@ import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-meta
 import { llmMetadata as triangleLLM } from "./exercises/triangle/llm-metadata";
 import { llmMetadata as raindropsLLM } from "./exercises/raindrops/llm-metadata";
 import { llmMetadata as isbnVerifierLLM } from "./exercises/isbn-verifier/llm-metadata";
+import { llmMetadata as lunchboxLLM } from "./exercises/lunchbox/llm-metadata";
+import { llmMetadata as starsLLM } from "./exercises/stars/llm-metadata";
+import { llmMetadata as wordCountLLM } from "./exercises/word-count/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -148,7 +151,10 @@ const llmMetadataRegistry = {
   "rainbow-ball": rainbowBallLLM,
   triangle: triangleLLM,
   raindrops: raindropsLLM,
-  "isbn-verifier": isbnVerifierLLM
+  "isbn-verifier": isbnVerifierLLM,
+  lunchbox: lunchboxLLM,
+  stars: starsLLM,
+  "word-count": wordCountLLM
 } as const;
 
 /**

@@ -91,6 +91,9 @@ Nothing yet
 - `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (Everything level)
 - `nucleotide` - Nucleotide: count occurrences of a specific nucleotide in a DNA strand (Methods and Properties level)
 - `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Methods and Properties level)
+- `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
+- `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
+- `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
 
 ### Unimplemented
 

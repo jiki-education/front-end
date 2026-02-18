@@ -142,6 +142,17 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "nucleotide" },
       { "type": "exercise", "slug": "isbn-verifier" }
     ]
+  },
+  {
+    "level": "lists",
+    "lessons": [
+      { "type": "exercise", "slug": "lunchbox" },
+      { "type": "exercise", "slug": "stars" }
+    ]
+  },
+  {
+    "level": "dictionaries",
+    "lessons": [{ "type": "exercise", "slug": "word-count" }]
   }
 ]
 ```

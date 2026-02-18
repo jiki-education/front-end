@@ -66,7 +66,10 @@ export const exercises = {
   "rainbow-ball": () => import("./rainbow-ball"),
   triangle: () => import("./triangle"),
   raindrops: () => import("./raindrops"),
-  "isbn-verifier": () => import("./isbn-verifier")
+  "isbn-verifier": () => import("./isbn-verifier"),
+  lunchbox: () => import("./lunchbox"),
+  stars: () => import("./stars"),
+  "word-count": () => import("./word-count")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
