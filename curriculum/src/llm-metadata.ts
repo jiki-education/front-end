@@ -88,6 +88,7 @@ import { llmMetadata as caesarCipherLLM } from "./exercises/caesar-cipher/llm-me
 import { llmMetadata as mazeWalkLLM } from "./exercises/maze-walk/llm-metadata";
 import { llmMetadata as battleProceduresLLM } from "./exercises/battle-procedures/llm-metadata";
 import { llmMetadata as weatherSymbolsPart1LLM } from "./exercises/weather-symbols-part-1/llm-metadata";
+import { llmMetadata as weatherSymbolsPart2LLM } from "./exercises/weather-symbols-part-2/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -178,7 +179,8 @@ const llmMetadataRegistry = {
   "caesar-cipher": caesarCipherLLM,
   "maze-walk": mazeWalkLLM,
   "battle-procedures": battleProceduresLLM,
-  "weather-symbols-part-1": weatherSymbolsPart1LLM
+  "weather-symbols-part-1": weatherSymbolsPart1LLM,
+  "weather-symbols-part-2": weatherSymbolsPart2LLM
 } as const;
 
 /**

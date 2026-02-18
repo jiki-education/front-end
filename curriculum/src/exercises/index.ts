@@ -81,7 +81,8 @@ export const exercises = {
   "caesar-cipher": () => import("./caesar-cipher"),
   "maze-walk": () => import("./maze-walk"),
   "battle-procedures": () => import("./battle-procedures"),
-  "weather-symbols-part-1": () => import("./weather-symbols-part-1")
+  "weather-symbols-part-1": () => import("./weather-symbols-part-1"),
+  "weather-symbols-part-2": () => import("./weather-symbols-part-2")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

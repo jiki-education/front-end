@@ -177,6 +177,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "process-guess" },
       { "type": "exercise", "slug": "stars" },
       { "type": "exercise", "slug": "weather-symbols-part-1" },
+      { "type": "exercise", "slug": "weather-symbols-part-2" },
       { "type": "project", "slug": "extract-words" }
     ]
   },

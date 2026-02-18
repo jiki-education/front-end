@@ -116,6 +116,7 @@ Nothing yet
 - `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
 - `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
 - `weather-symbols-part-1` - Weather Symbols (Part 1): map weather descriptions to lists of drawing components using if/else if (Lists level)
+- `weather-symbols-part-2` - Weather Symbols (Part 2): draw weather scenes from a list of element types using conditionals and helper functions (Lists level)
 
 ### Unimplemented
 
