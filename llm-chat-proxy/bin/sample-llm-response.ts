@@ -53,7 +53,11 @@ move_right()`,
     question: "I can't see anything wrong with it",
     history: [
       { role: "user", content: "My code isn't working, can you help?" },
-      { role: "assistant", content: "Hi there! I can help you take a look at your `isValidIsbn` function.\n\nIn the warehouse, Jiki has a `multiplier` box. What do you expect to happen to the value in that `multiplier` box each time you process an ISBN character inside your `for` loop? Take a look at the line where you update it." }
+      {
+        role: "assistant",
+        content:
+          "Hi there! I can help you take a look at your `isValidIsbn` function.\n\nIn the warehouse, Jiki has a `multiplier` box. What do you expect to happen to the value in that `multiplier` box each time you process an ISBN character inside your `for` loop? Take a look at the line where you update it."
+      }
     ],
     language: "javascript"
   }
