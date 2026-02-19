@@ -44,6 +44,7 @@
       "FunctionDeclarationNotAllowed": "Function declarations are not allowed at your current learning level.",
       "ReturnStatementNotAllowed": "Return statements are not allowed at your current learning level.",
       "RepeatStatementNotAllowed": "Repeat loops are not allowed at your current learning level.",
+      "UpdateExpressionNotAllowed": "Increment/decrement expressions (++ and --) are not allowed at your current learning level.",
       "MissingLeftParenAfterRepeat": "Missing opening parenthesis '(' after 'repeat'.",
       "MissingRightParenAfterRepeatCount": "Missing closing parenthesis ')' after repeat count."
     },
