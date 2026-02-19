@@ -9,37 +9,40 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches string iteration, conditional logic, and mathematical verification.
-    Students learn to process a string character by character, skip irrelevant characters (dashes),
-    handle special cases (X as check digit), convert characters to numbers, and apply a weighted
-    sum algorithm to verify ISBN-10 validity.
+    This exercise allows a student to explore iterating through a string character by character,
+    applying conditional logic to each character, and using a weighted sum to verify data.
+
+    The student writes an isValidIsbn function that checks whether an ISBN-10 string is valid.
+    ISBN-10s are 10-digit strings, optionally separated by dashes (e.g. "3-598-21508-8").
+    Validation uses a weighted sum: each digit is multiplied by a weight counting down from 10 to 1,
+    and the total must be divisible by 11. The last digit may be "X" representing 10.
+    Any non-digit, non-dash, non-X characters make the ISBN invalid.
+
+    To complete this exercise, the student needs to:
+    1. Iterate through each character of the ISBN string
+    2. Skip dashes using continue
+    3. Convert digit characters to numbers
+    4. Track a running total using a multiplier counting down from 10
+    5. Check if the total is divisible by 11
+    6. Handle "X" only when it's the last digit (multiplier is 1), treating it as 10
+    7. Return false for any invalid character
+    8. After the loop, verify exactly 10 digits were processed (multiplier === 0)
   `,
 
   tasks: {
-    "check-isbn": {
+    "validate-basic-isbn": {
       description: `
-        Students need to:
-        1. Iterate through each character of the ISBN string
-        2. Skip dashes (using next/continue)
-        3. Handle X only in the last position (multiplier == 1), treating it as 10
-        4. Convert digit characters to numbers using string_to_number()
-        5. Return false immediately for any invalid character
-        6. Maintain a running total using a multiplier that counts down from 10
-        7. After the loop, verify exactly 10 digits were processed (multiplier == 0)
-        8. Check if total % 11 == 0
-
-        Common mistakes:
-        - Forgetting to handle dashes (they should be skipped, not counted)
-        - Allowing X in positions other than the last
-        - Not checking that exactly 10 digits were found after processing
-        - Forgetting to decrement the multiplier after processing each digit
-        - Not returning false for non-digit, non-dash, non-X characters
-
-        Teaching strategy:
-        - Start with the simple valid case: "3-598-21508-8"
-        - Walk through the weighted sum calculation step by step
-        - Then introduce the X check digit case
-        - Then handle edge cases: too short, too long, invalid characters
+        The student needs to complete steps 1-5. Note: the student does not see these steps broken down.
+      `
+    },
+    "handle-x-check-digit": {
+      description: `
+        The student has got steps 1-5 working. They now need to complete step 6. Note: the student does not see these steps broken down.
+      `
+    },
+    "handle-edge-cases": {
+      description: `
+        The student has got steps 1-6 working. They now need to complete steps 7-8. Note: the student does not see these steps broken down.
       `
     }
   }

@@ -152,7 +152,7 @@ function buildExerciseSection(
     // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
     if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
       const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
-      parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+      parts.push(`\n\n${taskMeta.description}`);
     }
   }
 

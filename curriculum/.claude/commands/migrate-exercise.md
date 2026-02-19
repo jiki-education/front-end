@@ -147,12 +147,7 @@ Create starter code for all 3 languages with:
 
 ### 4.8: llm-metadata.ts
 
-Create teaching guidance:
-
-- Exercise description and concepts
-- Task-specific guidance
-- Common mistakes
-- Teaching strategies
+Run the `/write-llm-metadata` skill with the exercise slug. This will create the `llm-metadata.ts` file and register it in `src/llm-metadata.ts`.
 
 ### 4.9: index.ts
 
@@ -178,10 +173,7 @@ If the exercise uses `push`, `sort_string`, etc., add to level file:
 
 ### 5.2: Register LLM Metadata
 
-⚠️ **CRITICAL** - Must register in `src/llm-metadata.ts`
-
-1. Import: `import { llmMetadata as [name]LLM } from "./exercises/$ARGUMENTS/llm-metadata";`
-2. Add to registry: `"$ARGUMENTS": [name]LLM,`
+Already handled by the `/write-llm-metadata` skill in step 4.8.
 
 ### 5.3: Register Exercise
 

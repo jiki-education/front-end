@@ -77,7 +77,7 @@ src/exercises/[exercise-name]/
 ├── metadata.json         # slug, title, instructions, estimatedMinutes, levelId, hints
 ├── Exercise.ts           # Exercise class (extends appropriate base)
 ├── scenarios.ts          # Tasks and test scenarios
-├── llm-metadata.ts       # AI teaching guidance
+├── llm-metadata.ts       # LLM metadata (use /write-llm-metadata skill)
 ├── index.ts              # Exercise definition export
 ├── solution.jiki         # Jikiscript solution
 ├── solution.javascript   # JavaScript solution (camelCase naming)
@@ -163,10 +163,9 @@ export default class MyExercise extends VisualExercise {
 "exercise-name": () => import("./exercise-name"),
 ```
 
-### 5.2: Register LLM Metadata in `src/llm-metadata.ts`
+### 5.2: Write LLM Metadata
 
-1. Add import: `import { llmMetadata as exerciseNameLLM } from "./exercises/exercise-name/llm-metadata";`
-2. Add to registry: `"exercise-name": exerciseNameLLM,`
+Run the `/write-llm-metadata` skill with the exercise slug. This will create the `llm-metadata.ts` file and register it in `src/llm-metadata.ts`.
 
 ### 5.3: Register Stdlib Functions (if needed)
 
