@@ -5,12 +5,12 @@ export const tasks = [
   {
     id: "build-relational-snowman" as const,
     name: "Build the relational snowman",
-    description: "Derive all sizes and positions from head_radius and ground_y so the snowman scales correctly.",
+    description: "Derive all sizes and positions from headRadius and groundY so the snowman scales correctly.",
     hints: [
-      "body_radius = head_radius * 2, base_radius = head_radius * 3",
-      "base_y = ground_y - base_radius",
-      "body_y = base_y - base_radius - body_radius",
-      "head_y = body_y - body_radius - head_radius"
+      "bodyRadius = headRadius * 2, baseRadius = headRadius * 3",
+      "baseY = groundY - baseRadius",
+      "bodyY = baseY - baseRadius - bodyRadius",
+      "headY = bodyY - bodyRadius - headRadius"
     ],
     requiredScenarios: ["build-relational-snowman"],
     bonus: false
@@ -36,15 +36,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(50, 65, 15),
-          errorHtml: "The base (bottom) circle is not correct. base_y should be ground_y - base_radius."
+          errorHtml: "The base (bottom) circle is not correct. baseY should be groundY - baseRadius."
         },
         {
           pass: ex.hasCircleAt(50, 40, 10),
-          errorHtml: "The body (middle) circle is not correct. body_y should be base_y - base_radius - body_radius."
+          errorHtml: "The body (middle) circle is not correct. bodyY should be baseY - baseRadius - bodyRadius."
         },
         {
           pass: ex.hasCircleAt(50, 25, 5),
-          errorHtml: "The head (top) circle is not correct. head_y should be body_y - body_radius - head_radius."
+          errorHtml: "The head (top) circle is not correct. headY should be bodyY - bodyRadius - headRadius."
         }
       ];
     },
@@ -52,8 +52,7 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["head_radius", "snowman_x", "ground_y"]),
-        errorHtml:
-          "All sizes and positions should be calculated from head_radius and ground_y, not set to plain numbers."
+        errorHtml: "All sizes and positions should be calculated from headRadius and groundY, not set to plain numbers."
       }
     ]
   }

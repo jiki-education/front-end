@@ -17,17 +17,17 @@ export const llmMetadata: LLMMetadata = {
     - Problem decomposition into helper functions
     - String manipulation (checking prefixes/suffixes, extracting substrings)
     - List operations (filtering, iterating, avoiding duplicates)
-    - Building reusable utility functions (length, starts_with, ends_with)
+    - Building reusable utility functions (length, startsWith, endsWith)
 
     This is the hardest exercise in the curriculum so far. Students need to implement
     several helper functions before tackling the main problem:
     - length() - count characters in a string
-    - starts_with() - check if string starts with a prefix
-    - ends_with() - check if string ends with a suffix
-    - strip_prefix() - remove N characters from the start
-    - extract_socks() - filter list for items ending in " sock"
-    - switch_left_right() - swap "left "/"right " prefix
-    - push_if_missing() - add to list only if not already present
+    - startsWith() - check if string starts with a prefix
+    - endsWith() - check if string ends with a suffix
+    - stripPrefix() - remove N characters from the start
+    - extractSocks() - filter list for items ending in " sock"
+    - switchLeftRight() - swap "left "/"right " prefix
+    - pushIfMissing() - add to list only if not already present
   `,
 
   tasks: {
@@ -43,7 +43,7 @@ export const llmMetadata: LLMMetadata = {
 
         Common mistakes:
         - Not breaking the problem down into small enough pieces
-        - Off-by-one errors in string indexing (Jikiscript uses 1-based indexing!)
+        - Off-by-one errors in string indexing
         - Forgetting that "left " is 5 characters but "right " is 6 characters
         - Adding duplicate matches (e.g., finding "red socks" twice)
         - Not filtering for actual socks (items ending in " sock")
@@ -53,14 +53,8 @@ export const llmMetadata: LLMMetadata = {
         - Strongly encourage students to write and test helper functions one at a time
         - Suggest using log statements to verify each helper works correctly
         - Remind students that they may have written some helpers in previous exercises
-        - Emphasize that the final matching_socks function should be relatively simple if helpers are well-designed
+        - Emphasize that the final matchingSocks function should be relatively simple if helpers are well-designed
         - Guide students through the logical steps: extract socks -> combine lists -> find pairs -> format output
-
-        Important Jikiscript notes:
-        - Array indexing is 1-based: str[1] gets the first character
-        - Use concatenate() for string building
-        - Use push() to add to lists
-        - Use concat() to combine two lists
 
         Algorithm outline:
         1. Extract socks from clean basket

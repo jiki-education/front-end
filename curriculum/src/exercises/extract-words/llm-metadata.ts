@@ -30,7 +30,7 @@ export const llmMetadata: LLMMetadata = {
         - Forgetting to push the last word after the loop ends
         - Not checking if the word is empty before pushing (creating empty strings in the list)
         - Including periods as part of words
-        - Using push() without reassigning (in Jiki, push returns a new list)
+        - Using push() without reassigning (push returns a new list)
 
         Key stdlib functions: push() to add words to the list, concatenate() to build words character by character.
       `

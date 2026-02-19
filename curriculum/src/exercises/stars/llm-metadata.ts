@@ -36,7 +36,7 @@ export const llmMetadata: LLMMetadata = {
         - Start with the simplest case: count=1 returns ["*"]
         - Trace through count=3 step by step showing how star grows
         - Emphasize that push() adds the current value of star, not a reference
-        - The count=0 case works automatically since repeat 0 times does nothing
+        - The count=0 case works automatically since repeating 0 times does nothing
       `
     }
   }

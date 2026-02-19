@@ -12,24 +12,24 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "get_player_1_choice",
-    signature: "get_player_1_choice()",
+    name: "getPlayer1Choice",
+    signature: "getPlayer1Choice()",
     description: 'Returns player 1\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
-    examples: ["set choice to get_player_1_choice()"],
+    examples: ["let choice = getPlayer1Choice()"],
     category: "Game"
   },
   {
-    name: "get_player_2_choice",
-    signature: "get_player_2_choice()",
+    name: "getPlayer2Choice",
+    signature: "getPlayer2Choice()",
     description: 'Returns player 2\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
-    examples: ["set choice to get_player_2_choice()"],
+    examples: ["let choice = getPlayer2Choice()"],
     category: "Game"
   },
   {
-    name: "announce_result",
-    signature: "announce_result(result)",
+    name: "announceResult",
+    signature: "announceResult(result)",
     description: 'Announces the result of the game. Pass `"player_1"`, `"player_2"`, or `"tie"`.',
-    examples: ['announce_result("player_1")', 'announce_result("tie")'],
+    examples: ['announceResult("player_1")', 'announceResult("tie")'],
     category: "Game"
   }
 ];

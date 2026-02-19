@@ -1,4 +1,4 @@
-function find_anagrams(target, possibilities) {
+function findAnagrams(target, possibilities) {
   const targetLower = target.toLowerCase();
   const sortedTarget = targetLower.split("").sort().join("");
   const results = [];

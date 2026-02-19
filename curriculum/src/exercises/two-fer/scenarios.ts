@@ -5,7 +5,7 @@ export const tasks = [
     id: "create-two-fer-function" as const,
     name: "Create two-fer function",
     description:
-      "Write a two_fer function that takes a name and returns 'One for [name], one for me.' If no name is given (empty string), use 'you' instead of the name.",
+      "Write a twoFer function that takes a name and returns 'One for [name], one for me.' If no name is given (empty string), use 'you' instead of the name.",
     hints: [
       "Check if the name is an empty string",
       "Use concatenate() to build the result",

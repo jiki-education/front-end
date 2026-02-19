@@ -7,7 +7,7 @@ export const tasks = [
     name: "Determine the winner",
     description: 'Get both players\' choices and announce the correct result: "player_1", "player_2", or "tie".',
     hints: [
-      "Store both choices in variables using get_player_1_choice() and get_player_2_choice()",
+      "Store both choices in variables using getPlayer1Choice() and getPlayer2Choice()",
       "Check if the choices are the same first — that's always a tie",
       "There are three cases where player 1 wins: rock vs scissors, scissors vs paper, paper vs rock",
       "If it's not a tie and player 1 didn't win, player 2 must have won"

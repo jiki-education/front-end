@@ -21,40 +21,40 @@ const functions: FunctionInfo[] = [
     category: "Movement"
   },
   {
-    name: "turn_left",
-    signature: "turn_left()",
+    name: "turnLeft",
+    signature: "turnLeft()",
     description:
       "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-    examples: ["turn_left()"],
+    examples: ["turnLeft()"],
     category: "Movement"
   },
   {
-    name: "turn_right",
-    signature: "turn_right()",
+    name: "turnRight",
+    signature: "turnRight()",
     description:
       "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-    examples: ["turn_right()"],
+    examples: ["turnRight()"],
     category: "Movement"
   },
   {
-    name: "can_move",
-    signature: "can_move()",
+    name: "canMove",
+    signature: "canMove()",
     description: "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
-    examples: ["can_move()"],
+    examples: ["canMove()"],
     category: "Sensing"
   },
   {
-    name: "can_turn_left",
-    signature: "can_turn_left()",
+    name: "canTurnLeft",
+    signature: "canTurnLeft()",
     description: "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
-    examples: ["can_turn_left()"],
+    examples: ["canTurnLeft()"],
     category: "Sensing"
   },
   {
-    name: "can_turn_right",
-    signature: "can_turn_right()",
+    name: "canTurnRight",
+    signature: "canTurnRight()",
     description: "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
-    examples: ["can_turn_right()"],
+    examples: ["canTurnRight()"],
     category: "Sensing"
   }
 ];

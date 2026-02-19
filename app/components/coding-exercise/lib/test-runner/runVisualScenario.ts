@@ -1,4 +1,4 @@
-import type { VisualExercise, VisualScenario, Language } from "@jiki/curriculum";
+import type { VisualExercise, VisualScenario, Language, InterpreterOptions } from "@jiki/curriculum";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
 import { jikiscript, javascript, python } from "@jiki/interpreters";
@@ -23,7 +23,8 @@ export function runVisualScenario(
   scenario: VisualScenario,
   studentCode: string,
   ExerciseClass: new () => VisualExercise,
-  language: Language
+  language: Language,
+  interpreterOptions?: InterpreterOptions
 ): VisualTestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
@@ -36,7 +37,8 @@ export function runVisualScenario(
   const interpreterContext = {
     externalFunctions: exercise.availableFunctions,
     languageFeatures: {
-      timePerFrame: 1
+      timePerFrame: 1,
+      ...interpreterOptions
     },
     randomSeed: scenario.randomSeed
   };

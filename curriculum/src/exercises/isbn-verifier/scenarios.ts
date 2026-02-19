@@ -5,10 +5,10 @@ export const tasks = [
     id: "validate-basic-isbn" as const,
     name: "Validate a basic ISBN",
     description:
-      "Write a function called is_valid_isbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11.",
+      "Write a function called isValidIsbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11.",
     hints: [
       "Use a multiplier variable starting at 10, decreasing for each digit processed",
-      "Skip dashes using the 'next' keyword (or continue)"
+      "Skip dashes using continue"
     ],
     requiredScenarios: ["isbn-valid"],
     bonus: false

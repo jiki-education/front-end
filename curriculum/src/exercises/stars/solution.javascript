@@ -1,7 +1,7 @@
 function stars(count) {
   let result = [];
   let star = "";
-  for (let i = 0; i < count; i++) {
+  repeat(count) {
     star = star + "*";
     result.push(star);
   }

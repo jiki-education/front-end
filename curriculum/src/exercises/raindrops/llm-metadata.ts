@@ -44,9 +44,9 @@ export const llmMetadata: LLMMetadata = {
     "no-sound": {
       description: `
         Students handle the fallback case: if the number isn't divisible by 3, 5, or 7,
-        return the number as a string. Use number_to_string() for the conversion.
+        return the number as a string. Use numberToString() for the conversion.
         Check if the result is still empty ("") after all three divisibility checks.
-        Common mistake: forgetting to use number_to_string() and returning the number directly.
+        Common mistake: forgetting to use numberToString() and returning the number directly.
       `
     }
   }

@@ -13,10 +13,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "roll_right",
-    signature: "roll_right()",
+    name: "rollRight",
+    signature: "rollRight()",
     description: "Rolls the ball **one unit to the right**.",
-    examples: ["roll_right()"],
+    examples: ["rollRight()"],
     category: "Movement"
   }
 ];

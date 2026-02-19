@@ -12,17 +12,17 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "get_age",
-    signature: "get_age()",
+    name: "getAge",
+    signature: "getAge()",
     description: "Returns the **age** of the person waiting outside.",
-    examples: ["set age to get_age()"],
+    examples: ["let age = getAge()"],
     category: "Information"
   },
   {
-    name: "open_door",
-    signature: "open_door()",
+    name: "openDoor",
+    signature: "openDoor()",
     description: "Opens the door to let the person in.",
-    examples: ["open_door()"],
+    examples: ["openDoor()"],
     category: "Action"
   }
 ];

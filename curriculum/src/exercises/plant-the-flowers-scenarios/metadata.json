@@ -1,11 +1,11 @@
 {
   "slug": "plant-the-flowers-scenarios",
   "title": "Plant the Flowers (Scenarios)",
-  "instructions": "The gardener wants flowers planted evenly across the garden, but the number of flowers changes each time!\n\nUse `num_flowers()` to find out how many flowers to plant. Then work out the gap between them so they're evenly spaced across the garden (which is 100 units wide).\n\nThe formula for the gap is: `100 / (number of flowers + 1)`.\n\nFor example, if there are 3 flowers, the gap is `100 / 4 = 25`, so the flowers go at positions 25, 50, and 75.\n\nUse the `plant()` function to plant each flower at the right position.",
+  "instructions": "The gardener wants flowers planted evenly across the garden, but the number of flowers changes each time!\n\nUse `numFlowers()` to find out how many flowers to plant. Then work out the gap between them so they're evenly spaced across the garden (which is 100 units wide).\n\nThe formula for the gap is: `100 / (number of flowers + 1)`.\n\nFor example, if there are 3 flowers, the gap is `100 / 4 = 25`, so the flowers go at positions 25, 50, and 75.\n\nUse the `plant()` function to plant each flower at the right position.",
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by calling num_flowers() and storing the result in a variable",
+    "Start by calling numFlowers() and storing the result in a variable",
     "Calculate the gap: 100 / (count + 1)",
     "Set your starting position to the gap value",
     "Use a repeat loop to plant each flower, then increase the position by the gap"

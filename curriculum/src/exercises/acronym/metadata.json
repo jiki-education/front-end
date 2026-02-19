@@ -8,6 +8,6 @@
     "You can iterate through each character in the phrase",
     "Track whether the previous character was a space or hyphen",
     "Use concatenate() to build up the result string",
-    "Use to_upper_case() to convert the final result to uppercase"
+    "Use toUpperCase() to convert the final result to uppercase"
   ]
 }

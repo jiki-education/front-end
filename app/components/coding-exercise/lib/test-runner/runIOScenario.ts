@@ -1,4 +1,4 @@
-import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
+import type { IOScenario, Language, CodeCheckExpect, InterpreterOptions } from "@jiki/curriculum";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -54,7 +54,8 @@ export function runIOScenario(
   scenario: IOScenario,
   studentCode: string,
   availableFunctions: Array<{ name: string; func: any; description: string }>,
-  language: Language
+  language: Language,
+  interpreterOptions?: InterpreterOptions
 ): IOTestResult {
   // Execute student code and call the function with scenario args
   const interpreter = getInterpreter(language);
@@ -73,7 +74,8 @@ export function runIOScenario(
       {
         externalFunctions: availableFunctions,
         languageFeatures: {
-          timePerFrame: 1
+          timePerFrame: 1,
+          ...interpreterOptions
         }
       },
       scenario.functionName,

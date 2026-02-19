@@ -7,16 +7,6 @@ function contains with haystack, needle do
   return false
 end
 
-function process_game with word, guesses do
-  for each guess in guesses indexed by idx do
-    color_row(idx, process_guess(word, guess))
-  end
-end
-
-function process_first_guess with word, guess do
-  process_game(word, [guess])
-end
-
 function process_guess with word, guess do
   set states to []
   for each letter in guess indexed by idx do
@@ -28,5 +18,5 @@ function process_guess with word, guess do
       change states to push(states, "absent")
     end
   end
-  return states
+  color_row(1, states)
 end

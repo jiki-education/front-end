@@ -7,7 +7,7 @@ export const tasks = [
     description:
       "Write a function that checks if a sentence is a pangram (contains every letter of the alphabet at least once). The check should be case-insensitive.",
     hints: [
-      "Write helper functions: contains(), index_of(), to_lower()",
+      "Write helper functions: contains(), indexOf(), toLower()",
       "Convert the sentence to lowercase first",
       "Iterate through 'abcdefghijklmnopqrstuvwxyz' and check each letter",
       "Return false immediately when you find a missing letter"

@@ -73,7 +73,7 @@ function chooseWord(knowledge) {
 
 function setupKnowledge() {
   let knowledge = { present: [], absent: [], squares: [], won: false };
-  for (let idx = 0; idx < 5; idx++) {
+  repeat(5) {
     knowledge["squares"].push({ actual: "", not: [] });
   }
   return knowledge;

@@ -19,10 +19,10 @@ export const llmMetadata: LLMMetadata = {
     "display-time": {
       description: `
         Students need to:
-        1. Call current_time_hour() and current_time_minute() to get the time
+        1. Call currentTimeHour() and currentTimeMinute() to get the time
         2. Determine "am" or "pm" based on whether hour >= 12
         3. Convert the hour: midnight (0) becomes 12, hours > 12 subtract 12
-        4. Call display_time(hour, minutes, indicator)
+        4. Call displayTime(hour, minutes, indicator)
 
         Common mistakes:
         - Using > 12 instead of >= 12 for the AM/PM check (noon shows as "am")

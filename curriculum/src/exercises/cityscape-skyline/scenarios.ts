@@ -7,7 +7,7 @@ export const tasks = [
     name: "Build the city skyline",
     description: "Build multiple buildings of random heights to create a city skyline.",
     hints: [
-      "Use num_buildings() to find out how many buildings to create",
+      "Use numBuildings() to find out how many buildings to create",
       "Track x position starting at 1, adding 5 for each building",
       "Use a random number for the number of upper floors per building",
       "Each building has a ground floor, some upper floors, and a roof"

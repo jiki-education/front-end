@@ -1,13 +1,13 @@
 {
   "slug": "rainbow-splodges",
   "title": "Rainbow Splodges",
-  "instructions": "Your task is to create a canvas full of colorful rainbow splodges!\n\nDraw **500 circles** at random positions with random colors.\n\n### How to solve it\n\n- The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).\n- Create variables for `x`, `y`, and `hue` before the loop.\n- Use a repeat loop that runs 500 times.\n- In each iteration:\n  1. Change `x` to a random position between 0 and 100\n  2. Change `y` to a random position between 0 and 100\n  3. Change `hue` to a random value between 0 and 360\n  4. Draw a circle at that position with radius 3 and a color generated from the hue\n\n### Functions used in this exercise\n\n- `circle(x, y, radius, color)` - Draw a circle with center at (x, y) with the given radius and color\n- `hsl_to_hex(hue, saturation, luminosity)` - Convert HSL values to a hex color string\n- `random_number(min, max)` - Get a random integer between min and max (inclusive)",
+  "instructions": "Your task is to create a canvas full of colorful rainbow splodges!\n\nDraw **500 circles** at random positions with random colors.\n\n### How to solve it\n\n- The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).\n- Create variables for `x`, `y`, and `hue` before the loop.\n- Use a repeat loop that runs 500 times.\n- In each iteration:\n  1. Change `x` to a random position between 0 and 100\n  2. Change `y` to a random position between 0 and 100\n  3. Change `hue` to a random value between 0 and 360\n  4. Draw a circle at that position with radius 3 and a color generated from the hue\n\n### Functions used in this exercise\n\n- `circle(x, y, radius, color)` - Draw a circle with center at (x, y) with the given radius and color\n- `hslToHex(hue, saturation, luminosity)` - Convert HSL values to a hex color string\n- `randomNumber(min, max)` - Get a random integer between min and max (inclusive)",
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
     "Declare x, y, and hue variables before the loop",
-    "Use random_number(0, 100) for x and y positions",
-    "Use random_number(0, 360) for the hue",
+    "Use randomNumber(0, 100) for x and y positions",
+    "Use randomNumber(0, 360) for the hue",
     "Pass saturation of 80 and luminosity of 50 for vibrant colors",
     "Each circle should have a radius of 3"
   ]

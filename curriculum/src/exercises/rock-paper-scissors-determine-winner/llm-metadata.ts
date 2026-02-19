@@ -12,7 +12,7 @@ export const llmMetadata: LLMMetadata = {
     This exercise teaches combining conditions using the "and" operator.
     Students compare two players' Rock/Paper/Scissors choices and announce
     the winner. It builds on basic conditionals by requiring compound
-    boolean expressions (e.g. player_1 chose rock AND player_2 chose scissors).
+    boolean expressions (e.g. player1 chose rock AND player2 chose scissors).
 
     All 9 possible combinations of rock, paper, scissors are tested.
   `,
@@ -21,10 +21,10 @@ export const llmMetadata: LLMMetadata = {
     "determine-winner": {
       description: `
         Students need to:
-        1. Call get_player_1_choice() and get_player_2_choice() to get both choices
+        1. Call getPlayer1Choice() and getPlayer2Choice() to get both choices
         2. Store them in variables
         3. Use if/else if to check all combinations
-        4. Call announce_result() with "player_1", "player_2", or "tie"
+        4. Call announceResult() with "player_1", "player_2", or "tie"
 
         The elegant approach: default to "player_2", then check for tie and player_1-wins cases.
         - Tie: both choices are equal
@@ -32,11 +32,11 @@ export const llmMetadata: LLMMetadata = {
         - Everything else: player 2 wins (handled by default)
 
         Common mistakes:
-        - Not storing choices in variables (calling get_player_1_choice() multiple times)
+        - Not storing choices in variables (calling getPlayer1Choice() multiple times)
         - Forgetting to handle the tie case
         - Getting the win conditions backwards (e.g. rock beats paper)
         - Using "or" instead of "and" to combine conditions
-        - Not calling announce_result() at the end
+        - Not calling announceResult() at the end
         - Writing separate if blocks instead of if/else if chains
 
         Teaching strategy:

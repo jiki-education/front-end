@@ -28,8 +28,8 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "ellipse",
-    signature: "ellipse(x, y, x_radius, y_radius, color)",
-    description: "Draws an **ellipse** at center position (x, y) with the specified x_radius, y_radius, and color.",
+    signature: "ellipse(x, y, xRadius, yRadius, color)",
+    description: "Draws an **ellipse** at center position (x, y) with the specified xRadius, yRadius, and color.",
     examples: ['ellipse(50, 50, 20, 10, "green")', 'ellipse(30, 60, 15, 5, "green")'],
     category: "Drawing Shapes"
   }

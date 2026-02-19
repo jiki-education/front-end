@@ -8,21 +8,14 @@ const dictionaries: Level = {
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: [
-          "concatenate",
-          "number_to_string",
-          "keys",
-          "string_to_number",
-          "to_upper_case",
-          "push",
-          "has_key",
-          "to_lower_case"
-        ]
+        allowedStdlibFunctions: ["has_key", "to_lower_case"]
       }
     },
     javascript: {
       allowedNodes: [],
-      languageFeatures: {}
+      languageFeatures: {
+        allowedGlobals: ["Object"]
+      }
     }
   }
 };

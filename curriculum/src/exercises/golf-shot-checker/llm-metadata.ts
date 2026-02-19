@@ -9,8 +9,8 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches functions that return values. Students use get_shot_length()
-    to retrieve a value, then use it to control a repeat loop and a conditional.
+    This exercise teaches functions that return values. Students use getShotLength()
+    to retrieve a value, then use it to control a loop and a conditional.
     The key concept is storing a return value in a variable and using it.
 
     The exercise has four scenarios: too short, too long, and the two boundary
@@ -21,27 +21,27 @@ export const llmMetadata: LLMMetadata = {
     "check-shot": {
       description: `
         Students need to:
-        1. Call get_shot_length() and store the result in a variable
+        1. Call getShotLength() and store the result in a variable
         2. Track x and y positions, starting at x=29, y=75
-        3. Use a repeat loop (shotLength + 1 times) to roll the ball right
-        4. Check if shot_length >= 56 and shot_length <= 65
+        3. Use a loop (shotLength + 1 times) to roll the ball right
+        4. Check if shotLength >= 56 and shotLength <= 65
         5. If yes, roll ball down 9 times (updating y)
         6. Fire fireworks at the end
 
         Key functions:
-        - roll_to(x, y): rolls the ball to position (x, y)
-        - get_shot_length(): returns the shot length
-        - fire_fireworks(): fires celebratory fireworks
+        - rollTo(x, y): rolls the ball to position (x, y)
+        - getShotLength(): returns the shot length
+        - fireFireworks(): fires celebratory fireworks
 
         Common mistakes:
         - Forgetting to store the shot length in a variable
         - Using the wrong range for the hole check
         - Not combining conditions with 'and'
-        - Forgetting to update x or y before calling roll_to
-        - Off-by-one errors in the repeat count
+        - Forgetting to update x or y before calling rollTo
+        - Off-by-one errors in the loop count
 
         Teaching strategy:
-        - Focus on the return value concept: get_shot_length() gives you a number
+        - Focus on the return value concept: getShotLength() gives you a number
         - Start with getting and using the shot length for horizontal movement
         - Then add the conditional check for the hole range
       `

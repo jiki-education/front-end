@@ -32,15 +32,15 @@ export const llmMetadata: LLMMetadata = {
         Key teaching points:
         1. Combining conditionals with state: checking boundaries and updating variables
         2. Multiple state variables working together (position, direction, color)
-        3. Using random_number() return values to set new directions
-        4. Composing functions: hsl_to_hex() output used as circle() input
+        3. Using randomNumber() return values to set new directions
+        4. Composing functions: hslToHex() output used as circle() input
 
         Common mistakes:
-        - Checking hue_direction instead of hue for the color boundary conditions
-        - Forgetting to use random_number() for new directions (using fixed values)
+        - Checking hueDirection instead of hue for the color boundary conditions
+        - Forgetting to use randomNumber() for new directions (using fixed values)
         - Using the wrong sign for directions (positive when should be negative)
         - Not updating x/y/hue before the boundary checks
-        - Using hsl_to_hex with hue values outside 0-360 range
+        - Using hslToHex with hue values outside 0-360 range
       `
     }
   }

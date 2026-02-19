@@ -12,10 +12,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "num_flowers",
-    signature: "num_flowers()",
+    name: "numFlowers",
+    signature: "numFlowers()",
     description: "Returns the **number of flowers** to plant.",
-    examples: ["set count to num_flowers()"],
+    examples: ["let count = numFlowers()"],
     category: "Gardening"
   },
   {

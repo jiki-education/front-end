@@ -12,6 +12,7 @@ export type {
   CodeCheckExpect,
   ExerciseDefinition,
   FunctionInfo,
+  InterpreterOptions,
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,

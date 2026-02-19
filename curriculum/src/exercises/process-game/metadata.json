@@ -1,13 +1,13 @@
 {
   "slug": "process-game",
   "title": "Wordle: Process Game",
-  "instructions": "Now that you can process a single guess, it's time to process a whole game!\n\nCreate a function called `process_game` that takes two inputs:\n1. The secret target word.\n2. A list of guesses the player has made.\n\nYou should work out the state of each row then call the `color_row(row, states)` function with the row number (`1-6`) and a list of states for each letter.\n\nFor example, if the first guess was correct:\n```\ncolor_row(1, [\"correct\", \"correct\", \"correct\", \"correct\", \"correct\"])\n```",
+  "instructions": "Now that you can process a single guess, it's time to process a whole game!\n\nCreate a function called `processGame` that takes two inputs:\n1. The secret target word.\n2. A list of guesses the player has made.\n\nYou should work out the state of each row then call the `colorRow(row, states)` function with the row number (`1-6`) and a list of states for each letter.\n\nFor example, if the first guess was correct:\n```\ncolorRow(1, [\"correct\", \"correct\", \"correct\", \"correct\", \"correct\"])\n```",
   "estimatedMinutes": 15,
   "levelId": "everything",
   "hints": [
-    "Reuse your process_guess logic from the previous exercise",
-    "Use 'for each guess in guesses indexed by idx' to iterate with a row number",
-    "Call color_row(idx, states) for each guess",
-    "The idx from 'indexed by' starts at 1, which matches color_row's expected row numbers"
+    "Reuse your processGuess logic from the previous exercise",
+    "Use a loop to iterate through the guesses with an index for the row number",
+    "Call colorRow(idx, states) for each guess",
+    "The row index should match colorRow's expected row numbers"
   ]
 }

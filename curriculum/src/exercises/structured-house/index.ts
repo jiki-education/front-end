@@ -17,21 +17,21 @@ const functions: FunctionInfo[] = [
     description: "Draw a rectangle at position (x, y) with the given width, height, and color",
     examples: [
       'rectangle(0, 0, 100, 50, "#add8e6")',
-      "rectangle(house_left, house_top, house_width, house_height, house_color)"
+      "rectangle(houseLeft, houseTop, houseWidth, houseHeight, houseColor)"
     ],
     category: "Drawing Shapes"
   },
   {
     name: "circle",
-    signature: "circle(center_x, center_y, radius, color)",
-    description: "Draw a circle centered at (center_x, center_y) with the given radius and color",
-    examples: ['circle(50, 50, 10, "#000000")', "circle(knob_center_x, knob_center_y, knob_radius, knob_color)"],
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    examples: ['circle(50, 50, 10, "#000000")', "circle(knobCenterX, knobCenterY, knobRadius, knobColor)"],
     category: "Drawing Shapes"
   },
   {
     name: "ellipse",
-    signature: "ellipse(center_x, center_y, radius_x, radius_y, color)",
-    description: "Draw an ellipse centered at (center_x, center_y) with horizontal and vertical radii and color",
+    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
+    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
     examples: ['ellipse(50, 50, 20, 10, "#000000")', 'ellipse(30, 60, 15, 5, "#ffffff")'],
     category: "Drawing Shapes"
   },
@@ -41,7 +41,7 @@ const functions: FunctionInfo[] = [
     description: "Draw a triangle with three corner points and a color",
     examples: [
       'triangle(50, 20, 40, 40, 60, 40, "#8b4513")',
-      "triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y, roof_color)"
+      "triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY, roofColor)"
     ],
     category: "Drawing Shapes"
   }

@@ -18,9 +18,26 @@ git checkout -b feature-branch-name
 
 This file provides guidance to AI agents when working with the Jiki curriculum repository.
 
+## ⚠️ JavaScript-First Launch
+
+We are launching with **JavaScript only**. Python and Jikiscript support will be added later.
+
+All **user-facing text** must use JavaScript conventions:
+
+- **Function/variable names**: camelCase (e.g., `getAge()`, `turnLeft()`, `shotLength`)
+- **Code examples**: JavaScript syntax (e.g., `let age = getAge()`, `for` loops, `if` statements)
+- **No Jikiscript references**: Do not use `set ... to`, `change ... to`, `repeat N times do ... end`, `for each ... indexed by`, or mention "Jiki"/"Jikiscript" by name
+- **No Python references**: Do not use Python syntax in user-facing text
+
+This applies to: `metadata.json` (instructions, hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (`FunctionInfo` name/signature/examples), and `llm-metadata.ts`.
+
+**Exception**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** — the interpreter auto-converts to camelCase for JavaScript at runtime.
+
+Use `/audit-instructions` to verify an exercise's text content follows these conventions.
+
 ## Repository Overview
 
-This is the **@jiki/curriculum** package - a TypeScript library that defines all exercises and learning content for the Jiki platform. It serves as the central source of educational content that gets consumed by the frontend application, supporting both JavaScript and Python programming languages.
+This is the **@jiki/curriculum** package - a TypeScript library that defines all exercises and learning content for the Jiki platform. It serves as the central source of educational content that gets consumed by the frontend application.
 
 ### Purpose
 

@@ -9,7 +9,9 @@ const usingFunctions: Level = {
   languageFeatures: {
     javascript: {
       allowedNodes: ["ExpressionStatement", "CallExpression", "IdentifierExpression", "LiteralExpression"],
-      languageFeatures: {}
+      languageFeatures: {
+        allowedGlobals: ["console"]
+      }
     }
   }
 };

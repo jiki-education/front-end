@@ -8,12 +8,39 @@ const lists: Level = {
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["concatenate", "number_to_string", "keys", "string_to_number", "to_upper_case", "push"]
+        allowedStdlibFunctions: ["push"]
       }
     },
     javascript: {
-      allowedNodes: [],
-      languageFeatures: {}
+      allowedNodes: ["ArrayExpression"],
+      languageFeatures: {
+        allowedStdlib: {
+          array: {
+            properties: ["length"],
+            methods: [
+              "at",
+              "push",
+              "pop",
+              "shift",
+              "unshift",
+              "indexOf",
+              "includes",
+              "slice",
+              "concat",
+              "join",
+              "splice",
+              "sort",
+              "reverse",
+              "fill",
+              "lastIndexOf",
+              "toString",
+              "entries",
+              "keys",
+              "values"
+            ]
+          }
+        }
+      }
     }
   }
 };

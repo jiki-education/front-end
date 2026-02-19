@@ -108,7 +108,7 @@ Nothing yet
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
-- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Multiple Functions level)
+- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Dictionaries level)
 - `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
 - `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
 - `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
@@ -117,6 +117,8 @@ Nothing yet
 - `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
 - `weather-symbols-part-1` - Weather Symbols (Part 1): map weather descriptions to lists of drawing components using if/else if (Lists level)
 - `weather-symbols-part-2` - Weather Symbols (Part 2): draw weather scenes from a list of element types using conditionals and helper functions (Lists level)
+- `alien-detector` - Alien Detector: track and shoot aliens using list data instead of isAlienAbove(), with fireworks celebration (Lists level)
+- `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit using the classic sieve algorithm (Dictionaries level)
 
 ### Unimplemented
 

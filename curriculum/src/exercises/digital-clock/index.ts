@@ -12,24 +12,24 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "current_time_hour",
-    signature: "current_time_hour()",
+    name: "currentTimeHour",
+    signature: "currentTimeHour()",
     description: "Returns the current hour using 24-hour time (e.g. 23 for 11pm) as a number.",
-    examples: ["set hour to current_time_hour()"],
+    examples: ["let hour = currentTimeHour()"],
     category: "Time"
   },
   {
-    name: "current_time_minute",
-    signature: "current_time_minute()",
+    name: "currentTimeMinute",
+    signature: "currentTimeMinute()",
     description: "Returns the current minute as a number.",
-    examples: ["set minutes to current_time_minute()"],
+    examples: ["let minutes = currentTimeMinute()"],
     category: "Time"
   },
   {
-    name: "display_time",
-    signature: "display_time(hour, minutes, indicator)",
+    name: "displayTime",
+    signature: "displayTime(hour, minutes, indicator)",
     description: 'Displays the time on the digital clock. The indicator should be "am" or "pm".',
-    examples: ['display_time(7, 45, "am")'],
+    examples: ['displayTime(7, 45, "am")'],
     category: "Action"
   }
 ];

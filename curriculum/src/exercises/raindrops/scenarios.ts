@@ -37,10 +37,10 @@ export const tasks = [
     id: "no-sound" as const,
     name: "Numbers with no raindrop sound",
     description:
-      "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string. Use number_to_string() to convert the number.",
+      "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string. Use numberToString() to convert the number.",
     hints: [
       "Check if the result is still empty after all three checks",
-      "Use number_to_string() to convert the number to a string"
+      "Use numberToString() to convert the number to a string"
     ],
     requiredScenarios: ["number-8", "number-52"],
     bonus: false

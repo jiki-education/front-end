@@ -24,9 +24,9 @@ export const llmMetadata: LLMMetadata = {
         return concatenate(word1[1], word2[1], word3[1])
 
         Common mistakes:
-        - Forgetting that string indexing starts at 1 in Jikiscript (not 0)
-        - Trying to use + instead of concatenate() in Jikiscript
+        - Forgetting the correct string indexing for the language
         - Returning just one character instead of all three
+        - Getting the concatenation syntax wrong
       `
     }
   }

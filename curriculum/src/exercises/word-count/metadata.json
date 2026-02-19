@@ -1,13 +1,13 @@
 {
   "slug": "word-count",
   "title": "Word Count",
-  "instructions": "You teach English as a foreign language to high school students. You've decided to base your entire curriculum on TV shows. You need to analyze which words are used, and how often they're repeated.\n\nYour task is to count how many times each word occurs in a subtitle of a drama. The subtitles use only ASCII characters.\n\nThe characters often speak in casual English, using contractions like _they're_ or _it's_. Though these contractions come from two words, the contraction is considered a single word.\n\nWords can be separated by any form of punctuation (e.g. \":\", \"!\", or \"?\") or spaces. The only punctuation that does not separate words is the apostrophe in contractions.\n\nNumbers are considered words. If the subtitles say \"It costs 100 dollars\" then \"100\" will be its own word.\n\nWords are case insensitive. For example, the word \"you\" occurs three times in: \"You come back, you hear me? DO YOU HEAR ME?\"\n\nCreate a function called `count_words` that takes a sentence as its input, and returns a dictionary with words as keys and their frequencies as values.",
+  "instructions": "You teach English as a foreign language to high school students. You've decided to base your entire curriculum on TV shows. You need to analyze which words are used, and how often they're repeated.\n\nYour task is to count how many times each word occurs in a subtitle of a drama. The subtitles use only ASCII characters.\n\nThe characters often speak in casual English, using contractions like _they're_ or _it's_. Though these contractions come from two words, the contraction is considered a single word.\n\nWords can be separated by any form of punctuation (e.g. \":\", \"!\", or \"?\") or spaces. The only punctuation that does not separate words is the apostrophe in contractions.\n\nNumbers are considered words. If the subtitles say \"It costs 100 dollars\" then \"100\" will be its own word.\n\nWords are case insensitive. For example, the word \"you\" occurs three times in: \"You come back, you hear me? DO YOU HEAR ME?\"\n\nCreate a function called `countWords` that takes a sentence as its input, and returns a dictionary with words as keys and their frequencies as values.",
   "estimatedMinutes": 20,
   "levelId": "dictionaries",
   "hints": [
     "Start by converting the sentence to lowercase so comparisons are case-insensitive",
     "Extract individual words by iterating through each character and checking if it's a letter, number, or apostrophe",
     "Use a dictionary to track word counts - check if a word already exists as a key before incrementing",
-    "Remember that has_key() can check if a key exists in a dictionary"
+    "Remember that hasKey() can check if a key exists in a dictionary"
   ]
 }

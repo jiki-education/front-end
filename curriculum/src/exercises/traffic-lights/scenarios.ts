@@ -7,8 +7,8 @@ export const tasks = [
     name: "Draw the traffic lights",
     description: "Use the provided variables to draw the three colored lights on the traffic light.",
     hints: [
-      "Use circle(center_x, top_y, radius, color) for each light",
-      "Red goes at top_y, yellow at middle_y, green at bottom_y",
+      "Use circle(centerX, topY, radius, color) for each light",
+      "Red goes at topY, yellow at middleY, green at bottomY",
       "The color is the last argument to circle"
     ],
     requiredScenarios: ["draw-lights"],
@@ -42,15 +42,15 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: ex.hasCircleAt(50, 25, 10),
-          errorHtml: "The red light (top) is not correct. Use circle(center_x, top_y, radius, color)."
+          errorHtml: "The red light (top) is not correct. Use circle(centerX, topY, radius, color)."
         },
         {
           pass: ex.hasCircleAt(50, 50, 10),
-          errorHtml: "The yellow light (middle) is not correct. Use circle(center_x, middle_y, radius, color)."
+          errorHtml: "The yellow light (middle) is not correct. Use circle(centerX, middleY, radius, color)."
         },
         {
           pass: ex.hasCircleAt(50, 75, 10),
-          errorHtml: "The green light (bottom) is not correct. Use circle(center_x, bottom_y, radius, color)."
+          errorHtml: "The green light (bottom) is not correct. Use circle(centerX, bottomY, radius, color)."
         }
       ];
     }

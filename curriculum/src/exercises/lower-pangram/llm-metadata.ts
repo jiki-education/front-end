@@ -11,7 +11,7 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches function decomposition — breaking a problem into smaller helper functions.
     Students write an includes() function to check for a character in a string, then use it
-    inside is_pangram() to check if a sentence contains every letter of the alphabet.
+    inside isPangram() to check if a sentence contains every letter of the alphabet.
     Key concepts: writing multiple functions, calling helper functions, string iteration, early return.
     This is a lowercase-only version — no case conversion needed.
   `,
@@ -21,9 +21,9 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to write two functions:
         1. includes(str, target) - checks if a character exists in a string
-        2. is_pangram(sentence) - checks if all 26 lowercase letters appear in the sentence
+        2. isPangram(sentence) - checks if all 26 lowercase letters appear in the sentence
 
-        The key learning point is using includes() inside is_pangram() rather than
+        The key learning point is using includes() inside isPangram() rather than
         inlining the character search logic. A code check enforces this.
 
         Common approaches:
@@ -33,7 +33,7 @@ export const llmMetadata: LLMMetadata = {
         Common mistakes:
         - Forgetting to return false at the end of includes (after the loop)
         - Not using the includes function (inlining the logic instead)
-        - Iterating through the sentence instead of the alphabet in is_pangram
+        - Iterating through the sentence instead of the alphabet in isPangram
         - Forgetting that empty string should return false
       `
     }

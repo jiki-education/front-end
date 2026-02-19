@@ -1,7 +1,7 @@
 {
   "slug": "niche-named-party",
   "title": "Niche Named Party",
-  "instructions": "Tonight's party is very exclusive - only people whose names start with a specific set of letters are allowed in!\n\nYou have these functions:\n- `ask_name()` returns the name of the person at the door\n- `get_allowed_start()` returns the required starting letters for tonight's party\n- `let_in()` lets the person into the party\n- `turn_away()` turns the person away\n\nFor example, if tonight's allowed start is `\"S\"`, then `\"Sarah\"` gets in but `\"Brad\"` doesn't. If the allowed start is `\"Brad\"`, then `\"Bradley\"` gets in but `\"Brian\"` doesn't.\n\nWrite code that checks if the person's name starts with the allowed letters, and either lets them in or turns them away.",
+  "instructions": "Tonight's party is very exclusive - only people whose names start with a specific set of letters are allowed in!\n\nYou have these functions:\n- `askName()` returns the name of the person at the door\n- `getAllowedStart()` returns the required starting letters for tonight's party\n- `letIn()` lets the person into the party\n- `turnAway()` turns the person away\n\nFor example, if tonight's allowed start is `\"S\"`, then `\"Sarah\"` gets in but `\"Brad\"` doesn't. If the allowed start is `\"Brad\"`, then `\"Bradley\"` gets in but `\"Brian\"` doesn't.\n\nWrite code that checks if the person's name starts with the allowed letters, and either lets them in or turns them away.",
   "estimatedMinutes": 15,
   "levelId": "multiple-functions",
   "hints": [

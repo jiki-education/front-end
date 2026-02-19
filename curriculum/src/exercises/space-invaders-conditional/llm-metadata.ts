@@ -11,7 +11,7 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise introduces if-statements (conditionals) in a Space Invaders context.
     Students already know repeat loops from previous exercises. Now they learn to
-    conditionally execute code based on a boolean check: is_alien_above().
+    conditionally execute code based on a boolean check: isAlienAbove().
     The key insight is that not every column has an alien, so they must check before shooting.
     Five different alien layouts prevent hard-coding specific shoot positions.
   `,
@@ -21,10 +21,10 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to:
         1. Recognize they need to check each column as they move right
-        2. Use is_alien_above() to detect whether to shoot
+        2. Use isAlienAbove() to detect whether to shoot
         3. Use an if statement to conditionally call shoot()
         4. Wrap the check-and-move pattern in a repeat(10) loop
-        5. The full solution: repeat 10 times { if is_alien_above() { shoot() } move() }
+        5. The full solution: repeat 10 times { if (isAlienAbove()) { shoot() } move() }
 
         Common mistakes:
         - Shooting without checking (hits empty columns and loses)
@@ -36,7 +36,7 @@ export const llmMetadata: LLMMetadata = {
         Teaching strategy:
         - Ask: "What's different from the previous exercise?" (not every column has an alien)
         - Ask: "How can you check if there's an alien above before shooting?"
-        - Guide them to the if pattern: if is_alien_above() do shoot() end
+        - Guide them to the if pattern: if (isAlienAbove()) { shoot() }
         - Then ask: "How do you do this for every column?"
         - Emphasize that move() must happen every time, not just when there's an alien
       `

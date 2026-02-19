@@ -39,7 +39,8 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
     languageFeatures: {
-      timePerFrame: 1
+      timePerFrame: 1,
+      ...exercise.interpreterOptions
     }
   });
 
@@ -54,13 +55,19 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   if (exercise.type === "visual") {
     // Run visual scenarios
     for (const scenario of exercise.scenarios) {
-      const result = runVisualScenario(scenario, studentCode, exercise.ExerciseClass, language);
+      const result = runVisualScenario(
+        scenario,
+        studentCode,
+        exercise.ExerciseClass,
+        language,
+        exercise.interpreterOptions
+      );
       tests.push(result);
     }
   } else {
     // Run IO scenarios
     for (const scenario of exercise.scenarios) {
-      const result = runIOScenario(scenario, studentCode, availableFunctions, language);
+      const result = runIOScenario(scenario, studentCode, availableFunctions, language, exercise.interpreterOptions);
       tests.push(result);
     }
   }

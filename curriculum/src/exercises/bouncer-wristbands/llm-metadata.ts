@@ -9,7 +9,7 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches if/else if/else chains. Students use get_age()
+    This exercise teaches if/else if/else chains. Students use getAge()
     to retrieve a value, then use a chain of conditions to call the correct
     wristband function based on age ranges.
 
@@ -21,19 +21,19 @@ export const llmMetadata: LLMMetadata = {
     "assign-wristband": {
       description: `
         Students need to:
-        1. Call get_age() and store the result in a variable
+        1. Call getAge() and store the result in a variable
         2. Use if/else if/else to check age ranges in order
         3. Call the correct wristband function for each range
 
         Age ranges:
-        - Under 13: child_wristband()
-        - 13 to 17: teen_wristband()
-        - 18 to 64: adult_wristband()
-        - 65 and over: senior_wristband()
+        - Under 13: childWristband()
+        - 13 to 17: teenWristband()
+        - 18 to 64: adultWristband()
+        - 65 and over: seniorWristband()
 
         Key functions:
-        - get_age(): returns the person's age as a number
-        - child_wristband(), teen_wristband(), adult_wristband(), senior_wristband()
+        - getAge(): returns the person's age as a number
+        - childWristband(), teenWristband(), adultWristband(), seniorWristband()
 
         Common mistakes:
         - Using <= 13 instead of < 13 (the boundary-13 scenario catches this)

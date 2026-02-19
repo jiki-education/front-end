@@ -13,24 +13,24 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "add_word",
-    signature: "add_word(row, word, states)",
+    name: "addWord",
+    signature: "addWord(row, word, states)",
     description: "Adds a word to the Wordle board at the given row (1-6) with its letter states.",
-    examples: ['add_word(1, "hello", ["correct", "present", "absent", "absent", "correct"])'],
+    examples: ['addWord(1, "hello", ["correct", "present", "absent", "absent", "correct"])'],
     category: "Wordle"
   },
   {
-    name: "get_target_word",
-    signature: "get_target_word()",
+    name: "getTargetWord",
+    signature: "getTargetWord()",
     description: "Returns the secret target word. Use this to check your guess, not to cheat!",
-    examples: ["set target to get_target_word()"],
+    examples: ["let target = getTargetWord()"],
     category: "Wordle"
   },
   {
-    name: "common_words",
-    signature: "common_words()",
+    name: "commonWords",
+    signature: "commonWords()",
     description: "Returns a list of 100+ common five-letter words to use as guesses.",
-    examples: ["set words to common_words()"],
+    examples: ["let words = commonWords()"],
     category: "Wordle"
   },
   {

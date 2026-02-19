@@ -19,7 +19,7 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to:
         1. Initialize a step counter to 0
-        2. Use an infinite loop (repeat_forever / while true)
+        2. Use an infinite loop (while true)
         3. Check if the number equals 1 and return the counter if so
         4. Check if the number is even (number % 2 == 0) and divide by 2
         5. Otherwise multiply by 3 and add 1

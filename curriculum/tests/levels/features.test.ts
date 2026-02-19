@@ -27,9 +27,9 @@ describe("Language Features", () => {
   });
 
   describe("getFeatureFlags", () => {
-    it("should return empty features for using-functions", () => {
+    it("should return features for using-functions", () => {
       const flags = getFeatureFlags("using-functions", "javascript") as JavaScriptFeatureFlags;
-      expect(flags).toEqual({});
+      expect(flags).toEqual({ allowedGlobals: ["console"] });
     });
 
     it("should return restrictive features for variables", () => {
@@ -71,7 +71,6 @@ describe("Language Features", () => {
       expect(features.allowedNodes).toContain("RepeatStatement");
       expect(features.allowedNodes).toContain("VariableDeclaration");
       expect(features.allowedNodes).toContain("AssignmentExpression");
-      expect(features.allowedNodes).toContain("MemberExpression");
       expect(features.allowedNodes).toContain("IfStatement");
 
       // Should NOT have later features
@@ -116,6 +115,68 @@ describe("Language Features", () => {
       expect(Array.isArray(features.allowedNodes)).toBe(true);
       expect(typeof features.allowShadowing).toBe("boolean");
       expect(typeof features.requireVariableInstantiation).toBe("boolean");
+    });
+
+    it("should accumulate allowedGlobals across levels", () => {
+      // using-functions introduces console
+      const usingFunctions = getLanguageFeatures("using-functions", "javascript");
+      expect(usingFunctions.allowedGlobals).toEqual(["console"]);
+
+      // functions-that-return-things adds Math
+      const ftrThings = getLanguageFeatures("functions-that-return-things", "javascript");
+      expect(ftrThings.allowedGlobals).toContain("console");
+      expect(ftrThings.allowedGlobals).toContain("Math");
+
+      // advanced-lists adds Number
+      const continueBreak = getLanguageFeatures("advanced-lists", "javascript");
+      expect(continueBreak.allowedGlobals).toContain("console");
+      expect(continueBreak.allowedGlobals).toContain("Math");
+      expect(continueBreak.allowedGlobals).toContain("Number");
+    });
+
+    it("should accumulate allowedStdlib across levels", () => {
+      // methods-and-properties introduces string stdlib
+      const methodsProps = getLanguageFeatures("methods-and-properties", "javascript");
+      expect(methodsProps.allowedStdlib?.string?.properties).toContain("length");
+      expect(methodsProps.allowedStdlib?.string?.methods).toContain("toUpperCase");
+      expect(methodsProps.allowedStdlib?.array).toBeUndefined();
+
+      // lists adds array stdlib, keeps string stdlib
+      const listsLevel = getLanguageFeatures("lists", "javascript");
+      expect(listsLevel.allowedStdlib?.string?.properties).toContain("length");
+      expect(listsLevel.allowedStdlib?.string?.methods).toContain("toUpperCase");
+      expect(listsLevel.allowedStdlib?.array?.properties).toContain("length");
+      expect(listsLevel.allowedStdlib?.array?.methods).toContain("push");
+    });
+
+    it("should accumulate jikiscript allowedStdlibFunctions across levels", () => {
+      // functions-that-return-things introduces random_number
+      const ftrThings = getLanguageFeatures("functions-that-return-things", "jikiscript");
+      expect(ftrThings.allowedStdlibFunctions).toEqual(["random_number"]);
+
+      // string-manipulation adds concatenate, number_to_string
+      const strManip = getLanguageFeatures("string-manipulation", "jikiscript");
+      expect(strManip.allowedStdlibFunctions).toContain("random_number");
+      expect(strManip.allowedStdlibFunctions).toContain("concatenate");
+      expect(strManip.allowedStdlibFunctions).toContain("number_to_string");
+
+      // dictionaries should have all functions from earlier levels
+      const dicts = getLanguageFeatures("dictionaries", "jikiscript");
+      expect(dicts.allowedStdlibFunctions).toContain("random_number");
+      expect(dicts.allowedStdlibFunctions).toContain("concatenate");
+      expect(dicts.allowedStdlibFunctions).toContain("number_to_string");
+      expect(dicts.allowedStdlibFunctions).toContain("keys");
+      expect(dicts.allowedStdlibFunctions).toContain("string_to_number");
+      expect(dicts.allowedStdlibFunctions).toContain("to_upper_case");
+      expect(dicts.allowedStdlibFunctions).toContain("push");
+      expect(dicts.allowedStdlibFunctions).toContain("has_key");
+      expect(dicts.allowedStdlibFunctions).toContain("to_lower_case");
+    });
+
+    it("should not duplicate allowedGlobals", () => {
+      const everything = getLanguageFeatures("everything", "javascript");
+      const consoleCount = everything.allowedGlobals?.filter((g) => g === "console").length ?? 0;
+      expect(consoleCount).toBe(1);
     });
   });
 });

@@ -82,7 +82,10 @@ export const exercises = {
   "maze-walk": () => import("./maze-walk"),
   "battle-procedures": () => import("./battle-procedures"),
   "weather-symbols-part-1": () => import("./weather-symbols-part-1"),
-  "weather-symbols-part-2": () => import("./weather-symbols-part-2")
+  "weather-symbols-part-2": () => import("./weather-symbols-part-2"),
+  "lookup-time": () => import("./lookup-time"),
+  "alien-detector": () => import("./alien-detector"),
+  sieve: () => import("./sieve")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

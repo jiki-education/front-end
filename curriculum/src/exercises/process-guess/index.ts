@@ -13,10 +13,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "color_row",
-    signature: "color_row(row_index, states)",
+    name: "colorRow",
+    signature: "colorRow(rowIndex, states)",
     description: "Colors a row on the Wordle board with the given states.",
-    examples: ['color_row(1, ["correct", "present", "absent", "absent", "correct"])'],
+    examples: ['colorRow(1, ["correct", "present", "absent", "absent", "correct"])'],
     category: "Wordle"
   },
   {

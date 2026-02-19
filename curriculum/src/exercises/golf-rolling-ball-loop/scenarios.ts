@@ -5,10 +5,10 @@ export const tasks = [
   {
     id: "roll-ball" as const,
     name: "Roll the ball into the hole",
-    description: "Use a repeat loop to move the ball 60 times to the right so it reaches the hole.",
+    description: "Use a loop to move the ball 60 times to the right so it reaches the hole.",
     hints: [
       "The ball needs to move 60 times to the right",
-      "Use repeat 60 times do ... end",
+      "Use a loop that runs 60 times",
       "You only need one function call inside the loop"
     ],
     requiredScenarios: ["roll-ball"],
@@ -20,7 +20,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "roll-ball",
     name: "Roll the ball into the hole",
-    description: "Move the ball 60 units to the right using a repeat loop.",
+    description: "Move the ball 60 units to the right using a loop.",
     taskId: "roll-ball",
 
     setup(exercise) {
@@ -45,7 +45,7 @@ export const scenarios: VisualScenario[] = [
           const limit = language === "python" ? 2 : 3;
           return result.assertors.assertMaxLinesOfCode(limit);
         },
-        errorHtml: "Your solution has too many lines of code. Try using a repeat loop to make it shorter!"
+        errorHtml: "Your solution has too many lines of code. Try using a loop to make it shorter!"
       }
     ]
   }

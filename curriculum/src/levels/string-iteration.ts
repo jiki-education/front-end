@@ -7,7 +7,7 @@ const stringIteration: Level = {
   taughtConcepts: ["Iterating through strings character by character"],
   languageFeatures: {
     javascript: {
-      allowedNodes: [],
+      allowedNodes: ["ForOfStatement", "IndexExpression"],
       languageFeatures: {}
     }
   }

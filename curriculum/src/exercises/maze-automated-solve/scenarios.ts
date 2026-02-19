@@ -14,7 +14,7 @@ export const tasks = [
     id: "turn-left" as const,
     name: "Turn left if you can",
     description: "If there's a path to the left, take it!",
-    hints: ["Check can_turn_left() first", "If it's true, turn left then move"],
+    hints: ["Check canTurnLeft() first", "If it's true, turn left then move"],
     requiredScenarios: ["left-turn"],
     bonus: false
   },
@@ -22,7 +22,7 @@ export const tasks = [
     id: "turn-right" as const,
     name: "Turn right if you can't move straight or left",
     description: "If there's not a path to the left or straight ahead, take the path to the right.",
-    hints: ["Use else if to check can_turn_right()", "Remember to turn right before moving"],
+    hints: ["Use else if to check canTurnRight()", "Remember to turn right before moving"],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false
   },

@@ -8,7 +8,7 @@ export const tasks = [
     description:
       "Move across the screen, checking each position. If there's an alien above you, shoot it. If not, just move on.",
     hints: [
-      "Use is_alien_above() to check before shooting",
+      "Use isAlienAbove() to check before shooting",
       "Wrap the check-and-move pattern in a repeat loop",
       "The pattern is: check, maybe shoot, then move"
     ],

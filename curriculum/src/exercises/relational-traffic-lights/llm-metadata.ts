@@ -21,18 +21,18 @@ export const llmMetadata: LLMMetadata = {
 
         Fixed variables:
         - red = "#FF0000", yellow = "#FFFF00", green = "#00FF00"
-        - housing_color = "#222222"
+        - housingColor = "#222222"
         - radius = 10
 
         Derived variables (all multiples of radius):
-        - center_x = radius * 5 = 50
-        - red_y = radius * 3 = 30
-        - yellow_y = radius * 5 = 50
-        - green_y = radius * 7 = 70
-        - housing_x = radius * 3 = 30
-        - housing_y = radius = 10
-        - housing_width = radius * 4 = 40
-        - housing_height = radius * 8 = 80
+        - centerX = radius * 5 = 50
+        - redY = radius * 3 = 30
+        - yellowY = radius * 5 = 50
+        - greenY = radius * 7 = 70
+        - housingX = radius * 3 = 30
+        - housingY = radius = 10
+        - housingWidth = radius * 4 = 40
+        - housingHeight = radius * 8 = 80
 
         Key teaching points:
         1. All dimensions scale proportionally from one variable
@@ -42,7 +42,7 @@ export const llmMetadata: LLMMetadata = {
 
         Common mistakes:
         - Hardcoding values instead of using radius * n
-        - Getting the housing position wrong (it starts at radius*3, not center_x - radius*2)
+        - Getting the housing position wrong (it starts at radius*3, not centerX - radius*2)
         - Incorrect spacing between lights
       `
     }

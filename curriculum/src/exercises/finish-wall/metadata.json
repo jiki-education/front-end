@@ -5,7 +5,7 @@
   "estimatedMinutes": 10,
   "levelId": "basic-state",
   "hints": [
-    "Use repeat 5 times to draw all the bricks",
+    "Use a loop that runs 5 times to draw all the bricks",
     "Track the x position with a variable that increases by 20 each iteration",
     "All bricks have the same y position (0), width (20), and height (10)",
     "The rectangle function should only appear once inside the loop"

@@ -21,7 +21,7 @@ export const tasks = [
     description:
       "Get the person's age and give them the correct wristband: child (under 13), teen (13-17), adult (18-64), or senior (65+).",
     hints: [
-      "Use get_age() to find out the person's age",
+      "Use getAge() to find out the person's age",
       "Check the youngest group first: if age < 13, give a child wristband",
       "Use else if for the next groups: age < 18 for teen, age < 65 for adult",
       "Use else for the last group (seniors)"

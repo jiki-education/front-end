@@ -1,13 +1,13 @@
 {
   "slug": "relational-snowman",
   "title": "Relational Snowman",
-  "instructions": "Your task is to rewrite the snowman so all the sizes and positions are derived from a single `size` variable using arithmetic.\n\n<!-- TODO: Add target relational snowman image here -->\n\n### How it works\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- Three variables are fixed: `size`, `snowman_x`, and `head_y`.\n- You need to derive all other variables using arithmetic expressions.\n- The head radius is `size * 2`, the body radius is `size * 3`, and the base radius is `size * 4`.\n- The circles should touch each other: the body sits directly below the head, and the base sits directly below the body.\n- To make two circles touch, the distance between their centers equals the sum of their radii.\n\n### Variables\n\n- `size` — the base unit (fixed at 5)\n- `snowman_x` — horizontal center (fixed at 50)\n- `head_y` — vertical center of the head (fixed at 20)\n- `head_radius` — derive from `size`\n- `body_radius` — derive from `size`\n- `base_radius` — derive from `size`\n- `body_y` — derive from `head_y`, `head_radius`, and `body_radius`\n- `base_y` — derive from `body_y`, `body_radius`, and `base_radius`\n\n### Functions used in this exercise\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle",
+  "instructions": "Your task is to rewrite the snowman so all the sizes and positions are derived from a single `size` variable using arithmetic.\n\n<!-- TODO: Add target relational snowman image here -->\n\n### How it works\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- Three variables are fixed: `size`, `snowmanX`, and `headY`.\n- You need to derive all other variables using arithmetic expressions.\n- The head radius is `size * 2`, the body radius is `size * 3`, and the base radius is `size * 4`.\n- The circles should touch each other: the body sits directly below the head, and the base sits directly below the body.\n- To make two circles touch, the distance between their centers equals the sum of their radii.\n\n### Variables\n\n- `size` — the base unit (fixed at 5)\n- `snowmanX` — horizontal center (fixed at 50)\n- `headY` — vertical center of the head (fixed at 20)\n- `headRadius` — derive from `size`\n- `bodyRadius` — derive from `size`\n- `baseRadius` — derive from `size`\n- `bodyY` — derive from `headY`, `headRadius`, and `bodyRadius`\n- `baseY` — derive from `bodyY`, `bodyRadius`, and `baseRadius`\n\n### Functions used in this exercise\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle",
   "estimatedMinutes": 15,
   "levelId": "variables",
   "hints": [
     "The head radius is size * 2, the body radius is size * 3, the base radius is size * 4",
     "Two circles touch when the distance between centers equals the sum of their radii",
-    "body_y = head_y + head_radius + body_radius",
-    "base_y = body_y + body_radius + base_radius"
+    "bodyY = headY + headRadius + bodyRadius",
+    "baseY = bodyY + bodyRadius + baseRadius"
   ]
 }

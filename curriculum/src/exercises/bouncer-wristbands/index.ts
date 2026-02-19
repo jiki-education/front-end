@@ -12,38 +12,38 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "get_age",
-    signature: "get_age()",
+    name: "getAge",
+    signature: "getAge()",
     description: "Returns the **age** of the person waiting outside.",
-    examples: ["set age to get_age()"],
+    examples: ["let age = getAge()"],
     category: "Information"
   },
   {
-    name: "child_wristband",
-    signature: "child_wristband()",
+    name: "childWristband",
+    signature: "childWristband()",
     description: "Gives the person a **child** wristband (under 13).",
-    examples: ["child_wristband()"],
+    examples: ["childWristband()"],
     category: "Wristbands"
   },
   {
-    name: "teen_wristband",
-    signature: "teen_wristband()",
+    name: "teenWristband",
+    signature: "teenWristband()",
     description: "Gives the person a **teen** wristband (13-17).",
-    examples: ["teen_wristband()"],
+    examples: ["teenWristband()"],
     category: "Wristbands"
   },
   {
-    name: "adult_wristband",
-    signature: "adult_wristband()",
+    name: "adultWristband",
+    signature: "adultWristband()",
     description: "Gives the person an **adult** wristband (18-64).",
-    examples: ["adult_wristband()"],
+    examples: ["adultWristband()"],
     category: "Wristbands"
   },
   {
-    name: "senior_wristband",
-    signature: "senior_wristband()",
+    name: "seniorWristband",
+    signature: "seniorWristband()",
     description: "Gives the person a **senior** wristband (65+).",
-    examples: ["senior_wristband()"],
+    examples: ["seniorWristband()"],
     category: "Wristbands"
   }
 ];

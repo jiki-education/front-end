@@ -6,7 +6,7 @@ export const tasks = [
     id: "process-guess" as const,
     name: "Process a single guess",
     description:
-      "Create a function called process_first_guess that takes a target word and a guess, works out the state of each letter (correct, present, or absent), then calls color_row(1, states) with the results.",
+      "Create a function called processGuess that takes a target word and a guess, works out the state of each letter (correct, present, or absent), then calls colorRow(1, states) with the results.",
     hints: [
       "Use a helper function to check if a letter is contained in the word",
       "Compare each letter at the same position for 'correct'",
@@ -24,7 +24,7 @@ export const scenarios: VisualScenario[] = [
     name: "All correct",
     description: "Deal with a fully correct guess",
     taskId: "process-guess",
-    functionCall: { name: "process_first_guess", args: ["hello", "hello"] },
+    functionCall: { name: "process_guess", args: ["hello", "hello"] },
 
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
@@ -43,7 +43,7 @@ export const scenarios: VisualScenario[] = [
     name: "Some absent",
     description: "Handle when some letters are wrong",
     taskId: "process-guess",
-    functionCall: { name: "process_first_guess", args: ["hello", "hallu"] },
+    functionCall: { name: "process_guess", args: ["hello", "hallu"] },
 
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
@@ -62,7 +62,7 @@ export const scenarios: VisualScenario[] = [
     name: "Some present",
     description: "Deal with letters in the wrong place",
     taskId: "process-guess",
-    functionCall: { name: "process_first_guess", args: ["hello", "hlelo"] },
+    functionCall: { name: "process_guess", args: ["hello", "hlelo"] },
 
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
@@ -81,7 +81,7 @@ export const scenarios: VisualScenario[] = [
     name: "Complex",
     description: "Deal with a more complex scenario",
     taskId: "process-guess",
-    functionCall: { name: "process_first_guess", args: ["hello", "ehola"] },
+    functionCall: { name: "process_guess", args: ["hello", "ehola"] },
 
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
@@ -100,7 +100,7 @@ export const scenarios: VisualScenario[] = [
     name: "A different word",
     description: "And finally a different word!",
     taskId: "process-guess",
-    functionCall: { name: "process_first_guess", args: ["break", "beaks"] },
+    functionCall: { name: "process_guess", args: ["break", "beaks"] },
 
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;

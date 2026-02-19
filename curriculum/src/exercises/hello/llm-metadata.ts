@@ -21,7 +21,7 @@ export const llmMetadata: LLMMetadata = {
         Common mistakes:
         - Forgetting the comma and space after "Hello"
         - Forgetting the exclamation mark at the end
-        - Trying to use + instead of concatenate() in Jikiscript
+        - Trying to use + instead of concatenate()
       `
     }
   }

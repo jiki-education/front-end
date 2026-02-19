@@ -20,8 +20,8 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to iterate through each letter of the guess, compare it to the target word,
         and build up a list of states. A helper function to check if a letter exists in the word
-        is very useful. Common mistakes: forgetting to use indexed iteration, confusing the order
-        of correct/present/absent checks, not using push() to build the states list.
+        is very useful. Common mistakes: confusing the order of correct/present/absent checks,
+        not using push() to build the states list.
       `
     }
   }

@@ -12,31 +12,31 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "get_outfit",
-    signature: "get_outfit()",
+    name: "getOutfit",
+    signature: "getOutfit()",
     description: 'Returns the **outfit** the person is wearing (e.g. `"ballgown"`, `"suit"`, `"jeans"`).',
-    examples: ["set outfit to get_outfit()"],
+    examples: ["let outfit = getOutfit()"],
     category: "Information"
   },
   {
-    name: "offer_champagne",
-    signature: "offer_champagne()",
+    name: "offerChampagne",
+    signature: "offerChampagne()",
     description: "Offers the person a glass of champagne.",
-    examples: ["offer_champagne()"],
+    examples: ["offerChampagne()"],
     category: "Action"
   },
   {
-    name: "let_in",
-    signature: "let_in()",
+    name: "letIn",
+    signature: "letIn()",
     description: "Lets the person into the venue.",
-    examples: ["let_in()"],
+    examples: ["letIn()"],
     category: "Action"
   },
   {
-    name: "turn_away",
-    signature: "turn_away()",
+    name: "turnAway",
+    signature: "turnAway()",
     description: "Turns the person away from the venue.",
-    examples: ["turn_away()"],
+    examples: ["turnAway()"],
     category: "Action"
   }
 ];

@@ -49,14 +49,13 @@ export const llmMetadata: LLMMetadata = {
         4. Create a list of codons, then translate each
 
         Common mistakes:
-        - Off-by-one errors when using modulo (counter starts at 1, not 0)
+        - Off-by-one errors when using modulo
         - Not resetting the codon string after adding to list
-        - Trying to use substring/slice operations not available in Jiki
 
         Teaching strategy:
-        - Recommend writing a separate rna_to_codons function
+        - Recommend writing a separate rnaToCodons function
         - Walk through the logic: accumulate 3 chars, add to list, reset
-        - Use 'indexed by' syntax to track position (1-based in Jiki!)
+        - Use a counter variable to track position in the string
         - Modulo 3 == 0 means we've completed a codon
       `
     },

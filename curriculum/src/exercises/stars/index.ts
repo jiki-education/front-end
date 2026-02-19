@@ -22,7 +22,7 @@ const functions: FunctionInfo[] = [
     name: "push",
     signature: "push(list, item)",
     description: "Add an item to the end of a list (provided by level stdlib)",
-    examples: ['push(my_list, "*")'],
+    examples: ['push(myList, "*")'],
     category: "List Operations"
   }
 ];

@@ -1,12 +1,12 @@
 {
   "slug": "sunset",
   "title": "Sunset",
-  "instructions": "Your task is to animate a sunset scene that lasts 100 iterations.\n\nWe've drawn the initial scene for you. You need to animate a few things:\n\n- **The size of the sun**: It should start with a radius of 5 and grow by 0.2 each iteration.\n- **The position of the sun**: It has an initial center of (50, 10), and should lower in the sky by 1 each iteration.\n- **The color of the sun**: Animate from yellow to orange using RGB.\n- **The color of the sky**: Use HSL to animate the sky color.\n\nRemember to `set` the initial values **outside** of the `repeat` block, and then `change` them **inside** the block **before** you call the drawing functions.\n\n### Functions used in this exercise:\n\n- `circle(center_x, center_y, radius, color)` - Draw a circle\n- `rectangle(x, y, width, height, color)` - Draw a rectangle\n- `rgb_to_hex(red, green, blue)` - Convert RGB values (0-255) to a hex color string\n- `hsl_to_hex(hue, saturation, luminosity)` - Convert HSL values to a hex color string",
+  "instructions": "Your task is to animate a sunset scene that lasts 100 iterations.\n\nWe've drawn the initial scene for you. You need to animate a few things:\n\n- **The size of the sun**: It should start with a radius of 5 and grow by 0.2 each iteration.\n- **The position of the sun**: It has an initial center of (50, 10), and should lower in the sky by 1 each iteration.\n- **The color of the sun**: Animate from yellow to orange using RGB.\n- **The color of the sky**: Use HSL to animate the sky color.\n\nRemember to initialize the variables **outside** of the loop, and then update them **inside** the loop **before** you call the drawing functions.\n\n### Functions used in this exercise:\n\n- `circle(centerX, centerY, radius, color)` - Draw a circle\n- `rectangle(x, y, width, height, color)` - Draw a rectangle\n- `rgbToHex(red, green, blue)` - Convert RGB values (0-255) to a hex color string\n- `hslToHex(hue, saturation, luminosity)` - Convert HSL values to a hex color string",
   "estimatedMinutes": 15,
   "levelId": "basic-state",
   "hints": [
-    "Set variables for the sun's position, radius, and color components BEFORE the repeat block",
-    "Change each variable INSIDE the repeat block, BEFORE drawing the shapes",
+    "Initialize variables for the sun's position, radius, and color components BEFORE the loop",
+    "Update each variable INSIDE the loop, BEFORE drawing the shapes",
     "For RGB colors: red is 0-255, green is 0-255, blue is 0-255",
     "For HSL colors: hue is 0-360, saturation is 0-100, luminosity is 0-100",
     "Draw the sky rectangle first, then the sun circle, then the sea and sand"

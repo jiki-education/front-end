@@ -38,8 +38,10 @@ export default class MazeExercise extends VisualExercise {
   ];
 
   move(executionCtx: ExecutionContext) {
+    console.log("MOVE");
     let newRow = this.characterRow;
     let newCol = this.characterCol;
+    console.log(newRow, newCol);
 
     // Calculate new position based on direction
     switch (this.direction) {
@@ -90,9 +92,11 @@ export default class MazeExercise extends VisualExercise {
     });
 
     executionCtx.fastForward(200);
+    console.log("HERE");
   }
 
   turnLeft(executionCtx: ExecutionContext) {
+    console.log("TURN LEFT");
     // Rotate 90 degrees counter-clockwise
     this.rotation -= 90;
 

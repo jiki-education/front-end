@@ -1,7 +1,7 @@
 {
   "slug": "weather-symbols-part-1",
   "title": "Weather Symbols (Part 1)",
-  "instructions": "We're going to draw a range of weather symbols, made up of smaller components. It's split into two parts.\n\nIn this first part, take a weather description (like `sunny` or `rainbow-territory`) and turn it into a list of the components that need drawing.\n\nThis is how they should map:\n\n- `\"sunny\"`: `[\"sun\"]`\n- `\"dull\"`: `[\"cloud\"]`\n- `\"miserable\"`: `[\"cloud\", \"rain\"]`\n- `\"hopeful\"`: `[\"sun\", \"cloud\"]`\n- `\"rainbow-territory\"`: `[\"sun\", \"cloud\", \"rain\"]`\n- `\"exciting\"`: `[\"cloud\", \"snow\"]`\n- `\"snowboarding-time\"`: `[\"sun\", \"cloud\", \"snow\"]`\n\nCreate a function called `description_to_elements(description)`. It takes the description as a string input and returns the list of components to draw.",
+  "instructions": "We're going to draw a range of weather symbols, made up of smaller components. It's split into two parts.\n\nIn this first part, take a weather description (like `sunny` or `rainbow-territory`) and turn it into a list of the components that need drawing.\n\nThis is how they should map:\n\n- `\"sunny\"`: `[\"sun\"]`\n- `\"dull\"`: `[\"cloud\"]`\n- `\"miserable\"`: `[\"cloud\", \"rain\"]`\n- `\"hopeful\"`: `[\"sun\", \"cloud\"]`\n- `\"rainbow-territory\"`: `[\"sun\", \"cloud\", \"rain\"]`\n- `\"exciting\"`: `[\"cloud\", \"snow\"]`\n- `\"snowboarding-time\"`: `[\"sun\", \"cloud\", \"snow\"]`\n\nCreate a function called `descriptionToElements(description)`. It takes the description as a string input and returns the list of components to draw.",
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [

@@ -6,9 +6,9 @@ export const tasks = [
     id: "display-time" as const,
     name: "Display the time on the clock",
     description:
-      "Get the current hour and minute, convert to 12-hour format with am/pm, and display it using display_time().",
+      "Get the current hour and minute, convert to 12-hour format with am/pm, and display it using displayTime().",
     hints: [
-      "Use current_time_hour() and current_time_minute() to get the time",
+      "Use currentTimeHour() and currentTimeMinute() to get the time",
       "If the hour is >= 12, the indicator is 'pm', otherwise 'am'",
       "If the hour is 0 (midnight), display it as 12",
       "If the hour is > 12, subtract 12 to get the 12-hour format"
@@ -46,7 +46,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "6:35am",
@@ -71,7 +71,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "11:4am",
@@ -96,7 +96,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "12:19pm",
@@ -121,7 +121,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "11:32pm",
@@ -146,7 +146,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "12:0am",
@@ -171,7 +171,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === "12:0pm",
@@ -200,7 +200,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>display_time</code> function."
+          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
           pass: ex.displayedTime === expectedTime,

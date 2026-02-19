@@ -4,12 +4,12 @@ import type BattleProceduresExercise from "./Exercise";
 export const tasks = [
   {
     id: "battle-procedures" as const,
-    name: "Create a shoot_if_alien_above function and use it to win the game",
+    name: "Create a shootIfAlienAbove function and use it to win the game",
     description:
-      "Extract the shooting logic into a shoot_if_alien_above() function, then use it alongside the movement logic to defeat all aliens.",
+      "Extract the shooting logic into a shootIfAlienAbove() function, then use it alongside the movement logic to defeat all aliens.",
     hints: [
-      "Define shoot_if_alien_above() before the repeat loop",
-      "Inside the function, check is_alien_above() and call shoot() if true",
+      "Define shootIfAlienAbove() before the loop",
+      "Inside the function, check isAlienAbove() and call shoot() if true",
       "The movement logic is the same as scroll-and-shoot"
     ],
     requiredScenarios: ["battle-procedures"],
@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "battle-procedures",
     name: "Battle Procedures",
-    description: "Defeat all aliens using your shoot_if_alien_above function",
+    description: "Defeat all aliens using your shootIfAlienAbove function",
     taskId: "battle-procedures",
 
     setup(exercise) {
@@ -48,7 +48,7 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.assertFunctionDefined("shoot_if_alien_above"),
-        errorHtml: "You should define a <code>shoot_if_alien_above</code> function and use it in your solution."
+        errorHtml: "You should define a <code>shootIfAlienAbove</code> function and use it in your solution."
       }
     ]
   }

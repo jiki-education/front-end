@@ -5,12 +5,11 @@ export const tasks = [
   {
     id: "roll-ball" as const,
     name: "Roll the ball into the hole",
-    description:
-      "Track the ball's x position in a variable and use a repeat loop to move it from position 28 to position 88.",
+    description: "Track the ball's x position in a variable and use a loop to move it from position 28 to position 88.",
     hints: [
       "Set a variable x to 28",
-      "Use repeat 60 times do ... end",
-      "Inside the loop, increase x by 1 and call roll_to(x)"
+      "Use a loop that runs 60 times",
+      "Inside the loop, increase x by 1 and call rollTo(x)"
     ],
     requiredScenarios: ["roll-ball"],
     bonus: false

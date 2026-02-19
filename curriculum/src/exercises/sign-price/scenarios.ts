@@ -10,7 +10,7 @@ export const tasks = [
       "Start by creating a variable to count the number of letters",
       "Loop through each character and only count it if it is not a space",
       "Multiply the letter count by 12 to get the price",
-      "Use concatenate and number_to_string to build the result string"
+      "Use concatenate and numberToString to build the result string"
     ],
     requiredScenarios: ["simple-word", "single-letter", "two-words", "multiple-spaces", "long-text", "all-spaces"],
     bonus: false

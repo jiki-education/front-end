@@ -18,8 +18,8 @@ export const llmMetadata: LLMMetadata = {
   tasks: {
     "write-walk": {
       description: `
-        Students define a walk function that takes a steps parameter and uses repeat to move that many
-        times. The key concept is using the parameter inside the function body as the repeat count.
+        Students define a walk function that takes a steps parameter and uses a loop to move that many
+        times. The key concept is using the parameter inside the function body as the loop count.
         The navigation code (walk/turn calls) is already provided — students only write the function.
         Common mistakes: forgetting the parameter name, not using repeat with the parameter, or
         trying to call walk() without defining it first.

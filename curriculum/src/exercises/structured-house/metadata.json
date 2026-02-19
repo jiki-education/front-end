@@ -1,14 +1,14 @@
 {
   "slug": "structured-house",
   "title": "Structured House",
-  "instructions": "Your task is to draw a house using variables!\n\n<!-- TODO: Add gif showing house moving when house_left changes -->\n\n### The Challenge\n\nDraw the house shown in the image using variables for all positions, sizes, and colors. We've set up the color variables for you — you need to add everything else.\n\n**Think relationally!** Try to set up your variables so that everything is connected. For example, the windows and door positions should be based on the house position. If you do it right, you should be able to change just `house_left` and `house_top` and the entire house (frame, roof, windows, door, knob) will move together!\n\n### House Specifications\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- The sky fills the canvas (`0,0` to `100,100`).\n- The grass is full width, sits at the bottom with a height of `20`.\n- The house frame is `60` wide and `40` tall, with its top-left corner at `20,50`.\n- The roof sits on top of the frame, overhanging by `4` on each side. It's `20` tall, with its peak centered horizontally.\n- Both windows are `12` wide and `13` tall. They sit `5` below the top of the frame and `10` inset from each side.\n- The door is `14` wide and `18` tall, centered at the bottom of the house.\n- The door knob has a radius of `1`, is inset `1` from the right of the door, and is vertically centered in the door.\n\n### Functions\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle\n- `triangle(x1, y1, x2, y2, x3, y3, color)` — Draw a triangle",
+  "instructions": "Your task is to draw a house using variables!\n\n<!-- TODO: Add gif showing house moving when houseLeft changes -->\n\n### The Challenge\n\nDraw the house shown in the image using variables for all positions, sizes, and colors. We've set up the color variables for you — you need to add everything else.\n\n**Think relationally!** Try to set up your variables so that everything is connected. For example, the windows and door positions should be based on the house position. If you do it right, you should be able to change just `houseLeft` and `houseTop` and the entire house (frame, roof, windows, door, knob) will move together!\n\n### House Specifications\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- The sky fills the canvas (`0,0` to `100,100`).\n- The grass is full width, sits at the bottom with a height of `20`.\n- The house frame is `60` wide and `40` tall, with its top-left corner at `20,50`.\n- The roof sits on top of the frame, overhanging by `4` on each side. It's `20` tall, with its peak centered horizontally.\n- Both windows are `12` wide and `13` tall. They sit `5` below the top of the frame and `10` inset from each side.\n- The door is `14` wide and `18` tall, centered at the bottom of the house.\n- The door knob has a radius of `1`, is inset `1` from the right of the door, and is vertically centered in the door.\n\n### Functions\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle\n- `triangle(x1, y1, x2, y2, x3, y3, color)` — Draw a triangle",
   "estimatedMinutes": 20,
   "levelId": "variables",
   "hints": [
-    "Start by defining house_left and house_top, then derive other positions from those",
-    "The roof overhangs the house by 4 on each side: roof_left = house_left - 4",
-    "Window positions can be calculated from house_left: window1_left = house_left + 10",
-    "The door is centered: door_left = house_left + (house_width - door_width) / 2",
-    "The door knob x = door_left + door_width - knob_radius - 1"
+    "Start by defining houseLeft and houseTop, then derive other positions from those",
+    "The roof overhangs the house by 4 on each side: roofLeft = houseLeft - 4",
+    "Window positions can be calculated from houseLeft: window1Left = houseLeft + 10",
+    "The door is centered: doorLeft = houseLeft + (houseWidth - doorWidth) / 2",
+    "The door knob x = doorLeft + doorWidth - knobRadius - 1"
   ]
 }

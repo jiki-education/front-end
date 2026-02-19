@@ -39,15 +39,15 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: ex.hasCircleAt(50, 30, 10),
-          errorHtml: "The red light is not correct. center_x should be radius*5, red_y should be radius*3."
+          errorHtml: "The red light is not correct. centerX should be radius*5, redY should be radius*3."
         },
         {
           pass: ex.hasCircleAt(50, 50, 10),
-          errorHtml: "The yellow light is not correct. center_x should be radius*5, yellow_y should be radius*5."
+          errorHtml: "The yellow light is not correct. centerX should be radius*5, yellowY should be radius*5."
         },
         {
           pass: ex.hasCircleAt(50, 70, 10),
-          errorHtml: "The green light is not correct. center_x should be radius*5, green_y should be radius*7."
+          errorHtml: "The green light is not correct. centerX should be radius*5, greenY should be radius*7."
         }
       ];
     },

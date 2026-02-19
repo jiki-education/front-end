@@ -19,19 +19,19 @@ export const llmMetadata: LLMMetadata = {
     - Conditional filtering inside a loop (skipping spaces)
     - Counter variable for accumulation
     - Arithmetic with the counter result
-    - String building with concatenate and number_to_string
+    - String building with concatenate and numberToString
   `,
 
   tasks: {
     "calculate-sign-price": {
       description: `
         Students need to:
-        1. Initialize a counter variable (num_letters) to 0
+        1. Initialize a counter variable (numLetters) to 0
         2. Loop through each character in the sign text
         3. Check if the character is not a space
         4. If not a space, increment the counter
         5. After the loop, multiply the counter by 12
-        6. Return concatenate("That will cost $", number_to_string(price))
+        6. Return concatenate("That will cost $", numberToString(price))
 
         The key insight is combining iteration with conditional filtering --
         not every character should be counted, so students need an if-statement
@@ -41,25 +41,24 @@ export const llmMetadata: LLMMetadata = {
         - Counting all characters including spaces
         - Forgetting the if-statement to skip spaces
         - Using == " " instead of != " " (counting spaces instead of non-spaces)
-        - Forgetting to use number_to_string() when building the result
+        - Forgetting to use numberToString() when building the result
         - Returning just the number instead of the formatted string
         - Multiplying before the loop is finished (putting multiply inside the loop)
 
         Teaching strategy:
         - Walk through "Hi There":
-          - Start: num_letters = 0
-          - See 'H': not a space, num_letters becomes 1
-          - See 'i': not a space, num_letters becomes 2
+          - Start: numLetters = 0
+          - See 'H': not a space, numLetters becomes 1
+          - See 'i': not a space, numLetters becomes 2
           - See ' ': is a space, skip it
-          - See 'T': not a space, num_letters becomes 3
-          - ... and so on until num_letters = 7
+          - See 'T': not a space, numLetters becomes 3
+          - ... and so on until numLetters = 7
           - price = 7 * 12 = 84
           - Return "That will cost $84"
         - Emphasize this builds on tile-rack by adding a conditional inside the loop
 
         Language-specific notes:
-        - Jikiscript: uses concatenate() and number_to_string() stdlib functions
-        - JavaScript: can use template literals
+        - JavaScript: can use template literals or concatenate() and numberToString()
         - Python: uses string concatenation with str()
       `
     }

@@ -11,8 +11,8 @@ export const tasks = [
       "Track your position with a variable",
       "Keep track of which direction you're moving",
       "Use boundaries (0 and 10) to know when to turn around",
-      "Check is_alien_above() before shooting",
-      "Use repeat_until_game_over to keep the game running"
+      "Check isAlienAbove() before shooting",
+      "Use repeatUntilGameOver to keep the game running"
     ],
     requiredScenarios: ["scroll-and-shoot"],
     bonus: false
@@ -22,7 +22,7 @@ export const tasks = [
     name: "Bonus challenges",
     description: "Can you solve this without using repeat, and with only one shoot() call?",
     hints: [
-      "Use repeat_until_game_over instead of repeat",
+      "Use repeatUntilGameOver instead of repeat",
       "Put shoot() in one place and control when it gets called with conditionals"
     ],
     requiredScenarios: ["no-repeat", "one-shoot"],
@@ -62,7 +62,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "no-repeat",
     name: "No Repeat",
-    description: "Solve without using the repeat keyword (repeat_until_game_over is allowed)",
+    description: "Solve without using the repeat keyword (repeatUntilGameOver is allowed)",
     taskId: "bonus-challenges",
 
     setup(exercise) {

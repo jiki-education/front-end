@@ -27,6 +27,12 @@ interface BaseExerciseDefinition {
   // Optional
   hints?: string[];
   conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
+  interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
+}
+
+// Per-exercise interpreter options (overrides defaults when passed to interpreter)
+export interface InterpreterOptions {
+  maxTotalLoopIterations?: number;
 }
 
 // Visual exercises with animations and state checking

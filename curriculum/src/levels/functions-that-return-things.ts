@@ -12,8 +12,10 @@ const functionsThatReturnThings: Level = {
       }
     },
     javascript: {
-      allowedNodes: ["MemberExpression"],
-      languageFeatures: {}
+      allowedNodes: [],
+      languageFeatures: {
+        allowedGlobals: ["Math"]
+      }
     }
   }
 };

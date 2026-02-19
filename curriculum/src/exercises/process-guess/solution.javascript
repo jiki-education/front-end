@@ -7,16 +7,6 @@ function contains(haystack, needle) {
   return false;
 }
 
-function processGame(word, guesses) {
-  for (let idx = 0; idx < guesses.length; idx++) {
-    colorRow(idx + 1, processGuess(word, guesses[idx]));
-  }
-}
-
-function processFirstGuess(word, guess) {
-  processGame(word, [guess]);
-}
-
 function processGuess(word, guess) {
   let states = [];
   for (let idx = 0; idx < guess.length; idx++) {
@@ -29,5 +19,5 @@ function processGuess(word, guess) {
       states.push("absent");
     }
   }
-  return states;
+  colorRow(1, states);
 }

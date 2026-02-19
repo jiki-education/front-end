@@ -16,7 +16,7 @@ export const tasks = [
     description:
       "Ask the person their name and check if it starts with the allowed letters for tonight's party. If it does, let them in. Otherwise, turn them away.",
     hints: [
-      "Use ask_name() and get_allowed_start() to get the two strings you need to compare",
+      "Use askName() and getAllowedStart() to get the two strings you need to compare",
       "Think about how to compare characters one by one — check each letter of the allowed start against the same position in the name",
       "What if the allowed start is longer than the name? That person definitely can't get in!",
       "You'll need to calculate the lengths of both words. Think back to what you did in Sign Painter Price.",

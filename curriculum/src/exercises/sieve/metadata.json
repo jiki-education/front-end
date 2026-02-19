@@ -1,0 +1,14 @@
+{
+  "slug": "sieve",
+  "title": "Sieve of Eratosthenes",
+  "instructions": "You bought a big box of random computer parts at a garage sale. You've started putting the parts together to build custom computers.\n\nYou want to test the performance of different combinations of parts, and decide to create your own benchmarking program to see how your computers compare. You choose the famous \"Sieve of Eratosthenes\" algorithm, an ancient algorithm, but one that should push your computers to the limits.\n\nA prime number is a number larger than 1 that is only divisible by 1 and itself. For example, 2, 3, 5, 7, 11, and 13 are prime numbers. By contrast, 6 is not a prime number as it is not only divisible by 1 and itself, but also by 2 and 3.\n\nTo use the Sieve of Eratosthenes, first, write out all the numbers from 2 up to and including your given number. Then, follow these steps:\n\n1. Find the next unmarked number (skipping over marked numbers). This is a prime number.\n2. Mark all the multiples of that prime number as not prime.\n\nRepeat the steps until you've gone through every number. At the end, all the unmarked numbers are prime.\n\nNote: The Sieve of Eratosthenes marks off multiples of each prime using addition (repeatedly adding the prime) or multiplication (directly computing its multiples), rather than checking each number for divisibility.\n\nCreate a function called `sieve` that takes a number as its input, and returns a list of all the prime numbers less than or equal to that number.",
+  "estimatedMinutes": 15,
+  "levelId": "dictionaries",
+  "hints": [
+    "Start by creating a list of all numbers from 2 up to the target",
+    "Use a dictionary or object to track whether each number has been marked as not prime",
+    "For each unmarked number, mark all of its multiples as not prime",
+    "Use push() to build up the final list of primes",
+    "Numbers that remain unmarked after processing are prime"
+  ]
+}

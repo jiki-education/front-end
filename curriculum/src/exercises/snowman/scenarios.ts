@@ -42,15 +42,15 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: ex.hasCircleAt(50, 72, 20),
-          errorHtml: "The base (bottom) circle is not correct. Check snowman_x, base_y, and base_radius."
+          errorHtml: "The base (bottom) circle is not correct. Check snowmanX, baseY, and baseRadius."
         },
         {
           pass: ex.hasCircleAt(50, 50, 15),
-          errorHtml: "The body (middle) circle is not correct. Check snowman_x, body_y, and body_radius."
+          errorHtml: "The body (middle) circle is not correct. Check snowmanX, bodyY, and bodyRadius."
         },
         {
           pass: ex.hasCircleAt(50, 33, 10),
-          errorHtml: "The head (top) circle is not correct. Check snowman_x, head_y, and head_radius."
+          errorHtml: "The head (top) circle is not correct. Check snowmanX, headY, and headRadius."
         }
       ];
     }

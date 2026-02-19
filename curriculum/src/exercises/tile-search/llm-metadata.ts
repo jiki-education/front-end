@@ -47,7 +47,6 @@ export const llmMetadata: LLMMetadata = {
         - Ask: "Why can't we return false inside the loop?"
 
         Language-specific notes:
-        - Jikiscript: for each / end syntax, == for comparison
         - JavaScript: for...of syntax, === for strict equality
         - Python: for...in syntax, == for comparison, True/False capitalized
       `

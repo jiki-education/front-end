@@ -19,10 +19,10 @@ const functions: FunctionInfo[] = [
     category: "String Operations"
   },
   {
-    name: "to_lower_case",
-    signature: "to_lower_case(text)",
+    name: "toLowerCase",
+    signature: "toLowerCase(text)",
     description: "Convert a string to lowercase (provided by level stdlib)",
-    examples: ['to_lower_case("HELLO") → "hello"'],
+    examples: ['toLowerCase("HELLO") → "hello"'],
     category: "String Operations"
   },
   {
@@ -33,10 +33,10 @@ const functions: FunctionInfo[] = [
     category: "List Operations"
   },
   {
-    name: "has_key",
-    signature: "has_key(dictionary, key)",
+    name: "hasKey",
+    signature: "hasKey(dictionary, key)",
     description: "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
-    examples: ['has_key({"name": "Jeremy"}, "name") → true'],
+    examples: ['hasKey({"name": "Jeremy"}, "name") → true'],
     category: "Dictionary Operations"
   }
 ];

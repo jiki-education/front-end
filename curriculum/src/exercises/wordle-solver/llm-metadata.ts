@@ -9,7 +9,7 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise builds a Wordle solver. Students must create a process_game function that
+    This exercise builds a Wordle solver. Students must create a processGame function that
     automatically guesses words using knowledge accumulated from previous guesses. It combines
     string comparison, dictionary/knowledge tracking, and list filtering.
     Key concepts: dictionaries, knowledge representation, filtering, iterative refinement.
@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
   tasks: {
     "first-word": {
       description: `
-        Students start by guessing the first word from common_words() and checking it against
+        Students start by guessing the first word from commonWords() and checking it against
         the target. This establishes the basic loop: guess, check, add to board.
       `
     },

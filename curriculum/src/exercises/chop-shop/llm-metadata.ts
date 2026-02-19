@@ -32,7 +32,7 @@ export const llmMetadata: LLMMetadata = {
 
         Common mistakes:
         - Forgetting to include all haircut types in the lookup
-        - Off-by-one errors in list indexing (Jikiscript uses 1-based indexing)
+        - Off-by-one errors in list indexing
         - Not handling the case where the queue is empty
         - Comparing with < instead of >= (exact time should still fit)
 
@@ -43,7 +43,6 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize that data-driven approaches (lookup tables) are cleaner than long if/else chains
 
         Language-specific notes:
-        - Jikiscript: Uses 1-based indexing, cut[1] is name, cut[2] is time
         - JavaScript: Uses 0-based indexing, cut[0] is name, cut[1] is time
         - Python: Same as JavaScript with 0-based indexing
       `

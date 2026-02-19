@@ -9,7 +9,7 @@ let skyH = 210;
 let skyS = 70;
 let skyL = 60;
 
-for (let i = 0; i < 100; i++) {
+repeat(100) {
   // The sky
   skyH = skyH + 0.4;
   rectangle(0, 0, 100, 100, hslToHex(skyH, skyS, skyL));

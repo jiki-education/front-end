@@ -11,16 +11,16 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches dictionary creation, string iteration, and word frequency analysis.
     Students learn to parse text into words, normalize case, and use dictionaries to count occurrences.
-    Key concepts: dictionaries, has_key, string iteration, helper functions, character classification.
+    Key concepts: dictionaries, hasKey, string iteration, helper functions, character classification.
   `,
 
   tasks: {
     "basic-word-counting": {
       description: `
         Students need to:
-        1. Convert the sentence to lowercase using to_lower_case()
+        1. Convert the sentence to lowercase using toLowerCase()
         2. Extract words by iterating character-by-character, treating letters, numbers, and apostrophes as word characters
-        3. Build a dictionary of word counts using has_key() to check existence
+        3. Build a dictionary of word counts using hasKey() to check existence
 
         Common mistakes:
         - Forgetting to handle empty words (e.g., from consecutive separators)
@@ -28,7 +28,7 @@ export const llmMetadata: LLMMetadata = {
         - Treating commas and punctuation as word characters
         - Forgetting that numbers count as words
 
-        Encourage breaking the problem into helper functions: is_letter, extract_words, count_words.
+        Encourage breaking the problem into helper functions: isLetter, extractWords, countWords.
       `
     },
     "case-normalization": {

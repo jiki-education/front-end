@@ -13,6 +13,14 @@ I'll help you migrate an exercise from the Exercism Bootcamp format to the Jiki 
 2. Register stdlib functions in the level file
 3. Register LLM metadata in `src/llm-metadata.ts`
 4. Run `pnpm typecheck` before `pnpm test`
+5. **JavaScript-First**: All user-facing text must use camelCase JavaScript conventions (see below)
+
+**⚠️ JavaScript-First Conventions** (applies to all user-facing text):
+
+- **Function names** in metadata.json instructions/hints, scenarios.ts task descriptions/hints/errorHtml, index.ts FunctionInfo, and llm-metadata.ts must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
+- **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
+- **No Jikiscript syntax** in user-facing text (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (interpreter auto-converts)
 
 ## Step 0: Read Migration Documentation
 
@@ -238,6 +246,7 @@ Before committing, ensure:
 - [ ] Exercise added to `PLAN.md` Implemented section
 - [ ] `pnpm typecheck` passes
 - [ ] `pnpm test` passes (all tests)
+- [ ] `/audit-instructions <slug>` passes (all user-facing text uses JavaScript camelCase conventions)
 
 ## Step 9: Commit and PR
 

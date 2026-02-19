@@ -12,10 +12,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "string_to_number",
-    signature: "string_to_number(str)",
+    name: "stringToNumber",
+    signature: "stringToNumber(str)",
     description: "Convert a string containing digits to a number (provided by level stdlib)",
-    examples: ['string_to_number("42") // returns 42'],
+    examples: ['stringToNumber("42") // returns 42'],
     category: "Type Conversion"
   }
 ];

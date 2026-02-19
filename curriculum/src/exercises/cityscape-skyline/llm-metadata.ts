@@ -19,10 +19,10 @@ export const llmMetadata: LLMMetadata = {
     "build-skyline": {
       description: `
         Students need to:
-        1. Get the number of buildings with num_buildings()
+        1. Get the number of buildings with numBuildings()
         2. Track x position starting at 1
         3. For each building:
-           a. Generate random floors with random_number(0, 6)
+           a. Generate random floors with randomNumber(0, 6)
            b. Build ground floor at y=1 with entrance pattern
            c. Use nested repeat for upper floors, incrementing y
            d. Build roof at final y

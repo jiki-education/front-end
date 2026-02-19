@@ -8,12 +8,37 @@ const methodsAndProperties: Level = {
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["concatenate", "number_to_string", "keys", "string_to_number", "to_upper_case"]
+        allowedStdlibFunctions: ["keys", "string_to_number", "to_upper_case"]
       }
     },
     javascript: {
-      allowedNodes: [],
-      languageFeatures: {}
+      allowedNodes: ["MemberExpression"],
+      languageFeatures: {
+        allowedStdlib: {
+          string: {
+            properties: ["length"],
+            methods: [
+              "toUpperCase",
+              "toLowerCase",
+              "indexOf",
+              "lastIndexOf",
+              "includes",
+              "startsWith",
+              "endsWith",
+              "concat",
+              "repeat",
+              "replace",
+              "replaceAll",
+              "split",
+              "trim",
+              "trimStart",
+              "trimEnd",
+              "padStart",
+              "padEnd"
+            ]
+          }
+        }
+      }
     }
   }
 };

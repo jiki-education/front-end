@@ -13,24 +13,24 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "roll_to",
-    signature: "roll_to(x, y)",
+    name: "rollTo",
+    signature: "rollTo(x, y)",
     description: "Rolls the ball to position **(x, y)**.",
-    examples: ["roll_to(30, 75)", "roll_to(50, 84)"],
+    examples: ["rollTo(30, 75)", "rollTo(50, 84)"],
     category: "Movement"
   },
   {
-    name: "get_shot_length",
-    signature: "get_shot_length()",
+    name: "getShotLength",
+    signature: "getShotLength()",
     description: "Returns the **length of the shot** — how many units the ball travels to the right.",
-    examples: ["set shot_length to get_shot_length()"],
+    examples: ["let shotLength = getShotLength()"],
     category: "Game"
   },
   {
-    name: "fire_fireworks",
-    signature: "fire_fireworks()",
+    name: "fireFireworks",
+    signature: "fireFireworks()",
     description: "Fires celebratory fireworks!",
-    examples: ["fire_fireworks()"],
+    examples: ["fireFireworks()"],
     category: "Action"
   }
 ];

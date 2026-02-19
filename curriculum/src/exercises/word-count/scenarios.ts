@@ -5,7 +5,7 @@ export const tasks = [
     id: "basic-word-counting" as const,
     name: "Basic cases",
     description:
-      "Write a count_words function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers.",
+      "Write a countWords function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers.",
     hints: [
       "Convert the sentence to lowercase first",
       "Iterate through each character to extract words",

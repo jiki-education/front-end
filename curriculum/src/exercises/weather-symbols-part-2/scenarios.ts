@@ -6,7 +6,7 @@ export const tasks = [
     id: "draw-weather" as const,
     name: "Draw the weather scene",
     description:
-      "Create a function called draw_weather that takes a list of weather elements and draws the correct scene.",
+      "Create a function called drawWeather that takes a list of weather elements and draws the correct scene.",
     hints: [
       "Always draw the sky background first",
       'Check if the elements list contains "cloud" to decide the sun size',

@@ -13,31 +13,31 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "build_wall",
-    signature: "build_wall(x, y)",
+    name: "buildWall",
+    signature: "buildWall(x, y)",
     description: "Places a **wall block** at grid position (x, y).",
-    examples: ["build_wall(1, 1)", "build_wall(5, 3)"],
+    examples: ["buildWall(1, 1)", "buildWall(5, 3)"],
     category: "Building"
   },
   {
-    name: "build_glass",
-    signature: "build_glass(x, y)",
+    name: "buildGlass",
+    signature: "buildGlass(x, y)",
     description: "Places a **glass panel** at grid position (x, y).",
-    examples: ["build_glass(2, 1)", "build_glass(3, 4)"],
+    examples: ["buildGlass(2, 1)", "buildGlass(3, 4)"],
     category: "Building"
   },
   {
-    name: "build_entrance",
-    signature: "build_entrance(x, y)",
+    name: "buildEntrance",
+    signature: "buildEntrance(x, y)",
     description: "Places an **entrance door** at grid position (x, y).",
-    examples: ["build_entrance(3, 1)"],
+    examples: ["buildEntrance(3, 1)"],
     category: "Building"
   },
   {
-    name: "num_buildings",
-    signature: "num_buildings()",
+    name: "numBuildings",
+    signature: "numBuildings()",
     description: "Returns the **number of buildings** to construct.",
-    examples: ["set buildings to num_buildings()"],
+    examples: ["let buildings = numBuildings()"],
     category: "Info"
   }
 ];

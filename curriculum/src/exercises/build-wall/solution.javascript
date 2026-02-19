@@ -6,7 +6,7 @@ let row = -1;
 
 let numIterations = 0;
 
-for (let i = 0; i < 10; i++) {
+repeat(10) {
   row = row + 1;
   if (row % 2 === 0) {
     col = -1;
@@ -16,7 +16,7 @@ for (let i = 0; i < 10; i++) {
     numIterations = 6;
   }
 
-  for (let j = 0; j < numIterations; j++) {
+  repeat(numIterations) {
     col = col + 1;
     rectangle(col * width, row * height, width, height, "#AA4A44");
   }

@@ -8,7 +8,7 @@ export const tasks = [
       "Write a function that checks if a person is on the guest list by their first name. A person is on the list if any name on the list starts with their first name (followed by a space or end of string).",
     hints: [
       "Create a helper function to calculate the length of a string",
-      "Create a helper function to check if a string starts with another string",
+      "Create a helper function to check if a string starts with another string (a startsWith function)",
       "Remember to handle the case where the first name matches the entire name (like 'Cher')",
       "Also handle hyphenated names like 'Derk-Jan'"
     ],

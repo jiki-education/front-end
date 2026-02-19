@@ -1,6 +1,6 @@
 function collatzSteps(number) {
   let i = 0;
-  while (true) {
+  repeat() {
     if (number === 1) {
       return i;
     }

@@ -17,7 +17,7 @@ export const llmMetadata: LLMMetadata = {
     - String iteration with for-each loops
     - Tracking position with a counter variable
     - Early return when a condition is met
-    - Converting numbers to strings and concatenating to build result messages
+    - Converting numbers to strings (numberToString) and concatenating to build result messages
     - Returning a descriptive error string for "not found"
   `,
 
@@ -42,7 +42,6 @@ export const llmMetadata: LLMMetadata = {
         - Returning the error string inside the loop instead of after it
         - Forgetting to convert the position number to a string before concatenating
         - Returning the letter instead of the position
-        - Using "change" instead of "set" for initial declaration (Jikiscript)
 
         Teaching strategy:
         - Walk through "ABCDE" looking for "C":
@@ -54,8 +53,7 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize that return exits the function immediately
 
         Language-specific notes:
-        - Jikiscript: number_to_string() and concatenate() to build the result
-        - JavaScript: String() and + operator for concatenation
+        - JavaScript: String() or numberToString() and + operator or concatenate() for concatenation
         - Python: str() and + operator for concatenation
       `
     }

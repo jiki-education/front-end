@@ -8,8 +8,8 @@ export const tasks = [
     description:
       "Define a function called walk that takes a number of steps as its input and moves forward that many times.",
     hints: [
-      "Use repeat with the steps input to move multiple times",
-      "The function body just needs a repeat loop that calls move()"
+      "Use a loop with the steps input to move multiple times",
+      "The function body just needs a loop that calls move()"
     ],
     requiredScenarios: ["maze-1", "maze-2"],
     bonus: false

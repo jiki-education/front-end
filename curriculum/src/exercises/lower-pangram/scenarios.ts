@@ -3,7 +3,7 @@ import type { Task, IOScenario, CodeCheck } from "../types";
 const codeChecks: CodeCheck[] = [
   {
     pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("includes"),
-    errorHtml: "You should call your <code>includes</code> function inside <code>is_pangram</code>."
+    errorHtml: "You should call your <code>includes</code> function inside <code>isPangram</code>."
   }
 ];
 
@@ -12,7 +12,7 @@ export const tasks = [
     id: "check-lower-pangram" as const,
     name: "Check Lower Pangram",
     description:
-      "Write an includes function and an is_pangram function. The is_pangram function should use includes to check whether a lowercase sentence contains every letter of the alphabet.",
+      "Write an includes function and an isPangram function. The isPangram function should use includes to check whether a lowercase sentence contains every letter of the alphabet.",
     hints: [
       "Write the includes function first — loop through each character and compare",
       "In is_pangram, loop through each letter of the alphabet and check if it's in the sentence",

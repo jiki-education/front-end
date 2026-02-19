@@ -19,10 +19,10 @@ const functions: FunctionInfo[] = [
     category: "String Operations"
   },
   {
-    name: "number_to_string",
-    signature: "number_to_string(number)",
+    name: "numberToString",
+    signature: "numberToString(number)",
     description: "Convert a number to its string representation (provided by level stdlib)",
-    examples: ['number_to_string(42) returns "42"'],
+    examples: ['numberToString(42) returns "42"'],
     category: "Type Conversion"
   }
 ];

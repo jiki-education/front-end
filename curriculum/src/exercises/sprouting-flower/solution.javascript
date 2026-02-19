@@ -19,7 +19,7 @@ let leafYRadius = 0;
 let leftLeafLeft = 0;
 let rightLeafLeft = 0;
 
-for (let i = 0; i < 60; i = i + 1) {
+repeat(60) {
   flowerCenterY = flowerCenterY - 1;
   flowerRadius = flowerRadius + 0.4;
 

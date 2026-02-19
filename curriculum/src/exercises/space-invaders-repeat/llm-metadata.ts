@@ -38,7 +38,7 @@ export const llmMetadata: LLMMetadata = {
         - Help them describe the pattern in words first
         - Ask: "What do you do for each group of aliens?"
         - Remind them the laser starts at position 0 which has no aliens
-        - The repeat loop syntax is: repeat(n) { ... } in JavaScript
+        - The repeat loop syntax is: repeat(n) { ... }
       `
     }
   }

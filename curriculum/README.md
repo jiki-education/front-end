@@ -178,24 +178,31 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "stars" },
       { "type": "exercise", "slug": "weather-symbols-part-1" },
       { "type": "exercise", "slug": "weather-symbols-part-2" },
+      { "type": "exercise", "slug": "alien-detector" },
       { "type": "project", "slug": "extract-words" }
     ]
   },
   {
     "level": "dictionaries",
-    "lessons": [{ "type": "exercise", "slug": "word-count" }]
+    "lessons": [
+      { "type": "exercise", "slug": "word-count" },
+      { "type": "exercise", "slug": "rna-transcription" },
+      { "type": "exercise", "slug": "sieve" }
+    ]
   },
   {
     "level": "multiple-functions",
     "lessons": [
       { "type": "exercise", "slug": "lower-pangram" },
-      { "type": "exercise", "slug": "rna-transcription" },
       { "type": "project", "slug": "caesar-cipher" }
     ]
   },
   {
     "level": "everything",
-    "lessons": [{ "type": "exercise", "slug": "niche-named-party" }]
+    "lessons": [
+      { "type": "exercise", "slug": "niche-named-party" },
+      { "type": "exercise", "slug": "scrabble-score" }
+    ]
   }
 ]
 ```

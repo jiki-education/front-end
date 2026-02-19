@@ -25,14 +25,14 @@ export const llmMetadata: LLMMetadata = {
     },
     "turn-left": {
       description: `
-        Students add the first conditional: if can_turn_left() is true, turn left then move.
+        Students add the first conditional: if canTurnLeft() is true, turn left then move.
         This introduces the priority system — always check left first.
         Common mistake: forgetting to move() after turning.
       `
     },
     "turn-right": {
       description: `
-        Students add else if branches for can_move() (go straight) and can_turn_right() (turn right).
+        Students add else if branches for canMove() (go straight) and canTurnRight() (turn right).
         The forks scenario tests that left is prioritized over right.
         Common mistake: checking right before straight, or not using else if (checking all independently).
       `

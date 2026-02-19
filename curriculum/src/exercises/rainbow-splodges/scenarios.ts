@@ -8,9 +8,9 @@ export const tasks = [
     description: "Draw 500 circles at random positions with random colors.",
     hints: [
       "Use a repeat loop that runs 500 times",
-      "Get random x and y positions using random_number(0, 100)",
-      "Get a random hue using random_number(0, 360)",
-      "Use hsl_to_hex to convert the hue to a color, then draw with circle()"
+      "Get random x and y positions using randomNumber(0, 100)",
+      "Get a random hue using randomNumber(0, 360)",
+      "Use hslToHex to convert the hue to a color, then draw with circle()"
     ],
     requiredScenarios: ["rainbow-splodges"],
     bonus: false

@@ -21,19 +21,19 @@ export const llmMetadata: LLMMetadata = {
         Students derive sun position and draw the scene using variables.
 
         Fixed variables:
-        - canvas_size = 100
+        - canvasSize = 100
         - gap = 10
-        - sun_radius = 15
-        - sky_color = "lightblue"
-        - sun_color = "yellow"
+        - sunRadius = 15
+        - skyColor = "lightblue"
+        - sunColor = "yellow"
 
         Derived variables:
-        - sun_x = canvas_size - gap - sun_radius = 75
-        - sun_y = gap + sun_radius = 25
+        - sunX = canvasSize - gap - sunRadius = 75
+        - sunY = gap + sunRadius = 25
 
         Expected drawing:
-        - rectangle(0, 0, canvas_size, canvas_size, sky_color)
-        - circle(sun_x, sun_y, sun_radius, sun_color)
+        - rectangle(0, 0, canvasSize, canvasSize, skyColor)
+        - circle(sunX, sunY, sunRadius, sunColor)
 
         Key teaching points:
         1. Subtraction for positioning from the right edge

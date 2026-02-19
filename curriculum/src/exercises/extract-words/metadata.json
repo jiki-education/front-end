@@ -1,7 +1,7 @@
 {
   "slug": "extract-words",
   "title": "Extract Words",
-  "instructions": "You're building a simple text processor. Given a sentence, you need to extract all the individual words from it and return them as a list.\n\nWords are separated by spaces. Sentences may end with a period, which should be ignored (not included in any word).\n\nFor example, given the sentence `\"I love cake.\"`, you should return:\n\n```\n[\"I\", \"love\", \"cake\"]\n```\n\nCreate a function called `extract_words` that takes a sentence as its input and returns a list of the words in the sentence.",
+  "instructions": "You're building a simple text processor. Given a sentence, you need to extract all the individual words from it and return them as a list.\n\nWords are separated by spaces. Sentences may end with a period, which should be ignored (not included in any word).\n\nFor example, given the sentence `\"I love cake.\"`, you should return:\n\n```\n[\"I\", \"love\", \"cake\"]\n```\n\nCreate a function called `extractWords` that takes a sentence as its input and returns a list of the words in the sentence.",
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [

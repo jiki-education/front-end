@@ -21,13 +21,13 @@ export const llmMetadata: LLMMetadata = {
         Students must set 7 variables to correct values so the snowman matches the target image.
 
         The variables:
-        - snowman_x = 50 (centered horizontally)
-        - head_y = 33, head_radius = 10 (smallest, top)
-        - body_y = 50, body_radius = 15 (medium, middle)
-        - base_y = 72, base_radius = 20 (largest, bottom)
+        - snowmanX = 50 (centered horizontally)
+        - headY = 33, headRadius = 10 (smallest, top)
+        - bodyY = 50, bodyRadius = 15 (medium, middle)
+        - baseY = 72, baseRadius = 20 (largest, bottom)
 
         Key teaching points:
-        1. Variables store values that can be reused (snowman_x used in all 3 circles)
+        1. Variables store values that can be reused (snowmanX used in all 3 circles)
         2. Variable names should be descriptive
         3. The y-axis increases downward (0 at top, 100 at bottom)
         4. Students learn to visually estimate coordinates from the target image

@@ -5,7 +5,7 @@ export const tasks = [
   {
     id: "first-word" as const,
     name: "Get a correct word displaying",
-    description: "Start by guessing the first word from common_words(). If it matches, add it with all correct states.",
+    description: "Start by guessing the first word from commonWords(). If it matches, add it with all correct states.",
     hints: [
       "The first word in the list is always your first guess",
       "Compare it to the target word to build the states"

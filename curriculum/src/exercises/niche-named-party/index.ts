@@ -12,31 +12,31 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "ask_name",
-    signature: "ask_name()",
+    name: "askName",
+    signature: "askName()",
     description: "Returns the **name** of the person at the door.",
-    examples: ["set name to ask_name()"],
+    examples: ["let name = askName()"],
     category: "Information"
   },
   {
-    name: "get_allowed_start",
-    signature: "get_allowed_start()",
+    name: "getAllowedStart",
+    signature: "getAllowedStart()",
     description: "Returns the required **starting letters** for tonight's party.",
-    examples: ["set allowed_start to get_allowed_start()"],
+    examples: ["let allowedStart = getAllowedStart()"],
     category: "Information"
   },
   {
-    name: "let_in",
-    signature: "let_in()",
+    name: "letIn",
+    signature: "letIn()",
     description: "Lets the person into the party.",
-    examples: ["let_in()"],
+    examples: ["letIn()"],
     category: "Action"
   },
   {
-    name: "turn_away",
-    signature: "turn_away()",
+    name: "turnAway",
+    signature: "turnAway()",
     description: "Turns the person away from the party.",
-    examples: ["turn_away()"],
+    examples: ["turnAway()"],
     category: "Action"
   }
 ];

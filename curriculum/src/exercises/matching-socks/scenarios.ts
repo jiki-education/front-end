@@ -7,7 +7,7 @@ export const tasks = [
     description:
       "Write a function that takes two baskets of clothes (as lists of strings) and returns a list of all the pairs of socks found across both baskets. Items that are socks end with ' sock' and always start with 'left ' or 'right '.",
     hints: [
-      "Build helper functions first: length(), starts_with(), ends_with()",
+      "Build helper functions first: length(), startsWith(), endsWith()",
       "Create a function to extract only socks from a list",
       "Create a function to switch 'left' and 'right' in a description",
       "Create a function to add an element only if it's not already in the list",

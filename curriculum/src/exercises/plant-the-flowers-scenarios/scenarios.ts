@@ -6,9 +6,9 @@ export const tasks = [
     id: "plant-flowers-evenly" as const,
     name: "Plant flowers evenly",
     description:
-      "Use num_flowers() to find out how many flowers to plant, calculate the gap, and plant them evenly spaced.",
+      "Use numFlowers() to find out how many flowers to plant, calculate the gap, and plant them evenly spaced.",
     hints: [
-      "Call num_flowers() and store the result",
+      "Call numFlowers() and store the result",
       "The gap formula is 100 / (count + 1)",
       "Start at position = gap, then add gap each time",
       "Use a repeat loop to plant all the flowers"

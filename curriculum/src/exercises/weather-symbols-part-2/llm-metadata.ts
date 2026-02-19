@@ -19,13 +19,13 @@ export const llmMetadata: LLMMetadata = {
   tasks: {
     "draw-weather": {
       description: `
-        Students define a draw_weather(elements) function that takes a list like
+        Students define a drawWeather(elements) function that takes a list like
         ["sun", "cloud", "rain"] and draws the corresponding weather scene.
 
         Key teaching points:
         1. Iterating through a list to process each element
         2. Conditional logic: checking if "cloud" is in the list to determine sun size
-        3. Organizing code with helper functions (draw_sky, draw_sun, draw_cloud, etc.)
+        3. Organizing code with helper functions (drawSky, drawSun, drawCloud, etc.)
         4. Combining previously learned drawing skills with list processing
 
         The sun size logic:

@@ -7,9 +7,9 @@ export const tasks = [
     name: "Check the person's age",
     description: "Get the person's age and check if they're over 20. If they are, open the door to let them in.",
     hints: [
-      "Use get_age() to find out the person's age",
+      "Use getAge() to find out the person's age",
       "Use an if statement to check if age > 20",
-      "Call open_door() inside the if block"
+      "Call openDoor() inside the if block"
     ],
     requiredScenarios: ["age-25", "age-18", "age-21", "age-20"],
     bonus: false

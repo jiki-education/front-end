@@ -68,6 +68,13 @@ Wait for the user's responses before proceeding.
 
 ## Step 4: Implementation
 
+**⚠️ JavaScript-First**: All user-facing text must use JavaScript conventions. See the rules below:
+
+- **Function names** in instructions, hints, task descriptions, FunctionInfo, examples, and llm-metadata must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
+- **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
+- **No Jikiscript syntax** (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (interpreter auto-converts)
+
 Once the user approves the approach, create ALL required files:
 
 ### Required Files (11 total)
@@ -219,6 +226,7 @@ Before committing, verify:
 - [ ] `pnpm test` passes (all tests)
 - [ ] `pnpm lint` passes
 - [ ] `pnpm format:check` passes
+- [ ] `/audit-instructions <slug>` passes (all user-facing text uses JavaScript camelCase conventions)
 
 ## Step 9: Commit and PR
 
