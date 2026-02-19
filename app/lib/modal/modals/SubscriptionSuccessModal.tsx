@@ -4,6 +4,7 @@ import { useState } from "react";
 import { hideModal } from "../store";
 import { PRICING_TIERS } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 
 interface SubscriptionSuccessModalProps {
   tier: MembershipTier;
@@ -94,7 +95,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
         <div className="flex items-center justify-between mb-3">
           <span className="font-medium text-text-primary">{tierInfo.name} Plan</span>
           <span className="text-2xl font-bold text-text-primary">
-            ${tierInfo.price}
+            <PremiumPrice interval="monthly" />
             <span className="text-sm font-normal text-text-secondary">/month</span>
           </span>
         </div>

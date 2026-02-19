@@ -3,11 +3,10 @@
  * Centralized handlers for subscription actions across the app
  */
 
-import type { MembershipTier } from "@/lib/pricing";
+import type { BillingInterval } from "@/lib/pricing";
 import {
   createCheckoutSession,
   createPortalSession,
-  updateSubscription,
   cancelSubscription,
   reactivateSubscription
 } from "@/lib/api/subscriptions";
@@ -18,14 +17,14 @@ import toast from "react-hot-toast";
 
 // Types for handler functions
 export interface SubscribeParams {
-  tier: MembershipTier;
+  interval: BillingInterval;
   userEmail?: string;
   returnPath?: string; // Optional return path, defaults to current location
 }
 
 export interface CheckoutCancelParams {
   setClientSecret: (secret: string | null) => void;
-  setSelectedTier: (tier: MembershipTier | null) => void;
+  setSelectedTier: (tier: string | null) => void;
 }
 
 export interface RefreshUserFn {
@@ -39,10 +38,10 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Core subscription handlers
-export async function handleSubscribe({ tier, userEmail, returnPath }: SubscribeParams) {
+export async function handleSubscribe({ interval, userEmail, returnPath }: SubscribeParams) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
-    const response = await createCheckoutSession(tier, returnUrl, userEmail);
+    const response = await createCheckoutSession(interval, returnUrl, userEmail);
 
     // Hide any currently open modal before showing checkout
     hideModal();
@@ -50,7 +49,7 @@ export async function handleSubscribe({ tier, userEmail, returnPath }: Subscribe
     // Show the checkout modal using the global modal system
     showModal("subscription-checkout-modal", {
       clientSecret: response.client_secret,
-      selectedTier: tier,
+      selectedTier: "premium",
       onCancel: () => {
         // Modal cancelled - no need to do anything as modal state is managed internally
       }
@@ -68,18 +67,6 @@ export async function handleOpenPortal() {
     window.location.href = response.url;
   } catch (error) {
     toast.error("Failed to open customer portal");
-    console.error(error);
-  }
-}
-
-export async function handleUpgradeToPremium(refreshUser: RefreshUserFn) {
-  try {
-    await updateSubscription("premium");
-    toast.success("Successfully upgraded to Premium!");
-    await refreshUser();
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to upgrade subscription";
-    toast.error(errorMessage);
     console.error(error);
   }
 }
@@ -164,7 +151,6 @@ export async function handleDeleteStripeHistory({
 export const settingsHandlers = {
   subscribe: (params: Omit<SubscribeParams, "returnPath">) => handleSubscribe({ ...params, returnPath: "/settings" }),
   openPortal: handleOpenPortal,
-  upgradeToPremium: handleUpgradeToPremium,
   cancel: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
   retryPayment: handleRetryPayment
@@ -174,7 +160,6 @@ export const devHandlers = {
   subscribe: handleSubscribe,
   cancel: handleCheckoutCancel,
   openPortal: handleOpenPortal,
-  upgradeToPremium: handleUpgradeToPremium,
   cancelSubscription: handleCancelSubscription,
   reactivate: handleReactivateSubscription,
   retryPayment: handleRetryPayment,

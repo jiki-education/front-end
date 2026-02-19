@@ -18,7 +18,6 @@ export default function SubscriptionModalTest() {
           <button
             onClick={() =>
               showPaymentProcessing({
-                tier: "premium",
                 onClose: () => console.debug("Payment processing modal closed")
               })
             }

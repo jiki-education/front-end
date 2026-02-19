@@ -5,6 +5,15 @@
 
 export type MembershipTier = "standard" | "premium";
 
+export type BillingInterval = "monthly" | "annual";
+
+export interface PremiumPrices {
+  currency: string;
+  monthly: number;
+  annual: number;
+  country_code: string | null;
+}
+
 export interface PricingTier {
   id: MembershipTier;
   name: string;

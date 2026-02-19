@@ -16,7 +16,7 @@ export function PaymentFailedGraceExpiredActions({ userEmail }: { userEmail: str
       </button>
 
       <button
-        onClick={() => handleSubscribe({ tier: "premium", userEmail })}
+        onClick={() => handleSubscribe({ interval: "monthly", userEmail })}
         className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors"
       >
         Start New Premium Subscription

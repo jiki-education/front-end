@@ -31,7 +31,7 @@ export function CheckoutReturnHandler() {
       if (result.payment_status === "paid") {
         showWelcomeToPremium();
       } else {
-        showPaymentProcessing({ tier: result.tier });
+        showPaymentProcessing();
       }
       void refreshUser();
     });

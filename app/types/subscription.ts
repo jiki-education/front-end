@@ -3,7 +3,7 @@
  * Type definitions for subscription and payment system
  */
 
-import type { MembershipTier } from "@/lib/pricing";
+import type { BillingInterval } from "@/lib/pricing";
 
 export type SubscriptionStatus =
   | "active"
@@ -21,7 +21,7 @@ export interface SubscriptionDetails {
 }
 
 export interface CheckoutSessionRequest {
-  product: MembershipTier;
+  interval: BillingInterval;
   return_url?: string;
   customer_email?: string;
 }
@@ -35,12 +35,12 @@ export interface PortalSessionResponse {
 }
 
 export interface UpdateSubscriptionRequest {
-  product: "premium";
+  interval: BillingInterval;
 }
 
 export interface UpdateSubscriptionResponse {
   success: boolean;
-  tier: MembershipTier;
+  interval: BillingInterval;
   effective_at: string; // ISO 8601 date string
   subscription_valid_until: string; // ISO 8601 date string
 }
@@ -57,7 +57,7 @@ export interface ReactivateSubscriptionResponse {
 
 export interface VerifyCheckoutResponse {
   success: boolean;
-  tier: MembershipTier;
+  interval: BillingInterval;
   payment_status: "paid" | "unpaid";
   subscription_status: "active" | "incomplete";
 }

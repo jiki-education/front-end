@@ -5,33 +5,32 @@
 
 import { api } from "./client";
 import type {
-  CheckoutSessionRequest,
   CheckoutSessionResponse,
   PortalSessionResponse,
-  UpdateSubscriptionRequest,
   UpdateSubscriptionResponse,
   CancelSubscriptionResponse,
   ReactivateSubscriptionResponse,
   VerifyCheckoutResponse
 } from "@/types/subscription";
+import type { BillingInterval } from "@/lib/pricing";
 
 /**
  * Create a Stripe checkout session for a subscription
- * @param product - Membership tier/product (premium)
+ * @param interval - Billing interval (monthly or annual)
  * @param returnUrl - Optional return URL after payment completion
  * @param customerEmail - Optional customer email for pre-filling and Link authentication
  * @returns Checkout session with client secret
  */
 export async function createCheckoutSession(
-  product: string,
+  interval: BillingInterval,
   returnUrl?: string,
   customerEmail?: string
 ): Promise<CheckoutSessionResponse> {
   const response = await api.post<CheckoutSessionResponse>("/internal/subscriptions/checkout_session", {
-    product,
+    interval,
     return_url: returnUrl,
     customer_email: customerEmail
-  } as CheckoutSessionRequest);
+  });
   return response.data;
 }
 
@@ -47,7 +46,7 @@ export async function createPortalSession(): Promise<PortalSessionResponse> {
 /**
  * Verify a checkout session and sync subscription status
  * @param sessionId - Stripe checkout session ID
- * @returns Verification result with payment status and tier
+ * @returns Verification result with payment status and interval
  */
 export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCheckoutResponse> {
   const response = await api.post<VerifyCheckoutResponse>("/internal/subscriptions/verify_checkout", {
@@ -57,14 +56,14 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCh
 }
 
 /**
- * Update subscription tier (upgrade or downgrade)
- * @param product - Target membership tier (premium)
+ * Update subscription interval (monthly/annual)
+ * @param interval - Target billing interval
  * @returns Updated subscription details
  */
-export async function updateSubscription(product: "premium"): Promise<UpdateSubscriptionResponse> {
+export async function updateSubscription(interval: BillingInterval): Promise<UpdateSubscriptionResponse> {
   const response = await api.post<UpdateSubscriptionResponse>("/internal/subscriptions/update", {
-    product
-  } as UpdateSubscriptionRequest);
+    interval
+  });
   return response.data;
 }
 

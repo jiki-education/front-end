@@ -1,4 +1,5 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 
 interface PaymentFailedExpiredStateProps {
   previousTier: "premium";
@@ -13,8 +14,7 @@ export default function PaymentFailedExpiredState({
 }: PaymentFailedExpiredStateProps) {
   const tierInfo = {
     premium: {
-      name: "Premium",
-      price: "$3.99"
+      name: "Premium"
     }
   };
 
@@ -57,7 +57,8 @@ export default function PaymentFailedExpiredState({
           <div className="border border-border-secondary rounded p-4">
             <h4 className="font-medium text-text-primary mb-2">Premium</h4>
             <p className="text-2xl font-bold text-text-primary mb-1">
-              $3<span className="text-sm font-normal">/month</span>
+              <PremiumPrice interval="monthly" />
+              <span className="text-sm font-normal">/month</span>
             </p>
             <ul className="text-sm text-text-secondary space-y-1 mb-4">
               <li>• Advanced exercises</li>

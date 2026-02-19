@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
+import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
 import styles from "./PremiumUpsell.module.css";
 
 interface PremiumUpsellProps {
@@ -74,10 +75,14 @@ export default function PremiumUpsell({
           <h3 className={styles.premiumUpsellTitle}>Jiki Premium</h3>
           <div className={styles.premiumUpsellPricing}>
             <div className={styles.premiumUpsellPrice}>
-              <span className={styles.amount}>$3.99</span>
+              <span className={styles.amount}>
+                <PremiumPrice interval="monthly" />
+              </span>
               <span className={styles.period}>/month</span>
             </div>
-            <p className={styles.premiumUpsellNote}>That&apos;s only $0.13 a day</p>
+            <p className={styles.premiumUpsellNote}>
+              That&apos;s only <PremiumDailyPrice interval="monthly" /> a day
+            </p>
           </div>
         </div>
         <button

@@ -1,5 +1,6 @@
 "use client";
 
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import ShieldIcon from "@/icons/shield.svg";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
@@ -82,7 +83,13 @@ export function PaymentForm() {
         className="mt-10 ui-btn ui-btn-large ui-btn-primary ui-btn-purple w-full"
         id="submit-btn"
       >
-        {isLoading ? "Processing..." : "Pay"}
+        {isLoading ? (
+          "Processing..."
+        ) : (
+          <>
+            Pay <PremiumPrice interval="monthly" />
+          </>
+        )}
       </button>
 
       <p className={styles.footerText}>
