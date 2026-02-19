@@ -121,7 +121,8 @@ export type RuntimeErrorType =
   | "RepeatCountMustBeNumber"
   | "RepeatCountMustBeNonNegative"
   | "RepeatCountTooHigh"
-  | "ValueError";
+  | "ValueError"
+  | "FunctionAlreadyDefined";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
@@ -165,6 +166,7 @@ export class Executor {
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
+  private readonly protectedNames: Set<string> = new Set();
 
   constructor(
     private readonly sourceCode: string,
@@ -180,6 +182,10 @@ export class Executor {
     };
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
+
+    // Track protected names (builtins + external functions) that students cannot override
+    this.protectedNames.add("console");
+    this.protectedNames.add("Math");
 
     // Register builtin objects (console, Math, etc.) as JSBuiltinObject in the environment
     const consoleFunctions = new Map<string, JSStdLibFunction>();
@@ -215,6 +221,7 @@ export class Executor {
         const callable = new JSCallable(func.name, func.arity, func.func);
         // External functions don't have source location, use Location.unknown
         this.environment.define(func.name, callable, Location.unknown);
+        this.protectedNames.add(func.name);
       }
     }
   }
@@ -599,6 +606,10 @@ export class Executor {
 
   public logicError(message: string): never {
     throw new LogicError(message);
+  }
+
+  public isProtectedName(name: string): boolean {
+    return this.protectedNames.has(name);
   }
 
   public defineVariable(name: string, value: any, location: Location): void {

@@ -53,7 +53,8 @@
       "AttributeError": "AttributeError: attribute: {{attribute}}: type: {{type}}",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
       "MethodNotYetAvailable": "MethodNotYetAvailable: method: {{method}}",
-      "MaxIterationsReached": "MaxIterationsReached: max: {{max}}"
+      "MaxIterationsReached": "MaxIterationsReached: max: {{max}}",
+      "FunctionAlreadyDefined": "FunctionAlreadyDefined: name: {{name}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

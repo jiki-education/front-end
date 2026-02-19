@@ -456,4 +456,45 @@ describe("JavaScript External Functions", () => {
       expect(frame?.result?.jikiObject?.type).toBe("null");
     });
   });
+
+  describe("Function name protection", () => {
+    it("should error when defining a function with the same name as an external function", () => {
+      const externalFunction: ExternalFunction = {
+        name: "move",
+        func: (context: ExecutionContext) => "moved",
+        description: "moves the character",
+        arity: 0,
+      };
+
+      const result = interpret(`function move() { return "override"; }`, {
+        externalFunctions: [externalFunction],
+      });
+
+      expect(result.error).toBeNull();
+      expect(result.frames).toHaveLength(1);
+      expect(result.frames[0].status).toBe("ERROR");
+      expect((result.frames[0] as any).error.type).toBe("FunctionAlreadyDefined");
+      expect((result.frames[0] as any).error.message).toBe("FunctionAlreadyDefined: name: move");
+    });
+
+    it("should error when defining a function named console", () => {
+      const result = interpret(`function console() { return 1; }`);
+
+      expect(result.error).toBeNull();
+      expect(result.frames).toHaveLength(1);
+      expect(result.frames[0].status).toBe("ERROR");
+      expect((result.frames[0] as any).error.type).toBe("FunctionAlreadyDefined");
+      expect((result.frames[0] as any).error.message).toBe("FunctionAlreadyDefined: name: console");
+    });
+
+    it("should error when defining a function named Math", () => {
+      const result = interpret(`function Math() { return 1; }`);
+
+      expect(result.error).toBeNull();
+      expect(result.frames).toHaveLength(1);
+      expect(result.frames[0].status).toBe("ERROR");
+      expect((result.frames[0] as any).error.type).toBe("FunctionAlreadyDefined");
+      expect((result.frames[0] as any).error.message).toBe("FunctionAlreadyDefined: name: Math");
+    });
+  });
 });

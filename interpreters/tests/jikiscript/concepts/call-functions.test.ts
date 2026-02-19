@@ -227,5 +227,24 @@ describe("interpret", () => {
       const lastFrame = frames[frames.length - 1];
       expect((lastFrame as TestAugmentedFrame).variables?.x).toBeUndefined();
     });
+
+    test("defining a function with the same name as an external function produces error", () => {
+      const context: EvaluationContext = {
+        externalFunctions: [
+          {
+            name: "move",
+            func: (_ctx: EvaluationContext) => "moved",
+            description: "moves the character",
+          },
+        ],
+      };
+      const code = `function move do
+  return "override"
+end`;
+      const { frames } = interpret(code, context);
+      const lastFrame = frames[frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("DuplicateFunctionDeclarationInScope");
+    });
   });
 });

@@ -70,7 +70,8 @@
       "MaxIterationsReached": "MaxIterationsReached: max: {{max}}",
       "RepeatCountMustBeNumber": "RepeatCountMustBeNumber: type: {{type}}",
       "RepeatCountMustBeNonNegative": "RepeatCountMustBeNonNegative: value: {{value}}",
-      "RepeatCountTooHigh": "RepeatCountTooHigh: value: {{value}}: max: {{max}}"
+      "RepeatCountTooHigh": "RepeatCountTooHigh: value: {{value}}: max: {{max}}",
+      "FunctionAlreadyDefined": "FunctionAlreadyDefined: name: {{name}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",
