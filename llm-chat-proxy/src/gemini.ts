@@ -1,8 +1,44 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel } from "@google/genai";
+
+const MODEL_CHAIN = [
+  {
+    model: "gemini-3-flash-preview",
+    config: {
+      maxOutputTokens: 2048,
+      thinkingConfig: { thinkingLevel: ThinkingLevel.LOW }
+    }
+  },
+  {
+    model: "gemini-2.5-flash",
+    config: {
+      maxOutputTokens: 2048,
+      thinkingConfig: { thinkingBudget: 1024 }
+    }
+  },
+  {
+    model: "gemini-2.5-flash-lite",
+    config: {
+      maxOutputTokens: 2048,
+      thinkingConfig: { thinkingBudget: 1024 }
+    }
+  }
+];
+
+function isRateLimitError(error: unknown): boolean {
+  if (error instanceof Error) {
+    if ("status" in error && (error as { status: number }).status === 429) {
+      return true;
+    }
+    if (error.message.includes("RESOURCE_EXHAUSTED")) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /**
- * Streams a response from Gemini 2.5 Flash-Lite model.
- * Yields chunks of text as they become available.
+ * Streams a response from Gemini, cascading through models on rate limits.
+ * Tries gemini-3-flash-preview -> gemini-2.5-flash -> gemini-2.5-flash-lite.
  *
  * @param prompt - The full prompt to send to Gemini
  * @param apiKey - Google Gemini API key
@@ -16,16 +52,28 @@ export async function streamGeminiResponse(
 ): Promise<ReadableStream> {
   const ai = new GoogleGenAI({ apiKey });
 
-  const result = await ai.models.generateContentStream({
-    model: "gemini-2.5-flash-lite",
-    contents: prompt,
-    config: {
-      maxOutputTokens: 2048,
-      thinkingConfig: {
-        thinkingBudget: 0
+  let result;
+  for (const { model, config } of MODEL_CHAIN) {
+    try {
+      result = await ai.models.generateContentStream({
+        model,
+        contents: prompt,
+        config
+      });
+      console.log(`[Gemini] Using model: ${model}`);
+      break;
+    } catch (error) {
+      if (isRateLimitError(error)) {
+        console.log(`[Gemini] Rate limited on ${model}, trying next model`);
+        continue;
       }
+      throw error;
     }
-  });
+  }
+
+  if (!result) {
+    throw new Error("All Gemini models are rate limited");
+  }
 
   const encoder = new TextEncoder();
 
