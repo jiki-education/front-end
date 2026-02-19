@@ -4,7 +4,7 @@ export const everythingLevel: Level = {
   id: "everything",
   title: "Everything",
   description: "All language features enabled for testing and advanced exercises",
-  educationalGoal: "Testing level with all features enabled",
+  taughtConcepts: [],
 
   languageFeatures: {
     jikiscript: {

@@ -4,8 +4,7 @@ const multipleFunctions: Level = {
   id: "multiple-functions",
   title: "Using Multiple Functions Together",
   description: "Learn to combine multiple functions to solve more complex problems.",
-  educationalGoal:
-    "Students learn to decompose problems into smaller functions and combine them to build more sophisticated solutions.",
+  taughtConcepts: ["Decomposing problems into multiple functions", "Functions calling other functions"],
   languageFeatures: {
     jikiscript: {
       languageFeatures: {

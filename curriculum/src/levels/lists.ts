@@ -4,8 +4,7 @@ const lists: Level = {
   id: "lists",
   title: "Lists",
   description: "Learn to work with lists (arrays) to store and process collections of data.",
-  educationalGoal:
-    "Students learn to create, iterate over, and manipulate lists, enabling them to work with collections of values rather than individual items.",
+  taughtConcepts: ["Creating lists/arrays", "Iterating over lists", "Manipulating list contents"],
   languageFeatures: {
     jikiscript: {
       languageFeatures: {

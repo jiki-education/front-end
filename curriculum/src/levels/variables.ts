@@ -4,8 +4,7 @@ export const variablesLevel: Level = {
   id: "variables",
   title: "Variables",
   description: "Learn to store and reuse values using variables.",
-  educationalGoal:
-    "Students learn to declare variables, use them in expressions, and perform arithmetic. Variables make code flexible and readable.",
+  taughtConcepts: ["Declaring variables", "Using variables in expressions", "Basic arithmetic"],
 
   languageFeatures: {
     javascript: {

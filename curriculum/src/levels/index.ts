@@ -133,6 +133,21 @@ export function getLanguageFeatures(
   };
 }
 
+// Get accumulated taught concepts for all levels up to and including the target level
+export function getTaughtConcepts(levelId: LevelId | string): string[] {
+  const levelIds = getLevelIds();
+  const targetIndex = levelIds.indexOf(levelId as LevelId);
+  if (targetIndex === -1) return [];
+
+  const concepts: string[] = [];
+  for (let i = 0; i <= targetIndex; i++) {
+    const level = getLevel(levelIds[i]);
+    if (!level) continue;
+    concepts.push(...level.taughtConcepts);
+  }
+  return concepts;
+}
+
 // Get all level IDs in order (useful for progression)
 export function getLevelIds(): LevelId[] {
   return levels.map((level) => level.id) as LevelId[];

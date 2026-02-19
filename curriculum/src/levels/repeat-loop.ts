@@ -4,7 +4,7 @@ const repeatLoop: Level = {
   id: "repeat-loop",
   title: "Repeat Loop",
   description: "Learn how to repeat actions using loops to make your code more efficient.",
-  educationalGoal: "Introduce the repeat loop as a way to run the same code multiple times without duplicating lines.",
+  taughtConcepts: ["Using repeat loops to run code multiple times"],
   languageFeatures: {
     javascript: {
       allowedNodes: ["RepeatStatement", "BlockStatement"],

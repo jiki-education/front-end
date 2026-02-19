@@ -57,7 +57,7 @@ Understand what AST nodes and feature flags each level introduces, so the new le
 5. **Metadata**:
    - `title` — Display name for the level
    - `description` — Student-facing description of what they'll learn
-   - `educationalGoal` — Internal-facing note on the educational purpose
+   - `taughtConcepts` — Array of strings describing concepts taught at this level (used by LLM proxy)
 
 Wait for the user's responses before proceeding.
 
@@ -74,7 +74,7 @@ export const [levelName]Level: Level = {
   id: "[level-name]",
   title: "[Level Title]",
   description: "[Student-facing description]",
-  educationalGoal: "[Internal educational purpose]",
+  taughtConcepts: [/* concepts taught at this level */],
 
   languageFeatures: {
     jikiscript: {

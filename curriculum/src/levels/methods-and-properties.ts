@@ -4,8 +4,7 @@ const methodsAndProperties: Level = {
   id: "methods-and-properties",
   title: "Methods and Properties",
   description: "Learn to use methods and properties on objects to access and transform data.",
-  educationalGoal:
-    "Students learn to call methods on values and access properties, enabling more powerful data manipulation through built-in functionality.",
+  taughtConcepts: ["Calling methods on values", "Accessing properties"],
   languageFeatures: {
     jikiscript: {
       languageFeatures: {

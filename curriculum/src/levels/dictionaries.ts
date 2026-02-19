@@ -4,8 +4,7 @@ const dictionaries: Level = {
   id: "dictionaries",
   title: "Dictionaries",
   description: "Learn to work with dictionaries (key-value pairs) to store and look up data efficiently.",
-  educationalGoal:
-    "Students learn to create, access, and manipulate dictionaries, enabling them to map keys to values and perform efficient lookups.",
+  taughtConcepts: ["Creating dictionaries", "Key-value lookups", "Iterating over dictionaries"],
   languageFeatures: {
     jikiscript: {
       languageFeatures: {

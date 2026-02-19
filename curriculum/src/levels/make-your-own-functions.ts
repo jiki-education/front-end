@@ -4,8 +4,7 @@ const makeYourOwnFunctions: Level = {
   id: "make-your-own-functions",
   title: "Make Your Own Functions",
   description: "Learn to write your own functions to organize and reuse code.",
-  educationalGoal:
-    "Students learn to declare their own functions with parameters and return values, extracting repeated logic into named, reusable blocks.",
+  taughtConcepts: ['Writing your own functions (use "writing" not "declaring")', "Return values from functions"],
   languageFeatures: {
     javascript: {
       allowedNodes: ["FunctionDeclaration", "ReturnStatement"],

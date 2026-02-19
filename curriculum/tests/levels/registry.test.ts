@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { levels, getLevel, hasLevel, getLevelIds } from "../../src/levels";
+import { levels, getLevel, hasLevel, getLevelIds, getTaughtConcepts } from "../../src/levels";
 
 describe("Level Registry", () => {
   describe("levels array", () => {
@@ -103,9 +103,11 @@ describe("Level Registry", () => {
         expect(level).toHaveProperty("id");
         expect(level).toHaveProperty("title");
         expect(level).toHaveProperty("description");
+        expect(level).toHaveProperty("taughtConcepts");
         expect(level).toHaveProperty("languageFeatures");
         expect(typeof level.id).toBe("string");
         expect(typeof level.title).toBe("string");
+        expect(Array.isArray(level.taughtConcepts)).toBe(true);
       });
     });
 
@@ -115,6 +117,43 @@ describe("Level Registry", () => {
         const level = getLevel(id)!;
         expect(level.languageFeatures.javascript).toBeDefined();
       });
+    });
+  });
+
+  describe("getTaughtConcepts", () => {
+    it("should return concepts for the first level only", () => {
+      const concepts = getTaughtConcepts("using-functions");
+      expect(concepts.length).toBeGreaterThan(0);
+      expect(concepts).toContain('Using functions (use "using" not "calling")');
+    });
+
+    it("should accumulate concepts from all levels up to target", () => {
+      const concepts = getTaughtConcepts("variables");
+      // Should include concepts from using-functions, strings-and-colors, repeat-loop, and variables
+      expect(concepts).toContain('Using functions (use "using" not "calling")');
+      expect(concepts).toContain("Declaring variables");
+    });
+
+    it("should not include concepts from levels after target", () => {
+      const concepts = getTaughtConcepts("variables");
+      expect(concepts).not.toContain("If statements");
+      expect(concepts).not.toContain("Creating lists/arrays");
+    });
+
+    it("should return empty array for invalid level", () => {
+      const concepts = getTaughtConcepts("non-existent");
+      expect(concepts).toEqual([]);
+    });
+
+    it("should return empty array for everything level (no new concepts)", () => {
+      const everythingLevel = getLevel("everything")!;
+      expect(everythingLevel.taughtConcepts).toEqual([]);
+    });
+
+    it("should accumulate more concepts for later levels", () => {
+      const earlyConcepts = getTaughtConcepts("using-functions");
+      const lateConcepts = getTaughtConcepts("dictionaries");
+      expect(lateConcepts.length).toBeGreaterThan(earlyConcepts.length);
     });
   });
 });

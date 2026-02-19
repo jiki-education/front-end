@@ -117,6 +117,19 @@ describe("Prompt Builder", () => {
     expect(prompt).toContain("## Exercise Context");
   });
 
+  it("should include taught concepts section", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "maze-solve-basic",
+      code: "test",
+      question: "test",
+      history: [],
+      language: "jikiscript"
+    });
+
+    expect(prompt).toContain("## What The Student Has Been Taught");
+    expect(prompt).toContain("Using functions");
+  });
+
   it("should include LLM teaching context when metadata available", async () => {
     const prompt = await buildPrompt({
       exerciseSlug: "acronym",

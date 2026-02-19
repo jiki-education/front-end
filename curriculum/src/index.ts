@@ -33,7 +33,7 @@ export { VisualExercise, type Animation } from "./VisualExercise";
 export { TestExercise } from "./mocks";
 
 // Export levels - language feature definitions for each level
-export { getLanguageFeatures, getLevel, levels, type Level, type LevelId } from "./levels";
+export { getLanguageFeatures, getLevel, getTaughtConcepts, levels, type Level, type LevelId } from "./levels";
 
 // Export LLM metadata types and accessor
 // NOTE: This will NOT be bundled in app builds due to tree-shaking
