@@ -10,6 +10,7 @@ export type NodeType =
   | "UpdateExpression"
   | "TemplateLiteralExpression"
   | "ArrayExpression"
+  | "IndexExpression"
   | "MemberExpression"
   | "DictionaryExpression"
   | "CallExpression"
