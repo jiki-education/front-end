@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./BenefitSection.module.css";
 
 interface BenefitSectionProps {
@@ -104,8 +105,12 @@ function CancellingBenefitSection({
         <div className={styles.resubscribeCtaContent}>
           <h4>Keep learning without limits</h4>
           <p>
-            Resubscribe now for just <span className={styles.price}>$3.99/month</span> and continue your coding journey
-            with Jiki&apos;s support.
+            Resubscribe now for just{" "}
+            <span className={styles.price}>
+              <PremiumPrice interval="monthly" />
+              /month
+            </span>{" "}
+            and continue your coding journey with Jiki&apos;s support.
           </p>
         </div>
         <button

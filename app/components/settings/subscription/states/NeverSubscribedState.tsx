@@ -1,5 +1,6 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
 import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 
 interface NeverSubscribedStateProps {
   onUpgradeToPremium: () => void;
@@ -26,11 +27,8 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
           <h4 id="premium-plan-title" className="font-medium text-text-primary mb-2">
             {premiumTier.name}
           </h4>
-          <p
-            className="text-2xl font-bold text-text-primary mb-1"
-            aria-label={`Price: $${premiumTier.price} per month`}
-          >
-            ${premiumTier.price}
+          <p className="text-2xl font-bold text-text-primary mb-1">
+            <PremiumPrice interval="monthly" />
             <span className="text-sm font-normal">/month</span>
           </p>
           <ul className="text-sm text-text-secondary space-y-1 mb-4" aria-label="Premium plan features">
@@ -43,7 +41,7 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
             onClick={onUpgradeToPremium}
             loading={isLoading}
             className="w-full"
-            ariaLabel={`Upgrade to ${premiumTier.name} plan for $${premiumTier.price} per month`}
+            ariaLabel={`Upgrade to ${premiumTier.name} plan`}
           >
             Upgrade to Premium
           </SubscriptionButton>

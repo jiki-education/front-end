@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
 import { getPricingTier } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import type { MembershipTier } from "@/lib/pricing";
 
 export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCancel: () => void }) {
@@ -59,7 +60,9 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
             <p className="text-sm text-gray-600">{pricingTier.description}</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold">${pricingTier.price}</p>
+            <p className="text-2xl font-bold">
+              <PremiumPrice interval="monthly" />
+            </p>
             <p className="text-sm text-gray-600">per month</p>
           </div>
         </div>
@@ -91,7 +94,7 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
           {isLoading || checkoutState.type === "loading" ? (
             <div className="spinner inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent"></div>
           ) : (
-            `Pay $${pricingTier.price} now`
+            "Pay now"
           )}
         </button>
         <button

@@ -5,6 +5,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { hideModal } from "../store";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
 import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import toast from "react-hot-toast";
 
@@ -151,7 +152,9 @@ export function SubscriptionModal({
           <div className="mb-4">
             <h3 className="text-xl font-bold text-text-primary">{premiumTier.name}</h3>
             <div className="mt-2">
-              <span className="text-3xl font-bold text-text-primary">${premiumTier.price}</span>
+              <span className="text-3xl font-bold text-text-primary">
+                <PremiumPrice interval="monthly" />
+              </span>
               <span className="text-text-secondary">/month</span>
             </div>
             <p className="text-text-secondary text-sm mt-2">{premiumTier.description}</p>
@@ -173,7 +176,7 @@ export function SubscriptionModal({
             onClick={() => handleTierSelection()}
             loading={isLoading}
             className="w-full"
-            ariaLabel={`Subscribe to ${premiumTier.name} plan for $${premiumTier.price} per month`}
+            ariaLabel={`Subscribe to ${premiumTier.name} plan`}
           >
             Choose Premium
           </SubscriptionButton>
