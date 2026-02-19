@@ -2,16 +2,14 @@
 
 import Lottie from "react-lottie-player";
 import { hideModal } from "../store";
-import type { MembershipTier } from "@/lib/pricing";
 import styles from "./PaymentProcessingModal.module.css";
 import paymentProcessingAnimation from "@/public/static/animations/payment-processing.json";
 
 interface PaymentProcessingModalProps {
-  tier: MembershipTier;
   onClose?: () => void;
 }
 
-export function PaymentProcessingModal({ tier, onClose }: PaymentProcessingModalProps) {
+export function PaymentProcessingModal({ onClose }: PaymentProcessingModalProps) {
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -25,7 +23,7 @@ export function PaymentProcessingModal({ tier, onClose }: PaymentProcessingModal
       <h2 className={styles.title}>Payment Processing</h2>
       <p className={styles.description}>
         Thank you. We&apos;re waiting for your payment provider to send us the funds. Once they do we&apos;ll upgrade
-        your plan to {tier === "premium" ? "Premium" : "Max"} and send you an email.
+        your plan to Premium and send you an email.
       </p>
       <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-large">
         Continue using Jiki

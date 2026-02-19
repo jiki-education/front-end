@@ -1,5 +1,6 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
 import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 
 interface ActivePremiumStateProps {
   nextBillingDate?: string;
@@ -36,7 +37,10 @@ export default function ActivePremiumState({
 
           <div className="text-sm">
             <p className="text-text-secondary mb-1">Billing Information</p>
-            <p className="font-medium text-text-primary">${premiumTier.price}.00/month</p>
+            <p className="font-medium text-text-primary">
+              <PremiumPrice interval="monthly" />
+              /month
+            </p>
             {nextBillingDate && <p className="text-text-secondary">Next billing: {nextBillingDate}</p>}
           </div>
         </div>

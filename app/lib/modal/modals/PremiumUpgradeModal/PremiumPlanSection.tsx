@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
 import styles from "./PremiumUpgradeModal.module.css";
 
 interface PremiumPlanSectionProps {
@@ -7,8 +7,6 @@ interface PremiumPlanSectionProps {
   isLoading: boolean;
   onUpgrade: () => void;
 }
-
-const premiumTier = PRICING_TIERS.premium;
 
 const premiumFeatures = [
   "Unlimited AI support from Jiki",
@@ -19,16 +17,18 @@ const premiumFeatures = [
 ];
 
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
-  const dailyPrice = (premiumTier.price / 30).toFixed(2);
-
   return (
     <div className={styles.rightSide}>
-      <h2 className={styles.premiumName}>Jiki {premiumTier.name}</h2>
+      <h2 className={styles.premiumName}>Jiki Premium</h2>
       <div className={styles.premiumPrice}>
-        <span className={styles.amount}>${premiumTier.price}</span>
+        <span className={styles.amount}>
+          <PremiumPrice interval="monthly" />
+        </span>
         <span className={styles.period}>/month</span>
       </div>
-      <p className={styles.annualNote}>(That&apos;s only ${dailyPrice} a day)</p>
+      <p className={styles.annualNote}>
+        (That&apos;s only <PremiumDailyPrice interval="monthly" /> a day)
+      </p>
 
       <button
         className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple mb-24 w-full ${isLoading ? "ui-btn-loading" : ""}`}

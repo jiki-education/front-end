@@ -1,4 +1,5 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 
 interface PreviouslySubscribedStateProps {
   previousTier: "premium";
@@ -15,8 +16,7 @@ export default function PreviouslySubscribedState({
 }: PreviouslySubscribedStateProps) {
   const tierInfo = {
     premium: {
-      name: "Premium",
-      price: "$3.99"
+      name: "Premium"
     }
   };
 
@@ -59,7 +59,8 @@ export default function PreviouslySubscribedState({
               <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Previous Plan</span>
             </div>
             <p className="text-2xl font-bold text-text-primary mb-1">
-              $3<span className="text-sm font-normal">/month</span>
+              <PremiumPrice interval="monthly" />
+              <span className="text-sm font-normal">/month</span>
             </p>
             <ul className="text-sm text-text-secondary space-y-1 mb-4">
               <li>• Advanced exercises</li>

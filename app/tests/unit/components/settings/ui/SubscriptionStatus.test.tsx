@@ -4,6 +4,18 @@
 import { render, screen } from "@testing-library/react";
 import SubscriptionStatus from "@/components/settings/ui/SubscriptionStatus";
 
+// Mock the auth store so PremiumPrice can render
+jest.mock("@/lib/auth/authStore", () => {
+  const state = {
+    user: {
+      premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null }
+    }
+  };
+  return {
+    useAuthStore: (selector: (s: typeof state) => unknown) => selector(state)
+  };
+});
+
 describe("SubscriptionStatus", () => {
   describe("Tier display", () => {
     it("displays Standard Plan correctly", () => {
@@ -17,7 +29,8 @@ describe("SubscriptionStatus", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
       expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/\$3\.99\/month/)).toBeInTheDocument();
+      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
+      expect(screen.getByText(/\/month/)).toBeInTheDocument();
     });
 
     // Max tier removed - only standard and premium now
@@ -28,7 +41,8 @@ describe("SubscriptionStatus", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
       expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/\$3\.99\/month/)).toBeInTheDocument();
+      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
+      expect(screen.getByText(/\/month/)).toBeInTheDocument();
     });
 
     it("displays Canceled status", () => {
@@ -103,7 +117,8 @@ describe("SubscriptionStatus", () => {
       render(<SubscriptionStatus tier="premium" status="active" nextBillingDate="2024-12-31" />);
 
       expect(screen.getByText(/Jiki Premium/)).toBeInTheDocument();
-      expect(screen.getByText(/\$3\.99\/month/)).toBeInTheDocument();
+      expect(screen.getByText(/9\.99/)).toBeInTheDocument();
+      expect(screen.getByText(/\/month/)).toBeInTheDocument();
     });
 
     // Max tier removed - only standard and premium now

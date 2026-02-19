@@ -53,7 +53,7 @@ describe("Payment Verification Integration", () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_success123");
     mockVerifyCheckoutSession.mockResolvedValue({
       success: true,
-      tier: "premium",
+      interval: "monthly",
       payment_status: "paid",
       subscription_status: "active"
     });
@@ -72,7 +72,7 @@ describe("Payment Verification Integration", () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_processing");
     mockVerifyCheckoutSession.mockResolvedValue({
       success: true,
-      tier: "premium",
+      interval: "monthly",
       payment_status: "unpaid",
       subscription_status: "incomplete"
     });
@@ -83,7 +83,7 @@ describe("Payment Verification Integration", () => {
       expect(mockVerifyCheckoutSession).toHaveBeenCalledWith("cs_test_processing");
     });
 
-    expect(mockShowPaymentProcessing).toHaveBeenCalledWith({ tier: "premium" });
+    expect(mockShowPaymentProcessing).toHaveBeenCalledWith();
     expect(mockRefreshUser).toHaveBeenCalled();
   });
 

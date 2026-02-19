@@ -2,6 +2,7 @@
 
 import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { PaymentForm } from "./PaymentForm";
 import styles from "../SubscriptionCheckoutModal.module.css";
@@ -36,7 +37,9 @@ export function ModalBody({ selectedTier, onCancel }: { selectedTier: Membership
           <div className={styles.orderBilling}>Billed monthly. Cancel anytime.</div>
         </div>
         <div className={styles.orderPrice}>
-          <span className={styles.amount}>${tierInfo.price}</span>
+          <span className={styles.amount}>
+            <PremiumPrice interval="monthly" />
+          </span>
           <span className={styles.period}>/mo</span>
         </div>
       </div>

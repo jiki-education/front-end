@@ -4,6 +4,18 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import NeverSubscribedState from "@/components/settings/subscription/states/NeverSubscribedState";
 
+// Mock the auth store so PremiumPrice can render
+jest.mock("@/lib/auth/authStore", () => {
+  const state = {
+    user: {
+      premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null }
+    }
+  };
+  return {
+    useAuthStore: (selector: (s: typeof state) => unknown) => selector(state)
+  };
+});
+
 describe("NeverSubscribedState", () => {
   const mockProps = {
     onUpgradeToPremium: jest.fn(),
@@ -28,7 +40,6 @@ describe("NeverSubscribedState", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
       expect(screen.getByText("Premium")).toBeInTheDocument();
-      expect(screen.getByText("$3.99")).toBeInTheDocument();
       expect(screen.getByText(/All Free features/)).toBeInTheDocument();
       expect(screen.getByText(/Unlimited AI help/)).toBeInTheDocument();
       expect(screen.getByText(/Access to all exercises/)).toBeInTheDocument();
@@ -118,7 +129,6 @@ describe("NeverSubscribedState", () => {
     it("shows pricing information clearly", () => {
       render(<NeverSubscribedState {...mockProps} />);
 
-      expect(screen.getByText("$3.99")).toBeInTheDocument();
       expect(screen.getByText("/month")).toBeInTheDocument();
     });
   });

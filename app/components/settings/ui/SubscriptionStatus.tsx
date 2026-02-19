@@ -1,5 +1,6 @@
 import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import type { SubscriptionStatus as SubscriptionStatusType } from "../subscription/types";
 import styles from "../Settings.module.css";
 
@@ -66,7 +67,10 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
         </div>
         <p>
           You are on the <span className={styles.gradientText}>Jiki {tierDetails.name}</span> plan at{" "}
-          <strong>${tierDetails.price.toFixed(2)}/month</strong>
+          <strong>
+            <PremiumPrice interval="monthly" />
+            /month
+          </strong>
           {nextBillingDate && (
             <>
               . Your next billing date is <strong>{nextBillingDate}</strong>
@@ -149,7 +153,10 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
       </div>
 
       <div className="text-text-secondary text-sm">
-        <p>${tierDetails.price}/month</p>
+        <p>
+          <PremiumPrice interval="monthly" />
+          /month
+        </p>
 
         {/* Status-specific messages */}
         {status === "canceled" && <p className="mt-1">Service continues until period end</p>}

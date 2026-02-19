@@ -11,7 +11,6 @@ export type { RefreshUserFn };
 // Re-export handlers with settings-specific configuration
 export const handleSubscribe = settingsHandlers.subscribe;
 export const handleOpenPortal = settingsHandlers.openPortal;
-export const handleUpgradeToPremium = settingsHandlers.upgradeToPremium;
 export const handleCancelSubscription = settingsHandlers.cancel;
 export const handleReactivateSubscription = settingsHandlers.reactivate;
 export const handleRetryPayment = settingsHandlers.retryPayment;
