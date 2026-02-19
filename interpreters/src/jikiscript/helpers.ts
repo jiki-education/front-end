@@ -110,6 +110,10 @@ export function extractFunctionCallExpressionsExcludingBody(
 ): FunctionCallExpression[] {
   const results: FunctionCallExpression[] = [];
   for (const node of tree) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!node) {
+      continue;
+    }
     if (node instanceof FunctionStatement && node.name.lexeme === excludeFuncName) {
       continue;
     }
