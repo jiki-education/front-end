@@ -6,7 +6,10 @@ export const tasks = [
     id: "first-word" as const,
     name: "Get a correct word displaying",
     description: "Start by guessing the first word from common_words(). If it matches, add it with all correct states.",
-    hints: ["The first word in the list is always your first guess", "Compare it to the target word to build the states"],
+    hints: [
+      "The first word in the list is always your first guess",
+      "Compare it to the target word to build the states"
+    ],
     requiredScenarios: ["hole-in-one"],
     bonus: false
   },
@@ -14,10 +17,7 @@ export const tasks = [
     id: "handle-wrong" as const,
     name: "Handle entirely wrong",
     description: "When a guess is entirely wrong, filter it out and try the next word.",
-    hints: [
-      "Track which letters are absent",
-      "Filter the word list to exclude words with absent letters"
-    ],
+    hints: ["Track which letters are absent", "Filter the word list to exclude words with absent letters"],
     requiredScenarios: ["entirely-wrong"],
     bonus: false
   },
@@ -25,10 +25,7 @@ export const tasks = [
     id: "handle-partial" as const,
     name: "Handle partially right",
     description: "Use correct letter positions to narrow down guesses.",
-    hints: [
-      "Track which positions have correct letters",
-      "The next guess must have those letters in those positions"
-    ],
+    hints: ["Track which positions have correct letters", "The next guess must have those letters in those positions"],
     requiredScenarios: ["two-needed", "three-needed", "four-needed"],
     bonus: false
   },
@@ -47,8 +44,7 @@ export const tasks = [
   {
     id: "bonus" as const,
     name: "Bonus: Handle duplicate letters",
-    description:
-      "If a letter appears twice in a guess but only once in the target, only one should be yellow.",
+    description: "If a letter appears twice in a guess but only once in the target, only one should be yellow.",
     hints: [
       "Count how many times each letter appears in the target word",
       "Track how many of each letter you've already marked as correct or present",
@@ -95,8 +91,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to be absent"
         },
         {
@@ -122,8 +117,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to have one correct"
         },
         {
@@ -149,8 +143,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to have one correct"
         },
         {
@@ -182,14 +175,12 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["correct", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to have one correct"
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "correct", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "correct", "absent", "absent", "absent"]),
           errorHtml: "We expected the second row to have the first two correct"
         },
         {
@@ -248,8 +239,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to be present, absent, absent, absent, absent"
         },
         {
@@ -281,14 +271,12 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["absent", "absent", "present", "present", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "present", "present", "absent"]),
           errorHtml: "We expected the first row to be absent, absent, present, present, absent."
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["absent", "absent", "absent", "correct", "correct"]),
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "correct", "correct"]),
           errorHtml: "We expected the second row to be absent, absent, absent, correct, correct"
         },
         {
@@ -320,20 +308,17 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first row to be absent"
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the second row to be absent"
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["present", "absent", "present", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(2)) === JSON.stringify(["present", "absent", "present", "absent", "absent"]),
           errorHtml: "We expected the third row to be present, absent, present, absent, absent"
         },
         {
@@ -365,14 +350,12 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["absent", "absent", "absent", "present", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "present", "absent"]),
           errorHtml: "We expected only the fourth letter of the first row to be present."
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(1)) ===
-            JSON.stringify(["correct", "absent", "present", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["correct", "absent", "present", "absent", "absent"]),
           errorHtml:
             "We expected the second row to be correct, absent, present, absent, absent (This is the tricky one!)"
         },
@@ -405,8 +388,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass:
-            JSON.stringify(ex.statesForRow(0)) ===
-            JSON.stringify(["present", "absent", "correct", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["present", "absent", "correct", "absent", "absent"]),
           errorHtml: "We expected only the first row to be present, absent, correct, absent, absent."
         },
         {

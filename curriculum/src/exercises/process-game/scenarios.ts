@@ -107,29 +107,28 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as ProcessGameExercise;
       return [
         {
-          pass: JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: "We expected everything to be absent."
-        },
-        {
-          pass: JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
+          pass:
+            JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected everything to be absent."
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(2)) ===
-            JSON.stringify(["absent", "absent", "absent", "present", "present"]),
+            JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
+          errorHtml: "We expected everything to be absent."
+        },
+        {
+          pass:
+            JSON.stringify(ex.statesForRow(2)) === JSON.stringify(["absent", "absent", "absent", "present", "present"]),
           errorHtml: "We expected the last two to be present and the rest absent."
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(3)) ===
-            JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(3)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
           errorHtml: "We expected the first to be present and the rest absent."
         },
         {
           pass:
-            JSON.stringify(ex.statesForRow(4)) ===
-            JSON.stringify(["absent", "present", "absent", "absent", "absent"]),
+            JSON.stringify(ex.statesForRow(4)) === JSON.stringify(["absent", "present", "absent", "absent", "absent"]),
           errorHtml: "We expected the second to be present and the rest absent"
         },
         {

@@ -35,8 +35,7 @@ const functions: FunctionInfo[] = [
   {
     name: "has_key",
     signature: "has_key(dictionary, key)",
-    description:
-      "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+    description: "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
     examples: ['has_key({"name": "Jeremy"}, "name") → true'],
     category: "Dictionary Operations"
   }

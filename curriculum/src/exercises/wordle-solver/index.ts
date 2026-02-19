@@ -23,7 +23,7 @@ const functions: FunctionInfo[] = [
     name: "get_target_word",
     signature: "get_target_word()",
     description: "Returns the secret target word. Use this to check your guess, not to cheat!",
-    examples: ['set target to get_target_word()'],
+    examples: ["set target to get_target_word()"],
     category: "Wordle"
   },
   {

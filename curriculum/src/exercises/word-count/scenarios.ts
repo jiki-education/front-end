@@ -32,11 +32,7 @@ export const tasks = [
       "Apostrophes should be kept as part of contractions like don't",
       "Multiple spaces between words should not create empty words"
     ],
-    requiredScenarios: [
-      "word-count-normalize-case",
-      "word-count-with-apostrophes",
-      "word-count-multiple-spaces"
-    ],
+    requiredScenarios: ["word-count-normalize-case", "word-count-with-apostrophes", "word-count-multiple-spaces"],
     bonus: false
   },
   {
@@ -48,10 +44,7 @@ export const tasks = [
       "An apostrophe at the start or end of a word is a quotation mark, not part of the word",
       "Strip leading and trailing apostrophes from each extracted word"
     ],
-    requiredScenarios: [
-      "word-count-with-apostrophes-and-quotations",
-      "word-count-apostrophe-word-variation"
-    ],
+    requiredScenarios: ["word-count-with-apostrophes-and-quotations", "word-count-apostrophe-word-variation"],
     bonus: true
   }
 ] as const satisfies readonly Task[];

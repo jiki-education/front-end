@@ -5,7 +5,7 @@ export const tasks = [
     id: "identify-even-or-odd" as const,
     name: "Identify even and odd numbers",
     description:
-      "Write a function called even_or_odd that takes a number and returns \"Even\" if it's divisible by 2, or \"Odd\" otherwise. Zero is even.",
+      'Write a function called even_or_odd that takes a number and returns "Even" if it\'s divisible by 2, or "Odd" otherwise. Zero is even.',
     hints: [
       "Use the remainder operator (%) to check if a number is divisible by 2",
       "If number % 2 equals 0, the number is even",
