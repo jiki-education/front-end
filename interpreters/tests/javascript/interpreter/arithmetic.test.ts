@@ -55,6 +55,30 @@ describe("arithmetic interpreter", () => {
         expect(frames[0].result?.jikiObject.value).toBe(5);
       });
 
+      test("modulo", () => {
+        const { frames, error } = interpret("10 % 3;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(1);
+      });
+
+      test("modulo with no remainder", () => {
+        const { frames, error } = interpret("10 % 5;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(0);
+      });
+
+      test("modulo has same precedence as multiplication", () => {
+        const { frames, error } = interpret("1 + 10 % 3;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(2);
+      });
+
       test("exponentiation", () => {
         const { frames, error } = interpret("2 ** 3;");
         expect(error).toBeNull();

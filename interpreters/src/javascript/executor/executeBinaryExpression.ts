@@ -78,6 +78,12 @@ function handleBinaryOperation(
       }
       return createJSObject(left / right);
 
+    case "PERCENT":
+      if (!executor.languageFeatures.allowTypeCoercion) {
+        verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
+      }
+      return createJSObject(left % right);
+
     case "LOGICAL_AND":
       executor.verifyBoolean(leftResult.jikiObject, expression.left.location);
       executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
