@@ -114,8 +114,9 @@ export function evaluateFunction(
   // Generate the function call code
   const callingCode = `${functionName}(${args.map(arg => JSON.stringify(arg)).join(", ")})`;
 
-  // Parse the calling code - let parse errors throw
-  const callingStatements = parse(callingCode, context);
+  // Parse the calling code without node restrictions - this is infrastructure code, not student code
+  const callingContext = { ...context, languageFeatures: { ...context.languageFeatures, allowedNodes: null } };
+  const callingStatements = parse(callingCode, callingContext);
 
   if (callingStatements.length !== 1) {
     throw new Error(`Expected exactly one statement for function call, got ${callingStatements.length}`);
