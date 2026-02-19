@@ -21,7 +21,7 @@ describe("single-character", () => {
     // [".", "DOT"], // Unimplemented
     [";", "SEMICOLON"],
     // ["?", "QUESTION"], // Unimplemented
-    // ["%", "PERCENT"], // Unimplemented
+    ["%", "PERCENT"],
     // ["&", "AMPERSAND"], // Unimplemented
     // ["|", "PIPE"], // Unimplemented
     // ["^", "CARET"], // Unimplemented
@@ -588,7 +588,6 @@ describe("JavaScript - Token Availability", () => {
 
     describe("Operators", () => {
       const notYetImplementedOperators = [
-        { code: "5 % 2", token: "%", type: "PERCENT" },
         { code: "true ? 1 : 2", token: "?", type: "QUESTION" },
         { code: "() => 5", token: "=>", type: "ARROW" },
         { code: "x += 2", token: "+=", type: "PLUS_EQUAL" },
