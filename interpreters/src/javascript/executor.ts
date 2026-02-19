@@ -72,6 +72,7 @@ import { executeContinueStatement, ContinueFlowControlError } from "./executor/e
 import { JSBuiltinObject, JSNumber, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
+import { objectMethods } from "./stdlib/object";
 import {
   extractCallExpressions,
   extractVariableAssignments,
@@ -214,6 +215,22 @@ export class Executor {
       const mathObject = new JSBuiltinObject("Math", mathFunctions);
       this.environment.define("Math", mathObject, Location.unknown);
       this.protectedNames.add("Math");
+    }
+
+    if (this.isGlobalAllowed("Object")) {
+      const objectFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(objectMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        objectFunctions.set(name, func);
+      }
+      const objectBuiltin = new JSBuiltinObject("Object", objectFunctions);
+      this.environment.define("Object", objectBuiltin, Location.unknown);
+      this.protectedNames.add("Object");
     }
 
     // Register global built-in functions (Number, etc.)
