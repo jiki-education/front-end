@@ -69,9 +69,10 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
-import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
+import { JSBuiltinObject, JSNumber, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
+import { objectMethods } from "./stdlib/object";
 import {
   extractCallExpressions,
   extractVariableAssignments,
@@ -183,52 +184,73 @@ export class Executor {
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
 
-    // Track protected names (builtins + external functions) that students cannot override
-    this.protectedNames.add("console");
-    this.protectedNames.add("Math");
-
-    // Register builtin objects (console, Math, etc.) as JSBuiltinObject in the environment
-    const consoleFunctions = new Map<string, JSStdLibFunction>();
-    for (const [name, method] of Object.entries(consoleMethods)) {
-      const func = new JSStdLibFunction(
-        name,
-        method.arity,
-        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
-        method.description
-      );
-      consoleFunctions.set(name, func);
+    // Register builtin objects, gated by allowedGlobals
+    if (this.isGlobalAllowed("console")) {
+      const consoleFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(consoleMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        consoleFunctions.set(name, func);
+      }
+      const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
+      this.environment.define("console", consoleObject, Location.unknown);
+      this.protectedNames.add("console");
     }
-    const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
-    this.environment.define("console", consoleObject, Location.unknown);
 
-    // Register Math builtin object
-    const mathFunctions = new Map<string, JSStdLibFunction>();
-    for (const [name, method] of Object.entries(mathMethods)) {
-      const func = new JSStdLibFunction(
-        name,
-        method.arity,
-        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
-        method.description
-      );
-      mathFunctions.set(name, func);
+    if (this.isGlobalAllowed("Math")) {
+      const mathFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(mathMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        mathFunctions.set(name, func);
+      }
+      const mathObject = new JSBuiltinObject("Math", mathFunctions);
+      this.environment.define("Math", mathObject, Location.unknown);
+      this.protectedNames.add("Math");
     }
-    const mathObject = new JSBuiltinObject("Math", mathFunctions);
-    this.environment.define("Math", mathObject, Location.unknown);
+
+    if (this.isGlobalAllowed("Object")) {
+      const objectFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(objectMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        objectFunctions.set(name, func);
+      }
+      const objectBuiltin = new JSBuiltinObject("Object", objectFunctions);
+      this.environment.define("Object", objectBuiltin, Location.unknown);
+      this.protectedNames.add("Object");
+    }
+
+    // Register global built-in functions (Number, etc.)
+    this.registerGlobalBuiltins();
 
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
       for (const func of context.externalFunctions) {
-        const callable = new JSCallable(func.name, func.arity, func.func);
+        const camelName = snakeToCamel(func.name);
+        const callable = new JSCallable(camelName, func.arity, func.func);
         // External functions don't have source location, use Location.unknown
-        this.environment.define(func.name, callable, Location.unknown);
-        this.protectedNames.add(func.name);
+        this.environment.define(camelName, callable, Location.unknown);
+        this.protectedNames.add(camelName);
       }
     }
   }
 
   private assertNodeAllowed(node: Statement | Expression): void {
     // Get the node type name from the constructor
-    const nodeType = node.constructor.name as NodeType;
+    const nodeType = node.type as NodeType;
 
     // If allowedNodes is null or undefined, all nodes are allowed
     if (this.languageFeatures.allowedNodes === null || this.languageFeatures.allowedNodes === undefined) {
@@ -630,6 +652,26 @@ export class Executor {
     };
   }
 
+  private registerGlobalBuiltins(): void {
+    if (this.isGlobalAllowed("Number")) {
+      const numberFn = new JSStdLibFunction(
+        "Number",
+        1,
+        (_ctx, _thisObj, args) => new JSNumber(Number(args[0].value)),
+        "converts a value to a number"
+      );
+      this.environment.define("Number", numberFn, Location.unknown);
+      this.protectedNames.add("Number");
+    }
+  }
+
+  private isGlobalAllowed(name: string): boolean {
+    if (!this.languageFeatures.allowedGlobals) {
+      return true;
+    }
+    return this.languageFeatures.allowedGlobals.includes(name);
+  }
+
   /**
    * Evaluates a single expression statement (must be a function call).
    * Used for IO exercises to call student-defined functions and capture return values.
@@ -670,13 +712,21 @@ export class Executor {
         );
       }
 
-      // Execute the call expression within execution context
-      // Frames are generated naturally during execution, don't add extra frame
+      // Temporarily disable allowedNodes - the synthetic calling code contains nodes
+      // (like LiteralExpression for args) that may not be in the student's allowed set,
+      // and the student's code was already validated during parsing in Phase 1.
       let callResult: EvaluationResultCallExpression | undefined;
-      this.withExecutionContext(() => {
-        callResult = executeCallExpression(this, statement.expression as CallExpression);
-      });
-
+      const savedAllowedNodes = this.languageFeatures.allowedNodes;
+      try {
+        this.languageFeatures.allowedNodes = null;
+        // Execute the call expression within execution context
+        // Frames are generated naturally during execution, don't add extra frame
+        this.withExecutionContext(() => {
+          callResult = executeCallExpression(this, statement.expression as CallExpression);
+        });
+      } finally {
+        this.languageFeatures.allowedNodes = savedAllowedNodes;
+      }
       return {
         value: callResult ? unwrapJSObject(callResult.jikiObject) : undefined,
         jikiObject: callResult?.jikiObject,
@@ -693,7 +743,7 @@ export class Executor {
     } catch (error) {
       if (error instanceof RuntimeError) {
         // Handle specific error types for better error messages in IO exercises
-        if (error.type === "FunctionNotFound") {
+        if (error.location.line === 1 && error.type === "VariableNotDeclared") {
           const newError = new RuntimeError(error.message, statement.location, "FunctionNotFound", error.context);
           this.addErrorFrame(statement.location, newError, statement);
         } else if (error.type === "InvalidNumberOfArguments") {
@@ -705,7 +755,10 @@ export class Executor {
           );
           this.addErrorFrame(statement.location, newError, statement);
         } else {
-          this.addErrorFrame(error.location, error, statement);
+          // If the error is from the synthetic calling code (line 1), remap to
+          // the statement location to avoid garbage code extraction
+          const location = error.location.line === 1 ? statement.location : error.location;
+          this.addErrorFrame(location, error, statement);
         }
 
         return {

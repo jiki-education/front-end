@@ -1,10 +1,11 @@
 import type { Executor } from "../executor";
 import type { MemberExpression } from "../expression";
 import type { EvaluationResultMemberExpression } from "../evaluation-result";
-import type { JSArray, JSDictionary, JSBuiltinObject } from "../jikiObjects";
+import type { JSArray, JSDictionary, JSBuiltinObject, JSString } from "../jikiObjects";
 import { executeStdlibMemberExpression } from "./executeStdlibMemberExpression";
 import { executeDictionaryMemberExpression } from "./executeDictionaryMemberExpression";
 import { executeArrayMemberExpression } from "./executeArrayMemberExpression";
+import { executeStringMemberExpression } from "./executeStringMemberExpression";
 import { executeBuiltinObjectMemberExpression } from "./executeBuiltinObjectMemberExpression";
 
 // Main entry point - dispatches to type-specific handlers
@@ -20,6 +21,9 @@ export function executeMemberExpression(
   switch (object.type) {
     case "list":
       return executeArrayMemberExpression(executor, expression, objectResult, object as JSArray);
+
+    case "string":
+      return executeStringMemberExpression(executor, expression, objectResult, object as JSString);
 
     case "dictionary":
       return executeDictionaryMemberExpression(executor, expression, objectResult, object as JSDictionary);

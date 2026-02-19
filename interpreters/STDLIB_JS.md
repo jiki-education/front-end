@@ -261,7 +261,7 @@ This document lists all standard library methods for the JavaScript interpreter.
 - [ ] Object.isExtensible()
 - [ ] Object.isFrozen()
 - [ ] Object.isSealed()
-- [ ] Object.keys()
+- [x] Object.keys()
 - [ ] Object.preventExtensions()
 - [ ] Object.seal()
 - [ ] Object.setPrototypeOf()
