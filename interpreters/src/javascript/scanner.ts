@@ -124,7 +124,6 @@ export class Scanner {
     "TYPEOF",
     "QUESTION", // Ternary operator
     "ARROW",
-    "PERCENT", // Modulo
     // Compound assignments
     "PLUS_EQUAL",
     "MINUS_EQUAL",

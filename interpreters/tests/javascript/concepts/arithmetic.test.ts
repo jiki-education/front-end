@@ -95,6 +95,18 @@ describe("arithmetic", () => {
         expect((binaryExpr.right as LiteralExpression).value).toBe(2);
       });
 
+      test("modulo", () => {
+        const stmts = parse("10 % 3;");
+        expect(stmts).toBeArrayOfSize(1);
+        expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
+        const exprStmt = stmts[0] as ExpressionStatement;
+        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
+        const binaryExpr = exprStmt.expression as BinaryExpression;
+        expect(binaryExpr.operator.type).toBe("PERCENT");
+        expect((binaryExpr.left as LiteralExpression).value).toBe(10);
+        expect((binaryExpr.right as LiteralExpression).value).toBe(3);
+      });
+
       test("exponentiation", () => {
         const stmts = parse("2 ** 3;");
         expect(stmts).toBeArrayOfSize(1);

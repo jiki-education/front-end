@@ -589,7 +589,7 @@ export class Parser {
   private multiplication(): Expression {
     let expr = this.exponentiation();
 
-    while (this.match("STAR", "SLASH")) {
+    while (this.match("STAR", "SLASH", "PERCENT")) {
       // Check if BinaryExpression is allowed
       this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
 
