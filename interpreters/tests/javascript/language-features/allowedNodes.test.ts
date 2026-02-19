@@ -437,14 +437,14 @@ describe("JavaScript allowedNodes feature", () => {
       });
     });
 
-    describe("MemberExpression", () => {
-      test("allows member access when included", () => {
+    describe("IndexExpression (bracket notation)", () => {
+      test("allows bracket access when included", () => {
         const code = `let arr = [1, 2]; arr[0];`;
         const allowedNodes: NodeType[] = [
           "VariableDeclaration",
           "ExpressionStatement",
           "ArrayExpression",
-          "MemberExpression",
+          "IndexExpression",
           "IdentifierExpression",
           "LiteralExpression",
         ];
@@ -464,7 +464,61 @@ describe("JavaScript allowedNodes feature", () => {
         ];
         const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
         expect(error).toBeInstanceOf(SyntaxError);
-        expect(error?.type).toBe("MemberExpressionNotAllowed");
+        expect(error?.type).toBe("IndexExpressionNotAllowed");
+      });
+
+      test("allows string bracket access when included", () => {
+        const code = `let s = "hello"; s[0];`;
+        const allowedNodes: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "IndexExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+      });
+
+      test("allows bracket access without dot access", () => {
+        // IndexExpression allowed, MemberExpression NOT allowed
+        const code = `let arr = [1, 2]; arr[0];`;
+        const allowedNodes: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "ArrayExpression",
+          "DictionaryExpression",
+          "IndexExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+
+        // But dot notation should be blocked
+        const code2 = `let obj = { x: 5 }; obj.x;`;
+        const { error: error2 } = interpret(code2, { languageFeatures: { allowedNodes } });
+        expect(error2).toBeInstanceOf(SyntaxError);
+        expect(error2?.type).toBe("MemberExpressionNotAllowed");
+      });
+    });
+
+    describe("MemberExpression (dot notation)", () => {
+      test("allows dot access when included", () => {
+        const code = `let obj = { x: 5 }; obj.x;`;
+        const allowedNodes: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "DictionaryExpression",
+          "MemberExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
       });
 
       test("prevents dot notation when not included", () => {
@@ -479,6 +533,36 @@ describe("JavaScript allowedNodes feature", () => {
         const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
         expect(error).toBeInstanceOf(SyntaxError);
         expect(error?.type).toBe("MemberExpressionNotAllowed");
+      });
+
+      test("allows dot access without bracket access", () => {
+        // MemberExpression allowed, IndexExpression NOT allowed
+        const code = `let obj = { x: 5 }; obj.x;`;
+        const allowedNodes: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "DictionaryExpression",
+          "MemberExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+
+        // But bracket notation should be blocked
+        const code2 = `let arr = [1, 2]; arr[0];`;
+        const allowedNodes2: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "ArrayExpression",
+          "MemberExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error: error2 } = interpret(code2, { languageFeatures: { allowedNodes: allowedNodes2 } });
+        expect(error2).toBeInstanceOf(SyntaxError);
+        expect(error2?.type).toBe("IndexExpressionNotAllowed");
       });
     });
 

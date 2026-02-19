@@ -57,7 +57,7 @@ describe("evaluateFunction", () => {
     expect(frames[0].status).toBe("ERROR");
     expect(frames[0].error).not.toBeNull();
     expect(frames[0].error!.category).toBe("RuntimeError");
-    expect(frames[0].error!.type).toBe("VariableNotDeclared");
+    expect(frames[0].error!.type).toBe("FunctionNotFound");
     expect(error).toBeNull();
   });
 
@@ -267,6 +267,78 @@ describe("evaluateFunction", () => {
       "calculate"
     );
     expect(value).toBe(50);
+  });
+
+  test("synthetic calling code bypasses allowedNodes restrictions", () => {
+    // The function body only uses identifiers (no literals) — it just returns the arg.
+    // But the synthetic calling code identity("hello") contains a LiteralExpression
+    // for "hello" that must not be blocked by allowedNodes.
+    const code = `function identity(x) {
+  return x;
+}`;
+    const { value, error, success } = evaluateFunction(
+      code,
+      {
+        languageFeatures: {
+          allowedNodes: [
+            "ExpressionStatement",
+            "CallExpression",
+            "IdentifierExpression",
+            "BlockStatement",
+            "FunctionDeclaration",
+            "ReturnStatement",
+          ],
+        },
+      },
+      "identity",
+      "hello"
+    );
+    expect(error).toBeNull();
+    expect(success).toBe(true);
+    expect(value).toBe("hello");
+  });
+
+  test("sayHello with restricted language features", () => {
+    const code = `function sayHello(name) {
+  return "Hello, " + name + "!";
+}`;
+    const { value, frames, error, success } = evaluateFunction(
+      code,
+      {
+        externalFunctions: [],
+        languageFeatures: {
+          maxTotalLoopIterations: 10000,
+          allowedNodes: [
+            "ExpressionStatement",
+            "CallExpression",
+            "IdentifierExpression",
+            "LiteralExpression",
+            "RepeatStatement",
+            "BlockStatement",
+            "VariableDeclaration",
+            "BinaryExpression",
+            "GroupingExpression",
+            "AssignmentExpression",
+            "UnaryExpression",
+            "MemberExpression",
+            "IfStatement",
+            "FunctionDeclaration",
+            "ReturnStatement",
+            "TemplateLiteralExpression",
+          ],
+          allowTruthiness: false,
+          allowTypeCoercion: false,
+          enforceStrictEquality: true,
+          allowShadowing: false,
+          requireVariableInstantiation: true,
+        },
+      },
+      "sayHello",
+      "Aiko"
+    );
+    expect(error).toBeNull();
+    expect(success).toBe(true);
+    expect(value).toBe("Hello, Aiko!");
   });
 
   test("function with const variables", () => {

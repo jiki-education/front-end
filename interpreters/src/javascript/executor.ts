@@ -218,10 +218,11 @@ export class Executor {
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
       for (const func of context.externalFunctions) {
-        const callable = new JSCallable(func.name, func.arity, func.func);
+        const camelName = snakeToCamel(func.name);
+        const callable = new JSCallable(camelName, func.arity, func.func);
         // External functions don't have source location, use Location.unknown
-        this.environment.define(func.name, callable, Location.unknown);
-        this.protectedNames.add(func.name);
+        this.environment.define(camelName, callable, Location.unknown);
+        this.protectedNames.add(camelName);
       }
     }
   }
@@ -670,13 +671,21 @@ export class Executor {
         );
       }
 
-      // Execute the call expression within execution context
-      // Frames are generated naturally during execution, don't add extra frame
+      // Temporarily disable allowedNodes - the synthetic calling code contains nodes
+      // (like LiteralExpression for args) that may not be in the student's allowed set,
+      // and the student's code was already validated during parsing in Phase 1.
       let callResult: EvaluationResultCallExpression | undefined;
-      this.withExecutionContext(() => {
-        callResult = executeCallExpression(this, statement.expression as CallExpression);
-      });
-
+      const savedAllowedNodes = this.languageFeatures.allowedNodes;
+      try {
+        this.languageFeatures.allowedNodes = null;
+        // Execute the call expression within execution context
+        // Frames are generated naturally during execution, don't add extra frame
+        this.withExecutionContext(() => {
+          callResult = executeCallExpression(this, statement.expression as CallExpression);
+        });
+      } finally {
+        this.languageFeatures.allowedNodes = savedAllowedNodes;
+      }
       return {
         value: callResult ? unwrapJSObject(callResult.jikiObject) : undefined,
         jikiObject: callResult?.jikiObject,
@@ -693,7 +702,7 @@ export class Executor {
     } catch (error) {
       if (error instanceof RuntimeError) {
         // Handle specific error types for better error messages in IO exercises
-        if (error.type === "FunctionNotFound") {
+        if (error.location.line === 1 && error.type === "VariableNotDeclared") {
           const newError = new RuntimeError(error.message, statement.location, "FunctionNotFound", error.context);
           this.addErrorFrame(statement.location, newError, statement);
         } else if (error.type === "InvalidNumberOfArguments") {
@@ -705,7 +714,10 @@ export class Executor {
           );
           this.addErrorFrame(statement.location, newError, statement);
         } else {
-          this.addErrorFrame(error.location, error, statement);
+          // If the error is from the synthetic calling code (line 1), remap to
+          // the statement location to avoid garbage code extraction
+          const location = error.location.line === 1 ? statement.location : error.location;
+          this.addErrorFrame(location, error, statement);
         }
 
         return {

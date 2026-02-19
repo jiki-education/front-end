@@ -42,6 +42,7 @@ export type SyntaxErrorType =
   | "UpdateExpressionNotAllowed"
   | "TemplateLiteralExpressionNotAllowed"
   | "ArrayExpressionNotAllowed"
+  | "IndexExpressionNotAllowed"
   | "MemberExpressionNotAllowed"
   | "DictionaryExpressionNotAllowed"
   | "CallExpressionNotAllowed"

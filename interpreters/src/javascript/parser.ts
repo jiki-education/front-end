@@ -75,7 +75,8 @@ export class Parser {
       UpdateExpression: "Update expressions",
       TemplateLiteralExpression: "Template literals",
       ArrayExpression: "Arrays",
-      MemberExpression: "Member access",
+      IndexExpression: "Index access",
+      MemberExpression: "Member access (dot notation)",
       DictionaryExpression: "Objects",
       CallExpression: "Function calls",
       ExpressionStatement: "Expression statements",
@@ -655,8 +656,8 @@ export class Parser {
         // Function call: func(arg1, arg2)
         expr = this.finishCallExpression(expr);
       } else if (this.match("LEFT_BRACKET")) {
-        // Check if MemberExpression is allowed
-        this.checkNodeAllowed("MemberExpression", "MemberExpressionNotAllowed", this.previous().location);
+        // Check if IndexExpression is allowed (bracket notation is a separate guard from dot notation)
+        this.checkNodeAllowed("IndexExpression", "IndexExpressionNotAllowed", this.previous().location);
 
         // Bracket notation: obj["prop"] or arr[0]
         const property = this.assignment();
