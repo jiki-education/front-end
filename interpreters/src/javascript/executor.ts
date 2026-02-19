@@ -69,7 +69,7 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
-import { JSBuiltinObject, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
+import { JSBuiltinObject, JSNumber, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
 import {
@@ -183,37 +183,41 @@ export class Executor {
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
 
-    // Track protected names (builtins + external functions) that students cannot override
-    this.protectedNames.add("console");
-    this.protectedNames.add("Math");
-
-    // Register builtin objects (console, Math, etc.) as JSBuiltinObject in the environment
-    const consoleFunctions = new Map<string, JSStdLibFunction>();
-    for (const [name, method] of Object.entries(consoleMethods)) {
-      const func = new JSStdLibFunction(
-        name,
-        method.arity,
-        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
-        method.description
-      );
-      consoleFunctions.set(name, func);
+    // Register builtin objects, gated by allowedGlobals
+    if (this.isGlobalAllowed("console")) {
+      const consoleFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(consoleMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        consoleFunctions.set(name, func);
+      }
+      const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
+      this.environment.define("console", consoleObject, Location.unknown);
+      this.protectedNames.add("console");
     }
-    const consoleObject = new JSBuiltinObject("Console", consoleFunctions);
-    this.environment.define("console", consoleObject, Location.unknown);
 
-    // Register Math builtin object
-    const mathFunctions = new Map<string, JSStdLibFunction>();
-    for (const [name, method] of Object.entries(mathMethods)) {
-      const func = new JSStdLibFunction(
-        name,
-        method.arity,
-        (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
-        method.description
-      );
-      mathFunctions.set(name, func);
+    if (this.isGlobalAllowed("Math")) {
+      const mathFunctions = new Map<string, JSStdLibFunction>();
+      for (const [name, method] of Object.entries(mathMethods)) {
+        const func = new JSStdLibFunction(
+          name,
+          method.arity,
+          (ctx: any, thisObj: any, args: any[]) => method.call(ctx, thisObj, args),
+          method.description
+        );
+        mathFunctions.set(name, func);
+      }
+      const mathObject = new JSBuiltinObject("Math", mathFunctions);
+      this.environment.define("Math", mathObject, Location.unknown);
+      this.protectedNames.add("Math");
     }
-    const mathObject = new JSBuiltinObject("Math", mathFunctions);
-    this.environment.define("Math", mathObject, Location.unknown);
+
+    // Register global built-in functions (Number, etc.)
+    this.registerGlobalBuiltins();
 
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
@@ -629,6 +633,26 @@ export class Executor {
       log: this.log.bind(this),
       languageFeatures: this.languageFeatures,
     };
+  }
+
+  private registerGlobalBuiltins(): void {
+    if (this.isGlobalAllowed("Number")) {
+      const numberFn = new JSStdLibFunction(
+        "Number",
+        1,
+        (_ctx, _thisObj, args) => new JSNumber(Number(args[0].value)),
+        "converts a value to a number"
+      );
+      this.environment.define("Number", numberFn, Location.unknown);
+      this.protectedNames.add("Number");
+    }
+  }
+
+  private isGlobalAllowed(name: string): boolean {
+    if (!this.languageFeatures.allowedGlobals) {
+      return true;
+    }
+    return this.languageFeatures.allowedGlobals.includes(name);
   }
 
   /**

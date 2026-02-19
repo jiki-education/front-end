@@ -50,6 +50,11 @@ export interface LanguageFeatures {
   // [] = no nodes allowed
   // ["NodeType", ...] = only specified nodes allowed
   allowedNodes?: NodeType[] | null;
+  // Global builtin restrictions (console, Math, Number, etc.)
+  // null/undefined = all globals allowed (default behavior)
+  // [] = no globals allowed
+  // ["Number", "Math"] = only specified globals allowed
+  allowedGlobals?: string[];
   // Stdlib member restrictions
   // null/undefined = all stdlib members allowed (default behavior)
   // Nested structure for granular control per type
