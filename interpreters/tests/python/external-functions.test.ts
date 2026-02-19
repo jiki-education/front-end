@@ -388,4 +388,40 @@ describe("Python External Functions", () => {
       expect(frame?.result?.jikiObject?.value).toBeNull();
     });
   });
+
+  describe("Function name protection", () => {
+    it("should error when defining a function with the same name as an external function", () => {
+      const move: ExternalFunction = {
+        name: "move",
+        func: (_ctx: ExecutionContext) => "moved",
+        description: "moves the character",
+        arity: 0,
+      };
+
+      const result = interpret(
+        `def move():
+    return "override"`,
+        { externalFunctions: [move] }
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.frames).toHaveLength(1);
+      expect(result.frames[0].status).toBe("ERROR");
+      expect((result.frames[0] as any).error.type).toBe("FunctionAlreadyDefined");
+      expect((result.frames[0] as any).error.message).toBe("FunctionAlreadyDefined: name: move");
+    });
+
+    it("should error when defining a function named print", () => {
+      const result = interpret(
+        `def print():
+    return 1`
+      );
+
+      expect(result.error).toBeNull();
+      expect(result.frames).toHaveLength(1);
+      expect(result.frames[0].status).toBe("ERROR");
+      expect((result.frames[0] as any).error.type).toBe("FunctionAlreadyDefined");
+      expect((result.frames[0] as any).error.message).toBe("FunctionAlreadyDefined: name: print");
+    });
+  });
 });

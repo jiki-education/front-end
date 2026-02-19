@@ -70,7 +70,8 @@
       "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}.",
       "RepeatCountMustBeNumber": "repeat() requires a number, but got {{type}}.",
       "RepeatCountMustBeNonNegative": "repeat() count must be 0 or greater, but got {{value}}.",
-      "RepeatCountTooHigh": "repeat() count {{value}} exceeds the maximum of {{max}} iterations."
+      "RepeatCountTooHigh": "repeat() count {{value}} exceeds the maximum of {{max}} iterations.",
+      "FunctionAlreadyDefined": "There is already a function called '{{name}}'. Please choose a different name."
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",

@@ -108,7 +108,8 @@ export type RuntimeErrorType =
   | "ValueError"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
-  | "MaxIterationsReached";
+  | "MaxIterationsReached"
+  | "FunctionAlreadyDefined";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
@@ -151,6 +152,7 @@ export class Executor {
   public environment: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
+  private readonly protectedNames: Set<string> = new Set();
 
   constructor(
     private readonly sourceCode: string,
@@ -175,6 +177,7 @@ export class Executor {
         builtin.description
       );
       this.environment.define(name, builtinFunc);
+      this.protectedNames.add(name);
     }
 
     // Register the random module
@@ -189,12 +192,14 @@ export class Executor {
       randomMethodMap.set(name, methodFunc);
     }
     this.environment.define("random", new PyBuiltinModule("random", randomMethodMap));
+    this.protectedNames.add("random");
 
     // Register external functions as PyCallable objects in the environment
     if (context.externalFunctions) {
       for (const func of context.externalFunctions) {
         const callable = new PyCallable(func.name, func.arity, func.func);
         this.environment.define(func.name, callable);
+        this.protectedNames.add(func.name);
       }
     }
   }
@@ -474,6 +479,10 @@ export class Executor {
       message = translate(`error.runtime.${type}`, context);
     }
     throw new RuntimeError(message, location, type, context);
+  }
+
+  public isProtectedName(name: string): boolean {
+    return this.protectedNames.has(name);
   }
 
   public logicError(message: string): never {
