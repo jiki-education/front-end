@@ -1,13 +1,6 @@
-import { GoogleGenAI, ThinkingLevel } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 
 const MODEL_CHAIN = [
-  {
-    model: "gemini-3-flash-preview",
-    config: {
-      maxOutputTokens: 2048,
-      thinkingConfig: { thinkingLevel: ThinkingLevel.LOW }
-    }
-  },
   {
     model: "gemini-2.5-flash",
     config: {
@@ -38,7 +31,7 @@ function isRateLimitError(error: unknown): boolean {
 
 /**
  * Streams a response from Gemini, cascading through models on rate limits.
- * Tries gemini-3-flash-preview -> gemini-2.5-flash -> gemini-2.5-flash-lite.
+ * Tries gemini-2.5-flash -> gemini-2.5-flash-lite.
  *
  * @param prompt - The full prompt to send to Gemini
  * @param apiKey - Google Gemini API key
