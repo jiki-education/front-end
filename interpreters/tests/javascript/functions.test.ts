@@ -23,6 +23,19 @@ describe("User-defined functions", () => {
       expect((frames[1] as TestAugmentedFrame).variables?.result?.value).toBe("Hello");
     });
 
+    test("Function with string concatenation parameter", () => {
+      const code = `
+        function sayHello(name) {
+          return "Hello, " + name + "!";
+        }
+        let result = sayHello("World");
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe("Hello, World!");
+    });
+
     test("Function with parameters", () => {
       const code = `
         function add(a, b) {
