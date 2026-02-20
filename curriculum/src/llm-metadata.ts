@@ -89,6 +89,7 @@ import { llmMetadata as mazeWalkLLM } from "./exercises/maze-walk/llm-metadata";
 import { llmMetadata as battleProceduresLLM } from "./exercises/battle-procedures/llm-metadata";
 import { llmMetadata as weatherSymbolsPart1LLM } from "./exercises/weather-symbols-part-1/llm-metadata";
 import { llmMetadata as weatherSymbolsPart2LLM } from "./exercises/weather-symbols-part-2/llm-metadata";
+import { llmMetadata as ticTacToeLLM } from "./exercises/tic-tac-toe/llm-metadata";
 import { llmMetadata as lookupTimeLLM } from "./exercises/lookup-time/llm-metadata";
 import { llmMetadata as alienDetectorLLM } from "./exercises/alien-detector/llm-metadata";
 import { llmMetadata as sieveLLM } from "./exercises/sieve/llm-metadata";
@@ -186,6 +187,7 @@ const llmMetadataRegistry = {
   "battle-procedures": battleProceduresLLM,
   "weather-symbols-part-1": weatherSymbolsPart1LLM,
   "weather-symbols-part-2": weatherSymbolsPart2LLM,
+  "tic-tac-toe": ticTacToeLLM,
   "lookup-time": lookupTimeLLM,
   "alien-detector": alienDetectorLLM,
   sieve: sieveLLM,

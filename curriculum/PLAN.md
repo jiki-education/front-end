@@ -107,6 +107,7 @@ Nothing yet
 - `process-guess` - Wordle: Process Guess: process a Wordle guess and color the row (Lists level)
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
+- `tic-tac-toe` - Tic Tac Toe: build a complete tic-tac-toe game with board drawing, win/draw detection, and AI (Lists level)
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
 - `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Dictionaries level)
 - `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
