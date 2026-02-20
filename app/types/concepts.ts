@@ -9,10 +9,7 @@ export interface ConceptListItem {
   description: string;
   children_count: number;
   user_may_access: boolean;
-  standard_video_provider: string | null;
-  standard_video_id: string | null;
-  premium_video_provider: string | null;
-  premium_video_id: string | null;
+  video_data: Array<{ provider: string; id: string }> | null;
 }
 
 export interface ConceptDetail {
@@ -23,8 +20,5 @@ export interface ConceptDetail {
   children_count: number;
   user_may_access: boolean;
   ancestors: ConceptAncestor[];
-  standard_video_provider: string | null;
-  standard_video_id: string | null;
-  premium_video_provider: string | null;
-  premium_video_id: string | null;
+  video_data: Array<{ provider: string; id: string }> | null;
 }
