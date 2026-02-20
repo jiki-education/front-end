@@ -297,18 +297,18 @@ describe("DrawExercise", () => {
       expect((shapes[2] as Rectangle).x).toBe(30);
     });
 
-    it("Rectangle with width=0 should be valid", () => {
+    it("Rectangle with width=0 should be rejected", () => {
       exercise.rectangle(ctx, createNumber(10), createNumber(20), createNumber(0), createNumber(40), defaultColor);
 
-      const rect = exercise.getShapes()[0] as Rectangle;
-      expect(rect.width).toBe(0);
+      expect(ctx.logicError).toHaveBeenCalledWith("Width must be greater than 0");
+      expect(exercise.getShapes()).toHaveLength(0);
     });
 
-    it("Rectangle with height=0 should be valid", () => {
+    it("Rectangle with height=0 should be rejected", () => {
       exercise.rectangle(ctx, createNumber(10), createNumber(20), createNumber(30), createNumber(0), defaultColor);
 
-      const rect = exercise.getShapes()[0] as Rectangle;
-      expect(rect.height).toBe(0);
+      expect(ctx.logicError).toHaveBeenCalledWith("Height must be greater than 0");
+      expect(exercise.getShapes()).toHaveLength(0);
     });
 
     it("Rectangle should create animation with correct timing", () => {

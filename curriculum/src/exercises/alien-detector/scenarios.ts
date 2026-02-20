@@ -234,6 +234,13 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't shoot down all the aliens."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertMethodCalled("fire_fireworks"),
+        errorHtml: "The fireworks didn't fire. You need to celebrate your victory!"
+      }
+    ]
   }
 ];

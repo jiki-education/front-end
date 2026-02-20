@@ -205,10 +205,10 @@ export abstract class DrawExercise extends VisualExercise {
     if (!isString(color)) {
       return executionCtx.logicError("Color must be a string");
     }
-    if (width.value < 0) {
+    if (width.value <= 0) {
       return executionCtx.logicError("Width must be greater than 0");
     }
-    if (height.value < 0) {
+    if (height.value <= 0) {
       return executionCtx.logicError("Height must be greater than 0");
     }
     const fillColor = color.value;

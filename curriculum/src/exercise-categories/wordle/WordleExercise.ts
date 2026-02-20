@@ -143,7 +143,6 @@ const COMMON_WORDS = [
   "check",
   "floor",
   "begin",
-  "woman",
   "alone",
   "plane",
   "spell",

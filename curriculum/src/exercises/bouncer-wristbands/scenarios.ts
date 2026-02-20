@@ -26,7 +26,15 @@ export const tasks = [
       "Use else if for the next groups: age < 18 for teen, age < 65 for adult",
       "Use else for the last group (seniors)"
     ],
-    requiredScenarios: ["child-age-8", "teen-age-15", "adult-age-30", "senior-age-70", "boundary-13", "boundary-65"],
+    requiredScenarios: [
+      "child-age-8",
+      "teen-age-15",
+      "adult-age-30",
+      "senior-age-70",
+      "boundary-13",
+      "boundary-18",
+      "boundary-65"
+    ],
     bonus: false
   }
 ] as const satisfies readonly Task[];
@@ -128,6 +136,26 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.wristband === "teen",
           errorHtml: `The person is 13 — they should get a teen wristband (13 is not under 13), but got: ${ex.wristband ?? "none"}.`
+        }
+      ];
+    }
+  },
+  {
+    slug: "boundary-18",
+    name: "Age 18 (boundary — adult, not teen)",
+    description: "Exactly 18 — they're an adult, not a teen.",
+    taskId: "assign-wristband",
+
+    setup(exercise) {
+      setupScenario(exercise as BouncerWristbandsExercise, 18);
+    },
+
+    expectations(exercise) {
+      const ex = exercise as BouncerWristbandsExercise;
+      return [
+        {
+          pass: ex.wristband === "adult",
+          errorHtml: `The person is 18 — they should get an adult wristband (18 is not under 18), but got: ${ex.wristband ?? "none"}.`
         }
       ];
     }
