@@ -129,6 +129,7 @@ export type RuntimeErrorType =
   | "ForInLoopTargetNotObject"
   | "InOperatorRequiresObject"
   | "InOperatorRequiresStringKey"
+  | "InOperatorRequiresIntegerIndex"
   | "InWithArrayNotAllowed";
 
 export class RuntimeError extends Error {
