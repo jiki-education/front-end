@@ -70,6 +70,16 @@ export interface EvaluationResultForOfStatement {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultForInStatement {
+  type: "ForInStatement";
+  variable: string;
+  object: EvaluationResultExpression;
+  currentKey?: JikiObject;
+  iteration: number;
+  jikiObject?: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 // Expression result types
 export interface EvaluationResultBinaryExpression {
   type: "BinaryExpression";
@@ -166,6 +176,7 @@ export type EvaluationResultStatement =
   | EvaluationResultBreakStatement
   | EvaluationResultContinueStatement
   | EvaluationResultForOfStatement
+  | EvaluationResultForInStatement
   | EvaluationResultRepeatStatement;
 
 export type EvaluationResultExpression =
