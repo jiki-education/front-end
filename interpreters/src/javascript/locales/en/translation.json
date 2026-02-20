@@ -67,7 +67,8 @@
       "UnexpectedTokenInTemplateLiteral": "Unexpected token in template literal.",
       "MissingRightParenthesisAfterArguments": "Missing closing parenthesis ')' after function arguments.",
       "MissingLeftParenAfterRepeat": "Missing opening parenthesis '(' after 'repeat'.",
-      "MissingRightParenAfterRepeatCount": "Missing closing parenthesis ')' after repeat count."
+      "MissingRightParenAfterRepeatCount": "Missing closing parenthesis ')' after repeat count.",
+      "ForInStatementNotAllowed": "for...in loops are not allowed at your current learning level."
     },
     "runtime": {
       "ArgumentError": "{{message}}",
@@ -102,6 +103,7 @@
       "FunctionNotFound": "The function '{{name}}' is not defined.",
       "LogicErrorInExecution": "{{message}}",
       "ValueError": "{{message}}",
+      "ForInLoopTargetNotObject": "The for...in loop requires an object to iterate over, but you provided a {{type}} with value {{value}}.",
       "InOperatorRequiresObject": "The 'in' operator requires an object on the right side, but got {{type}}.",
       "InOperatorRequiresStringKey": "The 'in' operator requires a string key on the left side, but got {{type}}.",
       "InWithArrayNotAllowed": "Although the 'in' keyword can be used with arrays, it's a more advanced feature. For now, stick to using it just with dictionaries."

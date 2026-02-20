@@ -67,7 +67,8 @@
       "UnexpectedTokenInTemplateLiteral": "UnexpectedTokenInTemplateLiteral",
       "MissingRightParenthesisAfterArguments": "MissingRightParenthesisAfterArguments",
       "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
-      "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount"
+      "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount",
+      "ForInStatementNotAllowed": "ForInStatementNotAllowed"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",
@@ -102,6 +103,7 @@
       "FunctionNotFound": "FunctionNotFound: name: {{name}}",
       "LogicErrorInExecution": "LogicErrorInExecution: message: {{message}}",
       "ValueError": "ValueError: {{message}}",
+      "ForInLoopTargetNotObject": "ForInLoopTargetNotObject: type: {{type}}: value: {{value}}",
       "InOperatorRequiresObject": "InOperatorRequiresObject: type: {{type}}",
       "InOperatorRequiresStringKey": "InOperatorRequiresStringKey: type: {{type}}",
       "InWithArrayNotAllowed": "InWithArrayNotAllowed"

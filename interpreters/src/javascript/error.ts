@@ -69,7 +69,8 @@ export type SyntaxErrorType =
   | "MissingParameterName"
   | "DuplicateParameterName"
   | "MissingRightParenthesisAfterParameters"
-  | "MissingLeftBraceBeforeFunctionBody";
+  | "MissingLeftBraceBeforeFunctionBody"
+  | "ForInStatementNotAllowed";
 
 export class SyntaxError extends Error {
   constructor(
