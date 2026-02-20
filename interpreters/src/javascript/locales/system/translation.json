@@ -45,6 +45,7 @@
       "ReturnStatementNotAllowed": "ReturnStatementNotAllowed",
       "RepeatStatementNotAllowed": "RepeatStatementNotAllowed",
       "UpdateExpressionNotAllowed": "UpdateExpressionNotAllowed",
+      "DictionaryExpressionNotAllowed": "DictionaryExpressionNotAllowed",
       "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
       "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount"
     },
