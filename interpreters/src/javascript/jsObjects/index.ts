@@ -12,6 +12,9 @@ export { JSDictionary } from "./JSDictionary";
 export { JSStdLibFunction } from "./JSStdLibFunction";
 export { JSBuiltinObject } from "./JSBuiltinObject";
 export { JSIterator } from "./JSIterator";
+export { JSClass, JSMethod, JSGetter, JSSetter } from "./JSClass";
+export { JSInstance } from "./JSInstance";
+export { JSBoundMethod } from "./JSBoundMethod";
 
 // Import for helper functions
 import { JikiObject } from "../../shared/jikiObject";
@@ -25,6 +28,9 @@ import { JSDictionary } from "./JSDictionary";
 
 // Helper function to create JSObjects from JavaScript values
 export function createJSObject(value: any): JikiObject {
+  if (value instanceof JikiObject) {
+    return value;
+  }
   if (value === null) {
     return new JSNull();
   } else if (value === undefined) {

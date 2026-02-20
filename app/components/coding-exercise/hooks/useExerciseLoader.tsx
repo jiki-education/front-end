@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { exercises, type ExerciseSlug } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
+import { hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
 
 interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
@@ -31,7 +32,14 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId }: 
         const loadedExercise = (await loader()).default;
 
         // Override levelId if provided (used for projects where level comes from the API)
-        const exercise = levelId ? { ...loadedExercise, levelId } : loadedExercise;
+        const exercise = levelId ? { ...loadedExercise, levelId } : { ...loadedExercise };
+
+        // Interpolate stub placeholders with student's previous exercise code
+        const rawStub = loadedExercise.stubs[language];
+        if (hasPlaceholders(rawStub)) {
+          const interpolatedCode = await interpolateStub(rawStub, language);
+          exercise.stubs = { ...exercise.stubs, [language]: interpolatedCode };
+        }
 
         // Create orchestrator with exercise, language, and context
         orchestratorRef.current = new Orchestrator(exercise, language, context);

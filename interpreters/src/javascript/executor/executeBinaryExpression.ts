@@ -158,9 +158,9 @@ function handleBinaryOperation(
         const index = Number(left);
         if (Number.isNaN(index) || !Number.isInteger(index)) {
           throw new RuntimeError(
-            `InOperatorRequiresStringKey: type: ${leftType}`,
+            `InOperatorRequiresIntegerIndex: type: ${leftType}`,
             expression.location,
-            "InOperatorRequiresStringKey"
+            "InOperatorRequiresIntegerIndex"
           );
         }
         return createJSObject(index >= 0 && index < rightResult.jikiObject.length);

@@ -13,6 +13,7 @@ import {
   MemberExpression,
   DictionaryExpression,
   CallExpression,
+  NewExpression,
 } from "./expression";
 import { Location, Span } from "../shared/location";
 import { Scanner } from "./scanner";
@@ -80,6 +81,7 @@ export class Parser {
       MemberExpression: "Member access (dot notation)",
       DictionaryExpression: "Objects",
       CallExpression: "Function calls",
+      NewExpression: "New expressions",
       ExpressionStatement: "Expression statements",
       VariableDeclaration: "Variable declarations",
       BlockStatement: "Block statements",
@@ -632,6 +634,27 @@ export class Parser {
   }
 
   private unary(): Expression {
+    // Handle 'new' expression
+    if (this.match("NEW")) {
+      this.checkNodeAllowed("NewExpression", "NewExpressionNotAllowed", this.previous().location);
+
+      const newToken = this.previous();
+      const classNameToken = this.consume("IDENTIFIER", "MissingExpression");
+      const className = new IdentifierExpression(classNameToken, classNameToken.location);
+
+      this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterFunctionName");
+      const args: Expression[] = [];
+      if (!this.check("RIGHT_PAREN")) {
+        do {
+          args.push(this.assignment());
+        } while (this.match("COMMA"));
+      }
+      this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
+      const rightParen = this.previous();
+
+      return new NewExpression(className, args, Location.between(newToken, rightParen));
+    }
+
     // Handle prefix increment/decrement
     if (this.match("INCREMENT", "DECREMENT")) {
       // Check if UpdateExpression is allowed

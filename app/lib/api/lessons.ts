@@ -1,4 +1,4 @@
-import { api } from "./client";
+import { api, ApiError } from "./client";
 import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 import type { LessonWithData } from "@/types/lesson";
 
@@ -39,6 +39,43 @@ export async function markLessonComplete(slug: string): Promise<any> {
  */
 export async function startLesson(slug: string): Promise<void> {
   await api.post(`/internal/user_lessons/${slug}/start`);
+}
+
+export interface ExerciseSubmissionFile {
+  filename: string;
+  content: string;
+}
+
+export interface LatestExerciseSubmission {
+  uuid: string;
+  context_type: string;
+  context_slug: string;
+  files: ExerciseSubmissionFile[];
+}
+
+interface LatestExerciseSubmissionResponse {
+  submission: LatestExerciseSubmission;
+}
+
+/**
+ * Fetch the latest exercise submission for a lesson.
+ * Returns null if no submission exists (404) or on error.
+ */
+export async function fetchLatestExerciseSubmission(lessonSlug: string): Promise<LatestExerciseSubmission | null> {
+  try {
+    const response = await api.get<LatestExerciseSubmissionResponse>(
+      `/internal/lessons/${lessonSlug}/exercise_submissions/latest`,
+      undefined,
+      false
+    );
+    return response.data.submission;
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      return null;
+    }
+    console.warn("Failed to fetch latest exercise submission:", error);
+    return null;
+  }
 }
 
 /**
