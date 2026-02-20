@@ -559,7 +559,7 @@ export class Parser {
   private comparison(): Expression {
     let expr = this.addition();
 
-    while (this.match("GREATER", "GREATER_EQUAL", "LESS", "LESS_EQUAL")) {
+    while (this.match("GREATER", "GREATER_EQUAL", "LESS", "LESS_EQUAL", "IN")) {
       // Check if BinaryExpression is allowed
       this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
 

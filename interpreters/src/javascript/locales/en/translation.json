@@ -101,7 +101,10 @@
       "InvalidNumberOfArguments": "Function '{{function}}' expected {{expected}} argument(s) but got {{got}}.",
       "FunctionNotFound": "The function '{{name}}' is not defined.",
       "LogicErrorInExecution": "{{message}}",
-      "ValueError": "{{message}}"
+      "ValueError": "{{message}}",
+      "InOperatorRequiresObject": "The 'in' operator requires an object on the right side, but got {{type}}.",
+      "InOperatorRequiresStringKey": "The 'in' operator requires a string key on the left side, but got {{type}}.",
+      "InWithArrayNotAllowed": "Although the 'in' keyword can be used with arrays, it's a more advanced feature. For now, stick to using it just with dictionaries."
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",

@@ -1,7 +1,7 @@
 import type { Executor } from "../executor";
 import type { BinaryExpression } from "../expression";
 import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
-import { createJSObject, type JikiObject } from "../jikiObjects";
+import { createJSObject, type JikiObject, JSDictionary, JSArray } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
 export function executeBinaryExpression(
@@ -139,6 +139,45 @@ function handleBinaryOperation(
     case "LESS_EQUAL":
       verifyNumbersForComparison(executor, expression, leftResult, rightResult);
       return createJSObject(left <= right);
+
+    case "IN": {
+      // Array: gated behind allowInWithArrays language feature
+      if (rightResult.jikiObject instanceof JSArray) {
+        if (!executor.languageFeatures.allowInWithArrays) {
+          throw new RuntimeError(`InWithArrayNotAllowed`, expression.location, "InWithArrayNotAllowed");
+        }
+        // When enabled, check if index exists in array
+        const index = Number(left);
+        if (Number.isNaN(index) || !Number.isInteger(index)) {
+          throw new RuntimeError(
+            `InOperatorRequiresStringKey: type: ${leftType}`,
+            expression.location,
+            "InOperatorRequiresStringKey"
+          );
+        }
+        return createJSObject(index >= 0 && index < rightResult.jikiObject.length);
+      }
+
+      // Right-hand side must be a dictionary
+      if (!(rightResult.jikiObject instanceof JSDictionary)) {
+        throw new RuntimeError(
+          `InOperatorRequiresObject: type: ${rightType}`,
+          expression.location,
+          "InOperatorRequiresObject"
+        );
+      }
+
+      // Left-hand side must be a string (the key to check)
+      if (leftType !== "string") {
+        throw new RuntimeError(
+          `InOperatorRequiresStringKey: type: ${leftType}`,
+          expression.location,
+          "InOperatorRequiresStringKey"
+        );
+      }
+
+      return createJSObject(rightResult.jikiObject.value.has(left));
+    }
 
     default:
       throw new RuntimeError(
