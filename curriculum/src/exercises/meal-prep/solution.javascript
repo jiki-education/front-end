@@ -9,9 +9,9 @@ function inList(items, target) {
 
 function shoppingList(fridge, recipe) {
   let list = [];
-  for (const item of recipe) {
-    if (!inList(fridge, item)) {
-      list.push(item);
+  for (const ingredient of recipe) {
+    if (!inList(fridge, ingredient)) {
+      list.push(ingredient);
     }
   }
   return list;

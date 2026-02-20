@@ -23,11 +23,11 @@ function toLower(sentence) {
   let lower = "abcdefghijklmnopqrstuvwxyz";
   let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let upperIdx = 0;
-  for (const letter of sentence) {
-    if (contains(lower, letter)) {
-      output = output + letter;
+  for (const char of sentence) {
+    if (contains(lower, char)) {
+      output = output + char;
     } else {
-      upperIdx = indexOf(upper, letter);
+      upperIdx = indexOf(upper, char);
       if (upperIdx !== -1) {
         output = output + lower[upperIdx];
       }

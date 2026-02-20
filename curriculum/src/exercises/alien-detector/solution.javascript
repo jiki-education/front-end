@@ -1,28 +1,28 @@
-function determineDirection(position, direction) {
+function determineDirection(pos, dir) {
   let leftBoundary = 0;
   let rightBoundary = 10;
 
-  if (position >= rightBoundary) {
+  if (pos >= rightBoundary) {
     return "left";
-  } else if (position <= leftBoundary) {
+  } else if (pos <= leftBoundary) {
     return "right";
   }
-  return direction;
+  return dir;
 }
 
-function move(position, direction) {
-  if (direction === "right") {
+function move(pos, dir) {
+  if (dir === "right") {
     moveRight();
-    position = position + 1;
-  } else if (direction === "left") {
+    pos = pos + 1;
+  } else if (dir === "left") {
     moveLeft();
-    position = position - 1;
+    pos = pos - 1;
   }
-  return position;
+  return pos;
 }
 
-function allAliensDead(row) {
-  for (const alien of row) {
+function allAliensDead(aliens) {
+  for (const alien of aliens) {
     if (alien) {
       return false;
     }

@@ -73,20 +73,16 @@ export function runVisualScenarioTest(
   };
 
   if (scenario.functionCall) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const evaluationResult = interpreter.evaluateFunction(
       studentCode,
       interpreterContext,
       interpreter.formatIdentifier(scenario.functionCall.name),
       ...scenario.functionCall.args
     );
-    // console.log(evaluationResult)
-    // console.log(evaluationResult.error)
-    // console.log(evaluationResult.frames[4]?.error)
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const evaluationResult = interpreter.interpret(studentCode, interpreterContext);
-    console.log(evaluationResult);
-    console.log(evaluationResult.error);
-    console.log(evaluationResult.frames[0]?.error);
   }
 
   // Run expectations to validate final state

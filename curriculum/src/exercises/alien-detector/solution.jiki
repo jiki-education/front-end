@@ -1,28 +1,28 @@
-function determine_direction with position, direction do
+function determine_direction with pos, dir do
   set left_boundary to 1
   set right_boundary to 11
 
-  if position >= right_boundary do
+  if pos >= right_boundary do
     return "left"
-  else if position <= left_boundary do
+  else if pos <= left_boundary do
     return "right"
   end
-  return direction
+  return dir
 end
 
-function move with position, direction do
-  if direction == "right" do
+function move with pos, dir do
+  if dir == "right" do
     move_right()
-    change position to position + 1
-  else if direction == "left" do
+    change pos to pos + 1
+  else if dir == "left" do
     move_left()
-    change position to position - 1
+    change pos to pos - 1
   end
-  return position
+  return pos
 end
 
-function all_aliens_dead with row do
-  for each alien in row do
+function all_aliens_dead with aliens do
+  for each alien in aliens do
     if alien do
       return false
     end

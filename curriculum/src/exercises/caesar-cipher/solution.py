@@ -1,7 +1,7 @@
 def index_of(text, target):
     idx = 0
-    for letter in text:
-        if letter == target:
+    for char in text:
+        if char == target:
             return idx
         idx = idx + 1
     return -1
@@ -16,9 +16,9 @@ def shift_letter(letter, amount):
 
 def encode(message, shift):
     result = ""
-    for letter in message:
-        if letter == " ":
+    for char in message:
+        if char == " ":
             result = result + " "
         else:
-            result = result + shift_letter(letter, shift)
+            result = result + shift_letter(char, shift)
     return result

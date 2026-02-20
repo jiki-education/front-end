@@ -19,10 +19,6 @@ describe("All Exercises - Solution Validation", () => {
   const languages = ["jikiscript", "javascript"] as const;
 
   for (const [slug, loader] of Object.entries(exercises)) {
-    if (slug != "process-guess") {
-      continue;
-    }
-
     for (const language of languages) {
       it(`${slug}: ${language} solution should pass all non-bonus scenarios`, async () => {
         const exerciseModule = await loader();

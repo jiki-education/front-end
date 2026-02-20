@@ -28,10 +28,10 @@ export default class SpotifyExercise extends IOExercise {
 
     const urlStr = url.value;
 
-    if (urlStr.startsWith("https://api.spotify.com/v1/users/")) {
+    if (urlStr.startsWith("https://api.spotify.com/v1/users/") === true) {
       return SpotifyExercise.spotifyUserRequest(urlStr);
     }
-    if (urlStr.startsWith("https://api.spotify.com/v1/artists/")) {
+    if (urlStr.startsWith("https://api.spotify.com/v1/artists/") === true) {
       return SpotifyExercise.spotifyArtistRequest(urlStr);
     }
     return { error: "Unknown URL" };
@@ -55,8 +55,8 @@ export default class SpotifyExercise extends IOExercise {
       ]
     };
 
-    const artists = artistMap[username];
-    if (!artists) {
+    const artists = artistMap[username] as string[] | undefined;
+    if (artists === undefined) {
       return { error: "Unknown user" };
     }
 

@@ -19,17 +19,17 @@ function add_word with words, word do
 end
 
 function extract_words with sentence do
-  set words to []
-  set word to ""
+  set result to []
+  set current to ""
   for each letter in sentence do
     if not is_letter(letter) do
-      change words to add_word(words, word)
-      change word to ""
+      change result to add_word(result, current)
+      change current to ""
     else do
-      change word to concatenate(word, letter)
+      change current to concatenate(current, letter)
     end
   end
-  return add_word(words, word)
+  return add_word(result, current)
 end
 
 function count_words with sentence do

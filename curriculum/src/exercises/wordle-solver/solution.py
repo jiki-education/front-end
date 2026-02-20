@@ -33,19 +33,19 @@ def unique(list):
     return res_list
 
 def is_word_possible(word, knowledge):
-    for idx, letter in enumerate(word):
-        if not letter_ok_in_guess(letter, knowledge, knowledge["squares"][idx]):
+    for idx, char in enumerate(word):
+        if not letter_ok_in_guess(char, knowledge, knowledge["squares"][idx]):
             return False
-    for letter in knowledge["present"]:
-        if not contains(word, letter):
+    for char in knowledge["present"]:
+        if not contains(word, char):
             return False
     return True
 
 def choose_word(knowledge):
     words = common_words()
-    for word in words:
-        if is_word_possible(word, knowledge):
-            return word
+    for candidate in words:
+        if is_word_possible(candidate, knowledge):
+            return candidate
 
 def setup_knowledge():
     knowledge = {"present": [], "absent": [], "squares": [], "won": False}
@@ -72,24 +72,24 @@ def process_guess(knowledge, row, guess):
     target = get_target_word()
     states = []
     present_letters = {}
-    for idx, letter in enumerate(guess):
-        if target[idx] == letter:
-            knowledge["squares"][idx]["actual"] = letter
-            present_letters = add_or_increment(present_letters, letter)
+    for idx, char in enumerate(guess):
+        if target[idx] == char:
+            knowledge["squares"][idx]["actual"] = char
+            present_letters = add_or_increment(present_letters, char)
             states.append("correct")
-        elif contains(target, letter):
-            knowledge["present"] = unique(knowledge["present"] + [letter])
-            knowledge["squares"][idx]["not"].append(letter)
+        elif contains(target, char):
+            knowledge["present"] = unique(knowledge["present"] + [char])
+            knowledge["squares"][idx]["not"].append(char)
             states.append("present")
         else:
-            knowledge["absent"] = unique(knowledge["absent"] + [letter])
+            knowledge["absent"] = unique(knowledge["absent"] + [char])
             states.append("absent")
 
-    for idx, letter in enumerate(guess):
+    for idx, char in enumerate(guess):
         if states[idx] != "present":
             continue
-        if should_be_present(present_letters, target, letter):
-            present_letters = add_or_increment(present_letters, letter)
+        if should_be_present(present_letters, target, char):
+            present_letters = add_or_increment(present_letters, char)
         else:
             states[idx] = "absent"
 

@@ -7,15 +7,15 @@ def add_word(words, word):
     return words
 
 def extract_words(sentence):
-    words = []
-    word = ""
+    result = []
+    current = ""
     for letter in sentence:
         if not is_letter(letter):
-            words = add_word(words, word)
-            word = ""
+            result = add_word(result, current)
+            current = ""
         else:
-            word = word + letter
-    return add_word(words, word)
+            current = current + letter
+    return add_word(result, current)
 
 def count_words(sentence):
     words = extract_words(sentence.lower())

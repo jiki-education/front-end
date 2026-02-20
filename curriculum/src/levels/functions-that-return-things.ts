@@ -12,7 +12,7 @@ const functionsThatReturnThings: Level = {
       }
     },
     javascript: {
-      allowedNodes: [],
+      allowedNodes: ["MemberExpression"],
       languageFeatures: {
         allowedGlobals: ["Math"]
       }

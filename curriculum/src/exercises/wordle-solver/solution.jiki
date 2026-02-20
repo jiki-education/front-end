@@ -1,12 +1,3 @@
-function has_key with dict, key do
-  for each keys, values in dict do
-    if key == keys do
-      return true
-    end
-  end
-  return false
-end
-
 function contains with haystack, needle do
   for each thing in haystack do
     if needle == thing do
@@ -50,13 +41,13 @@ function unique with list do
 end
 
 function is_word_possible with word, knowledge do
-  for each letter in word indexed by idx do
-    if not letter_ok_in_guess(letter, knowledge, knowledge["squares"][idx]) do
+  for each char in word indexed by idx do
+    if not letter_ok_in_guess(char, knowledge, knowledge["squares"][idx]) do
       return false
     end
   end
-  for each letter in knowledge["present"] do
-    if not contains(word, letter) do
+  for each char in knowledge["present"] do
+    if not contains(word, char) do
       return false
     end
   end
@@ -65,9 +56,9 @@ end
 
 function choose_word with knowledge do
   set words to common_words()
-  for each word in words do
-    if is_word_possible(word, knowledge) do
-      return word
+  for each candidate in words do
+    if is_word_possible(candidate, knowledge) do
+      return candidate
     end
   end
 end
@@ -109,28 +100,28 @@ function process_guess with knowledge, row, guess do
   set target to get_target_word()
   set states to []
   set present_letters to {}
-  for each letter in guess indexed by idx do
-    if target[idx] == letter do
-      change knowledge["squares"][idx]["actual"] to letter
-      change present_letters to add_or_increment(present_letters, letter)
+  for each char in guess indexed by idx do
+    if target[idx] == char do
+      change knowledge["squares"][idx]["actual"] to char
+      change present_letters to add_or_increment(present_letters, char)
       change states to push(states, "correct")
-    else if contains(target, letter) do
-      change knowledge["present"] to unique(push(knowledge["present"], letter))
-      change knowledge["squares"][idx]["not"] to push(knowledge["squares"][idx]["not"], letter)
+    else if contains(target, char) do
+      change knowledge["present"] to unique(push(knowledge["present"], char))
+      change knowledge["squares"][idx]["not"] to push(knowledge["squares"][idx]["not"], char)
       change states to push(states, "present")
     else do
-      change knowledge["absent"] to unique(push(knowledge["absent"], letter))
+      change knowledge["absent"] to unique(push(knowledge["absent"], char))
       change states to push(states, "absent")
     end
   end
 
-  for each letter in guess indexed by idx do
+  for each char in guess indexed by idx do
     if states[idx] != "present" do
       next
     end
 
-    if should_be_present(present_letters, target, letter) do
-      change present_letters to add_or_increment(present_letters, letter)
+    if should_be_present(present_letters, target, char) do
+      change present_letters to add_or_increment(present_letters, char)
     else do
       change states[idx] to "absent"
     end

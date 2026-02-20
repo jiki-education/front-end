@@ -8,21 +8,16 @@ const mockApiData: Record<string, Record<string, string>> = {
   Lima: { dayOfWeek: "Sunday", time: "18:39" }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mockFetch(_ctx: ExecutionContext, _url: any, params: any): Record<string, string> {
-  console.log("mockFetch called", typeof params, params?.constructor?.name);
-  console.log("params keys:", params ? Object.getOwnPropertyNames(Object.getPrototypeOf(params)) : "no params");
-
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const cityObj = params.getProperty ? params.getProperty("city") : params.value?.get?.("city");
-  console.log("cityObj:", cityObj, typeof cityObj);
-
   const city = cityObj?.value ?? cityObj;
-  console.log("city:", city);
 
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (city && mockApiData[city]) {
-    console.log("returning data:", mockApiData[city]);
     return mockApiData[city];
   }
-  console.log("returning error");
   return { error: "Could not determine the time." };
 }
 

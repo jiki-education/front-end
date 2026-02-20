@@ -6,14 +6,14 @@ function getLength(word) {
   return counter;
 }
 
-function startsWith(name, prefix) {
-  if (getLength(prefix) > getLength(name)) {
+function startsWith(phase, prefix) {
+  if (getLength(prefix) > getLength(phase)) {
     return false;
   }
 
   let i = 0;
   repeat(getLength(prefix)) {
-    if (prefix[i] !== name[i]) {
+    if (prefix[i] !== phase[i]) {
       return false;
     }
     i = i + 1;

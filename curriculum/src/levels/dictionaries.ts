@@ -12,7 +12,7 @@ const dictionaries: Level = {
       }
     },
     javascript: {
-      allowedNodes: [],
+      allowedNodes: ["DictionaryExpression", "ForInStatement"],
       languageFeatures: {
         allowedGlobals: ["Object"]
       }

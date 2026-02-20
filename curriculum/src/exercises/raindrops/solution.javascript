@@ -14,7 +14,7 @@ function raindrops(number) {
   }
 
   if (result === "") {
-    result = String(number);
+    result = `${number}`;
   }
 
   return result;

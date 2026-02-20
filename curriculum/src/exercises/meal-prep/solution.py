@@ -7,7 +7,7 @@ def in_list(items, target):
 
 def shopping_list(fridge, recipe):
     lst = []
-    for item in recipe:
-        if not in_list(fridge, item):
-            lst.append(item)
+    for ingredient in recipe:
+        if not in_list(fridge, ingredient):
+            lst.append(ingredient)
     return lst

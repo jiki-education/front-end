@@ -1,24 +1,24 @@
-def determine_direction(position, direction):
+def determine_direction(pos, dir):
     left_boundary = 0
     right_boundary = 10
 
-    if position >= right_boundary:
+    if pos >= right_boundary:
         return "left"
-    elif position <= left_boundary:
+    elif pos <= left_boundary:
         return "right"
-    return direction
+    return dir
 
-def move(position, direction):
-    if direction == "right":
+def move(pos, dir):
+    if dir == "right":
         move_right()
-        position = position + 1
-    elif direction == "left":
+        pos = pos + 1
+    elif dir == "left":
         move_left()
-        position = position - 1
-    return position
+        pos = pos - 1
+    return pos
 
-def all_aliens_dead(row):
-    for alien in row:
+def all_aliens_dead(aliens):
+    for alien in aliens:
         if alien:
             return False
     return True

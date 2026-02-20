@@ -1,7 +1,7 @@
 function indexOf(text, target) {
   let idx = 0
-  for (const letter of text) {
-    if (letter === target) {
+  for (const char of text) {
+    if (char === target) {
       return idx
     }
     idx = idx + 1
@@ -21,11 +21,11 @@ function shiftLetter(letter, amount) {
 
 function encode(message, shift) {
   let result = ""
-  for (const letter of message) {
-    if (letter === " ") {
+  for (const char of message) {
+    if (char === " ") {
       result = result + " "
     } else {
-      result = result + shiftLetter(letter, shift)
+      result = result + shiftLetter(char, shift)
     }
   }
   return result

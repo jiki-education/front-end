@@ -49,13 +49,13 @@ function unique(list) {
 
 function isWordPossible(word, knowledge) {
   for (let idx = 0; idx < word.length; idx++) {
-    let letter = word[idx];
-    if (!letterOkInGuess(letter, knowledge, knowledge["squares"][idx])) {
+    let char = word[idx];
+    if (!letterOkInGuess(char, knowledge, knowledge["squares"][idx])) {
       return false;
     }
   }
-  for (const letter of knowledge["present"]) {
-    if (!contains(word, letter)) {
+  for (const char of knowledge["present"]) {
+    if (!contains(word, char)) {
       return false;
     }
   }
@@ -64,9 +64,9 @@ function isWordPossible(word, knowledge) {
 
 function chooseWord(knowledge) {
   let words = commonWords();
-  for (const word of words) {
-    if (isWordPossible(word, knowledge)) {
-      return word;
+  for (const candidate of words) {
+    if (isWordPossible(candidate, knowledge)) {
+      return candidate;
     }
   }
 }
@@ -106,28 +106,28 @@ function processGuess(knowledge, row, guess) {
   let states = [];
   let presentLetters = {};
   for (let idx = 0; idx < guess.length; idx++) {
-    let letter = guess[idx];
-    if (target[idx] === letter) {
-      knowledge["squares"][idx]["actual"] = letter;
-      presentLetters = addOrIncrement(presentLetters, letter);
+    let char = guess[idx];
+    if (target[idx] === char) {
+      knowledge["squares"][idx]["actual"] = char;
+      presentLetters = addOrIncrement(presentLetters, char);
       states.push("correct");
-    } else if (contains(target, letter)) {
-      knowledge["present"] = unique([...knowledge["present"], letter]);
-      knowledge["squares"][idx]["not"].push(letter);
+    } else if (contains(target, char)) {
+      knowledge["present"] = unique(knowledge["present"].concat([char]));
+      knowledge["squares"][idx]["not"].push(char);
       states.push("present");
     } else {
-      knowledge["absent"] = unique([...knowledge["absent"], letter]);
+      knowledge["absent"] = unique(knowledge["absent"].concat([char]));
       states.push("absent");
     }
   }
 
   for (let idx = 0; idx < guess.length; idx++) {
-    let letter = guess[idx];
+    let char = guess[idx];
     if (states[idx] !== "present") {
       continue;
     }
-    if (shouldBePresent(presentLetters, target, letter)) {
-      presentLetters = addOrIncrement(presentLetters, letter);
+    if (shouldBePresent(presentLetters, target, char)) {
+      presentLetters = addOrIncrement(presentLetters, char);
     } else {
       states[idx] = "absent";
     }

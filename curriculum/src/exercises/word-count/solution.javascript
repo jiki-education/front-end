@@ -10,17 +10,17 @@ function addWord(words, word) {
 }
 
 function extractWords(sentence) {
-  let words = [];
-  let word = "";
+  let result = [];
+  let current = "";
   for (const letter of sentence) {
     if (!isLetter(letter)) {
-      words = addWord(words, word);
-      word = "";
+      result = addWord(result, current);
+      current = "";
     } else {
-      word = word + letter;
+      current = current + letter;
     }
   }
-  return addWord(words, word);
+  return addWord(result, current);
 }
 
 function countWords(sentence) {
