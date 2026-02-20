@@ -10,6 +10,7 @@
 // NOTE: Add new exercises here as they're created
 import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
+import { llmMetadata as alphanumericLLM } from "./exercises/alphanumeric/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
 import { llmMetadata as chopShopLLM } from "./exercises/chop-shop/llm-metadata";
 import { llmMetadata as collatzConjectureLLM } from "./exercises/collatz-conjecture/llm-metadata";
@@ -95,6 +96,7 @@ import { llmMetadata as alienDetectorLLM } from "./exercises/alien-detector/llm-
 import { llmMetadata as sieveLLM } from "./exercises/sieve/llm-metadata";
 import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
 import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-metadata";
+import { llmMetadata as leapLLM } from "./exercises/leap/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -108,6 +110,7 @@ export interface LLMMetadata {
 const llmMetadataRegistry = {
   acronym: acronymLLM,
   "after-party": afterPartyLLM,
+  alphanumeric: alphanumericLLM,
   anagram: anagramLLM,
   "chop-shop": chopShopLLM,
   "collatz-conjecture": collatzConjectureLLM,
@@ -192,7 +195,8 @@ const llmMetadataRegistry = {
   "alien-detector": alienDetectorLLM,
   sieve: sieveLLM,
   spotify: spotifyLLM,
-  "llm-response": llmResponseLLM
+  "llm-response": llmResponseLLM,
+  leap: leapLLM
 } as const;
 
 /**

@@ -136,7 +136,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "battle-procedures" },
       { "type": "exercise", "slug": "even-or-odd" },
       { "type": "exercise", "slug": "triangle" },
-      { "type": "exercise", "slug": "collatz-conjecture" }
+      { "type": "exercise", "slug": "collatz-conjecture" },
+      { "type": "exercise", "slug": "leap" }
     ]
   },
   {
@@ -196,6 +197,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "multiple-functions",
     "lessons": [
       { "type": "exercise", "slug": "lower-pangram" },
+      { "type": "exercise", "slug": "alphanumeric" },
       { "type": "project", "slug": "caesar-cipher" }
     ]
   },

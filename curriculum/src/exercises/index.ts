@@ -5,6 +5,7 @@ export const exercises = {
   "maze-solve-basic": () => import("./maze-solve-basic"),
   acronym: () => import("./acronym"),
   "after-party": () => import("./after-party"),
+  alphanumeric: () => import("./alphanumeric"),
   anagram: () => import("./anagram"),
   "chop-shop": () => import("./chop-shop"),
   "collatz-conjecture": () => import("./collatz-conjecture"),
@@ -88,7 +89,8 @@ export const exercises = {
   sieve: () => import("./sieve"),
   spotify: () => import("./spotify"),
   "llm-response": () => import("./llm-response"),
-  "tic-tac-toe": () => import("./tic-tac-toe")
+  "tic-tac-toe": () => import("./tic-tac-toe"),
+  leap: () => import("./leap")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
