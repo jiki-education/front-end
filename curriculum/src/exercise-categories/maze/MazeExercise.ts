@@ -12,7 +12,7 @@ export default class MazeExercise extends VisualExercise {
   characterCol: number = 0;
   direction: Direction = "down";
   rotation: number = 0; // Continuous rotation value in degrees
-  grid: number[][] = [];
+  grid: (number | string)[][] = [];
 
   constructor() {
     super();
@@ -136,7 +136,7 @@ export default class MazeExercise extends VisualExercise {
     executionCtx.fastForward(150);
   }
 
-  setupGrid(grid: number[][]) {
+  setupGrid(grid: (number | string)[][]) {
     this.grid = grid;
     // Regenerate the view with the new grid
     this.view.innerHTML = "";

@@ -124,6 +124,7 @@ Nothing yet
 - `alien-detector` - Alien Detector: track and shoot aliens using list data instead of isAlienAbove(), with fireworks celebration (Lists level)
 - `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit using the classic sieve algorithm (Dictionaries level)
 - `spotify` - Spotify Data: fetch and format favorite artists from a mock Spotify API using chained fetch calls (Dictionaries level)
+- `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary and announce results (Dictionaries level)
 - `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Everything level)
 
 ### Unimplemented

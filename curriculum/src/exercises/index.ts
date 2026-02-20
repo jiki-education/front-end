@@ -91,7 +91,8 @@ export const exercises = {
   "llm-response": () => import("./llm-response"),
   "tic-tac-toe": () => import("./tic-tac-toe"),
   leap: () => import("./leap"),
-  "look-around": () => import("./look-around")
+  "look-around": () => import("./look-around"),
+  "emoji-collector": () => import("./emoji-collector")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

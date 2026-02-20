@@ -134,6 +134,7 @@ export default class LookAroundExercise extends MazeExercise {
     }
 
     const cellValue = this.grid[newRow][newCol];
+    if (typeof cellValue === "string") return cellValue;
     return CELL_NAMES[cellValue] ?? "wall";
   }
 }

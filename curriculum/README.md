@@ -191,7 +191,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "word-count" },
       { "type": "exercise", "slug": "rna-transcription" },
       { "type": "exercise", "slug": "sieve" },
-      { "type": "exercise", "slug": "spotify" }
+      { "type": "exercise", "slug": "spotify" },
+      { "type": "exercise", "slug": "emoji-collector" }
     ]
   },
   {
