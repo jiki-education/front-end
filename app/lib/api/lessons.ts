@@ -73,6 +73,7 @@ export async function fetchLatestExerciseSubmission(lessonSlug: string): Promise
     if (error instanceof ApiError && error.status === 404) {
       return null;
     }
+    console.warn("Failed to fetch latest exercise submission:", error);
     return null;
   }
 }

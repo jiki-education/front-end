@@ -42,7 +42,7 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId }: 
         }
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(exercise, language, context, loadedExercise.stubs);
+        orchestratorRef.current = new Orchestrator(exercise, language, context);
 
         // Fetch completion status using the context slug (lessonSlug for lessons, projectSlug for projects)
         try {

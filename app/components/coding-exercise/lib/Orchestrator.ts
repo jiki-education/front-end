@@ -29,18 +29,11 @@ class Orchestrator {
   private editorManager: EditorManager | null = null;
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
-  private readonly rawStubs: Record<Language, string> | null;
   private readonly language: Language;
 
-  constructor(
-    exercise: ExerciseDefinition,
-    language: Language,
-    context: ExerciseContext,
-    rawStubs?: Record<Language, string>
-  ) {
+  constructor(exercise: ExerciseDefinition, language: Language, context: ExerciseContext) {
     this.exercise = exercise;
     this.language = language;
-    this.rawStubs = rawStubs ?? null;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore(exercise, language, context);
@@ -368,15 +361,6 @@ class Orchestrator {
 
   setCurrentTask(taskId: string): void {
     this.taskManager.setCurrentTask(taskId);
-  }
-
-  async resetToInterpolatedStub(): Promise<void> {
-    const stubs = this.rawStubs ?? this.exercise.stubs;
-    const { interpolateStub } = await import("./stubInterpolation");
-    const interpolatedCode = await interpolateStub(stubs[this.language], this.language);
-
-    this.store.getState().setCode(interpolatedCode);
-    this.store.getState().setDefaultCode(interpolatedCode);
   }
 
   // Clean up method to destroy the orchestrator and its managers

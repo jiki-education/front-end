@@ -106,6 +106,7 @@
       "ForInLoopTargetNotObject": "ForInLoopTargetNotObject: type: {{type}}: value: {{value}}",
       "InOperatorRequiresObject": "InOperatorRequiresObject: type: {{type}}",
       "InOperatorRequiresStringKey": "InOperatorRequiresStringKey: type: {{type}}",
+      "InOperatorRequiresIntegerIndex": "InOperatorRequiresIntegerIndex: type: {{type}}",
       "InWithArrayNotAllowed": "InWithArrayNotAllowed"
     },
     "disabledLanguageFeature": {
