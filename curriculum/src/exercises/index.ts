@@ -90,7 +90,8 @@ export const exercises = {
   spotify: () => import("./spotify"),
   "llm-response": () => import("./llm-response"),
   "tic-tac-toe": () => import("./tic-tac-toe"),
-  leap: () => import("./leap")
+  leap: () => import("./leap"),
+  "look-around": () => import("./look-around")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

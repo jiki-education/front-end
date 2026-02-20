@@ -97,6 +97,7 @@ import { llmMetadata as sieveLLM } from "./exercises/sieve/llm-metadata";
 import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
 import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-metadata";
 import { llmMetadata as leapLLM } from "./exercises/leap/llm-metadata";
+import { llmMetadata as lookAroundLLM } from "./exercises/look-around/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -196,7 +197,8 @@ const llmMetadataRegistry = {
   sieve: sieveLLM,
   spotify: spotifyLLM,
   "llm-response": llmResponseLLM,
-  leap: leapLLM
+  leap: leapLLM,
+  "look-around": lookAroundLLM
 } as const;
 
 /**
