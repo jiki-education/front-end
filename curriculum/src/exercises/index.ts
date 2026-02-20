@@ -92,7 +92,8 @@ export const exercises = {
   "tic-tac-toe": () => import("./tic-tac-toe"),
   leap: () => import("./leap"),
   "look-around": () => import("./look-around"),
-  "emoji-collector": () => import("./emoji-collector")
+  "emoji-collector": () => import("./emoji-collector"),
+  "boundaried-ball": () => import("./boundaried-ball")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

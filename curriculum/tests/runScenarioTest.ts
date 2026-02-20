@@ -62,6 +62,7 @@ export function runVisualScenarioTest(
   const interpreter = getInterpreter(language);
   const interpreterContext = {
     externalFunctions: exercise.getExternalFunctions(language),
+    classes: exercise.getExternalClasses(language),
     languageFeatures: {
       timePerFrame: 1,
       maxTotalLoopIterations: 10000,

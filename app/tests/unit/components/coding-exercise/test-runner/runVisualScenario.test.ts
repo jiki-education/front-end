@@ -39,6 +39,10 @@ class MockExercise implements Partial<VisualExercise> {
     return this.availableFunctions;
   }
 
+  getExternalClasses() {
+    return [];
+  }
+
   getView() {
     return document.createElement("div");
   }

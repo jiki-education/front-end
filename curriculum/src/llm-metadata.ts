@@ -99,6 +99,7 @@ import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-meta
 import { llmMetadata as leapLLM } from "./exercises/leap/llm-metadata";
 import { llmMetadata as lookAroundLLM } from "./exercises/look-around/llm-metadata";
 import { llmMetadata as emojiCollectorLLM } from "./exercises/emoji-collector/llm-metadata";
+import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -200,7 +201,8 @@ const llmMetadataRegistry = {
   "llm-response": llmResponseLLM,
   leap: leapLLM,
   "look-around": lookAroundLLM,
-  "emoji-collector": emojiCollectorLLM
+  "emoji-collector": emojiCollectorLLM,
+  "boundaried-ball": boundarieBallLLM
 } as const;
 
 /**

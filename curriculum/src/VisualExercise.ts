@@ -21,6 +21,11 @@ export abstract class VisualExercise extends Exercise {
     }));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getExternalClasses(_language: Language): any[] {
+    return [];
+  }
+
   abstract getState(): Record<string, number | string | boolean>;
 
   constructor() {

@@ -15,6 +15,7 @@ import { advancedLists } from "./advanced-lists";
 import { lists } from "./lists";
 import { dictionaries } from "./dictionaries";
 import { multipleFunctions } from "./multiple-functions";
+import { objects } from "./objects";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags, JavaScriptFeatureFlags, PythonFeatureFlags, JikiScriptFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -41,6 +42,7 @@ export const levels = [
   lists,
   dictionaries,
   multipleFunctions,
+  objects,
   everythingLevel
 ] as const;
 

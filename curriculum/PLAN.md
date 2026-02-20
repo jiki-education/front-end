@@ -126,6 +126,7 @@ Nothing yet
 - `spotify` - Spotify Data: fetch and format favorite artists from a mock Spotify API using chained fetch calls (Dictionaries level)
 - `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary and announce results (Dictionaries level)
 - `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Everything level)
+- `boundaried-ball` - Boundaried Ball: create a Ball instance and bounce it off walls using OOP (Objects level)
 
 ### Unimplemented
 

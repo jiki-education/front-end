@@ -38,6 +38,7 @@ jest.mock("@jiki/curriculum", () => {
       animations: [],
       availableFunctions,
       getExternalFunctions: jest.fn().mockReturnValue(availableFunctions),
+      getExternalClasses: jest.fn().mockReturnValue([]),
       setStartPosition: jest.fn(),
       getState: jest.fn().mockReturnValue({ position: 100 }),
       getView: jest.fn().mockReturnValue(document.createElement("div"))

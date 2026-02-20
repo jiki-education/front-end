@@ -204,6 +204,10 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     ]
   },
   {
+    "level": "objects",
+    "lessons": [{ "type": "exercise", "slug": "boundaried-ball" }]
+  },
+  {
     "level": "everything",
     "lessons": [
       { "type": "exercise", "slug": "niche-named-party" },
