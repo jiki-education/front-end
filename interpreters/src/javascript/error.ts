@@ -70,7 +70,8 @@ export type SyntaxErrorType =
   | "DuplicateParameterName"
   | "MissingRightParenthesisAfterParameters"
   | "MissingLeftBraceBeforeFunctionBody"
-  | "ForInStatementNotAllowed";
+  | "ForInStatementNotAllowed"
+  | "NewExpressionNotAllowed";
 
 export class SyntaxError extends Error {
   constructor(

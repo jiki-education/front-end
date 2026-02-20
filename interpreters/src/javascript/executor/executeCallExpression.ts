@@ -3,6 +3,7 @@ import { RuntimeError, type RuntimeErrorType } from "../executor";
 import type { CallExpression } from "../expression";
 import type { EvaluationResult, EvaluationResultCallExpression } from "../evaluation-result";
 import { createJSObject, JSStdLibFunction, JSUndefined } from "../jikiObjects";
+import { JSBoundMethod } from "../jsObjects/JSBoundMethod";
 import type { JikiObject } from "../jikiObjects";
 import type { Arity } from "../../shared/interfaces";
 import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from "../functions";
@@ -46,6 +47,11 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
   // Handle JSStdLibFunction (stdlib methods)
   if (callable instanceof JSStdLibFunction) {
     return executeStdLibFunction(executor, callable, argJikiObjects, argResults, expression);
+  }
+
+  // Handle bound methods (instance method calls)
+  if (callable instanceof JSBoundMethod) {
+    return executeBoundMethod(executor, callable, argJikiObjects, argResults, expression);
   }
 
   // Handle external functions (JSCallable)
@@ -196,6 +202,45 @@ function executeStdLibFunction(
       throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     // Re-throw other errors
+    throw error;
+  }
+}
+
+function executeBoundMethod(
+  executor: Executor,
+  callable: JSBoundMethod,
+  argJikiObjects: JikiObject[],
+  argResults: EvaluationResult[],
+  expression: CallExpression
+): EvaluationResultCallExpression {
+  try {
+    const result = callable.call(executor.getExecutionContext(), argJikiObjects);
+
+    // Guard that bound methods return JikiObjects
+    executor.guardNonJikiObject(result, expression.location);
+
+    return {
+      type: "CallExpression",
+      jikiObject: result,
+      immutableJikiObject: result.clone(),
+      functionName: callable.name,
+      args: argResults,
+    };
+  } catch (error) {
+    if (error instanceof LogicError) {
+      executor.error("LogicErrorInExecution", expression.location, { message: error.message });
+    }
+    if (error instanceof RuntimeError) {
+      throw error;
+    }
+    if (error instanceof Error) {
+      throw new RuntimeError(
+        `FunctionExecutionError: function: ${callable.name}: message: ${error.message}`,
+        expression.location,
+        "FunctionExecutionError",
+        { function: callable.name, message: error.message }
+      );
+    }
     throw error;
   }
 }

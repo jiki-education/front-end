@@ -15,6 +15,7 @@ import {
   MemberExpression,
   DictionaryExpression,
   CallExpression,
+  NewExpression,
 } from "./expression";
 import { Location } from "../shared/location";
 import type { Statement } from "./statement";
@@ -67,6 +68,7 @@ import { executeArrayExpression } from "./executor/executeArrayExpression";
 import { executeMemberExpression } from "./executor/executeMemberExpression";
 import { executeDictionaryExpression } from "./executor/executeDictionaryExpression";
 import { executeCallExpression } from "./executor/executeCallExpression";
+import { executeNewExpression } from "./executor/executeNewExpression";
 import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaration";
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
@@ -130,7 +132,9 @@ export type RuntimeErrorType =
   | "InOperatorRequiresObject"
   | "InOperatorRequiresStringKey"
   | "InOperatorRequiresIntegerIndex"
-  | "InWithArrayNotAllowed";
+  | "InWithArrayNotAllowed"
+  | "ClassNotFound"
+  | "PropertyNotFoundOnInstance";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
@@ -251,6 +255,14 @@ export class Executor {
         // External functions don't have source location, use Location.unknown
         this.environment.define(camelName, callable, Location.unknown);
         this.protectedNames.add(camelName);
+      }
+    }
+
+    // Register external classes in the environment
+    if (context.classes) {
+      for (const cls of context.classes) {
+        this.environment.define(cls.name, cls, Location.unknown);
+        this.protectedNames.add(cls.name);
       }
     }
   }
@@ -477,6 +489,10 @@ export class Executor {
 
     if (expression instanceof CallExpression) {
       return executeCallExpression(this, expression);
+    }
+
+    if (expression instanceof NewExpression) {
+      return executeNewExpression(this, expression);
     }
 
     throw new RuntimeError(

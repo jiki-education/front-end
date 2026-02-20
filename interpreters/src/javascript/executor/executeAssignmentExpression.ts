@@ -1,8 +1,10 @@
 import type { Executor } from "../executor";
 import { MemberExpression } from "../expression";
-import type { AssignmentExpression } from "../expression";
+import type { AssignmentExpression, LiteralExpression } from "../expression";
 import type { EvaluationResultAssignmentExpression } from "../evaluation-result";
 import { JSArray, JSDictionary, JSString, JSNumber } from "../jikiObjects";
+import { JSInstance } from "../jsObjects/JSInstance";
+import { LogicError } from "../error";
 
 export function executeAssignmentExpression(
   executor: Executor,
@@ -88,6 +90,42 @@ export function executeAssignmentExpression(
       return {
         type: "AssignmentExpression",
         name: `[${index}]`,
+        value: valueResult,
+        jikiObject: valueResult.jikiObject,
+        immutableJikiObject: valueResult.jikiObject.clone(),
+      };
+    }
+
+    // Handle instance property assignment via setter
+    if (object instanceof JSInstance) {
+      if (memberExpr.computed) {
+        executor.error("TypeError", memberExpr.location, {
+          message: "Bracket notation is not supported for setting properties on class instances.",
+        });
+      }
+
+      const propertyName = (memberExpr.property as LiteralExpression).value as string;
+      const setter = object.getSetter(propertyName);
+
+      if (!setter) {
+        executor.error("PropertyNotFoundOnInstance", memberExpr.property.location, {
+          property: propertyName,
+          className: object.getClassName(),
+        });
+      }
+
+      try {
+        setter.fn(executor.getExecutionContext(), object, valueResult.jikiObject);
+      } catch (e) {
+        if (e instanceof LogicError) {
+          executor.error("LogicErrorInExecution", expression.value.location, { message: e.message });
+        }
+        throw e;
+      }
+
+      return {
+        type: "AssignmentExpression",
+        name: `.${propertyName}`,
         value: valueResult,
         jikiObject: valueResult.jikiObject,
         immutableJikiObject: valueResult.jikiObject.clone(),

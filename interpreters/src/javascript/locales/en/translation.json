@@ -68,7 +68,8 @@
       "MissingRightParenthesisAfterArguments": "Missing closing parenthesis ')' after function arguments.",
       "MissingLeftParenAfterRepeat": "Missing opening parenthesis '(' after 'repeat'.",
       "MissingRightParenAfterRepeatCount": "Missing closing parenthesis ')' after repeat count.",
-      "ForInStatementNotAllowed": "for...in loops are not allowed at your current learning level."
+      "ForInStatementNotAllowed": "for...in loops are not allowed at your current learning level.",
+      "NewExpressionNotAllowed": "New expressions (object instantiation) are not allowed at your current learning level."
     },
     "runtime": {
       "ArgumentError": "{{message}}",
@@ -107,7 +108,9 @@
       "InOperatorRequiresObject": "The 'in' operator requires an object on the right side, but got {{type}}.",
       "InOperatorRequiresStringKey": "The 'in' operator requires a string key on the left side, but got {{type}}.",
       "InOperatorRequiresIntegerIndex": "The 'in' operator requires an integer index when used with arrays, but got {{type}}.",
-      "InWithArrayNotAllowed": "Although the 'in' keyword can be used with arrays, it's a more advanced feature. For now, stick to using it just with dictionaries."
+      "InWithArrayNotAllowed": "Although the 'in' keyword can be used with arrays, it's a more advanced feature. For now, stick to using it just with dictionaries.",
+      "ClassNotFound": "The class '{{name}}' is not defined.",
+      "PropertyNotFoundOnInstance": "Property '{{property}}' does not exist on instances of '{{className}}'."
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "The `{{lexeme}}` feature is not available yet at your current level.",

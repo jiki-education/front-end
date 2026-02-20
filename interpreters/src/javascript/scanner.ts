@@ -105,7 +105,6 @@ export class Scanner {
     // Object-oriented features
     "CLASS",
     "EXTENDS",
-    "NEW",
     "SUPER",
     "THIS",
     // Exception handling

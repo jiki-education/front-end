@@ -2,11 +2,13 @@ import type { Executor } from "../executor";
 import type { MemberExpression } from "../expression";
 import type { EvaluationResultMemberExpression } from "../evaluation-result";
 import type { JSArray, JSDictionary, JSBuiltinObject, JSString } from "../jikiObjects";
+import type { JSInstance } from "../jsObjects/JSInstance";
 import { executeStdlibMemberExpression } from "./executeStdlibMemberExpression";
 import { executeDictionaryMemberExpression } from "./executeDictionaryMemberExpression";
 import { executeArrayMemberExpression } from "./executeArrayMemberExpression";
 import { executeStringMemberExpression } from "./executeStringMemberExpression";
 import { executeBuiltinObjectMemberExpression } from "./executeBuiltinObjectMemberExpression";
+import { executeInstanceMemberExpression } from "./executeInstanceMemberExpression";
 
 // Main entry point - dispatches to type-specific handlers
 export function executeMemberExpression(
@@ -30,6 +32,9 @@ export function executeMemberExpression(
 
     case "builtin-object":
       return executeBuiltinObjectMemberExpression(executor, expression, objectResult, object as JSBuiltinObject);
+
+    case "instance":
+      return executeInstanceMemberExpression(executor, expression, objectResult, object as JSInstance);
 
     default:
       // For all other types (string, number, etc.), check stdlib
