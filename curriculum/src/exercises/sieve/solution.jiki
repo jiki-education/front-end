@@ -46,15 +46,13 @@ function sieve with target do
   repeat target - 1 times indexed by idx do
     change numbers to push(numbers, {"number": idx + 1, "crossed": false})
   end
-  log numbers
-  
+
   repeat target - 1 times indexed by idx do
     if numbers[idx]["crossed"] do
       next
     end
 
     change numbers to cross_off(numbers, get_multiples_of_number(numbers[idx], target))
-    log(numbers)
   end
 
   return get_unmarked_numbers(numbers)

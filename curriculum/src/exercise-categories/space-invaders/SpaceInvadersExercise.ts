@@ -334,17 +334,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
       description: "moved the laser canon to the left"
     },
     {
-      name: "moveLeft",
-      func: this.moveLeft.bind(this),
-      description: "moved the laser canon to the left"
-    },
-    {
       name: "move_right",
-      func: this.moveRight.bind(this),
-      description: "moved the laser canon to the right"
-    },
-    {
-      name: "moveRight",
       func: this.moveRight.bind(this),
       description: "moved the laser canon to the right"
     },
@@ -361,11 +351,6 @@ export default class SpaceInvadersExercise extends VisualExercise {
     {
       name: "get_starting_aliens_in_row",
       func: this.getStartingAliensInRow.bind(this),
-      description: "retrieved the starting positions of row ${arg1} of aliens"
-    },
-    {
-      name: "getStartingAliens",
-      func: this.getStartingAliens.bind(this),
       description: "retrieved the starting positions of row ${arg1} of aliens"
     },
     {

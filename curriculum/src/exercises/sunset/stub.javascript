@@ -2,7 +2,7 @@
 // let sunCy = ...
 // let sunRadius = ...
 
-for (let i = 0; i < 100; i++) {
+repeat(100) {
   // TODO: Update the variables here.
 
   // The sky

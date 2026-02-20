@@ -34,7 +34,7 @@ export function checkCanvasCoverage(shapes: Shape[], requiredPercentage: number)
 }
 
 export function checkUniqueColoredRectangles(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Rectangle)) {
       return;
@@ -45,7 +45,7 @@ export function checkUniqueColoredRectangles(shapes: Shape[], count: number) {
   return colors.size >= count;
 }
 export function checkUniqueColoredLines(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Line)) {
       return;
@@ -57,7 +57,7 @@ export function checkUniqueColoredLines(shapes: Shape[], count: number) {
 }
 
 export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Circle)) {
       return;
@@ -68,7 +68,7 @@ export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
 }
 
 export function checkUniquePositionedCircles(shapes: Shape[], count: number) {
-  let positions = new Set();
+  const positions = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Circle)) {
       return;

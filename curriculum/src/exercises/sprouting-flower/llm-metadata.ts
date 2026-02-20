@@ -34,7 +34,7 @@ export const llmMetadata: LLMMetadata = {
 
         Solution approach:
         1. Initialize all variables before the loop (flowerCenter starts at 90, radii start at 0)
-        2. At start of each iteration, update: flower_center_y (decrease), radii (increase)
+        2. At start of each iteration, update: flowerCenterY (decrease), radii (increase)
         3. Calculate dependent values: stem dimensions, leaf positions
         4. Draw in order: sky, ground, stem, flower head, pistil, leaves
         5. Use the scrubber to debug - check first and last frames match expected shapes

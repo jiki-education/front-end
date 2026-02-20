@@ -7,7 +7,7 @@
   "hints": [
     "Write the includes function first — it checks if one character exists in a string",
     "Iterate through each character in the string to check for a match",
-    "For is_pangram, iterate through each letter of the alphabet",
+    "For isPangram, iterate through each letter of the alphabet",
     "Return false as soon as you find a missing letter"
   ]
 }
