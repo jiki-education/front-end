@@ -127,6 +127,7 @@ Nothing yet
 - `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary and announce results (Dictionaries level)
 - `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Everything level)
 - `boundaried-ball` - Boundaried Ball: create a Ball instance and bounce it off walls using OOP (Objects level)
+- `smashing-blocks` - Smashing Blocks: add blocks to the breakout game and smash them with the bouncing ball (Objects level)
 
 ### Unimplemented
 

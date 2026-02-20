@@ -93,7 +93,8 @@ export const exercises = {
   leap: () => import("./leap"),
   "look-around": () => import("./look-around"),
   "emoji-collector": () => import("./emoji-collector"),
-  "boundaried-ball": () => import("./boundaried-ball")
+  "boundaried-ball": () => import("./boundaried-ball"),
+  "smashing-blocks": () => import("./smashing-blocks")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;
