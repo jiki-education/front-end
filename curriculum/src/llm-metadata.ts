@@ -93,6 +93,7 @@ import { llmMetadata as lookupTimeLLM } from "./exercises/lookup-time/llm-metada
 import { llmMetadata as alienDetectorLLM } from "./exercises/alien-detector/llm-metadata";
 import { llmMetadata as sieveLLM } from "./exercises/sieve/llm-metadata";
 import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
+import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -188,7 +189,8 @@ const llmMetadataRegistry = {
   "lookup-time": lookupTimeLLM,
   "alien-detector": alienDetectorLLM,
   sieve: sieveLLM,
-  spotify: spotifyLLM
+  spotify: spotifyLLM,
+  "llm-response": llmResponseLLM
 } as const;
 
 /**

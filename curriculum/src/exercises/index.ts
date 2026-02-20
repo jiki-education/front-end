@@ -86,7 +86,8 @@ export const exercises = {
   "lookup-time": () => import("./lookup-time"),
   "alien-detector": () => import("./alien-detector"),
   sieve: () => import("./sieve"),
-  spotify: () => import("./spotify")
+  spotify: () => import("./spotify"),
+  "llm-response": () => import("./llm-response")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -202,7 +202,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "everything",
     "lessons": [
       { "type": "exercise", "slug": "niche-named-party" },
-      { "type": "exercise", "slug": "scrabble-score" }
+      { "type": "exercise", "slug": "scrabble-score" },
+      { "type": "exercise", "slug": "llm-response" }
     ]
   }
 ]
