@@ -36,9 +36,6 @@ export function useExerciseCompletion({ orchestrator, exerciseTitle, exerciseSlu
               state.setShouldShowCompleteButton(true);
             },
             onCompleteExercise: () => {}, // No-op since already completed
-            onGoToProject: () => {
-              router.push("/projects");
-            },
             onGoToDashboard: () => {
               // Check for unlocked lesson in the stored events
               const unlockedEvent = events.find((e: any) => e.type === "lesson_unlocked");
