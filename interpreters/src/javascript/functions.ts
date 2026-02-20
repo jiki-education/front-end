@@ -2,6 +2,7 @@ import type { Arity, ExecutionContext } from "../shared/interfaces";
 import { JikiObject } from "./jikiObjects";
 import type { FunctionDeclaration } from "./statement";
 import type { Location } from "../shared/location";
+import type { Environment } from "./environment";
 
 export interface Callable {
   arity: Arity | undefined;
@@ -48,11 +49,19 @@ export class JSCallable extends JikiObject {
 }
 
 export class JSUserDefinedFunction extends JSCallable {
-  constructor(private readonly declaration: FunctionDeclaration) {
+  private readonly _closure: Environment | null;
+
+  constructor(
+    private readonly declaration: FunctionDeclaration,
+    closure: Environment | null = null
+  ) {
     // Arity is just the number of parameters (no optional parameters for now)
     super(declaration.name.lexeme, declaration.parameters.length, () => {
       throw new Error("User-defined functions should not call func directly");
     });
+    // Store closure as non-enumerable to avoid circular references during cloneDeep
+    this._closure = closure;
+    Object.defineProperty(this, "_closure", { enumerable: false });
   }
 
   // Override call to use the declaration's body
@@ -66,6 +75,10 @@ export class JSUserDefinedFunction extends JSCallable {
 
   getDeclaration(): FunctionDeclaration {
     return this.declaration;
+  }
+
+  getClosure(): Environment | null {
+    return this._closure;
   }
 
   toString(): string {
