@@ -101,7 +101,10 @@
       "InvalidNumberOfArguments": "InvalidNumberOfArguments: function: {{function}}: expected: {{expected}}: got: {{got}}",
       "FunctionNotFound": "FunctionNotFound: name: {{name}}",
       "LogicErrorInExecution": "LogicErrorInExecution: message: {{message}}",
-      "ValueError": "ValueError: {{message}}"
+      "ValueError": "ValueError: {{message}}",
+      "InOperatorRequiresObject": "InOperatorRequiresObject: type: {{type}}",
+      "InOperatorRequiresStringKey": "InOperatorRequiresStringKey: type: {{type}}",
+      "InWithArrayNotAllowed": "InWithArrayNotAllowed"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

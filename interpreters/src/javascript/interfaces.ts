@@ -37,6 +37,7 @@ export interface LanguageFeatures {
   allowTypeCoercion?: boolean;
   oneStatementPerLine?: boolean;
   enforceStrictEquality?: boolean;
+  allowInWithArrays?: boolean;
   requireSemicolons?: boolean;
   maxTotalLoopIterations?: number;
   /**
