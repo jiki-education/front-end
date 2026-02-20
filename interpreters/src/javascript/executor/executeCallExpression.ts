@@ -127,8 +127,10 @@ function executeUserDefinedFunction(
   argResults: EvaluationResult[]
 ): EvaluationResultCallExpression {
   const declaration = callable.getDeclaration();
-  // Create new environment with current environment as parent for closure access
-  const environment = new Environment(executor.languageFeatures, executor.environment);
+  // Create new environment with the closure (definition-time) environment as parent,
+  // not the caller's environment. This ensures proper lexical scoping.
+  const closureEnv = callable.getClosure() ?? executor.environment;
+  const environment = new Environment(executor.languageFeatures, closureEnv);
 
   // Bind parameters (shadowing check is now handled inside environment.define())
   for (let i = 0; i < declaration.parameters.length; i++) {
