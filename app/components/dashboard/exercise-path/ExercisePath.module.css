@@ -152,7 +152,6 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-right: 20px;
 }
 
 .partIcon img {
@@ -207,7 +206,9 @@
 }
 
 /* State-specific part number styling */
-.lessonPart.inProgress .partNumber {
+.lessonPart.inProgress .partNumber,
+.lessonPart.unlocked .partNumber,
+.lessonPart.animatingUnlock .partNumber {
     color: var(--color-purple-500);
     border: 1px solid var(--color-purple-500-30);
 }
