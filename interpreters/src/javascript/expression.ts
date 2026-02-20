@@ -162,3 +162,16 @@ export class CallExpression extends Expression {
     return [this.callee, ...this.args];
   }
 }
+
+export class NewExpression extends Expression {
+  constructor(
+    public className: IdentifierExpression,
+    public args: Expression[],
+    public location: Location
+  ) {
+    super("NewExpression");
+  }
+  public children() {
+    return [this.className, ...this.args];
+  }
+}

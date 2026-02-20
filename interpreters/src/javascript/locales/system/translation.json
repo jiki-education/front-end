@@ -68,7 +68,8 @@
       "MissingRightParenthesisAfterArguments": "MissingRightParenthesisAfterArguments",
       "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
       "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount",
-      "ForInStatementNotAllowed": "ForInStatementNotAllowed"
+      "ForInStatementNotAllowed": "ForInStatementNotAllowed",
+      "NewExpressionNotAllowed": "NewExpressionNotAllowed"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",
@@ -107,7 +108,9 @@
       "InOperatorRequiresObject": "InOperatorRequiresObject: type: {{type}}",
       "InOperatorRequiresStringKey": "InOperatorRequiresStringKey: type: {{type}}",
       "InOperatorRequiresIntegerIndex": "InOperatorRequiresIntegerIndex: type: {{type}}",
-      "InWithArrayNotAllowed": "InWithArrayNotAllowed"
+      "InWithArrayNotAllowed": "InWithArrayNotAllowed",
+      "ClassNotFound": "ClassNotFound: name: {{name}}",
+      "PropertyNotFoundOnInstance": "PropertyNotFoundOnInstance: property: {{property}}: className: {{className}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

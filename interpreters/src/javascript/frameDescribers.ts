@@ -100,6 +100,7 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
     case "ArrayExpression":
     case "MemberExpression":
     case "DictionaryExpression":
+    case "NewExpression":
       // These types don't generate frames with descriptions
       return null;
   }

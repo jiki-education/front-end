@@ -166,6 +166,14 @@ export interface EvaluationResultUpdateExpression {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultNewExpression {
+  type: "NewExpression";
+  className: string;
+  args: EvaluationResultExpression[];
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 // Union types
 export type EvaluationResultStatement =
   | EvaluationResultExpressionStatement
@@ -191,6 +199,7 @@ export type EvaluationResultExpression =
   | EvaluationResultDictionaryExpression
   | EvaluationResultCallExpression
   | EvaluationResultTemplateLiteralExpression
-  | EvaluationResultUpdateExpression;
+  | EvaluationResultUpdateExpression
+  | EvaluationResultNewExpression;
 
 export type EvaluationResult = EvaluationResultStatement | EvaluationResultExpression;

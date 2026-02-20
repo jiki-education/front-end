@@ -5,6 +5,7 @@ import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
+import type { JSClass } from "./jsObjects/JSClass";
 import {
   extractCallExpressions,
   extractVariableAssignments,
@@ -22,6 +23,7 @@ import { LiteralExpression, IdentifierExpression, type Expression } from "./expr
 export interface EvaluationContext {
   languageFeatures?: LanguageFeatures;
   externalFunctions?: ExternalFunction[];
+  classes?: JSClass[];
   randomSeed?: number; // Seed for deterministic random number generation
 }
 

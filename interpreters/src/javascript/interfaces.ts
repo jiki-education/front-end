@@ -14,6 +14,7 @@ export type NodeType =
   | "MemberExpression"
   | "DictionaryExpression"
   | "CallExpression"
+  | "NewExpression"
   // Statements
   | "ExpressionStatement"
   | "VariableDeclaration"

@@ -6,3 +6,6 @@ export type { NodeType, LanguageFeatures } from "./interfaces";
 
 // Export type classes for Shared namespace
 export { JSNumber, JSString, JSBoolean, JSNull, JSUndefined, JSArray, JSDictionary, JikiObject } from "./jsObjects";
+
+// Export class-related types
+export { JSClass, JSInstance } from "./jsObjects";
