@@ -123,6 +123,89 @@ describe("User-defined functions", () => {
       expect(frames[frames.length - 1].status).toBe("ERROR");
       expect(frames[frames.length - 1].error?.type).toBe("VariableNotDeclared");
     });
+
+    test("Function can read global variables", () => {
+      const code = `
+        let greeting = "Hello";
+        function greet(name) {
+          return greeting + " " + name;
+        }
+        let result = greet("World");
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe("Hello World");
+    });
+
+    test("Same parameter name in separate functions is not shadowing", () => {
+      const code = `
+        function add(x) {
+          return x + 1;
+        }
+        function multiply(x) {
+          return x * 2;
+        }
+        let a = add(5);
+        let b = multiply(3);
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      const finalFrame = frames[frames.length - 1] as TestAugmentedFrame;
+      expect(finalFrame.variables?.a?.value).toBe(6);
+      expect(finalFrame.variables?.b?.value).toBe(6);
+    });
+
+    test("Calling a function from another function with the same param name is not shadowing", () => {
+      const code = `
+        function inner(n) {
+          return n * 2;
+        }
+        function outer(n) {
+          return inner(n) + 1;
+        }
+        let result = outer(5);
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(11);
+    });
+
+    test("Nested function call as argument with same param name is not shadowing", () => {
+      const code = `
+        function double(n) {
+          return n * 2;
+        }
+        function addOne(n) {
+          return n + 1;
+        }
+        let result = addOne(double(5));
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(11);
+    });
+
+    test("Mutual recursion with same param name is not shadowing", () => {
+      const code = `
+        function isEven(n) {
+          if (n === 0) { return true; }
+          return isOdd(n - 1);
+        }
+        function isOdd(n) {
+          if (n === 0) { return false; }
+          return isEven(n - 1);
+        }
+        let result = isEven(4);
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(true);
+    });
   });
 
   describe("Syntax errors", () => {
@@ -210,7 +293,7 @@ describe("User-defined functions", () => {
         }
         let result = quadruple(3);
       `;
-      const { frames, error, success } = interpret(code, { languageFeatures: { allowShadowing: true } });
+      const { frames, error, success } = interpret(code);
       expect(error).toBeNull();
       expect(success).toBe(true);
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(12);
@@ -252,10 +335,99 @@ describe("User-defined functions", () => {
       expect(success).toBe(true);
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(15);
     });
+
+    test("Passing function result as argument to another function", () => {
+      const code = `
+        function toUpper(str) {
+          return str.toUpperCase();
+        }
+        function wrap(str) {
+          return "[" + str + "]";
+        }
+        let result = wrap(toUpper("hello"));
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe("[HELLO]");
+    });
+
+    test("Three-function pipeline with shared parameter names", () => {
+      const code = `
+function codonsToProteins(codons) {
+  let map = {
+    AUG: "Methionine",
+    UUU: "Phenylalanine",
+    UCU: "Serine",
+    UAA: "STOP"
+  };
+  let proteins = [];
+  for (const codon of codons) {
+    if (map[codon] === "STOP") {
+      break;
+    }
+    proteins.push(map[codon]);
+  }
+  return proteins;
+}
+
+function rnaToCodons(rna) {
+  let result = [];
+  let current = "";
+  let counter = 0;
+  for (const letter of rna) {
+    counter = counter + 1;
+    current = current + letter;
+    if (counter % 3 === 0 && current !== "") {
+      result.push(current);
+      current = "";
+    }
+  }
+  return result;
+}
+
+function translateRna(rna) {
+  return codonsToProteins(rnaToCodons(rna));
+}
+
+let result = translateRna("AUGUUUUCU");
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      const finalFrame = frames[frames.length - 1] as TestAugmentedFrame;
+      const resultArr = finalFrame.variables?.result?.value as any[];
+      expect(resultArr).toHaveLength(3);
+      expect(resultArr[0]._value ?? resultArr[0].value).toBe("Methionine");
+      expect(resultArr[1]._value ?? resultArr[1].value).toBe("Phenylalanine");
+      expect(resultArr[2]._value ?? resultArr[2].value).toBe("Serine");
+    });
+
+    test("Function called multiple times with different args", () => {
+      const code = `
+        function factorial(n) {
+          let result = 1;
+          for (let i = 2; i <= n; i = i + 1) {
+            result = result * i;
+          }
+          return result;
+        }
+        let a = factorial(5);
+        let b = factorial(3);
+        let c = factorial(1);
+      `;
+      const { frames, error, success } = interpret(code);
+      expect(error).toBeNull();
+      expect(success).toBe(true);
+      const finalFrame = frames[frames.length - 1] as TestAugmentedFrame;
+      expect(finalFrame.variables?.a?.value).toBe(120);
+      expect(finalFrame.variables?.b?.value).toBe(6);
+      expect(finalFrame.variables?.c?.value).toBe(1);
+    });
   });
 
-  describe("Parameter shadowing with allowShadowing feature", () => {
-    test("Parameter shadowing outer variable - allowShadowing: false (default)", () => {
+  describe("Variable shadowing (allowShadowing feature)", () => {
+    test("Parameter shadowing outer variable - blocked when disabled", () => {
       const code = `
         let x = 5;
         function test(x) {
@@ -270,7 +442,7 @@ describe("User-defined functions", () => {
       expect(frames[frames.length - 1].error?.context?.name).toBe("x");
     });
 
-    test("Parameter shadowing outer variable - allowShadowing: true", () => {
+    test("Parameter shadowing outer variable - allowed when enabled", () => {
       const code = `
         let x = 5;
         function test(x) {
@@ -282,10 +454,10 @@ describe("User-defined functions", () => {
       expect(error).toBeNull();
       expect(success).toBe(true);
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(11);
-      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.x?.value).toBe(5); // Outer x unchanged
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.x?.value).toBe(5);
     });
 
-    test("Multiple parameters, one shadows - allowShadowing: false", () => {
+    test("Multiple parameters shadowing outer variables - blocked when disabled", () => {
       const code = `
         let a = 1;
         let b = 2;
@@ -301,20 +473,36 @@ describe("User-defined functions", () => {
       expect(frames[frames.length - 1].error?.context?.name).toBe("a");
     });
 
-    test("Parameter with same name in different functions - should work", () => {
+    test("Let inside function body shadowing outer variable - blocked when disabled", () => {
       const code = `
-        function add(x) {
-          return x + 1;
+        let count = 10;
+        function test() {
+          let count = 20;
+          return count;
         }
-        function multiply(x) {
-          return x * 2;
-        }
-        let result = add(5);
+        let result = test();
       `;
       const { frames, error, success } = interpret(code);
+      expect(success).toBe(false);
+      expect(frames[frames.length - 1].status).toBe("ERROR");
+      expect(frames[frames.length - 1].error?.type).toBe("ShadowingDisabled");
+      expect(frames[frames.length - 1].error?.context?.name).toBe("count");
+    });
+
+    test("Let inside function body shadowing outer variable - allowed when enabled", () => {
+      const code = `
+        let count = 10;
+        function test() {
+          let count = 20;
+          return count;
+        }
+        let result = test();
+      `;
+      const { frames, error, success } = interpret(code, { languageFeatures: { allowShadowing: true } });
       expect(error).toBeNull();
       expect(success).toBe(true);
-      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(6);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBe(20);
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.count?.value).toBe(10);
     });
   });
 });
