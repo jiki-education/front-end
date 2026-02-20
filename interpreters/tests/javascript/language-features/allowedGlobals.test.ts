@@ -7,6 +7,7 @@ describe("allowedGlobals", () => {
       console.log("hi");
       let x = Math.randomInt(1, 1);
       let y = Number("42");
+      let z = String(42);
     `);
     expect(result.success).toBe(true);
   });
@@ -40,6 +41,15 @@ describe("allowedGlobals", () => {
   it("blocks Number when not in allowedGlobals", () => {
     const result = interpret(`let x = Number("42");`, {
       languageFeatures: { allowedGlobals: ["console", "Math"] },
+    });
+    expect(result.success).toBe(false);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
+  });
+
+  it("blocks String when not in allowedGlobals", () => {
+    const result = interpret(`let x = String(42);`, {
+      languageFeatures: { allowedGlobals: ["console", "Math", "Number"] },
     });
     expect(result.success).toBe(false);
     expect(result.frames[0].status).toBe("ERROR");
