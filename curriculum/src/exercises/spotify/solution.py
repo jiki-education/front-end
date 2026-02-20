@@ -10,9 +10,9 @@ def to_sentence(list):
     idx = 0
     for word in list:
         res = res + word
-        if idx < num_artists - 1:
+        if idx < num_artists - 2:
             res = res + ", "
-        elif idx == num_artists - 1:
+        elif idx == num_artists - 2:
             res = res + ", and "
         idx = idx + 1
     return res

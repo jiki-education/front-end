@@ -18,16 +18,6 @@ function to_sentence with list do
   end
   return res
 end
-  
-function has_key with dict, key do
-  for each k,v in dict do
-    if k == key do
-      return true
-    end
-  end
-  return false
-end
-
 
 function favorite_artists with username do
   set url to concatenate("https://api.spotify.com/v1/users/", username)

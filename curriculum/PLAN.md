@@ -119,6 +119,7 @@ Nothing yet
 - `weather-symbols-part-2` - Weather Symbols (Part 2): draw weather scenes from a list of element types using conditionals and helper functions (Lists level)
 - `alien-detector` - Alien Detector: track and shoot aliens using list data instead of isAlienAbove(), with fireworks celebration (Lists level)
 - `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit using the classic sieve algorithm (Dictionaries level)
+- `spotify` - Spotify Data: fetch and format favorite artists from a mock Spotify API using chained fetch calls (Dictionaries level)
 
 ### Unimplemented
 

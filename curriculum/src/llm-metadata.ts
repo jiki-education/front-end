@@ -92,6 +92,7 @@ import { llmMetadata as weatherSymbolsPart2LLM } from "./exercises/weather-symbo
 import { llmMetadata as lookupTimeLLM } from "./exercises/lookup-time/llm-metadata";
 import { llmMetadata as alienDetectorLLM } from "./exercises/alien-detector/llm-metadata";
 import { llmMetadata as sieveLLM } from "./exercises/sieve/llm-metadata";
+import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -186,7 +187,8 @@ const llmMetadataRegistry = {
   "weather-symbols-part-2": weatherSymbolsPart2LLM,
   "lookup-time": lookupTimeLLM,
   "alien-detector": alienDetectorLLM,
-  sieve: sieveLLM
+  sieve: sieveLLM,
+  spotify: spotifyLLM
 } as const;
 
 /**

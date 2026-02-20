@@ -85,7 +85,8 @@ export const exercises = {
   "weather-symbols-part-2": () => import("./weather-symbols-part-2"),
   "lookup-time": () => import("./lookup-time"),
   "alien-detector": () => import("./alien-detector"),
-  sieve: () => import("./sieve")
+  sieve: () => import("./sieve"),
+  spotify: () => import("./spotify")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -12,9 +12,9 @@ function toSentence(list) {
   let idx = 0;
   for (const word of list) {
     res = res + word;
-    if (idx < numArtists - 1) {
+    if (idx < numArtists - 2) {
       res = res + ", ";
-    } else if (idx === numArtists - 1) {
+    } else if (idx === numArtists - 2) {
       res = res + ", and ";
     }
     idx = idx + 1;
