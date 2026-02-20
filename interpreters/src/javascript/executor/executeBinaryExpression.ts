@@ -4,6 +4,12 @@ import type { EvaluationResultBinaryExpression, EvaluationResultExpression } fro
 import { createJSObject, type JikiObject, JSDictionary, JSArray } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
+const DP_MULTIPLE = 100000;
+
+function roundResult(value: number): number {
+  return Math.round(value * DP_MULTIPLE) / DP_MULTIPLE;
+}
+
 export function executeBinaryExpression(
   executor: Executor,
   expression: BinaryExpression
@@ -43,7 +49,7 @@ function handleBinaryOperation(
         }
         // Allow number addition (number + number)
         if (leftType === "number" && rightType === "number") {
-          return createJSObject(left + right);
+          return createJSObject(roundResult(left + right));
         }
         // Everything else is type coercion and should error
         throw new RuntimeError(
@@ -52,37 +58,39 @@ function handleBinaryOperation(
           "TypeCoercionNotAllowed"
         );
       }
-      return createJSObject(left + right);
+      return createJSObject(
+        typeof left === "number" && typeof right === "number" ? roundResult(left + right) : left + right
+      );
 
     case "MINUS":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
       }
-      return createJSObject(left - right);
+      return createJSObject(roundResult(left - right));
 
     case "STAR":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
       }
-      return createJSObject(left * right);
+      return createJSObject(roundResult(left * right));
 
     case "STAR_STAR":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
       }
-      return createJSObject(left ** right);
+      return createJSObject(roundResult(left ** right));
 
     case "SLASH":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
       }
-      return createJSObject(left / right);
+      return createJSObject(roundResult(left / right));
 
     case "PERCENT":
       if (!executor.languageFeatures.allowTypeCoercion) {
         verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
       }
-      return createJSObject(left % right);
+      return createJSObject(roundResult(left % right));
 
     case "LOGICAL_AND":
       executor.verifyBoolean(leftResult.jikiObject, expression.left.location);

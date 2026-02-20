@@ -113,6 +113,14 @@ describe("arithmetic interpreter", () => {
         expect(frames[0].result?.jikiObject.value).toBe(18);
       });
 
+      test("results are rounded to 5 decimal places", () => {
+        const { frames, error } = interpret("1 / 3;");
+        expect(error).toBeNull();
+        expect(frames).toBeArrayOfSize(1);
+        expect(frames[0].status).toBe("SUCCESS");
+        expect(frames[0].result?.jikiObject.value).toBe(0.33333);
+      });
+
       test("complex expression", () => {
         const { frames, error } = interpret("1 + 2 * 3;");
         expect(error).toBeNull();
