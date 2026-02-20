@@ -69,7 +69,7 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
-import { JSBuiltinObject, JSNumber, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
+import { JSBuiltinObject, JSNumber, JSString, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
 import { objectMethods } from "./stdlib/object";
@@ -662,6 +662,17 @@ export class Executor {
       );
       this.environment.define("Number", numberFn, Location.unknown);
       this.protectedNames.add("Number");
+    }
+
+    if (this.isGlobalAllowed("String")) {
+      const stringFn = new JSStdLibFunction(
+        "String",
+        1,
+        (_ctx, _thisObj, args) => new JSString(String(args[0].value)),
+        "converts a value to a string"
+      );
+      this.environment.define("String", stringFn, Location.unknown);
+      this.protectedNames.add("String");
     }
   }
 
