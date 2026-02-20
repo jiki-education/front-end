@@ -15,9 +15,9 @@ export abstract class VisualExercise extends Exercise {
   abstract availableFunctions: ExternalFunction[];
 
   getExternalFunctions(language: Language): ExternalFunction[] {
-    return this.availableFunctions.map(f => ({
+    return this.availableFunctions.map((f) => ({
       ...f,
-      name: interpreters[language].formatIdentifier(f.name),
+      name: interpreters[language].formatIdentifier(f.name)
     }));
   }
 
