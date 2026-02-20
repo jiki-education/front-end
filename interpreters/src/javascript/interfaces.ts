@@ -21,6 +21,7 @@ export type NodeType =
   | "IfStatement"
   | "ForStatement"
   | "ForOfStatement"
+  | "ForInStatement"
   | "RepeatStatement"
   | "WhileStatement"
   | "BreakStatement"

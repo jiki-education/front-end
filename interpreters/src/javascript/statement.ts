@@ -203,3 +203,19 @@ export class ForOfStatement extends Statement {
     return children;
   }
 }
+
+export class ForInStatement extends Statement {
+  constructor(
+    public variable: Token,
+    public object: Expression,
+    public body: Statement,
+    public location: Location
+  ) {
+    super("ForInStatement");
+  }
+  public children() {
+    const children: Expression[] = [this.object];
+    children.push(...this.body.children());
+    return children;
+  }
+}
