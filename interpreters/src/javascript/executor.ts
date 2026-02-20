@@ -123,7 +123,10 @@ export type RuntimeErrorType =
   | "RepeatCountMustBeNonNegative"
   | "RepeatCountTooHigh"
   | "ValueError"
-  | "FunctionAlreadyDefined";
+  | "FunctionAlreadyDefined"
+  | "InOperatorRequiresObject"
+  | "InOperatorRequiresStringKey"
+  | "InWithArrayNotAllowed";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
