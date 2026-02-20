@@ -86,6 +86,7 @@ Nothing yet
 - `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
 - `maze-walk` - Walk: define a walk(steps) function with a parameter to move multiple steps (Make Your Own Functions level)
+- `look-around` - Look Around: implement canTurnLeft/canTurnRight/canMove sensing functions using look(direction) (Make Your Own Functions level)
 - `battle-procedures` - Battle Procedures: refactor scroll-and-shoot logic into three named functions (Make Your Own Functions level)
 - `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Adding Returns to Your Functions level)
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)

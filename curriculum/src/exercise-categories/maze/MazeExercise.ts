@@ -1,4 +1,4 @@
-import { type ExecutionContext } from "@jiki/interpreters";
+import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 
 type Direction = "up" | "right" | "down" | "left";
@@ -19,7 +19,7 @@ export default class MazeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions = [
+  availableFunctions: ExternalFunction[] = [
     {
       name: "move",
       func: this.move.bind(this),

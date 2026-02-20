@@ -133,6 +133,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "lessons": [
       { "type": "exercise", "slug": "maze-turn-around" },
       { "type": "exercise", "slug": "maze-walk" },
+      { "type": "exercise", "slug": "look-around" },
       { "type": "exercise", "slug": "battle-procedures" },
       { "type": "exercise", "slug": "even-or-odd" },
       { "type": "exercise", "slug": "triangle" },
