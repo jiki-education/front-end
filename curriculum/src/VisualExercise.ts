@@ -1,5 +1,9 @@
 import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
+import { jikiscript, javascript, python } from "@jiki/interpreters";
 import { Exercise } from "./Exercise";
+import type { Language } from "./types";
+
+const interpreters = { jikiscript, javascript, python };
 
 // Base exercise class for visual exercises with animations and state
 
@@ -9,6 +13,13 @@ export abstract class VisualExercise extends Exercise {
   protected abstract get slug(): string;
 
   abstract availableFunctions: ExternalFunction[];
+
+  getExternalFunctions(language: Language): ExternalFunction[] {
+    return this.availableFunctions.map(f => ({
+      ...f,
+      name: interpreters[language].formatIdentifier(f.name),
+    }));
+  }
 
   abstract getState(): Record<string, number | string | boolean>;
 

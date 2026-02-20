@@ -73,7 +73,7 @@ Wait for the user's responses before proceeding.
 - **Function names** in instructions, hints, task descriptions, FunctionInfo, examples, and llm-metadata must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
 - **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
 - **No Jikiscript syntax** (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
-- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (interpreter auto-converts)
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (converted by `getExternalFunctions(language)` and test runners)
 
 Once the user approves the approach, create ALL required files:
 

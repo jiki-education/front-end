@@ -6,15 +6,18 @@ import { jikiscript } from "@jiki/interpreters";
 jest.mock("@jiki/interpreters", () => ({
   jikiscript: {
     interpret: jest.fn(),
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   javascript: {
     interpret: jest.fn(),
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   python: {
     interpret: jest.fn(),
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   }
 }));
 
@@ -31,6 +34,10 @@ class MockExercise implements Partial<VisualExercise> {
   animations: any[] = [];
   availableFunctions = [{ name: "move", func: jest.fn(), description: "Move" }];
   state = { position: 100 };
+
+  getExternalFunctions() {
+    return this.availableFunctions;
+  }
 
   getView() {
     return document.createElement("div");

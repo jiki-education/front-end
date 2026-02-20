@@ -8,7 +8,7 @@ import type { JikiObject } from "./jikiObjects";
 import {
   extractCallExpressions,
   extractVariableAssignments,
-  snakeToCamel,
+  snakeToCamel as formatIdentifier,
   countLinesOfCode,
   extractFunctionDeclarations,
   extractMethodCalls,
@@ -155,9 +155,9 @@ export function evaluateFunction(
         });
       },
       assertNoLiteralNumberAssignments: (exclude: string[]) => {
-        const camelExclude = exclude.map(snakeToCamel);
+        const formattedExclude = exclude.map(formatIdentifier);
         return extractVariableAssignments(statements).every(({ name, value }) => {
-          if (camelExclude.includes(name)) {
+          if (formattedExclude.includes(name)) {
             return true;
           }
           return !(value instanceof LiteralExpression && typeof value.value === "number");
@@ -166,18 +166,19 @@ export function evaluateFunction(
       countLinesOfCode: () => countLinesOfCode(sourceCode),
       assertMaxLinesOfCode: (limit: number) => countLinesOfCode(sourceCode) <= limit,
       assertFunctionDefined: (name: string) => {
-        const camelName = snakeToCamel(name);
-        return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === camelName);
+        const formatted = formatIdentifier(name);
+        return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === formatted);
       },
       assertMethodCalled: (methodName: string) => {
-        return extractMethodCalls(statements).some(mc => mc.methodName === methodName);
+        const formatted = formatIdentifier(methodName);
+        return extractMethodCalls(statements).some(mc => mc.methodName === formatted);
       },
       countArrayLiterals: () => countArrayExpressions(statements),
       assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
-        const camelName = snakeToCamel(funcName);
-        const callsOutside = extractCallExpressionsExcludingFunctionBody(statements, camelName);
+        const formatted = formatIdentifier(funcName);
+        const callsOutside = extractCallExpressionsExcludingFunctionBody(statements, formatted);
         return callsOutside.some(
-          call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === camelName
+          call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
         );
       },
     },

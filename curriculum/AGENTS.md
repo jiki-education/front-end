@@ -31,7 +31,7 @@ All **user-facing text** must use JavaScript conventions:
 
 This applies to: `metadata.json` (instructions, hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (`FunctionInfo` name/signature/examples), and `llm-metadata.ts`.
 
-**Exception**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** — the interpreter auto-converts to camelCase for JavaScript at runtime.
+**Exception**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** — the exercise base classes (`getExternalFunctions(language)`) and test runners handle conversion to the target language's convention (e.g., camelCase for JavaScript).
 
 Use `/audit-instructions` to verify an exercise's text content follows these conventions.
 

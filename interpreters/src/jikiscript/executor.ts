@@ -85,6 +85,7 @@ import {
   extractFunctionCallExpressions,
   extractVariableAssignments,
   formatJikiObject,
+  formatIdentifier,
   countLinesOfCode,
   extractFunctionStatements,
   extractMethodCallExpressions,
@@ -311,8 +312,9 @@ export class Executor {
           });
         },
         assertNoLiteralNumberAssignments: (exclude: string[]) => {
+          const formattedExclude = exclude.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (exclude.includes(name)) {
+            if (formattedExclude.includes(name)) {
               return true;
             }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
@@ -321,15 +323,18 @@ export class Executor {
         countLinesOfCode: () => countLinesOfCode(this.sourceCode),
         assertMaxLinesOfCode: (limit: number) => countLinesOfCode(this.sourceCode) <= limit,
         assertFunctionDefined: (name: string) => {
-          return extractFunctionStatements(statements).some(fs => fs.name.lexeme === name);
+          const formatted = formatIdentifier(name);
+          return extractFunctionStatements(statements).some(fs => fs.name.lexeme === formatted);
         },
         assertMethodCalled: (methodName: string) => {
-          return extractMethodCallExpressions(statements).some(mc => mc.methodName.lexeme === methodName);
+          const formatted = formatIdentifier(methodName);
+          return extractMethodCallExpressions(statements).some(mc => mc.methodName.lexeme === formatted);
         },
         countArrayLiterals: () => countListExpressions(statements),
         assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
-          const callsOutside = extractFunctionCallExpressionsExcludingBody(statements, funcName);
-          return callsOutside.some(call => call.callee.name.lexeme === funcName);
+          const formatted = formatIdentifier(funcName);
+          const callsOutside = extractFunctionCallExpressionsExcludingBody(statements, formatted);
+          return callsOutside.some(call => call.callee.name.lexeme === formatted);
         },
       },
     };

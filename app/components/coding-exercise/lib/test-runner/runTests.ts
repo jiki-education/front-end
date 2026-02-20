@@ -22,16 +22,16 @@ function getInterpreter(language: Language) {
 }
 
 export function runTests(studentCode: string, exercise: ExerciseDefinition, language: Language): TestSuiteResult {
-  // Get available functions based on exercise type
+  // Get available functions based on exercise type, with names formatted for the target language
   let availableFunctions: Array<{ name: string; func: any; description: string }>;
 
   if (exercise.type === "visual") {
     // Visual exercises: create instance to get functions
     const tempExercise = new exercise.ExerciseClass();
-    availableFunctions = tempExercise.availableFunctions;
+    availableFunctions = tempExercise.getExternalFunctions(language);
   } else {
     // IO exercises: get static functions
-    availableFunctions = exercise.ExerciseClass.availableFunctions;
+    availableFunctions = exercise.ExerciseClass.getExternalFunctions(language);
   }
 
   // Compile ONCE before running any scenarios

@@ -35,7 +35,7 @@ export function runVisualScenario(
   // Execute student code with selected interpreter
   const interpreter = getInterpreter(language);
   const interpreterContext = {
-    externalFunctions: exercise.availableFunctions,
+    externalFunctions: exercise.getExternalFunctions(language),
     languageFeatures: {
       timePerFrame: 1,
       ...interpreterOptions
@@ -47,7 +47,7 @@ export function runVisualScenario(
     ? interpreter.evaluateFunction(
         studentCode,
         interpreterContext,
-        scenario.functionCall.name,
+        interpreter.formatIdentifier(scenario.functionCall.name),
         ...scenario.functionCall.args
       )
     : interpreter.interpret(studentCode, interpreterContext);

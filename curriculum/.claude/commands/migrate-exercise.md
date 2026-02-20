@@ -20,7 +20,7 @@ I'll help you migrate an exercise from the Exercism Bootcamp format to the Jiki 
 - **Function names** in metadata.json instructions/hints, scenarios.ts task descriptions/hints/errorHtml, index.ts FunctionInfo, and llm-metadata.ts must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
 - **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
 - **No Jikiscript syntax** in user-facing text (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
-- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (interpreter auto-converts)
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (converted by `getExternalFunctions(language)` and test runners)
 
 ## Step 0: Read Migration Documentation
 

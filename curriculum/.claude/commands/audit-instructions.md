@@ -11,7 +11,7 @@ Audit the text content of the exercise(s) specified by `$ARGUMENTS` to ensure th
 
 We are launching with JavaScript only. All user-facing text must use JavaScript conventions (camelCase function names, JS syntax). Python and Jikiscript support will be added later.
 
-**Important distinction**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** (the interpreter auto-converts at runtime). Only _user-facing text_ must use camelCase.
+**Important distinction**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** (converted by `getExternalFunctions(language)` and test runners at runtime). Only _user-facing text_ must use camelCase.
 
 The frontend displays `FunctionInfo` fields (name, signature, examples) **verbatim** — there is no auto-conversion. So these must be camelCase.
 
@@ -47,8 +47,8 @@ For each exercise being audited, read:
 
 **Exceptions** (these SHOULD stay snake_case):
 
-- `availableFunctions[].name` in `Exercise.ts` — internal interpreter field
-- `functionName` in `scenarios.ts` IOScenario — internal interpreter field
+- `availableFunctions[].name` in `Exercise.ts` — converted by `getExternalFunctions(language)` at runtime
+- `functionName` in `scenarios.ts` IOScenario — converted by test runners at runtime
 - Function names inside `solution.jiki`, `stub.jiki`, `solution.py`, `stub.py` — language-specific files
 
 Single-word function names (e.g., `move`, `shoot`, `concatenate`) are the same in both conventions — these are fine as-is.

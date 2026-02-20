@@ -78,7 +78,7 @@ export function runIOScenario(
           ...interpreterOptions
         }
       },
-      scenario.functionName,
+      interpreter.formatIdentifier(scenario.functionName),
       ...scenario.args
     );
 

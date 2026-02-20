@@ -1,7 +1,5 @@
 export { interpret, compile, evaluateFunction } from "./interpreter";
-export function formatIdentifier(name: string): string {
-  return name;
-}
+export { formatIdentifier } from "./helpers";
 export type { InterpretResult } from "../shared/interfaces";
 export type { EvaluationContext, EvaluateFunctionResult } from "./interpreter";
 

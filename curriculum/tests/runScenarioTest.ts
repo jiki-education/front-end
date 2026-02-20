@@ -61,7 +61,7 @@ export function runVisualScenarioTest(
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
   const interpreter = getInterpreter(language);
   const interpreterContext = {
-    externalFunctions: exercise.availableFunctions,
+    externalFunctions: exercise.getExternalFunctions(language),
     languageFeatures: {
       timePerFrame: 1,
       maxTotalLoopIterations: 10000,
@@ -120,7 +120,7 @@ export function runIOScenarioTest(
 
   // Get available helper functions from the exercise class
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
-  const externalFunctions = ExerciseClass.availableFunctions;
+  const externalFunctions = ExerciseClass.getExternalFunctions(language);
 
   // Call the student's function using evaluateFunction
   const interpreter = getInterpreter(language);
@@ -139,9 +139,9 @@ export function runIOScenarioTest(
     interpreter.formatIdentifier(scenario.functionName),
     ...scenario.args
   );
-  console.log(evaluationResult);
-  console.log(evaluationResult.error);
-  console.log(evaluationResult.frames[4]?.error);
+  // console.log(evaluationResult);
+  // console.log(evaluationResult.error);
+  // console.log(evaluationResult.frames[2]?.error);
 
   // Compare actual vs expected using the matcher
   const matcher = scenario.matcher ?? "toEqual";

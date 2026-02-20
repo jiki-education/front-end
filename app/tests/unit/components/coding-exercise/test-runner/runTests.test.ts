@@ -8,31 +8,36 @@ import { javascript, jikiscript, python } from "@jiki/interpreters";
 jest.mock("@jiki/interpreters", () => ({
   jikiscript: {
     compile: jest.fn(),
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   javascript: {
     compile: jest.fn(),
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   python: {
     compile: jest.fn(),
-    interpret: jest.fn()
+    interpret: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   TIME_SCALE_FACTOR: 1000
 }));
 
 // Mock the TestExercise
 jest.mock("@jiki/curriculum", () => {
+  const availableFunctions = [
+    {
+      name: "move",
+      func: jest.fn()
+    }
+  ];
   return {
     TestExercise: jest.fn().mockImplementation(() => ({
       position: 100, // This will match the expectation for start-at-0
       animations: [],
-      availableFunctions: [
-        {
-          name: "move",
-          func: jest.fn()
-        }
-      ],
+      availableFunctions,
+      getExternalFunctions: jest.fn().mockReturnValue(availableFunctions),
       setStartPosition: jest.fn(),
       getState: jest.fn().mockReturnValue({ position: 100 }),
       getView: jest.fn().mockReturnValue(document.createElement("div"))
