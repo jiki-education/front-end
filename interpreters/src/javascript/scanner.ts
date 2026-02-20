@@ -119,7 +119,6 @@ export class Scanner {
     "DEFAULT",
     "DO",
     // Operators
-    "IN",
     "INSTANCEOF",
     "TYPEOF",
     "QUESTION", // Ternary operator

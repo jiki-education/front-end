@@ -562,7 +562,6 @@ describe("JavaScript - Token Availability", () => {
         { token: "do", type: "DO" },
         { token: "extends", type: "EXTENDS" },
         { token: "finally", type: "FINALLY" },
-        { token: "in", type: "IN" },
         { token: "instanceof", type: "INSTANCEOF" },
         { token: "new", type: "NEW" },
         { token: "super", type: "SUPER" },
