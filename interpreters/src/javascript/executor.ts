@@ -25,6 +25,7 @@ import {
   IfStatement,
   ForStatement,
   ForOfStatement,
+  ForInStatement,
   RepeatStatement,
   WhileStatement,
   FunctionDeclaration,
@@ -58,6 +59,7 @@ import { executeVariableDeclaration } from "./executor/executeVariableDeclaratio
 import { executeIfStatement } from "./executor/executeIfStatement";
 import { executeForStatement } from "./executor/executeForStatement";
 import { executeForOfStatement } from "./executor/executeForOfStatement";
+import { executeForInStatement } from "./executor/executeForInStatement";
 import { executeRepeatStatement } from "./executor/executeRepeatStatement";
 import { executeWhileStatement } from "./executor/executeWhileStatement";
 import { executeTemplateLiteralExpression } from "./executor/executeTemplateLiteralExpression";
@@ -124,6 +126,7 @@ export type RuntimeErrorType =
   | "RepeatCountTooHigh"
   | "ValueError"
   | "FunctionAlreadyDefined"
+  | "ForInLoopTargetNotObject"
   | "InOperatorRequiresObject"
   | "InOperatorRequiresStringKey"
   | "InWithArrayNotAllowed";
@@ -394,6 +397,8 @@ export class Executor {
         executeForStatement(this, statement);
       } else if (statement instanceof ForOfStatement) {
         executeForOfStatement(this, statement);
+      } else if (statement instanceof ForInStatement) {
+        executeForInStatement(this, statement);
       } else if (statement instanceof RepeatStatement) {
         executeRepeatStatement(this, statement);
       } else if (statement instanceof WhileStatement) {

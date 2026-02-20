@@ -10,6 +10,7 @@ import { describeReturnStatement } from "./describers/describeReturnStatement";
 import { describeBreakStatement } from "./describers/describeBreakStatement";
 import { describeContinueStatement } from "./describers/describeContinueStatement";
 import { describeForOfStatement } from "./describers/describeForOfStatement";
+import { describeForInStatement } from "./describers/describeForInStatement";
 import { describeRepeatStatement } from "./describers/describeRepeatStatement";
 
 // JavaScript-specific frame extending the shared base
@@ -72,6 +73,8 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
       return describeIfStatement(frame, context);
     case "ForOfStatement":
       return describeForOfStatement(frame, context);
+    case "ForInStatement":
+      return describeForInStatement(frame, context);
     case "RepeatStatement":
       return describeRepeatStatement(frame, context);
     case "CallExpression": {

@@ -24,6 +24,7 @@ import {
   IfStatement,
   ForStatement,
   ForOfStatement,
+  ForInStatement,
   RepeatStatement,
   WhileStatement,
   FunctionDeclaration,
@@ -85,6 +86,7 @@ export class Parser {
       IfStatement: "If statements",
       ForStatement: "For loops",
       ForOfStatement: "For...of loops",
+      ForInStatement: "For...in loops",
       RepeatStatement: "Repeat loops",
       WhileStatement: "While loops",
       BreakStatement: "Break statements",
@@ -341,7 +343,7 @@ export class Parser {
 
     this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterIf"); // Reuse error type for now
 
-    // Check if this is a for...of loop by looking for "let/const identifier of"
+    // Check if this is a for...of or for...in loop by looking for "let/const identifier of/in"
     if (this.check("LET") || this.check("CONST")) {
       const checkpoint = this.current;
       this.advance(); // consume 'let' or 'const'
@@ -359,8 +361,20 @@ export class Parser {
 
           return new ForOfStatement(variable, iterable, body!, Location.between(forToken, body!));
         }
+        if (this.check("IN")) {
+          // This is a for...in loop
+          this.checkNodeAllowed("ForInStatement", "ForInStatementNotAllowed", forToken.location);
+          this.advance(); // consume 'in'
+
+          const object = this.expression();
+          this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
+
+          const body = this.statement();
+
+          return new ForInStatement(variable, object, body!, Location.between(forToken, body!));
+        }
       }
-      // Not a for...of loop, reset and parse as regular for loop
+      // Not a for...of or for...in loop, reset and parse as regular for loop
       this.current = checkpoint;
     }
 
