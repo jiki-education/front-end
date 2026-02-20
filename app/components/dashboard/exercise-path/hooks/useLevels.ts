@@ -45,7 +45,8 @@ export function useLevels() {
               .split("-")
               .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
               .join(" "),
-            description: getLessonDescription(lesson.type)
+            description: getLessonDescription(lesson.type),
+            walkthrough_video_data: lesson.walkthrough_video_data
           },
           completed: lesson.status === "completed",
           locked,

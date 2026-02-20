@@ -1,3 +1,5 @@
+import type { VideoData } from "./lesson";
+
 export interface ConceptAncestor {
   title: string;
   slug: string;
@@ -9,7 +11,7 @@ export interface ConceptListItem {
   description: string;
   children_count: number;
   user_may_access: boolean;
-  video_data: Array<{ provider: string; id: string }> | null;
+  video_data: VideoData[] | null;
 }
 
 export interface ConceptDetail {
@@ -20,5 +22,5 @@ export interface ConceptDetail {
   children_count: number;
   user_may_access: boolean;
   ancestors: ConceptAncestor[];
-  video_data: Array<{ provider: string; id: string }> | null;
+  video_data: VideoData[] | null;
 }

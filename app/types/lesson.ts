@@ -1,6 +1,12 @@
 import type { ExerciseSlug } from "@jiki/curriculum";
 import type { ProgrammingLanguage } from "./course";
 
+// Video data from API serializers (used by concepts and lessons)
+export interface VideoData {
+  provider: string;
+  id: string;
+}
+
 // Shared video source type
 export interface VideoSource {
   host: string;
@@ -17,6 +23,7 @@ export interface Lesson {
   title: string;
   description?: string;
   type: LessonType;
+  walkthrough_video_data: VideoData[] | null;
 }
 
 // LessonWithData extends Lesson with type-specific data block
