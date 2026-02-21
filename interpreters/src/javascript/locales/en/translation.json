@@ -71,7 +71,8 @@
       "ForInStatementNotAllowed": "for...in loops are not allowed at your current learning level.",
       "NewExpressionNotAllowed": "New expressions (object instantiation) are not allowed at your current learning level.",
       "BlockRequired": "You need to use { } braces after '{{keyword}}'.",
-      "ClosingBraceNotOnOwnLine": "Put the closing brace '}' on its own line to keep things tidy."
+      "ClosingBraceNotOnOwnLine": "Put the closing brace '}' on its own line to keep things tidy.",
+      "IncorrectIndentation": "Incorrect indentation. Expected {{expected}} spaces but found {{actual}} spaces."
     },
     "runtime": {
       "ArgumentError": "{{message}}",

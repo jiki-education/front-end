@@ -73,7 +73,8 @@ export type SyntaxErrorType =
   | "ForInStatementNotAllowed"
   | "NewExpressionNotAllowed"
   | "BlockRequired"
-  | "ClosingBraceNotOnOwnLine";
+  | "ClosingBraceNotOnOwnLine"
+  | "IncorrectIndentation";
 
 export class SyntaxError extends Error {
   constructor(
