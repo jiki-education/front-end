@@ -1,0 +1,13 @@
+{
+  "slug": "dnd-roll",
+  "title": "D&D Roll",
+  "instructions": "You've encountered a goblin in the dungeon! To fight it, you need to roll three dice, announce each result, then strike.\n\nYou have three functions:\n- `roll(sides)` rolls a die with the given number of sides and **gives back** the result\n- `announce(value)` announces a dice roll\n- `strike(attack, damage)` strikes the goblin with your attack roll and total damage\n\nHere's what you need to do:\n1. Roll a 20-sided die for your attack\n2. Roll a 6-sided die for your base damage\n3. Roll a 4-sided die for your bonus damage\n4. Announce each of the three rolls\n5. Add the base damage and bonus damage together\n6. Strike the goblin with your attack roll and total damage\n\n**Important:** Each time you call `roll()`, it gives back a different number. You need to store each result in a variable so you can use it later. You can't just call `roll()` again and expect the same number!",
+  "estimatedMinutes": 10,
+  "levelId": "functions-that-return-things",
+  "hints": [
+    "Store each roll result in its own variable, like: let attack = roll(20)",
+    "You need three separate variables — one for each die roll",
+    "Announce each roll using the variable you stored it in",
+    "Calculate total damage by adding the base damage and bonus variables together"
+  ]
+}

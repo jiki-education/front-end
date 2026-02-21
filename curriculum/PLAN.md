@@ -70,6 +70,8 @@ Nothing yet
 - `rainbow` - Rainbow: use HSL colors to draw rainbow arcs (Basic State level)
 - `sunset` - Sunset: animate sky color changes with state (Basic State level)
 - `sprouting-flower` - Sprouting Flower: capstone project using state (Basic State level)
+- `dnd-roll` - D&D Roll: store return values from roll() and use them in announce() and strike() (Functions That Return Things level)
+- `gold-panning` - Gold Panning: use return value from pan() in a loop with an accumulator, then sell total (Functions That Return Things level)
 - `rainbow-splodges` - Rainbow Splodges: use return values to get colors (Functions That Return Things level)
 - `plant-the-flowers-scenarios` - Plant the Flowers Scenarios: multi-scenario version (Functions That Return Things level)
 - `cityscape-skyscraper` - Skyscraper: use return values to build skyscraper (Functions That Return Things level)

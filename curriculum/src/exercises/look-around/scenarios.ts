@@ -6,10 +6,7 @@ export const tasks = [
     id: "straight-path" as const,
     name: "A straight path",
     description: "Implement canMove() so the character can move forward to the end of the maze.",
-    hints: [
-      "Use look(\"ahead\") to check what's in front",
-      "A space is safe if it's not \"fire\", \"wall\", or \"poop\""
-    ],
+    hints: ['Use look("ahead") to check what\'s in front', 'A space is safe if it\'s not "fire", "wall", or "poop"'],
     requiredScenarios: ["maze-1"],
     bonus: false
   },
@@ -24,8 +21,7 @@ export const tasks = [
   {
     id: "turn-right" as const,
     name: "Turn right if you can't move straight or left",
-    description:
-      "Implement canTurnRight() so the character turns right when it can't go left or straight.",
+    description: "Implement canTurnRight() so the character turns right when it can't go left or straight.",
     hints: ['Use look("right") to check what\'s to the right', "Consider writing a shared helper function"],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false

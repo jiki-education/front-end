@@ -90,6 +90,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "functions-that-return-things",
     "lessons": [
       { "type": "video", "slug": "functions-that-return-things" },
+      { "type": "exercise", "slug": "dnd-roll" },
+      { "type": "exercise", "slug": "gold-panning" },
       { "type": "exercise", "slug": "rainbow-splodges" },
       { "type": "video", "slug": "scenarios" },
       { "type": "exercise", "slug": "plant-the-flowers-scenarios" },

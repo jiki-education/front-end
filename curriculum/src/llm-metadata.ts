@@ -17,6 +17,7 @@ import { llmMetadata as collatzConjectureLLM } from "./exercises/collatz-conject
 import { llmMetadata as guestListLLM } from "./exercises/guest-list/llm-metadata";
 import { llmMetadata as hammingLLM } from "./exercises/hamming/llm-metadata";
 import { llmMetadata as formalDinnerLLM } from "./exercises/formal-dinner/llm-metadata";
+import { llmMetadata as dndRollLLM } from "./exercises/dnd-roll/llm-metadata";
 import { llmMetadata as drivingTestLLM } from "./exercises/driving-test/llm-metadata";
 import { llmMetadata as evenOrOddLLM } from "./exercises/even-or-odd/llm-metadata";
 import { llmMetadata as mazeSolveBasicLLM } from "./exercises/maze-solve-basic/llm-metadata";
@@ -50,6 +51,7 @@ import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
 import { llmMetadata as sunshineLLM } from "./exercises/sunshine/llm-metadata";
 import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
 import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-metadata";
+import { llmMetadata as goldPanningLLM } from "./exercises/gold-panning/llm-metadata";
 import { llmMetadata as golfRollingBallLoopLLM } from "./exercises/golf-rolling-ball-loop/llm-metadata";
 import { llmMetadata as golfRollingBallStateLLM } from "./exercises/golf-rolling-ball-state/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
@@ -124,6 +126,7 @@ const llmMetadataRegistry = {
   "guest-list": guestListLLM,
   hamming: hammingLLM,
   "formal-dinner": formalDinnerLLM,
+  "dnd-roll": dndRollLLM,
   "driving-test": drivingTestLLM,
   "even-or-odd": evenOrOddLLM,
   "maze-solve-basic": mazeSolveBasicLLM,
@@ -157,6 +160,7 @@ const llmMetadataRegistry = {
   sunshine: sunshineLLM,
   "foxy-face": foxyFaceLLM,
   "cloud-rain-sun": cloudRainSunLLM,
+  "gold-panning": goldPanningLLM,
   "golf-rolling-ball-loop": golfRollingBallLoopLLM,
   "golf-rolling-ball-state": golfRollingBallStateLLM,
   "golf-shot-checker": golfShotCheckerLLM,

@@ -10,7 +10,7 @@ export const tasks = [
       "Write a contains() function that checks if a character appears in a given string",
       "Use contains() to write isAlpha() and isNumeric() — iterate through each character and return false if any character is not found in the allowed set",
       "For isAlphanumeric(), use isAlpha() and isNumeric() on each character — if neither matches, return false",
-      "In whatAmI(), check isAlpha first, then isNumeric, then isAlphanumeric, and return \"Unknown\" as the default"
+      'In whatAmI(), check isAlpha first, then isNumeric, then isAlphanumeric, and return "Unknown" as the default'
     ],
     requiredScenarios: ["duck", "number", "alphanumeric", "not-alphanumeric-1", "not-alphanumeric-2"],
     bonus: false
@@ -21,7 +21,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "duck",
     name: "Duck",
-    description: "A purely alphabetic string should be classified as \"Alpha\"",
+    description: 'A purely alphabetic string should be classified as "Alpha"',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck"],
@@ -30,7 +30,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number",
     name: "42",
-    description: "A purely numeric string should be classified as \"Numeric\"",
+    description: 'A purely numeric string should be classified as "Numeric"',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42"],
@@ -39,7 +39,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "alphanumeric",
     name: "Duck42",
-    description: "A string with both letters and numbers should be classified as \"Alphanumeric\"",
+    description: 'A string with both letters and numbers should be classified as "Alphanumeric"',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck42"],
@@ -48,7 +48,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "not-alphanumeric-1",
     name: "It's not 42!",
-    description: "A string with special characters should be classified as \"Unknown\"",
+    description: 'A string with special characters should be classified as "Unknown"',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["It's not 42!"],
@@ -57,7 +57,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "not-alphanumeric-2",
     name: "42 Rubber Duck!",
-    description: "A string with spaces and special characters should be classified as \"Unknown\"",
+    description: 'A string with spaces and special characters should be classified as "Unknown"',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],

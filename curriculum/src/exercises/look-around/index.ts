@@ -38,7 +38,7 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "look",
-    signature: 'look(direction)',
+    signature: "look(direction)",
     description:
       'Looks in the given direction and returns what\'s there. The direction must be `"left"`, `"right"`, or `"ahead"`. Returns one of: `"empty"`, `"wall"`, `"fire"`, `"poop"`, `"start"`, or `"target"`.',
     examples: ['let space = look("ahead")', 'let leftSpace = look("left")'],
