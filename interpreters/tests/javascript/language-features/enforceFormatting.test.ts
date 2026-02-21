@@ -233,5 +233,86 @@ describe("JavaScript enforceFormatting feature", () => {
         expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
       });
     });
+
+    describe("works without semicolons", () => {
+      test("closing brace on same line without semicolons throws error", () => {
+        const code = `let x = 0\nrepeat(3) {\n  x = x + 1 }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+      });
+
+      test("closing brace on own line without semicolons is allowed", () => {
+        const code = `
+          let x = 0
+          repeat(3) {
+            x = x + 1
+          }
+        `;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+      });
+
+      test("if block without semicolons and closing brace on same line throws error", () => {
+        const code = `let x = 0\nif (true) {\n  x = 1 }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+      });
+
+      test("if block without semicolons and closing brace on own line is allowed", () => {
+        const code = `
+          let x = 0
+          if (true) {
+            x = 1
+          }
+        `;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+      });
+
+      test("function without semicolons and closing brace on same line throws error", () => {
+        const code = `function foo() { return 1 }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+      });
+
+      test("function without semicolons and closing brace on own line is allowed", () => {
+        const code = `
+          function foo() {
+            return 1
+          }
+        `;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+      });
+    });
+
+    describe("works with requireSemicolons", () => {
+      const featuresWithSemicolons = { enforceFormatting: true, requireSemicolons: true };
+
+      test("closing brace on same line with semicolons throws error", () => {
+        const code = `let x = 0;\nrepeat(3) {\n  x = x + 1; }`;
+        const { error } = interpret(code, { languageFeatures: featuresWithSemicolons });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+      });
+
+      test("closing brace on own line with semicolons is allowed", () => {
+        const code = `
+          let x = 0;
+          repeat(3) {
+            x = x + 1;
+          }
+        `;
+        const { error } = interpret(code, { languageFeatures: featuresWithSemicolons });
+        expect(error).toBeNull();
+      });
+    });
   });
 });
