@@ -53,6 +53,7 @@ export const exercises = {
   "process-game": () => import("./process-game"),
   "wordle-solver": () => import("./wordle-solver"),
   snowman: () => import("./snowman"),
+  "snowman-basic": () => import("./snowman-basic"),
   "traffic-lights": () => import("./traffic-lights"),
   "relational-snowman": () => import("./relational-snowman"),
   "relational-sun": () => import("./relational-sun"),
@@ -94,7 +95,8 @@ export const exercises = {
   "look-around": () => import("./look-around"),
   "emoji-collector": () => import("./emoji-collector"),
   "boundaried-ball": () => import("./boundaried-ball"),
-  "smashing-blocks": () => import("./smashing-blocks")
+  "smashing-blocks": () => import("./smashing-blocks"),
+  "maze-solve-walk": () => import("./maze-solve-walk")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

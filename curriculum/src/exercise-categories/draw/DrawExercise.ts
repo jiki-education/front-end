@@ -23,6 +23,7 @@ export abstract class DrawExercise extends VisualExercise {
 
   protected strokeColor: string = "#333333";
   protected strokeWidth = 0;
+  protected fixedColor: string | null = null;
 
   constructor() {
     super();
@@ -197,21 +198,19 @@ export abstract class DrawExercise extends VisualExercise {
     y: Shared.JikiObject,
     width: Shared.JikiObject,
     height: Shared.JikiObject,
-    color: Shared.JikiObject
+    color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-    if (!isString(color)) {
-      return executionCtx.logicError("Color must be a string");
-    }
+    const fillColor = this.resolveColor(executionCtx, color);
+    if (fillColor === null) return;
     if (width.value <= 0) {
       return executionCtx.logicError("Width must be greater than 0");
     }
     if (height.value <= 0) {
       return executionCtx.logicError("Height must be greater than 0");
     }
-    const fillColor = color.value;
     const [absX, absY, absWidth, absHeight] = [x.value, y.value, width.value, height.value].map((val) => rToA(val));
 
     const elem = Shapes.rect(absX, absY, absWidth, absHeight, this.strokeColor, this.strokeWidth, fillColor);
@@ -228,15 +227,13 @@ export abstract class DrawExercise extends VisualExercise {
     y1: Shared.JikiObject,
     x2: Shared.JikiObject,
     y2: Shared.JikiObject,
-    color: Shared.JikiObject
+    color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-    if (!isString(color)) {
-      return executionCtx.logicError("Color must be a string");
-    }
-    const fillColor = color.value;
+    const fillColor = this.resolveColor(executionCtx, color);
+    if (fillColor === null) return;
     const [absX1, absY1, absX2, absY2] = [x1.value, y1.value, x2.value, y2.value].map((val) => rToA(val));
 
     const elem = Shapes.line(absX1, absY1, absX2, absY2, this.strokeColor, this.strokeWidth, fillColor);
@@ -253,15 +250,13 @@ export abstract class DrawExercise extends VisualExercise {
     x: Shared.JikiObject,
     y: Shared.JikiObject,
     radius: Shared.JikiObject,
-    color: Shared.JikiObject
+    color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-    if (!isString(color)) {
-      return executionCtx.logicError("Color must be a string");
-    }
-    const fillColor = color.value;
+    const fillColor = this.resolveColor(executionCtx, color);
+    if (fillColor === null) return;
     const [absX, absY, absRadius] = [x.value, y.value, radius.value].map((val) => rToA(val));
 
     const elem = Shapes.circle(absX, absY, absRadius, this.strokeColor, this.strokeWidth, fillColor);
@@ -279,15 +274,13 @@ export abstract class DrawExercise extends VisualExercise {
     y: Shared.JikiObject,
     rx: Shared.JikiObject,
     ry: Shared.JikiObject,
-    color: Shared.JikiObject
+    color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-    if (!isString(color)) {
-      return executionCtx.logicError("Color must be a string");
-    }
-    const fillColor = color.value;
+    const fillColor = this.resolveColor(executionCtx, color);
+    if (fillColor === null) return;
     const [absX, absY, absRx, absRy] = [x.value, y.value, rx.value, ry.value].map((val) => rToA(val));
 
     const elem = Shapes.ellipse(absX, absY, absRx, absRy, this.strokeColor, this.strokeWidth, fillColor);
@@ -307,15 +300,13 @@ export abstract class DrawExercise extends VisualExercise {
     y2: Shared.JikiObject,
     x3: Shared.JikiObject,
     y3: Shared.JikiObject,
-    color: Shared.JikiObject
+    color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
-    if (!isString(color)) {
-      return executionCtx.logicError("Color must be a string");
-    }
-    const fillColor = color.value;
+    const fillColor = this.resolveColor(executionCtx, color);
+    if (fillColor === null) return;
     const [absX1, absY1, absX2, absY2, absX3, absY3] = [x1.value, y1.value, x2.value, y2.value, x3.value, y3.value].map(
       (val) => rToA(val)
     );
@@ -347,6 +338,21 @@ export abstract class DrawExercise extends VisualExercise {
     this.shapes.push(t);
     this.visibleShapes.push(t);
     this.animateShapeIntoView(executionCtx, elem);
+  }
+
+  private resolveColor(executionCtx: ExecutionContext, color?: Shared.JikiObject): string | null {
+    if (this.fixedColor !== null) {
+      if (color !== undefined) {
+        executionCtx.logicError("Color should not be specified for this exercise");
+        return null;
+      }
+      return this.fixedColor;
+    }
+    if (!color || !isString(color)) {
+      executionCtx.logicError("Color must be a string");
+      return null;
+    }
+    return color.value;
   }
 
   protected animateShapeIntoView(executionCtx: ExecutionContext, elem: SVGElement) {
@@ -386,34 +392,47 @@ export abstract class DrawExercise extends VisualExercise {
   // Static object of all available drawing functions
   // Child classes can select which functions to expose
   protected getAllAvailableFunctions() {
+    const fc = this.fixedColor !== null;
     return {
       rectangle: {
         name: "rectangle",
         func: this.rectangle.bind(this),
-        description:
-          "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
+        ...(fc ? { arity: 4 as const } : {}),
+        description: fc
+          ? "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
+          : "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
       },
       triangle: {
         name: "triangle",
         func: this.triangle.bind(this),
-        description:
-          "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
+        ...(fc ? { arity: 6 as const } : {}),
+        description: fc
+          ? "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
+          : "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
       },
       circle: {
         name: "circle",
         func: this.circle.bind(this),
-        description: "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
+        ...(fc ? { arity: 3 as const } : {}),
+        description: fc
+          ? "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
+          : "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
       },
       ellipse: {
         name: "ellipse",
         func: this.ellipse.bind(this),
-        description:
-          "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
+        ...(fc ? { arity: 4 as const } : {}),
+        description: fc
+          ? "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
+          : "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
       },
       line: {
         name: "line",
         func: this.line.bind(this),
-        description: "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"
+        ...(fc ? { arity: 4 as const } : {}),
+        description: fc
+          ? "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
+          : "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"
       },
       clear: {
         name: "clear",

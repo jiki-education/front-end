@@ -2,6 +2,8 @@ import { DrawExercise } from "../../exercise-categories/draw";
 import metadata from "./metadata.json";
 
 export class FixWallExercise extends DrawExercise {
+  protected fixedColor = "#AA4A44";
+
   protected get slug() {
     return metadata.slug;
   }

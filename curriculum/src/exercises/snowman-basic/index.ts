@@ -12,10 +12,10 @@ import stubJikiscript from "./stub.jiki";
 
 const functions: FunctionInfo[] = [
   {
-    name: "rectangle",
-    signature: "rectangle(left, top, width, height)",
-    description: "Draw a rectangle at position (left, top) with the given width and height",
-    examples: ["rectangle(10, 10, 20, 10)", "rectangle(0, 0, 100, 50)"],
+    name: "circle",
+    signature: "circle(x, y, radius)",
+    description: "Draw a circle centered at (x, y) with the given radius",
+    examples: ["circle(50, 50, 15)", "circle(50, 72, 20)"],
     category: "Drawing Shapes"
   }
 ];

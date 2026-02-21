@@ -59,6 +59,7 @@ import { llmMetadata as processGuessLLM } from "./exercises/process-guess/llm-me
 import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-metadata";
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
 import { llmMetadata as snowmanLLM } from "./exercises/snowman/llm-metadata";
+import { llmMetadata as snowmanBasicLLM } from "./exercises/snowman-basic/llm-metadata";
 import { llmMetadata as trafficLightsLLM } from "./exercises/traffic-lights/llm-metadata";
 import { llmMetadata as relationalSnowmanLLM } from "./exercises/relational-snowman/llm-metadata";
 import { llmMetadata as relationalSunLLM } from "./exercises/relational-sun/llm-metadata";
@@ -101,6 +102,7 @@ import { llmMetadata as lookAroundLLM } from "./exercises/look-around/llm-metada
 import { llmMetadata as emojiCollectorLLM } from "./exercises/emoji-collector/llm-metadata";
 import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm-metadata";
 import { llmMetadata as smashingBlocksLLM } from "./exercises/smashing-blocks/llm-metadata";
+import { llmMetadata as mazeSolveWalkLLM } from "./exercises/maze-solve-walk/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -163,6 +165,7 @@ const llmMetadataRegistry = {
   "process-game": processGameLLM,
   "wordle-solver": wordleSolverLLM,
   snowman: snowmanLLM,
+  "snowman-basic": snowmanBasicLLM,
   "traffic-lights": trafficLightsLLM,
   "relational-snowman": relationalSnowmanLLM,
   "relational-sun": relationalSunLLM,
@@ -204,7 +207,8 @@ const llmMetadataRegistry = {
   "look-around": lookAroundLLM,
   "emoji-collector": emojiCollectorLLM,
   "boundaried-ball": boundarieBallLLM,
-  "smashing-blocks": smashingBlocksLLM
+  "smashing-blocks": smashingBlocksLLM,
+  "maze-solve-walk": mazeSolveWalkLLM
 } as const;
 
 /**

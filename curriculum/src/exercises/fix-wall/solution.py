@@ -1,4 +1,4 @@
 # Draw three rectangles that cover the holes.
-rectangle(10, 10, 20, 10, "#AA4A44")
-rectangle(70, 30, 20, 10, "#AA4A44")
-rectangle(20, 60, 20, 10, "#AA4A44")
+rectangle(10, 10, 20, 10)
+rectangle(70, 30, 20, 10)
+rectangle(20, 60, 20, 10)
