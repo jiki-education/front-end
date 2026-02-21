@@ -29,7 +29,7 @@ describe("Language Features", () => {
   describe("getFeatureFlags", () => {
     it("should return features for using-functions", () => {
       const flags = getFeatureFlags("using-functions", "javascript") as JavaScriptFeatureFlags;
-      expect(flags).toEqual({ allowedGlobals: ["console"] });
+      expect(flags).toEqual({ allowedGlobals: ["console"], oneStatementPerLine: true, enforceFormatting: true });
     });
 
     it("should return restrictive features for variables", () => {

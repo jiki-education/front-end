@@ -10,7 +10,9 @@ const usingFunctions: Level = {
     javascript: {
       allowedNodes: ["ExpressionStatement", "CallExpression", "IdentifierExpression", "LiteralExpression"],
       languageFeatures: {
-        allowedGlobals: ["console"]
+        allowedGlobals: ["console"],
+        oneStatementPerLine: true,
+        enforceFormatting: true
       }
     }
   }
