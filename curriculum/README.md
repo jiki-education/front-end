@@ -36,6 +36,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "video", "slug": "using-functions" },
       { "type": "exercise", "slug": "space-invaders-solve-basic" },
       { "type": "video", "slug": "functions-taking-inputs" },
+      { "type": "exercise", "slug": "maze-solve-walk" },
       { "type": "exercise", "slug": "fix-wall" },
       { "type": "exercise", "slug": "sunshine" }
     ]

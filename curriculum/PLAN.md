@@ -47,6 +47,7 @@ Nothing yet
 ### Implemented
 
 - `maze-solve-basic` - Basic manual maze solving using only move() turn_left() turn_right()
+- `maze-solve-walk` - Walk Through a Maze: use walk(steps) with arguments to navigate a maze (Using Functions level)
 - `space-invaders-solve-basic` - Basic Space Invaders using sequential move() and shoot() calls
 - `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level)
 - `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
