@@ -50,6 +50,11 @@ const exerciseDefinition: VisualExerciseDefinition = {
     javascript: stubJavascript,
     python: stubPython,
     jikiscript: stubJikiscript
+  },
+  readonlyRanges: {
+    javascript: [{ fromLine: 4, toLine: 4 }],
+    python: [{ fromLine: 4, toLine: 4 }],
+    jikiscript: [{ fromLine: 4, toLine: 4 }]
   }
 };
 
