@@ -310,7 +310,7 @@ describe("runVisualScenario", () => {
   });
 
   describe("randomSeed pass-through", () => {
-    it("should pass randomSeed from scenario to interpreter context", () => {
+    it("should pass fixed randomSeed from scenario to interpreter context", () => {
       const scenario: VisualScenario = {
         slug: "seeded-test",
         name: "Seeded Test",
@@ -326,6 +326,26 @@ describe("runVisualScenario", () => {
         "move()",
         expect.objectContaining({
           randomSeed: 42
+        })
+      );
+    });
+
+    it("should resolve randomSeed: true to a random number", () => {
+      const scenario: VisualScenario = {
+        slug: "auto-seed-test",
+        name: "Auto Seed Test",
+        description: "Test with auto-generated random seed",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }]),
+        randomSeed: true
+      };
+
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript");
+
+      expect(jikiscript.interpret).toHaveBeenCalledWith(
+        "move()",
+        expect.objectContaining({
+          randomSeed: expect.any(Number)
         })
       );
     });

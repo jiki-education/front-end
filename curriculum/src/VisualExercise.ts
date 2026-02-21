@@ -10,6 +10,7 @@ const interpreters = { jikiscript, javascript, python };
 export abstract class VisualExercise extends Exercise {
   animations: Animation[] = [];
   view!: HTMLElement;
+  public randomSeed?: number;
   protected abstract get slug(): string;
 
   abstract availableFunctions: ExternalFunction[];

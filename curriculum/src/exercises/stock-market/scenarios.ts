@@ -48,10 +48,10 @@ export const scenarios: VisualScenario[] = [
     name: "20 years of growth",
     description: "Invest $10 and check the balance after 20 years of random growth.",
     taskId: "grow-investment",
-    randomSeed: 42,
+    randomSeed: true,
     expectations(exercise) {
       const ex = exercise as StockMarketExercise;
-      const expectedBalance = getExpectedBalance(42);
+      const expectedBalance = getExpectedBalance(exercise.randomSeed!);
       return [
         {
           pass: ex.balanceChecked === true,

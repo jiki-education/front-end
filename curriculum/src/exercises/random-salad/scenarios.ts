@@ -44,10 +44,10 @@ export const scenarios: VisualScenario[] = [
     name: "Random salad",
     description: "Make a salad with random amounts of each ingredient.",
     taskId: "make-random-salad",
-    randomSeed: 42,
+    randomSeed: true,
     expectations(exercise) {
       const ex = exercise as RandomSaladExercise;
-      const expected = getExpectedIngredients(42);
+      const expected = getExpectedIngredients(exercise.randomSeed!);
       return [
         {
           pass: ex.saladMade === true,

@@ -25,7 +25,7 @@ export const scenarios: VisualScenario[] = [
     name: "Rainbow ball",
     description: "A bouncing ball that leaves a rainbow trail of 1000 circles.",
     taskId: "rainbow-ball",
-    randomSeed: 42,
+    randomSeed: true,
     expectations(exercise) {
       const ex = exercise as RainbowBallExercise;
 

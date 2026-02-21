@@ -23,7 +23,7 @@ export const scenarios: VisualScenario[] = [
     name: "Rainbow splodges",
     description: "Draw 500 randomly colored circles at random positions.",
     taskId: "draw-splodges",
-    randomSeed: 42,
+    randomSeed: true,
     expectations(exercise) {
       const ex = exercise as RainbowSplodgesExercise;
 

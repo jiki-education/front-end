@@ -39,8 +39,8 @@ function getExpectedFloors(numBuildings: number, seed: number): number[] {
   return floors;
 }
 
-function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: number, seed: number) {
-  const expectedFloors = getExpectedFloors(numBuildings, seed);
+function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: number) {
+  const expectedFloors = getExpectedFloors(numBuildings, exercise.randomSeed!);
   const expects = [];
 
   // Check total cell count
@@ -91,12 +91,12 @@ export const scenarios: VisualScenario[] = [
     name: "1 building",
     description: "Build a single building with random height.",
     taskId: "build-skyline",
-    randomSeed: 42,
+    randomSeed: true,
     setup(exercise) {
       (exercise as CityScapeSkylineExercise).setupNumBuildings(1);
     },
     expectations(exercise) {
-      return skylineExpectations(exercise as CityScapeSkylineExercise, 1, 42);
+      return skylineExpectations(exercise as CityScapeSkylineExercise, 1);
     }
   },
   {
@@ -104,12 +104,12 @@ export const scenarios: VisualScenario[] = [
     name: "2 buildings",
     description: "Build 2 buildings with random heights.",
     taskId: "build-skyline",
-    randomSeed: 123,
+    randomSeed: true,
     setup(exercise) {
       (exercise as CityScapeSkylineExercise).setupNumBuildings(2);
     },
     expectations(exercise) {
-      return skylineExpectations(exercise as CityScapeSkylineExercise, 2, 123);
+      return skylineExpectations(exercise as CityScapeSkylineExercise, 2);
     }
   },
   {
@@ -117,12 +117,12 @@ export const scenarios: VisualScenario[] = [
     name: "3 buildings",
     description: "Build 3 buildings with random heights.",
     taskId: "build-skyline",
-    randomSeed: 777,
+    randomSeed: true,
     setup(exercise) {
       (exercise as CityScapeSkylineExercise).setupNumBuildings(3);
     },
     expectations(exercise) {
-      return skylineExpectations(exercise as CityScapeSkylineExercise, 3, 777);
+      return skylineExpectations(exercise as CityScapeSkylineExercise, 3);
     }
   },
   {
@@ -130,12 +130,12 @@ export const scenarios: VisualScenario[] = [
     name: "4 buildings",
     description: "Build 4 buildings with random heights.",
     taskId: "build-skyline",
-    randomSeed: 2024,
+    randomSeed: true,
     setup(exercise) {
       (exercise as CityScapeSkylineExercise).setupNumBuildings(4);
     },
     expectations(exercise) {
-      return skylineExpectations(exercise as CityScapeSkylineExercise, 4, 2024);
+      return skylineExpectations(exercise as CityScapeSkylineExercise, 4);
     }
   },
   {
@@ -143,12 +143,12 @@ export const scenarios: VisualScenario[] = [
     name: "6 buildings",
     description: "Build 6 buildings filling the grid.",
     taskId: "build-skyline",
-    randomSeed: 9999,
+    randomSeed: true,
     setup(exercise) {
       (exercise as CityScapeSkylineExercise).setupNumBuildings(6);
     },
     expectations(exercise) {
-      return skylineExpectations(exercise as CityScapeSkylineExercise, 6, 9999);
+      return skylineExpectations(exercise as CityScapeSkylineExercise, 6);
     }
   }
 ];

@@ -29,6 +29,12 @@ export function runVisualScenario(
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
 
+  // Resolve random seed: true means generate a fresh seed each run
+  const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
+  if (resolvedSeed !== undefined) {
+    exercise.randomSeed = resolvedSeed;
+  }
+
   // Run setup (if provided)
   scenario.setup?.(exercise);
 
@@ -41,7 +47,7 @@ export function runVisualScenario(
       timePerFrame: 1,
       ...interpreterOptions
     },
-    randomSeed: scenario.randomSeed
+    randomSeed: resolvedSeed
   };
 
   const result = scenario.functionCall
