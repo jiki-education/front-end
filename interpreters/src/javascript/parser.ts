@@ -279,8 +279,8 @@ export class Parser {
     this.blockDepth++;
 
     while (!this.isAtEnd()) {
-      // Skip EOL and comment tokens before checking for RIGHT_BRACE
-      while (this.check("EOL", "LINE_COMMENT", "BLOCK_COMMENT")) {
+      // Skip EOL tokens before checking for RIGHT_BRACE
+      while (this.check("EOL")) {
         this.advance();
       }
 
