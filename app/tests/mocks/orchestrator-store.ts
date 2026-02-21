@@ -29,6 +29,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
 
       // Editor store state
       defaultCode: "",
+      defaultReadonlyRanges: [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,

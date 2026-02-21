@@ -43,6 +43,7 @@ export function createOrchestratorStore(
 
       // Editor store state
       defaultCode: exercise.stubs[language],
+      defaultReadonlyRanges: exercise.readonlyRanges?.[language] ?? [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
@@ -562,6 +563,7 @@ export function createOrchestratorStore(
 
           // Reset editor store state
           defaultCode: "",
+          defaultReadonlyRanges: [],
           readonly: false,
           shouldShowInformationWidget: false,
           underlineRange: undefined,
@@ -631,6 +633,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
 
       // Editor store state
       defaultCode: state.defaultCode,
+      defaultReadonlyRanges: state.defaultReadonlyRanges,
       readonly: state.readonly,
       shouldShowInformationWidget: state.shouldShowInformationWidget,
       underlineRange: state.underlineRange,

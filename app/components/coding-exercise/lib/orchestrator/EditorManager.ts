@@ -85,6 +85,14 @@ export class EditorManager {
       parent: element
     });
 
+    // Apply default readonly ranges from exercise definition
+    const defaultReadonlyRanges = state.defaultReadonlyRanges;
+    if (defaultReadonlyRanges.length > 0) {
+      this.editorView.dispatch({
+        effects: updateReadOnlyRangesEffect.of(defaultReadonlyRanges)
+      });
+    }
+
     // Update snapshot after editor is created
     try {
       const currentCode = this.getValue();

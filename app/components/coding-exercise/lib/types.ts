@@ -62,6 +62,7 @@ export interface OrchestratorState {
 
   // Editor store state
   defaultCode: string;
+  defaultReadonlyRanges: ReadonlyRange[];
   readonly: boolean;
   shouldShowInformationWidget: boolean;
   underlineRange: UnderlineRange | undefined;
