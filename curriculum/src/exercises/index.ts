@@ -99,7 +99,9 @@ export const exercises = {
   "boundaried-ball": () => import("./boundaried-ball"),
   "smashing-blocks": () => import("./smashing-blocks"),
   "maze-solve-walk": () => import("./maze-solve-walk"),
-  "maze-solve-repeat": () => import("./maze-solve-repeat")
+  "maze-solve-repeat": () => import("./maze-solve-repeat"),
+  "random-salad": () => import("./random-salad"),
+  "stock-market": () => import("./stock-market")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

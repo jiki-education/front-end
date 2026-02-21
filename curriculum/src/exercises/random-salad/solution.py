@@ -1,0 +1,5 @@
+leaves = random.randint(20, 100)
+tomatoes = random.randint(5, 20)
+croutons = random.randint(10, 50)
+dressing = random.randint(1, 10)
+make_salad(leaves, tomatoes, croutons, dressing)

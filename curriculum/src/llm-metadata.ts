@@ -106,6 +106,8 @@ import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm
 import { llmMetadata as smashingBlocksLLM } from "./exercises/smashing-blocks/llm-metadata";
 import { llmMetadata as mazeSolveWalkLLM } from "./exercises/maze-solve-walk/llm-metadata";
 import { llmMetadata as mazeSolveRepeatLLM } from "./exercises/maze-solve-repeat/llm-metadata";
+import { llmMetadata as randomSaladLLM } from "./exercises/random-salad/llm-metadata";
+import { llmMetadata as stockMarketLLM } from "./exercises/stock-market/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -214,7 +216,9 @@ const llmMetadataRegistry = {
   "boundaried-ball": boundarieBallLLM,
   "smashing-blocks": smashingBlocksLLM,
   "maze-solve-walk": mazeSolveWalkLLM,
-  "maze-solve-repeat": mazeSolveRepeatLLM
+  "maze-solve-repeat": mazeSolveRepeatLLM,
+  "random-salad": randomSaladLLM,
+  "stock-market": stockMarketLLM
 } as const;
 
 /**
