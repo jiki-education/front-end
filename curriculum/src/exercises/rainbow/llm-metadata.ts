@@ -30,7 +30,7 @@ export const llmMetadata: LLMMetadata = {
         1. Initialize variables BEFORE the loop (x=0, hue=0)
         2. Update variables at the START of each iteration, BEFORE drawing
         3. HSL color: hue 0-360 determines color, saturation/luminance at 50 gives nice colors
-        4. Color is the last argument: use hslToHex() to convert HSL to a hex string
+        4. Color is the last argument: use hsl() to convert HSL to a hex string
 
         Common mistakes:
         - Setting x to 1 initially (results in first bar at x=2)
@@ -43,7 +43,7 @@ export const llmMetadata: LLMMetadata = {
         repeat 100 times:
           x = x + 1
           hue = hue + 3
-          rectangle(x, 0, 1, 100, hslToHex(hue, 50, 50))
+          rectangle(x, 0, 1, 100, hsl(hue, 50, 50))
       `
     }
   }

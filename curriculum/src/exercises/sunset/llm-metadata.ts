@@ -27,8 +27,8 @@ export const llmMetadata: LLMMetadata = {
         Animation requirements:
         - Sun radius: starts at 5, increases by 0.2 each iteration (ends at ~24.8)
         - Sun y-position: starts at 10, increases by 1 each iteration (ends at ~109)
-        - Sun color: animate using RGB (rgbToHex) - decrease green from 237 to make it more orange
-        - Sky color: animate using HSL (hslToHex) - update hue to shift the color
+        - Sun color: animate using RGB (rgb) - decrease green from 237 to make it more orange
+        - Sky color: animate using HSL (hsl) - update hue to shift the color
 
         Key teaching points:
         1. Variables must be initialized OUTSIDE the loop

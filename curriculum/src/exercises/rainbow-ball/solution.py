@@ -32,4 +32,4 @@ repeat(1000):
     if hue >= 360:
         hue_direction = -1
 
-    circle(x, y, 10, hsl_to_hex(hue, 80, 50))
+    circle(x, y, 10, hsl(hue, 80, 50))

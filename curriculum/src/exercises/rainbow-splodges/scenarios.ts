@@ -10,7 +10,7 @@ export const tasks = [
       "Use a repeat loop that runs 500 times",
       "Get random x and y positions using randomNumber(0, 100)",
       "Get a random hue using randomNumber(0, 360)",
-      "Use hslToHex to convert the hue to a color, then draw with circle()"
+      "Use hsl to convert the hue to a color, then draw with circle()"
     ],
     requiredScenarios: ["rainbow-splodges"],
     bonus: false

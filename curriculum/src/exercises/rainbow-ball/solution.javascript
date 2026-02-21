@@ -38,5 +38,5 @@ repeat(1000) {
     hueDirection = -1
   }
 
-  circle(x, y, 10, hslToHex(hue, 80, 50))
+  circle(x, y, 10, hsl(hue, 80, 50))
 }

@@ -160,7 +160,7 @@ export abstract class DrawExercise extends VisualExercise {
     this.strokeWidth = width;
   }
 
-  public hslToHex(executionCtx: ExecutionContext, h: Shared.JikiObject, s: Shared.JikiObject, l: Shared.JikiObject) {
+  public hsl(executionCtx: ExecutionContext, h: Shared.JikiObject, s: Shared.JikiObject, l: Shared.JikiObject) {
     if (!isNumber(h) || !isNumber(s) || !isNumber(l)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
@@ -176,7 +176,7 @@ export abstract class DrawExercise extends VisualExercise {
     return hslToHexString(h.value, s.value, l.value);
   }
 
-  public rgbToHex(executionCtx: ExecutionContext, r: Shared.JikiObject, g: Shared.JikiObject, b: Shared.JikiObject) {
+  public rgb(executionCtx: ExecutionContext, r: Shared.JikiObject, g: Shared.JikiObject, b: Shared.JikiObject) {
     if (!isNumber(r) || !isNumber(g) || !isNumber(b)) {
       return executionCtx.logicError("All inputs must be numbers");
     }
@@ -446,14 +446,14 @@ export abstract class DrawExercise extends VisualExercise {
         func: this.clear.bind(this),
         description: "cleared the canvas"
       },
-      hsl_to_hex: {
-        name: "hsl_to_hex",
-        func: this.hslToHex.bind(this),
+      hsl: {
+        name: "hsl",
+        func: this.hsl.bind(this),
         description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, luminosity: ${arg3}) to a hex string"
       },
-      rgb_to_hex: {
-        name: "rgb_to_hex",
-        func: this.rgbToHex.bind(this),
+      rgb: {
+        name: "rgb",
+        func: this.rgb.bind(this),
         description: "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
       }
     };

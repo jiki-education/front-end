@@ -7,8 +7,8 @@ export class SunsetExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { circle, rectangle, rgb_to_hex, hsl_to_hex } = this.getAllAvailableFunctions();
-    return [circle, rectangle, rgb_to_hex, hsl_to_hex];
+    const { circle, rectangle, rgb, hsl } = this.getAllAvailableFunctions();
+    return [circle, rectangle, rgb, hsl];
   }
 }
 

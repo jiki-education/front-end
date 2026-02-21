@@ -7,8 +7,8 @@ export class RainbowBallExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { circle, hsl_to_hex } = this.getAllAvailableFunctions();
-    return [circle, hsl_to_hex];
+    const { circle, hsl } = this.getAllAvailableFunctions();
+    return [circle, hsl];
   }
 }
 

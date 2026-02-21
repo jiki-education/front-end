@@ -1200,11 +1200,11 @@ export default FixWallExercise;
 - `triangle` - Draw a triangle (x1, y1, x2, y2, x3, y3, color)
 - `ellipse` - Draw an ellipse (x, y, rx, ry, color)
 - `line` - Draw a line (x1, y1, x2, y2, color)
-- `hsl_to_hex` - Convert HSL values to hex color string (h, s, l)
-- `rgb_to_hex` - Convert RGB values to hex color string (r, g, b)
+- `hsl` - Convert HSL values to hex color string (h, s, l)
+- `rgb` - Convert RGB values to hex color string (r, g, b)
 - `clear` - Clear canvas
 
-**Note:** Color is passed as the final argument to each shape function (as a hex string like `"#ff0000"`). Use `hsl_to_hex` or `rgb_to_hex` to convert other color formats.
+**Note:** Color is passed as the final argument to each shape function (as a hex string like `"#ff0000"`). Use `hsl` or `rgb` to convert other color formats.
 
 ### Step 3: Handle setup_functions
 
@@ -1375,16 +1375,16 @@ export default exerciseDefinition;
 
 **JavaScript:** Convert function names to camelCase, add semicolons:
 
-- `hsl_to_hex` → `hslToHex`
-- `rgb_to_hex` → `rgbToHex`
+- `hsl` → `hsl`
+- `rgb` → `rgb`
 - `set x to 0` → `let x = 0;`
 - `change x to x + 1` → `x = x + 1;`
 - `repeat 5 times do` → `for (let i = 0; i < 5; i++) {`
 
 **Python:** Keep snake_case, use `#` comments, no semicolons:
 
-- `hsl_to_hex` stays as `hsl_to_hex`
-- `rgb_to_hex` stays as `rgb_to_hex`
+- `hsl` stays as `hsl`
+- `rgb` stays as `rgb`
 - `set x to 0` → `x = 0`
 - `repeat 5 times do` → `for i in range(5):`
 

@@ -790,16 +790,16 @@ describe("DrawExercise", () => {
       expect(funcs.clear).toBeDefined();
     });
 
-    it("Should include `hsl_to_hex` function", () => {
+    it("Should include `hsl` function", () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const funcs = (exercise as any).getAllAvailableFunctions();
-      expect(funcs.hsl_to_hex).toBeDefined();
+      expect(funcs.hsl).toBeDefined();
     });
 
-    it("Should include `rgb_to_hex` function", () => {
+    it("Should include `rgb` function", () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const funcs = (exercise as any).getAllAvailableFunctions();
-      expect(funcs.rgb_to_hex).toBeDefined();
+      expect(funcs.rgb).toBeDefined();
     });
 
     it("Should NOT include `fill_color_hex` function", () => {

@@ -5,4 +5,4 @@ for i in range(100):
     x = x + 1
     hue = hue + 3
 
-    rectangle(x, 0, 1, 100, hsl_to_hex(hue, 50, 50))
+    rectangle(x, 0, 1, 100, hsl(hue, 50, 50))

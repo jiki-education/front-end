@@ -36,14 +36,14 @@ For each exercise being audited, read:
 
 **Check**: All function name references must use **camelCase** (JavaScript convention).
 
-| Wrong (snake_case)    | Correct (camelCase) |
-| --------------------- | ------------------- |
-| `get_age()`           | `getAge()`          |
-| `turn_left()`         | `turnLeft()`        |
-| `is_alien_above()`    | `isAlienAbove()`    |
-| `roll_to(x)`          | `rollTo(x)`         |
-| `hsl_to_hex(h, s, l)` | `hslToHex(h, s, l)` |
-| `number_to_string()`  | `numberToString()`  |
+| Wrong (snake_case)   | Correct (camelCase) |
+| -------------------- | ------------------- |
+| `get_age()`          | `getAge()`          |
+| `turn_left()`        | `turnLeft()`        |
+| `is_alien_above()`   | `isAlienAbove()`    |
+| `roll_to(x)`         | `rollTo(x)`         |
+| `hsl(h, s, l)`       | `hsl(h, s, l)`      |
+| `number_to_string()` | `numberToString()`  |
 
 **Exceptions** (these SHOULD stay snake_case):
 

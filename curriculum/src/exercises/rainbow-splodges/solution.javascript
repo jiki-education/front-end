@@ -6,5 +6,5 @@ repeat(500) {
   x = Math.randomInt(0, 100)
   y = Math.randomInt(0, 100)
   hue = Math.randomInt(0, 360)
-  circle(x, y, 3, hslToHex(hue, 80, 50))
+  circle(x, y, 3, hsl(hue, 80, 50))
 }

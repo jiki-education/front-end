@@ -10,7 +10,7 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches using random numbers in a loop to create visual art.
-    Students combine randomNumber(), circle(), and hslToHex() to draw 500
+    Students combine randomNumber(), circle(), and hsl() to draw 500
     randomly positioned, randomly colored circles. Key concepts: using return
     values from functions as arguments to other functions, random number generation,
     HSL color system, and repeat loops.
@@ -31,22 +31,22 @@ export const llmMetadata: LLMMetadata = {
 
         Key teaching points:
         1. Using return values: randomNumber() returns a value that gets stored in a variable
-        2. Composing functions: hslToHex() returns a string used as argument to circle()
+        2. Composing functions: hsl() returns a string used as argument to circle()
         3. Each iteration should generate NEW random values (variables inside the loop)
         4. The HSL color model: hue 0-360 gives the full color spectrum
 
         Common mistakes:
         - Declaring variables outside the loop (same position/color every iteration)
-        - Forgetting to use hslToHex() to convert hue to a color string
+        - Forgetting to use hsl() to convert hue to a color string
         - Using wrong ranges for randomNumber()
-        - Passing hue directly as color instead of converting with hslToHex()
+        - Passing hue directly as color instead of converting with hsl()
 
         Solution pattern:
         repeat 500 times:
           x = randomNumber(0, 100)
           y = randomNumber(0, 100)
           hue = randomNumber(0, 360)
-          circle(x, y, 3, hslToHex(hue, 80, 50))
+          circle(x, y, 3, hsl(hue, 80, 50))
       `
     }
   }

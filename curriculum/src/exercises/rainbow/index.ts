@@ -15,14 +15,14 @@ const functions: FunctionInfo[] = [
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
     description: "Draw a rectangle at position (left, top) with the given width, height, and color",
-    examples: ['rectangle(0, 0, 1, 100, "#ff0000")', "rectangle(50, 0, 1, 100, hslToHex(180, 50, 50))"],
+    examples: ['rectangle(0, 0, 1, 100, "#ff0000")', "rectangle(50, 0, 1, 100, hsl(180, 50, 50))"],
     category: "Drawing Shapes"
   },
   {
-    name: "hslToHex",
-    signature: "hslToHex(hue, saturation, luminosity)",
+    name: "hsl",
+    signature: "hsl(hue, saturation, luminosity)",
     description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
-    examples: ["hslToHex(0, 50, 50)", "hslToHex(120, 50, 50)"],
+    examples: ["hsl(0, 50, 50)", "hsl(120, 50, 50)"],
     category: "Colors"
   }
 ];

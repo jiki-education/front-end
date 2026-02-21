@@ -12,13 +12,13 @@ let skyL = 60;
 repeat(100) {
   // The sky
   skyH = skyH + 0.4;
-  rectangle(0, 0, 100, 100, hslToHex(skyH, skyS, skyL));
+  rectangle(0, 0, 100, 100, hsl(skyH, skyS, skyL));
 
   // The Sun
   sunGreen = sunGreen - 1;
   sunCy = sunCy + 1;
   sunRadius = sunRadius + 0.2;
-  circle(50, sunCy, sunRadius, rgbToHex(sunRed, sunGreen, sunBlue));
+  circle(50, sunCy, sunRadius, rgb(sunRed, sunGreen, sunBlue));
 
   // The sea
   rectangle(0, 85, 100, 5, "#0308ce");

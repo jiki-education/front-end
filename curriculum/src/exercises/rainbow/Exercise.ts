@@ -7,8 +7,8 @@ export class RainbowExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, hsl_to_hex } = this.getAllAvailableFunctions();
-    return [rectangle, hsl_to_hex];
+    const { rectangle, hsl } = this.getAllAvailableFunctions();
+    return [rectangle, hsl];
   }
 }
 

@@ -15,14 +15,14 @@ const functions: FunctionInfo[] = [
     name: "circle",
     signature: "circle(x, y, radius, color)",
     description: "Draw a circle with its center at (x, y) with the given radius and color",
-    examples: ['circle(50, 50, 10, "#ff0000")', "circle(25, 75, 3, hslToHex(180, 80, 50))"],
+    examples: ['circle(50, 50, 10, "#ff0000")', "circle(25, 75, 3, hsl(180, 80, 50))"],
     category: "Drawing Shapes"
   },
   {
-    name: "hslToHex",
-    signature: "hslToHex(hue, saturation, luminosity)",
+    name: "hsl",
+    signature: "hsl(hue, saturation, luminosity)",
     description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
-    examples: ["hslToHex(0, 80, 50)", "hslToHex(120, 80, 50)"],
+    examples: ["hsl(0, 80, 50)", "hsl(120, 80, 50)"],
     category: "Colors"
   }
 ];
