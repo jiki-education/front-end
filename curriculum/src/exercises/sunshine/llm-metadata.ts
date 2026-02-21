@@ -9,28 +9,43 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise introduces the circle function. Students complete a sunshine picture
-    by drawing a yellow circle. The background sky and triangle sun spikes are already
-    provided in the stub code.
-    Key concepts: function calls with multiple arguments, the circle function, coordinates.
+    This exercise introduces the triangle and circle functions. Students create a sunshine
+    picture by drawing 8 yellow triangle spikes and a yellow circle. Only the blue sky
+    background is provided in the stub code.
+    Key concepts: function calls with multiple arguments, the triangle function (7 args),
+    the circle function (4 args), coordinates.
   `,
 
   tasks: {
     "draw-sun": {
       description: `
-        Students must draw a yellow circle at the center of the canvas to complete the sun.
+        Students must draw 8 yellow triangle spikes and a yellow circle to create a sunshine picture.
 
         Key teaching points:
-        1. Circle parameters: (x, y, radius, color)
-        2. x and y are the CENTER of the circle, not the top-left
-        3. Coordinate system: (0,0) is top-left, (100,100) is bottom-right
-        4. The center of the canvas is (50, 50)
+        1. Triangle parameters: (x1, y1, x2, y2, x3, y3, color) — three corner points and a color
+        2. Circle parameters: (x, y, radius, color)
+        3. x and y for circle are the CENTER of the circle, not the top-left
+        4. Coordinate system: (0,0) is top-left, (100,100) is bottom-right
+        5. The center of the canvas is (50, 50)
 
-        The stub already contains the sky background rectangle and 8 triangle spikes.
-        Students only need to add: circle(50, 50, 25, "#ffed06")
+        The stub only contains the sky background rectangle.
+        Students need to add all 8 triangle spikes and the circle.
+
+        The 8 spikes (in order: top-left, top, top-right, right, bottom-right, bottom-left, bottom, left):
+        - triangle(10, 10, 29, 33, 33, 29, "#ffed06")
+        - triangle(50, 2, 47, 23, 53, 23, "#ffed06")
+        - triangle(90, 10, 71, 33, 67, 29, "#ffed06")
+        - triangle(98, 50, 77, 47, 77, 53, "#ffed06")
+        - triangle(90, 90, 71, 67, 67, 71, "#ffed06")
+        - triangle(10, 90, 29, 67, 33, 71, "#ffed06")
+        - triangle(50, 98, 47, 77, 53, 77, "#ffed06")
+        - triangle(2, 50, 23, 47, 23, 53, "#ffed06")
+
+        The sun: circle(50, 50, 25, "#ffed06")
 
         Common mistakes:
-        - Using wrong coordinates (the center is 50, 50)
+        - Mixing up the order of triangle coordinates
+        - Using wrong coordinates for the circle center (should be 50, 50)
         - Forgetting the color argument
         - Confusing radius with diameter
       `

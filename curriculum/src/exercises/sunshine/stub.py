@@ -1,14 +1,4 @@
 # Light blue background
 rectangle(0, 0, 100, 100, "#ADD8E6")
 
-# Draw the spikes
-triangle(10, 10, 29, 33, 33, 29, "#ffed06")
-triangle(50, 2, 47, 23, 53, 23, "#ffed06")
-triangle(90, 10, 71, 33, 67, 29, "#ffed06")
-triangle(98, 50, 77, 47, 77, 53, "#ffed06")
-triangle(90, 90, 71, 67, 67, 71, "#ffed06")
-triangle(10, 90, 29, 67, 33, 71, "#ffed06")
-triangle(50, 98, 47, 77, 53, 77, "#ffed06")
-triangle(2, 50, 23, 47, 23, 53, "#ffed06")
-
-# TODO: Draw the sun
+# TODO: Draw the sun spikes and the sun
