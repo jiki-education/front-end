@@ -24,8 +24,8 @@ describe("useReadonlyRanges", () => {
 
   it("should dispatch updateReadOnlyRangesEffect with ranges", () => {
     const ranges = [
-      { from: 0, to: 10 },
-      { from: 20, to: 30 }
+      { fromLine: 1, toLine: 3 },
+      { fromLine: 5, toLine: 7 }
     ];
 
     renderHook(() => useReadonlyRanges(mockEditorView as EditorView, ranges));
@@ -40,7 +40,7 @@ describe("useReadonlyRanges", () => {
   });
 
   it("should not dispatch when editorView is null", () => {
-    const ranges = [{ from: 0, to: 10 }];
+    const ranges = [{ fromLine: 1, toLine: 3 }];
 
     renderHook(() => useReadonlyRanges(null, ranges));
 
@@ -61,10 +61,10 @@ describe("useReadonlyRanges", () => {
   });
 
   it("should dispatch when ranges change", () => {
-    const initialRanges = [{ from: 0, to: 10 }];
+    const initialRanges = [{ fromLine: 1, toLine: 3 }];
     const newRanges = [
-      { from: 5, to: 15 },
-      { from: 25, to: 35 }
+      { fromLine: 2, toLine: 4 },
+      { fromLine: 6, toLine: 8 }
     ];
 
     const { rerender } = renderHook(({ ranges }) => useReadonlyRanges(mockEditorView as EditorView, ranges), {
@@ -85,7 +85,7 @@ describe("useReadonlyRanges", () => {
 
   it("should dispatch when ranges array reference changes but content is same", () => {
     const { rerender } = renderHook(({ ranges }) => useReadonlyRanges(mockEditorView as EditorView, ranges), {
-      initialProps: { ranges: [{ from: 0, to: 10 }] }
+      initialProps: { ranges: [{ fromLine: 1, toLine: 3 }] }
     });
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
@@ -93,14 +93,14 @@ describe("useReadonlyRanges", () => {
     jest.clearAllMocks();
 
     // New array with same content
-    rerender({ ranges: [{ from: 0, to: 10 }] });
+    rerender({ ranges: [{ fromLine: 1, toLine: 3 }] });
 
     // React will re-run effect because array reference changed
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
   });
 
   it("should handle single range", () => {
-    const range = [{ from: 100, to: 200 }];
+    const range = [{ fromLine: 5, toLine: 10 }];
 
     renderHook(() => useReadonlyRanges(mockEditorView as EditorView, range));
 
@@ -113,11 +113,11 @@ describe("useReadonlyRanges", () => {
     });
   });
 
-  it("should handle multiple overlapping ranges", () => {
+  it("should handle ranges with char-level specificity", () => {
     const ranges = [
-      { from: 0, to: 20 },
-      { from: 10, to: 30 },
-      { from: 25, to: 40 }
+      { fromLine: 1, toLine: 1, fromChar: 0, toChar: 15 },
+      { fromLine: 3, toLine: 3, fromChar: 5 },
+      { fromLine: 5, toLine: 5, toChar: 10 }
     ];
 
     renderHook(() => useReadonlyRanges(mockEditorView as EditorView, ranges));
@@ -126,7 +126,7 @@ describe("useReadonlyRanges", () => {
   });
 
   it("should dispatch when editorView changes from null to valid", () => {
-    const ranges = [{ from: 0, to: 10 }];
+    const ranges = [{ fromLine: 1, toLine: 3 }];
 
     const { rerender } = renderHook(({ view, ranges }) => useReadonlyRanges(view, ranges), {
       initialProps: { view: null as EditorView | null, ranges }
@@ -143,9 +143,9 @@ describe("useReadonlyRanges", () => {
 
   it("should handle large ranges", () => {
     const ranges = [
-      { from: 0, to: 1000 },
-      { from: 2000, to: 3000 },
-      { from: 5000, to: 10000 }
+      { fromLine: 1, toLine: 100 },
+      { fromLine: 200, toLine: 300 },
+      { fromLine: 500, toLine: 1000 }
     ];
 
     renderHook(() => useReadonlyRanges(mockEditorView as EditorView, ranges));
@@ -154,7 +154,7 @@ describe("useReadonlyRanges", () => {
   });
 
   it("should cleanup properly on unmount", () => {
-    const ranges = [{ from: 0, to: 10 }];
+    const ranges = [{ fromLine: 1, toLine: 3 }];
 
     const { unmount } = renderHook(() => useReadonlyRanges(mockEditorView as EditorView, ranges));
 
@@ -168,7 +168,7 @@ describe("useReadonlyRanges", () => {
 
   it("should handle transition from ranges to empty array", () => {
     const { rerender } = renderHook(({ ranges }) => useReadonlyRanges(mockEditorView as EditorView, ranges), {
-      initialProps: { ranges: [{ from: 0, to: 10 }] }
+      initialProps: { ranges: [{ fromLine: 1, toLine: 3 }] }
     });
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
@@ -184,8 +184,8 @@ describe("useReadonlyRanges", () => {
 
   it("should handle many ranges", () => {
     const ranges = Array.from({ length: 50 }, (_, i) => ({
-      from: i * 100,
-      to: i * 100 + 50
+      fromLine: i * 10 + 1,
+      toLine: i * 10 + 5
     }));
 
     renderHook(() => useReadonlyRanges(mockEditorView as EditorView, ranges));

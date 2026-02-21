@@ -5,6 +5,14 @@ import type { Change } from "diff";
 import type { Language } from "../types";
 import type { InterpretResult } from "@jiki/interpreters";
 
+// Readonly range for protecting code regions from editing
+export interface ReadonlyRange {
+  fromLine: number; // 1-indexed line number
+  toLine: number; // 1-indexed line number
+  fromChar?: number; // 0-indexed char offset on fromLine (default: start of line)
+  toChar?: number; // 0-indexed char offset on toLine (default: end of line)
+}
+
 // Base properties shared by all exercise definitions
 interface BaseExerciseDefinition {
   // From metadata.json
@@ -27,6 +35,7 @@ interface BaseExerciseDefinition {
   // Optional
   hints?: string[];
   conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
+  readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
 }
 
 // Visual exercises with animations and state checking

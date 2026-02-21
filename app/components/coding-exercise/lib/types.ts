@@ -1,5 +1,5 @@
 import type { Frame } from "@jiki/interpreters";
-import type { TaskProgress, Language } from "@jiki/curriculum";
+import type { TaskProgress, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 
 // Completion response types
@@ -62,6 +62,7 @@ export interface OrchestratorState {
 
   // Editor store state
   defaultCode: string;
+  defaultReadonlyRanges: ReadonlyRange[];
   readonly: boolean;
   shouldShowInformationWidget: boolean;
   underlineRange: UnderlineRange | undefined;
@@ -155,11 +156,7 @@ export interface OrchestratorActions {
   setShouldPlayOnTestChange: (shouldPlayOnTestChange: boolean) => void;
 
   // Exercise data initialization
-  initializeExerciseData: (serverData?: {
-    code: string;
-    storedAt?: string;
-    readonlyRanges?: { from: number; to: number }[];
-  }) => void;
+  initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => void;
 
   // Task management actions
   setTaskProgress: (taskProgress: Map<string, TaskProgress>) => void;
