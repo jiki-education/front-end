@@ -7,7 +7,7 @@
 canvas_size = 100
 gap = 10
 sun_radius = 15
-sky_color = "lightblue"
+sky_color = "skyblue"
 sun_color = "yellow"
 
 # Derive these from the variables above

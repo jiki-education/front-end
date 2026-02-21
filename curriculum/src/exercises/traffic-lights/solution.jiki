@@ -7,16 +7,16 @@ set middle_y to 50
 set bottom_y to 75
 
 // Background
-rectangle(0, 0, 100, 100, "#333333")
+rectangle(0, 0, 100, 100, "charcoal")
 
 // Traffic light housing
-rectangle(30, 10, 40, 80, "#222222")
+rectangle(30, 10, 40, 80, "charcoal")
 
 // Red light (top)
-circle(center_x, top_y, radius, "#FF0000")
+circle(center_x, top_y, radius, "red")
 
 // Yellow light (middle)
-circle(center_x, middle_y, radius, "#FFFF00")
+circle(center_x, middle_y, radius, "amber")
 
 // Green light (bottom)
-circle(center_x, bottom_y, radius, "#00FF00")
+circle(center_x, bottom_y, radius, "green")

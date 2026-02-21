@@ -38,7 +38,7 @@ for i in range(60):
     right_leaf_left = stem_left + stem_width + leaf_x_radius
 
     # Sky
-    rectangle(0, 0, 100, 90, "#ADD8E6")
+    rectangle(0, 0, 100, 90, "skyblue")
 
     # Ground
     rectangle(0, ground_top, 100, 10, "green")

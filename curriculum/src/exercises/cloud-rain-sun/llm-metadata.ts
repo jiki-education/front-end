@@ -26,9 +26,9 @@ export const llmMetadata: LLMMetadata = {
         4. Drawing order matters for layering
 
         The scene components:
-        - Background: rectangle(0, 0, 100, 100, "#ADD8E6")
-        - Sun: circle(75, 30, 15, "#ffed06")
-        - Cloud body: rectangle(25, 50, 50, 10, "#FFFFFF") — given in stub
+        - Background: rectangle(0, 0, 100, 100, "skyblue")
+        - Sun: circle(75, 30, 15, "yellow")
+        - Cloud body: rectangle(25, 50, 50, 10, "white") — given in stub
         - Cloud puffs: 4 white circles along the rectangle edges
         - Rain: 5 blue ellipses (rx=3, ry=5) below the cloud
 

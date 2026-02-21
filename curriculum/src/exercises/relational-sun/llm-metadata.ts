@@ -24,7 +24,7 @@ export const llmMetadata: LLMMetadata = {
         - canvasSize = 100
         - gap = 10
         - sunRadius = 15
-        - skyColor = "lightblue"
+        - skyColor = "skyblue"
         - sunColor = "yellow"
 
         Derived variables:

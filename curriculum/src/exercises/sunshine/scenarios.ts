@@ -11,7 +11,7 @@ export const tasks = [
       "Use the triangle function with 7 arguments: x1, y1, x2, y2, x3, y3, color",
       "Use the circle function with 4 arguments: x, y, radius, color",
       "The center of the canvas is at (50, 50)",
-      'Use "#ffed06" for the color of both the spikes and the sun'
+      'Use "yellow" for the color of both the spikes and the sun'
     ],
     requiredScenarios: ["draw-sun"],
     bonus: false

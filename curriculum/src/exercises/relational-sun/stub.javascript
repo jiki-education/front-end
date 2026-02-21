@@ -7,7 +7,7 @@
 let canvasSize = 100;
 let gap = 10;
 let sunRadius = 15;
-let skyColor = "lightblue";
+let skyColor = "skyblue";
 let sunColor = "yellow";
 
 // Derive these from the variables above

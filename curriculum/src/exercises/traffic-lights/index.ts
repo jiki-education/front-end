@@ -15,14 +15,14 @@ const functions: FunctionInfo[] = [
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
     description: "Draw a rectangle at position (left, top) with the given width, height, and color",
-    examples: ['rectangle(0, 0, 100, 100, "#333333")'],
+    examples: ['rectangle(0, 0, 100, 100, "charcoal")'],
     category: "Drawing Shapes"
   },
   {
     name: "circle",
     signature: "circle(x, y, radius, color)",
     description: "Draw a circle centered at (x, y) with the given radius and color",
-    examples: ['circle(50, 25, 10, "#FF0000")'],
+    examples: ['circle(50, 25, 10, "red")'],
     category: "Drawing Shapes"
   }
 ];

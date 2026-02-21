@@ -8,6 +8,6 @@
     "Use the circle function to draw each light",
     "The first two arguments to circle are the x and y position — use the variables!",
     "The third argument is the radius — there's a variable for that too",
-    "Red is \"#FF0000\", yellow is \"#FFFF00\", green is \"#00FF00\""
+    "Red is \"red\", yellow is \"amber\", green is \"green\""
   ]
 }

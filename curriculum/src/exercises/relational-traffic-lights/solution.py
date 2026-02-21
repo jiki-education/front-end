@@ -1,10 +1,10 @@
 # Relational Traffic Lights
 # Change the radius and watch the traffic light resize!
 
-red = "#FF0000"
-yellow = "#FFFF00"
-green = "#00FF00"
-housing_color = "#222222"
+red = "red"
+yellow = "amber"
+green = "green"
+housing_color = "charcoal"
 
 radius = 10
 center_x = radius * 5

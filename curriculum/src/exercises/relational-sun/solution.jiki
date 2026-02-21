@@ -2,7 +2,7 @@
 set canvas_size to 100
 set gap to 10
 set sun_radius to 15
-set sky_color to "lightblue"
+set sky_color to "skyblue"
 set sun_color to "yellow"
 
 // Derive these from the variables above

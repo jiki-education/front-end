@@ -1,11 +1,11 @@
 // Colors
-set sky_color to "#add8e6"
-set grass_color to "#3cb372"
-set house_color to "#f0985b"
-set roof_color to "#8b4513"
-set window_color to "#FFFFFF"
-set door_color to "#A0512D"
-set knob_color to "#FFDF00"
+set sky_color to "skyblue"
+set grass_color to "green"
+set house_color to "brick"
+set roof_color to "brown"
+set window_color to "white"
+set door_color to "dark brown"
+set knob_color to "yellow"
 
 // House frame
 set house_left to 20

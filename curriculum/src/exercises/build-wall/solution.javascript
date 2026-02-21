@@ -18,6 +18,6 @@ repeat(10) {
 
   repeat(numIterations) {
     col = col + 1;
-    rectangle(col * width, row * height, width, height, "#AA4A44");
+    rectangle(col * width, row * height, width, height, "brick");
   }
 }

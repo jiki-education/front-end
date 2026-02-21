@@ -1,13 +1,13 @@
 {
   "slug": "sunshine",
   "title": "Sunshine",
-  "instructions": "This exercise introduces you to the `triangle` and `circle` functions.\n\n### Drawing Triangles\n\nTo draw triangles, we use the `triangle` function with 7 inputs:\n\n- `x1`, `y1`: The first corner point\n- `x2`, `y2`: The second corner point\n- `x3`, `y3`: The third corner point\n- `color`: The color of the triangle (a hex string like `\"#ffed06\"`)\n\n### Drawing Circles\n\nTo draw circles, we use the `circle` function with 4 inputs:\n\n- `x`: The x position of the center of the circle\n- `y`: The y position of the center of the circle\n- `radius`: How big the circle is\n- `color`: The color of the circle (a hex string like `\"#ffed06\"`)\n\n## Instructions\n\nWe've drawn a light blue sky for you.\n\nYour job is to draw the sunshine by adding 8 yellow triangle spikes around the canvas and a yellow circle in the center.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.",
+  "instructions": "This exercise introduces you to the `triangle` and `circle` functions.\n\n### Drawing Triangles\n\nTo draw triangles, we use the `triangle` function with 7 inputs:\n\n- `x1`, `y1`: The first corner point\n- `x2`, `y2`: The second corner point\n- `x3`, `y3`: The third corner point\n- `color`: The color of the triangle (e.g. `\"yellow\"`)\n\n### Drawing Circles\n\nTo draw circles, we use the `circle` function with 4 inputs:\n\n- `x`: The x position of the center of the circle\n- `y`: The y position of the center of the circle\n- `radius`: How big the circle is\n- `color`: The color of the circle (e.g. `\"yellow\"`)\n\n## Instructions\n\nWe've drawn a `\"skyblue\"` sky for you.\n\nYour job is to draw the sunshine by adding 8 `\"yellow\"` triangle spikes around the canvas and a `\"yellow\"` circle in the center.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.",
   "estimatedMinutes": 5,
   "levelId": "using-functions",
   "hints": [
     "The triangle function takes 7 arguments: x1, y1, x2, y2, x3, y3, color",
     "The circle function takes 4 arguments: x, y, radius, color",
     "The sun circle should be centered in the middle of the canvas at (50, 50) with a radius of 25",
-    "Use the same yellow for both the spikes and the sun: \"#ffed06\""
+    "Use the same yellow for both the spikes and the sun: \"yellow\""
   ]
 }

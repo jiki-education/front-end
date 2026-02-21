@@ -346,13 +346,20 @@ export abstract class DrawExercise extends VisualExercise {
         executionCtx.logicError("Color should not be specified for this exercise");
         return null;
       }
-      return this.fixedColor;
+      return resolveNamedColor(this.fixedColor);
     }
     if (!color || !isString(color)) {
       executionCtx.logicError("Color must be a string");
       return null;
     }
-    return color.value;
+    const resolved = resolveNamedColor(color.value);
+    if (resolved === null) {
+      executionCtx.logicError(
+        'Color must be a named color ("orange", "blue", "white", etc) specified in the instructions, or a hex color starting with #'
+      );
+      return null;
+    }
+    return resolved;
   }
 
   protected animateShapeIntoView(executionCtx: ExecutionContext, elem: SVGElement) {
@@ -503,4 +510,29 @@ function rgbToHexString(r: number, g: number, b: number): string {
   const toHex = (n: number) => Math.round(n).toString(16).padStart(2, "0");
 
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+const NAMED_COLORS: Record<string, string> = {
+  black: "#000000",
+  white: "#FFFFFF",
+  grey: "#DDDDDD",
+  blue: "#56AEFF",
+  skyblue: "#ADD8E6",
+  yellow: "#ffed06",
+  orange: "#FF8A14",
+  brown: "#E07A10",
+  "dark brown": "#A0512D",
+  brick: "#AA4A44",
+  charcoal: "#45413C",
+  green: "#008000",
+  pink: "#FFC0CB",
+  red: "#FF0000",
+  amber: "#FFFF00"
+};
+
+function resolveNamedColor(color: string): string | null {
+  const named = NAMED_COLORS[color.toLowerCase()];
+  if (named) return named;
+  if (color.startsWith("#")) return color;
+  return null;
 }

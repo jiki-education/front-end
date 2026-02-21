@@ -7,16 +7,16 @@ let middleY = 50;
 let bottomY = 75;
 
 // Background
-rectangle(0, 0, 100, 100, "#333333");
+rectangle(0, 0, 100, 100, "charcoal");
 
 // Traffic light housing
-rectangle(30, 10, 40, 80, "#222222");
+rectangle(30, 10, 40, 80, "charcoal");
 
 // Red light (top)
-circle(centerX, topY, radius, "#FF0000");
+circle(centerX, topY, radius, "red");
 
 // Yellow light (middle)
-circle(centerX, middleY, radius, "#FFFF00");
+circle(centerX, middleY, radius, "amber");
 
 // Green light (bottom)
-circle(centerX, bottomY, radius, "#00FF00");
+circle(centerX, bottomY, radius, "green");

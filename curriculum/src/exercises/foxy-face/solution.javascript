@@ -1,26 +1,26 @@
 // Foxy Face - A geometric fox made of triangles
 
 // Background
-rectangle(0, 0, 100, 100, "#DDDDDD");
+rectangle(0, 0, 100, 100, "grey");
 
 // White cheeks
-triangle(10, 40, 5, 60, 50, 95, "#FFFFFF");
-triangle(90, 40, 95, 60, 50, 95, "#FFFFFF");
+triangle(10, 40, 5, 60, 50, 95, "white");
+triangle(90, 40, 95, 60, 50, 95, "white");
 
 // Left ear
-triangle(10, 40, 10, 5, 50, 40, "#E07A10");
+triangle(10, 40, 10, 5, 50, 40, "brown");
 
 // Right ear
-triangle(90, 40, 90, 5, 50, 40, "#E07A10");
+triangle(90, 40, 90, 5, 50, 40, "brown");
 
 // Left face
-triangle(50, 30, 50, 95, 10, 40, "#FF8A14");
+triangle(50, 30, 50, 95, 10, 40, "orange");
 
 // Right face
-triangle(50, 30, 50, 95, 90, 40, "#FF8A14");
+triangle(50, 30, 50, 95, 90, 40, "orange");
 
 // Nose top
-triangle(40, 90, 50, 85, 60, 90, "#45413C");
+triangle(40, 90, 50, 85, 60, 90, "charcoal");
 
 // Nose bottom
-triangle(50, 95, 40, 90, 60, 90, "#45413C");
+triangle(50, 95, 40, 90, 60, 90, "charcoal");

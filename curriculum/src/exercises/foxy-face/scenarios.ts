@@ -8,9 +8,9 @@ export const tasks = [
     description: "Use triangles to build a geometric fox face on the grey background.",
     hints: [
       "Draw 8 triangles total",
-      "The cheeks are white (#FFFFFF)",
-      "The ears are dark orange (#E07A10), the face is lighter orange (#FF8A14)",
-      "The nose uses two dark triangles (#45413C)"
+      "The cheeks are white (white)",
+      "The ears are dark orange (brown), the face is lighter orange (orange)",
+      "The nose uses two dark triangles (charcoal)"
     ],
     requiredScenarios: ["draw-fox"],
     bonus: false

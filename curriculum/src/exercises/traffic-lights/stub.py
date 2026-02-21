@@ -8,10 +8,10 @@ middle_y = 50
 bottom_y = 75
 
 # Background
-rectangle(0, 0, 100, 100, "#333333")
+rectangle(0, 0, 100, 100, "charcoal")
 
 # Traffic light housing
-rectangle(30, 10, 40, 80, "#222222")
+rectangle(30, 10, 40, 80, "charcoal")
 
 # TODO: Draw the red light at the top
 

@@ -38,7 +38,7 @@ repeat(60) {
   rightLeafLeft = stemLeft + stemWidth + leafXRadius;
 
   // Sky
-  rectangle(0, 0, 100, 90, "#ADD8E6");
+  rectangle(0, 0, 100, 90, "skyblue");
 
   // Ground
   rectangle(0, groundTop, 100, 10, "green");

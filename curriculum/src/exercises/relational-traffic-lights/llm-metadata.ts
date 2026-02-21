@@ -20,8 +20,8 @@ export const llmMetadata: LLMMetadata = {
         Students derive all positions and sizes as multiples of radius.
 
         Fixed variables:
-        - red = "#FF0000", yellow = "#FFFF00", green = "#00FF00"
-        - housingColor = "#222222"
+        - red = "red", yellow = "amber", green = "green"
+        - housingColor = "charcoal"
         - radius = 10
 
         Derived variables (all multiples of radius):

@@ -17,4 +17,4 @@ for i in range(10):
 
     for j in range(num_iterations):
         col = col + 1
-        rectangle(col * width, row * height, width, height, "#AA4A44")
+        rectangle(col * width, row * height, width, height, "brick")

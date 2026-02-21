@@ -2,5 +2,5 @@ set x to -1
 repeat 5 times do
   change x to x + 1
 
-  rectangle(x * 20, 0, 20, 10, "#AA4A44")
+  rectangle(x * 20, 0, 20, 10, "brick")
 end

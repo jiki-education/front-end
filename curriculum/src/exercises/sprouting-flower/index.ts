@@ -16,7 +16,7 @@ const functions: FunctionInfo[] = [
     signature: "rectangle(x, y, width, height, color)",
     description:
       "Draws a **rectangle** at position (x, y) with the specified width, height, and color. The position represents the top-left corner of the rectangle.",
-    examples: ['rectangle(10, 20, 50, 30, "#ADD8E6")', 'rectangle(0, 0, 100, 100, "green")'],
+    examples: ['rectangle(10, 20, 50, 30, "skyblue")', 'rectangle(0, 0, 100, 100, "green")'],
     category: "Drawing Shapes"
   },
   {

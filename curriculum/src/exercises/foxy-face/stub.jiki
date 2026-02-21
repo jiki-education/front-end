@@ -1,7 +1,7 @@
 // Foxy Face - A geometric fox made of triangles
 
 // Background
-rectangle(0, 0, 100, 100, "#DDDDDD")
+rectangle(0, 0, 100, 100, "grey")
 
 // TODO: Draw the white cheeks
 

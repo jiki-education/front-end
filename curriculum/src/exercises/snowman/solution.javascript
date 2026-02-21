@@ -9,10 +9,10 @@ let baseY = 72;
 let baseRadius = 20;
 
 // Sky
-rectangle(0, 0, 100, 60, "#87CEEB");
+rectangle(0, 0, 100, 60, "skyblue");
 
 // Snowy ground
-rectangle(0, 60, 100, 40, "#F0F0F0");
+rectangle(0, 60, 100, 40, "grey");
 
 // Base (bottom, biggest)
 circle(snowmanX, baseY, baseRadius, "white");

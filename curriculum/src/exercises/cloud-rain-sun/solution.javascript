@@ -1,19 +1,19 @@
 // Light blue background
-rectangle(0, 0, 100, 100, "#ADD8E6");
+rectangle(0, 0, 100, 100, "skyblue");
 
 // Cloud
-rectangle(25, 50, 50, 10, "#FFFFFF");
-circle(25, 50, 10, "#FFFFFF");
-circle(40, 40, 15, "#FFFFFF");
-circle(55, 40, 20, "#FFFFFF");
-circle(75, 50, 10, "#FFFFFF");
+rectangle(25, 50, 50, 10, "white");
+circle(25, 50, 10, "white");
+circle(40, 40, 15, "white");
+circle(55, 40, 20, "white");
+circle(75, 50, 10, "white");
 
 // Sun
-circle(75, 30, 15, "#ffed06");
+circle(75, 30, 15, "yellow");
 
 // Rain
-ellipse(30, 70, 3, 5, "#56AEFF");
-ellipse(50, 70, 3, 5, "#56AEFF");
-ellipse(70, 70, 3, 5, "#56AEFF");
-ellipse(40, 80, 3, 5, "#56AEFF");
-ellipse(60, 80, 3, 5, "#56AEFF");
+ellipse(30, 70, 3, 5, "blue");
+ellipse(50, 70, 3, 5, "blue");
+ellipse(70, 70, 3, 5, "blue");
+ellipse(40, 80, 3, 5, "blue");
+ellipse(60, 80, 3, 5, "blue");

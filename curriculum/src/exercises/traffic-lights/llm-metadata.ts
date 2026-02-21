@@ -26,9 +26,9 @@ export const llmMetadata: LLMMetadata = {
         - topY = 25, middleY = 50, bottomY = 75
 
         Expected calls:
-        - circle(centerX, topY, radius, "#FF0000")
-        - circle(centerX, middleY, radius, "#FFFF00")
-        - circle(centerX, bottomY, radius, "#00FF00")
+        - circle(centerX, topY, radius, "red")
+        - circle(centerX, middleY, radius, "amber")
+        - circle(centerX, bottomY, radius, "green")
 
         Key teaching points:
         1. Variables can be used as arguments to functions

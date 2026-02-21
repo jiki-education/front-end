@@ -3,10 +3,10 @@
 // This time, change the radius and watch the traffic light resize!
 
 // These are set for you
-let red = "#FF0000";
-let yellow = "#FFFF00";
-let green = "#00FF00";
-let housingColor = "#222222";
+let red = "red";
+let yellow = "amber";
+let green = "green";
+let housingColor = "charcoal";
 let radius = 10;
 
 // Fix these so they are all relative to the radius

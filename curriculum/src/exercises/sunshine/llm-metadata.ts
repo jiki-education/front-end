@@ -32,16 +32,16 @@ export const llmMetadata: LLMMetadata = {
         Students need to add all 8 triangle spikes and the circle.
 
         The 8 spikes (in order: top-left, top, top-right, right, bottom-right, bottom-left, bottom, left):
-        - triangle(10, 10, 29, 33, 33, 29, "#ffed06")
-        - triangle(50, 2, 47, 23, 53, 23, "#ffed06")
-        - triangle(90, 10, 71, 33, 67, 29, "#ffed06")
-        - triangle(98, 50, 77, 47, 77, 53, "#ffed06")
-        - triangle(90, 90, 71, 67, 67, 71, "#ffed06")
-        - triangle(10, 90, 29, 67, 33, 71, "#ffed06")
-        - triangle(50, 98, 47, 77, 53, 77, "#ffed06")
-        - triangle(2, 50, 23, 47, 23, 53, "#ffed06")
+        - triangle(10, 10, 29, 33, 33, 29, "yellow")
+        - triangle(50, 2, 47, 23, 53, 23, "yellow")
+        - triangle(90, 10, 71, 33, 67, 29, "yellow")
+        - triangle(98, 50, 77, 47, 77, 53, "yellow")
+        - triangle(90, 90, 71, 67, 67, 71, "yellow")
+        - triangle(10, 90, 29, 67, 33, 71, "yellow")
+        - triangle(50, 98, 47, 77, 53, 77, "yellow")
+        - triangle(2, 50, 23, 47, 23, 53, "yellow")
 
-        The sun: circle(50, 50, 25, "#ffed06")
+        The sun: circle(50, 50, 25, "yellow")
 
         Common mistakes:
         - Mixing up the order of triangle coordinates

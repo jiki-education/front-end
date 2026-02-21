@@ -3,10 +3,10 @@
 # This time, change the radius and watch the traffic light resize!
 
 # These are set for you
-red = "#FF0000"
-yellow = "#FFFF00"
-green = "#00FF00"
-housing_color = "#222222"
+red = "red"
+yellow = "amber"
+green = "green"
+housing_color = "charcoal"
 radius = 10
 
 # Fix these so they are all relative to the radius
