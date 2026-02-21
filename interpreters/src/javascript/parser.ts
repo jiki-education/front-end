@@ -277,6 +277,19 @@ export class Parser {
       }
     }
 
+    // Enforce closing brace on its own line
+    if (this.languageFeatures.enforceFormatting && statements.length > 0 && this.check("RIGHT_BRACE")) {
+      const rightBrace = this.peek();
+      // Scan backwards in token stream to find the first non-EOL token
+      let prevIndex = this.current - 1;
+      while (prevIndex >= 0 && this.tokens[prevIndex].type === "EOL") {
+        prevIndex--;
+      }
+      if (prevIndex >= 0 && this.tokens[prevIndex].location.line === rightBrace.location.line) {
+        this.error("ClosingBraceNotOnOwnLine", rightBrace.location);
+      }
+    }
+
     // Only consume the RIGHT_BRACE if requested
     if (consumeRightBrace) {
       this.consume("RIGHT_BRACE", "MissingRightBraceAfterBlock");
@@ -294,15 +307,20 @@ export class Parser {
     this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterIf");
     const condition = this.expression();
     this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterIfCondition");
-    const thenBranch = this.statement();
+    const thenBranch = this.requireBlockStatement("if");
     let elseBranch: Statement | null = null;
 
     if (this.match("ELSE")) {
-      elseBranch = this.statement();
+      // Allow "else if" without requiring braces directly after "else"
+      if (this.check("IF")) {
+        elseBranch = this.statement();
+      } else {
+        elseBranch = this.requireBlockStatement("else");
+      }
     }
 
     const endToken = elseBranch || thenBranch;
-    return new IfStatement(condition, thenBranch!, elseBranch, Location.between(ifToken, endToken!));
+    return new IfStatement(condition, thenBranch, elseBranch, Location.between(ifToken, endToken));
   }
 
   private whileStatement(): Statement {
@@ -317,8 +335,8 @@ export class Parser {
     this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
     // Parse body
-    const body = this.statement();
-    return new WhileStatement(condition, body!, Location.between(whileToken, body!));
+    const body = this.requireBlockStatement("while");
+    return new WhileStatement(condition, body, Location.between(whileToken, body));
   }
 
   private repeatStatement(): Statement {
@@ -336,8 +354,8 @@ export class Parser {
     }
     this.consume("RIGHT_PAREN", "MissingRightParenAfterRepeatCount");
 
-    const body = this.statement();
-    return new RepeatStatement(repeatToken, count, body!, Location.between(repeatToken, body!));
+    const body = this.requireBlockStatement("repeat");
+    return new RepeatStatement(repeatToken, count, body, Location.between(repeatToken, body));
   }
 
   private forStatement(): Statement {
@@ -359,9 +377,9 @@ export class Parser {
           const iterable = this.expression();
           this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
-          const body = this.statement();
+          const body = this.requireBlockStatement("for");
 
-          return new ForOfStatement(variable, iterable, body!, Location.between(forToken, body!));
+          return new ForOfStatement(variable, iterable, body, Location.between(forToken, body));
         }
         if (this.check("IN")) {
           // This is a for...in loop
@@ -371,9 +389,9 @@ export class Parser {
           const object = this.expression();
           this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
-          const body = this.statement();
+          const body = this.requireBlockStatement("for");
 
-          return new ForInStatement(variable, object, body!, Location.between(forToken, body!));
+          return new ForInStatement(variable, object, body, Location.between(forToken, body));
         }
       }
       // Not a for...of or for...in loop, reset and parse as regular for loop
@@ -423,9 +441,9 @@ export class Parser {
       this.languageFeatures.oneStatementPerLine = savedOneStatementPerLine;
 
       // Parse body
-      const body = this.statement();
+      const body = this.requireBlockStatement("for");
 
-      return new ForStatement(init, condition, update, body!, Location.between(forToken, body!));
+      return new ForStatement(init, condition, update, body, Location.between(forToken, body));
     } finally {
       // Make sure we restore the setting even if there's an error
       this.languageFeatures.oneStatementPerLine = savedOneStatementPerLine;
@@ -863,6 +881,19 @@ export class Parser {
       return this.advance();
     }
     this.error(errorType, this.peek().location);
+  }
+
+  private requireBlockStatement(keyword: string): Statement {
+    if (this.languageFeatures.enforceFormatting) {
+      // Skip EOL tokens that might be between the ) and {
+      while (this.check("EOL")) {
+        this.advance();
+      }
+      if (!this.check("LEFT_BRACE")) {
+        this.error("BlockRequired", this.peek().location, { keyword });
+      }
+    }
+    return this.statement()!;
   }
 
   private consumeSemicolon(): Token {
