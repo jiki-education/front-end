@@ -3,7 +3,7 @@
 // passed around, controls the state, etc.
 
 import type { EditorView } from "@codemirror/view";
-import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
@@ -91,12 +91,12 @@ class Orchestrator {
 
   // Auto-save the current editor content - delegate to EditorManager
   // UNUSED: This function is currently not called.
-  autoSaveContent(code: string, readonlyRanges?: { from: number; to: number }[]) {
+  autoSaveContent(code: string, readonlyRanges?: ReadonlyRange[]) {
     this.editorManager?.autoSaveContent(code, readonlyRanges);
   }
 
   // UNUSED: This function is currently not called.
-  saveImmediately(code: string, readonlyRanges?: { from: number; to: number }[]) {
+  saveImmediately(code: string, readonlyRanges?: ReadonlyRange[]) {
     this.editorManager?.saveImmediately(code, readonlyRanges);
   }
 
@@ -311,7 +311,7 @@ class Orchestrator {
   // Initialize editor with code, exercise data, and localStorage synchronization - delegate to EditorManager
   // UNUSED: This function is currently not called.
   initializeEditor(
-    code: { storedAt?: string; code: string; readonlyRanges?: { from: number; to: number }[] },
+    code: { storedAt?: string; code: string; readonlyRanges?: ReadonlyRange[] },
     exercise: unknown,
     unfoldableFunctionNames: string[]
   ) {
@@ -320,20 +320,12 @@ class Orchestrator {
 
   // Reset editor to stub code and save to localStorage - delegate to EditorManager
   // Initialize exercise data with localStorage/server priority logic
-  initializeExerciseData(serverData?: {
-    code: string;
-    storedAt?: string;
-    readonlyRanges?: { from: number; to: number }[];
-  }) {
+  initializeExerciseData(serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) {
     this.store.getState().initializeExerciseData(serverData);
   }
 
   // UNUSED: This function is currently not called.
-  resetEditorToStub(
-    stubCode: string,
-    defaultReadonlyRanges: { from: number; to: number }[],
-    unfoldableFunctionNames: string[]
-  ) {
+  resetEditorToStub(stubCode: string, defaultReadonlyRanges: ReadonlyRange[], unfoldableFunctionNames: string[]) {
     this.editorManager?.resetEditorToStub(stubCode, defaultReadonlyRanges, unfoldableFunctionNames);
   }
 

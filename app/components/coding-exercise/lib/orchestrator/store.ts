@@ -1,6 +1,6 @@
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showModal } from "@/lib/modal";
-import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
@@ -43,6 +43,7 @@ export function createOrchestratorStore(
 
       // Editor store state
       defaultCode: exercise.stubs[language],
+      defaultReadonlyRanges: exercise.readonlyRanges?.[language] ?? [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
@@ -445,11 +446,7 @@ export function createOrchestratorStore(
       },
 
       // Exercise data initialization with priority logic
-      initializeExerciseData: (serverData?: {
-        code: string;
-        storedAt?: string;
-        readonlyRanges?: { from: number; to: number }[];
-      }) => {
+      initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => {
         const state = get();
         const localStorageResult = loadCodeMirrorContent(state.exerciseSlug);
 
@@ -566,6 +563,7 @@ export function createOrchestratorStore(
 
           // Reset editor store state
           defaultCode: "",
+          defaultReadonlyRanges: [],
           readonly: false,
           shouldShowInformationWidget: false,
           underlineRange: undefined,
@@ -635,6 +633,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
 
       // Editor store state
       defaultCode: state.defaultCode,
+      defaultReadonlyRanges: state.defaultReadonlyRanges,
       readonly: state.readonly,
       shouldShowInformationWidget: state.shouldShowInformationWidget,
       underlineRange: state.underlineRange,

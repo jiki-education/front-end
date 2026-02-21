@@ -72,8 +72,8 @@ export default function EditEditorTest({ orchestrator }: EditEditorTestProps) {
         {
           type: "mark-lines-as-readonly",
           ranges: [
-            { from: 1, to: 2 },
-            { from: 4, to: 4 }
+            { fromLine: 1, toLine: 2 },
+            { fromLine: 4, toLine: 4 }
           ]
         }
       ]

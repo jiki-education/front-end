@@ -9,22 +9,36 @@ interface ReadOnlyRangesTestProps {
 }
 
 export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestProps) {
-  const [customRanges, setCustomRanges] = useState<Array<{ from: string; to: string }>>([{ from: "", to: "" }]);
+  const [customRanges, setCustomRanges] = useState<
+    Array<{ fromLine: string; toLine: string; fromChar: string; toChar: string }>
+  >([{ fromLine: "", toLine: "", fromChar: "", toChar: "" }]);
 
   const handleSetReadOnly = (readonly: boolean) => {
     orchestrator.setReadonly(readonly);
   };
 
   const handleSetReadOnlyRanges = () => {
-    // Apply readonly ranges to specific lines (lines 1-3 and line 5)
     const editorView = orchestrator.getEditorView();
     if (editorView) {
       const ranges = [
-        { from: 1, to: 3 }, // Lines 1-3
-        { from: 5, to: 5 } // Line 5
+        { fromLine: 1, toLine: 3 }, // Lines 1-3 (whole lines)
+        { fromLine: 5, toLine: 5 } // Line 5 (whole line)
       ];
 
-      // Use the orchestrator's method to apply readonly ranges
+      editorView.dispatch({
+        effects: updateReadOnlyRangesEffect.of(ranges)
+      });
+    }
+  };
+
+  const handleSetPartialReadOnlyRanges = () => {
+    const editorView = orchestrator.getEditorView();
+    if (editorView) {
+      const ranges = [
+        { fromLine: 1, toLine: 1, fromChar: 0, toChar: 10 }, // First 10 chars of line 1
+        { fromLine: 3, toLine: 3, fromChar: 5 } // From char 5 to end of line 3
+      ];
+
       editorView.dispatch({
         effects: updateReadOnlyRangesEffect.of(ranges)
       });
@@ -32,7 +46,6 @@ export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestP
   };
 
   const handleClearReadOnlyRanges = () => {
-    // Clear all readonly ranges
     const editorView = orchestrator.getEditorView();
     if (editorView) {
       editorView.dispatch({
@@ -41,14 +54,18 @@ export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestP
     }
   };
 
-  const handleCustomRangeChange = (index: number, field: "from" | "to", value: string) => {
+  const handleCustomRangeChange = (
+    index: number,
+    field: "fromLine" | "toLine" | "fromChar" | "toChar",
+    value: string
+  ) => {
     const newRanges = [...customRanges];
     newRanges[index] = { ...newRanges[index], [field]: value };
     setCustomRanges(newRanges);
   };
 
   const handleAddCustomRange = () => {
-    setCustomRanges([...customRanges, { from: "", to: "" }]);
+    setCustomRanges([...customRanges, { fromLine: "", toLine: "", fromChar: "", toChar: "" }]);
   };
 
   const handleRemoveCustomRange = (index: number) => {
@@ -61,20 +78,41 @@ export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestP
   const handleApplyCustomRanges = () => {
     const editorView = orchestrator.getEditorView();
     if (editorView) {
-      // Convert string inputs to numbers and filter out invalid ranges
       const validRanges = customRanges
-        .map((range) => ({
-          from: parseInt(range.from),
-          to: parseInt(range.to)
-        }))
+        .map((range) => {
+          const fromLine = parseInt(range.fromLine);
+          const toLine = parseInt(range.toLine);
+          const fromChar = range.fromChar ? parseInt(range.fromChar) : undefined;
+          const toChar = range.toChar ? parseInt(range.toChar) : undefined;
+          return { fromLine, toLine, fromChar, toChar };
+        })
         .filter(
-          (range) => !isNaN(range.from) && !isNaN(range.to) && range.from > 0 && range.to > 0 && range.from <= range.to
-        );
+          (range) =>
+            !isNaN(range.fromLine) &&
+            !isNaN(range.toLine) &&
+            range.fromLine > 0 &&
+            range.toLine > 0 &&
+            range.fromLine <= range.toLine
+        )
+        .map((range) => ({
+          fromLine: range.fromLine,
+          toLine: range.toLine,
+          ...(range.fromChar !== undefined && !isNaN(range.fromChar) ? { fromChar: range.fromChar } : {}),
+          ...(range.toChar !== undefined && !isNaN(range.toChar) ? { toChar: range.toChar } : {})
+        }));
 
       editorView.dispatch({
         effects: updateReadOnlyRangesEffect.of(validRanges)
       });
     }
+  };
+
+  const inputStyle = {
+    width: "50px",
+    padding: "4px",
+    border: "1px solid #ccc",
+    borderRadius: "3px",
+    fontSize: "12px"
   };
 
   return (
@@ -92,6 +130,9 @@ export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestP
         <button onClick={handleSetReadOnlyRanges} style={testStyles.button}>
           Set ReadOnly Lines (1-3, 5)
         </button>
+        <button onClick={handleSetPartialReadOnlyRanges} style={testStyles.button}>
+          Set Partial ReadOnly
+        </button>
         <button onClick={handleClearReadOnlyRanges} style={testStyles.button}>
           Clear ReadOnly Ranges
         </button>
@@ -101,43 +142,50 @@ export default function ReadOnlyRangesTest({ orchestrator }: ReadOnlyRangesTestP
       </div>
 
       <p style={testStyles.helpText}>
-        ReadOnly ranges protect specific lines from editing. Try setting lines 1-3 and line 5 as readonly.
+        ReadOnly ranges protect specific lines or character ranges from editing. Try whole-line or partial-line
+        readonly.
       </p>
 
       <div style={{ marginTop: "20px", border: "1px solid #ddd", padding: "15px", borderRadius: "5px" }}>
         <h4 style={{ margin: "0 0 10px 0", fontSize: "14px", fontWeight: "bold" }}>Custom Readonly Ranges</h4>
 
         {customRanges.map((range, index) => (
-          <div key={index} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-            <label style={{ fontSize: "12px", minWidth: "30px" }}>From:</label>
+          <div key={index} style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
+            <label style={{ fontSize: "11px", minWidth: "50px" }}>fromLine:</label>
             <input
               type="number"
               min="1"
-              value={range.from}
-              onChange={(e) => handleCustomRangeChange(index, "from", e.target.value)}
-              placeholder="Line #"
-              style={{
-                width: "60px",
-                padding: "4px",
-                border: "1px solid #ccc",
-                borderRadius: "3px",
-                fontSize: "12px"
-              }}
+              value={range.fromLine}
+              onChange={(e) => handleCustomRangeChange(index, "fromLine", e.target.value)}
+              placeholder="#"
+              style={inputStyle}
             />
-            <label style={{ fontSize: "12px", minWidth: "20px" }}>To:</label>
+            <label style={{ fontSize: "11px", minWidth: "40px" }}>toLine:</label>
             <input
               type="number"
               min="1"
-              value={range.to}
-              onChange={(e) => handleCustomRangeChange(index, "to", e.target.value)}
-              placeholder="Line #"
-              style={{
-                width: "60px",
-                padding: "4px",
-                border: "1px solid #ccc",
-                borderRadius: "3px",
-                fontSize: "12px"
-              }}
+              value={range.toLine}
+              onChange={(e) => handleCustomRangeChange(index, "toLine", e.target.value)}
+              placeholder="#"
+              style={inputStyle}
+            />
+            <label style={{ fontSize: "11px", minWidth: "55px" }}>fromChar:</label>
+            <input
+              type="number"
+              min="0"
+              value={range.fromChar}
+              onChange={(e) => handleCustomRangeChange(index, "fromChar", e.target.value)}
+              placeholder="opt"
+              style={inputStyle}
+            />
+            <label style={{ fontSize: "11px", minWidth: "45px" }}>toChar:</label>
+            <input
+              type="number"
+              min="0"
+              value={range.toChar}
+              onChange={(e) => handleCustomRangeChange(index, "toChar", e.target.value)}
+              placeholder="opt"
+              style={inputStyle}
             />
             {customRanges.length > 1 && (
               <button

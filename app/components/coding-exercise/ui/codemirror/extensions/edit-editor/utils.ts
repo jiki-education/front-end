@@ -113,7 +113,10 @@ export function backspaceLines(view: EditorView, { from, to }: { from: number; t
   });
 }
 
-export function markLinesAsReadonly(view: EditorView, ranges: { from: number; to: number }[]): Promise<void> {
+export function markLinesAsReadonly(
+  view: EditorView,
+  ranges: Array<{ fromLine: number; toLine: number; fromChar?: number; toChar?: number }>
+): Promise<void> {
   return new Promise((resolve) => {
     view.dispatch({
       effects: updateReadOnlyRangesEffect.of(ranges)

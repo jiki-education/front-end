@@ -1,8 +1,9 @@
+import type { ReadonlyRange } from "@jiki/curriculum";
 import type { EditorView } from "codemirror";
 import { useEffect } from "react";
 import { updateReadOnlyRangesEffect } from "../extensions/read-only-ranges/readOnlyRanges";
 
-export function useReadonlyRanges(editorView: EditorView | null, readonlyRanges: Array<{ from: number; to: number }>) {
+export function useReadonlyRanges(editorView: EditorView | null, readonlyRanges: ReadonlyRange[]) {
   useEffect(() => {
     if (!editorView) {
       return;
