@@ -1,0 +1,18 @@
+repeat(6):
+    move()
+turn_right()
+move()
+move()
+turn_right()
+move()
+turn_left()
+move()
+turn_right()
+repeat(4):
+    move()
+turn_left()
+repeat(3):
+    move()
+turn_left()
+repeat(5):
+    move()

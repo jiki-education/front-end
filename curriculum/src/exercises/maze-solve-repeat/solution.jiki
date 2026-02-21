@@ -1,0 +1,22 @@
+repeat 6 times do
+  move()
+end
+turn_right()
+move()
+move()
+turn_right()
+move()
+turn_left()
+move()
+turn_right()
+repeat 4 times do
+  move()
+end
+turn_left()
+repeat 3 times do
+  move()
+end
+turn_left()
+repeat 5 times do
+  move()
+end

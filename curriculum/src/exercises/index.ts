@@ -96,7 +96,8 @@ export const exercises = {
   "emoji-collector": () => import("./emoji-collector"),
   "boundaried-ball": () => import("./boundaried-ball"),
   "smashing-blocks": () => import("./smashing-blocks"),
-  "maze-solve-walk": () => import("./maze-solve-walk")
+  "maze-solve-walk": () => import("./maze-solve-walk"),
+  "maze-solve-repeat": () => import("./maze-solve-repeat")
 } as const;
 
 export type ExerciseSlug = keyof typeof exercises;

@@ -56,7 +56,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "lessons": [
       { "type": "video", "slug": "repeat-loop" },
       { "type": "exercise", "slug": "golf-rolling-ball-loop" },
-      { "type": "exercise", "slug": "space-invaders-repeat" }
+      { "type": "exercise", "slug": "space-invaders-repeat" },
+      { "type": "exercise", "slug": "maze-solve-repeat" }
     ]
   },
   {

@@ -57,6 +57,7 @@ Nothing yet
 - `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
 - `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
+- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 - `snowman` - Snowman: use variables to position snowman parts (Variables level)
 - `traffic-lights` - Traffic Lights: use variables to draw traffic light (Variables level)
 - `relational-sun` - Relational Sun: use arithmetic to position sun rays (Variables level)

@@ -103,6 +103,7 @@ import { llmMetadata as emojiCollectorLLM } from "./exercises/emoji-collector/ll
 import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm-metadata";
 import { llmMetadata as smashingBlocksLLM } from "./exercises/smashing-blocks/llm-metadata";
 import { llmMetadata as mazeSolveWalkLLM } from "./exercises/maze-solve-walk/llm-metadata";
+import { llmMetadata as mazeSolveRepeatLLM } from "./exercises/maze-solve-repeat/llm-metadata";
 
 // Common LLM metadata type
 export interface LLMMetadata {
@@ -208,7 +209,8 @@ const llmMetadataRegistry = {
   "emoji-collector": emojiCollectorLLM,
   "boundaried-ball": boundarieBallLLM,
   "smashing-blocks": smashingBlocksLLM,
-  "maze-solve-walk": mazeSolveWalkLLM
+  "maze-solve-walk": mazeSolveWalkLLM,
+  "maze-solve-repeat": mazeSolveRepeatLLM
 } as const;
 
 /**
