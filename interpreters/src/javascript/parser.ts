@@ -277,6 +277,19 @@ export class Parser {
       }
     }
 
+    // Enforce closing brace on its own line
+    if (this.languageFeatures.enforceFormatting && statements.length > 0 && this.check("RIGHT_BRACE")) {
+      const rightBrace = this.peek();
+      // Scan backwards in token stream to find the first non-EOL token
+      let prevIndex = this.current - 1;
+      while (prevIndex >= 0 && this.tokens[prevIndex].type === "EOL") {
+        prevIndex--;
+      }
+      if (prevIndex >= 0 && this.tokens[prevIndex].location.line === rightBrace.location.line) {
+        this.error("ClosingBraceNotOnOwnLine", rightBrace.location);
+      }
+    }
+
     // Only consume the RIGHT_BRACE if requested
     if (consumeRightBrace) {
       this.consume("RIGHT_BRACE", "MissingRightBraceAfterBlock");
@@ -294,10 +307,15 @@ export class Parser {
     this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterIf");
     const condition = this.expression();
     this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterIfCondition");
+    this.requireBlock("if");
     const thenBranch = this.statement();
     let elseBranch: Statement | null = null;
 
     if (this.match("ELSE")) {
+      // Allow "else if" without requiring braces directly after "else"
+      if (!this.check("IF")) {
+        this.requireBlock("else");
+      }
       elseBranch = this.statement();
     }
 
@@ -317,6 +335,7 @@ export class Parser {
     this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
     // Parse body
+    this.requireBlock("while");
     const body = this.statement();
     return new WhileStatement(condition, body!, Location.between(whileToken, body!));
   }
@@ -336,6 +355,7 @@ export class Parser {
     }
     this.consume("RIGHT_PAREN", "MissingRightParenAfterRepeatCount");
 
+    this.requireBlock("repeat");
     const body = this.statement();
     return new RepeatStatement(repeatToken, count, body!, Location.between(repeatToken, body!));
   }
@@ -359,6 +379,7 @@ export class Parser {
           const iterable = this.expression();
           this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
+          this.requireBlock("for");
           const body = this.statement();
 
           return new ForOfStatement(variable, iterable, body!, Location.between(forToken, body!));
@@ -371,6 +392,7 @@ export class Parser {
           const object = this.expression();
           this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
 
+          this.requireBlock("for");
           const body = this.statement();
 
           return new ForInStatement(variable, object, body!, Location.between(forToken, body!));
@@ -423,6 +445,7 @@ export class Parser {
       this.languageFeatures.oneStatementPerLine = savedOneStatementPerLine;
 
       // Parse body
+      this.requireBlock("for");
       const body = this.statement();
 
       return new ForStatement(init, condition, update, body!, Location.between(forToken, body!));
@@ -863,6 +886,20 @@ export class Parser {
       return this.advance();
     }
     this.error(errorType, this.peek().location);
+  }
+
+  private requireBlock(keyword: string): void {
+    if (!this.languageFeatures.enforceFormatting) {
+      return;
+    }
+
+    // Skip EOL tokens that might be between the ) and {
+    while (this.check("EOL")) {
+      this.advance();
+    }
+    if (!this.check("LEFT_BRACE")) {
+      this.error("BlockRequired", this.peek().location, { keyword });
+    }
   }
 
   private consumeSemicolon(): Token {
