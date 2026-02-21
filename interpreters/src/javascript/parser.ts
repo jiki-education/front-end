@@ -44,9 +44,14 @@ export class Parser {
   private current: number = 0;
   private tokens: Token[] = [];
   private readonly languageFeatures: LanguageFeatures;
+  private blockDepth: number = 0;
+  private baseIndentation: number | null = null;
 
   constructor(context: EvaluationContext = {}) {
     this.languageFeatures = context.languageFeatures || {};
+    if (this.languageFeatures.enforceFormatting && !this.languageFeatures.oneStatementPerLine) {
+      throw new Error("enforceFormatting requires oneStatementPerLine to be enabled");
+    }
     this.scanner = new Scanner(this.languageFeatures);
   }
 
@@ -101,10 +106,22 @@ export class Parser {
 
   public parse(sourceCode: string): Statement[] {
     this.tokens = this.scanner.scanTokens(sourceCode);
+    this.baseIndentation = null;
+    this.blockDepth = 0;
 
     const statements: Statement[] = [];
 
     while (!this.isAtEnd()) {
+      // Skip whitespace/comments before checking indentation
+      while (this.check("EOL", "LINE_COMMENT", "BLOCK_COMMENT")) {
+        this.advance();
+      }
+      if (this.isAtEnd()) {
+        break;
+      }
+
+      this.checkIndentation(this.peek());
+
       const startPosition = this.current;
       const statement = this.statement(true); // true = top level
       if (statement) {
@@ -259,10 +276,11 @@ export class Parser {
 
   private block(consumeRightBrace: boolean = false): Statement[] {
     const statements: Statement[] = [];
+    this.blockDepth++;
 
     while (!this.isAtEnd()) {
-      // Skip EOL tokens before checking for RIGHT_BRACE
-      while (this.check("EOL")) {
+      // Skip EOL and comment tokens before checking for RIGHT_BRACE
+      while (this.check("EOL", "LINE_COMMENT", "BLOCK_COMMENT")) {
         this.advance();
       }
 
@@ -271,11 +289,15 @@ export class Parser {
         break;
       }
 
+      this.checkIndentation(this.peek());
+
       const statement = this.statement();
       if (statement) {
         statements.push(statement);
       }
     }
+
+    this.blockDepth--;
 
     // Enforce closing brace on its own line
     if (this.languageFeatures.enforceFormatting && statements.length > 0 && this.check("RIGHT_BRACE")) {
@@ -288,6 +310,9 @@ export class Parser {
       if (prevIndex >= 0 && this.tokens[prevIndex].location.line === rightBrace.location.line) {
         this.error("ClosingBraceNotOnOwnLine", rightBrace.location);
       }
+
+      // Check closing brace indentation
+      this.checkIndentation(rightBrace);
     }
 
     // Only consume the RIGHT_BRACE if requested
@@ -894,6 +919,27 @@ export class Parser {
       }
     }
     return this.statement()!;
+  }
+
+  private checkIndentation(token: Token): void {
+    if (!this.languageFeatures.enforceFormatting) {
+      return;
+    }
+
+    const column = token.location.relative.begin;
+
+    // First statement defines the base indentation
+    if (this.baseIndentation === null) {
+      this.baseIndentation = column;
+      return;
+    }
+
+    const expectedColumn = this.baseIndentation + this.blockDepth * 2;
+    if (column !== expectedColumn) {
+      const expected = this.blockDepth * 2;
+      const actual = column - this.baseIndentation;
+      this.error("IncorrectIndentation", token.location, { expected, actual });
+    }
   }
 
   private consumeSemicolon(): Token {
