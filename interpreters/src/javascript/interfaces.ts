@@ -41,6 +41,7 @@ export interface LanguageFeatures {
   enforceStrictEquality?: boolean;
   allowInWithArrays?: boolean;
   requireSemicolons?: boolean;
+  enforceFormatting?: boolean;
   maxTotalLoopIterations?: number;
   /**
    * Enable native JavaScript behavior for edge cases that don't make pedagogical sense.

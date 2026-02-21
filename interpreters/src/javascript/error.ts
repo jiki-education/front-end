@@ -71,7 +71,10 @@ export type SyntaxErrorType =
   | "MissingRightParenthesisAfterParameters"
   | "MissingLeftBraceBeforeFunctionBody"
   | "ForInStatementNotAllowed"
-  | "NewExpressionNotAllowed";
+  | "NewExpressionNotAllowed"
+  | "BlockRequired"
+  | "ClosingBraceNotOnOwnLine"
+  | "IncorrectIndentation";
 
 export class SyntaxError extends Error {
   constructor(

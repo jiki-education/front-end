@@ -69,7 +69,10 @@
       "MissingLeftParenAfterRepeat": "MissingLeftParenAfterRepeat",
       "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount",
       "ForInStatementNotAllowed": "ForInStatementNotAllowed",
-      "NewExpressionNotAllowed": "NewExpressionNotAllowed"
+      "NewExpressionNotAllowed": "NewExpressionNotAllowed",
+      "BlockRequired": "BlockRequired: keyword: {{keyword}}",
+      "ClosingBraceNotOnOwnLine": "ClosingBraceNotOnOwnLine",
+      "IncorrectIndentation": "IncorrectIndentation: expected: {{expected}}: actual: {{actual}}"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",
