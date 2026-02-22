@@ -1,0 +1,13 @@
+{
+  "slug": "boundaried-ball",
+  "title": "Boundaried Ball",
+  "instructions": "In this exercise, you'll create a ball and make it bounce off the walls of a game area.\n\nYou have a `Ball` class that you can create an instance of using `new Ball()`. The ball has these properties:\n- `cx` and `cy`: the center coordinates of the ball (read-only)\n- `radius`: the size of the ball (read-only)\n- `xVelocity` and `yVelocity`: how the ball moves each step (you can change these)\n\nYou also have a function:\n- `moveBall(ball)`: moves the ball according to its velocity\n\nThe game area ranges from 0 to 100 in both directions.\n\nYour job is to:\n1. Create a Ball instance\n2. Loop 376 times\n3. Each loop, check if the ball is at or past a wall and reverse its velocity\n4. Call `moveBall(ball)` to move it\n\nThe velocities should always be `1` or `-1`. The ball should never overlap the edge of the game area.",
+  "estimatedMinutes": 15,
+  "levelId": "objects",
+  "hints": [
+    "Create a ball with `let ball = new Ball()`",
+    "Check if `ball.cx - ball.radius <= 0` to detect the left wall",
+    "When the ball hits a wall, reverse the velocity (e.g., `ball.xVelocity = 1`)",
+    "Check all four walls: left, right, top, and bottom"
+  ]
+}

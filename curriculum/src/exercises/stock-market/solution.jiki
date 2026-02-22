@@ -1,0 +1,9 @@
+set balance to 10
+set rate to 0
+set growth to 0
+repeat 20 times do
+  change rate to random_number(0, 10)
+  change growth to balance * rate / 100
+  change balance to balance + growth
+end
+check_balance(balance)

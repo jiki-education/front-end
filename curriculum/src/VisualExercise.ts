@@ -1,14 +1,31 @@
 import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
+import { jikiscript, javascript, python } from "@jiki/interpreters";
 import { Exercise } from "./Exercise";
+import type { Language } from "./types";
+
+const interpreters = { jikiscript, javascript, python };
 
 // Base exercise class for visual exercises with animations and state
 
 export abstract class VisualExercise extends Exercise {
   animations: Animation[] = [];
   view!: HTMLElement;
+  public randomSeed?: number;
   protected abstract get slug(): string;
 
   abstract availableFunctions: ExternalFunction[];
+
+  getExternalFunctions(language: Language): ExternalFunction[] {
+    return this.availableFunctions.map((f) => ({
+      ...f,
+      name: interpreters[language].formatIdentifier(f.name)
+    }));
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getExternalClasses(_language: Language): any[] {
+    return [];
+  }
 
   abstract getState(): Record<string, number | string | boolean>;
 

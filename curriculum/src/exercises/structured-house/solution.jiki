@@ -1,85 +1,70 @@
-// Sky variables
-set sky_color to "#add8e6"
-set sky_left to 0
-set sky_top to 0
-set sky_width to 100
-set sky_height to 20
+// Colors
+set sky_color to "skyblue"
+set grass_color to "green"
+set house_color to "brick"
+set roof_color to "brown"
+set window_color to "white"
+set door_color to "dark brown"
+set knob_color to "yellow"
 
-// Grass variables
-set grass_color to "#3cb372"
-set grass_left to 0
-set grass_top to 80
-set grass_width to 100
-set grass_height to 20
-
-// House Frame variables
-set house_color to "#f0985b"
+// House frame
 set house_left to 20
 set house_top to 50
 set house_width to 60
 set house_height to 40
 
-// Roof variables
-set roof_color to "#8b4513"
+// Roof
 set roof_overhang to 4
+set roof_height to 20
 set roof_left to house_left - roof_overhang
 set roof_right to house_left + house_width + roof_overhang
 set roof_peak_x to house_left + house_width / 2
-set roof_peak_y to house_top - 20
+set roof_peak_y to house_top - roof_height
 set roof_base_y to house_top
 
-// Left window variables
-set window_color to "#FFFFFF"
-set window1_left to 30
-set window1_top to 55
+// Windows
 set window_width to 12
 set window_height to 13
+set window_inset to 10
+set window_top to house_top + 5
+set window1_left to house_left + window_inset
+set window2_left to house_left + house_width - window_inset - window_width
 
-// Right window variables
-set window2_left to 58
-set window2_top to 55
-
-// Door variables
-set door_color to "#A0512D"
-set door_left to 43
-set door_top to 72
+// Door
 set door_width to 14
 set door_height to 18
+set door_left to house_left + (house_width - door_width) / 2
+set door_top to house_top + house_height - door_height
 
-// Door knob variables
-set knob_color to "#FFDF00"
-set knob_center_x to 55
-set knob_center_y to 81
+// Door knob
 set knob_radius to 1
+set knob_x to door_left + door_width - knob_radius - 1
+set knob_y to door_top + door_height / 2
+
+// Grass
+set grass_height to 20
+set grass_top to 100 - grass_height
 
 // The sky
-fill_color_hex(sky_color)
-rectangle(sky_left, sky_top, sky_width, sky_height)
+rectangle(0, 0, 100, 100, sky_color)
 
 // The grass
-fill_color_hex(grass_color)
-rectangle(grass_left, grass_top, grass_width, grass_height)
+rectangle(0, grass_top, 100, grass_height, grass_color)
 
 // The frame of the house
-fill_color_hex(house_color)
-rectangle(house_left, house_top, house_width, house_height)
+rectangle(house_left, house_top, house_width, house_height, house_color)
 
 // The roof
-fill_color_hex(roof_color)
-triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y)
+triangle(roof_left, roof_base_y, roof_peak_x, roof_peak_y, roof_right, roof_base_y, roof_color)
 
 // The left window
-fill_color_hex(window_color)
-rectangle(window1_left, window1_top, window_width, window_height)
+rectangle(window1_left, window_top, window_width, window_height, window_color)
 
-// The second window
-fill_color_hex(window_color)
-rectangle(window2_left, window2_top, window_width, window_height)
+// The right window
+rectangle(window2_left, window_top, window_width, window_height, window_color)
 
 // The door
-fill_color_hex(door_color)
-rectangle(door_left, door_top, door_width, door_height)
+rectangle(door_left, door_top, door_width, door_height, door_color)
 
 // The door knob
-fill_color_hex(knob_color)
-circle(knob_center_x, knob_center_y, knob_radius)
+circle(knob_x, knob_y, knob_radius, knob_color)

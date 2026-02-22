@@ -13,6 +13,14 @@ I'll help you migrate an exercise from the Exercism Bootcamp format to the Jiki 
 2. Register stdlib functions in the level file
 3. Register LLM metadata in `src/llm-metadata.ts`
 4. Run `pnpm typecheck` before `pnpm test`
+5. **JavaScript-First**: All user-facing text must use camelCase JavaScript conventions (see below)
+
+**⚠️ JavaScript-First Conventions** (applies to all user-facing text):
+
+- **Function names** in metadata.json instructions/hints, scenarios.ts task descriptions/hints/errorHtml, index.ts FunctionInfo, and llm-metadata.ts must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
+- **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
+- **No Jikiscript syntax** in user-facing text (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (converted by `getExternalFunctions(language)` and test runners)
 
 ## Step 0: Read Migration Documentation
 
@@ -147,12 +155,7 @@ Create starter code for all 3 languages with:
 
 ### 4.8: llm-metadata.ts
 
-Create teaching guidance:
-
-- Exercise description and concepts
-- Task-specific guidance
-- Common mistakes
-- Teaching strategies
+Run the `/write-llm-metadata` skill with the exercise slug. This will create the `llm-metadata.ts` file and register it in `src/llm-metadata.ts`.
 
 ### 4.9: index.ts
 
@@ -178,10 +181,7 @@ If the exercise uses `push`, `sort_string`, etc., add to level file:
 
 ### 5.2: Register LLM Metadata
 
-⚠️ **CRITICAL** - Must register in `src/llm-metadata.ts`
-
-1. Import: `import { llmMetadata as [name]LLM } from "./exercises/$ARGUMENTS/llm-metadata";`
-2. Add to registry: `"$ARGUMENTS": [name]LLM,`
+Already handled by the `/write-llm-metadata` skill in step 4.8.
 
 ### 5.3: Register Exercise
 
@@ -194,9 +194,23 @@ export const exercises = {
 } as const;
 ```
 
-## Step 6: Type Check and Testing
+## Step 6: Update README.md and PLAN.md
 
-### 6.1: Type Check (Must Pass First!)
+### 6.1: Update README.md
+
+Add the exercise to the correct level in the curriculum JSON structure in `README.md`. Insert it in the right position within the level's `"lessons"` array.
+
+### 6.2: Update PLAN.md
+
+Add the exercise to the **Implemented** section of `PLAN.md` with a brief description, following the format of existing entries:
+
+```
+- `exercise-name` - Brief description (Level Name level)
+```
+
+## Step 7: Type Check and Testing
+
+### 7.1: Type Check (Must Pass First!)
 
 ```bash
 pnpm typecheck
@@ -204,7 +218,7 @@ pnpm typecheck
 
 If type errors, fix before proceeding to tests.
 
-### 6.2: Run Tests
+### 7.2: Run Tests
 
 ```bash
 pnpm test
@@ -218,7 +232,7 @@ pnpm test
 
 All 80+ tests should pass, including the new exercise.
 
-## Step 7: Quality Assurance
+## Step 8: Quality Assurance
 
 Before committing, ensure:
 
@@ -228,10 +242,13 @@ Before committing, ensure:
 - [ ] Stdlib functions registered in level
 - [ ] LLM metadata registered in registry
 - [ ] Exercise registered in index.ts
+- [ ] Exercise added to `README.md` curriculum JSON
+- [ ] Exercise added to `PLAN.md` Implemented section
 - [ ] `pnpm typecheck` passes
 - [ ] `pnpm test` passes (all tests)
+- [ ] `/audit-instructions <slug>` passes (all user-facing text uses JavaScript camelCase conventions)
 
-## Step 8: Commit and PR
+## Step 9: Commit and PR
 
 If all checks pass:
 

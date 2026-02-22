@@ -21,11 +21,11 @@ function to_lower with sentence do
   set lower to "abcdefghijklmnopqrstuvwxyz"
   set upper to "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   set upper_idx to 0
-  for each letter in sentence do
-    if contains(lower, letter) do
-      change output to concatenate(output, letter)
+  for each char in sentence do
+    if contains(lower, char) do
+      change output to concatenate(output, char)
     else do
-      change upper_idx to index_of(upper, letter)
+      change upper_idx to index_of(upper, char)
       if upper_idx != -1 do
         change output to concatenate(output, lower[upper_idx])
       end

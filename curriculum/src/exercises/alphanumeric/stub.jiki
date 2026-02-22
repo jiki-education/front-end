@@ -1,0 +1,7 @@
+// Write helper functions: contains, is_alpha, is_numeric, is_alphanumeric
+// Then use them in what_am_i to classify the string
+
+function what_am_i with string do
+  // Use your helper functions to check the string
+  // Return "Alpha", "Numeric", "Alphanumeric", or "Unknown"
+end

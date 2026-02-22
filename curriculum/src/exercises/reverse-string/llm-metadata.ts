@@ -48,8 +48,7 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize the simplicity of the solution
 
         Language-specific notes:
-        - Jikiscript: Use concatenate(letter, result)
-        - JavaScript: Use letter + result
+        - JavaScript: Use letter + result or concatenate(letter, result)
         - Python: Use letter + result
       `
     }

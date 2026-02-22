@@ -1,0 +1,3 @@
+# Get the person's age using get_age()
+# Check if they're over 20
+# If so, open the door using open_door()

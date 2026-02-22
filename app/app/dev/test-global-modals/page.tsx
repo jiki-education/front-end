@@ -130,7 +130,6 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
                   onCompleteExercise: () => console.debug("Complete exercise clicked"),
-                  onGoToProject: () => console.debug("Go to project clicked"),
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "success"
@@ -146,7 +145,6 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
                   onCompleteExercise: () => console.debug("Complete exercise clicked"),
-                  onGoToProject: () => console.debug("Go to project clicked"),
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "confirmation"
@@ -162,7 +160,6 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
                   onCompleteExercise: () => console.debug("Complete exercise clicked"),
-                  onGoToProject: () => console.debug("Go to project clicked"),
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Navigate the Maze",
                   initialStep: "difficulty-rating"
@@ -178,7 +175,6 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
                   onCompleteExercise: () => console.debug("Complete exercise clicked"),
-                  onGoToProject: () => console.debug("Go to project clicked"),
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "completed"

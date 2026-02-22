@@ -6,7 +6,7 @@ export interface Level {
   id: string; // e.g., "fundamentals", "control-flow"
   title: string; // e.g., "Programming Fundamentals"
   description: string; // Student facing: What students learn at this level
-  educationalGoal: string; // Internal facing: What's the educational goal.
+  taughtConcepts: string[]; // What concepts students have been taught at this level. Used by LLM proxy.
 
   languageFeatures: {
     jikiscript?: JikiScriptFeatures;

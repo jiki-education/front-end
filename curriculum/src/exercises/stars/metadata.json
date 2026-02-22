@@ -1,0 +1,13 @@
+{
+  "slug": "stars",
+  "title": "Stars",
+  "instructions": "You're building a simple text-based pattern generator. Given a number, create a list of strings where each string contains an increasing number of stars.\n\nFor example, given the number 3, you should return:\n\n```\n[\"*\", \"**\", \"***\"]\n```\n\nThe first element has 1 star, the second has 2 stars, and so on up to the given count.\n\nIf the count is 0, return an empty list.\n\nCreate a function called `stars` that takes one input, a count, and returns the list of star strings.",
+  "estimatedMinutes": 10,
+  "levelId": "lists",
+  "hints": [
+    "Start with an empty list and an empty string",
+    "Use a repeat loop to run the right number of times",
+    "Each time through the loop, add a star to your string, then push it to the list",
+    "Use concatenate() to add a star to the string and push() to add the string to the list"
+  ]
+}

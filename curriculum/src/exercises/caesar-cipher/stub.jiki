@@ -1,0 +1,11 @@
+function index_of with text, target do
+  // Your code here
+end
+
+function shift_letter with letter, amount do
+  // Your code here
+end
+
+function encode with message, shift do
+  // Your code here
+end

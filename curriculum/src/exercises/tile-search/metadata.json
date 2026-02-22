@@ -1,0 +1,13 @@
+{
+  "slug": "tile-search",
+  "title": "Tile Search",
+  "instructions": "You're building a Scrabble bot. Before the bot tries to play a word, it needs to check whether it has a specific letter tile in its rack.\n\nThe rack is represented as a list of single-letter strings (e.g. `[\"S\", \"C\", \"R\", \"A\", \"B\"]`).\n\nWrite a function called `contains` that takes two inputs:\n- `haystack`: the list of tiles in the rack\n- `needle`: the letter to search for\n\nReturn `true` if the letter is in the rack, or `false` if it isn't.\n\nExamples:\n- `contains([\"S\", \"C\", \"R\", \"A\", \"B\"], \"A\")` returns `true`\n- `contains([\"S\", \"C\", \"R\", \"A\", \"B\"], \"Z\")` returns `false`\n- `contains([], \"A\")` returns `false`",
+  "estimatedMinutes": 10,
+  "levelId": "lists",
+  "hints": [
+    "Loop through each element in the haystack one by one",
+    "Compare each element to the needle",
+    "If you find a match, you can return true immediately",
+    "Think carefully about when to return false - only after checking every element"
+  ]
+}

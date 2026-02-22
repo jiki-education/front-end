@@ -1,9 +1,7 @@
 export { interpret, compile, evaluateFunction } from "./interpreter";
-export function formatIdentifier(name: string): string {
-  return name;
-}
+export { formatIdentifier } from "./helpers";
 export type { InterpretResult } from "../shared/interfaces";
 export type { EvaluationContext, EvaluateFunctionResult } from "./interpreter";
 
 // Export type classes for Shared namespace
-export { Number, JikiString, Boolean, List, Dictionary, Instance, JikiObject } from "./jikiObjects";
+export { Number, JikiString, Boolean, List, Dictionary, Instance, JikiObject, Class } from "./jikiObjects";

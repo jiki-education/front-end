@@ -1,0 +1,14 @@
+{
+  "slug": "digital-clock",
+  "title": "Digital Clock",
+  "instructions": "In this exercise you're going to use two functions:\n\n- `currentTimeHour()`: Returns the current hour using 24-hour time (e.g. 15 minutes to midnight would return `23`) as a number.\n- `currentTimeMinute()`: Returns the current minute as a number.\n\nYour job is to update a digital clock based on whatever numbers those functions give back.\n\nThe digital clock expects the numbers to be in a 12-hour format with an `am` or `pm` (what's called the \"meridiem\").\n\nSo for example:\n\n- `7:45` -> `7:45am`\n- `19:45` -> `7:45pm`\n\nTo display the time on the clock you use the `displayTime(hour, minutes, meridiem)` function.\n\nDifferent scenarios test that your code works in different situations. In each scenario, the current time changes. Your job is to write code that makes all the scenarios work.",
+  "estimatedMinutes": 15,
+  "levelId": "conditionals",
+  "hints": [
+    "Start by getting the hour and minute using the provided functions",
+    "Hours 0-11 are 'am', hours 12-23 are 'pm'",
+    "Midnight (hour 0) should display as 12am",
+    "Noon (hour 12) should display as 12pm",
+    "Hours 13-23 need to be converted by subtracting 12"
+  ]
+}

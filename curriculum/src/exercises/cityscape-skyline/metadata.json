@@ -1,0 +1,13 @@
+{
+  "slug": "cityscape-skyline",
+  "title": "CityScape: Skyline",
+  "instructions": "Create a city skyline with multiple buildings of random heights!\n\nYou have four functions:\n- `buildWall(x, y)` places a wall block at grid position (x, y)\n- `buildGlass(x, y)` places a glass panel at grid position (x, y)\n- `buildEntrance(x, y)` places an entrance door at grid position (x, y)\n- `numBuildings()` returns how many buildings to construct\n\nEach building is **5 columns wide**. The buildings are placed side by side starting at x=1.\n\nFor each building:\n1. Choose a random number of upper floors (0 to 6)\n2. Build the **ground floor** at y=1: wall, glass, entrance, glass, wall\n3. Build the **upper floors**: wall, glass, glass, glass, wall\n4. Build the **roof**: wall, wall, wall, wall, wall\n5. Move x along by 5 for the next building",
+  "estimatedMinutes": 15,
+  "levelId": "functions-that-return-things",
+  "hints": [
+    "Start by getting the number of buildings with numBuildings()",
+    "Track the x position, starting at 1, and increase by 5 for each building",
+    "For each building, get a random number of floors",
+    "Build ground floor, then upper floors in a nested loop, then the roof"
+  ]
+}

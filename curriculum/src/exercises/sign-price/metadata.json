@@ -1,0 +1,14 @@
+{
+  "slug": "sign-price",
+  "title": "Sign Price",
+  "instructions": "You run a sign-making shop. You charge $12 per letter for every sign you make. Spaces are free -- they don't cost anything.\n\nWrite a function called `signPrice` that takes the text for a sign and returns a formatted message with the total price.\n\nTo count the letters, loop through each character and skip any spaces. Multiply the count by 12 to get the price. Then return a string in the format `\"That will cost $X\"` where X is the price.\n\nExamples:\n- `signPrice(\"Hello\")` returns `\"That will cost $60\"` (5 letters)\n- `signPrice(\"Hi There\")` returns `\"That will cost $84\"` (7 letters, space skipped)\n- `signPrice(\"A\")` returns `\"That will cost $12\"` (1 letter)",
+  "estimatedMinutes": 10,
+  "levelId": "string-iteration",
+  "hints": [
+    "Start by creating a variable to count the number of letters",
+    "Loop through each character of the sign text",
+    "Inside the loop, check if the character is not a space before counting it",
+    "After the loop, multiply the letter count by 12 to get the price",
+    "Use concatenate() and numberToString() to build the return string"
+  ]
+}

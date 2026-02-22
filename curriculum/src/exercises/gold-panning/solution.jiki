@@ -1,0 +1,5 @@
+set nuggets to 0
+repeat 5 times do
+  change nuggets to nuggets + pan()
+end
+sell(nuggets)

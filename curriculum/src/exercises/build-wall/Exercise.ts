@@ -7,14 +7,14 @@ export class BuildWallExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, fill_color_hex } = this.getAllAvailableFunctions();
-    return [rectangle, fill_color_hex];
+    const { rectangle } = this.getAllAvailableFunctions();
+    return [rectangle];
   }
 
   // Setup stroke styling for visual appearance
   public setupStroke(width: number, color: string) {
     this.strokeWidth = width;
-    this.strokeColor = { type: "hex", color };
+    this.strokeColor = color;
   }
 }
 

@@ -1,0 +1,5 @@
+set leaves to random_number(20, 100)
+set tomatoes to random_number(5, 20)
+set croutons to random_number(10, 50)
+set dressing to random_number(1, 10)
+make_salad(leaves, tomatoes, croutons, dressing)

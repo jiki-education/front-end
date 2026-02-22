@@ -1,0 +1,13 @@
+{
+  "slug": "relational-sun",
+  "title": "Relational Sun",
+  "instructions": "Your task is to position a sun in the top-right corner of the sky using arithmetic and variables.\n\n<!-- TODO: Add target relational sun image here -->\n\n### How it works\n\n- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.\n- Several variables are fixed: `canvasSize`, `gap`, `sunRadius`, `skyColor`, and `sunColor`.\n- You need to derive `sunX` and `sunY` so the sun sits in the top-right corner with a gap from the edges.\n- The sun's center should be `gap + sunRadius` away from the top and right edges.\n- You also need to draw the sky rectangle and the sun circle using the variables.\n\n### Variables\n\n- `canvasSize` — the width and height of the canvas (fixed at 100)\n- `gap` — the space between the sun and the canvas edge (fixed at 10)\n- `sunRadius` — the radius of the sun (fixed at 15)\n- `skyColor` — the color of the sky (fixed at \"skyblue\")\n- `sunColor` — the color of the sun (fixed at \"yellow\")\n- `sunX` — derive from `canvasSize`, `gap`, and `sunRadius`\n- `sunY` — derive from `gap` and `sunRadius`\n\n### Functions used in this exercise\n\n- `rectangle(x, y, width, height, color)` — Draw a rectangle\n- `circle(x, y, radius, color)` — Draw a circle",
+  "estimatedMinutes": 10,
+  "levelId": "variables",
+  "hints": [
+    "The sun's x position should be inset from the right edge: canvasSize - gap - sunRadius",
+    "The sun's y position should be inset from the top edge: gap + sunRadius",
+    "Use the skyColor and sunColor variables for the colors",
+    "The sky rectangle covers the whole canvas: rectangle(0, 0, canvasSize, canvasSize, skyColor)"
+  ]
+}

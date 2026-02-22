@@ -51,8 +51,10 @@ export function extractExpressions<T extends Expression>(
   );
 }
 
+import camelCase from "lodash/camelCase";
+
 export function snakeToCamel(s: string): string {
-  return s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+  return camelCase(s);
 }
 
 export function extractVariableAssignments(statements: Statement[]): Array<{ name: string; value: Expression }> {

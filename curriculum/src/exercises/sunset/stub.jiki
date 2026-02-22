@@ -6,18 +6,14 @@ repeat 100 times do
   // TODO: Update the variables here.
 
   // The sky
-  fill_color_hsl(210, 70, 60)
-  rectangle(0,0,100,100)
+  rectangle(0,0,100,100, hsl(210, 70, 60))
 
   // The Sun
-  fill_color_rgb(255, 237, 0)
-  circle(50, 10, 5)
-  
+  circle(50, 10, 5, rgb(255, 237, 0))
+
   // The sea
-  fill_color_hex("#0308ce")
-  rectangle(0,85,100,5)
-  
+  rectangle(0,85,100,5, "#0308ce")
+
   // The sand
-  fill_color_hex("#C2B280")
-  rectangle(0,90,100,10)
+  rectangle(0,90,100,10, "#C2B280")
 end

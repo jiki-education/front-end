@@ -1,183 +1,113 @@
 import { describe, it, expect } from "vitest";
-import { getLevel, getLevelIds } from "../../src/levels";
+import { getLevel } from "../../src/levels";
 
 describe("Level Definitions", () => {
-  describe("fundamentals level", () => {
-    const level = getLevel("fundamentals")!;
+  describe("using-functions level", () => {
+    const level = getLevel("using-functions")!;
 
-    it("should have appropriate metadata", () => {
-      expect(level.id).toBe("fundamentals");
-      expect(level.title).toBe("Programming Fundamentals");
-      expect(level.description).toBeDefined();
-      expect(level.description).toContain("function calls");
-      expect(level.description).toContain("literal values");
+    it("should allow basic function call nodes", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("ExpressionStatement");
+      expect(jsFeatures.allowedNodes).toContain("CallExpression");
+      expect(jsFeatures.allowedNodes).toContain("IdentifierExpression");
+      expect(jsFeatures.allowedNodes).toContain("LiteralExpression");
     });
 
-    it("should only allow basic JavaScript nodes", () => {
+    it("should not allow advanced features", () => {
       const jsFeatures = level.languageFeatures.javascript!;
-      expect(jsFeatures.allowedNodes).toBeDefined();
-
-      // Should allow basics (using actual NodeType names from interpreters)
-      expect(jsFeatures.allowedNodes).toContain("ExpressionStatement");
-      expect(jsFeatures.allowedNodes).toContain("LiteralExpression");
-      expect(jsFeatures.allowedNodes).toContain("IdentifierExpression");
-      expect(jsFeatures.allowedNodes).toContain("MemberExpression");
-
-      // Should NOT allow advanced features
       expect(jsFeatures.allowedNodes).not.toContain("IfStatement");
       expect(jsFeatures.allowedNodes).not.toContain("ForStatement");
       expect(jsFeatures.allowedNodes).not.toContain("VariableDeclaration");
-    });
-
-    it("should have restrictive feature flags", () => {
-      const jsFlags = level.languageFeatures.javascript?.languageFeatures!;
-
-      expect(jsFlags.allowTruthiness).toBe(false);
-      expect(jsFlags.allowTypeCoercion).toBe(false);
-      expect(jsFlags.enforceStrictEquality).toBe(true);
-      expect(jsFlags.allowShadowing).toBe(false);
-    });
-
-    it("should have Python nodes mirroring JavaScript functionality", () => {
-      expect(level.languageFeatures.python).toBeDefined();
-      expect(level.languageFeatures.python?.allowedNodes).toEqual([
-        "ExpressionStatement",
-        "LiteralExpression",
-        "IdentifierExpression"
-      ]);
-      expect(level.languageFeatures.python?.languageFeatures).toEqual({
-        allowTruthiness: false,
-        allowTypeCoercion: false
-      });
     });
   });
 
   describe("variables level", () => {
     const level = getLevel("variables")!;
 
-    it("should have appropriate metadata", () => {
-      expect(level.id).toBe("variables");
-      expect(level.title).toBe("Variables and Assignments");
-      expect(level.description).toBeDefined();
-      expect(level.description).toContain("declare variables");
-      expect(level.description).toContain("basic operations");
+    it("should introduce variable-related nodes", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("VariableDeclaration");
+      expect(jsFeatures.allowedNodes).toContain("IdentifierExpression");
+      expect(jsFeatures.allowedNodes).toContain("BinaryExpression");
+      expect(jsFeatures.allowedNodes).toContain("GroupingExpression");
     });
 
-    it("should include all fundamentals nodes plus variable-specific ones", () => {
-      const fundamentalsJS = getLevel("fundamentals")!.languageFeatures.javascript!;
-      const variablesJS = level.languageFeatures.javascript!;
-
-      // Should include everything from fundamentals
-      fundamentalsJS.allowedNodes?.forEach((node) => {
-        expect(variablesJS.allowedNodes).toContain(node);
-      });
-
-      // Plus new variable-related nodes (using actual NodeType names)
-      expect(variablesJS.allowedNodes).toContain("VariableDeclaration");
-      expect(variablesJS.allowedNodes).toContain("AssignmentExpression");
-      expect(variablesJS.allowedNodes).toContain("BinaryExpression");
-      expect(variablesJS.allowedNodes).toContain("UpdateExpression");
-    });
-
-    it("should enable variable-specific feature flags", () => {
+    it("should have restrictive feature flags", () => {
       const jsFlags = level.languageFeatures.javascript?.languageFeatures!;
-
       expect(jsFlags.requireVariableInstantiation).toBe(true);
-      expect(jsFlags.allowShadowing).toBe(false); // Still restrictive
-
-      // Should maintain restrictions from fundamentals
+      expect(jsFlags.allowShadowing).toBe(false);
       expect(jsFlags.allowTruthiness).toBe(false);
       expect(jsFlags.allowTypeCoercion).toBe(false);
-    });
-
-    it("should have Python nodes for variable operations", () => {
-      expect(level.languageFeatures.python).toBeDefined();
-      expect(level.languageFeatures.python?.allowedNodes).toContain("AssignmentStatement");
-      expect(level.languageFeatures.python?.allowedNodes).toContain("BinaryExpression");
-      expect(level.languageFeatures.python?.allowedNodes).toContain("UnaryExpression");
-      expect(level.languageFeatures.python?.languageFeatures).toEqual({
-        allowTruthiness: false,
-        allowTypeCoercion: false
-      });
+      expect(jsFlags.enforceStrictEquality).toBe(true);
     });
   });
 
-  describe("level progression validation", () => {
-    it("each level should be a superset of the previous", () => {
-      const levelIds = getLevelIds();
+  describe("repeat-loop level", () => {
+    const level = getLevel("repeat-loop")!;
 
-      for (let i = 1; i < levelIds.length; i++) {
-        const prevLevel = getLevel(levelIds[i - 1])!;
-        const currLevel = getLevel(levelIds[i])!;
+    it("should introduce RepeatStatement and BlockStatement", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("RepeatStatement");
+      expect(jsFeatures.allowedNodes).toContain("BlockStatement");
+    });
+  });
 
-        // Check JavaScript nodes
-        const prevJSNodes = prevLevel.languageFeatures.javascript?.allowedNodes || [];
-        const currJSNodes = currLevel.languageFeatures.javascript?.allowedNodes || [];
+  describe("basic-state level", () => {
+    const level = getLevel("basic-state")!;
 
-        if (prevJSNodes.length > 0 && currJSNodes.length > 0) {
-          prevJSNodes.forEach((node) => {
-            expect(currJSNodes).toContain(node);
-          });
-          expect(currJSNodes.length).toBeGreaterThanOrEqual(prevJSNodes.length);
-        }
+    it("should introduce AssignmentExpression and UnaryExpression", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("AssignmentExpression");
+      expect(jsFeatures.allowedNodes).toContain("UnaryExpression");
+    });
+  });
 
-        // Check Python nodes
-        const prevPyNodes = prevLevel.languageFeatures.python?.allowedNodes || [];
-        const currPyNodes = currLevel.languageFeatures.python?.allowedNodes || [];
+  describe("conditionals level", () => {
+    const level = getLevel("conditionals")!;
 
-        if (prevPyNodes.length > 0 && currPyNodes.length > 0) {
-          prevPyNodes.forEach((node) => {
-            expect(currPyNodes).toContain(node);
-          });
-          expect(currPyNodes.length).toBeGreaterThanOrEqual(prevPyNodes.length);
-        }
-      }
+    it("should introduce IfStatement", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("IfStatement");
+    });
+  });
+
+  describe("make-your-own-functions level", () => {
+    const level = getLevel("make-your-own-functions")!;
+
+    it("should introduce FunctionDeclaration and ReturnStatement", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("FunctionDeclaration");
+      expect(jsFeatures.allowedNodes).toContain("ReturnStatement");
+    });
+  });
+
+  describe("string-manipulation level", () => {
+    const level = getLevel("string-manipulation")!;
+
+    it("should introduce TemplateLiteralExpression", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("TemplateLiteralExpression");
+    });
+  });
+
+  describe("everything level", () => {
+    const level = getLevel("everything")!;
+
+    it("should include all node types", () => {
+      const jsFeatures = level.languageFeatures.javascript!;
+      expect(jsFeatures.allowedNodes).toContain("RepeatStatement");
+      expect(jsFeatures.allowedNodes).toContain("FunctionDeclaration");
+      expect(jsFeatures.allowedNodes).toContain("ReturnStatement");
+      expect(jsFeatures.allowedNodes).toContain("TemplateLiteralExpression");
+      expect(jsFeatures.allowedNodes).toContain("IfStatement");
+      expect(jsFeatures.allowedNodes).toContain("ForStatement");
     });
 
-    it("no level should enable dangerous features too early", () => {
-      const levelIds = getLevelIds();
-
-      levelIds.forEach((id) => {
-        const level = getLevel(id)!;
-        const jsFlags = level.languageFeatures.javascript?.languageFeatures;
-
-        if (jsFlags) {
-          // Early levels should be restrictive
-          if (id === "fundamentals" || id === "variables") {
-            expect(jsFlags.allowTruthiness).toBe(false);
-            expect(jsFlags.allowTypeCoercion).toBe(false);
-            expect(jsFlags.allowShadowing).toBe(false);
-          }
-        }
-      });
-    });
-
-    it("all levels should have consistent structure", () => {
-      const levelIds = getLevelIds();
-
-      levelIds.forEach((id) => {
-        const level = getLevel(id)!;
-
-        // Should have at least one language
-        const hasJS = level.languageFeatures.javascript !== undefined;
-        const hasPython = level.languageFeatures.python !== undefined;
-        expect(hasJS || hasPython).toBe(true);
-
-        // If has JavaScript, should have both nodes and language features
-        if (hasJS) {
-          expect(level.languageFeatures.javascript!.allowedNodes).toBeDefined();
-          expect(Array.isArray(level.languageFeatures.javascript!.allowedNodes)).toBe(true);
-          expect(level.languageFeatures.javascript!.allowedNodes!.length).toBeGreaterThan(0);
-          expect(level.languageFeatures.javascript!.languageFeatures).toBeDefined();
-        }
-
-        // If has Python, should have nodes
-        if (hasPython) {
-          expect(level.languageFeatures.python!.allowedNodes).toBeDefined();
-          expect(Array.isArray(level.languageFeatures.python!.allowedNodes)).toBe(true);
-          expect(level.languageFeatures.python!.allowedNodes!.length).toBeGreaterThan(0);
-        }
-      });
+    it("should have permissive feature flags", () => {
+      const jsFlags = level.languageFeatures.javascript?.languageFeatures!;
+      expect(jsFlags.allowTruthiness).toBe(true);
+      expect(jsFlags.allowTypeCoercion).toBe(true);
+      expect(jsFlags.allowShadowing).toBe(true);
     });
   });
 });

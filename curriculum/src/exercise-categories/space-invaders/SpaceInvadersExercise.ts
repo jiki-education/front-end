@@ -1,5 +1,5 @@
 import { VisualExercise } from "../../VisualExercise";
-import type { ExecutionContext } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
 
 type GameStatus = "running" | "won" | "lost";
 type AlienStatus = "alive" | "dead";
@@ -47,6 +47,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
     (_, idx) => this.laserStart + idx * this.laserStep
   );
   private laserPosition = 0;
+  protected shotCooldown: number | false = 50;
   private features = { alienRespawning: false };
   private laser!: HTMLElement;
   private aliens: (Alien | null)[][] = [];
@@ -207,7 +208,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
   }
 
   public shoot(executionCtx: ExecutionContext) {
-    if (this.lastShotAt > executionCtx.getCurrentTimeInMs() - 50) {
+    if (this.shotCooldown !== false && this.lastShotAt > executionCtx.getCurrentTimeInMs() - this.shotCooldown) {
       executionCtx.logicError(
         "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time."
       );
@@ -292,19 +293,20 @@ export default class SpaceInvadersExercise extends VisualExercise {
     this.moveLaser(executionCtx);
   }
 
-  public getStartingAliensInRow(executionCtx: ExecutionContext, row: number): boolean[] {
-    if (typeof row !== "number") {
+  public getStartingAliensInRow(executionCtx: ExecutionContext, row: Shared.JikiObject | number): boolean[] {
+    const rowNum = typeof row === "number" ? row : isNumber(row) ? row.value : undefined;
+    if (rowNum === undefined) {
       executionCtx.logicError("Oh no, the row input you provided is not a number.");
     }
 
-    if (row < 1 || row > this.startingAliens.length) {
+    if (rowNum < 1 || rowNum > this.startingAliens.length) {
       executionCtx.logicError(
-        `Oh no, you tried to access a row of aliens that doesn't exist. You asked for row ${row}, but there are only ${this.startingAliens.length} rows of aliens.`
+        `Oh no, you tried to access a row of aliens that doesn't exist. You asked for row ${rowNum}, but there are only ${this.startingAliens.length} rows of aliens.`
       );
     }
 
     const reversedAliens = this.startingAliens.slice().reverse();
-    return reversedAliens[row - 1].map((alien) => alien !== null);
+    return reversedAliens[rowNum - 1].map((alien) => alien !== null);
   }
 
   public getStartingAliens(_: ExecutionContext): boolean[][] {
@@ -332,17 +334,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
       description: "moved the laser canon to the left"
     },
     {
-      name: "moveLeft",
-      func: this.moveLeft.bind(this),
-      description: "moved the laser canon to the left"
-    },
-    {
       name: "move_right",
-      func: this.moveRight.bind(this),
-      description: "moved the laser canon to the right"
-    },
-    {
-      name: "moveRight",
       func: this.moveRight.bind(this),
       description: "moved the laser canon to the right"
     },
@@ -359,11 +351,6 @@ export default class SpaceInvadersExercise extends VisualExercise {
     {
       name: "get_starting_aliens_in_row",
       func: this.getStartingAliensInRow.bind(this),
-      description: "retrieved the starting positions of row ${arg1} of aliens"
-    },
-    {
-      name: "getStartingAliens",
-      func: this.getStartingAliens.bind(this),
       description: "retrieved the starting positions of row ${arg1} of aliens"
     },
     {

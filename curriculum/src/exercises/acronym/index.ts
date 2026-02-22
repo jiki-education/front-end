@@ -19,10 +19,10 @@ const functions: FunctionInfo[] = [
     category: "String Operations"
   },
   {
-    name: "to_upper_case",
-    signature: "to_upper_case(text)",
+    name: "toUpperCase",
+    signature: "toUpperCase(text)",
     description: "Convert a string to uppercase (provided by level stdlib)",
-    examples: ['to_upper_case("hello") → "HELLO"', 'to_upper_case("png") → "PNG"'],
+    examples: ['toUpperCase("hello") → "HELLO"', 'toUpperCase("png") → "PNG"'],
     category: "String Operations"
   }
 ];

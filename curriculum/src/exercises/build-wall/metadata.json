@@ -1,9 +1,9 @@
 {
   "slug": "build-wall",
   "title": "Build the Wall",
-  "instructions": "In this exercise, you build a wall from scratch with 55 bricks total.\n\nThe final wall should look like this:\n\n![Completed Wall](https://assets.exercism.org/bootcamp/graphics/completed-wall.png)\n\nThings you need to know:\n\n- **Every** brick is 10 high and 20 wide.\n- The rows alternate between starting at the left edge (5 bricks), and starting off-screen to the left (6 bricks).\n- The `rectangle` function can only appear once in your code!\n\nThe aim of this exercise is for you to experiment with using `repeat` blocks and potentially use `functions`. There are many different ways to solve this exercise. Your challenge is to solve it in a way that results in clean, satisfying code.\n\n### Functions\n\nYou need two functions for this exercise:\n\n- `fill_color_hex(hex)`: Changes the color of whatever comes after it\n- `rectangle(left, top, width, height)`: Draws a rectangle.",
+  "instructions": "In this exercise, you build a wall from scratch with 55 bricks total.\n\nThe final wall should look like this:\n\n![Completed Wall](https://assets.exercism.org/bootcamp/graphics/completed-wall.png)\n\nThings you need to know:\n\n- **Every** brick is 10 high and 20 wide.\n- The rows alternate between starting at the left edge (5 bricks), and starting off-screen to the left (6 bricks).\n- The `rectangle` function can only appear once in your code!\n\nThe aim of this exercise is for you to experiment with using `repeat` blocks and potentially use `functions`. There are many different ways to solve this exercise. Your challenge is to solve it in a way that results in clean, satisfying code.\n\n### Functions\n\nYou need one function for this exercise:\n\n- `rectangle(left, top, width, height, color)`: Draws a rectangle with the given color.",
   "estimatedMinutes": 20,
-  "levelId": "everything",
+  "levelId": "conditionals-and-state",
   "hints": [
     "Use nested loops: outer loop for rows, inner loop for bricks in each row",
     "Odd rows (0, 2, 4...) start at x=0 with 5 bricks",

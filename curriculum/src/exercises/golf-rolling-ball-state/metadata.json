@@ -1,0 +1,13 @@
+{
+  "slug": "golf-rolling-ball-state",
+  "title": "Golf: Rolling Ball",
+  "instructions": "A golf ball is sitting on the course. Your job is to roll it into the hole!\n\nYou have one function:\n- `rollTo(x)` rolls the ball to position `x`\n\nThe ball starts at position **28** and needs to reach position **88**. You'll need to track the ball's position in a variable and update it in a loop.\n\nYour solution should use a variable to track `x` and a loop to roll the ball one step at a time.",
+  "estimatedMinutes": 10,
+  "levelId": "basic-state",
+  "hints": [
+    "Start by setting a variable x to 28",
+    "Use a loop that runs 60 times",
+    "Inside the loop, increase x by 1, then call rollTo(x)",
+    "The ball needs to end up at position 88"
+  ]
+}

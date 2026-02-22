@@ -7,7 +7,7 @@ export const tasks = [
     name: "Finish the wall",
     description: "Add a top layer of 5 bricks to complete the wall using a repeat loop.",
     hints: [
-      "Use repeat 5 times to draw the bricks",
+      "Use a loop that runs 5 times to draw the bricks",
       "Each brick is 20 wide and 10 tall",
       "Bricks are positioned at x = 0, 20, 40, 60, 80"
     ],

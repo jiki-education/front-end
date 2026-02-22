@@ -18,9 +18,26 @@ git checkout -b feature-branch-name
 
 This file provides guidance to AI agents when working with the Jiki curriculum repository.
 
+## ⚠️ JavaScript-First Launch
+
+We are launching with **JavaScript only**. Python and Jikiscript support will be added later.
+
+All **user-facing text** must use JavaScript conventions:
+
+- **Function/variable names**: camelCase (e.g., `getAge()`, `turnLeft()`, `shotLength`)
+- **Code examples**: JavaScript syntax (e.g., `let age = getAge()`, `for` loops, `if` statements)
+- **No Jikiscript references**: Do not use `set ... to`, `change ... to`, `repeat N times do ... end`, `for each ... indexed by`, or mention "Jiki"/"Jikiscript" by name
+- **No Python references**: Do not use Python syntax in user-facing text
+
+This applies to: `metadata.json` (instructions, hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (`FunctionInfo` name/signature/examples), and `llm-metadata.ts`.
+
+**Exception**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** — the exercise base classes (`getExternalFunctions(language)`) and test runners handle conversion to the target language's convention (e.g., camelCase for JavaScript).
+
+Use `/audit-instructions` to verify an exercise's text content follows these conventions.
+
 ## Repository Overview
 
-This is the **@jiki/curriculum** package - a TypeScript library that defines all exercises and learning content for the Jiki platform. It serves as the central source of educational content that gets consumed by the frontend application, supporting both JavaScript and Python programming languages.
+This is the **@jiki/curriculum** package - a TypeScript library that defines all exercises and learning content for the Jiki platform. It serves as the central source of educational content that gets consumed by the frontend application.
 
 ### Purpose
 
@@ -39,6 +56,8 @@ The curriculum repository:
 
 For detailed information about specific aspects of the curriculum:
 
+- **[README.md](README.md)** - Canonical curriculum structure (levels, videos, exercises in order)
+- **[PLAN.md](PLAN.md)** - Work-in-progress plan for completing the curriculum (status tracking, API alignment issues)
 - **[Exercises](.context/exercises.md)** - Creating and structuring exercises
 - **[Levels](.context/levels.md)** - Language features and AST node restrictions per level
 - **[Animations](.context/animations.md)** - Visual feedback system and animation patterns
@@ -320,6 +339,7 @@ When adding new animation properties:
 6. **Test scenarios** - Each exercise needs testable scenarios
 7. **Language consistency** - Maintain feature parity between JS and Python
 8. **Function uniqueness** - Each exercise defines its own specific functions
+9. **Code checks must use interpreter assertors** - All `codeChecks` in scenarios must use `result.assertors.*` methods from the interpreters package (e.g. `assertMaxLinesOfCode`, `assertFunctionDefined`, `assertMethodCalled`, `countArrayLiterals`, `assertFunctionCalledOutsideOwnDefinition`). Never use string pattern matching, regex, or manual source code inspection. The interpreters have the AST and tokenizer — the curriculum should not reimplement language knowledge.
 
 ## Common Tasks
 

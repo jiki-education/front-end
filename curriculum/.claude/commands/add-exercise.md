@@ -1,123 +1,291 @@
 ---
-description: Add a new exercise from .todo/exercises.md to the curriculum
+description: Add a new exercise to the curriculum
+argument-hint: [description of exercise to add, or path to reference material]
 ---
 
-# Add Next Exercise from Todo List
+# Add New Exercise
 
-I'll help you add the next exercise from `.todo/exercises.md` to the curriculum. Let me start by reading the exercise documentation and todo file.
+I'll help you add a new exercise to the Jiki curriculum. The user will provide context about what exercise to create via `$ARGUMENTS`.
 
 ## Step 0: Read Context Documentation
 
-First, let me read the exercise documentation to understand the patterns:
+Read the exercise documentation, language conversion guide, and animation system:
 
 ```bash
 cat .context/exercises.md
+cat .context/language-conversion.md
+cat .context/animations.md
 ```
 
-## Step 1: Read the todo file
+## Step 1: Understand the Request
 
-First, let me check what's the next exercise to implement:
+Read and analyze whatever the user provided in `$ARGUMENTS` (e.g., a reference file path, a description of the exercise concept, a link to existing material).
 
-```bash
-cat .todo/exercises.md
-```
+## Step 2: Explore Existing Base Classes
 
-## Step 2: Planning Phase
+Read ALL exercise category base classes to understand what's already built:
 
-Based on the exercise found in the todo file, I'll ask you some clarifying questions (if they're not covered in the todo):
+- `src/exercise-categories/maze/MazeExercise.ts` — Grid-based navigation with move/turn functions
+- `src/exercise-categories/space-invaders/SpaceInvadersExercise.ts` — Laser movement, alien grid, shooting mechanics
+- `src/exercise-categories/draw/DrawExercise.ts` — Canvas drawing with shapes (rectangle, circle, line, etc.), colors (hex, RGB, HSL), and stroke control
+- `src/VisualExercise.ts` — Base for custom visual exercises (extend directly when no category fits)
+- `src/IOExercise.ts` — Base for input/output function-testing exercises (no visuals)
 
-1. **Exercise Mechanics**:
-   - What is the underlying game/puzzle?
-   - What should the player/character be able to do? (e.g., move, jump, rotate, etc.)
-   - What visual elements should be displayed on screen?
-   - How should the exercise respond to each available function?
-   - Remember: Each exercise defines its own unique functions
+Also look at a few existing exercises that seem similar to what's being requested, to understand patterns:
 
-2. **Available Functions**:
-   - What exercise-specific functions should be exposed to the learner?
-   - What should each function do (visually and in state)?
-   - Should functions have parameters? If so, what type and range?
-   - Any timing/duration for animations?
-   - Note: Use snake_case naming (JavaScript conversion is automatic)
+- For drawing exercises, see how they cherry-pick functions: e.g., `src/exercises/rainbow/Exercise.ts` uses `getAllAvailableFunctions()` to select only the functions needed
+- For maze exercises, see `src/exercises/maze-solve-basic/` for a minimal extension
+- For space invaders, see `src/exercises/scroll-and-shoot/` for scenario-driven configuration
+- For IO exercises, see `src/exercises/two-fer/` or `src/exercises/anagram/`
 
-3. **State Management**:
-   - What state properties need to be tracked? (e.g., position, rotation, score)
-   - What are the initial values for each state property?
-   - Are there any constraints or limits? (e.g., boundaries, max values)
+## Step 3: Discussion with User
 
-4. **Visual Design**:
-   - What should the exercise container look like?
-   - What CSS styles and layout should be used?
-   - Should there be any background, grid, or reference markers?
-   - What colors/themes align with the exercise concept?
+**STOP and have a conversation with the user before implementing anything.** Use AskUserQuestion or just ask directly. Cover:
 
-5. **Scenarios** (test cases):
-   - What different starting states should we test?
-   - What success conditions vary between scenarios?
-   - Remember: Scenarios are like test cases - same functions, different states
-   - How do scenarios progressively increase difficulty?
+1. **Base Class Selection**: Based on your exploration, present:
+   - Which existing base class(es) could work and why
+   - What the base class already provides (functions, state, view)
+   - What would need to be added/overridden vs what comes for free
+   - Whether a new base class or direct VisualExercise extension is needed
 
-6. **Learning Objectives**:
-   - What programming concept does this exercise teach?
-   - How does it fit into the current curriculum progression?
-   - What skills should learners gain from completing this exercise?
+2. **Exercise Type**: Visual or IO?
 
-## Step 3: Implementation Plan
+3. **Available Functions**: What functions should the learner have access to?
+   - Which are already provided by the base class?
+   - Which need to be added or restricted?
+   - For draw exercises: which functions from `getAllAvailableFunctions()` to expose?
 
-After gathering your answers, I'll present a detailed plan showing:
+4. **Scenarios and Tasks**:
+   - What are the different test cases / difficulty levels?
+   - What are the success conditions?
+   - Any bonus challenges?
 
-1. **Exercise folder structure** at `src/exercises/[exercise-name]/`:
-   - `Exercise.ts` - Main exercise class implementation
-   - `scenarios.ts` - Different scenarios/difficulty levels (if needed)
-   - `index.ts` - Module exports
+5. **Level Assignment**: Which `levelId` should this exercise use?
 
-2. **Exercise class design** including:
-   - State properties and their initial values
-   - Exercise-specific available functions (in snake_case) with descriptions
-   - Animation logic for each function
-   - View generation with HTML/CSS
-   - Support for both JavaScript (auto-converted) and Python naming
+6. **Stdlib Functions**: Does the exercise need any stdlib functions (e.g., `concatenate`, `push`, `sort_string`)? If so, verify they're registered in the appropriate level file.
 
-3. **Integration points**:
-   - Export from `src/exercises/index.ts`
-   - Type definitions if needed
-   - How it connects to levels/lessons
+Wait for the user's responses before proceeding.
 
 ## Step 4: Implementation
 
-Once you approve the plan, I'll implement the exercise by:
+**⚠️ JavaScript-First**: All user-facing text must use JavaScript conventions. See the rules below:
 
-1. Creating the exercise folder and files
-2. Implementing the Exercise class with:
-   - State management
-   - Available functions
-   - Animation generation
-   - View population
-3. Adding scenarios if applicable
-4. Exporting from the exercises index
-5. Running tests to ensure everything works
+- **Function names** in instructions, hints, task descriptions, FunctionInfo, examples, and llm-metadata must be **camelCase** (e.g., `getAge()`, `turnLeft()`)
+- **Code examples** in FunctionInfo `examples` must use JavaScript syntax (e.g., `let age = getAge()`)
+- **No Jikiscript syntax** (`set ... to`, `repeat N times do ... end`, etc.) — use generic language instead
+- **Exception**: `availableFunctions` names in Exercise.ts and `functionName` in IOScenario stay **snake_case** (converted by `getExternalFunctions(language)` and test runners)
 
-## Step 5: Testing
+Once the user approves the approach, create ALL required files:
 
-After implementation, I'll:
+### Required Files (11 total)
 
-- Build the package to check for TypeScript errors
-- Run any existing tests
-- Verify the exercise structure matches existing patterns
-- Ensure state work correctly by adding tests, and checking the correct animations are generated for different scenarios/code intersections (but not by checking the animations actually work)
+```
+src/exercises/[exercise-name]/
+├── metadata.json         # slug, title, instructions, estimatedMinutes, levelId, hints
+├── Exercise.ts           # Exercise class (extends appropriate base)
+├── scenarios.ts          # Tasks and test scenarios
+├── llm-metadata.ts       # LLM metadata (use /write-llm-metadata skill)
+├── index.ts              # Exercise definition export
+├── solution.jiki         # Jikiscript solution
+├── solution.javascript   # JavaScript solution (camelCase naming)
+├── solution.py           # Python solution (snake_case naming)
+├── stub.jiki             # Jikiscript starter code
+├── stub.javascript       # JavaScript starter code
+└── stub.py               # Python starter code
+```
 
-## Step 6: Quality Assurance & Commit
+### Language Conversion Rules
 
-Before committing, I'll ensure all of the following pass:
+When creating solutions and stubs in 3 languages, follow `.context/language-conversion.md`:
 
-- `pnpm run test` - All tests must pass
-- `pnpm run typecheck` - No TypeScript errors
-- `pnpm run lint` - No linting issues
-- `pnpm run format:check` - Code is properly formatted
+- **Jikiscript → JavaScript**: snake_case → camelCase, Jiki keywords → JS syntax
+- **Jikiscript → Python**: Keep snake_case, adapt to Python syntax (True/False, indentation, etc.)
+- **Stdlib functions** become native methods in JS/Python (e.g., `concatenate()` → `+` or `.join()`)
 
-After all checks pass:
+### Exercise Class Patterns
 
-- Remove the section from the exercises todo
-- Commit, push to a feature branch, and create a PR
+**Extending a category base (e.g., Draw):**
 
-Let's begin by examining the todo file and determining the next exercise to implement.
+```typescript
+import { DrawExercise } from "../../exercise-categories/draw";
+import metadata from "./metadata.json";
+
+export default class MyExercise extends DrawExercise {
+  protected get slug() {
+    return metadata.slug;
+  }
+
+  public get availableFunctions() {
+    const { rectangle, circle } = this.getAllAvailableFunctions();
+    return [rectangle, circle];
+  }
+}
+```
+
+**Extending a category base (e.g., Maze, SpaceInvaders) — minimal override:**
+
+```typescript
+import MazeExercise from "../../exercise-categories/maze/MazeExercise";
+import metadata from "./metadata.json";
+
+export default class MyExercise extends MazeExercise {
+  protected get slug() {
+    return metadata.slug;
+  }
+}
+```
+
+**IO Exercise — minimal:**
+
+```typescript
+import { IOExercise } from "../../IOExercise";
+import metadata from "./metadata.json";
+
+export default class MyExercise extends IOExercise {
+  static slug = metadata.slug;
+  static availableFunctions = [];
+}
+```
+
+**Custom Visual Exercise — direct extension:**
+
+```typescript
+import { VisualExercise } from "../../VisualExercise";
+import type { ExecutionContext } from "@jiki/interpreters";
+import metadata from "./metadata.json";
+
+export default class MyExercise extends VisualExercise {
+  protected get slug() {
+    return metadata.slug;
+  }
+  // ... custom state, functions, view, animations
+}
+```
+
+## Step 5: Critical Registrations
+
+### 5.1: Register Exercise in `src/exercises/index.ts`
+
+```typescript
+"exercise-name": () => import("./exercise-name"),
+```
+
+### 5.2: Write LLM Metadata
+
+Run the `/write-llm-metadata` skill with the exercise slug. This will create the `llm-metadata.ts` file and register it in `src/llm-metadata.ts`.
+
+### 5.3: Register Stdlib Functions (if needed)
+
+If the exercise uses stdlib functions (check solution.jiki for calls like `concatenate()`, `push()`, `sort_string()`, etc.), ensure they're in the appropriate level's `allowedStdlibFunctions` array (e.g., `src/levels/everything.ts`).
+
+## Step 6: Update README.md and PLAN.md
+
+### 6.1: Update README.md
+
+Add the exercise to the correct level in the curriculum JSON structure in `README.md`. Insert it in the right position within the level's `"lessons"` array.
+
+### 6.2: Update PLAN.md
+
+Add the exercise to the **Implemented** section of `PLAN.md` with a brief description, following the format of existing entries:
+
+```
+- `exercise-name` - Brief description (Level Name level)
+```
+
+## Step 7: Type Check and Testing
+
+### 7.1: Type Check First
+
+```bash
+pnpm typecheck
+```
+
+Fix any type errors before running tests.
+
+### 7.2: Run Tests
+
+```bash
+pnpm test
+```
+
+All tests must pass, including automatic tests for the new exercise (LLM metadata, solution validation).
+
+## Step 8: Quality Assurance
+
+Before committing, verify:
+
+- [ ] All 11 files created in exercise directory
+- [ ] Solutions work in all 3 languages (Jikiscript, JavaScript, Python)
+- [ ] Stubs provide helpful starting points in all 3 languages
+- [ ] Exercise registered in `src/exercises/index.ts`
+- [ ] LLM metadata registered in `src/llm-metadata.ts`
+- [ ] Stdlib functions registered in level file (if applicable)
+- [ ] Exercise added to `README.md` curriculum JSON
+- [ ] Exercise added to `PLAN.md` Implemented section
+- [ ] `pnpm typecheck` passes
+- [ ] `pnpm test` passes (all tests)
+- [ ] `pnpm lint` passes
+- [ ] `pnpm format:check` passes
+- [ ] `/audit-instructions <slug>` passes (all user-facing text uses JavaScript camelCase conventions)
+
+## Step 9: Commit and PR
+
+```bash
+git add .
+git commit -m "Add [exercise-name] exercise
+
+- Created all 11 required files
+- [Brief description of what the exercise teaches]
+- All tests passing
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+git push -u origin add-[exercise-name]
+gh pr create --title "Add [exercise-name] exercise" --body "$(cat <<'EOF'
+## Summary
+
+Added the **[exercise-name]** exercise to the Jiki curriculum.
+
+## Details
+
+- **Type**: [Visual/IO]
+- **Base class**: [which base class it extends]
+- **Level**: [levelId]
+- **Concepts taught**: [what it teaches]
+
+## Files Created
+
+- All 11 required exercise files
+- Registered in exercise index, LLM metadata registry[, and stdlib if applicable]
+
+## Testing
+
+- TypeScript compilation passes
+- All tests pass
+- Solutions validated for all scenarios
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+## Common Issues
+
+### Exercise returns `undefined` for all tests
+
+**Cause:** Stdlib functions not registered in level file
+**Fix:** Add to the level's `allowedStdlibFunctions` array
+
+### LLM metadata test fails with "expected undefined to be defined"
+
+**Cause:** Not registered in `src/llm-metadata.ts`
+**Fix:** Import and add to `llmMetadataRegistry`
+
+### Type errors in scenarios.ts
+
+**Cause:** Scenario type doesn't match exercise type (Visual vs IO)
+**Fix:** Use `VisualScenario[]` for visual exercises, `IOScenario[]` for IO exercises
+
+### CSS not loading for visual exercise
+
+**Cause:** Missing CSS import in index.ts
+**Fix:** Add `import "../../exercise-categories/[category]/exercise.css";` at top of index.ts

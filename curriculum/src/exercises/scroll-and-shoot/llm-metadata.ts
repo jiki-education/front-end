@@ -14,7 +14,7 @@ export const llmMetadata: LLMMetadata = {
     detect aliens, and shoot them down without missing or moving off-screen.
 
     Key concepts: position tracking, direction toggling, boundary detection, conditional shooting,
-    and repeat_until_game_over loops.
+    and repeatUntilGameOver loops.
 
     This exercise has multiple valid solutions - there are many ways to structure the logic.
     Encourage students to break down the problem into smaller steps.
@@ -38,10 +38,10 @@ export const llmMetadata: LLMMetadata = {
 
         Teaching strategy:
         - Encourage students to solve movement first, then add shooting logic
-        - Suggest using variables for left_boundary (0) and right_boundary (10)
-        - Remind them to use is_alien_above() before calling shoot()
+        - Suggest using variables for leftBoundary (0) and rightBoundary (10)
+        - Remind them to use isAlienAbove() before calling shoot()
         - Point out that the logic is similar to the rainbow ball bouncing exercise
-        - Help them understand repeat_until_game_over will keep running until all aliens are destroyed
+        - Help them understand repeatUntilGameOver will keep running until all aliens are destroyed
       `
     },
 
@@ -49,7 +49,7 @@ export const llmMetadata: LLMMetadata = {
       description: `
         These bonus challenges test advanced control flow:
 
-        1. No repeat: Students must use only repeat_until_game_over, not repeat with a fixed count.
+        1. No repeat: Students must use only repeatUntilGameOver, not repeat with a fixed count.
            This reinforces the game loop concept.
 
         2. One shoot(): Students can only write shoot() once in their code. This requires

@@ -1,4 +1,4 @@
-import { type ExecutionContext } from "@jiki/interpreters";
+import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 
 type Direction = "up" | "right" | "down" | "left";
@@ -12,14 +12,14 @@ export default class MazeExercise extends VisualExercise {
   characterCol: number = 0;
   direction: Direction = "down";
   rotation: number = 0; // Continuous rotation value in degrees
-  grid: number[][] = [];
+  grid: (number | string)[][] = [];
 
   constructor() {
     super();
     this.populateView();
   }
 
-  availableFunctions = [
+  availableFunctions: ExternalFunction[] = [
     {
       name: "move",
       func: this.move.bind(this),
@@ -136,7 +136,7 @@ export default class MazeExercise extends VisualExercise {
     executionCtx.fastForward(150);
   }
 
-  setupGrid(grid: number[][]) {
+  setupGrid(grid: (number | string)[][]) {
     this.grid = grid;
     // Regenerate the view with the new grid
     this.view.innerHTML = "";

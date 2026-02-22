@@ -19,7 +19,7 @@ let leafYRadius = 0;
 let leftLeafLeft = 0;
 let rightLeafLeft = 0;
 
-for (let i = 0; i < 60; i = i + 1) {
+repeat(60) {
   flowerCenterY = flowerCenterY - 1;
   flowerRadius = flowerRadius + 0.4;
 
@@ -38,27 +38,21 @@ for (let i = 0; i < 60; i = i + 1) {
   rightLeafLeft = stemLeft + stemWidth + leafXRadius;
 
   // Sky
-  fillColorHex("#ADD8E6");
-  rectangle(0, 0, 100, 90);
+  rectangle(0, 0, 100, 90, "skyblue");
 
   // Ground
-  fillColorHex("green");
-  rectangle(0, groundTop, 100, 10);
+  rectangle(0, groundTop, 100, 10, "green");
 
   // Stem
-  fillColorHex("green");
-  rectangle(stemLeft, stemTop, stemWidth, stemHeight);
+  rectangle(stemLeft, stemTop, stemWidth, stemHeight, "green");
 
   // Flower head
-  fillColorHex("pink");
-  circle(flowerCenterX, flowerCenterY, flowerRadius);
+  circle(flowerCenterX, flowerCenterY, flowerRadius, "pink");
 
   // Pistil
-  fillColorHex("yellow");
-  circle(flowerCenterX, flowerCenterY, pistilRadius);
+  circle(flowerCenterX, flowerCenterY, pistilRadius, "yellow");
 
   // Leaves
-  fillColorHex("green");
-  ellipse(leftLeafLeft, leafTop, leafXRadius, leafYRadius);
-  ellipse(rightLeafLeft, leafTop, leafXRadius, leafYRadius);
+  ellipse(leftLeafLeft, leafTop, leafXRadius, leafYRadius, "green");
+  ellipse(rightLeafLeft, leafTop, leafXRadius, leafYRadius, "green");
 }

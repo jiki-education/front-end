@@ -1,0 +1,13 @@
+{
+  "slug": "maze-solve-walk",
+  "title": "Walk Through a Maze",
+  "instructions": "In the last exercise you used `move()` to move one step at a time. That works, but it means writing `move()` many times in a row!\n\nIn this exercise, we've replaced `move()` with a new function called `walk()`. This function takes a number as its input and moves forward that many steps.\n\nFor example, `walk(3)` moves forward 3 steps, and `walk(1)` moves forward just 1 step.\n\nUse `walk()`, `turnLeft()`, and `turnRight()` to navigate through the maze and reach the green target cell.",
+  "estimatedMinutes": 10,
+  "levelId": "using-functions",
+  "hints": [
+    "The character starts in the top-left corner facing down",
+    "walk(3) moves forward 3 steps — count the empty cells in each corridor",
+    "Use turnLeft() or turnRight() to change direction at corners",
+    "Plan your path first: count how many steps each straight section needs"
+  ]
+}

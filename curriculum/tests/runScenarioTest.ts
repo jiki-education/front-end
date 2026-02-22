@@ -7,7 +7,8 @@ import type {
   IOScenario,
   TestExpect,
   CodeCheckExpect,
-  ExerciseDefinition
+  ExerciseDefinition,
+  InterpreterOptions
 } from "../src/exercises/types";
 import { getLanguageFeatures } from "../src/levels";
 import type { Language } from "../src/types";
@@ -44,10 +45,17 @@ export function runVisualScenarioTest(
   scenario: VisualScenario,
   studentCode: string,
   levelId: string,
-  language: Language = "jikiscript"
+  language: Language = "jikiscript",
+  interpreterOptions?: InterpreterOptions
 ): ScenarioTestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
+
+  // Resolve random seed: true means generate a fresh seed each run
+  const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
+  if (resolvedSeed !== undefined) {
+    exercise.randomSeed = resolvedSeed;
+  }
 
   // Run setup to initialize exercise state
   scenario.setup?.(exercise);
@@ -58,19 +66,31 @@ export function runVisualScenarioTest(
   // Execute student code with the exercise's available functions
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
   const interpreter = getInterpreter(language);
-  interpreter.interpret(studentCode, {
-    externalFunctions: exercise.availableFunctions.map((func) => ({
-      name: func.name,
-      func: func.func,
-      description: func.description ?? ""
-    })),
+  const interpreterContext = {
+    externalFunctions: exercise.getExternalFunctions(language),
+    classes: exercise.getExternalClasses(language),
     languageFeatures: {
       timePerFrame: 1,
       maxTotalLoopIterations: 10000,
-      ...languageFeatures
+      ...languageFeatures,
+      ...interpreterOptions
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any
-  });
+    } as any,
+    randomSeed: resolvedSeed
+  };
+
+  if (scenario.functionCall) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const evaluationResult = interpreter.evaluateFunction(
+      studentCode,
+      interpreterContext,
+      interpreter.formatIdentifier(scenario.functionCall.name),
+      ...scenario.functionCall.args
+    );
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const evaluationResult = interpreter.interpret(studentCode, interpreterContext);
+  }
 
   // Run expectations to validate final state
   const expects = scenario.expectations(exercise);
@@ -95,18 +115,15 @@ export function runIOScenarioTest(
   scenario: IOScenario,
   studentCode: string,
   levelId: string,
-  language: Language = "jikiscript"
+  language: Language = "jikiscript",
+  interpreterOptions?: InterpreterOptions
 ): ScenarioTestResult {
   // Get language features for this level
   const languageFeatures = getLanguageFeatures(levelId, language);
 
   // Get available helper functions from the exercise class
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
-  const externalFunctions = ExerciseClass.availableFunctions.map((func) => ({
-    name: func.name,
-    func: func.func,
-    description: func.description ?? ""
-  }));
+  const externalFunctions = ExerciseClass.getExternalFunctions(language);
 
   // Call the student's function using evaluateFunction
   const interpreter = getInterpreter(language);
@@ -117,13 +134,17 @@ export function runIOScenarioTest(
       languageFeatures: {
         timePerFrame: 1,
         maxTotalLoopIterations: 10000,
-        ...languageFeatures
+        ...languageFeatures,
+        ...interpreterOptions
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any
     },
-    scenario.functionName,
+    interpreter.formatIdentifier(scenario.functionName),
     ...scenario.args
   );
+  // console.log(evaluationResult);
+  // console.log(evaluationResult.error);
+  // console.log(evaluationResult.frames[2]?.error);
 
   // Compare actual vs expected using the matcher
   const matcher = scenario.matcher ?? "toEqual";
@@ -206,9 +227,12 @@ export function runAllVisualScenarios(
   scenarios: VisualScenario[],
   studentCode: string,
   levelId: string,
-  language: Language = "jikiscript"
+  language: Language = "jikiscript",
+  interpreterOptions?: InterpreterOptions
 ): ScenarioTestResult[] {
-  return scenarios.map((scenario) => runVisualScenarioTest(ExerciseClass, scenario, studentCode, levelId, language));
+  return scenarios.map((scenario) =>
+    runVisualScenarioTest(ExerciseClass, scenario, studentCode, levelId, language, interpreterOptions)
+  );
 }
 
 /**
@@ -220,9 +244,12 @@ export function runAllIOScenarios(
   scenarios: IOScenario[],
   studentCode: string,
   levelId: string,
-  language: Language = "jikiscript"
+  language: Language = "jikiscript",
+  interpreterOptions?: InterpreterOptions
 ): ScenarioTestResult[] {
-  return scenarios.map((scenario) => runIOScenarioTest(ExerciseClass, scenario, studentCode, levelId, language));
+  return scenarios.map((scenario) =>
+    runIOScenarioTest(ExerciseClass, scenario, studentCode, levelId, language, interpreterOptions)
+  );
 }
 
 /**
@@ -236,7 +263,21 @@ export function runExerciseTests(
   language: Language = "jikiscript"
 ): ScenarioTestResult[] {
   if (exercise.type === "visual") {
-    return runAllVisualScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
+    return runAllVisualScenarios(
+      exercise.ExerciseClass,
+      exercise.scenarios,
+      studentCode,
+      exercise.levelId,
+      language,
+      exercise.interpreterOptions
+    );
   }
-  return runAllIOScenarios(exercise.ExerciseClass, exercise.scenarios, studentCode, exercise.levelId, language);
+  return runAllIOScenarios(
+    exercise.ExerciseClass,
+    exercise.scenarios,
+    studentCode,
+    exercise.levelId,
+    language,
+    exercise.interpreterOptions
+  );
 }

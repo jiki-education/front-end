@@ -117,6 +117,19 @@ describe("Prompt Builder", () => {
     expect(prompt).toContain("## Exercise Context");
   });
 
+  it("should include taught concepts section", async () => {
+    const prompt = await buildPrompt({
+      exerciseSlug: "maze-solve-basic",
+      code: "test",
+      question: "test",
+      history: [],
+      language: "jikiscript"
+    });
+
+    expect(prompt).toContain("## What The Student Has Been Taught");
+    expect(prompt).toContain("Using functions");
+  });
+
   it("should include LLM teaching context when metadata available", async () => {
     const prompt = await buildPrompt({
       exerciseSlug: "acronym",
@@ -140,7 +153,7 @@ describe("Prompt Builder", () => {
     });
 
     expect(prompt).toContain("## Exercise Context");
-    expect(prompt).toContain("### Current Task Context");
+    expect(prompt).toContain("identify word boundaries");
   });
 
   it("should only show exercise-level guidance when nextTaskId not provided", async () => {
@@ -153,7 +166,7 @@ describe("Prompt Builder", () => {
     });
 
     expect(prompt).toContain("## Exercise Context");
-    expect(prompt).not.toContain("### Current Task Context");
+    expect(prompt).not.toContain("identify word boundaries");
   });
 
   it("should handle invalid nextTaskId gracefully", async () => {
@@ -169,7 +182,7 @@ describe("Prompt Builder", () => {
     // Should still include exercise context
     expect(prompt).toContain("## Exercise Context");
     // But not task guidance for invalid task
-    expect(prompt).not.toContain("### Current Task Context");
+    expect(prompt).not.toContain("identify word boundaries");
   });
 
   it("should work with exercises that have no LLM metadata", async () => {

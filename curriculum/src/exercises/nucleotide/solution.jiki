@@ -1,0 +1,26 @@
+function contains with haystack, needle do
+  for each item in haystack do
+    if item == needle do
+      return true
+    end
+  end
+  return false
+end
+
+function count_nucleotide with strand, nucleotide do
+  set valid to "ACGT"
+  if not contains(valid, nucleotide) do
+    return -1
+  end
+
+  set count to 0
+  for each letter in strand do
+    if not contains(valid, letter) do
+      return -1
+    end
+    if letter == nucleotide do
+      change count to count + 1
+    end
+  end
+  return count
+end

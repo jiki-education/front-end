@@ -1,0 +1,7 @@
+walk(3)
+turn_left()
+walk(3)
+turn_right()
+walk(2)
+turn_left()
+walk(3)

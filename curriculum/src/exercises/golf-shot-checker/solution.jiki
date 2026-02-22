@@ -1,0 +1,17 @@
+set x to 29
+set y to 75
+set shot_length to get_shot_length()
+
+repeat shot_length + 1 times do
+  change x to x + 1
+  roll_to(x, y)
+end
+
+if shot_length >= 56 and shot_length <= 65 do
+  repeat 9 times do
+    change y to y + 1
+    roll_to(x, y)
+  end
+end
+
+fire_fireworks()

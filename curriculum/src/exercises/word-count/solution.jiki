@@ -1,0 +1,46 @@
+function contains with list, target do
+  for each item in list do
+    if item == target do
+      return true
+    end
+  end
+  return false
+end
+
+function is_letter with character do
+  return contains("abcdefghijklmnopqrstuvwxyz1234567890'", character)
+end
+
+function add_word with words, word do
+  if word != "" do
+    change words to push(words, word)
+  end
+  return words
+end
+
+function extract_words with sentence do
+  set result to []
+  set current to ""
+  for each letter in sentence do
+    if not is_letter(letter) do
+      change result to add_word(result, current)
+      change current to ""
+    else do
+      change current to concatenate(current, letter)
+    end
+  end
+  return add_word(result, current)
+end
+
+function count_words with sentence do
+  set words to extract_words(to_lower_case(sentence))
+  set occurrences to {}
+
+  for each word in words do
+    if not has_key(occurrences, word) do
+      change occurrences[word] to 0
+    end
+    change occurrences[word] to occurrences[word] + 1
+  end
+  return occurrences
+end

@@ -1,0 +1,26 @@
+// Snowman (Arithmetic)
+// Rewrite the snowman so all the sizes are based on head_radius.
+// The circles should touch each other and stack from bottom to top.
+// When you change head_radius, the whole snowman should scale!
+
+// These are fixed
+set head_radius to 5
+set snowman_x to 50
+set ground_y to 80
+
+// Derive these from the variables above
+set body_radius to 0
+set base_radius to 0
+
+set base_y to 0
+set body_y to 0
+set head_y to 0
+
+// Base (bottom, biggest)
+circle(snowman_x, base_y, base_radius, "white")
+
+// Body (middle)
+circle(snowman_x, body_y, body_radius, "white")
+
+// Head (top, smallest)
+circle(snowman_x, head_y, head_radius, "white")

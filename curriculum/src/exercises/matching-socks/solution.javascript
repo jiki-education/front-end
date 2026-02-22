@@ -44,7 +44,7 @@ function stripPrefix(description, numLetters) {
   let res = "";
   let counter = numLetters;
   let descLength = length(description);
-  for (let i = 0; i < descLength - numLetters; i++) {
+  repeat(descLength - numLetters) {
     res = res + description[counter];
     counter = counter + 1;
   }

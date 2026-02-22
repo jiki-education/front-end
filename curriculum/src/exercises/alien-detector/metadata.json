@@ -1,0 +1,15 @@
+{
+  "slug": "alien-detector",
+  "title": "Alien Detector",
+  "instructions": "In the previous Space Invaders exercise you moved your laser from side to side to shoot down all the aliens. A big part of what made that possible was the `isAlienAbove()` function. In this exercise, we've removed it, but you still need to shoot down all the aliens!\n\nThis exercise is designed to be a challenge! Take it slowly.\n\n### Your Tasks\n\nYou have two tasks:\n\n1. Shoot down all the aliens. Rather than being able to ask the exercise if there's an alien above you, you need to track which aliens you've shot down, and which are still there.\n2. When you've shot them all down, you should immediately use `fireFireworks()`. This **must** happen in the same loop iteration as shooting the final alien.\n\nI highly recommend completing the first task before starting the second. The first few scenarios can be passed without the fireworks firing!\n\n### Meet `getStartingAliensInRow(idx)`\n\nYou have a new function called `getStartingAliensInRow(idx)`. It takes one input — the index of the row, starting from the bottom. There are a maximum of three rows, so the input value can be `1`, `2`, or `3`.\n\nThe function returns a list of 11 booleans. Each boolean specifies whether there is an alien in that position at the **start** of the exercise. So `[true, false, false, ...]` would mean that, before you do anything, there is an alien in the first position, but not in the next two (etc).\n\n### Notes\n\n- Every time you move left or right, you move one position forward or backwards. That position equates to the places the aliens can be.\n- The aliens do not respawn in this exercise.",
+  "estimatedMinutes": 20,
+  "levelId": "lists",
+  "hints": [
+    "Get all three rows of aliens at the start using getStartingAliensInRow()",
+    "Track your position so you can index into the alien rows to check for aliens",
+    "When you shoot an alien, mark it as false in the row array so you don't shoot it again",
+    "Only shoot the lowest alien in a column — check rows from bottom to top",
+    "You might find it easier to think about the fireworks last and just get the alien tracking and shooting sorted first",
+    "Write a helper function to check if all aliens are dead across all rows"
+  ]
+}

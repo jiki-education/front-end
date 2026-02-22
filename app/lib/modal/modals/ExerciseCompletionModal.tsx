@@ -13,7 +13,6 @@ import { ProjectUnlockedStep } from "./steps/ProjectUnlockedStep";
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
   onCompleteExercise?: () => void;
-  onGoToProject?: () => void;
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
   exerciseSlug?: string;
@@ -35,7 +34,6 @@ interface ExerciseCompletionModalProps {
 export function ExerciseCompletionModal({
   onTidyCode,
   onCompleteExercise,
-  onGoToProject,
   onGoToDashboard,
   exerciseTitle = "Navigate the Maze",
   exerciseSlug = "maze-instructions",
@@ -50,7 +48,6 @@ export function ExerciseCompletionModal({
   const { step, handlers } = useExerciseCompletionModal({
     onTidyCode,
     onCompleteExercise,
-    onGoToProject,
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
@@ -70,7 +67,6 @@ export function ExerciseCompletionModal({
         <ProjectUnlockedStep
           completionResponse={completionResponse}
           unlockedProject={unlockedProject}
-          onGoToProject={handlers.handleGoToProject}
           onGoToDashboard={handlers.handleGoToDashboard}
         />
       );

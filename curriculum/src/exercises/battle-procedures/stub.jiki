@@ -1,0 +1,15 @@
+set left_boundary to 0
+set right_boundary to 10
+set direction to "right"
+set position to 0
+
+// TODO: Create a shoot_if_alien_above function
+// It should check if there's an alien above and shoot if so
+
+repeat do
+  // TODO: Call your shoot_if_alien_above function here
+
+  // TODO: Change direction when at a boundary
+
+  // TODO: Move the laser in the current direction and update position
+end

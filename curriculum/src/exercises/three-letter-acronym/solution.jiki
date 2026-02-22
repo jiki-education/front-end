@@ -1,0 +1,3 @@
+function acronym with word1, word2, word3 do
+  return concatenate(word1[1], word2[1], word3[1])
+end

@@ -1,0 +1,10 @@
+set outfit to get_outfit()
+
+if outfit == "ballgown" or outfit == "tuxedo" do
+  offer_champagne()
+  let_in()
+else if outfit == "suit" or outfit == "dress" do
+  let_in()
+else do
+  turn_away()
+end

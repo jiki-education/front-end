@@ -1,0 +1,13 @@
+{
+  "slug": "space-invaders-conditional",
+  "title": "Space Invaders: Conditional",
+  "instructions": "The aliens have changed their formation! They're now arranged in two rows, but not every column has an alien.\n\nYou have three functions:\n- `move()` moves your laser cannon one position to the right\n- `shoot()` fires the laser upwards\n- `isAlienAbove()` returns `true` if there's an alien above you, or `false` if not\n\nYou need to move across the screen, checking each position. If there's an alien above you, shoot it! If not, just move on.\n\n**Don't shoot when there's no alien above you, or you lose!**",
+  "estimatedMinutes": 10,
+  "levelId": "conditionals",
+  "hints": [
+    "You need to check each column as you move across",
+    "Use isAlienAbove() to check before shooting",
+    "Use an if statement to check isAlienAbove() and then shoot()",
+    "Wrap everything in a repeat loop to move across all columns"
+  ]
+}

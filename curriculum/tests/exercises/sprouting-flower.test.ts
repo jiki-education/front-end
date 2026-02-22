@@ -44,10 +44,10 @@ describe("SproutingFlowerExercise", () => {
       expect(Array.isArray(funcs)).toBe(true);
     });
 
-    it("Array length should be 4", () => {
+    it("Array length should be 3", () => {
       const funcs = exercise.availableFunctions;
 
-      expect(funcs.length).toBe(4);
+      expect(funcs.length).toBe(3);
     });
 
     it("Should include `rectangle` function", () => {
@@ -71,13 +71,6 @@ describe("SproutingFlowerExercise", () => {
       expect(names).toContain("ellipse");
     });
 
-    it("Should include `fill_color_hex` function", () => {
-      const funcs = exercise.availableFunctions;
-      const names = funcs.map((f) => f.name);
-
-      expect(names).toContain("fill_color_hex");
-    });
-
     it("Should NOT include `triangle` function", () => {
       const funcs = exercise.availableFunctions;
       const names = funcs.map((f) => f.name);
@@ -90,27 +83,6 @@ describe("SproutingFlowerExercise", () => {
       const names = funcs.map((f) => f.name);
 
       expect(names).not.toContain("line");
-    });
-
-    it("Should NOT include `fill_color_rgb` function", () => {
-      const funcs = exercise.availableFunctions;
-      const names = funcs.map((f) => f.name);
-
-      expect(names).not.toContain("fill_color_rgb");
-    });
-
-    it("Should NOT include `fill_color_rgba` function", () => {
-      const funcs = exercise.availableFunctions;
-      const names = funcs.map((f) => f.name);
-
-      expect(names).not.toContain("fill_color_rgba");
-    });
-
-    it("Should NOT include `fill_color_hsl` function", () => {
-      const funcs = exercise.availableFunctions;
-      const names = funcs.map((f) => f.name);
-
-      expect(names).not.toContain("fill_color_hsl");
     });
 
     it("Each function should have `name` property", () => {
@@ -156,13 +128,6 @@ describe("SproutingFlowerExercise", () => {
       const ellipseFunc = funcs.find((f) => f.name === "ellipse");
 
       expect(ellipseFunc?.name).toBe("ellipse");
-    });
-
-    it("`fill_color_hex` name should be 'fill_color_hex'", () => {
-      const funcs = exercise.availableFunctions;
-      const fillColorHexFunc = funcs.find((f) => f.name === "fill_color_hex");
-
-      expect(fillColorHexFunc?.name).toBe("fill_color_hex");
     });
   });
 });

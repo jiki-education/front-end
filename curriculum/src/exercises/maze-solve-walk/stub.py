@@ -1,0 +1,3 @@
+# Guide the character to the green target cell
+# Use walk(steps) to move forward multiple steps
+# Use turn_left() and turn_right() to change direction

@@ -36,6 +36,12 @@ interface BaseExerciseDefinition {
   hints?: string[];
   conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
+  interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
+}
+
+// Per-exercise interpreter options (overrides defaults when passed to interpreter)
+export interface InterpreterOptions {
+  maxTotalLoopIterations?: number;
 }
 
 // Visual exercises with animations and state checking
@@ -84,7 +90,7 @@ export interface VisualScenario {
     name: string;
     args: IOValue[];
   };
-  randomSeed?: number; // Seed for deterministic random number generation
+  randomSeed?: number | true; // number = fixed seed, true = generate random seed each run
 }
 
 // Recursive type to support nested arrays and objects in IO scenarios

@@ -13,37 +13,30 @@ import stubJikiscript from "./stub.jiki";
 const functions: FunctionInfo[] = [
   {
     name: "circle",
-    signature: "circle(center_x, center_y, radius)",
-    description: "Draw a circle with its center at (center_x, center_y) and the given radius",
-    examples: ["circle(50, 50, 10)", "circle(25, 75, 5)"],
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "Draw a circle with its center at (centerX, centerY), the given radius, and color",
+    examples: ['circle(50, 50, 10, "#ff0000")', "circle(50, sunCy, sunRadius, rgb(255, 237, 0))"],
     category: "Drawing Shapes"
   },
   {
     name: "rectangle",
-    signature: "rectangle(left, top, width, height)",
-    description: "Draw a rectangle at position (left, top) with the given width and height",
-    examples: ["rectangle(0, 0, 100, 100)", "rectangle(10, 20, 30, 40)"],
+    signature: "rectangle(left, top, width, height, color)",
+    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    examples: ['rectangle(0, 0, 100, 100, "#0308ce")', "rectangle(0, 0, 100, 100, hsl(210, 70, 60))"],
     category: "Drawing Shapes"
   },
   {
-    name: "fill_color_rgb",
-    signature: "fill_color_rgb(red, green, blue)",
-    description: "Set the fill color using RGB values (each 0-255)",
-    examples: ["fill_color_rgb(255, 0, 0)", "fill_color_rgb(255, 237, 0)"],
+    name: "rgb",
+    signature: "rgb(red, green, blue)",
+    description: "Convert RGB color values (each 0-255) to a hex color string",
+    examples: ["rgb(255, 0, 0)", "rgb(255, 237, 0)"],
     category: "Colors"
   },
   {
-    name: "fill_color_hsl",
-    signature: "fill_color_hsl(hue, saturation, luminosity)",
-    description: "Set the fill color using HSL values (hue 0-360, saturation 0-100, luminosity 0-100)",
-    examples: ["fill_color_hsl(210, 70, 60)", "fill_color_hsl(0, 100, 50)"],
-    category: "Colors"
-  },
-  {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code or HTML color name",
-    examples: ['fill_color_hex("#0308ce")', 'fill_color_hex("#C2B280")'],
+    name: "hsl",
+    signature: "hsl(hue, saturation, luminosity)",
+    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
+    examples: ["hsl(210, 70, 60)", "hsl(0, 100, 50)"],
     category: "Colors"
   }
 ];
