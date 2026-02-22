@@ -1244,3 +1244,154 @@ All user-facing copy strings in the codebase, by file.
 ### `app/components/ErrorPage.tsx`
 
 - [ ] `L24` — "JIKI"
+
+---
+
+## Review Icons
+
+All icons used in the app. `public/static/icons/` is a symlink to `icons/` so they are the same set. Exercise icons (`icons/exercises/`) are excluded.
+
+### SVG Icons (`icons/`)
+
+- [ ] <img src="icons/account-settings.svg" width="40"> `account-settings.svg`
+- [ ] <img src="icons/alert-circle.svg" width="40"> `alert-circle.svg`
+- [ ] <img src="icons/all.svg" width="40"> `all.svg`
+- [ ] <img src="icons/author.svg" width="40"> `author.svg`
+- [ ] <img src="icons/block-circle.svg" width="40"> `block-circle.svg`
+- [ ] <img src="icons/bolt.svg" width="40"> `bolt.svg`
+- [ ] <img src="icons/bootcamp-cross-red.svg" width="40"> `bootcamp-cross-red.svg`
+- [ ] <img src="icons/bootcamp-tick-green.svg" width="40"> `bootcamp-tick-green.svg`
+- [ ] <img src="icons/bug.svg" width="40"> `bug.svg`
+- [ ] <img src="icons/calendar.svg" width="40"> `calendar.svg`
+- [ ] <img src="icons/certificate.svg" width="40"> `certificate.svg`
+- [ ] <img src="icons/chat-bubble.svg" width="40"> `chat-bubble.svg`
+- [ ] <img src="icons/chat.svg" width="40"> `chat.svg`
+- [ ] <img src="icons/check-circle-filled.svg" width="40"> `check-circle-filled.svg`
+- [ ] <img src="icons/check-circle.svg" width="40"> `check-circle.svg`
+- [ ] <img src="icons/checkmark-circle.svg" width="40"> `checkmark-circle.svg`
+- [ ] <img src="icons/chevron-right.svg" width="40"> `chevron-right.svg`
+- [ ] <img src="icons/clock.svg" width="40"> `clock.svg`
+- [ ] <img src="icons/coding.svg" width="40"> `coding.svg`
+- [ ] <img src="icons/complete.svg" width="40"> `complete.svg`
+- [ ] <img src="icons/cross.svg" width="40"> `cross.svg`
+- [ ] <img src="icons/danger-settings.svg" width="40"> `danger-settings.svg`
+- [ ] <img src="icons/email-envelope.svg" width="40"> `email-envelope.svg`
+- [ ] <img src="icons/email.svg" width="40"> `email.svg`
+- [ ] <img src="icons/envelope.svg" width="40"> `envelope.svg`
+- [ ] <img src="icons/exclamation-circle.svg" width="40"> `exclamation-circle.svg`
+- [ ] <img src="icons/external-link.svg" width="40"> `external-link.svg`
+- [ ] <img src="icons/eye-close.svg" width="40"> `eye-close.svg`
+- [ ] <img src="icons/eye-open.svg" width="40"> `eye-open.svg`
+- [ ] <img src="icons/file.svg" width="40"> `file.svg`
+- [ ] <img src="icons/folder.svg" width="40"> `folder.svg`
+- [ ] <img src="icons/functions.svg" width="40"> `functions.svg`
+- [ ] <img src="icons/globe.svg" width="40"> `globe.svg`
+- [ ] <img src="icons/google.svg" width="40"> `google.svg`
+- [ ] <img src="icons/grid.svg" width="40"> `grid.svg`
+- [ ] <img src="icons/hamburger.svg" width="40"> `hamburger.svg`
+- [ ] <img src="icons/hint.svg" width="40"> `hint.svg`
+- [ ] <img src="icons/house.svg" width="40"> `house.svg`
+- [ ] <img src="icons/in-progress.svg" width="40"> `in-progress.svg`
+- [ ] <img src="icons/instructions.svg" width="40"> `instructions.svg`
+- [ ] <img src="icons/jiki-logo-collapsed.svg" width="40"> `jiki-logo-collapsed.svg`
+- [ ] <img src="icons/jiki-logo.svg" width="40"> `jiki-logo.svg`
+- [ ] <img src="icons/learning-settings.svg" width="40"> `learning-settings.svg`
+- [ ] <img src="icons/lock.svg" width="40"> `lock.svg`
+- [ ] <img src="icons/locked.svg" width="40"> `locked.svg`
+- [ ] <img src="icons/log.svg" width="40"> `log.svg`
+- [ ] <img src="icons/medal.svg" width="40"> `medal.svg`
+- [ ] <img src="icons/no-results.svg" width="40"> `no-results.svg`
+- [ ] <img src="icons/notifications-settings.svg" width="40"> `notifications-settings.svg`
+- [ ] <img src="icons/open-book.svg" width="40"> `open-book.svg`
+- [ ] <img src="icons/password.svg" width="40"> `password.svg`
+- [ ] <img src="icons/play.svg" width="40"> `play.svg`
+- [ ] <img src="icons/privacy-settings.svg" width="40"> `privacy-settings.svg`
+- [ ] <img src="icons/projects.svg" width="40"> `projects.svg`
+- [ ] <img src="icons/quiz-card.svg" width="40"> `quiz-card.svg`
+- [ ] <img src="icons/quiz.svg" width="40"> `quiz.svg`
+- [ ] <img src="icons/readonly-lock-partial.svg" width="40"> `readonly-lock-partial.svg`
+- [ ] <img src="icons/readonly-lock.svg" width="40"> `readonly-lock.svg`
+- [ ] <img src="icons/search.svg" width="40"> `search.svg`
+- [ ] <img src="icons/settings.svg" width="40"> `settings.svg`
+- [ ] <img src="icons/shield-x.svg" width="40"> `shield-x.svg`
+- [ ] <img src="icons/shield.svg" width="40"> `shield.svg`
+- [ ] <img src="icons/start-flag.svg" width="40"> `start-flag.svg`
+- [ ] <img src="icons/subconcept.svg" width="40"> `subconcept.svg`
+- [ ] <img src="icons/subscription.svg" width="40"> `subscription.svg`
+- [ ] <img src="icons/three-dots.svg" width="40"> `three-dots.svg`
+- [ ] <img src="icons/tick-circle.svg" width="40"> `tick-circle.svg`
+- [ ] <img src="icons/unlocked.svg" width="40"> `unlocked.svg`
+- [ ] <img src="icons/video-lib.svg" width="40"> `video-lib.svg`
+- [ ] <img src="icons/video.svg" width="40"> `video.svg`
+- [ ] <img src="icons/window.svg" width="40"> `window.svg`
+
+### SVG Icons (`icons/` subdirectories)
+
+- [ ] <img src="icons/badges/fallback.svg" width="40"> `badges/fallback.svg`
+- [ ] <img src="icons/badges/member.svg" width="40"> `badges/member.svg`
+- [ ] <img src="icons/concepts/fallback.svg" width="40"> `concepts/fallback.svg`
+- [ ] <img src="icons/concepts/strings.svg" width="40"> `concepts/strings.svg`
+- [ ] <img src="icons/profile/fallback.svg" width="40"> `profile/fallback.svg`
+- [ ] <img src="icons/profile/flag.svg" width="40"> `profile/flag.svg`
+- [ ] <img src="icons/projects/calculator.svg" width="40"> `projects/calculator.svg`
+- [ ] <img src="icons/projects/fallback.svg" width="40"> `projects/fallback.svg`
+
+### PNG Images used as icons (NOT SVGs)
+
+- [ ] `public/static/images/misc/arrow.png` — decorative arrow used in Premium upgrade modal and chat panel states
+- [ ] `public/static/images/misc/splash.png` — splash decoration used in BenefitSection
+
+### Emoji icons used in components
+
+- [ ] `⭐` — `components/layout/sidebar/Sidebar.tsx:L52` (Premium upgrade button)
+- [ ] `⭐` — `components/dashboard/projects-sidebar/ui/PremiumBox.tsx:L11` (Premium icon)
+- [ ] `⭐` — `components/coding-exercise/ui/ChatPremiumUpgrade.tsx:L108` (Upgrade button)
+- [ ] `⭐` — `lib/modal/modals/LevelMilestoneModal.tsx:L68` (Achievement icon)
+- [ ] `✓` — `components/coding-exercise/CodingExerciseInner.tsx:L49` (Completed tick)
+- [ ] `✓` — `components/coding-exercise/ui/TasksView.tsx:L106` (Task complete)
+- [ ] `✓` — `components/settings/subscription/states/ActivePremiumState.tsx:L32` (Feature checkmark)
+- [ ] `✓` — `lib/modal/modals/SubscriptionSuccessModal.tsx:L110` (Feature checkmark)
+- [ ] `✓` — `lib/modal/modals/SubscriptionModal.tsx:L127,L167` (Feature checkmarks)
+- [ ] `✓` / `✗` — `components/coding-exercise/ui/test-results-view/IOTestResultView.tsx:L19` (Pass/fail)
+- [ ] `✅` / `🏆` — `components/dashboard/exercise-path/ui/MilestoneButton.tsx:L29` (Milestone complete/incomplete)
+- [ ] `🎉` — `lib/modal/modals/LevelMilestoneModal.tsx:L49` (Level complete heading)
+
+### Inline SVGs (not extracted to icon files)
+
+These are SVG elements written directly in JSX rather than imported from icon files:
+
+- [ ] `components/coding-exercise/ui/ChatPremiumUpgrade.tsx:L43` — chat bubble icon (inline SVG)
+- [ ] `components/coding-exercise/ui/test-results-view/SyntaxErrorView.tsx:L8` — warning triangle
+- [ ] `components/concepts/ConceptDetailPage.tsx:L102` — decorative SVG
+- [ ] `components/concepts/LoadingStates.tsx:L39` — spinner
+- [ ] `components/choose-language/ui/ButtonRow.tsx:L39,L51,L66` — arrow/navigation icons
+- [ ] `components/choose-language/ui/LanguageSelectorStep.tsx:L31,L45,L58` — language/dice icons
+- [ ] `components/auth/EmailConfirmedMessage.tsx:L9` — checkmark circle
+- [ ] `components/auth/UnsubscribeContent.tsx:L89,L106` — success/error icons
+- [ ] `components/dashboard/projects-sidebar/ui/EmptyProjectsState.tsx:L7` — empty state folder
+- [ ] `components/dashboard/exercise-path/ui/ExerciseIcons.tsx:L3-L64` — 6 exercise state icons (check, lock, play, etc.)
+- [ ] `components/dashboard/exercise-path/ui/ContinueLearningBanner.tsx:L84` — dismiss X
+- [ ] `components/dashboard/exercise-path/ui/LessonNode.tsx:L124,L132` — lock and check icons
+- [ ] `components/lesson/LessonLoadingPage.tsx:L27,L42,L46` — loading state icons (code, quiz, video)
+- [ ] `components/video-exercise/ui/FloatingPill.tsx:L55` — play button
+- [ ] `components/video-exercise/ui/NoVideoPlaceholder.tsx:L12` — no video icon
+- [ ] `components/video-exercise/ui/ProgressRing.tsx:L13,L27` — progress ring + checkmark
+- [ ] `components/common/LessonLoadingModal/LessonLoadingModal.tsx:L11` — decorative loading SVG
+- [ ] `components/settings/ui/EditableField.tsx:L129` — checkmark (saved indicator)
+- [ ] `components/settings/ui/PasswordField.tsx:L141` — checkmark (saved indicator)
+- [ ] `components/ui/StyledInput.tsx:L14,L38,L62,L80` — input field icons (email, lock, eye-open, eye-close)
+- [ ] `components/layout/footer/index.tsx:L10` — footer icon/logo
+- [ ] `components/delete-account/robots/SadRobot.tsx:L6` — sad robot illustration
+- [ ] `components/delete-account/robots/ErrorRobot.tsx:L6` — error robot illustration
+- [ ] `lib/modal/modals/WelcomeToPremiumModal.tsx:L19` — star badge icon
+- [ ] `lib/modal/modals/SubscriptionSuccessModal.tsx:L81` — success checkmark
+- [ ] `lib/modal/modals/PremiumUpgradeModal/BasicPlanSection.tsx:L34` — check icon
+- [ ] `lib/modal/modals/PremiumUpgradeModal/PremiumPlanSection.tsx:L64` — circled check icon
+- [ ] `lib/modal/modals/ConnectionErrorModal.tsx:L44` — tangled robot illustration
+- [ ] `lib/modal/modals/AuthErrorModal.tsx:L46,L106` — unplugged robot + plug illustration
+- [ ] `lib/modal/modals/RateLimitModal.tsx:L47,L79` — hourglass + paused robot illustration
+
+### Lottie Animations
+
+- [ ] `public/static/animations/payment-processing.json` — used in `PaymentProcessingModal.tsx`
+- [ ] Checkmark animation — used in `LevelMilestoneModal.tsx` and `steps/SuccessStep.tsx`
