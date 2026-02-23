@@ -1,14 +1,17 @@
+import { forwardRef } from "react";
 import { marked } from "marked";
 import styles from "./instructions-panel.module.css";
 
 interface InstructionsContentProps {
   instructions: string;
-  className?: string;
 }
 
-export default function InstructionsContent({ instructions, className = "" }: InstructionsContentProps) {
+const InstructionsContent = forwardRef<HTMLDivElement, InstructionsContentProps>(function InstructionsContent(
+  { instructions },
+  ref
+) {
   return (
-    <div className={`${styles.instructionsContainer} ${className}`}>
+    <div ref={ref} className={styles.instructionsContainer}>
       <h2>Instructions</h2>
       <div
         className={styles.instructionsContent}
@@ -18,4 +21,6 @@ export default function InstructionsContent({ instructions, className = "" }: In
       />
     </div>
   );
-}
+});
+
+export default InstructionsContent;

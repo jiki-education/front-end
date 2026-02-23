@@ -5,6 +5,7 @@ import styles from "./instructions-panel.module.css";
 
 interface NavigationButtonsProps {
   activeSection: string;
+  hasFunctions: boolean;
   onNavigateToInstructions: () => void;
   onNavigateToFunctions: () => void;
   onNavigateToConceptLibrary: () => void;
@@ -13,6 +14,7 @@ interface NavigationButtonsProps {
 
 export default function NavigationButtons({
   activeSection,
+  hasFunctions,
   onNavigateToInstructions,
   onNavigateToFunctions,
   onNavigateToConceptLibrary,
@@ -29,15 +31,17 @@ export default function NavigationButtons({
       >
         <InstructionsIcon width={20} height={20} />
       </button>
-      <button
-        onClick={onNavigateToFunctions}
-        className={`${styles.navigationButton} ${
-          activeSection === "functions" ? styles.navigationButtonActive : styles.navigationButtonInactive
-        }`}
-        title="Functions"
-      >
-        <FunctionsIcon width={20} height={20} />
-      </button>
+      {hasFunctions && (
+        <button
+          onClick={onNavigateToFunctions}
+          className={`${styles.navigationButton} ${
+            activeSection === "functions" ? styles.navigationButtonActive : styles.navigationButtonInactive
+          }`}
+          title="Functions"
+        >
+          <FunctionsIcon width={20} height={20} />
+        </button>
+      )}
       <button
         onClick={onNavigateToConceptLibrary}
         className={`${styles.navigationButton} ${
