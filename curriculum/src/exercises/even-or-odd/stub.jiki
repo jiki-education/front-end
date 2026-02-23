@@ -1,0 +1,5 @@
+function even_or_odd with number do
+  // Your code here
+  // Check if the number is even or odd
+  // Return "Even" or "Odd"
+end

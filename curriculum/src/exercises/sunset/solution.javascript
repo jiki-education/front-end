@@ -9,24 +9,20 @@ let skyH = 210;
 let skyS = 70;
 let skyL = 60;
 
-for (let i = 0; i < 100; i++) {
+repeat(100) {
   // The sky
   skyH = skyH + 0.4;
-  fillColorHsl(skyH, skyS, skyL);
-  rectangle(0, 0, 100, 100);
+  rectangle(0, 0, 100, 100, hsl(skyH, skyS, skyL));
 
   // The Sun
   sunGreen = sunGreen - 1;
   sunCy = sunCy + 1;
   sunRadius = sunRadius + 0.2;
-  fillColorRgb(sunRed, sunGreen, sunBlue);
-  circle(50, sunCy, sunRadius);
+  circle(50, sunCy, sunRadius, rgb(sunRed, sunGreen, sunBlue));
 
   // The sea
-  fillColorHex("#0308ce");
-  rectangle(0, 85, 100, 5);
+  rectangle(0, 85, 100, 5, "#0308ce");
 
   // The sand
-  fillColorHex("#C2B280");
-  rectangle(0, 90, 100, 10);
+  rectangle(0, 90, 100, 10, "#C2B280");
 }

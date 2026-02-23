@@ -1,0 +1,13 @@
+{
+  "slug": "space-invaders-nested-repeat",
+  "title": "Space Invaders: Nested Repeat",
+  "instructions": "Even more aliens have appeared, and now they're **four rows deep**!\n\nYou have the same two functions as before:\n- `move()` moves your laser cannon one position to the right\n- `shoot()` fires the laser upwards\n\nThere's still a pattern to the alien positions, but this time you'll need to use a **repeat loop inside another repeat loop** (a nested loop) to destroy them all efficiently.\n\nYour solution must be **7 lines of code or fewer**.",
+  "estimatedMinutes": 10,
+  "levelId": "functions-that-return-things",
+  "hints": [
+    "The aliens are in every other column, just like before",
+    "But now there are 4 rows of aliens in each column",
+    "You need a repeat loop for the shooting, inside a repeat loop for the columns",
+    "The pattern for each column is: move, shoot 4 times, move"
+  ]
+}

@@ -27,19 +27,19 @@ def codons_to_proteins(codons):
 
 
 def rna_to_codons(rna):
-    codons = []
-    codon = ""
+    result = []
+    current = ""
 
     counter = 0
     for letter in rna:
         counter = counter + 1
-        codon = codon + letter
+        current = current + letter
 
-        if counter % 3 == 0 and codon != "":
-            codons.append(codon)
-            codon = ""
+        if counter % 3 == 0 and current != "":
+            result.append(current)
+            current = ""
 
-    return codons
+    return result
 
 
 def translate_rna(rna):

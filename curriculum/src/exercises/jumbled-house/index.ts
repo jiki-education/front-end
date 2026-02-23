@@ -13,38 +13,31 @@ import stubJikiscript from "./stub.jiki";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(x, y, width, height)",
-    description: "Draw a rectangle at position (x, y) with the given width and height",
-    examples: ["rectangle(0, 0, 100, 50)", "rectangle(20, 50, 60, 40)"],
+    signature: "rectangle(x, y, width, height, color)",
+    description: "Draw a rectangle at position (x, y) with the given width, height, and color",
+    examples: ['rectangle(0, 0, 100, 50, "skyblue")', 'rectangle(20, 50, 60, 40, "brick")'],
     category: "Drawing Shapes"
   },
   {
     name: "circle",
-    signature: "circle(center_x, center_y, radius)",
-    description: "Draw a circle centered at (center_x, center_y) with the given radius",
-    examples: ["circle(50, 50, 10)", "circle(55, 81, 1)"],
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    examples: ['circle(50, 50, 10, "black")', 'circle(55, 81, 1, "yellow")'],
     category: "Drawing Shapes"
   },
   {
     name: "ellipse",
-    signature: "ellipse(center_x, center_y, radius_x, radius_y)",
-    description: "Draw an ellipse centered at (center_x, center_y) with horizontal and vertical radii",
-    examples: ["ellipse(50, 50, 20, 10)", "ellipse(30, 60, 15, 5)"],
+    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
+    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
+    examples: ['ellipse(50, 50, 20, 10, "black")', 'ellipse(30, 60, 15, 5, "white")'],
     category: "Drawing Shapes"
   },
   {
     name: "triangle",
-    signature: "triangle(x1, y1, x2, y2, x3, y3)",
-    description: "Draw a triangle with three corner points",
-    examples: ["triangle(50, 20, 40, 40, 60, 40)", "triangle(16, 50, 50, 30, 84, 50)"],
+    signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
+    description: "Draw a triangle with three corner points and a color",
+    examples: ['triangle(16, 50, 50, 30, 84, 50, "brown")'],
     category: "Drawing Shapes"
-  },
-  {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code",
-    examples: ['fill_color_hex("#FF0000")', 'fill_color_hex("#ADD8E6")', 'fill_color_hex("#f0985b")'],
-    category: "Colors"
   }
 ];
 

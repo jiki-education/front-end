@@ -2,22 +2,18 @@
 // let sunCy = ...
 // let sunRadius = ...
 
-for (let i = 0; i < 100; i++) {
+repeat(100) {
   // TODO: Update the variables here.
 
   // The sky
-  fillColorHsl(210, 70, 60);
-  rectangle(0, 0, 100, 100);
+  rectangle(0, 0, 100, 100, hsl(210, 70, 60));
 
   // The Sun
-  fillColorRgb(255, 237, 0);
-  circle(50, 10, 5);
+  circle(50, 10, 5, rgb(255, 237, 0));
 
   // The sea
-  fillColorHex("#0308ce");
-  rectangle(0, 85, 100, 5);
+  rectangle(0, 85, 100, 5, "#0308ce");
 
   // The sand
-  fillColorHex("#C2B280");
-  rectangle(0, 90, 100, 10);
+  rectangle(0, 90, 100, 10, "#C2B280");
 }

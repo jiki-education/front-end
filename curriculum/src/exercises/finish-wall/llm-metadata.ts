@@ -20,7 +20,7 @@ export const llmMetadata: LLMMetadata = {
         Students must use a repeat loop to draw 5 bricks across the top of a wall.
 
         Key teaching points:
-        1. Loop usage: Use repeat 5 times (Jiki) or for loop (JS/Python)
+        1. Loop usage: Use a for loop that runs 5 times
         2. Position calculation: x position increases by 20 each iteration (0, 20, 40, 60, 80)
         3. Code efficiency: rectangle should only appear once (inside the loop)
         4. Variable tracking: Use a counter variable to calculate x position

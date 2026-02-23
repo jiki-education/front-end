@@ -9,10 +9,7 @@ const mockConcepts = [
     description: "Description 1",
     children_count: 0,
     user_may_access: true,
-    standard_video_provider: null,
-    standard_video_id: null,
-    premium_video_provider: null,
-    premium_video_id: null
+    video_data: null
   },
   {
     slug: "concept-2",
@@ -20,10 +17,7 @@ const mockConcepts = [
     description: "Description 2",
     children_count: 3,
     user_may_access: true,
-    standard_video_provider: null,
-    standard_video_id: null,
-    premium_video_provider: null,
-    premium_video_id: null
+    video_data: null
   }
 ];
 

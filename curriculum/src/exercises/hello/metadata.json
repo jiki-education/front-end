@@ -1,0 +1,11 @@
+{
+  "slug": "hello",
+  "title": "Hello",
+  "instructions": "Write a function called `sayHello` that takes a person's name as input and returns a greeting.\n\nFor example, if the name is \"Aiko\", the function should return \"Hello, Aiko!\".\n\nUse `concatenate()` to build the greeting string from the parts.",
+  "estimatedMinutes": 5,
+  "levelId": "string-manipulation",
+  "hints": [
+    "Use concatenate() to join the parts together",
+    "The greeting has three parts: \"Hello, \", the name, and \"!\""
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "weather-symbols-part-2",
+  "title": "Weather Symbols (Part 2)",
+  "instructions": "In Part 1, you mapped weather descriptions to lists of components. Now it's time to draw them!\n\nCreate a function called `drawWeather(elements)` that takes a list of weather elements and draws the corresponding scene.\n\nThe elements list can contain: `\"sun\"`, `\"cloud\"`, `\"rain\"`, and `\"snow\"`.\n\n### Drawing Rules\n\n**Always start by drawing the sky**: a light blue rectangle covering the whole canvas.\n\n**Sun** has two sizes:\n- If there's NO cloud in the elements, draw a **large sun**: `circle(50, 50, 25, \"#ffed06\")`\n- If there IS a cloud, draw a **small sun**: `circle(75, 30, 15, \"#ffed06\")`\n\n**Cloud** is made of:\n- `rectangle(25, 50, 50, 10, \"#FFFFFF\")`\n- `circle(25, 50, 10, \"#FFFFFF\")`\n- `circle(40, 40, 15, \"#FFFFFF\")`\n- `circle(55, 40, 20, \"#FFFFFF\")`\n- `circle(75, 50, 10, \"#FFFFFF\")`\n\n**Rain** drops:\n- `ellipse(30, 70, 3, 5, \"#56AEFF\")`\n- `ellipse(50, 70, 3, 5, \"#56AEFF\")`\n- `ellipse(70, 70, 3, 5, \"#56AEFF\")`\n- `ellipse(40, 80, 3, 5, \"#56AEFF\")`\n- `ellipse(60, 80, 3, 5, \"#56AEFF\")`\n\n**Snow** flakes:\n- `circle(30, 70, 5, \"#56AEFF\")`\n- `circle(50, 70, 5, \"#56AEFF\")`\n- `circle(70, 70, 5, \"#56AEFF\")`\n- `circle(40, 80, 5, \"#56AEFF\")`\n- `circle(60, 80, 5, \"#56AEFF\")`\n\n### Quick Reminder\n\n- `rectangle(left, top, width, height, color)` -- draws a rectangle\n- `circle(x, y, radius, color)` -- draws a circle\n- `ellipse(x, y, rx, ry, color)` -- draws an ellipse\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.",
+  "estimatedMinutes": 20,
+  "levelId": "lists",
+  "hints": [
+    "Start by drawing the sky background covering the whole canvas",
+    "You'll need to check if \"cloud\" is in the elements list to decide the sun size",
+    "Use a for-each loop to iterate through the elements and draw each one",
+    "Use helper functions like drawSky(), drawSun(size), drawCloud(), drawRain(), drawSnow() to keep your code organized"
+  ]
+}

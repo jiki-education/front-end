@@ -1,0 +1,11 @@
+function walk with steps do
+  repeat steps times do
+    move()
+  end
+end
+
+walk(3)
+turn_left()
+walk(2)
+turn_right()
+walk(4)

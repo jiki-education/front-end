@@ -1,0 +1,12 @@
+{
+  "slug": "snowman-basic",
+  "title": "Snowman",
+  "instructions": "This exercise introduces you to the `circle` function.\n\n### Drawing Circles\n\nTo draw circles, we use the `circle` function with 3 inputs:\n\n- `x`: The x position of the center of the circle\n- `y`: The y position of the center of the circle\n- `radius`: How big the circle is\n\n## Instructions\n\nYour job is to draw three white circles to build a snowman. The snowman has:\n\n- A large **base** circle at the bottom\n- A medium **body** circle in the middle\n- A small **head** circle at the top\n\nAll three circles should be centered horizontally on the canvas. Use the target image as a guide.\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.\n\nTo make your life easier, all coordinates and sizes are whole numbers.",
+  "estimatedMinutes": 5,
+  "levelId": "using-functions",
+  "hints": [
+    "The snowman is centered horizontally at x = 50",
+    "The base is the largest circle, near the bottom",
+    "Each circle gets smaller as you go up"
+  ]
+}

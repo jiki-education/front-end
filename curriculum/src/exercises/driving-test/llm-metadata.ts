@@ -46,7 +46,7 @@ export const llmMetadata: LLMMetadata = {
 
         Language-specific notes:
         - All three languages iterate over strings character by character the same way
-        - Python uses True/False (capitalized), JS/Jiki use true/false
+        - Python uses True/False (capitalized), JS uses true/false
         - Emoji are valid string characters in all three languages
       `
     }

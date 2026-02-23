@@ -1,0 +1,13 @@
+{
+  "slug": "caesar-cipher",
+  "title": "Caesar Cipher",
+  "instructions": "The Caesar Cipher is one of the earliest and simplest encryption techniques. It was used by Julius Caesar to send secret messages to his generals.\n\n<!-- TODO: Add photo of me dressed like Caesar -->\n\nThe cipher works by shifting each letter in the message by a fixed number of positions in the alphabet. For example, with a shift of 3, 'a' becomes 'd', 'b' becomes 'e', and so on. If the shift goes past 'z', it wraps around to the beginning of the alphabet.\n\nSpaces should be kept as spaces (not shifted).\n\nCreate a function called `encode(message, shift)` that takes a lowercase message and a shift amount, and returns the encoded message.\n\nFor example:\n- `encode(\"abc\", 1)` returns `\"bcd\"`\n- `encode(\"xyz\", 3)` returns `\"abc\"` (wraps around)\n- `encode(\"hello world\", 5)` returns `\"mjqqt btwqi\"`\n\nHint: You'll want to break this problem down into smaller helper functions!",
+  "estimatedMinutes": 20,
+  "levelId": "multiple-functions",
+  "hints": [
+    "Break the problem into smaller pieces: first figure out how to shift a single letter, then use that to encode a whole message",
+    "You'll need to find the position of a letter in the alphabet - consider writing a helper function for that",
+    "The modulo operator (%) is useful for wrapping around when the shift goes past 'z'",
+    "Use concatenate() to build up the result string letter by letter"
+  ]
+}

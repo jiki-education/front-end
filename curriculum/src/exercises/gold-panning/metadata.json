@@ -1,0 +1,13 @@
+{
+  "slug": "gold-panning",
+  "title": "Gold Panning",
+  "instructions": "You're panning for gold in a river! Each time you dip your pan, you find a random number of gold nuggets.\n\nYou have two functions:\n- `pan()` dips your pan in the river and **gives back** the number of nuggets you found\n- `sell(nuggets)` sells your nuggets at the trading post\n\nHere's what you need to do:\n1. Start with 0 nuggets\n2. Pan 5 times, adding each result to your running total\n3. Sell all your nuggets at the trading post\n\n**Important:** Each time you call `pan()`, it gives back a different number. You need to add each result to your total as you go. Use a loop to pan 5 times and keep a running total of your nuggets.",
+  "estimatedMinutes": 10,
+  "levelId": "functions-that-return-things",
+  "hints": [
+    "Start by creating a variable to track your total: let nuggets = 0",
+    "Use a repeat loop to pan 5 times",
+    "Inside the loop, add the result of pan() to your nuggets variable",
+    "After the loop, sell your total nuggets"
+  ]
+}

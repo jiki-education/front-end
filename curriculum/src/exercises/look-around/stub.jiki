@@ -1,0 +1,20 @@
+// Add your check_direction, can_turn_left, can_turn_right, and can_move functions here
+
+function turn_around do
+  turn_right()
+  turn_right()
+end
+
+repeat do
+  if can_turn_left() do
+    turn_left()
+    move()
+  else if can_move() do
+    move()
+  else if can_turn_right() do
+    turn_right()
+    move()
+  else do
+    turn_around()
+  end
+end

@@ -1,0 +1,13 @@
+{
+  "slug": "leap",
+  "title": "Leap Years",
+  "instructions": "In this exercise, we're exploring Leap Years!\n\nA leap year (in the Gregorian calendar) occurs:\n\n- In every year that is evenly divisible by 4.\n- Unless the year is evenly divisible by 100, in which case it's only a leap year if the year is also evenly divisible by 400.\n\nSome examples:\n\n- 1997 was not a leap year as it's not divisible by 4.\n- 1900 was not a leap year as it's not divisible by 400.\n- 2000 was a leap year!\n\nYour job is to write a function called `isLeapYear` that takes a year as its input and returns `true` if it is a leap year, or `false` if it is not.\n\nTake your time on this one. Think it through before starting!",
+  "estimatedMinutes": 10,
+  "levelId": "make-your-own-functions",
+  "hints": [
+    "A year is a leap year if it is divisible by 4",
+    "But if the year is also divisible by 100, it is NOT a leap year",
+    "Unless the year is also divisible by 400, in which case it IS a leap year",
+    "Use the remainder operator (%) to check divisibility — if year % 4 equals 0, the year is divisible by 4"
+  ]
+}

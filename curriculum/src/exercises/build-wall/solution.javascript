@@ -5,11 +5,10 @@ let col = -1;
 let row = -1;
 
 let numIterations = 0;
-fillColorHex("#AA4A44");
 
-for (let r = 0; r < 10; r++) {
+repeat(10) {
   row = row + 1;
-  if (row % 2 == 0) {
+  if (row % 2 === 0) {
     col = -1;
     numIterations = 5;
   } else {
@@ -17,8 +16,8 @@ for (let r = 0; r < 10; r++) {
     numIterations = 6;
   }
 
-  for (let c = 0; c < numIterations; c++) {
+  repeat(numIterations) {
     col = col + 1;
-    rectangle(col * width, row * height, width, height);
+    rectangle(col * width, row * height, width, height, "brick");
   }
 }

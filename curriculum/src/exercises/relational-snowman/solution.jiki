@@ -1,0 +1,23 @@
+// Snowman (Arithmetic)
+
+// These are fixed
+set head_radius to 5
+set snowman_x to 50
+set ground_y to 80
+
+// Derive these from the variables above
+set body_radius to head_radius * 2
+set base_radius to head_radius * 3
+
+set base_y to ground_y - base_radius
+set body_y to base_y - base_radius - body_radius
+set head_y to body_y - body_radius - head_radius
+
+// Base (bottom, biggest)
+circle(snowman_x, base_y, base_radius, "white")
+
+// Body (middle)
+circle(snowman_x, body_y, body_radius, "white")
+
+// Head (top, smallest)
+circle(snowman_x, head_y, head_radius, "white")

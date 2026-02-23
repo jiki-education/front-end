@@ -14,8 +14,8 @@ function createMockSVGElement(): SVGElement {
   return document.createElementNS("http://www.w3.org/2000/svg", "circle") as SVGElement;
 }
 
-const defaultStrokeColor = { type: "hex" as const, color: "#333333" };
-const defaultFillColor = { type: "hex" as const, color: "#ff0000" };
+const defaultStrokeColor = "#333333";
+const defaultFillColor = "#ff0000";
 
 describe("Shape Retrievers", () => {
   describe("2.1 getCircleAt", () => {

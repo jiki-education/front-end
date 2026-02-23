@@ -1,0 +1,60 @@
+function draw_weather with elements do
+  draw_sky()
+
+  set has_cloud to false
+  for each element in elements do
+    if element == "cloud" do
+      change has_cloud to true
+    end
+  end
+
+  for each element in elements do
+    if element == "sun" and has_cloud do
+      draw_sun("small")
+    else if element == "sun" do
+      draw_sun("large")
+    else if element == "cloud" do
+      draw_cloud()
+    else if element == "rain" do
+      draw_rain()
+    else if element == "snow" do
+      draw_snow()
+    end
+  end
+end
+
+function draw_sky do
+  rectangle(0, 0, 100, 100, "#ADD8E6")
+end
+
+function draw_sun with size do
+  if size == "large" do
+    circle(50, 50, 25, "#ffed06")
+  else do
+    circle(75, 30, 15, "#ffed06")
+  end
+end
+
+function draw_cloud do
+  rectangle(25, 50, 50, 10, "#FFFFFF")
+  circle(25, 50, 10, "#FFFFFF")
+  circle(40, 40, 15, "#FFFFFF")
+  circle(55, 40, 20, "#FFFFFF")
+  circle(75, 50, 10, "#FFFFFF")
+end
+
+function draw_rain do
+  ellipse(30, 70, 3, 5, "#56AEFF")
+  ellipse(50, 70, 3, 5, "#56AEFF")
+  ellipse(70, 70, 3, 5, "#56AEFF")
+  ellipse(40, 80, 3, 5, "#56AEFF")
+  ellipse(60, 80, 3, 5, "#56AEFF")
+end
+
+function draw_snow do
+  circle(30, 70, 5, "#56AEFF")
+  circle(50, 70, 5, "#56AEFF")
+  circle(70, 70, 5, "#56AEFF")
+  circle(40, 80, 5, "#56AEFF")
+  circle(60, 80, 5, "#56AEFF")
+end

@@ -1,0 +1,15 @@
+{
+  "slug": "llm-response",
+  "title": "LLM Response",
+  "instructions": "Create a function called askLlm that takes one input - the question to ask.\n\nUse the fetch(url, parameters) function to hit the API at \"https://myllm.com/api/v2/qanda\". The parameters should be a dictionary with one key/value pair for \"question\".\n\nExplore the data you get back then transform it into the following format:\n\n\"The answer to 'Who won the 1966 Football Men's World Cup?' is 'England' (100% certainty in 0.5s).\"\n\nFinally, return that string.\n\nA couple of notes:\n\n- You will receive multiple possible answers. Choose the one that the LLM has the highest certainty about.\n- 0.78 as a decimal is the same as 78% as a percentage.\n- 123ms is the same as 0.123s (there are 1000 milliseconds in a second).",
+  "estimatedMinutes": 20,
+  "levelId": "everything",
+  "hints": [
+    "Use fetch(url, params) to get data from the API, where params is { \"question\": question }",
+    "The response has a \"response\" key containing \"answers\" (a list of dictionaries with \"text\" and \"certainty\" keys)",
+    "The response also has a \"meta\" key containing \"time\" (a string like \"500ms\")",
+    "Loop through the answers to find the one with the highest certainty (certainty values are strings, so convert them to numbers first)",
+    "To convert milliseconds to seconds, extract the numeric part and divide by 1000",
+    "Use concatenate() to build the final formatted string"
+  ]
+}

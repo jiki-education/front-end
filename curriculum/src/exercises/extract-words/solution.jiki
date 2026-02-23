@@ -1,0 +1,20 @@
+function extract_words with sentence do
+  set words to []
+  set word to ""
+  for each letter in sentence do
+    if letter == " " do
+      if word != "" do
+        change words to push(words, word)
+      end
+      change word to ""
+    else if letter == "." do
+      // skip periods
+    else do
+      change word to concatenate(word, letter)
+    end
+  end
+  if word != "" do
+    change words to push(words, word)
+  end
+  return words
+end

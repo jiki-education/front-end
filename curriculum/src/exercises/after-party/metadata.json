@@ -1,11 +1,11 @@
 {
   "slug": "after-party",
   "title": "After Party",
-  "instructions": "We're back to playing the role of a bouncer. But this time, we're dealing with A-List Celebrities at the After Party.\n\nWhen these people show up to your party, they expect you to know them just by their first-names. Brad Pitt isn't going to waste his breath telling you his surname, he'll just say \"Brad\".\n\nNow, you're not really into all the celebrity nonsense, so despite Brad's expectations, you have no idea who he is. But you've been told not to make a fuss, so you just check the list to see if there's **any** Brads on there, and if there are, you let him in.\n\nWrite a function called `on_guest_list`. The function has two inputs. The first will contain the guest_list as a list of strings. The second is the **first name** of the person you need to check. You should return if the person is on the guest list.",
+  "instructions": "We're back to playing the role of a bouncer. But this time, we're dealing with A-List Celebrities at the After Party.\n\nWhen these people show up to your party, they expect you to know them just by their first-names. Brad Pitt isn't going to waste his breath telling you his surname, he'll just say \"Brad\".\n\nNow, you're not really into all the celebrity nonsense, so despite Brad's expectations, you have no idea who he is. But you've been told not to make a fuss, so you just check the list to see if there's **any** Brads on there, and if there are, you let him in.\n\nWrite a function called `onGuestList`. The function has two inputs. The first will contain the guestList as a list of strings. The second is the **first name** of the person you need to check. You should return if the person is on the guest list.",
   "estimatedMinutes": 15,
-  "levelId": "everything",
+  "levelId": "lists",
   "hints": [
-    "This exercise would be a lot easier if you had some common functions available like a length function and a starts_with function",
+    "This exercise would be a lot easier if you had some common functions available like a length function and a startsWith function",
     "A good outline would be: Go through each name on the list, if the name starts with the person's first name, return true. If none of the names match, return false",
     "You need to check if the name starts with the first name followed by a space, OR if the name equals the first name exactly (for single-name celebrities like Cher)"
   ]

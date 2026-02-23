@@ -1,0 +1,5 @@
+set age to get_age()
+
+if age > 20 do
+  open_door()
+end

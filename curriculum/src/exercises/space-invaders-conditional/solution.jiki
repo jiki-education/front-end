@@ -1,0 +1,6 @@
+repeat 10 times do
+  if is_alien_above() do
+    shoot()
+  end
+  move()
+end

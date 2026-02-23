@@ -1,0 +1,14 @@
+{
+  "slug": "rainbow-ball",
+  "title": "Rainbow Ball",
+  "instructions": "Create a bouncing rainbow ball that leaves a colorful trail!\n\nA ball bounces around the canvas, changing direction when it hits the edges. As it moves, it draws circles that cycle through rainbow colors.\n\n### How to solve it\n\n- The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).\n- Create variables for the ball's position (`x`, `y`) and its direction (`xDirection`, `yDirection`).\n- Create a variable for `hue` and `hueDirection` to cycle through colors.\n- Use a repeat loop that runs 1000 times.\n- In each iteration:\n  1. Update `x` and `y` by adding the direction values\n  2. Update `hue` by adding `hue_direction`\n  3. Check if the ball has hit an edge and reverse direction with a random speed\n  4. Check if the hue has gone below 0 or above 360 and reverse hue direction\n  5. Draw a circle at the current position with a color from the hue\n\n### Functions used in this exercise\n\n- `circle(x, y, radius, color)` - Draw a circle with center at (x, y) with the given radius and color\n- `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string\n- `randomNumber(min, max)` - Get a random integer between min and max (inclusive)",
+  "estimatedMinutes": 15,
+  "levelId": "conditionals-and-state",
+  "hints": [
+    "You need variables for position (x, y), direction (xDirection, yDirection), hue, and hueDirection",
+    "Update x, y, and hue at the start of each loop iteration by adding the direction values",
+    "When x goes below 0 or above 100, change xDirection to a random value in the opposite direction",
+    "Use randomNumber(1, 5) for positive directions and randomNumber(-5, -1) for negative directions",
+    "When hue goes below 0, set hueDirection to 1; when above 360, set it to -1"
+  ]
+}

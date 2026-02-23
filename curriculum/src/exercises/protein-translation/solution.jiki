@@ -29,18 +29,18 @@ function codons_to_proteins with codons do
 end
 
 function rna_to_codons with rna do
-  set codons to []
-  set codon to ""
-  
+  set result to []
+  set current to ""
+
   for each letter in rna indexed by counter do
-    change codon to concatenate(codon, letter)
-  
-    if counter % 3 == 0 and codon != "" do
-      change codons to push(codons, codon)
-      change codon to ""
+    change current to concatenate(current, letter)
+
+    if counter % 3 == 0 and current != "" do
+      change result to push(result, current)
+      change current to ""
     end
   end
-  return codons
+  return result
 end
 
 function translate_rna with rna do

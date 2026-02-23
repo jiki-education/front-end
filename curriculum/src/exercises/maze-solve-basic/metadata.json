@@ -8,6 +8,6 @@
     "The character starts in the top-left corner facing down",
     "Plan your path to avoid blocked (red striped) cells",
     "You need to reach the bottom-right corner with the green target",
-    "Use turn_left() or turn_right() to change direction before moving"
+    "Use turnLeft() or turnRight() to change direction before moving"
   ]
 }

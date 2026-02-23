@@ -1,0 +1,4 @@
+# Get the person's outfit using get_outfit()
+# Fancy ("ballgown" or "tuxedo"): offer_champagne() and let_in()
+# Smart ("suit" or "dress"): let_in()
+# Anything else: turn_away()

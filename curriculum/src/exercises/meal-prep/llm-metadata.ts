@@ -25,28 +25,27 @@ export const llmMetadata: LLMMetadata = {
     "create-shopping-list": {
       description: `
         Students need to:
-        1. Write a helper function to check if an item exists in a list (in_list)
+        1. Write a helper function to check if an item exists in a list (inList)
         2. Loop through each recipe item
         3. Check if the item is NOT in the fridge
         4. If not in fridge, add it to the shopping list using push()
         5. Return the shopping list
 
         Common mistakes:
-        - Trying to compare lists directly (lists can't be compared with == in Jiki)
-        - Forgetting to use the 'not' keyword when checking if item is missing
+        - Trying to compare lists directly (lists can't be compared with ==)
+        - Forgetting to negate when checking if item is missing
         - Not returning the result from push() (push returns the new list)
         - Mixing up the fridge and recipe parameters
 
         Teaching strategy:
-        - Encourage writing the in_list helper function first
+        - Encourage writing the inList helper function first
         - Test the helper function with simple cases before moving on
         - Emphasize that push() returns a new list, so you need to reassign
         - Walk through the real-world analogy: checking each ingredient against your fridge
 
-        Language-specific notes:
-        - Jikiscript: Use 'not in_list(...)' for negation
-        - JavaScript: Use '!inList(...)' for negation, or use .includes() natively
-        - Python: Use 'not in_list(...)' or 'item not in fridge' natively
+        Language notes:
+        - Use '!inList(...)' for negation, or use .includes() natively in JavaScript
+        - In Python: 'not inList(...)' or 'item not in fridge' natively
       `
     }
   }

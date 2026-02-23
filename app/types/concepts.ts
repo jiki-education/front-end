@@ -1,3 +1,5 @@
+import type { VideoData } from "./lesson";
+
 export interface ConceptAncestor {
   title: string;
   slug: string;
@@ -9,10 +11,7 @@ export interface ConceptListItem {
   description: string;
   children_count: number;
   user_may_access: boolean;
-  standard_video_provider: string | null;
-  standard_video_id: string | null;
-  premium_video_provider: string | null;
-  premium_video_id: string | null;
+  video_data: VideoData[] | null;
 }
 
 export interface ConceptDetail {
@@ -23,8 +22,5 @@ export interface ConceptDetail {
   children_count: number;
   user_may_access: boolean;
   ancestors: ConceptAncestor[];
-  standard_video_provider: string | null;
-  standard_video_id: string | null;
-  premium_video_provider: string | null;
-  premium_video_id: string | null;
+  video_data: VideoData[] | null;
 }

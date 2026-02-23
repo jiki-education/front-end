@@ -1,0 +1,9 @@
+function pack_a_lunch with sandwich, drink, snack do
+  set lunchbox to []
+  change lunchbox to push(lunchbox, sandwich)
+  if drink != "milkshake" do
+    change lunchbox to push(lunchbox, drink)
+  end
+  change lunchbox to push(lunchbox, snack)
+  return lunchbox
+end

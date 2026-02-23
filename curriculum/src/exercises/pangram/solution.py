@@ -19,11 +19,11 @@ def to_lower(sentence):
     lower = "abcdefghijklmnopqrstuvwxyz"
     upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     upper_idx = 0
-    for letter in sentence:
-        if contains(lower, letter):
-            output = output + letter
+    for char in sentence:
+        if contains(lower, char):
+            output = output + char
         else:
-            upper_idx = index_of(upper, letter)
+            upper_idx = index_of(upper, char)
             if upper_idx != -1:
                 output = output + lower[upper_idx]
     return output

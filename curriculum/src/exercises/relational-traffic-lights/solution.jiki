@@ -1,0 +1,29 @@
+// Relational Traffic Lights
+// Change the radius and watch the traffic light resize!
+
+set red to "red"
+set yellow to "amber"
+set green to "green"
+set housing_color to "charcoal"
+
+set radius to 10
+set center_x to radius * 5
+set red_y to radius * 3
+set yellow_y to radius * 5
+set green_y to radius * 7
+set housing_x to radius * 3
+set housing_y to radius
+set housing_width to radius * 4
+set housing_height to radius * 8
+
+// Traffic light housing
+rectangle(housing_x, housing_y, housing_width, housing_height, housing_color)
+
+// Red light (top)
+circle(center_x, red_y, radius, red)
+
+// Yellow light (middle)
+circle(center_x, yellow_y, radius, yellow)
+
+// Green light (bottom)
+circle(center_x, green_y, radius, green)

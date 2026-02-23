@@ -1,0 +1,8 @@
+set attack to roll(20)
+set damage to roll(6)
+set bonus to roll(4)
+announce(attack)
+announce(damage)
+announce(bonus)
+set totalDamage to damage + bonus
+strike(attack, totalDamage)

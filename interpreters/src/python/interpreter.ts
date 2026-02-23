@@ -8,6 +8,7 @@ import type { JikiObject } from "./jikiObjects";
 import {
   extractCallExpressions,
   extractVariableAssignments,
+  formatIdentifier,
   countLinesOfCode,
   extractFunctionDeclarations,
   extractMethodCalls,
@@ -168,8 +169,9 @@ export function evaluateFunction(
         });
       },
       assertNoLiteralNumberAssignments: (exclude: string[]) => {
+        const formattedExclude = exclude.map(formatIdentifier);
         return extractVariableAssignments(statements).every(({ name, value }) => {
-          if (exclude.includes(name)) {
+          if (formattedExclude.includes(name)) {
             return true;
           }
           return !(value instanceof LiteralExpression && typeof value.value === "number");
@@ -178,16 +180,19 @@ export function evaluateFunction(
       countLinesOfCode: () => countLinesOfCode(sourceCode),
       assertMaxLinesOfCode: (limit: number) => countLinesOfCode(sourceCode) <= limit,
       assertFunctionDefined: (name: string) => {
-        return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === name);
+        const formatted = formatIdentifier(name);
+        return extractFunctionDeclarations(statements).some(fd => fd.name.lexeme === formatted);
       },
       assertMethodCalled: (methodName: string) => {
-        return extractMethodCalls(statements).some(mc => mc.methodName === methodName);
+        const formatted = formatIdentifier(methodName);
+        return extractMethodCalls(statements).some(mc => mc.methodName === formatted);
       },
       countArrayLiterals: () => countListExpressions(statements),
       assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
-        const callsOutside = extractCallExpressionsDeepExcluding(statements, funcName);
+        const formatted = formatIdentifier(funcName);
+        const callsOutside = extractCallExpressionsDeepExcluding(statements, formatted);
         return callsOutside.some(
-          call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === funcName
+          call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
         );
       },
     },

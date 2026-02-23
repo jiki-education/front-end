@@ -15,7 +15,7 @@ export const llmMetadata: LLMMetadata = {
 
     Key concepts:
     - String parsing and extraction (removing honorifics)
-    - Implementing ends_with functionality from scratch
+    - Implementing endsWith functionality from scratch
     - Helper function decomposition
     - Working with string indices and lengths
     - List iteration with early returns
@@ -26,25 +26,24 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to:
         1. Create a helper to calculate string length
-        2. Create a remove_honorific helper that extracts everything after the first space
-        3. Create an ends_with helper that checks if one string ends with another
+        2. Create a removeHonorific helper that extracts everything after the first space
+        3. Create an endsWith helper that checks if one string ends with another
         4. Use these helpers to check each name in the guest list
         5. Return true if any name ends with the extracted surname
 
         Common mistakes:
-        - Off-by-one errors in ends_with (Jikiscript uses 1-based indexing)
+        - Off-by-one errors in endsWith
         - Not handling the case where surname is longer than the name
         - Forgetting to skip the space when extracting the surname
         - Using == instead of checking character by character
 
         Teaching strategy:
         - Build up the solution step by step
-        - Start with length(), then remove_honorific(), then ends_with()
+        - Start with length(), then removeHonorific(), then endsWith()
         - Test each helper independently
         - Show how the main function becomes simple once helpers exist
 
         Language-specific notes:
-        - Jikiscript: Uses concatenate() stdlib, 1-based indexing
         - JavaScript: Uses string concatenation with +, 0-based indexing
         - Python: Uses string concatenation with +, 0-based indexing, has len() built-in
       `
@@ -55,14 +54,14 @@ export const llmMetadata: LLMMetadata = {
         The key insight is that the honorific is only the FIRST word,
         so "Baron Lloyd Webber" should extract "Lloyd Webber" as the surname.
 
-        The solution should already handle this correctly if remove_honorific
+        The solution should already handle this correctly if removeHonorific
         extracts EVERYTHING after the first space (not just the second word).
 
         Common mistakes:
         - Only extracting one word after the honorific
         - Partial matches (matching "Webber" alone when looking for "Lloyd Webber")
 
-        Guide students to verify their remove_honorific function handles this case.
+        Guide students to verify their removeHonorific function handles this case.
       `
     }
   }

@@ -1,0 +1,16 @@
+// These are fixed
+set canvas_size to 100
+set gap to 10
+set sun_radius to 15
+set sky_color to "skyblue"
+set sun_color to "yellow"
+
+// Derive these from the variables above
+set sun_x to canvas_size - gap - sun_radius
+set sun_y to gap + sun_radius
+
+// Sky
+rectangle(0, 0, canvas_size, canvas_size, sky_color)
+
+// Sun
+circle(sun_x, sun_y, sun_radius, sun_color)

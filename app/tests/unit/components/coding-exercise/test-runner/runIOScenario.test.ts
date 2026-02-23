@@ -5,13 +5,16 @@ import { jikiscript } from "@jiki/interpreters";
 // Mock the interpreters module
 jest.mock("@jiki/interpreters", () => ({
   jikiscript: {
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   javascript: {
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   },
   python: {
-    evaluateFunction: jest.fn()
+    evaluateFunction: jest.fn(),
+    formatIdentifier: (name: string) => name
   }
 }));
 

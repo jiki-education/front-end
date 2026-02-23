@@ -1,9 +1,9 @@
 {
   "slug": "guest-list",
   "title": "Guest List",
-  "instructions": "You're a bouncer at the Oscars, and need a function to check if someone is on the Guest List.\n\nWrite a function called `on_guest_list`. The function has two inputs:\n- The first expects the guest_list to be passed as a list of strings\n- The second is the name of the person you need to check as a string\n\nYou should return whether the person is on the guest list.",
+  "instructions": "You're a bouncer at the Oscars, and need a function to check if someone is on the Guest List.\n\nWrite a function called `onGuestList`. The function has two inputs:\n- The first expects the guestList to be passed as a list of strings\n- The second is the name of the person you need to check as a string\n\nYou should return whether the person is on the guest list.",
   "estimatedMinutes": 10,
-  "levelId": "everything",
+  "levelId": "lists",
   "hints": [
     "Imagine real life: you have a list and you need to see if there is a name on it. What do you do?",
     "You read through the list and check to see if each entry on the list matches the name",

@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
 import styles from "../ExercisePath.module.css";
-import { ExerciseIcon } from "../../../icons/ExerciseIcon";
+import { LessonIcon } from "../../../icons/LessonIcon";
 
 interface LessonNodeProps {
   lesson: LessonDisplayData;
@@ -85,7 +85,7 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
         ) : lesson.lesson.type === "choose_language" ? (
           <ChooseLanguageIcon />
         ) : (
-          <ExerciseIcon slug={lesson.lesson.slug} width={64} height={64} />
+          <LessonIcon slug={lesson.lesson.slug} width={64} height={64} />
         )}
       </div>
       <div className={styles.partContent}>

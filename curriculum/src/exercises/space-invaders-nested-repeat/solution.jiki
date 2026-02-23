@@ -1,0 +1,7 @@
+repeat 5 times do
+  move()
+  repeat 4 times do
+    shoot()
+  end
+  move()
+end

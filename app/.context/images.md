@@ -6,29 +6,29 @@ This project uses SVGs exclusively for icons. All icons are stored in `app/icons
 
 ## Dynamic Icon Components
 
-For content that has associated icons (badges, concepts, exercises, projects), use the dedicated icon components in `components/icons/`:
+For content that has associated icons (badges, concepts, lessons, projects), use the dedicated icon components in `components/icons/`:
 
-| Component                     | Source Directory                    | Usage             |
-| ----------------------------- | ----------------------------------- | ----------------- |
-| `<BadgeIcon slug="..." />`    | `curriculum/images/badge-icons/`    | Badge displays    |
-| `<ConceptIcon slug="..." />`  | `curriculum/images/concept-icons/`  | Concept cards     |
-| `<ExerciseIcon slug="..." />` | `curriculum/images/exercise-icons/` | Exercise displays |
-| `<ProjectIcon slug="..." />`  | `curriculum/images/project-icons/`  | Project cards     |
+| Component                    | Source Directory                   | Rendering          | Usage           |
+| ---------------------------- | ---------------------------------- | ------------------ | --------------- |
+| `<LessonIcon slug="..." />`  | `curriculum/images/lesson-icons/`  | `<img>` tag        | Lesson displays |
+| `<BadgeIcon slug="..." />`   | `curriculum/images/badge-icons/`   | `<img>` tag        | Badge displays  |
+| `<ConceptIcon slug="..." />` | `curriculum/images/concept-icons/` | `IconWithFallback` | Concept cards   |
+| `<ProjectIcon slug="..." />` | `curriculum/images/project-icons/` | `IconWithFallback` | Project cards   |
 
-These components:
+`LessonIcon` and `BadgeIcon` render simple `<img>` tags pointing to `/static/icons/lessons/{slug}.svg` and `/static/icons/badges/{slug}.svg` respectively.
 
-- Load SVGs dynamically via `IconWithFallback`
-- Show a `fallback.svg` if the requested icon doesn't exist
-- Accept `width` and `height` props (default: 48)
+`ConceptIcon` and `ProjectIcon` load SVGs dynamically via `IconWithFallback`, showing a `fallback.svg` if the requested icon doesn't exist.
+
+All accept `width` and `height` props.
 
 ### Example
 
 ```tsx
-import { ExerciseIcon } from "@/components/icons/ExerciseIcon";
+import { LessonIcon } from "@/components/icons/LessonIcon";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 
 // In a component
-<ExerciseIcon slug="bouncy-ball" width={24} height={24} />
+<LessonIcon slug="bouncy-ball" width={24} height={24} />
 <ProjectIcon slug="calculator" />
 ```
 
@@ -38,7 +38,7 @@ The `app/icons/` directory contains symlinks to curriculum icon directories:
 
 - `icons/badges/` → `curriculum/images/badge-icons/`
 - `icons/concepts/` → `curriculum/images/concept-icons/`
-- `icons/exercises/` → `curriculum/images/exercise-icons/`
+- `icons/lessons/` → `curriculum/images/lesson-icons/`
 - `icons/projects/` → `curriculum/images/project-icons/`
 
 ## SVGR Integration

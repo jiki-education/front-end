@@ -1,0 +1,31 @@
+function get_length with word do
+  set counter to 0
+  for each letter in word do
+    change counter to counter + 1
+  end
+  return counter
+end
+
+function starts_with with name, prefix do
+  if get_length(prefix) > get_length(name) do
+    return false
+  end
+
+  set counter to 1
+  for each letter in prefix do
+    if letter != name[counter] do
+      return false
+    end
+    change counter to counter + 1
+  end
+  return true
+end
+
+set name to ask_name()
+set allowed_start to get_allowed_start()
+
+if starts_with(name, allowed_start) do
+  let_in()
+else do
+  turn_away()
+end

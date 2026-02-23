@@ -1,0 +1,11 @@
+set age to get_age()
+
+if age < 13 do
+  child_wristband()
+else if age < 18 do
+  teen_wristband()
+else if age < 65 do
+  adult_wristband()
+else do
+  senior_wristband()
+end

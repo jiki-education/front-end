@@ -16,7 +16,7 @@ describe("All Exercises - Solution Validation", () => {
    */
 
   //const languages = ["jikiscript", "javascript", "python"] as const;
-  const languages = ["jikiscript"] as const;
+  const languages = ["jikiscript", "javascript"] as const;
 
   for (const [slug, loader] of Object.entries(exercises)) {
     for (const language of languages) {

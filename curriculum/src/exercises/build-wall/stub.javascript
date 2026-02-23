@@ -1,1 +1,1 @@
-fillColorHex("#AA4A44");
+// TODO: Build the wall

@@ -4,12 +4,12 @@ export const everythingLevel: Level = {
   id: "everything",
   title: "Everything",
   description: "All language features enabled for testing and advanced exercises",
-  educationalGoal: "Testing level with all features enabled",
+  taughtConcepts: [],
 
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["concatenate", "to_upper_case", "push", "sort_string", "concat", "keys"]
+        allowedStdlibFunctions: ["sort_string", "concat"]
       }
     },
     javascript: {
@@ -32,9 +32,12 @@ export const everythingLevel: Level = {
         "IfStatement",
         "ForStatement",
         "ForOfStatement",
+        "RepeatStatement",
         "WhileStatement",
         "BreakStatement",
-        "ContinueStatement"
+        "ContinueStatement",
+        "FunctionDeclaration",
+        "ReturnStatement"
       ],
       languageFeatures: {
         allowTruthiness: true,

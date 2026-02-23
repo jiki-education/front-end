@@ -5,6 +5,10 @@ import { SetVariableStatement, ChangeVariableStatement, FunctionStatement } from
 import type { Expression } from "./expression";
 import { FunctionCallExpression, MethodCallExpression, ListExpression } from "./expression";
 
+export function formatIdentifier(name: string): string {
+  return name;
+}
+
 export function formatJikiObject(value?: any): string {
   if (value === undefined) {
     return "";

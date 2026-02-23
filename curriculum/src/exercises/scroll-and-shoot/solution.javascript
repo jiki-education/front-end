@@ -4,7 +4,7 @@ let rightBoundary = 10;
 let direction = "right";
 let position = 0;
 
-repeat(1000) {
+repeat() {
   if (isAlienAbove()) {
     shoot();
   }

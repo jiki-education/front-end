@@ -1,0 +1,4 @@
+// The main function that gets called.
+function sign_price with sign_text do
+  // Your code here
+end

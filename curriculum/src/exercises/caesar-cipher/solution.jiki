@@ -1,0 +1,32 @@
+function index_of with text, target do
+  set idx to 1
+  for each char in text do
+    if char == target do
+      return idx
+    end
+    change idx to idx + 1
+  end
+  return -1
+end
+
+function shift_letter with letter, amount do
+  set alphabet to "abcdefghijklmnopqrstuvwxyz"
+  set pos to index_of(alphabet, letter)
+  if pos == -1 do
+    return letter
+  end
+  set new_pos to ((pos - 1 + amount) % 26) + 1
+  return alphabet[new_pos]
+end
+
+function encode with message, shift do
+  set result to ""
+  for each char in message do
+    if char == " " do
+      change result to concatenate(result, " ")
+    else do
+      change result to concatenate(result, shift_letter(char, shift))
+    end
+  end
+  return result
+end

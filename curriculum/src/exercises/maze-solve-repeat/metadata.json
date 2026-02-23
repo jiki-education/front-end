@@ -1,0 +1,14 @@
+{
+  "slug": "maze-solve-repeat",
+  "title": "Solve a Maze with Repeat",
+  "instructions": "You've been given a working solution to a maze, but it's very long and repetitive. Your job is to refactor the code using `repeat` loops to make it shorter.\n\nLook for groups of consecutive `move()` calls. Each group can be replaced with a single `repeat` loop.\n\nFor example, instead of:\n```\nmove();\nmove();\nmove();\n```\n\nYou can write:\n```\nrepeat(3) {\n  move();\n}\n```\n\nYour solution must be **22 lines of code or fewer**.",
+  "estimatedMinutes": 10,
+  "levelId": "repeat-loop",
+  "hints": [
+    "Look for groups of consecutive move() calls",
+    "Each group of N consecutive move() calls can become a repeat(N) { move(); } block",
+    "Count how many move() calls are in each group to get the repeat count",
+    "The turn functions should stay outside the repeat blocks",
+    "A repeat block is only shorter when the group has 3 or more calls"
+  ]
+}

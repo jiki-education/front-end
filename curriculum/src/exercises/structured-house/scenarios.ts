@@ -3,14 +3,14 @@ import type { StructuredHouseExercise } from "./Exercise";
 
 export const tasks = [
   {
-    id: "arrange-house-with-variables" as const,
-    name: "Build the house using variables",
-    description:
-      "Use variables for all function inputs. Define variables at the top, then use them in the drawing functions.",
+    id: "draw-house" as const,
+    name: "Draw the house",
+    description: "Draw the house using variables for all positions, sizes, and colors.",
     hints: [
-      "Define color variables for each element",
-      "Calculate positions using formulas, not hard-coded numbers",
-      "The roof left position is house_left minus the overhang"
+      "Define houseLeft and houseTop first, then derive other positions from them",
+      "The roof overhangs the house by 4 on each side",
+      "Windows are 10 inset from the sides and 5 below the top of the frame",
+      "The door is centered at the bottom of the house"
     ],
     requiredScenarios: ["draw-the-house"],
     bonus: false
@@ -20,9 +20,9 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-the-house",
-    name: "Draw the house using variables",
-    description: "All function arguments must use variables, not hard-coded values.",
-    taskId: "arrange-house-with-variables",
+    name: "Draw the house",
+    description: "Draw the house matching the specifications.",
+    taskId: "draw-house",
 
     expectations(exercise) {
       const ex = exercise as StructuredHouseExercise;
@@ -30,36 +30,31 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(20, 50, 60, 40),
-          errorHtml: "The frame of the house is not correct."
+          errorHtml: "The frame of the house is not correct. It should be at (20, 50) with width 60 and height 40."
         },
         {
           pass: ex.hasTriangleAt(16, 50, 50, 30, 84, 50),
-          errorHtml: "The roof of the house is not at the correct position."
+          errorHtml:
+            "The roof is not correct. It should overhang the house by 4 on each side, with the peak centered at x=50."
         },
         {
           pass: ex.hasRectangleAt(30, 55, 12, 13),
-          errorHtml: "The left window frame isn't positioned correctly."
+          errorHtml: "The left window is not correct. It should be at (30, 55) with width 12 and height 13."
         },
         {
           pass: ex.hasRectangleAt(58, 55, 12, 13),
-          errorHtml: "The right window frame isn't positioned correctly."
+          errorHtml: "The right window is not correct. It should be at (58, 55) with width 12 and height 13."
         },
         {
           pass: ex.hasRectangleAt(43, 72, 14, 18),
-          errorHtml: "The door frame isn't positioned correctly."
+          errorHtml: "The door is not correct. It should be centered at the bottom of the house."
         },
         {
           pass: ex.hasCircleAt(55, 81, 1),
-          errorHtml: "The door knob isn't positioned correctly."
+          errorHtml:
+            "The door knob is not correct. It should be inset 1 from the right of the door, vertically centered."
         }
       ];
-    },
-
-    codeChecks: [
-      {
-        pass: (result) => result.assertors.assertAllArgumentsAreVariables(),
-        errorHtml: "There still seem to be some inputs to functions that are not variables."
-      }
-    ]
+    }
   }
 ];

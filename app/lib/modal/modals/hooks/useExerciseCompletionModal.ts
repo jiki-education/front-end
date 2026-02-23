@@ -15,7 +15,6 @@ export type ModalStep =
 interface UseExerciseCompletionModalProps {
   onTidyCode?: () => void;
   onCompleteExercise?: () => void;
-  onGoToProject?: () => void;
   onGoToDashboard?: () => void;
   exerciseTitle: string;
   exerciseSlug: string;
@@ -31,7 +30,6 @@ interface UseExerciseCompletionModalProps {
 export function useExerciseCompletionModal({
   onTidyCode,
   onCompleteExercise,
-  onGoToProject,
   onGoToDashboard,
   exerciseTitle,
   exerciseSlug,
@@ -58,7 +56,6 @@ export function useExerciseCompletionModal({
         {
           onTidyCode,
           onCompleteExercise,
-          onGoToProject,
           onGoToDashboard,
           exerciseTitle,
           exerciseSlug,
@@ -73,7 +70,6 @@ export function useExerciseCompletionModal({
     step,
     onTidyCode,
     onCompleteExercise,
-    onGoToProject,
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
@@ -137,11 +133,6 @@ export function useExerciseCompletionModal({
     }
   };
 
-  const handleGoToProject = () => {
-    onGoToProject?.();
-    hideModal();
-  };
-
   const handleGoToDashboard = () => {
     onGoToDashboard?.();
     hideModal();
@@ -157,7 +148,6 @@ export function useExerciseCompletionModal({
       handleRatingsSubmit,
       handleContinue,
       handleContinueFromConcept,
-      handleGoToProject,
       handleGoToDashboard
     }
   };

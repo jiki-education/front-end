@@ -15,6 +15,7 @@ function createMockLessonDisplayData(overrides?: {
       title: "Test Lesson",
       description: "Test description",
       type: "exercise",
+      walkthrough_video_data: null,
       ...overrides?.lesson
     },
     completed: overrides?.completed ?? false,

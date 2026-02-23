@@ -13,17 +13,10 @@ import stubJikiscript from "./stub.jiki";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(left, top, width, height)",
-    description: "Draw a rectangle at position (left, top) with the given width and height",
-    examples: ["rectangle(0, 0, 20, 10)", "rectangle(x * 20, 0, 20, 10)"],
+    signature: "rectangle(left, top, width, height, color)",
+    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    examples: ['rectangle(0, 0, 20, 10, "brick")', 'rectangle(x * 20, 0, 20, 10, "brick")'],
     category: "Drawing Shapes"
-  },
-  {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code",
-    examples: ['fill_color_hex("#AA4A44")', 'fill_color_hex("#FF0000")'],
-    category: "Colors"
   }
 ];
 

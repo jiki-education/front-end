@@ -1,0 +1,13 @@
+{
+  "slug": "emoji-collector",
+  "title": "Emoji Collector",
+  "instructions": "Previously, you checked for words when you looked around. But now we've upgraded the mazes to use emojis! So you need to update your code to handle these:\n\n- `\"star\"` (Where you start)\n- `\"flag\"` (Where you're trying to get to)\n- `\"white square\"` (An empty space you can move into)\n- `\"fire\"` (Careful!)\n- `\"poop\"` (Ewww)\n- `\"brick\"` (A wall)\n\nWe've also scattered some extra emojis around the mazes for you to pick up. Each time your character finds an emoji that's not in the list above, it should add it to its tally.\n\nTo help we've added:\n\n- A new direction you can look (`\"down\"`!). This tells you what's in the current square.\n- A new function `removeEmoji()` that removes whatever emoji is on the current square from the board. Don't try and pick up a special emoji from above!\n\nOnce you move into the finishing square, you should use the `announceEmojis(result)` function, passing a dictionary representing the amount of emojis you've collected.\n\nThis would be a good time to use the `hasKey()` function!",
+  "estimatedMinutes": 25,
+  "levelId": "dictionaries",
+  "hints": [
+    "Use look(\"down\") to check the emoji on the current square",
+    "Use hasKey() to check if an emoji is already in your dictionary",
+    "Use removeEmoji() after collecting an emoji from a square",
+    "Call announceEmojis() with your dictionary after reaching the finish"
+  ]
+}

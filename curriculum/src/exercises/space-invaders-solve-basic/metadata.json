@@ -1,0 +1,13 @@
+{
+  "slug": "space-invaders-solve-basic",
+  "title": "Space Invaders: Solve Basic",
+  "instructions": "Welcome to Space Invaders! Your job is to shoot down all the aliens.\n\nYou have two functions:\n- `move()` moves your laser cannon one position to the right\n- `shoot()` fires the laser upwards\n\nLook at where the aliens are, then write a sequence of `move()` and `shoot()` calls to destroy them all.\n\nBe careful:\n- If you shoot when there's no alien above you, you lose!\n- If you move off the right edge of the screen, you lose!",
+  "estimatedMinutes": 5,
+  "levelId": "using-functions",
+  "hints": [
+    "Look at the screen and count how many times you need to move before each alien",
+    "You start at the far left (position 0)",
+    "Each move() takes you one position to the right",
+    "Only shoot() when you're directly below an alien"
+  ]
+}

@@ -21,19 +21,19 @@ const functions: FunctionInfo[] = [
     category: "Movement"
   },
   {
-    name: "turn_left",
-    signature: "turn_left()",
+    name: "turnLeft",
+    signature: "turnLeft()",
     description:
       "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-    examples: ["turn_left()"],
+    examples: ["turnLeft()"],
     category: "Movement"
   },
   {
-    name: "turn_right",
-    signature: "turn_right()",
+    name: "turnRight",
+    signature: "turnRight()",
     description:
       "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-    examples: ["turn_right()"],
+    examples: ["turnRight()"],
     category: "Movement"
   }
 ];

@@ -29,20 +29,20 @@ function codonsToProteins(codons) {
 }
 
 function rnaToCodons(rna) {
-  let codons = [];
-  let codon = "";
+  let result = [];
+  let current = "";
 
   let counter = 0;
   for (const letter of rna) {
     counter = counter + 1;
-    codon = codon + letter;
+    current = current + letter;
 
-    if (counter % 3 === 0 && codon !== "") {
-      codons.push(codon);
-      codon = "";
+    if (counter % 3 === 0 && current !== "") {
+      result.push(current);
+      current = "";
     }
   }
-  return codons;
+  return result;
 }
 
 function translateRna(rna) {

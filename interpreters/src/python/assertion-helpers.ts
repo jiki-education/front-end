@@ -10,6 +10,10 @@ import {
   FunctionDeclaration,
 } from "./statement";
 
+export function formatIdentifier(name: string): string {
+  return name;
+}
+
 /**
  * Extract all CallExpression nodes from an AST tree
  * Uses the children() method to recursively traverse the tree

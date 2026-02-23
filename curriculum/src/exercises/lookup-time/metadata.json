@@ -1,0 +1,13 @@
+{
+  "slug": "lookup-time",
+  "title": "Lookup Time",
+  "instructions": "Create a function called getTime which takes a city as its input, uses the fetch function to get the time in that city, then returns it as part of a string.\n\nThe URL of the API is \"https://timeapi.io/api/time/current/city\".\nThe params for fetch should have one key \"city\" set to the string passed into getTime.\n\nYou should turn the response into a string formatted like: \"The time on this Sunday in Amsterdam is 00:28\"\n\nIf the response contains an \"error\" key, return the error message instead.",
+  "estimatedMinutes": 15,
+  "levelId": "dictionaries",
+  "hints": [
+    "Use fetch(url, params) to get data from the API",
+    "The params should be a dictionary with a \"city\" key",
+    "Check if the response has an \"error\" key before building the time string",
+    "Use concatenate() to build the result string from the response data"
+  ]
+}

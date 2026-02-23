@@ -1,0 +1,14 @@
+{
+  "slug": "alphanumeric",
+  "title": "Alphanumeric",
+  "instructions": "In this exercise, your task is to create functions that check whether a string contains letters and/or numbers.\n\nYou'll need to write three helper functions:\n\n- `isAlpha(string)` — determines whether a string only consists of ASCII letters (e.g. \"A\", \"a\", \"Hello\")\n- `isNumeric(string)` — determines whether a string only consists of numeric characters (e.g. \"0\", \"1\", \"456\")\n- `isAlphanumeric(string)` — determines whether a string only consists of ASCII letters or numbers (e.g. \"Hello\", \"42\", \"Hello42\")\n\nFor any other symbols (e.g. \"! ?\") or non-ASCII characters, all three functions should return false.\n\nThen, write a `whatAmI(string)` function that uses these helpers to classify a string:\n\n- Strings with only letters should return \"Alpha\"\n- Strings with only numbers should return \"Numeric\"\n- Strings with both letters and numbers should return \"Alphanumeric\"\n- Everything else should return \"Unknown\"",
+  "estimatedMinutes": 20,
+  "levelId": "multiple-functions",
+  "hints": [
+    "Start by writing a contains() helper that checks if a character exists in a string",
+    "Use contains() to build isAlpha() — check each character against the alphabet",
+    "Use the same pattern for isNumeric() — check each character against \"0123456789\"",
+    "For isAlphanumeric(), use isAlpha() and isNumeric() together with continue to skip valid characters",
+    "In whatAmI(), call all three helpers and use conditionals to return the right label"
+  ]
+}

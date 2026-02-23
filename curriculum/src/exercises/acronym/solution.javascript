@@ -6,7 +6,7 @@ function acronym(phrase) {
     if (char === " " || char === "-") {
       isFirstLetter = true;
     } else if (isFirstLetter) {
-      result += char;
+      result = result + char;
       isFirstLetter = false;
     }
   }

@@ -1,0 +1,13 @@
+{
+  "slug": "plant-the-flowers",
+  "title": "Plant the Flowers",
+  "instructions": "The gardener wants 9 flowers planted in a row across the garden.\n\nThe first flower should be at position 10, and each flower should be 10 pixels apart from the next.\n\nYou have a `plant()` function that takes a position as input. For example: `plant(10)` plants a flower at position 10.\n\nUse a variable to track your position, and a repeat loop to plant all 9 flowers without writing `plant()` 9 times!",
+  "estimatedMinutes": 10,
+  "levelId": "basic-state",
+  "hints": [
+    "Create a variable to track your position, starting at 10",
+    "Use a repeat loop that runs 9 times",
+    "Inside the loop, plant a flower at the current position, then increase the position by 10",
+    "The flowers should end up at positions 10, 20, 30, 40, 50, 60, 70, 80, 90"
+  ]
+}

@@ -1,4 +1,4 @@
-import { getExercise, getLLMMetadata } from "@jiki/curriculum";
+import { getExercise, getLLMMetadata, getTaughtConcepts } from "@jiki/curriculum";
 import type { ExerciseDefinition, LLMMetadata, Language } from "@jiki/curriculum";
 import type { ChatMessage } from "./types";
 
@@ -85,6 +85,7 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   const sections = [
     buildSystemMessage(),
     buildExerciseSection(exercise, llmMetadata, nextTaskId),
+    buildTaughtConceptsSection(exercise),
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
     buildInitialCodeSection(exercise.stubs[language], language),
@@ -106,7 +107,31 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
 }
 
 function buildSystemMessage(): string {
-  return "You are a helpful coding tutor assisting a student with a programming exercise.";
+  return `
+  ### Context
+  
+  You are a helpful coding tutor assisting a student with a programming exercise.
+  You are operating within a coding education platform called Jiki. 
+  Jiki is made by the team being Exercism. The course is taught by Jeremy Walker. 
+  Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
+  Students are encouraged to think in those terms.
+
+  They are using a variant of JavaScript that has these additional features:
+  - \`random(x) { ... }\` - Loops x times.
+  - \`random() { ... }\` Loops until the exercise exits.
+  - \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
+
+  The student is on a page with:
+  - Code editor at the top left. 
+  - Scenarios (effectively test-cases) at the bottom-left.
+  - THe RHS a series of tables including instructions and this window in which they're talking to you.
+
+  **WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
+  
+  Much of this information may be irrelevant, but if it comes up you can use it.
+
+  They have written to you (see conversation below).
+  `;
 }
 
 function buildExerciseSection(
@@ -127,11 +152,26 @@ function buildExerciseSection(
     // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
     if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
       const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
-      parts.push(`### Current Task Context\n\n${taskMeta.description}`);
+      parts.push(`\n\n${taskMeta.description}`);
     }
   }
 
   return parts.join("\n\n");
+}
+
+function buildTaughtConceptsSection(exercise: ExerciseDefinition): string | null {
+  const concepts = getTaughtConcepts(exercise.levelId);
+  if (concepts.length === 0) {
+    return null;
+  }
+
+  const bulletList = concepts.map((c) => `- ${c}`).join("\n");
+
+  return `## What The Student Has Been Taught
+
+The following is everything the student has been taught so far. Do not suggest concepts, approaches, or syntax beyond this.
+
+${bulletList}`;
 }
 
 function buildConversationHistorySection(history: ChatMessage[]): string | null {

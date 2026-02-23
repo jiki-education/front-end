@@ -8,8 +8,8 @@ export class Line extends Shape {
     public y1: number,
     public x2: number,
     public y2: number,
-    public strokeColor: Color,
-    public fillColor: Color,
+    public strokeColor: string,
+    public fillColor: string,
     element: SVGElement
   ) {
     super(element);
@@ -22,8 +22,8 @@ export class Rectangle extends Shape {
     public y: number,
     public width: number,
     public height: number,
-    public strokeColor: Color,
-    public fillColor: Color,
+    public strokeColor: string,
+    public fillColor: string,
     element: SVGElement
   ) {
     super(element);
@@ -35,8 +35,8 @@ export class Circle extends Shape {
     public cx: number,
     public cy: number,
     public radius: number,
-    public strokeColor: Color,
-    public fillColor: Color,
+    public strokeColor: string,
+    public fillColor: string,
     element: SVGElement
   ) {
     super(element);
@@ -49,8 +49,8 @@ export class Ellipse extends Shape {
     public y: number,
     public rx: number,
     public ry: number,
-    public strokeColor: Color,
-    public fillColor: Color,
+    public strokeColor: string,
+    public fillColor: string,
     element: SVGElement
   ) {
     super(element);
@@ -65,19 +65,13 @@ export class Triangle extends Shape {
     public y2: number,
     public x3: number,
     public y3: number,
-    public strokeColor: Color,
-    public fillColor: Color,
+    public strokeColor: string,
+    public fillColor: string,
     element: SVGElement
   ) {
     super(element);
   }
 }
-
-export type Color =
-  | { type: "hex"; color: string }
-  | { type: "rgb"; color: [number, number, number] }
-  | { type: "rgba"; color: [number, number, number, number] }
-  | { type: "hsl"; color: [number, number, number] };
 
 const svgNS = "http://www.w3.org/2000/svg";
 
@@ -99,30 +93,17 @@ function createSVG(children: SVGElement[]) {
   return svg;
 }
 
-function colorToString(color: Color) {
-  if (color.type === "hex") {
-    return color.color;
-  }
-  if (color.type === "rgb") {
-    return "rgb(" + color.color.join(",") + ")";
-  }
-  if (color.type === "rgba") {
-    return "rgba(" + color.color.join(",") + ")";
-  }
-  return `hsl(${color.color[0]}, ${color.color[1]}%, ${color.color[2]}%)`;
-}
-
 function createSVGElement(
   type: string,
-  fillColor: Color,
-  strokeColor: Color,
+  fillColor: string,
+  strokeColor: string,
   strokeWidth: number,
   attrs: Record<string, string | number>
 ) {
   const elem = document.createElementNS(svgNS, type);
-  elem.setAttribute("stroke", colorToString(strokeColor));
+  elem.setAttribute("stroke", strokeColor);
   elem.setAttribute("stroke-width", strokeWidth.toString());
-  elem.setAttribute("fill", colorToString(fillColor));
+  elem.setAttribute("fill", fillColor);
 
   for (const key in attrs) {
     elem.setAttribute(key, String(attrs[key]));
@@ -135,9 +116,9 @@ export function line(
   x2: number,
   y2: number,
 
-  strokeColor: Color,
+  strokeColor: string,
   strokeWidth: number,
-  fillColor: Color
+  fillColor: string
 ) {
   const rect = createSVGElement("line", fillColor, strokeColor, strokeWidth, {
     x1: x1.toString(),
@@ -154,9 +135,9 @@ export function rect(
   y: number,
   width: number,
   height: number,
-  strokeColor: Color,
+  strokeColor: string,
   strokeWidth: number,
-  fillColor: Color
+  fillColor: string
 ) {
   const rect = createSVGElement("rect", fillColor, strokeColor, strokeWidth, {
     x: x.toString(),
@@ -172,9 +153,9 @@ export function circle(
   cx: number,
   cy: number,
   radius: number,
-  strokeColor: Color,
+  strokeColor: string,
   strokeWidth: number,
-  fillColor: Color
+  fillColor: string
 ) {
   const circle = createSVGElement("circle", fillColor, strokeColor, strokeWidth, {
     cx: cx.toString(),
@@ -190,9 +171,9 @@ export function ellipse(
   cy: number,
   rx: number,
   ry: number,
-  strokeColor: Color,
+  strokeColor: string,
   strokeWidth: number,
-  fillColor: Color
+  fillColor: string
 ) {
   const ellipse = createSVGElement("ellipse", fillColor, strokeColor, strokeWidth, {
     cx: cx.toString(),
@@ -211,9 +192,9 @@ export function triangle(
   y2: number,
   x3: number,
   y3: number,
-  strokeColor: Color,
+  strokeColor: string,
   strokeWidth: number,
-  fillColor: Color
+  fillColor: string
 ) {
   const polygon = createSVGElement("polygon", fillColor, strokeColor, strokeWidth, {
     points: `${x1},${y1} ${x2},${y2} ${x3},${y3}`

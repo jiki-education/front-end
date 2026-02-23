@@ -5,12 +5,8 @@ export const tasks = [
   {
     id: "fill-holes" as const,
     name: "Fill the holes in the wall",
-    description: "Cover each hole with a brick-colored rectangle using fill_color_hex and rectangle functions.",
-    hints: [
-      "Set the fill color first using fill_color_hex",
-      "Use a brick color like #AA4A44",
-      "Draw three rectangles to cover the holes"
-    ],
+    description: "Cover each hole with a rectangle using the rectangle function.",
+    hints: ["Draw three rectangles to cover the holes", "Each hole is 20 wide and 10 tall"],
     requiredScenarios: ["fill-holes"],
     bonus: false
   }
@@ -20,7 +16,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "fill-holes",
     name: "Fill the holes",
-    description: "Cover each hole with a brick-colored rectangle.",
+    description: "Cover each hole with a rectangle.",
     taskId: "fill-holes",
 
     setup(exercise) {

@@ -1,340 +1,311 @@
-# Migration Plan: Sprouting Flower Exercise with DrawExercise Base Class
+# Curriculum Completion Plan
+
+## How to Use This Plan
+
+This is a large, multi-step process. **Work through it one step at a time.** Don't try to do everything at once.
+
+The process has two passes:
+
+1. **Pass 1 — Scaffolding:** Get everything into the right place with the right structure. Create all levels, stub out all exercises, fix slugs, wire up registrations. The goal is for every level and exercise to exist and pass tests, even if the exercise content is placeholder. Don't get bogged down perfecting individual exercises during this pass.
+
+2. **Pass 2 — Refinement:** Go through each exercise and level one by one, refining content, polishing scenarios, improving solutions and stubs, and ensuring quality. This is where you make things good.
+
+Focus on completing each phase below before moving to the next. Commit after each meaningful unit of work. **After each step, stop and discuss the results with the user. Only do work you're explicitly instructed to do — don't move ahead to the next step without being told to.**
+
+## Goal
+
+Align this repository with:
+
+1. **The curriculum plan** at `/Users/iHiD/Code/jiki/scripts/curriculum.md` — source of truth for what levels and exercises should exist
+2. **The API seed data** at `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json` — defines the level/lesson structure the app uses, with exercise slugs that must match exactly
+3. **The API projects seed** at `/Users/iHiD/Code/jiki/api/db/seeds/projects.json` — defines capstone projects
+
+The aim is to ensure:
+
+- All levels from the curriculum exist here with correct language features
+- All exercises exist, work, and are assigned to their correct levels
+- Exercise slugs match exactly between this repo and the API seed data
+- The API seed data includes all levels and exercises from the curriculum plan
+- All tests pass
+
+## Available Skills
+
+You can use these slash commands to do the work:
+
+- **`/add-level [description]`** — Add a new level. Reads existing levels, discusses with the user, creates the level file and registers it.
+- **`/add-exercise [description or path]`** — Add a new exercise. Explores base classes, discusses with the user, creates all 11 required files and registers it.
+- **`/migrate-exercise [exercise-slug]`** — Migrate an exercise from Bootcamp (in `/Users/iHiD/Code/exercism/website/bootcamp_content`). Copies existing content with minimal changes.
+
+Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exercise` when creating something new or when the reference is in the planning repo.
+
+## Status
+
+### Fully Checked
+
+Nothing yet
+
+### Implemented
+
+- `maze-solve-basic` - Basic manual maze solving using only move() turn_left() turn_right()
+- `maze-solve-walk` - Walk Through a Maze: use walk(steps) with arguments to navigate a maze (Using Functions level)
+- `space-invaders-solve-basic` - Basic Space Invaders using sequential move() and shoot() calls
+- `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level)
+- `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
+- `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
+- `penguin` - Penguin: draw shapes with colors to build a penguin (Strings and Colors level)
+- `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
+- `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
+- `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
+- `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
+- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
+- `snowman` - Snowman: use variables to position snowman parts (Variables level)
+- `traffic-lights` - Traffic Lights: use variables to draw traffic light (Variables level)
+- `relational-sun` - Relational Sun: use arithmetic to position sun rays (Variables level)
+- `relational-snowman` - Relational Snowman: use arithmetic for snowman proportions (Variables level)
+- `relational-traffic-lights` - Relational Traffic Lights: use arithmetic for traffic light positioning (Variables level)
+- `structured-house` - Structured House: capstone project using variables (Variables level)
+- `plant-the-flowers` - Plant the Flowers: track position variable and plant 9 flowers using repeat loop (Basic State level)
+- `golf-rolling-ball-state` - Golf Rolling Ball State: track x variable and use move_ball_to(x) in a loop (Basic State level)
+- `finish-wall` - Finish the Wall: use repeat loop to add top layer of bricks (Basic State level)
+- `rainbow` - Rainbow: use HSL colors to draw rainbow arcs (Basic State level)
+- `sunset` - Sunset: animate sky color changes with state (Basic State level)
+- `sprouting-flower` - Sprouting Flower: capstone project using state (Basic State level)
+- `dnd-roll` - D&D Roll: store return values from roll() and use them in announce() and strike() (Functions That Return Things level)
+- `gold-panning` - Gold Panning: use return value from pan() in a loop with an accumulator, then sell total (Functions That Return Things level)
+- `rainbow-splodges` - Rainbow Splodges: use return values to get colors (Functions That Return Things level)
+- `plant-the-flowers-scenarios` - Plant the Flowers Scenarios: multi-scenario version (Functions That Return Things level)
+- `cityscape-skyscraper` - Skyscraper: use return values to build skyscraper (Functions That Return Things level)
+- `space-invaders-nested-repeat` - Space Invaders Nested Repeat: nested repeat loops to shoot 4 rows of aliens (Functions That Return Things level)
+- `cityscape-skyline` - Skyline: nested loops to build a city skyline (Functions That Return Things level)
+- `bouncer` - Bouncer: use if statements to check age (Conditionals level)
+- `space-invaders-conditional` - Scroll and Shoot: use conditionals to shoot aliens (Conditionals level)
+- `bouncer-wristbands` - Bouncer Wristbands: use else/else-if for wristband colors (Conditionals level)
+- `digital-clock` - Digital Clock: use conditionals to display time (Conditionals level)
+- `bouncer-dress-code` - Bouncer Dress Code: use and/or for complex conditions (Complex Conditionals level)
+- `golf-shot-checker` - Shot Checker: use complex conditionals to validate golf shots (Complex Conditionals level)
+- `rock-paper-scissors-determine-winner` - Rock Paper Scissors: determine winner using complex conditionals (Complex Conditionals level)
+- `maze-automated-solve` - Programmatically Solve a Maze: left-hand rule algorithm with sensing functions (Complex Conditionals level)
+- `build-wall` - Build the Wall: nested loops to build a full brick wall with alternating rows (Conditionals and State level)
+- `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
+- `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
+- `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
+- `maze-walk` - Walk: define a walk(steps) function with a parameter to move multiple steps (Make Your Own Functions level)
+- `look-around` - Look Around: implement canTurnLeft/canTurnRight/canMove sensing functions using look(direction) (Make Your Own Functions level)
+- `battle-procedures` - Battle Procedures: refactor scroll-and-shoot logic into three named functions (Make Your Own Functions level)
+- `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Adding Returns to Your Functions level)
+- `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)
+- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
+- `leap` - Leap Years: determine if a year is a leap year using remainder and logical operators (Make Your Own Functions level)
+- `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
+- `three-letter-acronym` - Three Letter Acronym: build a 3-letter acronym from first letters of 3 words using string indexing and concatenate (String Manipulation level)
+- `two-fer` - Two-Fer: greet someone with a cookie offer using concatenation (String Manipulation level)
+- `hamming` - Hamming: calculate Hamming distance between two DNA strands (String Manipulation level)
+- `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (String Manipulation level)
+- `reverse-string` - Reverse String: reverse a string character by character (String Iteration level)
+- `driving-test` - Driving Test: evaluate driving test results by iterating through marks (String Iteration level)
+- `pangram` - Pangram: check if a sentence uses every letter of the alphabet (Methods and Properties level)
+- `nucleotide` - Nucleotide: count occurrences of a specific nucleotide in a DNA strand (Methods and Properties level)
+- `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Methods and Properties level)
+- `acronym` - Acronym: convert a phrase to its acronym (Methods and Properties level, project)
+- `guest-list` - Guest List: check if someone is on the guest list (Lists level)
+- `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
+- `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)
+- `process-guess` - Wordle: Process Guess: process a Wordle guess and color the row (Lists level)
+- `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
+- `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
+- `tic-tac-toe` - Tic Tac Toe: build a complete tic-tac-toe game with board drawing, win/draw detection, and AI (Lists level)
+- `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
+- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Dictionaries level)
+- `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
+- `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
+- `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
+- `niche-named-party` - Niche Named Party: bouncer exercise checking if a person's name starts with the required prefix using a starts_with helper function (Everything level)
+- `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
+- `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
+- `alphanumeric` - Alphanumeric: classify strings as alpha, numeric, alphanumeric, or unknown using multiple helper functions (Multiple Functions level)
+- `weather-symbols-part-1` - Weather Symbols (Part 1): map weather descriptions to lists of drawing components using if/else if (Lists level)
+- `weather-symbols-part-2` - Weather Symbols (Part 2): draw weather scenes from a list of element types using conditionals and helper functions (Lists level)
+- `alien-detector` - Alien Detector: track and shoot aliens using list data instead of isAlienAbove(), with fireworks celebration (Lists level)
+- `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit using the classic sieve algorithm (Dictionaries level)
+- `spotify` - Spotify Data: fetch and format favorite artists from a mock Spotify API using chained fetch calls (Dictionaries level)
+- `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary and announce results (Dictionaries level)
+- `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Everything level)
+- `boundaried-ball` - Boundaried Ball: create a Ball instance and bounce it off walls using OOP (Objects level)
+- `smashing-blocks` - Smashing Blocks: add blocks to the breakout game and smash them with the bouncing ball (Objects level)
+
+### Unimplemented
+
+## API Alignment Issues
+
+Changes needed in `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`:
+
+### Slug Fixes
+
+- [ ] Rename `fix-the-wall` → `fix-wall` in API seed
+- [ ] Rename `finish-the-wall` → `finish-wall` in API seed
+- [ ] Rename `cloud-rain-sun-variables` → `cloud-rain-sun` in API seed (and move from Variables to Strings and Colors level)
+
+### Missing Levels
+
+- [ ] Add `functions-that-return-things` level to API seed
+- [ ] Add `conditionals` level to API seed
+- [ ] Add `conditionals-and-state` level to API seed
 
-## Current Branch: `migrate-sprouting-flower`
+### Missing Exercises (levels 6-8)
 
-## Summary of Work Completed
+- [ ] Add exercises for **Functions that return things**: Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
+- [ ] Add exercises for **Conditionals**: Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
+- [ ] Add exercises for **Conditionals and state**: Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
 
-### ✅ Phase 1: DrawExercise Infrastructure (Mostly Complete)
+## Current State
 
-**Completed:**
+### Levels
 
-1. ✅ Created `src/exercises/DrawExercise/` directory structure
-2. ✅ Copied helper files from bootcamp (exact copies):
-   - `shapes.ts` (243 lines) - Shape classes, SVG rendering functions
-   - `utils.ts` (18 lines) - Coordinate conversion (rToA/aToR)
-   - `retrievers.ts` (117 lines) - Shape retrieval functions
-3. ✅ Adapted `checks.ts` (73 lines):
-   - Removed bootcamp-specific imports
-   - Removed `assertAllArgumentsAreVariables` (now in interpreter)
-   - Kept validation functions: `checkCanvasCoverage`, `checkUniqueColoredRectangles`, etc.
-4. ✅ Copied and adapted `DrawExercise.ts` (609 lines):
-   - ✅ Changed imports: `@/interpreter/*` → `@jiki/interpreters`
-   - ✅ Changed class: `extends Exercise` → `extends VisualExercise`
-   - ✅ Changed constructor pattern to match VisualExercise
-   - ✅ Added `populateView()` method
-   - ✅ Updated ALL drawing methods to use `Shared.*` types and `isNumber()` type guards
-   - ✅ Replaced all `instanceof Shared.Number` with `isNumber()` calls (all 10 methods updated)
-   - ✅ Commented out `random_number` function (requires language-specific constructor)
-   - ⚠️ **HAS TYPE ERRORS**: See issues below
+| #   | Curriculum Level             | Front-end Level File                     | API Seed Slug        | Status                                  |
+| --- | ---------------------------- | ---------------------------------------- | -------------------- | --------------------------------------- |
+| 1   | Using Functions              | `using-functions.ts` + `fundamentals.ts` | `using-functions`    | Merge fundamentals into using-functions |
+| 2   | Strings + Colors             | —                                        | `strings-and-colors` | MISSING in front-end                    |
+| 3   | Loops (Repeat Loop)          | —                                        | `repeat-loop`        | MISSING in front-end                    |
+| 4   | Variables                    | `variables.ts`                           | `variables`          | EXISTS                                  |
+| 5   | Basic State                  | —                                        | `basic-state`        | MISSING in front-end                    |
+| 6   | Functions that return things | —                                        | —                    | MISSING everywhere                      |
+| 7   | Conditionals                 | —                                        | —                    | MISSING everywhere                      |
+| 8   | Conditionals and state       | —                                        | —                    | MISSING everywhere                      |
+| —   | (catch-all)                  | `everything.ts`                          | —                    | Keep as testing/fallback level          |
 
-**Not Started:** 5. ❌ Create `src/exercises/DrawExercise/index.ts` export file
+**Action: Rename `fundamentals` to `using-functions`** (merge its features into using-functions, then delete fundamentals.ts).
 
-### ⚠️ Current Type Errors (from `pnpm typecheck`)
+### Exercise Slug Mismatches (API vs Front-end)
 
-**DrawExercise.ts issues:**
-
-1. **Import errors**:
-   - `InterpretResult` not exported from `@jiki/interpreters` (it's in `jikiscript.InterpretResult`)
-   - `Shared`, `isNumber`, `isString` export issues (need to verify actual export names)
-
-2. **Property initialization**:
-   - `canvas` and `tooltip` not initialized in constructor (declared in `populateView()`)
-   - Need to add `!` assertion or initialize in constructor
-
-3. **Method naming**:
-   - Line 513: `getCurrentTime()` should be `getCurrentTimeInMs()`
-
-4. **availableFunctions signature mismatch**:
-   - VisualExercise expects: `func: (ctx: ExecutionContext) => void`
-   - DrawExercise provides: `func: (ctx: ExecutionContext, ...args) => void` (with parameters)
-   - This is a fundamental design issue - drawing functions take arguments but VisualExercise doesn't support that
-
-**checks.ts issues:** 5. Parameter `requiredPercentage` has implicit `any` type (line 3)
-
-**retrievers.ts issues:** 6. Parameters `p1`, `p2` in arrow function have implicit `any` type (line 89) 7. Parameters `a`, `b`, `c` in arrow function have implicit `any` type (line 102)
-
-**Architecture Note:**
-The user refactored Exercise into VisualExercise and IOExercise. The `availableFunctions` signature mismatch suggests DrawExercise may need special handling since drawing functions require parameters.
-
-### ✅ Phase 2: Sprouting Flower Exercise Files
-
-**Created:**
-
-1. ✅ Created `src/exercises/sprouting-flower/` directory
-2. ✅ Created `metadata.json` (2211 bytes) with full instructions and hints
-
-**Empty files (not started):**
-
-- `Exercise.ts` (0 bytes)
-- `scenarios.ts` (0 bytes)
-- `llm-metadata.ts` (0 bytes)
-- `index.ts` (0 bytes)
-- `solution.jiki` (0 bytes)
-- `solution.javascript` (0 bytes)
-- `solution.py` (0 bytes)
-- `stub.jiki` (0 bytes)
-- `stub.javascript` (0 bytes)
-- `stub.py` (0 bytes)
-
----
-
-## Plan for Remaining Work
-
-### Phase 1: Fix DrawExercise.ts Type Errors
-
-**Status:** ✅ All Jiki type conversions complete, ⚠️ Has compilation errors
-
-**Remaining fixes needed:**
-
-1. **Fix imports** - Correct the import paths for `InterpretResult`, `Shared`, type guards
-2. **Fix property initialization** - Add `!` assertions for `canvas` and `tooltip`
-3. **Fix method name** - Change `getCurrentTime()` to `getCurrentTimeInMs()`
-4. **Fix availableFunctions signature** - Critical design issue:
-   - VisualExercise expects: `func: (ctx: ExecutionContext) => void`
-   - DrawExercise needs: `func: (ctx: ExecutionContext, ...args) => void`
-   - **Solution options**:
-     a. Override `availableFunctions` type in DrawExercise
-     b. Change VisualExercise to support parameterized functions
-     c. Make DrawExercise not extend VisualExercise
-5. **Add type annotations** in `checks.ts` and `retrievers.ts` for implicit `any` parameters
-
-**File to create:**
-
-- `src/exercises/DrawExercise/index.ts` - Export all public APIs
-
-### Phase 2: Create SproutingFlowerExercise
-
-**File: `src/exercises/sprouting-flower/Exercise.ts`**
-
-```typescript
-import { DrawExercise } from "../DrawExercise";
-import metadata from "./metadata.json";
-
-export default class SproutingFlowerExercise extends DrawExercise {
-  protected get slug() {
-    return metadata.slug;
-  }
-
-  // Expose drawing functions (inherited from DrawExercise)
-  availableFunctions = [
-    {
-      name: "rectangle",
-      func: this.rectangle.bind(this),
-      description: "Draw a rectangle at (x, y) with given width and height"
-    },
-    {
-      name: "circle",
-      func: this.circle.bind(this),
-      description: "Draw a circle at (x, y) with given radius"
-    },
-    {
-      name: "ellipse",
-      func: this.ellipse.bind(this),
-      description: "Draw an ellipse at (x, y) with x_radius and y_radius"
-    },
-    {
-      name: "fill_color_hex",
-      func: this.fillColorHex.bind(this),
-      description: "Set the fill color using a hex color code"
-    }
-  ];
-}
-```
-
-### Phase 3: Create Scenarios
+These exercises exist in both but with different slugs — **must be reconciled**:
 
-**File: `src/exercises/sprouting-flower/scenarios.ts`**
+| API Seed Slug     | Front-end Slug | Action Needed |
+| ----------------- | -------------- | ------------- |
+| `fix-the-wall`    | `fix-wall`     | Align slugs   |
+| `finish-the-wall` | `finish-wall`  | Align slugs   |
 
-Use `VisualScenario` type with shape retrieval in expectations:
+### Exercises in API Seed — Status in Front-end
 
-```typescript
-expectations(exercise) {
-  const ex = exercise as SproutingFlowerExercise;
-  return [
-    {
-      type: "visual" as const,
-      pass: ex.getCircleAt(null as any, 50, 89, 0.4) !== undefined,
-      actual: ex.getCircleAt(null as any, 50, 89, 0.4) ? "found" : "not found",
-      expected: "found",
-      errorHtml: "The first Flower Head isn't correct"
-    },
-    // ... 9 more shape checks
-  ];
-}
-```
+**Using Functions level:**
 
-**Required validations (from bootcamp `config.json`):**
+| API Slug                     | Front-end          | Status                                                      |
+| ---------------------------- | ------------------ | ----------------------------------------------------------- |
+| `maze-solve-basic`           | `maze-solve-basic` | EXISTS                                                      |
+| `space-invaders-solve-basic` | —                  | MISSING — new exercise (simple move+shoot, no conditionals) |
+| `fix-the-wall`               | `fix-wall`         | IMPLEMENTED (slug mismatch)                                 |
+| `sunshine`                   | `sunshine`         | IMPLEMENTED                                                 |
 
-1. First Flower Head: `circle(50, 89, 0.4)`
-2. Final Flower Head: `circle(50, 30, 24)`
-3. First Pistil: `circle(50, 89, 0.1)`
-4. Final Pistil: `circle(50, 30, 6)`
-5. First Stem: `rectangle(49.95, 89, 0.1, 1)`
-6. Final Stem: `rectangle(47, 30, 6, 60)`
-7. First Left Leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`
-8. Final Left Leaf: `ellipse(35, 60, 12, 4.8)`
-9. First Right Leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`
-10. Final Right Leaf: `ellipse(65, 60, 12, 4.8)`
+**Strings and Colors level:**
 
-### Phase 4: Create Solutions
+| API Slug        | Front-end       | Status                           |
+| --------------- | --------------- | -------------------------------- |
+| `foxy-face`     | `foxy-face`     | IMPLEMENTED                      |
+| `sun-and-rain`  | —               | MISSING — has bootcamp reference |
+| `jumbled-house` | `jumbled-house` | EXISTS                           |
+| `penguin`       | `penguin`       | EXISTS                           |
 
-**File: `src/exercises/sprouting-flower/solution.jiki`**
+**Repeat Loop level:**
 
-- ⚠️ **CRITICAL**: Copy bootcamp `example.jiki` EXACTLY - do not modify
+| API Slug                 | Front-end | Status                                                                   |
+| ------------------------ | --------- | ------------------------------------------------------------------------ |
+| `golf-rolling-ball-loop` | —         | MISSING — new exercise variant                                           |
+| `space-invaders-loop`    | —         | MISSING — new exercise variant (repeat loop version of scroll-and-shoot) |
 
-**Files: `solution.javascript` and `solution.py`**
+**Variables level:**
 
-- Convert using `.context/language-conversion.md`
-- Snake_case → camelCase for JS
-- Keep snake_case for Python
+| API Slug                   | Front-end          | Status                           |
+| -------------------------- | ------------------ | -------------------------------- |
+| `cloud-rain-sun-variables` | —                  | MISSING — has bootcamp reference |
+| `structured-house`         | `structured-house` | EXISTS                           |
+| `maze-variables`           | —                  | MISSING — has bootcamp reference |
 
-### Phase 5: Create Stubs
+**Basic State level:**
 
-Create starter code for all 3 languages with:
+| API Slug            | Front-end     | Status                           |
+| ------------------- | ------------- | -------------------------------- |
+| `finish-the-wall`   | `finish-wall` | EXISTS (slug mismatch)           |
+| `golf-rolling-ball` | —             | MISSING — has bootcamp reference |
+| `rainbow`           | `rainbow`     | EXISTS                           |
+| `sunset`            | `sunset`      | EXISTS                           |
 
-- Initial variable setup comments
-- 60-iteration loop structure
-- Sky and ground drawing (already provided)
-- TODO comments for flower drawing
+**Projects:**
 
-### Phase 6: Create LLM Metadata
+| API Slug           | Front-end          | Status |
+| ------------------ | ------------------ | ------ |
+| `sprouting-flower` | `sprouting-flower` | EXISTS |
 
-**File: `src/exercises/sprouting-flower/llm-metadata.ts`**
+### Exercises in Curriculum Plan but NOT in API Seed (levels 6-8)
 
-Teaching guidance focusing on:
+These are from levels that don't exist in the API yet. They need both front-end exercises AND API seed entries:
 
-- Variable relationships (everything calculated from flower center)
-- Incremental updates (flower_center_y decreases each iteration)
-- Mathematical relationships (stem_width = stem_height / 10)
-- Common mistakes (forgetting to update variables, using absolute values)
+**Functions that return things:** Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
 
-### Phase 7: Create Exercise Index
+**Conditionals:** Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
 
-**File: `src/exercises/sprouting-flower/index.ts`**
+**Conditionals and state:** Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
 
-- Import all solutions/stubs
-- Document drawing functions in `functions` array
-- Export `VisualExerciseDefinition`
+### Existing Exercises Not Yet in Curriculum Path
 
-### Phase 8: Registrations
+These exist in the front-end but are in the "Unused" section of curriculum.md:
 
-1. **Exercise registry** (`src/exercises/index.ts`):
+`chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `scrabble-score`, `protein-translation`, `anagram`, `process-game`, `wordle-solver`
 
-   ```typescript
-   "sprouting-flower": () => import("./sprouting-flower")
-   ```
+## Exercise Variants
 
-2. **LLM metadata registry** (`src/llm-metadata.ts`):
+Some exercises appear at multiple levels with different complexity. These are **separate exercises with different slugs**, not the same exercise. For example:
 
-   ```typescript
-   import { llmMetadata as sproutingFlowerLLM } from "./exercises/sprouting-flower/llm-metadata";
-   // ...
-   "sprouting-flower": sproutingFlowerLLM
-   ```
+- `space-invaders-solve-basic` (Using Functions) — just move + shoot, no loops
+- `space-invaders-loop` (Repeat Loop) — use repeat loop to be efficient
+- `scroll-and-shoot` (Conditionals) — full version with if/else, direction tracking
 
-3. **Drawing functions in level** (`src/levels/everything.ts`):
-   - Add to `allowedStdlibFunctions`: `rectangle`, `circle`, `ellipse`, `fill_color_hex`
+- `golf-rolling-ball-loop` (Repeat Loop) — repeat-based ball movement
+- `golf-rolling-ball` (Basic State) — state-tracking ball movement
 
-### Phase 9: Testing
+Each variant uses the same base class but has different scenarios, restrictions, and learning goals.
 
-1. Run `pnpm typecheck` - must pass first
-2. Run `pnpm test` - validate all tests pass
-3. Manual testing required (visual exercise - needs frontend)
+## Approach
 
----
+### Phase 1: Fix Foundations
 
-## Known Issues to Resolve
+1. **Merge `fundamentals` into `using-functions`**: Move stdlib functions and any unique features from `fundamentals.ts` into `using-functions.ts`, delete `fundamentals.ts`, update `src/levels/index.ts`
+2. **Fix slug mismatches**: Decide whether to rename in front-end or API, then align
 
-### 1. ✅ DrawExercise.ts Type Conversions - COMPLETE
+### Phase 2: Add Missing Levels (front-end)
 
-**Status**: All `instanceof Jiki.*` converted to `isNumber()` type guards
-**Remaining**: Compilation errors (see Phase 1 above)
+Add levels in order using `/add-level`. Each level inserted in correct position in `src/levels/index.ts`. The `everything` level stays last.
 
-### 2. ⚠️ availableFunctions Signature Mismatch - RESOLVED
+1. `strings-and-colors`
+2. `repeat-loop`
+3. (variables already exists)
+4. `basic-state`
+5. `functions-that-return-things`
+6. `conditionals`
+7. `conditionals-and-state`
 
-**Problem**: Drawing functions need parameters but VisualExercise doesn't support them
+After adding levels, update existing exercises to use their correct `levelId` in `metadata.json`.
 
-**Bootcamp Solution**:
-In bootcamp, the Exercise base class uses the `ExternalFunction` type from the interpreter:
+### Phase 3: Add Missing Exercises (front-end)
 
-```typescript
-// From bootcamp executor.ts
-export type ExternalFunction = {
-  name: string
-  func: Function  // Generic Function type - accepts any signature!
-  description: string
-  arity?: Arity
-}
+For exercises that have bootcamp references, use `/migrate-exercise`.
+For new exercises (variants, new concepts), use `/add-exercise`.
 
-// From bootcamp Exercise.ts
-public availableFunctions!: ExternalFunction[]
-```
+Priority order: match the API seed data first (levels 1-5), then curriculum plan extras (levels 6-8).
 
-The `func: Function` type is generic and accepts any function signature.
+### Phase 4: Update API Seed Data
 
-**Jiki Curriculum Has This Too**:
-`@jiki/interpreters` exports `ExternalFunction` from `shared/interfaces.ts`:
+Once front-end exercises are ready for levels 6-8:
 
-```typescript
-export interface ExternalFunction {
-  name: string;
-  func: Function; // Same as bootcamp!
-  description: string;
-  arity?: Arity;
-}
-```
+1. Add new levels to `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`
+2. Add exercise lessons under each level
+3. Add any new projects to `/Users/iHiD/Code/jiki/api/db/seeds/projects.json`
 
-**Solution**:
+Ensure all exercise `data.slug` values match front-end exercise slugs exactly.
 
-- Change VisualExercise to use `ExternalFunction` type from `@jiki/interpreters`
-- This matches bootcamp's pattern and supports parameterized functions
-- DrawExercise can then use the same type
+### Phase 5: Verification
 
-### 3. ✅ Animation Methods - VERIFIED
-
-**Status**: `addAnimation()`, `animateIntoView()`, `animateOutOfView()` all exist in VisualExercise
-
-### 4. ⚠️ random_number Function - COMMENTED OUT
-
-**Status**: Commented out, not needed for sprouting-flower
-**Future**: Would need language-specific constructor (jikiscript.Number, javascript.JSNumber, python.PyNumber)
-
----
-
-## Success Criteria
-
-- [ ] DrawExercise.ts compiles with no type errors
-- [ ] All 4 DrawExercise helper files working (shapes, retrievers, checks, utils)
-- [ ] DrawExercise index.ts exports all public APIs
-- [ ] SproutingFlowerExercise extends DrawExercise correctly
-- [ ] All 11 sprouting-flower files created and non-empty
-- [ ] Solutions work in all 3 languages (Jiki, JS, Python)
-- [ ] LLM metadata registered
-- [ ] Exercise registered
-- [ ] `pnpm typecheck` passes
-- [ ] `pnpm test` passes (or shows expected behavior)
-- [ ] Ready for frontend integration testing
-
----
-
-## Estimated Remaining Work
-
-1. **Fix DrawExercise.ts compilation errors** - 30-45 minutes
-   - Fix imports (InterpretResult, Shared, type guards)
-   - Add property initialization assertions
-   - Fix getCurrentTime → getCurrentTimeInMs
-   - **CRITICAL**: Resolve availableFunctions signature (needs architecture decision)
-   - Add type annotations to checks.ts and retrievers.ts
-2. **Create DrawExercise index.ts** - 5 minutes
-3. **Create SproutingFlowerExercise** - 10 minutes
-4. **Create scenarios** - 20 minutes (10 shape validations)
-5. **Copy/convert solutions** - 30 minutes (copy Jiki, convert to JS/Python)
-6. **Create stubs** - 15 minutes
-7. **Create LLM metadata** - 15 minutes
-8. **Create exercise index** - 10 minutes
-9. **Registrations** - 10 minutes
-10. **Testing and fixes** - 30-60 minutes
-
-**Total**: ~3-4 hours remaining
-
-**Blocker**: The `availableFunctions` signature mismatch needs to be resolved before proceeding with compilation.
+- `pnpm typecheck` — all types pass
+- `pnpm test` — all tests pass
+- `pnpm lint` — clean
+- Cross-reference: every exercise `data.slug` in API seed exists in `src/exercises/index.ts`
+- Cross-reference: every exercise in `src/exercises/` has correct `levelId`
+- Cross-reference against curriculum.md to confirm nothing is missing

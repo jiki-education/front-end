@@ -9,9 +9,9 @@ end
 
 function shopping_list with fridge, recipe do
   set list to []
-  for each item in recipe do
-    if not in_list(fridge, item) do
-      change list to push(list, item)
+  for each ingredient in recipe do
+    if not in_list(fridge, ingredient) do
+      change list to push(list, ingredient)
     end
   end
   return list

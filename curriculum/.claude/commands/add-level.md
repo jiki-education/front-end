@@ -1,90 +1,217 @@
 ---
-description: Add a new level from .todo/levels.md to the curriculum
+description: Add a new level to the curriculum
+argument-hint: [level name or description of what the level should cover]
 ---
 
-# Add Next Level from Todo List
+# Add New Level
 
-I'll help you add the next level from `.todo/levels.md` to the curriculum. Let me start by reading the level documentation and todo file.
+I'll help you add a new level to the Jiki curriculum. The user will provide context about what level to create via `$ARGUMENTS`.
 
 ## Step 0: Read Context Documentation
 
-First, let me read the level documentation to understand the structure:
+Read the level documentation and existing levels:
 
 ```bash
 cat .context/levels.md
+cat .context/exercises.md
 ```
 
-## Step 1: Read the todo file
+## Step 1: Understand the Request
 
-First, let me check what's the next level to implement:
+Read and analyze whatever the user provided in `$ARGUMENTS` (e.g., a level name, a description of what concepts it should introduce).
+
+## Step 2: Review Existing Levels
+
+Read all existing level files to understand the current progression:
+
+- `src/levels/types.ts` — The `Level` type interface
+- `src/levels/index.ts` — The level registry and ordering
+- `src/levels/using-functions.ts` — Level 1: Basic function calls
+- `src/levels/fundamentals.ts` — Level 2: Literals, identifiers, stdlib functions
+- `src/levels/variables.ts` — Level 3: Variables, assignment, arithmetic
+- `src/levels/everything.ts` — Catch-all level with all features enabled
+
+Understand what AST nodes and feature flags each level introduces, so the new level fits correctly in the progression.
+
+## Step 3: Discussion with User
+
+**STOP and have a conversation with the user before implementing anything.** Cover:
+
+1. **Position in Progression**: Where does this level fit between existing levels?
+   - What level comes before it?
+   - What level comes after it?
+   - What concepts does it bridge?
+
+2. **Language Features — JavaScript**:
+   - Which new AST node types should be allowed? (Must include all nodes from previous levels)
+   - Which feature flags should change? (e.g., `allowTruthiness`, `allowTypeCoercion`, etc.)
+
+3. **Language Features — Python**:
+   - Which new AST node types should be allowed?
+   - Which feature flags should change?
+
+4. **Language Features — Jikiscript**:
+   - Any new `allowedStdlibFunctions` to add? (e.g., `concatenate`, `push`, `sort_string`)
+   - Any `includeList` or `excludeList` changes?
+
+5. **Metadata**:
+   - `title` — Display name for the level
+   - `description` — Student-facing description of what they'll learn
+   - `taughtConcepts` — Array of strings describing concepts taught at this level (used by LLM proxy)
+
+Wait for the user's responses before proceeding.
+
+## Step 4: Implementation
+
+### 4.1: Create Level File
+
+Create `src/levels/[level-name].ts`:
+
+```typescript
+import type { Level } from "./types";
+
+export const [levelName]Level: Level = {
+  id: "[level-name]",
+  title: "[Level Title]",
+  description: "[Student-facing description]",
+  taughtConcepts: [/* concepts taught at this level */],
+
+  languageFeatures: {
+    jikiscript: {
+      languageFeatures: {
+        allowedStdlibFunctions: [/* stdlib functions available at this level */]
+      }
+    },
+    javascript: {
+      allowedNodes: [
+        // Include ALL nodes from previous levels, plus new ones
+      ],
+      languageFeatures: {
+        // Feature flags — later levels override earlier ones
+      }
+    },
+    python: {
+      allowedNodes: [
+        // Include ALL nodes from previous levels, plus new ones
+      ],
+      languageFeatures: {
+        // Feature flags
+      }
+    }
+  }
+};
+```
+
+### 4.2: Register in `src/levels/index.ts`
+
+1. Add import: `import { [levelName]Level } from "./[level-name]";`
+2. Add to the `levels` array in the correct position (order matters — levels accumulate features):
+
+```typescript
+export const levels = [
+  usingFunctions,
+  fundamentalsLevel,
+  // ... insert new level in correct position
+  variablesLevel,
+  everythingLevel // always last
+] as const;
+```
+
+### 4.3: Update Exercises
+
+Any exercises that should belong to this level need their `metadata.json` updated:
+
+```json
+{
+  "levelId": "[level-name]"
+}
+```
+
+## Step 5: Type Check and Testing
+
+### 5.1: Type Check First
 
 ```bash
-cat .todo/levels.md
+pnpm typecheck
 ```
 
-## Step 2: Planning Phase
+Fix any type errors before running tests.
 
-Based on the level found in the todo file, I'll ask you some clarifying questions (if they're not covered in the todo):
+### 5.2: Run Tests
 
-1. **Language Node Types**:
-   - **JavaScript**: Which AST node types should be allowed? Should it build upon the previous level's allowed nodes?
-   - **Python**: Which Python AST node types should be allowed? (May be added later if interpreter support isn't ready)
+```bash
+pnpm test
+```
 
-2. **Feature Flags**: What language feature flags should be changed for each language?
+All tests must pass. Level tests in `tests/levels/` verify:
 
-   **JavaScript flags**:
-   - `allowShadowing`: Allow variable shadowing?
-   - `requireVariableInstantiation`: Require variables to be initialized?
-   - `allowTruthiness`: Allow truthy/falsy checks?
-   - `allowTypeCoercion`: Allow type coercion?
-   - `enforceStrictEquality`: Enforce === over ==?
-   - `oneStatementPerLine`: Enforce one statement per line?
+- Node progression (each level extends previous)
+- Feature flag consistency
+- Registry completeness
 
-   **Python flags**:
-   - `allowTruthiness`: Allow truthy/falsy checks?
-   - `allowTypeCoercion`: Allow type coercion?
-   - Additional Python-specific flags as needed
+## Step 6: Quality Assurance
 
-   Feature flags build on previous levels, so we only need to specify changes.
+Before committing, verify:
 
-3. **Level Structure**:
-   - Should this level build incrementally on the previous level's features?
-   - What's the main learning objective for this level?
-   - Any specific exercises or lessons you'd like to reference (even if not implemented yet)?
+- [ ] Level file created at `src/levels/[level-name].ts`
+- [ ] Level registered in `src/levels/index.ts` in correct position
+- [ ] All nodes from previous levels included (superset principle)
+- [ ] Feature flags are consistent with progression (no regression)
+- [ ] Jikiscript stdlib functions appropriate for this level
+- [ ] `pnpm typecheck` passes
+- [ ] `pnpm test` passes
+- [ ] `pnpm lint` passes
+- [ ] `pnpm format:check` passes
 
-4. **Description**: What description should be used for the level to explain what students will learn? Remember: This description is STUDENT-facing.
+## Step 7: Commit and PR
 
-5. **Educational Goal**: What's the educational goal of this exercise. This is a reference for the educator.
+```bash
+git add .
+git commit -m "Add [level-name] level
 
-## Step 3: Implementation Plan
+- Introduces [concepts] between [previous-level] and [next-level]
+- [Brief description of what's new]
+- All tests passing
 
-After gathering your answers, I'll present a detailed plan showing:
+Co-Authored-By: Claude <noreply@anthropic.com>"
+git push -u origin add-level-[level-name]
+gh pr create --title "Add [level-name] level" --body "$(cat <<'EOF'
+## Summary
 
-1. **The new level file** that will be created at `src/syllabus/levels/[level-name].ts`
-2. **The level configuration** including:
-   - ID, title, description, and educational goal
-   - Allowed nodes for JavaScript (and Python if applicable)
-   - Feature flags for both languages
-   - Empty lessons array (as requested)
-3. **Syllabus integration** - how it will be added to `src/syllabus/syllabus.ts`
+Added the **[level-name]** level to the Jiki curriculum.
 
-Once you approve the plan, I'll implement the level by:
+## Details
 
-- Creating the new level file with the agreed configuration
-- Importing it in the syllabus
-- Adding it to the syllabus array in the correct position
-- Updating tests to reflect the new level
-- Ensuring all checks pass (tests, TypeScript, linting, formatting)
-- Removing the section from the levels todo
-- Committing, pushing to a feature branch, and creating a PR
+- **Position**: Between [previous] and [next] levels
+- **New JS nodes**: [list]
+- **New Python nodes**: [list]
+- **Feature flag changes**: [list]
+- **Stdlib additions**: [list]
 
-## Important: Before committing
+## Testing
 
-I will ensure that all of the following pass:
+- TypeScript compilation passes
+- All level tests pass
+- Node progression verified
 
-- `pnpm run test` - All tests must pass
-- `pnpm run typecheck` - No TypeScript errors
-- `pnpm run lint` - No linting issues
-- `pnpm run format:check` - Code is properly formatted
+🤖 Generated with Claude Code
+EOF
+)"
+```
 
-Let's begin by examining the todo file and determining the next level to implement.
+## Common Issues
+
+### Level tests fail with "node not found in previous level"
+
+**Cause:** New level is missing nodes from earlier levels
+**Fix:** Include ALL nodes from preceding levels (superset principle)
+
+### Type error on allowedNodes
+
+**Cause:** Invalid AST node name for the language
+**Fix:** Check valid node types in `@jiki/interpreters` — use `javascript.NodeType` or `python.NodeType`
+
+### Exercises still using old levelId
+
+**Cause:** Exercises haven't been updated to reference the new level
+**Fix:** Update `metadata.json` for exercises that belong to this level

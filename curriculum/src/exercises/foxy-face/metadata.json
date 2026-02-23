@@ -1,0 +1,13 @@
+{
+  "slug": "foxy-face",
+  "title": "Foxy Face",
+  "instructions": "This exercise introduces you to the `triangle` function.\n\n### Drawing Triangles\n\nTo draw triangles, we use the `triangle` function with 7 inputs:\n\n- `x1`, `y1`: The first corner point\n- `x2`, `y2`: The second corner point\n- `x3`, `y3`: The third corner point\n- `color`: The color of the triangle (e.g. `\"orange\"`)\n\nEach pair of coordinates defines one of the three corners of the triangle.\n\n## Instructions\n\nYour job is to build a geometric fox face using triangles! We've provided the `\"grey\"` background for you.\n\nYou'll need to draw 8 triangles to create:\n- Two `\"white\"` cheeks\n- Two `\"brown\"` ears\n- Two `\"orange\"` face halves\n- A `\"charcoal\"` nose (two triangles)\n\nThe top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.\n\nHint: Build the fox from back to front. Start with the cheeks, then the ears, then the face, and finally the nose on top.",
+  "estimatedMinutes": 15,
+  "levelId": "strings-and-colors",
+  "hints": [
+    "The triangle function takes 7 arguments: x1, y1, x2, y2, x3, y3, color",
+    "Draw the white cheeks first so they appear behind the face",
+    "The ears are a darker orange (brown) than the face (orange)",
+    "The nose is made of two dark triangles (charcoal)"
+  ]
+}

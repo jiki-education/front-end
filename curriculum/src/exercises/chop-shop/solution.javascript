@@ -15,9 +15,10 @@ function nameToTime(name) {
 }
 
 function canFitIn(queue, nextCut, time) {
-  for (const cut of queue) {
-    time = time - nameToTime(cut);
+  let remaining = time;
+  for (const haircut of queue) {
+    remaining = remaining - nameToTime(haircut);
   }
 
-  return time >= nameToTime(nextCut);
+  return remaining >= nameToTime(nextCut);
 }

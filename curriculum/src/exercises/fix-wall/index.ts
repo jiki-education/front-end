@@ -17,13 +17,6 @@ const functions: FunctionInfo[] = [
     description: "Draw a rectangle at position (left, top) with the given width and height",
     examples: ["rectangle(10, 10, 20, 10)", "rectangle(0, 0, 100, 50)"],
     category: "Drawing Shapes"
-  },
-  {
-    name: "fill_color_hex",
-    signature: "fill_color_hex(color)",
-    description: "Set the fill color using a hex color code or HTML color name",
-    examples: ['fill_color_hex("#AA4A44")', 'fill_color_hex("#FF0000")', 'fill_color_hex("red")'],
-    category: "Colors"
   }
 ];
 

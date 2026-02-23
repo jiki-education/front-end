@@ -45,8 +45,7 @@ export const llmMetadata: LLMMetadata = {
         - Explain that dictionaries allow dynamic key access with brackets
         - Point out that keys() returns the keys as a list, which can be searched
 
-        Language-specific notes:
-        - Jikiscript: Use keys() function and dictionary bracket notation counts[strand]
+        Language notes:
         - JavaScript: Use Object.keys() and object bracket notation
         - Python: Use .keys() method (or just 'in' operator for membership)
       `

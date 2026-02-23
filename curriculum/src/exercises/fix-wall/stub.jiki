@@ -1,3 +1,1 @@
-// TODO: Use the fill_color_hex function to set the color
-
 // TODO: Draw three rectangles that cover the holes.

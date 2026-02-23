@@ -7,7 +7,5 @@ set hue to 0
 repeat 100 times do
   // TODO: Change the variables
 
-  // TODO: Update the color
-
   // TODO: Draw
 end

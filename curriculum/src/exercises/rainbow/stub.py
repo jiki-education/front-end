@@ -7,7 +7,4 @@ hue = 0
 for i in range(100):
     # TODO: Change the variables
 
-    # TODO: Update the color
-
     # TODO: Draw
-    pass

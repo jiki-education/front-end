@@ -1,11 +1,11 @@
 {
   "slug": "formal-dinner",
   "title": "Formal Dinner",
-  "instructions": "You're back in your side hustle as a bouncer. It's the evening after the After Party, and there's yet another shindig. This time it's a formal dinner.\n\nThis definitely isn't the place to use **just** your first name. In fact it isn't the place to use your first name at all. Here, everyone goes by an honorific (Miss, Mr, Dr, etc) and their surname.\n\nOnce again, though, your list of names is just people's full names. So when Mr Pitt turns up, you need to work out that this is the \"Brad Pitt\" on your guest list.\n\nWrite a function called `on_guest_list`. The function has two inputs:\n- The first will contain the guest_list as a list of strings\n- The second is the name of the person formatted as honorific and a surname\n\nYou should return a boolean specifying whether the person is on the guest list.\n\nFor this task, you can presume that honorifics will always be one word.",
+  "instructions": "You're back in your side hustle as a bouncer. It's the evening after the After Party, and there's yet another shindig. This time it's a formal dinner.\n\nThis definitely isn't the place to use **just** your first name. In fact it isn't the place to use your first name at all. Here, everyone goes by an honorific (Miss, Mr, Dr, etc) and their surname.\n\nOnce again, though, your list of names is just people's full names. So when Mr Pitt turns up, you need to work out that this is the \"Brad Pitt\" on your guest list.\n\nWrite a function called `onGuestList`. The function has two inputs:\n- The first will contain the guestList as a list of strings\n- The second is the name of the person formatted as honorific and a surname\n\nYou should return a boolean specifying whether the person is on the guest list.\n\nFor this task, you can presume that honorifics will always be one word.",
   "estimatedMinutes": 15,
   "levelId": "everything",
   "hints": [
-    "You might want helper functions like length() and ends_with()",
+    "You might want helper functions like length() and endsWith()",
     "First, remove the honorific from the person's name to get the surname",
     "Then check if any name on the list ends with that surname",
     "Use concatenate() to build strings when needed"

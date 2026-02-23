@@ -34,35 +34,46 @@ export function checkCanvasCoverage(shapes: Shape[], requiredPercentage: number)
 }
 
 export function checkUniqueColoredRectangles(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Rectangle)) {
       return;
     }
 
-    colors.add(`${shape.fillColor.type}-${shape.fillColor.color.toString()}`);
+    colors.add(shape.fillColor);
   });
   return colors.size >= count;
 }
 export function checkUniqueColoredLines(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Line)) {
       return;
     }
 
-    colors.add(`${shape.strokeColor.color.toString()}`);
+    colors.add(shape.strokeColor);
   });
   return colors.size >= count;
 }
 
 export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
-  let colors = new Set();
+  const colors = new Set();
   shapes.forEach((shape) => {
     if (!(shape instanceof Circle)) {
       return;
     }
-    colors.add(`${shape.fillColor.type}-${shape.strokeColor.color.toString()}-${shape.fillColor.color.toString()}`);
+    colors.add(`${shape.strokeColor}-${shape.fillColor}`);
   });
   return colors.size >= count;
+}
+
+export function checkUniquePositionedCircles(shapes: Shape[], count: number) {
+  const positions = new Set();
+  shapes.forEach((shape) => {
+    if (!(shape instanceof Circle)) {
+      return;
+    }
+    positions.add(`${shape.cx}-${shape.cy}`);
+  });
+  return positions.size >= count;
 }

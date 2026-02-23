@@ -1,0 +1,13 @@
+{
+  "slug": "look-around",
+  "title": "Look Around",
+  "instructions": "Last time you added a new function to help navigate the maze: `turnAround()`.\n\nNow it's time to implement some of the functions that already existed! We've taken away the `canTurnLeft()`, `canTurnRight()` and `canMove()` functions, and your job is to add them back!\n\nNone of the functions have any inputs and all should return a boolean specifying whether it's possible to move in that direction.\n\nTo help you, we've added a new `look(direction)` function. This function takes one input - a direction that can be `\"left\"`, `\"right\"`, or `\"ahead\"`. It returns one of:\n\n- `\"start\"` (Where you start)\n- `\"target\"` (Where you're trying to get to)\n- `\"empty\"` (The route forward!)\n- `\"fire\"` (Careful!)\n- `\"poop\"` (Ewww)\n- `\"wall\"` (Ouch!)\n\nYou shouldn't need to change any of the existing code for this exercise. Instead add the three functions to the top of the code.\n\nA best practice in an exercise like this is to start by creating the functions that the code needs to run (i.e. `canTurnLeft()`, `canTurnRight()` and `canMove()`). Set their return values to be some sensible default (either `true` or `false` in this case).\n\nYou can then implement the logic of each function and make some progress each time, rather than just consistently getting an error that a function doesn't exist until you've written the whole program.",
+  "estimatedMinutes": 20,
+  "levelId": "make-your-own-functions",
+  "hints": [
+    "Start by creating canTurnLeft(), canTurnRight() and canMove() that just return false",
+    "Use look(\"ahead\") to check what's in front of you",
+    "A space is safe to move into if it's not \"fire\", \"wall\", or \"poop\"",
+    "Consider writing a helper function like checkDirection(direction) that all three functions can use"
+  ]
+}

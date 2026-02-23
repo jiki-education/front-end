@@ -26,10 +26,10 @@ const functions: FunctionInfo[] = [
     category: "String Operations"
   },
   {
-    name: "sort_string",
-    signature: "sort_string(string)",
+    name: "sortString",
+    signature: "sortString(string)",
     description: "Takes a string and returns its characters sorted alphabetically (provided by level stdlib)",
-    examples: ['sort_string("dcba") → "abcd"', 'sort_string("listen") → "eilnst"'],
+    examples: ['sortString("dcba") → "abcd"', 'sortString("listen") → "eilnst"'],
     category: "String Operations"
   }
 ];

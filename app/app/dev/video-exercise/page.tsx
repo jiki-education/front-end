@@ -10,6 +10,7 @@ const mockLessonData: VideoLesson = {
   type: "video",
   title: "Welcome!",
   description: "Your next lesson",
+  walkthrough_video_data: null,
   data: {
     sources: [
       {

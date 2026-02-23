@@ -1,0 +1,24 @@
+// Set up initial position variables
+set x to 3
+set y to 4
+set hue to 99
+
+// Set up direction variables
+set x_direction to 2
+set y_direction to 1
+set hue_direction to 1
+
+repeat 1000 times do
+  // TODO: Update x, y, and hue by adding their directions
+
+  // TODO: If x is out of bounds (<= 0 or >= 100),
+  //       change x_direction to a random value in the opposite direction
+
+  // TODO: If y is out of bounds (<= 0 or >= 100),
+  //       change y_direction to a random value in the opposite direction
+
+  // TODO: If hue is out of bounds (<= 0 or >= 360),
+  //       reverse hue_direction
+
+  // TODO: Draw a circle at (x, y) with radius 10 and a color from the hue
+end

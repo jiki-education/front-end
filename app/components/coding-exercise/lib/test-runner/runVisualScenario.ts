@@ -1,4 +1,4 @@
-import type { VisualExercise, VisualScenario, Language } from "@jiki/curriculum";
+import type { VisualExercise, VisualScenario, Language, InterpreterOptions } from "@jiki/curriculum";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
 import { jikiscript, javascript, python } from "@jiki/interpreters";
@@ -23,10 +23,17 @@ export function runVisualScenario(
   scenario: VisualScenario,
   studentCode: string,
   ExerciseClass: new () => VisualExercise,
-  language: Language
+  language: Language,
+  interpreterOptions?: InterpreterOptions
 ): VisualTestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
+
+  // Resolve random seed: true means generate a fresh seed each run
+  const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
+  if (resolvedSeed !== undefined) {
+    exercise.randomSeed = resolvedSeed;
+  }
 
   // Run setup (if provided)
   scenario.setup?.(exercise);
@@ -34,18 +41,20 @@ export function runVisualScenario(
   // Execute student code with selected interpreter
   const interpreter = getInterpreter(language);
   const interpreterContext = {
-    externalFunctions: exercise.availableFunctions,
+    externalFunctions: exercise.getExternalFunctions(language),
+    classes: exercise.getExternalClasses(language),
     languageFeatures: {
-      timePerFrame: 1
+      timePerFrame: 1,
+      ...interpreterOptions
     },
-    randomSeed: scenario.randomSeed
+    randomSeed: resolvedSeed
   };
 
   const result = scenario.functionCall
     ? interpreter.evaluateFunction(
         studentCode,
         interpreterContext,
-        scenario.functionCall.name,
+        interpreter.formatIdentifier(scenario.functionCall.name),
         ...scenario.functionCall.args
       )
     : interpreter.interpret(studentCode, interpreterContext);

@@ -1,0 +1,32 @@
+set buildings to num_buildings()
+set x to 1
+set floors to 0
+set y to 0
+
+repeat buildings times do
+  change floors to random_number(0, 6)
+
+  build_wall(x, 1)
+  build_glass(x + 1, 1)
+  build_entrance(x + 2, 1)
+  build_glass(x + 3, 1)
+  build_wall(x + 4, 1)
+
+  change y to 2
+  repeat floors times do
+    build_wall(x, y)
+    build_glass(x + 1, y)
+    build_glass(x + 2, y)
+    build_glass(x + 3, y)
+    build_wall(x + 4, y)
+    change y to y + 1
+  end
+
+  build_wall(x, y)
+  build_wall(x + 1, y)
+  build_wall(x + 2, y)
+  build_wall(x + 3, y)
+  build_wall(x + 4, y)
+
+  change x to x + 5
+end

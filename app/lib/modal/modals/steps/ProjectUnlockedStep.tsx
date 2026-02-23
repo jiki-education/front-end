@@ -12,14 +12,12 @@ interface ProjectUnlockedStepProps {
     description: string;
     slug: string;
   };
-  onGoToProject: () => void;
   onGoToDashboard: () => void;
 }
 
 export function ProjectUnlockedStep({
   completionResponse,
   unlockedProject,
-  onGoToProject,
   onGoToDashboard
 }: ProjectUnlockedStepProps) {
   const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
@@ -35,7 +33,9 @@ export function ProjectUnlockedStep({
   return (
     <>
       <h2 className={styles.modalTitle}>Project unlocked!</h2>
-      <p className={styles.modalMessage}>All that practice means you&apos;re ready for a new project.</p>
+      <p className={styles.modalMessage}>
+        All that practice means you&apos;re ready to combine what you&apos;ve learned in a new project.
+      </p>
       <div className={projectStyles.projectCardSimple}>
         <div className={projectStyles.projectCardSimpleBackground}></div>
         <div className={projectStyles.projectCardSimpleBack}></div>
@@ -50,11 +50,8 @@ export function ProjectUnlockedStep({
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onGoToProject} className={styles.btnSecondary}>
-          Go to Project
-        </button>
         <button onClick={onGoToDashboard} className={styles.btnPrimary}>
-          Go to Dashboard
+          Continue
         </button>
       </div>
     </>

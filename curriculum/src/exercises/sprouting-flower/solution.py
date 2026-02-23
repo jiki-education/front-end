@@ -35,29 +35,23 @@ for i in range(60):
     leaf_y_radius = flower_radius * 0.2
 
     left_leaf_left = stem_left - leaf_x_radius
-    right_leaf_left = stem_left + stem_width  + leaf_x_radius
+    right_leaf_left = stem_left + stem_width + leaf_x_radius
 
     # Sky
-    fill_color_hex("#ADD8E6")
-    rectangle(0, 0, 100, 90)
+    rectangle(0, 0, 100, 90, "skyblue")
 
     # Ground
-    fill_color_hex("green")
-    rectangle(0, ground_top, 100, 10)
+    rectangle(0, ground_top, 100, 10, "green")
 
     # Stem
-    fill_color_hex("green")
-    rectangle(stem_left, stem_top, stem_width, stem_height)
+    rectangle(stem_left, stem_top, stem_width, stem_height, "green")
 
     # Flower head
-    fill_color_hex("pink")
-    circle(flower_center_x, flower_center_y, flower_radius)
+    circle(flower_center_x, flower_center_y, flower_radius, "pink")
 
     # Pistil
-    fill_color_hex("yellow")
-    circle(flower_center_x, flower_center_y, pistil_radius)
+    circle(flower_center_x, flower_center_y, pistil_radius, "yellow")
 
     # Leaves
-    fill_color_hex("green")
-    ellipse(left_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius)
-    ellipse(right_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius)
+    ellipse(left_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius, "green")
+    ellipse(right_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius, "green")

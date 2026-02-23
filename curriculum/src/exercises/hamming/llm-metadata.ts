@@ -19,7 +19,7 @@ export const llmMetadata: LLMMetadata = {
     - Position tracking with counter variables
     - Character-by-character comparison
     - Counting and accumulating differences
-    - String indexing (1-based in Jiki, 0-based in JS/Python)
+    - String indexing (0-based in JS/Python)
   `,
 
   tasks: {
@@ -35,7 +35,7 @@ export const llmMetadata: LLMMetadata = {
         7. Return the total distance
 
         Common mistakes:
-        - Off-by-one errors in indexing (especially in Jikiscript which is 1-based)
+        - Off-by-one errors in indexing
         - Forgetting to increment the position counter
         - Incrementing position in the wrong place (should be after comparison)
         - Not handling empty strings (should return 0)
@@ -52,9 +52,7 @@ export const llmMetadata: LLMMetadata = {
         - It's a fundamental algorithm worth understanding
 
         Language-specific notes:
-        - Jikiscript: 1-based indexing, so counter starts at 0 and is incremented BEFORE use, OR starts at 1 and is incremented AFTER use
         - JavaScript/Python: 0-based indexing, counter starts at 0 and is incremented AFTER use
-        - The bootcamp solution increments BEFORE comparison, which works with 1-based indexing
       `
     }
   }

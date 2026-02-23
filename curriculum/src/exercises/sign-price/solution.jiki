@@ -1,0 +1,10 @@
+function sign_price with sign_text do
+  set num_letters to 0
+  for each letter in sign_text do
+    if letter != " " do
+      change num_letters to num_letters + 1
+    end
+  end
+  set price to num_letters * 12
+  return concatenate("That will cost $", number_to_string(price))
+end
