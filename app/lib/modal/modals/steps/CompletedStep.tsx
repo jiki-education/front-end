@@ -1,6 +1,6 @@
 "use client";
 
-import { ExerciseIcon } from "@/components/icons/ExerciseIcon";
+import { LessonIcon } from "@/components/icons/LessonIcon";
 import styles from "@/app/styles/components/modals.module.css";
 import timelineStyles from "@/app/styles/components/exercise-timeline.module.css";
 
@@ -18,7 +18,7 @@ export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue }: Compl
         <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGreen}`}></div>
         <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineAnimate}`}></div>
         <div className={timelineStyles.exerciseIconBox}>
-          <ExerciseIcon slug={exerciseSlug} />
+          <LessonIcon slug={exerciseSlug} />
           <div className={timelineStyles.exerciseIconGreenOverlay}></div>
         </div>
         <div

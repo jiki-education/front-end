@@ -1,6 +1,6 @@
 import { lazy, Suspense, type ComponentType, type SVGProps } from "react";
 
-type IconType = "badges" | "concepts" | "profile" | "projects" | "exercises";
+type IconType = "concepts" | "profile" | "projects";
 
 // Cache to prevent creating new lazy components on every render
 const iconCache = new Map<string, ComponentType<SVGProps<SVGSVGElement>>>();
