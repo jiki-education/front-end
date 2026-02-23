@@ -1,7 +1,6 @@
 {
   "slug": "maze-solve-basic",
   "title": "Manually Solve a Maze",
-  "instructions": "Solve a maze using basic movement and turning functions. Your goal is to reach the green target cell by navigating through the maze without hitting walls.",
   "estimatedMinutes": 10,
   "levelId": "using-functions",
   "hints": [

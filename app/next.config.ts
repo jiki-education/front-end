@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
         loaders: ["raw-loader"],
         as: "*.js"
       },
+      "*.md": {
+        loaders: ["raw-loader"],
+        as: "*.js"
+      },
       "*.svg": {
         loaders: [
           {
@@ -76,6 +80,10 @@ const nextConfig: NextConfig = {
       },
       {
         test: /\.jiki$/,
+        type: "asset/source"
+      },
+      {
+        test: /\.md$/,
         type: "asset/source"
       }
     );

@@ -6,5 +6,5 @@ export default defineConfig({
     globals: true,
     setupFiles: "./tests/setup.ts"
   },
-  assetsInclude: ["**/*.javascript", "**/*.py", "**/*.jiki"]
+  assetsInclude: ["**/*.javascript", "**/*.py", "**/*.jiki", "**/*.md"]
 });
