@@ -114,16 +114,6 @@ describe("buildLevelSections", () => {
       const result = buildLevelSections(levels);
       expect(result[1].lessons[0].locked).toBe(false);
     });
-
-    it("defaults to locked for an unknown status value", () => {
-      const levels = [
-        createLevel({
-          lessons: [createLesson({ slug: "lesson-one", status: "bogus" as LessonWithProgress["status"] })]
-        })
-      ];
-      const result = buildLevelSections(levels);
-      expect(result[0].lessons[0].locked).toBe(true);
-    });
   });
 
   describe("level section properties", () => {

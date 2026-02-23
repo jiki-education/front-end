@@ -21,8 +21,6 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
             locked = level.lessons[lessonIndex - 1].status !== "completed";
           }
           break;
-        default:
-          locked = true;
       }
 
       return {
