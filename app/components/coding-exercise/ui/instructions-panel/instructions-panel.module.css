@@ -186,14 +186,14 @@
 
 .instructionsContent h3 {
     color: #1a202c;
-    font-size: 1.125rem;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 0.5rem;
     margin-top: 1.25rem;
 }
 
 .instructionsContent p {
-    font-size: 0.875rem;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -204,7 +204,7 @@
     padding: 0.125rem 0.5rem;
     border-radius: 0.25rem;
     font-family: "Source Code Pro", monospace;
-    font-size: 0.875rem;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -220,7 +220,7 @@
     background: none;
     padding: 0;
     color: var(--color-gray-800);
-    font-size: 0.875rem;
+    font-size: 16px;
 }
 
 .instructionsContent ul {
@@ -229,7 +229,7 @@
 }
 
 .instructionsContent li {
-    font-size: 0.875rem;
+    font-size: 16px;
     line-height: 1.6;
     margin-bottom: 0.5rem;
 }
