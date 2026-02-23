@@ -106,6 +106,6 @@ Then run tests:
 pnpm test
 ```
 
-## Step 9: Iterate with user
+## Step 8: Iterate with user
 
 After the changes are made, present the introduction.md content to the user for review. Make any adjustments they request. Continue iterating until they're happy.
