@@ -38,10 +38,6 @@ export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
       />
 
       <div className="py-24 px-32">
-        <p className="mb-20">
-          If you&apos;re stuck on this exercise, these hints can help guide you in the right direction. Click on a hint
-          to reveal helpful tips.
-        </p>
         <ul className="space-y-3">
           {hints.map((hint, index) => {
             const isRevealed = revealedHints.has(index);
@@ -103,10 +99,11 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
   return (
     <div
       className={`${style?.hintItem} ${showConfirmOverlay ? style?.confirming : ""} ${isRevealed ? style?.expanded : ""}`}
+      onClick={handleRevealClick}
     >
       <div className={style?.hintQuestion}>
         <span>{question}</span>
-        <button className={style?.hintRevealBtn} onClick={handleRevealClick}>
+        <div className={style?.hintRevealBtn}>
           {isRevealed ? (
             <>
               <EyeClosedIcon width={14} height={14} />
@@ -118,17 +115,17 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
               <span className={style?.revealText}>Reveal</span>
             </>
           )}
-        </button>
+        </div>
       </div>
       <div className={style?.hintAnswer}>
         {showConfirmOverlay && (
-          <div className={style?.hintConfirmOverlay}>
+          <div className={style?.hintConfirmOverlay} onClick={(e) => e.stopPropagation()}>
             <div className={style?.hintConfirmText}>Are you sure you want to reveal this hint?</div>
             <div className={style?.hintConfirmButtons}>
-              <button className={style?.hintConfirmNo} onClick={handleCancelReveal}>
+              <button className="ui-btn ui-btn-small ui-btn-tertiary" onClick={handleCancelReveal}>
                 Not for now
               </button>
-              <button className={style?.hintConfirmYes} onClick={handleConfirmReveal}>
+              <button className="ui-btn ui-btn-small ui-btn-primary" onClick={handleConfirmReveal}>
                 Yes
               </button>
             </div>

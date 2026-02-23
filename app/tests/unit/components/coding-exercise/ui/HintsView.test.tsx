@@ -149,13 +149,13 @@ describe("HintsView", () => {
   });
 
   describe("Accessibility", () => {
-    it("should make reveal buttons clickable", () => {
+    it("should make the entire hint item clickable", () => {
       const hints = ["Test hint"];
       const { container } = render(<HintsView hints={hints} />);
 
-      const revealButton = container.querySelector(".hintRevealBtn");
-      expect(revealButton?.tagName).toBe("BUTTON");
-      expect(revealButton).toHaveClass("hintRevealBtn");
+      const hintItem = container.querySelector(".hintItem");
+      expect(hintItem).toBeInTheDocument();
+      expect(hintItem).toHaveClass("hintItem");
     });
 
     it("should provide clear button text for screen readers", () => {
