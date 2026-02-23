@@ -4,6 +4,10 @@
 import { render, screen } from "@testing-library/react";
 import SubscriptionStatus from "@/components/settings/ui/SubscriptionStatus";
 
+// Pin locale to en-US so tests don't depend on the developer's system locale
+const _OriginalNumberFormat = Intl.NumberFormat;
+jest.spyOn(Intl, "NumberFormat").mockImplementation((_, options) => new _OriginalNumberFormat("en-US", options));
+
 // Mock the auth store so PremiumPrice can render
 jest.mock("@/lib/auth/authStore", () => {
   const state = {
