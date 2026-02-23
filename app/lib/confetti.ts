@@ -2,6 +2,7 @@ import confetti from "canvas-confetti";
 
 let confettiCanvas: HTMLCanvasElement | null = null;
 let myConfetti: ReturnType<typeof confetti.create> | null = null;
+let animationFrameId: number | null = null;
 
 function setupCanvas() {
   if (!confettiCanvas) {
@@ -30,7 +31,11 @@ export function launchConfetti() {
   const colors = ["#FE3C00", "#AFC8F3", "#4C2E55", "#E9DE3F", "#BEEEAB"];
 
   function createConfetti(originX: number) {
-    myConfetti!({
+    if (!myConfetti) {
+      return;
+    }
+
+    void myConfetti({
       particleCount: 7,
       angle: originX === 0 ? 60 : 120,
       spread: 50,
@@ -44,12 +49,17 @@ export function launchConfetti() {
     createConfetti(1);
 
     if (Date.now() < end) {
-      requestAnimationFrame(frame);
+      animationFrameId = requestAnimationFrame(frame);
     }
   })();
 }
 
 export function cleanupCanvas() {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+
   if (confettiCanvas) {
     document.body.removeChild(confettiCanvas);
     confettiCanvas = null;
