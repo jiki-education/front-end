@@ -15,6 +15,7 @@ interface BaseModalProps {
   fullscreen?: boolean;
   hideCloseButton?: boolean;
   shouldCloseOnOverlayClick?: boolean;
+  shouldCloseOnEsc?: boolean;
 }
 
 export function BaseModal({
@@ -26,7 +27,8 @@ export function BaseModal({
   overlayClassName = "",
   fullscreen = false,
   hideCloseButton = false,
-  shouldCloseOnOverlayClick = true
+  shouldCloseOnOverlayClick = true,
+  shouldCloseOnEsc = true
 }: BaseModalProps) {
   // For fullscreen modals, use special classes
   const modalClass = fullscreen ? styles.modalFullscreen : `${styles.modal} ${className}`;
@@ -42,6 +44,7 @@ export function BaseModal({
       bodyOpenClassName="ReactModal__Body--open"
       ariaHideApp={false}
       shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+      shouldCloseOnEsc={shouldCloseOnEsc}
     >
       {title && !fullscreen && (
         <div className="mb-4 pb-4 border-b border-gray-200">

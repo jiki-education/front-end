@@ -79,6 +79,16 @@ export async function fetchLatestExerciseSubmission(lessonSlug: string): Promise
 }
 
 /**
+ * Submit difficulty and fun ratings for a lesson
+ */
+export async function rateLesson(slug: string, difficultyRating: number, funRating: number): Promise<void> {
+  await api.patch(`/internal/user_lessons/${slug}/rate`, {
+    difficulty_rating: difficultyRating,
+    fun_rating: funRating
+  });
+}
+
+/**
  * Fetch user lesson data including conversation history
  */
 export async function fetchUserLesson(slug: string): Promise<UserLessonData> {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { hideModal, showModal } from "../../store";
 import styles from "@/app/styles/components/modals.module.css";
 import SoundManager from "@/lib/sound/SoundManager";
+import { rateLesson } from "@/lib/api/lessons";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
 export type ModalStep =
@@ -102,8 +103,8 @@ export function useExerciseCompletionModal({
     setStep("difficulty-rating");
   };
 
-  const handleRatingsSubmit = (_difficultyRating: number, _funRating: number) => {
-    // TODO: Send both ratings to API when endpoint is ready
+  const handleRatingsSubmit = (difficultyRating: number, funRating: number) => {
+    rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
     setStep("completed");
     onCompleteExercise?.();
   };
