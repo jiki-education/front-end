@@ -21,7 +21,7 @@ export type LessonType = "exercise" | "video" | "quiz" | "choose_language";
 export interface Lesson {
   slug: string;
   title: string;
-  description?: string;
+  description: string;
   type: LessonType;
   walkthrough_video_data: VideoData[] | null;
 }

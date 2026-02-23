@@ -44,6 +44,7 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
     const lessons: LessonWithProgress[] = level.lessons.map((lesson) => ({
       slug: lesson.slug,
       type: lesson.type,
+      description: lesson.description,
       status: lessonProgressMap.get(lesson.slug) || "not_started",
       walkthrough_video_data: lesson.walkthrough_video_data
     }));
