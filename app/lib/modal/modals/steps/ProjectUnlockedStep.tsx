@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import UnlockedIcon from "@/icons/unlocked.svg";
 import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
@@ -65,8 +66,8 @@ export function ProjectUnlockedStep({
       </div>
       <div className={styles.premiumInfoBox}>
         <p>
-          <span className="font-semibold">Exclusively for Premium members.</span> <a href="#">Upgrade your account</a>{" "}
-          to access all the Projects as you unlock them.
+          <span className="font-semibold">Exclusively for Premium members.</span>{" "}
+          <Link href="/premium">Upgrade your account</Link> to access all the Projects as you unlock them.
         </p>
       </div>
       <div className={styles.modalButtonsDivider}></div>
