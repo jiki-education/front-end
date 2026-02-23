@@ -1,6 +1,10 @@
 import { render } from "@testing-library/react";
 import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
 
+// Pin locale to en-US so tests don't depend on the developer's system locale
+const _OriginalNumberFormat = Intl.NumberFormat;
+jest.spyOn(Intl, "NumberFormat").mockImplementation((_, options) => new _OriginalNumberFormat("en-US", options));
+
 let mockUser: any = null;
 
 jest.mock("@/lib/auth/authStore", () => ({
