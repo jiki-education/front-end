@@ -44,7 +44,7 @@ async function globalSetup(_config: FullConfig) {
     for (const route of routes) {
       // eslint-disable-next-line no-console
       console.log(`  - Warming up ${route}...`);
-      await page.goto(`http://localhost:3081${route}`);
+      await page.goto(`http://localhost:3081${route}`, { timeout: 60000 });
       // Wait for the page to be loaded - use "load" instead of "networkidle"
       // as networkidle can hang indefinitely if the page has polling/websockets
       await page.waitForLoadState("load");

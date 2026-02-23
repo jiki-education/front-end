@@ -24,9 +24,8 @@ export interface Level {
 
 export interface UserLevel {
   level_slug: string;
+  status: "started" | "completed";
   user_lessons: UserLesson[];
-  completed_at?: string;
-  current?: boolean;
 }
 
 // API Response types

@@ -52,7 +52,7 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
     // Calculate level status
     let status: "not_started" | "started" | "completed" | "ready_for_completion" = "not_started";
 
-    if (userProgress?.completed_at != null) {
+    if (userProgress?.status === "completed") {
       status = "completed";
     } else if (userProgress) {
       const completedLessons = lessons.filter((l) => l.status === "completed");
