@@ -440,8 +440,8 @@ test.describe("Network Error Handling E2E", () => {
       // Modal should appear
       await helpers.waitForModal(page);
 
-      // Modal should auto-close after retry succeeds (give at least 2s + 1s buffer)
-      await helpers.waitForModalToClose(page, 5000);
+      // Modal should auto-close after retry succeeds
+      await helpers.waitForModalToClose(page);
 
       // Verify second request was made
       expect(tracker.getRequestCount()).toBe(2);

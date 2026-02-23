@@ -129,6 +129,13 @@ test.describe("Authentication Flows", () => {
     }
   }
 
+  async function waitForLoadingToComplete(page: Page) {
+    await page.waitForFunction(() => {
+      const headings = document.querySelectorAll("h1");
+      return Array.from(headings).every((h) => !h.textContent.includes("Waking up Jiki"));
+    });
+  }
+
   async function awaitRedirectToLogin(page: Page) {
     await page.waitForFunction((expectedUrl) => {
       const url = window.location.href;
@@ -175,6 +182,7 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertLandingPage(page: Page) {
+    await waitForLoadingToComplete(page);
     await page.locator("h1").waitFor();
     const heading = await page.locator("h1").textContent();
     expect(heading).toBe("Welcome to Jiki");
@@ -208,6 +216,7 @@ test.describe("Authentication Flows", () => {
     test("should redirect to /auth/login without session cookie", async ({ page }) => {
       await setup(page, "absent");
       await visitSettingsPage(page);
+      await waitForLoadingToComplete(page);
       await awaitRedirectToLogin(page);
       await assertLoginPage(page);
     });
@@ -226,6 +235,7 @@ test.describe("Authentication Flows", () => {
       });
 
       await visitSettingsPage(page);
+      await waitForLoadingToComplete(page);
       await awaitRedirectToLogin(page);
       await assertLoginPage(page);
     });
@@ -244,6 +254,7 @@ test.describe("Authentication Flows", () => {
       });
 
       await visitSettingsPage(page);
+      await waitForLoadingToComplete(page);
       await awaitRedirectToLogin(page);
       await assertLoginPage(page);
     });
