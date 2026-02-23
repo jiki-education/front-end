@@ -13,6 +13,7 @@ interface DynamicHeaderProps {
   isExpanded: boolean;
   activeSection: string;
   exerciseData: ExerciseData;
+  hasFunctions: boolean;
   onNavigateToInstructions: () => void;
   onNavigateToFunctions: () => void;
   onNavigateToConceptLibrary: () => void;
@@ -23,6 +24,7 @@ export default function DynamicHeader({
   isExpanded,
   activeSection,
   exerciseData,
+  hasFunctions,
   onNavigateToInstructions,
   onNavigateToFunctions,
   onNavigateToConceptLibrary,
@@ -47,6 +49,7 @@ export default function DynamicHeader({
           {/* Navigation buttons - center aligned */}
           <NavigationButtons
             activeSection={activeSection}
+            hasFunctions={hasFunctions}
             onNavigateToInstructions={onNavigateToInstructions}
             onNavigateToFunctions={onNavigateToFunctions}
             onNavigateToConceptLibrary={onNavigateToConceptLibrary}
@@ -64,6 +67,7 @@ export default function DynamicHeader({
           {/* RHS - Navigation buttons */}
           <NavigationButtons
             activeSection={activeSection}
+            hasFunctions={hasFunctions}
             onNavigateToInstructions={onNavigateToInstructions}
             onNavigateToFunctions={onNavigateToFunctions}
             onNavigateToConceptLibrary={onNavigateToConceptLibrary}

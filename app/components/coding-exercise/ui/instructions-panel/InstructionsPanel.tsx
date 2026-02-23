@@ -91,9 +91,9 @@ export default function InstructionsPanel({
       const scrollTop = scrollContainer.scrollTop;
       const scrollHeight = scrollContainer.scrollHeight;
       const clientHeight = scrollContainer.clientHeight;
-      const _instructionsTop = instructionsRef.current?.offsetTop || 0;
-      const functionsTop = functionsRef.current?.offsetTop || 0;
       const conceptLibraryTop = conceptLibraryRef.current?.offsetTop || 0;
+      const hasFns = functions.length > 0;
+      const functionsTop = hasFns ? functionsRef.current?.offsetTop || 0 : 0;
 
       // Update expansion state - expanded when at very top (within 20px)
       setIsExpanded(scrollTop <= 20);
@@ -107,7 +107,7 @@ export default function InstructionsPanel({
         setActiveSection("concept-library");
       } else if (scrollTop >= conceptLibraryTop - 100) {
         setActiveSection("concept-library");
-      } else if (scrollTop >= functionsTop - 100) {
+      } else if (hasFns && scrollTop >= functionsTop - 100) {
         setActiveSection("functions");
       } else {
         setActiveSection("instructions");
@@ -116,7 +116,7 @@ export default function InstructionsPanel({
 
     scrollContainer.addEventListener("scroll", handleScroll);
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [functions.length]);
 
   // Navigation functions
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
@@ -154,6 +154,7 @@ export default function InstructionsPanel({
         isExpanded={isExpanded}
         activeSection={activeSection}
         exerciseData={exerciseData}
+        hasFunctions={functions.length > 0}
         onNavigateToInstructions={() => scrollToSection(instructionsRef)}
         onNavigateToFunctions={() => scrollToSection(functionsRef)}
         onNavigateToConceptLibrary={() => scrollToSection(conceptLibraryRef)}
@@ -163,19 +164,22 @@ export default function InstructionsPanel({
       {/* Scrollable Content */}
       <div ref={scrollContainerRef} className={styles.scrollableContent}>
         {/* Instructions Section */}
-        <div ref={instructionsRef}>
-          <InstructionsContent instructions={instructions} />
-        </div>
+        <InstructionsContent ref={instructionsRef} instructions={instructions} />
 
         {/* Functions Section */}
-        <div ref={functionsRef}>
-          <FunctionsGrid functions={functions} />
-        </div>
+        {functions.length > 0 && (
+          <div ref={functionsRef}>
+            <FunctionsGrid functions={functions} />
+          </div>
+        )}
 
         {/* Concept Library Section */}
-        <div ref={conceptLibraryRef}>
-          <LibrarySection concepts={concepts} isLoading={isLoadingConcepts} isProject={isProject} />
-        </div>
+        <LibrarySection
+          ref={conceptLibraryRef}
+          concepts={concepts}
+          isLoading={isLoadingConcepts}
+          isProject={isProject}
+        />
       </div>
     </div>
   );

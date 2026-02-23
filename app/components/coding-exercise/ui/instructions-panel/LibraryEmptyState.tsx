@@ -6,7 +6,7 @@ export default function LibraryEmptyState() {
     <LibraryWrapper>
       <div className={styles.libraryPlaceholderBox}>
         This is where you will see Concepts as you progress through the exercises. These will be references you can use
-        to refresh your memory on what you&apos;ve learnt.
+        to refresh your memory on what you&apos;ve learned.
       </div>
     </LibraryWrapper>
   );
