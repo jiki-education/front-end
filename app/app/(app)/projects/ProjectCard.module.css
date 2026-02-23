@@ -256,8 +256,21 @@
 
         &:hover {
             transform: none;
-            border-color: var(--color-gray-200);
+            border-color: var(--color-gray-400);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+            .statusBadge {
+                background: var(--color-gray-500);
+                color: white;
+            }
+
+            .hero {
+                opacity: 1;
+            }
+
+            .content {
+                opacity: 0;
+            }
         }
     }
 
