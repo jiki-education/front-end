@@ -15,5 +15,5 @@ export default defineConfig({
       "@jiki/curriculum": path.resolve(__dirname, "../curriculum/src")
     }
   },
-  assetsInclude: ["**/*.javascript", "**/*.py", "**/*.jiki"]
+  assetsInclude: ["**/*.javascript", "**/*.py", "**/*.jiki", "**/*.md"]
 });

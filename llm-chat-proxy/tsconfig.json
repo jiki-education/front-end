@@ -16,6 +16,6 @@
       "@jiki/curriculum": ["../curriculum/src"]
     }
   },
-  "include": ["src/**/*", "tests/**/*", "vitest.config.ts"],
+  "include": ["src/**/*", "tests/**/*", "vitest.config.ts", "../curriculum/src/solution-files.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
