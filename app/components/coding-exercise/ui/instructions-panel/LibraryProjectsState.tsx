@@ -6,8 +6,8 @@ export default function LibraryProjectsState() {
   return (
     <LibraryWrapper>
       <div className={styles.libraryPlaceholderBox}>
-        You can use any concepts you&apos;ve learnt so far in this exercise. Refer back to your Concept Library when you
-        want to remind yourself of what you&apos;ve learnt.
+        You can use any concepts you&apos;ve learned so far in this exercise. Refer back to your Concept Library when
+        you want to remind yourself of what you&apos;ve learned.
       </div>
       <OpenConceptLibraryButton />
     </LibraryWrapper>

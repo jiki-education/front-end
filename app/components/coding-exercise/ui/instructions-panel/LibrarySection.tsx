@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import LibraryWithConcepts from "./LibraryWithConcepts";
 import LibraryEmptyState from "./LibraryEmptyState";
@@ -10,21 +11,25 @@ interface LibrarySectionProps {
   concepts: ConceptCardData[];
   isLoading: boolean;
   isProject: boolean;
-  className?: string;
 }
 
-export default function LibrarySection({ concepts, isLoading, isProject, className = "" }: LibrarySectionProps) {
+const LibrarySection = forwardRef<HTMLDivElement, LibrarySectionProps>(function LibrarySection(
+  { concepts, isLoading, isProject },
+  ref
+) {
   const state = getLibraryState({ concepts, isLoading, isProject });
 
   return (
-    <div className={className}>
+    <div ref={ref}>
       {state === "loading" && <LibraryLoading />}
       {state === "with-concepts" && <LibraryWithConcepts concepts={concepts} />}
       {state === "empty" && <LibraryEmptyState />}
       {state === "projects" && <LibraryProjectsState />}
     </div>
   );
-}
+});
+
+export default LibrarySection;
 
 function LibraryLoading() {
   return (
@@ -37,7 +42,7 @@ function LibraryLoading() {
 function LibraryWrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.conceptsContainer}>
-      <h2 className={styles.conceptsTitle}>Library</h2>
+      <h2 className={styles.conceptsTitle}>Concept Library</h2>
       {children}
     </div>
   );

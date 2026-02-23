@@ -8,10 +8,14 @@ interface FunctionsGridProps {
 }
 
 export default function FunctionsGrid({ functions, className = "" }: FunctionsGridProps) {
+  if (functions.length === 0) {
+    return null;
+  }
+
   return (
     <div className={`${styles.functionsContainer} ${className}`}>
       <h2>Functions</h2>
-      <p className={styles.functionSectionInfo}>Available functions you can use in your code.</p>
+      <p className={styles.functionSectionInfo}>These are the functions you can use in this exercise</p>
       <div className={styles.functionsList}>
         {functions.map((func, index) => (
           <div key={index} className={styles.functionCard}>
@@ -29,7 +33,7 @@ export default function FunctionsGrid({ functions, className = "" }: FunctionsGr
                 <p className={styles.functionExamplesLabel}>Examples:</p>
                 <div className={styles.functionExamplesList}>
                   {func.examples.map((example, idx) => (
-                    <div key={idx} className={styles.functionExample}>
+                    <div key={idx} className={`${styles.functionExample} hljs`}>
                       {example}
                     </div>
                   ))}
