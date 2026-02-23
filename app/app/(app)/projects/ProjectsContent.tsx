@@ -5,11 +5,12 @@ import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
 import { useEffect, useState } from "react";
-import AllIcon from "@static/icons/all.svg";
-import InProgressIcon from "@static/icons/in-progress.svg";
-import CompleteIcon from "@static/icons/complete.svg";
-import LockedIcon from "@static/icons/locked.svg";
-import ProjectsIcon from "@static/icons/projects.svg";
+import AllIcon from "@/icons/all.svg";
+import InProgressIcon from "@/icons/in-progress.svg";
+import NotStartedIcon from "@/icons/not-started.svg";
+import CompleteIcon from "@/icons/complete.svg";
+import LockedIcon from "@/icons/locked.svg";
+import ProjectsIcon from "@/icons/projects.svg";
 import { ProjectCard } from "./ProjectCard";
 import { NoProjectsFound } from "./NoProjectsFound";
 import { ProjectCardsLoadingSkeleton } from "./ProjectCardSkeleton";
@@ -18,7 +19,7 @@ import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 const tabs: TabItem[] = [
   { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
   { id: "in-progress", label: "In Progress", icon: <InProgressIcon />, color: "purple" },
-  { id: "not-started", label: "Not Started", icon: <ProjectsIcon />, color: "blue" },
+  { id: "not-started", label: "Not Started", icon: <NotStartedIcon />, color: "blue" },
   { id: "complete", label: "Complete", icon: <CompleteIcon />, color: "green" },
   { id: "locked", label: "Locked", icon: <LockedIcon />, color: "gray" }
 ];

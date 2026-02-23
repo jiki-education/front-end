@@ -1,0 +1,96 @@
+.emptyState {
+    min-height: 400px;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 105px 40px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &[data-variant="purple"] {
+        background: color-mix(in srgb, var(--color-purple-500) 4%, transparent);
+    }
+
+    &[data-variant="blue"] {
+        background: color-mix(in srgb, var(--color-blue-500) 4%, transparent);
+    }
+
+    &[data-variant="green"] {
+        background: color-mix(in srgb, var(--color-green-500) 4%, transparent);
+    }
+
+    &[data-variant="gray"] {
+        background: color-mix(in srgb, var(--color-gray-400) 4%, transparent);
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--color-gray-900);
+        margin-bottom: 12px;
+    }
+
+    p {
+        font-size: 16px;
+        color: var(--color-gray-500);
+        max-width: 480px;
+        line-height: 1.6;
+    }
+}
+
+.iconCircle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+
+    svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    &[data-variant="purple"] {
+        color: var(--color-purple-500);
+        background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--color-purple-500) 10%, transparent) 0%,
+            color-mix(in srgb, var(--color-purple-500) 5%, transparent) 100%
+        );
+    }
+
+    &[data-variant="blue"] {
+        color: var(--color-blue-500);
+        background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--color-blue-500) 10%, transparent) 0%,
+            color-mix(in srgb, var(--color-blue-500) 5%, transparent) 100%
+        );
+    }
+
+    &[data-variant="green"] {
+        color: var(--color-green-500);
+        background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--color-green-500) 10%, transparent) 0%,
+            color-mix(in srgb, var(--color-green-500) 5%, transparent) 100%
+        );
+    }
+
+    &[data-variant="gray"] {
+        color: var(--color-gray-400);
+        background: linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--color-gray-400) 10%, transparent) 0%,
+            color-mix(in srgb, var(--color-gray-400) 5%, transparent) 100%
+        );
+    }
+}
