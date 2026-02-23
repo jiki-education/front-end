@@ -164,29 +164,7 @@
 
 /* Project modal special styling */
 .projectModalOverlay .modal {
-    background: linear-gradient(180deg, #f5f3ff 0%, #fdf2f8 100%);
-    position: relative;
-}
-
-.projectModalOverlay .modal::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 115px;
-    background-image: url("/static/images/decorations/celebration-background.png");
-    background-size: cover;
-    background-position: center;
-    opacity: 0.5;
-    border-radius: 20px 20px 0 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.projectModalOverlay .modal > * {
-    position: relative;
-    z-index: 1;
+    background: white;
 }
 
 .modalCheckmark {
@@ -226,6 +204,31 @@
     color: var(--color-amber-800);
     line-height: 1.5;
     margin: 0;
+}
+
+/* Premium info box */
+.premiumInfoBox {
+    position: relative;
+    z-index: 10;
+    background: var(--color-gray-100);
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+    margin-top: -4px;
+    margin-bottom: 10px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--color-gray-700);
+        line-height: 1.5;
+    }
+
+    a {
+        color: var(--color-purple-600);
+        font-weight: 600;
+        text-decoration: underline;
+    }
 }
 
 /* Achievement summary styling for level milestone modal */

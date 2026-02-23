@@ -1,9 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
+import UnlockedIcon from "@/icons/unlocked.svg";
+import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
 import styles from "@/app/styles/components/modals.module.css";
 import projectStyles from "@/app/styles/components/project-card.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
+
+const FLIP_DURATION_MS = 1500;
 
 interface ProjectUnlockedStepProps {
   completionResponse: CompletionResponseData[];
@@ -30,6 +35,14 @@ export function ProjectUnlockedStep({
       }
     : unlockedProject;
 
+  useEffect(() => {
+    const timer = setTimeout(launchConfetti, FLIP_DURATION_MS);
+    return () => {
+      clearTimeout(timer);
+      cleanupCanvas();
+    };
+  }, []);
+
   return (
     <>
       <h2 className={styles.modalTitle}>Project unlocked!</h2>
@@ -38,7 +51,9 @@ export function ProjectUnlockedStep({
       </p>
       <div className={projectStyles.projectCardSimple}>
         <div className={projectStyles.projectCardSimpleBackground}></div>
-        <div className={projectStyles.projectCardSimpleBack}></div>
+        <div className={projectStyles.projectCardSimpleBack}>
+          <UnlockedIcon className={projectStyles.projectCardSimpleBackIcon} />
+        </div>
         <div className={projectStyles.projectCardSimpleFront}>
           <div className={projectStyles.projectCardSimpleNewLabel}>New</div>
           <div className={projectStyles.projectCardSimpleIcon}>
@@ -47,6 +62,12 @@ export function ProjectUnlockedStep({
           <div className={projectStyles.projectCardSimpleName}>{projectToShow.name}</div>
           <div className={projectStyles.projectCardSimpleDescription}>{projectToShow.description}</div>
         </div>
+      </div>
+      <div className={styles.premiumInfoBox}>
+        <p>
+          <span className="font-semibold">Exclusively for Premium members.</span> <a href="#">Upgrade your account</a>{" "}
+          to access all the Projects as you unlock them.
+        </p>
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
