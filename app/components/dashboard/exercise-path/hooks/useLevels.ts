@@ -25,16 +25,21 @@ export function useLevels() {
   const levelSections = useMemo(() => {
     return levels.map((level, levelIndex): LevelSectionData => {
       const lessons: LessonDisplayData[] = level.lessons.map((lesson, lessonIndex) => {
-        // Simple locking logic: first lesson is always unlocked, others unlock if previous is completed
-        let locked = false;
-        if (levelIndex === 0 && lessonIndex === 0) {
-          locked = false; // First lesson ever
-        } else if (lessonIndex === 0) {
-          // First lesson of level - check if previous level is completed
-          locked = levelIndex > 0 && levels[levelIndex - 1].status !== "completed";
-        } else {
-          // Subsequent lessons - check if previous lesson is completed
-          locked = level.lessons[lessonIndex - 1].status !== "completed";
+        let locked: boolean;
+        switch (lesson.status) {
+          case "completed":
+          case "started":
+            locked = false;
+            break;
+          case "not_started":
+            if (levelIndex === 0 && lessonIndex === 0) {
+              locked = false;
+            } else if (lessonIndex === 0) {
+              locked = levelIndex > 0 && levels[levelIndex - 1].status !== "completed";
+            } else {
+              locked = level.lessons[lessonIndex - 1].status !== "completed";
+            }
+            break;
         }
 
         return {
