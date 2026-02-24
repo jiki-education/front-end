@@ -171,19 +171,16 @@ describe("TestSuiteManager", () => {
       const state = mockStore.getState();
       expect(state.setHasSyntaxError).toHaveBeenCalledWith(true);
       expect(state.setTestSuiteResult).toHaveBeenCalledWith(null);
-      expect(state.setInformationWidgetData).toHaveBeenCalledWith({
-        html: `<div>
-        <svg viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-          <path d="M12 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          <circle cx="12" cy="16.5" r="1" fill="currentColor" />
-        </svg>
-        Oops, something went wrong!
-      </div>
-      Unexpected token`,
-        line: 5,
-        status: "ERROR"
-      });
+      expect(state.setInformationWidgetData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          line: 5,
+          status: "ERROR"
+        })
+      );
+      // The html should contain the error message (header is now added by InformationWidget)
+      const widgetCall = state.setInformationWidgetData.mock.calls[0][0];
+      expect(widgetCall.html).toContain("Unexpected token");
+      expect(widgetCall.html).not.toContain("Oops, something went wrong!");
       expect(state.setShouldShowInformationWidget).toHaveBeenCalledWith(true);
       expect(state.setHighlightedLine).toHaveBeenCalledWith(5);
       expect(state.setStatus).toHaveBeenCalledWith("error");

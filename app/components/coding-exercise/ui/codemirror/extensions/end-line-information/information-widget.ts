@@ -58,14 +58,25 @@ export class InformationWidget extends WidgetType {
     this.tooltip.className = tooltipStyles.informationTooltip;
     const content = document.createElement("div");
     content.className = tooltipStyles.content;
-    content.innerHTML = this.tooltipHtml;
-    this.tooltip.appendChild(content);
 
     if (this.status === "ERROR") {
       this.tooltip.classList.add(tooltipStyles.error);
+      content.innerHTML = `
+        <div>
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+            <path d="M12 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <circle cx="12" cy="16.5" r="1" fill="currentColor" />
+          </svg>
+          Oops, something went wrong!
+        </div>
+        ${this.tooltipHtml}
+      `.trim();
     } else {
       this.tooltip.classList.add(tooltipStyles.description);
+      content.innerHTML = this.tooltipHtml;
     }
+    this.tooltip.appendChild(content);
     document.body.appendChild(this.tooltip);
 
     const closeButton = document.createElement("button");
