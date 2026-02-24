@@ -195,6 +195,30 @@ async function request<T = unknown>(
     requestOptions.body = JSON.stringify(body);
   }
 
+  return executeRequest<T>(url, requestOptions, useRetries);
+}
+
+/**
+ * Upload request handler for FormData (multipart/form-data)
+ * Skips Content-Type header so the browser sets the multipart boundary automatically
+ */
+async function uploadRequest<T = unknown>(path: string, method: string, formData: FormData): Promise<ApiResponse<T>> {
+  const url = new URL(getApiUrl(path));
+
+  const requestOptions: RequestInit = {
+    method,
+    body: formData,
+    credentials: "include"
+  };
+
+  // No retries for uploads since they aren't idempotent
+  return executeRequest<T>(url, requestOptions, false);
+}
+
+/**
+ * Shared fetch execution logic
+ */
+async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetries: boolean): Promise<ApiResponse<T>> {
   // Define the fetch function
   const performFetch = async (): Promise<ApiResponse<T>> => {
     const response = await fetch(url.toString(), requestOptions);
@@ -277,5 +301,9 @@ export const api = {
 
   delete<T = unknown>(path: string, options?: RequestOptions, useRetries?: boolean) {
     return request<T>(path, { ...options, method: "DELETE" }, useRetries);
+  },
+
+  upload<T = unknown>(path: string, method: string, formData: FormData) {
+    return uploadRequest<T>(path, method, formData);
   }
 };

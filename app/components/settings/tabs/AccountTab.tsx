@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import AvatarUploadSection from "../sections/AvatarUploadSection";
 import ProfileSection from "../sections/ProfileSection";
 import SecuritySection from "../sections/SecuritySection";
 import styles from "../Settings.module.css";
@@ -30,6 +31,8 @@ export default function AccountTab() {
 
   return (
     <div className={styles.settingsContent}>
+      <AvatarUploadSection />
+
       <ProfileSection
         settings={settings}
         updateName={updateName}

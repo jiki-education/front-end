@@ -1,0 +1,68 @@
+.container {
+    padding: 8px 0 24px;
+    text-align: left;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.cropContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-gray-100);
+}
+
+.zoomControl {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.zoomLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    flex-shrink: 0;
+}
+
+.zoomSlider {
+    flex: 1;
+    height: 4px;
+    appearance: none;
+    background: var(--color-gray-200);
+    border-radius: 2px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--color-blue-500);
+        cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--color-blue-500);
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}

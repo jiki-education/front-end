@@ -23,3 +23,15 @@ export async function fetchProfile(): Promise<ProfileResponse> {
   const response = await api.get<ProfileResponse>("/internal/profile");
   return response.data;
 }
+
+export async function uploadAvatar(file: Blob): Promise<ProfileResponse> {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const response = await api.upload<ProfileResponse>("/internal/profile/avatar", "PUT", formData);
+  return response.data;
+}
+
+export async function deleteAvatar(): Promise<ProfileResponse> {
+  const response = await api.delete<ProfileResponse>("/internal/profile/avatar", undefined, false);
+  return response.data;
+}
