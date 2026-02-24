@@ -9,6 +9,18 @@
     cursor: pointer;
 }
 
+/* Connecting line from lesson node to walkthrough card */
+.walkthroughCard::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 3px;
+    background: var(--color-gray-200);
+}
+
 .front {
     position: absolute;
     inset: 0;
@@ -19,7 +31,7 @@
     justify-content: center;
     gap: 6px;
     padding: 8px;
-    border: 2px solid var(--color-gray-100);
+    border: 2px solid var(--color-gray-200);
     background: var(--color-gray-100);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     z-index: 1;
@@ -91,16 +103,29 @@
     .progressFill {
         background: var(--color-gray-300);
     }
+
+    &::before {
+        background: var(--color-gray-200);
+    }
 }
 
 /* Unwatched state (blue) */
 .unwatched {
+    &::before {
+        background: var(--color-blue-500);
+    }
+
     .front {
-        border-color: var(--color-blue-500-20);
+        border-color: var(--color-blue-500);
+        background: var(--color-blue-500-5);
     }
 
     .icon {
         color: var(--color-blue-500);
+    }
+
+    .progress {
+        background: var(--color-blue-500-20);
     }
 
     .progressFill {
@@ -122,12 +147,21 @@
 
 /* Watching state (purple) */
 .watching {
+    &::before {
+        background: var(--color-purple-500);
+    }
+
     .front {
-        border-color: var(--color-purple-500-20);
+        border-color: var(--color-purple-500);
+        background: var(--color-purple-500-6);
     }
 
     .icon {
         color: var(--color-purple-500);
+    }
+
+    .progress {
+        background: var(--color-purple-500-20);
     }
 
     .progressFill {
@@ -149,12 +183,21 @@
 
 /* Watched state (green) */
 .watched {
+    &::before {
+        background: var(--color-green-500);
+    }
+
     .front {
-        border-color: var(--color-green-500-20);
+        border-color: var(--color-green-500);
+        background: var(--color-green-500-10);
     }
 
     .icon {
         color: var(--color-green-500);
+    }
+
+    .progress {
+        background: var(--color-green-500-20);
     }
 
     .progressFill {
