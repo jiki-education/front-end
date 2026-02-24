@@ -54,6 +54,7 @@ import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-m
 import { llmMetadata as goldPanningLLM } from "./exercises/gold-panning/llm-metadata";
 import { llmMetadata as golfRollingBallLoopLLM } from "./exercises/golf-rolling-ball-loop/llm-metadata";
 import { llmMetadata as golfRollingBallStateLLM } from "./exercises/golf-rolling-ball-state/llm-metadata";
+import { llmMetadata as golfScenariosLLM } from "./exercises/golf-scenarios/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
 import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers/llm-metadata";
 import { llmMetadata as plantTheFlowersScenariosLLM } from "./exercises/plant-the-flowers-scenarios/llm-metadata";
@@ -165,6 +166,7 @@ const llmMetadataRegistry = {
   "gold-panning": goldPanningLLM,
   "golf-rolling-ball-loop": golfRollingBallLoopLLM,
   "golf-rolling-ball-state": golfRollingBallStateLLM,
+  "golf-scenarios": golfScenariosLLM,
   "golf-shot-checker": golfShotCheckerLLM,
   "plant-the-flowers": plantTheFlowersLLM,
   "plant-the-flowers-scenarios": plantTheFlowersScenariosLLM,

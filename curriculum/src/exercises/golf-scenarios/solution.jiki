@@ -1,0 +1,9 @@
+set x to 29
+set shot_length to get_shot_length()
+
+repeat shot_length + 1 times do
+  change x to x + 1
+  roll_to(x)
+end
+
+fire_fireworks()

@@ -74,6 +74,7 @@ Nothing yet
 - `gold-panning` - Gold Panning: use return value from pan() in a loop with an accumulator, then sell total (Functions That Return Things level)
 - `rainbow-splodges` - Rainbow Splodges: use return values to get colors (Functions That Return Things level)
 - `plant-the-flowers-scenarios` - Plant the Flowers Scenarios: multi-scenario version (Functions That Return Things level)
+- `golf-scenarios` - Golf Scenarios: use getShotLength() return value in a loop with multiple scenarios (Functions That Return Things level)
 - `cityscape-skyscraper` - Skyscraper: use return values to build skyscraper (Functions That Return Things level)
 - `space-invaders-nested-repeat` - Space Invaders Nested Repeat: nested repeat loops to shoot 4 rows of aliens (Functions That Return Things level)
 - `cityscape-skyline` - Skyline: nested loops to build a city skyline (Functions That Return Things level)
