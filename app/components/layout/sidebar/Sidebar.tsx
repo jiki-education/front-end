@@ -19,9 +19,10 @@ const navigationItems: Array<{
   label: string;
   href?: string;
   icon?: ComponentType<{ className?: string }>;
+  showPremiumPill?: boolean;
 }> = [
   { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
-  { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon },
+  { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
   { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
@@ -42,6 +43,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
               isActive={activeItem === item.id}
               href={item.href}
               icon={item.icon}
+              showPremiumPill={item.showPremiumPill}
             />
           ))}
           <MoreMenu isActive={activeItem === "more"} />
