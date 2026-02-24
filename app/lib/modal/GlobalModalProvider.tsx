@@ -75,7 +75,8 @@ export function GlobalModalProvider() {
   const hideCloseButton =
     modalName === "confirmation-modal" ||
     modalName === "premium-upgrade-modal" ||
-    modalName === "exercise-completion-modal";
+    modalName === "exercise-completion-modal" ||
+    modalName === "walkthrough-confirm-modal";
 
   // Check if this modal should not close on overlay click
   const shouldNotCloseOnOverlayClick =

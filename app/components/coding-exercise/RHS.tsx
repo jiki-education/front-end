@@ -64,8 +64,18 @@ export function RHS({ orchestrator }: RHSProps) {
         return <TasksView tasks={orchestrator.getExercise().tasks} orchestrator={orchestrator} />;
       case "functions":
         return <FunctionsView functions={orchestrator.getExercise().functions} />;
-      case "hints":
-        return <HintsPanel hints={orchestrator.getExercise().hints} />;
+      case "hints": {
+        const context = orchestrator.getStore().getState().context;
+        const walkthroughVideoData = context.type === "lesson" ? context.walkthroughVideoData : undefined;
+        const lessonSlug = context.slug;
+        return (
+          <HintsPanel
+            hints={orchestrator.getExercise().hints}
+            walkthroughVideoData={walkthroughVideoData}
+            lessonSlug={lessonSlug}
+          />
+        );
+      }
       case "log":
         return <LogPanel />;
       case "chat":

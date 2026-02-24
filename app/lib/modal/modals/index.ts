@@ -21,6 +21,7 @@ import { PaymentProcessingModal } from "./PaymentProcessingModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 import { WelcomeToPremiumModal } from "./WelcomeToPremiumModal";
 import { VideoWalkthroughModal } from "./VideoWalkthroughModal";
+import { WalkthroughConfirmModal } from "./WalkthroughConfirmModal";
 
 // Export all modals
 export {
@@ -46,7 +47,8 @@ export {
   PaymentProcessingModal,
   PremiumUpgradeModal,
   WelcomeToPremiumModal,
-  VideoWalkthroughModal
+  VideoWalkthroughModal,
+  WalkthroughConfirmModal
 };
 
 // Available modals registry
@@ -73,5 +75,6 @@ export const availableModals = {
   "payment-processing-modal": PaymentProcessingModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
-  "video-walkthrough-modal": VideoWalkthroughModal
+  "video-walkthrough-modal": VideoWalkthroughModal,
+  "walkthrough-confirm-modal": WalkthroughConfirmModal
 };

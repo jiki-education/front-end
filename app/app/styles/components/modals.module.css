@@ -32,6 +32,7 @@
         0 25px 50px rgba(0, 0, 0, 0.15),
         0 40px 80px rgba(255, 255, 255, 0.5);
     animation: modalIn 0.3s ease;
+    outline: none;
 }
 
 /* Close button positioning */
