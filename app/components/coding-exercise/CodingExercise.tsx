@@ -12,14 +12,16 @@ interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
+  isCompleted: boolean;
 }
 
-export default function CodingExercise({ language, exerciseSlug, context, levelId }: CodingExerciseProps) {
+export default function CodingExercise({ language, exerciseSlug, context, levelId, isCompleted }: CodingExerciseProps) {
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,
     context,
-    levelId
+    levelId,
+    isCompleted
   });
 
   // Error state

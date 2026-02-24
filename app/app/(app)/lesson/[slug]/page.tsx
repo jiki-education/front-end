@@ -1,15 +1,17 @@
 "use client";
 
-import CodingExercise from "@/components/coding-exercise/CodingExercise";
-import ChooseLanguage from "@/components/choose-language/ChooseLanguage";
+import dynamic from "next/dynamic";
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
-import VideoExercise from "@/components/video-exercise/VideoExercise";
 import { fetchUserCourse } from "@/lib/api/courses";
-import { fetchLesson } from "@/lib/api/lessons";
+import { fetchLesson, fetchUserLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const CodingExercise = dynamic(() => import("@/components/coding-exercise/CodingExercise"), { ssr: false });
+const VideoExercise = dynamic(() => import("@/components/video-exercise/VideoExercise"), { ssr: false });
+const ChooseLanguage = dynamic(() => import("@/components/choose-language/ChooseLanguage"), { ssr: false });
 
 interface PageProps {
   params: Promise<{
@@ -21,6 +23,7 @@ export default function LessonPage({ params }: PageProps) {
   const router = useRouter();
   const [lesson, setLesson] = useState<LessonWithData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,12 +47,17 @@ export default function LessonPage({ params }: PageProps) {
           return;
         }
 
-        const [lessonData, userCourseData] = await Promise.all([fetchLesson(resolvedParams.slug), fetchUserCourse()]);
+        const [lessonData, userCourseData, userLessonResult] = await Promise.all([
+          fetchLesson(resolvedParams.slug),
+          fetchUserCourse(),
+          fetchUserLesson(resolvedParams.slug).catch(() => null)
+        ]);
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!cancelled) {
           setLesson(lessonData);
           setUserCourse(userCourseData);
+          setIsCompleted(userLessonResult?.status === "completed");
         }
       } catch (err) {
         if (!cancelled) {
@@ -103,6 +111,7 @@ export default function LessonPage({ params }: PageProps) {
         language={userCourse?.language || "javascript"}
         exerciseSlug={lesson.data.slug}
         context={{ type: "lesson", slug: lesson.slug }}
+        isCompleted={isCompleted}
       />
     );
   }

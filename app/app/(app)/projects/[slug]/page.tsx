@@ -1,6 +1,6 @@
 "use client";
 
-import CodingExercise from "@/components/coding-exercise/CodingExercise";
+import dynamic from "next/dynamic";
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchProject, type ProjectData } from "@/lib/api/projects";
@@ -8,6 +8,8 @@ import type { UserCourse } from "@/types/course";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const CodingExercise = dynamic(() => import("@/components/coding-exercise/CodingExercise"), { ssr: false });
 
 interface PageProps {
   params: Promise<{
@@ -129,6 +131,7 @@ export default function ProjectPage({ params }: PageProps) {
       exerciseSlug={exerciseSlug}
       context={{ type: "project", slug: project.slug }}
       levelId={userCourse?.current_level_slug ?? undefined}
+      isCompleted={project.status === "completed"}
     />
   );
 }
