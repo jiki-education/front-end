@@ -133,3 +133,8 @@ export const showPaymentProcessing = (props?: { onClose?: () => void }) => {
 export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
   showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
 };
+
+// Convenience function for video walkthrough modal
+export const showVideoWalkthrough = (props: { playbackId: string }) => {
+  showModal("video-walkthrough-modal", props);
+};

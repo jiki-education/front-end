@@ -1,0 +1,175 @@
+.walkthroughCard {
+    position: absolute;
+    left: calc(100% + 25px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90px;
+    height: 90px;
+    perspective: 400px;
+    cursor: pointer;
+}
+
+.front {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px;
+    border: 2px solid var(--color-gray-100);
+    background: var(--color-gray-100);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    z-index: 1;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+.progress {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-gray-200);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+}
+
+.back {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 2px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 2;
+}
+
+.back svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.backLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Locked state */
+.locked {
+    cursor: not-allowed;
+
+    .icon {
+        color: var(--color-gray-400);
+    }
+
+    .progressFill {
+        background: var(--color-gray-300);
+    }
+}
+
+/* Unwatched state (blue) */
+.unwatched {
+    .front {
+        border-color: var(--color-blue-500-20);
+    }
+
+    .icon {
+        color: var(--color-blue-500);
+    }
+
+    .progressFill {
+        background: var(--color-blue-500);
+    }
+
+    .label {
+        color: var(--color-blue-500);
+    }
+
+    .back {
+        background: color-mix(in srgb, var(--color-blue-500) 90%, transparent);
+    }
+
+    &:hover .back {
+        opacity: 1;
+    }
+}
+
+/* Watching state (purple) */
+.watching {
+    .front {
+        border-color: var(--color-purple-500-20);
+    }
+
+    .icon {
+        color: var(--color-purple-500);
+    }
+
+    .progressFill {
+        background: var(--color-purple-500);
+    }
+
+    .label {
+        color: var(--color-purple-500);
+    }
+
+    .back {
+        background: color-mix(in srgb, var(--color-purple-500) 90%, transparent);
+    }
+
+    &:hover .back {
+        opacity: 1;
+    }
+}
+
+/* Watched state (green) */
+.watched {
+    .front {
+        border-color: var(--color-green-500-20);
+    }
+
+    .icon {
+        color: var(--color-green-500);
+    }
+
+    .progressFill {
+        background: var(--color-green-500);
+    }
+
+    .label {
+        color: var(--color-green-500);
+    }
+
+    .back {
+        background: color-mix(in srgb, var(--color-green-500) 90%, transparent);
+    }
+
+    &:hover .back {
+        opacity: 1;
+    }
+}

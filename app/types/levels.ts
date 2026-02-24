@@ -9,11 +9,13 @@ export interface LessonWithProgress {
   description: string;
   status: "not_started" | "started" | "completed";
   walkthrough_video_data: VideoData[] | null;
+  walkthrough_video_watched_percentage: number;
 }
 
 export interface UserLesson {
   lesson_slug: string;
   status: "not_started" | "started" | "completed";
+  walkthrough_video_watched_percentage: number;
 }
 
 // Level types

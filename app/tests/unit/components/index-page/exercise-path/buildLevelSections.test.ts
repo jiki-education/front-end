@@ -8,6 +8,7 @@ function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithPr
     description: "A lesson",
     status: "not_started",
     walkthrough_video_data: null,
+    walkthrough_video_watched_percentage: 0,
     ...overrides
   };
 }

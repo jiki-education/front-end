@@ -3,6 +3,7 @@
 import { BaseModal } from "./BaseModal";
 import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
+import CrossIcon from "@/icons/cross.svg";
 import styles from "./GlobalModalProvider.module.css";
 
 // TODO: Add support for non-dismissible modals
@@ -29,6 +30,19 @@ export function GlobalModalProvider() {
   if (!ModalComponent) {
     console.warn(`Unknown modal name: ${modalName}`);
     return null;
+  }
+
+  // Video walkthrough modal renders directly with custom full-screen blur overlay
+  if (modalName === "video-walkthrough-modal") {
+    return (
+      <div className={styles.videoWalkthroughOverlay}>
+        <button className={styles.videoWalkthroughClose} onClick={hideModal}>
+          <CrossIcon className={styles.videoWalkthroughCloseIcon} />
+          Close
+        </button>
+        <ModalComponent {...(modalProps as any)} />
+      </div>
+    );
   }
 
   // Badge modals render directly without BaseModal wrapper since they have custom styling
@@ -69,6 +83,12 @@ export function GlobalModalProvider() {
     modalName === "premium-upgrade-modal" ||
     modalName === "exercise-completion-modal";
 
+  // Check if this modal should not close on ESC key
+  const shouldNotCloseOnEsc =
+    modalName === "subscription-checkout-modal" ||
+    modalName === "premium-upgrade-modal" ||
+    modalName === "exercise-completion-modal";
+
   // Pass modal props to the modal component
   // Cast as any since each modal component validates its own props
   return (
@@ -80,7 +100,7 @@ export function GlobalModalProvider() {
       fullscreen={isFullscreenModal}
       hideCloseButton={hideCloseButton}
       shouldCloseOnOverlayClick={!shouldNotCloseOnOverlayClick}
-      shouldCloseOnEsc={!shouldNotCloseOnOverlayClick}
+      shouldCloseOnEsc={!shouldNotCloseOnEsc}
     >
       <ModalComponent {...(modalProps as any)} />
     </BaseModal>

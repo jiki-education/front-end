@@ -8,6 +8,7 @@ import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
 import styles from "../ExercisePath.module.css";
 import { LessonIcon } from "../../../icons/LessonIcon";
+import { WalkthroughCard } from "./WalkthroughCard";
 
 interface LessonNodeProps {
   lesson: LessonDisplayData;
@@ -115,6 +116,7 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
         <div className={styles.partTitle}>{lesson.lesson.title}</div>
         <div className={styles.partDescription}>{lesson.lesson.description}</div>
       </div>
+      <WalkthroughCard lesson={lesson} />
     </div>
   );
 }

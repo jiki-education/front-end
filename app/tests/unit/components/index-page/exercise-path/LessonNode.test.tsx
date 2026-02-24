@@ -20,7 +20,8 @@ function createMockLessonDisplayData(overrides?: {
     },
     completed: overrides?.completed ?? false,
     locked: overrides?.locked ?? false,
-    route: overrides?.route ?? "/test"
+    route: overrides?.route ?? "/test",
+    walkthroughVideoWatchedPercentage: 0
   };
 }
 
