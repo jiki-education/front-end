@@ -12,6 +12,7 @@ export default function CodingExerciseDevPage() {
       exerciseSlug="maze-solve-basic"
       language="javascript"
       context={{ type: "lesson", slug: "maze-solve-basic" }}
+      isCompleted={false}
     />
   );
 }

@@ -9,7 +9,7 @@ interface UseExerciseLoaderProps {
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
-  isCompleted?: boolean;
+  isCompleted: boolean;
 }
 
 export function useExerciseLoader({ language, exerciseSlug, context, levelId, isCompleted }: UseExerciseLoaderProps) {
@@ -45,20 +45,7 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId, is
         // Create orchestrator with exercise, language, and context
         orchestratorRef.current = new Orchestrator(exercise, language, context);
 
-        // Set completion status - use pre-fetched value if available, otherwise fetch
-        if (isCompleted !== undefined) {
-          orchestratorRef.current.setIsExerciseCompleted(isCompleted);
-        } else {
-          try {
-            const { fetchUserLesson } = await import("@/lib/api/lessons");
-            const userLesson = await fetchUserLesson(context.slug);
-            orchestratorRef.current.setIsExerciseCompleted(userLesson.status === "completed");
-          } catch (error) {
-            // If we can't fetch user lesson (not logged in, no internet, etc.), assume not completed
-            console.warn("Could not fetch user lesson status:", error);
-            orchestratorRef.current.setIsExerciseCompleted(false);
-          }
-        }
+        orchestratorRef.current.setIsExerciseCompleted(isCompleted);
 
         setIsLoading(false);
       } catch (error) {

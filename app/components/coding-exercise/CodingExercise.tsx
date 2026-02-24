@@ -12,7 +12,7 @@ interface CodingExerciseProps {
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
-  isCompleted?: boolean;
+  isCompleted: boolean;
 }
 
 export default function CodingExercise({ language, exerciseSlug, context, levelId, isCompleted }: CodingExerciseProps) {

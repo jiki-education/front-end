@@ -23,7 +23,7 @@ export default function LessonPage({ params }: PageProps) {
   const router = useRouter();
   const [lesson, setLesson] = useState<LessonWithData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
-  const [isCompleted, setIsCompleted] = useState<boolean | undefined>(undefined);
+  const [isCompleted, setIsCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
