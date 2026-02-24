@@ -7,9 +7,10 @@ interface NavigationItemProps {
   isActive: boolean;
   href?: string;
   icon?: ComponentType<{ className?: string }>;
+  showPremiumPill?: boolean;
 }
 
-export function NavigationItem({ label, isActive, href, icon: Icon }: NavigationItemProps) {
+export function NavigationItem({ label, isActive, href, icon: Icon, showPremiumPill }: NavigationItemProps) {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
@@ -28,6 +29,7 @@ export function NavigationItem({ label, isActive, href, icon: Icon }: Navigation
           </span>
         )}
         <span>{label}</span>
+        {showPremiumPill && <span className="premium-pill">Premium</span>}
       </a>
     </li>
   );

@@ -141,6 +141,28 @@
         }
     }
 
+    /* Premium Pill (shown on hover) */
+    .premium-pill {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--color-purple-700);
+        background: linear-gradient(135deg, var(--color-purple-500-15) 0%, var(--color-purple-500-20) 100%);
+        padding: 3px 10px;
+        border-radius: 20px;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+        pointer-events: none;
+    }
+
+    .nav-item:hover .premium-pill {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
     .nav-icon {
         width: 24px;
         height: 24px;
