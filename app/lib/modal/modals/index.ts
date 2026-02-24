@@ -18,6 +18,7 @@ import { CancelSubscriptionConfirmModal } from "@/components/settings/modals/Can
 import { CancelSubscriptionSuccessModal } from "@/components/settings/modals/CancelSubscriptionSuccessModal";
 import { DeleteAccountModal } from "@/components/settings/modals/DeleteAccountModal";
 import { AvatarCropModal } from "@/components/settings/modals/AvatarCropModal";
+import { AvatarEditModal } from "@/components/settings/modals/AvatarEditModal";
 import { PaymentProcessingModal } from "./PaymentProcessingModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 import { WelcomeToPremiumModal } from "./WelcomeToPremiumModal";
@@ -46,6 +47,7 @@ export {
   CancelSubscriptionSuccessModal,
   DeleteAccountModal,
   AvatarCropModal,
+  AvatarEditModal,
   PaymentProcessingModal,
   PremiumUpgradeModal,
   WelcomeToPremiumModal,
@@ -75,6 +77,7 @@ export const availableModals = {
   "cancel-subscription-success-modal": CancelSubscriptionSuccessModal,
   "delete-account-modal": DeleteAccountModal,
   "avatar-crop-modal": AvatarCropModal,
+  "avatar-edit-modal": AvatarEditModal,
   "payment-processing-modal": PaymentProcessingModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,

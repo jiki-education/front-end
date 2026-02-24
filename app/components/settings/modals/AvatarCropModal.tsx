@@ -26,25 +26,19 @@ export function AvatarCropModal({ imageSrc, onCrop }: AvatarCropModalProps) {
       return;
     }
     const observer = new ResizeObserver((entries) => {
-      const { width, height } = entries[0].contentRect;
-      const size = Math.floor(Math.min(width, height) * 0.9);
+      const size = Math.floor(Math.min(entries[0].contentRect.width, entries[0].contentRect.height) * 0.9);
       setCropSize(size);
     });
     observer.observe(containerRef.current);
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
-  const onCropComplete = useCallback((_croppedArea: Area, croppedPixels: Area) => {
-    setCroppedAreaPixels(croppedPixels);
-  }, []);
+  const onCropComplete = useCallback((_: Area, pixels: Area) => setCroppedAreaPixels(pixels), []);
 
   const handleSave = async () => {
     if (!croppedAreaPixels) {
       return;
     }
-
     setIsSaving(true);
     try {
       const blob = await getCroppedImage(imageSrc, croppedAreaPixels);
@@ -58,7 +52,6 @@ export function AvatarCropModal({ imageSrc, onCrop }: AvatarCropModalProps) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Crop Avatar</h2>
-
       <div ref={containerRef} className={styles.cropContainer}>
         {cropSize && (
           <Cropper
@@ -76,7 +69,6 @@ export function AvatarCropModal({ imageSrc, onCrop }: AvatarCropModalProps) {
           />
         )}
       </div>
-
       <div className={styles.zoomControl}>
         <span className={styles.zoomLabel}>Zoom</span>
         <input
@@ -89,7 +81,6 @@ export function AvatarCropModal({ imageSrc, onCrop }: AvatarCropModalProps) {
           className={styles.zoomSlider}
         />
       </div>
-
       <div className={styles.buttons}>
         <button
           type="button"
