@@ -9,9 +9,10 @@ interface UseExerciseLoaderProps {
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
+  isCompleted?: boolean;
 }
 
-export function useExerciseLoader({ language, exerciseSlug, context, levelId }: UseExerciseLoaderProps) {
+export function useExerciseLoader({ language, exerciseSlug, context, levelId, isCompleted }: UseExerciseLoaderProps) {
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -44,16 +45,19 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId }: 
         // Create orchestrator with exercise, language, and context
         orchestratorRef.current = new Orchestrator(exercise, language, context);
 
-        // Fetch completion status using the context slug (lessonSlug for lessons, projectSlug for projects)
-        try {
-          const { fetchUserLesson } = await import("@/lib/api/lessons");
-          const userLesson = await fetchUserLesson(context.slug);
-          const isCompleted = userLesson.status === "completed";
+        // Set completion status - use pre-fetched value if available, otherwise fetch
+        if (isCompleted !== undefined) {
           orchestratorRef.current.setIsExerciseCompleted(isCompleted);
-        } catch (error) {
-          // If we can't fetch user lesson (not logged in, no internet, etc.), assume not completed
-          console.warn("Could not fetch user lesson status:", error);
-          orchestratorRef.current.setIsExerciseCompleted(false);
+        } else {
+          try {
+            const { fetchUserLesson } = await import("@/lib/api/lessons");
+            const userLesson = await fetchUserLesson(context.slug);
+            orchestratorRef.current.setIsExerciseCompleted(userLesson.status === "completed");
+          } catch (error) {
+            // If we can't fetch user lesson (not logged in, no internet, etc.), assume not completed
+            console.warn("Could not fetch user lesson status:", error);
+            orchestratorRef.current.setIsExerciseCompleted(false);
+          }
         }
 
         setIsLoading(false);
