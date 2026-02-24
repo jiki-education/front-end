@@ -11,6 +11,7 @@ function getStorageKey(lessonSlug: string): string {
 export function useWalkthroughProgress(lessonSlug: string) {
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
   const lastReportedPercentRef = useRef(-1);
+  const hasRestoredPositionRef = useRef(false);
 
   const reportProgress = (percentage: number) => {
     const rounded = Math.round(percentage);
@@ -47,10 +48,16 @@ export function useWalkthroughProgress(lessonSlug: string) {
   };
 
   const handleCanPlay = () => {
+    if (hasRestoredPositionRef.current) {
+      return;
+    }
+
     const player = playerRef.current;
     if (!player) {
       return;
     }
+
+    hasRestoredPositionRef.current = true;
 
     const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
     if (savedTime) {
@@ -61,10 +68,11 @@ export function useWalkthroughProgress(lessonSlug: string) {
     }
   };
 
-  // Clean up ref on unmount (no need to clear storage — we want it to persist)
+  // Clean up refs on unmount (no need to clear storage — we want it to persist)
   useEffect(() => {
     return () => {
       lastReportedPercentRef.current = -1;
+      hasRestoredPositionRef.current = false;
     };
   }, [lessonSlug]);
 
