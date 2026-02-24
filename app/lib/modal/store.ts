@@ -135,6 +135,6 @@ export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
 };
 
 // Convenience function for video walkthrough modal
-export const showVideoWalkthrough = (props: { playbackId: string }) => {
+export const showVideoWalkthrough = (props: { playbackId: string; lessonSlug: string }) => {
   showModal("video-walkthrough-modal", props);
 };

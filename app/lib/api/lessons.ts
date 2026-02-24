@@ -89,6 +89,20 @@ export async function rateLesson(slug: string, difficultyRating: number, funRati
 }
 
 /**
+ * Update walkthrough video watched percentage
+ */
+export async function updateWalkthroughVideoPercentage(slug: string, percentage: number): Promise<void> {
+  await api.patch(
+    `/internal/user_lessons/${slug}/walkthrough_video_percentage`,
+    {
+      percentage: Math.round(percentage)
+    },
+    undefined,
+    false
+  );
+}
+
+/**
  * Fetch user lesson data including conversation history
  */
 export async function fetchUserLesson(slug: string): Promise<UserLessonData> {

@@ -35,7 +35,7 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
     if (isLocked) {
       return;
     }
-    showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id });
+    showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
   };
 
   return (
