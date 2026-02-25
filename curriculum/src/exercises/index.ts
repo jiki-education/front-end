@@ -48,6 +48,7 @@ export const exercises = {
   "gold-panning": () => import("./gold-panning"),
   "golf-rolling-ball-loop": () => import("./golf-rolling-ball-loop"),
   "golf-rolling-ball-state": () => import("./golf-rolling-ball-state"),
+  "golf-scenarios": () => import("./golf-scenarios"),
   "golf-shot-checker": () => import("./golf-shot-checker"),
   "plant-the-flowers": () => import("./plant-the-flowers"),
   "plant-the-flowers-scenarios": () => import("./plant-the-flowers-scenarios"),
