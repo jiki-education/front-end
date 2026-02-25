@@ -10,6 +10,7 @@ import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./projects-sidebar.module.css";
 import { PremiumBox } from "./ui/PremiumBox";
+import { ProjectsUpsellCard } from "./ui/ProjectsUpsellCard";
 import { RecentProjects } from "./ui/RecentProjects";
 import { UserProfile, type UserProfileData } from "./ui/UserProfile";
 
@@ -112,17 +113,21 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
         {/* User Profile Card */}
         <UserProfile profile={userProfile} badges={badges} loading={profileLoading || badgesLoading} />
 
-        {/* Recent Projects */}
-        <RecentProjects
-          projects={recentProjects}
-          unlockedCount={unlockedCount}
-          onProjectClick={onProjectClick}
-          onViewAllClick={onViewAllProjectsClick}
-          loading={projectsLoading}
-        />
-
-        {/* Premium Box - only show for non-premium users */}
-        {!tierIncludes(user.membership_type, "premium") && <PremiumBox onUpgradeClick={handleUpgradeClick} />}
+        {/* Projects section - upsell for non-premium, recent projects for premium */}
+        {tierIncludes(user.membership_type, "premium") ? (
+          <RecentProjects
+            projects={recentProjects}
+            unlockedCount={unlockedCount}
+            onProjectClick={onProjectClick}
+            onViewAllClick={onViewAllProjectsClick}
+            loading={projectsLoading}
+          />
+        ) : (
+          <>
+            <ProjectsUpsellCard onUpgradeClick={handleUpgradeClick} />
+            <PremiumBox onUpgradeClick={handleUpgradeClick} />
+          </>
+        )}
       </div>
     </aside>
   );
