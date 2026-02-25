@@ -11,13 +11,18 @@ interface DifficultyRatingStepProps {
 }
 
 export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: DifficultyRatingStepProps) {
-  const [difficultyRating, setDifficultyRating] = useState<number>(2); // Default to "Just right" (index 2)
-  const [funRating, setFunRating] = useState<number>(4); // Default to "Amazing!" (index 4)
+  const [difficultyRating, setDifficultyRating] = useState<number | null>(null);
+  const [funRating, setFunRating] = useState<number | null>(null);
   const difficultyLabels = ["Too easy", "Easy", "Just right", "Hard", "Too hard"];
   const funEmojis = ["😫", "😐", "🙂", "😊", "😄"];
   const funLabels = ["Frustrating", "", "Pretty good", "", "Amazing!"];
 
+  const canSubmit = difficultyRating !== null && funRating !== null;
+
   const handleSubmit = () => {
+    if (!canSubmit) {
+      return;
+    }
     onRatingsSubmit(difficultyRating + 1, funRating + 1); // Convert 0-indexed to 1-5 rating
   };
 
@@ -75,7 +80,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       </div>
 
       <div className={modalStyles.modalButtons}>
-        <button onClick={handleSubmit} className={modalStyles.btnPrimary}>
+        <button onClick={handleSubmit} disabled={!canSubmit} className={modalStyles.btnPrimary}>
           Continue
         </button>
       </div>
