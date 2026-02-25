@@ -7,7 +7,18 @@ interface ProjectsUpsellCardProps {
 
 export function ProjectsUpsellCard({ onUpgradeClick }: ProjectsUpsellCardProps) {
   return (
-    <div className={styles.card} onClick={onUpgradeClick}>
+    <div
+      className={styles.card}
+      onClick={onUpgradeClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onUpgradeClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+    >
       <div className={styles.stack}>
         <div className={styles.fanCard}>
           <ProjectIcon slug="fallback" width={36} height={36} />
