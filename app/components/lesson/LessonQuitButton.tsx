@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 interface LessonQuitButtonProps {
   onQuit?: () => void;
   className?: string;
-  variant?: "default" | "light";
+  variant?: "default" | "light" | "glass";
 }
 
 export function LessonQuitButton({ onQuit, className = "", variant = "light" }: LessonQuitButtonProps) {

@@ -2,13 +2,13 @@ import type { ButtonHTMLAttributes } from "react";
 import styles from "./CloseButton.module.css";
 
 interface CloseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "light";
+  variant?: "default" | "light" | "glass";
   size?: "default" | "small";
 }
 
 export function CloseButton({ variant = "default", size = "default", className = "", ...props }: CloseButtonProps) {
   const sizeClass = size === "small" ? styles.small : "";
-  const variantClass = variant === "light" ? styles.light : "";
+  const variantClass = variant === "light" ? styles.light : variant === "glass" ? styles.glass : "";
 
   return (
     <button
