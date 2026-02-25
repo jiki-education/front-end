@@ -390,6 +390,21 @@
     background: var(--color-green-500);
 }
 
+.milestoneCard::after {
+    content: "";
+    position: absolute;
+    background: var(--color-gray-200);
+    width: 3px;
+    height: 40px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.milestoneCard.completed::after {
+    background: var(--color-green-500);
+}
+
 .milestoneCard + .lessonPart::before {
     height: 40px;
     top: -40px;
