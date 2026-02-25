@@ -907,22 +907,52 @@
 
 .instructionsContent {
     padding: 0;
-}
 
-.instructionsContent h1 {
-    color: var(--color-gray-800);
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    line-height: 1.2;
-}
+    h1 {
+        color: var(--color-gray-800);
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        line-height: 1.2;
+    }
 
-.instructionsContent h2 {
-    color: var(--color-gray-800);
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    line-height: 1.2;
+    h2 {
+        color: var(--color-gray-800);
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        line-height: 1.2;
+    }
+
+    h3 {
+        color: var(--color-gray-800);
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        margin-top: 34px;
+        line-height: 1.6;
+
+        &:first-of-type {
+            margin-top: 10px;
+        }
+    }
+
+    p {
+        color: var(--color-gray-700);
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 18px;
+    }
+
+    code {
+        background: var(--color-purple-100);
+        color: var(--color-purple-700);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Source Code Pro", monospace;
+        font-size: 14px;
+        font-weight: 500;
+    }
 }
 
 .instructionsSubhead {
@@ -940,36 +970,6 @@
 
 .instructionsHeader.hidden {
     display: none;
-}
-
-.instructionsContent h3 {
-    color: var(--color-gray-800);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    margin-top: 34px;
-    line-height: 1.6;
-}
-
-.instructionsContent h3:first-of-type {
-    margin-top: 10px;
-}
-
-.instructionsContent p {
-    color: var(--color-gray-700);
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 18px;
-}
-
-.instructionsContent code {
-    background: var(--color-purple-100);
-    color: var(--color-purple-700);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-family: "Source Code Pro", monospace;
-    font-size: 14px;
-    font-weight: 500;
 }
 
 /* Tasks Tab */

@@ -17,10 +17,10 @@ export function ConfirmationStep({ onCancel, onCompleteExercise }: ConfirmationS
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onCancel} className={styles.btnSecondary}>
+        <button onClick={onCancel} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
           Cancel
         </button>
-        <button onClick={onCompleteExercise} className={styles.btnPrimary}>
+        <button onClick={onCompleteExercise} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Yes, Complete
         </button>
       </div>

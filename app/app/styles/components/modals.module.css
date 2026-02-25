@@ -122,53 +122,6 @@
     margin-right: -32px;
 }
 
-.btnPrimary {
-    flex: 1;
-    padding: 16px 20px;
-    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
-    color: white;
-    border: 2px solid var(--color-blue-500);
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: "Poppins", sans-serif;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.btnPrimary:hover:not(:disabled) {
-    border-color: var(--color-blue-600);
-    box-shadow:
-        0 0 0 4px rgba(59, 130, 246, 0.2),
-        0 4px 16px rgba(59, 130, 246, 0.4);
-}
-
-.btnPrimary:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-.btnSecondary {
-    flex: 1;
-    padding: 12px 24px;
-    background: transparent;
-    color: var(--color-gray-500);
-    border: 2px solid var(--color-gray-200);
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: "Poppins", sans-serif;
-}
-
-.btnSecondary:hover {
-    border-color: var(--color-gray-400);
-    color: #1a202c;
-}
-
 /* Project modal special styling */
 .projectModalOverlay .modal {
     background: white;

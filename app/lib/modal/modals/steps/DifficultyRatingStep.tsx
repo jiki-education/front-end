@@ -80,7 +80,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       </div>
 
       <div className={modalStyles.modalButtons}>
-        <button onClick={handleSubmit} disabled={!canSubmit} className={modalStyles.btnPrimary}>
+        <button onClick={handleSubmit} disabled={!canSubmit} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>
       </div>

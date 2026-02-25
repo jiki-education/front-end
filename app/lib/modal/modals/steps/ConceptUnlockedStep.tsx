@@ -32,7 +32,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
         <p className={styles.modalMessage}>You&apos;ve unlocked a new concept to explore.</p>
         <div className={styles.modalButtonsDivider}></div>
         <div className={styles.modalButtons}>
-          <button onClick={onContinue} className={styles.btnPrimary}>
+          <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
             Continue
           </button>
         </div>
@@ -52,7 +52,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onContinue} className={styles.btnPrimary}>
+        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>
       </div>
