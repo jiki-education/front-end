@@ -1,20 +1,23 @@
 ---
-description: Audit an exercise for correctness, quality, and adherence to curriculum standards
+description: Audit an exercise and evolve it — check quality, extract instructions to markdown, review with user
 argument-hint: <exercise-slug>
 ---
 
-# Audit Exercise
+# Audit & Evolve Exercise
 
-Perform a comprehensive audit of the exercise specified by `$ARGUMENTS`. If `$ARGUMENTS` is "all", audit every exercise registered in `src/exercises/index.ts`.
+**This is a collaborative task. You are working WITH the user, not autonomously.** Follow the user's instructions, ask before making changes, and do not proceed to later steps without the user's go-ahead. Present information and proposals, then wait for direction. The user is the decision-maker — your job is to research, present options, and execute what they ask for.
 
-## Step 0: Locate Exercise Files
+Audit the exercise **$ARGUMENTS**, then work with the user to evolve it. If `$ARGUMENTS` is "all", audit every exercise registered in `src/exercises/index.ts` (audit checks only, no evolve steps).
 
-For each exercise being audited, read all files in `src/exercises/<slug>/`:
+## Step 1: Locate and Read Exercise Files
+
+Read all files in `src/exercises/$ARGUMENTS/`:
 
 - `Exercise.ts` — Exercise class implementation
 - `index.ts` — Exercise definition export (with `functions: FunctionInfo[]`)
 - `scenarios.ts` — Tasks and test scenarios
-- `metadata.json` — Slug, title, instructions, hints
+- `metadata.json` — Slug, title, hints
+- `introduction.md` — Instructions (if it exists)
 - `llm-metadata.ts` — AI teaching guidance
 - `solution.jiki`, `solution.javascript`, `solution.py` — Solutions
 - `stub.jiki`, `stub.javascript`, `stub.py` — Starter code
@@ -23,13 +26,29 @@ Also read the base class if the exercise extends one (e.g., `DrawExercise`, `Maz
 
 ---
 
-## Audit Checks
+## Step 2: Audit Checks
 
 Run ALL of the following checks. For each check, report either PASS or FAIL with a clear explanation.
 
 ---
 
-### Check 1: No Direct DOM Manipulation in Function Methods
+### Check 1: Instructions are in their own file
+
+**Rule**: Instructions should live in `introduction.md`, not inline in `metadata.json`. The `index.ts` should import `introduction.md` and include it in the exercise definition after the `...metadata` spread.
+
+**PASS** if:
+
+- `introduction.md` exists
+- `index.ts` imports it and includes `instructions` in the definition
+- `metadata.json` does NOT have an `instructions` field
+
+**FAIL** if instructions are still in `metadata.json` or `introduction.md` doesn't exist.
+
+If this check fails, skip the remaining audit checks and move directly to the **Evolve** steps below to fix it first.
+
+---
+
+### Check 2: No Direct DOM Manipulation in Function Methods
 
 **Rule**: The only DOM manipulation allowed in exercise function methods is **creating new elements**. All visual changes to existing elements (moving, hiding, showing, transforming) must go through `this.animations.push()` or `this.addAnimation()`. Direct DOM manipulation (updating styles, text, classes, or removing elements) creates permanent changes that break timeline scrubbing.
 
@@ -55,7 +74,7 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ---
 
-### Check 2: Function Documentation Matches Implementation
+### Check 3: Function Documentation Matches Implementation
 
 **Rule**: The `functions: FunctionInfo[]` array in `index.ts` must accurately reflect the actual available functions in `Exercise.ts`.
 
@@ -75,9 +94,9 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ---
 
-### Check 3: Instructions Don't Give Away the Answer
+### Check 4: Instructions Don't Give Away the Answer
 
-**Rule**: The `instructions` field in `metadata.json` should explain the **goal** and **available tools**, but should NOT tell students the exact code to write or the exact algorithm/logic needed.
+**Rule**: The instructions (in `introduction.md`) should explain the **goal** and **available tools**, but should NOT tell students the exact code to write or the exact algorithm/logic needed.
 
 **What's OK in instructions**:
 
@@ -97,7 +116,7 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ---
 
-### Check 4: Hints Are Progressive and Don't Give Away the Answer
+### Check 5: Hints Are Progressive and Don't Give Away the Answer
 
 **Rule**: Hints should guide students toward the solution incrementally, without giving it away. They exist in two places: `metadata.json` (exercise-level hints) and `scenarios.ts` (task-level hints in the `tasks` array).
 
@@ -115,13 +134,35 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ---
 
-### Check 5: LLM Metadata Is Accurate and Up-to-Date
+### Check 6: JavaScript-First Conventions
+
+**Rule**: All user-facing text must use JavaScript conventions. We are launching with JavaScript only — Python and Jikiscript support will be added later.
+
+**Important distinction**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** (converted at runtime). Only _user-facing text_ must use camelCase.
+
+**Check all of the following across** `introduction.md`, `metadata.json` (hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (FunctionInfo name, signature, examples), and `llm-metadata.ts`:
+
+1. **Function names are camelCase**: e.g., `getAge()` not `get_age()`, `turnLeft()` not `turn_left()`. Single-word names (`move`, `shoot`) are fine as-is.
+
+2. **Variable names are camelCase**: e.g., `shotLength` not `shot_length`, `guestName` not `guest_name`.
+
+3. **No Jikiscript syntax**: No `set x to value`, `change x to value`, `repeat N times do ... end`, `if condition do ... end`, `for each ... indexed by`. No references to "Jiki", "Jikiscript", or "Jiki language".
+
+4. **No Python syntax**: No `def`, `elif`, `True`/`False` as Python booleans, `self.`, `import`, `__init__`.
+
+5. **FunctionInfo fields**: `name` must be camelCase, `signature` must use camelCase, `examples` must use JavaScript syntax (e.g., `let age = getAge()` not `set age to get_age()`).
+
+6. **LLM metadata**: No references to "Jiki"/"Jikiscript", function names in camelCase, code examples in JS syntax, generic language descriptions.
+
+---
+
+### Check 7: LLM Metadata Is Accurate and Up-to-Date
 
 **Rule**: The `llm-metadata.ts` file provides guidance for AI assistants helping students. It must accurately reflect the current state of the exercise.
 
 **Check each of these**:
 
-1. **Description accuracy**: The `description` field should accurately describe what the exercise teaches and the key concepts involved. Cross-reference with `metadata.json` instructions and the actual Exercise class.
+1. **Description accuracy**: The `description` field should accurately describe what the exercise teaches and the key concepts involved. Cross-reference with the instructions and the actual Exercise class.
 
 2. **Task coverage**: Every task ID defined in `scenarios.ts` should have a corresponding entry in the LLM metadata's `tasks` record. No missing tasks, no extra tasks.
 
@@ -135,39 +176,89 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ---
 
-## Output Format
+## Step 3: Report Audit Results and Exercise Context
 
-For each exercise audited, produce a report in this format:
+Present the audit results, then the full exercise context:
 
+**Audit results** — PASS/FAIL for each check with details.
+
+**Exercise context:**
+
+- **Exercise**: slug, title, type (visual/io), level
+- **Current instructions** (from introduction.md or metadata.json)
+- **Current hints** (from metadata.json and scenarios.ts tasks)
+- **Current task names/descriptions** (from scenarios.ts)
+- **Functions** (from index.ts `FunctionInfo[]`): List each function's name, signature, description, examples, and category.
+
+**Bootcamp equivalent:**
+
+Search for the exercise in the bootcamp content at `/Users/iHiD/Code/exercism/website/bootcamp_content/projects/`.
+
+The Jiki slug may differ from the bootcamp slug. Strategies to find it:
+
+1. **Direct match**: Search for a directory matching the slug
+2. **Partial match**: Search for key words from the slug across all project exercise directories
+3. **By title**: Read the exercise's `metadata.json` title and search bootcamp `config.json` files for similar titles
+4. **By project**: Check likely bootcamp projects based on the exercise type (e.g., maze exercises → `maze/`, string exercises → `string-puzzles/`, drawing exercises → `drawing/`)
+
+If found, read `config.json`, `introduction.md`, all `task-*.md` files, `stub.jiki` and `example.jiki`. Show the file path and the bootcamp instructions/hints content.
+
+If NOT found, tell the user and note that instructions will need to be written from scratch.
+
+Then ask the user how they'd like to proceed. Do NOT make any file changes yet — wait for the user's direction.
+
+---
+
+## Evolve Steps (when user approves)
+
+### Create introduction.md
+
+Create `src/exercises/$ARGUMENTS/introduction.md` with the instructions content.
+
+**Rules for the content:**
+
+- Adapt from bootcamp `introduction.md` if available, otherwise write fresh
+- **JavaScript-first conventions**: Use camelCase function names (e.g., `turnLeft()` not `turn_left()`)
+- **No Jikiscript references**: No `set ... to`, `repeat N times`, etc.
+- Use markdown formatting (headers, bullet lists, code backticks)
+- Do NOT give away the solution — describe the goal and available tools
+- Keep it concise and clear
+
+### Update index.ts to import introduction.md
+
+In `src/exercises/$ARGUMENTS/index.ts`:
+
+1. Add import: `import instructions from "./introduction.md";`
+2. Add `instructions` to the exercise definition object, AFTER the `...metadata` spread so it overrides:
+
+```typescript
+const exerciseDefinition = {
+  type: "...",
+  ...metadata,
+  instructions, // <-- overrides metadata.instructions
+  ExerciseClass
+  // ... rest
+};
 ```
-## Exercise: <slug>
 
-### Check 1: DOM Manipulation — PASS/FAIL
-[Details if FAIL]
+### Remove instructions from metadata.json
 
-### Check 2: Function Documentation — PASS/FAIL
-[Details if FAIL, listing specific mismatches]
+Remove the `instructions` field from `src/exercises/$ARGUMENTS/metadata.json`. Keep all other fields (`slug`, `title`, `estimatedMinutes`, `levelId`, `hints`).
 
-### Check 3: Instructions — PASS/FAIL
-[Details if FAIL, quoting the problematic parts]
+### Verify
 
-### Check 4: Hints — PASS/FAIL
-[Details if FAIL, quoting the problematic hints]
+Run typecheck to make sure everything compiles:
 
-### Check 5: LLM Metadata — PASS/FAIL
-[Details if FAIL, listing specific issues]
-
-### Overall: X/5 checks passed
-[Summary of issues to fix, if any]
+```bash
+pnpm typecheck
 ```
 
-If auditing all exercises, provide a summary table at the end:
+Then run tests:
 
+```bash
+pnpm test
 ```
-## Summary
 
-| Exercise | DOM | Functions | Instructions | Hints | LLM | Score |
-|----------|-----|-----------|--------------|-------|-----|-------|
-| bouncer  | OK  | OK        | OK           | OK    | OK  | 5/5   |
-| ...      | ... | ...       | ...          | ...   | ... | ...   |
-```
+### Iterate with user
+
+After the changes are made, present the introduction.md content to the user for review. Make any adjustments they request. Continue iterating until they're happy.
