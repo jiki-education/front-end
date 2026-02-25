@@ -1,17 +1,11 @@
 import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAllPostSlugsWithLocales } from "@/lib/content";
+import { DEFAULT_LOCALE } from "@/lib/locales";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
-}
-
-export async function generateStaticParams() {
-  const slugsWithLocales = await getAllPostSlugsWithLocales("blog", SUPPORTED_LOCALES);
-  return slugsWithLocales.filter((p) => p.locale !== DEFAULT_LOCALE).map((p) => ({ locale: p.locale, slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

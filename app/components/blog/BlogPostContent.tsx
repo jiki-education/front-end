@@ -1,5 +1,5 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { ProcessedBlogPost, BlogPostMeta } from "@/lib/content/types";
 import BlogPostHeader from "./BlogPostHeader";
 import RelatedPosts from "./RelatedPosts";
 import styles from "./BlogPostContent.module.css";
@@ -7,7 +7,7 @@ import styles from "./BlogPostContent.module.css";
 interface BlogPostContentProps {
   post: ProcessedBlogPost;
   variant?: "authenticated" | "unauthenticated";
-  relatedPosts?: ProcessedBlogPost[];
+  relatedPosts?: BlogPostMeta[];
   locale?: string;
 }
 

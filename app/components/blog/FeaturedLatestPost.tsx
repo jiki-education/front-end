@@ -1,12 +1,12 @@
 import Link from "next/link";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import AuthorIcon from "@/icons/author.svg";
 import CalendarIcon from "@/icons/calendar.svg";
 import styles from "./FeaturedLatestPost.module.css";
 
 interface FeaturedLatestPostProps {
-  post: ProcessedBlogPost;
+  post: BlogPostMeta;
   locale: string;
 }
 

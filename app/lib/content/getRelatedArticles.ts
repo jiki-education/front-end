@@ -1,14 +1,10 @@
-import type { ProcessedArticle } from "./generated/types";
+import type { ArticleMeta } from "./types";
 
 /**
  * Get related articles based on tag overlap
  * Returns articles sorted by number of common tags (descending)
  */
-export function getRelatedArticles(
-  currentSlug: string,
-  allArticles: ProcessedArticle[],
-  limit: number = 3
-): ProcessedArticle[] {
+export function getRelatedArticles(currentSlug: string, allArticles: ArticleMeta[], limit: number = 3): ArticleMeta[] {
   const currentArticle = allArticles.find((a) => a.slug === currentSlug);
   if (!currentArticle) {
     return [];

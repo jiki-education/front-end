@@ -1,4 +1,4 @@
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { ProcessedBlogPost } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import AuthorIcon from "@/icons/author.svg";
 import CalendarIcon from "@/icons/calendar.svg";
@@ -10,8 +10,6 @@ interface BlogPostHeaderProps {
 }
 
 export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
-  const readingTime = estimateReadingTime(post.content);
-
   return (
     <header className={styles.articleHeader}>
       <div className={styles.articleHeaderImage} />
@@ -35,16 +33,10 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
             <span className={styles.metaIcon}>
               <ClockIcon />
             </span>
-            <span>{readingTime} minute read</span>
+            <span>{post.readingTime} minute read</span>
           </div>
         </div>
       </div>
     </header>
   );
-}
-
-function estimateReadingTime(content: string): number {
-  const wordsPerMinute = 200;
-  const words = content.trim().split(/\s+/).length;
-  return Math.max(1, Math.ceil(words / wordsPerMinute));
 }

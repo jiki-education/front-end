@@ -1,13 +1,9 @@
-import BlogPostPage, { getBlogPostMetadata, getBlogPostStaticParams } from "@/components/blog/BlogPostPage";
+import BlogPostPage, { getBlogPostMetadata } from "@/components/blog/BlogPostPage";
 import HeaderLayout from "@/components/layout/HeaderLayout";
 import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return getBlogPostStaticParams("en");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

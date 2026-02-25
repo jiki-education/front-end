@@ -1,4 +1,4 @@
-import type { ProcessedBlogPost } from "./generated/types";
+import type { BlogPostMeta } from "./types";
 import { getAllBlogPosts } from "./getAllBlogPosts";
 
 const BLOG_POSTS_PAGE_SIZE = 10;
@@ -9,7 +9,7 @@ export interface GetBlogPostsOptions {
 }
 
 export interface GetBlogPostsResult {
-  posts: ProcessedBlogPost[];
+  posts: BlogPostMeta[];
   totalCount: number;
   totalPages: number;
   currentPage: number;

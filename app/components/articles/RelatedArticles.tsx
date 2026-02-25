@@ -1,9 +1,9 @@
-import type { ProcessedArticle } from "@/lib/content/generated/types";
+import type { ArticleMeta } from "@/lib/content/types";
 import ArticleCard from "./ArticleCard";
 import styles from "./RelatedArticles.module.css";
 
 interface RelatedArticlesProps {
-  articles: ProcessedArticle[];
+  articles: ArticleMeta[];
   locale: string;
 }
 

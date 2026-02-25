@@ -1,12 +1,8 @@
-import ArticleDetailPage, { getArticleMetadata, getArticleStaticParams } from "@/components/articles/ArticleDetailPage";
+import ArticleDetailPage, { getArticleMetadata } from "@/components/articles/ArticleDetailPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 
 interface Props {
   params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return getArticleStaticParams("en");
 }
 
 export async function generateMetadata({ params }: Props) {

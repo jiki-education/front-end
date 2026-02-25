@@ -1,11 +1,11 @@
 import Link from "next/link";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import AuthorIcon from "@/icons/author.svg";
 import styles from "./BlogPostCard.module.css";
 
 interface BlogPostsGridProps {
-  posts: ProcessedBlogPost[];
+  posts: BlogPostMeta[];
   locale: string;
 }
 
@@ -20,7 +20,7 @@ export default function BlogPostsGrid({ posts, locale }: BlogPostsGridProps) {
 }
 
 interface BlogPostCardProps {
-  post: ProcessedBlogPost;
+  post: BlogPostMeta;
   locale: string;
 }
 

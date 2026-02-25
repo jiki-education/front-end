@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { ProcessedArticle } from "@/lib/content/generated/types";
-import type { ArticleTagSlug } from "@/lib/content";
+import type { ArticleMeta } from "@/lib/content/types";
+import type { ArticleTagSlug } from "@/lib/content/types";
 import { useArticlesSearch } from "@/lib/hooks/useArticlesSearch";
 import Pagination from "@/components/ui/Pagination";
 import FilterSidebar from "./FilterSidebar";
@@ -11,7 +11,7 @@ import ArticlesSearch from "./ArticlesSearch";
 import styles from "./ArticlesContent.module.css";
 
 interface ArticlesContentProps {
-  articles: ProcessedArticle[];
+  articles: ArticleMeta[];
   locale: string;
   selectedTag: ArticleTagSlug | null;
   currentPage: number;

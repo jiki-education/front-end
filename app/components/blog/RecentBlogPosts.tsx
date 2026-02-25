@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 
 interface RecentBlogPostsProps {
-  posts: ProcessedBlogPost[];
+  posts: BlogPostMeta[];
 }
 
 export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
