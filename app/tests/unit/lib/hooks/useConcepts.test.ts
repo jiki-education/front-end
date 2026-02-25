@@ -1,6 +1,6 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useConcepts } from "@/lib/hooks/useConcepts";
-import { getConcepts, searchConcepts } from "@/lib/concepts/actions";
+import { getTopLevelConcepts, searchConcepts } from "@/lib/concepts/actions";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 
@@ -8,7 +8,7 @@ jest.mock("@/lib/concepts/actions");
 jest.mock("@/lib/api/concept-unlocks");
 jest.mock("@/lib/auth/authStore");
 
-const mockGetConcepts = getConcepts as jest.MockedFunction<typeof getConcepts>;
+const mockGetTopLevelConcepts = getTopLevelConcepts as jest.MockedFunction<typeof getTopLevelConcepts>;
 const mockSearchConcepts = searchConcepts as jest.MockedFunction<typeof searchConcepts>;
 const mockFetchUnlockedSlugs = fetchUnlockedConceptSlugs as jest.MockedFunction<typeof fetchUnlockedConceptSlugs>;
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
@@ -24,11 +24,11 @@ const mockConcepts = [
     exerciseSlugs: ["sprouting-flower"]
   },
   {
-    slug: "strings",
-    title: "Strings",
-    description: "Text data",
-    parentSlug: "variables",
-    order: 1,
+    slug: "functions",
+    title: "Functions",
+    description: "Reusable code",
+    parentSlug: null,
+    order: 2,
     childrenCount: 0,
     exerciseSlugs: []
   }
@@ -38,7 +38,7 @@ describe("useConcepts", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseAuthStore.mockReturnValue(false);
-    mockGetConcepts.mockResolvedValue(mockConcepts);
+    mockGetTopLevelConcepts.mockResolvedValue(mockConcepts);
     mockFetchUnlockedSlugs.mockResolvedValue([]);
   });
 
@@ -49,13 +49,14 @@ describe("useConcepts", () => {
     expect(result.current.error).toBe(null);
   });
 
-  it("loads concepts on mount", async () => {
+  it("loads top-level concepts on mount", async () => {
     const { result } = renderHook(() => useConcepts());
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
     });
 
+    expect(mockGetTopLevelConcepts).toHaveBeenCalled();
     expect(result.current.concepts).toHaveLength(2);
     expect(result.current.concepts[0].slug).toBe("variables");
     expect(result.current.totalCount).toBe(2);
@@ -85,13 +86,13 @@ describe("useConcepts", () => {
 
     expect(mockFetchUnlockedSlugs).toHaveBeenCalled();
     const variables = result.current.concepts.find((c) => c.slug === "variables");
-    const strings = result.current.concepts.find((c) => c.slug === "strings");
+    const functions = result.current.concepts.find((c) => c.slug === "functions");
     expect(variables?.isUnlocked).toBe(true);
-    expect(strings?.isUnlocked).toBe(false);
+    expect(functions?.isUnlocked).toBe(false);
     expect(result.current.unlockedCount).toBe(1);
   });
 
-  it("handles search via handleSearch", async () => {
+  it("scopes search to top-level concepts", async () => {
     mockSearchConcepts.mockResolvedValue([mockConcepts[0]]);
 
     const { result } = renderHook(() => useConcepts());
@@ -105,7 +106,7 @@ describe("useConcepts", () => {
     });
 
     expect(result.current.searchQuery).toBe("variables");
-    expect(mockSearchConcepts).toHaveBeenCalledWith("variables");
+    expect(mockSearchConcepts).toHaveBeenCalledWith("variables", null);
   });
 
   it("resets to all concepts when search is cleared", async () => {
@@ -129,7 +130,7 @@ describe("useConcepts", () => {
   });
 
   it("handles errors correctly", async () => {
-    mockGetConcepts.mockRejectedValue(new Error("Fetch failed"));
+    mockGetTopLevelConcepts.mockRejectedValue(new Error("Fetch failed"));
 
     const { result } = renderHook(() => useConcepts());
 
