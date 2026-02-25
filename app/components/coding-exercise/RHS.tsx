@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { PageTabs } from "@/components/ui-kit/PageTabs/PageTabs";
+import ArrowRightIcon from "@/icons/arrow-right.svg";
 import HamburgerIcon from "@/icons/hamburger.svg";
 import HintIcon from "@/icons/hint.svg";
 import LogIcon from "@/icons/log.svg";
@@ -19,6 +21,7 @@ interface RHSProps {
 
 export function RHS({ orchestrator }: RHSProps) {
   const [activeTab, setActiveTab] = useState("instructions");
+  const router = useRouter();
 
   // Define tabs data for PageTabs
   const tabs = [
@@ -97,12 +100,16 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <PageTabs
-        className="py-[3px] px-[32px] bg-white"
-        tabs={tabs}
-        activeTabId={activeTab}
-        onTabChange={setActiveTab}
-      />
+      <div className="flex items-center justify-between gap-8 px-[32px] py-[3px] bg-white overflow-x-auto flex-shrink-0">
+        <PageTabs className="shrink-0" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0"
+        >
+          <ArrowRightIcon width={16} height={16} />
+          Dashboard
+        </button>
+      </div>
       <div className="flex-1 overflow-auto bg-white">{renderTabContent()}</div>
     </div>
   );

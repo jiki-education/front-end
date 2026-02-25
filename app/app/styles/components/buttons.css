@@ -31,6 +31,12 @@
 }
 
 /* Button Size Variants */
+.ui-btn-xs {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
 .ui-btn-small {
     padding: 8px 16px;
     border-radius: 8px;
@@ -266,6 +272,20 @@
 /* For gray secondary buttons, use darker text */
 .ui-btn-secondary.ui-btn-gray {
     color: var(--color-gray-600);
+}
+
+/* Flat Button - solid feel, no shadow, no gradient */
+.ui-btn-flat {
+    background: white;
+    color: var(--color-gray-500);
+    border-color: var(--color-gray-200);
+    box-shadow: none;
+}
+
+.ui-btn-flat:hover {
+    color: var(--color-gray-700);
+    border-color: var(--color-gray-400);
+    box-shadow: none;
 }
 
 /* Ghost Button - hollow design for dark backgrounds */
