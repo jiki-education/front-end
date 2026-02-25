@@ -110,7 +110,7 @@ export default function LessonPage({ params }: PageProps) {
       <CodingExercise
         language={userCourse?.language || "javascript"}
         exerciseSlug={lesson.data.slug}
-        context={{ type: "lesson", slug: lesson.slug }}
+        context={{ type: "lesson", slug: lesson.slug, walkthroughVideoData: lesson.walkthrough_video_data }}
         isCompleted={isCompleted}
       />
     );

@@ -3,6 +3,7 @@ import type { MembershipTier } from "@/lib/pricing";
 import confirmationStyles from "@/app/styles/components/confirmation-modal.module.css";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
+import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
 
 interface ModalState {
   isOpen: boolean;
@@ -132,4 +133,14 @@ export const showPaymentProcessing = (props?: { onClose?: () => void }) => {
 // Convenience function for welcome to premium modal
 export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
   showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
+};
+
+// Convenience function for video walkthrough modal
+export const showVideoWalkthrough = (props: { playbackId: string; lessonSlug: string }) => {
+  showModal("video-walkthrough-modal", props);
+};
+
+// Convenience function for walkthrough confirmation modal
+export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
+  showModal("walkthrough-confirm-modal", props, undefined, walkthroughConfirmStyles.modal);
 };

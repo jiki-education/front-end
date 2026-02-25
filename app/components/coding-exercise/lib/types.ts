@@ -25,7 +25,9 @@ export interface CompletionResponseData {
 }
 
 // Exercise context types
-export type ExerciseContext = { type: "lesson"; slug: string } | { type: "project"; slug: string };
+export type ExerciseContext =
+  | { type: "lesson"; slug: string; walkthroughVideoData?: { provider: string; id: string }[] | null }
+  | { type: "project"; slug: string };
 
 // CodeMirror editor types
 export interface UnderlineRange {

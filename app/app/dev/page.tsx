@@ -101,6 +101,20 @@ export default function DevPage() {
                 - Typography and admonition styles for markdown content
               </span>
             </li>
+            <li>
+              <Link href="/dev/walkthrough-card" className="text-blue-600 hover:underline">
+                Walkthrough Card
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - All walkthrough card states (locked, unwatched, watching, watched)
+              </span>
+            </li>
+            <li>
+              <Link href="/dev/hints-walkthrough" className="text-blue-600 hover:underline">
+                Hints Walkthrough
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- HintsPanel with walkthrough video section</span>
+            </li>
           </ul>
         </div>
 

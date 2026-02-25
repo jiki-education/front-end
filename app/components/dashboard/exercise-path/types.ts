@@ -6,6 +6,7 @@ export interface LessonDisplayData {
   completed: boolean;
   locked: boolean;
   route: string;
+  walkthroughVideoWatchedPercentage: number;
 }
 
 // Simple types for the level section component

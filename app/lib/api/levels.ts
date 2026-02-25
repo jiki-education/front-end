@@ -38,16 +38,20 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
     const userProgress = userLevelMap.get(level.slug);
 
     // Create a map of lesson progress for this level
-    const lessonProgressMap = new Map(userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul.status]) || []);
+    const lessonProgressMap = new Map(userProgress?.user_lessons.map((ul) => [ul.lesson_slug, ul]) || []);
 
     // Process lessons with their status
-    const lessons: LessonWithProgress[] = level.lessons.map((lesson) => ({
-      slug: lesson.slug,
-      type: lesson.type,
-      description: lesson.description,
-      status: lessonProgressMap.get(lesson.slug) || "not_started",
-      walkthrough_video_data: lesson.walkthrough_video_data
-    }));
+    const lessons: LessonWithProgress[] = level.lessons.map((lesson) => {
+      const userLesson = lessonProgressMap.get(lesson.slug);
+      return {
+        slug: lesson.slug,
+        type: lesson.type,
+        description: lesson.description,
+        status: userLesson?.status || "not_started",
+        walkthrough_video_data: lesson.walkthrough_video_data,
+        walkthrough_video_watched_percentage: userLesson?.walkthrough_video_watched_percentage ?? 0
+      };
+    });
 
     // Calculate level status
     let status: "not_started" | "started" | "completed" | "ready_for_completion" = "not_started";

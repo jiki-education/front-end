@@ -36,7 +36,8 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
         },
         completed: lesson.status === "completed",
         locked,
-        route: `/lesson/${lesson.slug}`
+        route: `/lesson/${lesson.slug}`,
+        walkthroughVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
       };
     });
 

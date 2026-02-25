@@ -10,3 +10,67 @@
     justify-content: center;
     z-index: 10000;
 }
+
+.videoWalkthroughOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.videoWalkthroughClose {
+    position: absolute;
+    top: 14px;
+    right: 24px;
+    height: 40px;
+    padding: 0 16px 0 12px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    z-index: 10;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+}
+
+.videoWalkthroughClose:hover {
+    background: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    color: var(--color-gray-700);
+}
+
+.videoWalkthroughCloseIcon {
+    width: 14px;
+    height: 14px;
+    color: var(--color-gray-500);
+    transition: color 0.2s ease;
+
+    path {
+        stroke-width: 1.5;
+    }
+}
+
+.videoWalkthroughClose:hover .videoWalkthroughCloseIcon {
+    color: var(--color-gray-700);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

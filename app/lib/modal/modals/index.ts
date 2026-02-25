@@ -20,6 +20,8 @@ import { DeleteAccountModal } from "@/components/settings/modals/DeleteAccountMo
 import { PaymentProcessingModal } from "./PaymentProcessingModal";
 import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
 import { WelcomeToPremiumModal } from "./WelcomeToPremiumModal";
+import { VideoWalkthroughModal } from "./VideoWalkthroughModal";
+import { WalkthroughConfirmModal } from "./WalkthroughConfirmModal";
 
 // Export all modals
 export {
@@ -44,7 +46,9 @@ export {
   DeleteAccountModal,
   PaymentProcessingModal,
   PremiumUpgradeModal,
-  WelcomeToPremiumModal
+  WelcomeToPremiumModal,
+  VideoWalkthroughModal,
+  WalkthroughConfirmModal
 };
 
 // Available modals registry
@@ -70,5 +74,7 @@ export const availableModals = {
   "delete-account-modal": DeleteAccountModal,
   "payment-processing-modal": PaymentProcessingModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
-  "welcome-to-premium-modal": WelcomeToPremiumModal
+  "welcome-to-premium-modal": WelcomeToPremiumModal,
+  "video-walkthrough-modal": VideoWalkthroughModal,
+  "walkthrough-confirm-modal": WalkthroughConfirmModal
 };

@@ -1,24 +1,36 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { PanelHeader } from "./PanelHeader";
 import EyeClosedIcon from "@/icons/eye-close.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
+import { showWalkthroughConfirm } from "@/lib/modal/store";
+import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgress";
 import style from "./hints-panel.module.css";
+
+const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
 interface HintsViewProps {
   hints: string[] | undefined;
+  walkthroughVideoData?: { provider: string; id: string }[] | null;
+  lessonSlug?: string;
   className?: string;
 }
 
-export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
+export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, className = "" }: HintsViewProps) {
   const [revealedHints, setRevealedHints] = useState<Set<number>>(new Set());
+  const [walkthroughUnlocked, setWalkthroughUnlocked] = useState(false);
 
   useEffect(() => {
     console.debug("hints", hints);
   }, [hints]);
 
-  if (!hints || hints.length === 0) {
+  const hasHints = hints && hints.length > 0;
+  const hasWalkthrough = walkthroughVideoData && walkthroughVideoData.length > 0 && lessonSlug;
+
+  if (!hasHints && !hasWalkthrough) {
     return (
       <div className={`p-4 ${className}`}>
         <p className="text-sm text-gray-500 italic">No hints available for this exercise.</p>
@@ -30,6 +42,18 @@ export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
     setRevealedHints((prev) => new Set([...prev, index]));
   };
 
+  const handleWalkthroughClick = () => {
+    if (!hasWalkthrough) {
+      return;
+    }
+    if (walkthroughUnlocked) {
+      return;
+    }
+    showWalkthroughConfirm({
+      onConfirm: () => setWalkthroughUnlocked(true)
+    });
+  };
+
   return (
     <div className={`${className}`}>
       <PanelHeader
@@ -38,31 +62,78 @@ export default function HintsPanel({ hints, className = "" }: HintsViewProps) {
       />
 
       <div className="py-24 px-32">
-        <ul className="space-y-3">
-          {hints.map((hint, index) => {
-            const isRevealed = revealedHints.has(index);
+        {hasHints && (
+          <ul className="space-y-3">
+            {hints.map((hint, index) => {
+              const isRevealed = revealedHints.has(index);
 
-            return (
-              <li key={index}>
-                <HintItem
-                  question={`Hint ${index + 1}`}
-                  answer={[hint]}
-                  style={style}
-                  isRevealed={isRevealed}
-                  onReveal={() => handleRevealHint(index)}
-                  onHide={() =>
-                    setRevealedHints((prev) => {
-                      const newSet = new Set(prev);
-                      newSet.delete(index);
-                      return newSet;
-                    })
-                  }
+              return (
+                <li key={index}>
+                  <HintItem
+                    question={`Hint ${index + 1}`}
+                    answer={[hint]}
+                    style={style}
+                    isRevealed={isRevealed}
+                    onReveal={() => handleRevealHint(index)}
+                    onHide={() =>
+                      setRevealedHints((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(index);
+                        return newSet;
+                      })
+                    }
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        {hasWalkthrough && (
+          <div className={style.walkthroughSection}>
+            <h3>Walkthrough Video</h3>
+            <p>Still stuck? Watch a step-by-step walkthrough of this exercise.</p>
+            {walkthroughUnlocked ? (
+              <InlineWalkthroughPlayer playbackId={walkthroughVideoData[0].id} lessonSlug={lessonSlug} />
+            ) : (
+              <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
+                <img
+                  src={`https://image.mux.com/${walkthroughVideoData[0].id}/thumbnail.jpg?width=400&height=225`}
+                  alt="Walkthrough video thumbnail"
+                  className={style.walkthroughThumb}
                 />
-              </li>
-            );
-          })}
-        </ul>
+                <div className={style.walkthroughPlayBtn}>
+                  <svg viewBox="0 0 24 24">
+                    <polygon points="6,4 20,12 6,20" />
+                  </svg>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
+    </div>
+  );
+}
+
+function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: string; lessonSlug: string }) {
+  const { playerRef, handleTimeUpdate, handleVideoEnd, handleCanPlay } = useWalkthroughProgress(lessonSlug);
+
+  return (
+    <div className={style.walkthroughPlayerWrapper}>
+      <MuxPlayer
+        ref={playerRef}
+        playbackId={playbackId}
+        streamType="on-demand"
+        autoPlay={true}
+        loop={false}
+        muted={false}
+        volume={0.5}
+        className={style.walkthroughPlayer}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleVideoEnd}
+        onCanPlay={handleCanPlay}
+      />
     </div>
   );
 }
