@@ -62,7 +62,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
         setRelatedConcepts(related);
         setRelatedExercises(exercises);
 
-        // Load auth-dependent data
+        // Load auth-dependent data and check access
         if (isAuthenticated) {
           const [unlockedSlugs, statuses] = await Promise.all([
             fetchUnlockedConceptSlugs(),
@@ -70,6 +70,12 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
           ]);
           setUnlockedConceptSlugs(new Set(unlockedSlugs));
           setExerciseStatuses(statuses);
+
+          // Redirect if concept is locked for this user
+          if (!unlockedSlugs.includes(slug)) {
+            router.push("/concepts");
+            return;
+          }
         }
 
         // Only load content for leaf concepts
@@ -85,7 +91,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     };
 
     void loadConcept();
-  }, [slug, isAuthenticated]);
+  }, [slug, isAuthenticated, router]);
 
   if (isLoading) {
     return (

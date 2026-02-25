@@ -62,7 +62,7 @@ export function useConcepts() {
 
   return {
     concepts,
-    unlockedCount: unlockedSlugs.size,
+    unlockedCount: isAuthenticated ? unlockedSlugs.size : displayedConcepts.length,
     totalCount: displayedConcepts.length,
     isLoading,
     error,
