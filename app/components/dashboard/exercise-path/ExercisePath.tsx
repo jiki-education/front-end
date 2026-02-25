@@ -10,6 +10,7 @@ import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { LevelSection } from "./ui/LevelSection";
 import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
+import { CompletionCert } from "./ui/CompletionCert";
 import { useEffect, useMemo } from "react";
 
 export default function ExercisePath() {
@@ -28,6 +29,16 @@ export default function ExercisePath() {
       }
     }
     return null;
+  }, [levelSections]);
+
+  const { completedCount, totalCount } = useMemo(() => {
+    let completed = 0;
+    let total = 0;
+    for (const section of levelSections) {
+      total += section.lessons.length;
+      completed += section.completedLessonsCount;
+    }
+    return { completedCount: completed, totalCount: total };
   }, [levelSections]);
 
   // Listen for lesson completion events from URL params or other sources
@@ -77,6 +88,7 @@ export default function ExercisePath() {
           activeLessonSlug={activeLessonSlug}
         />
       ))}
+      <CompletionCert completedCount={completedCount} totalCount={totalCount} />
     </div>
   );
 }
