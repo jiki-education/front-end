@@ -5,7 +5,7 @@ import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorP
 import ScrubberInput from "@/components/coding-exercise/ui/scrubber/ScrubberInput";
 import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 
 // Create frames for testing with specific timeline positions

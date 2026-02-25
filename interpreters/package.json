@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --platform=browser --external:i18next",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node build.mjs",
     "dev": "npm-run-all --parallel dev:tsc dev:bundle",
     "dev:tsc": "tsc --watch",
-    "dev:bundle": "esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm --platform=browser --external:i18next --watch=forever",
+    "dev:bundle": "node build.mjs --watch",
     "test": "vitest --exclude '**/benchmark*.test.ts'",
     "test:watch": "vitest --watch --exclude '**/benchmark*.test.ts'",
     "test:benchmark": "vitest tests/jikiscript/benchmark.test.ts --run",
@@ -38,6 +38,22 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./shared": {
+      "import": "./dist/shared.js",
+      "types": "./dist/shared.d.ts"
+    },
+    "./jikiscript": {
+      "import": "./dist/jikiscript.js",
+      "types": "./dist/jikiscript.d.ts"
+    },
+    "./javascript": {
+      "import": "./dist/javascript.js",
+      "types": "./dist/javascript.d.ts"
+    },
+    "./python": {
+      "import": "./dist/python.js",
+      "types": "./dist/python.d.ts"
     }
   },
   "devDependencies": {

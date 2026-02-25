@@ -2,25 +2,9 @@ import type { IOScenario, Language, CodeCheckExpect, InterpreterOptions } from "
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import { formatInterpreterObject } from "./formatInterpreterObject";
-import { jikiscript, javascript, python } from "@jiki/interpreters";
-
-const interpreters = {
-  javascript,
-  python,
-  jikiscript
-};
-
-function getInterpreter(language: Language) {
-  const interpreter = interpreters[language as keyof typeof interpreters];
-  // Defensive check (TypeScript guarantees this, but good for runtime safety)
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!interpreter) {
-    throw new Error(`Unknown language: ${language}`);
-  }
-  return interpreter;
-}
+import type { Interpreter } from "./getInterpreter";
 
 // Compare values using the specified matcher
 function compareValues(actual: any, expected: any, matcher: string): boolean {
@@ -55,11 +39,9 @@ export function runIOScenario(
   studentCode: string,
   availableFunctions: Array<{ name: string; func: any; description: string }>,
   language: Language,
+  interpreter: Interpreter,
   interpreterOptions?: InterpreterOptions
 ): IOTestResult {
-  // Execute student code and call the function with scenario args
-  const interpreter = getInterpreter(language);
-
   let actual: any;
   let errorHtml: string | undefined;
   let functionalPass = false;

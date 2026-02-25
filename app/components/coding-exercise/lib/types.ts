@@ -1,4 +1,4 @@
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import type { TaskProgress, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 

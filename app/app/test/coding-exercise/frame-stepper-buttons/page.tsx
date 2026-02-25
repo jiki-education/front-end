@@ -9,7 +9,7 @@ import { TimelineManager } from "@/components/coding-exercise/lib/orchestrator/T
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import FrameStepperButtons from "@/components/coding-exercise/ui/scrubber/FrameStepperButtons";
 import { createMockExercise } from "@/tests/mocks/exercise";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useState } from "react";
 import { FrameInfo } from "../ui-utils/FrameInfo";
 import { LineFoldingControls } from "../ui-utils/LineFoldingControls";

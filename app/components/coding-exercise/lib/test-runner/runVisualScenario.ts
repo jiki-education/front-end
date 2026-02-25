@@ -1,29 +1,15 @@
 import type { VisualExercise, VisualScenario, Language, InterpreterOptions } from "@jiki/curriculum";
+import type { InterpretResult } from "@jiki/interpreters/shared";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
-import { jikiscript, javascript, python } from "@jiki/interpreters";
-
-const interpreters = {
-  javascript,
-  python,
-  jikiscript
-};
-
-function getInterpreter(language: Language) {
-  const interpreter = interpreters[language as keyof typeof interpreters];
-  // Defensive check (TypeScript guarantees this, but good for runtime safety)
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!interpreter) {
-    throw new Error(`Unknown language: ${language}`);
-  }
-  return interpreter;
-}
+import type { Interpreter } from "./getInterpreter";
 
 export function runVisualScenario(
   scenario: VisualScenario,
   studentCode: string,
   ExerciseClass: new () => VisualExercise,
   language: Language,
+  interpreter: Interpreter,
   interpreterOptions?: InterpreterOptions
 ): VisualTestResult {
   // Create fresh exercise instance
@@ -39,7 +25,6 @@ export function runVisualScenario(
   scenario.setup?.(exercise);
 
   // Execute student code with selected interpreter
-  const interpreter = getInterpreter(language);
   const interpreterContext = {
     externalFunctions: exercise.getExternalFunctions(language),
     classes: exercise.getExternalClasses(language),
@@ -50,7 +35,7 @@ export function runVisualScenario(
     randomSeed: resolvedSeed
   };
 
-  const result = scenario.functionCall
+  const result: InterpretResult = scenario.functionCall
     ? interpreter.evaluateFunction(
         studentCode,
         interpreterContext,

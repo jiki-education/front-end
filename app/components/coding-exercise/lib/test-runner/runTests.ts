@@ -1,27 +1,16 @@
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
-import { javascript, jikiscript, python } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { runIOScenario } from "./runIOScenario";
 import { runVisualScenario } from "./runVisualScenario";
+import { getInterpreter } from "./getInterpreter";
 
-// Map language to interpreter
-const interpreters = {
-  javascript,
-  python,
-  jikiscript
-};
+export async function runTests(
+  studentCode: string,
+  exercise: ExerciseDefinition,
+  language: Language
+): Promise<TestSuiteResult> {
+  const interpreter = await getInterpreter(language);
 
-function getInterpreter(language: Language) {
-  const interpreter = interpreters[language as keyof typeof interpreters];
-  // Defensive check (TypeScript guarantees this, but good for runtime safety)
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!interpreter) {
-    throw new Error(`Unknown language: ${language}`);
-  }
-  return interpreter;
-}
-
-export function runTests(studentCode: string, exercise: ExerciseDefinition, language: Language): TestSuiteResult {
   // Get available functions based on exercise type, with names formatted for the target language
   let availableFunctions: Array<{ name: string; func: any; description: string }>;
 
@@ -35,7 +24,6 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   }
 
   // Compile ONCE before running any scenarios
-  const interpreter = getInterpreter(language);
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
     languageFeatures: {
@@ -60,6 +48,7 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
         studentCode,
         exercise.ExerciseClass,
         language,
+        interpreter,
         exercise.interpreterOptions
       );
       tests.push(result);
@@ -67,7 +56,14 @@ export function runTests(studentCode: string, exercise: ExerciseDefinition, lang
   } else {
     // Run IO scenarios
     for (const scenario of exercise.scenarios) {
-      const result = runIOScenario(scenario, studentCode, availableFunctions, language, exercise.interpreterOptions);
+      const result = runIOScenario(
+        scenario,
+        studentCode,
+        availableFunctions,
+        language,
+        interpreter,
+        exercise.interpreterOptions
+      );
       tests.push(result);
     }
   }

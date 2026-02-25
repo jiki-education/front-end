@@ -134,7 +134,7 @@ export class TestSuiteManager {
       // Get the current language from the store
       const language = this.store.getState().language;
 
-      const testResults = runTests(code, exercise, language);
+      const testResults = await runTests(code, exercise, language);
 
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();

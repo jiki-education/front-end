@@ -118,7 +118,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-3", status: "pass" })
       ]);
 
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
 
       // Run tests through TestSuiteManager
       await testSuiteManager.runCode("// test code", exercise);
@@ -161,7 +161,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       // Mock test results with all failures
       const testResults = createMockTestSuiteResult([createMockTestResult({ slug: "scenario-1", status: "fail" })]);
 
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
 
       await testSuiteManager.runCode("// test code", exercise);
 
@@ -201,7 +201,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
 
       const exercise = createMockExercise();
       const testResults = createMockTestSuiteResult([]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
 
       // Should not throw error
       await expect(testSuiteManagerWithoutTaskManager.runCode("// code", exercise)).resolves.not.toThrow();
@@ -225,7 +225,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-1", status: "fail" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// code v1", exercise);
 
       // Second test run - partial success
@@ -233,7 +233,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// code v2", exercise);
 
       // Third test run - full success
@@ -241,7 +241,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "pass" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// code v3", exercise);
 
       // Verify final state is completed
@@ -272,7 +272,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "pass" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// complete code", exercise);
 
       // Second run - task becomes incomplete due to code changes
@@ -280,7 +280,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
         createMockTestResult({ slug: "scenario-1", status: "pass" }),
         createMockTestResult({ slug: "scenario-2", status: "fail" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// broken code", exercise);
 
       // Verify task is now in-progress and removed from completed set
@@ -307,7 +307,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       taskManager.initializeTaskProgress(exercise);
 
       const testResults = createMockTestSuiteResult([]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// code", exercise);
 
       const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;
@@ -331,7 +331,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       const testResults = createMockTestSuiteResult([
         createMockTestResult({ slug: "different-scenario", status: "pass" })
       ]);
-      mockRunTests.mockReturnValue(testResults);
+      mockRunTests.mockResolvedValue(testResults);
       await testSuiteManager.runCode("// code", exercise);
 
       const setStateCalls = (mockStore.setState as jest.Mock).mock.calls;

@@ -11,6 +11,10 @@ const customJestConfig = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
     "^@static/(.*)$": "<rootDir>/public/static/$1",
+    "^@jiki/interpreters/shared$": "<rootDir>/../interpreters/dist/shared.js",
+    "^@jiki/interpreters/jikiscript$": "<rootDir>/../interpreters/dist/jikiscript.js",
+    "^@jiki/interpreters/javascript$": "<rootDir>/../interpreters/dist/javascript.js",
+    "^@jiki/interpreters/python$": "<rootDir>/../interpreters/dist/python.js",
     "^@jiki/interpreters$": "<rootDir>/../interpreters",
     "^@jiki/curriculum$": "<rootDir>/../curriculum",
     "^marked$": "<rootDir>/__mocks__/marked.js"

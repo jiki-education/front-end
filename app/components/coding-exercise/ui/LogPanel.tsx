@@ -2,7 +2,7 @@
 
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
-import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 import { PanelHeader } from "./PanelHeader";
 import style from "./log-panel.module.css";
 

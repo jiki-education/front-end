@@ -1,5 +1,5 @@
 import type { StoreApi } from "zustand/vanilla";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import type { OrchestratorStore } from "../types";
 
 /**
