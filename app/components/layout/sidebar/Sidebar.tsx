@@ -36,15 +36,6 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
 
-  const handleUpgradeClick = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
-  };
-
   return (
     <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">
       <Logo />
@@ -67,7 +58,18 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       </nav>
 
       {!isPremium && (
-        <button className="nav-upsell" onClick={handleUpgradeClick} type="button">
+        <button
+          className="nav-upsell"
+          onClick={() =>
+            showModal(
+              "premium-upgrade-modal",
+              {},
+              premiumModalStyles.premiumModalOverlay,
+              premiumModalStyles.premiumModalWidth
+            )
+          }
+          type="button"
+        >
           <p>
             You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to
             accelerate your learning&nbsp;<span className="arrow">&rarr;</span>
