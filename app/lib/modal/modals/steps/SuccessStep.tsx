@@ -21,10 +21,10 @@ export function SuccessStep({ onTidyCode, onShowConfirmation }: SuccessStepProps
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onTidyCode} className={styles.btnSecondary}>
+        <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
           Tidy code first
         </button>
-        <button onClick={onShowConfirmation} className={styles.btnPrimary}>
+        <button onClick={onShowConfirmation} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Complete Exercise
         </button>
       </div>

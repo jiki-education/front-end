@@ -72,7 +72,7 @@ export function ProjectUnlockedStep({
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onGoToDashboard} className={styles.btnPrimary}>
+        <button onClick={onGoToDashboard} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>
       </div>

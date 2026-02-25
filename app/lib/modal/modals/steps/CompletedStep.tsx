@@ -33,7 +33,7 @@ export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue }: Compl
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onContinue} className={styles.btnPrimary}>
+        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>
       </div>

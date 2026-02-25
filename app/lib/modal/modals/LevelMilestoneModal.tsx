@@ -80,10 +80,10 @@ export function LevelMilestoneModal({
       <div className={styles.modalButtonsDivider}></div>
 
       <div className={styles.modalButtons}>
-        <button onClick={handleGoToDashboard} className={styles.btnSecondary}>
+        <button onClick={handleGoToDashboard} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
           Go to Dashboard
         </button>
-        <button onClick={handleContinue} className={styles.btnPrimary}>
+        <button onClick={handleContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue to Next Level
         </button>
       </div>
