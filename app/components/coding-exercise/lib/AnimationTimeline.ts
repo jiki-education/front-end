@@ -1,5 +1,5 @@
 import type { Animation as CurriculumAnimation } from "@jiki/curriculum";
-import { TIME_SCALE_FACTOR, type Frame } from "@jiki/interpreters";
+import { TIME_SCALE_FACTOR, type Frame } from "@jiki/interpreters/shared";
 import {
   createTimeline,
   type AnimationParams,

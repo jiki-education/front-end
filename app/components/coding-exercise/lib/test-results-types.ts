@@ -1,4 +1,4 @@
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import type { AnimationTimeline } from "./AnimationTimeline";
 
 // Import expect types from curriculum (single source of truth)

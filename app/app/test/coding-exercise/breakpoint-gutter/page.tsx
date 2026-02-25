@@ -5,7 +5,7 @@ import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorP
 import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
 import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 
 function mockFrames(): Frame[] {

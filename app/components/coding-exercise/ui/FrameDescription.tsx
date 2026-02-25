@@ -1,7 +1,7 @@
 import React from "react";
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
-import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 
 export default function FrameDescription() {
   const orchestrator = useOrchestrator();

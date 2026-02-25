@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useCallback, useEffect } from "react";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import type { AnimationTimeline } from "../../lib/AnimationTimeline";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import styles from "../../CodingExercise.module.css";

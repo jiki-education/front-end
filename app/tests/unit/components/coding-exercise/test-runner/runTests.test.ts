@@ -2,26 +2,44 @@ import { runTests } from "@/components/coding-exercise/lib/test-runner/runTests"
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Scenario } from "@jiki/curriculum";
 import { TestExercise } from "@jiki/curriculum";
-import { javascript, jikiscript, python } from "@jiki/interpreters";
+import type { Interpreter } from "@/components/coding-exercise/lib/test-runner/getInterpreter";
 
-// Mock the interpreters module
-jest.mock("@jiki/interpreters", () => ({
-  jikiscript: {
-    compile: jest.fn(),
-    interpret: jest.fn(),
-    formatIdentifier: (name: string) => name
-  },
-  javascript: {
-    compile: jest.fn(),
-    interpret: jest.fn(),
-    formatIdentifier: (name: string) => name
-  },
-  python: {
-    compile: jest.fn(),
-    interpret: jest.fn(),
-    formatIdentifier: (name: string) => name
-  },
-  TIME_SCALE_FACTOR: 1000
+// Create mock interpreters for each language
+const mockJikiscript: Interpreter = {
+  compile: jest.fn(),
+  interpret: jest.fn(),
+  evaluateFunction: jest.fn(),
+  formatIdentifier: (name: string) => name
+};
+
+const mockJavascript: Interpreter = {
+  compile: jest.fn(),
+  interpret: jest.fn(),
+  evaluateFunction: jest.fn(),
+  formatIdentifier: (name: string) => name
+};
+
+const mockPython: Interpreter = {
+  compile: jest.fn(),
+  interpret: jest.fn(),
+  evaluateFunction: jest.fn(),
+  formatIdentifier: (name: string) => name
+};
+
+// Mock getInterpreter to return the appropriate mock
+jest.mock("@/components/coding-exercise/lib/test-runner/getInterpreter", () => ({
+  getInterpreter: jest.fn((language: string) => {
+    switch (language) {
+      case "jikiscript":
+        return mockJikiscript;
+      case "javascript":
+        return mockJavascript;
+      case "python":
+        return mockPython;
+      default:
+        throw new Error(`Unknown language: ${language}`);
+    }
+  })
 }));
 
 // Mock the TestExercise
@@ -87,11 +105,11 @@ describe("runTests", () => {
     });
 
     // Default compile mock returns success
-    (jikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+    (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
   });
 
   describe("initial scrubber time", () => {
-    it("should set initial time to first frame's time, not 0", () => {
+    it("should set initial time to first frame's time, not 0", async () => {
       // Mock frames with first frame at 100000 microseconds
       const mockFrames = [
         { time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 },
@@ -99,29 +117,29 @@ describe("runTests", () => {
         { time: 300000, timeInMs: 300, status: "SUCCESS", line: 3 }
       ];
 
-      (jikiscript.interpret as jest.Mock).mockReturnValue({
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
         status: "SUCCESS"
       });
 
       const code = "move()\nmove()\nmove()";
-      const result = runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript");
 
       // Check that tests have frames
       expect(result.tests[0].frames[0].time).toBe(100000);
       expect(result.tests[1].frames[0].time).toBe(100000);
     });
 
-    it("should handle empty frames array", () => {
-      (jikiscript.interpret as jest.Mock).mockReturnValue({
+    it("should handle empty frames array", async () => {
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: [],
         value: undefined,
         status: "SUCCESS"
       });
 
       const code = "";
-      const result = runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript");
 
       // Should have empty frames array
       expect(result.tests[0].frames).toEqual([]);
@@ -129,20 +147,20 @@ describe("runTests", () => {
   });
 
   describe("test execution", () => {
-    it("should run all scenarios and return correct status", () => {
+    it("should run all scenarios and return correct status", async () => {
       const mockFrames = [
         { time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 },
         { time: 200000, timeInMs: 200, status: "SUCCESS", line: 2 }
       ];
 
-      (jikiscript.interpret as jest.Mock).mockReturnValue({
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
         status: "SUCCESS"
       });
 
       const code = "move()\nmove()";
-      const result = runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript");
 
       // Should have 2 test scenarios
       expect(result.tests).toHaveLength(2);
@@ -155,17 +173,17 @@ describe("runTests", () => {
       expect(result.passed).toBe(true);
     });
 
-    it("should set codeRun to the student code for each test", () => {
+    it("should set codeRun to the student code for each test", async () => {
       const mockFrames = [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }];
 
-      (jikiscript.interpret as jest.Mock).mockReturnValue({
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
         status: "SUCCESS"
       });
 
       const code = "for (let i = 0; i < 5; i++) {\n  move();\n}";
-      const result = runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript");
 
       // Each test result should have codeRun set to the student code
       expect(result.tests[0].codeRun).toBe(code);
@@ -190,22 +208,22 @@ describe("runTests", () => {
         status: "SUCCESS"
       };
 
-      (jikiscript.compile as jest.Mock).mockReturnValue({ success: true });
-      (jikiscript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
 
-      (javascript.compile as jest.Mock).mockReturnValue({ success: true });
-      (javascript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+      (mockJavascript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJavascript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
 
-      (python.compile as jest.Mock).mockReturnValue({ success: true });
-      (python.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
+      (mockPython.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockPython.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
     });
 
-    it("should use JavaScript interpreter when language is javascript", () => {
+    it("should use JavaScript interpreter when language is javascript", async () => {
       const code = "move()";
-      runTests(code, testExercise, "javascript");
+      await runTests(code, testExercise, "javascript");
 
       // JavaScript interpreter should be called
-      expect(javascript.compile).toHaveBeenCalledWith(
+      expect(mockJavascript.compile).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -214,7 +232,7 @@ describe("runTests", () => {
           })
         })
       );
-      expect(javascript.interpret).toHaveBeenCalledWith(
+      expect(mockJavascript.interpret).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -225,18 +243,18 @@ describe("runTests", () => {
       );
 
       // Other interpreters should NOT be called
-      expect(python.compile).not.toHaveBeenCalled();
-      expect(python.interpret).not.toHaveBeenCalled();
-      expect(jikiscript.compile).not.toHaveBeenCalled();
-      expect(jikiscript.interpret).not.toHaveBeenCalled();
+      expect(mockPython.compile).not.toHaveBeenCalled();
+      expect(mockPython.interpret).not.toHaveBeenCalled();
+      expect(mockJikiscript.compile).not.toHaveBeenCalled();
+      expect(mockJikiscript.interpret).not.toHaveBeenCalled();
     });
 
-    it("should use Python interpreter when language is python", () => {
+    it("should use Python interpreter when language is python", async () => {
       const code = "move()";
-      runTests(code, testExercise, "python");
+      await runTests(code, testExercise, "python");
 
       // Python interpreter should be called
-      expect(python.compile).toHaveBeenCalledWith(
+      expect(mockPython.compile).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -245,7 +263,7 @@ describe("runTests", () => {
           })
         })
       );
-      expect(python.interpret).toHaveBeenCalledWith(
+      expect(mockPython.interpret).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -256,18 +274,18 @@ describe("runTests", () => {
       );
 
       // Other interpreters should NOT be called
-      expect(javascript.compile).not.toHaveBeenCalled();
-      expect(javascript.interpret).not.toHaveBeenCalled();
-      expect(jikiscript.compile).not.toHaveBeenCalled();
-      expect(jikiscript.interpret).not.toHaveBeenCalled();
+      expect(mockJavascript.compile).not.toHaveBeenCalled();
+      expect(mockJavascript.interpret).not.toHaveBeenCalled();
+      expect(mockJikiscript.compile).not.toHaveBeenCalled();
+      expect(mockJikiscript.interpret).not.toHaveBeenCalled();
     });
 
-    it("should use JikiScript interpreter when language is jikiscript", () => {
+    it("should use JikiScript interpreter when language is jikiscript", async () => {
       const code = "move()";
-      runTests(code, testExercise, "jikiscript");
+      await runTests(code, testExercise, "jikiscript");
 
       // JikiScript interpreter should be called
-      expect(jikiscript.compile).toHaveBeenCalledWith(
+      expect(mockJikiscript.compile).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -276,7 +294,7 @@ describe("runTests", () => {
           })
         })
       );
-      expect(jikiscript.interpret).toHaveBeenCalledWith(
+      expect(mockJikiscript.interpret).toHaveBeenCalledWith(
         code,
         expect.objectContaining({
           externalFunctions: expect.any(Array),
@@ -287,10 +305,10 @@ describe("runTests", () => {
       );
 
       // Other interpreters should NOT be called
-      expect(javascript.compile).not.toHaveBeenCalled();
-      expect(javascript.interpret).not.toHaveBeenCalled();
-      expect(python.compile).not.toHaveBeenCalled();
-      expect(python.interpret).not.toHaveBeenCalled();
+      expect(mockJavascript.compile).not.toHaveBeenCalled();
+      expect(mockJavascript.interpret).not.toHaveBeenCalled();
+      expect(mockPython.compile).not.toHaveBeenCalled();
+      expect(mockPython.interpret).not.toHaveBeenCalled();
     });
   });
 });

@@ -5,7 +5,7 @@ import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
 import { createMockExercise } from "@/tests/mocks/exercise";
-import type { Frame } from "@jiki/interpreters";
+import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 
 // Create frames for testing

@@ -1,7 +1,7 @@
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showModal } from "@/lib/modal";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
-import { TIME_SCALE_FACTOR } from "@jiki/interpreters";
+import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
