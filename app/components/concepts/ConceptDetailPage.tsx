@@ -1,7 +1,7 @@
 "use client";
 
-import { fetchConcept } from "@/lib/api/concepts";
-import type { ConceptDetail } from "@/types/concepts";
+import { getConcept, getAncestors, getConceptContent } from "@/lib/concepts/actions";
+import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import MarkdownContent from "@/components/content/MarkdownContent";
@@ -18,7 +18,9 @@ interface ConceptDetailPageProps {
 
 export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
   const router = useRouter();
-  const [concept, setConcept] = useState<ConceptDetail | null>(null);
+  const [concept, setConcept] = useState<ConceptMeta | null>(null);
+  const [ancestors, setAncestors] = useState<ConceptAncestor[]>([]);
+  const [content, setContent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,17 +30,23 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
         setIsLoading(true);
         setError(null);
 
-        const data = await fetchConcept(slug);
-        setConcept(data);
-      } catch (err: any) {
-        if (err.status === 404) {
+        const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+
+        if (!conceptData) {
           setError("Concept not found.");
-        } else if (err.status === 403) {
-          setError("This concept is locked. Sign up to unlock it!");
-        } else {
-          setError("Failed to load concept. Please try again later.");
+          return;
         }
-        console.error("Error fetching concept:", err);
+
+        setConcept(conceptData);
+        setAncestors(ancestorData);
+
+        // Only load content for leaf concepts
+        if (conceptData.childrenCount === 0) {
+          const contentHtml = await getConceptContent(slug);
+          setContent(contentHtml);
+        }
+      } catch {
+        setError("Failed to load concept. Please try again later.");
       } finally {
         setIsLoading(false);
       }
@@ -47,10 +55,6 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     void loadConcept();
   }, [slug]);
 
-  // Check if this concept has subconcepts
-  const hasSubconcepts = concept && concept.children_count > 0;
-
-  // Show loading state
   if (isLoading) {
     return (
       <ConceptsLayout>
@@ -65,37 +69,26 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     );
   }
 
-  if (error) {
+  if (error || !concept) {
     return (
       <ConceptsLayout>
         <div className="text-center">
-          <div className="mb-4 text-red-600 text-lg">{error}</div>
-          <div className="space-x-4">
-            <button
-              onClick={() => router.push("/concepts")}
-              className="rounded-md bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
-            >
-              Back to Concepts
-            </button>
-            {error.includes("locked") && (
-              <button
-                onClick={() => router.push("/auth/signup")}
-                className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-              >
-                Sign Up
-              </button>
-            )}
-          </div>
+          <div className="mb-4 text-red-600 text-lg">{error || "Concept not found."}</div>
+          <button
+            onClick={() => router.push("/concepts")}
+            className="rounded-md bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
+          >
+            Back to Concepts
+          </button>
         </div>
       </ConceptsLayout>
     );
   }
 
-  // Show subconcepts view when subconcepts exist
-  if (hasSubconcepts) {
+  if (concept.childrenCount > 0) {
     return (
       <ConceptsLayout>
-        <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
+        <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
 
         <header>
           <h1 className={styles.pageHeading}>
@@ -122,31 +115,16 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     );
   }
 
-  // Fallback to original detail view for concepts without subconcepts
-  if (!concept) {
-    return (
-      <ConceptsLayout>
-        <div className="text-center">
-          <p className="text-gray-600 text-lg">Concept not found.</p>
-          <button
-            onClick={() => router.push("/concepts")}
-            className="mt-4 rounded-md bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
-          >
-            Back to Concepts
-          </button>
-        </div>
-      </ConceptsLayout>
-    );
-  }
+  const parentTitle = ancestors.length > 0 ? ancestors[ancestors.length - 1].title : undefined;
 
   return (
     <ConceptsLayout>
-      <Breadcrumb conceptTitle={concept.title} ancestors={concept.ancestors} />
+      <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
 
       <ConceptLayout>
-        <ConceptHero category="Flow Control" title={concept.title} intro={concept.description} />
+        <ConceptHero category={parentTitle} title={concept.title} intro={concept.description} />
 
-        <MarkdownContent content={concept.content_html} variant="base" />
+        {content && <MarkdownContent content={content} variant="base" />}
       </ConceptLayout>
     </ConceptsLayout>
   );

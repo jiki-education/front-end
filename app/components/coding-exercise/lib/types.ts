@@ -19,6 +19,7 @@ export interface UnlockedProject {
 export interface CompletionResponseData {
   type: "concept_unlocked" | "project_unlocked";
   data: {
+    concept_slug?: string;
     concept?: UnlockedConcept;
     project?: UnlockedProject;
   };

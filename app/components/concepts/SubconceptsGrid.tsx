@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { ConceptCard } from "@/components/concepts";
 import { ConceptCardsLoadingSkeleton } from "@/components/concepts";
-import { fetchSubconcepts } from "@/lib/api/concepts";
-import type { ConceptListItem } from "@/types/concepts";
+import { getChildren } from "@/lib/concepts/actions";
+import type { ConceptMeta } from "@/types/concepts";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 interface SubconceptsGridProps {
@@ -12,21 +12,17 @@ interface SubconceptsGridProps {
 }
 
 export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
-  const [subconcepts, setSubconcepts] = useState<ConceptListItem[]>([]);
+  const [subconcepts, setSubconcepts] = useState<ConceptMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadSubconcepts = async () => {
       try {
         setIsLoading(true);
-        setError(null);
-
-        const subconceptsData = await fetchSubconcepts(parentSlug);
-        setSubconcepts(subconceptsData);
+        const data = await getChildren(parentSlug);
+        setSubconcepts(data);
       } catch (err) {
         console.error("Error fetching subconcepts:", err);
-        setError("Failed to load subconcepts");
       } finally {
         setIsLoading(false);
       }
@@ -39,10 +35,6 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
     return <ConceptCardsLoadingSkeleton />;
   }
 
-  if (error) {
-    return null;
-  }
-
   return (
     <div className={styles.conceptsGrid}>
       {subconcepts.map((subconcept) => (
@@ -52,8 +44,7 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
             slug: subconcept.slug,
             title: subconcept.title,
             description: subconcept.description,
-            subConceptCount: subconcept.children_count,
-            userMayAccess: subconcept.user_may_access
+            subConceptCount: subconcept.childrenCount
           }}
         />
       ))}

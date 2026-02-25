@@ -1,11 +1,11 @@
 import styles from "@/app/styles/modules/concepts.module.css";
-import type { ConceptListItem } from "@/types/concepts";
+import type { ConceptForDisplay } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";
 import EmptyState from "@/components/ui/EmptyState";
 import FolderIcon from "@/icons/folder.svg";
 
 interface ConceptsGridProps {
-  concepts: ConceptListItem[];
+  concepts: ConceptForDisplay[];
   showEmptyState?: boolean;
 }
 
@@ -29,8 +29,8 @@ export default function ConceptsGrid({ concepts, showEmptyState = false }: Conce
             slug: concept.slug,
             title: concept.title,
             description: concept.description,
-            subConceptCount: concept.children_count,
-            userMayAccess: concept.user_may_access
+            subConceptCount: concept.childrenCount,
+            userMayAccess: concept.isUnlocked
           }}
         />
       ))}

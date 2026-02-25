@@ -1,14 +1,14 @@
 "use client";
 
 import { fetchLevels } from "@/lib/api/levels";
-import { fetchConcepts } from "@/lib/api/concepts";
+import { getConcepts } from "@/lib/concepts/actions";
 import { useState } from "react";
 import type { Level } from "@/types/levels";
-import type { ConceptListItem } from "@/types/concepts";
+import type { ConceptMeta } from "@/types/concepts";
 
 export default function NetworkTestPage() {
   const [levels, setLevels] = useState<Level[]>([]);
-  const [concepts, setConcepts] = useState<ConceptListItem[]>([]);
+  const [concepts, setConcepts] = useState<ConceptMeta[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingMultiple, setLoadingMultiple] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +32,9 @@ export default function NetworkTestPage() {
     setLevels([]);
     setConcepts([]);
     try {
-      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), fetchConcepts()]);
+      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), getConcepts()]);
       setLevels(levelsData);
-      setConcepts(conceptsData.results);
+      setConcepts(conceptsData);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load data");
     } finally {

@@ -6,7 +6,6 @@ describe("ConceptsSearch", () => {
     searchQuery: "",
     onSearchChange: jest.fn(),
     onClearSearch: jest.fn(),
-    debouncedSearchQuery: "",
     totalCount: 0
   };
 
@@ -48,7 +47,7 @@ describe("ConceptsSearch", () => {
   });
 
   it("shows empty state when no results found", () => {
-    render(<ConceptsSearch {...defaultProps} debouncedSearchQuery="test" totalCount={0} />);
+    render(<ConceptsSearch {...defaultProps} searchQuery="test" totalCount={0} />);
     expect(screen.getByText(/0 results for/)).toBeInTheDocument();
     expect(screen.getByText("Try a different search term or browse the library.")).toBeInTheDocument();
   });

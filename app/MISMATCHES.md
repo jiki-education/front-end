@@ -6,15 +6,7 @@ Issues identified between frontend types and backend serializers/controllers.
 
 ## Outstanding Issues
 
-### 1. ConceptListItem Type
-
-**Files:** `types/concepts.ts` vs `serialize_concepts.rb`
-
-FE has `iconSrc?: string` but BE doesn't return this field.
-
----
-
-### 2. Projects API Stub Functions
+### 1. Projects API Stub Functions
 
 **File:** `lib/api/projects.ts`
 
@@ -25,7 +17,7 @@ These functions are stubs with console.log only:
 
 ---
 
-### 3. Project show endpoint
+### 2. Project show endpoint
 
 **Files:** `lib/api/projects.ts` vs `serialize_project.rb`
 
