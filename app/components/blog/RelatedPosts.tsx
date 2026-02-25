@@ -1,10 +1,10 @@
 import Link from "next/link";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import styles from "./RelatedPosts.module.css";
 
 interface RelatedPostsProps {
-  posts: ProcessedBlogPost[];
+  posts: BlogPostMeta[];
   locale: string;
 }
 
@@ -26,7 +26,7 @@ export default function RelatedPosts({ posts, locale }: RelatedPostsProps) {
 }
 
 interface RelatedPostCardProps {
-  post: ProcessedBlogPost;
+  post: BlogPostMeta;
   locale: string;
 }
 

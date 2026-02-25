@@ -11,16 +11,15 @@ interface BlogPostPageProps {
   locale: string;
 }
 
-// Helper for generateStaticParams
-export async function getBlogPostStaticParams(locale: string = "en") {
-  const blogPosts = await getAllBlogPosts(locale);
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
-
 // Helper for generateMetadata
 export async function getBlogPostMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
   try {
-    const post = await getBlogPost(slug, locale);
+    const allPosts = await getAllBlogPosts(locale);
+    const post = allPosts.find((p) => p.slug === slug);
+    if (!post) {
+      return { title: "Post Not Found" };
+    }
+
     return {
       title: post.title,
       description: post.seo.description,

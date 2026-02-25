@@ -29,7 +29,7 @@ export interface Author {
   avatar: string;
 }
 
-export interface ProcessedBlogPost {
+export interface BlogPostMeta {
   slug: string;
   title: string;
   date: string;
@@ -42,11 +42,16 @@ export interface ProcessedBlogPost {
   };
   featured: boolean;
   coverImage: string;
-  content: string; // Rendered HTML
+  readingTime: number;
+  contentHash: string;
   locale: string;
 }
 
-export interface ProcessedArticle {
+export interface ProcessedBlogPost extends BlogPostMeta {
+  content: string;
+}
+
+export interface ArticleMeta {
   slug: string;
   title: string;
   date: string;
@@ -58,8 +63,13 @@ export interface ProcessedArticle {
     keywords: string[];
   };
   listed: boolean;
-  content: string; // Rendered HTML
+  readingTime: number;
+  contentHash: string;
   locale: string;
+}
+
+export interface ProcessedArticle extends ArticleMeta {
+  content: string;
 }
 
 export interface AuthorRegistry {

@@ -10,16 +10,15 @@ interface ArticleDetailPageProps {
   locale: string;
 }
 
-// Helper for generateStaticParams
-export async function getArticleStaticParams(locale: string = "en") {
-  const articles = await getAllArticles(locale);
-  return articles.map((article) => ({ slug: article.slug }));
-}
-
 // Helper for generateMetadata
 export async function getArticleMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
   try {
-    const article = await getArticle(slug, locale);
+    const allArticles = await getAllArticles(locale);
+    const article = allArticles.find((a) => a.slug === slug);
+    if (!article) {
+      return { title: "Article Not Found" };
+    }
+
     return {
       title: article.title,
       description: article.seo.description,

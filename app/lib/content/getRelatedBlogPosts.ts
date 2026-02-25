@@ -1,14 +1,10 @@
-import type { ProcessedBlogPost } from "./generated/types";
+import type { BlogPostMeta } from "./types";
 
 /**
  * Get related blog posts based on tag overlap
  * Returns posts sorted by number of common tags (descending)
  */
-export function getRelatedBlogPosts(
-  currentSlug: string,
-  allPosts: ProcessedBlogPost[],
-  limit: number = 3
-): ProcessedBlogPost[] {
+export function getRelatedBlogPosts(currentSlug: string, allPosts: BlogPostMeta[], limit: number = 3): BlogPostMeta[] {
   const currentPost = allPosts.find((p) => p.slug === currentSlug);
   if (!currentPost) {
     return [];

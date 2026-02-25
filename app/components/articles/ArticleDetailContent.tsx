@@ -1,12 +1,12 @@
 import MarkdownContent from "@/components/content/MarkdownContent";
-import type { ProcessedArticle } from "@/lib/content/generated/types";
+import type { ProcessedArticle, ArticleMeta } from "@/lib/content/types";
 import ArticleHeader from "./ArticleHeader";
 import RelatedArticles from "./RelatedArticles";
 import styles from "./ArticleDetailContent.module.css";
 
 interface ArticleDetailContentProps {
   article: ProcessedArticle;
-  relatedArticles?: ProcessedArticle[];
+  relatedArticles?: ArticleMeta[];
   locale?: string;
   variant?: "authenticated" | "unauthenticated";
 }

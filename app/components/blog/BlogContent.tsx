@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 import Pagination from "@/components/ui/Pagination";
 import BlogPostCard from "./BlogPostCard";
 
 interface BlogContentProps {
-  blogPosts: ProcessedBlogPost[];
+  blogPosts: BlogPostMeta[];
   locale: string;
   currentPage: number;
   totalPages: number;

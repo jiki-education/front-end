@@ -1,4 +1,4 @@
-import type { ProcessedArticle } from "./generated/types";
+import type { ArticleMeta } from "./types";
 import { getAllArticles } from "./getAllArticles";
 import { type ArticleTagSlug } from "./types";
 
@@ -12,7 +12,7 @@ export interface GetArticlesOptions {
 }
 
 export interface GetArticlesResult {
-  articles: ProcessedArticle[];
+  articles: ArticleMeta[];
   totalCount: number;
   totalPages: number;
   currentPage: number;

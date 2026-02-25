@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { ProcessedBlogPost } from "@/lib/content/generated/types";
+import type { BlogPostMeta } from "@/lib/content/types";
 
 interface BlogPostCardProps {
-  post: ProcessedBlogPost;
+  post: BlogPostMeta;
   locale: string;
 }
 

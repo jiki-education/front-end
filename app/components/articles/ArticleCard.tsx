@@ -1,10 +1,10 @@
 import Link from "next/link";
-import type { ProcessedArticle } from "@/lib/content/generated/types";
+import type { ArticleMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import styles from "./ArticleCard.module.css";
 
 interface ArticleCardProps {
-  article: ProcessedArticle;
+  article: ArticleMeta;
   locale: string;
 }
 

@@ -5,33 +5,23 @@
  * Individual loaders (getArticle, getBlogPost, etc.) are in separate files.
  */
 
-import { articles, blogPosts } from "./generated";
+import { getContentLoader } from "./loaders";
 
 /**
  * Get all post slugs with their available locales
  * Optionally filtered by supported locales
- * Used for Next.js generateStaticParams
  */
 export async function getAllPostSlugsWithLocales(
   type: "blog" | "articles",
   supportedLocales?: readonly string[]
 ): Promise<Array<{ slug: string; locale: string }>> {
-  const registry = type === "blog" ? blogPosts : articles;
-  const loaders = Object.entries(registry);
+  const loader = await getContentLoader();
+  const all = await loader.getAllSlugsWithLocales(type);
 
-  const results: Array<{ slug: string; locale: string }> = [];
-
-  for (const [slug, loader] of loaders) {
-    const postModule = await loader();
-
-    for (const locale of postModule.availableLocales) {
-      if (!supportedLocales || supportedLocales.includes(locale)) {
-        results.push({ slug, locale });
-      }
-    }
+  if (supportedLocales) {
+    return all.filter((entry) => supportedLocales.includes(entry.locale));
   }
-
-  return results;
+  return all;
 }
 
 /**
@@ -42,20 +32,11 @@ export async function getAvailableLocales(
   type: "blog" | "articles",
   supportedLocales?: readonly string[]
 ): Promise<string[]> {
-  const registry = type === "blog" ? blogPosts : articles;
-  const loaders = Object.values(registry);
+  const loader = await getContentLoader();
+  const locales = await loader.getAvailableLocales(type);
 
-  const localesSet = new Set<string>();
-
-  for (const loader of loaders) {
-    const postModule = await loader();
-
-    for (const locale of postModule.availableLocales) {
-      if (!supportedLocales || supportedLocales.includes(locale)) {
-        localesSet.add(locale);
-      }
-    }
+  if (supportedLocales) {
+    return locales.filter((l) => supportedLocales.includes(l));
   }
-
-  return Array.from(localesSet);
+  return locales;
 }

@@ -19,6 +19,10 @@
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
       "bucket_name": "build-cache"
+    },
+    {
+      "binding": "ASSETS_R2_BUCKET",
+      "bucket_name": "assets"
     }
   ],
   "services": [

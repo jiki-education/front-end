@@ -44,9 +44,8 @@ yarn-error.log*
 next-env.d.ts
 .claude/settings.local.json
 
-# generated content (build-time generation)
-lib/content/generated/
-public/static/search/
+# generated content cache (build-time generation)
+.content-cache/
 
 # generated icon types (build-time generation)
 components/ui-kit/icon-types.ts

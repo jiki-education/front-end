@@ -67,9 +67,16 @@ jobs:
 
           echo "✅ All required environment variables are set"
 
-      - name: Generate content bundle
+      - name: Generate content cache
         run: pnpm run content:generate
         working-directory: app
+
+      - name: Upload content to R2
+        run: pnpm run content:upload
+        working-directory: app
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Generate icon types
         run: pnpm run icons:generate

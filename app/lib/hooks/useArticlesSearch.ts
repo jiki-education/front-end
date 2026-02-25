@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import lunr from "lunr";
 import { useDebounce } from "./useDebounce";
+import { getSearchIndex } from "@/lib/content/actions";
 
 interface SearchIndex {
   index: lunr.Index;
@@ -29,8 +30,7 @@ export function useArticlesSearch(locale: string): UseArticlesSearchResult {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`/static/search/articles-${locale}.json`);
-      const data = await response.json();
+      const data = await getSearchIndex(locale);
       const index = lunr.Index.load(data.index);
       indexRef.current = { index, articles: data.articles };
       return indexRef.current;

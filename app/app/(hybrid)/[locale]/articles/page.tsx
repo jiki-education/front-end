@@ -10,11 +10,6 @@ interface Props {
   searchParams: Promise<{ tag?: string; page?: string }>;
 }
 
-export async function generateStaticParams() {
-  const locales = await getAvailableLocales("articles", SUPPORTED_LOCALES);
-  return locales.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content";
+import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content/types";
 import styles from "./FilterSidebar.module.css";
 
 interface FilterSidebarProps {
