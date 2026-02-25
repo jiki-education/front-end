@@ -1,8 +1,10 @@
 "use client";
 
-import MuxPlayer from "@mux/mux-player-react";
+import dynamic from "next/dynamic";
 import { useWalkthroughProgress } from "./useWalkthroughProgress";
 import styles from "./VideoWalkthroughModal.module.css";
+
+const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
 interface VideoWalkthroughModalProps {
   playbackId: string;

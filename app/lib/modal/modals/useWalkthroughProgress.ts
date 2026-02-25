@@ -35,7 +35,11 @@ export function useWalkthroughProgress(lessonSlug: string) {
     }
 
     // Save to local storage
-    localStorage.setItem(getStorageKey(lessonSlug), String(currentTime));
+    try {
+      localStorage.setItem(getStorageKey(lessonSlug), String(currentTime));
+    } catch {
+      // Ignore — localStorage may be unavailable in private browsing or quota exceeded
+    }
 
     // Report every 1%
     const percentage = (currentTime / duration) * 100;
@@ -44,7 +48,11 @@ export function useWalkthroughProgress(lessonSlug: string) {
 
   const handleVideoEnd = () => {
     reportProgress(100);
-    localStorage.removeItem(getStorageKey(lessonSlug));
+    try {
+      localStorage.removeItem(getStorageKey(lessonSlug));
+    } catch {
+      // Ignore — localStorage may be unavailable in private browsing
+    }
   };
 
   const handleCanPlay = () => {
@@ -59,12 +67,16 @@ export function useWalkthroughProgress(lessonSlug: string) {
 
     hasRestoredPositionRef.current = true;
 
-    const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
-    if (savedTime) {
-      const time = parseFloat(savedTime);
-      if (time > 0 && time < (player.duration || Infinity)) {
-        player.currentTime = time;
+    try {
+      const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
+      if (savedTime) {
+        const time = parseFloat(savedTime);
+        if (time > 0 && time < (player.duration || Infinity)) {
+          player.currentTime = time;
+        }
       }
+    } catch {
+      // Ignore — localStorage may be unavailable in private browsing
     }
   };
 

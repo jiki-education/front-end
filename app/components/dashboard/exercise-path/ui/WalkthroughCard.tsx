@@ -38,8 +38,25 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
     showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isLocked) {
+        return;
+      }
+      showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
+    }
+  };
+
   return (
-    <div className={`${styles.walkthroughCard} ${getStateClass()}`} onClick={handleClick}>
+    <div
+      className={`${styles.walkthroughCard} ${getStateClass()}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={isLocked ? -1 : 0}
+    >
       <div className={styles.front}>
         <WalkthroughIcon className={styles.icon} />
         <div className={styles.progress}>
