@@ -50,10 +50,12 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         </ul>
       </nav>
 
-      <a href="#" className="premium-upgrade-btn ">
-        <span className="icon">⭐</span>
-        <span>Upgrade to Premium</span>
-      </a>
+      <div className="nav-upsell">
+        <p>
+          You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to accelerate
+          your learning &rarr;
+        </p>
+      </div>
     </aside>
   );
 }
