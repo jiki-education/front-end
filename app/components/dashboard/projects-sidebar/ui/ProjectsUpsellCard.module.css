@@ -77,13 +77,13 @@
 .title {
     font-size: 17px;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--color-gray-800);
     margin-top: 3px;
     margin-bottom: 4px;
 }
 
 .subtitle {
     font-size: 14px;
-    color: #64748b;
+    color: var(--color-gray-500);
     text-wrap: balance;
 }
