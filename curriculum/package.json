@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.build.json && pnpm run copy-assets",
     "copy-assets": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\; && find src -name '*.javascript' -o -name '*.py' -o -name '*.jiki' -o -name '*.md' -o -path 'src/concepts/*/config.json' | while read f; do mkdir -p dist/$(dirname ${f#src/}) && cp $f dist/${f#src/}; done",
     "copy-css": "find src -name '*.css' -exec sh -c 'mkdir -p dist/$(dirname ${1#src/}) && cp $1 dist/${1#src/}' _ {} \\;",
-    "dev": "pnpm run copy-assets && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' 'src/**/*.md' 'src/**/*.javascript' 'src/**/*.py' 'src/**/*.jiki' -- pnpm run copy-assets",
+    "dev": "pnpm run copy-assets && tsc -p tsconfig.build.json --watch & onchange 'src/**/*.css' 'src/**/*.md' 'src/**/*.json' 'src/**/*.javascript' 'src/**/*.py' 'src/**/*.jiki' -- pnpm run copy-assets",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit",

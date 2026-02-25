@@ -1,6 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
+import instructions from "./introduction.md";
 import type { VisualExerciseDefinition, FunctionInfo } from "../types";
 
 import solutionJavascript from "./solution.javascript";
@@ -31,6 +32,7 @@ const functions: FunctionInfo[] = [
 const exerciseDefinition: VisualExerciseDefinition = {
   type: "visual",
   ...metadata,
+  instructions,
   ExerciseClass,
   tasks,
   scenarios,
