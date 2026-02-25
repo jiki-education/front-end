@@ -1,31 +1,25 @@
 "use client";
 
-import Pagination from "@/components/ui/Pagination";
 import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts";
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { useConcepts } from "@/lib/hooks/useConcepts";
-import { useConceptsSearch } from "@/lib/hooks/useConceptsSearch";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 export default function ConceptsListPage() {
-  const { conceptsState, isLoading, error, loadConcepts } = useConcepts();
-  const { searchQuery, debouncedSearchQuery, handleSearchChange, clearSearch } = useConceptsSearch(loadConcepts);
+  const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } = useConcepts();
 
-  // Deferred loading pattern:
-  // - Only show skeleton if loading takes longer than 300ms
-  // - If data arrives within 300ms, skip the skeleton entirely (no flash)
-  // - This applies to ALL loads (initial and subsequent)
   const showSkeleton = useDelayedLoading(isLoading, 300);
 
-  const handlePageChange = (page: number) => {
-    void loadConcepts(page, debouncedSearchQuery);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    void handleSearch(e.target.value);
   };
 
-  const retryLoad = () => void loadConcepts(1, debouncedSearchQuery);
+  const clearSearch = () => {
+    void handleSearch("");
+  };
 
-  // Show empty state only if there are no unlocked concepts globally
-  const showEmptyState = conceptsState.unlockedCount === 0 && conceptsState.concepts.length > 0;
+  const showEmptyState = unlockedCount === 0 && concepts.length > 0;
 
   return (
     <ConceptsLayout>
@@ -38,27 +32,16 @@ export default function ConceptsListPage() {
           searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
           onClearSearch={clearSearch}
-          debouncedSearchQuery={debouncedSearchQuery}
-          totalCount={conceptsState.totalCount}
+          totalCount={totalCount}
         />
       )}
 
       {showSkeleton ? (
         <ConceptCardsLoadingSkeleton />
-      ) : error && conceptsState.concepts.length === 0 ? (
-        <ErrorState error={error} onRetry={retryLoad} />
+      ) : error && concepts.length === 0 ? (
+        <ErrorState error={error} onRetry={() => window.location.reload()} />
       ) : (
-        <>
-          <ConceptsGrid concepts={conceptsState.concepts} showEmptyState={showEmptyState} />
-
-          {conceptsState.concepts.length > 0 && conceptsState.unlockedCount > 0 && (
-            <Pagination
-              currentPage={conceptsState.currentPage}
-              totalPages={conceptsState.totalPages}
-              onPageChange={handlePageChange}
-            />
-          )}
-        </>
+        <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
       )}
     </ConceptsLayout>
   );

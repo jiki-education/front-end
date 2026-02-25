@@ -8,7 +8,6 @@ interface ConceptsSearchProps {
   searchQuery: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClearSearch: () => void;
-  debouncedSearchQuery: string;
   totalCount: number;
 }
 
@@ -16,14 +15,10 @@ export default function ConceptsSearch({
   searchQuery,
   onSearchChange,
   onClearSearch,
-  debouncedSearchQuery,
   totalCount
 }: ConceptsSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClearSearch = () => {
-    onClearSearch();
-  };
   return (
     <div>
       <div className={`ui-search-input ${styles.searchBar} ${searchQuery ? styles.hasValue : ""}`}>
@@ -35,13 +30,12 @@ export default function ConceptsSearch({
           value={searchQuery}
           onChange={onSearchChange}
         />
-        <button onClick={handleClearSearch} type="button" className={styles.searchClearBtn}>
+        <button onClick={onClearSearch} type="button" className={styles.searchClearBtn}>
           <CrossIcon />
         </button>
       </div>
 
-      {/* No Results State */}
-      {debouncedSearchQuery && totalCount === 0 && <EmptyState debouncedSearchQuery={debouncedSearchQuery} />}
+      {searchQuery && totalCount === 0 && <EmptyState debouncedSearchQuery={searchQuery} />}
     </div>
   );
 }

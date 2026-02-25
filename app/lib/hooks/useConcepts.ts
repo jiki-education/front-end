@@ -1,55 +1,72 @@
-import { useState, useCallback } from "react";
-import { fetchConcepts } from "@/lib/api/concepts";
-import type { ConceptListItem } from "@/types/concepts";
-
-interface ConceptsState {
-  concepts: ConceptListItem[];
-  currentPage: number;
-  totalPages: number;
-  totalCount: number;
-  unlockedCount: number;
-}
+import { useState, useEffect, useCallback } from "react";
+import { getConcepts, searchConcepts as searchConceptsAction } from "@/lib/concepts/actions";
+import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { useAuthStore } from "@/lib/auth/authStore";
+import type { ConceptMeta, ConceptForDisplay } from "@/types/concepts";
 
 export function useConcepts() {
-  const [conceptsState, setConceptsState] = useState<ConceptsState>({
-    concepts: [],
-    currentPage: 1,
-    totalPages: 1,
-    totalCount: 0,
-    unlockedCount: 0
-  });
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const [allConcepts, setAllConcepts] = useState<ConceptMeta[]>([]);
+  const [unlockedSlugs, setUnlockedSlugs] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [displayedConcepts, setDisplayedConcepts] = useState<ConceptMeta[]>([]);
 
-  const loadConcepts = useCallback(async (page: number = 1, title?: string) => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  // Load concept data and unlock state
+  useEffect(() => {
+    async function load() {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      const response = await fetchConcepts({
-        page,
-        title: title || undefined
-      });
+        const [concepts, slugs] = await Promise.all([
+          getConcepts(),
+          isAuthenticated ? fetchUnlockedConceptSlugs() : Promise.resolve([])
+        ]);
 
-      setConceptsState({
-        concepts: response.results,
-        currentPage: response.meta.current_page,
-        totalPages: response.meta.total_pages,
-        totalCount: response.meta.total_count,
-        unlockedCount: response.meta.unlocked_count
-      });
-    } catch (err) {
-      setError("Failed to load concepts. Please try again later.");
-      console.error("Error fetching concepts:", err);
-    } finally {
-      setIsLoading(false);
+        setAllConcepts(concepts);
+        setDisplayedConcepts(concepts);
+        setUnlockedSlugs(new Set(slugs));
+      } catch {
+        setError("Failed to load concepts. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }, []);
+    void load();
+  }, [isAuthenticated]);
+
+  // Handle search
+  const handleSearch = useCallback(
+    async (query: string) => {
+      setSearchQuery(query);
+      if (!query.trim()) {
+        setDisplayedConcepts(allConcepts);
+        return;
+      }
+      try {
+        const results = await searchConceptsAction(query);
+        setDisplayedConcepts(results);
+      } catch {
+        setDisplayedConcepts(allConcepts);
+      }
+    },
+    [allConcepts]
+  );
+
+  const concepts: ConceptForDisplay[] = displayedConcepts.map((c) => ({
+    ...c,
+    isUnlocked: !isAuthenticated || unlockedSlugs.has(c.slug)
+  }));
 
   return {
-    conceptsState,
+    concepts,
+    unlockedCount: unlockedSlugs.size,
+    totalCount: displayedConcepts.length,
     isLoading,
     error,
-    loadConcepts
+    searchQuery,
+    handleSearch
   };
 }

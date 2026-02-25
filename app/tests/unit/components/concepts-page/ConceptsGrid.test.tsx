@@ -1,23 +1,28 @@
 import styles from "@/app/styles/modules/concepts.module.css";
 import ConceptsGrid from "@/components/concepts/ConceptsGrid";
 import { render, screen } from "@testing-library/react";
+import type { ConceptForDisplay } from "@/types/concepts";
 
-const mockConcepts = [
+const mockConcepts: ConceptForDisplay[] = [
   {
     slug: "concept-1",
     title: "Concept 1",
     description: "Description 1",
-    children_count: 0,
-    user_may_access: true,
-    video_data: null
+    parentSlug: null,
+    order: 1,
+    childrenCount: 0,
+    exerciseSlugs: [],
+    isUnlocked: true
   },
   {
     slug: "concept-2",
     title: "Concept 2",
     description: "Description 2",
-    children_count: 3,
-    user_may_access: true,
-    video_data: null
+    parentSlug: null,
+    order: 2,
+    childrenCount: 3,
+    exerciseSlugs: [],
+    isUnlocked: true
   }
 ];
 

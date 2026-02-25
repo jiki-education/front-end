@@ -5,7 +5,7 @@ import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import LibrarySection from "./LibrarySection";
-import { fetchConceptsBySlugs } from "@/lib/api/concepts";
+import { getConceptsBySlugs } from "@/lib/concepts/actions";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
@@ -58,20 +58,18 @@ export default function InstructionsPanel({
 
       setIsLoadingConcepts(true);
       try {
-        const conceptData = await fetchConceptsBySlugs(conceptSlugs);
+        const conceptData = await getConceptsBySlugs(conceptSlugs);
 
-        // Transform API response to ConceptCardData format
         const transformedConcepts: ConceptCardData[] = conceptData.map((concept) => ({
           slug: concept.slug,
           title: concept.title,
-          description: concept.description,
-          subConceptCount: undefined // This field is not in the API response
+          description: concept.description
         }));
 
         setConcepts(transformedConcepts);
       } catch (error) {
         console.error("Failed to fetch concepts:", error);
-        setConcepts([]); // Fall back to empty array on error
+        setConcepts([]);
       } finally {
         setIsLoadingConcepts(false);
       }

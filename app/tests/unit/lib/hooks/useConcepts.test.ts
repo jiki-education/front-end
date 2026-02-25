@@ -1,125 +1,142 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { useConcepts } from "@/lib/hooks/useConcepts";
-import { fetchConcepts } from "@/lib/api/concepts";
+import { getConcepts, searchConcepts } from "@/lib/concepts/actions";
+import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { useAuthStore } from "@/lib/auth/authStore";
 
-jest.mock("@/lib/api/concepts");
-const mockFetchConcepts = fetchConcepts as jest.MockedFunction<typeof fetchConcepts>;
+jest.mock("@/lib/concepts/actions");
+jest.mock("@/lib/api/concept-unlocks");
+jest.mock("@/lib/auth/authStore");
+
+const mockGetConcepts = getConcepts as jest.MockedFunction<typeof getConcepts>;
+const mockSearchConcepts = searchConcepts as jest.MockedFunction<typeof searchConcepts>;
+const mockFetchUnlockedSlugs = fetchUnlockedConceptSlugs as jest.MockedFunction<typeof fetchUnlockedConceptSlugs>;
+const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
+
+const mockConcepts = [
+  {
+    slug: "variables",
+    title: "Variables",
+    description: "Store values",
+    parentSlug: null,
+    order: 1,
+    childrenCount: 2,
+    exerciseSlugs: ["sprouting-flower"]
+  },
+  {
+    slug: "strings",
+    title: "Strings",
+    description: "Text data",
+    parentSlug: "variables",
+    order: 1,
+    childrenCount: 0,
+    exerciseSlugs: []
+  }
+];
 
 describe("useConcepts", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockUseAuthStore.mockReturnValue(false);
+    mockGetConcepts.mockResolvedValue(mockConcepts);
+    mockFetchUnlockedSlugs.mockResolvedValue([]);
   });
 
-  it("initializes with correct default state", () => {
+  it("initializes with loading state", () => {
     const { result } = renderHook(() => useConcepts());
 
-    expect(result.current.conceptsState).toEqual({
-      concepts: [],
-      currentPage: 1,
-      totalPages: 1,
-      totalCount: 0,
-      unlockedCount: 0
-    });
     expect(result.current.isLoading).toBe(true);
     expect(result.current.error).toBe(null);
   });
 
-  it("calls fetchConcepts when loadConcepts is called", async () => {
-    const mockResponse = {
-      results: [],
-      meta: {
-        current_page: 1,
-        total_pages: 1,
-        total_count: 0,
-        unlocked_count: 0
-      }
-    };
-    mockFetchConcepts.mockResolvedValue(mockResponse);
-
+  it("loads concepts on mount", async () => {
     const { result } = renderHook(() => useConcepts());
 
-    await act(async () => {
-      await result.current.loadConcepts(1);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
     });
 
-    expect(mockFetchConcepts).toHaveBeenCalledWith({
-      page: 1,
-      title: undefined
-    });
+    expect(result.current.concepts).toHaveLength(2);
+    expect(result.current.concepts[0].slug).toBe("variables");
+    expect(result.current.totalCount).toBe(2);
   });
 
-  it("updates state correctly on successful fetch", async () => {
-    const mockResponse = {
-      results: [
-        {
-          slug: "test",
-          title: "Test",
-          description: "Test concept",
-          children_count: 0,
-          user_may_access: true,
-          video_data: null
-        }
-      ],
-      meta: {
-        current_page: 1,
-        total_pages: 2,
-        total_count: 10,
-        unlocked_count: 5
-      }
-    };
-    mockFetchConcepts.mockResolvedValue(mockResponse);
+  it("marks all concepts as unlocked when not authenticated", async () => {
+    mockUseAuthStore.mockReturnValue(false);
 
     const { result } = renderHook(() => useConcepts());
 
-    await act(async () => {
-      await result.current.loadConcepts(1);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
     });
 
-    expect(result.current.conceptsState).toEqual({
-      concepts: mockResponse.results,
-      currentPage: 1,
-      totalPages: 2,
-      totalCount: 10,
-      unlockedCount: 5
+    expect(result.current.concepts.every((c) => c.isUnlocked)).toBe(true);
+  });
+
+  it("fetches unlock state when authenticated", async () => {
+    mockUseAuthStore.mockReturnValue(true);
+    mockFetchUnlockedSlugs.mockResolvedValue(["variables"]);
+
+    const { result } = renderHook(() => useConcepts());
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
     });
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe(null);
+
+    expect(mockFetchUnlockedSlugs).toHaveBeenCalled();
+    const variables = result.current.concepts.find((c) => c.slug === "variables");
+    const strings = result.current.concepts.find((c) => c.slug === "strings");
+    expect(variables?.isUnlocked).toBe(true);
+    expect(strings?.isUnlocked).toBe(false);
+    expect(result.current.unlockedCount).toBe(1);
+  });
+
+  it("handles search via handleSearch", async () => {
+    mockSearchConcepts.mockResolvedValue([mockConcepts[0]]);
+
+    const { result } = renderHook(() => useConcepts());
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("variables");
+    });
+
+    expect(result.current.searchQuery).toBe("variables");
+    expect(mockSearchConcepts).toHaveBeenCalledWith("variables");
+  });
+
+  it("resets to all concepts when search is cleared", async () => {
+    mockSearchConcepts.mockResolvedValue([mockConcepts[0]]);
+
+    const { result } = renderHook(() => useConcepts());
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("variables");
+    });
+
+    await act(async () => {
+      await result.current.handleSearch("");
+    });
+
+    expect(result.current.concepts).toHaveLength(2);
   });
 
   it("handles errors correctly", async () => {
-    mockFetchConcepts.mockRejectedValue(new Error("Fetch failed"));
+    mockGetConcepts.mockRejectedValue(new Error("Fetch failed"));
 
     const { result } = renderHook(() => useConcepts());
 
-    await act(async () => {
-      await result.current.loadConcepts(1);
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
     });
 
     expect(result.current.error).toBe("Failed to load concepts. Please try again later.");
-    expect(result.current.isLoading).toBe(false);
-  });
-
-  it("passes title parameter when provided", async () => {
-    const mockResponse = {
-      results: [],
-      meta: {
-        current_page: 1,
-        total_pages: 1,
-        total_count: 0,
-        unlocked_count: 0
-      }
-    };
-    mockFetchConcepts.mockResolvedValue(mockResponse);
-
-    const { result } = renderHook(() => useConcepts());
-
-    await act(async () => {
-      await result.current.loadConcepts(1, "search term");
-    });
-
-    expect(mockFetchConcepts).toHaveBeenCalledWith({
-      page: 1,
-      title: "search term"
-    });
   });
 });

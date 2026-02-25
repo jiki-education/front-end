@@ -111,7 +111,9 @@ export function useExerciseCompletionModal({
 
   const handleContinue = () => {
     // Check if we have unlocked concepts to show first
-    const unlockedConcept = completionResponse.find((item) => item.type === "concept_unlocked")?.data.concept;
+    // Support both new format (concept_slug) and old format (concept object)
+    const conceptEvent = completionResponse.find((item) => item.type === "concept_unlocked");
+    const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
     const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
 
     if (unlockedConcept) {

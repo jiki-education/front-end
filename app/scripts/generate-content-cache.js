@@ -7,12 +7,14 @@
  * Processes markdown files from the content package and writes them to
  * .content-cache/ in a flat file structure matching R2 storage keys:
  *
- *   blog/index/{locale}.json    - Metadata index for all blog posts
- *   blog/{slug}/{locale}.md     - Raw markdown (image paths fixed)
- *   articles/index/{locale}.json - Metadata index for all articles
- *   articles/{slug}/{locale}.md  - Raw markdown (image paths fixed)
+ *   blog/index/{locale}.json      - Metadata index for all blog posts
+ *   blog/{slug}/{locale}.md       - Raw markdown (image paths fixed)
+ *   articles/index/{locale}.json  - Metadata index for all articles
+ *   articles/{slug}/{locale}.md   - Raw markdown (image paths fixed)
+ *   concepts/index/{locale}.json  - Metadata index for all concepts
+ *   concepts/{slug}/{locale}.md   - Raw markdown concept content
  *   search/articles-{locale}.json - Lunr search indexes
- *   manifest.json                - All slugs, locales, and content hashes
+ *   manifest.json                 - All slugs, locales, and content hashes
  *
  * Used by:
  * - FilesystemContentLoader (local development)
@@ -29,6 +31,7 @@ import lunr from "lunr";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
 const AUTHORS_FILE = path.join(__dirname, "../../content/src/authors.json");
+const CONCEPTS_DIR = path.join(__dirname, "../../curriculum/src/concepts");
 const OUTPUT_DIR = path.join(__dirname, "../.content-cache");
 
 // Load authors
@@ -202,10 +205,11 @@ function buildMetadataIndexes(type, content) {
 /**
  * Build the manifest file with all slugs, locales, and hashes
  */
-function buildManifest(blog, articles) {
+function buildManifest(blog, articles, concepts) {
   const manifest = {
     blog: [],
-    articles: []
+    articles: [],
+    concepts: []
   };
 
   for (const [slug, locales] of Object.entries(blog)) {
@@ -217,6 +221,12 @@ function buildManifest(blog, articles) {
   for (const [slug, locales] of Object.entries(articles)) {
     for (const locale of Object.keys(locales)) {
       manifest.articles.push({ slug, locale });
+    }
+  }
+
+  for (const [slug, locales] of Object.entries(concepts)) {
+    for (const locale of Object.keys(locales)) {
+      manifest.concepts.push({ slug, locale });
     }
   }
 
@@ -272,6 +282,131 @@ function generateSearchIndexes(articles) {
 }
 
 /**
+ * Process concepts from curriculum/src/concepts/
+ * Returns { [slug]: { [locale]: conceptMeta } }
+ */
+function processConcepts() {
+  const result = {};
+
+  if (!fs.existsSync(CONCEPTS_DIR)) {
+    return result;
+  }
+
+  // Load exercise-concept mapping if available
+  const exerciseMapPath = path.join(CONCEPTS_DIR, "exercise-map.json");
+  let exerciseMap = {};
+  if (fs.existsSync(exerciseMapPath)) {
+    exerciseMap = JSON.parse(fs.readFileSync(exerciseMapPath, "utf-8"));
+  }
+
+  const slugDirs = fs.readdirSync(CONCEPTS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
+
+  // First pass: collect all concepts to compute childrenCount
+  const allConfigs = {};
+  for (const slugDir of slugDirs) {
+    const slug = slugDir.name;
+    const configPath = path.join(CONCEPTS_DIR, slug, "config.json");
+
+    if (!fs.existsSync(configPath)) {
+      throw new Error(`Missing config.json for concept ${slug}`);
+    }
+
+    allConfigs[slug] = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+  }
+
+  // Compute childrenCount for each concept
+  const childrenCount = {};
+  for (const [slug, config] of Object.entries(allConfigs)) {
+    childrenCount[slug] = childrenCount[slug] || 0;
+    if (config.parent) {
+      childrenCount[config.parent] = (childrenCount[config.parent] || 0) + 1;
+    }
+  }
+
+  // Validate parent references
+  for (const [slug, config] of Object.entries(allConfigs)) {
+    if (config.parent && !allConfigs[config.parent]) {
+      throw new Error(`Concept ${slug} references non-existent parent: ${config.parent}`);
+    }
+  }
+
+  // Second pass: process markdown files
+  for (const slugDir of slugDirs) {
+    const slug = slugDir.name;
+    const slugPath = path.join(CONCEPTS_DIR, slug);
+    const config = allConfigs[slug];
+
+    const mdFiles = fs
+      .readdirSync(slugPath, { withFileTypes: true })
+      .filter((f) => f.isFile() && f.name.endsWith(".md"));
+
+    result[slug] = {};
+
+    for (const file of mdFiles) {
+      const locale = path.basename(file.name, ".md");
+      const filePath = path.join(slugPath, file.name);
+
+      try {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        const parsed = matter(fileContent);
+        const frontmatter = parsed.data;
+        const markdown = parsed.content;
+
+        if (!frontmatter.title) {
+          throw new Error(`Missing title in frontmatter of ${filePath}`);
+        }
+        if (!frontmatter.description) {
+          throw new Error(`Missing description in frontmatter of ${filePath}`);
+        }
+
+        // Write the raw markdown body (stripped of frontmatter)
+        writeOutputFile(`concepts/${slug}/${locale}.md`, markdown);
+
+        // Build metadata entry
+        const meta = {
+          slug,
+          title: frontmatter.title,
+          description: frontmatter.description,
+          parentSlug: config.parent || null,
+          order: config.order || 0,
+          childrenCount: childrenCount[slug] || 0,
+          exerciseSlugs: exerciseMap[slug] || []
+        };
+
+        result[slug][locale] = meta;
+      } catch (error) {
+        console.error(`Error processing ${filePath}:`, error.message);
+        throw error;
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Build per-locale concept index files
+ */
+function buildConceptIndexes(concepts) {
+  const byLocale = {};
+
+  for (const [, locales] of Object.entries(concepts)) {
+    for (const [locale, meta] of Object.entries(locales)) {
+      if (!byLocale[locale]) {
+        byLocale[locale] = [];
+      }
+      byLocale[locale].push(meta);
+    }
+  }
+
+  for (const [locale, conceptList] of Object.entries(byLocale)) {
+    // Sort by order within parent groups
+    conceptList.sort((a, b) => a.order - b.order);
+    writeOutputFile(`concepts/index/${locale}.json`, JSON.stringify({ concepts: conceptList }, null, 2));
+  }
+}
+
+/**
  * Main generation function
  */
 function generateContentCache() {
@@ -294,12 +429,16 @@ function generateContentCache() {
     listed: config.listed
   }));
 
+  // Process concepts
+  const concepts = processConcepts();
+
   // Write metadata indexes
   buildMetadataIndexes("blog", blog);
   buildMetadataIndexes("articles", articles);
+  buildConceptIndexes(concepts);
 
   // Write manifest
-  buildManifest(blog, articles);
+  buildManifest(blog, articles, concepts);
 
   // Write search indexes
   generateSearchIndexes(articles);
@@ -312,10 +451,14 @@ function generateContentCache() {
   for (const locales of Object.values(articles)) {
     totalTranslations += Object.keys(locales).length;
   }
+  for (const locales of Object.values(concepts)) {
+    totalTranslations += Object.keys(locales).length;
+  }
 
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
+  console.log(`   Concepts: ${Object.keys(concepts).length} slugs`);
   console.log(`   Total translations: ${totalTranslations}`);
   console.log(`   Output: ${OUTPUT_DIR}\n`);
 }
