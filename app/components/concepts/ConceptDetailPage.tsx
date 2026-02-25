@@ -1,9 +1,19 @@
 "use client";
 
-import { getConcept, getAncestors, getConceptContent } from "@/lib/concepts/actions";
-import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
+import {
+  getConcept,
+  getAncestors,
+  getConceptContent,
+  getRelatedConcepts,
+  getExercisesForConcept
+} from "@/lib/concepts/actions";
+import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
+import { useAuthStore } from "@/lib/auth/authStore";
+import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
@@ -18,9 +28,14 @@ interface ConceptDetailPageProps {
 
 export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
   const router = useRouter();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const [concept, setConcept] = useState<ConceptMeta | null>(null);
   const [ancestors, setAncestors] = useState<ConceptAncestor[]>([]);
   const [content, setContent] = useState<string | null>(null);
+  const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
+  const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
+  const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
+  const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,7 +45,12 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
         setIsLoading(true);
         setError(null);
 
-        const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+        const [conceptData, ancestorData, related, exercises] = await Promise.all([
+          getConcept(slug),
+          getAncestors(slug),
+          getRelatedConcepts(slug),
+          getExercisesForConcept(slug)
+        ]);
 
         if (!conceptData) {
           setError("Concept not found.");
@@ -39,6 +59,24 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
 
         setConcept(conceptData);
         setAncestors(ancestorData);
+        setRelatedConcepts(related);
+        setRelatedExercises(exercises);
+
+        // Load auth-dependent data and check access
+        if (isAuthenticated) {
+          const [unlockedSlugs, statuses] = await Promise.all([
+            fetchUnlockedConceptSlugs(),
+            exercises.length > 0 ? fetchLessonStatusesBySlugs(exercises.map((e) => e.slug)) : Promise.resolve({})
+          ]);
+          setUnlockedConceptSlugs(new Set(unlockedSlugs));
+          setExerciseStatuses(statuses);
+
+          // Redirect if concept is locked for this user
+          if (!unlockedSlugs.includes(slug)) {
+            router.push("/concepts");
+            return;
+          }
+        }
 
         // Only load content for leaf concepts
         if (conceptData.childrenCount === 0) {
@@ -53,7 +91,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     };
 
     void loadConcept();
-  }, [slug]);
+  }, [slug, isAuthenticated, router]);
 
   if (isLoading) {
     return (
@@ -117,11 +155,59 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
 
   const parentTitle = ancestors.length > 0 ? ancestors[ancestors.length - 1].title : undefined;
 
+  const isConceptUnlocked = (conceptSlug: string) => !isAuthenticated || unlockedConceptSlugs.has(conceptSlug);
+
+  const isExerciseAccessible = (exerciseSlug: string) => {
+    if (!isAuthenticated) {
+      return false;
+    }
+    const status = exerciseStatuses[exerciseSlug];
+    return status === "started" || status === "completed";
+  };
+
+  const rightPanel = (
+    <div>
+      {relatedConcepts.length > 0 && (
+        <div className="mb-32">
+          <h3 className="text-18 font-semibold mb-12">Related Concepts</h3>
+          <ul>
+            {relatedConcepts.map((rc) => (
+              <li key={rc.slug} className="mb-8">
+                {isConceptUnlocked(rc.slug) ? (
+                  <Link href={`/concepts/${rc.slug}`}>{rc.title}</Link>
+                ) : (
+                  <span>{rc.title} (locked)</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {relatedExercises.length > 0 && (
+        <div>
+          <h3 className="text-18 font-semibold mb-12">Related Exercises</h3>
+          <ul>
+            {relatedExercises.map((ex) => (
+              <li key={ex.slug} className="mb-8">
+                {isExerciseAccessible(ex.slug) ? (
+                  <Link href={`/lesson/${ex.slug}`}>{ex.title}</Link>
+                ) : (
+                  <span>{ex.title} (locked)</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <ConceptsLayout>
       <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
 
-      <ConceptLayout>
+      <ConceptLayout rightPanel={rightPanel}>
         <ConceptHero category={parentTitle} title={concept.title} intro={concept.description} />
 
         {content && <MarkdownContent content={content} variant="base" />}

@@ -16,3 +16,8 @@ export interface ConceptAncestor {
   slug: string;
   title: string;
 }
+
+export interface ExerciseInfo {
+  slug: string;
+  title: string;
+}

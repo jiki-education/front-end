@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { getConcepts, searchConcepts as searchConceptsAction } from "@/lib/concepts/actions";
+import { getTopLevelConcepts, searchConcepts as searchConceptsAction } from "@/lib/concepts/actions";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta, ConceptForDisplay } from "@/types/concepts";
@@ -21,7 +21,7 @@ export function useConcepts() {
         setError(null);
 
         const [concepts, slugs] = await Promise.all([
-          getConcepts(),
+          getTopLevelConcepts(),
           isAuthenticated ? fetchUnlockedConceptSlugs() : Promise.resolve([])
         ]);
 
@@ -46,7 +46,7 @@ export function useConcepts() {
         return;
       }
       try {
-        const results = await searchConceptsAction(query);
+        const results = await searchConceptsAction(query, null);
         setDisplayedConcepts(results);
       } catch {
         setDisplayedConcepts(allConcepts);
@@ -62,7 +62,7 @@ export function useConcepts() {
 
   return {
     concepts,
-    unlockedCount: unlockedSlugs.size,
+    unlockedCount: isAuthenticated ? unlockedSlugs.size : displayedConcepts.length,
     totalCount: displayedConcepts.length,
     isLoading,
     error,
