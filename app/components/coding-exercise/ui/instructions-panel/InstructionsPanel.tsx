@@ -5,7 +5,7 @@ import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import LibrarySection from "./LibrarySection";
-import { getConceptsBySlugs } from "@/lib/concepts/actions";
+import { getConceptsBySlugs } from "@/lib/api/concepts";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";

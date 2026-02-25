@@ -1,16 +1,29 @@
-"use server";
-
-import { getContentLoader } from "@/lib/content/loaders";
-import { getExercise } from "@jiki/curriculum";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 
+// Promise-level cache to deduplicate concurrent requests for the same locale
+let cachedPromise: Promise<ConceptMeta[]> | null = null;
+let cachedLocale: string | null = null;
+
+async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
+  if (cachedPromise && cachedLocale === locale) {
+    return cachedPromise;
+  }
+  cachedLocale = locale;
+  cachedPromise = fetch(`/api/concepts?locale=${encodeURIComponent(locale)}`).then((res) => {
+    if (!res.ok) {
+      throw new Error("Failed to fetch concepts");
+    }
+    return res.json();
+  });
+  return cachedPromise;
+}
+
 export async function getConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
-  const loader = await getContentLoader();
-  return loader.getAllConceptMeta(locale);
+  return fetchAllConcepts(locale);
 }
 
 export async function getConcept(slug: string, locale: string = "en"): Promise<ConceptMeta | null> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   return all.find((c) => c.slug === slug) ?? null;
 }
 
@@ -19,7 +32,7 @@ export async function searchConcepts(
   parentSlug?: string | null,
   locale: string = "en"
 ): Promise<ConceptMeta[]> {
-  let pool = await getConcepts(locale);
+  let pool = await fetchAllConcepts(locale);
   if (parentSlug !== undefined) {
     pool = pool.filter((c) => c.parentSlug === parentSlug);
   }
@@ -31,23 +44,23 @@ export async function searchConcepts(
 }
 
 export async function getConceptsBySlugs(slugs: string[], locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   const slugSet = new Set(slugs);
   return all.filter((c) => slugSet.has(c.slug));
 }
 
 export async function getTopLevelConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   return all.filter((c) => c.parentSlug === null).sort((a, b) => a.order - b.order);
 }
 
 export async function getChildren(parentSlug: string, locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   return all.filter((c) => c.parentSlug === parentSlug).sort((a, b) => a.order - b.order);
 }
 
 export async function getAncestors(slug: string, locale: string = "en"): Promise<ConceptAncestor[]> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   const bySlug = new Map(all.map((c) => [c.slug, c]));
   const ancestors: ConceptAncestor[] = [];
   let current = bySlug.get(slug);
@@ -63,7 +76,7 @@ export async function getAncestors(slug: string, locale: string = "en"): Promise
 }
 
 export async function getRelatedConcepts(slug: string, locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await getConcepts(locale);
+  const all = await fetchAllConcepts(locale);
   const concept = all.find((c) => c.slug === slug);
   if (!concept) {
     return [];
@@ -103,24 +116,18 @@ export async function getRelatedConcepts(slug: string, locale: string = "en"): P
 }
 
 export async function getExercisesForConcept(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
-  const concept = await getConcept(slug, locale);
-  if (!concept || concept.exerciseSlugs.length === 0) {
-    return [];
+  const res = await fetch(`/api/concepts/${encodeURIComponent(slug)}/exercises?locale=${encodeURIComponent(locale)}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch exercises for concept");
   }
-
-  const results = await Promise.all(
-    concept.exerciseSlugs.map(async (exSlug) => {
-      const exercise = await getExercise(exSlug);
-      if (!exercise) {
-        return null;
-      }
-      return { slug: exSlug, title: exercise.title };
-    })
-  );
-  return results.filter((r): r is ExerciseInfo => r !== null);
+  return res.json();
 }
 
 export async function getConceptContent(slug: string, locale: string = "en"): Promise<string> {
-  const loader = await getContentLoader();
-  return loader.getConceptContent(slug, locale);
+  const res = await fetch(`/api/concepts/${encodeURIComponent(slug)}/content?locale=${encodeURIComponent(locale)}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch concept content");
+  }
+  const data = await res.json();
+  return data.content;
 }

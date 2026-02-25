@@ -1,7 +1,7 @@
 "use client";
 
 import { fetchLevels } from "@/lib/api/levels";
-import { getConcepts } from "@/lib/concepts/actions";
+import { getConcepts } from "@/lib/api/concepts";
 import { useState } from "react";
 import type { Level } from "@/types/levels";
 import type { ConceptMeta } from "@/types/concepts";

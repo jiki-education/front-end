@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ConceptCard } from "@/components/concepts";
 import { ConceptCardsLoadingSkeleton } from "@/components/concepts";
-import { getChildren } from "@/lib/concepts/actions";
+import { getChildren } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta } from "@/types/concepts";
