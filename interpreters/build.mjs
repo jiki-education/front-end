@@ -31,7 +31,7 @@ if (isWatch) {
     await ctx.watch();
   }
 } else {
-  await Promise.all(entries.map((entry) => build({ ...commonOptions, ...entry })));
+  await Promise.all(entries.map(entry => build({ ...commonOptions, ...entry })));
 
   // Generate declaration re-export files for subpath exports.
   // tsc already generates entry-*.d.ts from the source files, so we just
