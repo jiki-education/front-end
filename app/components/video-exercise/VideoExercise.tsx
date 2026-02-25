@@ -32,9 +32,9 @@ export default function VideoExercise({ lessonData }: { lessonData: VideoLesson 
 
   return (
     <div
-      className={`${styles.container} ${styles.gridBackground} ${isInitializing ? styles.initializing : styles.visible}`}
+      className={`${styles.container} ${styles.gridBackgroundLight} ${isInitializing ? styles.initializing : styles.visible}`}
     >
-      <LessonQuitButton className={styles.closeButton} variant="default" />
+      <LessonQuitButton className={styles.closeButton} variant="glass" />
 
       <div className={styles.videoContainer}>
         <div className={styles.videoAspectRatio}>
