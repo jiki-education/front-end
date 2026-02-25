@@ -10,7 +10,7 @@ export function CompletionCert({ completedCount, totalCount }: CompletionCertPro
   const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${percentage === 100 ? styles.complete : ""}`}>
       <div className={styles.badge}>
         <TrophyIcon />
       </div>

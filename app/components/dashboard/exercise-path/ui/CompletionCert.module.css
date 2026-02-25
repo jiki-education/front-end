@@ -19,6 +19,10 @@
         transform: translateX(-50%);
         background: var(--color-gray-200);
     }
+
+    &.complete::before {
+        background: var(--color-green-500);
+    }
 }
 
 .badge {
