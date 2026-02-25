@@ -6,7 +6,7 @@ import {
   getConceptContent,
   getRelatedConcepts,
   getExercisesForConcept
-} from "@/lib/concepts/actions";
+} from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
 import { useAuthStore } from "@/lib/auth/authStore";

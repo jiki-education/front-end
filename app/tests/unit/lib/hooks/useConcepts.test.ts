@@ -1,10 +1,10 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useConcepts } from "@/lib/hooks/useConcepts";
-import { getTopLevelConcepts, searchConcepts } from "@/lib/concepts/actions";
+import { getTopLevelConcepts, searchConcepts } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 
-jest.mock("@/lib/concepts/actions");
+jest.mock("@/lib/api/concepts");
 jest.mock("@/lib/api/concept-unlocks");
 jest.mock("@/lib/auth/authStore");
 

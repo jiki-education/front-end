@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "@/app/styles/components/modals.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
-import { getConcept } from "@/lib/concepts/actions";
+import { getConcept } from "@/lib/api/concepts";
 import type { ConceptMeta } from "@/types/concepts";
 
 interface ConceptUnlockedStepProps {

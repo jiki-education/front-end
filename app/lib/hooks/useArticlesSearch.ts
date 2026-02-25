@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import lunr from "lunr";
 import { useDebounce } from "./useDebounce";
-import { getSearchIndex } from "@/lib/content/actions";
+import { getSearchIndex } from "@/lib/api/content-search";
 
 interface SearchIndex {
   index: lunr.Index;

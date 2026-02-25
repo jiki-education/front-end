@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getConcept } from "@/lib/concepts/actions";
+import { getConcept } from "@/lib/concepts/api-helpers";
 
 export async function getConceptMetadata(slug: string): Promise<Metadata> {
   try {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { getTopLevelConcepts, searchConcepts as searchConceptsAction } from "@/lib/concepts/actions";
+import { getTopLevelConcepts, searchConcepts as searchConceptsAction } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta, ConceptForDisplay } from "@/types/concepts";
