@@ -55,6 +55,7 @@ describe("useChat token management", () => {
       language: "javascript",
       exerciseTitle: "Test Exercise",
       exerciseInstructions: "Test instructions",
+      contentHash: "test-hash",
       exercise: { slug: "test-exercise", tasks: [] }
     });
 

@@ -118,11 +118,13 @@ export async function getRelatedConcepts(slug: string, locale: string = "en"): P
 }
 
 export async function getExercisesForConcept(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
-  const res = await fetch(`/api/concepts/${encodeURIComponent(slug)}/exercises?locale=${encodeURIComponent(locale)}`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch exercises for concept");
+  const concept = await getConcept(slug, locale);
+  if (!concept || concept.exerciseSlugs.length === 0) {
+    return [];
   }
-  return res.json();
+  const { getExerciseMetaBySlugs } = await import("@/lib/api/exercise-meta");
+  const metas = await getExerciseMetaBySlugs(concept.exerciseSlugs, locale);
+  return metas.map((m) => ({ slug: m.slug, title: m.title }));
 }
 
 export async function getConceptContent(slug: string, locale: string = "en"): Promise<string> {

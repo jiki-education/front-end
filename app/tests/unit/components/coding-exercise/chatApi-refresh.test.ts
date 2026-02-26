@@ -47,7 +47,8 @@ describe("Chat API JWT Authentication", () => {
     code: "console.log('test');",
     question: "How does this work?",
     language: "javascript",
-    history: []
+    history: [],
+    contentHash: "test-hash"
   };
 
   const mockCallbacks = {

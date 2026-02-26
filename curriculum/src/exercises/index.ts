@@ -1,4 +1,4 @@
-import type { ExerciseDefinition } from "./types";
+import type { ExerciseCore } from "./types";
 
 // Auto-generated or manually maintained registry
 export const exercises = {
@@ -108,13 +108,14 @@ export const exercises = {
 export type ExerciseSlug = keyof typeof exercises;
 
 /**
- * Retrieves an exercise definition by its slug.
- * Used by the LLM chat proxy to get exercise context for prompt building.
+ * Retrieves an exercise core definition by its slug.
+ * Returns the shared exercise module (scenarios, tasks, functions, etc.)
+ * without locale/language-specific content (title, instructions, stubs, solutions).
  *
  * @param slug - The exercise slug (e.g., "maze-solve-basic")
- * @returns The exercise definition or null if not found
+ * @returns The exercise core definition or null if not found
  */
-export async function getExercise(slug: string): Promise<ExerciseDefinition | null> {
+export async function getExercise(slug: string): Promise<ExerciseCore | null> {
   const loader = exercises[slug as ExerciseSlug];
   if (loader === undefined) {
     return null;

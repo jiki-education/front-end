@@ -9,6 +9,7 @@ import {
 import { fetchChatToken } from "@/components/coding-exercise/lib/chatTokenApi";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { exercises } from "@jiki/curriculum";
+import { fetchExerciseContent } from "@/lib/api/exercise-meta";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Types
@@ -67,8 +68,10 @@ export default function LLMChatTestPage() {
       try {
         const loader = exercises[slug as keyof typeof exercises];
         const exercise = (await loader()).default;
-        // Get initial code from exercise definition
-        const starterCode = exercise.stubs[selectedLanguage] || "// Write your code here";
+
+        // Load stub from static content
+        const content = await fetchExerciseContent(slug, "en", selectedLanguage);
+        const starterCode = content.stub || "// Write your code here";
         setCode(starterCode);
 
         // Load available tasks
@@ -135,7 +138,8 @@ export default function LLMChatTestPage() {
       question,
       history: history.slice(-5), // Last 5 messages
       nextTaskId: selectedTaskId || undefined, // Only include if set
-      language: selectedLanguage
+      language: selectedLanguage,
+      contentHash: ""
     };
 
     addDebugEvent("request", requestPayload);

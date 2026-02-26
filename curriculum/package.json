@@ -40,8 +40,7 @@
   "dependencies": {
     "@jiki/interpreters": "workspace:*",
     "@types/diff": "^8.0.0",
-    "diff": "^8.0.3",
-    "gray-matter": "^4.0.3"
+    "diff": "^8.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",

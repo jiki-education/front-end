@@ -1,6 +1,5 @@
 import { getContentLoader } from "@/lib/content/loaders";
-import { getExercise } from "@jiki/curriculum";
-import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
+import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
 
 export async function getConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
   const loader = await getContentLoader();
@@ -98,24 +97,6 @@ export async function getRelatedConcepts(slug: string, locale: string = "en"): P
       return true;
     })
     .slice(0, 6);
-}
-
-export async function getExercisesForConcept(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
-  const concept = await getConcept(slug, locale);
-  if (!concept || concept.exerciseSlugs.length === 0) {
-    return [];
-  }
-
-  const results = await Promise.all(
-    concept.exerciseSlugs.map(async (exSlug) => {
-      const exercise = await getExercise(exSlug);
-      if (!exercise) {
-        return null;
-      }
-      return { slug: exSlug, title: exercise.title };
-    })
-  );
-  return results.filter((r): r is ExerciseInfo => r !== null);
 }
 
 export async function getConceptContent(slug: string, locale: string = "en"): Promise<string> {

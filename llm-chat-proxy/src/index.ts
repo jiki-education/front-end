@@ -82,10 +82,14 @@ app.post("/chat", async (c) => {
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
-    const { exerciseSlug, code, question, history = [], nextTaskId, language } = body;
+    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash } = body;
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
+    }
+
+    if (!contentHash) {
+      return c.json({ error: "Missing required field: contentHash" }, 400);
     }
 
     // 2b. Validate exerciseSlug in request matches JWT claim
@@ -100,14 +104,18 @@ app.post("/chat", async (c) => {
       );
     }
 
-    // 3. Build prompt (uses curriculum package)
+    // 3. Fetch exercise content from app's static files and build prompt
+    const origin = c.req.header("Origin") || "https://jiki.io";
+    const contentUrl = `${origin}/static/exercises/${exerciseSlug}/en-${language}-${contentHash}.json`;
+
     const prompt = await buildPrompt({
       exerciseSlug,
       code,
       question,
       history,
       nextTaskId,
-      language
+      language,
+      contentUrl
     });
 
     // 4. Stream from Gemini and collect full response
