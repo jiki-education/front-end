@@ -1,7 +1,5 @@
 {
   "slug": "smashing-blocks",
-  "title": "Smashing Blocks",
-  "instructions": "In the previous exercise, you got the ball bouncing around the game area. Now it's time to add some blocks!\n\nYou have a new `Block` class. When you create an instance using `new Block(left, top)`, you specify its left and top position. All blocks are `16` wide.\n\nThe block has `top`, `left`, `width` and `height` properties which you can read. It also has a `smashed` property you can read and write.\n\nYou have two jobs:\n\n1. Create 5 blocks. They should all have a top of `31`. The first should have a left of `8`, and then they should be evenly distributed along the game area (with a gap of `1` between them).\n\n2. Handle what happens when the ball hits a block. When this happens, set the block's `smashed` property to `true` (which makes it disappear) and reverse the ball's direction. Once all blocks are smashed, stop moving the ball.\n\nFor this exercise, the ball will only ever hit the bottom of a block, which simplifies the collision logic.",
   "estimatedMinutes": 20,
   "levelId": "objects",
   "hints": [

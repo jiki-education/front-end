@@ -60,6 +60,7 @@ export default function IOTestRunnerPage() {
       type: "io",
       slug: "io-test-runner-e2e",
       title: "IO Test Runner E2E Exercise",
+      description: "",
       instructions: "This is a test exercise for IO tests",
       estimatedMinutes: 5,
       levelId: "fundamentals",

@@ -7,6 +7,7 @@ export interface ChatRequest {
   history?: ChatMessage[];
   nextTaskId?: string;
   language: Language;
+  contentHash: string; // Hash for fetching exercise content from app's static files
 }
 
 export interface ChatMessage {

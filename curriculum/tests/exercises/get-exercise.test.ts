@@ -7,17 +7,8 @@ describe("getExercise", () => {
 
     expect(exercise).not.toBeNull();
     expect(exercise?.slug).toBe("maze-solve-basic");
-    expect(exercise?.title).toBe("Manually Solve a Maze");
     expect(exercise?.tasks).toBeDefined();
     expect(exercise?.scenarios).toBeDefined();
-  });
-
-  it("should return exercise definition for maze-solve-basic", async () => {
-    const exercise = await getExercise("maze-solve-basic");
-
-    expect(exercise).not.toBeNull();
-    expect(exercise?.slug).toBe("maze-solve-basic");
-    expect(exercise?.title).toBeDefined();
   });
 
   it("should return null for non-existent exercise", async () => {

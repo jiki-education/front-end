@@ -1,7 +1,5 @@
 {
   "slug": "bouncer-wristbands",
-  "title": "Bouncer: Wristbands",
-  "instructions": "You're still working as a bouncer, but now the venue has a wristband system. Different age groups get different colored wristbands.\n\nYou have these functions:\n- `getAge()` returns the age of the person waiting outside\n- `childWristband()` gives them a child wristband (under 13)\n- `teenWristband()` gives them a teen wristband (13 to 17)\n- `adultWristband()` gives them an adult wristband (18 to 64)\n- `seniorWristband()` gives them a senior wristband (65 and over)\n\nGet the person's age and give them the correct wristband!",
   "estimatedMinutes": 10,
   "levelId": "conditionals",
   "hints": [

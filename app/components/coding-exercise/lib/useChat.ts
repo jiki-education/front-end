@@ -48,7 +48,8 @@ export function useChat(orchestrator: Orchestrator) {
           question: message,
           language: context.language,
           history: chatState.messages,
-          nextTaskId: context.currentTaskId || undefined
+          nextTaskId: context.currentTaskId || undefined,
+          contentHash: context.contentHash
         },
         {
           onTextChunk: (text) => {

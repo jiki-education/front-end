@@ -7,7 +7,7 @@ import type {
   IOScenario,
   TestExpect,
   CodeCheckExpect,
-  ExerciseDefinition,
+  ExerciseCore,
   InterpreterOptions
 } from "../src/exercises/types";
 import { getLanguageFeatures } from "../src/levels";
@@ -258,7 +258,7 @@ export function runAllIOScenarios(
  * Automatically detects visual vs IO exercises and uses the appropriate test runner.
  */
 export function runExerciseTests(
-  exercise: ExerciseDefinition,
+  exercise: ExerciseCore,
   studentCode: string,
   language: Language = "jikiscript"
 ): ScenarioTestResult[] {
