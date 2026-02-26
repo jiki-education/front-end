@@ -50,10 +50,10 @@ export function InlineLoading() {
   );
 }
 
-export function ConceptCardsLoadingSkeleton() {
+export function ConceptCardsLoadingSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className={conceptStyles.conceptsGrid}>
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: count }).map((_, i) => (
         <div key={i} className={styles.placeholderCard}>
           <div className={styles.placeholderIcon}></div>
           <div className={styles.placeholderContent}>
@@ -64,5 +64,15 @@ export function ConceptCardsLoadingSkeleton() {
         </div>
       ))}
     </div>
+  );
+}
+
+export function ConceptGroupPageSkeleton() {
+  return (
+    <>
+      <div className={styles.placeholderBreadcrumb}></div>
+      <div className={styles.placeholderHeading}></div>
+      <ConceptCardsLoadingSkeleton count={4} />
+    </>
   );
 }

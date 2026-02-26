@@ -17,6 +17,7 @@ import Link from "next/link";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
+import { ConceptGroupPageSkeleton } from "@/components/concepts/LoadingStates";
 import ConceptHero from "@/components/concepts/ConceptHero";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
 import SubconceptsGrid from "@/components/concepts/SubconceptsGrid";
@@ -96,13 +97,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
   if (isLoading) {
     return (
       <ConceptsLayout>
-        <div className="animate-pulse">
-          <div className="mb-12">
-            <div className="mb-6 h-12 w-3/4 bg-gray-200 rounded"></div>
-            <div className="mb-4 h-4 w-1/4 bg-gray-200 rounded"></div>
-            <div className="h-6 w-1/2 bg-gray-200 rounded"></div>
-          </div>
-        </div>
+        <ConceptGroupPageSkeleton />
       </ConceptsLayout>
     );
   }
