@@ -32,3 +32,15 @@ export function getChatApiUrl(path: string): string {
 
   return `${config.chatUrl}${cleanPath}`;
 }
+
+/**
+ * Resolves an asset URL from the API. If the URL is relative (starts with "/"),
+ * it is prefixed with the API base URL so that assets like uploaded avatars
+ * resolve correctly rather than against the Next.js origin.
+ */
+export function resolveApiAssetUrl(url: string): string {
+  if (url.startsWith("/")) {
+    return `${getApiConfig().baseUrl}${url}`;
+  }
+  return url;
+}
