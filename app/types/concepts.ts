@@ -1,4 +1,4 @@
-import type { VideoData } from "@/types/lesson";
+import type { VideoSource } from "@/types/lesson";
 
 export interface ConceptMeta {
   slug: string;
@@ -8,7 +8,7 @@ export interface ConceptMeta {
   order: number;
   childrenCount: number;
   exerciseSlugs: string[];
-  video_data?: VideoData[] | null;
+  video_data?: VideoSource[] | null;
 }
 
 export interface ConceptForDisplay extends ConceptMeta {

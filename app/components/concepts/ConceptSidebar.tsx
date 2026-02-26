@@ -3,13 +3,13 @@ import { RelatedExercises } from "@/components/concepts/RelatedExercises";
 import { VideoRecapCard } from "@/components/concepts/VideoRecapCard";
 import type { ConceptMeta, ExerciseInfo } from "@/types/concepts";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
-import type { VideoData } from "@/types/lesson";
+import type { VideoSource } from "@/types/lesson";
 
 interface ConceptSidebarProps {
   conceptSlug: string;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
-  videoData: VideoData[] | null;
+  videoData: VideoSource[] | null;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
 }

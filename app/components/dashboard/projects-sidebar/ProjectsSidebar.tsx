@@ -87,12 +87,18 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     void loadData();
   }, [user, isPremium]);
 
-  // Filter to get recent/in-progress projects (up to 3) - only computed for premium users
+  // Filter to get recent/in-progress projects, padded to 3 with locked projects - only computed for premium users
   const recentProjects = useMemo(() => {
     if (!isPremium) {
       return [];
     }
-    return projects.filter((p) => p.status === "started" || p.status === "unlocked").slice(0, 3);
+    const active = projects.filter((p) => p.status === "started" || p.status === "unlocked").slice(0, 3);
+    if (active.length < 3) {
+      const activeSlugs = new Set(active.map((p) => p.slug));
+      const locked = projects.filter((p) => p.status === "locked" && !activeSlugs.has(p.slug));
+      return [...active, ...locked.slice(0, 3 - active.length)];
+    }
+    return active;
   }, [isPremium, projects]);
 
   // Count unlocked projects - only computed for premium users

@@ -27,7 +27,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className={styles.statCard} data-status={project.status}>
       <div className={styles.statCardEmoji}>
-        <ProjectIcon slug={project.slug} width={24} height={24} />
+        <ProjectIcon slug={project.slug} width="100%" height="100%" />
       </div>
 
       <div className={styles.statCardTitle}>{project.title}</div>

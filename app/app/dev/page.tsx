@@ -115,6 +115,14 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- HintsPanel with walkthrough video section</span>
             </li>
+            <li>
+              <Link href="/dev/projects-sidebar" className="text-blue-600 hover:underline">
+                Projects Sidebar States
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - All projects sidebar states (loading, free user, premium empty, premium with projects)
+              </span>
+            </li>
           </ul>
         </div>
 
