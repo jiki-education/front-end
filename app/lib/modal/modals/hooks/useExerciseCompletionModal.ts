@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { hideModal, showModal } from "../../store";
 import styles from "@/app/styles/components/modals.module.css";
 import SoundManager from "@/lib/sound/SoundManager";
@@ -35,6 +35,7 @@ export function useExerciseCompletionModal({
 }: UseExerciseCompletionModalProps) {
   const [step, setStep] = useState<ModalStep>(initialStep);
   const [completionResponse, setCompletionResponse] = useState<CompletionResponseData[]>(initialCompletionResponse);
+  const completionResponseRef = useRef<CompletionResponseData[]>(initialCompletionResponse);
 
   // Play success sound and launch confetti when the modal opens on the success step
   useEffect(() => {
@@ -85,16 +86,20 @@ export function useExerciseCompletionModal({
   const handleCompleteExercise = async () => {
     setStep("difficulty-rating");
     const events = (await onCompleteExercise?.()) ?? [];
+    completionResponseRef.current = events;
     setCompletionResponse(events);
   };
 
   const handleRatingsSubmit = (difficultyRating: number, funRating: number) => {
     rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
 
-    // Sequence through unlocked concept/project before landing on completed
-    const conceptEvent = completionResponse.find((item) => item.type === "concept_unlocked");
+    // Sequence through unlocked concept/project before landing on completed.
+    // Use the ref to avoid reading stale state if the user submits ratings
+    // before the API call in handleCompleteExercise has finished.
+    const conceptEvent = completionResponseRef.current.find((item) => item.type === "concept_unlocked");
     const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
-    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
+    const unlockedProjectData = completionResponseRef.current.find((item) => item.type === "project_unlocked")?.data
+      .project;
 
     if (unlockedConcept) {
       setStep("concept-unlocked");
@@ -106,7 +111,8 @@ export function useExerciseCompletionModal({
   };
 
   const handleContinueFromConcept = () => {
-    const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
+    const unlockedProjectData = completionResponseRef.current.find((item) => item.type === "project_unlocked")?.data
+      .project;
 
     if (unlockedProjectData) {
       setStep("project-unlocked");
