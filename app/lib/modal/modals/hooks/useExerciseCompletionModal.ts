@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { hideModal, showModal } from "../../store";
 import styles from "@/app/styles/components/modals.module.css";
 import SoundManager from "@/lib/sound/SoundManager";
+import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
 import { rateLesson } from "@/lib/api/lessons";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
@@ -35,12 +36,16 @@ export function useExerciseCompletionModal({
   const [step, setStep] = useState<ModalStep>(initialStep);
   const [completionResponse, setCompletionResponse] = useState<CompletionResponseData[]>(initialCompletionResponse);
 
-  // Play success sound when the modal opens on the success step
+  // Play success sound and launch confetti when the modal opens on the success step
   useEffect(() => {
     if (step === "success") {
       const soundManager = SoundManager.getInstance();
       soundManager.play("success");
+      launchConfetti();
     }
+    return () => {
+      cleanupCanvas();
+    };
   }, [step]);
 
   // Update overlay class when step changes to project-unlocked
