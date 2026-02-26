@@ -78,7 +78,16 @@ export class FilesystemContentLoader implements ContentLoader {
   }
 
   async getConceptContent(slug: string, locale: string): Promise<string> {
-    return this.getMarkdownContent(`concepts/${slug}/${locale}.md`, `concepts/${slug}/en.md`);
+    const primaryKey = `concepts/${slug}/${locale}.md`;
+    const fallbackKey = `concepts/${slug}/en.md`;
+    let markdown = await this.readTextFile(primaryKey);
+    if (!markdown) {
+      markdown = await this.readTextFile(fallbackKey);
+    }
+    if (!markdown) {
+      return "";
+    }
+    return marked.parse(markdown) as string;
   }
 
   async getAvailableLocales(type: "blog" | "articles"): Promise<string[]> {

@@ -1,4 +1,5 @@
 {
   "parent": "colors",
-  "order": 2
+  "order": 2,
+  "category": false
 }

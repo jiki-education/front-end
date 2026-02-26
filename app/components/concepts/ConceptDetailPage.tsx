@@ -23,7 +23,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
     return <ConceptErrorView message={data.error} onBack={() => router.push("/concepts")} />;
   }
 
-  if (data.concept.childrenCount > 0) {
+  if (data.concept.category) {
     return <ConceptGroupView concept={data.concept} ancestors={data.ancestors} />;
   }
 
