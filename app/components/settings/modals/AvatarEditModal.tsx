@@ -1,22 +1,51 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { hideModal, showModal, showConfirmation } from "@/lib/modal/store";
-import { uploadAvatar, deleteAvatar } from "@/lib/api/profile";
+import { useRef, useState, useCallback, useEffect } from "react";
+import Cropper from "react-easy-crop";
+import type { Area } from "react-easy-crop";
+import { hideModal } from "@/lib/modal/store";
+import { uploadAvatar } from "@/lib/api/profile";
 import { validateImageFile } from "@/lib/utils/validateImageFile";
+import { getCroppedImage } from "@/lib/utils/cropImage";
+import { useProfileStore } from "@/lib/profile/profileStore";
 import { ApiError } from "@/lib/api/client";
 import toast from "react-hot-toast";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import AvatarPreview from "../ui/AvatarPreview";
+import UploadIcon from "@/icons/upload.svg";
+import ZoomOutIcon from "@/icons/zoom-out.svg";
+import ZoomInIcon from "@/icons/zoom-in.svg";
+import styles from "./AvatarEditModal.module.css";
 
 interface AvatarEditModalProps {
   avatarUrl: string | null;
   onAvatarChange: (url: string | null) => void;
 }
 
-export function AvatarEditModal({ avatarUrl, onAvatarChange }: AvatarEditModalProps) {
+export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [deleting, setDeleting] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
+
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [cropSize, setCropSize] = useState<number | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if (!imageSrc || !containerRef.current) {
+      return;
+    }
+    const observer = new ResizeObserver((entries) => {
+      const size = Math.floor(Math.min(entries[0].contentRect.width, entries[0].contentRect.height) * 0.9);
+      setCropSize(size);
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [imageSrc]);
+
+  const onCropComplete = useCallback((_: Area, pixels: Area) => setCroppedAreaPixels(pixels), []);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -29,81 +58,118 @@ export function AvatarEditModal({ avatarUrl, onAvatarChange }: AvatarEditModalPr
       toast.error(validationError);
       return;
     }
-    const imageSrc = URL.createObjectURL(file);
-    hideModal();
-    setTimeout(() => {
-      showModal("avatar-crop-modal", {
-        imageSrc,
-        onCrop: (blob: Blob) => {
-          URL.revokeObjectURL(imageSrc);
-          void performUpload(blob);
-        }
-      });
-    }, 100);
+    setImageSrc(URL.createObjectURL(file));
   };
 
-  const performUpload = async (blob: Blob) => {
+  const handleSave = async () => {
+    if (!croppedAreaPixels || !imageSrc) {
+      return;
+    }
+    setIsSaving(true);
     try {
+      const blob = await getCroppedImage(imageSrc, croppedAreaPixels);
       const response = await uploadAvatar(blob);
-      onAvatarChange(response.profile.avatar_url || null);
+      const url = response.profile.avatar_url || null;
+      URL.revokeObjectURL(imageSrc);
+      setAvatarUrl(url);
+      onAvatarChange(url);
       toast.success("Avatar updated");
+      hideModal();
     } catch (err) {
       toast.error(err instanceof ApiError ? "Failed to upload avatar" : "Network error. Please try again.");
+      setIsSaving(false);
     }
   };
 
-  const handleRemove = () => {
-    hideModal();
-    setTimeout(() => {
-      showConfirmation({
-        title: "Remove Avatar",
-        message: "Are you sure you want to remove your avatar?",
-        confirmText: "Remove",
-        variant: "danger",
-        onConfirm: () => void performDelete()
-      });
-    }, 100);
-  };
-
-  const performDelete = async () => {
-    setDeleting(true);
-    try {
-      const response = await deleteAvatar();
-      onAvatarChange(response.profile.avatar_url || null);
-      toast.success("Avatar removed");
-    } catch {
-      toast.error("Failed to remove avatar");
-    } finally {
-      setDeleting(false);
+  const handleBack = () => {
+    if (imageSrc) {
+      URL.revokeObjectURL(imageSrc);
     }
+    setImageSrc(null);
+    setCrop({ x: 0, y: 0 });
+    setZoom(1);
+    setCroppedAreaPixels(null);
+    setCropSize(null);
   };
 
-  return (
-    <div className="p-24 max-w-sm mx-auto text-center">
-      <h2 className="text-xl font-bold mb-16">Profile Photo</h2>
-      <div className="flex justify-center mb-20">
-        <AvatarPreview url={avatarUrl} size="lg" />
-      </div>
-      <div className="flex flex-col gap-12">
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          disabled={deleting}
-          className="ui-btn ui-btn-primary ui-btn-small"
-        >
-          Upload new photo
-        </button>
-        {avatarUrl && (
+  if (imageSrc) {
+    return (
+      <div className={styles.cropContent}>
+        <h4 className={styles.title}>Adjust Photo</h4>
+        <p className={styles.subtitle}>Zoom and position your photo.</p>
+        <div ref={containerRef} className={styles.cropContainer}>
+          {cropSize && (
+            <Cropper
+              image={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              cropShape="round"
+              cropSize={{ width: cropSize, height: cropSize }}
+              objectFit="contain"
+              restrictPosition={false}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          )}
+        </div>
+        <div className={styles.zoomControl}>
+          <ZoomOutIcon className={styles.zoomIcon} width={20} height={20} />
+          <input
+            type="range"
+            min={1}
+            max={3}
+            step={0.1}
+            value={zoom}
+            onChange={(e) => setZoom(Number(e.target.value))}
+            className={styles.zoomSlider}
+          />
+          <ZoomInIcon className={styles.zoomIcon} width={20} height={20} />
+        </div>
+        <div className={styles.buttons}>
           <button
             type="button"
-            onClick={handleRemove}
-            disabled={deleting}
-            className="ui-btn ui-btn-secondary ui-btn-small"
+            onClick={handleBack}
+            disabled={isSaving}
+            className="ui-btn ui-btn-tertiary ui-btn-small flex-1"
           >
-            {deleting ? <LoadingSpinner size="sm" /> : "Remove photo"}
+            Back
           </button>
-        )}
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={isSaving}
+            className="ui-btn ui-btn-primary ui-btn-small flex-1"
+          >
+            {isSaving ? <LoadingSpinner size="sm" /> : "Save"}
+          </button>
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className={styles.content}>
+      <h4 className={styles.title}>Change Profile Photo</h4>
+      <p className={styles.subtitle}>
+        Upload a new profile image.
+        <br />
+        This will only be visible to you.
+      </p>
+
+      <button type="button" className={styles.uploadArea} onClick={() => fileInputRef.current?.click()}>
+        <UploadIcon className={styles.uploadIcon} />
+        <div className={styles.uploadText}>Click to upload a new photo</div>
+        <div className={styles.uploadHint}>JPG, PNG or GIF. Max 2MB.</div>
+      </button>
+
+      <div className={styles.buttons}>
+        <button type="button" onClick={hideModal} className="ui-btn ui-btn-default ui-btn-tertiary">
+          Cancel
+        </button>
+      </div>
+
       <input
         ref={fileInputRef}
         type="file"

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import PersonIcon from "@/icons/person.svg";
+import { resolveApiAssetUrl } from "@/lib/api/config";
 
 interface AvatarPreviewProps {
   url: string | null;
@@ -22,7 +23,7 @@ export default function AvatarPreview({ url, size }: AvatarPreviewProps) {
       // Avatar URL is dynamic from the backend API
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={url}
+        src={resolveApiAssetUrl(url)}
         alt="Your avatar"
         className={`${classes.container} rounded-full object-cover flex-shrink-0`}
         onError={() => setImgError(true)}

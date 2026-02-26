@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { fetchProfile } from "@/lib/api/profile";
 import { showModal } from "@/lib/modal/store";
+import { useProfileStore } from "@/lib/profile/profileStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import AvatarPreview from "../ui/AvatarPreview";
 import PencilIcon from "@/icons/pencil.svg";
@@ -10,7 +11,8 @@ import fieldStyles from "../ui/EditableField.module.css";
 import styles from "../Settings.module.css";
 
 export default function AvatarUploadSection() {
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const avatarUrl = useProfileStore((state) => state.avatarUrl);
+  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function AvatarUploadSection() {
       }
     }
     void loadAvatar();
-  }, []);
+  }, [setAvatarUrl]);
 
   const handleClick = () => {
     showModal("avatar-edit-modal", {

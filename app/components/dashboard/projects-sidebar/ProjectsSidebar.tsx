@@ -4,6 +4,7 @@ import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useProfileStore } from "@/lib/profile/profileStore";
 import { showModal } from "@/lib/modal";
 import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import { tierIncludes } from "@/lib/pricing";
@@ -23,6 +24,8 @@ interface ProjectsSidebarProps {
 export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClick }: ProjectsSidebarProps = {}) {
   const user = useAuthStore((state) => state.user)!;
   const isPremium = tierIncludes(user.membership_type, "premium");
+  const avatarUrl = useProfileStore((state) => state.avatarUrl);
+  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectData[]>([]);
@@ -38,7 +41,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     const base = {
       name: user.name || user.handle,
       handle: user.handle,
-      avatarUrl: profileData.avatar_url,
+      avatarUrl: avatarUrl ?? "",
       icon: profileData.icon
     };
 
@@ -47,7 +50,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     }
 
     return { ...base, streaksEnabled: false as const, totalActiveDays: profileData.total_active_days };
-  }, [user, profileData]);
+  }, [user, profileData, avatarUrl]);
 
   useEffect(() => {
     async function loadData() {
@@ -55,6 +58,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
         setProfileLoading(true);
         const profileResponse = await fetchProfile();
         setProfileData(profileResponse.profile);
+        setAvatarUrl(profileResponse.profile.avatar_url || null);
       } catch (error) {
         console.error("Failed to load profile:", error);
       } finally {
@@ -85,7 +89,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     }
 
     void loadData();
-  }, [user, isPremium]);
+  }, [user, isPremium, setAvatarUrl]);
 
   // Filter to get recent/in-progress projects, padded to 3 with locked projects - only computed for premium users
   const recentProjects = useMemo(() => {

@@ -118,7 +118,9 @@ jest.mock("@/lib/api/client", () => ({
   }
 }));
 
-// Mock DOM APIs for theme provider
+// Mock DOM APIs not implemented by jsdom
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
