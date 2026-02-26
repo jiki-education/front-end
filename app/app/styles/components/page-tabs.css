@@ -6,7 +6,7 @@
 .ui-page-tabs {
     display: flex;
     gap: 24px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
     /* Tab Button */
     button {
