@@ -20,6 +20,7 @@ const mockConcepts = [
     description: "Store values",
     parentSlug: null,
     order: 1,
+    category: true,
     childrenCount: 2,
     exerciseSlugs: ["sprouting-flower"]
   },
@@ -29,6 +30,7 @@ const mockConcepts = [
     description: "Reusable code",
     parentSlug: null,
     order: 2,
+    category: false,
     childrenCount: 0,
     exerciseSlugs: []
   }

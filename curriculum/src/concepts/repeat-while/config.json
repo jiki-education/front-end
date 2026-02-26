@@ -1,4 +1,5 @@
 {
   "parent": "loops",
-  "order": 3
+  "order": 3,
+  "category": false
 }

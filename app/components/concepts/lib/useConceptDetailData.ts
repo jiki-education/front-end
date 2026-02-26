@@ -66,7 +66,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         setConcept(conceptData);
         setAncestors(ancestorData);
         // Signal content is about to load (only relevant for leaf concepts)
-        if (conceptData.childrenCount === 0) {
+        if (!conceptData.category) {
           setIsContentLoading(true);
         }
         // Phase 1 done — correct layout renders with real title/breadcrumb
@@ -94,7 +94,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
           }
         }
 
-        if (conceptData.childrenCount === 0) {
+        if (!conceptData.category) {
           const contentHtml = await getConceptContent(slug);
           setContent(contentHtml);
           setIsContentLoading(false);

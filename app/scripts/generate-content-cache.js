@@ -359,8 +359,12 @@ function processConcepts() {
           throw new Error(`Missing description in frontmatter of ${filePath}`);
         }
 
-        // Write the raw markdown body (stripped of frontmatter)
-        writeOutputFile(`concepts/${slug}/${locale}.md`, markdown);
+        // Only write markdown content for non-category concepts
+        if (!config.category) {
+          writeOutputFile(`concepts/${slug}/${locale}.md`, markdown);
+        } else if (markdown.trim()) {
+          console.warn(`   Warning: category concept "${slug}" has body content in ${file.name} — it will be ignored`);
+        }
 
         // Build metadata entry
         const meta = {
@@ -369,6 +373,7 @@ function processConcepts() {
           description: frontmatter.description,
           parentSlug: config.parent || null,
           order: config.order || 0,
+          category: config.category || false,
           childrenCount: childrenCount[slug] || 0,
           exerciseSlugs: exerciseMap[slug] || []
         };

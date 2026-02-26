@@ -10,6 +10,7 @@ const mockConcepts: ConceptForDisplay[] = [
     description: "Description 1",
     parentSlug: null,
     order: 1,
+    category: false,
     childrenCount: 0,
     exerciseSlugs: [],
     isUnlocked: true
@@ -20,6 +21,7 @@ const mockConcepts: ConceptForDisplay[] = [
     description: "Description 2",
     parentSlug: null,
     order: 2,
+    category: true,
     childrenCount: 3,
     exerciseSlugs: [],
     isUnlocked: true

@@ -1,4 +1,5 @@
 {
   "parent": "functions",
-  "order": 2
+  "order": 2,
+  "category": false
 }

@@ -6,6 +6,7 @@ export interface ConceptMeta {
   description: string;
   parentSlug: string | null;
   order: number;
+  category: boolean;
   childrenCount: number;
   exerciseSlugs: string[];
   video_data?: VideoSource[] | null;
