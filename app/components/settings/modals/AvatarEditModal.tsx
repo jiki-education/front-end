@@ -17,7 +17,6 @@ import ZoomInIcon from "@/icons/zoom-in.svg";
 import styles from "./AvatarEditModal.module.css";
 
 interface AvatarEditModalProps {
-  avatarUrl: string | null;
   onAvatarChange: (url: string | null) => void;
 }
 
@@ -161,7 +160,7 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
       <button type="button" className={styles.uploadArea} onClick={() => fileInputRef.current?.click()}>
         <UploadIcon className={styles.uploadIcon} />
         <div className={styles.uploadText}>Click to upload a new photo</div>
-        <div className={styles.uploadHint}>JPG, PNG or GIF. Max 2MB.</div>
+        <div className={styles.uploadHint}>JPG, PNG or GIF. Max 5MB.</div>
       </button>
 
       <div className={styles.buttons}>

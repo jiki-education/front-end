@@ -43,7 +43,6 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
 
   const handleAvatarClick = () => {
     showModal("avatar-edit-modal", {
-      avatarUrl: profile?.avatarUrl ?? null,
       onAvatarChange: (url: string | null) => setAvatarUrl(url)
     });
   };

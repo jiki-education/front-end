@@ -31,7 +31,6 @@ export default function AvatarUploadSection() {
 
   const handleClick = () => {
     showModal("avatar-edit-modal", {
-      avatarUrl,
       onAvatarChange: (url: string | null) => {
         setAvatarUrl(url);
       }
