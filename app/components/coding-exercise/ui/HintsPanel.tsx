@@ -8,13 +8,14 @@ import EyeClosedIcon from "@/icons/eye-close.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
 import { showWalkthroughConfirm } from "@/lib/modal/store";
 import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgress";
+import type { VideoSource } from "@/types/lesson";
 import style from "./hints-panel.module.css";
 
 const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
 interface HintsViewProps {
   hints: string[] | undefined;
-  walkthroughVideoData?: { provider: string; id: string }[] | null;
+  walkthroughVideoData?: VideoSource[] | null;
   lessonSlug?: string;
   className?: string;
 }

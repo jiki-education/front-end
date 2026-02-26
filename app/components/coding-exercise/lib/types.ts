@@ -1,6 +1,7 @@
 import type { Frame } from "@jiki/interpreters/shared";
 import type { TaskProgress, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
+import type { VideoSource } from "@/types/lesson";
 
 // Completion response types
 export interface UnlockedConcept {
@@ -27,7 +28,7 @@ export interface CompletionResponseData {
 
 // Exercise context types
 export type ExerciseContext =
-  | { type: "lesson"; slug: string; walkthroughVideoData?: { provider: string; id: string }[] | null }
+  | { type: "lesson"; slug: string; walkthroughVideoData?: VideoSource[] | null }
   | { type: "project"; slug: string };
 
 // CodeMirror editor types

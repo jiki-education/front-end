@@ -47,7 +47,7 @@ interface LessonData {
 }
 
 interface VideoSource {
-  host: string; // e.g., "mux"
+  provider: string; // e.g., "mux"
   id: string; // The video playback ID
 }
 ```
@@ -146,7 +146,7 @@ const mockLessonData: LessonData = {
   data: {
     sources: [
       {
-        host: "mux",
+        provider: "mux",
         id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU"
       }
     ]
@@ -168,7 +168,7 @@ const mockLessonData: LessonData = {
    - Or: Create exercises matching lesson slugs
 
 2. **Video Providers**: Currently only supports Mux
-   - Structure allows for other providers via `host` field
+   - Structure allows for other providers via `provider` field
    - Would need component updates for non-Mux providers
 
 3. **Progress Persistence**: Relies on backend tracking

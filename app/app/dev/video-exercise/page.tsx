@@ -14,7 +14,7 @@ const mockLessonData: VideoLesson = {
   data: {
     sources: [
       {
-        host: "mux",
+        provider: "mux",
         id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU"
       }
     ]
