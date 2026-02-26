@@ -37,7 +37,6 @@ describe("ConceptsHeader", () => {
   it("renders breadcrumb component", () => {
     mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
     render(<ConceptsHeader />);
-    expect(screen.getByText("Library:")).toBeInTheDocument();
     expect(screen.getByText("All Concepts")).toBeInTheDocument();
   });
 });

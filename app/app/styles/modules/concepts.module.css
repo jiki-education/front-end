@@ -3,6 +3,10 @@
     flex: 1;
     padding: 40px;
     min-height: 100vh;
+
+    @media (max-width: 1200px) {
+        padding: 24px 20px;
+    }
 }
 
 .container {
@@ -16,13 +20,14 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 24px;
+    padding: 10px 0;
     font-size: 15px;
     color: var(--color-gray-500);
     font-weight: 400;
     position: sticky;
     top: 0;
     background: white;
-    z-index: var(--z-index-dropdown);
+    z-index: var(--z-index-sticky);
 }
 
 .breadcrumbItem {
@@ -59,6 +64,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
+
+    @media (max-width: 1200px) {
+        font-size: 26px;
+    }
 }
 
 .headingIcon {
@@ -79,6 +88,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 20px;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Concept Card */

@@ -1,4 +1,6 @@
+import { api } from "./client";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
+import type { VideoData } from "@/types/lesson";
 
 // Promise-level cache to deduplicate concurrent requests for the same locale
 let cachedPromise: Promise<ConceptMeta[]> | null = null;
@@ -130,4 +132,13 @@ export async function getConceptContent(slug: string, locale: string = "en"): Pr
   }
   const data = await res.json();
   return data.content;
+}
+
+export async function fetchConceptVideoData(slug: string): Promise<VideoData[] | null> {
+  try {
+    const response = await api.get<{ video_data: VideoData[] | null }>(`/external/concepts/${slug}`);
+    return response.data.video_data;
+  } catch {
+    return null;
+  }
 }

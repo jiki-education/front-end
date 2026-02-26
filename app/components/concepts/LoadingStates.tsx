@@ -50,10 +50,10 @@ export function InlineLoading() {
   );
 }
 
-export function ConceptCardsLoadingSkeleton() {
+export function ConceptCardsLoadingSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className={conceptStyles.conceptsGrid}>
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: count }).map((_, i) => (
         <div key={i} className={styles.placeholderCard}>
           <div className={styles.placeholderIcon}></div>
           <div className={styles.placeholderContent}>
@@ -63,6 +63,55 @@ export function ConceptCardsLoadingSkeleton() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+export function ConceptGroupPageSkeleton() {
+  return (
+    <>
+      <div className={styles.placeholderBreadcrumb}></div>
+      <div className={styles.placeholderHeading}></div>
+      <ConceptCardsLoadingSkeleton count={4} />
+    </>
+  );
+}
+
+export function ConceptArticleSkeleton() {
+  return (
+    <div className={styles.leafBody}>
+      {[100, 90, 95, 80, 85, 60].map((w, i) => (
+        <div
+          key={i}
+          className={styles.shimmer}
+          style={{ height: 14, width: `${w}%`, animationDelay: `${i * 0.05}s` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function ConceptLeafPageSkeleton() {
+  return (
+    <div className={styles.leafGrid}>
+      <div className={styles.leafMain}>
+        <div className={`${styles.shimmer} ${styles.placeholderBreadcrumb}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafHero}`}></div>
+        <div className={styles.leafBody}>
+          {[100, 90, 95, 80, 85, 60].map((w, i) => (
+            <div
+              key={i}
+              className={styles.shimmer}
+              style={{ height: 14, width: `${w}%`, animationDelay: `${i * 0.05}s` }}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.leafAside}>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+      </div>
     </div>
   );
 }

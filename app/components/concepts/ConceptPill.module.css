@@ -1,0 +1,90 @@
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 13px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+/* Unlocked / accessible state */
+.pill.unlocked {
+    background: var(--color-gray-100);
+    color: var(--color-gray-600);
+    border-color: white;
+
+    &:hover {
+        background: var(--color-gray-200);
+        border-color: var(--color-gray-300);
+    }
+}
+
+/* Locked state */
+.pill.locked {
+    background: var(--color-gray-50);
+    color: var(--color-gray-300);
+    cursor: default;
+
+    &:hover {
+        background: var(--color-gray-100);
+        border-color: var(--color-gray-200);
+        color: var(--color-gray-400);
+    }
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-purple-500);
+    flex-shrink: 0;
+    animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.lockIcon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+/* Pills section wrapper */
+.pillsCard {
+    margin-top: 20px;
+}
+
+.pillsHeader {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 4px;
+}
+
+.pillsDescription {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.pillsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
