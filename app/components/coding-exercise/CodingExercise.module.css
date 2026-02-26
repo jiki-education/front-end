@@ -480,6 +480,27 @@
     color: var(--color-gray-500);
 }
 
+/* Pending State (Gray) */
+.testDescription.statePending {
+    border-color: var(--color-gray-200);
+}
+
+.testDescription.statePending .instructionLabel {
+    color: var(--color-gray-700);
+}
+
+.testDescription.statePending .testFeedback {
+    background: var(--color-gray-50);
+}
+
+.testDescription.statePending .testFeedback .badge {
+    background: var(--color-gray-400);
+}
+
+.testDescription.statePending .testFeedback .message {
+    color: var(--color-gray-600);
+}
+
 .testFeedback {
     display: flex;
     flex-direction: column;

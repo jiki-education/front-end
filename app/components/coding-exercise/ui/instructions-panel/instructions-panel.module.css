@@ -24,7 +24,7 @@
     border-radius: 12px;
 }
 .dynamicHeader {
-    background: var(--color-purple-50);
+    background: var(--color-gray-50);
 }
 
 .panelHeader {
