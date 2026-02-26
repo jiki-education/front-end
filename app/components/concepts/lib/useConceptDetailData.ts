@@ -6,7 +6,7 @@ import {
   getConceptContent,
   getRelatedConcepts,
   getExercisesForConcept,
-  fetchConceptVideoSource
+  fetchConceptVideoData
 } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
@@ -38,7 +38,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
   const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
-  const [videoData, setVideoSource] = useState<VideoSource[] | null>(null);
+  const [videoData, setVideoData] = useState<VideoSource[] | null>(null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +49,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
       try {
         setError(null);
         setContent(null);
-        setVideoSource(null);
+        setVideoData(null);
         setIsContentLoading(false);
 
         // Phase 1: resolve concept + ancestors (fast — served from in-memory cache).
@@ -82,11 +82,11 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
           const [unlockedSlugs, statuses, video] = await Promise.all([
             fetchUnlockedConceptSlugs(),
             exercises.length > 0 ? fetchLessonStatusesBySlugs(exercises.map((e) => e.slug)) : Promise.resolve({}),
-            fetchConceptVideoSource(slug)
+            fetchConceptVideoData(slug)
           ]);
           setUnlockedConceptSlugs(new Set(unlockedSlugs));
           setExerciseStatuses(statuses);
-          setVideoSource(video);
+          setVideoData(video);
 
           if (!unlockedSlugs.includes(slug)) {
             router.push("/concepts");
