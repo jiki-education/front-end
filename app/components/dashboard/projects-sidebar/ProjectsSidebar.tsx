@@ -10,6 +10,7 @@ import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./projects-sidebar.module.css";
 import { PremiumBox } from "./ui/PremiumBox";
+import { ProjectsUpsellCard } from "./ui/ProjectsUpsellCard";
 import { RecentProjects } from "./ui/RecentProjects";
 import { UserProfile, type UserProfileData } from "./ui/UserProfile";
 
@@ -21,10 +22,11 @@ interface ProjectsSidebarProps {
 
 export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClick }: ProjectsSidebarProps = {}) {
   const user = useAuthStore((state) => state.user)!;
+  const isPremium = tierIncludes(user.membership_type, "premium");
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectData[]>([]);
-  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [projectsLoading, setProjectsLoading] = useState(isPremium);
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [badgesLoading, setBadgesLoading] = useState(true);
 
@@ -59,14 +61,16 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
         setProfileLoading(false);
       }
 
-      try {
-        setProjectsLoading(true);
-        const projectResponse = await fetchProjects({ per: 100 });
-        setProjects(projectResponse.results);
-      } catch (error) {
-        console.error("Failed to load projects:", error);
-      } finally {
-        setProjectsLoading(false);
+      if (isPremium) {
+        try {
+          setProjectsLoading(true);
+          const projectResponse = await fetchProjects({ per: 100 });
+          setProjects(projectResponse.results);
+        } catch (error) {
+          console.error("Failed to load projects:", error);
+        } finally {
+          setProjectsLoading(false);
+        }
       }
 
       try {
@@ -81,17 +85,23 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     }
 
     void loadData();
-  }, [user]);
+  }, [user, isPremium]);
 
-  // Filter to get recent/in-progress projects (up to 3)
+  // Filter to get recent/in-progress projects (up to 3) - only computed for premium users
   const recentProjects = useMemo(() => {
+    if (!isPremium) {
+      return [];
+    }
     return projects.filter((p) => p.status === "started" || p.status === "unlocked").slice(0, 3);
-  }, [projects]);
+  }, [isPremium, projects]);
 
-  // Count unlocked projects
+  // Count unlocked projects - only computed for premium users
   const unlockedCount = useMemo(() => {
+    if (!isPremium) {
+      return 0;
+    }
     return projects.filter((p) => p.status !== "locked").length;
-  }, [projects]);
+  }, [isPremium, projects]);
 
   const handleUpgradeClick = () => {
     if (onUpgradeClick) {
@@ -112,17 +122,21 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
         {/* User Profile Card */}
         <UserProfile profile={userProfile} badges={badges} loading={profileLoading || badgesLoading} />
 
-        {/* Recent Projects */}
-        <RecentProjects
-          projects={recentProjects}
-          unlockedCount={unlockedCount}
-          onProjectClick={onProjectClick}
-          onViewAllClick={onViewAllProjectsClick}
-          loading={projectsLoading}
-        />
-
-        {/* Premium Box - only show for non-premium users */}
-        {!tierIncludes(user.membership_type, "premium") && <PremiumBox onUpgradeClick={handleUpgradeClick} />}
+        {/* Projects section - upsell for non-premium, recent projects for premium */}
+        {isPremium ? (
+          <RecentProjects
+            projects={recentProjects}
+            unlockedCount={unlockedCount}
+            onProjectClick={onProjectClick}
+            onViewAllClick={onViewAllProjectsClick}
+            loading={projectsLoading}
+          />
+        ) : (
+          <>
+            <ProjectsUpsellCard onUpgradeClick={handleUpgradeClick} />
+            <PremiumBox onUpgradeClick={handleUpgradeClick} />
+          </>
+        )}
       </div>
     </aside>
   );

@@ -177,6 +177,49 @@
         }
     }
 
+    /* Nav Upsell */
+    .nav-upsell {
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-gray-200);
+        text-align: left;
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+
+        p {
+            font-size: 14px;
+            color: var(--color-gray-600);
+            line-height: 1.5;
+        }
+
+        .upgrade-text {
+            color: var(--color-purple-600);
+            font-weight: 600;
+        }
+
+        .arrow {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            cursor: pointer;
+            .upgrade-text {
+                text-decoration: underline;
+            }
+
+            .arrow {
+                transform: translateX(4px);
+            }
+        }
+    }
+
     /* Premium Upgrade Button */
     .premium-upgrade-btn {
         margin-top: auto;

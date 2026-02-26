@@ -1,0 +1,89 @@
+.card {
+    background: linear-gradient(180deg, #faf5ff 0%, white 100%);
+    border-radius: 16px;
+    padding: 10px 32px 20px 24px;
+    border: 2px solid var(--color-gray-200);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: var(--color-purple-400);
+    }
+}
+
+.stack {
+    position: relative;
+    height: 80px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fanCard {
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    background: white;
+    border-radius: 14px;
+    border: 2px solid var(--color-purple-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+    svg {
+        border-radius: 8px;
+    }
+
+    &:nth-child(1) {
+        transform: rotate(-15deg) translateX(-50px);
+        z-index: 1;
+        border-color: var(--color-gray-200);
+    }
+
+    &:nth-child(2) {
+        transform: rotate(-5deg) translateX(-18px);
+        z-index: 2;
+        border-color: var(--color-purple-200);
+    }
+
+    &:nth-child(3) {
+        transform: rotate(5deg) translateX(18px);
+        z-index: 3;
+        border-color: var(--color-purple-300);
+    }
+
+    &:nth-child(4) {
+        transform: rotate(15deg) translateX(50px);
+        z-index: 4;
+        background: linear-gradient(135deg, var(--color-purple-100), #dbeafe);
+        border-color: var(--color-purple-400);
+    }
+}
+
+.fanMore {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-purple-500);
+}
+
+.title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    margin-top: 3px;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    text-wrap: balance;
+}

@@ -6,6 +6,10 @@ import MedalIcon from "@static/icons/medal.svg";
 import ProjectsIcon from "@static/icons/projects.svg";
 import SettingsIcon from "@static/icons/settings.svg";
 import type { ComponentType } from "react";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { showModal } from "@/lib/modal";
+import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { tierIncludes } from "@/lib/pricing";
 import { Logo } from "./Logo";
 import { NavigationItem } from "./NavigationItem";
 import { MoreMenu } from "./MoreMenu";
@@ -29,6 +33,9 @@ const navigationItems: Array<{
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
+  const user = useAuthStore((state) => state.user);
+  const isPremium = user && tierIncludes(user.membership_type, "premium");
+
   return (
     <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">
       <Logo />
@@ -50,10 +57,25 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
         </ul>
       </nav>
 
-      <a href="#" className="premium-upgrade-btn ">
-        <span className="icon">⭐</span>
-        <span>Upgrade to Premium</span>
-      </a>
+      {!isPremium && (
+        <button
+          className="nav-upsell"
+          onClick={() =>
+            showModal(
+              "premium-upgrade-modal",
+              {},
+              premiumModalStyles.premiumModalOverlay,
+              premiumModalStyles.premiumModalWidth
+            )
+          }
+          type="button"
+        >
+          <p>
+            You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to
+            accelerate your learning&nbsp;<span className="arrow">&rarr;</span>
+          </p>
+        </button>
+      )}
     </aside>
   );
 }
