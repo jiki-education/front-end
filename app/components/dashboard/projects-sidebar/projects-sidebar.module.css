@@ -69,23 +69,23 @@
 
 /* Project Card Icon */
 .statCardEmoji {
-    width: 70px;
-    height: 70px;
+    position: absolute;
+    inset: 16px;
     margin: 0;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
+.statCardEmoji svg,
 .statCardEmoji img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.statCardEmoji img {
     filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(1846%) hue-rotate(201deg) brightness(99%)
         contrast(95%);
 }
@@ -155,6 +155,11 @@
 .statCard[data-status="locked"] .cardProgressFill {
     background: var(--color-gray-200);
     width: 0%;
+}
+
+.statCard[data-status="locked"] {
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 .statCard[data-status="completed"] .statCardProgress,

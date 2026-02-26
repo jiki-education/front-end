@@ -1,10 +1,10 @@
 import { showVideoWalkthrough } from "@/lib/modal/store";
-import type { VideoData } from "@/types/lesson";
+import type { VideoSource } from "@/types/lesson";
 import styles from "./VideoRecapCard.module.css";
 
 interface VideoRecapCardProps {
   conceptSlug: string;
-  videoData: VideoData[];
+  videoData: VideoSource[];
 }
 
 export function VideoRecapCard({ conceptSlug, videoData }: VideoRecapCardProps) {

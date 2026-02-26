@@ -6,13 +6,13 @@ import {
   getConceptContent,
   getRelatedConcepts,
   getExercisesForConcept,
-  fetchConceptVideoData
+  fetchConceptVideoSource
 } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
-import type { VideoData } from "@/types/lesson";
+import type { VideoSource } from "@/types/lesson";
 
 interface ConceptDetailData {
   concept: ConceptMeta | null;
@@ -21,7 +21,7 @@ interface ConceptDetailData {
   isContentLoading: boolean;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
-  videoData: VideoData[] | null;
+  videoData: VideoSource[] | null;
   isLoading: boolean;
   error: string | null;
   isConceptUnlocked: (slug: string) => boolean;
@@ -38,7 +38,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
   const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
-  const [videoData, setVideoData] = useState<VideoData[] | null>(null);
+  const [videoData, setVideoSource] = useState<VideoSource[] | null>(null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +49,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
       try {
         setError(null);
         setContent(null);
-        setVideoData(null);
+        setVideoSource(null);
         setIsContentLoading(false);
 
         // Phase 1: resolve concept + ancestors (fast — served from in-memory cache).
@@ -82,11 +82,11 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
           const [unlockedSlugs, statuses, video] = await Promise.all([
             fetchUnlockedConceptSlugs(),
             exercises.length > 0 ? fetchLessonStatusesBySlugs(exercises.map((e) => e.slug)) : Promise.resolve({}),
-            fetchConceptVideoData(slug)
+            fetchConceptVideoSource(slug)
           ]);
           setUnlockedConceptSlugs(new Set(unlockedSlugs));
           setExerciseStatuses(statuses);
-          setVideoData(video);
+          setVideoSource(video);
 
           if (!unlockedSlugs.includes(slug)) {
             router.push("/concepts");
