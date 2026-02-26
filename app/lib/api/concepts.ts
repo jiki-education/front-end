@@ -1,4 +1,5 @@
 import { api } from "./client";
+import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
 
@@ -10,8 +11,12 @@ async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
   if (cachedPromise && cachedLocale === locale) {
     return cachedPromise;
   }
+
+  const hash = conceptIndexHashes[locale] || conceptIndexHashes["en"];
+  const effectiveLocale = conceptIndexHashes[locale] ? locale : "en";
+
   cachedLocale = locale;
-  cachedPromise = fetch(`/api/concepts?locale=${encodeURIComponent(locale)}`).then((res) => {
+  cachedPromise = fetch(`/static/concepts/${effectiveLocale}-${hash}.json`).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to fetch concepts");
     }
@@ -128,12 +133,15 @@ export async function getExercisesForConcept(slug: string, locale: string = "en"
 }
 
 export async function getConceptContent(slug: string, locale: string = "en"): Promise<string> {
-  const res = await fetch(`/api/concepts/${encodeURIComponent(slug)}/content?locale=${encodeURIComponent(locale)}`);
+  const concept = await getConcept(slug, locale);
+  if (!concept?.contentHash) {
+    return "";
+  }
+  const res = await fetch(`/static/concepts/${slug}/${locale}-${concept.contentHash}.html`);
   if (!res.ok) {
     throw new Error("Failed to fetch concept content");
   }
-  const data = await res.json();
-  return data.content;
+  return res.text();
 }
 
 export async function fetchConceptVideoData(slug: string): Promise<VideoSource[] | null> {

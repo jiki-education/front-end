@@ -49,6 +49,11 @@ next-env.d.ts
 
 # generated exercise cache (build-time generation)
 public/static/exercises/
+
+# generated concept cache (build-time generation)
+public/static/concepts/
+
+# generated TypeScript/JSON files (build-time generation)
 lib/generated/
 
 # generated icon types (build-time generation)

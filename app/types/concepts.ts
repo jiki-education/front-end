@@ -9,6 +9,7 @@ export interface ConceptMeta {
   category: boolean;
   childrenCount: number;
   exerciseSlugs: string[];
+  contentHash: string | null;
   video_data?: VideoSource[] | null;
 }
 

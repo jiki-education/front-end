@@ -1,7 +1,6 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { marked } from "marked";
 import type { BlogPostMeta, ArticleMeta } from "../types";
-import type { ConceptMeta } from "@/types/concepts";
 import type { ContentLoader, SearchIndexData } from "./types";
 
 /**
@@ -23,14 +22,9 @@ interface MetadataIndex<T> {
   posts: T[];
 }
 
-interface ConceptsIndex {
-  concepts: ConceptMeta[];
-}
-
 interface Manifest {
   blog: Array<{ slug: string; locale: string }>;
   articles: Array<{ slug: string; locale: string }>;
-  concepts: Array<{ slug: string; locale: string }>;
 }
 
 export class R2ContentLoader implements ContentLoader {
@@ -83,28 +77,6 @@ export class R2ContentLoader implements ContentLoader {
       return [];
     }
     return data[type];
-  }
-
-  async getAllConceptMeta(locale: string): Promise<ConceptMeta[]> {
-    const data = await this.readJsonFile<ConceptsIndex>(`concepts/index/${locale}.json`);
-    if (!data) {
-      const fallback = await this.readJsonFile<ConceptsIndex>("concepts/index/en.json");
-      return fallback?.concepts ?? [];
-    }
-    return data.concepts;
-  }
-
-  async getConceptContent(slug: string, locale: string): Promise<string> {
-    const primaryKey = `concepts/${slug}/${locale}.md`;
-    const fallbackKey = `concepts/${slug}/en.md`;
-    let markdown = await this.readTextFile(primaryKey);
-    if (!markdown) {
-      markdown = await this.readTextFile(fallbackKey);
-    }
-    if (!markdown) {
-      return "";
-    }
-    return marked.parse(markdown) as string;
   }
 
   async getAvailableLocales(type: "blog" | "articles"): Promise<string[]> {
