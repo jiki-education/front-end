@@ -15,9 +15,9 @@ export interface ReadonlyRange {
 
 // Base properties shared by all exercise definitions
 interface BaseExerciseDefinition {
-  // From metadata.json
   slug: string;
   title: string;
+  description: string;
   instructions: string;
   estimatedMinutes: number;
   levelId: LevelId; // The level this exercise belongs to (determines allowed language features)

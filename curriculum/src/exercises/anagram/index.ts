@@ -1,6 +1,8 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
+import instructionsRaw from "./instructions/en.md";
+import { parseInstructions } from "../parse-instructions";
 import type { IOExerciseDefinition, FunctionInfo } from "../types";
 
 import solutionJavascript from "./solution.javascript";
@@ -34,9 +36,17 @@ const functions: FunctionInfo[] = [
   }
 ];
 
+const { title, description, instructions } = parseInstructions(instructionsRaw);
+
 const exerciseDefinition: IOExerciseDefinition = {
   type: "io",
   ...metadata,
+
+  title,
+
+  description,
+
+  instructions,
   ExerciseClass,
   tasks,
   scenarios,

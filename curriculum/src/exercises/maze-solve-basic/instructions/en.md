@@ -1,3 +1,8 @@
+---
+title: "Manually Solve a Maze"
+description: ""
+---
+
 Welcome to your first exercise!
 
 Your first task is a straight-forward one: solve the maze you can see to the left. To do this, you have three instructions you can use:

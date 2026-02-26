@@ -1,3 +1,8 @@
+---
+title: "Space Invaders: Solve Basic"
+description: ""
+---
+
 Welcome to your second exercise - Space Invaders! Over the coming weeks you're going to build a fully automated laser to shoot down the aliens. But for now, your job is just to shoot down all the aliens manually!
 
 You have two functions:

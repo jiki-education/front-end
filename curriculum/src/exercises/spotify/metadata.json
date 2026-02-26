@@ -1,7 +1,5 @@
 {
   "slug": "spotify",
-  "title": "Spotify Data",
-  "instructions": "In this exercise, you'll parse data from a mock Spotify API.\n\nThe API requires two types of requests:\n\n1. **User request**: Fetch a user's favorite tracks from `https://api.spotify.com/v1/users/{username}`. This returns a dictionary with an `items` list, where each item has a `urls` dictionary containing a `spotify_api` URL.\n\n2. **Artist request**: Fetch artist details from the URL in the previous response. This returns a dictionary with a `name` key.\n\nCreate a function called `favoriteArtists` that takes a username and returns a sentence like:\n\n```\n\"fred's most listened to artists are: Glee, NSYNC, Beethoven, and Limp Bizkit!\"\n```\n\nIf there is an error from the API, return the error prefixed with `\"Error: \"`.\n\nThe `fetch(url, params)` function is provided. For this exercise, params should always be an empty dictionary `{}`.",
   "estimatedMinutes": 20,
   "levelId": "dictionaries",
   "hints": [

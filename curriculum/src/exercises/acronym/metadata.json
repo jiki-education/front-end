@@ -1,7 +1,5 @@
 {
   "slug": "acronym",
-  "title": "Acronym",
-  "instructions": "Convert a phrase to its acronym. An acronym is formed by taking the first letter of each word and converting it to uppercase. For example, 'Portable Network Graphics' becomes 'PNG'.",
   "estimatedMinutes": 10,
   "levelId": "methods-and-properties",
   "hints": [
