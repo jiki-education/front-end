@@ -6,12 +6,7 @@ export const tasks = [
     name: "Calculate the Hamming Distance",
     description:
       "Write a function that calculates the Hamming distance between two DNA strands of equal length. The Hamming distance is the number of positions where the corresponding characters differ.",
-    hints: [
-      "Loop through each character in the first string",
-      "Keep a counter for your position in the string",
-      "Compare each character with the character at the same position in the second string",
-      "Keep a running count of differences"
-    ],
+    hints: [],
     requiredScenarios: [
       "hamming-empty-strands",
       "hamming-single-letter-identical",

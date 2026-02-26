@@ -6,12 +6,7 @@ export const tasks = [
     id: "draw-fox" as const,
     name: "Draw the fox face",
     description: "Use triangles to build a geometric fox face on the grey background.",
-    hints: [
-      "Draw 8 triangles total",
-      "The cheeks are white (white)",
-      "The ears are dark orange (brown), the face is lighter orange (orange)",
-      "The nose uses two dark triangles (charcoal)"
-    ],
+    hints: [],
     requiredScenarios: ["draw-fox"],
     bonus: false
   }

@@ -5,10 +5,25 @@
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
-    "Start with an empty list and an empty string for building each word",
-    "Use a for-each loop to iterate through each character in the sentence",
-    "When you hit a space, push the current word to the list (if it's not empty) and reset the word",
-    "Skip periods entirely - don't add them to the current word",
-    "Don't forget to push the last word after the loop ends"
+    {
+      "question": "Hint",
+      "answer": "Start with an empty list and an empty string for building each word"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a for-each loop to iterate through each character in the sentence"
+    },
+    {
+      "question": "Hint",
+      "answer": "When you hit a space, push the current word to the list (if it's not empty) and reset the word"
+    },
+    {
+      "question": "Hint",
+      "answer": "Skip periods entirely - don't add them to the current word"
+    },
+    {
+      "question": "Hint",
+      "answer": "Don't forget to push the last word after the loop ends"
+    }
   ]
 }

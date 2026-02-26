@@ -6,11 +6,7 @@ export const tasks = [
     id: "plant-flowers" as const,
     name: "Plant 9 flowers",
     description: "Use a variable and a repeat loop to plant 9 flowers at positions 10, 20, 30, ..., 90.",
-    hints: [
-      "Start with a position variable set to 10",
-      "Use a loop that runs 9 times",
-      "Plant at the current position, then increase it by 10"
-    ],
+    hints: [],
     requiredScenarios: ["plant-flowers"],
     bonus: false
   }

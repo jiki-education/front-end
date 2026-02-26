@@ -5,8 +5,17 @@
   "estimatedMinutes": 10,
   "levelId": "conditionals",
   "hints": [
-    "Start by storing the age in a variable, e.g. let age = getAge()",
-    "Use an if statement to check if age > 20",
-    "If the condition is true, call openDoor() inside the if block"
+    {
+      "question": "Hint",
+      "answer": "Start by storing the age in a variable, e.g. let age = getAge()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use an if statement to check if age > 20"
+    },
+    {
+      "question": "Hint",
+      "answer": "If the condition is true, call openDoor() inside the if block"
+    }
   ]
 }

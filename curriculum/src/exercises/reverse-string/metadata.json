@@ -5,8 +5,17 @@
   "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
-    "Think about how you would reverse a word manually with pen and paper",
-    "For each character, prepend it to your result instead of appending",
-    "Use concatenate() to add each character to the front of your result"
+    {
+      "question": "Hint",
+      "answer": "Think about how you would reverse a word manually with pen and paper"
+    },
+    {
+      "question": "Hint",
+      "answer": "For each character, prepend it to your result instead of appending"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to add each character to the front of your result"
+    }
   ]
 }

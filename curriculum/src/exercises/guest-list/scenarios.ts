@@ -6,12 +6,7 @@ export const tasks = [
     name: "Check the Guest List",
     description:
       "Write a function that checks if a person's name is on the guest list. Return true if they are, false if they aren't.",
-    hints: [
-      "Loop through each name in the list",
-      "Compare each name to the person you're looking for",
-      "If you find a match, return true",
-      "If you finish the loop without finding a match, return false"
-    ],
+    hints: [],
     requiredScenarios: ["name-single-list-true", "name-single-list-false", "name-list-true", "name-list-false"],
     bonus: false
   }

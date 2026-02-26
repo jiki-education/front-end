@@ -5,10 +5,25 @@
   "estimatedMinutes": 15,
   "levelId": "conditionals",
   "hints": [
-    "Start by getting the hour and minute using the provided functions",
-    "Hours 0-11 are 'am', hours 12-23 are 'pm'",
-    "Midnight (hour 0) should display as 12am",
-    "Noon (hour 12) should display as 12pm",
-    "Hours 13-23 need to be converted by subtracting 12"
+    {
+      "question": "Hint",
+      "answer": "Start by getting the hour and minute using the provided functions"
+    },
+    {
+      "question": "Hint",
+      "answer": "Hours 0-11 are 'am', hours 12-23 are 'pm'"
+    },
+    {
+      "question": "Hint",
+      "answer": "Midnight (hour 0) should display as 12am"
+    },
+    {
+      "question": "Hint",
+      "answer": "Noon (hour 12) should display as 12pm"
+    },
+    {
+      "question": "Hint",
+      "answer": "Hours 13-23 need to be converted by subtracting 12"
+    }
   ]
 }

@@ -23,7 +23,10 @@ export const testExerciseDefinition: ExerciseDefinition = {
   ExerciseClass: TestExercise,
   tasks,
   scenarios,
-  hints: ["Test hint 1", "Test hint 2"]
+  hints: [
+    { question: "Hint", answer: "Test hint 1" },
+    { question: "Hint", answer: "Test hint 2" }
+  ]
 };
 
 export default testExerciseDefinition;

@@ -7,12 +7,7 @@ export const tasks = [
     name: "Animate the sunset",
     description:
       "Animate the sun and the sky to make it look like the sun is setting. The sun should grow larger and move down, while both the sun and sky change colors.",
-    hints: [
-      "Use variables to track the sun's position, size, and colors",
-      "Change the variables inside the repeat loop, before drawing",
-      "The sun radius starts at 5 and increases by 0.2 each iteration",
-      "The sun's y-position starts at 10 and increases by 1 each iteration"
-    ],
+    hints: [],
     requiredScenarios: ["draw-scene"],
     bonus: false
   }

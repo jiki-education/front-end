@@ -5,8 +5,17 @@
   "estimatedMinutes": 10,
   "levelId": "string-manipulation",
   "hints": [
-    "Check if the name is empty",
-    "Use concatenate() to build the result string",
-    "The pattern is 'One for [name], one for me.'"
+    {
+      "question": "Hint",
+      "answer": "Check if the name is empty"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to build the result string"
+    },
+    {
+      "question": "Hint",
+      "answer": "The pattern is 'One for [name], one for me.'"
+    }
   ]
 }

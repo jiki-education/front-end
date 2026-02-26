@@ -6,11 +6,7 @@ export const tasks = [
     id: "solve-maze-with-repeat" as const,
     name: "Refactor the maze solution using repeat loops",
     description: "Replace consecutive move() calls with repeat loops to make the code shorter.",
-    hints: [
-      "Each group of consecutive move() calls can be wrapped in a repeat block",
-      "Count the number of moves in each group to set the repeat count",
-      "Turn functions stay outside the repeat blocks"
-    ],
+    hints: [],
     requiredScenarios: ["maze-repeat-1"],
     bonus: false
   }

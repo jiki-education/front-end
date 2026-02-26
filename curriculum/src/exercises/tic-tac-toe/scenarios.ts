@@ -7,13 +7,7 @@ export const tasks = [
     name: "Build the Tic Tac Toe game",
     description:
       "Create a runGame(moves) function that draws a board, places pieces, handles invalid moves, detects wins and draws, and implements basic AI for '?' moves.",
-    hints: [
-      "Start with drawing the grid using rectangle() and line()",
-      "Create helper functions like drawCross() and drawNaught()",
-      "Use a 2D list to track board state",
-      "Check all 8 winning lines (3 rows, 3 columns, 2 diagonals) after each move",
-      "For AI moves, try winning first, then blocking, then any open square"
-    ],
+    hints: [],
     requiredScenarios: [
       "partial-game",
       "draw",

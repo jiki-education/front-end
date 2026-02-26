@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "conditionals",
   "hints": [
-    "Start by storing the age in a variable, e.g. let age = getAge()",
-    "Use if/else if/else to check the age ranges in order",
-    "Check the youngest group first (age < 13), then work upwards",
-    "The last group (seniors) doesn't need a condition — use else"
+    {
+      "question": "Hint",
+      "answer": "Start by storing the age in a variable, e.g. let age = getAge()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use if/else if/else to check the age ranges in order"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check the youngest group first (age < 13), then work upwards"
+    },
+    {
+      "question": "Hint",
+      "answer": "The last group (seniors) doesn't need a condition — use else"
+    }
   ]
 }

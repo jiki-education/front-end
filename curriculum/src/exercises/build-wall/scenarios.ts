@@ -6,11 +6,7 @@ export const tasks = [
     id: "build-wall" as const,
     name: "Build the wall",
     description: "Build a complete wall of 55 bricks using nested loops.",
-    hints: [
-      "Use nested repeat loops for rows and columns",
-      "Alternate row starting positions based on odd/even rows",
-      "The rectangle function should only appear once in your code"
-    ],
+    hints: [],
     requiredScenarios: ["build-wall"],
     bonus: false
   }

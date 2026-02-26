@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "The aliens are in every other column, just like before",
-    "But now there are 4 rows of aliens in each column",
-    "You need a repeat loop for the shooting, inside a repeat loop for the columns",
-    "The pattern for each column is: move, shoot 4 times, move"
+    {
+      "question": "Hint",
+      "answer": "The aliens are in every other column, just like before"
+    },
+    {
+      "question": "Hint",
+      "answer": "But now there are 4 rows of aliens in each column"
+    },
+    {
+      "question": "Hint",
+      "answer": "You need a repeat loop for the shooting, inside a repeat loop for the columns"
+    },
+    {
+      "question": "Hint",
+      "answer": "The pattern for each column is: move, shoot 4 times, move"
+    }
   ]
 }

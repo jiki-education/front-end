@@ -5,13 +5,37 @@
   "estimatedMinutes": 20,
   "levelId": "basic-state",
   "hints": [
-    "Set up variables for flowerCenterX, flowerCenterY, and flowerRadius before the loop",
-    "On each iteration, decrease flowerCenterY by 1 and increase flowerRadius by 0.4",
-    "Calculate all other measurements based on the flower center and radius",
-    "The stem height is groundTop - flowerCenterY",
-    "The stem width is stemHeight / 10",
-    "The leaves' xRadius is flowerRadius * 0.5",
-    "The leaves' yRadius is flowerRadius * 0.2",
-    "Remember to update all variables before drawing each frame"
+    {
+      "question": "Hint",
+      "answer": "Set up variables for flowerCenterX, flowerCenterY, and flowerRadius before the loop"
+    },
+    {
+      "question": "Hint",
+      "answer": "On each iteration, decrease flowerCenterY by 1 and increase flowerRadius by 0.4"
+    },
+    {
+      "question": "Hint",
+      "answer": "Calculate all other measurements based on the flower center and radius"
+    },
+    {
+      "question": "Hint",
+      "answer": "The stem height is groundTop - flowerCenterY"
+    },
+    {
+      "question": "Hint",
+      "answer": "The stem width is stemHeight / 10"
+    },
+    {
+      "question": "Hint",
+      "answer": "The leaves' xRadius is flowerRadius * 0.5"
+    },
+    {
+      "question": "Hint",
+      "answer": "The leaves' yRadius is flowerRadius * 0.2"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember to update all variables before drawing each frame"
+    }
   ]
 }

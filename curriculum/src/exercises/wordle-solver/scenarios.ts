@@ -6,10 +6,7 @@ export const tasks = [
     id: "first-word" as const,
     name: "Get a correct word displaying",
     description: "Start by guessing the first word from commonWords(). If it matches, add it with all correct states.",
-    hints: [
-      "The first word in the list is always your first guess",
-      "Compare it to the target word to build the states"
-    ],
+    hints: [],
     requiredScenarios: ["hole-in-one"],
     bonus: false
   },
@@ -17,7 +14,7 @@ export const tasks = [
     id: "handle-wrong" as const,
     name: "Handle entirely wrong",
     description: "When a guess is entirely wrong, filter it out and try the next word.",
-    hints: ["Track which letters are absent", "Filter the word list to exclude words with absent letters"],
+    hints: [],
     requiredScenarios: ["entirely-wrong"],
     bonus: false
   },
@@ -25,7 +22,7 @@ export const tasks = [
     id: "handle-partial" as const,
     name: "Handle partially right",
     description: "Use correct letter positions to narrow down guesses.",
-    hints: ["Track which positions have correct letters", "The next guess must have those letters in those positions"],
+    hints: [],
     requiredScenarios: ["two-needed", "three-needed", "four-needed"],
     bonus: false
   },
@@ -33,11 +30,7 @@ export const tasks = [
     id: "handle-present" as const,
     name: "Handle present letters",
     description: "Use present (yellow) letters to narrow down guesses further.",
-    hints: [
-      "Present letters must appear somewhere in the word",
-      "But not in the position where they were yellow",
-      "Track both where letters must be and where they can't be"
-    ],
+    hints: [],
     requiredScenarios: ["present-1", "present-2", "present-3", "present-4"],
     bonus: false
   },
@@ -45,11 +38,7 @@ export const tasks = [
     id: "bonus" as const,
     name: "Bonus: Handle duplicate letters",
     description: "If a letter appears twice in a guess but only once in the target, only one should be yellow.",
-    hints: [
-      "Count how many times each letter appears in the target word",
-      "Track how many of each letter you've already marked as correct or present",
-      "Extra occurrences should be marked absent, not present"
-    ],
+    hints: [],
     requiredScenarios: ["bonus-1", "bonus-2"],
     bonus: true
   }

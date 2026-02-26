@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [
-    "Start with an empty list and an empty string",
-    "Use a repeat loop to run the right number of times",
-    "Each time through the loop, add a star to your string, then push it to the list",
-    "Use concatenate() to add a star to the string and push() to add the string to the list"
+    {
+      "question": "Hint",
+      "answer": "Start with an empty list and an empty string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a repeat loop to run the right number of times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each time through the loop, add a star to your string, then push it to the list"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to add a star to the string and push() to add the string to the list"
+    }
   ]
 }

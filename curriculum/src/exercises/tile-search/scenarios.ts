@@ -6,12 +6,7 @@ export const tasks = [
     name: "Search for a Tile",
     description:
       "Write a function that checks whether a specific letter tile is in the rack. Return true if found, false if not.",
-    hints: [
-      "Loop through each element in the haystack",
-      "Compare each element to the needle",
-      "Return true as soon as you find a match",
-      "Only return false after checking every element"
-    ],
+    hints: [],
     requiredScenarios: [
       "letter-found-at-start",
       "letter-found-in-middle",

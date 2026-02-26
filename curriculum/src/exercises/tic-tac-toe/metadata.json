@@ -5,11 +5,29 @@
   "estimatedMinutes": 60,
   "levelId": "lists",
   "hints": [
-    "Start by drawing the grid - a rectangle and four lines",
-    "Create helper functions for drawing crosses and circles",
-    "Use a 2D list (list of lists) to track which squares are occupied",
-    "Remember the first move is always 'o', alternating after that",
-    "Check for wins after each move by examining all 8 possible winning lines (3 rows, 3 columns, 2 diagonals)",
-    "For AI moves, first check if you can win, then check if you need to block, then pick any open square"
+    {
+      "question": "Hint",
+      "answer": "Start by drawing the grid - a rectangle and four lines"
+    },
+    {
+      "question": "Hint",
+      "answer": "Create helper functions for drawing crosses and circles"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a 2D list (list of lists) to track which squares are occupied"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember the first move is always 'o', alternating after that"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check for wins after each move by examining all 8 possible winning lines (3 rows, 3 columns, 2 diagonals)"
+    },
+    {
+      "question": "Hint",
+      "answer": "For AI moves, first check if you can win, then check if you need to block, then pick any open square"
+    }
   ]
 }

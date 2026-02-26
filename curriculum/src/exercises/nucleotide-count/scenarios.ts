@@ -6,12 +6,7 @@ export const tasks = [
     name: "Count Nucleotides",
     description:
       "Write a function that counts the occurrences of each nucleotide (A, C, G, T) in a DNA strand and returns a dictionary with the counts. Return false if the strand contains invalid characters.",
-    hints: [
-      "Initialize a dictionary with all four nucleotides set to 0",
-      "Use keys() to get the list of valid nucleotides",
-      "Iterate through each character and check if it's valid",
-      "Return false immediately if an invalid character is found"
-    ],
+    hints: [],
     requiredScenarios: [
       "nucleotide-count-empty-strand",
       "nucleotide-count-single-nucleotide",

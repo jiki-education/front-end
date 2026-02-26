@@ -5,9 +5,21 @@
   "estimatedMinutes": 20,
   "levelId": "everything",
   "hints": [
-    "Start with a list of letter groups and their values",
-    "Build a dictionary by iterating through the letter groups",
-    "Convert each letter to uppercase before looking up its value",
-    "Iterate through the word and sum up each letter's score"
+    {
+      "question": "Hint",
+      "answer": "Start with a list of letter groups and their values"
+    },
+    {
+      "question": "Hint",
+      "answer": "Build a dictionary by iterating through the letter groups"
+    },
+    {
+      "question": "Hint",
+      "answer": "Convert each letter to uppercase before looking up its value"
+    },
+    {
+      "question": "Hint",
+      "answer": "Iterate through the word and sum up each letter's score"
+    }
   ]
 }

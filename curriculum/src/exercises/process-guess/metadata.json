@@ -5,10 +5,25 @@
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
-    "Iterate through each letter of the guess with a loop that tracks position",
-    "Compare each letter to the same position in the target word for 'correct'",
-    "Check if the letter exists anywhere in the word for 'present'",
-    "Use push() to build up the states list",
-    "A helper function to check if a letter is contained in a word is very useful"
+    {
+      "question": "Hint",
+      "answer": "Iterate through each letter of the guess with a loop that tracks position"
+    },
+    {
+      "question": "Hint",
+      "answer": "Compare each letter to the same position in the target word for 'correct'"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if the letter exists anywhere in the word for 'present'"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use push() to build up the states list"
+    },
+    {
+      "question": "Hint",
+      "answer": "A helper function to check if a letter is contained in a word is very useful"
+    }
   ]
 }

@@ -5,9 +5,21 @@
   "estimatedMinutes": 20,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Start by creating canTurnLeft(), canTurnRight() and canMove() that just return false",
-    "Use look(\"ahead\") to check what's in front of you",
-    "A space is safe to move into if it's not \"fire\", \"wall\", or \"poop\"",
-    "Consider writing a helper function like checkDirection(direction) that all three functions can use"
+    {
+      "question": "Hint",
+      "answer": "Start by creating canTurnLeft(), canTurnRight() and canMove() that just return false"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use look(\"ahead\") to check what's in front of you"
+    },
+    {
+      "question": "Hint",
+      "answer": "A space is safe to move into if it's not \"fire\", \"wall\", or \"poop\""
+    },
+    {
+      "question": "Hint",
+      "answer": "Consider writing a helper function like checkDirection(direction) that all three functions can use"
+    }
   ]
 }

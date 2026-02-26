@@ -5,10 +5,25 @@
   "estimatedMinutes": 10,
   "levelId": "repeat-loop",
   "hints": [
-    "Look for groups of consecutive move() calls",
-    "Each group of N consecutive move() calls can become a repeat(N) { move(); } block",
-    "Count how many move() calls are in each group to get the repeat count",
-    "The turn functions should stay outside the repeat blocks",
-    "A repeat block is only shorter when the group has 3 or more calls"
+    {
+      "question": "Hint",
+      "answer": "Look for groups of consecutive move() calls"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each group of N consecutive move() calls can become a repeat(N) { move(); } block"
+    },
+    {
+      "question": "Hint",
+      "answer": "Count how many move() calls are in each group to get the repeat count"
+    },
+    {
+      "question": "Hint",
+      "answer": "The turn functions should stay outside the repeat blocks"
+    },
+    {
+      "question": "Hint",
+      "answer": "A repeat block is only shorter when the group has 3 or more calls"
+    }
   ]
 }

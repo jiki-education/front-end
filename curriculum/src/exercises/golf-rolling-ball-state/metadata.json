@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "basic-state",
   "hints": [
-    "Start by setting a variable x to 28",
-    "Use a loop that runs 60 times",
-    "Inside the loop, increase x by 1, then call rollTo(x)",
-    "The ball needs to end up at position 88"
+    {
+      "question": "Hint",
+      "answer": "Start by setting a variable x to 28"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop that runs 60 times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Inside the loop, increase x by 1, then call rollTo(x)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The ball needs to end up at position 88"
+    }
   ]
 }

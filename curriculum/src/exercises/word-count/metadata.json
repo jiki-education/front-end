@@ -5,9 +5,21 @@
   "estimatedMinutes": 20,
   "levelId": "dictionaries",
   "hints": [
-    "Start by converting the sentence to lowercase so comparisons are case-insensitive",
-    "Extract individual words by iterating through each character and checking if it's a letter, number, or apostrophe",
-    "Use a dictionary to track word counts - check if a word already exists as a key before incrementing",
-    "Remember that hasKey() can check if a key exists in a dictionary"
+    {
+      "question": "Hint",
+      "answer": "Start by converting the sentence to lowercase so comparisons are case-insensitive"
+    },
+    {
+      "question": "Hint",
+      "answer": "Extract individual words by iterating through each character and checking if it's a letter, number, or apostrophe"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a dictionary to track word counts - check if a word already exists as a key before incrementing"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember that hasKey() can check if a key exists in a dictionary"
+    }
   ]
 }

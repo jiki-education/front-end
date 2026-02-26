@@ -6,11 +6,7 @@ export const tasks = [
     name: "Invalid triangles",
     description:
       "Detect invalid triangles. A triangle is invalid if any side is zero, or if the sum of any two sides is less than or equal to the third side.",
-    hints: [
-      "Check if the sum of any two sides is less than or equal to the third",
-      "Remember to check all three combinations of sides",
-      "A triangle with all sides zero is also invalid"
-    ],
+    hints: [],
     requiredScenarios: [
       "invalid-equilateral-all-zero",
       "isosceles-first-inequality",
@@ -24,7 +20,7 @@ export const tasks = [
     id: "equilateral-triangles" as const,
     name: "Equilateral triangles",
     description: "Detect equilateral triangles where all three sides are the same length.",
-    hints: ["Check if all three sides are equal to each other"],
+    hints: [],
     requiredScenarios: ["valid-equilateral"],
     bonus: false
   },
@@ -32,10 +28,7 @@ export const tasks = [
     id: "isosceles-triangles" as const,
     name: "Isosceles triangles",
     description: "Detect isosceles triangles where exactly two sides are the same length.",
-    hints: [
-      "Check if any pair of sides is equal",
-      "Remember that any two of the three sides could be the matching pair"
-    ],
+    hints: [],
     requiredScenarios: [
       "valid-isosceles-first-two-equal",
       "valid-isosceles-last-two-equal",
@@ -47,7 +40,7 @@ export const tasks = [
     id: "scalene-triangles" as const,
     name: "Scalene triangles",
     description: "Detect scalene triangles where all three sides have different lengths.",
-    hints: ["If it's not invalid, equilateral, or isosceles, it must be scalene"],
+    hints: [],
     requiredScenarios: ["valid-scalene"],
     bonus: false
   }

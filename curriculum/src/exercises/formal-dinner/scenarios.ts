@@ -6,12 +6,7 @@ export const tasks = [
     name: "Check the Formal Guest List",
     description:
       "Write a function that checks if a person is on the guest list by their surname. Given an honorific and surname (e.g., 'Mr Pitt'), check if any name on the list ends with that surname.",
-    hints: [
-      "Create a helper function to calculate string length",
-      "Create an ends_with helper to check if a string ends with another string",
-      "Remove the honorific (everything before the first space) to get just the surname",
-      "Check if any name on the list ends with the surname"
-    ],
+    hints: [],
     requiredScenarios: [
       "empty-list",
       "name-missing",
@@ -26,7 +21,7 @@ export const tasks = [
     id: "bonus-multi-word-surname" as const,
     name: "Multi-word Surnames",
     description: "Handle surnames that have multiple words, like 'Lloyd Webber'.",
-    hints: ["The surname is everything after the honorific (first word)", "Be careful not to match partial surnames"],
+    hints: [],
     requiredScenarios: ["lloyd-webber", "mark-webber"],
     bonus: true
   }

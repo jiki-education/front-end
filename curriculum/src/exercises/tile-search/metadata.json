@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [
-    "Loop through each element in the haystack one by one",
-    "Compare each element to the needle",
-    "If you find a match, you can return true immediately",
-    "Think carefully about when to return false - only after checking every element"
+    {
+      "question": "Hint",
+      "answer": "Loop through each element in the haystack one by one"
+    },
+    {
+      "question": "Hint",
+      "answer": "Compare each element to the needle"
+    },
+    {
+      "question": "Hint",
+      "answer": "If you find a match, you can return true immediately"
+    },
+    {
+      "question": "Hint",
+      "answer": "Think carefully about when to return false - only after checking every element"
+    }
   ]
 }

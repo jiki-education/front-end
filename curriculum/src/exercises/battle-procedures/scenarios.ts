@@ -7,11 +7,7 @@ export const tasks = [
     name: "Create a shootIfAlienAbove function and use it to win the game",
     description:
       "Extract the shooting logic into a shootIfAlienAbove() function, then use it alongside the movement logic to defeat all aliens.",
-    hints: [
-      "Define shootIfAlienAbove() before the loop",
-      "Inside the function, check isAlienAbove() and call shoot() if true",
-      "The movement logic is the same as scroll-and-shoot"
-    ],
+    hints: [],
     requiredScenarios: ["battle-procedures"],
     bonus: false
   }

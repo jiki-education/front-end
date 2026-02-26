@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "basic-state",
   "hints": [
-    "Use a loop that runs 5 times to draw all the bricks",
-    "Track the x position with a variable that increases by 20 each iteration",
-    "All bricks have the same y position (0), width (20), and height (10)",
-    "The rectangle function should only appear once inside the loop"
+    {
+      "question": "Hint",
+      "answer": "Use a loop that runs 5 times to draw all the bricks"
+    },
+    {
+      "question": "Hint",
+      "answer": "Track the x position with a variable that increases by 20 each iteration"
+    },
+    {
+      "question": "Hint",
+      "answer": "All bricks have the same y position (0), width (20), and height (10)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The rectangle function should only appear once inside the loop"
+    }
   ]
 }

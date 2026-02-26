@@ -6,12 +6,7 @@ export const tasks = [
     name: "Count a Nucleotide",
     description:
       "Write a function that counts how many times a specific nucleotide (A, C, G, or T) appears in a DNA strand. Return -1 if the nucleotide or any character in the strand is invalid.",
-    hints: [
-      "Write a helper function to check if a character is in a string",
-      "First validate that the nucleotide itself is valid",
-      "Then iterate through the strand, validating each character and counting matches",
-      "Return -1 immediately if you find an invalid character"
-    ],
+    hints: [],
     requiredScenarios: [
       "nucleotide-empty-strand",
       "nucleotide-single-match",

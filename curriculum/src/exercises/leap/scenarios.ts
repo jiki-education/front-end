@@ -6,12 +6,7 @@ export const tasks = [
     name: "Determine if the year is a leap year",
     description:
       "Write a function called isLeapYear that takes a year as its input and returns true if it is a leap year, or false if it is not.",
-    hints: [
-      "A year divisible by 4 is a leap year",
-      "But a year divisible by 100 is NOT a leap year",
-      "Unless it is also divisible by 400, in which case it IS a leap year",
-      "Use the remainder operator (%) to check divisibility"
-    ],
+    hints: [],
     requiredScenarios: [
       "year-2015",
       "year-1970",
@@ -29,7 +24,7 @@ export const tasks = [
     id: "solve-in-one-line" as const,
     name: "Solve in one line of code",
     description: "Can you solve this with only one line of code within the function?",
-    hints: ["You can combine all the conditions into a single return statement using && and ||"],
+    hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
   }

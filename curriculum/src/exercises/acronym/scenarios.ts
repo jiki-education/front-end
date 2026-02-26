@@ -6,12 +6,7 @@ export const tasks = [
     name: "Create acronym function",
     description:
       "Write a function that takes a phrase and returns an acronym. The acronym should be formed by taking the first letter of each word and converting it to uppercase.",
-    hints: [
-      "Split the phrase into words using spaces as the delimiter",
-      "Get the first character of each word",
-      "Convert each character to uppercase",
-      "Join the characters together"
-    ],
+    hints: [],
     requiredScenarios: ["png", "ror", "first-word-only", "hyphenated"],
     bonus: false
   }

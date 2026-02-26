@@ -6,7 +6,7 @@ export const tasks = [
     id: "straight-path" as const,
     name: "A straight path",
     description: "Move forward to the end of the maze.",
-    hints: ["Just move forward each iteration"],
+    hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   },
@@ -14,7 +14,7 @@ export const tasks = [
     id: "turn-left" as const,
     name: "Turn left if you can",
     description: "If there's a path to the left, take it!",
-    hints: ["Check canTurnLeft() first", "If it's true, turn left then move"],
+    hints: [],
     requiredScenarios: ["left-turn"],
     bonus: false
   },
@@ -22,7 +22,7 @@ export const tasks = [
     id: "turn-right" as const,
     name: "Turn right if you can't move straight or left",
     description: "If there's not a path to the left or straight ahead, take the path to the right.",
-    hints: ["Use else if to check canTurnRight()", "Remember to turn right before moving"],
+    hints: [],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false
   },
@@ -31,11 +31,7 @@ export const tasks = [
     name: "Turn around if needed",
     description:
       "Handle dead ends by creating a turnAround() function. Define it at the top of your code — it should call turnLeft() twice. Then use it in the final else block.",
-    hints: [
-      "Define the function before the loop",
-      "turnAround() just calls turnLeft() twice",
-      "Replace the two turnLeft() calls with turnAround()"
-    ],
+    hints: [],
     requiredScenarios: ["turn-around", "forks-2"],
     bonus: false
   }

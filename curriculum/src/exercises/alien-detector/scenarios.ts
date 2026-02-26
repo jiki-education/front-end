@@ -7,12 +7,7 @@ export const tasks = [
     name: "Track and shoot down all the aliens",
     description:
       "Use getStartingAliensInRow() to get the alien positions, then move across the screen shooting them down. Track which aliens you've already shot by updating the arrays.",
-    hints: [
-      "Get all three rows of aliens at the start",
-      "Use your position variable to index into the row arrays",
-      "When you shoot an alien, set that position to false in the array",
-      "Only shoot the lowest alien in each column first"
-    ],
+    hints: [],
     requiredScenarios: ["one-alien", "one-row", "two-rows", "full-rows"],
     bonus: false
   },
@@ -21,11 +16,7 @@ export const tasks = [
     name: "Fire the fireworks when all aliens are shot down",
     description:
       "After shooting all the aliens, call fireFireworks() to celebrate. This must happen in the same loop iteration as shooting the final alien.",
-    hints: [
-      "Write a helper function that checks if all aliens are dead across all rows",
-      "After each shooting pass, check if all aliens are dead",
-      "Call fireFireworks() immediately when all aliens are gone"
-    ],
+    hints: [],
     requiredScenarios: ["three-rows", "full-rows-fireworks"],
     bonus: false
   },
@@ -33,7 +24,7 @@ export const tasks = [
     id: "fireworks-inside-loop" as const,
     name: "Fire fireworks inside the loop",
     description: "Can you solve it by putting fireFireworks() within the repeat loop, rather than after it?",
-    hints: ["Check if all aliens are dead inside the loop", "If they are, fire the fireworks instead of moving"],
+    hints: [],
     requiredScenarios: ["fireworks-inside-loop"],
     bonus: true
   }

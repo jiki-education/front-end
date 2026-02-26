@@ -7,12 +7,7 @@ export const tasks = [
     name: "Pan for gold and sell your haul",
     description:
       "Pan 5 times to collect gold nuggets, keeping a running total, then sell everything at the trading post.",
-    hints: [
-      "Start with a variable set to 0 to track your total nuggets",
-      "Use a repeat loop to pan 5 times",
-      "Inside the loop, update your total: nuggets = nuggets + pan()",
-      "After the loop, call sell() with your total"
-    ],
+    hints: [],
     requiredScenarios: ["pans-3-1-4-2-5"],
     bonus: false
   }

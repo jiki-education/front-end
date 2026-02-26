@@ -6,12 +6,7 @@ export const tasks = [
     name: "Create stars function",
     description:
       'Write a stars function that takes a count and returns a list of strings, where each string has an increasing number of stars. For example, stars(3) returns ["*", "**", "***"].',
-    hints: [
-      "Start with an empty list and an empty string for building stars",
-      "Use a repeat loop to iterate the right number of times",
-      "Each iteration, concatenate a star onto your string, then push it to the list",
-      "Use concatenate() and push() from the standard library"
-    ],
+    hints: [],
     requiredScenarios: ["count-0", "count-1", "count-3", "count-5"],
     bonus: false
   }

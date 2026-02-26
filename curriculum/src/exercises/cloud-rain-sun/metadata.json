@@ -5,9 +5,21 @@
   "estimatedMinutes": 15,
   "levelId": "strings-and-colors",
   "hints": [
-    "Start with the background rectangle covering the whole canvas: (0, 0, 100, 100)",
-    "The cloud is built from one rectangle and four circles along its edges",
-    "The sun is a yellow circle at (75, 30) with radius 15",
-    "Rain drops are ellipses — taller than wide (rx=3, ry=5)"
+    {
+      "question": "Hint",
+      "answer": "Start with the background rectangle covering the whole canvas: (0, 0, 100, 100)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The cloud is built from one rectangle and four circles along its edges"
+    },
+    {
+      "question": "Hint",
+      "answer": "The sun is a yellow circle at (75, 30) with radius 15"
+    },
+    {
+      "question": "Hint",
+      "answer": "Rain drops are ellipses — taller than wide (rx=3, ry=5)"
+    }
   ]
 }

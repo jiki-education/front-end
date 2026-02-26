@@ -6,12 +6,7 @@ export const tasks = [
     id: "draw-splodges" as const,
     name: "Draw rainbow splodges",
     description: "Draw 500 circles at random positions with random colors.",
-    hints: [
-      "Use a repeat loop that runs 500 times",
-      "Get random x and y positions using randomNumber(0, 100)",
-      "Get a random hue using randomNumber(0, 360)",
-      "Use hsl to convert the hue to a color, then draw with circle()"
-    ],
+    hints: [],
     requiredScenarios: ["rainbow-splodges"],
     bonus: false
   }

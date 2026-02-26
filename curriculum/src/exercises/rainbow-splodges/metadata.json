@@ -5,10 +5,25 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Declare x, y, and hue variables before the loop",
-    "Use randomNumber(0, 100) for x and y positions",
-    "Use randomNumber(0, 360) for the hue",
-    "Pass saturation of 80 and luminosity of 50 for vibrant colors",
-    "Each circle should have a radius of 3"
+    {
+      "question": "Hint",
+      "answer": "Declare x, y, and hue variables before the loop"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use randomNumber(0, 100) for x and y positions"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use randomNumber(0, 360) for the hue"
+    },
+    {
+      "question": "Hint",
+      "answer": "Pass saturation of 80 and luminosity of 50 for vibrant colors"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each circle should have a radius of 3"
+    }
   ]
 }

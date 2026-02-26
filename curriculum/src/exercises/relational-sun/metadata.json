@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "variables",
   "hints": [
-    "The sun's x position should be inset from the right edge: canvasSize - gap - sunRadius",
-    "The sun's y position should be inset from the top edge: gap + sunRadius",
-    "Use the skyColor and sunColor variables for the colors",
-    "The sky rectangle covers the whole canvas: rectangle(0, 0, canvasSize, canvasSize, skyColor)"
+    {
+      "question": "Hint",
+      "answer": "The sun's x position should be inset from the right edge: canvasSize - gap - sunRadius"
+    },
+    {
+      "question": "Hint",
+      "answer": "The sun's y position should be inset from the top edge: gap + sunRadius"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use the skyColor and sunColor variables for the colors"
+    },
+    {
+      "question": "Hint",
+      "answer": "The sky rectangle covers the whole canvas: rectangle(0, 0, canvasSize, canvasSize, skyColor)"
+    }
   ]
 }

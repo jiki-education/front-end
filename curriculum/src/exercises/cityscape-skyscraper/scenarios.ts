@@ -7,12 +7,7 @@ export const tasks = [
     name: "Build the skyscraper",
     description:
       "Build a skyscraper with the correct number of floors, including a ground floor with entrance, upper floors with glass, and a wall roof.",
-    hints: [
-      "Use numFloors() to find out how many floors to build",
-      "The ground floor has an entrance in the middle",
-      "Upper floors have glass instead of an entrance",
-      "The roof is all walls"
-    ],
+    hints: [],
     requiredScenarios: ["floors-3", "floors-4", "floors-5", "floors-6", "floors-8"],
     bonus: false
   }

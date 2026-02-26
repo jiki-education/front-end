@@ -5,10 +5,25 @@
   "estimatedMinutes": 20,
   "levelId": "everything",
   "hints": [
-    "Convert both the target and each candidate to lowercase for comparison",
-    "Use sortString() to check if two words have the same letters",
-    "Remember to filter out the target word itself (case-insensitive comparison)",
-    "Use push() to build up your results list",
-    "Sort the final results alphabetically"
+    {
+      "question": "Hint",
+      "answer": "Convert both the target and each candidate to lowercase for comparison"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use sortString() to check if two words have the same letters"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember to filter out the target word itself (case-insensitive comparison)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use push() to build up your results list"
+    },
+    {
+      "question": "Hint",
+      "answer": "Sort the final results alphabetically"
+    }
   ]
 }

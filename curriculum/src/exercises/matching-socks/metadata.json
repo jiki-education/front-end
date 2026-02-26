@@ -5,11 +5,29 @@
   "estimatedMinutes": 30,
   "levelId": "everything",
   "hints": [
-    "Start by writing helper functions like length(), startsWith(), and endsWith()",
-    "A function to check if something is a sock could be helpful",
-    "You might need a function that can remove the 'left '/'right ' prefix",
-    "Consider a function that switches 'left' and 'right' around",
-    "A function to add an element to a list only if it's not already there will help with duplicates",
-    "Extract all socks from both baskets first, then look for matching pairs"
+    {
+      "question": "Hint",
+      "answer": "Start by writing helper functions like length(), startsWith(), and endsWith()"
+    },
+    {
+      "question": "Hint",
+      "answer": "A function to check if something is a sock could be helpful"
+    },
+    {
+      "question": "Hint",
+      "answer": "You might need a function that can remove the 'left '/'right ' prefix"
+    },
+    {
+      "question": "Hint",
+      "answer": "Consider a function that switches 'left' and 'right' around"
+    },
+    {
+      "question": "Hint",
+      "answer": "A function to add an element to a list only if it's not already there will help with duplicates"
+    },
+    {
+      "question": "Hint",
+      "answer": "Extract all socks from both baskets first, then look for matching pairs"
+    }
   ]
 }

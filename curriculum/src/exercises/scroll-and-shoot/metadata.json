@@ -5,11 +5,29 @@
   "estimatedMinutes": 15,
   "levelId": "conditionals-and-state",
   "hints": [
-    "Break the exercise down into steps - get the laser moving from side to side first",
-    "Track your position with a variable so you know where you are",
-    "Keep track of which direction you're moving (left or right)",
-    "Use boundaries to know when to turn around",
-    "Check for aliens above before shooting",
-    "The logic is similar to the rainbow ball exercise - you need to bounce back and forth"
+    {
+      "question": "Hint",
+      "answer": "Break the exercise down into steps - get the laser moving from side to side first"
+    },
+    {
+      "question": "Hint",
+      "answer": "Track your position with a variable so you know where you are"
+    },
+    {
+      "question": "Hint",
+      "answer": "Keep track of which direction you're moving (left or right)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use boundaries to know when to turn around"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check for aliens above before shooting"
+    },
+    {
+      "question": "Hint",
+      "answer": "The logic is similar to the rainbow ball exercise - you need to bounce back and forth"
+    }
   ]
 }

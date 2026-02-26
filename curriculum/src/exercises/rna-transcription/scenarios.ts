@@ -6,12 +6,7 @@ export const tasks = [
     name: "Transcribe DNA to RNA",
     description:
       "Write a function that takes a DNA strand and returns its RNA complement. Each nucleotide should be replaced with its complement: G->C, C->G, T->A, A->U.",
-    hints: [
-      "Create a helper function to convert a single nucleotide",
-      "Use arrays to map DNA nucleotides to RNA nucleotides",
-      "Iterate through each letter in the DNA string",
-      "Build up the result string using concatenate()"
-    ],
+    hints: [],
     requiredScenarios: [
       "rna-empty-sequence",
       "rna-cytosine-to-guanine",

@@ -7,13 +7,7 @@ export const tasks = [
     name: "Move your laser from left to right and shoot the aliens",
     description:
       "Move the laser left and right across the screen, checking for aliens above you and shooting them down. Don't move off the edge or shoot when there's no alien, or you'll lose!",
-    hints: [
-      "Track your position with a variable",
-      "Keep track of which direction you're moving",
-      "Use boundaries (0 and 10) to know when to turn around",
-      "Check isAlienAbove() before shooting",
-      "Use repeatUntilGameOver to keep the game running"
-    ],
+    hints: [],
     requiredScenarios: ["scroll-and-shoot"],
     bonus: false
   },
@@ -21,10 +15,7 @@ export const tasks = [
     id: "bonus-challenges" as const,
     name: "Bonus challenges",
     description: "Can you solve this without using repeat, and with only one shoot() call?",
-    hints: [
-      "Use repeatUntilGameOver instead of repeat",
-      "Put shoot() in one place and control when it gets called with conditionals"
-    ],
+    hints: [],
     requiredScenarios: ["no-repeat", "one-shoot"],
     bonus: true
   }

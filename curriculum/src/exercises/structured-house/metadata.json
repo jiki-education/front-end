@@ -5,10 +5,25 @@
   "estimatedMinutes": 20,
   "levelId": "variables",
   "hints": [
-    "Start by defining houseLeft and houseTop, then derive other positions from those",
-    "The roof overhangs the house by 4 on each side: roofLeft = houseLeft - 4",
-    "Window positions can be calculated from houseLeft: window1Left = houseLeft + 10",
-    "The door is centered: doorLeft = houseLeft + (houseWidth - doorWidth) / 2",
-    "The door knob x = doorLeft + doorWidth - knobRadius - 1"
+    {
+      "question": "Hint",
+      "answer": "Start by defining houseLeft and houseTop, then derive other positions from those"
+    },
+    {
+      "question": "Hint",
+      "answer": "The roof overhangs the house by 4 on each side: roofLeft = houseLeft - 4"
+    },
+    {
+      "question": "Hint",
+      "answer": "Window positions can be calculated from houseLeft: window1Left = houseLeft + 10"
+    },
+    {
+      "question": "Hint",
+      "answer": "The door is centered: doorLeft = houseLeft + (houseWidth - doorWidth) / 2"
+    },
+    {
+      "question": "Hint",
+      "answer": "The door knob x = doorLeft + doorWidth - knobRadius - 1"
+    }
   ]
 }

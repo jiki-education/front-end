@@ -6,10 +6,7 @@ export const tasks = [
     name: "Validate a basic ISBN",
     description:
       "Write a function called isValidIsbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11.",
-    hints: [
-      "Use a multiplier variable starting at 10, decreasing for each digit processed",
-      "Skip dashes using continue"
-    ],
+    hints: [],
     requiredScenarios: ["isbn-valid"],
     bonus: false
   },
@@ -18,10 +15,7 @@ export const tasks = [
     name: "Handle X as a check digit",
     description:
       "Sometimes an ISBN ends with an X, which represents 10. Update your function to handle X in the last position.",
-    hints: [
-      "X is only valid as the last digit (when multiplier is 1)",
-      "When you encounter X in the last position, treat it as the value 10"
-    ],
+    hints: [],
     requiredScenarios: ["isbn-valid-check-digit-x"],
     bonus: false
   },
@@ -30,10 +24,7 @@ export const tasks = [
     name: "Handle edge cases",
     description:
       "Make your function robust: handle ISBNs without dashes, reject invalid characters, reject X in non-last positions, and ensure exactly 10 digits are processed.",
-    hints: [
-      "Return false immediately for any character that isn't a digit, dash, or valid X",
-      "After the loop, check that the multiplier is exactly 0 (meaning 10 digits were found)"
-    ],
+    hints: [],
     requiredScenarios: [
       "isbn-valid-no-dashes",
       "isbn-valid-no-dashes-x-check",

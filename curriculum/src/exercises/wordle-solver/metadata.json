@@ -5,10 +5,25 @@
   "estimatedMinutes": 30,
   "levelId": "everything",
   "hints": [
-    "Start by always guessing the first word from commonWords()",
-    "Build a knowledge dictionary to track what you learn from each guess",
-    "Track which letters are absent, which are present, and which positions are correct",
-    "For each position, track which letters are definitely NOT there",
-    "Filter the word list based on your accumulated knowledge"
+    {
+      "question": "Hint",
+      "answer": "Start by always guessing the first word from commonWords()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Build a knowledge dictionary to track what you learn from each guess"
+    },
+    {
+      "question": "Hint",
+      "answer": "Track which letters are absent, which are present, and which positions are correct"
+    },
+    {
+      "question": "Hint",
+      "answer": "For each position, track which letters are definitely NOT there"
+    },
+    {
+      "question": "Hint",
+      "answer": "Filter the word list based on your accumulated knowledge"
+    }
   ]
 }

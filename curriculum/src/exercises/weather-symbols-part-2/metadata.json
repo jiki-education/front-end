@@ -5,9 +5,21 @@
   "estimatedMinutes": 20,
   "levelId": "lists",
   "hints": [
-    "Start by drawing the sky background covering the whole canvas",
-    "You'll need to check if \"cloud\" is in the elements list to decide the sun size",
-    "Use a for-each loop to iterate through the elements and draw each one",
-    "Use helper functions like drawSky(), drawSun(size), drawCloud(), drawRain(), drawSnow() to keep your code organized"
+    {
+      "question": "Hint",
+      "answer": "Start by drawing the sky background covering the whole canvas"
+    },
+    {
+      "question": "Hint",
+      "answer": "You'll need to check if \"cloud\" is in the elements list to decide the sun size"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a for-each loop to iterate through the elements and draw each one"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use helper functions like drawSky(), drawSun(size), drawCloud(), drawRain(), drawSnow() to keep your code organized"
+    }
   ]
 }

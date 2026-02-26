@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "conditionals",
   "hints": [
-    "You need to check each column as you move across",
-    "Use isAlienAbove() to check before shooting",
-    "Use an if statement to check isAlienAbove() and then shoot()",
-    "Wrap everything in a repeat loop to move across all columns"
+    {
+      "question": "Hint",
+      "answer": "You need to check each column as you move across"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use isAlienAbove() to check before shooting"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use an if statement to check isAlienAbove() and then shoot()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Wrap everything in a repeat loop to move across all columns"
+    }
   ]
 }

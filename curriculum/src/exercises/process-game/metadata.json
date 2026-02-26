@@ -5,9 +5,21 @@
   "estimatedMinutes": 15,
   "levelId": "everything",
   "hints": [
-    "Reuse your processGuess logic from the previous exercise",
-    "Use a loop to iterate through the guesses with an index for the row number",
-    "Call colorRow(idx, states) for each guess",
-    "The row index should match colorRow's expected row numbers"
+    {
+      "question": "Hint",
+      "answer": "Reuse your processGuess logic from the previous exercise"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop to iterate through the guesses with an index for the row number"
+    },
+    {
+      "question": "Hint",
+      "answer": "Call colorRow(idx, states) for each guess"
+    },
+    {
+      "question": "Hint",
+      "answer": "The row index should match colorRow's expected row numbers"
+    }
   ]
 }

@@ -5,9 +5,21 @@
   "estimatedMinutes": 25,
   "levelId": "dictionaries",
   "hints": [
-    "Use look(\"down\") to check the emoji on the current square",
-    "Use hasKey() to check if an emoji is already in your dictionary",
-    "Use removeEmoji() after collecting an emoji from a square",
-    "Call announceEmojis() with your dictionary after reaching the finish"
+    {
+      "question": "Hint",
+      "answer": "Use look(\"down\") to check the emoji on the current square"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use hasKey() to check if an emoji is already in your dictionary"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use removeEmoji() after collecting an emoji from a square"
+    },
+    {
+      "question": "Hint",
+      "answer": "Call announceEmojis() with your dictionary after reaching the finish"
+    }
   ]
 }

@@ -5,11 +5,29 @@
   "estimatedMinutes": 15,
   "levelId": "advanced-lists",
   "hints": [
-    "Iterate through each character in the ISBN string",
-    "Skip dashes - they don't affect the calculation",
-    "Use a multiplier that starts at 10 and decreases by 1 for each digit",
-    "Handle 'X' specially - it represents 10 and is only valid as the last digit",
-    "After processing all characters, check that the multiplier is 0 (meaning exactly 10 digits were found)",
-    "The ISBN is valid if the total sum is divisible by 11"
+    {
+      "question": "Hint",
+      "answer": "Iterate through each character in the ISBN string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Skip dashes - they don't affect the calculation"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a multiplier that starts at 10 and decreases by 1 for each digit"
+    },
+    {
+      "question": "Hint",
+      "answer": "Handle 'X' specially - it represents 10 and is only valid as the last digit"
+    },
+    {
+      "question": "Hint",
+      "answer": "After processing all characters, check that the multiplier is 0 (meaning exactly 10 digits were found)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The ISBN is valid if the total sum is divisible by 11"
+    }
   ]
 }

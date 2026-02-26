@@ -5,7 +5,13 @@
   "estimatedMinutes": 5,
   "levelId": "string-manipulation",
   "hints": [
-    "Use concatenate() to join the parts together",
-    "The greeting has three parts: \"Hello, \", the name, and \"!\""
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to join the parts together"
+    },
+    {
+      "question": "Hint",
+      "answer": "The greeting has three parts: \"Hello, \", the name, and \"!\""
+    }
   ]
 }

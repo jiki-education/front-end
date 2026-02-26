@@ -5,8 +5,17 @@
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [
-    "Use if/else if to check which description was passed in",
-    "Each branch should return a different list of component strings",
-    "Remember that lists are created with square brackets: [\"a\", \"b\"]"
+    {
+      "question": "Hint",
+      "answer": "Use if/else if to check which description was passed in"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each branch should return a different list of component strings"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember that lists are created with square brackets: [\"a\", \"b\"]"
+    }
   ]
 }

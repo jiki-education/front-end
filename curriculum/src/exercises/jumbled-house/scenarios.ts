@@ -7,12 +7,7 @@ export const tasks = [
     name: "Correctly arrange the house",
     description:
       "Rearrange all the shapes to their correct positions to form a house. Work through each piece methodically.",
-    hints: [
-      "Start with the sky and grass backgrounds",
-      "Position the house frame at (20, 50) with size 60x40",
-      "The roof overhangs by 4 on each side",
-      "Calculate window positions: 10 in from edges, 5 down from frame top"
-    ],
+    hints: [],
     requiredScenarios: ["draw-the-house"],
     bonus: false
   }

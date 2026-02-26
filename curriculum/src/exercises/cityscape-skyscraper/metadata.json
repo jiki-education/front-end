@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by getting the number of upper floors, e.g. let floors = numFloors() - 1",
-    "Build the ground floor at y=1 with an entrance in the middle",
-    "Use a loop for the upper floors, incrementing y each time",
-    "The roof goes on top of the last floor"
+    {
+      "question": "Hint",
+      "answer": "Start by getting the number of upper floors, e.g. let floors = numFloors() - 1"
+    },
+    {
+      "question": "Hint",
+      "answer": "Build the ground floor at y=1 with an entrance in the middle"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop for the upper floors, incrementing y each time"
+    },
+    {
+      "question": "Hint",
+      "answer": "The roof goes on top of the last floor"
+    }
   ]
 }

@@ -5,8 +5,17 @@
   "estimatedMinutes": 5,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Use Math.randomInt(20, 100) for the leaves and store the result in a variable",
-    "Each ingredient needs its own Math.randomInt() call with the right range",
-    "Pass all four variables to makeSalad() in order: leaves, tomatoes, croutons, dressing"
+    {
+      "question": "Hint",
+      "answer": "Use Math.randomInt(20, 100) for the leaves and store the result in a variable"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each ingredient needs its own Math.randomInt() call with the right range"
+    },
+    {
+      "question": "Hint",
+      "answer": "Pass all four variables to makeSalad() in order: leaves, tomatoes, croutons, dressing"
+    }
   ]
 }

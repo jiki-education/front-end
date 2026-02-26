@@ -4,9 +4,21 @@
   "estimatedMinutes": 5,
   "levelId": "using-functions",
   "hints": [
-    "Look at the screen and count how many times you need to move before each alien",
-    "You start at the far left (position 0)",
-    "Each move() takes you one position to the right",
-    "Only shoot() when you're directly below an alien"
+    {
+      "question": "Hint",
+      "answer": "Look at the screen and count how many times you need to move before each alien"
+    },
+    {
+      "question": "Hint",
+      "answer": "You start at the far left (position 0)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each move() takes you one position to the right"
+    },
+    {
+      "question": "Hint",
+      "answer": "Only shoot() when you're directly below an alien"
+    }
   ]
 }

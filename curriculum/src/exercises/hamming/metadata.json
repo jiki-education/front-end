@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
-    "Loop through each character in the first string",
-    "Keep track of your position in the string with a counter",
-    "Compare each character with the corresponding character in the second string",
-    "Count how many differences you find"
+    {
+      "question": "Hint",
+      "answer": "Loop through each character in the first string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Keep track of your position in the string with a counter"
+    },
+    {
+      "question": "Hint",
+      "answer": "Compare each character with the corresponding character in the second string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Count how many differences you find"
+    }
   ]
 }

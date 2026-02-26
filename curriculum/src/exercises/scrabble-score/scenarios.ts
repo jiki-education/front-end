@@ -6,11 +6,7 @@ export const tasks = [
     name: "Create the letterValues function",
     description:
       "Write a letterValues function that returns a dictionary mapping each uppercase letter to its Scrabble point value. Start with the provided list of letter groups and their values, and convert it into a dictionary.",
-    hints: [
-      "Loop through each pair in the values list",
-      "For each pair, loop through each letter in the string",
-      "Set each letter as a key in the dictionary with its point value"
-    ],
+    hints: [],
     requiredScenarios: ["letter-values"],
     bonus: false
   },
@@ -19,11 +15,7 @@ export const tasks = [
     name: "Score single letters",
     description:
       "Write a scrabbleScore function that takes a word and returns its total Scrabble score. Start by getting it working for single letters.",
-    hints: [
-      "Use letterValues() to get the scores dictionary",
-      "Convert each letter to uppercase before looking it up",
-      "Sum the values for each letter in the word"
-    ],
+    hints: [],
     requiredScenarios: ["scrabble-lowercase-letter", "scrabble-uppercase-letter", "scrabble-valuable-letter"],
     bonus: false
   },
@@ -31,7 +23,7 @@ export const tasks = [
     id: "words" as const,
     name: "Score words",
     description: "Now get scrabbleScore working with full words of different lengths.",
-    hints: ["Iterate through each letter of the word", "Look up each letter's value and add it to a running total"],
+    hints: [],
     requiredScenarios: [
       "scrabble-short-word",
       "scrabble-short-valuable-word",
@@ -46,10 +38,7 @@ export const tasks = [
     id: "edge-cases" as const,
     name: "Handle edge cases",
     description: "Finally, make sure your function handles edge cases like empty strings and the full alphabet.",
-    hints: [
-      "An empty string should return a score of 0",
-      "Your loop should naturally handle this if score starts at 0"
-    ],
+    hints: [],
     requiredScenarios: ["scrabble-empty-input", "scrabble-entire-alphabet"],
     bonus: false
   }

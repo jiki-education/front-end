@@ -22,11 +22,7 @@ export const tasks = [
     name: "Pack a Lunch",
     description:
       "Write a function that packs a lunchbox with a sandwich, drink, and snack. If the drink is a milkshake, leave it out of the lunchbox because it's too big.",
-    hints: [
-      "Start by creating an empty list",
-      "Use push() to add items one at a time",
-      "Check if the drink is a milkshake before adding it"
-    ],
+    hints: [],
     requiredScenarios: ["regular-lunch", "milkshake-lunch", "another-regular", "another-milkshake"],
     bonus: false
   }

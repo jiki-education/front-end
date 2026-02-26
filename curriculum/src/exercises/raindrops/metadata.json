@@ -5,10 +5,25 @@
   "estimatedMinutes": 10,
   "levelId": "string-manipulation",
   "hints": [
-    "The key is to accumulate the sounds as you work through the if statements - don't return straight away",
-    "Start with an empty string and build up the result",
-    "Use concatenate() to add each sound to the result",
-    "If the result is still empty after checking all three divisors, convert the number to a string",
-    "This exercise should only have one or two return statements"
+    {
+      "question": "Hint",
+      "answer": "The key is to accumulate the sounds as you work through the if statements - don't return straight away"
+    },
+    {
+      "question": "Hint",
+      "answer": "Start with an empty string and build up the result"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to add each sound to the result"
+    },
+    {
+      "question": "Hint",
+      "answer": "If the result is still empty after checking all three divisors, convert the number to a string"
+    },
+    {
+      "question": "Hint",
+      "answer": "This exercise should only have one or two return statements"
+    }
   ]
 }

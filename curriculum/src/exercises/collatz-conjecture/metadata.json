@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Use a loop that keeps running until the number reaches 1",
-    "Check if a number is even using the modulo operator: number % 2 == 0",
-    "Keep a counter variable to track the number of steps",
-    "Return the counter when the number reaches 1"
+    {
+      "question": "Hint",
+      "answer": "Use a loop that keeps running until the number reaches 1"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if a number is even using the modulo operator: number % 2 == 0"
+    },
+    {
+      "question": "Hint",
+      "answer": "Keep a counter variable to track the number of steps"
+    },
+    {
+      "question": "Hint",
+      "answer": "Return the counter when the number reaches 1"
+    }
   ]
 }

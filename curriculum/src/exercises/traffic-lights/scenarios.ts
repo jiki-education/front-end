@@ -6,11 +6,7 @@ export const tasks = [
     id: "draw-lights" as const,
     name: "Draw the traffic lights",
     description: "Use the provided variables to draw the three colored lights on the traffic light.",
-    hints: [
-      "Use circle(centerX, topY, radius, color) for each light",
-      "Red goes at topY, yellow at middleY, green at bottomY",
-      "The color is the last argument to circle"
-    ],
+    hints: [],
     requiredScenarios: ["draw-lights"],
     bonus: false
   }

@@ -6,12 +6,7 @@ export const tasks = [
     name: "Extract words",
     description:
       "Write an extract_words function that takes a sentence and returns a list of words. Words are separated by spaces, and periods should be ignored.",
-    hints: [
-      "Build each word character by character using concatenate()",
-      "When you encounter a space, push the current word to the list and start a new word",
-      "Skip periods - don't add them to the word",
-      "After the loop, check if there's a remaining word to push"
-    ],
+    hints: [],
     requiredScenarios: [
       "simple-two-words",
       "sentence-with-period",

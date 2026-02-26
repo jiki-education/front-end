@@ -6,7 +6,7 @@ export const tasks = [
     id: "straight-path" as const,
     name: "A straight path",
     description: "Implement canMove() so the character can move forward to the end of the maze.",
-    hints: ['Use look("ahead") to check what\'s in front', 'A space is safe if it\'s not "fire", "wall", or "poop"'],
+    hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   },
@@ -14,7 +14,7 @@ export const tasks = [
     id: "turn-left" as const,
     name: "Turn left if you can",
     description: "Implement canTurnLeft() so the character turns left when there's a path.",
-    hints: ['Use look("left") to check what\'s to the left', "Return true if the space is safe to enter"],
+    hints: [],
     requiredScenarios: ["left-turn"],
     bonus: false
   },
@@ -22,7 +22,7 @@ export const tasks = [
     id: "turn-right" as const,
     name: "Turn right if you can't move straight or left",
     description: "Implement canTurnRight() so the character turns right when it can't go left or straight.",
-    hints: ['Use look("right") to check what\'s to the right', "Consider writing a shared helper function"],
+    hints: [],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false
   },
@@ -31,10 +31,7 @@ export const tasks = [
     name: "Turn around if needed",
     description:
       "Handle dead ends by turning around. All three sensing functions should now work together to solve any maze.",
-    hints: [
-      "You should already have all three functions working",
-      "The existing turn_around and loop code handles the rest"
-    ],
+    hints: [],
     requiredScenarios: ["turn-around", "forks-2", "cover-old-ground"],
     bonus: false
   },
@@ -43,10 +40,7 @@ export const tasks = [
     name: "Bonus challenges",
     description:
       "Can you only use the look() function once in the whole program? And can you solve it by only adding 13 lines of code?",
-    hints: [
-      "Write a single checkDirection(direction) function that uses look()",
-      "Have canTurnLeft(), canTurnRight() and canMove() all call checkDirection()"
-    ],
+    hints: [],
     requiredScenarios: ["bonus-1", "bonus-2"],
     bonus: true
   }

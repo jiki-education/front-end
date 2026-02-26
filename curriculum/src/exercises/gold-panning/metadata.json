@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by creating a variable to track your total: let nuggets = 0",
-    "Use a repeat loop to pan 5 times",
-    "Inside the loop, add the result of pan() to your nuggets variable",
-    "After the loop, sell your total nuggets"
+    {
+      "question": "Hint",
+      "answer": "Start by creating a variable to track your total: let nuggets = 0"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a repeat loop to pan 5 times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Inside the loop, add the result of pan() to your nuggets variable"
+    },
+    {
+      "question": "Hint",
+      "answer": "After the loop, sell your total nuggets"
+    }
   ]
 }

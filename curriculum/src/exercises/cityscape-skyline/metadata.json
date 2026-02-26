@@ -5,9 +5,21 @@
   "estimatedMinutes": 15,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by getting the number of buildings with numBuildings()",
-    "Track the x position, starting at 1, and increase by 5 for each building",
-    "For each building, get a random number of floors",
-    "Build ground floor, then upper floors in a nested loop, then the roof"
+    {
+      "question": "Hint",
+      "answer": "Start by getting the number of buildings with numBuildings()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Track the x position, starting at 1, and increase by 5 for each building"
+    },
+    {
+      "question": "Hint",
+      "answer": "For each building, get a random number of floors"
+    },
+    {
+      "question": "Hint",
+      "answer": "Build ground floor, then upper floors in a nested loop, then the roof"
+    }
   ]
 }

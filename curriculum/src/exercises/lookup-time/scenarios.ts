@@ -6,10 +6,7 @@ export const tasks = [
     name: "Fetch and format the time",
     description:
       "Write a function that takes a city name, fetches the time data using the API, and returns a formatted time string.",
-    hints: [
-      "Use fetch with the API URL and a dictionary containing the city",
-      "Use concatenate to join the parts of the response into the expected format"
-    ],
+    hints: [],
     requiredScenarios: ["amsterdam", "tokyo", "lima"],
     bonus: false
   },
@@ -18,10 +15,7 @@ export const tasks = [
     name: "Handle errors",
     description:
       'Handle error responses gracefully. If the response contains an "error" key, return the error message instead of building the time string.',
-    hints: [
-      "Check if the response contains an error key before building the string",
-      "You can write a hasKey helper function or use the hasKey stdlib function"
-    ],
+    hints: [],
     requiredScenarios: ["error"],
     bonus: false
   }

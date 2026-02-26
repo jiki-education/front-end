@@ -5,9 +5,21 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Define the function before the loop",
-    "shootIfAlienAbove() needs to check isAlienAbove() before calling shoot()",
-    "The movement and direction logic stays in the loop, just like scroll-and-shoot",
-    "Remember to track position and direction with variables"
+    {
+      "question": "Hint",
+      "answer": "Define the function before the loop"
+    },
+    {
+      "question": "Hint",
+      "answer": "shootIfAlienAbove() needs to check isAlienAbove() before calling shoot()"
+    },
+    {
+      "question": "Hint",
+      "answer": "The movement and direction logic stays in the loop, just like scroll-and-shoot"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember to track position and direction with variables"
+    }
   ]
 }

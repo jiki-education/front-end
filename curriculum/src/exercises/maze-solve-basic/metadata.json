@@ -4,9 +4,21 @@
   "estimatedMinutes": 10,
   "levelId": "using-functions",
   "hints": [
-    "The character starts in the top-left corner facing down",
-    "Plan your path to avoid blocked (red striped) cells",
-    "You need to reach the bottom-right corner with the green target",
-    "Use turnLeft() or turnRight() to change direction before moving"
+    {
+      "question": "Hint",
+      "answer": "The character starts in the top-left corner facing down"
+    },
+    {
+      "question": "Hint",
+      "answer": "Plan your path to avoid blocked (red striped) cells"
+    },
+    {
+      "question": "Hint",
+      "answer": "You need to reach the bottom-right corner with the green target"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use turnLeft() or turnRight() to change direction before moving"
+    }
   ]
 }

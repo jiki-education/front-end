@@ -5,10 +5,25 @@
   "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
-    "You'll need a variable to track your current position as you look through the rack",
-    "Use a for-each loop to look at each tile one by one",
-    "If the current tile matches the letter, convert the position to a string and build the result message",
-    "Don't forget to increase your position counter after each tile",
-    "If you get through the whole rack without finding the letter, return the error message"
+    {
+      "question": "Hint",
+      "answer": "You'll need a variable to track your current position as you look through the rack"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a for-each loop to look at each tile one by one"
+    },
+    {
+      "question": "Hint",
+      "answer": "If the current tile matches the letter, convert the position to a string and build the result message"
+    },
+    {
+      "question": "Hint",
+      "answer": "Don't forget to increase your position counter after each tile"
+    },
+    {
+      "question": "Hint",
+      "answer": "If you get through the whole rack without finding the letter, return the error message"
+    }
   ]
 }
