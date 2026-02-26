@@ -18,14 +18,10 @@ interface ProjectUnlockedStepProps {
     description: string;
     slug: string;
   };
-  onGoToDashboard: () => void;
+  onContinue: () => void;
 }
 
-export function ProjectUnlockedStep({
-  completionResponse,
-  unlockedProject,
-  onGoToDashboard
-}: ProjectUnlockedStepProps) {
+export function ProjectUnlockedStep({ completionResponse, unlockedProject, onContinue }: ProjectUnlockedStepProps) {
   const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
 
   const projectToShow = unlockedProjectData
@@ -72,7 +68,7 @@ export function ProjectUnlockedStep({
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onGoToDashboard} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { VisualExerciseDefinition } from "@jiki/curriculum";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
@@ -43,9 +44,13 @@ export function InspectedVisualTestPreviewView() {
           <div className={styles.contentBelowTabs}>
             {/* LHS: Scenario info only (no test results, no scrubber) */}
             <div className={styles.leftColumnContent}>
-              <div className={styles.testDescription}>
+              <div className={assembleClassNames(styles.testDescription, styles.statePending)}>
                 <span className={styles.instructionLabel}>{scenario.name}</span>
                 {scenario.description && <p className="text-sm text-gray-600 mt-2">{scenario.description}</p>}
+                <div className={styles.testFeedback}>
+                  <span className={styles.badge}>Pending</span>
+                  <div className={styles.message}>Run your code to see whether this scenario passes or fails.</div>
+                </div>
               </div>
             </div>
 

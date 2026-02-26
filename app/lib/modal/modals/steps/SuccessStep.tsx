@@ -5,11 +5,10 @@ import styles from "@/app/styles/components/modals.module.css";
 import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
 
 interface SuccessStepProps {
-  onTidyCode: () => void;
-  onShowConfirmation: () => void;
+  onCompleteExercise: () => void;
 }
 
-export function SuccessStep({ onTidyCode, onShowConfirmation }: SuccessStepProps) {
+export function SuccessStep({ onCompleteExercise }: SuccessStepProps) {
   return (
     <>
       <div className={styles.modalCheckmark}>
@@ -21,10 +20,7 @@ export function SuccessStep({ onTidyCode, onShowConfirmation }: SuccessStepProps
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
-          Tidy code first
-        </button>
-        <button onClick={onShowConfirmation} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button onClick={onCompleteExercise} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Complete Exercise
         </button>
       </div>

@@ -49,8 +49,6 @@ describe("CodeEditor", () => {
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
-      hasEverHadSuccessfulRun: false,
-      shouldShowCompleteButton: false,
       isExerciseCompleted: false,
       completionResponse: [],
       foldedLines: [],

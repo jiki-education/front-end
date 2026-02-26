@@ -207,10 +207,6 @@ class Orchestrator {
     this.store.getState().setShouldAutoRunCode(shouldAutoRun);
   }
 
-  setShouldShowCompleteButton(show: boolean) {
-    this.store.getState().setShouldShowCompleteButton(show);
-  }
-
   setIsExerciseCompleted(completed: boolean) {
     this.store.getState().setIsExerciseCompleted(completed);
   }

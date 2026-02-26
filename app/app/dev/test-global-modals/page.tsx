@@ -129,7 +129,10 @@ export default function TestGlobalModals() {
               onClick={() =>
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
-                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onCompleteExercise: () => {
+                    console.debug("Complete exercise clicked");
+                    return Promise.resolve([]);
+                  },
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "success"
@@ -144,22 +147,10 @@ export default function TestGlobalModals() {
               onClick={() =>
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
-                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
-                  onGoToDashboard: () => console.debug("Go to dashboard clicked"),
-                  exerciseTitle: "Test Exercise",
-                  initialStep: "confirmation"
-                })
-              }
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-            >
-              Confirmation Step
-            </button>
-
-            <button
-              onClick={() =>
-                showModal("exercise-completion-modal", {
-                  onTidyCode: () => console.debug("Tidy code clicked"),
-                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onCompleteExercise: () => {
+                    console.debug("Complete exercise clicked");
+                    return Promise.resolve([]);
+                  },
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Navigate the Maze",
                   initialStep: "difficulty-rating"
@@ -174,7 +165,10 @@ export default function TestGlobalModals() {
               onClick={() =>
                 showModal("exercise-completion-modal", {
                   onTidyCode: () => console.debug("Tidy code clicked"),
-                  onCompleteExercise: () => console.debug("Complete exercise clicked"),
+                  onCompleteExercise: () => {
+                    console.debug("Complete exercise clicked");
+                    return Promise.resolve([]);
+                  },
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
                   initialStep: "completed"
