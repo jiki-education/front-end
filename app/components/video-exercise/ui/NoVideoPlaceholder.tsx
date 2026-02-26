@@ -19,7 +19,7 @@ export function NoVideoPlaceholder({ videoSource }: NoVideoPlaceholderProps) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <p className={styles.noVideoText}>No video source available</p>
-        {videoSource && <p className={styles.noVideoHost}>Host: {videoSource.host}</p>}
+        {videoSource && <p className={styles.noVideoHost}>Provider: {videoSource.provider}</p>}
       </div>
     </div>
   );

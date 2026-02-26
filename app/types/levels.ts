@@ -1,4 +1,4 @@
-import type { Lesson, LessonType, VideoData } from "./lesson";
+import type { Lesson, LessonType, VideoSource } from "./lesson";
 
 // Re-export for convenience
 export type { Lesson, LessonType };
@@ -8,7 +8,7 @@ export interface LessonWithProgress {
   type: LessonType;
   description: string;
   status: "not_started" | "started" | "completed";
-  walkthrough_video_data: VideoData[] | null;
+  walkthrough_video_data: VideoSource[] | null;
   walkthrough_video_watched_percentage: number;
 }
 
