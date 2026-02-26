@@ -36,6 +36,7 @@ export function useExerciseCompletionModal({
   const [step, setStep] = useState<ModalStep>(initialStep);
   const [completionResponse, setCompletionResponse] = useState<CompletionResponseData[]>(initialCompletionResponse);
   const completionResponseRef = useRef<CompletionResponseData[]>(initialCompletionResponse);
+  const completionPromiseRef = useRef<Promise<CompletionResponseData[]> | null>(null);
 
   // Play success sound and launch confetti when the modal opens on the success step
   useEffect(() => {
@@ -85,21 +86,23 @@ export function useExerciseCompletionModal({
 
   const handleCompleteExercise = async () => {
     setStep("difficulty-rating");
-    const events = (await onCompleteExercise?.()) ?? [];
+    const promise = Promise.resolve(onCompleteExercise?.()).then((result) => result ?? []);
+    completionPromiseRef.current = promise;
+    const events = await promise;
     completionResponseRef.current = events;
     setCompletionResponse(events);
   };
 
-  const handleRatingsSubmit = (difficultyRating: number, funRating: number) => {
+  const handleRatingsSubmit = async (difficultyRating: number, funRating: number) => {
     rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
 
-    // Sequence through unlocked concept/project before landing on completed.
-    // Use the ref to avoid reading stale state if the user submits ratings
-    // before the API call in handleCompleteExercise has finished.
-    const conceptEvent = completionResponseRef.current.find((item) => item.type === "concept_unlocked");
+    // Wait for the completion API call to finish before reading the response,
+    // in case the user submits ratings before onCompleteExercise has resolved.
+    const events = completionPromiseRef.current ? await completionPromiseRef.current : completionResponseRef.current;
+
+    const conceptEvent = events.find((item) => item.type === "concept_unlocked");
     const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
-    const unlockedProjectData = completionResponseRef.current.find((item) => item.type === "project_unlocked")?.data
-      .project;
+    const unlockedProjectData = events.find((item) => item.type === "project_unlocked")?.data.project;
 
     if (unlockedConcept) {
       setStep("concept-unlocked");
