@@ -1,0 +1,76 @@
+.card {
+    background: var(--color-purple-100);
+    border-radius: 16px;
+    padding: 15px 20px 20px;
+    margin-bottom: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 4px;
+}
+
+.duration {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-500);
+}
+
+.description {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.thumbnail {
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+
+    img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+    }
+
+    &:hover .playBtn {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.08);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.playBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+
+    svg {
+        width: 22px;
+        height: 22px;
+        fill: var(--color-gray-800);
+        margin-left: 3px;
+    }
+}

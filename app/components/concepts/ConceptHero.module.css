@@ -1,0 +1,35 @@
+.hero {
+    padding: 60px 40px;
+    margin-bottom: 32px;
+    border-radius: 24px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-blue-500-5) 0%, var(--color-purple-500-6) 100%);
+
+    @media (max-width: 1200px) {
+        padding: 40px 24px;
+        border-radius: 16px;
+    }
+}
+
+.title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-gray-800);
+    margin-bottom: 16px;
+
+    @media (max-width: 1200px) {
+        font-size: 36px;
+    }
+}
+
+.intro {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+    margin-bottom: 0;
+
+    @media (max-width: 1200px) {
+        font-size: 17px;
+    }
+}

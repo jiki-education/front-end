@@ -1,0 +1,27 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 32px;
+    align-items: start;
+}
+
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    min-width: 0;
+}
+
+.aside {
+    min-width: 0;
+}
+
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main {
+        max-width: 100%;
+    }
+}

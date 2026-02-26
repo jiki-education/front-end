@@ -16,7 +16,7 @@ interface BreadcrumbProps {
 }
 
 export default function Breadcrumb({ conceptTitle, ancestors = [] }: BreadcrumbProps) {
-  const breadcrumbItems: BreadcrumbItem[] = [{ label: "Library:", isLabel: true }];
+  const breadcrumbItems: BreadcrumbItem[] = [];
 
   // If no concept title, we're on the "All Concepts" page
   if (!conceptTitle) {

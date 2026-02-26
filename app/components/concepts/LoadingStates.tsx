@@ -76,3 +76,42 @@ export function ConceptGroupPageSkeleton() {
     </>
   );
 }
+
+export function ConceptArticleSkeleton() {
+  return (
+    <div className={styles.leafBody}>
+      {[100, 90, 95, 80, 85, 60].map((w, i) => (
+        <div
+          key={i}
+          className={styles.shimmer}
+          style={{ height: 14, width: `${w}%`, animationDelay: `${i * 0.05}s` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function ConceptLeafPageSkeleton() {
+  return (
+    <div className={styles.leafGrid}>
+      <div className={styles.leafMain}>
+        <div className={`${styles.shimmer} ${styles.placeholderBreadcrumb}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafHero}`}></div>
+        <div className={styles.leafBody}>
+          {[100, 90, 95, 80, 85, 60].map((w, i) => (
+            <div
+              key={i}
+              className={styles.shimmer}
+              style={{ height: 14, width: `${w}%`, animationDelay: `${i * 0.05}s` }}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.leafAside}>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+        <div className={`${styles.shimmer} ${styles.leafSidebarBlock}`}></div>
+      </div>
+    </div>
+  );
+}
