@@ -4,7 +4,6 @@ import type { CompletionResponseData } from "@/components/coding-exercise/lib/ty
 import { useExerciseCompletionModal } from "./hooks/useExerciseCompletionModal";
 
 import { SuccessStep } from "./steps/SuccessStep";
-import { ConfirmationStep } from "./steps/ConfirmationStep";
 import { DifficultyRatingStep } from "./steps/DifficultyRatingStep";
 import { CompletedStep } from "./steps/CompletedStep";
 import { ConceptUnlockedStep } from "./steps/ConceptUnlockedStep";
@@ -12,7 +11,7 @@ import { ProjectUnlockedStep } from "./steps/ProjectUnlockedStep";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
-  onCompleteExercise?: () => void;
+  onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
   exerciseSlug?: string;
@@ -21,13 +20,7 @@ interface ExerciseCompletionModalProps {
     description: string;
     slug: string;
   };
-  initialStep?:
-    | "success"
-    | "confirmation"
-    | "difficulty-rating"
-    | "completed"
-    | "concept-unlocked"
-    | "project-unlocked";
+  initialStep?: "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked";
   completionResponse?: CompletionResponseData[];
 }
 
@@ -45,7 +38,11 @@ export function ExerciseCompletionModal({
   initialStep = "success",
   completionResponse = []
 }: ExerciseCompletionModalProps) {
-  const { step, handlers } = useExerciseCompletionModal({
+  const {
+    step,
+    completionResponse: liveCompletionResponse,
+    handlers
+  } = useExerciseCompletionModal({
     onTidyCode,
     onCompleteExercise,
     onGoToDashboard,
@@ -59,15 +56,18 @@ export function ExerciseCompletionModal({
   switch (step) {
     case "concept-unlocked":
       return (
-        <ConceptUnlockedStep completionResponse={completionResponse} onContinue={handlers.handleContinueFromConcept} />
+        <ConceptUnlockedStep
+          completionResponse={liveCompletionResponse}
+          onContinue={handlers.handleContinueFromConcept}
+        />
       );
 
     case "project-unlocked":
       return (
         <ProjectUnlockedStep
-          completionResponse={completionResponse}
+          completionResponse={liveCompletionResponse}
           unlockedProject={unlockedProject}
-          onGoToDashboard={handlers.handleGoToDashboard}
+          onContinue={handlers.handleContinueFromProject}
         />
       );
 
@@ -76,14 +76,16 @@ export function ExerciseCompletionModal({
 
     case "completed":
       return (
-        <CompletedStep exerciseTitle={exerciseTitle} exerciseSlug={exerciseSlug} onContinue={handlers.handleContinue} />
+        <CompletedStep
+          exerciseTitle={exerciseTitle}
+          exerciseSlug={exerciseSlug}
+          onContinue={handlers.handleContinue}
+          onTidyCode={handlers.handleTidyCode}
+        />
       );
-
-    case "confirmation":
-      return <ConfirmationStep onCancel={handlers.handleCancel} onCompleteExercise={handlers.handleCompleteExercise} />;
 
     case "success":
     default:
-      return <SuccessStep onTidyCode={handlers.handleTidyCode} onShowConfirmation={handlers.handleShowConfirmation} />;
+      return <SuccessStep onCompleteExercise={handlers.handleCompleteExercise} />;
   }
 }

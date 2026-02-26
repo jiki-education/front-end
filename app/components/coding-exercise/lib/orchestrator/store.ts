@@ -34,8 +34,6 @@ export function createOrchestratorStore(
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
-      hasEverHadSuccessfulRun: false,
-      shouldShowCompleteButton: false,
       isExerciseCompleted: false,
       completionResponse: [],
       foldedLines: [],
@@ -204,36 +202,16 @@ export function createOrchestratorStore(
               exerciseTitle: state.exerciseTitle,
               exerciseSlug: state.exerciseSlug,
               initialStep: "success",
-              onTidyCode: () => {
-                // Close modal and enable complete button in header
-                get().setShouldShowCompleteButton(true);
-              },
               onCompleteExercise: async () => {
-                // Handle exercise completion using exercise slug from store
                 try {
                   const response = await markLessonComplete(state.context.slug);
-
                   const events = response?.meta?.events || [];
                   get().setCompletionResponse(events);
-
-                  // Update local state to show completed tag
                   get().setIsExerciseCompleted(true);
-
-                  // Re-show modal with completion response data
-                  showModal("exercise-completion-modal", {
-                    exerciseTitle: state.exerciseTitle,
-                    exerciseSlug: state.exerciseSlug,
-                    completionResponse: events,
-                    initialStep: "completed",
-                    onTidyCode: () => {
-                      get().setShouldShowCompleteButton(true);
-                    },
-                    onCompleteExercise: () => {} // No-op since already completed
-                  });
-
-                  console.warn("Exercise completed successfully!");
+                  return events;
                 } catch (error) {
                   console.error("Failed to mark lesson as complete:", error);
+                  return [];
                 }
               }
             });
@@ -347,8 +325,6 @@ export function createOrchestratorStore(
       setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
       setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
       setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
-      setHasEverHadSuccessfulRun: (value) => set({ hasEverHadSuccessfulRun: value }),
-      setShouldShowCompleteButton: (value) => set({ shouldShowCompleteButton: value }),
       setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
       setCompletionResponse: (response) => set({ completionResponse: response }),
       setFoldedLines: (lines) => {
@@ -387,8 +363,8 @@ export function createOrchestratorStore(
       setTestSuiteResult: (result) => {
         const state = get();
 
-        // Only enable spotlight if all tests passed AND this is the first time we've had a successful run AND exercise is not already completed
-        const shouldActivateSpotlight = result?.passed && !state.hasEverHadSuccessfulRun && !state.isExerciseCompleted;
+        // Enable spotlight whenever tests pass and exercise is not already completed
+        const shouldActivateSpotlight = result?.passed && !state.isExerciseCompleted;
 
         // Set the test suite result and reset things.
         set({
@@ -398,10 +374,7 @@ export function createOrchestratorStore(
           status: "success", // This will get reset via the setCurrentTest below.
           testCurrentTimes: {},
           // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
-          // Enable spotlight only on first successful run
           isSpotlightActive: shouldActivateSpotlight,
-          // Mark that we've had a successful run if all tests passed
-          hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun || result?.passed,
           // Reset playing state to allow animations to play on new test suite
           isPlaying: false
         });
@@ -557,7 +530,6 @@ export function createOrchestratorStore(
           hasCodeBeenEdited: false,
           isSpotlightActive: false,
           wasSuccessModalShown: false,
-          hasEverHadSuccessfulRun: false,
           foldedLines: [],
           language: "jikiscript",
 
@@ -624,8 +596,6 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
       wasSuccessModalShown: state.wasSuccessModalShown,
-      hasEverHadSuccessfulRun: state.hasEverHadSuccessfulRun,
-      shouldShowCompleteButton: state.shouldShowCompleteButton,
       isExerciseCompleted: state.isExerciseCompleted,
       completionResponse: state.completionResponse,
       foldedLines: state.foldedLines,

@@ -57,8 +57,6 @@ export interface OrchestratorState {
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
   wasSuccessModalShown: boolean;
-  hasEverHadSuccessfulRun: boolean;
-  shouldShowCompleteButton: boolean;
   isExerciseCompleted: boolean;
   completionResponse: CompletionResponseData[];
   foldedLines: number[]; // Line numbers that are currently folded in the editor
@@ -126,8 +124,6 @@ export interface OrchestratorActions {
   setHasCodeBeenEdited: (value: boolean) => void;
   setIsSpotlightActive: (value: boolean) => void;
   setWasSuccessModalShown: (value: boolean) => void;
-  setHasEverHadSuccessfulRun: (value: boolean) => void;
-  setShouldShowCompleteButton: (value: boolean) => void;
   setIsExerciseCompleted: (value: boolean) => void;
   setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;

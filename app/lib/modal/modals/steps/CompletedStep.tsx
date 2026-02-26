@@ -8,9 +8,10 @@ interface CompletedStepProps {
   exerciseTitle: string;
   exerciseSlug: string;
   onContinue: () => void;
+  onTidyCode: () => void;
 }
 
-export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue }: CompletedStepProps) {
+export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue, onTidyCode }: CompletedStepProps) {
   return (
     <>
       <div className={timelineStyles.exerciseTimeline}>
@@ -33,6 +34,9 @@ export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue }: Compl
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
+        <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
+          Tidy code
+        </button>
         <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
           Continue
         </button>

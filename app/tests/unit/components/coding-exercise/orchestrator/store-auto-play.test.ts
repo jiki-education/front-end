@@ -335,15 +335,13 @@ describe("Store Auto-Play Behavior", () => {
     });
 
     describe("setTestSuiteResult spotlight behavior", () => {
-      it("should set isSpotlightActive to true when all tests pass for the FIRST time", () => {
+      it("should set isSpotlightActive to true when all tests pass and exercise is not completed", () => {
         const exercise = createMockExercise({
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
         const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
-        // Verify initial state
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
         expect(store.getState().isSpotlightActive).toBe(false);
 
         const testResults = {
@@ -353,12 +351,10 @@ describe("Store Auto-Play Behavior", () => {
 
         store.getState().setTestSuiteResult(testResults);
 
-        // Should activate spotlight on first success
         expect(store.getState().isSpotlightActive).toBe(true);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
       });
 
-      it("should NOT set isSpotlightActive when all tests pass for the SECOND time", () => {
+      it("should re-activate isSpotlightActive on subsequent passing runs while exercise is not completed", () => {
         const exercise = createMockExercise({
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
@@ -373,17 +369,32 @@ describe("Store Auto-Play Behavior", () => {
         // First successful run
         store.getState().setTestSuiteResult(testResults);
         expect(store.getState().isSpotlightActive).toBe(true);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
 
         // Manually turn off spotlight (simulating modal completion)
         store.getState().setIsSpotlightActive(false);
 
-        // Second successful run
+        // Second successful run - spotlight re-activates
+        store.getState().setTestSuiteResult(testResults);
+        expect(store.getState().isSpotlightActive).toBe(true);
+      });
+
+      it("should NOT set isSpotlightActive when exercise is already completed", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setIsExerciseCompleted(true);
+
+        const testResults = {
+          tests: [createMockTest("test-1"), createMockTest("test-2")],
+          passed: true
+        };
+
         store.getState().setTestSuiteResult(testResults);
 
-        // Should NOT activate spotlight again
         expect(store.getState().isSpotlightActive).toBe(false);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
       });
 
       it("should set isSpotlightActive to false when any test fails", () => {
@@ -403,38 +414,6 @@ describe("Store Auto-Play Behavior", () => {
         store.getState().setTestSuiteResult(testResults);
 
         expect(store.getState().isSpotlightActive).toBe(false);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
-      });
-
-      it("should track hasEverHadSuccessfulRun correctly across multiple runs", () => {
-        const exercise = createMockExercise({
-          slug: "test-uuid",
-          stubs: { javascript: "", python: "", jikiscript: "" }
-        });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
-
-        // Initially false
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
-
-        // Failed run - should remain false
-        const failedResults = {
-          tests: [{ ...createMockTest("test-1"), status: "fail" as const }],
-          passed: false
-        };
-        store.getState().setTestSuiteResult(failedResults);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(false);
-
-        // Successful run - should become true
-        const successResults = {
-          tests: [createMockTest("test-1")],
-          passed: true
-        };
-        store.getState().setTestSuiteResult(successResults);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
-
-        // Another failed run - should remain true (once successful, always marked as such)
-        store.getState().setTestSuiteResult(failedResults);
-        expect(store.getState().hasEverHadSuccessfulRun).toBe(true);
       });
 
       it("should NOT reset wasSuccessModalShown when running tests again", () => {

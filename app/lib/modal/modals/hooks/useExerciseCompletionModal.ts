@@ -5,17 +5,11 @@ import SoundManager from "@/lib/sound/SoundManager";
 import { rateLesson } from "@/lib/api/lessons";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
-export type ModalStep =
-  | "success"
-  | "confirmation"
-  | "difficulty-rating"
-  | "completed"
-  | "concept-unlocked"
-  | "project-unlocked";
+export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked";
 
 interface UseExerciseCompletionModalProps {
   onTidyCode?: () => void;
-  onCompleteExercise?: () => void;
+  onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle: string;
   exerciseSlug: string;
@@ -36,9 +30,10 @@ export function useExerciseCompletionModal({
   exerciseSlug,
   unlockedProject,
   initialStep,
-  completionResponse
+  completionResponse: initialCompletionResponse
 }: UseExerciseCompletionModalProps) {
   const [step, setStep] = useState<ModalStep>(initialStep);
+  const [completionResponse, setCompletionResponse] = useState<CompletionResponseData[]>(initialCompletionResponse);
 
   // Play success sound when the modal opens on the success step
   useEffect(() => {
@@ -51,7 +46,6 @@ export function useExerciseCompletionModal({
   // Update overlay class when step changes to project-unlocked
   useEffect(() => {
     if (step === "project-unlocked") {
-      // Re-show the modal with the special overlay class and preserve completionResponse
       showModal(
         "exercise-completion-modal",
         {
@@ -83,35 +77,16 @@ export function useExerciseCompletionModal({
     hideModal();
   };
 
-  const handleShowConfirmation = () => {
-    // If this modal was auto-opened after tests passed (initialStep is "success"),
-    // skip confirmation and go directly to completion.
-    // If manually opened from header (initialStep is "confirmation"),
-    // show the confirmation step.
-    if (initialStep === "success") {
-      handleCompleteExercise();
-    } else {
-      setStep("confirmation");
-    }
-  };
-
-  const handleCancel = () => {
-    setStep("success");
-  };
-
-  const handleCompleteExercise = () => {
+  const handleCompleteExercise = async () => {
     setStep("difficulty-rating");
+    const events = (await onCompleteExercise?.()) ?? [];
+    setCompletionResponse(events);
   };
 
   const handleRatingsSubmit = (difficultyRating: number, funRating: number) => {
     rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
-    setStep("completed");
-    onCompleteExercise?.();
-  };
 
-  const handleContinue = () => {
-    // Check if we have unlocked concepts to show first
-    // Support both new format (concept_slug) and old format (concept object)
+    // Sequence through unlocked concept/project before landing on completed
     const conceptEvent = completionResponse.find((item) => item.type === "concept_unlocked");
     const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
     const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
@@ -121,19 +96,26 @@ export function useExerciseCompletionModal({
     } else if (unlockedProjectData) {
       setStep("project-unlocked");
     } else {
-      hideModal();
+      setStep("completed");
     }
   };
 
   const handleContinueFromConcept = () => {
-    // After showing concept, check if we have unlocked projects
     const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
 
     if (unlockedProjectData) {
       setStep("project-unlocked");
     } else {
-      hideModal();
+      setStep("completed");
     }
+  };
+
+  const handleContinueFromProject = () => {
+    setStep("completed");
+  };
+
+  const handleContinue = () => {
+    hideModal();
   };
 
   const handleGoToDashboard = () => {
@@ -143,14 +125,14 @@ export function useExerciseCompletionModal({
 
   return {
     step,
+    completionResponse,
     handlers: {
       handleTidyCode,
-      handleShowConfirmation,
-      handleCancel,
       handleCompleteExercise,
       handleRatingsSubmit,
-      handleContinue,
       handleContinueFromConcept,
+      handleContinueFromProject,
+      handleContinue,
       handleGoToDashboard
     }
   };

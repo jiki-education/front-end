@@ -20,8 +20,6 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
       wasSuccessModalShown: false,
-      hasEverHadSuccessfulRun: false,
-      shouldShowCompleteButton: false,
       isExerciseCompleted: false,
       completionResponse: [],
       foldedLines: [],
