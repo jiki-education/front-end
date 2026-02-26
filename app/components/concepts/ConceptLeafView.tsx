@@ -32,8 +32,6 @@ export function ConceptLeafView({
   isConceptUnlocked,
   getExerciseStatus
 }: ConceptLeafViewProps) {
-  const parentTitle = ancestors.length > 0 ? ancestors[ancestors.length - 1].title : undefined;
-
   return (
     <ConceptsLayout>
       <ConceptLayout
@@ -49,7 +47,7 @@ export function ConceptLeafView({
           />
         }
       >
-        <ConceptHero category={parentTitle} title={concept.title} intro={concept.description} />
+        <ConceptHero title={concept.title} intro={concept.description} />
         {isContentLoading && <ConceptArticleSkeleton />}
         {content && <MarkdownContent content={content} variant="base" />}
       </ConceptLayout>

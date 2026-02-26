@@ -102,6 +102,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
       } catch {
         setError("Failed to load concept. Please try again later.");
         setIsLoading(false);
+        setIsContentLoading(false);
       }
     };
 

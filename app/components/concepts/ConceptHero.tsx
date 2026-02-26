@@ -2,7 +2,6 @@ import { marked } from "marked";
 import styles from "./ConceptHero.module.css";
 
 interface ConceptHeroProps {
-  category?: string;
   title: string;
   intro?: string;
 }
