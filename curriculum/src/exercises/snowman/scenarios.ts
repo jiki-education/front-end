@@ -6,11 +6,7 @@ export const tasks = [
     id: "build-snowman" as const,
     name: "Build the snowman",
     description: "Set the variable values so the snowman matches the target image.",
-    hints: [
-      "The snowman is centered horizontally at x = 50",
-      "The base is the largest circle, near the bottom of the canvas",
-      "Each circle gets smaller as you go up"
-    ],
+    hints: [],
     requiredScenarios: ["build-snowman"],
     bonus: false
   }

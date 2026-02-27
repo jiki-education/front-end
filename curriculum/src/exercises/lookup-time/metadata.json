@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "dictionaries",
   "hints": [
-    "Use fetch(url, params) to get data from the API",
-    "The params should be a dictionary with a \"city\" key",
-    "Check if the response has an \"error\" key before building the time string",
-    "Use concatenate() to build the result string from the response data"
+    {
+      "question": "Hint",
+      "answer": "Use fetch(url, params) to get data from the API"
+    },
+    {
+      "question": "Hint",
+      "answer": "The params should be a dictionary with a \"city\" key"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if the response has an \"error\" key before building the time string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to build the result string from the response data"
+    }
   ]
 }

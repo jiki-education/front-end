@@ -13,6 +13,7 @@ export type {
   ExerciseCore,
   ExerciseDefinition,
   FunctionInfo,
+  Hint,
   InterpreterOptions,
   IOExerciseCore,
   IOExerciseDefinition,

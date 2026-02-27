@@ -4,9 +4,9 @@ import HintsPanel from "@/components/coding-exercise/ui/HintsPanel";
 import { GlobalModalProvider } from "@/lib/modal/GlobalModalProvider";
 
 const sampleHints = [
-  "Try using a <code>for</code> loop to iterate through the array.",
-  "Remember that arrays are zero-indexed in most programming languages.",
-  "Consider using the <code>modulo</code> operator to check for even/odd numbers."
+  { question: "Hint", answer: "Try using a <code>for</code> loop to iterate through the array." },
+  { question: "Hint", answer: "Remember that arrays are zero-indexed in most programming languages." },
+  { question: "Hint", answer: "Consider using the <code>modulo</code> operator to check for even/odd numbers." }
 ];
 
 const walkthroughVideoData = [{ provider: "mux", id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU" }];

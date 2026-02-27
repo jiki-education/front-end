@@ -6,12 +6,7 @@ export const tasks = [
     name: "Calculate Sign Price",
     description:
       "Write a function that calculates the price of a sign. Each letter costs $12. Spaces are free and should not be counted. Return the result as a formatted string.",
-    hints: [
-      "Start by creating a variable to count the number of letters",
-      "Loop through each character and only count it if it is not a space",
-      "Multiply the letter count by 12 to get the price",
-      "Use concatenate and numberToString to build the result string"
-    ],
+    hints: [],
     requiredScenarios: ["simple-word", "single-letter", "two-words", "multiple-spaces", "long-text", "all-spaces"],
     bonus: false
   }

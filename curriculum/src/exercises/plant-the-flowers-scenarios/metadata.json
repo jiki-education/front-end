@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by calling numFlowers() and storing the result in a variable",
-    "Calculate the gap: 100 / (count + 1)",
-    "Set your starting position to the gap value",
-    "Use a repeat loop to plant each flower, then increase the position by the gap"
+    {
+      "question": "Hint",
+      "answer": "Start by calling numFlowers() and storing the result in a variable"
+    },
+    {
+      "question": "Hint",
+      "answer": "Calculate the gap: 100 / (count + 1)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Set your starting position to the gap value"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a repeat loop to plant each flower, then increase the position by the gap"
+    }
   ]
 }

@@ -6,11 +6,7 @@ export const tasks = [
     id: "build-relational-traffic-lights" as const,
     name: "Build the relational traffic lights",
     description: "Derive all positions and sizes from the radius variable so the traffic light scales correctly.",
-    hints: [
-      "All derived variables should be radius * something",
-      "The lights are spaced 2 radii apart vertically",
-      "The housing surrounds the lights with padding equal to the radius"
-    ],
+    hints: [],
     requiredScenarios: ["build-relational-traffic-lights"],
     bonus: false
   }

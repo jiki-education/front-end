@@ -6,11 +6,7 @@ export const tasks = [
     id: "roll-ball" as const,
     name: "Roll the ball into the hole",
     description: "Use a loop to move the ball 60 times to the right so it reaches the hole.",
-    hints: [
-      "The ball needs to move 60 times to the right",
-      "Use a loop that runs 60 times",
-      "You only need one function call inside the loop"
-    ],
+    hints: [],
     requiredScenarios: ["roll-ball"],
     bonus: false
   }

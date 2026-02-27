@@ -3,8 +3,17 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Your function should be called walk and take one input called steps",
-    "Use a loop with the steps input to move forward multiple times",
-    "The function should call move() inside the repeat loop"
+    {
+      "question": "Hint",
+      "answer": "Your function should be called walk and take one input called steps"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop with the steps input to move forward multiple times"
+    },
+    {
+      "question": "Hint",
+      "answer": "The function should call move() inside the repeat loop"
+    }
   ]
 }

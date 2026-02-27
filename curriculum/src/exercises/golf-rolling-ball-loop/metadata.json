@@ -3,8 +3,17 @@
   "estimatedMinutes": 5,
   "levelId": "repeat-loop",
   "hints": [
-    "The ball needs to move 60 times to the right",
-    "Use a loop instead of writing rollRight() 60 times",
-    "Use a loop that runs 60 times with rollRight() inside it"
+    {
+      "question": "Hint",
+      "answer": "The ball needs to move 60 times to the right"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop instead of writing rollRight() 60 times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop that runs 60 times with rollRight() inside it"
+    }
   ]
 }

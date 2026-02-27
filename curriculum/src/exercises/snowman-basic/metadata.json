@@ -3,8 +3,17 @@
   "estimatedMinutes": 5,
   "levelId": "using-functions",
   "hints": [
-    "The snowman is centered horizontally at x = 50",
-    "The base is the largest circle, near the bottom",
-    "Each circle gets smaller as you go up"
+    {
+      "question": "Hint",
+      "answer": "The snowman is centered horizontally at x = 50"
+    },
+    {
+      "question": "Hint",
+      "answer": "The base is the largest circle, near the bottom"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each circle gets smaller as you go up"
+    }
   ]
 }

@@ -7,11 +7,7 @@ export const tasks = [
     name: "Use an if statement to shoot only when there's an alien above",
     description:
       "Move across the screen, checking each position. If there's an alien above you, shoot it. If not, just move on.",
-    hints: [
-      "Use isAlienAbove() to check before shooting",
-      "Wrap the check-and-move pattern in a repeat loop",
-      "The pattern is: check, maybe shoot, then move"
-    ],
+    hints: [],
     requiredScenarios: ["conditional-1", "conditional-2", "conditional-3", "conditional-4", "conditional-5"],
     bonus: false
   }

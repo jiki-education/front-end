@@ -6,13 +6,7 @@ export const tasks = [
     name: "Format the response",
     description:
       "Create an askLlm function that takes a question, fetches the LLM response, selects the answer with the highest certainty, and returns a formatted string.",
-    hints: [
-      "Use fetch with the API URL and a dictionary containing the question",
-      "Loop through the answers to find the one with the highest certainty",
-      "Convert certainty from a decimal string to a percentage (multiply by 100)",
-      "Convert time from milliseconds to seconds (divide by 1000)",
-      "Use concatenate() to build the result string"
-    ],
+    hints: [],
     requiredScenarios: ["football", "cooking", "ltc"],
     bonus: false
   }

@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "repeat-loop",
   "hints": [
-    "Look at the pattern - the aliens are in every other column",
-    "What actions do you repeat for each group of aliens?",
-    "Use repeat(n) { ... } to run the same code multiple times",
-    "Count how many groups of aliens there are"
+    {
+      "question": "Hint",
+      "answer": "Look at the pattern - the aliens are in every other column"
+    },
+    {
+      "question": "Hint",
+      "answer": "What actions do you repeat for each group of aliens?"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use repeat(n) { ... } to run the same code multiple times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Count how many groups of aliens there are"
+    }
   ]
 }

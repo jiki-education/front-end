@@ -6,12 +6,7 @@ export const tasks = [
     id: "draw-rainbow" as const,
     name: "Draw the rainbow",
     description: "Draw 100 vertical bars across the canvas, each with a different hue to create a rainbow effect.",
-    hints: [
-      "Use a repeat loop that runs 100 times",
-      "Increase x by 1 and hue by 3 each iteration",
-      "Set the color before drawing each rectangle",
-      "Each rectangle should be 1 wide and 100 tall"
-    ],
+    hints: [],
     requiredScenarios: ["draw-rainbow"],
     bonus: false
   }

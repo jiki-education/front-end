@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "variables",
   "hints": [
-    "Use the circle function to draw each light",
-    "The first two arguments to circle are the x and y position — use the variables!",
-    "The third argument is the radius — there's a variable for that too",
-    "Red is \"red\", yellow is \"amber\", green is \"green\""
+    {
+      "question": "Hint",
+      "answer": "Use the circle function to draw each light"
+    },
+    {
+      "question": "Hint",
+      "answer": "The first two arguments to circle are the x and y position — use the variables!"
+    },
+    {
+      "question": "Hint",
+      "answer": "The third argument is the radius — there's a variable for that too"
+    },
+    {
+      "question": "Hint",
+      "answer": "Red is \"red\", yellow is \"amber\", green is \"green\""
+    }
   ]
 }

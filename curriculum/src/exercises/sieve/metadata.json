@@ -3,10 +3,25 @@
   "estimatedMinutes": 15,
   "levelId": "dictionaries",
   "hints": [
-    "Start by creating a list of all numbers from 2 up to the target",
-    "Use a dictionary or object to track whether each number has been marked as not prime",
-    "For each unmarked number, mark all of its multiples as not prime",
-    "Use push() to build up the final list of primes",
-    "Numbers that remain unmarked after processing are prime"
+    {
+      "question": "Hint",
+      "answer": "Start by creating a list of all numbers from 2 up to the target"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a dictionary or object to track whether each number has been marked as not prime"
+    },
+    {
+      "question": "Hint",
+      "answer": "For each unmarked number, mark all of its multiples as not prime"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use push() to build up the final list of primes"
+    },
+    {
+      "question": "Hint",
+      "answer": "Numbers that remain unmarked after processing are prime"
+    }
   ]
 }

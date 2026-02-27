@@ -6,11 +6,7 @@ export const tasks = [
     name: "Implement the Sieve",
     description:
       "Write a function called sieve that takes a number and returns a list of all prime numbers up to and including that number, using the Sieve of Eratosthenes algorithm.",
-    hints: [
-      "Create a list of objects tracking each number and whether it's been crossed off",
-      "Loop through the list, and for each uncrossed number, cross off all its multiples",
-      "At the end, collect all uncrossed numbers (excluding 1) into the result"
-    ],
+    hints: [],
     requiredScenarios: [
       "sieve-no-primes-under-two",
       "sieve-first-prime",

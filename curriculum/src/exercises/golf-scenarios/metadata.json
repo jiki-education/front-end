@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start by storing the shot length: let shotLength = getShotLength()",
-    "Set a variable x to 29 to track the ball's position",
-    "Use a loop that runs shotLength + 1 times",
-    "Inside the loop, increase x by 1 and call rollTo(x)",
-    "Don't forget to fire the fireworks at the end!"
+    {
+      "question": "Hint",
+      "answer": "Start by storing the shot length: let shotLength = getShotLength()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Set a variable x to 29 to track the ball's position"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop that runs shotLength + 1 times"
+    },
+    {
+      "question": "Hint",
+      "answer": "Inside the loop, increase x by 1 and call rollTo(x)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Don't forget to fire the fireworks at the end!"
+    }
   ]
 }

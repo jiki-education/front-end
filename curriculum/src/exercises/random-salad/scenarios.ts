@@ -6,12 +6,7 @@ export const tasks = [
     id: "make-random-salad" as const,
     name: "Make a random salad",
     description: "Generate a random amount of each ingredient using Math.randomInt() and make the salad.",
-    hints: [
-      "Use Math.randomInt(20, 100) for the number of leaves",
-      "Use Math.randomInt(5, 20) for the number of tomatoes",
-      "Use Math.randomInt(10, 50) for the number of croutons",
-      "Use Math.randomInt(1, 10) for the amount of dressing"
-    ],
+    hints: [],
     requiredScenarios: ["random-salad"],
     bonus: false
   }

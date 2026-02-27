@@ -3,10 +3,25 @@
   "estimatedMinutes": 15,
   "levelId": "conditionals-and-state",
   "hints": [
-    "You need variables for position (x, y), direction (xDirection, yDirection), hue, and hueDirection",
-    "Update x, y, and hue at the start of each loop iteration by adding the direction values",
-    "When x goes below 0 or above 100, change xDirection to a random value in the opposite direction",
-    "Use randomNumber(1, 5) for positive directions and randomNumber(-5, -1) for negative directions",
-    "When hue goes below 0, set hueDirection to 1; when above 360, set it to -1"
+    {
+      "question": "Hint",
+      "answer": "You need variables for position (x, y), direction (xDirection, yDirection), hue, and hueDirection"
+    },
+    {
+      "question": "Hint",
+      "answer": "Update x, y, and hue at the start of each loop iteration by adding the direction values"
+    },
+    {
+      "question": "Hint",
+      "answer": "When x goes below 0 or above 100, change xDirection to a random value in the opposite direction"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use randomNumber(1, 5) for positive directions and randomNumber(-5, -1) for negative directions"
+    },
+    {
+      "question": "Hint",
+      "answer": "When hue goes below 0, set hueDirection to 1; when above 360, set it to -1"
+    }
   ]
 }

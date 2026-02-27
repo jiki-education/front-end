@@ -9,12 +9,13 @@ import EyeOpenIcon from "@/icons/eye-open.svg";
 import { showWalkthroughConfirm } from "@/lib/modal/store";
 import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgress";
 import type { VideoSource } from "@/types/lesson";
+import type { Hint } from "@jiki/curriculum";
 import style from "./hints-panel.module.css";
 
 const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
 interface HintsViewProps {
-  hints: string[] | undefined;
+  hints: Hint[] | undefined;
   walkthroughVideoData?: VideoSource[] | null;
   lessonSlug?: string;
   className?: string;
@@ -71,8 +72,8 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
               return (
                 <li key={index}>
                   <HintItem
-                    question={`Hint ${index + 1}`}
-                    answer={[hint]}
+                    question={hint.question}
+                    answer={[hint.answer]}
                     style={style}
                     isRevealed={isRevealed}
                     onReveal={() => handleRevealHint(index)}

@@ -6,12 +6,7 @@ export const tasks = [
     id: "build-relational-snowman" as const,
     name: "Build the relational snowman",
     description: "Derive all sizes and positions from headRadius and groundY so the snowman scales correctly.",
-    hints: [
-      "bodyRadius = headRadius * 2, baseRadius = headRadius * 3",
-      "baseY = groundY - baseRadius",
-      "bodyY = baseY - baseRadius - bodyRadius",
-      "headY = bodyY - bodyRadius - headRadius"
-    ],
+    hints: [],
     requiredScenarios: ["build-relational-snowman"],
     bonus: false
   }

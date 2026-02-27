@@ -7,12 +7,7 @@ export const tasks = [
     name: "Roll the dice and strike the goblin",
     description:
       "Roll three dice (d20 for attack, d6 for base damage, d4 for bonus), announce each roll, then strike the goblin with your attack roll and total damage (base + bonus).",
-    hints: [
-      "Use roll(20) to roll the 20-sided die and store the result in a variable",
-      "Each call to roll() gives back a different number that you need to save",
-      "You need to call announce() three times, once for each roll",
-      "The total damage is the sum of the d6 roll and the d4 roll"
-    ],
+    hints: [],
     requiredScenarios: ["rolls-15-4-3"],
     bonus: false
   }

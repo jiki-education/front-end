@@ -3,10 +3,25 @@
   "estimatedMinutes": 15,
   "levelId": "basic-state",
   "hints": [
-    "Initialize variables for the sun's position, radius, and color components BEFORE the loop",
-    "Update each variable INSIDE the loop, BEFORE drawing the shapes",
-    "For RGB colors: red is 0-255, green is 0-255, blue is 0-255",
-    "For HSL colors: hue is 0-360, saturation is 0-100, luminosity is 0-100",
-    "Draw the sky rectangle first, then the sun circle, then the sea and sand"
+    {
+      "question": "Hint",
+      "answer": "Initialize variables for the sun's position, radius, and color components BEFORE the loop"
+    },
+    {
+      "question": "Hint",
+      "answer": "Update each variable INSIDE the loop, BEFORE drawing the shapes"
+    },
+    {
+      "question": "Hint",
+      "answer": "For RGB colors: red is 0-255, green is 0-255, blue is 0-255"
+    },
+    {
+      "question": "Hint",
+      "answer": "For HSL colors: hue is 0-360, saturation is 0-100, luminosity is 0-100"
+    },
+    {
+      "question": "Hint",
+      "answer": "Draw the sky rectangle first, then the sun circle, then the sea and sand"
+    }
   ]
 }

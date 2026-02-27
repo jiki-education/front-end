@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "variables",
   "hints": [
-    "The snowman should be horizontally centered on the canvas (x = 50)",
-    "The base is the biggest circle and sits near the bottom",
-    "The body sits on top of the base and is smaller",
-    "The head is the smallest circle and sits on top of the body",
-    "Look at the background image carefully to estimate the y positions and sizes"
+    {
+      "question": "Hint",
+      "answer": "The snowman should be horizontally centered on the canvas (x = 50)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The base is the biggest circle and sits near the bottom"
+    },
+    {
+      "question": "Hint",
+      "answer": "The body sits on top of the base and is smaller"
+    },
+    {
+      "question": "Hint",
+      "answer": "The head is the smallest circle and sits on top of the body"
+    },
+    {
+      "question": "Hint",
+      "answer": "Look at the background image carefully to estimate the y positions and sizes"
+    }
   ]
 }

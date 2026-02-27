@@ -6,12 +6,7 @@ export const tasks = [
     id: "roll-and-celebrate" as const,
     name: "Roll the ball and celebrate",
     description: "Get the shot length, roll the ball right by that amount, then fire the fireworks.",
-    hints: [
-      "Use getShotLength() and store the result in a variable",
-      "Track the ball's x position starting at 29",
-      "Use a loop that runs shotLength + 1 times to roll the ball",
-      "Call fireFireworks() at the end"
-    ],
+    hints: [],
     requiredScenarios: ["short-shot", "medium-shot", "long-shot", "very-long-shot"],
     bonus: false
   }

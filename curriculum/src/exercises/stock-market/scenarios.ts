@@ -7,14 +7,7 @@ export const tasks = [
     name: "Grow your investment over 20 years",
     description:
       "Start with $10, simulate 20 years of stock market growth using Math.randomInt(), and check your final balance.",
-    hints: [
-      "Start with a variable set to 10 for your balance",
-      "Use a repeat loop for 20 years",
-      "Each year, generate a random rate from 0 to 10 using Math.randomInt(0, 10)",
-      "Calculate the growth: multiply your balance by the rate, then divide by 100",
-      "Add the growth to your balance",
-      "After the loop, call checkBalance() with your final amount"
-    ],
+    hints: [],
     requiredScenarios: ["twenty-years"],
     bonus: false
   }

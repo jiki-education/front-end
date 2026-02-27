@@ -6,12 +6,7 @@ export const tasks = [
     name: "Did They Pass?",
     description:
       "Write a function that analyzes driving test marks and determines if the student passed. A student fails if they have any major faults (💥) or 5 or more minor faults (❌).",
-    hints: [
-      "Loop through each character in the marks string",
-      "If you see a 💥, return false immediately - one major fails",
-      "Count how many ❌ you encounter",
-      "At the end, return true only if minors < 5"
-    ],
+    hints: [],
     requiredScenarios: ["perfect-marks", "dangerous", "one-big-mistake", "scraped-through", "one-mistake-too-many"],
     bonus: false
   }

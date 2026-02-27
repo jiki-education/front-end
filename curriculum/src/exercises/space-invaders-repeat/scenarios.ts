@@ -7,12 +7,7 @@ export const tasks = [
     name: "Use a repeat loop to shoot all the aliens",
     description:
       "Find the pattern in the alien positions and use a repeat loop to destroy them all in 7 lines of code or fewer.",
-    hints: [
-      "The aliens are at every other column",
-      "Each column has 3 aliens stacked vertically",
-      "You need to move twice then shoot three times for each group",
-      "Count how many groups there are to set your repeat count"
-    ],
+    hints: [],
     requiredScenarios: ["repeat-shoot"],
     bonus: false
   }

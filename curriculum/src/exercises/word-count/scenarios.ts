@@ -6,12 +6,7 @@ export const tasks = [
     name: "Basic cases",
     description:
       "Write a countWords function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers.",
-    hints: [
-      "Convert the sentence to lowercase first",
-      "Iterate through each character to extract words",
-      "Letters, numbers, and apostrophes are part of words - everything else separates words",
-      "Use a dictionary to track how many times each word appears"
-    ],
+    hints: [],
     requiredScenarios: [
       "word-count-single-word",
       "word-count-multiple-unique-words",
@@ -27,11 +22,7 @@ export const tasks = [
     name: "Case normalization",
     description:
       "Ensure your function handles mixed case words correctly, treats apostrophes as part of words, and handles multiple spaces.",
-    hints: [
-      "Converting to lowercase at the start handles case normalization",
-      "Apostrophes should be kept as part of contractions like don't",
-      "Multiple spaces between words should not create empty words"
-    ],
+    hints: [],
     requiredScenarios: ["word-count-normalize-case", "word-count-with-apostrophes", "word-count-multiple-spaces"],
     bonus: false
   },
@@ -40,10 +31,7 @@ export const tasks = [
     name: "Bonus: Apostrophes and quotations",
     description:
       "Handle edge cases where apostrophes are used as quotation marks around words, not as part of contractions. Only apostrophes in the middle of a word should be kept.",
-    hints: [
-      "An apostrophe at the start or end of a word is a quotation mark, not part of the word",
-      "Strip leading and trailing apostrophes from each extracted word"
-    ],
+    hints: [],
     requiredScenarios: ["word-count-with-apostrophes-and-quotations", "word-count-apostrophe-word-variation"],
     bonus: true
   }

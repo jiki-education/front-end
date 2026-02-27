@@ -6,12 +6,7 @@ export const tasks = [
     name: "Can You Fit Them In?",
     description:
       "Write a function that determines if a new customer can be served before closing time, given the current queue and time remaining.",
-    hints: [
-      "Create a helper function to look up how long each haircut takes",
-      "Use a list of [name, time] pairs to store the haircut durations",
-      "Loop through the queue and subtract each haircut time from the remaining minutes",
-      "Check if there's enough time left for the requested haircut"
-    ],
+    hints: [],
     requiredScenarios: [
       "empty-queue",
       "empty-queue-but-no-time",

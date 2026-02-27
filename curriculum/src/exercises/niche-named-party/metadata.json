@@ -3,10 +3,25 @@
   "estimatedMinutes": 15,
   "levelId": "multiple-functions",
   "hints": [
-    "Start by getting the name and the allowed start using the provided functions",
-    "Think about how to check each character of the allowed start against the corresponding character in the name",
-    "What happens if the allowed start is longer than the person's name? You'll need to handle that edge case",
-    "You'll need to calculate the lengths of both words. Think back to what you did in Sign Painter Price.",
-    "Use a counter variable to track which position you're comparing"
+    {
+      "question": "Hint",
+      "answer": "Start by getting the name and the allowed start using the provided functions"
+    },
+    {
+      "question": "Hint",
+      "answer": "Think about how to check each character of the allowed start against the corresponding character in the name"
+    },
+    {
+      "question": "Hint",
+      "answer": "What happens if the allowed start is longer than the person's name? You'll need to handle that edge case"
+    },
+    {
+      "question": "Hint",
+      "answer": "You'll need to calculate the lengths of both words. Think back to what you did in Sign Painter Price."
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a counter variable to track which position you're comparing"
+    }
   ]
 }

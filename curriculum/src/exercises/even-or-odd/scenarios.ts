@@ -6,11 +6,7 @@ export const tasks = [
     name: "Identify even and odd numbers",
     description:
       'Write a function called even_or_odd that takes a number and returns "Even" if it\'s divisible by 2, or "Odd" otherwise. Zero is even.',
-    hints: [
-      "Use the remainder operator (%) to check if a number is divisible by 2",
-      "If number % 2 equals 0, the number is even",
-      "Otherwise, the number is odd"
-    ],
+    hints: [],
     requiredScenarios: ["number-14", "number-28", "number--1", "number-17", "number-0"],
     bonus: false
   },
@@ -18,7 +14,7 @@ export const tasks = [
     id: "solve-in-six-lines" as const,
     name: "Solve in 6 lines of code",
     description: "Can you solve this exercise with only 6 lines of code?",
-    hints: ["You don't need an else statement if you return early"],
+    hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
   }

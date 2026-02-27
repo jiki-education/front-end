@@ -3,8 +3,17 @@
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
-    "Create a helper function that maps haircut names to their duration in minutes",
-    "Loop through the queue and subtract each haircut's time from the remaining time",
-    "Check if there's enough time left for the new haircut"
+    {
+      "question": "Hint",
+      "answer": "Create a helper function that maps haircut names to their duration in minutes"
+    },
+    {
+      "question": "Hint",
+      "answer": "Loop through the queue and subtract each haircut's time from the remaining time"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if there's enough time left for the new haircut"
+    }
   ]
 }

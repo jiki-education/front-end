@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "basic-state",
   "hints": [
-    "Set x to 0 initially so that after adding 1 the first bar is at x=1",
-    "Set hue to 0 initially",
-    "In the loop: first change the variables, then draw with the color as the last argument",
-    "Use saturation and luminance of 50 for nice colors",
-    "Each rectangle should be 1 wide and 100 tall"
+    {
+      "question": "Hint",
+      "answer": "Set x to 0 initially so that after adding 1 the first bar is at x=1"
+    },
+    {
+      "question": "Hint",
+      "answer": "Set hue to 0 initially"
+    },
+    {
+      "question": "Hint",
+      "answer": "In the loop: first change the variables, then draw with the color as the last argument"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use saturation and luminance of 50 for nice colors"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each rectangle should be 1 wide and 100 tall"
+    }
   ]
 }

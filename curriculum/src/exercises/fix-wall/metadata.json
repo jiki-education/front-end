@@ -2,5 +2,14 @@
   "slug": "fix-wall",
   "estimatedMinutes": 10,
   "levelId": "using-functions",
-  "hints": ["The holes are at positions that are divisible by 10", "Each hole is 20 wide and 10 tall"]
+  "hints": [
+    {
+      "question": "Hint",
+      "answer": "The holes are at positions that are divisible by 10"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each hole is 20 wide and 10 tall"
+    }
+  ]
 }

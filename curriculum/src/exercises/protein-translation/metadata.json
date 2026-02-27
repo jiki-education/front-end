@@ -3,10 +3,25 @@
   "estimatedMinutes": 25,
   "levelId": "dictionaries",
   "hints": [
-    "Break the problem into two parts: (1) split RNA into codons, (2) translate codons to proteins",
-    "Use a dictionary to map codons to amino acids",
-    "Remember that each codon is exactly 3 characters",
-    "Use a counter variable to track your position in the string",
-    "Use 'break' to stop when you encounter a STOP codon"
+    {
+      "question": "Hint",
+      "answer": "Break the problem into two parts: (1) split RNA into codons, (2) translate codons to proteins"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a dictionary to map codons to amino acids"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember that each codon is exactly 3 characters"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a counter variable to track your position in the string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use 'break' to stop when you encounter a STOP codon"
+    }
   ]
 }

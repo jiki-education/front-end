@@ -7,11 +7,7 @@ export const tasks = [
     name: "Shoot all the aliens",
     description:
       "Move your laser cannon to the right and shoot each alien as you pass underneath it. Don't miss or move off the edge!",
-    hints: [
-      "Count the positions between aliens carefully",
-      "You start at position 0 on the far left",
-      "Only shoot when you're directly below an alien"
-    ],
+    hints: [],
     requiredScenarios: ["shoot-the-aliens"],
     bonus: false
   }

@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "methods-and-properties",
   "hints": [
-    "Write a helper function that checks if a character exists in a string",
-    "Use your helper function to validate the nucleotide before counting",
-    "Iterate through each character in the strand",
-    "Check each character is valid before counting",
-    "Return -1 immediately if you encounter an invalid character"
+    {
+      "question": "Hint",
+      "answer": "Write a helper function that checks if a character exists in a string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use your helper function to validate the nucleotide before counting"
+    },
+    {
+      "question": "Hint",
+      "answer": "Iterate through each character in the strand"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check each character is valid before counting"
+    },
+    {
+      "question": "Hint",
+      "answer": "Return -1 immediately if you encounter an invalid character"
+    }
   ]
 }

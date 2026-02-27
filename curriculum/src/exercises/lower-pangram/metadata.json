@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "multiple-functions",
   "hints": [
-    "Write the includes function first — it checks if one character exists in a string",
-    "Iterate through each character in the string to check for a match",
-    "For isPangram, iterate through each letter of the alphabet",
-    "Return false as soon as you find a missing letter"
+    {
+      "question": "Hint",
+      "answer": "Write the includes function first — it checks if one character exists in a string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Iterate through each character in the string to check for a match"
+    },
+    {
+      "question": "Hint",
+      "answer": "For isPangram, iterate through each letter of the alphabet"
+    },
+    {
+      "question": "Hint",
+      "answer": "Return false as soon as you find a missing letter"
+    }
   ]
 }

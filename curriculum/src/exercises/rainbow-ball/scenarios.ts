@@ -7,13 +7,7 @@ export const tasks = [
     name: "Create a bouncing rainbow ball",
     description:
       "Create a ball that bounces around the canvas, leaving a trail of colorful circles that cycle through rainbow colors.",
-    hints: [
-      "Set up position variables (x, y) and direction variables (xDirection, yDirection)",
-      "Set up hue and hueDirection variables to cycle through colors",
-      "Use a repeat loop with 1000 iterations",
-      "Update positions and hue each iteration, then check for edge bounces",
-      "Use randomNumber() to get a new random speed when bouncing off edges"
-    ],
+    hints: [],
     requiredScenarios: ["rainbow-ball"],
     bonus: false
   }

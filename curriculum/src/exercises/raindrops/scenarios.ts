@@ -5,7 +5,7 @@ export const tasks = [
     id: "plings" as const,
     name: "Plings",
     description: 'Start off by getting the Pling sounds right. If the number is divisible by 3, return "Pling".',
-    hints: ["Use the modulo operator (%) to check divisibility", "If number % 3 == 0, the number is divisible by 3"],
+    hints: [],
     requiredScenarios: ["number-3", "number-27"],
     bonus: false
   },
@@ -14,10 +14,7 @@ export const tasks = [
     name: "Plangs",
     description:
       'Now get the Plang sounds right. If the number is divisible by 5, add "Plang" to the result. If it\'s divisible by both 3 and 5, return "PlingPlang".',
-    hints: [
-      "Don't return immediately when you find a match - accumulate the sounds",
-      "Use concatenate() to build up the result string"
-    ],
+    hints: [],
     requiredScenarios: ["number-5", "number-3125", "number-15"],
     bonus: false
   },
@@ -26,10 +23,7 @@ export const tasks = [
     name: "Plongs",
     description:
       'Now get the Plong sounds right. If the number is divisible by 7, add "Plong" to the result. Numbers can be divisible by multiple factors.',
-    hints: [
-      "Check all three divisors (3, 5, 7) and accumulate all matching sounds",
-      '105 is divisible by 3, 5, and 7, so it should return "PlingPlangPlong"'
-    ],
+    hints: [],
     requiredScenarios: ["number-7", "number-21", "number-35", "number-105"],
     bonus: false
   },
@@ -38,10 +32,7 @@ export const tasks = [
     name: "Numbers with no raindrop sound",
     description:
       "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string. Use numberToString() to convert the number.",
-    hints: [
-      "Check if the result is still empty after all three checks",
-      "Use numberToString() to convert the number to a string"
-    ],
+    hints: [],
     requiredScenarios: ["number-8", "number-52"],
     bonus: false
   }

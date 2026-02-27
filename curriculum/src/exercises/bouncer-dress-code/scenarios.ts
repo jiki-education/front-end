@@ -19,12 +19,7 @@ export const tasks = [
     name: "Enforce the dress code",
     description:
       'Check the person\'s outfit and apply the dress code: fancy outfits ("ballgown" or "tuxedo") get champagne and entry, smart outfits ("suit" or "dress") get entry, anything else gets turned away.',
-    hints: [
-      "Use getOutfit() to find out what the person is wearing",
-      'Use or to check for two outfits: outfit == "ballgown" or outfit == "tuxedo"',
-      "Call both offerChampagne() and letIn() for fancy outfits",
-      "Use else for the default case (turn away)"
-    ],
+    hints: [],
     requiredScenarios: ["ballgown", "tuxedo", "suit", "dress", "jeans", "tracksuit"],
     bonus: false
   }

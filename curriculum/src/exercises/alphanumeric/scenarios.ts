@@ -6,12 +6,7 @@ export const tasks = [
     name: "Classify a string",
     description:
       "Write helper functions to check if a string is alpha, numeric, or alphanumeric, then use them to classify the input string.",
-    hints: [
-      "Write a contains() function that checks if a character appears in a given string",
-      "Use contains() to write isAlpha() and isNumeric() — iterate through each character and return false if any character is not found in the allowed set",
-      "For isAlphanumeric(), use isAlpha() and isNumeric() on each character — if neither matches, return false",
-      'In whatAmI(), check isAlpha first, then isNumeric, then isAlphanumeric, and return "Unknown" as the default'
-    ],
+    hints: [],
     requiredScenarios: ["duck", "number", "alphanumeric", "not-alphanumeric-1", "not-alphanumeric-2"],
     bonus: false
   }

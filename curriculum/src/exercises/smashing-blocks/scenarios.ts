@@ -7,13 +7,7 @@ export const tasks = [
     name: "Add and smash 5 blocks",
     description:
       "Create 5 blocks at the top of the game area, then bounce the ball to smash them all. Stop the ball once all blocks are smashed.",
-    hints: [
-      "Create blocks in a loop with `for (let x = 1; x <= 5; x++) { ... }`",
-      "Each block's left position is `8 + ((x - 1) * 17)`",
-      "Check if the ball's top edge hits the block's bottom edge",
-      "Use `continue` to skip blocks that are already smashed",
-      "Write a function to check if all blocks have been smashed"
-    ],
+    hints: [],
     requiredScenarios: ["add-blocks"],
     bonus: false
   },
@@ -22,10 +16,7 @@ export const tasks = [
     name: "Different dimensions",
     description:
       "In the full breakout game, the ball's radius and block height can change. Check your code works with different dimensions.",
-    hints: [
-      "Use `ball.radius` instead of hardcoding the ball size",
-      "Use `block.height` instead of hardcoding the block height"
-    ],
+    hints: [],
     requiredScenarios: ["different-dimensions"],
     bonus: true
   }

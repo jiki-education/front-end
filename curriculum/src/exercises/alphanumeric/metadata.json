@@ -3,10 +3,25 @@
   "estimatedMinutes": 20,
   "levelId": "multiple-functions",
   "hints": [
-    "Start by writing a contains() helper that checks if a character exists in a string",
-    "Use contains() to build isAlpha() — check each character against the alphabet",
-    "Use the same pattern for isNumeric() — check each character against \"0123456789\"",
-    "For isAlphanumeric(), use isAlpha() and isNumeric() together with continue to skip valid characters",
-    "In whatAmI(), call all three helpers and use conditionals to return the right label"
+    {
+      "question": "Hint",
+      "answer": "Start by writing a contains() helper that checks if a character exists in a string"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use contains() to build isAlpha() — check each character against the alphabet"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use the same pattern for isNumeric() — check each character against \"0123456789\""
+    },
+    {
+      "question": "Hint",
+      "answer": "For isAlphanumeric(), use isAlpha() and isNumeric() together with continue to skip valid characters"
+    },
+    {
+      "question": "Hint",
+      "answer": "In whatAmI(), call all three helpers and use conditionals to return the right label"
+    }
   ]
 }

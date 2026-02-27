@@ -6,12 +6,7 @@ export const tasks = [
     name: "Encode a message",
     description:
       "Write an encode function that shifts each letter in a message by a given amount. Spaces should remain as spaces. Letters that shift past 'z' should wrap around to the beginning of the alphabet.",
-    hints: [
-      "Start by writing a helper function to find the position of a letter in the alphabet",
-      "Write another helper function to shift a single letter by the given amount",
-      "Use the modulo operator (%) to handle wrap-around",
-      "Build the final encode function by iterating through each character"
-    ],
+    hints: [],
     requiredScenarios: [
       "caesar-simple-shift",
       "caesar-shift-by-3",

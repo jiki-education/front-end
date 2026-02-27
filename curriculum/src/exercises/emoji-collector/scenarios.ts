@@ -14,13 +14,7 @@ export const tasks = [
     name: "Collect emojis",
     description:
       "Navigate the maze, collecting emojis along the way, and announce your collection when you reach the finish.",
-    hints: [
-      'Use look("down") to check what emoji is on the current square',
-      "Keep track of collected emojis in a dictionary",
-      "Use hasKey() to check if an emoji is already in your dictionary before adding it",
-      "Remember to call removeEmoji() after picking up an emoji",
-      "Call announceEmojis() with your dictionary after the loop ends"
-    ],
+    hints: [],
     requiredScenarios: ["diamonds", "faces", "poo", "only-once"],
     bonus: false
   },
@@ -28,7 +22,7 @@ export const tasks = [
     id: "random-emojis" as const,
     name: "Random emojis",
     description: "Handle mazes with random emojis that change each time!",
-    hints: ["Your solution from the previous task should work here too"],
+    hints: [],
     requiredScenarios: ["random-emojis"],
     bonus: true
   }

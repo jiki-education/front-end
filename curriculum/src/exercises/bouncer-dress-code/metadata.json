@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "complex-conditionals",
   "hints": [
-    "Start by storing the outfit in a variable, e.g. let outfit = getOutfit()",
-    "Use 'or' to check for multiple outfits in one condition",
-    "For the fancy outfits: if outfit == \"ballgown\" or outfit == \"tuxedo\"",
-    "Remember to call both offerChampagne() and letIn() for fancy outfits",
-    "Use else at the end to turn away anyone not matching the dress code"
+    {
+      "question": "Hint",
+      "answer": "Start by storing the outfit in a variable, e.g. let outfit = getOutfit()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use 'or' to check for multiple outfits in one condition"
+    },
+    {
+      "question": "Hint",
+      "answer": "For the fancy outfits: if outfit == \"ballgown\" or outfit == \"tuxedo\""
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember to call both offerChampagne() and letIn() for fancy outfits"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use else at the end to turn away anyone not matching the dress code"
+    }
   ]
 }

@@ -5,11 +5,7 @@ export const tasks = [
     id: "basic-translations" as const,
     name: "Basic Translations",
     description: "Translate single codons to their corresponding amino acids.",
-    hints: [
-      "Create a dictionary mapping codons to amino acids",
-      "Each codon is exactly 3 characters",
-      "Use the dictionary lookup to get the protein name"
-    ],
+    hints: [],
     requiredScenarios: [
       "empty-rna-sequence",
       "methionine-sequence",
@@ -24,11 +20,7 @@ export const tasks = [
     id: "multiple-codons" as const,
     name: "Multiple Codons",
     description: "Translate RNA sequences containing multiple codons.",
-    hints: [
-      "Split the RNA string into 3-character chunks",
-      "Use the modulo operator (%) to detect every 3rd character",
-      "Build up each codon character by character"
-    ],
+    hints: [],
     requiredScenarios: ["sequence-two-proteins", "sequence-different-codons", "sequence-three-proteins"],
     bonus: false
   },
@@ -36,11 +28,7 @@ export const tasks = [
     id: "stop-codon-behavior" as const,
     name: "Stop Codon Behavior",
     description: "Handle STOP codons correctly - translation should stop when a STOP codon is encountered.",
-    hints: [
-      "Check if a codon maps to 'STOP'",
-      "Use the 'break' statement to exit the loop early",
-      "Don't add STOP to the protein list"
-    ],
+    hints: [],
     requiredScenarios: ["stop-codon-at-start", "stop-codon-at-end", "stop-codon-in-middle"],
     bonus: false
   }

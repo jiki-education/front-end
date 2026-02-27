@@ -5,10 +5,7 @@ export const tasks = [
     id: "create-say-hello-function" as const,
     name: "Create sayHello function",
     description: "Write a sayHello function that takes a name and returns a greeting in the format 'Hello, [name]!'.",
-    hints: [
-      "Use concatenate() to join the parts together",
-      'The greeting has three parts: "Hello, ", the name, and "!"'
-    ],
+    hints: [],
     requiredScenarios: ["hello-aiko", "hello-priya", "hello-mei"],
     bonus: false
   }

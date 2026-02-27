@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "complex-conditionals",
   "hints": [
-    "Start by storing the shot length in a variable, e.g. let shotLength = getShotLength()",
-    "Use a loop to roll the ball right, updating x each time",
-    "Check if shotLength >= 56 and shotLength <= 65 to see if it's over the hole",
-    "If the ball is over the hole, roll it down 9 times by updating y"
+    {
+      "question": "Hint",
+      "answer": "Start by storing the shot length in a variable, e.g. let shotLength = getShotLength()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a loop to roll the ball right, updating x each time"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if shotLength >= 56 and shotLength <= 65 to see if it's over the hole"
+    },
+    {
+      "question": "Hint",
+      "answer": "If the ball is over the hole, roll it down 9 times by updating y"
+    }
   ]
 }

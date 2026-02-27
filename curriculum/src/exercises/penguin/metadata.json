@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "strings-and-colors",
   "hints": [
-    "Start by looking at the left wing and create a matching right wing",
-    "Remember each shape function takes a color as its last argument",
-    "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right",
-    "For symmetry, if the left wing is at x=28, the right wing should be at x=72 (both 22 units from center at x=50)"
+    {
+      "question": "Hint",
+      "answer": "Start by looking at the left wing and create a matching right wing"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember each shape function takes a color as its last argument"
+    },
+    {
+      "question": "Hint",
+      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right"
+    },
+    {
+      "question": "Hint",
+      "answer": "For symmetry, if the left wing is at x=28, the right wing should be at x=72 (both 22 units from center at x=50)"
+    }
   ]
 }

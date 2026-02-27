@@ -6,11 +6,7 @@ export const tasks = [
     id: "draw-scene" as const,
     name: "Draw the weather scene",
     description: "Create a weather scene with a light blue sky, a yellow sun, a white cloud, and blue rain drops.",
-    hints: [
-      "Draw the background first so other shapes appear on top",
-      "The cloud is a rectangle with circles on the edges",
-      "Rain drops are ellipses that are taller than they are wide"
-    ],
+    hints: [],
     requiredScenarios: ["draw-scene"],
     bonus: false
   }

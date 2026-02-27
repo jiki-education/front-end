@@ -3,8 +3,17 @@
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [
-    "Imagine real life: you have a list and you need to see if there is a name on it. What do you do?",
-    "You read through the list and check to see if each entry on the list matches the name",
-    "Think about when to return true and when to return false"
+    {
+      "question": "Hint",
+      "answer": "Imagine real life: you have a list and you need to see if there is a name on it. What do you do?"
+    },
+    {
+      "question": "Hint",
+      "answer": "You read through the list and check to see if each entry on the list matches the name"
+    },
+    {
+      "question": "Hint",
+      "answer": "Think about when to return true and when to return false"
+    }
   ]
 }

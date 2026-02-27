@@ -6,10 +6,7 @@ export const tasks = [
     id: "solve-maze" as const,
     name: "Guide person to the end of the maze",
     description: "Navigate through the maze using walk(), turnLeft(), and turnRight() to reach the green target cell.",
-    hints: [
-      "Count the number of empty cells in each straight section",
-      "Use walk(3) to move 3 steps at once instead of writing move() three times"
-    ],
+    hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   }

@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "complex-conditionals",
   "hints": [
-    "Start by getting both players' choices and storing them in variables",
-    "Check if the choices are equal first — that's always a tie",
-    "Use `and` to combine two conditions, e.g. player 1 chose rock AND player 2 chose scissors",
-    "You can default the result to one value, then only check for the other cases"
+    {
+      "question": "Hint",
+      "answer": "Start by getting both players' choices and storing them in variables"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if the choices are equal first — that's always a tie"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use `and` to combine two conditions, e.g. player 1 chose rock AND player 2 chose scissors"
+    },
+    {
+      "question": "Hint",
+      "answer": "You can default the result to one value, then only check for the other cases"
+    }
   ]
 }

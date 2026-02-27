@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "objects",
   "hints": [
-    "Create a ball with `let ball = new Ball()`",
-    "Check if `ball.cx - ball.radius <= 0` to detect the left wall",
-    "When the ball hits a wall, reverse the velocity (e.g., `ball.xVelocity = 1`)",
-    "Check all four walls: left, right, top, and bottom"
+    {
+      "question": "Hint",
+      "answer": "Create a ball with `let ball = new Ball()`"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if `ball.cx - ball.radius <= 0` to detect the left wall"
+    },
+    {
+      "question": "Hint",
+      "answer": "When the ball hits a wall, reverse the velocity (e.g., `ball.xVelocity = 1`)"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check all four walls: left, right, top, and bottom"
+    }
   ]
 }

@@ -6,12 +6,7 @@ export const tasks = [
     id: "draw-house" as const,
     name: "Draw the house",
     description: "Draw the house using variables for all positions, sizes, and colors.",
-    hints: [
-      "Define houseLeft and houseTop first, then derive other positions from them",
-      "The roof overhangs the house by 4 on each side",
-      "Windows are 10 inset from the sides and 5 below the top of the frame",
-      "The door is centered at the bottom of the house"
-    ],
+    hints: [],
     requiredScenarios: ["draw-the-house"],
     bonus: false
   }

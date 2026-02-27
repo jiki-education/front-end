@@ -3,11 +3,29 @@
   "estimatedMinutes": 20,
   "levelId": "everything",
   "hints": [
-    "Use fetch(url, params) to get data from the API, where params is { \"question\": question }",
-    "The response has a \"response\" key containing \"answers\" (a list of dictionaries with \"text\" and \"certainty\" keys)",
-    "The response also has a \"meta\" key containing \"time\" (a string like \"500ms\")",
-    "Loop through the answers to find the one with the highest certainty (certainty values are strings, so convert them to numbers first)",
-    "To convert milliseconds to seconds, extract the numeric part and divide by 1000",
-    "Use concatenate() to build the final formatted string"
+    {
+      "question": "Hint",
+      "answer": "Use fetch(url, params) to get data from the API, where params is { \"question\": question }"
+    },
+    {
+      "question": "Hint",
+      "answer": "The response has a \"response\" key containing \"answers\" (a list of dictionaries with \"text\" and \"certainty\" keys)"
+    },
+    {
+      "question": "Hint",
+      "answer": "The response also has a \"meta\" key containing \"time\" (a string like \"500ms\")"
+    },
+    {
+      "question": "Hint",
+      "answer": "Loop through the answers to find the one with the highest certainty (certainty values are strings, so convert them to numbers first)"
+    },
+    {
+      "question": "Hint",
+      "answer": "To convert milliseconds to seconds, extract the numeric part and divide by 1000"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to build the final formatted string"
+    }
   ]
 }

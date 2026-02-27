@@ -6,12 +6,7 @@ export const tasks = [
     name: "Calculate Collatz steps",
     description:
       "Write a function that takes a number and returns how many steps it takes to reach 1 following the Collatz Conjecture rules: if even, divide by 2; if odd, multiply by 3 and add 1.",
-    hints: [
-      "Use a loop that keeps running until the number reaches 1",
-      "Check if a number is even using modulo: number % 2 == 0",
-      "Keep a counter variable and increment it each step",
-      "Return the counter when the number equals 1"
-    ],
+    hints: [],
     requiredScenarios: ["number-1", "number-16", "number-12", "number-1000000"],
     bonus: false
   }

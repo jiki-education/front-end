@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "everything",
   "hints": [
-    "You might want helper functions like length() and endsWith()",
-    "First, remove the honorific from the person's name to get the surname",
-    "Then check if any name on the list ends with that surname",
-    "Use concatenate() to build strings when needed"
+    {
+      "question": "Hint",
+      "answer": "You might want helper functions like length() and endsWith()"
+    },
+    {
+      "question": "Hint",
+      "answer": "First, remove the honorific from the person's name to get the surname"
+    },
+    {
+      "question": "Hint",
+      "answer": "Then check if any name on the list ends with that surname"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to build strings when needed"
+    }
   ]
 }

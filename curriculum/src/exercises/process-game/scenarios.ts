@@ -7,11 +7,7 @@ export const tasks = [
     name: "Process a full game",
     description:
       "Create a function called processGame that takes a target word and a list of guesses, and calls colorRow for each guess with the correct states.",
-    hints: [
-      "Iterate through the guesses using a loop with an index",
-      "Reuse your processGuess logic for each guess",
-      "Call colorRow(idx, states) for each row"
-    ],
+    hints: [],
     requiredScenarios: ["hole-in-one", "two-guesses", "three-guesses", "phew"],
     bonus: false
   }

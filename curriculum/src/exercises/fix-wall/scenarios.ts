@@ -6,7 +6,7 @@ export const tasks = [
     id: "fill-holes" as const,
     name: "Fill the holes in the wall",
     description: "Cover each hole with a rectangle using the rectangle function.",
-    hints: ["Draw three rectangles to cover the holes", "Each hole is 20 wide and 10 tall"],
+    hints: [],
     requiredScenarios: ["fill-holes"],
     bonus: false
   }

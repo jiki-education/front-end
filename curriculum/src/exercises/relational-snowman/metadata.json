@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "variables",
   "hints": [
-    "The head radius is size * 2, the body radius is size * 3, the base radius is size * 4",
-    "Two circles touch when the distance between centers equals the sum of their radii",
-    "bodyY = headY + headRadius + bodyRadius",
-    "baseY = bodyY + bodyRadius + baseRadius"
+    {
+      "question": "Hint",
+      "answer": "The head radius is size * 2, the body radius is size * 3, the base radius is size * 4"
+    },
+    {
+      "question": "Hint",
+      "answer": "Two circles touch when the distance between centers equals the sum of their radii"
+    },
+    {
+      "question": "Hint",
+      "answer": "bodyY = headY + headRadius + bodyRadius"
+    },
+    {
+      "question": "Hint",
+      "answer": "baseY = bodyY + bodyRadius + baseRadius"
+    }
   ]
 }

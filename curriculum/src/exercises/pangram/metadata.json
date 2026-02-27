@@ -3,9 +3,21 @@
   "estimatedMinutes": 20,
   "levelId": "methods-and-properties",
   "hints": [
-    "Consider writing helper functions like contains(), indexOf(), and toLower()",
-    "Convert the sentence to lowercase first to make comparison easier",
-    "Check if each letter of the alphabet appears in the sentence",
-    "Return false as soon as you find a missing letter"
+    {
+      "question": "Hint",
+      "answer": "Consider writing helper functions like contains(), indexOf(), and toLower()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Convert the sentence to lowercase first to make comparison easier"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if each letter of the alphabet appears in the sentence"
+    },
+    {
+      "question": "Hint",
+      "answer": "Return false as soon as you find a missing letter"
+    }
   ]
 }

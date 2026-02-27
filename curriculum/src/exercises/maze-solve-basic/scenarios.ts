@@ -6,7 +6,7 @@ export const tasks = [
     id: "solve-maze" as const,
     name: "Guide person to the end of the maze",
     description: "Navigate through the maze to reach the green target",
-    hints: ["Plan your path", "Use turn functions to change direction"],
+    hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   }

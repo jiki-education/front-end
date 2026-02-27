@@ -6,12 +6,7 @@ export const tasks = [
     id: "bounce-ball" as const,
     name: "Make the ball bounce around",
     description: "Create a ball and make it bounce off all four walls of the game area.",
-    hints: [
-      "Create a ball with `let ball = new Ball()`",
-      "Use a loop that runs 376 times",
-      "Check each wall before moving: left (`ball.cx - ball.radius <= 0`), right (`ball.cx + ball.radius >= 100`), top and bottom similarly",
-      "Reverse the velocity when hitting a wall (set it to `1` or `-1`)"
-    ],
+    hints: [],
     requiredScenarios: ["add-ball"],
     bonus: false
   }

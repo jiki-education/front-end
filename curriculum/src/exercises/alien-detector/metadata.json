@@ -3,11 +3,29 @@
   "estimatedMinutes": 20,
   "levelId": "lists",
   "hints": [
-    "Get all three rows of aliens at the start using getStartingAliensInRow()",
-    "Track your position so you can index into the alien rows to check for aliens",
-    "When you shoot an alien, mark it as false in the row array so you don't shoot it again",
-    "Only shoot the lowest alien in a column — check rows from bottom to top",
-    "You might find it easier to think about the fireworks last and just get the alien tracking and shooting sorted first",
-    "Write a helper function to check if all aliens are dead across all rows"
+    {
+      "question": "Hint",
+      "answer": "Get all three rows of aliens at the start using getStartingAliensInRow()"
+    },
+    {
+      "question": "Hint",
+      "answer": "Track your position so you can index into the alien rows to check for aliens"
+    },
+    {
+      "question": "Hint",
+      "answer": "When you shoot an alien, mark it as false in the row array so you don't shoot it again"
+    },
+    {
+      "question": "Hint",
+      "answer": "Only shoot the lowest alien in a column — check rows from bottom to top"
+    },
+    {
+      "question": "Hint",
+      "answer": "You might find it easier to think about the fireworks last and just get the alien tracking and shooting sorted first"
+    },
+    {
+      "question": "Hint",
+      "answer": "Write a helper function to check if all aliens are dead across all rows"
+    }
   ]
 }

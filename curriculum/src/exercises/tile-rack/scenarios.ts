@@ -6,12 +6,7 @@ export const tasks = [
     name: "Find Tile Position",
     description:
       'Write a function that finds the position of a specific letter tile in the rack. Return "Move to position X" if found, or "Error: Tile not on rack" if not.',
-    hints: [
-      "Track your position with a variable that starts at 0",
-      "Loop through each tile and compare it to the letter you're looking for",
-      'Return "Move to position X" as soon as you find a match (convert the position to a string)',
-      "Increment the position after checking each tile"
-    ],
+    hints: [],
     requiredScenarios: [
       "tile-at-start",
       "tile-in-middle",

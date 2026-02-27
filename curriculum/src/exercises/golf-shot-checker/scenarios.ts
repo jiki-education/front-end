@@ -7,12 +7,7 @@ export const tasks = [
     name: "Check if the shot lands in the hole",
     description:
       "Roll the ball based on the shot length, and if it lands over the hole (shot length 56-65), sink it! Then fire fireworks.",
-    hints: [
-      "Use getShotLength() to find out how far the ball travels",
-      "Roll the ball right by updating x in a loop",
-      "Check if the shot lands between 56 and 65 inclusive",
-      "If it does, roll the ball down 9 times by updating y"
-    ],
+    hints: [],
     requiredScenarios: ["too-short", "too-long", "just-inside-left", "just-inside-right"],
     bonus: false
   }

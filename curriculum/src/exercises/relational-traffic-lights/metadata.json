@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "variables",
   "hints": [
-    "The centerX is radius * 5 to position the traffic light on the canvas",
-    "The lights are spaced 2 radii apart: redY = radius * 3, yellowY = radius * 5, greenY = radius * 7",
-    "The housing starts 2 radii left of center and 2 radii above the top light",
-    "The housing width is radius * 4 and height is radius * 8"
+    {
+      "question": "Hint",
+      "answer": "The centerX is radius * 5 to position the traffic light on the canvas"
+    },
+    {
+      "question": "Hint",
+      "answer": "The lights are spaced 2 radii apart: redY = radius * 3, yellowY = radius * 5, greenY = radius * 7"
+    },
+    {
+      "question": "Hint",
+      "answer": "The housing starts 2 radii left of center and 2 radii above the top light"
+    },
+    {
+      "question": "Hint",
+      "answer": "The housing width is radius * 4 and height is radius * 8"
+    }
   ]
 }

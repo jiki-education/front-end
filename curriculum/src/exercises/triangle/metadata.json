@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Start by checking if the triangle is invalid - check if any side is zero or if the sum of any two sides is less than or equal to the third",
-    "Check for equilateral first - all three sides must be equal",
-    "For isosceles, check if any two sides are equal",
-    "If it's not invalid, equilateral, or isosceles, it must be scalene"
+    {
+      "question": "Hint",
+      "answer": "Start by checking if the triangle is invalid - check if any side is zero or if the sum of any two sides is less than or equal to the third"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check for equilateral first - all three sides must be equal"
+    },
+    {
+      "question": "Hint",
+      "answer": "For isosceles, check if any two sides are equal"
+    },
+    {
+      "question": "Hint",
+      "answer": "If it's not invalid, equilateral, or isosceles, it must be scalene"
+    }
   ]
 }

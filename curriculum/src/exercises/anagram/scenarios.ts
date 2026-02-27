@@ -6,13 +6,7 @@ export const tasks = [
     name: "Find Anagrams",
     description:
       "Write a function that finds all anagrams of a target word from a list of possibilities. An anagram uses the same letters rearranged. The function should be case-insensitive, exclude the target word itself, and return results sorted alphabetically.",
-    hints: [
-      "Compare sorted versions of lowercase strings to detect anagrams",
-      "Use a loop to check each possibility against the target",
-      "Filter out exact matches (case-insensitive) of the target word",
-      "Build your result list using push()",
-      "Sort the final results before returning"
-    ],
+    hints: [],
     requiredScenarios: [
       "no-matches",
       "two-anagrams",
@@ -29,10 +23,7 @@ export const tasks = [
     id: "sorted-results" as const,
     name: "Alphabetical Sorting",
     description: "Ensure your results are returned in alphabetical order (bonus challenge).",
-    hints: [
-      "Implement a custom sorting function to order the results",
-      "Compare the first characters of each word to determine order"
-    ],
+    hints: [],
     requiredScenarios: ["alphabetical-sorting"],
     bonus: true
   }

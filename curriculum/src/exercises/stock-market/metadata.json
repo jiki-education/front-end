@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "functions-that-return-things",
   "hints": [
-    "Start with a variable set to 10 for your balance",
-    "Use a repeat(20) loop for the 20 years",
-    "Inside the loop: generate a random rate from 0 to 10",
-    "Growth is balance times rate divided by 100 — then add it to your balance",
-    "After the loop, call checkBalance() with your final balance"
+    {
+      "question": "Hint",
+      "answer": "Start with a variable set to 10 for your balance"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use a repeat(20) loop for the 20 years"
+    },
+    {
+      "question": "Hint",
+      "answer": "Inside the loop: generate a random rate from 0 to 10"
+    },
+    {
+      "question": "Hint",
+      "answer": "Growth is balance times rate divided by 100 — then add it to your balance"
+    },
+    {
+      "question": "Hint",
+      "answer": "After the loop, call checkBalance() with your final balance"
+    }
   ]
 }

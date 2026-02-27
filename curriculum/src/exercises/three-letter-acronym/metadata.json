@@ -3,7 +3,13 @@
   "estimatedMinutes": 5,
   "levelId": "string-iteration",
   "hints": [
-    "You can get the first character of a string using [1]",
-    "Use concatenate() to join the three characters together"
+    {
+      "question": "Hint",
+      "answer": "You can get the first character of a string using [1]"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use concatenate() to join the three characters together"
+    }
   ]
 }

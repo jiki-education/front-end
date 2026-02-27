@@ -3,10 +3,25 @@
   "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
-    "Remember that strings always need quotation marks",
-    "Loop through each character in the marks string",
-    "If you encounter a 💥 (major), return false immediately",
-    "Keep count of how many ❌ (minors) you see",
-    "At the end, check if minors is less than 5"
+    {
+      "question": "Hint",
+      "answer": "Remember that strings always need quotation marks"
+    },
+    {
+      "question": "Hint",
+      "answer": "Loop through each character in the marks string"
+    },
+    {
+      "question": "Hint",
+      "answer": "If you encounter a 💥 (major), return false immediately"
+    },
+    {
+      "question": "Hint",
+      "answer": "Keep count of how many ❌ (minors) you see"
+    },
+    {
+      "question": "Hint",
+      "answer": "At the end, check if minors is less than 5"
+    }
   ]
 }

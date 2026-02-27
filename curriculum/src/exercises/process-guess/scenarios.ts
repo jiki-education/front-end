@@ -7,12 +7,7 @@ export const tasks = [
     name: "Process a single guess",
     description:
       "Create a function called processGuess that takes a target word and a guess, works out the state of each letter (correct, present, or absent), then calls colorRow(1, states) with the results.",
-    hints: [
-      "Use a helper function to check if a letter is contained in the word",
-      "Compare each letter at the same position for 'correct'",
-      "Check if the letter exists anywhere in the word for 'present'",
-      "Build up the states list using push()"
-    ],
+    hints: [],
     requiredScenarios: ["all-correct", "absent", "present", "complex", "different-word"],
     bonus: false
   }

@@ -6,11 +6,7 @@ export const tasks = [
     name: "Map descriptions to components",
     description:
       "Write a function that takes a weather description string and returns the list of drawing components for that weather type.",
-    hints: [
-      "Use if/else if to check the description",
-      "Each weather type maps to a specific list of components",
-      'Return a list of strings like ["sun"] or ["cloud", "rain"]'
-    ],
+    hints: [],
     requiredScenarios: ["sunny", "dull", "miserable", "hopeful", "rainbow-territory", "exciting", "snowboarding-time"],
     bonus: false
   }

@@ -7,12 +7,7 @@ export const tasks = [
     name: "Display the time on the clock",
     description:
       "Get the current hour and minute, convert to 12-hour format with am/pm, and display it using displayTime().",
-    hints: [
-      "Use currentTimeHour() and currentTimeMinute() to get the time",
-      "If the hour is >= 12, the indicator is 'pm', otherwise 'am'",
-      "If the hour is 0 (midnight), display it as 12",
-      "If the hour is > 12, subtract 12 to get the 12-hour format"
-    ],
+    hints: [],
     requiredScenarios: ["morning-1", "morning-2", "afternoon-1", "afternoon-2", "midnight", "noon", "now"],
     bonus: false
   }

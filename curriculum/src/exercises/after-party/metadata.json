@@ -3,8 +3,17 @@
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
-    "This exercise would be a lot easier if you had some common functions available like a length function and a startsWith function",
-    "A good outline would be: Go through each name on the list, if the name starts with the person's first name, return true. If none of the names match, return false",
-    "You need to check if the name starts with the first name followed by a space, OR if the name equals the first name exactly (for single-name celebrities like Cher)"
+    {
+      "question": "Hint",
+      "answer": "This exercise would be a lot easier if you had some common functions available like a length function and a startsWith function"
+    },
+    {
+      "question": "Hint",
+      "answer": "A good outline would be: Go through each name on the list, if the name starts with the person's first name, return true. If none of the names match, return false"
+    },
+    {
+      "question": "Hint",
+      "answer": "You need to check if the name starts with the first name followed by a space, OR if the name equals the first name exactly (for single-name celebrities like Cher)"
+    }
   ]
 }

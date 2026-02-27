@@ -2,6 +2,10 @@ import HintsView from "@/components/coding-exercise/ui/HintsPanel";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
+function h(answer: string, question = "Hint") {
+  return { question, answer };
+}
+
 describe("HintsView", () => {
   describe("Empty state", () => {
     it("should display no hints message when hints is undefined", () => {
@@ -25,7 +29,7 @@ describe("HintsView", () => {
 
   describe("Initial render with hints", () => {
     it("should render all hints collapsed initially", () => {
-      const hints = ["First hint", "Second hint", "Third hint"];
+      const hints = [h("First hint"), h("Second hint"), h("Third hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       const hintItems = container.querySelectorAll(".hintItem");
@@ -40,25 +44,29 @@ describe("HintsView", () => {
     });
 
     it("should show reveal buttons for all hints initially", () => {
-      const hints = ["Hint 1", "Hint 2"];
+      const hints = [h("Hint answer 1"), h("Hint answer 2")];
       render(<HintsView hints={hints} />);
 
       expect(screen.getAllByText("Reveal")).toHaveLength(2);
     });
 
-    it("should show numbered hint titles", () => {
-      const hints = ["First", "Second", "Third"];
+    it("should show hint questions as titles", () => {
+      const hints = [
+        h("First answer", "What function to use?"),
+        h("Second answer", "Where to place it?"),
+        h("Third answer", "How big should it be?")
+      ];
       render(<HintsView hints={hints} />);
 
-      expect(screen.getByText("Hint 1")).toBeInTheDocument();
-      expect(screen.getByText("Hint 2")).toBeInTheDocument();
-      expect(screen.getByText("Hint 3")).toBeInTheDocument();
+      expect(screen.getByText("What function to use?")).toBeInTheDocument();
+      expect(screen.getByText("Where to place it?")).toBeInTheDocument();
+      expect(screen.getByText("How big should it be?")).toBeInTheDocument();
     });
   });
 
   describe("Revealing individual hints", () => {
     it("should show confirmation dialog when reveal button is clicked", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       render(<HintsView hints={hints} />);
 
       const revealButton = screen.getByText("Reveal");
@@ -70,7 +78,7 @@ describe("HintsView", () => {
     });
 
     it("should reveal a hint when confirmation is accepted", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       const revealButton = screen.getByText("Reveal");
@@ -84,7 +92,7 @@ describe("HintsView", () => {
     });
 
     it("should cancel reveal when 'Not for now' is clicked", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       const revealButton = screen.getByText("Reveal");
@@ -101,7 +109,7 @@ describe("HintsView", () => {
 
   describe("State persistence", () => {
     it("should allow hiding revealed hints", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       // Reveal the hint
@@ -121,11 +129,11 @@ describe("HintsView", () => {
 
   describe("Edge cases", () => {
     it("should handle single hint correctly", () => {
-      const hints = ["Only hint"];
+      const hints = [h("Only hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       expect(screen.getByText("Only hint")).toBeInTheDocument();
-      expect(screen.getByText("Hint 1")).toBeInTheDocument();
+      expect(screen.getByText("Hint")).toBeInTheDocument();
       expect(screen.getByText("Reveal")).toBeInTheDocument();
       expect(container.querySelectorAll(".hintItem")).toHaveLength(1);
 
@@ -137,20 +145,18 @@ describe("HintsView", () => {
     });
 
     it("should handle empty string hints", () => {
-      const hints = ["", "Valid hint", ""];
+      const hints = [h(""), h("Valid hint"), h("")];
       render(<HintsView hints={hints} />);
 
       expect(screen.getByText("Valid hint")).toBeInTheDocument();
-      expect(screen.getByText("Hint 1")).toBeInTheDocument();
-      expect(screen.getByText("Hint 2")).toBeInTheDocument();
-      expect(screen.getByText("Hint 3")).toBeInTheDocument();
+      expect(screen.getAllByText("Hint")).toHaveLength(3);
       expect(screen.getAllByText("Reveal")).toHaveLength(3);
     });
   });
 
   describe("Accessibility", () => {
     it("should make the entire hint item clickable", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       const hintItem = container.querySelector(".hintItem");
@@ -159,7 +165,7 @@ describe("HintsView", () => {
     });
 
     it("should provide clear button text for screen readers", () => {
-      const hints = ["Hint 1", "Hint 2"];
+      const hints = [h("Answer 1"), h("Answer 2")];
       render(<HintsView hints={hints} />);
 
       expect(screen.getAllByText("Reveal")).toHaveLength(2);
@@ -168,7 +174,7 @@ describe("HintsView", () => {
 
   describe("Visual styling", () => {
     it("should apply correct CSS module classes", () => {
-      const hints = ["Test hint"];
+      const hints = [h("Test hint")];
       const { container } = render(<HintsView hints={hints} />);
 
       const hintItem = container.querySelector(".hintItem");
@@ -179,7 +185,7 @@ describe("HintsView", () => {
     });
 
     it("should style reveal buttons consistently", () => {
-      const hints = ["Test"];
+      const hints = [h("Test")];
       const { container } = render(<HintsView hints={hints} />);
 
       const revealButton = container.querySelector(".hintRevealBtn");
@@ -190,13 +196,13 @@ describe("HintsView", () => {
     });
 
     it("should render hint questions with proper structure", () => {
-      const hints = ["Test"];
+      const hints = [h("Test", "My question")];
       const { container } = render(<HintsView hints={hints} />);
 
       const hintQuestion = container.querySelector(".hintQuestion");
       expect(hintQuestion).toBeInTheDocument();
 
-      expect(screen.getByText("Hint 1")).toBeInTheDocument();
+      expect(screen.getByText("My question")).toBeInTheDocument();
       expect(screen.getByText("Reveal")).toBeInTheDocument();
     });
   });

@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "lists",
   "hints": [
-    "Start by creating an empty list",
-    "Use push() to add items to your list one at a time",
-    "Check if the drink is \"milkshake\" before adding it",
-    "Remember: push() returns the new list, so reassign it"
+    {
+      "question": "Hint",
+      "answer": "Start by creating an empty list"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use push() to add items to your list one at a time"
+    },
+    {
+      "question": "Hint",
+      "answer": "Check if the drink is \"milkshake\" before adding it"
+    },
+    {
+      "question": "Hint",
+      "answer": "Remember: push() returns the new list, so reassign it"
+    }
   ]
 }

@@ -7,12 +7,7 @@ export const tasks = [
     name: "Draw the weather scene",
     description:
       "Create a function called drawWeather that takes a list of weather elements and draws the correct scene.",
-    hints: [
-      "Always draw the sky background first",
-      'Check if the elements list contains "cloud" to decide the sun size',
-      "Use helper functions to keep the code clean",
-      "Snow is like rain but uses circles instead of ellipses"
-    ],
+    hints: [],
     requiredScenarios: ["sunny", "dull", "hopeful", "miserable", "rainbow-territory", "exciting", "snowboarding-time"],
     bonus: false
   }

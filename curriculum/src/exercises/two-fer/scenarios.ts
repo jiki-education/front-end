@@ -6,11 +6,7 @@ export const tasks = [
     name: "Create two-fer function",
     description:
       "Write a twoFer function that takes a name and returns 'One for [name], one for me.' If no name is given (empty string), use 'you' instead of the name.",
-    hints: [
-      "Check if the name is an empty string",
-      "Use concatenate() to build the result",
-      "Return the full sentence with the correct name"
-    ],
+    hints: [],
     requiredScenarios: ["two-fer-default", "two-fer-alice", "two-fer-tom"],
     bonus: false
   }

@@ -3,8 +3,17 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Even numbers have no remainder when divided by 2",
-    "Use the remainder operator (%) to check divisibility",
-    "number % 2 gives 0 for even numbers"
+    {
+      "question": "Hint",
+      "answer": "Even numbers have no remainder when divided by 2"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use the remainder operator (%) to check divisibility"
+    },
+    {
+      "question": "Hint",
+      "answer": "number % 2 gives 0 for even numbers"
+    }
   ]
 }

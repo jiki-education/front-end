@@ -6,11 +6,7 @@ export const tasks = [
     name: "Create Shopping List",
     description:
       "Write a function that takes the contents of your fridge and a recipe's ingredients, and returns the items you need to buy (items in the recipe that aren't in the fridge).",
-    hints: [
-      "Consider writing a helper function to check if an item exists in a list",
-      "Loop through each recipe item and check if it's in the fridge",
-      "Use push() to add items to your shopping list"
-    ],
+    hints: [],
     requiredScenarios: ["empty-fridge", "you-have-everything", "one-thing", "few-things"],
     bonus: false
   }

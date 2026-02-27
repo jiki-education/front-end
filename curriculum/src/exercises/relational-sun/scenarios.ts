@@ -6,7 +6,7 @@ export const tasks = [
     id: "position-sun" as const,
     name: "Position the sun",
     description: "Derive sunX and sunY using arithmetic, then draw the sky and sun using the variables.",
-    hints: ["sunX = canvasSize - gap - sunRadius", "sunY = gap + sunRadius", "Draw the sky first, then the sun on top"],
+    hints: [],
     requiredScenarios: ["position-sun"],
     bonus: false
   }

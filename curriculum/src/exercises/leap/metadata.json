@@ -3,9 +3,21 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "A year is a leap year if it is divisible by 4",
-    "But if the year is also divisible by 100, it is NOT a leap year",
-    "Unless the year is also divisible by 400, in which case it IS a leap year",
-    "Use the remainder operator (%) to check divisibility — if year % 4 equals 0, the year is divisible by 4"
+    {
+      "question": "Hint",
+      "answer": "A year is a leap year if it is divisible by 4"
+    },
+    {
+      "question": "Hint",
+      "answer": "But if the year is also divisible by 100, it is NOT a leap year"
+    },
+    {
+      "question": "Hint",
+      "answer": "Unless the year is also divisible by 400, in which case it IS a leap year"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use the remainder operator (%) to check divisibility — if year % 4 equals 0, the year is divisible by 4"
+    }
   ]
 }

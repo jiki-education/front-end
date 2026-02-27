@@ -3,9 +3,21 @@
   "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
-    "Think about what you would do in the real world to compare two lists",
-    "You need to check if each recipe item is already in the fridge",
-    "Consider writing a helper function to check if an item is in a list",
-    "Use push() to build up your shopping list"
+    {
+      "question": "Hint",
+      "answer": "Think about what you would do in the real world to compare two lists"
+    },
+    {
+      "question": "Hint",
+      "answer": "You need to check if each recipe item is already in the fridge"
+    },
+    {
+      "question": "Hint",
+      "answer": "Consider writing a helper function to check if an item is in a list"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use push() to build up your shopping list"
+    }
   ]
 }

@@ -5,11 +5,7 @@ export const tasks = [
     id: "reverse-strings" as const,
     name: "Reverse Strings",
     description: "Reverse a string so that it reads from right to left instead of left to right.",
-    hints: [
-      "Iterate through each character in the string",
-      "For each character, prepend it to your result (not append)",
-      "Use concatenate(letter, result) to add each letter to the front"
-    ],
+    hints: [],
     requiredScenarios: [
       "reverse-empty-string",
       "reverse-word",

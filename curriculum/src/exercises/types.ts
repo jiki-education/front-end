@@ -26,8 +26,8 @@ interface BaseExerciseCore {
   functions: FunctionInfo[]; // Available functions for this exercise
 
   // Optional
-  hints?: string[];
-  conceptSlugs?: string[]; // Concept slugs to display in instructions
+  hints?: Hint[];
+  conceptSlugs?: string[];
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
 }
@@ -86,11 +86,16 @@ export interface FunctionInfo {
   category: string;
 }
 
+export interface Hint {
+  question: string;
+  answer: string;
+}
+
 export interface Task {
   id: string;
   name: string;
   description?: string;
-  hints?: string[];
+  hints?: Hint[];
   requiredScenarios?: string[]; // Scenario slugs that must pass for task completion
   bonus?: boolean;
 }

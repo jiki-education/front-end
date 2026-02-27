@@ -6,10 +6,7 @@ export const tasks = [
     name: "Create acronym function",
     description:
       "Write an acronym function that takes three words and returns a three-letter acronym formed by taking the first letter of each word.",
-    hints: [
-      "Use [1] to get the first character of each word",
-      "Use concatenate() to join the three characters together"
-    ],
+    hints: [],
     requiredScenarios: ["png", "css", "www", "lol"],
     bonus: false
   }

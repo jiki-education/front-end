@@ -3,10 +3,25 @@
   "estimatedMinutes": 15,
   "levelId": "strings-and-colors",
   "hints": [
-    "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob",
-    "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right",
-    "For the roof triangle: the left point is at x=16 (house at 20 minus 4 overhang), the right at x=84",
-    "The windows sit 5 down from the top of the house frame (y=55), and 10 in from the edges",
-    "The door is centered horizontally: house starts at x=20, is 60 wide, door is 14 wide, so door x = 20 + (60-14)/2 = 43"
+    {
+      "question": "Hint",
+      "answer": "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob"
+    },
+    {
+      "question": "Hint",
+      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right"
+    },
+    {
+      "question": "Hint",
+      "answer": "For the roof triangle: the left point is at x=16 (house at 20 minus 4 overhang), the right at x=84"
+    },
+    {
+      "question": "Hint",
+      "answer": "The windows sit 5 down from the top of the house frame (y=55), and 10 in from the edges"
+    },
+    {
+      "question": "Hint",
+      "answer": "The door is centered horizontally: house starts at x=20, is 60 wide, door is 14 wide, so door x = 20 + (60-14)/2 = 43"
+    }
   ]
 }

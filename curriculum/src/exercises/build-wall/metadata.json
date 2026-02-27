@@ -3,10 +3,25 @@
   "estimatedMinutes": 20,
   "levelId": "conditionals-and-state",
   "hints": [
-    "Use nested loops: outer loop for rows, inner loop for bricks in each row",
-    "Odd rows (0, 2, 4...) start at x=0 with 5 bricks",
-    "Even rows (1, 3, 5...) start at x=-10 with 6 bricks",
-    "Use modulo (%) to check if a row number is odd or even",
-    "Each brick is 20 wide and 10 tall"
+    {
+      "question": "Hint",
+      "answer": "Use nested loops: outer loop for rows, inner loop for bricks in each row"
+    },
+    {
+      "question": "Hint",
+      "answer": "Odd rows (0, 2, 4...) start at x=0 with 5 bricks"
+    },
+    {
+      "question": "Hint",
+      "answer": "Even rows (1, 3, 5...) start at x=-10 with 6 bricks"
+    },
+    {
+      "question": "Hint",
+      "answer": "Use modulo (%) to check if a row number is odd or even"
+    },
+    {
+      "question": "Hint",
+      "answer": "Each brick is 20 wide and 10 tall"
+    }
   ]
 }

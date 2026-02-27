@@ -3,8 +3,17 @@
   "estimatedMinutes": 10,
   "levelId": "make-your-own-functions",
   "hints": [
-    "Define the function at the top of your code, before the loop",
-    "The function just needs to call turnLeft() twice",
-    "Replace the two turnLeft() calls in the else block with a single turnAround() call"
+    {
+      "question": "Hint",
+      "answer": "Define the function at the top of your code, before the loop"
+    },
+    {
+      "question": "Hint",
+      "answer": "The function just needs to call turnLeft() twice"
+    },
+    {
+      "question": "Hint",
+      "answer": "Replace the two turnLeft() calls in the else block with a single turnAround() call"
+    }
   ]
 }
