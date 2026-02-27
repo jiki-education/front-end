@@ -144,7 +144,7 @@ export default function UnlockAnimationTest() {
                 <div className={styles.partTitle}>{completingLesson.lesson.title}</div>
                 <div className={styles.partDescription}>{completingLesson.lesson.description}</div>
               </div>
-              <WalkthroughCard lesson={completingLesson} />
+              <WalkthroughCard lesson={completingLesson} isCompleting={animationState === "completing"} />
             </div>
 
             {/* Unlocking lesson with proper margin */}
@@ -158,7 +158,7 @@ export default function UnlockAnimationTest() {
                 <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
                 <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
               </div>
-              <WalkthroughCard lesson={unlockingLesson} isCompleting={animationState === "unlocking"} />
+              <WalkthroughCard lesson={unlockingLesson} />
             </div>
           </div>
         </div>
