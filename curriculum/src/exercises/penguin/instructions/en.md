@@ -19,7 +19,7 @@ For the nose, you should **change** the middle coordinates of the triangle. Don'
 
 The functions used in this exercise are:
 
-- `circle(centerX, centerY, radius, color)`
+- `circle(cx, cy, radius, color)`
 - `rectangle(x, y, width, height, color)`
-- `ellipse(centerX, centerY, radiusX, radiusY, color)`
+- `ellipse(cx, cy, radiusX, radiusY, color)`
 - `triangle(x1,y1, x2,y2, x3,y3, color)`

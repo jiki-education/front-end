@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as FixWallExercise;
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/wall-to-fix.png");
+      ex.setupBackground("/static/images/exercise-assets/fix-wall/wall-to-fix.png");
       ex.setupStroke(0.4, "#7f3732");
     },
 

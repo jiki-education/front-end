@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as SnowmanBasicExercise;
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/snowman-basic.png");
+      ex.setupBackground("/static/images/exercise-assets/snowman-basic/snowman-basic.png");
     },
 
     expectations(exercise) {
@@ -29,16 +29,16 @@ export const scenarios: VisualScenario[] = [
 
       return [
         {
-          pass: ex.hasCircleAt(50, 72, 20),
-          errorHtml: "The base (bottom) circle is not correct. It should be centered at (50, 72) with a radius of 20."
+          pass: ex.hasCircleAt(50, 70, 20),
+          errorHtml: "The base (bottom) circle isn't right."
         },
         {
-          pass: ex.hasCircleAt(50, 50, 15),
-          errorHtml: "The body (middle) circle is not correct. It should be centered at (50, 50) with a radius of 15."
+          pass: ex.hasCircleAt(50, 40, 15),
+          errorHtml: "The body (middle) circle isn't right."
         },
         {
-          pass: ex.hasCircleAt(50, 33, 10),
-          errorHtml: "The head (top) circle is not correct. It should be centered at (50, 33) with a radius of 10."
+          pass: ex.hasCircleAt(50, 20, 10),
+          errorHtml: "The head (top) circle isn't right."
         }
       ];
     }

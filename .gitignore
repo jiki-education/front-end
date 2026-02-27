@@ -36,3 +36,11 @@ curriculum/pnpm-lock.yaml
 interpreters/pnpm-lock.yaml
 
 .claude/settings.local.json
+exercise-status.html
+
+# Generated build artifacts
+app/lib/generated/
+app/public/static/concepts/
+app/public/static/content/
+app/public/static/exercises/
+app/public/static/search/

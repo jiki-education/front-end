@@ -30,4 +30,4 @@ Your task is to rewrite the snowman so all the sizes and positions are derived f
 ### Functions used in this exercise
 
 - `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(x, y, radius, color)` — Draw a circle
+- `circle(cx, cy, radius, color)` — Draw a circle

@@ -1,1 +1,8 @@
-// TODO: Draw three circles to build the snowman.
+// Draw the Base (bottom, biggest)
+
+
+// Draw the Body (middle)
+
+
+// Draw the Head (top, smallest)
+

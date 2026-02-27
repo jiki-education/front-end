@@ -27,5 +27,5 @@ Draw the house shown in the image using variables for all positions, sizes, and 
 ### Functions
 
 - `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(x, y, radius, color)` — Draw a circle
+- `circle(cx, cy, radius, color)` — Draw a circle
 - `triangle(x1, y1, x2, y2, x3, y3, color)` — Draw a triangle

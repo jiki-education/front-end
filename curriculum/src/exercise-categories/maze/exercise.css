@@ -1,4 +1,4 @@
-.exercise-maze-solve-basic {
+.exercise-maze {
     --cellWidth: calc(100% / var(--gridSize));
     background: red;
 

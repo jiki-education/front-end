@@ -16,7 +16,7 @@ Remember to initialize the variables **outside** of the loop, and then update th
 
 ### Functions used in this exercise:
 
-- `circle(centerX, centerY, radius, color)` - Draw a circle
+- `circle(cx, cy, radius, color)` - Draw a circle
 - `rectangle(x, y, width, height, color)` - Draw a rectangle
 - `rgb(red, green, blue)` - Convert RGB values (0-255) to a hex color string
 - `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string

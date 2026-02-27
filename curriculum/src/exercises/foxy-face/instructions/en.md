@@ -3,11 +3,7 @@ title: "Foxy Face"
 description: ""
 ---
 
-This exercise introduces you to the `triangle` function.
-
-### Drawing Triangles
-
-To draw triangles, we use the `triangle` function with 7 inputs:
+This exercise introduces you to the `triangle` function, which we use with 7 inputs:
 
 - `x1`, `y1`: The first corner point
 - `x2`, `y2`: The second corner point
@@ -16,17 +12,21 @@ To draw triangles, we use the `triangle` function with 7 inputs:
 
 Each pair of coordinates defines one of the three corners of the triangle.
 
-## Instructions
+### Drawing a fox face
 
-Your job is to build a geometric fox face using triangles! We've provided the `"grey"` background for you.
+Your job is to build a geometric fox face using triangles! The face should look like this:
 
-You'll need to draw 8 triangles to create:
+<img src="/static/images/exercise-assets/foxy-face/example.svg" style="width: 100%; max-width:400px;margin-top:10px;margin-bottom:20px;border:1px solid #ddd;border-radius:5px"/>
+
+It's horizontally symetrical (the left side is identical to the right side). And it has 8 triangles in total:
 
 - Two `"white"` cheeks
 - Two `"brown"` ears
 - Two `"orange"` face halves
 - A `"charcoal"` nose (two triangles)
 
-The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.
+All the numbers used are divisible by 5 (e.g. `5`, `10`, `15`, etc are valid but `1`, `2`, `3`, `4`, `6`, `7`, `8`, `9`, `11`, etc are not).
 
-Hint: Build the fox from back to front. Start with the cheeks, then the ears, then the face, and finally the nose on top.
+We've drawn outlines of some of the parts for you, and given you the real code for the top of the nose as an example. Your job is to draw the rest!
+
+Hint: Build the fox from left to right, then top to bottom. Start with the left ear, left face, left cheek, then move onto the right ear, right face, right cheek. And finally the nose top and nose bottom.

@@ -26,4 +26,4 @@ Your task is to build a snowman by setting the right variable values so your sno
 ### Functions used in this exercise
 
 - `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(x, y, radius, color)` — Draw a circle
+- `circle(cx, cy, radius, color)` — Draw a circle

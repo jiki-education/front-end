@@ -24,7 +24,7 @@ Try and place each piece in the order they're listed below. When everything is c
 
 The house uses the following functions:
 
-- `circle(x, y, radius, color)`
+- `circle(cx, cy, radius, color)`
 - `rectangle(x, y, width, height, color)`
-- `ellipse(centerX, centerY, radiusX, radiusY, color)`
+- `ellipse(cx, cy, radiusX, radiusY, color)`
 - `triangle(x1,y1, x2,y2, x3,y3, color)`

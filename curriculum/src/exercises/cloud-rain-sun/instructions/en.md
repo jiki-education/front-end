@@ -9,8 +9,8 @@ This exercise combines the `rectangle`, `circle`, and `ellipse` functions to cre
 
 To draw ellipses, we use the `ellipse` function with 5 inputs:
 
-- `x`: The x position of the center
-- `y`: The y position of the center
+- `cx`: The x position of the center
+- `cy`: The y position of the center
 - `rx`: The horizontal radius (how wide)
 - `ry`: The vertical radius (how tall)
 - `color`: The color (e.g. `"blue"`)
@@ -20,8 +20,8 @@ An ellipse is like a stretched circle. When `rx` and `ry` are different, you get
 ### Quick Reminder
 
 - `rectangle(left, top, width, height, color)` — draws a rectangle
-- `circle(x, y, radius, color)` — draws a circle
-- `ellipse(x, y, rx, ry, color)` — draws an ellipse
+- `circle(cx, cy, radius, color)` — draws a circle
+- `ellipse(cx, cy, rx, ry, color)` — draws an ellipse
 
 ## Instructions
 
