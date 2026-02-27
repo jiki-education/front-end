@@ -1,8 +1,3 @@
-// Foxy Face - A geometric fox made of triangles
-
-// Background
-rectangle(0, 0, 100, 100, "grey")
-
 // White cheeks
 triangle(10, 40, 5, 60, 50, 95, "white")
 triangle(90, 40, 95, 60, 50, 95, "white")

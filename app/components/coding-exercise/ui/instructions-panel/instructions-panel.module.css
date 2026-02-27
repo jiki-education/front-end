@@ -285,11 +285,6 @@
 
 .functionsContainer,
 .conceptsContainer {
-    h2 {
-        margin-top: 50px;
-        padding-top: 40px;
-        border-top: 1px solid var(--color-gray-200);
-    }
     .sectionInfo {
         color: var(--color-gray-500);
         font-size: 15px;
@@ -366,17 +361,11 @@
 }
 
 /* ConceptLibrary styles */
-.conceptsContainer {
-    margin-bottom: 2rem;
-}
 
 .conceptsTitle {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 12px;
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 1px solid var(--color-gray-200);
+    margin-bottom: 2px;
 }
 
 .conceptsList {

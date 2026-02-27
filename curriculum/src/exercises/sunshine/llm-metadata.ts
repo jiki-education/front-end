@@ -23,8 +23,8 @@ export const llmMetadata: LLMMetadata = {
 
         Key teaching points:
         1. Triangle parameters: (x1, y1, x2, y2, x3, y3, color) — three corner points and a color
-        2. Circle parameters: (x, y, radius, color)
-        3. x and y for circle are the CENTER of the circle, not the top-left
+        2. Circle parameters: (cx, cy, radius, color)
+        3. cx and cy for circle are the CENTER of the circle, not the top-left
         4. Coordinate system: (0,0) is top-left, (100,100) is bottom-right
         5. The center of the canvas is (50, 50)
 

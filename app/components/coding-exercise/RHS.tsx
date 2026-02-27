@@ -105,6 +105,7 @@ export function RHS({ orchestrator }: RHSProps) {
         <button
           onClick={() => router.push("/dashboard")}
           className="ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0"
+          style={{ marginTop: 3, marginBottom: -3 }}
         >
           <ArrowRightIcon width={16} height={16} />
           Dashboard

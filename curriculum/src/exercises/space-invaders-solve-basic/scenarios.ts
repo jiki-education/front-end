@@ -22,11 +22,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as SpaceInvadersSolveBasicExercise;
-      ex.setupAliens([
-        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-      ]);
+      ex.setupAliens([[0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0]]);
     },
 
     expectations(exercise) {

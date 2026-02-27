@@ -1,8 +1,8 @@
 // Base (bottom, biggest)
-circle(50, 72, 20);
+circle(50, 70, 20);
 
 // Body (middle)
-circle(50, 50, 15);
+circle(50, 40, 15);
 
 // Head (top, smallest)
-circle(50, 33, 10);
+circle(50, 20, 10);

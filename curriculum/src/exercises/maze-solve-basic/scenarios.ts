@@ -16,7 +16,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
     name: "Guide person to the end of the maze",
-    description: "Your job is to reach the goal.",
+    description: "Your job is to navigate your blob through the maze to the green goal square.",
     taskId: "solve-maze",
 
     setup(exercise) {

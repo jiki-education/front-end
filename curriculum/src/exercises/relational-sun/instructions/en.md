@@ -28,4 +28,4 @@ Your task is to position a sun in the top-right corner of the sky using arithmet
 ### Functions used in this exercise
 
 - `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(x, y, radius, color)` — Draw a circle
+- `circle(cx, cy, radius, color)` — Draw a circle
