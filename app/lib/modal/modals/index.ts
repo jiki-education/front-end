@@ -1,57 +1,50 @@
-import { ConfirmationModal } from "./ConfirmationModal";
-import { ConnectionErrorModal } from "./ConnectionErrorModal";
-import { AuthErrorModal } from "./AuthErrorModal";
-import { ExampleModal } from "./ExampleModal";
-import { ExerciseSuccessModal } from "./ExerciseSuccessModal";
-import { ExerciseCompletionModal } from "./ExerciseCompletionModal";
-import { LevelMilestoneModal } from "./LevelMilestoneModal";
-import { InfoModal } from "./InfoModal";
-import { SessionExpiredModal } from "./SessionExpiredModal";
-import { RateLimitModal } from "./RateLimitModal";
-import { SubscriptionModal } from "./SubscriptionModal";
-import { SubscriptionSuccessModal } from "./SubscriptionSuccessModal";
-import { SubscriptionCheckoutModal } from "./SubscriptionCheckoutModal";
-import { BadgeModal } from "./BadgeModal";
-import { ChangePasswordModal } from "@/components/settings/modals/ChangePasswordModal";
-import { ChangeEmailModal } from "@/components/settings/modals/ChangeEmailModal";
-import { CancelSubscriptionConfirmModal } from "@/components/settings/modals/CancelSubscriptionConfirmModal";
-import { CancelSubscriptionSuccessModal } from "@/components/settings/modals/CancelSubscriptionSuccessModal";
-import { DeleteAccountModal } from "@/components/settings/modals/DeleteAccountModal";
-import { AvatarEditModal } from "@/components/settings/modals/AvatarEditModal";
-import { PaymentProcessingModal } from "./PaymentProcessingModal";
-import { PremiumUpgradeModal } from "./PremiumUpgradeModal";
-import { WelcomeToPremiumModal } from "./WelcomeToPremiumModal";
-import { VideoWalkthroughModal } from "./VideoWalkthroughModal";
-import { WalkthroughConfirmModal } from "./WalkthroughConfirmModal";
+import dynamic from "next/dynamic";
 
-// Export all modals
-export {
-  ConfirmationModal,
-  ConnectionErrorModal,
-  AuthErrorModal,
-  ExampleModal,
-  ExerciseSuccessModal,
-  ExerciseCompletionModal,
-  LevelMilestoneModal,
-  InfoModal,
-  SessionExpiredModal,
-  RateLimitModal,
-  SubscriptionModal,
-  SubscriptionSuccessModal,
-  SubscriptionCheckoutModal,
-  BadgeModal,
-  ChangePasswordModal,
-  ChangeEmailModal,
-  CancelSubscriptionConfirmModal,
-  CancelSubscriptionSuccessModal,
-  DeleteAccountModal,
-  AvatarEditModal,
-  PaymentProcessingModal,
-  PremiumUpgradeModal,
-  WelcomeToPremiumModal,
-  VideoWalkthroughModal,
-  WalkthroughConfirmModal
-};
+const ConfirmationModal = dynamic(() => import("./ConfirmationModal").then((m) => m.ConfirmationModal));
+const ConnectionErrorModal = dynamic(() => import("./ConnectionErrorModal").then((m) => m.ConnectionErrorModal));
+const AuthErrorModal = dynamic(() => import("./AuthErrorModal").then((m) => m.AuthErrorModal));
+const ExampleModal = dynamic(() => import("./ExampleModal").then((m) => m.ExampleModal));
+const ExerciseSuccessModal = dynamic(() => import("./ExerciseSuccessModal").then((m) => m.ExerciseSuccessModal));
+const ExerciseCompletionModal = dynamic(() =>
+  import("./ExerciseCompletionModal").then((m) => m.ExerciseCompletionModal)
+);
+const LevelMilestoneModal = dynamic(() => import("./LevelMilestoneModal").then((m) => m.LevelMilestoneModal));
+const InfoModal = dynamic(() => import("./InfoModal").then((m) => m.InfoModal));
+const SessionExpiredModal = dynamic(() => import("./SessionExpiredModal").then((m) => m.SessionExpiredModal));
+const RateLimitModal = dynamic(() => import("./RateLimitModal").then((m) => m.RateLimitModal));
+const SubscriptionModal = dynamic(() => import("./SubscriptionModal").then((m) => m.SubscriptionModal));
+const SubscriptionSuccessModal = dynamic(() =>
+  import("./SubscriptionSuccessModal").then((m) => m.SubscriptionSuccessModal)
+);
+const SubscriptionCheckoutModal = dynamic(() =>
+  import("./SubscriptionCheckoutModal").then((m) => m.SubscriptionCheckoutModal)
+);
+const BadgeModal = dynamic(() => import("./BadgeModal").then((m) => m.BadgeModal));
+const ChangePasswordModal = dynamic(() =>
+  import("@/components/settings/modals/ChangePasswordModal").then((m) => m.ChangePasswordModal)
+);
+const ChangeEmailModal = dynamic(() =>
+  import("@/components/settings/modals/ChangeEmailModal").then((m) => m.ChangeEmailModal)
+);
+const CancelSubscriptionConfirmModal = dynamic(() =>
+  import("@/components/settings/modals/CancelSubscriptionConfirmModal").then((m) => m.CancelSubscriptionConfirmModal)
+);
+const CancelSubscriptionSuccessModal = dynamic(() =>
+  import("@/components/settings/modals/CancelSubscriptionSuccessModal").then((m) => m.CancelSubscriptionSuccessModal)
+);
+const DeleteAccountModal = dynamic(() =>
+  import("@/components/settings/modals/DeleteAccountModal").then((m) => m.DeleteAccountModal)
+);
+const AvatarEditModal = dynamic(() =>
+  import("@/components/settings/modals/AvatarEditModal").then((m) => m.AvatarEditModal)
+);
+const PaymentProcessingModal = dynamic(() => import("./PaymentProcessingModal").then((m) => m.PaymentProcessingModal));
+const PremiumUpgradeModal = dynamic(() => import("./PremiumUpgradeModal").then((m) => m.PremiumUpgradeModal));
+const WelcomeToPremiumModal = dynamic(() => import("./WelcomeToPremiumModal").then((m) => m.WelcomeToPremiumModal));
+const VideoWalkthroughModal = dynamic(() => import("./VideoWalkthroughModal").then((m) => m.VideoWalkthroughModal));
+const WalkthroughConfirmModal = dynamic(() =>
+  import("./WalkthroughConfirmModal").then((m) => m.WalkthroughConfirmModal)
+);
 
 // Available modals registry
 export const availableModals = {
