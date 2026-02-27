@@ -1,4 +1,5 @@
-import { getContentLoader } from "./loaders";
+import { headers } from "next/headers";
+import { getAllBlogPosts } from "./getAllBlogPosts";
 import type { ProcessedBlogPost } from "./types";
 
 /**
@@ -8,14 +9,26 @@ import type { ProcessedBlogPost } from "./types";
  * @throws Error if the post doesn't exist at all
  */
 export async function getBlogPost(slug: string, locale: string): Promise<ProcessedBlogPost> {
-  const loader = await getContentLoader();
-  const allMeta = await loader.getAllBlogPostMeta(locale);
-  const meta = allMeta.find((p) => p.slug === slug);
+  const allPosts = getAllBlogPosts(locale);
+  const meta = allPosts.find((p) => p.slug === slug);
 
   if (!meta) {
     throw new Error(`Blog post not found: ${slug}`);
   }
 
-  const content = await loader.getBlogPostContent(slug, locale);
+  const content = await fetchContentFromOrigin(`/static/content/blog/${slug}/${meta.locale}-${meta.contentHash}.html`);
   return { ...meta, content };
+}
+
+async function fetchContentFromOrigin(path: string): Promise<string> {
+  const headersList = await headers();
+  const host = headersList.get("host") || "localhost:3071";
+  const proto = headersList.get("x-forwarded-proto") || "http";
+  const url = `${proto}://${host}${path}`;
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch content: ${path} (${res.status})`);
+  }
+  return res.text();
 }

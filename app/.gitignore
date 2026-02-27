@@ -45,7 +45,7 @@ next-env.d.ts
 .claude/settings.local.json
 
 # generated content cache (build-time generation)
-.content-cache/
+public/static/content/
 
 # generated exercise cache (build-time generation)
 public/static/exercises/

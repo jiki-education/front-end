@@ -11,9 +11,9 @@ interface ArticleDetailPageProps {
 }
 
 // Helper for generateMetadata
-export async function getArticleMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export function getArticleMetadata(slug: string, locale: string = "en"): Metadata {
   try {
-    const allArticles = await getAllArticles(locale);
+    const allArticles = getAllArticles(locale);
     const article = allArticles.find((a) => a.slug === slug);
     if (!article) {
       return { title: "Article Not Found" };
@@ -38,7 +38,7 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
   }
 
   // Get related articles based on tag overlap
-  const allArticles = await getAllArticles(locale);
+  const allArticles = getAllArticles(locale);
   const relatedArticles = getRelatedArticles(slug, allArticles, 3);
 
   if (authenticated) {

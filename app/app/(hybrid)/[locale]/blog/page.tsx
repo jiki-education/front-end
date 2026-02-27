@@ -39,7 +39,7 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
   }
 
   // Check if locale is supported and has blog posts
-  const locales = await getAvailableLocales("blog", SUPPORTED_LOCALES);
+  const locales = getAvailableLocales("blog", SUPPORTED_LOCALES);
   if (!locales.includes(locale)) {
     notFound();
   }

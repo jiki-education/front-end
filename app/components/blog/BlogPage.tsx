@@ -11,9 +11,9 @@ interface BlogPageProps {
   page?: string | null;
 }
 
-export default async function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
+export default function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
   const pageNum = page ? Math.max(1, parseInt(page, 10) || 1) : 1;
-  const { posts, totalPages, currentPage } = await getBlogPosts({ locale, page: pageNum });
+  const { posts, totalPages, currentPage } = getBlogPosts({ locale, page: pageNum });
 
   const [latestPost, ...remainingPosts] = posts;
 

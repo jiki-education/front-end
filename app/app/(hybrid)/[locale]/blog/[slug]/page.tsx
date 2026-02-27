@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Redirecting..." };
   }
 
-  return await getBlogPostMetadata(slug, locale);
+  return getBlogPostMetadata(slug, locale);
 }
 
 export default async function AuthenticatedLocaleBlogPostPage({ params }: Props) {

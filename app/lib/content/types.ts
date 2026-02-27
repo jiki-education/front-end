@@ -75,3 +75,8 @@ export interface ProcessedArticle extends ArticleMeta {
 export interface AuthorRegistry {
   [key: string]: Author;
 }
+
+export interface SearchIndexData {
+  index: object;
+  articles: Array<{ slug: string; title: string; excerpt: string }>;
+}

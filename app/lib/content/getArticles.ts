@@ -22,10 +22,10 @@ export interface GetArticlesResult {
  * Get articles with optional tag filtering and pagination
  * By default returns only listed articles, sorted alphabetically by title
  */
-export async function getArticles(options: GetArticlesOptions = {}): Promise<GetArticlesResult> {
+export function getArticles(options: GetArticlesOptions = {}): GetArticlesResult {
   const { locale = "en", tag = null, page = 1, listedOnly = true } = options;
 
-  const allArticles = await getAllArticles(locale);
+  const allArticles = getAllArticles(locale);
   let filteredArticles = listedOnly ? allArticles.filter((article) => article.listed) : allArticles;
 
   // Filter by tag if provided

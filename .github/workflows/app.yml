@@ -138,6 +138,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate content cache
+        working-directory: app
+        run: pnpm run content:generate
+
       - name: Generate exercise cache
         working-directory: app
         run: pnpm run exercise-cache:generate

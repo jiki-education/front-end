@@ -1,7 +1,7 @@
 /**
  * Content API
  *
- * Public interface for loading blog posts and articles from content storage.
+ * Public interface for loading blog posts and articles from static content.
  */
 
 // Article loaders
@@ -22,5 +22,12 @@ export type { GetBlogPostsOptions, GetBlogPostsResult } from "./getBlogPosts";
 export { getAllPostSlugsWithLocales, getAvailableLocales } from "./loader";
 
 // Types
-export type { ArticleTagSlug, BlogPostMeta, ArticleMeta, ProcessedBlogPost, ProcessedArticle } from "./types";
+export type {
+  ArticleTagSlug,
+  BlogPostMeta,
+  ArticleMeta,
+  ProcessedBlogPost,
+  ProcessedArticle,
+  SearchIndexData
+} from "./types";
 export { ARTICLE_TAG_SLUGS, ARTICLE_TAG_LABELS, getArticleTagLabel } from "./types";

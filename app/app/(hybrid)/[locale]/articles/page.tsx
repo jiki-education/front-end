@@ -39,7 +39,7 @@ export default async function AuthenticatedLocaleArticlesPage({ params, searchPa
   }
 
   // Check if locale is supported and has articles
-  const locales = await getAvailableLocales("articles", SUPPORTED_LOCALES);
+  const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
   if (!locales.includes(locale)) {
     notFound();
   }

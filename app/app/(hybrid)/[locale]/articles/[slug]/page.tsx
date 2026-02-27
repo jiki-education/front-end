@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Redirecting..." };
   }
 
-  return await getArticleMetadata(slug, locale);
+  return getArticleMetadata(slug, locale);
 }
 
 export default async function AuthenticatedLocaleArticlePage({ params }: Props) {

@@ -12,9 +12,9 @@ interface BlogPostPageProps {
 }
 
 // Helper for generateMetadata
-export async function getBlogPostMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export function getBlogPostMetadata(slug: string, locale: string = "en"): Metadata {
   try {
-    const allPosts = await getAllBlogPosts(locale);
+    const allPosts = getAllBlogPosts(locale);
     const post = allPosts.find((p) => p.slug === slug);
     if (!post) {
       return { title: "Post Not Found" };
@@ -39,7 +39,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
   }
 
   // Get related blog posts based on tag overlap
-  const allPosts = await getAllBlogPosts(locale);
+  const allPosts = getAllBlogPosts(locale);
   const relatedPosts = getRelatedBlogPosts(slug, allPosts, 3);
 
   if (authenticated) {
