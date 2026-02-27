@@ -10,7 +10,6 @@ import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUp
 import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./projects-sidebar.module.css";
-import { PremiumBox } from "./ui/PremiumBox";
 import { ProjectsUpsellCard } from "./ui/ProjectsUpsellCard";
 import { RecentProjects } from "./ui/RecentProjects";
 import { UserProfile, type UserProfileData } from "./ui/UserProfile";
@@ -130,7 +129,12 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     <aside className={styles.projectsSidebar}>
       <div>
         {/* User Profile Card */}
-        <UserProfile profile={userProfile} badges={badges} loading={profileLoading || badgesLoading} />
+        <UserProfile
+          profile={userProfile}
+          badges={badges}
+          loading={profileLoading || badgesLoading}
+          isPremium={isPremium}
+        />
 
         {/* Projects section - upsell for non-premium, recent projects for premium */}
         {isPremium ? (
@@ -142,10 +146,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
             loading={projectsLoading}
           />
         ) : (
-          <>
-            <ProjectsUpsellCard onUpgradeClick={handleUpgradeClick} />
-            <PremiumBox onUpgradeClick={handleUpgradeClick} />
-          </>
+          <ProjectsUpsellCard onUpgradeClick={handleUpgradeClick} />
         )}
       </div>
     </aside>

@@ -105,7 +105,7 @@ export default function ProjectsSidebarDevPage() {
       case "free-user":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={false} />
             <ProjectsUpsellCard onUpgradeClick={() => console.debug("Upgrade clicked")} />
             <PremiumBox onUpgradeClick={() => console.debug("Upgrade clicked")} />
           </>
@@ -114,7 +114,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-empty":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <EmptyProjectsState />
           </>
         );
@@ -122,7 +122,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-1-project":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects1}
               unlockedCount={1}
@@ -136,7 +136,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-2-projects":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects2}
               unlockedCount={2}
@@ -150,7 +150,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-with-projects":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects3}
               unlockedCount={5}

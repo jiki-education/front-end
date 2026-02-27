@@ -123,6 +123,14 @@ export default function DevPage() {
                 - All projects sidebar states (loading, free user, premium empty, premium with projects)
               </span>
             </li>
+            <li>
+              <Link href="/dev/user-profile-card" className="text-blue-600 hover:underline">
+                User Profile Card
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - Before/after comparison: current icon badge vs. premium star badge design
+              </span>
+            </li>
           </ul>
         </div>
 

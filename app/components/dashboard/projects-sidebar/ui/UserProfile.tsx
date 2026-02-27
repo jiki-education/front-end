@@ -1,12 +1,12 @@
 "use client";
 
-import { ProfileIcon } from "@/components/icons/ProfileIcon";
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { resolveApiAssetUrl } from "@/lib/api/config";
 import { showModal } from "@/lib/modal";
 import { useProfileStore } from "@/lib/profile/profileStore";
 import PencilIcon from "@/icons/pencil.svg";
+import PremiumStarIcon from "@/icons/premium-star.svg";
 import style from "./UserProfile.module.css";
 import { Badges } from "./UserProfile/Badges";
 import { Streak } from "./UserProfile/Streak";
@@ -35,9 +35,10 @@ interface UserProfileProps {
   profile: UserProfileData | null;
   badges?: BadgeData[];
   loading?: boolean;
+  isPremium?: boolean;
 }
 
-export function UserProfile({ profile, badges, loading }: UserProfileProps) {
+export function UserProfile({ profile, badges, loading, isPremium = false }: UserProfileProps) {
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
   const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
 
@@ -52,9 +53,13 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
   }
 
   return (
-    <div className={style.card}>
+    <div className={`${style.card}${isPremium ? ` ${style.cardPremium}` : ""}`}>
       <div className={style.header}>
-        <button type="button" onClick={handleAvatarClick} className={style.avatarButton}>
+        <button
+          type="button"
+          onClick={handleAvatarClick}
+          className={`${style.avatarButton}${isPremium ? ` ${style.avatarButtonPremium}` : ""}`}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={resolveApiAssetUrl(profile.avatarUrl)}
@@ -67,9 +72,12 @@ export function UserProfile({ profile, badges, loading }: UserProfileProps) {
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>
-          <div className={style.iconBadge}>
-            <ProfileIcon slug={profile.icon} />
-          </div>
+          {isPremium && (
+            <div className={style.starBadge}>
+              <div className={style.starTooltip}>Premium Member</div>
+              <PremiumStarIcon />
+            </div>
+          )}
         </button>
         <div className={style.info}>
           <div className={style.name}>{profile.name}</div>

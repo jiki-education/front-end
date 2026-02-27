@@ -1,20 +1,70 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+}
+
+.toolbar {
+    padding: 16px 24px;
+    background: white;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--color-gray-500);
+}
+
+.compareRow {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 380px;
+}
+
+.columnLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Card shell (mirrors UserProfile.module.css) ── */
 .card {
     background: white;
     border-radius: 16px;
     padding: 20px;
-    margin-top: 5px;
-    margin-bottom: 20px;
     border: 2px solid var(--color-gray-200);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        border-color: var(--color-gray-300);
+    }
 }
 
 .cardPremium {
     background: linear-gradient(to bottom, var(--color-purple-100) 0%, var(--color-purple-50) 40%, white 100%);
 }
 
+/* ── Header row ── */
 .header {
     display: flex;
     align-items: center;
@@ -23,6 +73,7 @@
     position: relative;
 }
 
+/* ── Avatar button ── */
 .avatarButton {
     width: 66px;
     height: 66px;
@@ -78,6 +129,7 @@
     }
 }
 
+/* ── Premium star badge ── */
 .starBadge {
     position: absolute;
     bottom: -2px;
@@ -135,6 +187,7 @@
     }
 }
 
+/* ── User info ── */
 .info {
     flex: 1;
     margin-left: 11px;
@@ -143,12 +196,12 @@
 .name {
     font-size: 18px;
     font-weight: 600;
-    color: #1a202c;
+    color: var(--color-gray-900);
     margin-bottom: -1px;
 }
 
 .handle {
     font-size: 13px;
-    color: #718096;
+    color: var(--color-gray-500);
     margin-bottom: 4px;
 }
