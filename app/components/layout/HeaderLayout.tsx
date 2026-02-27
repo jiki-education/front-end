@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "../../lib/auth/authStore";
-import Footer from "./footer";
+import { ExternalFooter } from "./ExternalFooter";
 import InternalHeader from "./header/internal";
 import ExternalHeader from "./header/external";
 
@@ -14,7 +14,7 @@ export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProp
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-1 mt-[70px]">{children}</main>
-      <Footer />
+      <ExternalFooter />
     </div>
   );
 }

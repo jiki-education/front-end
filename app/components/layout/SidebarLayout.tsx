@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "../../lib/auth/authStore";
-import Footer from "./footer";
+import { ExternalFooter } from "./ExternalFooter";
 import ExternalHeader from "./header/external";
 import Sidebar from "./sidebar/Sidebar";
 
@@ -24,7 +24,7 @@ export default function SidebarLayout({ activeItem, children }: SidebarLayoutPro
     <div className="min-h-screen flex flex-col bg-white">
       <ExternalHeader />
       <main className="flex-1 mt-[70px]">{children}</main>
-      <Footer />
+      <ExternalFooter />
     </div>
   );
 }
