@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+import { fetchStaticContent } from "./fetchStaticContent";
 import { getAllBlogPosts } from "./getAllBlogPosts";
 import type { ProcessedBlogPost } from "./types";
 
@@ -16,19 +16,6 @@ export async function getBlogPost(slug: string, locale: string): Promise<Process
     throw new Error(`Blog post not found: ${slug}`);
   }
 
-  const content = await fetchContentFromOrigin(`/static/content/blog/${slug}/${meta.locale}-${meta.contentHash}.html`);
+  const content = await fetchStaticContent(`/static/content/blog/${slug}/${meta.locale}-${meta.contentHash}.html`);
   return { ...meta, content };
-}
-
-async function fetchContentFromOrigin(path: string): Promise<string> {
-  const headersList = await headers();
-  const host = headersList.get("host") || "localhost:3071";
-  const proto = headersList.get("x-forwarded-proto") || "http";
-  const url = `${proto}://${host}${path}`;
-
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch content: ${path} (${res.status})`);
-  }
-  return res.text();
 }
