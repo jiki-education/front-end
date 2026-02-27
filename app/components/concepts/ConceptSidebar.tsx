@@ -1,6 +1,7 @@
 import { RelatedConceptsPills } from "@/components/concepts/ConceptPill";
 import { RelatedExercises } from "@/components/concepts/RelatedExercises";
 import { VideoRecapCard } from "@/components/concepts/VideoRecapCard";
+import { UpgradeCard } from "@/components/concepts/UpgradeCard";
 import type { ConceptMeta, ExerciseInfo } from "@/types/concepts";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
 import type { VideoSource } from "@/types/lesson";
@@ -12,6 +13,7 @@ interface ConceptSidebarProps {
   videoData: VideoSource[] | null;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  isAuthenticated: boolean;
 }
 
 export function ConceptSidebar({
@@ -20,10 +22,12 @@ export function ConceptSidebar({
   relatedExercises,
   videoData,
   isConceptUnlocked,
-  getExerciseStatus
+  getExerciseStatus,
+  isAuthenticated
 }: ConceptSidebarProps) {
   return (
     <div>
+      {!isAuthenticated && <UpgradeCard />}
       {videoData && videoData.length > 0 && <VideoRecapCard conceptSlug={conceptSlug} videoData={videoData} />}
       <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} />
       <RelatedConceptsPills concepts={relatedConcepts} isUnlocked={isConceptUnlocked} />

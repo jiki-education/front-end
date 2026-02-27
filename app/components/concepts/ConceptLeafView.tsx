@@ -5,6 +5,7 @@ import ConceptLayout from "@/components/concepts/ConceptLayout";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptArticleSkeleton } from "@/components/concepts/LoadingStates";
 import { ConceptSidebar } from "@/components/concepts/ConceptSidebar";
+import { SignupCta } from "@/components/concepts/SignupCta";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
 import type { VideoSource } from "@/types/lesson";
@@ -19,6 +20,7 @@ interface ConceptLeafViewProps {
   videoData: VideoSource[] | null;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  isAuthenticated: boolean;
 }
 
 export function ConceptLeafView({
@@ -30,7 +32,8 @@ export function ConceptLeafView({
   relatedExercises,
   videoData,
   isConceptUnlocked,
-  getExerciseStatus
+  getExerciseStatus,
+  isAuthenticated
 }: ConceptLeafViewProps) {
   return (
     <ConceptsLayout>
@@ -44,8 +47,10 @@ export function ConceptLeafView({
             videoData={videoData}
             isConceptUnlocked={isConceptUnlocked}
             getExerciseStatus={getExerciseStatus}
+            isAuthenticated={isAuthenticated}
           />
         }
+        footer={!isAuthenticated && content ? <SignupCta /> : undefined}
       >
         <ConceptHero title={concept.title} intro={concept.description} />
         {isContentLoading && <ConceptArticleSkeleton />}

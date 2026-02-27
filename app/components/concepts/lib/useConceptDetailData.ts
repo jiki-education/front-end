@@ -24,6 +24,7 @@ interface ConceptDetailData {
   videoData: VideoSource[] | null;
   isLoading: boolean;
   error: string | null;
+  isAuthenticated: boolean;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
 }
@@ -128,6 +129,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     videoData,
     isLoading,
     error,
+    isAuthenticated,
     isConceptUnlocked,
     getExerciseStatus
   };
