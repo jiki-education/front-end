@@ -123,6 +123,7 @@ if (process.env.NODE_ENV === "production") {
     project: "jiki-front-end",
     silent: !process.env.CI,
     widenClientFileUpload: true,
+    useRunAfterProductionCompileHook: true,
 
     // Disable server-side auto-instrumentation for Cloudflare Workers compatibility
     // These prevent Node.js-only packages (require-in-the-middle) from being bundled
