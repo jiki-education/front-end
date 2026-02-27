@@ -12,7 +12,6 @@ const mockProfile: UserProfileData = {
   name: "Nicole Chalmers",
   handle: "japermian",
   avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
-  icon: "default",
   streaksEnabled: true,
   currentStreak: 0
 };

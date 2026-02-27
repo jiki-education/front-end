@@ -16,7 +16,6 @@ interface UserProfileBase {
   name: string;
   handle: string;
   avatarUrl: string;
-  icon: string;
 }
 
 interface UserProfileWithStreaks extends UserProfileBase {
