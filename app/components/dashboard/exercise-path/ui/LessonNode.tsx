@@ -116,7 +116,8 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
         <div className={styles.partTitle}>{lesson.lesson.title}</div>
         <div className={styles.partDescription}>{lesson.lesson.description}</div>
       </div>
-      <WalkthroughCard lesson={lesson} />
+      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- isJustUnlocked being true guarantees animationState is defined, but ESLint can't infer this */}
+      <WalkthroughCard lesson={lesson} isUnlocking={isJustUnlocked && animationState?.animationPhase === "unlocking"} />
     </div>
   );
 }

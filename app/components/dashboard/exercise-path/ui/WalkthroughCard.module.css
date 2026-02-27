@@ -92,6 +92,63 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Unlock animation */
+@keyframes walkthroughFrontUnlock {
+    0% {
+        border-color: var(--color-gray-200);
+        background: var(--color-gray-100);
+    }
+    100% {
+        border-color: var(--color-blue-500);
+        background: var(--color-blue-500-5);
+    }
+}
+
+@keyframes walkthroughIconUnlock {
+    0% {
+        color: var(--color-gray-400);
+    }
+    100% {
+        color: var(--color-blue-500);
+    }
+}
+
+@keyframes walkthroughLabelUnlock {
+    0% {
+        color: var(--color-gray-500);
+    }
+    100% {
+        color: var(--color-blue-500);
+    }
+}
+
+@keyframes walkthroughLineUnlock {
+    0% {
+        background: var(--color-gray-200);
+    }
+    100% {
+        background: var(--color-blue-500);
+    }
+}
+
+.animatingUnlock {
+    .front {
+        animation: walkthroughFrontUnlock 0.8s ease-out forwards;
+    }
+
+    .icon {
+        animation: walkthroughIconUnlock 0.8s ease-out forwards;
+    }
+
+    .label {
+        animation: walkthroughLabelUnlock 0.8s ease-out forwards;
+    }
+
+    &::before {
+        animation: walkthroughLineUnlock 0.8s ease-out forwards;
+    }
+}
+
 /* Locked state */
 .locked {
     cursor: not-allowed;

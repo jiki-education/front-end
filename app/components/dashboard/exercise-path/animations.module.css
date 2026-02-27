@@ -33,26 +33,29 @@
 
 @keyframes checkmarkAppear {
     0% {
-        opacity: 0;
-        transform: scale(0) rotate(-180deg);
+        transform: scale(0);
+    }
+    55% {
+        transform: scale(1.2);
+    }
+    75% {
+        transform: scale(0.9);
     }
     100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
+        transform: scale(1);
     }
 }
 
 @keyframes lessonUnlock {
     0% {
-        /* Start as locked - gray background, 2px border */
+        border-color: var(--color-gray-200);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         background: var(--color-gray-50);
-        border: 2px solid var(--color-gray-100);
     }
     100% {
-        /* End as unlocked/in-progress - purple border, 3px */
-        background: white;
-        border: 3px solid var(--color-purple-500);
+        border-color: var(--color-purple-500);
         box-shadow: 0 4px 12px var(--color-purple-500-20);
+        background: white;
     }
 }
 

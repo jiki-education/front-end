@@ -1,19 +1,29 @@
 import WalkthroughIcon from "@/icons/walkthrough.svg";
 import type { LessonDisplayData } from "../types";
 import { showVideoWalkthrough } from "@/lib/modal/store";
+import { useState, useEffect } from "react";
 import styles from "./WalkthroughCard.module.css";
 
 interface WalkthroughCardProps {
   lesson: LessonDisplayData;
+  isUnlocking?: boolean;
 }
 
-export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
+export function WalkthroughCard({ lesson, isUnlocking }: WalkthroughCardProps) {
+  const [animationDismissed, setAnimationDismissed] = useState(false);
+
+  useEffect(() => {
+    if (isUnlocking) {
+      setAnimationDismissed(false);
+    }
+  }, [isUnlocking]);
+
   const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
   if (!walkthroughVideoData || walkthroughVideoData.length === 0) {
     return null;
   }
 
-  const isLocked = !lesson.completed;
+  const isLocked = lesson.locked;
   const percentage = lesson.walkthroughVideoWatchedPercentage;
 
   const getStateClass = () => {
@@ -49,11 +59,20 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
     }
   };
 
+  const showUnlockAnimation = isUnlocking && !animationDismissed;
+
+  const handleMouseEnter = () => {
+    if (showUnlockAnimation) {
+      setAnimationDismissed(true);
+    }
+  };
+
   return (
     <div
-      className={`${styles.walkthroughCard} ${getStateClass()}`}
+      className={`${styles.walkthroughCard} ${getStateClass()}${showUnlockAnimation ? ` ${styles.animatingUnlock}` : ""}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      onMouseEnter={handleMouseEnter}
       role="button"
       tabIndex={isLocked ? -1 : 0}
     >
