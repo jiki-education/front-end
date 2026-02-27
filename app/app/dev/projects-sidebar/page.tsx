@@ -7,7 +7,6 @@ import { RecentProjects } from "@/components/dashboard/projects-sidebar/ui/Recen
 import { RecentProjectsSkeleton } from "@/components/dashboard/projects-sidebar/ui/RecentProjectsSkeleton";
 import { EmptyProjectsState } from "@/components/dashboard/projects-sidebar/ui/EmptyProjectsState";
 import { ProjectsUpsellCard } from "@/components/dashboard/projects-sidebar/ui/ProjectsUpsellCard";
-import { PremiumBox } from "@/components/dashboard/projects-sidebar/ui/PremiumBox";
 import type { UserProfileData } from "@/components/dashboard/projects-sidebar/ui/UserProfile";
 import type { BadgeData } from "@/lib/api/badges";
 import type { ProjectData } from "@/lib/api/projects";
@@ -34,7 +33,6 @@ const mockProfile: UserProfileData = {
   name: "Jane Coder",
   handle: "janecoder",
   avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
-  icon: "default",
   streaksEnabled: true,
   currentStreak: 7
 };
@@ -105,16 +103,15 @@ export default function ProjectsSidebarDevPage() {
       case "free-user":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={false} />
             <ProjectsUpsellCard onUpgradeClick={() => console.debug("Upgrade clicked")} />
-            <PremiumBox onUpgradeClick={() => console.debug("Upgrade clicked")} />
           </>
         );
 
       case "premium-empty":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <EmptyProjectsState />
           </>
         );
@@ -122,7 +119,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-1-project":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects1}
               unlockedCount={1}
@@ -136,7 +133,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-2-projects":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects2}
               unlockedCount={2}
@@ -150,7 +147,7 @@ export default function ProjectsSidebarDevPage() {
       case "premium-with-projects":
         return (
           <>
-            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentProjects
               projects={mockProjects3}
               unlockedCount={5}

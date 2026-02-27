@@ -13,6 +13,7 @@ const mockConcepts: ConceptForDisplay[] = [
     category: false,
     childrenCount: 0,
     exerciseSlugs: [],
+    contentHash: "abc123",
     isUnlocked: true
   },
   {
@@ -24,6 +25,7 @@ const mockConcepts: ConceptForDisplay[] = [
     category: true,
     childrenCount: 3,
     exerciseSlugs: [],
+    contentHash: null,
     isUnlocked: true
   }
 ];

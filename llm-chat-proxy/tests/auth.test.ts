@@ -176,7 +176,8 @@ describe("Chat Endpoint Authentication", () => {
           exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
-          language: "jikiscript"
+          language: "jikiscript",
+          contentHash: "test-hash"
         })
       },
       mockEnv
@@ -203,7 +204,8 @@ describe("Chat Endpoint Authentication", () => {
           exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
-          language: "jikiscript"
+          language: "jikiscript",
+          contentHash: "test-hash"
         })
       },
       mockEnv
@@ -230,7 +232,8 @@ describe("Chat Endpoint Authentication", () => {
           exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
-          language: "jikiscript"
+          language: "jikiscript",
+          contentHash: "test-hash"
         })
       },
       mockEnv
@@ -254,7 +257,8 @@ describe("Chat Endpoint Authentication", () => {
           exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
-          language: "jikiscript"
+          language: "jikiscript",
+          contentHash: "test-hash"
         })
       },
       mockEnv
@@ -281,7 +285,8 @@ describe("Chat Endpoint Authentication", () => {
           exerciseSlug: "maze-solve-basic",
           code: "test",
           question: "test",
-          language: "jikiscript"
+          language: "jikiscript",
+          contentHash: "test-hash"
         })
       },
       mockEnv

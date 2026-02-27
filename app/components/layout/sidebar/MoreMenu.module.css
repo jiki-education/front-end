@@ -9,6 +9,8 @@
     cursor: pointer;
     text-align: left;
     font-family: inherit;
+    display: flex;
+    align-items: center;
 }
 
 .dropdownMenu {

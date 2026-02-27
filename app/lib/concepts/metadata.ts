@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
-import { getConcept } from "@/lib/concepts/api-helpers";
+import conceptMetaServer from "@/lib/generated/concept-meta-server.json";
 
-export async function getConceptMetadata(slug: string): Promise<Metadata> {
-  try {
-    const concept = await getConcept(slug);
-    if (!concept) {
-      return { title: "Concept Not Found" };
-    }
-    return {
-      title: concept.title,
-      description: concept.description
-    };
-  } catch {
+interface ConceptMetaEntry {
+  slug: string;
+  title: string;
+  description: string;
+}
+
+const concepts = conceptMetaServer as ConceptMetaEntry[];
+
+export function getConceptMetadata(slug: string): Metadata {
+  const concept = concepts.find((c) => c.slug === slug);
+  if (!concept) {
     return { title: "Concept Not Found" };
   }
+  return {
+    title: concept.title,
+    description: concept.description
+  };
 }

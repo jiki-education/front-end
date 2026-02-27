@@ -100,7 +100,7 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <div className="flex items-center justify-between gap-8 px-[32px] py-[3px] bg-white overflow-x-auto flex-shrink-0">
+      <div className="flex items-center justify-between gap-8 px-[32px] py-[8px] bg-white overflow-x-auto flex-shrink-0">
         <PageTabs className="shrink-0" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
         <button
           onClick={() => router.push("/dashboard")}

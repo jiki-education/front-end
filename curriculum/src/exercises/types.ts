@@ -13,28 +13,21 @@ export interface ReadonlyRange {
   toChar?: number; // 0-indexed char offset on toLine (default: end of line)
 }
 
-// Base properties shared by all exercise definitions
-interface BaseExerciseDefinition {
-  // From metadata.json
+// Core properties exported by exercise modules (shared, language/locale-independent)
+interface BaseExerciseCore {
   slug: string;
-  title: string;
-  instructions: string;
   estimatedMinutes: number;
   levelId: LevelId; // The level this exercise belongs to (determines allowed language features)
 
   // Core components
   tasks: readonly Task[];
 
-  // Code for all languages
-  solutions: Record<Language, string>;
-  stubs: Record<Language, string>;
-
   // Documentation
   functions: FunctionInfo[]; // Available functions for this exercise
 
   // Optional
   hints?: Hint[];
-  conceptSlugs?: string[]; // Concept slugs to fetch from API and display in instructions
+  conceptSlugs?: string[];
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
 }
@@ -44,21 +37,45 @@ export interface InterpreterOptions {
   maxTotalLoopIterations?: number;
 }
 
-// Visual exercises with animations and state checking
-export interface VisualExerciseDefinition extends BaseExerciseDefinition {
+// Visual exercise core (from curriculum module)
+export interface VisualExerciseCore extends BaseExerciseCore {
   type: "visual";
   ExerciseClass: new () => VisualExercise;
   scenarios: VisualScenario[];
 }
 
-// IO exercises that test function return values
-export interface IOExerciseDefinition extends BaseExerciseDefinition {
+// IO exercise core (from curriculum module)
+export interface IOExerciseCore extends BaseExerciseCore {
   type: "io";
   ExerciseClass: typeof IOExercise;
   scenarios: IOScenario[];
 }
 
-// Discriminated union of exercise types
+// What curriculum modules export
+export type ExerciseCore = VisualExerciseCore | IOExerciseCore;
+
+// Content loaded from static files (locale/language-specific)
+interface ExerciseContent {
+  title: string;
+  description: string;
+  instructions: string;
+  stubs: Record<Language, string>;
+  solutions: Record<Language, string>;
+}
+
+// Full assembled definition (core + content, used by Orchestrator and downstream)
+export interface VisualExerciseDefinition extends BaseExerciseCore, ExerciseContent {
+  type: "visual";
+  ExerciseClass: new () => VisualExercise;
+  scenarios: VisualScenario[];
+}
+
+export interface IOExerciseDefinition extends BaseExerciseCore, ExerciseContent {
+  type: "io";
+  ExerciseClass: typeof IOExercise;
+  scenarios: IOScenario[];
+}
+
 export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition;
 
 export interface FunctionInfo {

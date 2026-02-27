@@ -1,7 +1,5 @@
 {
   "slug": "golf-rolling-ball-loop",
-  "title": "Golf: Rolling Ball",
-  "instructions": "A golf ball is sitting on the tee. Your job is to roll it into the hole!\n\nYou have one function:\n- `rollRight()` rolls the ball one unit to the right\n\nThe ball needs to move **60 times** to reach the hole. Use a **loop** to roll it there efficiently.\n\nYour solution should be just a few lines of code!",
   "estimatedMinutes": 5,
   "levelId": "repeat-loop",
   "hints": [

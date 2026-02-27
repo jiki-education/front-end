@@ -5,6 +5,7 @@
 import type { EditorView } from "@codemirror/view";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { StoreApi } from "zustand/vanilla";
+import { clearCodeMirrorContent } from "./localStorage";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
 import { createOrchestratorStore } from "./orchestrator/store";
@@ -30,10 +31,12 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
   private readonly language: Language;
+  readonly contentHash: string;
 
-  constructor(exercise: ExerciseDefinition, language: Language, context: ExerciseContext) {
+  constructor(exercise: ExerciseDefinition, language: Language, context: ExerciseContext, contentHash: string = "") {
     this.exercise = exercise;
     this.language = language;
+    this.contentHash = contentHash;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore(exercise, language, context);
@@ -349,6 +352,27 @@ class Orchestrator {
 
   setCurrentTask(taskId: string): void {
     this.taskManager.setCurrentTask(taskId);
+  }
+
+  resetExercise(): void {
+    const stubCode = this.exercise.stubs[this.language];
+
+    // Clear saved code from localStorage
+    clearCodeMirrorContent(this.exercise.slug);
+
+    // Reset store state to initial values
+    this.store.getState().reset();
+
+    // Re-initialize task progress
+    this.taskManager.initializeTaskProgress(this.exercise);
+
+    // Replace editor content with stub code
+    const view = this.getEditorView();
+    if (view) {
+      view.dispatch({
+        changes: { from: 0, to: view.state.doc.length, insert: stubCode }
+      });
+    }
   }
 
   // Clean up method to destroy the orchestrator and its managers

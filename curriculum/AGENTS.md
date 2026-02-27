@@ -96,11 +96,16 @@ curriculum/
 │   ├── index.ts              # Main package exports
 │   ├── exercises/            # Individual exercise implementations
 │   │   ├── index.ts          # Exercise registry
-│   │   ├── types.ts          # Shared exercise types
+│   │   ├── types.ts          # Shared exercise types (ExerciseCore + ExerciseDefinition)
 │   │   └── [exercise-name]/  # Specific exercise folders
-│   │       ├── index.ts      # Exercise exports
+│   │       ├── index.ts      # Exercise exports (ExerciseCore only)
 │   │       ├── Exercise.ts   # Exercise implementation
-│   │       └── scenarios.ts  # Exercise scenarios/levels
+│   │       ├── scenarios.ts  # Exercise scenarios/levels
+│   │       ├── metadata.json # Slug, estimatedMinutes, levelId
+│   │       ├── instructions/ # Locale-specific instruction files
+│   │       │   └── en.md     # English instructions (frontmatter: title, description)
+│   │       ├── stub.*        # Starter code per language (.javascript, .py, .jiki)
+│   │       └── solution.*    # Solution code per language
 │   └── levels/               # Learning level definitions (language features)
 │       ├── index.ts          # Level registry and helpers
 │       ├── types.ts          # Level type definitions
@@ -114,6 +119,21 @@ curriculum/
 ├── PLAN.md                   # Type strategy documentation
 └── package.json             # Package configuration
 ```
+
+### Exercise Module Architecture
+
+Exercise modules export **`ExerciseCore`** — the shared, language/locale-independent parts:
+
+- `ExerciseClass`, `scenarios`, `tasks`, `functions`, `slug`, `levelId`, `estimatedMinutes`
+
+Locale/language-specific content (title, description, instructions, stubs, solutions) is **not** bundled in the module. Instead, the app's build script (`scripts/generate-exercise-cache.js`) reads the raw files from the curriculum source and produces static JSON files served from `public/static/exercises/`.
+
+The full **`ExerciseDefinition`** type (core + content) is assembled at runtime in the app's `useExerciseLoader` hook.
+
+Key types in `src/exercises/types.ts`:
+
+- **`ExerciseCore`** — what exercise `index.ts` modules export
+- **`ExerciseDefinition`** — full assembled type (core + title/description/instructions/stubs/solutions), used by the Orchestrator
 
 ## Core Concepts
 

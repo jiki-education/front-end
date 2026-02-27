@@ -1,6 +1,12 @@
 import { getExercise, getLLMMetadata, getTaughtConcepts } from "@jiki/curriculum";
-import type { ExerciseDefinition, LLMMetadata, Language } from "@jiki/curriculum";
+import type { ExerciseCore, LLMMetadata, Language } from "@jiki/curriculum";
 import type { ChatMessage } from "./types";
+
+interface ExerciseContent {
+  instructions: string;
+  stub: string;
+  solution: string;
+}
 
 interface PromptOptions {
   exerciseSlug: string;
@@ -9,6 +15,7 @@ interface PromptOptions {
   history: ChatMessage[];
   nextTaskId?: string;
   language: Language;
+  contentUrl: string; // URL to fetch exercise content (instructions, stub, solution)
 }
 
 // Input validation limits to prevent abuse and prompt injection
@@ -58,21 +65,32 @@ function validateInput(code: string, question: string, history: ChatMessage[]): 
 }
 
 /**
- * Builds a prompt for the LLM using exercise context from the curriculum.
- * Includes the exercise details, student's code, and conversation history.
+ * Fetches exercise content (instructions, stub, solution) from the app's static files.
+ */
+async function fetchExerciseContent(contentUrl: string): Promise<ExerciseContent> {
+  const res = await fetch(contentUrl);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch exercise content from ${contentUrl}: ${res.status}`);
+  }
+  return res.json();
+}
+
+/**
+ * Builds a prompt for the LLM using exercise context from the curriculum
+ * and content from the app's static files.
  *
  * @param options - Prompt building options
  * @returns The formatted prompt string for Gemini
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<string> {
-  const { exerciseSlug, code, question, history, nextTaskId, language } = options;
+  const { exerciseSlug, code, question, history, nextTaskId, language, contentUrl } = options;
 
   // Validate input before building prompt
   validateInput(code, question, history);
 
-  // Get exercise context from bundled curriculum
-  const exercise = await getExercise(exerciseSlug);
+  // Load exercise core (scenarios, tasks, level) and content (stub, solution) in parallel
+  const [exercise, content] = await Promise.all([getExercise(exerciseSlug), fetchExerciseContent(contentUrl)]);
 
   if (exercise === null) {
     throw new Error(`Exercise not found: ${exerciseSlug}`);
@@ -84,12 +102,12 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   // Build prompt sections
   const sections = [
     buildSystemMessage(),
-    buildExerciseSection(exercise, llmMetadata, nextTaskId),
+    buildExerciseSection(llmMetadata, nextTaskId),
     buildTaughtConceptsSection(exercise),
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
-    buildInitialCodeSection(exercise.stubs[language], language),
-    buildTargetCodeSection(exercise.solutions[language], language),
+    buildInitialCodeSection(content.stub, language),
+    buildTargetCodeSection(content.solution, language),
     buildCurrentCodeSection(code, language),
     buildInstructionsSection()
   ];
@@ -109,10 +127,10 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
 function buildSystemMessage(): string {
   return `
   ### Context
-  
+
   You are a helpful coding tutor assisting a student with a programming exercise.
-  You are operating within a coding education platform called Jiki. 
-  Jiki is made by the team being Exercism. The course is taught by Jeremy Walker. 
+  You are operating within a coding education platform called Jiki.
+  Jiki is made by the team being Exercism. The course is taught by Jeremy Walker.
   Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
   Students are encouraged to think in those terms.
 
@@ -122,44 +140,38 @@ function buildSystemMessage(): string {
   - \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
 
   The student is on a page with:
-  - Code editor at the top left. 
+  - Code editor at the top left.
   - Scenarios (effectively test-cases) at the bottom-left.
   - THe RHS a series of tables including instructions and this window in which they're talking to you.
 
   **WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
-  
+
   Much of this information may be irrelevant, but if it comes up you can use it.
 
   They have written to you (see conversation below).
   `;
 }
 
-function buildExerciseSection(
-  exercise: ExerciseDefinition,
-  llmMetadata: LLMMetadata | undefined,
-  nextTaskId?: string
-): string {
+function buildExerciseSection(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string | null {
+  if (!llmMetadata) {
+    return null;
+  }
+
   const parts: string[] = [];
 
-  // Exercise title
-  parts.push(`## Exercise: ${exercise.title}`);
+  // Always include exercise-level teaching context
+  parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
 
-  // LLM metadata if available
-  if (llmMetadata) {
-    // Always include exercise-level teaching context
-    parts.push(`## Exercise Context\n\n${llmMetadata.description}`);
-
-    // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
-    if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
-      const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
-      parts.push(`\n\n${taskMeta.description}`);
-    }
+  // If nextTaskId is provided and exists in metadata, show ONLY that task's guidance
+  if (nextTaskId && llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks]) {
+    const taskMeta = llmMetadata.tasks[nextTaskId as keyof typeof llmMetadata.tasks];
+    parts.push(`\n\n${taskMeta.description}`);
   }
 
   return parts.join("\n\n");
 }
 
-function buildTaughtConceptsSection(exercise: ExerciseDefinition): string | null {
+function buildTaughtConceptsSection(exercise: ExerciseCore): string | null {
   const concepts = getTaughtConcepts(exercise.levelId);
   if (concepts.length === 0) {
     return null;
@@ -237,7 +249,7 @@ function buildInstructionsSection(): string {
 
 - Your job is to GUIDE the student to DISCOVER the answer THEMSELVES.
 - Speak naturally like a tutor to a student. Don't parrot what a student says.
-- IMPORTANT: Do NOT give away the answer. 
+- IMPORTANT: Do NOT give away the answer.
 - Attempt to guide the student by ASKING THEM QUESTIONS that help them move forward.
 - Focus on helping them get to the NEXT STEP in the exercise.
 - Your job is NOT TO TEACH new concepts or ideas.

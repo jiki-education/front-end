@@ -1,15 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import instructions from "./introduction.md";
-import type { VisualExerciseDefinition, FunctionInfo } from "../types";
-
-import solutionJavascript from "./solution.javascript";
-import solutionPython from "./solution.py";
-import solutionJikiscript from "./solution.jiki";
-import stubJavascript from "./stub.javascript";
-import stubPython from "./stub.py";
-import stubJikiscript from "./stub.jiki";
+import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
@@ -29,24 +21,13 @@ const functions: FunctionInfo[] = [
   }
 ];
 
-const exerciseDefinition: VisualExerciseDefinition = {
+const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
-  instructions,
   ExerciseClass,
   tasks,
   scenarios,
-  functions,
-  solutions: {
-    javascript: solutionJavascript,
-    python: solutionPython,
-    jikiscript: solutionJikiscript
-  },
-  stubs: {
-    javascript: stubJavascript,
-    python: stubPython,
-    jikiscript: stubJikiscript
-  }
+  functions
 };
 
 export default exerciseDefinition;

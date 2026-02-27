@@ -10,10 +10,12 @@ export type { Language } from "./types";
 export type {
   CodeCheck,
   CodeCheckExpect,
+  ExerciseCore,
   ExerciseDefinition,
   FunctionInfo,
   Hint,
   InterpreterOptions,
+  IOExerciseCore,
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,
@@ -23,6 +25,7 @@ export type {
   Task,
   TaskProgress,
   TestExpect,
+  VisualExerciseCore,
   VisualExerciseDefinition,
   VisualTestExpect
 } from "./exercises/types";

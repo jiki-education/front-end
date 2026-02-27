@@ -47,6 +47,14 @@ jobs:
         working-directory: app
         run: pnpm run content:generate
 
+      - name: Generate exercise cache
+        working-directory: app
+        run: pnpm run exercise-cache:generate
+
+      - name: Generate concept cache
+        working-directory: app
+        run: pnpm run concept-cache:generate
+
       - name: Generate icon types
         working-directory: app
         run: pnpm run icons:generate
@@ -130,6 +138,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate exercise cache
+        working-directory: app
+        run: pnpm run exercise-cache:generate
+
+      - name: Generate concept cache
+        working-directory: app
+        run: pnpm run concept-cache:generate
+
       - name: Generate icon types
         working-directory: app
         run: pnpm run icons:generate
@@ -164,6 +180,14 @@ jobs:
       - name: Generate content
         working-directory: app
         run: pnpm run content:generate
+
+      - name: Generate exercise cache
+        working-directory: app
+        run: pnpm run exercise-cache:generate
+
+      - name: Generate concept cache
+        working-directory: app
+        run: pnpm run concept-cache:generate
 
       - name: Generate icon types
         working-directory: app

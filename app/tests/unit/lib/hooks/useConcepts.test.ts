@@ -22,7 +22,8 @@ const mockConcepts = [
     order: 1,
     category: true,
     childrenCount: 2,
-    exerciseSlugs: ["sprouting-flower"]
+    exerciseSlugs: ["sprouting-flower"],
+    contentHash: null
   },
   {
     slug: "functions",
@@ -32,7 +33,8 @@ const mockConcepts = [
     order: 2,
     category: false,
     childrenCount: 0,
-    exerciseSlugs: []
+    exerciseSlugs: [],
+    contentHash: "abc123"
   }
 ];
 

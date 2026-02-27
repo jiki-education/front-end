@@ -520,8 +520,8 @@ export function createOrchestratorStore(
 
       reset: () =>
         set({
-          code: "",
-          exerciseTitle: "Greeting Function Exercise",
+          code: exercise.stubs[language],
+          exerciseTitle: exercise.title,
           output: "",
           status: "idle",
           error: null,
@@ -531,11 +531,11 @@ export function createOrchestratorStore(
           isSpotlightActive: false,
           wasSuccessModalShown: false,
           foldedLines: [],
-          language: "jikiscript",
+          language: language,
 
           // Reset editor store state
-          defaultCode: "",
           defaultReadonlyRanges: [],
+          defaultCode: exercise.stubs[language],
           readonly: false,
           shouldShowInformationWidget: false,
           underlineRange: undefined,

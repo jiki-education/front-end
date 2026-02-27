@@ -1,6 +1,5 @@
 {
   "slug": "maze-solve-basic",
-  "title": "Manually Solve a Maze",
   "estimatedMinutes": 10,
   "levelId": "using-functions",
   "hints": [

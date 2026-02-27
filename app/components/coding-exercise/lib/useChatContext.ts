@@ -9,6 +9,7 @@ export interface ChatContext {
   currentTaskId: string | null;
   currentCode: string;
   language: string;
+  contentHash: string; // Hash for fetching exercise content from static files
   exercise: any; // Full exercise object
 }
 
@@ -26,6 +27,7 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
       currentTaskId: storeState.currentTaskId,
       currentCode,
       language: storeState.language,
+      contentHash: orchestrator.contentHash,
       exercise
     };
   }, [orchestrator]);

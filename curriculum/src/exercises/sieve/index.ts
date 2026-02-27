@@ -1,14 +1,7 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
-import type { IOExerciseDefinition, FunctionInfo } from "../types";
-
-import solutionJavascript from "./solution.javascript";
-import solutionPython from "./solution.py";
-import solutionJikiscript from "./solution.jiki";
-import stubJavascript from "./stub.javascript";
-import stubPython from "./stub.py";
-import stubJikiscript from "./stub.jiki";
+import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
@@ -20,7 +13,7 @@ const functions: FunctionInfo[] = [
   }
 ];
 
-const exerciseDefinition: IOExerciseDefinition = {
+const exerciseDefinition: IOExerciseCore = {
   type: "io",
   ...metadata,
   ExerciseClass,
@@ -29,16 +22,6 @@ const exerciseDefinition: IOExerciseDefinition = {
   functions,
   interpreterOptions: {
     maxTotalLoopIterations: 20000
-  },
-  solutions: {
-    javascript: solutionJavascript,
-    python: solutionPython,
-    jikiscript: solutionJikiscript
-  },
-  stubs: {
-    javascript: stubJavascript,
-    python: stubPython,
-    jikiscript: stubJikiscript
   }
 };
 

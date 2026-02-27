@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { exercises, type ExerciseSlug } from "@jiki/curriculum";
+import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { fetchExerciseContent } from "@/lib/api/exercise-meta";
 
 interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
@@ -29,21 +30,38 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId, is
           );
         }
 
-        // Load the exercise module
-        const loadedExercise = (await loader()).default;
+        // Load exercise module (shared) and static content (locale/language-specific) in parallel
+        const [exerciseModule, content] = await Promise.all([
+          loader().then((m) => m.default),
+          fetchExerciseContent(exerciseSlug, "en", language)
+        ]);
+
+        // Assemble into full ExerciseDefinition.
+        // Only the active language's stub/solution are loaded; the cast is safe because
+        // all downstream consumers (Orchestrator, store) only access exercise.stubs[language].
+        const exercise: ExerciseDefinition = {
+          ...exerciseModule,
+          title: content.title,
+          description: content.description,
+          instructions: content.instructions,
+          stubs: { [language]: content.stub } as Record<Language, string>,
+          solutions: { [language]: content.solution } as Record<Language, string>
+        };
 
         // Override levelId if provided (used for projects where level comes from the API)
-        const exercise = levelId ? { ...loadedExercise, levelId } : { ...loadedExercise };
+        if (levelId) {
+          exercise.levelId = levelId;
+        }
 
         // Interpolate stub placeholders with student's previous exercise code
-        const rawStub = loadedExercise.stubs[language];
+        const rawStub = content.stub;
         if (hasPlaceholders(rawStub)) {
           const interpolatedCode = await interpolateStub(rawStub, language);
           exercise.stubs = { ...exercise.stubs, [language]: interpolatedCode };
         }
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(exercise, language, context);
+        orchestratorRef.current = new Orchestrator(exercise, language, context, content.contentHash);
 
         orchestratorRef.current.setIsExerciseCompleted(isCompleted);
 
