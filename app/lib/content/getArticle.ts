@@ -1,4 +1,5 @@
-import { getContentLoader } from "./loaders";
+import { fetchStaticContent } from "./fetchStaticContent";
+import { getAllArticles } from "./getAllArticles";
 import type { ProcessedArticle } from "./types";
 
 /**
@@ -8,14 +9,13 @@ import type { ProcessedArticle } from "./types";
  * @throws Error if the article doesn't exist at all
  */
 export async function getArticle(slug: string, locale: string): Promise<ProcessedArticle> {
-  const loader = await getContentLoader();
-  const allMeta = await loader.getAllArticleMeta(locale);
-  const meta = allMeta.find((a) => a.slug === slug);
+  const allArticles = getAllArticles(locale);
+  const meta = allArticles.find((a) => a.slug === slug);
 
   if (!meta) {
     throw new Error(`Article not found: ${slug}`);
   }
 
-  const content = await loader.getArticleContent(slug, locale);
+  const content = await fetchStaticContent(`/static/content/articles/${slug}/${meta.locale}-${meta.contentHash}.html`);
   return { ...meta, content };
 }

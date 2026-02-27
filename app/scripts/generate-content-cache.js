@@ -4,19 +4,32 @@
 /**
  * Content Cache Generation Script
  *
- * Processes markdown files from the content package and writes them to
- * .content-cache/ in a flat file structure matching R2 storage keys:
+ * Processes markdown files from the content package and produces:
  *
- *   blog/index/{locale}.json      - Metadata index for all blog posts
- *   blog/{slug}/{locale}.md       - Raw markdown (image paths fixed)
- *   articles/index/{locale}.json  - Metadata index for all articles
- *   articles/{slug}/{locale}.md   - Raw markdown (image paths fixed)
- *   search/articles-{locale}.json - Lunr search indexes
- *   manifest.json                 - All slugs, locales, and content hashes
+ *   public/static/content/blog/{locale}-{hash}.json
+ *     - Metadata index: all blog posts with slug, title, date, etc.
+ *
+ *   public/static/content/blog/{slug}/{locale}-{hash}.html
+ *     - Content files: pre-rendered HTML from markdown
+ *
+ *   public/static/content/articles/{locale}-{hash}.json
+ *     - Metadata index: all articles
+ *
+ *   public/static/content/articles/{slug}/{locale}-{hash}.html
+ *     - Content files: pre-rendered HTML from markdown
+ *
+ *   public/static/content/search/articles-{locale}-{hash}.json
+ *     - Lunr search indexes for articles
+ *
+ *   lib/generated/content-hashes.ts
+ *     - Hash manifest mapping type+locale -> metadata index hash
+ *
+ *   lib/generated/content-meta-server.json
+ *     - Full metadata for server-side rendering (SEO, list pages)
  *
  * Used by:
- * - FilesystemContentLoader (local development)
- * - upload-content-to-r2.js (production deployment)
+ * - Server-side content functions (lib/content/)
+ * - Client-side search (lib/api/content-search.ts)
  */
 
 import fs from "fs";
@@ -24,12 +37,14 @@ import path from "path";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
+import { marked } from "marked";
 import lunr from "lunr";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
 const AUTHORS_FILE = path.join(__dirname, "../../content/src/authors.json");
-const OUTPUT_DIR = path.join(__dirname, "../.content-cache");
+const STATIC_DIR = path.join(__dirname, "../public/static/content");
+const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
 // Load authors
 let authorsData;
@@ -41,6 +56,21 @@ try {
 }
 
 const authorsJson = JSON.stringify(authorsData);
+
+/**
+ * Compute a 12-char SHA-256 hash of content
+ */
+function computeHash(content) {
+  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
+}
+
+/**
+ * Write a file, creating directories as needed
+ */
+function writeFile(filePath, content) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, content);
+}
 
 /**
  * Fix image paths in markdown content
@@ -70,27 +100,9 @@ function estimateReadingTime(markdownContent) {
 }
 
 /**
- * Compute content hash for a given slug/locale
- */
-function computeContentHash(markdownContent, configJson) {
-  const hash = crypto.createHash("sha256");
-  hash.update(markdownContent);
-  hash.update(configJson);
-  hash.update(authorsJson);
-  return hash.digest("hex").slice(0, 12);
-}
-
-/**
- * Write a file, creating directories as needed
- */
-function writeOutputFile(relativePath, content) {
-  const fullPath = path.join(OUTPUT_DIR, relativePath);
-  fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-  fs.writeFileSync(fullPath, content);
-}
-
-/**
  * Process a content directory (blog or articles) and return processed data
+ *
+ * Returns: { [slug]: { [locale]: { meta, html } } }
  */
 function processContentDir(type, requiredFields, extraFields) {
   const contentDir = path.join(CONTENT_DIR, type);
@@ -147,13 +159,18 @@ function processContentDir(type, requiredFields, extraFields) {
           throw new Error(`Author not found: ${config.author} in ${filePath}`);
         }
 
-        const contentHash = computeContentHash(fileContent, configJson);
+        // Pre-render markdown to HTML
+        const html = marked.parse(fixedMarkdown);
+
+        // Hash based on all inputs that affect the output
+        const hashInput = crypto.createHash("sha256");
+        hashInput.update(fileContent);
+        hashInput.update(configJson);
+        hashInput.update(authorsJson);
+        const contentHash = hashInput.digest("hex").slice(0, 12);
+
         const readingTime = estimateReadingTime(fixedMarkdown);
 
-        // Write the raw markdown file
-        writeOutputFile(`${type}/${slug}/${locale}.md`, fixedMarkdown);
-
-        // Build metadata entry
         const meta = {
           slug,
           title: frontmatter.title,
@@ -168,7 +185,7 @@ function processContentDir(type, requiredFields, extraFields) {
           ...extraFields(config)
         };
 
-        result[slug][locale] = meta;
+        result[slug][locale] = { meta, html };
       } catch (error) {
         console.error(`Error processing ${filePath}:`, error.message);
         throw error;
@@ -180,67 +197,53 @@ function processContentDir(type, requiredFields, extraFields) {
 }
 
 /**
- * Build per-locale metadata index files
+ * Build static files for a content type (blog or articles).
+ * Returns { indexHashes, byLocale } where byLocale maps locale -> [meta entries]
  */
-function buildMetadataIndexes(type, content) {
+function buildStaticFiles(type, content) {
   const byLocale = {};
 
-  for (const [, locales] of Object.entries(content)) {
-    for (const [locale, meta] of Object.entries(locales)) {
+  for (const [slug, locales] of Object.entries(content)) {
+    for (const [locale, { meta, html }] of Object.entries(locales)) {
       if (!byLocale[locale]) {
         byLocale[locale] = [];
       }
-      byLocale[locale].push(meta);
+
+      // Write pre-rendered HTML content file
+      const htmlHash = computeHash(html);
+      const contentPath = path.join(STATIC_DIR, type, slug, `${locale}-${htmlHash}.html`);
+      writeFile(contentPath, html);
+
+      // Use the HTML hash as contentHash in the index (for URL construction)
+      byLocale[locale].push({ ...meta, contentHash: htmlHash });
     }
   }
 
-  for (const [locale, posts] of Object.entries(byLocale)) {
-    writeOutputFile(`${type}/index/${locale}.json`, JSON.stringify({ posts }, null, 2));
-  }
-}
+  // Write metadata indexes and collect hashes
+  const indexHashes = {};
 
-/**
- * Build the manifest file with all slugs, locales, and hashes
- */
-function buildManifest(blog, articles) {
-  const manifest = {
-    blog: [],
-    articles: []
-  };
+  for (const [locale, entries] of Object.entries(byLocale)) {
+    const indexContent = JSON.stringify(entries);
+    const indexHash = computeHash(indexContent);
+    indexHashes[locale] = indexHash;
 
-  for (const [slug, locales] of Object.entries(blog)) {
-    for (const locale of Object.keys(locales)) {
-      manifest.blog.push({ slug, locale });
-    }
+    const indexPath = path.join(STATIC_DIR, type, `${locale}-${indexHash}.json`);
+    writeFile(indexPath, indexContent);
   }
 
-  for (const [slug, locales] of Object.entries(articles)) {
-    for (const locale of Object.keys(locales)) {
-      manifest.articles.push({ slug, locale });
-    }
-  }
-
-  writeOutputFile("manifest.json", JSON.stringify(manifest, null, 2));
+  return { indexHashes, byLocale };
 }
 
 /**
  * Generate Lunr search indexes for articles (one per locale)
+ * Returns search index hashes per locale
  */
-function generateSearchIndexes(articles) {
-  const articlesByLocale = {};
+function generateSearchIndexes(articlesByLocale) {
+  const searchHashes = {};
 
-  for (const [, locales] of Object.entries(articles)) {
-    for (const [locale, article] of Object.entries(locales)) {
-      if (!articlesByLocale[locale]) {
-        articlesByLocale[locale] = [];
-      }
-      if (article.listed) {
-        articlesByLocale[locale].push(article);
-      }
-    }
-  }
+  for (const [locale, articles] of Object.entries(articlesByLocale)) {
+    const listedArticles = articles.filter((a) => a.listed);
 
-  for (const [locale, localeArticles] of Object.entries(articlesByLocale)) {
     const idx = lunr(function () {
       this.ref("slug");
       this.field("title", { boost: 10 });
@@ -248,7 +251,7 @@ function generateSearchIndexes(articles) {
       this.field("description", { boost: 4 });
       this.field("keywords", { boost: 3 });
 
-      for (const article of localeArticles) {
+      for (const article of listedArticles) {
         this.add({
           slug: article.slug,
           title: article.title,
@@ -259,16 +262,89 @@ function generateSearchIndexes(articles) {
       }
     });
 
-    const metadata = localeArticles.map((a) => ({
+    const metadata = listedArticles.map((a) => ({
       slug: a.slug,
       title: a.title,
       excerpt: a.excerpt
     }));
 
-    const output = { index: idx.toJSON(), articles: metadata };
-    writeOutputFile(`search/articles-${locale}.json`, JSON.stringify(output));
-    console.log(`   Search index: articles-${locale}.json (${localeArticles.length} articles)`);
+    const output = JSON.stringify({ index: idx.toJSON(), articles: metadata });
+    const searchHash = computeHash(output);
+    searchHashes[locale] = searchHash;
+
+    const searchPath = path.join(STATIC_DIR, "search", `articles-${locale}-${searchHash}.json`);
+    writeFile(searchPath, output);
+    console.log(`   Search index: articles-${locale}-${searchHash}.json (${listedArticles.length} articles)`);
   }
+
+  return searchHashes;
+}
+
+/**
+ * Write the TypeScript hash manifest
+ */
+function writeHashManifest(blogHashes, articleHashes, searchHashes) {
+  function formatEntries(hashes) {
+    return Object.entries(hashes)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([locale, hash]) => `    ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
+      .join(",\n");
+  }
+
+  const content = `// Auto-generated by scripts/generate-content-cache.js — DO NOT EDIT
+export const contentIndexHashes: {
+  blog: Record<string, string>;
+  articles: Record<string, string>;
+  search: Record<string, string>;
+} = {
+  blog: {
+${formatEntries(blogHashes)},
+  },
+  articles: {
+${formatEntries(articleHashes)},
+  },
+  search: {
+${formatEntries(searchHashes)},
+  },
+};
+`;
+
+  writeFile(path.join(GENERATED_DIR, "content-hashes.ts"), content);
+}
+
+/**
+ * Write the server-side metadata JSON
+ * Contains full metadata for all blog posts and articles (no HTML content)
+ */
+function writeServerMeta(blogByLocale, articlesByLocale) {
+  const serverMeta = {
+    blog: {},
+    articles: {},
+    locales: {
+      blog: Object.keys(blogByLocale).sort(),
+      articles: Object.keys(articlesByLocale).sort()
+    },
+    slugsWithLocales: {
+      blog: [],
+      articles: []
+    }
+  };
+
+  for (const [locale, posts] of Object.entries(blogByLocale)) {
+    serverMeta.blog[locale] = posts;
+    for (const post of posts) {
+      serverMeta.slugsWithLocales.blog.push({ slug: post.slug, locale });
+    }
+  }
+
+  for (const [locale, articles] of Object.entries(articlesByLocale)) {
+    serverMeta.articles[locale] = articles;
+    for (const article of articles) {
+      serverMeta.slugsWithLocales.articles.push({ slug: article.slug, locale });
+    }
+  }
+
+  writeFile(path.join(GENERATED_DIR, "content-meta-server.json"), JSON.stringify(serverMeta));
 }
 
 /**
@@ -278,10 +354,11 @@ function generateContentCache() {
   console.log("Generating content cache...\n");
 
   // Clean output directory
-  if (fs.existsSync(OUTPUT_DIR)) {
-    fs.rmSync(OUTPUT_DIR, { recursive: true });
+  if (fs.existsSync(STATIC_DIR)) {
+    fs.rmSync(STATIC_DIR, { recursive: true });
   }
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  fs.mkdirSync(STATIC_DIR, { recursive: true });
+  fs.mkdirSync(GENERATED_DIR, { recursive: true });
 
   // Process blog posts
   const blog = processContentDir("blog", ["date", "author", "featured", "coverImage"], (config) => ({
@@ -294,30 +371,36 @@ function generateContentCache() {
     listed: config.listed
   }));
 
-  // Write metadata indexes
-  buildMetadataIndexes("blog", blog);
-  buildMetadataIndexes("articles", articles);
+  // Build static files
+  const { indexHashes: blogHashes, byLocale: blogByLocale } = buildStaticFiles("blog", blog);
+  const { indexHashes: articleHashes, byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
 
-  // Write manifest
-  buildManifest(blog, articles);
+  // Generate search indexes
+  const searchHashes = generateSearchIndexes(articlesByLocale);
 
-  // Write search indexes
-  generateSearchIndexes(articles);
+  // Write hash manifest
+  writeHashManifest(blogHashes, articleHashes, searchHashes);
+
+  // Write server-side metadata
+  writeServerMeta(blogByLocale, articlesByLocale);
 
   // Count totals
-  let totalTranslations = 0;
+  let contentFileCount = 0;
   for (const locales of Object.values(blog)) {
-    totalTranslations += Object.keys(locales).length;
+    contentFileCount += Object.keys(locales).length;
   }
   for (const locales of Object.values(articles)) {
-    totalTranslations += Object.keys(locales).length;
+    contentFileCount += Object.keys(locales).length;
   }
 
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
-  console.log(`   Total translations: ${totalTranslations}`);
-  console.log(`   Output: ${OUTPUT_DIR}\n`);
+  console.log(`   Content files: ${contentFileCount}`);
+  console.log(
+    `   Locales: ${[...new Set([...Object.keys(blogByLocale), ...Object.keys(articlesByLocale)])].sort().join(", ")}`
+  );
+  console.log(`   Output: ${STATIC_DIR}\n`);
 }
 
 // Run generation
