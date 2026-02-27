@@ -40,8 +40,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     const base = {
       name: user.name || user.handle,
       handle: user.handle,
-      avatarUrl: avatarUrl ?? "",
-      icon: profileData.icon
+      avatarUrl: avatarUrl ?? ""
     };
 
     if (profileData.streaks_enabled) {
