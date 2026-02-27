@@ -19,6 +19,7 @@
     width: 25px;
     height: 3px;
     background: var(--color-gray-200);
+    transition: background 0.4s ease;
 }
 
 .front {
@@ -35,11 +36,15 @@
     background: var(--color-gray-100);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     z-index: 1;
+    transition:
+        border-color 0.4s ease,
+        background 0.4s ease;
 }
 
 .icon {
     width: 24px;
     height: 24px;
+    transition: color 0.4s ease;
 }
 
 .progress {
@@ -48,18 +53,22 @@
     border-radius: 2px;
     background: var(--color-gray-200);
     overflow: hidden;
+    transition: background 0.4s ease;
 }
 
 .progressFill {
     height: 100%;
     border-radius: 2px;
-    transition: width 0.3s ease;
+    transition:
+        width 0.3s ease,
+        background 0.4s ease;
 }
 
 .label {
     font-size: 11px;
     font-weight: 600;
     color: var(--color-gray-500);
+    transition: color 0.4s ease;
 }
 
 .back {
@@ -92,60 +101,25 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Unlock animation */
-@keyframes walkthroughFrontUnlock {
-    0% {
-        border-color: var(--color-gray-200);
-        background: var(--color-gray-100);
-    }
-    100% {
-        border-color: var(--color-blue-500);
-        background: var(--color-blue-500-5);
-    }
-}
-
-@keyframes walkthroughIconUnlock {
-    0% {
-        color: var(--color-gray-400);
-    }
-    100% {
-        color: var(--color-blue-500);
-    }
-}
-
-@keyframes walkthroughLabelUnlock {
-    0% {
-        color: var(--color-gray-500);
-    }
-    100% {
-        color: var(--color-blue-500);
-    }
-}
-
-@keyframes walkthroughLineUnlock {
-    0% {
-        background: var(--color-gray-200);
-    }
-    100% {
-        background: var(--color-blue-500);
-    }
-}
-
+/* Unlock animation — holds gray (locked) styles while completing, then transitions to blue when class is removed */
 .animatingUnlock {
+    cursor: not-allowed;
+
     .front {
-        animation: walkthroughFrontUnlock 0.8s ease-out forwards;
+        border-color: var(--color-gray-200) !important;
+        background: var(--color-gray-100) !important;
     }
 
     .icon {
-        animation: walkthroughIconUnlock 0.8s ease-out forwards;
+        color: var(--color-gray-400) !important;
     }
 
     .label {
-        animation: walkthroughLabelUnlock 0.8s ease-out forwards;
+        color: var(--color-gray-500) !important;
     }
 
     &::before {
-        animation: walkthroughLineUnlock 0.8s ease-out forwards;
+        background: var(--color-gray-200) !important;
     }
 }
 

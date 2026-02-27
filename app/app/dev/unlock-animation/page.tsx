@@ -158,7 +158,7 @@ export default function UnlockAnimationTest() {
                 <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
                 <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
               </div>
-              <WalkthroughCard lesson={unlockingLesson} isUnlocking={animationState === "unlocking"} />
+              <WalkthroughCard lesson={unlockingLesson} isCompleting={animationState === "unlocking"} />
             </div>
           </div>
         </div>
