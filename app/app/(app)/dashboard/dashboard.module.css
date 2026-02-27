@@ -9,6 +9,7 @@
 
 .mainContent {
     flex: 1;
+    min-width: 0;
     max-width: 62.875%;
     padding: 10px 50px 40px 20px;
     overflow-y: auto;
@@ -17,4 +18,17 @@
     min-height: 100vh;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+}
+
+@media (max-width: 1400px) {
+    .mainContent {
+        max-width: 100%;
+        padding: 10px 30px 40px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContent {
+        padding: 10px 12px 40px 12px;
+    }
 }

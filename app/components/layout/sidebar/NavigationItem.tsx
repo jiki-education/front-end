@@ -22,7 +22,7 @@ export function NavigationItem({ label, isActive, href, icon: Icon, showPremiumP
 
   return (
     <li>
-      <a href={href || "#"} onClick={handleClick} className={`nav-item ${isActive ? "active" : ""}`}>
+      <a href={href || "#"} onClick={handleClick} className={`nav-item ${isActive ? "active" : ""}`} data-label={label}>
         {Icon && (
           <span className="nav-icon">
             <Icon />
