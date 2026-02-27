@@ -16,7 +16,7 @@ export default function SidebarLayout({ activeItem, children }: SidebarLayoutPro
     return (
       <div className="min-h-screen flex bg-white">
         <Sidebar activeItem={activeItem} />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
       </div>
     );
   }

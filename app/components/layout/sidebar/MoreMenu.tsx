@@ -71,6 +71,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
         className={`nav-item ${isActive ? "active" : ""} ${styles.moreButton}`}
         aria-expanded={isOpen}
         aria-haspopup="true"
+        data-label="More"
         {...getReferenceProps()}
       >
         <span className="nav-icon">
