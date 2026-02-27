@@ -59,6 +59,14 @@ jobs:
             missing_vars+=("SENTRY_AUTH_TOKEN")
           fi
 
+          if [ -z "${{ secrets.R2_ACCESS_KEY_ID }}" ]; then
+            missing_vars+=("R2_ACCESS_KEY_ID")
+          fi
+
+          if [ -z "${{ secrets.R2_SECRET_ACCESS_KEY }}" ]; then
+            missing_vars+=("R2_SECRET_ACCESS_KEY")
+          fi
+
           if [ ${#missing_vars[@]} -ne 0 ]; then
             echo "❌ Error: The following required secrets are not set:"
             printf '  - %s\n' "${missing_vars[@]}"
@@ -71,12 +79,35 @@ jobs:
         run: pnpm run content:generate
         working-directory: app
 
-      - name: Upload content to R2
-        run: pnpm run content:upload
+      - name: Install rclone
+        run: curl -s https://rclone.org/install.sh | sudo bash
+
+      - name: Sync content to R2
+        run: |
+          rclone sync .content-cache/ :s3:assets/content/ \
+            --s3-provider=Cloudflare \
+            --s3-access-key-id=$R2_ACCESS_KEY_ID \
+            --s3-secret-access-key=$R2_SECRET_ACCESS_KEY \
+            --s3-endpoint=https://$CLOUDFLARE_ACCOUNT_ID.r2.cloudflarestorage.com \
+            --s3-region=auto \
+            --checksum \
+            --transfers=8 \
+            --retries=5 \
+            --retries-sleep=2s \
+            --verbose
         working-directory: app
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Generate exercise cache
+        run: pnpm run exercise-cache:generate
+        working-directory: app
+
+      - name: Generate concept cache
+        run: pnpm run concept-cache:generate
+        working-directory: app
 
       - name: Generate icon types
         run: pnpm run icons:generate
