@@ -9,10 +9,7 @@ interface WalkthroughCardProps {
 
 export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
   const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
-  if (!walkthroughVideoData || walkthroughVideoData.length === 0) {
-    return null;
-  }
-
+  // TMP: show walkthrough card on all lessons for hover animation testing
   const isLocked = !lesson.completed;
   const percentage = lesson.walkthroughVideoWatchedPercentage;
 
@@ -32,7 +29,7 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (isLocked) {
+    if (isLocked || !walkthroughVideoData?.length) {
       return;
     }
     showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
@@ -42,7 +39,7 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       e.stopPropagation();
-      if (isLocked) {
+      if (isLocked || !walkthroughVideoData?.length) {
         return;
       }
       showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
@@ -56,6 +53,7 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={isLocked ? -1 : 0}
+      data-walkthrough-card
     >
       <div className={styles.front}>
         <WalkthroughIcon className={styles.icon} />
