@@ -91,9 +91,14 @@ curriculum/
 │   ├── animations.md        # Animation system guide
 │   ├── exercises.md         # Exercise creation guide
 │   └── levels.md            # Level system documentation
+├── images/
+│   └── exercise-assets/     # Exercise background images and visual assets
+│       └── [exercise-name]/ # e.g., fix-wall/, digital-clock/
 ├── src/
 │   ├── Exercise.ts           # Base Exercise class and Animation interface
 │   ├── index.ts              # Main package exports
+│   ├── concepts/             # Concept definitions
+│   │   └── [concept-name]/   # Concept folders with config.json and en.md
 │   ├── exercises/            # Individual exercise implementations
 │   │   ├── index.ts          # Exercise registry
 │   │   ├── types.ts          # Shared exercise types (ExerciseCore + ExerciseDefinition)
@@ -226,7 +231,8 @@ pnpm run format       # Format with Prettier
    - Create animations in response to function calls
 3. **Define scenarios** in `scenarios.ts` (test cases with different states)
 4. **Export from** `src/exercises/index.ts`
-5. **Test integration** with both JavaScript and Python
+5. **Add `conceptSlugs`** to the exercise definition in `index.ts` — an array of concept slugs (from `src/concepts/`) that the exercise teaches or practices (e.g., `conceptSlugs: ["function-inputs"]`). The exercise-to-concept mapping is generated automatically at build time from these slugs.
+6. **Test integration** with both JavaScript and Python
 
 ### Example Exercise Structure
 
@@ -306,6 +312,16 @@ When adding new animation properties:
 1. Add to `Animation.transformations` interface in `Exercise.ts`
 2. Ensure the property matches anime.js's AnimationParams
 3. TypeScript will validate in frontend's `populateTimeline`
+
+## Exercise Assets (Background Images)
+
+Exercise background images and visual assets live in `images/exercise-assets/[exercise-name]/` in the curriculum repo. The app symlinks these into `app/public/static/images/exercise-assets/`, so they are served at `/static/images/exercise-assets/...`.
+
+**To add an exercise background image:**
+
+1. Place the image in `images/exercise-assets/[exercise-name]/` (e.g., `images/exercise-assets/fix-wall/wall-to-fix.png`)
+2. In the exercise's `scenarios.ts`, call `setupBackground("/static/images/exercise-assets/[exercise-name]/image.png")`
+3. Do NOT use external URLs (e.g., `https://assets.exercism.org/bootcamp/...`) — all assets must be local
 
 ## Best Practices
 

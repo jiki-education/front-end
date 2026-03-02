@@ -14,7 +14,7 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "circle",
-    signature: "circle(x, y, radius, color)",
+    signature: "circle(cx, cy, radius, color)",
     description: "Draws a **circle** at center position (x, y) with the specified radius and color.",
     examples: ['circle(50, 50, 10, "pink")', 'circle(25, 75, 15, "yellow")'],
     category: "Drawing Shapes"

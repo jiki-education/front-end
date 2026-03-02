@@ -20,8 +20,8 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "circle",
-    signature: "circle(x, y, radius, color)",
-    description: "Draw a circle centered at (x, y) with the given radius and color",
+    signature: "circle(cx, cy, radius, color)",
+    description: "Draw a circle centered at (cx, cy) with the given radius and color",
     examples: ['circle(50, 50, 25, "yellow")'],
     category: "Drawing Shapes"
   }

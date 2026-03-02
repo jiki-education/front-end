@@ -25,6 +25,54 @@ jest.mock("@/components/coding-exercise/lib/orchestrator/BreakpointManager", () 
 }));
 
 describe("Store Auto-Play Behavior", () => {
+  const createMockErrorTest = (slug: string): TestResult => ({
+    type: "visual" as const,
+    slug,
+    name: slug,
+    status: "fail" as const,
+    expects: [],
+    view: document.createElement("div"),
+    frames: [
+      {
+        time: 0,
+        timeInMs: 0,
+        line: 1,
+        code: "move()",
+        status: "SUCCESS" as const,
+        generateDescription: () => "Frame 1"
+      },
+      {
+        time: 100,
+        timeInMs: 0.1,
+        line: 2,
+        code: "move()",
+        status: "SUCCESS" as const,
+        generateDescription: () => "Frame 2"
+      },
+      {
+        time: 200,
+        timeInMs: 0.2,
+        line: 3,
+        code: "bad_call()",
+        status: "ERROR" as const,
+        generateDescription: () => "Error frame",
+        error: { message: "Something went wrong" }
+      }
+    ],
+    logLines: [],
+    animationTimeline: {
+      play: jest.fn(),
+      pause: jest.fn(),
+      seek: jest.fn(),
+      onUpdate: jest.fn(),
+      onComplete: jest.fn(),
+      clearUpdateCallbacks: jest.fn(),
+      clearCompleteCallbacks: jest.fn(),
+      completed: false,
+      currentTime: 0
+    } as any
+  });
+
   const createMockTest = (slug: string, time = 0): TestResult => ({
     type: "visual" as const,
     slug,
@@ -227,6 +275,53 @@ describe("Store Auto-Play Behavior", () => {
 
       expect(store.getState().shouldShowInformationWidget).toBe(false);
       expect(store.getState().isPlaying).toBe(true);
+    });
+  });
+
+  describe("setCurrentTest with error frames", () => {
+    it("should auto-play when test has error frame and shouldPlayOnTestChange is true", () => {
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const test = createMockErrorTest("test-1");
+      store.getState().setShouldPlayOnTestChange(true);
+
+      store.getState().setCurrentTest(test);
+
+      expect(store.getState().isPlaying).toBe(true);
+      expect(test.animationTimeline!.play).toHaveBeenCalled();
+    });
+
+    it("should jump directly to error frame when shouldPlayOnTestChange is false", () => {
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const test = createMockErrorTest("test-1");
+      store.getState().setShouldPlayOnTestChange(false);
+
+      store.getState().setCurrentTest(test);
+
+      expect(store.getState().isPlaying).toBe(false);
+      expect(store.getState().shouldShowInformationWidget).toBe(true);
+      expect(store.getState().currentTestTime).toBe(200); // error frame time
+    });
+
+    it("should show information widget via onComplete when error test finishes playing", () => {
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const test = createMockErrorTest("test-1");
+      store.getState().setShouldPlayOnTestChange(true);
+
+      store.getState().setCurrentTest(test);
+
+      // Widget should be hidden during playback
+      expect(store.getState().shouldShowInformationWidget).toBe(false);
+
+      // Get and trigger the onComplete callback
+      const onCompleteCallback = (test.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
+      onCompleteCallback();
+
+      // Widget should now be visible with the error
+      expect(store.getState().shouldShowInformationWidget).toBe(true);
+      expect(store.getState().isPlaying).toBe(false);
     });
   });
 

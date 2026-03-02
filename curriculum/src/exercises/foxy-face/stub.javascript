@@ -1,8 +1,3 @@
-// Foxy Face - A geometric fox made of triangles
-
-// Background
-rectangle(0, 0, 100, 100, "grey");
-
 // TODO: Draw the white cheeks
 
 // TODO: Draw the left ear
@@ -13,4 +8,7 @@ rectangle(0, 0, 100, 100, "grey");
 
 // TODO: Draw the right face
 
-// TODO: Draw the nose (two triangles)
+// Nose top
+triangle(40, 90, 50, 85, 60, 90, "charcoal");
+
+// TODO: Draw the nose bottom

@@ -176,6 +176,26 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 ---
 
+### Check 8: Error Messages Don't Give Away Coordinates
+
+**Rule**: The `errorHtml` messages in scenario expectations should NOT include exact coordinates, positions, sizes, or other values that would give away the answer. They should tell the student _which part_ is wrong, but not _what the correct values are_.
+
+**What's OK**:
+
+- "The left cheek triangle isn't right."
+- "The base (bottom) circle isn't right."
+- "The top hole isn't filled correctly."
+
+**What's NOT OK**:
+
+- "The base circle should be centered at (50, 70) with a radius of 20."
+- "The left ear triangle should have corners at (10,40), (10,5), and (50,40)."
+- "Expected a rectangle at position (10, 10) with width 20 and height 10."
+
+**How to check**: Read all `errorHtml` strings in `scenarios.ts`. Flag any that contain specific numeric coordinates, sizes, or positions from the solution.
+
+---
+
 ## Step 3: Report Audit Results and Exercise Context
 
 Present the audit results, then the full exercise context:

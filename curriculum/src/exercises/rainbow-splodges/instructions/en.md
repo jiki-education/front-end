@@ -10,7 +10,7 @@ Draw **500 circles** at random positions with random colors.
 ### How to solve it
 
 - The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).
-- Create variables for `x`, `y`, and `hue` before the loop.
+- Create variables for `cx`, `cy`, and `hue` before the loop.
 - Use a repeat loop that runs 500 times.
 - In each iteration:
   1. Change `x` to a random position between 0 and 100
@@ -20,6 +20,6 @@ Draw **500 circles** at random positions with random colors.
 
 ### Functions used in this exercise
 
-- `circle(x, y, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
+- `circle(cx, cy, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
 - `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string
 - `randomNumber(min, max)` - Get a random integer between min and max (inclusive)

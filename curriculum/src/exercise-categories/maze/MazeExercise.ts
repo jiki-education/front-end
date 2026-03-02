@@ -16,6 +16,7 @@ export default class MazeExercise extends VisualExercise {
 
   constructor() {
     super();
+    this.view.classList.add("exercise-maze");
     this.populateView();
   }
 
@@ -59,12 +60,12 @@ export default class MazeExercise extends VisualExercise {
 
     // Check if move is valid (within bounds and not blocked)
     if (newRow < 0 || newRow >= this.grid.length || newCol < 0 || newCol >= this.grid[0].length) {
-      executionCtx.logicError("Cannot move outside the maze!");
+      executionCtx.logicError("Oh no - you tried to fall off the edge of the maze!");
       return;
     }
 
     if (this.grid[newRow][newCol] === 1) {
-      executionCtx.logicError("Cannot move into a blocked cell!");
+      executionCtx.logicError("Ouch - you walked into a wall!");
       return;
     }
 

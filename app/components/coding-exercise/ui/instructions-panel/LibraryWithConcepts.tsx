@@ -10,7 +10,9 @@ interface LibraryWithConceptsProps {
 export default function LibraryWithConcepts({ concepts }: LibraryWithConceptsProps) {
   return (
     <LibraryWrapper>
-      <p className={styles.libraryDescriptionWithButton}>Key concepts used in this exercise.</p>
+      <p className={styles.libraryDescriptionWithButton}>
+        These are the key concepts used in this exercise - feel free to refresh yourself on anything!
+      </p>
       <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
           <ConceptCard smallVersion key={index} concept={concept} />
