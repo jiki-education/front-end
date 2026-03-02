@@ -19,6 +19,7 @@
     width: 25px;
     height: 3px;
     background: var(--color-gray-200);
+    transition: background 0.4s ease;
 }
 
 .front {
@@ -35,11 +36,15 @@
     background: var(--color-gray-100);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     z-index: 1;
+    transition:
+        border-color 0.4s ease,
+        background 0.4s ease;
 }
 
 .icon {
     width: 24px;
     height: 24px;
+    transition: color 0.4s ease;
 }
 
 .progress {
@@ -48,18 +53,22 @@
     border-radius: 2px;
     background: var(--color-gray-200);
     overflow: hidden;
+    transition: background 0.4s ease;
 }
 
 .progressFill {
     height: 100%;
     border-radius: 2px;
-    transition: width 0.3s ease;
+    transition:
+        width 0.3s ease,
+        background 0.4s ease;
 }
 
 .label {
     font-size: 11px;
     font-weight: 600;
     color: var(--color-gray-500);
+    transition: color 0.4s ease;
 }
 
 .back {
@@ -90,6 +99,28 @@
     font-weight: 600;
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Unlock animation — holds gray (locked) styles while completing, then transitions to blue when class is removed */
+.animatingUnlock {
+    cursor: not-allowed;
+
+    .front {
+        border-color: var(--color-gray-200) !important;
+        background: var(--color-gray-100) !important;
+    }
+
+    .icon {
+        color: var(--color-gray-400) !important;
+    }
+
+    .label {
+        color: var(--color-gray-500) !important;
+    }
+
+    &::before {
+        background: var(--color-gray-200) !important;
+    }
 }
 
 /* Locked state */

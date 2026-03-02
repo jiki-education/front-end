@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "@/components/dashboard/exercise-path/ExercisePath.module.css";
+import { WalkthroughCard } from "@/components/dashboard/exercise-path/ui/WalkthroughCard";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
 
@@ -46,10 +47,13 @@ export default function UnlockAnimationTest() {
       slug: "lesson-1",
       type: "video" as const,
       title: "Introduction to Variables",
-      description: "Learn about variables and data types"
+      description: "Learn about variables and data types",
+      walkthrough_video_data: [{ provider: "mux", id: "mock-video-id-1" }]
     },
-    completed: false,
-    locked: false
+    completed: lessonCompleted,
+    locked: false,
+    route: "/lessons/lesson-1",
+    walkthroughVideoWatchedPercentage: 0
   };
 
   const unlockingLesson = {
@@ -57,10 +61,13 @@ export default function UnlockAnimationTest() {
       slug: "lesson-2",
       type: "quiz" as const,
       title: "Variables Quiz",
-      description: "Test your knowledge of variables"
+      description: "Test your knowledge of variables",
+      walkthrough_video_data: [{ provider: "mux", id: "mock-video-id-2" }]
     },
     completed: false,
-    locked: true
+    locked: animationState === "completing" || (!recentlyUnlocked && animationState === "idle"),
+    route: "/lessons/lesson-2",
+    walkthroughVideoWatchedPercentage: 0
   };
 
   // Build className for completing lesson
@@ -137,6 +144,7 @@ export default function UnlockAnimationTest() {
                 <div className={styles.partTitle}>{completingLesson.lesson.title}</div>
                 <div className={styles.partDescription}>{completingLesson.lesson.description}</div>
               </div>
+              <WalkthroughCard lesson={completingLesson} isCompleting={animationState === "completing"} />
             </div>
 
             {/* Unlocking lesson with proper margin */}
@@ -150,6 +158,7 @@ export default function UnlockAnimationTest() {
                 <div className={styles.partTitle}>{unlockingLesson.lesson.title}</div>
                 <div className={styles.partDescription}>{unlockingLesson.lesson.description}</div>
               </div>
+              <WalkthroughCard lesson={unlockingLesson} />
             </div>
           </div>
         </div>

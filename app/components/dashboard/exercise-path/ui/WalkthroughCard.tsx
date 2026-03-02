@@ -5,9 +5,10 @@ import styles from "./WalkthroughCard.module.css";
 
 interface WalkthroughCardProps {
   lesson: LessonDisplayData;
+  isCompleting?: boolean;
 }
 
-export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
+export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
   const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
   // TMP: show walkthrough card on all lessons for hover animation testing
   const isLocked = !lesson.completed;
@@ -48,7 +49,7 @@ export function WalkthroughCard({ lesson }: WalkthroughCardProps) {
 
   return (
     <div
-      className={`${styles.walkthroughCard} ${getStateClass()}`}
+      className={`${styles.walkthroughCard} ${getStateClass()}${isCompleting ? ` ${styles.animatingUnlock}` : ""}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       role="button"
