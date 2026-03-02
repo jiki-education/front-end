@@ -27,7 +27,11 @@ export function ConceptSidebar({
 }: ConceptSidebarProps) {
   return (
     <div>
-      {!isAuthenticated && <UpgradeCard />}
+      {!isAuthenticated && (
+        <div className="hidden md:block">
+          <UpgradeCard />
+        </div>
+      )}
       {videoData && videoData.length > 0 && <VideoRecapCard conceptSlug={conceptSlug} videoData={videoData} />}
       <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} />
       <RelatedConceptsPills concepts={relatedConcepts} isUnlocked={isConceptUnlocked} />
