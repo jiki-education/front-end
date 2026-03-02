@@ -33,9 +33,6 @@
     0% {
         transform: rotateY(0deg);
     }
-    60% {
-        transform: rotateY(0deg);
-    }
     100% {
         transform: rotateY(180deg);
     }
@@ -43,9 +40,6 @@
 
 @keyframes flipInFront {
     0% {
-        transform: rotateY(-180deg);
-    }
-    60% {
         transform: rotateY(-180deg);
     }
     100% {
@@ -113,7 +107,20 @@
 @keyframes showRibbon {
     0% {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0);
+    }
+    55% {
+        opacity: 1;
+        transform: scale(1.18);
+    }
+    72% {
+        transform: scale(0.93);
+    }
+    86% {
+        transform: scale(1.06);
+    }
+    94% {
+        transform: scale(0.98);
     }
     100% {
         opacity: 1;

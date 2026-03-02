@@ -115,6 +115,6 @@
 
 /* New badge emphasis after flip */
 .card.new .iconWrapper {
-    animation: emphasize 0.6s ease-out 1.5s;
+    animation: emphasize 0.6s ease-out 0.75s;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }

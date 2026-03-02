@@ -24,7 +24,7 @@
 
 /* Only animate when spinning class is added */
 .card.new.spinning .cardBack {
-    animation: flipInBack 1.5s ease-out forwards;
+    animation: flipInBack 0.75s ease-out forwards;
 }
 
 .card.new .cardBack::before {

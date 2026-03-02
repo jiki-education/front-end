@@ -59,16 +59,16 @@ describe("AchievementsContent", () => {
 
     // Wait for loading to finish and badges to render
     expect(await screen.findByText("Member")).toBeInTheDocument();
-    expect(screen.getByText("First Lesson")).toBeInTheDocument();
+    expect(screen.getAllByText("First Lesson")[0]).toBeInTheDocument();
     expect(screen.getByText("Locked Badge")).toBeInTheDocument();
 
     // Check descriptions are rendered
     expect(screen.getByText("Welcome to Jiki!")).toBeInTheDocument();
-    expect(screen.getByText("Complete your first lesson")).toBeInTheDocument();
+    expect(screen.getAllByText("Complete your first lesson")[0]).toBeInTheDocument();
     expect(screen.getByText("This badge is locked")).toBeInTheDocument();
 
     // Check that NEW badge has the new indicator
-    const newBadge = screen.getByText("First Lesson").closest("[data-type='achievement']");
+    const newBadge = screen.getAllByText("First Lesson")[0].closest("[data-type='achievement']");
     expect(newBadge).toHaveClass("new");
 
     // Check that revealed badge doesn't have new class

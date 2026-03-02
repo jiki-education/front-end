@@ -29,8 +29,8 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
     if (isEarned) {
       classNames.push(styles.earned);
 
-      // Apply amber theme for recently revealed badges
-      if (showNewRibbon) {
+      // Apply amber theme for recently revealed or currently flipping badges
+      if (showNewRibbon || isNew) {
         classNames.push(styles.amber);
       } else {
         classNames.push(styles[badgeColor]);
@@ -76,17 +76,19 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
         </>
       )}
 
-      {(!isEarned || !isNew) && (
-        <>
-          <div className={styles.iconWrapper}>
-            <BadgeIcon slug={badge.slug} />
-            <div className={styles.ribbon}></div>
-          </div>
-          <div className={styles.badgeTitle}>{badge.name}</div>
-          <div className={styles.badgeSubtitle}>{badge.description}</div>
-          <div className={styles.badgeDate}>{badgeDate}</div>
-        </>
-      )}
+      <div className={styles.iconWrapper} aria-hidden={isEarned && isNew ? true : undefined}>
+        <BadgeIcon slug={badge.slug} />
+        <div className={styles.ribbon}></div>
+      </div>
+      <div className={styles.badgeTitle} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badge.name}
+      </div>
+      <div className={styles.badgeSubtitle} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badge.description}
+      </div>
+      <div className={styles.badgeDate} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badgeDate}
+      </div>
     </div>
   );
 }

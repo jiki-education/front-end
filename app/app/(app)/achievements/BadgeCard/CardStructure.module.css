@@ -32,7 +32,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: white;
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, white 85%, var(--color-amber-100)),
+        color-mix(in srgb, white 75%, var(--color-amber-200))
+    );
     border-radius: 14px;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -47,9 +51,17 @@
     overflow: hidden;
 }
 
+/* Hide the always-rendered base content while the flip structure is visible */
+.card.new > .iconWrapper,
+.card.new > .badgeTitle,
+.card.new > .badgeSubtitle,
+.card.new > .badgeDate {
+    visibility: hidden;
+}
+
 /* Only animate when spinning class is added */
 .card.new.spinning .cardFront {
     animation:
-        flipInFront 1.5s ease-out forwards,
-        cardPulseGold 0.4s ease-out 1.5s;
+        flipInFront 0.75s ease-out forwards,
+        cardPulseGold 0.4s ease-out 0.75s;
 }
