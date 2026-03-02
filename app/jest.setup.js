@@ -50,6 +50,19 @@ jest.mock("@exercism/highlightjs-jikiscript", () => {
   };
 });
 
+jest.mock("@jiki/highlightjs-javascript", () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return {
+        name: "JavaScript",
+        keywords: {},
+        contains: []
+      };
+    }
+  };
+});
+
 // Mock Next.js router
 jest.mock("next/navigation", () => {
   return {

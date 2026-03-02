@@ -2,6 +2,7 @@
 import type { EditorView } from "@codemirror/view";
 import { WidgetType } from "@codemirror/view";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
+import setupJavascript from "@jiki/highlightjs-javascript";
 import type { Boundary } from "@floating-ui/dom";
 import { arrow, autoUpdate, computePosition, offset, shift } from "@floating-ui/dom";
 import hljs from "highlight.js/lib/core";
@@ -134,6 +135,7 @@ export class InformationWidget extends WidgetType {
 
   private applyHighlighting(element: HTMLElement) {
     hljs.registerLanguage("jikiscript", setupJikiscript);
+    hljs.registerLanguage("javascript", setupJavascript);
     const codeBlocks = element.querySelectorAll("pre code");
     codeBlocks.forEach((block) => {
       hljs.highlightElement(block as HTMLElement);

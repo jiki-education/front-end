@@ -4,3 +4,8 @@ packages:
   - "curriculum"
   - "interpreters"
   - "llm-chat-proxy"
+
+onlyBuiltDependencies:
+  - "@codemirror/lang-javascript"
+  - "@jiki/highlightjs-javascript"
+  - "@lezer/javascript"
