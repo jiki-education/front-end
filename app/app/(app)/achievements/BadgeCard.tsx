@@ -76,13 +76,19 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
         </>
       )}
 
-      <div className={styles.iconWrapper}>
+      <div className={styles.iconWrapper} aria-hidden={isEarned && isNew ? true : undefined}>
         <BadgeIcon slug={badge.slug} />
         <div className={styles.ribbon}></div>
       </div>
-      <div className={styles.badgeTitle}>{badge.name}</div>
-      <div className={styles.badgeSubtitle}>{badge.description}</div>
-      <div className={styles.badgeDate}>{badgeDate}</div>
+      <div className={styles.badgeTitle} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badge.name}
+      </div>
+      <div className={styles.badgeSubtitle} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badge.description}
+      </div>
+      <div className={styles.badgeDate} aria-hidden={isEarned && isNew ? true : undefined}>
+        {badgeDate}
+      </div>
     </div>
   );
 }
