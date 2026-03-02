@@ -14,26 +14,29 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Run formatter on changed files only
-echo "💅 Formatting changed files..."
 STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^curriculum/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^curriculum/||' || true)
-if [ -n "$STAGED_FILES_RELATIVE" ]; then
-    echo "Formatting: $STAGED_FILES_RELATIVE"
-    # Convert relative paths to absolute paths for prettier
-    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$CURRICULUM_DIR/|")
-    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
-    # Re-add formatted files (use paths relative to current directory, which is CURRICULUM_DIR)
-    git add $STAGED_FILES_RELATIVE
-else
-    echo "No files to format"
-fi
 
-# Run lint check (treating warnings as errors)
-echo "🔍 Running lint check..."
-pnpm run lint --max-warnings=0
-if [ $? -ne 0 ]; then
-    echo "❌ Lint check failed (errors or warnings found). Commit aborted."
-    exit 1
+if [ -z "$STAGED_FILES_RELATIVE" ]; then
+    echo "No staged files — skipping format and lint."
+else
+    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$CURRICULUM_DIR/|")
+
+    echo "💅 Formatting staged files..."
+    echo "$STAGED_FILES_ABSOLUTE" | tr '\n' '\0' | xargs -0 pnpm exec prettier --write
+    if [ $? -ne 0 ]; then
+        echo "❌ Formatting failed. Commit aborted."
+        exit 1
+    fi
+
+    echo "🔍 Running lint on staged files..."
+    echo "$STAGED_FILES_ABSOLUTE" | tr '\n' '\0' | xargs -0 pnpm exec eslint --max-warnings=0
+    if [ $? -ne 0 ]; then
+        echo "❌ Lint check failed. Commit aborted."
+        exit 1
+    fi
+
+    # Re-add any files that were auto-formatted
+    git add $STAGED_FILES_RELATIVE
 fi
 
 # Run tests

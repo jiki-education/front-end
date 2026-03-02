@@ -1,14 +1,26 @@
 #!/bin/sh
 
-# Content pre-commit: format markdown files
+# Content pre-commit: format changed markdown files
 
-echo "📝 Running content format check..."
-pnpm run format:check
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONTENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$CONTENT_DIR" || exit 1
 
+STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^content/" | grep -E '\.(md|json|yml|yaml)$' | sed 's|^content/||' || true)
+
+if [ -z "$STAGED_FILES_RELATIVE" ]; then
+    echo "No staged files — skipping format check."
+    exit 0
+fi
+
+STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$CONTENT_DIR/|")
+
+echo "📝 Formatting staged content files..."
+echo "$STAGED_FILES_ABSOLUTE" | tr '\n' '\0' | xargs -0 pnpm exec prettier --check
 if [ $? -ne 0 ]; then
-  echo "❌ Content format check failed"
-  echo "💡 Run 'pnpm run format' in content/ to fix"
-  exit 1
+    echo "❌ Content format check failed"
+    echo "💡 Run 'pnpm run format' in content/ to fix"
+    exit 1
 fi
 
 echo "✅ Content format check passed"
