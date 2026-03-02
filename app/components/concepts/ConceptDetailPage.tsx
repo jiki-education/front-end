@@ -38,6 +38,7 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
       videoData={data.videoData}
       isConceptUnlocked={data.isConceptUnlocked}
       getExerciseStatus={data.getExerciseStatus}
+      isAuthenticated={data.isAuthenticated}
     />
   );
 }
