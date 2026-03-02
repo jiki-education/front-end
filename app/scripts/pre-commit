@@ -14,34 +14,21 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Run formatter on changed files only
-echo "💅 Formatting changed files..."
-STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json|md|yml|yaml)$' | sed 's|^app/||' || true)
+# Run formatter + lint on changed files only
+echo "💅 Formatting and linting changed files..."
+STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs|css|json)$' | sed 's|^app/||' || true)
 if [ -n "$STAGED_FILES_RELATIVE" ]; then
-    echo "Formatting: $STAGED_FILES_RELATIVE"
-    # Convert relative paths to absolute paths for prettier
+    echo "Checking: $STAGED_FILES_RELATIVE"
     STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$APP_DIR/|")
-    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
-    # Re-add formatted files (use paths relative to current directory, which is APP_DIR)
-    git add $STAGED_FILES_RELATIVE
-else
-    echo "No files to format"
-fi
-
-# Run lint check on staged files only (treating warnings as errors)
-echo "🔍 Running lint check on staged files..."
-STAGED_TS_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs)$' | sed 's|^app/||' || true)
-if [ -n "$STAGED_TS_FILES_RELATIVE" ]; then
-    echo "Linting: $STAGED_TS_FILES_RELATIVE"
-    # Convert relative paths to absolute paths for eslint
-    STAGED_TS_FILES_ABSOLUTE=$(echo "$STAGED_TS_FILES_RELATIVE" | sed "s|^|$APP_DIR/|")
-    pnpm exec eslint $STAGED_TS_FILES_ABSOLUTE --max-warnings=0
+    pnpm exec biome check --write $STAGED_FILES_ABSOLUTE
     if [ $? -ne 0 ]; then
-        echo "❌ Lint check failed (errors or warnings found). Commit aborted."
+        echo "❌ Biome check failed. Commit aborted."
         exit 1
     fi
+    # Re-add any files biome auto-fixed
+    git add $STAGED_FILES_RELATIVE
 else
-    echo "No JavaScript/TypeScript files to lint"
+    echo "No files to check"
 fi
 
 # Run tests
