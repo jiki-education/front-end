@@ -26,6 +26,6 @@
     );
     z-index: 30;
     pointer-events: none;
-    animation: shimmerFront 1.2s ease-in-out 1.5s 2;
+    animation: shimmerFront 1.2s ease-in-out 0.75s 2;
     border-radius: 14px;
 }

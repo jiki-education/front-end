@@ -60,11 +60,11 @@ describe("Badge Reveal Functionality", () => {
     render(<AchievementsContent />);
 
     // Wait for badge to load
-    const badgeElement = await screen.findByText("Test Badge");
-    expect(badgeElement).toBeInTheDocument();
+    const badgeElements = await screen.findAllByText("Test Badge");
+    expect(badgeElements[0]).toBeInTheDocument();
 
     // Verify badge has "new" class initially (unrevealed state shows as new)
-    const badgeCard = badgeElement.closest("[data-type='achievement']");
+    const badgeCard = badgeElements[0].closest("[data-type='achievement']");
     expect(badgeCard).toHaveClass("new");
 
     // Click the badge to reveal it
@@ -106,9 +106,11 @@ describe("Badge Reveal Functionality", () => {
     render(<AchievementsContent />);
 
     // Wait for badge to load and click it
-    const badgeElement = await screen.findByText("Test Badge");
-    const badgeCard = badgeElement.closest("[data-type='achievement']");
-    fireEvent.click(badgeCard!);
+    const badgeElements = await screen.findAllByText("Test Badge");
+    const badgeCard = badgeElements[0].closest("[data-type='achievement']");
+    act(() => {
+      fireEvent.click(badgeCard!);
+    });
 
     // Verify error was logged
     await waitFor(() => {
@@ -148,8 +150,8 @@ describe("Badge Reveal Functionality", () => {
     const { unmount } = render(<AchievementsContent />);
 
     // Wait for badge to load
-    const badgeElement = await screen.findByText("Test Badge");
-    const badgeCard = badgeElement.closest("[data-type='achievement']");
+    const badgeElements = await screen.findAllByText("Test Badge");
+    const badgeCard = badgeElements[0].closest("[data-type='achievement']");
 
     // Click to reveal
     fireEvent.click(badgeCard!);

@@ -4,13 +4,8 @@
 
 /* Positioning override for the shared BadgeNewLabel component */
 .newRibbon {
-    /* Inherits styles from BadgeNewLabel component */
-}
-
-.card.new .newRibbon {
     z-index: 50;
-    opacity: 0;
-    animation: showRibbon 0.3s ease-out 1.5s forwards;
+    animation: showRibbon 0.6s ease-out forwards;
 }
 
 .ribbon {

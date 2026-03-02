@@ -63,7 +63,7 @@ export function useBadgeActions(
                 setBadges((prev) => prev.map((b) => (b.id === badge.id ? { ...b, state: "revealed" } : b)));
                 setRecentlyRevealedIds((prev) => new Set(prev).add(badge.id));
                 setSpinningBadgeId(null);
-              }, 1500); // Match the animation duration
+              }, 750); // Match the animation duration
             }
           }
         : undefined
