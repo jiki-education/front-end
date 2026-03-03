@@ -1,0 +1,43 @@
+.button {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-purple-500);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px var(--color-purple-500-30);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+    z-index: 50;
+    animation: fadeIn 0.2s ease;
+}
+
+.button:hover {
+    background: var(--color-purple-600);
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px var(--color-purple-500-40);
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -25,8 +25,9 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
     cursor: pointer;
     position: relative;
     width: 100%;
@@ -35,8 +36,9 @@
     min-height: 120px;
 }
 
-.lessonPart:hover:not(:has([data-walkthrough-card]:hover)) {
-    border-color: var(--color-gray-300);
+.lessonPart:not(.locked):hover:not(:has([data-walkthrough-card]:hover)) {
+    transform: translateZ(0) scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Lesson States */
@@ -46,8 +48,7 @@
 }
 
 .lessonPart.complete:hover:not(:has([data-walkthrough-card]:hover)) {
-    border-color: var(--color-green-500);
-    background: white;
+    box-shadow: 0 6px 16px var(--color-green-500-20);
 }
 
 /* Unlocked state - for lessons that were just unlocked */

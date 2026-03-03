@@ -11,9 +11,11 @@ import { LevelSection } from "./ui/LevelSection";
 import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
 import { CompletionCert } from "./ui/CompletionCert";
-import { useEffect, useMemo } from "react";
+import { ScrollToActiveLessonButton } from "./ui/ScrollToActiveLessonButton";
+import { useEffect, useMemo, useRef } from "react";
 
 export default function ExercisePath() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { levelSections, setLevels, levelsLoading } = useLevels();
   const shouldShowSkeleton = useDelayedLoading(levelsLoading);
   const { handleLessonNavigation, clickedLessonSlug, setClickedLessonSlug, isPending } = useLessonNavigation();
@@ -71,7 +73,7 @@ export default function ExercisePath() {
   }
 
   return (
-    <div className={styles.learningPath}>
+    <div ref={containerRef} className={styles.learningPath}>
       {isPending && <LessonLoadingModal />}
       <StartCard />
       {levelSections.map((section) => (
@@ -89,6 +91,7 @@ export default function ExercisePath() {
         />
       ))}
       <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+      <ScrollToActiveLessonButton containerRef={containerRef} />
     </div>
   );
 }

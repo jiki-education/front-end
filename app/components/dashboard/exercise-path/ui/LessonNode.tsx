@@ -74,7 +74,12 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
   };
 
   return (
-    <div ref={ref} className={getClassName()} onClick={handleClick}>
+    <div
+      ref={ref}
+      className={getClassName()}
+      onClick={handleClick}
+      data-active-lesson={isActiveLesson ? "true" : undefined}
+    >
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
