@@ -23,7 +23,7 @@ export default function SidebarLayout({ activeItem, children }: SidebarLayoutPro
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <ExternalHeader />
-      <main className="flex-1 mt-[70px]">{children}</main>
+      <main className="flex-1 mt-[var(--header-height)]">{children}</main>
       <ExternalFooter />
     </div>
   );

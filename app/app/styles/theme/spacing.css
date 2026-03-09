@@ -41,6 +41,10 @@
     --z-index-error-modal-backdrop: 1299;
     --z-index-notification: 1300;
 
+    /* Layout tokens */
+    --header-height: 70px;
+    --sticky-offset: 24px;
+
     /* Spacing tokens */
     --spacing-auto: auto;
     --spacing-0: 0px;

@@ -2,7 +2,7 @@ import MarkdownContent from "@/components/content/MarkdownContent";
 import type { ProcessedArticle, ArticleMeta } from "@/lib/content/types";
 import ArticleHeader from "./ArticleHeader";
 import RelatedArticles from "./RelatedArticles";
-import styles from "./ArticleDetailContent.module.css";
+import styles from "@/components/ui/ContentWithSidebar.module.css";
 
 interface ArticleDetailContentProps {
   article: ProcessedArticle;

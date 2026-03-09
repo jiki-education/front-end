@@ -2,7 +2,7 @@
     width: 280px;
     flex-shrink: 0;
     position: sticky;
-    top: 102px;
+    top: calc(var(--header-height) + var(--sticky-offset));
     align-self: flex-start;
     display: flex;
     flex-direction: column;
