@@ -2,7 +2,7 @@ import MarkdownContent from "@/components/content/MarkdownContent";
 import type { ProcessedBlogPost, BlogPostMeta } from "@/lib/content/types";
 import BlogPostHeader from "./BlogPostHeader";
 import RelatedPosts from "./RelatedPosts";
-import styles from "./BlogPostContent.module.css";
+import styles from "@/components/ui/ContentWithSidebar.module.css";
 
 interface BlogPostContentProps {
   post: ProcessedBlogPost;
