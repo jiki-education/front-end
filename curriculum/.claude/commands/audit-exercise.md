@@ -178,7 +178,23 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 ---
 
-### Check 8: Error Messages Don't Give Away Coordinates
+### Check 8: Concept Slugs Are Present and Accurate
+
+**Rule**: Every exercise should have a `conceptSlugs` array in its `index.ts` definition that lists the concepts the exercise teaches or practices. The slugs must correspond to actual concept directories in `src/concepts/`.
+
+**Check each of these**:
+
+1. **Present**: The exercise definition in `index.ts` includes a `conceptSlugs` array. If missing, this is a FAIL.
+
+2. **Valid slugs**: Every slug in `conceptSlugs` must match a directory name under `src/concepts/`. Flag any slugs that don't correspond to an existing concept.
+
+3. **Relevant**: The listed concepts should make sense for what the exercise actually teaches. Cross-reference with the exercise's level, instructions, and solution to verify. For example, a maze exercise at the "repeat" level should include "repeat" as a concept.
+
+4. **Complete**: No obvious concepts should be missing. If the exercise clearly practices a concept (e.g., uses variables, requires conditionals, introduces loops) but that concept isn't listed, flag it.
+
+---
+
+### Check 9: Error Messages Don't Give Away Coordinates
 
 **Rule**: The `errorHtml` messages in scenario expectations should NOT include exact coordinates, positions, sizes, or other values that would give away the answer. They should tell the student _which part_ is wrong, but not _what the correct values are_.
 

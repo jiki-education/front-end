@@ -56,7 +56,7 @@ export const scenarios: VisualScenario[] = [
           const limit = language === "python" ? 18 : 22;
           return result.assertors.assertMaxLinesOfCode(limit);
         },
-        errorHtml: "Your solution has too many lines of code. Use repeat loops to replace consecutive move() calls!"
+        errorHtml: "Your solution has too many lines of code. Use repeat loops to replace consecutive move() calls."
       }
     ]
   }

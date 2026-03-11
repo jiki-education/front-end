@@ -34,6 +34,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  conceptSlugs: ["using-functions", "function-inputs", "strings"],
   readonlyRanges: {
     javascript: [{ fromLine: 4, toLine: 4 }],
     python: [{ fromLine: 4, toLine: 4 }],
