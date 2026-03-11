@@ -72,13 +72,13 @@
     }
     .cm-lockedGutter {
         .cm-lock-marker {
-            background-image: url("/icons/readonly-lock.svg");
+            background-image: url("/static/icons/readonly-lock.svg");
             background-size: 80%;
             @apply bg-no-repeat bg-center;
             @apply opacity-[0.4];
         }
         .cm-partial-lock-marker {
-            background-image: url("/icons/readonly-lock-partial.svg");
+            background-image: url("/static/icons/readonly-lock-partial.svg");
             background-size: 80%;
             @apply bg-no-repeat bg-center;
             @apply opacity-[0.4];
