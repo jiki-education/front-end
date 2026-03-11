@@ -47,13 +47,24 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 - `maze-solve-walk` - Walk Through a Maze: use walk(steps) with arguments to navigate a maze (Using Functions level)
 - `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level)
 - `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
-
-### Implemented (ordered to match curriculum.json)
-
 - `snowman-basic` - Snowman Basic: build a snowman from three circles (Using Functions level)
+- `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
+
+### Needs Changes
+
 - `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
 - `penguin` - Penguin: draw shapes with colors to build a penguin (Strings and Colors level)
-- `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
+
+#### Foxy Fox
+
+- [ ] Add triangle diagram and instructions
+
+#### Penguin
+
+- [ ] Add ellipse diagram and instructions
+
+### Implemented
+
 - `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 - `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
@@ -131,16 +142,6 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 - `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
 - `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Dictionaries level)
 - `nucleotide-count` - Nucleotide Count: count all different nucleotides in a DNA strand (Dictionaries level)
-
-### Needs Changes
-
-#### Foxy Fox
-
-- [ ] Add triangle diagram and instructions
-
-#### Penguin
-
-- [ ] Add ellipse diagram and instructions
 
 ### Implemented Projects (not in curriculum.json, in projects.json)
 
