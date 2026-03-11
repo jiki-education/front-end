@@ -1,4 +1,4 @@
-import type { IOScenario, Language, CodeCheckExpect, InterpreterOptions } from "@jiki/curriculum";
+import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -40,7 +40,7 @@ export function runIOScenario(
   availableFunctions: Array<{ name: string; func: any; description: string }>,
   language: Language,
   interpreter: Interpreter,
-  interpreterOptions?: InterpreterOptions
+  languageFeatures?: Record<string, any>
 ): IOTestResult {
   let actual: any;
   let errorHtml: string | undefined;
@@ -55,10 +55,7 @@ export function runIOScenario(
       studentCode,
       {
         externalFunctions: availableFunctions,
-        languageFeatures: {
-          timePerFrame: 1,
-          ...interpreterOptions
-        }
+        languageFeatures: languageFeatures ?? { timePerFrame: 1 }
       },
       interpreter.formatIdentifier(scenario.functionName),
       ...scenario.args

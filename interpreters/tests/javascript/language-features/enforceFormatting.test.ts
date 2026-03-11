@@ -236,6 +236,67 @@ describe("JavaScript enforceFormatting feature", () => {
       });
     });
 
+    describe("requires opening brace content on its own line", () => {
+      test("repeat with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
+        const code = `let x = 0;\nrepeat(3) { x = x + 1; }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      });
+
+      test("if with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
+        const code = `let x = 0;\nif (true) { x = 1; }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      });
+
+      test("function with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
+        const code = `function foo() { return 1; }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      });
+
+      test("while with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
+        const code = `let x = 0;\nwhile (x < 3) { x = x + 1; }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      });
+
+      test("for with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
+        const code = `for (let i = 0; i < 3; i = i + 1) { let x = i; }`;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).not.toBeNull();
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      });
+
+      test("empty block on same line is allowed", () => {
+        const code = `
+          repeat(3) {}
+        `;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+      });
+
+      test("body on new line is allowed", () => {
+        const code = `
+          let x = 0;
+          repeat(3) {
+            x = x + 1;
+          }
+        `;
+        const { error } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+      });
+    });
+
     describe("works without semicolons", () => {
       test("closing brace on same line without semicolons throws error", () => {
         const code = `let x = 0\nrepeat(3) {\n  x = x + 1 }`;

@@ -1,7 +1,7 @@
 import { runTests } from "@/components/coding-exercise/lib/test-runner/runTests";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Scenario } from "@jiki/curriculum";
-import { TestExercise } from "@jiki/curriculum";
+import { TestExercise, getLanguageFeatures } from "@jiki/curriculum";
 import type { Interpreter } from "@/components/coding-exercise/lib/test-runner/getInterpreter";
 
 // Create mock interpreters for each language
@@ -42,7 +42,7 @@ jest.mock("@/components/coding-exercise/lib/test-runner/getInterpreter", () => (
   })
 }));
 
-// Mock the TestExercise
+// Mock the TestExercise and getLanguageFeatures
 jest.mock("@jiki/curriculum", () => {
   const availableFunctions = [
     {
@@ -58,9 +58,11 @@ jest.mock("@jiki/curriculum", () => {
       getExternalFunctions: jest.fn().mockReturnValue(availableFunctions),
       getExternalClasses: jest.fn().mockReturnValue([]),
       setStartPosition: jest.fn(),
+      setCounter: jest.fn(),
       getState: jest.fn().mockReturnValue({ position: 100 }),
       getView: jest.fn().mockReturnValue(document.createElement("div"))
-    }))
+    })),
+    getLanguageFeatures: jest.fn().mockReturnValue({})
   };
 });
 
@@ -191,6 +193,75 @@ describe("runTests", () => {
 
       // Should not be hardcoded to "move()"
       expect(result.tests[0].codeRun).not.toBe("move()");
+    });
+  });
+
+  describe("level features integration", () => {
+    const mockGetLanguageFeatures = getLanguageFeatures as jest.Mock;
+
+    it("should pass level language features to compile", async () => {
+      mockGetLanguageFeatures.mockReturnValue({
+        enforceFormatting: true,
+        oneStatementPerLine: true,
+        allowedNodes: ["ExpressionStatement", "CallExpression"]
+      });
+
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }],
+        value: undefined,
+        status: "SUCCESS"
+      });
+
+      const code = "move()";
+      await runTests(code, testExercise, "jikiscript");
+
+      expect(mockJikiscript.compile).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          languageFeatures: expect.objectContaining({
+            timePerFrame: 1,
+            enforceFormatting: true,
+            oneStatementPerLine: true,
+            allowedNodes: ["ExpressionStatement", "CallExpression"]
+          })
+        })
+      );
+
+      // Reset mock
+      mockGetLanguageFeatures.mockReturnValue({});
+    });
+
+    it("should allow exercise interpreterOptions to override level features", async () => {
+      mockGetLanguageFeatures.mockReturnValue({
+        maxTotalLoopIterations: 1000
+      });
+
+      const exerciseWithOptions = createMockExercise({
+        interpreterOptions: { maxTotalLoopIterations: 500 }
+      });
+
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }],
+        value: undefined,
+        status: "SUCCESS"
+      });
+
+      const code = "move()";
+      await runTests(code, exerciseWithOptions, "jikiscript");
+
+      expect(mockJikiscript.compile).toHaveBeenCalledWith(
+        code,
+        expect.objectContaining({
+          languageFeatures: expect.objectContaining({
+            maxTotalLoopIterations: 500
+          })
+        })
+      );
+
+      // Reset mock
+      mockGetLanguageFeatures.mockReturnValue({});
     });
   });
 

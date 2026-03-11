@@ -74,6 +74,7 @@ export type SyntaxErrorType =
   | "NewExpressionNotAllowed"
   | "BlockRequired"
   | "ClosingBraceNotOnOwnLine"
+  | "OpeningBraceContentNotOnOwnLine"
   | "IncorrectIndentation";
 
 export class SyntaxError extends Error {

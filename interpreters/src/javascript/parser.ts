@@ -278,6 +278,11 @@ export class Parser {
     const statements: Statement[] = [];
     this.blockDepth++;
 
+    // Enforce that opening brace content is on a new line
+    if (this.languageFeatures.enforceFormatting && !this.check("EOL") && !this.check("RIGHT_BRACE")) {
+      this.error("OpeningBraceContentNotOnOwnLine", this.previous().location);
+    }
+
     while (!this.isAtEnd()) {
       // Skip EOL tokens before checking for RIGHT_BRACE
       while (this.check("EOL")) {
