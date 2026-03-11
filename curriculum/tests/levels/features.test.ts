@@ -93,6 +93,12 @@ describe("Language Features", () => {
       expect(identifierCount).toBe(1);
     });
 
+    it("should accumulate enforceFormatting to repeat-loop level", () => {
+      const features = getLanguageFeatures("repeat-loop", "javascript") as JavaScriptFeatureFlags;
+      expect(features.enforceFormatting).toBe(true);
+      expect(features.oneStatementPerLine).toBe(true);
+    });
+
     it("should override language features with later levels", () => {
       const usingFunctions = getLanguageFeatures("using-functions", "javascript");
       const variables = getLanguageFeatures("variables", "javascript");

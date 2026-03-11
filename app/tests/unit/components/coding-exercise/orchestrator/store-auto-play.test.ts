@@ -60,6 +60,7 @@ describe("Store Auto-Play Behavior", () => {
       }
     ],
     logLines: [],
+    lintErrors: [],
     animationTimeline: {
       play: jest.fn(),
       pause: jest.fn(),
@@ -99,6 +100,7 @@ describe("Store Auto-Play Behavior", () => {
       }
     ],
     logLines: [],
+    lintErrors: [],
     animationTimeline: {
       play: jest.fn(),
       pause: jest.fn(),

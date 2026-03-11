@@ -4,6 +4,8 @@
 
 import type { EditorView } from "@codemirror/view";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
+import { getLanguageFeatures } from "@jiki/curriculum";
+import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
 import { clearCodeMirrorContent } from "./localStorage";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
@@ -12,6 +14,7 @@ import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
+import { getInterpreter } from "./test-runner/getInterpreter";
 import type { TestExpect, TestResult } from "./test-results-types";
 import type {
   ExerciseContext,
@@ -74,7 +77,13 @@ class Orchestrator {
 
         // Create new EditorManager if element is provided
         if (element) {
-          this.editorManager = new EditorManager(element, this.store, this.exercise.slug, this.runCode.bind(this));
+          this.editorManager = new EditorManager(
+            element,
+            this.store,
+            this.exercise.slug,
+            this.runCode.bind(this),
+            (code: string) => this.lintCodeDebounced(code)
+          );
         }
       };
     }
@@ -281,6 +290,38 @@ class Orchestrator {
     this.breakpointManager.goToNextBreakpoint();
   }
 
+  private readonly lintCodeDebounced = debounce((code: string) => {
+    void this.lintCode(code);
+  }, 500);
+
+  async lintCode(code: string) {
+    try {
+      const interpreter = await getInterpreter(this.language);
+      const levelFeatures = getLanguageFeatures(this.exercise.levelId, this.language);
+      const languageFeatures = {
+        timePerFrame: 1,
+        ...levelFeatures,
+        ...this.exercise.interpreterOptions
+      };
+
+      let availableFunctions: Array<{ name: string; func: any; description: string }>;
+      if (this.exercise.type === "visual") {
+        const tempExercise = new this.exercise.ExerciseClass();
+        availableFunctions = tempExercise.getExternalFunctions(this.language);
+      } else {
+        availableFunctions = this.exercise.ExerciseClass.getExternalFunctions(this.language);
+      }
+
+      const result = interpreter.compile(code, {
+        externalFunctions: availableFunctions,
+        languageFeatures
+      });
+      this.store.getState().setLintErrors(result.lintErrors);
+    } catch {
+      // Silently ignore lint errors (e.g. if interpreter fails to load)
+    }
+  }
+
   async runCode() {
     // Get the current code from the editor
     const currentCode = this.getCurrentEditorValue() || this.store.getState().code;
@@ -377,6 +418,9 @@ class Orchestrator {
 
   // Clean up method to destroy the orchestrator and its managers
   destroy(): void {
+    // Cancel any pending debounced lint
+    this.lintCodeDebounced.cancel();
+
     // Clean up the editor manager if it exists
     if (this.editorManager) {
       this.editorManager.cleanup();

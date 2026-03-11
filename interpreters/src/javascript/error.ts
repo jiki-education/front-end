@@ -72,9 +72,7 @@ export type SyntaxErrorType =
   | "MissingLeftBraceBeforeFunctionBody"
   | "ForInStatementNotAllowed"
   | "NewExpressionNotAllowed"
-  | "BlockRequired"
-  | "ClosingBraceNotOnOwnLine"
-  | "IncorrectIndentation";
+  | "BlockRequired";
 
 export class SyntaxError extends Error {
   constructor(
@@ -86,6 +84,17 @@ export class SyntaxError extends Error {
     super(message);
     this.name = "SyntaxError";
   }
+}
+
+export type LintErrorType = "ClosingBraceNotOnOwnLine" | "OpeningBraceContentNotOnOwnLine" | "IncorrectIndentation";
+
+export class LintError {
+  constructor(
+    public message: string,
+    public location: Location,
+    public type: LintErrorType,
+    public context?: any
+  ) {}
 }
 
 export class LogicError extends Error {}

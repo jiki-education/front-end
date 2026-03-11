@@ -1,4 +1,5 @@
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import { getLanguageFeatures } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { runIOScenario } from "./runIOScenario";
 import { runVisualScenario } from "./runVisualScenario";
@@ -23,13 +24,18 @@ export async function runTests(
     availableFunctions = exercise.ExerciseClass.getExternalFunctions(language);
   }
 
-  // Compile ONCE before running any scenarios
+  // Build language features: level features + exercise overrides
+  const levelFeatures = getLanguageFeatures(exercise.levelId, language);
+  const languageFeatures = {
+    timePerFrame: 1,
+    ...levelFeatures,
+    ...exercise.interpreterOptions
+  };
+
+  // Compile ONCE before running any scenarios to catch syntax errors early
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
-    languageFeatures: {
-      timePerFrame: 1,
-      ...exercise.interpreterOptions
-    }
+    languageFeatures
   });
 
   // If compilation failed, throw the error
@@ -49,21 +55,14 @@ export async function runTests(
         exercise.ExerciseClass,
         language,
         interpreter,
-        exercise.interpreterOptions
+        languageFeatures
       );
       tests.push(result);
     }
   } else {
     // Run IO scenarios
     for (const scenario of exercise.scenarios) {
-      const result = runIOScenario(
-        scenario,
-        studentCode,
-        availableFunctions,
-        language,
-        interpreter,
-        exercise.interpreterOptions
-      );
+      const result = runIOScenario(scenario, studentCode, availableFunctions, language, interpreter, languageFeatures);
       tests.push(result);
     }
   }

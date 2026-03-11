@@ -22,6 +22,9 @@ jest.mock("@codemirror/view", () => {
   (MockEditorView as any).editable = { of: jest.fn() };
   (MockEditorView as any).updateListener = { of: jest.fn() };
 
+  // Add static properties to EditorView
+  (MockEditorView as any).baseTheme = jest.fn(() => []);
+
   return {
     EditorView: MockEditorView,
     highlightActiveLine: jest.fn(),
@@ -35,7 +38,8 @@ jest.mock("@codemirror/view", () => {
       line: jest.fn(() => ({})),
       widget: jest.fn(() => ({}))
     },
-    WidgetType: jest.fn()
+    WidgetType: jest.fn(),
+    hoverTooltip: jest.fn(() => [])
   };
 });
 
@@ -102,6 +106,8 @@ jest.mock("@/components/coding-exercise/ui/codemirror/extensions", () => ({
   cursorTooltip: jest.fn(),
   highlightedCodeBlock: jest.fn(),
   initReadOnlyRangesExtension: jest.fn(),
+  lintDecorationsExtension: jest.fn(() => []),
+  setLintDecorationsEffect: { of: jest.fn() },
   informationWidgetDataEffect: { of: jest.fn() },
   showInfoWidgetEffect: { of: jest.fn() }
 }));

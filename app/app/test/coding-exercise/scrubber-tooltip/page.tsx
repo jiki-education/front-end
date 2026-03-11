@@ -47,6 +47,7 @@ export default function ScrubberTooltipTestPage() {
       view: document.createElement("div"),
       frames,
       logLines: [],
+      lintErrors: [],
       animationTimeline: {
         duration: 400000,
         paused: true,
@@ -134,6 +135,7 @@ export default function ScrubberTooltipTestPage() {
                 view: document.createElement("div"),
                 frames: [singleFrame],
                 logLines: [],
+                lintErrors: [],
                 animationTimeline: {
                   duration: 100000,
                   paused: true,

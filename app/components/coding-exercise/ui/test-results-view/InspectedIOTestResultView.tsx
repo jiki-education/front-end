@@ -20,7 +20,7 @@ export function InspectedIOTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames(styles.scenario, currentTest.status === "fail" ? "fail" : "pass")}>
+    <div className={assembleClassNames(styles.scenario, currentTest.status === "pass" ? "pass" : "fail")}>
       <div data-ci="inspected-test-result-view" className="flex-grow overflow-scroll">
         <div className={styles.scenarioLhsContent}>
           <h3>
@@ -29,6 +29,11 @@ export function InspectedIOTestResultView() {
           </h3>
 
           {currentTest.status === "pass" && <PassMessage testIdx={0} />}
+          {currentTest.status === "lint_warning" && (
+            <p className={styles.message}>
+              Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.
+            </p>
+          )}
           {firstExpect ? <IOTestResultView expect={firstExpect} /> : null}
         </div>
       </div>

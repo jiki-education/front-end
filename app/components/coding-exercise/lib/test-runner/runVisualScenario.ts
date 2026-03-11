@@ -1,4 +1,4 @@
-import type { VisualExercise, VisualScenario, Language, InterpreterOptions } from "@jiki/curriculum";
+import type { VisualExercise, VisualScenario, Language } from "@jiki/curriculum";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
@@ -10,7 +10,7 @@ export function runVisualScenario(
   ExerciseClass: new () => VisualExercise,
   language: Language,
   interpreter: Interpreter,
-  interpreterOptions?: InterpreterOptions
+  languageFeatures?: Record<string, any>
 ): VisualTestResult {
   // Create fresh exercise instance
   const exercise = new ExerciseClass();
@@ -28,10 +28,7 @@ export function runVisualScenario(
   const interpreterContext = {
     externalFunctions: exercise.getExternalFunctions(language),
     classes: exercise.getExternalClasses(language),
-    languageFeatures: {
-      timePerFrame: 1,
-      ...interpreterOptions
-    },
+    languageFeatures: languageFeatures ?? { timePerFrame: 1 },
     randomSeed: resolvedSeed
   };
 
@@ -76,7 +73,10 @@ export function runVisualScenario(
 
   // Determine status - fail if any expectation fails OR if any frame has an error
   const hasFrameError = frames.some((f) => f.status === "ERROR");
-  const status = expects.every((e) => e.pass) && !hasFrameError ? "pass" : "fail";
+  const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lintErrors may be undefined in test mocks
+  const lintErrors = result.lintErrors ?? [];
+  const status = allExpectsPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
   return {
     type: "visual",
@@ -88,6 +88,7 @@ export function runVisualScenario(
     logLines: result.logLines,
     codeRun: studentCode,
     view: exercise.getView(),
-    animationTimeline
+    animationTimeline,
+    lintErrors
   };
 }

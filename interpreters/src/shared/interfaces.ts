@@ -3,7 +3,7 @@ import type { JSLanguageFeatures } from "../javascript/interfaces";
 import type { PythonLanguageFeatures } from "../python/interfaces";
 import type { JikiScriptLanguageFeatures } from "../jikiscript/interpreter";
 import type { Frame } from "./frames";
-import type { SyntaxError as JSSyntaxError } from "../javascript/error";
+import type { SyntaxError as JSSyntaxError, LintError } from "../javascript/error";
 import type { SyntaxError as PySyntaxError } from "../python/error";
 import type { StaticError as JikiError } from "../jikiscript/error";
 import type { Statement as JSStatement } from "../javascript/statement";
@@ -67,6 +67,7 @@ export interface InterpretResult {
   logLines: Array<{ time: number; timeInMs: number; output: string }>;
   success: boolean;
   error: InterpreterError | null;
+  lintErrors: LintError[];
   meta: Meta;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;

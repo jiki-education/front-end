@@ -22,7 +22,7 @@ export function InspectedVisualTestResultView() {
   }
 
   return (
-    <div className={assembleClassNames(styles.visualPlayer, currentTest.status === "fail" ? "fail" : "pass")}>
+    <div className={assembleClassNames(styles.visualPlayer, currentTest.status === "pass" ? "pass" : "fail")}>
       <div className={styles.playerCanvas}>
         <div className={styles.playerContentRow}>
           <div className={styles.contentBelowTabs}>
@@ -55,7 +55,11 @@ export function InspectedVisualTestResultViewLHS({
   return (
     <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
       <div
-        className={assembleClassNames(styles.testDescription, currentTest.status === "fail" ? styles.stateFailed : "")}
+        className={assembleClassNames(
+          styles.testDescription,
+          currentTest.status === "fail" ? styles.stateFailed : "",
+          currentTest.status === "lint_warning" ? styles.stateLintWarning : ""
+        )}
       >
         <span className={styles.instructionLabel}>{currentTest.name}</span>
         {scenario.description && <p className="text-sm text-gray-600 mt-2">{scenario.description}</p>}
@@ -84,6 +88,16 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   // Only replace {value} template for IO tests (which have actual property)
   if ("actual" in firstExpect) {
     errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
+  }
+
+  if (currentTest?.status === "lint_warning") {
+    return (
+      <VisualTestResultView
+        isPassing={false}
+        errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
+        testIdx={Math.max(0, testIdx)}
+      />
+    );
   }
 
   return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;

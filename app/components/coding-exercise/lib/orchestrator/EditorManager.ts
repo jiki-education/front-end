@@ -25,6 +25,7 @@ import {
   updateReadOnlyRangesEffect
 } from "../../ui/codemirror/extensions/read-only-ranges/readOnlyRanges";
 import { addUnderlineEffect } from "../../ui/codemirror/extensions/underlineRange";
+import { setLintDecorationsEffect } from "../../ui/codemirror/extensions/lintDecorations";
 import { createEditorExtensions } from "../../ui/codemirror/setup/editorExtensions";
 import { getBreakpointLines } from "../../ui/codemirror/utils/getBreakpointLines";
 import { getCodeMirrorFieldValue } from "../../ui/codemirror/utils/getCodeMirrorFieldValue";
@@ -46,7 +47,8 @@ export class EditorManager {
     element: HTMLDivElement,
     private readonly store: StoreApi<OrchestratorStore>,
     private readonly exerciseSlug: string,
-    private readonly runCode: (code: string) => void
+    private readonly runCode: (code: string) => void,
+    private readonly lintCode?: (code: string) => void
   ) {
     this.initializeAutoSave();
     this.initializeSubscriptions();
@@ -133,6 +135,7 @@ export class EditorManager {
     let previousHighlightedLineColor = this.store.getState().highlightedLineColor;
     let previousUnderlineRange = this.store.getState().underlineRange;
     let previousLanguage = this.store.getState().language;
+    let previousLintErrors = this.store.getState().lintErrors;
 
     this.store.subscribe((state) => {
       if (state.informationWidgetData !== previousInformationWidgetData) {
@@ -172,6 +175,11 @@ export class EditorManager {
       if (state.language !== previousLanguage) {
         this.applyLanguage(state.language);
         previousLanguage = state.language;
+      }
+
+      if (state.lintErrors !== previousLintErrors) {
+        this.applyLintDecorations(state.lintErrors);
+        previousLintErrors = state.lintErrors;
       }
     });
   }
@@ -376,6 +384,21 @@ export class EditorManager {
     });
   }
 
+  applyLintDecorations(
+    lintErrors: Array<{ message: string; location: { line: number; absolute: { begin: number; end: number } } }>
+  ) {
+    this.editorView.dispatch({
+      effects: setLintDecorationsEffect.of(
+        lintErrors.map((err) => ({
+          line: err.location.line,
+          from: err.location.absolute.begin,
+          to: err.location.absolute.end,
+          message: err.message
+        }))
+      )
+    });
+  }
+
   applyLanguage(language: "javascript" | "python" | "jikiscript") {
     this.editorView.dispatch({
       effects: languageCompartment.reconfigure(getLanguageExtension(language))
@@ -557,6 +580,13 @@ export class EditorManager {
 
       () => {
         this.callOnEditorChangeCallback(this.editorView);
+      },
+
+      () => {
+        if (this.lintCode) {
+          const currentCode = this.getValue();
+          this.lintCode(currentCode);
+        }
       }
     );
   }

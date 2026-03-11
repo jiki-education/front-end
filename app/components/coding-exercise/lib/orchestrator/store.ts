@@ -81,6 +81,9 @@ export function createOrchestratorStore(
       // Play/pause state
       isPlaying: false,
 
+      // Lint errors
+      lintErrors: [],
+
       // Task management state
       taskProgress: new Map(),
       completedTasks: new Set(),
@@ -384,6 +387,9 @@ export function createOrchestratorStore(
           // Call setCurrentTest which will handle all the logic including setting time
           // and auto-playing the test.
           get().setCurrentTest(result.tests[0]);
+
+          // Update lint errors from the first test's results for editor decorations
+          set({ lintErrors: result.tests[0].lintErrors });
         }
       },
       setShouldPlayOnTestChange: (shouldAutoPlay) => set({ shouldPlayOnTestChange: shouldAutoPlay }),
@@ -513,6 +519,9 @@ export function createOrchestratorStore(
         }
       },
 
+      // Lint errors action
+      setLintErrors: (lintErrors) => set({ lintErrors }),
+
       // Task management actions
       setTaskProgress: (taskProgress) => set({ taskProgress }),
       setCompletedTasks: (completedTasks) => set({ completedTasks }),
@@ -569,6 +578,9 @@ export function createOrchestratorStore(
 
           // Reset play/pause state
           isPlaying: false,
+
+          // Reset lint errors
+          lintErrors: [],
 
           // Reset task management state
           taskProgress: new Map(),
@@ -642,6 +654,9 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
 
       // Play/pause state
       isPlaying: state.isPlaying,
+
+      // Lint errors
+      lintErrors: state.lintErrors,
 
       // Task management state
       taskProgress: state.taskProgress,

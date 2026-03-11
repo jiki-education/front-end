@@ -1,4 +1,4 @@
-import type { Frame } from "@jiki/interpreters/shared";
+import type { Frame, LintError } from "@jiki/interpreters/shared";
 import type { AnimationTimeline } from "./AnimationTimeline";
 
 // Import expect types from curriculum (single source of truth)
@@ -15,11 +15,12 @@ export interface TestFrame {
 interface BaseTestResult {
   slug: string;
   name: string;
-  status: "pass" | "fail" | "idle";
+  status: "pass" | "fail" | "idle" | "lint_warning";
   codeRun?: string;
   imageSlug?: string;
   frames: Frame[]; // Execution frames for scrubber timeline
   logLines: Array<{ time: number; output: string }>; // Console output with timestamps
+  lintErrors: LintError[];
 }
 
 // Visual test result - includes view and animation timeline
