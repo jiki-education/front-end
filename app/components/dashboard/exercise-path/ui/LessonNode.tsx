@@ -74,7 +74,12 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
   };
 
   return (
-    <div ref={ref} className={getClassName()} onClick={handleClick}>
+    <div
+      ref={ref}
+      className={getClassName()}
+      onClick={handleClick}
+      data-active-lesson={isActiveLesson ? "true" : undefined}
+    >
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
@@ -116,9 +121,7 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
         <div className={styles.partTitle}>{lesson.lesson.title}</div>
         <div className={styles.partDescription}>{lesson.lesson.description}</div>
       </div>
-      {lesson.lesson.walkthrough_video_data?.length ? (
-        <WalkthroughCard lesson={lesson} isCompleting={isAnimatingComplete} />
-      ) : null}
+      <WalkthroughCard lesson={lesson} isCompleting={isAnimatingComplete} />
     </div>
   );
 }

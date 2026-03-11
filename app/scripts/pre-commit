@@ -28,13 +28,17 @@ else
     echo "No files to format"
 fi
 
-# Run lint check on staged files only (treating warnings as errors)
-echo "🔍 Running lint check on staged files..."
+# Run lint --fix on staged files only, then check for remaining errors/warnings
+echo "🔍 Running lint --fix on staged files..."
 STAGED_TS_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.(ts|tsx|js|jsx|mjs)$' | sed 's|^app/||' || true)
 if [ -n "$STAGED_TS_FILES_RELATIVE" ]; then
     echo "Linting: $STAGED_TS_FILES_RELATIVE"
     # Convert relative paths to absolute paths for eslint
     STAGED_TS_FILES_ABSOLUTE=$(echo "$STAGED_TS_FILES_RELATIVE" | sed "s|^|$APP_DIR/|")
+    pnpm exec eslint --fix $STAGED_TS_FILES_ABSOLUTE
+    # Re-add any files that eslint auto-fixed
+    git add $STAGED_TS_FILES_RELATIVE
+    # Now check for remaining errors/warnings
     pnpm exec eslint $STAGED_TS_FILES_ABSOLUTE --max-warnings=0
     if [ $? -ne 0 ]; then
         echo "❌ Lint check failed (errors or warnings found). Commit aborted."
