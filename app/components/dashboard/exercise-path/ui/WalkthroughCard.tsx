@@ -10,7 +10,6 @@ interface WalkthroughCardProps {
 
 export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
   const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
-  // TMP: show walkthrough card on all lessons for hover animation testing
   const isLocked = !lesson.completed;
   const percentage = lesson.walkthroughVideoWatchedPercentage;
 

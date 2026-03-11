@@ -1,3 +1,7 @@
+// Dark mode is not yet designed. Theme is forced to light until dark mode is ready.
+// The dynamic theme detection logic is preserved below as dead code.
+
+/* DEAD CODE — re-enable when dark mode design is ready:
 (function () {
   try {
     var storageKey = "jiki-theme";
@@ -20,3 +24,4 @@
     // Fallback to light theme if localStorage is not available
   }
 })();
+*/
