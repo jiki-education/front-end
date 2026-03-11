@@ -1,6 +1,5 @@
 "use client";
 
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useAuthStore } from "@/lib/auth/authStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -43,8 +42,6 @@ export function AuthHeader({ title }: AuthHeaderProps) {
             <Link href="/articles" className="text-text-secondary hover:text-text-primary transition-colors">
               Articles
             </Link>
-            <ThemeToggle />
-
             {/* Auth-dependent content with hydration protection */}
             {!mounted || isLoading ? (
               // Loading skeleton to prevent layout shift
