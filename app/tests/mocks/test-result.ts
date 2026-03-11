@@ -24,6 +24,7 @@ export function createMockTestResult(overrides: Partial<TestResult> = {}): TestR
     view: document.createElement("div"),
     frames,
     logLines: [],
+    lintErrors: [],
     animationTimeline: defaultAnimationTimeline,
     ...overrides
   } as TestResult;

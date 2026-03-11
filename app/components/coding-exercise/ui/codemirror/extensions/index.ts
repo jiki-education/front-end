@@ -16,3 +16,4 @@ export { underlineExtension } from "./underlineRange";
 export { multiHighlightLine, changeMultiLineHighlightEffect, multiHighlightColorField } from "./multiLineHighlighter";
 export { breakpointGutter } from "./breakpoint";
 export { foldGutterExtension as foldGutter } from "./fold-gutter";
+export { lintDecorationsExtension, setLintDecorationsEffect } from "./lintDecorations";

@@ -37,7 +37,8 @@ describe("InspectedIOTestResultView", () => {
     functionName: "testFunction",
     args: ["arg1"],
     frames: [],
-    logLines: []
+    logLines: [],
+    lintErrors: []
   });
 
   const createMockExpect = (actual: any, expected: any): IOTestExpect => ({

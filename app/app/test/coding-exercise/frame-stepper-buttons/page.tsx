@@ -57,6 +57,7 @@ export default function FrameStepperButtonsTestPage() {
         view: document.createElement("div"),
         frames,
         logLines: [],
+        lintErrors: [],
         animationTimeline: {
           duration: 5,
           paused: true,

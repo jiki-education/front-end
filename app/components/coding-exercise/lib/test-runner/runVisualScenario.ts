@@ -73,7 +73,10 @@ export function runVisualScenario(
 
   // Determine status - fail if any expectation fails OR if any frame has an error
   const hasFrameError = frames.some((f) => f.status === "ERROR");
-  const status = expects.every((e) => e.pass) && !hasFrameError ? "pass" : "fail";
+  const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- lintErrors may be undefined in test mocks
+  const lintErrors = result.lintErrors ?? [];
+  const status = allExpectsPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
   return {
     type: "visual",
@@ -85,6 +88,7 @@ export function runVisualScenario(
     logLines: result.logLines,
     codeRun: studentCode,
     view: exercise.getView(),
-    animationTimeline
+    animationTimeline,
+    lintErrors
   };
 }

@@ -107,7 +107,7 @@ describe("runTests", () => {
     });
 
     // Default compile mock returns success
-    (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+    (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
   });
 
   describe("initial scrubber time", () => {
@@ -122,7 +122,8 @@ describe("runTests", () => {
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "move()\nmove()\nmove()";
@@ -137,7 +138,8 @@ describe("runTests", () => {
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: [],
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "";
@@ -158,7 +160,8 @@ describe("runTests", () => {
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "move()\nmove()";
@@ -181,7 +184,8 @@ describe("runTests", () => {
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: mockFrames,
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "for (let i = 0; i < 5; i++) {\n  move();\n}";
@@ -206,11 +210,12 @@ describe("runTests", () => {
         allowedNodes: ["ExpressionStatement", "CallExpression"]
       });
 
-      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }],
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "move()";
@@ -241,11 +246,12 @@ describe("runTests", () => {
         interpreterOptions: { maxTotalLoopIterations: 500 }
       });
 
-      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
       (mockJikiscript.interpret as jest.Mock).mockReturnValue({
         frames: [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }],
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       });
 
       const code = "move()";
@@ -276,16 +282,17 @@ describe("runTests", () => {
       const mockInterpretResult = {
         frames: mockFrames,
         value: undefined,
-        status: "SUCCESS"
+        status: "SUCCESS",
+        lintErrors: []
       };
 
-      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJikiscript.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
       (mockJikiscript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
 
-      (mockJavascript.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockJavascript.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
       (mockJavascript.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
 
-      (mockPython.compile as jest.Mock).mockReturnValue({ success: true });
+      (mockPython.compile as jest.Mock).mockReturnValue({ success: true, lintErrors: [] });
       (mockPython.interpret as jest.Mock).mockReturnValue(mockInterpretResult);
     });
 

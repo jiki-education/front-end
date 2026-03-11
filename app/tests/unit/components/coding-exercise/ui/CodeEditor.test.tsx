@@ -88,6 +88,9 @@ describe("CodeEditor", () => {
       // Play/pause state
       isPlaying: false,
 
+      // Lint errors state
+      lintErrors: [],
+
       // Task management state
       taskProgress: new Map(),
       completedTasks: new Set(),

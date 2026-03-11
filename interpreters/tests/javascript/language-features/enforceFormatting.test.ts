@@ -798,5 +798,37 @@ if (true) {
         });
       });
     });
+
+    describe("lint error locations", () => {
+      test("IncorrectIndentation location covers the whitespace before the token", () => {
+        const code = `repeat(60) {\n   roll()\n}`;
+        const { error, lintErrors } = interpret(code, {
+          languageFeatures: features,
+          externalFunctions: [{ name: "roll", func: () => {}, description: "roll" }],
+        });
+        expect(error).toBeNull();
+        const indentError = lintErrors.find(e => e.type === "IncorrectIndentation");
+        expect(indentError).toBeDefined();
+        // 3 spaces of indentation: relative span should be from col 1 to col 4
+        expect(indentError!.location.line).toBe(2);
+        expect(indentError!.location.relative.begin).toBe(1);
+        expect(indentError!.location.relative.end).toBe(4);
+      });
+
+      test("OpeningBraceContentNotOnOwnLine location covers the content after the brace", () => {
+        const code = `repeat(60) { roll()\n}`;
+        const { error, lintErrors } = interpret(code, {
+          languageFeatures: features,
+          externalFunctions: [{ name: "roll", func: () => {}, description: "roll" }],
+        });
+        expect(error).toBeNull();
+        // Should only produce one lint error, not a spurious indentation error
+        expect(lintErrors).toHaveLength(1);
+        expect(lintErrors[0].type).toBe("OpeningBraceContentNotOnOwnLine");
+        // Location should point at "roll", not at "{"
+        expect(lintErrors[0].location.line).toBe(1);
+        expect(lintErrors[0].location.relative.begin).toBe(14);
+      });
+    });
   });
 });

@@ -143,7 +143,8 @@ export function runIOScenario(
     codeCheckResults
   };
 
-  const status = overallPass ? "pass" : "fail";
+  const lintErrors = interpretResult?.lintErrors ?? [];
+  const status = overallPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
   return {
     type: "io",
@@ -154,6 +155,7 @@ export function runIOScenario(
     functionName: scenario.functionName,
     args: scenario.args,
     frames,
-    logLines
+    logLines,
+    lintErrors
   };
 }

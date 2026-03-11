@@ -44,16 +44,12 @@ export function TestResultsButtons() {
             <button
               key={scenario.slug + idx}
               onClick={() => handleSelection(idx, test)}
-              className={assembleClassNames(
-                styles.Dot,
-                styles[`${status}ed`],
-                currentTestIdx === idx ? styles.active : ""
-              )}
+              className={assembleClassNames(styles.Dot, styles[status], currentTestIdx === idx ? styles.active : "")}
             />
           );
         })}
       </div>
-      <div className={assembleClassNames(styles.StatusLine, styles[`${statusLineStatus}ed`])} />
+      <div className={assembleClassNames(styles.StatusLine, styles[statusLineStatus])} />
     </div>
   );
 }

@@ -32,7 +32,7 @@ export async function runTests(
     ...exercise.interpreterOptions
   };
 
-  // Compile ONCE before running any scenarios
+  // Compile ONCE before running any scenarios to catch syntax errors early
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
     languageFeatures

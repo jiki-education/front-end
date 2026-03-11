@@ -61,6 +61,7 @@ export default function BreakpointGutterTestPage() {
       view: document.createElement("div"),
       frames,
       logLines: [],
+      lintErrors: [],
       animationTimeline: {
         duration: 8,
         paused: true,

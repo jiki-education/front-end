@@ -67,6 +67,9 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       // Play/pause state
       isPlaying: false,
 
+      // Lint errors state
+      lintErrors: [],
+
       // Task management state
       taskProgress: new Map(),
       completedTasks: new Set(),
@@ -123,6 +126,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       setHasUnhandledError: jest.fn(),
       setUnhandledErrorBase64: jest.fn(),
       setHasSyntaxError: jest.fn(),
+      setLintErrors: jest.fn(),
 
       // Editor handler actions
       setLatestValueSnapshot: jest.fn(),

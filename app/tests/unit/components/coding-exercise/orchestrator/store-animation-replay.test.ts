@@ -34,6 +34,7 @@ describe("Store Animation Replay Bug", () => {
     view: document.createElement("div"),
     frames,
     logLines: [],
+    lintErrors: [],
     animationTimeline: {
       play: jest.fn(),
       pause: jest.fn(),
