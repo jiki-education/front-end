@@ -1,4 +1,4 @@
-import { RangeSet, RangeSetBuilder, type Extension } from "@codemirror/state";
+import { Compartment, RangeSet, RangeSetBuilder, type Extension } from "@codemirror/state";
 import type { ReadonlyRange } from "@jiki/curriculum";
 import type { ViewUpdate } from "@codemirror/view";
 import { Decoration, GutterMarker, ViewPlugin, gutter, gutterLineClass, type DecorationSet } from "@codemirror/view";
@@ -120,7 +120,7 @@ const lockedLineGutterHighlighter = gutterLineClass.compute([readOnlyRangesState
   return RangeSet.of(marks);
 });
 
-const iconContainerGutter = gutter({
+const lockGutterExtension = gutter({
   class: "cm-icon-container-gutter",
   lineMarker: (view, line) => {
     const readOnlyRanges = view.state.field(readOnlyRangesStateField);
@@ -137,6 +137,36 @@ const iconContainerGutter = gutter({
   }
 });
 
+const lockGutterCompartment = new Compartment();
+
+const dynamicLockGutter = ViewPlugin.fromClass(
+  class {
+    private gutterActive: boolean;
+
+    constructor(view: EditorView) {
+      this.gutterActive = false;
+      this.syncGutter(view);
+    }
+
+    update(update: ViewUpdate) {
+      if (update.startState.field(readOnlyRangesStateField) !== update.state.field(readOnlyRangesStateField)) {
+        this.syncGutter(update.view);
+      }
+    }
+
+    private syncGutter(view: EditorView) {
+      const hasRanges = view.state.field(readOnlyRangesStateField).length > 0;
+      if (hasRanges === this.gutterActive) {
+        return;
+      }
+      this.gutterActive = hasRanges;
+      void Promise.resolve().then(() => {
+        view.dispatch({ effects: lockGutterCompartment.reconfigure(hasRanges ? lockGutterExtension : []) });
+      });
+    }
+  }
+);
+
 export function readOnlyRangeDecoration(): Extension {
-  return [baseTheme, showStripes, iconContainerGutter, lockedLineGutterHighlighter];
+  return [baseTheme, showStripes, lockGutterCompartment.of([]), dynamicLockGutter, lockedLineGutterHighlighter];
 }
