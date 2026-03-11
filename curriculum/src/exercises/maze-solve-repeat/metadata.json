@@ -4,24 +4,12 @@
   "levelId": "repeat-loop",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Look for groups of consecutive move() calls"
+      "question": "I have no idea what to do",
+      "answer": "Look for groups of consecutive `move()` calls. For example, instead of:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nYou can write:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nFind the groups and replace them!"
     },
     {
-      "question": "Hint",
-      "answer": "Each group of N consecutive move() calls can become a repeat(N) { move(); } block"
-    },
-    {
-      "question": "Hint",
-      "answer": "Count how many move() calls are in each group to get the repeat count"
-    },
-    {
-      "question": "Hint",
-      "answer": "The turn functions should stay outside the repeat blocks"
-    },
-    {
-      "question": "Hint",
-      "answer": "A repeat block is only shorter when the group has 3 or more calls"
+      "question": "Using repeats but got too many lines?",
+      "answer": "Is it always better to use a repeat? In some cases, it might be shorter to just have two moves next to each other."
     }
   ]
 }
