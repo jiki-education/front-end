@@ -37,7 +37,8 @@ circle(43, 34, 1, "white");
 //
 
 // Nose
-triangle(46, 38, 50, 38, 50, 47, "orange"); // TODO: Change the nose to be symmetrical.
+// TODO: Change the nose to be symmetrical.
+triangle(46, 38, 50, 38, 50, 47, "orange");
 
 // Left Foot
 ellipse(40, 93, 7, 4, "orange");

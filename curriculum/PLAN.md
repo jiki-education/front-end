@@ -42,44 +42,43 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 
 ### Fully Checked
 
-Nothing yet
-
-### Implemented
-
 - `maze-solve-basic` - Basic manual maze solving using only move() turn_left() turn_right()
-- `maze-solve-walk` - Walk Through a Maze: use walk(steps) with arguments to navigate a maze (Using Functions level)
 - `space-invaders-solve-basic` - Basic Space Invaders using sequential move() and shoot() calls
+- `maze-solve-walk` - Walk Through a Maze: use walk(steps) with arguments to navigate a maze (Using Functions level)
 - `fix-wall` - Fix the Wall: draw rectangles to fill holes in a wall (Using Functions level)
-- `sunshine` - Sunshine: draw a circle to complete a sun picture (Using Functions level)
+- `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
+
+### Implemented (ordered to match curriculum.json)
+
+- `snowman-basic` - Snowman Basic: build a snowman from three circles (Using Functions level)
 - `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
 - `penguin` - Penguin: draw shapes with colors to build a penguin (Strings and Colors level)
-- `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
 - `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
+- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 - `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
-- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 - `snowman` - Snowman: use variables to position snowman parts (Variables level)
 - `traffic-lights` - Traffic Lights: use variables to draw traffic light (Variables level)
 - `relational-sun` - Relational Sun: use arithmetic to position sun rays (Variables level)
 - `relational-snowman` - Relational Snowman: use arithmetic for snowman proportions (Variables level)
 - `relational-traffic-lights` - Relational Traffic Lights: use arithmetic for traffic light positioning (Variables level)
-- `structured-house` - Structured House: capstone project using variables (Variables level)
 - `plant-the-flowers` - Plant the Flowers: track position variable and plant 9 flowers using repeat loop (Basic State level)
 - `golf-rolling-ball-state` - Golf Rolling Ball State: track x variable and use move_ball_to(x) in a loop (Basic State level)
 - `finish-wall` - Finish the Wall: use repeat loop to add top layer of bricks (Basic State level)
-- `rainbow` - Rainbow: use HSL colors to draw rainbow arcs (Basic State level)
-- `sunset` - Sunset: animate sky color changes with state (Basic State level)
-- `sprouting-flower` - Sprouting Flower: capstone project using state (Basic State level)
 - `dnd-roll` - D&D Roll: store return values from roll() and use them in announce() and strike() (Functions That Return Things level)
 - `gold-panning` - Gold Panning: use return value from pan() in a loop with an accumulator, then sell total (Functions That Return Things level)
+- `rainbow` - Rainbow: use HSL colors to draw rainbow arcs (Functions That Return Things level)
+- `sunset` - Sunset: animate sky color changes with state (Functions That Return Things level)
+- `random-salad` - Random Salad: toss together a random salad from different ingredients (Functions That Return Things level)
 - `rainbow-splodges` - Rainbow Splodges: use return values to get colors (Functions That Return Things level)
+- `stock-market` - Stock Market: track investment as market randomly rises and falls (Functions That Return Things level)
+- `golf-scenarios` - Golf Scenarios: roll a ball to the correct spot (Functions That Return Things level)
 - `plant-the-flowers-scenarios` - Plant the Flowers Scenarios: multi-scenario version (Functions That Return Things level)
-- `golf-scenarios` - Golf Scenarios: use getShotLength() return value in a loop with multiple scenarios (Functions That Return Things level)
 - `cityscape-skyscraper` - Skyscraper: use return values to build skyscraper (Functions That Return Things level)
 - `space-invaders-nested-repeat` - Space Invaders Nested Repeat: nested repeat loops to shoot 4 rows of aliens (Functions That Return Things level)
 - `cityscape-skyline` - Skyline: nested loops to build a city skyline (Functions That Return Things level)
 - `bouncer` - Bouncer: use if statements to check age (Conditionals level)
-- `space-invaders-conditional` - Scroll and Shoot: use conditionals to shoot aliens (Conditionals level)
+- `space-invaders-conditional` - Space Invaders Conditional: use conditionals to shoot aliens (Conditionals level)
 - `bouncer-wristbands` - Bouncer Wristbands: use else/else-if for wristband colors (Conditionals level)
 - `digital-clock` - Digital Clock: use conditionals to display time (Conditionals level)
 - `bouncer-dress-code` - Bouncer Dress Code: use and/or for complex conditions (Complex Conditionals level)
@@ -88,225 +87,75 @@ Nothing yet
 - `maze-automated-solve` - Programmatically Solve a Maze: left-hand rule algorithm with sensing functions (Complex Conditionals level)
 - `build-wall` - Build the Wall: nested loops to build a full brick wall with alternating rows (Conditionals and State level)
 - `scroll-and-shoot` - Scroll and Shoot: move laser back and forth shooting aliens with state tracking (Conditionals and State level)
-- `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
 - `maze-turn-around` - Turn Around: define a turn_around() function for maze solving (Make Your Own Functions level)
-- `maze-walk` - Walk: define a walk(steps) function with a parameter to move multiple steps (Make Your Own Functions level)
-- `look-around` - Look Around: implement canTurnLeft/canTurnRight/canMove sensing functions using look(direction) (Make Your Own Functions level)
 - `battle-procedures` - Battle Procedures: refactor scroll-and-shoot logic into three named functions (Make Your Own Functions level)
+- `maze-walk` - Walk: define a walk(steps) function with a parameter to move multiple steps (Make Your Own Functions level)
 - `even-or-odd` - Even or Odd: determine if a number is even or odd using remainder operator (Adding Returns to Your Functions level)
 - `triangle` - Triangle: determine if a triangle is valid and classify as equilateral, isosceles, or scalene (Adding Returns to Your Functions level)
-- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
 - `leap` - Leap Years: determine if a year is a leap year using remainder and logical operators (Make Your Own Functions level)
+- `collatz-conjecture` - Collatz Conjecture: calculate steps to reach 1 in the Collatz sequence (Adding Returns to Your Functions level)
+- `look-around` - Look Around: implement canTurnLeft/canTurnRight/canMove sensing functions using look(direction) (Make Your Own Functions level)
 - `hello` - Hello: greet a person by name using string concatenation (String Manipulation level)
-- `three-letter-acronym` - Three Letter Acronym: build a 3-letter acronym from first letters of 3 words using string indexing and concatenate (String Manipulation level)
 - `two-fer` - Two-Fer: greet someone with a cookie offer using concatenation (String Manipulation level)
-- `hamming` - Hamming: calculate Hamming distance between two DNA strands (String Manipulation level)
 - `raindrops` - Raindrop Sounds: convert number to raindrop sounds based on divisibility (String Manipulation level)
+- `three-letter-acronym` - Three Letter Acronym: build a 3-letter acronym from first letters of 3 words using string indexing and concatenate (String Iteration level)
+- `tile-search` - Tile Search: search through a rack of tiles to find a specific letter (String Iteration level)
+- `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
+- `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
 - `reverse-string` - Reverse String: reverse a string character by character (String Iteration level)
 - `driving-test` - Driving Test: evaluate driving test results by iterating through marks (String Iteration level)
+- `hamming` - Hamming: calculate Hamming distance between two DNA strands (String Iteration level)
+- `niche-named-party` - Niche Named Party: check if a person's name starts with the required prefix (Multiple Functions level)
+- `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
+- `alphanumeric` - Alphanumeric: classify strings as alpha, numeric, alphanumeric, or unknown using multiple helper functions (Multiple Functions level)
 - `pangram` - Pangram: check if a sentence uses every letter of the alphabet (Methods and Properties level)
 - `nucleotide` - Nucleotide: count occurrences of a specific nucleotide in a DNA strand (Methods and Properties level)
-- `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Methods and Properties level)
-- `acronym` - Acronym: convert a phrase to its acronym (Methods and Properties level, project)
-- `guest-list` - Guest List: check if someone is on the guest list (Lists level)
-- `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
-- `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)
-- `process-guess` - Wordle: Process Guess: process a Wordle guess and color the row (Lists level)
-- `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
-- `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
-- `tic-tac-toe` - Tic Tac Toe: build a complete tic-tac-toe game with board drawing, win/draw detection, and AI (Lists level)
-- `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
-- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Dictionaries level)
-- `tile-rack` - Tile Rack: find position of a letter tile in a Scrabble rack using string iteration and index tracking (String Iteration level)
-- `tile-search` - Tile Search: check if a specific letter tile is in a Scrabble rack using list iteration (Lists level)
-- `sign-price` - Sign Price: calculate price of a sign by counting non-space characters and multiplying by 12 (String Iteration level)
-- `niche-named-party` - Niche Named Party: bouncer exercise checking if a person's name starts with the required prefix using a starts_with helper function (Everything level)
-- `lower-pangram` - Lower Pangram: check if a lowercase sentence is a pangram using an includes helper function (Multiple Functions level)
-- `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet using multiple helper functions (Multiple Functions level, project)
-- `alphanumeric` - Alphanumeric: classify strings as alpha, numeric, alphanumeric, or unknown using multiple helper functions (Multiple Functions level)
+- `isbn-verifier` - ISBN Verifier: validate ISBN-10 numbers (Advanced Loops level)
 - `weather-symbols-part-1` - Weather Symbols (Part 1): map weather descriptions to lists of drawing components using if/else if (Lists level)
 - `weather-symbols-part-2` - Weather Symbols (Part 2): draw weather scenes from a list of element types using conditionals and helper functions (Lists level)
-- `alien-detector` - Alien Detector: track and shoot aliens using list data instead of isAlienAbove(), with fireworks celebration (Lists level)
-- `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit using the classic sieve algorithm (Dictionaries level)
+- `guest-list` - Guest List: check if someone is on the guest list (Lists level)
+- `after-party` - After Party: check VIP list when celebrities only give first name (Lists level)
+- `formal-dinner` - Formal Dinner: match guests to dinner list using honorific and surname (Lists level)
+- `lunchbox` - Lunchbox: pack a lunchbox using lists and push with conditional milkshake exclusion (Lists level)
+- `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
+- `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)
+- `wordle-process-guess` - Wordle Process Guess: process a Wordle guess and color the row (Lists level)
+- `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
+- `chop-shop` - Chop Shop: work out if the barber has time for one more customer (Lists level)
+- `wordle-process-game` - Wordle Process Game: process a whole Wordle game, colouring each guess row by row (Lists level)
+- `lookup-time` - Lookup Time: look up the current time for a city (Dictionaries level)
+- `scrabble-score` - Scrabble Score: calculate the score for a Scrabble word (Dictionaries level)
+- `rna-transcription` - RNA Transcription: convert DNA to RNA using multiple helper functions (Dictionaries level)
+- `protein-translation` - Protein Translation: translate RNA sequences into proteins (Dictionaries level)
 - `spotify` - Spotify Data: fetch and format favorite artists from a mock Spotify API using chained fetch calls (Dictionaries level)
-- `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary and announce results (Dictionaries level)
-- `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Everything level)
-- `boundaried-ball` - Boundaried Ball: create a Ball instance and bounce it off walls using OOP (Objects level)
+- `word-count` - Word Count: count word frequencies in a sentence using dictionaries and has_key (Dictionaries level)
+- `llm-response` - LLM Response: fetch and parse mock LLM API response, selecting best answer by certainty and formatting with unit conversions (Dictionaries level)
+- `nucleotide-count` - Nucleotide Count: count all different nucleotides in a DNA strand (Dictionaries level)
+
+### Needs Changes
+
+#### Foxy Fox
+
+- [ ] Add triangle diagram and instructions
+
+#### Penguin
+
+- [ ] Add ellipse diagram and instructions
+
+### Implemented Projects (not in curriculum.json, in projects.json)
+
+- `structured-house` - Structured House: capstone project using variables (Variables level)
+- `sprouting-flower` - Sprouting Flower: capstone project using state (Functions That Return Things level)
+- `rainbow-ball` - Rainbow Ball: bouncing ball with rainbow trail using conditionals and state (Conditionals and State level)
+- `caesar-cipher` - Caesar Cipher: encode messages by shifting letters in the alphabet (Multiple Functions level)
+- `acronym` - Acronym: convert a phrase to its acronym (Advanced Loops level)
+- `alien-detector` - Alien Detector: track and shoot aliens using list data (Lists level)
+- `tic-tac-toe` - Tic Tac Toe: build a complete tic-tac-toe game (Dictionaries level)
+- `sieve` - Sieve of Eratosthenes: find all prime numbers up to a given limit (Dictionaries level)
+- `emoji-collector` - Emoji Collector: navigate maze collecting emojis into a dictionary (Dictionaries level)
+- `matching-socks` - Matching Socks: find matching pairs of socks across two laundry baskets (Lists level)
+
+### Implemented (Objects level — not yet in curriculum.json)
+
+- `boundaried-ball` - Boundaried Ball: create a Ball instance and bounce it off walls (Objects level)
 - `smashing-blocks` - Smashing Blocks: add blocks to the breakout game and smash them with the bouncing ball (Objects level)
-
-### Unimplemented
-
-## API Alignment Issues
-
-Changes needed in `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`:
-
-### Slug Fixes
-
-- [ ] Rename `fix-the-wall` → `fix-wall` in API seed
-- [ ] Rename `finish-the-wall` → `finish-wall` in API seed
-- [ ] Rename `cloud-rain-sun-variables` → `cloud-rain-sun` in API seed (and move from Variables to Strings and Colors level)
-
-### Missing Levels
-
-- [ ] Add `functions-that-return-things` level to API seed
-- [ ] Add `conditionals` level to API seed
-- [ ] Add `conditionals-and-state` level to API seed
-
-### Missing Exercises (levels 6-8)
-
-- [ ] Add exercises for **Functions that return things**: Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
-- [ ] Add exercises for **Conditionals**: Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
-- [ ] Add exercises for **Conditionals and state**: Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
-
-## Current State
-
-### Levels
-
-| #   | Curriculum Level             | Front-end Level File                     | API Seed Slug        | Status                                  |
-| --- | ---------------------------- | ---------------------------------------- | -------------------- | --------------------------------------- |
-| 1   | Using Functions              | `using-functions.ts` + `fundamentals.ts` | `using-functions`    | Merge fundamentals into using-functions |
-| 2   | Strings + Colors             | —                                        | `strings-and-colors` | MISSING in front-end                    |
-| 3   | Loops (Repeat Loop)          | —                                        | `repeat-loop`        | MISSING in front-end                    |
-| 4   | Variables                    | `variables.ts`                           | `variables`          | EXISTS                                  |
-| 5   | Basic State                  | —                                        | `basic-state`        | MISSING in front-end                    |
-| 6   | Functions that return things | —                                        | —                    | MISSING everywhere                      |
-| 7   | Conditionals                 | —                                        | —                    | MISSING everywhere                      |
-| 8   | Conditionals and state       | —                                        | —                    | MISSING everywhere                      |
-| —   | (catch-all)                  | `everything.ts`                          | —                    | Keep as testing/fallback level          |
-
-**Action: Rename `fundamentals` to `using-functions`** (merge its features into using-functions, then delete fundamentals.ts).
-
-### Exercise Slug Mismatches (API vs Front-end)
-
-These exercises exist in both but with different slugs — **must be reconciled**:
-
-| API Seed Slug     | Front-end Slug | Action Needed |
-| ----------------- | -------------- | ------------- |
-| `fix-the-wall`    | `fix-wall`     | Align slugs   |
-| `finish-the-wall` | `finish-wall`  | Align slugs   |
-
-### Exercises in API Seed — Status in Front-end
-
-**Using Functions level:**
-
-| API Slug                     | Front-end          | Status                                                      |
-| ---------------------------- | ------------------ | ----------------------------------------------------------- |
-| `maze-solve-basic`           | `maze-solve-basic` | EXISTS                                                      |
-| `space-invaders-solve-basic` | —                  | MISSING — new exercise (simple move+shoot, no conditionals) |
-| `fix-the-wall`               | `fix-wall`         | IMPLEMENTED (slug mismatch)                                 |
-| `sunshine`                   | `sunshine`         | IMPLEMENTED                                                 |
-
-**Strings and Colors level:**
-
-| API Slug        | Front-end       | Status                           |
-| --------------- | --------------- | -------------------------------- |
-| `foxy-face`     | `foxy-face`     | IMPLEMENTED                      |
-| `sun-and-rain`  | —               | MISSING — has bootcamp reference |
-| `jumbled-house` | `jumbled-house` | EXISTS                           |
-| `penguin`       | `penguin`       | EXISTS                           |
-
-**Repeat Loop level:**
-
-| API Slug                 | Front-end | Status                                                                   |
-| ------------------------ | --------- | ------------------------------------------------------------------------ |
-| `golf-rolling-ball-loop` | —         | MISSING — new exercise variant                                           |
-| `space-invaders-loop`    | —         | MISSING — new exercise variant (repeat loop version of scroll-and-shoot) |
-
-**Variables level:**
-
-| API Slug                   | Front-end          | Status                           |
-| -------------------------- | ------------------ | -------------------------------- |
-| `cloud-rain-sun-variables` | —                  | MISSING — has bootcamp reference |
-| `structured-house`         | `structured-house` | EXISTS                           |
-| `maze-variables`           | —                  | MISSING — has bootcamp reference |
-
-**Basic State level:**
-
-| API Slug            | Front-end     | Status                           |
-| ------------------- | ------------- | -------------------------------- |
-| `finish-the-wall`   | `finish-wall` | EXISTS (slug mismatch)           |
-| `golf-rolling-ball` | —             | MISSING — has bootcamp reference |
-| `rainbow`           | `rainbow`     | EXISTS                           |
-| `sunset`            | `sunset`      | EXISTS                           |
-
-**Projects:**
-
-| API Slug           | Front-end          | Status |
-| ------------------ | ------------------ | ------ |
-| `sprouting-flower` | `sprouting-flower` | EXISTS |
-
-### Exercises in Curriculum Plan but NOT in API Seed (levels 6-8)
-
-These are from levels that don't exist in the API yet. They need both front-end exercises AND API seed entries:
-
-**Functions that return things:** Rainbow Splodges, Plant the Flowers (Scenarios), Shot Checker, Skyscraper
-
-**Conditionals:** Scroll and Shoot (if version), Positive/negative/zero, Digital Clock, Leap Year, Shot Checker (ball drop), Rock Paper Scissors, Scroll and Shoot (full L/R), Solve the maze (programmatic)
-
-**Conditionals and state:** Scroll and Shoot (stateful version), Build the Wall, Rainbow Ball
-
-### Existing Exercises Not Yet in Curriculum Path
-
-These exist in the front-end but are in the "Unused" section of curriculum.md:
-
-`chop-shop`, `after-party`, `formal-dinner`, `matching-socks`, `nucleotide-count`, `scrabble-score`, `protein-translation`, `anagram`, `process-game`, `wordle-solver`
-
-## Exercise Variants
-
-Some exercises appear at multiple levels with different complexity. These are **separate exercises with different slugs**, not the same exercise. For example:
-
-- `space-invaders-solve-basic` (Using Functions) — just move + shoot, no loops
-- `space-invaders-loop` (Repeat Loop) — use repeat loop to be efficient
-- `scroll-and-shoot` (Conditionals) — full version with if/else, direction tracking
-
-- `golf-rolling-ball-loop` (Repeat Loop) — repeat-based ball movement
-- `golf-rolling-ball` (Basic State) — state-tracking ball movement
-
-Each variant uses the same base class but has different scenarios, restrictions, and learning goals.
-
-## Approach
-
-### Phase 1: Fix Foundations
-
-1. **Merge `fundamentals` into `using-functions`**: Move stdlib functions and any unique features from `fundamentals.ts` into `using-functions.ts`, delete `fundamentals.ts`, update `src/levels/index.ts`
-2. **Fix slug mismatches**: Decide whether to rename in front-end or API, then align
-
-### Phase 2: Add Missing Levels (front-end)
-
-Add levels in order using `/add-level`. Each level inserted in correct position in `src/levels/index.ts`. The `everything` level stays last.
-
-1. `strings-and-colors`
-2. `repeat-loop`
-3. (variables already exists)
-4. `basic-state`
-5. `functions-that-return-things`
-6. `conditionals`
-7. `conditionals-and-state`
-
-After adding levels, update existing exercises to use their correct `levelId` in `metadata.json`.
-
-### Phase 3: Add Missing Exercises (front-end)
-
-For exercises that have bootcamp references, use `/migrate-exercise`.
-For new exercises (variants, new concepts), use `/add-exercise`.
-
-Priority order: match the API seed data first (levels 1-5), then curriculum plan extras (levels 6-8).
-
-### Phase 4: Update API Seed Data
-
-Once front-end exercises are ready for levels 6-8:
-
-1. Add new levels to `/Users/iHiD/Code/jiki/api/db/seeds/curriculum.json`
-2. Add exercise lessons under each level
-3. Add any new projects to `/Users/iHiD/Code/jiki/api/db/seeds/projects.json`
-
-Ensure all exercise `data.slug` values match front-end exercise slugs exactly.
-
-### Phase 5: Verification
-
-- `pnpm typecheck` — all types pass
-- `pnpm test` — all tests pass
-- `pnpm lint` — clean
-- Cross-reference: every exercise `data.slug` in API seed exists in `src/exercises/index.ts`
-- Cross-reference: every exercise in `src/exercises/` has correct `levelId`
-- Cross-reference against curriculum.md to confirm nothing is missing

@@ -3,23 +3,18 @@ title: "Penguin"
 description: ""
 ---
 
-Your task is to make the penguin symmetrical.
+In this exercise we draw ellipses for the first time, and also think a bit more about the symmetry we mentioned in Foxy Face.
 
-It should look like this:
+This exercise uses ellipses. Ellipses are like stretched out circles. We still specify the center point, but rather than just one radius we use two - the horizontal radius and the vertical radius. If the vertical radius is larger than the horizontal one, the ellipse will look tall. And if the horizontal radius is larger than the vertical one, the ellipse will look squat. If you set both the radii to be the same, you have a circle again!
 
-![Penguin](https://assets.exercism.org/bootcamp/graphics/penguin-finished.png)
+[INSERT ELLIPSE IMAGE HERE]
 
-The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle.
+### The Penguin
 
-We've drawn the left hand side for you, and added `TODO` comments for each of the things you need to do.
+Your task is to draw the right hand side of the penguin, and to try and do so **WITHOUT** hovering over the coordinates or guessing at them. The finished drawing should look like this:
 
-Each shape function takes a color as its last argument. The colors used are `"skyblue"`, `"white"`, `"black"`, and `"orange"`.
+<img src="/static/images/exercise-assets/penguin/penguin-finished.png" alt="Penguin" style="max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-For the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.
+We've drawn half the image for you. By reading the code that's there, you should be able to work out the other details to make it symmetrical. Remember, the top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle. For the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.
 
-The functions used in this exercise are:
-
-- `circle(cx, cy, radius, color)`
-- `rectangle(x, y, width, height, color)`
-- `ellipse(cx, cy, radiusX, radiusY, color)`
-- `triangle(x1,y1, x2,y2, x3,y3, color)`
+**Start by pressing _"Run Code"_** to see what the starting image looks like. Have fun!

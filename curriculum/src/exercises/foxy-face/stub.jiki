@@ -1,14 +1,16 @@
-// TODO: Draw the white cheeks
-
 // TODO: Draw the left ear
 
+// TODO: Draw the left part of the face
+
+// TODO: Draw the left cheek
+
 // TODO: Draw the right ear
+// Can you work this out without hovering?
 
-// TODO: Draw the left face
+// TODO: Draw the right part of the face
 
-// TODO: Draw the right face
+// TODO: Draw the right cheek
 
-// Nose top
-triangle(40, 90, 50, 85, 60, 90, "charcoal")
+// TODO: Draw the nose top
 
 // TODO: Draw the nose bottom
