@@ -22,7 +22,10 @@ export default function FunctionsView({ functions }: FunctionsViewProps) {
           </div>
 
           <div className="prose prose-sm max-w-none">
-            <div className="text-gray-700 mb-3" dangerouslySetInnerHTML={{ __html: marked(func.description) }} />
+            <div
+              className="text-gray-700 mb-3"
+              dangerouslySetInnerHTML={{ __html: marked.parse(func.description, { async: false }) }}
+            />
           </div>
 
           {func.examples && func.examples.length > 0 && (
@@ -33,7 +36,9 @@ export default function FunctionsView({ functions }: FunctionsViewProps) {
                   <div
                     key={idx}
                     className="prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{ __html: marked(`\`\`\`javascript\n${example}\n\`\`\``) }}
+                    dangerouslySetInnerHTML={{
+                      __html: marked.parse(`\`\`\`javascript\n${example}\n\`\`\``, { async: false })
+                    }}
                   />
                 ))}
               </div>

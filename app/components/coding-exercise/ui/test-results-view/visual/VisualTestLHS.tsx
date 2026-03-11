@@ -32,7 +32,7 @@ export function VisualTestLHS({
           <div className="my-8">
             <div
               className="ui-textual-content ui-textual-content-compact"
-              dangerouslySetInnerHTML={{ __html: marked.parse(scenario.description) }}
+              dangerouslySetInnerHTML={{ __html: marked.parse(scenario.description, { async: false }) }}
             />
           </div>
         )}

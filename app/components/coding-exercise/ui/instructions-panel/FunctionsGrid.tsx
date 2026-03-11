@@ -25,7 +25,7 @@ export default function FunctionsGrid({ functions, className = "" }: FunctionsGr
             <div
               className={styles.functionDescription}
               dangerouslySetInnerHTML={{
-                __html: marked(func.description)
+                __html: marked.parse(func.description, { async: false })
               }}
             />
             {func.examples && func.examples.length > 0 && (

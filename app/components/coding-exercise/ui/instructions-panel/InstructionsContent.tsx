@@ -33,7 +33,7 @@ const InstructionsContent = forwardRef<HTMLDivElement, InstructionsContentProps>
         ref={contentRef}
         className={styles.instructionsContent}
         dangerouslySetInnerHTML={{
-          __html: marked(instructions)
+          __html: marked.parse(instructions, { async: false })
         }}
       />
     </div>

@@ -21,11 +21,13 @@ test.describe("Test Runner E2E", () => {
     // Click the Run Code button
     await page.locator('[data-testid="run-button"]').click();
 
-    // Wait for test buttons to appear first (indicates tests have run)
-    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
-
-    // Then wait for the test result view to appear
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
+    await page
+      .locator(
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+      )
+      .first()
+      .waitFor();
 
     // Check that test suite results show (2 regular tests + 1 bonus test)
     const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").all();
@@ -66,11 +68,13 @@ test.describe("Test Runner E2E", () => {
     // Click Run Code
     await page.locator('[data-testid="run-button"]').click();
 
-    // Wait for test buttons to appear first
-    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
-
-    // Then wait for test result view
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
+    await page
+      .locator(
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+      )
+      .first()
+      .waitFor();
 
     // Check that tests fail
     const testStatus = await page.locator('[data-testid="test-selector-buttons"]').evaluate((el) => {
@@ -100,8 +104,13 @@ test.describe("Test Runner E2E", () => {
 
     await page.locator('[data-testid="run-button"]').click();
 
-    // Wait for test results and buttons
-    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
+    // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
+    await page
+      .locator(
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+      )
+      .first()
+      .waitFor();
 
     // Click second test button
     const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").all();
@@ -129,8 +138,13 @@ test.describe("Test Runner E2E", () => {
 
     await page.locator('[data-testid="run-button"]').click();
 
-    // Wait for test buttons first
-    await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").first().waitFor();
+    // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
+    await page
+      .locator(
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+      )
+      .first()
+      .waitFor();
 
     // Then wait for scrubber to appear
     await page.locator('[data-testid="scrubber"]').waitFor();

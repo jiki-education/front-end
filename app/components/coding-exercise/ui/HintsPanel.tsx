@@ -155,7 +155,13 @@ function HintAnswerContent({ answer, style }: { answer: string[]; style: any }) 
     }
   }, [markdown]);
 
-  return <div ref={ref} className={style?.hintAnswerContent} dangerouslySetInnerHTML={{ __html: marked(markdown) }} />;
+  return (
+    <div
+      ref={ref}
+      className={style?.hintAnswerContent}
+      dangerouslySetInnerHTML={{ __html: marked.parse(markdown, { async: false }) }}
+    />
+  );
 }
 
 interface HintItemProps {
