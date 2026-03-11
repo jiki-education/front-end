@@ -1,7 +1,6 @@
 import React from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
-import type { Frame } from "@jiki/interpreters/shared";
 import styles from "../../CodingExercise.module.css";
 
 interface FrameStepperButtonsProps {
@@ -16,7 +15,7 @@ export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProp
     <>
       <button
         disabled={!enabled || !prevFrame}
-        onClick={() => handleGoToPreviousFrame(orchestrator, prevFrame)}
+        onClick={() => handleGoToPreviousFrame(orchestrator)}
         className={styles.navBtn}
         aria-label="Previous frame"
       >
@@ -24,7 +23,7 @@ export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProp
       </button>
       <button
         disabled={!enabled || !nextFrame}
-        onClick={() => handleGoToNextFrame(orchestrator, nextFrame)}
+        onClick={() => handleGoToNextFrame(orchestrator)}
         className={styles.navBtn}
         aria-label="Next frame"
       >
@@ -38,13 +37,17 @@ export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProp
 /* EVENT HANDLERS */
 /* **************** */
 
-function handleGoToPreviousFrame(orchestrator: ReturnType<typeof useOrchestrator>, prevFrame: Frame | undefined) {
+function handleGoToPreviousFrame(orchestrator: ReturnType<typeof useOrchestrator>) {
+  orchestrator.pause();
+  const prevFrame = orchestrator.getStore().getState().prevFrame;
   if (prevFrame) {
     orchestrator.setCurrentTestTime(prevFrame.time);
   }
 }
 
-function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>, nextFrame: Frame | undefined) {
+function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>) {
+  orchestrator.pause();
+  const nextFrame = orchestrator.getStore().getState().nextFrame;
   if (nextFrame) {
     orchestrator.setCurrentTestTime(nextFrame.time);
   }

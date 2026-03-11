@@ -131,6 +131,11 @@ export class AnimationTimeline {
     return this.animationTimeline.paused;
   }
 
+  public get currentTime(): number {
+    // Convert milliseconds to microseconds
+    return Math.round(this.animationTimeline.currentTime * TIME_SCALE_FACTOR);
+  }
+
   public get completed(): boolean {
     return this.animationTimeline.completed;
   }
