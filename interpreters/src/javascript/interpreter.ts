@@ -1,4 +1,4 @@
-import { parse } from "./parser";
+import { Parser } from "./parser";
 import { Executor } from "./executor";
 import type { SyntaxError as JSSyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
@@ -39,17 +39,20 @@ export type EvaluateFunctionResult = InterpretResult & {
  */
 export function compile(sourceCode: string, context: EvaluationContext = {}): CompilationResult {
   try {
-    parse(sourceCode, context);
-    return { success: true };
+    const parser = new Parser(context);
+    parser.parse(sourceCode);
+    return { success: true, lintErrors: parser.lintErrors };
   } catch (error: unknown) {
-    return { success: false, error: error as JSSyntaxError };
+    return { success: false, error: error as JSSyntaxError, lintErrors: [] };
   }
 }
 
 export function interpret(sourceCode: string, context: EvaluationContext = {}): InterpretResult {
   try {
     // Parse the source code (compilation step)
-    const statements = parse(sourceCode, context);
+    const parser = new Parser(context);
+    const statements = parser.parse(sourceCode);
+    const lintErrors = parser.lintErrors;
 
     // Execute statements
     const executor = new Executor(sourceCode, context);
@@ -59,6 +62,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       frames: result.frames,
       error: null, // No parse error
       success: result.success,
+      lintErrors,
       logLines: executor.logLines,
       meta: {
         functionCallLog: {},
@@ -73,6 +77,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       frames: [],
       error: error as JSSyntaxError,
       success: false,
+      lintErrors: [],
       logLines: [],
       meta: {
         functionCallLog: {},
@@ -111,14 +116,17 @@ export function evaluateFunction(
   ...args: any[]
 ): EvaluateFunctionResult {
   // Parse the student's source code - let parse errors throw (matches JikiScript behavior)
-  const statements = parse(sourceCode, context);
+  const parser = new Parser(context);
+  const statements = parser.parse(sourceCode);
+  const lintErrors = parser.lintErrors;
 
   // Generate the function call code
   const callingCode = `${functionName}(${args.map(arg => JSON.stringify(arg)).join(", ")})`;
 
   // Parse the calling code without node restrictions - this is infrastructure code, not student code
   const callingContext = { ...context, languageFeatures: { ...context.languageFeatures, allowedNodes: null } };
-  const callingStatements = parse(callingCode, callingContext);
+  const callingParser = new Parser(callingContext);
+  const callingStatements = callingParser.parse(callingCode);
 
   if (callingStatements.length !== 1) {
     throw new Error(`Expected exactly one statement for function call, got ${callingStatements.length}`);
@@ -143,6 +151,7 @@ export function evaluateFunction(
     logLines: callResult.logLines,
     success: callResult.success,
     error: null,
+    lintErrors,
     meta: {
       functionCallLog: callResult.meta.functionCallLog,
       statements: statements, // Return the original student code statements

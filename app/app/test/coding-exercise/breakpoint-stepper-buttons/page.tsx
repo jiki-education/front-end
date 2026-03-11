@@ -53,6 +53,7 @@ export default function BreakpointStepperButtonsTestPage() {
       view: document.createElement("div"),
       frames,
       logLines: [],
+      lintErrors: [],
       animationTimeline: {
         duration: 8,
         paused: true,

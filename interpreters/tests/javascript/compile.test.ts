@@ -5,7 +5,7 @@ describe("JavaScript compile()", () => {
   describe("successful compilation", () => {
     test("returns success for valid code", () => {
       const result = compile("let x = 5;");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for multiple statements", () => {
@@ -14,7 +14,7 @@ describe("JavaScript compile()", () => {
         let y = 10;
         let z = x + y;
       `);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for complex valid code", () => {
@@ -25,12 +25,12 @@ describe("JavaScript compile()", () => {
           let result = obj.value * 2;
         }
       `);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for template literals", () => {
       const result = compile('let msg = `Hello ${"world"}`;');
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for loops", () => {
@@ -39,7 +39,7 @@ describe("JavaScript compile()", () => {
           let x = i * 2;
         }
       `);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
   });
 
@@ -100,7 +100,7 @@ describe("JavaScript compile()", () => {
           enforceStrictEquality: false,
         },
       });
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns failure for disallowed syntax", () => {
@@ -118,17 +118,17 @@ describe("JavaScript compile()", () => {
   describe("edge cases", () => {
     test("handles empty string", () => {
       const result = compile("");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles whitespace only", () => {
       const result = compile("   \n  \t  ");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles comments only", () => {
       const result = compile("// just a comment");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles multiline comments", () => {
@@ -137,7 +137,7 @@ describe("JavaScript compile()", () => {
          * Multi-line comment
          */
       `);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
   });
 });

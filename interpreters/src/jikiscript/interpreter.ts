@@ -98,6 +98,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       logLines: [],
       success: false,
       error: compileResult.error,
+      lintErrors: [],
       meta: {
         functionCallLog: {},
         statements: [],
@@ -115,7 +116,8 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       },
     };
   }
-  return interpreter.execute();
+  const result = interpreter.execute();
+  return { ...result, lintErrors: [] };
 }
 
 export function evaluateFunction(
@@ -129,7 +131,8 @@ export function evaluateFunction(
   if (!compileResult.success) {
     throw compileResult.error;
   }
-  return interpreter.evaluateFunction(functionCall, ...args);
+  const result = interpreter.evaluateFunction(functionCall, ...args);
+  return { ...result, lintErrors: [] };
 }
 export function evaluateExpression(
   sourceCode: string,
@@ -142,7 +145,8 @@ export function evaluateExpression(
   if (!compileResult.success) {
     throw compileResult.error;
   }
-  return interpreter.evaluateExpression(expression, ...args);
+  const result = interpreter.evaluateExpression(expression, ...args);
+  return { ...result, lintErrors: [] };
 }
 
 export class Interpreter {
@@ -243,9 +247,9 @@ export class Interpreter {
   public compile(): CompilationResult {
     try {
       this.statements = this.parser.parse(this.sourceCode);
-      return { success: true };
+      return { success: true, lintErrors: [] };
     } catch (error: unknown) {
-      return { success: false, error: error as StaticError };
+      return { success: false, error: error as StaticError, lintErrors: [] };
     }
   }
 

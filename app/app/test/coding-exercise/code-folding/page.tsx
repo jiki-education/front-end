@@ -56,6 +56,7 @@ export default function CodeFoldingTestPage() {
       view: document.createElement("div"),
       frames,
       logLines: [],
+      lintErrors: [],
       animationTimeline: {
         duration: 15,
         paused: true,

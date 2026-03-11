@@ -79,6 +79,11 @@ function IOInspectedResultView() {
           </h3>
 
           {currentTest.status === "pass" && <PassMessage testIdx={0} />}
+          {currentTest.status === "lint_warning" && (
+            <p className={styles.message}>
+              Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.
+            </p>
+          )}
           {firstExpect ? <IOTestResultView expect={firstExpect} /> : null}
         </div>
       </div>

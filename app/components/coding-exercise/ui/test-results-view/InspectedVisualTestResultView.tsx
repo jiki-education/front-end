@@ -1,0 +1,104 @@
+import { assembleClassNames } from "@/lib/assemble-classnames";
+import type { VisualExerciseDefinition } from "@jiki/curriculum";
+import { useMemo } from "react";
+import styles from "../../CodingExercise.module.css";
+import { useOrchestratorStore } from "../../lib/Orchestrator";
+import { useOrchestrator } from "../../lib/OrchestratorContext";
+import type { TestExpect, VisualTestExpect, VisualTestResult } from "../../lib/test-results-types";
+import Scrubber from "../scrubber/Scrubber";
+import { VisualTestCanvas } from "./VisualTestCanvas";
+import { VisualTestResultView } from "./VisualTestResultView";
+
+export function InspectedVisualTestResultView() {
+  const orchestrator = useOrchestrator();
+  const { currentTest, isSpotlightActive } = useOrchestratorStore(orchestrator);
+
+  // Recompute firstExpect whenever currentTest changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- orchestrator is stable from context, including it breaks everything.
+  const firstExpect = useMemo(() => orchestrator.getFirstExpect() as VisualTestExpect | null, [currentTest]);
+
+  if (!currentTest || currentTest.type !== "visual") {
+    return null;
+  }
+
+  return (
+    <div className={assembleClassNames(styles.visualPlayer, currentTest.status === "pass" ? "pass" : "fail")}>
+      <div className={styles.playerCanvas}>
+        <div className={styles.playerContentRow}>
+          <div className={styles.contentBelowTabs}>
+            <InspectedVisualTestResultViewLHS
+              // if tests pass, this will be first processed `expect`, otherwise first failing `expect`.
+              firstExpect={firstExpect}
+              currentTest={currentTest}
+            />
+
+            <VisualTestCanvas view={currentTest.view} isSpotlightActive={isSpotlightActive} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function InspectedVisualTestResultViewLHS({
+  currentTest,
+  firstExpect
+}: {
+  currentTest: VisualTestResult;
+  firstExpect: VisualTestExpect | null;
+}) {
+  const orchestrator = useOrchestrator();
+  const { currentTestIdx } = useOrchestratorStore(orchestrator);
+  const exercise = orchestrator.getExercise() as VisualExerciseDefinition;
+  const scenario = exercise.scenarios[currentTestIdx];
+
+  return (
+    <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
+      <div
+        className={assembleClassNames(
+          styles.testDescription,
+          currentTest.status === "fail" ? styles.stateFailed : "",
+          currentTest.status === "lint_warning" ? styles.stateLintWarning : ""
+        )}
+      >
+        <span className={styles.instructionLabel}>{currentTest.name}</span>
+        {scenario.description && <p className="text-sm text-gray-600 mt-2">{scenario.description}</p>}
+
+        <TestResultInfo firstExpect={firstExpect} />
+      </div>
+      <Scrubber />
+    </div>
+  );
+}
+
+function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
+  const orchestrator = useOrchestrator();
+  const { currentTest, testSuiteResult } = useOrchestratorStore(orchestrator);
+
+  if (!firstExpect) {
+    return null;
+  }
+
+  // Get the current test index for the PassMessage by finding the test in the suite
+  const testIdx =
+    testSuiteResult && currentTest ? testSuiteResult.tests.findIndex((test) => test.slug === currentTest.slug) : 0;
+
+  // Get error message
+  let errorHtml = firstExpect.errorHtml || "";
+  // Only replace {value} template for IO tests (which have actual property)
+  if ("actual" in firstExpect) {
+    errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
+  }
+
+  if (currentTest?.status === "lint_warning") {
+    return (
+      <VisualTestResultView
+        isPassing={false}
+        errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
+        testIdx={Math.max(0, testIdx)}
+      />
+    );
+  }
+
+  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
+}

@@ -188,8 +188,12 @@
     transition: background 0.2s ease;
 }
 
-.StatusLine.failed {
+.StatusLine.fail {
     background: var(--color-red-500);
+}
+
+.StatusLine.lint_warning {
+    background: var(--color-orange-500);
 }
 
 .StatusLine.incomplete {
@@ -244,12 +248,16 @@
     margin-right: 0;
 }
 
-.Dot.passed {
+.Dot.pass {
     background: var(--color-green-500);
 }
 
-.Dot.failed {
+.Dot.fail {
     background: var(--color-red-500);
+}
+
+.Dot.lint_warning {
+    background: var(--color-orange-500);
 }
 
 .Dot.active {
@@ -271,20 +279,28 @@
     border-top: 6px solid var(--color-gray-200);
 }
 
-.Dot.passed.active {
+.Dot.pass.active {
     box-shadow: 0 0 0 3px var(--color-green-300);
 }
 
-.Dot.passed.active::after {
+.Dot.pass.active::after {
     border-top-color: var(--color-green-500);
 }
 
-.Dot.failed.active {
+.Dot.fail.active {
     box-shadow: 0 0 0 3px var(--color-red-200);
 }
 
-.Dot.failed.active::after {
+.Dot.fail.active::after {
     border-top-color: var(--color-red-500);
+}
+
+.Dot.lint_warning.active {
+    box-shadow: 0 0 0 3px var(--color-orange-300);
+}
+
+.Dot.lint_warning.active::after {
+    border-top-color: var(--color-orange-500);
 }
 
 .Counter {
@@ -335,12 +351,16 @@
     opacity: 0.8;
 }
 
-.scenarioButton.passed {
+.scenarioButton.pass {
     background: var(--color-green-500);
 }
 
-.scenarioButton.failed {
+.scenarioButton.fail {
     background: var(--color-red-500);
+}
+
+.scenarioButton.lint_warning {
+    background: var(--color-orange-500);
 }
 
 .scenarioButton.inactive {
@@ -355,12 +375,16 @@
     box-shadow: 0 0 0 3px var(--color-gray-300);
 }
 
-.scenarioButton.passed.active {
+.scenarioButton.pass.active {
     box-shadow: 0 0 0 3px var(--color-green-300);
 }
 
-.scenarioButton.failed.active {
+.scenarioButton.fail.active {
     box-shadow: 0 0 0 3px var(--color-red-200);
+}
+
+.scenarioButton.lint_warning.active {
+    box-shadow: 0 0 0 3px var(--color-orange-300);
 }
 
 .keyboardShortcut {
@@ -572,6 +596,22 @@
 
 .testDescription.stateFailed .testFeedback .message {
     color: var(--color-red-800);
+}
+
+.testDescription.stateLintWarning .testFeedback {
+    background: var(--color-orange-50);
+}
+
+.testDescription.stateLintWarning .testFeedback .badge {
+    background: var(--color-orange-500);
+}
+
+.testDescription.stateLintWarning .testFeedback .message {
+    color: var(--color-orange-800);
+}
+
+.testDescription.stateLintWarning .instructionLabel {
+    color: var(--color-gray-700);
 }
 
 .testFeedbackIcon {
@@ -1182,7 +1222,7 @@
         border-color: var(--color-green-200);
         @apply bg-green-50;
         @apply text-green-500;
-        background-image: url("/icons/bootcamp-tick-green.svg");
+        background-image: url("/static/icons/bootcamp-tick-green.svg");
         background-size: 12px;
         background-position: 24px 0px;
         &.selected {
@@ -1197,7 +1237,7 @@
         border-color: var(--color-error-border);
         background-color: var(--color-error-bg);
         @apply text-red-400;
-        background-image: url("/icons/bootcamp-cross-red.svg");
+        background-image: url("/static/icons/bootcamp-cross-red.svg");
         background-size: 9px;
         background-position: 25px 2px;
         &.selected {

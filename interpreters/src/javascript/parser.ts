@@ -1,4 +1,4 @@
-import { SyntaxError, type SyntaxErrorType } from "./error";
+import { SyntaxError, LintError, type SyntaxErrorType, type LintErrorType } from "./error";
 import type { Expression } from "./expression";
 import {
   LiteralExpression,
@@ -46,6 +46,7 @@ export class Parser {
   private readonly languageFeatures: LanguageFeatures;
   private blockDepth: number = 0;
   private baseIndentation: number | null = null;
+  public lintErrors: LintError[] = [];
 
   constructor(context: EvaluationContext = {}) {
     this.languageFeatures = context.languageFeatures || {};
@@ -108,6 +109,7 @@ export class Parser {
     this.tokens = this.scanner.scanTokens(sourceCode);
     this.baseIndentation = null;
     this.blockDepth = 0;
+    this.lintErrors = [];
 
     const statements: Statement[] = [];
 
@@ -278,6 +280,13 @@ export class Parser {
     const statements: Statement[] = [];
     this.blockDepth++;
 
+    const openingBraceLine = this.previous().location.line;
+
+    // Enforce that opening brace content is on a new line
+    if (this.languageFeatures.enforceFormatting && !this.check("EOL") && !this.check("RIGHT_BRACE")) {
+      this.lintWarning("OpeningBraceContentNotOnOwnLine", this.peek().location);
+    }
+
     while (!this.isAtEnd()) {
       // Skip EOL tokens before checking for RIGHT_BRACE
       while (this.check("EOL")) {
@@ -289,7 +298,11 @@ export class Parser {
         break;
       }
 
-      this.checkIndentation(this.peek());
+      // Skip indentation check for content on the same line as the opening brace
+      // (already reported as OpeningBraceContentNotOnOwnLine)
+      if (this.peek().location.line !== openingBraceLine) {
+        this.checkIndentation(this.peek());
+      }
 
       const statement = this.statement();
       if (statement) {
@@ -308,7 +321,7 @@ export class Parser {
         prevIndex--;
       }
       if (prevIndex >= 0 && this.tokens[prevIndex].location.line === rightBrace.location.line) {
-        this.error("ClosingBraceNotOnOwnLine", rightBrace.location);
+        this.lintWarning("ClosingBraceNotOnOwnLine", rightBrace.location);
       }
 
       // Check closing brace indentation
@@ -938,7 +951,13 @@ export class Parser {
     if (column !== expectedColumn) {
       const expected = this.blockDepth * 2;
       const actual = column - this.baseIndentation;
-      this.error("IncorrectIndentation", token.location, { expected, actual });
+      // Point at the whitespace before the token (from start of line to token start)
+      const indentLocation = new Location(
+        token.location.line,
+        new Span(1, column),
+        new Span(token.location.absolute.begin - column + 1, token.location.absolute.begin)
+      );
+      this.lintWarning("IncorrectIndentation", indentLocation, { expected, actual });
     }
   }
 
@@ -1172,6 +1191,10 @@ export class Parser {
     const rightBrace = this.previous();
 
     return new DictionaryExpression(elements, Location.between(leftBrace, rightBrace));
+  }
+
+  private lintWarning(type: LintErrorType, location: Location, context?: any): void {
+    this.lintErrors.push(new LintError(translate(`error.lint.${type}`, context), location, type, context));
   }
 
   private error(type: SyntaxErrorType, location: Location, context?: any): never {

@@ -1,4 +1,4 @@
-import type { Frame } from "@jiki/interpreters/shared";
+import type { Frame, LintError } from "@jiki/interpreters/shared";
 import type { TaskProgress, Language, ReadonlyRange } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 import type { VideoSource } from "@/types/lesson";
@@ -104,6 +104,9 @@ export interface OrchestratorState {
   // Play/pause state for animation timeline
   isPlaying: boolean;
 
+  // Lint errors from debounced compile or test run
+  lintErrors: LintError[];
+
   // Task management state
   taskProgress: Map<string, TaskProgress>;
   completedTasks: Set<string>;
@@ -157,6 +160,9 @@ export interface OrchestratorActions {
 
   // Exercise data initialization
   initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => void;
+
+  // Lint errors action
+  setLintErrors: (errors: LintError[]) => void;
 
   // Task management actions
   setTaskProgress: (taskProgress: Map<string, TaskProgress>) => void;

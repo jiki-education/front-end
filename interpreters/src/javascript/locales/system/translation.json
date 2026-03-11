@@ -70,8 +70,11 @@
       "MissingRightParenAfterRepeatCount": "MissingRightParenAfterRepeatCount",
       "ForInStatementNotAllowed": "ForInStatementNotAllowed",
       "NewExpressionNotAllowed": "NewExpressionNotAllowed",
-      "BlockRequired": "BlockRequired: keyword: {{keyword}}",
+      "BlockRequired": "BlockRequired: keyword: {{keyword}}"
+    },
+    "lint": {
       "ClosingBraceNotOnOwnLine": "ClosingBraceNotOnOwnLine",
+      "OpeningBraceContentNotOnOwnLine": "OpeningBraceContentNotOnOwnLine",
       "IncorrectIndentation": "IncorrectIndentation: expected: {{expected}}: actual: {{actual}}"
     },
     "runtime": {

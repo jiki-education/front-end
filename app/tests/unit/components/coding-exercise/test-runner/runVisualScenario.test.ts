@@ -405,7 +405,7 @@ describe("runVisualScenario", () => {
         "function draw() {}",
         expect.objectContaining({
           externalFunctions: expect.any(Array),
-          languageFeatures: { timePerFrame: 1 }
+          languageFeatures: expect.objectContaining({ timePerFrame: 1 })
         }),
         "draw",
         10,

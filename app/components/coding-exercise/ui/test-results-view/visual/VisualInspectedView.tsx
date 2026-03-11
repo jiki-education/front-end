@@ -111,5 +111,15 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
     errorHtml = errorHtml.replace(/{value}/, String(firstExpect.actual));
   }
 
+  if (currentTest?.status === "lint_warning") {
+    return (
+      <VisualTestResultView
+        isPassing={false}
+        errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
+        testIdx={Math.max(0, testIdx)}
+      />
+    );
+  }
+
   return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
 }

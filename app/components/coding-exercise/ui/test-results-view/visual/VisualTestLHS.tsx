@@ -22,7 +22,14 @@ export function VisualTestLHS({
   const exercise = orchestrator.getExercise() as VisualExerciseDefinition;
   const scenario = exercise.scenarios[currentTestIdx];
 
-  const statusClass = status === "fail" ? styles.stateFailed : status === "pending" ? styles.statePending : "";
+  const statusClass =
+    status === "fail"
+      ? styles.stateFailed
+      : status === "lint_warning"
+        ? styles.stateLintWarning
+        : status === "pending"
+          ? styles.statePending
+          : "";
 
   return (
     <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>

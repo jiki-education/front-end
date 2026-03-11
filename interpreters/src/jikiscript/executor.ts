@@ -297,6 +297,7 @@ export class Executor {
       logLines: this.logLines,
       success: true,
       error: null,
+      lintErrors: [],
       meta: {
         functionCallLog: this.functionCallLog,
         statements: statements,
@@ -373,6 +374,7 @@ export class Executor {
         logLines: this.logLines,
         success: true,
         error: null,
+        lintErrors: [],
         meta: {
           functionCallLog: this.functionCallLog,
           statements: [statement],
@@ -409,6 +411,7 @@ export class Executor {
           logLines: this.logLines,
           success: false,
           error: null,
+          lintErrors: [],
           meta: {
             functionCallLog: this.functionCallLog,
             statements: [statement],

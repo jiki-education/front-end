@@ -102,6 +102,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -131,6 +132,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -154,6 +156,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline1
       });
 
@@ -167,6 +170,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline2
       });
 
@@ -188,6 +192,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -234,6 +239,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -273,6 +279,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: testFrames,
         logLines: [],
+        lintErrors: [],
         animationTimeline: createMockAnimationTimeline()
       });
 
@@ -314,6 +321,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: testFrames,
         logLines: [],
+        lintErrors: [],
         animationTimeline: createMockAnimationTimeline()
       });
 
@@ -492,6 +500,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -514,6 +523,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -537,6 +547,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -560,6 +571,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -605,6 +617,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -640,6 +653,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 }), createMockFrame(100000, { line: 2 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -670,6 +684,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -692,6 +707,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 
@@ -715,6 +731,7 @@ describe("Orchestrator", () => {
         view: document.createElement("div"),
         frames: [createMockFrame(0, { line: 1 })],
         logLines: [],
+        lintErrors: [],
         animationTimeline: mockTimeline
       });
 

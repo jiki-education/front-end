@@ -2,6 +2,12 @@
 jest.mock("@codemirror/state", () => ({
   EditorState: {
     create: jest.fn().mockReturnValue({})
+  },
+  StateEffect: {
+    define: jest.fn(() => ({ of: jest.fn() }))
+  },
+  StateField: {
+    define: jest.fn(() => jest.fn())
   }
 }));
 jest.mock("@codemirror/language", () => ({
@@ -25,9 +31,15 @@ jest.mock("@codemirror/view", () => ({
     })),
     {
       editable: { of: jest.fn() },
-      updateListener: { of: jest.fn().mockReturnValue({}) }
+      updateListener: { of: jest.fn().mockReturnValue({}) },
+      baseTheme: jest.fn(() => [])
     }
-  )
+  ),
+  Decoration: {
+    mark: jest.fn(() => ({})),
+    line: jest.fn(() => ({}))
+  },
+  hoverTooltip: jest.fn(() => [])
 }));
 
 jest.mock("@/components/coding-exercise/ui/codemirror/setup/editorCompartments", () => ({

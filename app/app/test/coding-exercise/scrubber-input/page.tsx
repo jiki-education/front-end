@@ -54,6 +54,7 @@ export default function ScrubberInputTestPage() {
       view: document.createElement("div"),
       frames,
       logLines: [],
+      lintErrors: [],
       animationTimeline: {
         duration: 1000000, // 1000000 microseconds = 1 second
         paused: true,
