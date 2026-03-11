@@ -102,8 +102,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
     return new Alien(alien, row, col, type);
   }
 
-  private killAlien(executionCtx: ExecutionContext, alien: Alien, shot: HTMLElement) {
-    const deathTime = executionCtx.getCurrentTimeInMs() + this.shotDuration;
+  private killAlien(executionCtx: ExecutionContext, alien: Alien, shot: HTMLElement, deathTime: number) {
     alien.status = "dead";
     [
       ["tl", -10, -10, -180],
@@ -238,7 +237,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
     }
 
     // TODO: Vary speed based on distance
-    const duration = this.shotDuration;
+    const duration = this.shotDuration + (3 - (targetRow ?? 0)) * 150;
 
     const shot = document.createElement("div");
     shot.classList.add("shot");
@@ -266,7 +265,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
       this.gameStatus = "lost";
       executionCtx.logicError("Oh no, you missed. Wasting ammo is not allowed!");
     } else {
-      this.killAlien(executionCtx, targetAlien, shot);
+      this.killAlien(executionCtx, targetAlien, shot, executionCtx.getCurrentTimeInMs() + duration);
 
       // Let the bullet leave the laser before moving
       executionCtx.fastForward(30);
