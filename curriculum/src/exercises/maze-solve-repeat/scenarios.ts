@@ -5,7 +5,7 @@ export const tasks = [
   {
     id: "solve-maze-with-repeat" as const,
     name: "Refactor the maze solution using repeat loops",
-    description: "Replace consecutive move() calls with repeat loops to make the code shorter.",
+    description: "Replace consecutive `move()` calls with repeat loops to make the code shorter.",
     hints: [],
     requiredScenarios: ["maze-repeat-1"],
     bonus: false
@@ -16,7 +16,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "maze-repeat-1",
     name: "Refactor the maze solution using repeat loops",
-    description: "Use repeat loops to avoid consecutive move() calls.",
+    description: "Use repeat loops to avoid consecutive `move()` calls.",
     taskId: "solve-maze-with-repeat",
 
     setup(exercise) {

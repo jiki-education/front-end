@@ -91,7 +91,8 @@
 
         code {
             font-family: var(--font-mono);
-            color: var(--color-gray-900);
+            font-weight: 400;
+            color: #4d4d4c;
             line-height: var(--leading-170);
             background: none;
             padding: 0;
@@ -342,6 +343,58 @@
     .admonition-content {
         font-size: var(--text-18);
     }
+}
+
+/* Syntax highlighting — matches CodeMirror light theme (theme-adapter.ts lightStyles) */
+pre .hljs-comment,
+pre .hljs-quote {
+    color: #818b94;
+    font-style: italic;
+}
+pre .hljs-string,
+pre .hljs-template-variable,
+pre .hljs-addition {
+    color: #3e8a00;
+}
+pre .hljs-keyword,
+pre .hljs-selector-tag,
+pre .hljs-built_in,
+pre .hljs-name,
+pre .hljs-tag {
+    color: #0080ff;
+    font-weight: 500;
+}
+pre .hljs-variable,
+pre .hljs-params {
+    color: #7a009f;
+}
+pre .hljs-title,
+pre .hljs-title.class_,
+pre .hljs-title.function_ {
+    color: rgb(184, 0, 255);
+}
+pre .hljs-attr,
+pre .hljs-attribute,
+pre .hljs-property {
+    color: #0d47a1;
+}
+pre .hljs-type {
+    color: #005cc5;
+}
+pre .hljs-number,
+pre .hljs-literal {
+    color: #f33636;
+}
+pre .hljs-operator,
+pre .hljs-punctuation {
+    color: #888;
+}
+pre .hljs-regexp {
+    color: #e91e63;
+}
+pre .hljs-meta {
+    color: #607d8b;
+    font-style: italic;
 }
 
 /* Responsive */
