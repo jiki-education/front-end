@@ -3,11 +3,7 @@ title: "Foxy Face"
 description: ""
 ---
 
-This exercise introduces you to the `triangle` function.
-
-### Drawing Triangles
-
-To draw triangles, we use the `triangle` function with 7 inputs:
+This exercise introduces you to the `triangle` function, which we use with 7 inputs:
 
 - `x1`, `y1`: The first corner point
 - `x2`, `y2`: The second corner point
@@ -16,17 +12,27 @@ To draw triangles, we use the `triangle` function with 7 inputs:
 
 Each pair of coordinates defines one of the three corners of the triangle.
 
-## Instructions
+[TRIANGLE IMAGE]
 
-Your job is to build a geometric fox face using triangles! We've provided the `"grey"` background for you.
+### Drawing a fox face
 
-You'll need to draw 8 triangles to create:
+Your job is to build a geometric fox face using triangles! The face should look like this:
+
+<img src="/static/images/exercise-assets/foxy-face/example.svg" alt="Foxy Face" style="max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+
+It's horizontally symmetrical (the left side is identical to the right side). And it has 8 triangles in total:
 
 - Two `"white"` cheeks
 - Two `"brown"` ears
 - Two `"orange"` face halves
 - A `"charcoal"` nose (two triangles)
 
-The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. You can hover over the canvas to check coordinates.
+Make sure to use those colors when drawing the triangles, and remember to check you write them as strings.
 
-Hint: Build the fox from back to front. Start with the cheeks, then the ears, then the face, and finally the nose on top.
+All the numbers used are divisible by 5 (e.g. `5`, `10`, `15`, etc are valid but `1`, `2`, `3`, `4`, `6`, `7`, `8`, `9`, `11`, etc are not).
+
+We've drawn outlines of some of the parts for you to help you get started. If you follow the order given in the comments you'll find it makes life a little easier.
+
+One final thing. You can hover over the space to find co-ordinates. That's great for the left side, but as the right side is symmetrical - can you solve that without needing to hover?
+
+Good luck!

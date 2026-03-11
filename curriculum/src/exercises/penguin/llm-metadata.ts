@@ -26,10 +26,10 @@ export const llmMetadata: LLMMetadata = {
         4. Triangle modification: Change existing triangle coordinates (don't add new one)
 
         Common mistakes:
-        - Forgetting to set fill color before drawing
         - Incorrect symmetry calculations (mirror across x=50 centerline)
         - Adding new triangle instead of modifying existing one
         - Wrong coordinate system (0,0 is top-left, not bottom-left)
+        - Forgetting the color argument (it's the last parameter of each shape function)
 
         Solution approach:
         1. Identify each TODO comment in sequence

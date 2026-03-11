@@ -5,19 +5,15 @@
   "hints": [
     {
       "question": "Hint",
-      "answer": "Start with the background rectangle covering the whole canvas: (0, 0, 100, 100)"
+      "answer": "The cloud is built from one rectangle and four circles along its edges."
     },
     {
       "question": "Hint",
-      "answer": "The cloud is built from one rectangle and four circles along its edges"
+      "answer": "Rain drops are ellipses that are taller than they are wide."
     },
     {
       "question": "Hint",
-      "answer": "The sun is a yellow circle at (75, 30) with radius 15"
-    },
-    {
-      "question": "Hint",
-      "answer": "Rain drops are ellipses — taller than wide (rx=3, ry=5)"
+      "answer": "The sun should be drawn before the cloud so the cloud sits in front of it."
     }
   ]
 }

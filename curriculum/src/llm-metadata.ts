@@ -48,7 +48,6 @@ import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
 import { llmMetadata as rnaTranscriptionLLM } from "./exercises/rna-transcription/llm-metadata";
 import { llmMetadata as scrabbleScoreLLM } from "./exercises/scrabble-score/llm-metadata";
 import { llmMetadata as twoFerLLM } from "./exercises/two-fer/llm-metadata";
-import { llmMetadata as sunshineLLM } from "./exercises/sunshine/llm-metadata";
 import { llmMetadata as foxyFaceLLM } from "./exercises/foxy-face/llm-metadata";
 import { llmMetadata as cloudRainSunLLM } from "./exercises/cloud-rain-sun/llm-metadata";
 import { llmMetadata as goldPanningLLM } from "./exercises/gold-panning/llm-metadata";
@@ -58,8 +57,8 @@ import { llmMetadata as golfScenariosLLM } from "./exercises/golf-scenarios/llm-
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
 import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers/llm-metadata";
 import { llmMetadata as plantTheFlowersScenariosLLM } from "./exercises/plant-the-flowers-scenarios/llm-metadata";
-import { llmMetadata as processGuessLLM } from "./exercises/process-guess/llm-metadata";
-import { llmMetadata as processGameLLM } from "./exercises/process-game/llm-metadata";
+import { llmMetadata as wordleProcessGuessLLM } from "./exercises/wordle-process-guess/llm-metadata";
+import { llmMetadata as wordleProcessGameLLM } from "./exercises/wordle-process-game/llm-metadata";
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
 import { llmMetadata as snowmanLLM } from "./exercises/snowman/llm-metadata";
 import { llmMetadata as snowmanBasicLLM } from "./exercises/snowman-basic/llm-metadata";
@@ -160,7 +159,6 @@ const llmMetadataRegistry = {
   "rna-transcription": rnaTranscriptionLLM,
   "scrabble-score": scrabbleScoreLLM,
   "two-fer": twoFerLLM,
-  sunshine: sunshineLLM,
   "foxy-face": foxyFaceLLM,
   "cloud-rain-sun": cloudRainSunLLM,
   "gold-panning": goldPanningLLM,
@@ -170,8 +168,8 @@ const llmMetadataRegistry = {
   "golf-shot-checker": golfShotCheckerLLM,
   "plant-the-flowers": plantTheFlowersLLM,
   "plant-the-flowers-scenarios": plantTheFlowersScenariosLLM,
-  "process-guess": processGuessLLM,
-  "process-game": processGameLLM,
+  "wordle-process-guess": wordleProcessGuessLLM,
+  "wordle-process-game": wordleProcessGameLLM,
   "wordle-solver": wordleSolverLLM,
   snowman: snowmanLLM,
   "snowman-basic": snowmanBasicLLM,

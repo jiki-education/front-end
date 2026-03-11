@@ -8,7 +8,7 @@ const functions: FunctionInfo[] = [
     name: "rectangle",
     signature: "rectangle(x, y, width, height, color)",
     description: "Draw a rectangle at position (x, y) with the given width, height, and color",
-    examples: ['rectangle(0, 0, 100, 50, "skyblue")', 'rectangle(20, 50, 60, 40, "brick")'],
+    examples: ['rectangle(0, 0, 100, 50, "skyblue")', 'rectangle(20, 50, 60, 40, "brown")'],
     category: "Drawing Shapes"
   },
   {
@@ -19,17 +19,10 @@ const functions: FunctionInfo[] = [
     category: "Drawing Shapes"
   },
   {
-    name: "ellipse",
-    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
-    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
-    examples: ['ellipse(50, 50, 20, 10, "black")', 'ellipse(30, 60, 15, 5, "white")'],
-    category: "Drawing Shapes"
-  },
-  {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
     description: "Draw a triangle with three corner points and a color",
-    examples: ['triangle(16, 50, 50, 30, 84, 50, "brown")'],
+    examples: ['triangle(16, 50, 50, 30, 84, 50, "brick")'],
     category: "Drawing Shapes"
   }
 ];
@@ -40,7 +33,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["using-functions", "function-inputs", "strings"]
 };
 
 export default exerciseDefinition;

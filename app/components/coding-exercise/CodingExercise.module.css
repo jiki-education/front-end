@@ -417,6 +417,7 @@
     min-width: 310px;
     height: 100%;
     overflow-y: auto;
+    overscroll-behavior: none;
     min-height: 120px;
 }
 

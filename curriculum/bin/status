@@ -1,0 +1,4 @@
+#!/bin/bash
+cd "$(dirname "$0")/.."
+pnpm vitest run scripts/generate-exercise-status.test.ts --reporter=dot
+open scripts/exercise-status.html

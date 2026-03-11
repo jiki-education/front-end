@@ -196,6 +196,14 @@ export function createOrchestratorStore(
           const state = get();
           state.setIsPlaying(false);
 
+          // If the last frame is an error, show the information widget
+          const lastFrame = test.frames[test.frames.length - 1];
+          // ESLint doesn't realize lastFrame can be undefined when frames array is empty
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (lastFrame?.status === "ERROR") {
+            state.setShouldShowInformationWidget(true);
+          }
+
           // Check if all tests passed and we haven't shown the modal yet and exercise is not already completed
           if (state.testSuiteResult?.passed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
             showModal("exercise-completion-modal", {
@@ -220,34 +228,26 @@ export function createOrchestratorStore(
           }
         });
 
-        // In this effect, we only care about error frames. Find the first
-        // or get out of here.
         const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
+        const shouldAutoPlay = state.shouldPlayOnTestChange && !!test.animationTimeline;
 
-        if (errorFrame) {
-          // We want to turn on the info widget on if there's an error
+        if (errorFrame && !shouldAutoPlay) {
+          // Not auto-playing: jump directly to error (or breakpoint before it)
           get().setShouldShowInformationWidget(true);
 
-          // If we have a breakpoint frame, we want to jump there.
           const breakpointFrame = BreakpointManager.findPrevBreakpointFrame(
             errorFrame,
             test.frames,
             state.breakpoints,
             state.foldedLines
           );
-          if (breakpointFrame) {
-            // Update the time to jump to to the breakpoint frame
-            timeToUse = breakpointFrame.time;
-          } else {
-            // Trigger frame calculations with the restored/initial time
-            timeToUse = errorFrame.time;
-          }
+          timeToUse = breakpointFrame ? breakpointFrame.time : errorFrame.time;
         }
 
         // Trigger frame calculations with the restored/initial time
         get().setCurrentTestTime(timeToUse, "nearest", true);
 
-        if (!errorFrame && state.shouldPlayOnTestChange && test.animationTimeline) {
+        if (shouldAutoPlay) {
           get().setIsPlaying(true);
         }
       },

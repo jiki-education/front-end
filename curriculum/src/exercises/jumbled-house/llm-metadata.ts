@@ -26,8 +26,8 @@ export const llmMetadata: LLMMetadata = {
         4. Circle positioning: x,y is center, then radius
 
         Shape specifications:
-        - House frame: position (20,50), size 60x40
-        - Roof: triangle at (16,50), (50,30), (84,50) - overhangs house by 4 each side
+        - House frame: position (20,50), size 60x40, "brown" color
+        - Roof: triangle at (16,50), (50,30), (84,50) with "brick" color - overhangs house by 4 each side
         - Left window: position (30,55), size 12x13 - 10 in from left (20+10), 5 down from top (50+5)
         - Right window: position (58,55), size 12x13 - 10 in from right (80-12-10=58)
         - Door: position (43,72), size 14x18 - centered (20 + (60-14)/2 = 43)

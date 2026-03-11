@@ -92,6 +92,8 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 6. **Category consistency**: Categories should be sensible (e.g., "Information" for getters, "Action" for state-changing functions, "Movement" for position changes).
 
+7. **Solution consistency**: Every function used in the solution files (`solution.javascript`, `solution.jiki`, `solution.py`) should have a corresponding entry in `functions`. No function should appear in the solution that isn't documented, and no documented function should be absent from the solution.
+
 ---
 
 ### Check 4: Instructions Don't Give Away the Answer
@@ -101,7 +103,6 @@ If this check fails, skip the remaining audit checks and move directly to the **
 **What's OK in instructions**:
 
 - Describing the goal ("Navigate the character to the target")
-- Listing available functions and what they do
 - Explaining the rules/constraints ("only people over 20 are allowed in")
 - Providing context/story
 
@@ -111,6 +112,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 - Telling students which control structures to use ("use a for loop", "use an if statement")
 - Providing pseudocode that maps directly to the solution
 - Specifying exact variable names or values from the solution
+- Listing available functions — the functions are already shown in the exercise UI's function panel, so repeating them in the instructions is redundant
 
 **How to check**: Read the instructions, then read the solution files. Could a student copy-paste or trivially translate the instructions into the solution? If yes, the instructions are too prescriptive.
 
@@ -173,6 +175,42 @@ If this check fails, skip the remaining audit checks and move directly to the **
 5. **Teaching strategy relevance**: The teaching guidance should be appropriate for the exercise's level (e.g., don't suggest advanced concepts for a beginner exercise).
 
 6. **No stale information**: If the exercise has been modified since the LLM metadata was written, flag any information that may be outdated (e.g., changed function names, different scenario structure, updated instructions).
+
+---
+
+### Check 8: Concept Slugs Are Present and Accurate
+
+**Rule**: Every exercise should have a `conceptSlugs` array in its `index.ts` definition that lists the concepts the exercise teaches or practices. The slugs must correspond to actual concept directories in `src/concepts/`.
+
+**Check each of these**:
+
+1. **Present**: The exercise definition in `index.ts` includes a `conceptSlugs` array. If missing, this is a FAIL.
+
+2. **Valid slugs**: Every slug in `conceptSlugs` must match a directory name under `src/concepts/`. Flag any slugs that don't correspond to an existing concept.
+
+3. **Relevant**: The listed concepts should make sense for what the exercise actually teaches. Cross-reference with the exercise's level, instructions, and solution to verify. For example, a maze exercise at the "repeat" level should include "repeat" as a concept.
+
+4. **Complete**: No obvious concepts should be missing. If the exercise clearly practices a concept (e.g., uses variables, requires conditionals, introduces loops) but that concept isn't listed, flag it.
+
+---
+
+### Check 9: Error Messages Don't Give Away Coordinates
+
+**Rule**: The `errorHtml` messages in scenario expectations should NOT include exact coordinates, positions, sizes, or other values that would give away the answer. They should tell the student _which part_ is wrong, but not _what the correct values are_.
+
+**What's OK**:
+
+- "The left cheek triangle isn't right."
+- "The base (bottom) circle isn't right."
+- "The top hole isn't filled correctly."
+
+**What's NOT OK**:
+
+- "The base circle should be centered at (50, 70) with a radius of 20."
+- "The left ear triangle should have corners at (10,40), (10,5), and (50,40)."
+- "Expected a rectangle at position (10, 10) with width 20 and height 10."
+
+**How to check**: Read all `errorHtml` strings in `scenarios.ts`. Flag any that contain specific numeric coordinates, sizes, or positions from the solution.
 
 ---
 

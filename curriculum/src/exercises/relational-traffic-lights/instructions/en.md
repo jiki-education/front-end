@@ -27,4 +27,4 @@ All derived variables should be expressed as `radius * something`.
 ### Functions used in this exercise
 
 - `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(x, y, radius, color)` — Draw a circle
+- `circle(cx, cy, radius, color)` — Draw a circle

@@ -5,10 +5,10 @@ rectangle(0, 0, 100, 100, "skyblue");
 rectangle(0, 80, 100, 100, "green");
 
 // The frame of the house
-rectangle(20, 50, 60, 40, "brick");
+rectangle(20, 50, 60, 40, "brown");
 
 // The roof
-triangle(16, 50, 50, 30, 84, 50, "brown");
+triangle(16, 50, 50, 30, 84, 50, "brick");
 
 // The left window
 rectangle(30, 55, 12, 13, "white");

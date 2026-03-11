@@ -1,22 +1,28 @@
 repeat(6) {
-  move();
+  move()
 }
-turnRight();
-move();
-move();
-turnRight();
-move();
-turnLeft();
-move();
-turnRight();
+turnRight()
+
+move()
+move()
+turnRight()
+
+move()
+turnLeft()
+
+move()
+turnRight()
+
 repeat(4) {
-  move();
+  move()
 }
-turnLeft();
+turnLeft()
+
 repeat(3) {
-  move();
+  move()
 }
-turnLeft();
+turnLeft()
+
 repeat(5) {
-  move();
+  move()
 }

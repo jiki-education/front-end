@@ -4,24 +4,24 @@
   "levelId": "strings-and-colors",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob"
+      "question": "Where do I start?",
+      "answer": "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob. Get each one right before moving on."
     },
     {
-      "question": "Hint",
-      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right"
+      "question": "How do coordinates work?",
+      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right. For rectangles, the x and y are the top-left corner."
     },
     {
-      "question": "Hint",
-      "answer": "For the roof triangle: the left point is at x=16 (house at 20 minus 4 overhang), the right at x=84"
+      "question": "How do I figure out the roof position?",
+      "answer": "The roof is a triangle that sits on top of the house frame. Think about where the left and right base points need to be given the overhang, and where the peak sits."
     },
     {
-      "question": "Hint",
-      "answer": "The windows sit 5 down from the top of the house frame (y=55), and 10 in from the edges"
+      "question": "How do I position the windows?",
+      "answer": "Each window is offset from the house frame's edges. Use the house frame's position and size along with the inset values to calculate each window's top-left corner."
     },
     {
-      "question": "Hint",
-      "answer": "The door is centered horizontally: house starts at x=20, is 60 wide, door is 14 wide, so door x = 20 + (60-14)/2 = 43"
+      "question": "How do I center the door?",
+      "answer": "To center something inside a larger shape, think about the leftover space. If the house is wider than the door, the gap is split equally on both sides."
     }
   ]
 }

@@ -7,8 +7,14 @@ export class FoxyFaceExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, triangle } = this.getAllAvailableFunctions();
-    return [rectangle, triangle];
+    const { triangle } = this.getAllAvailableFunctions();
+    return [triangle];
+  }
+
+  public setupBackground(imageUrl: string) {
+    this.canvas.style.backgroundImage = `url(${imageUrl})`;
+    this.canvas.style.backgroundSize = "cover";
+    this.canvas.style.backgroundPosition = "center";
   }
 }
 

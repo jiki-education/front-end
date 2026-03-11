@@ -19,45 +19,44 @@ export const scenarios: VisualScenario[] = [
     description: "Build a geometric fox face using triangles.",
     taskId: "draw-fox",
 
+    setup(exercise) {
+      const ex = exercise as FoxyFaceExercise;
+      ex.setupBackground("/static/images/exercise-assets/foxy-face/background.png");
+    },
+
     expectations(exercise) {
       const ex = exercise as FoxyFaceExercise;
 
       return [
         {
-          pass: ex.hasRectangleAt(0, 0, 100, 100),
-          errorHtml: "The grey background rectangle is missing."
-        },
-        {
           pass: ex.hasTriangleAt(10, 40, 5, 60, 50, 95),
-          errorHtml: "The left cheek triangle isn't right. It should have corners at (10,40), (5,60), and (50,95)."
+          errorHtml: "The left cheek triangle isn't right."
         },
         {
           pass: ex.hasTriangleAt(90, 40, 95, 60, 50, 95),
-          errorHtml: "The right cheek triangle isn't right. It should have corners at (90,40), (95,60), and (50,95)."
+          errorHtml: "The right cheek triangle isn't right."
         },
         {
           pass: ex.hasTriangleAt(10, 40, 10, 5, 50, 40),
-          errorHtml: "The left ear triangle isn't right. It should have corners at (10,40), (10,5), and (50,40)."
+          errorHtml: "The left ear triangle isn't right."
         },
         {
           pass: ex.hasTriangleAt(90, 40, 90, 5, 50, 40),
-          errorHtml: "The right ear triangle isn't right. It should have corners at (90,40), (90,5), and (50,40)."
+          errorHtml: "The right ear triangle isn't right."
         },
         {
           pass: ex.hasTriangleAt(50, 30, 50, 95, 10, 40),
-          errorHtml: "The left face triangle isn't right. It should have corners at (50,30), (50,95), and (10,40)."
+          errorHtml: "The left face triangle isn't right."
         },
         {
           pass: ex.hasTriangleAt(50, 30, 50, 95, 90, 40),
-          errorHtml: "The right face triangle isn't right. It should have corners at (50,30), (50,95), and (90,40)."
+          errorHtml: "The right face triangle isn't right."
         },
         {
-          pass: ex.hasTriangleAt(40, 90, 50, 85, 60, 90),
-          errorHtml: "The top nose triangle isn't right. It should have corners at (40,90), (50,85), and (60,90)."
-        },
-        {
-          pass: ex.hasTriangleAt(50, 95, 40, 90, 60, 90),
-          errorHtml: "The bottom nose triangle isn't right. It should have corners at (50,95), (40,90), and (60,90)."
+          pass:
+            (ex.hasTriangleAt(40, 90, 50, 85, 60, 90) && ex.hasTriangleAt(50, 95, 40, 90, 60, 90)) ||
+            (ex.hasTriangleAt(40, 90, 50, 85, 50, 95) && ex.hasTriangleAt(60, 90, 50, 85, 50, 95)),
+          errorHtml: "The nose needs two charcoal triangles. You can split it top/bottom or left/right."
         }
       ];
     }

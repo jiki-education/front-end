@@ -10,7 +10,7 @@ A ball bounces around the canvas, changing direction when it hits the edges. As 
 ### How to solve it
 
 - The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).
-- Create variables for the ball's position (`x`, `y`) and its direction (`xDirection`, `yDirection`).
+- Create variables for the ball's position (`cx`, `cy`) and its direction (`xDirection`, `yDirection`).
 - Create a variable for `hue` and `hueDirection` to cycle through colors.
 - Use a repeat loop that runs 1000 times.
 - In each iteration:
@@ -22,6 +22,6 @@ A ball bounces around the canvas, changing direction when it hits the edges. As 
 
 ### Functions used in this exercise
 
-- `circle(x, y, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
+- `circle(cx, cy, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
 - `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string
 - `randomNumber(min, max)` - Get a random integer between min and max (inclusive)
