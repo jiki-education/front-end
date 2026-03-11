@@ -31,12 +31,12 @@ test.describe("Test Runner E2E", () => {
     const testButtons = await page.locator("[data-testid='test-selector-buttons'] [class*='Dot']").all();
     expect(testButtons.length).toBe(3);
 
-    // Check test status - look for CSS module class containing 'passed'
+    // Check test status - look for CSS module class containing 'pass'
     const testStatus = await page.evaluate(() => {
       const buttons = document.querySelectorAll("[data-testid='test-selector-buttons'] [class*='Dot']");
       return Array.from(buttons).map((btn) => {
-        // Check if any class contains 'passed' (CSS modules generate long class names)
-        return Array.from(btn.classList).some((cls) => cls.includes("passed"));
+        // Check if any class contains 'pass' but not 'fail' (CSS modules generate long class names)
+        return Array.from(btn.classList).some((cls) => cls.includes("pass") && !cls.includes("fail"));
       });
     });
 
@@ -76,8 +76,8 @@ test.describe("Test Runner E2E", () => {
     const testStatus = await page.locator('[data-testid="test-selector-buttons"]').evaluate((el) => {
       const buttons = el.querySelectorAll('[class*="Dot"]');
       return Array.from(buttons).map((btn) => {
-        // Check if any class contains 'failed' (CSS modules generate long class names)
-        return Array.from(btn.classList).some((cls) => cls.includes("failed"));
+        // Check if any class contains 'fail' (CSS modules generate long class names)
+        return Array.from(btn.classList).some((cls) => cls.includes("fail"));
       });
     });
 
