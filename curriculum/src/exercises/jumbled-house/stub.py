@@ -5,10 +5,10 @@ rectangle(0, 0, 100, 100, "skyblue")
 rectangle(0, 80, 100, 100, "green")
 
 # The frame of the house
-rectangle(10, 20, 55, 30, "brick")
+rectangle(10, 20, 55, 30, "brown")
 
 # The roof
-triangle(26, 90, 60, 60, 100, 90, "brown")
+triangle(26, 90, 60, 60, 100, 90, "brick")
 
 # The left window
 rectangle(10, 15, 6, 7, "white")

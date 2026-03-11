@@ -11,7 +11,7 @@ This exercise introduces you to the `circle` function, which we use with 3 input
 
 This image should make things clearer:
 
-<img src="/static/images/exercise-assets/snowman-basic/intro-circle.jpg" style="width: 100%; max-width:400px;margin-top:10px;margin-bottom:20px;border:1px solid #ddd;border-radius:5px"/>
+<img src="/static/images/exercise-assets/snowman-basic/intro-circle.jpg" alt="Snowman" style="max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 ### Drawing a snowman
 

@@ -7,8 +7,8 @@ export class JumbledHouseExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, circle, triangle, ellipse } = this.getAllAvailableFunctions();
-    return [rectangle, circle, triangle, ellipse];
+    const { rectangle, circle, triangle } = this.getAllAvailableFunctions();
+    return [rectangle, circle, triangle];
   }
 }
 

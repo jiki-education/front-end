@@ -92,6 +92,8 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 6. **Category consistency**: Categories should be sensible (e.g., "Information" for getters, "Action" for state-changing functions, "Movement" for position changes).
 
+7. **Solution consistency**: Every function used in the solution files (`solution.javascript`, `solution.jiki`, `solution.py`) should have a corresponding entry in `functions`. No function should appear in the solution that isn't documented, and no documented function should be absent from the solution.
+
 ---
 
 ### Check 4: Instructions Don't Give Away the Answer
@@ -101,7 +103,6 @@ If this check fails, skip the remaining audit checks and move directly to the **
 **What's OK in instructions**:
 
 - Describing the goal ("Navigate the character to the target")
-- Listing available functions and what they do
 - Explaining the rules/constraints ("only people over 20 are allowed in")
 - Providing context/story
 
@@ -111,6 +112,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 - Telling students which control structures to use ("use a for loop", "use an if statement")
 - Providing pseudocode that maps directly to the solution
 - Specifying exact variable names or values from the solution
+- Listing available functions — the functions are already shown in the exercise UI's function panel, so repeating them in the instructions is redundant
 
 **How to check**: Read the instructions, then read the solution files. Could a student copy-paste or trivially translate the instructions into the solution? If yes, the instructions are too prescriptive.
 

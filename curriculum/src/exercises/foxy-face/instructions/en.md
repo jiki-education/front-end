@@ -18,7 +18,7 @@ Each pair of coordinates defines one of the three corners of the triangle.
 
 Your job is to build a geometric fox face using triangles! The face should look like this:
 
-<img src="/static/images/exercise-assets/foxy-face/example.svg" style="width: 100%; max-width:400px;margin-top:10px;margin-bottom:20px;border:1px solid #ddd;border-radius:5px"/>
+<img src="/static/images/exercise-assets/foxy-face/example.svg" alt="Foxy Face" style="max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 It's horizontally symmetrical (the left side is identical to the right side). And it has 8 triangles in total:
 
