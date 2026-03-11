@@ -198,7 +198,7 @@ export default class MazeExercise extends VisualExercise {
 
         const cellValue = this.grid[row][col];
         if (cellValue === 1) cell.classList.add("blocked");
-        if (cellValue === 2) cell.classList.add("start");
+        if (cellValue === 2) cell.classList.add("begin");
         if (cellValue === 3) cell.classList.add("target");
 
         cellsContainer.appendChild(cell);
