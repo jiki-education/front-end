@@ -1,56 +1,55 @@
 "use client";
 
-import React, { createContext, useEffect, useLayoutEffect, useState } from "react";
-
-// SSR-safe layout effect hook
-const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+import React, { createContext } from "react";
 import type { ReactNode } from "react";
-import type { Theme, ResolvedTheme, ThemeContextType } from "./types";
+import type { Theme, ThemeContextType } from "./types";
 
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-const STORAGE_KEY = "jiki-theme";
-const MEDIA_QUERY = "(prefers-color-scheme: dark)";
 
 interface ThemeProviderProps {
   children: ReactNode;
   defaultTheme?: Theme;
 }
 
-export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProviderProps) {
+// Dark mode is not yet designed. Theme is forced to light until dark mode is ready.
+// The full dynamic theme logic is intentionally dead code and can be re-enabled
+// when dark mode design is ready. See the comment block below.
+export function ThemeProvider({ children }: ThemeProviderProps) {
+  return (
+    <ThemeContext.Provider value={{ theme: "light", resolvedTheme: "light", setTheme: () => {} }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+/* DEAD CODE — re-enable when dark mode design is ready:
+
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import type { ResolvedTheme } from "./types";
+
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+const STORAGE_KEY = "jiki-theme";
+const MEDIA_QUERY = "(prefers-color-scheme: dark)";
+
+function ThemeProviderDynamic({ children, defaultTheme = "system" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
-  // Always start with "light" to prevent hydration mismatch
-  // The blocking script will ensure the DOM is correct, and we'll sync in useEffect
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme and sync with blocking script
   useIsomorphicLayoutEffect(() => {
-    // Initialize theme from localStorage
     const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initialTheme = savedTheme || defaultTheme;
-
     setThemeState(initialTheme);
-
-    // Calculate what the resolved theme should be based on user preference
     const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
     const newResolvedTheme = getResolvedTheme(initialTheme, systemPrefersDark);
-
-    // Set the resolved theme and update DOM once with final value
     setResolvedTheme(newResolvedTheme);
     updateDocumentTheme(newResolvedTheme);
-
     setMounted(true);
   }, [defaultTheme]);
 
-  // Listen for system theme changes
   useEffect(() => {
-    if (!mounted) {
-      return;
-    }
-
+    if (!mounted) return;
     const mediaQuery = window.matchMedia(MEDIA_QUERY);
-
     const handleChange = (e: MediaQueryListEvent) => {
       if (theme === "system") {
         const newResolvedTheme = e.matches ? "dark" : "light";
@@ -58,7 +57,6 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
         updateDocumentTheme(newResolvedTheme);
       }
     };
-
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme, mounted]);
@@ -66,17 +64,12 @@ export function ThemeProvider({ children, defaultTheme = "system" }: ThemeProvid
   const setTheme = (newTheme: Theme) => {
     const systemPrefersDark = window.matchMedia(MEDIA_QUERY).matches;
     const newResolvedTheme = getResolvedTheme(newTheme, systemPrefersDark);
-
     setThemeState(newTheme);
     setResolvedTheme(newResolvedTheme);
     updateDocumentTheme(newResolvedTheme);
-
-    // Save to localStorage
     localStorage.setItem(STORAGE_KEY, newTheme);
   };
 
-  // Prevent hydration mismatch by syncing with blocking script's theme
-  // The resolvedTheme state is initialized to match the blocking script's data-theme attribute
   if (!mounted) {
     return (
       <ThemeContext.Provider value={{ theme: defaultTheme, resolvedTheme, setTheme: () => {} }}>
@@ -97,7 +90,6 @@ function getResolvedTheme(theme: Theme, systemPrefersDark: boolean): ResolvedThe
 
 function updateDocumentTheme(resolvedTheme: ResolvedTheme) {
   const root = document.documentElement;
-
   if (resolvedTheme === "dark") {
     root.setAttribute("data-theme", "dark");
     root.classList.add("dark");
@@ -106,3 +98,5 @@ function updateDocumentTheme(resolvedTheme: ResolvedTheme) {
     root.classList.remove("dark");
   }
 }
+
+*/
