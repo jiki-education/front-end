@@ -72,11 +72,11 @@
 
     /* Inline Code */
     code {
-        background: var(--color-gray-100);
+        background: var(--color-purple-100);
         padding: var(--spacing-2) var(--spacing-6);
         border-radius: var(--radius-4);
         font-family: var(--font-mono);
-        color: var(--color-purple-600);
+        color: var(--color-purple-700);
     }
 
     /* Code Blocks */
@@ -266,6 +266,47 @@
             margin-right: var(--spacing-4);
             margin-bottom: var(--spacing-4);
         }
+    }
+}
+
+/* Typography - Compact Variant (for panels, sidebars) */
+.ui-textual-content-compact {
+    font-size: var(--text-14);
+    padding: 0;
+    max-width: none;
+    margin: 0;
+    background: none;
+
+    p {
+        margin-bottom: var(--spacing-12);
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    h2 {
+        font-size: var(--text-16);
+        margin: var(--spacing-16) 0 var(--spacing-8) 0;
+    }
+
+    h3 {
+        font-size: var(--text-14);
+        margin: var(--spacing-12) 0 var(--spacing-6) 0;
+    }
+
+    pre {
+        border-radius: var(--radius-8);
+        padding: var(--spacing-12) var(--spacing-16);
+        margin: var(--spacing-12) 0;
+    }
+
+    code {
+        font-size: var(--text-13);
+    }
+
+    pre code {
+        font-size: var(--text-13);
     }
 }
 

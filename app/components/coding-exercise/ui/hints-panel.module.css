@@ -129,8 +129,8 @@
 }
 
 .hintAnswerContent :not(pre) > code {
-    background: #e0e7ff;
-    color: #4338ca;
+    background: var(--color-purple-100);
+    color: var(--color-purple-700);
     padding: 2px 6px;
     border-radius: 3px;
     font-size: 15px;
