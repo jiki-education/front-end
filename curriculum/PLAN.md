@@ -49,6 +49,7 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 - `cloud-rain-sun` - Cloud, Rain & Sun: combine rectangle, circle, and ellipse (Strings and Colors level)
 - `snowman-basic` - Snowman Basic: build a snowman from three circles (Using Functions level)
 - `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
+- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 
 ### Needs Changes
 
@@ -65,7 +66,6 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 
 ### Implemented
 
-- `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
 - `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
 - `snowman` - Snowman: use variables to position snowman parts (Variables level)

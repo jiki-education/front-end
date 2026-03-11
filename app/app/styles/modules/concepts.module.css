@@ -110,7 +110,8 @@
 }
 
 .conceptCard.small {
-    padding: 14px 16px;
+    padding: 12px 12px;
+    gap: 12px;
     .conceptTitle {
         font-size: 16px;
     }
@@ -163,7 +164,7 @@
 .conceptTitle {
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     color: var(--color-gray-950);
     transition: color 0.3s ease;
 }

@@ -11,7 +11,8 @@ export default function LibraryWithConcepts({ concepts }: LibraryWithConceptsPro
   return (
     <LibraryWrapper>
       <p className={styles.libraryDescriptionWithButton}>
-        These are the key concepts used in this exercise - feel free to refresh yourself on anything!
+        These are the key concepts used in this exercise. Use them to refresh yourself on what you&apos;ve learned so
+        far.
       </p>
       <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
