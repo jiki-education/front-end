@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { InspectedIOTestResultView } from "@/components/coding-exercise/ui/test-results-view/InspectedIOTestResultView";
+import { IOInspectedView } from "@/components/coding-exercise/ui/test-results-view/io/IOInspectedView";
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import { useOrchestrator } from "@/components/coding-exercise/lib/OrchestratorContext";
 import type { IOTestResult, IOTestExpect } from "@/components/coding-exercise/lib/test-results-types";
@@ -23,9 +23,22 @@ jest.mock("@/components/coding-exercise/ui/test-results-view/IOTestResultView", 
 const mockUseOrchestrator = useOrchestrator as jest.Mock;
 const mockUseOrchestratorStore = useOrchestratorStore as jest.Mock;
 
-describe("InspectedIOTestResultView", () => {
+const mockScenario = {
+  name: "Preview Scenario",
+  functionName: "testFunction",
+  args: ["arg1"],
+  expected: "PNG"
+};
+
+const mockExercise = {
+  type: "io",
+  scenarios: [mockScenario]
+};
+
+describe("IOInspectedView", () => {
   const mockOrchestrator = {
-    getFirstExpect: jest.fn()
+    getFirstExpect: jest.fn(),
+    getExercise: jest.fn()
   };
 
   const createMockIOTest = (name: string, status: "pass" | "fail"): IOTestResult => ({
@@ -52,30 +65,33 @@ describe("InspectedIOTestResultView", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseOrchestrator.mockReturnValue(mockOrchestrator);
+    mockOrchestrator.getExercise.mockReturnValue(mockExercise);
   });
 
-  it("should return null when currentTest is null", () => {
+  it("should render preview when currentTest is null", () => {
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: null
+      currentTest: null,
+      currentTestIdx: 0
     });
 
-    const { container } = render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
-    expect(container.firstChild).toBeNull();
+    expect(screen.getByText("Preview Scenario")).toBeInTheDocument();
   });
 
-  it("should return null when currentTest is not an IO test", () => {
+  it("should render preview when currentTest is not an IO test", () => {
     mockUseOrchestratorStore.mockReturnValue({
       currentTest: {
         type: "visual",
         slug: "visual-test",
         name: "Visual Test"
-      }
+      },
+      currentTestIdx: 0
     });
 
-    const { container } = render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
-    expect(container.firstChild).toBeNull();
+    expect(screen.getByText("Preview Scenario")).toBeInTheDocument();
   });
 
   it("should render test name and result view when currentTest is an IO test", () => {
@@ -83,11 +99,12 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect = createMockExpect("CAT", "PNG");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect);
 
-    render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
     expect(screen.getByText("Test Acronym")).toBeInTheDocument();
     expect(screen.getByTestId("io-test-result-view")).toBeInTheDocument();
@@ -100,11 +117,12 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect = createMockExpect("PNG", "PNG");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect);
 
-    render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
     expect(screen.getByTestId("pass-message")).toBeInTheDocument();
   });
@@ -114,11 +132,12 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect = createMockExpect("CAT", "PNG");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect);
 
-    render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
     expect(screen.queryByTestId("pass-message")).not.toBeInTheDocument();
   });
@@ -131,22 +150,24 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect2 = createMockExpect("DOG", "BIRD");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest1
+      currentTest: mockTest1,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect1);
 
-    const { rerender } = render(<InspectedIOTestResultView />);
+    const { rerender } = render(<IOInspectedView />);
 
     expect(screen.getByTestId("expect-actual")).toHaveTextContent("CAT");
     expect(screen.getByTestId("expect-expected")).toHaveTextContent("PNG");
 
     // Update to new test
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest2
+      currentTest: mockTest2,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect2);
 
-    rerender(<InspectedIOTestResultView />);
+    rerender(<IOInspectedView />);
 
     // Should show updated expect values
     expect(screen.getByTestId("expect-actual")).toHaveTextContent("DOG");
@@ -158,11 +179,12 @@ describe("InspectedIOTestResultView", () => {
     const mockTest = createMockIOTest("Test Acronym", "fail");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(null);
 
-    render(<InspectedIOTestResultView />);
+    render(<IOInspectedView />);
 
     expect(screen.queryByTestId("io-test-result-view")).not.toBeInTheDocument();
   });
@@ -172,11 +194,12 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect = createMockExpect("CAT", "PNG");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect);
 
-    const { container } = render(<InspectedIOTestResultView />);
+    const { container } = render(<IOInspectedView />);
 
     const scenarioDiv = container.querySelector(`.${styles.scenario}`);
     expect(scenarioDiv).toHaveClass("fail");
@@ -187,11 +210,12 @@ describe("InspectedIOTestResultView", () => {
     const mockExpect = createMockExpect("PNG", "PNG");
 
     mockUseOrchestratorStore.mockReturnValue({
-      currentTest: mockTest
+      currentTest: mockTest,
+      currentTestIdx: 0
     });
     mockOrchestrator.getFirstExpect.mockReturnValue(mockExpect);
 
-    const { container } = render(<InspectedIOTestResultView />);
+    const { container } = render(<IOInspectedView />);
 
     const scenarioDiv = container.querySelector(`.${styles.scenario}`);
     expect(scenarioDiv).toHaveClass("pass");
