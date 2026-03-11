@@ -5,21 +5,21 @@ describe("Python compile()", () => {
   describe("successful compilation", () => {
     test("returns success for valid code", () => {
       const result = compile("x = 5");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for multiple statements", () => {
       const result = compile(`x = 5
 y = 10
 z = x + y`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for if statement", () => {
       const result = compile(`x = 5
 if x > 0:
     y = 10`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for nested if statements", () => {
@@ -28,34 +28,34 @@ if x > 0:
     y = 10
     if y > 5:
         z = 15`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for arithmetic expressions", () => {
       const result = compile(`result = (5 + 3) * 2 - 4 / 2`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for boolean operations", () => {
       const result = compile(`result = True and False or not True`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for string operations", () => {
       const result = compile(`message = "hello" + " " + "world"`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for lists", () => {
       const result = compile(`numbers = [1, 2, 3, 4, 5]
 first = numbers[0]`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("returns success for for loops", () => {
       const result = compile(`for i in range(5):
     x = i * 2`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
   });
 
@@ -128,36 +128,36 @@ first = numbers[0]`);
           allowTypeCoercion: true,
         },
       });
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
   });
 
   describe("edge cases", () => {
     test("handles empty string", () => {
       const result = compile("");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles newlines only", () => {
       const result = compile("\n\n\n");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles comments only", () => {
       const result = compile("# just a comment");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles multiple comments", () => {
       const result = compile(`# comment 1
 # comment 2
 # comment 3`);
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
 
     test("handles inline comments", () => {
       const result = compile("x = 5  # assign 5 to x");
-      expect(result).toEqual({ success: true });
+      expect(result).toEqual({ success: true, lintErrors: [] });
     });
   });
 });

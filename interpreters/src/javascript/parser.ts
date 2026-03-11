@@ -1,4 +1,4 @@
-import { SyntaxError, type SyntaxErrorType } from "./error";
+import { SyntaxError, LintError, type SyntaxErrorType, type LintErrorType } from "./error";
 import type { Expression } from "./expression";
 import {
   LiteralExpression,
@@ -46,6 +46,7 @@ export class Parser {
   private readonly languageFeatures: LanguageFeatures;
   private blockDepth: number = 0;
   private baseIndentation: number | null = null;
+  public lintErrors: LintError[] = [];
 
   constructor(context: EvaluationContext = {}) {
     this.languageFeatures = context.languageFeatures || {};
@@ -108,6 +109,7 @@ export class Parser {
     this.tokens = this.scanner.scanTokens(sourceCode);
     this.baseIndentation = null;
     this.blockDepth = 0;
+    this.lintErrors = [];
 
     const statements: Statement[] = [];
 
@@ -280,7 +282,7 @@ export class Parser {
 
     // Enforce that opening brace content is on a new line
     if (this.languageFeatures.enforceFormatting && !this.check("EOL") && !this.check("RIGHT_BRACE")) {
-      this.error("OpeningBraceContentNotOnOwnLine", this.previous().location);
+      this.lintWarning("OpeningBraceContentNotOnOwnLine", this.previous().location);
     }
 
     while (!this.isAtEnd()) {
@@ -313,7 +315,7 @@ export class Parser {
         prevIndex--;
       }
       if (prevIndex >= 0 && this.tokens[prevIndex].location.line === rightBrace.location.line) {
-        this.error("ClosingBraceNotOnOwnLine", rightBrace.location);
+        this.lintWarning("ClosingBraceNotOnOwnLine", rightBrace.location);
       }
 
       // Check closing brace indentation
@@ -943,7 +945,7 @@ export class Parser {
     if (column !== expectedColumn) {
       const expected = this.blockDepth * 2;
       const actual = column - this.baseIndentation;
-      this.error("IncorrectIndentation", token.location, { expected, actual });
+      this.lintWarning("IncorrectIndentation", token.location, { expected, actual });
     }
   }
 
@@ -1177,6 +1179,10 @@ export class Parser {
     const rightBrace = this.previous();
 
     return new DictionaryExpression(elements, Location.between(leftBrace, rightBrace));
+  }
+
+  private lintWarning(type: LintErrorType, location: Location, context?: any): void {
+    this.lintErrors.push(new LintError(translate(`error.lint.${type}`, context), location, type, context));
   }
 
   private error(type: SyntaxErrorType, location: Location, context?: any): never {

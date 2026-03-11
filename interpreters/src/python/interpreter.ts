@@ -39,9 +39,9 @@ export function compile(sourceCode: string, context: EvaluationContext = {}): Co
   try {
     const parser = new Parser(context);
     parser.parse(sourceCode);
-    return { success: true };
+    return { success: true, lintErrors: [] };
   } catch (error: unknown) {
-    return { success: false, error: error as PySyntaxError };
+    return { success: false, error: error as PySyntaxError, lintErrors: [] };
   }
 }
 
@@ -60,6 +60,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       logLines: executor.logLines,
       error: null, // No parse error
       success: result.success,
+      lintErrors: [],
       meta: {
         functionCallLog: {},
         statements: statements,
@@ -74,6 +75,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       logLines: [],
       error: error as PySyntaxError,
       success: false,
+      lintErrors: [],
       meta: {
         functionCallLog: {},
         statements: [],
@@ -155,6 +157,7 @@ export function evaluateFunction(
     logLines: callResult.logLines,
     success: callResult.success,
     error: null,
+    lintErrors: [],
     meta: {
       functionCallLog: callResult.meta.functionCallLog,
       statements: statements, // Return the original student code statements

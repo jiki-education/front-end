@@ -1,33 +1,37 @@
 import { interpret } from "@javascript/interpreter";
 import type { TestAugmentedFrame } from "@shared/frames";
-import { SyntaxError } from "@javascript/error";
+import { SyntaxError, LintError } from "@javascript/error";
 
 describe("JavaScript enforceFormatting feature", () => {
   describe("enforceFormatting: false (default)", () => {
     test("allows closing brace on same line as statement", () => {
       const code = `{ let x = 1; }`;
-      const { error } = interpret(code);
+      const { error, lintErrors } = interpret(code);
       expect(error).toBeNull();
+      expect(lintErrors).toHaveLength(0);
     });
 
     test("allows repeat without braces", () => {
       const code = `let x = 0; repeat(3) x = x + 1;`;
-      const { error } = interpret(code);
+      const { error, lintErrors } = interpret(code);
       expect(error).toBeNull();
+      expect(lintErrors).toHaveLength(0);
     });
 
     test("allows if without braces", () => {
       const code = `let x = 0; if (true) x = 1;`;
-      const { error } = interpret(code);
+      const { error, lintErrors } = interpret(code);
       expect(error).toBeNull();
+      expect(lintErrors).toHaveLength(0);
     });
 
     test("allows any indentation when enforceFormatting is off", () => {
       const code = `let x = 5;
           let y = 10;
   let z = x + y;`;
-      const { frames, error } = interpret(code);
+      const { frames, error, lintErrors } = interpret(code);
       expect(error).toBeNull();
+      expect(lintErrors).toHaveLength(0);
       expect(frames).not.toHaveLength(0);
     });
   });
@@ -35,7 +39,7 @@ describe("JavaScript enforceFormatting feature", () => {
   describe("enforceFormatting: true", () => {
     const features = { enforceFormatting: true, oneStatementPerLine: true };
 
-    describe("requires opening brace after control flow keywords", () => {
+    describe("requires opening brace after control flow keywords (parse error)", () => {
       test("repeat without braces throws BlockRequired", () => {
         const code = `let x = 0;\nrepeat(3) x = x + 1;`;
         const { error } = interpret(code, { languageFeatures: features });
@@ -120,13 +124,15 @@ describe("JavaScript enforceFormatting feature", () => {
       });
     });
 
-    describe("requires closing brace on its own line", () => {
-      test("closing brace on same line as last statement throws ClosingBraceNotOnOwnLine", () => {
+    describe("lint warning: closing brace on its own line", () => {
+      test("closing brace on same line as last statement produces lint warning", () => {
         const code = `let x = 0;\nrepeat(3) {\n  x = x + 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors, frames } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+        expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+        expect(lintErrors[0]).toBeInstanceOf(LintError);
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("closing brace on its own line is allowed", () => {
@@ -136,16 +142,17 @@ describe("JavaScript enforceFormatting feature", () => {
             x = x + 1;
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("if block with closing brace on same line throws error", () => {
+      test("if block with closing brace on same line produces lint warning", () => {
         const code = `let x = 0;\nif (true) {\n  x = 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors, frames } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("if block with closing brace on its own line is allowed", () => {
@@ -155,16 +162,16 @@ describe("JavaScript enforceFormatting feature", () => {
             x = 1;
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("function with closing brace on same line throws error", () => {
+      test("function with closing brace on same line produces lint warning", () => {
         const code = `function foo() {\n  return 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("function with closing brace on its own line is allowed", () => {
@@ -173,8 +180,9 @@ describe("JavaScript enforceFormatting feature", () => {
             return 1;
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
       test("empty block is allowed on one line", () => {
@@ -182,29 +190,30 @@ describe("JavaScript enforceFormatting feature", () => {
           repeat(3) {
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
       test("empty block {} is allowed", () => {
         const code = `
           repeat(3) {}
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("nested closing braces on same line throws error", () => {
+      test("nested closing braces on same line produces lint warning", () => {
         const code = `
           if (true) {
             if (true) {
               let x = 1;
             } }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("nested closing braces on separate lines is allowed", () => {
@@ -215,74 +224,72 @@ describe("JavaScript enforceFormatting feature", () => {
             }
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("while with closing brace on same line throws error", () => {
+      test("while with closing brace on same line produces lint warning", () => {
         const code = `let x = 0;\nwhile (x < 3) {\n  x = x + 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
-      test("for with closing brace on same line throws error", () => {
+      test("for with closing brace on same line produces lint warning", () => {
         const code = `for (let i = 0; i < 3; i = i + 1) {\n  let x = i; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
     });
 
-    describe("requires opening brace content on its own line", () => {
-      test("repeat with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
-        const code = `let x = 0;\nrepeat(3) { x = x + 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+    describe("lint warning: opening brace content on its own line", () => {
+      test("repeat with body on same line as brace produces lint warning", () => {
+        const code = `let x = 0;\nrepeat(3) { x = x + 1;\n}`;
+        const { error, lintErrors, frames } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+        expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+        expect(lintErrors[0]).toBeInstanceOf(LintError);
+        expect(lintErrors.some(e => e.type === "OpeningBraceContentNotOnOwnLine")).toBe(true);
       });
 
-      test("if with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
-        const code = `let x = 0;\nif (true) { x = 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      test("if with body on same line as brace produces lint warning", () => {
+        const code = `let x = 0;\nif (true) { x = 1;\n}`;
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "OpeningBraceContentNotOnOwnLine")).toBe(true);
       });
 
-      test("function with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
-        const code = `function foo() { return 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      test("function with body on same line as brace produces lint warning", () => {
+        const code = `function foo() { return 1;\n}`;
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "OpeningBraceContentNotOnOwnLine")).toBe(true);
       });
 
-      test("while with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
-        const code = `let x = 0;\nwhile (x < 3) { x = x + 1; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      test("while with body on same line as brace produces lint warning", () => {
+        const code = `let x = 0;\nwhile (x < 3) { x = x + 1;\n}`;
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "OpeningBraceContentNotOnOwnLine")).toBe(true);
       });
 
-      test("for with body on same line as brace throws OpeningBraceContentNotOnOwnLine", () => {
-        const code = `for (let i = 0; i < 3; i = i + 1) { let x = i; }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("OpeningBraceContentNotOnOwnLine");
+      test("for with body on same line as brace produces lint warning", () => {
+        const code = `for (let i = 0; i < 3; i = i + 1) { let x = i;\n}`;
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "OpeningBraceContentNotOnOwnLine")).toBe(true);
       });
 
       test("empty block on same line is allowed", () => {
         const code = `
           repeat(3) {}
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
       test("body on new line is allowed", () => {
@@ -292,18 +299,18 @@ describe("JavaScript enforceFormatting feature", () => {
             x = x + 1;
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
     });
 
-    describe("works without semicolons", () => {
-      test("closing brace on same line without semicolons throws error", () => {
+    describe("lint warnings work without semicolons", () => {
+      test("closing brace on same line without semicolons produces lint warning", () => {
         const code = `let x = 0\nrepeat(3) {\n  x = x + 1 }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("closing brace on own line without semicolons is allowed", () => {
@@ -313,16 +320,16 @@ describe("JavaScript enforceFormatting feature", () => {
             x = x + 1
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("if block without semicolons and closing brace on same line throws error", () => {
+      test("if block without semicolons and closing brace on same line produces lint warning", () => {
         const code = `let x = 0\nif (true) {\n  x = 1 }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("if block without semicolons and closing brace on own line is allowed", () => {
@@ -332,16 +339,16 @@ describe("JavaScript enforceFormatting feature", () => {
             x = 1
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
 
-      test("function without semicolons and closing brace on same line throws error", () => {
+      test("function without semicolons and closing brace on same line produces lint warning", () => {
         const code = `function foo() {\n  return 1 }`;
-        const { error } = interpret(code, { languageFeatures: features });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("function without semicolons and closing brace on own line is allowed", () => {
@@ -350,20 +357,20 @@ describe("JavaScript enforceFormatting feature", () => {
             return 1
           }
         `;
-        const { error } = interpret(code, { languageFeatures: features });
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
     });
 
-    describe("works with requireSemicolons", () => {
+    describe("lint warnings work with requireSemicolons", () => {
       const featuresWithSemicolons = { enforceFormatting: true, oneStatementPerLine: true, requireSemicolons: true };
 
-      test("closing brace on same line with semicolons throws error", () => {
+      test("closing brace on same line with semicolons produces lint warning", () => {
         const code = `let x = 0;\nrepeat(3) {\n  x = x + 1; }`;
-        const { error } = interpret(code, { languageFeatures: featuresWithSemicolons });
-        expect(error).not.toBeNull();
-        expect(error).toBeInstanceOf(SyntaxError);
-        expect(error!.type).toBe("ClosingBraceNotOnOwnLine");
+        const { error, lintErrors } = interpret(code, { languageFeatures: featuresWithSemicolons });
+        expect(error).toBeNull();
+        expect(lintErrors.some(e => e.type === "ClosingBraceNotOnOwnLine")).toBe(true);
       });
 
       test("closing brace on own line with semicolons is allowed", () => {
@@ -373,19 +380,21 @@ describe("JavaScript enforceFormatting feature", () => {
             x = x + 1;
           }
         `;
-        const { error } = interpret(code, { languageFeatures: featuresWithSemicolons });
+        const { error, lintErrors } = interpret(code, { languageFeatures: featuresWithSemicolons });
         expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
       });
     });
 
-    describe("enforces 2-space indentation", () => {
+    describe("lint warning: enforces 2-space indentation", () => {
       describe("correct indentation (should pass)", () => {
         test("top-level statements at consistent indentation", () => {
           const code = `let x = 5;
 let y = 10;
 let z = x + y;`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.z.value).toBe(15);
         });
@@ -395,8 +404,9 @@ let z = x + y;`;
 if (x > 3) {
   let y = 10;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
 
         test("statements in while block at +2 spaces", () => {
@@ -404,8 +414,9 @@ if (x > 3) {
 while (i < 3) {
   i = i + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.i.value).toBe(3);
         });
@@ -415,8 +426,9 @@ while (i < 3) {
 for (let i = 0; i < 3; i = i + 1) {
   sum = sum + i;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.sum.value).toBe(3);
         });
@@ -426,8 +438,9 @@ for (let i = 0; i < 3; i = i + 1) {
 for (let x of [1, 2, 3]) {
   sum = sum + x;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.sum.value).toBe(6);
         });
@@ -437,8 +450,9 @@ for (let x of [1, 2, 3]) {
 repeat(3) {
   count = count + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.count.value).toBe(3);
         });
@@ -449,8 +463,9 @@ repeat(3) {
   return result;
 }
 let x = add(3, 4);`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.x.value).toBe(7);
         });
@@ -462,8 +477,9 @@ if (true) {
 } else {
   result = 2;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.result.value).toBe(1);
         });
@@ -478,8 +494,9 @@ if (x > 10) {
 } else {
   result = 3;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.result.value).toBe(2);
         });
@@ -490,8 +507,9 @@ if (x > 10) {
 
   let y = 2;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
 
         test("multiple statements in a block all at same indent", () => {
@@ -500,8 +518,9 @@ if (x > 10) {
   let b = 2;
   let c = 3;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
       });
 
@@ -513,8 +532,9 @@ if (x > 5) {
     let y = 1;
   }
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
 
         test("nested for inside for", () => {
@@ -524,8 +544,9 @@ for (let i = 0; i < 2; i = i + 1) {
     total = total + 1;
   }
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.total.value).toBe(6);
         });
@@ -541,8 +562,9 @@ while (i < 3) {
   }
   i = i + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.total.value).toBe(6);
         });
@@ -558,8 +580,9 @@ for (let i = 0; i < 2; i = i + 1) {
     }
   }
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.count.value).toBe(4);
         });
@@ -578,8 +601,9 @@ while (outer < 3) {
   }
   outer = outer + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.count.value).toBe(6);
         });
@@ -592,8 +616,9 @@ if (true) {
   }
   x = x + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.x.value).toBe(2);
         });
@@ -606,8 +631,9 @@ if (true) {
 if (true) {
   x = x + 1;
 }`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.x.value).toBe(2);
         });
@@ -623,32 +649,35 @@ if (true) {
   return result;
 }
 let x = compute(4);`;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
           const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
           expect(lastFrame.variables.x.value).toBe(6);
         });
       });
 
-      describe("incorrect indentation (should error)", () => {
+      describe("incorrect indentation (produces lint warnings)", () => {
         test("missing indentation: statement in if block at parent level", () => {
           const code = `if (true) {
 let x = 1;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors, frames } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(frames.length).toBeGreaterThan(0);
+          expect(lintErrors).toHaveLength(1);
+          expect(lintErrors[0]).toBeInstanceOf(LintError);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("missing indentation: statement in for block at parent level", () => {
           const code = `for (let i = 0; i < 3; i = i + 1) {
 let x = i;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("missing indentation: statement in while block at parent level", () => {
@@ -656,40 +685,40 @@ let x = i;
 while (i < 3) {
 i = i + 1;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("missing indentation: statement in function body at parent level", () => {
           const code = `function foo() {
 let x = 1;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("wrong indentation amount: 3 spaces instead of 2", () => {
           const code = `if (true) {
    let x = 1;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("over-indentation: 4 spaces when 2 expected", () => {
           const code = `if (true) {
     let x = 1;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("inconsistent indentation within same block", () => {
@@ -697,20 +726,20 @@ let x = 1;
   let x = 1;
     let y = 2;
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("closing brace at wrong column (indented)", () => {
           const code = `if (true) {
   let x = 1;
   }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("nested block contents at wrong level (2 instead of 4 at depth 2)", () => {
@@ -719,10 +748,10 @@ let x = 1;
   let x = 1;
   }
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("statement after closing block at wrong level", () => {
@@ -731,19 +760,19 @@ if (true) {
   x = 1;
 }
   x = 2;`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
 
         test("top-level statements at inconsistent indentation", () => {
           const code = `let x = 1;
   let y = 2;`;
-          const { error } = interpret(code, { languageFeatures: features });
-          expect(error).not.toBeNull();
-          expect(error).toBeInstanceOf(SyntaxError);
-          expect(error!.type).toBe("IncorrectIndentation");
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
+          expect(error).toBeNull();
+          expect(lintErrors.length).toBeGreaterThanOrEqual(1);
+          expect(lintErrors[0].type).toBe("IncorrectIndentation");
         });
       });
 
@@ -751,8 +780,9 @@ if (true) {
         test("empty block has no indentation error", () => {
           const code = `if (true) {
 }`;
-          const { error } = interpret(code, { languageFeatures: features });
+          const { error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
 
         test("indentation works with template literal base offset", () => {
@@ -762,8 +792,9 @@ if (true) {
               let y = 10;
             }
           `;
-          const { frames, error } = interpret(code, { languageFeatures: features });
+          const { frames, error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
+          expect(lintErrors).toHaveLength(0);
         });
       });
     });

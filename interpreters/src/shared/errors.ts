@@ -1,5 +1,6 @@
 import type { Location } from "./location";
 import type { InterpreterError } from "./interfaces";
+import type { LintError } from "../javascript/error";
 
 /**
  * Shared SyntaxError interface that all interpreter-specific SyntaxError classes conform to.
@@ -18,5 +19,8 @@ export interface SyntaxError {
 /**
  * Result type returned by compile() functions in all interpreters.
  * Uses a discriminated union for type-safe success/error handling.
+ * lintErrors contains non-blocking formatting warnings (empty for non-JS interpreters).
  */
-export type CompilationResult = { success: true } | { success: false; error: InterpreterError };
+export type CompilationResult =
+  | { success: true; lintErrors: LintError[] }
+  | { success: false; error: InterpreterError; lintErrors: LintError[] };
