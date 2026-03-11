@@ -1182,7 +1182,7 @@
         border-color: var(--color-green-200);
         @apply bg-green-50;
         @apply text-green-500;
-        background-image: url("/icons/bootcamp-tick-green.svg");
+        background-image: url("/static/icons/bootcamp-tick-green.svg");
         background-size: 12px;
         background-position: 24px 0px;
         &.selected {
@@ -1197,7 +1197,7 @@
         border-color: var(--color-error-border);
         background-color: var(--color-error-bg);
         @apply text-red-400;
-        background-image: url("/icons/bootcamp-cross-red.svg");
+        background-image: url("/static/icons/bootcamp-cross-red.svg");
         background-size: 9px;
         background-position: 25px 2px;
         &.selected {
