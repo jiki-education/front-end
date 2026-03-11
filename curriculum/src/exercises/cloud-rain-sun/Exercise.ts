@@ -10,6 +10,12 @@ export class CloudRainSunExercise extends DrawExercise {
     const { rectangle, circle, ellipse } = this.getAllAvailableFunctions();
     return [rectangle, circle, ellipse];
   }
+
+  public setupBackground(imageUrl: string) {
+    this.canvas.style.backgroundImage = `url(${imageUrl})`;
+    this.canvas.style.backgroundSize = "cover";
+    this.canvas.style.backgroundPosition = "center";
+  }
 }
 
 export default CloudRainSunExercise;

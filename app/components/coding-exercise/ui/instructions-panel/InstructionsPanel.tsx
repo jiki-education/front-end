@@ -48,7 +48,7 @@ export default function InstructionsPanel({
     exerciseSlug
   };
 
-  // Fetch concepts when conceptSlugs change
+  // Fetch concepts on mount - conceptSlugs are static for a given exercise
   useEffect(() => {
     async function loadConcepts() {
       if (!conceptSlugs || conceptSlugs.length === 0) {
@@ -76,7 +76,8 @@ export default function InstructionsPanel({
     }
 
     void loadConcepts();
-  }, [conceptSlugs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- conceptSlugs are static for the lifetime of the exercise
+  }, []);
 
   // Handle scroll to update active section
   useEffect(() => {

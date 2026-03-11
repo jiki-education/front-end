@@ -3,24 +3,16 @@ title: "Solve a Maze with Repeat"
 description: ""
 ---
 
-You've been given a working solution to a maze, but it's very long and repetitive. Your job is to refactor the code using `repeat` loops to make it shorter.
+You've been given a working solution to a maze, but it's very long and repetitive. Your job is to change the code to be **as few lines as possible**.
 
-Look for groups of consecutive `move()` calls. Each group can be replaced with a single `repeat` loop.
+The secret to this is to use `repeat` loops to make the code shorter. For example. Remember a repeat loop has this syntax:
 
-For example, instead of:
-
-```
-move();
-move();
-move();
-```
-
-You can write:
-
-```
+```javascript
 repeat(3) {
-  move();
+  // Whatever you want to repeat here.
 }
 ```
 
-Your solution must be **22 lines of code or fewer**.
+Your job here is to make the code as short as possible - **22 lines of code**. That means thinking about when it's good to use a repeat loop and when not. Note that blank lines and lines with just comments on do not count towards the target, so feel free to space your code out to make it more readable!
+
+Good luck!

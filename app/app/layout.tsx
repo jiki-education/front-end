@@ -6,7 +6,6 @@ import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
 import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
-import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
 import "./globals.css";
 
@@ -41,7 +40,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
-        <Script src="/static/theme-script.js" strategy="beforeInteractive" />
         <GlobalErrorHandler />
         <ServerAuthProvider>
           <ThemeProvider>

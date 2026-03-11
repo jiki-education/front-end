@@ -15,7 +15,7 @@
 
 .closeButton {
     position: absolute !important;
-    top: 10px;
+    top: 16px;
     right: 10px;
     z-index: 10;
 }
@@ -105,7 +105,7 @@
 .error {
     background-color: var(--color-surface-elevated);
     border: 2px solid var(--color-red-500);
-    filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.15);
     overflow: hidden; /* Ensure proper border radius clipping */
     min-width: 400px; /* Ensure enough width for "Oops" text */
 }
@@ -157,6 +157,8 @@
 /* Error tooltip title styling - override color for errors */
 .error .content > div:first-child {
     color: var(--color-red-500);
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
 }
 
 .error .content > div:first-child svg {

@@ -1,4 +1,5 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
+import type { VisualExerciseDefinition } from "@jiki/curriculum";
 import { useMemo } from "react";
 import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
@@ -46,12 +47,18 @@ export function InspectedVisualTestResultViewLHS({
   currentTest: VisualTestResult;
   firstExpect: VisualTestExpect | null;
 }) {
+  const orchestrator = useOrchestrator();
+  const { currentTestIdx } = useOrchestratorStore(orchestrator);
+  const exercise = orchestrator.getExercise() as VisualExerciseDefinition;
+  const scenario = exercise.scenarios[currentTestIdx];
+
   return (
     <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
       <div
         className={assembleClassNames(styles.testDescription, currentTest.status === "fail" ? styles.stateFailed : "")}
       >
         <span className={styles.instructionLabel}>{currentTest.name}</span>
+        {scenario.description && <p className="text-sm text-gray-600 mt-2">{scenario.description}</p>}
 
         <TestResultInfo firstExpect={firstExpect} />
       </div>

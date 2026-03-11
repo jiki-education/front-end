@@ -4,20 +4,16 @@
   "levelId": "strings-and-colors",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by looking at the left wing and create a matching right wing"
+      "question": "Where do I start?",
+      "answer": "Work through the TODO comments one at a time, starting from the top."
     },
     {
-      "question": "Hint",
-      "answer": "Remember each shape function takes a color as its last argument"
+      "question": "How does symmetry work on the canvas?",
+      "answer": "If something's left edge is 20, its symmetrical right edge will be 80 (100 - 20)."
     },
     {
-      "question": "Hint",
-      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right"
-    },
-    {
-      "question": "Hint",
-      "answer": "For symmetry, if the left wing is at x=28, the right wing should be at x=72 (both 22 units from center at x=50)"
+      "question": "Why can't I get the nose to work?",
+      "answer": "You shouldn't add a new triangle for the nose - instead you should CHANGE the existing triangle to work correctly. You only need to change ONE value."
     }
   ]
 }
