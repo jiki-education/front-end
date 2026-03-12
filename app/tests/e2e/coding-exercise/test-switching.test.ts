@@ -23,7 +23,10 @@ test.describe("Test Switching E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
   });
 
   test.describe("Test switching with pause state", () => {

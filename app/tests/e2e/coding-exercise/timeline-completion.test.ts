@@ -17,7 +17,10 @@ test.describe("Timeline Completion and Restart E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play to start and animation to complete
     await page.waitForFunction(
@@ -51,7 +54,10 @@ test.describe("Timeline Completion and Restart E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for animation to complete
     await page.waitForFunction(
@@ -108,7 +114,10 @@ test.describe("Timeline Completion and Restart E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play to start
     await page.waitForFunction(() => {
@@ -237,7 +246,10 @@ test.describe("Timeline Completion and Restart E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for first completion
     await page.waitForFunction(

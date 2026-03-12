@@ -24,7 +24,7 @@ test.describe("Test Runner E2E", () => {
     // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
     await page
       .locator(
-        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='pass'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='fail']"
       )
       .first()
       .waitFor();
@@ -71,7 +71,7 @@ test.describe("Test Runner E2E", () => {
     // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
     await page
       .locator(
-        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='pass'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='fail']"
       )
       .first()
       .waitFor();
@@ -107,7 +107,7 @@ test.describe("Test Runner E2E", () => {
     // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
     await page
       .locator(
-        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='pass'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='fail']"
       )
       .first()
       .waitFor();
@@ -141,7 +141,7 @@ test.describe("Test Runner E2E", () => {
     // Wait for at least one dot to receive a pass/fail status (indicates tests have finished)
     await page
       .locator(
-        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='passed'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='failed']"
+        "[data-testid='test-selector-buttons'] [class*='Dot'][class*='pass'], [data-testid='test-selector-buttons'] [class*='Dot'][class*='fail']"
       )
       .first()
       .waitFor();

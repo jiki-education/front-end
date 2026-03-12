@@ -26,7 +26,10 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator('[data-testid="run-button"]').click();
 
     // Wait for test results
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play to start
     await page.waitForFunction(() => {
@@ -53,7 +56,10 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for play/pause button to appear
     await page.locator('[data-ci="pause-button"], [data-ci="play-button"]').first().waitFor();
@@ -97,7 +103,10 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()\n");
 
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play to start
     await page.waitForFunction(() => {
@@ -126,7 +135,10 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play
     await page.waitForFunction(() => {
@@ -152,7 +164,10 @@ test.describe("Auto-Play Timeline E2E", () => {
 
     // Run tests again
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for shouldAutoPlay to be set to true
     await page.waitForFunction(() => {
@@ -223,7 +238,10 @@ test.describe("Auto-Play Timeline E2E", () => {
     await page.locator(".cm-content").pressSequentially("move()\nmove()\nmove()\nmove()\nmove()");
 
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
 
     // Wait for auto-play
     await page.waitForFunction(() => {

@@ -13,7 +13,11 @@ test.describe("Test Completion and Navigation E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    // Wait for test results to actually be populated (inspected-test-result-view also renders in pending state)
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
   });
 
   test("should NOT restart scenario when navigating away and back after completion", async ({ page }) => {
