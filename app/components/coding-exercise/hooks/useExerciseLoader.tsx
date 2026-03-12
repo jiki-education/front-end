@@ -11,9 +11,17 @@ interface UseExerciseLoaderProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  onGoToDashboard?: () => void;
 }
 
-export function useExerciseLoader({ language, exerciseSlug, context, levelId, isCompleted }: UseExerciseLoaderProps) {
+export function useExerciseLoader({
+  language,
+  exerciseSlug,
+  context,
+  levelId,
+  isCompleted,
+  onGoToDashboard
+}: UseExerciseLoaderProps) {
   const orchestratorRef = useRef<Orchestrator | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -61,7 +69,7 @@ export function useExerciseLoader({ language, exerciseSlug, context, levelId, is
         }
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(exercise, language, context, content.contentHash);
+        orchestratorRef.current = new Orchestrator(exercise, language, context, content.contentHash, onGoToDashboard);
 
         orchestratorRef.current.setIsExerciseCompleted(isCompleted);
 

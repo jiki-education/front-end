@@ -129,10 +129,6 @@ export function useExerciseCompletionModal({
   };
 
   const handleContinue = () => {
-    hideModal();
-  };
-
-  const handleGoToDashboard = () => {
     onGoToDashboard?.();
     hideModal();
   };
@@ -146,8 +142,7 @@ export function useExerciseCompletionModal({
       handleRatingsSubmit,
       handleContinueFromConcept,
       handleContinueFromProject,
-      handleContinue,
-      handleGoToDashboard
+      handleContinue
     }
   };
 }
