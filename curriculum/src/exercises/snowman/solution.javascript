@@ -1,24 +1,16 @@
-// Build a Snowman!
-
-let snowmanX = 50;
-let headY = 33;
+let snowmanCx = 50;
+let headCy = 20;
 let headRadius = 10;
-let bodyY = 50;
+let bodyCy = 40;
 let bodyRadius = 15;
-let baseY = 72;
+let baseCy = 70;
 let baseRadius = 20;
 
-// Sky
-rectangle(0, 0, 100, 60, "skyblue");
-
-// Snowy ground
-rectangle(0, 60, 100, 40, "grey");
-
 // Base (bottom, biggest)
-circle(snowmanX, baseY, baseRadius, "white");
+circle(snowmanCx, baseCy, baseRadius, "white");
 
 // Body (middle)
-circle(snowmanX, bodyY, bodyRadius, "white");
+circle(snowmanCx, bodyCy, bodyRadius, "white");
 
 // Head (top, smallest)
-circle(snowmanX, headY, headRadius, "white");
+circle(snowmanCx, headCy, headRadius, "white");

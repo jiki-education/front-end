@@ -71,6 +71,7 @@ export interface InterpretResult {
   meta: Meta;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
+    assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
     assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
     countLinesOfCode: () => number;
     assertMaxLinesOfCode: (limit: number) => boolean;

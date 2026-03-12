@@ -83,6 +83,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       },
       assertors: {
         assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
+        assertSomeArgumentsAreVariablesForFunction: () => true,
         assertNoLiteralNumberAssignments: () => true,
         countLinesOfCode: () => 0,
         assertMaxLinesOfCode: () => true,
@@ -170,6 +171,22 @@ export function evaluateFunction(
             return !(arg instanceof LiteralExpression);
           });
         });
+      },
+      assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => {
+        const formatted = formatIdentifier(funcName);
+        return extractCallExpressions(statements)
+          .filter(
+            (expr: CallExpression) =>
+              expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
+          )
+          .every((expr: CallExpression) => {
+            return expr.args.every((arg: Expression, i: number) => {
+              if (!flags[i]) {
+                return true;
+              }
+              return !(arg instanceof LiteralExpression);
+            });
+          });
       },
       assertNoLiteralNumberAssignments: (exclude: string[]) => {
         const formattedExclude = exclude.map(formatIdentifier);

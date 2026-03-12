@@ -26,7 +26,7 @@ All **user-facing text** must use JavaScript conventions:
 
 - **Function/variable names**: camelCase (e.g., `getAge()`, `turnLeft()`, `shotLength`)
 - **Code examples**: JavaScript syntax (e.g., `let age = getAge()`, `for` loops, `if` statements)
-- **No Jikiscript references**: Do not use `set ... to`, `change ... to`, `repeat N times do ... end`, `for each ... indexed by`, or mention "Jiki"/"Jikiscript" by name
+- **No Jikiscript syntax or references**: Do not use `set ... to`, `change ... to`, `repeat N times do ... end`, `for each ... indexed by`, or refer to "Jikiscript" as a language. ("Jiki" the character is fine.)
 - **No Python references**: Do not use Python syntax in user-facing text
 
 This applies to: `metadata.json` (instructions, hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (`FunctionInfo` name/signature/examples), and `llm-metadata.ts`.

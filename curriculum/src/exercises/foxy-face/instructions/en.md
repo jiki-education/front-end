@@ -10,7 +10,7 @@ This exercise introduces you to the `triangle` function. You use with 7 inputs. 
 - `x3`, `y3`: The third corner point
 - `color`: The color of the triangle (e.g. `"orange"`)
 
-[TRIANGLE IMAGE]
+<img src="/static/images/exercise-assets/foxy-face/intro-triangle.png" alt="Triangle function diagram" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 ### Drawing a fox face
 

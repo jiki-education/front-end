@@ -312,6 +312,19 @@ export class Executor {
             });
           });
         },
+        assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => {
+          const formatted = formatIdentifier(funcName);
+          return extractFunctionCallExpressions(statements)
+            .filter((expr: FunctionCallExpression) => expr.callee.name.lexeme === formatted)
+            .every((expr: FunctionCallExpression) => {
+              return expr.args.every((arg: Expression, i: number) => {
+                if (!flags[i]) {
+                  return true;
+                }
+                return !(arg instanceof LiteralExpression);
+              });
+            });
+        },
         assertNoLiteralNumberAssignments: (exclude: string[]) => {
           const formattedExclude = exclude.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {

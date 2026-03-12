@@ -112,6 +112,53 @@ describe("JavaScript assertors", () => {
     });
   });
 
+  describe("assertSomeArgumentsAreVariablesForFunction", () => {
+    test("returns true when flagged args are variables", () => {
+      const result = interpret("let x = 1;\nlet y = 2;\ndrawCircle(x, y, 10);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        true
+      );
+    });
+
+    test("returns false when a flagged arg is a literal", () => {
+      const result = interpret("drawCircle(100, 200, 10);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        false
+      );
+    });
+
+    test("ignores unflagged literal args", () => {
+      const result = interpret("let x = 1;\ndrawCircle(x, 200, 10);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        true
+      );
+    });
+
+    test("checks all calls to the same function", () => {
+      const result = interpret("let x = 1;\ndrawCircle(x, 1, 1);\ndrawCircle(5, 1, 1);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        false
+      );
+    });
+
+    test("ignores calls to other functions", () => {
+      const result = interpret("otherFunc(5);\nlet x = 1;\ndrawCircle(x, 1, 1);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        true
+      );
+    });
+
+    test("returns true when function is not called at all", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
+    });
+  });
+
   describe("assertFunctionCalledOutsideOwnDefinition", () => {
     test("returns true when function is called from another function", () => {
       const code = `function includes(str, char) {

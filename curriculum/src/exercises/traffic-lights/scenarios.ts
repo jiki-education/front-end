@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as TrafficLightsExercise;
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/traffic-lights.png");
+      ex.setupBackground("/static/images/exercise-assets/traffic-lights/background.png");
     },
 
     expectations(exercise) {
@@ -29,26 +29,26 @@ export const scenarios: VisualScenario[] = [
 
       return [
         {
-          pass: ex.hasRectangleAt(0, 0, 100, 100),
-          errorHtml: "The background rectangle is missing. It should be at (0, 0) with width 100 and height 100."
+          pass: ex.hasCircleWithColorAt(50, 16, 8, "#FF0000"),
+          errorHtml: "The red light (top) isn't right."
         },
         {
-          pass: ex.hasRectangleAt(30, 10, 40, 80),
-          errorHtml: "The traffic light housing is missing. It should be at (30, 10) with width 40 and height 80."
+          pass: ex.hasCircleWithColorAt(50, 39, 8, "#FFFF00"),
+          errorHtml: "The amber light (middle) isn't right."
         },
         {
-          pass: ex.hasCircleAt(50, 25, 10),
-          errorHtml: "The red light (top) is not correct. Use circle(centerX, topY, radius, color)."
-        },
-        {
-          pass: ex.hasCircleAt(50, 50, 10),
-          errorHtml: "The yellow light (middle) is not correct. Use circle(centerX, middleY, radius, color)."
-        },
-        {
-          pass: ex.hasCircleAt(50, 75, 10),
-          errorHtml: "The green light (bottom) is not correct. Use circle(centerX, bottomY, radius, color)."
+          pass: ex.hasCircleWithColorAt(50, 62, 8, "#008000"),
+          errorHtml: "The green light (bottom) isn't right."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result) =>
+          result.assertors.assertSomeArgumentsAreVariablesForFunction("circle", [true, true, true, false]),
+        errorHtml: "You should use the variables rather than using numbers directly as the function inputs."
+      }
+    ]
   }
 ];

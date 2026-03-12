@@ -119,6 +119,53 @@ describe("Python assertors", () => {
     });
   });
 
+  describe("assertSomeArgumentsAreVariablesForFunction", () => {
+    test("returns true when flagged args are variables", () => {
+      const result = interpret("x = 1\ny = 2\ndraw_circle(x, y, 10)");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        true
+      );
+    });
+
+    test("returns false when a flagged arg is a literal", () => {
+      const result = interpret("draw_circle(100, 200, 10)");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        false
+      );
+    });
+
+    test("ignores unflagged literal args", () => {
+      const result = interpret("x = 1\ndraw_circle(x, 200, 10)");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        true
+      );
+    });
+
+    test("checks all calls to the same function", () => {
+      const result = interpret("x = 1\ndraw_circle(x, 1, 1)\ndraw_circle(5, 1, 1)");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        false
+      );
+    });
+
+    test("ignores calls to other functions", () => {
+      const result = interpret("other_func(5)\nx = 1\ndraw_circle(x, 1, 1)");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        true
+      );
+    });
+
+    test("returns true when function is not called at all", () => {
+      const result = interpret("x = 5");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("def def def");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
+    });
+  });
+
   describe("assertFunctionCalledOutsideOwnDefinition", () => {
     test("returns true when function is called from another function", () => {
       const code = `def includes(s, c):

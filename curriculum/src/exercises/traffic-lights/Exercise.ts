@@ -1,4 +1,5 @@
 import { DrawExercise } from "../../exercise-categories/draw";
+import { getCircleAt } from "../../exercise-categories/draw";
 import metadata from "./metadata.json";
 
 export class TrafficLightsExercise extends DrawExercise {
@@ -7,8 +8,13 @@ export class TrafficLightsExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, circle } = this.getAllAvailableFunctions();
-    return [rectangle, circle];
+    const { circle } = this.getAllAvailableFunctions();
+    return [circle];
+  }
+
+  public hasCircleWithColorAt(cx: number, cy: number, radius: number, fillColor: string): boolean {
+    const circle = getCircleAt(this.shapes, cx, cy, radius);
+    return circle !== undefined && circle.fillColor === fillColor;
   }
 
   public setupBackground(imageUrl: string) {
