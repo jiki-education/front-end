@@ -1,16 +1,12 @@
-# These are fixed
+# Step 1: Define your fact variables
 canvas_size = 100
 gap = 10
-sun_radius = 15
-sky_color = "skyblue"
-sun_color = "yellow"
+radius = 15
+color = "yellow"
 
-# Derive these from the variables above
-sun_x = canvas_size - gap - sun_radius
-sun_y = gap + sun_radius
+# Step 2: Define calculated variables
+sun_x = canvas_size - gap - radius
+sun_y = gap + radius
 
-# Sky
-rectangle(0, 0, canvas_size, canvas_size, sky_color)
-
-# Sun
-circle(sun_x, sun_y, sun_radius, sun_color)
+# Step 3: Draw the circle
+circle(sun_x, sun_y, radius, color)

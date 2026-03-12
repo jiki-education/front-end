@@ -46,7 +46,11 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["head_radius", "snowman_x", "ground_y"]),
+        pass: (result) =>
+          result.assertors.assertNoLiteralNumberAssignments({
+            include: ["base_y", "body_y", "head_y"],
+            exclude: ["head_radius", "snowman_x", "ground_y"]
+          }),
         errorHtml: "All sizes and positions should be calculated from headRadius and groundY, not set to plain numbers."
       }
     ]

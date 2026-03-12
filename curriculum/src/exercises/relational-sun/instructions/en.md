@@ -3,29 +3,31 @@ title: "Relational Sun"
 description: ""
 ---
 
-Your task is to position a sun in the top-right corner of the sky using arithmetic and variables.
+In this exercise, your task is to position a sun in the top-right corner of the sky using arithmetic and variables. The key constraint is that the edge of the sun should always be a fixed **gap** away from the edge.
 
-<!-- TODO: Add target relational sun image here -->
+### A Three-step Process
 
-### How it works
+This exercise has three steps.
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- Several variables are fixed: `canvasSize`, `gap`, `sunRadius`, `skyColor`, and `sunColor`.
-- You need to derive `sunX` and `sunY` so the sun sits in the top-right corner with a gap from the edges.
-- The sun's center should be `gap + sunRadius` away from the top and right edges.
-- You also need to draw the sky rectangle and the sun circle using the variables.
+#### 1. Define your fact variables
 
-### Variables
+Define variables for:
 
-- `canvasSize` — the width and height of the canvas (fixed at 100)
-- `gap` — the space between the sun and the canvas edge (fixed at 10)
-- `sunRadius` — the radius of the sun (fixed at 15)
-- `skyColor` — the color of the sky (fixed at "skyblue")
-- `sunColor` — the color of the sun (fixed at "yellow")
-- `sunX` — derive from `canvasSize`, `gap`, and `sunRadius`
-- `sunY` — derive from `gap` and `sunRadius`
+- `canvasSize`: The size of the canvas (which is `100`)
+- `gap`: How far from the top-right edge the sun's edge should be.
+- `radius`: The sun's radius.
+- `color`: Set it to `"yellow"`.
 
-### Functions used in this exercise
+You can work out the gap and radius by hovering over the area and measuring. They're both divisible by 5. If you can't work it out, check the hints.
 
-- `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(cx, cy, radius, color)` — Draw a circle
+#### 2. Define calculated variables
+
+Define `sunX` and `sunY` variables that use the gap and radius and the size of the canvas to set the central point of the sun to the top right of the image.
+
+To pass the exercise, `sunX` and `sunY` can't be set to any numbers - only calculations involving other variables.
+
+#### 3. Draw the circle
+
+Draw a circle using `sunX`, `sunY`, `radius` and `color`.
+
+If you connect everything up correctly, you should be able to change radius and gap and rerun your code to see the sun get larger in the sky!

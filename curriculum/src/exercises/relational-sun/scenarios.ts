@@ -6,7 +6,10 @@ export const tasks = [
     id: "position-sun" as const,
     name: "Position the sun",
     description: "Derive sunX and sunY using arithmetic, then draw the sky and sun using the variables.",
-    hints: [],
+    hints: [
+      { question: "I can't work out the radius of the sun", answer: "It's 15." },
+      { question: "I can't work out the gap", answer: "It's 10." }
+    ],
     requiredScenarios: ["position-sun"],
     bonus: false
   }
@@ -21,18 +24,13 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as RelationalSunExercise;
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/relational-sun.png");
+      ex.setupBackground("/static/images/exercise-assets/relational-sun/background.png");
     },
 
     expectations(exercise) {
       const ex = exercise as RelationalSunExercise;
 
       return [
-        {
-          pass: ex.hasRectangleAt(0, 0, 100, 100),
-          errorHtml:
-            "The sky rectangle is not correct. It should cover the whole canvas: rectangle(0, 0, canvasSize, canvasSize, skyColor)."
-        },
         {
           pass: ex.hasCircleAt(75, 25, 15),
           errorHtml:
@@ -43,7 +41,7 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["canvas_size", "gap", "sun_radius"]),
+        pass: (result) => result.assertors.assertNoLiteralNumbersInAssignments({ include: ["sun_x", "sun_y"] }),
         errorHtml: "Variables like sunX and sunY should be calculated from other variables, not set to plain numbers."
       }
     ]

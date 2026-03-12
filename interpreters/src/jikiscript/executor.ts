@@ -82,6 +82,7 @@ import { executeFunctionCallExpression } from "./executor/executeFunctionCallExp
 import { executeIfStatement } from "./executor/executeIfStatement";
 import didYouMean from "didyoumean";
 import {
+  extractExpressions,
   extractFunctionCallExpressions,
   extractVariableAssignments,
   formatJikiObject,
@@ -325,13 +326,22 @@ export class Executor {
               });
             });
         },
-        assertNoLiteralNumberAssignments: (exclude: string[]) => {
-          const formattedExclude = exclude.map(formatIdentifier);
+        assertNoLiteralNumberAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude.includes(name)) {
-              return true;
-            }
+            if (formattedExclude?.includes(name)) return true;
+            if (formattedInclude && !formattedInclude.includes(name)) return true;
             return !(value instanceof LiteralExpression && typeof value.value === "number");
+          });
+        },
+        assertNoLiteralNumbersInAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (formattedExclude?.includes(name)) return true;
+            if (formattedInclude && !formattedInclude.includes(name)) return true;
+            return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
           });
         },
         countLinesOfCode: () => countLinesOfCode(this.sourceCode),

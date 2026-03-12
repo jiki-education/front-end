@@ -74,6 +74,7 @@ import { executeAttributeExpression } from "./executor/executeAttributeExpressio
 import { executeFStringExpression } from "./executor/executeFStringExpression";
 import {
   extractCallExpressions,
+  extractExpressions,
   extractVariableAssignments,
   formatIdentifier,
   countLinesOfCode,
@@ -133,7 +134,8 @@ export interface ExecutorResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
-    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    assertNoLiteralNumberAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
+    assertNoLiteralNumbersInAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
     countLinesOfCode: () => number;
     assertMaxLinesOfCode: (limit: number) => boolean;
     assertFunctionDefined: (name: string) => boolean;
@@ -271,13 +273,22 @@ export class Executor {
               });
             });
         },
-        assertNoLiteralNumberAssignments: (exclude: string[]) => {
-          const formattedExclude = exclude.map(formatIdentifier);
+        assertNoLiteralNumberAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude.includes(name)) {
-              return true;
-            }
+            if (formattedExclude?.includes(name)) return true;
+            if (formattedInclude && !formattedInclude.includes(name)) return true;
             return !(value instanceof LiteralExpression && typeof value.value === "number");
+          });
+        },
+        assertNoLiteralNumbersInAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (formattedExclude?.includes(name)) return true;
+            if (formattedInclude && !formattedInclude.includes(name)) return true;
+            return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
           });
         },
         countLinesOfCode: () => countLinesOfCode(this.sourceCode),

@@ -72,7 +72,8 @@ export interface InterpretResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
-    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    assertNoLiteralNumberAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
+    assertNoLiteralNumbersInAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
     countLinesOfCode: () => number;
     assertMaxLinesOfCode: (limit: number) => boolean;
     assertFunctionDefined: (name: string) => boolean;

@@ -201,7 +201,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, width, and height inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -230,7 +230,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x1, y1, x2, and y2 inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -253,7 +253,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, and radius inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -277,7 +277,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, rx, and ry inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -303,7 +303,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x1, y1, x2, y2, x3, and y3 inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;

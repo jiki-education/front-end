@@ -1,16 +1,12 @@
-// These are fixed
+// Step 1: Define your fact variables
 let canvasSize = 100;
 let gap = 10;
-let sunRadius = 15;
-let skyColor = "skyblue";
-let sunColor = "yellow";
+let radius = 15;
+let color = "yellow";
 
-// Derive these from the variables above
-let sunX = canvasSize - gap - sunRadius;
-let sunY = gap + sunRadius;
+// Step 2: Define calculated variables
+let sunX = canvasSize - gap - radius;
+let sunY = gap + radius;
 
-// Sky
-rectangle(0, 0, canvasSize, canvasSize, skyColor);
-
-// Sun
-circle(sunX, sunY, sunRadius, sunColor);
+// Step 3: Draw the circle
+circle(sunX, sunY, radius, color);
