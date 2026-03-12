@@ -50,26 +50,19 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 - `snowman-basic` - Snowman Basic: build a snowman from three circles (Using Functions level)
 - `jumbled-house` - Jumbled House: rearrange shapes to build a house (Strings and Colors level)
 - `maze-solve-repeat` - Maze Solve Repeat: refactor a maze solution using repeat loops (Repeat Loop level)
-
-### Needs Changes
-
 - `foxy-face` - Foxy Face: draw triangles to build a geometric fox face (Strings and Colors level)
 - `penguin` - Penguin: draw shapes with colors to build a penguin (Strings and Colors level)
-
-#### Foxy Fox
-
-- [ ] Add triangle diagram and instructions
-
-#### Penguin
-
-- [ ] Add ellipse diagram and instructions
-
-### Implemented
-
 - `golf-rolling-ball-loop` - Golf Rolling Ball Loop: use repeat loop to roll ball 60 times (Repeat Loop level)
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
 - `snowman` - Snowman: use variables to position snowman parts (Variables level)
 - `traffic-lights` - Traffic Lights: use variables to draw traffic light (Variables level)
+
+### Needs Changes
+
+None.
+
+### Implemented
+
 - `relational-sun` - Relational Sun: use arithmetic to position sun rays (Variables level)
 - `relational-snowman` - Relational Snowman: use arithmetic for snowman proportions (Variables level)
 - `relational-traffic-lights` - Relational Traffic Lights: use arithmetic for traffic light positioning (Variables level)
