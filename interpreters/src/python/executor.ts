@@ -277,8 +277,8 @@ export class Executor {
           const formattedInclude = include?.map(formatIdentifier);
           const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude?.includes(name)) return true;
-            if (formattedInclude && !formattedInclude.includes(name)) return true;
+            if (formattedExclude?.includes(name)) {return true;}
+            if (formattedInclude && !formattedInclude.includes(name)) {return true;}
             return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
         },
@@ -286,8 +286,8 @@ export class Executor {
           const formattedInclude = include?.map(formatIdentifier);
           const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude?.includes(name)) return true;
-            if (formattedInclude && !formattedInclude.includes(name)) return true;
+            if (formattedExclude?.includes(name)) {return true;}
+            if (formattedInclude && !formattedInclude.includes(name)) {return true;}
             return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
           });
         },
