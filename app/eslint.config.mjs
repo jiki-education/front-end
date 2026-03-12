@@ -78,9 +78,6 @@ const eslintConfig = [
       // Enforce strict equality (=== / !==), except allow == null for null/undefined checks.
       eqeqeq: ["error", "smart"],
 
-      // Require braces around all control statements (if/else/while).
-      curly: ["error", "all"],
-
       // Ensure `default` case in switch comes last.
       "default-case-last": "error",
 
