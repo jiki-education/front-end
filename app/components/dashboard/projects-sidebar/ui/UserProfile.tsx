@@ -15,7 +15,7 @@ import { UserProfileSkeleton } from "./UserProfileSkeleton";
 interface UserProfileBase {
   name: string;
   handle: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
 }
 
 interface UserProfileWithStreaks extends UserProfileBase {
@@ -61,7 +61,7 @@ export function UserProfile({ profile, badges, loading, isPremium = false }: Use
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={resolveApiAssetUrl(profile.avatarUrl)}
+            src={profile.avatarUrl ? resolveApiAssetUrl(profile.avatarUrl) : undefined}
             alt="User Avatar"
             onError={(e) => {
               e.currentTarget.src =

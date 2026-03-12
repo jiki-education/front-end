@@ -1,27 +1,25 @@
-import styles from "../ExercisePath.module.css";
+import styles from "./MilestoneCard.module.css";
 
 interface MilestoneCardProps {
-  status: "completed" | "readyForCompletion" | "locked";
+  status: "achieved" | "locked";
   label: string;
   title?: string;
   description?: string;
   iconSrc: string;
-  progressPercentage?: number;
+  nextLessonState?: "completed" | "active" | "locked" | null;
 }
 
-export function MilestoneCard({ status, label, title, description, progressPercentage }: MilestoneCardProps) {
+export function MilestoneCard({ status, label, title, description, nextLessonState }: MilestoneCardProps) {
+  const nextClass =
+    nextLessonState === "completed" ? styles.nextCompleted : nextLessonState === "active" ? styles.nextActive : "";
   return (
-    <div className={`${styles.milestoneCard} ${styles[status]}`}>
+    <div className={`${styles.milestoneCard} ${styles[status]} ${nextClass}`}>
       <div className={styles.milestoneCardContent}>
         <span className={styles.milestoneLabel}>{label}</span>
         {title && <h3>{title}</h3>}
         {description && <p>{description}</p>}
-        {status === "readyForCompletion" && progressPercentage !== undefined && (
-          <div className={styles.milestoneProgressBar}>
-            <div className={styles.milestoneProgressFill} style={{ width: `${progressPercentage}%` }} />
-          </div>
-        )}
       </div>
+      {nextLessonState !== null && <span className={styles.lessonConnector} />}
     </div>
   );
 }

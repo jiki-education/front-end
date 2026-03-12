@@ -1,0 +1,40 @@
+/* ─── Pill ───────────────────────────────────────────────────────────────── */
+
+.startCard {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 50px;
+    position: relative;
+    background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-purple-500) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: white;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    width: fit-content;
+    justify-self: center;
+}
+
+/* ─── Connector below start card ────────────────────────────────────────── */
+
+.startCard::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 25px;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gray-200);
+}
+
+.startCardConnectorGreen::after {
+    background: linear-gradient(to bottom, white 20%, var(--color-green-500) 80%);
+}
+
+.startCardConnectorPurple::after {
+    background: linear-gradient(to bottom, white 20%, var(--color-purple-500) 80%);
+}

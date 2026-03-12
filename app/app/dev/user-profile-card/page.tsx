@@ -79,7 +79,7 @@ function CurrentCard() {
       <div className={style.header}>
         <button type="button" className={style.avatarButton}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mockProfile.avatarUrl} alt="User Avatar" />
+          <img src={mockProfile.avatarUrl ?? undefined} alt="User Avatar" />
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>
@@ -101,7 +101,7 @@ function PremiumCard() {
       <div className={style.header}>
         <button type="button" className={`${style.avatarButton} ${style.avatarButtonPremium}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mockProfile.avatarUrl} alt="User Avatar" />
+          <img src={mockProfile.avatarUrl ?? undefined} alt="User Avatar" />
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>

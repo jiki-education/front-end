@@ -6,7 +6,7 @@ import QuizCardIcon from "@/icons/quiz-card.svg";
 import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
-import styles from "../ExercisePath.module.css";
+import styles from "./LessonNode.module.css";
 import { LessonIcon } from "../../../icons/LessonIcon";
 import { WalkthroughCard } from "./WalkthroughCard";
 
@@ -16,9 +16,17 @@ interface LessonNodeProps {
   animationState?: AnimationState;
   isRecentlyUnlocked?: boolean;
   isActiveLesson?: boolean;
+  connectorStyle?: "green" | "gradient" | "gradientToLocked" | "toMilestone";
 }
 
-export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked, isActiveLesson }: LessonNodeProps) {
+export function LessonNode({
+  lesson,
+  onClick,
+  animationState,
+  isRecentlyUnlocked,
+  isActiveLesson,
+  connectorStyle
+}: LessonNodeProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,6 +55,10 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
   // Build className based on state and animations
   const getClassName = () => {
     const classes = [styles.lessonPart];
+
+    if (connectorStyle === "gradient") classes.push(styles.connectorGradient);
+    else if (connectorStyle === "gradientToLocked") classes.push(styles.connectorGradientToLocked);
+    else if (connectorStyle === "toMilestone") classes.push(styles.connectorToMilestone);
 
     if (isAnimatingComplete) {
       // Lesson that's completing (turning green)
@@ -83,6 +95,7 @@ export function LessonNode({ lesson, onClick, animationState, isRecentlyUnlocked
       <div className={styles.statusBadge}>
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
+      <span className={styles.lessonConnector} />
       <div className={styles.partIcon}>
         {lesson.lesson.type === "video" ? (
           <VideoLibIcon width={64} height={64} />

@@ -1,0 +1,96 @@
+/* ─── Pill ───────────────────────────────────────────────────────────────── */
+
+.milestoneCard {
+    border-radius: 100px;
+    padding: 24px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.milestoneCard:hover {
+    transform: scale(1.02);
+}
+
+.milestoneCard.achieved {
+    background: linear-gradient(135deg, var(--color-amber-500) 0%, var(--color-amber-600) 100%);
+    border: 3px solid var(--color-amber-500);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.milestoneCard.achieved:hover {
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+}
+
+.milestoneCard.locked {
+    background: var(--color-gray-200);
+    border-color: var(--color-gray-200);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 230px;
+    padding: 12px;
+    cursor: not-allowed;
+}
+
+/* ─── Content ───────────────────────────────────────────────────────────── */
+
+.milestoneCardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.milestoneCard.locked .milestoneCardContent {
+    opacity: 0.5;
+}
+
+.milestoneLabel {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+}
+
+.milestoneCard.locked .milestoneLabel {
+    color: var(--color-gray-500);
+}
+
+.milestoneCard p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.milestoneCard h3,
+.milestoneCardIcon {
+    display: none;
+}
+
+/* ─── Connector below milestone ─────────────────────────────────────────── */
+
+.lessonConnector {
+    position: absolute;
+    background: var(--color-gray-200);
+    width: 3px;
+    height: 45px;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.milestoneCard.nextCompleted .lessonConnector {
+    background: var(--color-green-500);
+}
+
+.milestoneCard.nextActive .lessonConnector {
+    background: linear-gradient(to bottom, var(--color-amber-500) 20%, var(--color-purple-500) 80%);
+}

@@ -75,11 +75,12 @@ export default function ExercisePath() {
   return (
     <div ref={containerRef} className={styles.learningPath}>
       {isPending && <LessonLoadingModal />}
-      <StartCard />
-      {levelSections.map((section) => (
+      <StartCard firstLessonCompleted={levelSections[0]?.lessons[0]?.completed ?? false} />
+      {levelSections.map((section, index) => (
         <LevelSection
           key={section.levelSlug}
           section={section}
+          nextSectionFirstLesson={levelSections[index + 1]?.lessons[0] ?? null}
           _clickedLessonSlug={clickedLessonSlug}
           _levelCompletionInProgress={levelCompletionInProgress}
           onLessonClick={handleLessonClick}

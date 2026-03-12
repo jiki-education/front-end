@@ -1,10 +1,11 @@
-import type { LevelSectionData } from "../types";
+import type { LessonDisplayData, LevelSectionData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
 import { LessonNode } from "./LessonNode";
 import { MilestoneCard } from "./MilestoneCard";
 
 interface LevelSectionProps {
   section: LevelSectionData;
+  nextSectionFirstLesson: LessonDisplayData | null;
   _clickedLessonSlug: string | null;
   _levelCompletionInProgress: string | null;
   onLessonClick: (lessonSlug: string, route: string) => void;
@@ -17,6 +18,7 @@ interface LevelSectionProps {
 
 export function LevelSection({
   section,
+  nextSectionFirstLesson,
   _clickedLessonSlug,
   _levelCompletionInProgress,
   onLessonClick,
@@ -30,52 +32,59 @@ export function LevelSection({
     return null;
   }
 
+  const nextLessonState =
+    nextSectionFirstLesson === null
+      ? null
+      : nextSectionFirstLesson.completed
+        ? "completed"
+        : nextSectionFirstLesson.locked
+          ? "locked"
+          : "active";
+
   return (
     <>
-      {section.lessons.map((lesson) => (
-        <LessonNode
-          key={lesson.lesson.slug}
-          lesson={lesson}
-          onClick={(_e) => onLessonClick(lesson.lesson.slug, lesson.route)}
-          animationState={animationState}
-          isRecentlyUnlocked={recentlyUnlockedLessons?.has(lesson.lesson.slug) || false}
-          isActiveLesson={lesson.lesson.slug === activeLessonSlug}
-        />
-      ))}
+      {section.lessons.map((lesson, index) => {
+        const isLast = index === section.lessons.length - 1;
+        const next = section.lessons[index + 1];
+        let connectorStyle: "green" | "gradient" | "gradientToLocked" | "toMilestone" | undefined;
+        if (isLast) {
+          connectorStyle = "toMilestone";
+        } else if (lesson.completed) {
+          connectorStyle = next.completed ? "green" : "gradient";
+        } else if (!lesson.locked && next.locked) {
+          connectorStyle = "gradientToLocked";
+        }
+        return (
+          <LessonNode
+            key={lesson.lesson.slug}
+            lesson={lesson}
+            onClick={(_e) => onLessonClick(lesson.lesson.slug, lesson.route)}
+            animationState={animationState}
+            isRecentlyUnlocked={recentlyUnlockedLessons?.has(lesson.lesson.slug) || false}
+            isActiveLesson={lesson.lesson.slug === activeLessonSlug}
+            connectorStyle={connectorStyle}
+          />
+        );
+      })}
 
       {/* Always show milestone - it's the divider between levels */}
-      {section.status === "completed" && (
+      {section.status === "completed" ? (
         <div>
           <MilestoneCard
-            status="completed"
+            status="achieved"
             label={`Milestone ${section.levelIndex}`}
             description="You've completed this level!"
             iconSrc="/static/images/milestone-1.png"
-            progressPercentage={100}
+            nextLessonState={nextLessonState}
           />
         </div>
-      )}
-
-      {section.completedLessonsCount === section.lessons.length && section.status !== "completed" && (
+      ) : (
         <div onClick={() => onMilestoneClick(section)}>
-          <MilestoneCard
-            status="readyForCompletion"
-            label="Next Milestone"
-            description={undefined}
-            iconSrc="/static/images/milestone-1.png"
-            progressPercentage={100}
-          />
-        </div>
-      )}
-
-      {section.completedLessonsCount < section.lessons.length && section.status !== "completed" && (
-        <div>
           <MilestoneCard
             status="locked"
             label={`Milestone ${section.levelIndex}`}
-            description={undefined}
             iconSrc="/static/images/milestone-1.png"
-            progressPercentage={undefined}
+            nextLessonState={nextLessonState}
           />
         </div>
       )}

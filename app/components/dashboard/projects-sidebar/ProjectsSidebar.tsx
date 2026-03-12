@@ -40,7 +40,7 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
     const base = {
       name: user.name || user.handle,
       handle: user.handle,
-      avatarUrl: avatarUrl ?? ""
+      avatarUrl: avatarUrl ?? null
     };
 
     if (profileData.streaks_enabled) {
