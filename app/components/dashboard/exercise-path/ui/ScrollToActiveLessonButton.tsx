@@ -17,6 +17,8 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
 
     const getActiveEl = () => container.querySelector<HTMLElement>("[data-active-lesson='true']");
 
+    const scrollRoot = getScrollParent(container);
+
     const observe = (el: HTMLElement) => {
       observerRef.current?.disconnect();
 
@@ -26,10 +28,13 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
             setDirection(null);
           } else {
             const rect = entry.boundingClientRect;
-            setDirection(rect.top < 0 ? "up" : "down");
+            const rootMid = entry.rootBounds
+              ? (entry.rootBounds.top + entry.rootBounds.bottom) / 2
+              : window.innerHeight / 2;
+            setDirection(rect.bottom < rootMid ? "up" : "down");
           }
         },
-        { threshold: 0.5 }
+        { root: scrollRoot, threshold: 0.5 }
       );
 
       observerRef.current.observe(el);
@@ -104,4 +109,16 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
       )}
     </button>
   );
+}
+
+function getScrollParent(el: HTMLElement): HTMLElement | null {
+  let parent = el.parentElement;
+  while (parent && parent !== document.body) {
+    const style = window.getComputedStyle(parent);
+    if (style.overflowY === "auto" || style.overflowY === "scroll") {
+      return parent;
+    }
+    parent = parent.parentElement;
+  }
+  return null;
 }
