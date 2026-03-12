@@ -1,6 +1,7 @@
 import type { EvaluationResultExpressionStatement, EvaluationResultCallExpression } from "../evaluation-result";
 import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
 import { formatJSObject } from "../helpers";
+import { JSUndefined } from "../jsObjects/JSUndefined";
 import type { ExpressionStatement } from "../statement";
 import { CallExpression } from "../expression";
 import { describeExpression } from "./describeSteps";
@@ -17,7 +18,9 @@ export function describeExpressionStatement(frame: FrameWithResult, context: Des
     const argCount = expressionStatement.expression.args.length;
     const argsDesc = argCount > 0 ? ` with ${argCount} argument${argCount !== 1 ? "s" : ""}` : "";
 
-    const result = `<p>JavaScript used the <code>${functionName}</code> function${argsDesc} and got <code>${value}</code>.</p>`;
+    // Omit "and got undefined" for void functions
+    const retDesc = callResult.jikiObject instanceof JSUndefined ? "" : ` and got <code>${value}</code>`;
+    const result = `<p>JavaScript used the <code>${functionName}</code> function${argsDesc}${retDesc}.</p>`;
     const steps = describeExpression(expressionStatement.expression, frameResult.expression, context);
 
     return {
