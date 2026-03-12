@@ -132,6 +132,7 @@ export interface ExecutorResult {
   success: boolean;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
+    assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
     assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
     countLinesOfCode: () => number;
     assertMaxLinesOfCode: (limit: number) => boolean;
@@ -253,6 +254,22 @@ export class Executor {
               return !(arg instanceof LiteralExpression);
             });
           });
+        },
+        assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => {
+          const formatted = formatIdentifier(funcName);
+          return extractCallExpressions(statements)
+            .filter(
+              (expr: CallExpression) =>
+                expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
+            )
+            .every((expr: CallExpression) => {
+              return expr.args.every((arg: Expression, i: number) => {
+                if (!flags[i]) {
+                  return true;
+                }
+                return !(arg instanceof LiteralExpression);
+              });
+            });
         },
         assertNoLiteralNumberAssignments: (exclude: string[]) => {
           const formattedExclude = exclude.map(formatIdentifier);

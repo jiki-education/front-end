@@ -5,24 +5,16 @@ description: ""
 
 Your task is to complete the traffic light by drawing the three colored lights using the variables provided.
 
-<!-- TODO: Add target traffic light image here -->
+We've done the work of working out the positions for you. You just need to draw the circles using the right variables and the right colors.
 
-### How it works
-
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- The variables and background are already provided for you.
-- You need to draw three circles for the lights using the variables.
-- The red light goes at the top, yellow in the middle, and green at the bottom.
-
-### Variables provided
+The variables we've created are:
 
 - `radius` — the radius of each light
 - `centerX` — the horizontal center of all three lights
 - `topY` — the vertical center of the top (red) light
-- `middleY` — the vertical center of the middle (yellow) light
+- `middleY` — the vertical center of the middle (amber) light
 - `bottomY` — the vertical center of the bottom (green) light
 
-### Functions used in this exercise
+You should use `"red"`, `"amber"` and `"green"` for the colors.
 
-- `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(cx, cy, radius, color)` — Draw a circle
+Good luck!

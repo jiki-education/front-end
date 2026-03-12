@@ -20,10 +20,10 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students must draw 3 circles using the provided variables.
 
-        The variables (already set):
-        - radius = 10
+        The variables (already set, readonly):
+        - radius = 8
         - centerX = 50
-        - topY = 25, middleY = 50, bottomY = 75
+        - topY = 16, middleY = 39, bottomY = 62
 
         Expected calls:
         - circle(centerX, topY, radius, "red")

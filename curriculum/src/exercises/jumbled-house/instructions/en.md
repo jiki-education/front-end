@@ -9,7 +9,7 @@ The purpose of this exercise is to encourage your slow, meticulous thinking. You
 
 Try and place each piece in the order they're listed below. When everything is correct you should have a scene that looks like this:
 
-<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.png" alt="Jumbled House" style="max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.png" alt="Jumbled House" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 ### Instructions
 

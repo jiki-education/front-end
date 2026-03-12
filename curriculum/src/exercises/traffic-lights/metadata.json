@@ -4,20 +4,16 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use the circle function to draw each light"
+      "question": "I don't know where to start",
+      "answer": "You're going to draw three circles, exactly as you have been doing previously. The only difference is that you're using the variables, not the numbers directly. Watch back the variables video if you don't understand how that works."
     },
     {
-      "question": "Hint",
-      "answer": "The first two arguments to circle are the x and y position — use the variables!"
+      "question": "I'm getting \"You should use the variables rather than using numbers directly as the function inputs\"",
+      "answer": "This exercise is about using the variables we've defined for you. Rather than putting numbers like 50 or 16 into the functions directly, tell Jiki to use the boxes we've already created."
     },
     {
-      "question": "Hint",
-      "answer": "The third argument is the radius — there's a variable for that too"
-    },
-    {
-      "question": "Hint",
-      "answer": "Red is \"red\", yellow is \"amber\", green is \"green\""
+      "question": "I've drawn the circles correctly, but it says they're wrong",
+      "answer": "Make sure you have the red circle at the top, the amber in the middle, and the green at the bottom."
     }
   ]
 }

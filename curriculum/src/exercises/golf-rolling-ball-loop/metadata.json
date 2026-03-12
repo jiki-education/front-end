@@ -4,16 +4,8 @@
   "levelId": "repeat-loop",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The ball needs to move 60 times to the right"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a loop instead of writing rollRight() 60 times"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a loop that runs 60 times with rollRight() inside it"
+      "question": "I can't work it out",
+      "answer": "You have two tools to use:\n- A repeat loop, which you use by writing `repeat(n) { }` where `n` is the amount of times you want to roll and where you can put anything inside the braces (`{ }`).\n- A `roll()` function that rolls the ball one step to the right.\n\nHow can you combine them?"
     }
   ]
 }

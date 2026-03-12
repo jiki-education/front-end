@@ -6,11 +6,13 @@ export default class GolfRollingBallLoopExercise extends GolfExercise {
     return metadata.slug;
   }
 
+  protected moveDuration = 15;
+
   public availableFunctions = [
     {
-      name: "roll_right",
+      name: "roll",
       func: this.rollRight.bind(this),
-      description: "rolled the ball one unit to the right"
+      description: "rolled the ball one step to the right"
     }
   ];
 }

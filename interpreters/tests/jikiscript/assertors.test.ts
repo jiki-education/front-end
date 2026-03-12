@@ -9,6 +9,13 @@ const pushFunction: ExternalFunction = {
   arity: 2,
 };
 
+const drawCircleFunction: ExternalFunction = {
+  name: "draw_circle",
+  func: () => {},
+  description: "Draw a circle",
+  arity: 3,
+};
+
 describe("JikiScript assertors", () => {
   describe("countLinesOfCode", () => {
     test("counts non-empty, non-comment lines", () => {
@@ -112,6 +119,48 @@ describe("JikiScript assertors", () => {
     test("returns 0 on parse error", () => {
       const result = interpret("set set set");
       expect(result.assertors.countArrayLiterals()).toBe(0);
+    });
+  });
+
+  describe("assertSomeArgumentsAreVariablesForFunction", () => {
+    const ctx = { externalFunctions: [drawCircleFunction] };
+
+    test("returns true when flagged args are variables", () => {
+      const result = interpret("set x to 1\nset y to 2\ndraw_circle(x, y, 10)", ctx);
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        true
+      );
+    });
+
+    test("returns false when a flagged arg is a literal", () => {
+      const result = interpret("draw_circle(100, 200, 10)", ctx);
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, true, false])).toBe(
+        false
+      );
+    });
+
+    test("ignores unflagged literal args", () => {
+      const result = interpret("set x to 1\ndraw_circle(x, 200, 10)", ctx);
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        true
+      );
+    });
+
+    test("checks all calls to the same function", () => {
+      const result = interpret("set x to 1\ndraw_circle(x, 1, 1)\ndraw_circle(5, 1, 1)", ctx);
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        false
+      );
+    });
+
+    test("returns true when function is not called at all", () => {
+      const result = interpret("set x to 5");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("set set set");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true])).toBe(true);
     });
   });
 

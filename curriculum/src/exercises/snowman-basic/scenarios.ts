@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as SnowmanBasicExercise;
-      ex.setupBackground("/static/images/exercise-assets/snowman-basic/snowman-basic.png");
+      ex.setupBackground("/static/images/exercise-assets/snowman-basic/background.png");
     },
 
     expectations(exercise) {

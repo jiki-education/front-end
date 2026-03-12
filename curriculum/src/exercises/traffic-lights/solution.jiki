@@ -1,16 +1,8 @@
-// Traffic Light
-
-set radius to 10
+set radius to 8
 set center_x to 50
-set top_y to 25
-set middle_y to 50
-set bottom_y to 75
-
-// Background
-rectangle(0, 0, 100, 100, "charcoal")
-
-// Traffic light housing
-rectangle(30, 10, 40, 80, "charcoal")
+set top_y to 16
+set middle_y to 39
+set bottom_y to 62
 
 // Red light (top)
 circle(center_x, top_y, radius, "red")

@@ -12,6 +12,7 @@ void pythonI18n.init({
   debug: DEBUG,
   lng: DEFAULT_LANGUAGE,
   initImmediate: false,
+  showSupportNotice: false,
 });
 
 pythonI18n.addResourceBundle("system", "translation", systemLangPack);

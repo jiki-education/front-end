@@ -38,7 +38,8 @@
                     5px 5px,
                     5px 5px;
             }
-            &.start {
+            /* Don't rename to "start" — it clashes with Tailwind */
+            &.begin {
                 background-color: #e4e6ff;
             }
             &.target {

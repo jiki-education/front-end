@@ -4,24 +4,16 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The snowman should be horizontally centered on the canvas (x = 50)"
+      "question": "I don't know where to start",
+      "answer": "The original code draws a white circle to the left side. You need to change the values of snowmanCx, baseCy and baseRadius to be correct to put it over the bottom ring in the template. You should then add variables for the other circles."
     },
     {
-      "question": "Hint",
-      "answer": "The base is the biggest circle and sits near the bottom"
+      "question": "I get an error like \"The variable 'XXX' has not been declared\"",
+      "answer": "This means that you've not created the variable (the box on Jiki's shelves) using the `let` keyword. When Jiki reads the code that's drawing the circles, he expects to find the boxes referenced, but they're not there. So you need to add them."
     },
     {
-      "question": "Hint",
-      "answer": "The body sits on top of the base and is smaller"
-    },
-    {
-      "question": "Hint",
-      "answer": "The head is the smallest circle and sits on top of the body"
-    },
-    {
-      "question": "Hint",
-      "answer": "Look at the background image carefully to estimate the y positions and sizes"
+      "question": "I've added the variables but I still get a \"not declared\" error",
+      "answer": "Check your spelling - it's likely that you have a typo. Remember casing is important: `bodycx` is not the same as `bodyCx` or `bodyCX`."
     }
   ]
 }

@@ -446,12 +446,12 @@
 }
 
 .testDescription {
-    padding: 16px;
+    padding: 16px 16px 4px 16px;
     background: transparent;
     border: none;
     border-radius: 8px;
     flex: 1;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .testDescription::-webkit-scrollbar {

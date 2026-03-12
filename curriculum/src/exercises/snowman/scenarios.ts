@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as SnowmanExercise;
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/snowman.png");
+      ex.setupBackground("/static/images/exercise-assets/snowman/background.png");
     },
 
     expectations(exercise) {
@@ -29,24 +29,16 @@ export const scenarios: VisualScenario[] = [
 
       return [
         {
-          pass: ex.hasRectangleAt(0, 0, 100, 60),
-          errorHtml: "The sky rectangle is not correct. It should be at (0, 0) with width 100 and height 60."
+          pass: ex.hasCircleAt(50, 70, 20),
+          errorHtml: "The base (bottom) circle isn't right. Check snowmanCx, baseCy, and baseRadius."
         },
         {
-          pass: ex.hasRectangleAt(0, 60, 100, 40),
-          errorHtml: "The snowy ground rectangle is not correct. It should be at (0, 60) with width 100 and height 40."
+          pass: ex.hasCircleAt(50, 40, 15),
+          errorHtml: "The body (middle) circle isn't right. Check snowmanCx, bodyCy, and bodyRadius."
         },
         {
-          pass: ex.hasCircleAt(50, 72, 20),
-          errorHtml: "The base (bottom) circle is not correct. Check snowmanX, baseY, and baseRadius."
-        },
-        {
-          pass: ex.hasCircleAt(50, 50, 15),
-          errorHtml: "The body (middle) circle is not correct. Check snowmanX, bodyY, and bodyRadius."
-        },
-        {
-          pass: ex.hasCircleAt(50, 33, 10),
-          errorHtml: "The head (top) circle is not correct. Check snowmanX, headY, and headRadius."
+          pass: ex.hasCircleAt(50, 20, 10),
+          errorHtml: "The head (top) circle isn't right. Check snowmanCx, headCy, and headRadius."
         }
       ];
     }

@@ -11,7 +11,7 @@ export default class GolfExercise extends VisualExercise {
   ballY: number = 75;
   fireworksFired: boolean = false;
   shotLength: number = 0;
-  private moveDuration = 50;
+  protected moveDuration = 50;
 
   constructor() {
     super();

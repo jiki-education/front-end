@@ -12,6 +12,7 @@ void javascriptI18n.init({
   debug: DEBUG,
   lng: DEFAULT_LANGUAGE,
   initImmediate: false,
+  showSupportNotice: false,
 });
 
 javascriptI18n.addResourceBundle("system", "translation", systemLangPack);
