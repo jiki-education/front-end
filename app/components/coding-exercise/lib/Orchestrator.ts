@@ -36,13 +36,19 @@ class Orchestrator {
   private readonly language: Language;
   readonly contentHash: string;
 
-  constructor(exercise: ExerciseDefinition, language: Language, context: ExerciseContext, contentHash: string = "") {
+  constructor(
+    exercise: ExerciseDefinition,
+    language: Language,
+    context: ExerciseContext,
+    contentHash: string = "",
+    onGoToDashboard?: () => void
+  ) {
     this.exercise = exercise;
     this.language = language;
     this.contentHash = contentHash;
 
     // Create instance-specific store with exercise, language, and context
-    this.store = createOrchestratorStore(exercise, language, context);
+    this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);

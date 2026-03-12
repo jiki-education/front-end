@@ -1,6 +1,7 @@
 "use client";
 
 import type { ExerciseSlug } from "@jiki/curriculum";
+import { useRouter } from "next/navigation";
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
@@ -16,12 +17,14 @@ interface CodingExerciseProps {
 }
 
 export default function CodingExercise({ language, exerciseSlug, context, levelId, isCompleted }: CodingExerciseProps) {
+  const router = useRouter();
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,
     context,
     levelId,
-    isCompleted
+    isCompleted,
+    onGoToDashboard: () => router.push("/dashboard")
   });
 
   // Error state

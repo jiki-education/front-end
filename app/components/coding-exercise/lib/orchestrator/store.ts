@@ -18,7 +18,8 @@ const ONE_MINUTE = 60 * 1000;
 export function createOrchestratorStore(
   exercise: ExerciseDefinition,
   language: Language,
-  context: ExerciseContext
+  context: ExerciseContext,
+  onGoToDashboard?: () => void
 ): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => ({
@@ -213,6 +214,7 @@ export function createOrchestratorStore(
               exerciseTitle: state.exerciseTitle,
               exerciseSlug: state.exerciseSlug,
               initialStep: "success",
+              onGoToDashboard,
               onCompleteExercise: async () => {
                 try {
                   const response = await markLessonComplete(state.context.slug);
