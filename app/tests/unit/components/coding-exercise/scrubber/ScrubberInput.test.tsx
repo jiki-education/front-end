@@ -211,7 +211,7 @@ describe("ScrubberInput Component", () => {
 
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
       // With 60% position on a 500000 microsecond timeline, should be around 300000
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000, "nearest");
     });
 
     it("should handle multiple mouse interactions", () => {
@@ -253,17 +253,17 @@ describe("ScrubberInput Component", () => {
       // Simulate first mouse interaction
       fireEvent.mouseDown(slider, { clientX: 20 }); // 20% = 100000
       fireEvent.mouseUp(document);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(100000);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(100000, "nearest");
 
       // Simulate second mouse interaction
       fireEvent.mouseDown(slider, { clientX: 40 }); // 40% = 200000
       fireEvent.mouseUp(document);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(200000);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(200000, "nearest");
 
       // Simulate third mouse interaction
       fireEvent.mouseDown(slider, { clientX: 70 }); // 70% = 350000
       fireEvent.mouseUp(document);
-      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(350000);
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenLastCalledWith(350000, "nearest");
 
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(3);
     });

@@ -145,8 +145,8 @@ class Orchestrator {
     It's not for side-effects (e.g. when the animation is playing and we
     are syncing the time).
   */
-  setCurrentTestTime(time: number) {
-    this.store.getState().setCurrentTestTime(time);
+  setCurrentTestTime(time: number, nearestOrExactFrame: "nearest" | "exact" = "exact") {
+    this.store.getState().setCurrentTestTime(time, nearestOrExactFrame);
 
     // Also seek to the relevant spot on the animation timeline if it exists (visual tests only)
     // This is what powers the stepper buttons. We want to mute callbacks as we don't want the

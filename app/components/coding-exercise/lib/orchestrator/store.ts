@@ -193,7 +193,7 @@ export function createOrchestratorStore(
         // Set up animation timeline callbacks (visual tests only)
         test.animationTimeline?.onUpdate((anim) => {
           // Convert from milliseconds to microseconds
-          get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR);
+          get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR, "nearest");
         });
 
         test.animationTimeline?.onComplete(() => {
