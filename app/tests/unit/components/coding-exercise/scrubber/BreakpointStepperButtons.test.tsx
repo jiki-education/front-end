@@ -230,6 +230,7 @@ describe("BreakpointStepperButtons Component", () => {
       const prevButton = screen.getByLabelText("Previous breakpoint");
       fireEvent.click(prevButton);
 
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.goToPrevBreakpoint).toHaveBeenCalledTimes(1);
     });
 
@@ -345,6 +346,7 @@ describe("BreakpointStepperButtons Component", () => {
       const nextButton = screen.getByLabelText("Next breakpoint");
       fireEvent.click(nextButton);
 
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.goToNextBreakpoint).toHaveBeenCalledTimes(1);
     });
 
@@ -499,12 +501,14 @@ describe("BreakpointStepperButtons Component", () => {
 
       // Navigate to next breakpoint
       fireEvent.click(nextButton);
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.goToNextBreakpoint).toHaveBeenCalledTimes(1);
 
       jest.clearAllMocks();
 
       // Navigate to previous breakpoint
       fireEvent.click(prevButton);
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.goToPrevBreakpoint).toHaveBeenCalledTimes(1);
     });
   });

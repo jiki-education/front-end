@@ -45,6 +45,7 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         event.preventDefault();
         isDraggingRef.current = true;
 
+        orchestrator.pause();
         const newValue = getValueFromMousePosition(event.clientX);
         orchestrator.setCurrentTestTime(newValue, "nearest");
 

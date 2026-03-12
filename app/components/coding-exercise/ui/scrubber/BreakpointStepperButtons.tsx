@@ -46,6 +46,7 @@ function handleGoToPrevBreakpoint(
   orchestrator: ReturnType<typeof useOrchestrator>,
   prevBreakpointFrame: Frame | undefined
 ) {
+  orchestrator.pause();
   if (prevBreakpointFrame) {
     orchestrator.goToPrevBreakpoint();
   }
@@ -55,6 +56,7 @@ function handleGoToNextBreakpoint(
   orchestrator: ReturnType<typeof useOrchestrator>,
   nextBreakpointFrame: Frame | undefined
 ) {
+  orchestrator.pause();
   if (nextBreakpointFrame) {
     orchestrator.goToNextBreakpoint();
   }

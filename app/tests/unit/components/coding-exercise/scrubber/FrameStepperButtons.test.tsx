@@ -33,6 +33,7 @@ function createMockOrchestrator(): Orchestrator {
     setHasCodeBeenEdited: jest.fn(),
     setIsSpotlightActive: jest.fn(),
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
+    pause: jest.fn(),
     runCode: jest.fn(),
     getStore: jest.fn()
   } as unknown as Orchestrator;
@@ -159,7 +160,7 @@ describe("FrameStepperButtons Component", () => {
       const prevButton = screen.getByLabelText("Previous frame");
       fireEvent.click(prevButton);
 
-      // Should navigate to the previous frame's time (in microseconds)
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(200000);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
     });
@@ -249,7 +250,7 @@ describe("FrameStepperButtons Component", () => {
       const nextButton = screen.getByLabelText("Next frame");
       fireEvent.click(nextButton);
 
-      // Should navigate to the next frame's time (in microseconds)
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
     });
@@ -351,12 +352,14 @@ describe("FrameStepperButtons Component", () => {
 
       // Navigate to next frame
       fireEvent.click(nextButton);
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000);
 
       jest.clearAllMocks();
 
       // Navigate to previous frame
       fireEvent.click(prevButton);
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(100000);
     });
   });

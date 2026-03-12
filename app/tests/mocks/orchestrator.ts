@@ -10,6 +10,7 @@ export function createMockOrchestrator(): Orchestrator {
     setHasCodeBeenEdited: jest.fn(),
     setIsSpotlightActive: jest.fn(),
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
+    pause: jest.fn(),
     snapToNearestFrame: jest.fn(),
     runCode: jest.fn(),
     getStore: jest.fn(),

@@ -39,12 +39,14 @@ export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProp
 /* **************** */
 
 function handleGoToPreviousFrame(orchestrator: ReturnType<typeof useOrchestrator>, prevFrame: Frame | undefined) {
+  orchestrator.pause();
   if (prevFrame) {
     orchestrator.setCurrentTestTime(prevFrame.time);
   }
 }
 
 function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>, nextFrame: Frame | undefined) {
+  orchestrator.pause();
   if (nextFrame) {
     orchestrator.setCurrentTestTime(nextFrame.time);
   }
