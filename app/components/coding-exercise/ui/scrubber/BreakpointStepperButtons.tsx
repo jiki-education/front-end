@@ -1,6 +1,7 @@
 import React from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import type { Frame } from "@jiki/interpreters/shared";
 import styles from "../../CodingExercise.module.css";
 
 interface BreakpointStepperButtonsProps {
@@ -17,7 +18,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
         <>
           <button
             disabled={!enabled || !prevBreakpointFrame}
-            onClick={() => handleGoToPrevBreakpoint(orchestrator)}
+            onClick={() => handleGoToPrevBreakpoint(orchestrator, prevBreakpointFrame)}
             className={styles.codeNavBtn}
             aria-label="Previous breakpoint"
           >
@@ -25,7 +26,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
           </button>
           <button
             disabled={!enabled || !nextBreakpointFrame}
-            onClick={() => handleGoToNextBreakpoint(orchestrator)}
+            onClick={() => handleGoToNextBreakpoint(orchestrator, nextBreakpointFrame)}
             className={styles.codeNavBtn}
             aria-label="Next breakpoint"
           >
@@ -41,12 +42,22 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
 /* EVENT HANDLERS */
 /* **************** */
 
-function handleGoToPrevBreakpoint(orchestrator: ReturnType<typeof useOrchestrator>) {
+function handleGoToPrevBreakpoint(
+  orchestrator: ReturnType<typeof useOrchestrator>,
+  prevBreakpointFrame: Frame | undefined
+) {
   orchestrator.pause();
-  orchestrator.goToPrevBreakpoint();
+  if (prevBreakpointFrame) {
+    orchestrator.goToPrevBreakpoint();
+  }
 }
 
-function handleGoToNextBreakpoint(orchestrator: ReturnType<typeof useOrchestrator>) {
+function handleGoToNextBreakpoint(
+  orchestrator: ReturnType<typeof useOrchestrator>,
+  nextBreakpointFrame: Frame | undefined
+) {
   orchestrator.pause();
-  orchestrator.goToNextBreakpoint();
+  if (nextBreakpointFrame) {
+    orchestrator.goToNextBreakpoint();
+  }
 }

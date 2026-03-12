@@ -256,20 +256,11 @@ class Orchestrator {
       return;
     }
 
-    const wasPlaying = state.isPlaying;
-
     // Set isPlaying state (this also pauses the animation timeline)
     state.setIsPlaying(false);
 
     // Disable auto-play when user manually pauses
     state.setShouldPlayOnTestChange(false);
-
-    // Sync the store's time to where the animation timeline actually is,
-    // so that snapToNearestFrame works from the real playback position.
-    // Only sync when playback was active — otherwise the store time is already correct.
-    if (wasPlaying && state.currentTest.animationTimeline) {
-      this.setCurrentTestTime(state.currentTest.animationTimeline.currentTime);
-    }
 
     // Snap to nearest frame after pausing
     this.snapToNearestFrame();

@@ -23,11 +23,8 @@ function createMockFrames(count: number): Frame[] {
   );
 }
 
-// Helper to create mock orchestrator with store that returns given frames
-function createMockOrchestrator(
-  prevFrame: Frame | undefined = undefined,
-  nextFrame: Frame | undefined = undefined
-): Orchestrator {
+// Helper to create mock orchestrator
+function createMockOrchestrator(): Orchestrator {
   return {
     exerciseSlug: "test-uuid",
     setCode: jest.fn(),
@@ -38,9 +35,7 @@ function createMockOrchestrator(
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
     pause: jest.fn(),
     runCode: jest.fn(),
-    getStore: jest.fn().mockReturnValue({
-      getState: jest.fn().mockReturnValue({ prevFrame, nextFrame })
-    })
+    getStore: jest.fn()
   } as unknown as Orchestrator;
 }
 
@@ -104,7 +99,7 @@ describe("FrameStepperButtons Component", () => {
   describe("previous button functionality", () => {
     it("should be enabled when previous frame exists", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with current frame and prev/next frames
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
@@ -119,7 +114,7 @@ describe("FrameStepperButtons Component", () => {
     });
 
     it("should be disabled when no previous frame exists", () => {
-      const mockOrchestrator = createMockOrchestrator(undefined, undefined);
+      const mockOrchestrator = createMockOrchestrator();
       const frames = createMockFrames(5);
 
       // Setup store mock with no previous frame
@@ -136,7 +131,7 @@ describe("FrameStepperButtons Component", () => {
 
     it("should be disabled when enabled prop is false", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with previous frame available
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
@@ -150,9 +145,9 @@ describe("FrameStepperButtons Component", () => {
       expect(prevButton).toBeDisabled();
     });
 
-    it("should pause and navigate to previous frame on click", () => {
+    it("should navigate to previous frame on click", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[2], frames[4]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with previous frame available
       setupStoreMock(frames[3], 300, frames[2], frames[4]);
@@ -170,10 +165,9 @@ describe("FrameStepperButtons Component", () => {
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
     });
 
-    it("should not navigate when no previous frame exists after pause", () => {
+    it("should not navigate when no previous frame exists", () => {
       const frames = createMockFrames(5);
-      // Store returns no prevFrame after pause
-      const mockOrchestrator = createMockOrchestrator(undefined, frames[1]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with no previous frame
       setupStoreMock(frames[0], 0, undefined, frames[1]);
@@ -184,10 +178,10 @@ describe("FrameStepperButtons Component", () => {
       );
 
       const prevButton = screen.getByLabelText("Previous frame");
+      // Button should be disabled, but let's test the handler logic
       fireEvent.click(prevButton);
 
-      // Button is disabled so handler doesn't fire
-      expect(mockOrchestrator.pause).not.toHaveBeenCalled();
+      // Should not call setCurrentTestTime
       expect(mockOrchestrator.setCurrentTestTime).not.toHaveBeenCalled();
     });
   });
@@ -195,7 +189,7 @@ describe("FrameStepperButtons Component", () => {
   describe("next button functionality", () => {
     it("should be enabled when next frame exists", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with next frame available
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
@@ -211,7 +205,7 @@ describe("FrameStepperButtons Component", () => {
 
     it("should be disabled when no next frame exists", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[3], undefined);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with no next frame
       setupStoreMock(frames[4], 400, frames[3], undefined);
@@ -227,7 +221,7 @@ describe("FrameStepperButtons Component", () => {
 
     it("should be disabled when enabled prop is false", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with next frame available
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
@@ -241,9 +235,9 @@ describe("FrameStepperButtons Component", () => {
       expect(nextButton).toBeDisabled();
     });
 
-    it("should pause and navigate to next frame on click", () => {
+    it("should navigate to next frame on click", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with next frame available
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
@@ -261,10 +255,9 @@ describe("FrameStepperButtons Component", () => {
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
     });
 
-    it("should not navigate when no next frame exists after pause", () => {
+    it("should not navigate when no next frame exists", () => {
       const frames = createMockFrames(5);
-      // Store returns no nextFrame after pause
-      const mockOrchestrator = createMockOrchestrator(frames[3], undefined);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with no next frame
       setupStoreMock(frames[4], 400, frames[3], undefined);
@@ -275,10 +268,10 @@ describe("FrameStepperButtons Component", () => {
       );
 
       const nextButton = screen.getByLabelText("Next frame");
+      // Button should be disabled, but let's test the handler logic
       fireEvent.click(nextButton);
 
-      // Button is disabled so handler doesn't fire
-      expect(mockOrchestrator.pause).not.toHaveBeenCalled();
+      // Should not call setCurrentTestTime
       expect(mockOrchestrator.setCurrentTestTime).not.toHaveBeenCalled();
     });
   });
@@ -304,7 +297,7 @@ describe("FrameStepperButtons Component", () => {
 
     it("should handle only previous button enabled", () => {
       const frames = createMockFrames(3);
-      const mockOrchestrator = createMockOrchestrator(frames[1], undefined);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with only previous frame available
       setupStoreMock(frames[2], 200, frames[1], undefined);
@@ -323,7 +316,7 @@ describe("FrameStepperButtons Component", () => {
 
     it("should handle only next button enabled", () => {
       const frames = createMockFrames(3);
-      const mockOrchestrator = createMockOrchestrator(undefined, frames[1]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with only next frame available
       setupStoreMock(frames[0], 0, undefined, frames[1]);
@@ -344,7 +337,7 @@ describe("FrameStepperButtons Component", () => {
   describe("both buttons interaction", () => {
     it("should allow navigation in both directions", () => {
       const frames = createMockFrames(5);
-      const mockOrchestrator = createMockOrchestrator(frames[1], frames[3]);
+      const mockOrchestrator = createMockOrchestrator();
 
       // Setup store mock with both prev and next frames available
       setupStoreMock(frames[2], 200, frames[1], frames[3]);
