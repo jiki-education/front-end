@@ -137,6 +137,87 @@ describe("JavaScript Call Descriptions", () => {
     }
   });
 
+  it("should not show 'and got undefined' for void function calls", () => {
+    const drawRect: ExternalFunction = {
+      name: "rectangle",
+      func: (_context: ExecutionContext) => {
+        // void function - returns undefined
+      },
+      description: "draws a rectangle",
+      arity: 0,
+    };
+
+    const result = interpret(`rectangle();`, {
+      externalFunctions: [drawRect],
+    });
+
+    expect(result.error).toBeNull();
+    expect(result.frames).toHaveLength(1);
+
+    const frame = result.frames[0];
+    if (frame.generateDescription) {
+      const description = frame.generateDescription();
+      expect(description).toContain("Called");
+      expect(description).toContain("rectangle");
+      expect(description).not.toContain("undefined");
+      expect(description).not.toContain("got");
+    }
+  });
+
+  it("should not show 'and got undefined' for void function calls with arguments", () => {
+    const drawRect: ExternalFunction = {
+      name: "rectangle",
+      func: (_context: ExecutionContext, _x: JikiObject, _y: JikiObject, _w: JikiObject, _h: JikiObject) => {
+        // void function - returns undefined
+      },
+      description: "draws a rectangle",
+      arity: 4,
+    };
+
+    const result = interpret(`rectangle(20, 60, 20, 10);`, {
+      externalFunctions: [drawRect],
+    });
+
+    expect(result.error).toBeNull();
+    expect(result.frames).toHaveLength(1);
+
+    const frame = result.frames[0];
+    if (frame.generateDescription) {
+      const description = frame.generateDescription();
+      expect(description).toContain("Called");
+      expect(description).toContain("rectangle");
+      expect(description).toContain("20");
+      expect(description).toContain("60");
+      expect(description).not.toContain("undefined");
+      expect(description).not.toContain("got");
+    }
+  });
+
+  it("should show 'and got' for functions that return a value", () => {
+    const getAge: ExternalFunction = {
+      name: "getAge",
+      func: (_context: ExecutionContext) => 25,
+      description: "returns age",
+      arity: 0,
+    };
+
+    const result = interpret(`getAge();`, {
+      externalFunctions: [getAge],
+    });
+
+    expect(result.error).toBeNull();
+    expect(result.frames).toHaveLength(1);
+
+    const frame = result.frames[0];
+    if (frame.generateDescription) {
+      const description = frame.generateDescription();
+      expect(description).toContain("Called");
+      expect(description).toContain("getAge");
+      expect(description).toContain("got");
+      expect(description).toContain("25");
+    }
+  });
+
   it("should describe complex argument expressions", () => {
     const foobar: ExternalFunction = {
       name: "foobar",

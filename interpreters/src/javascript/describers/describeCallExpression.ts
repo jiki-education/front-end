@@ -2,6 +2,7 @@ import type { DescriptionContext } from "../../shared/frames";
 import type { EvaluationResultCallExpression } from "../evaluation-result";
 import type { CallExpression } from "../expression";
 import { formatJSObject } from "../helpers";
+import { JSUndefined } from "../jsObjects/JSUndefined";
 import { describeExpression } from "./describeSteps";
 
 export function describeCallExpression(
@@ -63,15 +64,20 @@ export function describeCallExpression(
   // Then describe the function lookup
   steps.push(`Looked up the function <code>${functionName}</code>`);
 
-  const resultValue = formatJSObject(result.jikiObject);
+  // Omit "and got undefined" for void functions
+  let retText = "";
+  if (!(result.jikiObject instanceof JSUndefined)) {
+    const resultValue = formatJSObject(result.jikiObject);
+    retText = ` and got <code>${resultValue}</code>`;
+  }
 
-  // Finally describe the actual function call with the evaluated arguments
+  // Build args text, appending return value if present
+  let argsText = "";
   if (result.args && result.args.length > 0) {
     const argValues = result.args.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ");
-    steps.push(`Called <code>${functionName}</code> with ${argValues} and got <code>${resultValue}</code>`);
-  } else {
-    steps.push(`Called <code>${functionName}</code> and got <code>${resultValue}</code>`);
+    argsText = ` with ${argValues}`;
   }
+  steps.push(`Called <code>${functionName}</code>${argsText}${retText}`);
 
   return steps;
 }
