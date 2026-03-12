@@ -3,7 +3,6 @@ import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
 import setupJavascript from "@jiki/highlightjs-javascript";
-import "highlight.js/styles/default.min.css";
 import styles from "./instructions-panel.module.css";
 
 hljs.registerLanguage("jikiscript", setupJikiscript);
@@ -34,7 +33,7 @@ const InstructionsContent = forwardRef<HTMLDivElement, InstructionsContentProps>
         ref={contentRef}
         className={styles.instructionsContent}
         dangerouslySetInnerHTML={{
-          __html: marked(instructions)
+          __html: marked.parse(instructions, { async: false })
         }}
       />
     </div>

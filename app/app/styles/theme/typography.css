@@ -13,6 +13,8 @@
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
         monospace;
+    --default-mono-font-family:
+        "Source Code Pro", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
     /* Font sizes */
     --text-12: 12px;

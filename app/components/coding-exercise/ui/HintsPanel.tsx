@@ -2,7 +2,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { marked } from "marked";
+import hljs from "highlight.js/lib/core";
+import setupJikiscript from "@exercism/highlightjs-jikiscript";
+import setupJavascript from "@jiki/highlightjs-javascript";
 import { PanelHeader } from "./PanelHeader";
 import EyeClosedIcon from "@/icons/eye-close.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
@@ -11,6 +15,9 @@ import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgres
 import type { VideoSource } from "@/types/lesson";
 import type { Hint } from "@jiki/curriculum";
 import style from "./hints-panel.module.css";
+
+hljs.registerLanguage("jikiscript", setupJikiscript);
+hljs.registerLanguage("javascript", setupJavascript);
 
 const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
@@ -24,10 +31,6 @@ interface HintsViewProps {
 export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, className = "" }: HintsViewProps) {
   const [revealedHints, setRevealedHints] = useState<Set<number>>(new Set());
   const [walkthroughUnlocked, setWalkthroughUnlocked] = useState(false);
-
-  useEffect(() => {
-    console.debug("hints", hints);
-  }, [hints]);
 
   const hasHints = hints && hints.length > 0;
   const hasWalkthrough = walkthroughVideoData && walkthroughVideoData.length > 0 && lessonSlug;
@@ -140,6 +143,27 @@ function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: strin
   );
 }
 
+function HintAnswerContent({ answer, style }: { answer: string[]; style: any }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const markdown = answer.join("\n\n");
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.querySelectorAll("pre code").forEach((block) => {
+        hljs.highlightElement(block as HTMLElement);
+      });
+    }
+  }, [markdown]);
+
+  return (
+    <div
+      ref={ref}
+      className={style?.hintAnswerContent}
+      dangerouslySetInnerHTML={{ __html: marked.parse(markdown, { async: false }) }}
+    />
+  );
+}
+
 interface HintItemProps {
   question: string;
   answer: string[];
@@ -204,11 +228,7 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
             </div>
           </div>
         )}
-        <div className={style?.hintAnswerContent}>
-          {answer.map((paragraph, index) => (
-            <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
-          ))}
-        </div>
+        <HintAnswerContent answer={answer} style={style} />
       </div>
     </div>
   );
