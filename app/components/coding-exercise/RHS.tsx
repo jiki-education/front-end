@@ -13,6 +13,7 @@ import { InstructionsPanel } from "./ui/instructions-panel";
 import TasksView from "./ui/TasksView";
 import LogPanel from "./ui/LogPanel";
 import type Orchestrator from "./lib/Orchestrator";
+import { useOrchestratorStore } from "./lib/Orchestrator";
 import styles from "./CodingExercise.module.css";
 
 interface RHSProps {
@@ -22,6 +23,7 @@ interface RHSProps {
 export function RHS({ orchestrator }: RHSProps) {
   const [activeTab, setActiveTab] = useState("instructions");
   const router = useRouter();
+  const { isExerciseCompleted } = useOrchestratorStore(orchestrator);
 
   // Define tabs data for PageTabs
   const tabs = [
@@ -104,7 +106,7 @@ export function RHS({ orchestrator }: RHSProps) {
         <PageTabs className="shrink-0" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
         <button
           onClick={() => router.push("/dashboard")}
-          className="ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0"
+          className={`ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0${isExerciseCompleted ? " !border-[var(--color-success-border)] !text-[var(--color-success-text)]" : ""}`}
           style={{ marginTop: 3, marginBottom: -3 }}
         >
           <ArrowRightIcon width={16} height={16} />
