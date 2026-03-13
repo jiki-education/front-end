@@ -38,14 +38,6 @@ export const highlightColorField = StateField.define<string>({
   }
 });
 
-// Base theme for highlighting
-const baseTheme = EditorView.baseTheme({
-  "&light .cm-highlightedLine": {
-    backgroundColor: INFO_HIGHLIGHT_COLOR
-  },
-  "&dark .cm-highlightedLine": { backgroundColor: "#1a272788" }
-});
-
 // Decoration for highlighting a line
 function stripe(color: string) {
   const isError = color === ERROR_HIGHLIGHT_COLOR;
@@ -109,7 +101,6 @@ function updateHighlightedLineBorder() {
 
 export function highlightLine(initialLineNumber: number): Extension {
   return [
-    baseTheme,
     updateHighlightedLineBorder(),
     highlightedLineField.init(() => initialLineNumber),
     highlightColorField.init(() => INFO_HIGHLIGHT_COLOR),

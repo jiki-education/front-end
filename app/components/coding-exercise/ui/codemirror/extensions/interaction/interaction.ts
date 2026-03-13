@@ -31,6 +31,7 @@ export class ValueInteractor implements PluginValue {
 
   destroy() {
     this.removeScrollListener();
+    removeInputElements();
   }
 
   findAndHandleNode(view: EditorView) {
