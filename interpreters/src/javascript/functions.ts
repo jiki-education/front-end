@@ -5,7 +5,7 @@ import type { Location } from "../shared/location";
 import type { Environment } from "./environment";
 
 export interface Callable {
-  arity: Arity | undefined;
+  arity: Arity;
   call: (context: ExecutionContext, args: JikiObject[]) => JikiObject;
 }
 
@@ -25,7 +25,7 @@ export class ReturnValue extends Error {
 export class JSCallable extends JikiObject {
   constructor(
     public readonly name: string,
-    public readonly arity: Arity | undefined,
+    public readonly arity: Arity,
     private readonly func: Function
   ) {
     super("callable");

@@ -201,7 +201,10 @@ export class Executor {
     // Register external functions as PyCallable objects in the environment
     if (context.externalFunctions) {
       for (const func of context.externalFunctions) {
-        const callable = new PyCallable(func.name, func.arity, func.func);
+        // Auto-calculate arity from func.length - 1 (subtract 1 for ExecutionContext param)
+        // if not explicitly specified, matching bootcamp behavior
+        const arity = func.arity ?? func.func.length - 1;
+        const callable = new PyCallable(func.name, arity, func.func);
         this.environment.define(func.name, callable);
         this.protectedNames.add(func.name);
       }
@@ -277,8 +280,12 @@ export class Executor {
           const formattedInclude = include?.map(formatIdentifier);
           const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude?.includes(name)) {return true;}
-            if (formattedInclude && !formattedInclude.includes(name)) {return true;}
+            if (formattedExclude?.includes(name)) {
+              return true;
+            }
+            if (formattedInclude && !formattedInclude.includes(name)) {
+              return true;
+            }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
           });
         },
@@ -286,8 +293,12 @@ export class Executor {
           const formattedInclude = include?.map(formatIdentifier);
           const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude?.includes(name)) {return true;}
-            if (formattedInclude && !formattedInclude.includes(name)) {return true;}
+            if (formattedExclude?.includes(name)) {
+              return true;
+            }
+            if (formattedInclude && !formattedInclude.includes(name)) {
+              return true;
+            }
             return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
           });
         },
