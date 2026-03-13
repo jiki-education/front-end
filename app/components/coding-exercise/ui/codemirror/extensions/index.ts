@@ -17,3 +17,4 @@ export { multiHighlightLine, changeMultiLineHighlightEffect, multiHighlightColor
 export { breakpointGutter } from "./breakpoint";
 export { foldGutterExtension as foldGutter } from "./fold-gutter";
 export { lintDecorationsExtension, setLintDecorationsEffect } from "./lintDecorations";
+export { interactionExtension } from "./interaction/interaction";

@@ -48,10 +48,10 @@ const baseTheme = EditorView.baseTheme({
 
 // Decoration for highlighting a line
 function stripe(color: string) {
+  const isError = color === ERROR_HIGHLIGHT_COLOR;
   return Decoration.line({
     attributes: {
-      class: "cm-highlightedLine",
-      style: `background-color: ${color}`
+      class: `cm-highlightedLine${isError ? " cm-highlightedLine--error" : ""}`
     }
   });
 }
@@ -99,13 +99,9 @@ function updateHighlightedLineBorder() {
   return EditorView.updateListener.of((update) => {
     if (update.state.field(showInfoWidgetField)) {
       const highlightColor = update.state.field(highlightColorField);
-
-      const borderColor = highlightColor === INFO_HIGHLIGHT_COLOR ? "#3b82f6" : "#ff000077";
-
-      update.view.dom.style.setProperty("--highlighted-line-background-color", highlightColor);
+      const borderColor = highlightColor === INFO_HIGHLIGHT_COLOR ? "#3b82f6" : "#ef4444";
       update.view.dom.style.setProperty("--highlighted-line-border-color", borderColor);
     } else {
-      update.view.dom.style.setProperty("--highlighted-line-background-color", "transparent");
       update.view.dom.style.setProperty("--highlighted-line-border-color", "transparent");
     }
   });

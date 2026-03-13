@@ -98,6 +98,7 @@ export function createEditorExtensions({
     Ext.highlightedCodeBlock(),
     Ext.initReadOnlyRangesExtension(),
     Ext.lintDecorationsExtension(),
+    Ext.interactionExtension(),
 
     // State management - start editable, orchestrator will control readonly state
     readonlyCompartment.of([EditorView.editable.of(true)]),
