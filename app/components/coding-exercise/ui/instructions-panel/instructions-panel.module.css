@@ -172,7 +172,7 @@
     }
 
     h1 {
-        color: #1a202c;
+        color: #0f172a;
         font-size: 30px;
         font-weight: 600;
         margin-bottom: 24px;
@@ -180,7 +180,7 @@
     }
 
     h2 {
-        color: #1a202c;
+        color: #0f172a;
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 12px;
@@ -188,11 +188,23 @@
     }
 
     h3 {
-        color: #1a202c;
+        color: #0f172a;
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 8px;
         margin-top: 20px;
+    }
+
+    h4 {
+        color: #334155;
+        margin-top: 16px;
+        margin-bottom: 8px;
+        font-size: 17px;
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #334155;
+        text-underline-offset: 3px;
     }
 
     p {
@@ -267,6 +279,7 @@
 .functionsContainer,
 .conceptsContainer {
     h2 {
+        color: #0f172a;
         font-size: 24px;
         font-weight: 600;
         margin-bottom: 12px;

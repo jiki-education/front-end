@@ -3,10 +3,12 @@ title: "Plant the Flowers"
 description: ""
 ---
 
-The gardener wants 9 flowers planted in a row across the garden.
+You're creating an automated flower-planting machine.
 
-The first flower should be at position 10, and each flower should be 10 pixels apart from the next.
+It should plant flowers evenly across a lawn, at intervals of `10` apart. So the first flower should be at position `10`, the second at `20`, etc.
 
-You have a `plant()` function that takes a position as input. For example: `plant(10)` plants a flower at position 10.
+You have a `plant(position)` function that takes a position as input. For example: `plant(10)` plants a flower at position 10.
 
-Use a variable to track your position, and a repeat loop to plant all 9 flowers without writing `plant()` 9 times!
+You need to solve this exercise in **5 lines of code**, so you'll need to find a way to not just write `plant(10)`, `plant(20)` etc.
+
+Good luck!

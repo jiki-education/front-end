@@ -11,10 +11,6 @@ We've drawn a template for you. Your shapes should sit just inside the lines. We
 
 You'll need the `circle` and `ellipse` functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
 
-The `ellipse` function takes 5 inputs: the center position (`cx`, `cy`), the horizontal radius (`rx`), the vertical radius (`ry`), and the color:
-
-<img src="/static/images/exercise-assets/cloud-rain-sun/intro-ellipse.png" alt="Ellipse function diagram" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
-
 Nearly all the numbers you need are divisible by 5 (e.g. 5, 10, 15, etc). The only exception is the horizontal radius of the raindrops, which is `3`.
 
 Have fun!

@@ -50,7 +50,7 @@ export const scenarios: VisualScenario[] = [
 
     codeChecks: [
       {
-        pass: (result) => result.assertors.assertNoLiteralNumberAssignments(["radius"]),
+        pass: (result) => result.assertors.assertNoLiteralNumberAssignments({ exclude: ["radius"] }),
         errorHtml: "All position and size variables should be calculated from the radius, not set to plain numbers."
       }
     ]

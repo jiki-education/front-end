@@ -4,20 +4,8 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Create a variable to track your position, starting at 10"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a repeat loop that runs 9 times"
-    },
-    {
-      "question": "Hint",
-      "answer": "Inside the loop, plant a flower at the current position, then increase the position by 10"
-    },
-    {
-      "question": "Hint",
-      "answer": "The flowers should end up at positions 10, 20, 30, 40, 50, 60, 70, 80, 90"
+      "question": "I'm totally stuck",
+      "answer": "Check the recent videos on how to use repeat loops and how to update variables to track state. They should tell you everything you need to know."
     }
   ]
 }

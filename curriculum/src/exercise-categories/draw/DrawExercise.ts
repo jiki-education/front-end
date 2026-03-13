@@ -201,7 +201,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, width, and height inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -230,7 +230,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x1, y1, x2, and y2 inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -253,7 +253,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, and radius inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -277,7 +277,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x, y, rx, and ry inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -303,7 +303,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError("The x1, y1, x2, y2, x3, and y3 inputs must be numbers");
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -404,7 +404,7 @@ export abstract class DrawExercise extends VisualExercise {
       rectangle: {
         name: "rectangle",
         func: this.rectangle.bind(this),
-        ...(fc ? { arity: 4 as const } : {}),
+        arity: fc ? 4 : 5,
         description: fc
           ? "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
           : "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
@@ -412,7 +412,7 @@ export abstract class DrawExercise extends VisualExercise {
       triangle: {
         name: "triangle",
         func: this.triangle.bind(this),
-        ...(fc ? { arity: 6 as const } : {}),
+        arity: fc ? 6 : 7,
         description: fc
           ? "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
           : "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
@@ -420,7 +420,7 @@ export abstract class DrawExercise extends VisualExercise {
       circle: {
         name: "circle",
         func: this.circle.bind(this),
-        ...(fc ? { arity: 3 as const } : {}),
+        arity: fc ? 3 : 4,
         description: fc
           ? "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
           : "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
@@ -428,7 +428,7 @@ export abstract class DrawExercise extends VisualExercise {
       ellipse: {
         name: "ellipse",
         func: this.ellipse.bind(this),
-        ...(fc ? { arity: 4 as const } : {}),
+        arity: fc ? 4 : 5,
         description: fc
           ? "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
           : "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
@@ -436,7 +436,7 @@ export abstract class DrawExercise extends VisualExercise {
       line: {
         name: "line",
         func: this.line.bind(this),
-        ...(fc ? { arity: 4 as const } : {}),
+        arity: fc ? 4 : 5,
         description: fc
           ? "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
           : "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"

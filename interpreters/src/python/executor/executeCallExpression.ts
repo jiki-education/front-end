@@ -91,16 +91,11 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
 function checkArity(
   executor: Executor,
-  arity: Arity | undefined,
+  arity: Arity,
   argCount: number,
   expression: CallExpression,
   functionName: string
 ): void {
-  if (!arity) {
-    // If arity is not specified, accept any number of arguments
-    return;
-  }
-
   const [minArity, maxArity] = typeof arity === "number" ? [arity, arity] : arity;
 
   if (argCount < minArity || argCount > maxArity) {
@@ -111,10 +106,18 @@ function checkArity(
           ? `at least ${minArity}`
           : `between ${minArity} and ${maxArity}`;
 
+    // TODO: This is problematic as we're inserting English words from code
+    // rather than handling pluralization in the translation system
+    const slots = minArity === 1 && minArity === maxArity ? "slot" : "slots";
+    const inputs = argCount === 1 ? "input" : "inputs";
+    const gotMessage = argCount === 0 ? "no" : `${argCount}`;
+
     executor.error("InvalidNumberOfArguments", expression.location, {
       function: functionName,
       expected: arityMessage,
-      got: argCount,
+      slots,
+      got: gotMessage,
+      inputs,
     });
   }
 }

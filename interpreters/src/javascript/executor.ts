@@ -79,6 +79,7 @@ import { mathMethods } from "./stdlib/math";
 import { objectMethods } from "./stdlib/object";
 import {
   extractCallExpressions,
+  extractExpressions,
   extractVariableAssignments,
   snakeToCamel as formatIdentifier,
   countLinesOfCode,
@@ -158,7 +159,8 @@ export interface ExecutorResult {
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
-    assertNoLiteralNumberAssignments: (exclude: string[]) => boolean;
+    assertNoLiteralNumberAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
+    assertNoLiteralNumbersInAssignments: (opts: { include?: string[]; exclude?: string[] }) => boolean;
     countLinesOfCode: () => number;
     assertMaxLinesOfCode: (limit: number) => boolean;
     assertFunctionDefined: (name: string) => boolean;
@@ -251,7 +253,10 @@ export class Executor {
     // Register external functions as JSCallable objects in the environment
     if (context.externalFunctions) {
       for (const func of context.externalFunctions) {
-        const callable = new JSCallable(func.name, func.arity, func.func);
+        // Auto-calculate arity from func.length - 1 (subtract 1 for ExecutionContext param)
+        // if not explicitly specified, matching bootcamp behavior
+        const arity = func.arity ?? func.func.length - 1;
+        const callable = new JSCallable(func.name, arity, func.func);
         // External functions don't have source location, use Location.unknown
         this.environment.define(func.name, callable, Location.unknown);
         this.protectedNames.add(func.name);
@@ -332,13 +337,30 @@ export class Executor {
               });
             });
         },
-        assertNoLiteralNumberAssignments: (exclude: string[]) => {
-          const formattedExclude = exclude.map(formatIdentifier);
+        assertNoLiteralNumberAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
           return extractVariableAssignments(statements).every(({ name, value }) => {
-            if (formattedExclude.includes(name)) {
+            if (formattedExclude?.includes(name)) {
+              return true;
+            }
+            if (formattedInclude && !formattedInclude.includes(name)) {
               return true;
             }
             return !(value instanceof LiteralExpression && typeof value.value === "number");
+          });
+        },
+        assertNoLiteralNumbersInAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+          const formattedInclude = include?.map(formatIdentifier);
+          const formattedExclude = exclude?.map(formatIdentifier);
+          return extractVariableAssignments(statements).every(({ name, value }) => {
+            if (formattedExclude?.includes(name)) {
+              return true;
+            }
+            if (formattedInclude && !formattedInclude.includes(name)) {
+              return true;
+            }
+            return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
           });
         },
         countLinesOfCode: () => countLinesOfCode(this.sourceCode),

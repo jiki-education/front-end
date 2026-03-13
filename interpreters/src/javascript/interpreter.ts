@@ -8,6 +8,7 @@ import type { JikiObject } from "./jikiObjects";
 import type { JSClass } from "./jsObjects/JSClass";
 import {
   extractCallExpressions,
+  extractExpressions,
   extractVariableAssignments,
   snakeToCamel as formatIdentifier,
   countLinesOfCode,
@@ -88,6 +89,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertAllArgumentsAreVariables: () => true, // Defensive: don't fail on parse errors
         assertSomeArgumentsAreVariablesForFunction: () => true,
         assertNoLiteralNumberAssignments: () => true,
+        assertNoLiteralNumbersInAssignments: () => true,
         countLinesOfCode: () => 0,
         assertMaxLinesOfCode: () => true,
         assertFunctionDefined: () => true,
@@ -182,13 +184,30 @@ export function evaluateFunction(
             });
           });
       },
-      assertNoLiteralNumberAssignments: (exclude: string[]) => {
-        const formattedExclude = exclude.map(formatIdentifier);
+      assertNoLiteralNumberAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+        const formattedInclude = include?.map(formatIdentifier);
+        const formattedExclude = exclude?.map(formatIdentifier);
         return extractVariableAssignments(statements).every(({ name, value }) => {
-          if (formattedExclude.includes(name)) {
+          if (formattedExclude?.includes(name)) {
+            return true;
+          }
+          if (formattedInclude && !formattedInclude.includes(name)) {
             return true;
           }
           return !(value instanceof LiteralExpression && typeof value.value === "number");
+        });
+      },
+      assertNoLiteralNumbersInAssignments: ({ include, exclude }: { include?: string[]; exclude?: string[] }) => {
+        const formattedInclude = include?.map(formatIdentifier);
+        const formattedExclude = exclude?.map(formatIdentifier);
+        return extractVariableAssignments(statements).every(({ name, value }) => {
+          if (formattedExclude?.includes(name)) {
+            return true;
+          }
+          if (formattedInclude && !formattedInclude.includes(name)) {
+            return true;
+          }
+          return extractExpressions([value], LiteralExpression).filter(l => typeof l.value === "number").length === 0;
         });
       },
       countLinesOfCode: () => countLinesOfCode(sourceCode),

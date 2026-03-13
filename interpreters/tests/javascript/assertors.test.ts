@@ -159,6 +159,80 @@ describe("JavaScript assertors", () => {
     });
   });
 
+  describe("assertNoLiteralNumberAssignments", () => {
+    test("returns true when no assignments have number literals", () => {
+      const result = interpret("let x = 5;\nlet y = x + x;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["y"] })).toBe(true);
+    });
+
+    test("returns false when included variable is assigned a number literal", () => {
+      const result = interpret("let x = 5;\nlet y = 10;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["x", "y"] })).toBe(false);
+    });
+
+    test("skips variables not in include list", () => {
+      const result = interpret("let x = 5;\nlet y = 10;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["z"] })).toBe(true);
+    });
+
+    test("skips excluded variables", () => {
+      const result = interpret("let x = 5;\nlet y = 10;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ exclude: ["x", "y"] })).toBe(true);
+    });
+
+    test("only checks top-level value", () => {
+      const result = interpret("let x = 5;\nlet y = x + 3;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["y"] })).toBe(true);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["x"] })).toBe(true);
+    });
+  });
+
+  describe("assertNoLiteralNumbersInAssignments", () => {
+    test("returns true when assignment uses only variables", () => {
+      const result = interpret("let x = 5;\nlet y = x + x;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["y"] })).toBe(true);
+    });
+
+    test("returns false when expression contains a number literal", () => {
+      const result = interpret("let x = 5;\nlet y = x + 3;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["y"] })).toBe(false);
+    });
+
+    test("returns false for direct number literal assignment", () => {
+      const result = interpret("let x = 10;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["x"] })).toBe(false);
+    });
+
+    test("skips variables not in include list", () => {
+      const result = interpret("let x = 5;\nlet y = x + 3;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["z"] })).toBe(true);
+    });
+
+    test("skips excluded variables", () => {
+      const result = interpret("let x = 5;\nlet y = x + 3;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ exclude: ["x", "y"] })).toBe(true);
+    });
+
+    test("allows string literals in expression", () => {
+      const result = interpret('let x = "hello";');
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["x"] })).toBe(true);
+    });
+
+    test("checks all assignments when no include or exclude", () => {
+      const result = interpret("let x = 5;\nlet y = x + 3;");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({})).toBe(false);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertNoLiteralNumbersInAssignments({ include: ["x"] })).toBe(true);
+    });
+  });
+
   describe("assertFunctionCalledOutsideOwnDefinition", () => {
     test("returns true when function is called from another function", () => {
       const code = `function includes(str, char) {

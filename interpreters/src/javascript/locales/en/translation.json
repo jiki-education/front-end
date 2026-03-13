@@ -106,7 +106,7 @@
       "StrictEqualityRequired": "Use '===' instead of '==' and '!==' instead of '!=' for comparisons.",
       "ComparisonRequiresNumber": "Comparison operator '{{operator}}' requires both values to be numbers.",
       "NodeNotAllowed": "{{nodeType}} is not allowed at your current learning level.",
-      "InvalidNumberOfArguments": "Function '{{function}}' expected {{expected}} argument(s) but got {{got}}.",
+      "InvalidNumberOfArguments": "This function has {{expected}} input {{slots}} but you provided {{got}} {{inputs}} for Jiki to use with it.",
       "FunctionNotFound": "The function '{{name}}' is not defined.",
       "LogicErrorInExecution": "{{message}}",
       "ValueError": "{{message}}",

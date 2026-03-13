@@ -60,7 +60,7 @@
       "FunctionNotFound": "The function '{{name}}' is not defined.",
       "IndexError": "List index {{index}} is out of range.",
       "InvalidBinaryExpression": "Invalid binary operation '{{operator}}' is not supported.",
-      "InvalidNumberOfArguments": "Function '{{function}}' expects {{expected}} arguments but got {{got}}.",
+      "InvalidNumberOfArguments": "This function has {{expected}} input {{slots}} but you provided {{got}} {{inputs}} for Jiki to use with it.",
       "InvalidUnaryExpression": "Invalid unary operation '{{operator}}' is not supported.",
       "LogicErrorInExecution": "Logic error: {{message}}",
       "NodeNotAllowed": "{{nodeType}} is not allowed at this level.",
