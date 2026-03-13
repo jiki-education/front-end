@@ -2,14 +2,27 @@
     position: absolute;
     pointer-events: auto;
     z-index: 81; /* z-tooltip-content */
-    border-radius: 8px;
     max-width: 600px;
     max-height: min(90vh, 800px);
     transition: opacity 0.3s ease;
     font-size: 16px;
     line-height: 1.5;
+    overflow: visible;
+}
+
+.tooltipInner {
     display: flex;
     flex-direction: column;
+    max-height: min(90vh, 800px);
+    position: relative; /* For absolute positioning of arrow */
+}
+
+.tooltipClip {
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     position: relative; /* For absolute positioning of close button */
 }
 
@@ -69,27 +82,31 @@
 }
 
 .tooltipArrow {
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid;
-    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-surface-elevated);
+    border-left: 2px solid;
+    border-bottom: 2px solid;
     position: absolute;
-    top: 6px;
-    left: -10px;
+    left: -8px;
+    transform: rotate(45deg);
+    z-index: 1; /* sit on top of the tooltip border/background */
+    /* top is set dynamically via JS */
 }
 
-.description {
+.description .tooltipInner {
+    border: 2px solid var(--color-info-border);
+    border-radius: 8px;
+    filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
+}
+
+.description .tooltipClip {
     background-color: var(--color-surface-elevated);
     color: var(--color-text-primary);
-    border: 2px solid var(--color-info-border);
-    filter: drop-shadow(0px 4px 8px rgba(79, 114, 205, 0.5));
-    overflow: hidden; /* Ensure proper border radius clipping */
 }
 
 .description .tooltipArrow {
-    border-right-color: var(--color-info-border);
+    border-color: var(--color-info-border);
 }
 
 .description hr {
@@ -102,12 +119,15 @@
     margin-bottom: 10px;
 }
 
-.error {
-    background-color: var(--color-surface-elevated);
+.error .tooltipInner {
     border: 2px solid var(--color-red-500);
+    border-radius: 8px;
     box-shadow: 0 8px 24px rgba(239, 68, 68, 0.15);
-    overflow: hidden; /* Ensure proper border radius clipping */
     min-width: 400px; /* Ensure enough width for "Oops" text */
+}
+
+.error .tooltipClip {
+    background-color: var(--color-surface-elevated);
 }
 
 .error h2 {
@@ -123,6 +143,7 @@
     background-color: var(--color-surface-elevated);
     overflow: auto;
     flex: 1;
+    border-radius: 6px;
 }
 
 .error .content > *:first-child {
@@ -134,7 +155,7 @@
 }
 
 .error .tooltipArrow {
-    border-right-color: var(--color-red-500);
+    border-color: var(--color-red-500);
 }
 
 /* Tooltip section title styling - targets first div in content */

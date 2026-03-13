@@ -14,6 +14,7 @@ import tooltipStyles from "./informationTooltip.module.css";
 
 export class InformationWidget extends WidgetType {
   private tooltip: HTMLElement | null = null;
+  private tooltipInner: HTMLElement | null = null;
   private referenceElement: HTMLElement | null = null;
   private arrowElement: HTMLElement | null = null;
   private observer: MutationObserver | null = null;
@@ -57,6 +58,16 @@ export class InformationWidget extends WidgetType {
   private createTooltip() {
     this.tooltip = document.createElement("div");
     this.tooltip.className = tooltipStyles.informationTooltip;
+
+    // Inner wrapper is the positioned container for the arrow (overflow: visible)
+    this.tooltipInner = document.createElement("div");
+    const inner = this.tooltipInner;
+    inner.className = tooltipStyles.tooltipInner;
+
+    // Clip wrapper clips child backgrounds to the border-radius (overflow: hidden)
+    const clip = document.createElement("div");
+    clip.className = tooltipStyles.tooltipClip;
+
     const content = document.createElement("div");
     content.className = tooltipStyles.content;
 
@@ -77,7 +88,9 @@ export class InformationWidget extends WidgetType {
       this.tooltip.classList.add(tooltipStyles.description);
       content.innerHTML = this.tooltipHtml;
     }
-    this.tooltip.appendChild(content);
+    clip.appendChild(content);
+    inner.appendChild(clip);
+    this.tooltip.appendChild(inner);
     document.body.appendChild(this.tooltip);
 
     const closeButton = document.createElement("button");
@@ -91,8 +104,8 @@ export class InformationWidget extends WidgetType {
       this.onClose(this.view);
     };
 
-    // Append close button to the tooltip itself for absolute positioning
-    this.tooltip.appendChild(closeButton);
+    // Append close button to the clip wrapper for absolute positioning
+    clip.appendChild(closeButton);
 
     this.tooltip.querySelectorAll("code").forEach((ct) => {
       ct.addEventListener("mouseenter", () => {
@@ -143,12 +156,12 @@ export class InformationWidget extends WidgetType {
   }
 
   private createArrow() {
-    if (!this.tooltip) {
+    if (!this.tooltipInner) {
       return;
     }
     this.arrowElement = document.createElement("div");
     this.arrowElement.className = tooltipStyles.tooltipArrow;
-    this.tooltip.prepend(this.arrowElement);
+    this.tooltipInner.prepend(this.arrowElement);
   }
 
   private showTooltip() {
@@ -206,8 +219,15 @@ export class InformationWidget extends WidgetType {
         position: "absolute"
       });
 
+      const borderRadius = 8;
+      const arrowSize = 12;
+      const arrowCenter = arrowSize / 2;
+      const tooltipHeight = this.tooltipInner?.offsetHeight ?? 0;
+      const minTop = borderRadius + arrowCenter;
+      const maxTop = tooltipHeight - borderRadius - arrowCenter - arrowSize;
+
       let top = arrow?.y ?? 0;
-      top = Math.max(top, 1);
+      top = Math.min(Math.max(top, minTop), maxTop);
 
       Object.assign(this.arrowElement!.style, {
         top: `${top}px`
@@ -291,6 +311,7 @@ export class InformationWidget extends WidgetType {
     if (this.tooltip?.parentNode) {
       this.tooltip.parentNode.removeChild(this.tooltip);
       this.tooltip = null;
+      this.tooltipInner = null;
     }
 
     if (this.observer) {
