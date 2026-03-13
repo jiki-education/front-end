@@ -9,6 +9,7 @@ export function removeInputElements() {
     colorInput.remove();
   }
   if (fauxRange) {
+    (fauxRange as HTMLElement & { cleanup?: () => void }).cleanup?.();
     fauxRange.remove();
   }
 }

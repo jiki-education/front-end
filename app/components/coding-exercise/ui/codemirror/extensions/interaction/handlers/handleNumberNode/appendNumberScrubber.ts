@@ -80,6 +80,11 @@ export function appendNumberScrubber({
     view.dispatch(tr);
   };
 
+  const removeDragListeners = () => {
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseup", onMouseUp);
+  };
+
   const onMouseUp = () => {
     if (!isDragging) return;
     isDragging = false;
@@ -97,9 +102,10 @@ export function appendNumberScrubber({
       sensitivity = getSensitivity(originalValue);
     }
 
-    document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", onMouseUp);
+    removeDragListeners();
   };
+
+  (scrubber as HTMLElement & { cleanup?: () => void }).cleanup = removeDragListeners;
 
   scrubber.addEventListener("mousedown", (e: MouseEvent) => {
     e.preventDefault();
