@@ -43,6 +43,16 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "Missing a flower at position 90."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result, language) => {
+          const limit = language === "python" ? 4 : 5;
+          return result.assertors.assertMaxLinesOfCode(limit);
+        },
+        errorHtml: "Your solution has too many lines of code. Try to find a way to make it shorter."
+      }
+    ]
   }
 ];
