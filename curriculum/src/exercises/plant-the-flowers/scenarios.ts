@@ -19,6 +19,10 @@ export const scenarios: VisualScenario[] = [
     description: "Plant flowers at positions 10, 20, 30, 40, 50, 60, 70, 80, and 90.",
     taskId: "plant-flowers",
 
+    setup(exercise) {
+      const ex = exercise as PlantTheFlowersExercise;
+      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+    },
     expectations(exercise) {
       const ex = exercise as PlantTheFlowersExercise;
       return [

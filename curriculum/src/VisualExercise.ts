@@ -90,6 +90,7 @@ export interface Animation {
     rotate?: number;
     scale?: number;
     opacity?: number;
+    height?: number | string;
     gridRow?: number;
     gridColumn?: number;
   };
