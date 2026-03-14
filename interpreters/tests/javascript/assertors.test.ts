@@ -277,4 +277,37 @@ isPangram("hello");`;
       expect(result.assertors.assertFunctionCalledOutsideOwnDefinition("includes")).toBe(true);
     });
   });
+
+  describe("numFunctionCallsInCode", () => {
+    test("returns 0 when no function calls exist", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
+    });
+
+    test("counts one function call", () => {
+      const result = interpret("rectangle(10, 20);");
+      expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(1);
+    });
+
+    test("counts multiple calls of the same function", () => {
+      const code = `rectangle(10, 20);
+rectangle(30, 40);
+rectangle(50, 60);`;
+      const result = interpret(code);
+      expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(3);
+    });
+
+    test("only counts the named function", () => {
+      const code = `rectangle(10, 20);
+circle(5);
+rectangle(30, 40);`;
+      const result = interpret(code);
+      expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(2);
+    });
+
+    test("returns 0 on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
+    });
+  });
 });

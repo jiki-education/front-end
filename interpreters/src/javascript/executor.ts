@@ -167,6 +167,7 @@ export interface ExecutorResult {
     assertMethodCalled: (methodName: string) => boolean;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
+    numFunctionCallsInCode: (funcName: string) => number;
   };
 }
 
@@ -380,6 +381,12 @@ export class Executor {
           return callsOutside.some(
             call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
           );
+        },
+        numFunctionCallsInCode: (funcName: string) => {
+          const formatted = formatIdentifier(funcName);
+          return extractCallExpressions(statements).filter(
+            expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
+          ).length;
         },
       },
     };
