@@ -158,15 +158,8 @@ export default class DndRollExercise extends VisualExercise {
     const slotIndex = this.announcements.length - 1;
     if (slotIndex < this.announcementSlots.length) {
       const slot = this.announcementSlots[slotIndex];
-      const label = document.createElement("span");
-      label.className = "announcement-value";
-      label.textContent = String(value.value);
-      label.style.opacity = "0";
-      slot.appendChild(label);
-      this.animateIntoView(
-        executionCtx,
-        `#${this.view.id} .announcement-slot:nth-child(${slotIndex + 1}) .announcement-value`
-      );
+      slot.textContent = String(value.value);
+      this.animateIntoView(executionCtx, `#${this.view.id} .announcement-slot:nth-child(${slotIndex + 1})`);
     }
     executionCtx.fastForward(200);
   }
@@ -188,7 +181,7 @@ export default class DndRollExercise extends VisualExercise {
 
   protected populateView() {
     // Set background and container for cqw units
-    this.view.style.backgroundImage = "url(/static/images/exercise-assets/dnd-roll/background.png)";
+    this.view.style.backgroundImage = "url(/static/images/exercise-assets/dnd-roll/background.jpg)";
     this.view.style.backgroundSize = "cover";
     this.view.style.backgroundPosition = "center";
     this.view.style.position = "relative";
