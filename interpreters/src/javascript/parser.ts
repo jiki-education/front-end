@@ -46,6 +46,7 @@ export class Parser {
   private readonly languageFeatures: LanguageFeatures;
   private blockDepth: number = 0;
   private baseIndentation: number | null = null;
+  private baseIndentationTokens: Token[] = [];
   public lintErrors: LintError[] = [];
 
   constructor(context: EvaluationContext = {}) {
@@ -108,6 +109,7 @@ export class Parser {
   public parse(sourceCode: string): Statement[] {
     this.tokens = this.scanner.scanTokens(sourceCode);
     this.baseIndentation = null;
+    this.baseIndentationTokens = [];
     this.blockDepth = 0;
     this.lintErrors = [];
 
@@ -944,7 +946,33 @@ export class Parser {
     // First statement defines the base indentation
     if (this.baseIndentation === null) {
       this.baseIndentation = column;
+      this.baseIndentationTokens.push(token);
       return;
+    }
+
+    // At top level, if we see a statement with less indentation than the
+    // base, adjust the base downward. The earlier statement(s) were
+    // over-indented, not this one. Retroactively flag them.
+    if (this.blockDepth === 0 && column < this.baseIndentation) {
+      for (const prevToken of this.baseIndentationTokens) {
+        const prevColumn = prevToken.location.relative.begin;
+        const expected = 0;
+        const actual = prevColumn - column;
+        const indentLocation = new Location(
+          prevToken.location.line,
+          new Span(1, prevColumn),
+          new Span(prevToken.location.absolute.begin - prevColumn + 1, prevToken.location.absolute.begin)
+        );
+        this.lintWarning("IncorrectIndentation", indentLocation, { expected, actual });
+      }
+      this.baseIndentation = column;
+      this.baseIndentationTokens = [];
+      return;
+    }
+
+    // Track top-level tokens at the base indentation level
+    if (this.blockDepth === 0 && column === this.baseIndentation) {
+      this.baseIndentationTokens.push(token);
     }
 
     const expectedColumn = this.baseIndentation + this.blockDepth * 2;

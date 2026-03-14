@@ -303,6 +303,26 @@ describe("JavaScript enforceFormatting feature", () => {
         expect(error).toBeNull();
         expect(lintErrors).toHaveLength(0);
       });
+
+      test("trailing whitespace after opening brace is allowed", () => {
+        const code = "let position = 0\nrepeat(60) {   \n  position = position + 1\n}";
+        const { error, lintErrors } = interpret(code, { languageFeatures: features });
+        expect(error).toBeNull();
+        expect(lintErrors).toHaveLength(0);
+      });
+
+      test("leading space before code produces indentation warning on the first space only", () => {
+        const code = " let position = 28\nrepeat(60) {\n  position = position + 1\n  moveTo(position)\n}";
+        const { error, lintErrors } = interpret(code, {
+          languageFeatures: features,
+          externalFunctions: [{ name: "moveTo", func: () => {}, description: "" }],
+        });
+        expect(error).toBeNull();
+        // Should only get one lint error for the leading space on line 1
+        expect(lintErrors).toHaveLength(1);
+        expect(lintErrors[0].type).toBe("IncorrectIndentation");
+        expect(lintErrors[0].location.line).toBe(1);
+      });
     });
 
     describe("lint warnings work without semicolons", () => {
