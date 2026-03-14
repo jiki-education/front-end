@@ -96,6 +96,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        numFunctionCallsInCode: () => 0,
       },
     };
   }
@@ -227,6 +228,12 @@ export function evaluateFunction(
         return callsOutside.some(
           call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
         );
+      },
+      numFunctionCallsInCode: (funcName: string) => {
+        const formatted = formatIdentifier(funcName);
+        return extractCallExpressions(statements).filter(
+          expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
+        ).length;
       },
     },
   };

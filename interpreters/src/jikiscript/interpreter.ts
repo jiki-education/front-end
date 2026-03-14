@@ -115,6 +115,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        numFunctionCallsInCode: () => 0,
       },
     };
   }

@@ -368,6 +368,11 @@ export class Executor {
           const callsOutside = extractFunctionCallExpressionsExcludingBody(statements, formatted);
           return callsOutside.some(call => call.callee.name.lexeme === formatted);
         },
+        numFunctionCallsInCode: (funcName: string) => {
+          const formatted = formatIdentifier(funcName);
+          return extractFunctionCallExpressions(statements).filter(expr => expr.callee.name.lexeme === formatted)
+            .length;
+        },
       },
     };
   }

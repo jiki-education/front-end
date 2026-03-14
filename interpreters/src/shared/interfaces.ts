@@ -80,5 +80,6 @@ export interface InterpretResult {
     assertMethodCalled: (methodName: string) => boolean;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
+    numFunctionCallsInCode: (funcName: string) => number;
   };
 }
