@@ -1,6 +1,6 @@
-let x = 28
+let position = 28
 
 repeat(60) {
-  x = x + 1
-  rollTo(x)
+  position = position + 1
+  moveTo(position)
 }

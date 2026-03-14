@@ -19,9 +19,3 @@ A ball bounces around the canvas, changing direction when it hits the edges. As 
   3. Check if the ball has hit an edge and reverse direction with a random speed
   4. Check if the hue has gone below 0 or above 360 and reverse hue direction
   5. Draw a circle at the current position with a color from the hue
-
-### Functions used in this exercise
-
-- `circle(cx, cy, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
-- `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string
-- `randomNumber(min, max)` - Get a random integer between min and max (inclusive)

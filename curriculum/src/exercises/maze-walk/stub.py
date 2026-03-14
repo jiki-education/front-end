@@ -1,5 +1,5 @@
-# Write your walk function here
-# It should take a number of steps and move that many times
+def walk(steps):
+    pass
 
 walk(3)
 turn_left()

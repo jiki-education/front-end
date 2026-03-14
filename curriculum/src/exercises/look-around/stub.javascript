@@ -1,4 +1,4 @@
-// Add your checkDirection, canTurnLeft, canTurnRight, and canMove functions here
+// Add your functions here
 
 function turnAround() {
   turnRight();
@@ -16,5 +16,6 @@ repeat() {
     move();
   } else {
     turnAround();
+    move();
   }
 }

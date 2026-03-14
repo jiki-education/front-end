@@ -23,9 +23,3 @@ Draw the house shown in the image using variables for all positions, sizes, and 
 - Both windows are `12` wide and `13` tall. They sit `5` below the top of the frame and `10` inset from each side.
 - The door is `14` wide and `18` tall, centered at the bottom of the house.
 - The door knob has a radius of `1`, is inset `1` from the right of the door, and is vertically centered in the door.
-
-### Functions
-
-- `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(cx, cy, radius, color)` — Draw a circle
-- `triangle(x1, y1, x2, y2, x3, y3, color)` — Draw a triangle

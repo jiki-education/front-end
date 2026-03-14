@@ -16,9 +16,3 @@ Things you need to know:
 - The `rectangle` function can only appear once in your code!
 
 The aim of this exercise is for you to experiment with using `repeat` blocks and potentially use `functions`. There are many different ways to solve this exercise. Your challenge is to solve it in a way that results in clean, satisfying code.
-
-### Functions
-
-You need one function for this exercise:
-
-- `rectangle(left, top, width, height, color)`: Draws a rectangle with the given color.

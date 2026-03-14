@@ -1,4 +1,4 @@
-# Add your check_direction, can_turn_left, can_turn_right, and can_move functions here
+# Add your functions here
 
 def turn_around():
     turn_right()
@@ -15,3 +15,4 @@ repeat():
         move()
     else:
         turn_around()
+        move()

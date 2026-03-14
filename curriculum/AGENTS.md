@@ -83,6 +83,8 @@ git push -u origin branch-name
 gh pr create --title "Add new exercise: [name]" --body "Description of the exercise"
 ```
 
+**Important:** When working in git, do NOT cd to the root as part of compound commands. Instead operate within the curriculum directory.
+
 ## Project Structure
 
 ```
@@ -322,6 +324,18 @@ Exercise background images and visual assets live in `images/exercise-assets/[ex
 1. Place the image in `images/exercise-assets/[exercise-name]/` (e.g., `images/exercise-assets/fix-wall/wall-to-fix.png`)
 2. In the exercise's `scenarios.ts`, call `setupBackground("/static/images/exercise-assets/[exercise-name]/image.png")`
 3. Do NOT use external URLs (e.g., `https://assets.exercism.org/bootcamp/...`) — all assets must be local
+
+**Images in instructions (`instructions/en.md`):**
+
+Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` syntax. Example:
+
+```html
+<img
+  src="/static/images/exercise-assets/foxy-face/example.svg"
+  alt="Foxy Face"
+  style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;"
+/>
+```
 
 ## Best Practices
 

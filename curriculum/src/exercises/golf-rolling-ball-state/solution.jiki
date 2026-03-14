@@ -1,6 +1,6 @@
-set x to 28
+set position to 28
 
 repeat 60 times do
-  change x to x + 1
-  roll_to(x)
+  change position to position + 1
+  move_to(position)
 end

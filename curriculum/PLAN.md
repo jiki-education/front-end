@@ -56,6 +56,7 @@ Use `/migrate-exercise` when the exercise exists in the Bootcamp. Use `/add-exer
 - `space-invaders-repeat` - Space Invaders Repeat: repeat loop version of space invaders (Repeat Loop level)
 - `snowman` - Snowman: use variables to position snowman parts (Variables level)
 - `traffic-lights` - Traffic Lights: use variables to draw traffic light (Variables level)
+- `plant-the-flowers` - Plant the Flowers: track position variable and plant 9 flowers using repeat loop (Basic State level)
 
 ### Needs Changes
 
@@ -66,7 +67,6 @@ None.
 - `relational-sun` - Relational Sun: use arithmetic to position sun rays (Variables level)
 - `relational-snowman` - Relational Snowman: use arithmetic for snowman proportions (Variables level)
 - `relational-traffic-lights` - Relational Traffic Lights: use arithmetic for traffic light positioning (Variables level)
-- `plant-the-flowers` - Plant the Flowers: track position variable and plant 9 flowers using repeat loop (Basic State level)
 - `golf-rolling-ball-state` - Golf Rolling Ball State: track x variable and use move_ball_to(x) in a loop (Basic State level)
 - `finish-wall` - Finish the Wall: use repeat loop to add top layer of bricks (Basic State level)
 - `dnd-roll` - D&D Roll: store return values from roll() and use them in announce() and strike() (Functions That Return Things level)

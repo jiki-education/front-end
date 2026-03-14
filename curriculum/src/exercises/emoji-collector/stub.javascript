@@ -29,9 +29,3 @@ function turnIfNeeded() {
     turnAround();
   }
 }
-
-// Your code here
-// 1. Create a pickUpEmoji function that checks the current square
-//    and collects any non-special emojis into an object
-// 2. Navigate the maze, collecting emojis as you go
-// 3. After reaching the finish, call announceEmojis with your object

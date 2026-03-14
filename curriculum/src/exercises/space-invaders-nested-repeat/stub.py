@@ -1,3 +1,1 @@
-# The aliens are 4 rows deep now!
-# You need a repeat loop inside another repeat loop.
-# Use: repeat(n): ...
+# Shoot the aliens

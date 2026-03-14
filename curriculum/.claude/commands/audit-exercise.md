@@ -176,6 +176,8 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 6. **No stale information**: If the exercise has been modified since the LLM metadata was written, flag any information that may be outdated (e.g., changed function names, different scenario structure, updated instructions).
 
+Note: It is ok for the LLM instructions to have the answers! The LLM knows not to give away the answer, but we MUST tell the LLM the correct information it needs to guide the student.
+
 ---
 
 ### Check 8: Concept Slugs Are Present and Accurate

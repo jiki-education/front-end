@@ -1,4 +1,3 @@
-// The main function that gets called.
-function reverse with string do
-  // Your code here
+function reverse with str do
+
 end

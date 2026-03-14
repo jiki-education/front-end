@@ -1,7 +1,6 @@
 // Use current_time_hour() and current_time_minute()
 // to get the current time.
 
-// Convert the hour into "12 hour" format and
-// determine whether it's "am" or "pm".
+// Convert to 12-hour format.
 
-// Use display_time to update the clock
+// Use display_time() to update the clock.

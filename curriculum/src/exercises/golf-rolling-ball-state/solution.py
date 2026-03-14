@@ -1,5 +1,5 @@
-x = 28
+position = 28
 
 repeat(60):
-    x = x + 1
-    roll_to(x)
+    position = position + 1
+    move_to(position)
