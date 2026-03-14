@@ -1,1 +1,3 @@
-// TODO: Define the favorite_artists function
+function favorite_artists with username do
+
+end

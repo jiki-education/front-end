@@ -17,9 +17,3 @@ Draw **500 circles** at random positions with random colors.
   2. Change `y` to a random position between 0 and 100
   3. Change `hue` to a random value between 0 and 360
   4. Draw a circle at that position with radius 3 and a color generated from the hue
-
-### Functions used in this exercise
-
-- `circle(cx, cy, radius, color)` - Draw a circle with center at (x, y) with the given radius and color
-- `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string
-- `randomNumber(min, max)` - Get a random integer between min and max (inclusive)

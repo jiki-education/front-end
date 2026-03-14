@@ -1,5 +1,6 @@
-// Write your walk function here
-// It should take a number of steps and move that many times
+function walk(steps) {
+
+}
 
 walk(3);
 turnLeft();

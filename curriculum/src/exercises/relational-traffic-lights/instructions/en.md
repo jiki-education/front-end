@@ -23,8 +23,3 @@ You're back with the traffic lights! This time, everything should be relative to
 - `housingWidth`, `housingHeight` — the size of the housing rectangle
 
 All derived variables should be expressed as `radius * something`.
-
-### Functions used in this exercise
-
-- `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(cx, cy, radius, color)` — Draw a circle

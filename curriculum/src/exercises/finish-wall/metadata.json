@@ -4,20 +4,8 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use a loop that runs 5 times to draw all the bricks"
-    },
-    {
-      "question": "Hint",
-      "answer": "Track the x position with a variable that increases by 20 each iteration"
-    },
-    {
-      "question": "Hint",
-      "answer": "All bricks have the same y position (0), width (20), and height (10)"
-    },
-    {
-      "question": "Hint",
-      "answer": "The rectangle function should only appear once inside the loop"
+      "question": "I can't work out how to position the second brick further along from the first",
+      "answer": "If each brick is 20 wide then you need to place the first at 0, the second at 20, the third at 40, etc. You can use multiplication to do this. What variable could you track that enables you to have the pattern 0, 20 then 40, etc?"
     }
   ]
 }

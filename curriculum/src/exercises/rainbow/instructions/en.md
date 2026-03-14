@@ -15,8 +15,3 @@ Your task is to make a beautiful rainbow pattern made up of 100 vertical bars.
 - You need to write a repeat loop that repeats 100 times.
 - In each iteration of the repeat loop you need to increase `x` by 1 and increase the hue by `3`.
 - You then need to use the `hsl` function to convert the color, and pass it to the `rectangle` function to draw.
-
-### Functions used in this exercise
-
-- `rectangle(x, y, width, height, color)` - Draw a rectangle with the given color
-- `hsl(hue, saturation, luminance)` - Convert HSL values to a hex color string

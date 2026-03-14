@@ -26,8 +26,3 @@ Your task is to rewrite the snowman so all the sizes and positions are derived f
 - `baseRadius` — derive from `size`
 - `bodyY` — derive from `headY`, `headRadius`, and `bodyRadius`
 - `baseY` — derive from `bodyY`, `bodyRadius`, and `baseRadius`
-
-### Functions used in this exercise
-
-- `rectangle(x, y, width, height, color)` — Draw a rectangle
-- `circle(cx, cy, radius, color)` — Draw a circle

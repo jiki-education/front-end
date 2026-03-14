@@ -1,3 +1,9 @@
+// Sunshine code
+fill_color_hex("#ADD8E6")
+rectangle(0, 0, 100, 100)
+fill_color_hex("#ffed06")
+circle(50, 50, 25)
+
 function draw_weather with elements do
-  // Your code here
+
 end

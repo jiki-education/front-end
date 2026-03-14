@@ -1,10 +1,10 @@
 export const llmMetadata = {
   description:
-    "The student must roll a golf ball into a hole by tracking its x position in a variable and using rollTo(x) inside a loop. The ball starts at position 28 and must reach position 88.",
+    "The student must move a golf ball into a hole. The ball starts at position 28 and must reach position 88. The only function available is moveTo(position) which moves the ball to the given position. The student needs to use a variable to track the ball's position.",
   tasks: {
     "roll-ball": {
       description:
-        "Use a variable to track position, increment it in a loop, and pass it to rollTo(). The ball must end at position 88."
+        "Move the ball from position 28 to position 88 using moveTo(position). The student should use a variable to track the ball's position."
     }
   }
 };

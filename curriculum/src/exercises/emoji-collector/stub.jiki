@@ -1,6 +1,6 @@
 function check_direction with direction do
   set space to look(direction)
-  return space != "🔥" and space != "🧱" and space != "💩"
+  return space is not "🔥" and space is not "🧱" and space is not "💩"
 end
 
 function can_turn_left do
@@ -29,9 +29,3 @@ function turn_if_needed do
     turn_around()
   end
 end
-
-// Your code here
-// 1. Create a pick_up_emoji function that checks the current square
-//    and collects any non-special emojis into a dictionary
-// 2. Navigate the maze, collecting emojis as you go
-// 3. After reaching the finish, call announce_emojis with your dictionary

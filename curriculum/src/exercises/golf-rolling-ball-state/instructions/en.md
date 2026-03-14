@@ -3,12 +3,12 @@ title: "Golf: Rolling Ball"
 description: ""
 ---
 
-A golf ball is sitting on the course. Your job is to roll it into the hole!
+We're back in the world of building a golf game, but this time what we're building has changed.
 
-You have one function:
+Instead of the `roll()` function we had before, we now have a `moveTo(position)` function that moves the ball to a spot instantly.
 
-- `rollTo(x)` rolls the ball to position `x`
+Now, when the player hits the ball, we could just move it directly to the final place, but it's very unsatisfying seeing it not animate. So instead we want to use `moveTo(position)` lots of time to make it look like it's rolling.
 
-The ball starts at position **28** and needs to reach position **88**. You'll need to track the ball's position in a variable and update it in a loop.
+The ball starts at position **28** and needs to reach position **88**.
 
-Your solution should use a variable to track `x` and a loop to roll the ball one step at a time.
+You must solve this in **5 lines of code**. Good luck!

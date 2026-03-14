@@ -13,11 +13,3 @@ In Rock, Paper, Scissors, two players each choose rock, paper or scissors. You t
 - Paper smothers rock (paper wins).
 
 Your job is to compare the choices the players have made and announce the winner to the playing hall.
-
-### Functions
-
-You have three functions to use:
-
-- `getPlayer1Choice()`: Returns player 1's choice - one of `"rock"`, `"paper"` or `"scissors"`.
-- `getPlayer2Choice()`: Returns player 2's choice. Also `"rock"`, `"paper"` or `"scissors"`.
-- `announceResult(result)`: You announce the result, using one of `"player_1"`, `"player_2"`, or `"tie"` as an input.

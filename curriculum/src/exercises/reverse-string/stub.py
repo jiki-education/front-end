@@ -1,4 +1,2 @@
-# The main function that gets called.
-def reverse(string):
-    # Your code here
+def reverse(str):
     pass

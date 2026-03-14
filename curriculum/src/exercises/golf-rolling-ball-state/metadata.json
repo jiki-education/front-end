@@ -4,20 +4,12 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by setting a variable x to 28"
+      "question": "I don't know where to start",
+      "answer": "The key is to move the ball one step forward each time. You can use a variable to do this. Think about how that might work."
     },
     {
-      "question": "Hint",
-      "answer": "Use a loop that runs 60 times"
-    },
-    {
-      "question": "Hint",
-      "answer": "Inside the loop, increase x by 1, then call rollTo(x)"
-    },
-    {
-      "question": "Hint",
-      "answer": "The ball needs to end up at position 88"
+      "question": "I still can't figure it out",
+      "answer": "You want to create a variable to track where the ball is. It should start where it is now, then many times increase by one. Every time it increases you should `moveTo(...)` using the variable as an input."
     }
   ]
 }

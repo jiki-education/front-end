@@ -13,10 +13,3 @@ We've drawn the initial scene for you. You need to animate a few things:
 - **The color of the sky**: Use HSL to animate the sky color.
 
 Remember to initialize the variables **outside** of the loop, and then update them **inside** the loop **before** you call the drawing functions.
-
-### Functions used in this exercise:
-
-- `circle(cx, cy, radius, color)` - Draw a circle
-- `rectangle(x, y, width, height, color)` - Draw a rectangle
-- `rgb(red, green, blue)` - Convert RGB values (0-255) to a hex color string
-- `hsl(hue, saturation, luminosity)` - Convert HSL values to a hex color string
