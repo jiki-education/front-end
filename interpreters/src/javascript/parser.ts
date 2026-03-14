@@ -732,6 +732,10 @@ export class Parser {
 
       const operator = this.previous();
       const right = this.unary();
+      // Collapse -<number literal> into a single negative literal
+      if (operator.type === "MINUS" && right instanceof LiteralExpression && typeof right.value === "number") {
+        return new LiteralExpression(-right.value, Location.between(operator, right));
+      }
       return new UnaryExpression(operator, right, Location.between(operator, right));
     }
 
