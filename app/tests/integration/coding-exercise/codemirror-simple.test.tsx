@@ -109,7 +109,8 @@ jest.mock("@/components/coding-exercise/ui/codemirror/extensions", () => ({
   lintDecorationsExtension: jest.fn(() => []),
   setLintDecorationsEffect: { of: jest.fn() },
   informationWidgetDataEffect: { of: jest.fn() },
-  showInfoWidgetEffect: { of: jest.fn() }
+  showInfoWidgetEffect: { of: jest.fn() },
+  interactionExtension: jest.fn(() => [])
 }));
 
 // Mock cleanup utility

@@ -3,6 +3,7 @@ import type { StoreApi } from "zustand/vanilla";
 import { processMessageContent } from "../../ui/messageUtils";
 import type { TestSuiteResult, TestExpect } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
+import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 
 // Define SyntaxError interface inline since it's not exported from interpreters
 interface SyntaxError {
@@ -51,6 +52,7 @@ export class TestSuiteManager {
     });
     state.setShouldShowInformationWidget(true);
     state.setHighlightedLine(error.location.line);
+    state.setHighlightedLineColor(ERROR_HIGHLIGHT_COLOR);
   }
 
   /**
