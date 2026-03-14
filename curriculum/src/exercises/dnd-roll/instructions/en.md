@@ -3,21 +3,22 @@ title: "D&D Roll"
 description: ""
 ---
 
-You've encountered a goblin in the dungeon! To fight it, you need to roll three dice, announce each result, then strike.
+You are creating a bot that can play Dungeons and Dragons (DnD). If you're not familiar with DnD, the basic premise is that you encounter lots of scenarios and roll dice to work out what happens. There are many different dice with different amounts of sides (not just the six-sided die you might be used to!)
 
-You have three functions:
+One scenario you need to handle is encountering a goblin. In order to attack the goblin you need to:
 
-- `roll(sides)` rolls a die with the given number of sides and **gives back** the result
-- `announce(value)` announces a dice roll
-- `strike(attack, damage)` strikes the goblin with your attack roll and total damage
+- Generate an **attack score** by rolling a 20-sided die.
+- Generate a **base damage score** by rolling a 12-sided die.
+- Generate a **bonus damage score** by rolling a 10-sided die.
+- Add the base damage and bonus damage together to get your **total damage**.
+- Strike the goblin with your attack roll and total damage.
 
-Here's what you need to do:
+After each time you roll a die, you need to announce the number that you rolled to the other people you're playing with. If you try and strike without announcing the numbers, they might think you're cheating!
 
-1. Roll a 20-sided die for your attack
-2. Roll a 6-sided die for your base damage
-3. Roll a 4-sided die for your bonus damage
-4. Announce each of the three rolls
-5. Add the base damage and bonus damage together
-6. Strike the goblin with your attack roll and total damage
+You have three functions you can use:
 
-**Important:** Each time you call `roll()`, it gives back a different number. You need to store each result in a variable so you can use it later. You can't just call `roll()` again and expect the same number!
+- `roll(sides)` rolls a die with the given number of sides. This function returns the result.
+- `announce(value)` announces a dice roll.
+- `strike(attack, damage)` strikes the goblin with your attack roll and total damage.
+
+**Important:** Each time you call `roll()`, Jiki rolls a die and gets a different number. Don't expect that rolling the same die twice will give the same number each time.

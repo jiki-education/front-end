@@ -7,8 +7,8 @@ const functions: FunctionInfo[] = [
   {
     name: "roll",
     signature: "roll(sides)",
-    description: "Rolls a die with the given number of sides and **gives back** the result.",
-    examples: ["let attack = roll(20)", "let damage = roll(6)"],
+    description: "Rolls a die with the given number of sides and **returns** the result.",
+    examples: ["let attack = roll(20)", "let damage = roll(12)"],
     category: "Dice"
   },
   {
@@ -33,7 +33,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["return-values", "variables", "using-functions"]
 };
 
 export default exerciseDefinition;

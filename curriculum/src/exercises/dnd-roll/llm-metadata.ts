@@ -20,7 +20,7 @@ export const llmMetadata: LLMMetadata = {
     "roll-and-strike": {
       description: `
         Students need to:
-        1. Call roll(20), roll(6), roll(4) and store each result in a variable
+        1. Call roll(20), roll(12), roll(10) and store each result in a variable
         2. Call announce() three times with each stored value
         3. Add the damage and bonus variables together
         4. Call strike() with the attack variable and total damage

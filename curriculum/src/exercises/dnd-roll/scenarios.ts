@@ -6,15 +6,17 @@ export const tasks = [
     id: "roll-and-strike" as const,
     name: "Roll the dice and strike the goblin",
     description:
-      "Roll three dice (d20 for attack, d6 for base damage, d4 for bonus), announce each roll, then strike the goblin with your attack roll and total damage (base + bonus).",
+      "Roll three dice (d20 for attack, d12 for base damage, d10 for bonus), announce each roll, then strike the goblin with your attack roll and total damage (base + bonus).",
     hints: [],
-    requiredScenarios: ["rolls-15-4-3"],
+    requiredScenarios: ["random-rolls"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
 
-function rollExpectations(exercise: DndRollExercise, expectedRolls: [number, number, number]): VisualTestExpect[] {
-  const [attack, damage, bonus] = expectedRolls;
+function rollExpectations(exercise: DndRollExercise): VisualTestExpect[] {
+  const attack = exercise.initialRolls[20];
+  const damage = exercise.initialRolls[12];
+  const bonus = exercise.initialRolls[10];
   const totalDamage = damage + bonus;
 
   return [
@@ -51,15 +53,20 @@ function rollExpectations(exercise: DndRollExercise, expectedRolls: [number, num
 
 export const scenarios: VisualScenario[] = [
   {
-    slug: "rolls-15-4-3",
-    name: "Rolls: 15, 4, 3",
-    description: "Attack roll is 15, base damage is 4, bonus is 3. Total damage should be 7.",
+    slug: "random-rolls",
+    name: "Roll and strike",
+    description:
+      "Roll d20 for attack, d12 for base damage, d10 for bonus. Strike the goblin with your attack and total damage.",
     taskId: "roll-and-strike",
     setup(exercise) {
-      (exercise as DndRollExercise).setupRolls([15, 4, 3]);
+      (exercise as DndRollExercise).setupRolls({
+        20: Math.floor(Math.random() * 20) + 1,
+        12: Math.floor(Math.random() * 12) + 1,
+        10: Math.floor(Math.random() * 10) + 1
+      });
     },
     expectations(exercise) {
-      return rollExpectations(exercise as DndRollExercise, [15, 4, 3]);
+      return rollExpectations(exercise as DndRollExercise);
     }
   }
 ];

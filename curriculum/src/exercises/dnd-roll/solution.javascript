@@ -1,8 +1,9 @@
+// Roll the dice
 let attack = roll(20)
-let damage = roll(6)
-let bonus = roll(4)
 announce(attack)
-announce(damage)
+let base = roll(12)
+announce(base)
+let bonus = roll(10)
 announce(bonus)
-let totalDamage = damage + bonus
-strike(attack, totalDamage)
+
+strike(attack, base + bonus)

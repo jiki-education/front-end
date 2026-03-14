@@ -4,20 +4,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Store each roll result in its own variable, like: let attack = roll(20)"
-    },
-    {
-      "question": "Hint",
-      "answer": "You need three separate variables — one for each die roll"
-    },
-    {
-      "question": "Hint",
-      "answer": "Announce each roll using the variable you stored it in"
-    },
-    {
-      "question": "Hint",
-      "answer": "Calculate total damage by adding the base damage and bonus variables together"
+      "question": "How do I choose what type of die to use?",
+      "answer": "For a 20 sided dice, use 20 as the input to roll - e.g. `roll(20)`. For a 12 sided dice, call `roll(12)`."
     }
   ]
 }

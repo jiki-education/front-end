@@ -1,8 +1,8 @@
 attack = roll(20)
-damage = roll(6)
-bonus = roll(4)
 announce(attack)
-announce(damage)
+base = roll(12)
+announce(base)
+bonus = roll(10)
 announce(bonus)
-total_damage = damage + bonus
-strike(attack, total_damage)
+
+strike(attack, base + bonus)
