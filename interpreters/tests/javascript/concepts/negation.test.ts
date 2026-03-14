@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import type { TestAugmentedFrame } from "@shared/frames";
 import { parse } from "@javascript/parser";
 import { interpret } from "@javascript/interpreter";
-import type { UnaryExpression } from "@javascript/expression";
+import type { UnaryExpression, LiteralExpression } from "@javascript/expression";
 import type { ExpressionStatement } from "@javascript/statement";
 
 describe("negation concept", () => {
@@ -12,18 +12,18 @@ describe("negation concept", () => {
         const stmts = parse("-5;");
         expect(stmts.length).toBe(1);
         const stmt = stmts[0] as ExpressionStatement;
-        const expr = stmt.expression as UnaryExpression;
-        expect(expr.type).toBe("UnaryExpression");
-        expect(expr.operator.type).toBe("MINUS");
+        const expr = stmt.expression as LiteralExpression;
+        expect(expr.type).toBe("LiteralExpression");
+        expect(expr.value).toBe(-5);
       });
 
       test("parses negative decimal literals", () => {
         const stmts = parse("-3.14;");
         expect(stmts.length).toBe(1);
         const stmt = stmts[0] as ExpressionStatement;
-        const expr = stmt.expression as UnaryExpression;
-        expect(expr.type).toBe("UnaryExpression");
-        expect(expr.operator.type).toBe("MINUS");
+        const expr = stmt.expression as LiteralExpression;
+        expect(expr.type).toBe("LiteralExpression");
+        expect(expr.value).toBe(-3.14);
       });
 
       test("parses negative variable", () => {
@@ -42,12 +42,12 @@ describe("negation concept", () => {
         const expr = stmt.expression as UnaryExpression;
         expect(expr.type).toBe("UnaryExpression");
         expect(expr.operator.type).toBe("MINUS");
-        // The operand should be a GroupingExpression containing the inner negation
+        // The operand should be a GroupingExpression containing a LiteralExpression(-5)
         expect(expr.operand.type).toBe("GroupingExpression");
         const grouping = expr.operand as any;
-        const innerExpr = grouping.inner as UnaryExpression;
-        expect(innerExpr.type).toBe("UnaryExpression");
-        expect(innerExpr.operator.type).toBe("MINUS");
+        const innerExpr = grouping.inner as LiteralExpression;
+        expect(innerExpr.type).toBe("LiteralExpression");
+        expect(innerExpr.value).toBe(-5);
       });
     });
 

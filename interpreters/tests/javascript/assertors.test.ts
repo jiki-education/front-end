@@ -127,6 +127,13 @@ describe("JavaScript assertors", () => {
       );
     });
 
+    test("returns false when a flagged arg is a negative literal", () => {
+      const result = interpret("drawCircle(-100, 200, 10);");
+      expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
+        false
+      );
+    });
+
     test("ignores unflagged literal args", () => {
       const result = interpret("let x = 1;\ndrawCircle(x, 200, 10);");
       expect(result.assertors.assertSomeArgumentsAreVariablesForFunction("draw_circle", [true, false, false])).toBe(
@@ -168,6 +175,11 @@ describe("JavaScript assertors", () => {
     test("returns false when included variable is assigned a number literal", () => {
       const result = interpret("let x = 5;\nlet y = 10;");
       expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["x", "y"] })).toBe(false);
+    });
+
+    test("returns false when included variable is assigned a negative number literal", () => {
+      const result = interpret("let x = -5;");
+      expect(result.assertors.assertNoLiteralNumberAssignments({ include: ["x"] })).toBe(false);
     });
 
     test("skips variables not in include list", () => {

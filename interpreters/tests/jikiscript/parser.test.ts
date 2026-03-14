@@ -8,7 +8,6 @@ import {
   VariableLookupExpression,
   GetElementExpression,
   SetElementExpression,
-  UnaryExpression,
   TemplateLiteralExpression,
   TemplatePlaceholderExpression,
   TemplateTextExpression,
@@ -83,20 +82,18 @@ describe("literals", () => {
       expect(stmts).toBeArrayOfSize(1);
       expect(stmts[0]).toBeInstanceOf(LogStatement);
       const logStmt = stmts[0] as LogStatement;
-      expect(logStmt.expression).toBeInstanceOf(UnaryExpression);
-      const literalExpr = logStmt.expression as UnaryExpression;
-      expect(literalExpr.operator.lexeme).toBe("-");
-      expect((literalExpr.operand as LiteralExpression).value).toBe(5);
+      expect(logStmt.expression).toBeInstanceOf(LiteralExpression);
+      const literalExpr = logStmt.expression as LiteralExpression;
+      expect(literalExpr.value).toBe(-5);
     });
     test("negative floating point", () => {
       const stmts = parse("log -1.5");
       expect(stmts).toBeArrayOfSize(1);
       expect(stmts[0]).toBeInstanceOf(LogStatement);
       const logStmt = stmts[0] as LogStatement;
-      expect(logStmt.expression).toBeInstanceOf(UnaryExpression);
-      const literalExpr = logStmt.expression as UnaryExpression;
-      expect(literalExpr.operator.lexeme).toBe("-");
-      expect((literalExpr.operand as LiteralExpression).value).toBe(1.5);
+      expect(logStmt.expression).toBeInstanceOf(LiteralExpression);
+      const literalExpr = logStmt.expression as LiteralExpression;
+      expect(literalExpr.value).toBe(-1.5);
     });
   });
 

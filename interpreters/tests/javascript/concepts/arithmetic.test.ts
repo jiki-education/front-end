@@ -1,6 +1,6 @@
 import { parse } from "@javascript/parser";
 import { ExpressionStatement } from "@javascript/statement";
-import { LiteralExpression, BinaryExpression, UnaryExpression, GroupingExpression } from "@javascript/expression";
+import { LiteralExpression, BinaryExpression, GroupingExpression } from "@javascript/expression";
 
 describe("arithmetic", () => {
   describe("parse", () => {
@@ -28,10 +28,8 @@ describe("arithmetic", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(UnaryExpression);
-        const unaryExpr = exprStmt.expression as UnaryExpression;
-        expect(unaryExpr.operator.lexeme).toBe("-");
-        expect((unaryExpr.operand as LiteralExpression).value).toBe(5);
+        expect(exprStmt.expression).toBeInstanceOf(LiteralExpression);
+        expect((exprStmt.expression as LiteralExpression).value).toBe(-5);
       });
 
       test("negative floating point", () => {
@@ -39,10 +37,8 @@ describe("arithmetic", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(UnaryExpression);
-        const unaryExpr = exprStmt.expression as UnaryExpression;
-        expect(unaryExpr.operator.lexeme).toBe("-");
-        expect((unaryExpr.operand as LiteralExpression).value).toBe(1.5);
+        expect(exprStmt.expression).toBeInstanceOf(LiteralExpression);
+        expect((exprStmt.expression as LiteralExpression).value).toBe(-1.5);
       });
     });
 

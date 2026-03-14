@@ -11,7 +11,6 @@ import {
   ListExpression,
   LiteralExpression,
   LogicalExpression,
-  UnaryExpression,
   VariableLookupExpression,
 } from "@jikiscript/expression";
 import { unwrapJikiObject } from "@jikiscript/jikiObjects";
@@ -136,7 +135,8 @@ describe("parse", () => {
     expect(logStmt.expression).toBeInstanceOf(ListExpression);
     const listExpr = logStmt.expression as ListExpression;
     expect(listExpr.elements).toBeArrayOfSize(3);
-    expect(listExpr.elements[0]).toBeInstanceOf(UnaryExpression);
+    expect(listExpr.elements[0]).toBeInstanceOf(LiteralExpression);
+    expect((listExpr.elements[0] as LiteralExpression).value).toBe(-1);
     expect(listExpr.elements[1]).toBeInstanceOf(BinaryExpression);
     expect(listExpr.elements[2]).toBeInstanceOf(BinaryExpression);
   });
