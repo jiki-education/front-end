@@ -131,6 +131,12 @@ export default function DevPage() {
                 - Before/after comparison: current icon badge vs. premium star badge design
               </span>
             </li>
+            <li>
+              <Link href="/dev/project-unlocked-modal" className="text-blue-600 hover:underline">
+                Project Unlocked Modal
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">- Isolated test page for the project-unlocked step</span>
+            </li>
           </ul>
         </div>
 
