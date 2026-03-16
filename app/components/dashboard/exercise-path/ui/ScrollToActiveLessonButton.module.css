@@ -1,7 +1,16 @@
+.anchor {
+    position: sticky;
+    bottom: 0px;
+    height: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
 .button {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    pointer-events: all;
     width: 44px;
     height: 44px;
     border-radius: 50%;

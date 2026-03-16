@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./ScrollToActiveLessonButton.module.css";
+import ChevronUpIcon from "@/icons/chevron-up.svg";
+import ChevronDownIcon from "@/icons/chevron-down.svg";
 
 interface ScrollToActiveLessonButtonProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -53,7 +55,12 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
       }
     });
 
-    mutationObserver.observe(container, { subtree: true, attributes: true, attributeFilter: ["data-active-lesson"] });
+    mutationObserver.observe(container, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["data-active-lesson"]
+    });
 
     return () => {
       observerRef.current?.disconnect();
@@ -75,50 +82,26 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
   };
 
   return (
-    <button
-      className={styles.button}
-      onClick={handleClick}
-      aria-label={direction === "up" ? "Scroll up to active lesson" : "Scroll down to active lesson"}
-    >
-      {direction === "up" ? (
-        <svg
-          width={20}
-          height={20}
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M5 12.5L10 7.5L15 12.5" />
-        </svg>
-      ) : (
-        <svg
-          width={20}
-          height={20}
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M5 7.5L10 12.5L15 7.5" />
-        </svg>
-      )}
-    </button>
+    <div className={styles.anchor}>
+      <button
+        className={styles.button}
+        onClick={handleClick}
+        aria-label={direction === "up" ? "Scroll up to active lesson" : "Scroll down to active lesson"}
+      >
+        {direction === "up" ? <ChevronUpIcon width={20} /> : <ChevronDownIcon width={20} />}
+      </button>
+    </div>
   );
 }
 
 function getScrollParent(el: HTMLElement): HTMLElement | null {
-  let parent = el.parentElement;
-  while (parent && parent !== document.body) {
-    const style = window.getComputedStyle(parent);
+  let current: HTMLElement | null = el;
+  while (current && current !== document.body) {
+    const style = window.getComputedStyle(current);
     if (style.overflowY === "auto" || style.overflowY === "scroll") {
-      return parent;
+      return current;
     }
-    parent = parent.parentElement;
+    current = current.parentElement;
   }
   return null;
 }
