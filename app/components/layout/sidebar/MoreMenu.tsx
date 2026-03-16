@@ -95,7 +95,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
                 width={16}
                 height={8}
               />
-              <button onClick={() => handleNavigation("/help")} className={styles.dropdownItem}>
+              <button onClick={() => handleNavigation("/articles")} className={styles.dropdownItem}>
                 Help Center
               </button>
               <button onClick={() => handleNavigation("/forum")} className={styles.dropdownItem}>

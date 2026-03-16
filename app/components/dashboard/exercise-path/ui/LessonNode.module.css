@@ -271,6 +271,32 @@
     background: linear-gradient(to bottom, var(--color-purple-500) 20%, var(--color-gray-200) 80%);
 }
 
+/* Connector into achieved (green) milestone — ends in white to match pill border */
+.lessonPart.connectorToMilestoneAchieved .lessonConnector {
+    height: 45px;
+    bottom: -45px;
+    background: linear-gradient(to bottom, var(--color-green-500) 20%, white 80%);
+}
+
+/* Connectors into unlocked (in-progress) milestone — ends in pill border color */
+.lessonPart.connectorToMilestoneUnlockedFromGreen .lessonConnector {
+    height: 45px;
+    bottom: -45px;
+    background: linear-gradient(to bottom, var(--color-green-500) 20%, var(--color-purple-500-30) 80%);
+}
+
+.lessonPart.connectorToMilestoneUnlockedFromPurple .lessonConnector {
+    height: 45px;
+    bottom: -45px;
+    background: linear-gradient(to bottom, var(--color-purple-500) 20%, var(--color-purple-500-30) 80%);
+}
+
+.lessonPart.connectorToMilestoneUnlockedFromGray .lessonConnector {
+    height: 45px;
+    bottom: -45px;
+    background: linear-gradient(to bottom, var(--color-gray-200) 20%, var(--color-purple-500-30) 80%);
+}
+
 /* ─── Animations ────────────────────────────────────────────────────────── */
 
 .lessonPart.animatingComplete {

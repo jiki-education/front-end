@@ -23,7 +23,7 @@ export function LevelSection({
   _levelCompletionInProgress,
   onLessonClick,
   _onLessonNavigation,
-  onMilestoneClick,
+  onMilestoneClick: _onMilestoneClick,
   animationState,
   recentlyUnlockedLessons,
   activeLessonSlug
@@ -41,14 +41,37 @@ export function LevelSection({
           ? "locked"
           : "active";
 
+  const lessonProgress = {
+    completed: section.completedLessonsCount,
+    total: section.lessons.length
+  };
+
   return (
     <>
       {section.lessons.map((lesson, index) => {
         const isLast = index === section.lessons.length - 1;
         const next = section.lessons[index + 1];
-        let connectorStyle: "green" | "gradient" | "gradientToLocked" | "toMilestone" | undefined;
+        const lastLesson = section.lessons[section.lessons.length - 1];
+        let connectorStyle:
+          | "green"
+          | "gradient"
+          | "gradientToLocked"
+          | "toMilestone"
+          | "toMilestoneAchieved"
+          | "toMilestoneUnlockedFromGreen"
+          | "toMilestoneUnlockedFromPurple"
+          | "toMilestoneUnlockedFromGray"
+          | undefined;
         if (isLast) {
-          connectorStyle = "toMilestone";
+          if (section.status === "completed") {
+            connectorStyle = "toMilestoneAchieved";
+          } else if (!section.isLocked) {
+            if (lastLesson.completed) connectorStyle = "toMilestoneUnlockedFromGreen";
+            else if (!lastLesson.locked) connectorStyle = "toMilestoneUnlockedFromPurple";
+            else connectorStyle = "toMilestoneUnlockedFromGray";
+          } else {
+            connectorStyle = "toMilestone";
+          }
         } else if (lesson.completed) {
           connectorStyle = next.completed ? "green" : "gradient";
         } else if (!lesson.locked && next.locked) {
@@ -73,18 +96,20 @@ export function LevelSection({
           <MilestoneCard
             status="achieved"
             label={`Milestone ${section.levelIndex}`}
-            description="You've completed this level!"
-            iconSrc="/static/images/milestone-1.png"
             nextLessonState={nextLessonState}
           />
         </div>
+      ) : section.isLocked ? (
+        <div>
+          <MilestoneCard status="locked" label={`Milestone ${section.levelIndex}`} nextLessonState={nextLessonState} />
+        </div>
       ) : (
-        <div onClick={() => onMilestoneClick(section)}>
+        <div>
           <MilestoneCard
-            status="locked"
+            status="unlocked"
             label={`Milestone ${section.levelIndex}`}
-            iconSrc="/static/images/milestone-1.png"
             nextLessonState={nextLessonState}
+            lessonProgress={lessonProgress}
           />
         </div>
       )}

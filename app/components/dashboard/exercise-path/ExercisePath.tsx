@@ -73,26 +73,28 @@ export default function ExercisePath() {
   }
 
   return (
-    <div ref={containerRef} className={styles.learningPath}>
-      {isPending && <LessonLoadingModal />}
-      <StartCard firstLessonCompleted={levelSections[0]?.lessons[0]?.completed ?? false} />
-      {levelSections.map((section, index) => (
-        <LevelSection
-          key={section.levelSlug}
-          section={section}
-          nextSectionFirstLesson={levelSections[index + 1]?.lessons[0] ?? null}
-          _clickedLessonSlug={clickedLessonSlug}
-          _levelCompletionInProgress={levelCompletionInProgress}
-          onLessonClick={handleLessonClick}
-          _onLessonNavigation={handleLessonNavigation}
-          onMilestoneClick={handleMilestoneClick}
-          animationState={animationState}
-          recentlyUnlockedLessons={recentlyUnlockedLessons}
-          activeLessonSlug={activeLessonSlug}
-        />
-      ))}
-      <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+    <>
+      <div ref={containerRef} className={styles.learningPath}>
+        {isPending && <LessonLoadingModal />}
+        <StartCard firstLessonCompleted={levelSections[0]?.lessons[0]?.completed ?? false} />
+        {levelSections.map((section, index) => (
+          <LevelSection
+            key={section.levelSlug}
+            section={section}
+            nextSectionFirstLesson={levelSections[index + 1]?.lessons[0] ?? null}
+            _clickedLessonSlug={clickedLessonSlug}
+            _levelCompletionInProgress={levelCompletionInProgress}
+            onLessonClick={handleLessonClick}
+            _onLessonNavigation={handleLessonNavigation}
+            onMilestoneClick={handleMilestoneClick}
+            animationState={animationState}
+            recentlyUnlockedLessons={recentlyUnlockedLessons}
+            activeLessonSlug={activeLessonSlug}
+          />
+        ))}
+        <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+      </div>
       <ScrollToActiveLessonButton containerRef={containerRef} />
-    </div>
+    </>
   );
 }
