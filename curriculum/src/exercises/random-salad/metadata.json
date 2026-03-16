@@ -4,16 +4,28 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use Math.randomInt(20, 100) for the leaves and store the result in a variable"
+      "question": "Give me an example of how to work out the leaves",
+      "answer": "Use `let leaves = Math.randomInt(40, 100)` to generate a random amount of salad leaves that you can then use in the other functions."
     },
     {
-      "question": "Hint",
-      "answer": "Each ingredient needs its own Math.randomInt() call with the right range"
+      "question": "How many leaves do I need?",
+      "answer": "Between 40 and 100."
     },
     {
-      "question": "Hint",
-      "answer": "Pass all four variables to makeSalad() in order: leaves, tomatoes, croutons, dressing"
+      "question": "How many tomatoes do I need?",
+      "answer": "At least 5, but no more than leaves / 5"
+    },
+    {
+      "question": "How many croutons do I need?",
+      "answer": "At least as many as tomatoes, up to double the amount of tomatoes"
+    },
+    {
+      "question": "How many olives do I need?",
+      "answer": "At least 1, up to half the number of tomatoes"
+    },
+    {
+      "question": "How do I make the salad?",
+      "answer": "Once you've worked out how many ingredients you need for each, input leaves, tomatoes, croutons, olives into makeSalad()."
     }
   ]
 }

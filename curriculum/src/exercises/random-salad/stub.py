@@ -1,1 +1,2 @@
-# Make the salad
+# A nice combination
+make_salad(100, 18, 40, 8)

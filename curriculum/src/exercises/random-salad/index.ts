@@ -6,9 +6,9 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "makeSalad",
-    signature: "makeSalad(leaves, tomatoes, croutons, dressing)",
+    signature: "makeSalad(leaves, tomatoes, croutons, olives)",
     description: "Makes a salad with the given amounts of each ingredient.",
-    examples: ["makeSalad(50, 12, 30, 5)"],
+    examples: ["makeSalad(50, 12, 30, 10)"],
     category: "Action"
   }
 ];
@@ -19,7 +19,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["random", "variables", "return-values", "using-functions"]
 };
 
 export default exerciseDefinition;

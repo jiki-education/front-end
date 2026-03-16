@@ -25,12 +25,11 @@ function mulberry32(seed: number): () => number {
 function getExpectedIngredients(seed: number) {
   const rng = mulberry32(seed);
   const randomInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min;
-  return {
-    leaves: randomInt(20, 100),
-    tomatoes: randomInt(5, 20),
-    croutons: randomInt(10, 50),
-    dressing: randomInt(1, 10)
-  };
+  const leaves = randomInt(40, 100);
+  const tomatoes = randomInt(5, Math.floor(leaves / 5));
+  const croutons = randomInt(tomatoes, tomatoes * 2);
+  const olives = randomInt(1, Math.floor(tomatoes / 2));
+  return { leaves, tomatoes, croutons, olives };
 }
 
 export const scenarios: VisualScenario[] = [
@@ -40,6 +39,10 @@ export const scenarios: VisualScenario[] = [
     description: "Make a salad with random amounts of each ingredient.",
     taskId: "make-random-salad",
     randomSeed: true,
+    setup(exercise) {
+      const ex = exercise as RandomSaladExercise;
+      ex.setupBackground("/static/images/exercise-assets/random-salad/plate.png");
+    },
     expectations(exercise) {
       const ex = exercise as RandomSaladExercise;
       const expected = getExpectedIngredients(exercise.randomSeed!);
@@ -50,19 +53,19 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: ex.saladLeaves === expected.leaves,
-          errorHtml: `Expected ${expected.leaves} leaves but got ${ex.saladLeaves}. Use <code>Math.randomInt(20, 100)</code> for the leaves.`
+          errorHtml: `We expected ${expected.leaves} leaves in the salad, but you only put in ${ex.saladLeaves}. Your partner won't be happy! Check your ranges.`
         },
         {
           pass: ex.saladTomatoes === expected.tomatoes,
-          errorHtml: `Expected ${expected.tomatoes} tomatoes but got ${ex.saladTomatoes}. Use <code>Math.randomInt(5, 20)</code> for the tomatoes.`
+          errorHtml: `We expected ${expected.tomatoes} tomatoes in the salad, but you only put in ${ex.saladTomatoes}. Your partner won't be happy! Check your ranges.`
         },
         {
           pass: ex.saladCroutons === expected.croutons,
-          errorHtml: `Expected ${expected.croutons} croutons but got ${ex.saladCroutons}. Use <code>Math.randomInt(10, 50)</code> for the croutons.`
+          errorHtml: `We expected ${expected.croutons} croutons in the salad, but you only put in ${ex.saladCroutons}. Your partner won't be happy! Check your ranges.`
         },
         {
-          pass: ex.saladDressing === expected.dressing,
-          errorHtml: `Expected ${expected.dressing} spoonfuls of dressing but got ${ex.saladDressing}. Use <code>Math.randomInt(1, 10)</code> for the dressing.`
+          pass: ex.saladOlives === expected.olives,
+          errorHtml: `We expected ${expected.olives} olives in the salad, but you only put in ${ex.saladOlives}. Your partner won't be happy! Check your ranges.`
         }
       ];
     }
