@@ -3,15 +3,10 @@ title: "Rainbow"
 description: ""
 ---
 
-Your task is to make a beautiful rainbow pattern made up of 100 vertical bars.
+Your task is to make a beautiful rainbow pattern made up of 100 vertical bars. It should look like this:
 
-### How to solve it
+<img src="/static/images/exercise-assets/rainbow/example.jpg" alt="Rainbow" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- The rainbow is made up of `100` bars, each with a width of `1`, starting at the top (`0`) and being `100` high.
-- The first bar should have an `x` of 1, and the final bar should have an `x` of 100.
-- You will need a variable for `x`. When choosing its initial value, remember that it will be increased in the `repeat` block BEFORE drawing.
-- You also need a variable for the `hue` of the color (set initially to `0`).
-- You need to write a repeat loop that repeats 100 times.
-- In each iteration of the repeat loop you need to increase `x` by 1 and increase the hue by `3`.
-- You then need to use the `hsl` function to convert the color, and pass it to the `rectangle` function to draw.
+The rainbow is made up of `100` bars, each going from top to bottom with a width of `1`. The first bar should have an `x` of `0`, and the final bar should have an `x` of `99`.
+
+To set the color, use the `hsl(...)` function. This returns a color string that you can then use as the final input in `rectangle(...)`. Setting the saturation and luminosity values to around `50` is probably best. The first bar should have a **hue** of `0`. The hue should increase for each bar and end up somewhere near 300.
