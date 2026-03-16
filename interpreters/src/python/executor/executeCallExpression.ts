@@ -47,12 +47,16 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   // Handle user-defined functions
   if (callable instanceof PyUserDefinedFunction) {
-    return executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
+    return result;
   }
 
   // Handle PyStdLibFunction (stdlib methods)
   if (callable instanceof PyStdLibFunction) {
-    return executeStdLibFunction(executor, callable, argJikiObjects, argResults, expression);
+    const result = executeStdLibFunction(executor, callable, argJikiObjects, argResults, expression);
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
+    return result;
   }
 
   // Call the function (external functions)
@@ -65,6 +69,8 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
     // Convert the result back to a PyObject
     const pyResult = createPyObject(result);
+
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, pyResult);
 
     return {
       type: "CallExpression",

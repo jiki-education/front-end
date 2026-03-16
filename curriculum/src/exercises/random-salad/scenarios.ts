@@ -1,4 +1,5 @@
 import type { Task, VisualScenario } from "../types";
+import type { InterpretResult } from "@jiki/interpreters";
 import type RandomSaladExercise from "./Exercise";
 
 export const tasks = [
@@ -12,24 +13,13 @@ export const tasks = [
   }
 ] as const satisfies readonly Task[];
 
-function mulberry32(seed: number): () => number {
-  let state = seed | 0;
-  return () => {
-    state = (state + 0x6d2b79f5) | 0;
-    let t = Math.imul(state ^ (state >>> 15), 1 | state);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function getExpectedIngredients(seed: number) {
-  const rng = mulberry32(seed);
-  const randomInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min;
-  const leaves = randomInt(40, 100);
-  const tomatoes = randomInt(5, Math.floor(leaves / 5));
-  const croutons = randomInt(tomatoes, tomatoes * 2);
-  const olives = randomInt(1, Math.floor(tomatoes / 2));
-  return { leaves, tomatoes, croutons, olives };
+function findRandomIntCall(result: InterpretResult, expectedMin: number, expectedMax: number) {
+  return result.meta.functionCallLog.find(
+    (entry) =>
+      entry.name === "Math.randomInt" &&
+      Math.floor(entry.args[0]) === Math.floor(expectedMin) &&
+      Math.floor(entry.args[1]) === Math.floor(expectedMax)
+  );
 }
 
 export const scenarios: VisualScenario[] = [
@@ -43,29 +33,48 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as RandomSaladExercise;
       ex.setupBackground("/static/images/exercise-assets/random-salad/plate.png");
     },
+    codeChecks: [
+      {
+        pass: (result) => findRandomIntCall(result, 40, 100) !== undefined,
+        errorHtml: "You need to call <code>Math.randomInt(40, 100)</code> to generate the number of leaves."
+      },
+      {
+        pass: (result) => {
+          const leavesCall = findRandomIntCall(result, 40, 100);
+          if (!leavesCall) return false;
+          return findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5)) !== undefined;
+        },
+        errorHtml: "You need to call <code>Math.randomInt(5, leaves / 5)</code> to generate the number of tomatoes."
+      },
+      {
+        pass: (result) => {
+          const leavesCall = findRandomIntCall(result, 40, 100);
+          if (!leavesCall) return false;
+          const tomatoesCall = findRandomIntCall(result, 5, leavesCall.return / 5);
+          if (!tomatoesCall) return false;
+          const tomatoes = tomatoesCall.return;
+          return findRandomIntCall(result, tomatoes, tomatoes * 2) !== undefined;
+        },
+        errorHtml:
+          "You need to call <code>Math.randomInt(tomatoes, tomatoes * 2)</code> to generate the number of croutons."
+      },
+      {
+        pass: (result) => {
+          const leavesCall = findRandomIntCall(result, 40, 100);
+          if (!leavesCall) return false;
+          const tomatoesCall = findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5));
+          if (!tomatoesCall) return false;
+          return findRandomIntCall(result, 1, Math.floor(tomatoesCall.return / 2)) !== undefined;
+        },
+        errorHtml: "You need to call <code>Math.randomInt(1, tomatoes / 2)</code> to generate the number of olives."
+      }
+    ],
     expectations(exercise) {
       const ex = exercise as RandomSaladExercise;
-      const expected = getExpectedIngredients(exercise.randomSeed!);
       return [
         {
           pass: ex.saladMade === true,
           errorHtml: "You didn't make the salad. Make sure you call <code>makeSalad()</code> with all four ingredients."
-        },
-        {
-          pass: ex.saladLeaves === expected.leaves,
-          errorHtml: `We expected ${expected.leaves} leaves in the salad, but you only put in ${ex.saladLeaves}. Your partner won't be happy! Check your ranges.`
-        },
-        {
-          pass: ex.saladTomatoes === expected.tomatoes,
-          errorHtml: `We expected ${expected.tomatoes} tomatoes in the salad, but you only put in ${ex.saladTomatoes}. Your partner won't be happy! Check your ranges.`
-        },
-        {
-          pass: ex.saladCroutons === expected.croutons,
-          errorHtml: `We expected ${expected.croutons} croutons in the salad, but you only put in ${ex.saladCroutons}. Your partner won't be happy! Check your ranges.`
-        },
-        {
-          pass: ex.saladOlives === expected.olives,
-          errorHtml: `We expected ${expected.olives} olives in the salad, but you only put in ${ex.saladOlives}. Your partner won't be happy! Check your ranges.`
         }
       ];
     }

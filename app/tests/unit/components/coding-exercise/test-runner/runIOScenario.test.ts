@@ -92,7 +92,7 @@ describe("runIOScenario", () => {
     it("should pass when functional test passes and all code checks pass", () => {
       const mockMeta = {
         sourceCode: 'function acronym() { return "HW"; }',
-        functionCallLog: {},
+        functionCallLog: [],
         statements: []
       };
 
@@ -137,7 +137,7 @@ describe("runIOScenario", () => {
     it("should fail when functional test passes but code check fails", () => {
       const mockMeta = {
         sourceCode: 'function acronym() {\n  // lots of code\n  return "HW";\n}',
-        functionCallLog: {},
+        functionCallLog: [],
         statements: []
       };
 
@@ -186,7 +186,7 @@ describe("runIOScenario", () => {
         error: null,
         frames: [],
         logLines: [],
-        meta: { sourceCode: "code", functionCallLog: {}, statements: [] }
+        meta: { sourceCode: "code", functionCallLog: [], statements: [] }
       });
 
       const failingCodeCheck: CodeCheck = {
@@ -219,7 +219,7 @@ describe("runIOScenario", () => {
         error: null,
         frames: [],
         logLines: [],
-        meta: { sourceCode: "code", functionCallLog: {}, statements: [] }
+        meta: { sourceCode: "code", functionCallLog: [], statements: [] }
       });
 
       const passingCheck: CodeCheck = {
@@ -264,7 +264,7 @@ describe("runIOScenario", () => {
         error: null,
         frames: [],
         logLines: [],
-        meta: { sourceCode: "code", functionCallLog: {}, statements: [] }
+        meta: { sourceCode: "code", functionCallLog: [], statements: [] }
       });
 
       const throwingCheck: CodeCheck = {

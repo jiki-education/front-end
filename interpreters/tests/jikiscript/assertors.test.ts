@@ -16,6 +16,48 @@ const drawCircleFunction: ExternalFunction = {
   arity: 3,
 };
 
+describe("JikiScript functionCallLog", () => {
+  test("logs external function calls with args and return values", () => {
+    const addFn: ExternalFunction = {
+      name: "add",
+      func: (_ctx: any, a: any, b: any) => a.value + b.value,
+      description: "Add two numbers",
+      arity: 2,
+    };
+    const result = interpret("set x to add(3, 4)", { externalFunctions: [addFn] });
+    expect(result.meta.functionCallLog).toEqual([{ name: "add", args: [3, 4], return: 7 }]);
+  });
+
+  test("logs multiple calls in order", () => {
+    const incFn: ExternalFunction = {
+      name: "inc",
+      func: (_ctx: any, a: any) => a.value + 1,
+      description: "Increment",
+      arity: 1,
+    };
+    const result = interpret("set x to inc(1)\nset y to inc(5)", { externalFunctions: [incFn] });
+    expect(result.meta.functionCallLog).toEqual([
+      { name: "inc", args: [1], return: 2 },
+      { name: "inc", args: [5], return: 6 },
+    ]);
+  });
+
+  test("logs void function calls with undefined return", () => {
+    const result = interpret("push(1, 2)", { externalFunctions: [pushFunction] });
+    expect(result.meta.functionCallLog).toEqual([{ name: "push", args: [1, 2], return: undefined }]);
+  });
+
+  test("returns empty array on parse error", () => {
+    const result = interpret("set set set");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+
+  test("returns empty array when no functions are called", () => {
+    const result = interpret("set x to 5");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+});
+
 describe("JikiScript assertors", () => {
   describe("countLinesOfCode", () => {
     test("counts non-empty, non-comment lines", () => {

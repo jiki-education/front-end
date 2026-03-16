@@ -131,6 +131,7 @@ export interface ExecutorResult {
   frames: Frame[];
   error: null; // Always null - runtime errors become frames
   success: boolean;
+  functionCallLog: Array<{ name: string; args: any[]; return: any }>;
   assertors: {
     assertAllArgumentsAreVariables: () => boolean;
     assertSomeArgumentsAreVariablesForFunction: (funcName: string, flags: boolean[]) => boolean;
@@ -149,6 +150,7 @@ export interface ExecutorResult {
 export class Executor {
   private readonly frames: Frame[] = [];
   public readonly logLines: Array<{ time: number; timeInMs: number; output: string }> = [];
+  public readonly functionCallLog: Array<{ name: string; args: any[]; return: any }> = [];
   public _exerciseFinished: boolean = false;
   public time: number = 0;
   private readonly timePerFrame: number = 1;
@@ -252,6 +254,7 @@ export class Executor {
       frames: this.frames,
       error: null, // Always null - runtime errors are in frames
       success: !this.frames.find(f => f.status === "ERROR"),
+      functionCallLog: this.functionCallLog,
 
       assertors: {
         assertAllArgumentsAreVariables: () => {
@@ -550,6 +553,21 @@ export class Executor {
     };
   }
 
+  public addFunctionCallToLog(name: string, args: any[], returnValue: any) {
+    const safeUnwrap = (val: any) => {
+      try {
+        return unwrapPyObject(val);
+      } catch {
+        return val;
+      }
+    };
+    this.functionCallLog.push({
+      name,
+      args: args.map(a => safeUnwrap(a)),
+      return: safeUnwrap(returnValue),
+    });
+  }
+
   public log(output: string): void {
     this.logLines.push({ time: this.time, timeInMs: timeToMs(this.time), output });
   }
@@ -569,7 +587,7 @@ export class Executor {
     success: boolean;
     error: null;
     meta: {
-      functionCallLog: Record<string, Record<string, number>>;
+      functionCallLog: Array<{ name: string; args: any[]; return: any }>;
       statements: Statement[];
       sourceCode: string;
     };
@@ -609,7 +627,7 @@ export class Executor {
           success: false,
           error: null,
           meta: {
-            functionCallLog: {},
+            functionCallLog: this.functionCallLog,
             statements: [statement],
             sourceCode: this.sourceCode,
           },
@@ -624,7 +642,7 @@ export class Executor {
         success: true,
         error: null,
         meta: {
-          functionCallLog: {},
+          functionCallLog: this.functionCallLog,
           statements: [statement],
           sourceCode: this.sourceCode,
         },
@@ -647,7 +665,7 @@ export class Executor {
           success: false,
           error: null,
           meta: {
-            functionCallLog: {},
+            functionCallLog: this.functionCallLog,
             statements: [statement],
             sourceCode: this.sourceCode,
           },
@@ -664,7 +682,7 @@ export class Executor {
           success: false,
           error: null,
           meta: {
-            functionCallLog: {},
+            functionCallLog: this.functionCallLog,
             statements: [statement],
             sourceCode: this.sourceCode,
           },

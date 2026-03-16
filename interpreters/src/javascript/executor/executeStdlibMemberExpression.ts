@@ -77,6 +77,7 @@ export function executeStdlibMemberExpression(
 
     // Return a JSStdLibFunction that can be called
     const methodFunction = new JSStdLibFunction(
+      null,
       propertyName,
       stdlibMethod.arity,
       (ctx, _thisObj, args) => {
