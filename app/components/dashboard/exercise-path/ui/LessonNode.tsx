@@ -16,7 +16,15 @@ interface LessonNodeProps {
   animationState?: AnimationState;
   isRecentlyUnlocked?: boolean;
   isActiveLesson?: boolean;
-  connectorStyle?: "green" | "gradient" | "gradientToLocked" | "toMilestone";
+  connectorStyle?:
+    | "green"
+    | "gradient"
+    | "gradientToLocked"
+    | "toMilestone"
+    | "toMilestoneAchieved"
+    | "toMilestoneUnlockedFromGreen"
+    | "toMilestoneUnlockedFromPurple"
+    | "toMilestoneUnlockedFromGray";
 }
 
 export function LessonNode({
@@ -59,6 +67,13 @@ export function LessonNode({
     if (connectorStyle === "gradient") classes.push(styles.connectorGradient);
     else if (connectorStyle === "gradientToLocked") classes.push(styles.connectorGradientToLocked);
     else if (connectorStyle === "toMilestone") classes.push(styles.connectorToMilestone);
+    else if (connectorStyle === "toMilestoneAchieved") classes.push(styles.connectorToMilestoneAchieved);
+    else if (connectorStyle === "toMilestoneUnlockedFromGreen")
+      classes.push(styles.connectorToMilestoneUnlockedFromGreen);
+    else if (connectorStyle === "toMilestoneUnlockedFromPurple")
+      classes.push(styles.connectorToMilestoneUnlockedFromPurple);
+    else if (connectorStyle === "toMilestoneUnlockedFromGray")
+      classes.push(styles.connectorToMilestoneUnlockedFromGray);
 
     if (isAnimatingComplete) {
       // Lesson that's completing (turning green)
