@@ -157,7 +157,7 @@ export class Executor {
 
   // This tracks variables for each statement, so we can output
   // the changes in the frame descriptions
-  protected functionCallLog: Record<string, Record<any, number>> = {};
+  protected functionCallLog: Array<{ name: string; args: any[]; return: any }> = [];
   protected functionCallStack: String[] = [];
   public contextualThis: Jiki.Instance | null = null;
   public randomFn: () => number;
@@ -1309,13 +1309,12 @@ export class Executor {
     this.time += this.timePerFrame;
   }
 
-  public addFunctionCallToLog(name: string, args: any[]) {
-    const unwrappedArgs = Jiki.unwrapJikiObject(args);
-    // The ||= operator is the idiomatic way to initialize an object property if it doesn't exist
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    this.functionCallLog[name] ||= {};
-    this.functionCallLog[name][JSON.stringify(unwrappedArgs)] ||= 0;
-    this.functionCallLog[name][JSON.stringify(unwrappedArgs)] += 1;
+  public addFunctionCallToLog(name: string, args: any[], returnValue: any) {
+    this.functionCallLog.push({
+      name,
+      args: Jiki.unwrapJikiObject(args),
+      return: Jiki.unwrapJikiObject(returnValue),
+    });
   }
 
   public addFunctionToCallStack(name: string, expression: FunctionCallExpression | MethodCallExpression) {

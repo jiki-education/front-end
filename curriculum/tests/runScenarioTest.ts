@@ -79,30 +79,59 @@ export function runVisualScenarioTest(
     randomSeed: resolvedSeed
   };
 
+  let evaluationResult: InterpretResult;
   if (scenario.functionCall) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const evaluationResult = interpreter.evaluateFunction(
+    evaluationResult = interpreter.evaluateFunction(
       studentCode,
       interpreterContext,
       interpreter.formatIdentifier(scenario.functionCall.name),
       ...scenario.functionCall.args
-    );
+    ) as InterpretResult;
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const evaluationResult = interpreter.interpret(studentCode, interpreterContext);
+    evaluationResult = interpreter.interpret(studentCode, interpreterContext) as InterpretResult;
   }
 
   // Run expectations to validate final state
   const expects = scenario.expectations(exercise);
 
+  // Execute code checks if present
+  let codeCheckResults: CodeCheckExpect[] | undefined;
+  let allCodeChecksPassed = true;
+
+  if (scenario.codeChecks && scenario.codeChecks.length > 0) {
+    codeCheckResults = scenario.codeChecks.map((check) => {
+      try {
+        const checkPassed = check.pass(evaluationResult, language);
+        if (!checkPassed) allCodeChecksPassed = false;
+
+        return {
+          pass: checkPassed,
+          errorHtml: checkPassed ? undefined : check.errorHtml
+        };
+      } catch (error) {
+        allCodeChecksPassed = false;
+        return {
+          pass: false,
+          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+        };
+      }
+    });
+  }
+
+  // Combine expectations and code check results
+  const allExpects: TestExpect[] = [...expects];
+  if (codeCheckResults) {
+    allExpects.push(...codeCheckResults.map((r) => ({ pass: r.pass, errorHtml: r.errorHtml })));
+  }
+
   // Determine pass/fail status
-  const status = expects.every((e) => e.pass) ? "pass" : "fail";
+  const status = expects.every((e) => e.pass) && allCodeChecksPassed ? "pass" : "fail";
 
   return {
     slug: scenario.slug,
     name: scenario.name,
     status,
-    expects
+    expects: allExpects
   };
 }
 

@@ -63,7 +63,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       success: result.success,
       lintErrors: [],
       meta: {
-        functionCallLog: {},
+        functionCallLog: result.functionCallLog,
         statements: statements,
         sourceCode: sourceCode,
       },
@@ -78,7 +78,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       success: false,
       lintErrors: [],
       meta: {
-        functionCallLog: {},
+        functionCallLog: [],
         statements: [],
         sourceCode: sourceCode,
       },

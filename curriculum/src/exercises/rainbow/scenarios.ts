@@ -24,7 +24,7 @@ export const scenarios: VisualScenario[] = [
 
       return [
         {
-          pass: ex.hasRectangleAt(1, 0, 1, 100),
+          pass: ex.hasRectangleAt(0, 0, 1, 100),
           errorHtml: "The first rectangle is missing."
         },
         {
@@ -32,8 +32,20 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The last rectangle is missing."
         },
         {
+          pass: ex.allRectanglesHaveMinSaturationAndLuminosity(20, 20),
+          errorHtml: "All rectangles should have saturation and luminosity of at least 20."
+        },
+        {
           pass: ex.checkUniqueColoredRectangles(100),
           errorHtml: "There are not 100 different colored rectangles."
+        },
+        {
+          pass: ex.hasRectangleWithHue(0),
+          errorHtml: "There should be a rectangle with a hue close to 0 (red)."
+        },
+        {
+          pass: ex.hasRectangleWithHue(300),
+          errorHtml: "There should be a rectangle with a hue close to 300 (purple)."
         }
       ];
     }

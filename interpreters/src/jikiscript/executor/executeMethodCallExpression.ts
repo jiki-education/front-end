@@ -57,6 +57,9 @@ export function executeMethodCallExpression(
         ...callableArgs
       );
     });
+
+    const argResults = callableArgs.map(arg => Jiki.unwrapJikiObject(arg));
+    executor.addFunctionCallToLog(methodName, argResults, Jiki.unwrapJikiObject(jikiObject));
   } catch (e: unknown) {
     if (e instanceof LogicError) {
       executor.error("LogicErrorInExecution", expression.location, { message: e.message });

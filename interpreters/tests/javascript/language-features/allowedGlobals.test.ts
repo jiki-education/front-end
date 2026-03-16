@@ -20,13 +20,13 @@ describe("allowedGlobals", () => {
     expect((result.frames[0] as any).variables.x.value).toBe(42);
   });
 
-  it("blocks console when not in allowedGlobals", () => {
+  it("console is always available even when not in allowedGlobals", () => {
     const result = interpret(`console.log("hi");`, {
       languageFeatures: { allowedGlobals: ["Number"] },
     });
-    expect(result.success).toBe(false);
-    expect(result.frames[0].status).toBe("ERROR");
-    expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
+    expect(result.success).toBe(true);
+    expect(result.logLines).toHaveLength(1);
+    expect(result.logLines[0].output).toBe("hi");
   });
 
   it("blocks Math when not in allowedGlobals", () => {
@@ -56,12 +56,12 @@ describe("allowedGlobals", () => {
     expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
   });
 
-  it("blocks all globals with empty list", () => {
+  it("console is available even with empty allowedGlobals list", () => {
     const result = interpret(`console.log("hi");`, {
       languageFeatures: { allowedGlobals: [] },
     });
-    expect(result.success).toBe(false);
-    expect(result.frames[0].status).toBe("ERROR");
-    expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
+    expect(result.success).toBe(true);
+    expect(result.logLines).toHaveLength(1);
+    expect(result.logLines[0].output).toBe("hi");
   });
 });

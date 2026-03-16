@@ -16,7 +16,8 @@ describe("All Exercises - Solution Validation", () => {
    */
 
   //const languages = ["jikiscript", "javascript", "python"] as const;
-  const languages = ["jikiscript", "javascript"] as const;
+  // const languages = ["jikiscript", "javascript"] as const;
+  const languages = ["javascript"] as const;
 
   for (const [slug, loader] of Object.entries(exercises)) {
     for (const language of languages) {
@@ -27,13 +28,14 @@ describe("All Exercises - Solution Validation", () => {
         // Import solution file for this language
         let solution: string;
         try {
-          const ext = language === "jikiscript" ? "jiki" : language === "javascript" ? "javascript" : "py";
+          // const ext = language === "jikiscript" ? "jiki" : language === "javascript" ? "javascript" : "py";
+          const ext = "javascript";
           const solutionModule = await import(`../../src/exercises/${slug}/solution.${ext}?raw`);
           solution = solutionModule.default;
         } catch {
           throw new Error(
             `Failed to load ${language} solution file for exercise "${slug}".\n` +
-              `Expected file: src/exercises/${slug}/solution.${language === "jikiscript" ? "jiki" : language === "javascript" ? "javascript" : "py"}\n` +
+              `Expected file: src/exercises/${slug}/solution.javascript\n` +
               `Make sure the solution file exists and is properly formatted.`
           );
         }

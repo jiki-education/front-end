@@ -35,6 +35,7 @@ interface BaseExerciseCore {
 // Per-exercise interpreter options (overrides defaults when passed to interpreter)
 export interface InterpreterOptions {
   maxTotalLoopIterations?: number;
+  repeatDelay?: number;
 }
 
 // Visual exercise core (from curriculum module)

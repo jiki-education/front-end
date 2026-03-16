@@ -1,5 +1,49 @@
 import { describe, test, expect } from "vitest";
 import { interpret } from "@python/interpreter";
+import type { ExternalFunction } from "@shared/interfaces";
+
+describe("Python functionCallLog", () => {
+  test("logs external function calls with args and return values", () => {
+    const addFn: ExternalFunction = {
+      name: "add",
+      func: (_ctx: any, a: any, b: any) => a + b,
+      description: "Add two numbers",
+      arity: 2,
+    };
+    const result = interpret("x = add(3, 4)", { externalFunctions: [addFn] });
+    expect(result.meta.functionCallLog).toEqual([{ name: "add", args: [3, 4], return: 7 }]);
+  });
+
+  test("logs multiple calls in order", () => {
+    const incFn: ExternalFunction = {
+      name: "inc",
+      func: (_ctx: any, a: any) => a + 1,
+      description: "Increment",
+      arity: 1,
+    };
+    const result = interpret("x = inc(1)\ny = inc(5)", { externalFunctions: [incFn] });
+    expect(result.meta.functionCallLog).toEqual([
+      { name: "inc", args: [1], return: 2 },
+      { name: "inc", args: [5], return: 6 },
+    ]);
+  });
+
+  test("logs user-defined function calls", () => {
+    const result = interpret("def double(n):\n    return n * 2\nx = double(5)");
+    console.log(result);
+    expect(result.meta.functionCallLog).toEqual([{ name: "double", args: [5], return: 10 }]);
+  });
+
+  test("returns empty array on parse error", () => {
+    const result = interpret("def def def");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+
+  test("returns empty array when no functions are called", () => {
+    const result = interpret("x = 5");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+});
 
 describe("Python assertors", () => {
   describe("countLinesOfCode", () => {

@@ -4,24 +4,16 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Set x to 0 initially so that after adding 1 the first bar is at x=1"
+      "question": "Do I have to draw 100 different rectangles?",
+      "answer": "Yes, but not by writing `rectangle(...)` 100 times! Think about what we do when we have repetitive code."
     },
     {
-      "question": "Hint",
-      "answer": "Set hue to 0 initially"
+      "question": "How do I put the color into the rectangle",
+      "answer": "The `hsl(...)` returns a color string. You can then pass that color string into the `rectangle(...)` function as you've done previously."
     },
     {
-      "question": "Hint",
-      "answer": "In the loop: first change the variables, then draw with the color as the last argument"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use saturation and luminance of 50 for nice colors"
-    },
-    {
-      "question": "Hint",
-      "answer": "Each rectangle should be 1 wide and 100 tall"
+      "question": "How do I get the hue to go from 0 to 300?",
+      "answer": "There are 100 lines, the first should have a hue of 0. Then for each we need line, we need to increase that a little - so the second line might have a hue of 3, then third might have a hue of 6 etc. Eventually we'll get to 300."
     }
   ]
 }

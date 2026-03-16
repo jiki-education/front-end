@@ -1,5 +1,53 @@
 import { describe, test, expect } from "vitest";
 import { interpret } from "@javascript/interpreter";
+import type { ExternalFunction } from "@shared/interfaces";
+
+describe("JavaScript functionCallLog", () => {
+  test("logs external function calls with args and return values", () => {
+    const addFn: ExternalFunction = {
+      name: "add",
+      func: (_ctx: any, a: any, b: any) => a.value + b.value,
+      description: "Add two numbers",
+      arity: 2,
+    };
+    const result = interpret("let x = add(3, 4);", { externalFunctions: [addFn] });
+    expect(result.meta.functionCallLog).toEqual([{ name: "add", args: [3, 4], return: 7 }]);
+  });
+
+  test("logs multiple calls in order", () => {
+    const incFn: ExternalFunction = {
+      name: "inc",
+      func: (_ctx: any, a: any) => a.value + 1,
+      description: "Increment",
+      arity: 1,
+    };
+    const result = interpret("let x = inc(1);\nlet y = inc(5);", { externalFunctions: [incFn] });
+    expect(result.meta.functionCallLog).toEqual([
+      { name: "inc", args: [1], return: 2 },
+      { name: "inc", args: [5], return: 6 },
+    ]);
+  });
+
+  test("logs user-defined function calls", () => {
+    const result = interpret("function double(n) { return n * 2; }\nlet x = double(5);");
+    expect(result.meta.functionCallLog).toEqual([{ name: "double", args: [5], return: 10 }]);
+  });
+
+  test("logs stdlib function calls", () => {
+    const result = interpret("let x = Math.randomInt(5,10);", { randomSeed: 1 });
+    expect(result.meta.functionCallLog).toEqual([{ name: "Math.randomInt", args: [5, 10], return: 8 }]);
+  });
+
+  test("returns empty array on parse error", () => {
+    const result = interpret("let let let");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+
+  test("returns empty array when no functions are called", () => {
+    const result = interpret("let x = 5;");
+    expect(result.meta.functionCallLog).toEqual([]);
+  });
+});
 
 describe("JavaScript assertors", () => {
   describe("countLinesOfCode", () => {

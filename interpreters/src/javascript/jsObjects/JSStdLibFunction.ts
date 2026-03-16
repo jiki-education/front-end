@@ -5,6 +5,7 @@ import type { JSArray } from "./JSArray";
 // Represents a JavaScript function/method that can be called
 export class JSStdLibFunction extends JikiObject {
   constructor(
+    public readonly namespace: string | null,
     public readonly name: string,
     public readonly arity: number | [number, number], // exact or [min, max]
     public readonly fn: (ctx: ExecutionContext, thisObj: JSArray | null, args: JikiObject[]) => JikiObject,

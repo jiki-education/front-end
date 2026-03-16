@@ -3,17 +3,16 @@ title: "Random Salad"
 description: ""
 ---
 
-You and your partner can never agree on salad proportions — you want loads of leaves, they want extra croutons, neither of you can compromise. You've decided to let randomness settle it once and for all!
+You and your partner can never agree on salad proportions — you want loads of leaves, they want extra croutons, neither of you can compromise. You've decided to let randomness settle it once and for all.
 
-Use `Math.randomInt(min, max)` to generate a random amount of each ingredient, then make the salad.
+You are creating a salad with leaves, tomatoes, olives and croutons. You've agreed some strict (hard-fought!) rules:
 
-`Math.randomInt(min, max)` gives back a random whole number between `min` and `max` (inclusive). For example, `Math.randomInt(1, 6)` gives back a number from 1 to 6, like rolling a die.
+- You must have a sensible base of between 40 and 100 leaves.
+- Too many tomatoes makes the salad soggy and acidic. You must have at least 5 tomatoes, but no more than one per 5 leaves.
+- You need enough croutons to soak up the tomato juice, but too many and it's just a bread bowl. You agree that works out at least as many croutons as tomatoes, but no more than double the amount of tomatoes.
+- Olives have a strong flavour — use them sparingly or they'll overpower everything else. You want at least one olive, but no more than half the number of tomatoes.
+- And the crucial rule: All the ingredients counts must be generated using randomness!
 
-The ingredients and their ranges are:
+Start off by **clicking Run Code** a few times to get see how the salad works. Once you've got a flavour for the exercise (pun intended), use `Math.randomInt` and follow the rules above to select the right selection of ingredients:
 
-- **Leaves**: between 20 and 100
-- **Tomatoes**: between 5 and 20
-- **Croutons**: between 10 and 50
-- **Dressing**: between 1 and 10 spoonfuls
-
-Generate a random value for each ingredient, store each in a variable, then call `makeSalad()` with all four values.
+Have fun trying out some different combos!

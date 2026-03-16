@@ -43,6 +43,7 @@ export interface LanguageFeatures {
   requireSemicolons?: boolean;
   enforceFormatting?: boolean;
   maxTotalLoopIterations?: number;
+  repeatDelay?: number;
   /**
    * Enable native JavaScript behavior for edge cases that don't make pedagogical sense.
    * When false (default), educational guardrails are enabled (e.g., push() with no arguments throws error).

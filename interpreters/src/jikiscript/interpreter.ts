@@ -100,7 +100,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       error: compileResult.error,
       lintErrors: [],
       meta: {
-        functionCallLog: {},
+        functionCallLog: [],
         statements: [],
         sourceCode: sourceCode,
       },

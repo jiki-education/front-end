@@ -70,9 +70,7 @@ export function executeFunctionCallExpression(
   executor.addFunctionToCallStack(fnName, expression);
 
   try {
-    // Log it's usage for testing checks
     const argResults = args.map(arg => unwrapJikiObject(arg.jikiObject));
-    executor.addFunctionCallToLog(fnName, argResults);
 
     // Reset this so it's not used in functions
     returnedNativeValue = executor.withThis(null, () =>
@@ -81,6 +79,9 @@ export function executeFunctionCallExpression(
         args.map(arg => arg.jikiObject?.toArg())
       )
     );
+
+    // Log after execution so we can capture the return value
+    executor.addFunctionCallToLog(fnName, argResults, returnedNativeValue);
   } catch (e) {
     if (e instanceof CustomFunctionError) {
       executor.error("CustomFunctionErrorInExecution", expression.location, {

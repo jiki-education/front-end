@@ -54,9 +54,16 @@ export interface ExternalFunction {
 // Union type of all interpreter errors
 export type InterpreterError = JSSyntaxError | PySyntaxError | JikiError;
 
+// A single recorded function/method call during execution
+export interface FunctionCallLogEntry {
+  name: string;
+  args: any[];
+  return: any;
+}
+
 // Meta information about execution
 export interface Meta {
-  functionCallLog: Record<string, Record<string, number>>;
+  functionCallLog: FunctionCallLogEntry[];
   statements: JSStatement[] | PyStatement[] | JikiStatement[];
   sourceCode: string;
 }

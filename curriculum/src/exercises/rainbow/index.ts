@@ -14,7 +14,7 @@ const functions: FunctionInfo[] = [
   {
     name: "hsl",
     signature: "hsl(hue, saturation, luminosity)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
+    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a color string",
     examples: ["hsl(0, 50, 50)", "hsl(120, 50, 50)"],
     category: "Colors"
   }
@@ -26,7 +26,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["repeat", "variables", "hsl", "function-composition"]
 };
 
 export default exerciseDefinition;

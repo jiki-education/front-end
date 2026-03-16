@@ -2,6 +2,7 @@ import type { Executor } from "../executor";
 import type { ForStatement } from "../statement";
 import { Environment } from "../environment";
 import { VariableDeclaration } from "../statement";
+import { TIME_SCALE_FACTOR } from "../../entry-shared";
 
 export function executeForStatement(executor: Executor, statement: ForStatement): void {
   // Create a new environment for the for loop
@@ -45,6 +46,9 @@ export function executeForStatement(executor: Executor, statement: ForStatement)
         executor.executeLoopIteration(() => {
           executor.executeStatement(statement.body);
         });
+
+        // Delay repeat for things like animations
+        executor.time += (executor.languageFeatures.repeatDelay ?? 0) * TIME_SCALE_FACTOR;
 
         // Execute update (if present) - this should generate a frame
         if (statement.update) {

@@ -2,6 +2,7 @@ import type { Executor } from "../executor";
 import type { WhileStatement } from "../statement";
 import { Environment } from "../environment";
 import { isTruthy } from "../helpers";
+import { TIME_SCALE_FACTOR } from "../../entry-shared";
 
 export function executeWhileStatement(executor: Executor, statement: WhileStatement): void {
   // Create a new environment for the while loop
@@ -35,6 +36,9 @@ export function executeWhileStatement(executor: Executor, statement: WhileStatem
         executor.executeLoopIteration(() => {
           executor.executeStatement(statement.body);
         });
+
+        // Delay repeat for things like animations
+        executor.time += (executor.languageFeatures.repeatDelay ?? 0) * TIME_SCALE_FACTOR;
       }
     });
   } finally {

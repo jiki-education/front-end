@@ -41,17 +41,23 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   // Handle user-defined functions differently from external functions
   if (callable instanceof JSUserDefinedFunction) {
-    return executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    const result = executeUserDefinedFunction(executor, callable, argJikiObjects, argResults);
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
+    return result;
   }
 
   // Handle JSStdLibFunction (stdlib methods)
   if (callable instanceof JSStdLibFunction) {
-    return executeStdLibFunction(executor, callable, argJikiObjects, argResults, expression);
+    const result = executeStdLibFunction(executor, callable, argJikiObjects, argResults, expression);
+    executor.addFunctionCallToLog(`${callable.namespace}.${callable.name}`, argJikiObjects, result.jikiObject);
+    return result;
   }
 
   // Handle bound methods (instance method calls)
   if (callable instanceof JSBoundMethod) {
-    return executeBoundMethod(executor, callable, argJikiObjects, argResults, expression);
+    const result = executeBoundMethod(executor, callable, argJikiObjects, argResults, expression);
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, result.jikiObject);
+    return result;
   }
 
   // Handle external functions (JSCallable)
@@ -65,6 +71,8 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
     // Guard that external functions actually return JikiObjects (runtime safety check)
     executor.guardNonJikiObject(result, expression.location);
+
+    executor.addFunctionCallToLog(callable.name, argJikiObjects, result);
 
     return {
       type: "CallExpression",

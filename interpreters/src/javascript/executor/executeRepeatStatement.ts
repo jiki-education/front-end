@@ -3,6 +3,7 @@ import type { RepeatStatement } from "../statement";
 import type { EvaluationResultExpression, EvaluationResultRepeatStatement } from "../evaluation-result";
 import { Environment } from "../environment";
 import { JSNumber } from "../jikiObjects";
+import { TIME_SCALE_FACTOR } from "../../entry-shared";
 
 export function executeRepeatStatement(executor: Executor, statement: RepeatStatement): void {
   // No-argument repeat: runs forever until exerciseFinished
@@ -82,9 +83,13 @@ function executeLoop(
         executor.executeLoopIteration(() => {
           executor.executeStatement(statement.body);
         });
+
         if (countResult == null && executor._exerciseFinished) {
           break;
         }
+
+        // Delay repeat for things like animations
+        executor.time += (executor.languageFeatures.repeatDelay ?? 0) * TIME_SCALE_FACTOR;
       }
     });
   } finally {

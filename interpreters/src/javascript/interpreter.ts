@@ -66,7 +66,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       lintErrors,
       logLines: executor.logLines,
       meta: {
-        functionCallLog: {},
+        functionCallLog: result.functionCallLog,
         statements: statements,
         sourceCode: sourceCode,
       },
@@ -81,7 +81,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       lintErrors: [],
       logLines: [],
       meta: {
-        functionCallLog: {},
+        functionCallLog: [],
         statements: [],
         sourceCode: sourceCode,
       },
