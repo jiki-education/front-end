@@ -102,7 +102,7 @@ export default class GoldPanningExercise extends VisualExercise {
     panel.style.boxShadow = "0 0 2px rgba(25, 63, 123, 0.3)";
 
     const panImg = document.createElement("img");
-    panImg.src = "/static/images/exercise-assets/gold-panning/pan.png";
+    panImg.src = "/static/images/exercise-assets/gold-panning/pan.jpg";
     panImg.className = "pan";
     panImg.style.width = "100%";
     panImg.style.height = "100%";
@@ -163,7 +163,7 @@ export default class GoldPanningExercise extends VisualExercise {
     this.sellContainer.style.alignItems = "baseline";
     this.sellContainer.style.padding = "4px";
     this.sellContainer.style.gap = "2px";
-    this.sellContainer.style.backgroundImage = "url(/static/images/exercise-assets/gold-panning/sell-bg.png)";
+    this.sellContainer.style.backgroundImage = "url(/static/images/exercise-assets/gold-panning/sell-bg.jpg)";
     this.sellContainer.style.backgroundSize = "cover";
     this.sellContainer.style.backgroundPosition = "top left";
     this.sellContainer.style.border = "2px solid rgba(25, 63, 123, 0.3)";
