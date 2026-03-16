@@ -92,48 +92,6 @@ export default class RandomSaladExercise extends VisualExercise {
     this.animateIntoView(executionCtx, `#${this.view.id} #${id}`);
   }
 
-  private placeLeaves(executionCtx: ExecutionContext, count: number) {
-    for (let i = 0; i < count; i++) {
-      const src = LEAF_IMAGES[Math.floor(Math.random() * LEAF_IMAGES.length)];
-      this.placeIngredient(executionCtx, src, {
-        minWidth: 20,
-        maxWidth: 35,
-        minTop: 15,
-        maxTop: 55,
-        minLeft: 15,
-        maxLeft: 55
-      });
-    }
-  }
-
-  private placeTomatoes(executionCtx: ExecutionContext, count: number) {
-    for (let i = 0; i < count; i++) {
-      const src = TOMATO_IMAGES[Math.floor(Math.random() * TOMATO_IMAGES.length)];
-      this.placeIngredient(executionCtx, src, {
-        minWidth: 18,
-        maxWidth: 24,
-        minTop: 20,
-        maxTop: 60,
-        minLeft: 20,
-        maxLeft: 60
-      });
-    }
-  }
-
-  private placeCroutons(executionCtx: ExecutionContext, count: number) {
-    for (let i = 0; i < count; i++) {
-      const src = CROUTON_IMAGES[Math.floor(Math.random() * CROUTON_IMAGES.length)];
-      this.placeIngredient(executionCtx, src, {
-        minWidth: 6,
-        maxWidth: 10,
-        minTop: 15,
-        maxTop: 60,
-        minLeft: 15,
-        maxLeft: 60
-      });
-    }
-  }
-
   private make_salad(
     executionCtx: ExecutionContext,
     leaves: Shared.JikiObject,

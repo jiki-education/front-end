@@ -5,7 +5,7 @@ description: ""
 
 You and your partner can never agree on salad proportions — you want loads of leaves, they want extra croutons, neither of you can compromise. You've decided to let randomness settle it once and for all.
 
-You are creating a salad with leaves, tomatoes, olives and crotuns. You've agreeed some strict (hard-fought!) rules:
+You are creating a salad with leaves, tomatoes, olives and croutons. You've agreed some strict (hard-fought!) rules:
 
 - You must have a sensible base of between 40 and 100 leaves.
 - Too many tomatoes makes the salad soggy and acidic. You must have at least 5 tomatoes, but no more than one per 5 leaves.

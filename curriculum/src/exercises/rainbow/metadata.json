@@ -13,7 +13,7 @@
     },
     {
       "question": "How do I get the hue to go from 0 to 300?",
-      "answer": "There are 100 lines, the first should have a hue of 0. Then for each we need line, we need to increase that a little - so the second line might have a hue of 3, then third might have a hue of 6 etc. Evenutally we'll get to 300."
+      "answer": "There are 100 lines, the first should have a hue of 0. Then for each we need line, we need to increase that a little - so the second line might have a hue of 3, then third might have a hue of 6 etc. Eventually we'll get to 300."
     }
   ]
 }
