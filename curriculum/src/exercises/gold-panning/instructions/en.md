@@ -3,17 +3,12 @@ title: "Gold Panning"
 description: ""
 ---
 
-You're panning for gold in a river! Each time you dip your pan, you find a random number of gold nuggets.
+Before California was the home of tech, it was the home of gold! Over 300,000 people came and started searching the rivers for little nuggets of gold to sell.
 
-You have two functions:
+In this exercise, you're building a robot that's going out to pan for gold.
 
-- `pan()` dips your pan in the river and **gives back** the number of nuggets you found
-- `sell(nuggets)` sells your nuggets at the trading post
+You have a `pan()` function that returns the amount of nuggets you find each time. And you have a `sell(numberOfNuggets)` function that you can use to sell the total number of nuggets you find.
 
-Here's what you need to do:
+Your robot follows the same pattern each time. It heads to the river, pans **5 times** and then sells the total number of nuggets it finds in thise 5 pans at the end.
 
-1. Start with 0 nuggets
-2. Pan 5 times, adding each result to your running total
-3. Sell all your nuggets at the trading post
-
-**Important:** Each time you call `pan()`, it gives back a different number. You need to add each result to your total as you go. Use a loop to pan 5 times and keep a running total of your nuggets.
+Solve the puzzle in **5 lines of code!**

@@ -8,30 +8,32 @@ export const tasks = [
     description:
       "Pan 5 times to collect gold nuggets, keeping a running total, then sell everything at the trading post.",
     hints: [],
-    requiredScenarios: ["pans-3-1-4-2-5"],
+    requiredScenarios: ["random-pans"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
 
 export const scenarios: VisualScenario[] = [
   {
-    slug: "pans-3-1-4-2-5",
-    name: "Pans: 3, 1, 4, 2, 5",
-    description: "Find 3, 1, 4, 2, and 5 nuggets. Total should be 15.",
+    slug: "random-pans",
+    name: "Pan and sell",
+    description: "Pan 5 times for a random number of nuggets each time, then sell the total.",
     taskId: "pan-and-sell",
     setup(exercise) {
-      (exercise as GoldPanningExercise).setupPans([3, 1, 4, 2, 5]);
+      const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1);
+      (exercise as GoldPanningExercise).setupPans(values);
     },
     expectations(exercise) {
       const ex = exercise as GoldPanningExercise;
+      const expectedTotal = ex.initialPanValues.reduce((sum, v) => sum + v, 0);
       return [
         {
           pass: ex.sold === true,
           errorHtml: "You didn't sell your nuggets. Make sure you call <code>sell()</code> after panning."
         },
         {
-          pass: ex.soldNuggets === 15,
-          errorHtml: `Expected to sell 15 nuggets (3 + 1 + 4 + 2 + 5) but you sold ${ex.soldNuggets}. Make sure you add each pan result to your running total.`
+          pass: ex.soldNuggets === expectedTotal,
+          errorHtml: `Expected to sell ${expectedTotal} nuggets (${ex.initialPanValues.join(" + ")}) but you sold ${ex.soldNuggets}. Make sure you add each pan result to your running total.`
         }
       ];
     }
