@@ -199,8 +199,8 @@ export class Executor {
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
 
-    // Register builtin objects, gated by allowedGlobals
-    if (this.isGlobalAllowed("console")) {
+    // Console is always available (infrastructure/debugging tool, not a language feature)
+    {
       const consoleFunctions = new Map<string, JSStdLibFunction>();
       for (const [name, method] of Object.entries(consoleMethods)) {
         const func = new JSStdLibFunction(
@@ -284,6 +284,15 @@ export class Executor {
 
     // Check if this node type is in the allowed list
     if (!this.languageFeatures.allowedNodes.includes(nodeType)) {
+      // Always allow MemberExpression on console (infrastructure, not a language feature)
+      if (
+        nodeType === "MemberExpression" &&
+        node instanceof MemberExpression &&
+        node.object instanceof IdentifierExpression &&
+        node.object.name.lexeme === "console"
+      ) {
+        return;
+      }
       throw new RuntimeError(translate(`error.runtime.NodeNotAllowed`, { nodeType }), node.location, "NodeNotAllowed", {
         nodeType,
       });

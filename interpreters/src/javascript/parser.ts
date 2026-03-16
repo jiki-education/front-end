@@ -764,8 +764,11 @@ export class Parser {
         const rightBracket = this.previous();
         expr = new MemberExpression(expr, property, true, Location.between(expr, rightBracket));
       } else if (this.match("DOT")) {
-        // Check if MemberExpression is allowed
-        this.checkNodeAllowed("MemberExpression", "MemberExpressionNotAllowed", this.previous().location);
+        // Always allow dot notation on console (it's infrastructure, not a language feature)
+        const isConsoleAccess = expr instanceof IdentifierExpression && expr.name.lexeme === "console";
+        if (!isConsoleAccess) {
+          this.checkNodeAllowed("MemberExpression", "MemberExpressionNotAllowed", this.previous().location);
+        }
 
         // Dot notation: obj.prop
         // Keywords are allowed as property names after a dot (e.g. "abc".repeat(3))

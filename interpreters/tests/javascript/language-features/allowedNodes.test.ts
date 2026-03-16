@@ -535,6 +535,34 @@ describe("JavaScript allowedNodes feature", () => {
         expect(error?.type).toBe("MemberExpressionNotAllowed");
       });
 
+      test("allows console.log even when MemberExpression is not in allowedNodes", () => {
+        const code = `console.log("hello");`;
+        const allowedNodes: NodeType[] = [
+          "ExpressionStatement",
+          "CallExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+      });
+
+      test("still blocks general dot notation when MemberExpression is not in allowedNodes", () => {
+        const code = `let obj = { x: 5 }; obj.x;`;
+        const allowedNodes: NodeType[] = [
+          "VariableDeclaration",
+          "ExpressionStatement",
+          "DictionaryExpression",
+          "CallExpression",
+          "IdentifierExpression",
+          "LiteralExpression",
+        ];
+        const { error } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error?.type).toBe("MemberExpressionNotAllowed");
+      });
+
       test("allows dot access without bracket access", () => {
         // MemberExpression allowed, IndexExpression NOT allowed
         const code = `let obj = { x: 5 }; obj.x;`;
