@@ -1,19 +1,17 @@
-// TODO: Set variables here
-// let sunCy = ...
-// let sunRadius = ...
+let skyColor = hsl(210, 70, 60);
+let sunColor = rgb(255, 237, 0);
 
-repeat(100) {
-  // TODO: Update the variables here.
+// Draw a slightly different version of the scene below
+// 100 times - flipbook style!
 
-  // The sky
-  rectangle(0, 0, 100, 100, hsl(210, 70, 60));
+// The sky
+rectangle(0, 0, 100, 100, skyColor);
 
-  // The Sun
-  circle(50, 10, 5, rgb(255, 237, 0));
+// The Sun
+circle(50, 10, 5, sunColor);
 
-  // The sea
-  rectangle(0, 85, 100, 5, "#0308ce");
+// The sea
+rectangle(0, 85, 100, 5, "#0308ce");
 
-  // The sand
-  rectangle(0, 90, 100, 10, "#C2B280");
-}
+// The sand
+rectangle(0, 90, 100, 10, "#C2B280");

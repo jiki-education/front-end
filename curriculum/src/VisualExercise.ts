@@ -51,7 +51,7 @@ export abstract class VisualExercise extends Exercise {
     this.animations.push(animation);
   }
 
-  public animateIntoView(executionCtx: ExecutionContext, targets: string, options = { duration: 1, offset: 0 }) {
+  public animateIntoView(executionCtx: ExecutionContext, targets: string, options = { duration: 0.1, offset: 0 }) {
     this.addAnimation({
       targets,
       duration: options.duration,
