@@ -46,7 +46,7 @@ export default function ConceptsListPage() {
       ) : (
         <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
       )}
-      {!isAuthenticated && <SignupCta />}
+      {!isAuthenticated && !isLoading && <SignupCta />}
     </ConceptsLayout>
   );
 }
