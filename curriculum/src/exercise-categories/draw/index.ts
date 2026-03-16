@@ -1,5 +1,5 @@
 // Main DrawExercise class
-export { DrawExercise } from "./DrawExercise";
+export { DrawExercise, hexToHsl } from "./DrawExercise";
 
 // Shape classes for type checking
 export { Shape, Circle, Rectangle, Line, Triangle, Ellipse } from "./shapes";

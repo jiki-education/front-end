@@ -2,6 +2,6 @@ set x to 0
 set y to 0
 set hue to 0
 
-repeat 500 times do
+repeat 200 times do
 
 end
