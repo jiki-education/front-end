@@ -8,7 +8,7 @@ On the first of January this year, you invested a hard-earned $10 into the stock
 There are three things to understand about stock markets:
 
 1. They're unpredictable. They might grow or fall each year. On average they tend to grow about 10% but it can vary dramatically.
-2. As they grow, your money grows faster than the stock market due to compound interest. If you invest $10 this year, and the stock market doubles in value over the next 10 years you'll have $20. If it doubles again over the next 10 years, you'll have $40 ($20 _ 2, not $10 _ 2!)
+2. As they grow, your money grows faster than the stock market due to compound interest. If you invest $10 this year, and the stock market doubles in value over the next 10 years you'll have $20. If it doubles again over the next 10 years, you'll have $40 ($20 \* 2, not $10 \* 2!)
 3. As you make profit, you have to tell the taxman about it!
 
 ### Exercise Flow
