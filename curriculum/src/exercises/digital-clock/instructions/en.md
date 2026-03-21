@@ -1,6 +1,6 @@
 ---
 title: "Digital Clock"
-description: ""
+description: "Display the correct time on a 12-hour digital clock."
 ---
 
 In this exercise you're going to use two functions:

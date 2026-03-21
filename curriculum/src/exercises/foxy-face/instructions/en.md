@@ -1,6 +1,6 @@
 ---
 title: "Foxy Face"
-description: ""
+description: "Build a geometric fox face from colourful triangles."
 ---
 
 This exercise introduces you to the `triangle` function. You use with 7 inputs. The first 6 inputs are pairs of coordinates for the three corners. The final input is the color:

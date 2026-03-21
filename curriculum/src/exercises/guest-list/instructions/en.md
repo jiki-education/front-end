@@ -1,6 +1,6 @@
 ---
 title: "Guest List"
-description: ""
+description: "Check if someone's name is on the guest list."
 ---
 
 You're a bouncer at the Oscars, and need a function to check if someone is on the Guest List.

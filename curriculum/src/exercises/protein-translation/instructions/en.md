@@ -1,6 +1,6 @@
 ---
 title: "Protein Translation"
-description: ""
+description: "Translate RNA sequences into proteins."
 ---
 
 RNA can be broken into three-nucleotide sequences called codons, and then translated to a protein. For example:

@@ -1,6 +1,5 @@
 {
   "slug": "reverse-string",
-  "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
     {

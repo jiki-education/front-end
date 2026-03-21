@@ -1,6 +1,6 @@
 ---
 title: "Stock Market"
-description: ""
+description: "Track your investment as the stock market randomly rises and falls."
 ---
 
 On the first of January this year, you invested a hard-earned $10 into the stock market. You've decided to keep it a secret from your family and only tell them after 20 years when it's (hopefully!) gained lots of value.

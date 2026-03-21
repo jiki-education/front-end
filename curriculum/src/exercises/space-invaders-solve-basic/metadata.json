@@ -1,6 +1,5 @@
 {
   "slug": "space-invaders-solve-basic",
-  "estimatedMinutes": 5,
   "levelId": "using-functions",
   "hints": [
     { "question": "Hint", "answer": "Look at the screen and count how many times you need to move before each alien" },

@@ -1,6 +1,6 @@
 ---
 title: "Walk"
-description: ""
+description: "Create a walk function that moves multiple steps at once."
 ---
 
 In the last exercise you created a `turn_around` function to tidy up your code.

@@ -1,6 +1,6 @@
 ---
 title: "Hamming"
-description: ""
+description: "Count the differences between two DNA strands."
 ---
 
 This is a classic Exercism exercise about molecular biology!

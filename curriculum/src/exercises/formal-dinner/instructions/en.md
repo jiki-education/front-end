@@ -1,6 +1,6 @@
 ---
 title: "Formal Dinner"
-description: ""
+description: "Match guests to the dinner list using their honorific and surname."
 ---
 
 You're back in your side hustle as a bouncer. It's the evening after the After Party, and there's yet another shindig. This time it's a formal dinner.

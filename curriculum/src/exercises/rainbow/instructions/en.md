@@ -1,6 +1,6 @@
 ---
 title: "Rainbow"
-description: ""
+description: "Paint a rainbow from 100 colourful vertical bars."
 ---
 
 Your task is to make a beautiful rainbow pattern made up of 100 vertical bars. It should look like this:

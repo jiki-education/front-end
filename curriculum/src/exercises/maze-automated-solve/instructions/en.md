@@ -1,6 +1,6 @@
 ---
 title: "Programmatically Solve a Maze"
-description: ""
+description: "Write code that navigates any maze by itself."
 ---
 
 In the first maze exercise you manually moved your character around the maze. Now you're ready to solve any maze programmatically using code!

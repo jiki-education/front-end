@@ -1,6 +1,5 @@
 {
   "slug": "driving-test",
-  "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
     {

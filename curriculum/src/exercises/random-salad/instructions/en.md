@@ -1,6 +1,6 @@
 ---
 title: "Random Salad"
-description: ""
+description: "Toss together a random salad from different ingredients."
 ---
 
 You and your partner can never agree on salad proportions — you want loads of leaves, they want extra croutons, neither of you can compromise. You've decided to let randomness settle it once and for all.

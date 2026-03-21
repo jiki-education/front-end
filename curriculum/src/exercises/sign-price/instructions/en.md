@@ -1,6 +1,6 @@
 ---
 title: "Sign Price"
-description: ""
+description: "Calculate the cost of painting a sign, letter by letter."
 ---
 
 You run a sign-making shop. You charge $12 per letter for every sign you make. Spaces are free -- they don't cost anything.

@@ -1,6 +1,6 @@
 ---
 title: "Alphanumeric"
-description: ""
+description: "Build functions to classify text as letters, numbers or both."
 ---
 
 In this exercise, your task is to create functions that check whether a string contains letters and/or numbers.

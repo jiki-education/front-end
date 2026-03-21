@@ -1,6 +1,6 @@
 ---
 title: "Reverse String"
-description: ""
+description: "Flip a piece of text backwards."
 ---
 
 Reversing strings (reading them from right to left, rather than from left to right) is a surprisingly common task in programming.

@@ -1,6 +1,6 @@
 ---
 title: "Triangle"
-description: ""
+description: "Classify a triangle as equilateral, isosceles or scalene."
 ---
 
 Your task is to create a function that checks whether a triangle is equilateral, isosceles, scalene, or invalid.

@@ -1,6 +1,6 @@
 ---
 title: "Build the Wall"
-description: ""
+description: "Build a wall from scratch, brick by brick, row by row."
 ---
 
 In this exercise, you build a wall from scratch with 55 bricks total.

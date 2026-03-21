@@ -1,6 +1,6 @@
 ---
 title: "Space Invaders: Conditional"
-description: ""
+description: "Only shoot when there's an alien in your sights."
 ---
 
 The aliens have changed their formation! They're now arranged in two rows, but not every column has an alien.

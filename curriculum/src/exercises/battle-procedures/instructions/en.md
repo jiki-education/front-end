@@ -1,6 +1,6 @@
 ---
 title: "Battle Procedures"
-description: ""
+description: "Extract your shooting logic into a reusable function."
 ---
 
 In the last level, you learnt how to move a laser cannon back and forth, shooting down aliens. It worked, but the shooting logic was mixed in with everything else.

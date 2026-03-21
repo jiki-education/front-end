@@ -1,6 +1,5 @@
 {
   "slug": "snowman-basic",
-  "estimatedMinutes": 5,
   "levelId": "using-functions",
   "hints": [
     { "question": "Hint", "answer": "The snowman is centered horizontally at x = 50" },

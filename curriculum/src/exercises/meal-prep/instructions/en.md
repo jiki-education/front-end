@@ -1,6 +1,6 @@
 ---
 title: "Meal Prep"
-description: ""
+description: "Work out which ingredients you need to buy for your recipe."
 ---
 
 You're the sort of person that likes to pop to the shops each day to get whatever ingredients you need for dinner. It gives you a nice excuse to stretch your legs and chat to the local shopkeeper.

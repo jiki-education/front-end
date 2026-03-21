@@ -1,6 +1,6 @@
 ---
 title: "Bouncer: Dress Code"
-description: ""
+description: "Check both age and outfit before letting people in."
 ---
 
 The venue has a strict dress code tonight! As the bouncer, you need to check what the person is wearing and decide what to do.

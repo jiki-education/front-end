@@ -1,6 +1,6 @@
 ---
 title: "Hello"
-description: ""
+description: "Say hello to the world with your first string function."
 ---
 
 Write a function called `sayHello` that takes a person's name as input and returns a greeting.

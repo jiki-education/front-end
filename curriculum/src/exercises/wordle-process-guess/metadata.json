@@ -1,6 +1,5 @@
 {
   "slug": "wordle-process-guess",
-  "estimatedMinutes": 15,
   "levelId": "lists",
   "hints": [
     {

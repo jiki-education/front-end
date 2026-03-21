@@ -1,6 +1,6 @@
 ---
 title: "Tile Rack"
-description: ""
+description: "Find exactly where a letter sits on the tile rack."
 ---
 
 You're building an automated Scrabble bot. The bot has a rack of letter tiles represented as a string (e.g. `"AERHBT"`). When the bot decides which letter to play, it needs to know which position to move its hand to in order to pick up the tile.

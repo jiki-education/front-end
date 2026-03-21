@@ -1,6 +1,6 @@
 ---
 title: "After Party"
-description: ""
+description: "Check the VIP list when celebrities only give their first name."
 ---
 
 We're back to playing the role of a bouncer. But this time, we're dealing with A-List Celebrities at the After Party.

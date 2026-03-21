@@ -1,6 +1,6 @@
 ---
 title: "Owner's Bouquets"
-description: ""
+description: "Plant flowers in different garden layouts."
 ---
 
 Welcome to your first exercise with scenarios.

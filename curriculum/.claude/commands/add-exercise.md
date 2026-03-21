@@ -81,7 +81,7 @@ Once the user approves the approach, create ALL required files:
 
 ```
 src/exercises/[exercise-name]/
-├── metadata.json         # slug, title, instructions, estimatedMinutes, levelId, hints
+├── metadata.json         # slug, levelId, hints
 ├── Exercise.ts           # Exercise class (extends appropriate base)
 ├── scenarios.ts          # Tasks and test scenarios
 ├── llm-metadata.ts       # LLM metadata (use /write-llm-metadata skill)

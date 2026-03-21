@@ -1,6 +1,6 @@
 ---
 title: "Pangram"
-description: ""
+description: "Check if a sentence contains every letter of the alphabet, regardless of case."
 ---
 
 You work for a company that sells fonts through their website. They'd like to show a different sentence each time someone views a font on their website. To give a comprehensive sense of the font, the random sentences should use all the letters in the English alphabet.

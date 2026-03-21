@@ -1,6 +1,5 @@
 {
   "slug": "maze-solve-walk",
-  "estimatedMinutes": 10,
   "levelId": "using-functions",
   "hints": [
     { "question": "Hint", "answer": "The character starts in the top-left corner facing down" },

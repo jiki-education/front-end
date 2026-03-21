@@ -265,7 +265,7 @@ Create `src/exercises/$ARGUMENTS/instructions/en.md` with the instructions conte
 
 ### Ensure metadata.json has no instructions field
 
-The `instructions` field should NOT be in `metadata.json` — instructions live in `instructions/en.md`. If present, remove it. Keep all other fields (`slug`, `title`, `estimatedMinutes`, `levelId`, `hints`).
+The `instructions` field should NOT be in `metadata.json` — instructions live in `instructions/en.md`. If present, remove it. Keep all other fields (`slug`, `levelId`, `hints`).
 
 ### Verify
 

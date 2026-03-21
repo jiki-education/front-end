@@ -1,6 +1,6 @@
 ---
 title: "Jumbled House"
-description: "Rearrange misplaced shapes into a house by carefully calculating their correct positions."
+description: "Rearrange the pieces of a jumbled-up house."
 ---
 
 Your task is to rearrange the pieces of the house. They are both misplaced and the wrong sizes.

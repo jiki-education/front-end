@@ -1,6 +1,6 @@
 ---
 title: "The Chop Shop"
-description: ""
+description: "Work out if the barber has time for one more customer."
 ---
 
 You run a small hairdressing salon that focusses on speed over quality. People might leave a little rough around the edges, but they're not having to spend too long in the chair.

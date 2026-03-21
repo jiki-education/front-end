@@ -1,6 +1,6 @@
 ---
 title: "Weather Symbols (Part 2)"
-description: ""
+description: "Draw weather scenes from lists of elements."
 ---
 
 In Part 1, you mapped weather descriptions to lists of components. Now it's time to draw them!

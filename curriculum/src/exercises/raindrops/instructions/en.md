@@ -1,6 +1,6 @@
 ---
 title: "Raindrop Sounds"
-description: ""
+description: "Turn numbers into raindrop sounds: Pling, Plang and Plong."
 ---
 
 Raindrops is a version of the classic FizzBuzz challenge that's been used in programming interviews forever.

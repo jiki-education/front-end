@@ -1,6 +1,6 @@
 ---
 title: "Golf: Shot Checker"
-description: ""
+description: "Work out whether a golf shot landed close enough to sink."
 ---
 
 You're on the golf course and the golfer has hit the ball. Your job is to roll the ball and check if it lands in the hole!

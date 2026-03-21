@@ -147,7 +147,6 @@ Define basic exercise metadata:
   "slug": "exercise-name",
   "title": "Exercise Title",
   "instructions": "Complete description of what students need to do...",
-  "estimatedMinutes": 10,
   "levelId": "fundamentals",
   "hints": ["Helpful hint 1", "Helpful hint 2"]
 }

@@ -1,6 +1,6 @@
 ---
 title: "Turn Around"
-description: ""
+description: "Create a turn-around function for the maze."
 ---
 
 In the last exercise you worked out how to solve the maze automatically. Great work!

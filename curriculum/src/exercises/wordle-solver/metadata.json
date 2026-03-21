@@ -1,6 +1,5 @@
 {
   "slug": "wordle-solver",
-  "estimatedMinutes": 30,
   "levelId": "everything",
   "hints": [
     {

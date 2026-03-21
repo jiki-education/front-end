@@ -1,6 +1,6 @@
 ---
 title: "Space Invaders: Nested Repeat"
-description: ""
+description: "Fill the screen with rows and columns of aliens, then destroy them all."
 ---
 
 Even more aliens have appeared, and now they're **four rows deep**!

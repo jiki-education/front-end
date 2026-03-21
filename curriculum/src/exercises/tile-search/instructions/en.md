@@ -1,6 +1,6 @@
 ---
 title: "Tile Search"
-description: ""
+description: "Search through a rack of tiles to find a specific letter."
 ---
 
 You're building a Scrabble bot. Before the bot tries to play a word, it needs to check whether it has a specific letter tile in its rack.

@@ -62,7 +62,6 @@ export default function IOTestRunnerPage() {
       title: "IO Test Runner E2E Exercise",
       description: "",
       instructions: "This is a test exercise for IO tests",
-      estimatedMinutes: 5,
       levelId: "fundamentals",
       functions: [],
       stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },

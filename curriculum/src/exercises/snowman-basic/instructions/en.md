@@ -1,6 +1,6 @@
 ---
 title: "Snowman"
-description: ""
+description: "Build a snowman from three circles."
 ---
 
 This exercise introduces you to the `circle` function, which we use with 3 inputs:

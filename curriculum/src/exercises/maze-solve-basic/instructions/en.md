@@ -1,6 +1,6 @@
 ---
 title: "Manually Solve a Maze"
-description: ""
+description: "Guide Jiki through a maze using simple instructions."
 ---
 
 Welcome to your first exercise!

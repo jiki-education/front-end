@@ -1,6 +1,6 @@
 ---
 title: "Golf: Rolling Ball"
-description: ""
+description: "Roll a golf ball into the hole by tracking its position."
 ---
 
 We're back in the world of building a golf game, but this time what we're building has changed.

@@ -1,6 +1,6 @@
 ---
 title: "D&D Roll"
-description: ""
+description: "Roll some dice and strike a goblin in a D&D adventure."
 ---
 
 You are creating a bot that can play Dungeons and Dragons (DnD). If you're not familiar with DnD, the basic premise is that you encounter lots of scenarios and roll dice to work out what happens. There are many different dice with different amounts of sides (not just the six-sided die you might be used to!)

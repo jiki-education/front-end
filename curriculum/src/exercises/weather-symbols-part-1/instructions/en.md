@@ -1,6 +1,6 @@
 ---
 title: "Weather Symbols (Part 1)"
-description: ""
+description: "Map weather descriptions to the right combination of symbols."
 ---
 
 We're going to draw a range of weather symbols, made up of smaller components. It's split into two parts.

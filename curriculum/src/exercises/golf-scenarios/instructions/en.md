@@ -1,6 +1,6 @@
 ---
 title: "Golf: Scenarios"
-description: ""
+description: "Roll a ball to the correct spot."
 ---
 
 You're on the golf course and the golfer has hit the ball. Your job is to roll the ball based on the shot length, then fire the fireworks!

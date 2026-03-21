@@ -1,6 +1,6 @@
 ---
 title: "Plant the Flowers"
-description: ""
+description: "Plant a row of flowers across the garden, one by one."
 ---
 
 You're creating an automated flower-planting machine.
