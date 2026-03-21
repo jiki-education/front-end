@@ -56,7 +56,7 @@ import { llmMetadata as golfRollingBallStateLLM } from "./exercises/golf-rolling
 import { llmMetadata as golfScenariosLLM } from "./exercises/golf-scenarios/llm-metadata";
 import { llmMetadata as golfShotCheckerLLM } from "./exercises/golf-shot-checker/llm-metadata";
 import { llmMetadata as plantTheFlowersLLM } from "./exercises/plant-the-flowers/llm-metadata";
-import { llmMetadata as plantTheFlowersScenariosLLM } from "./exercises/plant-the-flowers-scenarios/llm-metadata";
+import { llmMetadata as ownersBouquetsLLM } from "./exercises/owners-bouquets/llm-metadata";
 import { llmMetadata as wordleProcessGuessLLM } from "./exercises/wordle-process-guess/llm-metadata";
 import { llmMetadata as wordleProcessGameLLM } from "./exercises/wordle-process-game/llm-metadata";
 import { llmMetadata as wordleSolverLLM } from "./exercises/wordle-solver/llm-metadata";
@@ -167,7 +167,7 @@ const llmMetadataRegistry = {
   "golf-scenarios": golfScenariosLLM,
   "golf-shot-checker": golfShotCheckerLLM,
   "plant-the-flowers": plantTheFlowersLLM,
-  "plant-the-flowers-scenarios": plantTheFlowersScenariosLLM,
+  "owners-bouquets": ownersBouquetsLLM,
   "wordle-process-guess": wordleProcessGuessLLM,
   "wordle-process-game": wordleProcessGameLLM,
   "wordle-solver": wordleSolverLLM,

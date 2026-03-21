@@ -97,7 +97,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "stock-market" },
       { "type": "exercise", "slug": "rainbow-splodges" },
       { "type": "video", "slug": "scenarios" },
-      { "type": "exercise", "slug": "plant-the-flowers-scenarios" },
+      { "type": "exercise", "slug": "owners-bouquets" },
       { "type": "exercise", "slug": "golf-scenarios" },
       { "type": "exercise", "slug": "cityscape-skyscraper" },
       { "type": "video", "slug": "loops-in-loops" },
