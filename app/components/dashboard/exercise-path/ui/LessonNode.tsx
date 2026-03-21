@@ -111,7 +111,7 @@ export function LessonNode({
         {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
       </div>
       <span className={styles.lessonConnector} />
-      <div className={styles.partIcon}>
+      <div className={`${styles.partIcon}${lesson.lesson.type === "video" ? ` ${styles.videoIcon}` : ""}`}>
         {lesson.lesson.type === "video" ? (
           <VideoLibIcon width={64} height={64} />
         ) : lesson.lesson.type === "quiz" ? (
