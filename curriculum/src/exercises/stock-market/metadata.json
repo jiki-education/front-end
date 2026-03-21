@@ -5,15 +5,15 @@
   "hints": [
     {
       "question": "I don't know where to start",
-      "answer": "You need to use marketGrowth() for each year over the next 20 years (starting from now). That will return a value like 5 (for 5% market growth). You then need to track how much money you have - from the $10 you started changed by whatever the interest rate is."
+      "answer": "You need to use `marketGrowth()` for each year over the next 20 years (starting from now). That will return a value like 5 (for 5% market growth). You then need to track how much money you have - from the $10 you started changed by whatever the interest rate is."
     },
     {
       "question": "I'm still really stuck - I don't get it.",
-      "answer": "OK, so let's spell out some code to get you started. Imagine the current year is 2026. You need to do something like ```\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// You need to increase money by growth.\n// Check the next hint if you need the formula for this.\nmoney = money + ???\nreportTax(2026, money)\n\n// Now do 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Now do 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// After 20 years tell your family\nannounceToFamily(money)\n```"
+      "answer": "OK, so let's spell out some code to get you started. Imagine the current year is 2026. You need to do something like: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// You need to increase money by growth.\n// Check the next hint if you need the formula for this.\nmoney = money + ???\nreportTax(2026, money)\n\n// Now do 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Now do 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// After 20 years tell your family\nannounceToFamily(money)\n```"
     },
     {
       "question": "What's the formula to track the growth? I can't work it out myself.",
-      "answer": "The formula is: `money = money * (100 + marketGrowth(year)) / 100`"
+      "answer": "The formula is: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
     },
     {
       "question": "It says I've not reported the right amount of tax returns.",
