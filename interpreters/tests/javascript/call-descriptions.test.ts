@@ -9,7 +9,7 @@ function extractText(html: string): string {
   return html.replace(/<[^>]*>/g, "").trim();
 }
 
-describe("JavaScript Call Descriptions", () => {
+describe("Jiki Call Descriptions", () => {
   it("should describe standalone function calls", () => {
     const testFunc: ExternalFunction = {
       name: "testFunc",
@@ -29,8 +29,8 @@ describe("JavaScript Call Descriptions", () => {
     if (frame.generateDescription) {
       const description = frame.generateDescription();
 
-      // JavaScript should now say "JavaScript used the testFunc function"
-      expect(description).toContain("JavaScript used the");
+      // Jiki should now say "Jiki used the testFunc function"
+      expect(description).toContain("Jiki used the");
       expect(description).toContain("testFunc");
       expect(description).toContain("function");
       expect(description).toContain("got");

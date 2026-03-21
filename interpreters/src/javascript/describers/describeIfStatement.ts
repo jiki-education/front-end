@@ -20,12 +20,12 @@ function describeFinalStep(result: EvaluationResultIfStatement, statement: IfSta
   const conditionValue = Boolean(result.immutableJikiObject.value);
 
   if (conditionValue) {
-    return `<li>The condition evaluated to <code>true</code>, so JavaScript executed the if block.</li>`;
+    return `<li>The condition evaluated to <code>true</code>, so Jiki executed the if block.</li>`;
   }
   if (statement.elseBranch) {
-    return `<li>The condition evaluated to <code>false</code>, so JavaScript executed the else block.</li>`;
+    return `<li>The condition evaluated to <code>false</code>, so Jiki executed the else block.</li>`;
   }
-  return `<li>The condition evaluated to <code>false</code>, so JavaScript skipped the if block.</li>`;
+  return `<li>The condition evaluated to <code>false</code>, so Jiki skipped the if block.</li>`;
 }
 
 function describeResult(result: EvaluationResultIfStatement, statement: IfStatement): string {

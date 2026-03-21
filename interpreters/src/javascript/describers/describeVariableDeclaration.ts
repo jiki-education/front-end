@@ -19,11 +19,11 @@ export function describeVariableDeclaration(frame: FrameWithResult, context: Des
     const initializerSteps = describeExpression(variableDeclaration.initializer, frameResult.value, context);
     steps = [
       ...initializerSteps,
-      `<li>JavaScript created ${keyword === "const" ? "constant" : "variable"} <code>${name}</code> and assigned it the value <code>${value}</code>.</li>`,
+      `<li>Jiki created ${keyword === "const" ? "constant" : "variable"} <code>${name}</code> and assigned it the value <code>${value}</code>.</li>`,
     ];
   } else {
     result = `<p>Declared variable <code>${name}</code>.</p>`;
-    steps = [`<li>JavaScript created variable <code>${name}</code> with value <code>undefined</code>.</li>`];
+    steps = [`<li>Jiki created variable <code>${name}</code> with value <code>undefined</code>.</li>`];
   }
 
   return {

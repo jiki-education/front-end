@@ -28,7 +28,7 @@ function describeNotExpression(
   let steps = describeExpression(expression.operand, result.operand, context);
   steps = [
     ...steps,
-    `<li>JavaScript evaluated that ${codeTag(
+    `<li>Jiki evaluated that ${codeTag(
       `!${resBool}`,
       expression.operand.location
     )} is ${codeTag(result.immutableJikiObject, expression.location)}.</li>`,
@@ -49,7 +49,7 @@ function describeMinusExpression(
   let steps = describeExpression(expression.operand, result.operand, context);
   steps = [
     ...steps,
-    `<li>JavaScript evaluated that ${codeTag(
+    `<li>Jiki evaluated that ${codeTag(
       `-${resNum}`,
       expression.operand.location
     )} is ${codeTag(result.immutableJikiObject, expression.location)}.</li>`,

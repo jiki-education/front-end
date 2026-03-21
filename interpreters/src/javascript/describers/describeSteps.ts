@@ -31,7 +31,7 @@ import { describeArrayExpression } from "./describeArrayExpression";
 import { describeMemberExpression } from "./describeMemberExpression";
 import { describeAssignmentExpression } from "./describeAssignmentExpression";
 import { describeDictionaryExpression } from "./describeDictionaryExpression";
-import { describeCallExpression } from "./describeCallExpression";
+import { describeCallExpressionSteps } from "./describeCallExpression";
 
 export function describeExpression(
   expression: Expression,
@@ -57,13 +57,13 @@ export function describeExpression(
     return [describeMemberExpression(expression, result as EvaluationResultMemberExpression)];
   }
   if (expression instanceof AssignmentExpression) {
-    return [describeAssignmentExpression(expression, result as EvaluationResultAssignmentExpression)];
+    return describeAssignmentExpression(expression, result as EvaluationResultAssignmentExpression, context);
   }
   if (expression instanceof DictionaryExpression) {
     return describeDictionaryExpression(result as EvaluationResultDictionaryExpression, expression, null as any);
   }
   if (expression instanceof CallExpression) {
-    return describeCallExpression(expression, result as EvaluationResultCallExpression, context);
+    return describeCallExpressionSteps(expression, result as EvaluationResultCallExpression, context);
   }
 
   return [];
