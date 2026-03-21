@@ -5,7 +5,6 @@ import { useOrchestratorContext } from "./lib/OrchestratorProvider";
 import { useResizablePanels, Resizer } from "./useResize";
 import { useOrchestratorStore } from "./lib/orchestrator/store";
 import CodeEditor from "./ui/CodeEditor";
-import RunButton from "./ui/RunButton";
 import ScenariosPanel from "./ui/test-results-view/ScenariosPanel";
 import { RHS } from "./RHS";
 import styles from "./CodingExercise.module.css";
@@ -31,7 +30,6 @@ export default function CodingExerciseInner() {
         {/* LHS */}
         <div className={styles.codeEditor}>
           <CodeEditor />
-          <RunButton />
         </div>
 
         <Resizer

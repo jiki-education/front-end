@@ -4,20 +4,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by calling numFlowers() and storing the result in a variable"
+      "question": "What's the formula I need to calculate where to play things",
+      "answer": "It's:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```"
     },
     {
-      "question": "Hint",
-      "answer": "Calculate the gap: 100 / (count + 1)"
-    },
-    {
-      "question": "Hint",
-      "answer": "Set your starting position to the gap value"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a repeat loop to plant each flower, then increase the position by the gap"
+      "question": "How do I see the different scenarios",
+      "answer": "Click on the circles on the left hand side in between your code and the results."
     }
   ]
 }

@@ -11,9 +11,9 @@ export default class PlantTheFlowersScenariosExercise extends FlowerPlantingExer
 
   public availableFunctions = [
     {
-      name: "num_flowers",
+      name: "ask_number_of_flowers",
       func: this.getNumFlowers.bind(this),
-      description: "retrieved the number of flowers to plant"
+      description: "asked for the number of flowers to plant"
     },
     {
       name: "plant",

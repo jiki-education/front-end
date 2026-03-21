@@ -1,4 +1,4 @@
-let count = numFlowers()
+let count = askNumberOfFlowers()
 let gap = 100 / (count + 1)
 let position = gap
 

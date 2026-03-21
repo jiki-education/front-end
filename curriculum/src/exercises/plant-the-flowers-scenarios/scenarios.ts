@@ -6,7 +6,7 @@ export const tasks = [
     id: "plant-flowers-evenly" as const,
     name: "Plant flowers evenly",
     description:
-      "Use numFlowers() to find out how many flowers to plant, calculate the gap, and plant them evenly spaced.",
+      "Use askNumberOfFlowers() to find out how many flowers to plant, calculate the gap, and plant them evenly spaced.",
     hints: [],
     requiredScenarios: ["1-flower", "3-flowers", "4-flowers", "9-flowers"],
     bonus: false
@@ -19,7 +19,7 @@ function flowerExpectations(exercise: PlantTheFlowersScenariosExercise, count: n
 
   expects.push({
     pass: exercise.flowers.length === count,
-    errorHtml: `Expected ${count} flower${count === 1 ? "" : "s"}, but found ${exercise.flowers.length}.`
+    errorHtml: `The owner expected to see ${count} flower${count === 1 ? "" : "s"} planted. But you planted ${exercise.flowers.length}.`
   });
 
   expects.push({
@@ -49,11 +49,13 @@ function flowerExpectations(exercise: PlantTheFlowersScenariosExercise, count: n
 export const scenarios: VisualScenario[] = [
   {
     slug: "1-flower",
-    name: "1 flower",
-    description: "Plant 1 flower at position 50.",
+    name: "The owner wants 1 flower",
+    description: "In this scenario, `askNumberOfFlowers()` will return 1. Plant 1 flower at position 50.",
     taskId: "plant-flowers-evenly",
     setup(exercise) {
-      (exercise as PlantTheFlowersScenariosExercise).setupNumFlowers(1);
+      const ex = exercise as PlantTheFlowersScenariosExercise;
+      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupNumFlowers(1);
     },
     expectations(exercise) {
       return flowerExpectations(exercise as PlantTheFlowersScenariosExercise, 1);
@@ -61,11 +63,13 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "3-flowers",
-    name: "3 flowers",
-    description: "Plant 3 flowers at positions 25, 50, and 75.",
+    name: "The owner wants 3 flowers",
+    description: "In this scenario, `askNumberOfFlowers()` will return 3. Plant 3 flowers at positions 25, 50, and 75.",
     taskId: "plant-flowers-evenly",
     setup(exercise) {
-      (exercise as PlantTheFlowersScenariosExercise).setupNumFlowers(3);
+      const ex = exercise as PlantTheFlowersScenariosExercise;
+      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupNumFlowers(3);
     },
     expectations(exercise) {
       return flowerExpectations(exercise as PlantTheFlowersScenariosExercise, 3);
@@ -73,11 +77,14 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "4-flowers",
-    name: "4 flowers",
-    description: "Plant 4 flowers at positions 20, 40, 60, and 80.",
+    name: "The owner wants 4 flowers",
+    description:
+      "In this scenario, `askNumberOfFlowers()` will return 4. Plant 4 flowers at positions 20, 40, 60, and 80.",
     taskId: "plant-flowers-evenly",
     setup(exercise) {
-      (exercise as PlantTheFlowersScenariosExercise).setupNumFlowers(4);
+      const ex = exercise as PlantTheFlowersScenariosExercise;
+      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupNumFlowers(4);
     },
     expectations(exercise) {
       return flowerExpectations(exercise as PlantTheFlowersScenariosExercise, 4);
@@ -85,11 +92,14 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "9-flowers",
-    name: "9 flowers",
-    description: "Plant 9 flowers at positions 10, 20, 30, 40, 50, 60, 70, 80, and 90.",
+    name: "The owner wants 9 flowers",
+    description:
+      "In this scenario, `askNumberOfFlowers()` will return 9. Plant 9 flowers at positions 10, 20, 30, 40, 50, 60, 70, 80, and 90.",
     taskId: "plant-flowers-evenly",
     setup(exercise) {
-      (exercise as PlantTheFlowersScenariosExercise).setupNumFlowers(9);
+      const ex = exercise as PlantTheFlowersScenariosExercise;
+      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupNumFlowers(9);
     },
     expectations(exercise) {
       return flowerExpectations(exercise as PlantTheFlowersScenariosExercise, 9);

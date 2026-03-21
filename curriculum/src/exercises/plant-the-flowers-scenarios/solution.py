@@ -1,4 +1,4 @@
-count = num_flowers()
+count = ask_number_of_flowers()
 gap = 100 / (count + 1)
 position = gap
 

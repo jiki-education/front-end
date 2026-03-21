@@ -5,10 +5,10 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "numFlowers",
-    signature: "numFlowers()",
+    name: "askNumberOfFlowers",
+    signature: "askNumberOfFlowers()",
     description: "Returns the **number of flowers** to plant.",
-    examples: ["let count = numFlowers()"],
+    examples: ["let count = askNumberOfFlowers()"],
     category: "Gardening"
   },
   {
@@ -26,7 +26,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["scenarios", "return-values", "variables", "repeat"]
 };
 
 export default exerciseDefinition;
