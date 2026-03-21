@@ -111,7 +111,7 @@
 }
 
 .hintItem.expanded .hintAnswer {
-    max-height: 500px;
+    max-height: none;
     padding: 0 16px 16px 16px;
     background: white;
     position: relative;
