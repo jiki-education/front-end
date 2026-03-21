@@ -1,7 +1,8 @@
-let balance = 10
+let money = 10
+let year = 2026
 repeat(20) {
-  let rate = Math.randomInt(0, 10)
-  let growth = balance * rate / 100
-  balance = balance + growth
+  money = money * (100 + marketGrowth(year)) / 100
+  reportTax(year, money)
+  year = year + 1
 }
-checkBalance(balance)
+announceToFamily(money)

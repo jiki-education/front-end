@@ -4,24 +4,20 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start with a variable set to 10 for your balance"
+      "question": "I don't know where to start",
+      "answer": "You need to use marketGrowth() for each year over the next 20 years (starting from now). That will return a value like 5 (for 5% market growth). You then need to track how much money you have - from the $10 you started changed by whatever the interest rate is."
     },
     {
-      "question": "Hint",
-      "answer": "Use a repeat(20) loop for the 20 years"
+      "question": "I'm still really stuck - I don't get it.",
+      "answer": "OK, so let's spell out some code to get you started. Imagine the current year is 2026. You need to do something like ```\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// You need to increase money by growth.\n// Check the next hint if you need the formula for this.\nmoney = money + ???\nreportTax(2026, money)\n\n// Now do 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Now do 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// After 20 years tell your family\nannounceToFamily(money)\n```"
     },
     {
-      "question": "Hint",
-      "answer": "Inside the loop: generate a random rate from 0 to 10"
+      "question": "What's the formula to track the growth? I can't work it out myself.",
+      "answer": "The formula is: `money = money * (100 + marketGrowth(year)) / 100`"
     },
     {
-      "question": "Hint",
-      "answer": "Growth is balance times rate divided by 100 — then add it to your balance"
-    },
-    {
-      "question": "Hint",
-      "answer": "After the loop, call checkBalance() with your final balance"
+      "question": "It says I've not reported the right amount of tax returns.",
+      "answer": "You should report 20 tax returns for 20 years. Use the scrubber to count how many times you use the `reportTax()` function."
     }
   ]
 }

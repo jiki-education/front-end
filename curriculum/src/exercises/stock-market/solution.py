@@ -1,6 +1,7 @@
-balance = 10
+money = 10
+year = 2026
 repeat(20):
-    rate = random.randint(0, 10)
-    growth = balance * rate / 100
-    balance = balance + growth
-check_balance(balance)
+    money = money * (100 + market_growth(year)) / 100
+    report_tax(year, money)
+    year = year + 1
+announce_to_family(money)

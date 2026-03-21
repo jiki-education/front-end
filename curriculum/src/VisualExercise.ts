@@ -81,6 +81,7 @@ export interface Animation {
   offset: number; // Time offset in milliseconds
   duration?: number; // Duration of the animation in milliseconds
   easing?: string; // Easing function name
+  modifier?: (value: number) => number | string; // Value modifier function
   transformations: {
     // Subset of anime.js AnimationParams that exercises use
     left?: number | string;
@@ -93,5 +94,6 @@ export interface Animation {
     height?: number | string;
     gridRow?: number;
     gridColumn?: number;
+    innerHTML?: number;
   };
 }
