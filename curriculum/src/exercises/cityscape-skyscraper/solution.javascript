@@ -1,24 +1,25 @@
 let floors = numFloors() - 1
-let y = 1
+let y = 2
+let x = 19
 
-buildWall(1, y)
-buildGlass(2, y)
-buildEntrance(3, y)
-buildGlass(4, y)
-buildWall(5, y)
+buildWall(x - 2, y)
+buildGlass(x - 1, y)
+buildEntrance(x, y)
+buildGlass(x + 1, y)
+buildWall(x + 2, y)
+y = y + 1
 
 repeat(floors) {
+  buildWall(x - 2, y)
+  buildGlass(x - 1, y)
+  buildGlass(x, y)
+  buildGlass(x + 1, y)
+  buildWall(x + 2, y)
   y = y + 1
-  buildWall(1, y)
-  buildGlass(2, y)
-  buildGlass(3, y)
-  buildGlass(4, y)
-  buildWall(5, y)
 }
 
-y = y + 1
-buildWall(1, y)
-buildWall(2, y)
-buildWall(3, y)
-buildWall(4, y)
-buildWall(5, y)
+buildWall(x - 2, y)
+buildWall(x - 1, y)
+buildWall(x, y)
+buildWall(x + 1, y)
+buildWall(x + 2, y)

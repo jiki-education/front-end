@@ -3,19 +3,29 @@ title: "CityScape: Skyscraper"
 description: "Build a skyscraper on the city grid."
 ---
 
-Build a skyscraper on the city grid!
+This is the first of two exercises where you're going to be building skyscrapers.
 
-You have four functions:
+In this exercise, your job is to build a single skyscraper in the middle of the scene. In each scenario the height of the skyscraper varies.
 
-- `buildWall(x, y)` places a wall block at grid position (x, y)
-- `buildGlass(x, y)` places a glass panel at grid position (x, y)
-- `buildEntrance(x, y)` places an entrance door at grid position (x, y)
-- `numFloors()` returns how many floors the building should have
+To determine how many floors to build, you have a `numFloors()` function that returns the total height of the building.
 
-The building is 5 columns wide (x=1 to x=5). Build it from the bottom up:
+There are three different components you can use: wall (`W`), glass (`G`) and entrance (`E`). Check the functions below to see the functions to make these.
 
-1. **Ground floor (y=1)**: wall, glass, entrance, glass, wall
-2. **Upper floors**: wall, glass, glass, glass, wall (use `numFloors() - 1` to know how many)
-3. **Roof (top row)**: wall, wall, wall, wall, wall
+The floor closest to the ground (either the "ground floor" or "first floor" depending on your geography!) always has an entrance sandwiched between two glass segments and two outer wall segments (`WGEGW`). The other floors have three glass sandwiched with walls (`WGGGW`). And on top of the floors is a roof (`WWWWW`).
 
-Use a variable and a loop for the upper floors!
+So a 5 floor skyscraper has one entrance floor, 4 glass floors, and a roof. It should look like:
+
+```
+WWWWW
+WGGGW
+WGGGW
+WGGGW
+WGGGW
+WGEGW
+```
+
+The center of the skyscraper should be at column `19`. The ground floor starts at `2` (just above the concrete floor) and goes upwards (so in our example above, that would be an entrance floor at `2` and a roof at `7`).
+
+One key rule in this exercise is that all the values that you input into the functions must be either variables or formulas. You can't just input a number like `20`.
+
+Once you finish this exercise, you'll unlock a Project where you'll build whole city skylines with different numbers of buildings with different widths.

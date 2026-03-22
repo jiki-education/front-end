@@ -3,20 +3,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by getting the number of upper floors, e.g. let floors = numFloors() - 1"
+      "question": "I don't know where to start.",
+      "answer": "Firstly try drawing a wall, some glass, and an entrance to check you understand the functions. Then draw the base floor - this is always the same. Then use the `numFloors()` function to find out how many floors there are in total and draw the remaining floors and then the roof."
     },
     {
-      "question": "Hint",
-      "answer": "Build the ground floor at y=1 with an entrance in the middle"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a loop for the upper floors, incrementing y each time"
-    },
-    {
-      "question": "Hint",
-      "answer": "The roof goes on top of the last floor"
+      "question": "I have too many/too few floors.",
+      "answer": "If `numFloors()` returns 5, that should be one entrance floor, 4 glass floors, and 1 roof. Check your logic is correct!"
     }
   ]
 }

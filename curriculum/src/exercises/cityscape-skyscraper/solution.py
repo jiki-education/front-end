@@ -1,23 +1,24 @@
 floors = num_floors() - 1
-y = 1
+y = 2
+x = 19
 
-build_wall(1, y)
-build_glass(2, y)
-build_entrance(3, y)
-build_glass(4, y)
-build_wall(5, y)
+build_wall(x - 2, y)
+build_glass(x - 1, y)
+build_entrance(x, y)
+build_glass(x + 1, y)
+build_wall(x + 2, y)
+y = y + 1
 
 repeat(floors):
+    build_wall(x - 2, y)
+    build_glass(x - 1, y)
+    build_glass(x, y)
+    build_glass(x + 1, y)
+    build_wall(x + 2, y)
     y = y + 1
-    build_wall(1, y)
-    build_glass(2, y)
-    build_glass(3, y)
-    build_glass(4, y)
-    build_wall(5, y)
 
-y = y + 1
-build_wall(1, y)
-build_wall(2, y)
-build_wall(3, y)
-build_wall(4, y)
-build_wall(5, y)
+build_wall(x - 2, y)
+build_wall(x - 1, y)
+build_wall(x, y)
+build_wall(x + 1, y)
+build_wall(x + 2, y)

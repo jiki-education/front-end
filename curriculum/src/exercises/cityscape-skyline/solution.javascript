@@ -1,30 +1,42 @@
 let buildings = numBuildings()
-let x = 1
+let x = 2
 
 repeat(buildings) {
-  let floors = Math.randomInt(0, 6)
+  let width = randomWidth()
+  let floors = randomNumFloors()
+  let entranceOffset = (width - 1) / 2
 
-  buildWall(x, 1)
-  buildGlass(x + 1, 1)
-  buildEntrance(x + 2, 1)
-  buildGlass(x + 3, 1)
-  buildWall(x + 4, 1)
+  buildWall(x, 2)
+  let col = x + 1
+  repeat(entranceOffset - 1) {
+    buildGlass(col, 2)
+    col = col + 1
+  }
+  buildEntrance(col, 2)
+  col = col + 1
+  repeat(entranceOffset - 1) {
+    buildGlass(col, 2)
+    col = col + 1
+  }
+  buildWall(x + width - 1, 2)
 
-  let y = 2
+  let y = 3
   repeat(floors) {
     buildWall(x, y)
-    buildGlass(x + 1, y)
-    buildGlass(x + 2, y)
-    buildGlass(x + 3, y)
-    buildWall(x + 4, y)
+    col = x + 1
+    repeat(width - 2) {
+      buildGlass(col, y)
+      col = col + 1
+    }
+    buildWall(x + width - 1, y)
     y = y + 1
   }
 
-  buildWall(x, y)
-  buildWall(x + 1, y)
-  buildWall(x + 2, y)
-  buildWall(x + 3, y)
-  buildWall(x + 4, y)
+  col = x
+  repeat(width) {
+    buildWall(col, y)
+    col = col + 1
+  }
 
-  x = x + 5
+  x = x + width + 1
 }
