@@ -8,11 +8,26 @@ import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
 import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
+import type { TestResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
 
 const ONE_MINUTE = 60 * 1000;
+
+export function getTestToInspect(tests: TestResult[], currentTest: TestResult | null): TestResult {
+  if (currentTest) {
+    const updatedCurrent = tests.find((t) => t.slug === currentTest.slug);
+    if (updatedCurrent && updatedCurrent.status === "fail") {
+      return updatedCurrent;
+    }
+  }
+
+  const firstFailing = tests.find((t) => t.status === "fail");
+  if (firstFailing) return firstFailing;
+
+  return tests[tests.length - 1];
+}
 
 // Factory function to create an instance-specific store
 export function createOrchestratorStore(
@@ -187,7 +202,8 @@ export function createOrchestratorStore(
           currentTest: test,
           currentTestIdx: testIdx,
           currentFrame: undefined,
-          highlightedLine: 0
+          highlightedLine: 0,
+          isPlaying: false
         });
 
         // Set up animation timeline callbacks (visual tests only)
@@ -384,14 +400,12 @@ export function createOrchestratorStore(
           isPlaying: false
         });
 
-        // Also set the first test as current by default
+        // Select the best test to inspect: stay on current if still failing,
+        // otherwise first failing, otherwise last test (all pass).
         if (result && result.tests.length > 0) {
-          // Call setCurrentTest which will handle all the logic including setting time
-          // and auto-playing the test.
-          get().setCurrentTest(result.tests[0]);
-
-          // Update lint errors from the first test's results for editor decorations
-          set({ lintErrors: result.tests[0].lintErrors });
+          const testToInspect = getTestToInspect(result.tests, state.currentTest);
+          get().setCurrentTest(testToInspect);
+          set({ lintErrors: testToInspect.lintErrors });
         }
       },
       setShouldPlayOnTestChange: (shouldAutoPlay) => set({ shouldPlayOnTestChange: shouldAutoPlay }),
