@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "I can't get to 7 lines of code.",
-      "answer": "Think about what we do use we see repetitive code. You also don't need any variables in this exercise."
+      "answer": "Think about what we do when we see repetitive code. You also don't need any variables in this exercise."
     }
   ]
 }
