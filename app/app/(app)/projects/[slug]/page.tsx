@@ -127,7 +127,7 @@ export default function ProjectPage({ params }: PageProps) {
 
   return (
     <CodingExercise
-      language="jikiscript"
+      language={userCourse?.language || "javascript"}
       exerciseSlug={exerciseSlug}
       context={{ type: "project", slug: project.slug }}
       levelId={userCourse?.current_level_slug ?? undefined}
