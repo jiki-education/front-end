@@ -74,6 +74,7 @@ export default class CityScapeExercise extends VisualExercise {
     this.gridContainer.appendChild(cell);
 
     this.animateIntoView(executionCtx, `#${this.view.id} #cell-${xVal}-${yVal}`);
+    executionCtx.fastForward(30);
   }
 
   buildWall(executionCtx: ExecutionContext, x: Shared.JikiObject, y: Shared.JikiObject) {

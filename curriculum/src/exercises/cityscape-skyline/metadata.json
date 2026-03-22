@@ -3,20 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by getting the number of buildings with numBuildings()"
-    },
-    {
-      "question": "Hint",
-      "answer": "Track the x position, starting at 1, and increase by 5 for each building"
-    },
-    {
-      "question": "Hint",
-      "answer": "For each building, get a random number of floors"
-    },
-    {
-      "question": "Hint",
-      "answer": "Build ground floor, then upper floors in a nested loop, then the roof"
+      "question": "This is hard!",
+      "answer": "It is a challenge! Break it down. One step at a time. Get the first scenario passing, then the second, etc."
     }
   ]
 }
