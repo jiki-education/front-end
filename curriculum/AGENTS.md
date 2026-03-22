@@ -85,6 +85,8 @@ gh pr create --title "Add new exercise: [name]" --body "Description of the exerc
 
 **Important:** When working in git, do NOT cd to the root as part of compound commands. Instead operate within the curriculum directory.
 
+Also, when creating branches do NOT use slashes in the branch names (e.g. use username-xxx not username/xxx).
+
 ## Project Structure
 
 ```

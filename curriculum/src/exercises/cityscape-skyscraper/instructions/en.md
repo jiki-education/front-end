@@ -1,5 +1,5 @@
 ---
-title: "CityScape: Skyscraper"
+title: "Skyscraper"
 description: "Build a skyscraper on the city grid."
 ---
 
