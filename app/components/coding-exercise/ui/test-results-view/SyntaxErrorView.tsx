@@ -1,3 +1,4 @@
+import RunButton from "../RunButton";
 import styles from "./SyntaxErrorView.module.css";
 
 export function SyntaxErrorView() {
@@ -17,6 +18,9 @@ export function SyntaxErrorView() {
         <p className={styles.message}>
           No need to panic. Read and fix the error in the message above, and then run the code again.
         </p>
+        <div className="flex justify-center mt-16">
+          <RunButton />
+        </div>
       </div>
     </div>
   );

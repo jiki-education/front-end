@@ -150,8 +150,8 @@ describe("Store Auto-Play Behavior", () => {
 
       store.getState().setTestSuiteResult(testResults);
 
-      // Should have test-1 at 0 (new first test), but test-2 should be cleared
-      expect(store.getState().testCurrentTimes).toEqual({ "test-1": 0 });
+      // Should have last test at 0 (smart selection picks last when all pass), but old times should be cleared
+      expect(store.getState().testCurrentTimes).toEqual({ "test-2": 0 });
     });
 
     it("should set hasCodeBeenEdited to false and status to success", () => {
@@ -171,7 +171,7 @@ describe("Store Auto-Play Behavior", () => {
       expect(store.getState().status).toBe("success");
     });
 
-    it("should call setCurrentTest with first test", () => {
+    it("should call setCurrentTest with last test when all pass", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
       const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
       const test1 = createMockTest("test-1");
@@ -184,7 +184,8 @@ describe("Store Auto-Play Behavior", () => {
 
       store.getState().setTestSuiteResult(testResults);
 
-      expect(store.getState().currentTest?.slug).toBe("test-1");
+      // Smart selection picks last test when all pass
+      expect(store.getState().currentTest?.slug).toBe("test-2");
     });
 
     it("should hide information widget when auto-playing first test", () => {
