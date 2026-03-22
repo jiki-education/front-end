@@ -3,20 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The aliens are in every other column, just like before"
-    },
-    {
-      "question": "Hint",
-      "answer": "But now there are 4 rows of aliens in each column"
-    },
-    {
-      "question": "Hint",
-      "answer": "You need a repeat loop for the shooting, inside a repeat loop for the columns"
-    },
-    {
-      "question": "Hint",
-      "answer": "The pattern for each column is: move, shoot 4 times, move"
+      "question": "I can't get to 7 lines of code.",
+      "answer": "Think about what we do use we see repetitive code. You also don't need any variables in this exercise."
     }
   ]
 }

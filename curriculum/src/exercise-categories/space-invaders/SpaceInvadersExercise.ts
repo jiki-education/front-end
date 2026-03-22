@@ -35,7 +35,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
   }
 
   private gameStatus: GameStatus = "running";
-  private moveDuration = 200;
+  private moveDuration = 100;
   private shotDuration = 1000;
 
   private minLaserPosition = 0;
@@ -268,7 +268,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
       this.killAlien(executionCtx, targetAlien, shot, executionCtx.getCurrentTimeInMs() + duration);
 
       // Let the bullet leave the laser before moving
-      executionCtx.fastForward(30);
+      executionCtx.fastForward(300);
 
       this.checkForWin(executionCtx);
     }
