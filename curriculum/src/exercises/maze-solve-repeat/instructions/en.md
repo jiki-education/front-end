@@ -1,6 +1,6 @@
 ---
 title: "Solve a Maze with Repeat"
-description: ""
+description: "Refactor a maze solution to use loops instead of repeated code."
 ---
 
 You've been given a working solution to a maze, but it's very long and repetitive. Your job is to change the code to be **as few lines as possible**.

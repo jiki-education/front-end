@@ -16,7 +16,6 @@ export interface ReadonlyRange {
 // Core properties exported by exercise modules (shared, language/locale-independent)
 interface BaseExerciseCore {
   slug: string;
-  estimatedMinutes: number;
   levelId: LevelId; // The level this exercise belongs to (determines allowed language features)
 
   // Core components

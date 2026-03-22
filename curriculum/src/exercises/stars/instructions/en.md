@@ -1,6 +1,6 @@
 ---
 title: "Stars"
-description: ""
+description: "Build a growing pattern of stars."
 ---
 
 You're building a simple text-based pattern generator. Given a number, create a list of strings where each string contains an increasing number of stars.

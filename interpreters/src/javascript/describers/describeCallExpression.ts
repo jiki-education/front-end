@@ -1,11 +1,21 @@
-import type { DescriptionContext } from "../../shared/frames";
+import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
 import type { EvaluationResultCallExpression } from "../evaluation-result";
 import type { CallExpression } from "../expression";
 import { formatJSObject } from "../helpers";
 import { JSUndefined } from "../jsObjects/JSUndefined";
 import { describeExpression } from "./describeSteps";
 
-export function describeCallExpression(
+export function describeCallExpression(frame: FrameWithResult, context: DescriptionContext): Description {
+  const expression = frame.context as CallExpression;
+  const result = frame.result as EvaluationResultCallExpression;
+
+  const steps = describeCallExpressionSteps(expression, result, context);
+  const functionName = result.functionName || "a function";
+  const summary = `<p>Jiki used <code>${functionName}</code>.</p>`;
+  return { result: summary, steps };
+}
+
+export function describeCallExpressionSteps(
   expression: CallExpression,
   result: EvaluationResultCallExpression,
   context: DescriptionContext
@@ -44,25 +54,27 @@ export function describeCallExpression(
         : [];
 
     if (argValues.length === 0) {
-      steps.push(`JavaScript used <code>console.log</code>, which printed a blank line`);
+      steps.push(`<li>Jiki used <code>console.log</code>, which printed a blank line</li>`);
     } else if (argValues.length === 1) {
-      steps.push(`JavaScript used <code>console.log</code> with ${argValues[0]}, which printed <code>${output}</code>`);
+      steps.push(
+        `<li>Jiki used <code>console.log</code> with ${argValues[0]}, which printed <code>${output}</code></li>`
+      );
     } else if (argValues.length === 2) {
       steps.push(
-        `JavaScript used <code>console.log</code> with ${argValues[0]} and ${argValues[1]}, which printed <code>${output}</code>`
+        `<li>Jiki used <code>console.log</code> with ${argValues[0]} and ${argValues[1]}, which printed <code>${output}</code></li>`
       );
     } else {
       const lastArg = argValues[argValues.length - 1];
       const otherArgs = argValues.slice(0, -1);
       steps.push(
-        `JavaScript used <code>console.log</code> with ${otherArgs.join(", ")} and ${lastArg}, which printed <code>${output}</code>`
+        `<li>Jiki used <code>console.log</code> with ${otherArgs.join(", ")} and ${lastArg}, which printed <code>${output}</code></li>`
       );
     }
     return steps;
   }
 
   // Then describe the function lookup
-  steps.push(`Looked up the function <code>${functionName}</code>`);
+  steps.push(`<li>Looked up the function <code>${functionName}</code></li>`);
 
   // Omit "and got undefined" for void functions
   let retText = "";
@@ -77,7 +89,7 @@ export function describeCallExpression(
     const argValues = result.args.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ");
     argsText = ` with ${argValues}`;
   }
-  steps.push(`Called <code>${functionName}</code>${argsText}${retText}`);
+  steps.push(`<li>Called <code>${functionName}</code>${argsText}${retText}</li>`);
 
   return steps;
 }

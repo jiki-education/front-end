@@ -1,6 +1,6 @@
 ---
 title: "Walk Through a Maze"
-description: ""
+description: "Navigate the maze using a function that walks multiple steps."
 ---
 
 We're back in the maze again! Last time you were here, you used `move()` function to move one step at a time. That worked, but it gets pretty tedious writing `move()` many times in a row!

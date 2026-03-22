@@ -108,7 +108,7 @@ curriculum/
 │   │       ├── index.ts      # Exercise exports (ExerciseCore only)
 │   │       ├── Exercise.ts   # Exercise implementation
 │   │       ├── scenarios.ts  # Exercise scenarios/levels
-│   │       ├── metadata.json # Slug, estimatedMinutes, levelId
+│   │       ├── metadata.json # Slug, levelId, hints
 │   │       ├── instructions/ # Locale-specific instruction files
 │   │       │   └── en.md     # English instructions (frontmatter: title, description)
 │   │       ├── stub.*        # Starter code per language (.javascript, .py, .jiki)
@@ -131,7 +131,7 @@ curriculum/
 
 Exercise modules export **`ExerciseCore`** — the shared, language/locale-independent parts:
 
-- `ExerciseClass`, `scenarios`, `tasks`, `functions`, `slug`, `levelId`, `estimatedMinutes`
+- `ExerciseClass`, `scenarios`, `tasks`, `functions`, `slug`, `levelId`
 
 Locale/language-specific content (title, description, instructions, stubs, solutions) is **not** bundled in the module. Instead, the app's build script (`scripts/generate-exercise-cache.js`) reads the raw files from the curriculum source and produces static JSON files served from `public/static/exercises/`.
 

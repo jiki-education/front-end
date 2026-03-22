@@ -1,6 +1,6 @@
 ---
 title: "RNA Transcription"
-description: ""
+description: "Convert a DNA sequence into its RNA complement."
 ---
 
 Your task is to determine the RNA complement of a given DNA sequence.

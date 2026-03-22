@@ -1,6 +1,6 @@
 ---
 title: "Nucleotide"
-description: ""
+description: "Count how many times a specific nucleotide appears in a DNA strand."
 ---
 
 DNA is a long chain of other chemicals and the most important are the four nucleotides, adenine, cytosine, guanine and thymine. A single DNA chain can contain billions of these four nucleotides and the order in which they occur is important! We represent a DNA sequence as a string of characters such as "ATTACG". 'A' for adenine, 'C' for cytosine, 'G' for guanine, and 'T' for thymine.

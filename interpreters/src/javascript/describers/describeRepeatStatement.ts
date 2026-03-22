@@ -13,7 +13,7 @@ export function describeRepeatStatement(frame: FrameWithResult, context: Descrip
   if (frameResult.count === null) {
     const ordinaledIteration = addOrdinalSuffix(frameResult.iteration);
     const result = `<p>This line started the ${ordinaledIteration} iteration of this repeat block.</p>`;
-    const steps = [`<li>JavaScript started the ${ordinaledIteration} iteration of the repeat loop.</li>`];
+    const steps = [`<li>Jiki started the ${ordinaledIteration} iteration of the repeat loop.</li>`];
     return { result, steps };
   }
 
@@ -32,7 +32,7 @@ export function describeRepeatStatement(frame: FrameWithResult, context: Descrip
 function describeNoRepeats(_frameResult: EvaluationResultRepeatStatement): Description {
   const result = `<p>The repeat block was asked to run <code>0</code> times so this line did nothing.</p>`;
   const steps = [
-    `<li>JavaScript saw that the loop should be run <code>0</code> times and so decided not to do anything further on this line.</li>`,
+    `<li>Jiki saw that the loop should be run <code>0</code> times and so decided not to do anything further on this line.</li>`,
   ];
   return { result, steps };
 }
@@ -42,7 +42,7 @@ function describeRepeat(frameResult: EvaluationResultRepeatStatement): Descripti
   const countValue = unwrapJSObject(frameResult.count!.jikiObject);
   const result = `<p>This line started the ${ordinaledIteration} iteration of this repeat block.</p>`;
   const steps = [
-    `<li>JavaScript increased its internal counter for this loop to <code>${frameResult.iteration}</code>, checked <code>${frameResult.iteration} &le; ${countValue}</code>, and decided to run the code block.</li>`,
+    `<li>Jiki increased its internal counter for this loop to <code>${frameResult.iteration}</code>, checked <code>${frameResult.iteration} &le; ${countValue}</code>, and decided to run the code block.</li>`,
   ];
   return { result, steps };
 }

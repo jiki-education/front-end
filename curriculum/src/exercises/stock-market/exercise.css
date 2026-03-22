@@ -1,0 +1,96 @@
+.exercise-stock-market {
+    container-type: inline-size;
+
+    .graph-area {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .axis {
+        position: absolute;
+        background: #555;
+    }
+
+    .axis-y {
+        left: 12%;
+        top: 8%;
+        width: 1px;
+        height: 74%;
+    }
+
+    .axis-x {
+        left: 12%;
+        top: 82%;
+        width: 83%;
+        height: 1px;
+    }
+
+    .axis-label {
+        position: absolute;
+        font-size: 3.67cqi;
+        color: #777;
+    }
+
+    .axis-label-y {
+        right: 89%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+    }
+
+    .axis-label-x {
+        top: 83%;
+        transform: translateX(-50%);
+    }
+
+    .grid-line {
+        position: absolute;
+        left: 12%;
+        width: 83%;
+        height: 1px;
+        background: rgba(128, 128, 128, 0.15);
+    }
+
+    .graph-dot {
+        position: absolute;
+        width: 2cqi;
+        height: 2cqi;
+        border-radius: 50%;
+        background: #1e55af;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        opacity: 0;
+    }
+
+    .graph-dot-start {
+        opacity: 1;
+    }
+
+    .graph-line {
+        position: absolute;
+        height: 0.67cqi;
+        background: #2570eb;
+        transform-origin: 0 50%;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .money-value {
+        position: absolute;
+        bottom: 2%;
+        right: 0;
+        left: 0;
+        text-align: center;
+        font-family: "Source Code Pro", monospace;
+        font-size: 4.67cqi;
+        font-weight: bold;
+        letter-spacing: -0.23cqi;
+        color: #2570eb;
+        z-index: 3;
+    }
+
+    .money-value::before {
+        content: "Your current balance: $";
+    }
+}

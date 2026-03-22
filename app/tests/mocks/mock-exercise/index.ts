@@ -8,7 +8,6 @@ export const testExerciseDefinition: ExerciseDefinition = {
   title: "Test Exercise",
   description: "Test exercise description",
   instructions: "This is a test exercise for unit tests",
-  estimatedMinutes: 5,
   levelId: "level-1",
   functions: [],
   stubs: {

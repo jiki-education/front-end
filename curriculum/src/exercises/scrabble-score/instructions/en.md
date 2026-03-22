@@ -1,6 +1,6 @@
 ---
 title: "Scrabble Score"
-description: ""
+description: "Calculate the score for a Scrabble word."
 ---
 
 Scrabble is a word game where players place letter tiles on a board to form words. Each letter has a value, and a word's score is the sum of its letters' values.

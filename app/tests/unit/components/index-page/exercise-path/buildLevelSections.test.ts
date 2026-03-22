@@ -4,6 +4,7 @@ import type { LevelWithProgress, LessonWithProgress } from "@/types/levels";
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
     slug: "lesson-one",
+    title: "Lesson One",
     type: "exercise",
     description: "A lesson",
     status: "not_started",
@@ -208,10 +209,10 @@ describe("buildLevelSections", () => {
       expect(result[0].lessons[2].completed).toBe(false);
     });
 
-    it("builds lesson title from slug with capitalized words", () => {
-      const levels = [createLevel({ lessons: [createLesson({ slug: "hello-world" })] })];
+    it("uses lesson title from API data", () => {
+      const levels = [createLevel({ lessons: [createLesson({ title: "Owner's Bouquets" })] })];
       const result = buildLevelSections(levels);
-      expect(result[0].lessons[0].lesson.title).toBe("Hello World");
+      expect(result[0].lessons[0].lesson.title).toBe("Owner's Bouquets");
     });
   });
 });

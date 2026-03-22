@@ -57,7 +57,6 @@ Create the following files in `src/exercises/<slug>/`:
   "slug": "<slug>",
   "title": "<Title>",
   "instructions": "TODO: Add exercise instructions here.",
-  "estimatedMinutes": 10,
   "levelId": "everything",
   "hints": []
 }

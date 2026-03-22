@@ -1,6 +1,6 @@
 ---
 title: "Lookup Time"
-description: ""
+description: "Look up the current time for a city."
 ---
 
 Create a function called getTime which takes a city as its input, uses the fetch function to get the time in that city, then returns it as part of a string.

@@ -1,6 +1,6 @@
 ---
 title: "Finish the Wall"
-description: ""
+description: "Lay a row of bricks using a loop and a position variable."
 ---
 
 In the first drawing exercise you completed, you used the `rectangle` function to fill in some gaps in a wall. In this exercise, we build on that by using a loop to add the top layer to a wall.

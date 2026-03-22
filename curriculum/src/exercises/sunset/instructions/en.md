@@ -1,6 +1,6 @@
 ---
 title: "Sunset"
-description: ""
+description: "Animate a beautiful sunset scene."
 ---
 
 Your task is to animate a sunset scene that lasts 100 iterations. It should look like this (the flickering is exactly what you see with flipbooks too!):

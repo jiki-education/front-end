@@ -1,6 +1,6 @@
 ---
 title: "CityScape: Skyline"
-description: ""
+description: "Build a whole city skyline of random buildings."
 ---
 
 Create a city skyline with multiple buildings of random heights!

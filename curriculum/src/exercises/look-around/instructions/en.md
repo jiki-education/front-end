@@ -1,6 +1,6 @@
 ---
 title: "Look Around"
-description: ""
+description: "Build the functions that check what's around you in the maze."
 ---
 
 Last time you added a new function to help navigate the maze: `turnAround()`.

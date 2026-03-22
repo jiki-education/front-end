@@ -5,7 +5,6 @@
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorProvider";
 import CodeEditor from "@/components/coding-exercise/ui/CodeEditor";
-import RunButton from "@/components/coding-exercise/ui/RunButton";
 import ScenariosPanel from "@/components/coding-exercise/ui/test-results-view/ScenariosPanel";
 import { IOExercise } from "@jiki/curriculum";
 import type { IOExerciseDefinition, IOScenario, Task } from "@jiki/curriculum";
@@ -62,7 +61,6 @@ export default function IOTestRunnerPage() {
       title: "IO Test Runner E2E Exercise",
       description: "",
       instructions: "This is a test exercise for IO tests",
-      estimatedMinutes: 5,
       levelId: "fundamentals",
       functions: [],
       stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
@@ -107,7 +105,6 @@ function IOTestRunnerContent() {
         <div className="w-1/2 border-r border-gray-200 flex flex-col bg-white">
           <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
-            <RunButton />
           </div>
           <div className="flex-1 overflow-hidden">
             <CodeEditor />

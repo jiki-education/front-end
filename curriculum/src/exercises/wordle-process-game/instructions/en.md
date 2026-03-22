@@ -1,6 +1,6 @@
 ---
 title: "Wordle: Process Game"
-description: ""
+description: "Process a whole Wordle game, colouring each guess row by row."
 ---
 
 Now that you can process a single guess, it's time to process a whole game!

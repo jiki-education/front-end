@@ -27,10 +27,7 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
         lesson: {
           slug: lesson.slug,
           type: lesson.type,
-          title: lesson.slug
-            .split("-")
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(" "),
+          title: lesson.title,
           description: lesson.description,
           walkthrough_video_data: lesson.walkthrough_video_data
         },

@@ -1,6 +1,5 @@
 {
   "slug": "hamming",
-  "estimatedMinutes": 10,
   "levelId": "string-iteration",
   "hints": [
     {

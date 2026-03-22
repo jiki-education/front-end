@@ -5,6 +5,7 @@ export type { Lesson, LessonType };
 
 export interface LessonWithProgress {
   slug: string;
+  title: string;
   type: LessonType;
   description: string;
   status: "not_started" | "started" | "completed";

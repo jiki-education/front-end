@@ -1,6 +1,6 @@
 ---
 title: "Relational Snowman"
-description: ""
+description: "Rebuild your snowman so all sizes scale from one variable."
 ---
 
 Your task is to rewrite the snowman so all the sizes and positions are derived from a single `size` variable using arithmetic.

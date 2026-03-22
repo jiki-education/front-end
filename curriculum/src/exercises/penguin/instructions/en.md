@@ -1,6 +1,6 @@
 ---
 title: "Penguin"
-description: ""
+description: "Complete a symmetrical penguin drawing."
 ---
 
 In this exercise we draw ellipses for the first time, and also think a bit more about the symmetry we mentioned in Foxy Face.

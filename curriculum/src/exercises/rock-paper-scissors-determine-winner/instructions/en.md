@@ -1,6 +1,6 @@
 ---
 title: "Rock, Paper, Scissors: Determine Winner"
-description: ""
+description: "Determine the winner of a Rock Paper Scissors game."
 ---
 
 To start our game of Rock, Paper, Scissors, we're going to write some code to determine the winner.

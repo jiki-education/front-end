@@ -52,7 +52,7 @@ components/exercises/your-exercise-slug/
 
 ### 2. Define Metadata (metadata.json)
 
-Create `metadata.json` with exercise metadata (slug, title, instructions, estimatedMinutes, levelId, hints). See `@jiki/curriculum/src/exercises/acronym/metadata.json` for a complete example.
+Create `metadata.json` with exercise metadata (slug, levelId, hints). See `@jiki/curriculum/src/exercises/acronym/metadata.json` for a complete example.
 
 ### 3. Implement Exercise Class (Exercise.ts)
 

@@ -1,6 +1,6 @@
 ---
 title: "Relational Traffic Lights"
-description: ""
+description: "Rebuild your traffic light so everything scales together."
 ---
 
 You're back with the traffic lights! This time, everything should be relative to the `radius` variable so the whole traffic light scales when you change it.

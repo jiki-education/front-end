@@ -1,6 +1,6 @@
 ---
 title: "Nucleotide Count"
-description: ""
+description: "Count all the different nucleotides in a DNA strand."
 ---
 
 DNA is a long chain of other chemicals and the most important are the four nucleotides, adenine, cytosine, guanine and thymine. A single DNA chain can contain billions of these four nucleotides and the order in which they occur is important! We call the order of these nucleotides in a bit of DNA a "DNA sequence".

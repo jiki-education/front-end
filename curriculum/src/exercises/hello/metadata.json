@@ -1,6 +1,5 @@
 {
   "slug": "hello",
-  "estimatedMinutes": 5,
   "levelId": "string-manipulation",
   "hints": [
     {

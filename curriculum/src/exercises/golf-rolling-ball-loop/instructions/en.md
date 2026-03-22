@@ -1,6 +1,6 @@
 ---
 title: "Golf: Rolling Ball"
-description: ""
+description: "Roll a golf ball into the hole using a loop."
 ---
 
 Let's put the `repeat` loop into action!

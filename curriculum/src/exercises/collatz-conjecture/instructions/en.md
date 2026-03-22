@@ -1,6 +1,6 @@
 ---
 title: "Collatz Conjecture"
-description: ""
+description: "Explore a famous maths puzzle with your own function."
 ---
 
 One evening, you stumbled upon an old notebook filled with cryptic scribbles, as though someone had been obsessively chasing an idea. On one page, a single question stood out: **Can every number find its way to 1?** It was tied to something called the **Collatz Conjecture**, a puzzle that has baffled thinkers for decades.

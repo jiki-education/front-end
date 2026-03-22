@@ -1,6 +1,6 @@
 ---
 title: "Lower Pangram"
-description: ""
+description: "Check if a sentence uses every letter of the alphabet."
 ---
 
 A pangram is a sentence using every letter of the alphabet at least once.

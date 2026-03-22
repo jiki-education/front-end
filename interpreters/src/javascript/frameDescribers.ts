@@ -56,7 +56,7 @@ export function describeFrame(frame: JavaScriptFrame, context?: DescriptionConte
   </div>
   ${description.result}
   <hr/>
-  <h3>Steps JavaScript Took</h3>
+  <h3>Steps Jiki Took</h3>
   <ul>
     ${description.steps.join("\n")}
   </ul>
@@ -77,11 +77,8 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
       return describeForInStatement(frame, context);
     case "RepeatStatement":
       return describeRepeatStatement(frame, context);
-    case "CallExpression": {
-      const steps = describeCallExpression(frame.context as any, frame.result as any, context);
-      const result = `<p>JavaScript called a function.</p>`;
-      return { result, steps: steps.map(s => `<li>${s}</li>`) };
-    }
+    case "CallExpression":
+      return describeCallExpression(frame, context);
     case "ReturnStatement":
       return describeReturnStatement(frame, context);
     case "BreakStatement":

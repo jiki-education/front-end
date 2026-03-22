@@ -144,7 +144,6 @@ a phrase into its acronym...
   "slug": "acronym",
   "title": "Acronym",
   "instructions": "Convert a phrase to its acronym. An acronym is formed by taking the first letter of each word and converting it to uppercase. For example, 'Portable Network Graphics' becomes 'PNG'.",
-  "estimatedMinutes": 10,
   "levelId": "everything",
   "hints": [
     "You can iterate through each character in the phrase",
@@ -157,15 +156,14 @@ a phrase into its acronym...
 
 **Field Mapping:**
 
-| Bootcamp                   | Jiki               | Notes                               |
-| -------------------------- | ------------------ | ----------------------------------- |
-| `title`                    | `title`            | Direct copy                         |
-| `description`              | Discarded          | Use introduction.md content instead |
-| introduction.md            | `instructions`     | Full explanation of the exercise    |
-| Hints from introduction.md | `hints[]`          | Extract into array                  |
-| `level`                    | `levelId`          | Map numeric level to level slug     |
-| N/A                        | `estimatedMinutes` | Estimate based on complexity        |
-| N/A                        | `slug`             | Create from exercise name           |
+| Bootcamp                   | Jiki           | Notes                               |
+| -------------------------- | -------------- | ----------------------------------- |
+| `title`                    | `title`        | Direct copy                         |
+| `description`              | Discarded      | Use introduction.md content instead |
+| introduction.md            | `instructions` | Full explanation of the exercise    |
+| Hints from introduction.md | `hints[]`      | Extract into array                  |
+| `level`                    | `levelId`      | Map numeric level to level slug     |
+| N/A                        | `slug`         | Create from exercise name           |
 
 **Level Mapping:**
 
@@ -1010,15 +1008,14 @@ Use this checklist for each migration:
 
 ### config.json → metadata.json
 
-| Bootcamp Field        | Jiki Field         | Transformation                |
-| --------------------- | ------------------ | ----------------------------- |
-| `title`               | `title`            | Direct copy                   |
-| `description`         | —                  | Discard (use introduction.md) |
-| introduction.md       | `instructions`     | Full content as string        |
-| `level`               | `levelId`          | Map number to level slug      |
-| —                     | `slug`             | Create from exercise name     |
-| —                     | `estimatedMinutes` | Estimate duration             |
-| introduction.md hints | `hints[]`          | Extract into array            |
+| Bootcamp Field        | Jiki Field     | Transformation                |
+| --------------------- | -------------- | ----------------------------- |
+| `title`               | `title`        | Direct copy                   |
+| `description`         | —              | Discard (use introduction.md) |
+| introduction.md       | `instructions` | Full content as string        |
+| `level`               | `levelId`      | Map number to level slug      |
+| —                     | `slug`         | Create from exercise name     |
+| introduction.md hints | `hints[]`      | Extract into array            |
 
 ### Test → IOScenario
 

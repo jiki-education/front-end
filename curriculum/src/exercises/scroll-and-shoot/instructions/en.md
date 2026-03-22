@@ -1,6 +1,6 @@
 ---
 title: "Scroll and Shoot"
-description: ""
+description: "Scroll through Space Invaders and take out the aliens."
 ---
 
 Welcome to the first Space Invaders exercise. This is a classic 1970s game, and one of the first I ever played!

@@ -1,6 +1,6 @@
 ---
 title: "Traffic Lights"
-description: ""
+description: "Draw a traffic light using variables for position and size."
 ---
 
 Your task is to complete the traffic light by drawing the three colored lights using the variables provided.

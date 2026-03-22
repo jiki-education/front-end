@@ -1,6 +1,6 @@
 ---
 title: "Fix the Wall"
-description: ""
+description: "Patch up the gaps in a broken wall with rectangles."
 ---
 
 Welcome to your first drawing exercise. In this exercise you'll be drawing rectangles using the `rectangle` function.

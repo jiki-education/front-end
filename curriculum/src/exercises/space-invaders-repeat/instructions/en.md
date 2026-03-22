@@ -1,6 +1,6 @@
 ---
 title: "Space Invaders: Repeat"
-description: ""
+description: "Use loops to efficiently destroy a wave of aliens."
 ---
 
 The aliens are back, and there are more of them this time!

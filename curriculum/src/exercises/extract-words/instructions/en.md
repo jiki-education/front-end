@@ -1,6 +1,6 @@
 ---
 title: "Extract Words"
-description: ""
+description: "Pull individual words out of a sentence."
 ---
 
 You're building a simple text processor. Given a sentence, you need to extract all the individual words from it and return them as a list.

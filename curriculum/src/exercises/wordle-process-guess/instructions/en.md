@@ -1,6 +1,6 @@
 ---
 title: "Wordle: Process Guess"
-description: ""
+description: "Check a Wordle guess and work out which letters are correct."
 ---
 
 Welcome to Wordle! The game works like this: there is a correct secret word, and you have 6 guesses to get it right. For each guess, if a letter is correct it goes green, if a letter is present in the word but in the wrong place it goes yellow, and if a letter is missing it goes grey.

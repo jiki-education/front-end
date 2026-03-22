@@ -1,6 +1,6 @@
 ---
 title: "Spotify Data"
-description: ""
+description: "Parse your listening data from Spotify."
 ---
 
 In this exercise, you'll parse data from a mock Spotify API.

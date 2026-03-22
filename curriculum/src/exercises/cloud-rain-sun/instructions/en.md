@@ -1,6 +1,6 @@
 ---
 title: "Cloud, Rain & Sun"
-description: ""
+description: "Create a full weather scene with clouds, rain and sunshine."
 ---
 
 Your task is to draw a weather icon for a rainy day with the sun peeking out behind the clouds. When finished, it should look like this:

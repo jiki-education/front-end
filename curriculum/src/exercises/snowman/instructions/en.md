@@ -1,6 +1,6 @@
 ---
 title: "Snowman"
-description: ""
+description: "Set the right variable values to build a snowman."
 ---
 
 We're back with the snowman you drew earlier from three circles. But this time you're using variables instead.

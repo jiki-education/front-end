@@ -1,6 +1,6 @@
 ---
 title: "LLM Response"
-description: ""
+description: "Parse and format the response from an AI chatbot."
 ---
 
 Create a function called askLlm that takes one input - the question to ask.

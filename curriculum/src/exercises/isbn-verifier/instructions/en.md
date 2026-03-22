@@ -1,6 +1,6 @@
 ---
 title: "ISBN Verifier"
-description: ""
+description: "Check whether a book's ISBN number is valid."
 ---
 
 ISBNs are 10 digit numbers given to uniquely identify books. Each one is unique and follows a specific format. They also have a verification process to check they're real ISBNs.

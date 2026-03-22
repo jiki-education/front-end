@@ -1,6 +1,6 @@
 ---
 title: "Leap Years"
-description: ""
+description: "Work out whether a year is a leap year."
 ---
 
 In this exercise, we're exploring Leap Years!

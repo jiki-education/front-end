@@ -2,6 +2,6 @@ import type { Description, DescriptionContext, FrameWithResult } from "../../sha
 
 export function describeBreakStatement(_fr: FrameWithResult, _dc: DescriptionContext): Description {
   const result = `<p>This line immediately exited the loop.</p>`;
-  const steps = [`<li>JavaScript saw this and decided to move on to after this loop.</li>`];
+  const steps = [`<li>Jiki saw this and decided to move on to after this loop.</li>`];
   return { result, steps };
 }

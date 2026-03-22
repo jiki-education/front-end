@@ -1,6 +1,6 @@
 ---
 title: "Relational Sun"
-description: ""
+description: "Position a sun where everything's calculated from variables."
 ---
 
 In this exercise, your task is to position a sun in the top-right corner of the sky using arithmetic and variables. The key constraint is that the edge of the sun should always be a fixed **gap** away from the edge.

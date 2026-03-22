@@ -1,6 +1,5 @@
 {
   "slug": "fix-wall",
-  "estimatedMinutes": 10,
   "levelId": "using-functions",
   "hints": [
     { "question": "Hint", "answer": "The holes are at positions that are divisible by 10" },

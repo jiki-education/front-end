@@ -4,13 +4,13 @@ description: Audit exercise and project icons — find missing, misnamed, and or
 
 # Audit Icons
 
-Compare all exercise and project slugs from `README.md` with the icon SVG files stored in `../app/icons/exercises/` and `../app/icons/projects/`.
+Compare all exercise and project slugs from `README.md` with the icon SVG files stored in `../app/icons/lessons/` and `../app/icons/projects/`.
 
 ## How Icon Loading Works
 
 The app loads icons dynamically by slug:
 
-- **Exercises**: `ExerciseIcon` component loads `app/icons/exercises/${slug}.svg` (falls back to `fallback.svg`)
+- **Exercises**: `ExerciseIcon` component loads `app/icons/lessons/${slug}.svg` (falls back to `fallback.svg`)
 - **Projects**: `ProjectIcon` component loads `app/icons/projects/${slug}.svg` (falls back to `fallback.svg`)
 
 This means the icon filename **must exactly match** the exercise/project slug from the curriculum.
@@ -32,7 +32,7 @@ Separate exercises from projects. Ignore video entries.
 
 List all `.svg` files in:
 
-- `../app/icons/exercises/` (excluding `fallback.svg`)
+- `../app/icons/lessons/` (excluding `fallback.svg`)
 - `../app/icons/projects/` (excluding `fallback.svg`)
 
 ### Step 3: List curriculum exercise directories

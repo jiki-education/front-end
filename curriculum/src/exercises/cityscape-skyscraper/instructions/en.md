@@ -1,6 +1,6 @@
 ---
 title: "CityScape: Skyscraper"
-description: ""
+description: "Build a skyscraper on the city grid."
 ---
 
 Build a skyscraper on the city grid!

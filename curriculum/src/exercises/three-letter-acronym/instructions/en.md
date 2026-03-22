@@ -1,6 +1,6 @@
 ---
 title: "Three Letter Acronym"
-description: ""
+description: "Build an acronym from the first letter of three words."
 ---
 
 An acronym is a word formed from the first letters of other words. For example, 'Portable Network Graphics' becomes 'PNG'.

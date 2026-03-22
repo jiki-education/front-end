@@ -1,6 +1,6 @@
 ---
 title: "Driving Test"
-description: ""
+description: "Mark a driving theory test and decide if they passed."
 ---
 
 When you take your driving test in the UK, you get graded on a variety of different areas like observations, technical skills, parking, etc.

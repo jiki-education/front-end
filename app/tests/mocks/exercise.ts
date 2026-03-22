@@ -11,7 +11,6 @@ export function createMockExercise(overrides?: Partial<ExerciseDefinition>): Exe
     slug: "test-exercise",
     title: "Test Exercise",
     instructions: "This is a test exercise",
-    estimatedMinutes: 5,
     levelId: "level-1",
     stubs: {
       javascript: "// Test code",

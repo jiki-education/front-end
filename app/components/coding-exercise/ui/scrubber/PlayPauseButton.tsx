@@ -1,6 +1,8 @@
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import styles from "../../CodingExercise.module.css";
+import PlayIcon from "@/icons/play.svg";
+import PauseIcon from "@/icons/pause.svg";
 
 interface PlayPauseButtonProps {
   disabled: boolean;
@@ -31,7 +33,7 @@ export default function PlayPauseButton({ disabled }: PlayPauseButtonProps) {
       className={styles.playBtn}
       onClick={handleClick}
     >
-      {isPlaying ? "⏸️" : "️▶"}
+      {isPlaying ? <PauseIcon /> : <PlayIcon />}
     </button>
   );
 }

@@ -24,7 +24,7 @@ export default function RunButton() {
   };
 
   return (
-    <div className={styles.floatingPill}>
+    <div className={styles.runButtonBlock}>
       <button
         data-testid="reset-button"
         onClick={handleReset}
@@ -33,7 +33,6 @@ export default function RunButton() {
       >
         <UndoArrowIcon width={16} height={16} />
       </button>
-      <div className={styles.pillDivider} />
       <button
         data-testid="run-button"
         onClick={handleRunCode}

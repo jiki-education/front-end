@@ -63,13 +63,14 @@ export class AnimationTimeline {
 
   public populateTimeline(animations: CurriculumAnimation[], frames: Frame[] = []): this {
     animations.forEach((animation) => {
-      const { targets, offset, transformations, duration, easing } = animation;
+      const { targets, offset, transformations, duration, easing, modifier } = animation;
 
       // Combine duration/easing with transformations to create AnimationParams
       const params: AnimationParams = {
         ...transformations,
         ...(duration !== undefined && { duration }),
-        ...(easing !== undefined && { easing })
+        ...(easing !== undefined && { easing }),
+        ...(modifier !== undefined && { modifier })
       };
 
       this.animationTimeline.add(targets as TargetsParam, params, offset as TimelinePosition);

@@ -1,6 +1,6 @@
 ---
 title: "Bouncer: Wristbands"
-description: ""
+description: "Give clubbers the right coloured wristband based on their age."
 ---
 
 You're still working as a bouncer, but now the venue has a wristband system. Different age groups get different colored wristbands.

@@ -6,6 +6,7 @@ import styles from "../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import type { TestResult } from "../../lib/test-results-types";
+import RunButton from "../RunButton";
 
 export function TestResultsButtons() {
   const orchestrator = useOrchestrator();
@@ -35,19 +36,22 @@ export function TestResultsButtons() {
 
   return (
     <div className={styles.DotsSection}>
-      <div className={styles.Dots} data-testid="test-selector-buttons">
-        {scenarios.map((scenario, idx) => {
-          const test = testSuiteResult?.tests[idx];
-          const status = test?.status ?? "idle";
+      <div className="flex items-center justify-between w-[100%]">
+        <div className={styles.Dots} data-testid="test-selector-buttons">
+          {scenarios.map((scenario, idx) => {
+            const test = testSuiteResult?.tests[idx];
+            const status = test?.status ?? "idle";
 
-          return (
-            <button
-              key={scenario.slug + idx}
-              onClick={() => handleSelection(idx, test)}
-              className={assembleClassNames(styles.Dot, styles[status], currentTestIdx === idx ? styles.active : "")}
-            />
-          );
-        })}
+            return (
+              <button
+                key={scenario.slug + idx}
+                onClick={() => handleSelection(idx, test)}
+                className={assembleClassNames(styles.Dot, styles[status], currentTestIdx === idx ? styles.active : "")}
+              />
+            );
+          })}
+        </div>
+        <RunButton />
       </div>
       <div className={assembleClassNames(styles.StatusLine, styles[statusLineStatus])} />
     </div>

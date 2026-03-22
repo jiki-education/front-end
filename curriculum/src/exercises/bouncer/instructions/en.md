@@ -1,6 +1,6 @@
 ---
 title: "Bouncer"
-description: ""
+description: "Decide who's old enough to get into the club."
 ---
 
 You're a bouncer at a venue. Your job is to check someone's age and decide whether to open the door.

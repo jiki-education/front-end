@@ -1,6 +1,6 @@
 ---
 title: "Gold Panning"
-description: ""
+description: "Pan for gold nuggets in a river and sell what you find."
 ---
 
 Before California was the home of tech, it was the home of gold! Over 300,000 people came and started searching the rivers for little nuggets of gold to sell.

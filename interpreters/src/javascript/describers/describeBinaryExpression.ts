@@ -16,7 +16,7 @@ export function describeBinaryExpression(
   const op = expression.operator.lexeme;
   const rightRes = formatJSObject(result.right.immutableJikiObject);
 
-  const finalStep = `<li>JavaScript evaluated ${codeTag(
+  const finalStep = `<li>Jiki evaluated ${codeTag(
     `${leftRes} ${op} ${rightRes}`,
     expression.location
   )} and determined it was ${codeTag(result.immutableJikiObject, expression.location)}.</li>`;

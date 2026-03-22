@@ -1,6 +1,6 @@
 ---
 title: "Rainbow Splodges"
-description: ""
+description: "Splatter hundreds of colourful splodges across the canvas."
 ---
 
 Your task in this exercise is to create a canvas full of colorful rainbow splodges!
