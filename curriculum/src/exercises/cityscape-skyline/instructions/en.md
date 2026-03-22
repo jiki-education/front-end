@@ -1,23 +1,25 @@
 ---
-title: "CityScape: Skyline"
+title: "Skyline"
 description: "Build a whole city skyline of random buildings."
 ---
 
-Create a city skyline with multiple buildings of random heights!
+In the Skyscraper exercise you created a single skyscraper of different heights. This time we're taking it further, creating a skyline of buildings of different heights and different widths.
 
-You have four functions:
+You have a function `numBuildings()`, which tells you how many buildings you need to create for that scenario. You then have functions `randomWidth()` and `randomNumFloors()`. You should use these to determine the widths and number of floors of each building in that scenario. The first time you use the functions give you the values for the first building, etc.
 
-- `buildWall(x, y)` places a wall block at grid position (x, y)
-- `buildGlass(x, y)` places a glass panel at grid position (x, y)
-- `buildEntrance(x, y)` places an entrance door at grid position (x, y)
-- `numBuildings()` returns how many buildings to construct
+The buildings start with a `1` column gap to the left, and they have a `1` column gap between them.
 
-Each building is **5 columns wide**. The buildings are placed side by side starting at x=1.
+So if you had a scenario with `numBuildings()` returning `2`, and `randomWidth()` returning `5` then `7`, and `randomNumFloors()` returning `4` then `8`, you'd get this layout (where `xxxxx` is the concrete floor)
 
-For each building:
-
-1. Choose a random number of upper floors (0 to 6)
-2. Build the **ground floor** at y=1: wall, glass, entrance, glass, wall
-3. Build the **upper floors**: wall, glass, glass, glass, wall
-4. Build the **roof**: wall, wall, wall, wall, wall
-5. Move x along by 5 for the next building
+```
+       WWWWWWW
+       WGGGGGW
+       WGGGGGW
+       WGGGGGW
+ WWWWW WGGGGGW
+ WGGGW WGGGGGW
+ WGGGW WGGGGGW
+ WGGGW WGGGGGW
+ WGEGW WGGEGGW
+xxxxxxxxxxxxxxxxxxxxxxx
+```

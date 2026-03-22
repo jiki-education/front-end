@@ -26,6 +26,16 @@ export default class CityScapeSkylineExercise extends CityScapeExercise {
       name: "num_buildings",
       func: this.getNumBuildings.bind(this),
       description: "retrieved the number of buildings"
+    },
+    {
+      name: "random_width",
+      func: this.getRandomWidth.bind(this),
+      description: "retrieved a random building width (3-7)"
+    },
+    {
+      name: "random_num_floors",
+      func: this.getRandomNumFloors.bind(this),
+      description: "retrieved a random number of floors (1-12)"
     }
   ];
 }

@@ -32,6 +32,20 @@ const functions: FunctionInfo[] = [
     description: "Returns the **number of buildings** to construct.",
     examples: ["let buildings = numBuildings()"],
     category: "Info"
+  },
+  {
+    name: "randomWidth",
+    signature: "randomWidth()",
+    description: "Returns a **random building width**: 3, 5, or 7.",
+    examples: ["let width = randomWidth()"],
+    category: "Info"
+  },
+  {
+    name: "randomNumFloors",
+    signature: "randomNumFloors()",
+    description: "Returns a **random number of floors** between 1 and 12.",
+    examples: ["let floors = randomNumFloors()"],
+    category: "Info"
   }
 ];
 
@@ -41,7 +55,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["return-values", "variables", "repeat", "nested-loops", "random"]
 };
 
 export default exerciseDefinition;

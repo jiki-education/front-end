@@ -8,8 +8,8 @@ export default class CityScapeExercise extends VisualExercise {
     return "cityscape";
   }
 
-  private readonly COLS = 30;
-  private readonly ROWS = 10;
+  private readonly COLS = 37;
+  private readonly ROWS = 20;
 
   private grid: Map<string, CellType> = new Map();
   private cellCount = 0;
@@ -74,6 +74,7 @@ export default class CityScapeExercise extends VisualExercise {
     this.gridContainer.appendChild(cell);
 
     this.animateIntoView(executionCtx, `#${this.view.id} #cell-${xVal}-${yVal}`);
+    executionCtx.fastForward(30);
   }
 
   buildWall(executionCtx: ExecutionContext, x: Shared.JikiObject, y: Shared.JikiObject) {
@@ -94,6 +95,15 @@ export default class CityScapeExercise extends VisualExercise {
 
   getNumBuildings(_executionCtx: ExecutionContext): number {
     return this.numBuildings;
+  }
+
+  getRandomWidth(executionCtx: ExecutionContext): number {
+    // Returns 3, 5, or 7 (odd widths only, so entrance is always centered)
+    return Math.floor(executionCtx.random() * 3) * 2 + 3;
+  }
+
+  getRandomNumFloors(executionCtx: ExecutionContext): number {
+    return Math.floor(executionCtx.random() * 12) + 1;
   }
 
   setupNumFloors(n: number) {
@@ -128,5 +138,12 @@ export default class CityScapeExercise extends VisualExercise {
     this.gridContainer = document.createElement("div");
     this.gridContainer.className = "cityscape-grid";
     this.view.appendChild(this.gridContainer);
+
+    // Add concrete floor along the bottom
+    const floor = document.createElement("div");
+    floor.className = "cell-floor";
+    floor.style.gridColumn = `1 / ${this.COLS + 1}`;
+    floor.style.gridRow = String(this.ROWS);
+    this.gridContainer.appendChild(floor);
   }
 }
