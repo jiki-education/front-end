@@ -3,16 +3,12 @@
   "levelId": "conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by storing the age in a variable, e.g. let age = getAge()"
+      "question": "How do I know their age?",
+      "answer": "Use the `askAge()` function. It will return a different value in each scenario."
     },
     {
-      "question": "Hint",
-      "answer": "Use an if statement to check if age > 20"
-    },
-    {
-      "question": "Hint",
-      "answer": "If the condition is true, call openDoor() inside the if block"
+      "question": "How do I vary what I do?",
+      "answer": "Use an `if` statement - check the concept if you need more help!"
     }
   ]
 }

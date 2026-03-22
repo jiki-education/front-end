@@ -1,17 +1,7 @@
 import type { Task, VisualScenario } from "../types";
 import type BouncerDressCodeExercise from "./Exercise";
 
-const IMAGE_BASE = "https://assets.exercism.org/bootcamp/graphics/bouncer-dress-code";
-
-function setupScenario(exercise: BouncerDressCodeExercise, outfit: string) {
-  exercise.setupOutfit(outfit);
-  exercise.setupImages(
-    `${IMAGE_BASE}-base.png`,
-    `${IMAGE_BASE}-champagne-entry.png`,
-    `${IMAGE_BASE}-entry.png`,
-    `${IMAGE_BASE}-turned-away.png`
-  );
-}
+const IMAGE_BASE = "/static/images/exercise-assets/bouncer-dress-code";
 
 export const tasks = [
   {
@@ -20,7 +10,7 @@ export const tasks = [
     description:
       'Check the person\'s outfit and apply the dress code: fancy outfits ("ballgown" or "tuxedo") get champagne and entry, smart outfits ("suit" or "dress") get entry, anything else gets turned away.',
     hints: [],
-    requiredScenarios: ["ballgown", "tuxedo", "suit", "dress", "jeans", "tracksuit"],
+    requiredScenarios: ["ballgown", "tuxedo", "suit", "dress", "denim", "tracksuit"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
@@ -28,12 +18,15 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "ballgown",
-    name: "Wearing a ballgown (fancy)",
+    name: "Wearing a ballgown",
     description: "A guest in a ballgown — offer champagne and let them in!",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "ballgown");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("ballgown");
+      ex.setupBackground(`${IMAGE_BASE}/ballgown.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/ballgown-result.jpg`);
     },
 
     expectations(exercise) {
@@ -56,12 +49,15 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "tuxedo",
-    name: "Wearing a tuxedo (fancy)",
+    name: "Wearing a tuxedo",
     description: "A guest in a tuxedo — offer champagne and let them in!",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "tuxedo");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("tuxedo");
+      ex.setupBackground(`${IMAGE_BASE}/tuxedo.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/tuxedo-result.jpg`);
     },
 
     expectations(exercise) {
@@ -84,12 +80,15 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "suit",
-    name: "Wearing a suit (smart)",
+    name: "Wearing a suit",
     description: "A guest in a suit — let them in, but no champagne.",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "suit");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("suit");
+      ex.setupBackground(`${IMAGE_BASE}/suit.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/suit-result.jpg`);
     },
 
     expectations(exercise) {
@@ -112,12 +111,15 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "dress",
-    name: "Wearing a dress (smart)",
+    name: "Wearing a dress",
     description: "A guest in a dress — let them in, but no champagne.",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "dress");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("dress");
+      ex.setupBackground(`${IMAGE_BASE}/dress.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/dress-result.jpg`);
     },
 
     expectations(exercise) {
@@ -139,13 +141,16 @@ export const scenarios: VisualScenario[] = [
     }
   },
   {
-    slug: "jeans",
-    name: "Wearing jeans (casual)",
-    description: "A guest in jeans — turn them away!",
+    slug: "denim",
+    name: "Wearing denim",
+    description: "A guest in denim — turn them away!",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "jeans");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("denim");
+      ex.setupBackground(`${IMAGE_BASE}/denim.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/denim-result.jpg`);
     },
 
     expectations(exercise) {
@@ -153,27 +158,30 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "They're wearing jeans — no champagne for them."
+          errorHtml: "They're wearing denim — no champagne for them."
         },
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "They're wearing jeans — they should NOT be let in."
+          errorHtml: "They're wearing denim — they should NOT be let in."
         },
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml: "They're wearing jeans — they should be turned away, but they weren't."
+          errorHtml: "They're wearing denim — they should be turned away, but they weren't."
         }
       ];
     }
   },
   {
     slug: "tracksuit",
-    name: "Wearing a tracksuit (casual)",
+    name: "Wearing a tracksuit",
     description: "A guest in a tracksuit — turn them away!",
     taskId: "check-dress-code",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerDressCodeExercise, "tracksuit");
+      const ex = exercise as BouncerDressCodeExercise;
+      ex.setupOutfit("tracksuit");
+      ex.setupBackground(`${IMAGE_BASE}/tracksuit.jpg`);
+      ex.setupResultImage(`${IMAGE_BASE}/tracksuit-result.jpg`);
     },
 
     expectations(exercise) {

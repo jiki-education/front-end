@@ -12,10 +12,8 @@ export default class BouncerDressCodeExercise extends VisualExercise {
   wasLetIn: boolean = false;
   wasTurnedAway: boolean = false;
 
-  private baseImg!: HTMLImageElement;
-  private champagneEntryImg!: HTMLImageElement;
-  private entryImg!: HTMLImageElement;
-  private turnedAwayImg!: HTMLImageElement;
+  private backgroundImg!: HTMLImageElement;
+  private resultImg!: HTMLImageElement;
 
   constructor() {
     super();
@@ -52,28 +50,29 @@ export default class BouncerDressCodeExercise extends VisualExercise {
 
   offerChampagne(executionCtx: ExecutionContext) {
     this.champagneOffered = true;
-    this.animateIntoView(executionCtx, `#${this.view.id} .champagne-entry`);
+    this.animateIntoView(executionCtx, `#${this.view.id} .result`);
   }
 
   letIn(executionCtx: ExecutionContext) {
     this.wasLetIn = true;
-    this.animateIntoView(executionCtx, `#${this.view.id} .entry`);
+    this.animateIntoView(executionCtx, `#${this.view.id} .result`);
   }
 
   turnAway(executionCtx: ExecutionContext) {
     this.wasTurnedAway = true;
-    this.animateIntoView(executionCtx, `#${this.view.id} .turned-away`);
+    this.animateIntoView(executionCtx, `#${this.view.id} .result`);
   }
 
   setupOutfit(outfit: string) {
     this.outfit = outfit;
   }
 
-  setupImages(baseUrl: string, champagneEntryUrl: string, entryUrl: string, turnedAwayUrl: string) {
-    this.baseImg.src = baseUrl;
-    this.champagneEntryImg.src = champagneEntryUrl;
-    this.entryImg.src = entryUrl;
-    this.turnedAwayImg.src = turnedAwayUrl;
+  setupBackground(imageUrl: string) {
+    this.backgroundImg.src = imageUrl;
+  }
+
+  setupResultImage(imageUrl: string) {
+    this.resultImg.src = imageUrl;
   }
 
   getState() {
@@ -91,23 +90,21 @@ export default class BouncerDressCodeExercise extends VisualExercise {
     this.view.style.height = "100%";
     this.view.style.overflow = "hidden";
 
-    this.baseImg = this.createImage("base");
-    this.champagneEntryImg = this.createImage("champagne-entry");
-    this.entryImg = this.createImage("entry");
-    this.turnedAwayImg = this.createImage("turned-away");
-  }
+    this.backgroundImg = document.createElement("img");
+    this.backgroundImg.className = "background";
+    this.backgroundImg.style.position = "absolute";
+    this.backgroundImg.style.width = "100%";
+    this.backgroundImg.style.height = "100%";
+    this.backgroundImg.style.objectFit = "cover";
+    this.view.appendChild(this.backgroundImg);
 
-  private createImage(className: string): HTMLImageElement {
-    const img = document.createElement("img");
-    img.className = className;
-    img.style.position = "absolute";
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "cover";
-    if (className !== "base") {
-      img.style.opacity = "0";
-    }
-    this.view.appendChild(img);
-    return img;
+    this.resultImg = document.createElement("img");
+    this.resultImg.className = "result";
+    this.resultImg.style.position = "absolute";
+    this.resultImg.style.width = "100%";
+    this.resultImg.style.height = "100%";
+    this.resultImg.style.objectFit = "cover";
+    this.resultImg.style.opacity = "0";
+    this.view.appendChild(this.resultImg);
   }
 }
