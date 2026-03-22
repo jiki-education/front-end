@@ -1,5 +1,5 @@
-set age to get_age()
+set age to ask_age()
 
 if age > 20 do
-  open_door()
+  let_in()
 end

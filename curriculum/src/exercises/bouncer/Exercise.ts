@@ -8,10 +8,10 @@ export default class BouncerExercise extends VisualExercise {
   }
 
   private age: number = 21;
-  doorOpened: boolean = false;
+  hasLetIn: boolean = false;
 
-  private closedDoorImg!: HTMLImageElement;
-  private openDoorImg!: HTMLImageElement;
+  private backgroundImg!: HTMLImageElement;
+  private letInImg!: HTMLImageElement;
 
   constructor() {
     super();
@@ -21,40 +21,42 @@ export default class BouncerExercise extends VisualExercise {
 
   availableFunctions: ExternalFunction[] = [
     {
-      name: "get_age",
-      func: this.getAge.bind(this),
-      description: "retrieved the person's age"
+      name: "ask_age",
+      func: this.askAge.bind(this),
+      description: "asked the person's age"
     },
     {
-      name: "open_door",
-      func: this.openDoor.bind(this),
-      description: "opened the door"
+      name: "let_in",
+      func: this.letIn.bind(this),
+      description: "let the person in"
     }
   ];
 
-  getAge(_executionCtx: ExecutionContext): number {
+  askAge(_executionCtx: ExecutionContext): number {
     return this.age;
   }
 
-  openDoor(executionCtx: ExecutionContext) {
-    this.doorOpened = true;
-    this.animateOutOfView(executionCtx, `#${this.view.id} .closed-door`);
-    this.animateIntoView(executionCtx, `#${this.view.id} .open-door`);
+  letIn(executionCtx: ExecutionContext) {
+    this.hasLetIn = true;
+    this.animateIntoView(executionCtx, `#${this.view.id} .let-in`);
   }
 
   setupAge(age: number) {
     this.age = age;
   }
 
-  setupImages(closedUrl: string, openUrl: string) {
-    this.closedDoorImg.src = closedUrl;
-    this.openDoorImg.src = openUrl;
+  setupBackground(imageUrl: string) {
+    this.backgroundImg.src = imageUrl;
+  }
+
+  setupLetInImage(imageUrl: string) {
+    this.letInImg.src = imageUrl;
   }
 
   getState() {
     return {
       age: this.age,
-      doorOpened: this.doorOpened
+      hasLetIn: this.hasLetIn
     };
   }
 
@@ -64,21 +66,21 @@ export default class BouncerExercise extends VisualExercise {
     this.view.style.height = "100%";
     this.view.style.overflow = "hidden";
 
-    this.closedDoorImg = document.createElement("img");
-    this.closedDoorImg.className = "closed-door";
-    this.closedDoorImg.style.position = "absolute";
-    this.closedDoorImg.style.width = "100%";
-    this.closedDoorImg.style.height = "100%";
-    this.closedDoorImg.style.objectFit = "cover";
-    this.view.appendChild(this.closedDoorImg);
+    this.backgroundImg = document.createElement("img");
+    this.backgroundImg.className = "background";
+    this.backgroundImg.style.position = "absolute";
+    this.backgroundImg.style.width = "100%";
+    this.backgroundImg.style.height = "100%";
+    this.backgroundImg.style.objectFit = "cover";
+    this.view.appendChild(this.backgroundImg);
 
-    this.openDoorImg = document.createElement("img");
-    this.openDoorImg.className = "open-door";
-    this.openDoorImg.style.position = "absolute";
-    this.openDoorImg.style.width = "100%";
-    this.openDoorImg.style.height = "100%";
-    this.openDoorImg.style.objectFit = "cover";
-    this.openDoorImg.style.opacity = "0";
-    this.view.appendChild(this.openDoorImg);
+    this.letInImg = document.createElement("img");
+    this.letInImg.className = "let-in";
+    this.letInImg.style.position = "absolute";
+    this.letInImg.style.width = "100%";
+    this.letInImg.style.height = "100%";
+    this.letInImg.style.objectFit = "cover";
+    this.letInImg.style.opacity = "0";
+    this.view.appendChild(this.letInImg);
   }
 }

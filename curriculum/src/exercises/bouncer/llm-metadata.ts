@@ -9,8 +9,8 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches basic if statements (conditionals). Students use getAge()
-    to retrieve a value, then use an if statement to conditionally call openDoor().
+    This exercise teaches basic if statements (conditionals). Students use askAge()
+    to retrieve a value, then use an if statement to conditionally call letIn().
     The key concept is making a decision based on a condition (age > 20).
 
     The exercise has four scenarios: clearly allowed (25), clearly not allowed (18),
@@ -21,18 +21,18 @@ export const llmMetadata: LLMMetadata = {
     "check-age": {
       description: `
         Students need to:
-        1. Call getAge() and store the result in a variable
+        1. Call askAge() and store the result in a variable
         2. Use an if statement to check if age > 20
-        3. If yes, call openDoor()
+        3. If yes, call letIn()
 
         Key functions:
-        - getAge(): returns the person's age as a number
-        - openDoor(): opens the door (visual animation)
+        - askAge(): returns the person's age as a number
+        - letIn(): lets the person in (visual animation)
 
         Common mistakes:
         - Using >= 20 instead of > 20 (the age-20 scenario catches this)
         - Forgetting to store the age in a variable first
-        - Calling openDoor() outside the if block (always opening)
+        - Calling letIn() outside the if block (always letting people in)
         - Using the wrong comparison operator (< instead of >)
 
         Teaching strategy:

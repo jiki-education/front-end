@@ -7,7 +7,7 @@ const functions: FunctionInfo[] = [
   {
     name: "getOutfit",
     signature: "getOutfit()",
-    description: 'Returns the **outfit** the person is wearing (e.g. `"ballgown"`, `"suit"`, `"jeans"`).',
+    description: 'Returns the **outfit** the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`).',
     examples: ["let outfit = getOutfit()"],
     category: "Information"
   },

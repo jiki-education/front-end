@@ -7,7 +7,7 @@ The venue has a strict dress code tonight! As the bouncer, you need to check wha
 
 You have these functions:
 
-- `getOutfit()` returns the name of the outfit the person is wearing (e.g. `"ballgown"`, `"suit"`, `"jeans"`)
+- `getOutfit()` returns the name of the outfit the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`)
 - `offerChampagne()` offers the person a glass of champagne
 - `letIn()` lets the person into the venue
 - `turnAway()` turns the person away
