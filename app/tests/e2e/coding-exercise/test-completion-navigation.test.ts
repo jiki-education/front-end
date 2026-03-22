@@ -21,51 +21,48 @@ test.describe("Test Completion and Navigation E2E", () => {
   });
 
   test("should NOT restart scenario when navigating away and back after completion", async ({ page }) => {
-    // Wait for animation to complete (first test auto-plays by default)
+    // Smart selection picks the last test when all pass. Wait for animation to complete.
     await page.waitForFunction(() => {
       const orchestrator = (window as any).testOrchestrator;
       return !orchestrator.getStore().getState().isPlaying;
     });
 
-    // Verify animation has stopped (completed)
-    const isPlayingAfterCompletion = await page.evaluate(() => {
+    // Record which test was initially selected and its scrubber position
+    const initialState = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
-      return orchestrator.getStore().getState().isPlaying;
-    });
-    expect(isPlayingAfterCompletion).toBe(false);
-
-    // Get the scrubber value at the end
-    const scrubberValueAtEnd = await page.evaluate(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      return orchestrator.getStore().getState().currentTestTime;
+      const state = orchestrator.getStore().getState();
+      return {
+        slug: state.currentTest?.slug,
+        idx: state.currentTestIdx,
+        time: state.currentTestTime
+      };
     });
 
-    // Verify we're at the last frame (scrubber should be at max)
-    expect(scrubberValueAtEnd).toBeGreaterThan(0);
+    // Verify animation completed with scrubber past the start
+    expect(initialState.time).toBeGreaterThan(0);
 
     // Wait for test selector buttons to load
     await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
-    // Switch to second test
-    await page.locator("[data-testid='test-selector-buttons'] button").nth(1).click();
-
-    // Wait for state to update
-    await page.waitForFunction(() => {
-      const orchestrator = (window as any).testOrchestrator;
-      const currentTest = orchestrator.getStore().getState().currentTest;
-      return currentTest?.slug !== "test-1";
-    });
-
-    // Switch back to first test
+    // Switch to a different test (first button, which is different from the last test)
     await page.locator("[data-testid='test-selector-buttons'] button").first().click();
 
-    // Wait for state to update - just check that we have a currentTest
-    await page.waitForFunction(() => {
+    // Wait for state to update to a different test
+    await page.waitForFunction((slug) => {
       const orchestrator = (window as any).testOrchestrator;
       const currentTest = orchestrator.getStore().getState().currentTest;
-      // Just check that we have a currentTest, don't rely on slug matching
-      return currentTest !== null && currentTest !== undefined;
-    });
+      return currentTest?.slug !== slug;
+    }, initialState.slug);
+
+    // Switch back to the original test
+    await page.locator("[data-testid='test-selector-buttons'] button").nth(initialState.idx).click();
+
+    // Wait for state to update back to the original test
+    await page.waitForFunction((slug) => {
+      const orchestrator = (window as any).testOrchestrator;
+      const currentTest = orchestrator.getStore().getState().currentTest;
+      return currentTest?.slug === slug;
+    }, initialState.slug);
 
     // Verify immediately (don't wait for animation to potentially play)
     const stateAfterReturn = await page.evaluate(() => {
@@ -78,41 +75,40 @@ test.describe("Test Completion and Navigation E2E", () => {
 
     // The key assertion: scrubber value should remain at the end (not reset to beginning)
     // This proves the animation did NOT auto-restart
-    expect(stateAfterReturn.currentTestTime).toBe(scrubberValueAtEnd);
+    expect(stateAfterReturn.currentTestTime).toBe(initialState.time);
   });
 
   test("should auto-play when switching between scenarios during initial playback", async ({ page }) => {
     // Wait for test selector buttons to load
     await page.locator('[data-testid="test-selector-buttons"]').waitFor();
 
-    // First test should auto-play by default
+    // Initially selected test should auto-play
     await page.waitForFunction(() => {
       const orchestrator = (window as any).testOrchestrator;
       return orchestrator.getStore().getState().isPlaying;
     });
 
-    // Verify first test is auto-playing
-    const isPlayingFirst = await page.evaluate(() => {
+    // Record which test is initially playing
+    const initialSlug = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
-      return orchestrator.getStore().getState().isPlaying;
+      return orchestrator.getStore().getState().currentTest?.slug;
     });
-    expect(isPlayingFirst).toBe(true);
 
-    // Quickly switch to second test while first is still playing
-    await page.locator("[data-testid='test-selector-buttons'] button").nth(1).click();
+    // Quickly switch to a different test while current is still playing
+    await page.locator("[data-testid='test-selector-buttons'] button").first().click();
 
-    // Wait for state to update
-    await page.waitForFunction(() => {
+    // Wait for state to update to a different test
+    await page.waitForFunction((slug) => {
       const orchestrator = (window as any).testOrchestrator;
       const currentTest = orchestrator.getStore().getState().currentTest;
-      return currentTest?.slug !== "test-1";
-    });
+      return currentTest?.slug !== slug;
+    }, initialSlug);
 
-    // Second test should also auto-play (this is correct behavior)
-    const isPlayingSecond = await page.evaluate(() => {
+    // Switched test should also auto-play (this is correct behavior)
+    const isPlayingAfterSwitch = await page.evaluate(() => {
       const orchestrator = (window as any).testOrchestrator;
       return orchestrator.getStore().getState().isPlaying;
     });
-    expect(isPlayingSecond).toBe(true);
+    expect(isPlayingAfterSwitch).toBe(true);
   });
 });
