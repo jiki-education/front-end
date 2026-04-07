@@ -40,6 +40,14 @@ export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
     setLockedDisplayIds(ids);
   }, [badges, lockedDisplayIds]);
 
+  // Clear timeouts on unmount to prevent state updates on an unmounted component
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (timeoutRef2.current) clearTimeout(timeoutRef2.current);
+    };
+  }, []);
+
   const handleBadgeClick = async (badge: BadgeData) => {
     if (!isEarnedBadge(badge)) {
       return;
