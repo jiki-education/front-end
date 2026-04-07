@@ -131,6 +131,9 @@ export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgr
         <UserProfile
           profile={userProfile}
           badges={badges}
+          onBadgeRevealed={(badgeId) =>
+            setBadges((prev) => prev.map((b) => (b.id === badgeId ? { ...b, state: "revealed" } : b)))
+          }
           loading={profileLoading || badgesLoading}
           isPremium={isPremium}
         />
