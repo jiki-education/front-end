@@ -168,6 +168,35 @@
     }
 }
 
+/* Reveal animation: scale up + fade out, then fade in + scale back */
+.badge.revealing {
+    animation:
+        badgeRevealOut 0.3s ease-in forwards,
+        badgeRevealIn 0.3s ease-out 0.3s forwards;
+}
+
+@keyframes badgeRevealOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0.15;
+    }
+}
+
+@keyframes badgeRevealIn {
+    0% {
+        transform: scale(1.2);
+        opacity: 0.15;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .badge.empty {
     border-color: var(--color-gray-200);
     border-style: dashed;

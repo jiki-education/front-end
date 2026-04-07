@@ -33,11 +33,12 @@ export type UserProfileData = UserProfileWithStreaks | UserProfileWithActiveDays
 interface UserProfileProps {
   profile: UserProfileData | null;
   badges?: BadgeData[];
+  onBadgeRevealed?: (badgeId: number) => void;
   loading?: boolean;
   isPremium?: boolean;
 }
 
-export function UserProfile({ profile, badges, loading, isPremium = false }: UserProfileProps) {
+export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremium = false }: UserProfileProps) {
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
   const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
 
@@ -84,7 +85,7 @@ export function UserProfile({ profile, badges, loading, isPremium = false }: Use
         </div>
         <Streak profile={profile} />
       </div>
-      <Badges badges={badges} />
+      <Badges badges={badges} onBadgeRevealed={onBadgeRevealed} />
     </div>
   );
 }

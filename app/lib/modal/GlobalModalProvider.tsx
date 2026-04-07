@@ -49,19 +49,8 @@ export function GlobalModalProvider() {
   const isBadgeModal = modalName === "badge-modal" || modalName === "flip-badge-modal";
 
   if (isBadgeModal) {
-    const handleOverlayClick = (e: React.MouseEvent) => {
-      if (e.target !== e.currentTarget) {
-        return;
-      }
-      // Call onClose if it exists in modalProps
-      if (typeof modalProps.onClose === "function") {
-        modalProps.onClose();
-      }
-      hideModal();
-    };
-
     return (
-      <div className={styles.overlay} onClick={handleOverlayClick}>
+      <div className={styles.overlay}>
         <ModalComponent {...(modalProps as any)} />
       </div>
     );
