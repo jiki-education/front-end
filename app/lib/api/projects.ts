@@ -69,15 +69,7 @@ export function startProject(slug: string): void {
   console.log(`Project ${slug} accessed - will be started on first submission`);
 }
 
-/**
- * Mark a project as completed
- * Note: For now, projects are marked complete based on successful submissions
- * This function is a placeholder for explicit completion if needed
- */
-export function markProjectComplete(slug: string): void {
-  // TODO: Backend doesn't have explicit complete endpoint yet
-  // Projects are marked complete based on successful submissions
-  // This could be implemented later if explicit completion is needed
-  // eslint-disable-next-line no-console
-  console.log(`Project ${slug} completed - handled by submission logic`);
+export async function markProjectComplete(slug: string): Promise<{ meta?: { events?: unknown[] } }> {
+  const response = await api.patch<{ meta?: { events?: unknown[] } }>(`/internal/user_projects/${slug}/complete`);
+  return response.data;
 }

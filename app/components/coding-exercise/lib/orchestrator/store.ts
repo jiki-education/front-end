@@ -1,4 +1,5 @@
 import { markLessonComplete } from "@/lib/api/lessons";
+import { markProjectComplete } from "@/lib/api/projects";
 import { showModal } from "@/lib/modal";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
@@ -233,13 +234,16 @@ export function createOrchestratorStore(
               onGoToDashboard,
               onCompleteExercise: async () => {
                 try {
-                  const response = await markLessonComplete(state.context.slug);
+                  const response =
+                    state.context.type === "project"
+                      ? await markProjectComplete(state.context.slug)
+                      : await markLessonComplete(state.context.slug);
                   const events = response?.meta?.events || [];
                   get().setCompletionResponse(events);
                   get().setIsExerciseCompleted(true);
                   return events;
                 } catch (error) {
-                  console.error("Failed to mark lesson as complete:", error);
+                  console.error("Failed to mark exercise as complete:", error);
                   return [];
                 }
               }
