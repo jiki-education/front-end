@@ -1,0 +1,78 @@
+.nav {
+    color: #dde5f0;
+    width: 100%;
+    background: rgb(13, 18, 33);
+    z-index: 9999;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 14px;
+
+    @media (min-width: 768px) {
+        font-size: 18px;
+    }
+
+    .exercism-face {
+        width: 28px;
+        height: 24px;
+    }
+
+    .first-session {
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 100%;
+        margin-left: auto;
+        border-bottom-width: 1px;
+        border-color: #ffffffaa;
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 5px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 18px;
+        padding-right: 18px;
+        height: 32px;
+        font-size: 12px;
+        font-weight: 600;
+        color: rgb(13, 18, 33);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease-out;
+
+        @media (min-width: 640px) {
+            font-size: 15px;
+        }
+    }
+    .loginButton {
+      margin-left:auto;
+    }
+    .enrollButton {
+        margin-left: 16px;
+    }
+
+    &.nav-sticky {
+        height: 0px;
+        padding-top: 0;
+        padding-bottom: 0;
+        background-color: #702af4;
+        position: fixed;
+        top: 0;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        transition:
+            background-color 0.3s ease-out,
+            opacity 0.3s ease-out,
+            color 0.3s ease-out;
+
+        &.on-purple {
+            background-color: white;
+            color: black;
+
+            .button {
+                background-color: #702af4;
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+.page {
+    display: block;
+    background-color: #fff;
+    color: #26282d;
+    font-family:
+        var(--font-poppins),
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    font-size: inherit;
+    line-height: 1.5;
+    overscroll-behavior: none;
+
+    -webkit-font-smoothing: antialiased;
+
+    --purple: rgb(112, 42, 244);
+    --light-purple: #f8f5ff;
+    --blue: rgba(35, 59, 225);
+    --light-blue: #f2f5ff;
+    --pink: rgb(183, 0, 144);
+}

@@ -1,0 +1,116 @@
+.welcome {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    font-size: 18px;
+    line-height: 150%;
+    font-weight: 300;
+
+    @media (min-width: 768px) {
+        font-size: 22px;
+    }
+
+    strong {
+        font-weight: 500;
+    }
+
+    .container {
+        background-color: #fff;
+        padding-top: 60px;
+        padding-bottom: 40px;
+        color: rgb(19, 47, 68);
+    }
+
+    .animated-wave {
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        margin-top: -9px;
+    }
+
+    h2 {
+        font-size: 26px;
+        line-height: 140%;
+        font-weight: 600;
+        margin-bottom: 12px;
+
+        @media (min-width: 768px) {
+            font-size: 32px;
+        }
+    }
+
+    h3 {
+        font-size: 22px;
+        line-height: 140%;
+        font-weight: 600;
+        margin-bottom: 12px;
+
+        @media (min-width: 768px) {
+            font-size: 28px;
+        }
+    }
+
+    hr {
+        border-bottom-width: 1px;
+        border-color: #eee;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    p + p {
+        margin-top: 16px;
+    }
+
+    p + h3 {
+        margin-top: 32px;
+    }
+
+    .photo {
+        flex-shrink: 0;
+        position: relative;
+        height: 250px;
+        width: 250px;
+
+        img {
+            border-radius: 100%;
+            position: relative;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(
+                45deg,
+                #e8f74d,
+                #ff6600d9,
+                #00ff66,
+                #13ff13,
+                #ad27ad,
+                #bd2681,
+                #6512b9,
+                #ff3300de,
+                #5aabde
+            );
+            background-size: 400%;
+            width: calc(100% + 5px);
+            height: calc(100% + 5px);
+            animation: glower 20s linear infinite alternate;
+            border-radius: 100%;
+        }
+    }
+
+    .bootcamp-arrow-1 {
+        height: 168px;
+    }
+}
+
+.rhodri-arrow,
+.jiki-arrow {
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    right: -60px;
+    top: -13px;
+    transform: rotate(140deg);
+}

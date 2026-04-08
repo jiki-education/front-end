@@ -1,0 +1,284 @@
+.hero {
+    /* background-image: url("/static/images/landing-page/hero-bg.png"), */
+    background-image: linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+    background-repeat: repeat-y;
+    background-size: 100%;
+    padding-top: 24px;
+    color: white;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+        padding-top: 40px;
+    }
+
+    .md-container {
+        padding-left: min(4%, 20px);
+        padding-right: min(4%, 20px);
+    }
+
+    h1 {
+        font-size: 45px;
+        line-height: 1.05;
+        margin-bottom: 20px;
+        font-weight: 300;
+
+        @media (min-width: 640px) {
+            font-size: 65px;
+        }
+
+        strong {
+            font-weight: 500;
+        }
+    }
+
+    .tagline {
+        font-size: 18px;
+        margin-bottom: 20px;
+        font-weight: 300;
+        color: #dde5f0;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media (min-width: 768px) {
+            font-size: 22px;
+        }
+
+        strong {
+            font-weight: 500;
+            color: #fff;
+        }
+
+        em {
+            color: #fff;
+            font-style: normal;
+            position: relative;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 3px;
+                left: 0;
+                border-bottom-width: 1px;
+                border-color: #ffffffaa;
+            }
+        }
+    }
+
+    .bubbles {
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+
+        @media (min-width: 768px) {
+            margin-bottom: 72px;
+        }
+
+        .bubble {
+            font-size: 15px;
+            font-weight: 500;
+            border-width: 1px;
+            border-color: #fff;
+            background-color: #fff;
+            color: #333;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 12px;
+            padding-right: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+
+            img {
+                width: 16px;
+                height: 16px;
+                display: inline;
+            }
+
+            .flag {
+                font-size: 18px;
+                line-height: 10px;
+
+                @media (min-width: 768px) {
+                    font-size: 22px;
+                }
+            }
+
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .cta {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .btn {
+            background-color: #0f45d1;
+            color: #fff;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            padding-left: 24px;
+            padding-right: 24px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .guarantee {
+            font-size: 16px;
+            text-align: center;
+        }
+    }
+
+    .line {
+        height: 100px;
+        border-right: 3px dashed rgba(255, 255, 255, 0.05);
+        width: 1px;
+        margin: 30px auto;
+    }
+
+    .video-container {
+        max-width: 760px;
+        object-fit: fill;
+        background-color: #fff;
+        border-radius: 8px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px;
+        box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        aspect-ratio: 760/434.5;
+
+        .video {
+            width: 100%;
+            background-color: black;
+            padding: 56.25% 0 0 0;
+            position: relative;
+        }
+    }
+
+    .supported-by {
+        .google {
+            height: 42px;
+            width: 124px;
+            margin-top: 3px;
+        }
+
+        .chicago {
+            width: 152px;
+            height: 38px;
+        }
+
+        .mozilla {
+            height: 38px;
+            margin-top: -7px;
+            width: 175px;
+        }
+
+        .packt {
+            height: 38px;
+            margin-top: 2px;
+            width: 141px;
+        }
+
+        padding-top: 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .logos {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            column-gap: 40px;
+            row-gap: 20px;
+
+            img {
+                filter: brightness(0.1) invert(1) grayscale(1);
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .paper-tear {
+        height: 102px;
+        transform: rotate(180deg);
+        margin-top: 100px;
+        background: transparent url("/static/images/landing-page/paper-tear.png") bottom repeat-x;
+        background-size: 1280px;
+        margin-bottom: -1px;
+    }
+}
+
+.scrolling-testimonials {
+    display: flex;
+    margin-top: 80px;
+    position: relative;
+
+    .hamster {
+        position: absolute;
+        right: 30px;
+        top: -72px;
+        width: 80px;
+        height: 80px;
+
+        @media (min-width: 768px) {
+            height: 100px;
+            width: 100px;
+            top: -92px;
+        }
+    }
+
+    .inner {
+        background: #111;
+        min-width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+        flex-shrink: 0;
+        height: 50px;
+        overflow: hidden;
+        position: relative;
+        user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+
+        ul {
+            font-size: 19px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 150%;
+            display: flex;
+            white-space: nowrap;
+            will-change: transform;
+
+            li {
+                background: url("/static/images/landing-page/stars.svg") right center / 4em auto no-repeat;
+                padding-right: 5em;
+                margin-right: 20px;
+            }
+        }
+    }
+}
