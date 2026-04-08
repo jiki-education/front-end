@@ -187,3 +187,8 @@ export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
 export const showAvatarEditModal = () => {
   showModal("avatar-edit-modal", {}, undefined, avatarEditStyles.modal);
 };
+
+// Convenience function for welcome modal (shown once on first signup)
+export const showWelcomeModal = () => {
+  showModal("welcome-modal", {});
+};

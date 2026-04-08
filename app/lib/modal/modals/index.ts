@@ -49,6 +49,7 @@ const VideoWalkthroughModal = dynamic(() => import("./VideoWalkthroughModal").th
 const WalkthroughConfirmModal = dynamic(() =>
   import("./WalkthroughConfirmModal").then((m) => m.WalkthroughConfirmModal)
 );
+const WelcomeModal = dynamic(() => import("./WelcomeModal").then((m) => m.WelcomeModal));
 
 // Available modals registry
 export const availableModals = {
@@ -78,5 +79,6 @@ export const availableModals = {
   "premium-upgrade-modal": PremiumUpgradeModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
   "video-walkthrough-modal": VideoWalkthroughModal,
-  "walkthrough-confirm-modal": WalkthroughConfirmModal
+  "walkthrough-confirm-modal": WalkthroughConfirmModal,
+  "welcome-modal": WelcomeModal
 };
