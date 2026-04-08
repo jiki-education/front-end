@@ -144,3 +144,8 @@ export const showVideoWalkthrough = (props: { playbackId: string; lessonSlug: st
 export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
   showModal("walkthrough-confirm-modal", props, undefined, walkthroughConfirmStyles.modal);
 };
+
+// Convenience function for welcome modal (shown once on first signup)
+export const showWelcomeModal = () => {
+  showModal("welcome-modal", {});
+};
