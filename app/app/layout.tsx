@@ -1,6 +1,7 @@
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
+import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
 import { GlobalModalProvider } from "@/lib/modal";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
@@ -47,6 +48,7 @@ export default function RootLayout({
             <GlobalModalProvider />
             <ToasterProvider />
             <CheckoutReturnHandler />
+            <WelcomeModalHandler />
           </ThemeProvider>
         </ServerAuthProvider>
       </body>

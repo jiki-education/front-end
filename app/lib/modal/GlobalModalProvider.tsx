@@ -45,6 +45,11 @@ export function GlobalModalProvider() {
     );
   }
 
+  // Welcome modal renders directly with its own full-screen overlay and layout
+  if (modalName === "welcome-modal") {
+    return <ModalComponent {...(modalProps as any)} />;
+  }
+
   // Badge modals render directly without BaseModal wrapper since they have custom styling
   const isBadgeModal = modalName === "badge-modal" || modalName === "flip-badge-modal";
 

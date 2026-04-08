@@ -12,6 +12,7 @@ export {
   showSubscriptionCheckout,
   showPaymentProcessing,
   showWelcomeToPremium,
+  showWelcomeModal,
   useModalStore
 } from "./store";
 
