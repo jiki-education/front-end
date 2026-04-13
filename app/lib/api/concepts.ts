@@ -109,7 +109,8 @@ export async function getRelatedConcepts(slug: string, locale: string = "en"): P
     );
   }
 
-  // Deduplicate and exclude self
+  // Deduplicate and exclude self and categories
+
   const seen = new Set<string>([slug]);
   return related
     .filter((c) => {
@@ -119,6 +120,7 @@ export async function getRelatedConcepts(slug: string, locale: string = "en"): P
       seen.add(c.slug);
       return true;
     })
+    .filter((c) => !c.category)
     .slice(0, 6);
 }
 
