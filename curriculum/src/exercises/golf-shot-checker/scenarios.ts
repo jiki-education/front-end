@@ -5,10 +5,16 @@ export const tasks = [
   {
     id: "check-shot" as const,
     name: "Check if the shot lands in the hole",
-    description:
-      "Roll the ball based on the shot length, and if it lands over the hole, sink it! Then fire fireworks.",
+    description: "Roll the ball based on the shot length, and if it lands over the hole, sink it! Then fire fireworks.",
     hints: [],
-    requiredScenarios: ["too-short", "just-too-short", "too-long", "just-inside-left", "just-inside-right", "just-too-far"],
+    requiredScenarios: [
+      "too-short",
+      "just-too-short",
+      "too-long",
+      "just-inside-left",
+      "just-inside-right",
+      "just-too-far"
+    ],
     bonus: false
   }
 ] as const satisfies readonly Task[];
