@@ -7,7 +7,7 @@ repeat shot_length + 1 times do
   roll_to(x, y)
 end
 
-if shot_length >= 56 and shot_length <= 65 do
+if shot_length >= 56 and shot_length <= 63 do
   repeat 9 times do
     change y to y + 1
     roll_to(x, y)

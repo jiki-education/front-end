@@ -5,9 +5,9 @@
 
 .ui-textual-content {
     background: white;
-    max-width: 950px;
-    margin: 0 auto;
-    padding: var(--spacing-60) var(--spacing-80) 0 var(--spacing-80);
+    /* max-width: 950px; */
+    /* margin: 0 auto; */
+    /* padding: var(--spacing-60) var(--spacing-80) 0 var(--spacing-80); */
     color: var(--color-gray-700);
     line-height: var(--leading-180);
 
@@ -35,7 +35,6 @@
 
         &:last-child {
             margin-bottom: 0;
-            padding-bottom: var(--spacing-72);
         }
     }
 

@@ -1,7 +1,7 @@
 .grid {
     display: grid;
     grid-template-columns: 1fr 400px;
-    gap: 32px;
+    gap: 96px;
     align-items: start;
 }
 

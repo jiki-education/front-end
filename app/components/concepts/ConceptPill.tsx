@@ -38,7 +38,7 @@ export function RelatedConceptsPills({ concepts, isUnlocked }: RelatedConceptsPi
   return (
     <div className={styles.pillsCard}>
       <h3 className={styles.pillsHeader}>Related Concepts</h3>
-      <p className={styles.pillsDescription}>Check out these other related concepts</p>
+      <p className={styles.pillsDescription}>Check out these other related concepts:</p>
       <div className={styles.pillsList}>
         {concepts.map((concept) => (
           <ConceptPill

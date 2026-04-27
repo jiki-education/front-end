@@ -7,13 +7,13 @@ seo:
   keywords: ["projects", "challenges", "exercises", "learning", "progression"]
 ---
 
-You've probably just spotted a **project** and are wondering what it is. Good news — projects are one of the most fun parts of Jiki!
-
-## What are projects?
+You've probably just spotted a **project** and are wondering what it is.
 
 Projects are **bigger, meatier challenges** that go beyond what you'd typically see in a regular exercise. Where most exercises focus on a specific concept or technique, projects ask you to bring together multiple things you've learned and apply them to build something more substantial.
 
-Think of exercises as practising individual skills, and projects as putting those skills together in a more realistic way. They're designed to **stretch you** a bit — to give you a proper challenge that feels satisfying to work through.
+Think of exercises as practising individual skills, and projects as putting those skills together in a more realistic way. They're designed to **stretch you** a bit and give you a proper challenge that feels satisfying to work through.
+
+Projects are exclusively for [Premium members](/premium)
 
 ## How do they unlock?
 
@@ -23,7 +23,7 @@ You can use **any concepts you've learned** up to that point to solve a project.
 
 ## They don't block your progress
 
-This is quite an important thing to understand: projects **don't block your progression** through the course. They sit alongside the main path rather than on it. If you're not in the mood for a project, or you're finding one tricky, you can just carry on with the regular exercises and come back to it whenever you like.
+Projects aren't part of the primary bflow, so they **don't block your progression** through the course. They sit alongside the main path rather than on it. If you're not in the mood for a project, or you're finding one tricky, you can just carry on with the regular exercises and come back to it whenever you like.
 
 You're never going to get stuck because of a project. They're there as **enrichment**, not as gates.
 
