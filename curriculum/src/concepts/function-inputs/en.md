@@ -13,7 +13,7 @@ To do this in code, we still write the name of the function, in this case `walk`
 
 ## Multiple Inputs
 
-When we want to input multiple things into machines, we seperate them with commas in between. The name of the function, a bracket, each of the different inputs seperated separated by commas, and then we close our brackets.
+When we want to input multiple things into machines, we separate them with commas in between. The name of the function, a bracket, each of the different inputs separated by commas, and then we close our brackets.
 
 For example, to draw a rectangle, we write:
 

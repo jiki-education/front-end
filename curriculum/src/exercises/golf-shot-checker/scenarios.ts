@@ -38,7 +38,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 51,
-          errorHtml: `The ball should be at x=53 (28 + 24), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=51 (28 + 23), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 75,
@@ -69,11 +69,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 85,
-          errorHtml: `The ball should be at x=95 (28 + 66), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=85 (28 + 57), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball should stay at y=75 (not in the hole), but it's at y=${ex.ballY}.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -85,7 +85,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "just-inside-left",
     name: "Just in the hole",
-    description: "The golfer hits the ball 56 — it just reaches the hole!",
+    description: "The golfer hits the ball 58 — it just reaches the hole!",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -100,7 +100,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 86,
-          errorHtml: `The ball should be at x=86 (28 + 57), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=86 (28 + 58), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 84,
@@ -131,7 +131,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=95 (28 + 66), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=90 (28 + 62), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 84,
@@ -162,11 +162,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 91,
-          errorHtml: `The ball should be at x=95 (28 + 66), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=91 (28 + 63), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball should stay at y=75 (overshot the hole), but it's at y=${ex.ballY}.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -193,7 +193,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 96,
-          errorHtml: `The ball should be at x=100 (28 + 71), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball should be at x=96 (28 + 68), but it's at x=${ex.ballX}.`
         },
         {
           pass: ex.ballY === 75,

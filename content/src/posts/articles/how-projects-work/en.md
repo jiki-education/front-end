@@ -23,7 +23,7 @@ You can use **any concepts you've learned** up to that point to solve a project.
 
 ## They don't block your progress
 
-Projects aren't part of the primary bflow, so they **don't block your progression** through the course. They sit alongside the main path rather than on it. If you're not in the mood for a project, or you're finding one tricky, you can just carry on with the regular exercises and come back to it whenever you like.
+Projects aren't part of the primary flow, so they **don't block your progression** through the course. They sit alongside the main path rather than on it. If you're not in the mood for a project, or you're finding one tricky, you can just carry on with the regular exercises and come back to it whenever you like.
 
 You're never going to get stuck because of a project. They're there as **enrichment**, not as gates.
 
