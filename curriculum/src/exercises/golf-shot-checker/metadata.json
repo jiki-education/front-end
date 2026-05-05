@@ -3,16 +3,16 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by storing the shot length in a variable, e.g. let shotLength = getShotLength()"
+      "question": "I'm not sure where to start",
+      "answer": "Firstly, repeat what you did previously. Roll the ball from its starting position to however far the `getShotLength()` function returns. Just remember to roll one step at a time. Once you've done that, think about how to animate it down."
     },
     {
-      "question": "Hint",
-      "answer": "Use a loop to roll the ball right, updating x each time"
+      "question": "The ball is going down when it's not over the hole.",
+      "answer": "The golfer hits the ball to the correct spot in only a couple of scenarios"
     },
     {
-      "question": "Hint",
-      "answer": "Check if shotLength >= 56 and shotLength <= 65 to see if it's over the hole"
+      "question": "When should the fireworks fire?",
+      "answer": "The fireworks should only fire if the ball lands over the hole, and once it's rolled down to the bottom of the hole."
     },
     {
       "question": "Hint",
