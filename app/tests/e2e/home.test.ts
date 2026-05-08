@@ -15,9 +15,10 @@ test.describe("Home Page E2E", () => {
     await expect(heading).toBeVisible();
   });
 
-  test("should display welcome text", async ({ page }) => {
+  test("should display the marketing headline", async ({ page }) => {
     const headingText = await page.locator("h1").textContent();
-    expect(headingText).toContain("Welcome to Jiki");
+    expect(headingText).toContain("Master");
+    expect(headingText).toContain("Jiki");
   });
 
   test("should have login and signup links", async ({ page }) => {

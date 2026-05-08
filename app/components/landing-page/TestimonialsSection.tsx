@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element, jsx-a11y/alt-text */
+
 import styles from "./TestimonialsSection.module.css";
 import shared from "./shared.module.css";
 
@@ -8,6 +10,8 @@ export function TestimonialsSection() {
         <h2>What do our students think?</h2>
         <p className={styles.subheading}>
           These are some extracts from what our beta users said.{" "}
+          {/* External link to the Exercism Rails app — not a Next.js route. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a className="underline font-semibold" href="/courses/testimonials">
             Read the full versions here!
           </a>

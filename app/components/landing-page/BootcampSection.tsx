@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element, jsx-a11y/alt-text */
+
 import Image from "next/image";
 import styles from "./BootcampSection.module.css";
 import shared from "./shared.module.css";
@@ -74,7 +76,13 @@ export function BootcampSection() {
                     <Image src="/static/images/landing-page/calendar.svg" alt="" width={20} height={20} />
                     Takes 12-20 weeks
                   </div>
-                  <Image className="w-[350px] -mr-32 -mt-[60px]" src="/static/images/landing-page/part-1.png" alt="Part 1" width={350} height={350} />
+                  <Image
+                    className="w-[350px] -mr-32 -mt-[60px]"
+                    src="/static/images/landing-page/part-1.png"
+                    alt="Part 1"
+                    width={350}
+                    height={350}
+                  />
                 </div>
               </div>
             </div>
@@ -99,35 +107,64 @@ export function BootcampSection() {
           </p>
           <div className={styles.levels}>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/penguin.png" alt="Penguin drawing exercise" width={400} height={300} />
+              <Image
+                src="/static/images/landing-page/penguin.png"
+                alt="Penguin drawing exercise"
+                width={400}
+                height={300}
+              />
               <h4>
                 In <strong>level 2</strong> you get familiar with <strong>coding basics</strong> through some drawing
                 puzzles.
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/golf.gif" alt="Golf animation exercise" width={400} height={300} unoptimized />
+              <Image
+                src="/static/images/landing-page/golf.gif"
+                alt="Golf animation exercise"
+                width={400}
+                height={300}
+                unoptimized
+              />
               <h4>
                 In <strong>level 3</strong> you&apos;ll learn how to <strong>make things move</strong> for the first
                 time.
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/flower.gif" alt="Flower flipbook animation" width={400} height={300} unoptimized />
+              <Image
+                src="/static/images/landing-page/flower.gif"
+                alt="Flower flipbook animation"
+                width={400}
+                height={300}
+                unoptimized
+              />
               <h4>
                 Your first <strong>major project</strong> is to <strong>animate flipbook-style</strong> using variables
                 and loops.
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/space-invaders.gif" alt="Space invaders game" width={400} height={300} unoptimized />
+              <Image
+                src="/static/images/landing-page/space-invaders.gif"
+                alt="Space invaders game"
+                width={400}
+                height={300}
+                unoptimized
+              />
               <h4>
                 By <strong>level 7</strong> you&apos;ll start <strong>building some intelligence</strong> into your
                 code.
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/wall.gif" alt="Wall building exercise" width={400} height={300} unoptimized />
+              <Image
+                src="/static/images/landing-page/wall.gif"
+                alt="Wall building exercise"
+                width={400}
+                height={300}
+                unoptimized
+              />
               <h4>
                 In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code eliminate duplication.
               </h4>
@@ -139,7 +176,13 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/tic-tac-toe.gif" alt="Tic-tac-toe game" width={400} height={300} unoptimized />
+              <Image
+                src="/static/images/landing-page/tic-tac-toe.gif"
+                alt="Tic-tac-toe game"
+                width={400}
+                height={300}
+                unoptimized
+              />
               <h4>
                 <strong>Level 14</strong> focusses on <strong>coding mindset</strong> and solving a hard project.
               </h4>

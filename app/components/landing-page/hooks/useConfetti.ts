@@ -47,7 +47,7 @@ function launchConfetti(myConfetti: confetti.CreateTypes) {
   const colors = ["#FE3C00", "#AFC8F3", "#4C2E55", "#E9DE3F", "#BEEEAB"];
 
   function createConfetti(originX: number) {
-    myConfetti({
+    void myConfetti({
       particleCount: 7,
       angle: originX === 0 ? 60 : 120,
       spread: 50,

@@ -41,7 +41,13 @@ export function WelcomeSection() {
               </strong>
             </p>
             <div className="flex flex-col items-center mt-8 mb-12 mr-80 scale-x-[-1]">
-              <Image className={styles["bootcamp-arrow-1"]} src="/static/images/landing-page/arrow-1.svg" alt="" width={80} height={168} />
+              <Image
+                className={styles["bootcamp-arrow-1"]}
+                src="/static/images/landing-page/arrow-1.svg"
+                alt=""
+                width={80}
+                height={168}
+              />
             </div>
           </div>
         </div>
