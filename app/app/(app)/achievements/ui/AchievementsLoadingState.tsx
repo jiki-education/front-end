@@ -1,5 +1,5 @@
 import { PageHeader } from "@/components/ui-kit/PageHeader";
-import MedalIcon from "@static/icons/medal.svg";
+import MedalIcon from "@/icons/medal.svg";
 
 export function AchievementsLoadingState() {
   return (

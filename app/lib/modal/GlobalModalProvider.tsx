@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { BaseModal } from "./BaseModal";
 import { availableModals } from "./modals";
 import { hideModal, useModalStore } from "./store";
@@ -17,6 +18,15 @@ import styles from "./GlobalModalProvider.module.css";
 
 export function GlobalModalProvider() {
   const { isOpen, modalName, modalProps, overlayClassName, modalClassName } = useModalStore();
+
+  // react-modal can leave its body scroll-lock class on <body> if the Modal is
+  // unmounted before its close lifecycle completes. Strip it whenever no modal
+  // is open so the page remains scrollable.
+  useEffect(() => {
+    if (!isOpen) {
+      document.body.classList.remove("ReactModal__Body--open");
+    }
+  }, [isOpen]);
 
   if (!isOpen || !modalName) {
     return null;

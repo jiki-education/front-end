@@ -4,7 +4,7 @@ import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
 import { useEffect, useState } from "react";
-import MedalIcon from "@static/icons/medal.svg";
+import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";

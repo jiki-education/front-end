@@ -1,6 +1,6 @@
-import CodingIcon from "@static/icons/coding.svg";
-import QuizIcon from "@static/icons/quiz.svg";
-import VideoIcon from "@static/icons/video.svg";
+import CodingIcon from "@/icons/coding.svg";
+import QuizIcon from "@/icons/quiz.svg";
+import VideoIcon from "@/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
 import { useEffect, useRef } from "react";
