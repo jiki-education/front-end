@@ -122,7 +122,7 @@
     align-items: center;
     gap: 6px;
     font-size: 15px;
-    color: var(--color-gray-600);
+    color: var(--color-gray-500);
     margin-bottom: 5px;
 }
 
@@ -243,14 +243,18 @@
     align-items: flex-start;
     gap: 12px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--color-gray-700);
-    margin-bottom: 14px;
+    margin-bottom: 8px;
     text-align: left;
 }
 
 .premiumFeatures li:last-child {
     margin-bottom: 0;
+}
+
+.premiumFeatures li strong {
+    font-weight: 500;
 }
 
 .premiumFeatures li svg {

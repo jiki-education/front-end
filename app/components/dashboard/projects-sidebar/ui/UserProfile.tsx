@@ -62,11 +62,10 @@ export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremi
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={profile.avatarUrl ? resolveApiAssetUrl(profile.avatarUrl) : undefined}
+            src={profile.avatarUrl ? resolveApiAssetUrl(profile.avatarUrl) : "/static/icons/user-fallback.svg"}
             alt="User Avatar"
             onError={(e) => {
-              e.currentTarget.src =
-                "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+              e.currentTarget.src = "/static/icons/user-fallback.svg";
             }}
           />
           <div className={style.avatarOverlay}>

@@ -1,6 +1,6 @@
 import styles from "./PremiumUpgradeModal.module.css";
 
-const basicFeatures = ["40 Exercises", "Concept Library", "30 mins of AI support"];
+const basicFeatures = ["Over 80 Coding Exercises", "Full Concept Library", "30 mins of AI support"];
 
 export function BasicPlanSection() {
   return (
@@ -8,7 +8,7 @@ export function BasicPlanSection() {
       <h1 className={styles.mainHeading}>
         <span className={styles.highlight}>Accelerate</span> your learning!
       </h1>
-      <p className={styles.mainSubheading}>Upgrade to Premium and get personalised support when you need it most</p>
+      <p className={styles.mainSubheading}>Upgrade to Premium to accelerate your road to job-ready.</p>
 
       <div className={styles.planSection}>
         <h2 className={styles.planName}>Basic Plan</h2>
@@ -22,7 +22,7 @@ export function BasicPlanSection() {
           ))}
         </ul>
         <p className={styles.planNote}>
-          + access to basic tutorials and community forums for additional learning resources.
+          + Access to public YouTube videos and community forums for additional learning resources.
         </p>
       </div>
     </div>

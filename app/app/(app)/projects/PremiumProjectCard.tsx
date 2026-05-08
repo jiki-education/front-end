@@ -34,6 +34,7 @@ export function PremiumProjectCard({ project }: PremiumProjectCardProps) {
             <ProjectIcon slug={project.slug} />
           </div>
           <div className={styles.projectTitle}>{project.title}</div>
+          <div className={styles.projectKind}>Coding Project</div>
         </div>
         <div className={styles.content}>
           <div className={styles.projectTitle}>{project.title}</div>
