@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./WelcomeSection.module.css";
 import shared from "./shared.module.css";
+import { MonthlyPrice } from "./MonthlyPrice";
 import { useRoughAnnotations } from "./hooks/useRoughAnnotations";
 import { useWavingHand } from "./hooks/useWavingHand";
 import { useArrowAnimation } from "./hooks/useArrowAnimations";
@@ -11,7 +13,6 @@ export function WelcomeSection() {
   const annotationsRef = useRoughAnnotations();
   const wavingHandRef = useWavingHand();
   const rhodriRef = useArrowAnimation<HTMLSpanElement>("rhodri");
-  const jikiRef = useArrowAnimation<HTMLSpanElement>("jiki");
 
   return (
     <section className={styles.welcome} ref={annotationsRef}>
@@ -19,25 +20,36 @@ export function WelcomeSection() {
         <div className="flex flex-col items-center gap-40">
           <div className="flex flex-col items-stretch">
             <h2 className="mb-12">
-              Don&apos;t know where to start? Stuck in{" "}
-              <span className="font-semibold intro-aspiring-coder rough-highlight">tutorial hell?</span>
+              <span className="font-semibold intro-aspiring-coder rough-highlight">Coding has changed.</span> The way
+              you learn needs to change too.
             </h2>
             <p>
-              <strong>You&apos;re not alone!</strong> If you&apos;ve tried learning from other websites or videos and
-              found it&apos;s not sticking, or you just feel utterly overwhelmed knowing where to start, then
-              you&apos;re not alone!
+              In 2026, anyone can open Cursor and create a complex fully-functional platform in minutes. Maybe
+              you&apos;ve done it yourself! Something that would have taken you <strong>years to learn</strong> to make
+              in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to
+              have a <strong>career in tech</strong>?
             </p>
             <p>
-              The majority of courses out there <strong>suck.</strong> They promise you the world then massively
-              underdeliver. They&apos;re <strong className="rough-highlight">boring, confusing,</strong> and they leave
-              you feeling like <strong>you&apos;re not cut out for this.</strong>
+              Here&apos;s a secret no-one tells you.{" "}
+              <span className="rough-highlight">
+                <strong>Software engineering has never been about writing code.</strong>
+              </span>{" "}
+              The coding is how you communicate with the computer, but the real skill has always been in{" "}
+              <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in{" "}
+              <strong>building and architecting</strong>. It&apos;s always been about taking ideas and{" "}
+              <strong>turning them into reality</strong>.
             </p>
             <p>
-              We made this course to fix that. If you&apos;re looking for something{" "}
-              <strong className="font-regular intro-fun-and-creative rough-highlight">fun and creative</strong> where
-              you learn by actually making things, with support when you need it, then this might just be{" "}
+              Thanks to LLMs{" "}
+              <span className="rough-highlight">
+                <strong>you don&apos;t have to spend years learning</strong>
+              </span>{" "}
+              in order to be useful. But you still have a lot to learn! You still need to learn{" "}
+              <strong>coding fundamentals</strong>. You need to learn <strong>how everything works</strong>. You need to
+              learn <strong>how to build</strong>. But the journey is <strong>much more fun</strong> than it&apos;s ever
+              been before. And I&apos;m here{" "}
               <strong className="font-medium">
-                <span className="intro-you">the course for you!</span>
+                <span className="intro-you">to be your guide on that journey!</span>
               </strong>
             </p>
             <div className="flex flex-col items-center mt-8 mb-12 mr-80 scale-x-[-1]">
@@ -60,32 +72,37 @@ export function WelcomeSection() {
           I&apos;m Jeremy, and I&apos;ve helped over <div className="inline rough-highlight">two million people</div>{" "}
           level up their coding skills.
         </h3>
-        <p>But over the last few years, I&apos;ve seen a really worrying trend...</p>
         <p>
-          More and more people are trying to learn to code (🥳) but they seem to be{" "}
-          <strong>struggling more than ever (😢).</strong> And they&apos;re struggling with things that should be pretty
-          straightforward once you&apos;ve been learning for a while.{" "}
-          <strong>People just don&apos;t seem to be grasping the fundamentals.</strong>
+          For 20 years, I&apos;ve been telling people that want to get into tech to get really good at writing code, and
+          then start to work out how to make real apps. But now, thanks to LLMs -{" "}
+          <strong>that advice is upside down</strong>.
         </p>
-        <p>So I started reading around to see if I could work out what was going on, and found a crazy statistic.</p>
+        <p>
+          If you&apos;re starting out today then most of your work is going to be{" "}
+          <strong>reading code, not writing it.</strong>
+          And that means something that&apos;s a little sad for me to admit...
+        </p>
         <h3>
-          <span className="inline rough-highlight">96% of people who try to learn to code give up</span> 🤯
+          <strong>Getting good</strong> at writing code is{" "}
+          <span className="inline rough-highlight">utterly irrelevant</span> 😢
         </h3>
-        <p>How could it be that so many people were trying to learn to code, but so few were actually succeeding?</p>
-        <p>I went investigating… 🕵️</p>
         <p>
-          I watched the <strong>most popular YouTube videos (🥱),</strong> tried the &quot;best&quot;{" "}
-          <strong>online courses (😐),</strong> and even paid my friends to try to learn so I could see what happened (a
-          mix of 😭😠🤬🙅‍♀️).
+          You are never going to be better than an LLM at writing code. I have been coding for 34 years and LLMs are at
+          my level. <strong>You won&apos;t catch up.</strong>
         </p>
         <p>
-          I dug into formal research, spoke to my friends in education, and pretty quickly came to a simple
-          conclusion...
+          BUT, and this is the big but, <strong>you don&apos;t need to!</strong> I almost never write code now. I let
+          the LLMs do it for me, and you can to. Instead we get to{" "}
+          <strong className="inline rough-highlight">do more of the actual interesting, stuff</strong>. And that&apos;s
+          what I&apos;m going to teach you in this course!
+        </p>
+        <p>
+          I think it&apos;s <strong>incredibly exciting for you</strong> to be starting out today. You don&apos;t need
+          to spend 10 years mastering a skill to be useful.{" "}
+          <strong>You can start doing real things straight away!</strong>
         </p>
         <h3>
-          <span className="inline rough-highlight">
-            The way people are being taught to code is causing them to fail!
-          </span>
+          <span className="inline rough-highlight">You learn by making stuff!</span>
         </h3>
         <p>
           I started coding when I was 8. Back then, YouTube didn&apos;t exist. There weren&apos;t any &quot;learn to
@@ -128,40 +145,32 @@ export function WelcomeSection() {
           And through this, I got really good. <strong>I learned the coder mindset,</strong> and I laid the foundations
           that I&apos;ve built my whole career on.
         </p>
-        <p>
-          <strong className="rough-highlight">But that&apos;s not how these modern courses teach.</strong> Giving you a
-          space to practice and play and experiment is hard. It&apos;s much easier to just give you a video to watch, a
-          quiz to take, and a certificate to print out.
-        </p>
-        <p>
-          But you won&apos;t learn that way. You&apos;ll be <strong>bored, frustrated,</strong> and like most other
-          people, you&apos;ll <strong>probably quit 😞😡</strong>
-        </p>
         <h3>
-          <span className="rough-highlight">If you want to get good, master the basics</span>
+          <span className="rough-highlight">The two parts</span> to learning programming today...
         </h3>
         <p>
-          The best coders <strong>are not</strong> the ones who know the most.
+          We&apos;ve made a different type of course. One that teaches you the fundamentals of programming differently,
+          and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two
+          parts:
         </p>
         <p>
-          The best coders are the ones who have{" "}
-          <strong className="rough-highlight">gained a total mastery of the basics.</strong> Once you&apos;ve got the
-          basics down, everything will become easy. You can go and learn whatever you want or need.
-        </p>
-        <p>And the way to master the basics? Practice, practice, practice.</p>
-        <p>Take on different challenges. Solve different problems. And have fun learning your craft!</p>
-        <h3>
-          <span className="rough-highlight">Which is why we made this...</span>
-        </h3>
-        <p>
-          We&apos;ve made a different type of course. One that teaches you the fundamentals of coding differently.
-          It&apos;s focused on getting you <strong>building fun things,</strong> on solving interesting problems, on
-          learning the coding mindset that will actually get you good at this.
+          <ol>
+            <li>
+              <strong>Learn coding fundamentals</strong>. We&apos;ll teach you the fundamentals of coding so you can
+              understand what an LLM is building - as essential as ever.
+            </li>
+            <li>
+              <strong>Learn how to build</strong>. Work alongside me as I make real projects with LLMs and show you
+              everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have
+              fun making stuff!
+            </li>
+          </ol>
         </p>
         <p>
-          Within 12 weeks, you&apos;ll go from zero to building games like{" "}
-          <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout.</strong> You&apos;ll be building bots that
-          can solve mazes, and talking to real APIs like <strong>ChatGPT</strong> to build useful real-world projects.
+          Within a few months, you&apos;ll go from zero to being able to build games like{" "}
+          <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout.</strong> from scratch. You&apos;ll be
+          building bots that can solve mazes, and talking to real APIs like <strong>ChatGPT</strong> to build useful
+          real-world projects.
         </p>
         <div className="grid grid-cols-4 gap-10 my-16">
           <Image
@@ -197,8 +206,27 @@ export function WelcomeSection() {
             unoptimized
           />
         </div>
-        <p>☝️☝️☝️ You&apos;ll make all these in the first 12 weeks!</p>
-        <h3>
+        <h3 className="mt-32">Sound fun?</h3>
+        <p>
+          If all <strong className="rough-highlight">this sounds exciting</strong>, then I&apos;d love for you to join
+          us! 💙
+        </p>
+        <p>
+          The core &quot;learn to code&quot; curriculum is <strong>entirely free</strong>. And the rest, where you get
+          to follow me as I teach you how to build thing, costs only{" "}
+          <strong>
+            <MonthlyPrice />
+            /month
+          </strong>{" "}
+          (as cheap as we can make it and still pay the bills!)
+        </p>
+        <p>
+          Want more details? Or to here from others that I&apos;ve taught? Read on below for even more details or{" "}
+          <Link href="/auth/signup" className="underline font-semibold">
+            just sign up!
+          </Link>
+        </p>
+        {/* <h3>
           <span className="rough-highlight">Focusing on what matters.</span>
         </h3>
         <p>
@@ -282,7 +310,7 @@ export function WelcomeSection() {
         </p>
         <p>
           If that sounds exciting, then <strong>I&apos;d love for you to join us! 💙</strong>
-        </p>
+        </p> */}
       </div>
     </section>
   );

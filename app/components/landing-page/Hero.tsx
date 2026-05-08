@@ -18,7 +18,6 @@ export function Hero() {
 
   useEffect(() => {
     const can = headlineRef.current?.querySelector<HTMLElement>("[data-anim='underline-can']");
-    const skills = taglineRef.current?.querySelector<HTMLElement>("[data-anim='underline-skills']");
     const llm = taglineRef.current?.querySelector<HTMLElement>("[data-anim='highlight-llm']");
 
     const annotations: { hide: () => void }[] = [];
@@ -27,25 +26,13 @@ export function Hero() {
       const a = annotate(can, {
         type: "underline",
         color: "#fff",
-        strokeWidth: 4,
+        strokeWidth: 7,
         animationDuration: 700,
         iterations: 1,
-        padding: 2,
-        multiline: true
-      });
-      a.show();
-      annotations.push(a);
-    }
-
-    if (skills) {
-      const a = annotate(skills, {
-        type: "underline",
-        color: "#dde5f0",
-        strokeWidth: 2,
-        animationDuration: 700,
-        iterations: 1,
-        padding: 2,
-        multiline: true
+        padding: -6,
+        multiline: true,
+        // @ts-expect-error rough-notation supports roughness even though its types omit it
+        roughness: 0.5
       });
       a.show();
       annotations.push(a);
@@ -56,12 +43,14 @@ export function Hero() {
       highlightTimer = setTimeout(() => {
         const a = annotate(llm, {
           type: "highlight",
-          color: "#FFF176",
-          strokeWidth: 6,
+          color: "rgb(166 20 184)",
+          strokeWidth: 50,
           animationDuration: 600,
-          iterations: 1,
-          padding: 4,
-          multiline: true
+          iterations: 2,
+          padding: [16, 6],
+          multiline: true,
+          // @ts-expect-error rough-notation supports roughness even though its types omit it
+          roughness: 0.5
         });
         a.show();
         annotations.push(a);
@@ -86,14 +75,10 @@ export function Hero() {
             still get into tech in 2026.
           </h1>
           <div ref={taglineRef} className={`${styles.tagline} max-w-[750px]`} data-tagline>
-            The{" "}
-            <span data-anim="underline-skills" className="inline-block">
-              skills you need
-            </span>{" "}
-            to be relevant in the{" "}
-            <strong data-anim="highlight-llm" className="font-semibold inline-block">
-              LLM-era.
-            </strong>
+            The skills you need to{" "}
+            <span data-anim="highlight-llm" className="inline">
+              be relevant in the <strong className="font-semibold">LLM-era.</strong>
+            </span>
           </div>
         </div>
         <div className={styles.bubbles}>

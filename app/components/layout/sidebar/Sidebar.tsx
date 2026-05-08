@@ -26,10 +26,10 @@ const navigationItems: Array<{
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
-  { id: "learn", label: "Learn to Code", href: "/dashboard", icon: BrainLightningIcon },
-  { id: "build", label: "Learn to Build", href: "#", icon: LearningComputerIcon },
+  { id: "learn", label: "Coding Fundamentals", href: "/dashboard", icon: BrainLightningIcon },
+  { id: "build", label: "Build with Jeremy", href: "#", icon: LearningComputerIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
-  { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
+  { id: "concepts", label: "Concept Library", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
 ];

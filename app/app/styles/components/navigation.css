@@ -4,7 +4,7 @@
  */
 
 .ui-lhs-menu {
-    width: 260px;
+    width: 275px;
     background: white;
     height: 100vh;
     position: sticky;
@@ -70,7 +70,7 @@
         }
     }
 
-    /* Premium Pill (shown on hover) */
+    /* Premium Pill (always visible) */
     .premium-pill {
         font-size: 11px;
         font-weight: 600;
@@ -79,17 +79,8 @@
         padding: 3px 10px;
         border-radius: 20px;
         white-space: nowrap;
-        opacity: 0;
-        transform: translateX(-8px);
-        transition:
-            opacity 0.25s ease,
-            transform 0.25s ease;
-        pointer-events: none;
-    }
-
-    .nav-item:hover .premium-pill {
         opacity: 1;
-        transform: translateX(0);
+        pointer-events: none;
     }
 
     .nav-icon {
