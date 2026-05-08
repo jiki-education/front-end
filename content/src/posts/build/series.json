@@ -3,6 +3,12 @@
     {
       "slug": "building-basics",
       "order": 1,
+      "audience": {
+        "en": "Absolute Beginners"
+      },
+      "cadence": {
+        "en": "New episodes each week"
+      },
       "title": {
         "en": "Building Basics"
       },
@@ -13,6 +19,12 @@
     {
       "slug": "how-things-work",
       "order": 2,
+      "audience": {
+        "en": "Beginners and Juniors"
+      },
+      "cadence": {
+        "en": "New episodes each week"
+      },
       "title": {
         "en": "How Things Work"
       },
@@ -23,6 +35,12 @@
     {
       "slug": "your-questions-answered",
       "order": 3,
+      "audience": {
+        "en": "Everyone"
+      },
+      "cadence": {
+        "en": "Regular livestreams"
+      },
       "title": {
         "en": "Your Questions Answered"
       },

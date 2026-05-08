@@ -24,7 +24,7 @@ export function BuildIndex() {
 function SeriesCard({
   series
 }: {
-  series: { slug: string; title: string; description: string; episodeCount: number };
+  series: { slug: string; title: string; description: string; audience: string; cadence: string };
 }) {
   return (
     <Link
@@ -33,9 +33,21 @@ function SeriesCard({
     >
       <h2 className="text-xl font-semibold mb-8">{series.title}</h2>
       <p className="text-gray-600 mb-16">{series.description}</p>
-      <div className="text-sm text-gray-500">
-        {series.episodeCount} {series.episodeCount === 1 ? "episode" : "episodes"}
+      <div className="flex flex-wrap gap-8">
+        {series.audience && <Pill>{series.audience}</Pill>}
+        {series.cadence && <Pill>{series.cadence}</Pill>}
       </div>
     </Link>
+  );
+}
+
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-block px-12 py-4 text-xs uppercase bg-gray-100 text-gray-700"
+      style={{ fontWeight: 700, borderRadius: 12 }}
+    >
+      {children}
+    </span>
   );
 }
