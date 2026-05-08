@@ -12,12 +12,14 @@ jest.mock("@/lib/api/projects", () => ({
   fetchProjects: jest.fn()
 }));
 
-jest.mock("@/lib/auth/authStore", () => ({
-  useAuthStore: jest.fn(() => ({
-    isAuthenticated: true,
-    hasCheckedAuth: true
-  }))
-}));
+jest.mock("@/lib/auth/authStore", () => {
+  const { createMockUser } = jest.requireActual("@/tests/mocks/user");
+  const user = createMockUser({ membership_type: "premium" });
+  const state = { isAuthenticated: true, hasCheckedAuth: true, user };
+  return {
+    useAuthStore: jest.fn((selector?: (s: typeof state) => unknown) => (selector ? selector(state) : state))
+  };
+});
 
 jest.mock("@/components/layout/sidebar/Sidebar", () => {
   return function MockSidebar({ activeItem }: { activeItem: string }) {
@@ -54,7 +56,7 @@ describe("Projects Integration", () => {
       back: jest.fn(),
       forward: jest.fn(),
       refresh: jest.fn()
-    } as any);
+    });
   });
 
   it("should display projects with different status states", async () => {

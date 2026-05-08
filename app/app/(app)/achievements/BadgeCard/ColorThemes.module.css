@@ -3,7 +3,7 @@
    ============================================================================ */
 
 .card.earned.blue {
-    border-color: var(--color-blue-700);
+    border-color: var(--color-blue-500);
     background: color-mix(in srgb, white 60%, var(--color-blue-50));
 }
 

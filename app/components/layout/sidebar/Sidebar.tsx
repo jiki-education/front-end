@@ -1,10 +1,11 @@
 "use client";
 
-import FolderIcon from "@static/icons/folder.svg";
-import HouseIcon from "@static/icons/house.svg";
-import MedalIcon from "@static/icons/medal.svg";
-import ProjectsIcon from "@static/icons/projects.svg";
-import SettingsIcon from "@static/icons/settings.svg";
+import FolderIcon from "@/icons/folder.svg";
+import BrainLightningIcon from "@/icons/brain-lightning.svg";
+import LearningComputerIcon from "@/icons/learning-computer.svg";
+import MedalIcon from "@/icons/medal.svg";
+import ProjectsIcon from "@/icons/projects.svg";
+import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showModal } from "@/lib/modal";
@@ -25,7 +26,8 @@ const navigationItems: Array<{
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
-  { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
+  { id: "learn", label: "Learn to Code", href: "/dashboard", icon: BrainLightningIcon },
+  { id: "build", label: "Learn to Build", href: "#", icon: LearningComputerIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
   { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
