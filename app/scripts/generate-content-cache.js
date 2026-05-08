@@ -197,6 +197,207 @@ function processContentDir(type, requiredFields, extraFields) {
 }
 
 /**
+ * Process the build/ directory.
+ *
+ * Reads series.json plus each episode subdirectory (named by UUID).
+ * Returns: { seriesData, episodes: [{ uuid, config, locales: { [locale]: { meta, html } } }] }
+ */
+function processBuild() {
+  const buildDir = path.join(CONTENT_DIR, "build");
+  if (!fs.existsSync(buildDir)) {
+    return null;
+  }
+
+  const seriesPath = path.join(buildDir, "series.json");
+  if (!fs.existsSync(seriesPath)) {
+    throw new Error(`Missing series.json at ${seriesPath}`);
+  }
+
+  let seriesData;
+  try {
+    seriesData = JSON.parse(fs.readFileSync(seriesPath, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${seriesPath}: ${error.message}`);
+  }
+
+  if (!Array.isArray(seriesData.series)) {
+    throw new Error(`series.json must have a "series" array`);
+  }
+
+  const validSeriesSlugs = new Set(seriesData.series.map((s) => s.slug));
+  const requiredEpisodeFields = ["series", "order", "date", "author", "videoSource", "videoKey", "durationSeconds"];
+
+  const episodes = [];
+  const episodeDirs = fs.readdirSync(buildDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+
+  for (const dir of episodeDirs) {
+    const uuid = dir.name;
+    const dirPath = path.join(buildDir, uuid);
+    const configPath = path.join(dirPath, "config.json");
+
+    if (!fs.existsSync(configPath)) {
+      throw new Error(`Missing config.json for build episode ${uuid}`);
+    }
+
+    let config;
+    try {
+      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    } catch (error) {
+      throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
+    }
+
+    for (const field of requiredEpisodeFields) {
+      if (config[field] === undefined) {
+        throw new Error(`Missing required field "${field}" in ${configPath}`);
+      }
+    }
+
+    if (!validSeriesSlugs.has(config.series)) {
+      throw new Error(`Episode ${uuid} references unknown series "${config.series}"`);
+    }
+
+    const configJson = JSON.stringify(config);
+
+    const author = authorsData[config.author];
+    if (!author) {
+      throw new Error(`Author not found: ${config.author} in ${configPath}`);
+    }
+
+    const mdFiles = fs
+      .readdirSync(dirPath, { withFileTypes: true })
+      .filter((f) => f.isFile() && f.name.endsWith(".md"));
+
+    const localesOut = {};
+
+    for (const file of mdFiles) {
+      const locale = path.basename(file.name, ".md");
+      const filePath = path.join(dirPath, file.name);
+
+      try {
+        const fileContent = fs.readFileSync(filePath, "utf-8");
+        const parsed = matter(fileContent);
+        const frontmatter = parsed.data;
+        const fixedMarkdown = fixImagePaths(parsed.content);
+        const html = marked.parse(fixedMarkdown);
+
+        const hashInput = crypto.createHash("sha256");
+        hashInput.update(fileContent);
+        hashInput.update(configJson);
+        hashInput.update(authorsJson);
+        const contentHash = hashInput.digest("hex").slice(0, 12);
+
+        const meta = {
+          uuid,
+          series: config.series,
+          order: config.order,
+          title: frontmatter.title,
+          excerpt: frontmatter.excerpt,
+          date: config.date,
+          author,
+          videoSource: config.videoSource,
+          videoKey: config.videoKey,
+          durationSeconds: config.durationSeconds,
+          seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
+          contentHash,
+          locale
+        };
+
+        localesOut[locale] = { meta, html };
+      } catch (error) {
+        console.error(`Error processing ${filePath}:`, error.message);
+        throw error;
+      }
+    }
+
+    episodes.push({ uuid, config, locales: localesOut });
+  }
+
+  return { seriesData, episodes };
+}
+
+/**
+ * Build static files for the build/ section.
+ *
+ * Emits:
+ *   - public/static/content/build/{seriesSlug}/{uuid}/{locale}-{htmlHash}.html
+ *   - public/static/content/build/{seriesSlug}/episodes-{locale}-{indexHash}.json
+ *
+ * Returns: { buildByLocale } where buildByLocale[locale] = [seriesEntry], each seriesEntry
+ *   contains slug, order, title, description, episodeCount, episodesIndexHash.
+ */
+function buildBuildStaticFiles(processed) {
+  if (!processed) {
+    return { buildByLocale: {} };
+  }
+
+  const { seriesData, episodes } = processed;
+
+  // episodesBy[locale][seriesSlug] = [episodeMeta]
+  const episodesBy = {};
+
+  for (const episode of episodes) {
+    for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
+      const htmlHash = computeHash(html);
+      const htmlPath = path.join(STATIC_DIR, "build", meta.series, episode.uuid, `${locale}-${htmlHash}.html`);
+      writeFile(htmlPath, html);
+
+      const finalMeta = { ...meta, contentHash: htmlHash };
+
+      if (!episodesBy[locale]) {
+        episodesBy[locale] = {};
+      }
+      if (!episodesBy[locale][meta.series]) {
+        episodesBy[locale][meta.series] = [];
+      }
+      episodesBy[locale][meta.series].push(finalMeta);
+    }
+  }
+
+  const buildByLocale = {};
+
+  // Determine all locales that have any series content. Series titles only use
+  // locales declared in series.json title maps; episodes contribute locales too.
+  const allLocales = new Set();
+  for (const s of seriesData.series) {
+    for (const loc of Object.keys(s.title || {})) {
+      allLocales.add(loc);
+    }
+  }
+  for (const loc of Object.keys(episodesBy)) {
+    allLocales.add(loc);
+  }
+
+  for (const locale of allLocales) {
+    buildByLocale[locale] = [];
+
+    for (const series of [...seriesData.series].sort((a, b) => a.order - b.order)) {
+      const title = (series.title && (series.title[locale] || series.title.en)) || series.slug;
+      const description = (series.description && (series.description[locale] || series.description.en)) || "";
+
+      const seriesEpisodes = (episodesBy[locale] && episodesBy[locale][series.slug]) || [];
+      const sortedEpisodes = [...seriesEpisodes].sort((a, b) => a.order - b.order);
+
+      const indexJson = JSON.stringify(sortedEpisodes);
+      const indexHash = computeHash(indexJson);
+      const indexPath = path.join(STATIC_DIR, "build", series.slug, `episodes-${locale}-${indexHash}.json`);
+      writeFile(indexPath, indexJson);
+
+      buildByLocale[locale].push({
+        slug: series.slug,
+        order: series.order,
+        title,
+        description,
+        episodeCount: sortedEpisodes.length,
+        episodesIndexHash: indexHash,
+        locale
+      });
+    }
+  }
+
+  return { buildByLocale };
+}
+
+/**
  * Build static files for a content type (blog or articles).
  * Returns { indexHashes, byLocale } where byLocale maps locale -> [meta entries]
  */
@@ -283,11 +484,24 @@ function generateSearchIndexes(articlesByLocale) {
 /**
  * Write the TypeScript hash manifest
  */
-function writeHashManifest(blogHashes, articleHashes, searchHashes) {
+function writeHashManifest(blogHashes, articleHashes, searchHashes, buildEpisodesHashes) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([locale, hash]) => `    ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
+      .join(",\n");
+  }
+
+  function formatNestedEntries(nested) {
+    return Object.entries(nested)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(
+        ([seriesSlug, byLocale]) =>
+          `    ${JSON.stringify(seriesSlug)}: {\n${Object.entries(byLocale)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([locale, hash]) => `      ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
+            .join(",\n")}\n    }`
+      )
       .join(",\n");
   }
 
@@ -296,6 +510,7 @@ export const contentIndexHashes: {
   blog: Record<string, string>;
   articles: Record<string, string>;
   search: Record<string, string>;
+  buildEpisodes: Record<string, Record<string, string>>;
 } = {
   blog: {
 ${formatEntries(blogHashes)},
@@ -305,6 +520,9 @@ ${formatEntries(articleHashes)},
   },
   search: {
 ${formatEntries(searchHashes)},
+  },
+  buildEpisodes: {
+${formatNestedEntries(buildEpisodesHashes)},
   },
 };
 `;
@@ -316,13 +534,15 @@ ${formatEntries(searchHashes)},
  * Write the server-side metadata JSON
  * Contains full metadata for all blog posts and articles (no HTML content)
  */
-function writeServerMeta(blogByLocale, articlesByLocale) {
+function writeServerMeta(blogByLocale, articlesByLocale, buildByLocale) {
   const serverMeta = {
     blog: {},
     articles: {},
+    build: { series: {} },
     locales: {
       blog: Object.keys(blogByLocale).sort(),
-      articles: Object.keys(articlesByLocale).sort()
+      articles: Object.keys(articlesByLocale).sort(),
+      build: Object.keys(buildByLocale).sort()
     },
     slugsWithLocales: {
       blog: [],
@@ -342,6 +562,10 @@ function writeServerMeta(blogByLocale, articlesByLocale) {
     for (const article of articles) {
       serverMeta.slugsWithLocales.articles.push({ slug: article.slug, locale });
     }
+  }
+
+  for (const [locale, seriesList] of Object.entries(buildByLocale)) {
+    serverMeta.build.series[locale] = seriesList;
   }
 
   writeFile(path.join(GENERATED_DIR, "content-meta-server.json"), JSON.stringify(serverMeta));
@@ -371,18 +595,33 @@ function generateContentCache() {
     listed: config.listed
   }));
 
+  // Process build series + episodes
+  const buildProcessed = processBuild();
+
   // Build static files
   const { indexHashes: blogHashes, byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { indexHashes: articleHashes, byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
+  const { buildByLocale } = buildBuildStaticFiles(buildProcessed);
 
   // Generate search indexes
   const searchHashes = generateSearchIndexes(articlesByLocale);
 
+  // Per-series episode-list hash manifest, keyed seriesSlug -> locale -> hash
+  const buildEpisodesHashes = {};
+  for (const [locale, seriesList] of Object.entries(buildByLocale)) {
+    for (const series of seriesList) {
+      if (!buildEpisodesHashes[series.slug]) {
+        buildEpisodesHashes[series.slug] = {};
+      }
+      buildEpisodesHashes[series.slug][locale] = series.episodesIndexHash;
+    }
+  }
+
   // Write hash manifest
-  writeHashManifest(blogHashes, articleHashes, searchHashes);
+  writeHashManifest(blogHashes, articleHashes, searchHashes, buildEpisodesHashes);
 
   // Write server-side metadata
-  writeServerMeta(blogByLocale, articlesByLocale);
+  writeServerMeta(blogByLocale, articlesByLocale, buildByLocale);
 
   // Count totals
   let contentFileCount = 0;
@@ -393,12 +632,23 @@ function generateContentCache() {
     contentFileCount += Object.keys(locales).length;
   }
 
+  const buildEpisodeCount = buildProcessed
+    ? buildProcessed.episodes.reduce((acc, ep) => acc + Object.keys(ep.locales).length, 0)
+    : 0;
+  const buildSeriesCount = buildProcessed ? buildProcessed.seriesData.series.length : 0;
+
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
+  console.log(`   Build series: ${buildSeriesCount}`);
+  console.log(`   Build episodes: ${buildEpisodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
-    `   Locales: ${[...new Set([...Object.keys(blogByLocale), ...Object.keys(articlesByLocale)])].sort().join(", ")}`
+    `   Locales: ${[
+      ...new Set([...Object.keys(blogByLocale), ...Object.keys(articlesByLocale), ...Object.keys(buildByLocale)])
+    ]
+      .sort()
+      .join(", ")}`
   );
   console.log(`   Output: ${STATIC_DIR}\n`);
 }

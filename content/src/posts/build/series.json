@@ -1,0 +1,34 @@
+{
+  "series": [
+    {
+      "slug": "building-basics",
+      "order": 1,
+      "title": {
+        "en": "Building Basics"
+      },
+      "description": {
+        "en": "Building a Japanese learning website from scratch — slow pace, beginner-friendly. We start from nothing and build a real, working site step by step."
+      }
+    },
+    {
+      "slug": "how-things-work",
+      "order": 2,
+      "title": {
+        "en": "How Things Work"
+      },
+      "description": {
+        "en": "Deep dives into how Exercism and Jiki work under the hood. Each episode focuses on a single topic and explores it in detail."
+      }
+    },
+    {
+      "slug": "your-questions-answered",
+      "order": 3,
+      "title": {
+        "en": "Your Questions Answered"
+      },
+      "description": {
+        "en": "Live Q&A sessions where you can submit questions ahead of time. We work through them together on stream."
+      }
+    }
+  ]
+}
