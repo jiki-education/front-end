@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import MuxPlayer from "@mux/mux-player-react";
+import { annotate } from "rough-notation";
 import styles from "./Hero.module.css";
 import shared from "./shared.module.css";
 import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
@@ -11,37 +13,106 @@ export function Hero() {
   const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials();
   const { hamsterRef, smokeRef, containerRef: hamsterContainerRef } = useHamster();
 
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const taglineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const can = headlineRef.current?.querySelector<HTMLElement>("[data-anim='underline-can']");
+    const skills = taglineRef.current?.querySelector<HTMLElement>("[data-anim='underline-skills']");
+    const llm = taglineRef.current?.querySelector<HTMLElement>("[data-anim='highlight-llm']");
+
+    const annotations: { hide: () => void }[] = [];
+
+    if (can) {
+      const a = annotate(can, {
+        type: "underline",
+        color: "#fff",
+        strokeWidth: 4,
+        animationDuration: 700,
+        iterations: 1,
+        padding: 2,
+        multiline: true
+      });
+      a.show();
+      annotations.push(a);
+    }
+
+    if (skills) {
+      const a = annotate(skills, {
+        type: "underline",
+        color: "#dde5f0",
+        strokeWidth: 2,
+        animationDuration: 700,
+        iterations: 1,
+        padding: 2,
+        multiline: true
+      });
+      a.show();
+      annotations.push(a);
+    }
+
+    let highlightTimer: ReturnType<typeof setTimeout> | undefined;
+    if (llm) {
+      highlightTimer = setTimeout(() => {
+        const a = annotate(llm, {
+          type: "highlight",
+          color: "#FFF176",
+          strokeWidth: 6,
+          animationDuration: 600,
+          iterations: 1,
+          padding: 4,
+          multiline: true
+        });
+        a.show();
+        annotations.push(a);
+      }, 1200);
+    }
+
+    return () => {
+      if (highlightTimer) clearTimeout(highlightTimer);
+      annotations.forEach((a) => a.hide());
+    };
+  }, []);
+
   return (
     <div className={styles.hero}>
       <div className={shared["md-container"]}>
         <div className="text-center">
-          <h1 className={styles["rock-solid"]} data-rock-solid>
-            Master <strong>Coding Fundamentals</strong> with Jiki
+          <h1 ref={headlineRef} className={styles["rock-solid"]} data-rock-solid>
+            Yes, you{" "}
+            <strong data-anim="underline-can" className="inline-block">
+              can
+            </strong>{" "}
+            still get into tech in 2026.
           </h1>
-          <div className={`${styles.tagline} max-w-[650px]`} data-tagline>
-            The <em>ultimate</em> way to <strong className="font-semibold">Learn to Code.</strong>{" "}
-            <span className="inline-block">
-              <strong>Launching in</strong> February 2026.
-            </span>
+          <div ref={taglineRef} className={`${styles.tagline} max-w-[750px]`} data-tagline>
+            The{" "}
+            <span data-anim="underline-skills" className="inline-block">
+              skills you need
+            </span>{" "}
+            to be relevant in the{" "}
+            <strong data-anim="highlight-llm" className="font-semibold inline-block">
+              LLM-era.
+            </strong>
           </div>
         </div>
         <div className={styles.bubbles}>
           <div className={styles.bubble}>
             <Image src="/static/images/landing-page/video-tutorial.svg" alt="" width={16} height={16} />
             <div className={styles.text}>
-              <strong>Video</strong> tutorials
+              Learn to <strong>Code</strong>
             </div>
           </div>
           <div className={styles.bubble}>
             <Image src="/static/images/landing-page/fun.svg" alt="" width={16} height={16} />
             <div className={styles.text}>
-              <strong>Fun</strong> projects
+              <strong>Build</strong> with LLMs
             </div>
           </div>
           <div className={styles.bubble}>
             <Image src="/static/images/landing-page/globe.svg" alt="" width={16} height={16} />
             <div className={styles.text}>
-              <strong>40+</strong> languages
+              In your <strong>Language</strong>
             </div>
           </div>
         </div>
