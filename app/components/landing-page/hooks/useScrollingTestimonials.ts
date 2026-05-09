@@ -13,6 +13,10 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
     const extra = extraHoverRef?.current;
     if (!container || !marqueeElement) return;
 
+    // Respect users who've asked the OS to minimize motion. Render items
+    // statically and skip duplication, RAF, and hover handlers entirely.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const marqueeWidth = marqueeElement.scrollWidth;
     const clonedItems = marqueeElement.innerHTML;
     marqueeElement.innerHTML = clonedItems + clonedItems;
@@ -22,6 +26,7 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
     let animationPosition = 0;
     let lastTimestamp: number | null = null;
     let rafId: number;
+    let speedTween: ReturnType<typeof animate> | undefined;
 
     function animateMarquee(timestamp: number) {
       if (!lastTimestamp) lastTimestamp = timestamp;
@@ -40,10 +45,12 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
     rafId = requestAnimationFrame(animateMarquee);
 
     const handleMouseEnter = () => {
-      animate(speed, { current: speed.max, duration: 500, ease: "linear" });
+      speedTween?.pause();
+      speedTween = animate(speed, { current: speed.max, duration: 500, ease: "linear" });
     };
     const handleMouseLeave = () => {
-      animate(speed, { current: speed.min, duration: 500, ease: "linear" });
+      speedTween?.pause();
+      speedTween = animate(speed, { current: speed.min, duration: 500, ease: "linear" });
     };
 
     container.addEventListener("mouseenter", handleMouseEnter);
@@ -53,6 +60,7 @@ export function useScrollingTestimonials(extraHoverRef?: RefObject<HTMLElement |
 
     return () => {
       cancelAnimationFrame(rafId);
+      speedTween?.pause();
       container.removeEventListener("mouseenter", handleMouseEnter);
       container.removeEventListener("mouseleave", handleMouseLeave);
       extra?.removeEventListener("mouseenter", handleMouseEnter);

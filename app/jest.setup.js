@@ -34,6 +34,20 @@ if (typeof global.Response === "undefined") {
   };
 }
 
+// Polyfill matchMedia (used by useScrollingTestimonials for prefers-reduced-motion).
+if (typeof window !== "undefined" && typeof window.matchMedia !== "function") {
+  window.matchMedia = (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false
+  });
+}
+
 // Polyfill IntersectionObserver (used by landing-page rough-annotation hooks).
 if (typeof global.IntersectionObserver === "undefined") {
   global.IntersectionObserver = class IntersectionObserver {
