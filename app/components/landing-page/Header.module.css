@@ -1,5 +1,5 @@
 .nav {
-    color: #dde5f0;
+    color: var(--color-gray-200);
     width: 100%;
     background: rgb(13, 18, 33);
     z-index: 9999;
@@ -28,16 +28,17 @@
     .button {
         display: flex;
         align-items: center;
+        gap: 2px;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 12px;
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 18px;
         padding-right: 18px;
-        height: 32px;
+        height: 38px;
         font-size: 12px;
         font-weight: 600;
-        color: rgb(13, 18, 33);
+        color: var(--color-gray-800);
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         transition: all 0.3s ease-out;
 
@@ -49,7 +50,8 @@
         margin-left: auto;
     }
     .enrollButton {
-        margin-left: 16px;
+        margin-left: 10px;
+        gap: 6px;
     }
 
     &.nav-sticky {

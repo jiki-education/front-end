@@ -1,3 +1,4 @@
+import { MonthlyPrice } from "./MonthlyPrice";
 import styles from "./FAQs.module.css";
 
 export function FAQs() {
@@ -8,21 +9,53 @@ export function FAQs() {
         <h2>Frequently Asked Questions</h2>
         <p className={styles.intro}>
           These are the questions we get asked the most. Your question not answered here?{" "}
-          <a href="mailto:bootcamp@exercism.org">Ping us an email!</a>
+          <a href="mailto:hello@jiki.io">Ping us an email!</a>
         </p>
         <div className={styles.faq}>
-          <h4>How much will this cost? What&apos;s the price?</h4>
+          <h4>How much does it cost?</h4>
           <p>
-            All of the videos and exercises on Jiki will be free. There will be Premium and Max options that adds
-            features such as AI-help, an ad-free experience, exclusive live-streams and a extra projects.
+            The <strong>Coding Fundamentals</strong> exercises &mdash; the core learn-to-code curriculum &mdash; are{" "}
+            <strong>completely free</strong>. No card, no trial, no catch.
           </p>
+          <p>
+            <strong>Jiki Premium</strong> is{" "}
+            <strong>
+              <MonthlyPrice />
+              /month
+            </strong>{" "}
+            (priced by country) and unlocks:
+          </p>
+          <ul>
+            <li>
+              Full access to <strong>Build with Jeremy</strong>
+            </li>
+            <li>
+              Combine your skills in <strong>Jiki Projects</strong>
+            </li>
+            <li>
+              Unlimited <strong>Ask Jiki</strong> AI support
+            </li>
+            <li>
+              Regular <strong>Q&amp;A livestreams</strong> you can join
+            </li>
+            <li>
+              Earn <strong>certificates</strong> for courses
+            </li>
+            <li>
+              An <strong>ad-free</strong> learning experience
+            </li>
+            <li>
+              <strong>Early access</strong> to new features
+            </li>
+          </ul>
         </div>
         <div className={styles.faq}>
           <h4>How much time will I need to spend each week on the course?</h4>
           <p>
-            You can spend as long or as little as you like. We&apos;ve designed the course so it can be completed in
-            12-24 weeks by most people spending 5-10 hours per week. But it really comes down to how much time you can
-            put in.
+            You can spend as long or as little as you like. Most people get through the{" "}
+            <strong>Coding Fundamentals</strong> strand in 12&ndash;20 weeks at around 5&ndash;10 hours a week. The{" "}
+            <strong>Build with Jeremy</strong> strand is ongoing &mdash; you can dip in and out as new episodes go up,
+            and join livestreams when it suits you.
           </p>
         </div>
         <div className={styles.faq}>
@@ -38,10 +71,11 @@ export function FAQs() {
           </p>
         </div>
         <div className={styles.faq}>
-          <h4>When will Jiki launch?</h4>
+          <h4>Is Jiki available now?</h4>
+          <p>Yes &mdash; you can sign up and start the free Coding Fundamentals curriculum today.</p>
           <p>
-            Jiki is launching in April 2026. We&apos;ll be letting people in gradually throughout April and May as we
-            add more languages.
+            The first <strong>Build with Jeremy</strong> session will be in <strong>mid-June</strong>. You can sign up
+            for a reminder once you&apos;re inside.
           </p>
         </div>
         <div className={styles.faq}>
@@ -55,10 +89,6 @@ export function FAQs() {
             As a member of the Bootcamp, you&apos;ll automatically get Jiki Premium for Life. This applies to both the
             initial Coding Fundamentals course and future courses.
           </p>
-        </div>
-        <div className={styles.faq}>
-          <h4>How will I know when I can access Jiki?</h4>
-          <p>We&apos;ll email you when it&apos;s your turn to access Jiki. Make sure to check your spam folder!</p>
         </div>
       </div>
     </section>

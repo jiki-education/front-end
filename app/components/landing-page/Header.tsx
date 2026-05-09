@@ -19,14 +19,21 @@ export function Header() {
             />
             <div className="content mr-auto">
               <strong>Jiki</strong>
-              <span className="hidden md:inline-block ml-4">· Learn to Code</span>
+              <span className="hidden md:inline-block ml-4">· Coding in the LLM era</span>
             </div>
           </Link>
           <Link className={`${styles.button} ${styles.loginButton}`} href="/auth/login">
             Log In
           </Link>
           <Link className={`${styles.button} ${styles.enrollButton}`} href="/auth/signup">
-            Sign Up →
+            Sign Up{" "}
+            <Image
+              src="/static/images/landing-page/rocket.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="inline-block align-middle"
+            />
           </Link>
         </div>
       </div>

@@ -24,10 +24,10 @@ export function WelcomeSection() {
               you learn needs to change too.
             </h2>
             <p>
-              In 2026, anyone can open Cursor and create a complex fully-functional platform in minutes. Maybe
-              you&apos;ve done it yourself! Something that would have taken you <strong>years to learn</strong> to make
-              in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to
-              have a <strong>career in tech</strong>?
+              In 2026, anyone can open Cursor and create a fully-functional product in minutes. Maybe you&apos;ve done
+              it yourself! Something that would have taken you <strong>years to learn</strong> to make in the past is
+              now available in seconds. So what does it mean to be a developer now? What does it mean to have a{" "}
+              <strong>career in tech</strong>?
             </p>
             <p>
               Here&apos;s a secret no-one tells you.{" "}
@@ -92,8 +92,8 @@ export function WelcomeSection() {
         </p>
         <p>
           BUT, and this is the big but, <strong>you don&apos;t need to!</strong> I almost never write code now. I let
-          the LLMs do it for me, and you can to. Instead we get to{" "}
-          <strong className="inline rough-highlight">do more of the actual interesting, stuff</strong>. And that&apos;s
+          the LLMs do it for me, and you can too. Instead we get to{" "}
+          <strong className="inline rough-highlight">do more of the actual interesting stuff</strong>. And that&apos;s
           what I&apos;m going to teach you in this course!
         </p>
         <p>
@@ -153,24 +153,22 @@ export function WelcomeSection() {
           and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two
           parts:
         </p>
-        <p>
-          <ol>
-            <li>
-              <strong>Learn coding fundamentals</strong>. We&apos;ll teach you the fundamentals of coding so you can
-              understand what an LLM is building - as essential as ever.
-            </li>
-            <li>
-              <strong>Learn how to build</strong>. Work alongside me as I make real projects with LLMs and show you
-              everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have
-              fun making stuff!
-            </li>
-          </ol>
-        </p>
+        <ol className="my-12">
+          <li>
+            <strong>Learn coding fundamentals</strong>. We&apos;ll teach you the fundamentals of coding so you can
+            understand what an LLM is building - as essential as ever.
+          </li>
+          <li>
+            <strong>Learn how to build</strong>. Work alongside me as I make real projects with LLMs and show you
+            everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have
+            fun making stuff!
+          </li>
+        </ol>
         <p>
           Within a few months, you&apos;ll go from zero to being able to build games like{" "}
-          <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout.</strong> from scratch. You&apos;ll be
-          building bots that can solve mazes, and talking to real APIs like <strong>ChatGPT</strong> to build useful
-          real-world projects.
+          <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout</strong> in code from scratch. And in
+          parallel, you&apos;ll be learning how to make real-world projects, <strong>using databases</strong>, adding
+          auth, using APIs, deploying websites... Doing all the real stuff that developers do!
         </p>
         <div className="grid grid-cols-4 gap-10 my-16">
           <Image
@@ -212,8 +210,9 @@ export function WelcomeSection() {
           us! 💙
         </p>
         <p>
-          The core &quot;learn to code&quot; curriculum is <strong>entirely free</strong>. And the rest, where you get
-          to follow me as I teach you how to build thing, costs only{" "}
+          The core &quot;learn to code&quot; curriculum is <strong>entirely free</strong> - over 200 hours of fun
+          challenges to hone your skills. And the rest, where you get to follow me as I teach you how to build things,
+          costs only{" "}
           <strong>
             <MonthlyPrice />
             /month
@@ -221,11 +220,22 @@ export function WelcomeSection() {
           (as cheap as we can make it and still pay the bills!)
         </p>
         <p>
-          Want more details? Or to here from others that I&apos;ve taught? Read on below for even more details or{" "}
-          <Link href="/auth/signup" className="underline font-semibold">
+          Want more details? Or to hear from others that I&apos;ve taught? Read on below for even more details or{" "}
+          <Link href="/auth/signup" className="underline font-semibold text-blue-800">
             just sign up!
           </Link>
         </p>
+        <div className={styles.ctaRow}>
+          <span className={`${styles.ctaPointer} ${styles.ctaPointerRight}`} aria-hidden="true">
+            👉
+          </span>
+          <Link href="/auth/signup" className="ui-btn ui-btn-xlarge ui-btn-primary">
+            Enough with all the talking! Let&apos;s do this! 🚀
+          </Link>
+          <span className={`${styles.ctaPointer} ${styles.ctaPointerLeft}`} aria-hidden="true">
+            👈
+          </span>
+        </div>
         {/* <h3>
           <span className="rough-highlight">Focusing on what matters.</span>
         </h3>

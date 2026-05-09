@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./SignupSection.module.css";
 import shared from "./shared.module.css";
 
@@ -6,21 +7,17 @@ export function SignupSection() {
     <section className={styles["signup-section"]}>
       <div className={styles["lhs-bg"]}></div>
       <div className={styles["rhs-bg"]}></div>
-      <div className={shared["lg-container"]}>
+      <div className={`${shared["lg-container"]} ${styles.inner}`}>
         <h2 className="text-center font-normal">
-          Join the <strong className="font-semibold">Waiting List</strong>
+          Get started - <strong className="font-semibold">it&apos;s free!</strong>
         </h2>
         <p className={`${styles.intro} text-balance`}>
-          We&apos;ll be opening up the course starting in March 2026. The first 1,000 signups get{" "}
-          <strong className="font-semibold">free Premium access</strong> for the year!
+          The <strong className="font-semibold">Coding Fundamentals</strong> curriculum is{" "}
+          <strong className="font-semibold">completely free</strong>. No card. No trial. No catch.
         </p>
-        <hr className="mx-auto mb-20 border-[#ddd] max-w-[500px]" />
-        <p className="text-20 mb-24 text-center">Please sign into Exercism to continue.</p>
-        {/* External link to the Exercism Rails app — not a Next.js route. */}
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="btn mx-auto w-fit block" href="/users/sign_in?return_to=%2Fjiki">
-          Sign In to Exercism
-        </a>
+        <Link href="/auth/signup" className="ui-btn ui-btn-xlarge ui-btn-primary">
+          Sign up &amp; start coding &rarr;
+        </Link>
       </div>
     </section>
   );

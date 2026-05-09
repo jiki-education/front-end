@@ -10,6 +10,7 @@ import { useConfetti } from "./hooks/useConfetti";
 
 export function BootcampSection() {
   const portfolioArrowRef = useArrowAnimation<HTMLDivElement>("portfolio-arrow");
+  const buildingSectionArrowRef = useArrowAnimation<HTMLDivElement>("building-section-arrow");
   const certificateArrowRef = useArrowAnimation<HTMLDivElement>("certificate-arrow");
   const confettiRef = useConfetti();
 
@@ -22,20 +23,20 @@ export function BootcampSection() {
             What&apos;s on the <strong>menu?</strong>
           </h2>
           <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>
-            The course teaches Coding Fundamentals - the things you need to know to understand the fundamentals of
-            programming.
+            The course has two strands: <strong>Coding Fundamentals</strong> and{" "}
+            <strong>Building in the Age of LLMs</strong>.
           </p>
           <div className={styles.sections}>
-            <div className={`${styles.section} mb-32`}>
+            <div className={styles.section}>
               <div className="flex flex-row">
                 <div className={styles.lhs}>
                   <h3 className="mb-8">
-                    Coding Fundamentals 🧑‍🔬
-                    <div className={styles.bubble}>Beginners</div>
+                    1. Coding Fundamentals 🧑‍🔬
+                    <div className={styles.bubble}>Absolute Beginners</div>
                   </h3>
                   <div className={`${styles["part-intro"]} mb-20`}>
-                    The course focusses on{" "}
-                    <span className="rough-highlight font-medium">building rock solid foundations.</span> We&apos;ll
+                    We&apos;re going to help you{" "}
+                    <span className="rough-highlight font-medium">build rock solid coding foundations.</span> We&apos;ll
                     cover all the core concepts in programming and give you tons of exercises and projects to practice
                     with.
                   </div>
@@ -65,7 +66,7 @@ export function BootcampSection() {
                     <li>
                       <Image src="/static/images/landing-page/build.svg" alt="" width={20} height={20} />
                       <div className={styles.text}>
-                        <strong>A base to build on</strong> Whatever type of programming you want to do, this the base
+                        <strong>A base to build on</strong>. Whatever type of programming you want to do, this the base
                         you need, and one you can easily build on.
                       </div>
                     </li>
@@ -206,6 +207,75 @@ export function BootcampSection() {
               <h4>
                 And by the <strong>end of the course</strong> you&apos;re building games like <strong>Breakout!</strong>
               </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={shared["lg-container"]}>
+        <div className={`${styles.container} ${styles.syllabus} ${styles["building-subsection"]} relative`}>
+          <div className={styles["building-section-arrow"]} ref={buildingSectionArrowRef}></div>
+
+          <div className={styles.tag}>What we cover</div>
+          <h2>
+            But learning to code <strong>isn&apos;t enough</strong>
+          </h2>
+          <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>
+            In the LLM-era, you also need to get up to speed on how to create things, how to work with an LLM safely.
+            So...
+          </p>
+          <div className={styles.sections}>
+            <div className={styles.section}>
+              <div className="flex flex-row">
+                <div className={styles.lhs}>
+                  <h3 className="mb-8">
+                    2. Building in the Age of LLMs 🚀
+                    <div className={styles.bubble}>Beginners / Juniors</div>
+                  </h3>
+                  <div className={`${styles["part-intro"]} mb-20`}>
+                    Alongside learning to code, we&apos;ll deep dive into how technology works. We&apos;ll{" "}
+                    <span className="rough-highlight font-medium">build real projects together</span>, digging into
+                    databases, creating secure auth, learning about frontends vs backends, and much much more.
+                  </div>
+                  <ul>
+                    <li>
+                      <Image src="/static/images/landing-page/understanding.svg" alt="" width={20} height={20} />
+                      <div className={styles.text}>
+                        <strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin
+                        up an LLM and you can follow along with your own project idea. I&apos;ll teach you how to make
+                        good decisions and guide your LLM safely.
+                      </div>
+                    </li>
+                    <li>
+                      <Image src="/static/images/landing-page/confidence.svg" alt="" width={20} height={20} />
+                      <div className={styles.text}>
+                        <strong>Topic Deep Dives</strong>: I&apos;ll talk you through how complex platforms like
+                        Exercism and Jiki work, deep-diving into the code we&apos;ve written and share my learnings with
+                        you!
+                      </div>
+                    </li>
+                    <li>
+                      <Image src="/static/images/landing-page/coders-mind.svg" alt="" width={20} height={20} />
+                      <div className={styles.text}>
+                        <strong>Regular Q&A Livestreams</strong>. Something not clicking? Need help with your projects?
+                        Submit your questions and I&apos;ll answer them with you on our regular livestreams.
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div className={styles.rhs}>
+                  <div className={`${styles.dates} ${styles["h3-sideheading"]} relative`}>
+                    <Image src="/static/images/landing-page/calendar.svg" alt="" width={20} height={20} />
+                    Regular New Episodes
+                  </div>
+                  <Image
+                    className="w-[350px] -mr-32 -mt-[60px]"
+                    src="/static/images/landing-page/part-1.png"
+                    alt="Part 2"
+                    width={350}
+                    height={350}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

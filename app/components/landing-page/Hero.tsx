@@ -10,8 +10,8 @@ import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
 import { useHamster } from "./hooks/useHamster";
 
 export function Hero() {
-  const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials();
   const { hamsterRef, smokeRef, containerRef: hamsterContainerRef } = useHamster();
+  const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials(hamsterRef);
 
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);

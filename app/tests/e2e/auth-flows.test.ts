@@ -104,13 +104,13 @@ test.describe("Authentication Flows", () => {
     await waitForLoadingToComplete(page);
     await page.locator("h1").waitFor();
     const heading = await page.locator("h1").textContent();
-    expect(heading).toBe("Welcome to Jiki");
+    expect(heading).toContain("get into tech in 2026");
   }
 
   async function assertSignUpButton(page: Page) {
-    await page.locator(".ui-btn-primary").waitFor();
-    const button = await page.locator(".ui-btn-primary").textContent();
-    expect(button).toBe("Sign Up");
+    const signupLink = page.locator('a[href="/auth/signup"]').first();
+    await signupLink.waitFor();
+    await expect(signupLink).toBeVisible();
   }
 
   async function assertReturnToJikiButton(page: Page) {
