@@ -4,9 +4,6 @@ export default defineConfig({
   // Test directory
   testDir: "./tests/e2e",
 
-  // Optionally ignore auth tests (used by main CI, auth tests run in separate workflow)
-  ...(process.env.EXCLUDE_AUTH_TESTS ? { testIgnore: /auth.*\.test\.ts/ } : {}),
-
   // Parallel execution (default: all CPU cores)
   fullyParallel: true,
 
