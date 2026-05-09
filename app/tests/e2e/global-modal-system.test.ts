@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./helpers/test";
 
 test.describe("Global Modal System E2E", () => {
   test.beforeEach(async ({ page }) => {

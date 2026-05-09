@@ -104,6 +104,29 @@ export async function mockAPILogout(page: Page) {
   });
 }
 
+export async function mockAPIBadges(page: Page, body: { badges: unknown[]; num_locked_secret_badges?: number }) {
+  await page.route(`${API_BASE}/internal/badges`, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(body)
+    })
+  );
+}
+
+export async function mockAPIBadgeReveal(page: Page, badgeId: number, badge: unknown) {
+  await page.route(`${API_BASE}/internal/badges/${badgeId}/reveal`, (route) => {
+    if (route.request().method() !== "PATCH") {
+      return route.fallback();
+    }
+    return route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ badge })
+    });
+  });
+}
+
 export async function mockAPIConfirmEmail(page: Page, status: "success" | "invalid", user?: User) {
   await page.route(/\/auth\/confirmation(\?|$)/, (route) => {
     if (status === "success") {

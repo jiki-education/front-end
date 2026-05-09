@@ -4,7 +4,7 @@
 // Type assertions to HTMLButtonElement are necessary to access the disabled property
 // which doesn't exist on the generic Element type returned by querySelectorAll
 
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./helpers/test";
 
 test.describe("Quiz Page E2E", () => {
   // Warm up the page compilation before running tests in parallel
