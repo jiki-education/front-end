@@ -7,9 +7,6 @@ export default defineConfig({
   // Optionally ignore auth tests (used by main CI, auth tests run in separate workflow)
   ...(process.env.EXCLUDE_AUTH_TESTS ? { testIgnore: /auth.*\.test\.ts/ } : {}),
 
-  // Global setup - runs once before all tests
-  globalSetup: "./playwright-global-setup.ts",
-
   // Parallel execution (default: all CPU cores)
   fullyParallel: true,
 
