@@ -1,70 +1,12 @@
-import { test, expect, type Page, type Route } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "./helpers/test";
+import { mockAPIInternalMe, mockAPIInternalMeUnauthorized, mockAPILogout } from "./helpers/api-mocks";
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { getTestUrl } from "./helpers/getTestUrl";
 import { createMockUser } from "../mocks/user";
 
 test.describe("Authentication Flows", () => {
-  function handleOptionsRequest(route: Route) {
-    if (route.request().method() === "OPTIONS") {
-      void route.fulfill({
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
-        }
-      });
-      return true;
-    }
-    return false;
-  }
-
-  function mockRequest(route: Route, url: string, status: number, body: any) {
-    if (route.request().url().includes(url)) {
-      void route.fulfill({
-        status,
-        contentType: "application/json",
-        headers: {
-          "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
-        },
-        body: JSON.stringify(body)
-      });
-      return true;
-    }
-    return false;
-  }
-
-  function mockValidInternalMeApiCall(route: Route) {
-    return mockRequest(route, "/internal/me", 200, { user: createMockUser() });
-  }
-
-  function mockLogoutRequest(route: Route) {
-    if (route.request().url().includes("/auth/logout")) {
-      // Clear cookies via Playwright API (more reliable than Set-Cookie header in mocks)
-      const page = route.request().frame().page();
-      void page.context().clearCookies({ name: AUTHENTICATION_COOKIE_NAME });
-      void route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        headers: {
-          "Access-Control-Allow-Origin": "http://local.jiki.io:3081",
-          "Access-Control-Allow-Credentials": "true",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization"
-        },
-        body: JSON.stringify({})
-      });
-      return true;
-    }
-    return false;
-  }
-
   async function setup(page: Page, cookie: "absent" | "invalid" | "valid") {
-    // Clear all auth state and cookies
     await page.goto("/", { waitUntil: "domcontentloaded" });
     await page.context().clearCookies();
 
@@ -73,24 +15,11 @@ test.describe("Authentication Flows", () => {
       sessionStorage.clear();
     });
 
-    if (cookie === "valid") {
-      // Set a valid session cookie (actual value doesn't matter - server validates)
+    if (cookie === "valid" || cookie === "invalid") {
       await page.context().addCookies([
         {
           name: AUTHENTICATION_COOKIE_NAME,
-          value: "valid-session-cookie-for-testing",
-          domain: ".local.jiki.io",
-          path: "/",
-          httpOnly: true,
-          secure: false,
-          sameSite: "Lax"
-        }
-      ]);
-    } else if (cookie === "invalid") {
-      await page.context().addCookies([
-        {
-          name: AUTHENTICATION_COOKIE_NAME,
-          value: "invalid-session-cookie",
+          value: cookie === "valid" ? "valid-session-cookie-for-testing" : "invalid-session-cookie",
           domain: ".local.jiki.io",
           path: "/",
           httpOnly: true,
@@ -99,6 +28,11 @@ test.describe("Authentication Flows", () => {
         }
       ]);
     }
+  }
+
+  async function mockUnauthorized(page: Page) {
+    await mockAPIInternalMeUnauthorized(page);
+    await mockAPILogout(page);
   }
 
   async function visitDashboard(page: Page, waitForLoad: boolean = true) {
@@ -144,40 +78,25 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertLoginPage(page: Page) {
-    // Wait for login page to load
     await page.waitForTimeout(50);
-
-    const url = page.url();
-    expect(url).toBe(getTestUrl("/auth/login"));
+    expect(page.url()).toBe(getTestUrl("/auth/login"));
   }
 
   async function assertDashboardPage(page: Page) {
-    // Wait for dashboard to load
     await page.waitForTimeout(50);
-
     const url = new URL(page.url());
     expect(url.pathname).toBe("/dashboard");
   }
 
   async function assertBlogPage(page: Page) {
-    // Wait for blog to load
     await page.waitForTimeout(50);
-
-    const url = page.url();
-    expect(url).toBe(getTestUrl("/blog"));
-
-    // Verify blog content is present (title is "News, insights and witterings")
+    expect(page.url()).toBe(getTestUrl("/blog"));
     await expect(page.getByRole("heading", { name: "News, insights and witterings" })).toBeVisible();
   }
 
   async function assertSettingsPage(page: Page) {
-    // Wait for settings page content to load
     await page.getByText("Danger Zone").waitFor();
-
-    const url = page.url();
-    expect(url).toBe(getTestUrl("/settings"));
-
-    // Verify authenticated content is present
+    expect(page.url()).toBe(getTestUrl("/settings"));
     await expect(page.getByText("Danger Zone")).toBeVisible();
   }
 
@@ -201,15 +120,11 @@ test.describe("Authentication Flows", () => {
   }
 
   async function awaitRedirectToDashboard(page: Page) {
-    await page.waitForFunction(() => {
-      return window.location.pathname === "/dashboard";
-    });
+    await page.waitForFunction(() => window.location.pathname === "/dashboard");
   }
 
   async function awaitRedirectToLandingPage(page: Page) {
-    await page.waitForFunction(() => {
-      return window.location.pathname === "/";
-    });
+    await page.waitForFunction(() => window.location.pathname === "/");
   }
 
   test.describe("Visiting /settings", () => {
@@ -223,16 +138,7 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to /auth/login with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
-
-      // Stub 401 responses for invalid session and mock logout to clear cookie
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitSettingsPage(page);
       await waitForLoadingToComplete(page);
@@ -242,16 +148,7 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to /auth/login with session cookie that the server rejects", async ({ page }) => {
       await setup(page, "valid");
-
-      // Stub 401 responses from auth endpoints and mock logout to clear cookie
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitSettingsPage(page);
       await waitForLoadingToComplete(page);
@@ -261,11 +158,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
-
-      // Stub successful auth responses
-      await page.route("**/*", (route) => {
-        void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
-      });
+      await mockAPIInternalMe(page, createMockUser());
 
       await visitSettingsPage(page);
       await assertSettingsPage(page);
@@ -282,15 +175,7 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to / with invalid session cookie", async ({ page }) => {
       await setup(page, "invalid");
-
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitDashboard(page, false);
       await awaitRedirectToLandingPage(page);
@@ -299,16 +184,7 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to / with session cookie that the server rejects", async ({ page }) => {
       await setup(page, "valid");
-
-      // Stub 401 responses from auth endpoints and mock logout to clear cookie
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitDashboard(page);
       await awaitRedirectToLandingPage(page);
@@ -317,11 +193,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
-
-      // Stub successful auth responses
-      await page.route("**/*", (route) => {
-        void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
-      });
+      await mockAPIInternalMe(page, createMockUser());
 
       await visitDashboard(page);
       await assertDashboardPage(page);
@@ -337,15 +209,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with invalid cookie", async ({ page }) => {
       await setup(page, "invalid");
-
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitLandingPath(page, false);
       await awaitRedirectToDashboard(page);
@@ -355,15 +219,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with invalid cookie (duplicate)", async ({ page }) => {
       await setup(page, "invalid");
-
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitLandingPath(page);
       await awaitRedirectToDashboard(page);
@@ -373,11 +229,7 @@ test.describe("Authentication Flows", () => {
 
     test("should redirect to /dashboard with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
-
-      // Mock successful auth check
-      await page.route("**/*", (route) => {
-        void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
-      });
+      await mockAPIInternalMe(page, createMockUser());
 
       await visitLandingPath(page);
       await awaitRedirectToDashboard(page);
@@ -402,15 +254,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with invalid cookie", async ({ page }) => {
       await setup(page, "invalid");
-
-      await page.route("**/*", (route) => {
-        void (
-          handleOptionsRequest(route) ||
-          mockRequest(route, "/internal/me", 401, { error: "Unauthorized" }) ||
-          mockLogoutRequest(route) ||
-          route.continue()
-        );
-      });
+      await mockUnauthorized(page);
 
       await visitBlogPage(page);
       await assertBlogPage(page);
@@ -419,11 +263,7 @@ test.describe("Authentication Flows", () => {
 
     test("should render with valid session cookie", async ({ page }) => {
       await setup(page, "valid");
-
-      // Mock successful auth check
-      await page.route("**/*", (route) => {
-        void (handleOptionsRequest(route) || mockValidInternalMeApiCall(route) || route.continue());
-      });
+      await mockAPIInternalMe(page, createMockUser());
 
       await visitBlogPage(page);
       await assertBlogPage(page);

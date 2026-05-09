@@ -19,8 +19,8 @@ export default defineConfig({
   // Retry failed tests on CI
   retries: process.env.CI ? 2 : 0,
 
-  // Parallel workers (limited to 4 to prevent server overload)
-  workers: 4,
+  // Parallel workers: unbounded locally (matches Giki), serialized in CI
+  workers: process.env.CI ? 1 : undefined,
 
   // Test reporter
   reporter: [
@@ -39,14 +39,8 @@ export default defineConfig({
     actionTimeout: process.env.CI ? 30000 : 5000,
     navigationTimeout: process.env.CI ? 30000 : 5000,
 
-    // Screenshot on failure
-    screenshot: "only-on-failure",
-
     // Trace on first retry
-    trace: "on-first-retry",
-
-    // Video on failure
-    video: "retain-on-failure"
+    trace: "on-first-retry"
   },
 
   // Default timeout for expect() assertions
