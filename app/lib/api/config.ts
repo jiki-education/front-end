@@ -5,7 +5,7 @@
 
 export const API_CONFIG = {
   development: {
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3060",
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || "http://local.jiki.io:3060",
     chatUrl: process.env.NEXT_PUBLIC_CHAT_API_URL || "http://local.jiki.io:3063"
   },
   production: {

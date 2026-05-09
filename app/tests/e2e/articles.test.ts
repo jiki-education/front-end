@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./helpers/test";
 
 test.describe("Articles Page E2E", () => {
   // Warm up the page compilation before running tests in parallel
