@@ -136,6 +136,19 @@
     > a {
         flex-grow: 1;
     }
+
+    /* Freeze the bouncing hands when the CTA is hovered, then snap each
+       to a manual extended position. !important is required to override
+       keyframe-driven transforms. */
+    &:has(> a:hover) .ctaPointer {
+        animation-play-state: paused;
+    }
+    &:has(> a:hover) .ctaPointerRight {
+        transform: translateX(5px) scale(1.3) !important;
+    }
+    &:has(> a:hover) .ctaPointerLeft {
+        transform: translateX(-5px) scale(1.3) !important;
+    }
 }
 
 .ctaPointer {

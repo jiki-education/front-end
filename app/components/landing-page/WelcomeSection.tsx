@@ -8,11 +8,14 @@ import { MonthlyPrice } from "./MonthlyPrice";
 import { useRoughAnnotations } from "./hooks/useRoughAnnotations";
 import { useWavingHand } from "./hooks/useWavingHand";
 import { useArrowAnimation } from "./hooks/useArrowAnimations";
+import { useRocketLaunch } from "./hooks/useRocketLaunch";
+import rocket from "./rocketLaunch.module.css";
 
 export function WelcomeSection() {
   const annotationsRef = useRoughAnnotations();
   const wavingHandRef = useWavingHand();
   const rhodriRef = useArrowAnimation<HTMLSpanElement>("rhodri");
+  const ctaLaunch = useRocketLaunch("/auth/signup");
 
   return (
     <section className={styles.welcome} ref={annotationsRef}>
@@ -229,8 +232,23 @@ export function WelcomeSection() {
           <span className={`${styles.ctaPointer} ${styles.ctaPointerRight}`} aria-hidden="true">
             👉
           </span>
-          <Link href="/auth/signup" className="ui-btn ui-btn-xlarge ui-btn-primary">
-            Enough with all the talking! Let&apos;s do this! 🚀
+          <Link
+            href="/auth/signup"
+            className={`ui-btn ui-btn-xlarge ui-btn-primary ${rocket.bounceOnHover}`}
+            onClick={ctaLaunch.handleClick}
+          >
+            Enough with all the talking! Let&apos;s do this!{" "}
+            <span
+              className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
+            >
+              <Image
+                src="/static/images/landing-page/rocket.svg"
+                alt=""
+                width={32}
+                height={32}
+                className={rocket.rocket}
+              />
+            </span>
           </Link>
           <span className={`${styles.ctaPointer} ${styles.ctaPointerLeft}`} aria-hidden="true">
             👈

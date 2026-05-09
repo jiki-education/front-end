@@ -1,9 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Header.module.css";
 import shared from "./shared.module.css";
+import rocket from "./rocketLaunch.module.css";
+import { useRocketLaunch } from "./hooks/useRocketLaunch";
 
 export function Header() {
+  const { launching, handleClick } = useRocketLaunch("/auth/signup");
+
   return (
     <>
       <div className={`${styles.nav} h-[64px]`} data-nav-fixed>
@@ -25,15 +31,21 @@ export function Header() {
           <Link className={`${styles.button} ${styles.loginButton}`} href="/auth/login">
             Log In
           </Link>
-          <Link className={`${styles.button} ${styles.enrollButton}`} href="/auth/signup">
+          <Link
+            className={`${styles.button} ${styles.enrollButton} ${rocket.bounceOnHover}`}
+            href="/auth/signup"
+            onClick={handleClick}
+          >
             Sign Up{" "}
-            <Image
-              src="/static/images/landing-page/rocket.svg"
-              alt=""
-              width={16}
-              height={16}
-              className="inline-block align-middle"
-            />
+            <span className={`inline-block align-middle ${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
+              <Image
+                src="/static/images/landing-page/rocket.svg"
+                alt=""
+                width={16}
+                height={16}
+                className={rocket.rocket}
+              />
+            </span>
           </Link>
         </div>
       </div>
