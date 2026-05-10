@@ -17,6 +17,9 @@ export function ExternalFooter() {
             <Link href="/articles/who-makes-runs-jiki" className={styles.link}>
               Our team
             </Link>
+            <Link href="/premium" className={styles.link}>
+              Jiki Premium
+            </Link>
           </div>
         </div>
         <div className={styles.section}>
