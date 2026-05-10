@@ -1,5 +1,6 @@
 {
   "series": "how-things-work",
+  "slug": "how-the-jiki-interpreter-runs-your-code",
   "order": 1,
   "date": "2026-05-10",
   "author": "ihid",

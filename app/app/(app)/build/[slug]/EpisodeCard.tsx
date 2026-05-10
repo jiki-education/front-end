@@ -68,7 +68,7 @@ export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardP
   }
 
   return (
-    <Link href={`/build/${series.slug}/${episode.uuid}`} className={styles.card}>
+    <Link href={`/build/${series.slug}/${episode.slug}`} className={styles.card}>
       {inner}
     </Link>
   );

@@ -3,13 +3,13 @@ import BuildEpisodeVideo from "@/components/build-episode/BuildEpisodeVideo";
 import { getBuildEpisode } from "@/lib/content";
 
 interface PageProps {
-  params: Promise<{ slug: string; uuid: string }>;
+  params: Promise<{ slug: string; episodeSlug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { slug, uuid } = await params;
+  const { slug, episodeSlug } = await params;
   try {
-    const episode = await getBuildEpisode(slug, uuid, "en");
+    const episode = await getBuildEpisode(slug, episodeSlug, "en");
     return {
       title: `${episode.title} - Jiki`,
       description: episode.excerpt
@@ -20,18 +20,18 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function BuildEpisodePage({ params }: PageProps) {
-  const { slug, uuid } = await params;
+  const { slug, episodeSlug } = await params;
 
   let episode;
   try {
-    episode = await getBuildEpisode(slug, uuid, "en");
+    episode = await getBuildEpisode(slug, episodeSlug, "en");
   } catch {
     notFound();
   }
 
   return (
     <BuildEpisodeVideo
-      uuid={uuid}
+      uuid={episode.uuid}
       seriesSlug={slug}
       videoProvider={episode.videoProvider}
       videoKey={episode.videoKey}

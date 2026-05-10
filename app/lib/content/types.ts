@@ -90,6 +90,7 @@ export interface BuildSeriesMeta {
 
 export interface BuildEpisodeMeta {
   uuid: string;
+  slug: string;
   series: string;
   order: number;
   title: string;
