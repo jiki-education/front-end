@@ -317,7 +317,7 @@ Embed links naturally in flowing text:
 2. **Email addresses:**
 
    ```markdown
-   please [let me know](mailto:bootcamp@exercism.org)
+   please [let me know](mailto:hello@jiki.io)
    ```
 
 3. **Action-oriented:**
@@ -733,7 +733,7 @@ Over the next few weeks, you'll start to see the Dig Deeper tab appearing
 across exercises around the site.
 
 If you'd like to contribute an Approach, an exercise article, or tell us about
-your videos so we can add them, get in touch with jonathan@exercism.org and
+your videos so we can add them, get in touch with jonathan@jiki.io and
 he'll help you get started.
 
 And finally, tell us what you think and post your ideas and thoughts in the

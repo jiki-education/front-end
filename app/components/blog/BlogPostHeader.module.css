@@ -4,16 +4,18 @@
         linear-gradient(135deg, var(--color-purple-900) 0%, var(--color-purple-950) 100%);
     background-repeat: repeat, no-repeat;
     background-size: auto, cover;
-    padding: 60px 150px;
+    padding: 60px 0;
     margin-bottom: 0;
+}
+
+.articleHeaderInner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 60px;
     align-items: center;
 }
 
 .articleHeaderContent {
-    max-width: 600px;
     order: -1;
 }
 
@@ -68,8 +70,11 @@
 
 @media (max-width: 1024px) {
     .articleHeader {
+        padding: 48px 0;
+    }
+
+    .articleHeaderInner {
         grid-template-columns: 1fr;
-        padding: 48px 40px;
         gap: 32px;
     }
 
@@ -84,7 +89,7 @@
 
 @media (max-width: 768px) {
     .articleHeader {
-        padding: 32px 20px;
+        padding: 32px 0;
     }
 
     .articleTitle {

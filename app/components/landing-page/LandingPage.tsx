@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ExternalFooter } from "../layout/ExternalFooter";
 import { BootcampSection } from "./BootcampSection";
 import { Exercism } from "./Exercism";
 import { FAQs } from "./FAQs";
@@ -39,6 +40,7 @@ export function LandingPage() {
         height={100}
       />
       <FAQs />
+      <ExternalFooter />
     </div>
   );
 }

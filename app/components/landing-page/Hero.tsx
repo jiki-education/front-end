@@ -43,7 +43,7 @@ export function Hero() {
       highlightTimer = setTimeout(() => {
         const a = annotate(llm, {
           type: "highlight",
-          color: "rgb(166 20 184)",
+          color: "#ce19e6",
           strokeWidth: 50,
           animationDuration: 600,
           iterations: 2,
@@ -107,7 +107,7 @@ export function Hero() {
             poster="https://assets.exercism.org/images/thumbnails/jiki-waiting.png"
             metadata={{ video_title: "Waiting Page 1" }}
             accentColor="#7c3aed"
-            style={{ width: "100%", aspectRatio: "16/9" }}
+            style={{ display: "block", width: "100%", aspectRatio: "16/9" }}
           />
         </div>
       </div>
@@ -125,7 +125,7 @@ export function Hero() {
             <li>&quot;Learning, as it should be!&quot;</li>
             <li>&quot;The best course I&apos;ve done&quot;</li>
             <li>&quot;Made learning a joy again&quot;</li>
-            <li>&quot;This bootcamp is pure gold.&quot;</li>
+            <li>&quot;This course is pure gold.&quot;</li>
             <li>&quot;A wonderful Learning Experience&quot;</li>
             <li>&quot;Proper Hands-on learning&quot;</li>
             <li>&quot;The knowledge you didn&apos;t think you needed&quot;</li>

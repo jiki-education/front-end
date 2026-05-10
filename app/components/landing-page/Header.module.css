@@ -16,6 +16,11 @@
         height: 24px;
     }
 
+    .logo {
+        height: 38px;
+        width: auto;
+    }
+
     .first-session {
         font-size: 15px;
         font-weight: 600;
@@ -30,21 +35,11 @@
         align-items: center;
         gap: 2px;
         background-color: #fff;
-        border-radius: 12px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        padding-left: 18px;
-        padding-right: 18px;
-        height: 38px;
-        font-size: 12px;
+        border-color: var(--color-gray-700);
         font-weight: 600;
         color: var(--color-gray-800);
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         transition: all 0.3s ease-out;
-
-        @media (min-width: 640px) {
-            font-size: 15px;
-        }
     }
     .loginButton {
         margin-left: auto;
@@ -66,6 +61,10 @@
             background-color 0.3s ease-out,
             opacity 0.3s ease-out,
             color 0.3s ease-out;
+
+        .button {
+            border-color: var(--color-purple-700);
+        }
 
         &.on-purple {
             background-color: white;

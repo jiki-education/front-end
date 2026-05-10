@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import JikiLogo from "@/icons/jiki-logo.svg";
 import styles from "./Header.module.css";
 import shared from "./shared.module.css";
 import rocket from "./rocketLaunch.module.css";
@@ -15,24 +16,13 @@ export function Header() {
       <div className={`${styles.nav} h-[64px]`} data-nav-fixed>
         <div className={`${shared["lg-container"]} flex flex-row items-center`} data-nav-contents>
           <Link className="flex flex-1 gap-12" href="/">
-            <Image
-              className={styles["exercism-face"]}
-              src="/static/images/landing-page/exercism-face-light.svg"
-              alt="Exercism"
-              width={28}
-              height={24}
-              data-exercism-face
-            />
-            <div className="content mr-auto">
-              <strong>Jiki</strong>
-              <span className="hidden md:inline-block ml-4">· Coding in the LLM era</span>
-            </div>
+            <JikiLogo className={styles.logo} />
           </Link>
-          <Link className={`${styles.button} ${styles.loginButton}`} href="/auth/login">
+          <Link className={`ui-btn ui-btn-small ${styles.button} ${styles.loginButton}`} href="/auth/login">
             Log In
           </Link>
           <Link
-            className={`${styles.button} ${styles.enrollButton} ${rocket.bounceOnHover}`}
+            className={`ui-btn ui-btn-small ${styles.button} ${styles.enrollButton} ${rocket.bounceOnHover}`}
             href="/auth/signup"
             onClick={handleClick}
           >

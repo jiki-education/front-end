@@ -13,7 +13,7 @@ Last Revised: January 2026
 
 Jiki is an online platform designed to help you learn to code through interactive exercises and tutorials.
 
-Our platform comprises a website located at https://jiki.dev (and associated subdomains).
+Our platform comprises a website located at https://jiki.io (and associated subdomains).
 
 We're deeply committed to providing you with a safe and secure online platform for you to develop your software coding skills.
 

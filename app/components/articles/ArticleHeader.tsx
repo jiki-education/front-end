@@ -3,6 +3,7 @@ import { formatBlogDate } from "@/lib/utils";
 import AuthorIcon from "@/icons/author.svg";
 import CalendarIcon from "@/icons/calendar.svg";
 import ClockIcon from "@/icons/clock.svg";
+import shared from "@/components/landing-page/shared.module.css";
 import styles from "./ArticleHeader.module.css";
 
 interface ArticleHeaderProps {
@@ -12,7 +13,7 @@ interface ArticleHeaderProps {
 export default function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <header className={styles.articleHeader}>
-      <div className={styles.articleHeaderContent}>
+      <div className={`${shared["lg-container"]} ${styles.articleHeaderContent}`}>
         <h1 className={styles.articleTitle}>{article.title}</h1>
         <p className={styles.articleSubtitle}>{article.excerpt}</p>
         <div className={styles.articleMeta}>
