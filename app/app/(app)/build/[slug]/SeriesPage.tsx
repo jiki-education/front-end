@@ -14,7 +14,7 @@ interface SeriesPageProps {
 
 export function SeriesPage({ series, episodes }: SeriesPageProps) {
   const sorted = [...episodes].sort((a, b) => a.order - b.order);
-  const [progressByUuid, setProgressBySlug] = useState<Record<string, number>>({});
+  const [progressByUuid, setProgressByUuid] = useState<Record<string, number>>({});
 
   useEffect(() => {
     void fetchUserVideos().then((videos) => {
@@ -22,7 +22,7 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
       for (const video of videos) {
         map[video.uuid] = video.watched_percentage;
       }
-      setProgressBySlug(map);
+      setProgressByUuid(map);
     });
   }, []);
 
