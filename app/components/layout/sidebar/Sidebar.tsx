@@ -40,8 +40,15 @@ const navigationItems: Array<{
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
-  const { launching, handleClick } = useRocketLaunch(() =>
-    showModal("premium-upgrade-modal", {}, premiumModalStyles.premiumModalOverlay, premiumModalStyles.premiumModalWidth)
+  const { launching, handleClick } = useRocketLaunch(
+    () =>
+      showModal(
+        "premium-upgrade-modal",
+        {},
+        premiumModalStyles.premiumModalOverlay,
+        premiumModalStyles.premiumModalWidth
+      ),
+    { resetAfterLaunch: true }
   );
 
   return (

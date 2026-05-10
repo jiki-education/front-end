@@ -7,7 +7,12 @@ import { useState, type MouseEvent } from "react";
 // CSS keyframe delays must match.
 const TOTAL_LAUNCH_MS = 650;
 
-export function useRocketLaunch(action: string | (() => void)) {
+interface UseRocketLaunchOptions {
+  resetAfterLaunch?: boolean;
+}
+
+export function useRocketLaunch(action: string | (() => void), options: UseRocketLaunchOptions = {}) {
+  const { resetAfterLaunch = false } = options;
   const router = useRouter();
   const [launching, setLaunching] = useState(false);
 
@@ -21,7 +26,9 @@ export function useRocketLaunch(action: string | (() => void)) {
       } else {
         action();
       }
-      setLaunching(false);
+      if (resetAfterLaunch) {
+        setLaunching(false);
+      }
     }, TOTAL_LAUNCH_MS);
   };
 
