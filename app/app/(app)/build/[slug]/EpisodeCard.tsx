@@ -3,17 +3,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import LockIcon from "@/icons/lock.svg";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { showModal } from "@/lib/modal";
 import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { tierIncludes } from "@/lib/pricing";
 import type { BuildEpisodeMeta, BuildSeriesMeta } from "@/lib/content/types";
 import styles from "./SeriesPage.module.css";
 
 interface EpisodeCardProps {
   series: BuildSeriesMeta;
   episode: BuildEpisodeMeta;
+  watchedPercentage?: number;
 }
 
-export function EpisodeCard({ series, episode }: EpisodeCardProps) {
+export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardProps) {
+  const user = useAuthStore((state) => state.user);
+  const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
+  const showAsPremium = episode.premium && !userIsPremium;
+  const showProgress = typeof watchedPercentage === "number" && watchedPercentage > 0;
   const inner = (
     <>
       <div className={styles.cardImageWrapper}>
@@ -24,11 +31,16 @@ export function EpisodeCard({ series, episode }: EpisodeCardProps) {
           height={270}
           className={styles.cardImage}
         />
-        {episode.premium && (
+        {showAsPremium && (
           <span className={styles.premiumPill}>
             <LockIcon className={styles.premiumIcon} />
             Premium
           </span>
+        )}
+        {showProgress && (
+          <div className={styles.progressTrack}>
+            <div className={styles.progressBar} style={{ width: `${Math.min(watchedPercentage, 100)}%` }} />
+          </div>
         )}
       </div>
       <h2 className={styles.cardTitle}>{episode.title}</h2>
@@ -36,7 +48,7 @@ export function EpisodeCard({ series, episode }: EpisodeCardProps) {
     </>
   );
 
-  if (episode.premium) {
+  if (showAsPremium) {
     return (
       <button
         type="button"

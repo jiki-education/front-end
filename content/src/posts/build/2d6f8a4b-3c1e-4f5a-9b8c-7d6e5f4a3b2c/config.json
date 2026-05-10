@@ -3,8 +3,8 @@
   "order": 1,
   "date": "2026-05-12",
   "author": "ihid",
-  "videoSource": "youtube",
-  "videoKey": "M7lc1UVf-VE",
+  "videoProvider": "mux",
+  "videoKey": "v2kO7cS7n8IhguzE013jOmPHmkXrrIwFNcM5qgz1P17c",
   "durationSeconds": 3600,
   "premium": false,
   "image": "jiki-waiting.png"

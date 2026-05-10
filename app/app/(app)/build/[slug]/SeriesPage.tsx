@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { fetchUserVideos } from "@/lib/api/user-videos";
 import type { BuildEpisodeMeta, BuildSeriesMeta } from "@/lib/content/types";
 import { EpisodeCard } from "./EpisodeCard";
 import styles from "./SeriesPage.module.css";
@@ -10,6 +14,17 @@ interface SeriesPageProps {
 
 export function SeriesPage({ series, episodes }: SeriesPageProps) {
   const sorted = [...episodes].sort((a, b) => a.order - b.order);
+  const [progressBySlug, setProgressBySlug] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    void fetchUserVideos().then((videos) => {
+      const map: Record<string, number> = {};
+      for (const video of videos) {
+        map[video.slug] = video.watched_percentage;
+      }
+      setProgressBySlug(map);
+    });
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -21,7 +36,12 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
 
       <div className={styles.grid}>
         {sorted.map((episode) => (
-          <EpisodeCard key={episode.uuid} series={series} episode={episode} />
+          <EpisodeCard
+            key={episode.uuid}
+            series={series}
+            episode={episode}
+            watchedPercentage={progressBySlug[episode.uuid]}
+          />
         ))}
       </div>
     </div>

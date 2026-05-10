@@ -38,6 +38,6 @@ export type {
   BuildSeriesMeta,
   BuildEpisodeMeta,
   ProcessedBuildEpisode,
-  BuildVideoSource
+  BuildVideoProvider
 } from "./types";
 export { ARTICLE_TAG_SLUGS, ARTICLE_TAG_LABELS, getArticleTagLabel } from "./types";

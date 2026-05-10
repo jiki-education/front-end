@@ -72,7 +72,7 @@ export interface ProcessedArticle extends ArticleMeta {
   content: string;
 }
 
-export type BuildVideoSource = "youtube" | "vimeo" | "url";
+export type BuildVideoProvider = "youtube" | "mux";
 
 export interface BuildSeriesMeta {
   slug: string;
@@ -96,7 +96,7 @@ export interface BuildEpisodeMeta {
   excerpt: string;
   date: string;
   author: Author;
-  videoSource: BuildVideoSource;
+  videoProvider: BuildVideoProvider;
   videoKey: string;
   durationSeconds: number;
   premium: boolean;

@@ -230,7 +230,7 @@ function processBuild() {
     "order",
     "date",
     "author",
-    "videoSource",
+    "videoProvider",
     "videoKey",
     "durationSeconds",
     "image"
@@ -303,7 +303,7 @@ function processBuild() {
           excerpt: frontmatter.excerpt,
           date: config.date,
           author,
-          videoSource: config.videoSource,
+          videoProvider: config.videoProvider,
           videoKey: config.videoKey,
           durationSeconds: config.durationSeconds,
           premium: Boolean(config.premium),
