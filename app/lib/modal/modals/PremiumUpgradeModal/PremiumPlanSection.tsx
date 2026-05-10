@@ -10,32 +10,25 @@ interface PremiumPlanSectionProps {
 
 const premiumFeatures: React.ReactNode[] = [
   <>
-    {" "}
-    Full access to <strong>Learn to Build</strong>{" "}
+    Full access to <strong>Learn to Build</strong>
   </>,
   <>
-    {" "}
-    Combine your skills in <strong>Jiki Projects</strong>{" "}
+    Combine your skills in <strong>Jiki Projects</strong>
   </>,
   <>
-    {" "}
-    Unlimited <strong>AI support</strong> from Jiki{" "}
+    Unlimited <strong>AI support</strong> from Jiki
   </>,
   <>
-    {" "}
-    Regular <strong>Q&A livestreams</strong> you can join{" "}
+    Regular <strong>Q&A livestreams</strong> you can join
   </>,
   <>
-    {" "}
-    Earn <strong>certificates</strong> for courses{" "}
+    Earn <strong>certificates</strong> for courses
   </>,
   <>
-    {" "}
-    <strong>Ad-free</strong> learning experience{" "}
+    <strong>Ad-free</strong> learning experience
   </>,
   <>
-    {" "}
-    <strong>Early access</strong> to new features{" "}
+    <strong>Early access</strong> to new features
   </>
 ];
 

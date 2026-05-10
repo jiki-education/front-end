@@ -3,6 +3,7 @@ import { formatBlogDate } from "@/lib/utils";
 import AuthorIcon from "@/icons/author.svg";
 import CalendarIcon from "@/icons/calendar.svg";
 import ClockIcon from "@/icons/clock.svg";
+import shared from "@/components/landing-page/shared.module.css";
 import styles from "./BlogPostHeader.module.css";
 
 interface BlogPostHeaderProps {
@@ -12,28 +13,30 @@ interface BlogPostHeaderProps {
 export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
   return (
     <header className={styles.articleHeader}>
-      <div className={styles.articleHeaderImage} />
-      <div className={styles.articleHeaderContent}>
-        <h1 className={styles.articleTitle}>{post.title}</h1>
-        <p className={styles.articleSubtitle}>{post.excerpt}</p>
-        <div className={styles.articleMeta}>
-          <div className={styles.metaItem}>
-            <span className={styles.metaIcon}>
-              <CalendarIcon />
-            </span>
-            <span>{formatBlogDate(post.date)}</span>
-          </div>
-          <div className={styles.metaItem}>
-            <span className={styles.metaIcon}>
-              <AuthorIcon />
-            </span>
-            <span>Written by {post.author.name}</span>
-          </div>
-          <div className={styles.metaItem}>
-            <span className={styles.metaIcon}>
-              <ClockIcon />
-            </span>
-            <span>{post.readingTime} minute read</span>
+      <div className={`${shared["lg-container"]} ${styles.articleHeaderInner}`}>
+        <div className={styles.articleHeaderImage} />
+        <div className={styles.articleHeaderContent}>
+          <h1 className={styles.articleTitle}>{post.title}</h1>
+          <p className={styles.articleSubtitle}>{post.excerpt}</p>
+          <div className={styles.articleMeta}>
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                <CalendarIcon />
+              </span>
+              <span>{formatBlogDate(post.date)}</span>
+            </div>
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                <AuthorIcon />
+              </span>
+              <span>Written by {post.author.name}</span>
+            </div>
+            <div className={styles.metaItem}>
+              <span className={styles.metaIcon}>
+                <ClockIcon />
+              </span>
+              <span>{post.readingTime} minute read</span>
+            </div>
           </div>
         </div>
       </div>

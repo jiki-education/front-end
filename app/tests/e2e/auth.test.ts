@@ -4,7 +4,7 @@ test.describe("Authentication E2E", () => {
   test.describe("Landing Page", () => {
     test("should navigate to login page when login button clicked", async ({ page }) => {
       await page.goto("/");
-      const loginLink = page.locator('a[href="/auth/login"]');
+      const loginLink = page.locator('a[href="/auth/login"]').first();
       await loginLink.waitFor();
 
       // Click the login link
@@ -20,7 +20,7 @@ test.describe("Authentication E2E", () => {
 
     test("should navigate to signup page when signup button clicked", async ({ page }) => {
       await page.goto("/");
-      const signupLink = page.locator('a[href="/auth/signup"]');
+      const signupLink = page.locator('a[href="/auth/signup"]').first();
       await signupLink.waitFor();
 
       // Click the signup link

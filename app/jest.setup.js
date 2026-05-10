@@ -34,6 +34,35 @@ if (typeof global.Response === "undefined") {
   };
 }
 
+// Polyfill matchMedia (used by useScrollingTestimonials for prefers-reduced-motion).
+if (typeof window !== "undefined" && typeof window.matchMedia !== "function") {
+  window.matchMedia = (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false
+  });
+}
+
+// Polyfill IntersectionObserver (used by landing-page rough-annotation hooks).
+if (typeof global.IntersectionObserver === "undefined") {
+  global.IntersectionObserver = class IntersectionObserver {
+    constructor(callback) {
+      this.callback = callback;
+    }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return [];
+    }
+  };
+}
+
 // Mock the problematic ES module package
 jest.mock("@exercism/highlightjs-jikiscript", () => {
   return {
@@ -136,7 +165,18 @@ jest.mock("@/lib/theme/useTheme", () => ({
 
 // Mock lottie-web to prevent canvas errors in test environment
 jest.mock("lottie-web", () => ({
-  loadAnimation: jest.fn(),
+  loadAnimation: jest.fn(() => ({
+    destroy: jest.fn(),
+    play: jest.fn(),
+    pause: jest.fn(),
+    stop: jest.fn(),
+    setSpeed: jest.fn(),
+    setDirection: jest.fn(),
+    goToAndStop: jest.fn(),
+    goToAndPlay: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn()
+  })),
   destroy: jest.fn(),
   setSpeed: jest.fn(),
   setDirection: jest.fn(),

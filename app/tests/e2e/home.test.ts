@@ -15,14 +15,14 @@ test.describe("Home Page E2E", () => {
     await expect(heading).toBeVisible();
   });
 
-  test("should display welcome text", async ({ page }) => {
+  test("should display the marketing headline", async ({ page }) => {
     const headingText = await page.locator("h1").textContent();
-    expect(headingText).toContain("Welcome to Jiki");
+    expect(headingText).toContain("get into tech in 2026");
   });
 
   test("should have login and signup links", async ({ page }) => {
-    const loginLink = page.locator('a[href="/auth/login"]');
-    const signupLink = page.locator('a[href="/auth/signup"]');
+    const loginLink = page.locator('a[href="/auth/login"]').first();
+    const signupLink = page.locator('a[href="/auth/signup"]').first();
 
     await expect(loginLink).toBeVisible();
     await expect(signupLink).toBeVisible();
