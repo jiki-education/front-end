@@ -77,6 +77,7 @@
     "react-hot-toast": "^2.6.0",
     "react-lottie-player": "^2.1.0",
     "react-modal": "^3.16.3",
+    "react-youtube": "^10.1.0",
     "rough-notation": "^0.5.1",
     "typeit-react": "^2.7.8",
     "zustand": "^5.0.10"

@@ -227,20 +227,34 @@ function processBuild() {
   const validSeriesSlugs = new Set(seriesData.series.map((s) => s.slug));
   const requiredEpisodeFields = [
     "series",
+    "slug",
     "order",
     "date",
     "author",
-    "videoSource",
+    "videoProvider",
     "videoKey",
     "durationSeconds",
     "image"
   ];
 
   const episodes = [];
+  const slugsBySeries = new Map();
+  const seenUuids = new Set();
   const episodeDirs = fs.readdirSync(buildDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+
+  const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
   for (const dir of episodeDirs) {
     const uuid = dir.name;
+
+    if (!uuidPattern.test(uuid)) {
+      throw new Error(`Build episode directory name is not a valid UUID: ${uuid}`);
+    }
+    if (seenUuids.has(uuid.toLowerCase())) {
+      throw new Error(`Duplicate build episode UUID: ${uuid}`);
+    }
+    seenUuids.add(uuid.toLowerCase());
+
     const dirPath = path.join(buildDir, uuid);
     const configPath = path.join(dirPath, "config.json");
 
@@ -264,6 +278,16 @@ function processBuild() {
     if (!validSeriesSlugs.has(config.series)) {
       throw new Error(`Episode ${uuid} references unknown series "${config.series}"`);
     }
+
+    let seriesSlugs = slugsBySeries.get(config.series);
+    if (!seriesSlugs) {
+      seriesSlugs = new Set();
+      slugsBySeries.set(config.series, seriesSlugs);
+    }
+    if (seriesSlugs.has(config.slug)) {
+      throw new Error(`Duplicate episode slug "${config.slug}" in series "${config.series}"`);
+    }
+    seriesSlugs.add(config.slug);
 
     const configJson = JSON.stringify(config);
 
@@ -297,13 +321,14 @@ function processBuild() {
 
         const meta = {
           uuid,
+          slug: config.slug,
           series: config.series,
           order: config.order,
           title: frontmatter.title,
           excerpt: frontmatter.excerpt,
           date: config.date,
           author,
-          videoSource: config.videoSource,
+          videoProvider: config.videoProvider,
           videoKey: config.videoKey,
           durationSeconds: config.durationSeconds,
           premium: Boolean(config.premium),

@@ -1,10 +1,11 @@
 {
   "series": "how-things-work",
+  "slug": "how-the-jiki-interpreter-runs-your-code",
   "order": 1,
   "date": "2026-05-10",
   "author": "ihid",
-  "videoSource": "youtube",
-  "videoKey": "kXYiU_JCYtU",
+  "videoProvider": "mux",
+  "videoKey": "v2kO7cS7n8IhguzE013jOmPHmkXrrIwFNcM5qgz1P17c",
   "durationSeconds": 2400,
   "premium": true,
   "image": "jiki-waiting.png"

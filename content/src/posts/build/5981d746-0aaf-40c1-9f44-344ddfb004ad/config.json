@@ -1,10 +1,11 @@
 {
   "series": "building-basics",
+  "slug": "setting-up-the-project",
   "order": 1,
   "date": "2026-05-08",
   "author": "ihid",
-  "videoSource": "youtube",
-  "videoKey": "dQw4w9WgXcQ",
+  "videoProvider": "youtube",
+  "videoKey": "ao5pfcKXDCo",
   "durationSeconds": 1240,
   "premium": false,
   "image": "jiki-waiting.png"

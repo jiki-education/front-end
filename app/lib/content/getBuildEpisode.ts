@@ -9,18 +9,18 @@ import type { ProcessedBuildEpisode } from "./types";
  */
 export async function getBuildEpisode(
   seriesSlug: string,
-  uuid: string,
+  episodeSlug: string,
   locale: string
 ): Promise<ProcessedBuildEpisode> {
   const { episodes } = await getBuildSeries(seriesSlug, locale);
-  const meta = episodes.find((e) => e.uuid === uuid);
+  const meta = episodes.find((e) => e.slug === episodeSlug);
 
   if (!meta) {
-    throw new Error(`Build episode not found: ${seriesSlug}/${uuid}`);
+    throw new Error(`Build episode not found: ${seriesSlug}/${episodeSlug}`);
   }
 
   const content = await fetchStaticContent(
-    `/static/content/build/${seriesSlug}/${uuid}/${meta.locale}-${meta.contentHash}.html`
+    `/static/content/build/${seriesSlug}/${meta.uuid}/${meta.locale}-${meta.contentHash}.html`
   );
   return { ...meta, content };
 }
