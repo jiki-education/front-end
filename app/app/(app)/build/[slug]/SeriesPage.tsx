@@ -17,13 +17,20 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
   const [progressByUuid, setProgressByUuid] = useState<Record<string, number>>({});
 
   useEffect(() => {
+    let cancelled = false;
     void fetchUserVideos().then((videos) => {
+      if (cancelled) {
+        return;
+      }
       const map: Record<string, number> = {};
       for (const video of videos) {
         map[video.uuid] = video.watched_percentage;
       }
       setProgressByUuid(map);
     });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

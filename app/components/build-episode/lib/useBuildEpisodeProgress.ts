@@ -16,12 +16,26 @@ export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "y
   const [userVideo, setUserVideo] = useState<UserVideoData | null>(null);
   const userVideoLoadedRef = useRef(false);
 
-  // Fetch the user's existing progress on mount.
+  // Reset all internal state when the uuid changes (e.g. client-side
+  // navigation between episodes without a remount).
   useEffect(() => {
+    hasRestoredPositionRef.current = false;
+    lastReportedPercentRef.current = -1;
+    userVideoLoadedRef.current = false;
+    ytPlayerRef.current = null;
+    setUserVideo(null);
+
+    let cancelled = false;
     void fetchUserVideo(uuid).then((data) => {
+      if (cancelled) {
+        return;
+      }
       userVideoLoadedRef.current = true;
       setUserVideo(data);
     });
+    return () => {
+      cancelled = true;
+    };
   }, [uuid]);
 
   const reportProgress = (percentage: number) => {
@@ -99,11 +113,11 @@ export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "y
 
   // YouTube handlers
   const handleYouTubeReady = (event: { target: ProgressPlayer & { seekTo: (s: number, b: boolean) => void } }) => {
+    const target = event.target;
     ytPlayerRef.current = {
-      ...event.target,
-      getCurrentTime: () => event.target.getCurrentTime(),
-      getDuration: () => event.target.getDuration(),
-      seekTo: (s: number) => event.target.seekTo(s, true)
+      getCurrentTime: () => target.getCurrentTime(),
+      getDuration: () => target.getDuration(),
+      seekTo: (s: number) => target.seekTo(s, true)
     };
     restorePosition(ytPlayerRef.current);
   };
@@ -122,6 +136,8 @@ export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "y
   };
 
   // YouTube has no native timeupdate event — poll while playing.
+  // Keyed on uuid as well so the interval is torn down between episodes
+  // (otherwise we'd report old-player progress against the new uuid).
   useEffect(() => {
     if (videoProvider !== "youtube" || typeof window === "undefined") {
       return;
@@ -131,7 +147,7 @@ export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "y
     }, 1000);
     return () => window.clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [videoProvider]);
+  }, [videoProvider, uuid]);
 
   // Re-attempt restore once the user video data arrives (in case the player was
   // already ready before the API call resolved).

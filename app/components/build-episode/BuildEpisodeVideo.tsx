@@ -89,6 +89,7 @@ export default function BuildEpisodeVideo({
               handleMuxLoadedMetadata();
               setIsReady(true);
             }}
+            onError={() => setIsReady(true)}
           />
         ) : (
           <YouTube
@@ -106,6 +107,7 @@ export default function BuildEpisodeVideo({
               setIsReady(true);
             }}
             onStateChange={handleYouTubeStateChange}
+            onError={() => setIsReady(true)}
           />
         )}
 

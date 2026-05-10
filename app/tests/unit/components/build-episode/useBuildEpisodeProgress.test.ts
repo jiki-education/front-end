@@ -124,6 +124,62 @@ describe("useBuildEpisodeProgress", () => {
     expect(seekTo).not.toHaveBeenCalled();
   });
 
+  it("resets internal state when the uuid changes", async () => {
+    const FIRST = UUID;
+    const SECOND = "f3e23284-2470-42bb-8782-9aad2eaf3e2e";
+    mockedFetch.mockResolvedValue(null);
+
+    const { result, rerender } = renderHook(({ uuid }) => useBuildEpisodeProgress(uuid, "youtube"), {
+      initialProps: { uuid: FIRST }
+    });
+
+    await waitFor(() => expect(mockedFetch).toHaveBeenCalledWith(FIRST));
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    // Watch the first video to 100% so dedupe state and restore flag are set.
+    act(() => {
+      result.current.handleYouTubeStateChange({
+        data: 0,
+        target: { getCurrentTime: () => 100, getDuration: () => 100, seekTo: jest.fn() }
+      });
+    });
+    expect(mockedPatch).toHaveBeenCalledWith(FIRST, 100);
+
+    // Switch to a second episode mid-session.
+    mockedFetch.mockResolvedValue({
+      uuid: SECOND,
+      watched_percentage: 25,
+      status: "started",
+      completed_at: null
+    });
+    mockedPatch.mockClear();
+
+    rerender({ uuid: SECOND });
+    await waitFor(() => expect(mockedFetch).toHaveBeenCalledWith(SECOND));
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    // Position should restore for the new video despite hasRestoredPositionRef
+    // having been set during the first one.
+    const seekTo = jest.fn();
+    act(() => {
+      result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 200, seekTo }));
+    });
+    expect(seekTo).toHaveBeenCalledWith(48, true); // (25 - 1)% of 200s
+
+    // Reporting at 100% should not be deduped against the previous video.
+    act(() => {
+      result.current.handleYouTubeStateChange({
+        data: 0,
+        target: { getCurrentTime: () => 200, getDuration: () => 200, seekTo }
+      });
+    });
+    expect(mockedPatch).toHaveBeenCalledWith(SECOND, 100);
+  });
+
   it("does not seek when no user_video exists", async () => {
     mockedFetch.mockResolvedValue(null);
     const { result } = renderHook(() => useBuildEpisodeProgress(UUID));
