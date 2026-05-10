@@ -3,7 +3,7 @@ import { api } from "./client";
 export type UserVideoStatus = "started" | "completed";
 
 export interface UserVideoData {
-  slug: string;
+  uuid: string;
   watched_percentage: number;
   status: UserVideoStatus;
   completed_at: string | null;

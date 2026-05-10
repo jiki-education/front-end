@@ -14,13 +14,13 @@ interface SeriesPageProps {
 
 export function SeriesPage({ series, episodes }: SeriesPageProps) {
   const sorted = [...episodes].sort((a, b) => a.order - b.order);
-  const [progressBySlug, setProgressBySlug] = useState<Record<string, number>>({});
+  const [progressByUuid, setProgressBySlug] = useState<Record<string, number>>({});
 
   useEffect(() => {
     void fetchUserVideos().then((videos) => {
       const map: Record<string, number> = {};
       for (const video of videos) {
-        map[video.slug] = video.watched_percentage;
+        map[video.uuid] = video.watched_percentage;
       }
       setProgressBySlug(map);
     });
@@ -40,7 +40,7 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
             key={episode.uuid}
             series={series}
             episode={episode}
-            watchedPercentage={progressBySlug[episode.uuid]}
+            watchedPercentage={progressByUuid[episode.uuid]}
           />
         ))}
       </div>
