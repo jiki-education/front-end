@@ -32,7 +32,7 @@ function SeriesCard({ series }: { series: BuildSeriesMeta }) {
   return (
     <Link href={`/build/${series.slug}`} className={styles.card}>
       <Image
-        src={`/static/images/build/${series.slug}.png`}
+        src={`/static/images/build/series/${series.image}`}
         alt=""
         width={240}
         height={135}

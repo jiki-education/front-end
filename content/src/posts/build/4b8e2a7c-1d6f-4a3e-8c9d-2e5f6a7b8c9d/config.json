@@ -5,5 +5,7 @@
   "author": "ihid",
   "videoSource": "youtube",
   "videoKey": "kXYiU_JCYtU",
-  "durationSeconds": 2400
+  "durationSeconds": 2400,
+  "premium": true,
+  "image": "jiki-waiting.png"
 }

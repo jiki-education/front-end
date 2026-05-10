@@ -225,7 +225,16 @@ function processBuild() {
   }
 
   const validSeriesSlugs = new Set(seriesData.series.map((s) => s.slug));
-  const requiredEpisodeFields = ["series", "order", "date", "author", "videoSource", "videoKey", "durationSeconds"];
+  const requiredEpisodeFields = [
+    "series",
+    "order",
+    "date",
+    "author",
+    "videoSource",
+    "videoKey",
+    "durationSeconds",
+    "image"
+  ];
 
   const episodes = [];
   const episodeDirs = fs.readdirSync(buildDir, { withFileTypes: true }).filter((d) => d.isDirectory());
@@ -297,6 +306,8 @@ function processBuild() {
           videoSource: config.videoSource,
           videoKey: config.videoKey,
           durationSeconds: config.durationSeconds,
+          premium: Boolean(config.premium),
+          image: config.image,
           seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
           contentHash,
           locale
@@ -376,6 +387,10 @@ function buildBuildStaticFiles(processed) {
       const audience = (series.audience && (series.audience[locale] || series.audience.en)) || "";
       const cadence = (series.cadence && (series.cadence[locale] || series.cadence.en)) || "";
       const upcomingStreams = Array.isArray(series.upcoming_streams) ? series.upcoming_streams : [];
+      if (typeof series.image !== "string" || !series.image) {
+        throw new Error(`Series "${series.slug}" is missing required "image" field`);
+      }
+      const image = series.image;
 
       const seriesEpisodes = (episodesBy[locale] && episodesBy[locale][series.slug]) || [];
       const sortedEpisodes = [...seriesEpisodes].sort((a, b) => a.order - b.order);
@@ -392,6 +407,7 @@ function buildBuildStaticFiles(processed) {
         description,
         audience,
         cadence,
+        image,
         upcomingStreams,
         episodeCount: sortedEpisodes.length,
         episodesIndexHash: indexHash,

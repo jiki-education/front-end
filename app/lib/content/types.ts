@@ -81,6 +81,7 @@ export interface BuildSeriesMeta {
   description: string;
   audience: string;
   cadence: string;
+  image: string;
   upcomingStreams: string[];
   episodeCount: number;
   episodesIndexHash: string;
@@ -98,6 +99,8 @@ export interface BuildEpisodeMeta {
   videoSource: BuildVideoSource;
   videoKey: string;
   durationSeconds: number;
+  premium: boolean;
+  image: string;
   seo: {
     description: string;
     keywords: string[];
