@@ -38,5 +38,10 @@ export function isExternalUrl(pathname: string): boolean {
     return true;
   }
 
+  // Testimonials page
+  if (pathname === "/testimonials") {
+    return true;
+  }
+
   return false;
 }
