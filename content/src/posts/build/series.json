@@ -10,11 +10,12 @@
         "en": "New episodes each week"
       },
       "title": {
-        "en": "Building Basics"
+        "en": "Building Fundamentals"
       },
       "description": {
-        "en": "Building a Japanese learning website from scratch — slow pace, beginner-friendly. We start from nothing and build a real, working site step by step."
-      }
+        "en": "Join Jeremy as he builds a web-platform from scratch, teaching you the how, what and why of absolutely everything he does - servers, databases, auth, and more!"
+      },
+      "upcoming_streams": ["2026-05-12T19:00:00Z", "2026-05-19T19:00:00Z"]
     },
     {
       "slug": "how-things-work",
@@ -29,8 +30,9 @@
         "en": "How Things Work"
       },
       "description": {
-        "en": "Deep dives into how Exercism and Jiki work under the hood. Each episode focuses on a single topic and explores it in detail."
-      }
+        "en": "Join Jeremy as he deep-dives into some of the trickier bits of Exercism and Jiki, explaining how they work under the hood and why he designed things this way."
+      },
+      "upcoming_streams": ["2026-05-14T19:00:00Z"]
     },
     {
       "slug": "your-questions-answered",
@@ -45,8 +47,9 @@
         "en": "Your Questions Answered"
       },
       "description": {
-        "en": "Live Q&A sessions where you can submit questions ahead of time. We work through them together on stream."
-      }
+        "en": "Join our live Q&A sessions, where Jeremy answers your questions about coding or building software!"
+      },
+      "upcoming_streams": ["2026-05-15T18:00:00Z", "2026-05-22T18:00:00Z"]
     }
   ]
 }

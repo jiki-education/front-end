@@ -81,6 +81,7 @@ export interface BuildSeriesMeta {
   description: string;
   audience: string;
   cadence: string;
+  upcomingStreams: string[];
   episodeCount: number;
   episodesIndexHash: string;
   locale: string;

@@ -375,6 +375,7 @@ function buildBuildStaticFiles(processed) {
       const description = (series.description && (series.description[locale] || series.description.en)) || "";
       const audience = (series.audience && (series.audience[locale] || series.audience.en)) || "";
       const cadence = (series.cadence && (series.cadence[locale] || series.cadence.en)) || "";
+      const upcomingStreams = Array.isArray(series.upcoming_streams) ? series.upcoming_streams : [];
 
       const seriesEpisodes = (episodesBy[locale] && episodesBy[locale][series.slug]) || [];
       const sortedEpisodes = [...seriesEpisodes].sort((a, b) => a.order - b.order);
@@ -391,6 +392,7 @@ function buildBuildStaticFiles(processed) {
         description,
         audience,
         cadence,
+        upcomingStreams,
         episodeCount: sortedEpisodes.length,
         episodesIndexHash: indexHash,
         locale
