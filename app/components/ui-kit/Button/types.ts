@@ -8,7 +8,7 @@ import type { BaseUIProps, DisableableProps, LoadingProps, IconProps, FullWidthP
 /**
  * Button style variants
  */
-export type ButtonVariant = "primary" | "secondary";
+export type ButtonVariant = "primary" | "secondary" | "white";
 
 /**
  * Props for the Button component
