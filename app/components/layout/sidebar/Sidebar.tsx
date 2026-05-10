@@ -30,7 +30,7 @@ const navigationItems: Array<{
   showPremiumPill?: boolean;
 }> = [
   { id: "learn", label: "Coding Fundamentals", href: "/dashboard", icon: BrainLightningIcon },
-  { id: "build", label: "Build with Jeremy", href: "#", icon: LearningComputerIcon },
+  { id: "build", label: "Build with Jeremy", href: "/build", icon: LearningComputerIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
   { id: "concepts", label: "Concept Library", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },

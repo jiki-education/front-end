@@ -1,0 +1,152 @@
+.layout {
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar {
+  width: 280px;
+  margin-left: 72px;
+  flex-shrink: 0;
+}
+
+.sidebarBox {
+  background: var(--color-blue-50);
+  padding: 16px 20px;
+  border-radius: 12px;
+}
+
+.sidebarHeading {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-gray-700, #374151);
+  margin-bottom: 16px;
+}
+
+.streamsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.streamsItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.streamsItemBullet {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-red-500, #ef4444);
+  margin-top: 7px;
+}
+
+.streamsItemBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.streamsSeriesTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-gray-900, #111827);
+}
+
+.streamDate {
+  font-size: 14px;
+  color: var(--color-gray-500, #6b7280);
+}
+
+.streamsTba {
+  font-size: 14px;
+  color: var(--color-gray-400, #9ca3af);
+  font-style: italic;
+}
+
+.card {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  border-radius: 12px;
+  border: 2px solid var(--color-blue-200, #e5e7eb);
+  background: #fff;
+  padding: 24px;
+  box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--color-blue-300, #93c5fd);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-blue-500) 35%, transparent);
+}
+
+.cardImage {
+  width: 240px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-gray-200);
+  object-fit: cover;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.cardDescription {
+  font-size: 16px;
+  color: var(--color-gray-600, #4b5563);
+  margin-bottom: 12px;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: var(--color-gray-100, #f3f4f6);
+  color: var(--color-gray-700, #374151);
+  border-radius: 12px;
+}
+
+.pillAudience {
+  background: var(--color-pink-600);
+  color: white;
+  font-weight: 600;
+}
+
+.pillCadence {
+  background: var(--color-green-600);
+  color: white;
+  font-weight: 600;
+}

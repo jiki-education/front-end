@@ -72,6 +72,47 @@ export interface ProcessedArticle extends ArticleMeta {
   content: string;
 }
 
+export type BuildVideoSource = "youtube" | "vimeo" | "url";
+
+export interface BuildSeriesMeta {
+  slug: string;
+  order: number;
+  title: string;
+  description: string;
+  audience: string;
+  cadence: string;
+  image: string;
+  upcomingStreams: string[];
+  episodeCount: number;
+  episodesIndexHash: string;
+  locale: string;
+}
+
+export interface BuildEpisodeMeta {
+  uuid: string;
+  series: string;
+  order: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  author: Author;
+  videoSource: BuildVideoSource;
+  videoKey: string;
+  durationSeconds: number;
+  premium: boolean;
+  image: string;
+  seo: {
+    description: string;
+    keywords: string[];
+  };
+  contentHash: string;
+  locale: string;
+}
+
+export interface ProcessedBuildEpisode extends BuildEpisodeMeta {
+  content: string;
+}
+
 export interface AuthorRegistry {
   [key: string]: Author;
 }
