@@ -8,7 +8,7 @@ interface ProgressPlayer {
   seekTo: (seconds: number) => void;
 }
 
-export function useBuildEpisodeProgress(uuid: string) {
+export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtube") {
   const muxPlayerRef = useRef<MuxPlayerRefAttributes>(null);
   const ytPlayerRef = useRef<ProgressPlayer | null>(null);
   const lastReportedPercentRef = useRef(-1);
@@ -122,15 +122,16 @@ export function useBuildEpisodeProgress(uuid: string) {
   };
 
   // YouTube has no native timeupdate event — poll while playing.
-  const startYouTubePolling = () => {
-    if (typeof window === "undefined") {
-      return () => {};
+  useEffect(() => {
+    if (videoProvider !== "youtube" || typeof window === "undefined") {
+      return;
     }
     const interval = window.setInterval(() => {
       reportFromPlayer(ytPlayerRef.current);
     }, 1000);
     return () => window.clearInterval(interval);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoProvider]);
 
   // Re-attempt restore once the user video data arrives (in case the player was
   // already ready before the API call resolved).
@@ -152,7 +153,6 @@ export function useBuildEpisodeProgress(uuid: string) {
     handleMuxEnded,
     handleMuxLoadedMetadata,
     handleYouTubeReady,
-    handleYouTubeStateChange,
-    startYouTubePolling
+    handleYouTubeStateChange
   };
 }

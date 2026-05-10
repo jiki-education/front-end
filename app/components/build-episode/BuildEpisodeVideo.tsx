@@ -54,16 +54,8 @@ export default function BuildEpisodeVideo({
     handleMuxEnded,
     handleMuxLoadedMetadata,
     handleYouTubeReady,
-    handleYouTubeStateChange,
-    startYouTubePolling
-  } = useBuildEpisodeProgress(uuid);
-
-  useEffect(() => {
-    if (videoProvider !== "youtube") {
-      return;
-    }
-    return startYouTubePolling();
-  }, [videoProvider, startYouTubePolling]);
+    handleYouTubeStateChange
+  } = useBuildEpisodeProgress(uuid, videoProvider);
 
   // Don't render the player at all for locked episodes — the effect above
   // will redirect once auth has resolved.

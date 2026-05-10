@@ -14,8 +14,7 @@ jest.mock("@/components/build-episode/lib/useBuildEpisodeProgress", () => ({
     handleMuxEnded: jest.fn(),
     handleMuxLoadedMetadata: jest.fn(),
     handleYouTubeReady: jest.fn(),
-    handleYouTubeStateChange: jest.fn(),
-    startYouTubePolling: () => () => {}
+    handleYouTubeStateChange: jest.fn()
   })
 }));
 
