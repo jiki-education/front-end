@@ -72,7 +72,7 @@ export function Hero() {
             <strong data-anim="underline-can" className="inline-block">
               can
             </strong>{" "}
-            still get into tech in 2026.
+            still get into tech in {new Date().getFullYear()}.
           </h1>
           <div ref={taglineRef} className={`${styles.tagline} max-w-[750px]`} data-tagline>
             The skills you need to{" "}

@@ -22,12 +22,14 @@ export function useArrowAnimation<T extends HTMLElement = HTMLElement>(id: strin
     const el = ref.current;
     if (!el) return;
 
+    let animation: ReturnType<typeof Lottie.loadAnimation> | null = null;
+
     const observer = new IntersectionObserver(
       (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            Lottie.loadAnimation({
-              container: entry.target as HTMLElement,
+            animation = Lottie.loadAnimation({
+              container: entry.target,
               renderer: "svg",
               loop: false,
               autoplay: true,
@@ -41,7 +43,10 @@ export function useArrowAnimation<T extends HTMLElement = HTMLElement>(id: strin
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      animation?.destroy();
+    };
   }, [id]);
 
   return ref;

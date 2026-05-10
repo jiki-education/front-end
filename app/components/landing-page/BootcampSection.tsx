@@ -194,6 +194,7 @@ export function BootcampSection() {
                 In <strong>Level 16</strong> you unlock <strong>dictionaries</strong> making Emoji Collector possible.
               </h4>
             </div>
+            {/* Intentional empty cell — spacer to align the next tile in the grid */}
             <div className={styles.level}></div>
             <div className={styles.level}>
               <img src="/static/images/landing-page/dreaming-house.gif" />
