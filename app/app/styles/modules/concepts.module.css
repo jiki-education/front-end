@@ -215,10 +215,19 @@
 .conceptCard:has(.subConceptCount) {
     box-shadow:
         0 1px 3px rgba(0, 0, 0, 0.04),
-        4px 4px 0 0 white,
-        6px 6px 0 0 var(--color-gray-200),
-        8px 8px 0 0 white,
-        10px 10px 0 0 var(--color-gray-200);
+        2px 2px 0 0 white,
+        4px 4px 0 0 var(--color-gray-200),
+        6px 6px 0 0 white,
+        8px 8px 0 0 var(--color-gray-200);
+}
+
+.conceptCard:has(.subConceptCount):not(.locked):hover {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        2px 2px 0 0 white,
+        4px 4px 0 0 var(--color-blue-300),
+        6px 6px 0 0 white,
+        8px 8px 0 0 var(--color-blue-300);
 }
 
 /* Locked Concept Card */
