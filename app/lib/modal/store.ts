@@ -130,6 +130,18 @@ export const showPaymentProcessing = (props?: { onClose?: () => void }) => {
   showModal("payment-processing-modal", props ?? {}, undefined, paymentProcessingStyles.modal);
 };
 
+// Convenience function for the brief "confirming with Stripe" state shown
+// the moment a checkout return is detected, before verifyCheckoutSession resolves.
+export const showPaymentConfirming = () => {
+  showModal("payment-confirming-modal", {}, undefined, paymentProcessingStyles.modal);
+};
+
+// Convenience function shown when checkout verification itself errors
+// (network/server failure), distinct from a successful "unpaid" response.
+export const showPaymentVerificationFailed = (props?: { onClose?: () => void }) => {
+  showModal("payment-verification-failed-modal", props ?? {}, undefined, paymentProcessingStyles.modal);
+};
+
 // Convenience function for welcome to premium modal
 export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
   showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
