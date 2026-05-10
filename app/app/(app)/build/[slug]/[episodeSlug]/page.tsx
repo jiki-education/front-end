@@ -35,6 +35,7 @@ export default async function BuildEpisodePage({ params }: PageProps) {
       seriesSlug={slug}
       videoProvider={episode.videoProvider}
       videoKey={episode.videoKey}
+      premium={episode.premium}
     />
   );
 }
