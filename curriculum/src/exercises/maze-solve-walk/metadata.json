@@ -2,9 +2,9 @@
   "slug": "maze-solve-walk",
   "levelId": "using-functions",
   "hints": [
-    { "question": "Hint", "answer": "The character starts in the top-left corner facing down" },
-    { "question": "Hint", "answer": "walk(3) moves forward 3 steps — count the empty cells in each corridor" },
-    { "question": "Hint", "answer": "Use turnLeft() or turnRight() to change direction at corners" },
-    { "question": "Hint", "answer": "Plan your path first: count how many steps each straight section needs" }
+    {
+      "question": "Why doesn't `move()` work any more?",
+      "answer": "Each exercise in Jiki has different functions you can use. In this exercise, you have the `walk(...)` function. Replace the `n` with the number of steps you want to walk. So `walk(1)` does exactly the same as `move()` did last time."
+    }
   ]
 }
