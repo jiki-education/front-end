@@ -34,7 +34,7 @@ describe("useBuildEpisodeProgress", () => {
 
     await waitFor(() => expect(mockedFetch).toHaveBeenCalledWith(UUID));
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     const seekTo = jest.fn();
@@ -68,7 +68,7 @@ describe("useBuildEpisodeProgress", () => {
     const { result } = renderHook(() => useBuildEpisodeProgress(UUID));
     await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     act(() => {
@@ -91,7 +91,7 @@ describe("useBuildEpisodeProgress", () => {
     const { result } = renderHook(() => useBuildEpisodeProgress(UUID));
     await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     const seekTo = jest.fn();
@@ -113,7 +113,7 @@ describe("useBuildEpisodeProgress", () => {
     const { result } = renderHook(() => useBuildEpisodeProgress(UUID));
     await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     const seekTo = jest.fn();
@@ -135,7 +135,7 @@ describe("useBuildEpisodeProgress", () => {
 
     await waitFor(() => expect(mockedFetch).toHaveBeenCalledWith(FIRST));
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     // Watch the first video to 100% so dedupe state and restore flag are set.
@@ -159,7 +159,7 @@ describe("useBuildEpisodeProgress", () => {
     rerender({ uuid: SECOND });
     await waitFor(() => expect(mockedFetch).toHaveBeenCalledWith(SECOND));
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     // Position should restore for the new video despite hasRestoredPositionRef
@@ -185,7 +185,7 @@ describe("useBuildEpisodeProgress", () => {
     const { result } = renderHook(() => useBuildEpisodeProgress(UUID));
     await waitFor(() => expect(mockedFetch).toHaveBeenCalled());
     await act(async () => {
-      await Promise.resolve();
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     const seekTo = jest.fn();

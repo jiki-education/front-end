@@ -2,9 +2,13 @@
   "slug": "space-invaders-solve-basic",
   "levelId": "using-functions",
   "hints": [
-    { "question": "Hint", "answer": "Look at the screen and count how many times you need to move before each alien" },
-    { "question": "Hint", "answer": "You start at the far left (position 0)" },
-    { "question": "Hint", "answer": "Each move() takes you one position to the right" },
-    { "question": "Hint", "answer": "Only shoot() when you're directly below an alien" }
+    {
+      "question": "What do I need to do?",
+      "answer": "Like the maze, you need to move your character (this time a laser, not a blob). But you also need to shoot from the laser! Move the laser underneath an alien then shoot. Then move again until you're under the next alien, and shoot again. Continue until you've shot down the last alien!"
+    },
+    {
+      "question": "I get told I can't waste ammo.",
+      "answer": "You should only `shoot()` when you're directly below an alien. Try moving one step further (or maybe you've gone one too far?)"
+    }
   ]
 }
