@@ -33,7 +33,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "no-matches",
     name: "No matches",
-    description: "If no anagrams exist in the candidates, return an empty list",
+    description: "If no anagrams exist in the candidates, return an empty list.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["diaper", ["hello", "world", "zombies", "pants"]],
@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "two-anagrams",
     name: "Detects two anagrams",
-    description: "Find two anagrams from a list of candidates",
+    description: "Find two anagrams from a list of candidates.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["master", ["maters", "stream", "pigeon"]],
@@ -51,7 +51,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "no-subsets",
     name: "Does not detect anagram subsets",
-    description: "An anagram must use all letters exactly once",
+    description: "An anagram must use all letters exactly once.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["good", ["dog", "goody"]],
@@ -60,7 +60,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "single-match",
     name: "Detects single anagram",
-    description: "Find a single anagram from a list",
+    description: "Find a single anagram from a list.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["listen", ["enlists", "google", "inlets", "banana"]],
@@ -69,7 +69,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "different-case",
     name: "Detects multiple anagrams with different case",
-    description: "Anagrams should be detected regardless of case",
+    description: "Anagrams should be detected regardless of case.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["nose", ["Eons", "ONES"]],
@@ -78,7 +78,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "case-insensitive",
     name: "Detects anagrams case-insensitively",
-    description: "Case should not affect anagram detection",
+    description: "Case should not affect anagram detection.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["Orchestra", ["cashregister", "Carthorse", "radishes"]],
@@ -87,7 +87,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "not-itself",
     name: "Words are not anagrams of themselves (case-insensitive)",
-    description: "A word should not be considered an anagram of itself",
+    description: "A word should not be considered an anagram of itself.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["BANANA", ["BANANA", "Banana", "banana"]],
@@ -96,7 +96,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "other-than-itself",
     name: "Words other than themselves can be anagrams",
-    description: "Detect valid anagrams excluding the target word itself",
+    description: "Detect valid anagrams excluding the target word itself.",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["LISTEN", ["Listen", "Silent", "LISTEN"]],
@@ -105,7 +105,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "alphabetical-sorting",
     name: "Results sorted alphabetically",
-    description: "Verify anagrams are returned in alphabetical order",
+    description: "Verify anagrams are returned in alphabetical order.",
     taskId: "sorted-results",
     functionName: "find_anagrams",
     args: ["stone", ["stone", "tones", "banana", "tons", "notes", "Seton"]],

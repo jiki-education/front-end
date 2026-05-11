@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-fridge",
     name: "Empty fridge",
-    description: "When the fridge is empty, you need to buy everything",
+    description: "When the fridge is empty, you need to buy everything.",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [[], ["peas", "tomatoes", "garlic", "basil", "olives"]],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "you-have-everything",
     name: "You have everything",
-    description: "When you have all ingredients, the shopping list is empty",
+    description: "When you have all ingredients, the shopping list is empty.",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [
@@ -37,7 +37,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "one-thing",
     name: "One thing",
-    description: "When you're missing just one ingredient",
+    description: "When you're missing just one ingredient.",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [
@@ -49,7 +49,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "few-things",
     name: "A few things",
-    description: "When you're missing a few ingredients",
+    description: "When you're missing a few ingredients.",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [

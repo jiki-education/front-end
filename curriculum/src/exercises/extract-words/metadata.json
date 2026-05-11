@@ -3,24 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start with an empty list and an empty string for building each word"
+      "question": "How should I build up the list of words as I go?",
+      "answer": "Keep two things alongside each other: an empty list for the finished words, and an empty string that you're currently building up letter by letter. When the current word is 'finished', push it into the list and start a new empty word."
     },
     {
-      "question": "Hint",
-      "answer": "Use a for-each loop to iterate through each character in the sentence"
+      "question": "How do I know when a word is finished?",
+      "answer": "Loop through each character. When you hit a space, the current word has ended. Push it to the list and reset the building-up string to empty. Otherwise, append the character to the building-up string."
     },
     {
-      "question": "Hint",
-      "answer": "When you hit a space, push the current word to the list (if it's not empty) and reset the word"
+      "question": "What if there are two spaces in a row?",
+      "answer": "That would give you an empty word. Only push the current word to the list if it's not empty, otherwise skip."
     },
     {
-      "question": "Hint",
-      "answer": "Skip periods entirely - don't add them to the current word"
+      "question": "What about punctuation like a full stop?",
+      "answer": "Just skip it. Don't add periods to the current word. So when looping, if the character is a period, ignore it entirely."
     },
     {
-      "question": "Hint",
-      "answer": "Don't forget to push the last word after the loop ends"
+      "question": "Why am I missing the last word?",
+      "answer": "After the loop ends, your final word is still sitting in the building-up string and hasn't been pushed yet. Push it (if non-empty) after the loop finishes."
     }
   ]
 }

@@ -3,24 +3,20 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by creating a variable to count the number of letters"
+      "question": "What am I actually counting?",
+      "answer": "Letters. Specifically, anything that isn't a space. So you want a counter that goes up by 1 for each non-space character in the sign text."
     },
     {
-      "question": "Hint",
-      "answer": "Loop through each character of the sign text"
+      "question": "How do I loop through the characters?",
+      "answer": "A for-each loop gives you each character in turn. Inside, an if-statement checks whether it's a space. Only count it if it isn't."
     },
     {
-      "question": "Hint",
-      "answer": "Inside the loop, check if the character is not a space before counting it"
+      "question": "How do I work out the price?",
+      "answer": "Once the loop ends, multiply your letter count by 12. That's the cost."
     },
     {
-      "question": "Hint",
-      "answer": "After the loop, multiply the letter count by 12 to get the price"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use concatenate() and numberToString() to build the return string"
+      "question": "How do I build the result string?",
+      "answer": "The price is a number, but the return value is a string. Use `numberToString()` to convert the price to a string, then `concatenate()` to add any surrounding text the exercise asks for."
     }
   ]
 }

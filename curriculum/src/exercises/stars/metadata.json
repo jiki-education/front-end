@@ -3,20 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start with an empty list and an empty string"
+      "question": "What's the shape of my answer?",
+      "answer": "A list of strings, each one a bit longer than the last. Start with an empty list and an empty string. Each iteration, the string grows by one star, and the new string goes into the list."
     },
     {
-      "question": "Hint",
-      "answer": "Use a repeat loop to run the right number of times"
+      "question": "How do I run the loop the right number of times?",
+      "answer": "A `repeat n times` loop matches the input directly. If `n` is 3, you go around 3 times."
     },
     {
-      "question": "Hint",
-      "answer": "Each time through the loop, add a star to your string, then push it to the list"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use concatenate() to add a star to the string and push() to add the string to the list"
+      "question": "What happens inside the loop?",
+      "answer": "Two steps. First, `concatenate()` a star onto your growing string. Second, `push()` the growing string onto your list. Order matters here. Do the concatenate first, so the first thing pushed is `\"*\"`, not the empty string."
     }
   ]
 }

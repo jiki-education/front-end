@@ -32,7 +32,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "regular-lunch",
     name: "Regular lunch",
-    description: "A normal lunch with water - everything fits in the lunchbox",
+    description: "A normal lunch with water - everything fits in the lunchbox.",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["ham sandwich", "water", "cookies"],
@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "milkshake-lunch",
     name: "Milkshake lunch",
-    description: "The milkshake is too big for the lunchbox, so it gets left out",
+    description: "The milkshake is too big for the lunchbox, so it gets left out.",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["PBJ", "milkshake", "grapes"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "another-regular",
     name: "Another regular lunch",
-    description: "Another normal lunch where everything fits",
+    description: "Another normal lunch where everything fits.",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["turkey wrap", "juice", "chips"],
@@ -62,7 +62,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "another-milkshake",
     name: "Another milkshake lunch",
-    description: "Another lunch with a milkshake that doesn't fit",
+    description: "Another lunch with a milkshake that doesn't fit.",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["BLT", "milkshake", "apple"],

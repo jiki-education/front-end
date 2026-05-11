@@ -3,16 +3,16 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Think about how you would reverse a word manually with pen and paper"
+      "question": "How would I reverse a word by hand?",
+      "answer": "You'd read it left-to-right but write it right-to-left. Equivalently, you'd take each letter in turn and put it in front of what you've written so far."
     },
     {
-      "question": "Hint",
-      "answer": "For each character, prepend it to your result instead of appending"
+      "question": "How does that map to code?",
+      "answer": "Loop through the input string character by character. For each character, build the result by prepending. That means putting it at the FRONT of your result, not the back."
     },
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to add each character to the front of your result"
+      "question": "How do I 'prepend' instead of append?",
+      "answer": "With `concatenate()`, prepending is just a matter of order. Instead of `concatenate(result, char)` (which appends), use `concatenate(char, result)` (which prepends)."
     }
   ]
 }

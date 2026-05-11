@@ -3,16 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "This exercise would be a lot easier if you had some common functions available like a length function and a startsWith function"
+      "question": "How do I approach checking whether a name is on a list?",
+      "answer": "Imagine doing it by hand. You'd read down the list, and for each entry decide whether it matches what you're looking for. Code works the same way. Loop through the names one at a time."
     },
     {
-      "question": "Hint",
-      "answer": "A good outline would be: Go through each name on the list, if the name starts with the person's first name, return true. If none of the names match, return false"
+      "question": "What helper functions might make this easier?",
+      "answer": "A `length()` function (to know how long a string is) and a `startsWith()` function (to check if a string begins with certain characters) would make the matching much simpler. Try writing those first."
     },
     {
-      "question": "Hint",
-      "answer": "You need to check if the name starts with the first name followed by a space, OR if the name equals the first name exactly (for single-name celebrities like Cher)"
+      "question": "What does 'matching' actually mean here?",
+      "answer": "A name matches if it starts with the first name followed by a space (e.g. 'Andy Smith' for Andy), OR if it's exactly the first name on its own (for single-name celebrities like 'Cher'). Just checking 'starts with Andy' would wrongly match 'Andrew' too."
+    },
+    {
+      "question": "When should I return true vs false?",
+      "answer": "Return `true` as soon as you find a match. There's no need to keep looking. Only return `false` once you've checked every name and none matched."
     }
   ]
 }

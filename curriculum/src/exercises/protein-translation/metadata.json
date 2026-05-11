@@ -3,24 +3,20 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Break the problem into two parts: (1) split RNA into codons, (2) translate codons to proteins"
+      "question": "How do I break this down?",
+      "answer": "Two independent steps. First, split the RNA string into codons (groups of 3 characters). Second, translate each codon into the matching amino acid. Solving them separately is much easier than mixing them."
     },
     {
-      "question": "Hint",
-      "answer": "Use a dictionary to map codons to amino acids"
+      "question": "How should I do the codon to amino acid lookup?",
+      "answer": "A dictionary mapping each codon (e.g. `\"AUG\"`) to its amino acid (e.g. `\"Methionine\"`) is the right shape for this. STOP codons map to `\"STOP\"`."
     },
     {
-      "question": "Hint",
-      "answer": "Remember that each codon is exactly 3 characters"
+      "question": "How do I split the string into chunks of 3?",
+      "answer": "Walk through with a position counter that goes up by 3 each time. At each step, take the substring of length 3 starting at your position. That's the current codon."
     },
     {
-      "question": "Hint",
-      "answer": "Use a counter variable to track your position in the string"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use 'break' to stop when you encounter a STOP codon"
+      "question": "What do I do when I hit a STOP codon?",
+      "answer": "Stop translating completely. Use `break` to exit the loop. Don't add STOP to your protein list."
     }
   ]
 }

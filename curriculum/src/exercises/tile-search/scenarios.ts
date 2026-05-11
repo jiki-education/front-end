@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "letter-found-at-start",
     name: "Letter at the start",
-    description: "The letter is the first tile in the rack",
+    description: "The letter is the first tile in the rack.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["S", "C", "R"], "S"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "letter-found-in-middle",
     name: "Letter in the middle",
-    description: "The letter is in the middle of the rack",
+    description: "The letter is in the middle of the rack.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["S", "C", "R", "A", "B"], "R"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "letter-found-at-end",
     name: "Letter at the end",
-    description: "The letter is the last tile in the rack",
+    description: "The letter is the last tile in the rack.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["S", "C", "R"], "R"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "letter-not-found",
     name: "Letter not found",
-    description: "The letter isn't in the rack",
+    description: "The letter isn't in the rack.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["S", "C", "R", "A", "B"], "Z"],
@@ -61,7 +61,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-rack",
     name: "Empty rack",
-    description: "An empty rack has no tiles to find",
+    description: "An empty rack has no tiles to find.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [[], "A"],
@@ -70,7 +70,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "duplicate-letters",
     name: "Rack with duplicates",
-    description: "The letter appears among duplicate tiles",
+    description: "The letter appears among duplicate tiles.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["A", "B", "A", "N", "A"], "N"],
@@ -79,7 +79,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "single-tile-found",
     name: "Single tile found",
-    description: "A rack with one tile that matches",
+    description: "A rack with one tile that matches.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["Q"], "Q"],
@@ -88,7 +88,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "single-tile-not-found",
     name: "Single tile not found",
-    description: "A rack with one tile that doesn't match",
+    description: "A rack with one tile that doesn't match.",
     taskId: "search-for-tile",
     functionName: "contains",
     args: [["Q"], "X"],
