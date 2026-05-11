@@ -1,5 +1,5 @@
 ---
-title: "Walk"
+title: "Learn to Walk"
 description: "Create a walk function that moves multiple steps at once."
 ---
 

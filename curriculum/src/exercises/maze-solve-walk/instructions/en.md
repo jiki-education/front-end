@@ -1,5 +1,5 @@
 ---
-title: "Walk Through a Maze"
+title: "Take a Walk"
 description: "Navigate the maze using a function that walks multiple steps."
 ---
 

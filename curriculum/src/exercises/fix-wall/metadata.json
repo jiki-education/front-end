@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "How do I draw bricks?",
-      "answer": "Draw a rectangle that covers each holes. Check the instructions for information on the different inputs that thte `rectangle` function expects."
+      "answer": "Draw a rectangle that covers each holes. Check the instructions for information on the different inputs that the `rectangle` function expects."
     },
     {
       "question": "What sizes are the holes?",
