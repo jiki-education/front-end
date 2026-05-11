@@ -219,10 +219,10 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
           <div className={style?.hintConfirmOverlay} onClick={(e) => e.stopPropagation()}>
             <div className={style?.hintConfirmText}>Are you sure you want to reveal this hint?</div>
             <div className={style?.hintConfirmButtons}>
-              <button className="ui-btn ui-btn-small ui-btn-tertiary" onClick={handleCancelReveal}>
+              <button className="ui-btn ui-btn-xs ui-btn-tertiary" onClick={handleCancelReveal}>
                 Not for now
               </button>
-              <button className="ui-btn ui-btn-small ui-btn-primary" onClick={handleConfirmReveal}>
+              <button className="ui-btn ui-btn-xs ui-btn-primary" onClick={handleConfirmReveal}>
                 Yes
               </button>
             </div>

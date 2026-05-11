@@ -158,8 +158,18 @@ describe("ConsoleTab Component", () => {
 
   describe("log line components", () => {
     it("should render log line with proper structure and styling", () => {
+      const frames = [
+        {
+          line: 1,
+          time: 100000,
+          timeInMs: 100,
+          code: "print('Hello from Python!')",
+          status: "SUCCESS" as const,
+          generateDescription: () => "log"
+        }
+      ];
       const logLines = [{ time: 100000, output: "print('Hello from Python!')" }];
-      const testResult = createMockTestResult({ logLines });
+      const testResult = createMockTestResult({ logLines, frames });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
@@ -174,37 +184,64 @@ describe("ConsoleTab Component", () => {
       expect(logLine).toBeInTheDocument();
       expect(logLine).toHaveClass("consoleLogEntry");
 
-      // Check timestamp
-      const timestamp = screen.getByText("00:100");
-      expect(timestamp).toBeInTheDocument();
-      expect(timestamp).toHaveClass("consoleLogTimestamp");
+      // Check frame number marker
+      const frameMarker = screen.getByText("F1");
+      expect(frameMarker).toBeInTheDocument();
+      expect(frameMarker).toHaveClass("consoleLogTimestamp");
 
       // Check output content
       expect(screen.getByText("print('Hello from Python!')")).toBeInTheDocument();
     });
 
-    it("should format timestamps correctly", () => {
+    it("should render frame numbers matching log times", () => {
+      const frames = [
+        { line: 1, time: 0, timeInMs: 0, code: "a", status: "SUCCESS" as const, generateDescription: () => "a" },
+        {
+          line: 2,
+          time: 1500000,
+          timeInMs: 1500,
+          code: "b",
+          status: "SUCCESS" as const,
+          generateDescription: () => "b"
+        },
+        {
+          line: 3,
+          time: 10000000,
+          timeInMs: 10000,
+          code: "c",
+          status: "SUCCESS" as const,
+          generateDescription: () => "c"
+        },
+        {
+          line: 4,
+          time: 120000000,
+          timeInMs: 120000,
+          code: "d",
+          status: "SUCCESS" as const,
+          generateDescription: () => "d"
+        }
+      ];
       const logLines = [
         { time: 0, output: "Start" },
-        { time: 1500000, output: "1.5 seconds" }, // 1.5 seconds in microseconds
-        { time: 10000000, output: "10 seconds" }, // 10 seconds in microseconds
-        { time: 120000000, output: "2 minutes" } // 2 minutes in microseconds
+        { time: 1500000, output: "1.5 seconds" },
+        { time: 10000000, output: "10 seconds" },
+        { time: 120000000, output: "2 minutes" }
       ];
-      const testResult = createMockTestResult({ logLines });
+      const testResult = createMockTestResult({ logLines, frames });
 
       (useOrchestratorStore as jest.Mock).mockReturnValue(
         createMockStoreState({
           currentTest: testResult,
-          currentFrame: undefined // No line highlighted
+          currentFrame: undefined
         })
       );
 
       render(<ConsoleTab />);
 
-      expect(screen.getByText("00:000")).toBeInTheDocument(); // 0 microseconds
-      expect(screen.getByText("01:500")).toBeInTheDocument(); // 1.5 seconds
-      expect(screen.getByText("10:000")).toBeInTheDocument(); // 10 seconds
-      expect(screen.getByText("120:000")).toBeInTheDocument(); // 2 minutes (120 seconds)
+      expect(screen.getByText("F1")).toBeInTheDocument();
+      expect(screen.getByText("F2")).toBeInTheDocument();
+      expect(screen.getByText("F3")).toBeInTheDocument();
+      expect(screen.getByText("F4")).toBeInTheDocument();
     });
   });
 

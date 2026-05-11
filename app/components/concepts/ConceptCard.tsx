@@ -3,7 +3,7 @@ import SubConceptIcon from "@/icons/subconcept.svg";
 import LockedIcon from "@/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
-import { ConceptIcon } from "@/components/icons/ConceptIcon";
+// import { ConceptIcon } from "@/components/icons/ConceptIcon";
 
 interface ConceptCardData {
   slug: string;
@@ -29,9 +29,9 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
           Locked
         </div>
       )}
-      <div className={styles.conceptIcon}>
+      {/* <div className={styles.conceptIcon}>
         <ConceptIcon slug={concept.slug} width={100} height={100} />
-      </div>
+      </div> */}
       <div className={styles.conceptContent}>
         <div className={styles.conceptTitle}>{concept.title}</div>
         <div className={styles.conceptDescription}>{concept.description}</div>
