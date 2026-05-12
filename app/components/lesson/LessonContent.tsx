@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 
@@ -17,8 +18,6 @@ interface LessonContentProps {
 }
 
 export default function LessonContent({ lesson, userCourse, isCompleted, onReady }: LessonContentProps) {
-  const router = useRouter();
-
   if (lesson.type === "video") {
     return <VideoExercise lessonData={lesson} onReady={onReady} />;
   }
@@ -40,6 +39,16 @@ export default function LessonContent({ lesson, userCourse, isCompleted, onReady
   }
 
   // Quiz type - not yet implemented
+  return <QuizNotImplemented onReady={onReady} />;
+}
+
+function QuizNotImplemented({ onReady }: { onReady: () => void }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    onReady();
+  }, [onReady]);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center">
