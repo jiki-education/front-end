@@ -7,7 +7,7 @@ In this exercise your task is to draw a weather icon for a rainy day with the su
 
 <img src="/static/images/exercise-assets/cloud-rain-sun/finished.png" alt="Finished cloud, rain and sun scene" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-We've drawn a template for you. Your shapes should sit just inside the lines. We've also added the base of the cloud into the code to make things a little easier for you. **You can't change this line** (you'll see that its greyed out and there's a locked symbol by it).
+We've drawn a template for you. Your shapes should sit just inside the lines. We've also added the base of the cloud into the code to make things a little easier for you. **You can't change this line** (you'll see that it's greyed out and there's a locked symbol by it).
 
 You'll need the `circle` and `ellipse` functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
 
