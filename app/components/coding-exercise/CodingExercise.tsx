@@ -35,11 +35,13 @@ export default function CodingExercise({
     onGoToDashboard: () => router.push("/dashboard")
   });
 
+  // Fire onReady once loading settles — success OR error — so the parent
+  // dismisses the loading modal and the error UI becomes visible.
   useEffect(() => {
-    if (!isLoading && !loadError) {
+    if (!isLoading) {
       onReady();
     }
-  }, [isLoading, loadError, onReady]);
+  }, [isLoading, onReady]);
 
   // Error state
   if (loadError) {

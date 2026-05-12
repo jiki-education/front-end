@@ -15,10 +15,6 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
-  useEffect(() => {
-    onReady();
-  }, [onReady]);
-
   const {
     playerRef,
     videoWatched,
@@ -34,6 +30,12 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
     autoplay,
     handleContinue
   } = useVideoExercise(lessonData.slug);
+
+  useEffect(() => {
+    if (!isInitializing) {
+      onReady();
+    }
+  }, [isInitializing, onReady]);
 
   return (
     <div

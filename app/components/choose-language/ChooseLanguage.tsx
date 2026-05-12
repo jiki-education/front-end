@@ -38,8 +38,10 @@ export default function ChooseLanguage({ lessonData, onReady }: ChooseLanguagePr
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    onReady();
-  }, [onReady]);
+    if (!isInitializing) {
+      onReady();
+    }
+  }, [isInitializing, onReady]);
 
   const handleReady = () => {
     setIsInitializing(false);
