@@ -193,6 +193,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
   private checkForWin(executionCtx: ExecutionContext) {
     if (this.allAliensDead(executionCtx)) {
       this.gameStatus = "won";
+      executionCtx.exerciseFinished();
     }
   }
 
