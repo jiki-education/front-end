@@ -39,7 +39,7 @@ And we can also iterate through an array in exactly the same way we iterated thr
 
 Arrays work in exactly the same way. The only difference is this time, rather than getting a letter out, we're getting whatever the item in the array was. In this example, the name of the mentor.
 
-So the first time we thank someone, we thank DJ. The second time, we thank Becky, et cetera.
+So the first time we thank someone, we thank DJ. The second time, we thank Becky, etc.
 
 We can also use the length property on arrays, just like we learned about on strings. If we have an array with four strings in the mentors box and write `mentors.length`, it'll return four.
 

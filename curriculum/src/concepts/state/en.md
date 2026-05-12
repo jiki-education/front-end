@@ -7,7 +7,7 @@ So far, when we've created variables, we've put values in boxes and then got the
 
 Say we want to plant a flower in a garden. We have a handy plant function that has a single input for the position we want to place the flower. So if we want to place a flower 10 from the edge, we write plant(10). Nice and simple.
 
-What about if we want to plant eight flowers? Well, we could write plant(10), plant(20), plant(30), et cetera, but that's pretty tedious.
+What about if we want to plant eight flowers? Well, we could write plant(10), plant(20), plant(30), etc, but that's pretty tedious.
 
 And we've already learnt about something that helps us replace this sort of tedious code. Use a loop! Use a repeat block! So let's set the position to be 10, and then have a repeat block where we call plant, we use the plant function, eight times.
 
