@@ -17,11 +17,6 @@ export default class GolfScenariosExercise extends GolfExercise {
       name: "get_shot_length",
       func: this.getShotLength.bind(this),
       description: "retrieved the shot length"
-    },
-    {
-      name: "fire_fireworks",
-      func: this.fireFireworks.bind(this),
-      description: "fired off celebratory fireworks"
     }
   ];
 }

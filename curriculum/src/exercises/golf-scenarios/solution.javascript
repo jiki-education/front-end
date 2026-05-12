@@ -5,5 +5,3 @@ repeat(shotLength + 1) {
   x = x + 1
   rollTo(x)
 }
-
-fireFireworks()

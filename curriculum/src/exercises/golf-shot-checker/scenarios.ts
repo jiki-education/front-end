@@ -10,10 +10,10 @@ export const tasks = [
     requiredScenarios: [
       "too-short",
       "just-too-short",
+      "just-too-far",
       "too-long",
       "just-inside-left",
-      "just-inside-right",
-      "just-too-far"
+      "just-inside-right"
     ],
     bonus: false
   }
@@ -30,7 +30,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(23);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
     },
 
     expectations(exercise) {
@@ -61,7 +61,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(57);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
     },
 
     expectations(exercise) {
@@ -83,68 +83,6 @@ export const scenarios: VisualScenario[] = [
     }
   },
   {
-    slug: "just-inside-left",
-    name: "Just in the hole",
-    description: "The golfer hits the ball 58 — it just reaches the hole!",
-    taskId: "check-shot",
-
-    setup(exercise) {
-      const ex = exercise as GolfShotCheckerExercise;
-      ex.setupBallPosition(28, 75);
-      ex.setupShotLength(58);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
-    },
-
-    expectations(exercise) {
-      const ex = exercise as GolfShotCheckerExercise;
-      return [
-        {
-          pass: ex.ballX === 86,
-          errorHtml: `The ball should be at x=86 (28 + 58), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
-        }
-      ];
-    }
-  },
-  {
-    slug: "just-inside-right",
-    name: "Nearly too far but ok!",
-    description: "The golfer hits the ball 62 — it just about stays in the hole!",
-    taskId: "check-shot",
-
-    setup(exercise) {
-      const ex = exercise as GolfShotCheckerExercise;
-      ex.setupBallPosition(28, 75);
-      ex.setupShotLength(62);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
-    },
-
-    expectations(exercise) {
-      const ex = exercise as GolfShotCheckerExercise;
-      return [
-        {
-          pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=90 (28 + 62), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
-        }
-      ];
-    }
-  },
-  {
     slug: "just-too-far",
     name: "Just too far",
     description: "The golfer hits the ball 63 and it just pops out the other side",
@@ -154,7 +92,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(63);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
     },
 
     expectations(exercise) {
@@ -185,7 +123,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(68);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
     },
 
     expectations(exercise) {
@@ -202,6 +140,68 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.fireworksFired === false,
           errorHtml: "You shouldn't have fired the fireworks at the end."
+        }
+      ];
+    }
+  },
+  {
+    slug: "just-inside-left",
+    name: "Just in the hole",
+    description: "The golfer hits the ball 58 — it just reaches the hole!",
+    taskId: "check-shot",
+
+    setup(exercise) {
+      const ex = exercise as GolfShotCheckerExercise;
+      ex.setupBallPosition(28, 75);
+      ex.setupShotLength(58);
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+    },
+
+    expectations(exercise) {
+      const ex = exercise as GolfShotCheckerExercise;
+      return [
+        {
+          pass: ex.ballX === 86,
+          errorHtml: `The ball should be at x=86 (28 + 58), but it's at x=${ex.ballX}.`
+        },
+        {
+          pass: ex.ballY === 84,
+          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+        },
+        {
+          pass: ex.fireworksFired === true,
+          errorHtml: "You should fire the fireworks at the end."
+        }
+      ];
+    }
+  },
+  {
+    slug: "just-inside-right",
+    name: "Nearly too far but ok!",
+    description: "The golfer hits the ball 62 — it just about stays in the hole!",
+    taskId: "check-shot",
+
+    setup(exercise) {
+      const ex = exercise as GolfShotCheckerExercise;
+      ex.setupBallPosition(28, 75);
+      ex.setupShotLength(62);
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+    },
+
+    expectations(exercise) {
+      const ex = exercise as GolfShotCheckerExercise;
+      return [
+        {
+          pass: ex.ballX === 90,
+          errorHtml: `The ball should be at x=90 (28 + 62), but it's at x=${ex.ballX}.`
+        },
+        {
+          pass: ex.ballY === 84,
+          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+        },
+        {
+          pass: ex.fireworksFired === true,
+          errorHtml: "You should fire the fireworks at the end."
         }
       ];
     }
