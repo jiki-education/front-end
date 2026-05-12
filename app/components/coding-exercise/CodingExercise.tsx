@@ -2,7 +2,7 @@
 
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
-import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
+import { useEffect } from "react";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
@@ -14,9 +14,17 @@ interface CodingExerciseProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  onReady: () => void;
 }
 
-export default function CodingExercise({ language, exerciseSlug, context, levelId, isCompleted }: CodingExerciseProps) {
+export default function CodingExercise({
+  language,
+  exerciseSlug,
+  context,
+  levelId,
+  isCompleted,
+  onReady
+}: CodingExerciseProps) {
   const router = useRouter();
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
@@ -27,6 +35,12 @@ export default function CodingExercise({ language, exerciseSlug, context, levelI
     onGoToDashboard: () => router.push("/dashboard")
   });
 
+  useEffect(() => {
+    if (!isLoading && !loadError) {
+      onReady();
+    }
+  }, [isLoading, loadError, onReady]);
+
   // Error state
   if (loadError) {
     return (
@@ -36,9 +50,9 @@ export default function CodingExercise({ language, exerciseSlug, context, levelI
     );
   }
 
-  // Loading state
+  // Loading — the parent renders LessonLoadingModal as an overlay until onReady fires
   if (isLoading) {
-    return <LessonLoadingModal />;
+    return null;
   }
 
   // At this point, orchestrator is guaranteed to be set

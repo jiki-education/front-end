@@ -3,6 +3,7 @@
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import MuxPlayer from "@mux/mux-player-react";
+import { useEffect } from "react";
 import { FloatingPill } from "./ui/FloatingPill";
 import { NoVideoPlaceholder } from "./ui/NoVideoPlaceholder";
 import { useVideoExercise } from "./lib/useVideoExercise";
@@ -10,9 +11,13 @@ import styles from "./VideoExercise.module.css";
 
 type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
-export default function VideoExercise({ lessonData }: { lessonData: VideoLesson }) {
+export default function VideoExercise({ lessonData, onReady }: { lessonData: VideoLesson; onReady: () => void }) {
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
+
+  useEffect(() => {
+    onReady();
+  }, [onReady]);
 
   const {
     playerRef,
