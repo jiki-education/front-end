@@ -45,8 +45,8 @@ export class EditorManager {
     element: HTMLDivElement,
     private readonly store: StoreApi<OrchestratorStore>,
     private readonly exerciseSlug: string,
-    initialCode: string,
-    initialReadonlyRanges: ReadonlyRange[],
+    code: string,
+    readonlyRanges: ReadonlyRange[],
     private readonly runCode: (code: string) => void,
     private readonly lintCode?: (code: string) => void
   ) {
@@ -80,15 +80,15 @@ export class EditorManager {
     // Create editor view directly with the element
     this.editorView = new EditorView({
       state: EditorState.create({
-        doc: initialCode,
+        doc: code,
         extensions
       }),
       parent: element
     });
 
-    if (initialReadonlyRanges.length > 0) {
+    if (readonlyRanges.length > 0) {
       this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(initialReadonlyRanges)
+        effects: updateReadOnlyRangesEffect.of(readonlyRanges)
       });
     }
 
