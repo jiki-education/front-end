@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "png",
     name: "Basic acronym: PNG",
-    description: "Convert 'Portable Network Graphics' to 'PNG'",
+    description: "Convert 'Portable Network Graphics' to 'PNG'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable Network Graphics"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "ror",
     name: "Lowercase words: ROR",
-    description: "Convert 'Ruby on Rails' to 'ROR'",
+    description: "Convert 'Ruby on Rails' to 'ROR'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Ruby on Rails"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "first-word-only",
     name: "Single word: H",
-    description: "Convert 'HyperText' to 'H'",
+    description: "Convert 'HyperText' to 'H'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["HyperText"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hyphenated",
     name: "Hyphenated phrase: CMOS",
-    description: "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'",
+    description: "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Complementary metal-oxide semiconductor"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "punctuation",
     name: "With punctuation: PHT",
-    description: "Convert 'Portable, HyperText, Transmitter' to 'PHT'",
+    description: "Convert 'Portable, HyperText, Transmitter' to 'PHT'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable, HyperText, Transmitter"],

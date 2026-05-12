@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "sunny",
     name: "Sunny",
-    description: "Sunny days only need a sun",
+    description: "Sunny days only need a sun.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["sunny"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "dull",
     name: "Dull",
-    description: "Dull days need clouds",
+    description: "Dull days need clouds.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["dull"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "miserable",
     name: "Miserable",
-    description: "Miserable days need clouds and rain",
+    description: "Miserable days need clouds and rain.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["miserable"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hopeful",
     name: "Hopeful",
-    description: "Hopeful days need sun and cloud",
+    description: "Hopeful days need sun and cloud.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["hopeful"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "rainbow-territory",
     name: "Rainbow Territory",
-    description: "Rainbow territory needs sun, cloud, and rain",
+    description: "Rainbow territory needs sun, cloud, and rain.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["rainbow-territory"],
@@ -61,7 +61,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "exciting",
     name: "Exciting",
-    description: "Exciting days need cloud and snow",
+    description: "Exciting days need cloud and snow.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["exciting"],
@@ -70,7 +70,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "snowboarding-time",
     name: "Snowboarding Time",
-    description: "Snowboarding time needs sun, cloud, and snow",
+    description: "Snowboarding time needs sun, cloud, and snow.",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["snowboarding-time"],

@@ -1,0 +1,74 @@
+@reference "../../../../../app/globals.css";
+
+.wrapper {
+    @apply rounded-lg border bg-white border-gray-200;
+}
+
+.table {
+    @apply w-full text-sm;
+}
+
+.table tr + tr {
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.table th {
+    padding: 10px;
+    font-size: 15px;
+    color: var(--color-gray-800);
+    border-right: 1px solid var(--color-gray-200);
+    width: 100px;
+    @apply text-left font-medium;
+}
+
+.table td {
+    padding: 8px;
+    @apply font-mono text-sm;
+}
+
+.addedPart,
+.removedPart {
+    white-space: pre;
+}
+
+.addedPart {
+    background: var(--color-green-50);
+    border-bottom: 1px solid var(--color-green-500);
+}
+
+.removedPart {
+    background: var(--color-red-50);
+    border-bottom: 1px solid var(--color-red-500);
+}
+
+.pendingMessage {
+    font-family: inherit !important;
+    color: var(--color-gray-400);
+}
+
+.lintWarningMessage {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 470px;
+    margin-bottom: 14px;
+    border: 1px solid var(--color-orange-600);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--color-orange-600);
+    background: var(--color-amber-50);
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.lintWarningMessage strong {
+    font-weight: 600;
+}
+
+.lintWarningIcon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--color-orange-600);
+}

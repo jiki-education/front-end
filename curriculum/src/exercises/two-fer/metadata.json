@@ -3,16 +3,16 @@
   "levelId": "string-manipulation",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Check if the name is empty"
+      "question": "What changes based on the input?",
+      "answer": "Just one thing. The name in the middle of the sentence. If you were given a name, use it. If not, use the default `\"you\"`."
     },
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to build the result string"
+      "question": "How do I check 'was I given a name'?",
+      "answer": "An if-statement comparing the input to the empty string `\"\"`. If it's empty, use `\"you\"`. Otherwise, use the input."
     },
     {
-      "question": "Hint",
-      "answer": "The pattern is 'One for [name], one for me.'"
+      "question": "How do I build the final sentence?",
+      "answer": "Use `concatenate()` to join the three pieces: `\"One for \"`, the chosen name, and `\", one for me.\"`."
     }
   ]
 }

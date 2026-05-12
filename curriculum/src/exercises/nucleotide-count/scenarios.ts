@@ -22,7 +22,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-count-empty-strand",
     name: "Empty strand",
-    description: "An empty strand should result in all counts being zero",
+    description: "An empty strand should result in all counts being zero.",
     taskId: "count-nucleotides",
     functionName: "count_nucleotides",
     args: [""],
@@ -31,7 +31,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-count-single-nucleotide",
     name: "Single nucleotide",
-    description: "A single-character strand should correctly count the nucleotide",
+    description: "A single-character strand should correctly count the nucleotide.",
     taskId: "count-nucleotides",
     functionName: "count_nucleotides",
     args: ["G"],
@@ -40,7 +40,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-count-repeated-nucleotide",
     name: "Repeated nucleotide",
-    description: "A strand with repeated nucleotides should correctly count occurrences",
+    description: "A strand with repeated nucleotides should correctly count occurrences.",
     taskId: "count-nucleotides",
     functionName: "count_nucleotides",
     args: ["GGGGGGG"],
@@ -49,7 +49,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-count-mixed-strand",
     name: "Mixed nucleotide strand",
-    description: "A strand with multiple nucleotides should correctly count each nucleotide",
+    description: "A strand with multiple nucleotides should correctly count each nucleotide.",
     taskId: "count-nucleotides",
     functionName: "count_nucleotides",
     args: ["AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"],
@@ -58,7 +58,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-count-invalid-nucleotide",
     name: "Invalid nucleotide",
-    description: "A strand with invalid nucleotides should return false",
+    description: "A strand with invalid nucleotides should return false.",
     taskId: "count-nucleotides",
     functionName: "count_nucleotides",
     args: ["AGXXACT"],

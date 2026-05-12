@@ -26,7 +26,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["dictionaries", "dictionary-building", "string-iteration", "methods"]
 };
 
 export default exerciseDefinition;

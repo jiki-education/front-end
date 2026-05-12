@@ -24,7 +24,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-14",
     name: "Number 14",
-    description: "14 is even because 14 % 2 equals 0",
+    description: "14 is an even number.",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [14],
@@ -33,7 +33,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-28",
     name: "Number 28",
-    description: "28 is even because 28 % 2 equals 0",
+    description: "28 is an even number.",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [28],
@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number--1",
     name: "Number -1",
-    description: "-1 is odd because -1 % 2 does not equal 0",
+    description: "-1 is an odd number.",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [-1],
@@ -51,7 +51,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-17",
     name: "Number 17",
-    description: "17 is odd because 17 % 2 does not equal 0",
+    description: "17 is an odd number.",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [17],
@@ -60,7 +60,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-0",
     name: "Number 0",
-    description: "0 is even because 0 % 2 equals 0",
+    description: "Zero counts as even.",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [0],
@@ -69,7 +69,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "bonus-1",
     name: "6 lines of code",
-    description: "Solve the exercise with only 6 lines of code",
+    description: "Solve the exercise with only 6 lines of code.",
     taskId: "solve-in-six-lines",
     functionName: "even_or_odd",
     args: [0],

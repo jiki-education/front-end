@@ -3,24 +3,20 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by creating a list of all numbers from 2 up to the target"
+      "question": "What's the basic idea of the sieve?",
+      "answer": "Write down every number from 2 up to your limit. Take 2. It's prime, but cross out all its multiples (4, 6, 8, and so on). Move to the next unmarked number (3). It's prime, so cross out all its multiples. Repeat. Anything still unmarked at the end is prime."
     },
     {
-      "question": "Hint",
-      "answer": "Use a dictionary or object to track whether each number has been marked as not prime"
+      "question": "How do I represent 'marked' or 'unmarked'?",
+      "answer": "A dictionary keyed by the number, with a true or false value for 'marked'. Looking up `marked[n]` tells you whether n has been struck off."
     },
     {
-      "question": "Hint",
-      "answer": "For each unmarked number, mark all of its multiples as not prime"
+      "question": "How do I cross out the multiples of a number?",
+      "answer": "Loop through the multiples (n*2, n*3, n*4, ...) up to the limit, marking each one in your dictionary as not prime."
     },
     {
-      "question": "Hint",
-      "answer": "Use push() to build up the final list of primes"
-    },
-    {
-      "question": "Hint",
-      "answer": "Numbers that remain unmarked after processing are prime"
+      "question": "How do I collect the answer at the end?",
+      "answer": "After the marking phase, loop from 2 to the limit. For any number that's still unmarked, `push()` it onto the result list."
     }
   ]
 }

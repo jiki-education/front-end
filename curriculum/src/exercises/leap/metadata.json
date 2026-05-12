@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "A year is a leap year if it is divisible by 4"
+      "question": "What's the basic rule for a leap year?",
+      "answer": "Years divisible by 4 are leap years. So `year % 4 == 0` is the starting test."
     },
     {
-      "question": "Hint",
-      "answer": "But if the year is also divisible by 100, it is NOT a leap year"
+      "question": "Are there exceptions?",
+      "answer": "Yes. Years divisible by 100 are NOT leap years, even though they're divisible by 4. For example, 1900 isn't a leap year."
     },
     {
-      "question": "Hint",
-      "answer": "Unless the year is also divisible by 400, in which case it IS a leap year"
+      "question": "Are there exceptions to the exception?",
+      "answer": "Yes. Years divisible by 400 ARE leap years after all. For example, 2000 is. So the rule cascades: divisible by 4, but not by 100, unless also by 400."
     },
     {
-      "question": "Hint",
-      "answer": "Use the remainder operator (%) to check divisibility — if year % 4 equals 0, the year is divisible by 4"
+      "question": "How do I check divisibility?",
+      "answer": "Use the remainder operator `%`. `year % 4 == 0` is true when the year divides exactly by 4 with nothing left over. Same trick with 100 and 400."
     }
   ]
 }

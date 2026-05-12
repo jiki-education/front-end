@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "one-mistake-too-many",
     name: "One mistake too many!",
-    description: "All those little errors added up",
+    description: "All those little errors added up.",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅✅❌✅✅✅❌✅✅✅❌️✅✅✅✅✅❌️❌️✅"],

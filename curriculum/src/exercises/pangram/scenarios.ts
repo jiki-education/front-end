@@ -28,7 +28,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-empty-sentence",
     name: "Empty sentence",
-    description: "An empty sentence is not a pangram",
+    description: "An empty sentence is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: [""],
@@ -37,7 +37,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-perfect-lowercase",
     name: "Perfect lowercase",
-    description: "A perfect lowercase alphabet is a pangram",
+    description: "A perfect lowercase alphabet is a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["abcdefghijklmnopqrstuvwxyz"],
@@ -46,7 +46,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-only-lowercase",
     name: "Only lowercase",
-    description: "A sentence with only lowercase letters covering all letters is a pangram",
+    description: "A sentence with only lowercase letters covering all letters is a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the quick brown fox jumps over the lazy dog"],
@@ -55,7 +55,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-missing-x",
     name: "Missing letter 'x'",
-    description: "A sentence missing the letter 'x' is not a pangram",
+    description: "A sentence missing the letter 'x' is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["a quick movement of the enemy will jeopardize five gunboats"],
@@ -64,7 +64,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-missing-h",
     name: "Missing letter 'h'",
-    description: "A sentence missing the letter 'h' is not a pangram",
+    description: "A sentence missing the letter 'h' is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["five boxing wizards jump quickly at it"],
@@ -73,7 +73,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-missing-a-m",
     name: "Missing letters beyond a-m",
-    description: "A string with 'a' to 'm' in lowercase and uppercase is not a pangram",
+    description: "A string with 'a' to 'm' in lowercase and uppercase is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["abcdefghijklm ABCDEFGHIJKLM"],
@@ -82,7 +82,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-with-underscores",
     name: "With underscores",
-    description: "A pangram sentence with underscores",
+    description: "A pangram sentence with underscores.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the_quick_brown_fox_jumps_over_the_lazy_dog"],
@@ -91,7 +91,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-with-numbers",
     name: "With numbers",
-    description: "A pangram sentence with numbers included",
+    description: "A pangram sentence with numbers included.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the 1 quick brown fox jumps over the 2 lazy dogs"],
@@ -100,7 +100,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-numbers-replacing-letters",
     name: "Numbers replacing letters",
-    description: "A sentence where letters are replaced by numbers is not a pangram",
+    description: "A sentence where letters are replaced by numbers is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"],
@@ -109,7 +109,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-mixed-case-punctuation",
     name: "Mixed case and punctuation",
-    description: "A pangram with mixed case and punctuation",
+    description: "A pangram with mixed case and punctuation.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["Five quacking Zephyrs jolt my wax bed."],
@@ -118,7 +118,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "pangram-case-insensitive",
     name: "Case insensitive missing letters",
-    description: "A case-insensitive sentence without all letters is not a pangram",
+    description: "A case-insensitive sentence without all letters is not a pangram.",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the quick brown fox jumps over with lazy FX"],

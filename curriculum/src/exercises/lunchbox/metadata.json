@@ -3,20 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by creating an empty list"
+      "question": "What's the basic shape of my answer?",
+      "answer": "A list. Start with an empty list and add the allowed items to it one at a time."
     },
     {
-      "question": "Hint",
-      "answer": "Use push() to add items to your list one at a time"
+      "question": "How do I add items to a list?",
+      "answer": "Use `push()`. It takes the list and the item, and gives back the new (longer) list."
     },
     {
-      "question": "Hint",
-      "answer": "Check if the drink is \"milkshake\" before adding it"
+      "question": "How do I leave the milkshake out?",
+      "answer": "Use an if-statement. Only push the drink if it's not equal to `\"milkshake\"`."
     },
     {
-      "question": "Hint",
-      "answer": "Remember: push() returns the new list, so reassign it"
+      "question": "Why isn't my list growing?",
+      "answer": "`push()` doesn't modify the list in place. It returns the new list. You need to reassign, for example `lunchbox = lunchbox.push(item)` (or the equivalent in your language)."
     }
   ]
 }

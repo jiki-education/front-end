@@ -3,20 +3,16 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Loop through each character in the first string"
+      "question": "What does 'Hamming distance' mean in plain terms?",
+      "answer": "It's the number of positions where the two strings differ. So 'GAGA' vs 'GATA' differ at position 3 only, giving a distance of 1."
     },
     {
-      "question": "Hint",
-      "answer": "Keep track of your position in the string with a counter"
+      "question": "How do I compare characters at the same position in both strings?",
+      "answer": "Loop through one string with a position counter. At each step, look at the character at that position in the first string and the character at the same position in the second."
     },
     {
-      "question": "Hint",
-      "answer": "Compare each character with the corresponding character in the second string"
-    },
-    {
-      "question": "Hint",
-      "answer": "Count how many differences you find"
+      "question": "How do I track 'how many differences'?",
+      "answer": "Keep a counter starting at 0. Each time you find a position where the characters don't match, add 1. Return the counter at the end."
     }
   ]
 }
