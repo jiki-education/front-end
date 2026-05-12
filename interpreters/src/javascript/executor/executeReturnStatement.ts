@@ -1,7 +1,6 @@
 import type { Executor } from "../executor";
 import { ReturnValue } from "../functions";
 import type { ReturnStatement } from "../statement";
-import type { EvaluationResultReturnStatement } from "../evaluation-result";
 import { createJSObject } from "../jikiObjects";
 
 export function executeReturnStatement(executor: Executor, statement: ReturnStatement): void {
@@ -23,7 +22,7 @@ export function executeReturnStatement(executor: Executor, statement: ReturnStat
       jikiObject: value.jikiObject,
       immutableJikiObject: value.jikiObject.clone(),
     };
-  }) as EvaluationResultReturnStatement;
+  });
 
   // evaluationResult can be undefined for bare return statements
   throw new ReturnValue(evaluationResult.jikiObject, statement.location);

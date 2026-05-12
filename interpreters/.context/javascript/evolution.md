@@ -1,5 +1,20 @@
 # JavaScript Interpreter Evolution
 
+## 2026-05-12: Guard bare function references (UnexpectedUncalledFunction)
+
+A bare callable identifier used as a value (e.g. `circle;` as a statement, or `let g = circle;`) now raises `UnexpectedUncalledFunction` instead of silently stepping. Mirrors JikiScript's `UnexpectedUncalledFunctionInExpression` so semantics match across interpreters.
+
+### Mechanism
+
+- New AST node `CalleeIdentifierExpression extends IdentifierExpression` in `src/javascript/expression.ts`. It inherits the `"IdentifierExpression"` type tag so node-allowance checks and existing `instanceof IdentifierExpression` introspection sites keep matching unchanged.
+- Parser rewrite in `finishCallExpression` (`src/javascript/parser.ts`): a `rewriteCallee` helper walks into `GroupingExpression`s and swaps a bare `IdentifierExpression` callee for `CalleeIdentifierExpression`. Other callee shapes (`MemberExpression`, nested `CallExpression`, `NewExpression`) are untouched.
+- Dispatch in `executor.evaluate` checks `CalleeIdentifierExpression` before `IdentifierExpression` (subclass first). The new `executeCalleeIdentifierExpression` does the environment lookup without the callable guard; `executeIdentifierExpression` adds the guard via `isCallable(value)`.
+- New `RuntimeErrorType` `UnexpectedUncalledFunction` with translations in both `system` and `en` locale files.
+
+### Consequence — first-class function values
+
+As a deliberate side-effect, JS-style first-class function values are now disallowed: `let g = f;`, `return f;`, and `someFn(f)` (passing a function by identifier) all raise the new error. This matches JikiScript and forecloses callback-style higher-order functions for now. Note that `obj.method;` (a bare member-callable) still silently steps — that case goes through `executeMemberExpression` and is intentionally out of scope; track as a follow-up if it surfaces.
+
 ## 2025-10-09: Added String Search Methods (indexOf, lastIndexOf, includes, startsWith, endsWith)
 
 ### Overview

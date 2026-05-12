@@ -13,7 +13,7 @@ export function executeContinueStatement(executor: Executor, statement: Continue
   executor.executeFrame<EvaluationResultContinueStatement>(statement, () => {
     return {
       type: "ContinueStatement",
-    } as EvaluationResultContinueStatement;
+    };
   });
 
   throw new ContinueFlowControlError(statement.location);
