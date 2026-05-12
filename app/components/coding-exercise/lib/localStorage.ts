@@ -166,26 +166,6 @@ export function loadCodeMirrorContent(exerciseId: string): LocalStorageResult<Co
 }
 
 /**
- * Removes CodeMirror content for a specific exercise
- */
-export function clearCodeMirrorContent(exerciseId: string): LocalStorageResult<void> {
-  if (!isLocalStorageAvailable()) {
-    return { success: false, error: "localStorage is not available" };
-  }
-
-  try {
-    const key = getStorageKey(exerciseId);
-    localStorage.removeItem(key);
-    return { success: true };
-  } catch (error) {
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Failed to clear localStorage"
-    };
-  }
-}
-
-/**
  * Gets all stored exercises (for cleanup/management)
  */
 export function getAllStoredExercises(): LocalStorageResult<string[]> {

@@ -42,7 +42,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(initialCode);
-      expect(state.defaultCode).toBe(initialCode);
       expect(mockLoadCodeMirrorContent).toHaveBeenCalledWith(exerciseUuid);
     });
   });
@@ -76,7 +75,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
   });
 
@@ -107,7 +105,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(serverCode);
-      expect(state.defaultCode).toBe(serverCode);
     });
 
     it("should use localStorage when server has no timestamp", () => {
@@ -144,7 +141,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
 
     it("should use server data when server is newer by more than 1 minute", () => {
@@ -183,7 +179,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(serverCode);
-      expect(state.defaultCode).toBe(serverCode);
     });
 
     it("should use localStorage when server is only slightly newer (less than 1 minute)", () => {
@@ -222,7 +217,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
 
     it("should use localStorage when localStorage is newer than server", () => {
@@ -261,7 +255,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
 
     it("should use localStorage when timestamps are equal", () => {
@@ -298,7 +291,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
   });
 
@@ -324,7 +316,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(initialCode);
-      expect(state.defaultCode).toBe(initialCode);
     });
 
     it("should handle localStorage unavailable", () => {
@@ -348,7 +339,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(initialCode);
-      expect(state.defaultCode).toBe(initialCode);
     });
 
     it("should handle invalid server timestamp", () => {
@@ -384,7 +374,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert - Should use localStorage when server timestamp is invalid
       const state = store.getState();
       expect(state.code).toBe(localStorageCode);
-      expect(state.defaultCode).toBe(localStorageCode);
     });
 
     it("should handle invalid localStorage timestamp", () => {
@@ -419,7 +408,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert - Should use server data when localStorage timestamp is invalid
       const state = store.getState();
       expect(state.code).toBe(serverCode);
-      expect(state.defaultCode).toBe(serverCode);
     });
   });
 
@@ -452,7 +440,6 @@ describe("Data Initialization Priority Logic", () => {
       // Assert
       const state = store.getState();
       expect(state.code).toBe(serverCode);
-      expect(state.defaultCode).toBe(serverCode);
     });
   });
 });

@@ -7,7 +7,6 @@ import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curricul
 import { getLanguageFeatures } from "@jiki/curriculum";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
-import { clearCodeMirrorContent } from "./localStorage";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
 import { createOrchestratorStore } from "./orchestrator/store";
@@ -87,6 +86,8 @@ class Orchestrator {
             element,
             this.store,
             this.exercise.slug,
+            this.store.getState().code,
+            this.getDefaultReadonlyRanges(),
             this.runCode.bind(this),
             (code: string) => this.lintCodeDebounced(code)
           );
@@ -168,12 +169,6 @@ class Orchestrator {
     if (state.currentTest) {
       state.setCurrentTestTime(state.currentTestTime, "nearest", true);
     }
-  }
-
-  // Editor store public methods
-  // UNUSED: This function is currently not called.
-  setDefaultCode(code: string) {
-    this.store.getState().setDefaultCode(code);
   }
 
   setReadonly(readonly: boolean) {
@@ -354,25 +349,9 @@ class Orchestrator {
     return this.store.getState().context.type === "project";
   }
 
-  // Initialize editor with code, exercise data, and localStorage synchronization - delegate to EditorManager
-  // UNUSED: This function is currently not called.
-  initializeEditor(
-    code: { storedAt?: string; code: string; readonlyRanges?: ReadonlyRange[] },
-    exercise: unknown,
-    unfoldableFunctionNames: string[]
-  ) {
-    this.editorManager?.initializeEditor(code, exercise, unfoldableFunctionNames);
-  }
-
-  // Reset editor to stub code and save to localStorage - delegate to EditorManager
   // Initialize exercise data with localStorage/server priority logic
   initializeExerciseData(serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) {
     this.store.getState().initializeExerciseData(serverData);
-  }
-
-  // UNUSED: This function is currently not called.
-  resetEditorToStub(stubCode: string, defaultReadonlyRanges: ReadonlyRange[], unfoldableFunctionNames: string[]) {
-    this.editorManager?.resetEditorToStub(stubCode, defaultReadonlyRanges, unfoldableFunctionNames);
   }
 
   // Test result processing methods - delegate to TestSuiteManager
@@ -402,11 +381,6 @@ class Orchestrator {
   }
 
   resetExercise(): void {
-    const stubCode = this.exercise.stubs[this.language];
-
-    // Clear saved code from localStorage
-    clearCodeMirrorContent(this.exercise.slug);
-
     // Reset store state to initial values
     this.store.getState().reset();
 
@@ -414,12 +388,15 @@ class Orchestrator {
     this.taskManager.initializeTaskProgress(this.exercise);
 
     // Replace editor content with stub code
-    const view = this.getEditorView();
-    if (view) {
-      view.dispatch({
-        changes: { from: 0, to: view.state.doc.length, insert: stubCode }
-      });
-    }
+    this.editorManager?.resetContent(this.getStubCode(), this.getDefaultReadonlyRanges());
+  }
+
+  getStubCode(): string {
+    return this.exercise.stubs[this.language];
+  }
+
+  getDefaultReadonlyRanges(): ReadonlyRange[] {
+    return this.exercise.readonlyRanges?.[this.language] ?? [];
   }
 
   // Clean up method to destroy the orchestrator and its managers

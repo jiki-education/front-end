@@ -131,9 +131,8 @@ describe("EditorManager", () => {
     const mockElement = document.createElement("div");
 
     // Set the values in the store that EditorManager will read
-    store.getState().setDefaultCode("const x = 1;");
 
-    editorManager = new EditorManager(mockElement, store, "test-uuid", mockRunCode);
+    editorManager = new EditorManager(mockElement, store, "test-uuid", "const x = 1;", [], mockRunCode);
   });
 
   describe("constructor", () => {
