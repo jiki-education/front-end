@@ -226,7 +226,6 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
     const state = orchestrator.getStore().getState();
     expect(state.exerciseSlug).toBe("state-test");
     expect(state.code).toBe("const initial = true;");
-    expect(state.defaultCode).toBe("const initial = true;");
     expect(state.readonly).toBe(false);
   });
 

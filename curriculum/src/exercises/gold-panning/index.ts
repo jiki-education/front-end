@@ -27,7 +27,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["return-values", "repeat", "variables"]
+  conceptSlugs: ["using-functions-with-return-values", "repeat", "variables"]
 };
 
 export default exerciseDefinition;

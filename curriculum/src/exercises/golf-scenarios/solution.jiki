@@ -5,5 +5,3 @@ repeat shot_length + 1 times do
   change x to x + 1
   roll_to(x)
 end
-
-fire_fireworks()

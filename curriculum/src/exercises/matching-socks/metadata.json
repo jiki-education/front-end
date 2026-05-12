@@ -3,28 +3,24 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by writing helper functions like length(), startsWith(), and endsWith()"
+      "question": "Where should I start when there are lots of moving parts?",
+      "answer": "Start by writing small helper functions, like `length()`, `startsWith()`, and `endsWith()`, that you'll need everywhere. Get those working first before touching the main logic."
     },
     {
-      "question": "Hint",
-      "answer": "A function to check if something is a sock could be helpful"
+      "question": "How do I tell if something in the basket is actually a sock?",
+      "answer": "Socks have the form `\"left X\"` or `\"right X\"`. A small helper that returns true only when the item starts with one of those prefixes will save you from re-checking everywhere."
     },
     {
-      "question": "Hint",
-      "answer": "You might need a function that can remove the 'left '/'right ' prefix"
+      "question": "How do I compare a left sock to its right pair?",
+      "answer": "Two helpers make this easier. One to strip off the `\"left \"` or `\"right \"` prefix (so you can compare just the colour or pattern), and another to flip `\"left\"` and `\"right\"` so you can build the partner of any sock."
     },
     {
-      "question": "Hint",
-      "answer": "Consider a function that switches 'left' and 'right' around"
+      "question": "How do I avoid counting the same pair twice?",
+      "answer": "A helper that adds an item to a list only if it's not already there will keep duplicates out of your result."
     },
     {
-      "question": "Hint",
-      "answer": "A function to add an element to a list only if it's not already there will help with duplicates"
-    },
-    {
-      "question": "Hint",
-      "answer": "Extract all socks from both baskets first, then look for matching pairs"
+      "question": "What's a good overall plan?",
+      "answer": "Extract all socks from both baskets into one combined list, then for each sock, build what its partner would look like and check whether that partner is also in the list."
     }
   ]
 }

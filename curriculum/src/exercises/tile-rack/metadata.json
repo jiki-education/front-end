@@ -3,24 +3,24 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "You'll need a variable to track your current position as you look through the rack"
+      "question": "How do I keep track of where I am in the rack?",
+      "answer": "Use a position variable starting at 1. Each time you look at a new tile, you'll increase it by 1."
     },
     {
-      "question": "Hint",
-      "answer": "Use a for-each loop to look at each tile one by one"
+      "question": "How do I look at each tile?",
+      "answer": "A for-each loop gives you each character of the rack in turn."
     },
     {
-      "question": "Hint",
-      "answer": "If the current tile matches the letter, convert the position to a string and build the result message"
+      "question": "What do I do when I find the letter?",
+      "answer": "Build the success message. Convert the position number to a string, then `concatenate()` it with the surrounding text the exercise asks for. Return immediately. There's no need to keep looking."
     },
     {
-      "question": "Hint",
-      "answer": "Don't forget to increase your position counter after each tile"
+      "question": "Why is my position always wrong?",
+      "answer": "Make sure you're increasing the position counter every iteration, not just sometimes. Otherwise every tile reports the same position."
     },
     {
-      "question": "Hint",
-      "answer": "If you get through the whole rack without finding the letter, return the error message"
+      "question": "What if the letter isn't in the rack?",
+      "answer": "Only after the loop has finished without finding the letter should you return the error message. Returning the error inside the loop would give up after the first non-matching tile."
     }
   ]
 }

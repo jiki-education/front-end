@@ -3,12 +3,12 @@
   "levelId": "string-manipulation",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to join the parts together"
+      "question": "What's the basic shape of the answer I'm trying to build?",
+      "answer": "Three pieces joined together: the fixed start `\"Hello, \"`, then the name, then the fixed end `\"!\"`."
     },
     {
-      "question": "Hint",
-      "answer": "The greeting has three parts: \"Hello, \", the name, and \"!\""
+      "question": "How do I join strings together?",
+      "answer": "Use `concatenate()`. You can call it more than once to stick all three pieces together into a single string."
     }
   ]
 }

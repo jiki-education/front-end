@@ -116,7 +116,8 @@
       "InOperatorRequiresIntegerIndex": "InOperatorRequiresIntegerIndex: type: {{type}}",
       "InWithArrayNotAllowed": "InWithArrayNotAllowed",
       "ClassNotFound": "ClassNotFound: name: {{name}}",
-      "PropertyNotFoundOnInstance": "PropertyNotFoundOnInstance: property: {{property}}: className: {{className}}"
+      "PropertyNotFoundOnInstance": "PropertyNotFoundOnInstance: property: {{property}}: className: {{className}}",
+      "UnexpectedUncalledFunction": "UnexpectedUncalledFunction: name: {{name}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

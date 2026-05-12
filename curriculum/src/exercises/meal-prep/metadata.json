@@ -3,20 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Think about what you would do in the real world to compare two lists"
+      "question": "How would I do this in real life?",
+      "answer": "You'd go through the recipe one ingredient at a time and check the fridge for each. Anything missing goes on the shopping list. Your code does the same thing."
     },
     {
-      "question": "Hint",
-      "answer": "You need to check if each recipe item is already in the fridge"
+      "question": "How do I check if a fridge item is there?",
+      "answer": "A small helper, something like 'is this item in this list?', keeps the main loop readable. Inside it, loop through the list and compare each entry to the item you're looking for."
     },
     {
-      "question": "Hint",
-      "answer": "Consider writing a helper function to check if an item is in a list"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use push() to build up your shopping list"
+      "question": "How do I build up the shopping list?",
+      "answer": "Start with an empty list. For each recipe item that the fridge doesn't contain, `push()` it onto the shopping list."
     }
   ]
 }

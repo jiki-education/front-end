@@ -37,7 +37,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["repeat", "variables", "return-values", "using-functions", "arithmetic"]
+  conceptSlugs: ["repeat", "variables", "using-functions-with-return-values", "using-functions", "arithmetic"]
 };
 
 export default exerciseDefinition;

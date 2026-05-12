@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "duck",
     name: "Duck",
-    description: 'A purely alphabetic string should be classified as "Alpha"',
+    description: 'A purely alphabetic string should be classified as "Alpha".',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number",
     name: "42",
-    description: 'A purely numeric string should be classified as "Numeric"',
+    description: 'A purely numeric string should be classified as "Numeric".',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "alphanumeric",
     name: "Duck42",
-    description: 'A string with both letters and numbers should be classified as "Alphanumeric"',
+    description: 'A string with both letters and numbers should be classified as "Alphanumeric".',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck42"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "not-alphanumeric-1",
     name: "It's not 42!",
-    description: 'A string with special characters should be classified as "Unknown"',
+    description: 'A string with special characters should be classified as "Unknown".',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["It's not 42!"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "not-alphanumeric-2",
     name: "42 Rubber Duck!",
-    description: 'A string with spaces and special characters should be classified as "Unknown"',
+    description: 'A string with spaces and special characters should be classified as "Unknown".',
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],

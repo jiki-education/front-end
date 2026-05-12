@@ -6,6 +6,7 @@ import {
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
+  CalleeIdentifierExpression,
   AssignmentExpression,
   UpdateExpression,
   TemplateLiteralExpression,
@@ -773,7 +774,7 @@ export class Parser {
         // Dot notation: obj.prop
         // Keywords are allowed as property names after a dot (e.g. "abc".repeat(3))
         const propertyToken = this.advance();
-        if (propertyToken.type !== "IDENTIFIER" && !KeywordTokens.includes(propertyToken.type as any)) {
+        if (propertyToken.type !== "IDENTIFIER" && !KeywordTokens.includes(propertyToken.type)) {
           this.error("InvalidDictionaryKey", propertyToken.location);
         }
         const property = new LiteralExpression(propertyToken.lexeme, propertyToken.location);
@@ -828,7 +829,20 @@ export class Parser {
     this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterFunctionCall");
     const rightParen = this.previous();
 
-    return new CallExpression(callee, args, Location.between(callee, rightParen));
+    return new CallExpression(this.rewriteCallee(callee), args, Location.between(callee, rightParen));
+  }
+
+  private rewriteCallee(expr: Expression): Expression {
+    if (expr instanceof GroupingExpression) {
+      return new GroupingExpression(this.rewriteCallee(expr.inner), expr.location);
+    }
+    if (expr instanceof CalleeIdentifierExpression) {
+      return expr;
+    }
+    if (expr instanceof IdentifierExpression) {
+      return new CalleeIdentifierExpression(expr.name, expr.location);
+    }
+    return expr;
   }
 
   private primary(): Expression {

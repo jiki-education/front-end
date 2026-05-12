@@ -94,7 +94,7 @@ function getSubStatements(stmt: Statement): Statement[] {
   if (stmt instanceof ForStatement) {
     const result: Statement[] = [stmt.body];
     if (stmt.init && !(stmt.init instanceof Expression)) {
-      result.push(stmt.init as unknown as Statement);
+      result.push(stmt.init);
     }
     return result;
   }

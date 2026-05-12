@@ -24,7 +24,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "tile-at-start",
     name: "Tile at start",
-    description: "The letter is the first tile in the rack",
+    description: "The letter is the first tile in the rack.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "A"],
@@ -33,7 +33,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "tile-in-middle",
     name: "Tile in middle",
-    description: "The letter is in the middle of the rack",
+    description: "The letter is in the middle of the rack.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "C"],
@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "tile-at-end",
     name: "Tile at end",
-    description: "The letter is the last tile in the rack",
+    description: "The letter is the last tile in the rack.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "E"],
@@ -51,7 +51,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "tile-not-found",
     name: "Tile not found",
-    description: "The letter isn't in the rack",
+    description: "The letter isn't in the rack.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "Z"],
@@ -60,7 +60,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-rack",
     name: "Empty rack",
-    description: "An empty rack has no tiles to find",
+    description: "An empty rack has no tiles to find.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["", "A"],
@@ -69,7 +69,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "first-of-duplicates",
     name: "First of duplicates",
-    description: "When the letter appears multiple times, return the first position",
+    description: "When the letter appears multiple times, return the first position.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["BANANA", "A"],
@@ -78,7 +78,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "longer-rack",
     name: "Longer rack",
-    description: "Finding a tile in a longer rack",
+    description: "Finding a tile in a longer rack.",
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["SCRABBLE", "B"],

@@ -1,5 +1,7 @@
 import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import { fireFireworks } from "../../effects/fireworks";
+import "../../effects/fireworks.css";
 
 export default class GolfExercise extends VisualExercise {
   protected get slug() {
@@ -11,7 +13,7 @@ export default class GolfExercise extends VisualExercise {
   ballY: number = 75;
   fireworksFired: boolean = false;
   shotLength: number = 0;
-  protected moveDuration = 50;
+  protected moveDuration = 15;
 
   constructor() {
     super();
@@ -84,7 +86,7 @@ export default class GolfExercise extends VisualExercise {
 
   fireFireworks(executionCtx: ExecutionContext) {
     this.fireworksFired = true;
-    executionCtx.fastForward(2500);
+    fireFireworks(this.view, this.animations, executionCtx);
   }
 
   setupBallPosition(x: number, y: number) {

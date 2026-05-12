@@ -3,28 +3,24 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use fetch(url, params) to get data from the API, where params is { \"question\": question }"
+      "question": "How do I make the API call?",
+      "answer": "Use `fetch(url, params)` where `params` is a dictionary `{ \"question\": question }`, passing the question you were given as an argument."
     },
     {
-      "question": "Hint",
-      "answer": "The response has a \"response\" key containing \"answers\" (a list of dictionaries with \"text\" and \"certainty\" keys)"
+      "question": "What does the response data look like?",
+      "answer": "It's nested. There's a `\"response\"` key holding an `\"answers\"` list (each answer is a dictionary with `\"text\"` and `\"certainty\"`), and a `\"meta\"` key holding a `\"time\"` string like `\"500ms\"`."
     },
     {
-      "question": "Hint",
-      "answer": "The response also has a \"meta\" key containing \"time\" (a string like \"500ms\")"
+      "question": "How do I pick the best answer?",
+      "answer": "Loop through the answers and keep track of the one with the highest `certainty`. Note that the certainty values are strings, so you'll need to convert each to a number before comparing."
     },
     {
-      "question": "Hint",
-      "answer": "Loop through the answers to find the one with the highest certainty (certainty values are strings, so convert them to numbers first)"
+      "question": "How do I convert '500ms' into seconds?",
+      "answer": "Strip off the 'ms' part to leave just the digits, convert that to a number, then divide by 1000."
     },
     {
-      "question": "Hint",
-      "answer": "To convert milliseconds to seconds, extract the numeric part and divide by 1000"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use concatenate() to build the final formatted string"
+      "question": "How do I put it all together at the end?",
+      "answer": "Use `concatenate()` to build the final formatted string from the chosen answer's text and the converted time."
     }
   ]
 }

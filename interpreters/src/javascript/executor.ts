@@ -8,6 +8,7 @@ import {
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
+  CalleeIdentifierExpression,
   AssignmentExpression,
   UpdateExpression,
   TemplateLiteralExpression,
@@ -53,6 +54,7 @@ import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import { executeUnaryExpression } from "./executor/executeUnaryExpression";
 import { executeGroupingExpression } from "./executor/executeGroupingExpression";
 import { executeIdentifierExpression } from "./executor/executeIdentifierExpression";
+import { executeCalleeIdentifierExpression } from "./executor/executeCalleeIdentifierExpression";
 import { executeUpdateExpression } from "./executor/executeUpdateExpression";
 import { executeBlockStatement } from "./executor/executeBlockStatement";
 import { executeExpressionStatement } from "./executor/executeExpressionStatement";
@@ -135,7 +137,8 @@ export type RuntimeErrorType =
   | "InOperatorRequiresIntegerIndex"
   | "InWithArrayNotAllowed"
   | "ClassNotFound"
-  | "PropertyNotFoundOnInstance";
+  | "PropertyNotFoundOnInstance"
+  | "UnexpectedUncalledFunction";
 
 export class RuntimeError extends Error {
   public category: string = "RuntimeError";
@@ -518,6 +521,10 @@ export class Executor {
 
     if (expression instanceof GroupingExpression) {
       return executeGroupingExpression(this, expression);
+    }
+
+    if (expression instanceof CalleeIdentifierExpression) {
+      return executeCalleeIdentifierExpression(this, expression);
     }
 
     if (expression instanceof IdentifierExpression) {

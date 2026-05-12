@@ -38,7 +38,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["using-functions", "function-inputs"]
+  conceptSlugs: ["using-functions", "using-functions-with-inputs"]
 };
 
 export default exerciseDefinition;

@@ -13,7 +13,7 @@ export function executeBreakStatement(executor: Executor, statement: BreakStatem
   executor.executeFrame<EvaluationResultBreakStatement>(statement, () => {
     return {
       type: "BreakStatement",
-    } as EvaluationResultBreakStatement;
+    };
   });
 
   throw new BreakFlowControlError(statement.location);

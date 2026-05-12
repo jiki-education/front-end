@@ -44,7 +44,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["dictionaries", "string-templates", "if", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

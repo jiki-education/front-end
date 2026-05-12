@@ -3,24 +3,20 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Convert both the target and each candidate to lowercase for comparison"
+      "question": "How do I tell if two words are anagrams?",
+      "answer": "Two words are anagrams if they contain the exact same letters in any order. The easiest way to check that in code is to sort the letters of both. If the sorted versions are equal, they're anagrams."
     },
     {
-      "question": "Hint",
-      "answer": "Use sortString() to check if two words have the same letters"
+      "question": "Why aren't my matches working even when the letters are right?",
+      "answer": "Case is probably tripping you up. 'Stone' and 'tones' should match, but they have different capitals. Convert everything to lowercase before comparing."
     },
     {
-      "question": "Hint",
-      "answer": "Remember to filter out the target word itself (case-insensitive comparison)"
+      "question": "Should the target word itself count as an anagram of itself?",
+      "answer": "No, a word isn't its own anagram. Filter the target out of your candidate list using a case-insensitive comparison, since it might appear in a different case."
     },
     {
-      "question": "Hint",
-      "answer": "Use push() to build up your results list"
-    },
-    {
-      "question": "Hint",
-      "answer": "Sort the final results alphabetically"
+      "question": "How do I collect up the matches?",
+      "answer": "Start with an empty list and use `push()` to add each anagram you find. Don't forget that the results need to be sorted alphabetically before you return them."
     }
   ]
 }

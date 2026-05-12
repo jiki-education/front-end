@@ -28,7 +28,7 @@ export default function Scrubber() {
   // Tooltip reasons - separated by what they affect
   const getGlobalDisabledReason = () => {
     if (hasCodeBeenEdited) {
-      return "Scrubber disabled: Code has been edited. Run tests to re-enable.";
+      return 'The code has been edited so we\'ve disabled the scrubber. Press "Run code" to re-enable it.';
     }
     if (isSpotlightActive) {
       return "Scrubber disabled: Spotlight mode is active.";

@@ -31,7 +31,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-list",
     name: "Empty register",
-    description: "No-one's allowed in when the list is empty",
+    description: "No-one's allowed in when the list is empty.",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [[], "Mr Pitt"],
@@ -40,7 +40,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-missing",
     name: "Brad's turned away",
-    description: "The name's not on the list",
+    description: "The name's not on the list.",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Albert Einstein", "James Watt"], "Mr Pitt"],
@@ -49,7 +49,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-present",
     name: "Brad's allowed in",
-    description: "The name's on the list (Brad Pitt matches Mr Pitt)",
+    description: "The name's on the list (Brad Pitt matches Mr Pitt).",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein"], "Mr Pitt"],
@@ -58,7 +58,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "different-honorific",
     name: "Knight of the realm",
-    description: "Handle a different honorific (Lord Doyle matches Arthur Conan Doyle)",
+    description: "Handle a different honorific (Lord Doyle matches Arthur Conan Doyle).",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Arthur Conan Doyle", "Bradley Cooper", "Albert Einstein"], "Lord Doyle"],
@@ -67,7 +67,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "bond-allowed",
     name: "Mr Bond, I presume",
-    description: "James Bond is on the list",
+    description: "James Bond is on the list.",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["James Bond"], "Mr Bond"],
@@ -76,7 +76,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "bond-not-allowed",
     name: "Hmmm.. Mr Bond, I presume",
-    description: "Only Jason Bourne on the list, not James Bond",
+    description: "Only Jason Bourne on the list, not James Bond.",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Jason Bourne"], "Dr Bond"],
@@ -85,7 +85,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "lloyd-webber",
     name: "How about a Baron?",
-    description: "Baron Lloyd Webber has two words in his surname",
+    description: "Baron Lloyd Webber has two words in his surname.",
     taskId: "bonus-multi-word-surname",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein", "Andrew Lloyd Webber"], "Baron Lloyd Webber"],
@@ -94,7 +94,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "mark-webber",
     name: "Is Mark the Baron?",
-    description: "A different Webber doesn't count - surname must match fully",
+    description: "A different Webber doesn't count - surname must match fully.",
     taskId: "bonus-multi-word-surname",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein", "Mark Webber"], "Baron Lloyd Webber"],

@@ -63,7 +63,7 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
         <div className={styles.progress}>
           <div className={styles.progressFill} style={{ width: `${percentage}%` }} />
         </div>
-        <div className={styles.label}>Walkthrough</div>
+        <div className={styles.label}>Deep Dive</div>
       </div>
       <div className={styles.back}>
         <svg viewBox="0 0 24 24">

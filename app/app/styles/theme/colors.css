@@ -33,6 +33,7 @@
     --color-purple-950: #370764;
 
     /* Green Scale (using Tailwind emerald palette) */
+    --color-green-30: #f5fefa;
     --color-green-50: #ecfdf5;
     --color-green-100: #d1fae5;
     --color-green-200: #a7f3d0;
@@ -59,6 +60,7 @@
     --color-gray-950: #020617;
 
     /* Red Scale (Coral Red) */
+    --color-red-30: #fff8f8;
     --color-red-50: #fef2f2;
     --color-red-100: #fee2e2;
     --color-red-200: #fecaca;
@@ -70,6 +72,9 @@
     --color-red-800: #991b1b;
     --color-red-900: #7f1d1d;
     --color-red-950: #450a0a;
+
+    /* Orange Scale extension */
+    --color-orange-30: #fffaf3;
 
     /* Amber/Yellow Scale */
     --color-amber-50: #fffbeb;

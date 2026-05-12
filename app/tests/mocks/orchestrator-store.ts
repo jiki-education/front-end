@@ -26,8 +26,6 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       language: "jikiscript" as const,
 
       // Editor store state
-      defaultCode: "",
-      defaultReadonlyRanges: [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
@@ -112,7 +110,6 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       setLanguage: jest.fn(),
 
       // Editor store actions
-      setDefaultCode: jest.fn(),
       setReadonly: jest.fn(),
       setShouldShowInformationWidget: jest.fn(),
       setUnderlineRange: jest.fn(),

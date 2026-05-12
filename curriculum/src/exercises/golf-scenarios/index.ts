@@ -18,13 +18,6 @@ const functions: FunctionInfo[] = [
     description: "Returns the **length of the shot** — how many units the ball travels to the right.",
     examples: ["let shotLength = getShotLength()"],
     category: "Game"
-  },
-  {
-    name: "fireFireworks",
-    signature: "fireFireworks()",
-    description: "Fires celebratory fireworks!",
-    examples: ["fireFireworks()"],
-    category: "Action"
   }
 ];
 
@@ -34,7 +27,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["scenarios", "using-functions-with-inputs"]
 };
 
 export default exerciseDefinition;

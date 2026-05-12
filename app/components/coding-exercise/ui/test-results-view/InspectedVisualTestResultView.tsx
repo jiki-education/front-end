@@ -15,7 +15,7 @@ export function InspectedVisualTestResultView() {
 
   // Recompute firstExpect whenever currentTest changes
   // eslint-disable-next-line react-hooks/exhaustive-deps -- orchestrator is stable from context, including it breaks everything.
-  const firstExpect = useMemo(() => orchestrator.getFirstExpect() as VisualTestExpect | null, [currentTest]);
+  const firstExpect = useMemo(() => orchestrator.getFirstExpect(), [currentTest]);
 
   if (!currentTest || currentTest.type !== "visual") {
     return null;
@@ -73,15 +73,11 @@ export function InspectedVisualTestResultViewLHS({
 
 function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   const orchestrator = useOrchestrator();
-  const { currentTest, testSuiteResult } = useOrchestratorStore(orchestrator);
+  const { currentTest } = useOrchestratorStore(orchestrator);
 
   if (!firstExpect) {
     return null;
   }
-
-  // Get the current test index for the PassMessage by finding the test in the suite
-  const testIdx =
-    testSuiteResult && currentTest ? testSuiteResult.tests.findIndex((test) => test.slug === currentTest.slug) : 0;
 
   // Get error message
   let errorHtml = firstExpect.errorHtml || "";
@@ -95,10 +91,9 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
       <VisualTestResultView
         isPassing={false}
         errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
-        testIdx={Math.max(0, testIdx)}
       />
     );
   }
 
-  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
+  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} />;
 }

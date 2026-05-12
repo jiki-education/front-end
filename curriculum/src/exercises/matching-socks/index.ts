@@ -34,7 +34,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["arrays", "string-iteration", "building-arrays", "if"]
 };
 
 export default exerciseDefinition;

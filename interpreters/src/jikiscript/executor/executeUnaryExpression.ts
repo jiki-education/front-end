@@ -12,7 +12,7 @@ export function executeUnaryExpression(
   switch (expression.operator.type) {
     case "NOT": {
       executor.verifyBoolean(operand.jikiObject, expression.operand);
-      const notResult = new Jiki.Boolean(!(operand.jikiObject as Jiki.Boolean).value);
+      const notResult = new Jiki.Boolean(!operand.jikiObject.value);
       return {
         type: "UnaryExpression",
         jikiObject: notResult,
@@ -22,7 +22,7 @@ export function executeUnaryExpression(
     }
     case "MINUS": {
       executor.verifyNumber(operand.jikiObject, expression.operand);
-      const minusResult = new Jiki.Number(-(operand.jikiObject as Jiki.Number).value);
+      const minusResult = new Jiki.Number(-operand.jikiObject.value);
       return {
         type: "UnaryExpression",
         jikiObject: minusResult,

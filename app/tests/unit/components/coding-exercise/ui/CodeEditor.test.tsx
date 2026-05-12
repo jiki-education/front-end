@@ -53,8 +53,6 @@ describe("CodeEditor", () => {
       completionResponse: [],
       foldedLines: [],
       language: "jikiscript" as const,
-      defaultCode: "const x = 1;",
-      defaultReadonlyRanges: [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
