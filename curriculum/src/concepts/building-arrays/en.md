@@ -3,6 +3,12 @@ title: "Building Arrays"
 description: "Creating arrays by adding elements one at a time, often filtering or transforming as you go."
 ---
 
-Sometimes you need to build an array piece by piece rather than defining it all at once. You start with an empty array and add elements as you go.
+So far you've been working with arrays where their value is just set at the start and fixed. But what about if you want to add things to an array over time? Well, for this, arrays have a method called `push`.
 
-This pattern is the foundation of collecting: going through some data, picking out the parts you need, and gathering them into a new array.
+Push has one input, the thing that you want to attach to the end of the array. So in this case, we're wanting to push the word Isaac onto the end of an array that already contains DJ and Bethany.
+
+So to do this, Jiki takes the array out the box, he attaches Isaac onto the end of the chain, and then puts the whole thing back in the box. Note that unlike before with strings, where Jiki created a new string each time, he's actually changing the array here.
+
+One pattern you'll see a lot in coding is starting with an empty array and building it up. You can imagine we've got a big list of names and we want to work through them. Every time we find one that's a mentor, add it to our array.
+
+This looping and adding pattern is something you'll use a lot.
