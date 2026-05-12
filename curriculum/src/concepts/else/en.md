@@ -1,6 +1,6 @@
 ---
 title: "Else"
-description: "Providing an alternative action when a condition is false."
+description: "Adding an `else` clause after an `if` so a different block of code runs when the condition turns out to be false."
 ---
 
 If statements let you check conditions and run code only when something is true. Now let's introduce if's partner in crime, `else`.

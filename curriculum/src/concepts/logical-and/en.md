@@ -1,6 +1,6 @@
 ---
-title: "Logical AND"
-description: "Combining conditions so both must be true."
+title: "The `and` keyword"
+description: "Combining two conditions with `&&` so the whole condition is only true when both parts are true."
 ---
 
 If I asked you to open the door only if somebody was over the age of 20, you'd probably know what to do. But what about if you needed to check whether someone is over 20 _and_ wearing the correct outfit? So you need to check two different conditions at once. How would you do that?

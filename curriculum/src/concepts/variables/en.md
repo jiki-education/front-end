@@ -1,6 +1,6 @@
 ---
-title: "Variables"
-description: "Named containers that store values for later use in your programs."
+title: "Creating and Using Variables"
+description: "Boxes on Jiki's shelves that store a value with a label so you can get it back out later in your code."
 ---
 
 Variables are what let us store information. When we're coding, we often need to store some number or some string to use later, and variables are how we do it. So let's zoom out a bit in Jiki's warehouse, and you'll see that he has another set of shelves. We're already familiar with the first set of shelves that have got the functions on, these little machines like move and rectangle. But on this second set of shelves, rather than machines, you can see lots of boxes, and these boxes are what we call variables. You can tell Jiki to store anything in these boxes, and then later on ask him to get it out again. Each box has a name, exactly the same as functions have a name, and each box contains just one thing. For now, either a number or a string. But we'll look at storing more complex things in them further in the course.

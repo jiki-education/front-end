@@ -1,6 +1,6 @@
 ---
-title: "Updating Dictionaries"
-description: "Adding, changing, and removing entries in dictionaries, including building them up from scratch."
+title: "Changing Dictionaries"
+description: "Using `dict[key] = value` to update existing entries or add new ones, plus the `has` method for checking keys."
 ---
 
 You know how to create a dictionary and get values out of it. But what happens if the data changes? At some point, I'm gonna get older. I'm not gonna be 42, I'm gonna be 43.

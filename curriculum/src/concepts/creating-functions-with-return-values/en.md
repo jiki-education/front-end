@@ -1,6 +1,6 @@
 ---
-title: "Creating Functions with Return Values"
-description: "Writing your own functions that give a value back to whoever called them."
+title: "Adding Returns to Functions"
+description: "Using the return keyword to give your own functions an output chute that hands a value back to the caller."
 ---
 
 You now know how to create functions with and without inputs. There's one final thing to learn, and then you're gonna be a function-making expert, and that thing is how to give your functions a return chute.

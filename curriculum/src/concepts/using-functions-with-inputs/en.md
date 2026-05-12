@@ -1,6 +1,6 @@
 ---
-title: "Using Functions with Inputs"
-description: "Calling functions that take inputs to control how they behave."
+title: "Function Inputs"
+description: "Putting values into a function's input slots to change what it does each time it runs."
 ---
 
 One of the more powerful things about machines, about functions, is that many of them let you put some information into them, which, when you run them, changes what they do.

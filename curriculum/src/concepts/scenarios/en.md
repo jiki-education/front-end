@@ -1,6 +1,6 @@
 ---
 title: "Scenarios"
-description: "Running your code with different starting conditions to test it thoroughly."
+description: "Different starting conditions an exercise runs your single piece of code against, so you have to make it work for all of them."
 ---
 
 Each exercise comes with different scenarios, different situations that your code needs to handle.

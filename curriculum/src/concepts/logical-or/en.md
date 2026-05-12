@@ -1,6 +1,6 @@
 ---
-title: "Logical OR"
-description: "Combining conditions so at least one must be true."
+title: "The `or` keyword"
+description: "Combining two conditions with `||` so the whole condition is true when at least one of the parts is true."
 ---
 
 We can also use `or`, and again, sadly, there's not a nice or keyword in JavaScript. Instead, we have to use these two bars next to each other to mean or. It looks weird, but it's really not. You'll get used to it.

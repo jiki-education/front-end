@@ -1,6 +1,6 @@
 ---
 title: "Random Numbers"
-description: "Adding randomness and unpredictability to your programs."
+description: "Using `math.randomint` with a minimum and maximum to get a different number each time the function runs."
 ---
 
 Often in programming, we want to use a function and get a different random number back every time.

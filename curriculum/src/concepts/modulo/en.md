@@ -1,6 +1,6 @@
 ---
-title: "Modulo"
-description: "Finding the remainder after division, useful for checking even/odd and patterns."
+title: "Remainder"
+description: "Using the `%` operator to get what's left over after division, often used to check if a number is even or odd."
 ---
 
 So far, we've used addition, subtraction, multiplication, and division for when we're doing arithmetic. Now we're gonna introduce one more, the remainder operator.

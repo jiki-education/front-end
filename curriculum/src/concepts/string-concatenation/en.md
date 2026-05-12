@@ -1,6 +1,6 @@
 ---
 title: "String Concatenation"
-description: "Joining bits of text together to build longer strings."
+description: "Adding strings together with `+` to glue fixed text and variables into one longer string."
 ---
 
 You already know what strings are. They are pieces of paper with text on them.

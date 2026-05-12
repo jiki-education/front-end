@@ -1,6 +1,6 @@
 ---
 title: "RGB Colors"
-description: "Specifying colors using Red, Green and Blue values."
+description: "Mixing red, green, and blue light from 0 to 255 to make any color you want on the screen."
 ---
 
 RGB lets us think of colors as a mixture of red, green, and blue. That's what RGB stands for: red, green, blue. If you remember mixing paints at school, it's a similar idea, except rather than paint, we're mixing light.

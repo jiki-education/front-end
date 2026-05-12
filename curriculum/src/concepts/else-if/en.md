@@ -1,6 +1,6 @@
 ---
 title: "Else If"
-description: "Checking multiple conditions in sequence."
+description: "Chaining `else if` clauses to check several conditions in order, running only the first block whose condition is true."
 ---
 
 If statements let you check conditions and run code only when something is true. Now let's introduce if's partner in crime, `else`.

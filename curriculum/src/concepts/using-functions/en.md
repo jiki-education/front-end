@@ -1,6 +1,6 @@
 ---
 title: "Using Functions"
-description: "Calling functions to make things happen. The first step in programming."
+description: "Telling Jiki to run one of his little machines by writing its name followed by two brackets."
 ---
 
 When you write code, what you're really doing is communicating what you want to happen in a language that a computer understands. Now, there are lots of different programming languages, and there are lots of different interpreters that take what you write and turn it into the ones and zeros that a computer can understand. In this course, your interpreter is Jiki. The whole course is named after Jiki. This is Jiki. Jiki is gonna be your friend on this coding journey. It's his job to interpret the code that you write and turn it into the ones and zeros that the computer can actually act on.

@@ -1,6 +1,6 @@
 ---
 title: "Repeat Without Count"
-description: "Looping without knowing in advance how many times to repeat."
+description: "Leaving the brackets of a repeat loop empty so Jiki keeps going until something else tells him to stop."
 ---
 
 So far, when you've used the repeat loop, you've always specified a number that says how many times to repeat. Repeat five times, 10 times, 40 times. You've used a variable to do this too sometimes. But you've always told Jiki exactly how many times to repeat the loop. However, sometimes we don't know in advance how many times to repeat. Think about the maze. Way back at the start of this course, you solved the maze by writing out specific moves. You could see the maze, count the steps, and write the right number of moves.

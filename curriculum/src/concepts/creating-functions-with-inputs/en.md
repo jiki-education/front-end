@@ -1,6 +1,6 @@
 ---
-title: "Creating Functions with Inputs"
-description: "Adding inputs (parameters) to your own functions so they can work with different data."
+title: "Adding Inputs to Functions"
+description: "Adding input slots to your own functions so they can do different things based on the values passed in."
 ---
 
 The functions you've made so far always do exactly the same thing every time. `turnAround` always turns left twice. `shootIfAlienAbove` always checks and shoots.

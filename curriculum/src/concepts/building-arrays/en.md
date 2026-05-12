@@ -1,6 +1,6 @@
 ---
 title: "Building Arrays"
-description: "Creating arrays by adding elements one at a time, often filtering or transforming as you go."
+description: "Starting with an empty array and using `push` to add items one at a time as you loop through data."
 ---
 
 So far you've been working with arrays where their value is just set at the start and fixed. But what about if you want to add things to an array over time? Well, for this, arrays have a method called `push`.

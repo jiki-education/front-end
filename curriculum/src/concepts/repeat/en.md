@@ -1,6 +1,6 @@
 ---
 title: "Repeat Loop"
-description: "The simplest loop - repeat a block of code a specific number of times."
+description: "Using the `repeat` keyword to tell Jiki to run the code inside the curly brackets a specific number of times."
 ---
 
 So far, everything has been written in a linear way, where Jiki follows each instruction in order from top to bottom.

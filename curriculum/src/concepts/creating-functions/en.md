@@ -1,6 +1,6 @@
 ---
-title: "Creating Functions"
-description: "Writing your own reusable functions to organize and simplify your code."
+title: "Writing Your Own Functions"
+description: "Using the function keyword to build your own machines that Jiki can put on his shelves and reuse."
 ---
 
 So far, you've been using functions that have been built for you, functions like circle, rectangle, move right, shoot. All of those are functions that were made and put on Jiki's shelves.

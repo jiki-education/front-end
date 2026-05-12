@@ -1,6 +1,6 @@
 ---
 title: "String Templates"
-description: "Using template literals to embed expressions inside strings."
+description: "Using backticks and `${...}` placeholders to slot values straight into a string instead of joining pieces with `+`."
 ---
 
 We can use something called template literals to insert strings into other strings.

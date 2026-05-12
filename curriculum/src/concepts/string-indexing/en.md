@@ -1,6 +1,6 @@
 ---
 title: "String Indexing"
-description: "Accessing individual characters in a string by their position."
+description: "Using square brackets and a position number to pull out a single letter from a string — and remember positions start at zero."
 ---
 
 Imagine you have my name, Jeremy, and you want to get my initial J out of that. How would we go about doing it?

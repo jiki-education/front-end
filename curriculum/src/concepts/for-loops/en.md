@@ -1,6 +1,6 @@
 ---
 title: "For Loops"
-description: "A more powerful loop with a counter variable, condition, and increment step."
+description: "A loop with three parts — an initializer, a condition, and an increment — giving full control over iteration."
 ---
 
 You might remember that the repeat loop doesn't really exist in JavaScript. It's just something added to make your life a little bit easier while we get going.

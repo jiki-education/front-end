@@ -1,6 +1,6 @@
 ---
 title: "Animation"
-description: "Making things move on screen by updating positions over time."
+description: "Tricking the eye into seeing movement by repainting the background and redrawing each frame in a slightly new position."
 ---
 
 So far, when we've used repeat loop to draw things, each new thing we've drawn has added something to the image. If we've drawn a new brick in a wall, it's filled a gap. If we've drawn 10 circles, we see 10 circles on the screen. It's like a painting. Once you put paint on the wall, it doesn't disappear when you paint something new next to it. It stays there. But what if we want to make something look like it's moving?

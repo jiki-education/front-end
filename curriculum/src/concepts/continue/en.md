@@ -1,6 +1,6 @@
 ---
 title: "Continue"
-description: "Skipping to the next iteration of a loop."
+description: "Using the `continue` keyword inside a loop to skip the rest of this iteration and jump straight to the next one."
 ---
 
 There are some times we might want to skip a specific iteration of a loop instead of breaking out of it. Imagine we only want to do things for odd numbers.

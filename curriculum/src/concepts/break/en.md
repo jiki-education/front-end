@@ -1,6 +1,6 @@
 ---
 title: "Break"
-description: "Exiting a loop early when a condition is met."
+description: "Using the `break` keyword inside a loop body to exit the loop immediately and move on to code that comes after it."
 ---
 
 The `break` keyword can be used anywhere in the body of any loop.

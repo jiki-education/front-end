@@ -1,6 +1,6 @@
 ---
-title: "String Iteration"
-description: "Going through a string one character at a time using loops."
+title: "Iterating Through Strings"
+description: "Using a `for-of` loop to step through every letter in a string, doing something with each one in turn."
 ---
 
 You can access a single letter of a string using square brackets. Now we're going to look at how to loop through a string, getting out each letter one at a time.

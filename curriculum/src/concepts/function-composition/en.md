@@ -1,6 +1,6 @@
 ---
-title: "Function Composition"
-description: "Combining multiple functions together to solve complex problems."
+title: "Using Multiple Functions Together"
+description: "Splitting a problem into small single-responsibility functions that call each other, so each piece stays simple and reusable."
 ---
 
 So far, when you've written functions, each one has pretty much stood on its own feet and contained all of the logic it needs to work.

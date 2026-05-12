@@ -1,6 +1,6 @@
 ---
 title: "Scope"
-description: "Understanding where variables can be accessed in your code."
+description: "Understanding how curly brackets create their own set of shelves, so variables only live as long as their block does."
 ---
 
 Imagine code that draws a circle in a different place every time it was run, and we want to draw 10 circles in different places. We could combine this with a loop. But for those of you that are paying close attention, you might have noticed something odd here.

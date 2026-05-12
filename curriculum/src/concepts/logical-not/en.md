@@ -1,6 +1,6 @@
 ---
-title: "Logical NOT"
-description: "Flipping a condition from true to false or vice versa."
+title: "The `not` operator"
+description: "Using `!` to flip a boolean: true becomes false and false becomes true, useful for toggling or inverting checks."
 ---
 
 So far, when we've compared things to see if they're equal, we've used three equal signs. Sometimes, though, we want to check whether things are not equal, and for this, we use an exclamation mark followed by two equal signs. And generally, in programming, an exclamation mark or bang, as I think our American friends call it, means not. So imagine you work in a shop, and management have made a decision that no disco outfits are allowed in.

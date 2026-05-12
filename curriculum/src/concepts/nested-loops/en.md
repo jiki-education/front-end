@@ -1,6 +1,6 @@
 ---
-title: "Nested Loops"
-description: "Putting loops inside other loops for multi-dimensional repetition."
+title: "Loops in Loops"
+description: "Putting one loop inside another so the inner loop runs completely for each step of the outer loop — perfect for grids."
 ---
 
 Let's say we want a row of flowers. We can write something like this. We set a position, we plant a flower, we increase the position by 10, we repeat, we end up with a nice neat row of flowers. But what if we want a grid of flowers with rows and columns? Maybe four rows with five flowers in each row.

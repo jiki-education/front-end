@@ -1,6 +1,6 @@
 ---
 title: "Methods"
-description: "Built-in functions that come attached to data types."
+description: 'Functions that belong to a value and are called with dot notation, like `"Jeremy".includes("e")` or `"Jeremy".toUpperCase()`.'
 ---
 
 So far, when we've thought about strings or numbers, we've thought of them as quite static things.

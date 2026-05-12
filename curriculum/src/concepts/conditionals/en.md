@@ -1,6 +1,6 @@
 ---
 title: "Conditionals"
-description: "Making decisions in your code based on different conditions."
+description: "Comparing values with operators like `<`, `>`, and `===` to produce booleans that decide whether a block of code runs."
 ---
 
 There's a keyword that helps us tell Jiki to only do things in certain situations. Maybe you're writing some code to guard the entrance of a bar, maybe you're a bouncer, and Jiki should only open the door if someone's appropriately dressed. Or maybe you're writing some code where you're in charge of waving the checkered flag at the end of a race, but Jiki needs to know that he should only do it on the last lap. In these sorts of situations, we're going to use the `if` keyword.

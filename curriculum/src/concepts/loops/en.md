@@ -1,6 +1,6 @@
 ---
 title: "Loops"
-description: "Repeating code multiple times to avoid writing the same thing over and over."
+description: "Breaking out of strict top-to-bottom code flow by telling Jiki to run the same block of code over and over."
 ---
 
 So far, everything has been written in a linear way, where Jiki follows each instruction in order from top to bottom.

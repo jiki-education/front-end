@@ -1,6 +1,6 @@
 ---
-title: "State"
-description: "Updating variables over time to track changing values in your programs."
+title: "Updating Variables"
+description: "Changing what's inside a variable as your program runs so you can track positions, counts, scores, and other shifting values."
 ---
 
 So far, when we've created variables, we've put values in boxes and then got them out later. That's been really useful for adding clarity to our code and for reducing some of the mental arithmetic we might have otherwise had to do. But the real value from variables comes from the ability to change what's in a box, what's in the variable, throughout a program. So even though we might run the same bit of code multiple times, what it does might change based on what's inside the boxes.
