@@ -1,5 +1,5 @@
 ---
-title: "Wordle: Process Game"
+title: "Wordle: Play a Game"
 description: "Process a whole Wordle game, colouring each guess row by row."
 ---
 

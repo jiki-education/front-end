@@ -20,7 +20,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "for-loop", "if", "modulo"],
+  conceptSlugs: ["arrays", "for-loops", "if", "modulo"],
   interpreterOptions: {
     maxTotalLoopIterations: 20000
   }

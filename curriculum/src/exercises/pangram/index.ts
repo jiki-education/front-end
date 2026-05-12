@@ -27,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["string-iteration", "methods", "if", "return-values"]
+  conceptSlugs: ["string-iteration", "methods", "if", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

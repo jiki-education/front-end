@@ -20,7 +20,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["random", "variables", "return-values", "using-functions"]
+  conceptSlugs: ["random", "variables", "using-functions-with-return-values", "using-functions"]
 };
 
 export default exerciseDefinition;

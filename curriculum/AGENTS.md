@@ -235,7 +235,7 @@ pnpm run format       # Format with Prettier
    - Create animations in response to function calls
 3. **Define scenarios** in `scenarios.ts` (test cases with different states)
 4. **Export from** `src/exercises/index.ts`
-5. **Add `conceptSlugs`** to the exercise definition in `index.ts` — an array of concept slugs (from `src/concepts/`) that the exercise teaches or practices (e.g., `conceptSlugs: ["function-inputs"]`). The exercise-to-concept mapping is generated automatically at build time from these slugs.
+5. **Add `conceptSlugs`** to the exercise definition in `index.ts` — an array of concept slugs (from `src/concepts/`) that the exercise teaches or practices (e.g., `conceptSlugs: ["using-functions-with-inputs"]`). The exercise-to-concept mapping is generated automatically at build time from these slugs.
 6. **Test integration** with both JavaScript and Python
 
 ### Example Exercise Structure
