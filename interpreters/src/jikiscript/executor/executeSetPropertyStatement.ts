@@ -40,7 +40,7 @@ export function executeSetPropertyStatement(executor: Executor, statement: SetPr
     }
 
     executor.guardNoneJikiObject(value.jikiObject, statement.location);
-    executor.contextualThis.setField(statement.property.lexeme, value.jikiObject as any);
+    executor.contextualThis.setField(statement.property.lexeme, value.jikiObject);
 
     return {
       type: "SetPropertyStatement",

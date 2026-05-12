@@ -14,16 +14,16 @@ export function describeExpression(
 ): string[] {
   switch (result.type) {
     case "BinaryExpression":
-      return describeBinaryExpression(expression, result as any, context);
+      return describeBinaryExpression(expression, result, context);
 
     case "UnaryExpression":
-      return describeUnaryExpression(expression, result as any, context);
+      return describeUnaryExpression(expression, result, context);
 
     case "SubscriptExpression":
-      return describeSubscriptExpression(expression, result as any);
+      return describeSubscriptExpression(expression, result);
 
     case "CallExpression":
-      return describeCallExpression(expression as any, result as any);
+      return describeCallExpression(expression as any, result);
 
     case "IdentifierExpression": {
       const identResult = result as any;

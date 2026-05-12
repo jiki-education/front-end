@@ -1,20 +1,15 @@
 import type { Executor } from "../executor";
-import type { IdentifierExpression } from "../expression";
+import type { CalleeIdentifierExpression } from "../expression";
 import type { EvaluationResultIdentifierExpression } from "../evaluation-result";
-import { isCallable } from "../functions";
 
-export function executeIdentifierExpression(
+export function executeCalleeIdentifierExpression(
   executor: Executor,
-  expression: IdentifierExpression
+  expression: CalleeIdentifierExpression
 ): EvaluationResultIdentifierExpression {
   const value = executor.environment.get(expression.name.lexeme);
 
   if (value === undefined) {
     executor.error("VariableNotDeclared", expression.location, { name: expression.name.lexeme });
-  }
-
-  if (isCallable(value)) {
-    executor.error("UnexpectedUncalledFunction", expression.location, { name: expression.name.lexeme });
   }
 
   return {

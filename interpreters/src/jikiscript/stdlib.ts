@@ -88,8 +88,8 @@ function randomNumber(ctx: ExecutionContext, minObj: Jiki.JikiObject, maxObj: Ji
   verifyType(minObj, Jiki.Number, "number", 1);
   verifyType(maxObj, Jiki.Number, "number", 2);
 
-  const min = Math.trunc((minObj as Jiki.Number).value);
-  const max = Math.trunc((maxObj as Jiki.Number).value);
+  const min = Math.trunc(minObj.value);
+  const max = Math.trunc(maxObj.value);
 
   if (min > max) {
     ctx.logicError(
