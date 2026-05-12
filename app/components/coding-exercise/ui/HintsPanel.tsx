@@ -96,15 +96,15 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
         {hasWalkthrough && (
           <div className={style.walkthroughSection}>
-            <h3>Walkthrough Video</h3>
-            <p>Still stuck? Watch a step-by-step walkthrough of this exercise.</p>
+            <h3>Deep Dive</h3>
+            <p>Still stuck? Watch a deep dive of Jeremy solving this exercise.</p>
             {walkthroughUnlocked ? (
               <InlineWalkthroughPlayer playbackId={walkthroughVideoData[0].id} lessonSlug={lessonSlug} />
             ) : (
               <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
                 <img
                   src={`https://image.mux.com/${walkthroughVideoData[0].id}/thumbnail.jpg?width=400&height=225`}
-                  alt="Walkthrough video thumbnail"
+                  alt="Deep Dive video thumbnail"
                   className={style.walkthroughThumb}
                 />
                 <div className={style.walkthroughPlayBtn}>

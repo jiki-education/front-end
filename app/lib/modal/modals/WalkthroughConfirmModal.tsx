@@ -18,7 +18,7 @@ export function WalkthroughConfirmModal({ onConfirm }: WalkthroughConfirmModalPr
   return (
     <div className={styles.content}>
       <h4>Try solving it yourself first?</h4>
-      <p>Before watching the walkthrough, you might want use these resources to help you pass the tests yourself:</p>
+      <p>Before watching the Deep Dive, you might want use these resources to help you pass the tests yourself:</p>
       <ul className={styles.resources}>
         <li>
           <span className={`${styles.resourceIcon} ${styles.blue}`}>
@@ -59,7 +59,7 @@ export function WalkthroughConfirmModal({ onConfirm }: WalkthroughConfirmModalPr
           I&apos;ll try first
         </button>
         <button className="ui-btn ui-btn-default ui-btn-primary" onClick={handleWatch}>
-          Watch walkthrough
+          Watch the Deep Dive
         </button>
       </div>
     </div>
