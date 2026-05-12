@@ -17,8 +17,6 @@ const BURST_POSITIONS: Array<{ left: string; top: string }> = [
   { left: "75%", top: "10%" }
 ];
 
-let fireworkCounter = 0;
-
 // Tiny seeded PRNG so each call produces a stable (but varied) pattern.
 function mulberry32(seed: number) {
   let s = seed >>> 0;
@@ -33,8 +31,13 @@ function mulberry32(seed: number) {
 
 export function fireFireworks(view: HTMLElement, animations: Animation[], executionCtx: ExecutionContext) {
   const startTime = executionCtx.getCurrentTimeInMs();
-  const callIndex = fireworkCounter++;
-  const rand = mulberry32(0xf17e + callIndex * 31);
+  // Per-view call index so DOM IDs stay unique within this view across
+  // repeated calls, without relying on module-level state that leaks between
+  // exercise instances or test runs. Seed the PRNG from the
+  // interpreter-controlled start time so identical runs produce identical
+  // patterns.
+  const callIndex = view.querySelectorAll(":scope > .firework").length;
+  const rand = mulberry32(0xf17e ^ (startTime >>> 0));
   const burstDuration = DURATION_MS / BURST_COUNT;
 
   for (let b = 0; b < BURST_COUNT; b++) {
