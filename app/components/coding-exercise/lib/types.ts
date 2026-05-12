@@ -63,8 +63,6 @@ export interface OrchestratorState {
   language: Language;
 
   // Editor store state
-  defaultCode: string;
-  defaultReadonlyRanges: ReadonlyRange[];
   readonly: boolean;
   shouldShowInformationWidget: boolean;
   underlineRange: UnderlineRange | undefined;
@@ -133,7 +131,6 @@ export interface OrchestratorActions {
   setLanguage: (language: OrchestratorState["language"]) => void;
 
   // Editor store actions
-  setDefaultCode: (code: string) => void;
   setReadonly: (readonly: boolean) => void;
   setShouldShowInformationWidget: (show: boolean) => void;
   setUnderlineRange: (range: UnderlineRange | undefined) => void;

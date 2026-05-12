@@ -450,7 +450,6 @@ describe("Orchestrator", () => {
       // Assert - initializeExerciseData is now called in the constructor
       const state = orchestrator.getStore().getState();
       expect(state.code).toBe("initial code");
-      expect(state.defaultCode).toBe("initial code");
     });
 
     it("should prefer localStorage when it exists and is newer", () => {
@@ -481,7 +480,6 @@ describe("Orchestrator", () => {
       // Assert
       const state = orchestrator.getStore().getState();
       expect(state.code).toBe(localCode);
-      expect(state.defaultCode).toBe(localCode);
     });
   });
 

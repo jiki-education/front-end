@@ -56,8 +56,6 @@ export function createOrchestratorStore(
       language: language,
 
       // Editor store state
-      defaultCode: exercise.stubs[language],
-      defaultReadonlyRanges: exercise.readonlyRanges?.[language] ?? [],
       readonly: false,
       shouldShowInformationWidget: false,
       underlineRange: undefined,
@@ -357,7 +355,6 @@ export function createOrchestratorStore(
       },
 
       // Editor store actions
-      setDefaultCode: (code) => set({ defaultCode: code }),
       setReadonly: (readonly) => set({ readonly }),
       setShouldShowInformationWidget: (show) => set({ shouldShowInformationWidget: show }),
       setUnderlineRange: (range) => set({ underlineRange: range }),
@@ -447,16 +444,12 @@ export function createOrchestratorStore(
 
         // Rule 1: No server data and no localStorage - use stub code (already set during store creation)
         if (!serverData && (!localStorageResult.success || !localStorageResult.data)) {
-          // Code and defaultCode are already initialized with exercise.stubs[language]
           return;
         }
 
         // Rule 2: No server data but localStorage exists - use localStorage
         if (!serverData && localStorageResult.success && localStorageResult.data) {
-          set({
-            code: localStorageResult.data.code,
-            defaultCode: localStorageResult.data.code
-          });
+          set({ code: localStorageResult.data.code });
           return;
         }
 
@@ -464,10 +457,7 @@ export function createOrchestratorStore(
         if (serverData) {
           // No localStorage - use server data
           if (!localStorageResult.success || !localStorageResult.data) {
-            set({
-              code: serverData.code,
-              defaultCode: serverData.code
-            });
+            set({ code: serverData.code });
             return;
           }
 
@@ -476,10 +466,7 @@ export function createOrchestratorStore(
 
           // If server has no timestamp, use localStorage
           if (!serverData.storedAt) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+            set({ code: localStorageData.code });
             return;
           }
 
@@ -493,44 +480,29 @@ export function createOrchestratorStore(
 
           // If both timestamps are invalid, use localStorage (safer default)
           if (!serverTimeValid && !localTimeValid) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+            set({ code: localStorageData.code });
             return;
           }
 
           // If only server timestamp is invalid, use localStorage
           if (!serverTimeValid && localTimeValid) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+            set({ code: localStorageData.code });
             return;
           }
 
           // If only localStorage timestamp is invalid, use server
           if (serverTimeValid && !localTimeValid) {
-            set({
-              code: serverData.code,
-              defaultCode: serverData.code
-            });
+            set({ code: serverData.code });
             return;
           }
 
           // Both timestamps are valid - compare them
           if (serverTime > localTime + ONE_MINUTE) {
             // Server is newer - use server data
-            set({
-              code: serverData.code,
-              defaultCode: serverData.code
-            });
+            set({ code: serverData.code });
           } else {
             // localStorage is newer or equal - use localStorage
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+            set({ code: localStorageData.code });
           }
         }
       },
@@ -559,8 +531,6 @@ export function createOrchestratorStore(
           language: language,
 
           // Reset editor store state
-          defaultReadonlyRanges: [],
-          defaultCode: exercise.stubs[language],
           readonly: false,
           shouldShowInformationWidget: false,
           underlineRange: undefined,
@@ -630,8 +600,6 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       language: state.language,
 
       // Editor store state
-      defaultCode: state.defaultCode,
-      defaultReadonlyRanges: state.defaultReadonlyRanges,
       readonly: state.readonly,
       shouldShowInformationWidget: state.shouldShowInformationWidget,
       underlineRange: state.underlineRange,

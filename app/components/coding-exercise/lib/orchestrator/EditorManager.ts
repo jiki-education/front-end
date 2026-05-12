@@ -33,10 +33,8 @@ import { getFoldedLines as getCodeMirrorFoldedLines } from "../../ui/codemirror/
 import { scrollToLine } from "../../ui/codemirror/utils/scrollToLine";
 import { updateUnfoldableFunctions } from "../../ui/codemirror/utils/unfoldableFunctionNames";
 import type { ReadonlyRange } from "@jiki/curriculum";
-import { loadCodeMirrorContent, saveCodeMirrorContent } from "../localStorage";
+import { saveCodeMirrorContent } from "../localStorage";
 import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "../types";
-
-const ONE_MINUTE = 60 * 1000;
 
 export class EditorManager {
   readonly editorView: EditorView;
@@ -47,6 +45,8 @@ export class EditorManager {
     element: HTMLDivElement,
     private readonly store: StoreApi<OrchestratorStore>,
     private readonly exerciseSlug: string,
+    initialCode: string,
+    initialReadonlyRanges: ReadonlyRange[],
     private readonly runCode: (code: string) => void,
     private readonly lintCode?: (code: string) => void
   ) {
@@ -55,7 +55,6 @@ export class EditorManager {
 
     // Get values from store
     const state = this.store.getState();
-    const value = state.defaultCode;
     const readonly = state.readonly;
     const highlightedLine = state.highlightedLine;
     const shouldAutoRunCode = state.shouldAutoRunCode;
@@ -81,17 +80,15 @@ export class EditorManager {
     // Create editor view directly with the element
     this.editorView = new EditorView({
       state: EditorState.create({
-        doc: value,
+        doc: initialCode,
         extensions
       }),
       parent: element
     });
 
-    // Apply default readonly ranges from exercise definition
-    const defaultReadonlyRanges = state.defaultReadonlyRanges;
-    if (defaultReadonlyRanges.length > 0) {
+    if (initialReadonlyRanges.length > 0) {
       this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(defaultReadonlyRanges)
+        effects: updateReadOnlyRangesEffect.of(initialReadonlyRanges)
       });
     }
 
@@ -439,53 +436,14 @@ export class EditorManager {
     }
   }
 
-  initializeEditor(
-    code: { storedAt?: string; code: string; readonlyRanges?: ReadonlyRange[] },
-    _exercise: unknown,
-    unfoldableFunctionNames: string[]
-  ) {
-    const localStorageResult = loadCodeMirrorContent(this.exerciseSlug);
+  resetContent(code: string, readonlyRanges: ReadonlyRange[]) {
+    saveCodeMirrorContent(this.exerciseSlug, code, readonlyRanges);
 
-    if (
-      localStorageResult.success &&
-      localStorageResult.data &&
-      code.storedAt &&
-      new Date(localStorageResult.data.storedAt).getTime() < new Date(code.storedAt).getTime() - ONE_MINUTE
-    ) {
-      this.store.getState().setDefaultCode(code.code);
-      this.setupEditor(unfoldableFunctionNames, {
-        code: code.code,
-        readonlyRanges: code.readonlyRanges
-      });
-
-      saveCodeMirrorContent(this.exerciseSlug, code.code, code.readonlyRanges);
-    } else if (localStorageResult.success && localStorageResult.data) {
-      this.store.getState().setDefaultCode(localStorageResult.data.code);
-      this.setupEditor(unfoldableFunctionNames, {
-        code: localStorageResult.data.code,
-        readonlyRanges: localStorageResult.data.readonlyRanges ?? []
-      });
-    } else {
-      this.store.getState().setDefaultCode(code.code || "");
-      this.setupEditor(unfoldableFunctionNames, {
-        code: code.code || "",
-        readonlyRanges: code.readonlyRanges || []
-      });
-    }
-  }
-
-  resetEditorToStub(stubCode: string, defaultReadonlyRanges: ReadonlyRange[], unfoldableFunctionNames: string[]) {
-    saveCodeMirrorContent(this.exerciseSlug, stubCode, defaultReadonlyRanges);
-
-    this.setupEditor(unfoldableFunctionNames, {
-      code: "",
-      readonlyRanges: []
-    });
-
-    this.setupEditor(unfoldableFunctionNames, {
-      code: stubCode,
-      readonlyRanges: defaultReadonlyRanges
-    });
+    // First pass clears readonly ranges so the doc-replace below isn't vetoed
+    // by preventModifyTargetRanges (whose line-tracking heuristic produces
+    // invalid line numbers when the doc shrinks).
+    this.setupEditor([], { code: "", readonlyRanges: [] });
+    this.setupEditor([], { code, readonlyRanges });
   }
 
   private setupEditor(
