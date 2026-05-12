@@ -1,5 +1,8 @@
 function isLetter(character) {
-  return "abcdefghijklmnopqrstuvwxyz1234567890'".includes(character);
+  if (character === undefined) {
+    return false;
+  }
+  return "abcdefghijklmnopqrstuvwxyz1234567890".includes(character);
 }
 
 function addWord(words, word) {
@@ -12,12 +15,17 @@ function addWord(words, word) {
 function extractWords(sentence) {
   let result = [];
   let current = "";
-  for (const letter of sentence) {
-    if (!isLetter(letter)) {
+  for (let i = 0; i < sentence.length; i = i + 1) {
+    const ch = sentence[i];
+    const nextCh = sentence[i + 1];
+
+    if (isLetter(ch)) {
+      current = current + ch;
+    } else if (ch === "'" && current !== "" && isLetter(nextCh)) {
+      current = current + ch;
+    } else {
       result = addWord(result, current);
       current = "";
-    } else {
-      current = current + letter;
     }
   }
   return addWord(result, current);
