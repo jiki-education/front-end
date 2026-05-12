@@ -34,7 +34,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["dictionaries", "return-values", "if", "string-templates"]
+  conceptSlugs: ["dictionaries", "using-functions-with-return-values", "if", "string-templates"]
 };
 
 export default exerciseDefinition;

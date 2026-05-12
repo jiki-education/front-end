@@ -12,7 +12,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["custom-functions", "if", "and", "return-values"]
+  conceptSlugs: ["creating-functions", "if", "logical-and", "creating-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

@@ -27,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["string-iteration", "arrays", "array-building", "string-concatenation"]
+  conceptSlugs: ["string-iteration", "arrays", "building-arrays", "string-concatenation"]
 };
 
 export default exerciseDefinition;

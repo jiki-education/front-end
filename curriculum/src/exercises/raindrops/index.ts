@@ -27,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["custom-functions", "modulo", "if", "string-concatenation"]
+  conceptSlugs: ["creating-functions", "modulo", "if", "string-concatenation"]
 };
 
 export default exerciseDefinition;

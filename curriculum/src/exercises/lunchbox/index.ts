@@ -20,7 +20,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "array-building", "if", "return-values"]
+  conceptSlugs: ["arrays", "building-arrays", "if", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

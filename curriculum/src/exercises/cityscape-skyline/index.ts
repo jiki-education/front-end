@@ -56,7 +56,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["return-values", "variables", "repeat", "nested-loops", "random"]
+  conceptSlugs: ["using-functions-with-return-values", "variables", "repeat", "nested-loops", "random"]
 };
 
 export default exerciseDefinition;

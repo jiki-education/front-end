@@ -20,7 +20,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "array-collecting", "if", "methods"]
+  conceptSlugs: ["arrays", "building-arrays", "if", "methods"]
 };
 
 export default exerciseDefinition;
