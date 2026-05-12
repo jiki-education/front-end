@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./ScrollToActiveLessonButton.module.css";
 import ChevronUpIcon from "@/icons/chevron-up.svg";
 import ChevronDownIcon from "@/icons/chevron-down.svg";
+import { scrollToActiveLessonInContainer } from "../lib/scrollToActiveLesson";
 
 interface ScrollToActiveLessonButtonProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -73,12 +74,7 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
   }
 
   const handleClick = () => {
-    const container = containerRef.current;
-    if (!container) {
-      return;
-    }
-    const el = container.querySelector<HTMLElement>("[data-active-lesson='true']");
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    scrollToActiveLessonInContainer(containerRef.current);
   };
 
   return (
