@@ -13,7 +13,11 @@ test.describe("IO Test Updates E2E", () => {
 
     // Run tests
     await page.locator('[data-testid="run-button"]').click();
-    await page.locator('[data-ci="inspected-test-result-view"]').waitFor();
+    // Wait for test results to actually be populated (inspected-test-result-view also renders in pending state)
+    await page.waitForFunction(() => {
+      const orchestrator = (window as any).testOrchestrator;
+      return orchestrator?.getStore().getState().testSuiteResult !== null;
+    });
   });
 
   test("should update actual value when running code multiple times", async ({ page }) => {
