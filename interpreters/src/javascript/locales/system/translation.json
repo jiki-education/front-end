@@ -9,6 +9,8 @@
       "MissingInitializerInConstDeclaration": "MissingInitializerInConstDeclaration",
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
       "ConstInForLoopInit": "ConstInForLoopInit",
+      "MissingDeclarationKeyword": "MissingDeclarationKeyword: name: {{name}}",
+      "MissingDeclarationKeywordWithSuggestion": "MissingDeclarationKeywordWithSuggestion: name: {{name}}: suggestion: {{suggestion}}",
       "MissingLeftParenthesisAfterIf": "MissingLeftParenthesisAfterIf",
       "MissingRightBraceAfterBlock": "MissingRightBraceAfterBlock",
       "MissingRightBraceInTemplateLiteral": "MissingRightBraceInTemplateLiteral",

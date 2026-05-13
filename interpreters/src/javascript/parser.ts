@@ -18,6 +18,7 @@ import {
 } from "./expression";
 import { Location, Span } from "../shared/location";
 import { Scanner } from "./scanner";
+import { preParse } from "./preParse";
 import type { Statement } from "./statement";
 import {
   ExpressionStatement,
@@ -109,6 +110,7 @@ export class Parser {
 
   public parse(sourceCode: string): Statement[] {
     this.tokens = this.scanner.scanTokens(sourceCode);
+    preParse(this.tokens);
     this.baseIndentation = null;
     this.baseIndentationTokens = [];
     this.blockDepth = 0;
