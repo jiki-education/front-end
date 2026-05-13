@@ -25,31 +25,6 @@
     color: var(--color-gray-900);
 }
 
-/* Saved Indicator */
-.savedIndicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--color-green-600);
-    animation: fadeIn 0.3s ease;
-
-    svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 /* Edit State */
 .inputContainer {
     display: flex;
