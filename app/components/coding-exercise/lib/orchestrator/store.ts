@@ -47,6 +47,7 @@ export function createOrchestratorStore(
         showModal("exercise-completion-modal", {
           exerciseTitle: state.exerciseTitle,
           exerciseSlug: state.exerciseSlug,
+          isProject: state.context.type === "project",
           initialStep: "success",
           onGoToDashboard,
           onCompleteExercise: async () => {

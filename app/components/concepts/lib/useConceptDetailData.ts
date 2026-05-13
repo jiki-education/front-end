@@ -10,8 +10,9 @@ import {
 } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
+import { fetchProjects, type ProjectData, type ProjectStatus } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
-import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
+import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
 
 interface ConceptDetailData {
@@ -21,12 +22,14 @@ interface ConceptDetailData {
   isContentLoading: boolean;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
+  relatedProjects: ProjectInfo[];
   videoData: VideoSource[] | null;
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  getProjectStatus: (slug: string) => ProjectStatus | "locked";
 }
 
 export function useConceptDetailData(slug: string): ConceptDetailData {
@@ -39,9 +42,11 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
   const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
+  const [relatedProjects, setRelatedProjects] = useState<ProjectInfo[]>([]);
   const [videoData, setVideoData] = useState<VideoSource[] | null>(null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
+  const [projectStatuses, setProjectStatuses] = useState<Record<string, ProjectStatus>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,22 +82,59 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         const [related, exercises] = await Promise.all([getRelatedConcepts(slug), getExercisesForConcept(slug)]);
 
         setRelatedConcepts(related);
-        setRelatedExercises(exercises);
 
         if (isAuthenticated) {
-          const [unlockedSlugs, statuses, video] = await Promise.all([
+          const [unlockedSlugs, projectsResponse, video] = await Promise.all([
             fetchUnlockedConceptSlugs(),
-            exercises.length > 0 ? fetchLessonStatusesBySlugs(exercises.map((e) => e.slug)) : Promise.resolve({}),
+            fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
             fetchConceptVideoData(slug)
           ]);
+
+          // Split concept exercises into true exercises vs projects (matched by exercise_slug or slug).
+          const projectByExerciseSlug = new Map<string, ProjectData>();
+          for (const project of projectsResponse.results) {
+            if (project.exercise_slug) {
+              projectByExerciseSlug.set(project.exercise_slug, project);
+            }
+            projectByExerciseSlug.set(project.slug, project);
+          }
+
+          const exerciseOnly: ExerciseInfo[] = [];
+          const projectsForConcept: ProjectInfo[] = [];
+          for (const ex of exercises) {
+            const match = projectByExerciseSlug.get(ex.slug);
+            if (match) {
+              projectsForConcept.push({ slug: match.slug, title: match.title });
+            } else {
+              exerciseOnly.push(ex);
+            }
+          }
+
+          const lessonStatuses =
+            exerciseOnly.length > 0
+              ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
+              : ({} as Record<string, LessonStatus>);
+
+          const projStatuses: Record<string, ProjectStatus> = {};
+          for (const project of projectsResponse.results) {
+            if (project.status) {
+              projStatuses[project.slug] = project.status;
+            }
+          }
+
+          setRelatedExercises(exerciseOnly);
+          setRelatedProjects(projectsForConcept);
           setUnlockedConceptSlugs(new Set(unlockedSlugs));
-          setExerciseStatuses(statuses);
+          setExerciseStatuses(lessonStatuses);
+          setProjectStatuses(projStatuses);
           setVideoData(video);
 
           if (!unlockedSlugs.includes(slug)) {
             router.push("/concepts");
             return;
           }
+        } else {
+          setRelatedExercises(exercises);
         }
 
         if (!conceptData.category) {
@@ -119,6 +161,13 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     return exerciseStatuses[exerciseSlug] ?? "not_started";
   };
 
+  const getProjectStatus = (projectSlug: string): ProjectStatus | "locked" => {
+    if (!isAuthenticated) {
+      return "locked";
+    }
+    return projectStatuses[projectSlug] ?? "locked";
+  };
+
   return {
     concept,
     ancestors,
@@ -126,11 +175,13 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     isContentLoading,
     relatedConcepts,
     relatedExercises,
+    relatedProjects,
     videoData,
     isLoading,
     error,
     isAuthenticated,
     isConceptUnlocked,
-    getExerciseStatus
+    getExerciseStatus,
+    getProjectStatus
   };
 }

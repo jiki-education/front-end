@@ -15,6 +15,7 @@ interface ExerciseCompletionModalProps {
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
   exerciseSlug?: string;
+  isProject?: boolean;
   unlockedProject?: {
     name: string;
     description: string;
@@ -30,6 +31,7 @@ export function ExerciseCompletionModal({
   onGoToDashboard,
   exerciseTitle = "Navigate the Maze",
   exerciseSlug = "maze-instructions",
+  isProject = false,
   unlockedProject = {
     name: "Space Invaders",
     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
@@ -48,6 +50,7 @@ export function ExerciseCompletionModal({
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
+    isProject,
     unlockedProject,
     initialStep,
     completionResponse
@@ -79,6 +82,7 @@ export function ExerciseCompletionModal({
         <CompletedStep
           exerciseTitle={exerciseTitle}
           exerciseSlug={exerciseSlug}
+          isProject={isProject}
           onContinue={handlers.handleContinue}
           onTidyCode={handlers.handleTidyCode}
         />
