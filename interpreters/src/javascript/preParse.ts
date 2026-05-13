@@ -4,7 +4,7 @@ import { translate } from "./translator";
 
 const STATEMENT_BOUNDARY_TOKENS = new Set(["EOL", "SEMICOLON", "LEFT_BRACE", "RIGHT_BRACE"]);
 const SKIPPABLE_TOKENS = new Set(["LINE_COMMENT", "BLOCK_COMMENT"]);
-const DECLARATION_KEYWORDS = ["let", "const", "var"] as const;
+const DECLARATION_KEYWORDS = ["let", "const"] as const;
 
 type Rule = (tokens: Token[], index: number) => void;
 

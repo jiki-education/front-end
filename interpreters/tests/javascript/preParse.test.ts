@@ -10,10 +10,6 @@ describe("preParse: adjacent identifiers", () => {
       expect(() => parse("lt x = 5;")).toThrow("MissingDeclarationKeywordWithSuggestion");
     });
 
-    test("typo of 'var' at top level", () => {
-      expect(() => parse("vr y = 2;")).toThrow("MissingDeclarationKeywordWithSuggestion");
-    });
-
     test("typo inside for...of header (the motivating bug)", () => {
       expect(() => parse("for (cons letter of str1) { }")).toThrow("MissingDeclarationKeywordWithSuggestion");
     });
