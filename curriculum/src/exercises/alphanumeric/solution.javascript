@@ -27,9 +27,13 @@ function isNumeric(string) {
 
 function isAlphanumeric(string) {
   for (const char of string) {
-    if (!isAlpha(char) && !isNumeric(char)) {
-      return false;
+    if (isAlpha(char)) {
+      continue;
     }
+    if (isNumeric(char)) {
+      continue;
+    }
+    return false;
   }
   return true;
 }
