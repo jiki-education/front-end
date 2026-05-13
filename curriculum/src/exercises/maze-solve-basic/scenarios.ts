@@ -24,18 +24,20 @@ export const scenarios: VisualScenario[] = [
 
       // Setup the 7x7 maze
       // 0 = empty, 1 = blocked, 2 = start, 3 = target
-      ex.setupGrid([
-        [2, 1, 0, 0, 0, 1, 0],
-        [0, 1, 0, 1, 0, 1, 1],
-        [0, 0, 0, 1, 0, 0, 0],
-        [0, 1, 1, 1, 0, 1, 1],
-        [0, 0, 1, 0, 0, 1, 0],
-        [1, 1, 1, 1, 0, 1, 1],
-        [0, 0, 0, 0, 0, 0, 3]
-      ]);
-
-      ex.setupPosition(0, 0);
-      ex.setupDirection("down");
+      ex.setupMaze(
+        [
+          [2, 1, 0, 0, 0, 1, 0],
+          [0, 1, 0, 1, 0, 1, 1],
+          [0, 0, 0, 1, 0, 0, 0],
+          [0, 1, 1, 1, 0, 1, 1],
+          [0, 0, 1, 0, 0, 1, 0],
+          [1, 1, 1, 1, 0, 1, 1],
+          [0, 0, 0, 0, 0, 0, 3]
+        ],
+        0,
+        0,
+        "down"
+      );
     },
 
     expectations(exercise) {

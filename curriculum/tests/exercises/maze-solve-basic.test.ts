@@ -23,42 +23,33 @@ describe("MazeSolveBasicExercise", () => {
     });
   });
 
-  describe("setupGrid", () => {
-    it("should set the grid", () => {
+  describe("setupMaze", () => {
+    it("should set grid, position, and direction", () => {
       const grid = [
         [0, 1, 0],
         [0, 0, 0],
         [1, 0, 3]
       ];
-      exercise.setupGrid(grid);
+      exercise.setupMaze(grid, 2, 1, "right");
       expect(exercise.grid).toEqual(grid);
-    });
-  });
-
-  describe("setupPosition", () => {
-    it("should set character position", () => {
-      exercise.setupPosition(2, 3);
       expect(exercise.characterRow).toBe(2);
-      expect(exercise.characterCol).toBe(3);
-    });
-  });
-
-  describe("setupDirection", () => {
-    it("should set direction and rotation for up", () => {
-      exercise.setupDirection("up");
-      expect(exercise.direction).toBe("up");
-      expect(exercise.rotation).toBe(0);
-    });
-
-    it("should set direction and rotation for right", () => {
-      exercise.setupDirection("right");
+      expect(exercise.characterCol).toBe(1);
       expect(exercise.direction).toBe("right");
       expect(exercise.rotation).toBe(90);
     });
 
-    it("should set direction and rotation for left", () => {
-      exercise.setupDirection("left");
-      expect(exercise.direction).toBe("left");
+    it("should set rotation to 0 for up", () => {
+      exercise.setupMaze([[0]], 0, 0, "up");
+      expect(exercise.rotation).toBe(0);
+    });
+
+    it("should set rotation to 180 for down", () => {
+      exercise.setupMaze([[0]], 0, 0, "down");
+      expect(exercise.rotation).toBe(180);
+    });
+
+    it("should set rotation to -90 for left", () => {
+      exercise.setupMaze([[0]], 0, 0, "left");
       expect(exercise.rotation).toBe(-90);
     });
   });
@@ -69,29 +60,35 @@ describe("MazeSolveBasicExercise", () => {
     });
 
     it("should return 'win' when on target cell", () => {
-      exercise.setupGrid([
-        [0, 0],
-        [0, 3]
-      ]);
-      exercise.setupPosition(1, 1);
+      exercise.setupMaze(
+        [
+          [0, 0],
+          [0, 3]
+        ],
+        1,
+        1,
+        "down"
+      );
       expect(exercise.getGameResult()).toBe("win");
     });
 
     it("should return null when not on target cell", () => {
-      exercise.setupGrid([
-        [0, 0],
-        [0, 3]
-      ]);
-      exercise.setupPosition(0, 0);
+      exercise.setupMaze(
+        [
+          [0, 0],
+          [0, 3]
+        ],
+        0,
+        0,
+        "down"
+      );
       expect(exercise.getGameResult()).toBeNull();
     });
   });
 
   describe("getState", () => {
     it("should return current state", () => {
-      exercise.setupGrid([[0, 3]]);
-      exercise.setupPosition(0, 1);
-      exercise.setupDirection("right");
+      exercise.setupMaze([[0, 3]], 0, 1, "right");
 
       const state = exercise.getState();
       expect(state.position).toBe("0,1");
