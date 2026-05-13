@@ -15,6 +15,14 @@
       "answer": "Start a multiplier variable at 10. Every time you process a digit, multiply it by the current multiplier, add the product to the running sum, then decrease the multiplier by 1."
     },
     {
+      "question": "How do I turn the string into a number?",
+      "answer": "You have two options. Firstly, the intended way in this exercise is to find a way using the `indexOf` method. Have a think about that. If you can't figure that out, check the next hint for an answer, and the Deep Dive video for the full indexOf solution."
+    },
+    {
+      "question": "No seriously, how do I turn the string into a number?",
+      "answer": "Two options. Firstly you can use the `Number()` function (with a capital \"N\"), so `Number(\"5\")` gives `5`. There's also a nice indexOf solution you can see in the Deep Dive video afterwards."
+    },
+    {
       "question": "How do I handle 'X'. That's not a digit, is it?",
       "answer": "'X' is special. It represents the value 10, but only as the very last character. Treat it like a digit with value 10 when you see it at the end, and reject the ISBN if 'X' appears anywhere else."
     },

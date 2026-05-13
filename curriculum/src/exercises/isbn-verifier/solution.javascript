@@ -9,7 +9,7 @@ function isValidIsbn(isbn) {
     } else if (char === "-") {
       continue;
     } else if ("0123456789".includes(char)) {
-      num = Number(char);
+      num = "0123456789".indexOf(char);
     } else {
       return false;
     }
