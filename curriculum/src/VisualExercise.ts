@@ -94,6 +94,8 @@ export interface Animation {
     height?: number | string;
     gridRow?: number;
     gridColumn?: number;
-    innerHTML?: number;
+    innerHTML?: number | string;
+    backgroundColor?: string;
+    color?: string;
   };
 }

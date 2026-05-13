@@ -20,7 +20,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with a first correct guess.",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hello"]] },
-
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["hello"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
@@ -39,7 +41,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with two guesses.",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hallo", "hello"]] },
-
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["hallo", "hello"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
@@ -64,7 +68,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with three guesses.",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hulal", "hallo", "hello"]] },
-
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["hulal", "hallo", "hello"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
@@ -98,7 +104,9 @@ export const scenarios: VisualScenario[] = [
       name: "process_game",
       args: ["block", ["jumpy", "trend", "jumbo", "crisp", "gowfy", "block"]]
     },
-
+    setup(exercise) {
+      (exercise as ProcessGameExercise).drawGuesses(["jumpy", "trend", "jumbo", "crisp", "gowfy", "block"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGameExercise;
       return [
