@@ -1,5 +1,6 @@
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import ConceptCard from "@/components/concepts/ConceptCard";
+import Link from "next/link";
 import { LibraryWrapper } from "./LibrarySection";
 import styles from "./instructions-panel.module.css";
 
@@ -25,7 +26,11 @@ export default function LibraryWithConcepts({ concepts }: LibraryWithConceptsPro
 }
 
 function OpenConceptLibraryButton() {
-  return <button className="ui-btn ui-btn-small ui-btn-tertiary w-full">Open Concept Library</button>;
+  return (
+    <Link href="/concepts" className="ui-btn ui-btn-small ui-btn-tertiary w-full">
+      Open Concept Library
+    </Link>
+  );
 }
 
 export { OpenConceptLibraryButton };
