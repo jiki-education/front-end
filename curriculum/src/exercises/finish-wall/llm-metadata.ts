@@ -38,7 +38,7 @@ export const llmMetadata: LLMMetadata = {
         Solution approach:
         1. Set the fill color
         2. Initialize a counter variable (starting at -1 or 0 depending on approach)
-        3. Use repeat 5 times
+        3. Use repeat(5)
         4. Inside loop: increment counter, then draw rectangle at (counter * 20, 0, 20, 10)
       `
     }

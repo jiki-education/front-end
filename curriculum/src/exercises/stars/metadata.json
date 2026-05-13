@@ -8,7 +8,7 @@
     },
     {
       "question": "How do I run the loop the right number of times?",
-      "answer": "A `repeat n times` loop matches the input directly. If `n` is 3, you go around 3 times."
+      "answer": "A `repeat(n)` loop matches the input directly. If `n` is 3, you go around 3 times."
     },
     {
       "question": "What happens inside the loop?",
