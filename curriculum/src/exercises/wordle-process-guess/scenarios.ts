@@ -20,7 +20,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with a fully correct guess",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hello"] },
-
+    setup(exercise) {
+      (exercise as ProcessGuessExercise).drawGuesses(["hello"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
       return [
@@ -39,7 +41,9 @@ export const scenarios: VisualScenario[] = [
     description: "Handle when some letters are wrong",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hallu"] },
-
+    setup(exercise) {
+      (exercise as ProcessGuessExercise).drawGuesses(["hallu"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
       return [
@@ -58,7 +62,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with letters in the wrong place",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hlelo"] },
-
+    setup(exercise) {
+      (exercise as ProcessGuessExercise).drawGuesses(["hlelo"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
       return [
@@ -77,7 +83,9 @@ export const scenarios: VisualScenario[] = [
     description: "Deal with a more complex scenario",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "ehola"] },
-
+    setup(exercise) {
+      (exercise as ProcessGuessExercise).drawGuesses(["ehola"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
       return [
@@ -96,7 +104,9 @@ export const scenarios: VisualScenario[] = [
     description: "And finally a different word!",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["break", "beaks"] },
-
+    setup(exercise) {
+      (exercise as ProcessGuessExercise).drawGuesses(["beaks"]);
+    },
     expectations(exercise) {
       const ex = exercise as ProcessGuessExercise;
       return [
