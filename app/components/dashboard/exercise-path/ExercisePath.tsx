@@ -6,7 +6,6 @@ import { useLessonNavigation } from "./hooks/useLessonNavigation";
 import { useMilestoneHandler } from "./hooks/useMilestoneHandler";
 import { useLevels } from "./hooks/useLevels";
 import { useLessonCompletionAnimation } from "./hooks/useLessonCompletionAnimation";
-import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { LevelSection } from "./ui/LevelSection";
 import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
@@ -17,7 +16,6 @@ import { useEffect, useMemo, useRef } from "react";
 export default function ExercisePath() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { levelSections, setLevels, levelsLoading } = useLevels();
-  const shouldShowSkeleton = useDelayedLoading(levelsLoading);
   const { handleLessonNavigation, clickedLessonSlug, setClickedLessonSlug, isPending } = useLessonNavigation();
   const { handleMilestoneClick, levelCompletionInProgress } = useMilestoneHandler(setLevels);
   const { animationState, triggerCompletionAnimation, recentlyUnlockedLessons } = useLessonCompletionAnimation();
@@ -68,31 +66,33 @@ export default function ExercisePath() {
     handleLessonNavigation(route);
   };
 
-  if (shouldShowSkeleton) {
-    return <ExercisePathSkeleton />;
-  }
-
   return (
     <>
       <div ref={containerRef} className={styles.learningPath}>
         {isPending && <LessonLoadingModal />}
-        <StartCard firstLessonCompleted={levelSections[0]?.lessons[0]?.completed ?? false} />
-        {levelSections.map((section, index) => (
-          <LevelSection
-            key={section.levelSlug}
-            section={section}
-            nextSectionFirstLesson={levelSections[index + 1]?.lessons[0] ?? null}
-            _clickedLessonSlug={clickedLessonSlug}
-            _levelCompletionInProgress={levelCompletionInProgress}
-            onLessonClick={handleLessonClick}
-            _onLessonNavigation={handleLessonNavigation}
-            onMilestoneClick={handleMilestoneClick}
-            animationState={animationState}
-            recentlyUnlockedLessons={recentlyUnlockedLessons}
-            activeLessonSlug={activeLessonSlug}
-          />
-        ))}
-        <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+        {levelsLoading ? (
+          <ExercisePathSkeleton />
+        ) : (
+          <>
+            <StartCard firstLessonCompleted={levelSections[0]?.lessons[0]?.completed ?? false} />
+            {levelSections.map((section, index) => (
+              <LevelSection
+                key={section.levelSlug}
+                section={section}
+                nextSectionFirstLesson={levelSections[index + 1]?.lessons[0] ?? null}
+                _clickedLessonSlug={clickedLessonSlug}
+                _levelCompletionInProgress={levelCompletionInProgress}
+                onLessonClick={handleLessonClick}
+                _onLessonNavigation={handleLessonNavigation}
+                onMilestoneClick={handleMilestoneClick}
+                animationState={animationState}
+                recentlyUnlockedLessons={recentlyUnlockedLessons}
+                activeLessonSlug={activeLessonSlug}
+              />
+            ))}
+            <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+          </>
+        )}
       </div>
       <ScrollToActiveLessonButton containerRef={containerRef} />
     </>
