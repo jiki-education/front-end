@@ -9,6 +9,8 @@ export type SyntaxErrorType =
   | "MissingInitializerInConstDeclaration"
   | "MissingInitializerInVariableDeclaration"
   | "ConstInForLoopInit"
+  | "MissingDeclarationKeyword"
+  | "MissingDeclarationKeywordWithSuggestion"
   | "MissingLeftParenthesisAfterIf"
   | "MissingRightBraceAfterBlock"
   | "MissingRightBraceInTemplateLiteral"
