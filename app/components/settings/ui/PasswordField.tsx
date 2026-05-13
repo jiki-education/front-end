@@ -16,7 +16,6 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showSaved, setShowSaved] = useState(false);
 
   const resetForm = () => {
     setCurrentPassword("");
@@ -51,9 +50,6 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
       await onSave(newPassword, currentPassword);
       setIsEditing(false);
       resetForm();
-      // Show saved indicator
-      setShowSaved(true);
-      setTimeout(() => setShowSaved(false), 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update password");
     } finally {
@@ -129,29 +125,11 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
     );
   }
 
-  // View State (with optional Saved indicator)
   return (
     <div className={styles.passwordField}>
       <div className={styles.header}>
         <div className={styles.labelGroup}>
-          <span className={styles.label}>
-            Password
-            {showSaved && (
-              <span className={styles.savedIndicator}>
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                  <path
-                    d="M8 12L11 15L16 9"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                Saved
-              </span>
-            )}
-          </span>
+          <span className={styles.label}>Password</span>
           <div className={styles.value}>••••••••••••</div>
         </div>
         <button onClick={() => setIsEditing(true)} disabled={disabled} className="ui-btn ui-btn-tertiary ui-btn-small">

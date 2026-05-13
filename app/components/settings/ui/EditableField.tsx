@@ -29,7 +29,6 @@ export default function EditableField({
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showSaved, setShowSaved] = useState(false);
 
   // Update edit value when prop value changes
   useEffect(() => {
@@ -58,9 +57,6 @@ export default function EditableField({
     try {
       await onSave(editValue);
       setIsEditing(false);
-      // Show saved indicator
-      setShowSaved(true);
-      setTimeout(() => setShowSaved(false), 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
@@ -117,29 +113,11 @@ export default function EditableField({
     );
   }
 
-  // View State (with optional Saved indicator)
   return (
     <div className={styles.editableField}>
       <div className={styles.header}>
         <div className={styles.labelGroup}>
-          <span className={styles.label}>
-            {label}
-            {showSaved && (
-              <span className={styles.savedIndicator}>
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                  <path
-                    d="M8 12L11 15L16 9"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                Saved
-              </span>
-            )}
-          </span>
+          <span className={styles.label}>{label}</span>
           <div className={styles.value}>{value || <span className="text-gray-400">{placeholder}</span>}</div>
         </div>
         <button onClick={() => setIsEditing(true)} disabled={disabled} className="ui-btn ui-btn-tertiary ui-btn-small">
