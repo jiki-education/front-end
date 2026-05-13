@@ -133,6 +133,58 @@ describe("if statement concept", () => {
   });
 
   describe("else if statements", () => {
+    test("allows else if on a new line (Allman-style)", () => {
+      const code = `let x = 1;
+if (x === 1) {
+  x = 10;
+}
+else if (x === 2) {
+  x = 20;
+}`;
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.x.value).toBe(10);
+    });
+
+    test("allows plain else on a new line (Allman-style)", () => {
+      const code = `let x = 0;
+if (false) {
+  x = 1;
+}
+else {
+  x = 2;
+}`;
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.x.value).toBe(2);
+    });
+
+    test("allows multiple blank lines between } and else", () => {
+      const code = `let x = 0;
+if (false) {
+  x = 1;
+}
+
+
+else {
+  x = 2;
+}`;
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.x.value).toBe(2);
+    });
+
+    test("a trailing if-with-no-else followed by a separate statement still parses", () => {
+      const code = `let x = 0;
+if (true) {
+  x = 1;
+}
+x = 2;`;
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.x.value).toBe(2);
+    });
+
     test("executes else if branch when first condition is false and else if is true", () => {
       const { frames, error } = interpret(`
         let result = 0;
