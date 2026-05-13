@@ -13,7 +13,7 @@ async function usingLanguage(newLanguage: string, callback: () => void) {
 
 describe("scanner", () => {
   describe("error", () => {
-    test.each([["en", "Unknown character: '#'."]])(
+    test.each([["en", "Unknown character: `#`."]])(
       "translated to '%s'",
       async (language: string, expectedErrorMessage: string) => {
         usingLanguage(language, () => {
