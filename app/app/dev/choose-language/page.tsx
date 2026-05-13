@@ -31,5 +31,5 @@ const mockLessonData: ChooseLanguageLesson = {
 };
 
 export default function ChooseLanguagePage() {
-  return <ChooseLanguage lessonData={mockLessonData} />;
+  return <ChooseLanguage lessonData={mockLessonData} onReady={() => {}} />;
 }

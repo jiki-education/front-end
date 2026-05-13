@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingJiki from "@/components/ui/LoadingJiki";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useEffect, useRef, type ReactNode } from "react";
 
@@ -34,16 +35,8 @@ export function ClientAuthInitializer({ children }: ClientAuthProviderProps) {
   // Wait for initial auth check to complete before rendering children
   // Use the store's hasCheckedAuth as the single source of truth
   if (!hasCheckedAuth) {
-    return <LoadingSpinner />;
+    return <LoadingJiki />;
   }
 
   return <>{children}</>;
-}
-
-function LoadingSpinner() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-    </div>
-  );
 }
