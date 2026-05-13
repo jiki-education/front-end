@@ -137,21 +137,11 @@ export default class MazeExercise extends VisualExercise {
     executionCtx.fastForward(150);
   }
 
-  setupGrid(grid: (number | string)[][]) {
+  setupMaze(grid: (number | string)[][], row: number, col: number, dir: Direction) {
     this.grid = grid;
-    // Regenerate the view with the new grid
-    this.view.innerHTML = "";
-    this.populateView();
-  }
-
-  setupPosition(row: number, col: number) {
     this.characterRow = row;
     this.characterCol = col;
-  }
-
-  setupDirection(dir: Direction) {
     this.direction = dir;
-    // Set initial rotation based on direction
     const rotationMap: Record<Direction, number> = {
       up: 0,
       right: 90,
@@ -160,6 +150,9 @@ export default class MazeExercise extends VisualExercise {
     };
     this.rotation = rotationMap[dir];
     this.character.style.transform = `rotate(${this.rotation}deg)`;
+
+    this.view.innerHTML = "";
+    this.populateView();
   }
 
   getGameResult(): string | null {

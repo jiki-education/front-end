@@ -22,18 +22,20 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as MazeSolveRepeatExercise;
 
-      ex.setupGrid([
-        [2, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 0, 0],
-        [1, 0, 0, 0, 0, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1],
-        [1, 0, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 3]
-      ]);
-
-      ex.setupPosition(0, 0);
-      ex.setupDirection("right");
+      ex.setupMaze(
+        [
+          [2, 0, 0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1, 1, 0],
+          [1, 1, 1, 1, 1, 0, 0],
+          [1, 0, 0, 0, 0, 0, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0, 0, 3]
+        ],
+        0,
+        0,
+        "right"
+      );
     },
 
     expectations(exercise) {

@@ -23,18 +23,21 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as MazeWalkExercise;
       // Path: (0,0) down 3 → (3,0) right 2 → (3,2) down 4 → (7,2)
-      ex.setupGrid([
-        [2, 1, 1, 1, 1, 1, 1],
-        [0, 1, 1, 1, 1, 1, 1],
-        [0, 1, 1, 1, 1, 1, 1],
-        [0, 0, 0, 1, 1, 1, 1],
-        [1, 1, 0, 1, 1, 1, 1],
-        [1, 1, 0, 1, 1, 1, 1],
-        [1, 1, 0, 1, 1, 1, 1],
-        [1, 1, 3, 1, 1, 1, 1]
-      ]);
-      ex.setupPosition(0, 0);
-      ex.setupDirection("down");
+      ex.setupMaze(
+        [
+          [2, 1, 1, 1, 1, 1, 1],
+          [0, 1, 1, 1, 1, 1, 1],
+          [0, 1, 1, 1, 1, 1, 1],
+          [0, 0, 0, 1, 1, 1, 1],
+          [1, 1, 0, 1, 1, 1, 1],
+          [1, 1, 0, 1, 1, 1, 1],
+          [1, 1, 0, 1, 1, 1, 1],
+          [1, 1, 3, 1, 1, 1, 1]
+        ],
+        0,
+        0,
+        "down"
+      );
     },
 
     expectations(exercise) {
@@ -68,18 +71,21 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as MazeWalkExercise;
       // Path: (0,4) down 3 → (3,4) right 2 → (3,6) down 4 → (7,6)
-      ex.setupGrid([
-        [1, 1, 1, 1, 2, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1],
-        [1, 1, 1, 1, 0, 0, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1, 3, 1, 1]
-      ]);
-      ex.setupPosition(0, 4);
-      ex.setupDirection("down");
+      ex.setupMaze(
+        [
+          [1, 1, 1, 1, 2, 1, 1, 1, 1],
+          [1, 1, 1, 1, 0, 1, 1, 1, 1],
+          [1, 1, 1, 1, 0, 1, 1, 1, 1],
+          [1, 1, 1, 1, 0, 0, 0, 1, 1],
+          [1, 1, 1, 1, 1, 1, 0, 1, 1],
+          [1, 1, 1, 1, 1, 1, 0, 1, 1],
+          [1, 1, 1, 1, 1, 1, 0, 1, 1],
+          [1, 1, 1, 1, 1, 1, 3, 1, 1]
+        ],
+        0,
+        4,
+        "down"
+      );
     },
 
     expectations(exercise) {
