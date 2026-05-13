@@ -24,16 +24,28 @@ export function useStickyNav() {
           isRockSolidIntersecting = entry.isIntersecting;
         }
         if (entry.target === tagline) {
-          entry.isIntersecting || isRockSolidIntersecting ? makeInline() : makeSticky();
+          if (entry.isIntersecting || isRockSolidIntersecting) {
+            makeInline();
+          } else {
+            makeSticky();
+          }
         }
         if (entry.target === videoContainer) {
-          entry.isIntersecting && !isRockSolidIntersecting ? smoothOpacityChange(0) : smoothOpacityChange(1);
+          if (entry.isIntersecting && !isRockSolidIntersecting) {
+            smoothOpacityChange(0);
+          } else {
+            smoothOpacityChange(1);
+          }
         }
       });
     };
 
     const bootcampObserverCb: IntersectionObserverCallback = (entries) => {
-      entries[0].isIntersecting ? addOnPurpleClass() : removeOnPurpleClass();
+      if (entries[0].isIntersecting) {
+        addOnPurpleClass();
+      } else {
+        removeOnPurpleClass();
+      }
     };
 
     const bootcampObserver = new IntersectionObserver(bootcampObserverCb, {
