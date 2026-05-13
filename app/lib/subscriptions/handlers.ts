@@ -12,7 +12,7 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
-import { hideModal, showModal } from "@/lib/modal";
+import { hideModal, showSubscriptionCheckout } from "@/lib/modal";
 import toast from "react-hot-toast";
 
 // Types for handler functions
@@ -47,7 +47,7 @@ export async function handleSubscribe({ interval, userEmail, returnPath }: Subsc
     hideModal();
 
     // Show the checkout modal using the global modal system
-    showModal("subscription-checkout-modal", {
+    showSubscriptionCheckout({
       clientSecret: response.client_secret,
       selectedTier: "premium",
       onCancel: () => {

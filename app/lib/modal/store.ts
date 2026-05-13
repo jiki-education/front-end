@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { MembershipTier } from "@/lib/pricing";
 import confirmationStyles from "@/app/styles/components/confirmation-modal.module.css";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
+import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
 
@@ -113,6 +114,16 @@ export const showSubscriptionSuccess = (props: {
   onClose?: () => void;
 }) => {
   showModal("subscription-success-modal", props);
+};
+
+// Convenience function for subscription checkout modal
+export const showSubscriptionCheckout = (props: {
+  clientSecret: string;
+  selectedTier: MembershipTier;
+  onCancel?: () => void;
+  onSuccess?: () => void;
+}) => {
+  showModal("subscription-checkout-modal", props, undefined, subscriptionCheckoutStyles.modal);
 };
 
 // Convenience function for payment processing modal

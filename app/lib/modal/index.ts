@@ -7,6 +7,7 @@ export {
   showConfirmation,
   showInfo,
   showModal,
+  showSubscriptionCheckout,
   showSubscriptionModal,
   showSubscriptionSuccess,
   showPaymentProcessing,

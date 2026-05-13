@@ -30,8 +30,8 @@ export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
       </h2>
 
       <p className={styles.description}>
-        Great, you now have all the benefits included in the Premium Plan! Unlimited chats with Jiki on all lessons, and
-        so much more awaits you.
+        Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki,
+        Projects, and Build with Jeremy!
       </p>
 
       <div className={styles.actions}>

@@ -4,7 +4,7 @@
 import * as subscriptionApi from "@/lib/api/subscriptions";
 import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
-import { showModal } from "@/lib/modal";
+import { showSubscriptionCheckout } from "@/lib/modal";
 import toast from "react-hot-toast";
 
 // Mock the external dependencies
@@ -15,7 +15,7 @@ jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;
 const mockCheckoutUtils = checkoutUtils as jest.Mocked<typeof checkoutUtils>;
-const mockShowModal = showModal as jest.MockedFunction<typeof showModal>;
+const mockShowSubscriptionCheckout = showSubscriptionCheckout as jest.MockedFunction<typeof showSubscriptionCheckout>;
 const mockToast = toast as jest.Mocked<typeof toast>;
 
 describe("Subscription handlers", () => {
@@ -51,7 +51,7 @@ describe("Subscription handlers", () => {
         "https://example.com/settings?session_id={CHECKOUT_SESSION_ID}",
         "test@example.com"
       );
-      expect(mockShowModal).toHaveBeenCalledWith("subscription-checkout-modal", {
+      expect(mockShowSubscriptionCheckout).toHaveBeenCalledWith({
         clientSecret: "cs_test_123",
         selectedTier: "premium",
         onCancel: expect.any(Function)

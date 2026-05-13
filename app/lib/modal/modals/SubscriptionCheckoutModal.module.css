@@ -1,3 +1,8 @@
+.modal {
+    max-width: 520px;
+    padding: 40px;
+}
+
 .orderHeader {
     display: flex;
     align-items: flex-start;
