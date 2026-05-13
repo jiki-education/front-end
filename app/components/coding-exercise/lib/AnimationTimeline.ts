@@ -110,8 +110,12 @@ export class AnimationTimeline {
   // }
 
   public seek(time: number, muteCallbacks = false) {
-    // Convert microseconds to milliseconds for AnimeJS
-    this.animationTimeline.seek(Math.round(time / TIME_SCALE_FACTOR), muteCallbacks);
+    // Convert microseconds to milliseconds for AnimeJS. Pass the fractional
+    // value through — anime.js accepts non-integer ms. Rounding here would
+    // collapse sub-millisecond frame times to 0 and skip past animations
+    // whose offsets fall inside that range (e.g. exercises like digital-clock
+    // that operate at microsecond granularity).
+    this.animationTimeline.seek(time / TIME_SCALE_FACTOR, muteCallbacks);
   }
 
   public play(cb?: () => void) {

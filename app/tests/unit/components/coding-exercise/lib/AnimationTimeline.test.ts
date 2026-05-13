@@ -128,7 +128,7 @@ describe("AnimationTimeline", () => {
         }
       ];
 
-      animationTimeline.populateTimeline(animations as never, []);
+      animationTimeline.populateTimeline(animations, []);
 
       expect(mockTimeline.add).toHaveBeenCalledWith(".element", { duration: 1000, opacity: 0.5 }, 0);
     });
@@ -217,13 +217,28 @@ describe("AnimationTimeline", () => {
 
   describe("seek methods", () => {
     it("should seek to specific time with conversion from microseconds to milliseconds", () => {
-      // 50000 microseconds = 50 milliseconds (using Math.round)
+      // 50000 microseconds = 50 milliseconds
       animationTimeline.seek(50000);
       expect(mockTimeline.seek).toHaveBeenCalledWith(50, false);
+    });
 
-      // Test rounding
+    it("should NOT round the converted time — anime.js needs the full sub-ms precision", () => {
+      // 50500µs = 50.5ms — must pass through unchanged, NOT rounded to 51.
       animationTimeline.seek(50500);
-      expect(mockTimeline.seek).toHaveBeenCalledWith(51, false);
+      expect(mockTimeline.seek).toHaveBeenCalledWith(50.5, false);
+    });
+
+    it("should preserve sub-millisecond microsecond times (regression: digital-clock)", () => {
+      // Exercises like digital-clock operate at microsecond granularity:
+      // every executed statement only advances time by 1µs (= 0.001ms).
+      // Rounding here used to collapse all such frames to 0ms, so the
+      // scrubber could never cross an animation offset of e.g. 0.008ms.
+      animationTimeline.seek(1); // 1µs
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0.001, false);
+
+      (mockTimeline.seek as jest.Mock).mockClear();
+      animationTimeline.seek(18); // 18µs (last frame in a digital-clock scenario)
+      expect(mockTimeline.seek).toHaveBeenCalledWith(0.018, false);
     });
 
     it("should handle seeking to zero", () => {
