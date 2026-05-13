@@ -194,13 +194,12 @@ describe("TestSuiteManager", () => {
         throw new Error("Some other error");
       });
 
-      // Run the code
-      await manager.runCode(mockCode, mockExercise);
+      // Non-syntax errors are re-thrown in dev/test so they surface in the Next.js overlay.
+      await expect(manager.runCode(mockCode, mockExercise)).rejects.toThrow("Some other error");
 
-      // Verify error status was set but not as syntax error
+      // Syntax-error handling was reset before the throw.
       const state = mockStore.getState();
       expect(state.setHasSyntaxError).toHaveBeenCalledWith(false);
-      expect(state.setStatus).toHaveBeenCalledWith("error");
     });
 
     it("should run tests and submit asynchronously (fire-and-forget)", async () => {
