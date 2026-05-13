@@ -14,6 +14,7 @@ interface UseExerciseCompletionModalProps {
   onGoToDashboard?: () => void;
   exerciseTitle: string;
   exerciseSlug: string;
+  isProject: boolean;
   unlockedProject: {
     name: string;
     description: string;
@@ -29,6 +30,7 @@ export function useExerciseCompletionModal({
   onGoToDashboard,
   exerciseTitle,
   exerciseSlug,
+  isProject,
   unlockedProject,
   initialStep,
   completionResponse: initialCompletionResponse
@@ -61,6 +63,7 @@ export function useExerciseCompletionModal({
           onGoToDashboard,
           exerciseTitle,
           exerciseSlug,
+          isProject,
           unlockedProject,
           completionResponse,
           initialStep: "project-unlocked"
@@ -75,6 +78,7 @@ export function useExerciseCompletionModal({
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
+    isProject,
     unlockedProject,
     completionResponse
   ]);
@@ -84,20 +88,9 @@ export function useExerciseCompletionModal({
     hideModal();
   };
 
-  const handleCompleteExercise = async () => {
-    setStep("difficulty-rating");
-    const promise = Promise.resolve(onCompleteExercise?.()).then((result) => result ?? []);
-    completionPromiseRef.current = promise;
-    const events = await promise;
-    completionResponseRef.current = events;
-    setCompletionResponse(events);
-  };
-
-  const handleRatingsSubmit = async (difficultyRating: number, funRating: number) => {
-    rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
-
+  const advanceAfterCompletion = async () => {
     // Wait for the completion API call to finish before reading the response,
-    // in case the user submits ratings before onCompleteExercise has resolved.
+    // in case the user advances before onCompleteExercise has resolved.
     const events = completionPromiseRef.current ? await completionPromiseRef.current : completionResponseRef.current;
 
     const conceptEvent = events.find((item) => item.type === "concept_unlocked");
@@ -111,6 +104,29 @@ export function useExerciseCompletionModal({
     } else {
       setStep("completed");
     }
+  };
+
+  const handleCompleteExercise = async () => {
+    const promise = Promise.resolve(onCompleteExercise?.()).then((result) => result ?? []);
+    completionPromiseRef.current = promise;
+
+    if (isProject) {
+      const events = await promise;
+      completionResponseRef.current = events;
+      setCompletionResponse(events);
+      await advanceAfterCompletion();
+      return;
+    }
+
+    setStep("difficulty-rating");
+    const events = await promise;
+    completionResponseRef.current = events;
+    setCompletionResponse(events);
+  };
+
+  const handleRatingsSubmit = async (difficultyRating: number, funRating: number) => {
+    rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
+    await advanceAfterCompletion();
   };
 
   const handleContinueFromConcept = () => {

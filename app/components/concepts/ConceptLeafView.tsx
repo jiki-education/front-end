@@ -6,8 +6,9 @@ import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptArticleSkeleton } from "@/components/concepts/LoadingStates";
 import { ConceptSidebar } from "@/components/concepts/ConceptSidebar";
 import { SignupCta } from "@/components/concepts/SignupCta";
-import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
+import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
+import type { ProjectStatus } from "@/lib/api/projects";
 import type { VideoSource } from "@/types/lesson";
 
 interface ConceptLeafViewProps {
@@ -17,9 +18,11 @@ interface ConceptLeafViewProps {
   isContentLoading: boolean;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
+  relatedProjects: ProjectInfo[];
   videoData: VideoSource[] | null;
   isConceptUnlocked: (slug: string) => boolean;
   getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  getProjectStatus: (slug: string) => ProjectStatus | "locked";
   isAuthenticated: boolean;
 }
 
@@ -30,9 +33,11 @@ export function ConceptLeafView({
   isContentLoading,
   relatedConcepts,
   relatedExercises,
+  relatedProjects,
   videoData,
   isConceptUnlocked,
   getExerciseStatus,
+  getProjectStatus,
   isAuthenticated
 }: ConceptLeafViewProps) {
   return (
@@ -44,9 +49,11 @@ export function ConceptLeafView({
             conceptSlug={concept.slug}
             relatedConcepts={relatedConcepts}
             relatedExercises={relatedExercises}
+            relatedProjects={relatedProjects}
             videoData={videoData}
             isConceptUnlocked={isConceptUnlocked}
             getExerciseStatus={getExerciseStatus}
+            getProjectStatus={getProjectStatus}
             isAuthenticated={isAuthenticated}
           />
         }

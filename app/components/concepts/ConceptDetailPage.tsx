@@ -35,9 +35,11 @@ export default function ConceptDetailPage({ slug }: ConceptDetailPageProps) {
       isContentLoading={data.isContentLoading}
       relatedConcepts={data.relatedConcepts}
       relatedExercises={data.relatedExercises}
+      relatedProjects={data.relatedProjects}
       videoData={data.videoData}
       isConceptUnlocked={data.isConceptUnlocked}
       getExerciseStatus={data.getExerciseStatus}
+      getProjectStatus={data.getProjectStatus}
       isAuthenticated={data.isAuthenticated}
     />
   );

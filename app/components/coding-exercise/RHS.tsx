@@ -24,6 +24,9 @@ export function RHS({ orchestrator }: RHSProps) {
   const [activeTab, setActiveTab] = useState("instructions");
   const router = useRouter();
   const { isExerciseCompleted } = useOrchestratorStore(orchestrator);
+  const isProject = orchestrator.isProject();
+  const navTarget = isProject ? "/projects" : "/dashboard";
+  const navLabel = isProject ? "Projects" : "Dashboard";
 
   // Define tabs data for PageTabs
   const tabs = [
@@ -105,11 +108,11 @@ export function RHS({ orchestrator }: RHSProps) {
       <div className="flex items-center justify-between gap-[24px] px-[32px] py-[8px] bg-white overflow-x-auto flex-shrink-0">
         <PageTabs className="shrink-0" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
         <button
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push(navTarget)}
           className={`ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0${isExerciseCompleted ? " !text-[var(--color-green-600)] font-semibold !bg-[var(--color-green-50)] !border-[var(--color-green-600)] gap-[4px]" : ""}`}
         >
           <ArrowRightIcon width={16} height={16} />
-          Dashboard
+          {navLabel}
         </button>
       </div>
       <div className="flex-1 overflow-auto bg-white">{renderTabContent()}</div>

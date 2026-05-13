@@ -26,3 +26,8 @@ export interface ExerciseInfo {
   slug: string;
   title: string;
 }
+
+export interface ProjectInfo {
+  slug: string;
+  title: string;
+}

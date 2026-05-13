@@ -7,11 +7,19 @@ import timelineStyles from "@/app/styles/components/exercise-timeline.module.css
 interface CompletedStepProps {
   exerciseTitle: string;
   exerciseSlug: string;
+  isProject?: boolean;
   onContinue: () => void;
   onTidyCode: () => void;
 }
 
-export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue, onTidyCode }: CompletedStepProps) {
+export function CompletedStep({
+  exerciseTitle,
+  exerciseSlug,
+  isProject = false,
+  onContinue,
+  onTidyCode
+}: CompletedStepProps) {
+  const kind = isProject ? "project" : "exercise";
   return (
     <>
       <div className={timelineStyles.exerciseTimeline}>
@@ -28,9 +36,9 @@ export function CompletedStep({ exerciseTitle, exerciseSlug, onContinue, onTidyC
         <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGrey}`}></div>
         <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed}`}></div>
       </div>
-      <h2 className={styles.modalTitle}>Exercise completed!</h2>
+      <h2 className={styles.modalTitle}>{isProject ? "Project completed!" : "Exercise completed!"}</h2>
       <p className={styles.modalMessage}>
-        Great work completing {exerciseTitle}! Ready to continue to the next exercise?
+        Great work completing {exerciseTitle}! Ready to continue to the next {kind}?
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>

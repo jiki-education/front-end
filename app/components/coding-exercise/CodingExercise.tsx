@@ -26,13 +26,14 @@ export default function CodingExercise({
   onReady
 }: CodingExerciseProps) {
   const router = useRouter();
+  const continueHref = context.type === "project" ? "/projects" : "/dashboard";
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,
     context,
     levelId,
     isCompleted,
-    onGoToDashboard: () => router.push("/dashboard")
+    onGoToDashboard: () => router.push(continueHref)
   });
 
   // Fire onReady once loading settles — success OR error — so the parent
