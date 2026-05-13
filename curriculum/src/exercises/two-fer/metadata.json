@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I build the final sentence?",
-      "answer": "Use `concatenate()` to join the three pieces: `\"One for \"`, the chosen name, and `\", one for me.\"`."
+      "answer": "Join the three pieces — `\"One for \"`, the chosen name, and `\", one for me.\"` — using concatenation (`+`) or a template string."
     }
   ]
 }

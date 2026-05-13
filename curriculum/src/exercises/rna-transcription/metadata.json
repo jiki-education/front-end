@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I process the whole strand?",
-      "answer": "Loop through each character of the DNA string, find its RNA complement, and use `concatenate()` to glue the result together."
+      "answer": "Loop through each character of the DNA string, find its RNA complement, and append it onto a result string using concatenation with `+`."
     }
   ]
 }

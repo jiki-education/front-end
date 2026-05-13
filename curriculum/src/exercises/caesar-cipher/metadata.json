@@ -16,7 +16,7 @@
     },
     {
       "question": "How do I apply this to a whole message?",
-      "answer": "Loop through each character of the message, shift it using your single-letter helper, and use `concatenate()` to glue the shifted letters together into the result string."
+      "answer": "Loop through each character of the message, shift it using your single-letter helper, and use concatenation (`+`) to build up the result string from the shifted letters."
     }
   ]
 }

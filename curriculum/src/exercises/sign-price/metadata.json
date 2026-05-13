@@ -16,7 +16,7 @@
     },
     {
       "question": "How do I build the result string?",
-      "answer": "The price is a number, but the return value is a string. Use `numberToString()` to convert the price to a string, then `concatenate()` to add any surrounding text the exercise asks for."
+      "answer": "The price is a number, but the return value is a string. Use `numberToString()` to convert the price to a string, then use concatenation (`+`) or a template string to add any surrounding text the exercise asks for."
     }
   ]
 }

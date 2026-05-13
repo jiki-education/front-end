@@ -5,13 +5,6 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "concatenate",
-    signature: "concatenate(a, b)",
-    description: "Combine two strings together (provided by level stdlib)",
-    examples: ['concatenate("hello", "world") → "helloworld"'],
-    category: "String Operations"
-  },
-  {
     name: "toLowerCase",
     signature: "toLowerCase(text)",
     description: "Convert a string to lowercase (provided by level stdlib)",

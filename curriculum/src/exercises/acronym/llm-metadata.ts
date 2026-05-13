@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
     "create-acronym-function": {
       description: `
         Students need to iterate through the phrase, identify word boundaries (spaces/hyphens),
-        extract the first character of each word, convert to uppercase, and concatenate.
+        extract the first character of each word, convert to uppercase, and join with the \`+\` operator (or a template string).
         Common mistakes: forgetting to handle hyphens, not uppercasing, including spaces in output.
         Encourage using a loop with a boundary-tracking flag rather than split() since that's not available yet.
       `

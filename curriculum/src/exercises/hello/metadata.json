@@ -8,7 +8,7 @@
     },
     {
       "question": "How do I join strings together?",
-      "answer": "Use `concatenate()`. You can call it more than once to stick all three pieces together into a single string."
+      "answer": "Use concatenation with `+`, or a template string with `${}` placeholders, to stick all three pieces together into a single string."
     }
   ]
 }

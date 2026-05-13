@@ -29,8 +29,8 @@ export const llmMetadata: LLMMetadata = {
         3. Prepend each character to the result (not append!)
         4. Return the result
 
-        The key insight is using concatenate(letter, result) instead of
-        concatenate(result, letter). By prepending each new character,
+        The key insight is using letter + result instead of
+        result + letter. By prepending each new character,
         the string naturally reverses.
 
         Common mistakes:
@@ -48,7 +48,7 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize the simplicity of the solution
 
         Language-specific notes:
-        - JavaScript: Use letter + result or concatenate(letter, result)
+        - JavaScript: Use letter + result
         - Python: Use letter + result
       `
     }

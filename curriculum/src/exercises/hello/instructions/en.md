@@ -7,4 +7,4 @@ Write a function called `sayHello` that takes a person's name as input and retur
 
 For example, if the name is "Aiko", the function should return "Hello, Aiko!".
 
-Use `concatenate()` to build the greeting string from the parts.
+Use concatenation (`+`) or a template string to build the greeting from the parts.

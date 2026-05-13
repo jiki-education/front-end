@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
     "create-two-fer-function": {
       description: `
         Students need to check if the name is empty and use "you" as the default.
-        Then build the output string using concatenate().
+        Then build the output string using the + operator or a template string.
 
         Two main approaches:
         1. Check if empty, return different strings for each case

@@ -10,7 +10,7 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     This exercise teaches building lists using push() and string concatenation
-    with concatenate(). Students use a repeat loop to iteratively build up
+    with the \`+\` operator. Students use a repeat loop to iteratively build up
     a string and collect results into a list. It combines concepts from
     variables, repeat loops, string manipulation, and list operations.
   `,
@@ -21,14 +21,14 @@ export const llmMetadata: LLMMetadata = {
         Students need to:
         1. Initialize an empty list and an empty star string
         2. Use a repeat loop that runs 'count' times
-        3. Each iteration, concatenate a "*" onto the star string
+        3. Each iteration, append a "*" onto the star string using the \`+\` operator
         4. Push the current star string onto the result list
         5. Return the result list
 
         Common mistakes:
         - Forgetting to initialize the star string as empty
         - Pushing the star before concatenating (off-by-one)
-        - Using the wrong order of operations (push then concatenate)
+        - Using the wrong order of operations (push then concatenation)
         - Returning the star string instead of the result list
         - Not handling count=0 (the repeat loop naturally handles this)
 

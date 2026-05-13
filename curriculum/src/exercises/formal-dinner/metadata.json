@@ -16,7 +16,7 @@
     },
     {
       "question": "What helpers will I need?",
-      "answer": "Likely `length()` (to know how long things are), `endsWith()` (for matching the surname), and `concatenate()` (for building the space-prefixed comparison string)."
+      "answer": "Likely `length()` (to know how long things are) and `endsWith()` (for matching the surname). Build the space-prefixed comparison string using concatenation (`+`) or a template string."
     }
   ]
 }

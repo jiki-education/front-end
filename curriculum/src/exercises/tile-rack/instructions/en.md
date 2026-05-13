@@ -7,7 +7,7 @@ You're building an automated Scrabble bot. The bot has a rack of letter tiles re
 
 Write a function called `findTile` that takes the rack (a string of letters) and the letter to find. If the tile is found, return `"Move to position X"` where X is the position of the first matching tile (starting from 0). If the tile isn't in the rack, return `"Error: Tile not on rack"`.
 
-To build the result string, you'll need to convert the position number to a string and concatenate the parts together.
+To build the result string, you'll need to convert the position number to a string and combine the parts together using concatenation (`+`) or a template string.
 
 Examples:
 

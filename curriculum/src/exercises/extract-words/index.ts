@@ -10,13 +10,6 @@ const functions: FunctionInfo[] = [
     description: "Returns a new list with the element added to the end (provided by level stdlib)",
     examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]'],
     category: "List Operations"
-  },
-  {
-    name: "concatenate",
-    signature: "concatenate(a, b)",
-    description: "Combine two strings together (provided by level stdlib)",
-    examples: ['concatenate("hello", " world") -> "hello world"'],
-    category: "String Operations"
   }
 ];
 

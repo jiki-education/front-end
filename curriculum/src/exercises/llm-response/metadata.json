@@ -20,7 +20,7 @@
     },
     {
       "question": "How do I put it all together at the end?",
-      "answer": "Use `concatenate()` to build the final formatted string from the chosen answer's text and the converted time."
+      "answer": "Use concatenation (`+`) or a template string to build the final formatted string from the chosen answer's text and the converted time."
     }
   ]
 }

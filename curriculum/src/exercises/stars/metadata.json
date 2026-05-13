@@ -12,7 +12,7 @@
     },
     {
       "question": "What happens inside the loop?",
-      "answer": "Two steps. First, `concatenate()` a star onto your growing string. Second, `push()` the growing string onto your list. Order matters here. Do the concatenate first, so the first thing pushed is `\"*\"`, not the empty string."
+      "answer": "Two steps. First, append a star onto your growing string using concatenation with `+`. Second, `push()` the growing string onto your list. Order matters here. Do the concatenation first, so the first thing pushed is `\"*\"`, not the empty string."
     }
   ]
 }

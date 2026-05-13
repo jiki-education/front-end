@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I 'prepend' instead of append?",
-      "answer": "With `concatenate()`, prepending is just a matter of order. Instead of `concatenate(result, char)` (which appends), use `concatenate(char, result)` (which prepends)."
+      "answer": "With the `+` operator, prepending is just a matter of order. Instead of `result + char` (which appends), use `char + result` (which prepends)."
     }
   ]
 }
