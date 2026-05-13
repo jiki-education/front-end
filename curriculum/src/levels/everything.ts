@@ -37,7 +37,8 @@ export const everythingLevel: Level = {
         "BreakStatement",
         "ContinueStatement",
         "FunctionDeclaration",
-        "ReturnStatement"
+        "ReturnStatement",
+        "NewExpression"
       ],
       languageFeatures: {
         allowTruthiness: true,

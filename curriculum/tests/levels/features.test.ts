@@ -133,8 +133,8 @@ describe("Language Features", () => {
       expect(ftrThings.allowedGlobals).toContain("console");
       expect(ftrThings.allowedGlobals).toContain("Math");
 
-      // advanced-lists adds Number
-      const continueBreak = getLanguageFeatures("advanced-lists", "javascript");
+      // advanced-loops adds Number
+      const continueBreak = getLanguageFeatures("advanced-loops", "javascript");
       expect(continueBreak.allowedGlobals).toContain("console");
       expect(continueBreak.allowedGlobals).toContain("Math");
       expect(continueBreak.allowedGlobals).toContain("Number");
