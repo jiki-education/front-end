@@ -97,11 +97,14 @@ function VisualInspectedResultView() {
 
 function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   const orchestrator = useOrchestrator();
-  const { currentTest } = useOrchestratorStore(orchestrator);
+  const { currentTest, testSuiteResult } = useOrchestratorStore(orchestrator);
 
   if (!firstExpect) {
     return null;
   }
+
+  const testIdx =
+    testSuiteResult && currentTest ? testSuiteResult.tests.findIndex((test) => test.slug === currentTest.slug) : 0;
 
   let errorHtml = firstExpect.errorHtml || "";
   if ("actual" in firstExpect) {
@@ -113,6 +116,7 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
       <VisualTestResultView
         isPassing={false}
         errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
+        testIdx={Math.max(0, testIdx)}
       />
     );
   }
@@ -121,5 +125,5 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
     return <VisualTestResultView isPassing={false} errorHtml="Uh Oh. Your code has an error in it." />;
   }
 
-  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} />;
+  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
 }
