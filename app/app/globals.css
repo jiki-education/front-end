@@ -45,7 +45,5 @@
 @import "./styles/components/navigation.css";
 @import "./styles/components/textual-content.css";
 
-/* ============================================
-   EXERCISES
-   ============================================ */
-@import "./styles/exercises.css";
+/* Exercise styles are imported by the curriculum package — see
+   curriculum/src/exercise-categories/<category>/exercise.css. */
