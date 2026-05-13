@@ -1,9 +1,11 @@
 .layout {
   display: flex;
+  gap: 72px;
 }
 
 .main {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -11,8 +13,18 @@
 
 .sidebar {
   width: 280px;
-  margin-left: 72px;
   flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
 }
 
 .sidebarBox {
@@ -101,6 +113,18 @@
   object-fit: cover;
   flex-shrink: 0;
   align-self: flex-start;
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .cardImage {
+    width: 100%;
+  }
 }
 
 .cardBody {

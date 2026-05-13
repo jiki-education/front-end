@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ icon, title, description, children }: PageHeaderProps) {
   return (
-    <div className="max-w-screen-xl mx-auto py-32 px-48">
+    <div className="max-w-screen-xl mx-auto py-16 px-8 sm:py-20 sm:px-12 lg:py-32 lg:px-48">
       <header className="ui-page-header">
         <h1>
           {icon}
