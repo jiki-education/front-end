@@ -23,7 +23,6 @@ export {
   MockProjectsIcon,
   createMockTabItems,
   createMockFormFieldProps,
-  createMockPageHeaderProps,
   createMockHandlers,
   waitForAnimation
 } from "./ui-kit";

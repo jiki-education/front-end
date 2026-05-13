@@ -15,13 +15,7 @@ import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import { getInterpreter } from "./test-runner/getInterpreter";
 import type { TestExpect, TestResult } from "./test-results-types";
-import type {
-  ExerciseContext,
-  InformationWidgetData,
-  OrchestratorStore,
-  UnderlineRange,
-  CompletionResponseData
-} from "./types";
+import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
@@ -103,23 +97,6 @@ class Orchestrator {
     return this.editorManager?.editorView ?? null;
   }
 
-  // UNUSED: This function is currently not called.
-  callOnEditorChangeCallback(view: EditorView) {
-    this.editorManager?.callOnEditorChangeCallback(view);
-  }
-
-  // Auto-save the current editor content - delegate to EditorManager
-  // UNUSED: This function is currently not called.
-  autoSaveContent(code: string, readonlyRanges?: ReadonlyRange[]) {
-    this.editorManager?.autoSaveContent(code, readonlyRanges);
-  }
-
-  // UNUSED: This function is currently not called.
-  saveImmediately(code: string, readonlyRanges?: ReadonlyRange[]) {
-    this.editorManager?.saveImmediately(code, readonlyRanges);
-  }
-
-  // UNUSED: This function is currently not called.
   getCurrentEditorValue(): string | undefined {
     return this.editorManager?.getCurrentEditorValue();
   }
@@ -127,10 +104,6 @@ class Orchestrator {
   // Public methods that use the store actions
   setCode(code: string) {
     this.store.getState().setCode(code);
-  }
-
-  setExerciseTitle(title: string) {
-    this.store.getState().setExerciseTitle(title);
   }
 
   setCurrentTest(test: TestResult | null) {
@@ -224,10 +197,6 @@ class Orchestrator {
     this.store.getState().setIsExerciseCompleted(completed);
   }
 
-  setCompletionResponse(response: CompletionResponseData[]) {
-    this.store.getState().setCompletionResponse(response);
-  }
-
   // Play/pause methods
   play() {
     const state = this.store.getState();
@@ -266,18 +235,6 @@ class Orchestrator {
     this.timelineManager.snapToNearestFrame();
   }
 
-  // Error store public methods
-  // UNUSED: This function is currently not called.
-  setHasUnhandledError(hasError: boolean) {
-    this.store.getState().setHasUnhandledError(hasError);
-  }
-
-  // UNUSED: This function is currently not called.
-  setUnhandledErrorBase64(errorData: string) {
-    this.store.getState().setUnhandledErrorBase64(errorData);
-  }
-
-  // Delegate frame methods to TimelineManager
   getNearestCurrentFrame() {
     return this.timelineManager.getNearestCurrentFrame();
   }
@@ -349,31 +306,9 @@ class Orchestrator {
     return this.store.getState().context.type === "project";
   }
 
-  // Initialize exercise data with localStorage/server priority logic
-  initializeExerciseData(serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) {
-    this.store.getState().initializeExerciseData(serverData);
-  }
-
   // Test result processing methods - delegate to TestSuiteManager
   getFirstExpect(): TestExpect | null {
     return this.testSuiteManager.getFirstExpect();
-  }
-
-  // Task management methods - delegate to TaskManager
-  getTaskCompletionStatus(taskId: string): "not-started" | "in-progress" | "completed" {
-    return this.taskManager.getTaskCompletionStatus(taskId);
-  }
-
-  getTaskProgress(taskId: string) {
-    return this.taskManager.getTaskProgress(taskId);
-  }
-
-  isTaskCompleted(taskId: string): boolean {
-    return this.taskManager.isTaskCompleted(taskId);
-  }
-
-  getCompletedTaskIds(): string[] {
-    return this.taskManager.getCompletedTaskIds();
   }
 
   setCurrentTask(taskId: string): void {

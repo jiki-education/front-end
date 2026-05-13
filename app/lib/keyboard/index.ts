@@ -292,12 +292,6 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 
 export const keyboard = keyboardInstance;
 
-// Convenience exports
-export const on = keyboard.on.bind(keyboard);
-export const pushScope = keyboard.pushScope.bind(keyboard);
-export const setEnabled = keyboard.setEnabled.bind(keyboard);
-export const showKeyboardHelp = keyboard.showHelp.bind(keyboard);
-
 // Export hook
 export { useKeyboard } from "./useKeyboard";
 

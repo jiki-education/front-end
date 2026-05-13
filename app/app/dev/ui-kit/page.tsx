@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ButtonGroup, FormField, FormFieldGroup, PageHeader, PageTabs, Link } from "@/components/ui-kit";
+import { Button, ButtonGroup, FormField, FormFieldGroup, PageTabs, Link } from "@/components/ui-kit";
 import { Icon } from "@/components/ui-kit/Icon";
 
 export default function UIKitDemoPage() {
@@ -152,17 +152,6 @@ export default function UIKitDemoPage() {
         </section>
 
         {/* Page Header Section */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-32 text-gray-900">Page Header</h2>
-
-          <div className="bg-gray-50 rounded-lg p-24">
-            <p className="text-gray-600 text-sm mb-24">
-              Standard page header with title and subtitle. Used at the top of main content areas.
-            </p>
-            <PageHeader title="Dashboard" description="Manage your account and settings" icon={<span>📊</span>} />
-          </div>
-        </section>
-
         {/* Page Tabs Section */}
         <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
           <h2 className="text-2xl font-semibold mb-32 text-gray-900">Page Tabs</h2>

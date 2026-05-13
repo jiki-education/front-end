@@ -3,7 +3,6 @@
  */
 
 import type { ReactNode } from "react";
-import type { ColorVariant } from "./colors";
 
 /**
  * Size variants for components
@@ -61,16 +60,6 @@ export interface IconProps {
 }
 
 /**
- * Props for components with color variants
- */
-export interface ColorVariantProps {
-  /**
-   * Color variant for the component
-   */
-  color?: ColorVariant;
-}
-
-/**
  * Props for components that can span full width
  */
 export interface FullWidthProps {
@@ -79,24 +68,6 @@ export interface FullWidthProps {
    */
   fullWidth?: boolean;
 }
-
-/**
- * Standard event handler types
- */
-export type ClickHandler = (event: React.MouseEvent<HTMLElement>) => void;
-export type ChangeHandler<T = string> = (value: T) => void;
-export type FocusHandler = (event: React.FocusEvent<HTMLElement>) => void;
-
-/**
- * Animation duration constants
- */
-export const ANIMATION_DURATION = {
-  fast: 200,
-  normal: 300,
-  slow: 500,
-  shake: 500,
-  spin: 600
-} as const;
 
 /**
  * Common CSS transition classes

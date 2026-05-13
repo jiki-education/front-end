@@ -82,6 +82,21 @@ For each finding:
 - Check for false positives (e.g., dynamically imported modules, reflection usage)
 - Consider framework-specific patterns that might not be detected correctly
 
+#### Verification rules (learned the hard way)
+
+- **Knip cannot see method calls via refs.** Anything accessed as `someRef.current.method()` looks dead to knip but isn't. For every class method knip flags, manually `git grep` for the method name across the whole repo before deleting.
+- **Scope verification greps to the WHOLE codebase, not just `tests/**`.** "Used in tests?" ≠ "used anywhere." Searching only tests is a confirmation-bias trap that misses production callers. The right question is "are there ANY callers other than the definition site?" — search `app/**`, `components/**`, `lib/**`, `hooks/**`, `tests/\*\*`together.`/test/`route fixtures under`app/test/` are real consumers (e2e tests hit them) and must be included.
+- **Trust no single negative grep result.** When a grep returns empty, sanity-check by (a) dropping path filters and rerunning, and (b) opening the most obvious neighbour file (e.g. when deleting a type from `foo/types.ts`, open every other file in `foo/` before assuming dead). Fish shell + git pathspec globs can silently return empty when you expect a hit.
+- **`// UNUSED:` comments anchor you — resist.** Author-marked dead code is reliable for that specific item only. Don't extrapolate to neighbouring methods that lack the comment; verify each one independently.
+- **A file is alive if ANY of its exports are still used.** Knip flagging individual exports inside a file does NOT mean the file is dead. Re-read the full export list before deleting a whole file — there's often one consumed export (e.g. `placeholderTheme`, `StaticError`) that knip didn't list because it's used.
+- **Knip excludes `/dev/` (and sometimes `/test/`) routes from entry points.** Components used only in dev playgrounds or test fixtures will appear dead. Search those directories explicitly before deleting.
+- **Dependency false positives: always grep `next.config.*`, `jest.config.*`, `playwright.config.*`, and scripts/\* before removing a dep.** Loaders (`@svgr/webpack`, `raw-loader`) and transformers (`ts-jest`) are referenced by string in config files and won't show up in code imports.
+
+#### Trust model
+
+- **TypeScript catches mistakes for typed class methods and types** — wrong deletions cause `tsc` errors immediately. This is your safety net for those categories.
+- **TypeScript does NOT catch**: framework lifecycle methods (`componentDidCatch`, CodeMirror `WidgetType.toDOM`), dynamic string references, CSS module class names, files referenced by glob in config, public API consumers in downstream packages. Be extra careful here.
+
 ### 3. Create Action Plan
 
 Create a detailed, structured action plan that includes:

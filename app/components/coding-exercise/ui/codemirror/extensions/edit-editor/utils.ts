@@ -261,42 +261,6 @@ export function deleteEditorContent(view: EditorView): Promise<void> {
   });
 }
 
-// TODO: Recalculate character positions after removing lines
-export function highlightAndRemoveLines(view: EditorView, range: { from: number; to: number }) {
-  // return new Promise((resolve) => {
-  for (let currentLine = range.from; currentLine <= range.to; currentLine++) {
-    const lineInDocument = safeGetLine(view, currentLine);
-
-    if (lineInDocument.from === lineInDocument.to) {
-      continue;
-    }
-    view.dispatch({
-      effects: addHighlight.of({
-        from: lineInDocument.from,
-        to: lineInDocument.to
-      })
-    });
-  }
-
-  const startingPosition = safeGetLine(view, range.from).from;
-  setTimeout(() => {
-    for (let currentLine = range.from; currentLine <= range.to; currentLine++) {
-      const lineInDocument = safeGetLine(view, currentLine);
-
-      // console.log("LINEFROM TO", lineInDocument.from, lineInDocument.to);
-      view.dispatch({
-        changes: {
-          from: startingPosition,
-          to: lineInDocument.to,
-          insert: ""
-        }
-      });
-    }
-    // resolve();
-  }, 500);
-  // });
-}
-
 export function removeLineContent(view: EditorView, { line }: { line: number }): Promise<void> {
   return new Promise((resolve) => {
     const lineObj = safeGetLine(view, line);

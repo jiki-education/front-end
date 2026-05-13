@@ -115,16 +115,6 @@ export const showSubscriptionSuccess = (props: {
   showModal("subscription-success-modal", props);
 };
 
-// Convenience function for subscription checkout modal
-export const showSubscriptionCheckout = (props: {
-  clientSecret: string;
-  selectedTier: MembershipTier;
-  onCancel?: () => void;
-  onSuccess?: () => void;
-}) => {
-  showModal("subscription-checkout-modal", props);
-};
-
 // Convenience function for payment processing modal
 export const showPaymentProcessing = (props?: { onClose?: () => void }) => {
   showModal("payment-processing-modal", props ?? {}, undefined, paymentProcessingStyles.modal);

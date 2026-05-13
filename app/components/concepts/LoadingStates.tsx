@@ -67,16 +67,6 @@ export function ConceptCardsLoadingSkeleton({ count = 6 }: { count?: number }) {
   );
 }
 
-export function ConceptGroupPageSkeleton() {
-  return (
-    <>
-      <div className={styles.placeholderBreadcrumb}></div>
-      <div className={styles.placeholderHeading}></div>
-      <ConceptCardsLoadingSkeleton count={4} />
-    </>
-  );
-}
-
 export function ConceptArticleSkeleton() {
   return (
     <div className={styles.leafBody}>

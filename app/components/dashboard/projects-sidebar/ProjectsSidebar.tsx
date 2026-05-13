@@ -20,7 +20,7 @@ interface ProjectsSidebarProps {
   onUpgradeClick?: () => void;
 }
 
-export function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClick }: ProjectsSidebarProps = {}) {
+function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClick }: ProjectsSidebarProps = {}) {
   const user = useAuthStore((state) => state.user)!;
   const isPremium = tierIncludes(user.membership_type, "premium");
   const avatarUrl = useProfileStore((state) => state.avatarUrl);

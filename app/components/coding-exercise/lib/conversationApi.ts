@@ -1,11 +1,6 @@
 import { getApiUrl } from "@/lib/api/config";
 import type { SignatureData } from "./chat-types";
 
-export interface ConversationSaveError extends Error {
-  endpoint?: string;
-  status?: number;
-}
-
 export async function saveConversation(
   contextSlug: string,
   userMessage: string,

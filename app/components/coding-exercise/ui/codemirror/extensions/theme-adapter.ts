@@ -223,7 +223,3 @@ export const createAdaptiveTheme = (variant: "light" | "dark") => {
     styles
   });
 };
-
-// Export individual themes for direct use
-export const lightTheme = createAdaptiveTheme("light");
-export const darkTheme = createAdaptiveTheme("dark");

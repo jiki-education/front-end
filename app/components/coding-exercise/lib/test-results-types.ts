@@ -5,12 +5,6 @@ import type { AnimationTimeline } from "./AnimationTimeline";
 import type { IOTestExpect, VisualTestExpect } from "@jiki/curriculum";
 export type { CodeCheckExpect, IOTestExpect, TestExpect, VisualTestExpect } from "@jiki/curriculum";
 
-export interface TestFrame {
-  description: string;
-  line: number;
-  status: "SUCCESS" | "ERROR";
-}
-
 // Base interface for common test properties
 interface BaseTestResult {
   slug: string;
@@ -43,21 +37,7 @@ export interface IOTestResult extends BaseTestResult {
 // Discriminated union of test result types
 export type TestResult = VisualTestResult | IOTestResult;
 
-// Type guard helpers
-export function isVisualTest(test: TestResult): test is VisualTestResult {
-  return test.type === "visual";
-}
-
-export function isIOTest(test: TestResult): test is IOTestResult {
-  return test.type === "io";
-}
-
 export interface TestSuiteResult {
   tests: TestResult[];
   passed: boolean;
-}
-
-export interface TestResultsState {
-  testSuiteResult: TestSuiteResult | null;
-  shouldAutoplayAnimation: boolean;
 }

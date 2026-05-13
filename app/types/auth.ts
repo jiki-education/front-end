@@ -40,28 +40,6 @@ export interface PasswordReset {
   password_confirmation: string;
 }
 
-export interface AuthResponse {
-  user: User;
-  message?: string;
-}
-
-export interface ApiError {
-  error: {
-    type: string;
-    message: string;
-    errors?: Record<string, string[]>;
-  };
-}
-
-export interface RailsAuthResponse {
-  user?: User;
-  message?: string;
-  error?: {
-    type: string;
-    message: string;
-  };
-}
-
 // 2FA Response Types
 export interface TwoFactorSetupRequired {
   status: "2fa_setup_required";
@@ -78,10 +56,3 @@ export interface LoginSuccess {
 }
 
 export type LoginResponse = LoginSuccess | TwoFactorSetupRequired | TwoFactorRequired;
-
-export interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-}

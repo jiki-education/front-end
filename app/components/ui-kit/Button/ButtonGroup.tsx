@@ -49,11 +49,6 @@ export function ButtonGroup({
   );
 }
 
-// Hook to access button group context
-export function useButtonGroup() {
-  return React.useContext(ButtonGroupContext);
-}
-
 // Compound components for semantic grouping
 ButtonGroup.Primary = function ButtonGroupPrimary({
   children,

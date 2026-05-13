@@ -3,6 +3,6 @@
  */
 
 export { Button } from "./Button";
-export { ButtonGroup, useButtonGroup } from "./ButtonGroup";
+export { ButtonGroup } from "./ButtonGroup";
 export { ButtonWithRenderProps } from "./ButtonWithRenderProps";
 export type { ButtonProps } from "./types";
