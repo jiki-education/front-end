@@ -3,15 +3,7 @@ import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
-const functions: FunctionInfo[] = [
-  {
-    name: "concatenate",
-    signature: "concatenate(str1, str2, ...)",
-    description: "Combine two or more strings together (provided by level stdlib)",
-    examples: ['concatenate("hello", " ", "world") -> "hello world"', 'concatenate("A", "B", "C") -> "ABC"'],
-    category: "String Operations"
-  }
-];
+const functions: FunctionInfo[] = [];
 
 const exerciseDefinition: IOExerciseCore = {
   type: "io",
@@ -19,7 +11,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["string-iteration", "string-indexing", "string-concatenation", "creating-functions"]
 };
 
 export default exerciseDefinition;

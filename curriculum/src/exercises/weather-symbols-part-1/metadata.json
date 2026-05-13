@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use if/else if to check which description was passed in"
+      "question": "How do I decide which list to return?",
+      "answer": "Use `if` and `else if` to match the description against each possible weather word. Each branch returns a different list."
     },
     {
-      "question": "Hint",
-      "answer": "Each branch should return a different list of component strings"
+      "question": "What does each branch return?",
+      "answer": "A list of the component strings that make up that weather. For example, sunny might be `[\"sun\"]` while rainy might be `[\"cloud\", \"rain\"]`."
     },
     {
-      "question": "Hint",
-      "answer": "Remember that lists are created with square brackets: [\"a\", \"b\"]"
+      "question": "How do I create a list?",
+      "answer": "Square brackets with comma-separated items, like `[\"cloud\", \"rain\"]`. Each item needs quotation marks since they're strings."
     }
   ]
 }

@@ -4,7 +4,7 @@ import type { ButtonProps } from "./types";
 interface ButtonRenderProps {
   isLoading: boolean;
   isDisabled: boolean;
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "white";
   className: string;
   buttonProps: {
     type: "button";
@@ -15,8 +15,8 @@ interface ButtonRenderProps {
 
 interface ButtonWithRenderPropsProps extends Omit<ButtonProps, "children" | "icon"> {
   children: (props: ButtonRenderProps) => ReactNode;
-  renderIcon?: (props: { isLoading: boolean; variant: "primary" | "secondary" }) => ReactNode;
-  renderSpinner?: (props: { variant: "primary" | "secondary" }) => ReactNode;
+  renderIcon?: (props: { isLoading: boolean; variant: "primary" | "secondary" | "white" }) => ReactNode;
+  renderSpinner?: (props: { variant: "primary" | "secondary" | "white" }) => ReactNode;
   renderContent?: (props: { children: ReactNode; isLoading: boolean }) => ReactNode;
 }
 
@@ -63,17 +63,29 @@ export const ButtonWithRenderProps = forwardRef<HTMLButtonElement, ButtonWithRen
         ${!isDisabled ? "hover:border-blue-500 hover:shadow-[0_0_0_4px_rgba(59,130,246,0.15)]" : ""}
       `
         .trim()
+        .replace(/\s+/g, " "),
+      white: `
+        border-white text-gray-800 bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)]
+        ${!isDisabled ? "hover:shadow-[0_0_0_4px_rgba(255,255,255,0.25),0_4px_16px_rgba(0,0,0,0.15)]" : ""}
+      `
+        .trim()
         .replace(/\s+/g, " ")
     };
 
     const buttonClassName = `${baseClasses} ${variantClasses[variant]} ${className || ""}`;
 
     // Default spinner renderer
-    const defaultSpinnerRenderer = ({ variant: spinnerVariant }: { variant: "primary" | "secondary" }) => (
+    const defaultSpinnerRenderer = ({ variant: spinnerVariant }: { variant: "primary" | "secondary" | "white" }) => (
       <div
         className={`
           w-[18px] h-[18px] border-2 rounded-full animate-[ui-spin_0.6s_linear_infinite]
-          ${spinnerVariant === "primary" ? "border-white/30 border-t-white" : "border-blue-500/30 border-t-blue-500"}
+          ${
+            spinnerVariant === "primary"
+              ? "border-white/30 border-t-white"
+              : spinnerVariant === "white"
+                ? "border-gray-400/30 border-t-gray-800"
+                : "border-blue-500/30 border-t-blue-500"
+          }
         `
           .trim()
           .replace(/\s+/g, " ")}

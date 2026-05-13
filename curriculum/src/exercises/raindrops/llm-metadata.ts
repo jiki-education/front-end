@@ -30,7 +30,7 @@ export const llmMetadata: LLMMetadata = {
         Students add divisibility-by-5 check. The key insight is that these checks must be
         separate if statements (not else-if) so multiple sounds can accumulate.
         For number 15 (divisible by both 3 and 5), the result should be "PlingPlang".
-        Use concatenate() to build the string: concatenate(result, "Plang").
+        Use concatenation to build the string: result + "Plang".
       `
     },
     plongs: {

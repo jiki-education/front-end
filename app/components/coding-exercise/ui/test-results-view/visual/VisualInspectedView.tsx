@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import styles from "../../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../../lib/Orchestrator";
 import { useOrchestrator } from "../../../lib/OrchestratorContext";
-import type { TestExpect, VisualTestExpect } from "../../../lib/test-results-types";
+import type { TestExpect } from "../../../lib/test-results-types";
 import Scrubber from "../../scrubber/Scrubber";
 import { VisualTestCanvas } from "../VisualTestCanvas";
 import { VisualTestResultView } from "../VisualTestResultView";
@@ -72,7 +72,7 @@ function VisualInspectedResultView() {
   const { currentTest, isSpotlightActive } = useOrchestratorStore(orchestrator);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps -- orchestrator is stable from context, including it breaks everything.
-  const firstExpect = useMemo(() => orchestrator.getFirstExpect() as VisualTestExpect | null, [currentTest]);
+  const firstExpect = useMemo(() => orchestrator.getFirstExpect(), [currentTest]);
 
   if (!currentTest || currentTest.type !== "visual") {
     return null;
@@ -97,14 +97,11 @@ function VisualInspectedResultView() {
 
 function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   const orchestrator = useOrchestrator();
-  const { currentTest, testSuiteResult } = useOrchestratorStore(orchestrator);
+  const { currentTest } = useOrchestratorStore(orchestrator);
 
   if (!firstExpect) {
     return null;
   }
-
-  const testIdx =
-    testSuiteResult && currentTest ? testSuiteResult.tests.findIndex((test) => test.slug === currentTest.slug) : 0;
 
   let errorHtml = firstExpect.errorHtml || "";
   if ("actual" in firstExpect) {
@@ -116,10 +113,13 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
       <VisualTestResultView
         isPassing={false}
         errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
-        testIdx={Math.max(0, testIdx)}
       />
     );
   }
 
-  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;
+  if (currentTest?.status === "fail" && firstExpect.pass) {
+    return <VisualTestResultView isPassing={false} errorHtml="Uh Oh. Your code has an error in it." />;
+  }
+
+  return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} />;
 }

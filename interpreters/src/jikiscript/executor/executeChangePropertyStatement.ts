@@ -29,11 +29,7 @@ export function executeChangePropertyStatement(executor: Executor, statement: Ch
     // Do the update
     const oldValue = object.jikiObject.getField(statement.property.lexeme);
     try {
-      setter.fn.apply(undefined, [
-        executor.getExecutionContext(),
-        object.jikiObject,
-        value.jikiObject as Jiki.JikiObject,
-      ]);
+      setter.fn.apply(undefined, [executor.getExecutionContext(), object.jikiObject, value.jikiObject]);
     } catch (e: unknown) {
       if (e instanceof LogicError) {
         executor.error("LogicErrorInExecution", statement.location, { message: e.message });

@@ -70,6 +70,11 @@ export class IdentifierExpression extends Expression {
   }
 }
 
+// Used by the parser for the callee of a CallExpression so the executor can
+// skip the uncalled-function guard. Inherits IdentifierExpression's type tag
+// so node-allowance checks and AST introspection treat it as an identifier.
+export class CalleeIdentifierExpression extends IdentifierExpression {}
+
 export class AssignmentExpression extends Expression {
   constructor(
     public target: Token | MemberExpression,

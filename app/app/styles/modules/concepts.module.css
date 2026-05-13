@@ -1,12 +1,17 @@
 /* Main Content */
 .mainContent {
     flex: 1;
-    padding: 40px;
     min-height: 100vh;
 
     @media (max-width: 1200px) {
         padding: 24px 20px;
     }
+}
+.externalContent {
+    padding: 30px;
+}
+.internalContent {
+    padding: 40px;
 }
 
 .container {
@@ -19,8 +24,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 24px;
-    padding: 10px 0;
+    margin-bottom: 16px;
+    padding: 0 0 16px 0;
     font-size: 15px;
     color: var(--color-gray-500);
     font-weight: 400;
@@ -28,6 +33,7 @@
     top: 0;
     background: white;
     z-index: var(--z-index-sticky);
+    border-bottom: 1px solid var(--color-gray-200);
 }
 
 .breadcrumbItem {
@@ -36,6 +42,8 @@
     gap: 8px;
     cursor: pointer;
     transition: color 0.2s ease;
+    font-weight: 500;
+    color: var(--color-blue-600);
 }
 
 .breadcrumbItem:hover:not(.breadcrumbCurrent) {
@@ -44,9 +52,9 @@
 }
 
 .breadcrumbCurrent {
-    color: var(--color-blue-500);
-    font-weight: 600;
-    text-decoration: underline;
+    color: var(--color-gray-500);
+    cursor: default;
+    font-weight: 500;
 }
 
 .breadcrumbLabel {
@@ -96,7 +104,7 @@
 
 /* Concept Card */
 .conceptCard {
-    padding: 24px;
+    padding: 20px 24px;
     background: white;
     border-radius: 16px;
     cursor: pointer;
@@ -159,13 +167,14 @@
 
 .conceptContent {
     flex: 1;
+    align-self: stretch;
 }
 
 .conceptTitle {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 2px;
-    color: var(--color-gray-950);
+    color: var(--color-gray-800);
     transition: color 0.3s ease;
 }
 
@@ -173,7 +182,6 @@
     font-size: 14px;
     color: var(--color-gray-700);
     line-height: 1.5;
-    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -185,6 +193,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    margin-top: 12px;
     padding: 7px 12px;
     background: var(--color-gray-50);
     border: 1px solid var(--color-gray-200);
@@ -207,10 +216,19 @@
 .conceptCard:has(.subConceptCount) {
     box-shadow:
         0 1px 3px rgba(0, 0, 0, 0.04),
-        4px 4px 0 0 white,
-        6px 6px 0 0 var(--color-gray-200),
-        8px 8px 0 0 white,
-        10px 10px 0 0 var(--color-gray-200);
+        2px 2px 0 0 white,
+        4px 4px 0 0 var(--color-gray-200),
+        6px 6px 0 0 white,
+        8px 8px 0 0 var(--color-gray-200);
+}
+
+.conceptCard:has(.subConceptCount):not(.locked):hover {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        2px 2px 0 0 white,
+        4px 4px 0 0 var(--color-blue-300),
+        6px 6px 0 0 white,
+        8px 8px 0 0 var(--color-blue-300);
 }
 
 /* Locked Concept Card */
@@ -245,8 +263,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
-    background: var(--color-gray-100);
+    padding: 4px 8px;
+    background: var(--color-gray-200);
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;

@@ -3,20 +3,8 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by just moving forward in a straight line"
-    },
-    {
-      "question": "Hint",
-      "answer": "Then add: if there's a path to the left, take it"
-    },
-    {
-      "question": "Hint",
-      "answer": "Next handle right turns when you can't go left or straight"
-    },
-    {
-      "question": "Hint",
-      "answer": "Finally handle dead ends by turning around (two left turns)"
+      "question": "Do I have to solve each maze individually?",
+      "answer": "No, write out just the maze-solving algorithm in code."
     }
   ]
 }

@@ -4,8 +4,8 @@ import type GolfScenariosExercise from "./Exercise";
 export const tasks = [
   {
     id: "roll-and-celebrate" as const,
-    name: "Roll the ball and celebrate",
-    description: "Get the shot length, roll the ball right by that amount, then fire the fireworks.",
+    name: "Roll the ball",
+    description: "Get the shot length and roll the ball right by that amount.",
     hints: [],
     requiredScenarios: ["short-shot", "medium-shot", "long-shot", "very-long-shot"],
     bonus: false
@@ -23,7 +23,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(20);
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/golf-shot-checker.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
     },
 
     expectations(exercise) {
@@ -32,10 +32,6 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.ballX === 50,
           errorHtml: `The ball should be at x=50 (29 + 21), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
         }
       ];
     }
@@ -50,7 +46,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(35);
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/golf-shot-checker.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
     },
 
     expectations(exercise) {
@@ -59,10 +55,6 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.ballX === 65,
           errorHtml: `The ball should be at x=65 (29 + 36), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
         }
       ];
     }
@@ -77,7 +69,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(50);
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/golf-shot-checker.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
     },
 
     expectations(exercise) {
@@ -86,10 +78,6 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.ballX === 80,
           errorHtml: `The ball should be at x=80 (29 + 51), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
         }
       ];
     }
@@ -104,7 +92,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(60);
-      ex.setupBackground("https://assets.exercism.org/bootcamp/graphics/golf-shot-checker.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
     },
 
     expectations(exercise) {
@@ -113,10 +101,6 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.ballX === 90,
           errorHtml: `The ball should be at x=90 (29 + 61), but it's at x=${ex.ballX}.`
-        },
-        {
-          pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
         }
       ];
     }

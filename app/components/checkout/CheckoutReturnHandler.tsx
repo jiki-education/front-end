@@ -4,7 +4,12 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { showPaymentProcessing, showWelcomeToPremium } from "@/lib/modal";
+import {
+  showPaymentConfirming,
+  showPaymentProcessing,
+  showPaymentVerificationFailed,
+  showWelcomeToPremium
+} from "@/lib/modal";
 
 /**
  * Global handler for Stripe checkout returns
@@ -27,14 +32,22 @@ export function CheckoutReturnHandler() {
       return;
     }
 
-    void verifyCheckoutSession(sessionId).then((result) => {
-      if (result.payment_status === "paid") {
-        showWelcomeToPremium();
-      } else {
-        showPaymentProcessing();
-      }
-      void refreshUser();
-    });
+    // Open the confirming modal immediately so there's no blank gap while
+    // verifyCheckoutSession resolves.
+    showPaymentConfirming();
+
+    void verifyCheckoutSession(sessionId)
+      .then((result) => {
+        if (result.payment_status === "paid") {
+          showWelcomeToPremium();
+        } else {
+          showPaymentProcessing();
+        }
+        void refreshUser();
+      })
+      .catch(() => {
+        showPaymentVerificationFailed();
+      });
   }, [hasCheckedAuth, isAuthenticated, refreshUser]);
 
   return null;

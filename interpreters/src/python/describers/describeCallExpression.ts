@@ -9,7 +9,7 @@ export function describeCallExpression(expression: CallExpression, result: Evalu
   // First, describe evaluation of all arguments
   for (let i = 0; i < result.args.length; i++) {
     const argResult = result.args[i];
-    const argSteps = describeExpression(expression.args[i], argResult as any, { functionDescriptions: {} });
+    const argSteps = describeExpression(expression.args[i], argResult, { functionDescriptions: {} });
     if (argSteps.length > 0) {
       steps.push(...argSteps);
     }

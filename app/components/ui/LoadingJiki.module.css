@@ -1,5 +1,6 @@
 .container {
-    flex: 1;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +12,7 @@
 .delayed {
     opacity: 0;
     animation: fadeIn 0.3s ease-out forwards;
-    animation-delay: 1s;
+    animation-delay: 5s;
 }
 
 @keyframes fadeIn {

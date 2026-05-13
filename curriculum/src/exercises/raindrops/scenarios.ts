@@ -42,7 +42,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-3",
     name: "Number 3",
-    description: 'If 3 is input, return "Pling"',
+    description: 'If 3 is input, return "Pling".',
     taskId: "plings",
     functionName: "raindrops",
     args: [3],
@@ -51,7 +51,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-27",
     name: "Number 27",
-    description: 'If 27 is input, return "Pling"',
+    description: 'If 27 is input, return "Pling".',
     taskId: "plings",
     functionName: "raindrops",
     args: [27],
@@ -60,7 +60,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-5",
     name: "Number 5",
-    description: 'If 5 is input, return "Plang"',
+    description: 'If 5 is input, return "Plang".',
     taskId: "plangs",
     functionName: "raindrops",
     args: [5],
@@ -69,7 +69,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-3125",
     name: "Number 3125",
-    description: 'If 3125 is input, return "Plang"',
+    description: 'If 3125 is input, return "Plang".',
     taskId: "plangs",
     functionName: "raindrops",
     args: [3125],
@@ -78,7 +78,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-15",
     name: "Number 15",
-    description: 'If 15 is input, return "PlingPlang"',
+    description: 'If 15 is input, return "PlingPlang".',
     taskId: "plangs",
     functionName: "raindrops",
     args: [15],
@@ -87,7 +87,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-7",
     name: "Number 7",
-    description: 'If 7 is input, return "Plong"',
+    description: 'If 7 is input, return "Plong".',
     taskId: "plongs",
     functionName: "raindrops",
     args: [7],
@@ -96,7 +96,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-21",
     name: "Number 21",
-    description: 'If 21 is input, return "PlingPlong"',
+    description: 'If 21 is input, return "PlingPlong".',
     taskId: "plongs",
     functionName: "raindrops",
     args: [21],
@@ -105,7 +105,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-35",
     name: "Number 35",
-    description: 'If 35 is input, return "PlangPlong"',
+    description: 'If 35 is input, return "PlangPlong".',
     taskId: "plongs",
     functionName: "raindrops",
     args: [35],
@@ -114,7 +114,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-105",
     name: "Number 105",
-    description: 'If 105 is input, return "PlingPlangPlong"',
+    description: 'If 105 is input, return "PlingPlangPlong".',
     taskId: "plongs",
     functionName: "raindrops",
     args: [105],
@@ -123,7 +123,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-8",
     name: "Number 8",
-    description: 'If 8 is input, return "8"',
+    description: 'If 8 is input, return "8".',
     taskId: "no-sound",
     functionName: "raindrops",
     args: [8],
@@ -132,7 +132,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "number-52",
     name: "Number 52",
-    description: 'If 52 is input, return "52"',
+    description: 'If 52 is input, return "52".',
     taskId: "no-sound",
     functionName: "raindrops",
     args: [52],

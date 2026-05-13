@@ -8,7 +8,12 @@ import { render, waitFor } from "@testing-library/react";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { showWelcomeToPremium, showPaymentProcessing } from "@/lib/modal";
+import {
+  showWelcomeToPremium,
+  showPaymentProcessing,
+  showPaymentConfirming,
+  showPaymentVerificationFailed
+} from "@/lib/modal";
 
 // Mock the API call
 jest.mock("@/lib/api/subscriptions", () => ({
@@ -23,7 +28,9 @@ jest.mock("@/lib/subscriptions/verification", () => ({
 // Mock the modal system
 jest.mock("@/lib/modal", () => ({
   showWelcomeToPremium: jest.fn(),
-  showPaymentProcessing: jest.fn()
+  showPaymentProcessing: jest.fn(),
+  showPaymentConfirming: jest.fn(),
+  showPaymentVerificationFailed: jest.fn()
 }));
 
 const mockExtractAndClearCheckoutSessionId = extractAndClearCheckoutSessionId as jest.MockedFunction<
@@ -32,6 +39,10 @@ const mockExtractAndClearCheckoutSessionId = extractAndClearCheckoutSessionId as
 const mockVerifyCheckoutSession = verifyCheckoutSession as jest.MockedFunction<typeof verifyCheckoutSession>;
 const mockShowWelcomeToPremium = showWelcomeToPremium as jest.MockedFunction<typeof showWelcomeToPremium>;
 const mockShowPaymentProcessing = showPaymentProcessing as jest.MockedFunction<typeof showPaymentProcessing>;
+const mockShowPaymentConfirming = showPaymentConfirming as jest.MockedFunction<typeof showPaymentConfirming>;
+const mockShowPaymentVerificationFailed = showPaymentVerificationFailed as jest.MockedFunction<
+  typeof showPaymentVerificationFailed
+>;
 
 // Mock auth store
 const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
@@ -47,6 +58,34 @@ describe("Payment Verification Integration", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockExtractAndClearCheckoutSessionId.mockReturnValue(null);
+  });
+
+  it("opens the confirming modal synchronously before verify resolves", async () => {
+    mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_confirming");
+    let resolveVerify: (value: Awaited<ReturnType<typeof verifyCheckoutSession>>) => void;
+    mockVerifyCheckoutSession.mockReturnValue(
+      new Promise((resolve) => {
+        resolveVerify = resolve;
+      })
+    );
+
+    render(<CheckoutReturnHandler />);
+
+    // Confirming modal must be shown before verify resolves so there's no blank gap.
+    expect(mockShowPaymentConfirming).toHaveBeenCalled();
+    expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
+    expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
+
+    resolveVerify!({
+      success: true,
+      interval: "monthly",
+      payment_status: "paid",
+      subscription_status: "active"
+    });
+
+    await waitFor(() => {
+      expect(mockShowWelcomeToPremium).toHaveBeenCalled();
+    });
   });
 
   it("shows success modal for paid status", async () => {
@@ -87,14 +126,31 @@ describe("Payment Verification Integration", () => {
     expect(mockRefreshUser).toHaveBeenCalled();
   });
 
+  it("shows verification-failed modal when verifyCheckoutSession rejects", async () => {
+    mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_error");
+    mockVerifyCheckoutSession.mockRejectedValue(new Error("network down"));
+
+    render(<CheckoutReturnHandler />);
+
+    await waitFor(() => {
+      expect(mockShowPaymentVerificationFailed).toHaveBeenCalled();
+    });
+
+    expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
+    expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
+    expect(mockRefreshUser).not.toHaveBeenCalled();
+  });
+
   it("does nothing when no checkout_return param present", () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue(null);
 
     render(<CheckoutReturnHandler />);
 
     expect(mockVerifyCheckoutSession).not.toHaveBeenCalled();
+    expect(mockShowPaymentConfirming).not.toHaveBeenCalled();
     expect(mockShowWelcomeToPremium).not.toHaveBeenCalled();
     expect(mockShowPaymentProcessing).not.toHaveBeenCalled();
+    expect(mockShowPaymentVerificationFailed).not.toHaveBeenCalled();
   });
 
   it("renders nothing (null)", () => {

@@ -106,8 +106,7 @@ export function RHS({ orchestrator }: RHSProps) {
         <PageTabs className="shrink-0" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
         <button
           onClick={() => router.push("/dashboard")}
-          className={`ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0${isExerciseCompleted ? " !border-[var(--color-success-border)] !text-[var(--color-success-text)]" : ""}`}
-          style={{ marginTop: 3, marginBottom: -3 }}
+          className={`ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0${isExerciseCompleted ? " !text-[var(--color-green-600)] font-semibold !bg-[var(--color-green-50)] !border-[var(--color-green-600)] gap-[4px]" : ""}`}
         >
           <ArrowRightIcon width={16} height={16} />
           Dashboard

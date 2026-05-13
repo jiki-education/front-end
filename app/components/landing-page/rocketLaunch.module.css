@@ -1,0 +1,99 @@
+/*
+ * Shared rocket-launch animation styles. Used by Header (rocket SVG) and
+ * WelcomeSection CTA (🚀 emoji). Sizes use em units so the flame scales
+ * with whatever font-size the surrounding text uses.
+ */
+
+@keyframes rocket-shoot {
+    0% {
+        transform: translate(0, 0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(120px, -160px) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flame-build {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1.8);
+    }
+}
+
+@keyframes rocket-bounce {
+    0% {
+        transform: translate(0, 0);
+    }
+    40% {
+        transform: translate(2px, -3px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.rocketWrapper {
+    position: relative;
+    line-height: 0;
+}
+
+.rocketWrapper::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: calc(50% - 8px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd24a 0%, #ff8a00 50%, rgba(255, 68, 0, 0) 80%);
+    transform: scale(0);
+    transform-origin: 50% 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Large variant: explicit positioning for the 32px rocket in CTA buttons.
+   left: calc() handles centering, so flame-x is 0 (no translateX shift). */
+.rocketWrapperLg::before {
+    bottom: -1px;
+    left: calc(50% - 16px);
+    width: 15px;
+    height: 15px;
+}
+
+/* Flame builds when click triggers launch sequence; resets to scale 0 after */
+.rocketWrapper.launching::before {
+    animation: flame-build 0.3s ease-out;
+}
+
+.rocket {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+
+/* Opt-in hover-bounce: any consumer that adds .bounceOnHover to an ancestor
+   gets the bounce on the rocket while that ancestor is hovered. */
+.bounceOnHover:hover .rocket {
+    animation: rocket-bounce 0.4s ease-in-out infinite;
+}
+
+/* Wait 0.3s for flame to build, then shoot. `both` pins the rocket at rest
+   during the delay so it doesn't drift while the flame is building.
+   `.rocketWrapper.launching .rocket` is (0,0,3,0), beating
+   `.bounceOnHover:hover .rocket` (also (0,0,3,0)) by source order. */
+.rocketWrapper.launching .rocket {
+    animation: rocket-shoot 0.45s ease-in 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rocketWrapper.launching::before,
+    .bounceOnHover:hover .rocket,
+    .rocketWrapper.launching .rocket {
+        animation: none;
+    }
+}

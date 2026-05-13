@@ -7,6 +7,8 @@ seo:
   keywords: ["jiki", "learn to code", "beginners", "programming", "introduction"]
 ---
 
+## Welcome to Jiki!
+
 Welcome to **Jiki**! We're really excited to have you here.
 
 ## What is Jiki?

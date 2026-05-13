@@ -13,13 +13,6 @@ const functions: FunctionInfo[] = [
     category: "API"
   },
   {
-    name: "concatenate",
-    signature: "concatenate(a, b, ...)",
-    description: "Combine two or more strings together (provided by level stdlib)",
-    examples: ['concatenate("hello", " ", "world") // returns "hello world"'],
-    category: "String Operations"
-  },
-  {
     name: "stringToNumber",
     signature: "stringToNumber(str)",
     description: "Convert a string to a number (provided by level stdlib)",
@@ -41,7 +34,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["arrays", "dictionaries", "string-templates", "function-composition"]
 };
 
 export default exerciseDefinition;

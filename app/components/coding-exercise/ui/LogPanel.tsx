@@ -2,7 +2,6 @@
 
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
-import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 import { PanelHeader } from "./PanelHeader";
 import style from "./log-panel.module.css";
 
@@ -11,6 +10,7 @@ interface LogLineProps {
   isActive: boolean;
   index: number;
   lineNumber?: number;
+  frameNumber?: number;
 }
 
 export default function LogPanel() {
@@ -31,9 +31,11 @@ export default function LogPanel() {
     );
   }
 
-  // Pre-compute line numbers for all log lines to avoid O(n*m) complexity
-  const logLineNumbers = currentTest.logLines.map((log) => {
-    return currentTest.frames.find((frame) => frame.time === log.time)?.line;
+  // Pre-compute line numbers and frame indices for all log lines to avoid O(n*m) complexity
+  const logFrameInfo = currentTest.logLines.map((log) => {
+    const frameIndex = currentTest.frames.findIndex((frame) => frame.time === log.time);
+    const frame = frameIndex >= 0 ? currentTest.frames[frameIndex] : undefined;
+    return { line: frame?.line, frameNumber: frameIndex >= 0 ? frameIndex + 1 : undefined };
   });
 
   const scenarioStatusClass = currentTest.status === "pass" ? style.scenarioPass : style.scenarioFail;
@@ -51,14 +53,15 @@ export default function LogPanel() {
       <div className="py-24 px-32">
         <div className={style.consoleOutput}>
           {currentTest.logLines.map((log, index) => {
-            const logLineNumber = logLineNumbers[index];
+            const info = logFrameInfo[index];
             return (
               <LogLine
                 key={index}
                 log={log}
                 isActive={currentTestTime === log.time}
                 index={index}
-                lineNumber={logLineNumber}
+                lineNumber={info.line}
+                frameNumber={info.frameNumber}
               />
             );
           })}
@@ -68,7 +71,7 @@ export default function LogPanel() {
   );
 }
 
-function LogLine({ log, isActive, index, lineNumber }: LogLineProps) {
+function LogLine({ log, isActive, index, lineNumber, frameNumber }: LogLineProps) {
   const orchestrator = useOrchestrator();
 
   const handleClick = () => {
@@ -81,7 +84,7 @@ function LogLine({ log, isActive, index, lineNumber }: LogLineProps) {
       onClick={handleClick}
       data-testid={`log-line-${index}`}
     >
-      <div className={style.consoleLogTimestamp}>{formatTimestamp(log.time)}</div>
+      <div className={style.consoleLogTimestamp}>{frameNumber !== undefined ? `F${frameNumber}` : ""}</div>
       {lineNumber !== undefined && (
         <div className={style.consoleLogLineWrapper}>
           <div className={style.consoleLogLine}>L{lineNumber}</div>
@@ -90,11 +93,4 @@ function LogLine({ log, isActive, index, lineNumber }: LogLineProps) {
       <div className={style.consoleLogContent}>{log.output}</div>
     </div>
   );
-}
-
-function formatTimestamp(time: number): string {
-  const timeInMs = time / TIME_SCALE_FACTOR;
-  const seconds = Math.floor(timeInMs / 1000);
-  const milliseconds = timeInMs % 1000;
-  return `${seconds.toString().padStart(2, "0")}:${milliseconds.toString().padStart(3, "0")}`;
 }

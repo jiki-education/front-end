@@ -1,17 +1,16 @@
-let x = 29
+let x = 28
 let y = 75
 let shotLength = getShotLength()
 
-repeat(shotLength + 1) {
+repeat(shotLength) {
   x = x + 1
   rollTo(x, y)
 }
 
-if (shotLength >= 56 && shotLength <= 65) {
+if (shotLength >= 58 && shotLength <= 62) {
   repeat(9) {
     y = y + 1
     rollTo(x, y)
   }
+  fireFireworks()
 }
-
-fireFireworks()

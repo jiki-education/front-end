@@ -39,6 +39,10 @@ const AvatarEditModal = dynamic(() =>
   import("@/components/settings/modals/AvatarEditModal").then((m) => m.AvatarEditModal)
 );
 const PaymentProcessingModal = dynamic(() => import("./PaymentProcessingModal").then((m) => m.PaymentProcessingModal));
+const PaymentConfirmingModal = dynamic(() => import("./PaymentConfirmingModal").then((m) => m.PaymentConfirmingModal));
+const PaymentVerificationFailedModal = dynamic(() =>
+  import("./PaymentVerificationFailedModal").then((m) => m.PaymentVerificationFailedModal)
+);
 const PremiumUpgradeModal = dynamic(() => import("./PremiumUpgradeModal").then((m) => m.PremiumUpgradeModal));
 const WelcomeToPremiumModal = dynamic(() => import("./WelcomeToPremiumModal").then((m) => m.WelcomeToPremiumModal));
 const VideoWalkthroughModal = dynamic(() => import("./VideoWalkthroughModal").then((m) => m.VideoWalkthroughModal));
@@ -69,6 +73,8 @@ export const availableModals = {
   "delete-account-modal": DeleteAccountModal,
   "avatar-edit-modal": AvatarEditModal,
   "payment-processing-modal": PaymentProcessingModal,
+  "payment-confirming-modal": PaymentConfirmingModal,
+  "payment-verification-failed-modal": PaymentVerificationFailedModal,
   "premium-upgrade-modal": PremiumUpgradeModal,
   "welcome-to-premium-modal": WelcomeToPremiumModal,
   "video-walkthrough-modal": VideoWalkthroughModal,

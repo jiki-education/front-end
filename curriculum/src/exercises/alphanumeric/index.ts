@@ -11,7 +11,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["function-composition", "creating-functions", "string-iteration", "if"]
 };
 
 export default exerciseDefinition;

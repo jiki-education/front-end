@@ -96,15 +96,15 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
         {hasWalkthrough && (
           <div className={style.walkthroughSection}>
-            <h3>Walkthrough Video</h3>
-            <p>Still stuck? Watch a step-by-step walkthrough of this exercise.</p>
+            <h3>Deep Dive</h3>
+            <p>Still stuck? Watch a deep dive of Jeremy solving this exercise.</p>
             {walkthroughUnlocked ? (
               <InlineWalkthroughPlayer playbackId={walkthroughVideoData[0].id} lessonSlug={lessonSlug} />
             ) : (
               <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
                 <img
                   src={`https://image.mux.com/${walkthroughVideoData[0].id}/thumbnail.jpg?width=400&height=225`}
-                  alt="Walkthrough video thumbnail"
+                  alt="Deep Dive video thumbnail"
                   className={style.walkthroughThumb}
                 />
                 <div className={style.walkthroughPlayBtn}>
@@ -219,10 +219,10 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
           <div className={style?.hintConfirmOverlay} onClick={(e) => e.stopPropagation()}>
             <div className={style?.hintConfirmText}>Are you sure you want to reveal this hint?</div>
             <div className={style?.hintConfirmButtons}>
-              <button className="ui-btn ui-btn-small ui-btn-tertiary" onClick={handleCancelReveal}>
+              <button className="ui-btn ui-btn-xs ui-btn-tertiary" onClick={handleCancelReveal}>
                 Not for now
               </button>
-              <button className="ui-btn ui-btn-small ui-btn-primary" onClick={handleConfirmReveal}>
+              <button className="ui-btn ui-btn-xs ui-btn-primary" onClick={handleConfirmReveal}>
                 Yes
               </button>
             </div>

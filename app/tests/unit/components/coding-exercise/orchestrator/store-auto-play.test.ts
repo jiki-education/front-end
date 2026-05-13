@@ -74,6 +74,19 @@ describe("Store Auto-Play Behavior", () => {
     } as any
   });
 
+  const createMockIOTest = (slug: string, status: "pass" | "fail" = "pass"): TestResult => ({
+    type: "io" as const,
+    slug,
+    name: slug,
+    status,
+    expects: [],
+    functionName: "fn",
+    args: [],
+    frames: [],
+    logLines: [],
+    lintErrors: []
+  });
+
   const createMockTest = (slug: string, time = 0): TestResult => ({
     type: "visual" as const,
     slug,
@@ -643,6 +656,75 @@ describe("Store Auto-Play Behavior", () => {
 
         // Spotlight should be disabled after modal shows
         expect(store.getState().isSpotlightActive).toBe(false);
+      });
+    });
+
+    describe("IO test modal display", () => {
+      it("should show success modal immediately when all IO tests pass", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1"), createMockIOTest("io-2")],
+          passed: true
+        });
+
+        expect(showModal).toHaveBeenCalledWith("exercise-completion-modal", expect.any(Object));
+        expect(store.getState().wasSuccessModalShown).toBe(true);
+        expect(store.getState().isSpotlightActive).toBe(false);
+      });
+
+      it("should not show modal when an IO test fails", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1", "fail")],
+          passed: false
+        });
+
+        expect(showModal).not.toHaveBeenCalled();
+      });
+
+      it("should not show modal twice when IO suite is re-run", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1")],
+          passed: true
+        });
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1")],
+          passed: true
+        });
+
+        expect(showModal).toHaveBeenCalledTimes(1);
+      });
+
+      it("should not pre-empt the visual onComplete path for visual suites", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setTestSuiteResult({
+          tests: [createMockTest("visual-1")],
+          passed: true
+        });
+
+        // Modal must NOT show until the animation timeline's onComplete fires
+        expect(showModal).not.toHaveBeenCalled();
       });
     });
   });

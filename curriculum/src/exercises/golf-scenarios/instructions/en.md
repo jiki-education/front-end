@@ -1,14 +1,12 @@
 ---
 title: "Golf: Scenarios"
-description: "Roll a ball to the correct spot."
+description: "Roll a ball to the correct spot in different scenarios."
 ---
 
-You're on the golf course and the golfer has hit the ball. Your job is to roll the ball based on the shot length, then fire the fireworks!
+Welcome back to the golf course. In this exercise, you're going to build on the previous exercises but with a new twist.
 
-You have three functions:
+In each scenario, you need to roll the ball a different amount depending on how far the golfer has hit it. You can get that length by using the `getShotLength()` function - it'll give you a different number for each Scenario.
 
-- `rollTo(x)` rolls the ball to position `x`
-- `getShotLength()` returns how far the golfer hit the ball
-- `fireFireworks()` celebrates the shot
+You then need to roll the ball to that spot using the `rollTo(x)` function. As before, you need to roll it one step at a time, not just jump it to the end.
 
-The ball starts at x=29. Get the shot length, then use a variable and a loop to roll the ball right one step at a time (`shotLength + 1` steps). Then fire the fireworks!
+On this exercise, try and think through each step carefully and take things one step at a time. Good luck!

@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-empty-string",
     name: "Empty string",
-    description: "An empty string should return an empty string when reversed",
+    description: "An empty string should return an empty string when reversed.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: [""],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-word",
     name: "A word",
-    description: "Reverse the word 'robot'",
+    description: "Reverse the word 'robot'.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["robot"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-capitalized-word",
     name: "A capitalized word",
-    description: "Reverse a capitalized word 'Ramen'",
+    description: "Reverse a capitalized word 'Ramen'.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["Ramen"],
@@ -61,7 +61,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-palindrome",
     name: "Palindrome",
-    description: "A palindrome remains the same when reversed",
+    description: "A palindrome remains the same when reversed.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["racecar"],
@@ -70,7 +70,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-even-sized-word",
     name: "Even-sized word",
-    description: "Reverse an even-sized word 'drawer'",
+    description: "Reverse an even-sized word 'drawer'.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["drawer"],
@@ -79,7 +79,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-wide-characters",
     name: "Wide characters",
-    description: "Reverse wide Unicode characters '子猫'",
+    description: "Reverse wide Unicode characters '子猫'.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["子猫"],
@@ -88,7 +88,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-emoji-family",
     name: "Emoji Family",
-    description: "Reverse an emoji family",
+    description: "Reverse an emoji family.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["👩‍👩‍👧‍👦"],
@@ -97,7 +97,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "reverse-emoji-rainbow-flag",
     name: "Rainbow Flag",
-    description: "Make a rainbow flag by reversing",
+    description: "Make a rainbow flag by reversing.",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["️🌈‍️🏳"],

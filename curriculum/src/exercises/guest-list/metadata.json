@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Imagine real life: you have a list and you need to see if there is a name on it. What do you do?"
+      "question": "How would I do this in real life with a paper list?",
+      "answer": "You'd read down the list, one name at a time, comparing each to the name you're looking for. As soon as you found a match, you'd stop. If you reached the end without a match, the person isn't on the list. Your code does the same thing."
     },
     {
-      "question": "Hint",
-      "answer": "You read through the list and check to see if each entry on the list matches the name"
+      "question": "How do I loop through the list and compare each entry?",
+      "answer": "A for-each loop gives you each name in turn. Inside, use an if-statement to compare the current name to the target."
     },
     {
-      "question": "Hint",
-      "answer": "Think about when to return true and when to return false"
+      "question": "When should I return true vs false?",
+      "answer": "Return `true` as soon as you find a match. There's no reason to keep looking. Only return `false` after the loop has finished and you've checked every name without finding it. (A common mistake is returning `false` inside the loop, which gives up after just the first name.)"
     }
   ]
 }

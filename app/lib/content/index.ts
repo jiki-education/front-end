@@ -18,6 +18,12 @@ export { getBlogPosts } from "./getBlogPosts";
 export { getRelatedBlogPosts } from "./getRelatedBlogPosts";
 export type { GetBlogPostsOptions, GetBlogPostsResult } from "./getBlogPosts";
 
+// Build series loaders
+export { getAllBuildSeries } from "./getAllBuildSeries";
+export { getBuildSeries } from "./getBuildSeries";
+export type { BuildSeriesWithEpisodes } from "./getBuildSeries";
+export { getBuildEpisode } from "./getBuildEpisode";
+
 // Utilities
 export { getAllPostSlugsWithLocales, getAvailableLocales } from "./loader";
 
@@ -28,6 +34,10 @@ export type {
   ArticleMeta,
   ProcessedBlogPost,
   ProcessedArticle,
-  SearchIndexData
+  SearchIndexData,
+  BuildSeriesMeta,
+  BuildEpisodeMeta,
+  ProcessedBuildEpisode,
+  BuildVideoProvider
 } from "./types";
 export { ARTICLE_TAG_SLUGS, ARTICLE_TAG_LABELS, getArticleTagLabel } from "./types";

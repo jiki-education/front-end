@@ -8,12 +8,28 @@ interface PremiumPlanSectionProps {
   onUpgrade: () => void;
 }
 
-const premiumFeatures = [
-  "Unlimited AI support from Jiki",
-  "Unlimited exercises and projects",
-  "Earn certificates for courses",
-  "Ad-free learning experience",
-  "Early access to new features"
+const premiumFeatures: React.ReactNode[] = [
+  <>
+    Full access to <strong>Learn to Build</strong>
+  </>,
+  <>
+    Combine your skills in <strong>Jiki Projects</strong>
+  </>,
+  <>
+    Unlimited <strong>AI support</strong> from Jiki
+  </>,
+  <>
+    Regular <strong>Q&A livestreams</strong> you can join
+  </>,
+  <>
+    Earn <strong>certificates</strong> for courses
+  </>,
+  <>
+    <strong>Ad-free</strong> learning experience
+  </>,
+  <>
+    <strong>Early access</strong> to new features
+  </>
 ];
 
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
@@ -37,7 +53,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       >
         {!isLoading && (
           <Image
-            src={user?.avatar || "/static/icons/concepts/fallback.svg"}
+            src={user?.avatar || "/static/icons/user-fallback.svg"}
             alt="User"
             className={styles.buttonAvatar}
             width={24}
@@ -51,7 +67,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
         {premiumFeatures.map((feature, index) => (
           <li key={index}>
             <PremiumCheckIcon />
-            {feature}
+            <span>{feature}</span>
           </li>
         ))}
       </ul>

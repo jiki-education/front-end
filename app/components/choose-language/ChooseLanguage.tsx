@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import { setLanguageChoice } from "@/lib/api/courses";
@@ -26,15 +26,22 @@ type LanguageOption = ProgrammingLanguage | "random";
 
 interface ChooseLanguageProps {
   lessonData: ChooseLanguageLesson;
+  onReady: () => void;
 }
 
-export default function ChooseLanguage({ lessonData }: ChooseLanguageProps) {
+export default function ChooseLanguage({ lessonData, onReady }: ChooseLanguageProps) {
   const router = useRouter();
   const [step, setStep] = useState<Step>("video");
   const [isInitializing, setIsInitializing] = useState(true);
   const [hasVisitedSelector, setHasVisitedSelector] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageOption | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!isInitializing) {
+      onReady();
+    }
+  }, [isInitializing, onReady]);
 
   const handleReady = () => {
     setIsInitializing(false);

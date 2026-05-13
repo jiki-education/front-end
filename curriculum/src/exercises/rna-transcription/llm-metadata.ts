@@ -27,7 +27,7 @@ export const llmMetadata: LLMMetadata = {
         Common mistakes:
         - Forgetting to handle the empty string case (though it works naturally with iteration)
         - Getting the mapping wrong (especially A->U since RNA uses U not T)
-        - Not building up the result string correctly with concatenate()
+        - Not building up the result string correctly using concatenation (the \`+\` operator)
 
         The elegant solution uses parallel arrays and a helper function to look up the complement.
       `

@@ -3,24 +3,16 @@
   "levelId": "conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by getting the hour and minute using the provided functions"
+      "question": "I don't know how to get started",
+      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then use `displayTime(hour, minute, \"am\")` with their values to see what happens. Then work out how to set the correct meridien and the correct hour display."
     },
     {
-      "question": "Hint",
-      "answer": "Hours 0-11 are 'am', hours 12-23 are 'pm'"
+      "question": "How does the meridien work?",
+      "answer": "Hours 0-11 are 'am', hours 12-23 are 'pm'. Midnight (hour 0) should display as 12am. Noon (hour 12) should display as 12pm."
     },
     {
-      "question": "Hint",
-      "answer": "Midnight (hour 0) should display as 12am"
-    },
-    {
-      "question": "Hint",
-      "answer": "Noon (hour 12) should display as 12pm"
-    },
-    {
-      "question": "Hint",
-      "answer": "Hours 13-23 need to be converted by subtracting 12"
+      "question": "When and why does the hour need to change?",
+      "answer": "On a 12 hour clock, 13:00 is represented as 1:00pm, 14:00 is represented as 2:00pm, so you need to work out the relationship between 13->1 and 14->2 etc, and amend the clock accordingly!"
     }
   ]
 }

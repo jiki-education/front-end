@@ -58,7 +58,7 @@ export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps)
 
         <p className={styles.includedText}>
           <CheckCircleFilledIcon width={18} height={18} className={styles.checkIcon} />
-          Included in your Free plan
+          15 minutes included in your Free plan
         </p>
       </div>
     </div>

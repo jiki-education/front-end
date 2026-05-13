@@ -9,6 +9,8 @@
       "MissingInitializerInConstDeclaration": "MissingInitializerInConstDeclaration",
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
       "ConstInForLoopInit": "ConstInForLoopInit",
+      "MissingDeclarationKeyword": "MissingDeclarationKeyword: name: {{name}}",
+      "MissingDeclarationKeywordWithSuggestion": "MissingDeclarationKeywordWithSuggestion: name: {{name}}: suggestion: {{suggestion}}",
       "MissingLeftParenthesisAfterIf": "MissingLeftParenthesisAfterIf",
       "MissingRightBraceAfterBlock": "MissingRightBraceAfterBlock",
       "MissingRightBraceInTemplateLiteral": "MissingRightBraceInTemplateLiteral",
@@ -116,7 +118,8 @@
       "InOperatorRequiresIntegerIndex": "InOperatorRequiresIntegerIndex: type: {{type}}",
       "InWithArrayNotAllowed": "InWithArrayNotAllowed",
       "ClassNotFound": "ClassNotFound: name: {{name}}",
-      "PropertyNotFoundOnInstance": "PropertyNotFoundOnInstance: property: {{property}}: className: {{className}}"
+      "PropertyNotFoundOnInstance": "PropertyNotFoundOnInstance: property: {{property}}: className: {{className}}",
+      "UnexpectedUncalledFunction": "UnexpectedUncalledFunction: name: {{name}}"
     },
     "disabledLanguageFeature": {
       "DisabledFeatureExcludeListViolation": "ExcludeListViolation: tokenType: {{tokenType}}: lexeme: {{lexeme}}",

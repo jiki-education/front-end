@@ -3,24 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by storing the shot length: let shotLength = getShotLength()"
-    },
-    {
-      "question": "Hint",
-      "answer": "Set a variable x to 29 to track the ball's position"
-    },
-    {
-      "question": "Hint",
-      "answer": "Use a loop that runs shotLength + 1 times"
-    },
-    {
-      "question": "Hint",
-      "answer": "Inside the loop, increase x by 1 and call rollTo(x)"
-    },
-    {
-      "question": "Hint",
-      "answer": "Don't forget to fire the fireworks at the end!"
+      "question": "I'm not sure where to start",
+      "answer": "Firstly, repeat what you did previously. Roll the ball from its starting position to however far the `getShotLength()` function returns. Just remember to roll one step at a time. Once you've done that, think about how to animate it down."
     }
   ]
 }

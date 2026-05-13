@@ -22,5 +22,5 @@ const mockLessonData: VideoLesson = {
 };
 
 export default function VideoExercisePage() {
-  return <VideoExercise lessonData={mockLessonData} />;
+  return <VideoExercise lessonData={mockLessonData} onReady={() => {}} />;
 }

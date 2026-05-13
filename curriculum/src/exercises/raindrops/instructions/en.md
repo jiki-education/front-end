@@ -18,10 +18,11 @@ If a given number:
 
 You need to create a function called `raindrops` that takes the number as an input and returns its Raindrops sounds.
 
-To solve this, you have two helpful functions:
+To solve this, you have one helpful function:
 
-- `concatenate(str1, str2, ...)`: Takes 2 or more strings and returns them combined into one.
 - `numberToString(number)`: Takes a number as an input and returns it as a string.
+
+Build the result string using concatenation (`+`) or a template string.
 
 ### Examples
 

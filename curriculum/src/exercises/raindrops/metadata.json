@@ -3,24 +3,20 @@
   "levelId": "string-manipulation",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The key is to accumulate the sounds as you work through the if statements - don't return straight away"
+      "question": "Why does my function only return one sound?",
+      "answer": "If you `return` inside each `if`, you give up as soon as the first divisor matches. You want to combine them. Instead of returning, append the sound to a result string and keep going."
     },
     {
-      "question": "Hint",
-      "answer": "Start with an empty string and build up the result"
+      "question": "How do I build up the combined sound?",
+      "answer": "Start with an empty result string. For each divisor (3, 5, 7), if it divides the number, append the corresponding sound onto the end of the result using concatenation with `+`."
     },
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to add each sound to the result"
+      "question": "What if none of the divisors match?",
+      "answer": "If the result is still empty after all three checks, the answer is just the number itself as a string. Convert the number and return that."
     },
     {
-      "question": "Hint",
-      "answer": "If the result is still empty after checking all three divisors, convert the number to a string"
-    },
-    {
-      "question": "Hint",
-      "answer": "This exercise should only have one or two return statements"
+      "question": "How many return statements should I have?",
+      "answer": "Just one or two, typically. The whole point is letting the if-statements modify the result string, then returning that result once at the end."
     }
   ]
 }

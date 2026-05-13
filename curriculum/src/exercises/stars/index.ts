@@ -5,13 +5,6 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "concatenate",
-    signature: "concatenate(a, b, ...)",
-    description: "Combine two or more strings together (provided by level stdlib)",
-    examples: ['concatenate("*", "*") \u2192 "**"'],
-    category: "String Operations"
-  },
-  {
     name: "push",
     signature: "push(list, item)",
     description: "Add an item to the end of a list (provided by level stdlib)",
@@ -26,7 +19,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["arrays", "building-arrays", "repeat", "string-concatenation"]
 };
 
 export default exerciseDefinition;

@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-list",
     name: "Empty register",
-    description: "No-one's allowed in when the list is empty",
+    description: "No-one's allowed in when the list is empty.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [[], "Brad"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-missing",
     name: "Brad's turned away",
-    description: "The name's not on the list",
+    description: "The name's not on the list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Bryn Harrison", "Albert Einstein"], "Brad"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-present",
     name: "Brad's allowed in",
-    description: "The name's on the list",
+    description: "The name's on the list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein"], "Brad"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "similar-name",
     name: "Close, but nope",
-    description: "The name isn't on the list - Bradley is not Brad",
+    description: "The name isn't on the list - Bradley is not Brad.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Bradley Cooper", "Albert Einstein"], "Brad"],
@@ -61,7 +61,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "double-barrelled",
     name: "A dutchman",
-    description: "The name's on the list, but it's hyphenated",
+    description: "The name's on the list, but it's hyphenated.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Derk-Jan Karrenbeld", "Albert Einstein"], "Derk-Jan"],
@@ -70,7 +70,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "cher",
     name: "Cher's in town",
-    description: "Some people only have one name",
+    description: "Some people only have one name.",
     taskId: "bonus-single-names",
     functionName: "on_guest_list",
     args: [["Cher", "Brian May", "Brad Pitt", "Albert Einstein"], "Cher"],
@@ -79,7 +79,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "cheryl",
     name: "Getting tough now",
-    description: "Are Cheryl Crow and Cher friends? Doesn't matter - Cheryl is not Cher",
+    description: "Are Cheryl Crow and Cher friends? Doesn't matter - Cheryl is not Cher.",
     taskId: "bonus-single-names",
     functionName: "on_guest_list",
     args: [["Cher", "Brian May", "Brad Pitt", "Albert Einstein"], "Cheryl"],

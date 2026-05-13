@@ -14,7 +14,11 @@ function Spinner({ variant }: { variant: ButtonVariant }) {
   const spinnerClasses = [
     "w-[18px] h-[18px] border-2 rounded-full",
     "animate-[ui-spin_0.6s_linear_infinite]",
-    variant === "primary" ? "border-white/30 border-t-white" : "border-blue-500/30 border-t-blue-500"
+    variant === "primary"
+      ? "border-white/30 border-t-white"
+      : variant === "white"
+        ? "border-gray-400/30 border-t-gray-800"
+        : "border-blue-500/30 border-t-blue-500"
   ].join(" ");
 
   return <div className={spinnerClasses} />;
@@ -92,6 +96,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             "hover:border-blue-500",
             "hover:shadow-[0_0_0_4px_rgba(59,130,246,0.1),0_4px_16px_rgba(59,130,246,0.2)]"
           ]
+      ]
+        .flat()
+        .filter(Boolean)
+        .join(" "),
+
+      white: [
+        // Colors
+        "border-white text-gray-800 bg-white",
+
+        // Shadows
+        "shadow-[0_2px_8px_var(--color-shadow-subtle)]",
+
+        // Hover states (only when not loading/disabled)
+        !loading && !disabled && ["hover:shadow-[0_0_0_4px_rgba(255,255,255,0.25),0_4px_16px_rgba(0,0,0,0.15)]"]
       ]
         .flat()
         .filter(Boolean)

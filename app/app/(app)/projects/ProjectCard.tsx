@@ -45,9 +45,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <ProjectIcon slug={project.slug} />
         </div>
         <div className={styles.projectTitle}>{project.title}</div>
-        <div className={styles.progressBar}>
-          <div className={styles.progressFill}></div>
-        </div>
+        {project.status === "started" || project.status === "completed" ? (
+          <div className={styles.progressBar}>
+            <div className={styles.progressFill}></div>
+          </div>
+        ) : (
+          <div className={styles.projectKind}>Coding Project</div>
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.projectTitle}>{project.title}</div>

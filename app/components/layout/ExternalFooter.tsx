@@ -8,56 +8,36 @@ export function ExternalFooter() {
         <div className={styles.section}>
           <h3 className={styles.heading}>About</h3>
           <div className={styles.links}>
-            <Link href="#" className={styles.link}>
+            <Link href="/blog/the-backstory-of-jiki" className={styles.link}>
               About Jiki
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/testimonials" className={styles.link}>
+              Testimonials
+            </Link>
+            <Link href="/articles/who-makes-runs-jiki" className={styles.link}>
               Our team
             </Link>
-            <Link href="#" className={styles.link}>
-              Contributors
-            </Link>
-            <Link href="#" className={styles.link}>
-              Partners
-            </Link>
-            <Link href="#" className={styles.link}>
-              Individual supporters
-            </Link>
-          </div>
-        </div>
-        <div className={styles.section}>
-          <h3 className={styles.heading}>Get Involved</h3>
-          <div className={styles.links}>
-            <Link href="#" className={styles.link}>
-              Jiki Insiders
-            </Link>
-            <Link href="#" className={styles.link}>
-              Contribute
-            </Link>
-            <Link href="#" className={styles.link}>
-              Mentor
-            </Link>
-            <Link href="#" className={styles.link}>
-              Donate
+            <Link href="/premium" className={styles.link}>
+              Jiki Premium
             </Link>
           </div>
         </div>
         <div className={styles.section}>
           <h3 className={styles.heading}>Legal</h3>
           <div className={styles.links}>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/terms-of-service" className={styles.link}>
               Terms of usage
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/privacy-policy" className={styles.link}>
               Privacy policy
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/cookie-policy" className={styles.link}>
               Cookie policy
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/code-of-conduct" className={styles.link}>
               Code of conduct
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/accessibility" className={styles.link}>
               Accessibility statement
             </Link>
           </div>
@@ -65,16 +45,16 @@ export function ExternalFooter() {
         <div className={styles.section}>
           <h3 className={styles.heading}>Keep in Touch</h3>
           <div className={styles.links}>
-            <Link href="#" className={styles.link}>
+            <Link href="/blog" className={styles.link}>
               Jiki&apos;s blog
             </Link>
             <Link href="#" className={styles.link}>
-              Discuss on GitHub
+              Jiki&apos;s YouTube Channel
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/support" className={styles.link}>
               Contact us
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/report-abuse" className={styles.link}>
               Report abuse
             </Link>
           </div>
@@ -82,8 +62,8 @@ export function ExternalFooter() {
         <div className={styles.section}>
           <h3 className={styles.heading}>Get Help</h3>
           <div className={styles.links}>
-            <Link href="#" className={styles.link}>
-              Jiki&apos;s Docs
+            <Link href="/articles" className={styles.link}>
+              Help Center
             </Link>
             <Link href="#" className={styles.link}>
               Getting started
@@ -91,17 +71,11 @@ export function ExternalFooter() {
             <Link href="#" className={styles.link}>
               FAQs
             </Link>
-            <Link href="#" className={styles.link}>
-              Installing the CLI
-            </Link>
-            <Link href="#" className={styles.link}>
-              Interactive CLI Walkthrough
-            </Link>
           </div>
         </div>
       </div>
       <div className={styles.bottom}>
-        <span className={styles.copyright}>&copy; 2026 Jiki</span>
+        <span className={styles.copyright}>&copy; 2026 Jiki Ltd</span>
       </div>
     </footer>
   );

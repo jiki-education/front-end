@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "simple-word",
     name: "Simple word",
-    description: "A single word with no spaces",
+    description: "A single word with no spaces.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Hello"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "single-letter",
     name: "Single letter",
-    description: "A sign with just one letter",
+    description: "A sign with just one letter.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["A"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "two-words",
     name: "Two words",
-    description: "Two words with a space that should be skipped",
+    description: "Two words with a space that should be skipped.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Hi There"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "multiple-spaces",
     name: "Multiple spaces",
-    description: "Multiple words with several spaces to skip",
+    description: "Multiple words with several spaces to skip.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Sale Now On"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "long-text",
     name: "Long text",
-    description: "A longer sign with more letters",
+    description: "A longer sign with more letters.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Open All Hours"],
@@ -61,7 +61,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "all-spaces",
     name: "All spaces",
-    description: "A sign with only spaces has no letters to charge for",
+    description: "A sign with only spaces has no letters to charge for.",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["   "],

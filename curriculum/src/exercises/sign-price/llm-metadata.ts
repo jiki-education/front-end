@@ -19,7 +19,7 @@ export const llmMetadata: LLMMetadata = {
     - Conditional filtering inside a loop (skipping spaces)
     - Counter variable for accumulation
     - Arithmetic with the counter result
-    - String building with concatenate and numberToString
+    - String building with the + operator and numberToString
   `,
 
   tasks: {
@@ -31,7 +31,7 @@ export const llmMetadata: LLMMetadata = {
         3. Check if the character is not a space
         4. If not a space, increment the counter
         5. After the loop, multiply the counter by 12
-        6. Return concatenate("That will cost $", numberToString(price))
+        6. Return "That will cost $" + numberToString(price) (or use a template string)
 
         The key insight is combining iteration with conditional filtering --
         not every character should be counted, so students need an if-statement
@@ -58,7 +58,7 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize this builds on tile-rack by adding a conditional inside the loop
 
         Language-specific notes:
-        - JavaScript: can use template literals or concatenate() and numberToString()
+        - JavaScript: can use template literals or the + operator with numberToString()
         - Python: uses string concatenation with str()
       `
     }

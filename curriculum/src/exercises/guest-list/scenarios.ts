@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-single-list-true",
     name: "Person is on a single person list",
-    description: "Return true if a person is on the guest list",
+    description: "Return true if a person is on the guest list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Jeremy"], "Jeremy"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-single-list-false",
     name: "Person is not on a single person list",
-    description: "Return false if a person is not on the guest list",
+    description: "Return false if a person is not on the guest list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Nicole"], "Jeremy"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-list-true",
     name: "Person is on a larger list",
-    description: "Return true if a person is on a larger guest list",
+    description: "Return true if a person is on a larger guest list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Aron", "Jeremy", "Nicole"], "Jeremy"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "name-list-false",
     name: "Person is not on a larger list",
-    description: "Return false if a person is not on a larger guest list",
+    description: "Return false if a person is not on a larger guest list.",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Aron", "Frank", "Nicole"], "Jeremy"],

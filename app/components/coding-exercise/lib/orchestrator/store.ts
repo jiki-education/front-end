@@ -38,576 +38,563 @@ export function createOrchestratorStore(
   onGoToDashboard?: () => void
 ): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
-    subscribeWithSelector((set, get) => ({
-      exerciseSlug: exercise.slug,
-      context,
-      exerciseTitle: exercise.title,
-      code: exercise.stubs[language],
-      output: "",
-      status: "idle",
-      error: null,
-      currentTest: null,
-      currentTestIdx: 0,
-      hasCodeBeenEdited: false,
-      isSpotlightActive: false,
-      wasSuccessModalShown: false,
-      isExerciseCompleted: false,
-      completionResponse: [],
-      foldedLines: [],
-      language: language,
-
-      // Editor store state
-      defaultCode: exercise.stubs[language],
-      defaultReadonlyRanges: exercise.readonlyRanges?.[language] ?? [],
-      readonly: false,
-      shouldShowInformationWidget: false,
-      underlineRange: undefined,
-      highlightedLineColor: "",
-      highlightedLine: 0,
-      informationWidgetData: { html: "", line: 0, status: "SUCCESS" },
-      breakpoints: [],
-      shouldAutoRunCode: false,
-
-      // Error store state
-      hasUnhandledError: false,
-      unhandledErrorBase64: "",
-      hasSyntaxError: false,
-
-      // Editor handler state
-      latestValueSnapshot: undefined as string | undefined,
-
-      // Test results state
-      testSuiteResult: null,
-      shouldPlayOnTestChange: true,
-
-      // Frame navigation state (moved from currentTest to top level)
-      prevFrame: undefined,
-      nextFrame: undefined,
-      prevBreakpointFrame: undefined,
-      nextBreakpointFrame: undefined,
-
-      // Test time persistence - maps test slugs to their current time positions
-      testCurrentTimes: {},
-
-      // Current test time - extracted from currentTest to prevent rerenders
-      currentTestTime: 0,
-
-      // Current frame - extracted from currentTest to prevent rerenders
-      currentFrame: undefined,
-
-      // Play/pause state
-      isPlaying: false,
-
-      // Lint errors
-      lintErrors: [],
-
-      // Task management state
-      taskProgress: new Map(),
-      completedTasks: new Set(),
-      currentTaskId: null,
-
-      // Private actions - not exposed to components
-      recalculateNavigationFrames: () => {
+    subscribeWithSelector((set, get) => {
+      const showCompletionModalIfReady = () => {
         const state = get();
-        if (!state.currentTest || !state.currentFrame) {
-          set({
-            prevFrame: undefined,
-            nextFrame: undefined
-          });
+        if (!state.testSuiteResult?.passed || state.wasSuccessModalShown || state.isExerciseCompleted) {
           return;
         }
-
-        const prevFrame = TimelineManager.findPrevFrame(
-          state.currentTest.frames,
-          state.currentFrame,
-          state.foldedLines
-        );
-        const nextFrame = TimelineManager.findNextFrame(
-          state.currentTest.frames,
-          state.currentFrame,
-          state.foldedLines
-        );
-
-        set({
-          prevFrame,
-          nextFrame
+        showModal("exercise-completion-modal", {
+          exerciseTitle: state.exerciseTitle,
+          exerciseSlug: state.exerciseSlug,
+          initialStep: "success",
+          onGoToDashboard,
+          onCompleteExercise: async () => {
+            try {
+              const response =
+                state.context.type === "project"
+                  ? await markProjectComplete(state.context.slug)
+                  : await markLessonComplete(state.context.slug);
+              const events = response?.meta?.events || [];
+              get().setCompletionResponse(events);
+              get().setIsExerciseCompleted(true);
+              return events;
+            } catch (error) {
+              console.error("Failed to mark exercise as complete:", error);
+              return [];
+            }
+          }
         });
-      },
-      recalculateBreakpointFrames: () => {
-        const state = get();
-        if (!state.currentTest) {
-          set({
-            prevBreakpointFrame: undefined,
-            nextBreakpointFrame: undefined
-          });
-          return;
-        }
+        state.setWasSuccessModalShown(true);
+        state.setIsSpotlightActive(false);
+      };
 
-        const prevBreakpointFrame = BreakpointManager.findPrevBreakpointFrame(
-          state.currentFrame,
-          state.currentTest.frames,
-          state.breakpoints,
-          state.foldedLines
-        );
-        const nextBreakpointFrame = BreakpointManager.findNextBreakpointFrame(
-          state.currentFrame,
-          state.currentTest.frames,
-          state.breakpoints,
-          state.foldedLines
-        );
+      return {
+        exerciseSlug: exercise.slug,
+        context,
+        exerciseTitle: exercise.title,
+        code: exercise.stubs[language],
+        output: "",
+        status: "idle",
+        error: null,
+        currentTest: null,
+        currentTestIdx: 0,
+        hasCodeBeenEdited: false,
+        isSpotlightActive: false,
+        wasSuccessModalShown: false,
+        isExerciseCompleted: false,
+        completionResponse: [],
+        foldedLines: [],
+        language: language,
 
-        set({
-          prevBreakpointFrame,
-          nextBreakpointFrame
-        });
-      },
-      setCode: (code) => set({ code, hasCodeBeenEdited: true }),
-      setExerciseTitle: (title) => set({ exerciseTitle: title }),
-      setOutput: (output) => set({ output }),
-      setStatus: (status) => set({ status }),
-      setError: (error) => set({ error }),
-      setLanguage: (language) => set({ language }),
-      setCurrentTest: (test) => {
-        const state = get();
+        // Editor store state
+        readonly: false,
+        shouldShowInformationWidget: false,
+        underlineRange: undefined,
+        highlightedLineColor: "",
+        highlightedLine: 0,
+        informationWidgetData: { html: "", line: 0, status: "SUCCESS" },
+        breakpoints: [],
+        shouldAutoRunCode: false,
 
-        // Early return if setting the same test
-        if (test === state.currentTest) {
-          return;
-        }
+        // Error store state
+        hasUnhandledError: false,
+        unhandledErrorBase64: "",
+        hasSyntaxError: false,
 
-        const oldTest = state.currentTest;
+        // Editor handler state
+        latestValueSnapshot: undefined as string | undefined,
 
-        // Clean up old test's animation timeline callbacks (visual tests only)
-        oldTest?.animationTimeline?.clearUpdateCallbacks();
-        oldTest?.animationTimeline?.clearCompleteCallbacks();
+        // Test results state
+        testSuiteResult: null,
+        shouldPlayOnTestChange: true,
 
-        if (!test) {
-          set({
-            currentTest: test,
-            currentTestIdx: 0,
-            currentTestTime: 0,
-            currentFrame: undefined,
-            highlightedLine: 0
-          });
-          return;
-        }
+        // Frame navigation state (moved from currentTest to top level)
+        prevFrame: undefined,
+        nextFrame: undefined,
+        prevBreakpointFrame: undefined,
+        nextBreakpointFrame: undefined,
 
-        // Find the index of this test in the test suite
-        const testIdx = state.testSuiteResult?.tests.findIndex((t) => t.slug === test.slug) ?? 0;
+        // Test time persistence - maps test slugs to their current time positions
+        testCurrentTimes: {},
 
-        // Check if we have a saved time for this test
-        const savedTime = state.testCurrentTimes[test.slug];
-        let timeToUse = savedTime !== undefined ? savedTime : (test.frames.at(0)?.time ?? 0);
+        // Current test time - extracted from currentTest to prevent rerenders
+        currentTestTime: 0,
 
-        set({
-          currentTest: test,
-          currentTestIdx: testIdx,
-          currentFrame: undefined,
-          highlightedLine: 0,
-          isPlaying: false
-        });
+        // Current frame - extracted from currentTest to prevent rerenders
+        currentFrame: undefined,
 
-        // Set up animation timeline callbacks (visual tests only)
-        test.animationTimeline?.onUpdate((anim) => {
-          // Convert from milliseconds to microseconds
-          get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR, "nearest");
-        });
+        // Play/pause state
+        isPlaying: false,
 
-        test.animationTimeline?.onComplete(() => {
+        // Lint errors
+        lintErrors: [],
+
+        // Task management state
+        taskProgress: new Map(),
+        completedTasks: new Set(),
+        currentTaskId: null,
+
+        // Private actions - not exposed to components
+        recalculateNavigationFrames: () => {
           const state = get();
-          state.setIsPlaying(false);
-
-          // If the last frame is an error, show the information widget
-          const lastFrame = test.frames[test.frames.length - 1];
-          // ESLint doesn't realize lastFrame can be undefined when frames array is empty
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (lastFrame?.status === "ERROR") {
-            state.setShouldShowInformationWidget(true);
-          }
-
-          // Check if all tests passed and we haven't shown the modal yet and exercise is not already completed
-          if (state.testSuiteResult?.passed && !state.wasSuccessModalShown && !state.isExerciseCompleted) {
-            showModal("exercise-completion-modal", {
-              exerciseTitle: state.exerciseTitle,
-              exerciseSlug: state.exerciseSlug,
-              initialStep: "success",
-              onGoToDashboard,
-              onCompleteExercise: async () => {
-                try {
-                  const response =
-                    state.context.type === "project"
-                      ? await markProjectComplete(state.context.slug)
-                      : await markLessonComplete(state.context.slug);
-                  const events = response?.meta?.events || [];
-                  get().setCompletionResponse(events);
-                  get().setIsExerciseCompleted(true);
-                  return events;
-                } catch (error) {
-                  console.error("Failed to mark exercise as complete:", error);
-                  return [];
-                }
-              }
+          if (!state.currentTest || !state.currentFrame) {
+            set({
+              prevFrame: undefined,
+              nextFrame: undefined
             });
-            state.setWasSuccessModalShown(true);
-            state.setIsSpotlightActive(false);
+            return;
           }
-        });
 
-        const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
-        const shouldAutoPlay = state.shouldPlayOnTestChange && !!test.animationTimeline;
+          const prevFrame = TimelineManager.findPrevFrame(
+            state.currentTest.frames,
+            state.currentFrame,
+            state.foldedLines
+          );
+          const nextFrame = TimelineManager.findNextFrame(
+            state.currentTest.frames,
+            state.currentFrame,
+            state.foldedLines
+          );
 
-        if (errorFrame && !shouldAutoPlay) {
-          // Not auto-playing: jump directly to error (or breakpoint before it)
-          get().setShouldShowInformationWidget(true);
+          set({
+            prevFrame,
+            nextFrame
+          });
+        },
+        recalculateBreakpointFrames: () => {
+          const state = get();
+          if (!state.currentTest) {
+            set({
+              prevBreakpointFrame: undefined,
+              nextBreakpointFrame: undefined
+            });
+            return;
+          }
 
-          const breakpointFrame = BreakpointManager.findPrevBreakpointFrame(
-            errorFrame,
-            test.frames,
+          const prevBreakpointFrame = BreakpointManager.findPrevBreakpointFrame(
+            state.currentFrame,
+            state.currentTest.frames,
             state.breakpoints,
             state.foldedLines
           );
-          timeToUse = breakpointFrame ? breakpointFrame.time : errorFrame.time;
-        }
+          const nextBreakpointFrame = BreakpointManager.findNextBreakpointFrame(
+            state.currentFrame,
+            state.currentTest.frames,
+            state.breakpoints,
+            state.foldedLines
+          );
 
-        // Trigger frame calculations with the restored/initial time
-        get().setCurrentTestTime(timeToUse, "nearest", true);
-
-        if (shouldAutoPlay) {
-          get().setIsPlaying(true);
-        }
-      },
-
-      setCurrentTestIdx: (idx) => {
-        const state = get();
-
-        // Always update the index (works for both preview and test results mode)
-        set({ currentTestIdx: idx });
-
-        // If we have test results, also update currentTest to match
-        if (state.testSuiteResult && state.testSuiteResult.tests[idx]) {
-          get().setCurrentTest(state.testSuiteResult.tests[idx]);
-        }
-      },
-
-      setCurrentTestTime: (
-        time: number,
-        nearestOrExactFrame: "nearest" | "exact" = "exact",
-        force: boolean = false
-      ) => {
-        if (get().currentTestTime === time && !force) {
-          return;
-        }
-
-        const state = get();
-        if (!state.currentTest) {
-          return;
-        }
-
-        // Update timeline time and persist it for this test
-        set({
-          currentTestTime: time,
-          testCurrentTimes: {
-            ...state.testCurrentTimes,
-            [state.currentTest.slug]: time
-          }
-        });
-
-        // Normally we only want to update this if we land on an exact
-        // frame, but on loading a new test, we want to just get any frame so we have one.
-        const frame =
-          nearestOrExactFrame === "nearest"
-            ? TimelineManager.findNearestFrame(state.currentTest.frames, time, state.foldedLines)
-            : state.currentTest.frames.find((f) => f.time === time);
-        if (frame) {
-          get().setCurrentFrame(frame);
-        }
-      },
-
-      setCurrentFrame: (frame) => {
-        const state = get();
-        if (!state.currentTest) {
-          return;
-        }
-
-        const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
-        const infoWidgetHtml = processMessageContent(rawContent);
-
-        set({
-          currentFrame: frame,
-          highlightedLine: frame.line,
-          // Update information widget data whenever frame changes
-          informationWidgetData: {
-            html: infoWidgetHtml,
-            line: frame.line,
-            status: frame.status
-          }
-        });
-
-        // Recalculate both navigation and breakpoint frames after updating current frame
-        get().recalculateNavigationFrames();
-        get().recalculateBreakpointFrames();
-      },
-      setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
-      setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
-      setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
-      setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
-      setCompletionResponse: (response) => set({ completionResponse: response }),
-      setFoldedLines: (lines) => {
-        set({ foldedLines: lines });
-
-        // Recalculate frames that are affected by folded lines
-        get().recalculateNavigationFrames();
-        get().recalculateBreakpointFrames();
-      },
-
-      // Editor store actions
-      setDefaultCode: (code) => set({ defaultCode: code }),
-      setReadonly: (readonly) => set({ readonly }),
-      setShouldShowInformationWidget: (show) => set({ shouldShowInformationWidget: show }),
-      setUnderlineRange: (range) => set({ underlineRange: range }),
-      setHighlightedLineColor: (color) => set({ highlightedLineColor: color }),
-      setHighlightedLine: (line) => set({ highlightedLine: line }),
-      setInformationWidgetData: (data) => set({ informationWidgetData: data }),
-      setBreakpoints: (breakpoints) => {
-        set({ breakpoints });
-
-        // Recalculate breakpoint frames
-        get().recalculateBreakpointFrames();
-      },
-      setShouldAutoRunCode: (shouldAutoRun) => set({ shouldAutoRunCode: shouldAutoRun }),
-
-      // Error store actions
-      setHasUnhandledError: (hasError) => set({ hasUnhandledError: hasError }),
-      setUnhandledErrorBase64: (errorData) => set({ unhandledErrorBase64: errorData }),
-      setHasSyntaxError: (hasError) => set({ hasSyntaxError: hasError }),
-
-      // Editor handler actions
-      setLatestValueSnapshot: (value) => set({ latestValueSnapshot: value }),
-
-      // Test results actions
-      setTestSuiteResult: (result) => {
-        const state = get();
-
-        // Enable spotlight whenever tests pass and exercise is not already completed
-        const shouldActivateSpotlight = result?.passed && !state.isExerciseCompleted;
-
-        // Set the test suite result and reset things.
-        set({
-          testSuiteResult: result,
-          shouldPlayOnTestChange: true,
-          hasCodeBeenEdited: false,
-          status: "success", // This will get reset via the setCurrentTest below.
-          testCurrentTimes: {},
-          // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
-          isSpotlightActive: shouldActivateSpotlight,
-          // Reset playing state to allow animations to play on new test suite
-          isPlaying: false
-        });
-
-        // Select the best test to inspect: stay on current if still failing,
-        // otherwise first failing, otherwise last test (all pass).
-        if (result && result.tests.length > 0) {
-          const testToInspect = getTestToInspect(result.tests, state.currentTest);
-          get().setCurrentTest(testToInspect);
-          set({ lintErrors: testToInspect.lintErrors });
-        }
-      },
-      setShouldPlayOnTestChange: (shouldAutoPlay) => set({ shouldPlayOnTestChange: shouldAutoPlay }),
-      setIsPlaying: (playing) => {
-        const state = get();
-
-        // Early return if state hasn't changed
-        if (state.isPlaying === playing) {
-          return;
-        }
-
-        if (!state.currentTest) {
-          return;
-        }
-
-        // If trying to set playing to true but animation is completed, don't start
-        // User must explicitly click play button (which calls orchestrator.play() and resets time) to restart
-        if (playing && state.currentTest.animationTimeline?.completed) {
-          return;
-        }
-
-        set({ isPlaying: playing });
-
-        if (playing) {
-          // Hide information widget when playing
-          state.setShouldShowInformationWidget(false);
-          // Start the animation timeline (visual tests only)
-          state.currentTest.animationTimeline?.play();
-        } else {
-          // Pause the animation timeline (visual tests only)
-          state.currentTest.animationTimeline?.pause();
-        }
-      },
-
-      // Exercise data initialization with priority logic
-      initializeExerciseData: (serverData?: { code: string; storedAt?: string; readonlyRanges?: ReadonlyRange[] }) => {
-        const state = get();
-        const localStorageResult = loadCodeMirrorContent(state.exerciseSlug);
-
-        // Rule 1: No server data and no localStorage - use stub code (already set during store creation)
-        if (!serverData && (!localStorageResult.success || !localStorageResult.data)) {
-          // Code and defaultCode are already initialized with exercise.stubs[language]
-          return;
-        }
-
-        // Rule 2: No server data but localStorage exists - use localStorage
-        if (!serverData && localStorageResult.success && localStorageResult.data) {
           set({
-            code: localStorageResult.data.code,
-            defaultCode: localStorageResult.data.code
+            prevBreakpointFrame,
+            nextBreakpointFrame
           });
-          return;
-        }
+        },
+        setCode: (code) => set({ code, hasCodeBeenEdited: true }),
+        setExerciseTitle: (title) => set({ exerciseTitle: title }),
+        setOutput: (output) => set({ output }),
+        setStatus: (status) => set({ status }),
+        setError: (error) => set({ error }),
+        setLanguage: (language) => set({ language }),
+        setCurrentTest: (test) => {
+          const state = get();
 
-        // Rule 3: Server data exists, check against localStorage
-        if (serverData) {
-          // No localStorage - use server data
-          if (!localStorageResult.success || !localStorageResult.data) {
+          // Early return if setting the same test
+          if (test === state.currentTest) {
+            return;
+          }
+
+          const oldTest = state.currentTest;
+
+          // Clean up old test's animation timeline callbacks (visual tests only)
+          oldTest?.animationTimeline?.clearUpdateCallbacks();
+          oldTest?.animationTimeline?.clearCompleteCallbacks();
+
+          if (!test) {
             set({
-              code: serverData.code,
-              defaultCode: serverData.code
+              currentTest: test,
+              currentTestIdx: 0,
+              currentTestTime: 0,
+              currentFrame: undefined,
+              highlightedLine: 0
             });
             return;
           }
 
-          // Both exist - compare timestamps
-          const localStorageData = localStorageResult.data;
+          // Find the index of this test in the test suite
+          const testIdx = state.testSuiteResult?.tests.findIndex((t) => t.slug === test.slug) ?? 0;
 
-          // If server has no timestamp, use localStorage
-          if (!serverData.storedAt) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+          // Check if we have a saved time for this test
+          const savedTime = state.testCurrentTimes[test.slug];
+          let timeToUse = savedTime !== undefined ? savedTime : (test.frames.at(0)?.time ?? 0);
+
+          set({
+            currentTest: test,
+            currentTestIdx: testIdx,
+            currentFrame: undefined,
+            highlightedLine: 0,
+            isPlaying: false
+          });
+
+          // Set up animation timeline callbacks (visual tests only)
+          test.animationTimeline?.onUpdate((anim) => {
+            // Convert from milliseconds to microseconds
+            get().setCurrentTestTime(anim.currentTime * TIME_SCALE_FACTOR, "nearest");
+          });
+
+          test.animationTimeline?.onComplete(() => {
+            const state = get();
+            state.setIsPlaying(false);
+
+            // If the last frame is an error, show the information widget
+            const lastFrame = test.frames[test.frames.length - 1];
+            // ESLint doesn't realize lastFrame can be undefined when frames array is empty
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (lastFrame?.status === "ERROR") {
+              state.setShouldShowInformationWidget(true);
+            }
+
+            showCompletionModalIfReady();
+          });
+
+          const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
+          const shouldAutoPlay = state.shouldPlayOnTestChange && !!test.animationTimeline;
+
+          if (errorFrame && !shouldAutoPlay) {
+            // Not auto-playing: jump directly to error (or breakpoint before it)
+            get().setShouldShowInformationWidget(true);
+
+            const breakpointFrame = BreakpointManager.findPrevBreakpointFrame(
+              errorFrame,
+              test.frames,
+              state.breakpoints,
+              state.foldedLines
+            );
+            timeToUse = breakpointFrame ? breakpointFrame.time : errorFrame.time;
+          }
+
+          // Trigger frame calculations with the restored/initial time
+          get().setCurrentTestTime(timeToUse, "nearest", true);
+
+          if (shouldAutoPlay) {
+            get().setIsPlaying(true);
+          }
+        },
+
+        setCurrentTestIdx: (idx) => {
+          const state = get();
+
+          // Always update the index (works for both preview and test results mode)
+          set({ currentTestIdx: idx });
+
+          // If we have test results, also update currentTest to match
+          if (state.testSuiteResult && state.testSuiteResult.tests[idx]) {
+            get().setCurrentTest(state.testSuiteResult.tests[idx]);
+          }
+        },
+
+        setCurrentTestTime: (
+          time: number,
+          nearestOrExactFrame: "nearest" | "exact" = "exact",
+          force: boolean = false
+        ) => {
+          if (get().currentTestTime === time && !force) {
             return;
           }
 
-          // Compare timestamps - server data must be newer by at least 1 minute
-          const serverTime = new Date(serverData.storedAt).getTime();
-          const localTime = new Date(localStorageData.storedAt).getTime();
-
-          // Check for invalid timestamps (NaN)
-          const serverTimeValid = !isNaN(serverTime);
-          const localTimeValid = !isNaN(localTime);
-
-          // If both timestamps are invalid, use localStorage (safer default)
-          if (!serverTimeValid && !localTimeValid) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+          const state = get();
+          if (!state.currentTest) {
             return;
           }
 
-          // If only server timestamp is invalid, use localStorage
-          if (!serverTimeValid && localTimeValid) {
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+          // Update timeline time and persist it for this test
+          set({
+            currentTestTime: time,
+            testCurrentTimes: {
+              ...state.testCurrentTimes,
+              [state.currentTest.slug]: time
+            }
+          });
+
+          // Normally we only want to update this if we land on an exact
+          // frame, but on loading a new test, we want to just get any frame so we have one.
+          const frame =
+            nearestOrExactFrame === "nearest"
+              ? TimelineManager.findNearestFrame(state.currentTest.frames, time, state.foldedLines)
+              : state.currentTest.frames.find((f) => f.time === time);
+          if (frame) {
+            get().setCurrentFrame(frame);
+          }
+        },
+
+        setCurrentFrame: (frame) => {
+          const state = get();
+          if (!state.currentTest) {
             return;
           }
 
-          // If only localStorage timestamp is invalid, use server
-          if (serverTimeValid && !localTimeValid) {
-            set({
-              code: serverData.code,
-              defaultCode: serverData.code
-            });
+          const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
+          const infoWidgetHtml = processMessageContent(rawContent);
+
+          set({
+            currentFrame: frame,
+            highlightedLine: frame.line,
+            // Update information widget data whenever frame changes
+            informationWidgetData: {
+              html: infoWidgetHtml,
+              line: frame.line,
+              status: frame.status
+            }
+          });
+
+          // Recalculate both navigation and breakpoint frames after updating current frame
+          get().recalculateNavigationFrames();
+          get().recalculateBreakpointFrames();
+        },
+        setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
+        setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
+        setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
+        setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
+        setCompletionResponse: (response) => set({ completionResponse: response }),
+        setFoldedLines: (lines) => {
+          set({ foldedLines: lines });
+
+          // Recalculate frames that are affected by folded lines
+          get().recalculateNavigationFrames();
+          get().recalculateBreakpointFrames();
+        },
+
+        // Editor store actions
+        setReadonly: (readonly) => set({ readonly }),
+        setShouldShowInformationWidget: (show) => set({ shouldShowInformationWidget: show }),
+        setUnderlineRange: (range) => set({ underlineRange: range }),
+        setHighlightedLineColor: (color) => set({ highlightedLineColor: color }),
+        setHighlightedLine: (line) => set({ highlightedLine: line }),
+        setInformationWidgetData: (data) => set({ informationWidgetData: data }),
+        setBreakpoints: (breakpoints) => {
+          set({ breakpoints });
+
+          // Recalculate breakpoint frames
+          get().recalculateBreakpointFrames();
+        },
+        setShouldAutoRunCode: (shouldAutoRun) => set({ shouldAutoRunCode: shouldAutoRun }),
+
+        // Error store actions
+        setHasUnhandledError: (hasError) => set({ hasUnhandledError: hasError }),
+        setUnhandledErrorBase64: (errorData) => set({ unhandledErrorBase64: errorData }),
+        setHasSyntaxError: (hasError) => set({ hasSyntaxError: hasError }),
+
+        // Editor handler actions
+        setLatestValueSnapshot: (value) => set({ latestValueSnapshot: value }),
+
+        // Test results actions
+        setTestSuiteResult: (result) => {
+          const state = get();
+
+          // Enable spotlight whenever tests pass and exercise is not already completed
+          const shouldActivateSpotlight = result?.passed && !state.isExerciseCompleted;
+
+          // Set the test suite result and reset things.
+          set({
+            testSuiteResult: result,
+            shouldPlayOnTestChange: true,
+            hasCodeBeenEdited: false,
+            status: "success", // This will get reset via the setCurrentTest below.
+            testCurrentTimes: {},
+            // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
+            isSpotlightActive: shouldActivateSpotlight,
+            // Reset playing state to allow animations to play on new test suite
+            isPlaying: false
+          });
+
+          // Select the best test to inspect: stay on current if still failing,
+          // otherwise first failing, otherwise last test (all pass).
+          if (result && result.tests.length > 0) {
+            const testToInspect = getTestToInspect(result.tests, state.currentTest);
+            get().setCurrentTest(testToInspect);
+            set({ lintErrors: testToInspect.lintErrors });
+          }
+
+          // IO suites have no animation timeline, so the onComplete-gated modal
+          // path in setCurrentTest never fires. Trigger directly here instead.
+          if (result?.passed && result.tests.every((t) => t.type === "io")) {
+            showCompletionModalIfReady();
+          }
+        },
+        setShouldPlayOnTestChange: (shouldAutoPlay) => set({ shouldPlayOnTestChange: shouldAutoPlay }),
+        setIsPlaying: (playing) => {
+          const state = get();
+
+          // Early return if state hasn't changed
+          if (state.isPlaying === playing) {
             return;
           }
 
-          // Both timestamps are valid - compare them
-          if (serverTime > localTime + ONE_MINUTE) {
-            // Server is newer - use server data
-            set({
-              code: serverData.code,
-              defaultCode: serverData.code
-            });
+          if (!state.currentTest) {
+            return;
+          }
+
+          // If trying to set playing to true but animation is completed, don't start
+          // User must explicitly click play button (which calls orchestrator.play() and resets time) to restart
+          if (playing && state.currentTest.animationTimeline?.completed) {
+            return;
+          }
+
+          set({ isPlaying: playing });
+
+          if (playing) {
+            // Hide information widget when playing
+            state.setShouldShowInformationWidget(false);
+            // Start the animation timeline (visual tests only)
+            state.currentTest.animationTimeline?.play();
           } else {
-            // localStorage is newer or equal - use localStorage
-            set({
-              code: localStorageData.code,
-              defaultCode: localStorageData.code
-            });
+            // Pause the animation timeline (visual tests only)
+            state.currentTest.animationTimeline?.pause();
           }
-        }
-      },
+        },
 
-      // Lint errors action
-      setLintErrors: (lintErrors) => set({ lintErrors }),
+        // Exercise data initialization with priority logic
+        initializeExerciseData: (serverData?: {
+          code: string;
+          storedAt?: string;
+          readonlyRanges?: ReadonlyRange[];
+        }) => {
+          const state = get();
+          const localStorageResult = loadCodeMirrorContent(state.exerciseSlug);
 
-      // Task management actions
-      setTaskProgress: (taskProgress) => set({ taskProgress }),
-      setCompletedTasks: (completedTasks) => set({ completedTasks }),
-      setCurrentTaskId: (currentTaskId) => set({ currentTaskId }),
+          // Rule 1: No server data and no localStorage - use stub code (already set during store creation)
+          if (!serverData && (!localStorageResult.success || !localStorageResult.data)) {
+            return;
+          }
 
-      reset: () =>
-        set({
-          code: exercise.stubs[language],
-          exerciseTitle: exercise.title,
-          output: "",
-          status: "idle",
-          error: null,
-          currentTest: null,
-          currentTestIdx: 0,
-          hasCodeBeenEdited: false,
-          isSpotlightActive: false,
-          wasSuccessModalShown: false,
-          foldedLines: [],
-          language: language,
+          // Rule 2: No server data but localStorage exists - use localStorage
+          if (!serverData && localStorageResult.success && localStorageResult.data) {
+            set({ code: localStorageResult.data.code });
+            return;
+          }
 
-          // Reset editor store state
-          defaultReadonlyRanges: [],
-          defaultCode: exercise.stubs[language],
-          readonly: false,
-          shouldShowInformationWidget: false,
-          underlineRange: undefined,
-          highlightedLineColor: "",
-          highlightedLine: 0,
-          informationWidgetData: { html: "", line: 0, status: "SUCCESS" },
-          breakpoints: [],
-          shouldAutoRunCode: false,
+          // Rule 3: Server data exists, check against localStorage
+          if (serverData) {
+            // No localStorage - use server data
+            if (!localStorageResult.success || !localStorageResult.data) {
+              set({ code: serverData.code });
+              return;
+            }
 
-          // Reset error store state
-          hasUnhandledError: false,
-          unhandledErrorBase64: "",
-          hasSyntaxError: false,
+            // Both exist - compare timestamps
+            const localStorageData = localStorageResult.data;
 
-          // Reset editor handler state
-          latestValueSnapshot: undefined,
+            // If server has no timestamp, use localStorage
+            if (!serverData.storedAt) {
+              set({ code: localStorageData.code });
+              return;
+            }
 
-          // Reset test results state
-          testSuiteResult: null,
-          shouldPlayOnTestChange: true,
+            // Compare timestamps - server data must be newer by at least 1 minute
+            const serverTime = new Date(serverData.storedAt).getTime();
+            const localTime = new Date(localStorageData.storedAt).getTime();
 
-          // Reset frame navigation state
-          prevFrame: undefined,
-          nextFrame: undefined,
-          prevBreakpointFrame: undefined,
-          nextBreakpointFrame: undefined,
+            // Check for invalid timestamps (NaN)
+            const serverTimeValid = !isNaN(serverTime);
+            const localTimeValid = !isNaN(localTime);
 
-          // Reset current test time and frame
-          currentTestTime: 0,
-          currentFrame: undefined,
+            // If both timestamps are invalid, use localStorage (safer default)
+            if (!serverTimeValid && !localTimeValid) {
+              set({ code: localStorageData.code });
+              return;
+            }
 
-          // Reset play/pause state
-          isPlaying: false,
+            // If only server timestamp is invalid, use localStorage
+            if (!serverTimeValid && localTimeValid) {
+              set({ code: localStorageData.code });
+              return;
+            }
 
-          // Reset lint errors
-          lintErrors: [],
+            // If only localStorage timestamp is invalid, use server
+            if (serverTimeValid && !localTimeValid) {
+              set({ code: serverData.code });
+              return;
+            }
 
-          // Reset task management state
-          taskProgress: new Map(),
-          completedTasks: new Set(),
-          currentTaskId: null
-        })
-    }))
+            // Both timestamps are valid - compare them
+            if (serverTime > localTime + ONE_MINUTE) {
+              // Server is newer - use server data
+              set({ code: serverData.code });
+            } else {
+              // localStorage is newer or equal - use localStorage
+              set({ code: localStorageData.code });
+            }
+          }
+        },
+
+        // Lint errors action
+        setLintErrors: (lintErrors) => set({ lintErrors }),
+
+        // Task management actions
+        setTaskProgress: (taskProgress) => set({ taskProgress }),
+        setCompletedTasks: (completedTasks) => set({ completedTasks }),
+        setCurrentTaskId: (currentTaskId) => set({ currentTaskId }),
+
+        reset: () =>
+          set({
+            code: exercise.stubs[language],
+            exerciseTitle: exercise.title,
+            output: "",
+            status: "idle",
+            error: null,
+            currentTest: null,
+            currentTestIdx: 0,
+            hasCodeBeenEdited: false,
+            isSpotlightActive: false,
+            wasSuccessModalShown: false,
+            foldedLines: [],
+            language: language,
+
+            // Reset editor store state
+            readonly: false,
+            shouldShowInformationWidget: false,
+            underlineRange: undefined,
+            highlightedLineColor: "",
+            highlightedLine: 0,
+            informationWidgetData: { html: "", line: 0, status: "SUCCESS" },
+            breakpoints: [],
+            shouldAutoRunCode: false,
+
+            // Reset error store state
+            hasUnhandledError: false,
+            unhandledErrorBase64: "",
+            hasSyntaxError: false,
+
+            // Reset editor handler state
+            latestValueSnapshot: undefined,
+
+            // Reset test results state
+            testSuiteResult: null,
+            shouldPlayOnTestChange: true,
+
+            // Reset frame navigation state
+            prevFrame: undefined,
+            nextFrame: undefined,
+            prevBreakpointFrame: undefined,
+            nextBreakpointFrame: undefined,
+
+            // Reset current test time and frame
+            currentTestTime: 0,
+            currentFrame: undefined,
+
+            // Reset play/pause state
+            isPlaying: false,
+
+            // Reset lint errors
+            lintErrors: [],
+
+            // Reset task management state
+            taskProgress: new Map(),
+            completedTasks: new Set(),
+            currentTaskId: null
+          })
+      };
+    })
   );
 }
 
@@ -634,8 +621,6 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       language: state.language,
 
       // Editor store state
-      defaultCode: state.defaultCode,
-      defaultReadonlyRanges: state.defaultReadonlyRanges,
       readonly: state.readonly,
       shouldShowInformationWidget: state.shouldShowInformationWidget,
       underlineRange: state.underlineRange,

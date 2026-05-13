@@ -440,12 +440,29 @@
 }
 
 .testDescription {
+    position: relative;
     padding: 16px 16px 4px 16px;
     background: transparent;
     border: none;
     border-radius: 8px;
     flex: 1;
     overflow-y: scroll;
+}
+
+.testStatusIcon {
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+}
+
+.testDescription.statePassed .testStatusIcon {
+    color: var(--color-green-300);
+}
+
+.testDescription.stateFailed .testStatusIcon {
+    color: var(--color-red-300);
 }
 
 .testDescription::-webkit-scrollbar {
@@ -493,6 +510,7 @@
 /* Passed State (Green) */
 .testDescription.statePassed {
     border-color: var(--color-green-500);
+    background: var(--color-green-30);
 }
 
 .testDescription.statePassed .instructionLabel {
@@ -502,6 +520,7 @@
 /* Failed State (Red) */
 .testDescription.stateFailed {
     border-color: var(--color-red-500);
+    background: var(--color-red-30);
 }
 
 .testDescription.stateFailed .instructionLabel {
@@ -590,6 +609,10 @@
 
 .testDescription.stateFailed .testFeedback .message {
     color: var(--color-red-800);
+}
+
+.testDescription.stateLintWarning {
+    background: var(--color-orange-30);
 }
 
 .testDescription.stateLintWarning .testFeedback {
@@ -1030,144 +1053,6 @@
 
 .taskItem.complete .taskText {
     color: var(--color-gray-700);
-}
-
-.scenario {
-    @apply border-2 rounded-5;
-    @apply overflow-hidden;
-    @apply flex justify-between flex-grow;
-
-    .scenarioLhs {
-        @apply border-r-2 border-purple-50;
-        @apply flex flex-col;
-
-        .scenarioLhsContent {
-            @apply overflow-auto; /* Needed to ensure the scrubber shows */
-            @apply flex-grow;
-            @apply flex flex-col;
-
-            @apply py-16 px-12;
-
-            h3 {
-                @apply text-16 leading-140;
-                @apply mb-12;
-                strong {
-                    @apply font-semibold;
-                }
-            }
-            .description {
-                @apply text-16 leading-140 font-normal;
-                @apply mb-12;
-                strong {
-                    @apply font-semibold;
-                }
-            }
-            .successMessage {
-                @apply text-16 leading-140 font-normal;
-                @apply mb-12;
-                @apply flex items-center gap-8;
-                img {
-                    @apply w-[20px] h-[20px];
-                    @apply inline-block;
-                }
-                strong {
-                    @apply font-semibold;
-                }
-            }
-            .errorMessage {
-                @apply text-16 leading-140 font-normal;
-                @apply text-red-600;
-                @apply mb-12;
-                @apply flex items-center gap-8;
-                img {
-                    @apply w-[20px] h-[20px];
-                    @apply inline-block;
-                    @apply border-[2px] rounded-circle;
-                    background-color: rgba(235, 87, 87, 0.15);
-
-                    border-color: rgba(235, 87, 87);
-                }
-                strong {
-                    @apply font-semibold;
-                }
-            }
-            p,
-            .content {
-                @apply text-16 leading-140;
-                @apply mb-8;
-            }
-        }
-    }
-
-    &.pending {
-        @apply border-blue-300;
-        .scenarioLhs {
-            @apply bg-blue-100;
-        }
-    }
-    &.pass {
-        @apply border-green-500;
-        .scenarioLhs {
-            @apply bg-green-50;
-        }
-    }
-    &.fail {
-        @apply border-red-400;
-        .scenarioLhs {
-            @apply bg-red-50;
-        }
-
-        span.addedPart,
-        span.removedPart {
-            @apply whitespace-pre;
-        }
-        span.addedPart {
-            @apply bg-green-50;
-            @apply border-b-1 border-green-500;
-        }
-        span.removedPart {
-            @apply bg-red-50;
-            @apply border-b-1 border-red-400;
-        }
-    }
-    .ioTestResultInfo {
-        border-spacing: 6px;
-        border-collapse: separate;
-        tr {
-            th,
-            td {
-                @apply text-16 leading-140;
-                @apply bg-bg-primary;
-                @apply py-10 px-10;
-            }
-            th {
-                @apply rounded-l-5;
-                @apply text-left font-normal whitespace-nowrap;
-                @apply w-[1px];
-            }
-            td {
-                @apply rounded-r-5;
-                @apply font-mono text-15;
-            }
-        }
-    }
-}
-
-.scenarioRhs {
-    @apply h-fill overflow-auto;
-
-    &.javascript {
-        @apply h-[80%];
-    }
-    @apply py-16 px-20;
-    h3 {
-    }
-
-    .Typewriter__wrapper {
-        p {
-            display: inline;
-        }
-    }
 }
 
 .testSelectorButtons {

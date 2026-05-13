@@ -3,20 +3,20 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "You might want helper functions like length() and endsWith()"
+      "question": "How do I get just the surname from a full name?",
+      "answer": "The honorific (Mr, Mrs, Dr, etc.) comes at the start, followed by a space, then the surname. If you can drop the part up to (and including) the first space, what's left is the surname."
     },
     {
-      "question": "Hint",
-      "answer": "First, remove the honorific from the person's name to get the surname"
+      "question": "How do I check if a guest matches that surname?",
+      "answer": "Loop through the guest list. For each guest, check whether their full name ends with the surname you extracted. A helper like `endsWith()` makes this clean."
     },
     {
-      "question": "Hint",
-      "answer": "Then check if any name on the list ends with that surname"
+      "question": "Why might endsWith() give the wrong answer?",
+      "answer": "'Smithson' ends with 'son', and 'Worthington' ends with 'ton'. You probably want to check that the guest ends with a space followed by the surname (e.g. ' Smith'), so partial matches don't trip you up."
     },
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to build strings when needed"
+      "question": "What helpers will I need?",
+      "answer": "Likely `length()` (to know how long things are) and `endsWith()` (for matching the surname). Build the space-prefixed comparison string using concatenation (`+`) or a template string."
     }
   ]
 }

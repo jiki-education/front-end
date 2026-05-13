@@ -1,11 +1,12 @@
-import CodingIcon from "@static/icons/coding.svg";
-import QuizIcon from "@static/icons/quiz.svg";
-import VideoIcon from "@static/icons/video.svg";
+import CodingIcon from "@/icons/coding.svg";
+import QuizIcon from "@/icons/quiz.svg";
+import VideoIcon from "@/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
 import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
+import { scrollToActiveLesson } from "../lib/scrollToActiveLesson";
 import styles from "./LessonNode.module.css";
 import { LessonIcon } from "../../../icons/LessonIcon";
 import { WalkthroughCard } from "./WalkthroughCard";
@@ -38,8 +39,8 @@ export function LessonNode({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isActiveLesson && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (isActiveLesson) {
+      scrollToActiveLesson(ref.current);
     }
   }, [isActiveLesson]);
 

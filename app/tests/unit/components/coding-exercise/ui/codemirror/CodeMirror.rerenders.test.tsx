@@ -5,7 +5,6 @@ import { renderWithCounter } from "@/tests/utils/renderCounter";
 jest.mock("@/components/coding-exercise/lib/Orchestrator", () => ({
   useOrchestratorStore: jest.fn(() => ({
     readonly: false,
-    defaultCode: "test code",
     highlightedLine: 0,
     shouldAutoRunCode: false
   }))

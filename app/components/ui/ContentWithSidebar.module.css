@@ -5,19 +5,20 @@
     background: transparent;
 }
 
-.contentWrapper {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: 48px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px;
+.contentWrapper,
+.contentWrapperFull {
+    margin-bottom: 32px;
+    padding: 40px 0;
 }
 
-.contentWrapperFull {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px;
+.contentWrapperInner {
+    display: grid;
+    gap: 7%;
+    grid-template-columns: 1fr 350px;
+}
+
+.contentWrapperFullInner {
+    /* width/padding provided by shared lg-container */
 }
 
 .articleContent {
@@ -31,17 +32,19 @@
 }
 
 @media (max-width: 1024px) {
-    .contentWrapper {
-        grid-template-columns: 1fr;
+    .contentWrapperInner {
         gap: 40px;
-        padding: 40px 20px;
-    }
-
-    .contentWrapperFull {
-        padding: 40px 20px;
+        grid-template-columns: 1fr;
     }
 
     .rightPanel {
         position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .contentWrapper,
+    .contentWrapperFull {
+        padding: 32px 0;
     }
 }

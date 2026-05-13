@@ -23,7 +23,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-queue",
     name: "No one in the queue",
-    description: "No-one in the queue, plenty of time",
+    description: "No-one in the queue, plenty of time.",
     taskId: "can-fit-in",
     functionName: "can_fit_in",
     args: [[], "Bob", 30],
@@ -32,7 +32,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "empty-queue-but-no-time",
     name: "Late in the day",
-    description: "No-one in the queue but not enough time",
+    description: "No-one in the queue but not enough time.",
     taskId: "can-fit-in",
     functionName: "can_fit_in",
     args: [[], "Shave and Polish", 5],
@@ -41,7 +41,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "busy-day-no-time",
     name: "A full day",
-    description: "A full queue and not enough time",
+    description: "A full queue and not enough time.",
     taskId: "can-fit-in",
     functionName: "can_fit_in",
     args: [["Mohawk", "Slicked-Back Pixie", "Bob", "Shave and Polish", "Afro Trim", "Up-do"], "Mohawk", 90],
@@ -50,7 +50,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "busy-day-but-time",
     name: "Just squeezes in",
-    description: "A full day but there's just enough time",
+    description: "A full day but there's just enough time.",
     taskId: "can-fit-in",
     functionName: "can_fit_in",
     args: [
@@ -63,7 +63,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "still-early",
     name: "Still early",
-    description: "It's still early in the day",
+    description: "It's still early in the day.",
     taskId: "can-fit-in",
     functionName: "can_fit_in",
     args: [["Afro Trim", "Shave and Polish", "Mohawk", "Slicked-Back Pixie", "Up-do", "Up-do"], "Mohawk", 240],

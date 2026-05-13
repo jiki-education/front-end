@@ -12,9 +12,12 @@ import CompleteIcon from "@/icons/complete.svg";
 import LockedIcon from "@/icons/locked.svg";
 import ProjectsIcon from "@/icons/projects.svg";
 import { ProjectCard } from "./ProjectCard";
+import { PremiumProjectCard } from "./PremiumProjectCard";
 import { NoProjectsFound } from "./NoProjectsFound";
 import { ProjectCardsLoadingSkeleton } from "./ProjectCardSkeleton";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
+import { useAuthStore } from "@/lib/auth/authStore";
+import { tierIncludes } from "@/lib/pricing";
 
 const tabs: TabItem[] = [
   { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
@@ -25,6 +28,8 @@ const tabs: TabItem[] = [
 ];
 
 export function ProjectsContent() {
+  const user = useAuthStore((state) => state.user);
+  const isPremium = !!user && tierIncludes(user.membership_type, "premium");
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [projectsLoading, setProjectsLoading] = useState(true);
   const [projectsError, setProjectsError] = useState<string | null>(null);
@@ -92,6 +97,16 @@ export function ProjectsContent() {
       );
     }
 
+    if (!isPremium) {
+      return (
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-28">
+          {projects.map((project) => (
+            <PremiumProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      );
+    }
+
     if (filteredProjects.length === 0) {
       return <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />;
     }
@@ -111,7 +126,7 @@ export function ProjectsContent() {
       title="Projects"
       description="Build real applications and games to practice your coding skills."
     >
-      <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+      {isPremium && <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />}
       {renderContent()}
     </PageHeader>
   );

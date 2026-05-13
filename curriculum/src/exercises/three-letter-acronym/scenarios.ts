@@ -16,7 +16,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "png",
     name: "Portable Network Graphics",
-    description: "Create the acronym 'PNG' from 'Portable', 'Network', 'Graphics'",
+    description: "Create the acronym 'PNG' from 'Portable', 'Network', 'Graphics'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable", "Network", "Graphics"],
@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "css",
     name: "Cascading Style Sheets",
-    description: "Create the acronym 'CSS' from 'Cascading', 'Style', 'Sheets'",
+    description: "Create the acronym 'CSS' from 'Cascading', 'Style', 'Sheets'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Cascading", "Style", "Sheets"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "www",
     name: "World Wide Web",
-    description: "Create the acronym 'WWW' from 'World', 'Wide', 'Web'",
+    description: "Create the acronym 'WWW' from 'World', 'Wide', 'Web'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["World", "Wide", "Web"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "lol",
     name: "Lowercase words",
-    description: "Create the acronym 'lol' from 'laugh', 'out', 'loud'",
+    description: "Create the acronym 'lol' from 'laugh', 'out', 'loud'.",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["laugh", "out", "loud"],

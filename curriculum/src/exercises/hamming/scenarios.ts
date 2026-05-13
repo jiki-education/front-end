@@ -22,7 +22,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hamming-empty-strands",
     name: "Empty strands",
-    description: "Empty strands have a Hamming distance of 0",
+    description: "Empty strands have a Hamming distance of 0.",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["", ""],
@@ -31,7 +31,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hamming-single-letter-identical",
     name: "Single letter identical strands",
-    description: "Single-letter identical strands have a Hamming distance of 0",
+    description: "Single-letter identical strands have a Hamming distance of 0.",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["A", "A"],
@@ -40,7 +40,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hamming-long-identical-strands",
     name: "Long identical strands",
-    description: "Long identical strands have a Hamming distance of 0",
+    description: "Long identical strands have a Hamming distance of 0.",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["GGACTGAAATCTG", "GGACTGAAATCTG"],
@@ -49,7 +49,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hamming-single-letter-different",
     name: "Single letter different strands",
-    description: "Single-letter different strands have a Hamming distance of 1",
+    description: "Single-letter different strands have a Hamming distance of 1.",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["G", "T"],
@@ -58,7 +58,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "hamming-long-different-strands",
     name: "Long different strands",
-    description: "Long strands with differences have a calculated Hamming distance",
+    description: "Long strands with differences have a calculated Hamming distance.",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["GGACGGATTCTG", "AGGACGGATTCT"],

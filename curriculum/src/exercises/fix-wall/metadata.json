@@ -2,7 +2,14 @@
   "slug": "fix-wall",
   "levelId": "using-functions",
   "hints": [
-    { "question": "Hint", "answer": "The holes are at positions that are divisible by 10" },
-    { "question": "Hint", "answer": "Each hole is 20 wide and 10 tall" }
+    {
+      "question": "How do I draw bricks?",
+      "answer": "Draw a rectangle that covers each holes. Check the instructions for information on the different inputs that the `rectangle` function expects."
+    },
+    {
+      "question": "What sizes are the holes?",
+      "answer": "Hover over the canvas to measure each space. All numbers are divisible by 10."
+    },
+    { "question": "No, really, what sizes are the holes?", "answer": "Each hole is 20 wide and 10 tall" }
   ]
 }

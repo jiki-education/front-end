@@ -3,24 +3,24 @@
   "levelId": "multiple-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by writing a contains() helper that checks if a character exists in a string"
+      "question": "Where should I start when there are several functions to write?",
+      "answer": "Pick the smallest helper first. A `contains()` function (which asks 'does this character appear in this string?') is the foundation that everything else can build on."
     },
     {
-      "question": "Hint",
-      "answer": "Use contains() to build isAlpha() — check each character against the alphabet"
+      "question": "How do I check if every character in the input is a letter?",
+      "answer": "Use `contains()` against the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. Loop through each character of the input and ask 'is this one in the alphabet?'. If any aren't, it isn't all alpha."
     },
     {
-      "question": "Hint",
-      "answer": "Use the same pattern for isNumeric() — check each character against \"0123456789\""
+      "question": "How do I do the same check for digits?",
+      "answer": "Exactly the same pattern, but check against `\"0123456789\"` instead of the alphabet."
     },
     {
-      "question": "Hint",
-      "answer": "For isAlphanumeric(), use isAlpha() and isNumeric() together with continue to skip valid characters"
+      "question": "What does 'alphanumeric' mean. Does it mean both?",
+      "answer": "Alphanumeric means each character is either a letter OR a digit. So for each character, if it's alpha you're happy, and if it's numeric you're also happy. Use `continue` to skip on. Only if it's neither should you reject."
     },
     {
-      "question": "Hint",
-      "answer": "In whatAmI(), call all three helpers and use conditionals to return the right label"
+      "question": "How do I pick between the four labels in whatAmI()?",
+      "answer": "Call all three helpers and use if/else. The order matters. Check the stricter cases ('alpha only' and 'numeric only') before 'alphanumeric', which is the looser case."
     }
   ]
 }

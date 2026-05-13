@@ -10,13 +10,6 @@ const functions: FunctionInfo[] = [
     description: "Returns a new list with the element added to the end (provided by level stdlib)",
     examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]', "push([1, 2], 3) -> [1, 2, 3]"],
     category: "List Operations"
-  },
-  {
-    name: "concatenate",
-    signature: "concatenate(str1, str2, ...)",
-    description: "Combine two or more strings together (provided by level stdlib)",
-    examples: ['concatenate("hello", " ", "world") -> "hello world"', 'concatenate("A", "B", "C") -> "ABC"'],
-    category: "String Operations"
   }
 ];
 
@@ -26,7 +19,8 @@ const exerciseDefinition: IOExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["dictionaries", "string-iteration", "if", "arrays"]
 };
 
 export default exerciseDefinition;

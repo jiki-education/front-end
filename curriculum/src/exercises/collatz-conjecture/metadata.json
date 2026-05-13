@@ -3,20 +3,16 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use a loop that keeps running until the number reaches 1"
+      "question": "How do I keep going until the number reaches 1?",
+      "answer": "Use a `while` (or `repeat until`) loop that runs as long as the number is greater than 1. Inside the loop, you'll replace the number with the next number in the sequence."
     },
     {
-      "question": "Hint",
-      "answer": "Check if a number is even using the modulo operator: number % 2 == 0"
+      "question": "How do I decide which rule to apply on each step?",
+      "answer": "Check whether the number is even. The modulo operator does this. `number % 2 == 0` means it's even. If even, halve it. Otherwise, do `3 * number + 1`."
     },
     {
-      "question": "Hint",
-      "answer": "Keep a counter variable to track the number of steps"
-    },
-    {
-      "question": "Hint",
-      "answer": "Return the counter when the number reaches 1"
+      "question": "How do I track the answer (the number of steps)?",
+      "answer": "Keep a counter variable that starts at 0 and add 1 to it every time you go round the loop. When the loop ends (the number has reached 1), return the counter."
     }
   ]
 }

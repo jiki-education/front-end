@@ -3,24 +3,24 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Remember that strings always need quotation marks"
+      "question": "How do I look at each individual mark?",
+      "answer": "Loop through the marks string one character at a time. Each character is either ✅, ❌, or 💥."
     },
     {
-      "question": "Hint",
-      "answer": "Loop through each character in the marks string"
+      "question": "Why is my code complaining about 💥?",
+      "answer": "Emoji like 💥 and ❌ still need to be wrapped in quotation marks. They're characters in a string just like letters are."
     },
     {
-      "question": "Hint",
-      "answer": "If you encounter a 💥 (major), return false immediately"
+      "question": "What should I do when I see a 💥 (major)?",
+      "answer": "Any single major fails the test, no matter what else has happened. So you can return `false` straight away as soon as you see one. There's no need to keep looking."
     },
     {
-      "question": "Hint",
-      "answer": "Keep count of how many ❌ (minors) you see"
+      "question": "How do I handle minors, where the count matters?",
+      "answer": "Keep a counter variable and add 1 to it each time you see a ❌. Ignore the ✅s, they don't change anything."
     },
     {
-      "question": "Hint",
-      "answer": "At the end, check if minors is less than 5"
+      "question": "What do I check at the end?",
+      "answer": "Once the loop's finished and you haven't seen a major, the test passes if there were fewer than 5 minors. Return `true` if the minor count is less than 5, otherwise `false`."
     }
   ]
 }

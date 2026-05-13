@@ -41,7 +41,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["repeat", "variables", "hsl", "rgb", "using-functions", "return-values"],
+  conceptSlugs: ["repeat", "variables", "hsl", "rgb", "using-functions", "using-functions-with-return-values"],
   interpreterOptions: {
     repeatDelay: 20
   }

@@ -23,33 +23,33 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock SVG imports
-jest.mock("@static/icons/jiki-logo.svg", () => ({
+jest.mock("@/icons/jiki-logo.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="jiki-logo">Jiki</div>
 }));
 
-jest.mock("@static/icons/house.svg", () => ({
+jest.mock("@/icons/house.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="house-icon" aria-hidden="true" />
 }));
 
-jest.mock("@static/icons/projects.svg", () => ({
+jest.mock("@/icons/projects.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="projects-icon" aria-hidden="true" />
 }));
 
 // Mock additional SVG icons that might be used
-jest.mock("@static/icons/blog.svg", () => ({
+jest.mock("@/icons/blog.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="blog-icon" aria-hidden="true" />
 }));
 
-jest.mock("@static/icons/book.svg", () => ({
+jest.mock("@/icons/book.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="book-icon" aria-hidden="true" />
 }));
 
-jest.mock("@static/icons/lightbulb.svg", () => ({
+jest.mock("@/icons/lightbulb.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="lightbulb-icon" aria-hidden="true" />
 }));

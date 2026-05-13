@@ -3,12 +3,12 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "You can get the first character of a string using [1]"
+      "question": "How do I get just the first character of a word?",
+      "answer": "Indexing into the string. The first character is at index `[1]` in this language."
     },
     {
-      "question": "Hint",
-      "answer": "Use concatenate() to join the three characters together"
+      "question": "How do I build the three-letter result?",
+      "answer": "Take the first character of each word and join them together in order using concatenation (`+`) or a template string."
     }
   ]
 }

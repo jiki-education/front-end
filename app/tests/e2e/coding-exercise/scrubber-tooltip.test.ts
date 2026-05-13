@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../helpers/test";
 
 test.describe("Scrubber Tooltip E2E", () => {
   test.beforeEach(async ({ page }) => {
@@ -26,8 +26,9 @@ test.describe("Scrubber Tooltip E2E", () => {
       await expect(tooltip).toBeVisible();
 
       // Check tooltip content
-      await expect(tooltip).toContainText("Code has been edited");
-      await expect(tooltip).toContainText("Run tests to re-enable");
+      await expect(tooltip).toContainText(
+        'The code has been edited so we\'ve disabled the scrubber. Press "Run code" to re-enable it.'
+      );
     });
   });
 

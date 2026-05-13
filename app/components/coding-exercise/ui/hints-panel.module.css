@@ -67,7 +67,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-gray-50);
+    border-top: 1px solid var(--color-gray-200);
     backdrop-filter: blur(2px);
     display: none;
     flex-direction: column;
@@ -80,6 +81,7 @@
 }
 
 .hintItem.confirming .hintAnswer {
+    display: block;
     max-height: 180px;
     padding: 16px;
     background: white;
@@ -92,9 +94,9 @@
 }
 
 .hintConfirmText {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    color: #4b5563;
+    color: var(--color-gray-700);
     text-align: center;
 }
 
@@ -105,16 +107,15 @@
 }
 
 .hintAnswer {
-    padding: 0 16px;
-    max-height: 0;
-    overflow: hidden;
+    display: none;
+    padding: 16px;
+    background: white;
+    position: relative;
+    border-top: 1px solid var(--color-gray-200);
 }
 
 .hintItem.expanded .hintAnswer {
-    max-height: none;
-    padding: 0 16px 16px 16px;
-    background: white;
-    position: relative;
+    display: block;
 }
 
 .hintItem.confirming .hintAnswerContent {
@@ -126,6 +127,10 @@
     font-size: 15px;
     line-height: 1.6;
     margin-bottom: 10px;
+}
+
+.hintAnswerContent > :last-child {
+    margin-bottom: 0;
 }
 
 .hintAnswerContent :not(pre) > code {

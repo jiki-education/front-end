@@ -11,6 +11,8 @@ export {
   showSubscriptionSuccess,
   showSubscriptionCheckout,
   showPaymentProcessing,
+  showPaymentConfirming,
+  showPaymentVerificationFailed,
   showWelcomeToPremium,
   useModalStore
 } from "./store";

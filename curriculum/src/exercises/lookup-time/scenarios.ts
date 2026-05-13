@@ -25,7 +25,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "amsterdam",
     name: "Amsterdam",
-    description: "Return the time in Amsterdam",
+    description: "Return the time in Amsterdam.",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Amsterdam"],
@@ -34,7 +34,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "tokyo",
     name: "Tokyo",
-    description: "Return the time in Tokyo",
+    description: "Return the time in Tokyo.",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Tokyo"],
@@ -43,7 +43,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "lima",
     name: "Lima",
-    description: "Return the time in Lima",
+    description: "Return the time in Lima.",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Lima"],
@@ -52,7 +52,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "error",
     name: "Handle Error",
-    description: "Handle an error correctly when the city is not found",
+    description: "Handle an error correctly when the city is not found.",
     taskId: "handle-errors",
     functionName: "get_time",
     args: ["London"],

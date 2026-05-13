@@ -6,8 +6,6 @@ export default class GolfRollingBallLoopExercise extends GolfExercise {
     return metadata.slug;
   }
 
-  protected moveDuration = 15;
-
   public availableFunctions = [
     {
       name: "roll",

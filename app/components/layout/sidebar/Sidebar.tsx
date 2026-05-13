@@ -1,15 +1,19 @@
 "use client";
 
-import FolderIcon from "@static/icons/folder.svg";
-import HouseIcon from "@static/icons/house.svg";
-import MedalIcon from "@static/icons/medal.svg";
-import ProjectsIcon from "@static/icons/projects.svg";
-import SettingsIcon from "@static/icons/settings.svg";
+import Image from "next/image";
+import FolderIcon from "@/icons/folder.svg";
+import BrainLightningIcon from "@/icons/brain-lightning.svg";
+import LearningComputerIcon from "@/icons/learning-computer.svg";
+import MedalIcon from "@/icons/medal.svg";
+import ProjectsIcon from "@/icons/projects.svg";
+import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showModal } from "@/lib/modal";
 import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import { tierIncludes } from "@/lib/pricing";
+import rocket from "@/components/landing-page/rocketLaunch.module.css";
+import { useRocketLaunch } from "@/components/landing-page/hooks/useRocketLaunch";
 import { Logo } from "./Logo";
 import { NavigationItem } from "./NavigationItem";
 import { MoreMenu } from "./MoreMenu";
@@ -25,9 +29,10 @@ const navigationItems: Array<{
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
-  { id: "learn", label: "Learn", href: "/dashboard", icon: HouseIcon },
+  { id: "learn", label: "Coding Fundamentals", href: "/dashboard", icon: BrainLightningIcon },
+  { id: "build", label: "Build with Jeremy", href: "/build", icon: LearningComputerIcon },
   { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
-  { id: "concepts", label: "Concepts", href: "/concepts", icon: FolderIcon },
+  { id: "concepts", label: "Concept Library", href: "/concepts", icon: FolderIcon },
   { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
   { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
 ];
@@ -35,6 +40,16 @@ const navigationItems: Array<{
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
+  const { launching, handleClick } = useRocketLaunch(
+    () =>
+      showModal(
+        "premium-upgrade-modal",
+        {},
+        premiumModalStyles.premiumModalOverlay,
+        premiumModalStyles.premiumModalWidth
+      ),
+    { resetAfterLaunch: true }
+  );
 
   return (
     <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">
@@ -58,21 +73,19 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       </nav>
 
       {!isPremium && (
-        <button
-          className="nav-upsell"
-          onClick={() =>
-            showModal(
-              "premium-upgrade-modal",
-              {},
-              premiumModalStyles.premiumModalOverlay,
-              premiumModalStyles.premiumModalWidth
-            )
-          }
-          type="button"
-        >
+        <button className={`nav-upsell ${rocket.bounceOnHover}`} onClick={handleClick} type="button">
           <p>
             You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to
-            accelerate your learning&nbsp;<span className="arrow">&rarr;</span>
+            accelerate your learning&nbsp;
+            <span className={`inline-block align-middle ${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
+              <Image
+                src="/static/images/landing-page/rocket.svg"
+                alt=""
+                width={16}
+                height={16}
+                className={rocket.rocket}
+              />
+            </span>
           </p>
         </button>
       )}

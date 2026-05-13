@@ -2,9 +2,13 @@
   "slug": "maze-solve-basic",
   "levelId": "using-functions",
   "hints": [
-    { "question": "Hint", "answer": "The character starts in the top-left corner facing down" },
-    { "question": "Hint", "answer": "Plan your path to avoid blocked (red striped) cells" },
-    { "question": "Hint", "answer": "You need to reach the bottom-right corner with the green target" },
-    { "question": "Hint", "answer": "Use turnLeft() or turnRight() to change direction before moving" }
+    {
+      "question": "What am I moving where?",
+      "answer": "You're moving the little blob, which starts at the top-left, to the green circle at the bottom right, avoiding any red striped cells."
+    },
+    {
+      "question": "When I turn left, the blob turns right!",
+      "answer": "The blob turns relative to the position its facing. So if you are facing right, and turn left, the blob will change to face up."
+    }
   ]
 }

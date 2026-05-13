@@ -3,12 +3,15 @@ title: "Golf: Shot Checker"
 description: "Work out whether a golf shot landed close enough to sink."
 ---
 
-You're on the golf course and the golfer has hit the ball. Your job is to roll the ball and check if it lands in the hole!
+Welcome back to the golf course. So far you've only been rolling the ball horizontally. When it got to the hole, it just sat above it. Now we're going to actually animate it down into the hole.
 
-You have three functions:
+The first change is that the `rollTo` function now has inputs for `x` and `y`. Just like before you need to roll it one step at a time, not just jump it to the end. But this time, if the golfer gets the ball in the hole, you need to animate that final part too, moving the ball down into the hole after it's reached the right spot.
 
-- `rollTo(x, y)` rolls the ball to position (x, y)
-- `getShotLength()` returns how far the golfer hit the ball
-- `fireFireworks()` celebrates the shot
+Then finally, **if the ball landed in the hole**, once it's rolled to the bottom, it's time to celebrate, so shoot of some fireworks using the `fireFireworks()` function.
 
-The ball starts at x=29, y=75. Get the shot length, then roll the ball right one step at a time (shotLength + 1 steps). If the shot length is between 56 and 65 (inclusive), the ball is over the hole — roll it down 9 units to sink it. Then fire the fireworks!
+Two things to know:
+
+1. A successful shot means the shot's length is `58`, `59`, `60`, `61`, or `62`.
+2. You need to roll the ball down 9 units.
+
+On this exercise, try and think through each step carefully and take things one step at a time. Good luck!

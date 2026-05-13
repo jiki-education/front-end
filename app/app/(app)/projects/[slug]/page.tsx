@@ -132,6 +132,7 @@ export default function ProjectPage({ params }: PageProps) {
       context={{ type: "project", slug: project.slug }}
       levelId={userCourse?.current_level_slug ?? undefined}
       isCompleted={project.status === "completed"}
+      onReady={() => {}}
     />
   );
 }

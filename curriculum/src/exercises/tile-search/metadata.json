@@ -3,20 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Loop through each element in the haystack one by one"
+      "question": "How would I do this by hand?",
+      "answer": "You'd go through the haystack one element at a time, comparing each to the needle. As soon as you found a match you'd stop. If you got to the end without a match, the needle isn't there."
     },
     {
-      "question": "Hint",
-      "answer": "Compare each element to the needle"
+      "question": "How do I loop and compare?",
+      "answer": "A for-each loop gives you each element in turn. Inside, an if-statement compares the current element to the needle."
     },
     {
-      "question": "Hint",
-      "answer": "If you find a match, you can return true immediately"
+      "question": "When should I return true?",
+      "answer": "As soon as you find a match. There's no point checking the remaining elements."
     },
     {
-      "question": "Hint",
-      "answer": "Think carefully about when to return false - only after checking every element"
+      "question": "When should I return false?",
+      "answer": "ONLY after the loop has finished without finding a match. A common mistake is putting `return false` inside the loop. That gives up after the very first non-matching element, before you've checked the rest."
     }
   ]
 }
