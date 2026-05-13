@@ -18,12 +18,11 @@ describe("Level Registry", () => {
         "make-your-own-functions",
         "string-manipulation",
         "string-iteration",
+        "multiple-functions",
         "methods-and-properties",
-        "advanced-lists",
+        "advanced-loops",
         "lists",
         "dictionaries",
-        "multiple-functions",
-        "objects",
         "everything"
       ]);
     });
@@ -75,7 +74,7 @@ describe("Level Registry", () => {
       expect(ids).toContain("using-functions");
       expect(ids).toContain("variables");
       expect(ids).toContain("everything");
-      expect(ids.length).toBe(19);
+      expect(ids.length).toBe(18);
     });
 
     it("should return IDs in definition order", () => {

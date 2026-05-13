@@ -10,12 +10,11 @@ import { conditionalsAndState } from "./conditionals-and-state";
 import { makeYourOwnFunctions } from "./make-your-own-functions";
 import { stringManipulation } from "./string-manipulation";
 import { stringIteration } from "./string-iteration";
+import { multipleFunctions } from "./multiple-functions";
 import { methodsAndProperties } from "./methods-and-properties";
-import { advancedLists } from "./advanced-lists";
+import { advancedLoops } from "./advanced-loops";
 import { lists } from "./lists";
 import { dictionaries } from "./dictionaries";
-import { multipleFunctions } from "./multiple-functions";
-import { objects } from "./objects";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags, JavaScriptFeatureFlags, PythonFeatureFlags, JikiScriptFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -37,12 +36,11 @@ export const levels = [
   makeYourOwnFunctions,
   stringManipulation,
   stringIteration,
+  multipleFunctions,
   methodsAndProperties,
-  advancedLists,
+  advancedLoops,
   lists,
   dictionaries,
-  multipleFunctions,
-  objects,
   everythingLevel
 ] as const;
 

@@ -1,6 +1,6 @@
 {
   "slug": "isbn-verifier",
-  "levelId": "advanced-lists",
+  "levelId": "advanced-loops",
   "hints": [
     {
       "question": "How does an ISBN-10 actually get checked?",
