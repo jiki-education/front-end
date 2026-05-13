@@ -1,4 +1,5 @@
 import { VisualExercise } from "../../VisualExercise";
+import "./exercise.css";
 import { aToR, rToA } from "./utils";
 import * as Shapes from "./shapes";
 import type { ExecutionContext, InterpretResult } from "@jiki/interpreters";

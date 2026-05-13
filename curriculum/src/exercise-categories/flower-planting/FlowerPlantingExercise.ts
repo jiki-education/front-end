@@ -1,5 +1,6 @@
 import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import "./exercise.css";
 
 export default abstract class FlowerPlantingExercise extends VisualExercise {
   abstract availableFunctions: ExternalFunction[];

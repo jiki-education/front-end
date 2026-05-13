@@ -1,16 +1,10 @@
 /**
  * Exercise-specific styles
  *
- * This file imports all exercise-specific CSS files.
- * Each exercise has its own CSS file in the exercises/ directory.
+ * Each exercise category now ships its own CSS from the curriculum
+ * package — see curriculum/src/exercise-categories/<category>/exercise.css,
+ * imported by the category's base class or the exercise's index.ts.
+ *
+ * This file is intentionally left empty pending removal of the
+ * @import in globals.css.
  */
-
-@import "./exercises/draw.css";
-@import "./exercises/maze.css";
-@import "./exercises/breakout.css";
-@import "./exercises/digital-clock.css";
-@import "./exercises/rock-paper-scissors.css";
-@import "./exercises/space-invaders.css";
-@import "./exercises/tic-tac-toe.css";
-@import "./exercises/weather.css";
-@import "./exercises/plant-the-flowers.css";
