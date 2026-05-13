@@ -23,7 +23,7 @@ export const llmMetadata: LLMMetadata = {
         2. Iterate through each character of the sentence
         3. On spaces: push the current word (if non-empty) to the list and reset the word
         4. On periods: skip them entirely
-        5. On other characters: concatenate them onto the current word
+        5. On other characters: append them onto the current word using the \`+\` operator
         6. After the loop: push the final word if non-empty
 
         Common mistakes:
@@ -32,7 +32,7 @@ export const llmMetadata: LLMMetadata = {
         - Including periods as part of words
         - Using push() without reassigning (push returns a new list)
 
-        Key stdlib functions: push() to add words to the list, concatenate() to build words character by character.
+        Key stdlib function: push() to add words to the list. Build words character by character using concatenation (the \`+\` operator).
       `
     }
   }

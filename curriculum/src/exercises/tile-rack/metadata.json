@@ -12,7 +12,7 @@
     },
     {
       "question": "What do I do when I find the letter?",
-      "answer": "Build the success message. Convert the position number to a string, then `concatenate()` it with the surrounding text the exercise asks for. Return immediately. There's no need to keep looking."
+      "answer": "Build the success message. Convert the position number to a string, then combine it with the surrounding text the exercise asks for using concatenation (`+`) or a template string. Return immediately. There's no need to keep looking."
     },
     {
       "question": "Why is my position always wrong?",

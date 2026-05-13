@@ -5,13 +5,6 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "concatenate",
-    signature: "concatenate(a, b, ...)",
-    description: "Combine two or more strings together (provided by level stdlib)",
-    examples: ['concatenate("Move to ", "5") returns "Move to 5"'],
-    category: "String Operations"
-  },
-  {
     name: "numberToString",
     signature: "numberToString(number)",
     description: "Convert a number to its string representation (provided by level stdlib)",

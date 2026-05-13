@@ -20,7 +20,7 @@
     },
     {
       "question": "How do I build the final string?",
-      "answer": "Use `concatenate()` to glue the response data together with any surrounding text into the format the exercise wants."
+      "answer": "Use concatenation (`+`) or a template string to combine the response data with the surrounding text into the format the exercise wants."
     }
   ]
 }

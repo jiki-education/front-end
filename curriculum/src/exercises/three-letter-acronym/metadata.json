@@ -8,7 +8,7 @@
     },
     {
       "question": "How do I build the three-letter result?",
-      "answer": "Take the first character of each word and `concatenate()` them together in order."
+      "answer": "Take the first character of each word and join them together in order using concatenation (`+`) or a template string."
     }
   ]
 }

@@ -53,7 +53,7 @@ export const llmMetadata: LLMMetadata = {
         - Emphasize that return exits the function immediately
 
         Language-specific notes:
-        - JavaScript: String() or numberToString() and + operator or concatenate() for concatenation
+        - JavaScript: String() or numberToString() and the + operator (or a template string) for concatenation
         - Python: str() and + operator for concatenation
       `
     }
