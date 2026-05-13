@@ -219,6 +219,7 @@ export default class WordleExercise extends VisualExercise {
 
   constructor() {
     super();
+    this.view.classList.add("exercise-wordle");
     this.populateView();
   }
 
