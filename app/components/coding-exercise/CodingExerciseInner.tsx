@@ -15,7 +15,7 @@ export default function CodingExerciseInner() {
     useResizablePanels();
 
   const orchestrator = useOrchestratorContext();
-  const { exerciseTitle } = useOrchestratorStore(orchestrator);
+  const { exerciseTitle, isSpotlightActive } = useOrchestratorStore(orchestrator);
 
   // Update document title when exerciseTitle loads
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function CodingExerciseInner() {
 
   return (
     <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">
-      <div ref={containerRef} className={`${styles.exerciseContainer}`}>
+      <div ref={containerRef} className={`${styles.exerciseContainer}`} inert={isSpotlightActive}>
         {/* LHS */}
         <div className={styles.codeEditor}>
           <CodeEditor />
