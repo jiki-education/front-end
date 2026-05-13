@@ -117,5 +117,9 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
     );
   }
 
+  if (currentTest?.status === "fail" && firstExpect.pass) {
+    return <VisualTestResultView isPassing={false} errorHtml="Uh Oh. Your code has an error in it." />;
+  }
+
   return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} />;
 }
