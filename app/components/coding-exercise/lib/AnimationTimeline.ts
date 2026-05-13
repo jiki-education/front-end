@@ -9,14 +9,6 @@ import {
   type TimelinePosition
 } from "animejs";
 
-export type Animation =
-  | (AnimationParams & { targets?: TargetsParam })
-  | {
-      targets: TargetsParam;
-      offset?: TimelinePosition;
-      transformations: Partial<AnimationParams>;
-    };
-
 export class AnimationTimeline {
   private animationTimeline: Timeline;
   private updateCallbacks: ((anim: Timeline) => void)[] = [];

@@ -155,17 +155,3 @@ class SettingsApi {
 
 // Export singleton instance
 export const settingsApi = new SettingsApi();
-
-// Export convenience functions
-export const {
-  getSettings,
-  updateSetting,
-  updateName,
-  updateEmail,
-  updatePassword,
-  updateLocale,
-  updateHandle,
-  updateNotification,
-  updateNotifications,
-  updateStreaks
-} = settingsApi;

@@ -21,11 +21,6 @@ export interface SettingsResponse {
   settings: UserSettings;
 }
 
-export interface SettingsUpdateRequest {
-  value: string | boolean;
-  sudo_password?: string;
-}
-
 export interface SettingsError {
   error: {
     type: "validation_error" | "invalid_password" | "not_found";
@@ -35,13 +30,6 @@ export interface SettingsError {
 }
 
 export type NotificationSlug = "newsletters" | "event_emails" | "milestone_emails" | "activity_emails";
-
-export const NOTIFICATION_FIELD_MAP: Record<NotificationSlug, keyof UserSettings> = {
-  newsletters: "receive_newsletters",
-  event_emails: "receive_event_emails",
-  milestone_emails: "receive_milestone_emails",
-  activity_emails: "receive_activity_emails"
-};
 
 export type SettingField = "name" | "email" | "password" | "locale" | "handle";
 

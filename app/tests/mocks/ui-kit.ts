@@ -52,16 +52,6 @@ export function createMockFormFieldProps(overrides: Record<string, unknown> = {}
   };
 }
 
-// Helper to create page header test data
-export function createMockPageHeaderProps(overrides: Record<string, unknown> = {}) {
-  return {
-    title: "Test Page",
-    description: "Test description",
-    icon: React.createElement(MockProjectsIcon, {} as any),
-    ...overrides
-  };
-}
-
 // Mock handlers for testing
 export function createMockHandlers() {
   return {

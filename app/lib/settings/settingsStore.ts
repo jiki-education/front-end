@@ -204,15 +204,3 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     set({ settings: null, loading: false, error: null });
   }
 }));
-
-// Helper hook for checking if settings are loaded
-export const useSettingsLoaded = () => {
-  const { settings, loading, fetchSettings } = useSettingsStore();
-
-  // Fetch on mount if not loaded
-  if (!settings && !loading) {
-    void fetchSettings();
-  }
-
-  return { settings, loading };
-};

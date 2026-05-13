@@ -15,22 +15,6 @@ interface ContentMetaServer {
 const meta = contentMeta as ContentMetaServer;
 
 /**
- * Get all post slugs with their available locales
- * Optionally filtered by supported locales
- */
-export function getAllPostSlugsWithLocales(
-  type: "blog" | "articles",
-  supportedLocales?: readonly string[]
-): Array<{ slug: string; locale: string }> {
-  const all = meta.slugsWithLocales[type] || [];
-
-  if (supportedLocales) {
-    return all.filter((entry) => supportedLocales.includes(entry.locale));
-  }
-  return all;
-}
-
-/**
  * Get all available locales for a content type
  * Optionally filtered by supported locales
  */

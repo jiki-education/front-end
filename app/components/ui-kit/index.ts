@@ -9,17 +9,15 @@
  */
 
 // Component exports
-export { Button, ButtonGroup, useButtonGroup, ButtonWithRenderProps } from "./Button";
+export { Button, ButtonGroup, ButtonWithRenderProps } from "./Button";
 export { CloseButton } from "./CloseButton";
-export { FormField, FormFieldGroup, useFormFieldGroup, FormFieldWithRenderProps } from "./FormField";
-export { PageHeader } from "./PageHeader";
-export { PageTabs, TabContainer, useTabContainer, TabPanel, PageTabsWithRenderProps } from "./PageTabs";
+export { FormField, FormFieldGroup, FormFieldWithRenderProps } from "./FormField";
+export { PageTabs, TabContainer, useTabContainer, TabPanel } from "./PageTabs";
 export { Link } from "./Link";
 
 // Type exports
 export type { ButtonProps } from "./Button/types";
 export type { FormFieldProps } from "./FormField/types";
-export type { PageHeaderProps } from "./PageHeader/types";
 export type { PageTabsProps, TabItem } from "./PageTabs/types";
 export type { LinkProps } from "./Link/types";
 
@@ -30,17 +28,12 @@ export type {
   DisableableProps,
   LoadingProps,
   IconProps,
-  ColorVariantProps,
   FullWidthProps,
-  ClickHandler,
-  ChangeHandler,
-  FocusHandler,
   ColorVariant,
-  UIColor,
   BlueColor,
   PurpleColor,
   GreenColor,
   GrayColor
 } from "./types";
 
-export { ANIMATION_DURATION, TRANSITION_CLASSES } from "./types";
+export { TRANSITION_CLASSES } from "./types";

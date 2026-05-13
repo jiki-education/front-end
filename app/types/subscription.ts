@@ -20,22 +20,12 @@ export interface SubscriptionDetails {
   subscription_valid_until: string; // ISO 8601 date string
 }
 
-export interface CheckoutSessionRequest {
-  interval: BillingInterval;
-  return_url?: string;
-  customer_email?: string;
-}
-
 export interface CheckoutSessionResponse {
   client_secret: string;
 }
 
 export interface PortalSessionResponse {
   url: string;
-}
-
-export interface UpdateSubscriptionRequest {
-  interval: BillingInterval;
 }
 
 export interface UpdateSubscriptionResponse {

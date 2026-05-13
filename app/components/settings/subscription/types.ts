@@ -48,91 +48,9 @@ export interface SubscriptionStateProps {
   isLoading?: boolean;
 }
 
-// State-specific prop interfaces
-export interface NeverSubscribedProps extends SubscriptionStateProps {
-  onUpgradeToPremium: SubscriptionActions["onUpgradeToPremium"];
-}
-
-export interface ActiveSubscriptionProps extends SubscriptionStateProps {
-  nextBillingDate?: string;
-  onUpdatePayment: SubscriptionActions["onUpdatePayment"];
-  onCancel: SubscriptionActions["onCancel"];
-}
-
-export type ActivePremiumProps = ActiveSubscriptionProps;
-
-export interface CancellingScheduledProps extends SubscriptionStateProps {
-  cancellationDate: string;
-  tier: Exclude<MembershipTier, "standard">;
-  onReactivate: SubscriptionActions["onReactivate"];
-  onUpdatePayment: SubscriptionActions["onUpdatePayment"];
-}
-
-export interface PaymentFailedGraceProps extends SubscriptionStateProps {
-  tier: Exclude<MembershipTier, "standard">;
-  graceEndDate: string;
-  lastPaymentAttempt?: string;
-  onUpdatePayment: SubscriptionActions["onUpdatePayment"];
-  onRetryPayment: SubscriptionActions["onRetryPayment"];
-}
-
-export interface PaymentFailedExpiredProps extends SubscriptionStateProps {
-  previousTier: Exclude<MembershipTier, "standard">;
-  onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
-}
-
-export interface PreviouslySubscribedProps extends SubscriptionStateProps {
-  previousTier: Exclude<MembershipTier, "standard">;
-  lastActiveDate?: string;
-  onResubscribeToPremium: SubscriptionActions["onResubscribeToPremium"];
-}
-
-export interface IncompletePaymentProps extends SubscriptionStateProps {
-  tier: Exclude<MembershipTier, "standard">;
-  onCompletePayment: SubscriptionActions["onCompletePayment"];
-}
-
-export interface IncompleteExpiredProps extends SubscriptionStateProps {
-  onTryPremiumAgain: SubscriptionActions["onTryPremiumAgain"];
-}
-
 // Error handling types
 export interface SubscriptionError {
   code: string;
   message: string;
   recoverable: boolean;
 }
-
-// API response types
-export interface SubscriptionApiResponse {
-  state: SubscriptionState;
-  data: SubscriptionData;
-  error?: SubscriptionError;
-}
-
-// Plan information types
-export interface PlanInfo {
-  id: string;
-  name: string;
-  price: string;
-  priceAmount: number;
-  currency: string;
-  interval: "month" | "year";
-  features: string[];
-}
-
-export interface PlansConfig {
-  premium: PlanInfo;
-}
-
-export const PLANS: PlansConfig = {
-  premium: {
-    id: "premium",
-    name: "Premium",
-    price: "$3.99",
-    priceAmount: 3.99,
-    currency: "USD",
-    interval: "month",
-    features: ["Unlimited AI help", "Access to all exercises", "Certificates", "Ad-free experience"]
-  }
-} as const;

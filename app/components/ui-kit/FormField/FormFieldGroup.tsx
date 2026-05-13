@@ -32,11 +32,6 @@ export function FormFieldGroup({ children, className, spacing = "md" }: FormFiel
   );
 }
 
-// Hook to access the group context
-export function useFormFieldGroup() {
-  return React.useContext(FormFieldGroupContext);
-}
-
 // Compound components
 FormFieldGroup.Field = function FormFieldGroupField({ children }: { children: ReactNode }) {
   return <div className="w-full">{children}</div>;

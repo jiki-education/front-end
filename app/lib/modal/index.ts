@@ -9,7 +9,6 @@ export {
   showModal,
   showSubscriptionModal,
   showSubscriptionSuccess,
-  showSubscriptionCheckout,
   showPaymentProcessing,
   showPaymentConfirming,
   showPaymentVerificationFailed,

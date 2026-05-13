@@ -25,7 +25,7 @@ export type { BuildSeriesWithEpisodes } from "./getBuildSeries";
 export { getBuildEpisode } from "./getBuildEpisode";
 
 // Utilities
-export { getAllPostSlugsWithLocales, getAvailableLocales } from "./loader";
+export { getAvailableLocales } from "./loader";
 
 // Types
 export type {

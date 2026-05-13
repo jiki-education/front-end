@@ -41,11 +41,6 @@ async function fetchExerciseIndex(locale: string = "en"): Promise<ExerciseMetaEn
   return cachedPromise;
 }
 
-export async function getExerciseMeta(slug: string, locale: string = "en"): Promise<ExerciseMetaEntry | null> {
-  const index = await fetchExerciseIndex(locale);
-  return index.find((e) => e.slug === slug) ?? null;
-}
-
 export async function getExerciseMetaBySlugs(slugs: string[], locale: string = "en"): Promise<ExerciseMetaEntry[]> {
   const index = await fetchExerciseIndex(locale);
   const slugSet = new Set(slugs);

@@ -1,12 +1,10 @@
-import type { EditorView } from "@codemirror/view";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import { readonlyCompartment } from "./setup/editorCompartments";
 import styles from "../../CodingExercise.module.css";
 
 export { readonlyCompartment };
-export type ViewRef = React.MutableRefObject<EditorView | null>;
 
 export function CodeMirror() {
   const orchestrator = useOrchestrator();
