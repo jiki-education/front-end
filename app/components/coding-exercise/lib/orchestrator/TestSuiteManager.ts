@@ -152,6 +152,15 @@ export class TestSuiteManager {
       // Check if it's a SyntaxError (has location property)
       if (error && typeof error === "object" && "location" in error) {
         this.handleSyntaxError(error as SyntaxError);
+      } else {
+        if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
+          throw error;
+        }
+        const state = this.store.getState();
+        state.setHasUnhandledError(true);
+        state.setUnhandledErrorBase64(
+          btoa(JSON.stringify({ error: String(error), code, type: "Error firing runCode" }))
+        );
       }
       this.store.getState().setStatus("error");
     }

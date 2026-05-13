@@ -176,19 +176,17 @@ describe("TaskManager and TestSuiteManager Integration", () => {
       expect(task1Progress?.passedScenarios).toEqual([]);
     });
 
-    it("should handle syntax errors without crashing task progress", async () => {
+    it("should handle non-syntax errors without crashing task progress", async () => {
       const exercise = createMockExercise();
       taskManager.initializeTaskProgress(exercise);
 
-      // Mock a syntax error
+      // Mock a generic (non-syntax) error
       mockRunTests.mockImplementation(() => {
-        throw new Error("Syntax error in code");
+        throw new Error("Some other error");
       });
 
-      await testSuiteManager.runCode("invalid code", exercise);
-
-      // Verify error handling
-      expect(mockStore.getState().setStatus).toHaveBeenCalledWith("error");
+      // Non-syntax errors are re-thrown in dev/test so they surface in the Next.js overlay.
+      await expect(testSuiteManager.runCode("invalid code", exercise)).rejects.toThrow("Some other error");
 
       // Task progress should remain in initialized state
       const initializeCalls = (mockStore.getState().setTaskProgress as jest.Mock).mock.calls;

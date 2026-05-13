@@ -1,0 +1,27 @@
+.wrapper {
+    min-width: 0;
+}
+
+.icon {
+    margin: 0 auto 20px;
+}
+
+.headingStrong {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-style: double;
+}
+
+.body {
+    max-width: 500px;
+}
+
+.bodyStrong {
+    font-weight: 500;
+    color: var(--color-gray-600);
+}
+
+.copyButton {
+    max-width: 500px;
+    margin: 16px auto 0;
+}
