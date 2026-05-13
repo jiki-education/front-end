@@ -18,6 +18,7 @@
         gap: 1%;
         grid-template-columns: repeat(5, 1fr);
         container-type: size;
+        line-height: 1;
     }
 
     .letter {

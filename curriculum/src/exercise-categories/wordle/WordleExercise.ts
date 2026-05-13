@@ -230,13 +230,9 @@ export default class WordleExercise extends VisualExercise {
   }
 
   protected populateView() {
-    const container = document.createElement("div");
-    container.classList.add("container");
-    this.view.appendChild(container);
-
     const board = document.createElement("div");
     board.classList.add("board");
-    container.appendChild(board);
+    this.view.appendChild(board);
 
     for (let row = 0; row < NUM_ROWS; row++) {
       const rowEl = document.createElement("div");
