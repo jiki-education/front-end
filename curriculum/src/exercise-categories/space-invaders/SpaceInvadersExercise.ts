@@ -1,4 +1,5 @@
 import { VisualExercise } from "../../VisualExercise";
+import "./exercise.css";
 import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
 
 type GameStatus = "running" | "won" | "lost";

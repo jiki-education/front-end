@@ -1,0 +1,56 @@
+@font-face {
+    font-display: fallback;
+    font-family: DSDigital;
+    font-weight: 400;
+    src: url("/static/fonts/ds-digi.woff2") format("woff2");
+}
+
+.c-coding-exercise {
+    .exercise-digital-clock {
+        background-image: url("/static/images/exercise-assets/digital-clock/background.png");
+        background-size: cover;
+        position: relative;
+        container-type: size;
+
+        .time,
+        .meridiem {
+            font-family: "DSDigital";
+            color: #ec1d26;
+            position: absolute;
+            font-weight: bold;
+        }
+        .time {
+            top: 26.5%;
+            left: 14%;
+            text-align: center;
+            font-size: 26cqw;
+            letter-spacing: 1cqw;
+            display: grid;
+            grid-template-columns: 3fr 1fr 3fr;
+
+            .hour,
+            .minute {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .h1,
+            .h2,
+            .m1,
+            .m2 {
+                text-align: right;
+            }
+        }
+        .meridiem {
+            font-size: 8cqw;
+            letter-spacing: 1cqw;
+            right: 10%;
+            &.am {
+                top: 36%;
+            }
+            &.pm {
+                top: 46%;
+            }
+        }
+    }
+}

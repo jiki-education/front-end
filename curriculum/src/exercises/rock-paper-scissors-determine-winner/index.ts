@@ -1,3 +1,4 @@
+import "../../exercise-categories/rock-paper-scissors/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";

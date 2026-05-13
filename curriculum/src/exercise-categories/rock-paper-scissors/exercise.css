@@ -1,0 +1,79 @@
+.c-coding-exercise {
+    .exercise-rock-paper-scissors {
+        .container {
+            width: 100%;
+            height: 100%;
+            padding-top: 24%;
+            padding-left: 6%;
+            padding-right: 6%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10%;
+            container-type: size;
+        }
+        &.result-player_1 {
+            .player-1 {
+                border-color: var(--color-purple-600);
+            }
+        }
+        &.result-player_2 {
+            .player-2 {
+                border-color: var(--color-purple-600);
+            }
+        }
+        .player-1 {
+            &:after {
+                content: "Player 1";
+            }
+        }
+
+        .player-2 {
+            &:before {
+                transform: rotateY(180deg);
+            }
+            &:after {
+                content: "Player 2";
+            }
+        }
+        .player-1,
+        .player-2 {
+            aspect-ratio: 1;
+            position: relative;
+            font-weight: 600;
+            font-size: 7cqw;
+            border: 3px solid var(--color-gray-200);
+            border-radius: 8px;
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 80%;
+            }
+
+            &:after {
+                position: absolute;
+                bottom: -30%;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+            &.rock {
+                &:before {
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/rock.png");
+                }
+            }
+            &.paper {
+                &:before {
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/paper.png");
+                }
+            }
+            &.scissors {
+                &:before {
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/scissors.png");
+                }
+            }
+        }
+    }
+}
