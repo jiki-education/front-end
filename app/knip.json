@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "ignore": ["tests/**/*", ".next/**/*"],
+  "ignore": ["tests/**/*", ".next/**/*", "app/dev/**/*", "app/test/**/*"],
   "ignoreDependencies": [
     "@types/node",
     "eslint-config-next",
