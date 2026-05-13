@@ -41,6 +41,10 @@ import { translate } from "./translator";
 import type { LanguageFeatures, NodeType } from "./interfaces";
 import type { EvaluationContext } from "./interpreter";
 
+interface SkipOptions {
+  skipEOL?: boolean;
+}
+
 export class Parser {
   private readonly scanner: Scanner;
   private current: number = 0;
@@ -293,10 +297,7 @@ export class Parser {
     }
 
     while (!this.isAtEnd()) {
-      // Skip EOL tokens before checking for RIGHT_BRACE
-      while (this.check("EOL")) {
-        this.advance();
-      }
+      this.skipEOL();
 
       // Check if we've reached the closing brace
       if (this.check("RIGHT_BRACE")) {
@@ -353,7 +354,8 @@ export class Parser {
     const thenBranch = this.requireBlockStatement("if");
     let elseBranch: Statement | null = null;
 
-    if (this.match("ELSE")) {
+    // Allow Allman-style: `else` on the line after the closing brace.
+    if (this.match("ELSE", { skipEOL: true })) {
       // Allow "else if" without requiring braces directly after "else"
       if (this.check("IF")) {
         elseBranch = this.statement();
@@ -915,21 +917,41 @@ export class Parser {
     this.error("MissingExpression", this.peek().location);
   }
 
-  private match(...tokenTypes: TokenType[]): boolean {
-    for (const tokenType of tokenTypes) {
+  private match(...tokenTypes: TokenType[]): boolean;
+  private match(tokenType: TokenType, options: SkipOptions): boolean;
+  private match(...args: (TokenType | SkipOptions)[]): boolean {
+    const { types, options } = this.parseTokenArgs(args);
+    const savedPosition = this.current;
+    if (options.skipEOL) {
+      this.skipEOL();
+    }
+    for (const tokenType of types) {
       if (this.check(tokenType)) {
         this.advance();
         return true;
       }
     }
+    this.current = savedPosition;
     return false;
   }
 
-  private check(...tokenTypes: TokenType[]): boolean {
-    if (this.isAtEnd()) {
+  private check(...tokenTypes: TokenType[]): boolean;
+  private check(tokenType: TokenType, options: SkipOptions): boolean;
+  private check(...args: (TokenType | SkipOptions)[]): boolean {
+    const { types, options } = this.parseTokenArgs(args);
+    let lookaheadIndex = this.current;
+    if (options.skipEOL) {
+      while (lookaheadIndex < this.tokens.length && this.tokens[lookaheadIndex].type === "EOL") {
+        lookaheadIndex++;
+      }
+    }
+    if (lookaheadIndex >= this.tokens.length) {
       return false;
     }
-    return tokenTypes.includes(this.peek().type);
+    if (this.tokens[lookaheadIndex].type === "EOF") {
+      return false;
+    }
+    return types.includes(this.tokens[lookaheadIndex].type);
   }
 
   private advance(): Token {
@@ -939,19 +961,33 @@ export class Parser {
     return this.previous();
   }
 
-  private consume(tokenType: TokenType, errorType: SyntaxErrorType): Token {
+  private consume(tokenType: TokenType, errorType: SyntaxErrorType, options: SkipOptions = {}): Token {
+    if (options.skipEOL) {
+      this.skipEOL();
+    }
     if (this.check(tokenType)) {
       return this.advance();
     }
     this.error(errorType, this.peek().location);
   }
 
+  private skipEOL(): void {
+    while (!this.isAtEnd() && this.peek().type === "EOL") {
+      this.current++;
+    }
+  }
+
+  private parseTokenArgs(args: (TokenType | SkipOptions)[]): { types: TokenType[]; options: SkipOptions } {
+    const last = args[args.length - 1];
+    if (typeof last === "object") {
+      return { types: args.slice(0, -1) as TokenType[], options: last };
+    }
+    return { types: args as TokenType[], options: {} };
+  }
+
   private requireBlockStatement(keyword: string): Statement {
     if (this.languageFeatures.enforceFormatting) {
-      // Skip EOL tokens that might be between the ) and {
-      while (this.check("EOL")) {
-        this.advance();
-      }
+      this.skipEOL();
       if (!this.check("LEFT_BRACE")) {
         this.error("BlockRequired", this.peek().location, { keyword });
       }
@@ -1132,10 +1168,7 @@ export class Parser {
 
     const elements: Expression[] = [];
 
-    // Skip EOL tokens after opening bracket
-    while (this.check("EOL")) {
-      this.advance();
-    }
+    this.skipEOL();
 
     // Handle empty array
     if (this.check("RIGHT_BRACKET")) {
@@ -1150,10 +1183,7 @@ export class Parser {
 
     // Parse array elements
     do {
-      // Skip EOL tokens before element
-      while (this.check("EOL")) {
-        this.advance();
-      }
+      this.skipEOL();
 
       // Check for trailing comma before closing bracket
       if (this.check("RIGHT_BRACKET")) {
@@ -1163,12 +1193,7 @@ export class Parser {
       elements.push(this.assignment());
     } while (this.match("COMMA"));
 
-    // Skip EOL tokens before closing bracket
-    while (this.check("EOL")) {
-      this.advance();
-    }
-
-    this.consume("RIGHT_BRACKET", "MissingRightBracketInArray");
+    this.consume("RIGHT_BRACKET", "MissingRightBracketInArray", { skipEOL: true });
     const rightBracket = this.previous();
 
     return new ArrayExpression(elements, Location.between(leftBracket, rightBracket));
@@ -1182,10 +1207,7 @@ export class Parser {
 
     const elements = new Map<string, Expression>();
 
-    // Skip EOL tokens after opening brace
-    while (this.check("EOL")) {
-      this.advance();
-    }
+    this.skipEOL();
 
     // Handle empty object
     if (this.check("RIGHT_BRACE")) {
@@ -1200,10 +1222,7 @@ export class Parser {
 
     // Parse object properties
     do {
-      // Skip EOL tokens before property
-      while (this.check("EOL")) {
-        this.advance();
-      }
+      this.skipEOL();
 
       // Check for trailing comma before closing brace
       if (this.check("RIGHT_BRACE")) {
@@ -1233,12 +1252,7 @@ export class Parser {
       elements.set(key, value);
     } while (this.match("COMMA"));
 
-    // Skip EOL tokens before closing brace
-    while (this.check("EOL")) {
-      this.advance();
-    }
-
-    this.consume("RIGHT_BRACE", "MissingRightBraceInDictionary");
+    this.consume("RIGHT_BRACE", "MissingRightBraceInDictionary", { skipEOL: true });
     const rightBrace = this.previous();
 
     return new DictionaryExpression(elements, Location.between(leftBrace, rightBrace));
