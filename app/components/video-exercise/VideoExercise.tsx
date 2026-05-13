@@ -54,7 +54,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
               loop={false}
               muted={false}
               volume={0.5}
-              className={`${styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}
+              className={`${videoWatched ? styles.muxPlayerCompleted : styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}
               onTimeUpdate={handleTimeUpdate}
