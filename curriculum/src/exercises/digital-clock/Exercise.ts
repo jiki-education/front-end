@@ -11,6 +11,17 @@ export default class DigitalClockExercise extends VisualExercise {
   private currentMinute: number = 0;
   displayedTime: string | undefined = undefined;
 
+  private h1Elem!: HTMLDivElement;
+  private h2Elem!: HTMLDivElement;
+  private m1Elem!: HTMLDivElement;
+  private m2Elem!: HTMLDivElement;
+  private meridiem!: HTMLDivElement;
+
+  public constructor() {
+    super();
+    this.populateView();
+  }
+
   availableFunctions: ExternalFunction[] = [
     {
       name: "current_time_hour",
@@ -59,38 +70,15 @@ export default class DigitalClockExercise extends VisualExercise {
 
     const [h1, h2] = String(hour.value).padStart(2, "0").split("");
     const [m1, m2] = String(minutes.value).padStart(2, "0").split("");
-    const offset = executionCtx.getCurrentTimeInMs();
-    const digitModifier = (v: number) => String(Math.round(v));
 
-    const digitAnimations: Array<[string, string]> = [
-      [".h1", h1],
-      [".h2", h2],
-      [".m1", m1],
-      [".m2", m2]
-    ];
-
-    for (const [selector, digit] of digitAnimations) {
-      this.addAnimation({
-        targets: `#${this.view.id} ${selector}`,
-        offset,
-        duration: 0,
-        easing: "linear",
-        modifier: digitModifier,
-        transformations: {
-          innerHTML: Number(digit),
-          opacity: 1
-        }
-      });
-    }
+    this.h1Elem.innerText = h1;
+    this.h2Elem.innerText = h2;
+    this.m1Elem.innerText = m1;
+    this.m2Elem.innerText = m2;
 
     if (indicator.value === "am" || indicator.value === "pm") {
-      this.addAnimation({
-        targets: `#${this.view.id} .meridiem.${indicator.value}`,
-        offset,
-        duration: 0,
-        easing: "linear",
-        transformations: { opacity: 1 }
-      });
+      this.meridiem.innerText = indicator.value;
+      this.meridiem.classList.add(indicator.value);
     }
   }
 
@@ -106,10 +94,6 @@ export default class DigitalClockExercise extends VisualExercise {
   }
 
   protected populateView() {
-    this.view.style.position = "relative";
-    this.view.style.width = "100%";
-    this.view.style.height = "100%";
-
     const time = document.createElement("div");
     time.classList.add("time");
     this.view.appendChild(time);
@@ -118,15 +102,13 @@ export default class DigitalClockExercise extends VisualExercise {
     hour.classList.add("hour");
     time.appendChild(hour);
 
-    const h1 = document.createElement("div");
-    h1.classList.add("h1");
-    h1.style.opacity = "0";
-    hour.appendChild(h1);
+    this.h1Elem = document.createElement("div");
+    this.h1Elem.classList.add("h1");
+    hour.appendChild(this.h1Elem);
 
-    const h2 = document.createElement("div");
-    h2.classList.add("h2");
-    h2.style.opacity = "0";
-    hour.appendChild(h2);
+    this.h2Elem = document.createElement("div");
+    this.h2Elem.classList.add("h2");
+    hour.appendChild(this.h2Elem);
 
     const colon = document.createElement("div");
     colon.classList.add("colon");
@@ -137,26 +119,16 @@ export default class DigitalClockExercise extends VisualExercise {
     minute.classList.add("minute");
     time.appendChild(minute);
 
-    const m1 = document.createElement("div");
-    m1.classList.add("m1");
-    m1.style.opacity = "0";
-    minute.appendChild(m1);
+    this.m1Elem = document.createElement("div");
+    this.m1Elem.classList.add("m1");
+    minute.appendChild(this.m1Elem);
 
-    const m2 = document.createElement("div");
-    m2.classList.add("m2");
-    m2.style.opacity = "0";
-    minute.appendChild(m2);
+    this.m2Elem = document.createElement("div");
+    this.m2Elem.classList.add("m2");
+    minute.appendChild(this.m2Elem);
 
-    const am = document.createElement("div");
-    am.classList.add("meridiem", "am");
-    am.innerText = "am";
-    am.style.opacity = "0";
-    this.view.appendChild(am);
-
-    const pm = document.createElement("div");
-    pm.classList.add("meridiem", "pm");
-    pm.innerText = "pm";
-    pm.style.opacity = "0";
-    this.view.appendChild(pm);
+    this.meridiem = document.createElement("div");
+    this.meridiem.classList.add("meridiem");
+    this.view.appendChild(this.meridiem);
   }
 }
