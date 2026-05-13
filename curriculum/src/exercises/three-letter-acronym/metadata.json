@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "How do I get just the first character of a word?",
-      "answer": "Indexing into the string. The first character is at index `[1]` in this language."
+      "answer": "Indexing into the string. The first character is at index `[0]`."
     },
     {
       "question": "How do I build the three-letter result?",

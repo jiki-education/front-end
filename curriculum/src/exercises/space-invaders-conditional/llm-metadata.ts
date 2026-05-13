@@ -24,7 +24,7 @@ export const llmMetadata: LLMMetadata = {
         2. Use isAlienAbove() to detect whether to shoot
         3. Use an if statement to conditionally call shoot()
         4. Wrap the check-and-move pattern in a repeat(10) loop
-        5. The full solution: repeat 10 times { if (isAlienAbove()) { shoot() } move() }
+        5. The full solution: repeat(10) { if (isAlienAbove()) { shoot() } move() }
 
         Common mistakes:
         - Shooting without checking (hits empty columns and loses)
