@@ -29,11 +29,7 @@ export type {
   LoadingProps,
   IconProps,
   FullWidthProps,
-  ColorVariant,
-  BlueColor,
-  PurpleColor,
-  GreenColor,
-  GrayColor
+  ColorVariant
 } from "./types";
 
 export { TRANSITION_CLASSES } from "./types";
