@@ -7,8 +7,8 @@ export class RelationalSnowmanExercise extends DrawExercise {
   }
 
   public get availableFunctions() {
-    const { rectangle, circle } = this.getAllAvailableFunctions();
-    return [rectangle, circle];
+    const { circle } = this.getAllAvailableFunctions();
+    return [circle];
   }
 
   public setupBackground(imageUrl: string) {
