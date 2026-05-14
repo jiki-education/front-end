@@ -91,11 +91,6 @@
     object-fit: contain;
 }
 
-.statCardEmoji img {
-    filter: brightness(0) saturate(100%) invert(47%) sepia(72%) saturate(1846%) hue-rotate(201deg) brightness(99%)
-        contrast(95%);
-}
-
 /* Project Card Title */
 .statCardTitle {
     font-size: 15px;

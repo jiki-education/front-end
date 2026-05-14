@@ -66,6 +66,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
               href={item.href}
               icon={item.icon}
               showPremiumPill={item.showPremiumPill}
+              isUserPremium={Boolean(isPremium)}
             />
           ))}
           <MoreMenu isActive={activeItem === "more"} />

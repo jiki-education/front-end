@@ -81,6 +81,15 @@
         white-space: nowrap;
         opacity: 1;
         pointer-events: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .premium-pill-tick {
+        width: 10px;
+        height: 10px;
+        stroke-width: 3;
     }
 
     .nav-icon {
