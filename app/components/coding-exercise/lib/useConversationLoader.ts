@@ -36,7 +36,6 @@ export function useConversationLoader(context: ExerciseContext) {
   // Depend on the primitive type/slug rather than the context object, whose
   // identity changes every render and would otherwise re-trigger the effect.
   const { type, slug } = context;
-  const cacheKey = `${type}:${slug}`;
 
   const loadConversation = useCallback(
     async (forceReload = false) => {
@@ -44,6 +43,8 @@ export function useConversationLoader(context: ExerciseContext) {
         setState((prev) => ({ ...prev, isLoading: false }));
         return;
       }
+
+      const cacheKey = `${type}:${slug}`;
 
       // Check cache first unless forcing reload
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -107,7 +108,7 @@ export function useConversationLoader(context: ExerciseContext) {
         });
       }
     },
-    [type, slug, cacheKey]
+    [type, slug]
   );
 
   // Load conversation data on mount - async data fetching pattern

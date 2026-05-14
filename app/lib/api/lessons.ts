@@ -1,4 +1,4 @@
-import { api, ApiError } from "./client";
+import { api, NotFoundError } from "./client";
 import type { LessonWithData } from "@/types/lesson";
 import type { UserConversationData } from "./types/conversation";
 
@@ -81,7 +81,7 @@ export async function fetchLatestExerciseSubmission(lessonSlug: string): Promise
     );
     return response.data.submission;
   } catch (error) {
-    if (error instanceof ApiError && error.status === 404) {
+    if (error instanceof NotFoundError) {
       return null;
     }
     console.warn("Failed to fetch latest exercise submission:", error);
