@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
-import { showModal } from "@/lib/modal";
+import { showConfirmation, showModal } from "@/lib/modal";
 import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import styles from "./FreeUserCanStart.module.css";
 
@@ -13,7 +13,7 @@ interface FreeUserCanStartProps {
 // This is their first free conversation opportunity
 export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps) {
   const handleStartChat = () => {
-    showModal("confirmation-modal", {
+    showConfirmation({
       title: "Get Jiki's help",
       message:
         "You can only Talk to Jiki on one exercise with the Free plan. Are you sure you want to use it on this exercise?",
