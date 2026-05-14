@@ -62,7 +62,8 @@ async function tryModel(
   config: ModelConfig,
   prompt: string
 ): Promise<GeminiStream | "rate-limited"> {
-  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+  let attempt = 0;
+  while (true) {
     try {
       const result = await ai.models.generateContentStream({ model, contents: prompt, config });
       console.log(`[Gemini] Using model: ${model}`);
@@ -72,18 +73,17 @@ async function tryModel(
         console.log(`[Gemini] Rate limited on ${model}, trying next model`);
         return "rate-limited";
       }
-      if (isRetryableError(error) && attempt < MAX_RETRIES) {
-        const backoff = RETRY_BASE_DELAY_MS * 2 ** attempt;
-        console.log(
-          `[Gemini] Retryable error on ${model} (attempt ${attempt + 1}/${MAX_RETRIES}), retrying in ${backoff}ms`
-        );
-        await delay(backoff);
-        continue;
+      if (!isRetryableError(error) || attempt === MAX_RETRIES) {
+        throw error;
       }
-      throw error;
+      const backoff = RETRY_BASE_DELAY_MS * 2 ** attempt;
+      console.log(
+        `[Gemini] Retryable error on ${model} (attempt ${attempt + 1}/${MAX_RETRIES}), retrying in ${backoff}ms`
+      );
+      await delay(backoff);
+      attempt++;
     }
   }
-  throw new Error(`[Gemini] Exhausted retries for ${model}`);
 }
 
 /**
