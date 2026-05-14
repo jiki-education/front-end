@@ -8,7 +8,6 @@ export interface ChatContext {
   exerciseTitle: string;
   exerciseInstructions: string;
   currentTaskId: string | null;
-  currentCode: string;
   language: string;
   contentHash: string; // Hash for fetching exercise content from static files
   exercise: any; // Full exercise object
@@ -18,7 +17,6 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
   return useMemo(() => {
     const exercise = orchestrator.getExercise();
     const storeState = orchestrator.getStore().getState();
-    const currentCode = orchestrator.getCurrentEditorValue() || storeState.code || "";
 
     return {
       exerciseSlug: exercise.slug,
@@ -26,7 +24,6 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
       exerciseTitle: orchestrator.getExerciseTitle(),
       exerciseInstructions: orchestrator.getExerciseInstructions(),
       currentTaskId: storeState.currentTaskId,
-      currentCode,
       language: storeState.language,
       contentHash: orchestrator.contentHash,
       exercise

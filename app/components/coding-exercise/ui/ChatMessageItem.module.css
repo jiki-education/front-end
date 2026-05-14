@@ -1,0 +1,129 @@
+.prompt,
+.response {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    color: var(--color-gray-700);
+}
+
+.prompt {
+    font-weight: 400;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 5px;
+    position: relative;
+    z-index: 3;
+}
+
+.avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 2px 1px var(--color-gray-300);
+}
+
+.response .avatar {
+    background: var(--color-blue-500);
+}
+
+.promptContent {
+    flex: 1;
+    padding: 12px;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-100);
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.responseContent {
+    flex: 1;
+    padding: 12px;
+    background: var(--color-purple-50);
+    border: 1px solid var(--color-purple-100);
+    border-radius: 8px;
+}
+
+/* Spacing between top-level blocks in message content (last block sits flush).
+   During typing the real blocks are children of TypeIt's [data-typeit-id] wrapper. */
+.promptContent > *,
+.responseContent > *,
+.responseContent > :global([data-typeit-id]) > * {
+    margin-bottom: 8px;
+}
+
+.promptContent > :last-child,
+.responseContent > :last-child,
+.responseContent > :global([data-typeit-id]) > :last-child,
+.responseContent > :global([data-typeit-id]) > :has(+ :global(.ti-cursor)) {
+    margin-bottom: 0;
+}
+
+.promptContent strong,
+.responseContent strong {
+    font-weight: 500;
+}
+
+.promptContent ul,
+.responseContent ul {
+    list-style: disc;
+    margin-left: 18px;
+}
+
+.promptContent ol,
+.responseContent ol {
+    list-style: decimal;
+    margin-left: 18px;
+}
+
+.prompt code,
+.response code {
+    background: rgba(59, 130, 246, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "Monaco", "Courier New", monospace;
+    font-size: 13px;
+    font-style: normal;
+    color: #2563eb;
+}
+
+.promptContent pre,
+.responseContent pre {
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+/* Reset the inline-code pill styling for code inside a block */
+.promptContent pre code,
+.responseContent pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+    font-family: "Source Code Pro", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* TypeIt wraps its output in a [data-typeit-id] div with a ::before; hide it */
+.responseContent :global([data-typeit-id])::before {
+    display: none !important;
+}

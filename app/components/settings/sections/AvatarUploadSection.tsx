@@ -1,51 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { fetchProfile } from "@/lib/api/profile";
 import { showModal } from "@/lib/modal/store";
-import { useProfileStore } from "@/lib/profile/profileStore";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useAuthStore } from "@/lib/auth/authStore";
 import AvatarPreview from "../ui/AvatarPreview";
 import PencilIcon from "@/icons/pencil.svg";
 import fieldStyles from "../ui/EditableField.module.css";
 import styles from "../Settings.module.css";
 
 export default function AvatarUploadSection() {
-  const avatarUrl = useProfileStore((state) => state.avatarUrl);
-  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadAvatar() {
-      try {
-        const response = await fetchProfile();
-        setAvatarUrl(response.profile.avatar_url || null);
-      } catch {
-        // Profile fetch is best-effort; section still renders
-      } finally {
-        setLoading(false);
-      }
-    }
-    void loadAvatar();
-  }, [setAvatarUrl]);
+  const avatarUrl = useAuthStore((state) => state.user?.avatar_url ?? null);
 
   const handleClick = () => {
-    showModal("avatar-edit-modal", {
-      onAvatarChange: (url: string | null) => {
-        setAvatarUrl(url);
-      }
-    });
+    showModal("avatar-edit-modal", {});
   };
-
-  if (loading) {
-    return (
-      <div className={styles.settingsField}>
-        <div className="flex items-center justify-center py-4">
-          <LoadingSpinner size="sm" />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.settingsField}>
