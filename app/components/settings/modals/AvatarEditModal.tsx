@@ -17,7 +17,7 @@ import ZoomInIcon from "@/icons/zoom-in.svg";
 import styles from "./AvatarEditModal.module.css";
 
 const CROP_SIZE_RATIO = 0.9;
-const MIN_ZOOM = CROP_SIZE_RATIO;
+const MIN_ZOOM = 0.9;
 const MAX_ZOOM = 3;
 
 interface AvatarEditModalProps {
