@@ -46,6 +46,20 @@ export interface ExerciseSubmissionFile {
   content: string;
 }
 
+export interface LessonSubmissionFile {
+  filename: string;
+  code: string;
+}
+
+/**
+ * Submit exercise files for a lesson
+ */
+export async function submitLessonExercise(slug: string, files: LessonSubmissionFile[]): Promise<void> {
+  await api.post(`/internal/lessons/${slug}/exercise_submissions`, {
+    submission: { files }
+  });
+}
+
 export interface LatestExerciseSubmission {
   uuid: string;
   context_type: string;

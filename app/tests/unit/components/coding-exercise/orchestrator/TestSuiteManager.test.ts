@@ -1,27 +1,35 @@
 import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/TestSuiteManager";
+import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
+import type { ExerciseContext } from "@/components/coding-exercise/lib/types";
 import { createMockExercise, createMockOrchestratorStore } from "@/tests/mocks";
 
-// Mock the test runner
 jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
 }));
 
-// Mock the API client dynamically
-jest.mock("@/lib/api/client", () => ({
-  api: {
-    post: jest.fn().mockResolvedValue({})
-  }
+jest.mock("@/lib/api/lessons", () => ({
+  submitLessonExercise: jest.fn().mockResolvedValue(undefined)
 }));
 
+jest.mock("@/lib/api/projects", () => ({
+  submitProjectExercise: jest.fn().mockResolvedValue(undefined)
+}));
+
+jest.mock("react-hot-toast", () => ({
+  __esModule: true,
+  default: { error: jest.fn() }
+}));
+
+function flushMicrotasks() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 describe("TestSuiteManager", () => {
-  let manager: TestSuiteManager;
   let mockStore: any;
+  const mockCode = "console.log('test')";
+  const mockExercise = createMockExercise();
 
-  beforeEach(() => {
-    // Clear all mocks
-    jest.clearAllMocks();
-
-    // Create fresh store and manager for each test
+  function buildManager(context?: ExerciseContext) {
     mockStore = createMockOrchestratorStore({
       setHasSyntaxError: jest.fn(),
       setStatus: jest.fn(),
@@ -33,152 +41,159 @@ describe("TestSuiteManager", () => {
       currentTest: null,
       language: "javascript"
     });
-    manager = new TestSuiteManager(mockStore);
+    return new TestSuiteManager(mockStore, undefined, context);
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  describe("runCode", () => {
-    const mockCode = "console.log('test')";
-    const mockExercise = createMockExercise();
+  describe("runCode submission", () => {
+    it("submits to the lesson endpoint when context is a lesson", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-    it("should submit exercise files to the backend when running tests", async () => {
-      const { api } = await import("@/lib/api/client");
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Mock getLessonSlugFromURL to return a specific slug
-      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
-
-      // Mock successful test run
-      (runTests as jest.Mock).mockReturnValue({
-        tests: [],
-        passed: true
-      });
-
-      // Run the code
-      await manager.runCode(mockCode, mockExercise);
-
-      // Verify API was called with correct parameters
-      expect(api.post).toHaveBeenCalledWith("/internal/lessons/solve-a-maze/exercise_submissions", {
-        submission: {
-          files: [
-            {
-              filename: "solution.js",
-              code: mockCode
-            }
-          ]
-        }
-      });
-
-      // Verify test runner was called with language parameter
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
-
-      // Verify store methods were called
-      const state = mockStore.getState();
-      expect(state.setHasSyntaxError).toHaveBeenCalledWith(false);
-      expect(state.setStatus).toHaveBeenCalledWith("running");
-      expect(state.setError).toHaveBeenCalledWith(null);
-      expect(state.setTestSuiteResult).toHaveBeenCalled();
-    });
-
-    it("should extract lesson slug from URL correctly", async () => {
-      const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Test different URL patterns
-      const testCases = [
-        { slug: "solve-a-maze" },
-        { slug: "win-space-invaders" },
-        { slug: "solve-a-maze-with-numbers" }
-      ];
-
-      for (const testCase of testCases) {
-        // Mock getLessonSlugFromURL to return the test slug
-        jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(testCase.slug);
-
-        // Clear previous calls
-        (api.post as jest.Mock).mockClear();
-        (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
-
-        // Run the code
-        await manager.runCode(mockCode, mockExercise);
-
-        // Verify API was called with correct lesson slug
-        expect(api.post).toHaveBeenCalledWith(
-          `/internal/lessons/${testCase.slug}/exercise_submissions`,
-          expect.any(Object)
-        );
-      }
-    });
-
-    it("should not submit if no lesson slug in URL", async () => {
-      const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Mock getLessonSlugFromURL to return null (no lesson slug)
-      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
-
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      // Run the code
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
+    });
+
+    it("submits to the project endpoint when context is a project", async () => {
+      const manager = buildManager({ type: "project", slug: "build-a-blog" });
+
+      const { submitProjectExercise } = await import("@/lib/api/projects");
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(submitProjectExercise).toHaveBeenCalledWith("build-a-blog", [{ filename: "solution.js", code: mockCode }]);
+      expect(submitLessonExercise).not.toHaveBeenCalled();
+    });
+
+    it("does not submit when no context is provided", async () => {
+      const manager = buildManager();
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { submitProjectExercise } = await import("@/lib/api/projects");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(submitLessonExercise).not.toHaveBeenCalled();
+      expect(submitProjectExercise).not.toHaveBeenCalled();
+    });
+
+    it("runs tests with the language regardless of submission state", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
       await manager.runCode(mockCode, mockExercise);
 
-      // Verify API was NOT called
-      expect(api.post).not.toHaveBeenCalled();
-
-      // Verify tests still ran with language parameter
       expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
     });
 
-    it("should handle submission errors silently", async () => {
-      const { api } = await import("@/lib/api/client");
+    it("does not block test execution when submission fails", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new NetworkError("offline"));
+
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Mock getLessonSlugFromURL
-      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
-
-      // Mock API to throw error
-      (api.post as jest.Mock).mockRejectedValue(new Error("Network error"));
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      // Run the code - should not throw
       await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
-
-      // Verify tests still ran despite API error with language parameter
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
       expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalled();
     });
+  });
 
-    it("should handle syntax errors correctly", async () => {
+  describe("submission error handling", () => {
+    it("toasts on a generic ApiError (e.g. 500)", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new ApiError(500, "Internal Server Error"));
+
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      const syntaxError = {
-        message: "Unexpected token",
-        location: { line: 5 }
-      };
+      const toast = (await import("react-hot-toast")).default;
 
-      // Mock test runner to throw syntax error
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(toast.error).toHaveBeenCalledTimes(1);
+      expect((toast.error as jest.Mock).mock.calls[0][0]).toMatch(/submission|attempt/i);
+    });
+
+    it("does not toast on NetworkError (handled globally)", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new NetworkError("offline"));
+
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      const toast = (await import("react-hot-toast")).default;
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(toast.error).not.toHaveBeenCalled();
+    });
+
+    it("does not toast on AuthenticationError or RateLimitError (handled globally)", async () => {
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      const toast = (await import("react-hot-toast")).default;
+
+      for (const error of [new AuthenticationError("Unauthorized"), new RateLimitError("Too Many Requests", 1)]) {
+        const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+        (submitLessonExercise as jest.Mock).mockRejectedValueOnce(error);
+        (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+        await manager.runCode(mockCode, mockExercise);
+        await flushMicrotasks();
+      }
+
+      expect(toast.error).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("runCode error handling", () => {
+    it("handles syntax errors correctly", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      const syntaxError = { message: "Unexpected token", location: { line: 5 } };
       (runTests as jest.Mock).mockImplementation(() => {
         throw syntaxError;
       });
 
-      // Run the code
       await manager.runCode(mockCode, mockExercise);
 
-      // Verify error handling
       const state = mockStore.getState();
       expect(state.setHasSyntaxError).toHaveBeenCalledWith(true);
       expect(state.setTestSuiteResult).toHaveBeenCalledWith(null);
       expect(state.setInformationWidgetData).toHaveBeenCalledWith(
-        expect.objectContaining({
-          line: 5,
-          status: "ERROR"
-        })
+        expect.objectContaining({ line: 5, status: "ERROR" })
       );
-      // The html should contain the error message (header is now added by InformationWidget)
-      const widgetCall = state.setInformationWidgetData.mock.calls[0][0];
+      const widgetCall = (state.setInformationWidgetData as jest.Mock).mock.calls[0][0];
       expect(widgetCall.html).toContain("Unexpected token");
       expect(widgetCall.html).not.toContain("Oops, something went wrong!");
       expect(state.setShouldShowInformationWidget).toHaveBeenCalledWith(true);
@@ -186,120 +201,47 @@ describe("TestSuiteManager", () => {
       expect(state.setStatus).toHaveBeenCalledWith("error");
     });
 
-    it("should handle non-syntax errors correctly", async () => {
-      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+    it("rethrows non-syntax errors in test/dev so they surface in the overlay", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-      // Mock test runner to throw regular error
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockImplementation(() => {
         throw new Error("Some other error");
       });
 
-      // Non-syntax errors are re-thrown in dev/test so they surface in the Next.js overlay.
       await expect(manager.runCode(mockCode, mockExercise)).rejects.toThrow("Some other error");
 
-      // Syntax-error handling was reset before the throw.
-      const state = mockStore.getState();
-      expect(state.setHasSyntaxError).toHaveBeenCalledWith(false);
-    });
-
-    it("should run tests and submit asynchronously (fire-and-forget)", async () => {
-      const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Mock getLessonSlugFromURL
-      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue("solve-a-maze");
-
-      // Create a promise that we can control
-      let resolveApiCall: () => void;
-      const apiPromise = new Promise<void>((resolve) => {
-        resolveApiCall = resolve;
-      });
-
-      // Mock API to return our controlled promise
-      (api.post as jest.Mock).mockReturnValue(apiPromise);
-      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
-
-      // Run the code and await it
-      await manager.runCode(mockCode, mockExercise);
-
-      // After runCode completes, verify test results were set
-      expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalled();
-
-      // Resolve the API call (which is fire-and-forget)
-      resolveApiCall!();
-      await apiPromise;
-
-      // API should have been called
-      expect(api.post).toHaveBeenCalled();
-    });
-
-    it("should handle undefined window gracefully", async () => {
-      const { api } = await import("@/lib/api/client");
-      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-
-      // Mock getLessonSlugFromURL to simulate undefined window
-      jest.spyOn(manager as any, "getLessonSlugFromURL").mockReturnValue(null);
-
-      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
-
-      // Run the code - should not throw
-      await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
-
-      // Verify API was NOT called (no lesson slug available)
-      expect(api.post).not.toHaveBeenCalled();
-
-      // Verify tests still ran
-      expect(runTests).toHaveBeenCalled();
+      expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(false);
     });
   });
 
   describe("getFirstExpect", () => {
     it("should return first failing expect when available", () => {
+      const manager = buildManager();
       const failingExpect = { pass: false, description: "Should fail" };
       const passingExpect = { pass: true, description: "Should pass" };
-
-      mockStore.getState = jest.fn(() => ({
-        currentTest: {
-          expects: [passingExpect, failingExpect]
-        }
-      }));
-
-      const result = manager.getFirstExpect();
-      expect(result).toBe(failingExpect);
+      mockStore.getState = jest.fn(() => ({ currentTest: { expects: [passingExpect, failingExpect] } }));
+      expect(manager.getFirstExpect()).toBe(failingExpect);
     });
 
     it("should return first expect when no failures", () => {
+      const manager = buildManager();
       const expect1 = { pass: true, description: "First" };
       const expect2 = { pass: true, description: "Second" };
-
-      mockStore.getState = jest.fn(() => ({
-        currentTest: {
-          expects: [expect1, expect2]
-        }
-      }));
-
-      const result = manager.getFirstExpect();
-      expect(result).toBe(expect1);
+      mockStore.getState = jest.fn(() => ({ currentTest: { expects: [expect1, expect2] } }));
+      expect(manager.getFirstExpect()).toBe(expect1);
     });
 
     it("should return null when no current test", () => {
-      mockStore.getState = jest.fn(() => ({
-        currentTest: null
-      }));
-
-      const result = manager.getFirstExpect();
-      expect(result).toBeNull();
+      const manager = buildManager();
+      mockStore.getState = jest.fn(() => ({ currentTest: null }));
+      expect(manager.getFirstExpect()).toBeNull();
     });
 
     it("should return null when expects array is empty", () => {
-      mockStore.getState = jest.fn(() => ({
-        currentTest: {
-          expects: []
-        }
-      }));
-
-      const result = manager.getFirstExpect();
-      expect(result).toBeNull();
+      const manager = buildManager();
+      mockStore.getState = jest.fn(() => ({ currentTest: { expects: [] } }));
+      expect(manager.getFirstExpect()).toBeNull();
     });
   });
 });
