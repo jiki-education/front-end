@@ -18,6 +18,9 @@ const HTML_ENTITIES: Record<string, string> = {
   "&#39;": "'"
 };
 
+// marked escapes the contents of a code block; hljs needs the raw source, so we
+// unescape before highlighting. This is safe: hljs.highlight(...).value re-escapes
+// its output, so any HTML in the source stays inert in the final string.
 function unescapeHtml(html: string): string {
   return html.replace(/&(?:amp|lt|gt|quot|#39);/g, (entity) => HTML_ENTITIES[entity]);
 }

@@ -10,13 +10,7 @@ interface ChatInputAreaProps {
 export function ChatInputArea({ chat }: ChatInputAreaProps) {
   return (
     <>
-      <ChatStatus
-        status={chat.status}
-        error={chat.error}
-        onRetry={chat.retryLastMessage}
-        onClearError={chat.clearError}
-        canRetry={chat.canRetry}
-      />
+      <ChatStatus error={chat.error} onRetry={chat.retryLastMessage} canRetry={chat.canRetry} />
       <ChatInput
         onSendMessage={chat.sendMessage}
         disabled={chat.isDisabled}
