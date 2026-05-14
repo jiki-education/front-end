@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import type Orchestrator from "./Orchestrator";
+import type { ExerciseContext } from "./types";
 
 export interface ChatContext {
   exerciseSlug: string;
-  contextSlug: string; // The slug used for backend API calls (lessonSlug or projectSlug)
+  context: ExerciseContext; // Lesson/project context used for backend API calls
   exerciseTitle: string;
   exerciseInstructions: string;
   currentTaskId: string | null;
@@ -21,7 +22,7 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
 
     return {
       exerciseSlug: exercise.slug,
-      contextSlug: storeState.context.slug,
+      context: storeState.context,
       exerciseTitle: orchestrator.getExerciseTitle(),
       exerciseInstructions: orchestrator.getExerciseInstructions(),
       currentTaskId: storeState.currentTaskId,

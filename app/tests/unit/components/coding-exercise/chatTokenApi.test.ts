@@ -27,7 +27,7 @@ describe("chatTokenApi", () => {
         json: () => Promise.resolve({ token: mockToken })
       });
 
-      const result = await fetchChatToken({ lessonSlug: "test-exercise" });
+      const result = await fetchChatToken({ context: { type: "lesson", slug: "test-exercise" } });
 
       expect(result).toBe(mockToken);
       expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -47,10 +47,22 @@ describe("chatTokenApi", () => {
         json: () => Promise.resolve({ token: mockToken })
       });
 
-      await fetchChatToken({ lessonSlug: "my-exercise-slug" });
+      await fetchChatToken({ context: { type: "lesson", slug: "my-exercise-slug" } });
 
       const requestBody = JSON.parse(mockFetch.mock.calls[0][1].body);
       expect(requestBody).toEqual({ lesson_slug: "my-exercise-slug" });
+    });
+
+    it("should send project_slug for project context", async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ token: mockToken })
+      });
+
+      await fetchChatToken({ context: { type: "project", slug: "my-project-slug" } });
+
+      const requestBody = JSON.parse(mockFetch.mock.calls[0][1].body);
+      expect(requestBody).toEqual({ project_slug: "my-project-slug" });
     });
 
     it("should throw ChatTokenError on 401 errors", async () => {
@@ -62,7 +74,9 @@ describe("chatTokenApi", () => {
         json: () => Promise.resolve({ error: "unauthorized" })
       });
 
-      await expect(fetchChatToken({ lessonSlug: "test-exercise" })).rejects.toThrow(ChatTokenError);
+      await expect(fetchChatToken({ context: { type: "lesson", slug: "test-exercise" } })).rejects.toThrow(
+        ChatTokenError
+      );
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
 
@@ -75,7 +89,9 @@ describe("chatTokenApi", () => {
         json: () => Promise.resolve({ error: "server_error", message: "Database connection failed" })
       });
 
-      await expect(fetchChatToken({ lessonSlug: "test-exercise" })).rejects.toThrow(ChatTokenError);
+      await expect(fetchChatToken({ context: { type: "lesson", slug: "test-exercise" } })).rejects.toThrow(
+        ChatTokenError
+      );
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
 
@@ -90,7 +106,7 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ lessonSlug: "nonexistent" });
+        await fetchChatToken({ context: { type: "lesson", slug: "nonexistent" } });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -111,7 +127,7 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ lessonSlug: "test-exercise" });
+        await fetchChatToken({ context: { type: "lesson", slug: "test-exercise" } });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -131,7 +147,7 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ lessonSlug: "test-exercise" });
+        await fetchChatToken({ context: { type: "lesson", slug: "test-exercise" } });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);

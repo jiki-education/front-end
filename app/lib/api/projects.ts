@@ -1,6 +1,15 @@
 import { api } from "./client";
+import type { UserConversationData } from "./types/conversation";
 
 export type ProjectStatus = "locked" | "unlocked" | "started" | "completed";
+
+export interface UserProjectData extends UserConversationData {
+  project_slug: string;
+}
+
+interface UserProjectResponse {
+  user_project: UserProjectData;
+}
 
 export interface ProjectData {
   slug: string;
@@ -72,4 +81,13 @@ export function startProject(slug: string): void {
 export async function markProjectComplete(slug: string): Promise<{ meta?: { events?: unknown[] } }> {
   const response = await api.patch<{ meta?: { events?: unknown[] } }>(`/internal/user_projects/${slug}/complete`);
   return response.data;
+}
+
+/**
+ * Fetch user project data including conversation history.
+ * Throws NotFoundError if the user project (or underlying project) doesn't exist.
+ */
+export async function fetchUserProject(slug: string): Promise<UserProjectData> {
+  const response = await api.get<UserProjectResponse>(`/internal/user_projects/${slug}`);
+  return response.data.user_project;
 }

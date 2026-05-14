@@ -54,7 +54,7 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
   const mockChat = useMockChat();
   const chat = useMockMode ? mockChat : realChat;
 
-  const conversationLoader = useConversationLoader(chat.context.exerciseSlug);
+  const conversationLoader = useConversationLoader(chat.context.context);
   const hasLoadedConversationRef = useRef(false);
 
   const conversationAllowed = conversationLoader.conversationAllowed;

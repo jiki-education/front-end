@@ -31,6 +31,13 @@ export class AuthenticationError extends ApiError {
   }
 }
 
+export class NotFoundError extends ApiError {
+  constructor(statusText: string, data?: unknown) {
+    super(404, statusText, data);
+    this.name = "NotFoundError";
+  }
+}
+
 export class NetworkError extends Error {
   constructor(
     message: string,
@@ -245,6 +252,11 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
       // Handle 401 Unauthorized - session invalid, needs re-login
       if (response.status === 401) {
         throw new AuthenticationError(response.statusText, data);
+      }
+
+      // Handle 404 Not Found - resource (or user-scoped record) doesn't exist
+      if (response.status === 404) {
+        throw new NotFoundError(response.statusText, data);
       }
 
       throw new ApiError(response.status, response.statusText, data);

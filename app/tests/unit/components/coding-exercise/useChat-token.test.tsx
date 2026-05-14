@@ -49,7 +49,7 @@ describe("useChat token management", () => {
     // Set up default mock for useChatContext
     mockUseChatContext.mockReturnValue({
       exerciseSlug: "test-exercise",
-      contextSlug: "test-lesson",
+      context: { type: "lesson", slug: "test-lesson" },
       currentCode: "console.log('test');",
       currentTaskId: "task-1",
       language: "javascript",
@@ -79,7 +79,7 @@ describe("useChat token management", () => {
       });
 
       expect(mockFetchChatToken).toHaveBeenCalledTimes(1);
-      expect(mockFetchChatToken).toHaveBeenCalledWith({ lessonSlug: "test-lesson" });
+      expect(mockFetchChatToken).toHaveBeenCalledWith({ context: { type: "lesson", slug: "test-lesson" } });
       expect(mockSendChatMessage).toHaveBeenCalledTimes(1);
     });
 

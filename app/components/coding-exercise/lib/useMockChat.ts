@@ -73,7 +73,8 @@ export function useMockChat() {
     isDisabled: false,
     canRetry: false,
     context: {
-      exerciseSlug: "mock-exercise"
+      exerciseSlug: "mock-exercise",
+      context: { type: "lesson" as const, slug: "mock-lesson" }
     }
   };
 }
