@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import type { ComponentType } from "react";
+import TickCircleIcon from "@/icons/tick-circle.svg";
 
 interface NavigationItemProps {
   id: string;
@@ -8,9 +9,17 @@ interface NavigationItemProps {
   href?: string;
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
+  isUserPremium?: boolean;
 }
 
-export function NavigationItem({ label, isActive, href, icon: Icon, showPremiumPill }: NavigationItemProps) {
+export function NavigationItem({
+  label,
+  isActive,
+  href,
+  icon: Icon,
+  showPremiumPill,
+  isUserPremium
+}: NavigationItemProps) {
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent) => {
@@ -29,7 +38,12 @@ export function NavigationItem({ label, isActive, href, icon: Icon, showPremiumP
           </span>
         )}
         <span>{label}</span>
-        {showPremiumPill && <span className="premium-pill">Premium</span>}
+        {showPremiumPill && (
+          <span className="premium-pill">
+            Premium
+            {isUserPremium && <TickCircleIcon className="premium-pill-tick" />}
+          </span>
+        )}
       </a>
     </li>
   );
