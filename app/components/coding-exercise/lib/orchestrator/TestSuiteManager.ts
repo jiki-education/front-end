@@ -1,5 +1,7 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
+import toast from "react-hot-toast";
 import type { StoreApi } from "zustand/vanilla";
+import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { processMessageContent } from "../../ui/messageUtils";
 import type { TestSuiteResult, TestExpect } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
@@ -56,67 +58,39 @@ export class TestSuiteManager {
   }
 
   /**
-   * Get lesson slug from the current URL
+   * Submit exercise files to the backend (fire and forget).
+   * Network/auth/rate-limit errors are handled globally; surface other
+   * HTTP errors (e.g. 422/500) via a toast so the student knows their
+   * submission wasn't recorded.
    */
-  private getLessonSlugFromURL(): string | null {
-    // Get the pathname from window location
-    if (typeof window === "undefined") {
-      return null;
+  private submitExerciseFiles(code: string): void {
+    if (!this.context) {
+      return;
     }
 
-    const pathname = window.location.pathname;
-    // URL format is /lesson/[slug], so extract the slug
-    const match = pathname.match(/\/lesson\/([^/]+)/);
-    return match ? match[1] : null;
-  }
+    const files = [{ filename: "solution.js", code }];
 
-  /**
-   * Submit exercise files to the backend (fire and forget)
-   */
-  private async submitExerciseFiles(code: string): Promise<void> {
-    try {
-      // Check if this is a project submission
-      if (this.context?.type === "project") {
-        const { submitProjectExercise } = await import("@/lib/api/projects");
+    const submission =
+      this.context.type === "project"
+        ? import("@/lib/api/projects").then(({ submitProjectExercise }) =>
+            submitProjectExercise(this.context!.slug, files)
+          )
+        : import("@/lib/api/lessons").then(({ submitLessonExercise }) =>
+            submitLessonExercise(this.context!.slug, files)
+          );
 
-        // Fire and forget - we don't await or care about the response
-        void submitProjectExercise(this.context.slug, [
-          {
-            filename: "solution.js", // or appropriate extension
-            code: code
-          }
-        ]).catch(() => {
-          // Silently ignore errors (no internet, etc.)
-        });
+    void submission.catch((error: unknown) => {
+      // Network/auth/rate-limit errors get a global UI treatment already.
+      if (error instanceof NetworkError || error instanceof AuthenticationError || error instanceof RateLimitError) {
         return;
       }
-
-      // Handle lesson submission (existing logic)
-      const lessonSlug = this.getLessonSlugFromURL();
-      if (!lessonSlug) {
-        return; // Can't submit without a lesson slug
+      if (error instanceof ApiError) {
+        console.warn("Failed to submit exercise:", error);
+        toast.error("Couldn't save your submission. Please try again.", { id: "exercise-submission-error" });
+        return;
       }
-
-      const { api } = await import("@/lib/api/client");
-
-      // Fire and forget - we don't await or care about the response
-      void api
-        .post(`/internal/lessons/${lessonSlug}/exercise_submissions`, {
-          submission: {
-            files: [
-              {
-                filename: "solution.js", // or appropriate extension
-                code: code
-              }
-            ]
-          }
-        })
-        .catch(() => {
-          // Silently ignore errors (no internet, etc.)
-        });
-    } catch {
-      // Silently ignore any import or other errors
-    }
+      console.warn("Failed to submit exercise:", error);
+    });
   }
 
   /**
@@ -125,9 +99,8 @@ export class TestSuiteManager {
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
     this.prepareStateForTestRun();
 
-    // Submit exercise files asynchronously (gets lesson slug from URL)
-    // Fire and forget - don't await
-    void this.submitExerciseFiles(code);
+    // Fire and forget - submission is recorded server-side but doesn't block the test run
+    this.submitExerciseFiles(code);
 
     try {
       // Import and run our new test runner
