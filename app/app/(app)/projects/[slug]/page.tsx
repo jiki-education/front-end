@@ -7,7 +7,7 @@ import { fetchProject, type ProjectData } from "@/lib/api/projects";
 import type { UserCourse } from "@/types/course";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const CodingExercise = dynamic(() => import("@/components/coding-exercise/CodingExercise"), { ssr: false });
 
@@ -18,11 +18,13 @@ interface PageProps {
 }
 
 export default function ProjectPage({ params }: PageProps) {
-  const router = useRouter();
   const [project, setProject] = useState<ProjectData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [innerReady, setInnerReady] = useState(false);
+
+  const handleReady = useCallback(() => setInnerReady(true), []);
 
   // Update document title when project loads
   useEffect(() => {
@@ -49,9 +51,6 @@ export default function ProjectPage({ params }: PageProps) {
         if (!cancelled) {
           setProject(projectData);
           setUserCourse(userCourseData);
-
-          // Note: Project tracking will be automatically started when first submission is made
-          // No need to explicitly start here until backend endpoints are available
         }
       } catch (err) {
         if (!cancelled) {
@@ -72,67 +71,80 @@ export default function ProjectPage({ params }: PageProps) {
     };
   }, [params]);
 
-  if (loading) {
-    return <LessonLoadingModal />;
+  if (error) {
+    return <ProjectError error={error} />;
   }
 
-  if (error || !project) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {error || "Project not found"}</p>
-          <button
-            onClick={() => router.push("/projects")}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Back to Projects
-          </button>
-        </div>
-      </div>
-    );
+  if (project?.status === "locked") {
+    return <ProjectLocked />;
   }
 
-  // Check if project is locked
-  if (project.status === "locked") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="mb-4">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Project Locked</h2>
-          <p className="text-gray-600 mb-6">
-            This project is currently locked. Complete previous lessons to unlock it.
-          </p>
-          <button
-            onClick={() => router.push("/projects")}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Back to Projects
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const showModal = loading || !project || !innerReady;
 
-  // Use exercise_slug from project data, fallback to project slug
-  const exerciseSlug = (project.exercise_slug || project.slug) as ExerciseSlug;
+  // CodingExercise must mount *underneath* the modal (not behind an early return) so its
+  // dynamic chunk and exercise loader can run in the background. The child fires onReady
+  // when truly ready, which flips innerReady and unmounts the modal in a single render —
+  // keeping one modal instance alive across the whole load so its CSS animations don't restart.
+  return (
+    <>
+      {project && (
+        <CodingExercise
+          language={userCourse?.language || "javascript"}
+          exerciseSlug={(project.exercise_slug || project.slug) as ExerciseSlug}
+          context={{ type: "project", slug: project.slug }}
+          levelId={userCourse?.current_level_slug ?? undefined}
+          isCompleted={project.status === "completed"}
+          onReady={handleReady}
+        />
+      )}
+      {showModal && <LessonLoadingModal />}
+    </>
+  );
+}
+
+function ProjectError({ error }: { error: string }) {
+  const router = useRouter();
 
   return (
-    <CodingExercise
-      language={userCourse?.language || "javascript"}
-      exerciseSlug={exerciseSlug}
-      context={{ type: "project", slug: project.slug }}
-      levelId={userCourse?.current_level_slug ?? undefined}
-      isCompleted={project.status === "completed"}
-      onReady={() => {}}
-    />
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <p className="text-red-600 mb-4">Error: {error}</p>
+        <button
+          onClick={() => router.push("/projects")}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Back to Projects
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ProjectLocked() {
+  const router = useRouter();
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <div className="mb-4">
+          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Project Locked</h2>
+        <p className="text-gray-600 mb-6">This project is currently locked. Complete previous lessons to unlock it.</p>
+        <button
+          onClick={() => router.push("/projects")}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Back to Projects
+        </button>
+      </div>
+    </div>
   );
 }
