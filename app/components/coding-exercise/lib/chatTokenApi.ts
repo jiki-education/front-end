@@ -1,4 +1,5 @@
 import { getApiUrl } from "@/lib/api/config";
+import type { ExerciseContext } from "./types";
 
 export class ChatTokenError extends Error {
   constructor(
@@ -12,7 +13,7 @@ export class ChatTokenError extends Error {
 }
 
 export interface FetchChatTokenParams {
-  lessonSlug: string;
+  context: ExerciseContext;
 }
 
 export interface ChatTokenResponse {
@@ -20,15 +21,16 @@ export interface ChatTokenResponse {
 }
 
 export async function fetchChatToken(params: FetchChatTokenParams): Promise<string> {
+  const { context } = params;
+  const body = context.type === "project" ? { project_slug: context.slug } : { lesson_slug: context.slug };
+
   const response = await fetch(getApiUrl("/internal/assistant_conversations"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     credentials: "include",
-    body: JSON.stringify({
-      lesson_slug: params.lessonSlug
-    })
+    body: JSON.stringify(body)
   });
 
   if (!response.ok) {

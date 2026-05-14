@@ -26,7 +26,7 @@ export function useChat(orchestrator: Orchestrator) {
 
     // Fetch new token
     tokenFetchInProgress.current = fetchChatToken({
-      lessonSlug: context.contextSlug
+      context: context.context
     });
 
     try {
@@ -36,7 +36,7 @@ export function useChat(orchestrator: Orchestrator) {
     } finally {
       tokenFetchInProgress.current = null;
     }
-  }, [chatState, context.contextSlug]);
+  }, [chatState, context.context]);
 
   // Perform the actual chat request with a given token
   const performChatRequest = useCallback(
@@ -68,7 +68,7 @@ export function useChat(orchestrator: Orchestrator) {
 
               if (signature) {
                 chatState.setSignature(signature);
-                void saveConversation(context.contextSlug, message, fullResponse, signature);
+                void saveConversation(context.context, message, fullResponse, signature);
               }
 
               chatState.setStatus("typing");

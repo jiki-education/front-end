@@ -1,8 +1,9 @@
 import { getApiUrl } from "@/lib/api/config";
 import type { SignatureData } from "./chat-types";
+import type { ExerciseContext } from "./types";
 
 export async function saveConversation(
-  contextSlug: string,
+  context: ExerciseContext,
   userMessage: string,
   assistantMessage: string,
   signature: SignatureData
@@ -14,16 +15,16 @@ export async function saveConversation(
 
     // Save user message
     await saveUserMessage({
-      context_type: "lesson",
-      context_identifier: contextSlug,
+      context_type: context.type,
+      context_identifier: context.slug,
       content: userMessage,
       tokens: userMessageTokens
     });
 
     // Save assistant message with signature
     await saveAssistantMessage({
-      context_type: "lesson",
-      context_identifier: contextSlug,
+      context_type: context.type,
+      context_identifier: context.slug,
       content: assistantMessage,
       tokens: assistantMessageTokens,
       timestamp: signature.timestamp,

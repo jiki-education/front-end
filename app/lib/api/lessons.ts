@@ -1,16 +1,13 @@
 import { api, ApiError } from "./client";
-import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 import type { LessonWithData } from "@/types/lesson";
+import type { UserConversationData } from "./types/conversation";
 
 export interface LessonResponse {
   lesson: LessonWithData;
 }
 
-export interface UserLessonData {
+export interface UserLessonData extends UserConversationData {
   lesson_slug: string;
-  status: "started" | "completed";
-  conversation: ChatMessage[];
-  conversation_allowed: boolean;
   data: any;
 }
 
@@ -117,28 +114,10 @@ export async function updateWalkthroughVideoPercentage(slug: string, percentage:
 }
 
 /**
- * Fetch user lesson data including conversation history
+ * Fetch user lesson data including conversation history.
+ * Throws NotFoundError if the user lesson (or underlying lesson) doesn't exist.
  */
 export async function fetchUserLesson(slug: string): Promise<UserLessonData> {
-  try {
-    const response = await api.get<UserLessonResponse>(`/internal/user_lessons/${slug}`);
-    return response.data.user_lesson;
-  } catch (error) {
-    // Enhance error messages for better debugging and frontend handling
-    if (error instanceof Error) {
-      // If the API returns a server error (500), check if it's a database schema issue
-      if (error.message.includes("500")) {
-        throw new Error(
-          "Server error occurred while fetching user lesson data. This may be due to a database schema issue."
-        );
-      }
-
-      // If the API returns 404, it's likely the user lesson doesn't exist
-      if (error.message.includes("404")) {
-        throw new Error("User lesson not found");
-      }
-    }
-
-    throw error;
-  }
+  const response = await api.get<UserLessonResponse>(`/internal/user_lessons/${slug}`);
+  return response.data.user_lesson;
 }
