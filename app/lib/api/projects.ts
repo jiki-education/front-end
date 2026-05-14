@@ -66,16 +66,13 @@ export async function submitProjectExercise(slug: string, files: ProjectSubmissi
 }
 
 /**
- * Start tracking a project - called when user first accesses a project
- * Note: For now, projects are automatically started when first submission is made
- * This function is a placeholder for explicit start tracking if needed
+ * Start tracking a project - called when the user opens a project.
+ * Acts as the lock-enforcement point for the detail route: rejects with a 403
+ * (project_locked / premium_required) or 404 (project_not_found) when the user
+ * may not access the project.
  */
-export function startProject(slug: string): void {
-  // TODO: Backend doesn't have explicit start endpoint yet
-  // Projects are automatically started when first submission is made
-  // This could be implemented later if explicit start tracking is needed
-  // eslint-disable-next-line no-console
-  console.log(`Project ${slug} accessed - will be started on first submission`);
+export async function startProject(slug: string): Promise<void> {
+  await api.post(`/internal/user_projects/${slug}/start`);
 }
 
 export async function markProjectComplete(slug: string): Promise<{ meta?: { events?: unknown[] } }> {

@@ -8,7 +8,6 @@ export interface LessonResponse {
 
 export interface UserLessonData extends UserConversationData {
   lesson_slug: string;
-  data: any;
 }
 
 export interface UserLessonResponse {

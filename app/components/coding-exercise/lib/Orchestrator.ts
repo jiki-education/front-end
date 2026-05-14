@@ -34,7 +34,8 @@ class Orchestrator {
     language: Language,
     context: ExerciseContext,
     contentHash: string = "",
-    onGoToDashboard?: () => void
+    onGoToDashboard?: () => void,
+    serverData?: { code: string; storedAt?: string }
   ) {
     this.exercise = exercise;
     this.language = language;
@@ -50,8 +51,9 @@ class Orchestrator {
     this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, context);
     // EditorManager will be created lazily when setupEditor is called
 
-    // Initialize exercise data (loads from localStorage if available)
-    this.store.getState().initializeExerciseData();
+    // Initialize exercise data — merges the server's last submission (if any)
+    // with localStorage, falling back to the stub.
+    this.store.getState().initializeExerciseData(serverData);
 
     // Initialize task progress
     this.taskManager.initializeTaskProgress(exercise);

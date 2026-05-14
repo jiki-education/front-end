@@ -24,7 +24,10 @@ const LANGUAGE_EXTENSIONS: Record<Language, string[]> = {
   python: [".py"]
 };
 
-function findFileForLanguage(files: ExerciseSubmissionFile[], language: Language): ExerciseSubmissionFile | undefined {
+export function findFileForLanguage(
+  files: ExerciseSubmissionFile[],
+  language: Language
+): ExerciseSubmissionFile | undefined {
   if (files.length === 1) {
     return files[0];
   }
