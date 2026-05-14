@@ -15,14 +15,4 @@ export { createMockTestSuiteResult } from "./test-suite-result";
 export { createMockUser } from "./user";
 
 // UI Kit mocks
-export {
-  MockIcon,
-  MockEmailIcon,
-  MockEmailIconFocused,
-  MockGoogleIcon,
-  MockProjectsIcon,
-  createMockTabItems,
-  createMockFormFieldProps,
-  createMockHandlers,
-  waitForAnimation
-} from "./ui-kit";
+export { MockIcon, MockEmailIcon, createMockTabItems, createMockHandlers } from "./ui-kit";

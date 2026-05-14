@@ -7,7 +7,4 @@
 export type { ColorVariant } from "./colors";
 
 // Common component types
-export type { Size, BaseUIProps, DisableableProps, LoadingProps, IconProps, FullWidthProps } from "./common";
-
-// Animation and transition constants
-export { TRANSITION_CLASSES } from "./common";
+export type { BaseUIProps } from "./common";
