@@ -11,10 +11,11 @@ import style from "./page.module.css";
 const mockProfile: UserProfileData = {
   name: "Nicole Chalmers",
   handle: "japermian",
-  avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
   streaksEnabled: true,
   currentStreak: 0
 };
+
+const mockAvatarUrl = "https://avatars.githubusercontent.com/u/1?v=4";
 
 const mockBadges: BadgeData[] = [
   {
@@ -79,7 +80,7 @@ function CurrentCard() {
       <div className={style.header}>
         <button type="button" className={style.avatarButton}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mockProfile.avatarUrl ?? undefined} alt="User Avatar" />
+          <img src={mockAvatarUrl} alt="User Avatar" />
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>
@@ -101,7 +102,7 @@ function PremiumCard() {
       <div className={style.header}>
         <button type="button" className={`${style.avatarButton} ${style.avatarButtonPremium}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mockProfile.avatarUrl ?? undefined} alt="User Avatar" />
+          <img src={mockAvatarUrl} alt="User Avatar" />
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>

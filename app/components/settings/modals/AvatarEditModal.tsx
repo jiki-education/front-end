@@ -7,7 +7,7 @@ import { hideModal } from "@/lib/modal/store";
 import { uploadAvatar } from "@/lib/api/profile";
 import { validateImageFile } from "@/lib/utils/validateImageFile";
 import { getCroppedImage } from "@/lib/utils/cropImage";
-import { useProfileStore } from "@/lib/profile/profileStore";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
 import toast from "react-hot-toast";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -20,14 +20,11 @@ const CROP_SIZE_RATIO = 0.9;
 const MIN_ZOOM = 0.9;
 const MAX_ZOOM = 3;
 
-interface AvatarEditModalProps {
-  onAvatarChange: (url: string | null) => void;
-}
-
-export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
+export function AvatarEditModal() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
+  const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser);
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -74,8 +71,9 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
       const response = await uploadAvatar(blob);
       const url = response.profile.avatar_url || null;
       URL.revokeObjectURL(imageSrc);
-      setAvatarUrl(url);
-      onAvatarChange(url);
+      if (user) {
+        setUser({ ...user, avatar_url: url });
+      }
       toast.success("Avatar updated");
       hideModal();
     } catch (err) {

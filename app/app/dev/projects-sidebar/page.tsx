@@ -32,7 +32,6 @@ const states: { id: StateId; label: string }[] = [
 const mockProfile: UserProfileData = {
   name: "Jane Coder",
   handle: "janecoder",
-  avatarUrl: "https://avatars.githubusercontent.com/u/1?v=4",
   streaksEnabled: true,
   currentStreak: 7
 };

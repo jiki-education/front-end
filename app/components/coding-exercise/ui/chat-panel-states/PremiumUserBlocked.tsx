@@ -1,5 +1,6 @@
 import type { ChatMessage } from "../../lib/chat-types";
-import LockedConversation from "./LockedConversation";
+import { Conversation } from "../Conversation";
+import { LockedFooter } from "./LockedFooter";
 
 interface PremiumUserBlockedProps {
   messages?: ChatMessage[];
@@ -8,5 +9,5 @@ interface PremiumUserBlockedProps {
 // Premium user, conversation not allowed
 // Temporary block due to fair use limits
 export default function PremiumUserBlocked({ messages = [] }: PremiumUserBlockedProps) {
-  return <LockedConversation messages={messages} variant="premium-blocked" />;
+  return <Conversation messages={messages} footer={<LockedFooter variant="premium-blocked" />} />;
 }

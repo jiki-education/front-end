@@ -1,0 +1,8 @@
+.chatHeader {
+    margin: 0 0 32px 0;
+}
+
+/* Override PanelHeader's own margin — scoped to the chat header only */
+.chatHeader > div {
+    margin: 0;
+}

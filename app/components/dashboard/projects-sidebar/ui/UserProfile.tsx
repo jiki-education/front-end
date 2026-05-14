@@ -2,9 +2,8 @@
 
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
-import { resolveApiAssetUrl } from "@/lib/api/config";
 import { showModal } from "@/lib/modal";
-import { useProfileStore } from "@/lib/profile/profileStore";
+import UserAvatar from "@/components/common/UserAvatar";
 import PencilIcon from "@/icons/pencil.svg";
 import PremiumStarIcon from "@/icons/premium-star.svg";
 import style from "./UserProfile.module.css";
@@ -15,7 +14,6 @@ import { UserProfileSkeleton } from "./UserProfileSkeleton";
 interface UserProfileBase {
   name: string;
   handle: string;
-  avatarUrl: string | null;
 }
 
 interface UserProfileWithStreaks extends UserProfileBase {
@@ -40,12 +38,9 @@ interface UserProfileProps {
 
 export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremium = false }: UserProfileProps) {
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
-  const setAvatarUrl = useProfileStore((state) => state.setAvatarUrl);
 
   const handleAvatarClick = () => {
-    showModal("avatar-edit-modal", {
-      onAvatarChange: (url: string | null) => setAvatarUrl(url)
-    });
+    showModal("avatar-edit-modal", {});
   };
 
   if (shouldShowSkeleton || !profile) {
@@ -60,14 +55,7 @@ export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremi
           onClick={handleAvatarClick}
           className={`${style.avatarButton}${isPremium ? ` ${style.avatarButtonPremium}` : ""}`}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={profile.avatarUrl ? resolveApiAssetUrl(profile.avatarUrl) : "/static/icons/user-fallback.svg"}
-            alt="User Avatar"
-            onError={(e) => {
-              e.currentTarget.src = "/static/icons/user-fallback.svg";
-            }}
-          />
+          <UserAvatar />
           <div className={style.avatarOverlay}>
             <PencilIcon className={style.avatarOverlayIcon} />
           </div>

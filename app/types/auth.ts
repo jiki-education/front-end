@@ -10,6 +10,7 @@ export interface User {
   handle: string;
   email: string;
   name: string | null;
+  avatar_url: string | null;
   membership_type: MembershipTier;
   subscription_status: SubscriptionStatus;
   subscription: SubscriptionDetails | null;

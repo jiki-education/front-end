@@ -1,0 +1,38 @@
+.loadingWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-blue-500);
+    background: var(--color-blue-50);
+    border-radius: 8px;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
+.spinnerTrack {
+    opacity: 0.25;
+}
+
+.spinnerHead {
+    opacity: 0.75;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

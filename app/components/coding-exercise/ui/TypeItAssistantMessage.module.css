@@ -1,0 +1,22 @@
+.thinkingText {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--color-gray-400);
+}
+
+.thinkingDots::after {
+    content: ".";
+    animation: thinkingDots 1.2s steps(1, end) infinite;
+}
+
+@keyframes thinkingDots {
+    0% {
+        content: ".";
+    }
+    33% {
+        content: "..";
+    }
+    66% {
+        content: "...";
+    }
+}

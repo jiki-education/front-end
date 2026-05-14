@@ -1,6 +1,7 @@
 import type { ChatMessage } from "../lib/chat-types";
 import { processMessageContent } from "./messageUtils";
-import styles from "./chat-panel.module.css";
+import { JikiAvatarImg, UserAvatarImg } from "./ChatAvatars";
+import styles from "./ChatMessageItem.module.css";
 
 interface ChatMessageItemProps {
   message: ChatMessage;
@@ -13,7 +14,9 @@ export default function ChatMessageItem({ message }: ChatMessageItemProps) {
   if (isUser) {
     return (
       <div className={styles.prompt}>
-        <div className={styles.avatar}>N</div>
+        <div className={styles.avatar}>
+          <UserAvatarImg />
+        </div>
         <div className={styles.promptContent} dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
     );
@@ -21,7 +24,9 @@ export default function ChatMessageItem({ message }: ChatMessageItemProps) {
 
   return (
     <div className={styles.response}>
-      <div className={styles.avatar}>J</div>
+      <div className={styles.avatar}>
+        <JikiAvatarImg />
+      </div>
       <div className={styles.responseContent} dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </div>
   );

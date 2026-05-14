@@ -41,10 +41,15 @@ export function useChat(orchestrator: Orchestrator) {
   // Perform the actual chat request with a given token
   const performChatRequest = useCallback(
     async (message: string, token: string) => {
+      // Read the editor contents lazily, when the message is actually sent, so
+      // the proxy receives the student's current code rather than a snapshot
+      // taken at render time.
+      const currentCode = orchestrator.getCurrentEditorValue() || orchestrator.getStore().getState().code || "";
+
       await sendChatMessage(
         {
           exerciseSlug: context.exerciseSlug,
-          code: context.currentCode,
+          code: currentCode,
           question: message,
           language: context.language,
           history: chatState.messages,
@@ -80,7 +85,7 @@ export function useChat(orchestrator: Orchestrator) {
         token
       );
     },
-    [chatState, context]
+    [chatState, context, orchestrator]
   );
 
   const sendMessage = useCallback(

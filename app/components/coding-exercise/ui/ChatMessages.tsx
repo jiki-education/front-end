@@ -1,35 +1,38 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import type { ChatMessage, StreamStatus } from "../lib/chat-types";
 import TypeItAssistantMessage from "./TypeItAssistantMessage";
 import ChatMessageItem from "./ChatMessageItem";
-import { useTimelineHeight } from "../lib/useTimelineHeight";
-import { useAutoScroll } from "../lib/useAutoScroll";
-import { useTypingScroll } from "../lib/useTypingScroll";
-import styles from "./chat-panel.module.css";
+import { useStickToBottom } from "../lib/useStickToBottom";
+import styles from "./ChatMessages.module.css";
 
 interface ChatMessagesProps {
   messages: ChatMessage[];
   currentResponse: string;
   status: StreamStatus;
   onTypingComplete?: () => void;
+  header?: ReactNode;
 }
 
-export default function ChatMessages({ messages, currentResponse, status, onTypingComplete }: ChatMessagesProps) {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatMessagesRef = useRef<HTMLDivElement>(null);
+export default function ChatMessages({
+  messages,
+  currentResponse,
+  status,
+  onTypingComplete,
+  header
+}: ChatMessagesProps) {
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
 
-  useTimelineHeight({ chatMessagesRef, scrollWrapperRef }, [messages, currentResponse]);
-  useAutoScroll(messagesEndRef, [messages, currentResponse]);
-  useTypingScroll(messagesEndRef, status);
+  useStickToBottom(scrollWrapperRef, chatMessagesRef);
 
   return (
     <div ref={scrollWrapperRef} className={styles.chatScrollWrapper}>
+      {header}
       <div ref={chatMessagesRef} className={styles.chatMessages}>
         {messages.length === 0 && !currentResponse && (
-          <div className="text-center text-gray-500 text-sm">
+          <div className={styles.emptyState}>
             Start a conversation! Ask questions about your code, the exercise, or request help with specific tasks.
           </div>
         )}
@@ -41,8 +44,6 @@ export default function ChatMessages({ messages, currentResponse, status, onTypi
         {(currentResponse || status === "thinking" || status === "typing") && (
           <TypeItAssistantMessage content={currentResponse} status={status} onTypingComplete={onTypingComplete} />
         )}
-
-        <div ref={messagesEndRef} />
       </div>
     </div>
   );

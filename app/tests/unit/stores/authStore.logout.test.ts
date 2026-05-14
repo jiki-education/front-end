@@ -25,6 +25,7 @@ describe("AuthStore - Logout", () => {
     handle: "testuser",
     email: "test@example.com",
     name: "Test User",
+    avatar_url: null,
     membership_type: "standard",
     subscription_status: "never_subscribed",
     subscription: null,

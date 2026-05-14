@@ -1,9 +1,9 @@
 import TypeIt from "typeit-react";
 import type { StreamStatus } from "../lib/chat-types";
+import { JikiAvatarImg } from "./ChatAvatars";
 import { processMessageContent } from "./messageUtils";
-// #TODO continue working on this
-// import { processMessageForTyping } from "./processMessageForTyping";
-import styles from "./chat-panel.module.css";
+import messageStyles from "./ChatMessageItem.module.css";
+import styles from "./TypeItAssistantMessage.module.css";
 
 interface TypeItAssistantMessageProps {
   content: string;
@@ -15,17 +15,20 @@ interface TypeItAssistantMessageProps {
 export default function TypeItAssistantMessage({
   content,
   status,
-  typingSpeed = 50,
+  typingSpeed = 20,
   onTypingComplete
 }: TypeItAssistantMessageProps) {
   // Show thinking state
   if (status === "thinking") {
     return (
-      <div className={styles.response}>
-        <div className={styles.avatar}>J</div>
-        <div className={styles.responseContent}>
-          <p>
-            AI is thinking...<span className="animate-pulse">▊</span>
+      <div className={messageStyles.response}>
+        <div className={messageStyles.avatar}>
+          <JikiAvatarImg />
+        </div>
+        <div className={messageStyles.responseContent}>
+          <p className={styles.thinkingText}>
+            Jiki is thinking
+            <span className={styles.thinkingDots} />
           </p>
         </div>
       </div>
@@ -34,9 +37,11 @@ export default function TypeItAssistantMessage({
 
   // Show typing or completed message
   return (
-    <div className={styles.response}>
-      <div className={styles.avatar}>J</div>
-      <div className={styles.responseContent}>
+    <div className={messageStyles.response}>
+      <div className={messageStyles.avatar}>
+        <JikiAvatarImg />
+      </div>
+      <div className={messageStyles.responseContent}>
         {status === "typing" && content ? (
           <TypeIt
             as="div"

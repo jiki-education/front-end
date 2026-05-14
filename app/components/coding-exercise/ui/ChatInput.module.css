@@ -1,0 +1,95 @@
+.chatInputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 10px 32px 16px;
+    margin: 0;
+    background: var(--color-gray-50);
+    border-top: 1px solid var(--color-gray-100);
+    width: 100%;
+}
+
+.chatInputRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.chatInputAvatar {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 5px;
+    z-index: 10;
+}
+
+.chatInputAvatarLine {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 25px;
+    background: var(--color-gray-200);
+    z-index: -10;
+}
+
+.chatInputAvatarImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chatInputField {
+    flex: 1;
+    position: relative;
+}
+
+.chatInput {
+    display: block;
+    position: relative;
+    padding: 12px;
+    border: 2px solid var(--color-purple-200);
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-family: "Poppins", sans-serif;
+    transition: border-color 0.2s;
+    background: white;
+    resize: none;
+    height: 96px;
+    width: 100%;
+}
+
+.chatInput:focus {
+    outline: none;
+    border-color: #c4b5fd;
+}
+
+.chatInput::placeholder {
+    color: var(--color-gray-400);
+}
+
+.chatInputHint {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    background: var(--color-blue-600);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.chatInputHint svg {
+    width: 13px;
+    height: 13px;
+}

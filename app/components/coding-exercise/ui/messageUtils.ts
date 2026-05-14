@@ -1,4 +1,8 @@
 import { marked } from "marked";
+import hljs from "highlight.js/lib/core";
+import setupJavascript from "@jiki/highlightjs-javascript";
+
+hljs.registerLanguage("javascript", setupJavascript);
 
 // Configure marked for safe rendering
 marked.setOptions({
@@ -6,16 +10,35 @@ marked.setOptions({
   breaks: true // Convert \n to <br>
 });
 
+const HTML_ENTITIES: Record<string, string> = {
+  "&amp;": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&#39;": "'"
+};
+
+// marked escapes the contents of a code block; hljs needs the raw source, so we
+// unescape before highlighting. This is safe: hljs.highlight(...).value re-escapes
+// its output, so any HTML in the source stays inert in the final string.
+function unescapeHtml(html: string): string {
+  return html.replace(/&(?:amp|lt|gt|quot|#39);/g, (entity) => HTML_ENTITIES[entity]);
+}
+
 export function processMessageContent(content: string): string {
-  // First parse with marked for basic markdown (synchronous mode)
-  let html = marked.parse(content, { async: false });
+  const html = marked.parse(content, { async: false });
 
-  // Process code blocks to match your structure
-  // Note: Using regular class name since this is processed HTML string
-  html = html.replace(/<pre><code[^>]*>([\s\S]*?)<\/code><\/pre>/g, '<div class="codeBlock">$1</div>');
-
-  // Ensure inline code has proper styling
-  html = html.replace(/<code>([^<]+)<\/code>/g, "<code>$1</code>");
-
-  return html;
+  // Syntax-highlight code blocks inline, so the highlighted markup is present in
+  // the string itself (TypeIt then reveals it token by token while typing).
+  // Unspecified blocks default to JavaScript; an explicit non-JS language is left untouched.
+  return html.replace(
+    /<pre><code(?: class="language-(\w+)")?>([\s\S]*?)<\/code><\/pre>/g,
+    (match, language: string | undefined, code: string) => {
+      if (language && language !== "javascript" && language !== "js") {
+        return match;
+      }
+      const highlighted = hljs.highlight(unescapeHtml(code), { language: "javascript" }).value;
+      return `<pre><code class="hljs language-javascript">${highlighted}</code></pre>`;
+    }
+  );
 }

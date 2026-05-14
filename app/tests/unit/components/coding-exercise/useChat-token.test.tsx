@@ -21,15 +21,18 @@ const mockUseChatContext = useChatContext as jest.MockedFunction<typeof useChatC
 
 // Create a mock orchestrator with minimal interface
 function createMockOrchestrator() {
+  const store = {
+    getState: () => ({
+      code: "test code",
+      currentTest: null,
+      currentTaskIndex: 0
+    }),
+    subscribe: jest.fn(() => jest.fn())
+  };
   return {
-    store: {
-      getState: () => ({
-        code: "test code",
-        currentTest: null,
-        currentTaskIndex: 0
-      }),
-      subscribe: jest.fn(() => jest.fn())
-    },
+    store,
+    getStore: () => store,
+    getCurrentEditorValue: () => "console.log('test');",
     getCode: () => "test code",
     currentTaskIndex: 0,
     exercise: {
@@ -50,7 +53,6 @@ describe("useChat token management", () => {
     mockUseChatContext.mockReturnValue({
       exerciseSlug: "test-exercise",
       context: { type: "lesson", slug: "test-lesson" },
-      currentCode: "console.log('test');",
       currentTaskId: "task-1",
       language: "javascript",
       exerciseTitle: "Test Exercise",
@@ -124,6 +126,43 @@ describe("useChat token management", () => {
 
       // Verify token was passed to sendChatMessage
       expect(mockSendChatMessage).toHaveBeenCalledWith(expect.any(Object), expect.any(Object), mockToken);
+    });
+
+    it("should read the editor code at send time, not at render time", async () => {
+      const orchestrator = createMockOrchestrator();
+      orchestrator.getCurrentEditorValue = () => "initial code";
+
+      const { result } = renderHook(() => useChat(orchestrator));
+
+      // Simulate the student editing the code after the hook rendered
+      orchestrator.getCurrentEditorValue = () => "edited code";
+
+      await act(async () => {
+        await result.current.sendMessage("Test message");
+      });
+
+      expect(mockSendChatMessage).toHaveBeenCalledWith(
+        expect.objectContaining({ code: "edited code" }),
+        expect.any(Object),
+        mockToken
+      );
+    });
+
+    it("should fall back to store code when the editor value is empty", async () => {
+      const orchestrator = createMockOrchestrator();
+      orchestrator.getCurrentEditorValue = () => "";
+
+      const { result } = renderHook(() => useChat(orchestrator));
+
+      await act(async () => {
+        await result.current.sendMessage("Test message");
+      });
+
+      expect(mockSendChatMessage).toHaveBeenCalledWith(
+        expect.objectContaining({ code: "test code" }),
+        expect.any(Object),
+        mockToken
+      );
     });
   });
 

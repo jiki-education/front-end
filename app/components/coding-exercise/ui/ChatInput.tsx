@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
-import styles from "./chat-panel.module.css";
+import { UserAvatarImg } from "./ChatAvatars";
+import styles from "./ChatInput.module.css";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -25,7 +26,8 @@ export default function ChatInput({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !disabled) {
+    // Enter sends; Shift+Enter inserts a newline
+    if (e.key === "Enter" && !e.shiftKey && !disabled) {
       e.preventDefault();
       handleSend();
     }
@@ -33,11 +35,12 @@ export default function ChatInput({
 
   return (
     <div className={styles.chatInputContainer}>
-      <div className="flex items-start gap-3">
-        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white font-semibold text-xs flex-shrink-0 mt-4 relative z-10">
-          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-px h-[14px] bg-gray-200 -z-10" />N
+      <div className={styles.chatInputRow}>
+        <div className={styles.chatInputAvatar}>
+          <div className={styles.chatInputAvatarLine} />
+          <UserAvatarImg className={styles.chatInputAvatarImg} />
         </div>
-        <div className="flex-1 relative">
+        <div className={styles.chatInputField}>
           <textarea
             className={styles.chatInput}
             value={message}
@@ -46,9 +49,17 @@ export default function ChatInput({
             placeholder={placeholder}
             disabled={disabled}
           />
-          <div className={styles.chatInputHint}>
-            <span>⌘ ↵</span>
-          </div>
+          <button type="button" className={styles.chatInputHint} onClick={handleSend} disabled={disabled}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M5.49683 12.5c0 0.8284 0.67157 1.5 1.5 1.5 0.82842 0 1.5 -0.6716 1.5 -1.5l0 -7.38185 2.44247 2.44251c0.5858 0.58579 1.5356 0.58579 2.1214 0 0.5857 -0.58579 0.5857 -1.53553 0 -2.12132l-5.00004 -5c-0.58579 -0.585787 -1.53553 -0.585787 -2.12132 0l-5 5c-0.585787 0.58579 -0.585787 1.53553 0 2.12132 0.58579 0.58579 1.53553 0.58579 2.12132 0l2.43617 -2.43617 0 7.37551Z"
+                strokeWidth="1"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
