@@ -16,6 +16,10 @@ import ZoomOutIcon from "@/icons/zoom-out.svg";
 import ZoomInIcon from "@/icons/zoom-in.svg";
 import styles from "./AvatarEditModal.module.css";
 
+const CROP_SIZE_RATIO = 0.9;
+const MIN_ZOOM = CROP_SIZE_RATIO;
+const MAX_ZOOM = 3;
+
 interface AvatarEditModalProps {
   onAvatarChange: (url: string | null) => void;
 }
@@ -27,7 +31,7 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(MIN_ZOOM);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [cropSize, setCropSize] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -37,7 +41,7 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
       return;
     }
     const observer = new ResizeObserver((entries) => {
-      const size = Math.floor(Math.min(entries[0].contentRect.width, entries[0].contentRect.height) * 0.9);
+      const size = Math.floor(Math.min(entries[0].contentRect.width, entries[0].contentRect.height) * CROP_SIZE_RATIO);
       setCropSize(size);
     });
     observer.observe(containerRef.current);
@@ -86,7 +90,7 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
     }
     setImageSrc(null);
     setCrop({ x: 0, y: 0 });
-    setZoom(1);
+    setZoom(MIN_ZOOM);
     setCroppedAreaPixels(null);
     setCropSize(null);
   };
@@ -102,6 +106,8 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
               image={imageSrc}
               crop={crop}
               zoom={zoom}
+              minZoom={MIN_ZOOM}
+              maxZoom={MAX_ZOOM}
               aspect={1}
               cropShape="round"
               cropSize={{ width: cropSize, height: cropSize }}
@@ -117,9 +123,9 @@ export function AvatarEditModal({ onAvatarChange }: AvatarEditModalProps) {
           <ZoomOutIcon className={styles.zoomIcon} width={20} height={20} />
           <input
             type="range"
-            min={1}
-            max={3}
-            step={0.1}
+            min={MIN_ZOOM}
+            max={MAX_ZOOM}
+            step={0.05}
             value={zoom}
             onChange={(e) => setZoom(Number(e.target.value))}
             className={styles.zoomSlider}
