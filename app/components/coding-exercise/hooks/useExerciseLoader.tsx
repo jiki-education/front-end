@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
-import { hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
 import { fetchExerciseContent } from "@/lib/api/exercise-meta";
+import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
 interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
@@ -11,6 +12,7 @@ interface UseExerciseLoaderProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  serverSubmission?: LastSubmissionData | null;
   onGoToDashboard?: () => void;
 }
 
@@ -20,6 +22,7 @@ export function useExerciseLoader({
   context,
   levelId,
   isCompleted,
+  serverSubmission,
   onGoToDashboard
 }: UseExerciseLoaderProps) {
   const orchestratorRef = useRef<Orchestrator | null>(null);
@@ -68,8 +71,24 @@ export function useExerciseLoader({
           exercise.stubs = { ...exercise.stubs, [language]: interpolatedCode };
         }
 
+        // Map the server's last submission (if any) to the active language's code
+        // so the orchestrator can merge it with localStorage on initialization.
+        const serverData = serverSubmission
+          ? {
+              code: findFileForLanguage(serverSubmission.files, language)?.content ?? "",
+              storedAt: serverSubmission.stored_at
+            }
+          : undefined;
+
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(exercise, language, context, content.contentHash, onGoToDashboard);
+        orchestratorRef.current = new Orchestrator(
+          exercise,
+          language,
+          context,
+          content.contentHash,
+          onGoToDashboard,
+          serverData
+        );
 
         orchestratorRef.current.setIsExerciseCompleted(isCompleted);
 

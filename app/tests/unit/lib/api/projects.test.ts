@@ -1,4 +1,4 @@
-import { fetchProjects, fetchProject, submitProjectExercise } from "@/lib/api/projects";
+import { fetchProjects, fetchProject, fetchUserProject, startProject, submitProjectExercise } from "@/lib/api/projects";
 
 // Mock the API client
 jest.mock("@/lib/api/client", () => ({
@@ -93,6 +93,46 @@ describe("Projects API", () => {
 
       expect(mockApi.get).toHaveBeenCalledWith("/internal/projects/test-project");
       expect(result).toEqual(mockProject);
+    });
+  });
+
+  describe("startProject", () => {
+    it("should POST to the user_projects start endpoint", async () => {
+      mockApi.post.mockResolvedValue({ data: {}, status: 200, headers: new Headers() });
+
+      await startProject("test-project");
+
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/user_projects/test-project/start");
+    });
+
+    it("should propagate errors from the API", async () => {
+      const error = new Error("403 project_locked");
+      mockApi.post.mockRejectedValue(error);
+
+      await expect(startProject("locked-project")).rejects.toThrow("403 project_locked");
+    });
+  });
+
+  describe("fetchUserProject", () => {
+    it("should fetch user project data by slug", async () => {
+      const mockUserProject = {
+        project_slug: "test-project",
+        status: "started",
+        conversation: [],
+        conversation_allowed: true,
+        data: { last_submission: { files: [{ filename: "solution.js", content: "code" }] } }
+      };
+
+      mockApi.get.mockResolvedValue({
+        data: { user_project: mockUserProject },
+        status: 200,
+        headers: new Headers()
+      });
+
+      const result = await fetchUserProject("test-project");
+
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/user_projects/test-project");
+      expect(result).toEqual(mockUserProject);
     });
   });
 

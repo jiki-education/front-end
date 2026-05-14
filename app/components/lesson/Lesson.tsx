@@ -5,6 +5,7 @@ import { fetchUserCourse } from "@/lib/api/courses";
 import { fetchLesson, fetchUserLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
+import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useCallback, useEffect, useState } from "react";
 import LessonContent from "./LessonContent";
 import LessonError from "./LessonError";
@@ -17,6 +18,7 @@ export default function Lesson({ slug }: LessonProps) {
   const [lesson, setLesson] = useState<LessonWithData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [serverSubmission, setServerSubmission] = useState<LastSubmissionData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [innerReady, setInnerReady] = useState(false);
@@ -48,6 +50,7 @@ export default function Lesson({ slug }: LessonProps) {
         setLesson(lessonData);
         setUserCourse(userCourseData);
         setIsCompleted(userLessonResult?.status === "completed");
+        setServerSubmission(userLessonResult?.data?.last_submission ?? null);
       } catch (err) {
         if (!cancelled) {
           console.error("Failed to fetch lesson:", err);
@@ -82,7 +85,13 @@ export default function Lesson({ slug }: LessonProps) {
   return (
     <>
       {lesson && (
-        <LessonContent lesson={lesson} userCourse={userCourse} isCompleted={isCompleted} onReady={handleReady} />
+        <LessonContent
+          lesson={lesson}
+          userCourse={userCourse}
+          isCompleted={isCompleted}
+          serverSubmission={serverSubmission}
+          onReady={handleReady}
+        />
       )}
       {showModal && <LessonLoadingModal />}
     </>

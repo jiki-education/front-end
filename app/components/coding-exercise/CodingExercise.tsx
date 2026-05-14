@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
+import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import "./codemirror.css";
 
 interface CodingExerciseProps {
@@ -14,6 +15,7 @@ interface CodingExerciseProps {
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
+  serverSubmission?: LastSubmissionData | null;
   onReady: () => void;
 }
 
@@ -23,6 +25,7 @@ export default function CodingExercise({
   context,
   levelId,
   isCompleted,
+  serverSubmission,
   onReady
 }: CodingExerciseProps) {
   const router = useRouter();
@@ -33,6 +36,7 @@ export default function CodingExercise({
     context,
     levelId,
     isCompleted,
+    serverSubmission,
     onGoToDashboard: () => router.push(continueHref)
   });
 

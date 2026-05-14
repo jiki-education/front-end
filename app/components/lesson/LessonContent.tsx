@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
+import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
 const CodingExercise = dynamic(() => import("@/components/coding-exercise/CodingExercise"), { ssr: false });
 const VideoExercise = dynamic(() => import("@/components/video-exercise/VideoExercise"), { ssr: false });
@@ -14,10 +15,17 @@ interface LessonContentProps {
   lesson: LessonWithData;
   userCourse: UserCourse | null;
   isCompleted: boolean;
+  serverSubmission: LastSubmissionData | null;
   onReady: () => void;
 }
 
-export default function LessonContent({ lesson, userCourse, isCompleted, onReady }: LessonContentProps) {
+export default function LessonContent({
+  lesson,
+  userCourse,
+  isCompleted,
+  serverSubmission,
+  onReady
+}: LessonContentProps) {
   if (lesson.type === "video") {
     return <VideoExercise lessonData={lesson} onReady={onReady} />;
   }
@@ -29,6 +37,7 @@ export default function LessonContent({ lesson, userCourse, isCompleted, onReady
         exerciseSlug={lesson.data.slug}
         context={{ type: "lesson", slug: lesson.slug, walkthroughVideoData: lesson.walkthrough_video_data }}
         isCompleted={isCompleted}
+        serverSubmission={serverSubmission}
         onReady={onReady}
       />
     );

@@ -59,6 +59,28 @@ export class RateLimitError extends ApiError {
   }
 }
 
+/**
+ * Extract the backend error `type` string (e.g. "project_locked",
+ * "premium_required") from an ApiError's response body, which has the shape
+ * `{ error: { type, message } }`. Returns undefined for non-ApiErrors or
+ * bodies that don't match that shape.
+ */
+export function getApiErrorType(error: unknown): string | undefined {
+  if (!(error instanceof ApiError)) {
+    return undefined;
+  }
+  const data = error.data;
+  if (typeof data !== "object" || data === null) {
+    return undefined;
+  }
+  const errorField = (data as { error?: unknown }).error;
+  if (typeof errorField !== "object" || errorField === null) {
+    return undefined;
+  }
+  const type = (errorField as { type?: unknown }).type;
+  return typeof type === "string" ? type : undefined;
+}
+
 export interface RequestOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
   params?: Record<string, string | number | boolean>;

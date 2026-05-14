@@ -1,16 +1,18 @@
-import ProjectPage from "@/app/(app)/projects/[slug]/page";
+import Project from "@/components/project/Project";
+import { ApiError, NotFoundError } from "@/lib/api/client";
 import { fetchUserCourse } from "@/lib/api/courses";
-import { fetchProject } from "@/lib/api/projects";
+import { fetchProject, fetchUserProject, startProject } from "@/lib/api/projects";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 
-// Mock dependencies
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
 jest.mock("@/lib/api/projects", () => ({
-  fetchProject: jest.fn()
+  fetchProject: jest.fn(),
+  fetchUserProject: jest.fn(),
+  startProject: jest.fn()
 }));
 
 jest.mock("@/lib/api/courses", () => ({
@@ -18,26 +20,23 @@ jest.mock("@/lib/api/courses", () => ({
 }));
 
 jest.mock("@/components/coding-exercise/CodingExercise", () => {
-  return function MockCodingExercise({ exerciseSlug, context }: any) {
+  return function MockCodingExercise({ exerciseSlug, context, isCompleted, serverSubmission }: any) {
     return (
       <div data-testid="coding-exercise">
-        Exercise: {exerciseSlug}, Context: {context.type}/{context.slug}
+        Exercise: {exerciseSlug}, Context: {context.type}/{context.slug}, Completed: {String(isCompleted)}, Submission:{" "}
+        {serverSubmission ? "yes" : "no"}
       </div>
     );
   };
 });
 
-jest.mock("@/components/lesson/LessonLoadingPage", () => {
-  return function MockLessonLoadingPage({ type }: { type: string }) {
-    return <div data-testid="loading-page">Loading - {type}</div>;
-  };
-});
-
 const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 const mockFetchProject = fetchProject as jest.MockedFunction<typeof fetchProject>;
+const mockFetchUserProject = fetchUserProject as jest.MockedFunction<typeof fetchUserProject>;
+const mockStartProject = startProject as jest.MockedFunction<typeof startProject>;
 const mockFetchUserCourse = fetchUserCourse as jest.MockedFunction<typeof fetchUserCourse>;
 
-describe("ProjectPage", () => {
+describe("Project", () => {
   const mockPush = jest.fn();
 
   beforeEach(() => {
@@ -50,7 +49,7 @@ describe("ProjectPage", () => {
       back: jest.fn(),
       forward: jest.fn(),
       refresh: jest.fn()
-    } as any);
+    });
 
     mockFetchUserCourse.mockResolvedValue({
       course_slug: "coding-fundamentals",
@@ -59,115 +58,134 @@ describe("ProjectPage", () => {
       current_level_slug: "variables",
       completed: false
     });
+
+    mockStartProject.mockResolvedValue(undefined);
   });
 
-  it("should render coding exercise for unlocked project", async () => {
-    const mockProject = {
+  it("renders the coding exercise for an unlocked project", async () => {
+    mockFetchProject.mockResolvedValue({
       slug: "test-project",
       title: "Test Project",
       description: "A test project",
-      status: "unlocked" as const,
       exercise_slug: "test-exercise"
-    };
+    });
+    mockFetchUserProject.mockResolvedValue({
+      project_slug: "test-project",
+      status: "started",
+      conversation: [],
+      conversation_allowed: true
+    });
 
-    mockFetchProject.mockResolvedValue(mockProject);
-
-    const params = Promise.resolve({ slug: "test-project" });
-
-    render(<ProjectPage params={params} />);
+    render(<Project slug="test-project" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: test-exercise, Context: project/test-project"
+      "Exercise: test-exercise, Context: project/test-project, Completed: false, Submission: no"
     );
+    expect(mockStartProject).toHaveBeenCalledWith("test-project");
   });
 
-  it("should show locked message for locked project", async () => {
-    const mockProject = {
-      slug: "locked-project",
-      title: "Locked Project",
-      description: "A locked project",
-      status: "locked" as const
-    };
+  it("shows the locked screen when /start rejects with project_locked", async () => {
+    mockStartProject.mockRejectedValue(new ApiError(403, "Forbidden", { error: { type: "project_locked" } }));
 
-    mockFetchProject.mockResolvedValue(mockProject);
-
-    const params = Promise.resolve({ slug: "locked-project" });
-
-    render(<ProjectPage params={params} />);
+    render(<Project slug="locked-project" />);
 
     await waitFor(() => {
       expect(screen.getByText("Project Locked")).toBeInTheDocument();
     });
-
-    expect(
-      screen.getByText("This project is currently locked. Complete previous lessons to unlock it.")
-    ).toBeInTheDocument();
-    expect(screen.getByText("Back to Projects")).toBeInTheDocument();
+    expect(screen.queryByTestId("coding-exercise")).not.toBeInTheDocument();
   });
 
-  it("should show error state when fetch fails", async () => {
-    mockFetchProject.mockRejectedValue(new Error("Project not found"));
+  it("shows the premium screen when /start rejects with premium_required", async () => {
+    mockStartProject.mockRejectedValue(new ApiError(403, "Forbidden", { error: { type: "premium_required" } }));
 
-    const params = Promise.resolve({ slug: "invalid-project" });
-
-    render(<ProjectPage params={params} />);
+    render(<Project slug="premium-project" />);
 
     await waitFor(() => {
-      expect(screen.getByText("Error: Project not found")).toBeInTheDocument();
+      expect(screen.getByText("Premium Required")).toBeInTheDocument();
     });
-
-    expect(screen.getByText("Back to Projects")).toBeInTheDocument();
+    expect(screen.queryByTestId("coding-exercise")).not.toBeInTheDocument();
   });
 
-  it("should use project slug as exercise slug when exercise_slug not provided", async () => {
-    const mockProject = {
-      slug: "fallback-project",
-      title: "Fallback Project",
-      description: "A project without exercise_slug",
-      status: "unlocked" as const
-      // No exercise_slug provided
-    };
+  it("shows the error screen when /start fails with a non-403 error", async () => {
+    mockStartProject.mockRejectedValue(new NotFoundError("Not Found", { error: { type: "project_not_found" } }));
 
-    mockFetchProject.mockResolvedValue(mockProject);
+    render(<Project slug="missing-project" />);
 
-    const params = Promise.resolve({ slug: "fallback-project" });
+    await waitFor(() => {
+      expect(screen.getByText(/Error:/)).toBeInTheDocument();
+    });
+    expect(screen.queryByTestId("coding-exercise")).not.toBeInTheDocument();
+  });
 
-    render(<ProjectPage params={params} />);
+  it("shows the error screen when project content fails to load", async () => {
+    mockFetchProject.mockRejectedValue(new Error("Boom"));
+    mockFetchUserProject.mockResolvedValue({
+      project_slug: "test-project",
+      status: "started",
+      conversation: [],
+      conversation_allowed: true
+    });
+
+    render(<Project slug="test-project" />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Error: Boom")).toBeInTheDocument();
+    });
+  });
+
+  it("treats a missing user_project record as a fresh, not-started project", async () => {
+    mockFetchProject.mockResolvedValue({
+      slug: "fresh-project",
+      title: "Fresh Project",
+      description: "Never started"
+    });
+    mockFetchUserProject.mockRejectedValue(
+      new NotFoundError("Not Found", { error: { type: "user_project_not_found" } })
+    );
+
+    render(<Project slug="fresh-project" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
     });
 
+    // Falls back to the project slug as the exercise slug, not completed, no submission.
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: fallback-project, Context: project/fallback-project"
+      "Exercise: fresh-project, Context: project/fresh-project, Completed: false, Submission: no"
     );
   });
 
-  it("should handle started project status", async () => {
-    const mockProject = {
-      slug: "started-project",
-      title: "Started Project",
-      description: "A project that's in progress",
-      status: "started" as const,
-      exercise_slug: "started-exercise"
-    };
+  it("passes isCompleted and serverSubmission through for a completed project", async () => {
+    mockFetchProject.mockResolvedValue({
+      slug: "done-project",
+      title: "Done Project",
+      description: "Completed",
+      exercise_slug: "done-exercise"
+    });
+    mockFetchUserProject.mockResolvedValue({
+      project_slug: "done-project",
+      status: "completed",
+      conversation: [],
+      conversation_allowed: true,
+      data: {
+        last_submission: {
+          files: [{ filename: "solution.js", content: "console.log('done');" }]
+        }
+      }
+    });
 
-    mockFetchProject.mockResolvedValue(mockProject);
-
-    const params = Promise.resolve({ slug: "started-project" });
-
-    render(<ProjectPage params={params} />);
+    render(<Project slug="done-project" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: started-exercise, Context: project/started-project"
+      "Exercise: done-exercise, Context: project/done-project, Completed: true, Submission: yes"
     );
   });
 });
