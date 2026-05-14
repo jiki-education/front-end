@@ -6,9 +6,10 @@ import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
 
 interface SuccessStepProps {
   onCompleteExercise: () => void;
+  isProject?: boolean;
 }
 
-export function SuccessStep({ onCompleteExercise }: SuccessStepProps) {
+export function SuccessStep({ onCompleteExercise, isProject = false }: SuccessStepProps) {
   return (
     <>
       <div className={styles.modalCheckmark}>
@@ -16,12 +17,13 @@ export function SuccessStep({ onCompleteExercise }: SuccessStepProps) {
       </div>
       <h2 className={styles.modalTitle}>All tests passed!</h2>
       <p className={styles.modalMessage}>
-        Great work! You&apos;re ready to complete this exercise and move on to the next challenge.
+        Great work! You&apos;re ready to complete this {isProject ? "project" : "exercise"} and move on to the next
+        challenge.
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onCompleteExercise} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          Complete Exercise
+          {isProject ? "Complete Project" : "Complete Exercise"}
         </button>
       </div>
     </>

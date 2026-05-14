@@ -90,6 +90,6 @@ export function ExerciseCompletionModal({
 
     case "success":
     default:
-      return <SuccessStep onCompleteExercise={handlers.handleCompleteExercise} />;
+      return <SuccessStep onCompleteExercise={handlers.handleCompleteExercise} isProject={isProject} />;
   }
 }
