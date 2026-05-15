@@ -47,6 +47,9 @@ class UnusedExportsAnalyzer {
     // The filtering happens in shouldAnalyzeFile() method
     this.program = ts.createProgram(parsedConfig.fileNames, parsedConfig.options);
 
+    // Force binding so every node has its `parent` pointer set.
+    this.program.getTypeChecker();
+
     // Validate target file exists if specified
     if (options.targetFile) {
       const normalizedTarget = path.resolve(options.targetFile);
@@ -68,15 +71,27 @@ class UnusedExportsAnalyzer {
 
     // Second pass: find usages (search all files for usage of exports from target)
     for (const sourceFile of this.program.getSourceFiles()) {
-      if (!sourceFile.isDeclarationFile && !sourceFile.fileName.includes("node_modules")) {
+      if (this.shouldScanForUsages(sourceFile)) {
         this.findUsages(sourceFile);
       }
     }
   }
 
+  // Which files count as real callers. Mirrors the spirit of knip's ignore list:
+  // dev playgrounds never count; test files only count with --include-tests.
+  // `app/test/**` route fixtures are intentionally kept — e2e tests hit them.
+  private shouldScanForUsages(sourceFile: ts.SourceFile): boolean {
+    const { fileName } = sourceFile;
+    if (sourceFile.isDeclarationFile) return false;
+    if (this.isIgnoredFile(fileName)) return false;
+    if (this.isDevFile(fileName)) return false;
+    if (!this.options.includeTests && this.isTestFile(fileName)) return false;
+    return true;
+  }
+
   private shouldAnalyzeFile(sourceFile: ts.SourceFile): boolean {
     if (sourceFile.isDeclarationFile) return false;
-    if (sourceFile.fileName.includes("node_modules")) return false;
+    if (this.isIgnoredFile(sourceFile.fileName)) return false;
     if (!this.options.includeTests && this.isTestFile(sourceFile.fileName)) return false;
     if (this.options.targetFile) {
       const normalizedTarget = path.resolve(this.options.targetFile);
@@ -86,18 +101,23 @@ class UnusedExportsAnalyzer {
     return true;
   }
 
+  // Program file names are relative (e.g. "app/dev/ui-kit/page.tsx"), so every
+  // path check must tolerate the absence of a leading slash.
+  private isIgnoredFile(fileName: string): boolean {
+    return fileName.includes("node_modules") || /(^|\/)\.next\//.test(fileName);
+  }
+
   private isTestFile(fileName: string): boolean {
-    return (
-      fileName.includes(".test.") ||
-      fileName.includes(".spec.") ||
-      fileName.includes("/tests/") ||
-      fileName.includes("/__tests__/")
-    );
+    return fileName.includes(".test.") || fileName.includes(".spec.") || /(^|\/)(tests|__tests__)\//.test(fileName);
+  }
+
+  private isDevFile(fileName: string): boolean {
+    return /(^|\/)app\/dev\//.test(fileName);
   }
 
   private collectExports(sourceFile: ts.SourceFile): void {
     const visit = (node: ts.Node) => {
-      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
 
       // Export declarations
       if (ts.isFunctionDeclaration(node) && this.isExported(node)) {
@@ -175,7 +195,7 @@ class UnusedExportsAnalyzer {
   private collectClassMembers(classNode: ts.ClassDeclaration, sourceFile: ts.SourceFile, className: string): void {
     classNode.members.forEach((member) => {
       if (member.name && ts.isIdentifier(member.name)) {
-        const pos = sourceFile.getLineAndCharacterOfPosition(member.getStart());
+        const pos = sourceFile.getLineAndCharacterOfPosition(member.getStart(sourceFile));
         const visibility = this.getMemberVisibility(member);
         const memberName = `${className}.${member.name.text}`;
 
@@ -222,7 +242,7 @@ class UnusedExportsAnalyzer {
       }
 
       // Identifier references
-      if (ts.isIdentifier(node) && !ts.isPropertyAccessExpression(node.parent)) {
+      if (ts.isIdentifier(node) && (!node.parent || !ts.isPropertyAccessExpression(node.parent))) {
         this.processIdentifier(node, sourceFile);
       }
 
@@ -235,7 +255,7 @@ class UnusedExportsAnalyzer {
   private processImportDeclaration(node: ts.ImportDeclaration, sourceFile: ts.SourceFile): void {
     if (!node.importClause) return;
 
-    const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+    const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
     const isTypeOnly = node.importClause.isTypeOnly || false;
 
     // Named imports
@@ -319,12 +339,12 @@ class UnusedExportsAnalyzer {
     }
 
     if (exportInfo) {
-      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
       exportInfo.usages.push({
         filePath: sourceFile.fileName,
         line: pos.line + 1,
         isImport: false,
-        context: this.getNodeContext(node)
+        context: this.getNodeContext(node, sourceFile)
       });
     }
   }
@@ -333,7 +353,7 @@ class UnusedExportsAnalyzer {
     const exportInfo = this.findExportByName(node.text);
     if (exportInfo && exportInfo.filePath === sourceFile.fileName) {
       // Internal usage in the same file
-      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+      const pos = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
 
       // Avoid duplicate entries for the export declaration itself
       if (pos.line + 1 !== exportInfo.line) {
@@ -341,13 +361,13 @@ class UnusedExportsAnalyzer {
           filePath: sourceFile.fileName,
           line: pos.line + 1,
           isImport: false,
-          context: this.getNodeContext(node)
+          context: this.getNodeContext(node, sourceFile)
         });
       }
     }
   }
 
-  private getNodeContext(node: ts.Node): string {
+  private getNodeContext(node: ts.Node, sourceFile: ts.SourceFile): string {
     // Get the parent statement for context
     let parent = node.parent;
     while (parent && !ts.isStatement(parent)) {
@@ -355,7 +375,7 @@ class UnusedExportsAnalyzer {
     }
 
     if (parent) {
-      const text = parent.getText();
+      const text = parent.getText(sourceFile);
       return text.length > 100 ? text.substring(0, 100) + "..." : text;
     }
 
@@ -507,10 +527,16 @@ class UnusedExportsAnalyzer {
       console.log("  None found");
     } else {
       results.externallyUsed.forEach((exp) => {
-        const externalUses = exp.usages.filter((u) => u.isImport || u.filePath !== exp.filePath).length;
+        const externalUsages = exp.usages.filter((u) => u.isImport || u.filePath !== exp.filePath);
         console.log(
-          `  ${exp.kind} ${exp.name} at ${relativePath(exp.filePath)}:${exp.line}:${exp.column} (${externalUses} external uses)`
+          `  ${exp.kind} ${exp.name} at ${relativePath(exp.filePath)}:${exp.line}:${exp.column} (${externalUsages.length} external uses)`
         );
+
+        if (this.options.verbose) {
+          externalUsages.forEach((usage) => {
+            console.log(`    ${relativePath(usage.filePath)}:${usage.line}${usage.isImport ? " (import)" : ""}`);
+          });
+        }
       });
     }
 

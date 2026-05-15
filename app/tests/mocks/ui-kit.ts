@@ -20,18 +20,6 @@ export function MockEmailIcon() {
   return React.createElement(MockIcon, { "data-testid": "email-icon" } as any);
 }
 
-export function MockEmailIconFocused() {
-  return React.createElement(MockIcon, { "data-testid": "email-icon-focused" } as any);
-}
-
-export function MockGoogleIcon() {
-  return React.createElement(MockIcon, { "data-testid": "google-icon" } as any);
-}
-
-export function MockProjectsIcon() {
-  return React.createElement(MockIcon, { "data-testid": "projects-icon" } as any);
-}
-
 // Helper to create tab items for testing
 export function createMockTabItems(count: number = 3) {
   return Array.from({ length: count }, (_, i) => ({
@@ -39,17 +27,6 @@ export function createMockTabItems(count: number = 3) {
     label: `Tab ${i + 1}`,
     icon: React.createElement(MockIcon, { "data-testid": `tab-${i + 1}-icon` } as any)
   }));
-}
-
-// Helper to create form field test data
-export function createMockFormFieldProps(overrides: Record<string, unknown> = {}) {
-  return {
-    label: "Test Field",
-    placeholder: "Enter test value",
-    icon: React.createElement(MockIcon, { "data-testid": "field-icon" } as any),
-    focusedIcon: React.createElement(MockIcon, { "data-testid": "field-icon-focused" } as any),
-    ...overrides
-  };
 }
 
 // Mock handlers for testing
@@ -62,9 +39,4 @@ export function createMockHandlers() {
     onSubmit: jest.fn(),
     onTabChange: jest.fn()
   };
-}
-
-// Animation testing helper
-export function waitForAnimation(duration: number = 100) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
 }

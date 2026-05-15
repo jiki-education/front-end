@@ -189,6 +189,22 @@
     cursor: not-allowed;
 }
 
+/* White button — for use on colorful backgrounds where a neutral CTA is wanted */
+.ui-btn-white {
+    background: white;
+    color: var(--color-gray-800);
+    border-color: white;
+    box-shadow: 0 2px 8px var(--color-shadow-subtle);
+}
+
+.ui-btn-white:hover {
+    background: white;
+    border-color: white;
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.25),
+        0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
 /* UI button on colorful bg */
 .ui-btn-for-colorful-background {
     background: white;

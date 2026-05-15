@@ -2,7 +2,6 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showModal } from "@/lib/modal";
-import { Button } from "@/components/ui-kit/Button";
 import styles from "./PremiumPage.module.css";
 
 export default function CtaSection() {
@@ -26,9 +25,12 @@ export default function CtaSection() {
         <div className={styles["cta-banner"]}>
           <h2 className={styles["cta-title"]}>Ready to accelerate your learning?</h2>
           <p className={styles["cta-desc"]}>Upgrade to Premium and unlock everything Jiki has to offer.</p>
-          <Button variant="white" onClick={() => showModal("premium-upgrade-modal")}>
+          <button
+            className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
+            onClick={() => showModal("premium-upgrade-modal")}
+          >
             Upgrade to Premium
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -42,9 +44,12 @@ export default function CtaSection() {
           Get started today for free and access hundreds of hours of free content. Upgrade to Premium when you want to
           go even deeper.
         </p>
-        <Button variant="white" onClick={() => (window.location.href = "/auth/signup")}>
+        <button
+          className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
+          onClick={() => (window.location.href = "/auth/signup")}
+        >
           Sign up for free
-        </Button>
+        </button>
       </div>
     </div>
   );
