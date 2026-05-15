@@ -11,10 +11,10 @@ const mockApiData: Record<string, Record<string, string>> = {
 const API_URL = "https://timeapi.io/api/time/current/city";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(_ctx: ExecutionContext, url: any, params: any): Record<string, string> {
+function mockFetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, string> {
   const urlValue = url?.value ?? url;
   if (urlValue !== API_URL) {
-    return { error: "Could not reach API" };
+    return executionCtx.logicError("Oh no, you tried to fetch an unexpected URL, which got blocked.");
   }
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

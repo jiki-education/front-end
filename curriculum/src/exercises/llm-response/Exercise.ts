@@ -41,10 +41,10 @@ const mockResponses: Record<string, any> = {
 const API_URL = "https://myllm.com/api/v2/qanda";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(_ctx: ExecutionContext, url: any, params: any): Record<string, any> {
+function mockFetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, any> {
   const urlValue = url?.value ?? url;
   if (urlValue !== API_URL) {
-    return { error: "Could not reach API" };
+    return executionCtx.logicError("Oh no, you tried to fetch an unexpected URL, which got blocked.");
   }
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
