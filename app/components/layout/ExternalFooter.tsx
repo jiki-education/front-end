@@ -20,6 +20,9 @@ export function ExternalFooter() {
             <Link href="/premium" className={styles.link}>
               Jiki Premium
             </Link>
+            <Link href="/roadmap" className={styles.link}>
+              Roadmap
+            </Link>
           </div>
         </div>
         <div className={styles.section}>
