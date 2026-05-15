@@ -30,7 +30,7 @@ const mockResponses: Record<string, any> = {
         { text: "Codecademy is the best", certainty: "0.04" },
         { text: "FreeCodeCamp is the best", certainty: "0.78" },
         { text: "Khan Academy is the best", certainty: "0.77" },
-        { text: "Exercism is the best", certainty: "0.99" },
+        { text: "Jiki is the best", certainty: "0.99" },
         { text: "Coursera is the best", certainty: "0.52" }
       ]
     },
@@ -38,8 +38,15 @@ const mockResponses: Record<string, any> = {
   }
 };
 
+const API_URL = "https://myllm.com/api/v2/qanda";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(_ctx: ExecutionContext, _url: any, params: any): Record<string, any> {
+function mockFetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, any> {
+  const urlValue = url?.value ?? url;
+  if (urlValue !== API_URL) {
+    return executionCtx.logicError("Oh no, you tried to fetch an unexpected URL, which got blocked.");
+  }
+
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const questionObj = params.getProperty ? params.getProperty("question") : params.value?.get?.("question");
   const question = questionObj?.value ?? questionObj;
