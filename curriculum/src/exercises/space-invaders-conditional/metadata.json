@@ -3,20 +3,20 @@
   "levelId": "conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "You need to check each column as you move across"
+      "question": "How do I decide whether to shoot or not?",
+      "answer": "Use an `if` statement that checks `isAlienAbove()`. Only call `shoot()` when it returns `true`."
     },
     {
-      "question": "Hint",
-      "answer": "Use isAlienAbove() to check before shooting"
+      "question": "What does `isAlienAbove()` give me back?",
+      "answer": "It returns `true` if there's an alien directly above your cannon, and `false` otherwise. You can put it straight into an `if` condition."
     },
     {
-      "question": "Hint",
-      "answer": "Use an if statement to check isAlienAbove() and then shoot()"
+      "question": "How do I check every column without writing the same code over and over?",
+      "answer": "Wrap your check-and-maybe-shoot logic in a `repeat` loop, calling `move()` at the end of each iteration to slide to the next column."
     },
     {
-      "question": "Hint",
-      "answer": "Wrap everything in a repeat loop to move across all columns"
+      "question": "I keep shooting empty columns and losing. What's wrong?",
+      "answer": "Make sure `shoot()` is inside the `if` block, not after it. The call should only happen when `isAlienAbove()` is `true`."
     }
   ]
 }

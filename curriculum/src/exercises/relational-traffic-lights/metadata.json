@@ -3,20 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The centerX is radius * 5 to position the traffic light on the canvas"
+      "question": "How do I work out where the lights sit horizontally?",
+      "answer": "Pick a center based on `radius`, e.g. `centerX = radius * 5`. All three lights share this `centerX`."
     },
     {
-      "question": "Hint",
-      "answer": "The lights are spaced 2 radii apart: redY = radius * 3, yellowY = radius * 5, greenY = radius * 7"
+      "question": "How do I space the three lights vertically?",
+      "answer": "Place them two radii apart so they sit neatly: `redY = radius * 3`, `yellowY = radius * 5`, `greenY = radius * 7`."
     },
     {
-      "question": "Hint",
-      "answer": "The housing starts 2 radii left of center and 2 radii above the top light"
+      "question": "Where does the housing rectangle start?",
+      "answer": "Step `2 * radius` left of `centerX` and `2 * radius` above `redY` to get `housingX` and `housingY`."
     },
     {
-      "question": "Hint",
-      "answer": "The housing width is radius * 4 and height is radius * 8"
+      "question": "How big should the housing be?",
+      "answer": "Width is `radius * 4` (one radius padding either side of the light). Height is `radius * 8` to wrap all three lights with padding."
+    },
+    {
+      "question": "Why must everything be a multiple of `radius`?",
+      "answer": "If you hardcode a number, changing `radius` will leave the housing the wrong size for the lights. Using `radius * something` keeps the whole drawing in proportion."
     }
   ]
 }

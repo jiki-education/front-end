@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by defining houseLeft and houseTop, then derive other positions from those"
+      "question": "How do I make the whole house move when I change one variable?",
+      "answer": "Pick `houseLeft` and `houseTop` as your anchor variables, then derive every other position from them using arithmetic."
     },
     {
-      "question": "Hint",
-      "answer": "The roof overhangs the house by 4 on each side: roofLeft = houseLeft - 4"
+      "question": "How do I position the roof so it overhangs the frame?",
+      "answer": "The roof overhangs by `4` on each side, so `roofLeft = houseLeft - 4` and the roof width is `houseWidth + 8`."
     },
     {
-      "question": "Hint",
-      "answer": "Window positions can be calculated from houseLeft: window1Left = houseLeft + 10"
+      "question": "How do I place the windows and door relative to the house?",
+      "answer": "Express each as an offset from `houseLeft` and `houseTop`. For the door to be centered, use `doorLeft = houseLeft + (houseWidth - doorWidth) / 2`."
     },
     {
-      "question": "Hint",
-      "answer": "The door is centered: doorLeft = houseLeft + (houseWidth - doorWidth) / 2"
+      "question": "How do I put the door knob in the right spot?",
+      "answer": "Inset it `1` from the right of the door and vertically center it. So `knobX = doorLeft + doorWidth - knobRadius - 1` and `knobY = doorTop + doorHeight / 2`."
     },
     {
-      "question": "Hint",
-      "answer": "The door knob x = doorLeft + doorWidth - knobRadius - 1"
+      "question": "My layout looks right but changing `houseLeft` breaks it. Why?",
+      "answer": "You've probably hardcoded a position somewhere instead of deriving it. Look through your code for any literal number that should really be `houseLeft + something`."
     }
   ]
 }

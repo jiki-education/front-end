@@ -3,24 +3,24 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Use nested loops: outer loop for rows, inner loop for bricks in each row"
+      "question": "I can only call `rectangle` once. How do I draw 55 bricks?",
+      "answer": "Put the single `rectangle` call inside a loop. Each iteration changes the x and y so a new brick is drawn in a new place."
     },
     {
-      "question": "Hint",
-      "answer": "Odd rows (0, 2, 4...) start at x=0 with 5 bricks"
+      "question": "How do I draw a whole grid rather than just one row?",
+      "answer": "Use nested loops. The outer loop steps through the rows (changing y), and the inner loop steps through the bricks in that row (changing x)."
     },
     {
-      "question": "Hint",
-      "answer": "Even rows (1, 3, 5...) start at x=-10 with 6 bricks"
+      "question": "How do I deal with the rows being offset differently?",
+      "answer": "Treat odd-numbered rows differently from even-numbered ones. Rows `0, 2, 4, ...` start at `x = 0` with 5 bricks; rows `1, 3, 5, ...` start at `x = -10` with 6 bricks (the extra brick hangs off-screen)."
     },
     {
-      "question": "Hint",
-      "answer": "Use modulo (%) to check if a row number is odd or even"
+      "question": "How do I tell if a row number is odd or even?",
+      "answer": "Use the `%` operator. `row % 2 === 0` is true for even rows, and false for odd rows. Use that inside an `if` to pick the starting x and brick count."
     },
     {
-      "question": "Hint",
-      "answer": "Each brick is 20 wide and 10 tall"
+      "question": "What sizes and spacings do I use?",
+      "answer": "Every brick is `20` wide and `10` tall, so x goes up by `20` between bricks in a row, and y goes up by `10` between rows."
     }
   ]
 }

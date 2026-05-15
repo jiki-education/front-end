@@ -3,16 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Your function should be called walk and take one input called steps"
+      "question": "How do I define a function that takes an input?",
+      "answer": "Put the input name in the parentheses, e.g. `function walk(steps) { ... }`. Then you can use `steps` inside the function body."
     },
     {
-      "question": "Hint",
-      "answer": "Use a loop with the steps input to move forward multiple times"
+      "question": "How do I move forward a number of times?",
+      "answer": "Use a loop that runs `steps` times, and call `move()` inside it."
     },
     {
-      "question": "Hint",
-      "answer": "The function should call move() inside the repeat loop"
+      "question": "What should happen if I call `walk(3)`?",
+      "answer": "The loop should run three times, calling `move()` on each iteration, so the character moves forward three squares."
+    },
+    {
+      "question": "Where should the function definition go?",
+      "answer": "At the top of your code, before any code that calls `walk(...)`. Functions must be defined before they're used."
     }
   ]
 }

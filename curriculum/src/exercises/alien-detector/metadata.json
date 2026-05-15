@@ -3,28 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Get all three rows of aliens at the start using getStartingAliensInRow()"
+      "question": "How do I know where the aliens are if `isAlienAbove()` is gone?",
+      "answer": "Call `getStartingAliensInRow(1)`, `getStartingAliensInRow(2)`, and `getStartingAliensInRow(3)` once at the start. Each returns a list of 11 booleans you can store in variables and read from later."
     },
     {
-      "question": "Hint",
-      "answer": "Track your position so you can index into the alien rows to check for aliens"
+      "question": "How do I work out which alien is above me right now?",
+      "answer": "Track your horizontal position in a variable, updating it each time you move. That position is the index into the row lists, so `row1[position]` tells you if there is an alien above you in row 1."
     },
     {
-      "question": "Hint",
-      "answer": "When you shoot an alien, mark it as false in the row array so you don't shoot it again"
+      "question": "How do I stop shooting the same alien twice?",
+      "answer": "After calling `shoot()`, set that index in the row to `false`. Next time round the loop the same position will report no alien there."
     },
     {
-      "question": "Hint",
-      "answer": "Only shoot the lowest alien in a column — check rows from bottom to top"
+      "question": "Which row should I shoot from when there are aliens stacked above me?",
+      "answer": "Check the rows from bottom to top. Shoot the lowest live alien in your column and stop checking further rows that iteration."
     },
     {
-      "question": "Hint",
-      "answer": "You might find it easier to think about the fireworks last and just get the alien tracking and shooting sorted first"
-    },
-    {
-      "question": "Hint",
-      "answer": "Write a helper function to check if all aliens are dead across all rows"
+      "question": "How do I know when to call `fireFireworks()`?",
+      "answer": "After shooting, scan all three row lists. If every entry is `false`, you have just downed the last alien, so call `fireFireworks()` in the same loop iteration. A small helper like `allAliensDead()` keeps the loop tidy."
     }
   ]
 }

@@ -3,20 +3,20 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Create a ball with `let ball = new Ball()`"
+      "question": "How do I get a ball to work with?",
+      "answer": "Use `new` to make one: `let ball = new Ball()`. Then pass `ball` to `moveBall(ball)` inside the loop to make it move."
     },
     {
-      "question": "Hint",
-      "answer": "Check if `ball.cx - ball.radius <= 0` to detect the left wall"
+      "question": "How do I tell when the ball has reached a wall?",
+      "answer": "The ball's edge is `radius` away from its centre. For the left wall, check `ball.cx - ball.radius <= 0`. For the right wall, `ball.cx + ball.radius >= 100`."
     },
     {
-      "question": "Hint",
-      "answer": "When the ball hits a wall, reverse the velocity (e.g., `ball.xVelocity = 1`)"
+      "question": "What should I do when the ball hits a wall?",
+      "answer": "Set the velocity so it moves the other way next step. At the left wall set `ball.xVelocity = 1`; at the right wall set it to `-1`. Use `=`, not `+=`, so the velocity stays exactly `1` or `-1`."
     },
     {
-      "question": "Hint",
-      "answer": "Check all four walls: left, right, top, and bottom"
+      "question": "Why does my ball still escape sometimes?",
+      "answer": "You probably only checked two walls. Add the same kind of check for the top (`ball.cy - ball.radius <= 0`) and bottom (`ball.cy + ball.radius >= 100`), flipping `yVelocity` instead of `xVelocity`."
     }
   ]
 }

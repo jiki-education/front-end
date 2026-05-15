@@ -2,9 +2,25 @@
   "slug": "foxy-face",
   "levelId": "strings-and-colors",
   "hints": [
-    { "question": "Hint", "answer": "The triangle function takes 7 arguments: x1, y1, x2, y2, x3, y3, color" },
-    { "question": "Hint", "answer": "Draw the white cheeks first so they appear behind the face" },
-    { "question": "Hint", "answer": "The ears are a darker orange (brown) than the face (orange)" },
-    { "question": "Hint", "answer": "The nose is made of two dark triangles (charcoal)" }
+    {
+      "question": "How do I call the `triangle` function?",
+      "answer": "Pass 7 arguments in order: the three corner points (`x1, y1, x2, y2, x3, y3`) and then the color string, e.g. `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+    },
+    {
+      "question": "What order should I draw the parts in so they overlap correctly?",
+      "answer": "Later shapes sit on top of earlier ones. Draw the white cheeks first so the orange face halves cover most of them, leaving just the cheek tips showing."
+    },
+    {
+      "question": "Which colors go where?",
+      "answer": "The ears are `\"brown\"`, the face halves are `\"orange\"`, the cheeks are `\"white\"`, and the nose is `\"charcoal\"`. Remember the colors are strings, so they need quotes."
+    },
+    {
+      "question": "How do I work out the coordinates on the right side without hovering?",
+      "answer": "The fox is symmetrical around the vertical middle. If a left-side point is at x=`30` and the centre is at x=`50`, the mirror point is at x=`70` (the same distance the other side of the centre). The y values stay the same."
+    },
+    {
+      "question": "Why aren't my coordinates working?",
+      "answer": "All the values you need are multiples of 5. If a corner looks slightly off, you have probably used a number like `12` or `38`. Snap it to the nearest multiple of 5 (`10`, `15`, `40`, etc)."
+    }
   ]
 }

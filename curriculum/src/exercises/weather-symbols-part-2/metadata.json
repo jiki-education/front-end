@@ -3,20 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by drawing the sky background covering the whole canvas"
+      "question": "How do I draw each element from the list?",
+      "answer": "Use a `for...of` loop to iterate through `elements`. For each value, decide which shapes to draw."
     },
     {
-      "question": "Hint",
-      "answer": "You'll need to check if \"cloud\" is in the elements list to decide the sun size"
+      "question": "How do I check whether a particular element is in the list?",
+      "answer": "Use `indexOf` or `includes` style logic on the list. You need this to choose between the large sun (no cloud) and the small sun (with cloud)."
     },
     {
-      "question": "Hint",
-      "answer": "Use a for-each loop to iterate through the elements and draw each one"
+      "question": "What should I always draw first?",
+      "answer": "The sky background, before anything else. Otherwise it will paint over your sun, clouds, rain, and snow."
     },
     {
-      "question": "Hint",
-      "answer": "Use helper functions like drawSky(), drawSun(size), drawCloud(), drawRain(), drawSnow() to keep your code organized"
+      "question": "How do I keep my code from becoming a mess?",
+      "answer": "Write small helper functions like `drawSky()`, `drawSun(size)`, `drawCloud()`, `drawRain()`, and `drawSnow()`. Your main loop then just calls them."
+    },
+    {
+      "question": "The sun is always small even when there's no cloud. What's wrong?",
+      "answer": "Decide the sun's size by inspecting the whole list before (or independently of) the loop. If you decide inside the loop based only on the current item, you'll miss a cloud that appears later."
     }
   ]
 }
