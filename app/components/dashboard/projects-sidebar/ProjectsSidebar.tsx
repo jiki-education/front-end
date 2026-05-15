@@ -47,41 +47,28 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
   }, [user, profileData]);
 
   useEffect(() => {
-    async function loadData() {
-      try {
-        setProfileLoading(true);
-        const profileResponse = await fetchProfile();
-        setProfileData(profileResponse.profile);
-      } catch (error) {
-        console.error("Failed to load profile:", error);
-      } finally {
-        setProfileLoading(false);
-      }
-
-      if (isPremium) {
-        try {
-          setProjectsLoading(true);
-          const projectResponse = await fetchProjects({ per: 100 });
-          setProjects(projectResponse.results);
-        } catch (error) {
-          console.error("Failed to load projects:", error);
-        } finally {
-          setProjectsLoading(false);
-        }
-      }
-
-      try {
-        setBadgesLoading(true);
-        const badgeResponse = await fetchBadges();
-        setBadges(badgeResponse.badges);
-      } catch (error) {
-        console.error("Failed to load badges:", error);
-      } finally {
-        setBadgesLoading(false);
-      }
+    setProfileLoading(true);
+    setBadgesLoading(true);
+    if (isPremium) {
+      setProjectsLoading(true);
     }
 
-    void loadData();
+    void fetchProfile()
+      .then((res) => setProfileData(res.profile))
+      .catch((error) => console.error("Failed to load profile:", error))
+      .finally(() => setProfileLoading(false));
+
+    void fetchBadges()
+      .then((res) => setBadges(res.badges))
+      .catch((error) => console.error("Failed to load badges:", error))
+      .finally(() => setBadgesLoading(false));
+
+    if (isPremium) {
+      void fetchProjects({ per: 100 })
+        .then((res) => setProjects(res.results))
+        .catch((error) => console.error("Failed to load projects:", error))
+        .finally(() => setProjectsLoading(false));
+    }
   }, [user, isPremium]);
 
   // Filter to get recent/in-progress projects, padded to 3 with locked projects - only computed for premium users
@@ -90,12 +77,18 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
       return [];
     }
     const active = projects.filter((p) => p.status === "started" || p.status === "unlocked").slice(0, 3);
-    if (active.length < 3) {
-      const activeSlugs = new Set(active.map((p) => p.slug));
-      const locked = projects.filter((p) => p.status === "locked" && !activeSlugs.has(p.slug));
-      return [...active, ...locked.slice(0, 3 - active.length)];
+    if (active.length >= 3) {
+      return active;
     }
-    return active;
+    const usedSlugs = new Set(active.map((p) => p.slug));
+    const locked = projects.filter((p) => p.status === "locked" && !usedSlugs.has(p.slug));
+    const withLocked = [...active, ...locked.slice(0, 3 - active.length)];
+    if (withLocked.length >= 3) {
+      return withLocked;
+    }
+    withLocked.forEach((p) => usedSlugs.add(p.slug));
+    const completed = projects.filter((p) => p.status === "completed" && !usedSlugs.has(p.slug));
+    return [...withLocked, ...completed.slice(0, 3 - withLocked.length)];
   }, [isPremium, projects]);
 
   // Count unlocked projects - only computed for premium users
