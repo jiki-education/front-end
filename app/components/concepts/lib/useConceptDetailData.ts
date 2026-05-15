@@ -51,6 +51,8 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+
     const load = async () => {
       try {
         setError(null);
@@ -62,6 +64,9 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         // This gives us the real title and breadcrumb immediately so the correct
         // skeleton renders without any intermediate wrong-layout flash.
         const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+        if (cancelled) {
+          return;
+        }
 
         if (!conceptData) {
           setError("Concept not found.");
@@ -79,13 +84,29 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         if (!conceptData.category) {
           setIsContentLoading(true);
           void getConceptContent(slug)
-            .then((contentHtml) => setContent(contentHtml))
-            .catch(() => setError("Failed to load concept. Please try again later."))
-            .finally(() => setIsContentLoading(false));
+            .then((contentHtml) => {
+              if (!cancelled) {
+                setContent(contentHtml);
+              }
+            })
+            .catch(() => {
+              if (!cancelled) {
+                setError("Failed to load concept. Please try again later.");
+              }
+            })
+            .finally(() => {
+              if (!cancelled) {
+                setIsContentLoading(false);
+              }
+            });
         }
 
         // Phase 2: fetch the slower secondary data in the background.
         const [related, exercises] = await Promise.all([getRelatedConcepts(slug), getExercisesForConcept(slug)]);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (cancelled) {
+          return;
+        }
 
         setRelatedConcepts(related);
 
@@ -95,6 +116,10 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
             fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
             fetchConceptVideoData(slug)
           ]);
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (cancelled) {
+            return;
+          }
 
           // Split concept exercises into true exercises vs projects (matched by exercise_slug or slug).
           const projectByExerciseSlug = new Map<string, ProjectData>();
@@ -120,6 +145,10 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
             exerciseOnly.length > 0
               ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
               : ({} as Record<string, LessonStatus>);
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (cancelled) {
+            return;
+          }
 
           const projStatuses: Record<string, ProjectStatus> = {};
           for (const project of projectsResponse.results) {
@@ -143,6 +172,9 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
           setRelatedExercises(exercises);
         }
       } catch {
+        if (cancelled) {
+          return;
+        }
         setError("Failed to load concept. Please try again later.");
         setIsLoading(false);
         setIsContentLoading(false);
@@ -150,6 +182,10 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     };
 
     void load();
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug, isAuthenticated, router]);
 
   const isConceptUnlocked = (conceptSlug: string) => !isAuthenticated || unlockedConceptSlugs.has(conceptSlug);
