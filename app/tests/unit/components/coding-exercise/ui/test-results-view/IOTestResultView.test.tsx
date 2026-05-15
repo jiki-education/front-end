@@ -16,7 +16,9 @@ function makeExpect(overrides: Partial<IOTestExpect> = {}): IOTestExpect {
 
 describe("IOTestResultView", () => {
   it("renders errorHtml when present and skips the table", () => {
-    const { container } = render(<IOTestResultView expect={makeExpect({ errorHtml: "<em>boom</em>" })} />);
+    const { container } = render(
+      <IOTestResultView expect={makeExpect({ errorHtml: "<em>boom</em>" })} language="jikiscript" />
+    );
 
     expect(container.querySelector("em")?.textContent).toBe("boom");
     expect(screen.queryByText("Code run")).not.toBeInTheDocument();
@@ -25,7 +27,7 @@ describe("IOTestResultView", () => {
   });
 
   it("renders Code run, Expected and Actual rows when no errorHtml", () => {
-    render(
+    const { container } = render(
       <IOTestResultView
         expect={makeExpect({
           codeRun: "even_or_odd(14)",
@@ -36,11 +38,12 @@ describe("IOTestResultView", () => {
             { value: "Odd", added: true }
           ] as any
         })}
+        language="jikiscript"
       />
     );
 
     expect(screen.getByText("Code run")).toBeInTheDocument();
-    expect(screen.getByText("even_or_odd(14)")).toBeInTheDocument();
+    expect(container.querySelector("code")?.textContent).toBe("even_or_odd(14)");
     expect(screen.getByText("Expected")).toBeInTheDocument();
     expect(screen.getByText("Actual")).toBeInTheDocument();
   });
@@ -54,6 +57,7 @@ describe("IOTestResultView", () => {
             { value: "Odd", added: true }
           ] as any
         })}
+        language="jikiscript"
       />
     );
 
@@ -73,6 +77,7 @@ describe("IOTestResultView", () => {
             { value: "Odd", added: true }
           ] as any
         })}
+        language="jikiscript"
       />
     );
 
@@ -94,6 +99,7 @@ describe("IOTestResultView", () => {
             { value: " suffix" }
           ] as any
         })}
+        language="jikiscript"
       />
     );
 
@@ -114,6 +120,7 @@ describe("IOTestResultView", () => {
         expect={makeExpect({
           diff: [{ value: "line1\nline2\nline3" }, { value: "x", removed: true }] as any
         })}
+        language="jikiscript"
       />
     );
 
@@ -122,8 +129,12 @@ describe("IOTestResultView", () => {
   });
 
   it("uses the shared IOScenarioTable wrapper styling regardless of pass/fail", () => {
-    const { container: passContainer } = render(<IOTestResultView expect={makeExpect({ pass: true })} />);
-    const { container: failContainer } = render(<IOTestResultView expect={makeExpect({ pass: false })} />);
+    const { container: passContainer } = render(
+      <IOTestResultView expect={makeExpect({ pass: true })} language="jikiscript" />
+    );
+    const { container: failContainer } = render(
+      <IOTestResultView expect={makeExpect({ pass: false })} language="jikiscript" />
+    );
 
     [passContainer, failContainer].forEach((c) => {
       const wrapper = c.firstChild as HTMLElement;
