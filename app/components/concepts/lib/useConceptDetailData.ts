@@ -71,12 +71,18 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
 
         setConcept(conceptData);
         setAncestors(ancestorData);
-        // Signal content is about to load (only relevant for leaf concepts)
-        if (!conceptData.category) {
-          setIsContentLoading(true);
-        }
         // Phase 1 done — correct layout renders with real title/breadcrumb
         setIsLoading(false);
+
+        // Kick off the leaf-concept content fetch in parallel with Phase 2 — it only
+        // depends on the slug + category flag from Phase 1, not on related/exercise data.
+        if (!conceptData.category) {
+          setIsContentLoading(true);
+          void getConceptContent(slug)
+            .then((contentHtml) => setContent(contentHtml))
+            .catch(() => setError("Failed to load concept. Please try again later."))
+            .finally(() => setIsContentLoading(false));
+        }
 
         // Phase 2: fetch the slower secondary data in the background.
         const [related, exercises] = await Promise.all([getRelatedConcepts(slug), getExercisesForConcept(slug)]);
@@ -135,12 +141,6 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
           }
         } else {
           setRelatedExercises(exercises);
-        }
-
-        if (!conceptData.category) {
-          const contentHtml = await getConceptContent(slug);
-          setContent(contentHtml);
-          setIsContentLoading(false);
         }
       } catch {
         setError("Failed to load concept. Please try again later.");
