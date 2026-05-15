@@ -8,8 +8,15 @@ const mockApiData: Record<string, Record<string, string>> = {
   Lima: { dayOfWeek: "Sunday", time: "18:39" }
 };
 
+const API_URL = "https://timeapi.io/api/time/current/city";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(_ctx: ExecutionContext, _url: any, params: any): Record<string, string> {
+function mockFetch(_ctx: ExecutionContext, url: any, params: any): Record<string, string> {
+  const urlValue = url?.value ?? url;
+  if (urlValue !== API_URL) {
+    return { error: "Could not reach API" };
+  }
+
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   const cityObj = params.getProperty ? params.getProperty("city") : params.value?.get?.("city");
   const city = cityObj?.value ?? cityObj;

@@ -40,6 +40,6 @@ export const scenarios: IOScenario[] = [
     functionName: "ask_llm",
     args: ["What's the best website to learn to code?"],
     expected:
-      "The answer to 'What's the best website to learn to code?' is 'Exercism is the best' (99% certainty in 1.264s)."
+      "The answer to 'What's the best website to learn to code?' is 'Jiki is the best' (99% certainty in 1.264s)."
   }
 ];
