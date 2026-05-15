@@ -3,24 +3,24 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by storing the outfit in a variable, e.g. let outfit = getOutfit()"
+      "question": "How do I find out what the person is wearing?",
+      "answer": "Call `getOutfit()` and store the result in a variable, e.g. `let outfit = getOutfit()`. That way you can check it as many times as you need without calling the function again."
     },
     {
-      "question": "Hint",
-      "answer": "Use 'or' to check for multiple outfits in one condition"
+      "question": "How do I check for more than one outfit in a single condition?",
+      "answer": "Use `||` (or) inside an `if`. For the fancy group: `if (outfit === \"ballgown\" || outfit === \"tuxedo\")`."
     },
     {
-      "question": "Hint",
-      "answer": "For the fancy outfits: if outfit == \"ballgown\" or outfit == \"tuxedo\""
+      "question": "Fancy outfits need two things to happen. How do I do both?",
+      "answer": "Just call both functions inside the same `if` block: first `offerChampagne()`, then `letIn()`."
     },
     {
-      "question": "Hint",
-      "answer": "Remember to call both offerChampagne() and letIn() for fancy outfits"
+      "question": "How do I handle the smart outfits without re-checking the fancy ones?",
+      "answer": "Use `else if` for the smart group (`\"suit\"` or `\"dress\"`). That branch only runs when the fancy condition was false."
     },
     {
-      "question": "Hint",
-      "answer": "Use else at the end to turn away anyone not matching the dress code"
+      "question": "What about outfits that match nothing in the dress code?",
+      "answer": "Finish with a plain `else` that calls `turnAway()`. Anyone who did not match an earlier branch gets turned away automatically."
     }
   ]
 }

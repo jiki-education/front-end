@@ -3,20 +3,20 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The head radius is size * 2, the body radius is size * 3, the base radius is size * 4"
+      "question": "How do I get the three radii from `size`?",
+      "answer": "Multiply: `headRadius = size * 2`, `bodyRadius = size * 3`, `baseRadius = size * 4`."
     },
     {
-      "question": "Hint",
-      "answer": "Two circles touch when the distance between centers equals the sum of their radii"
+      "question": "How do I work out where the body should sit?",
+      "answer": "Two circles touch when the distance between their centers equals the sum of their radii. So `bodyY = headY + headRadius + bodyRadius`."
     },
     {
-      "question": "Hint",
-      "answer": "bodyY = headY + headRadius + bodyRadius"
+      "question": "How do I position the base in the same way?",
+      "answer": "Use the same idea relative to the body: `baseY = bodyY + bodyRadius + baseRadius`."
     },
     {
-      "question": "Hint",
-      "answer": "baseY = bodyY + bodyRadius + baseRadius"
+      "question": "Why can't I just hardcode the y positions?",
+      "answer": "The whole point is that changing `size` should scale the snowman. If you hardcode numbers, changing `size` would leave the circles overlapping or gapped."
     }
   ]
 }

@@ -3,16 +3,20 @@
   "levelId": "strings-and-colors",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "The cloud is built from one rectangle and four circles along its edges."
+      "question": "How do I build the fluffy cloud shape from simple shapes?",
+      "answer": "The cloud is one rectangle (already drawn for you as the base) with `circle`s placed along its top edge to give it the bumpy outline."
     },
     {
-      "question": "Hint",
-      "answer": "Rain drops are ellipses that are taller than they are wide."
+      "question": "How do I make a raindrop with `ellipse`?",
+      "answer": "Raindrops are tall and thin, so the vertical radius is bigger than the horizontal one. The horizontal radius is `3` (the one number not divisible by 5)."
     },
     {
-      "question": "Hint",
-      "answer": "The sun should be drawn before the cloud so the cloud sits in front of it."
+      "question": "Why is my sun showing on top of the cloud?",
+      "answer": "Shapes drawn later sit in front of earlier ones. Draw the sun first, then the cloud on top, so the cloud appears to be in front of the sun."
+    },
+    {
+      "question": "Why isn't my drawing matching the template lines?",
+      "answer": "Your shapes should sit just inside the guide lines, not on top of them. Nearly every number you need is divisible by 5, so try the nearest multiple of 5 if a shape looks slightly off."
     }
   ]
 }

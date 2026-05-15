@@ -3,16 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Define the function at the top of your code, before the loop"
+      "question": "How do I define a new function?",
+      "answer": "Use the `function` keyword followed by the name, parentheses for inputs, and a body in curly braces, e.g. `function turnAround() { ... }`."
     },
     {
-      "question": "Hint",
-      "answer": "The function just needs to call turnLeft() twice"
+      "question": "Where should I put the function definition?",
+      "answer": "Put it at the top of your code, before the loop. Functions must be defined before they're called."
     },
     {
-      "question": "Hint",
-      "answer": "Replace the two turnLeft() calls in the else block with a single turnAround() call"
+      "question": "What should go inside `turnAround()`?",
+      "answer": "Just two calls to `turnLeft()`. Two left turns add up to facing the opposite direction."
+    },
+    {
+      "question": "How do I use my new function in the maze solver?",
+      "answer": "Find the `else` block in your previous solution where you called `turnLeft()` twice and replace those two calls with a single `turnAround()` call."
     }
   ]
 }

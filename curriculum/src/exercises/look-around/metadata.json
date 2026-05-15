@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by creating canTurnLeft(), canTurnRight() and canMove() that just return false"
+      "question": "Where do I even start when the program won't run at all?",
+      "answer": "Define `canTurnLeft()`, `canTurnRight()`, and `canMove()` at the top of your code, each just returning `false` for now. The program will then run and you can replace the bodies one at a time."
     },
     {
-      "question": "Hint",
-      "answer": "Use look(\"ahead\") to check what's in front of you"
+      "question": "How do I find out what is in a given direction?",
+      "answer": "Use the new `look(direction)` function. Pass `\"left\"`, `\"right\"`, or `\"ahead\"` and it returns a string like `\"empty\"`, `\"wall\"`, `\"fire\"`, or `\"poop\"`."
     },
     {
-      "question": "Hint",
-      "answer": "A space is safe to move into if it's not \"fire\", \"wall\", or \"poop\""
+      "question": "Which results mean it is safe to go that way?",
+      "answer": "Anything that is not `\"wall\"`, `\"fire\"`, or `\"poop\"` is fine. So `look(\"ahead\") !== \"wall\" && look(\"ahead\") !== \"fire\" && look(\"ahead\") !== \"poop\"` is what `canMove` should return."
     },
     {
-      "question": "Hint",
-      "answer": "Consider writing a helper function like checkDirection(direction) that all three functions can use"
+      "question": "I am repeating the same logic in three functions. How do I avoid that?",
+      "answer": "Write one helper, e.g. `isSafe(direction)`, that does the `look` and the comparisons. Then `canMove` returns `isSafe(\"ahead\")`, `canTurnLeft` returns `isSafe(\"left\")`, and `canTurnRight` returns `isSafe(\"right\")`."
     }
   ]
 }

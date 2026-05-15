@@ -3,28 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Hint",
-      "answer": "Start by drawing the grid - a rectangle and four lines"
+      "question": "Where should I start with such a big exercise?",
+      "answer": "Break it up. First draw the empty grid (one rectangle plus four lines). Then write helper functions for drawing an `o` and an `x`. Build the game logic on top of those."
     },
     {
-      "question": "Hint",
-      "answer": "Create helper functions for drawing crosses and circles"
+      "question": "How do I keep track of which squares are taken?",
+      "answer": "Use a 2D list (a list of three lists, each with three entries) where each cell holds `\"o\"`, `\"x\"`, or an empty marker. Update it every time a move is made."
     },
     {
-      "question": "Hint",
-      "answer": "Use a 2D list (list of lists) to track which squares are occupied"
+      "question": "How do I know whose turn it is?",
+      "answer": "The first move is always `\"o\"`, then it alternates. Track the move number, or flip a variable between `\"o\"` and `\"x\"` after each placement."
     },
     {
-      "question": "Hint",
-      "answer": "Remember the first move is always 'o', alternating after that"
+      "question": "How do I detect a win?",
+      "answer": "After each move, check all 8 winning lines: 3 rows, 3 columns, and 2 diagonals. For each, check whether all three cells contain the same non-empty symbol."
     },
     {
-      "question": "Hint",
-      "answer": "Check for wins after each move by examining all 8 possible winning lines (3 rows, 3 columns, 2 diagonals)"
-    },
-    {
-      "question": "Hint",
-      "answer": "For AI moves, first check if you can win, then check if you need to block, then pick any open square"
+      "question": "How does the AI decide what to do for a `\"?\"` move?",
+      "answer": "Try the rules in order: first see if there's a move that wins immediately, then see if there's one that blocks the opponent's win, otherwise pick any empty square."
     }
   ]
 }
