@@ -56,7 +56,6 @@
     display: inline-flex;
     align-items: flex-start;
     gap: 8px;
-    max-width: 470px;
     margin-bottom: 14px;
     border: 1px solid var(--color-orange-600);
     border-radius: 8px;

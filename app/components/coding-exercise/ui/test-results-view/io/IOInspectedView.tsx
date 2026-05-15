@@ -94,9 +94,6 @@ function IOInspectedResultView() {
   return (
     <div data-ci="inspected-test-result-view" className={styles.leftColumnContent}>
       <div className={assembleClassNames(styles.testDescription, statusClass)}>
-        {currentTest.status === "pass" && <CheckCircleIcon className={styles.testStatusIcon} />}
-        {currentTest.status === "fail" && <CrossCircleIcon className={styles.testStatusIcon} />}
-        <ScenarioHeader name={currentTest.name} description={scenario.description} />
         {currentTest.status === "lint_warning" && (
           <div className={tableStyles.lintWarningMessage}>
             <ExclamationCircleIcon className={tableStyles.lintWarningIcon} />
@@ -106,6 +103,19 @@ function IOInspectedResultView() {
             </span>
           </div>
         )}
+        <ScenarioHeader
+          name={currentTest.name}
+          description={scenario.description}
+          statusIcon={
+            currentTest.status === "pass" ? (
+              <CheckCircleIcon className={styles.testStatusIcon} />
+            ) : currentTest.status === "fail" ? (
+              <CrossCircleIcon className={styles.testStatusIcon} />
+            ) : currentTest.status === "lint_warning" ? (
+              <CheckCircleIcon className={styles.testStatusIcon} />
+            ) : null
+          }
+        />
         {firstExpect ? <IOTestResultView expect={firstExpect} language={language} /> : null}
       </div>
     </div>

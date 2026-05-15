@@ -450,19 +450,24 @@
 }
 
 .testStatusIcon {
-    position: absolute;
-    top: 18px;
-    right: 16px;
     width: 24px;
     height: 24px;
+    flex-shrink: 0;
 }
 
 .testDescription.statePassed .testStatusIcon {
-    color: var(--color-green-300);
+    color: var(--color-green-600);
+    opacity: 0.5;
 }
 
 .testDescription.stateFailed .testStatusIcon {
-    color: var(--color-red-300);
+    color: var(--color-red-600);
+    opacity: 0.5;
+}
+
+.testDescription.stateLintWarning .testStatusIcon {
+    color: var(--color-orange-600);
+    opacity: 0.5;
 }
 
 .testDescription::-webkit-scrollbar {
@@ -491,11 +496,21 @@
 }
 
 .instructionLabel {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 6px;
     color: var(--color-gray-700);
+}
+
+.instructionLabel > span:first-child {
+    margin-right: 20px;
+}
+
+.instructionLabel .testStatusIcon {
+    margin-left: auto;
 }
 
 /* Active State (Blue) */
