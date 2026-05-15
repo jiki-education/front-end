@@ -26,7 +26,7 @@ export default function CtaSection() {
           <h2 className={styles["cta-title"]}>Ready to accelerate your learning?</h2>
           <p className={styles["cta-desc"]}>Upgrade to Premium and unlock everything Jiki has to offer.</p>
           <button
-            className="ui-btn ui-btn-default ui-btn-for-colorful-background"
+            className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
             onClick={() => showModal("premium-upgrade-modal")}
           >
             Upgrade to Premium
@@ -45,7 +45,7 @@ export default function CtaSection() {
           go even deeper.
         </p>
         <button
-          className="ui-btn ui-btn-default ui-btn-for-colorful-background"
+          className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
           onClick={() => (window.location.href = "/auth/signup")}
         >
           Sign up for free
