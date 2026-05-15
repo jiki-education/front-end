@@ -53,7 +53,12 @@ const nextConfig: NextConfig = {
             loader: "@svgr/webpack",
             options: {
               svgoConfig: {
-                plugins: [{ name: "preset-default" }, { name: "removeUnusedNS" }, { name: "removeDimensions" }]
+                plugins: [
+                  { name: "preset-default", params: { overrides: { cleanupIds: false } } },
+                  { name: "prefixIds" },
+                  { name: "removeUnusedNS" },
+                  { name: "removeDimensions" }
+                ]
               }
             }
           }
@@ -103,7 +108,12 @@ const nextConfig: NextConfig = {
           loader: "@svgr/webpack",
           options: {
             svgoConfig: {
-              plugins: [{ name: "preset-default" }, { name: "removeUnusedNS" }, { name: "removeDimensions" }]
+              plugins: [
+                { name: "preset-default", params: { overrides: { cleanupIds: false } } },
+                { name: "prefixIds" },
+                { name: "removeUnusedNS" },
+                { name: "removeDimensions" }
+              ]
             }
           }
         }
