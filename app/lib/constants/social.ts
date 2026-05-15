@@ -1,1 +1,1 @@
-export const YOUTUBE_URL = "http://youtube.com/@jiki-coding";
+export const YOUTUBE_URL = "https://youtube.com/@jiki-coding";
