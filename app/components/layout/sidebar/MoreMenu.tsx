@@ -18,6 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import ThreeDotsIcon from "@/icons/three-dots.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { YOUTUBE_URL } from "@/lib/constants/social";
 import styles from "./MoreMenu.module.css";
 
 interface MoreMenuProps {
@@ -98,6 +99,15 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
               <button onClick={() => handleNavigation("/articles")} className={styles.dropdownItem}>
                 Help Center
               </button>
+              <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className={styles.dropdownItem}
+              >
+                YouTube
+              </a>
               <button onClick={() => handleNavigation("/forum")} className={styles.dropdownItem}>
                 Forum
               </button>

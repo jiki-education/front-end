@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { YOUTUBE_URL } from "@/lib/constants/social";
 import styles from "./ExternalFooter.module.css";
 
 export function ExternalFooter() {
@@ -48,7 +49,7 @@ export function ExternalFooter() {
             <Link href="/blog" className={styles.link}>
               Jiki&apos;s blog
             </Link>
-            <Link href="#" className={styles.link}>
+            <Link href={YOUTUBE_URL} className={styles.link} target="_blank" rel="noopener noreferrer">
               Jiki&apos;s YouTube Channel
             </Link>
             <Link href="/articles/support" className={styles.link}>
