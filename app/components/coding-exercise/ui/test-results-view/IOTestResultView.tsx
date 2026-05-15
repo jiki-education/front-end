@@ -2,12 +2,14 @@ import React from "react";
 import type { Change } from "diff";
 import type { IOTestExpect } from "../../lib/test-results-types";
 import tableStyles from "./io/IOScenarioTable.module.css";
+import { HighlightedCode } from "./HighlightedCode";
 
 interface IOTestResultViewProps {
   expect: IOTestExpect;
+  language: string;
 }
 
-export function IOTestResultView({ expect }: IOTestResultViewProps) {
+export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
   if (expect.errorHtml) {
     return (
       <div className={tableStyles.wrapper}>
@@ -22,20 +24,28 @@ export function IOTestResultView({ expect }: IOTestResultViewProps) {
         <tbody>
           <tr>
             <th>Code run</th>
-            <td>{expect.codeRun}</td>
+            <td>
+              <div className={tableStyles.cellScroll}>
+                <HighlightedCode code={expect.codeRun ?? ""} language={language} />
+              </div>
+            </td>
           </tr>
           <tr>
             <th>Expected</th>
-            <td className="whitespace-pre-wrap">{renderExpected(expect.diff)}</td>
+            <td>
+              <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>{renderExpected(expect.diff)}</div>
+            </td>
           </tr>
           <tr>
             <th>Actual</th>
-            <td className="whitespace-pre-wrap">
-              {expect.actual === undefined || expect.actual === null ? (
-                <span className={tableStyles.removedPart}>[Your function didn&apos;t return anything]</span>
-              ) : (
-                renderActual(expect.diff)
-              )}
+            <td>
+              <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>
+                {expect.actual === undefined || expect.actual === null ? (
+                  <span className={tableStyles.removedPart}>[Your function didn&apos;t return anything]</span>
+                ) : (
+                  renderActual(expect.diff)
+                )}
+              </div>
             </td>
           </tr>
         </tbody>

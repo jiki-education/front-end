@@ -6,6 +6,7 @@ import { useOrchestratorStore } from "../../../lib/Orchestrator";
 import { useOrchestrator } from "../../../lib/OrchestratorContext";
 import type { IOTestExpect } from "../../../lib/test-results-types";
 import { IOTestResultView } from "../IOTestResultView";
+import { HighlightedCode } from "../HighlightedCode";
 import { ScenarioHeader } from "../ScenarioHeader";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import CrossCircleIcon from "@/icons/cross-circle.svg";
@@ -25,7 +26,7 @@ export function IOInspectedView() {
 
 function IOInspectedPreviewView() {
   const orchestrator = useOrchestrator();
-  const { currentTestIdx } = useOrchestratorStore(orchestrator);
+  const { currentTestIdx, language } = useOrchestratorStore(orchestrator);
   const exercise = orchestrator.getExercise() as IOExerciseDefinition;
   const scenario = exercise.scenarios[currentTestIdx];
 
@@ -42,15 +43,23 @@ function IOInspectedPreviewView() {
             <tbody>
               <tr>
                 <th>Code run</th>
-                <td>{codeRun}</td>
+                <td>
+                  <div className={tableStyles.cellScroll}>
+                    <HighlightedCode code={codeRun} language={language} />
+                  </div>
+                </td>
               </tr>
               <tr>
                 <th>Expected</th>
-                <td>{expectedStr}</td>
+                <td>
+                  <div className={tableStyles.cellScroll}>{expectedStr}</div>
+                </td>
               </tr>
               <tr>
                 <th>Actual</th>
-                <td className={tableStyles.pendingMessage}>Click &ldquo;Run Code&rdquo; to see what your code does.</td>
+                <td className={tableStyles.pendingMessage}>
+                  <div className={tableStyles.cellScroll}>Click &ldquo;Run Code&rdquo; to see what your code does.</div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -62,7 +71,7 @@ function IOInspectedPreviewView() {
 
 function IOInspectedResultView() {
   const orchestrator = useOrchestrator();
-  const { currentTest, currentTestIdx } = useOrchestratorStore(orchestrator);
+  const { currentTest, currentTestIdx, language } = useOrchestratorStore(orchestrator);
   const exercise = orchestrator.getExercise() as IOExerciseDefinition;
   const scenario = exercise.scenarios[currentTestIdx];
 
@@ -97,7 +106,7 @@ function IOInspectedResultView() {
             </span>
           </div>
         )}
-        {firstExpect ? <IOTestResultView expect={firstExpect} /> : null}
+        {firstExpect ? <IOTestResultView expect={firstExpect} language={language} /> : null}
       </div>
     </div>
   );

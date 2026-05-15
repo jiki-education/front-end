@@ -6,6 +6,7 @@
 
 .table {
     @apply w-full text-sm;
+    table-layout: fixed;
 }
 
 .table tr + tr {
@@ -22,8 +23,13 @@
 }
 
 .table td {
-    padding: 8px;
     @apply font-mono text-sm;
+}
+
+.cellScroll {
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 8px;
 }
 
 .addedPart,
