@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import JikiLogo from "@/icons/jiki-logo.svg";
 import styles from "./AuthLayout.module.css";
 
 interface AuthLayoutProps {
@@ -14,7 +15,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Right Side - Gradient Background */}
       <div className={styles.rightSide}>
-        <div className={styles.logoLarge}>Jiki</div>
+        <JikiLogo className={styles.logoLarge} />
         <h1 className={styles.tagline}>Your coding journey starts here</h1>
         <p className={styles.description}>
           Join millions of learners transforming their careers through hands-on coding practice.
