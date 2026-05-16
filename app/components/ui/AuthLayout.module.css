@@ -15,12 +15,12 @@
 }
 
 .logoLarge {
-    font-size: 72px;
-    font-weight: 500;
+    height: 96px;
+    width: auto;
+    color: white;
     z-index: var(--z-index-base);
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.2));
     margin-bottom: 40px;
-    line-height: 1;
 }
 
 .tagline {
@@ -74,7 +74,7 @@
     }
 
     .logoLarge {
-        font-size: 48px;
+        height: 64px;
     }
 
     .tagline {
