@@ -2,7 +2,12 @@
  * Unit tests for chatTokenApi.ts - JWT token fetching for chat
  */
 
-import { fetchChatToken, ChatTokenError } from "@/components/coding-exercise/lib/chatTokenApi";
+import {
+  ChatTokenAccessDeniedError,
+  ChatTokenError,
+  ChatTokenInvalidCaptchaError,
+  fetchChatToken
+} from "@/components/coding-exercise/lib/chatTokenApi";
 import { getApiUrl } from "@/lib/api/config";
 
 jest.mock("@/lib/api/config");
@@ -154,6 +159,83 @@ describe("chatTokenApi", () => {
         const chatError = error as ChatTokenError;
         expect(chatError.status).toBe(500);
         expect(chatError.data).toEqual({ error: "unknown", message: "Failed to parse error response" });
+      }
+    });
+  });
+
+  describe("403 disambiguation", () => {
+    function mock403(errorBody: unknown) {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 403,
+        statusText: "Forbidden",
+        headers: { get: () => "application/json" },
+        json: () => Promise.resolve(errorBody)
+      });
+    }
+
+    it("throws ChatTokenAccessDeniedError when error.type is access_denied", async () => {
+      mock403({ error: { type: "access_denied", message: "Upgrade required" } });
+
+      try {
+        await fetchChatToken({ context: { type: "lesson", slug: "x" } });
+        fail("expected throw");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ChatTokenAccessDeniedError);
+        expect(error).toBeInstanceOf(ChatTokenError);
+        expect((error as ChatTokenAccessDeniedError).status).toBe(403);
+        expect((error as ChatTokenAccessDeniedError).message).toBe("Upgrade required");
+      }
+    });
+
+    it("throws ChatTokenInvalidCaptchaError when error.type is invalid_captcha", async () => {
+      mock403({ error: { type: "invalid_captcha", message: "Verification failed" } });
+
+      try {
+        await fetchChatToken({ context: { type: "lesson", slug: "x" } });
+        fail("expected throw");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ChatTokenInvalidCaptchaError);
+        expect(error).toBeInstanceOf(ChatTokenError);
+        expect((error as ChatTokenInvalidCaptchaError).message).toBe("Verification failed");
+      }
+    });
+
+    it("falls through to ChatTokenError when error.type is unknown", async () => {
+      mock403({ error: { type: "something_else", message: "Nope" } });
+
+      try {
+        await fetchChatToken({ context: { type: "lesson", slug: "x" } });
+        fail("expected throw");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ChatTokenError);
+        expect(error).not.toBeInstanceOf(ChatTokenAccessDeniedError);
+        expect(error).not.toBeInstanceOf(ChatTokenInvalidCaptchaError);
+      }
+    });
+
+    it("falls through to ChatTokenError when 403 body is malformed", async () => {
+      mock403({ unexpected: "shape" });
+
+      try {
+        await fetchChatToken({ context: { type: "lesson", slug: "x" } });
+        fail("expected throw");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ChatTokenError);
+        expect(error).not.toBeInstanceOf(ChatTokenAccessDeniedError);
+        expect(error).not.toBeInstanceOf(ChatTokenInvalidCaptchaError);
+      }
+    });
+
+    it("uses generic message when access_denied body has no message", async () => {
+      mock403({ error: { type: "access_denied" } });
+
+      try {
+        await fetchChatToken({ context: { type: "lesson", slug: "x" } });
+        fail("expected throw");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ChatTokenAccessDeniedError);
+        expect((error as ChatTokenAccessDeniedError).message).toBe("HTTP 403: Forbidden");
       }
     });
   });

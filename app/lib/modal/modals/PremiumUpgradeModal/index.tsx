@@ -34,10 +34,11 @@ export function PremiumUpgradeModal({
       context_type: contextType ?? null,
       context_id: contextId ?? null
     });
-    // Fire once per modal mount. Trigger is captured at open time; later
-    // prop changes (none expected) shouldn't re-fire.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // If the modal stays mounted while showModal is called again with a new
+    // trigger (rare but possible — the global provider doesn't always
+    // remount), refire so the funnel reflects the new context rather than
+    // recording the old one.
+  }, [trigger, contextType, contextId]);
 
   const { handleUpgrade } = useUpgradeFlow({
     setIsLoading,

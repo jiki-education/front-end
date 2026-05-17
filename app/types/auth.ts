@@ -26,7 +26,7 @@ export interface LoginCredentials {
 
 export interface SignupAttribution {
   referrer: string | null;
-  landing_url: string;
+  landing_path: string;
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;

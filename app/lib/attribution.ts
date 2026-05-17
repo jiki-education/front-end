@@ -4,7 +4,7 @@ const STORAGE_KEY = "jiki_attribution";
 
 export interface Attribution {
   referrer: string | null;
-  landing_url: string;
+  landing_path: string;
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;
@@ -26,10 +26,15 @@ export function captureAttribution(): void {
   try {
     if (window.localStorage.getItem(STORAGE_KEY)) return;
 
+    // Store the pathname only — never the full URL. A user's first visit may
+    // be a link with sensitive query params (OAuth `?code=`, email
+    // `?confirmation_token=`, password `?reset_password_token=`, etc.), and
+    // we don't want those captured or shipped with the signup payload. UTMs
+    // are extracted into their own fields below so attribution is preserved.
     const params = new URLSearchParams(window.location.search);
     const data: Attribution = {
       referrer: document.referrer || null,
-      landing_url: window.location.href,
+      landing_path: window.location.pathname,
       utm_source: params.get("utm_source"),
       utm_medium: params.get("utm_medium"),
       utm_campaign: params.get("utm_campaign"),
