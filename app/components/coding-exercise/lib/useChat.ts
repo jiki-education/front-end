@@ -1,9 +1,11 @@
 import { useCallback, useRef } from "react";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
 import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
 import { saveConversation } from "./conversationApi";
-import { fetchChatToken } from "./chatTokenApi";
+import { ChatTokenAccessDeniedError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
 import type Orchestrator from "./Orchestrator";
 
@@ -114,12 +116,25 @@ export function useChat(orchestrator: Orchestrator) {
           }
         }
       } catch (error) {
+        // 403 access_denied: user clicked send while not entitled to chat.
+        // This is the high-intent moment — fire premium_modal_shown and
+        // open the upgrade modal. invalid_captcha is an infra failure and
+        // must NOT fire the analytics event (would pollute the funnel).
+        if (error instanceof ChatTokenAccessDeniedError) {
+          showPremiumUpgradeModal(MODAL_TRIGGERS.ASSISTANT_SEND_MESSAGE, {
+            contextType: context.context.type === "project" ? "Project" : "Lesson",
+            contextId: context.context.slug
+          });
+          chatState.setStatus("idle");
+          return;
+        }
+
         const errorMessage = formatChatError(error);
         chatState.setError(errorMessage);
         chatState.setStatus("error");
       }
     },
-    [chatState, ensureValidToken, performChatRequest]
+    [chatState, ensureValidToken, performChatRequest, context.context.type, context.context.slug]
   );
 
   const clearConversation = useCallback(() => {
