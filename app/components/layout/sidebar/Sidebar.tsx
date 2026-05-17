@@ -8,9 +8,9 @@ import MedalIcon from "@/icons/medal.svg";
 import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
 import rocket from "@/components/landing-page/rocketLaunch.module.css";
 import { useRocketLaunch } from "@/components/landing-page/hooks/useRocketLaunch";
@@ -40,16 +40,9 @@ const navigationItems: Array<{
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
-  const { launching, handleClick } = useRocketLaunch(
-    () =>
-      showModal(
-        "premium-upgrade-modal",
-        {},
-        premiumModalStyles.premiumModalOverlay,
-        premiumModalStyles.premiumModalWidth
-      ),
-    { resetAfterLaunch: true }
-  );
+  const { launching, handleClick } = useRocketLaunch(() => showPremiumUpgradeModal(MODAL_TRIGGERS.UPGRADE_CTA_NAV), {
+    resetAfterLaunch: true
+  });
 
   return (
     <aside className="ui-lhs-menu" id="sidebar" data-testid="sidebar">

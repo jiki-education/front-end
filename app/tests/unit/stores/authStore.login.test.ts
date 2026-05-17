@@ -292,7 +292,8 @@ describe("AuthStore - Login", () => {
               password: "password123",
               password_confirmation: "password123",
               name: "New User"
-            }
+            },
+            attribution: null
           })
         })
       );

@@ -1,10 +1,10 @@
 "use client";
 
 import { CloseButton } from "@/components/ui-kit";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { BuildVideoProvider } from "@/lib/content/types";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
 import MuxPlayer from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
@@ -38,14 +38,12 @@ export default function BuildEpisodeVideo({
     if (isAuthLoading || !isLocked) {
       return;
     }
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
+    showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_EPISODE_VIDEO, {
+      contextType: "Episode",
+      contextId: uuid
+    });
     router.replace(`/build/${seriesSlug}`);
-  }, [isAuthLoading, isLocked, router, seriesSlug]);
+  }, [isAuthLoading, isLocked, router, seriesSlug, uuid]);
 
   const [isReady, setIsReady] = useState(false);
   const {

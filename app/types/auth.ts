@@ -24,11 +24,21 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface SignupAttribution {
+  referrer: string | null;
+  landing_url: string;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  captured_at: string;
+}
+
 export interface SignupData {
   email: string;
   password: string;
   password_confirmation: string;
   name?: string;
+  attribution?: SignupAttribution | null;
 }
 
 export interface PasswordResetRequest {

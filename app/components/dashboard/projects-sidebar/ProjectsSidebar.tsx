@@ -3,9 +3,9 @@
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./projects-sidebar.module.css";
@@ -103,12 +103,7 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
     if (onUpgradeClick) {
       onUpgradeClick();
     } else {
-      showModal(
-        "premium-upgrade-modal",
-        {},
-        premiumModalStyles.premiumModalOverlay,
-        premiumModalStyles.premiumModalWidth
-      );
+      showPremiumUpgradeModal(MODAL_TRIGGERS.UPGRADE_CTA_PROJECTS_SIDEBAR);
     }
   };
 

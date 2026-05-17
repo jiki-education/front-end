@@ -4,6 +4,7 @@
  */
 
 import * as authService from "@/lib/auth/service";
+import { readAttribution } from "@/lib/attribution";
 import { getApiUrl } from "@/lib/api/config";
 import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User } from "@/types/auth";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
@@ -159,7 +160,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code, attribution: readAttribution() })
       });
 
       if (!response.ok) {
@@ -202,11 +203,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   signup: async (userData) => {
     set({ isLoading: true });
     try {
+      const { attribution, ...userFields } = userData;
       const response = await fetch(getApiUrl("/auth/signup"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ user: userData })
+        body: JSON.stringify({ user: userFields, attribution: attribution ?? null })
       });
 
       if (!response.ok) {
