@@ -1,6 +1,5 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./FreeUserCanStart.module.css";
 
@@ -8,7 +7,7 @@ import styles from "./FreeUserCanStart.module.css";
 // They've used their free conversation limit
 export default function FreeUserLimitReached() {
   const handleUpgradeClick = () => {
-    showPremiumUpgradeModal(MODAL_TRIGGERS.ASSISTANT_LIMIT_REACHED);
+    showPremiumUpgradeModal("assistant_limit_reached");
   };
 
   return (

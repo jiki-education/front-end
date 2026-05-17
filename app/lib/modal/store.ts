@@ -150,9 +150,10 @@ export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
   showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
 };
 
-// Convenience function for the premium upgrade modal. Always pass a trigger
-// from `MODAL_TRIGGERS` so the `premium_modal_shown` event has consistent
-// vocabulary — inconsistent values fragment the funnel data permanently.
+// Convenience function for the premium upgrade modal. The `trigger` arg is
+// typed as `ModalTrigger`, a closed union of allowed values — keep that type
+// the single source of truth so the `premium_modal_shown` funnel data stays
+// consistent (new triggers must be added to the type before use).
 export const showPremiumUpgradeModal = (
   trigger: ModalTrigger,
   options?: {

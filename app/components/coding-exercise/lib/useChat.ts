@@ -1,5 +1,4 @@
 import { useCallback, useRef } from "react";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
@@ -121,7 +120,7 @@ export function useChat(orchestrator: Orchestrator) {
         // open the upgrade modal. invalid_captcha is an infra failure and
         // must NOT fire the analytics event (would pollute the funnel).
         if (error instanceof ChatTokenAccessDeniedError) {
-          showPremiumUpgradeModal(MODAL_TRIGGERS.ASSISTANT_SEND_MESSAGE, {
+          showPremiumUpgradeModal("assistant_send_message", {
             contextType: context.context.type === "project" ? "Project" : "Lesson",
             contextId: context.context.slug
           });

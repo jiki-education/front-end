@@ -1,11 +1,10 @@
 "use client";
 
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {
-    showPremiumUpgradeModal(MODAL_TRIGGERS.UPGRADE_CTA_NAV, {
+    showPremiumUpgradeModal("upgrade_cta_nav", {
       onSuccess: () => {
         console.debug("Upgrade successful");
       },

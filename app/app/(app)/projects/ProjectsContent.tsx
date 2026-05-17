@@ -18,7 +18,7 @@ import { ProjectCardsLoadingSkeleton } from "./ProjectCardSkeleton";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
-import { BLOCKED_FEATURES, trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 
 const tabs: TabItem[] = [
   { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
@@ -82,7 +82,7 @@ export function ProjectsContent() {
   // we can measure passive exposure to the paywall, not just clicks.
   useEffect(() => {
     if (projectsLoading || projectsError || isPremium || projects.length === 0) return;
-    trackEvent("premium_feature_blocked", { feature: BLOCKED_FEATURES.PROJECTS_PAGE });
+    trackEvent("premium_feature_blocked", { feature: "projects_page" });
   }, [projectsLoading, projectsError, isPremium, projects.length]);
 
   const renderContent = () => {

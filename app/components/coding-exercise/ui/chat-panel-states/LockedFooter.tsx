@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./LockedFooter.module.css";
 
@@ -16,7 +15,7 @@ interface LockedFooterProps {
 // - premium-blocked: premium user who hit fair use limits
 export function LockedFooter({ variant }: LockedFooterProps) {
   const handleUpgradeClick = () => {
-    showPremiumUpgradeModal(MODAL_TRIGGERS.ASSISTANT_LIMIT_REACHED);
+    showPremiumUpgradeModal("assistant_limit_reached");
   };
 
   return (

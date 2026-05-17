@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { BLOCKED_FEATURES, trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 import type { ChatMessage } from "../lib/chat-types";
 import {
   FreeUserCanStart,
@@ -40,7 +40,7 @@ export function ChatPanelStates({ chatState, conversation, onSendMessage, onStar
   // states (e.g. start chat → exhaust limit) — that's a distinct paywall view.
   useEffect(() => {
     if (BLOCKED_FREE_STATES.has(chatState)) {
-      trackEvent("premium_feature_blocked", { feature: BLOCKED_FEATURES.ASSISTANT_TAB });
+      trackEvent("premium_feature_blocked", { feature: "assistant_tab" });
     }
   }, [chatState]);
 

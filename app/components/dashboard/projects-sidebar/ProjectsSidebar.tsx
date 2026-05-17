@@ -3,7 +3,6 @@
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
@@ -103,7 +102,7 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
     if (onUpgradeClick) {
       onUpgradeClick();
     } else {
-      showPremiumUpgradeModal(MODAL_TRIGGERS.UPGRADE_CTA_PROJECTS_SIDEBAR);
+      showPremiumUpgradeModal("upgrade_cta_projects_sidebar");
     }
   };
 

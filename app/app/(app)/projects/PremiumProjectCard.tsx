@@ -1,7 +1,6 @@
 import { type ProjectData } from "@/lib/api/projects";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import LockIcon from "@/icons/lock.svg";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./ProjectCard.module.css";
 
@@ -14,7 +13,7 @@ interface PremiumProjectCardProps {
 
 export function PremiumProjectCard({ project }: PremiumProjectCardProps) {
   const handleClick = () => {
-    showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_PROJECT, {
+    showPremiumUpgradeModal("locked_project", {
       contextType: "Project",
       contextId: project.slug
     });

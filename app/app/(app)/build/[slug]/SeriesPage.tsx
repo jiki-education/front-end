@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchUserVideos } from "@/lib/api/user-videos";
-import { BLOCKED_FEATURES, trackEvent } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import type { BuildEpisodeMeta, BuildSeriesMeta } from "@/lib/content/types";
@@ -55,7 +55,7 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
     );
     if (remainingFree.length === 0 && remainingPremium.length > 0) {
       trackEvent("premium_feature_blocked", {
-        feature: BLOCKED_FEATURES.BUILD_PAGE_ALL_LOCKED,
+        feature: "build_page_all_locked",
         context_type: "BuildSeries",
         context_id: series.slug
       });

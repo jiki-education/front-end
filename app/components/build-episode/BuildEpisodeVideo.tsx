@@ -1,7 +1,6 @@
 "use client";
 
 import { CloseButton } from "@/components/ui-kit";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { BuildVideoProvider } from "@/lib/content/types";
 import { showPremiumUpgradeModal } from "@/lib/modal";
@@ -38,7 +37,7 @@ export default function BuildEpisodeVideo({
     if (isAuthLoading || !isLocked) {
       return;
     }
-    showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_EPISODE_VIDEO, {
+    showPremiumUpgradeModal("locked_episode_video", {
       contextType: "Episode",
       contextId: uuid
     });

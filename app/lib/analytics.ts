@@ -3,35 +3,26 @@
 import { getApiUrl } from "@/lib/api/config";
 
 /**
- * Trigger values for `premium_modal_shown`.
- * Single source of truth — never hardcode these strings at call sites,
- * inconsistent values fragment the funnel data permanently.
+ * Trigger values for `premium_modal_shown`. The type constrains call
+ * sites to a fixed vocabulary — inconsistent values fragment the funnel
+ * data permanently, so any new trigger must be added here first.
  */
-export const MODAL_TRIGGERS = {
-  LOCKED_PROJECT: "locked_project",
-  LOCKED_EPISODE: "locked_episode",
-  LOCKED_EPISODE_VIDEO: "locked_episode_video",
-  ASSISTANT_SEND_MESSAGE: "assistant_send_message",
-  ASSISTANT_TAB_OPENED: "assistant_tab_opened",
-  ASSISTANT_LIMIT_REACHED: "assistant_limit_reached",
-  UPGRADE_CTA_NAV: "upgrade_cta_nav",
-  UPGRADE_CTA_PROJECTS_SIDEBAR: "upgrade_cta_projects_sidebar",
-  UPGRADE_CTA_PREMIUM_PAGE: "upgrade_cta_premium_page"
-} as const;
-
-export type ModalTrigger = (typeof MODAL_TRIGGERS)[keyof typeof MODAL_TRIGGERS];
+export type ModalTrigger =
+  | "locked_project"
+  | "locked_episode"
+  | "locked_episode_video"
+  | "assistant_send_message"
+  | "assistant_tab_opened"
+  | "assistant_limit_reached"
+  | "upgrade_cta_nav"
+  | "upgrade_cta_projects_sidebar"
+  | "upgrade_cta_premium_page";
 
 /**
  * Feature values for `premium_feature_blocked` — fired when a locked
  * surface renders (passive view, no click required).
  */
-export const BLOCKED_FEATURES = {
-  PROJECTS_PAGE: "projects_page",
-  ASSISTANT_TAB: "assistant_tab",
-  BUILD_PAGE_ALL_LOCKED: "build_page_all_locked"
-} as const;
-
-export type BlockedFeature = (typeof BLOCKED_FEATURES)[keyof typeof BLOCKED_FEATURES];
+export type BlockedFeature = "projects_page" | "assistant_tab" | "build_page_all_locked";
 
 /**
  * Fire-and-forget event tracking. Analytics failures must never break

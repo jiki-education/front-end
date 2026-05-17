@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import LockIcon from "@/icons/lock.svg";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
@@ -54,7 +53,7 @@ export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardP
         type="button"
         className={`${styles.card} ${styles.cardPremium}`}
         onClick={() =>
-          showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_EPISODE, {
+          showPremiumUpgradeModal("locked_episode", {
             contextType: "Episode",
             contextId: episode.slug
           })

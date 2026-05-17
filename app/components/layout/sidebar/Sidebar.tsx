@@ -8,7 +8,6 @@ import MedalIcon from "@/icons/medal.svg";
 import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
-import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
@@ -40,7 +39,7 @@ const navigationItems: Array<{
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
-  const { launching, handleClick } = useRocketLaunch(() => showPremiumUpgradeModal(MODAL_TRIGGERS.UPGRADE_CTA_NAV), {
+  const { launching, handleClick } = useRocketLaunch(() => showPremiumUpgradeModal("upgrade_cta_nav"), {
     resetAfterLaunch: true
   });
 
