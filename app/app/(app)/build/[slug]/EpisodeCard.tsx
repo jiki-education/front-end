@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import LockIcon from "@/icons/lock.svg";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
 import type { BuildEpisodeMeta, BuildSeriesMeta } from "@/lib/content/types";
 import styles from "./SeriesPage.module.css";
@@ -54,12 +54,10 @@ export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardP
         type="button"
         className={`${styles.card} ${styles.cardPremium}`}
         onClick={() =>
-          showModal(
-            "premium-upgrade-modal",
-            {},
-            premiumModalStyles.premiumModalOverlay,
-            premiumModalStyles.premiumModalWidth
-          )
+          showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_EPISODE, {
+            contextType: "Episode",
+            contextId: episode.slug
+          })
         }
       >
         {inner}

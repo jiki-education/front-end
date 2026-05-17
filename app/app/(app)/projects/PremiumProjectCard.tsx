@@ -1,8 +1,8 @@
 import { type ProjectData } from "@/lib/api/projects";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import LockIcon from "@/icons/lock.svg";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { MODAL_TRIGGERS } from "@/lib/analytics";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./ProjectCard.module.css";
 
 interface PremiumProjectCardProps {
@@ -14,12 +14,10 @@ interface PremiumProjectCardProps {
 
 export function PremiumProjectCard({ project }: PremiumProjectCardProps) {
   const handleClick = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
+    showPremiumUpgradeModal(MODAL_TRIGGERS.LOCKED_PROJECT, {
+      contextType: "Project",
+      contextId: project.slug
+    });
   };
 
   return (
