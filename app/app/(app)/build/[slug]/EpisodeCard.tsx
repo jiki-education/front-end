@@ -54,8 +54,8 @@ export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardP
         className={`${styles.card} ${styles.cardPremium}`}
         onClick={() =>
           showPremiumUpgradeModal("locked_episode", {
-            contextType: "Episode",
-            contextId: episode.slug
+            contextType: "episode",
+            contextSlug: episode.uuid
           })
         }
       >

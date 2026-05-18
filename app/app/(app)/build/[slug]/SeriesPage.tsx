@@ -56,8 +56,8 @@ export function SeriesPage({ series, episodes }: SeriesPageProps) {
     if (remainingFree.length === 0 && remainingPremium.length > 0) {
       trackEvent("premium_feature_blocked", {
         feature: "build_page_all_locked",
-        context_type: "BuildSeries",
-        context_id: series.slug
+        context_type: "build_series",
+        context_slug: series.slug
       });
     }
   }, [progressLoaded, userIsPremium, episodes, progressByUuid, series.slug]);

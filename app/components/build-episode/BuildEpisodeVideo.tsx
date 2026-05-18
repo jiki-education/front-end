@@ -38,8 +38,8 @@ export default function BuildEpisodeVideo({
       return;
     }
     showPremiumUpgradeModal("locked_episode_video", {
-      contextType: "Episode",
-      contextId: uuid
+      contextType: "episode",
+      contextSlug: uuid
     });
     router.replace(`/build/${seriesSlug}`);
   }, [isAuthLoading, isLocked, router, seriesSlug, uuid]);

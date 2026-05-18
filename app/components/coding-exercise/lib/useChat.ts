@@ -121,8 +121,8 @@ export function useChat(orchestrator: Orchestrator) {
         // must NOT fire the analytics event (would pollute the funnel).
         if (error instanceof ChatTokenAccessDeniedError) {
           showPremiumUpgradeModal("assistant_send_message", {
-            contextType: context.context.type === "project" ? "Project" : "Lesson",
-            contextId: context.context.slug
+            contextType: context.context.type,
+            contextSlug: context.context.slug
           });
           chatState.setStatus("idle");
           return;

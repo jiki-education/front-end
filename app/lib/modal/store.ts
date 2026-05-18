@@ -158,7 +158,7 @@ export const showPremiumUpgradeModal = (
   trigger: ModalTrigger,
   options?: {
     contextType?: string;
-    contextId?: string | number;
+    contextSlug?: string;
     onSuccess?: () => void;
     onCancel?: () => void;
   }

@@ -13,7 +13,7 @@ import Image from "next/image";
 interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
   contextType?: string;
-  contextId?: string | number;
+  contextSlug?: string;
   onSuccess?: () => void;
   onCancel?: () => void;
 }
@@ -21,7 +21,7 @@ interface PremiumUpgradeModalProps {
 export function PremiumUpgradeModal({
   trigger,
   contextType,
-  contextId,
+  contextSlug,
   onSuccess,
   onCancel
 }: PremiumUpgradeModalProps) {
@@ -29,16 +29,18 @@ export function PremiumUpgradeModal({
   const user = useAuthStore((state: any) => state.user);
 
   useEffect(() => {
-    trackEvent("premium_modal_shown", {
-      trigger: trigger ?? null,
-      context_type: contextType ?? null,
-      context_id: contextId ?? null
-    });
-    // If the modal stays mounted while showModal is called again with a new
-    // trigger (rare but possible — the global provider doesn't always
-    // remount), refire so the funnel reflects the new context rather than
-    // recording the old one.
-  }, [trigger, contextType, contextId]);
+    // Omit absent keys rather than sending null — PostHog filters render
+    // "null" as a literal value, which clutters the funnel. Backend's
+    // events endpoint already treats missing keys as "not set".
+    const properties: Record<string, unknown> = {};
+    if (trigger) properties.trigger = trigger;
+    if (contextType) properties.context_type = contextType;
+    if (contextSlug) properties.context_slug = contextSlug;
+    trackEvent("premium_modal_shown", properties);
+    // Refire if showModal is called again with new context while the modal
+    // stays mounted — keeps the funnel honest in the rare reopen-without-
+    // unmount case.
+  }, [trigger, contextType, contextSlug]);
 
   const { handleUpgrade } = useUpgradeFlow({
     setIsLoading,

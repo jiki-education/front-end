@@ -14,8 +14,8 @@ interface PremiumProjectCardProps {
 export function PremiumProjectCard({ project }: PremiumProjectCardProps) {
   const handleClick = () => {
     showPremiumUpgradeModal("locked_project", {
-      contextType: "Project",
-      contextId: project.slug
+      contextType: "project",
+      contextSlug: project.slug
     });
   };
 
