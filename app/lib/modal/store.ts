@@ -159,6 +159,7 @@ export const showPremiumUpgradeModal = (
   options?: {
     contextType?: string;
     contextSlug?: string;
+    contextUuid?: string;
     onSuccess?: () => void;
     onCancel?: () => void;
   }

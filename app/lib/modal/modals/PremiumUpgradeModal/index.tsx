@@ -13,7 +13,12 @@ import Image from "next/image";
 interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
   contextType?: string;
+  // Backend stores three type-accurate fields and never both at once.
+  // Pass `contextSlug` for slug-keyed entities (lesson, project) and
+  // `contextUuid` for uuid-keyed ones (episode). `context_id` is the
+  // backend's integer PK — materialised server-side, never sent here.
   contextSlug?: string;
+  contextUuid?: string;
   onSuccess?: () => void;
   onCancel?: () => void;
 }
@@ -22,6 +27,7 @@ export function PremiumUpgradeModal({
   trigger,
   contextType,
   contextSlug,
+  contextUuid,
   onSuccess,
   onCancel
 }: PremiumUpgradeModalProps) {
@@ -36,11 +42,12 @@ export function PremiumUpgradeModal({
     if (trigger) properties.trigger = trigger;
     if (contextType) properties.context_type = contextType;
     if (contextSlug) properties.context_slug = contextSlug;
+    if (contextUuid) properties.context_uuid = contextUuid;
     trackEvent("premium_modal_shown", properties);
     // Refire if showModal is called again with new context while the modal
     // stays mounted — keeps the funnel honest in the rare reopen-without-
     // unmount case.
-  }, [trigger, contextType, contextSlug]);
+  }, [trigger, contextType, contextSlug, contextUuid]);
 
   const { handleUpgrade } = useUpgradeFlow({
     setIsLoading,

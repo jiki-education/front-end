@@ -55,7 +55,7 @@ export function EpisodeCard({ series, episode, watchedPercentage }: EpisodeCardP
         onClick={() =>
           showPremiumUpgradeModal("locked_episode", {
             contextType: "episode",
-            contextSlug: episode.uuid
+            contextUuid: episode.uuid
           })
         }
       >

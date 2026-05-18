@@ -39,7 +39,7 @@ export default function BuildEpisodeVideo({
     }
     showPremiumUpgradeModal("locked_episode_video", {
       contextType: "episode",
-      contextSlug: uuid
+      contextUuid: uuid
     });
     router.replace(`/build/${seriesSlug}`);
   }, [isAuthLoading, isLocked, router, seriesSlug, uuid]);
