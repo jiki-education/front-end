@@ -8,7 +8,7 @@ interface Props {
   premium: boolean | string;
 }
 
-function CellValue({ value, variant }: { value: boolean | string; variant: "free" | "premium" }) {
+export function CellValue({ value, variant }: { value: boolean | string; variant: "free" | "premium" }) {
   if (typeof value === "string") {
     const cls = variant === "free" ? styles["feature-value-free"] : styles["feature-value-premium"];
     return <span className={cls}>{value}</span>;
