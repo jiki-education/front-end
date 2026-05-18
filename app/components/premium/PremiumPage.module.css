@@ -3,7 +3,7 @@
 .page-header {
     position: relative;
     z-index: 1;
-    padding: 56px 0 30px;
+    padding: 56px 20px 30px;
     text-align: center;
 }
 
@@ -29,7 +29,7 @@
 
 .heading {
     margin-bottom: 16px;
-    font-size: 52px;
+    font-size: clamp(34px, 7vw, 52px);
     font-weight: 700;
     line-height: 1.15;
     color: var(--color-gray-900);
@@ -38,7 +38,7 @@
 .subheading {
     max-width: 650px;
     margin: 0 auto;
-    font-size: 20px;
+    font-size: clamp(16px, 2.2vw, 20px);
     line-height: 1.6;
     color: var(--color-gray-500);
 }
@@ -46,7 +46,13 @@
 .main-content {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 10px 40px;
+    padding: 10px 16px;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        padding: 10px 40px;
+    }
 }
 
 /* Pricing table */
@@ -57,6 +63,26 @@
     border: 1.5px solid var(--color-gray-200);
     border-radius: 20px;
     box-shadow: 0 4px 16px var(--color-gray-500-10);
+}
+
+.pricing-table-desktop {
+    display: none;
+}
+
+.pricing-cards-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .pricing-table-desktop {
+        display: block;
+    }
+
+    .pricing-cards-mobile {
+        display: none;
+    }
 }
 
 .table-header-row {
@@ -277,6 +303,97 @@
     color: var(--color-purple-700);
 }
 
+/* Mobile pricing cards (below 768px) */
+
+.mobile-intro {
+    margin-bottom: 8px;
+    padding: 0 4px;
+    text-align: center;
+}
+
+.plan-card {
+    overflow: hidden;
+    background: white;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px var(--color-gray-500-10);
+}
+
+.plan-card-premium {
+    border-color: var(--color-purple-200);
+}
+
+.plan-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 20px;
+    text-align: center;
+    border-bottom: 1.5px solid var(--color-gray-100);
+}
+
+.plan-card-premium .plan-card-header {
+    background: var(--color-purple-50);
+    border-bottom-color: var(--color-purple-200);
+}
+
+.plan-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.plan-card-category {
+    border-bottom: 1px solid var(--color-gray-100);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.plan-card-category-label {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--color-purple-700);
+}
+
+.plan-card-feature-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.plan-card-feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--color-gray-100);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.plan-card-feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.plan-card-feature-value {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+}
+
 /* CTA section */
 
 .cta-wrapper {
@@ -284,15 +401,21 @@
 }
 
 .cta-banner {
-    padding: 52px 80px;
+    padding: 36px 24px;
     text-align: center;
     background: var(--color-blue-600);
     border-radius: 16px;
 }
 
+@media (min-width: 768px) {
+    .cta-banner {
+        padding: 52px 80px;
+    }
+}
+
 .cta-title {
     margin-bottom: 10px;
-    font-size: 32px;
+    font-size: clamp(24px, 4vw, 32px);
     font-weight: 700;
     line-height: 1.2;
     color: white;
@@ -300,7 +423,7 @@
 
 .cta-desc {
     margin-bottom: 20px;
-    font-size: 19px;
+    font-size: clamp(16px, 2.2vw, 19px);
     line-height: 1.6;
     color: var(--color-blue-200);
 }
@@ -329,19 +452,29 @@
 /* FAQ section */
 
 .faq-section {
-    padding: 20px 40px 60px;
+    padding: 20px 16px 60px;
     background: white;
 }
 
 .faq-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .faq-section {
+        padding: 20px 40px 60px;
+    }
+
+    .faq-inner {
+        padding: 0 40px;
+    }
 }
 
 .faq-title {
     margin-bottom: 12px;
-    font-size: 32px;
+    font-size: clamp(24px, 4vw, 32px);
     font-weight: 700;
     color: var(--color-gray-900);
 }
