@@ -100,7 +100,7 @@
     display: block;
     position: absolute;
     top: 50%;
-    left: -38px;
+    left: -44px;
     width: 14px;
     height: 14px;
     background: white;
@@ -353,20 +353,33 @@
         font-size: 38px;
     }
 
+    .subheading {
+        font-size: 17px;
+    }
+
     .main-content {
-        padding: 10px 20px 40px;
+        padding: 10px 24px 40px;
     }
 
     .timeline::before {
-        left: 14px;
+        display: none;
     }
 
     .phase {
-        padding-left: 42px;
+        padding-left: 0;
+        margin-bottom: 40px;
+    }
+
+    .phase-band {
+        margin-left: 4px;
     }
 
     .phase-band::before {
-        left: -30px;
+        display: none;
+    }
+
+    .item-list {
+        gap: 12px;
     }
 
     .item {
@@ -374,7 +387,7 @@
     }
 
     .changelog-inner {
-        padding: 0 20px;
+        padding: 0 24px;
     }
 
     .changelog-item {
