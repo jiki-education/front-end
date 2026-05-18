@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import CategoryRow from "./CategoryRow";
 import FeatureRow, { CellValue } from "./FeatureRow";
 import PlanPrice from "./PlanPrice";
@@ -43,7 +44,7 @@ export default function PricingTable() {
         ))}
       </div>
 
-      <div className={styles["pricing-cards-mobile"]}>
+      <div className={styles["pricing-mobile"]}>
         <div className={styles["mobile-intro"]}>
           <h2 className={styles["compare-plans-title"]}>Compare plans</h2>
           <p className={styles["compare-plans-desc"]}>
@@ -51,42 +52,52 @@ export default function PricingTable() {
           </p>
         </div>
 
-        <PlanCard variant="free" />
-        <PlanCard variant="premium" />
+        <div className={styles["mobile-plans-header"]}>
+          <div className={styles["mobile-plan-summary"]}>
+            <PlanPrice variant="free" />
+          </div>
+          <div className={`${styles["mobile-plan-summary"]} ${styles["mobile-plan-summary-premium"]}`}>
+            <PlanPrice variant="premium" />
+          </div>
+        </div>
+
+        <div className={styles["mobile-feature-list"]}>
+          {FEATURE_CATEGORIES.map((category) => (
+            <section key={category.label} className={styles["mobile-category"]}>
+              <h3 className={styles["mobile-category-label"]}>{category.label}</h3>
+              <ul className={styles["mobile-feature-items"]}>
+                {category.features.map((feature, i) => (
+                  <li key={i} className={styles["mobile-feature-item"]}>
+                    <div className={styles["mobile-feature-text"]}>
+                      <span className={styles["feature-title"]}>{feature.title}</span>
+                      <span className={styles["feature-desc"]}>{feature.desc}</span>
+                    </div>
+                    <div className={styles["mobile-feature-badges"]}>
+                      <PlanBadge variant="free" value={feature.free} />
+                      <PlanBadge variant="premium" value={feature.premium} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
       </div>
     </>
   );
 }
 
-function PlanCard({ variant }: { variant: "free" | "premium" }) {
-  const cardClass = variant === "premium" ? styles["plan-card-premium"] : styles["plan-card-free"];
+function PlanBadge({ variant, value }: { variant: "free" | "premium"; value: boolean | string }): ReactNode {
+  const label = variant === "free" ? "Free" : "Premium";
+  const badgeClass = variant === "free" ? styles["plan-badge-free"] : styles["plan-badge-premium"];
+  const layoutClass = typeof value === "string" ? styles["plan-badge-stacked"] : styles["plan-badge-inline"];
 
   return (
-    <section className={`${styles["plan-card"]} ${cardClass}`}>
-      <header className={styles["plan-card-header"]}>
-        <PlanPrice variant={variant} />
-      </header>
-
-      <div className={styles["plan-card-body"]}>
-        {FEATURE_CATEGORIES.map((category) => (
-          <div key={category.label} className={styles["plan-card-category"]}>
-            <div className={styles["plan-card-category-label"]}>{category.label}</div>
-            <ul className={styles["plan-card-feature-list"]}>
-              {category.features.map((feature, i) => (
-                <li key={i} className={styles["plan-card-feature"]}>
-                  <div className={styles["plan-card-feature-text"]}>
-                    <span className={styles["feature-title"]}>{feature.title}</span>
-                    <span className={styles["feature-desc"]}>{feature.desc}</span>
-                  </div>
-                  <div className={styles["plan-card-feature-value"]}>
-                    <CellValue value={variant === "free" ? feature.free : feature.premium} variant={variant} />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
+    <div className={`${styles["plan-badge"]} ${badgeClass} ${layoutClass}`}>
+      <span className={styles["plan-badge-label"]}>{label}</span>
+      <span className={styles["plan-badge-value"]}>
+        <CellValue value={value} variant={variant} />
+      </span>
+    </div>
   );
 }

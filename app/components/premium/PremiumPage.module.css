@@ -69,7 +69,7 @@
     display: none;
 }
 
-.pricing-cards-mobile {
+.pricing-mobile {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -80,7 +80,7 @@
         display: block;
     }
 
-    .pricing-cards-mobile {
+    .pricing-mobile {
         display: none;
     }
 }
@@ -303,7 +303,7 @@
     color: var(--color-purple-700);
 }
 
-/* Mobile pricing cards (below 768px) */
+/* Mobile pricing layout (below 768px) */
 
 .mobile-intro {
     margin-bottom: 8px;
@@ -311,7 +311,10 @@
     text-align: center;
 }
 
-.plan-card {
+.mobile-plans-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
     overflow: hidden;
     background: white;
     border: 1.5px solid var(--color-gray-200);
@@ -319,38 +322,38 @@
     box-shadow: 0 4px 16px var(--color-gray-500-10);
 }
 
-.plan-card-premium {
-    border-color: var(--color-purple-200);
-}
-
-.plan-card-header {
+.mobile-plan-summary {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 24px 20px 20px;
+    padding: 20px 12px;
     text-align: center;
-    border-bottom: 1.5px solid var(--color-gray-100);
 }
 
-.plan-card-premium .plan-card-header {
+.mobile-plan-summary + .mobile-plan-summary {
+    border-left: 1.5px solid var(--color-gray-200);
+}
+
+.mobile-plan-summary-premium {
     background: var(--color-purple-50);
-    border-bottom-color: var(--color-purple-200);
 }
 
-.plan-card-body {
+.mobile-feature-list {
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
-.plan-card-category {
-    border-bottom: 1px solid var(--color-gray-100);
-
-    &:last-child {
-        border-bottom: none;
-    }
+.mobile-category {
+    overflow: hidden;
+    background: white;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px var(--color-gray-500-10);
 }
 
-.plan-card-category-label {
+.mobile-category-label {
+    margin: 0;
     padding: 10px 20px;
     font-size: 13px;
     font-weight: 600;
@@ -360,18 +363,17 @@
     background: var(--color-purple-700);
 }
 
-.plan-card-feature-list {
+.mobile-feature-items {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.plan-card-feature {
+.mobile-feature-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 14px 20px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--color-gray-100);
 
     &:last-child {
@@ -379,19 +381,93 @@
     }
 }
 
-.plan-card-feature-text {
+.mobile-feature-text {
     display: flex;
     flex-direction: column;
     gap: 2px;
     min-width: 0;
 }
 
-.plan-card-feature-value {
+.mobile-feature-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.plan-badge {
     display: flex;
-    flex-shrink: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.plan-badge-free {
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+}
+
+.plan-badge-premium {
+    background: var(--color-purple-30);
+    border: 1px solid var(--color-purple-200);
+}
+
+.plan-badge-inline {
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.plan-badge-stacked {
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    min-width: 48px;
+    gap: 2px;
+}
+
+.plan-badge-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-gray-500);
+}
+
+.plan-badge-premium .plan-badge-label {
+    color: var(--color-purple-700);
+}
+
+.plan-badge-value {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.plan-badge-inline .plan-badge-value {
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.plan-badge-stacked .plan-badge-value {
+    width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.plan-badge-value .check-yes {
+    width: 24px;
+    height: 24px;
+
+    & svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.plan-badge-value .feature-value-free,
+.plan-badge-value .feature-value-premium {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 /* CTA section */
