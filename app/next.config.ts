@@ -102,8 +102,11 @@ const nextConfig: NextConfig = {
     }
 
     // Add SVGR loader
+    // Exclude Next.js metadata requests (e.g. app/icon.svg favicon) so they are
+    // handled by next-metadata-image-loader as raw images, not React components
     config.module.rules.push({
       test: /\.svg$/i,
+      resourceQuery: { not: [/__next_metadata__/] },
       use: [
         {
           loader: "@svgr/webpack",
