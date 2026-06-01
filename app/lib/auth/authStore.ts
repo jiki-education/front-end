@@ -25,6 +25,7 @@ interface AuthStore {
   verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData, cfTurnstileResponse: string) => Promise<User>;
   googleLogin: (code: string) => Promise<LoginResponse>;
+  exercismLogin: (code: string, codeVerifier: string) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -166,6 +167,53 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       if (!response.ok) {
         const errorData = await response.json();
         const message = errorData.error?.message || "Google login failed";
+        if (response.status === 401) {
+          throw new AuthenticationError(message, errorData);
+        }
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+
+      // Handle 2FA responses - don't set user yet
+      if (data.status === "2fa_setup_required") {
+        set({ isLoading: false });
+        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
+      }
+
+      if (data.status === "2fa_required") {
+        set({ isLoading: false });
+        return { status: "2fa_required" };
+      }
+
+      // Normal login success
+      if (data.status === "success" && data.user) {
+        get().setUser(data.user);
+        return { status: "success", user: data.user };
+      }
+
+      throw new Error("Invalid response from server");
+    } catch (error) {
+      get().setNoUser();
+      throw error;
+    }
+  },
+
+  // Exercism login action - calls Rails directly
+  // Returns the response so caller can handle 2FA flows (same as login)
+  exercismLogin: async (code, codeVerifier): Promise<LoginResponse> => {
+    set({ isLoading: true });
+    try {
+      const response = await fetch(getApiUrl("/auth/exercism"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ code, code_verifier: codeVerifier, attribution: readAttribution() })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const message = errorData.error?.message || "Exercism login failed";
         if (response.status === 401) {
           throw new AuthenticationError(message, errorData);
         }
