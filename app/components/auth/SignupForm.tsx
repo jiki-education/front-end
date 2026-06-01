@@ -7,25 +7,25 @@ import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import EmailIcon from "@/icons/email.svg";
 import PasswordIcon from "@/icons/password.svg";
 import styles from "./AuthForm.module.css";
-import { CheckInboxMessage } from "./CheckInboxMessage";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
   const { signup, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authErrorField, setAuthErrorField] = useState<string | null>(null);
-  const [signupSuccessEmail, setSignupSuccessEmail] = useState<string | null>(null);
   const [verifying, setVerifying] = useState(false);
   const [captchaError, setCaptchaError] = useState(false);
 
@@ -83,7 +83,12 @@ export function SignupForm() {
       if (user.email_confirmed) {
         handleAuthResponse({ status: "success", user });
       } else {
-        setSignupSuccessEmail(email);
+        try {
+          localStorage.setItem("just_signed_up_email", email);
+        } catch {
+          // Storage may be disabled — the check-email page will fall back gracefully.
+        }
+        router.push("/auth/check-email");
       }
     } catch (err) {
       setVerifying(false);
@@ -111,10 +116,6 @@ export function SignupForm() {
 
   if (TwoFactorForm) {
     return TwoFactorForm;
-  }
-
-  if (signupSuccessEmail) {
-    return <CheckInboxMessage email={signupSuccessEmail} />;
   }
 
   return (
@@ -208,7 +209,12 @@ export function SignupForm() {
             )}
           </div>
 
-          {captchaError && <div className={styles.errorMessage}>Verification failed, please try again.</div>}
+          {captchaError && (
+            <div className={styles.errorMessage}>
+              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try signing up
+              again using the button below.
+            </div>
+          )}
 
           <button
             type="submit"

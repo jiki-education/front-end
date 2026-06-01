@@ -78,10 +78,10 @@
 
 .errorMessage {
     background: var(--color-error-bg);
-    border: 2px solid var(--color-error-border);
+    border: 1.5px solid var(--color-red-600);
     border-radius: 8px;
     padding: 16px;
-    color: var(--color-error-text);
+    color: var(--color-red-600);
     font-size: 15px;
     font-weight: 500;
     line-height: 1.5;

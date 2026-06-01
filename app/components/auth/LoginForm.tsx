@@ -212,7 +212,12 @@ export function LoginForm() {
             </div>
           </div>
 
-          {captchaError && <div className={styles.errorMessage}>Verification failed, please try again.</div>}
+          {captchaError && (
+            <div className={styles.errorMessage}>
+              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try logging in
+              again using the button below.
+            </div>
+          )}
 
           <button
             type="submit"
