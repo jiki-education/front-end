@@ -113,10 +113,13 @@ export default function LLMChatTestPage() {
 
   const handleLogin = async () => {
     try {
-      await login({
-        email: "ihid@jiki.io",
-        password: "password"
-      });
+      await login(
+        {
+          email: "ihid@jiki.io",
+          password: "password"
+        },
+        "dev-stub-token"
+      );
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -195,7 +198,10 @@ export default function LLMChatTestPage() {
       let token = chatToken;
       if (!token) {
         addDebugEvent("request", { type: "fetch_token", lessonSlug: selectedExercise });
-        token = await fetchChatToken({ context: { type: "lesson", slug: selectedExercise } });
+        token = await fetchChatToken({
+          context: { type: "lesson", slug: selectedExercise },
+          cfTurnstileResponse: "dev-stub-token"
+        });
         setChatToken(token);
         addDebugEvent("response", { type: "token_received" });
       }
@@ -207,7 +213,10 @@ export default function LLMChatTestPage() {
         if (err instanceof ChatTokenExpiredError) {
           addDebugEvent("sse", { type: "token_expired", retrying: true });
           setChatToken(null);
-          const newToken = await fetchChatToken({ context: { type: "lesson", slug: selectedExercise } });
+          const newToken = await fetchChatToken({
+            context: { type: "lesson", slug: selectedExercise },
+            cfTurnstileResponse: "dev-stub-token"
+          });
           setChatToken(newToken);
           await performRequest(newToken);
         } else {

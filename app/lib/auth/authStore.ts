@@ -20,15 +20,15 @@ interface AuthStore {
   hasCheckedAuth: boolean;
 
   // Actions
-  login: (credentials: LoginCredentials) => Promise<LoginResponse>;
+  login: (credentials: LoginCredentials, cfTurnstileResponse: string) => Promise<LoginResponse>;
   setup2FA: (otpCode: string) => Promise<void>;
   verify2FA: (otpCode: string) => Promise<void>;
-  signup: (userData: SignupData) => Promise<User>;
+  signup: (userData: SignupData, cfTurnstileResponse: string) => Promise<User>;
   googleLogin: (code: string) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
-  requestPasswordReset: (email: string) => Promise<void>;
+  requestPasswordReset: (email: string, cfTurnstileResponse: string) => Promise<void>;
   resetPassword: (data: PasswordReset) => Promise<void>;
   resendConfirmation: (email: string) => Promise<void>;
   clearError: () => void;
@@ -47,14 +47,14 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // Login action - calls Rails directly
   // Returns the response so caller can handle 2FA flows
-  login: async (credentials): Promise<LoginResponse> => {
+  login: async (credentials, cfTurnstileResponse): Promise<LoginResponse> => {
     set({ isLoading: true });
     try {
       const response = await fetch(getApiUrl("/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ user: credentials })
+        body: JSON.stringify({ user: credentials, cf_turnstile_response: cfTurnstileResponse })
       });
 
       if (!response.ok) {
@@ -200,7 +200,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // Signup action - calls Rails directly
   // Returns user data so caller can check email_confirmed status
-  signup: async (userData) => {
+  signup: async (userData, cfTurnstileResponse) => {
     set({ isLoading: true });
     try {
       const { attribution, ...userFields } = userData;
@@ -208,7 +208,11 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ user: userFields, attribution: attribution ?? null })
+        body: JSON.stringify({
+          user: userFields,
+          attribution: attribution ?? null,
+          cf_turnstile_response: cfTurnstileResponse
+        })
       });
 
       if (!response.ok) {
@@ -357,10 +361,10 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Request password reset
-  requestPasswordReset: async (email) => {
+  requestPasswordReset: async (email, cfTurnstileResponse) => {
     set({ isLoading: true, error: null });
     try {
-      await authService.requestPasswordReset({ email });
+      await authService.requestPasswordReset({ email }, cfTurnstileResponse);
       set({ isLoading: false });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to send reset email";

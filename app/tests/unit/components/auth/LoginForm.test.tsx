@@ -117,7 +117,7 @@ describe("LoginForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /log in$/i }));
 
       await waitFor(() => {
-        expect(mockLogin).toHaveBeenCalledWith({ email: "test@example.com", password: "password123" });
+        expect(mockLogin).toHaveBeenCalledWith({ email: "test@example.com", password: "password123" }, "test-token");
       });
     });
 

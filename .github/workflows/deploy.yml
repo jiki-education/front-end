@@ -55,6 +55,10 @@ jobs:
             missing_vars+=("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY")
           fi
 
+          if [ -z "${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}" ]; then
+            missing_vars+=("NEXT_PUBLIC_TURNSTILE_SITE_KEY")
+          fi
+
           if [ -z "${{ secrets.SENTRY_AUTH_TOKEN }}" ]; then
             missing_vars+=("SENTRY_AUTH_TOKEN")
           fi
@@ -75,6 +79,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   deploy-llm-chat-proxy:

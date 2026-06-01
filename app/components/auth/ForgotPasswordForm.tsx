@@ -1,6 +1,8 @@
 "use client";
 
+import { ApiError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -9,10 +11,13 @@ import styles from "./AuthForm.module.css";
 
 export function ForgotPasswordForm() {
   const { requestPasswordReset, isLoading } = useAuthStore();
+  const turnstile = useTurnstile();
 
   const [email, setEmail] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -30,17 +35,38 @@ export function ForgotPasswordForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSuccessMessage("");
+    setCaptchaError(false);
 
     if (!validate()) {
       return;
     }
 
+    let token: string;
+    setVerifying(true);
     try {
-      await requestPasswordReset(email);
+      token = await turnstile.execute();
+    } catch (err) {
+      console.error("Turnstile failed:", err);
+      setCaptchaError(true);
+      setVerifying(false);
+      return;
+    }
+
+    try {
+      await requestPasswordReset(email, token);
+      setVerifying(false);
       setSuccessMessage("If an account with that email exists, you'll receive reset instructions shortly.");
       setEmail("");
     } catch (err) {
+      setVerifying(false);
       console.error("Password reset request failed:", err);
+      if (
+        err instanceof ApiError &&
+        err.status === 403 &&
+        (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
+      ) {
+        setCaptchaError(true);
+      }
     }
   };
 
@@ -84,14 +110,21 @@ export function ForgotPasswordForm() {
             )}
           </div>
 
+          {captchaError && (
+            <div className={styles.errorMessage}>
+              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try again
+              using the button below.
+            </div>
+          )}
+
           <button
             type="submit"
             id="submit-btn"
             className="ui-btn ui-btn-large ui-btn-primary"
             style={{ width: "100%" }}
-            disabled={isLoading}
+            disabled={isLoading || verifying}
           >
-            {isLoading ? "Sending..." : "Send Reset Link"}
+            {isLoading ? "Sending..." : verifying ? "Verifying..." : "Send Reset Link"}
           </button>
 
           <div className={styles.footerLinks}>

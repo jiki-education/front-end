@@ -76,6 +76,18 @@
     text-wrap-style: balance;
 }
 
+.errorMessage {
+    background: var(--color-error-bg);
+    border: 1.5px solid var(--color-red-600);
+    border-radius: 8px;
+    padding: 16px;
+    color: var(--color-red-600);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-wrap-style: balance;
+}
+
 .confirmationMessage {
     text-align: center;
 
@@ -98,6 +110,10 @@
     justify-content: center;
     margin: 0 auto 24px;
     color: var(--color-blue-600);
+
+    > svg {
+        width: 40px;
+    }
 }
 
 .confirmationCard {

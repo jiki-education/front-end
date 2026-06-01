@@ -105,12 +105,15 @@ describe("SignupForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
 
       await waitFor(() => {
-        expect(mockSignup).toHaveBeenCalledWith({
-          email: "test@example.com",
-          password: "password123",
-          password_confirmation: "password123",
-          attribution: null
-        });
+        expect(mockSignup).toHaveBeenCalledWith(
+          {
+            email: "test@example.com",
+            password: "password123",
+            password_confirmation: "password123",
+            attribution: null
+          },
+          "test-token"
+        );
       });
     });
 
@@ -144,7 +147,7 @@ describe("SignupForm", () => {
       });
     });
 
-    it("shows check inbox message when email is not confirmed", async () => {
+    it("redirects to /auth/check-email and stashes the email when not confirmed", async () => {
       mockSearchParamsGet.mockReturnValue(null);
       mockSignup.mockResolvedValue({ email_confirmed: false });
 
@@ -155,9 +158,9 @@ describe("SignupForm", () => {
       fireEvent.click(screen.getByRole("button", { name: /sign up$/i }));
 
       await waitFor(() => {
-        expect(screen.getByRole("heading", { name: /check your inbox/i })).toBeInTheDocument();
+        expect(mockRouterPush).toHaveBeenCalledWith("/auth/check-email");
       });
-      expect(mockRouterPush).not.toHaveBeenCalled();
+      expect(localStorage.getItem("just_signed_up_email")).toBe("test@example.com");
     });
 
     it("does not use router.push for valid external return_to URL when email is confirmed", async () => {

@@ -57,7 +57,7 @@ describe("AuthStore - Login", () => {
       });
 
       const { login } = useAuthStore.getState();
-      const result = await login({ email: "test@example.com", password: "password123" });
+      const result = await login({ email: "test@example.com", password: "password123" }, "test-token");
 
       expect(result).toEqual({ status: "success", user: mockUser });
 
@@ -78,7 +78,7 @@ describe("AuthStore - Login", () => {
       mockFetch.mockReturnValue(fetchPromise);
 
       const { login } = useAuthStore.getState();
-      const loginPromise = login({ email: "test@example.com", password: "password123" });
+      const loginPromise = login({ email: "test@example.com", password: "password123" }, "test-token");
 
       // Check loading state is set
       expect(useAuthStore.getState().isLoading).toBe(true);
@@ -100,7 +100,9 @@ describe("AuthStore - Login", () => {
 
       const { login } = useAuthStore.getState();
 
-      await expect(login({ email: "test@example.com", password: "wrong" })).rejects.toThrow(AuthenticationError);
+      await expect(login({ email: "test@example.com", password: "wrong" }, "test-token")).rejects.toThrow(
+        AuthenticationError
+      );
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();
@@ -116,7 +118,9 @@ describe("AuthStore - Login", () => {
 
       const { login } = useAuthStore.getState();
 
-      await expect(login({ email: "test@example.com", password: "password" })).rejects.toThrow("Server error");
+      await expect(login({ email: "test@example.com", password: "password" }, "test-token")).rejects.toThrow(
+        "Server error"
+      );
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();
@@ -128,7 +132,9 @@ describe("AuthStore - Login", () => {
 
       const { login } = useAuthStore.getState();
 
-      await expect(login({ email: "test@example.com", password: "password" })).rejects.toThrow("Network error");
+      await expect(login({ email: "test@example.com", password: "password" }, "test-token")).rejects.toThrow(
+        "Network error"
+      );
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();
@@ -143,14 +149,17 @@ describe("AuthStore - Login", () => {
       });
 
       const { login } = useAuthStore.getState();
-      await login({ email: "test@example.com", password: "password123" });
+      await login({ email: "test@example.com", password: "password123" }, "test-token");
 
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining("/auth/login"),
         expect.objectContaining({
           method: "POST",
           credentials: "include",
-          body: JSON.stringify({ user: { email: "test@example.com", password: "password123" } })
+          body: JSON.stringify({
+            user: { email: "test@example.com", password: "password123" },
+            cf_turnstile_response: "test-token"
+          })
         })
       );
     });
@@ -163,7 +172,7 @@ describe("AuthStore - Login", () => {
 
       const { login } = useAuthStore.getState();
 
-      await expect(login({ email: "test@example.com", password: "password" })).rejects.toThrow(
+      await expect(login({ email: "test@example.com", password: "password" }, "test-token")).rejects.toThrow(
         "Invalid response from server"
       );
     });
@@ -179,7 +188,7 @@ describe("AuthStore - Login", () => {
       });
 
       const { login } = useAuthStore.getState();
-      const result = await login({ email: "admin@example.com", password: "password123" });
+      const result = await login({ email: "admin@example.com", password: "password123" }, "test-token");
 
       expect(result).toEqual({
         status: "2fa_setup_required",
@@ -199,7 +208,7 @@ describe("AuthStore - Login", () => {
       });
 
       const { login } = useAuthStore.getState();
-      const result = await login({ email: "admin@example.com", password: "password123" });
+      const result = await login({ email: "admin@example.com", password: "password123" }, "test-token");
 
       expect(result).toEqual({ status: "2fa_required" });
 
@@ -218,12 +227,15 @@ describe("AuthStore - Login", () => {
       });
 
       const { signup } = useAuthStore.getState();
-      await signup({
-        email: "new@example.com",
-        password: "password123",
-        password_confirmation: "password123",
-        name: "New User"
-      });
+      await signup(
+        {
+          email: "new@example.com",
+          password: "password123",
+          password_confirmation: "password123",
+          name: "New User"
+        },
+        "test-token"
+      );
 
       const state = useAuthStore.getState();
       expect(state.user).toEqual(mockUser);
@@ -241,11 +253,14 @@ describe("AuthStore - Login", () => {
       const { signup } = useAuthStore.getState();
 
       await expect(
-        signup({
-          email: "existing@example.com",
-          password: "password123",
-          password_confirmation: "password123"
-        })
+        signup(
+          {
+            email: "existing@example.com",
+            password: "password123",
+            password_confirmation: "password123"
+          },
+          "test-token"
+        )
       ).rejects.toThrow(AuthenticationError);
     });
 
@@ -259,11 +274,14 @@ describe("AuthStore - Login", () => {
       const { signup } = useAuthStore.getState();
 
       await expect(
-        signup({
-          email: "new@example.com",
-          password: "short",
-          password_confirmation: "short"
-        })
+        signup(
+          {
+            email: "new@example.com",
+            password: "short",
+            password_confirmation: "short"
+          },
+          "test-token"
+        )
       ).rejects.toThrow("Validation failed");
     });
 
@@ -274,12 +292,15 @@ describe("AuthStore - Login", () => {
       });
 
       const { signup } = useAuthStore.getState();
-      await signup({
-        email: "new@example.com",
-        password: "password123",
-        password_confirmation: "password123",
-        name: "New User"
-      });
+      await signup(
+        {
+          email: "new@example.com",
+          password: "password123",
+          password_confirmation: "password123",
+          name: "New User"
+        },
+        "test-token"
+      );
 
       expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining("/auth/signup"),
@@ -293,7 +314,8 @@ describe("AuthStore - Login", () => {
               password_confirmation: "password123",
               name: "New User"
             },
-            attribution: null
+            attribution: null,
+            cf_turnstile_response: "test-token"
           })
         })
       );

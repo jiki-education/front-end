@@ -209,6 +209,9 @@ jobs:
         run: pnpm test:e2e
         env:
           CI: true
+          # Cloudflare's documented "always passes (invisible)" test site key,
+          # so Turnstile resolves immediately in CI without a real challenge.
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
 
       - name: Upload Playwright report on failure
         if: failure()

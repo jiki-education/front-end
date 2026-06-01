@@ -81,7 +81,10 @@ describe("useChat token management", () => {
       });
 
       expect(mockFetchChatToken).toHaveBeenCalledTimes(1);
-      expect(mockFetchChatToken).toHaveBeenCalledWith({ context: { type: "lesson", slug: "test-lesson" } });
+      expect(mockFetchChatToken).toHaveBeenCalledWith({
+        context: { type: "lesson", slug: "test-lesson" },
+        cfTurnstileResponse: "test-token"
+      });
       expect(mockSendChatMessage).toHaveBeenCalledTimes(1);
     });
 
@@ -303,8 +306,10 @@ describe("useChat token management", () => {
         await result.current.sendMessage("Message 1");
       });
 
-      // fetchChatToken should be called once
-      expect(mockFetchChatToken).toHaveBeenCalledTimes(1);
+      // fetchChatToken is invoked after the Turnstile token resolves (microtask).
+      await waitFor(() => {
+        expect(mockFetchChatToken).toHaveBeenCalledTimes(1);
+      });
 
       // Resolve the token fetch
       act(() => {

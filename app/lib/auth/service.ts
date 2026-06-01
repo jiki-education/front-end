@@ -15,8 +15,8 @@ import type { PasswordReset, PasswordResetRequest, User } from "@/types/auth";
  * Request password reset
  * POST /auth/password
  */
-export async function requestPasswordReset(data: PasswordResetRequest): Promise<void> {
-  await api.post("/auth/password", { user: data });
+export async function requestPasswordReset(data: PasswordResetRequest, cfTurnstileResponse: string): Promise<void> {
+  await api.post("/auth/password", { user: data, cf_turnstile_response: cfTurnstileResponse });
 }
 
 /**

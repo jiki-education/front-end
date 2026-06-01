@@ -45,10 +45,13 @@ export default function GoogleOAuthTestPage() {
   // Handle traditional email/password login for testing
   const handleTraditionalLogin = async () => {
     try {
-      await login({
-        email: "ihid@jiki.io",
-        password: "password"
-      });
+      await login(
+        {
+          email: "ihid@jiki.io",
+          password: "password"
+        },
+        "dev-stub-token"
+      );
     } catch (err) {
       console.error("Login failed:", err);
     }
