@@ -1,6 +1,7 @@
 "use client";
 
 import { ApiError } from "@/lib/api/client";
+import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
@@ -56,7 +57,8 @@ export function SignupForm() {
       const user = await signup({
         email,
         password,
-        password_confirmation: password
+        password_confirmation: password,
+        attribution: readAttribution()
       });
 
       if (user.email_confirmed) {

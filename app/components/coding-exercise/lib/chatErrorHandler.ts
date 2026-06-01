@@ -1,10 +1,16 @@
 import { ChatApiError, ChatTokenExpiredError } from "./chatApi";
-import { ChatTokenError } from "./chatTokenApi";
+import { ChatTokenError, ChatTokenInvalidCaptchaError } from "./chatTokenApi";
 
 export function formatChatError(error: unknown): string {
   // ChatTokenExpiredError should rarely show (auto-retry handles it)
   if (error instanceof ChatTokenExpiredError) {
     return "Session expired. Please try again.";
+  }
+
+  // Captcha failure — distinct from access-denied so the user is told to
+  // retry rather than nudged to upgrade.
+  if (error instanceof ChatTokenInvalidCaptchaError) {
+    return "Verification failed. Please try again.";
   }
 
   // ChatTokenError - errors fetching the token

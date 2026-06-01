@@ -1,8 +1,7 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
-import { showConfirmation, showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showConfirmation, showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./FreeUserCanStart.module.css";
 
 interface FreeUserCanStartProps {
@@ -24,12 +23,7 @@ export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps)
   };
 
   const handleUpgradeClick = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
+    showPremiumUpgradeModal("assistant_tab_opened");
   };
 
   return (

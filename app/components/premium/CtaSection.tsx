@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./PremiumPage.module.css";
 
 export default function CtaSection() {
@@ -27,7 +27,7 @@ export default function CtaSection() {
           <p className={styles["cta-desc"]}>Upgrade to Premium and unlock everything Jiki has to offer.</p>
           <button
             className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
-            onClick={() => showModal("premium-upgrade-modal")}
+            onClick={() => showPremiumUpgradeModal("upgrade_cta_premium_page")}
           >
             Upgrade to Premium
           </button>

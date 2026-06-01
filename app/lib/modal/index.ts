@@ -13,6 +13,7 @@ export {
   showPaymentProcessing,
   showPaymentConfirming,
   showPaymentVerificationFailed,
+  showPremiumUpgradeModal,
   showWelcomeToPremium,
   useModalStore
 } from "./store";

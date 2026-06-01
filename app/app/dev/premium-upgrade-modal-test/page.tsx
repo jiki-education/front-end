@@ -1,23 +1,17 @@
 "use client";
 
-import { showModal } from "@/lib/modal";
-import styles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {
-        onSuccess: () => {
-          console.debug("Upgrade successful");
-        },
-        onCancel: () => {
-          console.debug("Upgrade cancelled");
-        }
+    showPremiumUpgradeModal("upgrade_cta_nav", {
+      onSuccess: () => {
+        console.debug("Upgrade successful");
       },
-      styles.premiumModalOverlay,
-      styles.premiumModalWidth
-    );
+      onCancel: () => {
+        console.debug("Upgrade cancelled");
+      }
+    });
   };
 
   return (

@@ -132,7 +132,7 @@ describe("AuthStore - Google Authentication", () => {
         expect.objectContaining({
           method: "POST",
           credentials: "include",
-          body: JSON.stringify({ code: "test-auth-code" })
+          body: JSON.stringify({ code: "test-auth-code", attribution: null })
         })
       );
       expect(mockFetch).toHaveBeenCalledTimes(1);

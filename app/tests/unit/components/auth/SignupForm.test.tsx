@@ -108,7 +108,8 @@ describe("SignupForm", () => {
         expect(mockSignup).toHaveBeenCalledWith({
           email: "test@example.com",
           password: "password123",
-          password_confirmation: "password123"
+          password_confirmation: "password123",
+          attribution: null
         });
       });
     });

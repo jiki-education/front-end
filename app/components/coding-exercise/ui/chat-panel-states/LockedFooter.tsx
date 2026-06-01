@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./LockedFooter.module.css";
 
 type LockedFooterVariant = "free-limit-reached" | "premium-blocked";
@@ -16,12 +15,7 @@ interface LockedFooterProps {
 // - premium-blocked: premium user who hit fair use limits
 export function LockedFooter({ variant }: LockedFooterProps) {
   const handleUpgradeClick = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
+    showPremiumUpgradeModal("assistant_limit_reached");
   };
 
   return (

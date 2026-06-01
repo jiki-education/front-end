@@ -1,3 +1,4 @@
+import { AttributionCapture } from "@/components/AttributionCapture";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
         <GlobalErrorHandler />
+        <AttributionCapture />
         <ServerAuthProvider>
           <ThemeProvider>
             <main className="w-full">{children}</main>

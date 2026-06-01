@@ -1,7 +1,9 @@
 import { create } from "zustand";
+import type { ModalTrigger } from "@/lib/analytics";
 import type { MembershipTier } from "@/lib/pricing";
 import confirmationStyles from "@/app/styles/components/confirmation-modal.module.css";
 import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css";
+import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
@@ -146,6 +148,28 @@ export const showPaymentVerificationFailed = (props?: { onClose?: () => void }) 
 // Convenience function for welcome to premium modal
 export const showWelcomeToPremium = (props?: { onClose?: () => void }) => {
   showModal("welcome-to-premium-modal", props ?? {}, undefined, welcomeToPremiumStyles.modal);
+};
+
+// Convenience function for the premium upgrade modal. The `trigger` arg is
+// typed as `ModalTrigger`, a closed union of allowed values — keep that type
+// the single source of truth so the `premium_modal_shown` funnel data stays
+// consistent (new triggers must be added to the type before use).
+export const showPremiumUpgradeModal = (
+  trigger: ModalTrigger,
+  options?: {
+    contextType?: string;
+    contextSlug?: string;
+    contextUuid?: string;
+    onSuccess?: () => void;
+    onCancel?: () => void;
+  }
+) => {
+  showModal(
+    "premium-upgrade-modal",
+    { trigger, ...options },
+    premiumUpgradeStyles.premiumModalOverlay,
+    premiumUpgradeStyles.premiumModalWidth
+  );
 };
 
 // Convenience function for video walkthrough modal

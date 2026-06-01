@@ -1,19 +1,13 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
-import { showModal } from "@/lib/modal";
-import premiumModalStyles from "@/lib/modal/modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./FreeUserCanStart.module.css";
 
 // Non-premium user, conversation not allowed, no existing conversation
 // They've used their free conversation limit
 export default function FreeUserLimitReached() {
   const handleUpgradeClick = () => {
-    showModal(
-      "premium-upgrade-modal",
-      {},
-      premiumModalStyles.premiumModalOverlay,
-      premiumModalStyles.premiumModalWidth
-    );
+    showPremiumUpgradeModal("assistant_limit_reached");
   };
 
   return (

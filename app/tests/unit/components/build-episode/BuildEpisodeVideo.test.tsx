@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import BuildEpisodeVideo from "@/components/build-episode/BuildEpisodeVideo";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal";
 
 jest.mock("@/lib/auth/authStore");
 jest.mock("@/lib/modal", () => ({
-  showModal: jest.fn()
+  showPremiumUpgradeModal: jest.fn()
 }));
 jest.mock("@/components/build-episode/lib/useBuildEpisodeProgress", () => ({
   useBuildEpisodeProgress: () => ({
@@ -75,12 +75,7 @@ describe("BuildEpisodeVideo", () => {
 
     render(<BuildEpisodeVideo {...baseProps} videoProvider="mux" premium={true} />);
 
-    expect(showModal).toHaveBeenCalledWith(
-      "premium-upgrade-modal",
-      expect.any(Object),
-      expect.any(String),
-      expect.any(String)
-    );
+    expect(showPremiumUpgradeModal).toHaveBeenCalledWith("locked_episode_video", expect.any(Object));
     expect(mockReplace).toHaveBeenCalledWith("/build/building-basics");
     // Player should not be rendered while locked
     expect(screen.queryByTestId("mux-player")).not.toBeInTheDocument();
@@ -92,7 +87,7 @@ describe("BuildEpisodeVideo", () => {
 
     render(<BuildEpisodeVideo {...baseProps} videoProvider="mux" premium={true} />);
 
-    expect(showModal).not.toHaveBeenCalled();
+    expect(showPremiumUpgradeModal).not.toHaveBeenCalled();
     expect(mockReplace).not.toHaveBeenCalled();
     expect(screen.getByTestId("mux-player")).toBeInTheDocument();
   });
@@ -102,7 +97,7 @@ describe("BuildEpisodeVideo", () => {
 
     render(<BuildEpisodeVideo {...baseProps} videoProvider="mux" premium={true} />);
 
-    expect(showModal).not.toHaveBeenCalled();
+    expect(showPremiumUpgradeModal).not.toHaveBeenCalled();
     expect(mockReplace).not.toHaveBeenCalled();
   });
 });
