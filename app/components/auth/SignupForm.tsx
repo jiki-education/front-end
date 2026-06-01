@@ -5,6 +5,7 @@ import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -17,6 +18,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function SignupForm() {
   const { signup, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
+  const turnstile = useTurnstile();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,8 @@ export function SignupForm() {
   const [hasAuthError, setHasAuthError] = useState(false);
   const [authErrorField, setAuthErrorField] = useState<string | null>(null);
   const [signupSuccessEmail, setSignupSuccessEmail] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -48,18 +52,34 @@ export function SignupForm() {
     e.preventDefault();
     setHasAuthError(false);
     setAuthErrorField(null);
+    setCaptchaError(false);
 
     if (!validate()) {
       return;
     }
 
+    let token: string;
+    setVerifying(true);
     try {
-      const user = await signup({
-        email,
-        password,
-        password_confirmation: password,
-        attribution: readAttribution()
-      });
+      token = await turnstile.execute();
+    } catch (err) {
+      console.error("Turnstile failed:", err);
+      setCaptchaError(true);
+      setVerifying(false);
+      return;
+    }
+    setVerifying(false);
+
+    try {
+      const user = await signup(
+        {
+          email,
+          password,
+          password_confirmation: password,
+          attribution: readAttribution()
+        },
+        token
+      );
 
       if (user.email_confirmed) {
         handleAuthResponse({ status: "success", user });
@@ -70,6 +90,13 @@ export function SignupForm() {
       console.error("Signup failed:", err);
 
       if (err instanceof ApiError) {
+        if (
+          err.status === 403 &&
+          (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
+        ) {
+          setCaptchaError(true);
+          return;
+        }
         // Handle specific HTTP status codes
         if (err.status === 409 || err.status === 422) {
           // 409 Conflict or 422 Unprocessable Entity - likely email already exists
@@ -181,14 +208,16 @@ export function SignupForm() {
             )}
           </div>
 
+          {captchaError && <div className={styles.errorMessage}>Verification failed, please try again.</div>}
+
           <button
             type="submit"
             id="submit-btn"
             className="ui-btn ui-btn-large ui-btn-primary submit-btn"
             style={{ width: "100%" }}
-            disabled={isLoading}
+            disabled={isLoading || verifying}
           >
-            {isLoading ? "Signing up..." : "Sign Up"}
+            {verifying ? "Verifying..." : isLoading ? "Signing up..." : "Sign Up"}
           </button>
 
           <div className={styles.footerLinks}>

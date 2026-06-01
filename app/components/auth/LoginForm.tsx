@@ -1,9 +1,10 @@
 "use client";
 
-import { AuthenticationError } from "@/lib/api/client";
+import { ApiError, AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -15,12 +16,15 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function LoginForm() {
   const { login, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
+  const turnstile = useTurnstile();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [hasAuthError, setHasAuthError] = useState(false);
   const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null);
+  const [verifying, setVerifying] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -45,16 +49,37 @@ export function LoginForm() {
     e.preventDefault();
     setHasAuthError(false);
     setUnconfirmedEmail(null);
+    setCaptchaError(false);
 
     if (!validate()) {
       return;
     }
 
+    let token: string;
+    setVerifying(true);
     try {
-      const result = await login({ email, password });
+      token = await turnstile.execute();
+    } catch (err) {
+      console.error("Turnstile failed:", err);
+      setCaptchaError(true);
+      setVerifying(false);
+      return;
+    }
+    setVerifying(false);
+
+    try {
+      const result = await login({ email, password }, token);
       handleAuthResponse(result);
     } catch (err) {
       console.error("Login failed:", err);
+      if (
+        err instanceof ApiError &&
+        err.status === 403 &&
+        (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
+      ) {
+        setCaptchaError(true);
+        return;
+      }
       if (err instanceof AuthenticationError) {
         // Check if the error is specifically for unconfirmed email
         const errorData = err.data as { error?: { type?: string; email?: string } } | undefined;
@@ -187,14 +212,16 @@ export function LoginForm() {
             </div>
           </div>
 
+          {captchaError && <div className={styles.errorMessage}>Verification failed, please try again.</div>}
+
           <button
             type="submit"
             id="submit-btn"
             className="ui-btn ui-btn-large ui-btn-primary"
             style={{ width: "100%" }}
-            disabled={isLoading}
+            disabled={isLoading || verifying}
           >
-            {isLoading ? "Logging in..." : "Log In"}
+            {verifying ? "Verifying..." : isLoading ? "Logging in..." : "Log In"}
           </button>
 
           <div className={styles.footerLinks}>

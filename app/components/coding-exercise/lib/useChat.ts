@@ -1,16 +1,18 @@
 import { useCallback, useRef } from "react";
 import { showPremiumUpgradeModal } from "@/lib/modal";
+import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
 import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
 import { saveConversation } from "./conversationApi";
-import { ChatTokenAccessDeniedError, fetchChatToken } from "./chatTokenApi";
+import { ChatTokenAccessDeniedError, ChatTokenInvalidCaptchaError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
   const chatState = useChatState();
   const context = useChatContext(orchestrator);
+  const turnstile = useTurnstile();
   const tokenFetchInProgress = useRef<Promise<string> | null>(null);
 
   // Get existing token or fetch a new one
@@ -25,10 +27,15 @@ export function useChat(orchestrator: Orchestrator) {
       return tokenFetchInProgress.current;
     }
 
-    // Fetch new token
-    tokenFetchInProgress.current = fetchChatToken({
-      context: context.context
-    });
+    // Run Turnstile, then exchange for a chat JWT. One Turnstile pass per
+    // chat session — once we hold a chat token, subsequent messages reuse it.
+    tokenFetchInProgress.current = (async () => {
+      const cfTurnstileResponse = await turnstile.execute();
+      return fetchChatToken({
+        context: context.context,
+        cfTurnstileResponse
+      });
+    })();
 
     try {
       const token = await tokenFetchInProgress.current;
@@ -37,7 +44,7 @@ export function useChat(orchestrator: Orchestrator) {
     } finally {
       tokenFetchInProgress.current = null;
     }
-  }, [chatState, context.context]);
+  }, [chatState, context.context, turnstile]);
 
   // Perform the actual chat request with a given token
   const performChatRequest = useCallback(
@@ -125,6 +132,12 @@ export function useChat(orchestrator: Orchestrator) {
             contextSlug: context.context.slug
           });
           chatState.setStatus("idle");
+          return;
+        }
+
+        if (error instanceof ChatTokenInvalidCaptchaError) {
+          chatState.setError("Verification failed, please try again.");
+          chatState.setStatus("error");
           return;
         }
 

@@ -24,10 +24,13 @@ export default function StripeTestPage() {
 
   const handleLogin = async () => {
     try {
-      await login({
-        email: "ihid@jiki.io",
-        password: "password"
-      });
+      await login(
+        {
+          email: "ihid@jiki.io",
+          password: "password"
+        },
+        "dev-stub-token"
+      );
     } catch (err) {
       console.error("Login failed:", err);
     }

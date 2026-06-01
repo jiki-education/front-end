@@ -154,6 +154,11 @@ jest.mock("../public/icons/jiki-logo.svg", () => {
   };
 });
 
+// Mock Turnstile hook so tests don't hit the real Cloudflare widget.
+jest.mock("@/lib/turnstile/useTurnstile", () => ({
+  useTurnstile: () => ({ execute: jest.fn().mockResolvedValue("test-token") })
+}));
+
 // Mock theme hook
 jest.mock("@/lib/theme/useTheme", () => ({
   useTheme: () => ({
