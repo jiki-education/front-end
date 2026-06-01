@@ -10,12 +10,13 @@ import { LevelSection } from "./ui/LevelSection";
 import styles from "./ExercisePath.module.css";
 import { StartCard } from "./ui/StartCard";
 import { CompletionCert } from "./ui/CompletionCert";
+import { ComingSoonCard } from "./ui/ComingSoonCard";
 import { ScrollToActiveLessonButton } from "./ui/ScrollToActiveLessonButton";
 import { useEffect, useMemo, useRef } from "react";
 
 export default function ExercisePath() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { levelSections, setLevels, levelsLoading } = useLevels();
+  const { levelSections, setLevels, levelsLoading, reachedEndOfPublishedLevels } = useLevels();
   const { handleLessonNavigation, clickedLessonSlug, setClickedLessonSlug, isPending } = useLessonNavigation();
   const { handleMilestoneClick, levelCompletionInProgress } = useMilestoneHandler(setLevels);
   const { animationState, triggerCompletionAnimation, recentlyUnlockedLessons } = useLessonCompletionAnimation();
@@ -90,7 +91,11 @@ export default function ExercisePath() {
                 activeLessonSlug={activeLessonSlug}
               />
             ))}
-            <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+            {reachedEndOfPublishedLevels ? (
+              <ComingSoonCard />
+            ) : (
+              <CompletionCert completedCount={completedCount} totalCount={totalCount} />
+            )}
           </>
         )}
       </div>

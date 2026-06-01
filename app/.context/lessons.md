@@ -114,12 +114,17 @@ export async function markLessonComplete(slug: string): Promise<void> {
 
 ## Dashboard Display
 
-The ExercisePath component (`/components/index-page/exercise-path/ExercisePath.tsx`):
+The ExercisePath component (`/components/dashboard/exercise-path/ExercisePath.tsx`):
 
 1. Maps levels to sections with headers
 2. Creates lesson nodes with zigzag positioning
 3. Shows completion status and locks based on progression
 4. Connects nodes with path lines
+5. Ends with a `CompletionCert` progress card, or a `ComingSoonCard` when the user has completed all published lessons
+
+### Published Lessons Cutoff
+
+`LAST_PUBLISHED_LEVEL_SLUG` in `lib/constants/course.ts` marks the last level whose lessons are fully published. When a user completes every lesson in that level, the dashboard hides all later levels and shows the `ComingSoonCard` ("More Lessons Coming Soon") in place of the completion certificate. Users who haven't reached that point see the full tree as normal. Set the constant to `null` to disable the cutoff entirely. The logic lives in `hasReachedEndOfPublishedLevels()` and `filterToPublishedLevels()` in `components/dashboard/exercise-path/hooks/useLevels.ts`.
 
 ### Level Section Structure
 
