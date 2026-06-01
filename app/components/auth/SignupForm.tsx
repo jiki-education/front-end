@@ -68,7 +68,6 @@ export function SignupForm() {
       setVerifying(false);
       return;
     }
-    setVerifying(false);
 
     try {
       const user = await signup(
@@ -87,6 +86,7 @@ export function SignupForm() {
         setSignupSuccessEmail(email);
       }
     } catch (err) {
+      setVerifying(false);
       console.error("Signup failed:", err);
 
       if (err instanceof ApiError) {
@@ -217,7 +217,7 @@ export function SignupForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {verifying ? "Verifying..." : isLoading ? "Signing up..." : "Sign Up"}
+            {isLoading ? "Signing up..." : verifying ? "Verifying..." : "Sign Up"}
           </button>
 
           <div className={styles.footerLinks}>

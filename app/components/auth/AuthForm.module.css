@@ -110,6 +110,10 @@
     justify-content: center;
     margin: 0 auto 24px;
     color: var(--color-blue-600);
+
+    > svg {
+        width: 40px;
+    }
 }
 
 .confirmationCard {

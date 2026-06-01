@@ -65,12 +65,12 @@ export function LoginForm() {
       setVerifying(false);
       return;
     }
-    setVerifying(false);
 
     try {
       const result = await login({ email, password }, token);
       handleAuthResponse(result);
     } catch (err) {
+      setVerifying(false);
       console.error("Login failed:", err);
       if (
         err instanceof ApiError &&
@@ -221,7 +221,7 @@ export function LoginForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {verifying ? "Verifying..." : isLoading ? "Logging in..." : "Log In"}
+            {isLoading ? "Logging in..." : verifying ? "Verifying..." : "Log In"}
           </button>
 
           <div className={styles.footerLinks}>

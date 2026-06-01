@@ -51,13 +51,13 @@ export function ForgotPasswordForm() {
       setVerifying(false);
       return;
     }
-    setVerifying(false);
 
     try {
       await requestPasswordReset(email, token);
       setSuccessMessage("If an account with that email exists, you'll receive reset instructions shortly.");
       setEmail("");
     } catch (err) {
+      setVerifying(false);
       console.error("Password reset request failed:", err);
       if (
         err instanceof ApiError &&
@@ -118,7 +118,7 @@ export function ForgotPasswordForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {verifying ? "Verifying..." : isLoading ? "Sending..." : "Send Reset Link"}
+            {isLoading ? "Sending..." : verifying ? "Verifying..." : "Send Reset Link"}
           </button>
 
           <div className={styles.footerLinks}>
