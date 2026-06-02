@@ -233,6 +233,21 @@
     background-color: white;
 }
 
+/* Locked placeholder badges (grey with a padlock) */
+.badge.locked {
+    border-color: var(--color-gray-200);
+    background: var(--color-gray-50);
+    box-shadow: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+.lockIcon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-gray-300);
+}
+
 .badgeMore {
     font-size: 16px;
     font-weight: 600;
