@@ -549,6 +549,29 @@ Authentication operations are handled by Server Actions in `lib/auth/actions.ts`
 
 All Server Actions automatically call `revalidatePath("/", "layout")` to clear Next.js cache after auth state changes.
 
+## OAuth Sign-In Providers
+
+Both the login and signup forms (`components/auth/LoginForm.tsx`, `components/auth/SignupForm.tsx`) offer OAuth sign-in alongside email/password. The provider buttons sit side by side above the form. Each button renders only when its client ID environment variable is configured, so providers degrade gracefully when unconfigured.
+
+### Google
+
+- **Button**: `components/auth/GoogleAuthButton.tsx` - popup flow via `@react-oauth/google`
+- **Flow**: popup returns an authorization code → `googleLogin(code)` in `lib/auth/authStore.ts` POSTs it to the API at `/auth/google`
+- **Env**: `NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID`
+
+### Exercism
+
+- **Button**: `components/auth/ExercismAuthButton.tsx` - full-page redirect flow with PKCE
+- **Flow helpers**: `lib/auth/exercism.ts` (authorize URL, state validation) and `lib/auth/pkce.ts` (verifier/challenge generation)
+
+1. Clicking the button generates a PKCE code verifier + random state, stashes both in sessionStorage, and redirects to Exercism's `/oauth/authorize`
+2. Exercism redirects back to `/auth/exercism/callback?code=...&state=...`
+3. The callback page (`app/(external)/auth/exercism/callback/page.tsx` → `components/auth/ExercismCallbackHandler.tsx`) validates the state against sessionStorage (CSRF protection), then calls `exercismLogin(code, codeVerifier)` which POSTs to the API at `/auth/exercism`
+4. The API exchanges the code with Exercism, finds-or-creates the user, and signs them in. The callback handler reuses `useAuth()` so 2FA flows and post-auth redirects behave identically to other login methods
+
+- **PKCE hashing**: uses `js-sha256` (pure JS) rather than `crypto.subtle` because the Web Crypto API is unavailable on non-secure origins like `http://local.jiki.io` in local development
+- **Env**: `NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID`, `NEXT_PUBLIC_EXERCISM_URL` (defaults to `https://exercism.org`; local dev uses `http://local.exercism.io:3020`)
+
 ## Security Considerations
 
 ### Token Security

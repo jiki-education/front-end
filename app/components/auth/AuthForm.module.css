@@ -32,6 +32,15 @@
     }
 }
 
+.oauthButtons {
+    display: flex;
+    gap: 12px;
+
+    button {
+        flex: 1;
+    }
+}
+
 .divider {
     font-size: 14px;
     color: var(--color-text-secondary);

@@ -35,6 +35,15 @@ jest.mock("@/components/auth/GoogleAuthButton", () => ({
   )
 }));
 
+// Mock ExercismAuthButton to avoid OAuth setup
+jest.mock("@/components/auth/ExercismAuthButton", () => ({
+  ExercismAuthButton: ({ children }: { children: React.ReactNode }) => (
+    <button type="button" data-testid="exercism-auth-button">
+      {children}
+    </button>
+  )
+}));
+
 // Mock SVG imports
 function MockEmailIcon() {
   return <span data-testid="email-icon" />;
@@ -278,6 +287,13 @@ describe("SignupForm", () => {
       expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /sign up$/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /log in/i })).toBeInTheDocument();
+    });
+
+    it("renders the OAuth buttons", () => {
+      render(<SignupForm />);
+
+      expect(screen.getByTestId("google-auth-button")).toHaveTextContent("Use Google");
+      expect(screen.getByTestId("exercism-auth-button")).toHaveTextContent("Use Exercism");
     });
   });
 });

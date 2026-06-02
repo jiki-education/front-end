@@ -10,6 +10,7 @@ import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User }
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
 import { create } from "zustand";
+import type { StoreApi } from "zustand";
 
 interface AuthStore {
   // State
@@ -25,6 +26,7 @@ interface AuthStore {
   verify2FA: (otpCode: string) => Promise<void>;
   signup: (userData: SignupData, cfTurnstileResponse: string) => Promise<User>;
   googleLogin: (code: string) => Promise<LoginResponse>;
+  exercismLogin: (code: string, codeVerifier: string) => Promise<LoginResponse>;
   logout: () => Promise<{ success: boolean; error?: "network" }>;
   checkAuth: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -47,51 +49,14 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
   // Login action - calls Rails directly
   // Returns the response so caller can handle 2FA flows
-  login: async (credentials, cfTurnstileResponse): Promise<LoginResponse> => {
-    set({ isLoading: true });
-    try {
-      const response = await fetch(getApiUrl("/auth/login"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ user: credentials, cf_turnstile_response: cfTurnstileResponse })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        const message = errorData.error?.message || "Login failed";
-        // Throw AuthenticationError for 401 so forms can detect invalid credentials
-        if (response.status === 401) {
-          throw new AuthenticationError(message, errorData);
-        }
-        throw new Error(message);
-      }
-
-      const data = await response.json();
-
-      // Handle 2FA responses - don't set user yet
-      if (data.status === "2fa_setup_required") {
-        set({ isLoading: false });
-        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
-      }
-
-      if (data.status === "2fa_required") {
-        set({ isLoading: false });
-        return { status: "2fa_required" };
-      }
-
-      // Normal login success
-      if (data.status === "success" && data.user) {
-        get().setUser(data.user);
-        return { status: "success", user: data.user };
-      }
-
-      throw new Error("Invalid response from server");
-    } catch (error) {
-      get().setNoUser();
-      throw error;
-    }
-  },
+  login: (credentials, cfTurnstileResponse) =>
+    requestLogin(
+      set,
+      get,
+      "/auth/login",
+      { user: credentials, cf_turnstile_response: cfTurnstileResponse },
+      "Login failed"
+    ),
 
   // Complete 2FA setup for first-time admin users
   setup2FA: async (otpCode: string) => {
@@ -152,51 +117,22 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   },
 
   // Google login action - calls Rails directly
+  // The API finds-or-creates the user, so attribution is sent in case this is a signup
   // Returns the response so caller can handle 2FA flows (same as login)
-  googleLogin: async (code): Promise<LoginResponse> => {
-    set({ isLoading: true });
-    try {
-      const response = await fetch(getApiUrl("/auth/google"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ code, attribution: readAttribution() })
-      });
+  googleLogin: (code) =>
+    requestLogin(set, get, "/auth/google", { code, attribution: readAttribution() }, "Google login failed"),
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        const message = errorData.error?.message || "Google login failed";
-        if (response.status === 401) {
-          throw new AuthenticationError(message, errorData);
-        }
-        throw new Error(message);
-      }
-
-      const data = await response.json();
-
-      // Handle 2FA responses - don't set user yet
-      if (data.status === "2fa_setup_required") {
-        set({ isLoading: false });
-        return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
-      }
-
-      if (data.status === "2fa_required") {
-        set({ isLoading: false });
-        return { status: "2fa_required" };
-      }
-
-      // Normal login success
-      if (data.status === "success" && data.user) {
-        get().setUser(data.user);
-        return { status: "success", user: data.user };
-      }
-
-      throw new Error("Invalid response from server");
-    } catch (error) {
-      get().setNoUser();
-      throw error;
-    }
-  },
+  // Exercism login action - calls Rails directly
+  // The API finds-or-creates the user, so attribution is sent in case this is a signup
+  // Returns the response so caller can handle 2FA flows (same as login)
+  exercismLogin: (code, codeVerifier) =>
+    requestLogin(
+      set,
+      get,
+      "/auth/exercism",
+      { code, code_verifier: codeVerifier, attribution: readAttribution() },
+      "Exercism login failed"
+    ),
 
   // Signup action - calls Rails directly
   // Returns user data so caller can check email_confirmed status
@@ -409,3 +345,58 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     set({ isLoading: loading });
   }
 }));
+
+// Shared handling for the login endpoints (email/password, Google, Exercism).
+// POSTs the given body and handles the common response contract:
+// 2FA challenges, success with user, and error responses.
+async function requestLogin(
+  set: StoreApi<AuthStore>["setState"],
+  get: StoreApi<AuthStore>["getState"],
+  path: string,
+  body: object,
+  failureMessage: string
+): Promise<LoginResponse> {
+  set({ isLoading: true });
+  try {
+    const response = await fetch(getApiUrl(path), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      const message = errorData.error?.message || failureMessage;
+      // Throw AuthenticationError for 401 so forms can detect invalid credentials
+      if (response.status === 401) {
+        throw new AuthenticationError(message, errorData);
+      }
+      throw new Error(message);
+    }
+
+    const data = await response.json();
+
+    // Handle 2FA responses - don't set user yet
+    if (data.status === "2fa_setup_required") {
+      set({ isLoading: false });
+      return { status: "2fa_setup_required", provisioning_uri: data.provisioning_uri };
+    }
+
+    if (data.status === "2fa_required") {
+      set({ isLoading: false });
+      return { status: "2fa_required" };
+    }
+
+    // Normal login success
+    if (data.status === "success" && data.user) {
+      get().setUser(data.user);
+      return { status: "success", user: data.user };
+    }
+
+    throw new Error("Invalid response from server");
+  } catch (error) {
+    get().setNoUser();
+    throw error;
+  }
+}

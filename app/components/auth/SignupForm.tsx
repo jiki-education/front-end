@@ -13,6 +13,7 @@ import { useState } from "react";
 import EmailIcon from "@/icons/email.svg";
 import PasswordIcon from "@/icons/password.svg";
 import styles from "./AuthForm.module.css";
+import { ExercismAuthButton } from "./ExercismAuthButton";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
@@ -133,9 +134,14 @@ export function SignupForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
-            Sign Up with Google
-          </GoogleAuthButton>
+          <div className={styles.oauthButtons}>
+            <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
+              Use Google
+            </GoogleAuthButton>
+            <ExercismAuthButton onError={() => console.error("ERROR WITH EXERCISM SIGNUP")}>
+              Use Exercism
+            </ExercismAuthButton>
+          </div>
 
           <div className={styles.divider}>OR</div>
 
