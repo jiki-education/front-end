@@ -23,7 +23,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
     }
 
     viewContainerRef.current.innerHTML = "";
-    view.classList.add("container-size", "aspect-square", "max-h-[100cqh]", "max-w-[100cqw]", "bg-white", "relative");
+    view.classList.add("container-size", "aspect-square", "max-w-[100cqi]", "bg-white", "relative");
     viewContainerRef.current.appendChild(view);
     // Intentional DOM manipulation to show the view element
     // Next16: eslint-disable-next-line react-hooks/immutability
@@ -39,7 +39,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
     <div className={styles.rightVideoContainer}>
       <div
         className={assembleClassNames(
-          "w-auto h-full max-h-full aspect-square shrink [container-type:size] relative",
+          "w-auto h-full max-h-full aspect-square shrink [container-type:inline-size] relative",
           isSpotlightActive && "spotlight"
         )}
         ref={viewContainerRef}

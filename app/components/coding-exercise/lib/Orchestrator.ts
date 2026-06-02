@@ -9,6 +9,7 @@ import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
+import { loadCodeMirrorContent } from "./localStorage";
 import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
@@ -83,7 +84,7 @@ class Orchestrator {
             this.store,
             this.exercise.slug,
             this.store.getState().code,
-            this.getDefaultReadonlyRanges(),
+            this.getStoredOrDefaultReadonlyRanges(),
             this.runCode.bind(this),
             (code: string) => this.lintCodeDebounced(code)
           );
@@ -336,6 +337,20 @@ class Orchestrator {
     return this.exercise.readonlyRanges?.[this.language] ?? [];
   }
 
+  // Returns the saved readonly ranges from localStorage if present (so the
+  // locked lines stay in sync with the saved code after refresh), otherwise
+  // falls back to the exercise's default ranges. Malformed entries (from a
+  // corrupted or older-version localStorage payload) are rejected so they
+  // can't crash CodeMirror's doc.line() at editor mount.
+  getStoredOrDefaultReadonlyRanges(): ReadonlyRange[] {
+    const stored = loadCodeMirrorContent(this.exercise.slug);
+    const raw = stored.success ? stored.data?.readonlyRanges : undefined;
+    if (Array.isArray(raw) && raw.every(isValidReadonlyRange)) {
+      return raw;
+    }
+    return this.getDefaultReadonlyRanges();
+  }
+
   // Clean up method to destroy the orchestrator and its managers
   destroy(): void {
     // Cancel any pending debounced lint
@@ -356,6 +371,26 @@ class Orchestrator {
     // Clear any callbacks
     this.editorRefCallback = null;
   }
+}
+
+function isValidReadonlyRange(value: unknown): value is ReadonlyRange {
+  if (value === null || typeof value !== "object") {
+    return false;
+  }
+  const r = value as Record<string, unknown>;
+  if (!Number.isInteger(r.fromLine) || (r.fromLine as number) < 1) {
+    return false;
+  }
+  if (!Number.isInteger(r.toLine) || (r.toLine as number) < (r.fromLine as number)) {
+    return false;
+  }
+  if (r.fromChar !== undefined && (!Number.isInteger(r.fromChar) || (r.fromChar as number) < 0)) {
+    return false;
+  }
+  if (r.toChar !== undefined && (!Number.isInteger(r.toChar) || (r.toChar as number) < 0)) {
+    return false;
+  }
+  return true;
 }
 
 // Re-export the hook from store.ts
