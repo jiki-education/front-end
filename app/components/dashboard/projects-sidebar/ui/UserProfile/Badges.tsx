@@ -11,6 +11,7 @@ import {
 } from "@/app/(app)/achievements/lib/badgeUtils";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
+import LockedIcon from "@/icons/locked.svg";
 import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { revealBadge } from "@/lib/api/badges";
@@ -104,47 +105,45 @@ export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
   const displayBadges = lockedDisplayIds
     ? lockedDisplayIds.map((id) => badgeMap.get(id)).filter((b): b is BadgeData => b !== undefined)
     : sortBadges(earnedBadges).slice(0, 3);
+  const lockedPlaceholderCount = Math.max(0, 3 - displayBadges.length);
 
   return (
     <div className={style.badgesSection}>
       <div className={style.badgesTitle}>Badges</div>
       <div className={style.badges}>
-        {displayBadges.length > 0 ? (
-          <>
-            {displayBadges.map((badge) => {
-              const isUnrevealed = badge.state === "unrevealed";
-              const isNew = isUnrevealed || isRecentBadge(badge);
-              const isRevealing = revealingId === badge.id;
-              const badgeColor = getBadgeColor(badge);
-              return (
-                <div
-                  key={badge.id}
-                  className={`${style.badge} ${isUnrevealed ? style.unrevealed : ""} ${isNew && !isUnrevealed ? style.new : ""} ${isRevealing ? style.revealing : ""} ${style[badgeColor]}`}
-                  onClick={() => handleBadgeClick(badge)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {isNew && <BadgeNewLabel className={style.newLabel} />}
-                  {isUnrevealed ? (
-                    <div className={style.cardBack}>
-                      <UnlockIcon className={style.unlockIcon} />
-                    </div>
-                  ) : (
-                    <div className={style.badgeIconWrapper}>
-                      <BadgeIcon slug={badge.slug} />
-                    </div>
-                  )}
+        {displayBadges.map((badge) => {
+          const isUnrevealed = badge.state === "unrevealed";
+          const isNew = isUnrevealed || isRecentBadge(badge);
+          const isRevealing = revealingId === badge.id;
+          const badgeColor = getBadgeColor(badge);
+          return (
+            <div
+              key={badge.id}
+              className={`${style.badge} ${isUnrevealed ? style.unrevealed : ""} ${isNew && !isUnrevealed ? style.new : ""} ${isRevealing ? style.revealing : ""} ${style[badgeColor]}`}
+              onClick={() => handleBadgeClick(badge)}
+              style={{ cursor: "pointer" }}
+            >
+              {isNew && <BadgeNewLabel className={style.newLabel} />}
+              {isUnrevealed ? (
+                <div className={style.cardBack}>
+                  <UnlockIcon className={style.unlockIcon} />
                 </div>
-              );
-            })}
-            {totalEarnedBadges > 3 && (
-              <Link href="/achievements" className={`${style.badge} ${style.empty}`}>
-                <span className={style.badgeMore}>+{totalEarnedBadges - 3}</span>
-              </Link>
-            )}
-          </>
-        ) : (
+              ) : (
+                <div className={style.badgeIconWrapper}>
+                  <BadgeIcon slug={badge.slug} />
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {Array.from({ length: lockedPlaceholderCount }, (_, i) => (
+          <div key={`locked-${i}`} className={`${style.badge} ${style.locked}`} aria-hidden="true">
+            <LockedIcon className={style.lockIcon} />
+          </div>
+        ))}
+        {totalEarnedBadges > 3 && (
           <Link href="/achievements" className={`${style.badge} ${style.empty}`}>
-            <span className={style.badgeMore}>→</span>
+            <span className={style.badgeMore}>+{totalEarnedBadges - 3}</span>
           </Link>
         )}
       </div>
