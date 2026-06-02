@@ -9,6 +9,7 @@ import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
 import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
+import { loadCodeMirrorContent } from "./localStorage";
 import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
@@ -83,7 +84,7 @@ class Orchestrator {
             this.store,
             this.exercise.slug,
             this.store.getState().code,
-            this.getDefaultReadonlyRanges(),
+            this.getStoredOrDefaultReadonlyRanges(),
             this.runCode.bind(this),
             (code: string) => this.lintCodeDebounced(code)
           );
@@ -334,6 +335,17 @@ class Orchestrator {
 
   getDefaultReadonlyRanges(): ReadonlyRange[] {
     return this.exercise.readonlyRanges?.[this.language] ?? [];
+  }
+
+  // Returns the saved readonly ranges from localStorage if present (so the
+  // locked lines stay in sync with the saved code after refresh), otherwise
+  // falls back to the exercise's default ranges.
+  getStoredOrDefaultReadonlyRanges(): ReadonlyRange[] {
+    const stored = loadCodeMirrorContent(this.exercise.slug);
+    if (stored.success && stored.data?.readonlyRanges) {
+      return stored.data.readonlyRanges;
+    }
+    return this.getDefaultReadonlyRanges();
   }
 
   // Clean up method to destroy the orchestrator and its managers

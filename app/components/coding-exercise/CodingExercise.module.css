@@ -673,6 +673,12 @@
     border-left: 1px solid var(--color-gray-200);
     position: relative;
     overflow: hidden;
+}
+
+/* Stabilize Safari compositor during panel resize, but only when no spotlight
+   is active — these properties create a stacking context that would trap
+   .spotlight below the body::after backdrop. */
+.rightVideoContainer:not(:has(.spotlight)) {
     contain: layout paint;
     transform: translateZ(0);
 }
