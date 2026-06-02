@@ -6,7 +6,7 @@ export function UpgradeCard() {
   return (
     <div className={styles.card}>
       <div className={styles.row}>
-        <Image src="/static/images/jiki-logo.png" alt="Jiki" width={56} height={56} className={styles.logo} />
+        <Image src="/static/images/jiki-face.png" alt="Jiki" width={56} height={56} className={styles.logo} />
         <div className={styles.heading}>
           Start your <span className={styles.highlight}>coding journey</span> today!
         </div>

@@ -29,6 +29,17 @@ const nextConfig: NextConfig = {
       }
     ]);
   },
+  async redirects() {
+    return Promise.resolve([
+      {
+        // Password managers use this well-known URL to deep-link users
+        // to the page where they can change their password
+        source: "/.well-known/change-password",
+        destination: "/settings",
+        permanent: false
+      }
+    ]);
+  },
   turbopack: {
     root: path.resolve(__dirname, ".."),
     rules: {

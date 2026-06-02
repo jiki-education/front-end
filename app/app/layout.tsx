@@ -3,6 +3,7 @@ import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandl
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
@@ -29,8 +30,22 @@ const baloo2 = Baloo_2({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Jiki",
-  description: "Welcome to Jiki - the best place to learn to code. Fun, effective and free!"
+  description: "Welcome to Jiki - the best place to learn to code. Fun, effective and free!",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/static/images/icon.svg", type: "image/svg+xml" }
+    ],
+    apple: "/static/images/apple-icon.png"
+  },
+  openGraph: {
+    images: [{ url: "/static/images/og-image.png", width: 1200, height: 630, alt: "Jiki - learn to code" }]
+  },
+  twitter: {
+    card: "summary_large_image"
+  }
 };
 
 export default function RootLayout({
