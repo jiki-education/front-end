@@ -572,6 +572,8 @@ Both the login and signup forms (`components/auth/LoginForm.tsx`, `components/au
 - **PKCE hashing**: uses `js-sha256` (pure JS) rather than `crypto.subtle` because the Web Crypto API is unavailable on non-secure origins like `http://local.jiki.io` in local development
 - **Env**: `NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID`, `NEXT_PUBLIC_EXERCISM_URL` (defaults to `https://exercism.org`; local dev uses `http://local.exercism.io:3020`)
 
+`NEXT_PUBLIC_*` provider client IDs are inlined at build time, so production values must be present in the build environment. They come from GitHub Actions secrets passed to the deploy step in `.github/workflows/deploy.yml`. The production Exercism client ID belongs to the Doorkeeper application registered on exercism.org with redirect URI `https://jiki.io/auth/exercism/callback`.
+
 ## Security Considerations
 
 ### Token Security
