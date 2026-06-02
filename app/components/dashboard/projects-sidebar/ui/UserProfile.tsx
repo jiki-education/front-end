@@ -2,7 +2,7 @@
 
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
-import { showModal } from "@/lib/modal";
+import { showAvatarEditModal } from "@/lib/modal";
 import UserAvatar from "@/components/common/UserAvatar";
 import { Icon } from "@/components/ui-kit/Icon";
 import PencilIcon from "@/icons/pencil.svg";
@@ -40,7 +40,7 @@ export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremi
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
 
   const handleAvatarClick = () => {
-    showModal("avatar-edit-modal", {});
+    showAvatarEditModal();
   };
 
   if (shouldShowSkeleton || !profile) {

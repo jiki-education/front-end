@@ -7,6 +7,7 @@ import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeMod
 import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
+import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 
 interface ModalState {
   isOpen: boolean;
@@ -180,4 +181,9 @@ export const showVideoWalkthrough = (props: { playbackId: string; lessonSlug: st
 // Convenience function for walkthrough confirmation modal
 export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
   showModal("walkthrough-confirm-modal", props, undefined, walkthroughConfirmStyles.modal);
+};
+
+// Convenience function for avatar edit modal
+export const showAvatarEditModal = () => {
+  showModal("avatar-edit-modal", {}, undefined, avatarEditStyles.modal);
 };

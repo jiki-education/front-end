@@ -1,6 +1,6 @@
 "use client";
 
-import { showModal } from "@/lib/modal/store";
+import { showAvatarEditModal } from "@/lib/modal/store";
 import { useAuthStore } from "@/lib/auth/authStore";
 import AvatarPreview from "../ui/AvatarPreview";
 import PencilIcon from "@/icons/pencil.svg";
@@ -11,7 +11,7 @@ export default function AvatarUploadSection() {
   const avatarUrl = useAuthStore((state) => state.user?.avatar_url ?? null);
 
   const handleClick = () => {
-    showModal("avatar-edit-modal", {});
+    showAvatarEditModal();
   };
 
   return (

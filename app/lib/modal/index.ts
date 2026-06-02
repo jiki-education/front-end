@@ -15,6 +15,7 @@ export {
   showPaymentVerificationFailed,
   showPremiumUpgradeModal,
   showWelcomeToPremium,
+  showAvatarEditModal,
   useModalStore
 } from "./store";
 
