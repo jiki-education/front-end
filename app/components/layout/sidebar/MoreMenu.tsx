@@ -108,14 +108,11 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
               >
                 YouTube
               </a>
-              <button onClick={() => handleNavigation("/forum")} className={styles.dropdownItem}>
+              <button onClick={() => handleNavigation("/r/forum")} className={styles.dropdownItem}>
                 Forum
               </button>
               <button onClick={() => handleNavigation("/blog")} className={styles.dropdownItem}>
                 Blog
-              </button>
-              <button onClick={() => handleNavigation("/articles")} className={styles.dropdownItem}>
-                Articles
               </button>
               <button onClick={handleLogout} className={styles.dropdownItem}>
                 Log Out

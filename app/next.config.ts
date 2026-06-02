@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
         source: "/.well-known/change-password",
         destination: "/settings",
         permanent: false
+      },
+      {
+        source: "/r/forum",
+        destination: "https://forum.jiki.io",
+        permanent: false
       }
     ]);
   },
