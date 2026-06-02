@@ -16,9 +16,10 @@ function pasteHandler(event: ClipboardEvent, view: EditorView) {
   setTimeout(() => {
     const { from } = view.state.selection.main;
     const pastedLength = pastedText.length;
+    const anchor = Math.min(from + pastedLength, view.state.doc.length);
 
     view.dispatch({
-      selection: { anchor: from + pastedLength },
+      selection: { anchor },
       scrollIntoView: true
     });
   }, 0);
@@ -72,7 +73,9 @@ describe("move-cursor-by-paste-length", () => {
     let mockView: EditorView & { dispatch: jest.Mock };
 
     beforeEach(() => {
-      mockView = createMockEditor("Hello world", 5); // cursor at position 5
+      // Use a long enough doc that the un-clamped paste tests below don't hit
+      // the doc.length clamp.
+      mockView = createMockEditor("Hello world".padEnd(100, " "), 5); // cursor at position 5
       jest.clearAllTimers();
     });
 
@@ -120,7 +123,7 @@ describe("move-cursor-by-paste-length", () => {
     it("should calculate cursor position correctly for multi-character paste", () => {
       const pastedText = "This is a longer pasted text";
       const initialCursorPos = 10;
-      mockView = createMockEditor("Some initial content here", initialCursorPos);
+      mockView = createMockEditor("Some initial content here".padEnd(200, " "), initialCursorPos);
 
       const mockEvent = createMockClipboardEvent(pastedText);
 
@@ -136,7 +139,7 @@ describe("move-cursor-by-paste-length", () => {
     it("should handle unicode characters correctly", () => {
       const pastedText = "🚀 émojì tëxt 中文";
       const initialCursorPos = 0;
-      mockView = createMockEditor("", initialCursorPos);
+      mockView = createMockEditor(" ".repeat(100), initialCursorPos);
 
       const mockEvent = createMockClipboardEvent(pastedText);
 
@@ -159,7 +162,24 @@ describe("move-cursor-by-paste-length", () => {
       expect(dispatchCall.scrollIntoView).toBe(true);
     });
 
+    it("should clamp anchor to doc.length when paste would overshoot", () => {
+      // Repro of "Selection points outside of document": cursor sits at end of
+      // a short doc and the computed anchor (from + pastedLength) exceeds it.
+      mockView = createMockEditor("hi", 2); // doc.length === 2, cursor at end
+      const mockEvent = createMockClipboardEvent("longer text");
+
+      pasteHandler(mockEvent, mockView);
+      jest.advanceTimersByTime(1);
+
+      expect(mockView.dispatch).toHaveBeenCalledWith({
+        selection: { anchor: 2 }, // clamped to doc.length, not 2 + 11
+        scrollIntoView: true
+      });
+    });
+
     it("should handle edge cases correctly", () => {
+      // Doc length is 25 so none of these short pastes get clamped.
+      const baseDoc = "x".repeat(25);
       const testCases = [
         { text: "a", expected: 6 }, // single character
         { text: "\n", expected: 6 }, // newline
@@ -170,7 +190,7 @@ describe("move-cursor-by-paste-length", () => {
 
       testCases.forEach(({ text, expected }) => {
         const mockEvent = createMockClipboardEvent(text);
-        const view = createMockEditor("Hello", 5);
+        const view = createMockEditor(baseDoc, 5);
 
         pasteHandler(mockEvent, view);
         jest.advanceTimersByTime(1);

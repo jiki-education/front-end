@@ -11,9 +11,14 @@ export const moveCursorByPasteLength = EditorView.domEventHandlers({
     setTimeout(() => {
       const { from } = view.state.selection.main;
       const pastedLength = pastedText.length;
+      // Clamp to doc.length — the paste may have been short-circuited (e.g. by
+      // smart-paste against a readonly range) so `from + pastedLength` can
+      // exceed the document, which makes CodeMirror throw
+      // "Selection points outside of document".
+      const anchor = Math.min(from + pastedLength, view.state.doc.length);
 
       view.dispatch({
-        selection: { anchor: from + pastedLength },
+        selection: { anchor },
         scrollIntoView: true
       });
     }, 0);
