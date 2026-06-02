@@ -60,9 +60,7 @@
 
 .videoContainer {
     position: relative;
-    flex-grow: 1;
-    max-width: 75%;
-    max-height: calc(100vh - 200px);
+    width: min(75vw, (100vh - 200px) * 16 / 9);
     aspect-ratio: 16 / 9;
     border-radius: 16px;
     overflow: hidden;
@@ -70,7 +68,6 @@
         0 0 100px 20px rgba(0, 0, 0, 0.08),
         0 30px 80px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(0, 0, 0, 0.05);
-    flex-shrink: 1;
 }
 
 .videoAspectRatio {
