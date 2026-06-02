@@ -95,7 +95,7 @@ export function AvatarEditModal() {
 
   if (imageSrc) {
     return (
-      <div className={styles.cropContent}>
+      <div>
         <h4 className={styles.title}>Adjust Photo</h4>
         <p className={styles.subtitle}>Zoom and position your photo.</p>
         <div ref={containerRef} className={styles.cropContainer}>

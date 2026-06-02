@@ -78,10 +78,6 @@
 
 /* Crop step */
 
-.cropContent {
-    padding: 8px 0 8px;
-}
-
 .cropContainer {
     position: relative;
     width: 100%;
