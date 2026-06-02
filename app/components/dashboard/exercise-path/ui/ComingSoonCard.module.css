@@ -1,0 +1,71 @@
+/* More Lessons Coming Soon Card */
+.card {
+    position: relative;
+    padding-top: 32px;
+    margin-top: 0;
+    margin-bottom: 8px;
+    max-width: 485px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: visible;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 3px;
+        height: 40px;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-gray-200);
+    }
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-index-base);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-blue-300), var(--color-blue-500));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 4px 16px color-mix(in srgb, var(--color-blue-400) 30%, transparent),
+        0 0 0 4px white;
+
+    svg {
+        width: 30px;
+        height: 30px;
+        color: white;
+    }
+}
+
+.outer {
+    border-radius: 20px;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--color-blue-300) 0%, var(--color-purple-400) 100%);
+}
+
+.inner {
+    background: white;
+    border-radius: 17px;
+    padding: 36px 56px 20px;
+    text-align: center;
+}
+
+.title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: var(--color-gray-500);
+}
