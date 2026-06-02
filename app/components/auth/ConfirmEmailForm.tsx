@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { confirmEmail as confirmEmailApi } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { ConfirmingEmailMessage } from "./ConfirmingEmailMessage";
+import { AuthErrorCard } from "./AuthErrorCard";
+import { AuthPendingMessage } from "./AuthPendingMessage";
 import { EmailConfirmedMessage } from "./EmailConfirmedMessage";
-import { LinkExpiredMessage } from "./LinkExpiredMessage";
 
 export function ConfirmEmailForm() {
   const searchParams = useSearchParams();
@@ -40,12 +40,24 @@ export function ConfirmEmailForm() {
   }, [token, router, setUser]);
 
   if (status === "confirming") {
-    return <ConfirmingEmailMessage />;
+    return (
+      <AuthPendingMessage
+        title="Confirming your email..."
+        description="Please wait while we confirm your email address."
+      />
+    );
   }
 
   if (status === "success") {
     return <EmailConfirmedMessage />;
   }
 
-  return <LinkExpiredMessage />;
+  return (
+    <AuthErrorCard
+      title="Link expired"
+      message="This confirmation link is no longer valid. Request a new one to continue."
+      ctaHref="/auth/resend-confirmation"
+      ctaText="Resend confirmation email"
+    />
+  );
 }

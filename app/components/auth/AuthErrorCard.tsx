@@ -2,7 +2,18 @@ import Link from "next/link";
 import ShieldXIcon from "@/icons/shield-x.svg";
 import styles from "./AuthForm.module.css";
 
-export function LinkExpiredMessage() {
+interface AuthErrorCardProps {
+  title: string;
+  message: string;
+  ctaHref: string;
+  ctaText: string;
+}
+
+/**
+ * Error message shown on auth pages when an operation fails
+ * (expired confirmation link, failed OAuth sign-in, etc.).
+ */
+export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCardProps) {
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -10,17 +21,15 @@ export function LinkExpiredMessage() {
           <div className={styles.confirmationIconError}>
             <ShieldXIcon />
           </div>
-          <h2>Link expired</h2>
+          <h2>{title}</h2>
           <div className={styles.confirmationCard}>
-            <p className={styles.confirmationCardText}>
-              This confirmation link is no longer valid. Request a new one to continue.
-            </p>
+            <p className={styles.confirmationCardText}>{message}</p>
             <Link
-              href="/auth/resend-confirmation"
+              href={ctaHref}
               className="ui-btn ui-btn-large ui-btn-primary"
               style={{ display: "inline-flex", width: "100%", textDecoration: "none" }}
             >
-              Resend confirmation email
+              {ctaText}
             </Link>
             <p className={styles.confirmationCardFooter}>
               Need help?{" "}
