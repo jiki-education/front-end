@@ -116,7 +116,10 @@ export function useLevels() {
     return hasReachedEndOfPublishedLevels(levels);
   }, [levels]);
 
-  const levelSections = useMemo(() => buildLevelSections(filterToPublishedLevels(levels)), [levels]);
+  const levelSections = useMemo(() => {
+    const visibleLevels = reachedEndOfPublishedLevels ? filterToPublishedLevels(levels) : levels;
+    return buildLevelSections(visibleLevels);
+  }, [levels, reachedEndOfPublishedLevels]);
 
   return {
     levels,
