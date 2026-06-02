@@ -93,11 +93,11 @@ The canonical site URL (`https://jiki.io`) is defined as `SITE_URL` in `lib/site
 - **robots.txt**: `app/robots.ts` - allows all crawling, references the sitemap
 - **sitemap.xml**: `app/sitemap.ts` - static public routes plus dynamic entries for blog posts, listed articles, and concepts (English)
 - **Web app manifest**: `app/manifest.ts` - served at `/manifest.webmanifest`
-- **OG/Twitter image**: `app/opengraph-image.png` (1200x630, logo on blue-500)
-- **Favicons**: `app/icon.svg` (primary), `app/favicon.ico` (legacy multi-size), `app/apple-icon.png` (180x180, white background)
-- **security.txt**: `public/.well-known/security.txt` - contact is security@jiki.io; the `Expires` field needs annual renewal
+- **OG/Twitter image**: `public/static/images/og-image.png` (1200x630, logo on blue-500), wired up via the `openGraph`/`twitter` metadata in `app/layout.tsx`
+- **Favicons**: `public/static/images/icon.svg` (primary), `public/favicon.ico` (legacy multi-size, must live at the public root), and `public/static/images/apple-icon.png` (180x180, white background), all wired up via the `icons` metadata in `app/layout.tsx`
+- **security.txt**: `public/.well-known/security.txt` - contact is security@jiki.io; the `Expires` field needs annual renewal. Its URL is fixed by RFC 9116 so it cannot live under `/static/`
 - **change-password**: `/.well-known/change-password` redirects to `/settings` via `next.config.ts` redirects (used by password managers)
-- **Brand images**: `public/static/images/logo.png` (512x512, white circle background) and `logo-192.png` are the canonical external-facing logo, derived from `app/icon.svg`
+- **Brand images**: `public/static/images/logo.png` (512x512, white circle background) and `logo-192.png` are the canonical external-facing logo, derived from `icon.svg`
 
 ## Edge Caching
 
