@@ -3,6 +3,7 @@ import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandl
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
@@ -29,6 +30,7 @@ const baloo2 = Baloo_2({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Jiki",
   description: "Welcome to Jiki - the best place to learn to code. Fun, effective and free!"
 };

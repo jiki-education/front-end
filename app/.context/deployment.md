@@ -86,6 +86,19 @@ The following secrets must be configured in repository settings:
 - **Process.env Support**: Via `nodejs_compat_populate_process_env` compatibility flag
 - **Basic Auth**: Protects production site during pre-launch phase
 
+## Site Metadata & Well-Known Files
+
+The canonical site URL (`https://jiki.io`) is defined as `SITE_URL` in `lib/site.ts`.
+
+- **robots.txt**: `app/robots.ts` - allows all crawling, references the sitemap
+- **sitemap.xml**: `app/sitemap.ts` - static public routes plus dynamic entries for blog posts, listed articles, and concepts (English)
+- **Web app manifest**: `app/manifest.ts` - served at `/manifest.webmanifest`
+- **OG/Twitter image**: `app/opengraph-image.png` (1200x630, logo on blue-500)
+- **Favicons**: `app/icon.svg` (primary), `app/favicon.ico` (legacy multi-size), `app/apple-icon.png` (180x180, white background)
+- **security.txt**: `public/.well-known/security.txt` - contact is security@jiki.io; the `Expires` field needs annual renewal
+- **change-password**: `/.well-known/change-password` redirects to `/settings` via `next.config.ts` redirects (used by password managers)
+- **Brand images**: `public/static/images/logo.png` (512x512, white circle background) and `logo-192.png` are the canonical external-facing logo, derived from `app/icon.svg`
+
 ## Edge Caching
 
 Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for edge caching of unauthenticated public content.
