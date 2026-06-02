@@ -23,7 +23,7 @@ importers:
         version: 6.10.3
       '@codemirror/lang-javascript':
         specifier: github:jiki-education/codemirror-javascript
-        version: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/b6e4d683a9f6b8cd15baa77d5007bcffe075f45a
+        version: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed
       '@codemirror/lang-python':
         specifier: ^6.2.1
         version: 6.2.1
@@ -1449,8 +1449,8 @@ packages:
   '@codemirror/commands@6.10.3':
     resolution: {integrity: sha512-JFRiqhKu+bvSkDLI+rUhJwSxQxYb759W5GBezE8Uc8mHLqC9aV/9aTC7yJSqCtB3F00pylrLCwnyS91Ap5ej4Q==}
 
-  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/b6e4d683a9f6b8cd15baa77d5007bcffe075f45a':
-    resolution: {tarball: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/b6e4d683a9f6b8cd15baa77d5007bcffe075f45a}
+  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed':
+    resolution: {tarball: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed}
     version: 6.2.5
 
   '@codemirror/lang-python@6.2.1':
@@ -2540,9 +2540,6 @@ packages:
   '@lezer/javascript@https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6':
     resolution: {tarball: https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6}
     version: 1.5.4
-
-  '@lezer/lr@1.4.10':
-    resolution: {integrity: sha512-rnCpTIBafOx4mRp43xOxDJbFipJm/c0cia/V5TiGlhmMa+wsSdoGmUN3w5Bqrks/09Q/D4tNAmWaT8p6NRi77A==}
 
   '@lezer/lr@1.4.7':
     resolution: {integrity: sha512-wNIFWdSUfX9Jc6ePMzxSPVgTVB4EOfDIwLQLWASyiUdHKaMsiilj9bYiGkGQCKVodd0x6bgQCV207PILGFCF9Q==}
@@ -9683,7 +9680,7 @@ snapshots:
       '@codemirror/view': 6.41.1
       '@lezer/common': 1.5.2
 
-  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/b6e4d683a9f6b8cd15baa77d5007bcffe075f45a':
+  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed':
     dependencies:
       '@codemirror/autocomplete': 6.20.0
       '@codemirror/language': 6.12.3
@@ -10580,11 +10577,7 @@ snapshots:
     dependencies:
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
-      '@lezer/lr': 1.4.10
-
-  '@lezer/lr@1.4.10':
-    dependencies:
-      '@lezer/common': 1.5.2
+      '@lezer/lr': 1.4.7
 
   '@lezer/lr@1.4.7':
     dependencies:
