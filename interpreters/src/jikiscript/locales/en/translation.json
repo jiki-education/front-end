@@ -78,7 +78,6 @@
       "UnexpectedVisibilityModifierOutsideClass": "Jiki didn't expect to see `{{lexeme}}` outside of a class.",
       "UnknownCharacterInSource": "Unknown character: `{{character}}`."
     },
-    "semantic": {},
     "runtime": {
       "AccessorUsedOnNonInstanceObject": "You can only use dot notation on objects, not on lists, dictionaries, etc.",
       "ClassAlreadyDefinedInScope": "There is already a class with the name `{{name}}`. Please choose a different name for this class.",

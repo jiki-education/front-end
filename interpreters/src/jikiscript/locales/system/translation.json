@@ -76,7 +76,6 @@
       "UnexpectedVisibilityModifierOutsideClass": "UnexpectedVisibilityModifierOutsideClass: lexeme: {{lexeme}}",
       "UnknownCharacterInSource": "UnknownCharacter: character: {{character}}"
     },
-    "semantic": {},
     "runtime": {
       "AccessorUsedOnNonInstanceObject": "AccessorUsedOnNonInstanceObject",
       "ClassAlreadyDefinedInScope": "ClassAlreadyDefined: name: {{name}}",

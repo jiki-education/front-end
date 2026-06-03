@@ -82,8 +82,6 @@ export type SyntaxErrorType =
   | "UnexpectedVisibilityModifierOutsideClass"
   | "UnknownCharacterInSource";
 
-export type SemanticErrorType = "InvalidVariableUsedInOwnInitializer";
-
 export type RuntimeErrorType =
   | "AccessorUsedOnNonInstanceObject"
   | "ClassAlreadyDefinedInScope"
@@ -158,11 +156,11 @@ export type RuntimeErrorType =
   | "VariableNotAccessibleInFunctionScope"
   | "VariableNotDeclared";
 
-export type StaticErrorType = DisabledLanguageFeatureErrorType | SemanticErrorType | SyntaxErrorType;
+export type StaticErrorType = DisabledLanguageFeatureErrorType | SyntaxErrorType;
 
 export type ErrorType = StaticErrorType | RuntimeErrorType;
 
-export type ErrorCategory = "SyntaxError" | "SemanticError" | "DisabledLanguageFeatureError" | "RuntimeError";
+export type ErrorCategory = "SyntaxError" | "DisabledLanguageFeatureError" | "RuntimeError";
 
 export abstract class FrontendError<T extends ErrorType> extends Error {
   constructor(
@@ -179,11 +177,9 @@ export abstract class FrontendError<T extends ErrorType> extends Error {
   }
 }
 
-export type StaticError = SyntaxError | SemanticError | RuntimeError;
+export type StaticError = SyntaxError | RuntimeError;
 
 export class SyntaxError extends FrontendError<SyntaxErrorType> {}
-
-export class SemanticError extends FrontendError<SemanticErrorType> {}
 
 export class DisabledLanguageFeatureError extends FrontendError<DisabledLanguageFeatureErrorType> {}
 
@@ -201,15 +197,11 @@ export class FunctionCallTypeMismatchError {
 }
 
 export function isStaticError(obj: any): obj is StaticError {
-  return isSyntaxError(obj) || isSemanticError(obj) || isDisabledLanguageFeatureError(obj);
+  return isSyntaxError(obj) || isDisabledLanguageFeatureError(obj);
 }
 
 export function isSyntaxError(obj: any): obj is SyntaxError {
   return obj instanceof SyntaxError;
-}
-
-export function isSemanticError(obj: any): obj is SemanticError {
-  return obj instanceof SemanticError;
 }
 
 export function isDisabledLanguageFeatureError(obj: any): obj is DisabledLanguageFeatureError {
