@@ -1,19 +1,113 @@
 .hero {
-    /* background-image: url("/static/images/landing-page/hero-bg.png"), */
-    background-image: linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
-    background-repeat: repeat-y;
-    background-size: 100%;
-    padding-top: 24px;
+    background-image:
+        url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+    background-repeat: repeat, repeat-y;
+    background-size: 20px, 100%;
     color: white;
     overflow: hidden;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
 
-    @media (min-width: 768px) {
-        padding-top: 40px;
+    .container {
+        display: flex;
+        align-items: flex-start;
+        flex: 1;
+        padding-top: 24px;
+        padding-bottom: 80px;
+        background-image: linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(15, 32, 50, 0.5) 30%,
+            rgba(15, 32, 50, 0.5) 70%,
+            transparent 100%
+        );
+
+        @media (min-width: 768px) {
+            padding-top: 54px;
+        }
+
+        @media (max-width: 1023px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    .hero-lhs {
+        max-width: 580px;
+
+        @media (max-width: 1023px) {
+            max-width: 540px;
+            text-align: center;
+        }
+    }
+    .hero-rhs {
+        width: 100%;
+        max-width: 580px;
+        flex-grow: 0;
+        margin-left: 54px;
+
+        @media (max-width: 1023px) {
+            margin-left: 0;
+            margin-top: 40px;
+        }
     }
 
-    .md-container {
-        padding-left: min(4%, 20px);
-        padding-right: min(4%, 20px);
+    .cta-wrapper {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 16px;
+    }
+
+    .watch-prompt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 270px;
+        text-align: center;
+        color: #eee;
+        font-size: 17px;
+        font-weight: 400;
+        font-style: italic;
+
+        @media (max-width: 1023px) {
+            display: none;
+        }
+    }
+
+    .watch-arrow {
+        width: 88px;
+        height: auto;
+        transform: translateX(-50%) rotate(180deg);
+        margin-bottom: 8px;
+        filter: brightness(0) invert(1);
+        opacity: 0.85;
+    }
+
+    .cta-subtext {
+        margin-top: 10px;
+        font-size: 17px;
+        color: #eee;
+        text-align: center;
+    }
+
+    .video-container {
+        width: 100%;
+        object-fit: fill;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 8px;
+        box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        aspect-ratio: 760/434.5;
+
+        .video {
+            width: 100%;
+            background-color: black;
+            padding: 56.25% 0 0 0;
+            position: relative;
+        }
     }
 
     h1 {
@@ -23,7 +117,12 @@
         font-weight: 300;
 
         @media (min-width: 640px) {
-            font-size: 65px;
+            font-size: 58px;
+            line-height: 1.15;
+        }
+
+        @media (min-width: 1024px) and (max-width: 1189px) {
+            font-size: 48px;
         }
 
         strong {
@@ -33,7 +132,7 @@
 
     .tagline {
         font-size: 18px;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         font-weight: 300;
         color: var(--color-gray-200);
         margin-left: auto;
@@ -41,6 +140,10 @@
 
         @media (min-width: 768px) {
             font-size: 22px;
+        }
+
+        @media (min-width: 1024px) and (max-width: 1189px) {
+            font-size: 20px;
         }
 
         strong {
@@ -67,7 +170,7 @@
     }
 
     .bubbles {
-        margin-bottom: 40px;
+        margin-top: 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -149,26 +252,6 @@
         margin: 30px auto;
     }
 
-    .video-container {
-        max-width: 760px;
-        object-fit: fill;
-        background-color: #fff;
-        border-radius: 8px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 8px;
-        box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1);
-        position: relative;
-        aspect-ratio: 760/434.5;
-
-        .video {
-            width: 100%;
-            background-color: black;
-            padding: 56.25% 0 0 0;
-            position: relative;
-        }
-    }
-
     .supported-by {
         .google {
             height: 42px;
@@ -234,7 +317,7 @@
 
 .scrolling-testimonials {
     display: flex;
-    margin-top: 80px;
+    margin-top: auto;
     position: relative;
 
     .hamster {

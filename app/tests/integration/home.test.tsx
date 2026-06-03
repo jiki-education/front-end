@@ -16,10 +16,11 @@ describe("Home Page (Landing Page)", () => {
   it("has Log In and Sign Up links in the header", async () => {
     render(await RootPage());
 
-    const loginLink = screen.getByRole("link", { name: "Log In" });
+    const loginLink = screen.getByRole("link", { name: /Log ?in/i });
     expect(loginLink).toHaveAttribute("href", "/auth/login");
 
-    const signupLink = screen.getByRole("link", { name: /Sign Up/ });
-    expect(signupLink).toHaveAttribute("href", "/auth/signup");
+    const signupLinks = screen.getAllByRole("link", { name: /Sign Up/ });
+    expect(signupLinks.length).toBeGreaterThan(0);
+    signupLinks.forEach((link) => expect(link).toHaveAttribute("href", "/auth/signup"));
   });
 });
