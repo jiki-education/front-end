@@ -1,12 +1,6 @@
 /* Main Content */
 .mainContent {
     flex: 1;
-    padding: 40px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 /* Settings content area */

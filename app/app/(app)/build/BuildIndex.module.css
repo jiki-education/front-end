@@ -3,6 +3,38 @@
   gap: 72px;
 }
 
+.placeholderVideo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: black;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.placeholderVideoPlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.titleBadge {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--color-pink-600);
+  color: white;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
 .main {
   flex: 1;
   min-width: 0;
