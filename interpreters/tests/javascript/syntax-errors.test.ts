@@ -3,19 +3,19 @@ import { parse } from "@javascript/parser";
 describe("syntax errors", () => {
   describe("string errors", () => {
     test("unterminated string - end of file", () => {
-      expect(() => parse('"hello')).toThrow("Did you forget to end your string?");
+      expect(() => parse('"hello')).toThrow("Did you forget to add end quote?");
     });
 
     test("unterminated string - end of line", () => {
-      expect(() => parse('"hello\nsomething_else"')).toThrow("Did you forget to end your string?");
+      expect(() => parse('"hello\nsomething_else"')).toThrow("Did you forget to add end quote?");
     });
 
     test("single quote unterminated string", () => {
-      expect(() => parse("'hello")).toThrow("Did you forget to end your string?");
+      expect(() => parse("'hello")).toThrow("Did you forget to add end quote?");
     });
 
     test("mixed quote types", () => {
-      expect(() => parse("\"hello'")).toThrow("Did you forget to end your string?");
+      expect(() => parse("\"hello'")).toThrow("Did you forget to add end quote?");
     });
 
     test("error location points at the line where the string opens", () => {
@@ -24,7 +24,7 @@ describe("syntax errors", () => {
         parse(source);
         throw new Error("expected parse to throw");
       } catch (err: any) {
-        expect(err.message).toContain("Did you forget to end your string?");
+        expect(err.message).toContain("Did you forget to add end quote?");
         expect(err.location.line).toBe(2);
       }
     });
@@ -35,7 +35,7 @@ describe("syntax errors", () => {
         parse(source);
         throw new Error("expected parse to throw");
       } catch (err: any) {
-        expect(err.message).toContain("Did you forget to end your string?");
+        expect(err.message).toContain("Did you forget to add end quote?");
         expect(err.location.line).toBe(2);
       }
     });
