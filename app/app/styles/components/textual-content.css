@@ -188,6 +188,49 @@
         }
     }
 
+    /* Generic Tables (from markdown pipe syntax) */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 2px solid var(--color-gray-200);
+        border-radius: var(--radius-12);
+        margin: var(--spacing-24) 0;
+        overflow: hidden;
+    }
+
+    thead th {
+        text-align: left;
+        font-size: var(--text-16);
+        font-weight: 600;
+        color: var(--color-gray-700);
+        padding: var(--spacing-16) var(--spacing-24);
+        background: var(--color-gray-50);
+        border-bottom: 2px solid var(--color-gray-200);
+    }
+
+    thead th:not(:last-child) {
+        border-right: 2px solid var(--color-gray-200);
+    }
+
+    tbody td {
+        padding: var(--spacing-16) var(--spacing-24);
+        vertical-align: top;
+        font-size: var(--text-17);
+        color: var(--color-gray-700);
+        line-height: var(--leading-160);
+        border-bottom: 2px solid var(--color-gray-200);
+        background: white;
+    }
+
+    tbody td:not(:last-child) {
+        border-right: 2px solid var(--color-gray-200);
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
     /* Table Section */
     .article-table-section {
         margin: var(--spacing-32) 0;
@@ -461,6 +504,24 @@ pre .hljs-meta {
 
         h3 {
             font-size: var(--text-20);
+        }
+    }
+
+    .ui-textual-content {
+        table {
+            display: block;
+            overflow-x: auto;
+            border-radius: var(--radius-8);
+        }
+
+        thead th {
+            font-size: var(--text-14);
+            padding: var(--spacing-12) var(--spacing-16);
+        }
+
+        tbody td {
+            font-size: var(--text-15);
+            padding: var(--spacing-12) var(--spacing-16);
         }
     }
 }

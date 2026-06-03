@@ -34,6 +34,13 @@
     background: white;
     z-index: var(--z-index-sticky);
     border-bottom: 1px solid var(--color-gray-200);
+
+    @media (max-width: 768px) {
+        font-size: 13px;
+        gap: 6px;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
 }
 
 .breadcrumbItem {
@@ -76,6 +83,12 @@
     @media (max-width: 1200px) {
         font-size: 26px;
     }
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
 }
 
 .headingIcon {
@@ -83,12 +96,22 @@
     height: 34px;
     flex-shrink: 0;
     color: var(--color-blue-500);
+
+    @media (max-width: 768px) {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 .conceptsDescription {
     font-size: 16px;
     color: var(--color-gray-500);
     margin-bottom: 32px;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
 }
 
 /* Concepts Grid */

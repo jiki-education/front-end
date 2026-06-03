@@ -9,6 +9,11 @@
         padding: 40px 24px;
         border-radius: 16px;
     }
+
+    @media (max-width: 768px) {
+        padding: 28px 20px;
+        margin-bottom: 20px;
+    }
 }
 
 .title {
@@ -21,6 +26,11 @@
     @media (max-width: 1200px) {
         font-size: 36px;
     }
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
 }
 
 .intro {
@@ -31,5 +41,10 @@
 
     @media (max-width: 1200px) {
         font-size: 17px;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 15px;
+        line-height: 1.5;
     }
 }
