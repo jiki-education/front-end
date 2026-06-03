@@ -414,6 +414,9 @@ export class Scanner {
     while (this.peek() !== '"' && !this.isAtEndOfLine()) {
       if (this.peek() === "\\") {
         this.advance(); // consume backslash
+        if (this.isAtEndOfLine()) {
+          break; // don't let the escape swallow the terminating newline / EOF
+        }
         this.advance(); // consume escaped character
       } else {
         this.advance();
@@ -441,6 +444,9 @@ export class Scanner {
     while (this.peek() !== "'" && !this.isAtEndOfLine()) {
       if (this.peek() === "\\") {
         this.advance(); // consume backslash
+        if (this.isAtEndOfLine()) {
+          break; // don't let the escape swallow the terminating newline / EOF
+        }
         this.advance(); // consume escaped character
       } else {
         this.advance();

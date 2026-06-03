@@ -29,6 +29,21 @@ describe("syntax errors", () => {
       }
     });
 
+    test("trailing backslash before newline does not swallow the newline", () => {
+      const source = ['let a = "foo\\', "let b = 2;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to add end quote?");
+        expect(err.location.line).toBe(1);
+      }
+    });
+
+    test("trailing backslash at end of file errors cleanly", () => {
+      expect(() => parse('"foo\\')).toThrow("Did you forget to add end quote?");
+    });
+
     test("error location for single-quoted string points at the opening line", () => {
       const source = ["let a = 1;", "let b = 'orange;", "let c = 3;"].join("\n");
       try {
