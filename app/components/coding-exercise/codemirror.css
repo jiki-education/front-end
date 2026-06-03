@@ -115,9 +115,9 @@
         background: var(--color-background-secondary);
     }
     .ͼ1 .cm-underline {
+        background: var(--color-red-200);
+        border-bottom: 2px solid var(--color-red-500);
         text-decoration: none;
-        border-bottom: 2px solid red;
-        background: rgba(255, 0, 0, 0.2);
     }
 }
 
