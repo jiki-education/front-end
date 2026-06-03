@@ -348,13 +348,19 @@
 
 /* Mobile */
 
-@media (width <= 640px) {
+@media (width <= 768px) {
+    .page-header {
+        padding: 36px 0 20px;
+    }
+
     .heading {
         font-size: 38px;
+        margin-bottom: 12px;
     }
 
     .subheading {
-        font-size: 17px;
+        font-size: 16px;
+        line-height: 1.5;
     }
 
     .main-content {
@@ -372,10 +378,24 @@
 
     .phase-band {
         margin-left: 4px;
+        padding: 8px 18px;
+        gap: 10px;
     }
 
     .phase-band::before {
         display: none;
+    }
+
+    .phase-label {
+        font-size: 16px;
+    }
+
+    .phase-timeframe {
+        font-size: 13px;
+    }
+
+    .phase-summary {
+        font-size: 14px;
     }
 
     .item-list {
@@ -384,14 +404,64 @@
 
     .item {
         padding: 16px 18px;
+        gap: 12px;
+    }
+
+    .item-title {
+        font-size: 16px;
+    }
+
+    .item-desc {
+        font-size: 14px;
+    }
+
+    .badge {
+        font-size: 11px;
+        padding: 2px 8px;
+    }
+
+    .disclaimer {
+        font-size: 13px;
+        padding: 14px 18px;
+        margin-top: 32px;
     }
 
     .changelog-inner {
         padding: 0 24px;
     }
 
+    .changelog-title {
+        font-size: 24px;
+    }
+
+    .changelog-subtitle {
+        font-size: 14px;
+    }
+
     .changelog-item {
         grid-template-columns: 1fr;
         gap: 4px;
+    }
+
+    .changelog-date {
+        font-size: 12px;
+    }
+
+    .changelog-item-title {
+        font-size: 15px;
+    }
+
+    .changelog-desc {
+        font-size: 13px;
+    }
+}
+
+@media (width <= 480px) {
+    .heading {
+        font-size: 32px;
+    }
+
+    .subheading {
+        font-size: 15px;
     }
 }
