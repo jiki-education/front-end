@@ -10,6 +10,7 @@ import { useWavingHand } from "./hooks/useWavingHand";
 import { useArrowAnimation } from "./hooks/useArrowAnimations";
 import { useRocketLaunch } from "./hooks/useRocketLaunch";
 import rocket from "./rocketLaunch.module.css";
+import { SignupButton } from "./SignupButton";
 
 export function WelcomeSection() {
   const annotationsRef = useRoughAnnotations();
@@ -254,6 +255,9 @@ export function WelcomeSection() {
           <span className={`${styles.ctaPointer} ${styles.ctaPointerLeft}`} aria-hidden="true">
             👈
           </span>
+        </div>
+        <div className={styles.ctaRowCompact}>
+          <SignupButton />
         </div>
         {/* <h3>
           <span className="rough-highlight">Focusing on what matters.</span>

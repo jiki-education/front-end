@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalFooter } from "../layout/ExternalFooter";
+import HeaderLayout from "../layout/HeaderLayout";
 import { BootcampSection } from "./BootcampSection";
 import { Exercism } from "./Exercism";
 import { FAQs } from "./FAQs";
-import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { useStickyNav } from "./hooks/useStickyNav";
 import styles from "./LandingPage.module.css";
@@ -18,29 +17,29 @@ export function LandingPage() {
 
   return (
     <div className={styles.page}>
-      <Header />
-      <Hero />
-      <WelcomeSection />
-      <BootcampSection />
-      <TestimonialsSection />
-      <SignupSection />
-      <Image
-        className="w-[100px] mx-auto my-64"
-        src="/static/images/landing-page/divider.png"
-        alt=""
-        width={100}
-        height={100}
-      />
-      <Exercism />
-      <Image
-        className="w-[100px] mx-auto my-64"
-        src="/static/images/landing-page/divider.png"
-        alt=""
-        width={100}
-        height={100}
-      />
-      <FAQs />
-      <ExternalFooter />
+      <HeaderLayout>
+        <Hero />
+        <WelcomeSection />
+        <BootcampSection />
+        <TestimonialsSection />
+        <SignupSection />
+        <Image
+          className="w-[100px] mx-auto my-64"
+          src="/static/images/landing-page/divider.png"
+          alt=""
+          width={100}
+          height={100}
+        />
+        <Exercism />
+        <Image
+          className="w-[100px] mx-auto my-64"
+          src="/static/images/landing-page/divider.png"
+          alt=""
+          width={100}
+          height={100}
+        />
+        <FAQs />
+      </HeaderLayout>
     </div>
   );
 }

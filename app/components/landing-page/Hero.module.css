@@ -5,7 +5,7 @@
     background-size: 20px, 100%;
     color: white;
     overflow: hidden;
-    min-height: calc(100vh - 63px);
+    min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
 
@@ -26,34 +26,37 @@
         @media (min-width: 768px) {
             padding-top: 54px;
         }
+
+        @media (max-width: 1023px) {
+            flex-direction: column;
+            align-items: center;
+        }
     }
     .hero-lhs {
         max-width: 580px;
+
+        @media (max-width: 1023px) {
+            max-width: 540px;
+            text-align: center;
+        }
     }
     .hero-rhs {
         width: 100%;
         max-width: 580px;
         flex-grow: 0;
         margin-left: 54px;
-    }
 
-    .hero-btn {
-        margin-top: 20px;
-        padding: 18px 64px;
-        background: #7c3aed;
-        color: #fff;
-        font-weight: 600;
-        border-radius: 12px;
-        font-size: 20px;
-        border-width: 1px;
-        border-color: #c1b1dc;
-        animation: hero-btn-pulse 2.4s ease-in-out infinite;
+        @media (max-width: 1023px) {
+            margin-left: 0;
+            margin-top: 40px;
+        }
     }
 
     .cta-wrapper {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 16px;
     }
 
     .watch-prompt {
@@ -67,6 +70,10 @@
         font-size: 17px;
         font-weight: 400;
         font-style: italic;
+
+        @media (max-width: 1023px) {
+            display: none;
+        }
     }
 
     .watch-arrow {
@@ -114,6 +121,10 @@
             line-height: 1.15;
         }
 
+        @media (min-width: 1024px) and (max-width: 1189px) {
+            font-size: 48px;
+        }
+
         strong {
             font-weight: 600;
         }
@@ -129,6 +140,10 @@
 
         @media (min-width: 768px) {
             font-size: 22px;
+        }
+
+        @media (min-width: 1024px) and (max-width: 1189px) {
+            font-size: 20px;
         }
 
         strong {
@@ -348,19 +363,5 @@
                 margin-right: 20px;
             }
         }
-    }
-}
-
-@keyframes hero-btn-pulse {
-    0%,
-    100% {
-        box-shadow:
-            0 0 5px rgba(255, 255, 255, 0.5),
-            0 0 5px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-        box-shadow:
-            0 0 5px rgba(255, 255, 255, 0.5),
-            0 0 10px rgba(255, 255, 255, 0.8);
     }
 }

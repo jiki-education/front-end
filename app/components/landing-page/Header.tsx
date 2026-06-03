@@ -15,7 +15,7 @@ export function Header() {
     <>
       <div className={`${styles.nav} h-[63px]`} data-nav-fixed>
         <div className={`${shared["lg-container"]} flex flex-row items-center`} data-nav-contents>
-          <Link className="flex flex-1 gap-12" href="/">
+          <Link className="flex grow-0 gap-12" href="/">
             <JikiLogo className={styles.logo} />
           </Link>
           <Link className={`ui-btn ui-btn-small ${styles.button} ${styles.loginButton}`} href="/auth/login">

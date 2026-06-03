@@ -217,7 +217,7 @@ export function BootcampSection() {
           <div className={styles["building-section-arrow"]} ref={buildingSectionArrowRef}></div>
 
           <div className={styles.tag}>What we cover</div>
-          <h2>
+          <h2 className="text-center">
             But learning to code <strong>isn&apos;t enough</strong>
           </h2>
           <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>

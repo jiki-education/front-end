@@ -16,7 +16,7 @@ describe("Home Page (Landing Page)", () => {
   it("has Log In and Sign Up links in the header", async () => {
     render(await RootPage());
 
-    const loginLink = screen.getByRole("link", { name: "Log In" });
+    const loginLink = screen.getByRole("link", { name: /Log ?in/i });
     expect(loginLink).toHaveAttribute("href", "/auth/login");
 
     const signupLinks = screen.getAllByRole("link", { name: /Sign Up/ });

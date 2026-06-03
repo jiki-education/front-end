@@ -2,21 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import MuxPlayer from "@mux/mux-player-react";
 import { annotate } from "rough-notation";
 import styles from "./Hero.module.css";
 import shared from "./shared.module.css";
-import rocket from "./rocketLaunch.module.css";
 import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
 import { useHamster } from "./hooks/useHamster";
-import { useRocketLaunch } from "./hooks/useRocketLaunch";
+import { SignupButton } from "./SignupButton";
 
 export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const taglineRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const audienceRef = useRef<HTMLParagraphElement>(null);
-  const ctaLaunch = useRocketLaunch("/auth/signup");
 
   useEffect(() => {
     const can = headlineRef.current?.querySelector<HTMLElement>("[data-anim='underline-can']");
@@ -42,13 +39,15 @@ export function Hero() {
     let headlineTimer: ReturnType<typeof setTimeout> | undefined;
     const headlineTarget = headlineRef.current?.querySelector<HTMLElement>("[data-anim='highlight-headline']");
     if (headlineTarget) {
+      const w = window.innerWidth;
+      const isSmallHeadline = w < 640 || (w >= 1024 && w < 1190);
       const a = annotate(headlineTarget, {
         type: "underline",
         color: "#ce19e6",
-        strokeWidth: 6,
+        strokeWidth: isSmallHeadline ? 4 : 6,
         animationDuration: 800,
         iterations: 2,
-        padding: [-13, 0],
+        padding: isSmallHeadline ? [-10, 0] : [-13, 0],
         multiline: true,
         // @ts-expect-error rough-notation supports roughness even though its types omit it
         roughness: 1
@@ -99,10 +98,10 @@ export function Hero() {
             </span>{" "}
             in the LLM-era!
           </h1>
-          <div ref={taglineRef} className={`${styles.tagline}`} data-tagline>
+          <p ref={taglineRef} className={`${styles.tagline}`} data-tagline>
             Learn the skills you need to create awesome things, be productive, and{" "}
             <strong className="font-semibold">stay relevant in {new Date().getFullYear()}.</strong>
-          </div>
+          </p>
           <p ref={audienceRef} className={`${styles.tagline} `}>
             Designed for{" "}
             <span data-anim="highlight-audience" className="font-medium text-white">
@@ -119,24 +118,7 @@ export function Hero() {
             wanting to do things properly!
           </p>
           <div className={styles["cta-wrapper"]}>
-            <Link
-              href="/auth/signup"
-              className={["ui-btn", styles["hero-btn"], rocket.bounceOnHover].join(" ")}
-              onClick={ctaLaunch.handleClick}
-            >
-              Sign Up (it&apos;s free!){" "}
-              <span
-                className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
-              >
-                <Image
-                  src="/static/images/landing-page/rocket.svg"
-                  alt=""
-                  width={32}
-                  height={32}
-                  className={rocket.rocket}
-                />
-              </span>
-            </Link>
+            <SignupButton />
             <div className={styles["cta-subtext"]}>...or read on to learn more!</div>
           </div>
         </div>
