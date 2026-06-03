@@ -254,7 +254,7 @@ describe("JavaScript string methods cross-validation", () => {
     test("removes tabs and newlines", () => {
       const nativeResult = "\t\n hello \n\t".trim();
 
-      const code = `let result = "\t\n hello \n\t".trim();`;
+      const code = `let result = "\\t\\n hello \\n\\t".trim();`;
       const { frames, error } = interpret(code);
       expect(error).toBeNull();
       const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
@@ -289,7 +289,7 @@ describe("JavaScript string methods cross-validation", () => {
     test("removes tabs and newlines from start", () => {
       const nativeResult = "\t\n hello \n\t".trimStart();
 
-      const code = `let result = "\t\n hello \n\t".trimStart();`;
+      const code = `let result = "\\t\\n hello \\n\\t".trimStart();`;
       const { frames, error } = interpret(code);
       expect(error).toBeNull();
       const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;
@@ -313,7 +313,7 @@ describe("JavaScript string methods cross-validation", () => {
     test("removes tabs and newlines from end", () => {
       const nativeResult = "\t\n hello \n\t".trimEnd();
 
-      const code = `let result = "\t\n hello \n\t".trimEnd();`;
+      const code = `let result = "\\t\\n hello \\n\\t".trimEnd();`;
       const { frames, error } = interpret(code);
       expect(error).toBeNull();
       const lastFrame = frames[frames.length - 1] as TestAugmentedFrame;

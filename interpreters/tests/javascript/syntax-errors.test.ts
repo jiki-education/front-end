@@ -7,7 +7,7 @@ describe("syntax errors", () => {
     });
 
     test("unterminated string - end of line", () => {
-      expect(() => parse('"hello\nsomething_else"', { languageFeatures: { requireSemicolons: true } })).toThrow(); // This seems to parse the first string successfully, then fail on missing semicolon
+      expect(() => parse('"hello\nsomething_else"')).toThrow("Did you forget to add end quote?");
     });
 
     test("single quote unterminated string", () => {
@@ -16,6 +16,43 @@ describe("syntax errors", () => {
 
     test("mixed quote types", () => {
       expect(() => parse("\"hello'")).toThrow("Did you forget to add end quote?");
+    });
+
+    test("error location points at the line where the string opens", () => {
+      const source = ["let a = 1;", 'let b = "orange;', "let c = 3;", "let d = 4;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to add end quote?");
+        expect(err.location.line).toBe(2);
+      }
+    });
+
+    test("trailing backslash before newline does not swallow the newline", () => {
+      const source = ['let a = "foo\\', "let b = 2;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to add end quote?");
+        expect(err.location.line).toBe(1);
+      }
+    });
+
+    test("trailing backslash at end of file errors cleanly", () => {
+      expect(() => parse('"foo\\')).toThrow("Did you forget to add end quote?");
+    });
+
+    test("error location for single-quoted string points at the opening line", () => {
+      const source = ["let a = 1;", "let b = 'orange;", "let c = 3;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to add end quote?");
+        expect(err.location.line).toBe(2);
+      }
     });
   });
 
