@@ -683,6 +683,14 @@
     transform: translateZ(0);
 }
 
+/* When spotlight is active inside this container, lift the whole container
+   above the body::after backdrop. Safari (correctly) scopes the inner
+   z-index to this container's stacking context because of translateZ(0),
+   so without this the backdrop would paint over the container. */
+.rightVideoContainer:has(:global(.spotlight)) {
+    z-index: var(--z-index-spotlight);
+}
+
 /* Playback Controls */
 .disabledTooltip {
     background: var(--color-gray-800);
