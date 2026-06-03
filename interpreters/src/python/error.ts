@@ -1,11 +1,6 @@
 import type { Location } from "../shared/location";
 
 export type DisabledLanguageFeatureErrorType =
-  | "VariablesDisabled"
-  | "ComparisonDisabled"
-  | "FunctionsDisabled"
-  | "LogicalDisabled"
-  | "ConditionalDisabled"
   | "DisabledFeatureExcludeListViolation"
   | "DisabledFeatureIncludeListViolation";
 
@@ -25,17 +20,9 @@ export type SyntaxErrorType =
   | "GenericSyntaxError"
   | "IndentationError"
   | "MissingExpression"
-  | "MissingInitializerInVariableDeclaration"
-  | "MissingRightParenthesisAfterExpression"
-  | "MissingVariableName"
   | "ParseError"
-  | "UnexpectedCharacter"
-  | "UnexpectedIndentation"
   | "UnimplementedToken"
   | "PermanentlyExcludedToken"
-  | "UnknownCharacter"
-  | "UnterminatedComment"
-  | "UnterminatedString"
   | "UnterminatedFString"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
@@ -47,7 +34,6 @@ export type SyntaxErrorType =
   | "SubscriptExpressionNotAllowed"
   | "CallExpressionNotAllowed"
   | "ExpressionStatementNotAllowed"
-  | "PrintStatementNotAllowed"
   | "AssignmentStatementNotAllowed"
   | "BlockStatementNotAllowed"
   | "IfStatementNotAllowed"

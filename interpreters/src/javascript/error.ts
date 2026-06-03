@@ -32,8 +32,6 @@ export type SyntaxErrorType =
   | "UnimplementedToken"
   | "PermanentlyExcludedToken"
   | "UnknownCharacter"
-  | "UnterminatedComment"
-  | "UnterminatedString"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"
@@ -62,7 +60,6 @@ export type SyntaxErrorType =
   | "ContinueStatementNotAllowed"
   | "FunctionDeclarationNotAllowed"
   | "ReturnStatementNotAllowed"
-  | "MissingRightParenthesisAfterArguments"
   | "MissingRightParenthesisAfterFunctionCall"
   // Function-related errors
   | "NestedFunctionDeclaration"
