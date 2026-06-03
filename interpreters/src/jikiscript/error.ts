@@ -12,7 +12,6 @@ export type SyntaxErrorType =
   | "InvalidFunctionNameExpression"
   | "InvalidNestedFunctionDeclaration"
   | "InvalidNumericVariableNameStartingWithDigit"
-  | "InvalidStatementCannotAssignToConstant"
   | "InvalidTemplateLiteralExpression"
   | "InvalidVariableNameExpression"
   | "MalformedNumberContainingAlphabetCharacters"
@@ -24,15 +23,10 @@ export type SyntaxErrorType =
   | "MissingByAfterIndexedKeyword"
   | "MissingClassNameInDeclaration"
   | "MissingColonAfterDictionaryKey"
-  | "MissingCommaAfterParametersInFunction"
   | "MissingCommaBetweenDictionaryElements"
   | "MissingCommaBetweenFunctionParameters"
   | "MissingCommaBetweenListElements"
-  | "MissingConstantNameInDeclaration"
-  | "MissingDoAfterRepeatStatementCondition"
-  | "MissingDoAfterWhileStatementCondition"
   | "MissingDotAfterThisKeyword"
-  | "MissingDoToStartElseBody"
   | "MissingDoToStartFunctionBody"
   | "MissingDoToStartIfBody"
   | "MissingDoubleQuoteToStartStringLiteral"
@@ -42,20 +36,11 @@ export type SyntaxErrorType =
   | "MissingEndAfterBlockStatement"
   | "MissingEndOfLine"
   | "MissingExpressionInStatement"
-  | "MissingFieldNameOrIndexAfterLeftBracket"
-  | "MissingFieldNameOrIndexAfterOpeningBracket"
   | "MissingFunctionNameInDeclaration"
   | "MissingIfConditionAfterIfKeyword"
   | "MissingIndexNameAfterIndexedByKeywords"
-  | "MissingLeftParenthesisAfterDoWhileKeyword"
-  | "MissingLeftParenthesisAfterForeachKeyword"
-  | "MissingLeftParenthesisAfterFunctionCall"
-  | "MissingLeftParenthesisAfterFunctionName"
   | "MissingLeftParenthesisAfterMethodCall"
-  | "MissingLeftParenthesisAfterWhileKeyword"
-  | "MissingLeftParenthesisBeforeIfCondition"
   | "MissingLeftParenthesisInInstantiationExpression"
-  | "MissingLetInForeachCondition"
   | "MissingMethodNameAfterDotOperator"
   | "MissingMethodNameInDeclaration"
   | "MissingOfAfterElementNameInForeach"
@@ -63,28 +48,20 @@ export type SyntaxErrorType =
   | "MissingPropertyNameAfterDot"
   | "MissingRightBraceAfterDictionaryElements"
   | "MissingRightBraceToTerminatePlaceholder"
-  | "MissingRightBracketAfterExpression"
   | "MissingRightBracketAfterFieldNameOrIndex"
   | "MissingRightBracketAfterListElements"
-  | "MissingRightParenthesisAfterDoWhileCondition"
   | "MissingRightParenthesisAfterExpression"
   | "MissingRightParenthesisAfterExpressionWithPotentialTypo"
-  | "MissingRightParenthesisAfterForeachElement"
   | "MissingRightParenthesisAfterFunctionCall"
-  | "MissingRightParenthesisAfterFunctionParameters"
-  | "MissingRightParenthesisAfterIfCondition"
   | "MissingRightParenthesisAfterMethodCall"
-  | "MissingRightParenthesisAfterWhileCondition"
   | "MissingRightParenthesisInInstantiationExpression"
   | "MissingSecondElementNameAfterForeachKeyword"
   | "MissingStatementInBlock"
   | "MissingStringAsKeyInDictionary"
   | "MissingTimesInRepeatStatement"
   | "MissingToAfterChangeKeyword"
-  | "MissingToAfterVariableNameToChangeValue"
   | "MissingToAfterVariableNameToInitializeValue"
   | "MissingVariableNameInDeclaration"
-  | "MissingWhileBeforeDoWhileCondition"
   | "MissingWithBeforeParametersInFunction"
   | "PointlessStatementWithNoEffect"
   | "PotentialMissingParenthesesForFunctionCall"
@@ -104,12 +81,6 @@ export type SyntaxErrorType =
   | "UnexpectedVisibilityModifierInsideMethod"
   | "UnexpectedVisibilityModifierOutsideClass"
   | "UnknownCharacterInSource";
-
-export type SemanticErrorType =
-  | "DuplicateVariableNameInScope"
-  | "InvalidPostfixOperandExpression"
-  | "InvalidReturnStatementAtTopLevel"
-  | "InvalidVariableUsedInOwnInitializer";
 
 export type RuntimeErrorType =
   | "AccessorUsedOnNonInstanceObject"
@@ -153,10 +124,8 @@ export type RuntimeErrorType =
   | "RangeErrorTooManyArgumentsForFunctionCall"
   | "RangeErrorWrongNumberOfArgumentsInConstructorCall"
   | "RuntimeErrorCouldNotEvaluateFunctionCall"
-  | "RuntimeErrorCouldNotFindFunctionReference"
   | "SetterMethodNotFoundOnObject"
   | "StateErrorCannotStoreNullValueFromFunction"
-  | "StateErrorCannotStoreNullValueInVariable"
   | "StateErrorExpectedFunctionHasWrongArgumentCount"
   | "StateErrorExpectedFunctionNotFoundInScope"
   | "StateErrorInfiniteLoopDetectedInExecution"
@@ -170,7 +139,6 @@ export type RuntimeErrorType =
   | "TypeErrorOperandMustBeBooleanValue"
   | "TypeErrorOperandMustBeNumericValue"
   | "TypeErrorOperandMustBeStringValue"
-  | "TypeErrorOperandsMustBeTwoNumbersOrTwoStrings"
   | "UnexpectedBreakStatementOutsideOfLoop"
   | "UnexpectedChangeOfFunctionReference"
   | "UnexpectedChangeOfMethodReference"
@@ -188,11 +156,11 @@ export type RuntimeErrorType =
   | "VariableNotAccessibleInFunctionScope"
   | "VariableNotDeclared";
 
-export type StaticErrorType = DisabledLanguageFeatureErrorType | SemanticErrorType | SyntaxErrorType;
+export type StaticErrorType = DisabledLanguageFeatureErrorType | SyntaxErrorType;
 
 export type ErrorType = StaticErrorType | RuntimeErrorType;
 
-export type ErrorCategory = "SyntaxError" | "SemanticError" | "DisabledLanguageFeatureError" | "RuntimeError";
+export type ErrorCategory = "SyntaxError" | "DisabledLanguageFeatureError" | "RuntimeError";
 
 export abstract class FrontendError<T extends ErrorType> extends Error {
   constructor(
@@ -209,11 +177,9 @@ export abstract class FrontendError<T extends ErrorType> extends Error {
   }
 }
 
-export type StaticError = SyntaxError | SemanticError | RuntimeError;
+export type StaticError = SyntaxError | RuntimeError;
 
 export class SyntaxError extends FrontendError<SyntaxErrorType> {}
-
-export class SemanticError extends FrontendError<SemanticErrorType> {}
 
 export class DisabledLanguageFeatureError extends FrontendError<DisabledLanguageFeatureErrorType> {}
 
@@ -231,15 +197,11 @@ export class FunctionCallTypeMismatchError {
 }
 
 export function isStaticError(obj: any): obj is StaticError {
-  return isSyntaxError(obj) || isSemanticError(obj) || isDisabledLanguageFeatureError(obj);
+  return isSyntaxError(obj) || isDisabledLanguageFeatureError(obj);
 }
 
 export function isSyntaxError(obj: any): obj is SyntaxError {
   return obj instanceof SyntaxError;
-}
-
-export function isSemanticError(obj: any): obj is SemanticError {
-  return obj instanceof SemanticError;
 }
 
 export function isDisabledLanguageFeatureError(obj: any): obj is DisabledLanguageFeatureError {
