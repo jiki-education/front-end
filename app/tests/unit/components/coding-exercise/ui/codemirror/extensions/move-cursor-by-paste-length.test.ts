@@ -1,31 +1,12 @@
-import { moveCursorByPasteLength } from "@/components/coding-exercise/ui/codemirror/extensions/move-cursor-by-paste-length";
+import {
+  moveCursorByPasteLength,
+  pasteHandler
+} from "@/components/coding-exercise/ui/codemirror/extensions/move-cursor-by-paste-length";
 import { EditorSelection, EditorState } from "@codemirror/state";
 import type { EditorView } from "@codemirror/view";
 
 // Mock timers for setTimeout testing
 jest.useFakeTimers();
-
-// Test the paste handler logic directly by extracting it
-function pasteHandler(event: ClipboardEvent, view: EditorView) {
-  const pastedText = event.clipboardData?.getData("text");
-  if (!pastedText) {
-    return false;
-  }
-
-  // make sure things happen after the paste
-  setTimeout(() => {
-    const { from } = view.state.selection.main;
-    const pastedLength = pastedText.length;
-    const anchor = Math.min(from + pastedLength, view.state.doc.length);
-
-    view.dispatch({
-      selection: { anchor },
-      scrollIntoView: true
-    });
-  }, 0);
-
-  return false;
-}
 
 // Mock helper functions
 function createMockEditor(initialContent = "initial content", cursorPos = 0) {
