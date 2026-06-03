@@ -1,4 +1,5 @@
 import type { ExerciseDefinition } from "@jiki/curriculum";
+import type { SyntaxError } from "@jiki/interpreters";
 import toast from "react-hot-toast";
 import type { StoreApi } from "zustand/vanilla";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
@@ -6,14 +7,6 @@ import { processMessageContent } from "../../ui/messageUtils";
 import type { TestSuiteResult, TestExpect } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
-
-// Define SyntaxError interface inline since it's not exported from interpreters
-interface SyntaxError {
-  message: string;
-  location: {
-    line: number;
-  };
-}
 
 /**
  * Manages test suite execution, results, and processing
@@ -35,6 +28,7 @@ export class TestSuiteManager {
     state.setHasSyntaxError(false);
     state.setStatus("running");
     state.setError(null);
+    state.setUnderlineRange(undefined);
   }
 
   /**
@@ -55,6 +49,10 @@ export class TestSuiteManager {
     state.setShouldShowInformationWidget(true);
     state.setHighlightedLine(error.location.line);
     state.setHighlightedLineColor(ERROR_HIGHLIGHT_COLOR);
+    state.setUnderlineRange({
+      from: Math.max(0, error.location.absolute.begin - 1),
+      to: Math.max(0, error.location.absolute.end - 1)
+    });
   }
 
   /**

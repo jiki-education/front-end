@@ -418,7 +418,6 @@ export class EditorManager {
     }
   }
 
-  // UNUSED: This function is currently not called.
   applyUnderlineRange(range: UnderlineRange | undefined) {
     const effectRange = range || { from: 0, to: 0 };
     this.editorView.dispatch({

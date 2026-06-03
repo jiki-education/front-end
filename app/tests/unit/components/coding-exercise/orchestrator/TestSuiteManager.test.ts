@@ -180,7 +180,10 @@ describe("TestSuiteManager", () => {
       const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-      const syntaxError = { message: "Unexpected token", location: { line: 5 } };
+      const syntaxError = {
+        message: "Unexpected token",
+        location: { line: 5, relative: { begin: 1, end: 9 }, absolute: { begin: 42, end: 50 } }
+      };
       (runTests as jest.Mock).mockImplementation(() => {
         throw syntaxError;
       });
@@ -198,7 +201,19 @@ describe("TestSuiteManager", () => {
       expect(widgetCall.html).not.toContain("Oops, something went wrong!");
       expect(state.setShouldShowInformationWidget).toHaveBeenCalledWith(true);
       expect(state.setHighlightedLine).toHaveBeenCalledWith(5);
+      expect(state.setUnderlineRange).toHaveBeenCalledWith({ from: 41, to: 49 });
       expect(state.setStatus).toHaveBeenCalledWith("error");
+    });
+
+    it("clears the underline range at the start of every run", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockResolvedValue({ tests: [], status: "pass" });
+
+      await manager.runCode(mockCode, mockExercise);
+
+      expect(mockStore.getState().setUnderlineRange).toHaveBeenCalledWith(undefined);
     });
 
     it("rethrows non-syntax errors in test/dev so they surface in the overlay", async () => {
