@@ -387,7 +387,7 @@ export class Scanner {
 
   private tokenizeSingleLineComment(): void {
     // Consume until the end of the line
-    while (this.peek() !== "\n" && !this.isAtEnd()) {
+    while (!this.isAtEndOfLine()) {
       this.advance();
     }
   }
@@ -409,12 +409,9 @@ export class Scanner {
   }
 
   private tokenizeString(): void {
-    // Keep consuming characters until we see another double quote
-    while (this.peek() !== '"' && !this.isAtEnd()) {
-      if (this.peek() === "\n") {
-        this.line++;
-        this.lineOffset = this.current + 1;
-      }
+    // Keep consuming characters until we see another double quote.
+    // Newlines terminate the string — JS double-quoted strings can't span lines.
+    while (this.peek() !== '"' && !this.isAtEndOfLine()) {
       if (this.peek() === "\\") {
         this.advance(); // consume backslash
         this.advance(); // consume escaped character
@@ -423,7 +420,7 @@ export class Scanner {
       }
     }
 
-    if (this.isAtEnd()) {
+    if (this.isAtEndOfLine()) {
       this.error("MissingDoubleQuoteToTerminateString", {
         string: this.sourceCode.substring(this.start + 1, this.current),
       });
@@ -439,12 +436,9 @@ export class Scanner {
   }
 
   private tokenizeSingleQuoteString(): void {
-    // Keep consuming characters until we see another single quote
-    while (this.peek() !== "'" && !this.isAtEnd()) {
-      if (this.peek() === "\n") {
-        this.line++;
-        this.lineOffset = this.current + 1;
-      }
+    // Keep consuming characters until we see another single quote.
+    // Newlines terminate the string — JS single-quoted strings can't span lines.
+    while (this.peek() !== "'" && !this.isAtEndOfLine()) {
       if (this.peek() === "\\") {
         this.advance(); // consume backslash
         this.advance(); // consume escaped character
@@ -453,7 +447,7 @@ export class Scanner {
       }
     }
 
-    if (this.isAtEnd()) {
+    if (this.isAtEndOfLine()) {
       this.error("MissingDoubleQuoteToTerminateString", {
         string: this.sourceCode.substring(this.start + 1, this.current),
       });
@@ -682,6 +676,10 @@ export class Scanner {
 
   private isAtEnd(): boolean {
     return this.current >= this.sourceCode.length;
+  }
+
+  private isAtEndOfLine(): boolean {
+    return this.isAtEnd() || this.peek() === "\n";
   }
 
   private shouldAddEOLToken(): boolean {

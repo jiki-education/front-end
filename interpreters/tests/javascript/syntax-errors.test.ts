@@ -3,19 +3,41 @@ import { parse } from "@javascript/parser";
 describe("syntax errors", () => {
   describe("string errors", () => {
     test("unterminated string - end of file", () => {
-      expect(() => parse('"hello')).toThrow("Did you forget to add end quote?");
+      expect(() => parse('"hello')).toThrow("Did you forget to end your string?");
     });
 
     test("unterminated string - end of line", () => {
-      expect(() => parse('"hello\nsomething_else"', { languageFeatures: { requireSemicolons: true } })).toThrow(); // This seems to parse the first string successfully, then fail on missing semicolon
+      expect(() => parse('"hello\nsomething_else"')).toThrow("Did you forget to end your string?");
     });
 
     test("single quote unterminated string", () => {
-      expect(() => parse("'hello")).toThrow("Did you forget to add end quote?");
+      expect(() => parse("'hello")).toThrow("Did you forget to end your string?");
     });
 
     test("mixed quote types", () => {
-      expect(() => parse("\"hello'")).toThrow("Did you forget to add end quote?");
+      expect(() => parse("\"hello'")).toThrow("Did you forget to end your string?");
+    });
+
+    test("error location points at the line where the string opens", () => {
+      const source = ["let a = 1;", 'let b = "orange;', "let c = 3;", "let d = 4;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to end your string?");
+        expect(err.location.line).toBe(2);
+      }
+    });
+
+    test("error location for single-quoted string points at the opening line", () => {
+      const source = ["let a = 1;", "let b = 'orange;", "let c = 3;"].join("\n");
+      try {
+        parse(source);
+        throw new Error("expected parse to throw");
+      } catch (err: any) {
+        expect(err.message).toContain("Did you forget to end your string?");
+        expect(err.location.line).toBe(2);
+      }
     });
   });
 
