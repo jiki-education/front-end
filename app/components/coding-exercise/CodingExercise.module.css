@@ -677,18 +677,12 @@
 
 /* Stabilize Safari compositor during panel resize, but only when no spotlight
    is active — these properties create a stacking context that would trap
-   .spotlight below the body::after backdrop. */
-.rightVideoContainer:not(:has(.spotlight)) {
+   the inner .spotlight box below the body::after backdrop. Dropping them
+   while spotlight is active lets the inner box's own z-index escape so only
+   it (not the surrounding container) lights up. */
+.rightVideoContainer:not(:has(:global(.spotlight))) {
     contain: layout paint;
     transform: translateZ(0);
-}
-
-/* When spotlight is active inside this container, lift the whole container
-   above the body::after backdrop. Safari (correctly) scopes the inner
-   z-index to this container's stacking context because of translateZ(0),
-   so without this the backdrop would paint over the container. */
-.rightVideoContainer:has(:global(.spotlight)) {
-    z-index: var(--z-index-spotlight);
 }
 
 /* Playback Controls */
