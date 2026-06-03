@@ -37,7 +37,7 @@ export function WelcomeSection() {
               <span className="rough-highlight">
                 <strong>Software engineering has never been about writing code.</strong>
               </span>{" "}
-              The coding is how you communicate with the computer, but the real skill has always been in{" "}
+              Coding is how you communicate with the computer, but the real skill has always been in{" "}
               <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in{" "}
               <strong>building and architecting</strong>. It&apos;s always been about taking ideas and{" "}
               <strong>turning them into reality</strong>.
@@ -45,12 +45,13 @@ export function WelcomeSection() {
             <p>
               Thanks to LLMs{" "}
               <span className="rough-highlight">
-                <strong>you don&apos;t have to spend years learning</strong>
+                <strong>you don&apos;t have to spend years mastering coding</strong>
               </span>{" "}
               in order to be useful. But you still have a lot to learn! You still need to learn{" "}
-              <strong>coding fundamentals</strong>. You need to learn <strong>how everything works</strong>. You need to
-              learn <strong>how to build</strong>. But the journey is <strong>much more fun</strong> than it&apos;s ever
-              been before. And I&apos;m here{" "}
+              <strong>coding fundamentals</strong>. You need to learn{" "}
+              <strong className="rough-highlight">how everything works</strong>. You need to learn{" "}
+              <strong className="rough-highlight">how to build</strong>. But the journey is{" "}
+              <strong>much more fun</strong> than it&apos;s ever been before. And I&apos;m here{" "}
               <strong className="font-medium">
                 <span className="intro-you">to be your guide on that journey!</span>
               </strong>
@@ -82,12 +83,12 @@ export function WelcomeSection() {
         </p>
         <p>
           If you&apos;re starting out today then most of your work is going to be{" "}
-          <strong>reading code, not writing it.</strong>
-          And that means something that&apos;s a little sad for me to admit...
+          <strong>reading code, not writing it.</strong> And that means something that&apos;s a little sad for me to
+          admit...
         </p>
         <h3>
           <strong>Getting good</strong> at writing code is{" "}
-          <span className="inline rough-highlight">utterly irrelevant</span> 😢
+          <span className="inline rough-highlight">becoming irrelevant</span> 😢
         </h3>
         <p>
           You are never going to be better than an LLM at writing code. I have been coding for 34 years and LLMs are at

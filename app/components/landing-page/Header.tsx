@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <>
-      <div className={`${styles.nav} h-[64px]`} data-nav-fixed>
+      <div className={`${styles.nav} h-[63px]`} data-nav-fixed>
         <div className={`${shared["lg-container"]} flex flex-row items-center`} data-nav-contents>
           <Link className="flex flex-1 gap-12" href="/">
             <JikiLogo className={styles.logo} />
