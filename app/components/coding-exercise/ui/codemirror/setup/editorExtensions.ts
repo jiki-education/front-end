@@ -18,7 +18,6 @@ import {
 import { minimalSetup } from "codemirror";
 
 import * as Ext from "../extensions";
-import { moveCursorByPasteLength } from "../extensions/move-cursor-by-paste-length";
 import { unfoldableFunctionsField } from "../utils/unfoldableFunctionNames";
 import { readonlyCompartment, languageCompartment } from "./editorCompartments";
 
@@ -84,7 +83,6 @@ export function createEditorExtensions({
     Ext.readOnlyRangeDecoration(),
     Ext.createThemeExtension(isDarkTheme),
     unfoldableFunctionsField,
-    moveCursorByPasteLength,
 
     // Dynamic extensions - start with no highlight, orchestrator will control it
     Ext.highlightLine(0),

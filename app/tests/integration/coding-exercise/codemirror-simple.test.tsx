@@ -158,10 +158,6 @@ jest.mock("@/components/coding-exercise/ui/codemirror/utils/unfoldableFunctionNa
   unfoldableFunctionsField: jest.fn()
 }));
 
-jest.mock("@/components/coding-exercise/ui/codemirror/extensions/move-cursor-by-paste-length", () => ({
-  moveCursorByPasteLength: jest.fn()
-}));
-
 jest.mock("@/components/coding-exercise/ui/codemirror/extensions/read-only-ranges/readOnlyRanges", () => ({
   readOnlyRangesStateField: jest.fn(),
   updateReadOnlyRangesEffect: { of: jest.fn() }

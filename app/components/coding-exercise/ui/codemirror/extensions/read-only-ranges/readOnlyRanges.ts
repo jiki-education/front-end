@@ -9,41 +9,41 @@ export const readOnlyRangesStateField = StateField.define<ReadonlyRange[]>({
     return [];
   },
   update(ranges, tr) {
-    // if we are adding lines
-    if (tr.startState.doc.lines < tr.state.doc.lines) {
-      const cursor = tr.state.selection.main.head;
-      const newLine = tr.state.doc.lineAt(cursor).number;
-      const diff = tr.state.doc.lines - tr.startState.doc.lines;
-      return ranges.map((r) => {
-        if (r.fromLine >= newLine) {
-          return { ...r, fromLine: r.fromLine + diff, toLine: r.toLine + diff };
-        }
-        return r;
-      });
-    }
-    // if we are deleting lines
-    if (tr.startState.doc.lines > tr.state.doc.lines) {
-      const cursor = tr.state.selection.main.head;
-      const lineAtCursor = tr.state.doc.lineAt(cursor);
-      const diff = tr.startState.doc.lines - tr.state.doc.lines;
-
-      const lineDeletedAbove = lineAtCursor.number - 1;
-
-      return ranges.map((r) => {
-        if (r.fromLine > lineDeletedAbove) {
-          return { ...r, fromLine: r.fromLine - diff, toLine: r.toLine - diff };
-        }
-        return r;
-      });
-    }
-
     for (const effect of tr.effects) {
       if (effect.is(updateReadOnlyRangesEffect)) {
         return effect.value;
       }
     }
 
-    return ranges;
+    if (!tr.docChanged || ranges.length === 0) {
+      return ranges;
+    }
+
+    // Map each range's offsets through the transaction so the range follows
+    // its anchored content. assoc=1 on `from` and assoc=-1 on `to` means
+    // insertions at the boundaries land *outside* the readonly span.
+    const startDoc = tr.startState.doc;
+    const endDoc = tr.state.doc;
+    return ranges.map((r) => {
+      const oldFromLine = startDoc.line(r.fromLine);
+      const oldToLine = startDoc.line(r.toLine);
+      const oldFrom = oldFromLine.from + (r.fromChar ?? 0);
+      const oldTo = r.toChar !== undefined ? oldToLine.from + r.toChar : oldToLine.to;
+
+      const newFrom = tr.changes.mapPos(oldFrom, 1);
+      const newTo = tr.changes.mapPos(oldTo, -1);
+
+      const newFromLine = endDoc.lineAt(newFrom);
+      const newToLine = endDoc.lineAt(newTo);
+
+      return {
+        ...r,
+        fromLine: newFromLine.number,
+        toLine: newToLine.number,
+        ...(r.fromChar !== undefined ? { fromChar: newFrom - newFromLine.from } : {}),
+        ...(r.toChar !== undefined ? { toChar: newTo - newToLine.from } : {})
+      };
+    });
   }
 });
 
