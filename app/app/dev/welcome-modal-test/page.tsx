@@ -1,8 +1,9 @@
 "use client";
 
 import { showWelcomeModal } from "@/lib/modal";
+import { clearSeenFlagLocal } from "@/lib/api/seen-flags";
 
-const WELCOME_SEEN_KEY = "jiki_welcome_seen";
+const WELCOME_SEEN_KEY = "welcome_modal";
 
 export default function WelcomeModalTestPage() {
   const handleShow = () => {
@@ -10,7 +11,7 @@ export default function WelcomeModalTestPage() {
   };
 
   const handleReset = () => {
-    localStorage.removeItem(WELCOME_SEEN_KEY);
+    clearSeenFlagLocal(WELCOME_SEEN_KEY);
   };
 
   return (

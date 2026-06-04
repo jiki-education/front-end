@@ -3,13 +3,13 @@
 import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showWelcomeModal } from "@/lib/modal";
+import { checkSeenFlag, setSeenFlag } from "@/lib/api/seen-flags";
 
-const WELCOME_SEEN_KEY = "jiki_welcome_seen";
+const WELCOME_SEEN_KEY = "welcome_modal";
 
 /**
- * Shows the welcome video modal once per user (tracked via localStorage).
- * Intended for early superusers. Will be replaced by a DB flag once
- * the onboarding flow is built out.
+ * Shows the welcome video modal once per user, tracked via the seen-flags API
+ * (with a localStorage cache).
  */
 export function WelcomeModalHandler() {
   const { hasCheckedAuth, isAuthenticated } = useAuthStore();
@@ -19,13 +19,15 @@ export function WelcomeModalHandler() {
       return;
     }
 
-    const hasSeen = localStorage.getItem(WELCOME_SEEN_KEY);
-    if (hasSeen) {
-      return;
-    }
+    void (async () => {
+      const seen = await checkSeenFlag(WELCOME_SEEN_KEY);
+      if (seen) {
+        return;
+      }
 
-    localStorage.setItem(WELCOME_SEEN_KEY, "true");
-    showWelcomeModal();
+      void setSeenFlag(WELCOME_SEEN_KEY);
+      showWelcomeModal();
+    })();
   }, [hasCheckedAuth, isAuthenticated]);
 
   return null;
