@@ -70,50 +70,54 @@ export const preventModifyTargetRanges = (
     return true;
   });
 
+export const smartPasteHandler =
+  (getReadOnlyRanges: (targetState: EditorState) => Array<{ from: number | undefined; to: number | undefined }>) =>
+  (event: ClipboardEvent, view: EditorView) => {
+    const clipboardData = event.clipboardData ?? (window as any).clipboardData;
+    const pastedData = clipboardData.getData("Text");
+    const initialSelections = view.state.selection.ranges.map((range) => ({
+      from: range.from,
+      to: range.to
+    }));
+
+    if (initialSelections.length === 0) {
+      return false;
+    }
+
+    const readOnlyRanges = getReadOnlyRanges(view.state);
+    const result = getAvailableRanges(readOnlyRanges, initialSelections[0], {
+      from: 0,
+      to: view.state.doc.line(view.state.doc.lines).to
+    }) as Array<{ from: number; to: number }>;
+
+    if (result.length === 0) {
+      // Paste target is entirely inside a readonly range — swallow the event
+      // so the native paste doesn't fall through and modify the doc.
+      event.preventDefault();
+      return true;
+    }
+
+    const insertAt = result[0];
+    // preventDefault + explicit selection keeps the cursor at the end of the
+    // inserted text without relying on the native paste also firing.
+    event.preventDefault();
+    view.dispatch({
+      changes: {
+        from: insertAt.from,
+        to: insertAt.to,
+        insert: pastedData
+      },
+      selection: { anchor: insertAt.from + pastedData.length },
+      annotations: Transaction.userEvent.of(`input.paste.smart`)
+    });
+    return true;
+  };
+
 export const smartPaste = (
   getReadOnlyRanges: (targetState: EditorState) => Array<{ from: number | undefined; to: number | undefined }>
 ) =>
   EditorView.domEventHandlers({
-    paste(event, view) {
-      const clipboardData = event.clipboardData ?? (window as any).clipboardData;
-      const pastedData = clipboardData.getData("Text");
-      const initialSelections = view.state.selection.ranges.map((range) => ({
-        from: range.from,
-        to: range.to
-      }));
-
-      if (initialSelections.length === 0) {
-        return false;
-      }
-
-      const readOnlyRanges = getReadOnlyRanges(view.state);
-      const result = getAvailableRanges(readOnlyRanges, initialSelections[0], {
-        from: 0,
-        to: view.state.doc.line(view.state.doc.lines).to
-      }) as Array<{ from: number; to: number }>;
-
-      if (result.length === 0) {
-        // Paste target is entirely inside a readonly range — swallow the event
-        // so the native paste doesn't fall through and modify the doc.
-        event.preventDefault();
-        return true;
-      }
-
-      const insertAt = result[0];
-      // preventDefault + explicit selection keeps the cursor at the end of the
-      // inserted text without relying on the native paste also firing.
-      event.preventDefault();
-      view.dispatch({
-        changes: {
-          from: insertAt.from,
-          to: insertAt.to,
-          insert: pastedData
-        },
-        selection: { anchor: insertAt.from + pastedData.length },
-        annotations: Transaction.userEvent.of(`input.paste.smart`)
-      });
-      return true;
-    }
+    paste: smartPasteHandler(getReadOnlyRanges)
   });
 
 function readOnlyRangesExtension(
