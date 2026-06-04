@@ -55,9 +55,6 @@ export function ExternalFooter() {
             <Link href={YOUTUBE_URL} className={styles.link} target="_blank" rel="noopener noreferrer">
               Jiki&apos;s YouTube Channel
             </Link>
-            <Link href="/articles/support" className={styles.link}>
-              Contact us
-            </Link>
             <Link href="/articles/report-abuse" className={styles.link}>
               Report abuse
             </Link>
@@ -69,11 +66,14 @@ export function ExternalFooter() {
             <Link href="/articles" className={styles.link}>
               Help Center
             </Link>
-            <Link href="#" className={styles.link}>
-              Getting started
-            </Link>
-            <Link href="#" className={styles.link}>
+            <Link href="/articles/faqs" className={styles.link}>
               FAQs
+            </Link>
+            <Link href="/articles/support" className={styles.link}>
+              Contact us
+            </Link>
+            <Link href="https://jiki.instatus.com/" className={styles.link} target="_blank" rel="noopener noreferrer">
+              Site Status
             </Link>
           </div>
         </div>
