@@ -3,6 +3,45 @@ import React, { useEffect, useRef } from "react";
 
 type Direction = "horizontal" | "vertical";
 
+const STORAGE_KEY = "coding-exercise-panel-sizes";
+
+interface StoredPanelSizes {
+  verticalPercentage?: number;
+  horizontalPixels?: number;
+}
+
+function readStoredSizes(): StoredPanelSizes {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      return {};
+    }
+    const parsed: unknown = JSON.parse(raw);
+    return typeof parsed === "object" && parsed !== null ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeStoredSizes(update: StoredPanelSizes) {
+  try {
+    const current = readStoredSizes();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...current, ...update }));
+  } catch {
+    // localStorage unavailable (private mode, quota, etc.) — silently skip persistence
+  }
+}
+
+function applyVertical(container: HTMLDivElement, divider: HTMLButtonElement | null, percentage: number) {
+  const leftFr = percentage / 50;
+  const rightFr = (100 - percentage) / 50;
+  container.style.gridTemplateColumns = `${leftFr}fr ${rightFr}fr`;
+  container.style.setProperty("--lhs-width", `${percentage}%`);
+  if (divider) {
+    divider.style.left = `${percentage}%`;
+  }
+}
+
 export function useResizablePanels() {
   const containerRef = useRef<HTMLDivElement>(null);
   const verticalDividerRef = useRef<HTMLButtonElement>(null);
@@ -15,10 +54,30 @@ export function useResizablePanels() {
     horizontal?: { move: (e: MouseEvent) => void; up: () => void };
   }>({});
 
-  // Set initial CSS custom property for horizontal divider width
+  // Restore saved panel sizes (or fall back to defaults) on mount
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.style.setProperty("--lhs-width", "50%");
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+    const stored = readStoredSizes();
+    const verticalPercentage =
+      typeof stored.verticalPercentage === "number" &&
+      stored.verticalPercentage >= 30 &&
+      stored.verticalPercentage <= 70
+        ? stored.verticalPercentage
+        : 50;
+    applyVertical(container, verticalDividerRef.current, verticalPercentage);
+
+    if (typeof stored.horizontalPixels === "number") {
+      const maxHorizontalPixels = container.getBoundingClientRect().height - 200;
+      if (maxHorizontalPixels >= 200) {
+        const clamped = Math.min(Math.max(stored.horizontalPixels, 200), maxHorizontalPixels);
+        container.style.gridTemplateRows = `${clamped}px 1fr`;
+        if (horizontalDividerRef.current) {
+          horizontalDividerRef.current.style.top = `${clamped}px`;
+        }
+      }
     }
   }, []);
 
@@ -50,6 +109,8 @@ export function useResizablePanels() {
     const container = containerRef.current;
     const verticalDivider = verticalDividerRef.current;
 
+    let latestPercentage: number | null = null;
+
     const handleMouseMove = (moveEvent: MouseEvent) => {
       if (!isDraggingVertical.current || !container || !verticalDivider) {
         return;
@@ -60,12 +121,8 @@ export function useResizablePanels() {
       const percentage = (offsetX / containerRect.width) * 100;
 
       if (percentage >= 30 && percentage <= 70) {
-        // Use fr units instead of percentages to work better with gaps and margins
-        const leftFr = percentage / 50; // Convert percentage to fr ratio (50% = 1fr)
-        const rightFr = (100 - percentage) / 50;
-        container.style.gridTemplateColumns = `${leftFr}fr ${rightFr}fr`;
-        container.style.setProperty("--lhs-width", `${percentage}%`);
-        verticalDivider.style.left = `${percentage}%`;
+        latestPercentage = percentage;
+        applyVertical(container, verticalDivider, percentage);
       }
     };
 
@@ -77,6 +134,9 @@ export function useResizablePanels() {
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
         activeListenersRef.current.vertical = undefined;
+        if (latestPercentage !== null) {
+          writeStoredSizes({ verticalPercentage: latestPercentage });
+        }
       }
     };
 
@@ -96,6 +156,8 @@ export function useResizablePanels() {
     const container = containerRef.current;
     const horizontalDivider = horizontalDividerRef.current;
 
+    let latestPixels: number | null = null;
+
     const handleMouseMove = (moveEvent: MouseEvent) => {
       if (!isDraggingHorizontal.current || !container || !horizontalDivider) {
         return;
@@ -106,6 +168,7 @@ export function useResizablePanels() {
       const pixelPosition = offsetY;
 
       if (pixelPosition >= 200 && pixelPosition <= containerRect.height - 200) {
+        latestPixels = pixelPosition;
         horizontalDivider.style.top = pixelPosition + "px";
         container.style.gridTemplateRows = `${pixelPosition}px 1fr`;
       }
@@ -119,6 +182,9 @@ export function useResizablePanels() {
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
         activeListenersRef.current.horizontal = undefined;
+        if (latestPixels !== null) {
+          writeStoredSizes({ horizontalPixels: latestPixels });
+        }
       }
     };
 
