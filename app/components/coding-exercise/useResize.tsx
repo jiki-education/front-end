@@ -69,10 +69,14 @@ export function useResizablePanels() {
         : 50;
     applyVertical(container, verticalDividerRef.current, verticalPercentage);
 
-    if (typeof stored.horizontalPixels === "number" && stored.horizontalPixels > 0) {
-      container.style.gridTemplateRows = `${stored.horizontalPixels}px 1fr`;
-      if (horizontalDividerRef.current) {
-        horizontalDividerRef.current.style.top = `${stored.horizontalPixels}px`;
+    if (typeof stored.horizontalPixels === "number") {
+      const maxHorizontalPixels = container.getBoundingClientRect().height - 200;
+      if (maxHorizontalPixels >= 200) {
+        const clamped = Math.min(Math.max(stored.horizontalPixels, 200), maxHorizontalPixels);
+        container.style.gridTemplateRows = `${clamped}px 1fr`;
+        if (horizontalDividerRef.current) {
+          horizontalDividerRef.current.style.top = `${clamped}px`;
+        }
       }
     }
   }, []);
