@@ -29,8 +29,11 @@ export function BuildIndex() {
 }
 
 function SeriesCard({ series }: { series: BuildSeriesMeta }) {
-  return (
-    <Link href={`/build/${series.slug}`} className={styles.card}>
+  const isPending = series.status === "pending";
+  const cardClassName = `${styles.card} ${isPending ? styles.cardPending : ""}`;
+
+  const content = (
+    <>
       <Image
         src={`/static/images/build/series/${series.image}`}
         alt=""
@@ -46,6 +49,21 @@ function SeriesCard({ series }: { series: BuildSeriesMeta }) {
           {series.cadence && <span className={`${styles.pill} ${styles.pillCadence}`}>{series.cadence}</span>}
         </div>
       </div>
+      {isPending && (
+        <div className={styles.comingSoonRibbon} aria-label="Coming soon">
+          <span>Coming Soon</span>
+        </div>
+      )}
+    </>
+  );
+
+  if (isPending) {
+    return <div className={cardClassName}>{content}</div>;
+  }
+
+  return (
+    <Link href={`/build/${series.slug}`} className={cardClassName}>
+      {content}
     </Link>
   );
 }

@@ -88,6 +88,8 @@
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: stretch;
   gap: 24px;
@@ -104,6 +106,34 @@
   box-shadow: 0 0 12px color-mix(in srgb, var(--color-blue-500) 35%, transparent);
 }
 
+.cardPending {
+  cursor: default;
+  border-color: var(--color-blue-500);
+}
+
+.cardPending:hover {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+}
+
+.comingSoonRibbon {
+  position: absolute;
+  top: 24px;
+  right: -56px;
+  width: 200px;
+  transform: rotate(45deg);
+  background: var(--color-blue-600);
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
 .cardImage {
   width: 240px;
   aspect-ratio: 16 / 9;
@@ -115,7 +145,7 @@
   align-self: flex-start;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1320px) {
   .card {
     flex-direction: column;
     gap: 16px;
@@ -123,7 +153,8 @@
   }
 
   .cardImage {
-    width: 100%;
+    max-height: 200px;
+    width: auto;
   }
 }
 
@@ -164,7 +195,7 @@
 }
 
 .pillAudience {
-  background: var(--color-pink-600);
+  background: var(--color-gray-700);
   color: white;
   font-weight: 600;
 }

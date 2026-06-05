@@ -82,6 +82,8 @@ export interface BuildSeriesMeta {
   audience: string;
   cadence: string;
   image: string;
+  status: "live" | "pending";
+  livestream: boolean;
   upcomingStreams: string[];
   episodeCount: number;
   episodesIndexHash: string;

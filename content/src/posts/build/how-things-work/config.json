@@ -1,0 +1,19 @@
+{
+  "audience": {
+    "en": "Beginners and Juniors"
+  },
+  "cadence": {
+    "en": "Regular prerecorded episodes"
+  },
+  "title": {
+    "en": "How Things Work"
+  },
+  "description": {
+    "en": "An ongoing series of deep-dives into topics that come up in livestreams or Q&As. Go deeper than we have time for in the regular episodes."
+  },
+  "image": "jiki-waiting.png",
+  "status": "pending",
+  "livestream": false,
+  "upcoming_streams": ["2026-05-14T19:00:00Z"],
+  "episodes": ["065e457e-4e9d-478b-bd0a-bbe384d8347f"]
+}

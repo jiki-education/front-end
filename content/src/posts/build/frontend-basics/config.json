@@ -1,0 +1,19 @@
+{
+  "audience": {
+    "en": "Absolute Beginners"
+  },
+  "cadence": {
+    "en": "New episodes each week"
+  },
+  "title": {
+    "en": "Frontend Basics"
+  },
+  "description": {
+    "en": "Join Jeremy as he builds his own homepage from scratch. Learn how the web works, how to use JavaScript and CSS, and how to use LLMs to create webpages."
+  },
+  "image": "jiki-waiting.png",
+  "status": "pending",
+  "livestream": true,
+  "upcoming_streams": ["2026-05-12T19:00:00Z", "2026-05-19T19:00:00Z"],
+  "episodes": ["5981d746-0aaf-40c1-9f44-344ddfb004ad", "f3e23284-2470-42bb-8782-9aad2eaf3e2e"]
+}
