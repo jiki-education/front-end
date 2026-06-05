@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
+import DividerIcon from "@/icons/divider.svg";
 import LearningComputerIcon from "@/icons/learning-computer.svg";
 import { getAllBuildSeries } from "@/lib/content";
 import type { BuildSeriesMeta } from "@/lib/content/types";
@@ -34,9 +35,14 @@ function Content() {
     <div className={styles.layout}>
       <div className={styles.main}>
       <PlaceholderVideo videoId="Qa0tAzbM3CE" />
-        {series.map((s) => (
-          <SeriesCard key={s.slug} series={s} />
-        ))}
+        <DividerIcon className={styles.sectionDivider} aria-hidden="true" />
+        <h3 className={styles.sectionHeading}>Upcoming Series</h3>
+        <p className={styles.sectionLead}>These are the series we&apos;ll be launching with.</p>
+        <div className={styles.seriesList}>
+          {series.map((s) => (
+            <SeriesCard key={s.slug} series={s} />
+          ))}
+        </div>
       </div>
       <UpcomingStreams series={series} />
     </div>

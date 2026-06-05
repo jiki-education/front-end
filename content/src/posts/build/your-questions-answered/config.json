@@ -14,6 +14,6 @@
   "image": "jiki-waiting.png",
   "status": "pending",
   "livestream": true,
-  "upcoming_streams": ["2026-05-15T18:00:00Z", "2026-05-22T18:00:00Z"],
+  "upcoming_streams": ["2026-07-11T12:00:00Z"],
   "episodes": ["5fe8624a-f9d6-45c4-90ca-3c7968ed3a1a"]
 }

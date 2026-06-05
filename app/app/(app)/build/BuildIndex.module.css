@@ -40,7 +40,33 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+}
+
+.seriesList {
+  display: flex;
+  flex-direction: column;
   gap: 28px;
+}
+
+.sectionDivider {
+  display: block;
+  width: 78px;
+  height: 20px;
+  margin: 40px 0 12px;
+  color: var(--color-pink-500);
+}
+
+.sectionHeading {
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.sectionLead {
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: var(--color-gray-600);
 }
 
 .sidebar {
@@ -68,7 +94,7 @@
 .sidebarHeading {
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-gray-700, #374151);
+  color: var(--color-gray-700);
   margin-bottom: 16px;
 }
 
@@ -92,7 +118,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-red-500, #ef4444);
+  background: var(--color-red-500);
   margin-top: 7px;
 }
 
@@ -105,17 +131,17 @@
 .streamsSeriesTitle {
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-gray-900, #111827);
+  color: var(--color-gray-900);
 }
 
 .streamDate {
   font-size: 14px;
-  color: var(--color-gray-500, #6b7280);
+  color: var(--color-gray-500);
 }
 
 .streamsTba {
   font-size: 14px;
-  color: var(--color-gray-400, #9ca3af);
+  color: var(--color-gray-400);
   font-style: italic;
 }
 
@@ -126,7 +152,7 @@
   align-items: stretch;
   gap: 24px;
   border-radius: 12px;
-  border: 2px solid var(--color-blue-200, #e5e7eb);
+  border: 2px solid var(--color-blue-200);
   background: #fff;
   padding: 24px;
   box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
@@ -134,7 +160,7 @@
 }
 
 .card:hover {
-  border-color: var(--color-blue-300, #93c5fd);
+  border-color: var(--color-blue-300);
   box-shadow: 0 0 12px color-mix(in srgb, var(--color-blue-500) 35%, transparent);
 }
 
@@ -205,7 +231,7 @@
 
 .cardDescription {
   font-size: 16px;
-  color: var(--color-gray-600, #4b5563);
+  color: var(--color-gray-600);
   margin-bottom: 12px;
 }
 
@@ -221,8 +247,8 @@
   font-size: 11px;
   text-transform: uppercase;
   font-weight: 700;
-  background: var(--color-gray-100, #f3f4f6);
-  color: var(--color-gray-700, #374151);
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
   border-radius: 12px;
 }
 
