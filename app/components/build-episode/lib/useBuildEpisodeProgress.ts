@@ -1,6 +1,7 @@
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useEffect, useRef, useState } from "react";
 import { fetchUserVideo, updateUserVideoPercentage, type UserVideoData } from "@/lib/api/user-videos";
+import { reportError } from "@/lib/reportError";
 
 interface ProgressPlayer {
   getCurrentTime: () => number;
@@ -44,7 +45,7 @@ export function useBuildEpisodeProgress(uuid: string, videoProvider?: "mux" | "y
       return;
     }
     lastReportedPercentRef.current = rounded;
-    updateUserVideoPercentage(uuid, rounded).catch(() => {});
+    updateUserVideoPercentage(uuid, rounded).catch(reportError);
   };
 
   const reportFromPlayer = (player: ProgressPlayer | null) => {

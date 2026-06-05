@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchExternalPricing } from "@/lib/api/externalPricing";
 import type { PremiumPrices } from "@/lib/pricing";
+import { reportError } from "@/lib/reportError";
 
 const FALLBACK = "$9.99";
 
@@ -39,9 +40,7 @@ export function MonthlyPrice() {
       .then((data) => {
         if (!cancelled) setPrices(data.premium_prices);
       })
-      .catch(() => {
-        // Swallow: keep showing the USD fallback if the call fails.
-      });
+      .catch(reportError);
     return () => {
       cancelled = true;
     };

@@ -4,6 +4,7 @@ import styles from "@/app/styles/components/modals.module.css";
 import SoundManager from "@/lib/sound/SoundManager";
 import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
 import { rateLesson } from "@/lib/api/lessons";
+import { reportError } from "@/lib/reportError";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
 export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked";
@@ -125,7 +126,7 @@ export function useExerciseCompletionModal({
   };
 
   const handleRatingsSubmit = async (difficultyRating: number, funRating: number) => {
-    rateLesson(exerciseSlug, difficultyRating, funRating).catch(console.error);
+    rateLesson(exerciseSlug, difficultyRating, funRating).catch(reportError);
     await advanceAfterCompletion();
   };
 

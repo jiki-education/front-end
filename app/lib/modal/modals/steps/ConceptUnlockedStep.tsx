@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "@/app/styles/components/modals.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 import { getConcept } from "@/lib/api/concepts";
+import { reportError } from "@/lib/reportError";
 import type { ConceptMeta } from "@/types/concepts";
 
 interface ConceptUnlockedStepProps {
@@ -22,7 +23,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
     if (!conceptSlug) {
       return;
     }
-    getConcept(conceptSlug).then(setConcept).catch(console.error);
+    getConcept(conceptSlug).then(setConcept).catch(reportError);
   }, [conceptSlug]);
 
   if (!concept) {

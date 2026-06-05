@@ -1,4 +1,5 @@
 import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
+import { reportError } from "@/lib/reportError";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -25,7 +26,7 @@ export function useVideoExercise(lessonSlug: string) {
           setShowCheckmark(true);
         }
       })
-      .catch(() => {});
+      .catch(reportError);
 
     setIsInitializing(false);
     playerRef.current?.play().catch((error) => {
@@ -78,7 +79,7 @@ export function useVideoExercise(lessonSlug: string) {
         unlocked ? `/dashboard?completed=${lessonSlug}&unlocked=${unlocked}` : `/dashboard?completed=${lessonSlug}`
       );
     } catch (error) {
-      console.error("Failed to mark lesson as complete:", error);
+      reportError(error);
     } finally {
       setIsMarking(false);
     }

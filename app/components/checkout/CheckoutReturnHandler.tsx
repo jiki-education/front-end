@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
+import { reportError } from "@/lib/reportError";
 import {
   showPaymentConfirming,
   showPaymentProcessing,
@@ -45,7 +46,8 @@ export function CheckoutReturnHandler() {
         }
         void refreshUser();
       })
-      .catch(() => {
+      .catch((error) => {
+        reportError(error);
         showPaymentVerificationFailed();
       });
   }, [hasCheckedAuth, isAuthenticated, refreshUser]);
