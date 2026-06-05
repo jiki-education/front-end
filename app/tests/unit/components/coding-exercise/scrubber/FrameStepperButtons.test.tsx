@@ -35,6 +35,7 @@ function createMockOrchestrator(): Orchestrator {
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
     pause: jest.fn(),
     runCode: jest.fn(),
+    showInformationWidget: jest.fn(),
     getStore: jest.fn()
   } as unknown as Orchestrator;
 }
@@ -163,6 +164,7 @@ describe("FrameStepperButtons Component", () => {
       expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(200000);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.showInformationWidget).toHaveBeenCalledTimes(1);
     });
 
     it("should not navigate when no previous frame exists", () => {
@@ -253,6 +255,7 @@ describe("FrameStepperButtons Component", () => {
       expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000);
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.showInformationWidget).toHaveBeenCalledTimes(1);
     });
 
     it("should not navigate when no next frame exists", () => {
