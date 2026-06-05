@@ -47,7 +47,7 @@ export function useVideoExercise(lessonSlug: string) {
   const handleVideoPlay = () => setIsVideoVisible(true);
 
   const handleTimeUpdate = () => {
-    if (isAlreadyCompleted || !playerRef.current) {
+    if (isAlreadyCompleted || videoWatched || !playerRef.current) {
       return;
     }
     const currentTime = playerRef.current.currentTime || 0;
