@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./AuthErrorModal.module.css";
 
 export function AuthErrorModal() {
@@ -28,13 +29,13 @@ export function AuthErrorModal() {
 
       <p className={styles.helpText}>
         If this keeps happening, try{" "}
-        <a href="#" className={styles.helpLink}>
+        <Link href="/articles/how-to-clear-your-cookies" className={styles.helpLink}>
           clearing your cookies
-        </a>{" "}
+        </Link>{" "}
         or{" "}
-        <a href="#" className={styles.helpLink}>
+        <Link href="/articles/support" className={styles.helpLink}>
           contact support
-        </a>
+        </Link>
         .
       </p>
     </div>

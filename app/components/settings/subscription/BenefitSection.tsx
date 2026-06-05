@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./BenefitSection.module.css";
@@ -76,8 +77,8 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
       <BenefitsList />
 
       <p className={styles.benefitsFooter}>
-        {/* TODO: Replace placeholder links with real URLs or remove until available */}
-        Got a question? Learn more about <a href="#">what&apos;s included</a> or <a href="#">contact support</a>.
+        Got a question? Learn more about <Link href="/premium">what&apos;s included</Link> or{" "}
+        <Link href="/articles/support">contact support</Link>.
       </p>
     </div>
   );

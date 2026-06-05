@@ -30,7 +30,7 @@ export function ConnectionErrorModal() {
         Just sit tight - this usually fixes itself in a few moments.
         <br />
         If the problem persists,{" "}
-        <a href="#" className={styles.statusLink}>
+        <a href="https://jiki.instatus.com/" target="_blank" rel="noopener noreferrer" className={styles.statusLink}>
           check our status page
         </a>
         .
