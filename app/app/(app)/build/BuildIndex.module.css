@@ -3,12 +3,70 @@
   gap: 72px;
 }
 
+.placeholderVideo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: black;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.placeholderVideoPlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.titleBadge {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--color-pink-600);
+  color: white;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
 .main {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
+}
+
+.seriesList {
+  display: flex;
+  flex-direction: column;
   gap: 28px;
+}
+
+.sectionDivider {
+  display: block;
+  width: 78px;
+  height: 20px;
+  margin: 40px 0 12px;
+  color: var(--color-pink-500);
+}
+
+.sectionHeading {
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+.sectionLead {
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: var(--color-gray-600);
 }
 
 .sidebar {
@@ -36,7 +94,7 @@
 .sidebarHeading {
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-gray-700, #374151);
+  color: var(--color-gray-700);
   margin-bottom: 16px;
 }
 
@@ -60,7 +118,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-red-500, #ef4444);
+  background: var(--color-red-500);
   margin-top: 7px;
 }
 
@@ -73,26 +131,28 @@
 .streamsSeriesTitle {
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-gray-900, #111827);
+  color: var(--color-gray-900);
 }
 
 .streamDate {
   font-size: 14px;
-  color: var(--color-gray-500, #6b7280);
+  color: var(--color-gray-500);
 }
 
 .streamsTba {
   font-size: 14px;
-  color: var(--color-gray-400, #9ca3af);
+  color: var(--color-gray-400);
   font-style: italic;
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: stretch;
   gap: 24px;
   border-radius: 12px;
-  border: 2px solid var(--color-blue-200, #e5e7eb);
+  border: 2px solid var(--color-blue-200);
   background: #fff;
   padding: 24px;
   box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
@@ -100,8 +160,36 @@
 }
 
 .card:hover {
-  border-color: var(--color-blue-300, #93c5fd);
+  border-color: var(--color-blue-300);
   box-shadow: 0 0 12px color-mix(in srgb, var(--color-blue-500) 35%, transparent);
+}
+
+.cardPending {
+  cursor: default;
+  border-color: var(--color-blue-500);
+}
+
+.cardPending:hover {
+  border-color: var(--color-blue-500);
+  box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+}
+
+.comingSoonRibbon {
+  position: absolute;
+  top: 24px;
+  right: -56px;
+  width: 200px;
+  transform: rotate(45deg);
+  background: var(--color-blue-600);
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
 }
 
 .cardImage {
@@ -115,7 +203,7 @@
   align-self: flex-start;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1320px) {
   .card {
     flex-direction: column;
     gap: 16px;
@@ -123,7 +211,8 @@
   }
 
   .cardImage {
-    width: 100%;
+    max-height: 200px;
+    width: auto;
   }
 }
 
@@ -142,7 +231,7 @@
 
 .cardDescription {
   font-size: 16px;
-  color: var(--color-gray-600, #4b5563);
+  color: var(--color-gray-600);
   margin-bottom: 12px;
 }
 
@@ -158,13 +247,13 @@
   font-size: 11px;
   text-transform: uppercase;
   font-weight: 700;
-  background: var(--color-gray-100, #f3f4f6);
-  color: var(--color-gray-700, #374151);
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
   border-radius: 12px;
 }
 
 .pillAudience {
-  background: var(--color-pink-600);
+  background: var(--color-gray-700);
   color: white;
   font-weight: 600;
 }

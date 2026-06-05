@@ -14,7 +14,7 @@ export function UpcomingStreams({ series }: UpcomingStreamsProps) {
       <div className={styles.sidebarBox}>
         <h3 className={styles.sidebarHeading}>Upcoming Live Sessions</h3>
         <ul className={styles.streamsList}>
-          {series.map((s) => (
+          {series.filter((s) => s.livestream).map((s) => (
             <li key={s.slug} className={styles.streamsItem}>
               <span className={styles.streamsItemBullet} aria-hidden="true" />
               <span className={styles.streamsItemBody}>

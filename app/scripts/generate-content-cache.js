@@ -199,8 +199,17 @@ function processContentDir(type, requiredFields, extraFields) {
 /**
  * Process the build/ directory.
  *
- * Reads series.json plus each episode subdirectory (named by UUID).
- * Returns: { seriesData, episodes: [{ uuid, config, locales: { [locale]: { meta, html } } }] }
+ * Structure:
+ *   build/
+ *     config.json                 — { series: ["slug1", "slug2", ...] } (ordered)
+ *     {series-slug}/
+ *       config.json               — series details + episodes: [uuid, ...] (ordered)
+ *       {uuid}/
+ *         config.json             — episode metadata (no series, no order)
+ *         {locale}.md             — episode content per locale
+ *
+ * Returns: { seriesData, episodes: [{ uuid, seriesSlug, order, config, locales }] }
+ *   where seriesData.series is an ordered array of { slug, ...details }
  */
 function processBuild() {
   const buildDir = path.join(CONTENT_DIR, "build");
@@ -208,147 +217,167 @@ function processBuild() {
     return null;
   }
 
-  const seriesPath = path.join(buildDir, "series.json");
-  if (!fs.existsSync(seriesPath)) {
-    throw new Error(`Missing series.json at ${seriesPath}`);
+  const topConfigPath = path.join(buildDir, "config.json");
+  if (!fs.existsSync(topConfigPath)) {
+    throw new Error(`Missing build/config.json at ${topConfigPath}`);
   }
 
-  let seriesData;
+  let topConfig;
   try {
-    seriesData = JSON.parse(fs.readFileSync(seriesPath, "utf-8"));
+    topConfig = JSON.parse(fs.readFileSync(topConfigPath, "utf-8"));
   } catch (error) {
-    throw new Error(`Invalid JSON in ${seriesPath}: ${error.message}`);
+    throw new Error(`Invalid JSON in ${topConfigPath}: ${error.message}`);
   }
 
-  if (!Array.isArray(seriesData.series)) {
-    throw new Error(`series.json must have a "series" array`);
+  if (!Array.isArray(topConfig.series)) {
+    throw new Error(`build/config.json must have a "series" array of slugs`);
   }
-
-  const validSeriesSlugs = new Set(seriesData.series.map((s) => s.slug));
-  const requiredEpisodeFields = [
-    "series",
-    "slug",
-    "order",
-    "date",
-    "author",
-    "videoProvider",
-    "videoKey",
-    "durationSeconds",
-    "image"
-  ];
-
-  const episodes = [];
-  const slugsBySeries = new Map();
-  const seenUuids = new Set();
-  const episodeDirs = fs.readdirSync(buildDir, { withFileTypes: true }).filter((d) => d.isDirectory());
 
   const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const requiredEpisodeFields = ["slug", "date", "author", "videoProvider", "videoKey", "durationSeconds", "image"];
 
-  for (const dir of episodeDirs) {
-    const uuid = dir.name;
+  const seriesList = [];
+  const episodes = [];
+  const seenUuids = new Set();
+  const seenSeriesSlugs = new Set();
 
-    if (!uuidPattern.test(uuid)) {
-      throw new Error(`Build episode directory name is not a valid UUID: ${uuid}`);
+  for (const seriesSlug of topConfig.series) {
+    if (typeof seriesSlug !== "string" || !seriesSlug) {
+      throw new Error(`build/config.json "series" entries must be non-empty slug strings`);
     }
-    if (seenUuids.has(uuid.toLowerCase())) {
-      throw new Error(`Duplicate build episode UUID: ${uuid}`);
+    if (seenSeriesSlugs.has(seriesSlug)) {
+      throw new Error(`Duplicate series slug in build/config.json: "${seriesSlug}"`);
     }
-    seenUuids.add(uuid.toLowerCase());
+    seenSeriesSlugs.add(seriesSlug);
 
-    const dirPath = path.join(buildDir, uuid);
-    const configPath = path.join(dirPath, "config.json");
-
-    if (!fs.existsSync(configPath)) {
-      throw new Error(`Missing config.json for build episode ${uuid}`);
+    const seriesDir = path.join(buildDir, seriesSlug);
+    if (!fs.existsSync(seriesDir) || !fs.statSync(seriesDir).isDirectory()) {
+      throw new Error(`Series "${seriesSlug}" listed in build/config.json has no directory at ${seriesDir}`);
     }
 
-    let config;
+    const seriesConfigPath = path.join(seriesDir, "config.json");
+    if (!fs.existsSync(seriesConfigPath)) {
+      throw new Error(`Missing config.json for series "${seriesSlug}" at ${seriesConfigPath}`);
+    }
+
+    let seriesConfig;
     try {
-      config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+      seriesConfig = JSON.parse(fs.readFileSync(seriesConfigPath, "utf-8"));
     } catch (error) {
-      throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
+      throw new Error(`Invalid JSON in ${seriesConfigPath}: ${error.message}`);
     }
 
-    for (const field of requiredEpisodeFields) {
-      if (config[field] === undefined) {
-        throw new Error(`Missing required field "${field}" in ${configPath}`);
+    if (!Array.isArray(seriesConfig.episodes)) {
+      throw new Error(`Series "${seriesSlug}" config.json must have an "episodes" array of UUIDs`);
+    }
+    if (typeof seriesConfig.image !== "string" || !seriesConfig.image) {
+      throw new Error(`Series "${seriesSlug}" is missing required "image" field`);
+    }
+
+    seriesList.push({ slug: seriesSlug, ...seriesConfig });
+
+    const slugsInSeries = new Set();
+    for (let i = 0; i < seriesConfig.episodes.length; i++) {
+      const uuid = seriesConfig.episodes[i];
+      if (typeof uuid !== "string" || !uuidPattern.test(uuid)) {
+        throw new Error(`Series "${seriesSlug}" episodes[${i}] is not a valid UUID: ${uuid}`);
       }
-    }
+      const uuidLower = uuid.toLowerCase();
+      if (seenUuids.has(uuidLower)) {
+        throw new Error(`Duplicate build episode UUID across series: ${uuid}`);
+      }
+      seenUuids.add(uuidLower);
 
-    if (!validSeriesSlugs.has(config.series)) {
-      throw new Error(`Episode ${uuid} references unknown series "${config.series}"`);
-    }
+      const dirPath = path.join(seriesDir, uuid);
+      if (!fs.existsSync(dirPath) || !fs.statSync(dirPath).isDirectory()) {
+        throw new Error(`Series "${seriesSlug}" references missing episode directory: ${dirPath}`);
+      }
 
-    let seriesSlugs = slugsBySeries.get(config.series);
-    if (!seriesSlugs) {
-      seriesSlugs = new Set();
-      slugsBySeries.set(config.series, seriesSlugs);
-    }
-    if (seriesSlugs.has(config.slug)) {
-      throw new Error(`Duplicate episode slug "${config.slug}" in series "${config.series}"`);
-    }
-    seriesSlugs.add(config.slug);
+      const configPath = path.join(dirPath, "config.json");
+      if (!fs.existsSync(configPath)) {
+        throw new Error(`Missing config.json for build episode ${uuid}`);
+      }
 
-    const configJson = JSON.stringify(config);
-
-    const author = authorsData[config.author];
-    if (!author) {
-      throw new Error(`Author not found: ${config.author} in ${configPath}`);
-    }
-
-    const mdFiles = fs
-      .readdirSync(dirPath, { withFileTypes: true })
-      .filter((f) => f.isFile() && f.name.endsWith(".md"));
-
-    const localesOut = {};
-
-    for (const file of mdFiles) {
-      const locale = path.basename(file.name, ".md");
-      const filePath = path.join(dirPath, file.name);
-
+      let config;
       try {
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
-        const frontmatter = parsed.data;
-        const fixedMarkdown = fixImagePaths(parsed.content);
-        const html = marked.parse(fixedMarkdown);
-
-        const hashInput = crypto.createHash("sha256");
-        hashInput.update(fileContent);
-        hashInput.update(configJson);
-        hashInput.update(authorsJson);
-        const contentHash = hashInput.digest("hex").slice(0, 12);
-
-        const meta = {
-          uuid,
-          slug: config.slug,
-          series: config.series,
-          order: config.order,
-          title: frontmatter.title,
-          excerpt: frontmatter.excerpt,
-          date: config.date,
-          author,
-          videoProvider: config.videoProvider,
-          videoKey: config.videoKey,
-          durationSeconds: config.durationSeconds,
-          premium: Boolean(config.premium),
-          image: config.image,
-          seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
-          contentHash,
-          locale
-        };
-
-        localesOut[locale] = { meta, html };
+        config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
       } catch (error) {
-        console.error(`Error processing ${filePath}:`, error.message);
-        throw error;
+        throw new Error(`Invalid JSON in ${configPath}: ${error.message}`);
       }
-    }
 
-    episodes.push({ uuid, config, locales: localesOut });
+      for (const field of requiredEpisodeFields) {
+        if (config[field] === undefined) {
+          throw new Error(`Missing required field "${field}" in ${configPath}`);
+        }
+      }
+
+      if (slugsInSeries.has(config.slug)) {
+        throw new Error(`Duplicate episode slug "${config.slug}" in series "${seriesSlug}"`);
+      }
+      slugsInSeries.add(config.slug);
+
+      const order = i + 1;
+      const configJson = JSON.stringify({ ...config, series: seriesSlug, order });
+
+      const author = authorsData[config.author];
+      if (!author) {
+        throw new Error(`Author not found: ${config.author} in ${configPath}`);
+      }
+
+      const mdFiles = fs
+        .readdirSync(dirPath, { withFileTypes: true })
+        .filter((f) => f.isFile() && f.name.endsWith(".md"));
+
+      const localesOut = {};
+
+      for (const file of mdFiles) {
+        const locale = path.basename(file.name, ".md");
+        const filePath = path.join(dirPath, file.name);
+
+        try {
+          const fileContent = fs.readFileSync(filePath, "utf-8");
+          const parsed = matter(fileContent);
+          const frontmatter = parsed.data;
+          const fixedMarkdown = fixImagePaths(parsed.content);
+          const html = marked.parse(fixedMarkdown);
+
+          const hashInput = crypto.createHash("sha256");
+          hashInput.update(fileContent);
+          hashInput.update(configJson);
+          hashInput.update(authorsJson);
+          const contentHash = hashInput.digest("hex").slice(0, 12);
+
+          const meta = {
+            uuid,
+            slug: config.slug,
+            series: seriesSlug,
+            order,
+            title: frontmatter.title,
+            excerpt: frontmatter.excerpt,
+            date: config.date,
+            author,
+            videoProvider: config.videoProvider,
+            videoKey: config.videoKey,
+            durationSeconds: config.durationSeconds,
+            premium: Boolean(config.premium),
+            image: config.image,
+            seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
+            contentHash,
+            locale
+          };
+
+          localesOut[locale] = { meta, html };
+        } catch (error) {
+          console.error(`Error processing ${filePath}:`, error.message);
+          throw error;
+        }
+      }
+
+      episodes.push({ uuid, seriesSlug, order, config, locales: localesOut });
+    }
   }
 
-  return { seriesData, episodes };
+  return { seriesData: { series: seriesList }, episodes };
 }
 
 /**
@@ -406,7 +435,9 @@ function buildBuildStaticFiles(processed) {
   for (const locale of allLocales) {
     buildByLocale[locale] = [];
 
-    for (const series of [...seriesData.series].sort((a, b) => a.order - b.order)) {
+    let order = 0;
+    for (const series of seriesData.series) {
+      order += 1;
       const title = (series.title && (series.title[locale] || series.title.en)) || series.slug;
       const description = (series.description && (series.description[locale] || series.description.en)) || "";
       const audience = (series.audience && (series.audience[locale] || series.audience.en)) || "";
@@ -416,6 +447,14 @@ function buildBuildStaticFiles(processed) {
         throw new Error(`Series "${series.slug}" is missing required "image" field`);
       }
       const image = series.image;
+      const status = series.status ?? "live";
+      if (status !== "live" && status !== "pending") {
+        throw new Error(`Series "${series.slug}" has invalid status "${status}" (expected "live" or "pending")`);
+      }
+      if (typeof series.livestream !== "boolean") {
+        throw new Error(`Series "${series.slug}" is missing required boolean "livestream" field`);
+      }
+      const livestream = series.livestream;
 
       const seriesEpisodes = (episodesBy[locale] && episodesBy[locale][series.slug]) || [];
       const sortedEpisodes = [...seriesEpisodes].sort((a, b) => a.order - b.order);
@@ -427,12 +466,14 @@ function buildBuildStaticFiles(processed) {
 
       buildByLocale[locale].push({
         slug: series.slug,
-        order: series.order,
+        order,
         title,
         description,
         audience,
         cadence,
         image,
+        status,
+        livestream,
         upcomingStreams,
         episodeCount: sortedEpisodes.length,
         episodesIndexHash: indexHash,
