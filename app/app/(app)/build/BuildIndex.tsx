@@ -34,17 +34,15 @@ function Content() {
     <div className={styles.layout}>
       <div className={styles.main}>
       <PlaceholderVideo videoId="Qa0tAzbM3CE" />
-        {/* {series.map((s) => (
+        {series.map((s) => (
           <SeriesCard key={s.slug} series={s} />
-        ))} */}
+        ))}
       </div>
       <UpcomingStreams series={series} />
     </div>
   );
 }
 
-// Temporarily unused while the build index shows the placeholder video instead of series cards.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SeriesCard({ series }: { series: BuildSeriesMeta }) {
   const isPending = series.status === "pending";
   const cardClassName = `${styles.card} ${isPending ? styles.cardPending : ""}`;
