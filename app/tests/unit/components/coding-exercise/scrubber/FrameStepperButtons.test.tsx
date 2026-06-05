@@ -35,6 +35,7 @@ function createMockOrchestrator(): Orchestrator {
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
     pause: jest.fn(),
     runCode: jest.fn(),
+    showInformationWidget: jest.fn(),
     getStore: jest.fn()
   } as unknown as Orchestrator;
 }

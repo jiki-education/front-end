@@ -43,6 +43,7 @@ function handleGoToPreviousFrame(orchestrator: ReturnType<typeof useOrchestrator
   if (prevFrame) {
     orchestrator.setCurrentTestTime(prevFrame.time);
   }
+  orchestrator.showInformationWidget();
 }
 
 function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>, nextFrame: Frame | undefined) {
@@ -50,4 +51,5 @@ function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>, n
   if (nextFrame) {
     orchestrator.setCurrentTestTime(nextFrame.time);
   }
+  orchestrator.showInformationWidget();
 }
