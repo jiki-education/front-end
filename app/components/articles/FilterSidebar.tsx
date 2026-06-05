@@ -42,7 +42,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
         <p className={styles.filterHelpText}>
           Can&apos;t find what you&apos;re looking for? Try our <Link href="/blog">Blogs</Link>,{" "}
           <Link href="/articles/faqs">FAQs</Link>, <Link href="/articles/support">Contact support</Link>, or ask in our{" "}
-          <Link href="/forum">Community</Link>
+          <Link href="/r/forum">Community</Link>
         </p>
       </div>
     </div>
