@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { fetchExternalPricing } from "@/lib/api/externalPricing";
 import type { PremiumPrices } from "@/lib/pricing";
+import { reportError } from "@/lib/reportError";
 
 function fractionDigits(currency: string): number {
   return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
@@ -38,9 +39,7 @@ export function PublicPremiumPrice() {
           setPublicPrices(res.premium_prices);
         }
       })
-      .catch(() => {
-        // Fail silently — fallback below renders nothing.
-      });
+      .catch(reportError);
     return () => {
       cancelled = true;
     };
