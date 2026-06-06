@@ -1,20 +1,21 @@
 "use client";
 
-import YouTube from "react-youtube";
+import dynamic from "next/dynamic";
 import styles from "./BuildIndex.module.css";
 
-export function PlaceholderVideo({ videoId }: { videoId: string }) {
+const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
+
+export function PlaceholderVideo({ playbackId }: { playbackId: string }) {
   return (
     <div className={styles.placeholderVideo}>
-      <YouTube
-        videoId={videoId}
+      <MuxPlayer
+        playbackId={playbackId}
+        streamType="on-demand"
+        defaultHiddenCaptions={true}
         className={styles.placeholderVideoPlayer}
-        iframeClassName={styles.placeholderVideoPlayer}
-        opts={{
-          playerVars: {
-            modestbranding: 1,
-            rel: 0
-          }
+        style={{
+          ["--seek-backward-button" as string]: "none",
+          ["--seek-forward-button" as string]: "none"
         }}
       />
     </div>

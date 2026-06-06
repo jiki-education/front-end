@@ -1,21 +1,21 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import { hideModal } from "../store";
 import styles from "./WelcomeModal.module.css";
 
 const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
-// TODO: Replace with the real welcome video playback ID once available
-const WELCOME_VIDEO_PLAYBACK_ID = "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU";
+const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc";
 
 export function WelcomeModal() {
+  const [watched, setWatched] = useState(false);
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <h2 className={styles.title}>
-          Welcome to <span className={styles.highlight}>Jiki!</span>
-        </h2>
+        <h2 className={styles.title}>Welcome to Jiki!</h2>
         <p className={styles.subtitle}>Watch this short video to get started.</p>
       </div>
       <div className={styles.videoWrapper}>
@@ -26,12 +26,13 @@ export function WelcomeModal() {
           loop={false}
           muted={false}
           volume={0.5}
+          defaultHiddenCaptions={true}
           className={styles.muxPlayer}
-          onEnded={hideModal}
+          onEnded={() => setWatched(true)}
         />
       </div>
-      <button onClick={hideModal} className="ui-btn ui-btn-primary ui-btn-large">
-        Get started
+      <button onClick={hideModal} disabled={!watched} className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}>
+        Get Started
       </button>
     </div>
   );

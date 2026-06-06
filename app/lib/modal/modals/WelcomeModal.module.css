@@ -7,6 +7,11 @@
 .modal {
     max-width: 760px;
     padding: 36px 36px 28px;
+    background-image:
+        url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+    background-repeat: repeat, repeat-y;
+    background-size: 20px, 100%;
+    color: #fff;
 }
 
 .content {
@@ -22,11 +27,11 @@
 }
 
 .title {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    color: var(--color-gray-900);
+    color: #fff;
     line-height: 1.2;
-    margin: 0 0 8px;
+    margin: 0 0 4px;
 }
 
 .highlight {
@@ -37,8 +42,8 @@
 }
 
 .subtitle {
-    font-size: 16px;
-    color: var(--color-gray-600);
+    font-size: 17px;
+    color: var(--color-gray-300);
     margin: 0;
 }
 
@@ -48,7 +53,14 @@
     aspect-ratio: 16 / 9;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px 2px var(--color-purple-500);
+}
+
+.cta {
+    padding-left: 64px !important;
+    padding-right: 64px !important;
+    font-size: 18px;
 }
 
 .muxPlayer {
@@ -56,4 +68,6 @@
     inset: 0;
     width: 100%;
     height: 100%;
+    --seek-backward-button: none;
+    --seek-forward-button: none;
 }

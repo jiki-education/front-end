@@ -125,11 +125,18 @@ export function Hero() {
         <div className={styles["hero-rhs"]}>
           <div className={styles["video-container"]} data-video-container>
             <MuxPlayer
-              playbackId="v2kO7cS7n8IhguzE013jOmPHmkXrrIwFNcM5qgz1P17c"
-              poster="https://assets.exercism.org/images/thumbnails/jiki-waiting.png"
+              playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
+              poster="https://assets.jiki.io/landing-video-thumbnail-ef14e.webp"
               metadata={{ video_title: "Waiting Page 1" }}
               accentColor="#7c3aed"
-              style={{ display: "block", width: "100%", aspectRatio: "16/9" }}
+              defaultHiddenCaptions={true}
+              style={{
+                display: "block",
+                width: "100%",
+                aspectRatio: "16/9",
+                ["--seek-backward-button" as string]: "none",
+                ["--seek-forward-button" as string]: "none"
+              }}
             />
           </div>
           <WatchPrompt />

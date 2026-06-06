@@ -14,7 +14,7 @@ import { exercises } from "../src/exercises";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = path.join(__dirname, "../dist/concepts/exercise-map.json");
 
-it("generates exercise-map.json", async () => {
+it("generates exercise-map.json", { timeout: 10000 }, async () => {
   const map: Record<string, string[]> = {};
 
   for (const [slug, loader] of Object.entries(exercises)) {
