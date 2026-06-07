@@ -45,6 +45,24 @@ describe("PremiumPrice", () => {
     const { container } = render(<PremiumPrice interval="monthly" />);
     expect(container.textContent).toMatch(/7\.99/);
   });
+
+  it("disambiguates SGD with S$ prefix instead of bare $", () => {
+    mockUser = { premium_prices: { currency: "sgd", monthly: 599, annual: 5900, country_code: "SG" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/S\$/);
+  });
+
+  it("disambiguates CAD with CA$ prefix instead of bare $", () => {
+    mockUser = { premium_prices: { currency: "cad", monthly: 599, annual: 5900, country_code: "CA" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/CA\$/);
+  });
+
+  it("keeps USD as bare $ (no US$ prefix)", () => {
+    mockUser = { premium_prices: { currency: "usd", monthly: 599, annual: 5900, country_code: "US" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/^\$/);
+  });
 });
 
 describe("PremiumDailyPrice", () => {
