@@ -29,9 +29,3 @@
     background: var(--color-gray-200);
     z-index: 0;
 }
-
-.emptyState {
-    text-align: center;
-    font-size: 14px;
-    color: var(--color-gray-500);
-}
