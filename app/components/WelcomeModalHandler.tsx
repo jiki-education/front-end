@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showWelcomeModal } from "@/lib/modal";
-import { checkSeenFlag, setSeenFlag } from "@/lib/api/seen-flags";
+import { checkFlag, setFlag } from "@/lib/api/flags";
 
-const WELCOME_SEEN_KEY = "welcome_modal";
+const WELCOME_FLAG_KEY = "welcome_modal";
 
 /**
- * Shows the welcome video modal once per user, tracked via the seen-flags API
+ * Shows the welcome video modal once per user, tracked via the flags API
  * (with a localStorage cache).
  */
 export function WelcomeModalHandler() {
@@ -20,12 +20,12 @@ export function WelcomeModalHandler() {
     }
 
     void (async () => {
-      const seen = await checkSeenFlag(WELCOME_SEEN_KEY);
-      if (seen) {
+      const flagged = await checkFlag(WELCOME_FLAG_KEY);
+      if (flagged) {
         return;
       }
 
-      void setSeenFlag(WELCOME_SEEN_KEY);
+      void setFlag(WELCOME_FLAG_KEY);
       showWelcomeModal();
     })();
   }, [hasCheckedAuth, isAuthenticated]);

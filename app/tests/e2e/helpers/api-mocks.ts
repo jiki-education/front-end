@@ -104,12 +104,12 @@ export async function mockAPILogout(page: Page) {
   });
 }
 
-export async function mockAPISeenFlag(page: Page, key: string, seen: boolean) {
-  await page.route(`${API_BASE}/internal/settings/seen_flags/${key}`, (route) =>
+export async function mockAPIFlag(page: Page, key: string, flagged: boolean) {
+  await page.route(`${API_BASE}/internal/settings/flags/${key}`, (route) =>
     route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify({ seen })
+      body: JSON.stringify({ flagged })
     })
   );
 }

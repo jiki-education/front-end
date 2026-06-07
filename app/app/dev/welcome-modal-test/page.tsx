@@ -1,9 +1,9 @@
 "use client";
 
 import { showWelcomeModal } from "@/lib/modal";
-import { clearSeenFlagLocal } from "@/lib/api/seen-flags";
+import { clearFlagLocal } from "@/lib/api/flags";
 
-const WELCOME_SEEN_KEY = "welcome_modal";
+const WELCOME_FLAG_KEY = "welcome_modal";
 
 export default function WelcomeModalTestPage() {
   const handleShow = () => {
@@ -11,7 +11,7 @@ export default function WelcomeModalTestPage() {
   };
 
   const handleReset = () => {
-    clearSeenFlagLocal(WELCOME_SEEN_KEY);
+    clearFlagLocal(WELCOME_FLAG_KEY);
   };
 
   return (
@@ -34,14 +34,14 @@ export default function WelcomeModalTestPage() {
         <div className="border border-border-secondary rounded-lg p-6 bg-bg-secondary">
           <h2 className="text-xl font-semibold mb-2 text-text-primary">Reset localStorage flag</h2>
           <p className="text-text-secondary text-sm mb-4">
-            Clears the <code className="font-mono text-xs bg-bg-tertiary px-1 py-0.5 rounded">{WELCOME_SEEN_KEY}</code>{" "}
+            Clears the <code className="font-mono text-xs bg-bg-tertiary px-1 py-0.5 rounded">{WELCOME_FLAG_KEY}</code>{" "}
             key so the modal will trigger again on next page load.
           </p>
           <button
             onClick={handleReset}
             className="w-full px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
           >
-            Reset &quot;seen&quot; flag
+            Reset flag
           </button>
         </div>
       </div>
