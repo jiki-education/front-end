@@ -79,6 +79,7 @@
 
 .muxPlayer {
     --seek-forward-button: none;
+    --seek-backward-button: none;
     --time-range: none;
 
     position: absolute;

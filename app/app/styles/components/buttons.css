@@ -227,13 +227,15 @@
 
 /* Purple Color Modifier */
 .ui-btn-purple {
-    --primary-color: var(--color-purple-500);
+    background: #7c3aed;
+    color: white;
+    /* --primary-color: var(--color-purple-500);
     --primary-color-dark: var(--color-purple-600);
     --primary-color-light: var(--color-purple-300);
     --primary-shadow: var(--color-purple-500-30);
     --primary-shadow-light: var(--color-purple-500-20);
     --primary-shadow-lighter: var(--color-purple-500-15);
-    --primary-shadow-dark: var(--color-purple-500-40);
+    --primary-shadow-dark: var(--color-purple-500-40); */
 }
 
 /* Green Color Modifier */

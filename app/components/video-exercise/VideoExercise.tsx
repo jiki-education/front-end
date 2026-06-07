@@ -50,6 +50,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
               ref={playerRef}
               playbackId={playbackId}
               streamType="on-demand"
+              defaultHiddenCaptions
               autoPlay={true}
               loop={false}
               muted={false}

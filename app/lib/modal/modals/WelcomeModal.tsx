@@ -1,16 +1,38 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Tooltip from "@/components/ui/Tooltip";
 import { hideModal } from "../store";
 import styles from "./WelcomeModal.module.css";
 
 const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
 
 const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc";
+const VIDEO_LOAD_FALLBACK_MS = 5000;
 
 export function WelcomeModal() {
   const [watched, setWatched] = useState(false);
+  const [canPlay, setCanPlay] = useState(false);
+
+  useEffect(() => {
+    if (canPlay) {
+      return;
+    }
+    const timer = setTimeout(() => setWatched(true), VIDEO_LOAD_FALLBACK_MS);
+    return () => clearTimeout(timer);
+  }, [canPlay]);
+
+  const button = (
+    <button
+      onClick={watched ? hideModal : undefined}
+      aria-disabled={!watched}
+      style={watched ? undefined : { opacity: 0.5, cursor: "not-allowed" }}
+      className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}
+    >
+      Get Started
+    </button>
+  );
 
   return (
     <div className={styles.content}>
@@ -28,12 +50,17 @@ export function WelcomeModal() {
           volume={0.5}
           defaultHiddenCaptions={true}
           className={styles.muxPlayer}
+          onCanPlay={() => setCanPlay(true)}
           onEnded={() => setWatched(true)}
         />
       </div>
-      <button onClick={hideModal} disabled={!watched} className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}>
-        Get Started
-      </button>
+      {watched ? (
+        button
+      ) : (
+        <Tooltip content="Please watch the video to continue" placement="top">
+          {button}
+        </Tooltip>
+      )}
     </div>
   );
 }
