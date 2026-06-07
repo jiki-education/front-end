@@ -4,6 +4,7 @@ import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
 import { PanelHeader } from "./PanelHeader";
 import style from "./log-panel.module.css";
+import EmptyClipboardIcon from "@/icons/empty-clipboard.svg";
 
 interface LogLineProps {
   log: { time: number; output: string };
@@ -27,6 +28,10 @@ export default function LogPanel() {
     return (
       <div role="log">
         <PanelHeader title="Scenario Log" description={description} />
+        <div className={style.emptyState}>
+          <EmptyClipboardIcon className={style.emptyStateIcon} />
+          <div className={style.emptyStateText}>You&apos;ve not logged anything out yet</div>
+        </div>
       </div>
     );
   }
