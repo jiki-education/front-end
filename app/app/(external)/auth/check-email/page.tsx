@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CheckInboxMessage } from "@/components/auth/CheckInboxMessage";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 
 export default function CheckEmailPage() {
   const [email, setEmail] = useState<string | null>(null);
@@ -18,5 +19,9 @@ export default function CheckEmailPage() {
     return null;
   }
 
-  return <CheckInboxMessage email={email} />;
+  return (
+    <AuthLayout>
+      <CheckInboxMessage email={email} />
+    </AuthLayout>
+  );
 }
