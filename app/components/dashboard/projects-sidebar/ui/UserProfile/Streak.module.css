@@ -1,8 +1,5 @@
 .streak {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     gap: 4px;

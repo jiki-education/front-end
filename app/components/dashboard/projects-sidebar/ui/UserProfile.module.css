@@ -137,7 +137,7 @@
 
 .info {
     flex: 1;
-    margin-left: 11px;
+    min-width: 0;
 }
 
 .name {
@@ -145,10 +145,16 @@
     font-weight: 600;
     color: #1a202c;
     margin-bottom: -1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .handle {
     font-size: 13px;
     color: #718096;
     margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
