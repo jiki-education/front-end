@@ -1,6 +1,6 @@
 ---
 title: "Dictionaries"
-description: "A spiral notebook page where each entry has a key on the left and its value on the right — labelled data instead of a list."
+description: "A spiral notebook page where each entry has a key on the left and its value on the right, giving you labelled data instead of a list."
 ---
 
 Arrays are our go-to choice when we have a list of anything, a list of mentors, list of scores, list of ingredients, any list, you want to use an array.

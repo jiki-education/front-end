@@ -1,6 +1,6 @@
 ---
 title: "Arrays"
-description: "An ordered chain of elements — strings, numbers, booleans, or anything else — held together as one value Jiki can pass around."
+description: "An ordered chain of elements (strings, numbers, booleans, or anything else) held together as one value Jiki can pass around."
 ---
 
 You've been using numbers and strings and Booleans, the posh word for true and false, and we call these different data types. Now we're adding our first compound data type.

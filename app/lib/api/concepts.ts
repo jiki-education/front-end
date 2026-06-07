@@ -148,8 +148,8 @@ export async function getConceptContent(slug: string, locale: string = "en"): Pr
 
 export async function fetchConceptVideoData(slug: string): Promise<VideoSource[] | null> {
   try {
-    const response = await api.get<{ video_data: VideoSource[] | null }>(`/external/concepts/${slug}`);
-    return response.data.video_data;
+    const response = await api.get<{ concept: { video_data: VideoSource[] | null } }>(`/external/concepts/${slug}`);
+    return response.data.concept.video_data;
   } catch {
     return null;
   }

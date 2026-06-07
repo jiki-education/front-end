@@ -1,5 +1,6 @@
 .card {
-    background: var(--color-purple-100);
+    background: var(--color-purple-50);
+    border: 2px solid var(--color-purple-500);
     border-radius: 16px;
     padding: 15px 20px 20px;
     margin-bottom: 20px;

@@ -1,6 +1,6 @@
 ---
-title: "Using Variables Together"
-description: "Combining variables with maths — add, subtract, multiply, divide — so values can relate to and depend on each other."
+title: "Arithmetic"
+description: "Combining variables with maths so values can relate to and depend on each other through addition, subtraction, multiplication, and division."
 ---
 
 So far when we've created variables, we've just used simple values; a number like 50 or a string like yellow. Where variables become much more powerful is when we can use them in combination with each other. So where we can say the left edge of the rectangle should be a certain distance from the edge of the canvas.

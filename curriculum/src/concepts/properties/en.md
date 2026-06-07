@@ -1,6 +1,6 @@
 ---
 title: "Properties"
-description: "Static facts about a value, accessed with dot notation and no brackets — like `.length` to find how many letters a string has."
+description: "Static facts about a value, accessed with dot notation and no brackets, like `.length` to find how many letters a string has."
 ---
 
 So far, when we've thought about strings or numbers, we've thought of them as quite static things.
