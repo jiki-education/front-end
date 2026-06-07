@@ -148,12 +148,6 @@ jest.mock("../public/icons/folder.svg", () => {
   };
 });
 
-jest.mock("../public/icons/jiki-logo.svg", () => {
-  return function JikiLogo(props) {
-    return React.createElement("div", { ...props, "data-testid": "jiki-logo" });
-  };
-});
-
 // Mock Turnstile hook so tests don't hit the real Cloudflare widget.
 jest.mock("@/lib/turnstile/useTurnstile", () => ({
   useTurnstile: () => ({ execute: jest.fn().mockResolvedValue("test-token") })

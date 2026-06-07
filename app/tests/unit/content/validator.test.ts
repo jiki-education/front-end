@@ -22,7 +22,7 @@ const validBlogConfig = {
   date: "2025-01-15",
   author: "ihid",
   featured: false,
-  coverImage: "/images/blog/hello-world.jpg"
+  coverImage: "/images/blog/hello-world.webp"
 };
 
 const validArticleConfig = {

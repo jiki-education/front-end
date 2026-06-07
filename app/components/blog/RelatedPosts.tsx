@@ -36,7 +36,10 @@ function RelatedPostCard({ post, locale }: RelatedPostCardProps) {
 
   return (
     <Link href={postUrl} className={styles.blogCard}>
-      <div className={styles.blogCardImage} />
+      <div
+        className={styles.blogCardImage}
+        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
+      />
       <div className={styles.blogCardMeta}>
         <span className={styles.blogCardDate}>{formatBlogDate(post.date)}</span>
         {firstTag && <span className={styles.blogCardBadge}>{firstTag}</span>}

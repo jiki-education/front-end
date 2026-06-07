@@ -24,6 +24,8 @@
     aspect-ratio: 16/9;
     border-radius: 16px;
     background-color: var(--color-gray-200);
+    background-size: cover;
+    background-position: center;
 }
 
 .articleTitle {

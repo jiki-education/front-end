@@ -23,11 +23,6 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock SVG imports
-jest.mock("@/icons/jiki-logo.svg", () => ({
-  __esModule: true,
-  default: () => <div data-testid="jiki-logo">Jiki</div>
-}));
-
 jest.mock("@/icons/house.svg", () => ({
   __esModule: true,
   default: () => <div data-testid="house-icon" aria-hidden="true" />

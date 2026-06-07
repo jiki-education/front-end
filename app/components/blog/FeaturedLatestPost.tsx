@@ -15,7 +15,10 @@ export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostP
 
   return (
     <Link href={postUrl} className={styles.featuredLatestPost}>
-      <div className={styles.featuredLatestImage} />
+      <div
+        className={styles.featuredLatestImage}
+        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
+      />
       <div className={styles.featuredLatestContent}>
         <div className={styles.featuredLatestMetaRow}>
           <div className={styles.featuredLatestLabel}>Latest Post</div>
