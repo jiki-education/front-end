@@ -7,8 +7,17 @@ interface PaymentHistoryRowProps {
 }
 
 export default function PaymentHistoryRow({ payment, onDownloadReceipt }: PaymentHistoryRowProps) {
-  const formatAmount = (amount: number) => {
-    return `$${amount.toFixed(2)}`;
+  const formatAmount = (amountInCents: number, currency: string) => {
+    const currencyUpper = currency.toUpperCase();
+    const fractionDigits =
+      new Intl.NumberFormat(undefined, { style: "currency", currency: currencyUpper }).resolvedOptions()
+        .minimumFractionDigits ?? 2;
+    const amount = amountInCents / Math.pow(10, fractionDigits);
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: currencyUpper,
+      currencyDisplay: "narrowSymbol"
+    }).format(amount);
   };
 
   const formatDate = (dateString: string) => {
@@ -24,7 +33,7 @@ export default function PaymentHistoryRow({ payment, onDownloadReceipt }: Paymen
   return (
     <tr className={styles.paymentRow}>
       <td className={styles.paymentDate}>{formatDate(payment.date)}</td>
-      <td className={styles.paymentAmount}>{formatAmount(payment.amount)}</td>
+      <td className={styles.paymentAmount}>{formatAmount(payment.amountInCents, payment.currency)}</td>
       <td className={styles.paymentType}>{payment.type}</td>
       <td className={styles.paymentMethod}>{payment.method}</td>
       <td className={styles.paymentAction}>

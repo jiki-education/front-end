@@ -20,8 +20,7 @@ function formatDate(dateString: string): string {
     .replace(/\//g, "-");
 }
 
-function formatAmount(amountInCents: number): number {
-  // Validate the amount
+function sanitizeAmount(amountInCents: number): number {
   if (!Number.isFinite(amountInCents)) {
     console.error(`Invalid amount: ${amountInCents}`);
     return 0;
@@ -32,14 +31,15 @@ function formatAmount(amountInCents: number): number {
     return 0;
   }
 
-  return amountInCents / 100;
+  return amountInCents;
 }
 
 function mapApiPaymentToPayment(apiPayment: ApiPayment): Payment {
   return {
     id: apiPayment.id,
     date: formatDate(apiPayment.paid_at),
-    amount: formatAmount(apiPayment.amount_in_cents),
+    amountInCents: sanitizeAmount(apiPayment.amount_in_cents),
+    currency: apiPayment.currency,
     type: "Recurring",
     method: "Stripe",
     receiptUrl: apiPayment.external_receipt_url
