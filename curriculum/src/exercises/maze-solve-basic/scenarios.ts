@@ -4,7 +4,7 @@ import type MazeSolveBasicExercise from "./Exercise";
 export const tasks = [
   {
     id: "solve-maze" as const,
-    name: "Guide person to the end of the maze",
+    name: "Guide the person to the end of the maze",
     description: "Navigate through the maze to reach the green target",
     hints: [],
     requiredScenarios: ["maze-1"],
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Guide person to the end of the maze",
-    description: "Your job is to navigate your blob through the maze to the green goal square.",
+    name: "Guide the person to the end of the maze",
+    description: "Your job is to navigate your person through the maze to the green goal square.",
     taskId: "solve-maze",
 
     setup(exercise) {

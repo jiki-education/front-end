@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "What do I need to do?",
-      "answer": "Like the maze, you need to move your character (this time a laser, not a blob). But you also need to shoot from the laser! Move the laser underneath an alien then shoot. Then move again until you're under the next alien, and shoot again. Continue until you've shot down the last alien!"
+      "answer": "Like the maze, you need to move your character (this time a laser, not a person). But you also need to shoot from the laser! Move the laser underneath an alien then shoot. Then move again until you're under the next alien, and shoot again. Continue until you've shot down the last alien!"
     },
     {
       "question": "I get told I can't waste ammo.",

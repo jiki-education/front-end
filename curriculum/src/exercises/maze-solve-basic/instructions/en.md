@@ -5,7 +5,7 @@ description: "Guide Jiki through a maze using simple instructions."
 
 Welcome to your first exercise!
 
-The aim of this exercise is to get you familiar with how the learning environment works. Your task is to solve the maze you can see to the left by giving the little blob instructions. You write all out all the instructions that the blob neeeds to follow, then click **Run Code** to get it to follow them.
+The aim of this exercise is to get you familiar with how the learning environment works. Your task is to solve the maze you can see to the left by giving the little person instructions. You write all out all the instructions that the person neeeds to follow, then click **Run Code** to get it to follow them.
 
 The three instructions you can use are:
 
