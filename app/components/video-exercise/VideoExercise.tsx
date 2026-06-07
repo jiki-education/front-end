@@ -2,7 +2,7 @@
 
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import type { Lesson, VideoSource } from "@/types/lesson";
-import MuxPlayer from "@mux/mux-player-react";
+import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { useEffect } from "react";
 import { FloatingPill } from "./ui/FloatingPill";
 import { NoVideoPlaceholder } from "./ui/NoVideoPlaceholder";
@@ -49,12 +49,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
             <MuxPlayer
               ref={playerRef}
               playbackId={playbackId}
-              streamType="on-demand"
-              defaultHiddenCaptions
               autoPlay={true}
-              loop={false}
-              muted={false}
-              volume={0.5}
               className={`${videoWatched ? styles.muxPlayerCompleted : styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}

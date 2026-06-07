@@ -24,7 +24,7 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({ replace: mockReplace, push: mockPush })
 }));
 
-jest.mock("@mux/mux-player-react", () => ({
+jest.mock("@/components/ui/JikiMuxPlayer", () => ({
   __esModule: true,
   default: (props: { playbackId: string }) => <div data-testid="mux-player" data-playback-id={props.playbackId} />
 }));

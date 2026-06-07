@@ -5,7 +5,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import type { BuildVideoProvider } from "@/lib/content/types";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { tierIncludes } from "@/lib/pricing";
-import MuxPlayer from "@mux/mux-player-react";
+import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
@@ -77,7 +77,6 @@ export default function BuildEpisodeVideo({
           <MuxPlayer
             ref={muxPlayerRef}
             playbackId={videoKey}
-            streamType="on-demand"
             autoPlay={false}
             className={`${styles.player} ${isReady ? "" : styles.playerHidden}`}
             onTimeUpdate={handleMuxTimeUpdate}
