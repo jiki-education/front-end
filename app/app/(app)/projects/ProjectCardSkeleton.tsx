@@ -13,7 +13,7 @@ export function ProjectCardSkeleton() {
 
 export function ProjectCardsLoadingSkeleton() {
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
       {Array.from({ length: 6 }).map((_, i) => (
         <ProjectCardSkeleton key={i} />
       ))}

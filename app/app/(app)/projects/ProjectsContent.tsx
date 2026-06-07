@@ -108,7 +108,7 @@ export function ProjectsContent() {
 
     if (!isPremium) {
       return (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-28">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
           {projects.map((project) => (
             <PremiumProjectCard key={project.slug} project={project} />
           ))}
@@ -121,7 +121,7 @@ export function ProjectsContent() {
     }
 
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-28">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
         {filteredProjects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
