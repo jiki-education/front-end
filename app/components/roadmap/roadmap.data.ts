@@ -21,52 +21,35 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
-    date: "May 2026",
-    title: "Premium tick on Projects nav",
-    description: "Premium learners now see a badge on the Projects nav item, signalling their access at a glance."
-  },
-  {
-    date: "May 2026",
-    title: "Project page aligned with lesson flow",
-    description: "Project pages now match the polished loading and submission experience of the lesson player."
-  },
-  {
-    date: "May 2026",
-    title: "Context-aware chat for projects",
-    description: "The CodingExercise chat now understands which project you're on, giving more relevant guidance."
-  },
-  {
-    date: "April 2026",
-    title: "Surface lesson submission errors",
-    description: "Errors from the lesson submission API are now shown directly in the UI instead of failing silently."
-  },
-  {
-    date: "April 2026",
-    title: "Faster project page load",
-    description: "Project pages now match the lesson loading flow, with skeleton states and parallel data fetching."
+    date: "June 7, 2026",
+    title: "Launched Jiki!",
+    description: "Jiki is officially live (albeit in beta!)"
   }
 ];
 
 export const phases: RoadmapPhase[] = [
   {
     label: "Now",
-    timeframe: "Q2 2026",
-    summary: "What we're actively building right now.",
+    timeframe: "June 2026",
+    summary: "What we're focused on this month.",
     items: [
       {
-        title: "Project-based learning flow",
-        description: "Full project pages with context-aware AI chat, lesson-style submission, and progress tracking.",
+        title: "Ironing out launch bugs",
+        description:
+          "Now that Jiki is live, we're spending June squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app.",
         status: "in-progress"
       },
       {
-        title: "Premium tier rollout",
-        description: "Unlimited AI support, full course library, and the new project library for Premium users.",
+        title: "Responding to early feedback",
+        description:
+          "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week.",
         status: "in-progress"
       },
       {
-        title: "JikiScript exercises expansion",
-        description: "Doubling the number of exercises in the foundational JikiScript course.",
-        status: "shipped"
+        title: "Stabilising the foundations",
+        description:
+          "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now.",
+        status: "in-progress"
       }
     ]
   },
@@ -76,40 +59,46 @@ export const phases: RoadmapPhase[] = [
     summary: "Designed and queued up.",
     items: [
       {
-        title: "Python course (beta)",
-        description: "First fully-fledged Python track, mirroring the JavaScript curriculum's depth.",
+        title: "Move from Beta to Fully Live",
+        description:
+          "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners.",
         status: "planned"
       },
       {
-        title: "Achievements and streaks",
-        description: "Daily streaks, badges, and shareable milestones to keep learners coming back.",
+        title: "Launch Build with Jeremy",
+        description:
+          "Launching July 11th, this is a brand new series where Jeremy builds real, useful projects from scratch alongside learners. Each project will be broken down into bite-sized lessons, showing not just the code but the thinking, mistakes, and decisions that go into shipping software.",
         status: "planned"
       },
       {
-        title: "Mobile-first lesson player",
-        description: "A redesigned exercise UI that works well on phones and tablets.",
+        title: "Add Deep Dive Videos",
+        description:
+          "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming.",
+        status: "planned"
+      },
+      {
+        title: "Add first translations to other languages",
+        description:
+          'Bringing Jiki to learners in their own language, starting with <strong class="font-semibold">European Portuguese</strong>, <strong class="font-semibold">Spanish</strong>, <strong class="font-semibold">Japanese</strong>, and <strong class="font-semibold">Brazilian Portuguese</strong>. The whole interface and curriculum will be translated, not just the marketing pages.',
         status: "planned"
       }
     ]
   },
   {
-    label: "Later",
-    timeframe: "Q4 2026 +",
+    label: "Future",
+    timeframe: "Q4 2026",
     summary: "On the horizon. Subject to change as we learn.",
     items: [
       {
-        title: "Community projects",
-        description: "Let learners share their solutions, fork others' work, and get peer feedback.",
+        title: "Launch Python version",
+        description:
+          "A fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction.",
         status: "planned"
       },
       {
-        title: "Classroom mode",
-        description: "Tools for teachers to assign exercises, monitor progress, and review submissions.",
-        status: "planned"
-      },
-      {
-        title: "Native desktop app",
-        description: "An offline-capable desktop client for learners with patchy internet.",
+        title: "Add 10 more languages",
+        description:
+          "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact.",
         status: "planned"
       }
     ]

@@ -104,7 +104,7 @@ function ItemCard({ item }: { item: RoadmapItem }) {
             {statusLabels[item.status]}
           </span>
         </div>
-        <p className={styles["item-desc"]}>{item.description}</p>
+        <p className={styles["item-desc"]} dangerouslySetInnerHTML={{ __html: item.description }} />
       </div>
     </li>
   );
