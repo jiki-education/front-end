@@ -104,7 +104,11 @@ export default function Tooltip({
       {childrenWithRef}
       {isMounted && !disabled && (
         <FloatingPortal>
-          <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
+          <div
+            ref={refs.setFloating}
+            style={{ ...floatingStyles, zIndex: "var(--z-index-tooltip)" }}
+            {...getFloatingProps()}
+          >
             <div style={transitionStyles} className={tooltipClassName}>
               {arrow && (
                 <FloatingArrow ref={arrowRef} context={context} className={arrowClassName} width={12} height={6} />
