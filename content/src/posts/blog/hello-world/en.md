@@ -19,6 +19,8 @@ From day one, you'll be building real projects - games, animations, and tools - 
 
 We teach through either **JavaScript** or **Python** (same syllabus - you choose the language), but we've customised the experience to remove the confusing parts that trip beginners up. As you progress, more features unlock.
 
+In an AI era where Claude and ChatGPT can write code for you, Jiki focuses on the two things that still really matter: understanding the **fundamentals** of how code works (so you can actually read and reason about what your AI is doing), and learning how to **build** - how websites work under the hood, how to design databases, how to architect software.
+
 ## Who is Jiki for?
 
 Jiki is designed for **total beginners** - people who've never written a line of code before, or who've tried learning but got stuck.

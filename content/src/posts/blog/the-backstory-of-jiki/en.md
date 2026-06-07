@@ -9,7 +9,7 @@ seo:
 
 Hi everyone!
 
-I've spent the last year building out **[Jiki](https://jiki.io)**, starting with an idea, running a bootcamp to test my thinking, and then building out a (what I hope is kickass) product with Aron and Nicole.
+I've spent the last 2 years building out **[Jiki](https://jiki.io)**, starting with an idea, running a bootcamp to test my thinking, and then building out a (what I hope is kickass) product with Aron and Nicole.
 
 I wanted to tell you about the journey. Why Jiki exists, why we invested our time and energy into it, and where I hope it will lead.
 
@@ -74,6 +74,16 @@ The final decision I had to make was pricing.
 I 100% knew I wanted Jiki to be free. The whole point is to help people who need help. But I've also learnt from Exercism that it's really hard to run something when there's not enough money coming in to fund it (**THANK YOU** to everyone who donates to Exercism - you've made Jiki possible!!)
 
 So I decided to take a Freemium approach. The core of Jiki is free - the videos and exercises are all available to everyone. But there are some nice extra features (AI support, some bonus projects, live-streams, behind-the-scenes content, etc) that people can access for a small monthly fee ($3.99). That's an amount that is affordable to most people in the world, so if people want to either support what we're doing, or want access to those features, that's a great way to start.
+
+## Then came the LLMs
+
+Just as I was getting ready to launch, Claude Code and its friends came along and changed coding forever. I spent a long time wondering whether to even launch Jiki - whether coding was even relevant anymore. But 6 months later, I'm more convinced than ever: code is here to stay, and software developers are more valuable than ever.
+
+For decades, code has been the tool we use to create, but it's also been the gatekeeper. You couldn't do data science before you mastered Python, couldn't make websites before you learnt JavaScript, couldn't work with databases before you studied SQL. Now that's changed. Claude, ChatGPT, and numerous other tools can write that code for you.
+
+But, and this is the huge but, humans are as necessary as ever to design software, to make wise technical decisions, to shape a vague idea into something precise enough to build. That's what software development has always been about: the art of turning ideas into reality. We just no longer need to do the writing-code step ourselves.
+
+So Jiki teaches both. It teaches the fundamentals of coding, because you still need to understand what your AI is doing. But it also teaches you how to build: how websites work deep under the hood, how to design databases, how to architect software. All the things you need to actually make things. If you want to get a job in tech, this is the stuff to master. And if you just want to make things, this will teach you how to do that in a way you understand, that won't just turn into spaghetti chaos.
 
 ## What Jiki is and where I want it to go
 
