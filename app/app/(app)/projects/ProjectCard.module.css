@@ -42,8 +42,8 @@
     transition: opacity 0.3s ease;
 
     .projectIcon {
-        width: 180px;
-        height: 180px;
+        width: 160px;
+        height: 160px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,8 +51,8 @@
 
         img,
         svg {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             object-fit: contain;
         }
     }
@@ -160,7 +160,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.4s ease;
     cursor: pointer;
-    height: 380px;
+    height: 340px;
     position: relative;
     display: flex;
     flex-direction: column;
