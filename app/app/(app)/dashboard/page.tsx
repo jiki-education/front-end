@@ -1,3 +1,4 @@
+import BetaTag from "@/components/common/BetaTag";
 import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
 import ProjectsSidebar from "@/components/dashboard/projects-sidebar/ProjectsSidebar";
 import SidebarLayout from "../../../components/layout/SidebarLayout";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <SidebarLayout activeItem="learn">
+      <BetaTag />
       <div className={styles.dashboardContainer}>
         <div className={styles.mainContent}>
           <ExercisePath />

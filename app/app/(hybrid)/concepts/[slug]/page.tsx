@@ -1,3 +1,4 @@
+import BetaTag from "@/components/common/BetaTag";
 import ConceptDetailPage from "@/components/concepts/ConceptDetailPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
 import { getConceptMetadata } from "@/lib/concepts/metadata";
@@ -16,6 +17,7 @@ export default async function AppConceptPage({ params }: Props) {
 
   return (
     <SidebarLayout activeItem="concepts">
+      <BetaTag />
       <ConceptDetailPage slug={slug} />
     </SidebarLayout>
   );
