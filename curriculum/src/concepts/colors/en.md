@@ -1,9 +1,9 @@
 ---
 title: "Colors"
-description: "Two ways to specify any color you want — RGB by mixing red, green, and blue light, and HSL by hue, saturation, and lightness."
+description: "Two ways to specify any color you want. RGB mixes red, green, and blue light. HSL uses hue, saturation, and lightness."
 ---
 
-If you ever do anything visual with code — and even if you want to be a data scientist and think all the drawing stuff is a bit boring, communicating data via visuals is a key skill — there are two different ways of expressing colors. You've already been using colors with their names like red or yellow as the last input in your drawing functions, and that's been a nice way to quickly use colors, but it's quite limiting. There are only a handful of named colors that we can use. So now we're gonna look at two ways of expressing any color you want, and those two are called RGB and HSL.
+If you ever do anything visual with code (and even if you want to be a data scientist and think all the drawing stuff is a bit boring, communicating data via visuals is a key skill) there are two different ways of expressing colors. You've already been using colors with their names like red or yellow as the last input in your drawing functions, and that's been a nice way to quickly use colors, but it's quite limiting. There are only a handful of named colors that we can use. So now we're gonna look at two ways of expressing any color you want, and those two are called RGB and HSL.
 
 RGB lets us think of colors as a mixture of red, green, and blue. That's what RGB stands for: red, green, blue. If you remember mixing paints at school, it's a similar idea, except rather than paint, we're mixing light.
 

@@ -1,6 +1,6 @@
 ---
 title: "Strings"
-description: "Pieces of text wrapped in quotes — a letter, a word, a sentence, or a whole paragraph that Jiki writes on paper."
+description: "Pieces of text wrapped in quotes (a letter, a word, a sentence, or a whole paragraph) that Jiki writes on paper."
 ---
 
 When you want to use a number, you can literally just write that number down, and Jiki knows what you mean. But what about if you want to use a letter or a word or a sentence? For example, with the rectangle function or the circle function, what if you had an extra input where you specified the color? How would we write the color to put it into the machine? If we just write the word green or blue, Jiki will think we're referring to a machine on the shelves, and he'll say, "There is no machine called green. I don't know what to do." So we have a rule, which is that whenever we need to use text, we need to put it in quotation marks, in double quotation marks. And when you put something in quotation marks like this, Jiki gets a piece of paper out and writes whatever you put in those quotation marks on that piece of paper, and we call these pieces of paper strings. Strings can be single letters, words, sentences, paragraphs, even books. The rule is if it's text, we put it in quotes, and it becomes a string.

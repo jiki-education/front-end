@@ -1,6 +1,6 @@
 ---
 title: "For Loops"
-description: "A loop with three parts — an initializer, a condition, and an increment — giving full control over iteration."
+description: "A loop with three parts (an initializer, a condition, and an increment) giving you full control over iteration."
 ---
 
 You might remember that the repeat loop doesn't really exist in JavaScript. It's just something added to make your life a little bit easier while we get going.
@@ -37,14 +37,4 @@ And then we go a third time. This time we check whether two is less than two, an
 
 So this is the same as saying repeat two.
 
-So it's not hard, but it's much more convoluted than just writing repeat two.
-
-The next loop to know about is a `while` loop.
-
-This says, "While some condition, run the loop." So we might have a rule that says you can only shoot five times in Space Invaders. So we'd have a loop here that says, while the number of shots is less than five, run a loop that allows someone to play the game.
-
-Each time someone shoots, we increase the numShots by one, and eventually we'll hit five and the loop will exit.
-
-One problem with while loops is that it's quite easy to have bugs that mean the loop never ends. And these are called infinite loops, and they're one of the most common bugs in programs.
-
-When your computer slows down, the fans start spinning, everything gets loud, that's often because someone's left an infinite loop that never ends in their code.
+So it's not hard, but it's much more convoluted than just writing repeat two. The advantage of a for loop is that you can do anything in those three slots. You can start at a different number, count up by more than one, count down, or use a condition that depends on something other than a simple counter. That flexibility is what makes for loops the workhorse of JavaScript.

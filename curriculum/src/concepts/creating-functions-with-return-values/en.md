@@ -5,7 +5,7 @@ description: "Using the return keyword to give your own functions an output chut
 
 You now know how to create functions with and without inputs. There's one final thing to learn, and then you're gonna be a function-making expert, and that thing is how to give your functions a return chute.
 
-You've already used lots of functions that return things. `isAlienAbove` gives you back true or false. `math.randomint(1, 10)` gives you back a random number.
+You've already used lots of functions that return things. `isAlienAbove` gives you back true or false. `Math.randomInt(1, 10)` gives you back a random number.
 
 When Jiki uses those functions, something is popping out of the output chute, which he can then go and use.
 
