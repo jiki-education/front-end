@@ -14,7 +14,10 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
   return (
     <header className={styles.articleHeader}>
       <div className={`${shared["lg-container"]} ${styles.articleHeaderInner}`}>
-        <div className={styles.articleHeaderImage} />
+        <div
+          className={styles.articleHeaderImage}
+          style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
+        />
         <div className={styles.articleHeaderContent}>
           <h1 className={styles.articleTitle}>{post.title}</h1>
           <p className={styles.articleSubtitle}>{post.excerpt}</p>

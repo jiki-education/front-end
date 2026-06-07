@@ -37,6 +37,8 @@
     border-radius: 8px;
     margin-bottom: 12px;
     background-color: var(--color-gray-200);
+    background-size: cover;
+    background-position: center;
 }
 
 .blogCardMeta {

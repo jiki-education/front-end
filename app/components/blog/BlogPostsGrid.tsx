@@ -30,7 +30,10 @@ function BlogPostCard({ post, locale }: BlogPostCardProps) {
 
   return (
     <Link href={postUrl} className={styles.blogPostCard}>
-      <div className={styles.postImage} />
+      <div
+        className={styles.postImage}
+        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
+      />
       <div className={styles.postMeta}>
         <span className={styles.postDate}>{formatBlogDate(post.date)}</span>
         {firstTag && <span className={styles.postBadge}>{firstTag}</span>}
