@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import MuxPlayer from "@mux/mux-player-react";
+import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { annotate } from "rough-notation";
 import styles from "./Hero.module.css";
 import shared from "./shared.module.css";
@@ -128,8 +128,6 @@ export function Hero() {
               playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
               poster="https://assets.jiki.io/landing-video-thumbnail-ef14e.webp"
               metadata={{ video_title: "Waiting Page 1" }}
-              accentColor="#7c3aed"
-              defaultHiddenCaptions={true}
               style={{
                 display: "block",
                 width: "100%",

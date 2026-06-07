@@ -6,7 +6,7 @@ import Tooltip from "@/components/ui/Tooltip";
 import { hideModal } from "../store";
 import styles from "./WelcomeModal.module.css";
 
-const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
+const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
 
 const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc";
 const VIDEO_LOAD_FALLBACK_MS = 5000;
@@ -43,12 +43,7 @@ export function WelcomeModal() {
       <div className={styles.videoWrapper}>
         <MuxPlayer
           playbackId={WELCOME_VIDEO_PLAYBACK_ID}
-          streamType="on-demand"
           autoPlay={true}
-          loop={false}
-          muted={false}
-          volume={0.5}
-          defaultHiddenCaptions={true}
           className={styles.muxPlayer}
           onCanPlay={() => setCanPlay(true)}
           onEnded={() => setWatched(true)}

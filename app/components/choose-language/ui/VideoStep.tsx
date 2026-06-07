@@ -3,8 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { ProgrammingLanguage } from "@/types/course";
-import MuxPlayer from "@mux/mux-player-react";
-import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
 import styles from "../ChooseLanguage.module.css";
 
 type ChooseLanguageLesson = Lesson & {
@@ -65,11 +64,7 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
             <MuxPlayer
               ref={playerRef}
               playbackId={playbackId}
-              streamType="on-demand"
               autoPlay={true}
-              loop={false}
-              muted={false}
-              volume={0.5}
               className={`${styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}

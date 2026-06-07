@@ -19,7 +19,7 @@ import style from "./hints-panel.module.css";
 hljs.registerLanguage("jikiscript", setupJikiscript);
 hljs.registerLanguage("javascript", setupJavascript);
 
-const MuxPlayer = dynamic(() => import("@mux/mux-player-react"), { ssr: false });
+const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
 
 interface HintsViewProps {
   hints: Hint[] | undefined;
@@ -129,11 +129,7 @@ function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: strin
       <MuxPlayer
         ref={playerRef}
         playbackId={playbackId}
-        streamType="on-demand"
         autoPlay={true}
-        loop={false}
-        muted={false}
-        volume={0.5}
         className={style.walkthroughPlayer}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleVideoEnd}
