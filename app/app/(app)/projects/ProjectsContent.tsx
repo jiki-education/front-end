@@ -117,7 +117,7 @@ export function ProjectsContent() {
     }
 
     if (filteredProjects.length === 0) {
-      return <NoProjectsFound totalProjectsCount={projects.length} activeTabId={activeTab} />;
+      return <NoProjectsFound projects={projects} activeTabId={activeTab} />;
     }
 
     return (

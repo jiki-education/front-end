@@ -1,15 +1,16 @@
 import InProgressIcon from "@/icons/in-progress.svg";
 import NotStartedIcon from "@/icons/not-started.svg";
 import CompleteIcon from "@/icons/complete.svg";
+import type { ProjectData } from "@/lib/api/projects";
 import { ProjectsEmptyState } from "./ProjectsEmptyState";
 
 interface NoProjectsFoundProps {
-  totalProjectsCount: number;
+  projects: ProjectData[];
   activeTabId: string;
 }
 
-export function NoProjectsFound({ totalProjectsCount, activeTabId }: NoProjectsFoundProps) {
-  if (totalProjectsCount === 0) {
+export function NoProjectsFound({ projects, activeTabId }: NoProjectsFoundProps) {
+  if (projects.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-gray-500 text-lg">No projects available yet.</p>
@@ -29,15 +30,27 @@ export function NoProjectsFound({ totalProjectsCount, activeTabId }: NoProjectsF
           }
         />
       );
-    case "not-started":
+    case "not-started": {
+      const hasAnyProgress = projects.some((project) => project.status === "started" || project.status === "completed");
+      if (hasAnyProgress) {
+        return (
+          <ProjectsEmptyState
+            variant="blue"
+            icon={<NotStartedIcon />}
+            title="All projects have been started"
+            description="Great progress! You've started working on all available projects. Keep going to complete them."
+          />
+        );
+      }
       return (
         <ProjectsEmptyState
           variant="blue"
           icon={<NotStartedIcon />}
-          title="All projects have been started"
-          description="Great progress! You've started working on all available projects. Keep going to complete them."
+          title="No projects to start yet"
+          description="Projects will appear here as you unlock them."
         />
       );
+    }
     case "complete":
       return (
         <ProjectsEmptyState
