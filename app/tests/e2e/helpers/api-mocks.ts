@@ -104,6 +104,16 @@ export async function mockAPILogout(page: Page) {
   });
 }
 
+export async function mockAPISeenFlag(page: Page, key: string, seen: boolean) {
+  await page.route(`${API_BASE}/internal/settings/seen_flags/${key}`, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ seen })
+    })
+  );
+}
+
 export async function mockAPIBadges(page: Page, body: { badges: unknown[]; num_locked_secret_badges?: number }) {
   await page.route(`${API_BASE}/internal/badges`, (route) =>
     route.fulfill({

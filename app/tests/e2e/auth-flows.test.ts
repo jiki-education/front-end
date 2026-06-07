@@ -114,9 +114,9 @@ test.describe("Authentication Flows", () => {
   }
 
   async function assertReturnToJikiButton(page: Page) {
-    await page.locator(".ui-btn-primary", { hasText: "Back to Jiki →" }).waitFor();
-    const button = await page.locator(".ui-btn-primary").textContent();
-    expect(button).toBe("Back to Jiki →");
+    const button = page.locator(".ui-btn-primary", { hasText: "Back to Jiki →" });
+    await button.waitFor();
+    expect(await button.textContent()).toBe("Back to Jiki →");
   }
 
   async function awaitRedirectToDashboard(page: Page) {

@@ -6,6 +6,7 @@ import paymentProcessingStyles from "./modals/PaymentProcessingModal.module.css"
 import premiumUpgradeStyles from "./modals/PremiumUpgradeModal/PremiumUpgradeModal.module.css";
 import subscriptionCheckoutStyles from "./modals/SubscriptionCheckoutModal.module.css";
 import welcomeToPremiumStyles from "./modals/WelcomeToPremiumModal.module.css";
+import welcomeStyles from "./modals/WelcomeModal.module.css";
 import walkthroughConfirmStyles from "./modals/WalkthroughConfirmModal.module.css";
 import avatarEditStyles from "@/components/settings/modals/AvatarEditModal.module.css";
 
@@ -186,4 +187,9 @@ export const showWalkthroughConfirm = (props: { onConfirm?: () => void }) => {
 // Convenience function for avatar edit modal
 export const showAvatarEditModal = () => {
   showModal("avatar-edit-modal", {}, undefined, avatarEditStyles.modal);
+};
+
+// Convenience function for welcome modal (shown once on first signup)
+export const showWelcomeModal = () => {
+  showModal("welcome-modal", {}, welcomeStyles.overlay, welcomeStyles.modal);
 };

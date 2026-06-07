@@ -16,6 +16,7 @@ export {
   showPremiumUpgradeModal,
   showWelcomeToPremium,
   showAvatarEditModal,
+  showWelcomeModal,
   useModalStore
 } from "./store";
 

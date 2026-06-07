@@ -7,7 +7,7 @@
     font-size: 20px;
     border-width: 1px;
     border-color: #c1b1dc;
-    animation: btn-pulse 2.4s ease-in-out infinite;
+    animation: btn-pulse 4.8s ease-in-out infinite;
 }
 
 .free {
@@ -19,13 +19,11 @@
 @keyframes btn-pulse {
     0%,
     100% {
-        box-shadow:
-            0 0 5px rgba(255, 255, 255, 0.5),
-            0 0 10px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     }
     50% {
         box-shadow:
             0 0 5px rgba(255, 255, 255, 0.5),
-            0 0 22px rgba(255, 255, 255, 0.8);
+            0 0 5px rgba(255, 255, 255, 0.5);
     }
 }

@@ -1,0 +1,73 @@
+/* Blurred backdrop, applied via overlayClassName on BaseModal. */
+.overlay {
+    backdrop-filter: blur(8px);
+}
+
+/* Widen the BaseModal card so the 16:9 video has room to breathe. */
+.modal {
+    max-width: 760px;
+    padding: 36px 36px 28px;
+    background-image:
+        url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+    background-repeat: repeat, repeat-y;
+    background-size: 20px, 100%;
+    color: #fff;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 4px;
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 17px;
+    color: var(--color-gray-300);
+    margin: 0;
+}
+
+.videoWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px 2px var(--color-purple-500);
+}
+
+.cta {
+    padding-left: 64px !important;
+    padding-right: 64px !important;
+    font-size: 18px;
+}
+
+.muxPlayer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    --seek-backward-button: none;
+    --seek-forward-button: none;
+}
