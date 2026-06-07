@@ -12,7 +12,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  disableLogTab: true
 };
 
 export default exerciseDefinition;

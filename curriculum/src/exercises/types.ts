@@ -29,6 +29,7 @@ interface BaseExerciseCore {
   conceptSlugs?: string[];
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
+  disableLogTab?: boolean; // Hide the Log tab in the RHS panel for this exercise
 }
 
 // Per-exercise interpreter options (overrides defaults when passed to interpreter)
