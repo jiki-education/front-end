@@ -17,7 +17,7 @@ export default function RelatedArticles({ articles, locale }: RelatedArticlesPro
       <h3 className={styles.relatedArticlesTitle}>Related Articles</h3>
       <div className={styles.relatedArticlesSection}>
         {articles.map((article) => (
-          <ArticleCard key={article.slug} article={article} locale={locale} />
+          <ArticleCard key={article.slug} article={article} locale={locale} compact />
         ))}
       </div>
     </div>

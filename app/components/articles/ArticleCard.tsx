@@ -1,24 +1,24 @@
 import Link from "next/link";
 import type { ArticleMeta } from "@/lib/content/types";
-import { formatBlogDate } from "@/lib/utils";
 import styles from "./ArticleCard.module.css";
 
 interface ArticleCardProps {
   article: ArticleMeta;
   locale: string;
+  compact?: boolean;
 }
 
-export default function ArticleCard({ article, locale }: ArticleCardProps) {
+export default function ArticleCard({ article, locale, compact = false }: ArticleCardProps) {
   const articleUrl = locale === "en" ? `/articles/${article.slug}` : `/${locale}/articles/${article.slug}`;
   const firstTag = article.tags[0];
 
   return (
-    <Link href={articleUrl} className={styles.articleCard}>
-      <div className={styles.articleCardImage} />
-      <div className={styles.articleCardMeta}>
-        <span className={styles.articleCardDate}>{formatBlogDate(article.date)}</span>
-        {firstTag && <span className={styles.articleCardBadge}>{firstTag}</span>}
-      </div>
+    <Link href={articleUrl} className={`${styles.articleCard} ${compact ? styles.compact : ""}`}>
+      {firstTag && (
+        <div className={styles.articleCardMeta}>
+          <span className={styles.articleCardBadge}>{firstTag}</span>
+        </div>
+      )}
       <h4 className={styles.articleCardTitle}>{article.title}</h4>
       <p className={styles.articleCardExcerpt}>{article.excerpt}</p>
     </Link>
