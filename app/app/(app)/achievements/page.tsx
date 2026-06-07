@@ -1,3 +1,4 @@
+import BetaTag from "@/components/common/BetaTag";
 import SidebarLayout from "../../../components/layout/SidebarLayout";
 import { AchievementsContent } from "./AchievementsContent";
 import type { Metadata } from "next";
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function AchievementsPage() {
   return (
     <SidebarLayout activeItem="achievements">
+      <BetaTag />
       <AchievementsContent />
     </SidebarLayout>
   );
