@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * Seen Flags API
+ * Flags API
  *
- * Tracks "things the user has seen" (welcome modal, feature announcements, etc).
- * Backed by the API at /internal/settings/seen_flags/:key with a localStorage
+ * Tracks per-user flags (welcome modal dismissed, tour completed, etc).
+ * Backed by the API at /internal/settings/flags/:key with a localStorage
  * cache so repeat checks are instant and survive transient API failures.
  *
  * Note: keys have a maximum length of 100 characters (enforced by the API).
@@ -12,10 +12,10 @@
 
 import { api } from "./client";
 
-const STORAGE_PREFIX = "jiki_seen_flag_";
+const STORAGE_PREFIX = "jiki_flag_";
 
-interface SeenFlagResponse {
-  seen: boolean;
+interface FlagResponse {
+  flagged: boolean;
 }
 
 function storageKey(key: string) {
@@ -37,17 +37,17 @@ function writeLocal(key: string) {
 }
 
 /**
- * Returns true if the flag is seen. Checks localStorage first; on a miss,
+ * Returns true if the flag is set. Checks localStorage first; on a miss,
  * falls back to the API and caches a positive result.
  */
-export async function checkSeenFlag(key: string): Promise<boolean> {
+export async function checkFlag(key: string): Promise<boolean> {
   if (readLocal(key)) {
     return true;
   }
 
   try {
-    const response = await api.get<SeenFlagResponse>(`/internal/settings/seen_flags/${key}`);
-    if (response.data.seen) {
+    const response = await api.get<FlagResponse>(`/internal/settings/flags/${key}`);
+    if (response.data.flagged) {
       writeLocal(key);
       return true;
     }
@@ -59,14 +59,14 @@ export async function checkSeenFlag(key: string): Promise<boolean> {
 }
 
 /**
- * Marks the flag as seen, both on the server and in localStorage.
+ * Marks the flag set, both on the server and in localStorage.
  */
-export async function setSeenFlag(key: string): Promise<void> {
+export async function setFlag(key: string): Promise<void> {
   writeLocal(key);
-  await api.post<SeenFlagResponse>(`/internal/settings/seen_flags/${key}`);
+  await api.post(`/internal/settings/flags/${key}`);
 }
 
-export function clearSeenFlagLocal(key: string) {
+export function clearFlagLocal(key: string) {
   if (typeof window === "undefined") {
     return;
   }
