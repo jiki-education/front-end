@@ -43,37 +43,39 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
 
   return (
     <div className={styles.pageWrapper}>
-      <header className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Email Preferences</h1>
-        <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
-      </header>
+      <div className={styles.innerContent}>
+        <header className={styles.pageHeader}>
+          <h1 className={styles.pageTitle}>Email Preferences</h1>
+          <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
+        </header>
 
-      <div className={styles.contentLayout}>
-        {emailKey && preferences && (
-          <UnsubscribeFromEmailSection
-            emailKey={emailKey}
-            isSubscribed={currentKeyValue ?? false}
-            loading={actionStates.emailKey === "loading"}
-            success={actionStates.emailKey === "success"}
-            error={actionStates.emailKey === "error"}
-            onUnsubscribe={() => handleUpdatePreference(emailKey as keyof EmailPreferences, false)}
+        <div className={styles.contentLayout}>
+          {emailKey && preferences && (
+            <UnsubscribeFromEmailSection
+              emailKey={emailKey}
+              isSubscribed={currentKeyValue ?? false}
+              loading={actionStates.emailKey === "loading"}
+              success={actionStates.emailKey === "success"}
+              error={actionStates.emailKey === "error"}
+              onUnsubscribe={() => handleUpdatePreference(emailKey as keyof EmailPreferences, false)}
+            />
+          )}
+
+          <UnsubscribeFromAllSection
+            loading={actionStates.all === "loading"}
+            success={actionStates.all === "success"}
+            error={actionStates.all === "error"}
+            onUnsubscribe={handleUnsubscribeAll}
           />
-        )}
 
-        <UnsubscribeFromAllSection
-          loading={actionStates.all === "loading"}
-          success={actionStates.all === "success"}
-          error={actionStates.all === "error"}
-          onUnsubscribe={handleUnsubscribeAll}
-        />
-
-        {isAuthenticated && preferences && (
-          <ManageNotificationsSection
-            preferences={preferences}
-            loading={actionStates.preferences === "loading"}
-            onSave={handleSavePreferences}
-          />
-        )}
+          {isAuthenticated && preferences && (
+            <ManageNotificationsSection
+              preferences={preferences}
+              loading={actionStates.preferences === "loading"}
+              onSave={handleSavePreferences}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
