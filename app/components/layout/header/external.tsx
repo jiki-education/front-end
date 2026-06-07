@@ -13,7 +13,7 @@ export default function ExternalHeader() {
         </Link>
 
         <div className="flex items-center gap-12 font-medium text-gray-700 max-[719px]:hidden">
-          <Link href="/about" style={navLinkStyle}>
+          <Link href="https://jiki.io/blog/the-backstory-of-jiki" style={navLinkStyle}>
             About
           </Link>
           <Link href="/premium" style={navLinkStyle}>
