@@ -2,7 +2,7 @@
     top: 40px;
     right: -50px;
     position: fixed;
-    z-index: 99999;
+    z-index: var(--z-index-beta-tag);
     transform: rotate(45deg);
 
     background: var(--color-blue-600);
