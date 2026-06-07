@@ -269,11 +269,11 @@ export function BootcampSection() {
                     Regular New Episodes
                   </div>
                   <Image
-                    className="w-[340px] -mr-32"
+                    className="w-[350px] -mr-32 -mt-[46px]"
                     src="/static/images/landing-page/jeremy-livestream.webp"
                     alt="Jeremy livestreaming with tech logos"
                     width={900}
-                    height={703}
+                    height={851}
                   />
                 </div>
               </div>
