@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/lib/formatCurrency";
 import styles from "./PaymentHistory.module.css";
 import type { Payment } from "./types";
 
@@ -7,10 +8,6 @@ interface PaymentHistoryRowProps {
 }
 
 export default function PaymentHistoryRow({ payment, onDownloadReceipt }: PaymentHistoryRowProps) {
-  const formatAmount = (amount: number) => {
-    return `$${amount.toFixed(2)}`;
-  };
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -24,7 +21,7 @@ export default function PaymentHistoryRow({ payment, onDownloadReceipt }: Paymen
   return (
     <tr className={styles.paymentRow}>
       <td className={styles.paymentDate}>{formatDate(payment.date)}</td>
-      <td className={styles.paymentAmount}>{formatAmount(payment.amount)}</td>
+      <td className={styles.paymentAmount}>{formatCurrency(payment.amountInCents, payment.currency)}</td>
       <td className={styles.paymentType}>{payment.type}</td>
       <td className={styles.paymentMethod}>{payment.method}</td>
       <td className={styles.paymentAction}>
