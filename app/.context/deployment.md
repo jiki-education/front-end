@@ -7,10 +7,6 @@ Cloudflare Workers with Next.js Edge Runtime
 ## Production Environment
 
 - **Production URL**: https://jiki.io
-- **Basic Authentication**:
-  - Username: `jiki`
-  - Password: `ave-fetching-chloe-packed`
-  - Enabled only in production (`NODE_ENV=production`)
 - **Edge Runtime**: Cloudflare Workers with global distribution
 - **Custom Domain**: Automatic DNS management via Cloudflare
 - **Caching**: R2 bucket for incremental builds with 30-minute regional cache
@@ -64,7 +60,6 @@ The following secrets must be configured in repository settings:
 
 - **Development Server**: http://localhost:3061 (`pnpm dev`)
 - **Preview with Wrangler**: `pnpm preview` (simulates Workers environment locally)
-- **E2E Tests**: Run with `NODE_ENV=test` to bypass basic auth
 
 ## Infrastructure
 
@@ -84,7 +79,6 @@ The following secrets must be configured in repository settings:
 
 - **Content Security Policy**: Nonce-based script execution in production
 - **Process.env Support**: Via `nodejs_compat_populate_process_env` compatibility flag
-- **Basic Auth**: Protects production site during pre-launch phase
 
 ## Site Metadata & Well-Known Files
 

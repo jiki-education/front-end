@@ -4,13 +4,6 @@ import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { setInternalNavigationCookie } from "./lib/middleware/internal-navigation";
 import { isExternalUrl } from "./lib/routing/external-urls";
 
-// Basic authentication credentials
-// NOTE: These credentials are intentionally hardcoded and not considered secrets.
-// They provide basic protection during development/staging but are not meant for
-// production security. Username: jiki, Password: ave-fetching-chloe-packed
-const BASIC_AUTH_USER = "jiki";
-const BASIC_AUTH_PASSWORD = "ave-fetching-chloe-packed";
-
 function setCSP(response: NextResponse): void {
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -38,84 +31,7 @@ function setCSP(response: NextResponse): void {
   response.headers.set("Content-Security-Policy", cspHeader);
 }
 
-function checkBasicAuth(request: NextRequest): NextResponse | null {
-  // Only apply basic auth in production
-  if (process.env.NODE_ENV !== "production") {
-    return null;
-  }
-
-  const authHeader = request.headers.get("authorization");
-
-  if (!authHeader) {
-    return new NextResponse("Authentication required", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Secure Area"'
-      }
-    });
-  }
-
-  try {
-    // Validate Authorization header format
-    const parts = authHeader.split(" ");
-    if (parts.length !== 2 || parts[0] !== "Basic") {
-      return new NextResponse("Authentication failed", {
-        status: 401,
-        headers: {
-          "WWW-Authenticate": 'Basic realm="Secure Area"'
-        }
-      });
-    }
-
-    const auth = parts[1];
-    const decoded = Buffer.from(auth, "base64").toString("utf-8");
-
-    // Validate decoded credentials format
-    const colonIndex = decoded.indexOf(":");
-    if (colonIndex === -1) {
-      return new NextResponse("Authentication failed", {
-        status: 401,
-        headers: {
-          "WWW-Authenticate": 'Basic realm="Secure Area"'
-        }
-      });
-    }
-
-    const user = decoded.substring(0, colonIndex);
-    const password = decoded.substring(colonIndex + 1);
-
-    // Use constant-time comparison to prevent timing attacks
-    const userMatch = user === BASIC_AUTH_USER;
-    const passwordMatch = password === BASIC_AUTH_PASSWORD;
-
-    if (!userMatch || !passwordMatch) {
-      return new NextResponse("Authentication failed", {
-        status: 401,
-        headers: {
-          "WWW-Authenticate": 'Basic realm="Secure Area"'
-        }
-      });
-    }
-
-    return null;
-  } catch {
-    // Handle any decoding errors
-    return new NextResponse("Authentication failed", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Secure Area"'
-      }
-    });
-  }
-}
-
 export function middleware(request: NextRequest) {
-  // Check basic auth first
-  const authResponse = checkBasicAuth(request);
-  if (authResponse) {
-    return authResponse;
-  }
-
   const path = request.nextUrl.pathname;
 
   // Block direct access to external routes
