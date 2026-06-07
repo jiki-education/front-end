@@ -42,6 +42,7 @@ export default function ChatInput({
         </div>
         <div className={styles.chatInputField}>
           <textarea
+            autoFocus
             className={styles.chatInput}
             value={message}
             onChange={(e) => setMessage(e.target.value)}

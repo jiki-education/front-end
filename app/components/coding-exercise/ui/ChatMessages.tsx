@@ -32,9 +32,7 @@ export default function ChatMessages({
       {header}
       <div ref={chatMessagesRef} className={styles.chatMessages}>
         {messages.length === 0 && !currentResponse && (
-          <div className={styles.emptyState}>
-            Start a conversation! Ask questions about your code, the exercise, or request help with specific tasks.
-          </div>
+          <ChatMessageItem message={{ role: "assistant", content: "What can I help you with?" }} />
         )}
 
         {messages.map((message, index) => (
