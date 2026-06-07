@@ -38,7 +38,8 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["using-functions", "using-functions-with-inputs"]
+  conceptSlugs: ["using-functions", "using-functions-with-inputs"],
+  disableLogTab: true
 };
 
 export default exerciseDefinition;

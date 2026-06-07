@@ -27,6 +27,7 @@ export function RHS({ orchestrator }: RHSProps) {
   const isProject = orchestrator.isProject();
   const navTarget = isProject ? "/projects" : "/dashboard";
   const navLabel = isProject ? "Projects" : "Dashboard";
+  const logTabDisabled = orchestrator.getExercise().disableLogTab === true;
 
   // Define tabs data for PageTabs
   const tabs = [
@@ -40,11 +41,15 @@ export function RHS({ orchestrator }: RHSProps) {
       label: "Talk to Jiki",
       icon: <ChatIcon width={18} height={18} className="mr-2" />
     },
-    {
-      id: "log",
-      label: "Log",
-      icon: <LogIcon width={18} height={18} className="mr-2" />
-    },
+    ...(logTabDisabled
+      ? []
+      : [
+          {
+            id: "log",
+            label: "Log",
+            icon: <LogIcon width={18} height={18} className="mr-2" />
+          }
+        ]),
     {
       id: "hints",
       label: "Hints",
