@@ -1,10 +1,11 @@
 import { useCallback, useRef } from "react";
+import toast from "react-hot-toast";
 import { showPremiumUpgradeModal } from "@/lib/modal";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
 import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
-import { saveConversation } from "./conversationApi";
+import { ConversationSaveCaptchaError, saveConversation } from "./conversationApi";
 import { ChatTokenAccessDeniedError, ChatTokenInvalidCaptchaError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
 import type Orchestrator from "./Orchestrator";
@@ -81,7 +82,14 @@ export function useChat(orchestrator: Orchestrator) {
 
               if (signature) {
                 chatState.setSignature(signature);
-                void saveConversation(context.context, message, fullResponse, signature);
+                saveConversation(context.context, message, fullResponse, signature).catch((error: unknown) => {
+                  console.error("Failed to save conversation:", error);
+                  const toastMessage =
+                    error instanceof ConversationSaveCaptchaError
+                      ? "Verification failed while saving. This message won't be here when you come back."
+                      : "Couldn't save this message. It won't be here when you come back.";
+                  toast.error(toastMessage, { duration: 8000 });
+                });
               }
 
               chatState.setStatus("typing");
