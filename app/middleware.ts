@@ -126,7 +126,7 @@ export function middleware(request: NextRequest) {
   //
   // Block access to /dev and test routes in production
   //
-  const isTestRoute = path.startsWith("/dev") || path.startsWith("/test");
+  const isTestRoute = path === "/dev" || path.startsWith("/dev/") || path === "/test" || path.startsWith("/test/");
   const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
   if (isTestRoute && !isDevelopment) {
     return new NextResponse(null, { status: 404 });
