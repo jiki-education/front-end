@@ -25,10 +25,18 @@
     line-height: 1.6;
 }
 
-/* Page wrapper with left-aligned content */
+/* Page wrapper - blog-style centered container */
 .pageWrapper {
+    width: 100%;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 5%;
+}
+
+/* Inner content stays narrow for readability */
+.innerContent {
     max-width: 660px;
-    padding: 40px;
 }
 
 /* Page header */

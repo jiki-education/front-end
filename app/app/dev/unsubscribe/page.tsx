@@ -93,50 +93,52 @@ export default function UnsubscribeDevPage() {
         {/* Actual Unsubscribe Page UI */}
         <div className={`${styles.pageBackground} rounded-lg shadow-sm p-6`}>
           <div className={styles.pageWrapper}>
-            <header className={styles.pageHeader}>
-              <h1 className={styles.pageTitle}>Email Preferences</h1>
-              <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
-            </header>
+            <div className={styles.innerContent}>
+              <header className={styles.pageHeader}>
+                <h1 className={styles.pageTitle}>Email Preferences</h1>
+                <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
+              </header>
 
-            <div className={styles.contentLayout}>
-              <UnsubscribeFromEmailSection
-                emailKey="newsletters"
-                isSubscribed={preferences.newsletters}
-                loading={emailKeyState === "loading"}
-                success={emailKeyState === "success"}
-                error={emailKeyState === "error"}
-                onUnsubscribe={() => {
-                  simulateAction(setEmailKeyState, () => {
-                    setPreferences((prev) => ({ ...prev, newsletters: false }));
-                  });
-                }}
-              />
-
-              <UnsubscribeFromAllSection
-                loading={allState === "loading"}
-                success={allState === "success"}
-                error={allState === "error"}
-                onUnsubscribe={() => {
-                  simulateAction(setAllState, () => {
-                    setPreferences({
-                      newsletters: false,
-                      event_emails: false,
-                      milestone_emails: false,
-                      activity_emails: false
+              <div className={styles.contentLayout}>
+                <UnsubscribeFromEmailSection
+                  emailKey="newsletters"
+                  isSubscribed={preferences.newsletters}
+                  loading={emailKeyState === "loading"}
+                  success={emailKeyState === "success"}
+                  error={emailKeyState === "error"}
+                  onUnsubscribe={() => {
+                    simulateAction(setEmailKeyState, () => {
+                      setPreferences((prev) => ({ ...prev, newsletters: false }));
                     });
-                  });
-                }}
-              />
+                  }}
+                />
 
-              <ManageNotificationsSection
-                preferences={preferences}
-                loading={preferencesState === "loading"}
-                onSave={(newPreferences) => {
-                  simulateAction(setPreferencesState, () => {
-                    setPreferences(newPreferences);
-                  });
-                }}
-              />
+                <UnsubscribeFromAllSection
+                  loading={allState === "loading"}
+                  success={allState === "success"}
+                  error={allState === "error"}
+                  onUnsubscribe={() => {
+                    simulateAction(setAllState, () => {
+                      setPreferences({
+                        newsletters: false,
+                        event_emails: false,
+                        milestone_emails: false,
+                        activity_emails: false
+                      });
+                    });
+                  }}
+                />
+
+                <ManageNotificationsSection
+                  preferences={preferences}
+                  loading={preferencesState === "loading"}
+                  onSave={(newPreferences) => {
+                    simulateAction(setPreferencesState, () => {
+                      setPreferences(newPreferences);
+                    });
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
