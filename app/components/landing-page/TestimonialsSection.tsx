@@ -182,7 +182,7 @@ export function TestimonialsSection() {
           <Quote
             text={
               <p>
-                Honestly, I had no expectations when I stumbled upon Exercism, but it turned out to be{" "}
+                Honestly, I had no expectations when I stumbled upon Jiki, but it turned out to be{" "}
                 <strong>my greatest discovery of the year!</strong> Given the cost, I didn&apos;t hesitate to join and
                 give it a try. I had no experience whatsoever, and <strong>I&apos;m very impressed with myself</strong>{" "}
                 looking at what I can do! 100% recommended!
@@ -285,7 +285,7 @@ export function TestimonialsSection() {
               <p>
                 You will not believe <strong>how fantastic this course is</strong>! You learn to write code by writing
                 code to solve problems that match--and push--your abilities.{" "}
-                <strong>Jeremy is a master teacher.</strong> Exercism is the perfect environment.
+                <strong>Jeremy is a master teacher.</strong> Jiki is the perfect environment.
               </p>
             }
             name="Thom Chittom"
