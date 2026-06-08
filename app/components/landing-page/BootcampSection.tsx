@@ -305,7 +305,7 @@ export function BootcampSection() {
                 <img
                   className="lg:w-[350px] w-100 rounded-[5px]"
                   style={{ boxShadow: "0 0 20px rgba(0,0,0,0.4)" }}
-                  src="/static/images/landing-page/certificate.png"
+                  src="/static/images/landing-page/certificate.webp"
                 />
               </div>
             </div>
