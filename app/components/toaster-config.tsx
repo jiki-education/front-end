@@ -6,6 +6,9 @@ export function ToasterProvider() {
       position="top-center"
       reverseOrder={false}
       gutter={8}
+      containerStyle={{
+        zIndex: "var(--z-index-notification)"
+      }}
       toastOptions={{
         duration: 4000,
         style: {
