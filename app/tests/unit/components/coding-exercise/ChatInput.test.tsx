@@ -8,15 +8,26 @@ describe("ChatInput", () => {
     mockOnSendMessage.mockClear();
   });
 
-  it("renders and sends message with Cmd+Enter", () => {
+  it("renders and sends message on Enter", () => {
     render(<ChatInput onSendMessage={mockOnSendMessage} />);
 
     const input = screen.getByPlaceholderText("Type your question here...");
 
     fireEvent.change(input, { target: { value: "Hello" } });
-    fireEvent.keyDown(input, { key: "Enter", metaKey: true });
+    fireEvent.keyDown(input, { key: "Enter" });
 
     expect(mockOnSendMessage).toHaveBeenCalledWith("Hello");
+  });
+
+  it("does not send message on Shift+Enter", () => {
+    render(<ChatInput onSendMessage={mockOnSendMessage} />);
+
+    const input = screen.getByPlaceholderText("Type your question here...");
+
+    fireEvent.change(input, { target: { value: "Hello" } });
+    fireEvent.keyDown(input, { key: "Enter", shiftKey: true });
+
+    expect(mockOnSendMessage).not.toHaveBeenCalled();
   });
 
   it("handles disabled state", () => {
