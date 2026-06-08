@@ -20,7 +20,7 @@ export default function InformationWidgetToggleButton({ disabled }: { disabled: 
     : "Toggle the information panel on";
 
   return (
-    <Tooltip content={tooltipContent}>
+    <Tooltip content={tooltipContent} disabled={disabled}>
       <button
         data-testid="information-widget-toggle"
         onClick={handleToggle}
