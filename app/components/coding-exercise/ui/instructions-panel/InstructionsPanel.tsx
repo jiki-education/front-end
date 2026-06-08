@@ -94,8 +94,13 @@ export default function InstructionsPanel({
       const hasFns = functions.length > 0;
       const functionsTop = hasFns ? functionsRef.current?.offsetTop || 0 : 0;
 
-      // Update expansion state - expanded when at very top (within 20px)
-      setIsExpanded(scrollTop <= 20);
+      // Use different thresholds for expanding/collapsing header based on current state to prevent jitter
+      setIsExpanded((prev) => {
+        if (prev) {
+          return scrollTop <= 60;
+        }
+        return scrollTop <= 10;
+      });
 
       // Check if user has scrolled to the bottom (within 5px threshold)
       const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
