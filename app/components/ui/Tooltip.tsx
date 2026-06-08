@@ -41,7 +41,7 @@ export default function Tooltip({
   className,
   disableFlip = false,
   variant = "default",
-  arrow = false
+  arrow = true
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);

@@ -31,7 +31,7 @@ export function Streak({ profile }: { profile: UserProfileData }) {
   }
 
   return (
-    <Tooltip content={tooltipText} variant="dark" arrow>
+    <Tooltip content={tooltipText} variant="dark">
       <div className={`${style.streak} ${variantClass}`}>
         <span className={style.streakIcon}>{emoji}</span>
         <span className={style.streakNumber}>{count}</span>
