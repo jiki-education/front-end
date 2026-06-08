@@ -1,5 +1,6 @@
 import { showConfirmation } from "@/lib/modal";
 import UndoArrowIcon from "@/icons/undo-arrow.svg";
+import Tooltip from "@/components/ui/Tooltip";
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
 import styles from "../CodingExercise.module.css";
@@ -25,14 +26,16 @@ export default function RunButton() {
 
   return (
     <div className={styles.runButtonBlock}>
-      <button
-        data-testid="reset-button"
-        onClick={handleReset}
-        className={styles.pillBtnReset}
-        aria-label="Reset exercise"
-      >
-        <UndoArrowIcon width={16} height={16} />
-      </button>
+      <Tooltip content="Click to Reset the exercise">
+        <button
+          data-testid="reset-button"
+          onClick={handleReset}
+          className={styles.pillBtnReset}
+          aria-label="Reset exercise"
+        >
+          <UndoArrowIcon width={16} height={16} />
+        </button>
+      </Tooltip>
       <button
         data-testid="run-button"
         onClick={handleRunCode}
