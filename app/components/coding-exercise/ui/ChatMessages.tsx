@@ -32,7 +32,9 @@ export default function ChatMessages({
       {header}
       <div ref={chatMessagesRef} className={styles.chatMessages}>
         {messages.length === 0 && !currentResponse && (
-          <ChatMessageItem message={{ role: "assistant", content: "What can I help you with?" }} />
+          <ChatMessageItem
+            message={{ role: "assistant", content: "Hey there! What can I help you with on this exercise?" }}
+          />
         )}
 
         {messages.map((message, index) => (
