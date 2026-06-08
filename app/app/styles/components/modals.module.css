@@ -14,7 +14,7 @@
     display: flex;
     align-items: safe center;
     justify-content: center;
-    z-index: 10000;
+    z-index: var(--z-index-modal);
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 40px 0;
@@ -50,7 +50,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10000;
+    z-index: var(--z-index-modal);
 }
 
 .modalFullscreen {
