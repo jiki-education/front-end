@@ -66,8 +66,8 @@ export function BootcampSection() {
                     <li>
                       <Image src="/static/images/landing-page/build.svg" alt="" width={20} height={20} />
                       <div className={styles.text}>
-                        <strong>A base to build on</strong>. Whatever type of programming you want to do, this the base
-                        you need, and one you can easily build on.
+                        <strong>A base to build on</strong>. Whatever type of programming you want to do, this is the
+                        base you need, and one you can easily build on.
                       </div>
                     </li>
                   </ul>
@@ -167,7 +167,8 @@ export function BootcampSection() {
                 unoptimized
               />
               <h4>
-                In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code eliminate duplication.
+                In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code to eliminate
+                duplication.
               </h4>
             </div>
             <div className={styles.level}>
