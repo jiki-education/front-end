@@ -74,6 +74,7 @@ export default function Scrubber() {
         disabled={false}
         className={styles.disabledTooltip}
         disableFlip
+        arrow={false}
       >
         <div
           data-testid="scrubber"
@@ -105,6 +106,7 @@ export default function Scrubber() {
           disabled={false}
           className={styles.disabledTooltip}
           disableFlip
+          arrow={false}
         >
           {wrappedScrubberControls}
         </Tooltip>

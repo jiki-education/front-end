@@ -137,7 +137,7 @@ describe("Tooltip", () => {
     const user = userEvent.setup();
 
     render(
-      <Tooltip content="No arrow" delay={0}>
+      <Tooltip content="No arrow" arrow={false} delay={0}>
         <button>Hover me</button>
       </Tooltip>
     );

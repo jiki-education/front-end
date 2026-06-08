@@ -54,7 +54,7 @@ export function ButtonRow({
         <span>Back to video</span>
       </button>
 
-      <Tooltip content="Select one of the options to proceed." variant="dark" arrow disabled={!!selectedLanguage}>
+      <Tooltip content="Select one of the options to proceed." variant="dark" disabled={!!selectedLanguage}>
         <span className={styles.tooltipWrapper}>
           <button
             className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${!selectedLanguage || isSubmitting ? "ui-btn-disabled" : ""}`}
