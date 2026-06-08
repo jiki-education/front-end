@@ -6,6 +6,7 @@ import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
 import sharedStyles from "./FreeUserCanStart.module.css";
 import styles from "./PremiumUserCanStart.module.css";
+import StuckHeader from "./StuckHeader";
 
 interface PremiumUserCanStartProps {
   onSendMessage: (message: string) => void;
@@ -36,7 +37,7 @@ export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanSta
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -53,11 +54,7 @@ export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanSta
   return (
     <div className={sharedStyles.container}>
       <div className={sharedStyles.content} style={{ width: "100%" }}>
-        <div className={sharedStyles.avatar}>
-          <ChatBubbleIcon width={32} height={32} />
-        </div>
-
-        <h3 className={sharedStyles.title}>Feeling Stuck? Talk to Jiki</h3>
+        <StuckHeader />
         <p className={sharedStyles.description}>
           Ask about...{" "}
           <TypeIt

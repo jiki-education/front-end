@@ -3,6 +3,7 @@ import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
 import { showConfirmation, showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./FreeUserCanStart.module.css";
+import StuckHeader from "./StuckHeader";
 
 interface FreeUserCanStartProps {
   onStartChat: () => void;
@@ -29,11 +30,7 @@ export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps)
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.avatar}>
-          <ChatBubbleIcon width={32} height={32} />
-        </div>
-
-        <h3 className={styles.title}>Feeling Stuck? Talk to Jiki!</h3>
+        <StuckHeader />
         <p className={styles.description}>
           Work with Jiki to understand whatever&apos;s confusing you. You can use Jiki AI once on the Free plan.{" "}
           <button onClick={handleUpgradeClick} className={styles.upgradeLink}>
