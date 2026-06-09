@@ -11,8 +11,17 @@ const DOLLAR_PREFIX: Record<string, string> = {
   MXN: "MX"
 };
 
+// Stripe special-case currencies: displayed as zero-decimal, but the `amount`
+// field is still multiplied by 100. See https://docs.stripe.com/currencies#special-cases
+const STRIPE_HUNDREDFOLD_ZERO_DECIMAL = new Set(["HUF", "TWD", "UGX"]);
+
 export function currencyFractionDigits(currency: string): number {
   return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
+}
+
+function minorUnitExponent(currency: string): number {
+  if (STRIPE_HUNDREDFOLD_ZERO_DECIMAL.has(currency)) return 2;
+  return currencyFractionDigits(currency);
 }
 
 function disambiguate(currency: string, formatted: string): string {
@@ -33,8 +42,7 @@ export function formatCurrency(
   options?: { minimumFractionDigits?: number; maximumFractionDigits?: number }
 ): string {
   const currencyUpper = currency.toUpperCase();
-  const digits = currencyFractionDigits(currencyUpper);
-  const amount = amountInMinorUnits / Math.pow(10, digits);
+  const amount = amountInMinorUnits / Math.pow(10, minorUnitExponent(currencyUpper));
   const formatted = new Intl.NumberFormat(undefined, {
     style: "currency",
     currency: currencyUpper,

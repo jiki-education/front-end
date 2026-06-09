@@ -40,6 +40,13 @@ describe("PremiumPrice", () => {
     expect(container.textContent).not.toMatch(/9\.99/);
   });
 
+  it("divides by 100 for Stripe hundredfold zero-decimal currency (HUF)", () => {
+    mockUser = { premium_prices: { currency: "huf", monthly: 149900, annual: 1499000, country_code: "HU" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/1,499/);
+    expect(container.textContent).not.toMatch(/149,900/);
+  });
+
   it("handles uppercase currency from API", () => {
     mockUser = { premium_prices: { currency: "gbp", monthly: 799, annual: 7900, country_code: null } };
     const { container } = render(<PremiumPrice interval="monthly" />);
