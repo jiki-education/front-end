@@ -37,13 +37,15 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
 
   return (
     <div className={styles.rightVideoContainer}>
-      <div
-        className={assembleClassNames(
-          "w-auto h-full max-h-full aspect-square shrink [container-type:inline-size] relative",
-          isSpotlightActive && "spotlight"
-        )}
-        ref={viewContainerRef}
-      />
+      <div className="h-full aspect-square max-h-[calc(50cqi-17px)]">
+        <div
+          className={assembleClassNames(
+            "w-full h-full aspect-square [container-type:inline-size] relative",
+            isSpotlightActive && "spotlight"
+          )}
+          ref={viewContainerRef}
+        />
+      </div>
     </div>
   );
 }

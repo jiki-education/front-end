@@ -424,6 +424,7 @@
     align-items: stretch;
     flex: 1;
     overflow: hidden;
+    container-type: inline-size;
 }
 
 .leftColumnContent {
@@ -669,7 +670,7 @@
     display: flex;
     align-items: center;
     justify-content: safe center;
-    padding: 0;
+    padding: 8px;
     border-left: 1px solid var(--color-gray-200);
     position: relative;
     overflow: hidden;

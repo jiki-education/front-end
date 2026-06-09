@@ -79,7 +79,7 @@ export function BootcampSection() {
                   </div>
                   <Image
                     className="w-[350px] -mr-32 -mt-[60px]"
-                    src="/static/images/landing-page/part-1.png"
+                    src="/static/images/landing-page/part-1.webp"
                     alt="Part 1"
                     width={350}
                     height={350}
@@ -109,7 +109,7 @@ export function BootcampSection() {
           <div className={styles.levels}>
             <div className={styles.level}>
               <Image
-                src="/static/images/landing-page/penguin.png"
+                src="/static/images/landing-page/penguin.webp"
                 alt="Penguin drawing exercise"
                 width={400}
                 height={300}
@@ -120,12 +120,15 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/golf.gif"
-                alt="Golf animation exercise"
+              <video
+                src="/static/images/landing-page/golf.mp4"
+                aria-label="Golf animation exercise"
                 width={400}
                 height={300}
-                unoptimized
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <h4>
                 In <strong>level 3</strong> you&apos;ll learn how to <strong>make things move</strong> for the first
@@ -133,12 +136,15 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/flower.gif"
-                alt="Flower flipbook animation"
+              <video
+                src="/static/images/landing-page/flower.mp4"
+                aria-label="Flower flipbook animation"
                 width={400}
                 height={300}
-                unoptimized
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <h4>
                 Your first <strong>major project</strong> is to <strong>animate flipbook-style</strong> using variables
@@ -146,12 +152,15 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/space-invaders.gif"
-                alt="Space invaders game"
+              <video
+                src="/static/images/landing-page/space-invaders.mp4"
+                aria-label="Space invaders game"
                 width={400}
                 height={300}
-                unoptimized
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <h4>
                 By <strong>level 7</strong> you&apos;ll start <strong>building some intelligence</strong> into your
@@ -159,12 +168,15 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/wall.gif"
-                alt="Wall building exercise"
+              <video
+                src="/static/images/landing-page/wall.mp4"
+                aria-label="Wall building exercise"
                 width={400}
                 height={300}
-                unoptimized
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <h4>
                 In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code to eliminate
@@ -172,25 +184,40 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image src="/static/images/landing-page/wordle.png" alt="Wordle game exercise" width={400} height={300} />
+              <Image
+                src="/static/images/landing-page/wordle.webp"
+                alt="Wordle game exercise"
+                width={400}
+                height={300}
+              />
               <h4>
                 <strong>Level 12</strong> introduces lists, your first <strong>compound data type,</strong> and Wordle!
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/tic-tac-toe.gif"
-                alt="Tic-tac-toe game"
+              <video
+                src="/static/images/landing-page/tic-tac-toe.mp4"
+                aria-label="Tic-tac-toe game"
                 width={400}
                 height={300}
-                unoptimized
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <h4>
                 <strong>Level 14</strong> focusses on <strong>coding mindset</strong> and solving a hard project.
               </h4>
             </div>
             <div className={styles.level}>
-              <img src="/static/images/landing-page/maze.gif" />
+              <video
+                src="/static/images/landing-page/maze.mp4"
+                aria-label="Maze solving exercise"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
               <h4>
                 In <strong>Level 16</strong> you unlock <strong>dictionaries</strong> making Emoji Collector possible.
               </h4>
@@ -198,14 +225,28 @@ export function BootcampSection() {
             {/* Intentional empty cell — spacer to align the next tile in the grid */}
             <div className={styles.level}></div>
             <div className={styles.level}>
-              <img src="/static/images/landing-page/dreaming-house.gif" />
+              <video
+                src="/static/images/landing-page/dreaming-house.mp4"
+                aria-label="Dreaming house exercise"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
               <h4>
                 By <strong>Level 20</strong> you&apos;re able to build <strong>complex programs</strong> with
                 intertwining ideas.
               </h4>
             </div>
             <div className={styles.level}>
-              <img src="/static/images/landing-page/breakout.gif" />
+              <video
+                src="/static/images/landing-page/breakout.mp4"
+                aria-label="Breakout game"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
               <h4>
                 And by the <strong>end of the course</strong> you&apos;re building games like <strong>Breakout!</strong>
               </h4>
@@ -300,7 +341,7 @@ export function BootcampSection() {
               </div>
               <img
                 className="w-[100px] self-middle mt-[100px] mb-10 mr-40 my-10 lg:block hidden"
-                src="/static/images/landing-page/certificate-arrow.png"
+                src="/static/images/landing-page/certificate-arrow.webp"
               />
               <div className={`${styles.certificate} flex-shrink-0 mt-24 lg:mt-0`}>
                 <img
@@ -311,7 +352,7 @@ export function BootcampSection() {
               </div>
             </div>
             <div className={styles.linkedin} ref={confettiRef}>
-              <img src="/static/images/landing-page/linkedin.png" />
+              <img src="/static/images/landing-page/linkedin.webp" />
               <span>Share your certificate in your network</span>
             </div>
           </div>

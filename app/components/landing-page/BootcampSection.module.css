@@ -336,7 +336,7 @@
     .cert {
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url("/static/images/landing-page/confetti.png");
+        background-image: url("/static/images/landing-page/confetti.webp");
     }
 
     .schedule-subsection {
@@ -366,7 +366,7 @@
             right: -65px;
             bottom: -70px;
             transform: rotate(165deg);
-            background-image: url("/static/images/landing-page/right-bg-decor.png");
+            background-image: url("/static/images/landing-page/right-bg-decor.webp");
         }
 
         @media (max-width: 1280px) {
@@ -448,7 +448,8 @@
                 margin-bottom: 6px;
             }
 
-            img {
+            img,
+            video {
                 display: block;
                 width: 100%;
                 border-top-left-radius: 8px;
@@ -505,28 +506,28 @@
                 }
 
                 &.snake .img {
-                    background-image: url("/static/images/landing-page/project-snake.png");
+                    background-image: url("/static/images/landing-page/project-snake.webp");
                 }
                 &.tetris .img {
-                    background-image: url("/static/images/landing-page/project-tetris.png");
+                    background-image: url("/static/images/landing-page/project-tetris.webp");
                 }
                 &.breakout .img {
-                    background-image: url("/static/images/landing-page/project-breakout.png");
+                    background-image: url("/static/images/landing-page/project-breakout.webp");
                 }
                 &.tic-tac-toe .img {
-                    background-image: url("/static/images/landing-page/project-tic-tac-toe.png");
+                    background-image: url("/static/images/landing-page/project-tic-tac-toe.webp");
                 }
                 &.weather .img {
-                    background-image: url("/static/images/landing-page/project-weather.png");
+                    background-image: url("/static/images/landing-page/project-weather.webp");
                 }
                 &.story .img {
-                    background-image: url("/static/images/landing-page/project-story.png");
+                    background-image: url("/static/images/landing-page/project-story.webp");
                 }
                 &.piano .img {
-                    background-image: url("/static/images/landing-page/project-piano.png");
+                    background-image: url("/static/images/landing-page/project-piano.webp");
                 }
                 &.positive .img {
-                    background-image: url("/static/images/landing-page/project-positive.png");
+                    background-image: url("/static/images/landing-page/project-positive.webp");
                     border: 1px solid rgba(183, 0, 144, 0.3);
                 }
             }

@@ -38,10 +38,10 @@ function Quote({ testimonial }: { testimonial: Testimonial }) {
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.png" />
+        <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.webp" />
         <span>
           {renderParagraphs(testimonial.text)}
-          <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.png" />
+          <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.webp" />
         </span>
       </div>
       <div className={styles.person}>
