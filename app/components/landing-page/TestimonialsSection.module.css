@@ -3,7 +3,7 @@
     padding-bottom: 40px;
     background-repeat: repeat;
     background-color: var(--light-blue);
-    background-image: url("/static/images/landing-page/testimonial-bg.webp");
+    background-image: url("/static/images/landing-page/testimonial-bg.png");
     background-size: 300px;
 
     h2 {

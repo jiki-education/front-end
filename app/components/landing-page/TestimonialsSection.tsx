@@ -95,7 +95,7 @@ export function TestimonialsSection() {
             }
             name="@RedRobio"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/redrobio.webp"
+            img="/static/images/landing-page/testimonials/redrobio.jpg"
           />
           <Quote
             text={

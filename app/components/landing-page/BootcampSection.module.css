@@ -359,7 +359,7 @@
             left: -95px;
             bottom: -80px;
             transform: rotate(35deg);
-            background-image: url("/static/images/landing-page/left-bg-decor.webp");
+            background-image: url("/static/images/landing-page/left-bg-decor.png");
         }
 
         &::after {
@@ -388,7 +388,7 @@
     }
 
     .portfolio-subsection {
-        background-image: url("/static/images/landing-page/portfolio-bg.webp");
+        background-image: url("/static/images/landing-page/portfolio-bg.png");
         background-position: top right;
         background-size: cover;
 
