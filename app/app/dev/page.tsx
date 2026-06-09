@@ -137,6 +137,14 @@ export default function DevPage() {
               </Link>
               <span className="text-gray-600 text-sm ml-2">- Isolated test page for the project-unlocked step</span>
             </li>
+            <li>
+              <Link href="/dev/curriculum-videos" className="text-blue-600 hover:underline">
+                Curriculum Videos
+              </Link>
+              <span className="text-gray-600 text-sm ml-2">
+                - All videos from api&apos;s curriculum.json, grouped by level
+              </span>
+            </li>
           </ul>
         </div>
 
