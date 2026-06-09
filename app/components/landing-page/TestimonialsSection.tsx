@@ -17,11 +17,11 @@ export function TestimonialsSection() {
         </p>
         <div className={styles["primary-quote"]}>
           <div className={styles.words}>
-            <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.png" />
+            <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.webp" />
             <span>
               Seeing how much effort, thought, and even love is put into this course, it&apos;s such a pleasure to be a
               student here. Every explanation, each exercise turn this course into a masterpiece. I really enjoy it.
-              <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.png" />
+              <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.webp" />
             </span>
           </div>
           <div className={styles.person}>
@@ -29,7 +29,7 @@ export function TestimonialsSection() {
               <div className={styles.name}>Oleksandra</div>
               <div className={styles.description}>Coding Newbie</div>
             </div>
-            <img src="/static/images/landing-page/testimonials/oleksandra.jpg" />
+            <img src="/static/images/landing-page/testimonials/oleksandra.webp" />
           </div>
         </div>
         <div className={styles.quotes}>
@@ -46,7 +46,7 @@ export function TestimonialsSection() {
             }
             name="Fred"
             description="Total Beginner"
-            img="/static/images/landing-page/testimonials/fred.png"
+            img="/static/images/landing-page/testimonials/fred.webp"
           />
           <Quote
             text={
@@ -57,7 +57,7 @@ export function TestimonialsSection() {
             }
             name="Shaun"
             description="Absolute Beginner"
-            img="/static/images/landing-page/testimonials/shaun.jpg"
+            img="/static/images/landing-page/testimonials/shaun.webp"
           />
           <Quote
             text={
@@ -83,7 +83,7 @@ export function TestimonialsSection() {
             }
             name="Nolan Lounsbery"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/giantlemur.jpg"
+            img="/static/images/landing-page/testimonials/giantlemur.webp"
           />
           <Quote
             text={
@@ -95,7 +95,7 @@ export function TestimonialsSection() {
             }
             name="@RedRobio"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/redrobio.jpg"
+            img="/static/images/landing-page/testimonials/redrobio.webp"
           />
           <Quote
             text={
@@ -110,7 +110,7 @@ export function TestimonialsSection() {
             }
             name="Matt"
             description="Python Dev"
-            img="/static/images/landing-page/testimonials/github.png"
+            img="/static/images/landing-page/testimonials/github.webp"
           />
           <Quote
             text={
@@ -121,7 +121,7 @@ export function TestimonialsSection() {
             }
             name="@abhinav"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/abhinav.png"
+            img="/static/images/landing-page/testimonials/abhinav.webp"
           />
           <Quote
             text={
@@ -148,7 +148,7 @@ export function TestimonialsSection() {
             }
             name="Oleksandra"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/github.png"
+            img="/static/images/landing-page/testimonials/github.webp"
           />
           <Quote
             text={
@@ -190,7 +190,7 @@ export function TestimonialsSection() {
             }
             name="Rick"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/ricksn.jpg"
+            img="/static/images/landing-page/testimonials/ricksn.webp"
           />
           <Quote
             text={
@@ -216,7 +216,7 @@ export function TestimonialsSection() {
             }
             name="Robert"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/rob.jpg"
+            img="/static/images/landing-page/testimonials/rob.webp"
           />
           <Quote
             text={
@@ -229,7 +229,7 @@ export function TestimonialsSection() {
             }
             name="Karen"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/github.png"
+            img="/static/images/landing-page/testimonials/github.webp"
           />
           <Quote
             text={
@@ -303,7 +303,7 @@ export function TestimonialsSection() {
             }
             name="Chris"
             description="Serial beginner"
-            img="/static/images/landing-page/testimonials/sharpiemath.png"
+            img="/static/images/landing-page/testimonials/sharpiemath.webp"
           />
         </div>
       </div>
@@ -325,10 +325,10 @@ function Quote({
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.png" />
+        <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.webp" />
         <span>
           {text}
-          <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.png" />
+          <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.webp" />
         </span>
       </div>
       <div className={styles.person}>

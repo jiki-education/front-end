@@ -25,7 +25,7 @@ export function LandingPage() {
         <SignupSection />
         <Image
           className="w-[100px] mx-auto my-64"
-          src="/static/images/landing-page/divider.png"
+          src="/static/images/landing-page/divider.webp"
           alt=""
           width={100}
           height={100}
@@ -33,7 +33,7 @@ export function LandingPage() {
         <Exercism />
         <Image
           className="w-[100px] mx-auto my-64"
-          src="/static/images/landing-page/divider.png"
+          src="/static/images/landing-page/divider.webp"
           alt=""
           width={100}
           height={100}

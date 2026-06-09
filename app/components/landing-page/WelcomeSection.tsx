@@ -121,7 +121,7 @@ export function WelcomeSection() {
           >
             <Image
               className="w-[100%] border-[#aaa] border-[1px] rounded-[1px]"
-              src="/static/images/landing-page/with-rhodri.jpg"
+              src="/static/images/landing-page/with-rhodri.webp"
               alt="Jeremy and Rhodri in 1998 making their first paid website"
               width={300}
               height={400}
@@ -176,37 +176,49 @@ export function WelcomeSection() {
           auth, using APIs, deploying websites... Doing all the real stuff that developers do!
         </p>
         <div className="grid grid-cols-4 gap-10 my-16">
-          <Image
+          <video
             className="w-full border-2 border-bootcamp-purple rounded-[5px]"
-            src="/static/images/landing-page/space-invaders.gif"
-            alt="Space Invaders game screenshot"
+            src="/static/images/landing-page/space-invaders.mp4"
+            aria-label="Space Invaders game screenshot"
             width={400}
             height={300}
-            unoptimized
+            autoPlay
+            muted
+            loop
+            playsInline
           />
-          <Image
+          <video
             className="w-full border-2 border-bootcamp-purple rounded-[5px]"
-            src="/static/images/landing-page/tic-tac-toe.gif"
-            alt="Tic Tac Toe game screenshot"
+            src="/static/images/landing-page/tic-tac-toe.mp4"
+            aria-label="Tic Tac Toe game screenshot"
             width={400}
             height={300}
-            unoptimized
+            autoPlay
+            muted
+            loop
+            playsInline
           />
-          <Image
+          <video
             className="w-full border-2 border-bootcamp-purple rounded-[5px]"
-            src="/static/images/landing-page/breakout.gif"
-            alt="Breakout game screenshot"
+            src="/static/images/landing-page/breakout.mp4"
+            aria-label="Breakout game screenshot"
             width={400}
             height={300}
-            unoptimized
+            autoPlay
+            muted
+            loop
+            playsInline
           />
-          <Image
+          <video
             className="w-full border-2 border-bootcamp-purple rounded-[5px]"
-            src="/static/images/landing-page/maze.gif"
-            alt="Maze solving bot screenshot"
+            src="/static/images/landing-page/maze.mp4"
+            aria-label="Maze solving bot screenshot"
             width={400}
             height={300}
-            unoptimized
+            autoPlay
+            muted
+            loop
+            playsInline
           />
         </div>
         <h3 className="mt-32">Sound fun?</h3>
@@ -279,7 +291,7 @@ export function WelcomeSection() {
           >
             <Image
               className="w-[100%] border-[#aaa] border-[1px] rounded-[1px]"
-              src="/static/images/landing-page/editor.png"
+              src="/static/images/landing-page/editor.webp"
               alt="The Jiki coding interface"
               width={760}
               height={475}
@@ -303,7 +315,7 @@ export function WelcomeSection() {
           >
             <Image
               className="w-[100%] border-[#aaa] border-[1px] rounded-[1px]"
-              src="/static/images/landing-page/jiki-slide.png"
+              src="/static/images/landing-page/jiki-slide.webp"
               alt="A slide explaining how Jiki runs your code"
               width={300}
               height={225}

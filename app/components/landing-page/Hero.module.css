@@ -309,7 +309,7 @@
         height: 102px;
         transform: rotate(180deg);
         margin-top: 100px;
-        background: transparent url("/static/images/landing-page/paper-tear.png") bottom repeat-x;
+        background: transparent url("/static/images/landing-page/paper-tear.webp") bottom repeat-x;
         background-size: 1280px;
         margin-bottom: -1px;
     }
