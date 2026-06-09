@@ -1,27 +1,11 @@
-"use client";
+import type { Metadata } from "next";
+import CheckEmailClient from "./CheckEmailClient";
 
-import { useEffect, useState } from "react";
-import { CheckInboxMessage } from "@/components/auth/CheckInboxMessage";
-import { AuthLayout } from "@/components/ui/AuthLayout";
+export const metadata: Metadata = {
+  title: "Check your email - Jiki",
+  description: "We've sent you a confirmation email. Check your inbox to verify your address and finish signing up."
+};
 
 export default function CheckEmailPage() {
-  const [email, setEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    try {
-      setEmail(localStorage.getItem("just_signed_up_email") ?? "");
-    } catch {
-      setEmail("");
-    }
-  }, []);
-
-  if (email === null) {
-    return null;
-  }
-
-  return (
-    <AuthLayout>
-      <CheckInboxMessage email={email} />
-    </AuthLayout>
-  );
+  return <CheckEmailClient />;
 }

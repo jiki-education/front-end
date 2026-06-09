@@ -108,6 +108,84 @@
             padding: 56.25% 0 0 0;
             position: relative;
         }
+
+        .video-poster-button {
+            display: block;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            background: #000;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .video-poster-image {
+            object-fit: cover;
+        }
+
+        .video-play-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .video-poster-button:not(:disabled):hover .video-play-circle,
+        .video-poster-button:not(:disabled):focus-visible .video-play-circle {
+            background-color: var(--color-purple-500);
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .video-poster-button:disabled {
+            cursor: wait;
+        }
+
+        .video-play-circle svg {
+            width: 40%;
+            height: 40%;
+            margin-left: 5%;
+            color: #fff;
+        }
+
+        .video-spinner {
+            width: 40%;
+            height: 40%;
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: video-spinner-spin 0.8s linear infinite;
+        }
+
+        .video-mux-overlay {
+            position: absolute;
+            inset: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-mux-overlay.ready {
+            opacity: 1;
+            pointer-events: auto;
+        }
     }
 
     h1 {
@@ -312,6 +390,12 @@
         background: transparent url("/static/images/landing-page/paper-tear.png") bottom repeat-x;
         background-size: 1280px;
         margin-bottom: -1px;
+    }
+}
+
+@keyframes video-spinner-spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
