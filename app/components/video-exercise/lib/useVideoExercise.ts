@@ -30,6 +30,7 @@ export function useVideoExercise(lessonSlug: string) {
 
     setIsInitializing(false);
     playerRef.current?.play().catch((error) => {
+      if (error.name !== "NotAllowedError") reportError(error);
       console.warn("Autoplay was prevented:", error.message);
       setIsVideoVisible(true);
     });
@@ -58,7 +59,9 @@ export function useVideoExercise(lessonSlug: string) {
   const autoplay = () => {
     if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
       hasAutoPlayedRef.current = true;
-      playerRef.current.play().catch(() => {
+      playerRef.current.play().catch((error) => {
+        if (error.name !== "NotAllowedError") reportError(error);
+        console.warn("Autoplay was prevented:", error.message);
         setIsVideoVisible(true);
       });
     }
