@@ -103,4 +103,12 @@ describe("PremiumDailyPrice", () => {
     expect(container.textContent).toMatch(/33/);
     expect(container.textContent).not.toMatch(/0\.33/);
   });
+
+  it("calculates daily price for Stripe hundredfold zero-decimal currency (HUF)", () => {
+    mockUser = { premium_prices: { currency: "huf", monthly: 149900, annual: 1499000, country_code: "HU" } };
+    const { container } = render(<PremiumDailyPrice interval="monthly" />);
+    // Ft 1,499 / 30 ≈ Ft 50 (HUF displays zero-decimal so 49.97 rounds to 50)
+    expect(container.textContent).toMatch(/50/);
+    expect(container.textContent).not.toMatch(/\./);
+  });
 });
