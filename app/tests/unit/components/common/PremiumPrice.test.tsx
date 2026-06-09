@@ -40,6 +40,13 @@ describe("PremiumPrice", () => {
     expect(container.textContent).not.toMatch(/9\.99/);
   });
 
+  it("divides by 100 for Stripe hundredfold zero-decimal currency (HUF)", () => {
+    mockUser = { premium_prices: { currency: "huf", monthly: 149900, annual: 1499000, country_code: "HU" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/1,499/);
+    expect(container.textContent).not.toMatch(/149,900/);
+  });
+
   it("handles uppercase currency from API", () => {
     mockUser = { premium_prices: { currency: "gbp", monthly: 799, annual: 7900, country_code: null } };
     const { container } = render(<PremiumPrice interval="monthly" />);
@@ -95,5 +102,13 @@ describe("PremiumDailyPrice", () => {
     // ¥999 / 30 = ¥33
     expect(container.textContent).toMatch(/33/);
     expect(container.textContent).not.toMatch(/0\.33/);
+  });
+
+  it("calculates daily price for Stripe hundredfold zero-decimal currency (HUF)", () => {
+    mockUser = { premium_prices: { currency: "huf", monthly: 149900, annual: 1499000, country_code: "HU" } };
+    const { container } = render(<PremiumDailyPrice interval="monthly" />);
+    // Ft 1,499 / 30 ≈ Ft 50 (HUF displays zero-decimal so 49.97 rounds to 50)
+    expect(container.textContent).toMatch(/50/);
+    expect(container.textContent).not.toMatch(/\./);
   });
 });

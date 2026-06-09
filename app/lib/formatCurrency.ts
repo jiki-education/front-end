@@ -11,8 +11,24 @@ const DOLLAR_PREFIX: Record<string, string> = {
   MXN: "MX"
 };
 
+// Stripe special-case currencies: displayed as zero-decimal, but the `amount`
+// field is still multiplied by 100. See https://docs.stripe.com/currencies#special-cases
+const STRIPE_HUNDREDFOLD_ZERO_DECIMAL = new Set(["HUF", "TWD", "UGX"]);
+
+// Decimal places used when *displaying* an amount (e.g. "Ft 1,499" → 0 for HUF).
+// Do NOT use this to convert Stripe minor units → display units; use minorUnitExponent.
 export function currencyFractionDigits(currency: string): number {
+  // Intl reports HUF/TWD/UGX as 2-decimal per ISO 4217, but the sub-units
+  // (fillér, etc.) are obsolete and amounts are always shown whole.
+  if (STRIPE_HUNDREDFOLD_ZERO_DECIMAL.has(currency)) return 0;
   return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
+}
+
+// Power of 10 to convert Stripe's `amount` field into the displayed value.
+// Diverges from currencyFractionDigits for HUF/TWD/UGX.
+function minorUnitExponent(currency: string): number {
+  if (STRIPE_HUNDREDFOLD_ZERO_DECIMAL.has(currency)) return 2;
+  return currencyFractionDigits(currency);
 }
 
 function disambiguate(currency: string, formatted: string): string {
@@ -33,8 +49,7 @@ export function formatCurrency(
   options?: { minimumFractionDigits?: number; maximumFractionDigits?: number }
 ): string {
   const currencyUpper = currency.toUpperCase();
-  const digits = currencyFractionDigits(currencyUpper);
-  const amount = amountInMinorUnits / Math.pow(10, digits);
+  const amount = amountInMinorUnits / Math.pow(10, minorUnitExponent(currencyUpper));
   const formatted = new Intl.NumberFormat(undefined, {
     style: "currency",
     currency: currencyUpper,
