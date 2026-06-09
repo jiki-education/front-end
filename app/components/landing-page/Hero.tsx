@@ -136,7 +136,11 @@ export function Hero() {
                   playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
                   poster={VIDEO_POSTER_URL}
                   autoPlay
+                  // Reveal mux's UI on any of: canplay (iOS Safari may block autoplay so `playing` never fires),
+                  // playing (normal happy path), error (so mux's own error UI replaces our spinner).
+                  onCanPlay={() => setReady(true)}
                   onPlaying={() => setReady(true)}
+                  onError={() => setReady(true)}
                   metadata={{ video_title: "Waiting Page 1" }}
                   style={{
                     display: "block",
