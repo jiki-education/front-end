@@ -5,8 +5,7 @@ import { LandingPage } from "../../components/landing-page/LandingPage";
 
 export const metadata: Metadata = {
   title: "Jiki - Learn to Code the Fun Way",
-  description:
-    "Learn to code through world-class teaching hundreds of fun exercises and projects. Make games, solve puzzles, learn the fun way!"
+  description: "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
 };
 
 export default async function RootPage() {
