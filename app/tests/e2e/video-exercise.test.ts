@@ -24,6 +24,15 @@ async function mockLessonStatus(page: Page) {
 }
 
 test.describe("VideoExercise autoplay", () => {
+  // Warm up the page compilation before running tests in parallel
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage();
+    await mockLessonStatus(page);
+    await page.goto("/dev/video-exercise", { timeout: 30000 });
+    await page.locator("mux-player").waitFor({ state: "attached" });
+    await page.close();
+  });
+
   test("reveals the player when autoplay is blocked by the browser", async ({ page }) => {
     await mockLessonStatus(page);
 
