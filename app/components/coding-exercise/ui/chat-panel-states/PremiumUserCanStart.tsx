@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef, type KeyboardEvent } from "react";
+import { useEffect, useRef } from "react";
 import TypeIt from "typeit-react";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
+import { useChatInput } from "../../hooks/useChatInput";
 import sharedStyles from "./FreeUserCanStart.module.css";
 import styles from "./PremiumUserCanStart.module.css";
 import StuckHeader from "./StuckHeader";
@@ -23,25 +24,8 @@ const rotatingPhrases = [
 // Premium user, conversation allowed, no existing conversation
 // Ready to start a new conversation with the chat input
 export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanStartProps) {
-  const [message, setMessage] = useState("");
+  const { message, setMessage, hasMessage, handleSend, handleKeyDown } = useChatInput({ onSendMessage });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const hasMessage = message.trim().length > 0;
-
-  const handleSend = () => {
-    const trimmedMessage = message.trim();
-    if (trimmedMessage) {
-      onSendMessage(trimmedMessage);
-      setMessage("");
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
 
   // Auto-resize textarea
   useEffect(() => {

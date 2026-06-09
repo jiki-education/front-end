@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
 import SendArrow from "@/icons/send-arrow.svg";
+import { useChatInput } from "../hooks/useChatInput";
 import { UserAvatarImg } from "./ChatAvatars";
 import styles from "./ChatInput.module.css";
 
@@ -16,23 +16,7 @@ export default function ChatInput({
   disabled = false,
   placeholder = "Type your question here..."
 }: ChatInputProps) {
-  const [message, setMessage] = useState("");
-
-  const handleSend = () => {
-    const trimmedMessage = message.trim();
-    if (trimmedMessage && !disabled) {
-      onSendMessage(trimmedMessage);
-      setMessage("");
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    // Enter sends; Shift+Enter inserts a newline
-    if (e.key === "Enter" && !e.shiftKey && !disabled) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
+  const { message, setMessage, handleSend, handleKeyDown } = useChatInput({ onSendMessage, disabled });
 
   return (
     <div className={styles.chatInputContainer}>
