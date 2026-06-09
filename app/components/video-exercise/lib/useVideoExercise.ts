@@ -16,6 +16,12 @@ export function useVideoExercise(lessonSlug: string) {
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
   const hasAutoPlayedRef = useRef(false);
 
+  const handleAutoplayFailure = (error: Error) => {
+    if (error.name !== "NotAllowedError") reportError(error);
+    console.warn("Autoplay was prevented:", error.message);
+    setIsVideoVisible(true);
+  };
+
   useEffect(() => {
     fetchUserLesson(lessonSlug)
       .then((userLesson) => {
@@ -29,11 +35,7 @@ export function useVideoExercise(lessonSlug: string) {
       .catch(reportError);
 
     setIsInitializing(false);
-    playerRef.current?.play().catch((error) => {
-      if (error.name !== "NotAllowedError") reportError(error);
-      console.warn("Autoplay was prevented:", error.message);
-      setIsVideoVisible(true);
-    });
+    playerRef.current?.play().catch(handleAutoplayFailure);
   }, [lessonSlug]);
 
   const handleVideoEnd = () => {
@@ -59,11 +61,7 @@ export function useVideoExercise(lessonSlug: string) {
   const autoplay = () => {
     if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
       hasAutoPlayedRef.current = true;
-      playerRef.current.play().catch((error) => {
-        if (error.name !== "NotAllowedError") reportError(error);
-        console.warn("Autoplay was prevented:", error.message);
-        setIsVideoVisible(true);
-      });
+      playerRef.current.play().catch(handleAutoplayFailure);
     }
   };
 
