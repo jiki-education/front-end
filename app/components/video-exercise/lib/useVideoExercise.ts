@@ -58,7 +58,9 @@ export function useVideoExercise(lessonSlug: string) {
   const autoplay = () => {
     if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
       hasAutoPlayedRef.current = true;
-      void playerRef.current.play();
+      playerRef.current.play().catch(() => {
+        setIsVideoVisible(true);
+      });
     }
   };
 
