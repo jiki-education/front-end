@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import MuxPlayer from "@/components/ui/JikiMuxPlayer";
+import dynamic from "next/dynamic";
 import { annotate } from "rough-notation";
+
+const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
+
+const VIDEO_POSTER_URL = "https://assets.jiki.io/landing-video-thumbnail-ef14e.webp";
 import styles from "./Hero.module.css";
 import shared from "./shared.module.css";
 import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
@@ -14,6 +18,8 @@ export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const audienceRef = useRef<HTMLParagraphElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const can = headlineRef.current?.querySelector<HTMLElement>("[data-anim='underline-can']");
@@ -124,18 +130,56 @@ export function Hero() {
         </div>
         <div className={styles["hero-rhs"]}>
           <div className={styles["video-container"]} data-video-container>
-            <MuxPlayer
-              playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
-              poster="https://assets.jiki.io/landing-video-thumbnail-ef14e.webp"
-              metadata={{ video_title: "Waiting Page 1" }}
-              style={{
-                display: "block",
-                width: "100%",
-                aspectRatio: "16/9",
-                ["--seek-backward-button" as string]: "none",
-                ["--seek-forward-button" as string]: "none"
-              }}
-            />
+            {playing && (
+              <div className={`${styles["video-mux-overlay"]} ${ready ? styles["ready"] : ""}`}>
+                <MuxPlayer
+                  playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
+                  poster={VIDEO_POSTER_URL}
+                  autoPlay
+                  onPlaying={() => setReady(true)}
+                  metadata={{ video_title: "Waiting Page 1" }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    ["--seek-backward-button" as string]: "none",
+                    ["--seek-forward-button" as string]: "none"
+                  }}
+                />
+              </div>
+            )}
+            {!ready && (
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                className={styles["video-poster-button"]}
+                aria-label={playing ? "Loading video" : "Play video"}
+                disabled={playing}
+              >
+                <Image
+                  src={VIDEO_POSTER_URL}
+                  alt=""
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 580px"
+                  className={styles["video-poster-image"]}
+                />
+                <span className={styles["video-play-circle"]} aria-hidden="true">
+                  {playing ? (
+                    <span className={styles["video-spinner"]} />
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="m4.79386 21.6974 -1.49723 0.858V1.44481l1.49723 0.85806L20.2007 11.1325l1.5139 0.8676 -1.5139 0.8676 -15.40684 8.8297Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </span>
+              </button>
+            )}
           </div>
           <WatchPrompt />
         </div>

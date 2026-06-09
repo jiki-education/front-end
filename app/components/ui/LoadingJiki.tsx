@@ -11,7 +11,7 @@ export default function LoadingJiki({ delayed = false }: LoadingJikiProps) {
     <div className={`${styles.container} ${delayed ? styles.delayed : ""}`}>
       <div className={styles.imageWrapper}>
         <Image
-          src="/static/images/graphics/jiki-wakeup.png"
+          src="/static/images/graphics/jiki-wakeup.webp"
           alt="Jiki character waking up"
           width={560}
           height={560}
