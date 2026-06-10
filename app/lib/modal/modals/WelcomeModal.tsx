@@ -50,6 +50,17 @@ export function WelcomeModal() {
       <button onClick={handleContinue} className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}>
         Continue
       </button>
+      {/*
+        One-off nested modal — NOT a pattern. The global modal system in
+        .context/modals.md is single-modal; this dialog lives inside WelcomeModal
+        because the video must pause behind it and resume on cancel, which the
+        store-driven flow doesn't express. Known trade-offs accepted here:
+          - Escape calls onRequestClose → resumeVideo (acts like "Keep watching").
+          - Stacking is handled via --z-index-modal-nested on the overlay.
+          - On confirm, hideModal unmounts both modals together; a one-frame
+            paint flash is theoretically possible but hasn't been observed.
+        Do not copy this elsewhere — use showConfirmation / a new modal name.
+      */}
       <Modal
         isOpen={confirmSkip}
         onRequestClose={resumeVideo}
@@ -65,7 +76,12 @@ export function WelcomeModal() {
           onConfirm={hideModal}
           onCancel={resumeVideo}
           onClose={() => {
-            /* Suppress ConfirmationModal's default close; onConfirm/onCancel above handle it. */
+            /*
+              Intentional no-op. ConfirmationModal calls onConfirm?.() then onClose();
+              here the close path is fully owned by onConfirm={hideModal} (unmounts
+              everything) and onCancel={resumeVideo} (closes this dialog, resumes video).
+              If you add behavior to onClose, audit both call sites first.
+            */
           }}
         />
       </Modal>
