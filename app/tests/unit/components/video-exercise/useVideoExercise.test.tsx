@@ -66,6 +66,26 @@ describe("useVideoExercise autoplay error handling", () => {
     expect(warnSpy).toHaveBeenCalledWith("Autoplay was prevented:", "blocked");
   });
 
+  it("reveals the player and does not report when play() rejects with AbortError", async () => {
+    const aborted = Object.assign(new Error("interrupted by load"), { name: "AbortError" });
+    const play = jest.fn().mockRejectedValue(aborted);
+
+    const { result } = renderHook(() => useVideoExercise(SLUG));
+    await waitFor(() => expect(mockedFetchUserLesson).toHaveBeenCalled());
+
+    attachPlayer(result, play);
+
+    await act(async () => {
+      result.current.autoplay();
+      await Promise.resolve();
+    });
+
+    expect(play).toHaveBeenCalledTimes(1);
+    expect(result.current.isVideoVisible).toBe(true);
+    expect(mockedReportError).not.toHaveBeenCalled();
+    expect(warnSpy).toHaveBeenCalledWith("Autoplay was prevented:", "interrupted by load");
+  });
+
   it("reveals the player AND reports to Sentry for unexpected play() errors", async () => {
     const unexpected = Object.assign(new Error("boom"), { name: "TypeError" });
     const play = jest.fn().mockRejectedValue(unexpected);
