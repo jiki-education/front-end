@@ -49,7 +49,6 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
             <MuxPlayer
               ref={playerRef}
               playbackId={playbackId}
-              autoPlay={true}
               className={`${videoWatched ? styles.muxPlayerCompleted : styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}

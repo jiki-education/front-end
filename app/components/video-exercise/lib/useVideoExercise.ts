@@ -17,7 +17,8 @@ export function useVideoExercise(lessonSlug: string) {
   const hasAutoPlayedRef = useRef(false);
 
   const handleAutoplayFailure = (error: Error) => {
-    if (error.name !== "NotAllowedError") reportError(error);
+    const expected = error.name === "NotAllowedError" || error.name === "AbortError";
+    if (!expected) reportError(error);
     console.warn("Autoplay was prevented:", error.message);
     setIsVideoVisible(true);
   };
@@ -35,7 +36,6 @@ export function useVideoExercise(lessonSlug: string) {
       .catch(reportError);
 
     setIsInitializing(false);
-    playerRef.current?.play().catch(handleAutoplayFailure);
   }, [lessonSlug]);
 
   const handleVideoEnd = () => {
