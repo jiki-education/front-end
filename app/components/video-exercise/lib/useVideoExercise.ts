@@ -59,10 +59,9 @@ export function useVideoExercise(lessonSlug: string) {
   };
 
   const autoplay = () => {
-    if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
-      hasAutoPlayedRef.current = true;
-      playerRef.current.play().catch(handleAutoplayFailure);
-    }
+    if (hasAutoPlayedRef.current || !playerRef.current) return;
+    hasAutoPlayedRef.current = true;
+    playerRef.current.play().catch(handleAutoplayFailure);
   };
 
   const handleContinue = async () => {
