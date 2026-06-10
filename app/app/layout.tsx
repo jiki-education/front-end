@@ -1,6 +1,7 @@
 import { AttributionCapture } from "@/components/AttributionCapture";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
+import { GlobalModalProvider } from "@/lib/modal";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
@@ -59,6 +60,7 @@ export default function RootLayout({
         <ServerAuthProvider>
           <ThemeProvider>
             <main className="w-full">{children}</main>
+            <GlobalModalProvider />
             <ToasterProvider />
           </ThemeProvider>
         </ServerAuthProvider>
