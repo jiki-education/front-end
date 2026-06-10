@@ -13,11 +13,9 @@ jest.mock("@/lib/modal/store", () => {
 });
 
 // Resolve next/dynamic synchronously so the forwarded ref reaches the mock player.
- 
+
 jest.mock("next/dynamic", () => (loader: () => Promise<{ default: any }>) => {
-   
   const Comp = React.forwardRef<unknown, Record<string, any>>(function DynamicMock(props, ref) {
-     
     const [Loaded, setLoaded] = React.useState<any>(null);
     React.useEffect(() => {
       void loader().then((mod) => setLoaded(() => mod.default));
