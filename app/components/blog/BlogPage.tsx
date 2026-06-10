@@ -1,5 +1,5 @@
 import { getBlogPosts } from "@/lib/content";
-import BlogPagination from "./BlogPagination";
+import Pagination from "@/components/ui/Pagination";
 import BlogPostsGrid from "./BlogPostsGrid";
 import FeaturedLatestPost from "./FeaturedLatestPost";
 import PageHeader from "./PageHeader";
@@ -27,7 +27,12 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
         />
         <FeaturedLatestPost post={latestPost} locale={locale} />
         {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} locale={locale} />}
-        <BlogPagination currentPage={currentPage} totalPages={totalPages} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          hrefForPage={(p) => (p === 1 ? "/blog" : `/blog?page=${p}`)}
+          className="mt-12"
+        />
       </div>
     </div>
   );

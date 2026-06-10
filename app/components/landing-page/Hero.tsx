@@ -1,11 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ComponentProps } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { annotate } from "rough-notation";
+import type JikiMuxPlayer from "@/components/ui/JikiMuxPlayer";
 
-const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
+// Defer the dynamic() declaration until the component actually mounts (after the
+// user clicks play). Declaring dynamic() at module scope creates a Suspense
+// boundary in the parent server tree, which forces Next to stream metadata
+// instead of shipping it in <head>.
+function MuxPlayerLazy(props: ComponentProps<typeof JikiMuxPlayer>) {
+  const Component = useMemo(() => dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false }), []);
+  return <Component {...props} />;
+}
 
 const VIDEO_POSTER_URL = "https://assets.jiki.io/landing-video-thumbnail-ef14e.webp";
 import styles from "./Hero.module.css";
@@ -132,7 +141,7 @@ export function Hero() {
           <div className={styles["video-container"]} data-video-container>
             {playing && (
               <div className={`${styles["video-mux-overlay"]} ${ready ? styles["ready"] : ""}`}>
-                <MuxPlayer
+                <MuxPlayerLazy
                   playbackId="zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A"
                   poster={VIDEO_POSTER_URL}
                   autoPlay

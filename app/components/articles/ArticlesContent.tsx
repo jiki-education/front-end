@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import type { ArticleMeta } from "@/lib/content/types";
 import type { ArticleTagSlug } from "@/lib/content/types";
 import { useArticlesSearch } from "@/lib/hooks/useArticlesSearch";
@@ -27,12 +27,11 @@ export default function ArticlesContent({
   totalPages,
   tagSlugs
 }: ArticlesContentProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { searchQuery, setSearchQuery, searchResults, isLoading } = useArticlesSearch(locale);
 
-  const handlePageChange = (page: number) => {
+  const hrefForPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     if (page === 1) {
       params.delete("page");
@@ -40,7 +39,7 @@ export default function ArticlesContent({
       params.set("page", page.toString());
     }
     const queryString = params.toString();
-    router.push(queryString ? `${pathname}?${queryString}` : pathname);
+    return queryString ? `${pathname}?${queryString}` : pathname;
   };
 
   // Filter articles based on search results
@@ -76,12 +75,7 @@ export default function ArticlesContent({
         </div>
 
         {showPagination && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-            className="mt-12"
-          />
+          <Pagination currentPage={currentPage} totalPages={totalPages} hrefForPage={hrefForPage} className="mt-12" />
         )}
       </div>
 

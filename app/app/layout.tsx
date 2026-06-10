@@ -1,8 +1,6 @@
 import { AttributionCapture } from "@/components/AttributionCapture";
-import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
 import { ToasterProvider } from "@/components/toaster-config";
-import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
 import { GlobalModalProvider } from "@/lib/modal";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
@@ -64,8 +62,6 @@ export default function RootLayout({
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
             <ToasterProvider />
-            <CheckoutReturnHandler />
-            <WelcomeModalHandler />
           </ThemeProvider>
         </ServerAuthProvider>
       </body>
