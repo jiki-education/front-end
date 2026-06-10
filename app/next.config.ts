@@ -4,6 +4,11 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
+  // Disable metadata streaming for all user agents. Next 15.2+ defers metadata
+  // to body for dynamic pages and only injects in <head> for known bot UAs —
+  // but its default bot regex doesn't include plain "Googlebot", and Lighthouse
+  // sends a real Chrome UA so neither would see metadata in <head> without this.
+  htmlLimitedBots: /.*/,
   experimental: {
     reactCompiler: true
   },

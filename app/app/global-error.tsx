@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { ErrorPageContent } from "./components/ErrorPage";
+import { ErrorPageContent } from "../components/error-page/ErrorPage";
 // global-error.tsx replaces the entire HTML tree including root layout,
 // so it must import globals.css directly to have any styles
 import "./globals.css";
-import styles from "./components/ErrorPage.module.css";
+import styles from "../components/error-page/ErrorPage.module.css";
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {

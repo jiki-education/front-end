@@ -1,4 +1,7 @@
 import { ClientAuthGuard } from "../../components/layout/auth/internal/ClientAuthGuard";
+import { GlobalModalProvider } from "@/lib/modal";
+import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
+import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
 
 /**
  * Internal App Layout with Client-Side Authentication
@@ -28,5 +31,12 @@ export default function AppLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <ClientAuthGuard>{children}</ClientAuthGuard>;
+  return (
+    <ClientAuthGuard>
+      {children}
+      <GlobalModalProvider />
+      <CheckoutReturnHandler />
+      <WelcomeModalHandler />
+    </ClientAuthGuard>
+  );
 }
