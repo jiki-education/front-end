@@ -12,22 +12,6 @@ jest.mock("@/lib/modal/store", () => {
   };
 });
 
-// Resolve next/dynamic synchronously so the forwarded ref reaches the mock player.
-
-jest.mock("next/dynamic", () => (loader: () => Promise<{ default: any }>) => {
-  const Comp = React.forwardRef<unknown, Record<string, any>>(function DynamicMock(props, ref) {
-    const [Loaded, setLoaded] = React.useState<any>(null);
-    React.useEffect(() => {
-      void loader().then((mod) => setLoaded(() => mod.default));
-    }, []);
-    if (!Loaded) {
-      return null;
-    }
-    return <Loaded ref={ref} {...props} />;
-  });
-  return Comp;
-});
-
 const pauseMock = jest.fn();
 const playMock = jest.fn().mockResolvedValue(undefined);
 let lastOnEnded: (() => void) | undefined;
@@ -50,19 +34,19 @@ describe("WelcomeModal", () => {
     lastOnEnded = undefined;
   });
 
-  async function renderModal() {
+  function renderModal() {
     render(<WelcomeModal />);
-    return await screen.findByTestId("mux-player");
+    return screen.getByTestId("mux-player");
   }
 
-  it("renders the welcome video", async () => {
-    await renderModal();
+  it("renders the welcome video", () => {
+    renderModal();
     expect(screen.getByText("Welcome to Jiki!")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Continue" })).toBeInTheDocument();
   });
 
-  it("closes the modal when Continue is clicked after the video ends", async () => {
-    await renderModal();
+  it("closes the modal when Continue is clicked after the video ends", () => {
+    renderModal();
 
     act(() => {
       lastOnEnded?.();
@@ -74,7 +58,7 @@ describe("WelcomeModal", () => {
   });
 
   it("pauses the video and shows a confirm dialog when Continue is clicked mid-video", async () => {
-    await renderModal();
+    renderModal();
 
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
 
@@ -86,7 +70,7 @@ describe("WelcomeModal", () => {
   });
 
   it("closes the modal when the user confirms skipping", async () => {
-    await renderModal();
+    renderModal();
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
 
     fireEvent.click(await screen.findByRole("button", { name: "Skip video" }));
@@ -94,7 +78,7 @@ describe("WelcomeModal", () => {
   });
 
   it("resumes playback and dismisses the confirm dialog when the user keeps watching", async () => {
-    await renderModal();
+    renderModal();
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
 
     fireEvent.click(await screen.findByRole("button", { name: "Keep watching" }));

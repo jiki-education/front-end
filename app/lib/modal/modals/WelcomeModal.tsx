@@ -1,15 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import type { MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
+import Modal from "react-modal";
+import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
 import { hideModal } from "../store";
+import { ConfirmationModal } from "./ConfirmationModal";
 import baseStyles from "@/app/styles/components/modals.module.css";
 import confirmStyles from "@/app/styles/components/confirmation-modal.module.css";
 import styles from "./WelcomeModal.module.css";
-
-const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
 
 const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc";
 
@@ -27,7 +25,7 @@ export function WelcomeModal() {
     setConfirmSkip(true);
   };
 
-  const handleKeepWatching = () => {
+  const resumeVideo = () => {
     setConfirmSkip(false);
     playerRef.current?.play().catch(() => {
       // Browser may block programmatic playback; the user can resume manually.
@@ -52,30 +50,25 @@ export function WelcomeModal() {
       <button onClick={handleContinue} className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}>
         Continue
       </button>
-      {confirmSkip &&
-        typeof document !== "undefined" &&
-        createPortal(
-          <div className={baseStyles.modalOverlay} style={{ zIndex: 1100 }}>
-            <div className={`${baseStyles.modal} ${confirmStyles.modal}`} role="dialog" aria-modal="true">
-              <h2 className={confirmStyles.modalTitle}>Skip the welcome video?</h2>
-              <p className={confirmStyles.modalMessage}>
-                This video helps you get the most out of Jiki. Are you sure you want to skip it?
-              </p>
-              <div className={confirmStyles.modalButtons}>
-                <button
-                  onClick={handleKeepWatching}
-                  className="ui-btn ui-btn-tertiary ui-btn-default whitespace-nowrap"
-                >
-                  Keep watching
-                </button>
-                <button onClick={hideModal} className="ui-btn ui-btn-primary ui-btn-default whitespace-nowrap">
-                  Skip video
-                </button>
-              </div>
-            </div>
-          </div>,
-          document.body
-        )}
+      <Modal
+        isOpen={confirmSkip}
+        onRequestClose={resumeVideo}
+        className={`${baseStyles.modal} ${confirmStyles.modal}`}
+        overlayClassName={`${baseStyles.modalOverlay} ${styles.skipConfirmOverlay}`}
+        ariaHideApp={false}
+      >
+        <ConfirmationModal
+          title="Skip the welcome video?"
+          message="This video helps you get the most out of Jiki. Are you sure you want to skip it?"
+          confirmText="Skip video"
+          cancelText="Keep watching"
+          onConfirm={hideModal}
+          onCancel={resumeVideo}
+          onClose={() => {
+            /* Suppress ConfirmationModal's default close; onConfirm/onCancel above handle it. */
+          }}
+        />
+      </Modal>
     </div>
   );
 }

@@ -10,6 +10,7 @@ interface ConfirmationModalProps {
   cancelText?: string;
   onConfirm?: () => void;
   onCancel?: () => void;
+  onClose?: () => void;
   variant?: "default" | "danger";
 }
 
@@ -20,16 +21,17 @@ export function ConfirmationModal({
   cancelText = "Cancel",
   onConfirm,
   onCancel,
+  onClose = hideModal,
   variant: _variant = "default"
 }: ConfirmationModalProps) {
   const handleConfirm = () => {
     onConfirm?.();
-    hideModal();
+    onClose();
   };
 
   const handleCancel = () => {
     onCancel?.();
-    hideModal();
+    onClose();
   };
 
   return (

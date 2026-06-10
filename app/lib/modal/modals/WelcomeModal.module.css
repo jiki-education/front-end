@@ -71,3 +71,8 @@
     --seek-backward-button: none;
     --seek-forward-button: none;
 }
+
+/* Stack the skip-confirm modal above the welcome modal (default modal z-index is 1001). */
+.skipConfirmOverlay {
+    z-index: var(--z-index-modal-nested);
+}
