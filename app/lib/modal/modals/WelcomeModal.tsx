@@ -47,7 +47,7 @@ export function WelcomeModal() {
           onEnded={() => setWatched(true)}
         />
       </div>
-      <button onClick={handleContinue} className={`ui-btn ui-btn-purple ui-btn-large ${styles.cta}`}>
+      <button onClick={handleContinue} className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-large ${styles.cta}`}>
         Continue
       </button>
       {/*
