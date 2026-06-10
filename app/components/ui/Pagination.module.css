@@ -24,14 +24,15 @@
     box-shadow: 0 2px 8px var(--color-blue-500-10);
 }
 
-.btn:hover:not(:disabled):not(.active) {
+.btn:hover:not(:disabled):not([aria-disabled="true"]):not(.active) {
     background: var(--color-blue-500-20);
     box-shadow:
         0 0 0 4px var(--color-blue-500-10),
         0 4px 16px var(--color-blue-500-15);
 }
 
-.btn:disabled {
+.btn:disabled,
+.btn[aria-disabled="true"] {
     background: var(--color-gray-100);
     color: var(--color-gray-300);
     cursor: not-allowed;
