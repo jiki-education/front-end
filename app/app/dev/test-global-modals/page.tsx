@@ -1,6 +1,13 @@
 "use client";
 
-import { showConfirmation, showInfo, showModal, showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal";
+import {
+  hideModal,
+  showConfirmation,
+  showInfo,
+  showModal,
+  showSubscriptionModal,
+  showSubscriptionSuccess
+} from "@/lib/modal";
 
 export default function TestGlobalModals() {
   return (
@@ -40,8 +47,14 @@ export default function TestGlobalModals() {
                 confirmText: "Delete",
                 cancelText: "Cancel",
                 variant: "danger",
-                onConfirm: () => alert("Item deleted!"),
-                onCancel: () => alert("Cancelled")
+                onConfirm: () => {
+                  hideModal();
+                  alert("Item deleted!");
+                },
+                onCancel: () => {
+                  hideModal();
+                  alert("Cancelled");
+                }
               })
             }
             className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
