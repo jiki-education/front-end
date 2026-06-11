@@ -5,8 +5,7 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 
 // Mock the modal store
 jest.mock("@/lib/modal", () => ({
-  showConfirmation: jest.fn(),
-  hideModal: jest.fn()
+  showConfirmation: jest.fn()
 }));
 
 // Mock Next.js router

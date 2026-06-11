@@ -50,17 +50,7 @@ export function WelcomeModal() {
       <button onClick={handleContinue} className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-large ${styles.cta}`}>
         Continue
       </button>
-      {/*
-        One-off nested modal — NOT a pattern. The global modal system in
-        .context/modals.md is single-modal; this dialog lives inside WelcomeModal
-        because the video must pause behind it and resume on cancel, which the
-        store-driven flow doesn't express. Known trade-offs accepted here:
-          - Escape calls onRequestClose → resumeVideo (acts like "Keep watching").
-          - Stacking is handled via --z-index-modal-nested on the overlay.
-          - On confirm, hideModal unmounts both modals together; a one-frame
-            paint flash is theoretically possible but hasn't been observed.
-        Do not copy this elsewhere — use showConfirmation / a new modal name.
-      */}
+      {/* Nested dialog: cancel must leave WelcomeModal open, so closeOnAction={false}. */}
       <Modal
         isOpen={confirmSkip}
         onRequestClose={resumeVideo}
@@ -73,6 +63,7 @@ export function WelcomeModal() {
           message="This video helps you get the most out of Jiki. Are you sure you want to skip it?"
           confirmText="Skip video"
           cancelText="Keep watching"
+          closeOnAction={false}
           onConfirm={hideModal}
           onCancel={resumeVideo}
         />

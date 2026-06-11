@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
-import { hideModal, showConfirmation, showPremiumUpgradeModal } from "@/lib/modal";
+import { showConfirmation, showPremiumUpgradeModal } from "@/lib/modal";
 import styles from "./FreeUserCanStart.module.css";
 import StuckHeader from "./StuckHeader";
 
@@ -19,10 +19,7 @@ export default function FreeUserCanStart({ onStartChat }: FreeUserCanStartProps)
         "You can only Talk to Jiki on one exercise with the Free plan. Are you sure you want to use it on this exercise?",
       cancelText: "No, not yet",
       confirmText: "Yes, let's go",
-      onConfirm: () => {
-        onStartChat();
-        hideModal();
-      }
+      onConfirm: onStartChat
     });
   };
 
