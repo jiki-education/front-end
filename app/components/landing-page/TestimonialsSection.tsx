@@ -1,6 +1,26 @@
-/* eslint-disable @next/next/no-img-element, jsx-a11y/alt-text */
-
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
+import quote from "./assets/quote.webp";
+import abhinav from "./assets/testimonials/abhinav.webp";
+import drac from "./assets/testimonials/drac.webp";
+import fred from "./assets/testimonials/fred.webp";
+import giantlemur from "./assets/testimonials/giantlemur.webp";
+import github from "./assets/testimonials/github.webp";
+import jj from "./assets/testimonials/jj.webp";
+import kazzybits from "./assets/testimonials/kazzybits.webp";
+import kcash from "./assets/testimonials/kcash.webp";
+import laura from "./assets/testimonials/laura.webp";
+import lukas from "./assets/testimonials/lukas.webp";
+import mArtigiani from "./assets/testimonials/m_artigiani.webp";
+import nanouss01 from "./assets/testimonials/nanouss01.webp";
+import oleksandra from "./assets/testimonials/oleksandra.webp";
+import redrobio from "./assets/testimonials/redrobio.webp";
+import ricksn from "./assets/testimonials/ricksn.webp";
+import rob from "./assets/testimonials/rob.webp";
+import sharpiemath from "./assets/testimonials/sharpiemath.webp";
+import shaun from "./assets/testimonials/shaun.webp";
+import thom from "./assets/testimonials/thom.webp";
+import vignesh from "./assets/testimonials/vignesh.webp";
 import styles from "./TestimonialsSection.module.css";
 import shared from "./shared.module.css";
 
@@ -17,11 +37,11 @@ export function TestimonialsSection() {
         </p>
         <div className={styles["primary-quote"]}>
           <div className={styles.words}>
-            <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.webp" />
+            <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt="“" />
             <span>
               Seeing how much effort, thought, and even love is put into this course, it&apos;s such a pleasure to be a
               student here. Every explanation, each exercise turn this course into a masterpiece. I really enjoy it.
-              <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.webp" />
+              <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt="”" />
             </span>
           </div>
           <div className={styles.person}>
@@ -29,7 +49,7 @@ export function TestimonialsSection() {
               <div className={styles.name}>Oleksandra</div>
               <div className={styles.description}>Coding Newbie</div>
             </div>
-            <img src="/static/images/landing-page/testimonials/oleksandra.webp" />
+            <Image src={oleksandra} alt="Oleksandra" />
           </div>
         </div>
         <div className={styles.quotes}>
@@ -46,7 +66,7 @@ export function TestimonialsSection() {
             }
             name="Fred"
             description="Total Beginner"
-            img="/static/images/landing-page/testimonials/fred.webp"
+            img={fred}
           />
           <Quote
             text={
@@ -57,7 +77,7 @@ export function TestimonialsSection() {
             }
             name="Shaun"
             description="Absolute Beginner"
-            img="/static/images/landing-page/testimonials/shaun.webp"
+            img={shaun}
           />
           <Quote
             text={
@@ -71,7 +91,7 @@ export function TestimonialsSection() {
             }
             name="Lucas"
             description="Total Beginner"
-            img="/static/images/landing-page/testimonials/lukas.webp"
+            img={lukas}
           />
           <Quote
             text={
@@ -83,7 +103,7 @@ export function TestimonialsSection() {
             }
             name="Nolan Lounsbery"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/giantlemur.webp"
+            img={giantlemur}
           />
           <Quote
             text={
@@ -95,7 +115,7 @@ export function TestimonialsSection() {
             }
             name="@RedRobio"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/redrobio.webp"
+            img={redrobio}
           />
           <Quote
             text={
@@ -110,7 +130,7 @@ export function TestimonialsSection() {
             }
             name="Matt"
             description="Python Dev"
-            img="/static/images/landing-page/testimonials/github.webp"
+            img={github}
           />
           <Quote
             text={
@@ -121,7 +141,7 @@ export function TestimonialsSection() {
             }
             name="@abhinav"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/abhinav.webp"
+            img={abhinav}
           />
           <Quote
             text={
@@ -134,7 +154,7 @@ export function TestimonialsSection() {
             }
             name="Laura"
             description="Was in Tutorial Hell"
-            img="/static/images/landing-page/testimonials/laura.webp"
+            img={laura}
           />
           <Quote
             text={
@@ -148,7 +168,7 @@ export function TestimonialsSection() {
             }
             name="Oleksandra"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/github.webp"
+            img={github}
           />
           <Quote
             text={
@@ -163,7 +183,7 @@ export function TestimonialsSection() {
             }
             name="@Kazzybits"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/kazzybits.webp"
+            img={kazzybits}
           />
           <Quote
             text={
@@ -177,7 +197,7 @@ export function TestimonialsSection() {
             }
             name="Vignesh"
             description="Intermediate Dev"
-            img="/static/images/landing-page/testimonials/vignesh.webp"
+            img={vignesh}
           />
           <Quote
             text={
@@ -190,7 +210,7 @@ export function TestimonialsSection() {
             }
             name="Rick"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/ricksn.webp"
+            img={ricksn}
           />
           <Quote
             text={
@@ -203,7 +223,7 @@ export function TestimonialsSection() {
             }
             name="@m_artigiani"
             description=""
-            img="/static/images/landing-page/testimonials/m_artigiani.webp"
+            img={mArtigiani}
           />
           <Quote
             text={
@@ -216,7 +236,7 @@ export function TestimonialsSection() {
             }
             name="Robert"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/rob.webp"
+            img={rob}
           />
           <Quote
             text={
@@ -229,7 +249,7 @@ export function TestimonialsSection() {
             }
             name="Karen"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/github.webp"
+            img={github}
           />
           <Quote
             text={
@@ -241,7 +261,7 @@ export function TestimonialsSection() {
             }
             name="@kcash"
             description="Intermediate Dev"
-            img="/static/images/landing-page/testimonials/kcash.webp"
+            img={kcash}
           />
           <Quote
             text={
@@ -254,7 +274,7 @@ export function TestimonialsSection() {
             }
             name="Cpt Drac"
             description="Total Beginner"
-            img="/static/images/landing-page/testimonials/drac.webp"
+            img={drac}
           />
           <Quote
             text={
@@ -266,7 +286,7 @@ export function TestimonialsSection() {
             }
             name="@JJ"
             description="Junior Developer"
-            img="/static/images/landing-page/testimonials/jj.webp"
+            img={jj}
           />
           <Quote
             text={
@@ -278,7 +298,7 @@ export function TestimonialsSection() {
             }
             name="@nanouss01"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/nanouss01.webp"
+            img={nanouss01}
           />
           <Quote
             text={
@@ -290,7 +310,7 @@ export function TestimonialsSection() {
             }
             name="Thom Chittom"
             description="Beginner"
-            img="/static/images/landing-page/testimonials/thom.webp"
+            img={thom}
           />
           <Quote
             text={
@@ -303,7 +323,7 @@ export function TestimonialsSection() {
             }
             name="Chris"
             description="Serial beginner"
-            img="/static/images/landing-page/testimonials/sharpiemath.webp"
+            img={sharpiemath}
           />
         </div>
       </div>
@@ -320,15 +340,15 @@ function Quote({
   text: React.ReactNode;
   name: string;
   description: string;
-  img: string;
+  img: StaticImageData;
 }) {
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <img className={`${styles.mark} ${styles["left-mark"]}`} src="/static/images/landing-page/quote.webp" />
+        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt="“" />
         <span>
           {text}
-          <img className={`${styles.mark} ${styles["right-mark"]}`} src="/static/images/landing-page/quote.webp" />
+          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt="”" />
         </span>
       </div>
       <div className={styles.person}>
@@ -338,7 +358,7 @@ function Quote({
             <div className={styles.name}>{name}</div>
             <div className={styles.description}>{description}</div>
           </div>
-          <img src={img} />
+          <Image src={img} alt={name} />
         </div>
       </div>
     </div>

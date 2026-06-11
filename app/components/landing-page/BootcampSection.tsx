@@ -1,8 +1,18 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element, jsx-a11y/alt-text */
-
 import Image from "next/image";
+import BuildIcon from "./icons/build.svg";
+import CalendarIcon from "./icons/calendar.svg";
+import CodersMindIcon from "./icons/coders-mind.svg";
+import ConfidenceIcon from "./icons/confidence.svg";
+import UnderstandingIcon from "./icons/understanding.svg";
+import certificate from "./assets/certificate.webp";
+import certificateArrow from "./assets/certificate-arrow.webp";
+import jeremyLivestream from "./assets/jeremy-livestream.webp";
+import linkedin from "./assets/linkedin.webp";
+import part1 from "./assets/part-1.webp";
+import penguin from "./assets/penguin.webp";
+import wordle from "./assets/wordle.webp";
 import styles from "./BootcampSection.module.css";
 import shared from "./shared.module.css";
 import { useArrowAnimation } from "./hooks/useArrowAnimations";
@@ -42,7 +52,7 @@ export function BootcampSection() {
                   </div>
                   <ul>
                     <li>
-                      <Image src="/static/images/landing-page/understanding.svg" alt="" width={20} height={20} />
+                      <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Build a solid understanding</strong> of core programming principles, including flow
                         control, conditionals, data types, functions, and much more, using a beginner-friendly version
@@ -50,21 +60,21 @@ export function BootcampSection() {
                       </div>
                     </li>
                     <li>
-                      <Image src="/static/images/landing-page/confidence.svg" alt="" width={20} height={20} />
+                      <ConfidenceIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Gain the confidence</strong> to put your knowledge into practice, being able to solve a
                         wide variety of problems, using the right concept at the right time.
                       </div>
                     </li>
                     <li>
-                      <Image src="/static/images/landing-page/coders-mind.svg" alt="" width={20} height={20} />
+                      <CodersMindIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Develop the Coder&apos;s Mind.</strong> You&apos;ll notice that your critical thinking,
                         problem solving, and logic skills are all improving.
                       </div>
                     </li>
                     <li>
-                      <Image src="/static/images/landing-page/build.svg" alt="" width={20} height={20} />
+                      <BuildIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>A base to build on</strong>. Whatever type of programming you want to do, this is the
                         base you need, and one you can easily build on.
@@ -74,16 +84,10 @@ export function BootcampSection() {
                 </div>
                 <div className={styles.rhs}>
                   <div className={`${styles.dates} ${styles["h3-sideheading"]} relative`}>
-                    <Image src="/static/images/landing-page/calendar.svg" alt="" width={20} height={20} />
+                    <CalendarIcon width={20} height={20} />
                     Takes 12-20 weeks
                   </div>
-                  <Image
-                    className="w-[350px] -mr-32 -mt-[60px]"
-                    src="/static/images/landing-page/part-1.webp"
-                    alt="Part 1"
-                    width={350}
-                    height={350}
-                  />
+                  <Image className="w-[350px] -mr-32 -mt-[60px]" src={part1} alt="Part 1" width={350} height={350} />
                 </div>
               </div>
             </div>
@@ -108,12 +112,7 @@ export function BootcampSection() {
           </p>
           <div className={styles.levels}>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/penguin.webp"
-                alt="Penguin drawing exercise"
-                width={400}
-                height={300}
-              />
+              <Image src={penguin} alt="Penguin drawing exercise" width={400} height={300} />
               <h4>
                 In <strong>level 2</strong> you get familiar with <strong>coding basics</strong> through some drawing
                 puzzles.
@@ -184,12 +183,7 @@ export function BootcampSection() {
               </h4>
             </div>
             <div className={styles.level}>
-              <Image
-                src="/static/images/landing-page/wordle.webp"
-                alt="Wordle game exercise"
-                width={400}
-                height={300}
-              />
+              <Image src={wordle} alt="Wordle game exercise" width={400} height={300} />
               <h4>
                 <strong>Level 12</strong> introduces lists, your first <strong>compound data type,</strong> and Wordle!
               </h4>
@@ -281,7 +275,7 @@ export function BootcampSection() {
                   </div>
                   <ul>
                     <li>
-                      <Image src="/static/images/landing-page/understanding.svg" alt="" width={20} height={20} />
+                      <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin
                         up an LLM and you can follow along with your own project idea. I&apos;ll teach you how to make
@@ -289,7 +283,7 @@ export function BootcampSection() {
                       </div>
                     </li>
                     <li>
-                      <Image src="/static/images/landing-page/confidence.svg" alt="" width={20} height={20} />
+                      <ConfidenceIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Topic Deep Dives</strong>: I&apos;ll talk you through how complex platforms like
                         Exercism and Jiki work, deep-diving into the code we&apos;ve written and share my learnings with
@@ -297,7 +291,7 @@ export function BootcampSection() {
                       </div>
                     </li>
                     <li>
-                      <Image src="/static/images/landing-page/coders-mind.svg" alt="" width={20} height={20} />
+                      <CodersMindIcon width={20} height={20} />
                       <div className={styles.text}>
                         <strong>Regular Q&A Livestreams</strong>. Something not clicking? Need help with your projects?
                         Submit your questions and I&apos;ll answer them with you on our regular livestreams.
@@ -307,12 +301,12 @@ export function BootcampSection() {
                 </div>
                 <div className={styles.rhs}>
                   <div className={`${styles.dates} ${styles["h3-sideheading"]} relative`}>
-                    <Image src="/static/images/landing-page/calendar.svg" alt="" width={20} height={20} />
+                    <CalendarIcon width={20} height={20} />
                     Regular New Episodes
                   </div>
                   <Image
                     className="w-[350px] -mr-32 -mt-[46px]"
-                    src="/static/images/landing-page/jeremy-livestream.webp"
+                    src={jeremyLivestream}
                     alt="Jeremy livestreaming with tech logos"
                     width={900}
                     height={851}
@@ -339,20 +333,22 @@ export function BootcampSection() {
                   Show off your skills on your resume and in the Certifications section of your LinkedIn profile.
                 </p>
               </div>
-              <img
+              <Image
                 className="w-[100px] self-middle mt-[100px] mb-10 mr-40 my-10 lg:block hidden"
-                src="/static/images/landing-page/certificate-arrow.webp"
+                src={certificateArrow}
+                alt=""
               />
               <div className={`${styles.certificate} flex-shrink-0 mt-24 lg:mt-0`}>
-                <img
+                <Image
                   className="lg:w-[350px] w-100 rounded-[5px]"
                   style={{ boxShadow: "0 0 20px rgba(0,0,0,0.4)" }}
-                  src="/static/images/landing-page/certificate.webp"
+                  src={certificate}
+                  alt="Jiki course completion certificate"
                 />
               </div>
             </div>
             <div className={styles.linkedin} ref={confettiRef}>
-              <img src="/static/images/landing-page/linkedin.webp" />
+              <Image src={linkedin} alt="LinkedIn" />
               <span>Share your certificate in your network</span>
             </div>
           </div>

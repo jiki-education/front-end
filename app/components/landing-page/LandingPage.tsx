@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import divider from "./assets/divider.webp";
 import HeaderLayout from "../layout/HeaderLayout";
 import { BootcampSection } from "./BootcampSection";
 import { Exercism } from "./Exercism";
@@ -23,21 +24,9 @@ export function LandingPage() {
         <BootcampSection />
         <TestimonialsSection />
         <SignupSection />
-        <Image
-          className="w-[100px] mx-auto my-64"
-          src="/static/images/landing-page/divider.webp"
-          alt=""
-          width={100}
-          height={100}
-        />
+        <Image className="w-[100px] mx-auto my-64" src={divider} alt="" width={100} height={100} />
         <Exercism />
-        <Image
-          className="w-[100px] mx-auto my-64"
-          src="/static/images/landing-page/divider.webp"
-          alt=""
-          width={100}
-          height={100}
-        />
+        <Image className="w-[100px] mx-auto my-64" src={divider} alt="" width={100} height={100} />
         <FAQs />
       </HeaderLayout>
     </div>

@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import ArrowIcon from "./icons/arrow-1.svg";
+import RocketIcon from "./icons/rocket.svg";
+import withRhodri from "./assets/with-rhodri.webp";
 import styles from "./WelcomeSection.module.css";
 import shared from "./shared.module.css";
 import { MonthlyPrice } from "./MonthlyPrice";
@@ -58,13 +61,7 @@ export function WelcomeSection() {
               </strong>
             </p>
             <div className="flex flex-col items-center mt-8 mb-12 mr-80 scale-x-[-1]">
-              <Image
-                className={styles["bootcamp-arrow-1"]}
-                src="/static/images/landing-page/arrow-1.svg"
-                alt=""
-                width={80}
-                height={168}
-              />
+              <ArrowIcon className={styles["bootcamp-arrow-1"]} width={80} height={168} />
             </div>
           </div>
         </div>
@@ -121,10 +118,8 @@ export function WelcomeSection() {
           >
             <Image
               className="w-[100%] border-[#aaa] border-[1px] rounded-[1px]"
-              src="/static/images/landing-page/with-rhodri.webp"
+              src={withRhodri}
               alt="Jeremy and Rhodri in 1998 making their first paid website"
-              width={300}
-              height={400}
             />
             <div className="text-14 text-center font-normal pt-8 px-8 leading-[140%]">
               <span className="lg:hidden inline">1998: Me making the first website I ever got paid for.</span>
@@ -255,13 +250,7 @@ export function WelcomeSection() {
             <span
               className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
             >
-              <Image
-                src="/static/images/landing-page/rocket.svg"
-                alt=""
-                width={32}
-                height={32}
-                className={rocket.rocket}
-              />
+              <RocketIcon width={32} height={32} className={rocket.rocket} />
             </span>
           </Link>
           <span className={`${styles.ctaPointer} ${styles.ctaPointerLeft}`} aria-hidden="true">
