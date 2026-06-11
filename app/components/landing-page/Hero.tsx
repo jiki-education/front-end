@@ -174,6 +174,7 @@ export function Hero() {
                   alt=""
                   fill
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 1023px) 100vw, 580px"
                   className={styles["video-poster-image"]}
                 />
