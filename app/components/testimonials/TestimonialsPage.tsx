@@ -12,6 +12,7 @@ import laura from "../landing-page/assets/testimonials/laura.webp";
 import lukas from "../landing-page/assets/testimonials/lukas.webp";
 import mArtigiani from "../landing-page/assets/testimonials/m_artigiani.webp";
 import nanouss01 from "../landing-page/assets/testimonials/nanouss01.webp";
+import oleksandra from "../landing-page/assets/testimonials/oleksandra.webp";
 import redrobio from "../landing-page/assets/testimonials/redrobio.webp";
 import ricksn from "../landing-page/assets/testimonials/ricksn.webp";
 import rob from "../landing-page/assets/testimonials/rob.webp";
@@ -37,6 +38,7 @@ const avatars: Record<string, StaticImageData> = {
   "lukas.webp": lukas,
   "m_artigiani.webp": mArtigiani,
   "nanouss01.webp": nanouss01,
+  "oleksandra.webp": oleksandra,
   "redrobio.webp": redrobio,
   "ricksn.webp": ricksn,
   "rob.webp": rob,

@@ -120,6 +120,8 @@ export function WelcomeSection() {
               className="w-[100%] border-[#aaa] border-[1px] rounded-[1px]"
               src={withRhodri}
               alt="Jeremy and Rhodri in 1998 making their first paid website"
+              width={300}
+              height={400}
             />
             <div className="text-14 text-center font-normal pt-8 px-8 leading-[140%]">
               <span className="lg:hidden inline">1998: Me making the first website I ever got paid for.</span>
