@@ -75,14 +75,6 @@ export function WelcomeModal() {
           cancelText="Keep watching"
           onConfirm={hideModal}
           onCancel={resumeVideo}
-          onClose={() => {
-            /*
-              Intentional no-op. ConfirmationModal calls onConfirm?.() then onClose();
-              here the close path is fully owned by onConfirm={hideModal} (unmounts
-              everything) and onCancel={resumeVideo} (closes this dialog, resumes video).
-              If you add behavior to onClose, audit both call sites first.
-            */
-          }}
         />
       </Modal>
     </div>

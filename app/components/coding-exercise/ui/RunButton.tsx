@@ -1,4 +1,4 @@
-import { showConfirmation } from "@/lib/modal";
+import { hideModal, showConfirmation } from "@/lib/modal";
 import UndoArrowIcon from "@/icons/undo-arrow.svg";
 import Tooltip from "@/components/ui/Tooltip";
 import { useOrchestratorStore } from "../lib/Orchestrator";
@@ -20,7 +20,10 @@ export default function RunButton() {
         "This will reset your code back to the start. Don't worry — this won't lose your conversations with Jiki.",
       confirmText: "Yes, reset",
       cancelText: "Cancel",
-      onConfirm: () => orchestrator.resetExercise()
+      onConfirm: () => {
+        orchestrator.resetExercise();
+        hideModal();
+      }
     });
   };
 

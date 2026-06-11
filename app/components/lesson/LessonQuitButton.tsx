@@ -2,7 +2,7 @@
 
 import { CloseButton } from "@/components/ui-kit";
 import { assembleClassNames } from "@/lib/assemble-classnames";
-import { showConfirmation } from "@/lib/modal";
+import { hideModal, showConfirmation } from "@/lib/modal";
 import { useRouter } from "next/navigation";
 
 interface LessonQuitButtonProps {
@@ -22,6 +22,7 @@ export function LessonQuitButton({ onQuit, className = "", variant = "light" }: 
       cancelText: "Continue Learning",
       variant: "danger",
       onConfirm: () => {
+        hideModal();
         if (onQuit) {
           onQuit();
         } else {

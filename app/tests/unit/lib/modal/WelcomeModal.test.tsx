@@ -89,4 +89,22 @@ describe("WelcomeModal", () => {
       expect(screen.queryByText("Skip the welcome video?")).not.toBeInTheDocument();
     });
   });
+
+  it("resumes playback and dismisses the confirm dialog when Escape is pressed", async () => {
+    renderModal();
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+
+    // react-modal binds the Escape handler to its own content element, so the
+    // key event must be dispatched there rather than on document.
+    const title = await screen.findByText("Skip the welcome video?");
+    // The dialog wraps the title; find the closest react-modal content node.
+    const dialogContent = title.closest('[class*="modal"]') ?? title.parentElement!;
+    fireEvent.keyDown(dialogContent, { key: "Escape", code: "Escape" });
+
+    expect(playMock).toHaveBeenCalledTimes(1);
+    expect(hideModal).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.queryByText("Skip the welcome video?")).not.toBeInTheDocument();
+    });
+  });
 });
