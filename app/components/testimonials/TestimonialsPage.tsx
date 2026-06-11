@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-
-import type { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import quote from "../landing-page/assets/quote.webp";
 import abhinav from "../landing-page/assets/testimonials/abhinav.webp";
 import drac from "../landing-page/assets/testimonials/drac.webp";
@@ -82,10 +80,10 @@ function Quote({ testimonial }: { testimonial: Testimonial }) {
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <img className={`${styles.mark} ${styles["left-mark"]}`} src={quote.src} alt="“" />
+        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt="“" />
         <span>
           {renderParagraphs(testimonial.text)}
-          <img className={`${styles.mark} ${styles["right-mark"]}`} src={quote.src} alt="”" />
+          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt="”" />
         </span>
       </div>
       <div className={styles.person}>
@@ -95,7 +93,7 @@ function Quote({ testimonial }: { testimonial: Testimonial }) {
             <div className={styles.name}>{testimonial.name}</div>
             <div className={styles.description}>{testimonial.role}</div>
           </div>
-          <img src={avatar.src} alt={testimonial.name} />
+          <Image src={avatar} alt={testimonial.name} />
         </div>
       </div>
     </div>
