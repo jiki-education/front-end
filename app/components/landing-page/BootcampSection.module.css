@@ -578,6 +578,7 @@
             margin-top: -15px;
 
             img {
+                width: auto;
                 height: 24px;
                 display: block;
                 margin-bottom: 4px;
