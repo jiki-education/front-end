@@ -7,7 +7,7 @@ const STORAGE_KEY = "coding-exercise-panel-sizes";
 const LHS_MIN_PIXELS = 400;
 
 function clampVerticalPercentage(percentage: number, containerWidth: number) {
-  const minPercentage = Math.max(30, (LHS_MIN_PIXELS / containerWidth) * 100);
+  const minPercentage = Math.min(70, Math.max(30, (LHS_MIN_PIXELS / containerWidth) * 100));
   return Math.min(Math.max(percentage, minPercentage), 70);
 }
 
