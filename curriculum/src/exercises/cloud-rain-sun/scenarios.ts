@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as CloudRainSunExercise;
-      ex.setupBackground("/static/images/exercise-assets/cloud-rain-sun/template.png");
+      ex.setupBackground("/static/images/exercise-assets/cloud-rain-sun/template.webp");
     },
 
     expectations(exercise) {

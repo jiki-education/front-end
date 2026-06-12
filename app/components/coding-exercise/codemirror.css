@@ -110,9 +110,13 @@
     .cm-lockedLine,
     .cm-lockedGutter {
         background: var(--color-background-secondary);
+        opacity: 0.6;
+        filter: grayscale(0.6);
     }
     .cm-partialLockedLine {
         background: var(--color-background-secondary);
+        opacity: 0.6;
+        filter: grayscale(0.6);
     }
     .ͼ1 .cm-underline {
         background: var(--color-red-200);

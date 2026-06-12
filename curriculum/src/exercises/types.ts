@@ -109,11 +109,23 @@ export interface VisualScenario {
   setup?: (exercise: VisualExercise) => void;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
   codeChecks?: CodeCheck[]; // Optional code quality checks
+  isolatedChecks?: IsolatedCheck[]; // Hidden re-runs with silent preset variables
   functionCall?: {
     name: string;
     args: IOValue[];
   };
   randomSeed?: number | true; // number = fixed seed, true = generate random seed each run
+}
+
+// Hidden re-run of the student's code with `secretConstants` injected.
+// The runner re-parses the source, executes with these constants seeded in the global
+// scope, and evaluates `expectations`. Nothing from the isolated run is rendered to the
+// student; the returned expectations are spread into the scenario's overall expects
+// array, so authors control whether to surface one consolidated failure or one per shape
+// by what they return from `expectations`.
+export interface IsolatedCheck {
+  secretConstants: Record<string, number | string | boolean>;
+  expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
 
 // Recursive type to support nested arrays and objects in IO scenarios

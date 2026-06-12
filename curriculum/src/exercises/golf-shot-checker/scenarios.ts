@@ -30,7 +30,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(23);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {
@@ -61,7 +61,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(57);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {
@@ -92,7 +92,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(63);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {
@@ -123,7 +123,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(68);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {
@@ -154,7 +154,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(58);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {
@@ -185,7 +185,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfShotCheckerExercise;
       ex.setupBallPosition(28, 75);
       ex.setupShotLength(62);
-      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-shot-checker/background.webp");
     },
 
     expectations(exercise) {

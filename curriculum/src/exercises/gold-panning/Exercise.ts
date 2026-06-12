@@ -102,7 +102,7 @@ export default class GoldPanningExercise extends VisualExercise {
     panel.style.boxShadow = "0 0 2px rgba(25, 63, 123, 0.3)";
 
     const panImg = document.createElement("img");
-    panImg.src = "/static/images/exercise-assets/gold-panning/pan.jpg";
+    panImg.src = "/static/images/exercise-assets/gold-panning/pan.webp";
     panImg.className = "pan";
     panImg.style.width = "100%";
     panImg.style.height = "100%";
@@ -114,7 +114,7 @@ export default class GoldPanningExercise extends VisualExercise {
 
     for (let i = 0; i < result; i++) {
       const nuggetImg = document.createElement("img");
-      nuggetImg.src = `/static/images/exercise-assets/gold-panning/nugget-${i + 1}.png`;
+      nuggetImg.src = `/static/images/exercise-assets/gold-panning/nugget-${i + 1}.webp`;
       nuggetImg.className = `nugget nugget-${i + 1}`;
       nuggetImg.style.position = "absolute";
       nuggetImg.style.width = "20%";
@@ -132,7 +132,7 @@ export default class GoldPanningExercise extends VisualExercise {
     for (let i = 0; i < total; i++) {
       const nuggetImg = document.createElement("img");
       const nuggetNum = (i % 6) + 1;
-      nuggetImg.src = `/static/images/exercise-assets/gold-panning/nugget-${nuggetNum}.png`;
+      nuggetImg.src = `/static/images/exercise-assets/gold-panning/nugget-${nuggetNum}.webp`;
       nuggetImg.className = `sell-nugget sell-nugget-${i}`;
       nuggetImg.style.opacity = "0";
       this.sellContainer.appendChild(nuggetImg);
@@ -163,7 +163,7 @@ export default class GoldPanningExercise extends VisualExercise {
     this.sellContainer.style.alignItems = "baseline";
     this.sellContainer.style.padding = "4px";
     this.sellContainer.style.gap = "2px";
-    this.sellContainer.style.backgroundImage = "url(/static/images/exercise-assets/gold-panning/sell-bg.jpg)";
+    this.sellContainer.style.backgroundImage = "url(/static/images/exercise-assets/gold-panning/sell-bg.webp)";
     this.sellContainer.style.backgroundSize = "cover";
     this.sellContainer.style.backgroundPosition = "top left";
     this.sellContainer.style.border = "2px solid rgba(25, 63, 123, 0.3)";

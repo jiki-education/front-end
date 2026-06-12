@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as TrafficLightsExercise;
-      ex.setupBackground("/static/images/exercise-assets/traffic-lights/background.png");
+      ex.setupBackground("/static/images/exercise-assets/traffic-lights/background.webp");
     },
 
     expectations(exercise) {

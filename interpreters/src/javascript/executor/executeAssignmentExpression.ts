@@ -140,6 +140,20 @@ export function executeAssignmentExpression(
 
   // Handle regular identifier assignment
   const target = expression.target;
+
+  // Silently ignore reassignments to a secret constant whose top-level
+  // binding hasn't been shadowed by an inner scope.
+  if (executor.isSecretConstantBinding(target.lexeme)) {
+    const existing = executor.environment.get(target.lexeme)!;
+    return {
+      type: "AssignmentExpression",
+      name: target.lexeme,
+      value: valueResult,
+      jikiObject: existing,
+      immutableJikiObject: existing.clone(),
+    };
+  }
+
   const success = executor.environment.update(target.lexeme, valueResult.jikiObject, target.location);
 
   if (!success) {

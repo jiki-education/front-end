@@ -61,17 +61,17 @@
             }
             &.rock {
                 &:before {
-                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/rock.png");
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/rock.webp");
                 }
             }
             &.paper {
                 &:before {
-                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/paper.png");
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/paper.webp");
                 }
             }
             &.scissors {
                 &:before {
-                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/scissors.png");
+                    background-image: url("/static/images/exercise-assets/rock-paper-scissors/scissors.webp");
                 }
             }
         }

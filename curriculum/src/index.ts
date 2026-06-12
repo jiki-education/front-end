@@ -19,6 +19,7 @@ export type {
   IOExerciseDefinition,
   IOScenario,
   IOTestExpect,
+  IsolatedCheck,
   ReadonlyRange,
   VisualScenario,
   Scenario,

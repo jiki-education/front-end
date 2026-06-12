@@ -79,6 +79,18 @@ export class Environment {
     return false;
   }
 
+  // Returns the nearest enclosing environment (including self) that defines `name`,
+  // or null if the name isn't defined anywhere in the chain.
+  public getDefiningEnvironment(name: string): Environment | null {
+    if (this.variables.has(name)) {
+      return this;
+    }
+    if (this.enclosing !== null) {
+      return this.enclosing.getDefiningEnvironment(name);
+    }
+    return null;
+  }
+
   public getAllVariables(): Record<string, JikiObject> {
     const result: Record<string, JikiObject> = {};
 

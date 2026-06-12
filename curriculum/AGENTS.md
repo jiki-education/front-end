@@ -364,6 +364,31 @@ Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` synta
 - **Smooth transitions** - Include appropriate durations and easing
 - **State consistency** - Animations should match internal state
 
+### Isolated Checks (Responsiveness / Parameterized Correctness)
+
+A `VisualScenario` can declare `isolatedChecks: IsolatedCheck[]` — hidden re-runs of the student's code with `secretConstants` (silent top-level constants honoured by the interpreter) injected into the global scope. Each isolated check executes the same source against a fresh `Exercise`, evaluates its own `expectations`, and contributes those expects to the scenario's overall pass/fail. The isolated run is never rendered to the student — only the `expects` it returns are surfaced.
+
+**When to use:**
+
+- The exercise has a "responsiveness" or "must scale" contract — the student's answer should produce correct output across multiple values of an input (radius, size, count, etc.).
+- You want to validate correctness at values _different from_ the stub default without making the visible canvas show a different value than what the student typed.
+- A correctness property is parameterized by something the student is allowed to edit (so pinning the primary expectations to one fixed value would punish them for legitimate exploration).
+
+**Pattern:**
+
+- Drop or minimise the scenario's primary `expectations` (return `[]` or just a presence-only check) so the visible canvas reflects the student's own values.
+- Put correctness in `isolatedChecks`, one per parameter value you want to test.
+- **Order matters: put the "detailed" check (per-shape / per-element messages, usually at the stub's default value) first.** That makes its failures the first thing the student sees, which is the most actionable feedback. Put the "responsiveness" checks (consolidated "doesn't scale at value N" message) after.
+- A detailed check returns one expect per element with a specific `errorHtml`. A responsiveness check returns a single consolidated expect — author writes one `&&`-joined boolean and one shared message.
+
+**Canonical example:** `src/exercises/relational-traffic-lights/scenarios.ts` — three isolated checks (one detailed at `radius=10`, two responsiveness checks at `radius=5` and `radius=15`), no primary expectations. Read that file before authoring a new isolated-check scenario.
+
+**Notes:**
+
+- `secretConstants` is honoured by the JavaScript interpreter; student `let`/`const`/reassignment of those names at the top level is silently ignored. Inner scopes can still shadow.
+- `IsolatedCheck.expectations` is spread into the scenario's overall expects, not collapsed — you control failure surface area by what you return.
+- Don't use isolated checks for exercises with randomness unless the RNG is seeded — silent re-runs assume deterministic programs.
+
 ## Integration with Frontend
 
 ### How Frontend Uses Curriculum

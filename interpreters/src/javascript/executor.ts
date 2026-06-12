@@ -75,7 +75,7 @@ import { executeFunctionDeclaration } from "./executor/executeFunctionDeclaratio
 import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
-import { JSBuiltinObject, JSNumber, JSString, JSStdLibFunction, unwrapJSObject } from "./jikiObjects";
+import { JSBuiltinObject, JSNumber, JSString, JSStdLibFunction, createJSObject, unwrapJSObject } from "./jikiObjects";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
 import { objectMethods } from "./stdlib/object";
@@ -185,9 +185,11 @@ export class Executor {
   public readonly functionCallLog: Array<{ name: string; args: any[]; return: any }> = [];
   public _exerciseFinished: boolean = false;
   public environment: Environment;
+  public globalEnvironment!: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
   private readonly protectedNames: Set<string> = new Set();
+  public readonly secretConstantNames: Set<string> = new Set();
 
   constructor(
     private readonly sourceCode: string,
@@ -203,6 +205,7 @@ export class Executor {
     };
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
     this.environment = new Environment(this.languageFeatures);
+    this.globalEnvironment = this.environment;
 
     // Console is always available (infrastructure/debugging tool, not a language feature)
     {
@@ -279,6 +282,27 @@ export class Executor {
         this.protectedNames.add(cls.name);
       }
     }
+
+    // Register secret constants. These look like normal top-level variables to
+    // student code, but any attempt to redeclare them at the top level, or to
+    // reassign them when no inner scope has shadowed, is silently ignored.
+    if (context.secretConstants) {
+      for (const [name, raw] of Object.entries(context.secretConstants)) {
+        this.environment.define(name, createJSObject(raw), Location.unknown, false);
+        this.secretConstantNames.add(name);
+      }
+    }
+  }
+
+  // Returns true if `name` is a secret constant whose top-level binding
+  // would currently be the target of a declaration/assignment (i.e. no
+  // inner scope has shadowed it).
+  public isSecretConstantBinding(name: string): boolean {
+    if (!this.secretConstantNames.has(name)) {
+      return false;
+    }
+    const defining = this.environment.getDefiningEnvironment(name);
+    return defining === this.globalEnvironment;
   }
 
   private assertNodeAllowed(node: Statement | Expression): void {

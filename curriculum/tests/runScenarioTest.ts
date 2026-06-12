@@ -94,6 +94,56 @@ export function runVisualScenarioTest(
   // Run expectations to validate final state
   const expects = scenario.expectations(exercise);
 
+  // Run isolated checks: re-execute the student code with each check's `presets` injected
+  // as silent constants, then evaluate that check's expectations against a fresh exercise.
+  // NOTE: until the interpreter honors `presetVariables`, the presets are silently ignored
+  // and the run uses the student's authored values — useful for surfacing primary-only bugs
+  // but means isolated expectations may fail spuriously until the interpreter is updated.
+  const isolatedResults: TestExpect[] = [];
+  if (scenario.isolatedChecks && scenario.isolatedChecks.length > 0) {
+    for (const check of scenario.isolatedChecks) {
+      const isoExercise = new ExerciseClass();
+      if (resolvedSeed !== undefined) {
+        isoExercise.randomSeed = resolvedSeed;
+      }
+      scenario.setup?.(isoExercise);
+
+      const isoContext = {
+        ...interpreterContext,
+        externalFunctions: isoExercise.getExternalFunctions(language),
+        classes: isoExercise.getExternalClasses(language),
+        secretConstants: check.secretConstants
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any;
+
+      if (scenario.functionCall) {
+        interpreter.evaluateFunction(
+          studentCode,
+          isoContext,
+          interpreter.formatIdentifier(scenario.functionCall.name),
+          ...scenario.functionCall.args
+        );
+      } else {
+        interpreter.interpret(studentCode, isoContext);
+      }
+
+      const checkExpects = check.expectations(isoExercise);
+      // Tag each expectation with the secret constants so we can tell isolated runs apart
+      // in test output. Stringify the whole record — exercises use different constant
+      // names (radius, size, etc.) so we can't pick one out.
+      const tag = Object.entries(check.secretConstants)
+        .map(([k, v]) => `${k}=${String(v)}`)
+        .join(", ");
+      for (const e of checkExpects) {
+        isolatedResults.push({
+          pass: e.pass,
+          errorHtml:
+            e.pass || e.errorHtml === undefined || e.errorHtml === "" ? e.errorHtml : `[isolated ${tag}] ${e.errorHtml}`
+        });
+      }
+    }
+  }
+
   // Execute code checks if present
   let codeCheckResults: CodeCheckExpect[] | undefined;
   let allCodeChecksPassed = true;
@@ -118,14 +168,15 @@ export function runVisualScenarioTest(
     });
   }
 
-  // Combine expectations and code check results
-  const allExpects: TestExpect[] = [...expects];
+  // Combine expectations, isolated checks, and code check results
+  const allExpects: TestExpect[] = [...expects, ...isolatedResults];
   if (codeCheckResults) {
     allExpects.push(...codeCheckResults.map((r) => ({ pass: r.pass, errorHtml: r.errorHtml })));
   }
 
   // Determine pass/fail status
-  const status = expects.every((e) => e.pass) && allCodeChecksPassed ? "pass" : "fail";
+  const status =
+    expects.every((e) => e.pass) && isolatedResults.every((e) => e.pass) && allCodeChecksPassed ? "pass" : "fail";
 
   return {
     slug: scenario.slug,

@@ -73,7 +73,7 @@ The final decision I had to make was pricing.
 
 I 100% knew I wanted Jiki to be free. The whole point is to help people who need help. But I've also learnt from Exercism that it's really hard to run something when there's not enough money coming in to fund it (**THANK YOU** to everyone who donates to Exercism - you've made Jiki possible!!)
 
-So I decided to take a Freemium approach. The core of Jiki is free - the videos and exercises are all available to everyone. But there are some nice extra features (AI support, some bonus projects, live-streams, behind-the-scenes content, etc) that people can access for a small monthly fee ($3.99). That's an amount that is affordable to most people in the world, so if people want to either support what we're doing, or want access to those features, that's a great way to start.
+So I decided to take a Freemium approach. The core of Jiki is free - the videos and exercises are all available to everyone. But there are some nice extra features (AI support, some bonus projects, live-streams, behind-the-scenes content, etc) that people can access for a small monthly fee ($9.99 adjusted per location using [Purchasing Power Parity](https://en.wikipedia.org/wiki/Purchasing_power_parity)). That's an amount that is affordable to most people in the world, so if people want to either support what we're doing, or want access to those features, that's a great way to start.
 
 ## Then came the LLMs
 

@@ -26,6 +26,10 @@ export interface EvaluationContext {
   externalFunctions?: ExternalFunction[];
   classes?: JSClass[];
   randomSeed?: number; // Seed for deterministic random number generation
+  // Top-level variables whose values are fixed. Student attempts to redeclare
+  // at the top level or reassign these names are silently ignored. Inner
+  // scopes may still shadow them.
+  secretConstants?: Record<string, any>;
 }
 
 // Result type for evaluateFunction - extends InterpretResult with return value

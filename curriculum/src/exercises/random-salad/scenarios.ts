@@ -31,7 +31,7 @@ export const scenarios: VisualScenario[] = [
     randomSeed: true,
     setup(exercise) {
       const ex = exercise as RandomSaladExercise;
-      ex.setupBackground("/static/images/exercise-assets/random-salad/plate.png");
+      ex.setupBackground("/static/images/exercise-assets/random-salad/plate.webp");
     },
     codeChecks: [
       {

@@ -7,7 +7,7 @@ In the first drawing exercise you completed, you used the `rectangle` function t
 
 All the layers other than the top one are already complete. You need to add the final layer of 5 bricks. The final wall should look like this:
 
-<img src="/static/images/exercise-assets/finish-wall/completed-wall.png" alt="Completed Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/finish-wall/completed-wall.webp" alt="Completed Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 Things you need to know:
 

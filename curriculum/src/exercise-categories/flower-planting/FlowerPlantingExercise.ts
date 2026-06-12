@@ -17,17 +17,17 @@ export default abstract class FlowerPlantingExercise extends VisualExercise {
   private plantCallCount = 0;
 
   private static readonly flowerImages: { src: string; height: string; zIndex: string }[] = [
-    { src: "/static/images/exercise-assets/plant-the-flowers/lily.png", height: "20%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/tulip.png", height: "25%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/sunflower.png", height: "65%", zIndex: "1" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/rose.png", height: "32%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/daffodil.png", height: "30%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/forget-me-not.png", height: "22%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/hyacinth.png", height: "38%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/poppy.png", height: "18%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/lavender.png", height: "45%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/crocus.png", height: "15%", zIndex: "2" },
-    { src: "/static/images/exercise-assets/plant-the-flowers/cherry-blossom.png", height: "48%", zIndex: "2" }
+    { src: "/static/images/exercise-assets/plant-the-flowers/lily.webp", height: "20%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/tulip.webp", height: "25%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/sunflower.webp", height: "65%", zIndex: "1" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/rose.webp", height: "32%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/daffodil.webp", height: "30%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/forget-me-not.webp", height: "22%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/hyacinth.webp", height: "38%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/poppy.webp", height: "18%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/lavender.webp", height: "45%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/crocus.webp", height: "15%", zIndex: "2" },
+    { src: "/static/images/exercise-assets/plant-the-flowers/cherry-blossom.webp", height: "48%", zIndex: "2" }
   ];
 
   setupBackground(imageUrl: string) {

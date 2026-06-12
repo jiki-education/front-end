@@ -23,7 +23,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(20);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
@@ -46,7 +46,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(35);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
@@ -69,7 +69,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(50);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
@@ -92,7 +92,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as GolfScenariosExercise;
       ex.setupBallPosition(29, 75);
       ex.setupShotLength(60);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {

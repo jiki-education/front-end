@@ -54,7 +54,7 @@ export const scenarios: VisualScenario[] = [
     taskId: "plant-flowers-evenly",
     setup(exercise) {
       const ex = exercise as PlantTheFlowersScenariosExercise;
-      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupBackground("/static/images/exercise-assets/owners-bouquets/background.svg");
       ex.setupNumFlowers(1);
     },
     expectations(exercise) {
@@ -68,7 +68,7 @@ export const scenarios: VisualScenario[] = [
     taskId: "plant-flowers-evenly",
     setup(exercise) {
       const ex = exercise as PlantTheFlowersScenariosExercise;
-      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupBackground("/static/images/exercise-assets/owners-bouquets/background.svg");
       ex.setupNumFlowers(3);
     },
     expectations(exercise) {
@@ -83,7 +83,7 @@ export const scenarios: VisualScenario[] = [
     taskId: "plant-flowers-evenly",
     setup(exercise) {
       const ex = exercise as PlantTheFlowersScenariosExercise;
-      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupBackground("/static/images/exercise-assets/owners-bouquets/background.svg");
       ex.setupNumFlowers(4);
     },
     expectations(exercise) {
@@ -98,7 +98,7 @@ export const scenarios: VisualScenario[] = [
     taskId: "plant-flowers-evenly",
     setup(exercise) {
       const ex = exercise as PlantTheFlowersScenariosExercise;
-      ex.setupBackground("/static/images/exercise-assets/plant-the-flowers/background.svg");
+      ex.setupBackground("/static/images/exercise-assets/owners-bouquets/background.svg");
       ex.setupNumFlowers(9);
     },
     expectations(exercise) {

@@ -21,6 +21,15 @@ export function executeUpdateExpression(
     });
   }
 
+  // Silently ignore updates to a secret constant at the top level.
+  if (executor.isSecretConstantBinding(expression.operand.name.lexeme)) {
+    return {
+      type: "UpdateExpression",
+      jikiObject: currentValue,
+      immutableJikiObject: currentValue.clone(),
+    };
+  }
+
   // Calculate the new value
   const increment = expression.operator.type === "INCREMENT" ? 1 : -1;
   const newValue = new JSNumber(currentValue.value + increment);
