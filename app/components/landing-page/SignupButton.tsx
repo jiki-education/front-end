@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import RocketIcon from "./icons/rocket.svg";
 import styles from "./SignupButton.module.css";
 import rocket from "./rocketLaunch.module.css";
 import { useRocketLaunch } from "./hooks/useRocketLaunch";
@@ -25,7 +25,7 @@ export function SignupButton({ className = "" }: SignupButtonProps) {
       <span
         className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
       >
-        <Image src="/static/images/landing-page/rocket.svg" alt="" width={32} height={32} className={rocket.rocket} />
+        <RocketIcon width={32} height={32} className={rocket.rocket} />
       </span>
     </Link>
   );

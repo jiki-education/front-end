@@ -17,6 +17,7 @@ function MuxPlayerLazy(props: ComponentProps<typeof JikiMuxPlayer>) {
 }
 
 const VIDEO_POSTER_URL = "https://assets.jiki.io/landing-video-thumbnail-ef14e.webp";
+import ArrowIcon from "./icons/arrow-1.svg";
 import styles from "./Hero.module.css";
 import shared from "./shared.module.css";
 import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
@@ -174,6 +175,7 @@ export function Hero() {
                   alt=""
                   fill
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 1023px) 100vw, 580px"
                   className={styles["video-poster-image"]}
                 />
@@ -205,13 +207,7 @@ export function Hero() {
 function WatchPrompt() {
   return (
     <div className={styles["watch-prompt"]}>
-      <Image
-        src="/static/images/landing-page/arrow-1.svg"
-        alt=""
-        width={48}
-        height={100}
-        className={styles["watch-arrow"]}
-      />
+      <ArrowIcon width={48} height={100} className={styles["watch-arrow"]} />
       <p>
         (Reading not your thing? <span className="font-medium text-white">Click play</span> and I&apos;ll tell you
         everything you need to know!)

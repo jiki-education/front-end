@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import RocketIcon from "@/components/landing-page/icons/rocket.svg";
 import FolderIcon from "@/icons/folder.svg";
 import BrainLightningIcon from "@/icons/brain-lightning.svg";
 import LearningComputerIcon from "@/icons/learning-computer.svg";
@@ -71,13 +71,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
             You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to
             accelerate your learning&nbsp;
             <span className={`inline-block align-middle ${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
-              <Image
-                src="/static/images/landing-page/rocket.svg"
-                alt=""
-                width={16}
-                height={16}
-                className={rocket.rocket}
-              />
+              <RocketIcon width={16} height={16} className={rocket.rocket} />
             </span>
           </p>
         </button>
