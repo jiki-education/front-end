@@ -133,6 +133,10 @@
     margin-bottom: 0;
 }
 
+.hintAnswerContent strong {
+    font-weight: 600;
+}
+
 .hintAnswerContent :not(pre) > code {
     background: var(--color-purple-100);
     color: var(--color-purple-700);

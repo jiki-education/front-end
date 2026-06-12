@@ -31,19 +31,19 @@ export const scenarios: VisualScenario[] = [
         {
           pass: ex.hasRectangleAt(30, 10, 40, 80),
           errorHtml:
-            "The housing rectangle is not correct. It should be at (radius*3, radius) with width radius*4 and height radius*8."
+            "The housing rectangle is either in the wrong place or the wrong size. Check `housingX`, `housingY`, `housingWidth`, and `housingHeight`."
         },
         {
           pass: ex.hasCircleAt(50, 30, 10),
-          errorHtml: "The red light is not correct. centerX should be radius*5, redY should be radius*3."
+          errorHtml: "The red light is either in the wrong place or the wrong size. Check `centerX` and `redY`."
         },
         {
           pass: ex.hasCircleAt(50, 50, 10),
-          errorHtml: "The yellow light is not correct. centerX should be radius*5, yellowY should be radius*5."
+          errorHtml: "The yellow light is either in the wrong place or the wrong size. Check `centerX` and `yellowY`."
         },
         {
           pass: ex.hasCircleAt(50, 70, 10),
-          errorHtml: "The green light is not correct. centerX should be radius*5, greenY should be radius*7."
+          errorHtml: "The green light is either in the wrong place or the wrong size. Check `centerX` and `greenY`."
         }
       ];
     },
