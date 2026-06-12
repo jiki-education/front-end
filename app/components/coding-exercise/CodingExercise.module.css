@@ -424,7 +424,6 @@
     align-items: stretch;
     flex: 1;
     overflow: hidden;
-    container-type: inline-size;
 }
 
 .leftColumnContent {
@@ -674,6 +673,7 @@
     border-left: 1px solid var(--color-gray-200);
     position: relative;
     overflow: hidden;
+    container-type: inline-size;
 }
 
 /* Stabilize Safari compositor during panel resize, but only when no spotlight

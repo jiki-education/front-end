@@ -4,6 +4,12 @@ import React, { useEffect, useRef } from "react";
 type Direction = "horizontal" | "vertical";
 
 const STORAGE_KEY = "coding-exercise-panel-sizes";
+const LHS_MIN_PIXELS = 400;
+
+function clampVerticalPercentage(percentage: number, containerWidth: number) {
+  const minPercentage = Math.min(70, Math.max(30, (LHS_MIN_PIXELS / containerWidth) * 100));
+  return Math.min(Math.max(percentage, minPercentage), 70);
+}
 
 interface StoredPanelSizes {
   verticalPercentage?: number;
@@ -61,12 +67,13 @@ export function useResizablePanels() {
       return;
     }
     const stored = readStoredSizes();
-    const verticalPercentage =
+    const rawPercentage =
       typeof stored.verticalPercentage === "number" &&
       stored.verticalPercentage >= 30 &&
       stored.verticalPercentage <= 70
         ? stored.verticalPercentage
         : 50;
+    const verticalPercentage = clampVerticalPercentage(rawPercentage, container.getBoundingClientRect().width);
     applyVertical(container, verticalDividerRef.current, verticalPercentage);
 
     if (typeof stored.horizontalPixels === "number") {
@@ -118,12 +125,11 @@ export function useResizablePanels() {
 
       const containerRect = container.getBoundingClientRect();
       const offsetX = moveEvent.clientX - containerRect.left;
-      const percentage = (offsetX / containerRect.width) * 100;
+      const rawPercentage = (offsetX / containerRect.width) * 100;
+      const percentage = clampVerticalPercentage(rawPercentage, containerRect.width);
 
-      if (percentage >= 30 && percentage <= 70) {
-        latestPercentage = percentage;
-        applyVertical(container, verticalDivider, percentage);
-      }
+      latestPercentage = percentage;
+      applyVertical(container, verticalDivider, percentage);
     };
 
     const handleMouseUp = () => {
