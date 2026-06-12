@@ -37,7 +37,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
 
   return (
     <div className={styles.rightVideoContainer}>
-      <div className="h-full aspect-square max-h-[calc(50cqi-17px)]">
+      <div className="h-full aspect-square max-h-[100cqi]">
         <div
           className={assembleClassNames(
             "w-full h-full aspect-square [container-type:inline-size] relative",
