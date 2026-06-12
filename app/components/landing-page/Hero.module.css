@@ -78,7 +78,7 @@
 
     .watch-arrow {
         width: 88px;
-        height: auto;
+        height: 100px;
         transform: translateX(-50%) rotate(180deg);
         margin-bottom: 8px;
         filter: brightness(0) invert(1);
