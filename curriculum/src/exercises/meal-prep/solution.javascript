@@ -1,18 +1,18 @@
 function inList(items, target) {
   for (const item of items) {
     if (item === target) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function shoppingList(fridge, recipe) {
-  let list = [];
+  let list = []
   for (const ingredient of recipe) {
     if (!inList(fridge, ingredient)) {
-      list.push(ingredient);
+      list.push(ingredient)
     }
   }
-  return list;
+  return list
 }

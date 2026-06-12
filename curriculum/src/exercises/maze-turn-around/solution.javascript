@@ -1,18 +1,18 @@
 function turnAround() {
-  turnLeft();
-  turnLeft();
+  turnLeft()
+  turnLeft()
 }
 
 repeat() {
   if (canTurnLeft()) {
-    turnLeft();
-    move();
+    turnLeft()
+    move()
   } else if (canMove()) {
-    move();
+    move()
   } else if (canTurnRight()) {
-    turnRight();
-    move();
+    turnRight()
+    move()
   } else {
-    turnAround();
+    turnAround()
   }
 }

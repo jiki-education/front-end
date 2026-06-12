@@ -7,7 +7,7 @@ function letterValues() {
     ["K", 5],
     ["JX", 8],
     ["QZ", 10]
-  ];
+  ]
 }
 
 function scrabbleScore(word) {

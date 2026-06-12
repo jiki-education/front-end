@@ -1,15 +1,15 @@
 repeat() {
   if (canTurnLeft()) {
-    turnLeft();
-    move();
+    turnLeft()
+    move()
   } else if (canMove()) {
-    move();
+    move()
   } else if (canTurnRight()) {
-    turnRight();
-    move();
+    turnRight()
+    move()
   } else {
-    turnLeft();
-    turnLeft();
-    move();
+    turnLeft()
+    turnLeft()
+    move()
   }
 }

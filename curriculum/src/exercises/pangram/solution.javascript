@@ -1,47 +1,47 @@
 function contains(str, target) {
   for (const character of str) {
     if (target === character) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function indexOf(sentence, target) {
-  let idx = 0;
+  let idx = 0
   for (const letter of sentence) {
     if (target === letter) {
-      return idx;
+      return idx
     }
-    idx = idx + 1;
+    idx = idx + 1
   }
-  return -1;
+  return -1
 }
 
 function toLower(sentence) {
-  let output = "";
-  let lower = "abcdefghijklmnopqrstuvwxyz";
-  let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let upperIdx = 0;
+  let output = ""
+  let lower = "abcdefghijklmnopqrstuvwxyz"
+  let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  let upperIdx = 0
   for (const char of sentence) {
     if (contains(lower, char)) {
-      output = output + char;
+      output = output + char
     } else {
-      upperIdx = indexOf(upper, char);
+      upperIdx = indexOf(upper, char)
       if (upperIdx !== -1) {
-        output = output + lower[upperIdx];
+        output = output + lower[upperIdx]
       }
     }
   }
-  return output;
+  return output
 }
 
 function isPangram(sentence) {
-  sentence = toLower(sentence);
+  sentence = toLower(sentence)
   for (const letter of "abcdefghijklmnopqrstuvwxyz") {
     if (!contains(sentence, letter)) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }

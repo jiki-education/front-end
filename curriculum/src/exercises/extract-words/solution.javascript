@@ -1,20 +1,20 @@
 function extractWords(sentence) {
-  let words = [];
-  let word = "";
+  let words = []
+  let word = ""
   for (const letter of sentence) {
     if (letter === " ") {
       if (word !== "") {
-        words.push(word);
+        words.push(word)
       }
-      word = "";
+      word = ""
     } else if (letter === ".") {
       // skip periods
     } else {
-      word = word + letter;
+      word = word + letter
     }
   }
   if (word !== "") {
-    words.push(word);
+    words.push(word)
   }
-  return words;
+  return words
 }

@@ -1,6 +1,6 @@
 function evenOrOdd(number) {
   if (number % 2 === 0) {
-    return "Even";
+    return "Even"
   }
-  return "Odd";
+  return "Odd"
 }

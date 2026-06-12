@@ -1,33 +1,33 @@
 function checkDirection(direction) {
-  let space = look(direction);
-  return space !== "fire" && space !== "wall" && space !== "poop";
+  let space = look(direction)
+  return space !== "fire" && space !== "wall" && space !== "poop"
 }
 
 function canTurnLeft() {
-  return checkDirection("left");
+  return checkDirection("left")
 }
 function canTurnRight() {
-  return checkDirection("right");
+  return checkDirection("right")
 }
 function canMove() {
-  return checkDirection("ahead");
+  return checkDirection("ahead")
 }
 
 function turnAround() {
-  turnRight();
-  turnRight();
+  turnRight()
+  turnRight()
 }
 
 repeat() {
   if (canTurnLeft()) {
-    turnLeft();
-    move();
+    turnLeft()
+    move()
   } else if (canMove()) {
-    move();
+    move()
   } else if (canTurnRight()) {
-    turnRight();
-    move();
+    turnRight()
+    move()
   } else {
-    turnAround();
+    turnAround()
   }
 }

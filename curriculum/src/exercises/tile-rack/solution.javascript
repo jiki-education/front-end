@@ -1,10 +1,10 @@
 function findTile(rack, letter) {
-  let position = 0;
+  let position = 0
   for (const tile of rack) {
     if (tile === letter) {
-      return `Move to position ${position}`;
+      return `Move to position ${position}`
     }
-    position = position + 1;
+    position = position + 1
   }
-  return "Error: Tile not on rack";
+  return "Error: Tile not on rack"
 }
