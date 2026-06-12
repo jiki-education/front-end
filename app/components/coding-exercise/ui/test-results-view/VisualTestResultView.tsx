@@ -1,3 +1,4 @@
+import { marked } from "marked";
 import styles from "../../CodingExercise.module.css";
 import { PassMessage } from "./PassMessage";
 
@@ -12,7 +13,12 @@ export function VisualTestResultView({ isPassing, errorHtml, testIdx = 0 }: Visu
     <div className={styles.testFeedback}>
       <span className={styles.badge}>{isPassing ? "Pass" : "Fail"}</span>
       {isPassing && <PassMessage testIdx={testIdx} />}
-      {!isPassing && errorHtml && <div className={styles.message} dangerouslySetInnerHTML={{ __html: errorHtml }} />}
+      {!isPassing && errorHtml && (
+        <div
+          className={styles.message}
+          dangerouslySetInnerHTML={{ __html: marked.parseInline(errorHtml, { async: false }) }}
+        />
+      )}
     </div>
   );
 }

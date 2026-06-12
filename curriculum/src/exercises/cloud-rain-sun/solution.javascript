@@ -1,12 +1,12 @@
+// Sun
+circle(75, 30, 15, "yellow");
+
 // Cloud
 rectangle(25, 50, 50, 10, "white");
 circle(25, 50, 10, "white");
 circle(40, 40, 15, "white");
 circle(55, 40, 20, "white");
 circle(75, 50, 10, "white");
-
-// Sun
-circle(75, 30, 15, "yellow");
 
 // Rain
 ellipse(30, 70, 3, 5, "blue");

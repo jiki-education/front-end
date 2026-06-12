@@ -20,13 +20,28 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
     };
   }
 
+  // Silently ignore redeclarations of a secret constant at the top level.
+  // (Inner-scope shadows are allowed and fall through to the normal path.)
+  const name = statement.name.lexeme;
+  if (executor.secretConstantNames.has(name) && executor.environment === executor.globalEnvironment) {
+    const existing = executor.environment.get(name)!;
+    return {
+      type: "VariableDeclaration",
+      kind: statement.kind,
+      name,
+      value,
+      jikiObject: existing,
+      immutableJikiObject: existing.clone(),
+    };
+  }
+
   // Shadowing check is now handled inside environment.define()
   const isConst = statement.kind === "const";
-  executor.environment.define(statement.name.lexeme, jikiObject, statement.name.location, isConst);
+  executor.environment.define(name, jikiObject, statement.name.location, isConst);
   return {
     type: "VariableDeclaration",
     kind: statement.kind,
-    name: statement.name.lexeme,
+    name,
     value: value,
     jikiObject: jikiObject,
     immutableJikiObject: jikiObject.clone(),

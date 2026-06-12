@@ -6,13 +6,14 @@ let yellow = "amber";
 let green = "green";
 let housingColor = "charcoal";
 
+let center = 50;
 let radius = 10;
-let centerX = radius * 5;
-let redY = radius * 3;
-let yellowY = radius * 5;
-let greenY = radius * 7;
-let housingX = radius * 3;
-let housingY = radius;
+
+let yellowY = center;
+let redY = center - radius * 2;
+let greenY = center + radius * 2;
+let housingX = center - radius * 2;
+let housingY = center - radius * 4;
 let housingWidth = radius * 4;
 let housingHeight = radius * 8;
 
@@ -20,10 +21,10 @@ let housingHeight = radius * 8;
 rectangle(housingX, housingY, housingWidth, housingHeight, housingColor);
 
 // Red light (top)
-circle(centerX, redY, radius, red);
+circle(center, redY, radius, red);
 
 // Yellow light (middle)
-circle(centerX, yellowY, radius, yellow);
+circle(center, yellowY, radius, yellow);
 
 // Green light (bottom)
-circle(centerX, greenY, radius, green);
+circle(center, greenY, radius, green);

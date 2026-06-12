@@ -26,7 +26,13 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 5 },
+      { fromLine: 6, toLine: 6, toChar: 13 }
+    ]
+  }
 };
 
 export default exerciseDefinition;

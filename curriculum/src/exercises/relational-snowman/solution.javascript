@@ -1,23 +1,22 @@
-// Snowman (Arithmetic)
-
 // These are fixed
-let headRadius = 5;
 let snowmanX = 50;
-let groundY = 80;
+let size = 4;
 
-// Derive these from the variables above
-let bodyRadius = headRadius * 2;
-let baseRadius = headRadius * 3;
+// Derive radii from size
+let headRadius = size * 2;
+let bodyRadius = size * 3;
+let baseRadius = size * 4;
 
-let baseY = groundY - baseRadius;
+// Derive the y positions so the circles touch, starting from the ground
+let baseY = 100 - size - baseRadius;
 let bodyY = baseY - baseRadius - bodyRadius;
 let headY = bodyY - bodyRadius - headRadius;
 
-// Base (bottom, biggest)
-circle(snowmanX, baseY, baseRadius, "white");
+// Head (top, smallest)
+circle(snowmanX, headY, headRadius, "white");
 
 // Body (middle)
 circle(snowmanX, bodyY, bodyRadius, "white");
 
-// Head (top, smallest)
-circle(snowmanX, headY, headRadius, "white");
+// Base (bottom, biggest)
+circle(snowmanX, baseY, baseRadius, "white");

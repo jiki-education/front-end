@@ -3,32 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I work out where the lights sit horizontally?",
-      "answer": "Think about the width of the canvas (`100`) and the radius (`10`). How many radii take you to the **center** of the canvas? If you can't work it out, the next hint will tell you the answer."
-    },
-    {
-      "question": "Still don't get it. Just tell me where the center is.",
-      "answer": "The canvas is `100` wide, so its center is `50`. The radius is `10`. So the center (in both directions) is 5 radii (`radius * 5`). All three lights share this `centerX`."
-    },
-    {
       "question": "How do I work out the yellow light's center?",
-      "answer": "If you know the centerX, and the canvas is a square, what is the centerY? The yellow light sits at the same central point."
+      "answer": "You have a variable for `center` provided to you. You can set `yellowY` to equal it."
     },
     {
-      "question": "How do I work out where the red light starts?",
-      "answer": "If you know the center of the yellow circle is `5 * radii`, how many radii (half a circle's size) above it is the center of the red circle?"
+      "question": "How do I work out the center of the red light?",
+      "answer": "If the two circles are touching, how far apart are their centers? You can subtract this from `center` to get the red light."
     },
     {
       "question": "Where does the housing rectangle start?",
-      "answer": "If you know the center of the red circle, you can calculate the top of the red circle. The housing starts 1 radius before the top of the red circle."
+      "answer": "If you know the center of the red circle, you can calculate the top of the red circle. The housing starts 1 radius above (before) the top of the red circle. Similarly you can calculate the left of a light and then go 1 radius further for the start."
     },
     {
       "question": "How big should the housing be?",
       "answer": "It's the width of a light, plus padding of 1 radius either side. Height is 2 radii per light plus a radius top and bottom for padding."
     },
     {
-      "question": "Why must everything be a multiple of `radius`?",
-      "answer": "If you hardcode a number, changing `radius` will leave the housing the wrong size for the lights. Using `radius * something` keeps the whole drawing in proportion."
+      "question": "Why must everything be a multiple of something else?",
+      "answer": "If you hardcode a number, changing `radius` will leave the housing the wrong size for the lights. Using formulas involving `radius` and `center` keep the whole drawing in proportion."
     }
   ]
 }
