@@ -128,14 +128,17 @@ export function runVisualScenarioTest(
       }
 
       const checkExpects = check.expectations(isoExercise);
-      // Tag each expectation with the radius so we can tell isolated runs apart in test output.
+      // Tag each expectation with the secret constants so we can tell isolated runs apart
+      // in test output. Stringify the whole record — exercises use different constant
+      // names (radius, size, etc.) so we can't pick one out.
+      const tag = Object.entries(check.secretConstants)
+        .map(([k, v]) => `${k}=${String(v)}`)
+        .join(", ");
       for (const e of checkExpects) {
         isolatedResults.push({
           pass: e.pass,
           errorHtml:
-            e.pass || e.errorHtml === undefined || e.errorHtml === ""
-              ? e.errorHtml
-              : `[isolated radius=${String(check.secretConstants.radius ?? "?")}] ${e.errorHtml}`
+            e.pass || e.errorHtml === undefined || e.errorHtml === "" ? e.errorHtml : `[isolated ${tag}] ${e.errorHtml}`
         });
       }
     }

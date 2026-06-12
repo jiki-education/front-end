@@ -7,7 +7,7 @@
 
 .c-coding-exercise {
     .exercise-digital-clock {
-        background-image: url("/static/images/exercise-assets/digital-clock/background.png");
+        background-image: url("/static/images/exercise-assets/digital-clock/background.webp");
         background-size: cover;
         position: relative;
         container-type: size;

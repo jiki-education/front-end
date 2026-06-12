@@ -84,7 +84,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as RelationalSnowmanExercise;
-      ex.setupBackground("/static/images/exercise-assets/relational-snowman/background.png");
+      ex.setupBackground("/static/images/exercise-assets/relational-snowman/background.webp");
     },
 
     // No primary expectations — the canvas the student sees uses their own `size`

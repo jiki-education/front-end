@@ -14,8 +14,8 @@ export const tasks = [
 
 function setupExercise(exercise: BouncerExercise, age: number) {
   exercise.setupAge(age);
-  exercise.setupBackground("/static/images/exercise-assets/bouncer/background.jpg");
-  exercise.setupLetInImage("/static/images/exercise-assets/bouncer/open.jpg");
+  exercise.setupBackground("/static/images/exercise-assets/bouncer/background.webp");
+  exercise.setupLetInImage("/static/images/exercise-assets/bouncer/open.webp");
 }
 
 export const scenarios: VisualScenario[] = [

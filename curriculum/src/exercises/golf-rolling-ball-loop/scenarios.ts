@@ -22,7 +22,7 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as GolfRollingBallLoopExercise;
       ex.setupBallPosition(28, 75);
-      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.png");
+      ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.webp");
     },
 
     expectations(exercise) {

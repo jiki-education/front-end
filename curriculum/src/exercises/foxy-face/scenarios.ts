@@ -21,7 +21,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as FoxyFaceExercise;
-      ex.setupBackground("/static/images/exercise-assets/foxy-face/background.png");
+      ex.setupBackground("/static/images/exercise-assets/foxy-face/background.webp");
     },
 
     expectations(exercise) {

@@ -24,7 +24,7 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as RelationalSunExercise;
-      ex.setupBackground("/static/images/exercise-assets/relational-sun/background.png");
+      ex.setupBackground("/static/images/exercise-assets/relational-sun/background.webp");
     },
 
     expectations(exercise) {

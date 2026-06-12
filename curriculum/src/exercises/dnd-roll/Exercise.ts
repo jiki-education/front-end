@@ -14,7 +14,7 @@ interface DieConfig {
 
 const DICE: Record<number, DieConfig> = {
   10: {
-    image: "/static/images/exercise-assets/dnd-roll/d10.png",
+    image: "/static/images/exercise-assets/dnd-roll/d10.webp",
     top: "11%",
     left: "38%",
     width: "24%",
@@ -23,7 +23,7 @@ const DICE: Record<number, DieConfig> = {
     numberTop: "48%"
   },
   12: {
-    image: "/static/images/exercise-assets/dnd-roll/d12.png",
+    image: "/static/images/exercise-assets/dnd-roll/d12.webp",
     top: "11%",
     left: "38%",
     width: "24%",
@@ -32,7 +32,7 @@ const DICE: Record<number, DieConfig> = {
     numberTop: "50%"
   },
   20: {
-    image: "/static/images/exercise-assets/dnd-roll/d20.png",
+    image: "/static/images/exercise-assets/dnd-roll/d20.webp",
     top: "11%",
     left: "39%",
     width: "22%",
@@ -181,7 +181,7 @@ export default class DndRollExercise extends VisualExercise {
 
   protected populateView() {
     // Set background and container for cqw units
-    this.view.style.backgroundImage = "url(/static/images/exercise-assets/dnd-roll/background.jpg)";
+    this.view.style.backgroundImage = "url(/static/images/exercise-assets/dnd-roll/background.webp)";
     this.view.style.backgroundSize = "cover";
     this.view.style.backgroundPosition = "center";
     this.view.style.position = "relative";
@@ -222,7 +222,7 @@ export default class DndRollExercise extends VisualExercise {
     // Goblin image at the bottom
     const goblin = document.createElement("img");
     goblin.className = "goblin";
-    goblin.src = "/static/images/exercise-assets/dnd-roll/goblin.png";
+    goblin.src = "/static/images/exercise-assets/dnd-roll/goblin.webp";
     goblin.style.position = "absolute";
     goblin.style.bottom = "2%";
     goblin.style.left = "50%";
@@ -234,7 +234,7 @@ export default class DndRollExercise extends VisualExercise {
     // Dead goblin (hidden until strike)
     const goblinDead = document.createElement("img");
     goblinDead.className = "goblin-dead";
-    goblinDead.src = "/static/images/exercise-assets/dnd-roll/goblin-dead.png";
+    goblinDead.src = "/static/images/exercise-assets/dnd-roll/goblin-dead.webp";
     goblinDead.style.position = "absolute";
     goblinDead.style.bottom = "5px";
     goblinDead.style.left = "50%";

@@ -8,7 +8,7 @@ Your task is to rewrite the snowman so all the sizes and positions are derived f
 Depending on the `size` you choose, the snowman should grow.
 
 <img
-  src="/static/images/exercise-assets/relational-snowman/sizes.png"
+  src="/static/images/exercise-assets/relational-snowman/sizes.webp"
   alt="Snowman at sizes 1 through 5"
   style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;"
 />

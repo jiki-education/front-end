@@ -7,7 +7,7 @@ In this exercise, you build a wall from scratch with 55 bricks total.
 
 The final wall should look like this:
 
-![Completed Wall](https://assets.exercism.org/bootcamp/graphics/completed-wall.png)
+<img src="/static/images/exercise-assets/build-wall/completed-wall.webp" alt="Completed Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 Things you need to know:
 

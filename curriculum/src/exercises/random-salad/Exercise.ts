@@ -3,29 +3,29 @@ import { VisualExercise } from "../../VisualExercise";
 import metadata from "./metadata.json";
 
 const LEAF_IMAGES = [
-  "/static/images/exercise-assets/random-salad/leaf-1.png",
-  "/static/images/exercise-assets/random-salad/leaf-2.png",
-  "/static/images/exercise-assets/random-salad/leaf-3.png",
-  "/static/images/exercise-assets/random-salad/leaf-4.png"
+  "/static/images/exercise-assets/random-salad/leaf-1.webp",
+  "/static/images/exercise-assets/random-salad/leaf-2.webp",
+  "/static/images/exercise-assets/random-salad/leaf-3.webp",
+  "/static/images/exercise-assets/random-salad/leaf-4.webp"
 ];
 
 const CROUTON_IMAGES = [
-  "/static/images/exercise-assets/random-salad/crouton-1.png",
-  "/static/images/exercise-assets/random-salad/crouton-2.png",
-  "/static/images/exercise-assets/random-salad/crouton-3.png",
-  "/static/images/exercise-assets/random-salad/crouton-4.png",
-  "/static/images/exercise-assets/random-salad/crouton-5.png",
-  "/static/images/exercise-assets/random-salad/crouton-6.png"
+  "/static/images/exercise-assets/random-salad/crouton-1.webp",
+  "/static/images/exercise-assets/random-salad/crouton-2.webp",
+  "/static/images/exercise-assets/random-salad/crouton-3.webp",
+  "/static/images/exercise-assets/random-salad/crouton-4.webp",
+  "/static/images/exercise-assets/random-salad/crouton-5.webp",
+  "/static/images/exercise-assets/random-salad/crouton-6.webp"
 ];
 
 const TOMATO_IMAGES = [
-  "/static/images/exercise-assets/random-salad/tomato-1.png",
-  "/static/images/exercise-assets/random-salad/tomato-2.png"
+  "/static/images/exercise-assets/random-salad/tomato-1.webp",
+  "/static/images/exercise-assets/random-salad/tomato-2.webp"
 ];
 
 const OLIVE_SLICE_IMAGES = [
-  "/static/images/exercise-assets/random-salad/olive-slice-1.png",
-  "/static/images/exercise-assets/random-salad/olive-slice-2.png"
+  "/static/images/exercise-assets/random-salad/olive-slice-1.webp",
+  "/static/images/exercise-assets/random-salad/olive-slice-2.webp"
 ];
 
 export default class RandomSaladExercise extends VisualExercise {

@@ -5,7 +5,7 @@ description: "Animate a beautiful sunset scene."
 
 Your task is to animate a sunset scene that lasts 100 iterations. It should look like this (the flickering is exactly what you see with flipbooks too!):
 
-<img src="/static/images/exercise-assets/sunset/example.gif" alt="Sunset" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 16px;" />
+<img src="/static/images/exercise-assets/sunset/example.webp" alt="Sunset" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 16px;" />
 
 We've drawn the initial scene for you. You need to animate a few things, using the flip-book style you learned in the last video:
 
