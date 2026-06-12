@@ -3,7 +3,7 @@
     padding-bottom: 80px;
     background-repeat: repeat;
     background-color: var(--light-blue);
-    background-image: url("/static/images/landing-page/testimonial-bg.png");
+    background-image: url("../landing-page/assets/testimonial-bg.png");
     background-size: 300px;
     min-height: 100vh;
 }
