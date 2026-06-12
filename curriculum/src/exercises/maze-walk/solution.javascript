@@ -1,11 +1,11 @@
 function walk(steps) {
   repeat(steps) {
-    move();
+    move()
   }
 }
 
-walk(3);
-turnLeft();
-walk(2);
-turnRight();
-walk(4);
+walk(3)
+turnLeft()
+walk(2)
+turnRight()
+walk(4)

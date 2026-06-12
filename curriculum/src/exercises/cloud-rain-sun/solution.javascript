@@ -1,16 +1,16 @@
 // Sun
-circle(75, 30, 15, "yellow");
+circle(75, 30, 15, "yellow")
 
 // Cloud
-rectangle(25, 50, 50, 10, "white");
-circle(25, 50, 10, "white");
-circle(40, 40, 15, "white");
-circle(55, 40, 20, "white");
-circle(75, 50, 10, "white");
+rectangle(25, 50, 50, 10, "white")
+circle(25, 50, 10, "white")
+circle(40, 40, 15, "white")
+circle(55, 40, 20, "white")
+circle(75, 50, 10, "white")
 
 // Rain
-ellipse(30, 70, 3, 5, "blue");
-ellipse(50, 70, 3, 5, "blue");
-ellipse(70, 70, 3, 5, "blue");
-ellipse(40, 80, 3, 5, "blue");
-ellipse(60, 80, 3, 5, "blue");
+ellipse(30, 70, 3, 5, "blue")
+ellipse(50, 70, 3, 5, "blue")
+ellipse(70, 70, 3, 5, "blue")
+ellipse(40, 80, 3, 5, "blue")
+ellipse(60, 80, 3, 5, "blue")

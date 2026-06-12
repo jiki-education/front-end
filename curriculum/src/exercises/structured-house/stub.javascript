@@ -5,10 +5,10 @@
 // moves the entire house?
 
 // Colors
-let skyColor = "skyblue";
-let grassColor = "green";
-let houseColor = "brick";
-let roofColor = "brown";
-let windowColor = "white";
-let doorColor = "dark brown";
-let knobColor = "yellow";
+let skyColor = "skyblue"
+let grassColor = "green"
+let houseColor = "brick"
+let roofColor = "brown"
+let windowColor = "white"
+let doorColor = "dark brown"
+let knobColor = "yellow"

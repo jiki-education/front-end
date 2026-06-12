@@ -1,23 +1,23 @@
 // The sky
-rectangle(0, 0, 100, 100, "skyblue");
+rectangle(0, 0, 100, 100, "skyblue")
 
 // The grass
-rectangle(0, 80, 100, 100, "green");
+rectangle(0, 80, 100, 100, "green")
 
 // The frame of the house
-rectangle(10, 20, 55, 30, "brown");
+rectangle(10, 20, 55, 30, "brown")
 
 // The roof
-triangle(26, 90, 60, 60, 100, 90, "brick");
+triangle(26, 90, 60, 60, 100, 90, "brick")
 
 // The left window
-rectangle(10, 15, 6, 7, "white");
+rectangle(10, 15, 6, 7, "white")
 
 // The second window
-rectangle(18, 55, 22, 23, "white");
+rectangle(18, 55, 22, 23, "white")
 
 // The door
-rectangle(83, 12, 10, 16, "dark brown");
+rectangle(83, 12, 10, 16, "dark brown")
 
 // The door knob
-circle(91, 20, 1, "yellow");
+circle(91, 20, 1, "yellow")

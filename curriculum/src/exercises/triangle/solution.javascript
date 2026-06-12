@@ -1,21 +1,21 @@
 function determineTriangleType(side1, side2, side3) {
   if (side1 + side2 <= side3) {
-    return "invalid";
+    return "invalid"
   }
   if (side1 + side3 <= side2) {
-    return "invalid";
+    return "invalid"
   }
   if (side2 + side3 <= side1) {
-    return "invalid";
+    return "invalid"
   }
 
   if (side1 === side2 && side2 === side3) {
-    return "equilateral";
+    return "equilateral"
   }
 
   if ((side1 === side2 || side2 === side3) || (side1 === side3)) {
-    return "isosceles";
+    return "isosceles"
   }
 
-  return "scalene";
+  return "scalene"
 }

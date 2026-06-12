@@ -1,55 +1,55 @@
 function contains(haystack, needle) {
   for (const element of haystack) {
     if (element === needle) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function isAlpha(string) {
   for (const char of string) {
     if (!contains("QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm", char)) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }
 
 function isNumeric(string) {
   for (const char of string) {
     if (!contains("0123456789", char)) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }
 
 function isAlphanumeric(string) {
   for (const char of string) {
     if (isAlpha(char)) {
-      continue;
+      continue
     }
     if (isNumeric(char)) {
-      continue;
+      continue
     }
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 function whatAmI(string) {
-  let alpha = isAlpha(string);
-  let numeric = isNumeric(string);
-  let alphanumeric = isAlphanumeric(string);
+  let alpha = isAlpha(string)
+  let numeric = isNumeric(string)
+  let alphanumeric = isAlphanumeric(string)
 
   if (alpha) {
-    return "Alpha";
+    return "Alpha"
   } else if (numeric) {
-    return "Numeric";
+    return "Numeric"
   } else if (alphanumeric) {
-    return "Alphanumeric";
+    return "Alphanumeric"
   } else {
-    return "Unknown";
+    return "Unknown"
   }
 }

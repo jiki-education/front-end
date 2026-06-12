@@ -1,17 +1,17 @@
 function includes(str, target) {
   for (const character of str) {
     if (target === character) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function isPangram(sentence) {
   for (const letter of "abcdefghijklmnopqrstuvwxyz") {
     if (!includes(sentence, letter)) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 }

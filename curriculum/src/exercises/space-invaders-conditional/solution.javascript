@@ -1,6 +1,6 @@
 repeat(10) {
   if (isAlienAbove()) {
-    shoot();
+    shoot()
   }
-  move();
+  move()
 }

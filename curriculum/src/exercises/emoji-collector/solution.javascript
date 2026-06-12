@@ -1,10 +1,10 @@
 function contains(haystack, needle) {
   for (const thread of haystack) {
     if (needle === thread) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 //--------------
@@ -12,64 +12,64 @@ function contains(haystack, needle) {
 //--------------
 
 function checkDirection(direction) {
-  let space = look(direction);
-  return space !== "🔥" && space !== "🧱" && space !== "💩";
+  let space = look(direction)
+  return space !== "🔥" && space !== "🧱" && space !== "💩"
 }
 
 function canTurnLeft() {
-  return checkDirection("left");
+  return checkDirection("left")
 }
 function canTurnRight() {
-  return checkDirection("right");
+  return checkDirection("right")
 }
 function canMove() {
-  return checkDirection("ahead");
+  return checkDirection("ahead")
 }
 
 function turnAround() {
-  turnRight();
-  turnRight();
+  turnRight()
+  turnRight()
 }
 
 function turnIfNeeded() {
   if (canTurnLeft()) {
-    turnLeft();
+    turnLeft()
   } else if (canMove()) {
-    return;
+    return
   } else if (canTurnRight()) {
-    turnRight();
+    turnRight()
   } else {
-    turnAround();
+    turnAround()
   }
 }
 
 function pickUpEmoji(collection) {
-  let reserved = ["⭐", "🏁", "⬜"];
-  let emoji = look("down");
+  let reserved = ["⭐", "🏁", "⬜"]
+  let emoji = look("down")
   if (contains(reserved, emoji)) {
-    return collection;
+    return collection
   }
 
   if (!(emoji in collection)) {
-    collection[emoji] = 0;
+    collection[emoji] = 0
   }
 
-  collection[emoji] = collection[emoji] + 1;
-  removeEmoji();
+  collection[emoji] = collection[emoji] + 1
+  removeEmoji()
 
-  return collection;
+  return collection
 }
 
 //--------------
 //--------------
 //--------------
 
-let emojis = {};
+let emojis = {}
 
 repeat() {
-  turnIfNeeded();
-  move();
-  emojis = pickUpEmoji(emojis);
+  turnIfNeeded()
+  move()
+  emojis = pickUpEmoji(emojis)
 }
 
-announceEmojis(emojis);
+announceEmojis(emojis)

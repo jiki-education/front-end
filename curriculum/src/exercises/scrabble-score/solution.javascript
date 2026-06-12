@@ -7,22 +7,22 @@ function letterValues() {
     ["K", 5],
     ["JX", 8],
     ["QZ", 10]
-  ];
+  ]
 
-  const dict = {};
+  const dict = {}
   for (const pair of values) {
     for (const letter of pair[0]) {
-      dict[letter] = pair[1];
+      dict[letter] = pair[1]
     }
   }
-  return dict;
+  return dict
 }
 
 function scrabbleScore(word) {
-  const scores = letterValues();
-  let score = 0;
+  const scores = letterValues()
+  let score = 0
   for (const letter of word) {
-    score = score + scores[letter.toUpperCase()];
+    score = score + scores[letter.toUpperCase()]
   }
-  return score;
+  return score
 }

@@ -1,108 +1,108 @@
 function length(str) {
-  let counter = 0;
+  let counter = 0
   for (const char of str) {
-    counter = counter + 1;
+    counter = counter + 1
   }
-  return counter;
+  return counter
 }
 
 function startsWith(str, substr) {
   if (length(str) < length(substr)) {
-    return false;
+    return false
   }
 
-  let counter = 0;
+  let counter = 0
   for (const char of substr) {
     if (str[counter] !== char) {
-      return false;
+      return false
     }
-    counter = counter + 1;
+    counter = counter + 1
   }
 
-  return true;
+  return true
 }
 
 function endsWith(word, substr) {
-  let wordLength = length(word);
-  let substrLength = length(substr);
+  let wordLength = length(word)
+  let substrLength = length(substr)
   if (substrLength > wordLength) {
-    return false;
+    return false
   }
 
-  let counter = wordLength - substrLength;
+  let counter = wordLength - substrLength
   for (const letter of substr) {
     if (letter !== word[counter]) {
-      return false;
+      return false
     }
-    counter = counter + 1;
+    counter = counter + 1
   }
 
-  return true;
+  return true
 }
 
 function stripPrefix(description, numLetters) {
-  let res = "";
-  let counter = numLetters;
-  let descLength = length(description);
+  let res = ""
+  let counter = numLetters
+  let descLength = length(description)
   repeat(descLength - numLetters) {
-    res = res + description[counter];
-    counter = counter + 1;
+    res = res + description[counter]
+    counter = counter + 1
   }
-  return res;
+  return res
 }
 
 function removeLeftRight(description) {
   if (startsWith(description, "left ")) {
-    return stripPrefix(description, 5);
+    return stripPrefix(description, 5)
   } else {
-    return stripPrefix(description, 6);
+    return stripPrefix(description, 6)
   }
 }
 
 function switchLeftRight(description) {
   if (startsWith(description, "left ")) {
-    return "right " + removeLeftRight(description);
+    return "right " + removeLeftRight(description)
   } else if (startsWith(description, "right ")) {
-    return "left " + removeLeftRight(description);
+    return "left " + removeLeftRight(description)
   }
-  return description;
+  return description
 }
 
 function extractSocks(list) {
-  let socks = [];
+  let socks = []
   for (const item of list) {
     if (endsWith(item, " sock")) {
-      socks.push(item);
+      socks.push(item)
     }
   }
-  return socks;
+  return socks
 }
 
 function pushIfMissing(list, element) {
   for (const item of list) {
     if (item === element) {
-      return list;
+      return list
     }
   }
-  list.push(element);
-  return list;
+  list.push(element)
+  return list
 }
 
 function matchingSocks(clean, dirty) {
-  let cleanSocks = extractSocks(clean);
-  let dirtySocks = extractSocks(dirty);
-  let socks = cleanSocks.concat(dirtySocks);
-  let matchingSocksList = [];
+  let cleanSocks = extractSocks(clean)
+  let dirtySocks = extractSocks(dirty)
+  let socks = cleanSocks.concat(dirtySocks)
+  let matchingSocksList = []
 
-  let otherSock = "";
+  let otherSock = ""
   for (const sock1 of socks) {
-    otherSock = switchLeftRight(sock1);
+    otherSock = switchLeftRight(sock1)
 
     for (const sock2 of socks) {
       if (otherSock === sock2) {
-        matchingSocksList = pushIfMissing(matchingSocksList, removeLeftRight(otherSock) + "s");
+        matchingSocksList = pushIfMissing(matchingSocksList, removeLeftRight(otherSock) + "s")
       }
     }
   }
-  return matchingSocksList;
+  return matchingSocksList
 }

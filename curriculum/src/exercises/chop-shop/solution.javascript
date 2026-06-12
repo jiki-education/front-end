@@ -6,19 +6,19 @@ function nameToTime(name) {
     ["Shave and Polish", 15],
     ["Afro Trim", 45],
     ["Up-do", 30]
-  ];
+  ]
   for (const cut of cuts) {
     if (cut[0] === name) {
-      return cut[1];
+      return cut[1]
     }
   }
 }
 
 function canFitIn(queue, nextCut, time) {
-  let remaining = time;
+  let remaining = time
   for (const haircut of queue) {
-    remaining = remaining - nameToTime(haircut);
+    remaining = remaining - nameToTime(haircut)
   }
 
-  return remaining >= nameToTime(nextCut);
+  return remaining >= nameToTime(nextCut)
 }

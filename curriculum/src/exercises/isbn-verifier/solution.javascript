@@ -1,26 +1,26 @@
 function isValidIsbn(isbn) {
-  let total = 0;
-  let num = 0;
-  let multiplier = 10;
+  let total = 0
+  let num = 0
+  let multiplier = 10
 
   for (const char of isbn) {
     if (char === "X" && multiplier === 1) {
-      num = 10;
+      num = 10
     } else if (char === "-") {
-      continue;
+      continue
     } else if ("0123456789".includes(char)) {
-      num = "0123456789".indexOf(char);
+      num = "0123456789".indexOf(char)
     } else {
-      return false;
+      return false
     }
 
-    total = total + (num * multiplier);
-    multiplier = multiplier - 1;
+    total = total + (num * multiplier)
+    multiplier = multiplier - 1
   }
 
   if (multiplier !== 0) {
-    return false;
+    return false
   }
 
-  return total % 11 === 0;
+  return total % 11 === 0
 }

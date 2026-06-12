@@ -1,7 +1,7 @@
 repeat(5) {
-  move();
+  move()
   repeat(4) {
-    shoot();
+    shoot()
   }
-  move();
+  move()
 }

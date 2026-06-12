@@ -1,30 +1,30 @@
-let sunRadius = 5;
-let sunCy = 10;
+let sunRadius = 5
+let sunCy = 10
 
-let sunRed = 255;
-let sunGreen = 237;
-let sunBlue = 0;
+let sunRed = 255
+let sunGreen = 237
+let sunBlue = 0
 
-let skyH = 210;
-let skyS = 70;
-let skyL = 60;
+let skyH = 210
+let skyS = 70
+let skyL = 60
 
 repeat(100) {
   // The sky
-  skyH = skyH + 0.4;
-  let skyColor = hsl(skyH, skyS, skyL);
-  rectangle(0, 0, 100, 100, skyColor);
+  skyH = skyH + 0.4
+  let skyColor = hsl(skyH, skyS, skyL)
+  rectangle(0, 0, 100, 100, skyColor)
 
   // The Sun
-  sunGreen = sunGreen - 1;
-  sunCy = sunCy + 1;
-  sunRadius = sunRadius + 0.2;
-  let sunColor = rgb(sunRed, sunGreen, sunBlue);
-  circle(50, sunCy, sunRadius, sunColor);
+  sunGreen = sunGreen - 1
+  sunCy = sunCy + 1
+  sunRadius = sunRadius + 0.2
+  let sunColor = rgb(sunRed, sunGreen, sunBlue)
+  circle(50, sunCy, sunRadius, sunColor)
 
   // The sea
-  rectangle(0, 85, 100, 5, "#0308ce");
+  rectangle(0, 85, 100, 5, "#0308ce")
 
   // The sand
-  rectangle(0, 90, 100, 10, "#C2B280");
+  rectangle(0, 90, 100, 10, "#C2B280")
 }

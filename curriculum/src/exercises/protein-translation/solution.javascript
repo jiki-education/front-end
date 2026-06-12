@@ -17,34 +17,34 @@ function codonsToProteins(codons) {
     UAA: "STOP",
     UAG: "STOP",
     UGA: "STOP"
-  };
-  let proteins = [];
+  }
+  let proteins = []
   for (const codon of codons) {
     if (map[codon] === "STOP") {
-      break;
+      break
     }
-    proteins.push(map[codon]);
+    proteins.push(map[codon])
   }
-  return proteins;
+  return proteins
 }
 
 function rnaToCodons(rna) {
-  let result = [];
-  let current = "";
+  let result = []
+  let current = ""
 
-  let counter = 0;
+  let counter = 0
   for (const letter of rna) {
-    counter = counter + 1;
-    current = current + letter;
+    counter = counter + 1
+    current = current + letter
 
     if (counter % 3 === 0 && current !== "") {
-      result.push(current);
-      current = "";
+      result.push(current)
+      current = ""
     }
   }
-  return result;
+  return result
 }
 
 function translateRna(rna) {
-  return codonsToProteins(rnaToCodons(rna));
+  return codonsToProteins(rnaToCodons(rna))
 }
