@@ -63,6 +63,10 @@ jobs:
             missing_vars+=("NEXT_PUBLIC_TURNSTILE_SITE_KEY")
           fi
 
+          if [ -z "${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}" ]; then
+            missing_vars+=("NEXT_PUBLIC_POSTHOG_KEY")
+          fi
+
           if [ -z "${{ secrets.SENTRY_AUTH_TOKEN }}" ]; then
             missing_vars+=("SENTRY_AUTH_TOKEN")
           fi
