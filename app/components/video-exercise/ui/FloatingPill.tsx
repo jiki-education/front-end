@@ -9,6 +9,7 @@ interface FloatingPillProps {
   isAlreadyCompleted: boolean;
   lessonTitle: string;
   isMarking: boolean;
+  canSkip: boolean;
   onContinue: () => void;
 }
 
@@ -19,10 +20,14 @@ export function FloatingPill({
   isAlreadyCompleted,
   lessonTitle,
   isMarking,
+  canSkip,
   onContinue
 }: FloatingPillProps) {
+  const continueEnabled = videoWatched || canSkip;
+  const continueLabel = !videoWatched && canSkip ? "Skip" : "Continue";
+
   return (
-    <div className={`${styles.floatingPill} ${!videoWatched ? styles.floatingPillDisabled : ""}`}>
+    <div className={`${styles.floatingPill} ${!continueEnabled ? styles.floatingPillDisabled : ""}`}>
       <div className={styles.pillInfo}>
         <ProgressRing
           progress={videoProgress}
@@ -42,15 +47,15 @@ export function FloatingPill({
       </div>
 
       <div className={styles.continueWrapper}>
-        <Tooltip content="Finish watching to continue" disabled={videoWatched}>
+        <Tooltip content="Finish watching to continue" disabled={continueEnabled}>
           <button
             className={`ui-btn ui-btn-default ${
               videoWatched ? "ui-btn-primary ui-btn-green" : "ui-btn-secondary ui-btn-gray"
             } ${isMarking ? "ui-btn-loading" : ""}`}
             onClick={onContinue}
-            disabled={!videoWatched || isMarking}
+            disabled={!continueEnabled || isMarking}
           >
-            {isMarking ? "Saving..." : "Continue"}
+            {isMarking ? "Saving..." : continueLabel}
             {!isMarking && (
               <svg viewBox="0 0 24 24" className={styles.buttonIcon}>
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />

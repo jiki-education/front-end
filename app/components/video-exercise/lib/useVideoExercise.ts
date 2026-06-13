@@ -1,8 +1,14 @@
 import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
 import { reportError } from "@/lib/reportError";
+import { showConfirmation } from "@/lib/modal";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+
+// The very first video lesson new users see. We allow them to skip it
+// (with a confirmation modal) so they're never blocked on the welcome video.
+// Other video lessons keep the standard "must finish to continue" behaviour.
+const FIRST_VIDEO_LESSON_SLUG = "welcome-to-jiki";
 
 export function useVideoExercise(lessonSlug: string) {
   const router = useRouter();
@@ -64,14 +70,10 @@ export function useVideoExercise(lessonSlug: string) {
     playerRef.current.play().catch(handleAutoplayFailure);
   };
 
-  const handleContinue = async () => {
-    if (isMarking) {
-      return;
-    }
-    if (isAlreadyCompleted) {
-      router.push(`/dashboard`);
-      return;
-    }
+  const isFirstVideoLesson = lessonSlug === FIRST_VIDEO_LESSON_SLUG;
+  const canSkip = isFirstVideoLesson && !videoWatched && !isAlreadyCompleted;
+
+  const completeAndNavigate = async () => {
     try {
       setIsMarking(true);
       const response = await markLessonComplete(lessonSlug);
@@ -87,6 +89,30 @@ export function useVideoExercise(lessonSlug: string) {
     }
   };
 
+  const handleContinue = async () => {
+    if (isMarking) {
+      return;
+    }
+    if (isAlreadyCompleted) {
+      router.push(`/dashboard`);
+      return;
+    }
+    if (canSkip) {
+      playerRef.current?.pause();
+      showConfirmation({
+        title: "Skip the welcome video?",
+        message: "You haven't finished watching yet. Are you sure you want to skip the welcome video and continue?",
+        confirmText: "Yes, skip it",
+        cancelText: "Keep watching",
+        onConfirm: () => {
+          void completeAndNavigate();
+        }
+      });
+      return;
+    }
+    await completeAndNavigate();
+  };
+
   return {
     playerRef,
     videoWatched,
@@ -96,6 +122,7 @@ export function useVideoExercise(lessonSlug: string) {
     isInitializing,
     showCheckmark,
     isAlreadyCompleted,
+    canSkip,
     handleVideoEnd,
     handleVideoPlay,
     handleTimeUpdate,

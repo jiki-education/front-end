@@ -24,6 +24,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
     isInitializing,
     showCheckmark,
     isAlreadyCompleted,
+    canSkip,
     handleVideoEnd,
     handleVideoPlay,
     handleTimeUpdate,
@@ -68,6 +69,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
         isAlreadyCompleted={isAlreadyCompleted}
         lessonTitle={lessonData.title}
         isMarking={isMarking}
+        canSkip={canSkip}
         onContinue={handleContinue}
       />
     </div>
