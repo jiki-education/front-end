@@ -4,7 +4,7 @@ import { getAllArticles } from "@/lib/content/getAllArticles";
 import { getAllBlogPosts } from "@/lib/content/getAllBlogPosts";
 import { SITE_URL } from "@/lib/site";
 
-const STATIC_ROUTES = ["", "/blog", "/articles", "/concepts", "/testimonials", "/premium"];
+const STATIC_ROUTES = ["", "/blog", "/articles", "/concepts", "/testimonials", "/premium", "/roadmap"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [...staticEntries(), ...blogEntries(), ...articleEntries(), ...conceptEntries()];

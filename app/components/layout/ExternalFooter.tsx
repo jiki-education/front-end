@@ -58,6 +58,9 @@ export function ExternalFooter() {
             <Link href="/articles/report-abuse" className={styles.link}>
               Report abuse
             </Link>
+            <Link href="/sitemap.xml" className={styles.link}>
+              Sitemap
+            </Link>
           </div>
         </div>
         <div className={styles.section}>
