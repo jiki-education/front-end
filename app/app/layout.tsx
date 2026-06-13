@@ -1,5 +1,6 @@
 import { AttributionCapture } from "@/components/AttributionCapture";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
+import PostHogPageview from "@/components/PostHogPageview";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { SITE_URL } from "@/lib/site";
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
         <GlobalErrorHandler />
         <AttributionCapture />
+        <PostHogPageview />
         <ServerAuthProvider>
           <ThemeProvider>
             <main className="w-full">{children}</main>
