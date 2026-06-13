@@ -7,5 +7,6 @@ packages:
 
 onlyBuiltDependencies:
   - "@codemirror/lang-javascript"
+  - "@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed"
   - "@jiki/highlightjs-javascript"
   - "@lezer/javascript"
