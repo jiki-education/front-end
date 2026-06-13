@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@codemirror/commands": "^6.10.1",
-    "@codemirror/lang-javascript": "github:jiki-education/codemirror-javascript",
+    "@codemirror/lang-javascript": "^6.2.5",
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/language": "^6.12.1",
     "@codemirror/lint": "^6.9.2",

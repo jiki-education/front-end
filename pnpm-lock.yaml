@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@lezer/javascript': npm:@jiki.io/lezer-javascript@^1.5.4
+
 importers:
 
   .:
@@ -22,8 +25,8 @@ importers:
         specifier: ^6.10.1
         version: 6.10.3
       '@codemirror/lang-javascript':
-        specifier: github:jiki-education/codemirror-javascript
-        version: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed
+        specifier: ^6.2.5
+        version: 6.2.5
       '@codemirror/lang-python':
         specifier: ^6.2.1
         version: 6.2.1
@@ -1452,9 +1455,8 @@ packages:
   '@codemirror/commands@6.10.3':
     resolution: {integrity: sha512-JFRiqhKu+bvSkDLI+rUhJwSxQxYb759W5GBezE8Uc8mHLqC9aV/9aTC7yJSqCtB3F00pylrLCwnyS91Ap5ej4Q==}
 
-  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed':
-    resolution: {tarball: https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed}
-    version: 6.2.5
+  '@codemirror/lang-javascript@6.2.5':
+    resolution: {integrity: sha512-zD4e5mS+50htS7F+TYjBPsiIFGanfVqg4HyUz6WNFikgOPf2BgKlx+TQedI1w6n/IqRBVBbBWmGFdLB/7uxO4A==}
 
   '@codemirror/lang-python@6.2.1':
     resolution: {integrity: sha512-IRjC8RUBhn9mGR9ywecNhB51yePWCGgvHfY1lWN/Mrp3cKuHr0isDKia+9HnvhiWNnMpbGhWrkhuWOc09exRyw==}
@@ -2506,6 +2508,9 @@ packages:
     resolution: {integrity: sha512-JHm87k7bA33hpBngtU8h6UBub/fqqA9uXfw+21j5Hmk7ooPHlboRNxHq0JcMtC+n8VJGP1mcfnD3Mk+XKe1oSw==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
+  '@jiki.io/lezer-javascript@1.5.4':
+    resolution: {integrity: sha512-pgS3fcxUNTaxd2gHKPlVGcehyQGCk/1arow1fqmdJQplSbqVyk0PeUI8RbPPgjywKW57OFWXXWAhZIfC++/5Lg==}
+
   '@jiki/highlightjs-javascript@https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d':
     resolution: {tarball: https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d}
     version: 0.0.1
@@ -2539,10 +2544,6 @@ packages:
 
   '@lezer/highlight@1.2.3':
     resolution: {integrity: sha512-qXdH7UqTvGfdVBINrgKhDsVTJTxactNNxLk7+UMwZhU13lMHaOBlJe9Vqp907ya56Y3+ed2tlqzys7jDkTmW0g==}
-
-  '@lezer/javascript@https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6':
-    resolution: {tarball: https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6}
-    version: 1.5.4
 
   '@lezer/lr@1.4.7':
     resolution: {integrity: sha512-wNIFWdSUfX9Jc6ePMzxSPVgTVB4EOfDIwLQLWASyiUdHKaMsiilj9bYiGkGQCKVodd0x6bgQCV207PILGFCF9Q==}
@@ -9713,7 +9714,7 @@ snapshots:
       '@codemirror/view': 6.41.1
       '@lezer/common': 1.5.2
 
-  '@codemirror/lang-javascript@https://codeload.github.com/jiki-education/codemirror-javascript/tar.gz/945b8ba4ad84a617c1e160986e1acbce4083e9ed':
+  '@codemirror/lang-javascript@6.2.5':
     dependencies:
       '@codemirror/autocomplete': 6.20.0
       '@codemirror/language': 6.12.3
@@ -9721,7 +9722,7 @@ snapshots:
       '@codemirror/state': 6.6.0
       '@codemirror/view': 6.41.1
       '@lezer/common': 1.5.2
-      '@lezer/javascript': https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6
+      '@lezer/javascript': '@jiki.io/lezer-javascript@1.5.4'
 
   '@codemirror/lang-python@6.2.1':
     dependencies:
@@ -10567,6 +10568,12 @@ snapshots:
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
+  '@jiki.io/lezer-javascript@1.5.4':
+    dependencies:
+      '@lezer/common': 1.5.2
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.7
+
   '@jiki/highlightjs-javascript@https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
@@ -10605,12 +10612,6 @@ snapshots:
   '@lezer/highlight@1.2.3':
     dependencies:
       '@lezer/common': 1.5.2
-
-  '@lezer/javascript@https://codeload.github.com/jiki-education/lezer-javascript/tar.gz/daec36f0434ffc162511123e9deae061375c34f6':
-    dependencies:
-      '@lezer/common': 1.5.2
-      '@lezer/highlight': 1.2.3
-      '@lezer/lr': 1.4.7
 
   '@lezer/lr@1.4.7':
     dependencies:

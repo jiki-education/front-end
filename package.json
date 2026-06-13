@@ -35,5 +35,10 @@
   },
   "dependencies": {
     "qrcode.react": "^4.2.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@lezer/javascript": "npm:@jiki.io/lezer-javascript@^1.5.4"
+    }
   }
 }
