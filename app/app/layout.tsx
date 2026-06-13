@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
 import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
+import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
 import "./globals.css";
 
@@ -64,6 +65,12 @@ export default function RootLayout({
             <ToasterProvider />
           </ThemeProvider>
         </ServerAuthProvider>
+        <Script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
