@@ -3,26 +3,12 @@
  * Font families, sizes, and line heights
  */
 
-/* Routes ZWJ (U+200D), ZWNJ (U+200C) and emoji variation selectors to the
-   system emoji font. Without this the browser sees ZWJ inside compound
-   emoji (e.g. 🧑‍🔬), tries to resolve it via Poppins, matches Poppins's
-   Devanagari subset (which also covers U+200C-200D) and downloads ~80KB
-   of woff2 on the critical path. unicode-range is restricted to the
-   joiners and selectors only — broader emoji ranges would risk
-   overriding Poppins glyphs the design relies on (✓ ★ ❄ etc.). */
-@font-face {
-    font-family: "EmojiFallback";
-    src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
-    unicode-range: U+200C-200D, U+FE0E-FE0F;
-    font-display: swap;
-}
-
 @theme inline {
     /* Font family configuration */
     --font-sans:
-        "EmojiFallback", var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol", "Noto Color Emoji";
+        var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
     --font-poppins: var(--font-poppins);
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
