@@ -23,6 +23,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as FixWallExercise;
       ex.setupBackground("/static/images/exercise-assets/fix-wall/wall-to-fix.webp");
       ex.setupStroke(0.4, "#7f3732");
+      ex.setDrawDelayMs(200);
     },
 
     expectations(exercise) {

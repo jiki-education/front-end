@@ -23,6 +23,7 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as FinishWallExercise;
       ex.setupBackground("/static/images/exercise-assets/finish-wall/topless-wall.webp");
       ex.setupStroke(0.4, "#7f3732");
+      ex.setDrawDelayMs(150);
     },
 
     expectations(exercise) {
