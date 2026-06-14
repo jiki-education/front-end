@@ -1,9 +1,7 @@
 import { AttributionCapture } from "@/components/AttributionCapture";
 import { GlobalErrorHandler } from "@/components/GlobalErrorHandler";
-import JsonLd from "@/components/seo/JsonLd";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
-import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
@@ -58,7 +56,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <GlobalErrorHandler />
         <AttributionCapture />
         <ServerAuthProvider>
