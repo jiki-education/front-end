@@ -59,8 +59,8 @@ export default function RootLayout({
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
         <GlobalErrorHandler />
         <AttributionCapture />
-        <PostHogPageview />
         <ServerAuthProvider>
+          <PostHogPageview />
           <ThemeProvider>
             <main className="w-full">{children}</main>
             <GlobalModalProvider />
