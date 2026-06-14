@@ -70,7 +70,8 @@ describe("Store Auto-Play Behavior", () => {
       clearUpdateCallbacks: jest.fn(),
       clearCompleteCallbacks: jest.fn(),
       completed: false,
-      currentTime: 0
+      currentTime: 0,
+      duration: 200
     } as any
   });
 
@@ -123,7 +124,42 @@ describe("Store Auto-Play Behavior", () => {
       clearUpdateCallbacks: jest.fn(),
       clearCompleteCallbacks: jest.fn(),
       completed: false,
-      currentTime: time
+      currentTime: time,
+      duration: 100
+    } as any
+  });
+
+  const createMockErrorAtStartTest = (slug: string): TestResult => ({
+    type: "visual" as const,
+    slug,
+    name: slug,
+    status: "fail" as const,
+    expects: [],
+    view: document.createElement("div"),
+    frames: [
+      {
+        time: 0,
+        timeInMs: 0,
+        line: 1,
+        code: "not_a_function()",
+        status: "ERROR" as const,
+        generateDescription: () => "Error frame",
+        error: { message: "Function does not exist" }
+      }
+    ],
+    logLines: [],
+    lintErrors: [],
+    animationTimeline: {
+      play: jest.fn(),
+      pause: jest.fn(),
+      seek: jest.fn(),
+      onUpdate: jest.fn(),
+      onComplete: jest.fn(),
+      clearUpdateCallbacks: jest.fn(),
+      clearCompleteCallbacks: jest.fn(),
+      completed: false,
+      currentTime: 0,
+      duration: 0
     } as any
   });
 
@@ -338,6 +374,23 @@ describe("Store Auto-Play Behavior", () => {
       // Widget should now be visible with the error
       expect(store.getState().shouldShowInformationWidget).toBe(true);
       expect(store.getState().isPlaying).toBe(false);
+    });
+
+    it("should show information widget immediately when error is the first frame and timeline has nothing to play", () => {
+      // Regression: when an error occurs before any animations are produced (e.g. `not_a_function()`
+      // on the first line), the animation timeline has duration 0. Autoplay through onComplete would
+      // never fire, silently swallowing the error. Treat a zero-duration timeline as not autoplayable
+      // and jump straight to the error frame with the widget shown.
+      const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
+      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const test = createMockErrorAtStartTest("test-1");
+      store.getState().setShouldPlayOnTestChange(true);
+
+      store.getState().setCurrentTest(test);
+
+      expect(store.getState().isPlaying).toBe(false);
+      expect(test.animationTimeline!.play).not.toHaveBeenCalled();
+      expect(store.getState().shouldShowInformationWidget).toBe(true);
     });
   });
 

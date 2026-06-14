@@ -259,7 +259,7 @@ export function createOrchestratorStore(
           });
 
           const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
-          const shouldAutoPlay = state.shouldPlayOnTestChange && !!test.animationTimeline;
+          const shouldAutoPlay = state.shouldPlayOnTestChange && (test.animationTimeline?.duration ?? 0) > 0;
 
           if (errorFrame && !shouldAutoPlay) {
             // Not auto-playing: jump directly to error (or breakpoint before it)
