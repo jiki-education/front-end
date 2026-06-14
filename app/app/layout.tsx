@@ -67,12 +67,14 @@ export default function RootLayout({
             <ToasterProvider />
           </ThemeProvider>
         </ServerAuthProvider>
-        <Script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
-          strategy="afterInteractive"
-        />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
