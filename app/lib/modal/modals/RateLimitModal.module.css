@@ -102,7 +102,6 @@
 
 /* Z's floating animation */
 .zzz {
-    font-family: "Poppins", sans-serif;
     font-weight: 700;
     fill: var(--color-gray-400);
     opacity: 0;

@@ -3,16 +3,17 @@
  * Base styling for html and body elements
  */
 
-/* Routes ZWJ (U+200D) and emoji codepoints to the system emoji font.
-   Without this the browser sees ZWJ inside compound emoji (e.g. 🧑‍🔬),
-   tries to resolve it via Poppins, matches Poppins's Devanagari subset
-   (which includes U+200C-200D) and downloads ~80KB of woff2 on the
-   critical path. unicode-range restricts this family to emoji-only
-   codepoints so it's never consulted for regular text. */
+/* Routes ZWJ (U+200D), ZWNJ (U+200C) and emoji variation selectors to the
+   system emoji font. Without this the browser sees ZWJ inside compound
+   emoji (e.g. 🧑‍🔬), tries to resolve it via Poppins, matches Poppins's
+   Devanagari subset (which also covers U+200C-200D) and downloads ~80KB
+   of woff2 on the critical path. unicode-range is restricted to the
+   joiners and selectors only — broader emoji ranges would risk
+   overriding Poppins glyphs the design relies on (✓ ★ ❄ etc.). */
 @font-face {
     font-family: "EmojiFallback";
     src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
-    unicode-range: U+200C-200D, U+FE0E-FE0F, U+2600-27BF, U+1F000-1FFFF;
+    unicode-range: U+200C-200D, U+FE0E-FE0F;
     font-display: swap;
 }
 
@@ -29,14 +30,7 @@
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family:
-        "EmojiFallback",
-        var(--font-poppins),
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        sans-serif;
+    font-family: var(--font-sans);
 
     &::after {
         content: "";

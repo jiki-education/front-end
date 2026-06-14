@@ -172,7 +172,6 @@
         /* TODO: When we properly style this button, use colors from our palette instead of custom purple */
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         text-decoration: none;
-        font-family: "Poppins", sans-serif;
         position: relative;
 
         &::before {
