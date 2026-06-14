@@ -17,7 +17,6 @@ body {
     background: var(--background);
     color: var(--foreground);
     font-family:
-        "EmojiFallback",
         var(--font-poppins),
         -apple-system,
         BlinkMacSystemFont,

@@ -172,3 +172,19 @@
 .ui-link:hover {
     text-decoration: underline;
 }
+
+/* ========================================
+   EMOJI
+   ======================================== */
+
+/* Wraps emoji characters in a font-family chain that excludes Poppins.
+   Compound emojis like 🧑‍🔬 contain ZWJ (U+200D), which sits in Poppins's
+   Devanagari unicode-range subset. When Poppins is in the cascade for an
+   element containing a compound emoji, Chrome speculatively fetches the
+   Poppins Devanagari woff2 (~40KB per weight) on the critical path to
+   try to render the ZWJ — even though the emoji glyph ultimately comes
+   from the system emoji font. Removing Poppins from the cascade for the
+   emoji span avoids the fetch entirely. */
+.ui-emoji {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
