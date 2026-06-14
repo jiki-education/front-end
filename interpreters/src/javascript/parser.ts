@@ -464,7 +464,7 @@ export class Parser {
         throw this.error("ConstInForLoopInit", this.previous().location);
       } else {
         init = this.expression();
-        this.consume("SEMICOLON", "MissingSemicolon");
+        this.consumeForLoopSemicolon();
       }
 
       // Parse condition
@@ -472,7 +472,7 @@ export class Parser {
       if (!this.check("SEMICOLON")) {
         condition = this.expression();
       }
-      this.consume("SEMICOLON", "MissingSemicolon");
+      this.consumeForLoopSemicolon();
 
       // Parse update
       let update: Expression | null = null;
@@ -1088,7 +1088,10 @@ export class Parser {
     // If semicolons are required, throw error unless we're at end of file
     if (requireSemicolons) {
       if (!this.isAtEnd()) {
-        this.error("MissingSemicolon", this.peek().location);
+        this.error("MissingEndOfLine", this.peek().location, {
+          previous: this.previous().lexeme,
+          current: this.peek().lexeme,
+        });
       }
       // Return the current token as fallback (for end of file cases)
       return this.previous();
@@ -1111,7 +1114,21 @@ export class Parser {
     }
 
     // Not at a statement boundary, still require semicolon
-    this.error("MissingSemicolon", this.peek().location);
+    this.error("MissingEndOfLine", this.peek().location, {
+      previous: this.previous().lexeme,
+      current: this.peek().lexeme,
+    });
+  }
+
+  private consumeForLoopSemicolon(): void {
+    if (this.check("SEMICOLON")) {
+      this.advance();
+      return;
+    }
+    this.error("MissingEndOfLine", this.peek().location, {
+      previous: this.previous().lexeme,
+      current: this.peek().lexeme,
+    });
   }
 
   private synchronize(): void {
