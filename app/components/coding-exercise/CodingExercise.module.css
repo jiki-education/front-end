@@ -106,7 +106,6 @@
     border-radius: 9px;
     border: none;
     cursor: pointer;
-    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 600;
     display: flex;
@@ -320,7 +319,6 @@
     color: var(--color-gray-400);
     cursor: pointer;
     transition: all 0.2s;
-    font-family: "Poppins", sans-serif;
     white-space: nowrap;
 }
 
@@ -1189,7 +1187,6 @@
 }
 
 .customTooltip {
-    font-family: Poppins;
     font-size: 14px;
     padding: 4px;
     color: var(--color-text-primary);

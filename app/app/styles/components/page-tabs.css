@@ -18,7 +18,6 @@
         color: var(--color-gray-500);
         cursor: pointer;
         transition: all 0.2s ease;
-        font-family: "Poppins", sans-serif;
         position: relative;
         display: inline-flex;
         align-items: center;
