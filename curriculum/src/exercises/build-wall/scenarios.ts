@@ -22,6 +22,7 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as BuildWallExercise;
       ex.setupStroke(0.4, "#7f3732");
+      ex.setDrawDelayMs(20);
     },
 
     expectations(exercise) {

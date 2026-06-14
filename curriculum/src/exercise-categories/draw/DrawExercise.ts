@@ -47,6 +47,11 @@ export abstract class DrawExercise extends VisualExercise {
   protected strokeColor: string = "#333333";
   protected strokeWidth = 0;
   protected fixedColor: string | null = null;
+  protected drawDelayMs = 0;
+
+  public setDrawDelayMs(ms: number) {
+    this.drawDelayMs = ms;
+  }
 
   constructor() {
     super();
@@ -387,6 +392,9 @@ export abstract class DrawExercise extends VisualExercise {
 
   protected animateShapeIntoView(executionCtx: ExecutionContext, elem: SVGElement) {
     this.animateIntoView(executionCtx, `#${this.view.id} #${elem.id}`);
+    if (this.drawDelayMs > 0) {
+      executionCtx.fastForward(this.drawDelayMs);
+    }
   }
   protected animateShapeOutOfView(executionCtx: ExecutionContext, elem: SVGElement) {
     this.animateOutOfView(executionCtx, `#${this.view.id} #${elem.id}`);
