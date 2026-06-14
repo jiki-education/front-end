@@ -41,7 +41,7 @@ export function BootcampSection() {
               <div className="flex flex-row">
                 <div className={styles.lhs}>
                   <h3 className="mb-8">
-                    1. Coding Fundamentals 🧑‍🔬
+                    1. Coding Fundamentals <span className="ui-emoji">🧑‍🔬</span>
                     <div className={styles.bubble}>Absolute Beginners</div>
                   </h3>
                   <div className={`${styles["part-intro"]} mb-20`}>

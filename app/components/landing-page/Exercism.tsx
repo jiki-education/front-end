@@ -12,7 +12,9 @@ export function Exercism() {
         </p>
         <ul>
           <li>
-            <div className={styles.emoji}>🧑‍💻</div>
+            <div className={styles.emoji}>
+              <span className="ui-emoji">🧑‍💻</span>
+            </div>
             <div className={styles.count}>2,500,000</div>
             <div className={styles.title}>Exercism students</div>
             <p>We&apos;ve grown entirely by word of mouth. Good friends tell their friends about Exercism!</p>
