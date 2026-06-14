@@ -15,19 +15,19 @@ import "./globals.css";
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800", "900"]
+  weight: ["300", "400", "500", "600", "700", "800"]
 });
 
 const sourceCodePro = Source_Code_Pro({
   variable: "--font-source-code-pro",
   subsets: ["latin"],
-  weight: ["400", "500", "600"]
+  weight: ["400", "600"]
 });
 
 const baloo2 = Baloo_2({
   variable: "--font-baloo-2",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"]
+  weight: ["800"]
 });
 
 export const metadata: Metadata = {
