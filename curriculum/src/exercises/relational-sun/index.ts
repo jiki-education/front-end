@@ -19,7 +19,21 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 1, toChar: 10 },
+      { fromLine: 2, toLine: 2, toChar: 13 }
+    ],
+    python: [
+      { fromLine: 1, toLine: 1, toChar: 6 },
+      { fromLine: 2, toLine: 2, toChar: 9 }
+    ],
+    jikiscript: [
+      { fromLine: 1, toLine: 1, toChar: 11 },
+      { fromLine: 2, toLine: 2, toChar: 14 }
+    ]
+  }
 };
 
 export default exerciseDefinition;

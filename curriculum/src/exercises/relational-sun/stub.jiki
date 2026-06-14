@@ -1,1 +1,3 @@
-// Draw the sun
+set gap to 10
+set radius to 15
+

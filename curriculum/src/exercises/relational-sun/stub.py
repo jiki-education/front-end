@@ -1,1 +1,3 @@
-# Draw the sun
+gap = 10
+radius = 15
+
