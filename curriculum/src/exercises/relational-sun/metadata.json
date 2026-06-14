@@ -3,20 +3,16 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I work out the sun's x position?",
-      "answer": "Start from the right edge of the canvas and step inward by the gap and the radius: `sunX = canvasSize - gap - radius`."
+      "question": "How should I think about the sun's x position?",
+      "answer": "Picture the right edge of the canvas. The edge of the sun sits `gap` to the left of that edge. The *centre* of the sun is one more radius further in than that."
     },
     {
-      "question": "How do I work out the sun's y position?",
-      "answer": "Start from the top edge and step down by the gap and the radius: `sunY = gap + radius`."
+      "question": "How should I think about the sun's y position?",
+      "answer": "It's the same idea as the x position, but measured down from the top edge of the canvas instead of in from the right edge."
     },
     {
-      "question": "How do I draw the sky?",
-      "answer": "Draw a rectangle that covers the whole canvas, e.g. `rectangle(0, 0, canvasSize, canvasSize, skyColor)`."
-    },
-    {
-      "question": "What order should I draw things in?",
-      "answer": "Draw the sky first, then the sun on top. Later drawings cover earlier ones, so the sun needs to come last."
+      "question": "Why can't I just write the numbers directly?",
+      "answer": "If you hardcode `sunX` and `sunY`, the sun will stay in one place when `gap` or `radius` change. Building them from `gap` and `radius` keeps the sun in the corner no matter what values you choose."
     }
   ]
 }
