@@ -10,7 +10,8 @@ export function initPostHog() {
   if (!key) return;
 
   posthog.init(key, {
-    api_host: "https://eu.i.posthog.com",
+    api_host: "https://t.jiki.io",
+    ui_host: "https://eu.posthog.com",
     cookieless_mode: "always",
     autocapture: false,
     capture_pageview: false,
