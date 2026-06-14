@@ -3,7 +3,7 @@ title: "Relational Snowman"
 description: "Rebuild your snowman so all sizes scale from one variable."
 ---
 
-Your task is to rewrite the snowman so all the sizes and positions are derived from a single `size` variable using arithmetic.
+In this exercise, we're building another snowman, but similar to the last exercise, we're doing it so that everything can be derived from a single `size` variable using arithmetic.
 
 Depending on the `size` you choose, the snowman should grow.
 

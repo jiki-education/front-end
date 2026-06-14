@@ -3,7 +3,7 @@ title: "Relational Traffic Lights"
 description: "Rebuild your traffic light so everything scales together."
 ---
 
-You're back with the traffic lights! This time, we're going to build the traffic lights so that as we change the radius, they rescale correctly. To achieve this we have a series of variables we can set to be relative to either/both `center` and `radius`.
+You're back with the traffic lights! This time, we're going to follow the pattern from the last two exercises, and build the traffic lights so that as we change the radius, they rescale correctly. To achieve this we have a series of variables we can set to be relative to either/both `center` and `radius`.
 
 <img src="/static/images/exercise-assets/relational-traffic-lights/target.webp" alt="Target traffic light" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
