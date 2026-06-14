@@ -1,3 +1,5 @@
+set canvas_size to 100
+set color to "yellow"
 set gap to 10
 set radius to 15
 

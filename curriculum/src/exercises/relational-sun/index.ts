@@ -22,16 +22,19 @@ const exerciseDefinition: VisualExerciseCore = {
   functions,
   readonlyRanges: {
     javascript: [
-      { fromLine: 1, toLine: 1, toChar: 10 },
-      { fromLine: 2, toLine: 2, toChar: 13 }
+      { fromLine: 1, toLine: 2 },
+      { fromLine: 3, toLine: 3, toChar: 10 },
+      { fromLine: 4, toLine: 4, toChar: 13 }
     ],
     python: [
-      { fromLine: 1, toLine: 1, toChar: 6 },
-      { fromLine: 2, toLine: 2, toChar: 9 }
+      { fromLine: 1, toLine: 2 },
+      { fromLine: 3, toLine: 3, toChar: 6 },
+      { fromLine: 4, toLine: 4, toChar: 9 }
     ],
     jikiscript: [
-      { fromLine: 1, toLine: 1, toChar: 11 },
-      { fromLine: 2, toLine: 2, toChar: 14 }
+      { fromLine: 1, toLine: 2 },
+      { fromLine: 3, toLine: 3, toChar: 11 },
+      { fromLine: 4, toLine: 4, toChar: 14 }
     ]
   }
 };
