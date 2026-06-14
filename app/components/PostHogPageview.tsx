@@ -2,22 +2,19 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import { initPostHog, posthog } from "@/lib/posthog";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 export default function PostHogPageview() {
-  const pathname = usePathname();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const lastPath = useRef<string | null>(null);
 
   useEffect(() => {
-    if (isAuthenticated) return;
-
+    if (isAuthenticated) {
+      posthog.opt_out_capturing();
+      return;
+    }
     initPostHog();
-    if (!pathname || pathname === lastPath.current) return;
-    lastPath.current = pathname;
-    posthog.capture("$pageview", { $pathname: pathname });
-  }, [pathname, isAuthenticated]);
+    posthog.opt_in_capturing();
+  }, [isAuthenticated]);
 
   return null;
 }

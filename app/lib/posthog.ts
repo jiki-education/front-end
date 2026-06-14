@@ -14,7 +14,7 @@ export function initPostHog() {
     ui_host: "https://eu.posthog.com",
     cookieless_mode: "always",
     autocapture: false,
-    capture_pageview: false,
+    capture_pageview: true,
     capture_pageleave: false,
     disable_session_recording: true,
     disable_surveys: true,
