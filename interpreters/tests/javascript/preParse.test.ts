@@ -29,9 +29,9 @@ describe("preParse: adjacent identifiers", () => {
     });
   });
 
-  describe("triggers MissingDeclarationKeyword (no suggestion)", () => {
+  describe("triggers UnexpectedDoubleIdentifier (no suggestion)", () => {
     test("two identifiers with no near-match to a keyword", () => {
-      expect(() => parse("xyzzy foo = 1;")).toThrow("MissingDeclarationKeyword");
+      expect(() => parse("xyzzy foo = 1;")).toThrow("UnexpectedDoubleIdentifier");
     });
   });
 

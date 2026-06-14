@@ -1,3 +1,4 @@
+import { Location } from "../shared/location";
 import { levenshtein } from "../shared/levenshtein";
 import { SyntaxError, type SyntaxErrorType } from "./error";
 import { STATEMENT_BOUNDARY_TOKENS, SKIPPABLE_TOKENS } from "./preParse";
@@ -16,12 +17,15 @@ export function preParseAdjacentIdentifiers(tokens: Token[], index: number): voi
 
   const suggestion = suggestDeclarationKeyword(current.lexeme);
   if (suggestion !== null) {
-    throwSyntaxError("MissingDeclarationKeywordWithSuggestion", current, {
+    throwSyntaxError("MissingDeclarationKeywordWithSuggestion", current.location, {
       name: current.lexeme,
       suggestion,
     });
   }
-  throwSyntaxError("MissingDeclarationKeyword", current, { name: current.lexeme });
+  throwSyntaxError("UnexpectedDoubleIdentifier", Location.between(current, next), {
+    first: current.lexeme,
+    second: next.lexeme,
+  });
 }
 
 function nextSignificantToken(tokens: Token[], from: number): Token | null {
@@ -51,6 +55,6 @@ function suggestDeclarationKeyword(lexeme: string): string | null {
   return best;
 }
 
-function throwSyntaxError(type: SyntaxErrorType, token: Token, context: Record<string, unknown>): never {
-  throw new SyntaxError(translate(`error.syntax.${type}`, context), token.location, type, context);
+function throwSyntaxError(type: SyntaxErrorType, location: Location, context: Record<string, unknown>): never {
+  throw new SyntaxError(translate(`error.syntax.${type}`, context), location, type, context);
 }

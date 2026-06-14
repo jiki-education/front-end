@@ -65,9 +65,9 @@ move();`;
       });
 
       test("two calls, second unclosed", () => {
-        // Without semicolons, this first fails on missing semicolon between statements
+        // Without semicolons, this first fails on missing end-of-line between statements
         // With semicolons, it would catch the unclosed paren
-        expect(() => parse("foo() bar(")).toThrow("MissingSemicolon");
+        expect(() => parse("foo() bar(")).toThrow("MissingEndOfLine");
       });
     });
 

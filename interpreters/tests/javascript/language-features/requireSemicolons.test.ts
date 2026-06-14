@@ -152,7 +152,7 @@ for (let i = 0; i < 5; i = i + 1) {
     test("still requires semicolons when statements are on the same line", () => {
       const result = interpret("let x = 1 let y = 2", context);
       expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.error?.type).toBe("MissingEndOfLine");
     });
 
     test("allows semicolons when provided", () => {
@@ -201,19 +201,19 @@ for (let i = 0; i < 3; i = i + 1) {
     test("requires semicolons after statements", () => {
       const result = interpret("let x = 1", context);
       expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.error?.type).toBe("MissingEndOfLine");
     });
 
     test("requires semicolons after expression statements", () => {
       const result = interpret("1 + 2", context);
       expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.error?.type).toBe("MissingEndOfLine");
     });
 
     test("requires semicolons between statements on different lines", () => {
       const result = interpret("let x = 1\nlet y = 2", context);
       expect(result.success).toBe(false);
-      expect(result.error?.type).toBe("MissingSemicolon");
+      expect(result.error?.type).toBe("MissingEndOfLine");
     });
 
     test("allows code with semicolons", () => {
