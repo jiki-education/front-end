@@ -11,10 +11,6 @@
       "answer": "It's the same idea as the x position, but measured down from the top edge of the canvas instead of in from the right edge."
     },
     {
-      "question": "How big is the canvas?",
-      "answer": "The canvas is `100` wide and `100` tall. The top-left corner is `0,0` and the bottom-right corner is `100,100`."
-    },
-    {
       "question": "Why can't I just write the numbers directly?",
       "answer": "If you hardcode `sunX` and `sunY`, the sun will stay in one place when `gap` or `radius` change. Building them from `gap` and `radius` keeps the sun in the corner no matter what values you choose."
     }

@@ -5,7 +5,7 @@ export const tasks = [
   {
     id: "position-sun" as const,
     name: "Position the sun",
-    description: "Derive `sunX` and `sunY` from `gap` and `radius` so the sun scales correctly.",
+    description: "Derive `sunX` and `sunY` from `canvasSize`, `gap`, and `radius` so the sun scales correctly.",
     hints: [],
     requiredScenarios: ["position-sun"],
     bonus: false

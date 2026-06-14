@@ -1,5 +1,12 @@
+// These variables are fixed
 set canvas_size to 100
 set color to "yellow"
+
+// You can change the values of these variables
+// to see whether your code responds correctly.
 set gap to 10
 set radius to 15
 
+// Define the sun_x and sun_y variables
+
+// Draw the sun

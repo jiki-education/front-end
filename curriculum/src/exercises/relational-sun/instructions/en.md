@@ -26,6 +26,8 @@ Draw a circle using `sunX`, `sunY`, `radius`, and `color`.
 
 ## Flexibility
 
-To pass the exercise, `sunX` and `sunY` can't be set to plain numbers — only calculations involving other variables.
+If your code is correct, you will see the circle appear in the correct place on the page. However, to pass the exercise you can't just "hard-code" the value (meaning set it to a single number), `sunX` and `sunY` must be calculations involving other variables.
 
-If you connect everything up correctly, you can change the values for `gap` and `radius` at the top of the file, and rerun your code to see the sun grow or shift while staying in the corner.
+Once you've passed the exercise, click "Tidy my code" and try changing the values for `gap` and `radius` at the top of the file, and rerun your code to see the sun grow or shift while staying in the corner.
+
+When you're done, you can hit "Dashboard" at the top right to continue on as normal.
