@@ -381,15 +381,11 @@ export class EditorManager {
     });
   }
 
-  applyLintDecorations(
-    lintErrors: Array<{ message: string; location: { line: number; absolute: { begin: number; end: number } } }>
-  ) {
+  applyLintDecorations(lintErrors: Array<{ message: string; location: { line: number } }>) {
     this.editorView.dispatch({
       effects: setLintDecorationsEffect.of(
         lintErrors.map((err) => ({
           line: err.location.line,
-          from: err.location.absolute.begin,
-          to: err.location.absolute.end,
           message: err.message
         }))
       )

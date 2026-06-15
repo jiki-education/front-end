@@ -4,8 +4,6 @@ import { cleanUpEditorEffect } from "./clean-up-editor";
 
 interface LintDecoration {
   line: number;
-  from: number;
-  to: number;
   message: string;
 }
 
@@ -78,9 +76,9 @@ const lintTooltip = hoverTooltip((view, pos) => {
   const line = view.state.doc.lineAt(pos);
   const lineNumber = line.number;
   const errors = view.state.field(lintErrorsField);
-  const error = errors.find((e) => e.line === lineNumber);
+  const messages = errors.filter((e) => e.line === lineNumber).map((e) => e.message);
 
-  if (!error) {
+  if (messages.length === 0) {
     return null;
   }
 
@@ -91,7 +89,11 @@ const lintTooltip = hoverTooltip((view, pos) => {
     create() {
       const dom = document.createElement("div");
       dom.className = "cm-lint-tooltip";
-      dom.textContent = error.message;
+      for (const message of messages) {
+        const row = document.createElement("div");
+        row.textContent = message;
+        dom.appendChild(row);
+      }
       return { dom };
     }
   };
