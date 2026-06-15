@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./PremiumPage.module.css";
 
 export default function CtaSection() {

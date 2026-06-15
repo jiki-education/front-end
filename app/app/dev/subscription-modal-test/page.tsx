@@ -5,7 +5,7 @@ import {
   showPaymentProcessing,
   showPaymentVerificationFailed,
   showWelcomeToPremium
-} from "@/lib/modal";
+} from "@/lib/modal/app";
 
 export default function SubscriptionModalTest() {
   return (

@@ -2,7 +2,7 @@
 
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
-import { showAvatarEditModal } from "@/lib/modal";
+import { showAvatarEditModal } from "@/lib/modal/app";
 import UserAvatar from "@/components/common/UserAvatar";
 import { Icon } from "@/components/ui-kit/Icon";
 import PencilIcon from "@/icons/pencil.svg";

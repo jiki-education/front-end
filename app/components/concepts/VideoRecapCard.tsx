@@ -1,4 +1,4 @@
-import { showVideoWalkthrough } from "@/lib/modal/store";
+import { showVideoWalkthrough } from "@/lib/modal/app";
 import type { VideoSource } from "@/types/lesson";
 import styles from "./VideoRecapCard.module.css";
 

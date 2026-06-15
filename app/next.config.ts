@@ -169,7 +169,12 @@ if (process.env.NODE_ENV === "production") {
     webpack: {
       automaticVercelMonitors: false,
       treeshake: {
-        removeDebugLogging: true
+        removeDebugLogging: true,
+        // Strip Sentry's tracing/performance SDK (BrowserTracing,
+        // startSpan, etc.). Big bundle win on every route (~30–40 KB
+        // off the shared Sentry chunk). We're not consuming Sentry
+        // tracing data — only error capture — so this is safe.
+        removeTracing: true
       }
     }
   });

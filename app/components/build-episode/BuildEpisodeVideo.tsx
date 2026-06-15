@@ -3,7 +3,7 @@
 import { CloseButton } from "@/components/ui-kit";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { BuildVideoProvider } from "@/lib/content/types";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { useRouter } from "next/navigation";

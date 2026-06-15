@@ -1,6 +1,7 @@
 "use client";
 
-import { showConfirmation, showInfo, showModal, showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal";
+import { showConfirmation, showInfo, showModal } from "@/lib/modal";
+import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
 
 export default function TestGlobalModals() {
   return (

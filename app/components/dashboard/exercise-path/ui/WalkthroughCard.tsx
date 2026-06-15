@@ -1,6 +1,6 @@
 import WalkthroughIcon from "@/icons/walkthrough.svg";
 import type { LessonDisplayData } from "../types";
-import { showVideoWalkthrough } from "@/lib/modal/store";
+import { showVideoWalkthrough } from "@/lib/modal/app";
 import styles from "./WalkthroughCard.module.css";
 
 interface WalkthroughCardProps {

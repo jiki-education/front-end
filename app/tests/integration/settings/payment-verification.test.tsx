@@ -13,7 +13,7 @@ import {
   showPaymentProcessing,
   showPaymentConfirming,
   showPaymentVerificationFailed
-} from "@/lib/modal";
+} from "@/lib/modal/app";
 
 // Mock the API call
 jest.mock("@/lib/api/subscriptions", () => ({
@@ -26,7 +26,7 @@ jest.mock("@/lib/subscriptions/verification", () => ({
 }));
 
 // Mock the modal system
-jest.mock("@/lib/modal", () => ({
+jest.mock("@/lib/modal/app", () => ({
   showWelcomeToPremium: jest.fn(),
   showPaymentProcessing: jest.fn(),
   showPaymentConfirming: jest.fn(),

@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 import toast from "react-hot-toast";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";

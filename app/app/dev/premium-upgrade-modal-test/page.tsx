@@ -1,6 +1,6 @@
 "use client";
 
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {

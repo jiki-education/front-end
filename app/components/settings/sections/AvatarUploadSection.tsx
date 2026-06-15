@@ -1,6 +1,6 @@
 "use client";
 
-import { showAvatarEditModal } from "@/lib/modal/store";
+import { showAvatarEditModal } from "@/lib/modal/app";
 import { useAuthStore } from "@/lib/auth/authStore";
 import AvatarPreview from "../ui/AvatarPreview";
 import PencilIcon from "@/icons/pencil.svg";
