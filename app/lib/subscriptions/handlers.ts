@@ -12,7 +12,8 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
-import { hideModal, showSubscriptionCheckout } from "@/lib/modal";
+import { hideModal } from "@/lib/modal";
+import { showSubscriptionCheckout } from "@/lib/modal/app";
 import toast from "react-hot-toast";
 
 // Types for handler functions

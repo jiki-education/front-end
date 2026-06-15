@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./FreeUserCanStart.module.css";
 import StuckHeader from "./StuckHeader";
 

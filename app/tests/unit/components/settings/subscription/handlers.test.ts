@@ -4,13 +4,14 @@
 import * as subscriptionApi from "@/lib/api/subscriptions";
 import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
-import { showSubscriptionCheckout } from "@/lib/modal";
+import { showSubscriptionCheckout } from "@/lib/modal/app";
 import toast from "react-hot-toast";
 
 // Mock the external dependencies
 jest.mock("@/lib/api/subscriptions");
 jest.mock("@/lib/subscriptions/checkout");
 jest.mock("@/lib/modal");
+jest.mock("@/lib/modal/app");
 jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;

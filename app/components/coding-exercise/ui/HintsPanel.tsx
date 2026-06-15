@@ -10,7 +10,7 @@ import setupJavascript from "@jiki/highlightjs-javascript";
 import { PanelHeader } from "./PanelHeader";
 import EyeClosedIcon from "@/icons/eye-close.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
-import { showWalkthroughConfirm } from "@/lib/modal/store";
+import { showWalkthroughConfirm } from "@/lib/modal/app";
 import { useWalkthroughProgress } from "@/lib/modal/modals/useWalkthroughProgress";
 import type { VideoSource } from "@/types/lesson";
 import type { Hint } from "@jiki/curriculum";

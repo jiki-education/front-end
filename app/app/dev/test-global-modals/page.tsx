@@ -1,6 +1,7 @@
 "use client";
 
-import { showConfirmation, showInfo, showModal, showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal";
+import { showConfirmation, showInfo, showModal } from "@/lib/modal";
+import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
 
 export default function TestGlobalModals() {
   return (
@@ -282,13 +283,8 @@ export default function TestGlobalModals() {
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
         <h3 className="font-semibold mb-2">Usage Example:</h3>
         <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto">
-          {`import { 
-  showModal, 
-  showConfirmation, 
-  showInfo,
-  showSubscriptionModal,
-  showSubscriptionSuccess 
-} from '@/lib/modal';
+          {`import { showModal, showConfirmation, showInfo } from '@/lib/modal';
+import { showSubscriptionModal, showSubscriptionSuccess } from '@/lib/modal/app';
 
 // Anywhere in your component:
 showModal('example-modal', { title: 'Hello!' });

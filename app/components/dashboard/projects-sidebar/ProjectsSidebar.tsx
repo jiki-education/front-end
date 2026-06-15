@@ -4,7 +4,7 @@ import { fetchBadges, type BadgeData } from "@/lib/api/badges";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./projects-sidebar.module.css";

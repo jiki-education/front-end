@@ -9,7 +9,7 @@ import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import rocket from "@/components/landing-page/rocketLaunch.module.css";
 import { useRocketLaunch } from "@/components/landing-page/hooks/useRocketLaunch";

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LockIcon from "@/icons/lock.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import type { BuildEpisodeMeta, BuildSeriesMeta } from "@/lib/content/types";
 import styles from "./SeriesPage.module.css";

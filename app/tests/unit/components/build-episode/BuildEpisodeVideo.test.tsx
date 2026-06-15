@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import BuildEpisodeVideo from "@/components/build-episode/BuildEpisodeVideo";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 
 jest.mock("@/lib/auth/authStore");
-jest.mock("@/lib/modal", () => ({
+jest.mock("@/lib/modal/app", () => ({
   showPremiumUpgradeModal: jest.fn()
 }));
 jest.mock("@/components/build-episode/lib/useBuildEpisodeProgress", () => ({

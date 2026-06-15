@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./LockedFooter.module.css";
 
 type LockedFooterVariant = "free-limit-reached" | "premium-blocked";

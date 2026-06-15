@@ -10,7 +10,7 @@ import {
   showPaymentProcessing,
   showPaymentVerificationFailed,
   showWelcomeToPremium
-} from "@/lib/modal";
+} from "@/lib/modal/app";
 
 /**
  * Global handler for Stripe checkout returns

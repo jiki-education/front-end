@@ -1,7 +1,8 @@
 import Image from "next/image";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
-import { showConfirmation, showPremiumUpgradeModal } from "@/lib/modal";
+import { showConfirmation } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./FreeUserCanStart.module.css";
 import StuckHeader from "./StuckHeader";
 
