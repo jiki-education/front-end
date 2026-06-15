@@ -74,8 +74,8 @@
     "lint": {
       "ClosingBraceNotOnOwnLine": "Put the closing brace `}` on its own line to keep things tidy.",
       "OpeningBraceContentNotOnOwnLine": "Put the code inside the braces on a new line to keep things tidy.",
-      "IncorrectIndentation": "Jiki expected {{expected}} spaces of indentation here, but you only indented by {{actual}} spaces.\nKeeping your code indented correctly will help you avoid a lot of bugs as you can understand how code is nested much more clearly.",
-      "IncorrectIndentationAtTopLevel": "Jiki expected {{expected}} spaces of indentation at the start of the line, but there aren't any.\nKeeping your code indented correctly will help you avoid a lot of bugs as you can understand how code is nested much more clearly."
+      "IncorrectIndentation": "Jiki expected {{expected}} spaces of indentation here, but you only indented by {{actual}} spaces.\n\nKeeping your code indented correctly will help you avoid a lot of bugs as you can understand how code is nested much more clearly.",
+      "IncorrectIndentationAtTopLevel": "Jiki expected {{expected}} spaces of indentation at the start of the line, but there aren't any.\n\nKeeping your code indented correctly will help you avoid a lot of bugs as you can understand how code is nested much more clearly."
     },
     "runtime": {
       "ArgumentError": "{{message}}",

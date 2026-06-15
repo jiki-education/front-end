@@ -43,6 +43,7 @@
 @import "./styles/components/page-tabs.css";
 @import "./styles/components/navigation.css";
 @import "./styles/components/textual-content.css";
+@import "./styles/components/codemirror.css";
 
 /* Exercise styles are imported by the curriculum package — see
    curriculum/src/exercise-categories/<category>/exercise.css. */

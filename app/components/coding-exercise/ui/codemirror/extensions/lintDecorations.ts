@@ -1,5 +1,6 @@
 import { StateEffect, StateField } from "@codemirror/state";
-import { Decoration, EditorView, type DecorationSet, hoverTooltip } from "@codemirror/view";
+import { Decoration, EditorView, type DecorationSet, hoverTooltip, tooltips } from "@codemirror/view";
+import { marked } from "marked";
 import { cleanUpEditorEffect } from "./clean-up-editor";
 
 interface LintDecoration {
@@ -86,15 +87,17 @@ const lintTooltip = hoverTooltip((view, pos) => {
     pos: line.from,
     end: line.to,
     above: true,
+    arrow: true,
     create() {
       const dom = document.createElement("div");
       dom.className = "cm-lint-tooltip";
       for (const message of messages) {
         const row = document.createElement("div");
-        row.textContent = message;
+        row.className = "cm-lint-tooltip-message";
+        row.innerHTML = marked.parse(message, { async: false });
         dom.appendChild(row);
       }
-      return { dom };
+      return { dom, offset: { x: 0, y: 10 } };
     }
   };
 });
@@ -108,14 +111,46 @@ const lintTheme = EditorView.baseTheme({
   ".cm-lint-tooltip": {
     backgroundColor: "var(--color-orange-100)",
     color: "var(--color-orange-900)",
-    border: "1px solid var(--color-orange-300)",
-    borderRadius: "4px",
-    padding: "4px 8px",
-    fontSize: "13px",
+    border: "2px solid var(--color-orange-300)",
+    borderRadius: "12px",
+    padding: "8px 12px",
+    fontFamily: "var(--font-sans)",
+    fontSize: "15px",
     maxWidth: "400px"
+  },
+  ".cm-lint-tooltip p + p": {
+    marginTop: "8px"
+  },
+  ".cm-tooltip:has(.cm-lint-tooltip)": {
+    backgroundColor: "transparent",
+    border: "none"
+  },
+  ".cm-tooltip .cm-tooltip-arrow": {
+    transform: "translateX(8px)",
+    zIndex: "1"
+  },
+  ".cm-tooltip.cm-tooltip-above .cm-tooltip-arrow:before": {
+    borderTopColor: "var(--color-orange-300)"
+  },
+  ".cm-tooltip.cm-tooltip-above .cm-tooltip-arrow:after": {
+    borderTopColor: "var(--color-orange-100)",
+    bottom: "2px"
+  },
+  ".cm-tooltip.cm-tooltip-below .cm-tooltip-arrow:before": {
+    borderBottomColor: "var(--color-orange-300)"
+  },
+  ".cm-tooltip.cm-tooltip-below .cm-tooltip-arrow:after": {
+    borderBottomColor: "var(--color-orange-100)",
+    top: "2px"
   }
 });
 
 export function lintDecorationsExtension() {
-  return [lintDecorationsField, lintErrorsField, lintTooltip, lintTheme];
+  return [
+    lintDecorationsField,
+    lintErrorsField,
+    lintTooltip,
+    lintTheme,
+    tooltips({ parent: typeof document !== "undefined" ? document.body : undefined })
+  ];
 }

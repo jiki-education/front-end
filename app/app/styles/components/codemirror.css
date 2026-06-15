@@ -1,0 +1,7 @@
+/**
+ * CodeMirror overrides
+ */
+
+.cm-tooltip {
+    z-index: calc(var(--z-index-resizer) + 1) !important;
+}
