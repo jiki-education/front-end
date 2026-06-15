@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I make the whole house move when I change one variable?",
-      "answer": "Pick `houseLeft` and `houseTop` as your anchor variables, then derive every other position from them using arithmetic."
+      "question": "Which variables should I pick as the anchor for everything else?",
+      "answer": "Choose the house's top-left corner as your anchor: `houseLeft` and `houseTop`. The whole drawing should be expressible as offsets from those two values plus the sizes given in the instructions. If you can change just those two and the whole house moves with them, you've built the structure correctly."
     },
     {
       "question": "How do I position the roof so it overhangs the frame?",
-      "answer": "The roof overhangs by `4` on each side, so `roofLeft = houseLeft - 4` and the roof width is `houseWidth + 8`."
+      "answer": "Don't write out a fixed corner for the roof. Derive its left edge from `houseLeft` and the overhang. Derive its right edge the same way from the far side of the frame. Its peak sits halfway between those two."
     },
     {
       "question": "How do I place the windows and door relative to the house?",
-      "answer": "Express each as an offset from `houseLeft` and `houseTop`. For the door to be centered, use `doorLeft = houseLeft + (houseWidth - doorWidth) / 2`."
+      "answer": "Each one is an offset from `houseLeft` and `houseTop`. For the door, the centering rule means deriving its left edge from the leftover space between the frame width and the door width. The window insets work the same way."
     },
     {
       "question": "How do I put the door knob in the right spot?",
-      "answer": "Inset it `1` from the right of the door and vertically center it. So `knobX = doorLeft + doorWidth - knobRadius - 1` and `knobY = doorTop + doorHeight / 2`."
+      "answer": "Anchor it to the door, not the canvas. Its horizontal position is derived from the door's right edge minus its inset and its own radius. Its vertical position is the middle of the door's height. That way moving the door moves the knob with it."
     },
     {
       "question": "My layout looks right but changing `houseLeft` breaks it. Why?",
-      "answer": "You've probably hardcoded a position somewhere instead of deriving it. Look through your code for any literal number that should really be `houseLeft + something`."
+      "answer": "You've probably hardcoded a position somewhere instead of deriving it. Look through your code for any literal number that should really be a variable plus or minus something else. The rule of thumb: if a number appears in a draw call and isn't a size from the instructions, it's almost certainly meant to come from a relationship."
     }
   ]
 }

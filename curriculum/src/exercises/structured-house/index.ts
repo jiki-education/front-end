@@ -46,7 +46,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"]
 };
 
 export default exerciseDefinition;

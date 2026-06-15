@@ -25,29 +25,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(20, 50, 60, 40),
-          errorHtml: "The frame of the house is not correct. It should be at (20, 50) with width 60 and height 40."
+          errorHtml: "The frame of the house is not correct."
         },
         {
           pass: ex.hasTriangleAt(16, 50, 50, 30, 84, 50),
-          errorHtml:
-            "The roof is not correct. It should overhang the house by 4 on each side, with the peak centered at x=50."
+          errorHtml: "The roof of the house is not at the correct position."
         },
         {
           pass: ex.hasRectangleAt(30, 55, 12, 13),
-          errorHtml: "The left window is not correct. It should be at (30, 55) with width 12 and height 13."
+          errorHtml: "The left window frame isn't positioned correctly."
         },
         {
           pass: ex.hasRectangleAt(58, 55, 12, 13),
-          errorHtml: "The right window is not correct. It should be at (58, 55) with width 12 and height 13."
+          errorHtml: "The right window frame isn't positioned correctly."
         },
         {
           pass: ex.hasRectangleAt(43, 72, 14, 18),
-          errorHtml: "The door is not correct. It should be centered at the bottom of the house."
+          errorHtml: "The door frame isn't positioned correctly."
         },
         {
           pass: ex.hasCircleAt(55, 81, 1),
-          errorHtml:
-            "The door knob is not correct. It should be inset 1 from the right of the door, vertically centered."
+          errorHtml: "The door knob isn't positioned correctly."
         }
       ];
     }
