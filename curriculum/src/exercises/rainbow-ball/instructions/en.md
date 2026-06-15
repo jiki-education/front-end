@@ -1,21 +1,45 @@
 ---
 title: "Rainbow Ball"
-description: ""
+description: "Build a bouncing ball that paints a rainbow trail across the canvas."
 ---
 
-Create a bouncing rainbow ball that leaves a colorful trail!
+Your job is to create a ball that randomly bounces around the canvas, drawing a rainbow in its wake.
 
-A ball bounces around the canvas, changing direction when it hits the edges. As it moves, it draws circles that cycle through rainbow colors.
+It should look something like this:
 
-### How to solve it
+<img src="/static/images/exercise-assets/rainbow-ball/example.webp" alt="Animated rainbow ball bouncing around the canvas leaving a coloured trail" style="width: 100%; max-width: 200px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-- The canvas goes from `0,0` (top-left) to `100,100` (bottom-right).
-- Create variables for the ball's position (`cx`, `cy`) and its direction (`xDirection`, `yDirection`).
-- Create a variable for `hue` and `hueDirection` to cycle through colors.
-- Use a repeat loop that runs 1000 times.
-- In each iteration:
-  1. Update `x` and `y` by adding the direction values
-  2. Update `hue` by adding `hue_direction`
-  3. Check if the ball has hit an edge and reverse direction with a random speed
-  4. Check if the hue has gone below 0 or above 360 and reverse hue direction
-  5. Draw a circle at the current position with a color from the hue
+As part of this exercise, you have a function called `Math.randomInt(min, max)` which returns a random integer between the `min` and `max` you give it.
+
+Take a few minutes to think through how you could solve this. This is the most valuable part of the exercise, so take your time and **write down your ideas before you read the instructions below.** When you've got an idea of your approach, read on.
+
+---
+
+## Instructions
+
+This exercise is all about having some variables that are responsible for the position of the ball, which steadily increase or decrease. And other variables that control **how** the ball is moving and change when certain criteria are met.
+
+### Drawing
+
+- The first circle you draw should be at `(5, 5)`.
+- All the circles should have a radius of `10`.
+- The colour of the circle should use HSL, starting with a hue of `100` (green), a saturation of `80` (bold colours), and a luminosity of `50` (mid-brightness).
+
+### Animating
+
+- To start with, in each iteration you should move the ball `2` to the right and `1` down.
+- The hue should increase by `1` each time, until it gets to the maximum (`360`), then start reducing again. The saturation and luminosity don't need to change.
+
+### Bouncing
+
+- Once the ball reaches the edge of the canvas it should change direction. (Check the hints below if you can't work out how to do this.)
+- To make things more fun you should change direction using the `Math.randomInt(min, max)` function. Choose `min` and `max` that give the style of animation you want.
+
+## To pass the checks
+
+We've given you a lot of leeway in this exercise. We check that:
+
+- The first few circles are correct.
+- Over 80% of the canvas gets painted.
+
+The numbers that you choose to achieve that are up to you. You probably want a repeat block that iterates between `500` and `1000` times.
