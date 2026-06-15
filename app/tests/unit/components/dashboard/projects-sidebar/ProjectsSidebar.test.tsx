@@ -145,38 +145,72 @@ describe("ProjectsSidebar", () => {
       expect(screen.queryByTestId("project-c1")).not.toBeInTheDocument();
     });
 
-    it("pads with locked projects after active ones", async () => {
+    it("pads with completed projects after active ones", async () => {
+      mockProjects([
+        makeProject("s1", "started"),
+        makeProject("c1", "completed"),
+        makeProject("c2", "completed"),
+        makeProject("c3", "completed"),
+        makeProject("l1", "locked")
+      ]);
+
+      render(<ProjectsSidebar />);
+
+      await screen.findByTestId("project-s1");
+      expect(screen.getByTestId("project-c1")).toBeInTheDocument();
+      expect(screen.getByTestId("project-c2")).toBeInTheDocument();
+      expect(screen.queryByTestId("project-c3")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("project-l1")).not.toBeInTheDocument();
+    });
+
+    it("prefers completed over locked when both are available for padding", async () => {
+      // Regression: previously the widget padded with locked before completed,
+      // hiding recently-finished projects behind locked-but-not-started ones.
       mockProjects([
         makeProject("s1", "started"),
         makeProject("l1", "locked"),
         makeProject("l2", "locked"),
-        makeProject("l3", "locked"),
         makeProject("c1", "completed")
       ]);
 
       render(<ProjectsSidebar />);
 
       await screen.findByTestId("project-s1");
+      expect(screen.getByTestId("project-c1")).toBeInTheDocument();
       expect(screen.getByTestId("project-l1")).toBeInTheDocument();
-      expect(screen.getByTestId("project-l2")).toBeInTheDocument();
-      expect(screen.queryByTestId("project-l3")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("project-c1")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("project-l2")).not.toBeInTheDocument();
     });
 
-    it("pads with completed projects after locked when fewer than 3 active+locked exist", async () => {
+    it("pads with locked projects after completed when fewer than 3 active+completed exist", async () => {
       mockProjects([
         makeProject("s1", "started"),
-        makeProject("l1", "locked"),
         makeProject("c1", "completed"),
-        makeProject("c2", "completed")
+        makeProject("l1", "locked"),
+        makeProject("l2", "locked")
       ]);
 
       render(<ProjectsSidebar />);
 
       await screen.findByTestId("project-s1");
-      expect(screen.getByTestId("project-l1")).toBeInTheDocument();
       expect(screen.getByTestId("project-c1")).toBeInTheDocument();
-      expect(screen.queryByTestId("project-c2")).not.toBeInTheDocument();
+      expect(screen.getByTestId("project-l1")).toBeInTheDocument();
+      expect(screen.queryByTestId("project-l2")).not.toBeInTheDocument();
+    });
+
+    it("falls back to locked projects only when nothing else exists", async () => {
+      mockProjects([
+        makeProject("l1", "locked"),
+        makeProject("l2", "locked"),
+        makeProject("l3", "locked"),
+        makeProject("l4", "locked")
+      ]);
+
+      render(<ProjectsSidebar />);
+
+      await screen.findByTestId("project-l1");
+      expect(screen.getByTestId("project-l2")).toBeInTheDocument();
+      expect(screen.getByTestId("project-l3")).toBeInTheDocument();
+      expect(screen.queryByTestId("project-l4")).not.toBeInTheDocument();
     });
 
     it("falls back to completed projects only when nothing else exists", async () => {
