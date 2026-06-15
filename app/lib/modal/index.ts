@@ -19,6 +19,3 @@ export {
   showWelcomeModal,
   useModalStore
 } from "./store";
-
-// Export modal types if needed
-export type { availableModals } from "./modals";
