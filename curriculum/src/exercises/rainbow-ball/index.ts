@@ -26,7 +26,11 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["conditionals-and-state", "variables", "repeat", "conditionals", "random", "hsl"],
+  interpreterOptions: {
+    repeatDelay: 10
+  }
 };
 
 export default exerciseDefinition;
