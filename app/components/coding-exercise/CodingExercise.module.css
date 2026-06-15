@@ -928,6 +928,61 @@
     margin-left: 4px;
 }
 
+.tabsOuter {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.tabsScroll {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.tabsScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.tabsFade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    color: var(--color-gray-500);
+}
+
+.tabsFade svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-gray-500);
+}
+
+.tabsFadeStart {
+    left: 0;
+    background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+    justify-content: flex-start;
+    padding-left: 4px;
+}
+
+.tabsFadeEnd {
+    right: 0;
+    background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+    justify-content: flex-end;
+    padding-right: 4px;
+}
+
+.tabsOuter.canScrollStart .tabsFadeStart,
+.tabsOuter.canScrollEnd .tabsFadeEnd {
+    opacity: 1;
+}
+
 .instructionsContent {
     padding: 0;
 
