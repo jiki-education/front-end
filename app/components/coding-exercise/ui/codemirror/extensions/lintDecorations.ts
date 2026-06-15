@@ -1,17 +1,16 @@
 import { StateEffect, StateField } from "@codemirror/state";
-import { Decoration, EditorView, type DecorationSet, hoverTooltip } from "@codemirror/view";
+import { Decoration, EditorView, type DecorationSet, hoverTooltip, tooltips } from "@codemirror/view";
+import { marked } from "marked";
 import { cleanUpEditorEffect } from "./clean-up-editor";
 
 interface LintDecoration {
   line: number;
-  from: number;
-  to: number;
   message: string;
 }
 
 export const setLintDecorationsEffect = StateEffect.define<LintDecoration[]>();
 
-const lintUnderlineMark = Decoration.mark({ class: "cm-lint-warning" });
+const lintLineDecoration = Decoration.line({ class: "cm-lint-warning-line" });
 
 export const lintDecorationsField = StateField.define<DecorationSet>({
   create() {
@@ -32,14 +31,16 @@ export const lintDecorationsField = StateField.define<DecorationSet>({
           return Decoration.none;
         }
 
-        const decos: ReturnType<typeof lintUnderlineMark.range>[] = [];
-        for (const err of lintErrors) {
-          // absolute positions are 1-based, CodeMirror is 0-based
-          const from = err.from - 1;
-          const to = err.to - 1;
-          if (from >= 0 && to <= tr.newDoc.length && from < to) {
-            decos.push(lintUnderlineMark.range(from, to));
+        const doc = tr.newDoc;
+        const seenLines = new Set<number>();
+        const decos: ReturnType<typeof lintLineDecoration.range>[] = [];
+        const sorted = [...lintErrors].sort((a, b) => a.line - b.line);
+        for (const err of sorted) {
+          if (err.line < 1 || err.line > doc.lines || seenLines.has(err.line)) {
+            continue;
           }
+          seenLines.add(err.line);
+          decos.push(lintLineDecoration.range(doc.line(err.line).from));
         }
 
         return Decoration.set(decos, true);
@@ -76,9 +77,9 @@ const lintTooltip = hoverTooltip((view, pos) => {
   const line = view.state.doc.lineAt(pos);
   const lineNumber = line.number;
   const errors = view.state.field(lintErrorsField);
-  const error = errors.find((e) => e.line === lineNumber);
+  const messages = errors.filter((e) => e.line === lineNumber).map((e) => e.message);
 
-  if (!error) {
+  if (messages.length === 0) {
     return null;
   }
 
@@ -86,31 +87,70 @@ const lintTooltip = hoverTooltip((view, pos) => {
     pos: line.from,
     end: line.to,
     above: true,
+    arrow: true,
     create() {
       const dom = document.createElement("div");
       dom.className = "cm-lint-tooltip";
-      dom.textContent = error.message;
-      return { dom };
+      for (const message of messages) {
+        const row = document.createElement("div");
+        row.className = "cm-lint-tooltip-message";
+        row.innerHTML = marked.parse(message, { async: false });
+        dom.appendChild(row);
+      }
+      return { dom, offset: { x: 0, y: 10 } };
     }
   };
 });
 
 const lintTheme = EditorView.baseTheme({
-  ".cm-lint-warning": {
+  ".cm-lint-warning-line": {
     textDecoration: "wavy underline var(--color-orange-500)",
+    textDecorationSkipInk: "none",
     textUnderlineOffset: "3px"
   },
   ".cm-lint-tooltip": {
     backgroundColor: "var(--color-orange-100)",
     color: "var(--color-orange-900)",
-    border: "1px solid var(--color-orange-300)",
-    borderRadius: "4px",
-    padding: "4px 8px",
-    fontSize: "13px",
+    border: "2px solid var(--color-orange-300)",
+    borderRadius: "12px",
+    padding: "8px 12px",
+    fontFamily: "var(--font-sans)",
+    fontSize: "15px",
     maxWidth: "400px"
+  },
+  ".cm-lint-tooltip p + p": {
+    marginTop: "8px"
+  },
+  ".cm-tooltip:has(.cm-lint-tooltip)": {
+    backgroundColor: "transparent",
+    border: "none"
+  },
+  ".cm-tooltip .cm-tooltip-arrow": {
+    transform: "translateX(8px)",
+    zIndex: "1"
+  },
+  ".cm-tooltip.cm-tooltip-above .cm-tooltip-arrow:before": {
+    borderTopColor: "var(--color-orange-300)"
+  },
+  ".cm-tooltip.cm-tooltip-above .cm-tooltip-arrow:after": {
+    borderTopColor: "var(--color-orange-100)",
+    bottom: "2px"
+  },
+  ".cm-tooltip.cm-tooltip-below .cm-tooltip-arrow:before": {
+    borderBottomColor: "var(--color-orange-300)"
+  },
+  ".cm-tooltip.cm-tooltip-below .cm-tooltip-arrow:after": {
+    borderBottomColor: "var(--color-orange-100)",
+    top: "2px"
   }
 });
 
 export function lintDecorationsExtension() {
-  return [lintDecorationsField, lintErrorsField, lintTooltip, lintTheme];
+  return [
+    lintDecorationsField,
+    lintErrorsField,
+    lintTooltip,
+    lintTheme,
+    tooltips({ parent: typeof document !== "undefined" ? document.body : undefined })
+  ];
 }

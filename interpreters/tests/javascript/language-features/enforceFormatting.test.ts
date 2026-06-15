@@ -687,7 +687,7 @@ let x = 1;
           expect(frames.length).toBeGreaterThan(0);
           expect(lintErrors).toHaveLength(1);
           expect(lintErrors[0]).toBeInstanceOf(LintError);
-          expect(lintErrors[0].type).toBe("IncorrectIndentation");
+          expect(lintErrors[0].type).toBe("IncorrectIndentationAtTopLevel");
         });
 
         test("missing indentation: statement in for block at parent level", () => {
@@ -697,7 +697,7 @@ let x = i;
           const { error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
           expect(lintErrors.length).toBeGreaterThanOrEqual(1);
-          expect(lintErrors[0].type).toBe("IncorrectIndentation");
+          expect(lintErrors[0].type).toBe("IncorrectIndentationAtTopLevel");
         });
 
         test("missing indentation: statement in while block at parent level", () => {
@@ -708,7 +708,7 @@ i = i + 1;
           const { error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
           expect(lintErrors.length).toBeGreaterThanOrEqual(1);
-          expect(lintErrors[0].type).toBe("IncorrectIndentation");
+          expect(lintErrors[0].type).toBe("IncorrectIndentationAtTopLevel");
         });
 
         test("missing indentation: statement in function body at parent level", () => {
@@ -718,7 +718,7 @@ let x = 1;
           const { error, lintErrors } = interpret(code, { languageFeatures: features });
           expect(error).toBeNull();
           expect(lintErrors.length).toBeGreaterThanOrEqual(1);
-          expect(lintErrors[0].type).toBe("IncorrectIndentation");
+          expect(lintErrors[0].type).toBe("IncorrectIndentationAtTopLevel");
         });
 
         test("wrong indentation amount: 3 spaces instead of 2", () => {

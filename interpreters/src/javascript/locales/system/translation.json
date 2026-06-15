@@ -74,7 +74,8 @@
     "lint": {
       "ClosingBraceNotOnOwnLine": "ClosingBraceNotOnOwnLine",
       "OpeningBraceContentNotOnOwnLine": "OpeningBraceContentNotOnOwnLine",
-      "IncorrectIndentation": "IncorrectIndentation: expected: {{expected}}: actual: {{actual}}"
+      "IncorrectIndentation": "IncorrectIndentation: expected: {{expected}}: actual: {{actual}}",
+      "IncorrectIndentationAtTopLevel": "IncorrectIndentationAtTopLevel: expected: {{expected}}: actual: {{actual}}"
     },
     "runtime": {
       "ArgumentError": "ArgumentError: {{message}}",

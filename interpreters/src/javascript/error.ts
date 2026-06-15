@@ -85,7 +85,11 @@ export class SyntaxError extends Error {
   }
 }
 
-export type LintErrorType = "ClosingBraceNotOnOwnLine" | "OpeningBraceContentNotOnOwnLine" | "IncorrectIndentation";
+export type LintErrorType =
+  | "ClosingBraceNotOnOwnLine"
+  | "OpeningBraceContentNotOnOwnLine"
+  | "IncorrectIndentation"
+  | "IncorrectIndentationAtTopLevel";
 
 export class LintError {
   constructor(
