@@ -48,7 +48,15 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: [
+    "arrays",
+    "conditionals",
+    "creating-functions-with-inputs",
+    "creating-functions-with-return-values",
+    "strings",
+    "for-loops"
+  ]
 };
 
 export default exerciseDefinition;

@@ -46,6 +46,10 @@ Draw pieces as circles and crosses (two lines each):
 - Circles have a radius of 10.
 - Crosses are two lines spanning 20 in both directions.
 
+Together the board and the pieces should look something like this:
+
+<img src="/static/images/exercise-assets/tic-tac-toe/pieces.webp" alt="Tic-tac-toe board with o and x pieces drawn" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+
 ### Making Moves
 
 - The first move should always be an `o`.
@@ -68,6 +72,10 @@ If either player gets 3 in a row:
 - Turn all other pieces to light grey.
 - Draw a purple overlay: `rectangle(0, 0, 100, 100, "#604fcd")`
 - Write either `"The x's won!"` or `"The o's won!"`
+
+The resulting situation should be something like this:
+
+<img src="/static/images/exercise-assets/tic-tac-toe/won.webp" alt="Tic-tac-toe board with a winning row highlighted and a results overlay" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 ### Incomplete Games
 
