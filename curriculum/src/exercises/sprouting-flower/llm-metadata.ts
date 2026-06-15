@@ -31,6 +31,7 @@ export const llmMetadata: LLMMetadata = {
         - Not understanding that y=0 is top, y=100 is bottom
         - Hardcoding values instead of using relationships (e.g., stemWidth should be stemHeight/10)
         - Drawing elements in wrong order (background should be drawn first)
+        - Using a color the spec doesn't allow: flower head must be "red" or "pink", pistil "yellow", grass "green", background "skyblue"
 
         Solution approach:
         1. Initialize all variables before the loop (flowerCenter starts at 90, radii start at 0)

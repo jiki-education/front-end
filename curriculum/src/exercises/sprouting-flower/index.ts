@@ -35,7 +35,10 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["loops", "variables"]
+  conceptSlugs: ["loops", "variables", "state", "arithmetic"],
+  interpreterOptions: {
+    repeatDelay: 50
+  }
 };
 
 export default exerciseDefinition;

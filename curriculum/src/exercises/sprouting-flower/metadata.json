@@ -3,24 +3,32 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "How do I make the flower grow and rise over time?",
-      "answer": "Create variables like `flowerCenterY` and `flowerRadius` before the loop, then update them on each iteration before drawing."
+      "question": "Where should I start when laying out the scene?",
+      "answer": "Pick one central point. The centre of the flower is a good anchor. The stem, pistil, and leaves can all be derived from it. That way the whole flower stays connected as it animates."
     },
     {
-      "question": "What should change on each iteration of the loop?",
-      "answer": "Decrease `flowerCenterY` by `1` (so the flower moves up) and increase `flowerRadius` by `0.4` (so it grows). Update the pistil radius by `0.1` too."
+      "question": "How do I make the flower rise and grow each iteration?",
+      "answer": "At the very top of the loop body, before any drawing, update `flowerCenterY` and `flowerRadius` to their new values for this frame. The instructions give the amounts. What matters is updating *before* the draw calls, not after."
     },
     {
-      "question": "How do I keep the stem and leaves attached to the flower?",
-      "answer": "Don't hardcode their positions. Derive them from the flower variables. For example, the stem height is `groundTop - flowerCenterY`, and the stem width is `stemHeight / 10`."
+      "question": "How do I keep the stem attached to the flower as it moves up?",
+      "answer": "Don't give the stem a fixed top. Its top *is* `flowerCenterY`. Its bottom is the ground. So its height is the distance between them. Its width can then be derived from that height."
     },
     {
-      "question": "What size should the leaves be relative to the flower?",
-      "answer": "The leaves' `xRadius` is `flowerRadius * 0.5` and the `yRadius` is `flowerRadius * 0.2`. They sit halfway down the stem, flush against the stalk on each side."
+      "question": "How do I size the leaves so they grow with the flower?",
+      "answer": "The leaves' `xRadius` and `yRadius` are fractions of `flowerRadius`. That way they scale together. Anchor their vertical position to the stem, not to a fixed canvas Y, so they ride up with the flower."
     },
     {
-      "question": "My flower draws once and never changes. What's going on?",
-      "answer": "Make sure you're updating the variables inside the loop before each draw, not just before the loop starts. The loop body needs to mutate the state every iteration."
+      "question": "My flower draws once and never changes. What's wrong?",
+      "answer": "You're probably setting the initial values once before the loop but not updating them *inside* the loop. The loop body has to mutate your variables every iteration, before the draw calls."
+    },
+    {
+      "question": "Can you give me the coordinates for the first flower to check against?",
+      "answer": "On the first iteration, the shapes should be:\n\n- Flower: `circle(50, 89, 0.4)`\n- Pistil: `circle(50, 89, 0.1)`\n- Stem: `rectangle(49.95, 89, 0.1, 1)`\n- Left leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Right leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
+    },
+    {
+      "question": "Can you give me the coordinates for the final flower to check against?",
+      "answer": "On the last iteration, the shapes should be:\n\n- Flower: `circle(50, 30, 24)`\n- Pistil: `circle(50, 30, 6)`\n- Stem: `rectangle(47, 30, 6, 60)`\n- Left leaf: `ellipse(35, 60, 12, 4.8)`\n- Right leaf: `ellipse(65, 60, 12, 4.8)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
     }
   ]
 }
