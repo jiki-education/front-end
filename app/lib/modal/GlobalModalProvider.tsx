@@ -38,7 +38,6 @@ export function GlobalModalProvider() {
   const ModalComponent = getModal(modalName);
 
   // Handle unknown modal names
-   
   if (!ModalComponent) {
     console.warn(`Unknown modal name: ${modalName}`);
     return null;
