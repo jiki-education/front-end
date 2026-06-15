@@ -80,14 +80,14 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
       return active;
     }
     const usedSlugs = new Set(active.map((p) => p.slug));
-    const locked = projects.filter((p) => p.status === "locked" && !usedSlugs.has(p.slug));
-    const withLocked = [...active, ...locked.slice(0, 3 - active.length)];
-    if (withLocked.length >= 3) {
-      return withLocked;
-    }
-    withLocked.forEach((p) => usedSlugs.add(p.slug));
     const completed = projects.filter((p) => p.status === "completed" && !usedSlugs.has(p.slug));
-    return [...withLocked, ...completed.slice(0, 3 - withLocked.length)];
+    const withCompleted = [...active, ...completed.slice(0, 3 - active.length)];
+    if (withCompleted.length >= 3) {
+      return withCompleted;
+    }
+    withCompleted.forEach((p) => usedSlugs.add(p.slug));
+    const locked = projects.filter((p) => p.status === "locked" && !usedSlugs.has(p.slug));
+    return [...withCompleted, ...locked.slice(0, 3 - withCompleted.length)];
   }, [isPremium, projects]);
 
   // Count unlocked projects - only computed for premium users
