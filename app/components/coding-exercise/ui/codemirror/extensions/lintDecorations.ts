@@ -11,7 +11,7 @@ interface LintDecoration {
 
 export const setLintDecorationsEffect = StateEffect.define<LintDecoration[]>();
 
-const lintUnderlineMark = Decoration.mark({ class: "cm-lint-warning" });
+const lintLineDecoration = Decoration.line({ class: "cm-lint-warning-line" });
 
 export const lintDecorationsField = StateField.define<DecorationSet>({
   create() {
@@ -32,14 +32,16 @@ export const lintDecorationsField = StateField.define<DecorationSet>({
           return Decoration.none;
         }
 
-        const decos: ReturnType<typeof lintUnderlineMark.range>[] = [];
-        for (const err of lintErrors) {
-          // absolute positions are 1-based, CodeMirror is 0-based
-          const from = err.from - 1;
-          const to = err.to - 1;
-          if (from >= 0 && to <= tr.newDoc.length && from < to) {
-            decos.push(lintUnderlineMark.range(from, to));
+        const doc = tr.newDoc;
+        const seenLines = new Set<number>();
+        const decos: ReturnType<typeof lintLineDecoration.range>[] = [];
+        const sorted = [...lintErrors].sort((a, b) => a.line - b.line);
+        for (const err of sorted) {
+          if (err.line < 1 || err.line > doc.lines || seenLines.has(err.line)) {
+            continue;
           }
+          seenLines.add(err.line);
+          decos.push(lintLineDecoration.range(doc.line(err.line).from));
         }
 
         return Decoration.set(decos, true);
@@ -96,8 +98,9 @@ const lintTooltip = hoverTooltip((view, pos) => {
 });
 
 const lintTheme = EditorView.baseTheme({
-  ".cm-lint-warning": {
+  ".cm-lint-warning-line": {
     textDecoration: "wavy underline var(--color-orange-500)",
+    textDecorationSkipInk: "none",
     textUnderlineOffset: "3px"
   },
   ".cm-lint-tooltip": {
