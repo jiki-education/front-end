@@ -12,16 +12,30 @@ Jiki uses a global modal system built with `react-modal` and Zustand state manag
 - **`lib/modal/GlobalModalProvider.tsx`** - Provider component that renders the active modal
 - **`lib/modal/BaseModal.tsx`** - Base modal wrapper handling overlay, close button, and accessibility
 - **`lib/modal/modals/`** - Directory containing all modal component implementations
+- **`lib/modal/modals/registry.ts`** - Runtime registry that `GlobalModalProvider` reads via `getModal(name)`
+- **`lib/modal/AppModalRegistrar.tsx`** - Client component that registers `(app)`-only modals on mount (rendered by `(app)/layout.tsx`)
 
 ### Modal Registry
 
-All modals must be registered in `lib/modal/modals/index.ts`:
+Modals are registered in two manifests, split by where they're used so the JS chunks for `(app)`-only modals don't ship to non-`(app)` routes (blog, articles, landing, premium marketing):
+
+- **`lib/modal/modals/core.ts`** — modals available on every route (confirmation, info, auth/connection/session errors, rate-limit, example). Seeded into the runtime registry at module load.
+- **`lib/modal/modals/app.ts`** — `(app)`-only modals (exercise, premium, subscription, payment, settings, badge, welcome, walkthrough). Registered when `AppModalRegistrar` mounts inside `(app)/layout.tsx`.
 
 ```typescript
-export const availableModals = {
+// lib/modal/modals/core.ts
+export const coreModals = {
   "example-modal": ExampleModal,
   "confirmation-modal": ConfirmationModal,
   "info-modal": InfoModal
+  // …
+};
+
+// lib/modal/modals/app.ts
+export const appModals = {
+  "premium-upgrade-modal": PremiumUpgradeModal,
+  "exercise-completion-modal": ExerciseCompletionModal
+  // …
 };
 ```
 
@@ -86,8 +100,8 @@ showModal("exercise-success-modal", {
 ## Adding New Modals
 
 1. Create component in `lib/modal/modals/YourModal.tsx`
-2. Register in `lib/modal/modals/index.ts`
-3. Optionally add convenience function in `lib/modal/store.ts`
+2. Register the dynamic import in either `lib/modal/modals/core.ts` (if the modal should be available on every route) or `lib/modal/modals/app.ts` (if it should only ship to `(app)` routes)
+3. Optionally add a convenience function: in `lib/modal/store.ts` for core modals, or in `lib/modal/app.ts` for `(app)`-only modals
 
 ## Implementation Details
 
