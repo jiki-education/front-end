@@ -1044,7 +1044,8 @@ export class Parser {
         new Span(1, column),
         new Span(token.location.absolute.begin - column + 1, token.location.absolute.begin)
       );
-      this.lintWarning("IncorrectIndentation", indentLocation, { expected, actual });
+      const type = actual === 0 ? "IncorrectIndentationAtTopLevel" : "IncorrectIndentation";
+      this.lintWarning(type, indentLocation, { expected, actual });
     }
   }
 
