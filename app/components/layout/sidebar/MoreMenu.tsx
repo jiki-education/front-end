@@ -15,6 +15,7 @@ import {
   FloatingArrow,
   FloatingPortal
 } from "@floating-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThreeDotsIcon from "@/icons/three-dots.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -60,10 +61,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
     }
   };
 
-  const handleNavigation = (href: string) => {
-    setIsOpen(false);
-    router.push(href);
-  };
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <li className={styles.moreMenuContainer}>
@@ -96,24 +94,24 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
                 width={16}
                 height={8}
               />
-              <button onClick={() => handleNavigation("/articles")} className={styles.dropdownItem}>
+              <Link href="/articles" onClick={closeMenu} className={styles.dropdownItem}>
                 Help Center
-              </button>
+              </Link>
               <a
                 href={YOUTUBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
+                onClick={closeMenu}
                 className={styles.dropdownItem}
               >
                 YouTube
               </a>
-              <button onClick={() => handleNavigation("/r/forum")} className={styles.dropdownItem}>
+              <Link href="/r/forum" onClick={closeMenu} className={styles.dropdownItem}>
                 Forum
-              </button>
-              <button onClick={() => handleNavigation("/blog")} className={styles.dropdownItem}>
+              </Link>
+              <Link href="/blog" onClick={closeMenu} className={styles.dropdownItem}>
                 Blog
-              </button>
+              </Link>
               <button onClick={handleLogout} className={styles.dropdownItem}>
                 Log Out
               </button>

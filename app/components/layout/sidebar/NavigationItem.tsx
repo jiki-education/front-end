@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import type { ComponentType } from "react";
 import TickCircleIcon from "@/icons/tick-circle.svg";
 
@@ -20,18 +20,9 @@ export function NavigationItem({
   showPremiumPill,
   isUserPremium
 }: NavigationItemProps) {
-  const router = useRouter();
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (href) {
-      router.push(href);
-    }
-  };
-
   return (
     <li>
-      <a href={href || "#"} onClick={handleClick} className={`nav-item ${isActive ? "active" : ""}`} data-label={label}>
+      <Link href={href || "#"} className={`nav-item ${isActive ? "active" : ""}`} data-label={label}>
         {Icon && (
           <span className="nav-icon">
             <Icon />
@@ -44,7 +35,7 @@ export function NavigationItem({
             {isUserPremium && <TickCircleIcon className="premium-pill-tick" />}
           </span>
         )}
-      </a>
+      </Link>
     </li>
   );
 }
