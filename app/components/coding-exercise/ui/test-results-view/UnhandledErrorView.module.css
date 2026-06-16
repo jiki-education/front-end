@@ -1,19 +1,7 @@
-.wrapper {
-    min-width: 0;
-}
-
-.icon {
-    margin: 0 auto 20px;
-}
-
 .headingStrong {
     font-weight: 700;
     text-decoration: underline;
     text-decoration-style: double;
-}
-
-.body {
-    max-width: 500px;
 }
 
 .bodyStrong {
