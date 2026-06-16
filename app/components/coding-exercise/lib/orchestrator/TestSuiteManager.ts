@@ -26,6 +26,8 @@ export class TestSuiteManager {
   private prepareStateForTestRun() {
     const state = this.store.getState();
     state.setHasSyntaxError(false);
+    state.setHasUnhandledError(false);
+    state.setUnhandledErrorBase64("");
     state.setStatus("running");
     state.setError(null);
     state.setUnderlineRange(undefined);
