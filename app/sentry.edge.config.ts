@@ -16,5 +16,18 @@ Sentry.init({
 
   // Enable sending user PII (Personally Identifiable Information)
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true
+  sendDefaultPii: true,
+  beforeSend(event) {
+    const frames = event.exception?.values?.[0]?.stacktrace?.frames;
+    if (!frames || frames.length === 0) return event;
+    const isExtensionFrame = (url: string) =>
+      url.startsWith("chrome-extension://") ||
+      url.startsWith("moz-extension://") ||
+      url.startsWith("safari-web-extension://");
+    const hasAppFrame = frames.some((f) => {
+      const url = f.filename ?? "";
+      return url !== "" && url !== "<anonymous>" && !isExtensionFrame(url);
+    });
+    return hasAppFrame ? event : null;
+  }
 });
