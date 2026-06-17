@@ -43,12 +43,15 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
     // Process lessons with their status
     const lessons: LessonWithProgress[] = level.lessons.map((lesson) => {
       const userLesson = lessonProgressMap.get(lesson.slug);
+      // The API returns a row for every completed/started lesson plus at most one
+      // not_started "frontier" lesson. Any lesson absent from the user's progress
+      // is one they haven't unlocked yet, so it's locked.
       return {
         slug: lesson.slug,
         title: lesson.title,
         type: lesson.type,
         description: lesson.description,
-        status: userLesson?.status || "not_started",
+        status: userLesson?.status || "locked",
         walkthrough_video_data: lesson.walkthrough_video_data,
         walkthrough_video_watched_percentage: userLesson?.walkthrough_video_watched_percentage ?? 0
       };

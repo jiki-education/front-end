@@ -43,24 +43,9 @@ export function filterToPublishedLevels(
 
 export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionData[] {
   return levels.map((level, levelIndex): LevelSectionData => {
-    const lessons: LessonDisplayData[] = level.lessons.map((lesson, lessonIndex) => {
-      let locked: boolean;
-      switch (lesson.status) {
-        case "completed":
-        case "started":
-          locked = false;
-          break;
-        case "not_started":
-          if (levelIndex === 0 && lessonIndex === 0) {
-            locked = false;
-          } else if (lessonIndex === 0) {
-            locked = levelIndex > 0 && levels[levelIndex - 1].status !== "completed";
-          } else {
-            locked = level.lessons[lessonIndex - 1].status !== "completed";
-          }
-          break;
-      }
-
+    // Lock state is driven by the API: a lesson is locked when the user hasn't
+    // unlocked it yet (absent from their progress, surfaced as a "locked" status).
+    const lessons: LessonDisplayData[] = level.lessons.map((lesson) => {
       return {
         lesson: {
           slug: lesson.slug,
@@ -70,7 +55,7 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
           walkthrough_video_data: lesson.walkthrough_video_data
         },
         completed: lesson.status === "completed",
-        locked,
+        locked: lesson.status === "locked",
         route: `/lesson/${lesson.slug}`,
         walkthroughVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
       };

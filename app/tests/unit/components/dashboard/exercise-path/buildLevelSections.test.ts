@@ -25,96 +25,60 @@ function createLevel(overrides: Partial<LevelWithProgress> = {}): LevelWithProgr
 
 describe("buildLevelSections", () => {
   describe("locking logic", () => {
-    it("unlocks the first lesson of the first level when not_started", () => {
-      const levels = [createLevel()];
+    // Lock state mirrors the API status directly: the backend returns
+    // completed/started lessons plus at most one not_started "frontier" lesson,
+    // and anything the user hasn't unlocked is surfaced as "locked".
+    it("locks a lesson with locked status", () => {
+      const levels = [createLevel({ lessons: [createLesson({ status: "locked" })] })];
+      const result = buildLevelSections(levels);
+      expect(result[0].lessons[0].locked).toBe(true);
+    });
+
+    it("unlocks a not_started (frontier) lesson", () => {
+      const levels = [createLevel({ lessons: [createLesson({ status: "not_started" })] })];
       const result = buildLevelSections(levels);
       expect(result[0].lessons[0].locked).toBe(false);
     });
 
-    it("unlocks a started lesson regardless of position", () => {
-      const levels = [
-        createLevel({
-          slug: "level-one",
-          status: "not_started",
-          lessons: [
-            createLesson({ slug: "lesson-one", status: "not_started" }),
-            createLesson({ slug: "lesson-two", status: "started" })
-          ]
-        })
-      ];
+    it("unlocks a started lesson", () => {
+      const levels = [createLevel({ lessons: [createLesson({ status: "started" })] })];
       const result = buildLevelSections(levels);
-      expect(result[0].lessons[1].locked).toBe(false);
+      expect(result[0].lessons[0].locked).toBe(false);
     });
 
-    it("unlocks a completed lesson regardless of position", () => {
-      const levels = [
-        createLevel({
-          slug: "level-one",
-          status: "not_started",
-          lessons: [
-            createLesson({ slug: "lesson-one", status: "not_started" }),
-            createLesson({ slug: "lesson-two", status: "completed" })
-          ]
-        })
-      ];
+    it("unlocks a completed lesson", () => {
+      const levels = [createLevel({ lessons: [createLesson({ status: "completed" })] })];
       const result = buildLevelSections(levels);
-      expect(result[0].lessons[1].locked).toBe(false);
+      expect(result[0].lessons[0].locked).toBe(false);
     });
 
-    it("locks a not_started lesson when previous lesson is not completed", () => {
-      const levels = [
-        createLevel({
-          lessons: [
-            createLesson({ slug: "lesson-one", status: "started" }),
-            createLesson({ slug: "lesson-two", status: "not_started" })
-          ]
-        })
-      ];
-      const result = buildLevelSections(levels);
-      expect(result[0].lessons[1].locked).toBe(true);
-    });
-
-    it("unlocks a not_started lesson when previous lesson is completed", () => {
+    it("locks only the locked lessons within a level", () => {
       const levels = [
         createLevel({
           lessons: [
             createLesson({ slug: "lesson-one", status: "completed" }),
-            createLesson({ slug: "lesson-two", status: "not_started" })
+            createLesson({ slug: "lesson-two", status: "not_started" }),
+            createLesson({ slug: "lesson-three", status: "locked" })
           ]
         })
       ];
       const result = buildLevelSections(levels);
+      expect(result[0].lessons[0].locked).toBe(false);
       expect(result[0].lessons[1].locked).toBe(false);
+      expect(result[0].lessons[2].locked).toBe(true);
     });
 
-    it("locks first lesson of a new level when previous level is not completed", () => {
+    it("locks lessons in a not-yet-reached level", () => {
       const levels = [
         createLevel({ slug: "level-one", status: "started" }),
         createLevel({
           slug: "level-two",
           status: "not_started",
-          lessons: [createLesson({ slug: "lesson-three", status: "not_started" })]
+          lessons: [createLesson({ slug: "lesson-three", status: "locked" })]
         })
       ];
       const result = buildLevelSections(levels);
       expect(result[1].lessons[0].locked).toBe(true);
-    });
-
-    it("unlocks first lesson of a new level when previous level is completed", () => {
-      const levels = [
-        createLevel({
-          slug: "level-one",
-          status: "completed",
-          lessons: [createLesson({ slug: "lesson-one", status: "completed" })]
-        }),
-        createLevel({
-          slug: "level-two",
-          status: "not_started",
-          lessons: [createLesson({ slug: "lesson-two", status: "not_started" })]
-        })
-      ];
-      const result = buildLevelSections(levels);
-      expect(result[1].lessons[0].locked).toBe(false);
     });
   });
 

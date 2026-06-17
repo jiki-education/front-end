@@ -8,7 +8,7 @@ export interface LessonWithProgress {
   title: string;
   type: LessonType;
   description: string;
-  status: "not_started" | "started" | "completed";
+  status: "not_started" | "started" | "completed" | "locked";
   walkthrough_video_data: VideoSource[] | null;
   walkthrough_video_watched_percentage: number;
 }

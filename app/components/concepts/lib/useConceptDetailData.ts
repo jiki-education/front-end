@@ -194,7 +194,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     if (!isAuthenticated) {
       return "locked";
     }
-    return exerciseStatuses[exerciseSlug] ?? "not_started";
+    return exerciseStatuses[exerciseSlug] ?? "locked";
   };
 
   const getProjectStatus = (projectSlug: string): ProjectStatus | "locked" => {

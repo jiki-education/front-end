@@ -1,11 +1,11 @@
 import { fetchLevelsWithProgress } from "./levels";
 
-export type LessonStatus = "not_started" | "started" | "completed";
+export type LessonStatus = "not_started" | "started" | "completed" | "locked";
 
 /**
  * Fetch lesson statuses for a set of slugs.
  * Returns a record mapping slug to status.
- * Lessons not found in any level default to "not_started".
+ * Lessons the user hasn't unlocked (absent from their progress) are "locked".
  */
 export async function fetchLessonStatusesBySlugs(slugs: string[]): Promise<Record<string, LessonStatus>> {
   const levels = await fetchLevelsWithProgress();
@@ -20,10 +20,10 @@ export async function fetchLessonStatusesBySlugs(slugs: string[]): Promise<Recor
     }
   }
 
-  // Default missing slugs to not_started
+  // Any slug not present in a level the user has progressed into is locked.
   for (const slug of slugs) {
     if (!(slug in statuses)) {
-      statuses[slug] = "not_started";
+      statuses[slug] = "locked";
     }
   }
 
