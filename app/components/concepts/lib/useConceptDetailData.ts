@@ -28,7 +28,7 @@ interface ConceptDetailData {
   error: string | null;
   isAuthenticated: boolean;
   isConceptUnlocked: (slug: string) => boolean;
-  getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  getExerciseStatus: (slug: string) => LessonStatus;
   getProjectStatus: (slug: string) => ProjectStatus | "locked";
 }
 
@@ -190,7 +190,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
 
   const isConceptUnlocked = (conceptSlug: string) => !isAuthenticated || unlockedConceptSlugs.has(conceptSlug);
 
-  const getExerciseStatus = (exerciseSlug: string): LessonStatus | "locked" => {
+  const getExerciseStatus = (exerciseSlug: string): LessonStatus => {
     if (!isAuthenticated) {
       return "locked";
     }

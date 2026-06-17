@@ -10,7 +10,7 @@ interface ExerciseItem {
 
 interface RelatedExercisesProps {
   exercises: ExerciseItem[];
-  getStatus: (slug: string) => LessonStatus | "locked";
+  getStatus: (slug: string) => LessonStatus;
 }
 
 export function RelatedExercises({ exercises, getStatus }: RelatedExercisesProps) {
@@ -31,7 +31,7 @@ export function RelatedExercises({ exercises, getStatus }: RelatedExercisesProps
   );
 }
 
-function ExerciseItem({ exercise, status }: { exercise: ExerciseItem; status: LessonStatus | "locked" }) {
+function ExerciseItem({ exercise, status }: { exercise: ExerciseItem; status: LessonStatus }) {
   const stateClass = statusToClass(status);
   const className = `${styles.item} ${stateClass}`;
 
@@ -52,7 +52,7 @@ function ExerciseItem({ exercise, status }: { exercise: ExerciseItem; status: Le
   );
 }
 
-function statusToClass(status: LessonStatus | "locked"): string {
+function statusToClass(status: LessonStatus): string {
   switch (status) {
     case "completed":
       return styles.completed;

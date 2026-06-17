@@ -21,7 +21,7 @@ interface ConceptLeafViewProps {
   relatedProjects: ProjectInfo[];
   videoData: VideoSource[] | null;
   isConceptUnlocked: (slug: string) => boolean;
-  getExerciseStatus: (slug: string) => LessonStatus | "locked";
+  getExerciseStatus: (slug: string) => LessonStatus;
   getProjectStatus: (slug: string) => ProjectStatus | "locked";
   isAuthenticated: boolean;
 }
