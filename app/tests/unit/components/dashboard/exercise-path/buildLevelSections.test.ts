@@ -130,11 +130,17 @@ describe("buildLevelSections", () => {
           slug: "level-two",
           status: "not_started",
           lessons: [createLesson({ slug: "lesson-one", status: "not_started" })]
+        }),
+        createLevel({
+          slug: "level-three",
+          status: "not_started",
+          lessons: [createLesson({ slug: "lesson-two", status: "locked" })]
         })
       ];
       const result = buildLevelSections(levels);
-      expect(result[0].isLocked).toBe(false); // no lessons -> false
-      expect(result[1].isLocked).toBe(false); // previous level completed -> unlocked
+      expect(result[0].isLocked).toBe(false); // empty lessons -> false
+      expect(result[1].isLocked).toBe(false); // first lesson not_started -> unlocked
+      expect(result[2].isLocked).toBe(true); // first lesson locked -> locked
     });
 
     it("maps ready_for_completion level status to started", () => {
