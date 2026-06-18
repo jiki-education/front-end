@@ -7,8 +7,10 @@ import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useEffect, useRef, useState } from "react";
 import styles from "../SubscriptionCheckoutModal.module.css";
 
-export function PaymentForm() {
-  const [message, setMessage] = useState<string | null>(null);
+export function PaymentForm({ priorError }: { priorError?: string | null }) {
+  // Seed the error banner with a previous attempt's failure (e.g. a declined retry);
+  // it clears on the next submit like any other payment error.
+  const [message, setMessage] = useState<string | null>(priorError ?? null);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 

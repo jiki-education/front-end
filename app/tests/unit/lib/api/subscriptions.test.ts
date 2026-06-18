@@ -3,14 +3,14 @@
  */
 
 import { createCheckoutSession, createPortalSession, verifyCheckoutSession } from "@/lib/api/subscriptions";
-import { api } from "@/lib/api/client";
+import { ApiError, CheckoutIncompleteError, api } from "@/lib/api/client";
 
-// Mock the API client
-jest.mock("@/lib/api/client", () => ({
-  api: {
-    post: jest.fn()
-  }
-}));
+// Mock only api.post; keep the real error classes so instanceof checks and
+// CheckoutIncompleteError construction in verifyCheckoutSession still work.
+jest.mock("@/lib/api/client", () => {
+  const actual = jest.requireActual("@/lib/api/client");
+  return { ...actual, api: { post: jest.fn() } };
+});
 
 const mockedApiPost = api.post as jest.MockedFunction<typeof api.post>;
 
@@ -107,5 +107,44 @@ describe("verifyCheckoutSession", () => {
     mockedApiPost.mockRejectedValue(new Error("Session not found"));
 
     await expect(verifyCheckoutSession("cs_test_invalid")).rejects.toThrow("Session not found");
+  });
+
+  it("throws CheckoutIncompleteError carrying the decline reason and interval for an incomplete payment", async () => {
+    mockedApiPost.mockRejectedValue(
+      new ApiError(422, "Unprocessable Entity", {
+        error: {
+          type: "checkout_payment_incomplete",
+          message: "Your payment wasn't completed. Please try again.",
+          decline_reason: "Your card has insufficient funds.",
+          interval: "monthly"
+        }
+      })
+    );
+
+    const error = await verifyCheckoutSession("cs_test_decline").catch((e) => e);
+    expect(error).toBeInstanceOf(CheckoutIncompleteError);
+    expect(error.declineReason).toBe("Your card has insufficient funds.");
+    expect(error.interval).toBe("monthly");
+  });
+
+  it("defaults the interval to annual and the reason to null when the API omits them", async () => {
+    mockedApiPost.mockRejectedValue(
+      new ApiError(422, "Unprocessable Entity", { error: { type: "checkout_payment_incomplete" } })
+    );
+
+    const error = await verifyCheckoutSession("cs_test_decline").catch((e) => e);
+    expect(error).toBeInstanceOf(CheckoutIncompleteError);
+    expect(error.declineReason).toBeNull();
+    expect(error.interval).toBe("annual");
+  });
+
+  it("rethrows a plain ApiError (not CheckoutIncompleteError) for a genuine invalid session", async () => {
+    mockedApiPost.mockRejectedValue(
+      new ApiError(422, "Unprocessable Entity", { error: { type: "invalid_session", message: "Invalid session" } })
+    );
+
+    const error = await verifyCheckoutSession("cs_test_invalid").catch((e) => e);
+    expect(error).toBeInstanceOf(ApiError);
+    expect(error).not.toBeInstanceOf(CheckoutIncompleteError);
   });
 });

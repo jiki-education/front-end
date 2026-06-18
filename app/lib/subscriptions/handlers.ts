@@ -21,6 +21,7 @@ export interface SubscribeParams {
   interval: BillingInterval;
   userEmail?: string;
   returnPath?: string; // Optional return path, defaults to current location
+  priorError?: string | null; // A previous attempt's failure, shown in the checkout error banner
 }
 
 export interface CheckoutCancelParams {
@@ -39,7 +40,7 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Core subscription handlers
-export async function handleSubscribe({ interval, userEmail, returnPath }: SubscribeParams) {
+export async function handleSubscribe({ interval, userEmail, returnPath, priorError }: SubscribeParams) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createCheckoutSession(interval, returnUrl, userEmail);
@@ -51,6 +52,7 @@ export async function handleSubscribe({ interval, userEmail, returnPath }: Subsc
     showSubscriptionCheckout({
       clientSecret: response.client_secret,
       selectedTier: "premium",
+      priorError,
       onCancel: () => {
         // Modal cancelled - no need to do anything as modal state is managed internally
       }

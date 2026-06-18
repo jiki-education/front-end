@@ -7,7 +7,15 @@ import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { PaymentForm } from "./PaymentForm";
 import styles from "../SubscriptionCheckoutModal.module.css";
 
-export function ModalBody({ selectedTier, onCancel }: { selectedTier: MembershipTier; onCancel: () => void }) {
+export function ModalBody({
+  selectedTier,
+  priorError,
+  onCancel
+}: {
+  selectedTier: MembershipTier;
+  priorError?: string | null;
+  onCancel: () => void;
+}) {
   const checkoutState = useCheckout();
   const tierInfo = PRICING_TIERS[selectedTier];
 
@@ -44,7 +52,7 @@ export function ModalBody({ selectedTier, onCancel }: { selectedTier: Membership
         </div>
       </div>
 
-      <PaymentForm />
+      <PaymentForm priorError={priorError} />
     </div>
   );
 }
