@@ -5,6 +5,7 @@
  * Simple, type-safe API client for backend communication with session cookie support
  */
 
+import type { BillingInterval } from "@/lib/pricing";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
 
@@ -56,6 +57,23 @@ export class RateLimitError extends ApiError {
   ) {
     super(429, statusText, data);
     this.name = "RateLimitError";
+  }
+}
+
+// Thrown by verifyCheckoutSession when the API reports `checkout_payment_incomplete`
+// — the Stripe checkout never completed (declined / abandoned / expired payment).
+// This is an expected outcome, not a bug, so callers surface it to the user (reopen
+// checkout) without reporting it to Sentry. `declineReason` is the customer-safe Stripe
+// reason when available, else null; `interval` is the plan they were buying.
+export class CheckoutIncompleteError extends ApiError {
+  constructor(
+    statusText: string,
+    data: unknown,
+    public declineReason: string | null,
+    public interval: BillingInterval
+  ) {
+    super(422, statusText, data);
+    this.name = "CheckoutIncompleteError";
   }
 }
 

@@ -69,6 +69,7 @@ export const showSubscriptionSuccess = (props: {
 export const showSubscriptionCheckout = (props: {
   clientSecret: string;
   selectedTier: MembershipTier;
+  priorError?: string | null;
   onCancel?: () => void;
   onSuccess?: () => void;
 }) => {

@@ -3,7 +3,7 @@
  * API functions for managing Stripe subscriptions
  */
 
-import { api } from "./client";
+import { ApiError, CheckoutIncompleteError, api } from "./client";
 import type {
   CheckoutSessionResponse,
   PortalSessionResponse,
@@ -49,10 +49,33 @@ export async function createPortalSession(): Promise<PortalSessionResponse> {
  * @returns Verification result with payment status and interval
  */
 export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCheckoutResponse> {
-  const response = await api.post<VerifyCheckoutResponse>("/internal/subscriptions/verify_checkout", {
-    session_id: sessionId
-  });
-  return response.data;
+  try {
+    const response = await api.post<VerifyCheckoutResponse>("/internal/subscriptions/verify_checkout", {
+      session_id: sessionId
+    });
+    return response.data;
+  } catch (error) {
+    // A declined / abandoned / expired checkout (`checkout_payment_incomplete`) is an
+    // expected payment failure, not a bug — surface it as a typed error so callers can
+    // reopen checkout without reporting to Sentry. Everything else (invalid_session,
+    // unauthorized, verification_failed, 5xx, …) propagates unchanged.
+    if (error instanceof ApiError) {
+      const body = error.data as
+        | { error?: { type?: string; decline_reason?: string | null; interval?: BillingInterval } }
+        | undefined;
+      if (body?.error?.type === "checkout_payment_incomplete") {
+        // `interval` is absent only for the pre-deploy migration tail; default it so the
+        // retry can still reopen with a plan selected.
+        throw new CheckoutIncompleteError(
+          error.statusText,
+          error.data,
+          body.error.decline_reason ?? null,
+          body.error.interval ?? "annual"
+        );
+      }
+    }
+    throw error;
+  }
 }
 
 /**
