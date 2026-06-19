@@ -55,12 +55,12 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       // Two checks that split on *how far* over the limit the solution is, so the
       // feedback matches the likely cause. Each fires only in its own band:
-      //   - more than 2 over  -> there are still runs of move() calls to collapse
-      //   - just 1-2 over     -> usually a short repeat that costs more lines than it saves
+      //   - 2 or more over  -> there are still runs of move() calls to collapse
+      //   - exactly 1 over  -> usually a short repeat that costs more lines than it saves
       {
         pass: (result, language) => {
           const limit = language === "python" ? 18 : 22;
-          return result.assertors.countLinesOfCode() <= limit + 2;
+          return result.assertors.countLinesOfCode() <= limit + 1;
         },
         errorHtml:
           "Your solution has too many lines of code. Look for groups of consecutive move() calls and replace each group with a repeat loop."
@@ -69,12 +69,12 @@ export const scenarios: VisualScenario[] = [
         pass: (result, language) => {
           const limit = language === "python" ? 18 : 22;
           const count = result.assertors.countLinesOfCode();
-          // Pass when within the limit, or when far enough over that the other
-          // check handles it — so this message only shows for being 1-2 lines over.
-          return count <= limit || count > limit + 2;
+          // Pass within the limit, or when 2+ over (the other check handles that)
+          // — so this message only shows when the solution is exactly one line over.
+          return count !== limit + 1;
         },
         errorHtml:
-          "You're really close — just a line or two too long. A repeat loop isn't always shorter: repeating something only two or three times can take more lines than writing the calls out, so look for a repeat that isn't actually saving you anything."
+          "You're just one line too long! A repeat loop isn't always shorter: repeating something only two or three times can take more lines than writing the calls out, so look for a repeat that isn't actually saving you anything."
       }
     ]
   }
