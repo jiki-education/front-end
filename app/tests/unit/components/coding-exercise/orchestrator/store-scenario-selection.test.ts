@@ -102,7 +102,8 @@ describe("shouldShowSpotlight", () => {
     createMockTestResult({ status: "pass", animationTimeline: createMockAnimationTimeline({ duration: 1_000_000 }) });
   // The "rejected" bouncer case: a passing visual scenario that produces no
   // animations, so its timeline has zero duration.
-  const withoutAnimation = () => createMockTestResult({ status: "pass", animationTimeline: { duration: 0 } as any });
+  const withoutAnimation = () =>
+    createMockTestResult({ status: "pass", animationTimeline: createMockAnimationTimeline({ duration: 0 }) });
 
   it("shows the spotlight when the suite passes and the inspected test has an animation", () => {
     const result = createMockTestSuiteResult([withAnimation()]);
