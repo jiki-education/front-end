@@ -262,10 +262,6 @@ export function createOrchestratorStore(
           });
 
           test.animationTimeline?.onComplete(() => {
-            // eslint-disable-next-line no-console
-            console.log("[SPOTLIGHT-DEBUG] store onComplete callback running -> will clear spotlight", {
-              slug: test.slug
-            });
             const state = get();
             state.setIsPlaying(false);
 
