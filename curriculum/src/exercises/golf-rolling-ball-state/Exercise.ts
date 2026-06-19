@@ -7,8 +7,6 @@ export default class GolfRollingBallStateExercise extends GolfExercise {
     return metadata.slug;
   }
 
-  public visitedPositions: number[] = [];
-
   public availableFunctions: ExternalFunction[] = [
     {
       name: "move_to",
