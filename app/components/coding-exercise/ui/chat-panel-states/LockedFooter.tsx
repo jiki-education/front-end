@@ -33,7 +33,12 @@ export function LockedFooter({ variant }: LockedFooterProps) {
           <>
             <p className={styles.footerText}>You&apos;ve hit our fair use limits. Please try again tomorrow.</p>
             <p className={styles.footerLink}>
-              <Link href="/fair-use-limits" className={styles.footerLinkGray}>
+              <Link
+                href="/articles/fair-usage-jiki-ai-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.footerLinkGray}
+              >
                 Learn more about fair use limits
               </Link>
             </p>

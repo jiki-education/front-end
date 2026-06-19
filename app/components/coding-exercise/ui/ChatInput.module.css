@@ -71,6 +71,15 @@
     color: var(--color-gray-400);
 }
 
+.chatInputCharCount {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-size: 12px;
+    color: var(--color-gray-400);
+    z-index: 10;
+}
+
 .chatInputHint {
     position: absolute;
     bottom: 8px;

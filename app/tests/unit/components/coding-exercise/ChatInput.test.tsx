@@ -36,4 +36,19 @@ describe("ChatInput", () => {
     const input = screen.getByPlaceholderText("Type your question here...");
     expect(input).toBeDisabled();
   });
+
+  it("caps the question length and only shows the counter near the limit", () => {
+    render(<ChatInput onSendMessage={mockOnSendMessage} />);
+
+    const input = screen.getByPlaceholderText("Type your question here...");
+    expect(input).toHaveAttribute("maxLength", "1800");
+
+    // Short message: no counter.
+    fireEvent.change(input, { target: { value: "Hello" } });
+    expect(screen.queryByText(/\/1800/)).not.toBeInTheDocument();
+
+    // Near the limit: counter appears.
+    fireEvent.change(input, { target: { value: "a".repeat(1500) } });
+    expect(screen.getByText("1500/1800")).toBeInTheDocument();
+  });
 });

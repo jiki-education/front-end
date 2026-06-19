@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import type { ChatMessage, ChatState, StreamStatus, SignatureData } from "./chat-types";
+import type { ChatMessage, ChatState, StreamStatus, SignatureData, UsageMeta } from "./chat-types";
 
 export function useChatState() {
   const [state, setState] = useState<ChatState>({
@@ -8,7 +8,8 @@ export function useChatState() {
     status: "idle",
     error: null,
     signature: null,
-    chatToken: null
+    chatToken: null,
+    usage: null
   });
 
   const setStatus = useCallback((status: StreamStatus) => {
@@ -29,6 +30,12 @@ export function useChatState() {
 
   const setChatToken = useCallback((chatToken: string) => {
     setState((prev) => ({ ...prev, chatToken }));
+  }, []);
+
+  // Usage reflects the user's quota, not the conversation, so it survives the
+  // conversation-level resets below (which all spread `prev`).
+  const setUsage = useCallback((usage: UsageMeta) => {
+    setState((prev) => ({ ...prev, usage }));
   }, []);
 
   const clearChatToken = useCallback(() => {
@@ -60,14 +67,16 @@ export function useChatState() {
   }, []);
 
   const clearChat = useCallback(() => {
-    setState({
+    setState((prev) => ({
       messages: [],
       currentResponse: "",
       status: "idle",
       error: null,
       signature: null,
-      chatToken: null
-    });
+      chatToken: null,
+      // Preserve usage — the quota is user-level and outlives the conversation.
+      usage: prev.usage
+    }));
   }, []);
 
   const resetForNewMessage = useCallback(() => {
@@ -110,6 +119,7 @@ export function useChatState() {
     setSignature,
     setChatToken,
     clearChatToken,
+    setUsage,
     addMessage,
     addMessageToHistory,
     addUserMessageImmediately,

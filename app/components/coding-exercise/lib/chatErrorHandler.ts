@@ -1,10 +1,23 @@
-import { ChatApiError, ChatTokenExpiredError } from "./chatApi";
+import { ChatApiError, ChatRateLimitedError, ChatTokenExpiredError, ChatUsageLimitError } from "./chatApi";
 import { ChatTokenError, ChatTokenInvalidCaptchaError } from "./chatTokenApi";
+import { usageLimitText } from "./chatUsage";
 
 export function formatChatError(error: unknown): string {
   // ChatTokenExpiredError should rarely show (auto-retry handles it)
   if (error instanceof ChatTokenExpiredError) {
     return "Session expired. Please try again.";
+  }
+
+  // Quota cap — terminal until the daily/monthly reset. Copy is built from the
+  // scope and limit since the proxy intentionally omits a human-readable message.
+  if (error instanceof ChatUsageLimitError) {
+    const limit = error.scope === "monthly" ? error.usage.monthlyLimit : error.usage.dailyLimit;
+    return usageLimitText(error.scope, limit);
+  }
+
+  // Burst throttle — transient. The proxy provides the user-facing copy.
+  if (error instanceof ChatRateLimitedError) {
+    return error.message;
   }
 
   // Captcha failure — distinct from access-denied so the user is told to
@@ -69,6 +82,12 @@ export function formatChatError(error: unknown): string {
 }
 
 export function shouldRetryError(error: unknown): boolean {
+  // Neither quota caps nor burst throttles should be auto-retried: a cap won't
+  // recover until reset, and retrying a throttle just prolongs it.
+  if (error instanceof ChatUsageLimitError || error instanceof ChatRateLimitedError) {
+    return false;
+  }
+
   if (error instanceof ChatApiError) {
     // Don't retry expired tokens - they should be handled by refresh logic
     if (error.status === 401 && error.data && typeof error.data === "object") {

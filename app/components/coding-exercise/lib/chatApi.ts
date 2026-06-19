@@ -1,5 +1,6 @@
 import { getChatApiUrl } from "@/lib/api/config";
-import type { ChatMessage, SignatureData, ErrorData } from "./chat-types";
+import type { ChatMessage, SignatureData, ErrorData, UsageMeta } from "./chat-types";
+import type { UsageScope } from "./chatUsage";
 
 export interface ChatRequestPayload {
   exerciseSlug: string; // The curriculum exercise slug (for LLM proxy)
@@ -33,6 +34,27 @@ export class ChatTokenExpiredError extends Error {
   constructor(message: string = "Chat token expired") {
     super(message);
     this.name = "ChatTokenExpiredError";
+  }
+}
+
+// 429 usage_limit_reached: the user has hit their daily or monthly quota. This
+// is terminal until the relevant reset, so it must NOT be auto-retried.
+export class ChatUsageLimitError extends Error {
+  constructor(
+    public scope: UsageScope,
+    public usage: UsageMeta
+  ) {
+    super("usage_limit_reached");
+    this.name = "ChatUsageLimitError";
+  }
+}
+
+// 429 rate_limited: short burst throttle. Transient — the user can try again
+// shortly, but we don't auto-retry (that would just hammer the throttle).
+export class ChatRateLimitedError extends Error {
+  constructor(message: string = "Too many requests. Please wait a moment and try again.") {
+    super(message);
+    this.name = "ChatRateLimitedError";
   }
 }
 
@@ -87,6 +109,25 @@ async function performChatRequest(
         }
       }
 
+      // 429s come in two flavours, distinguished by the `error` field: a quota
+      // cap (usage_limit_reached) versus a transient burst throttle
+      // (rate_limited). Surface them as distinct typed errors.
+      if (response.status === 429 && errorData && typeof errorData === "object") {
+        const errorObj = errorData as Record<string, unknown>;
+        if (errorObj.error === "usage_limit_reached") {
+          const scope: UsageScope = errorObj.scope === "monthly" ? "monthly" : "daily";
+          throw new ChatUsageLimitError(scope, {
+            messagesToday: Number(errorObj.messagesToday),
+            messagesThisMonth: Number(errorObj.messagesThisMonth),
+            dailyLimit: Number(errorObj.dailyLimit),
+            monthlyLimit: Number(errorObj.monthlyLimit)
+          });
+        }
+        if (errorObj.error === "rate_limited") {
+          throw new ChatRateLimitedError(typeof errorObj.message === "string" ? errorObj.message : undefined);
+        }
+      }
+
       throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status, errorData);
     }
 
@@ -96,7 +137,12 @@ async function performChatRequest(
 
     await handleStreamingResponse(response.body, callbacks);
   } catch (error) {
-    if (error instanceof ChatApiError || error instanceof ChatTokenExpiredError) {
+    if (
+      error instanceof ChatApiError ||
+      error instanceof ChatTokenExpiredError ||
+      error instanceof ChatUsageLimitError ||
+      error instanceof ChatRateLimitedError
+    ) {
       throw error;
     }
     const message = error instanceof Error ? error.message : "Unknown error";
