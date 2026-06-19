@@ -4,7 +4,11 @@
   "hints": [
     {
       "question": "I'm not sure where to start",
-      "answer": "Firstly, repeat what you did previously. Roll the ball from its starting position to however far the `getShotLength()` function returns. Just remember to roll one step at a time. Once you've done that, think about how to animate it down."
+      "answer": "This is just like the previous golf exercise, where you rolled the ball a fixed number of steps. The only difference is that the number of steps is no longer a fixed value — it comes from `getShotLength()` instead. Wherever you used a number before, you can use the result of a function instead."
+    },
+    {
+      "question": "My ball stops one step short (or goes one too far)",
+      "answer": "Think carefully about your starting position and how many times you roll. The ball sits on the tee at 28, so its first roll should take it to 29. Count the steps from there to where it needs to end up."
     }
   ]
 }

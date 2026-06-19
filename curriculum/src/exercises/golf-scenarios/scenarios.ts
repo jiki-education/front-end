@@ -21,17 +21,23 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(20);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 38, 48];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 50,
-          errorHtml: `The ball should be at x=50 (29 + 21), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 48,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -44,17 +50,23 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(35);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 45, 63];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 65,
-          errorHtml: `The ball should be at x=65 (29 + 36), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 63,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -67,17 +79,23 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(50);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 53, 78];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 80,
-          errorHtml: `The ball should be at x=80 (29 + 51), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 78,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -90,17 +108,23 @@ export const scenarios: VisualScenario[] = [
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(60);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 58, 88];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=90 (29 + 61), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 88,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }

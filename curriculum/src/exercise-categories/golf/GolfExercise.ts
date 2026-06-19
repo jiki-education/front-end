@@ -13,6 +13,7 @@ export default class GolfExercise extends VisualExercise {
   ballY: number = 75;
   fireworksFired: boolean = false;
   shotLength: number = 0;
+  visitedPositions: number[] = [];
   protected moveDuration = 15;
 
   constructor() {
@@ -46,6 +47,7 @@ export default class GolfExercise extends VisualExercise {
 
   rollRight(executionCtx: ExecutionContext) {
     this.ballX += 1;
+    this.visitedPositions.push(this.ballX);
     this.addAnimation({
       targets: `#${this.view.id} .ball`,
       offset: executionCtx.getCurrentTimeInMs(),
@@ -62,6 +64,7 @@ export default class GolfExercise extends VisualExercise {
       return executionCtx.logicError("x must be a number");
     }
     this.ballX = x.value;
+    this.visitedPositions.push(this.ballX);
     if (y !== undefined) {
       if (!isNumber(y)) {
         return executionCtx.logicError("y must be a number");

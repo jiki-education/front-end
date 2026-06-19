@@ -9,4 +9,6 @@ In each scenario, you need to roll the ball a different amount depending on how 
 
 You then need to roll the ball to that spot using the `rollTo(x)` function. As before, you need to roll it one step at a time, not just jump it to the end.
 
+As before, **the ball starts on the tee at position 28.**
+
 On this exercise, try and think through each step carefully and take things one step at a time. Good luck!

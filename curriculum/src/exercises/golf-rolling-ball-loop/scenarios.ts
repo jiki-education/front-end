@@ -27,10 +27,16 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfRollingBallLoopExercise;
+      const requiredPositions = [29, 40, 60, 88];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 88,
           errorHtml: `The ball rolled to ${ex.ballX}, which isn't 60 from where it started.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         }
       ];
     },
