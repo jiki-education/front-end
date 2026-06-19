@@ -9,8 +9,12 @@ interface ConceptMetaEntry {
 
 const concepts = conceptMetaServer as ConceptMetaEntry[];
 
+export function getConceptEntry(slug: string): ConceptMetaEntry | undefined {
+  return concepts.find((c) => c.slug === slug);
+}
+
 export function getConceptMetadata(slug: string): Metadata {
-  const concept = concepts.find((c) => c.slug === slug);
+  const concept = getConceptEntry(slug);
   if (!concept) {
     return { title: "Concept Not Found" };
   }
