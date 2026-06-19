@@ -1,16 +1,19 @@
 ---
 title: "Bouncer: Wristbands"
-description: "Give clubbers the right coloured wristband based on their age."
+description: "Give people the right coloured wristband based on their age."
 ---
 
-You're still working as a bouncer, but now the venue has a wristband system. Different age groups get different colored wristbands.
+You're back working as a bouncer, but this time for a local community event where the venue has a wristband system that give access to different areas based on age.
 
-You have these functions:
+You have a `getAge()` function that returns the age of the person who you need to give a wristband to. You need to determine what category they fall into, then use one of four functions to give them the right wristband:
 
-- `getAge()` returns the age of the person waiting outside
-- `childWristband()` gives them a child wristband (under 13)
-- `teenWristband()` gives them a teen wristband (13 to 17)
-- `adultWristband()` gives them an adult wristband (18 to 64)
-- `seniorWristband()` gives them a senior wristband (65 and over)
+- Children are under 13
+- Teens are 13-17 inclusive
+- Adults are 18-64
+- Seniors are 65+
 
-Get the person's age and give them the correct wristband!
+The four functions are `giveChildWristband()`, `giveTeenWristband()`, `giveAdultWristband()` and `giveSeniorWristband()`.
+
+Each scenario has a different aged person. Get their age and give them the correct wristband!
+
+Have fun!

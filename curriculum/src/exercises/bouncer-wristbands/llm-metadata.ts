@@ -13,8 +13,8 @@ export const llmMetadata: LLMMetadata = {
     to retrieve a value, then use a chain of conditions to call the correct
     wristband function based on age ranges.
 
-    The exercise has six scenarios: one clear case per age group (child, teen,
-    adult, senior) plus two boundary values (13 and 65).
+    The exercise has seven scenarios: one clear case per age group (child, teen,
+    adult, senior) plus three boundary values (13, 18 and 65).
   `,
 
   tasks: {
@@ -26,26 +26,29 @@ export const llmMetadata: LLMMetadata = {
         3. Call the correct wristband function for each range
 
         Age ranges:
-        - Under 13: childWristband()
-        - 13 to 17: teenWristband()
-        - 18 to 64: adultWristband()
-        - 65 and over: seniorWristband()
+        - Under 13: giveChildWristband()
+        - 13 to 17: giveTeenWristband()
+        - 18 to 64: giveAdultWristband()
+        - 65 and over: giveSeniorWristband()
 
         Key functions:
         - getAge(): returns the person's age as a number
-        - childWristband(), teenWristband(), adultWristband(), seniorWristband()
+        - giveChildWristband(), giveTeenWristband(), giveAdultWristband(), giveSeniorWristband()
 
         Common mistakes:
         - Using <= 13 instead of < 13 (the boundary-13 scenario catches this)
+        - Using <= 18 instead of < 18 (the boundary-18 scenario catches this)
         - Using <= 65 instead of < 65 (the boundary-65 scenario catches this)
-        - Not using else if — writing separate if statements instead of a chain
+        - Not using else if. Writing separate if statements instead of a chain.
+          This can issue more than one wristband, which triggers a logic error
+          (each person may only be given a single wristband).
         - Getting the order wrong (checking adult before teen)
         - Forgetting the else block for seniors
 
         Teaching strategy:
         - Build on the simple if from the bouncer exercise
         - Explain that else if lets you check multiple conditions in sequence
-        - Emphasize that order matters — once a condition is true, the rest are skipped
+        - Emphasize that order matters. Once a condition is true, the rest are skipped.
         - The else at the end catches everything that didn't match earlier conditions
       `
     }

@@ -12,31 +12,31 @@ const functions: FunctionInfo[] = [
     category: "Information"
   },
   {
-    name: "childWristband",
-    signature: "childWristband()",
+    name: "giveChildWristband",
+    signature: "giveChildWristband()",
     description: "Gives the person a **child** wristband (under 13).",
-    examples: ["childWristband()"],
+    examples: ["giveChildWristband()"],
     category: "Wristbands"
   },
   {
-    name: "teenWristband",
-    signature: "teenWristband()",
+    name: "giveTeenWristband",
+    signature: "giveTeenWristband()",
     description: "Gives the person a **teen** wristband (13-17).",
-    examples: ["teenWristband()"],
+    examples: ["giveTeenWristband()"],
     category: "Wristbands"
   },
   {
-    name: "adultWristband",
-    signature: "adultWristband()",
+    name: "giveAdultWristband",
+    signature: "giveAdultWristband()",
     description: "Gives the person an **adult** wristband (18-64).",
-    examples: ["adultWristband()"],
+    examples: ["giveAdultWristband()"],
     category: "Wristbands"
   },
   {
-    name: "seniorWristband",
-    signature: "seniorWristband()",
+    name: "giveSeniorWristband",
+    signature: "giveSeniorWristband()",
     description: "Gives the person a **senior** wristband (65+).",
-    examples: ["seniorWristband()"],
+    examples: ["giveSeniorWristband()"],
     category: "Wristbands"
   }
 ];
@@ -45,6 +45,7 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
+  conceptSlugs: ["if", "else-if", "conditionals"],
   tasks,
   scenarios,
   functions
