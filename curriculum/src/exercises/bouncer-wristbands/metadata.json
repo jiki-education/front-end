@@ -16,7 +16,7 @@
     },
     {
       "question": "What about the seniors at the end?",
-      "answer": "You do not need a condition for them. A plain `else` that calls `seniorWristband()` catches everyone aged 65 and over."
+      "answer": "You do not need a condition for them. A plain `else` that calls `giveSeniorWristband()` catches everyone aged 65 and over."
     }
   ]
 }

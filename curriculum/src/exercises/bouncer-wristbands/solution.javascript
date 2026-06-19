@@ -1,11 +1,11 @@
 let age = getAge()
 
 if (age < 13) {
-  childWristband()
+  giveChildWristband()
 } else if (age < 18) {
-  teenWristband()
+  giveTeenWristband()
 } else if (age < 65) {
-  adultWristband()
+  giveAdultWristband()
 } else {
-  seniorWristband()
+  giveSeniorWristband()
 }
