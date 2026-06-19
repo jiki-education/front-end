@@ -3,7 +3,7 @@ title: "Owner's Bouquets"
 description: "Plant flowers in different garden layouts."
 ---
 
-Welcome to your first exercise with scenarios.
+Welcome to your second exercise with scenarios.
 
 We're back with our automated gardening machine. Previously, we always planted 9 flowers, but now things are changing. We need our robot to be able to plant however many flowers its told to by the owner of the house.
 
@@ -13,7 +13,7 @@ We are under strict instructions to keep the garden neat, so we need to plant th
 
 ### Scenarios
 
-On the left, you'll notice four grey dots for the four different scenarios. **Clicking on each dot** shows you a different scenario - where `askNumberOfFlowers()` will return a different number. If you click `"Run Code"`, you'll see they all go red.
+As in the golf exercise you just solved, on the left you'll see four grey dots for the four different scenarios. **Clicking on each dot** shows you a different scenario, but this time it's the `askNumberOfFlowers()` that will return a different number each time.
 
 Your job is to write one program that works for all the different possible values `askNumberOfFlowers()` might return.
 

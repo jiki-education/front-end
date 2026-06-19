@@ -19,8 +19,9 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Students need to:
         1. Call getShotLength() and store the result in a variable
-        2. Track x position starting at 29
-        3. Use a loop (shotLength + 1 times) to roll the ball right
+        2. Track x position starting at 28 (the tee)
+        3. Use a loop (shotLength times) to roll the ball right, incrementing x
+           before each rollTo so the ball passes through every position (29, 30, ...)
 
         Key functions:
         - rollTo(x): rolls the ball to position x

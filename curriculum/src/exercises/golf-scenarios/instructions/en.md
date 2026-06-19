@@ -3,10 +3,16 @@ title: "Golf: Scenarios"
 description: "Roll a ball to the correct spot in different scenarios."
 ---
 
-Welcome back to the golf course. In this exercise, you're going to build on the previous exercises but with a new twist.
+Welcome to your first exercise with scenarios.
 
-In each scenario, you need to roll the ball a different amount depending on how far the golfer has hit it. You can get that length by using the `getShotLength()` function - it'll give you a different number for each Scenario.
+We're back at the golf course. In this exercise, you're going to build on the previous exercises but with a new twist. As before you need to roll the ball using the `rollTo(x)` function, moving **one step at a time**, not just jumping it to the end. The ball **starts on the tee at position 28.**
 
-You then need to roll the ball to that spot using the `rollTo(x)` function. As before, you need to roll it one step at a time, not just jump it to the end.
+What's new is that rather than moving a fixed amount, we're going to move a different amount depending on how far the golfer has hit the ball. To get the distance the golfer has hit the ball, you can use the `getShotLength()` function which returns a number.
 
-On this exercise, try and think through each step carefully and take things one step at a time. Good luck!
+### Scenarios
+
+On the left, you'll notice four grey dots for the four different scenarios. **Clicking on each dot** shows you a different scenario - where `getShotLength()` will return a different number. If you click `"Run Code"`, you'll see they all go red.
+
+Your job is to write one program that works for all the different possible values that `getShotLength()` might return.
+
+Good luck and have fun!

@@ -17,7 +17,7 @@ const functions: FunctionInfo[] = [
     signature: "getShotLength()",
     description: "Returns the **length of the shot** — how many units the ball travels to the right.",
     examples: ["let shotLength = getShotLength()"],
-    category: "Game"
+    category: "Information"
   }
 ];
 
@@ -28,7 +28,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["scenarios", "using-functions-with-inputs"]
+  conceptSlugs: ["scenarios", "using-functions-with-inputs", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

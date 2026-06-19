@@ -16,22 +16,28 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "short-shot",
     name: "Short shot (20)",
-    description: "The golfer hits the ball 20 units.",
+    description: "In this scenario, `getShotLength()` will return 20. Roll the ball 20 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(20);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 38, 48];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 50,
-          errorHtml: `The ball should be at x=50 (29 + 21), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 48,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -39,22 +45,28 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "medium-shot",
     name: "Medium shot (35)",
-    description: "The golfer hits the ball 35 units.",
+    description: "In this scenario, `getShotLength()` will return 35. Roll the ball 35 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(35);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 45, 63];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 65,
-          errorHtml: `The ball should be at x=65 (29 + 36), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 63,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -62,22 +74,28 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "long-shot",
     name: "Long shot (50)",
-    description: "The golfer hits the ball 50 units.",
+    description: "In this scenario, `getShotLength()` will return 50. Roll the ball 50 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(50);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 53, 78];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 80,
-          errorHtml: `The ball should be at x=80 (29 + 51), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 78,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }
@@ -85,22 +103,28 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "very-long-shot",
     name: "Very long shot (60)",
-    description: "The golfer hits the ball 60 units.",
+    description: "In this scenario, `getShotLength()` will return 60. Roll the ball 60 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
       const ex = exercise as GolfScenariosExercise;
-      ex.setupBallPosition(29, 75);
+      ex.setupBallPosition(28, 75);
       ex.setupShotLength(60);
       ex.setupBackground("/static/images/exercise-assets/golf-scenarios/background.webp");
     },
 
     expectations(exercise) {
       const ex = exercise as GolfScenariosExercise;
+      const requiredPositions = [29, 58, 88];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
-          pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=90 (29 + 61), but it's at x=${ex.ballX}.`
+          pass: ex.ballX === 88,
+          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
         }
       ];
     }

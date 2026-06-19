@@ -35,14 +35,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 40, 51];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 51,
-          errorHtml: `The ball should be at x=51 (28 + 23), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (not over the hole), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball should stay on the grass for this shot — it shouldn't drop into the hole.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -66,14 +72,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 57, 85];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 85,
-          errorHtml: `The ball should be at x=85 (28 + 57), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (not in the hole), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball should stay on the grass for this shot — it shouldn't drop into the hole.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -97,14 +109,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 60, 91];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 91,
-          errorHtml: `The ball should be at x=91 (28 + 63), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (overshot the hole), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball overshot the hole, so it should stay on the grass — it shouldn't drop in.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -128,14 +146,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 62, 96];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 96,
-          errorHtml: `The ball should be at x=96 (28 + 68), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (overshot the hole), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball overshot the hole, so it should stay on the grass — it shouldn't drop in.`
         },
         {
           pass: ex.fireworksFired === false,
@@ -159,14 +183,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 57, 86];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 86,
-          errorHtml: `The ball should be at x=86 (28 + 58), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball reached the hole but didn't drop down into it correctly.`
         },
         {
           pass: ex.fireworksFired === true,
@@ -190,14 +220,20 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 60, 90];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=90 (28 + 62), but it's at x=${ex.ballX}.`
+          errorHtml: `The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.`
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
         },
         {
           pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: `The ball reached the hole but didn't drop down into it correctly.`
         },
         {
           pass: ex.fireworksFired === true,
