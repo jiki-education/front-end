@@ -16,7 +16,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "short-shot",
     name: "Short shot (20)",
-    description: "The golfer hits the ball 20 units.",
+    description: "In this scenario, `getShotLength()` will return 20. Roll the ball 20 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -45,7 +45,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "medium-shot",
     name: "Medium shot (35)",
-    description: "The golfer hits the ball 35 units.",
+    description: "In this scenario, `getShotLength()` will return 35. Roll the ball 35 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -74,7 +74,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "long-shot",
     name: "Long shot (50)",
-    description: "The golfer hits the ball 50 units.",
+    description: "In this scenario, `getShotLength()` will return 50. Roll the ball 50 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -103,7 +103,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "very-long-shot",
     name: "Very long shot (60)",
-    description: "The golfer hits the ball 60 units.",
+    description: "In this scenario, `getShotLength()` will return 60. Roll the ball 60 steps from the tee.",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
