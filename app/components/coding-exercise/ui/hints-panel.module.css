@@ -122,11 +122,34 @@
     filter: blur(4px);
 }
 
-.hintAnswerContent p {
-    color: #2d3748;
+.hintAnswerContent p,
+.hintAnswerContent li {
+    color: var(--color-gray-700);
     font-size: 15px;
     line-height: 1.6;
+}
+
+.hintAnswerContent p,
+.hintAnswerContent ul,
+.hintAnswerContent ol {
     margin-bottom: 10px;
+}
+
+.hintAnswerContent ul,
+.hintAnswerContent ol {
+    margin-left: 16px;
+}
+
+.hintAnswerContent ul {
+    list-style: disc;
+}
+
+.hintAnswerContent ol {
+    list-style: decimal;
+}
+
+.hintAnswerContent li {
+    margin-bottom: 4px;
 }
 
 .hintAnswerContent > :last-child {

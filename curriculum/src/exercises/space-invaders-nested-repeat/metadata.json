@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "I can't get to 7 lines of code.",
-      "answer": "Think about what we do when we see repetitive code. You also don't need any variables in this exercise."
+      "answer": "Think about this level as two blocks of things that need to happen.\n\n- The first block is the inner one, where we shoot 4 times - make sure that is three lines long.\n- The outer block is the inner block with some movement either side. That outer block needs to be repeated a few times too.\n\nIf you structure your code in this way, it should naturally end up at 7 lines of code."
     }
   ]
 }
