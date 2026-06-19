@@ -9,7 +9,7 @@ import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
 import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
-import type { TestResult } from "../test-results-types";
+import type { TestResult, TestSuiteResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
@@ -28,6 +28,24 @@ export function getTestToInspect(tests: TestResult[], currentTest: TestResult | 
   if (firstFailing) return firstFailing;
 
   return tests[tests.length - 1];
+}
+
+// The spotlight dims the page around the exercise and is only ever cleared when
+// the inspected test's animation timeline finishes (its onComplete callback,
+// which also shows the completion modal). So it should only be shown when the
+// suite passes, the exercise isn't already complete, and the inspected test
+// actually has an animation that will play and then clear it.
+//
+// Tests with no animation to play would otherwise leave the spotlight stuck on
+// forever: IO suites (no timeline at all) and visual scenarios that produce no
+// animations (e.g. bouncer's "rejected" scenarios, where the correct outcome is
+// to do nothing). For those, the caller must trigger completion directly.
+export function shouldShowSpotlight(
+  result: TestSuiteResult | null,
+  inspectedTest: TestResult | undefined,
+  isExerciseCompleted: boolean
+): boolean {
+  return Boolean(result?.passed) && !isExerciseCompleted && (inspectedTest?.animationTimeline?.duration ?? 0) > 0;
 }
 
 // Factory function to create an instance-specific store
@@ -392,8 +410,10 @@ export function createOrchestratorStore(
         setTestSuiteResult: (result) => {
           const state = get();
 
-          // Enable spotlight whenever tests pass and exercise is not already completed
-          const shouldActivateSpotlight = result?.passed && !state.isExerciseCompleted;
+          // Select the best test to inspect: stay on current if still failing,
+          // otherwise first failing, otherwise last test (all pass).
+          const testToInspect =
+            result && result.tests.length > 0 ? getTestToInspect(result.tests, state.currentTest) : undefined;
 
           // Set the test suite result and reset things.
           set({
@@ -403,22 +423,22 @@ export function createOrchestratorStore(
             status: "success", // This will get reset via the setCurrentTest below.
             testCurrentTimes: {},
             // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
-            isSpotlightActive: shouldActivateSpotlight,
+            isSpotlightActive: shouldShowSpotlight(result, testToInspect, state.isExerciseCompleted),
             // Reset playing state to allow animations to play on new test suite
             isPlaying: false
           });
 
-          // Select the best test to inspect: stay on current if still failing,
-          // otherwise first failing, otherwise last test (all pass).
-          if (result && result.tests.length > 0) {
-            const testToInspect = getTestToInspect(result.tests, state.currentTest);
+          if (testToInspect) {
             get().setCurrentTest(testToInspect);
             set({ lintErrors: testToInspect.lintErrors });
           }
 
-          // IO suites have no animation timeline, so the onComplete-gated modal
-          // path in setCurrentTest never fires. Trigger directly here instead.
-          if (result?.passed && result.tests.every((t) => t.type === "io")) {
+          // The completion modal (and spotlight clear) is normally triggered when
+          // the inspected animation finishes (its onComplete). When the inspected
+          // passing test has no animation to play, onComplete never fires, so
+          // trigger completion directly. Covers IO suites and animation-less
+          // visual scenarios (e.g. bouncer's "rejected" cases).
+          if (result?.passed && !shouldShowSpotlight(result, testToInspect, state.isExerciseCompleted)) {
             showCompletionModalIfReady();
           }
         },
