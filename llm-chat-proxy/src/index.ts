@@ -158,19 +158,21 @@ app.post("/chat", async (c) => {
       contentUrl
     });
 
-    // 4. Record usage now that the request is committed to calling Gemini, then
-    // stream from Gemini and collect the full response. recordUsage returns the
-    // new totals (including this message) so we can report them to the client.
-    const usageCounts = await recordUsage(c.env.USAGE_KV, userId, now);
-
+    // 4. Stream from Gemini and collect the full response. The stream is opened
+    // FIRST so that a failure to reach Gemini (e.g. all models rate limited, or
+    // an API error) does NOT consume the user's quota - we only count requests
+    // Gemini actually accepted.
     let fullResponse = "";
     const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
       fullResponse += chunk;
     });
 
+    // Now that Gemini has accepted the request and is streaming, record usage.
+    // recordUsage returns the new totals (including this message) for the client.
+    const usageCounts = await recordUsage(c.env.USAGE_KV, userId, now);
+
     // 5. Create a new stream that includes the signature at the end
     const timestamp = now.toISOString();
-    let signatureSent = false;
 
     const streamWithSignature = new ReadableStream({
       async start(controller) {
@@ -200,7 +202,6 @@ app.post("/chat", async (c) => {
               ...buildUsageMeta(usageCounts)
             })}\n\n`;
             controller.enqueue(encoder.encode(signatureMessage));
-            signatureSent = true;
           } catch (signatureError) {
             // Signature generation failed - send error event so client knows not to save
             console.error("Signature generation failed:", signatureError);
