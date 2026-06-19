@@ -195,7 +195,7 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
       onClick={handleRevealClick}
     >
       <div className={style?.hintQuestion}>
-        <span>{question}</span>
+        <span dangerouslySetInnerHTML={{ __html: marked.parseInline(question, { async: false }) }} />
         <div className={style?.hintRevealBtn}>
           {isRevealed ? (
             <>

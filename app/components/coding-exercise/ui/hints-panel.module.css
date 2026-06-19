@@ -34,6 +34,14 @@
     background: white;
 }
 
+.hintQuestion code {
+    background: var(--color-purple-100);
+    color: var(--color-purple-700);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 15px;
+}
+
 .hintRevealBtn {
     display: flex;
     align-items: center;
