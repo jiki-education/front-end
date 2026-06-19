@@ -1,6 +1,11 @@
-import { getTestToInspect } from "@/components/coding-exercise/lib/orchestrator/store";
+import { getTestToInspect, shouldShowSpotlight } from "@/components/coding-exercise/lib/orchestrator/store";
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
-import { createMockFrame, createMockTestResult, createMockTestSuiteResult } from "@/tests/mocks";
+import {
+  createMockAnimationTimeline,
+  createMockFrame,
+  createMockTestResult,
+  createMockTestSuiteResult
+} from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
@@ -89,6 +94,40 @@ describe("getTestToInspect", () => {
 
     const result = getTestToInspect(tests, current);
     expect(result.slug).toBe("test-2");
+  });
+});
+
+describe("shouldShowSpotlight", () => {
+  const withAnimation = () =>
+    createMockTestResult({ status: "pass", animationTimeline: createMockAnimationTimeline({ duration: 1_000_000 }) });
+  // The "rejected" bouncer case: a passing visual scenario that produces no
+  // animations, so its timeline has zero duration.
+  const withoutAnimation = () => createMockTestResult({ status: "pass", animationTimeline: { duration: 0 } as any });
+
+  it("shows the spotlight when the suite passes and the inspected test has an animation", () => {
+    const result = createMockTestSuiteResult([withAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(true);
+  });
+
+  it("does NOT show the spotlight when the inspected passing test has no animation (regression: bouncer)", () => {
+    // Nothing would ever fire onComplete to clear it, so it must stay off.
+    const result = createMockTestSuiteResult([withoutAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(false);
+  });
+
+  it("does NOT show the spotlight when the suite has not passed", () => {
+    const failing = createMockTestResult({ status: "fail", animationTimeline: createMockAnimationTimeline() });
+    const result = createMockTestSuiteResult([failing]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(false);
+  });
+
+  it("does NOT show the spotlight when the exercise is already completed", () => {
+    const result = createMockTestSuiteResult([withAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], true)).toBe(false);
+  });
+
+  it("returns a strict boolean (not undefined) when result is null", () => {
+    expect(shouldShowSpotlight(null, undefined, false)).toBe(false);
   });
 });
 
