@@ -34,7 +34,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["conditionals", "else-if", "variables", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;
