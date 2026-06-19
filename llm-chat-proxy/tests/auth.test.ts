@@ -167,10 +167,18 @@ describe("Chat Endpoint Authentication", () => {
       .sign(secret);
   }
 
+  const usageStore = new Map<string, string>();
   const mockEnv = {
     DEVISE_JWT_SECRET_KEY: testSecret,
     GOOGLE_GEMINI_API_KEY: "test-gemini-key",
-    LLM_SIGNATURE_SECRET: "test-signature-secret"
+    LLM_SIGNATURE_SECRET: "test-signature-secret",
+    RATE_LIMITER: { limit: async () => ({ success: true }) },
+    USAGE_KV: {
+      get: async (key: string) => usageStore.get(key) ?? null,
+      put: async (key: string, value: string) => {
+        usageStore.set(key, value);
+      }
+    }
   };
 
   it("should accept valid JWT from Authorization header", async () => {

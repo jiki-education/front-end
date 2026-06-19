@@ -4,6 +4,7 @@ import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
 import { buildPrompt } from "./prompt-builder";
 import { createSignaturePayload, generateSignature } from "./crypto";
+import { checkUsage, recordUsage, buildUsageMeta } from "./usage";
 import type { Bindings, ChatRequest } from "./types";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -80,6 +81,38 @@ app.post("/chat", async (c) => {
     console.log("[Chat] ✅ JWT verified, user ID:", jwtResult.userId);
     const userId = jwtResult.userId;
 
+    // 1b. Per-user burst limit: 10 requests/minute, keyed on JWT sub.
+    // Checked before building the prompt so throttled requests never reach Gemini.
+    const { success } = await c.env.RATE_LIMITER.limit({ key: userId });
+    if (!success) {
+      console.log(`[Chat] ⛔ Rate limited user ${userId}`);
+      return c.json(
+        {
+          error: "rate_limited",
+          message: "Too many requests. Please wait a moment and try again."
+        },
+        429
+      );
+    }
+
+    // 1c. Per-user message caps: 100/day, 500/month (UTC), keyed on JWT sub.
+    // Checked before any work so capped users never reach Gemini (no cost).
+    const now = new Date();
+    const usage = await checkUsage(c.env.USAGE_KV, userId, now);
+    if (!usage.allowed) {
+      console.log(
+        `[Chat] ⛔ ${usage.scope} cap reached for user ${userId} (day=${usage.counts.day}, month=${usage.counts.month})`
+      );
+      return c.json(
+        {
+          error: "usage_limit_reached",
+          scope: usage.scope,
+          ...buildUsageMeta(usage.counts)
+        },
+        429
+      );
+    }
+
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
     const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash } = body;
@@ -104,8 +137,15 @@ app.post("/chat", async (c) => {
       );
     }
 
-    // 3. Fetch exercise content from app's static files and build prompt
-    const origin = c.req.header("Origin") || "https://jiki.io";
+    // 3. Fetch exercise content from app's static files and build prompt.
+    //
+    // In production we ALWAYS fetch from our own static bucket. The Origin header
+    // is client-controlled (only browsers are forced to send a truthful value),
+    // so trusting it in production would let a direct API caller point us at
+    // arbitrary/oversized JSON. The header is only honoured in development so
+    // local testing can hit localhost.
+    const isDev = process.env.NODE_ENV === "development";
+    const origin = isDev ? c.req.header("Origin") || "https://jiki.io" : "https://jiki.io";
     const contentUrl = `${origin}/static/exercises/${exerciseSlug}/en-${language}-${contentHash}.json`;
 
     const prompt = await buildPrompt({
@@ -118,14 +158,18 @@ app.post("/chat", async (c) => {
       contentUrl
     });
 
-    // 4. Stream from Gemini and collect full response
+    // 4. Record usage now that the request is committed to calling Gemini, then
+    // stream from Gemini and collect the full response. recordUsage returns the
+    // new totals (including this message) so we can report them to the client.
+    const usageCounts = await recordUsage(c.env.USAGE_KV, userId, now);
+
     let fullResponse = "";
     const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
       fullResponse += chunk;
     });
 
     // 5. Create a new stream that includes the signature at the end
-    const timestamp = new Date().toISOString();
+    const timestamp = now.toISOString();
     let signatureSent = false;
 
     const streamWithSignature = new ReadableStream({
@@ -152,7 +196,8 @@ app.post("/chat", async (c) => {
               signature,
               timestamp,
               exerciseSlug,
-              userMessage: question
+              userMessage: question,
+              ...buildUsageMeta(usageCounts)
             })}\n\n`;
             controller.enqueue(encoder.encode(signatureMessage));
             signatureSent = true;

@@ -50,6 +50,7 @@ function delay(ms: number): Promise<void> {
 
 type ModelConfig = (typeof MODEL_CHAIN)[number]["config"];
 type GeminiStream = Awaited<ReturnType<GoogleGenAI["models"]["generateContentStream"]>>;
+type GeminiChunk = GeminiStream extends AsyncIterable<infer C> ? C : never;
 
 /**
  * Attempts to open a stream for a single model, retrying transient network
@@ -88,35 +89,72 @@ async function tryModel(
 
 /**
  * Opens a stream from the first available model, cascading through the chain
- * on rate limits. Throws if every model is rate limited.
+ * on rate limits. Throws if every model is rate limited. Returns the model name
+ * alongside the stream so usage can be attributed to the model that served it.
  */
-async function openModelStream(ai: GoogleGenAI, prompt: string): Promise<GeminiStream> {
+async function openModelStream(ai: GoogleGenAI, prompt: string): Promise<{ result: GeminiStream; model: string }> {
   for (const { model, config } of MODEL_CHAIN) {
     const result = await tryModel(ai, model, config, prompt);
     if (result !== "rate-limited") {
-      return result;
+      return { result, model };
     }
   }
   throw new Error("All Gemini models are rate limited");
 }
 
 /**
- * Wraps a Gemini stream as a ReadableStream of text chunks, invoking onChunk
- * for each non-empty chunk.
+ * Logs token usage for a completed request. Breaks output into thinking vs
+ * visible tokens (thinking is billed as output) and surfaces cached prefix
+ * tokens, so we can measure the impact of the thinking budget and prefix caching.
  */
-function toTextStream(result: GeminiStream, onChunk?: (chunk: string) => void): ReadableStream {
+function logUsage(model: string, usage: GeminiChunk): void {
+  const meta = (usage as { usageMetadata?: Record<string, number> }).usageMetadata;
+  if (!meta) {
+    return;
+  }
+
+  const promptTokens = meta.promptTokenCount ?? 0;
+  const cachedTokens = meta.cachedContentTokenCount ?? 0;
+  // thoughtsTokenCount is billed as output but reported SEPARATELY from
+  // candidatesTokenCount (the visible answer). Billed output = candidates + thoughts.
+  const visibleTokens = meta.candidatesTokenCount ?? 0;
+  const thinkingTokens = meta.thoughtsTokenCount ?? 0;
+  const outputTokens = visibleTokens + thinkingTokens;
+  const totalTokens = meta.totalTokenCount ?? 0;
+  const cachedPct = promptTokens > 0 ? Math.round((cachedTokens / promptTokens) * 100) : 0;
+
+  console.log(
+    `[Gemini Usage] model=${model} input=${promptTokens} (cached=${cachedTokens}, ${cachedPct}%) ` +
+      `output=${outputTokens} (thinking=${thinkingTokens}, visible=${visibleTokens}) ` +
+      `total=${totalTokens}`
+  );
+}
+
+/**
+ * Wraps a Gemini stream as a ReadableStream of text chunks, invoking onChunk
+ * for each non-empty chunk. Captures usage metadata (which arrives on the final
+ * chunk, often with empty text) and logs it once streaming completes.
+ */
+function toTextStream(result: GeminiStream, model: string, onChunk?: (chunk: string) => void): ReadableStream {
   const encoder = new TextEncoder();
 
   return new ReadableStream({
     async start(controller) {
+      let lastChunk: GeminiChunk | undefined;
       try {
         for await (const chunk of result) {
+          // Keep the latest chunk so we can read its usageMetadata after the
+          // loop. The final chunk carries the totals and may have empty text.
+          lastChunk = chunk;
           const text = chunk.text ?? "";
           if (text.length === 0) {
             continue;
           }
           onChunk?.(text);
           controller.enqueue(encoder.encode(text));
+        }
+        if (lastChunk !== undefined) {
+          logUsage(model, lastChunk);
         }
         controller.close();
       } catch (error) {
@@ -142,6 +180,6 @@ export async function streamGeminiResponse(
   onChunk?: (chunk: string) => void
 ): Promise<ReadableStream> {
   const ai = new GoogleGenAI({ apiKey });
-  const result = await openModelStream(ai, prompt);
-  return toTextStream(result, onChunk);
+  const { result, model } = await openModelStream(ai, prompt);
+  return toTextStream(result, model, onChunk);
 }

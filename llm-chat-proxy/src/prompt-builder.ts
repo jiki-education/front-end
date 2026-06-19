@@ -99,15 +99,23 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   // Get LLM metadata for context-aware help
   const llmMetadata = getLLMMetadata(exerciseSlug);
 
-  // Build prompt sections
+  // Build prompt sections.
+  //
+  // Ordering matters for Gemini prefix caching: all static, per-exercise content
+  // is grouped first so it forms a stable prefix that implicit caching can reuse
+  // across messages. Dynamic content (history, question, current code) follows.
+  // The instructions block stays last because it ends with the "Response:"
+  // generation trigger; it is intentionally outside the cached prefix.
   const sections = [
+    // --- Cacheable prefix: identical for every message on the same exercise ---
     buildSystemMessage(),
     buildExerciseSection(llmMetadata, nextTaskId),
     buildTaughtConceptsSection(exercise),
-    buildConversationHistorySection(history),
-    buildStudentQuestionSection(question),
     buildInitialCodeSection(content.stub, language),
     buildTargetCodeSection(content.solution, language),
+    // --- Dynamic suffix: changes per message ---
+    buildConversationHistorySection(history),
+    buildStudentQuestionSection(question),
     buildCurrentCodeSection(code, language),
     buildInstructionsSection()
   ];
@@ -125,31 +133,29 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
 }
 
 function buildSystemMessage(): string {
-  return `
-  ### Context
+  return `### Context
 
-  You are a helpful coding tutor assisting a student with a programming exercise.
-  You are operating within a coding education platform called Jiki.
-  Jiki is made by the team being Exercism. The course is taught by Jeremy Walker.
-  Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
-  Students are encouraged to think in those terms.
+You are a helpful coding tutor assisting a student with a programming exercise.
+You are operating within a coding education platform called Jiki.
+Jiki is made by the team being Exercism. The course is taught by Jeremy Walker.
+Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
+Students are encouraged to think in those terms.
 
-  They are using a variant of JavaScript that has these additional features:
-  - \`random(x) { ... }\` - Loops x times.
-  - \`random() { ... }\` Loops until the exercise exits.
-  - \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
+They are using a variant of JavaScript that has these additional features:
+- \`random(x) { ... }\` - Loops x times.
+- \`random() { ... }\` Loops until the exercise exits.
+- \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
 
-  The student is on a page with:
-  - Code editor at the top left.
-  - Scenarios (effectively test-cases) at the bottom-left.
-  - THe RHS a series of tables including instructions and this window in which they're talking to you.
+The student is on a page with:
+- Code editor at the top left.
+- Scenarios (effectively test-cases) at the bottom-left.
+- THe RHS a series of tables including instructions and this window in which they're talking to you.
 
-  **WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
+**WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
 
-  Much of this information may be irrelevant, but if it comes up you can use it.
+Much of this information may be irrelevant, but if it comes up you can use it.
 
-  They have written to you (see conversation below).
-  `;
+They have written to you (see conversation below).`;
 }
 
 function buildExerciseSection(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string | null {
@@ -212,7 +218,7 @@ function buildInitialCodeSection(code: string | null, language: Language): strin
 
   return `## Initial Code
 
-  What we gave the student as their starting point.
+What we gave the student as their starting point.
 
 \`\`\`javascript
 ${code}
