@@ -7,43 +7,53 @@ let windowColor = "white"
 let doorColor = "dark brown"
 let knobColor = "yellow"
 
+// Canvas
+let canvasWidth = 100
+
 // House frame
-let houseLeft = 20
-let houseTop = 50
 let houseWidth = 60
 let houseHeight = 40
 
+// Center and position the frame
+let centerX = canvasWidth / 2
+let houseLeft = centerX - houseWidth / 2
+
+// Grass
+let grassHeight = 15
+let grassTop = 100 - grassHeight
+
+// The house sits 5 below the top of the grass, and grows upward from there
+let houseBottom = grassTop + 5
+let houseTop = houseBottom - houseHeight
+
 // Roof
-let roofOverhang = 4
-let roofHeight = 20
+let roofOverhang = houseWidth / 10
+let roofHeight = houseHeight / 2
 let roofLeft = houseLeft - roofOverhang
 let roofRight = houseLeft + houseWidth + roofOverhang
-let roofPeakX = houseLeft + houseWidth / 2
+let roofPeakX = centerX
 let roofPeakY = houseTop - roofHeight
 let roofBaseY = houseTop
 
 // Windows
-let windowWidth = 12
-let windowHeight = 13
-let windowInset = 10
-let windowTop = houseTop + 5
+let windowWidth = houseWidth / 5
+let windowHeight = houseHeight / 3
+let windowInset = houseWidth / 7
+let windowTop = houseTop + houseHeight / 8
 let window1Left = houseLeft + windowInset
 let window2Left = houseLeft + houseWidth - windowInset - windowWidth
 
 // Door
-let doorWidth = 14
-let doorHeight = 18
-let doorLeft = houseLeft + (houseWidth - doorWidth) / 2
-let doorTop = houseTop + houseHeight - doorHeight
+let doorWidth = houseWidth / 5
+let doorHeight = houseHeight / 2
+let doorLeft = centerX - doorWidth / 2
+let doorTop = houseBottom - doorHeight
 
 // Door knob
-let knobRadius = 1
-let knobX = doorLeft + doorWidth - knobRadius - 1
+let knobRadius = doorWidth / 10
+let knobOffset = doorWidth / 10
+let knobX = doorLeft + doorWidth - knobRadius - knobOffset
 let knobY = doorTop + doorHeight / 2
-
-// Grass
-let grassHeight = 20
-let grassTop = 100 - grassHeight
 
 // The sky
 rectangle(0, 0, 100, 100, skyColor)
