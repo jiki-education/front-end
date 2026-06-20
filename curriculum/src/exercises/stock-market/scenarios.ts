@@ -100,6 +100,11 @@ export const scenarios: VisualScenario[] = [
         errorHtml: `Expected a final balance of approximately $${expectedBalance.toFixed(2)} but got $${ex.announcedBalance?.toFixed(2) ?? "nothing"}. Make sure you call <code>announceToFamily()</code> after the loop.`
       });
 
+      expectations.push({
+        pass: ex.announceCount === 1,
+        errorHtml: `You should only announce to your family <strong>once</strong>, after the 20 years are up, not every year. You called <code>announceToFamily()</code> ${ex.announceCount} ${ex.announceCount === 1 ? "time" : "times"}.`
+      });
+
       return expectations;
     }
   }
