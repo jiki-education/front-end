@@ -4,10 +4,10 @@
   "hints": [
     {
       "question": "I don't know how to get started",
-      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then use `displayTime(hour, minute, \"am\")` with their values to see what happens. Then work out how to set the correct meridien and the correct hour display."
+      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then use `displayTime(hour, minutes, \"am\")` with their values to see what happens. Then work out how to set the correct meridiem and the correct hour display."
     },
     {
-      "question": "How does the meridien work?",
+      "question": "How does the meridiem work?",
       "answer": "Hours 0-11 are 'am', hours 12-23 are 'pm'. Midnight (hour 0) should display as 12am. Noon (hour 12) should display as 12pm."
     },
     {
