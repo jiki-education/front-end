@@ -7,8 +7,8 @@
 # Colors
 sky_color = "skyblue"
 grass_color = "green"
-house_color = "brick"
-roof_color = "brown"
+house_color = "brown"
+roof_color = "brick"
 window_color = "white"
 door_color = "dark brown"
 knob_color = "yellow"

@@ -7,8 +7,8 @@
 // Colors
 set sky_color to "skyblue"
 set grass_color to "green"
-set house_color to "brick"
-set roof_color to "brown"
+set house_color to "brown"
+set roof_color to "brick"
 set window_color to "white"
 set door_color to "dark brown"
 set knob_color to "yellow"

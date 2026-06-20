@@ -33,7 +33,7 @@ const functions: FunctionInfo[] = [
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
     description: "Draw a triangle with three corner points and a color",
     examples: [
-      'triangle(50, 20, 40, 40, 60, 40, "brown")',
+      'triangle(50, 20, 40, 40, 60, 40, "brick")',
       "triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY, roofColor)"
     ],
     category: "Drawing Shapes"
