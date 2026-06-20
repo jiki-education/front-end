@@ -3,6 +3,23 @@ import { VisualExercise } from "../../VisualExercise";
 
 type CellType = "wall" | "entrance" | "glass";
 
+// Mulberry32 - a simple, fast seeded PRNG (matches interpreters/src/shared/random.ts).
+// The width and floors sequences are kept independent so a student's results
+// don't depend on the order in which they call randomWidth()/randomNumFloors().
+function mulberry32(seed: number): () => number {
+  let state = seed | 0;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Offset applied to the seed for the floors stream so it is independent of the
+// width stream. The test suite (scenarios.ts) mirrors this constant.
+export const FLOORS_SEED_OFFSET = 0x9e3779b9;
+
 export default class CityScapeExercise extends VisualExercise {
   protected get slug() {
     return "cityscape";
@@ -16,6 +33,8 @@ export default class CityScapeExercise extends VisualExercise {
   private numFloors = 3;
   private numBuildings = 1;
   private gridContainer!: HTMLElement;
+  private widthRng?: () => number;
+  private floorsRng?: () => number;
 
   constructor() {
     super();
@@ -58,8 +77,26 @@ export default class CityScapeExercise extends VisualExercise {
     const xVal = x.value;
     const yVal = y.value;
 
+    if (!Number.isInteger(xVal)) {
+      return executionCtx.logicError(
+        `You must use whole numbers for \`x\` and \`y\`. You provided \`x\` as \`${xVal}\`, which isn't allowed.`
+      );
+    }
+    if (!Number.isInteger(yVal)) {
+      return executionCtx.logicError(
+        `You must use whole numbers for \`x\` and \`y\`. You provided \`y\` as \`${yVal}\`, which isn't allowed.`
+      );
+    }
+
     if (xVal < 1 || xVal > this.COLS || yVal < 1 || yVal > this.ROWS) {
       return executionCtx.logicError(`Position (${xVal}, ${yVal}) is outside the grid`);
+    }
+
+    const existing = this.grid.get(`${xVal},${yVal}`);
+    if (existing !== undefined) {
+      return executionCtx.logicError(
+        `The builders are stuck. There's already a ${existing} at the coordinates \`(${xVal}, ${yVal})\` so they can't build here!`
+      );
     }
 
     this.grid.set(`${xVal},${yVal}`, type);
@@ -97,13 +134,28 @@ export default class CityScapeExercise extends VisualExercise {
     return this.numBuildings;
   }
 
-  getRandomWidth(executionCtx: ExecutionContext): number {
-    // Returns 3, 5, or 7 (odd widths only, so entrance is always centered)
-    return Math.floor(executionCtx.random() * 3) * 2 + 3;
+  private ensureRngs() {
+    if (this.widthRng && this.floorsRng) {
+      return;
+    }
+    // Each quantity draws from its own stream so the Nth call to randomWidth()
+    // always returns the Nth building's width, regardless of how it is
+    // interleaved with randomNumFloors() calls.
+    // Unseeded (free-play) runs alias Math.random for both, which is fine:
+    // nothing reconstructs the sequence by position, so call order is irrelevant.
+    this.widthRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed);
+    this.floorsRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed ^ FLOORS_SEED_OFFSET);
   }
 
-  getRandomNumFloors(executionCtx: ExecutionContext): number {
-    return Math.floor(executionCtx.random() * 12) + 1;
+  getRandomWidth(_executionCtx: ExecutionContext): number {
+    this.ensureRngs();
+    // Returns 3, 5, or 7 (odd widths only, so entrance is always centered)
+    return Math.floor(this.widthRng!() * 3) * 2 + 3;
+  }
+
+  getRandomNumFloors(_executionCtx: ExecutionContext): number {
+    this.ensureRngs();
+    return Math.floor(this.floorsRng!() * 12) + 1;
   }
 
   setupNumFloors(n: number) {

@@ -31,15 +31,29 @@ export const llmMetadata: LLMMetadata = {
               - Wall at x, glass up to entrance, entrance at x + entranceOffset,
                 glass after entrance, wall at x + width - 1
               - Uses two repeat loops for glass on each side of entrance (entranceOffset - 1 each)
-           e. Build upper floors (y=3 upward) with nested repeat:
+           e. Build upper floors (y=3 upward) with nested repeat. The ground
+              floor already counts as the first floor, so this loop runs
+              floors - 1 times (NOT floors):
               - Wall at x, glass across middle (width - 2 cells), wall at x + width - 1
-           f. Build roof at final y: all walls across width
+           f. Build roof at final y (floors + 2): all walls across width. The
+              roof is a cap, not a floor.
            g. Move x by width + 1 for the next building (1-column gap)
 
         The solution uses a col variable to track horizontal position within each row,
         resetting it for each new row.
 
         Common mistakes:
+        - Off-by-one on the floor count: drawing floors upper floors instead of
+          floors - 1. randomNumFloors() is the TOTAL number of floors including
+          the ground floor; the roof on top is not a floor. A building with
+          floors=N is N+1 rows tall (ground + (N-1) upper + roof).
+        - Drawing two cells on the same square now raises a logic error
+          ("The builders are stuck. There's already a <type> at ..."). Usually
+          caused by not advancing the building's left column between buildings,
+          or by overlapping rows.
+        - Using width / 2 instead of (width - 1) / 2 for the entrance column —
+          width / 2 is fractional for odd widths and raises a "must use whole
+          numbers" logic error.
         - Not resetting y to 3 for each building
         - Forgetting the 1-column gap between buildings (x += width + 1, not x += width)
         - Wrong entrance position — must be centered using (width - 1) / 2

@@ -612,6 +612,10 @@
     line-height: 1.4;
 }
 
+.testFeedback .message code {
+    white-space: nowrap;
+}
+
 .testDescription.stateFailed .testFeedback {
     background: var(--color-red-50);
 }

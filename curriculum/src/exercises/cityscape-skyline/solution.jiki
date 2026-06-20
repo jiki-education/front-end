@@ -26,7 +26,7 @@ repeat buildings times do
   build_wall(x + width - 1, 2)
 
   change y to 3
-  repeat floors times do
+  repeat floors - 1 times do
     build_wall(x, y)
     change col to x + 1
     repeat width - 2 times do

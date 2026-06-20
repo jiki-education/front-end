@@ -3,8 +3,28 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "This is hard!",
-      "answer": "It is a challenge! Break it down. One step at a time. Get the first scenario passing, then the second, etc."
+      "question": "Where do I start with such a big exercise?",
+      "answer": "Break it down. The outer shape is one loop per building. Inside that loop, you draw three things in turn: the ground floor (with the entrance), the upper floors (just walls and glass), and the flat roof. Get the first scenario passing for a single building before worrying about multiple buildings."
+    },
+    {
+      "question": "How do I know what each building should look like?",
+      "answer": "Call `randomWidth()` and `randomNumFloors()` once at the start of each building's iteration and store both in local variables. Calling them again gives you the *next* building's values, so don't call them again inside the rows."
+    },
+    {
+      "question": "How do I track where the next building goes?",
+      "answer": "Keep a single variable for the current building's left-hand column. Start it at the spec's left gap. After you've finished a building, advance it by that building's width plus the gap between buildings. That one variable is all the horizontal positioning state you need."
+    },
+    {
+      "question": "How do I lay out the ground floor with the entrance in the middle?",
+      "answer": "Walk across the building one column at a time. The first and last columns are walls; everything in between is glass; one middle column is the entrance. The entrance's column is derived from the building's left edge and its width."
+    },
+    {
+      "question": "How do I draw the upper floors and the roof?",
+      "answer": "Each upper floor is the same pattern as the ground floor without the entrance: walls at the sides, glass in between. Remember the ground floor already counts as one of the floors, so you only stack the remaining ones above it, climbing in `y`. The roof is then one solid row of walls spanning the full width on top, and isn't counted as a floor."
+    },
+    {
+      "question": "My second building errors with \"the builders are stuck, there's already a wall here\". What's wrong?",
+      "answer": "Your second building is trying to build on top of the first one, because you're not advancing your column tracker between buildings. After drawing each building, increase it by `width + gap` before the next iteration starts. If you forget, every building starts from the same left edge and collides with the one before it."
     }
   ]
 }
