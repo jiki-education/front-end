@@ -17,6 +17,7 @@ export default class StockMarketExercise extends VisualExercise {
   private growthRates: Record<number, number> = {};
   taxReports: { year: number; balance: number }[] = [];
   announcedBalance: number | undefined;
+  announceCount = 0;
   private yearIndex = 0;
   private moneyValues: number[] = [];
 
@@ -183,6 +184,7 @@ export default class StockMarketExercise extends VisualExercise {
       return executionCtx.logicError("Money must be a number");
     }
     this.announcedBalance = money.value;
+    this.announceCount++;
   }
 
   protected populateView() {
