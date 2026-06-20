@@ -1,7 +1,8 @@
 import { useState, type KeyboardEvent } from "react";
 
-// Kept well under the proxy's 5000-char question limit so the client is always
-// the binding constraint and users never hit an opaque server-side rejection.
+// Matches the proxy's QUESTION_MAX_LENGTH (1000 chars). Enforcing the same limit
+// client-side means users get inline feedback instead of an opaque server-side
+// rejection. Keep these two values in sync.
 export const DEFAULT_MAX_QUESTION_LENGTH = 1000;
 
 interface UseChatInputOptions {
