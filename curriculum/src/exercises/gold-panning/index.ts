@@ -13,9 +13,9 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "sell",
-    signature: "sell(nuggets)",
+    signature: "sell(numberOfNuggets)",
     description: "Sells your gold nuggets at the trading post.",
-    examples: ["sell(nuggets)"],
+    examples: ["sell(numberOfNuggets)"],
     category: "Action"
   }
 ];
