@@ -134,7 +134,7 @@ export default class StockMarketExercise extends VisualExercise {
     graphArea.appendChild(valueEl);
   }
 
-  private market_growth(executionCtx: ExecutionContext, year: Shared.JikiObject): number {
+  private marketGrowth(executionCtx: ExecutionContext, year: Shared.JikiObject): number {
     if (!isNumber(year)) {
       return executionCtx.logicError("Year must be a number");
     }
@@ -169,7 +169,7 @@ export default class StockMarketExercise extends VisualExercise {
     return rate;
   }
 
-  private report_tax(executionCtx: ExecutionContext, year: Shared.JikiObject, balance: Shared.JikiObject) {
+  private reportTax(executionCtx: ExecutionContext, year: Shared.JikiObject, balance: Shared.JikiObject) {
     if (!isNumber(year)) {
       return executionCtx.logicError("Year must be a number");
     }
@@ -179,7 +179,7 @@ export default class StockMarketExercise extends VisualExercise {
     this.taxReports.push({ year: year.value, balance: balance.value });
   }
 
-  private announce_to_family(executionCtx: ExecutionContext, money: Shared.JikiObject) {
+  private announceToFamily(executionCtx: ExecutionContext, money: Shared.JikiObject) {
     if (!isNumber(money)) {
       return executionCtx.logicError("Money must be a number");
     }
@@ -196,19 +196,19 @@ export default class StockMarketExercise extends VisualExercise {
   availableFunctions = [
     {
       name: "market_growth",
-      func: this.market_growth.bind(this),
+      func: this.marketGrowth.bind(this),
       description: "got market growth of ${return}% for year ${arg1}",
       arity: 1 as const
     },
     {
       name: "report_tax",
-      func: this.report_tax.bind(this),
+      func: this.reportTax.bind(this),
       description: "reported tax for year ${arg1}: $${arg2}",
       arity: 2 as const
     },
     {
       name: "announce_to_family",
-      func: this.announce_to_family.bind(this),
+      func: this.announceToFamily.bind(this),
       description: "announced $${arg1} to the family",
       arity: 1 as const
     }
