@@ -2,7 +2,7 @@
  * Performance optimization utilities for keyboard handling
  */
 
-interface ThrottledFunction<T extends (...args: any[]) => any> {
+export interface ThrottledFunction<T extends (...args: any[]) => any> {
   (...args: Parameters<T>): void;
   cancel: () => void;
   flush: () => void;

@@ -1,6 +1,7 @@
 import React from "react";
 import { showModal } from "../modal";
 import { KeyboardHelpModal } from "./KeyboardHelpModal";
+import type { ThrottledFunction } from "./PerformanceOptimizer";
 import { PerformanceMonitor, debounce, throttle } from "./PerformanceOptimizer";
 import { ScopeManager } from "./ScopeManager";
 import { SequenceBuffer } from "./SequenceBuffer";
@@ -13,7 +14,10 @@ class KeyboardManager {
   private readonly scopes = new ScopeManager();
   private readonly sequence = new SequenceBuffer();
   private readonly performanceMonitor = new PerformanceMonitor();
-  private optimizedHandlers = new WeakMap<KeyboardHandler, KeyboardHandler>();
+  private optimizedHandlers = new WeakMap<
+    KeyboardHandler,
+    KeyboardHandler & Partial<ThrottledFunction<KeyboardHandler>>
+  >();
   private isEnabled = true;
   private isInitialized = false;
 
@@ -84,8 +88,8 @@ class KeyboardManager {
     return () => {
       // Clean up optimized handler if it exists
       const cached = this.optimizedHandlers.get(handler);
-      if (cached && "cancel" in cached) {
-        (cached as any).cancel();
+      if (cached && cached.cancel) {
+        cached.cancel();
         this.optimizedHandlers.delete(handler);
       }
       this.registry.unregister(normalizedKeys, id);

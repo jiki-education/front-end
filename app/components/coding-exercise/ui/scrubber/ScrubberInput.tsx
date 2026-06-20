@@ -82,7 +82,7 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         if (!enabled) {
           return;
         }
-        handleOnKeyDown(event as any, animationTimeline, frames);
+        handleOnKeyDown(event, animationTimeline, frames);
       },
       [enabled, animationTimeline, frames]
     );
@@ -92,7 +92,7 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         if (!enabled) {
           return;
         }
-        handleOnKeyUp(event as any, animationTimeline);
+        handleOnKeyUp(event, animationTimeline);
       },
       [enabled, animationTimeline]
     );
