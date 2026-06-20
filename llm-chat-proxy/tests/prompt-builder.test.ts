@@ -118,9 +118,7 @@ describe("Prompt Builder", () => {
   });
 
   it("leaves short history messages unmarked", async () => {
-    const prompt = await buildPrompt(
-      defaultOpts({ history: [{ role: "user", content: "hi" }] })
-    );
+    const prompt = await buildPrompt(defaultOpts({ history: [{ role: "user", content: "hi" }] }));
     expect(prompt).not.toContain("[…truncated]");
   });
 
