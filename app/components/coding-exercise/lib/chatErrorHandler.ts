@@ -45,7 +45,7 @@ export function formatChatError(error: unknown): string {
     if (error.status === 401) {
       // Check specific error type for better user messaging
       if (error.data && typeof error.data === "object") {
-        const errorData = error.data as any;
+        const errorData = error.data as { error?: string };
         if (errorData.error === "token_expired") {
           // This is shown after auto-retry has failed
           return "Session expired. Please try again.";
@@ -91,7 +91,7 @@ export function shouldRetryError(error: unknown): boolean {
   if (error instanceof ChatApiError) {
     // Don't retry expired tokens - they should be handled by refresh logic
     if (error.status === 401 && error.data && typeof error.data === "object") {
-      const errorData = error.data as any;
+      const errorData = error.data as { error?: string };
       if (errorData.error === "token_expired") {
         return false; // Refresh logic handles this
       }

@@ -107,6 +107,10 @@ describe("useUnderlineRange", () => {
 
   it("should handle transition from range to undefined", () => {
     const { rerender } = renderHook(({ range }) => useUnderlineRange(mockEditorView as EditorView, range), {
+      // ESLint thinks this assertion is unnecessary, but it widens the inferred initialProps type so
+      // the later rerender({ range: undefined }) typechecks. A plain annotation gets narrowed back by
+      // control-flow analysis, so the assertion is the only way to keep the union type here.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       initialProps: { range: { from: 10, to: 20 } as { from: number; to: number } | undefined }
     });
 
