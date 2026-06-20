@@ -40,7 +40,24 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"]
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"],
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 17 },
+      { fromLine: 16, toLine: 16, toChar: 18 }
+    ],
+    python: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 14 },
+      { fromLine: 16, toLine: 16, toChar: 15 }
+    ],
+    jikiscript: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 19 },
+      { fromLine: 16, toLine: 16, toChar: 20 }
+    ]
+  }
 };
 
 export default exerciseDefinition;

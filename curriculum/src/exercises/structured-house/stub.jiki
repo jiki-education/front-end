@@ -1,10 +1,4 @@
-// Draw a house!
-// We've set up the colors for you.
-// Think about the relationships between things.
-// Can you make it so changing house_left and house_top
-// moves the entire house?
-
-// Colors
+// These colors are fixed for you.
 set sky_color to "skyblue"
 set grass_color to "green"
 set house_color to "brown"
@@ -12,3 +6,12 @@ set roof_color to "brick"
 set window_color to "white"
 set door_color to "dark brown"
 set knob_color to "yellow"
+
+// The canvas is 100 wide.
+set canvas_width to 100
+
+// Change these two values to check your house scales correctly,
+// but build everything else relative to them.
+set house_width to 60
+set house_height to 40
+
