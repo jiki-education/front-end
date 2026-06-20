@@ -1,0 +1,32 @@
+.bar {
+    padding: 8px 42px;
+    background: var(--color-amber-50);
+    border-top: 1px solid var(--color-amber-100);
+}
+
+.text {
+    font-size: 14px;
+    color: var(--color-amber-700);
+}
+
+/* Terminal "limit reached" state — slightly stronger than the soft warning. */
+.cap {
+    border-top-color: var(--color-amber-200);
+}
+
+.cap .text {
+    color: var(--color-amber-800);
+    font-weight: 500;
+}
+
+.link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-amber-800);
+    text-decoration: underline;
+    white-space: nowrap;
+}
+
+.link:hover {
+    color: var(--color-amber-900);
+}

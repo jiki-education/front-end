@@ -4,10 +4,11 @@ import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
-import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
+import { sendChatMessage, ChatTokenExpiredError, ChatUsageLimitError } from "./chatApi";
 import { ConversationSaveCaptchaError, saveConversation } from "./conversationApi";
 import { ChatTokenAccessDeniedError, ChatTokenInvalidCaptchaError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
+import { extractUsage } from "./chatUsage";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
@@ -71,6 +72,13 @@ export function useChat(orchestrator: Orchestrator) {
           },
           onSignature: (signature) => {
             chatState.setSignature(signature);
+            // The proxy reports the user's current usage on the signature event.
+            // Capturing it lets us drive the "getting close" warning and pre-empt
+            // the cap (disable the composer once the user is at their limit).
+            const usage = extractUsage(signature);
+            if (usage) {
+              chatState.setUsage(usage);
+            }
           },
           onError: (error) => {
             chatState.setError(error);
@@ -146,6 +154,15 @@ export function useChat(orchestrator: Orchestrator) {
         if (error instanceof ChatTokenInvalidCaptchaError) {
           chatState.setError("Verification failed, please try again.");
           chatState.setStatus("error");
+          return;
+        }
+
+        // Quota cap: record the usage so the composer disables and shows the cap
+        // notice. We deliberately don't set an error/retry here — the cap won't
+        // recover until reset, so a "Try Again" button would be misleading.
+        if (error instanceof ChatUsageLimitError) {
+          chatState.setUsage(error.usage);
+          chatState.setStatus("idle");
           return;
         }
 

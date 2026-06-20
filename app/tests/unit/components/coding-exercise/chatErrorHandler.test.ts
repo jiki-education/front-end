@@ -1,5 +1,7 @@
 import { formatChatError, shouldRetryError } from "@/components/coding-exercise/lib/chatErrorHandler";
-import { ChatApiError } from "@/components/coding-exercise/lib/chatApi";
+import { ChatApiError, ChatRateLimitedError, ChatUsageLimitError } from "@/components/coding-exercise/lib/chatApi";
+
+const usage = { messagesToday: 100, messagesThisMonth: 480, dailyLimit: 100, monthlyLimit: 500 };
 
 describe("chatErrorHandler", () => {
   describe("formatChatError", () => {
@@ -32,6 +34,21 @@ describe("chatErrorHandler", () => {
       const error = new Error("Failed to fetch");
       expect(formatChatError(error)).toBe("Network error. Please check your connection and try again.");
     });
+
+    it("formats daily usage-limit errors with the UTC reset", () => {
+      const error = new ChatUsageLimitError("daily", usage);
+      expect(formatChatError(error)).toBe("You've used all 100 of today's messages. They reset at midnight UTC.");
+    });
+
+    it("formats monthly usage-limit errors with the 1st reset", () => {
+      const error = new ChatUsageLimitError("monthly", usage);
+      expect(formatChatError(error)).toBe("You've used all 500 messages this month. They reset on the 1st.");
+    });
+
+    it("formats rate-limited errors using the proxy message", () => {
+      const error = new ChatRateLimitedError("Too many requests. Please wait a moment and try again.");
+      expect(formatChatError(error)).toBe("Too many requests. Please wait a moment and try again.");
+    });
   });
 
   describe("shouldRetryError", () => {
@@ -58,6 +75,14 @@ describe("chatErrorHandler", () => {
     it("retries network errors", () => {
       const error = new Error("Failed to fetch");
       expect(shouldRetryError(error)).toBe(true);
+    });
+
+    it("does not retry usage-limit errors (won't recover until reset)", () => {
+      expect(shouldRetryError(new ChatUsageLimitError("daily", usage))).toBe(false);
+    });
+
+    it("does not auto-retry rate-limited errors (would prolong the throttle)", () => {
+      expect(shouldRetryError(new ChatRateLimitedError())).toBe(false);
     });
   });
 });

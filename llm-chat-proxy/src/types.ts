@@ -25,4 +25,6 @@ export interface Bindings {
   GOOGLE_GEMINI_API_KEY: string;
   DEVISE_JWT_SECRET_KEY: string;
   LLM_SIGNATURE_SECRET: string;
+  RATE_LIMITER: RateLimit; // Workers rate-limit binding (see wrangler.toml [[ratelimits]])
+  USAGE_KV: KVNamespace; // Per-user daily/monthly message counters (see usage.ts)
 }

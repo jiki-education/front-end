@@ -20,25 +20,39 @@ interface PromptOptions {
 
 // Input validation limits to prevent abuse and prompt injection
 export const INPUT_LIMITS = {
-  CODE_MAX_LENGTH: 50000, // 50KB of code
-  QUESTION_MAX_LENGTH: 5000, // 5KB question
-  HISTORY_MAX_MESSAGES: 10, // Maximum messages in history
-  HISTORY_TOTAL_LENGTH: 50000, // 50KB total history
-  MESSAGE_MAX_LENGTH: 10000 // 10KB per message
+  CODE_MAX_LENGTH: 16000, // ~500 LOC. Code is CROPPED to this (not rejected) - see cropCode.
+  QUESTION_MAX_LENGTH: 1000, // Single user comment; rejected if exceeded.
+  HISTORY_MAX_MESSAGES: 10, // Maximum messages in history (validation: reject if exceeded)
+  HISTORY_RENDER_MESSAGES: 10, // How many of the most recent messages to include in the prompt
+  HISTORY_TOTAL_LENGTH: 50000, // 50KB total history (coarse validation guard)
+  MESSAGE_MAX_LENGTH: 10000, // 10KB per history message (coarse validation guard)
+  // Per-role caps applied when RENDERING history: each message is cropped (not
+  // rejected) to keep replayed context small. Student turns get more room than
+  // the LLM's own prior replies.
+  HISTORY_USER_MESSAGE_MAX_LENGTH: 1000,
+  HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH: 500
 } as const;
 
 /**
+ * Crops the student's code to the maximum length we send to the model.
+ * Returns the (possibly truncated) code and whether truncation happened, so the
+ * prompt can tell the model the code is incomplete.
+ */
+function cropCode(code: string): { code: string; wasCropped: boolean } {
+  if (code.length <= INPUT_LIMITS.CODE_MAX_LENGTH) {
+    return { code, wasCropped: false };
+  }
+  return { code: code.slice(0, INPUT_LIMITS.CODE_MAX_LENGTH), wasCropped: true };
+}
+
+/**
  * Validates and sanitizes user input to prevent prompt injection and abuse.
- * @param code - User's code
  * @param question - User's question
  * @param history - Conversation history
  * @throws Error if input exceeds limits
  */
-function validateInput(code: string, question: string, history: ChatMessage[]): void {
-  // Validate code length
-  if (code.length > INPUT_LIMITS.CODE_MAX_LENGTH) {
-    throw new Error(`Code exceeds maximum length of ${INPUT_LIMITS.CODE_MAX_LENGTH} characters`);
-  }
+function validateInput(question: string, history: ChatMessage[]): void {
+  // Note: code is not validated here - it is cropped (see cropCode), not rejected.
 
   // Validate question length
   if (question.length > INPUT_LIMITS.QUESTION_MAX_LENGTH) {
@@ -87,7 +101,10 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   const { exerciseSlug, code, question, history, nextTaskId, language, contentUrl } = options;
 
   // Validate input before building prompt
-  validateInput(code, question, history);
+  validateInput(question, history);
+
+  // Crop overly long code rather than rejecting the whole request.
+  const { code: croppedCode, wasCropped: codeWasCropped } = cropCode(code);
 
   // Load exercise core (scenarios, tasks, level) and content (stub, solution) in parallel
   const [exercise, content] = await Promise.all([getExercise(exerciseSlug), fetchExerciseContent(contentUrl)]);
@@ -99,16 +116,24 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
   // Get LLM metadata for context-aware help
   const llmMetadata = getLLMMetadata(exerciseSlug);
 
-  // Build prompt sections
+  // Build prompt sections.
+  //
+  // Ordering matters for Gemini prefix caching: all static, per-exercise content
+  // is grouped first so it forms a stable prefix that implicit caching can reuse
+  // across messages. Dynamic content (history, question, current code) follows.
+  // The instructions block stays last because it ends with the "Response:"
+  // generation trigger; it is intentionally outside the cached prefix.
   const sections = [
+    // --- Cacheable prefix: identical for every message on the same exercise ---
     buildSystemMessage(),
     buildExerciseSection(llmMetadata, nextTaskId),
     buildTaughtConceptsSection(exercise),
-    buildConversationHistorySection(history),
-    buildStudentQuestionSection(question),
     buildInitialCodeSection(content.stub, language),
     buildTargetCodeSection(content.solution, language),
-    buildCurrentCodeSection(code, language),
+    // --- Dynamic suffix: changes per message ---
+    buildConversationHistorySection(history),
+    buildStudentQuestionSection(question),
+    buildCurrentCodeSection(croppedCode, language, codeWasCropped),
     buildInstructionsSection()
   ];
 
@@ -125,31 +150,29 @@ export async function buildPrompt(options: PromptOptions): Promise<string> {
 }
 
 function buildSystemMessage(): string {
-  return `
-  ### Context
+  return `### Context
 
-  You are a helpful coding tutor assisting a student with a programming exercise.
-  You are operating within a coding education platform called Jiki.
-  Jiki is made by the team being Exercism. The course is taught by Jeremy Walker.
-  Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
-  Students are encouraged to think in those terms.
+You are a helpful coding tutor assisting a student with a programming exercise.
+You are operating within a coding education platform called Jiki.
+Jiki is made by the team being Exercism. The course is taught by Jeremy Walker.
+Students are taught with anologies using a character called Jiki who lives in a warehouse, has boxes for variables, and shelves for machines.
+Students are encouraged to think in those terms.
 
-  They are using a variant of JavaScript that has these additional features:
-  - \`random(x) { ... }\` - Loops x times.
-  - \`random() { ... }\` Loops until the exercise exits.
-  - \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
+They are using a variant of JavaScript that has these additional features:
+- \`random(x) { ... }\` - Loops x times.
+- \`random() { ... }\` Loops until the exercise exits.
+- \`Math.randomNumber(format, to)\` - returns a random integer - from and to are inclusive.
 
-  The student is on a page with:
-  - Code editor at the top left.
-  - Scenarios (effectively test-cases) at the bottom-left.
-  - THe RHS a series of tables including instructions and this window in which they're talking to you.
+The student is on a page with:
+- Code editor at the top left.
+- Scenarios (effectively test-cases) at the bottom-left.
+- THe RHS a series of tables including instructions and this window in which they're talking to you.
 
-  **WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
+**WE** are providing you with their code and the other information. You should operate **as if you can see the UI they're working in and their code**.
 
-  Much of this information may be irrelevant, but if it comes up you can use it.
+Much of this information may be irrelevant, but if it comes up you can use it.
 
-  They have written to you (see conversation below).
-  `;
+They have written to you (see conversation below).`;
 }
 
 function buildExerciseSection(llmMetadata: LLMMetadata | undefined, nextTaskId?: string): string | null {
@@ -192,8 +215,17 @@ function buildConversationHistorySection(history: ChatMessage[]): string | null 
   }
 
   const conversationHistory = history
-    .slice(-5)
-    .map((msg) => `${msg.role === "user" ? "Student" : "You"}: ${msg.content}`)
+    .slice(-INPUT_LIMITS.HISTORY_RENDER_MESSAGES)
+    .map((msg) => {
+      const isUser = msg.role === "user";
+      const speaker = isUser ? "Student" : "You";
+      const cap = isUser
+        ? INPUT_LIMITS.HISTORY_USER_MESSAGE_MAX_LENGTH
+        : INPUT_LIMITS.HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH;
+      // Crop per role, marking the cut so the model knows the turn is incomplete.
+      const content = msg.content.length > cap ? `${msg.content.slice(0, cap)} […truncated]` : msg.content;
+      return `${speaker}: ${content}`;
+    })
     .join("\n\n");
 
   return `## Conversation History\n${conversationHistory}`;
@@ -212,7 +244,7 @@ function buildInitialCodeSection(code: string | null, language: Language): strin
 
   return `## Initial Code
 
-  What we gave the student as their starting point.
+What we gave the student as their starting point.
 
 \`\`\`javascript
 ${code}
@@ -234,10 +266,14 @@ ${code}
 \`\`\``;
 }
 
-function buildCurrentCodeSection(code: string, language: Language): string {
+function buildCurrentCodeSection(code: string, language: Language, wasCropped: boolean): string {
+  const croppedNote = wasCropped
+    ? "\n\n**Note:** the student's code was longer than we send to you, so it has been truncated. Only the first part is shown below; assume there is more code beyond it that you cannot see."
+    : "";
+
   return `## Current Code
 
-This is the student's current code.
+This is the student's current code.${croppedNote}
 
 \`\`\`${language}
 ${code}
