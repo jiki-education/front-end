@@ -43,9 +43,9 @@ export default function InstructionsPanel({
   // Build exercise data from props
   const exerciseData: ExerciseData = {
     title: exerciseTitle,
-    progress: "", // TODO: Get actual progress from API/orchestrator when available
     level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
-    exerciseSlug
+    exerciseSlug,
+    isProject
   };
 
   // Fetch concepts on mount - conceptSlugs are static for a given exercise
