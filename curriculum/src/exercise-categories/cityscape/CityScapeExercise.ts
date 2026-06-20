@@ -141,6 +141,8 @@ export default class CityScapeExercise extends VisualExercise {
     // Each quantity draws from its own stream so the Nth call to randomWidth()
     // always returns the Nth building's width, regardless of how it is
     // interleaved with randomNumFloors() calls.
+    // Unseeded (free-play) runs alias Math.random for both, which is fine:
+    // nothing reconstructs the sequence by position, so call order is irrelevant.
     this.widthRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed);
     this.floorsRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed ^ FLOORS_SEED_OFFSET);
   }

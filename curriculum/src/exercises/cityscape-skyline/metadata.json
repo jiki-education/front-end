@@ -20,11 +20,11 @@
     },
     {
       "question": "How do I draw the upper floors and the roof?",
-      "answer": "Each upper floor is the same pattern as the ground floor without the entrance: walls at the sides, glass in between. Repeat that `floors` times, stacking upward in `y`. The roof is then one solid row of walls spanning the full width on top."
+      "answer": "Each upper floor is the same pattern as the ground floor without the entrance: walls at the sides, glass in between. Remember the ground floor already counts as one of the floors, so you only stack the remaining ones above it, climbing in `y`. The roof is then one solid row of walls spanning the full width on top, and isn't counted as a floor."
     },
     {
-      "question": "My second building draws on top of the first one. What's wrong?",
-      "answer": "You're probably not advancing your column tracker between buildings. After drawing each building, increase it by `width + gap` before the next iteration starts. If you forget, every building draws from the same left edge."
+      "question": "My second building errors with \"the builders are stuck, there's already a wall here\". What's wrong?",
+      "answer": "Your second building is trying to build on top of the first one, because you're not advancing your column tracker between buildings. After drawing each building, increase it by `width + gap` before the next iteration starts. If you forget, every building starts from the same left edge and collides with the one before it."
     }
   ]
 }
