@@ -22,13 +22,6 @@ const functions: FunctionInfo[] = [
     category: "Drawing Shapes"
   },
   {
-    name: "ellipse",
-    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
-    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
-    examples: ['ellipse(50, 50, 20, 10, "black")', 'ellipse(30, 60, 15, 5, "white")'],
-    category: "Drawing Shapes"
-  },
-  {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
     description: "Draw a triangle with three corner points and a color",
@@ -46,7 +39,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"]
 };
 
 export default exerciseDefinition;

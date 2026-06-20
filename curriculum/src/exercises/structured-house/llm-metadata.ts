@@ -29,7 +29,7 @@ export const llmMetadata: LLMMetadata = {
         - Left window: rectangle(30, 55, 12, 13) in white
         - Right window: rectangle(58, 55, 12, 13) in white
         - Door: rectangle(43, 72, 14, 18) in dark brown
-        - Door knob: circle(55, 81, 1) in gold
+        - Door knob: circle(55, 81, 1) in yellow
 
         Key teaching points:
         1. Students should define base variables (houseLeft, houseTop) first

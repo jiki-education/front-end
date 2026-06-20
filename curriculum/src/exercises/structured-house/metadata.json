@@ -8,15 +8,15 @@
     },
     {
       "question": "How do I position the roof so it overhangs the frame?",
-      "answer": "The roof overhangs by `4` on each side, so `roofLeft = houseLeft - 4` and the roof width is `houseWidth + 8`."
+      "answer": "The overhang is the same on both sides, so the roof's left edge starts a little before the house's left edge, and its right edge ends a little after. Think about how to express each edge in terms of `houseLeft`, `houseWidth`, and the overhang amount."
     },
     {
       "question": "How do I place the windows and door relative to the house?",
-      "answer": "Express each as an offset from `houseLeft` and `houseTop`. For the door to be centered, use `doorLeft = houseLeft + (houseWidth - doorWidth) / 2`."
+      "answer": "Don't think in absolute canvas positions. Instead, ask 'how far in from `houseLeft` and down from `houseTop` does this sit?' and build each position from those offsets. For something centered, think about the leftover space on each side."
     },
     {
       "question": "How do I put the door knob in the right spot?",
-      "answer": "Inset it `1` from the right of the door and vertically center it. So `knobX = doorLeft + doorWidth - knobRadius - 1` and `knobY = doorTop + doorHeight / 2`."
+      "answer": "The knob's position depends on the door's position and size, not on fixed canvas numbers. Work out where the right edge of the door is, then bring the knob in slightly; for the vertical position, think about the middle of the door's height."
     },
     {
       "question": "My layout looks right but changing `houseLeft` breaks it. Why?",
