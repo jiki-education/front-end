@@ -21,7 +21,7 @@ repeat(buildings) {
   buildWall(x + width - 1, 2)
 
   let y = 3
-  repeat(floors) {
+  repeat(floors - 1) {
     buildWall(x, y)
     col = x + 1
     repeat(width - 2) {

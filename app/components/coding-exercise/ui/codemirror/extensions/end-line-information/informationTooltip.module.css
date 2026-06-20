@@ -50,6 +50,7 @@
 .informationTooltip :not(pre) > code {
     padding: 1px 6px;
     border-radius: 5px;
+    white-space: nowrap;
 }
 
 /* Code styling for description/normal tooltips */

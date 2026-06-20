@@ -19,7 +19,7 @@ repeat(buildings):
     build_wall(x + width - 1, 2)
 
     y = 3
-    repeat(floors):
+    repeat(floors - 1):
         build_wall(x, y)
         col = x + 1
         repeat(width - 2):
