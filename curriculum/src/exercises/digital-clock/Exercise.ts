@@ -60,7 +60,7 @@ export default class DigitalClockExercise extends VisualExercise {
       executionCtx.logicError("indicator must be a string");
       return;
     }
-    this.displayedTime = `${hour.value}:${minutes.value}${indicator.value}`;
+    this.displayedTime = `${hour.value}:${String(minutes.value).padStart(2, "0")}${indicator.value}`;
 
     const [h1, h2] = String(hour.value).padStart(2, "0").split("");
     const [m1, m2] = String(minutes.value).padStart(2, "0").split("");

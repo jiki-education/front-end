@@ -21,7 +21,7 @@ function computeExpectedTime(hour: number, minute: number): string {
   } else if (hour > 12) {
     displayHour = hour - 12;
   }
-  return `${displayHour}:${minute}${indicator}`;
+  return `${displayHour}:${String(minute).padStart(2, "0")}${indicator}`;
 }
 
 export const scenarios: VisualScenario[] = [
@@ -53,7 +53,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "morning-2",
     name: "Late morning",
-    description: 'Display 11:04 as "11:4am"',
+    description: 'Display 11:04 as "11:04am"',
     taskId: "display-time",
 
     setup(exercise) {
@@ -69,8 +69,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
-          pass: ex.displayedTime === "11:4am",
-          errorHtml: `Expected "11:4am" but got "${ex.displayedTime}"`
+          pass: ex.displayedTime === "11:04am",
+          errorHtml: `Expected "11:04am" but got "${ex.displayedTime}"`
         }
       ];
     }
@@ -128,7 +128,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "midnight",
     name: "Midnight",
-    description: 'Display midnight as "12:0am"',
+    description: 'Display midnight as "12:00am"',
     taskId: "display-time",
 
     setup(exercise) {
@@ -144,8 +144,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
-          pass: ex.displayedTime === "12:0am",
-          errorHtml: `Expected "12:0am" but got "${ex.displayedTime}"`
+          pass: ex.displayedTime === "12:00am",
+          errorHtml: `Expected "12:00am" but got "${ex.displayedTime}"`
         }
       ];
     }
@@ -153,7 +153,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "noon",
     name: "Noon",
-    description: 'Display noon as "12:0pm"',
+    description: 'Display noon as "12:00pm"',
     taskId: "display-time",
 
     setup(exercise) {
@@ -169,8 +169,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
         },
         {
-          pass: ex.displayedTime === "12:0pm",
-          errorHtml: `Expected "12:0pm" but got "${ex.displayedTime}"`
+          pass: ex.displayedTime === "12:00pm",
+          errorHtml: `Expected "12:00pm" but got "${ex.displayedTime}"`
         }
       ];
     }
