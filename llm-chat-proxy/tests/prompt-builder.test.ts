@@ -65,20 +65,63 @@ describe("Prompt Builder", () => {
     expect(prompt).toContain("## Conversation History");
   });
 
-  it("should limit conversation history to last 5 messages", async () => {
-    const history = Array.from({ length: 10 }, (_, i) => ({
+  it("should render the most recent messages up to HISTORY_RENDER_MESSAGES", async () => {
+    // Build more messages than we render so we can confirm the oldest are dropped.
+    const history = Array.from({ length: INPUT_LIMITS.HISTORY_RENDER_MESSAGES + 3 }, (_, i) => ({
       role: "user" as const,
       content: `Message ${i}`
-    }));
+    })).slice(-INPUT_LIMITS.HISTORY_MAX_MESSAGES); // respect the validation cap on stored messages
 
     const prompt = await buildPrompt(defaultOpts({ history }));
 
-    // Should include messages 5-9 (last 5)
-    expect(prompt).toContain("Message 5");
-    expect(prompt).toContain("Message 9");
-    // Should not include messages 0-4
-    expect(prompt).not.toContain("Message 0");
-    expect(prompt).not.toContain("Message 4");
+    // The most recent HISTORY_RENDER_MESSAGES should all be present.
+    const rendered = history.slice(-INPUT_LIMITS.HISTORY_RENDER_MESSAGES);
+    for (const msg of rendered) {
+      expect(prompt).toContain(msg.content);
+    }
+  });
+
+  it("crops over-long code and tells the model it was truncated", async () => {
+    const longCode = "a".repeat(INPUT_LIMITS.CODE_MAX_LENGTH + 500);
+    const prompt = await buildPrompt(defaultOpts({ code: longCode }));
+
+    expect(prompt).toContain("has been truncated");
+    // The rendered code should be capped at the limit, not the full input length.
+    expect(prompt).not.toContain("a".repeat(INPUT_LIMITS.CODE_MAX_LENGTH + 1));
+    expect(prompt).toContain("a".repeat(INPUT_LIMITS.CODE_MAX_LENGTH));
+  });
+
+  it("does not add a truncation note for normal-length code", async () => {
+    const prompt = await buildPrompt(defaultOpts({ code: "let x = 1" }));
+    expect(prompt).not.toContain("has been truncated");
+  });
+
+  it("crops history messages per role and marks them as truncated", async () => {
+    const longUser = "U".repeat(INPUT_LIMITS.HISTORY_USER_MESSAGE_MAX_LENGTH + 50);
+    const longAssistant = "A".repeat(INPUT_LIMITS.HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH + 50);
+    const prompt = await buildPrompt(
+      defaultOpts({
+        history: [
+          { role: "user", content: longUser },
+          { role: "assistant", content: longAssistant }
+        ]
+      })
+    );
+
+    // Both over-cap turns are marked truncated.
+    expect(prompt).toContain("[…truncated]");
+    // User capped at its limit, assistant at the smaller one.
+    expect(prompt).toContain("U".repeat(INPUT_LIMITS.HISTORY_USER_MESSAGE_MAX_LENGTH));
+    expect(prompt).not.toContain("U".repeat(INPUT_LIMITS.HISTORY_USER_MESSAGE_MAX_LENGTH + 1));
+    expect(prompt).toContain("A".repeat(INPUT_LIMITS.HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH));
+    expect(prompt).not.toContain("A".repeat(INPUT_LIMITS.HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH + 1));
+  });
+
+  it("leaves short history messages unmarked", async () => {
+    const prompt = await buildPrompt(
+      defaultOpts({ history: [{ role: "user", content: "hi" }] })
+    );
+    expect(prompt).not.toContain("[…truncated]");
   });
 
   it("should throw error for unknown exercise", async () => {
@@ -160,9 +203,9 @@ describe("Prompt Builder", () => {
 });
 
 describe("Input Validation", () => {
-  it("should reject code exceeding maximum length", async () => {
+  it("crops code exceeding maximum length instead of rejecting", async () => {
     const longCode = "x".repeat(INPUT_LIMITS.CODE_MAX_LENGTH + 1);
-    await expect(buildPrompt(defaultOpts({ code: longCode }))).rejects.toThrow("Code exceeds maximum length");
+    await expect(buildPrompt(defaultOpts({ code: longCode }))).resolves.toBeTruthy();
   });
 
   it("should accept code at maximum length", async () => {

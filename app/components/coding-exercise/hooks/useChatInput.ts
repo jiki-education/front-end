@@ -1,9 +1,8 @@
 import { useState, type KeyboardEvent } from "react";
 
-// Roughly 300 words. Kept well under the proxy's 5000-char question limit so the
-// client is always the binding constraint and users never hit an opaque
-// server-side rejection.
-export const DEFAULT_MAX_QUESTION_LENGTH = 1800;
+// Kept well under the proxy's 5000-char question limit so the client is always
+// the binding constraint and users never hit an opaque server-side rejection.
+export const DEFAULT_MAX_QUESTION_LENGTH = 1000;
 
 interface UseChatInputOptions {
   onSendMessage: (message: string) => void;
