@@ -24,12 +24,12 @@ export const llmMetadata: LLMMetadata = {
         House specifications:
         - Sky: rectangle(0, 0, 100, 100) in sky blue
         - Grass: rectangle(0, 80, 100, 20) in green
-        - Frame: rectangle(20, 50, 60, 40) in orange
-        - Roof: triangle(16, 50, 50, 30, 84, 50) in brown
+        - Frame: rectangle(20, 50, 60, 40) in brown
+        - Roof: triangle(16, 50, 50, 30, 84, 50) in brick
         - Left window: rectangle(30, 55, 12, 13) in white
         - Right window: rectangle(58, 55, 12, 13) in white
-        - Door: rectangle(43, 72, 14, 18) in brown
-        - Door knob: circle(55, 81, 1) in gold
+        - Door: rectangle(43, 72, 14, 18) in dark brown
+        - Door knob: circle(55, 81, 1) in yellow
 
         Key teaching points:
         1. Students should define base variables (houseLeft, houseTop) first
