@@ -1,4 +1,5 @@
 import { getChatApiUrl } from "@/lib/api/config";
+import { MAX_CHAT_MESSAGE_LENGTH } from "./chat-types";
 import type { ChatMessage, SignatureData, ErrorData, UsageMeta } from "./chat-types";
 import type { UsageScope } from "./chatUsage";
 
@@ -63,10 +64,19 @@ export async function sendChatMessage(
   callbacks: StreamCallbacks,
   chatToken: string
 ): Promise<void> {
-  // Truncate history to last 5 messages at the API boundary for clarity
+  // Enforce limits again at the API boundary - the composer's maxLength is
+  // client-side only and can be tampered with via DevTools, and there's no point
+  // sending oversized payloads the proxy will just crop/reject anyway.
+  // - history: most recent 10 messages, matching the proxy's HISTORY_RENDER_MESSAGES
+  //   / HISTORY_MAX_MESSAGES (sending more would be rejected).
+  // - each message + the question: capped to MAX_CHAT_MESSAGE_LENGTH chars.
   const truncatedPayload = {
     ...payload,
-    history: payload.history.slice(-5)
+    question: payload.question.slice(0, MAX_CHAT_MESSAGE_LENGTH),
+    history: payload.history.slice(-10).map((message) => ({
+      ...message,
+      content: message.content.slice(0, MAX_CHAT_MESSAGE_LENGTH)
+    }))
   };
 
   await performChatRequest(truncatedPayload, callbacks, chatToken);

@@ -1,3 +1,9 @@
+// Max characters for a single outgoing chat message (the user's question and
+// each history entry). Mirrors the proxy's QUESTION_MAX_LENGTH. Enforced in the
+// composer UI AND again at the API boundary, so tampering with the textarea's
+// maxLength in DevTools can't push an oversized payload over the wire.
+export const MAX_CHAT_MESSAGE_LENGTH = 1000;
+
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
