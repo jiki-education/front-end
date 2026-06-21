@@ -4,34 +4,38 @@ import { useEffect, useState } from "react";
 import { ConceptCard } from "@/components/concepts";
 import { ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { getChildren } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
+import { getUnlockedConceptSet, isUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta } from "@/types/concepts";
 import styles from "@/app/styles/modules/concepts.module.css";
 
 interface SubconceptsGridProps {
   parentSlug: string;
+  initialSubconcepts?: ConceptMeta[];
 }
 
-export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
+export default function SubconceptsGrid({ parentSlug, initialSubconcepts = [] }: SubconceptsGridProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const [subconcepts, setSubconcepts] = useState<ConceptMeta[]>([]);
+  // Logged-out visitors are seeded with the server-rendered children (all
+  // unlocked); authenticated users fetch their unlock state, so they start empty.
+  const seeded = initialSubconcepts.length > 0 && !isAuthenticated;
+  const [subconcepts, setSubconcepts] = useState<ConceptMeta[]>(seeded ? initialSubconcepts : []);
   const [unlockedSlugs, setUnlockedSlugs] = useState<Set<string>>(new Set());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!seeded);
 
   useEffect(() => {
+    // Logged-out visitors already have the children from the server.
+    if (!isAuthenticated && initialSubconcepts.length > 0) {
+      setIsLoading(false);
+      return;
+    }
+
     const loadSubconcepts = async () => {
       try {
         setIsLoading(true);
-        const [data, slugs] = await Promise.all([
-          getChildren(parentSlug),
-          isAuthenticated ? fetchUnlockedConceptSlugs() : Promise.resolve([])
-        ]);
+        const data = await getChildren(parentSlug);
         setSubconcepts(data);
-        // Route through the shared helper for consistency with the other unlock
-        // call sites. Children rendered here are leaves, so this is functionally
-        // plain membership today, but stays correct if a child ever becomes a group.
-        setUnlockedSlugs(expandUnlocked(data, slugs));
+        setUnlockedSlugs(await getUnlockedConceptSet(data, isAuthenticated));
       } catch (err) {
         console.error("Error fetching subconcepts:", err);
       } finally {
@@ -40,7 +44,7 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
     };
 
     void loadSubconcepts();
-  }, [parentSlug, isAuthenticated]);
+  }, [parentSlug, isAuthenticated, initialSubconcepts.length]);
 
   if (isLoading) {
     return <ConceptCardsLoadingSkeleton />;
@@ -56,7 +60,7 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
             title: subconcept.title,
             description: subconcept.description,
             subConceptCount: subconcept.childrenCount,
-            userMayAccess: !isAuthenticated || unlockedSlugs.has(subconcept.slug)
+            userMayAccess: isUnlocked(unlockedSlugs, subconcept.slug, isAuthenticated)
           }}
         />
       ))}

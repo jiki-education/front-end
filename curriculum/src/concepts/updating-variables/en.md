@@ -15,6 +15,8 @@ plant(10)
   class="concept-image"
   src="/static/images/concept-assets/updating-variables/flowers-same-spot.webp"
   alt="A flower planted in a garden next to Jiki's whiteboard"
+  width="406"
+  height="400"
 />
 
 What about if we want to plant eight flowers? Well, we could write plant(10), plant(20), plant(30), etc, but that's pretty tedious.
@@ -36,6 +38,8 @@ Well, it's gonna plant eight flowers, but it's gonna plant them in the same spot
   class="concept-image"
   src="/static/images/concept-assets/updating-variables/jiki-loop-walkthrough.webp"
   alt="Jiki taking the position box off the shelf and feeding its value of 10 into the plant machine"
+  width="400"
+  height="400"
 />
 
 So what we need is a way to move along a little bit each time. After we've planted a flower, we want to tell Jiki to move the position along 10, ready to plant the next flower.
@@ -56,6 +60,8 @@ position = position + 10
   class="concept-image"
   src="/static/images/concept-assets/updating-variables/jiki-updating-box.webp"
   alt="Jiki taking 10 out of the position box, adding 10 to make 20, and putting 20 back in the box"
+  width="427"
+  height="400"
 />
 
 So if we add this to our program, so that we now say, "Set the initial value of the position to be 10," then eight times plant a flower at the position, and then change the position to be 10 larger than before, our code works, and we get eight flowers spaced out.

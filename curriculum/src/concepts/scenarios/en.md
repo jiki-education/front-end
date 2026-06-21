@@ -11,6 +11,8 @@ You'll see these as little buttons just above the output of each exercise. Each 
   class="concept-image"
   src="/static/images/concept-assets/scenarios/scenario-buttons.webp"
   alt="The row of scenario buttons just above an exercise's output, circled to highlight them"
+  width="500"
+  height="318"
 />
 
 Take a golf game example. You might need to vary how far a ball rolls based on the return value of a function called `getShotLength`, which tells you how far the golfer has hit the ball. Imagine the player has had to swipe on their phone to say how far they've hit it.
@@ -19,6 +21,8 @@ Take a golf game example. You might need to vary how far a ball rolls based on t
   class="concept-image"
   src="/static/images/concept-assets/scenarios/golf-game.webp"
   alt="A golf game scene with a golfer, a ball, and a flag in the hole to the right"
+  width="412"
+  height="400"
 />
 
 The result that gets back to you is through this function. So in one scenario, you can use the `getShotLength` function, and it will return 23, a small swipe. In another, it returns 70, a long swipe. In another, it returns 45. Your code needs to roll the ball the right distance for each scenario with just one program, one set of code. You'll need to use the `getShotLength` function to see how far the shot went and then roll to that spot.

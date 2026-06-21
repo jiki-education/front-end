@@ -12,9 +12,10 @@ import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
 interface ConceptGroupViewProps {
   concept: ConceptMeta;
   ancestors: ConceptAncestor[];
+  initialSubconcepts?: ConceptMeta[];
 }
 
-export function ConceptGroupView({ concept, ancestors }: ConceptGroupViewProps) {
+export function ConceptGroupView({ concept, ancestors, initialSubconcepts }: ConceptGroupViewProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
@@ -28,7 +29,7 @@ export function ConceptGroupView({ concept, ancestors }: ConceptGroupViewProps) 
         </h1>
       </header>
 
-      <SubconceptsGrid parentSlug={concept.slug} />
+      <SubconceptsGrid parentSlug={concept.slug} initialSubconcepts={initialSubconcepts} />
       {!isAuthenticated && <SignupCta />}
     </ConceptsLayout>
   );

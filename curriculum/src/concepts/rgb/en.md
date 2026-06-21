@@ -9,6 +9,8 @@ RGB lets us think of colors as a mixture of red, green, and blue. That's what RG
   class="concept-image"
   src="/static/images/concept-assets/rgb/rgb-mixing-circles.webp"
   alt="Three overlapping circles of red, green, and blue light mixing to make yellow, magenta, cyan, and white"
+  width="500"
+  height="390"
 />
 
 In many exercises, you're gonna have a function called RGB, and it will take three numbers as its inputs, one for red, one for green, one for blue, and it will return out a color.
@@ -23,6 +25,8 @@ rgb(255, 0, 0)
   class="concept-image"
   src="/static/images/concept-assets/rgb/rgb-red.webp"
   alt="A red circle produced by rgb(255, 0, 0), all red and no green or blue"
+  width="436"
+  height="400"
 />
 
 ```javascript
@@ -33,6 +37,8 @@ rgb(255, 255, 0)
   class="concept-image"
   src="/static/images/concept-assets/rgb/rgb-yellow.webp"
   alt="A yellow circle produced by rgb(255, 255, 0), all red and all green with no blue"
+  width="436"
+  height="400"
 />
 
 ```javascript
@@ -43,6 +49,8 @@ rgb(230, 50, 170)
   class="concept-image"
   src="/static/images/concept-assets/rgb/rgb-pink.webp"
   alt="A pink circle produced by rgb(230, 50, 170), lots of red, a little green, and some blue"
+  width="436"
+  height="400"
 />
 
 RGB is great when you want to adjust one specific component, how much red, how much green, how much blue.

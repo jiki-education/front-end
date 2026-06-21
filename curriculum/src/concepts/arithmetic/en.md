@@ -13,6 +13,8 @@ Let's start by saying we want to draw a rectangle on our canvas, and we want it 
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/rectangle-on-canvas.webp"
   alt="A blue rectangle centred on the canvas, 10 in from the left and right and 20 in from the top and bottom"
+  width="399"
+  height="400"
 />
 
 When we draw a rectangle, we need to know its left, top, width, and height, as well as its color. So we can start off by writing that out.
@@ -55,6 +57,8 @@ Let's think about what Jiki is doing when we write let height equals canvas minu
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-1.webp"
   alt="Jiki taking the top box off the shelf and working out 20 times two is 40"
+  width="377"
+  height="400"
 />
 
 And then he gets the canvas box off the shelf, finds 100 in it, and he works out that 100 minus 40 is 60. And now he knows really what we're saying is let height equal 60. So he obeys the let, getting a new box and writing height on it, and then he puts 60 inside it. And then when he uses height later, he just gets the 60 back out again.
@@ -63,6 +67,8 @@ And then he gets the canvas box off the shelf, finds 100 in it, and he works out
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-3.webp"
   alt="Jiki getting a new box, writing height on it, and putting 60 inside"
+  width="462"
+  height="400"
 />
 
 Once you have everything working in an exercise, play with changing the values of the variables and see what happens. Watch how they grow and how they shrink. Take your time, think about the relationships between things.

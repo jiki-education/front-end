@@ -11,6 +11,8 @@ The remainder operator is responsible for giving you the remainder, logically, w
   class="concept-image"
   src="/static/images/concept-assets/modulo/sharing-candies.webp"
   alt="A row of ten sweets being shared equally between four people, with two left over as the remainder"
+  width="500"
+  height="22"
 />
 
 ```javascript

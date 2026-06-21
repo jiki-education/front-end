@@ -9,12 +9,16 @@ There's a keyword that helps us tell Jiki to only do things in certain situation
   class="concept-image"
   src="/static/images/concept-assets/if/bar-door-scenario.webp"
   alt="Jiki as a bouncer deciding whether to let people into the night club"
+  width="292"
+  height="400"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/if/waving-flag.webp"
   alt="Jiki ready to wave the checkered flag at the end of a race"
+  width="266"
+  height="400"
 />
 
 We use the if keyword in a very similar manner to the repeat one. We put some information in normal brackets. In this case, that information is the condition that we're checking. And then we put a block of code in the curly braces that we run only if that condition is true.
@@ -34,6 +38,8 @@ We use symbols to write these comparisons. You'll already likely be familiar wit
   class="concept-image"
   src="/static/images/concept-assets/if/comparisons-symbols.webp"
   alt="A table of comparison operators: less than, greater than, less than or equal, greater than or equal, equal, and not equal, with examples"
+  width="449"
+  height="400"
 />
 
 And this helps us not get confused with when we're setting or updating variables, and we use an equal sign to mean put this in the box. Just remember three equal signs for comparing.
@@ -53,4 +59,6 @@ if (age >= 21) {
   class="concept-image"
   src="/static/images/concept-assets/if/bouncer-open-close.webp"
   alt="Jiki opening the door for someone old enough, and refusing entry to someone too young"
+  width="410"
+  height="400"
 />

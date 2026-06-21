@@ -60,6 +60,8 @@ So if you try and reference the count variable from inside `describeName`, you c
   class="concept-image"
   src="/static/images/concept-assets/function-composition/jiki-thinking.webp"
   alt="Jiki thinking, with a lightbulb above his head, about how variables stay private to each function"
+  width="361"
+  height="353"
 />
 
 In JavaScript, we can create variables at the top above everything that are shared between functions, but I really recommend you don't do that unless there's a really good reason.

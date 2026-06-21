@@ -21,6 +21,8 @@ if (age < 13) {
   class="concept-image"
   src="/static/images/concept-assets/else-if/tickets.webp"
   alt="Three tickets labelled CHILD, TEEN, and ADULT, one for each outcome of the age check"
+  width="500"
+  height="142"
 />
 
 This is the key thing to understand. Only one block ever runs. Jiki works down this chain, finds the first true condition, runs that block, and moves on.

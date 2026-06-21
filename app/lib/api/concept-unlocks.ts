@@ -19,6 +19,27 @@ export async function fetchUnlockedConceptSlugs(): Promise<string[]> {
 }
 
 /**
+ * Resolve the set of concept slugs the current user may access, expanded so a
+ * category counts as unlocked when any descendant is. Logged-out users get an
+ * empty set (callers treat everything as unlocked via isUnlocked()).
+ */
+export async function getUnlockedConceptSet(
+  concepts: Array<Pick<ConceptMeta, "slug" | "parentSlug">>,
+  isAuthenticated: boolean
+): Promise<Set<string>> {
+  const slugs = isAuthenticated ? await fetchUnlockedConceptSlugs() : [];
+  return expandUnlocked(concepts, slugs);
+}
+
+/**
+ * Whether a concept is unlocked for the current user. Logged-out users see every
+ * concept as unlocked.
+ */
+export function isUnlocked(unlockedSlugs: Set<string>, slug: string, isAuthenticated: boolean): boolean {
+  return !isAuthenticated || unlockedSlugs.has(slug);
+}
+
+/**
  * Expand a set of explicitly-unlocked concept slugs to also include the ancestor
  * (parent category) of any unlocked concept.
  *

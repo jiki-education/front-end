@@ -9,6 +9,8 @@ When you write code, what you're really doing is communicating what you want to 
   class="concept-image"
   src="/static/images/concept-assets/using-functions/jiki-introduction.webp"
   alt="Jiki, the friendly interpreter who will guide you through this course"
+  width="421"
+  height="400"
 />
 
 The whole point of coding is giving the interpreter, Jiki in this case, the right instructions, and there are lots of different instructions that you can give Jiki, lots that he understands. He can stick things together, he can do something lots of times, he can say, "If this happens, then I need to do this." He can remember things and then use them again later. He can give you an error if something isn't right. We're gonna cover all of these different things in this course. But the key thing to understand is that everything you're going to be doing is putting instructions on a board for Jiki to come along and follow.
@@ -21,6 +23,8 @@ So let's start off by looking at one of the fundamental concepts in programming 
   class="concept-image"
   src="/static/images/concept-assets/using-functions/warehouse-three-machines.webp"
   alt="A shelf in Jiki's warehouse holding three machines labelled move, turnLeft, and turnRight"
+  width="500"
+  height="371"
 />
 
 When you wrote move and then those two brackets, what you were doing was telling Jiki to go and get the move machine off the shelf, to crank the handle, power it up, and to use it.
@@ -29,6 +33,8 @@ When you wrote move and then those two brackets, what you were doing was telling
   class="concept-image"
   src="/static/images/concept-assets/using-functions/jiki-using-move-1.webp"
   alt="Jiki wheeling the move machine off the shelf to use it"
+  width="439"
+  height="400"
 />
 
 When you wrote turn left and then the brackets, you were telling Jiki to get the turn left machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:

@@ -9,6 +9,8 @@ Imagine you have my name, Jeremy, and you want to get my initial J out of that. 
   class="concept-image"
   src="/static/images/concept-assets/string-indexing/jiki-thinking.webp"
   alt="Jiki thinking about how to pull a single letter out of a string"
+  width="361"
+  height="353"
 />
 
 Well, you can think of a string as being a series of letters. So Jeremy has six letters, J-E-R-E-M-Y, and each one has a position. J is in the first position, Y is in the last position.
@@ -43,6 +45,8 @@ One thing to be clear on, what you get back from `name[0]` is just another strin
   class="concept-image"
   src="/static/images/concept-assets/string-indexing/jiki-holding-j.webp"
   alt="Jiki holding a fresh piece of paper with just the letter J on it"
+  width="500"
+  height="289"
 />
 
 It just happens to have one letter on it instead of six.

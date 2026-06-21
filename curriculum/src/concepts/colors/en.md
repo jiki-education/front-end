@@ -15,6 +15,8 @@ The numbers that you can use as inputs range from zero to 255. Zero means I don'
   class="concept-image"
   src="/static/images/concept-assets/colors/rgb-intro.webp"
   alt="Three overlapping circles of red, green, and blue light mixing to make yellow, magenta, cyan, and white"
+  width="500"
+  height="390"
 />
 
 ```javascript
@@ -32,18 +34,24 @@ Hue is the shade of color that you want, and it goes from zero up to 360. Maybe 
   class="concept-image"
   src="/static/images/concept-assets/colors/hsl-intro.webp"
   alt="A rainbow and a color wheel showing hue going from 0 (red) to 120 (green) to 240 (blue)"
+  width="500"
+  height="398"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/colors/saturation-slider.webp"
   alt="Saturation slider from 0 (gray) through 50 to 100 (vivid magenta)"
+  width="500"
+  height="398"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/colors/lightness-slider.webp"
   alt="Lightness slider from 0 (black) through 50 (full color) to 100 (white)"
+  width="500"
+  height="398"
 />
 
 So if we want a normal red circle, which we'd have written as 255, zero, zero with RGB, all of the red, no green, no blue, here we would use zero, 100, 50. Zero for the red hue, 100 for saturation, full color, and 50 for brightness, which is a normal level of brightness. If we wanna make that a green circle, we can just change that hue to be 120. If we want to make it a darker green, we can reduce the lightness down to 25.

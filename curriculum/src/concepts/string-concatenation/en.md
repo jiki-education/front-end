@@ -25,6 +25,8 @@ So imagine we have a variable called name, and it contains Jeremy sometimes and 
   class="concept-image"
   src="/static/images/concept-assets/string-concatenation/jiki-name-box.webp"
   alt="Jiki holding a box labelled name, which can contain different values"
+  width="207"
+  height="400"
 />
 
 Well, we can achieve this using this concatenation concept by writing `"hello " + name`, and that will give us either "hello Jeremy" or "hello Jiki" or hello anyone else, depending on what's inside the name box.

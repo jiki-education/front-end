@@ -15,6 +15,8 @@ This function is always going to move the character five steps forward. That's a
   class="concept-image"
   src="/static/images/concept-assets/creating-functions/walk-grid.webp"
   alt="The character on the maze grid, ready to walk five steps forward"
+  width="500"
+  height="314"
 />
 
 So if I was to ask you to write some code to move the character forward five steps, you could either write move five times, or you could use a repeat loop. In this example, just to keep things simple, we're gonna use the move five times in a row approach.
@@ -53,6 +55,8 @@ When Jiki sees that function keyword, he's gonna go and build a new function, pu
   class="concept-image"
   src="/static/images/concept-assets/creating-functions/jiki-machine-whiteboard.webp"
   alt="Jiki standing beside a new machine with a whiteboard inside it for writing down the function's instructions"
+  width="500"
+  height="396"
 />
 
 Now, there's nothing special about this function you've made compared to the built-in ones. They all just sit next to each other on his shelves.
