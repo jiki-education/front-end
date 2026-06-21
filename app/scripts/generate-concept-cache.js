@@ -56,6 +56,14 @@ const CONCEPTS_DIR = path.join(__dirname, "../../curriculum/src/concepts");
 const EXERCISE_MAP_PATH = path.join(__dirname, "../../curriculum/dist/concepts/exercise-map.json");
 const STATIC_DIR = path.join(__dirname, "../public/static/concepts");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
+const ICONS_DIR = path.join(__dirname, "../public/static/icons/concepts");
+
+/**
+ * Returns the public OG image path for a concept's icon, or null if no icon exists.
+ */
+function conceptImage(slug) {
+  return fs.existsSync(path.join(ICONS_DIR, `${slug}.webp`)) ? `/static/icons/concepts/${slug}.webp` : null;
+}
 
 /**
  * Compute a 12-char SHA-256 hash of content
@@ -211,6 +219,7 @@ function buildStaticFiles(concepts) {
         slug,
         title: localeData.title,
         description: localeData.description,
+        image: conceptImage(slug),
         parentSlug: concept.config.parent || null,
         order: concept.config.order || 0,
         category: concept.config.category || false,
@@ -268,7 +277,8 @@ function writeServerMeta(byLocale) {
   const serverMeta = enConcepts.map((c) => ({
     slug: c.slug,
     title: c.title,
-    description: c.description
+    description: c.description,
+    image: c.image
   }));
 
   writeFile(path.join(GENERATED_DIR, "concept-meta-server.json"), JSON.stringify(serverMeta, null, 2));
