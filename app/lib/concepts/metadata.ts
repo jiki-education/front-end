@@ -5,6 +5,7 @@ interface ConceptMetaEntry {
   slug: string;
   title: string;
   description: string;
+  image: string | null;
 }
 
 const concepts = conceptMetaServer as ConceptMetaEntry[];
@@ -16,6 +17,7 @@ export function getConceptMetadata(slug: string): Metadata {
   }
   return {
     title: concept.title,
-    description: concept.description
+    description: concept.description,
+    ...(concept.image ? { openGraph: { images: [{ url: concept.image }] } } : {})
   };
 }

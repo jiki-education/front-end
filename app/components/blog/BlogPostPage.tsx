@@ -23,7 +23,8 @@ export function getBlogPostMetadata(slug: string, locale: string = "en"): Metada
     return {
       title: post.title,
       description: post.seo.description,
-      keywords: post.seo.keywords.join(", ")
+      keywords: post.seo.keywords.join(", "),
+      ...(post.coverImage ? { openGraph: { images: [{ url: post.coverImage }] } } : {})
     };
   } catch {
     return { title: "Post Not Found" };
