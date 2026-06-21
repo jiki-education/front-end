@@ -20,11 +20,11 @@ This function is always going to move the character five steps forward. That's a
 So if I was to ask you to write some code to move the character forward five steps, you could either write move five times, or you could use a repeat loop. In this example, just to keep things simple, we're gonna use the move five times in a row approach.
 
 ```javascript
-move();
-move();
-move();
-move();
-move();
+move()
+move()
+move()
+move()
+move()
 ```
 
 So that's what we want to be inside our function.
@@ -39,11 +39,11 @@ When we use the function keyword, we have to do two things. One, specify the nam
 
 ```javascript
 function walk5() {
-  move();
-  move();
-  move();
-  move();
-  move();
+  move()
+  move()
+  move()
+  move()
+  move()
 }
 ```
 

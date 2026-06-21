@@ -24,7 +24,7 @@ But some machines, they have slots, like this walk machine. The walk machine is 
 To do this in code, we still write the name of the function, in this case walk, and we still put our opening bracket. But then before our closing bracket, we say what we want the input to be. So in this case, we want the input to be three, to say walk three steps forward:
 
 ```javascript
-walk(3);
+walk(3)
 ```
 
 When Jiki sees that, he'll get the number three, and you can think of that number just like a little coin, and he'll put that into the input slot of the machine before he pulls the crank to turn it on.
@@ -48,7 +48,7 @@ In Jiki's world, those are just different slots, one for each of those numbers.
 So in our code, we just write each number and then put a comma in between. The name of the function, a bracket, a number for each of the inputs, all separated by commas, and then we close our brackets:
 
 ```javascript
-rectangle(10, 20, 30, 40);
+rectangle(10, 20, 30, 40)
 ```
 
 If you try and use a function with the wrong number of inputs, you're going to get an error. For example, if you try and put one input into a machine that doesn't have a slot, Jiki will tell you that you can't. And if you try and use a machine that has an input slot, but you don't tell Jiki what to put in it, he'll also stop and complain. Try it if you're feeling a bit rebellious and see what happens. You're gonna make a lot of mistakes like this as things get more complicated. Try not to get stressed or upset about it. We all learn from making mistakes. It's literally the fastest way for our brains to really internalize things. And everyone makes these mistakes. We all started at zero, so don't get stressed.

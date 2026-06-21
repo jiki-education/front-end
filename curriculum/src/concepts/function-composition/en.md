@@ -17,11 +17,11 @@ A simple version would look like this. We have a counting loop, something you've
 
 ```javascript
 function describeName(name) {
-  let length = 0;
+  let length = 0
   for (const letter in name) {
-    length += 1;
+    length += 1
   }
-  return `This name is ${length} letters long`;
+  return `This name is ${length} letters long`
 }
 ```
 
@@ -32,17 +32,17 @@ It'd be much nicer to break this into two functions, one that's responsible for 
 ```javascript
 // Just counts letters
 function countLetters(str) {
-  let count = 0;
+  let count = 0
   for (const letter in str) {
-    count += 1;
+    count += 1
   }
-  return count;
+  return count
 }
 
 // Just formats text nicely
 function describeName(name) {
-  const count = countLetters(name);
-  return `The name has ${count} letters`;
+  const count = countLetters(name)
+  return `The name has ${count} letters`
 }
 ```
 

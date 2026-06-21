@@ -1,5 +1,5 @@
 ---
-title: "Using If and State"
+title: "Using State"
 description: "Combining if statements with variables that change over time so your program reacts and behaves differently as it runs."
 ---
 

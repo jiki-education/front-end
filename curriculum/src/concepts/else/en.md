@@ -9,9 +9,9 @@ With an if statement, Jiki runs the code block when the condition is true, and h
 
 ```javascript
 if (age >= 21) {
-  openDoor();
+  openDoor()
 } else {
-  turnAway();
+  turnAway()
 }
 ```
 

@@ -14,7 +14,7 @@ Backticks are backward ticks, as the name suggests, but you might well have neve
 We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird syntax of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write `` `hello ${name}` ``.
 
 ```javascript
-`hello ${name}`;
+`hello ${name}`
 ```
 
 <img

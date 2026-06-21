@@ -26,8 +26,8 @@ function shootMany(numShots) {
 When you want to use this function, you'd write `shootMany(5)` if you want to shoot five shots, or `shootMany(2)` if you want to use two shots.
 
 ```javascript
-shootMany(5);
-shootMany(2);
+shootMany(5)
+shootMany(2)
 ```
 
 Now, this is the key bit. When the code runs, whatever you put into that input, 5 or 2, mini-Jiki, with the hat inside the function, takes that input and puts it into a box called numShots, and then puts that box on the shelves inside the function for you to use in the function's code.

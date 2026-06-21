@@ -13,7 +13,7 @@
   "endOfLine": "lf",
   "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "css",
-  "embeddedLanguageFormatting": "auto",
+  "embeddedLanguageFormatting": "off",
   "singleAttributePerLine": false,
   "overrides": [
     {

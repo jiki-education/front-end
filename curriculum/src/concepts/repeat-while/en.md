@@ -12,11 +12,11 @@ So far, when you've used the repeat loop, you've always specified a number that 
 />
 
 ```javascript
-move();
-move();
-turnLeft();
-move();
-move();
+move()
+move()
+turnLeft()
+move()
+move()
 ```
 
 But what if I said, "Write me some code that can solve any maze I give you?" That maze might need 10 steps, or 50, or 200. You have no idea in advance.

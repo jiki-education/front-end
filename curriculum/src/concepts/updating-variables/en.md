@@ -8,7 +8,7 @@ So far, when we've created variables, we've put values in boxes and then got the
 Say we want to plant a flower in a garden. We have a handy plant function that has a single input for the position we want to place the flower. So if we want to place a flower 10 from the edge, we write plant(10). Nice and simple.
 
 ```javascript
-plant(10);
+plant(10)
 ```
 
 <img
@@ -49,7 +49,7 @@ And we can do exactly the same thing in code. To do this, we say, "Update the po
 When Jiki sees this, he'll get the current number out of the position box, add 10 to it, do that maths, adding them together, and then put the result back in the box for next time.
 
 ```javascript
-position = position + 10;
+position = position + 10
 ```
 
 <img

@@ -30,7 +30,7 @@ Strings can be single letters, words, sentences, paragraphs, even books. The rul
 So if we want to have a blue rectangle, we write the number for its left position, its top position, its width, and its height. But for the fifth input, we're going to write blue in quotes.
 
 ```javascript
-rectangle(10, 20, 30, 40, "blue");
+rectangle(10, 20, 30, 40, "blue")
 ```
 
 Jiki would get the machine off the shelf, put some coins in the first four slots. Then he'll write blue on a piece of paper, and he'll put that paper in the fifth slot and then run the machine.
@@ -42,7 +42,3 @@ Jiki would get the machine off the shelf, put some coins in the first four slots
 />
 
 Strings is one of those technical words that people find a bit intimidating at first, but really it just means text. You'll get used to it very quickly. There's nothing magical about it.
-
-This course has three different objectives. The first is that you learn the technical fundamentals of programming, learning what a string or a function is. The second is that you build a mental model that you can expand on as you learn more complex ideas in the future. That's what Jiki and his factory are giving you. But the third objective is more subtle, but probably the most important, and that is to learn to think like a developer. In the long run, this is gonna determine whether you become an average coder or an expert one. So if you don't care about becoming an expert coder, you can sort of ignore this. But for most of you, that will be your goal, and this is the bit you want to pay the most attention to.
-
-When you're solving exercises, really try hard not to guess at the answers or hack away trying to find the solution. Approach these problems using logic. Everything you need to know to find the solution is given to you in the instructions. The instructions are written carefully to give you the information you need. So take your time reading the instructions and take your time thinking about things before you start coding. If you find yourself guessing at things, just slow down a bit, read the instructions, get a pen and paper out maybe and draw things out, and then try again at the coding side.

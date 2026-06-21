@@ -43,9 +43,9 @@ You can compare strings too. So hello equals hello. That's true. The two strings
 Also, by the way, true and false, they're called Booleans, and that's another technical-sounding word. But it's really simple. It's just a formal way of saying that something is either true or false. So if you hear me say Booleans or someone else say Booleans, it just means true or false. Let's see this in action. Imagine we're building that robot bouncer for a club, and we're gonna say the bouncer should only open the door if the person is 21 or older. So we have an `askAge` function, which we can use to get someone's age, and we're gonna save the result of that in a variable called age. And then we can say, if that age is greater than 20, we'll open the door. So if `askAge` returns 30, we open it, and if it returns 12, we don't.
 
 ```javascript
-let age = askAge();
+let age = askAge()
 if (age >= 21) {
-  openDoor();
+  openDoor()
 }
 ```
 

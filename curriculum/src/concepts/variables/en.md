@@ -14,7 +14,7 @@ Variables are what let us store information. When we're coding, we often need to
 So how do we tell Jiki to make a box and put something in it? We use the `let` keyword. The let keyword tells Jiki that he needs to make a new box. You can imagine him unpacking a cardboard box from its wrapper, putting it all together, and then he looks at what comes after the word let, and that's the label that he puts on the box, in this case, name. So he gets out his pen, and he writes name on the label. Then he looks at what comes after the equal sign. In this case, it's my name, Jeremy, and because Jeremy is a string, he gets a piece of paper, and he writes Jeremy on it. It's just a string, exactly the same as the colors you've been working with, and then he puts that piece of paper into the box.
 
 ```javascript
-let name = "Jeremy";
+let name = "Jeremy"
 ```
 
 <img
@@ -40,12 +40,12 @@ So let's look at where we might want to use a variable. Let's say we're drawing 
 So let's create some variables for these. We start with the left position of the sun. We use the let keyword to tell Jiki to create a new box called left position. Notice the camel case there with the capital P. And we tell Jiki what number goes in the box. He puts that on the shelves, then moves on to do the same for top position, radius, and color.
 
 ```javascript
-let leftPosition = 10;
-let topPosition = 20;
-let radius = 5;
-let color = "yellow";
+let leftPosition = 10
+let topPosition = 20
+let radius = 5
+let color = "yellow"
 
-circle(leftPosition, topPosition, radius, color);
+circle(leftPosition, topPosition, radius, color)
 ```
 
 <img

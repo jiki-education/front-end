@@ -14,7 +14,7 @@ The remainder operator is responsible for giving you the remainder, logically, w
 />
 
 ```javascript
-10 % 4;
+10 % 4
 ```
 
 One of the reasons that we use this quite regularly in code is that we can know whether something divides equally or not, and the most common pattern you'll see with that is working out if we have an even or an odd number. Even numbers, as you know, all divide equally by two. Odd numbers all have one left over when you divide by two.

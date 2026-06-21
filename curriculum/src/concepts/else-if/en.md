@@ -9,11 +9,11 @@ Imagine our bouncer is selling tickets. Under thirteen, you get a child's ticket
 
 ```javascript
 if (age < 13) {
-  childTicket();
+  childTicket()
 } else if (age < 20) {
-  teenTicket();
+  teenTicket()
 } else {
-  adultTicket();
+  adultTicket()
 }
 ```
 

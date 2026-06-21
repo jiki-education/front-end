@@ -28,7 +28,7 @@ So we can write `"Jeremy".includes("e")` and we'll get back true, as Jeremy has 
 />
 
 ```javascript
-"Jeremy".includes("e");
+"Jeremy".includes("e")
 ```
 
 Methods are different to properties because they're not static facts. They're actually functions. You can think of them as like functions that have a built-in box with the string inside of it.
@@ -38,9 +38,9 @@ How they work doesn't really matter for now. You're not gonna be building them f
 One thing to know with strings is that the methods don't change anything inside the string. For example, there's a `toUpperCase` method, which returns the string with all the letters in uppercase. But that doesn't change the original string. That still contains Jeremy written with just a capital J. Instead, Jiki is creating a new string that's all uppercase.
 
 ```javascript
-const name = "Jeremy";
-const bigName = name.toUpperCase();
+const name = "Jeremy"
+const bigName = name.toUpperCase()
 
-log(bigName);
-log(name);
+log(bigName)
+log(name)
 ```

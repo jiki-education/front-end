@@ -33,3 +33,5 @@ tests/**/*.map
 
 # claude
 .claude/settings.local.json
+# scratch / size-test artifacts
+tmp/

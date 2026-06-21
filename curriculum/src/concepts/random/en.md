@@ -16,7 +16,7 @@ To help with this, you have a function available called `Math.randomInt`. You mi
 />
 
 ```javascript
-Math.randomInt;
+Math.randomInt
 ```
 
 <img

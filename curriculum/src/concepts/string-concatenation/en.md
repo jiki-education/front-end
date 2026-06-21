@@ -30,5 +30,5 @@ So imagine we have a variable called name, and it contains Jeremy sometimes and 
 Well, we can achieve this using this concatenation concept by writing `"hello " + name`, and that will give us either "hello Jeremy" or "hello Jiki" or hello anyone else, depending on what's inside the name box.
 
 ```javascript
-"hello " + name;
+"hello " + name
 ```

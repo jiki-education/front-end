@@ -24,7 +24,7 @@ Take a golf game example. You might need to vary how far a ball rolls based on t
 The result that gets back to you is through this function. So in one scenario, you can use the `getShotLength` function, and it will return 23, a small swipe. In another, it returns 70, a long swipe. In another, it returns 45. Your code needs to roll the ball the right distance for each scenario with just one program, one set of code. You'll need to use the `getShotLength` function to see how far the shot went and then roll to that spot.
 
 ```javascript
-let distance = getShotLength();
+let distance = getShotLength()
 ```
 
 Scenarios make sure your code actually works properly. It's pretty easy to write code that works in one specific situation. It's much harder and more valuable to write code that works in lots of different situations. When you're solving exercises, start with the first scenario. Get that working. Then move on to the next scenario and get that working. As your code breaks on a different scenario, think about what is different and how your code needs to adapt.

@@ -34,8 +34,8 @@ When you wrote move and then those two brackets, what you were doing was telling
 When you wrote turn left and then the brackets, you were telling Jiki to get the turn left machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:
 
 ```javascript
-move();
-turnLeft();
+move()
+turnLeft()
 ```
 
 Now, how that machine actually works, what's happening inside the machine, we don't need to worry about that for now. We'll look at that in a lot more detail later. In fact, it won't be long before you're able to make your own machines as well. But for now, don't worry about that. For every exercise, you'll be told which machines are on Jiki's shelf. There'll be different ones for each exercise, and you'll be able to use those machines to solve the exercises.

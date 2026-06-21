@@ -16,7 +16,7 @@ We'll start off by creating a variable called name containing the string Jeremy.
 Then we have this line, `for (let letter of name) {`, and there's a lot going on there, so let's talk through it slowly.
 
 ```javascript
-let name = "Jeremy";
+let name = "Jeremy"
 for (let letter of name) {
   // ...
 }

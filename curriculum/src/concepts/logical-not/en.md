@@ -15,7 +15,7 @@ We can say, "If the outfit is not disco, open the door." The if statement works 
 
 ```javascript
 if (outfit !== "disco") {
-  openDoor();
+  openDoor()
 }
 ```
 
@@ -34,7 +34,7 @@ So we could do this by saying, "If movingRight equals true, movingRight equals f
 But there's a neater way to do this, and that's to use the same exclamation mark or bang. We can say `movingRight = !movingRight`, and that flips it. `!movingRight` means the opposite of whatever it is.
 
 ```javascript
-movingRight = !movingRight;
+movingRight = !movingRight
 ```
 
 So if movingRight was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently,

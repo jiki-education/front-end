@@ -18,10 +18,10 @@ The numbers that you can use as inputs range from zero to 255. Zero means I don'
 />
 
 ```javascript
-let red = rgb(255, 0, 0);
-let green = rgb(0, 255, 0);
-let yellow = rgb(255, 255, 0);
-let pink = rgb(230, 50, 170);
+let red = rgb(255, 0, 0)
+let green = rgb(0, 255, 0)
+let yellow = rgb(255, 255, 0)
+let pink = rgb(230, 50, 170)
 ```
 
 Now let's look at HSL, which gives us a completely different way to think about colors. HSL stands for hue, saturation, and lightness. And similarly to RGB, you have a function called HSL that takes three numbers, one for hue, one for saturation, and one for lightness, and it will return out a color. So let's break down what those three words mean.
@@ -53,11 +53,11 @@ If we want to make it a duller green, we can take some of the color, some of the
 If you want a bright, hot pink, a hue of about 300 is pink, and then we up the saturation to 100 to make it really vivid, and we boost the lightness, too, to about 60.
 
 ```javascript
-let red = hsl(0, 100, 50);
-let green = hsl(120, 100, 50);
-let darkGreen = hsl(120, 100, 25);
-let dullGreen = hsl(120, 30, 50);
-let hotPink = hsl(300, 100, 60);
+let red = hsl(0, 100, 50)
+let green = hsl(120, 100, 50)
+let darkGreen = hsl(120, 100, 25)
+let dullGreen = hsl(120, 30, 50)
+let hotPink = hsl(300, 100, 60)
 ```
 
 So we've got two different ways to express color, and they're useful in different situations. RGB is great when you want to adjust one specific component, how much red, how much green, how much blue. HSL is great when you want to cycle through colors. If you want a rainbow, you can just keep increasing the hue.

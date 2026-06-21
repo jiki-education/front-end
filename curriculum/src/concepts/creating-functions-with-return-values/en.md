@@ -29,7 +29,7 @@ So let's make a function, and let's call it `meaningOfLife`, and this function's
 
 ```javascript
 function meaningOfLife() {
-  return 42;
+  return 42
 }
 ```
 
@@ -46,9 +46,9 @@ Functions with returns can also take inputs. You might write an `ageBracket(age)
 ```javascript
 function ageBracket(age) {
   if (age >= 18) {
-    return "Welcome";
+    return "Welcome"
   }
-  return "Sorry, too young";
+  return "Sorry, too young"
 }
 ```
 

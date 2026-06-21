@@ -13,7 +13,7 @@ So we can use this to make a more complex condition. We can say if age is greate
 
 ```javascript
 if (age > 20 && outfit === "disco") {
-  openDoor();
+  openDoor()
 }
 ```
 

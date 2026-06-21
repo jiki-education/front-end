@@ -9,7 +9,7 @@ So we can say if someone is over 20 or they're in disco gear, then they can come
 
 ```javascript
 if (age > 20 || outfit === "disco") {
-  openDoor();
+  openDoor()
 }
 ```
 

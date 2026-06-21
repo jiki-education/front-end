@@ -26,15 +26,15 @@ So if we say `"Jeremy"[0]`, we're saying give me the first letter of the word Je
 If we say `"Jeremy"[1]`, we're saying give me the second letter.
 
 ```javascript
-"Jeremy"[0];
-"Jeremy"[1];
+"Jeremy"[0]
+"Jeremy"[1]
 ```
 
 And we can do this with variables too. So if we make a variable called name and set its value to the string Jeremy, then we can do `name[0]`, and we'll get J again.
 
 ```javascript
-let name = "Jeremy";
-name[0];
+let name = "Jeremy"
+name[0]
 ```
 
 One thing to be clear on, what you get back from `name[0]` is just another string. It's another piece of paper with J on it. There's nothing special about it. It's a string just like Jeremy is a string.
