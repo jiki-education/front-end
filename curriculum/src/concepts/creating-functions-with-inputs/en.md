@@ -36,6 +36,8 @@ Now, this is the key bit. When the code runs, whatever you put into that input, 
   class="concept-image"
   src="/static/images/concept-assets/creating-functions-with-inputs/numshots-box.webp"
   alt="Mini-Jiki inside the shootMany machine placing the input into a box labelled numShots"
+  width="500"
+  height="376"
 />
 
 I'll say that again.
@@ -46,6 +48,8 @@ When we write `shootMany(5)` to use the function, Jiki on the outside goes and g
   class="concept-image"
   src="/static/images/concept-assets/creating-functions-with-inputs/numshots-on-shelf.webp"
   alt="Mini-Jiki placing the numShots box onto the shelves inside the shootMany machine"
+  width="500"
+  height="302"
 />
 
 And then within the function, you can just use the numShots box just like you'd use any other box. There's nothing magical about the name numShots. We could have called it anything we wanted. All it is is an instruction for mini-Jiki to always create a box with that label on inside the function and put whatever's passed into that slot into that box.
@@ -62,6 +66,8 @@ function drawStar(left, top) {
   class="concept-image"
   src="/static/images/concept-assets/creating-functions-with-inputs/draw-star-two-slots.webp"
   alt="The drawStar machine with two input slots, taking two separate values"
+  width="453"
+  height="400"
 />
 
 And then when the function is called, mini-Jiki is just gonna store the values that are passed into the inputs in boxes named left and top, and then store those on the shelves inside the functions.
@@ -70,4 +76,6 @@ And then when the function is called, mini-Jiki is just gonna store the values t
   class="concept-image"
   src="/static/images/concept-assets/creating-functions-with-inputs/draw-star-boxes-shelf.webp"
   alt="Mini-Jiki storing the two inputs in boxes labelled left and top on the shelves inside the drawStar machine"
+  width="431"
+  height="400"
 />

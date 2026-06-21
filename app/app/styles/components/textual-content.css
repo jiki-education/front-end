@@ -69,10 +69,12 @@
     /* Concept Illustrations */
     .concept-image {
         display: block;
-        width: auto;
+        /* Each image carries its displayed width/height (pre-scaled to fit within
+           500x400 at build time), so the browser reserves exact space and there's
+           no layout shift. height:auto + max-width:100% just scales it down
+           proportionally on narrow screens. Do not add width:auto or size caps. */
+        max-width: 100%;
         height: auto;
-        max-width: 500px;
-        max-height: 400px;
         margin: var(--spacing-24) auto;
     }
 

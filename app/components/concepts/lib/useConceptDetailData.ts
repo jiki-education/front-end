@@ -9,12 +9,22 @@ import {
   getExercisesForConcept,
   fetchConceptVideoData
 } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
+import { fetchUnlockedConceptSlugs, expandUnlocked, isUnlocked } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
 import { fetchProjects, type ProjectData, type ProjectStatus } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
+
+/** Server-fetched leaf data used to seed the hook for logged-out SSR. */
+export interface ConceptDetailSeed {
+  concept: ConceptMeta;
+  ancestors: ConceptAncestor[];
+  content: string | null;
+  relatedConcepts: ConceptMeta[];
+  relatedExercises: ExerciseInfo[];
+  videoData: VideoSource[] | null;
+}
 
 interface ConceptDetailData {
   concept: ConceptMeta | null;
@@ -117,25 +127,33 @@ async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetup
   ctx.setVideoData(video);
 }
 
-export function useConceptDetailData(slug: string): ConceptDetailData {
+export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  // Logged-out visitors are seeded with the server-rendered leaf (all unlocked).
+  // Authenticated users re-fetch to layer on unlock state, statuses, and projects.
+  const seeded = initialData !== null && !isAuthenticated;
 
-  const [concept, setConcept] = useState<ConceptMeta | null>(null);
-  const [ancestors, setAncestors] = useState<ConceptAncestor[]>([]);
-  const [content, setContent] = useState<string | null>(null);
+  const [concept, setConcept] = useState<ConceptMeta | null>(seeded ? initialData.concept : null);
+  const [ancestors, setAncestors] = useState<ConceptAncestor[]>(seeded ? initialData.ancestors : []);
+  const [content, setContent] = useState<string | null>(seeded ? initialData.content : null);
   const [isContentLoading, setIsContentLoading] = useState(false);
-  const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
-  const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
+  const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>(seeded ? initialData.relatedConcepts : []);
+  const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>(seeded ? initialData.relatedExercises : []);
   const [relatedProjects, setRelatedProjects] = useState<ProjectInfo[]>([]);
-  const [videoData, setVideoData] = useState<VideoSource[] | null>(null);
+  const [videoData, setVideoData] = useState<VideoSource[] | null>(seeded ? initialData.videoData : null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
   const [projectStatuses, setProjectStatuses] = useState<Record<string, ProjectStatus>>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!seeded);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Logged-out visitors already have the full leaf from the server.
+    if (seeded) {
+      return;
+    }
+
     let cancelled = false;
 
     const ctx: ConceptSetupContext = {
@@ -227,9 +245,9 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, router]);
+  }, [slug, isAuthenticated, router, seeded]);
 
-  const isConceptUnlocked = (conceptSlug: string) => !isAuthenticated || unlockedConceptSlugs.has(conceptSlug);
+  const isConceptUnlocked = (conceptSlug: string) => isUnlocked(unlockedConceptSlugs, conceptSlug, isAuthenticated);
 
   const getExerciseStatus = (exerciseSlug: string): LessonStatus => {
     if (!isAuthenticated) {

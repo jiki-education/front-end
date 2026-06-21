@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
 import ConceptHero from "@/components/concepts/ConceptHero";
@@ -6,40 +9,42 @@ import MarkdownContent from "@/components/content/MarkdownContent";
 import { ConceptArticleSkeleton } from "@/components/concepts/LoadingStates";
 import { ConceptSidebar } from "@/components/concepts/ConceptSidebar";
 import { SignupCta } from "@/components/concepts/SignupCta";
-import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
-import type { LessonStatus } from "@/lib/api/lesson-progress";
-import type { ProjectStatus } from "@/lib/api/projects";
-import type { VideoSource } from "@/types/lesson";
+import { ConceptLoadingView } from "@/components/concepts/ConceptLoadingView";
+import { ConceptErrorView } from "@/components/concepts/ConceptErrorView";
+import { useConceptDetailData, type ConceptDetailSeed } from "@/components/concepts/lib/useConceptDetailData";
 
 interface ConceptLeafViewProps {
-  concept: ConceptMeta;
-  ancestors: ConceptAncestor[];
-  content: string | null;
-  isContentLoading: boolean;
-  relatedConcepts: ConceptMeta[];
-  relatedExercises: ExerciseInfo[];
-  relatedProjects: ProjectInfo[];
-  videoData: VideoSource[] | null;
-  isConceptUnlocked: (slug: string) => boolean;
-  getExerciseStatus: (slug: string) => LessonStatus;
-  getProjectStatus: (slug: string) => ProjectStatus | "locked";
-  isAuthenticated: boolean;
+  slug: string;
+  initialData?: ConceptDetailSeed | null;
 }
 
-export function ConceptLeafView({
-  concept,
-  ancestors,
-  content,
-  isContentLoading,
-  relatedConcepts,
-  relatedExercises,
-  relatedProjects,
-  videoData,
-  isConceptUnlocked,
-  getExerciseStatus,
-  getProjectStatus,
-  isAuthenticated
-}: ConceptLeafViewProps) {
+export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
+  const router = useRouter();
+  const {
+    concept,
+    ancestors,
+    content,
+    isContentLoading,
+    relatedConcepts,
+    relatedExercises,
+    relatedProjects,
+    videoData,
+    isConceptUnlocked,
+    getExerciseStatus,
+    getProjectStatus,
+    isAuthenticated,
+    isLoading,
+    error
+  } = useConceptDetailData(slug, initialData);
+
+  if (isLoading) {
+    return <ConceptLoadingView />;
+  }
+
+  if (error || !concept) {
+    return <ConceptErrorView message={error} onBack={() => router.push("/concepts")} />;
+  }
+
   return (
     <ConceptsLayout>
       <ConceptLayout

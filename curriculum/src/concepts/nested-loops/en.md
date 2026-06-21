@@ -17,6 +17,8 @@ repeat(5) {
   class="concept-image"
   src="/static/images/concept-assets/nested-loops/single-row-flowers.webp"
   alt="Jiki at a whiteboard with a single neat row of flowers planted below"
+  width="406"
+  height="400"
 />
 
 But what if we want a grid of flowers with rows and columns? Maybe four rows with five flowers in each row.
@@ -25,6 +27,8 @@ But what if we want a grid of flowers with rows and columns? Maybe four rows wit
   class="concept-image"
   src="/static/images/concept-assets/nested-loops/grid-question.webp"
   alt="A four-by-five grid of flowers with Jiki thinking about how to draw it"
+  width="383"
+  height="400"
 />
 
 We've got a loop that draws one row of flowers. How can you use that to draw four rows? Or what could we do to draw four rows?
@@ -57,6 +61,8 @@ repeat(4) {
   class="concept-image"
   src="/static/images/concept-assets/nested-loops/flower-grid-result.webp"
   alt="The finished four-by-five grid of flowers with a happy Jiki giving two thumbs up"
+  width="389"
+  height="400"
 />
 
 The key thing to understand is that Jiki finishes all the work in the inner loop before coming back to the outer loop. He's not bouncing backwards and forth. He completes the inner loop, and then he moves on to the next step of the outer loop.

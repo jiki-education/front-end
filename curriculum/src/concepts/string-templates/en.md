@@ -21,6 +21,8 @@ We use them to create a template that can contain other strings. And then to ins
   class="concept-image"
   src="/static/images/concept-assets/string-templates/jiki-name-box.webp"
   alt="Jiki holding a box labelled name, the value that gets slotted into the template"
+  width="207"
+  height="400"
 />
 
 That looks a lot better than it sounds when I say it.

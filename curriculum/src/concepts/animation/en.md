@@ -11,6 +11,8 @@ Have you ever seen a flip book? They were really popular when I was a kid, less 
   class="concept-image"
   src="/static/images/concept-assets/animation/flip-book-pages.webp"
   alt="A flip book showing a stick figure running, each page slightly different so the figure appears to move"
+  width="500"
+  height="274"
 />
 
 So if we take a familiar block of code where we draw circles across the screen, we set a position variable, and we have a repeat block where we draw a circle and then move the position one to the right. If we run that repeat block 100 times, we're going to see 100 circles across the screen.
@@ -27,6 +29,8 @@ repeat(100) {
   class="concept-image"
   src="/static/images/concept-assets/animation/circles-trail.webp"
   alt="A trail of 100 blue circles drawn left to right across the screen"
+  width="500"
+  height="197"
 />
 
 Now, look what happens if we just add one plain rectangle before we draw the circle each time.
@@ -46,6 +50,8 @@ Instead of a trail of circles, our eyes are now tricked into seeing one circle t
   class="concept-image"
   src="/static/images/concept-assets/animation/circle-glide-frames.webp"
   alt="A sequence of frames, each a fresh white canvas with a single blue circle one step further to the right"
+  width="500"
+  height="187"
 />
 
 Every time we go through the loop, we're painting a whole new background, covering up everything that was there before, and then drawing the circle in its new spot.

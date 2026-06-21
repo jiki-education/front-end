@@ -11,6 +11,8 @@ So far, we've seen machines that look a little bit like boxes, like the move one
   class="concept-image"
   src="/static/images/concept-assets/using-functions-with-inputs/move-machine.webp"
   alt="The move machine, a plain box with no input slots"
+  width="322"
+  height="400"
 />
 
 But some machines, they have slots, like this walk machine. The walk machine is just like the move machine. It moves the character forward, except Jiki can use the slot to specify how many steps your character should walk forward. So rather than having to use the move function three times in a row, move, move, move, instead, you can now just use the walk function and tell Jiki to put the number three into the machine.
@@ -19,6 +21,8 @@ But some machines, they have slots, like this walk machine. The walk machine is 
   class="concept-image"
   src="/static/images/concept-assets/using-functions-with-inputs/walk-machine-slot.webp"
   alt="The walk machine, with an input slot on top for the number of steps"
+  width="481"
+  height="400"
 />
 
 To do this in code, we still write the name of the function, in this case walk, and we still put our opening bracket. But then before our closing bracket, we say what we want the input to be. So in this case, we want the input to be three, to say walk three steps forward:
@@ -33,6 +37,8 @@ When Jiki sees that, he'll get the number three, and you can think of that numbe
   class="concept-image"
   src="/static/images/concept-assets/using-functions-with-inputs/jiki-coin-into-slot.webp"
   alt="Jiki dropping the number 3 like a coin into the walk machine's slot, then cranking it"
+  width="421"
+  height="400"
 />
 
 For functions that draw rectangles and circles, you need to tell Jiki to insert multiple different numbers, specifying things like how far from the left it should be, how far from the top it should be, the width of a rectangle, the height of a rectangle.
@@ -43,6 +49,8 @@ In Jiki's world, those are just different slots, one for each of those numbers.
   class="concept-image"
   src="/static/images/concept-assets/using-functions-with-inputs/two-machines-inputs.webp"
   alt="The rectangle machine with slots for left, top, width, height, and the circle machine with slots for cx, cy, radius"
+  width="396"
+  height="400"
 />
 
 So in our code, we just write each number and then put a comma in between. The name of the function, a bracket, a number for each of the inputs, all separated by commas, and then we close our brackets:

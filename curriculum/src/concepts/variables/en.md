@@ -9,6 +9,8 @@ Variables are what let us store information. When we're coding, we often need to
   class="concept-image"
   src="/static/images/concept-assets/variables/two-shelves.webp"
   alt="Two sets of shelves in Jiki's warehouse: one labelled functions holding machines, one labelled variables holding boxes"
+  width="500"
+  height="173"
 />
 
 So how do we tell Jiki to make a box and put something in it? We use the `let` keyword. The let keyword tells Jiki that he needs to make a new box. You can imagine him unpacking a cardboard box from its wrapper, putting it all together, and then he looks at what comes after the word let, and that's the label that he puts on the box, in this case, name. So he gets out his pen, and he writes name on the label. Then he looks at what comes after the equal sign. In this case, it's my name, Jeremy, and because Jeremy is a string, he gets a piece of paper, and he writes Jeremy on it. It's just a string, exactly the same as the colors you've been working with, and then he puts that piece of paper into the box.
@@ -21,6 +23,8 @@ let name = "Jeremy"
   class="concept-image"
   src="/static/images/concept-assets/variables/jeremy-paper.webp"
   alt="Jiki holding a piece of paper with the string Jeremy written on it, ready to put into the box"
+  width="373"
+  height="400"
 />
 
 So we've told him to make a box, put a label on it, and put something in it, and now he goes and puts the box on the shelf. And then at any other time in your program, Jiki can go and get that box off the shelf, look at what's inside it. Start to build this mental model. I've been coding forever, and I still imagine when I write code that I'm putting something into a box, and I'm going to get it out later. When you see that let keyword, really think, "Okay, that means I'm making a new box."
@@ -33,6 +37,8 @@ Also, every variable name must be unique. You can't have two boxes with the same
   class="concept-image"
   src="/static/images/concept-assets/variables/duplicate-names-confused.webp"
   alt="Jiki looking confused at two boxes that both have the label name"
+  width="485"
+  height="400"
 />
 
 So let's look at where we might want to use a variable. Let's say we're drawing a sun in the sky. We know we can use the circle function and give it four inputs. Its left, top, radius, and color. But as we draw lots of things and have all of these numbers scattered throughout our code, it can be really hard to keep track of and read. So instead, we can create variables for each of the left, top, radius, and color, and then refer to those variables later. So our end goal here is to be able to use the circle function and specify nice, readable names of boxes, and when Jiki sees those names, he'll know to get the boxes from the shelves and use whatever is in them.
@@ -52,6 +58,8 @@ circle(leftPosition, topPosition, radius, color)
   class="concept-image"
   src="/static/images/concept-assets/variables/name-on-shelf.webp"
   alt="Labelled boxes on the variables shelves, each storing one value for Jiki to fetch later"
+  width="500"
+  height="378"
 />
 
 At any time in our code, we can refer back to these variables, and Jiki will get the values out and put them in a machine. The other great thing about variables is that any time we want to draw something at the same position as the sun, we can reuse those same left position and top position variables. Take a different example. Imagine you're building a wall, and it's got 30 bricks, and you want all the bricks to be the same width and the same height. It's much better just to create variables for width and height at the start of your code and then refer back to those throughout the rest of your code. Because if you want to then change the width or the height, you can just change it in one place, and everything else will update.

@@ -1,21 +1,22 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useConcepts } from "@/lib/hooks/useConcepts";
 import { getTopLevelConcepts, getConcepts, searchConcepts } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { getUnlockedConceptSet } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 
 jest.mock("@/lib/api/concepts");
-// Keep the real expandUnlocked helper; only stub the network fetch.
+// Keep the real isUnlocked helper; only stub the unlock-set resolution (which wraps
+// the network fetch + expansion).
 jest.mock("@/lib/api/concept-unlocks", () => ({
   ...jest.requireActual("@/lib/api/concept-unlocks"),
-  fetchUnlockedConceptSlugs: jest.fn()
+  getUnlockedConceptSet: jest.fn()
 }));
 jest.mock("@/lib/auth/authStore");
 
 const mockGetTopLevelConcepts = getTopLevelConcepts as jest.MockedFunction<typeof getTopLevelConcepts>;
 const mockGetConcepts = getConcepts as jest.MockedFunction<typeof getConcepts>;
 const mockSearchConcepts = searchConcepts as jest.MockedFunction<typeof searchConcepts>;
-const mockFetchUnlockedSlugs = fetchUnlockedConceptSlugs as jest.MockedFunction<typeof fetchUnlockedConceptSlugs>;
+const mockGetUnlockedConceptSet = getUnlockedConceptSet as jest.MockedFunction<typeof getUnlockedConceptSet>;
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
 
 const mockConcepts = [
@@ -49,7 +50,7 @@ describe("useConcepts", () => {
     mockUseAuthStore.mockReturnValue(false);
     mockGetTopLevelConcepts.mockResolvedValue(mockConcepts);
     mockGetConcepts.mockResolvedValue(mockConcepts);
-    mockFetchUnlockedSlugs.mockResolvedValue([]);
+    mockGetUnlockedConceptSet.mockResolvedValue(new Set());
   });
 
   it("initializes with loading state", () => {
@@ -86,7 +87,7 @@ describe("useConcepts", () => {
 
   it("fetches unlock state when authenticated", async () => {
     mockUseAuthStore.mockReturnValue(true);
-    mockFetchUnlockedSlugs.mockResolvedValue(["variables"]);
+    mockGetUnlockedConceptSet.mockResolvedValue(new Set(["variables"]));
 
     const { result } = renderHook(() => useConcepts());
 
@@ -94,7 +95,7 @@ describe("useConcepts", () => {
       expect(result.current.isLoading).toBe(false);
     });
 
-    expect(mockFetchUnlockedSlugs).toHaveBeenCalled();
+    expect(mockGetUnlockedConceptSet).toHaveBeenCalled();
     const variables = result.current.concepts.find((c) => c.slug === "variables");
     const functions = result.current.concepts.find((c) => c.slug === "functions");
     expect(variables?.isUnlocked).toBe(true);

@@ -25,6 +25,8 @@ So we can write `"Jeremy".includes("e")` and we'll get back true, as Jeremy has 
   class="concept-image"
   src="/static/images/concept-assets/methods/jiki-writing-jeremy.webp"
   alt="Jiki writing the string Jeremy on a piece of paper"
+  width="359"
+  height="400"
 />
 
 ```javascript

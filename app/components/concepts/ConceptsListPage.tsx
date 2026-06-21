@@ -7,9 +7,15 @@ import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useAuthStore } from "@/lib/auth/authStore";
 import styles from "@/app/styles/modules/concepts.module.css";
+import type { ConceptMeta } from "@/types/concepts";
 
-export default function ConceptsListPage() {
-  const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } = useConcepts();
+interface ConceptsListPageProps {
+  initialConcepts?: ConceptMeta[];
+}
+
+export default function ConceptsListPage({ initialConcepts }: ConceptsListPageProps) {
+  const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } =
+    useConcepts(initialConcepts);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const showSkeleton = useDelayedLoading(isLoading, 300);

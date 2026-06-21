@@ -9,6 +9,8 @@ So far, when we've compared things to see if they're equal, we've used three equ
   class="concept-image"
   src="/static/images/concept-assets/logical-not/shop-bouncer.webp"
   alt="A bouncer on the door of a shop checking the outfits of a queue of people"
+  width="451"
+  height="400"
 />
 
 We can say, "If the outfit is not disco, open the door." The if statement works exactly the same.
@@ -27,6 +29,8 @@ One more thing related to this. Sometimes you're gonna have a variable that's tr
   class="concept-image"
   src="/static/images/concept-assets/logical-not/pong-court.webp"
   alt="A Pong-style court with paddles and a ball bouncing from side to side, illustrating toggling a movingRight variable"
+  width="500"
+  height="352"
 />
 
 So we could do this by saying, "If movingRight equals true, movingRight equals false. Else, movingRight equals true." That's a way of toggling the variable. So Jiki will look at movingRight to see whether it's true or false, and then will work out the opposite and put that value back in the box.

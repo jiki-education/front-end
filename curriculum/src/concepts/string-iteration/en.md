@@ -40,4 +40,6 @@ Every time Jiki gets to the closing curly bracket, Jiki throws away the letter b
   class="concept-image"
   src="/static/images/concept-assets/string-iteration/jiki-letter-box-loop.webp"
   alt="Jiki throwing away the old letter box and dropping the next letter into a fresh box labelled letter, repeating for each letter in the string"
+  width="500"
+  height="168"
 />

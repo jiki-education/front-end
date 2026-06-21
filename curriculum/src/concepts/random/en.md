@@ -13,6 +13,8 @@ To help with this, you have a function available called `Math.randomInt`. You mi
   class="concept-image"
   src="/static/images/concept-assets/random/jiki-shelves-math.webp"
   alt="Jiki climbing a ladder up to the Math section of his warehouse shelves"
+  width="440"
+  height="400"
 />
 
 ```javascript
@@ -23,12 +25,16 @@ Math.randomInt
   class="concept-image"
   src="/static/images/concept-assets/random/function-two-inputs.webp"
   alt="The Math.randomInt machine with two input funnels on top"
+  width="500"
+  height="378"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/random/function-10-13.webp"
   alt="The Math.randomInt machine with 10 and 13 in its input funnels, producing 10, 11, 12 or 13"
+  width="488"
+  height="400"
 />
 
 So let's imagine you want to draw a circle at a random position on the canvas. You can use `Math.randomInt` to get different values for the left and top randomly each time, but with boundaries of, say, 10 and 90, so they never overlap and go outside the canvas. Every time you run this code, the circle's gonna be drawn in a slightly different place.

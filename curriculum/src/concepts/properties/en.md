@@ -27,6 +27,8 @@ When Jiki creates a string, he counts the letters and just sort of writes a numb
   class="concept-image"
   src="/static/images/concept-assets/properties/jiki-counting-letters.webp"
   alt="Jiki counting the letters of the string Jeremy and writing the number in the corner"
+  width="359"
+  height="400"
 />
 
 And then when we use the length property, Jiki just goes and checks what that number was. So in our `"Jeremy".length` example, when Jiki creates the string Jeremy, he counts the letters, writes the number six in the corner, and then when we write `"Jeremy".length`, he goes and checks it. So you can think of properties as being like facts about that thing.

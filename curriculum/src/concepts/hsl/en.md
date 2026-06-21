@@ -15,18 +15,24 @@ Hue is the shade of color that you want, and it goes from zero up to 360. Maybe 
   class="concept-image"
   src="/static/images/concept-assets/hsl/hsl-hue-wheel.webp"
   alt="A hue color wheel and rainbow showing 0 is red, 120 is green, and 240 is blue"
+  width="500"
+  height="398"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/hsl/saturation-slider.webp"
   alt="A saturation slider from 0 (gray) through 50 to 100 (full vivid color)"
+  width="500"
+  height="398"
 />
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/hsl/lightness-slider.webp"
   alt="A lightness slider from 0 (black) through 50 to 100 (white)"
+  width="500"
+  height="398"
 />
 
 So if we want a normal red circle, which we'd have written as 255, zero, zero with RGB, all of the red, no green, no blue, here we would use zero, 100, 50. Zero for the red hue, 100 for saturation, full color, and 50 for brightness, which is a normal level of brightness. If we wanna make that a green circle, we can just change that hue to be 120. If we want to make it a darker green, we can reduce the lightness down to 25.
