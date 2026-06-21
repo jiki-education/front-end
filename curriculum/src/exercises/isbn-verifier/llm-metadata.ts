@@ -12,12 +12,6 @@ export const llmMetadata: LLMMetadata = {
     This exercise allows a student to explore iterating through a string character by character,
     applying conditional logic to each character, and using a weighted sum to verify data.
 
-    The student writes an isValidIsbn function that checks whether an ISBN-10 string is valid.
-    ISBN-10s are 10-digit strings, optionally separated by dashes (e.g. "3-598-21508-8").
-    Validation uses a weighted sum: each digit is multiplied by a weight counting down from 10 to 1,
-    and the total must be divisible by 11. The last digit may be "X" representing 10.
-    Any non-digit, non-dash, non-X characters make the ISBN invalid.
-
     To complete this exercise, the student needs to:
     1. Iterate through each character of the ISBN string
     2. Skip dashes using continue

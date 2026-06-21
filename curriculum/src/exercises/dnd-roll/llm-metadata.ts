@@ -9,33 +9,21 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This is the first exercise where students must store return values in variables.
-    Students roll three dice by calling roll(), store each result, announce each one,
-    then use arithmetic to combine two values and pass results to strike().
-    The key insight: you cannot solve this by nesting function calls because each
-    return value is needed in multiple places (both announce and strike).
+    This is the FIRST exercise where storing a return value in a variable is unavoidable:
+    each roll's result is needed in two places (announce AND strike), so nesting calls
+    cannot work. That is the whole point of the exercise.
   `,
 
   tasks: {
     "roll-and-strike": {
       description: `
-        Students need to:
-        1. Call roll(20), roll(12), roll(10) and store each result in a variable
-        2. Call announce() three times with each stored value
-        3. Add the damage and bonus variables together
-        4. Call strike() with the attack variable and total damage
+        Anchor steps: roll/store/announce each of the three dice, then strike with the
+        attack value and the summed damage.
 
-        Common mistakes:
-        - Calling roll() without storing the result (the value is lost)
-        - Calling roll() again expecting the same number (each call returns a new value)
-        - Forgetting to add base damage and bonus before passing to strike()
-        - Passing individual damage values to strike() instead of the sum
-
-        Teaching strategy:
-        - Emphasize that roll() gives back a NEW number each time
-        - Show that you must "catch" the return value with a variable
-        - The announce step proves they stored the values correctly
-        - The addition step shows variables can be combined with arithmetic
+        The two key misconceptions to watch for:
+        - roll() returns a NEW random number every call, so the result must be "caught" in a
+          variable; re-calling roll() to reuse a value gives a different number.
+        - strike() needs base + bonus added together, not the individual damage values.
       `
     }
   }

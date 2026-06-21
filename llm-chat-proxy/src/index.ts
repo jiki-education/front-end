@@ -148,7 +148,7 @@ app.post("/chat", async (c) => {
     const origin = isDev ? c.req.header("Origin") || "https://jiki.io" : "https://jiki.io";
     const contentUrl = `${origin}/static/exercises/${exerciseSlug}/en-${language}-${contentHash}.json`;
 
-    const prompt = await buildPrompt({
+    const { systemInstruction, prompt } = await buildPrompt({
       exerciseSlug,
       code,
       question,
@@ -163,7 +163,7 @@ app.post("/chat", async (c) => {
     // an API error) does NOT consume the user's quota - we only count requests
     // Gemini actually accepted.
     let fullResponse = "";
-    const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, (chunk) => {
+    const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, systemInstruction, (chunk) => {
       fullResponse += chunk;
     });
 

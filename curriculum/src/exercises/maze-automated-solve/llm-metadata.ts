@@ -9,39 +9,34 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches algorithmic thinking through the left-hand rule maze-solving algorithm.
-    Students learn to combine conditionals (if/else if/else), boolean-returning functions, and loops
-    to solve any maze programmatically. Key concepts: algorithmic problem-solving, conditional logic,
-    sensing functions that return booleans, and iterative refinement of a solution.
+    This exercise allows a student to explore algorithmic thinking by building the left-hand-rule
+    maze solver incrementally, one branch of the if/else-if/else at a time across the four tasks.
+    The instructions reveal the full algorithm, but the intent is for the student to reason it out.
   `,
 
   tasks: {
     "straight-path": {
       description: `
-        Students just need to move forward repeatedly. This is the simplest case — no turning needed.
-        The repeat loop handles running the code until the maze is solved.
-        Common mistake: overcomplicating it — just move() is enough for this task.
+        First task: just move() repeatedly. Common mistake: overcomplicating it.
       `
     },
     "turn-left": {
       description: `
-        Students add the first conditional: if canTurnLeft() is true, turn left then move.
-        This introduces the priority system — always check left first.
+        Builds on straight-path: add the first branch (if canTurnLeft, turn left then move).
         Common mistake: forgetting to move() after turning.
       `
     },
     "turn-right": {
       description: `
-        Students add else if branches for canMove() (go straight) and canTurnRight() (turn right).
-        The forks scenario tests that left is prioritized over right.
-        Common mistake: checking right before straight, or not using else if (checking all independently).
+        Builds on turn-left: add else-if branches for canMove (straight) then canTurnRight.
+        The forks scenario specifically tests that left is prioritised over right.
+        Common mistake: using independent ifs instead of else-if, or checking right before straight.
       `
     },
     "turn-around": {
       description: `
-        Students handle the dead-end case in the else block: turn left twice (180 degrees) then move.
-        This completes the full algorithm. The forks-2 scenario is a complex maze testing everything together.
-        Common mistake: turning right twice instead of left twice, or forgetting to move after turning around.
+        Final branch: the else handles dead ends with turn left twice, then move.
+        Common mistake: turning right twice instead of left twice.
       `
     }
   }

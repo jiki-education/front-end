@@ -9,36 +9,33 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches dictionary manipulation within a maze navigation context.
-    Students must navigate a maze, collect emojis scattered throughout, track them
-    in a dictionary (counting occurrences), and announce their collection at the end.
-    Key concepts: dictionaries, key existence checking with hasKey(), combining
-    maze navigation with data collection, and the look("down") direction for
-    inspecting the current cell.
+    This exercise lets a student combine maze navigation with dictionary-based
+    tallying: walk the maze, count the non-special emojis found, and announce the
+    result at the end. It builds on prior maze exercises by adding the look("down")
+    direction (inspects the current cell) and a collection step.
+
+    Anchor steps:
+    1. Inspect the current cell with look("down").
+    2. Skip the special emojis (star/flag/white-square); they aren't collectibles.
+    3. Tally each collectible in a dictionary, initialising the key on first sight.
+    4. Call removeEmoji() once collected so the cell isn't counted again.
+    5. After the maze loop, pass the dictionary to announceEmojis().
   `,
 
   tasks: {
     "collect-emojis": {
       description: `
-        Students need to:
-        1. Use look("down") to check the emoji on the current square
-        2. Distinguish between special emojis (star, flag, white square) and collectible ones
-        3. Use a dictionary to track emoji counts, using hasKey() to check for existing keys
-        4. Call removeEmoji() after collecting to avoid double-counting
-        5. Call announceEmojis() with the dictionary after the maze loop ends
-
-        Common mistakes:
-        - Forgetting to call removeEmoji() (leads to counting same emoji multiple times)
-        - Not checking if the emoji is a special one before collecting
-        - Not using hasKey() to initialize the dictionary entry before incrementing
-        - Forgetting to call announceEmojis() after the repeat loop
+        Non-obvious traps to watch for:
+        - Without removeEmoji() the same cell gets re-counted on revisits.
+        - The key must be initialised before incrementing, or the count is wrong.
+        - announceEmojis() must run after the loop, not inside it.
       `
     },
     "random-emojis": {
       description: `
-        This bonus task uses the same logic but with random emojis that change each run.
-        The student's solution from the main task should work without modification.
-        This tests that the code is truly generic and doesn't hardcode specific emoji values.
+        Bonus: same task but the emojis are randomised each run, so a correct
+        generic solution from the main task passes unchanged. The point is to
+        catch solutions that hardcoded specific emoji values.
       `
     }
   }

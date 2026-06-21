@@ -3,15 +3,17 @@ import { verifyJWT } from "../src/auth";
 import { SignJWT } from "jose";
 
 vi.mock("../src/gemini", () => ({
-  streamGeminiResponse: vi.fn(async (_prompt: string, _apiKey: string, onChunk?: (chunk: string) => void) => {
-    onChunk?.("mocked response");
-    return new ReadableStream({
-      start(controller) {
-        controller.enqueue(new TextEncoder().encode("mocked response"));
-        controller.close();
-      }
-    });
-  })
+  streamGeminiResponse: vi.fn(
+    async (_prompt: string, _apiKey: string, _systemInstruction: string, onChunk?: (chunk: string) => void) => {
+      onChunk?.("mocked response");
+      return new ReadableStream({
+        start(controller) {
+          controller.enqueue(new TextEncoder().encode("mocked response"));
+          controller.close();
+        }
+      });
+    }
+  )
 }));
 
 import app from "../src/index";

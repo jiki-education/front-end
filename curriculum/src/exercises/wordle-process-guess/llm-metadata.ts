@@ -9,10 +9,9 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise introduces Wordle game logic. Students learn to compare two strings
+    This exercise introduces Wordle game logic: comparing a guess to the target
     character by character, categorizing each letter as correct (right letter, right place),
     present (right letter, wrong place), or absent (letter not in word).
-    Key concepts: string iteration with index, array building with push(), conditional logic.
   `,
 
   tasks: {

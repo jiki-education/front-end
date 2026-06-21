@@ -9,47 +9,23 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches basic string manipulation and the concept of prepending
-    vs appending. It's a straightforward exercise with an elegant solution that
-    also naturally handles Unicode characters including emojis.
-
-    Key concepts:
-    - String iteration with for-each loops
-    - Building strings character by character
-    - Prepending vs appending (the key insight for reversal)
-    - Unicode handling (comes naturally with the right approach)
+    This exercise lets a student explore building a string character by character, where
+    the key insight is prepending rather than appending. A nice side effect of the elegant
+    approach is that it handles Unicode/emoji naturally.
   `,
 
   tasks: {
     "reverse-strings": {
       description: `
-        Students need to:
-        1. Initialize an empty result string
-        2. Iterate through each character in the input
-        3. Prepend each character to the result (not append!)
-        4. Return the result
+        The student iterates the input and builds a result, and the whole trick is putting
+        each new character BEFORE the accumulated result (letter + result), not after.
 
-        The key insight is using letter + result instead of
-        result + letter. By prepending each new character,
-        the string naturally reverses.
-
-        Common mistakes:
-        - Appending instead of prepending (gives the same string, not reversed)
-        - Trying to use array indexing from the end (more complex, error-prone)
-        - Overthinking the solution (the elegant solution is just 4 lines)
-
-        Teaching strategy:
-        - Walk through a simple example on paper: "cat"
-          - Start: result = ""
-          - See 'c': result = "c" + "" = "c"
-          - See 'a': result = "a" + "c" = "ac"
-          - See 't': result = "t" + "ac" = "tac"
-        - Point out that this approach naturally handles Unicode/emojis
-        - Emphasize the simplicity of the solution
-
-        Language-specific notes:
-        - JavaScript: Use letter + result
-        - Python: Use letter + result
+        Common mistakes worth watching for:
+        - Appending (result + letter), which leaves the string unchanged.
+        - Reaching for index-from-the-end logic, which is more error-prone than the
+          prepend approach.
+        If a student is stuck, walking "cat" through the loop on paper makes the prepend
+        idea click.
       `
     }
   }

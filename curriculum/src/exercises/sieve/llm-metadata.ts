@@ -9,30 +9,21 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches the Sieve of Eratosthenes algorithm for finding prime numbers.
-    Students learn to work with lists of dictionaries, nested loops, and algorithmic thinking.
-    Key concepts: prime numbers, marking/filtering patterns, building result lists with push().
+    This exercise lets a student explore the Sieve of Eratosthenes: a marking/filtering algorithm rather than per-number divisibility testing.
   `,
 
   tasks: {
     "implement-sieve": {
       description: `
-        Students need to implement the Sieve of Eratosthenes:
-        1. Create a list of number objects tracking each number and whether it's been crossed off
-        2. Iterate through the list, marking multiples of each uncrossed number
-        3. Collect all uncrossed numbers (excluding 1) into the result
+        The reference solution uses a boolean array indexed by number (isPrime[i]), marking composites false by stepping through multiples of each prime, then collecting the still-true indices.
 
         Common mistakes:
-        - Forgetting to exclude 1 from the results
+        - Not handling target < 2 (should return an empty array)
         - Off-by-one errors when generating multiples
-        - Not handling the edge case where target < 2
-        - Marking the prime itself as not prime (should only mark its multiples)
+        - Marking the prime itself rather than only its multiples
+        - Testing divisibility instead of marking multiples (this exercise is specifically about the marking approach)
 
-        Teaching strategy:
-        - Encourage students to trace through the algorithm by hand first
-        - Emphasize that this is about marking multiples, not testing divisibility
-        - The dictionary/object approach helps track crossed-off state per number
-        - push() is used to build the initial number list and the final primes list
+        Teaching strategy: encourage tracing the algorithm by hand first, and emphasise that it advances by adding/multiplying to reach multiples, not by dividing.
       `
     }
   }

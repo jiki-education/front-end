@@ -9,33 +9,19 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches using functions that return values combined with variables and loops.
-    Students call getShotLength() to get a number, then use it to control a loop that rolls
-    a golf ball across the screen. Four scenarios test different shot lengths.
+    This exercise allows a student to explore using a function's return value to drive a loop:
+    getShotLength() returns a number that must control how far the ball rolls. The four
+    scenarios exist to prove the same code works for any returned value (no hardcoding).
   `,
 
   tasks: {
     "roll-and-celebrate": {
       description: `
-        Students need to:
-        1. Call getShotLength() and store the result in a variable
-        2. Track x position starting at 28 (the tee)
-        3. Use a loop (shotLength times) to roll the ball right, incrementing x
-           before each rollTo so the ball passes through every position (29, 30, ...)
+        The student needs to store getShotLength() in a variable and loop that many times,
+        incrementing x before each rollTo so the ball passes through every position.
 
-        Key functions:
-        - rollTo(x): rolls the ball to position x
-        - getShotLength(): returns the shot length
-
-        Common mistakes:
-        - Forgetting to store the shot length in a variable
-        - Hardcoding the loop count instead of using the shot length variable
-        - Not incrementing x before calling rollTo
-
-        Teaching strategy:
-        - Focus on the return value concept: getShotLength() gives you a number
-        - Emphasize storing return values in variables for later use
-        - The multiple scenarios prove the code works for any shot length
+        The most common trap is hardcoding the loop count to one scenario's value instead of
+        using the returned shotLength, which then fails the other scenarios.
       `
     }
   }

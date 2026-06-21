@@ -21,9 +21,9 @@ From the files you've read, determine:
 
 1. **The learning goal** — what programming concept does this exercise allow the student to explore? (e.g., "using repeat loops to perform an action multiple times", "iterating through a string character by character"). This is the learning objective, NOT the scenario mechanics.
 
-2. **A compact summary of the exercise** — a shortened version of the instructions. This should explain the story and what the student needs to build, written concisely enough for an expert LLM to understand. Write this as if for JavaScript (camelCase function names, `continue` not `next`, `===` not `==`, etc.).
+2. **The numbered steps** — break down what the student needs to do into concrete numbered steps. These MUST match what the actual JavaScript solution does. Read `solution.javascript` carefully and ensure every step corresponds to actual code in the solution. Use JavaScript conventions throughout.
 
-3. **The numbered steps** — break down what the student needs to do into concrete numbered steps. These MUST match what the actual JavaScript solution does. Read `solution.javascript` carefully and ensure every step corresponds to actual code in the solution. Use JavaScript conventions throughout.
+> **Only write information Gemini would NOT already know.** The LLM (Gemini) is given the **full exercise instructions, the stub, the solution, and the taught-concepts list** directly in its prompt (see `../llm-chat-proxy/src/prompt-builder.ts`), and it can read code. For every sentence you consider writing, ask: "Given those inputs, would Gemini already know this?" If yes, do NOT write it. That rules out: the story/rules/examples (in the instructions), what the function does (instructions + solution), how to solve it (the solution), and which concepts the student knows (the concepts list). The one thing Gemini genuinely does NOT know is **how the scenarios chunk the solution into a task progression and where the student currently is** — that is what this file is for. So the description reduces to a one-line learning objective plus terse numbered steps that exist only to anchor the per-task descriptions.
 
 ## Step 3: Review Task Structure
 
@@ -59,8 +59,6 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise allows a student to explore [learning goal].
 
-    [Compact summary of the exercise — what the student builds, the rules/story. Written in JavaScript conventions.]
-
     To complete this exercise, the student needs to:
     1. [Step matching the JS solution]
     2. [Step matching the JS solution]
@@ -85,9 +83,9 @@ export const llmMetadata: LLMMetadata = {
 ### Content Rules
 
 - **Description paragraph 1**: "This exercise allows a student to explore [learning goal]." — Always this exact phrasing. Never "This exercise teaches".
-- **Description paragraph 2**: Compact exercise summary. Written for an expert LLM. JavaScript conventions (camelCase, continue, ===).
-- **Description paragraph 3**: Numbered steps. Must match the actual JS solution. Ordered by task progression.
+- **Description paragraph 2**: Numbered steps. Must match the actual JS solution. Ordered by task progression.
 - **Task descriptions**: State what the student has already done and what they need to do next. Include "Note: the student does not see these steps broken down."
+- **NO exercise summary** — the LLM receives the full instructions; do not restate the story, rules, or what the function does.
 - **NO common mistakes** — the LLM receives the solution and the student's code, it can figure this out.
 - **NO teaching strategy** — the LLM should not teach.
 
@@ -133,12 +131,6 @@ export const llmMetadata: LLMMetadata = {
   description: `
     This exercise allows a student to explore iterating through a string character by character,
     applying conditional logic to each character, and using a weighted sum to verify data.
-
-    The student writes an isValidIsbn function that checks whether an ISBN-10 string is valid.
-    ISBN-10s are 10-digit strings, optionally separated by dashes (e.g. "3-598-21508-8").
-    Validation uses a weighted sum: each digit is multiplied by a weight counting down from 10 to 1,
-    and the total must be divisible by 11. The last digit may be "X" representing 10.
-    Any non-digit, non-dash, non-X characters make the ISBN invalid.
 
     To complete this exercise, the student needs to:
     1. Iterate through each character of the ISBN string

@@ -9,22 +9,16 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore working with dictionaries by calling
-    an API function and parsing the dictionary response into a formatted string.
+    This exercise allows a student to explore working with dictionaries by parsing
+    a dictionary response from an API function into a formatted string.
 
-    The student writes a getTime function that takes a city name, calls
-    fetch("https://timeapi.io/api/time/current/city", { city: city }) to get time data,
-    and returns a formatted string like "The time on this Monday in Amsterdam is 00:28".
-    The fetch function returns a dictionary with "dayOfWeek" and "time" keys on success,
-    or an "error" key on failure. If the response has an "error" key, the function should
-    return the error message directly.
+    Anchor steps:
+    1. Call fetch and store the response dictionary
+    2. Read the "dayOfWeek" and "time" keys and concatenate them with the city into the formatted string
+    3. Detect the "error" key in the response and return data["error"] instead of the time string
 
-    To complete this exercise, the student needs to:
-    1. Call fetch with the API URL and a dictionary containing the city parameter
-    2. Store the response dictionary in a variable
-    3. Concatenate the response fields ("dayOfWeek", "time") with the city name into the expected format
-    4. Write or use a hasKey helper to check if the response contains an "error" key
-    5. If an error key exists, return data["error"] instead of building the time string
+    Teaching note: the response only contains an "error" key on failure (the other keys are
+    absent), so the error check needs a key-presence test rather than reading the key directly.
   `,
 
   tasks: {

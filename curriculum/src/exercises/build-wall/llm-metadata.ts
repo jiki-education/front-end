@@ -9,43 +9,24 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches nested loops and conditional logic to build a brick wall pattern.
-    Students create 55 bricks in 10 rows with alternating patterns.
-    Key concepts: nested loops, conditionals, modulo operator, position calculations.
+    This exercise allows a student to explore nested loops and conditionals by drawing a brick wall.
+    The constraint that rectangle can only appear once is what forces the nested-loop structure.
   `,
 
   tasks: {
     "build-wall": {
       description: `
-        Students must build a complete wall of 55 bricks using nested loops.
+        The whole exercise is one task: a complete 55-brick wall.
 
-        Key teaching points:
-        1. Nested loops: Outer loop for rows (10), inner loop for bricks per row (5 or 6)
-        2. Alternating pattern: Even rows (0,2,4...) have 5 bricks starting at x=0
-           Odd rows (1,3,5...) have 6 bricks starting at x=-10
-        3. Modulo operator: Use row % 2 to determine even/odd rows
-        4. Position calculation: x = col * width, y = row * height
-        5. Code efficiency: rectangle should only appear once (inside nested loops)
+        Anchor steps:
+        1. Outer loop over the 10 rows.
+        2. Per row, decide even vs odd (row % 2) to pick brick count and start x.
+        3. Inner loop draws the bricks, computing positions from the loop counters.
 
-        Wall structure:
-        - 10 rows total
-        - Even rows: 5 bricks, starting at x=0
-        - Odd rows: 6 bricks, starting at x=-10 (half brick offset)
-        - Total: 5*5 + 6*5 = 55 bricks
-        - Each brick: 20 wide, 10 tall
+        Note: the student does not see these steps broken down.
 
-        Common mistakes:
-        - Forgetting to alternate starting positions
-        - Incorrect loop counts
-        - Not using modulo for even/odd detection
-        - Hard-coding positions instead of calculating
-
-        Solution approach:
-        1. Set up width (20) and height (10) variables
-        2. Outer loop: iterate 10 times for rows
-        3. Inside outer loop: check if row is even or odd
-        4. Set starting column and iteration count based on row type
-        5. Inner loop: draw bricks at calculated positions
+        Common stumbling point: hard-coding positions instead of deriving x/y from the
+        loop counters, which then breaks the single-rectangle-call constraint.
       `
     }
   }

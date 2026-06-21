@@ -9,48 +9,43 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches students to implement sensing functions for maze navigation.
-    Instead of having canTurnLeft(), canTurnRight(), and canMove() provided, students must
-    write these functions themselves using look(direction), which returns what's in a given direction.
-    Key concepts: writing functions with return values, using a helper function to avoid repetition,
-    and understanding relative vs absolute directions.
+    This exercise allows a student to explore writing functions that return values, by
+    implementing the three sensing functions (canMove, canTurnLeft, canTurnRight) themselves on
+    top of look(direction). The payoff concept is factoring the shared check into one helper that
+    the three functions delegate to, instead of duplicating the logic three times.
   `,
 
   tasks: {
     "straight-path": {
       description: `
-        Students implement canMove() using look("ahead").
-        The function should return true if the space ahead is safe (not "fire", "wall", or "poop").
-        Common mistake: only checking for "wall" and forgetting about "fire" and "poop".
+        First sensing function: canMove() via look("ahead"), returning true only when the space is
+        safe. The easy miss is checking only for "wall" and forgetting the other unsafe values.
       `
     },
     "turn-left": {
       description: `
-        Students implement canTurnLeft() using look("left").
-        Same logic as canMove() but checks the left direction.
-        Encourage creating a shared helper function rather than duplicating the check logic.
+        Second sensing function: canTurnLeft() via look("left"), same safety logic as canMove().
+        This is the moment to nudge toward a shared helper rather than copy-pasting the check.
       `
     },
     "turn-right": {
       description: `
-        Students implement canTurnRight() using look("right").
-        By now they should see the pattern and create a checkDirection(direction) helper.
-        The forks scenario tests that left turns are prioritized over right turns.
+        Third sensing function: canTurnRight() via look("right"). By now the helper pattern should
+        be clear. The forks scenario relies on the navigation loop preferring left turns over right.
       `
     },
     "turn-around": {
       description: `
-        All three sensing functions should already work. The existing turn_around function
-        and loop code handle dead ends. This task tests the complete algorithm on complex mazes
-        including ones with fire, poop, and backtracking.
-        Common mistake: forgetting that turn_around is already provided in the starter code.
+        All three sensing functions now exist, so the provided navigation loop should solve the
+        mazes. This task just stresses the complete algorithm on harder mazes (fire, poop,
+        backtracking); no new code is expected.
       `
     },
     "bonus-challenges": {
       description: `
-        Challenge 1: Use look() only once in the entire program (via a checkDirection helper).
-        Challenge 2: Solve with only 13 added lines. Both require a clean helper function approach:
-        one checkDirection(direction) that calls look(), and three one-line functions that delegate to it.
+        Two constraints that both reward the helper approach: call look() in only one place in the
+        whole program, and add no more than 13 lines. Both fall out of one checkDirection(direction)
+        plus three one-line delegating functions.
       `
     }
   }

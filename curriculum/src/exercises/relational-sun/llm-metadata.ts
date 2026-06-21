@@ -9,43 +9,24 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches arithmetic with variables for positioning.
-    Students derive a sun's position from canvas size, gap, and radius
-    using subtraction and addition. Also practices using string variables for colors.
-    Key concepts: arithmetic expressions with subtraction, relative positioning from edges.
+    This exercise lets a student explore positioning a shape relative to the canvas
+    edges using arithmetic on a few fact variables, so the position holds when those
+    variables change.
   `,
 
   tasks: {
     "position-sun": {
       description: `
-        Students derive sun position and draw the scene using variables.
+        The student positions a single sun in a corner using the fact variables
+        \`canvasSize\`, \`gap\`, \`radius\`, and \`color\` (= "yellow"). There is no sky
+        rectangle. The derived position pushes in from the edges by gap + radius:
+        sunX = canvasSize - gap - radius, sunY = gap + radius, then
+        circle(sunX, sunY, radius, color).
 
-        Fixed variables:
-        - canvasSize = 100
-        - gap = 10
-        - sunRadius = 15
-        - skyColor = "skyblue"
-        - sunColor = "yellow"
-
-        Derived variables:
-        - sunX = canvasSize - gap - sunRadius = 75
-        - sunY = gap + sunRadius = 25
-
-        Expected drawing:
-        - rectangle(0, 0, canvasSize, canvasSize, skyColor)
-        - circle(sunX, sunY, sunRadius, sunColor)
-
-        Key teaching points:
-        1. Subtraction for positioning from the right edge
-        2. Addition for positioning from the top edge
-        3. Using string variables for colors (not just numbers)
-        4. The gap ensures the sun doesn't touch the edge
-
-        Common mistakes:
-        - Forgetting to subtract the radius (sun would clip the edge)
-        - Swapping the x and y formulas
-        - Hardcoding 75 and 25 instead of using expressions
-        - Forgetting to draw the sky rectangle
+        Common mistakes worth watching for:
+        - Forgetting to subtract the radius, so the sun clips the edge.
+        - Swapping the x and y formulas.
+        - Hardcoding the final numbers instead of using the expressions.
       `
     }
   }
