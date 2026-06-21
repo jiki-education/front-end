@@ -49,7 +49,11 @@ export default async function AppConceptPage({ params }: Props) {
   return (
     <SidebarLayout activeItem="concepts">
       <ConceptsBetaTag />
+      {/* key={slug} remounts the detail view on client-side navigation between
+          concepts, so the server-seeded hook state (concept, body, subconcepts)
+          re-initialises from the new props instead of showing the previous page. */}
       <ConceptDetailPage
+        key={slug}
         slug={slug}
         initialConcept={concept}
         initialAncestors={ancestors}
