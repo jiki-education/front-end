@@ -87,14 +87,30 @@
 
     /* Code Blocks */
     pre {
-        border: 2px solid var(--color-purple-400);
+        border: 1px solid var(--color-gray-500);
+        box-shadow: 0 0 3px var(--color-gray-400);
         border-radius: 8px;
-        padding: 20px 21px;
+        padding: 50px 21px 20px;
         margin: var(--spacing-20) 0;
-        background: var(--color-purple-30);
+        background: var(--color-gray-50);
         position: relative;
         overflow-x: auto;
         line-height: 1.1;
+
+        &::before {
+            content: "● ● ●";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 6px 20px 8px;
+            text-align: right;
+            background: var(--color-gray-600);
+            border-radius: 6px 6px 0 0;
+            color: var(--color-gray-300);
+            font-weight: 700;
+            font-size: 16px;
+        }
 
         code {
             font-family: var(--font-mono);
