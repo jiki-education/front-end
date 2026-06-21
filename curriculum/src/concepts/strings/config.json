@@ -1,4 +1,4 @@
 {
-  "order": 3,
-  "category": true
+  "order": 0,
+  "parent": "strings-group"
 }

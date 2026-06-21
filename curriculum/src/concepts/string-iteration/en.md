@@ -15,6 +15,13 @@ We'll start off by creating a variable called name containing the string Jeremy.
 
 Then we have this line, `for (let letter of name) {`, and there's a lot going on there, so let's talk through it slowly.
 
+```javascript
+let name = "Jeremy"
+for (let letter of name) {
+  // ...
+}
+```
+
 Firstly, we have the for keyword. That tells Jiki that we want to do some looping. So he looks ahead and sees `of` and knows that we want to do some for-of looping.
 
 And that means that rather than using a repeat loop where we say, "Let's loop through 10 times," we're saying, "Let's loop through all of the letters in the string." That's what for-of means.
@@ -28,3 +35,9 @@ So Jiki sees for, checks for of, then gets going. He looks at the first letter i
 Then he runs the code inside the curly braces, and you can do anything here you'd do anywhere else in code. The only difference is that this block of code is gonna run once for each letter in the string, and it will have this variable available.
 
 Every time Jiki gets to the closing curly bracket, Jiki throws away the letter box and creates a new one with the next letter in it. So the first time, he'll throw away the J and put an E in the box instead. Then he'll do the same for R, then E, then M, then Y. Six letters, six times around the loop. It takes a little bit of time to get used to the syntax, but it's not really that hard of a concept.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/string-iteration/jiki-letter-box-loop.webp"
+  alt="Jiki throwing away the old letter box and dropping the next letter into a fresh box labelled letter, repeating for each letter in the string"
+/>

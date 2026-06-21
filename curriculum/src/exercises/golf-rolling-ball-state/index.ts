@@ -21,7 +21,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["state", "variables"]
+  conceptSlugs: ["updating-variables", "variables"]
 };
 
 export default exerciseDefinition;

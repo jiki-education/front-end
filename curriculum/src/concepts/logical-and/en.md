@@ -11,4 +11,14 @@ Thankfully, there's an easier way, and that's to be able to have conditions that
 
 So we can use this to make a more complex condition. We can say if age is greater than 20 and the outfit is disco, then we're gonna continue. If the age is less than 20 or the outfit isn't disco, then the whole statement, the whole condition is false. If you've ever studied logic, maybe you've made some electronics or you've done some more advanced maths, then this will feel very natural to you. If not, you'll pick it up quickly.
 
+```javascript
+if (age > 20 && outfit === "disco") {
+  openDoor()
+}
+```
+
 There's one thing that trips people up with both and and or, and that's that each side of the and/or needs to be a complete comparison. So even if you're comparing the same variable on both sides, you have to repeat it. You can't write `if age is greater than 13 and less than 20`. You have to write `if age is greater than 13 and age is less than 20`. You need both sides to be complete comparisons.
+
+```javascript
+if (age > 13 && age < 20)
+```

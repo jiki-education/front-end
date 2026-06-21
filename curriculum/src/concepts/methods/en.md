@@ -21,8 +21,26 @@ The difference from properties is that when we write these, we write them like f
 
 So we can write `"Jeremy".includes("e")` and we'll get back true, as Jeremy has an E in it.
 
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/methods/jiki-writing-jeremy.webp"
+  alt="Jiki writing the string Jeremy on a piece of paper"
+/>
+
+```javascript
+"Jeremy".includes("e")
+```
+
 Methods are different to properties because they're not static facts. They're actually functions. You can think of them as like functions that have a built-in box with the string inside of it.
 
 How they work doesn't really matter for now. You're not gonna be building them for a while. All you need to know is that you use a method by using a dot and then the normal function syntax.
 
 One thing to know with strings is that the methods don't change anything inside the string. For example, there's a `toUpperCase` method, which returns the string with all the letters in uppercase. But that doesn't change the original string. That still contains Jeremy written with just a capital J. Instead, Jiki is creating a new string that's all uppercase.
+
+```javascript
+const name = "Jeremy"
+const bigName = name.toUpperCase()
+
+log(bigName)
+log(name)
+```

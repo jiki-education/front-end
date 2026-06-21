@@ -35,7 +35,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["loops", "variables", "state", "arithmetic"],
+  conceptSlugs: ["repeat", "variables", "updating-variables", "arithmetic"],
   interpreterOptions: {
     repeatDelay: 50
   }

@@ -51,7 +51,7 @@ const exerciseDefinition: VisualExerciseCore = {
   functions,
   conceptSlugs: [
     "arrays",
-    "conditionals",
+    "if",
     "creating-functions-with-inputs",
     "creating-functions-with-return-values",
     "strings",

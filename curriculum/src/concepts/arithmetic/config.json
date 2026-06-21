@@ -1,5 +1,5 @@
 {
-  "parent": "variables",
+  "parent": "variables-group",
   "order": 1,
   "category": false
 }

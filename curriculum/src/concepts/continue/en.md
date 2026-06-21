@@ -13,4 +13,22 @@ And for this, we have another keyword called `continue`.
 
 When Jiki sees continue, he just jumps back to the top of the loop for the next iteration. So in a for-of loop, if he sees continue, he moves on to the next item in the list.
 
+```javascript
+for (let item of list) {
+  if (item === "something") {
+    continue; // Skips rest of loop for "something"
+  }
+  // Rest of the loop...
+}
+```
+
 In a for loop, he hits the increment of the `i++` and then starts the next iteration.
+
+```javascript
+for (let i = 0; i < 10; i++) {
+  if (i % 2 === 0) {
+    continue; // Skips rest of loop for even numbers
+  }
+  // Rest of the loop...
+}
+```

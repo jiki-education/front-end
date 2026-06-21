@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   getConcept,
+  getConcepts,
   getAncestors,
   getConceptContent,
   getRelatedConcepts,
   getExercisesForConcept,
   fetchConceptVideoData
 } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
 import { fetchProjects, type ProjectData, type ProjectStatus } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -32,6 +33,90 @@ interface ConceptDetailData {
   getProjectStatus: (slug: string) => ProjectStatus | "locked";
 }
 
+interface ConceptSetupContext {
+  slug: string;
+  router: ReturnType<typeof useRouter>;
+  isCancelled: () => boolean;
+  setRelatedExercises: (value: ExerciseInfo[]) => void;
+  setRelatedProjects: (value: ProjectInfo[]) => void;
+  setUnlockedConceptSlugs: (value: Set<string>) => void;
+  setExerciseStatuses: (value: Record<string, LessonStatus>) => void;
+  setProjectStatuses: (value: Record<string, ProjectStatus>) => void;
+  setVideoData: (value: VideoSource[] | null) => void;
+}
+
+async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
+  const [rawUnlockedSlugs, allConcepts, projectsResponse, video] = await Promise.all([
+    fetchUnlockedConceptSlugs(),
+    getConcepts(),
+    fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
+    fetchConceptVideoData(ctx.slug)
+  ]);
+  if (ctx.isCancelled()) {
+    return;
+  }
+
+  // Expand with parent categories so visiting a category detail page (which is
+  // never returned by the unlock API) is not treated as locked / redirected away.
+  const unlockedSlugs = expandUnlocked(allConcepts, rawUnlockedSlugs);
+
+  // Split concept exercises into true exercises vs projects (matched by exercise_slug or slug).
+  const projectByExerciseSlug = new Map<string, ProjectData>();
+  for (const project of projectsResponse.results) {
+    if (project.exercise_slug) {
+      projectByExerciseSlug.set(project.exercise_slug, project);
+    }
+    projectByExerciseSlug.set(project.slug, project);
+  }
+
+  const exerciseOnly: ExerciseInfo[] = [];
+  const projectsForConcept: ProjectInfo[] = [];
+  for (const ex of exercises) {
+    const match = projectByExerciseSlug.get(ex.slug);
+    if (match) {
+      projectsForConcept.push({ slug: match.slug, title: match.title });
+    } else {
+      exerciseOnly.push(ex);
+    }
+  }
+
+  const lessonStatuses =
+    exerciseOnly.length > 0
+      ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
+      : ({} as Record<string, LessonStatus>);
+  if (ctx.isCancelled()) {
+    return;
+  }
+
+  const projStatuses: Record<string, ProjectStatus> = {};
+  for (const project of projectsResponse.results) {
+    if (project.status) {
+      projStatuses[project.slug] = project.status;
+    }
+  }
+
+  ctx.setRelatedExercises(exerciseOnly);
+  ctx.setRelatedProjects(projectsForConcept);
+  ctx.setUnlockedConceptSlugs(unlockedSlugs);
+  ctx.setExerciseStatuses(lessonStatuses);
+  ctx.setProjectStatuses(projStatuses);
+  ctx.setVideoData(video);
+
+  if (!unlockedSlugs.has(ctx.slug)) {
+    ctx.router.push("/concepts");
+  }
+}
+
+async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
+  ctx.setRelatedExercises(exercises);
+
+  const video = await fetchConceptVideoData(ctx.slug);
+  if (ctx.isCancelled()) {
+    return;
+  }
+  ctx.setVideoData(video);
+}
+
 export function useConceptDetailData(slug: string): ConceptDetailData {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -52,6 +137,18 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
 
   useEffect(() => {
     let cancelled = false;
+
+    const ctx: ConceptSetupContext = {
+      slug,
+      router,
+      isCancelled: () => cancelled,
+      setRelatedExercises,
+      setRelatedProjects,
+      setUnlockedConceptSlugs,
+      setExerciseStatuses,
+      setProjectStatuses,
+      setVideoData
+    };
 
     const load = async () => {
       try {
@@ -111,65 +208,9 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         setRelatedConcepts(related);
 
         if (isAuthenticated) {
-          const [unlockedSlugs, projectsResponse, video] = await Promise.all([
-            fetchUnlockedConceptSlugs(),
-            fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
-            fetchConceptVideoData(slug)
-          ]);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (cancelled) {
-            return;
-          }
-
-          // Split concept exercises into true exercises vs projects (matched by exercise_slug or slug).
-          const projectByExerciseSlug = new Map<string, ProjectData>();
-          for (const project of projectsResponse.results) {
-            if (project.exercise_slug) {
-              projectByExerciseSlug.set(project.exercise_slug, project);
-            }
-            projectByExerciseSlug.set(project.slug, project);
-          }
-
-          const exerciseOnly: ExerciseInfo[] = [];
-          const projectsForConcept: ProjectInfo[] = [];
-          for (const ex of exercises) {
-            const match = projectByExerciseSlug.get(ex.slug);
-            if (match) {
-              projectsForConcept.push({ slug: match.slug, title: match.title });
-            } else {
-              exerciseOnly.push(ex);
-            }
-          }
-
-          const lessonStatuses =
-            exerciseOnly.length > 0
-              ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
-              : ({} as Record<string, LessonStatus>);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (cancelled) {
-            return;
-          }
-
-          const projStatuses: Record<string, ProjectStatus> = {};
-          for (const project of projectsResponse.results) {
-            if (project.status) {
-              projStatuses[project.slug] = project.status;
-            }
-          }
-
-          setRelatedExercises(exerciseOnly);
-          setRelatedProjects(projectsForConcept);
-          setUnlockedConceptSlugs(new Set(unlockedSlugs));
-          setExerciseStatuses(lessonStatuses);
-          setProjectStatuses(projStatuses);
-          setVideoData(video);
-
-          if (!unlockedSlugs.includes(slug)) {
-            router.push("/concepts");
-            return;
-          }
+          await setupForLoggedInUser(exercises, ctx);
         } else {
-          setRelatedExercises(exercises);
+          await setupForExternalUser(exercises, ctx);
         }
       } catch {
         if (cancelled) {

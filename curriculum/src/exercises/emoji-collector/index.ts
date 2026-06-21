@@ -62,13 +62,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: [
-    "dictionaries",
-    "updating-dictionaries",
-    "conditionals",
-    "creating-functions-with-return-values",
-    "repeat"
-  ],
+  conceptSlugs: ["dictionaries", "updating-dictionaries", "if", "creating-functions-with-return-values", "repeat"],
   interpreterOptions: {
     maxTotalLoopIterations: 500
   }

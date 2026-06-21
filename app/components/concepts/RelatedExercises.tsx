@@ -11,9 +11,10 @@ interface ExerciseItem {
 interface RelatedExercisesProps {
   exercises: ExerciseItem[];
   getStatus: (slug: string) => LessonStatus;
+  isAuthenticated: boolean;
 }
 
-export function RelatedExercises({ exercises, getStatus }: RelatedExercisesProps) {
+export function RelatedExercises({ exercises, getStatus, isAuthenticated }: RelatedExercisesProps) {
   if (exercises.length === 0) {
     return null;
   }
@@ -22,6 +23,14 @@ export function RelatedExercises({ exercises, getStatus }: RelatedExercisesProps
     <div className={styles.card}>
       <h3 className={styles.header}>Related Exercises</h3>
       <p className={styles.description}>These exercises are great ways for you to practice this concept!</p>
+      {!isAuthenticated && (
+        <p className={styles.signupPrompt}>
+          <Link href="/auth/signup" className={styles.signupLink}>
+            Sign up
+          </Link>{" "}
+          to solve them!
+        </p>
+      )}
       <div className={styles.list}>
         {exercises.map((ex) => (
           <ExerciseItem key={ex.slug} exercise={ex} status={getStatus(ex.slug)} />

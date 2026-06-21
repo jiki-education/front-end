@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { getTopLevelConcepts, searchConcepts as searchConceptsAction } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { getTopLevelConcepts, getConcepts, searchConcepts as searchConceptsAction } from "@/lib/api/concepts";
+import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta, ConceptForDisplay } from "@/types/concepts";
 
@@ -20,14 +20,17 @@ export function useConcepts() {
         setIsLoading(true);
         setError(null);
 
-        const [concepts, slugs] = await Promise.all([
+        const [topConcepts, fullConcepts, slugs] = await Promise.all([
           getTopLevelConcepts(),
+          getConcepts(),
           isAuthenticated ? fetchUnlockedConceptSlugs() : Promise.resolve([])
         ]);
 
-        setAllConcepts(concepts);
-        setDisplayedConcepts(concepts);
-        setUnlockedSlugs(new Set(slugs));
+        setAllConcepts(topConcepts);
+        setDisplayedConcepts(topConcepts);
+        // Expand with parent categories so a category card unlocks once any of its
+        // children is unlocked (categories are never returned by the unlock API).
+        setUnlockedSlugs(expandUnlocked(fullConcepts, slugs));
       } catch {
         setError("Failed to load concepts. Please try again later.");
       } finally {

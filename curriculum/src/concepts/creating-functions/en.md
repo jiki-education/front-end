@@ -11,7 +11,21 @@ To show you how to do this, we're going to look at building a new function for t
 
 This function is always going to move the character five steps forward. That's admittedly not the most useful function in the world, but it's a nice easy one for us to get started with.
 
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/creating-functions/walk-grid.webp"
+  alt="The character on the maze grid, ready to walk five steps forward"
+/>
+
 So if I was to ask you to write some code to move the character forward five steps, you could either write move five times, or you could use a repeat loop. In this example, just to keep things simple, we're gonna use the move five times in a row approach.
+
+```javascript
+move()
+move()
+move()
+move()
+move()
+```
 
 So that's what we want to be inside our function.
 
@@ -23,7 +37,23 @@ To turn these five lines into a function, these five moves into a function, we n
 
 When we use the function keyword, we have to do two things. One, specify the name of the function. In this case, it's walk5. And two, use curly brackets to wrap some code that says, "This is what you should do inside the function." So we can add that to our code, and we're now telling Jiki to create a function called walk5, and then when walk5 is used, he should run these five lines of code.
 
+```javascript
+function walk5() {
+  move()
+  move()
+  move()
+  move()
+  move()
+}
+```
+
 When Jiki sees that function keyword, he's gonna go and build a new function, put those instructions on a whiteboard inside of it, and then put a label on the machine for walk5. And he'll then put that function on the shelves alongside all the rest of the ones that are there.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/creating-functions/jiki-machine-whiteboard.webp"
+  alt="Jiki standing beside a new machine with a whiteboard inside it for writing down the function's instructions"
+/>
 
 Now, there's nothing special about this function you've made compared to the built-in ones. They all just sit next to each other on his shelves.
 

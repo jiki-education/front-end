@@ -1,5 +1,5 @@
 {
-  "parent": "colors",
+  "parent": "colors-group",
   "order": 2,
   "category": false
 }

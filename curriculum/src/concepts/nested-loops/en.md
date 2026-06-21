@@ -3,7 +3,29 @@ title: "Loops in Loops"
 description: "Putting one loop inside another so the inner loop runs completely for each step of the outer loop, which is perfect for grids."
 ---
 
-Let's say we want a row of flowers. We can write something like this. We set a position, we plant a flower, we increase the position by 10, we repeat, we end up with a nice neat row of flowers. But what if we want a grid of flowers with rows and columns? Maybe four rows with five flowers in each row.
+Let's say we want a row of flowers. We can write something like this. We set a position, we plant a flower, we increase the position by 10, we repeat, we end up with a nice neat row of flowers.
+
+```javascript
+let x = 10
+repeat(5) {
+  plant(x, 50, 10)
+  x = x + 10
+}
+```
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/nested-loops/single-row-flowers.webp"
+  alt="Jiki at a whiteboard with a single neat row of flowers planted below"
+/>
+
+But what if we want a grid of flowers with rows and columns? Maybe four rows with five flowers in each row.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/nested-loops/grid-question.webp"
+  alt="A four-by-five grid of flowers with Jiki thinking about how to draw it"
+/>
 
 We've got a loop that draws one row of flowers. How can you use that to draw four rows? Or what could we do to draw four rows?
 
@@ -18,6 +40,24 @@ So in the same way we need to move the position from left to right a bit each ti
 So think through what the value is at each time. Top position starts at 10. For the first five times we plant, it stays like that. The left position increases. And then we add another 10 to it, to that top position, and we plant five more flowers a little bit lower. We're resetting that left position back to 10 again, and then we're increasing it again each time.
 
 And now we can say repeat this four times, and we're gonna get four rows of five plants.
+
+```javascript
+let y = 10
+repeat(4) {
+  let x = 10
+  repeat(5) {
+    plant(x, y, 10)
+    x = x + 10
+  }
+  y = y + 10
+}
+```
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/nested-loops/flower-grid-result.webp"
+  alt="The finished four-by-five grid of flowers with a happy Jiki giving two thumbs up"
+/>
 
 The key thing to understand is that Jiki finishes all the work in the inner loop before coming back to the outer loop. He's not bouncing backwards and forth. He completes the inner loop, and then he moves on to the next step of the outer loop.
 

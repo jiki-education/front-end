@@ -7,6 +7,12 @@ You might remember that the repeat loop doesn't really exist in JavaScript. It's
 
 So what do we use instead? Well, we use a normal `for` loop, and that looks like this.
 
+```javascript
+for (let i = 0; i < 5; i++) {
+  // ...
+}
+```
+
 You can see why that might have been a bit intimidating on day one for you.
 
 But now you have all of the knowledge you need to get comfortable with this. So let's break it down.
@@ -32,6 +38,19 @@ And then at the end, we increase i by one, so i becomes one. Zero plus one is on
 And then we go again. We check whether one is less than two.
 
 It is, so we run the loop. And then at the end, we increase i again. So now it's two, one plus one equals two.
+
+```javascript
+i = 0
+i < 2 // true - run the loop
+...   // Do the iteration
+i = i + 1 // 1
+
+i < 2 // true - run the loop
+...   // Do the iteration
+i = i + 1 // 2
+
+i < 2 // false - exit the loop
+```
 
 And then we go a third time. This time we check whether two is less than two, and it's not, so we don't run the loop, and we're finished with the loop, in fact. We just move on to any code below. So we ran the loop twice, and that's a useful thing to know. As long as we start at zero and have a condition `i < n`, the number n is the amount of times the loop will run.
 
