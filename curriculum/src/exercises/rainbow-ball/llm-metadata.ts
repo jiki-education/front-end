@@ -14,7 +14,7 @@ export const llmMetadata: LLMMetadata = {
     and color variables each iteration, checking boundary conditions with if statements,
     and using random numbers to set new directions. Key concepts: variable mutation
     inside loops, conditional boundary checking, combining multiple state variables,
-    and using functions that return values (random_number, hsl).
+    and using functions that return values (Math.randomInt, hsl).
   `,
 
   tasks: {
@@ -32,12 +32,12 @@ export const llmMetadata: LLMMetadata = {
         Key teaching points:
         1. Combining conditionals with state: checking boundaries and updating variables
         2. Multiple state variables working together (position, direction, color)
-        3. Using randomNumber() return values to set new directions
+        3. Using Math.randomInt() return values to set new directions
         4. Composing functions: hsl() output used as circle() input
 
         Common mistakes:
         - Checking hueDirection instead of hue for the color boundary conditions
-        - Forgetting to use randomNumber() for new directions (using fixed values)
+        - Forgetting to use Math.randomInt() for new directions (using fixed values)
         - Using the wrong sign for directions (positive when should be negative)
         - Not updating x/y/hue before the boundary checks
         - Using hsl with hue values outside 0-360 range
