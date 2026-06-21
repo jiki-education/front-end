@@ -61,12 +61,17 @@ async function tryModel(
   ai: GoogleGenAI,
   model: string,
   config: ModelConfig,
-  prompt: string
+  prompt: string,
+  systemInstruction: string
 ): Promise<GeminiStream | "rate-limited"> {
   let attempt = 0;
   while (true) {
     try {
-      const result = await ai.models.generateContentStream({ model, contents: prompt, config });
+      const result = await ai.models.generateContentStream({
+        model,
+        contents: prompt,
+        config: { ...config, systemInstruction }
+      });
       console.log(`[Gemini] Using model: ${model}`);
       return result;
     } catch (error) {
@@ -92,9 +97,13 @@ async function tryModel(
  * on rate limits. Throws if every model is rate limited. Returns the model name
  * alongside the stream so usage can be attributed to the model that served it.
  */
-async function openModelStream(ai: GoogleGenAI, prompt: string): Promise<{ result: GeminiStream; model: string }> {
+async function openModelStream(
+  ai: GoogleGenAI,
+  prompt: string,
+  systemInstruction: string
+): Promise<{ result: GeminiStream; model: string }> {
   for (const { model, config } of MODEL_CHAIN) {
-    const result = await tryModel(ai, model, config, prompt);
+    const result = await tryModel(ai, model, config, prompt, systemInstruction);
     if (result !== "rate-limited") {
       return { result, model };
     }
@@ -169,17 +178,19 @@ function toTextStream(result: GeminiStream, model: string, onChunk?: (chunk: str
  * Streams a response from Gemini, cascading through models on rate limits.
  * Tries gemini-2.5-flash -> gemini-2.5-flash-lite.
  *
- * @param prompt - The full prompt to send to Gemini
+ * @param prompt - The user-facing prompt (exercise context + student data)
  * @param apiKey - Google Gemini API key
+ * @param systemInstruction - The persona + tutor rules, sent as systemInstruction
  * @param onChunk - Optional callback for each chunk (for collecting full response)
  * @returns A ReadableStream of text chunks
  */
 export async function streamGeminiResponse(
   prompt: string,
   apiKey: string,
+  systemInstruction: string,
   onChunk?: (chunk: string) => void
 ): Promise<ReadableStream> {
   const ai = new GoogleGenAI({ apiKey });
-  const { result, model } = await openModelStream(ai, prompt);
+  const { result, model } = await openModelStream(ai, prompt, systemInstruction);
   return toTextStream(result, model, onChunk);
 }

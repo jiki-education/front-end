@@ -9,42 +9,39 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches dictionary creation, string iteration, and word frequency analysis.
-    Students learn to parse text into words, normalize case, and use dictionaries to count occurrences.
-    Key concepts: dictionaries, hasKey, string iteration, helper functions, character classification.
+    This exercise allows a student to explore parsing text into words and
+    counting frequencies in a dictionary. It splits into three milestones:
+    basic counting, case/apostrophe handling, then a bonus on edge-case
+    apostrophes. Encourage decomposing into helpers (isLetter, extractWords,
+    countWords).
   `,
 
   tasks: {
     "basic-word-counting": {
       description: `
-        Students need to:
-        1. Convert the sentence to lowercase using toLowerCase()
-        2. Extract words by iterating character-by-character, treating letters, numbers, and apostrophes as word characters
-        3. Build a dictionary of word counts using hasKey() to check existence
+        First milestone: lowercase + split into words + tally into a dict.
 
-        Common mistakes:
-        - Forgetting to handle empty words (e.g., from consecutive separators)
-        - Not converting to lowercase before processing
-        - Treating commas and punctuation as word characters
-        - Forgetting that numbers count as words
-
-        Encourage breaking the problem into helper functions: isLetter, extractWords, countWords.
+        The non-obvious traps: consecutive separators can produce empty
+        "words" that must be discarded, and numbers count as words (so a
+        letters-only character test is wrong).
       `
     },
     "case-normalization": {
       description: `
-        This task tests that case normalization works correctly and apostrophes in contractions are preserved.
-        Students should already have lowercase conversion from task 1.
-        Common mistakes:
-        - Apostrophes being treated as word separators (they should be kept)
-        - Multiple spaces creating empty strings in the word list
+        Student has basic counting working; this milestone hardens case
+        handling and, crucially, requires apostrophes INSIDE contractions to
+        be kept rather than treated as separators. Multiple spaces must not
+        leak empty strings into the word list. Note: the student does not see
+        these steps broken down.
       `
     },
     "bonus-apostrophes": {
       description: `
-        The bonus challenge requires stripping leading/trailing apostrophes from words while keeping internal ones.
-        For example, 'large' should become "large" but "can't" should stay as "can't".
-        This requires post-processing extracted words to trim apostrophes from edges.
+        Bonus. The hard distinction: an apostrophe in the MIDDLE of a word is
+        kept (can't), but leading/trailing apostrophes used as quotes must be
+        stripped ('large' -> large). The usual approach is to only keep an
+        apostrophe when it sits between two letters. Note: the student does not
+        see these steps broken down.
       `
     }
   }

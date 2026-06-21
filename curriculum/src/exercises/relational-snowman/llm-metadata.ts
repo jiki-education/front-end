@@ -9,41 +9,26 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches arithmetic with variables. Students derive snowman
-    dimensions from headRadius and groundY using multiplication and subtraction.
-    Key concepts: arithmetic expressions, variable relationships, relative positioning.
+    This exercise lets a student explore deriving related dimensions and positions
+    from a single source variable using arithmetic, so the whole shape rescales when
+    that variable changes.
   `,
 
   tasks: {
     "build-relational-snowman": {
       description: `
-        Students derive all sizes and positions from fixed variables using arithmetic.
-        The snowman sits on the ground and expands upward.
+        The student derives everything from a single \`size\` variable (the fixed
+        variables are \`snowmanX\` and \`size\`); the snowman sits on the ground and
+        stacks upward. The three radii are multiples of size (headRadius = size * 2,
+        bodyRadius = size * 3, baseRadius = size * 4), and each y is computed so the
+        circles touch (sum of the two radii), starting from the bottom (baseY uses
+        \`100 - size - baseRadius\`).
 
-        Fixed variables:
-        - headRadius = 5
-        - snowmanX = 50
-        - groundY = 80
-
-        Derived variables:
-        - bodyRadius = headRadius * 2 = 10
-        - baseRadius = headRadius * 3 = 15
-        - baseY = groundY - baseRadius = 65
-        - bodyY = baseY - baseRadius - bodyRadius = 40
-        - headY = bodyY - bodyRadius - headRadius = 25
-
-        Key teaching points:
-        1. Variables can be defined in terms of other variables
-        2. Multiplication for scaling (headRadius * 2, headRadius * 3)
-        3. Subtraction for upward positioning from a ground line
-        4. Circles touch when distance between centers = sum of radii
-        5. Changing headRadius scales the entire snowman proportionally
-
-        Common mistakes:
-        - Hardcoding numbers instead of using expressions
-        - Forgetting that circles touch at the sum of their radii
-        - Using diameter instead of radius for positioning
-        - Getting the subtraction order wrong (building upward from ground)
+        Common mistakes worth watching for:
+        - Hardcoding numbers instead of expressions, so changing \`size\` doesn't rescale.
+        - Spacing circles by a single radius rather than the sum of both radii, so they
+          overlap or gap.
+        - Building the stack from the top instead of from the ground.
       `
     }
   }

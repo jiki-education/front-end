@@ -9,59 +9,33 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches string manipulation, suffix matching, and helper function design.
-    Students learn to extract substrings, check string endings, and apply these operations
-    to solve a practical matching problem.
+    This exercise lets a student decompose a matching problem into helpers: strip
+    an honorific off a name, implement an endsWith check from scratch, and use them
+    to test each guest. Suffix matching (not equality) is the crux.
 
-    Key concepts:
-    - String parsing and extraction (removing honorifics)
-    - Implementing endsWith functionality from scratch
-    - Helper function decomposition
-    - Working with string indices and lengths
-    - List iteration with early returns
+    Anchor steps:
+    1. removeHonorific: extract everything after the first space.
+    2. endsWith: check whether one string ends with another.
+    3. Loop the guest list, returning true on the first name that ends with the surname.
   `,
 
   tasks: {
     "check-formal-guest-list": {
       description: `
-        Students need to:
-        1. Create a helper to calculate string length
-        2. Create a removeHonorific helper that extracts everything after the first space
-        3. Create an endsWith helper that checks if one string ends with another
-        4. Use these helpers to check each name in the guest list
-        5. Return true if any name ends with the extracted surname
-
-        Common mistakes:
-        - Off-by-one errors in endsWith
-        - Not handling the case where surname is longer than the name
-        - Forgetting to skip the space when extracting the surname
-        - Using == instead of checking character by character
-
-        Teaching strategy:
-        - Build up the solution step by step
-        - Start with length(), then removeHonorific(), then endsWith()
-        - Test each helper independently
-        - Show how the main function becomes simple once helpers exist
-
-        Language-specific notes:
-        - JavaScript: Uses string concatenation with +, 0-based indexing
-        - Python: Uses string concatenation with +, 0-based indexing, has len() built-in
+        Non-obvious traps to watch for:
+        - endsWith is off-by-one prone; the comparison must start at word.length - substr.length.
+        - Guard the case where the surname is longer than the name (return false, don't index out of range).
+        - The match is a suffix check, not full-string equality.
+        - A good teaching path is to build and test each helper independently before wiring them together.
       `
     },
     "bonus-multi-word-surname": {
       description: `
-        This bonus task tests multi-word surnames like "Lloyd Webber".
-        The key insight is that the honorific is only the FIRST word,
-        so "Baron Lloyd Webber" should extract "Lloyd Webber" as the surname.
-
-        The solution should already handle this correctly if removeHonorific
-        extracts EVERYTHING after the first space (not just the second word).
-
-        Common mistakes:
-        - Only extracting one word after the honorific
-        - Partial matches (matching "Webber" alone when looking for "Lloyd Webber")
-
-        Guide students to verify their removeHonorific function handles this case.
+        Bonus: multi-word surnames like "Lloyd Webber". Since the honorific is only
+        the FIRST word, "Baron Lloyd Webber" must yield "Lloyd Webber". A
+        removeHonorific that takes everything after the first space already handles
+        this; one that grabs only the next single word does not. Watch too for
+        partial matches ("Webber" matching when "Lloyd Webber" was wanted).
       `
     }
   }

@@ -9,29 +9,22 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches the remainder (modulo) operator and basic conditionals.
-    Students learn to determine if a number is even or odd using number % 2.
-    Key concepts: remainder operator, conditional logic, return values.
+    This exercise lets a student explore the remainder operator (%) and a simple
+    conditional return: decide whether a number is "Even" or "Odd".
   `,
 
   tasks: {
     "identify-even-or-odd": {
       description: `
-        Students need to use the remainder operator (%) to check if a number is divisible by 2.
-        If number % 2 equals 0, return "Even", otherwise return "Odd".
-
-        Common mistakes:
-        - Forgetting that 0 is even
-        - Using division instead of remainder
-        - Returning lowercase "even"/"odd" instead of capitalized
-        - Overcomplicating with multiple if statements when a simple if/return pattern works
+        Non-obvious traps to watch for:
+        - 0 is even (a common edge case students second-guess).
+        - The return strings are capitalised ("Even"/"Odd"), not lowercase.
       `
     },
     "solve-in-six-lines": {
       description: `
-        The bonus challenge asks students to solve it in 6 lines or fewer.
-        The optimal solution uses early return: if number % 2 equals 0, return "Even", then return "Odd".
-        No else statement is needed since return exits the function.
+        Bonus: same logic in 6 lines or fewer. Nudge toward the early-return
+        pattern (no else needed, since return exits the function).
       `
     }
   }

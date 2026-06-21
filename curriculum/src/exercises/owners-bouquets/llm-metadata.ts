@@ -7,11 +7,11 @@ export const llmMetadata: {
   tasks: Record<TaskId, { description: string }>;
 } = {
   description:
-    "This is the student's first exercise with scenarios — the same code must pass multiple test cases where askNumberOfFlowers() returns different values (1, 3, 4, 9). The student must store the return value in a variable, calculate even spacing using 100 / (count + 1), then use a repeat loop to plant flowers. Key concepts: function return values used in arithmetic, variables that track changing state across loop iterations, and writing generalized code that handles multiple scenarios.",
+    "This exercise allows a student to explore writing one generalised program that passes multiple scenarios. This is an early exercise with scenarios: the SAME code must work when askNumberOfFlowers() returns different values (1, 3, 4, 9), so the answer cannot hardcode a count.",
   tasks: {
     "plant-flowers-evenly": {
       description:
-        "Store the result of askNumberOfFlowers() in a variable (e.g. let count = askNumberOfFlowers()). Calculate the gap as 100 / (count + 1). Set a position variable to gap, then use repeat(count) to plant at position and increment position by gap each iteration. Common mistakes: hardcoding 9 flowers (works for one scenario but not others), forgetting to increment position inside the loop, using 100/count instead of 100/(count+1) which places flowers at the edges."
+        "Anchor steps: store askNumberOfFlowers() in a variable, derive even spacing from it, then loop that many times planting at each position. The non-obvious bit is the gap formula 100 / (count + 1) so flowers don't sit on the edges; the headline trap is hardcoding the count (passes one scenario, fails the rest)."
     }
   }
 };

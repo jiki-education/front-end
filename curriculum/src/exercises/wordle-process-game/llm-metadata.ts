@@ -10,8 +10,7 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     This exercise extends the previous Wordle exercise to process a full game of multiple guesses.
-    Students learn to iterate through a list of guesses and process each one, building on their
-    processGuess logic. Key concepts: iterating with index, function composition, reusing code.
+    The key build-on is reusing the processGuess function from that exercise here, one row at a time.
   `,
 
   tasks: {

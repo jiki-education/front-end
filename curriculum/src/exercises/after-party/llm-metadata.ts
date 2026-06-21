@@ -9,62 +9,25 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches string manipulation, helper function creation, and list iteration.
-    Students learn to implement common string operations (length, startsWith) from scratch
-    and apply them to solve a practical problem. Key concepts: string indexing, iteration,
-    early returns, helper functions, and boundary checking.
-
-    This is an intermediate exercise that builds on basic iteration and introduces:
-    - Implementing utility functions from scratch (length, startsWith)
-    - Working with lists of strings
-    - Character-by-character string comparison
-    - Handling edge cases (empty lists, exact matches, partial matches)
+    This exercise allows a student to explore decomposing a problem into helper functions and doing
+    bounded prefix matching character-by-character.
   `,
 
   tasks: {
     "check-guest-list": {
       description: `
-        Students need to:
-        1. Create a helper function to calculate string length (iterate and count)
-        2. Create a startsWith helper that checks if one string starts with another
-        3. The startsWith function must also check for word boundaries (space after the prefix)
-        4. Use these helpers to check each name in the guest list
-        5. Return true as soon as a match is found, false if no match
-
-        Common mistakes:
-        - Not checking for word boundaries (matching "Bradley" when looking for "Brad")
-        - Off-by-one errors in string indexing
-        - Not handling the case where the prefix equals the entire name (single-name celebrities)
-        - Forgetting to return false at the end if no match is found
-        - Not handling empty lists correctly
-
-        Teaching strategy:
-        - Encourage decomposition: break the problem into smaller helper functions
-        - Start with the length function - it's the simplest and needed by startsWith
-        - Then build startsWith using length
-        - Finally implement onGuestList using startsWith
-        - Test each helper independently before combining
-
-        Language-specific notes:
-        - JavaScript: Uses 0-based indexing with word[i], for...of or standard for loops
-        - Python: Uses 0-based indexing, len() is built-in so length helper is optional
+        The crux is that a first name only matches if it is a whole word at the start of a list entry: the
+        character after the prefix must be a space OR the prefix must be the entire name. This is why "Brad"
+        must NOT match "Bradley". Encourage decomposing into a startsWith-style helper, since indexOf/startsWith
+        aren't available at this level. Common slip: declaring a match purely on character equality and missing
+        the boundary check.
       `
     },
     "bonus-single-names": {
       description: `
-        This bonus task tests edge cases with single-name celebrities like "Cher".
-        The main challenge is ensuring that:
-        - "Cher" matches the name "Cher" exactly (single name on list)
-        - "Cheryl" does NOT match "Cher" (partial match is not valid)
-
-        The solution should already handle this if startsWith is implemented correctly:
-        - When the prefix length equals the word length, it's a match (Cher = Cher)
-        - When checking "Cheryl" against "Cher", the character after "Cher" is "y", not a space
-
-        Guide students to think about:
-        - What makes a valid first name match?
-        - Either the first name IS the full name, OR it's followed by a space
-        - This handles both "Cher" and "Brad Pitt" cases correctly
+        Bonus, builds on the same boundary logic: a single-name entry like "Cher" should match "Cher" exactly
+        but not "Cheryl". If the boundary check from the first task is correct, this already passes, so the
+        student rarely needs new code here, just verification that prefix === whole-name counts as a match.
       `
     }
   }

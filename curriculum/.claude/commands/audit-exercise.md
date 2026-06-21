@@ -179,6 +179,30 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 
 ---
 
+### Check 7b: LLM Metadata Only Contains Information Gemini Wouldn't Already Know
+
+**Rule**: The LLM (Gemini) already receives, in its prompt, the **full exercise instructions** (`instructions/en.md`), the **stub**, the **solution**, and the **list of taught concepts**. (See `../llm-chat-proxy/src/prompt-builder.ts` — `buildInstructionsContentSection`, `buildInitialCodeSection`, `buildTargetCodeSection`, `buildTaughtConceptsSection`.) It is also a capable model that can read code. Therefore `llm-metadata.ts` must contain **only information Gemini would NOT already know or trivially derive from those inputs**. Anything Gemini can read off the instructions, infer from the solution, or read from the concepts list is noise and should be cut.
+
+**The test for every sentence**: "Given the instructions, the concepts list, the stub, and the solution, would Gemini already know this?" If yes → CUT. If no → KEEP.
+
+**What Gemini already knows (so CUT it)**:
+
+- The story, rules, examples, and constraints — these are in `instructions/en.md` verbatim.
+- What the function does, its inputs/outputs/signature — stated in the instructions and visible in the solution.
+- How to solve it / the algorithm — derivable from the provided solution.
+- Which concepts/syntax the student knows — that is the taught-concepts list.
+- Generic restatements of the goal ("students learn to compare two strings character by character") — derivable from instructions + solution.
+
+**What Gemini does NOT know (so KEEP it)**:
+
+- **The mapping of task IDs to portions of the solution** — i.e. "task 1 = get steps 1-3 working, task 2 adds step 4." Gemini sees the whole solution but does not know how the scenarios chunk it into a progression, or where the student currently is. This is the primary reason the file exists.
+- **The numbered solution steps** only insofar as they are the anchor the task descriptions reference for that mapping. Keep them terse; do not let them balloon into a re-derivation of the solution.
+- Genuinely non-obvious context: a subtlety the instructions omit, a deliberate design intent, a trap that is invisible from the instructions/solution alone.
+
+**How to check**: Read `instructions/en.md`, the concepts for the level, and the solution. Then read `description` sentence by sentence and apply the test above. The description should reduce to roughly: a one-line learning objective + terse numbered steps that exist only to anchor the per-task progression. FAIL if any sentence restates the instructions, re-derives the solution, or repeats the concepts list — i.e. tells Gemini something it already knows.
+
+---
+
 ### Check 8: Concept Slugs Are Present and Accurate
 
 **Rule**: Every exercise should have a `conceptSlugs` array in its `index.ts` definition that lists the concepts the exercise teaches or practices. The slugs must correspond to actual concept directories in `src/concepts/`.

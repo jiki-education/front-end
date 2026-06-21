@@ -9,38 +9,23 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches combining conditionals with state management inside a loop.
-    Students create a bouncing ball that leaves a rainbow trail by updating position
-    and color variables each iteration, checking boundary conditions with if statements,
-    and using random numbers to set new directions. Key concepts: variable mutation
-    inside loops, conditional boundary checking, combining multiple state variables,
-    and using functions that return values (random_number, hsl).
+    This exercise lets a student explore combining conditionals with mutable state
+    inside a loop: several variables (position, direction, colour) evolve together each
+    iteration, with if statements handling boundary bounces.
   `,
 
   tasks: {
     "rainbow-ball": {
       description: `
-        Students must create a bouncing ball that trails rainbow-colored circles.
+        The student keeps position (x, y), direction, and hue variables that update every
+        loop iteration; at the canvas edges (0/100) the direction reverses with a fresh
+        random speed, and the hue bounces between 0 and 360.
 
-        Key requirements:
-        - 1000 circles using a repeat loop
-        - Position variables (x, y) updated each iteration by direction variables
-        - Direction reverses with random speed when ball hits canvas edges (0 or 100)
-        - Hue variable cycles between 0 and 360, reversing direction at boundaries
-        - Each circle drawn with hsl color
-
-        Key teaching points:
-        1. Combining conditionals with state: checking boundaries and updating variables
-        2. Multiple state variables working together (position, direction, color)
-        3. Using randomNumber() return values to set new directions
-        4. Composing functions: hsl() output used as circle() input
-
-        Common mistakes:
-        - Checking hueDirection instead of hue for the color boundary conditions
-        - Forgetting to use randomNumber() for new directions (using fixed values)
-        - Using the wrong sign for directions (positive when should be negative)
-        - Not updating x/y/hue before the boundary checks
-        - Using hsl with hue values outside 0-360 range
+        Common mistakes worth watching for:
+        - Testing hueDirection instead of hue for the colour boundary.
+        - Using fixed values rather than randomNumber() for the new direction.
+        - Wrong sign on a reversed direction.
+        - Updating x/y/hue after the boundary checks instead of before.
       `
     }
   }

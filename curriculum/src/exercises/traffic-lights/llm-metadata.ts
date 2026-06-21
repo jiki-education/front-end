@@ -9,36 +9,21 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise reinforces using variables as function arguments.
-    Variables are already declared — students must use them when calling
-    the circle function to draw three traffic lights.
-    Key concepts: reading variable values, passing variables to functions.
+    This exercise allows a student to explore passing pre-declared variables
+    as arguments to a function, reusing the same variable across several calls.
   `,
 
   tasks: {
     "draw-lights": {
       description: `
-        Students must draw 3 circles using the provided variables.
+        Anchor steps:
+        1. Call circle once per light, passing the provided variables (not
+           literal numbers) for x, y and radius plus the color string.
+        2. Match each y variable to the right color (top=red, middle=amber,
+           bottom=green) and reuse centerX/radius across all three calls.
 
-        The variables (already set, readonly):
-        - radius = 8
-        - centerX = 50
-        - topY = 16, middleY = 39, bottomY = 62
-
-        Expected calls:
-        - circle(centerX, topY, radius, "red")
-        - circle(centerX, middleY, radius, "amber")
-        - circle(centerX, bottomY, radius, "green")
-
-        Key teaching points:
-        1. Variables can be used as arguments to functions
-        2. The same variable (centerX, radius) can be reused across multiple calls
-        3. Students read existing variable declarations and use them
-
-        Common mistakes:
-        - Using literal numbers instead of variables
-        - Mixing up the y positions for the colors
-        - Forgetting the color argument
+        Watch for hardcoded literals instead of the variables, swapped
+        y/color pairings, or a missing color argument.
       `
     }
   }

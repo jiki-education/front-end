@@ -9,27 +9,20 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches string manipulation, array indexing, and character mapping.
-    Students learn to transform one string into another using a lookup-based approach.
-    Key concepts: iteration over strings, parallel arrays for mapping, string building with concatenation.
+    This exercise lets a student explore character-by-character mapping, transforming one
+    string into another via a lookup. It can be done with parallel arrays (DNA and RNA,
+    matched by index) or an if/else chain per nucleotide.
   `,
 
   tasks: {
     "transcribe-dna-to-rna": {
       description: `
-        Students need to convert each DNA nucleotide to its RNA complement.
-        The mapping is: G->C, C->G, T->A, A->U.
+        The student converts each DNA nucleotide to its RNA complement (G->C, C->G, T->A,
+        A->U).
 
-        Common approaches:
-        1. Use parallel arrays: one for DNA nucleotides, one for RNA, and find the index.
-        2. Use if/else chains to check each nucleotide.
-
-        Common mistakes:
-        - Forgetting to handle the empty string case (though it works naturally with iteration)
-        - Getting the mapping wrong (especially A->U since RNA uses U not T)
-        - Not building up the result string correctly using concatenation (the \`+\` operator)
-
-        The elegant solution uses parallel arrays and a helper function to look up the complement.
+        Common mistakes worth watching for:
+        - Getting A->U wrong, since RNA uses U rather than T.
+        - Building the result incorrectly instead of concatenating each mapped character.
       `
     }
   }

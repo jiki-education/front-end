@@ -9,36 +9,22 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches variable relationships and incremental updates in animations.
-    Students learn to build complex graphics by calculating related values from a central point.
-    Key concept: Everything is derived from the flower center, which moves up each iteration.
+    This exercise lets a student practise building a complex graphic from variable
+    relationships, deriving every element from a single moving point (the flower center).
   `,
 
   tasks: {
     "draw-scene": {
       description: `
-        Students must create a flower that grows over 60 iterations.
-
-        Key teaching points:
-        1. Variable relationships: All elements (stem, leaves, pistil) are calculated relative to the flower center
-        2. Incremental updates: flowerCenterY decreases by 1 each iteration (moves up), radii increase
-        3. Mathematical relationships: stemWidth = stemHeight / 10, leaf dimensions are % of flowerRadius
-        4. Work incrementally: Start with flower, then add pistil, stem, and leaves one at a time
-
         Common mistakes:
-        - Using absolute positions instead of calculating from flowerCenter
-        - Forgetting to update variables at the start of each iteration
-        - Not understanding that y=0 is top, y=100 is bottom
-        - Hardcoding values instead of using relationships (e.g., stemWidth should be stemHeight/10)
-        - Drawing elements in wrong order (background should be drawn first)
-        - Using a color the spec doesn't allow: flower head must be "red" or "pink", pistil "yellow", grass "green", background "skyblue"
+        - Using absolute positions instead of deriving everything from flowerCenter
+        - Forgetting to update variables at the start of each iteration (before drawing)
+        - Confusing the coordinate system (y=0 is top, y=100 is bottom)
+        - Hardcoding values instead of using the relationships in the spec
+        - Drawing in the wrong order (sky/ground must come first, or they cover the flower)
 
-        Solution approach:
-        1. Initialize all variables before the loop (flowerCenter starts at 90, radii start at 0)
-        2. At start of each iteration, update: flowerCenterY (decrease), radii (increase)
-        3. Calculate dependent values: stem dimensions, leaf positions
-        4. Draw in order: sky, ground, stem, flower head, pistil, leaves
-        5. Use the scrubber to debug - check first and last frames match expected shapes
+        Encourage building one element at a time (flower, then pistil, stem, leaves) and
+        using the scrubber to inspect variable values and compare first/last frames.
       `
     }
   }

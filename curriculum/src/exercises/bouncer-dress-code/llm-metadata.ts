@@ -9,42 +9,17 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches combining conditions with the 'or' operator and
-    executing multiple actions within a single branch. Students use getOutfit()
-    to retrieve a string, then use if/else if/else with 'or' to classify
-    the outfit and take the appropriate action(s).
-
-    The exercise has six scenarios: two per category (fancy, smart, casual).
+    This exercise allows a student to explore combining conditions with || and running multiple actions
+    inside a single branch. It builds on the if/else if/else chain from bouncer-wristbands.
   `,
 
   tasks: {
     "check-dress-code": {
       description: `
-        Students need to:
-        1. Call getOutfit() and store the result in a variable
-        2. Use if/else if/else with 'or' to check outfit categories
-        3. Fancy ("ballgown" or "tuxedo"): call both offerChampagne() and letIn()
-        4. Smart ("suit" or "dress"): call letIn()
-        5. Anything else: call turnAway()
-
-        Key functions:
-        - getOutfit(): returns the outfit as a string
-        - offerChampagne(): offers champagne
-        - letIn(): lets the person in
-        - turnAway(): turns the person away
-
-        Common mistakes:
-        - Forgetting 'or' and writing separate if statements for each outfit
-        - Writing 'outfit == "ballgown" or "tuxedo"' instead of
-          'outfit == "ballgown" or outfit == "tuxedo"'
-        - Forgetting to call letIn() for fancy outfits (only calling offerChampagne)
-        - Using 'and' instead of 'or'
-
-        Teaching strategy:
-        - Build on the if/else if/else from bouncer-wristbands
-        - Focus on the 'or' operator: checking if outfit matches ANY of the values
-        - Emphasize that each condition needs the full comparison (outfit == "X")
-        - Show that multiple function calls can go inside one branch
+        The classic trap here is writing outfit === "ballgown" || "tuxedo" instead of
+        outfit === "ballgown" || outfit === "tuxedo" (each side of || needs its own full comparison).
+        Also note the fancy branch runs TWO actions (offerChampagne() and letIn()), and "anything else"
+        is the else branch (turnAway()).
       `
     }
   }
