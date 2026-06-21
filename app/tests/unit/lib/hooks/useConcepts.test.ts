@@ -1,14 +1,19 @@
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useConcepts } from "@/lib/hooks/useConcepts";
-import { getTopLevelConcepts, searchConcepts } from "@/lib/api/concepts";
+import { getTopLevelConcepts, getConcepts, searchConcepts } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 
 jest.mock("@/lib/api/concepts");
-jest.mock("@/lib/api/concept-unlocks");
+// Keep the real expandUnlocked helper; only stub the network fetch.
+jest.mock("@/lib/api/concept-unlocks", () => ({
+  ...jest.requireActual("@/lib/api/concept-unlocks"),
+  fetchUnlockedConceptSlugs: jest.fn()
+}));
 jest.mock("@/lib/auth/authStore");
 
 const mockGetTopLevelConcepts = getTopLevelConcepts as jest.MockedFunction<typeof getTopLevelConcepts>;
+const mockGetConcepts = getConcepts as jest.MockedFunction<typeof getConcepts>;
 const mockSearchConcepts = searchConcepts as jest.MockedFunction<typeof searchConcepts>;
 const mockFetchUnlockedSlugs = fetchUnlockedConceptSlugs as jest.MockedFunction<typeof fetchUnlockedConceptSlugs>;
 const mockUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthStore>;
@@ -43,6 +48,7 @@ describe("useConcepts", () => {
     jest.clearAllMocks();
     mockUseAuthStore.mockReturnValue(false);
     mockGetTopLevelConcepts.mockResolvedValue(mockConcepts);
+    mockGetConcepts.mockResolvedValue(mockConcepts);
     mockFetchUnlockedSlugs.mockResolvedValue([]);
   });
 

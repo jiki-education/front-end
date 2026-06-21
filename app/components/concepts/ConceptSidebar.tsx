@@ -38,9 +38,11 @@ export function ConceptSidebar({
           <UpgradeCard />
         </div>
       )}
-      {videoData && videoData.length > 0 && <VideoRecapCard conceptSlug={conceptSlug} videoData={videoData} />}
+      {videoData && videoData.length > 0 && (
+        <VideoRecapCard conceptSlug={conceptSlug} videoData={videoData} isAuthenticated={isAuthenticated} />
+      )}
       <RelatedConceptsPills concepts={relatedConcepts} isUnlocked={isConceptUnlocked} />
-      <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} />
+      <RelatedExercises exercises={relatedExercises} getStatus={getExerciseStatus} isAuthenticated={isAuthenticated} />
       <RelatedProjects projects={relatedProjects} getStatus={getProjectStatus} />
     </div>
   );

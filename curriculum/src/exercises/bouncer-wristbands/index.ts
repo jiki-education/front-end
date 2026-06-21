@@ -45,7 +45,7 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
-  conceptSlugs: ["if", "else-if", "conditionals"],
+  conceptSlugs: ["if", "else-if"],
   tasks,
   scenarios,
   functions

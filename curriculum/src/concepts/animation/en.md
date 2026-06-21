@@ -7,11 +7,46 @@ So far, when we've used repeat loop to draw things, each new thing we've drawn h
 
 Have you ever seen a flip book? They were really popular when I was a kid, less so now. A flip book's a little book where each page has a slightly different drawing. As you flip through the pages quickly, your eyes see the drawings change, and your brain thinks something's moving. It's not actually moving. It's just lots of slightly different pictures, one after another. And that's exactly how animation works in code. The trick is the same. Before we draw a new scene, we paint over the whole canvas with a background color, a bit like starting a fresh page in our flip book, and then we make a small change to the scene to look like movement.
 
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/animation/flip-book-pages.webp"
+  alt="A flip book showing a stick figure running, each page slightly different so the figure appears to move"
+/>
+
 So if we take a familiar block of code where we draw circles across the screen, we set a position variable, and we have a repeat block where we draw a circle and then move the position one to the right. If we run that repeat block 100 times, we're going to see 100 circles across the screen.
+
+```javascript
+let position = 0
+repeat(100) {
+  circle(position, 50, 5, "blue")
+  position = position + 1
+}
+```
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/animation/circles-trail.webp"
+  alt="A trail of 100 blue circles drawn left to right across the screen"
+/>
 
 Now, look what happens if we just add one plain rectangle before we draw the circle each time.
 
+```javascript
+let position = 0
+repeat(100) {
+  rectangle(0, 0, 100, 100, "white")
+  circle(position, 50, 5, "blue")
+  position = position + 1
+}
+```
+
 Instead of a trail of circles, our eyes are now tricked into seeing one circle that appears to glide across the screen.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/animation/circle-glide-frames.webp"
+  alt="A sequence of frames, each a fresh white canvas with a single blue circle one step further to the right"
+/>
 
 Every time we go through the loop, we're painting a whole new background, covering up everything that was there before, and then drawing the circle in its new spot.
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ConceptCard } from "@/components/concepts";
 import { ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { getChildren } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
+import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { ConceptMeta } from "@/types/concepts";
 import styles from "@/app/styles/modules/concepts.module.css";
@@ -28,7 +28,10 @@ export default function SubconceptsGrid({ parentSlug }: SubconceptsGridProps) {
           isAuthenticated ? fetchUnlockedConceptSlugs() : Promise.resolve([])
         ]);
         setSubconcepts(data);
-        setUnlockedSlugs(new Set(slugs));
+        // Route through the shared helper for consistency with the other unlock
+        // call sites. Children rendered here are leaves, so this is functionally
+        // plain membership today, but stays correct if a child ever becomes a group.
+        setUnlockedSlugs(expandUnlocked(data, slugs));
       } catch (err) {
         console.error("Error fetching subconcepts:", err);
       } finally {

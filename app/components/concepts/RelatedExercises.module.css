@@ -17,6 +17,24 @@
     margin-bottom: 16px;
 }
 
+.signupPrompt {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-top: -8px;
+    margin-bottom: 16px;
+}
+
+.signupLink {
+    color: var(--color-purple-600);
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .list {
     display: flex;
     flex-direction: column;

@@ -13,6 +13,16 @@ Backticks are backward ticks, as the name suggests, but you might well have neve
 
 We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird syntax of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write `` `hello ${name}` ``.
 
+```javascript
+`hello ${name}`;
+```
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/string-templates/jiki-name-box.webp"
+  alt="Jiki holding a box labelled name, the value that gets slotted into the template"
+/>
+
 That looks a lot better than it sounds when I say it.
 
 And that's doing exactly the same thing as adding the strings together.

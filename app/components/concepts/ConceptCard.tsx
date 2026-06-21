@@ -3,7 +3,7 @@ import SubConceptIcon from "@/icons/subconcept.svg";
 import LockedIcon from "@/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
-// import { ConceptIcon } from "@/components/icons/ConceptIcon";
+import { ConceptIcon } from "@/components/icons/ConceptIcon";
 
 interface ConceptCardData {
   slug: string;
@@ -20,6 +20,8 @@ interface ConceptCardProps {
 
 export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
   const isLocked = concept.userMayAccess === false;
+  const hasSubConcepts = (concept.subConceptCount ?? 0) > 0;
+  const nodeClass = hasSubConcepts ? styles.parentNode : styles.leafNode;
 
   const cardContent = (
     <>
@@ -29,13 +31,13 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
           Locked
         </div>
       )}
-      {/* <div className={styles.conceptIcon}>
+      <div className={styles.conceptIcon}>
         <ConceptIcon slug={concept.slug} width={100} height={100} />
-      </div> */}
+      </div>
       <div className={styles.conceptContent}>
         <div className={styles.conceptTitle}>{concept.title}</div>
         <div className={styles.conceptDescription}>{concept.description}</div>
-        {!isLocked && (concept.subConceptCount ?? 0) > 0 && (
+        {!isLocked && hasSubConcepts && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
             <span>{concept.subConceptCount} sub-concepts</span>
@@ -47,7 +49,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
 
   if (isLocked) {
     return (
-      <div className={assembleClassNames(styles.conceptCard, styles.locked, smallVersion && styles.small)}>
+      <div className={assembleClassNames(styles.conceptCard, nodeClass, styles.locked, smallVersion && styles.small)}>
         {cardContent}
       </div>
     );
@@ -55,7 +57,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
 
   return (
     <Link
-      className={assembleClassNames(styles.conceptCard, smallVersion && styles.small)}
+      className={assembleClassNames(styles.conceptCard, nodeClass, smallVersion && styles.small)}
       href={`/concepts/${concept.slug || ""}`}
     >
       {cardContent}

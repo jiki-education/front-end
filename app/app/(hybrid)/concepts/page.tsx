@@ -1,3 +1,4 @@
+import BetaTag from "@/components/common/BetaTag";
 import ConceptsListPage from "@/components/concepts/ConceptsListPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
 import type { Metadata } from "next";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function AppConceptsPage() {
   return (
     <SidebarLayout activeItem="concepts">
+      <BetaTag />
       <ConceptsListPage />
     </SidebarLayout>
   );

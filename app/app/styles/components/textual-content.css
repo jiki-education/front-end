@@ -66,6 +66,16 @@
         margin-bottom: 4px;
     }
 
+    /* Concept Illustrations */
+    .concept-image {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 500px;
+        max-height: 400px;
+        margin: var(--spacing-24) auto;
+    }
+
     /* Inline Code */
     code {
         background: var(--color-purple-100);
@@ -77,13 +87,14 @@
 
     /* Code Blocks */
     pre {
-        background: white;
-        border: 2px solid var(--color-gray-200);
-        border-radius: var(--radius-16);
-        padding: var(--spacing-28) var(--spacing-32);
+        border: 2px solid var(--color-purple-400);
+        border-radius: 8px;
+        padding: 20px 21px;
         margin: var(--spacing-20) 0;
-        overflow-x: auto;
+        background: var(--color-purple-30);
         position: relative;
+        overflow-x: auto;
+        line-height: 1.1;
 
         code {
             font-family: var(--font-mono);
@@ -413,7 +424,7 @@
     }
 
     pre code {
-        font-size: var(--text-14);
+        font-size: var(--text-16);
     }
 
     .admonition-title {

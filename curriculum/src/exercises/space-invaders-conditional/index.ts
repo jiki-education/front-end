@@ -36,7 +36,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["using-functions", "repeat", "if", "conditionals"]
+  conceptSlugs: ["using-functions", "repeat", "if"]
 };
 
 export default exerciseDefinition;

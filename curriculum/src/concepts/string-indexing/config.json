@@ -1,5 +1,5 @@
 {
-  "parent": "strings",
+  "parent": "strings-group",
   "order": 3,
   "category": false
 }

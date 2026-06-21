@@ -29,6 +29,27 @@ import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { marked } from "marked";
+import hljs from "highlight.js/lib/core";
+import setupJikiscript from "@exercism/highlightjs-jikiscript";
+import setupJavascript from "@jiki/highlightjs-javascript";
+
+// Match the syntax highlighting used by exercise instructions (InstructionsContent.tsx).
+// Highlighting is applied at build time so the static concept HTML is self-contained.
+hljs.registerLanguage("jikiscript", setupJikiscript);
+hljs.registerLanguage("javascript", setupJavascript);
+
+marked.use({
+  renderer: {
+    code({ text, lang }) {
+      const language = lang && hljs.getLanguage(lang) ? lang : null;
+      const highlighted = language
+        ? hljs.highlight(text, { language }).value
+        : text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const className = language ? ` class="hljs language-${language}"` : "";
+      return `<pre><code${className}>${highlighted}</code></pre>\n`;
+    }
+  }
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONCEPTS_DIR = path.join(__dirname, "../../curriculum/src/concepts");
