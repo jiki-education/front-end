@@ -1,5 +1,19 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-22: Same-scope redeclaration error (VariableAlreadyDeclared)
+
+Redeclaring a `let`/`const` binding in the same scope (e.g. `let x = 1; let x = 2;`) now raises a `VariableAlreadyDeclared` runtime error instead of silently overwriting. This matches real JavaScript, which raises a SyntaxError for that code. (Detected at execution rather than parse time, so it surfaces as a runtime error frame following the shared error-handling pattern.)
+
+### Mechanism
+
+- `VariableMetadata` in `src/javascript/environment.ts` gains an `isLexical` flag. `Environment.define` takes a new `isLexical` parameter (default `false`); when a lexical declaration targets a name whose current-scope binding is also lexical, it throws `VariableAlreadyDeclared`.
+- `executeVariableDeclaration` passes `isLexical: true`; all built-in injections (console, Math, Object, Number, String, custom functions/classes, secret constants) keep the default `false`.
+- New `RuntimeErrorType` `VariableAlreadyDeclared` with translations in both `system` and `en` locale files.
+
+### Why the `isLexical` flag
+
+Built-ins live in the global environment, so a naive "name already exists in this scope" check would wrongly reject `let console = 1` (legal shadowing of a global in real JS). Only student `let`/`const` declarations are marked lexical, so only declaration-vs-declaration collisions error; declaring over a built-in stays allowed. Cross-scope cases (inner blocks) are unaffected and continue to flow through the existing `ShadowingDisabled` path.
+
 ## 2026-05-12: Guard bare function references (UnexpectedUncalledFunction)
 
 A bare callable identifier used as a value (e.g. `circle;` as a statement, or `let g = circle;`) now raises `UnexpectedUncalledFunction` instead of silently stepping. Mirrors JikiScript's `UnexpectedUncalledFunctionInExpression` so semantics match across interpreters.

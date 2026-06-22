@@ -7,6 +7,11 @@ import { translate } from "./translator";
 interface VariableMetadata {
   value: JikiObject;
   isConst: boolean;
+  // True when the binding was introduced by a student `let`/`const` declaration,
+  // as opposed to an injected built-in (console, Math, secret constants, etc.).
+  // Only lexical bindings trigger same-scope redeclaration errors, mirroring real
+  // JS where `let console = 1` is legal but `let x = 1; let x = 2;` is not.
+  isLexical: boolean;
 }
 
 export class Environment {
@@ -22,7 +27,24 @@ export class Environment {
     this.languageFeatures = languageFeatures;
   }
 
-  public define(name: string, value: JikiObject, location: Location, isConst: boolean = false): void {
+  public define(
+    name: string,
+    value: JikiObject,
+    location: Location,
+    isConst: boolean = false,
+    isLexical: boolean = false
+  ): void {
+    // A lexical declaration (`let`/`const`) cannot redeclare another lexical
+    // binding in the same scope. This matches real JavaScript, which raises a
+    // SyntaxError for `let x = 1; let x = 2;`.
+    if (isLexical) {
+      const existing = this.variables.get(name);
+      if (existing?.isLexical) {
+        const message = translate(`error.runtime.VariableAlreadyDeclared`, { name });
+        throw new RuntimeError(message, location, "VariableAlreadyDeclared", { name });
+      }
+    }
+
     // Check for shadowing if disabled
     if (!this.languageFeatures.allowShadowing) {
       if (this.isDefinedInEnclosingScope(name)) {
@@ -30,7 +52,7 @@ export class Environment {
         throw new RuntimeError(message, location, "ShadowingDisabled", { name });
       }
     }
-    this.variables.set(name, { value, isConst });
+    this.variables.set(name, { value, isConst, isLexical });
   }
 
   public isDefinedInEnclosingScope(name: string): boolean {

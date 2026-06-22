@@ -35,9 +35,9 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
     };
   }
 
-  // Shadowing check is now handled inside environment.define()
+  // Shadowing and same-scope redeclaration checks are handled inside environment.define()
   const isConst = statement.kind === "const";
-  executor.environment.define(name, jikiObject, statement.name.location, isConst);
+  executor.environment.define(name, jikiObject, statement.name.location, isConst, /* isLexical */ true);
   return {
     type: "VariableDeclaration",
     kind: statement.kind,

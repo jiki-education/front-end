@@ -182,6 +182,47 @@ describe("Runtime Errors", () => {
     });
   });
 
+  describe("VariableAlreadyDeclared", () => {
+    test("redeclaring a let in the same scope errors", () => {
+      const code = "let x = 1;\nlet x = 2;";
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect(frames).toBeArrayOfSize(2); // Execution stops after error
+      expect(frames[0].status).toBe("SUCCESS"); // let x = 1
+      expectFrameToBeError(frames[1], "x", "VariableAlreadyDeclared");
+      expect(frames[1].error!.message).toBe("VariableAlreadyDeclared: name: x");
+
+      // Original binding is unchanged
+      expect((frames[0] as TestAugmentedFrame).variables.x.value).toBe(1);
+    });
+
+    test("redeclaring with const errors", () => {
+      const code = "let x = 1;\nconst x = 2;";
+      const { frames } = interpret(code);
+      expect(frames).toBeArrayOfSize(2);
+      expect(frames[0].status).toBe("SUCCESS");
+      expectFrameToBeError(frames[1], "x", "VariableAlreadyDeclared");
+      expect(frames[1].error!.message).toBe("VariableAlreadyDeclared: name: x");
+    });
+
+    test("redeclaring in different scopes is allowed (shadowing on)", () => {
+      const code = "let x = 1; { let x = 2; }";
+      const { frames } = interpret(code, { languageFeatures: { allowShadowing: true } });
+      expect(frames).toBeArrayOfSize(2);
+      expect(frames[0].status).toBe("SUCCESS");
+      expect(frames[1].status).toBe("SUCCESS"); // inner scope, not a redeclaration
+    });
+
+    test("declaring a let that shares a name with a built-in is allowed", () => {
+      const code = "let Math = 1; Math;";
+      const { frames } = interpret(code);
+      expect(frames).toBeArrayOfSize(2);
+      expect(frames[0].status).toBe("SUCCESS"); // shadowing a built-in is fine
+      expect(frames[1].status).toBe("SUCCESS");
+      expect((frames[1] as TestAugmentedFrame).variables.Math.value).toBe(1);
+    });
+  });
+
   describe("ShadowingDisabled", () => {
     describe("allowShadowing: false (default)", () => {
       test("simple variable shadowing in block", () => {

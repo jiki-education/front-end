@@ -85,6 +85,7 @@
       "InvalidUnaryExpression": "InvalidUnaryExpression",
       "PropertyNotFound": "PropertyNotFound: property: {{property}}",
       "ShadowingDisabled": "ShadowingDisabled: name: {{name}}",
+      "VariableAlreadyDeclared": "VariableAlreadyDeclared: name: {{name}}",
       "AssignmentToConstant": "AssignmentToConstant: name: {{name}}",
       "TruthinessDisabled": "TruthinessDisabled: value: {{value}}",
       "TypeError": "TypeError: {{message}}",
