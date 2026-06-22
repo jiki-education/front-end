@@ -112,7 +112,8 @@ jest.mock("lodash", () => ({
 }));
 
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
-import { EditorManager } from "@/components/coding-exercise/lib/orchestrator/EditorManager";
+import { EditorManager, clampRangesToDoc } from "@/components/coding-exercise/lib/orchestrator/EditorManager";
+import type { ReadonlyRange } from "@jiki/curriculum";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { EditorView } from "@codemirror/view";
 
@@ -340,5 +341,41 @@ describe("EditorManager", () => {
 
       expect(setHighlightedLineSpy).toHaveBeenCalledWith(0);
     });
+  });
+});
+
+describe("clampRangesToDoc", () => {
+  const range = (fromLine: number, toLine: number, extra?: Partial<ReadonlyRange>): ReadonlyRange => ({
+    fromLine,
+    toLine,
+    ...extra
+  });
+
+  it("keeps ranges fully within the document unchanged", () => {
+    const ranges = [range(1, 3), range(5, 5, { fromChar: 2, toChar: 4 })];
+    expect(clampRangesToDoc(ranges, 10)).toEqual(ranges);
+  });
+
+  it("drops ranges that start past the end of the document", () => {
+    // Reproduces "Invalid line number 16 in 15-line document": a stale range
+    // anchored beyond the current code must not reach CodeMirror.
+    expect(clampRangesToDoc([range(16, 16)], 15)).toEqual([]);
+  });
+
+  it("clamps toLine down to the last line when it overruns the document", () => {
+    expect(clampRangesToDoc([range(3, 16)], 15)).toEqual([range(3, 15)]);
+  });
+
+  it("drops toChar when the range's last line is clamped", () => {
+    // toChar referred to the original (now-missing) line, so it can't be kept.
+    expect(clampRangesToDoc([range(3, 16, { fromChar: 1, toChar: 5 })], 15)).toEqual([range(3, 15, { fromChar: 1 })]);
+  });
+
+  it("treats a range whose fromLine equals the last line as in-bounds", () => {
+    expect(clampRangesToDoc([range(15, 15)], 15)).toEqual([range(15, 15)]);
+  });
+
+  it("returns an empty array when given no ranges", () => {
+    expect(clampRangesToDoc([], 15)).toEqual([]);
   });
 });

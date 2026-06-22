@@ -86,9 +86,14 @@ export class EditorManager {
       parent: element
     });
 
-    if (readonlyRanges.length > 0) {
+    // Clamp ranges to the actual document. Stored ranges (from localStorage or
+    // an exercise's defaults) can reference lines that no longer exist if the
+    // code has fewer lines than when they were saved, which would otherwise
+    // crash CodeMirror's doc.line() at mount with "Invalid line number".
+    const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc.lines);
+    if (safeReadonlyRanges.length > 0) {
       this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(readonlyRanges)
+        effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
       });
     }
 
@@ -457,8 +462,11 @@ export class EditorManager {
       });
     }
     if (readonlyRanges) {
+      // Clamp against the document we just set, so ranges that reference lines
+      // beyond the new code don't crash the decoration computation.
+      const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc.lines);
       this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(readonlyRanges)
+        effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
       });
     }
   }
@@ -559,4 +567,26 @@ export class EditorManager {
   createCloseInfoWidgetHandler(): () => void {
     return () => this.store.getState().setShouldShowInformationWidget(false);
   }
+}
+
+// Drops ranges that start past the end of the document and clamps `toLine`
+// (and a `toChar` whose line was clamped) so every range refers to a line that
+// actually exists. `fromLine`/`toLine` are 1-based; `lineCount` is the number
+// of lines in the doc.
+export function clampRangesToDoc(ranges: ReadonlyRange[], lineCount: number): ReadonlyRange[] {
+  const clamped: ReadonlyRange[] = [];
+  for (const range of ranges) {
+    if (range.fromLine > lineCount) {
+      continue;
+    }
+    if (range.toLine <= lineCount) {
+      clamped.push(range);
+      continue;
+    }
+    // toLine ran past the doc: clamp it and drop a now-meaningless toChar so
+    // the range extends to the end of the (new) last line.
+    const { toChar: _toChar, ...rest } = range;
+    clamped.push({ ...rest, toLine: lineCount });
+  }
+  return clamped;
 }
