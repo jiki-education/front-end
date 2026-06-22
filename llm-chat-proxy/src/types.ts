@@ -8,11 +8,18 @@ export interface ChatRequest {
   nextTaskId?: string;
   language: Language;
   contentHash: string; // Hash for fetching exercise content from app's static files
+  // Diff of what the student changed since their previous message, leading into
+  // the current code. Same semantics as ChatMessage.codeDiff.
+  currentCodeDiff?: string;
 }
 
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
+  // Unified diff of what the student changed in their code since their previous
+  // message. Undefined = no diff to show; "" = code unchanged since previous
+  // message; otherwise the diff text (or the too-long sentinel).
+  codeDiff?: string;
 }
 
 export interface RateLimitInfo {

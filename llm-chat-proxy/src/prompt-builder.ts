@@ -16,7 +16,14 @@ interface PromptOptions {
   nextTaskId?: string;
   language: Language;
   contentUrl: string; // URL to fetch exercise content (instructions, stub, solution)
+  currentCodeDiff?: string; // Diff leading into the current code (see ChatMessage.codeDiff)
 }
+
+// A diff longer than this is replaced wholesale with a marker - a partial diff is
+// worse than none. Mirrors DIFF_MAX_LENGTH in the app's codeDiff.ts. Enforced
+// here too as defense-in-depth against a tampered payload.
+const DIFF_MAX_LENGTH = 1000;
+const DIFF_TOO_LONG_MESSAGE = "[Diff too long to render]";
 
 // Input validation limits to prevent abuse and prompt injection
 export const INPUT_LIMITS = {
@@ -99,7 +106,7 @@ async function fetchExerciseContent(contentUrl: string): Promise<ExerciseContent
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<{ systemInstruction: string; prompt: string }> {
-  const { exerciseSlug, code, question, history, nextTaskId, language, contentUrl } = options;
+  const { exerciseSlug, code, question, history, nextTaskId, language, contentUrl, currentCodeDiff } = options;
 
   // Validate input before building prompt
   validateInput(question, history);
@@ -138,7 +145,7 @@ export async function buildPrompt(options: PromptOptions): Promise<{ systemInstr
     // --- Dynamic suffix: changes per message ---
     buildConversationHistorySection(history),
     buildStudentQuestionSection(question),
-    buildCurrentCodeSection(croppedCode, language, codeWasCropped)
+    buildCurrentCodeSection(croppedCode, language, codeWasCropped, currentCodeDiff)
   ];
 
   // Filter out null/empty sections and join with double newlines
@@ -185,7 +192,7 @@ The student is on a page with:
 
 Much of this information may be irrelevant, but if it comes up you can use it.
 
-The conversation so far is below. You are responding to their latest message. You are also given their latest code. You do not have access to the code at other points in the conversation.`;
+The conversation so far is below. You are responding to their latest message. You are also given their latest code. Where available, each turn includes a diff of what the student changed in their code since their previous message, so you can track their progress; the full latest code is in the Current Code section.`;
 }
 
 /**
@@ -369,6 +376,39 @@ Basic syntax that is always available regardless of level:
   return parts.join("\n\n");
 }
 
+/**
+ * Blockquotes every line of user-derived text so any Markdown it contains
+ * (headings, code fences) is treated as quoted content and can't be confused
+ * with - or escape - the prompt's own section structure. A `>` prefix on every
+ * line can't be escaped the way a ``` fence can.
+ */
+function blockquote(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => (line.length > 0 ? `> ${line}` : ">"))
+    .join("\n");
+}
+
+/**
+ * Renders the code-diff annotation for a turn from its `codeDiff` value:
+ * - undefined -> null (no snapshot data, or the base of the run): render nothing
+ * - "" -> the student asked without editing: a real signal worth stating
+ * - too long (sentinel or over the guard) -> a marker, not a partial diff
+ * - otherwise -> the diff, blockquoted for injection safety
+ */
+function renderCodeDiff(codeDiff: string | undefined): string | null {
+  if (codeDiff === undefined) {
+    return null;
+  }
+  if (codeDiff === "") {
+    return "No code changes since previous message.";
+  }
+  if (codeDiff === DIFF_TOO_LONG_MESSAGE || codeDiff.length > DIFF_MAX_LENGTH) {
+    return DIFF_TOO_LONG_MESSAGE;
+  }
+  return `Code changes since previous message:\n${blockquote(codeDiff)}`;
+}
+
 function buildConversationHistorySection(history: ChatMessage[]): string | null {
   if (history.length === 0) {
     return null;
@@ -384,17 +424,23 @@ function buildConversationHistorySection(history: ChatMessage[]): string | null 
         : INPUT_LIMITS.HISTORY_ASSISTANT_MESSAGE_MAX_LENGTH;
       // Crop per role, marking the cut so the model knows the turn is incomplete.
       const content = msg.content.length > cap ? `${msg.content.slice(0, cap)} […truncated]` : msg.content;
-      return `${speaker}: ${content}`;
+
+      // Label on its own line (our structure, unspoofable); content blockquoted
+      // beneath it (user-derived, so it can't inject headings). A user turn may
+      // be preceded by a diff of what the student changed leading into it.
+      const turn = `${speaker}:\n${blockquote(content)}`;
+      const diff = isUser ? renderCodeDiff(msg.codeDiff) : null;
+      return diff ? `${diff}\n\n${turn}` : turn;
     })
     .join("\n\n");
 
-  return `## Conversation History\n${conversationHistory}`;
+  return `## Conversation History\n\n${conversationHistory}`;
 }
 
 function buildStudentQuestionSection(question: string): string {
   return `## Student Last post (The message you are replying to)
 
-${question}`;
+${blockquote(question)}`;
 }
 
 /**
@@ -465,16 +511,26 @@ ${code}
 \`\`\``;
 }
 
-function buildCurrentCodeSection(code: string, language: Language, wasCropped: boolean): string {
+function buildCurrentCodeSection(
+  code: string,
+  language: Language,
+  wasCropped: boolean,
+  currentCodeDiff?: string
+): string {
   const croppedNote = wasCropped
     ? "\n\n**Note:** the student's code was longer than we send to you, so it has been truncated. Only the first part is shown below; assume there is more code beyond it that you cannot see."
     : "";
 
+  // The diff of what the student changed since their previous message, leading
+  // into the code below. Usually the most relevant change in the conversation.
+  const diff = renderCodeDiff(currentCodeDiff);
+  const diffNote = diff ? `\n\n${diff}` : "";
+
   return `## Current Code
 
-This is the student's current code.${croppedNote}
+This is the student's current code.${croppedNote}${diffNote}
 
-Base every judgment ONLY on this Current Code block. The stub and solution are just artifacts to show you where the student came from and where they're going. All your discussion should focus on this current code.
+Be sure to understand that this Current Code block is where the student is CURRENTLY at. Although you can see the stub, target and progress diffs, those are just to inform you of the journey. Focus on the current message from the student and this current code.
 
 \`\`\`${language}
 ${code}
