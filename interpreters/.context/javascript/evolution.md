@@ -1,5 +1,15 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-22: Assignment is statement-only (AssignmentInExpression)
+
+Assignment (`=`) is now only permitted as a complete expression statement (e.g. `x = 5;`) or in a for-loop's init/update clauses (e.g. `for (i = 0; i < 3; i = i + 1)`). Using assignment anywhere else - inside an `if`/`while` condition, a function argument, a variable initializer, an array/object literal, or nested in any other expression - raises a `AssignmentInExpression` syntax error.
+
+This blocks the classic beginner footgun `if (x = 5)` (which in real JS assigns and then tests truthiness, always entering the branch) by steering students toward `===`. Chained assignment (`x = y = 5`, `obj.a = obj.b = 42`) is also blocked, since the inner assignment is used as a value.
+
+### Mechanism
+
+Parser-level. `expression()`/`assignment()` take an `allowAssignment` flag (default `false`); only the three statement-position call sites (expression statement, for-init, for-update) pass `true`. When `assignment()` encounters `=` with the flag unset it throws `AssignmentInExpression` pointing at the `=` token. The RHS of a permitted assignment is parsed with the flag unset, which is what makes chained assignment an error. Because it is a parse error, it surfaces as `error` with empty `frames[]` per the shared error-handling pattern.
+
 ## 2026-06-22: Same-scope redeclaration error (VariableAlreadyDeclared)
 
 Redeclaring a `let`/`const` binding in the same scope (e.g. `let x = 1; let x = 2;`) now raises a `VariableAlreadyDeclared` runtime error instead of silently overwriting. This matches real JavaScript, which raises a SyntaxError for that code. (Detected at execution rather than parse time, so it surfaces as a runtime error frame following the shared error-handling pattern.)

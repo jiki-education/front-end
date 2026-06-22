@@ -3,6 +3,7 @@
     "syntax": {
       "GenericSyntaxError": "GenericSyntaxError",
       "InvalidAssignmentTargetExpression": "InvalidAssignmentTargetExpression",
+      "AssignmentInExpression": "AssignmentInExpression",
       "MissingBacktickToTerminateTemplateLiteral": "MissingBacktickToTerminateTemplateLiteral",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "MissingExpression",

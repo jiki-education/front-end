@@ -3,6 +3,7 @@
     "syntax": {
       "GenericSyntaxError": "A syntax error occurred in your code.",
       "InvalidAssignmentTargetExpression": "Invalid assignment target. You can only assign to variables.",
+      "AssignmentInExpression": "You probably meant to use ===, not = here in order to compare two values, not update the variable. Assigning variables inside a statement is not allowed in this editor.",
       "MissingBacktickToTerminateTemplateLiteral": "Missing closing backtick `` ` `` to terminate template literal.",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "Missing expression in code.",
