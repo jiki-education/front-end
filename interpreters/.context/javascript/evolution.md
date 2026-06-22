@@ -1,5 +1,19 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-22: Same-scope redeclaration error (VariableAlreadyDeclared)
+
+Redeclaring a `let`/`const` binding in the same scope (e.g. `let x = 1; let x = 2;`) now raises a `VariableAlreadyDeclared` runtime error instead of silently overwriting. This matches real JavaScript, which raises a SyntaxError for that code. (Detected at execution rather than parse time, so it surfaces as a runtime error frame following the shared error-handling pattern.)
+
+### Mechanism
+
+- `Environment.define` takes a new `isDeclaration` parameter (default `false`); when a declaration targets a name that already exists in the current scope, it throws `VariableAlreadyDeclared`.
+- `executeVariableDeclaration` passes `isDeclaration: true`; built-in injections (console, Math, Object, Number, String, custom functions/classes, secret constants) keep the default `false`, so registering them never trips the check.
+- New `RuntimeErrorType` `VariableAlreadyDeclared` with translations in both `system` and `en` locale files.
+
+### Built-ins are protected too
+
+Unlike real JS, redeclaring an injected built-in (e.g. `let console = 1`, `let Math = 1`) also errors. In real JS those globals are not lexical bindings, so `let console = 1` is legal shadowing, but in this educational interpreter such a redeclaration is virtually always an unintentional student mistake, so erroring is more helpful than silently shadowing the built-in. Cross-scope cases (inner blocks) are unaffected and continue to flow through the existing `ShadowingDisabled` path. The secret-constant top-level path in `executeVariableDeclaration` still returns before `define`, so those remain silently ignored.
+
 ## 2026-05-12: Guard bare function references (UnexpectedUncalledFunction)
 
 A bare callable identifier used as a value (e.g. `circle;` as a statement, or `let g = circle;`) now raises `UnexpectedUncalledFunction` instead of silently stepping. Mirrors JikiScript's `UnexpectedUncalledFunctionInExpression` so semantics match across interpreters.

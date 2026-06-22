@@ -85,6 +85,7 @@
       "InvalidUnaryExpression": "Invalid unary operation.",
       "PropertyNotFound": "Property `{{property}}` does not exist on arrays.",
       "ShadowingDisabled": "Variable shadowing is disabled. The variable `{{name}}` is already declared in an outer scope.",
+      "VariableAlreadyDeclared": "The variable `{{name}}` has already been declared in this scope. Use a different name or assign to the existing variable instead.",
       "AssignmentToConstant": "Cannot reassign constant variable `{{name}}`. Constants cannot be changed after they are declared.",
       "TruthinessDisabled": "Only boolean values are allowed in conditions, but got `{{value}}`.",
       "TypeError": "{{message}}",

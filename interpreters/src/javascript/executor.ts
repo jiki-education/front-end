@@ -103,6 +103,7 @@ export type RuntimeErrorType =
   | "InvalidUnaryExpression"
   | "UnsupportedOperation"
   | "VariableNotDeclared"
+  | "VariableAlreadyDeclared"
   | "ShadowingDisabled"
   | "AssignmentToConstant"
   | "ComparisonRequiresNumber"

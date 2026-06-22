@@ -22,7 +22,23 @@ export class Environment {
     this.languageFeatures = languageFeatures;
   }
 
-  public define(name: string, value: JikiObject, location: Location, isConst: boolean = false): void {
+  public define(
+    name: string,
+    value: JikiObject,
+    location: Location,
+    isConst: boolean = false,
+    isDeclaration: boolean = false
+  ): void {
+    // A `let`/`const` declaration cannot reuse a name that already exists in the
+    // same scope. This matches real JavaScript, which raises a SyntaxError for
+    // `let x = 1; let x = 2;`. We also forbid redeclaring an injected built-in
+    // (e.g. `let console = 1`): that is virtually always a student mistake rather
+    // than an intentional shadow, so erroring is more helpful than allowing it.
+    if (isDeclaration && this.variables.has(name)) {
+      const message = translate(`error.runtime.VariableAlreadyDeclared`, { name });
+      throw new RuntimeError(message, location, "VariableAlreadyDeclared", { name });
+    }
+
     // Check for shadowing if disabled
     if (!this.languageFeatures.allowShadowing) {
       if (this.isDefinedInEnclosingScope(name)) {
