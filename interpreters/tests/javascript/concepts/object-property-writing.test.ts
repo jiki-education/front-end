@@ -1,4 +1,5 @@
 import { interpret } from "@javascript/interpreter";
+import { SyntaxError } from "@javascript/error";
 import type { TestAugmentedFrame } from "@shared/frames";
 
 describe("Object Property Writing", () => {
@@ -259,20 +260,18 @@ describe("Object Property Writing", () => {
   });
 
   describe("chained assignments", () => {
-    it("should handle chained property assignments", () => {
+    it("should block chained property assignments", () => {
+      // Chained assignment uses assignment as a value inside another expression,
+      // which is only allowed as a complete statement.
       const code = `
         let obj = {};
         let value = obj.a = obj.b = 42;
         value;
       `;
       const result = interpret(code);
-      expect(result.success).toBe(true);
-      expect(result.error).toBe(null);
-      expect(result.frames).toHaveLength(3);
-
-      const lastFrame = result.frames[2] as TestAugmentedFrame;
-      expect(lastFrame.status).toBe("SUCCESS");
-      expect(lastFrame.result?.jikiObject?.toString()).toBe("42");
+      expect(result.success).toBe(false);
+      expect(result.error).toBeInstanceOf(SyntaxError);
+      expect(result.error?.type).toBe("AssignmentInExpression");
     });
   });
 

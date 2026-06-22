@@ -3,6 +3,7 @@ import type { Location } from "../shared/location";
 export type SyntaxErrorType =
   | "GenericSyntaxError"
   | "InvalidAssignmentTargetExpression"
+  | "AssignmentInExpression"
   | "MissingBacktickToTerminateTemplateLiteral"
   | "MissingDoubleQuoteToTerminateString"
   | "MissingExpression"

@@ -226,7 +226,9 @@ export class Parser {
       // Check if ExpressionStatement is allowed
       this.checkNodeAllowed("ExpressionStatement", "ExpressionStatementNotAllowed", this.peek().location);
 
-      const expr = this.expression();
+      // Assignment is allowed here: a bare expression statement is the canonical
+      // place to assign to a variable (e.g. `x = 5;`).
+      const expr = this.expression(true);
       const semicolonToken = this.consumeSemicolon();
       // Create location that spans from expression start to semicolon end
       const statementLocation = new Location(
@@ -463,7 +465,8 @@ export class Parser {
         // would try to modify a constant variable
         throw this.error("ConstInForLoopInit", this.previous().location);
       } else {
-        init = this.expression();
+        // For-loop init is a statement position, so assignment is allowed (e.g. `i = 0`).
+        init = this.expression(true);
         this.consumeForLoopSemicolon();
       }
 
@@ -477,7 +480,8 @@ export class Parser {
       // Parse update
       let update: Expression | null = null;
       if (!this.check("RIGHT_PAREN")) {
-        update = this.expression();
+        // For-loop update is a statement position, so assignment is allowed (e.g. `i = i + 1`).
+        update = this.expression(true);
       }
 
       this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
@@ -563,17 +567,31 @@ export class Parser {
     return new ContinueStatement(continueToken, Location.between(continueToken, semicolonToken));
   }
 
-  private expression(): Expression {
-    return this.assignment();
+  private expression(allowAssignment = false): Expression {
+    return this.assignment(allowAssignment);
   }
 
-  private assignment(): Expression {
+  private assignment(allowAssignment = false): Expression {
     const expr = this.logicalOr();
 
-    if (this.match("EQUAL")) {
+    if (this.check("EQUAL")) {
+      const equalToken = this.peek();
+
+      // Assignment is only permitted as a complete statement (or in a for-loop
+      // init/update). Anywhere else - if/while conditions, function arguments,
+      // initializers, nested expressions - it is almost always a mistake for
+      // `===`, so we block it.
+      if (!allowAssignment) {
+        throw this.error("AssignmentInExpression", equalToken.location);
+      }
+
+      this.advance(); // consume the EQUAL token
+
       // Check if AssignmentExpression is allowed
       this.checkNodeAllowed("AssignmentExpression", "AssignmentExpressionNotAllowed", expr.location);
 
+      // The right-hand side is a value expression, so chained assignment
+      // (e.g. `x = y = 5`) is also disallowed - assignment stays statement-only.
       const value = this.assignment();
 
       if (expr instanceof IdentifierExpression) {

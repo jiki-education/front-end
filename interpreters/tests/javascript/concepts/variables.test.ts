@@ -1,4 +1,5 @@
 import { interpret } from "@javascript/interpreter";
+import { SyntaxError } from "@javascript/error";
 import type { TestAugmentedFrame } from "@shared/frames";
 describe("variables concept", () => {
   describe("parser", () => {
@@ -87,11 +88,12 @@ describe("variables concept", () => {
       expect((frames[2] as TestAugmentedFrame).variables.a.value).toBe(13);
     });
 
-    test("assignment in complex expressions (negation of assignment)", () => {
-      const { frames, error } = interpret("let x = 5; -(x = 3);");
-      expect(error).toBeNull();
-      expect(frames).toBeArrayOfSize(2);
-      expect((frames[1] as TestAugmentedFrame).variables.x.value).toBe(3); // Assignment happened inside negation
+    test("assignment nested in an expression is blocked", () => {
+      // Assignment is only allowed as a complete statement, so using it inside
+      // another expression (here, a negation) is a syntax error.
+      const { error } = interpret("let x = 5; -(x = 3);");
+      expect(error).toBeInstanceOf(SyntaxError);
+      expect(error?.type).toBe("AssignmentInExpression");
     });
   });
 });
