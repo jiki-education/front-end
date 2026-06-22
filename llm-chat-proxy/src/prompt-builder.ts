@@ -474,6 +474,8 @@ function buildCurrentCodeSection(code: string, language: Language, wasCropped: b
 
 This is the student's current code.${croppedNote}
 
+Base every judgment ONLY on this Current Code block. The stub and solution are just artifacts to show you where the student came from and where they're going. All your discussion should focus on this current code.
+
 \`\`\`${language}
 ${code}
 \`\`\``;
