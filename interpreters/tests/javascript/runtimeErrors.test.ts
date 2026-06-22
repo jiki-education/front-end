@@ -213,13 +213,14 @@ describe("Runtime Errors", () => {
       expect(frames[1].status).toBe("SUCCESS"); // inner scope, not a redeclaration
     });
 
-    test("declaring a let that shares a name with a built-in is allowed", () => {
-      const code = "let Math = 1; Math;";
+    test("redeclaring an injected built-in errors", () => {
+      // `let console = 1` is legal in real JS (it shadows the global), but in this
+      // educational interpreter it is virtually always a mistake, so we error.
+      const code = "let Math = 1;";
       const { frames } = interpret(code);
-      expect(frames).toBeArrayOfSize(2);
-      expect(frames[0].status).toBe("SUCCESS"); // shadowing a built-in is fine
-      expect(frames[1].status).toBe("SUCCESS");
-      expect((frames[1] as TestAugmentedFrame).variables.Math.value).toBe(1);
+      expect(frames).toBeArrayOfSize(1);
+      expectFrameToBeError(frames[0], "Math", "VariableAlreadyDeclared");
+      expect(frames[0].error!.message).toBe("VariableAlreadyDeclared: name: Math");
     });
   });
 

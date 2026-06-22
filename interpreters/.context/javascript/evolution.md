@@ -6,13 +6,13 @@ Redeclaring a `let`/`const` binding in the same scope (e.g. `let x = 1; let x = 
 
 ### Mechanism
 
-- `VariableMetadata` in `src/javascript/environment.ts` gains an `isLexical` flag. `Environment.define` takes a new `isLexical` parameter (default `false`); when a lexical declaration targets a name whose current-scope binding is also lexical, it throws `VariableAlreadyDeclared`.
-- `executeVariableDeclaration` passes `isLexical: true`; all built-in injections (console, Math, Object, Number, String, custom functions/classes, secret constants) keep the default `false`.
+- `Environment.define` takes a new `isDeclaration` parameter (default `false`); when a declaration targets a name that already exists in the current scope, it throws `VariableAlreadyDeclared`.
+- `executeVariableDeclaration` passes `isDeclaration: true`; built-in injections (console, Math, Object, Number, String, custom functions/classes, secret constants) keep the default `false`, so registering them never trips the check.
 - New `RuntimeErrorType` `VariableAlreadyDeclared` with translations in both `system` and `en` locale files.
 
-### Why the `isLexical` flag
+### Built-ins are protected too
 
-Built-ins live in the global environment, so a naive "name already exists in this scope" check would wrongly reject `let console = 1` (legal shadowing of a global in real JS). Only student `let`/`const` declarations are marked lexical, so only declaration-vs-declaration collisions error; declaring over a built-in stays allowed. Cross-scope cases (inner blocks) are unaffected and continue to flow through the existing `ShadowingDisabled` path.
+Unlike real JS, redeclaring an injected built-in (e.g. `let console = 1`, `let Math = 1`) also errors. In real JS those globals are not lexical bindings, so `let console = 1` is legal shadowing, but in this educational interpreter such a redeclaration is virtually always an unintentional student mistake, so erroring is more helpful than silently shadowing the built-in. Cross-scope cases (inner blocks) are unaffected and continue to flow through the existing `ShadowingDisabled` path. The secret-constant top-level path in `executeVariableDeclaration` still returns before `define`, so those remain silently ignored.
 
 ## 2026-05-12: Guard bare function references (UnexpectedUncalledFunction)
 

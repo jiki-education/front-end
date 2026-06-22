@@ -7,11 +7,6 @@ import { translate } from "./translator";
 interface VariableMetadata {
   value: JikiObject;
   isConst: boolean;
-  // True when the binding was introduced by a student `let`/`const` declaration,
-  // as opposed to an injected built-in (console, Math, secret constants, etc.).
-  // Only lexical bindings trigger same-scope redeclaration errors, mirroring real
-  // JS where `let console = 1` is legal but `let x = 1; let x = 2;` is not.
-  isLexical: boolean;
 }
 
 export class Environment {
@@ -32,17 +27,16 @@ export class Environment {
     value: JikiObject,
     location: Location,
     isConst: boolean = false,
-    isLexical: boolean = false
+    isDeclaration: boolean = false
   ): void {
-    // A lexical declaration (`let`/`const`) cannot redeclare another lexical
-    // binding in the same scope. This matches real JavaScript, which raises a
-    // SyntaxError for `let x = 1; let x = 2;`.
-    if (isLexical) {
-      const existing = this.variables.get(name);
-      if (existing?.isLexical) {
-        const message = translate(`error.runtime.VariableAlreadyDeclared`, { name });
-        throw new RuntimeError(message, location, "VariableAlreadyDeclared", { name });
-      }
+    // A `let`/`const` declaration cannot reuse a name that already exists in the
+    // same scope. This matches real JavaScript, which raises a SyntaxError for
+    // `let x = 1; let x = 2;`. We also forbid redeclaring an injected built-in
+    // (e.g. `let console = 1`): that is virtually always a student mistake rather
+    // than an intentional shadow, so erroring is more helpful than allowing it.
+    if (isDeclaration && this.variables.has(name)) {
+      const message = translate(`error.runtime.VariableAlreadyDeclared`, { name });
+      throw new RuntimeError(message, location, "VariableAlreadyDeclared", { name });
     }
 
     // Check for shadowing if disabled
@@ -52,7 +46,7 @@ export class Environment {
         throw new RuntimeError(message, location, "ShadowingDisabled", { name });
       }
     }
-    this.variables.set(name, { value, isConst, isLexical });
+    this.variables.set(name, { value, isConst });
   }
 
   public isDefinedInEnclosingScope(name: string): boolean {
