@@ -90,7 +90,7 @@ export class EditorManager {
     // an exercise's defaults) can reference lines that no longer exist if the
     // code has fewer lines than when they were saved, which would otherwise
     // crash CodeMirror's doc.line() at mount with "Invalid line number".
-    const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc.lines);
+    const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc);
     if (safeReadonlyRanges.length > 0) {
       this.editorView.dispatch({
         effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
@@ -464,7 +464,7 @@ export class EditorManager {
     if (readonlyRanges) {
       // Clamp against the document we just set, so ranges that reference lines
       // beyond the new code don't crash the decoration computation.
-      const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc.lines);
+      const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc);
       this.editorView.dispatch({
         effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
       });
@@ -569,24 +569,58 @@ export class EditorManager {
   }
 }
 
-// Drops ranges that start past the end of the document and clamps `toLine`
-// (and a `toChar` whose line was clamped) so every range refers to a line that
-// actually exists. `fromLine`/`toLine` are 1-based; `lineCount` is the number
-// of lines in the doc.
-export function clampRangesToDoc(ranges: ReadonlyRange[], lineCount: number): ReadonlyRange[] {
+// Minimal shape of CodeMirror's `Text` doc needed to clamp ranges. Declared
+// locally so this helper stays unit-testable without constructing a real doc.
+interface ClampDoc {
+  readonly lines: number;
+  line: (n: number) => { from: number; to: number };
+}
+
+// Brings stored ranges back into bounds for the given document so they can't
+// crash CodeMirror's decoration computation. Stored ranges (from localStorage
+// or an exercise's defaults) can outlive the code they were saved against:
+// after a rework the stub may have fewer lines, or a line may be shorter than
+// when a `fromChar`/`toChar` offset was recorded.
+//
+// For each range we:
+//   - drop it entirely if `fromLine` is past the end of the doc;
+//   - clamp `toLine` down to the last line (dropping a now-meaningless `toChar`)
+//     if it overran the doc;
+//   - clamp `fromChar`/`toChar` to the length of their line, since an offset
+//     past the line end would push the computed position past the line (or the
+//     whole doc) and throw when the decoration range is built.
+// `fromLine`/`toLine` are 1-based.
+export function clampRangesToDoc(ranges: ReadonlyRange[], doc: ClampDoc): ReadonlyRange[] {
+  const lineCount = doc.lines;
   const clamped: ReadonlyRange[] = [];
   for (const range of ranges) {
     if (range.fromLine > lineCount) {
       continue;
     }
-    if (range.toLine <= lineCount) {
-      clamped.push(range);
-      continue;
+
+    let { toLine, toChar } = range;
+    if (toLine > lineCount) {
+      // toLine ran past the doc: clamp it and drop a now-meaningless toChar so
+      // the range extends to the end of the (new) last line.
+      toLine = lineCount;
+      toChar = undefined;
     }
-    // toLine ran past the doc: clamp it and drop a now-meaningless toChar so
-    // the range extends to the end of the (new) last line.
-    const { toChar: _toChar, ...rest } = range;
-    clamped.push({ ...rest, toLine: lineCount });
+
+    const next: ReadonlyRange = { ...range, toLine };
+
+    if (next.fromChar !== undefined) {
+      const fromLineInfo = doc.line(next.fromLine);
+      next.fromChar = Math.min(next.fromChar, fromLineInfo.to - fromLineInfo.from);
+    }
+
+    if (toChar !== undefined) {
+      const toLineInfo = doc.line(toLine);
+      next.toChar = Math.min(toChar, toLineInfo.to - toLineInfo.from);
+    } else {
+      delete next.toChar;
+    }
+
+    clamped.push(next);
   }
   return clamped;
 }
