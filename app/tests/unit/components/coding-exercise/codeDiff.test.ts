@@ -29,13 +29,22 @@ describe("renderDiff", () => {
     expect(renderDiff("move()\n", "move()\n")).toBe("");
   });
 
-  it("renders a unified diff without Index/---/+++ headers", () => {
-    const diff = renderDiff("move()\n", "move()\nmove()\n");
-    expect(diff).toContain("@@");
-    expect(diff).toContain("+move()");
+  it("renders only changed lines with line numbers, no headers or context", () => {
+    const diff = renderDiff("turnLeft()\nwalk(3)\nturnRight()\n", "turnLeft()\nwalk(4)\nturnRight()\n");
+    // Only the changed line, numbered; surrounding unchanged lines are omitted.
+    expect(diff).toContain("2: -walk(3)");
+    expect(diff).toContain("2: +walk(4)");
+    expect(diff).not.toContain("turnLeft()");
+    expect(diff).not.toContain("turnRight()");
+    expect(diff).not.toContain("@@");
     expect(diff).not.toContain("Index:");
-    expect(diff).not.toContain("---");
-    expect(diff).not.toContain("+++");
+  });
+
+  it("strips the '\\ No newline at end of file' marker", () => {
+    // "a" has no trailing newline, which makes the diff library emit the marker.
+    const diff = renderDiff("a", "a\nb");
+    expect(diff).toContain("+b");
+    expect(diff).not.toContain("No newline");
   });
 
   it("returns the too-long marker when the diff exceeds DIFF_MAX_LENGTH", () => {

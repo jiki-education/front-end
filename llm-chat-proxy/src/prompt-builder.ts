@@ -143,9 +143,17 @@ export async function buildPrompt(options: PromptOptions): Promise<{ systemInstr
     buildInitialCodeSection(content.stub, language),
     buildTargetCodeSection(content.solution, language),
     // --- Dynamic suffix: changes per message ---
+    // The transcript reads Student -> You -> [code changes] -> Student -> ...,
+    // with the latest student post (the one being replied to) last and the code
+    // changes that led into it just before it. The Current Code section is then
+    // purely the full current code.
     buildConversationHistorySection(history),
+    renderCodeDiff(currentCodeDiff),
     buildStudentQuestionSection(question),
-    buildCurrentCodeSection(croppedCode, language, codeWasCropped, currentCodeDiff)
+    buildCurrentCodeSection(croppedCode, language, codeWasCropped),
+    // Final directive last, per the guidance to put the specific instruction at
+    // the end after all context. Points back to "How You Act" in the system msg.
+    buildFinalInstructionsSection()
   ];
 
   // Filter out null/empty sections and join with double newlines
@@ -511,29 +519,27 @@ ${code}
 \`\`\``;
 }
 
-function buildCurrentCodeSection(
-  code: string,
-  language: Language,
-  wasCropped: boolean,
-  currentCodeDiff?: string
-): string {
+function buildCurrentCodeSection(code: string, language: Language, wasCropped: boolean): string {
   const croppedNote = wasCropped
     ? "\n\n**Note:** the student's code was longer than we send to you, so it has been truncated. Only the first part is shown below; assume there is more code beyond it that you cannot see."
     : "";
 
-  // The diff of what the student changed since their previous message, leading
-  // into the code below. Usually the most relevant change in the conversation.
-  const diff = renderCodeDiff(currentCodeDiff);
-  const diffNote = diff ? `\n\n${diff}` : "";
+  // Prefix each line with its 1-based line number so the model can cross-
+  // reference the diffs (which use the same numbering) and the line numbers the
+  // student sees in their editor gutter. The numbers are NOT part of the code.
+  const numberedCode = code
+    .split("\n")
+    .map((line, i) => `${i + 1}: ${line}`)
+    .join("\n");
 
   return `## Current Code
 
-This is the student's current code.${croppedNote}${diffNote}
+This is the student's current code. Each line is prefixed with its line number (for reference, not part of the code).${croppedNote}
 
 Be sure to understand that this Current Code block is where the student is CURRENTLY at. Although you can see the stub, target and progress diffs, those are just to inform you of the journey. Focus on the current message from the student and this current code.
 
 \`\`\`${language}
-${code}
+${numberedCode}
 \`\`\``;
 }
 
@@ -544,6 +550,7 @@ function buildTutorGuidelines(): string {
     "- Your aim is to UNBLOCK students. As soon as you can, encourage them to try things out themselves. Once they've made a step forward, push them back into code. Don't keep talking UNLESS the student needs it.",
     "- IMPORTANT: Do NOT give away the answer. Your job is to GUIDE the student to DISCOVER the answer THEMSELVES, not tell them the answer.",
     "- If the student is stuck, guide the student by ASKING THEM QUESTIONS that help them move forward.",
+    "- If the diffs show the student guessing repeatedly, help them discover a method to work it out rather than inviting another guess - either by asking them a question towards the method, or giving them the method if that doesn't actively detract from their learning in this exercise.",
     "- Focus on helping them get to the NEXT STEP in the exercise, and then let them code.",
     "- Your job is NOT TO TEACH new concepts or ideas.",
     "- Speak naturally like a tutor to a student. Don't parrot what a student says.",
@@ -559,7 +566,19 @@ function buildTutorGuidelines(): string {
     rules.push("- If the users message starts with TESTESTEST follow the instruction it gives you.");
   }
 
-  return `## Your Instructions
+  return `## How You Act
 
 ${rules.join("\n")}`;
+}
+
+/**
+ * The final directive, placed at the very end of the user turn (after all the
+ * context and the current code), per the guidance to put the specific
+ * instruction last. It states the task and points back to the behavioural rules
+ * in "How You Act" rather than restating them.
+ */
+function buildFinalInstructionsSection(): string {
+  return `## Your Instructions
+
+Respond to the student's last post above, treating their Current Code as the source of truth for where they are now. Help them find the next step themselves, acting exactly as described in "How You Act" above.`;
 }
