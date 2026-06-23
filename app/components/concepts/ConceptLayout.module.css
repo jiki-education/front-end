@@ -16,10 +16,6 @@
     min-width: 0;
 }
 
-.footer {
-    grid-column: 1 / -1;
-}
-
 @media (max-width: 1200px) {
     .grid {
         grid-template-columns: 1fr;

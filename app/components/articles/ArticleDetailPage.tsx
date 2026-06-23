@@ -63,7 +63,7 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
         variant="gradient"
         title="Ready to Start Your Coding Journey?"
         subtitle="Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!"
-        buttonText="Sign Up to Jiki"
+        buttonText="Sign Up For Free"
         buttonHref="/signup"
       />
     </>

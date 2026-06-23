@@ -3,7 +3,7 @@
     margin-bottom: 32px;
     border-radius: 24px;
     text-align: center;
-    background: linear-gradient(135deg, var(--color-blue-500-5) 0%, var(--color-purple-500-6) 100%);
+    background: var(--color-purple-100);
 
     @media (max-width: 1200px) {
         padding: 40px 24px;
@@ -17,7 +17,7 @@
 }
 
 .title {
-    font-size: 56px;
+    font-size: 48px;
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-gray-800);

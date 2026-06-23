@@ -18,11 +18,11 @@ interface BreadcrumbProps {
 export default function Breadcrumb({ conceptTitle, ancestors = [] }: BreadcrumbProps) {
   const breadcrumbItems: BreadcrumbItem[] = [];
 
-  // If no concept title, we're on the "All Concepts" page
+  // If no concept title, we're on the "Coding Concepts" page
   if (!conceptTitle) {
-    breadcrumbItems.push({ label: "All Concepts", isCurrent: true });
+    breadcrumbItems.push({ label: "Coding Concepts", isCurrent: true });
   } else {
-    breadcrumbItems.push({ label: "All Concepts", href: "/concepts" });
+    breadcrumbItems.push({ label: "Coding Concepts", href: "/concepts" });
 
     // Add ancestors to breadcrumb path
     for (const ancestor of ancestors) {

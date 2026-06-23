@@ -4,18 +4,18 @@ import { render, screen } from "@testing-library/react";
 describe("Breadcrumb", () => {
   it("renders without crashing", () => {
     render(<Breadcrumb />);
-    expect(screen.getByText("All Concepts")).toBeInTheDocument();
+    expect(screen.getByText("Coding Concepts")).toBeInTheDocument();
   });
 
-  it("renders All Concepts as current when no conceptTitle provided", () => {
+  it("renders Coding Concepts as current when no conceptTitle provided", () => {
     render(<Breadcrumb />);
-    expect(screen.getByText("All Concepts")).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "All Concepts" })).not.toBeInTheDocument();
+    expect(screen.getByText("Coding Concepts")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Coding Concepts" })).not.toBeInTheDocument();
   });
 
-  it("renders concept title with link to All Concepts when conceptTitle provided", () => {
+  it("renders concept title with link to Coding Concepts when conceptTitle provided", () => {
     render(<Breadcrumb conceptTitle="Test Concept" />);
-    expect(screen.getByRole("link", { name: "All Concepts" })).toHaveAttribute("href", "/concepts");
+    expect(screen.getByRole("link", { name: "Coding Concepts" })).toHaveAttribute("href", "/concepts");
     expect(screen.getByText("Test Concept")).toBeInTheDocument();
   });
 

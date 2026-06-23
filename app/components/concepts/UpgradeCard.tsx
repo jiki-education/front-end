@@ -16,7 +16,7 @@ export function UpgradeCard() {
         all, <span className={styles.free}>it&apos;s free!</span>
       </p>
       <Link href="/auth/signup" className="ui-btn ui-btn-small ui-btn-primary" style={{ width: "100%" }}>
-        Sign Up
+        Sign Up For Free
       </Link>
     </div>
   );

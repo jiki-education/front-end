@@ -89,7 +89,7 @@ describe("AuthHeader Hydration", () => {
     // Wait for component to mount (hydration simulation)
     await waitFor(() => {
       expect(screen.getByText("Sign In")).toBeInTheDocument();
-      expect(screen.getByText("Sign Up")).toBeInTheDocument();
+      expect(screen.getByText("Sign Up For Free")).toBeInTheDocument();
     });
 
     // Should still show static content
@@ -126,7 +126,7 @@ describe("AuthHeader Hydration", () => {
 
     // Should NOT show anonymous content
     expect(screen.queryByText("Sign In")).not.toBeInTheDocument();
-    expect(screen.queryByText("Sign Up")).not.toBeInTheDocument();
+    expect(screen.queryByText("Sign Up For Free")).not.toBeInTheDocument();
   });
 
   it("shows navigation links consistently", () => {

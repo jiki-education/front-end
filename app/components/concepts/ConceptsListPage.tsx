@@ -31,28 +31,32 @@ export default function ConceptsListPage({ initialConcepts }: ConceptsListPagePr
   const showEmptyState = unlockedCount === 0 && concepts.length > 0;
 
   return (
-    <ConceptsLayout>
-      <ConceptsHeader />
+    <>
+      <ConceptsLayout>
+        <ConceptsHeader />
 
-      {showEmptyState || isLoading ? (
-        <p className={styles.conceptsDescription}>Here you can review and revisit the concepts you&apos;ve learned.</p>
-      ) : (
-        <ConceptsSearch
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          onClearSearch={clearSearch}
-          totalCount={totalCount}
-        />
-      )}
+        {showEmptyState || isLoading ? (
+          <p className={styles.conceptsDescription}>
+            Here you can review and revisit the concepts you&apos;ve learned.
+          </p>
+        ) : (
+          <ConceptsSearch
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onClearSearch={clearSearch}
+            totalCount={totalCount}
+          />
+        )}
 
-      {showSkeleton ? (
-        <ConceptCardsLoadingSkeleton />
-      ) : error && concepts.length === 0 ? (
-        <ErrorState error={error} onRetry={() => window.location.reload()} />
-      ) : (
-        <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
-      )}
+        {showSkeleton ? (
+          <ConceptCardsLoadingSkeleton />
+        ) : error && concepts.length === 0 ? (
+          <ErrorState error={error} onRetry={() => window.location.reload()} />
+        ) : (
+          <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
+        )}
+      </ConceptsLayout>
       {!isAuthenticated && !isLoading && <SignupCta />}
-    </ConceptsLayout>
+    </>
   );
 }

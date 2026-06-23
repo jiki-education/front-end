@@ -1,5 +1,5 @@
 .page {
-    padding-top: 60px;
+    padding-top: 56px;
     padding-bottom: 80px;
     background-repeat: repeat;
     background-color: var(--light-blue);
@@ -13,24 +13,19 @@
     margin-bottom: 48px;
 
     h1 {
-        font-size: 32px;
+        color: var(--color-gray-900);
+        margin-bottom: 16px;
+        font-size: max(34px, min(7vw, 52px));
         font-weight: 700;
-        margin-bottom: 12px;
-
-        @media (min-width: 768px) {
-            font-size: 48px;
-        }
+        line-height: 1.15;
     }
 
     .subtitle {
-        font-size: 18px;
-        font-weight: 400;
-        max-width: 640px;
+        max-width: 650px;
         margin: 0 auto;
-
-        @media (min-width: 768px) {
-            font-size: 22px;
-        }
+        font-size: clamp(16px, 2.2vw, 20px);
+        line-height: 1.6;
+        color: var(--color-gray-500);
     }
 }
 
