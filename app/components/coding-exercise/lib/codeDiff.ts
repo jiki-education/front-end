@@ -24,23 +24,38 @@ export const DIFF_MAX_LENGTH = 1000;
 export const DIFF_TOO_LONG = "[Diff too long to render]";
 
 /**
- * Renders a unified diff of two code snapshots, omitting the Index/---/+++ file
- * headers (we know it's "the student's code"). Returns:
+ * Renders a minimal diff of two code snapshots: only the changed lines (no
+ * surrounding context, no file headers), each prefixed with its line number so
+ * the model knows where the change is without us shipping the unchanged code.
+ * Removed lines carry their old line number, added lines their new one (for a
+ * straight replacement these coincide). Returns:
  * - "" when the code is unchanged (a real signal: they asked without editing)
  * - DIFF_TOO_LONG when the diff exceeds DIFF_MAX_LENGTH
- * - the hunk text otherwise
+ * - lines like "6: -walk(3)" / "6: +walk(4)" otherwise
  */
 export function renderDiff(oldCode: string, newCode: string): string {
   if (oldCode === newCode) {
     return "";
   }
 
-  const patch = structuredPatch("a", "b", oldCode, newCode, "", "", { context: 3 });
+  const patch = structuredPatch("a", "b", oldCode, newCode, "", "", { context: 0 });
 
   const lines: string[] = [];
   for (const hunk of patch.hunks) {
-    lines.push(`@@ -${hunk.oldStart},${hunk.oldLines} +${hunk.newStart},${hunk.newLines} @@`);
-    lines.push(...hunk.lines);
+    let oldLine = hunk.oldStart;
+    let newLine = hunk.newStart;
+    for (const line of hunk.lines) {
+      const marker = line[0];
+      if (marker === "+") {
+        lines.push(`${newLine}: ${line}`);
+        newLine++;
+      } else if (marker === "-") {
+        lines.push(`${oldLine}: ${line}`);
+        oldLine++;
+      }
+      // Context lines don't occur with context: 0; "\ No newline at end of file"
+      // markers (marker === "\\") are skipped as noise.
+    }
   }
 
   const text = lines.join("\n");
