@@ -91,6 +91,13 @@ function fixCoverImagePath(coverImage) {
 }
 
 /**
+ * Rewrite an author's avatar /images/ path to /static/images/ for public serving
+ */
+function fixAuthorAvatar(author) {
+  return { ...author, avatar: fixCoverImagePath(author.avatar) };
+}
+
+/**
  * Estimate reading time from markdown content
  */
 function estimateReadingTime(markdownContent) {
@@ -154,10 +161,11 @@ function processContentDir(type, requiredFields, extraFields) {
         const frontmatter = parsed.data;
         const fixedMarkdown = fixImagePaths(parsed.content);
 
-        const author = authorsData[config.author];
-        if (!author) {
+        const rawAuthor = authorsData[config.author];
+        if (!rawAuthor) {
           throw new Error(`Author not found: ${config.author} in ${filePath}`);
         }
+        const author = fixAuthorAvatar(rawAuthor);
 
         // Pre-render markdown to HTML
         const html = marked.parse(fixedMarkdown);
@@ -319,10 +327,11 @@ function processBuild() {
       const order = i + 1;
       const configJson = JSON.stringify({ ...config, series: seriesSlug, order });
 
-      const author = authorsData[config.author];
-      if (!author) {
+      const rawAuthor = authorsData[config.author];
+      if (!rawAuthor) {
         throw new Error(`Author not found: ${config.author} in ${configPath}`);
       }
+      const author = fixAuthorAvatar(rawAuthor);
 
       const mdFiles = fs
         .readdirSync(dirPath, { withFileTypes: true })

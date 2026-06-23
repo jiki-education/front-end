@@ -1,14 +1,74 @@
-.blogPostsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+.section {
+    width: 100%;
+    border-top: 1px solid var(--color-purple-300);
+    background-color: var(--color-purple-50);
+}
+
+.inner {
     max-width: 1400px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+
+    @media (min-width: 768px) {
+        padding-left: 80px;
+        padding-right: 80px;
+        padding-bottom: 80px;
+    }
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    text-align: center;
+    margin-bottom: 0;
+    padding-top: 52px;
+
+    @media (min-width: 768px) {
+        font-size: 36px;
+    }
+}
+
+.subheading {
+    font-size: 16px;
+    font-weight: 400;
+    color: #718096;
+    text-align: center;
+    margin-bottom: 20px;
+
+    @media (min-width: 768px) {
+        font-size: 21px;
+        margin-bottom: 32px;
+    }
+}
+
+.blogLink {
+    color: var(--color-purple-600);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 20px;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px;
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 .blogPostCard {
     background: white;
-    border: 2px solid var(--color-blue-200);
+    border: 2px solid var(--color-purple-200);
     border-radius: 16px;
     padding: 32px;
     margin-bottom: 24px;
@@ -19,10 +79,10 @@
 }
 
 .blogPostCard:hover {
-    border-color: var(--color-blue-500);
+    border-color: var(--color-purple-500);
     box-shadow:
-        0 0 0 4px var(--color-blue-500-20),
-        0 4px 16px var(--color-blue-500-40);
+        0 0 0 4px var(--color-purple-500-20),
+        0 4px 16px var(--color-purple-500-40);
 }
 
 .postImage {
@@ -65,7 +125,7 @@
 }
 
 .postTitle {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--color-gray-900);
     margin-bottom: 12px;
@@ -89,25 +149,12 @@
     align-items: center;
     gap: 6px;
     margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-gray-100);
     font-size: 14px;
     color: var(--color-gray-500);
     font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-    .blogPostsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-    }
-}
-
 @media (max-width: 768px) {
-    .blogPostsGrid {
-        grid-template-columns: 1fr;
-    }
-
     .blogPostCard {
         padding: 24px;
     }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import BuildIcon from "./icons/build.svg";
 import CalendarIcon from "./icons/calendar.svg";
 import CodersMindIcon from "./icons/coders-mind.svg";
@@ -54,9 +55,12 @@ export function BootcampSection() {
                     <li>
                       <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
-                        <strong>Build a solid understanding</strong> of core programming principles, including flow
-                        control, conditionals, data types, functions, and much more, using a beginner-friendly version
-                        of JavaScript.
+                        <strong>Build a solid understanding</strong> of{" "}
+                        <Link href="/concepts" className="underline">
+                          core programming principles
+                        </Link>
+                        , including flow control, conditionals, data types, functions, and much more, using a
+                        beginner-friendly version of JavaScript.
                       </div>
                     </li>
                     <li>
