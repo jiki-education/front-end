@@ -79,7 +79,7 @@ export function AuthHeader({ title }: AuthHeaderProps) {
                   href="/auth/signup"
                   className="px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
                 >
-                  Sign Up
+                  Sign Up For Free
                 </Link>
               </div>
             )}

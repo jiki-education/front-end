@@ -19,18 +19,20 @@ export function ConceptGroupView({ concept, ancestors, initialSubconcepts }: Con
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
-    <ConceptsLayout>
-      <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
+    <>
+      <ConceptsLayout>
+        <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
 
-      <header>
-        <h1 className={styles.pageHeading}>
-          <FolderIcon className={`${styles.headingIcon} w-8 h-8`} />
-          {concept.title}
-        </h1>
-      </header>
+        <header>
+          <h1 className={styles.pageHeading}>
+            <FolderIcon className={`${styles.headingIcon} w-8 h-8`} />
+            {concept.title}
+          </h1>
+        </header>
 
-      <SubconceptsGrid parentSlug={concept.slug} initialSubconcepts={initialSubconcepts} />
+        <SubconceptsGrid parentSlug={concept.slug} initialSubconcepts={initialSubconcepts} />
+      </ConceptsLayout>
       {!isAuthenticated && <SignupCta />}
-    </ConceptsLayout>
+    </>
   );
 }

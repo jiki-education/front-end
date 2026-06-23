@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import shared from "@/components/landing-page/shared.module.css";
-
-const navLinkStyle = { borderBottom: "1px solid var(--color-gray-400)", lineHeight: 1.2 };
+import styles from "./external.module.css";
 
 export default function ExternalHeader() {
   return (
@@ -19,14 +18,17 @@ export default function ExternalHeader() {
           />
         </Link>
 
-        <div className="flex items-center gap-12 font-medium text-gray-700 max-[719px]:hidden">
-          <Link href="https://jiki.io/blog/the-backstory-of-jiki" style={navLinkStyle}>
-            About
+        <div className="flex items-center gap-4 text-gray-700 max-[719px]:hidden">
+          <Link href="https://jiki.io/blog/the-backstory-of-jiki" className={styles.navLink}>
+            About Jiki
           </Link>
-          <Link href="/premium" style={navLinkStyle}>
+          <Link href="/concepts" className={styles.navLink}>
+            Coding Concepts
+          </Link>
+          <Link href="/premium" className={styles.navLink}>
             Premium
           </Link>
-          <Link href="/testimonials" style={navLinkStyle}>
+          <Link href="/testimonials" className={styles.navLink}>
             Testimonials
           </Link>
         </div>
@@ -36,7 +38,7 @@ export default function ExternalHeader() {
             Login
           </Link>
           <Link href="/auth/signup" className="ui-btn ui-btn-small ui-btn-primary">
-            Sign Up
+            Sign Up For Free
           </Link>
         </div>
       </div>

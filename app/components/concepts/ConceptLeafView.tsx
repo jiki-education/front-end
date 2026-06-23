@@ -46,28 +46,30 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
   }
 
   return (
-    <ConceptsLayout>
-      <ConceptLayout
-        breadcrumb={<Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />}
-        rightPanel={
-          <ConceptSidebar
-            conceptSlug={concept.slug}
-            relatedConcepts={relatedConcepts}
-            relatedExercises={relatedExercises}
-            relatedProjects={relatedProjects}
-            videoData={videoData}
-            isConceptUnlocked={isConceptUnlocked}
-            getExerciseStatus={getExerciseStatus}
-            getProjectStatus={getProjectStatus}
-            isAuthenticated={isAuthenticated}
-          />
-        }
-        footer={!isAuthenticated && content ? <SignupCta /> : undefined}
-      >
-        <ConceptHero title={concept.title} intro={concept.description} />
-        {isContentLoading && <ConceptArticleSkeleton />}
-        {content && <MarkdownContent content={content} variant="base" />}
-      </ConceptLayout>
-    </ConceptsLayout>
+    <>
+      <ConceptsLayout>
+        <ConceptLayout
+          breadcrumb={<Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />}
+          rightPanel={
+            <ConceptSidebar
+              conceptSlug={concept.slug}
+              relatedConcepts={relatedConcepts}
+              relatedExercises={relatedExercises}
+              relatedProjects={relatedProjects}
+              videoData={videoData}
+              isConceptUnlocked={isConceptUnlocked}
+              getExerciseStatus={getExerciseStatus}
+              getProjectStatus={getProjectStatus}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        >
+          <ConceptHero title={concept.title} intro={concept.description} />
+          {isContentLoading && <ConceptArticleSkeleton />}
+          {content && <MarkdownContent content={content} variant="base" />}
+        </ConceptLayout>
+      </ConceptsLayout>
+      {!isAuthenticated && content && <SignupCta />}
+    </>
   );
 }
