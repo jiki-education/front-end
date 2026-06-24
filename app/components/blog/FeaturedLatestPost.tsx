@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import CalendarIcon from "@/icons/calendar.svg";
 import styles from "./FeaturedLatestPost.module.css";
 
@@ -27,7 +27,7 @@ export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostP
             {formatBlogDate(post.date)}
           </span>
           <span className={styles.featuredLatestAuthor}>
-            <AuthorIcon />
+            <AuthorAvatar author={post.author} size={18} />
             by {post.author.name}
           </span>
         </div>

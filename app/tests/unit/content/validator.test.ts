@@ -14,7 +14,7 @@ const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "imag
 const validAuthors: AuthorRegistry = {
   ihid: {
     name: "Jeremy Walker",
-    avatar: "/images/avatars/ihid.jpg"
+    avatar: "/images/avatars/ihid.webp"
   }
 };
 

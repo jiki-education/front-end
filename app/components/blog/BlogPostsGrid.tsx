@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import styles from "./BlogPostCard.module.css";
 
 interface BlogPostsGridProps {
@@ -41,7 +41,7 @@ function BlogPostCard({ post, locale }: BlogPostCardProps) {
       <h2 className={styles.postTitle}>{post.title}</h2>
       <p className={styles.postExcerpt}>{post.excerpt}</p>
       <div className={styles.postAuthor}>
-        <AuthorIcon />
+        <AuthorAvatar author={post.author} />
         <span>by {post.author.name}</span>
       </div>
     </Link>
