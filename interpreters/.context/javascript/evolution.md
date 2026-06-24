@@ -1,5 +1,23 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-24: Exact rational arithmetic (order-independent numbers)
+
+Numbers now carry an exact rational value (`Fraction`) internally, so mathematically equivalent expressions agree regardless of operation order. Previously every binary arithmetic result was rounded to 5 decimal places after _each_ operation, which made `1 / 7 * x` (rounds `1/7` first, then multiplies) diverge from `x / 7` (a single round). This surfaced in the Structured House drawing exercise, where `width / 7` passed the position check but `1/7 * width` did not.
+
+The exposed `.value` is unchanged: it is still rounded to 5 decimal places, so existing exercise checks, UI output, and the external-function contract all behave exactly as before. The fix is purely internal precision.
+
+### Mechanism
+
+- New shared `Fraction` class (`src/shared/fraction.ts`): BigInt numerator/denominator, always normalized, with exact `+ - * / % **`(integer exponent). Operations that cannot stay rational (division by zero, non-integer exponents) return `null` so the caller falls back to float arithmetic. Built in `shared/` so JikiScript and Python can adopt it later.
+- `JSNumber` gains an `exact: Fraction | null` field and a `JSNumber.fromFraction()` constructor. `.value` is rounded to display precision (5dp) via `roundToDisplayPrecision`; `.preciseValue` exposes the full-precision value for feeding the next operation.
+- Numeric literals (`executeLiteralExpression`) build their exact fraction from the literal (e.g. `0.1` -> `1/10`). Integers created anywhere via `createJSObject` also get an exact fraction (always representable). Non-integer floats from irrational operations (e.g. `Math.sqrt`) are left inexact (`exact: null`) so they are never treated as exact.
+- `executeBinaryExpression` routes number/number arithmetic through `numberArithmetic`: exact fraction arithmetic when both operands are exact and the op stays rational, otherwise rounded float arithmetic (preserving the old neat display for the inexact/post-irrational path). Type-coercion paths (string concat, `"5" - 2`) are unchanged.
+- Unary minus negates the exact fraction when present.
+
+### Scope
+
+JavaScript interpreter only. JikiScript and Python still round per-operation (`DP_MULTIPLE`); porting them to `Fraction` is a planned follow-up.
+
 ## 2026-06-22: Assignment is statement-only (AssignmentInExpression)
 
 Assignment (`=`) is now only permitted as a complete expression statement (e.g. `x = 5;`) or in a for-loop's init/update clauses (e.g. `for (i = 0; i < 3; i = i + 1)`). Using assignment anywhere else - inside an `if`/`while` condition, a function argument, a variable initializer, an array/object literal, or nested in any other expression - raises a `AssignmentInExpression` syntax error.

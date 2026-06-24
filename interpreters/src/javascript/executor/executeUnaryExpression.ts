@@ -1,7 +1,7 @@
 import type { Executor } from "../executor";
 import type { UnaryExpression } from "../expression";
 import type { EvaluationResultUnaryExpression, EvaluationResultExpression } from "../evaluation-result";
-import { createJSObject, type JikiObject } from "../jikiObjects";
+import { createJSObject, type JikiObject, JSNumber } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
 export function executeUnaryExpression(
@@ -32,21 +32,27 @@ function handleUnaryOperation(
     case "MINUS":
       // Check for type coercion when disabled
       if (!executor.languageFeatures.allowTypeCoercion && operandType !== "number") {
-        throw new RuntimeError(
-          `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: operand: ${operandType}`,
-          expression.location,
-          "TypeCoercionNotAllowed"
-        );
+        executor.error("UnaryTypeCoercionNotAllowed", expression.location, {
+          operand: operandType,
+          operator: expression.operator.lexeme,
+        });
+      }
+      if (operandResult.jikiObject instanceof JSNumber && operandResult.jikiObject.exact !== null) {
+        return JSNumber.fromFraction(operandResult.jikiObject.exact.neg());
       }
       return createJSObject(-operand);
     case "PLUS":
       // Check for type coercion when disabled
       if (!executor.languageFeatures.allowTypeCoercion && operandType !== "number") {
-        throw new RuntimeError(
-          `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: operand: ${operandType}`,
-          expression.location,
-          "TypeCoercionNotAllowed"
-        );
+        executor.error("UnaryTypeCoercionNotAllowed", expression.location, {
+          operand: operandType,
+          operator: expression.operator.lexeme,
+        });
+      }
+      // Unary plus is the identity for numbers; return the operand unchanged so
+      // its exact fraction is preserved (mirrors unary minus above).
+      if (operandResult.jikiObject instanceof JSNumber) {
+        return operandResult.jikiObject;
       }
       return createJSObject(+operand);
     case "NOT":

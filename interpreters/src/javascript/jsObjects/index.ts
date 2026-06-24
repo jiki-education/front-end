@@ -18,6 +18,7 @@ export { JSBoundMethod } from "./JSBoundMethod";
 
 // Import for helper functions
 import { JikiObject } from "../../shared/jikiObject";
+import { Fraction } from "../../shared/fraction";
 import { JSNumber } from "./JSNumber";
 import { JSString } from "./JSString";
 import { JSBoolean } from "./JSBoolean";
@@ -36,7 +37,19 @@ export function createJSObject(value: any): JikiObject {
   } else if (value === undefined) {
     return new JSUndefined();
   } else if (typeof value === "number") {
-    return new JSNumber(value);
+    // Integers are always exactly representable, so attach an exact fraction to
+    // keep subsequent arithmetic order-independent.
+    //
+    // Non-integer floats are deliberately left inexact. A bare float carries no
+    // provenance: we can't tell an intended decimal (e.g. 0.2 from an external
+    // function) from an irrational result (e.g. Math.sqrt). Treating the latter
+    // as exact would reintroduce float fuzz (sqrt(2)*sqrt(2) -> 2.0000000000004),
+    // so we err toward inexact. Such values fall back to the rounded-float path
+    // in arithmetic, matching the pre-exact-arithmetic behaviour - they don't
+    // gain order-independence, but they don't regress either. Exactness is only
+    // claimed where provenance is known: integers here, and numeric literals in
+    // executeLiteralExpression.
+    return new JSNumber(value, Number.isInteger(value) ? Fraction.fromInteger(value) : null);
   } else if (typeof value === "string") {
     return new JSString(value);
   } else if (typeof value === "boolean") {

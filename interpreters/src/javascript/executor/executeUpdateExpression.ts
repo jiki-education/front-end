@@ -2,6 +2,8 @@ import type { Executor } from "../executor";
 import type { UpdateExpression } from "../expression";
 import type { EvaluationResultUpdateExpression } from "../evaluation-result";
 import { JSNumber } from "../jikiObjects";
+import { numberArithmetic } from "./arithmetic";
+import { Fraction } from "../../shared/fraction";
 
 export function executeUpdateExpression(
   executor: Executor,
@@ -30,9 +32,11 @@ export function executeUpdateExpression(
     };
   }
 
-  // Calculate the new value
-  const increment = expression.operator.type === "INCREMENT" ? 1 : -1;
-  const newValue = new JSNumber(currentValue.value + increment);
+  // Calculate the new value via the shared arithmetic helper so that exactness
+  // is preserved (e.g. an exact integer `i` stays exact through `i++`).
+  const one = JSNumber.fromFraction(Fraction.fromInteger(1));
+  const op = expression.operator.type === "INCREMENT" ? "+" : "-";
+  const newValue = numberArithmetic(currentValue, one, op);
 
   // Update the variable
   executor.environment.update(expression.operand.name.lexeme, newValue, expression.operand.name.location);
