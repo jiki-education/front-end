@@ -11,6 +11,9 @@ export interface ChatRequestPayload {
   history: ChatMessage[];
   nextTaskId?: string;
   contentHash: string; // Hash for Worker to fetch exercise content from app's static files
+  // Diff of what the student changed since their previous message, leading into
+  // the current code. Same semantics as ChatMessage.codeDiff (see codeDiff.ts).
+  currentCodeDiff?: string;
 }
 
 export interface StreamCallbacks {
