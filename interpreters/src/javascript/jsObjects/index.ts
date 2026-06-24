@@ -18,6 +18,7 @@ export { JSBoundMethod } from "./JSBoundMethod";
 
 // Import for helper functions
 import { JikiObject } from "../../shared/jikiObject";
+import { Fraction } from "../../shared/fraction";
 import { JSNumber } from "./JSNumber";
 import { JSString } from "./JSString";
 import { JSBoolean } from "./JSBoolean";
@@ -36,7 +37,10 @@ export function createJSObject(value: any): JikiObject {
   } else if (value === undefined) {
     return new JSUndefined();
   } else if (typeof value === "number") {
-    return new JSNumber(value);
+    // Integers are always exactly representable, so attach an exact fraction to
+    // keep subsequent arithmetic order-independent. Non-integer floats are left
+    // inexact to avoid treating irrational results (e.g. sqrt) as exact.
+    return new JSNumber(value, Number.isInteger(value) ? Fraction.fromInteger(value) : null);
   } else if (typeof value === "string") {
     return new JSString(value);
   } else if (typeof value === "boolean") {

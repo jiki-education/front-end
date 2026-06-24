@@ -1,7 +1,7 @@
 import type { Executor } from "../executor";
 import type { UnaryExpression } from "../expression";
 import type { EvaluationResultUnaryExpression, EvaluationResultExpression } from "../evaluation-result";
-import { createJSObject, type JikiObject } from "../jikiObjects";
+import { createJSObject, type JikiObject, JSNumber } from "../jikiObjects";
 import { RuntimeError } from "../executor";
 
 export function executeUnaryExpression(
@@ -37,6 +37,9 @@ function handleUnaryOperation(
           expression.location,
           "TypeCoercionNotAllowed"
         );
+      }
+      if (operandResult.jikiObject instanceof JSNumber && operandResult.jikiObject.exact !== null) {
+        return JSNumber.fromFraction(operandResult.jikiObject.exact.neg());
       }
       return createJSObject(-operand);
     case "PLUS":
