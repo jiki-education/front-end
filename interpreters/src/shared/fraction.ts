@@ -87,11 +87,11 @@ export class Fraction {
       return null;
     }
     const [, sign, intPart = "", fracPart = "", expPart] = match;
-    const digits = (intPart || "0") + fracPart;
-    if (digits === "") {
+    // Reject input with no digits at all (e.g. "-", "+", "e5").
+    if (intPart === "" && fracPart === "") {
       return null;
     }
-    let num = BigInt(digits === "" ? "0" : digits);
+    let num = BigInt(intPart + fracPart);
     if (sign === "-") {
       num = -num;
     }

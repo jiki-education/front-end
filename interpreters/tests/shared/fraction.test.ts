@@ -96,6 +96,22 @@ describe("Fraction", () => {
       expect(Fraction.fromInteger(2).pow(Fraction.fromInteger(-2))!.toNumber()).toBe(0.25);
     });
 
+    test("negative base with positive odd exponent keeps the sign", () => {
+      expect(Fraction.fromInteger(-2).pow(Fraction.fromInteger(3))!.toNumber()).toBe(-8);
+    });
+
+    test("negative base with positive even exponent is positive", () => {
+      expect(Fraction.fromInteger(-2).pow(Fraction.fromInteger(2))!.toNumber()).toBe(4);
+    });
+
+    test("negative base with negative odd exponent keeps the sign", () => {
+      expect(Fraction.fromInteger(-2).pow(Fraction.fromInteger(-3))!.toNumber()).toBe(-0.125);
+    });
+
+    test("negative base with negative even exponent is positive", () => {
+      expect(Fraction.fromInteger(-2).pow(Fraction.fromInteger(-2))!.toNumber()).toBe(0.25);
+    });
+
     test("non-integer exponents return null (float fallback)", () => {
       expect(Fraction.fromInteger(2).pow(Fraction.of(1n, 2n))).toBeNull();
     });
