@@ -1,85 +1,9 @@
 import type { Executor } from "../executor";
 import type { BinaryExpression } from "../expression";
 import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
-import { createJSObject, type JikiObject, JSDictionary, JSArray, JSNumber } from "../jikiObjects";
-import { roundToDisplayPrecision } from "../jsObjects/JSNumber";
-import { Fraction } from "../../shared/fraction";
+import { createJSObject, type JikiObject, JSDictionary, JSArray, type JSNumber } from "../jikiObjects";
+import { numberArithmetic, arithmeticWithCoercion } from "./arithmetic";
 import { RuntimeError } from "../executor";
-
-type ArithmeticOp = "+" | "-" | "*" | "/" | "%" | "**";
-
-function roundResult(value: number): number {
-  return roundToDisplayPrecision(value);
-}
-
-function fractionOp(left: Fraction, right: Fraction, op: ArithmeticOp): Fraction | null {
-  switch (op) {
-    case "+":
-      return left.add(right);
-    case "-":
-      return left.sub(right);
-    case "*":
-      return left.mul(right);
-    case "/":
-      return left.div(right);
-    case "%":
-      return left.mod(right);
-    case "**":
-      return left.pow(right);
-  }
-}
-
-function floatOp(left: number, right: number, op: ArithmeticOp): number {
-  switch (op) {
-    case "+":
-      return left + right;
-    case "-":
-      return left - right;
-    case "*":
-      return left * right;
-    case "/":
-      return left / right;
-    case "%":
-      return left % right;
-    case "**":
-      return left ** right;
-  }
-}
-
-// Arithmetic on two numbers, preferring exact rational arithmetic so that
-// mathematically equivalent expressions (e.g. `1/7 * x` and `x / 7`) agree.
-// Falls back to float arithmetic (rounded to display precision) when either
-// operand is inexact or the operation can't stay rational.
-function numberArithmetic(leftObj: JSNumber, rightObj: JSNumber, op: ArithmeticOp): JSNumber {
-  if (leftObj.exact !== null && rightObj.exact !== null) {
-    const result = fractionOp(leftObj.exact, rightObj.exact, op);
-    if (result !== null) {
-      return JSNumber.fromFraction(result);
-    }
-  }
-  const value = roundResult(floatOp(leftObj.preciseValue, rightObj.preciseValue, op));
-  const exact = Number.isInteger(value) && Number.isFinite(value) ? Fraction.fromInteger(value) : null;
-  return new JSNumber(value, exact);
-}
-
-// Shared handling for -, *, /, %, ** : verifies operand types when coercion is
-// disabled, uses exact arithmetic for number/number, and otherwise falls back
-// to JS's coercing behaviour (rounded to display precision).
-function arithmeticWithCoercion(
-  executor: Executor,
-  expression: BinaryExpression,
-  leftResult: EvaluationResultExpression,
-  rightResult: EvaluationResultExpression,
-  op: ArithmeticOp
-): JikiObject {
-  if (!executor.languageFeatures.allowTypeCoercion) {
-    verifyNumbersForArithmetic(executor, expression, leftResult, rightResult);
-  }
-  if (leftResult.jikiObject instanceof JSNumber && rightResult.jikiObject instanceof JSNumber) {
-    return numberArithmetic(leftResult.jikiObject, rightResult.jikiObject, op);
-  }
-  return createJSObject(roundResult(floatOp(leftResult.jikiObject.value, rightResult.jikiObject.value, op)));
-}
 
 export function executeBinaryExpression(
   executor: Executor,
@@ -112,26 +36,23 @@ function handleBinaryOperation(
 
   switch (expression.operator.type) {
     case "PLUS":
-      // Check for type coercion when disabled
-      if (!executor.languageFeatures.allowTypeCoercion) {
-        // Allow string concatenation (string + string)
-        if (leftType === "string" && rightType === "string") {
-          return createJSObject(left + right);
-        }
-        // Allow number addition (number + number)
-        if (leftType === "number" && rightType === "number") {
-          return numberArithmetic(leftResult.jikiObject as JSNumber, rightResult.jikiObject as JSNumber, "+");
-        }
-        // Everything else is type coercion and should error
-        throw new RuntimeError(
-          `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: left: ${leftType}: right: ${rightType}`,
-          expression.location,
-          "TypeCoercionNotAllowed"
-        );
-      }
+      // Number addition uses exact arithmetic regardless of the coercion flag.
       if (leftType === "number" && rightType === "number") {
         return numberArithmetic(leftResult.jikiObject as JSNumber, rightResult.jikiObject as JSNumber, "+");
       }
+      // With coercion disabled, only string concatenation is also allowed;
+      // anything else is an error.
+      if (!executor.languageFeatures.allowTypeCoercion) {
+        if (leftType === "string" && rightType === "string") {
+          return createJSObject(left + right);
+        }
+        executor.error("TypeCoercionNotAllowed", expression.location, {
+          leftType,
+          rightType,
+          operator: expression.operator.lexeme,
+        });
+      }
+      // Coercion enabled: defer to JS (concatenation / coercion).
       return createJSObject(left + right);
 
     case "MINUS":
@@ -250,31 +171,6 @@ function handleBinaryOperation(
         expression.location,
         "InvalidBinaryExpression"
       );
-  }
-}
-
-function verifyNumbersForArithmetic(
-  executor: Executor,
-  expression: BinaryExpression,
-  leftResult: EvaluationResultExpression,
-  rightResult: EvaluationResultExpression
-): void {
-  const leftType = leftResult.jikiObject.type;
-  const rightType = rightResult.jikiObject.type;
-
-  if (leftType !== "number") {
-    throw new RuntimeError(
-      `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: left: ${leftType}`,
-      expression.location,
-      "TypeCoercionNotAllowed"
-    );
-  }
-  if (rightType !== "number") {
-    throw new RuntimeError(
-      `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: right: ${rightType}`,
-      expression.location,
-      "TypeCoercionNotAllowed"
-    );
   }
 }
 

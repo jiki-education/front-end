@@ -14,6 +14,15 @@ function evalValue(code: string): number {
   return frames[0].result?.jikiObject.value as number;
 }
 
+// For multi-statement programs, read the value produced by the final frame.
+function evalLastValue(code: string): number {
+  const { frames, error } = interpret(code);
+  expect(error).toBeNull();
+  const last = frames[frames.length - 1];
+  expect(last.status).toBe("SUCCESS");
+  return last.result?.jikiObject.value as number;
+}
+
 describe("equivalent expressions agree regardless of operation order", () => {
   test("1/7 * 70 equals 70 / 7", () => {
     expect(evalValue("1 / 7 * 70;")).toBe(evalValue("70 / 7;"));
@@ -45,5 +54,25 @@ describe("equivalent expressions agree regardless of operation order", () => {
 
   test("non-terminating value still exposed rounded to 5dp", () => {
     expect(evalValue("1 / 3;")).toBe(0.33333);
+  });
+
+  // The ++/-- update expression must preserve exactness too, otherwise loop
+  // counters lose their exact fraction and division diverges again. These use
+  // multi-statement programs, so we read the final frame's value. A buggy
+  // (inexact) counter makes `i / 7 * 700` evaluate to 100.002 instead of 100.
+  test("postfix i++ keeps the counter exact", () => {
+    expect(evalLastValue("let i = 0; i++; i / 7 * 700;")).toBe(100);
+  });
+
+  test("prefix ++i keeps the counter exact", () => {
+    expect(evalLastValue("let i = 0; ++i; i / 7 * 700;")).toBe(100);
+  });
+
+  test("i-- keeps the counter exact", () => {
+    expect(evalLastValue("let i = 2; i--; i / 7 * 700;")).toBe(100);
+  });
+
+  test("for-loop with i++ accumulates exactly", () => {
+    expect(evalLastValue("let t = 0; for (let i = 1; i < 8; i++) { t = t + (i / 7) * 700; } t;")).toBe(2800);
   });
 });

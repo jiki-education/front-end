@@ -14,7 +14,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
         expect(result.frames[0].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: number: right: boolean"
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: +"
         );
       });
 
@@ -24,7 +24,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
         expect(result.frames[0].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: boolean: right: number"
+          "TypeCoercionNotAllowed: leftType: boolean: rightType: number: operator: +"
         );
       });
 
@@ -34,7 +34,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
         expect(result.frames[0].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: string: right: number"
+          "TypeCoercionNotAllowed: leftType: string: rightType: number: operator: +"
         );
       });
 
@@ -44,7 +44,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
         expect(result.frames[0].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: number: right: string"
+          "TypeCoercionNotAllowed: leftType: number: rightType: string: operator: +"
         );
       });
 
@@ -53,7 +53,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: -: right: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: -"
+        );
       });
 
       test("boolean - number throws error", () => {
@@ -61,7 +63,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: -: left: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: boolean: rightType: number: operator: -"
+        );
       });
 
       test("string - number throws error", () => {
@@ -69,7 +73,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: -: left: string");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: string: rightType: number: operator: -"
+        );
       });
 
       test("number * boolean throws error", () => {
@@ -77,7 +83,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: *: right: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: *"
+        );
       });
 
       test("string * number throws error", () => {
@@ -85,7 +93,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: *: left: string");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: string: rightType: number: operator: *"
+        );
       });
 
       test("number / boolean throws error", () => {
@@ -93,7 +103,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: /: right: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: /"
+        );
       });
 
       test("boolean / number throws error", () => {
@@ -101,7 +113,9 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames).toHaveLength(1);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: /: left: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: boolean: rightType: number: operator: /"
+        );
       });
     });
 
@@ -160,7 +174,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames[0].status).toBe("SUCCESS");
         expect(result.frames[1].status).toBe("ERROR");
         expect(result.frames[1].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: number: right: boolean"
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: +"
         );
       });
 
@@ -176,7 +190,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames[0].status).toBe("SUCCESS");
         expect(result.frames[1].status).toBe("ERROR");
         expect(result.frames[1].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: boolean: right: number"
+          "TypeCoercionNotAllowed: leftType: boolean: rightType: number: operator: +"
         );
       });
 
@@ -192,7 +206,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.frames[0].status).toBe("SUCCESS");
         expect(result.frames[1].status).toBe("ERROR");
         expect(result.frames[1].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: string: right: number"
+          "TypeCoercionNotAllowed: leftType: string: rightType: number: operator: +"
         );
       });
     });
@@ -202,7 +216,9 @@ describe("JavaScript Type Coercion", () => {
         const result = interpret("(5 + 3) * true;", { languageFeatures });
         expect(result.error).toBe(null);
         expect(result.frames[0].status).toBe("ERROR");
-        expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: *: right: boolean");
+        expect(result.frames[0].error?.message).toBe(
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: *"
+        );
       });
 
       test("multiple operations with type coercion throws error at first issue", () => {
@@ -210,7 +226,7 @@ describe("JavaScript Type Coercion", () => {
         expect(result.error).toBe(null);
         expect(result.frames[0].status).toBe("ERROR");
         expect(result.frames[0].error?.message).toBe(
-          "TypeCoercionNotAllowed: operator: +: left: number: right: boolean"
+          "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: +"
         );
       });
     });
@@ -437,7 +453,9 @@ describe("JavaScript Type Coercion", () => {
       expect(result.error).toBe(null);
       expect(result.frames).toHaveLength(1);
       expect(result.frames[0].status).toBe("ERROR");
-      expect(result.frames[0].error?.message).toBe("TypeCoercionNotAllowed: operator: +: left: number: right: boolean");
+      expect(result.frames[0].error?.message).toBe(
+        "TypeCoercionNotAllowed: leftType: number: rightType: boolean: operator: +"
+      );
     });
   });
 });

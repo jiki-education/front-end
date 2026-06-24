@@ -46,6 +46,11 @@ export class Fraction {
   }
 
   static of(num: bigint, den: bigint): Fraction {
+    // Invariant guard, not a student-facing error: every public operation that
+    // could divide by zero (div/mod, and pow with a zero base and negative
+    // exponent) returns null *before* reaching here, signalling the caller to
+    // fall back to float maths. So a zero denominator means a bug in Fraction
+    // itself, and throwing surfaces it loudly rather than producing a bad value.
     if (den === 0n) {
       throw new Error("Fraction denominator cannot be zero");
     }
