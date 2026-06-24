@@ -109,6 +109,7 @@ export type RuntimeErrorType =
   | "ComparisonRequiresNumber"
   | "TruthinessDisabled"
   | "TypeCoercionNotAllowed"
+  | "UnaryTypeCoercionNotAllowed"
   | "StrictEqualityRequired"
   | "IndexOutOfRange"
   | "TypeError"

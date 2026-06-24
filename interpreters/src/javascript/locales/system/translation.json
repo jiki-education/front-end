@@ -105,6 +105,7 @@
       "RepeatCountTooHigh": "RepeatCountTooHigh: value: {{value}}: max: {{max}}",
       "FunctionAlreadyDefined": "FunctionAlreadyDefined: name: {{name}}",
       "TypeCoercionNotAllowed": "TypeCoercionNotAllowed: leftType: {{leftType}}: rightType: {{rightType}}: operator: {{operator}}",
+      "UnaryTypeCoercionNotAllowed": "UnaryTypeCoercionNotAllowed: operand: {{operand}}: operator: {{operator}}",
       "StrictEqualityRequired": "StrictEqualityRequired: operator: {{operator}}",
       "ComparisonRequiresNumber": "ComparisonRequiresNumber: operator: {{operator}}",
       "NodeNotAllowed": "NodeNotAllowed: nodeType: {{nodeType}}",

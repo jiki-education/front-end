@@ -32,11 +32,10 @@ function handleUnaryOperation(
     case "MINUS":
       // Check for type coercion when disabled
       if (!executor.languageFeatures.allowTypeCoercion && operandType !== "number") {
-        throw new RuntimeError(
-          `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: operand: ${operandType}`,
-          expression.location,
-          "TypeCoercionNotAllowed"
-        );
+        executor.error("UnaryTypeCoercionNotAllowed", expression.location, {
+          operand: operandType,
+          operator: expression.operator.lexeme,
+        });
       }
       if (operandResult.jikiObject instanceof JSNumber && operandResult.jikiObject.exact !== null) {
         return JSNumber.fromFraction(operandResult.jikiObject.exact.neg());
@@ -45,11 +44,10 @@ function handleUnaryOperation(
     case "PLUS":
       // Check for type coercion when disabled
       if (!executor.languageFeatures.allowTypeCoercion && operandType !== "number") {
-        throw new RuntimeError(
-          `TypeCoercionNotAllowed: operator: ${expression.operator.lexeme}: operand: ${operandType}`,
-          expression.location,
-          "TypeCoercionNotAllowed"
-        );
+        executor.error("UnaryTypeCoercionNotAllowed", expression.location, {
+          operand: operandType,
+          operator: expression.operator.lexeme,
+        });
       }
       return createJSObject(+operand);
     case "NOT":
