@@ -75,4 +75,10 @@ describe("equivalent expressions agree regardless of operation order", () => {
   test("for-loop with i++ accumulates exactly", () => {
     expect(evalLastValue("let t = 0; for (let i = 1; i < 8; i++) { t = t + (i / 7) * 700; } t;")).toBe(2800);
   });
+
+  // Unary plus is the identity for numbers and must preserve exactness, like
+  // unary minus does.
+  test("unary plus keeps the operand exact", () => {
+    expect(evalLastValue("let x = 1 / 7; +x * 700;")).toBe(100);
+  });
 });

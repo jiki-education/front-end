@@ -58,6 +58,14 @@ export function numberArithmetic(leftObj: JSNumber, rightObj: JSNumber, op: Arit
       return JSNumber.fromFraction(result);
     }
   }
+  // Float fallback: reached when an operand is inexact, or when both are exact
+  // but the op can't stay rational. For two exact operands that only means
+  // div/mod by zero (-> Infinity/NaN) or a non-integer exponent (e.g. 2 ** 0.5);
+  // add/sub/mul never return null here, so e.g. 0.5 + 0.5 stays on the exact
+  // path. We re-attach an exact fraction only when the result is a whole number
+  // (recovering cases like 4 ** 0.5 === 2). A non-integer float is left inexact
+  // on purpose: trusting its rounded decimal would risk treating an irrational
+  // result as exact.
   const value = roundResult(floatOp(leftObj.preciseValue, rightObj.preciseValue, op));
   const exact = Number.isInteger(value) && Number.isFinite(value) ? Fraction.fromInteger(value) : null;
   return new JSNumber(value, exact);

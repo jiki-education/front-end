@@ -49,6 +49,11 @@ function handleUnaryOperation(
           operator: expression.operator.lexeme,
         });
       }
+      // Unary plus is the identity for numbers; return the operand unchanged so
+      // its exact fraction is preserved (mirrors unary minus above).
+      if (operandResult.jikiObject instanceof JSNumber) {
+        return operandResult.jikiObject;
+      }
       return createJSObject(+operand);
     case "NOT":
       // Logical NOT doesn't need type coercion check as it works with all types
