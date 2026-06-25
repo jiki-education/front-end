@@ -1,8 +1,8 @@
-set x to 29
+set x to 28
 set y to 75
 set shot_length to get_shot_length()
 
-repeat shot_length + 1 times do
+repeat shot_length times do
   change x to x + 1
   roll_to(x, y)
 end
@@ -12,6 +12,5 @@ if shot_length >= 58 and shot_length <= 62 do
     change y to y + 1
     roll_to(x, y)
   end
+  fire_fireworks()
 end
-
-fire_fireworks()
