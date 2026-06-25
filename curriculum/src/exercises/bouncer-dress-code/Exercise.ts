@@ -8,7 +8,10 @@ export default class BouncerDressCodeExercise extends VisualExercise {
   }
 
   private outfit: string = "suit";
+  private age: number = 30;
+  private onList: boolean = false;
   champagneOffered: boolean = false;
+  canapesOffered: boolean = false;
   wasLetIn: boolean = false;
   wasTurnedAway: boolean = false;
 
@@ -28,9 +31,24 @@ export default class BouncerDressCodeExercise extends VisualExercise {
       description: "retrieved the person's outfit"
     },
     {
+      name: "get_age",
+      func: this.getAge.bind(this),
+      description: "retrieved the person's age"
+    },
+    {
+      name: "on_guest_list",
+      func: this.onGuestList.bind(this),
+      description: "checked the guest list"
+    },
+    {
       name: "offer_champagne",
       func: this.offerChampagne.bind(this),
       description: "offered champagne"
+    },
+    {
+      name: "offer_canapes",
+      func: this.offerCanapes.bind(this),
+      description: "offered canapés"
     },
     {
       name: "let_in",
@@ -48,8 +66,21 @@ export default class BouncerDressCodeExercise extends VisualExercise {
     return this.outfit;
   }
 
+  getAge(_executionCtx: ExecutionContext): number {
+    return this.age;
+  }
+
+  onGuestList(_executionCtx: ExecutionContext): boolean {
+    return this.onList;
+  }
+
   offerChampagne(executionCtx: ExecutionContext) {
     this.champagneOffered = true;
+    this.animateIntoView(executionCtx, `#${this.view.id} .result`);
+  }
+
+  offerCanapes(executionCtx: ExecutionContext) {
+    this.canapesOffered = true;
     this.animateIntoView(executionCtx, `#${this.view.id} .result`);
   }
 
@@ -67,6 +98,14 @@ export default class BouncerDressCodeExercise extends VisualExercise {
     this.outfit = outfit;
   }
 
+  setupAge(age: number) {
+    this.age = age;
+  }
+
+  setupOnGuestList(onList: boolean) {
+    this.onList = onList;
+  }
+
   setupBackground(imageUrl: string) {
     this.backgroundImg.src = imageUrl;
   }
@@ -78,7 +117,10 @@ export default class BouncerDressCodeExercise extends VisualExercise {
   getState() {
     return {
       outfit: this.outfit,
+      age: this.age,
+      onGuestList: this.onList,
       champagneOffered: this.champagneOffered,
+      canapesOffered: this.canapesOffered,
       wasLetIn: this.wasLetIn,
       wasTurnedAway: this.wasTurnedAway
     };

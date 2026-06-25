@@ -1,9 +1,13 @@
 set outfit to get_outfit()
+set age to get_age()
 
-if outfit == "ballgown" or outfit == "tuxedo" do
+if age >= 18 and (outfit == "ballgown" or outfit == "tuxedo") do
   offer_champagne()
+end
+if outfit == "dress" or outfit == "suit" or outfit == "ballgown" or outfit == "tuxedo" do
+  offer_canapes()
   let_in()
-else if outfit == "suit" or outfit == "dress" do
+else if age < 18 and on_guest_list() do
   let_in()
 else do
   turn_away()
