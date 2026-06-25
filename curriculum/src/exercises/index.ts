@@ -7,6 +7,7 @@ export const exercises = {
   "after-party": () => import("./after-party"),
   alphanumeric: () => import("./alphanumeric"),
   anagram: () => import("./anagram"),
+  "annalyns-infiltration": () => import("./annalyns-infiltration"),
   "chop-shop": () => import("./chop-shop"),
   "collatz-conjecture": () => import("./collatz-conjecture"),
   "guest-list": () => import("./guest-list"),

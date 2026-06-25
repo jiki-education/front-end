@@ -119,10 +119,11 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
   {
     "level": "complex-conditionals",
     "lessons": [
-      { "type": "video", "slug": "and-and-or" },
+      { "type": "video", "slug": "logic-gates" },
       { "type": "exercise", "slug": "bouncer-dress-code" },
       { "type": "exercise", "slug": "golf-shot-checker" },
       { "type": "video", "slug": "modulo-and-not" },
+      { "type": "exercise", "slug": "annalyns-infiltration" },
       { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" },
       { "type": "video", "slug": "repeat-without-input" },
       { "type": "exercise", "slug": "maze-automated-solve" }

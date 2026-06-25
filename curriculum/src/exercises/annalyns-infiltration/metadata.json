@@ -1,0 +1,26 @@
+{
+  "slug": "annalyns-infiltration",
+  "levelId": "complex-conditionals",
+  "hints": [
+    {
+      "question": "How do I find out who is awake or asleep?",
+      "answer": "Each character has a function that returns `true` or `false`: `knightIsAwake()`, `archerIsAwake()`, and `prisonerIsAwake()`. Call the one you need inside an `if`, e.g. `if (knightIsAwake())`."
+    },
+    {
+      "question": "A fast attack needs the knight to be ASLEEP. How do I check that?",
+      "answer": "There's no `knightIsAsleep()` function, but asleep is just the opposite of awake. Use `!` to flip the condition: `if (!knightIsAwake())` means \"if the knight is NOT awake\"."
+    },
+    {
+      "question": "Spying works if AT LEAST ONE of them is awake. How do I write that?",
+      "answer": "Use `||` (or) between each check, so the whole condition is true if any single one is true: `if (knightIsAwake() || archerIsAwake() || prisonerIsAwake())`."
+    },
+    {
+      "question": "Signalling needs TWO things to be true at once. How do I combine them?",
+      "answer": "Use `&&` (and) so both sides must be true: the prisoner must be awake AND the archer asleep, i.e. `if (prisonerIsAwake() && !archerIsAwake())`."
+    },
+    {
+      "question": "Freeing the prisoner has two completely separate ways to succeed. How do I handle that?",
+      "answer": "Work out each route on its own first, then join them with `||` so either one is enough. Wrap each route's requirements in its own brackets so the `&&` parts group together before the `||` splits them. Remember the dog route and the sneaky route care about different characters."
+    }
+  ]
+}
