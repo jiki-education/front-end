@@ -239,6 +239,24 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 
 ---
 
+### Check 10: Stubs Are Level-Appropriate and Consistent
+
+**Rule**: Each stub (`stub.javascript`, `stub.jiki`, `stub.py`) is the student's starting point. It must only contain language constructs that have already been introduced **at or before this exercise's level**, must follow the target language's conventions, and must structurally align with the solution.
+
+**Check each of these**:
+
+1. **Level-appropriate constructs**: The stub must NOT use syntax or AST nodes that the exercise's level (and earlier levels) hasn't introduced yet. Cross-reference the exercise's `levelId` against the level definitions in `src/levels/` (and `.context/levels.md`) to see which features are allowed. For example, do NOT use a `for` loop in the stub if `for` loops are introduced much later — use the construct the curriculum teaches at this point (e.g. `repeat(N) { ... }`). The stub should model the expected approach, not foreshadow later syntax.
+
+2. **JavaScript-first conventions**: `stub.javascript` must use JavaScript syntax (`repeat(60) { ... }`, `let`, `//` comments, camelCase). No Jikiscript (`repeat N times do ... end`, `set ... to`) or Python (`for i in range`, `:` blocks, `#` comments) syntax in the `.javascript` stub.
+
+3. **Stub ↔ solution structure**: The fixed/pre-written parts of the stub (scaffolding, comments, pre-drawn elements, constant values) must match the corresponding parts of the solution. Flag drift such as a stub drawing a shape at one size while the solution uses another, or a `// TODO` that doesn't correspond to what the solution actually does there.
+
+4. **Cross-language parity**: All three stubs should present the same scaffold and the same TODOs, differing only in language syntax. Flag a stub that is missing a section another language's stub has, or that hardcodes a different value.
+
+**How to check**: Read all three stub files and the matching solution files. Identify the exercise's level, list the constructs the stub uses, and confirm each is allowed at that level. Then diff the stub's fixed portions against the solution.
+
+---
+
 ## Step 3: Report Audit Results and Exercise Context
 
 Present the audit results, then the full exercise context:
