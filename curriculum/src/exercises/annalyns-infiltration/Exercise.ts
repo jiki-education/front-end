@@ -11,7 +11,7 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
   private knightAwake: boolean = false;
   private archerAwake: boolean = false;
   private prisonerAwake: boolean = false;
-  private dogPresent: boolean = false;
+  private dogBehaving: boolean = false;
 
   // Actions Annalyn has taken
   didFastAttack: boolean = false;
@@ -19,10 +19,7 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
   didSignal: boolean = false;
   didFree: boolean = false;
 
-  private knightEl!: HTMLElement;
-  private archerEl!: HTMLElement;
-  private prisonerEl!: HTMLElement;
-  private dogEl!: HTMLElement;
+  private backgroundImg!: HTMLImageElement;
 
   constructor() {
     super();
@@ -47,9 +44,9 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
       description: "checked whether the prisoner is awake"
     },
     {
-      name: "has_dog",
-      func: this.hasDog.bind(this),
-      description: "checked whether Annalyn has her dog with her"
+      name: "dog_is_behaving",
+      func: this.dogIsBehaving.bind(this),
+      description: "checked whether Annalyn's dog is behaving itself"
     },
     {
       name: "fast_attack",
@@ -86,8 +83,8 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
     return this.prisonerAwake;
   }
 
-  hasDog(_executionCtx: ExecutionContext): boolean {
-    return this.dogPresent;
+  dogIsBehaving(_executionCtx: ExecutionContext): boolean {
+    return this.dogBehaving;
   }
 
   // Action functions
@@ -111,22 +108,15 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
     this.animateIntoView(executionCtx, `#${this.view.id} .action-free`);
   }
 
-  setupCamp(knightAwake: boolean, archerAwake: boolean, prisonerAwake: boolean, dogPresent: boolean) {
+  setupCamp(knightAwake: boolean, archerAwake: boolean, prisonerAwake: boolean, dogBehaving: boolean) {
     this.knightAwake = knightAwake;
     this.archerAwake = archerAwake;
     this.prisonerAwake = prisonerAwake;
-    this.dogPresent = dogPresent;
-
-    this.renderCharacter(this.knightEl, "🛡️", "Knight", knightAwake);
-    this.renderCharacter(this.archerEl, "🏹", "Archer", archerAwake);
-    this.renderCharacter(this.prisonerEl, "🧑", "Prisoner", prisonerAwake);
-    this.dogEl.style.opacity = dogPresent ? "1" : "0.15";
+    this.dogBehaving = dogBehaving;
   }
 
-  private renderCharacter(el: HTMLElement, emoji: string, label: string, awake: boolean) {
-    el.innerHTML = `<div class="emoji">${emoji}</div><div class="label">${label}</div><div class="status">${
-      awake ? "Awake" : "Asleep 💤"
-    }</div>`;
+  setupBackground(imageUrl: string) {
+    this.backgroundImg.src = imageUrl;
   }
 
   getState() {
@@ -134,7 +124,7 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
       knightAwake: this.knightAwake,
       archerAwake: this.archerAwake,
       prisonerAwake: this.prisonerAwake,
-      dogPresent: this.dogPresent,
+      dogBehaving: this.dogBehaving,
       didFastAttack: this.didFastAttack,
       didSpy: this.didSpy,
       didSignal: this.didSignal,
@@ -146,37 +136,25 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
     this.view.style.position = "relative";
     this.view.style.width = "100%";
     this.view.style.height = "100%";
-    this.view.style.display = "flex";
-    this.view.style.flexDirection = "column";
-    this.view.style.justifyContent = "space-around";
-    this.view.style.alignItems = "center";
+    this.view.style.overflow = "hidden";
     this.view.style.fontFamily = "sans-serif";
-    this.view.style.background = "#1f2933";
-    this.view.style.color = "#fff";
 
-    // The camp: knight, archer, prisoner, and Annalyn (+ dog)
-    const camp = document.createElement("div");
-    camp.className = "camp";
-    camp.style.display = "flex";
-    camp.style.gap = "24px";
-    camp.style.fontSize = "18px";
-    camp.style.textAlign = "center";
+    // Scene image depicting the camp state (set per scenario via setupBackground)
+    this.backgroundImg = document.createElement("img");
+    this.backgroundImg.className = "background";
+    this.backgroundImg.style.position = "absolute";
+    this.backgroundImg.style.width = "100%";
+    this.backgroundImg.style.height = "100%";
+    this.backgroundImg.style.objectFit = "cover";
+    this.view.appendChild(this.backgroundImg);
 
-    this.knightEl = document.createElement("div");
-    this.archerEl = document.createElement("div");
-    this.prisonerEl = document.createElement("div");
-    this.dogEl = document.createElement("div");
-    this.dogEl.innerHTML = `<div class="emoji">🐕</div><div class="label">Dog</div>`;
-
-    camp.appendChild(this.knightEl);
-    camp.appendChild(this.archerEl);
-    camp.appendChild(this.prisonerEl);
-    camp.appendChild(this.dogEl);
-    this.view.appendChild(camp);
-
-    // Action banners, hidden until Annalyn performs them
+    // Action banners, overlaid at the bottom, hidden until Annalyn performs them
     const actions = document.createElement("div");
     actions.className = "actions";
+    actions.style.position = "absolute";
+    actions.style.bottom = "12px";
+    actions.style.left = "0";
+    actions.style.right = "0";
     actions.style.display = "flex";
     actions.style.gap = "12px";
     actions.style.flexWrap = "wrap";
@@ -196,7 +174,8 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
     el.style.opacity = "0";
     el.style.padding = "8px 14px";
     el.style.borderRadius = "6px";
-    el.style.background = "#3e4c59";
+    el.style.background = "rgba(31, 41, 51, 0.85)";
+    el.style.color = "#fff";
     el.style.fontWeight = "bold";
     return el;
   }

@@ -10,6 +10,6 @@ if knight_is_awake() or archer_is_awake() or prisoner_is_awake():
 if prisoner_is_awake() and not archer_is_awake():
     signal_prisoner()
 
-# Free: with the dog (archer asleep), or sneaky (prisoner awake, both kidnappers asleep)
-if (has_dog() and not archer_is_awake()) or (not has_dog() and prisoner_is_awake() and not knight_is_awake() and not archer_is_awake()):
+# Free: with the dog behaving (archer asleep), or sneaky (prisoner awake, both kidnappers asleep)
+if (dog_is_behaving() and not archer_is_awake()) or (not dog_is_behaving() and prisoner_is_awake() and not knight_is_awake() and not archer_is_awake()):
     free_prisoner()

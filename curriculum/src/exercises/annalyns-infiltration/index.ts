@@ -26,10 +26,10 @@ const functions: FunctionInfo[] = [
     category: "Information"
   },
   {
-    name: "hasDog",
-    signature: "hasDog()",
-    description: "Returns `true` if Annalyn has her dog with her.",
-    examples: ["if (hasDog()) {"],
+    name: "dogIsBehaving",
+    signature: "dogIsBehaving()",
+    description: "Returns `true` if Annalyn's (somewhat naughty) dog is behaving itself.",
+    examples: ["if (dogIsBehaving()) {"],
     category: "Information"
   },
   {

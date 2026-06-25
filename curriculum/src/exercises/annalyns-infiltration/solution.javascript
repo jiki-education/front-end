@@ -13,7 +13,7 @@ if (prisonerIsAwake() && !archerIsAwake()) {
   signalPrisoner()
 }
 
-// Free: with the dog (archer asleep), OR sneaky (prisoner awake, both kidnappers asleep)
-if ((hasDog() && !archerIsAwake()) || (!hasDog() && prisonerIsAwake() && !knightIsAwake() && !archerIsAwake())) {
+// Free: with the dog behaving (archer asleep), OR sneaky (prisoner awake, both kidnappers asleep)
+if ((dogIsBehaving() && !archerIsAwake()) || (!dogIsBehaving() && prisonerIsAwake() && !knightIsAwake() && !archerIsAwake())) {
   freePrisoner()
 }

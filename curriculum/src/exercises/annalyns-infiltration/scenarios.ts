@@ -1,20 +1,22 @@
 import type { Task, VisualScenario } from "../types";
 import type AnnalynsInfiltrationExercise from "./Exercise";
 
+const IMAGE_BASE = "/static/images/exercise-assets/annalyns-infiltration";
+
 export const tasks = [
   {
     id: "plan-the-rescue" as const,
     name: "Plan the rescue",
     description:
-      "For each camp, perform every action Annalyn can safely take: fast attack if the knight is asleep, spy if at least one of them is awake, signal the prisoner if the prisoner is awake and the archer asleep, and free the prisoner via either the dog route or the sneaky route.",
+      "For each camp, perform every action Annalyn can safely take: fast attack if the knight is asleep, spy if at least one of them is awake, signal the prisoner if the prisoner is awake and the archer asleep, and free the prisoner via either the behaving-dog route or the sneaky route.",
     hints: [],
     requiredScenarios: [
-      "all-asleep-no-dog",
-      "all-asleep-with-dog",
-      "knight-awake-no-dog",
-      "prisoner-awake-no-dog",
-      "archer-and-prisoner-awake-no-dog",
-      "all-awake-with-dog"
+      "all-asleep-naughty-dog",
+      "all-asleep-behaving-dog",
+      "knight-awake-naughty-dog",
+      "prisoner-awake-naughty-dog",
+      "archer-and-prisoner-awake-behaving-dog",
+      "all-awake-behaving-dog"
     ],
     bonus: false
   }
@@ -58,98 +60,111 @@ function buildExpectations(exercise: AnnalynsInfiltrationExercise, expected: Exp
 
 export const scenarios: VisualScenario[] = [
   {
-    slug: "all-asleep-no-dog",
-    name: "Everyone asleep, no dog",
-    description: "The whole camp is asleep and Annalyn left her dog at home.",
+    slug: "all-asleep-naughty-dog",
+    name: "Everyone asleep, dog misbehaving",
+    description: "The whole camp is asleep, but Annalyn's dog is misbehaving so it's no help.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(false, false, false, false);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(false, false, false, false);
+      ex.setupBackground(`${IMAGE_BASE}/all-asleep-naughty-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: true, spy: false, signal: false, free: false },
-        "Everyone is asleep and there's no dog."
+        "Everyone is asleep and the dog is misbehaving."
       );
     }
   },
   {
-    slug: "all-asleep-with-dog",
-    name: "Everyone asleep, with dog",
-    description: "The whole camp is asleep and Annalyn brought her dog.",
+    slug: "all-asleep-behaving-dog",
+    name: "Everyone asleep, dog behaving",
+    description: "The whole camp is asleep and Annalyn's dog is behaving itself.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(false, false, false, true);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(false, false, false, true);
+      ex.setupBackground(`${IMAGE_BASE}/all-asleep-behaving-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: true, spy: false, signal: false, free: true },
-        "Everyone is asleep and the dog is here."
+        "Everyone is asleep and the dog is behaving."
       );
     }
   },
   {
-    slug: "knight-awake-no-dog",
+    slug: "knight-awake-naughty-dog",
     name: "Only the knight is awake",
-    description: "The knight is on watch while the archer and prisoner sleep. No dog.",
+    description: "The knight is on watch while the archer and prisoner sleep. The dog is misbehaving.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(true, false, false, false);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(true, false, false, false);
+      ex.setupBackground(`${IMAGE_BASE}/knight-awake-naughty-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: false, spy: true, signal: false, free: false },
-        "Only the knight is awake, and there's no dog."
+        "Only the knight is awake, and the dog is misbehaving."
       );
     }
   },
   {
-    slug: "prisoner-awake-no-dog",
+    slug: "prisoner-awake-naughty-dog",
     name: "Only the prisoner is awake",
-    description: "Both kidnappers sleep while the prisoner lies awake. No dog — the sneaky route is open.",
+    description:
+      "Both kidnappers sleep while the prisoner lies awake. The dog is misbehaving — the sneaky route is open.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(false, false, true, false);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(false, false, true, false);
+      ex.setupBackground(`${IMAGE_BASE}/prisoner-awake-naughty-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: true, spy: true, signal: true, free: true },
-        "Only the prisoner is awake, and there's no dog."
+        "Only the prisoner is awake, and the dog is misbehaving."
       );
     }
   },
   {
-    slug: "archer-and-prisoner-awake-no-dog",
+    slug: "archer-and-prisoner-awake-behaving-dog",
     name: "Archer and prisoner awake",
-    description: "The archer is on watch and the prisoner is awake too. No dog.",
+    description: "The archer is on watch and the prisoner is awake too. The dog is behaving.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(false, true, true, false);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(false, true, true, true);
+      ex.setupBackground(`${IMAGE_BASE}/archer-and-prisoner-awake-behaving-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: true, spy: true, signal: false, free: false },
-        "The archer and prisoner are awake, and there's no dog."
+        "The archer and prisoner are awake, and the dog is behaving."
       );
     }
   },
   {
-    slug: "all-awake-with-dog",
-    name: "Everyone awake, with dog",
-    description: "The whole camp is wide awake. Even with the dog, freeing isn't safe.",
+    slug: "all-awake-behaving-dog",
+    name: "Everyone awake, dog behaving",
+    description: "The whole camp is wide awake. Even with the dog behaving, freeing isn't safe.",
     taskId: "plan-the-rescue",
     setup(exercise) {
-      (exercise as AnnalynsInfiltrationExercise).setupCamp(true, true, true, true);
+      const ex = exercise as AnnalynsInfiltrationExercise;
+      ex.setupCamp(true, true, true, true);
+      ex.setupBackground(`${IMAGE_BASE}/all-awake-behaving-dog.webp`);
     },
     expectations(exercise) {
       return buildExpectations(
         exercise as AnnalynsInfiltrationExercise,
         { fastAttack: false, spy: true, signal: false, free: false },
-        "Everyone is awake, even though the dog is here."
+        "Everyone is awake, even though the dog is behaving."
       );
     }
   }
