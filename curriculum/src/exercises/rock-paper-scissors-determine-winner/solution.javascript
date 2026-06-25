@@ -1,16 +1,16 @@
-let player1Choice = getPlayer1Choice()
-let player2Choice = getPlayer2Choice()
+let yukiChoice = getYukiChoice()
+let andoChoice = getAndoChoice()
 
-let result = "player_2"
+let result = "Ando"
 
-if (player1Choice === player2Choice) {
+if (yukiChoice === andoChoice) {
   result = "tie"
-} else if (player1Choice === "rock" && player2Choice === "scissors") {
-  result = "player_1"
-} else if (player1Choice === "scissors" && player2Choice === "paper") {
-  result = "player_1"
-} else if (player1Choice === "paper" && player2Choice === "rock") {
-  result = "player_1"
+} else if (yukiChoice === "rock" && andoChoice === "scissors") {
+  result = "Yuki"
+} else if (yukiChoice === "scissors" && andoChoice === "paper") {
+  result = "Yuki"
+} else if (yukiChoice === "paper" && andoChoice === "rock") {
+  result = "Yuki"
 }
 
 announceResult(result)

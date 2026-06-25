@@ -1,15 +1,15 @@
-player_1_choice = get_player_1_choice()
-player_2_choice = get_player_2_choice()
+yuki_choice = get_yuki_choice()
+ando_choice = get_ando_choice()
 
-result = "player_2"
+result = "Ando"
 
-if player_1_choice == player_2_choice:
+if yuki_choice == ando_choice:
     result = "tie"
-elif player_1_choice == "rock" and player_2_choice == "scissors":
-    result = "player_1"
-elif player_1_choice == "scissors" and player_2_choice == "paper":
-    result = "player_1"
-elif player_1_choice == "paper" and player_2_choice == "rock":
-    result = "player_1"
+elif yuki_choice == "rock" and ando_choice == "scissors":
+    result = "Yuki"
+elif yuki_choice == "scissors" and ando_choice == "paper":
+    result = "Yuki"
+elif yuki_choice == "paper" and ando_choice == "rock":
+    result = "Yuki"
 
 announce_result(result)

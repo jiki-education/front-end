@@ -6,24 +6,24 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "getPlayer1Choice",
-    signature: "getPlayer1Choice()",
-    description: 'Returns player 1\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
-    examples: ["let choice = getPlayer1Choice()"],
+    name: "getYukiChoice",
+    signature: "getYukiChoice()",
+    description: 'Returns Yuki\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
+    examples: ["let choice = getYukiChoice()"],
     category: "Game"
   },
   {
-    name: "getPlayer2Choice",
-    signature: "getPlayer2Choice()",
-    description: 'Returns player 2\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
-    examples: ["let choice = getPlayer2Choice()"],
+    name: "getAndoChoice",
+    signature: "getAndoChoice()",
+    description: 'Returns Ando\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
+    examples: ["let choice = getAndoChoice()"],
     category: "Game"
   },
   {
     name: "announceResult",
     signature: "announceResult(result)",
-    description: 'Announces the result of the game. Pass `"player_1"`, `"player_2"`, or `"tie"`.',
-    examples: ['announceResult("player_1")', 'announceResult("tie")'],
+    description: 'Announces the result of the game. Pass `"Yuki"`, `"Ando"`, or `"tie"`.',
+    examples: ['announceResult("Yuki")', 'announceResult("tie")'],
     category: "Game"
   }
 ];
@@ -34,7 +34,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["logical-and", "if", "else-if", "else"]
 };
 
 export default exerciseDefinition;

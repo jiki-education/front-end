@@ -11,32 +11,32 @@
             gap: 10%;
             container-type: size;
         }
-        &.result-player_1 {
-            .player-1 {
+        &.result-Yuki {
+            .yuki {
                 border-color: var(--color-purple-600);
             }
         }
-        &.result-player_2 {
-            .player-2 {
+        &.result-Ando {
+            .ando {
                 border-color: var(--color-purple-600);
             }
         }
-        .player-1 {
+        .yuki {
             &:after {
-                content: "Player 1";
+                content: "Yuki";
             }
         }
 
-        .player-2 {
+        .ando {
             &:before {
                 transform: rotateY(180deg);
             }
             &:after {
-                content: "Player 2";
+                content: "Ando";
             }
         }
-        .player-1,
-        .player-2 {
+        .yuki,
+        .ando {
             aspect-ratio: 1;
             position: relative;
             font-weight: 600;

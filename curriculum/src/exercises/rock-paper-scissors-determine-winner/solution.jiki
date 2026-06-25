@@ -1,19 +1,19 @@
-set player_1_choice to get_player_1_choice()
-set player_2_choice to get_player_2_choice()
+set yuki_choice to get_yuki_choice()
+set ando_choice to get_ando_choice()
 
-set result to "player_2"
+set result to "Ando"
 
-if player_1_choice == player_2_choice do
+if yuki_choice == ando_choice do
   change result to "tie"
 
-else if player_1_choice == "rock" and player_2_choice == "scissors" do
-  change result to "player_1"
+else if yuki_choice == "rock" and ando_choice == "scissors" do
+  change result to "Yuki"
 
-else if player_1_choice == "scissors" and player_2_choice == "paper" do
-  change result to "player_1"
+else if yuki_choice == "scissors" and ando_choice == "paper" do
+  change result to "Yuki"
 
-else if player_1_choice == "paper" and player_2_choice == "rock" do
-  change result to "player_1"
+else if yuki_choice == "paper" and ando_choice == "rock" do
+  change result to "Yuki"
 end
 
 announce_result(result)
