@@ -1,6 +1,6 @@
 // TODO: Set your initial variables here
 
-for (let i = 0; i < 60; i = i + 1) {
+repeat(60) {
   // TODO: Update your variables here
 
   // Sky
