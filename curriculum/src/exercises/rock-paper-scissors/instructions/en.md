@@ -1,5 +1,5 @@
 ---
-title: "Rock, Paper, Scissors: Determine Winner"
+title: "Rock, Paper, Scissors"
 description: "Determine the winner of a Rock Paper Scissors game."
 ---
 

@@ -124,7 +124,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "golf-shot-checker" },
       { "type": "video", "slug": "modulo-and-not" },
       { "type": "exercise", "slug": "annalyns-infiltration" },
-      { "type": "exercise", "slug": "rock-paper-scissors-determine-winner" },
+      { "type": "exercise", "slug": "rock-paper-scissors" },
       { "type": "video", "slug": "repeat-without-input" },
       { "type": "exercise", "slug": "maze-automated-solve" }
     ]
