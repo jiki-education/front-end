@@ -83,11 +83,9 @@ function handleBinaryOperation(
     case "EQUAL_EQUAL":
       // Check if strict equality is enforced
       if (executor.languageFeatures.enforceStrictEquality) {
-        throw new RuntimeError(
-          `StrictEqualityRequired: operator: ${expression.operator.lexeme}`,
-          expression.location,
-          "StrictEqualityRequired"
-        );
+        executor.error("StrictEqualityRequired", expression.location, {
+          operator: expression.operator.lexeme,
+        });
       }
       // eslint-disable-next-line eqeqeq
       return createJSObject(left == right);
@@ -95,11 +93,9 @@ function handleBinaryOperation(
     case "NOT_EQUAL":
       // Check if strict equality is enforced
       if (executor.languageFeatures.enforceStrictEquality) {
-        throw new RuntimeError(
-          `StrictEqualityRequired: operator: ${expression.operator.lexeme}`,
-          expression.location,
-          "StrictEqualityRequired"
-        );
+        executor.error("StrictEqualityRequired", expression.location, {
+          operator: expression.operator.lexeme,
+        });
       }
       // eslint-disable-next-line eqeqeq
       return createJSObject(left != right);

@@ -107,7 +107,7 @@
       "FunctionAlreadyDefined": "There is already a function called `{{name}}`. Please choose a different name.",
       "TypeCoercionNotAllowed": "Type coercion is not allowed between {{leftType}} and {{rightType}} with operator `{{operator}}`.",
       "UnaryTypeCoercionNotAllowed": "Type coercion is not allowed: the `{{operator}}` operator can't be applied to a {{operand}}.",
-      "StrictEqualityRequired": "In full JavaScript, you can use `==` or `===` to see if two things are equal. However, it's generally considered best practice to use `===` so we have disabled `==` in Jiki.\n\nPlease change `==` to `===`.",
+      "StrictEqualityRequired": "Please change `==` to `===`.\n\nIn full JavaScript, you can use `==` or `===` to see if two things are equal. However, it's generally considered best practice to use `===` so we have disabled `==` in Jiki.",
       "ComparisonRequiresNumber": "Comparison operator `{{operator}}` requires both values to be numbers.",
       "NodeNotAllowed": "{{nodeType}} is not allowed at your current learning level.",
       "InvalidNumberOfArguments": "This function has {{expected}} input {{slots}} but you provided {{got}} {{inputs}} for Jiki to use with it.",
