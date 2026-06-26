@@ -7,6 +7,7 @@
       "MissingBacktickToTerminateTemplateLiteral": "MissingBacktickToTerminateTemplateLiteral",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "MissingExpression",
+      "UnexpectedElseWithoutMatchingIf": "UnexpectedElseWithoutMatchingIf",
       "MissingInitializerInConstDeclaration": "MissingInitializerInConstDeclaration",
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
       "ConstInForLoopInit": "ConstInForLoopInit",

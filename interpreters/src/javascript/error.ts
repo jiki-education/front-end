@@ -29,6 +29,7 @@ export type SyntaxErrorType =
   | "DuplicateDictionaryKey"
   | "MissingRightBraceInDictionary"
   | "UnexpectedRightBrace"
+  | "UnexpectedElseWithoutMatchingIf"
   | "UnexpectedTokenInTemplateLiteral"
   | "UnimplementedToken"
   | "PermanentlyExcludedToken"

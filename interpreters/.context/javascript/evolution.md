@@ -1,5 +1,13 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-26: Helpful error for dangling `else` / `else if`
+
+A dangling `else` (or `else if`) that reached the statement level previously fell through to expression parsing and produced the unhelpful `MissingExpression` ("Missing expression in code."). This happens when an `if` block is closed early or already has an `else`, so a following `else if` has no `if` to attach to (commonly a brace-count mistake).
+
+The parser's `statement()` now detects a leading `ELSE` token and throws the new `UnexpectedElseWithoutMatchingIf` syntax error, mirroring JikiScript's existing handling. The English message points the student at the likely cause: "There is no `if` statement that this `else` is coming after. Check whether you have too many (or too few) closing braces above this line."
+
+Scope: JavaScript interpreter only (`parser.ts`, `error.ts`, both locale files). Python still has the same gap (a dangling `elif`/`else` is unhandled) and is a candidate follow-up.
+
 ## 2026-06-24: Exact rational arithmetic (order-independent numbers)
 
 Numbers now carry an exact rational value (`Fraction`) internally, so mathematically equivalent expressions agree regardless of operation order. Previously every binary arithmetic result was rounded to 5 decimal places after _each_ operation, which made `1 / 7 * x` (rounds `1/7` first, then multiplies) diverge from `x / 7` (a single round). This surfaced in the Structured House drawing exercise, where `width / 7` passed the position check but `1/7 * width` did not.

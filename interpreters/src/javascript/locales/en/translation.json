@@ -7,6 +7,7 @@
       "MissingBacktickToTerminateTemplateLiteral": "Missing closing backtick `` ` `` to terminate template literal.",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "Missing expression in code.",
+      "UnexpectedElseWithoutMatchingIf": "There is no `if` statement that this `else` is coming after. Check whether you have too many (or too few) closing braces above this line.",
       "MissingInitializerInConstDeclaration": "Missing initializer in const declaration. Constants must be initialized when declared.",
       "MissingInitializerInVariableDeclaration": "Missing initializer in variable declaration. You must provide a value when declaring a variable with `let`.",
       "ConstInForLoopInit": "You cannot use `const` in a C-style for loop. The loop variable needs to be modified (e.g., i++), but const variables cannot be changed. Use `let` instead, or consider using a for...of loop if you're iterating over an array.",
