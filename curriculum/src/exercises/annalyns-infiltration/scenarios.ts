@@ -29,32 +29,61 @@ interface ExpectedActions {
   free: boolean;
 }
 
-function buildExpectations(exercise: AnnalynsInfiltrationExercise, expected: ExpectedActions, camp: string) {
-  return [
-    {
-      pass: exercise.didFastAttack === expected.fastAttack,
-      errorHtml: expected.fastAttack
-        ? `${camp} The knight is asleep, so Annalyn should make a <strong>fast attack</strong> — but she didn't.`
-        : `${camp} The knight is awake, so a <strong>fast attack</strong> would fail — Annalyn should NOT attack here.`
-    },
-    {
-      pass: exercise.didSpy === expected.spy,
-      errorHtml: expected.spy
-        ? `${camp} At least one of them is awake, so Annalyn should <strong>spy</strong> — but she didn't.`
-        : `${camp} Everyone is asleep, so spying is a waste of time — Annalyn should NOT <strong>spy</strong> here.`
-    },
-    {
-      pass: exercise.didSignal === expected.signal,
-      errorHtml: expected.signal
-        ? `${camp} The prisoner is awake and the archer asleep, so Annalyn should <strong>signal the prisoner</strong> — but she didn't.`
-        : `${camp} The conditions for signalling aren't met, so Annalyn should NOT <strong>signal the prisoner</strong> here.`
-    },
-    {
-      pass: exercise.didFree === expected.free,
-      errorHtml: expected.free
-        ? `${camp} Annalyn has a safe way to <strong>free the prisoner</strong> here — but she didn't take it.`
-        : `${camp} There's no safe way to <strong>free the prisoner</strong> here, so Annalyn should NOT try.`
+function actionExpectation(
+  count: number,
+  shouldDo: boolean,
+  actionLabel: string,
+  shouldMsg: string,
+  shouldNotMsg: string
+) {
+  if (shouldDo) {
+    if (count === 0) {
+      return { pass: false, errorHtml: shouldMsg };
     }
+    if (count > 1) {
+      return {
+        pass: false,
+        errorHtml: `Annalyn <strong>should</strong> only ${actionLabel} once here, but she did it ${count} times.`
+      };
+    }
+    return { pass: true, errorHtml: "" };
+  }
+  return {
+    pass: count === 0,
+    errorHtml: shouldNotMsg
+  };
+}
+
+function buildExpectations(exercise: AnnalynsInfiltrationExercise, expected: ExpectedActions) {
+  return [
+    actionExpectation(
+      exercise.fastAttackCount,
+      expected.fastAttack,
+      "fast attack",
+      "Annalyn <strong>should</strong> make a fast attack here, but she didn't. The knight is asleep, so she can strike before he wakes.",
+      "Annalyn <strong>should not</strong> make a fast attack here. The knight is awake, so attacking would get her caught."
+    ),
+    actionExpectation(
+      exercise.spyCount,
+      expected.spy,
+      "spy",
+      "Annalyn <strong>should</strong> spy here, but she didn't. At least one person in the camp is awake, so there's something to watch.",
+      "Annalyn <strong>should not</strong> spy here. Everyone is asleep, so there's nothing to learn."
+    ),
+    actionExpectation(
+      exercise.signalCount,
+      expected.signal,
+      "signal the prisoner",
+      "Annalyn <strong>should</strong> signal the prisoner here, but she didn't. The prisoner is awake and the archer is asleep, so the signal will get through.",
+      "Annalyn <strong>should not</strong> signal the prisoner here. Either the prisoner is asleep or the archer is awake, so signalling would fail."
+    ),
+    actionExpectation(
+      exercise.freeCount,
+      expected.free,
+      "free the prisoner",
+      "Annalyn <strong>should</strong> free the prisoner here, but she didn't. She can do it here without getting caught.",
+      "Annalyn <strong>should not</strong> try to free the prisoner here. She'd get caught."
+    )
   ];
 }
 
@@ -70,11 +99,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/all-asleep-naughty-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: true, spy: false, signal: false, free: false },
-        "Everyone is asleep and the dog is misbehaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: true,
+        spy: false,
+        signal: false,
+        free: false
+      });
     }
   },
   {
@@ -88,11 +118,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/all-asleep-behaving-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: true, spy: false, signal: false, free: true },
-        "Everyone is asleep and the dog is behaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: true,
+        spy: false,
+        signal: false,
+        free: true
+      });
     }
   },
   {
@@ -106,11 +137,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/knight-awake-naughty-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: false, spy: true, signal: false, free: false },
-        "Only the knight is awake, and the dog is misbehaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: false,
+        spy: true,
+        signal: false,
+        free: false
+      });
     }
   },
   {
@@ -125,11 +157,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/prisoner-awake-naughty-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: true, spy: true, signal: true, free: true },
-        "Only the prisoner is awake, and the dog is misbehaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: true,
+        spy: true,
+        signal: true,
+        free: true
+      });
     }
   },
   {
@@ -143,11 +176,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/archer-and-prisoner-awake-behaving-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: true, spy: true, signal: false, free: false },
-        "The archer and prisoner are awake, and the dog is behaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: true,
+        spy: true,
+        signal: false,
+        free: false
+      });
     }
   },
   {
@@ -161,11 +195,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground(`${IMAGE_BASE}/all-awake-behaving-dog.webp`);
     },
     expectations(exercise) {
-      return buildExpectations(
-        exercise as AnnalynsInfiltrationExercise,
-        { fastAttack: false, spy: true, signal: false, free: false },
-        "Everyone is awake, even though the dog is behaving."
-      );
+      return buildExpectations(exercise as AnnalynsInfiltrationExercise, {
+        fastAttack: false,
+        spy: true,
+        signal: false,
+        free: false
+      });
     }
   }
 ];

@@ -210,7 +210,7 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
           )}
         </div>
       </div>
-      <div className={style?.hintAnswer}>
+      <div className={style?.hintAnswer} onClick={(e) => e.stopPropagation()}>
         {showConfirmOverlay && (
           <div className={style?.hintConfirmOverlay} onClick={(e) => e.stopPropagation()}>
             <div className={style?.hintConfirmText}>Are you sure you want to reveal this hint?</div>
