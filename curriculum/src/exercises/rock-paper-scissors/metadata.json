@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I check a specific winning combination?",
-      "answer": "Use `and` to combine two conditions, e.g. \"Yuki chose rock AND Ando chose scissors\" means Yuki wins."
+      "answer": "Use `&&` (and) to combine two conditions that must both be true, e.g. \"Yuki chose rock AND Ando chose scissors\" means Yuki wins."
     },
     {
       "question": "I'm ending up with loads of `if` statements. Is there a shorter way?",

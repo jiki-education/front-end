@@ -8,11 +8,11 @@
     },
     {
       "question": "How do I make just the two end stripes purple?",
-      "answer": "The end stripes are number `1` and number `20`. Use `||` (or): `if (i === 1 || i === 20)` is true for either end. You can't capture 'one OR the other' with a single comparison, which is what `||` is for."
+      "answer": "The end stripes are the first and the last one. A single comparison can't capture 'one value OR another', so use `||` (or): something like `if (n === 3 || n === 7)` is true for either value. Apply that to the two end stripe numbers."
     },
     {
       "question": "How do I tell a multiple of 4 from an ordinary even number?",
-      "answer": "Use the `%` (remainder) operator. `i % 4 === 0` is true only for multiples of 4, and `i % 2 === 0` is true for all even numbers. Multiples of 4 are also even, so test `i % 4 === 0` first."
+      "answer": "Use the `%` (remainder) operator: `n % 4 === 0` is true only for multiples of 4, and `n % 2 === 0` is true for all even numbers. Multiples of 4 are also even, so check the stricter multiple-of-4 rule first."
     },
     {
       "question": "Stripe 4 comes out blue, but it should be green. Why?",

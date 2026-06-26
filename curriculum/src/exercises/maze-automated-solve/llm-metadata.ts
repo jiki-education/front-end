@@ -9,9 +9,8 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore algorithmic thinking by building the left-hand-rule
-    maze solver incrementally, one branch of the if/else-if/else at a time across the four tasks.
-    The instructions reveal the full algorithm, but the intent is for the student to reason it out.
+    Build a left-hand-rule maze solver, one if/else-if/else branch per task across the four tasks.
+    The task entries below map each task to the branch it adds (the solution file is monolithic).
   `,
 
   tasks: {

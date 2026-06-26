@@ -30,10 +30,10 @@ export const llmMetadata: LLMMetadata = {
         - Dropping either half of age < 18 && onGuestList(): an adult on the guest list is still turned
           away, and an under-18 who is not on the list is too.
 
-        Important: grouping conditions with brackets (putting an || inside an && using parentheses) has
-        NOT been taught at this level yet, so most students will not have seen it. Do not bring it up
-        pre-emptively. Only if a student actually reaches a point where they need to combine && and ||
-        in one condition and is stuck or confused, explain how parentheses group part of a condition.
+        Note: the canonical solution requires grouping an || inside an && with parentheses
+        (age >= 18 && (outfit === "ballgown" || outfit === "tuxedo")). This is part of what the exercise
+        teaches, so it is fair game — if a student is stuck combining && and || in one condition, explain
+        how parentheses group part of a condition so it is evaluated first.
       `
     }
   }

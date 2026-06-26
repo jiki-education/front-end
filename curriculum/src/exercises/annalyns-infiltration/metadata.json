@@ -8,15 +8,15 @@
     },
     {
       "question": "A fast attack needs the knight to be ASLEEP. How do I check that?",
-      "answer": "There's no `knightIsAsleep()` function, but asleep is just the opposite of awake. Use `!` to flip the condition: `if (!knightIsAwake())` means \"if the knight is NOT awake\"."
+      "answer": "There's no `isAsleep()` function, but asleep is just the opposite of awake. Use `!` to flip a condition: `!isRaining()` is true when it is NOT raining. Apply the same idea to whichever character needs to be asleep."
     },
     {
       "question": "Spying works if AT LEAST ONE of them is awake. How do I write that?",
-      "answer": "Use `||` (or) between each check, so the whole condition is true if any single one is true: `if (knightIsAwake() || archerIsAwake() || prisonerIsAwake())`."
+      "answer": "Use `||` (or) between checks so the whole condition is true if any single one is true. For example `if (isHungry() || isThirsty())` runs when either holds. Chain one check per character who needs to be awake."
     },
     {
       "question": "Signalling needs TWO things to be true at once. How do I combine them?",
-      "answer": "Use `&&` (and) so both sides must be true: the prisoner must be awake AND the archer asleep, i.e. `if (prisonerIsAwake() && !archerIsAwake())`."
+      "answer": "Use `&&` (and) so both sides must be true. For example `if (isLoggedIn() && isAdmin())` needs both. Combine the two things signalling requires the same way, flipping any 'asleep' check with `!`."
     },
     {
       "question": "Freeing the prisoner has two completely separate ways to succeed. How do I handle that?",
