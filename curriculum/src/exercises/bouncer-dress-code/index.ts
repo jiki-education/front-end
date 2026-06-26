@@ -12,10 +12,31 @@ const functions: FunctionInfo[] = [
     category: "Information"
   },
   {
+    name: "getAge",
+    signature: "getAge()",
+    description: "Returns the **age** of the person waiting at the door.",
+    examples: ["let age = getAge()"],
+    category: "Information"
+  },
+  {
+    name: "onGuestList",
+    signature: "onGuestList()",
+    description: "Returns `true` if the person is on tonight's guest list, otherwise `false`.",
+    examples: ["let listed = onGuestList()"],
+    category: "Information"
+  },
+  {
     name: "offerChampagne",
     signature: "offerChampagne()",
     description: "Offers the person a glass of champagne.",
     examples: ["offerChampagne()"],
+    category: "Action"
+  },
+  {
+    name: "offerCanapes",
+    signature: "offerCanapes()",
+    description: "Offers the person some canapés (salmon tartare).",
+    examples: ["offerCanapes()"],
     category: "Action"
   },
   {
@@ -38,6 +59,7 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
+  conceptSlugs: ["logical-and", "logical-or", "if", "else-if", "else"],
   tasks,
   scenarios,
   functions

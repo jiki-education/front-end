@@ -347,4 +347,25 @@ describe("syntax errors", () => {
       expect(() => parse("true 42")).toThrow();
     });
   });
+
+  describe("dangling else", () => {
+    test("else if following an if that already has an else", () => {
+      // The first `if` already took the `else`, so this `else if` has no `if`
+      // left to attach to and reaches the statement level on its own.
+      const source = `if (i === 0) {
+  color = "red";
+}
+else {
+  color = "white";
+}
+else if (i === 1 || i === 20) {
+  color = "pink";
+}`;
+      expect(() => parse(source)).toThrow("UnexpectedElseWithoutMatchingIf");
+    });
+
+    test("bare else with no preceding if", () => {
+      expect(() => parse("else {\n  let x = 1;\n}")).toThrow("UnexpectedElseWithoutMatchingIf");
+    });
+  });
 });

@@ -35,8 +35,8 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
         <ConceptIcon slug={concept.slug} width={100} height={100} />
       </div>
       <div className={styles.conceptContent}>
-        <div className={styles.conceptTitle}>{concept.title}</div>
-        <div className={styles.conceptDescription}>{concept.description}</div>
+        <div className={styles.conceptTitle}>{renderInlineCode(concept.title)}</div>
+        <div className={styles.conceptDescription}>{renderInlineCode(concept.description)}</div>
         {!isLocked && hasSubConcepts && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
@@ -63,6 +63,20 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
       {cardContent}
     </Link>
   );
+}
+
+// Renders text with `backtick`-wrapped segments as inline monospace code.
+function renderInlineCode(text: string) {
+  return text.split(/(`[^`]+`)/g).map((segment, index) => {
+    if (segment.startsWith("`") && segment.endsWith("`") && segment.length > 1) {
+      return (
+        <code key={index} className={styles.inlineCode}>
+          {segment.slice(1, -1)}
+        </code>
+      );
+    }
+    return segment;
+  });
 }
 
 export type { ConceptCardData };

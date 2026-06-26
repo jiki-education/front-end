@@ -5,7 +5,7 @@ export const tasks = [
   {
     id: "determine-winner" as const,
     name: "Determine the winner",
-    description: 'Get both players\' choices and announce the correct result: "player_1", "player_2", or "tie".',
+    description: 'Get both players\' choices and announce the correct result: "Yuki", "Ando", or "tie".',
     hints: [],
     requiredScenarios: [
       "paper-vs-paper",
@@ -51,7 +51,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "paper-vs-rock",
     name: "Paper vs Rock",
-    description: "Player 1's paper beats player 2's rock. Announce player 1 as the winner!",
+    description: "Yuki's paper beats Ando's rock. Announce Yuki as the winner!",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -67,8 +67,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_1",
-          errorHtml: `Paper vs Rock should be a win for player 1 but it was "${ex.result}".`
+          pass: ex.result === "Yuki",
+          errorHtml: `Paper vs Rock should be a win for Yuki but it was "${ex.result}".`
         }
       ];
     }
@@ -76,7 +76,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "paper-vs-scissors",
     name: "Paper vs Scissors",
-    description: "Player 2's scissors beat player 1's paper. Announce player 2 as the winner.",
+    description: "Ando's scissors beat Yuki's paper. Announce Ando as the winner.",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -92,8 +92,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_2",
-          errorHtml: `Paper vs Scissors should be a win for player 2 but it was "${ex.result}".`
+          pass: ex.result === "Ando",
+          errorHtml: `Paper vs Scissors should be a win for Ando but it was "${ex.result}".`
         }
       ];
     }
@@ -101,7 +101,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "rock-vs-paper",
     name: "Rock vs Paper",
-    description: "Player 2's paper beats player 1's rock. Announce player 2 as the winner.",
+    description: "Ando's paper beats Yuki's rock. Announce Ando as the winner.",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -117,8 +117,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_2",
-          errorHtml: `Rock vs Paper should be a win for player 2 but it was "${ex.result}".`
+          pass: ex.result === "Ando",
+          errorHtml: `Rock vs Paper should be a win for Ando but it was "${ex.result}".`
         }
       ];
     }
@@ -151,7 +151,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "rock-vs-scissors",
     name: "Rock vs Scissors",
-    description: "Player 1's rock beats player 2's scissors. Announce player 1 as the winner.",
+    description: "Yuki's rock beats Ando's scissors. Announce Yuki as the winner.",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -167,8 +167,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_1",
-          errorHtml: `Rock vs Scissors should be a win for player 1 but it was "${ex.result}".`
+          pass: ex.result === "Yuki",
+          errorHtml: `Rock vs Scissors should be a win for Yuki but it was "${ex.result}".`
         }
       ];
     }
@@ -176,7 +176,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "scissors-vs-paper",
     name: "Scissors vs Paper",
-    description: "Player 1's scissors beat player 2's paper. Announce player 1 as the winner.",
+    description: "Yuki's scissors beat Ando's paper. Announce Yuki as the winner.",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -192,8 +192,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_1",
-          errorHtml: `Scissors vs Paper should be a win for player 1 but it was "${ex.result}".`
+          pass: ex.result === "Yuki",
+          errorHtml: `Scissors vs Paper should be a win for Yuki but it was "${ex.result}".`
         }
       ];
     }
@@ -201,7 +201,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "scissors-vs-rock",
     name: "Scissors vs Rock",
-    description: "Player 2's rock beats player 1's scissors. Announce player 2 as the winner.",
+    description: "Ando's rock beats Yuki's scissors. Announce Ando as the winner.",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -217,8 +217,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't announce a result!"
         },
         {
-          pass: ex.result === "player_2",
-          errorHtml: `Scissors vs Rock should be a win for player 2 but it was "${ex.result}".`
+          pass: ex.result === "Ando",
+          errorHtml: `Scissors vs Rock should be a win for Ando but it was "${ex.result}".`
         }
       ];
     }

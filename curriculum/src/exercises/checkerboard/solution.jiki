@@ -1,0 +1,28 @@
+set n to 8
+set margin to 2
+set cell to (100 - 2 * margin) / n
+
+set row to 0
+repeat n times do
+  set col to 0
+  repeat n times do
+    set is_dark to (row + col) % 2 == 1
+
+    set square_color to "white"
+    if is_dark do
+      change square_color to "charcoal"
+    end
+    rectangle(margin + col * cell, margin + row * cell, cell, cell, square_color)
+
+    if is_dark do
+      if row <= 2 do
+        circle(margin + col * cell + cell / 2, margin + row * cell + cell / 2, cell / 2 - 1, "red")
+      else if row >= 5 do
+        circle(margin + col * cell + cell / 2, margin + row * cell + cell / 2, cell / 2 - 1, "skyblue")
+      end
+    end
+
+    change col to col + 1
+  end
+  change row to row + 1
+end

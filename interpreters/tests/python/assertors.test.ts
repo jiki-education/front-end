@@ -359,4 +359,39 @@ rectangle(30, 40)`;
       expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
     });
   });
+
+  describe("assertOperatorUsed", () => {
+    test("returns true when and is used", () => {
+      const result = interpret("x = True and False");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+
+    test("returns false when and is not used", () => {
+      const result = interpret("x = True or False");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(false);
+    });
+
+    test("returns true when or is used", () => {
+      const result = interpret("x = True or False");
+      expect(result.assertors.assertOperatorUsed("or")).toBe(true);
+    });
+
+    test("detects operators nested inside if conditions", () => {
+      const code = `if True and False:
+    x = 1`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+
+    test("returns false when no operators are used", () => {
+      const result = interpret("x = 5");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(false);
+      expect(result.assertors.assertOperatorUsed("or")).toBe(false);
+    });
+
+    test("returns true on parse error (defensive)", () => {
+      const result = interpret("def def def");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+  });
 });

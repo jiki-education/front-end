@@ -21,7 +21,7 @@ Especially in the age of LLMs, when you could be putting TypeScript, Python, SQL
 
 We've designed Jiki to teach the fundamentals. Right now it uses a slightly modified version of JavaScript. Later in the year we'll add Python and you can choose (or we can flip a coin for you to choose!), but honestly it doesn't matter.
 
-Learn how to code with Jiki. It'll take a while. Then, when you understand coding, use **[Exercism](https://exercism.org)** to learn languages. It'll be MUCH quicker and easier if you have the fundamentals in place.
+Learn how to code with **[Jiki](https://jiki.io)**. It'll take a while. Then, when you understand coding, use **[Exercism](https://exercism.org)** to learn languages. It'll be MUCH quicker and easier if you have the fundamentals in place.
 
 And next time a beginner asks you what language they should learn, tell them it doesn't matter. Liberate them from the shackles and point them to Jiki to get solid fundamentals instead.
 

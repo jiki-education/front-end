@@ -1,10 +1,10 @@
 {
-  "slug": "rock-paper-scissors-determine-winner",
+  "slug": "rock-paper-scissors",
   "levelId": "complex-conditionals",
   "hints": [
     {
       "question": "How do I start?",
-      "answer": "Get both players' choices using the provided functions and store them in variables so you can compare them."
+      "answer": "Get Yuki's and Ando's choices using the provided functions and store them in variables so you can compare them."
     },
     {
       "question": "What's the simplest case to handle first?",
@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I check a specific winning combination?",
-      "answer": "Use `and` to combine two conditions, e.g. \"player 1 chose rock AND player 2 chose scissors\" means player 1 wins."
+      "answer": "Use `&&` (and) to combine two conditions that must both be true, e.g. \"Yuki chose rock AND Ando chose scissors\" means Yuki wins."
     },
     {
       "question": "I'm ending up with loads of `if` statements. Is there a shorter way?",

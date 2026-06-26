@@ -2,16 +2,16 @@ import { type ExecutionContext, type ExternalFunction, type Shared, isString } f
 import { VisualExercise } from "../../VisualExercise";
 
 export type Choice = "rock" | "paper" | "scissors";
-export type Result = "player_1" | "player_2" | "tie";
+export type Result = "Yuki" | "Ando" | "tie";
 
 export default abstract class RockPaperScissorsExercise extends VisualExercise {
-  private player1Choice?: Choice;
-  private player2Choice?: Choice;
+  private yukiChoice?: Choice;
+  private andoChoice?: Choice;
   private expectedResult?: Result;
   result: Result | null = null;
 
-  private player1Elem!: HTMLElement;
-  private player2Elem!: HTMLElement;
+  private yukiElem!: HTMLElement;
+  private andoElem!: HTMLElement;
 
   constructor() {
     super();
@@ -24,67 +24,67 @@ export default abstract class RockPaperScissorsExercise extends VisualExercise {
     container.classList.add("players");
     this.view.appendChild(container);
 
-    this.player1Elem = document.createElement("div");
-    this.player1Elem.classList.add("player", "player-1");
-    container.appendChild(this.player1Elem);
+    this.yukiElem = document.createElement("div");
+    this.yukiElem.classList.add("player", "yuki");
+    container.appendChild(this.yukiElem);
 
-    this.player2Elem = document.createElement("div");
-    this.player2Elem.classList.add("player", "player-2");
-    container.appendChild(this.player2Elem);
+    this.andoElem = document.createElement("div");
+    this.andoElem.classList.add("player", "ando");
+    container.appendChild(this.andoElem);
   }
 
-  public setupChoices(player1: Choice, player2: Choice) {
-    this.player1Choice = player1;
-    this.player2Choice = player2;
+  public setupChoices(yuki: Choice, ando: Choice) {
+    this.yukiChoice = yuki;
+    this.andoChoice = ando;
     this.expectedResult = this.determineCorrectResult();
 
-    this.player1Elem.classList.add(player1);
-    this.player2Elem.classList.add(player2);
+    this.yukiElem.classList.add(yuki);
+    this.andoElem.classList.add(ando);
     if (this.expectedResult) {
       this.view.classList.add(`result-${this.expectedResult}`);
     }
   }
 
   private determineCorrectResult(): Result | undefined {
-    if (!this.player1Choice || !this.player2Choice) {
+    if (!this.yukiChoice || !this.andoChoice) {
       return undefined;
     }
 
-    if (this.player1Choice === this.player2Choice) {
+    if (this.yukiChoice === this.andoChoice) {
       return "tie";
     }
-    if (this.player1Choice === "rock" && this.player2Choice === "scissors") {
-      return "player_1";
+    if (this.yukiChoice === "rock" && this.andoChoice === "scissors") {
+      return "Yuki";
     }
-    if (this.player1Choice === "scissors" && this.player2Choice === "paper") {
-      return "player_1";
+    if (this.yukiChoice === "scissors" && this.andoChoice === "paper") {
+      return "Yuki";
     }
-    if (this.player1Choice === "paper" && this.player2Choice === "rock") {
-      return "player_1";
+    if (this.yukiChoice === "paper" && this.andoChoice === "rock") {
+      return "Yuki";
     }
 
-    return "player_2";
+    return "Ando";
   }
 
-  protected getPlayer1Choice(_executionCtx: ExecutionContext): string {
-    return this.player1Choice ?? "";
+  protected getYukiChoice(_executionCtx: ExecutionContext): string {
+    return this.yukiChoice ?? "";
   }
 
-  protected getPlayer2Choice(_executionCtx: ExecutionContext): string {
-    return this.player2Choice ?? "";
+  protected getAndoChoice(_executionCtx: ExecutionContext): string {
+    return this.andoChoice ?? "";
   }
 
   protected announceResult(executionCtx: ExecutionContext, result: Shared.JikiObject) {
     if (!isString(result)) {
       return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "player_1", "player_2" or "tie".'
+        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
       );
     }
 
     const resultStr = result.value;
-    if (resultStr !== "player_1" && resultStr !== "player_2" && resultStr !== "tie") {
+    if (resultStr !== "Yuki" && resultStr !== "Ando" && resultStr !== "tie") {
       return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "player_1", "player_2" or "tie".'
+        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
       );
     }
 
@@ -103,14 +103,14 @@ export default abstract class RockPaperScissorsExercise extends VisualExercise {
       description: "announced the result of the game as ${arg1}"
     },
     {
-      name: "get_player_1_choice",
-      func: this.getPlayer1Choice.bind(this),
-      description: "returned the choice of player 1"
+      name: "get_yuki_choice",
+      func: this.getYukiChoice.bind(this),
+      description: "returned Yuki's choice"
     },
     {
-      name: "get_player_2_choice",
-      func: this.getPlayer2Choice.bind(this),
-      description: "returned the choice of player 2"
+      name: "get_ando_choice",
+      func: this.getAndoChoice.bind(this),
+      description: "returned Ando's choice"
     }
   ];
 

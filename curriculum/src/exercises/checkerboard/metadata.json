@@ -1,0 +1,26 @@
+{
+  "slug": "checkerboard",
+  "levelId": "conditionals-and-state",
+  "hints": [
+    {
+      "question": "How do I draw a whole grid of squares?",
+      "answer": "Use nested `repeat` loops with two counters. The outer loop walks down the rows (changing `row`), and the inner loop walks across the columns (changing `col`). Draw one square each time the inner loop runs."
+    },
+    {
+      "question": "How do I leave a 2-unit border and keep the squares a whole number?",
+      "answer": "The board fills the canvas minus a `2` border on each side, so the usable space is `100 - 2 * 2 = 96`. Split that across 8 squares: `cell = 96 / 8 = 12`. A square at (row, col) has its top-left at `2 + col * 12`, `2 + row * 12`."
+    },
+    {
+      "question": "How do I decide if a square is dark or light?",
+      "answer": "Add the row and column and look at the remainder. `(row + col) % 2 === 1` is true for the dark squares and false for the light ones. That single test gives you the whole checkerboard pattern."
+    },
+    {
+      "question": "Where do the pieces go?",
+      "answer": "Pieces only sit on the **dark** squares, so reuse the `(row + col) % 2` test. The top three rows (`row` 0, 1, 2) get red pieces; the bottom three rows (`row` 5, 6, 7) get blue. The middle two rows stay empty. Draw each piece as a circle centred in its square."
+    },
+    {
+      "question": "How big should each piece be?",
+      "answer": "Centre the circle in its square: `2 + col * 12 + 6` across and `2 + row * 12 + 6` down. Give it a radius of `5` (half a square, minus 1) so it sits neatly inside with a small gap."
+    }
+  ]
+}

@@ -44,7 +44,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 75,
@@ -81,7 +81,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 75,
@@ -118,7 +118,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 75,
@@ -155,7 +155,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 75,
@@ -192,7 +192,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 84,
@@ -229,7 +229,7 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: `The ball must roll through each position one step at a time.`
         },
         {
           pass: ex.ballY === 84,

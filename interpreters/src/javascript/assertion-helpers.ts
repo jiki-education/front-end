@@ -5,6 +5,8 @@ import {
   MemberExpression,
   ArrayExpression,
   LiteralExpression,
+  BinaryExpression,
+  UnaryExpression,
 } from "./expression";
 import {
   type Statement,
@@ -171,6 +173,16 @@ export function extractMethodCalls(statements: Statement[]): { methodName: strin
 
 export function countArrayExpressions(statements: Statement[]): number {
   return extractExpressions(statements, ArrayExpression).length;
+}
+
+/**
+ * Extract the lexemes of all operators used in the AST tree.
+ * Covers binary/logical operators (e.g. "&&", "+", "===") and unary operators (e.g. "!", "-").
+ */
+export function extractOperators(tree: Statement[] | Expression[]): string[] {
+  const binary = extractExpressions(tree, BinaryExpression).map(expr => expr.operator.lexeme);
+  const unary = extractExpressions(tree, UnaryExpression).map(expr => expr.operator.lexeme);
+  return [...binary, ...unary];
 }
 
 export function extractCallExpressionsExcludingFunctionBody(

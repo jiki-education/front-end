@@ -3,24 +3,28 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "How do I find out what the person is wearing?",
-      "answer": "Call `getOutfit()` and store the result in a variable, e.g. `let outfit = getOutfit()`. That way you can check it as many times as you need without calling the function again."
+      "question": "Where do I start?",
+      "answer": "Fetch the outfit and the age once each and store them in variables, e.g. `let outfit = getOutfit()`. Then you can build all your conditions from those variables."
     },
     {
-      "question": "How do I check for more than one outfit in a single condition?",
-      "answer": "Use `||` (or) inside an `if`. For the fancy group: `if (outfit === \"ballgown\" || outfit === \"tuxedo\")`."
+      "question": "Several outfits lead to the same outcome. Do I need a branch for each one?",
+      "answer": "No. You can check for more than one value in a single condition using `||` (or), so a group of outfits can share one branch."
     },
     {
-      "question": "Fancy outfits need two things to happen. How do I do both?",
-      "answer": "Just call both functions inside the same `if` block: first `offerChampagne()`, then `letIn()`."
+      "question": "How do I decide who gets champagne?",
+      "answer": "Champagne is its own decision: offer it when the person is an adult AND wearing something formal. That combines `&&` (and) with `||` (or), so put parentheses around the 'or' part to group it correctly."
     },
     {
-      "question": "How do I handle the smart outfits without re-checking the fancy ones?",
-      "answer": "Use `else if` for the smart group (`\"suit\"` or `\"dress\"`). That branch only runs when the fancy condition was false."
+      "question": "Who gets canapés and gets let in?",
+      "answer": "Everyone dressed up does, which is any of the four formal or smart outfits. You can list them all in a single condition with `||`."
     },
     {
-      "question": "What about outfits that match nothing in the dress code?",
-      "answer": "Finish with a plain `else` that calls `turnAway()`. Anyone who did not match an earlier branch gets turned away automatically."
+      "question": "What about everyone else?",
+      "answer": "The only other people allowed in are under-18s on the guest list, which needs two things to both be true (`&&`). Finish with a plain `else` that turns everyone else away."
+    },
+    {
+      "question": "I don't know what it means by \"what I learned in the previous lesson\".",
+      "answer": "You need to use the \"and\" operator that Jeremy taught in the previous video to combine conditionals. Re-read the <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">concept page</a> if you're not sure how to use it."
     }
   ]
 }

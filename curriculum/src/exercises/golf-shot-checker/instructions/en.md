@@ -9,9 +9,10 @@ The first change is that the `rollTo` function now has inputs for `x` and `y`. J
 
 Then finally, **if the ball landed in the hole**, once it's rolled to the bottom, it's time to celebrate, so shoot of some fireworks using the `fireFireworks()` function.
 
-Two things to know:
+A few things to know:
 
-1. A successful shot means the shot's length is `58`, `59`, `60`, `61`, or `62`.
-2. You need to roll the ball down 9 units.
+1. The ball starts on the tee at `x = 28`, `y = 75`, and rolls one step at a time.
+2. A successful shot means the shot's length is `58`, `59`, `60`, `61`, or `62`.
+3. You need to roll the ball down 9 units.
 
 On this exercise, try and think through each step carefully and take things one step at a time. Good luck!

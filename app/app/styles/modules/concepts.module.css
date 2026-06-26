@@ -220,6 +220,12 @@
     transition: color 0.3s ease;
 }
 
+.inlineCode {
+    font-family: var(--font-mono);
+    font-size: calc(1em - 1px);
+    font-weight: 600;
+}
+
 .conceptDescription {
     font-size: 15px;
     color: var(--color-gray-700);

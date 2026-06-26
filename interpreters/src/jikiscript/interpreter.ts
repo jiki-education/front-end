@@ -116,6 +116,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
+        assertOperatorUsed: () => true,
       },
     };
   }

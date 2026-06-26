@@ -370,4 +370,53 @@ rectangle(30, 40);`;
       expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
     });
   });
+
+  describe("assertOperatorUsed", () => {
+    test("returns true when && is used", () => {
+      const result = interpret("let x = true && false;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+
+    test("returns false when && is not used", () => {
+      const result = interpret("let x = true || false;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(false);
+    });
+
+    test("returns true when || is used", () => {
+      const result = interpret("let x = true || false;");
+      expect(result.assertors.assertOperatorUsed("||")).toBe(true);
+    });
+
+    test("returns false when || is not used", () => {
+      const result = interpret("let x = true && false;");
+      expect(result.assertors.assertOperatorUsed("||")).toBe(false);
+    });
+
+    test("detects operators nested inside if conditions", () => {
+      const code = `if (true && false) {
+  let x = 1;
+}`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+
+    test("detects operators inside function bodies", () => {
+      const code = `function check(a, b) {
+  return a || b;
+}`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("||")).toBe(true);
+    });
+
+    test("returns false when no operators are used", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(false);
+      expect(result.assertors.assertOperatorUsed("||")).toBe(false);
+    });
+
+    test("returns true on parse error (defensive)", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+  });
 });

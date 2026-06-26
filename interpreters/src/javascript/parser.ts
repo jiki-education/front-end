@@ -196,6 +196,14 @@ export class Parser {
         return this.ifStatement();
       }
 
+      // A dangling `else` (or `else if`) reaching the statement level means there
+      // is no `if` for it to attach to. This usually happens when there are too
+      // many (or too few) closing braces above, so the preceding `if` block was
+      // closed early.
+      if (this.check("ELSE")) {
+        this.error("UnexpectedElseWithoutMatchingIf", this.peek().location);
+      }
+
       // Handle for loops
       if (this.match("FOR")) {
         return this.forStatement();
