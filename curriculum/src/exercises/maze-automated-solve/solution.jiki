@@ -1,4 +1,4 @@
-repeat do
+repeat_until_game_over do
   if can_turn_left() do
     turn_left()
     move()
