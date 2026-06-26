@@ -89,6 +89,7 @@ import {
   extractMethodCalls,
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
+  extractOperators,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -174,6 +175,7 @@ export interface ExecutorResult {
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
+    assertOperatorUsed: (operator: string) => boolean;
   };
 }
 
@@ -432,6 +434,7 @@ export class Executor {
             expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
           ).length;
         },
+        assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
       },
     };
   }

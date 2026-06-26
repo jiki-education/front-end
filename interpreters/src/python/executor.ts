@@ -82,6 +82,7 @@ import {
   extractMethodCalls,
   countListExpressions,
   extractCallExpressionsDeepExcluding,
+  extractOperators,
 } from "./assertion-helpers";
 
 // Execution context for Python stdlib (future use)
@@ -144,6 +145,7 @@ export interface ExecutorResult {
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
+    assertOperatorUsed: (operator: string) => boolean;
   };
 }
 
@@ -330,6 +332,7 @@ export class Executor {
             expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
           ).length;
         },
+        assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
       },
     };
   }

@@ -3,7 +3,14 @@ import { JikiObject } from "./jikiObjects";
 import type { Statement } from "./statement";
 import { SetVariableStatement, ChangeVariableStatement, FunctionStatement } from "./statement";
 import type { Expression } from "./expression";
-import { FunctionCallExpression, MethodCallExpression, ListExpression } from "./expression";
+import {
+  FunctionCallExpression,
+  MethodCallExpression,
+  ListExpression,
+  BinaryExpression,
+  LogicalExpression,
+  UnaryExpression,
+} from "./expression";
 
 export function formatIdentifier(name: string): string {
   return name;
@@ -106,6 +113,18 @@ export function extractMethodCallExpressions(tree: (Statement | Expression)[]): 
 
 export function countListExpressions(tree: (Statement | Expression)[]): number {
   return extractExpressions(tree, ListExpression).length;
+}
+
+/**
+ * Extract the lexemes of all operators used in the AST tree.
+ * Covers binary operators (e.g. "+", "=="), logical operators (e.g. "&&", "and"),
+ * and unary operators (e.g. "!", "-").
+ */
+export function extractOperators(tree: (Statement | Expression)[]): string[] {
+  const binary = extractExpressions(tree, BinaryExpression).map(expr => expr.operator.lexeme);
+  const logical = extractExpressions(tree, LogicalExpression).map(expr => expr.operator.lexeme);
+  const unary = extractExpressions(tree, UnaryExpression).map(expr => expr.operator.lexeme);
+  return [...binary, ...logical, ...unary];
 }
 
 export function extractFunctionCallExpressionsExcludingBody(

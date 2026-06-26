@@ -15,6 +15,7 @@ import {
   extractMethodCalls,
   countListExpressions,
   extractCallExpressionsDeepExcluding,
+  extractOperators,
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
@@ -94,6 +95,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
+        assertOperatorUsed: () => true,
       },
     };
   }
@@ -241,6 +243,7 @@ export function evaluateFunction(
           expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
         ).length;
       },
+      assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
     },
   };
 }

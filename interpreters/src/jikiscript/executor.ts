@@ -92,6 +92,7 @@ import {
   extractMethodCallExpressions,
   countListExpressions,
   extractFunctionCallExpressionsExcludingBody,
+  extractOperators,
 } from "./helpers";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
 import * as Jiki from "./jikiObjects";
@@ -373,6 +374,7 @@ export class Executor {
           return extractFunctionCallExpressions(statements).filter(expr => expr.callee.name.lexeme === formatted)
             .length;
         },
+        assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
       },
     };
   }
