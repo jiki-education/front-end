@@ -13,11 +13,11 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
   private prisonerAwake: boolean = false;
   private dogBehaving: boolean = false;
 
-  // Actions Annalyn has taken
-  didFastAttack: boolean = false;
-  didSpy: boolean = false;
-  didSignal: boolean = false;
-  didFree: boolean = false;
+  // Number of times Annalyn has taken each action
+  fastAttackCount: number = 0;
+  spyCount: number = 0;
+  signalCount: number = 0;
+  freeCount: number = 0;
 
   private backgroundImg!: HTMLImageElement;
 
@@ -89,22 +89,22 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
 
   // Action functions
   fastAttack(executionCtx: ExecutionContext) {
-    this.didFastAttack = true;
+    this.fastAttackCount += 1;
     this.animateIntoView(executionCtx, `#${this.view.id} .action-fast-attack`);
   }
 
   spy(executionCtx: ExecutionContext) {
-    this.didSpy = true;
+    this.spyCount += 1;
     this.animateIntoView(executionCtx, `#${this.view.id} .action-spy`);
   }
 
   signalPrisoner(executionCtx: ExecutionContext) {
-    this.didSignal = true;
+    this.signalCount += 1;
     this.animateIntoView(executionCtx, `#${this.view.id} .action-signal`);
   }
 
   freePrisoner(executionCtx: ExecutionContext) {
-    this.didFree = true;
+    this.freeCount += 1;
     this.animateIntoView(executionCtx, `#${this.view.id} .action-free`);
   }
 
@@ -125,10 +125,10 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
       archerAwake: this.archerAwake,
       prisonerAwake: this.prisonerAwake,
       dogBehaving: this.dogBehaving,
-      didFastAttack: this.didFastAttack,
-      didSpy: this.didSpy,
-      didSignal: this.didSignal,
-      didFree: this.didFree
+      fastAttackCount: this.fastAttackCount,
+      spyCount: this.spyCount,
+      signalCount: this.signalCount,
+      freeCount: this.freeCount
     };
   }
 

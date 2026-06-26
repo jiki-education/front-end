@@ -616,6 +616,10 @@
     white-space: nowrap;
 }
 
+.testFeedback .message strong {
+    font-weight: 600;
+}
+
 .testDescription.stateFailed .testFeedback {
     background: var(--color-red-50);
 }
