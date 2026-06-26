@@ -1,0 +1,19 @@
+set i to 1
+set color to "white"
+set left to 0
+set width to 5
+
+repeat 20 times do
+  if i == 1 or i == 20 do
+    change color to "purple"
+  else if i % 4 == 0 do
+    change color to "green"
+  else if i % 2 == 0 do
+    change color to "blue"
+  else do
+    change color to "yellow"
+  end
+  change left to (i - 1) * width
+  rectangle(left, 0, width, 100, color)
+  change i to i + 1
+end

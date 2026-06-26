@@ -120,11 +120,12 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "complex-conditionals",
     "lessons": [
       { "type": "video", "slug": "logic-gates" },
+      { "type": "exercise", "slug": "rock-paper-scissors" },
       { "type": "exercise", "slug": "bouncer-dress-code" },
       { "type": "exercise", "slug": "golf-shot-checker" },
       { "type": "video", "slug": "modulo-and-not" },
+      { "type": "exercise", "slug": "stripey-fabric" },
       { "type": "exercise", "slug": "annalyns-infiltration" },
-      { "type": "exercise", "slug": "rock-paper-scissors" },
       { "type": "video", "slug": "repeat-without-input" },
       { "type": "exercise", "slug": "maze-automated-solve" }
     ]
@@ -133,6 +134,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "conditionals-and-state",
     "lessons": [
       { "type": "exercise", "slug": "build-wall" },
+      { "type": "project", "slug": "checkerboard" },
       { "type": "exercise", "slug": "scroll-and-shoot" },
       { "type": "exercise", "slug": "rainbow-ball" }
     ]

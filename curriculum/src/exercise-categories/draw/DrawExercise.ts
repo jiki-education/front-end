@@ -147,8 +147,16 @@ export abstract class DrawExercise extends VisualExercise {
   public hasRectangleAt(x: number, y: number, width: number, height: number): boolean {
     return getRectangleAt(this.shapes, x, y, width, height) !== undefined;
   }
+  public hasRectangleAtWithColor(x: number, y: number, width: number, height: number, color: string): boolean {
+    const rect = getRectangleAt(this.shapes, x, y, width, height);
+    return rect !== undefined && rect.fillColor === resolveNamedColor(color);
+  }
   public hasCircleAt(cx: number, cy: number, radius: number): boolean {
     return getCircleAt(this.shapes, cx, cy, radius) !== undefined;
+  }
+  public hasCircleAtWithColor(cx: number, cy: number, radius: number, color: string): boolean {
+    const circle = getCircleAt(this.shapes, cx, cy, radius);
+    return circle !== undefined && circle.fillColor === resolveNamedColor(color);
   }
   public hasEllipseAt(x: number, y: number, rx: number, ry: number): boolean {
     return getEllipseAt(this.shapes, x, y, rx, ry) !== undefined;
@@ -557,6 +565,7 @@ const NAMED_COLORS: Record<string, string> = {
   charcoal: "#45413C",
   green: "#008000",
   pink: "#FFC0CB",
+  purple: "#A020F0",
   red: "#FF0000",
   amber: "#FFFF00"
 };

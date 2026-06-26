@@ -37,6 +37,8 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as stripeyFabricLLM } from "./exercises/stripey-fabric/llm-metadata";
+import { llmMetadata as checkerboardLLM } from "./exercises/checkerboard/llm-metadata";
 import { llmMetadata as nucleotideLLM } from "./exercises/nucleotide/llm-metadata";
 import { llmMetadata as nucleotideCountLLM } from "./exercises/nucleotide-count/llm-metadata";
 import { llmMetadata as mealPrepLLM } from "./exercises/meal-prep/llm-metadata";
@@ -149,6 +151,8 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
+  "stripey-fabric": stripeyFabricLLM,
+  checkerboard: checkerboardLLM,
   nucleotide: nucleotideLLM,
   "nucleotide-count": nucleotideCountLLM,
   "meal-prep": mealPrepLLM,

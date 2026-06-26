@@ -21,6 +21,10 @@
     {
       "question": "What about everyone else?",
       "answer": "The only other people allowed in are under-18s on the guest list, which needs two things to both be true (`&&`). Finish with a plain `else` that turns everyone else away."
+    },
+    {
+      "question": "I don't know what it means by \"what I learned in the previous lesson\".",
+      "answer": "You need to use the \"and\" operator that Jeremy taught in the previous video to combine conditionals. Re-read the <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">concept page</a> if you're not sure how to use it."
     }
   ]
 }

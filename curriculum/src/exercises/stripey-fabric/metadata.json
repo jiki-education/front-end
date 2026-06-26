@@ -1,0 +1,22 @@
+{
+  "slug": "stripey-fabric",
+  "levelId": "complex-conditionals",
+  "hints": [
+    {
+      "question": "How do I draw 20 stripes in different places?",
+      "answer": "Keep a counter (call it `i`) and increase it by one inside a `repeat` loop. Stripe number `i` is `5` wide, so its left edge is `(i - 1) * 5`. Draw a `rectangle` there that is `5` wide and `100` tall."
+    },
+    {
+      "question": "How do I make just the two end stripes purple?",
+      "answer": "The end stripes are number `1` and number `20`. Use `||` (or): `if (i === 1 || i === 20)` is true for either end. You can't capture 'one OR the other' with a single comparison, which is what `||` is for."
+    },
+    {
+      "question": "How do I tell a multiple of 4 from an ordinary even number?",
+      "answer": "Use the `%` (remainder) operator. `i % 4 === 0` is true only for multiples of 4, and `i % 2 === 0` is true for all even numbers. Multiples of 4 are also even, so test `i % 4 === 0` first."
+    },
+    {
+      "question": "Stripe 4 comes out blue, but it should be green. Why?",
+      "answer": "Order matters in an `if` / `else if` chain. 4 is a multiple of 4 AND even, so if you check `i % 2 === 0` first it becomes blue and never reaches the green rule. Check the multiple-of-4 rule before the even rule."
+    }
+  ]
+}

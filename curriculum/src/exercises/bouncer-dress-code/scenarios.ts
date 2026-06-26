@@ -341,6 +341,10 @@ export const scenarios: VisualScenario[] = [
       {
         pass: (result) => result.assertors.numFunctionCallsInCode("on_guest_list") <= 1,
         errorHtml: "You should only use <code>onGuestList()</code> once."
+      },
+      {
+        pass: (result) => result.assertors.assertOperatorUsed("&&") || result.assertors.assertOperatorUsed("||"),
+        errorHtml: "This challenge is about combining conditions. Try using what you've learned in the previous lesson."
       }
     ]
   }
