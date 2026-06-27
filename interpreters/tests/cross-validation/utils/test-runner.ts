@@ -4,6 +4,12 @@ import { interpret as interpretJS } from "@javascript/interpreter";
 import { executeNativePython, executeNativeJS } from "./native-executor";
 import { extractOutput, normalizeOutput, extractLastValue, hasError, extractError } from "./output-helpers";
 
+// These tests each spawn a native `node`/`python3` subprocess (see
+// native-executor.ts), which has its own 6s timeout. Keep Vitest's per-test
+// timeout above that so the subprocess timeout governs (with its clearer error)
+// rather than Vitest cutting the test off first.
+const CROSS_VALIDATION_TIMEOUT_MS = 8000;
+
 export interface CrossValidationTest {
   name: string;
   code: string;
@@ -28,50 +34,54 @@ export function testPython(
 ) {
   const testFn = options?.only ? test.only : options?.skip ? test.skip : test;
 
-  testFn(name, async () => {
-    // Prepare code for execution
-    // When testing expectedValue, wrap code with print() to capture the result
-    let jikiCode = code;
-    let nativeCode = code;
-    if (options?.expectedValue !== undefined) {
-      jikiCode = wrapPythonWithPrint(code);
-      nativeCode = wrapPythonWithPrint(code);
-    }
-
-    // Execute with Jiki Python interpreter
-    const jikiResult = interpretPython(jikiCode);
-
-    // Execute with native Python
-    const nativeOutput = await executeNativePython(nativeCode);
-
-    if (options?.shouldError) {
-      // Verify both produce errors
-      expect(hasError(jikiResult)).toBe(true);
-      // Native Python errors usually go to stderr and are captured
-      expect(nativeOutput).toMatch(/Error|error|Traceback/);
-    } else {
-      // For successful execution, compare outputs
-      if (options?.expectedOutput !== undefined) {
-        // Compare against expected output
-        const jikiOutput = extractOutput(jikiResult);
-        expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
-        expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
-      } else if (options?.expectedValue !== undefined) {
-        // Compare final values via print() output
-        // Both Jiki and native code have been wrapped with print()
-        const jikiOutput = extractOutput(jikiResult);
-        const jikiValue = parseValue(jikiOutput.trim());
-        expect(jikiValue).toBe(options.expectedValue);
-
-        const nativeValue = parseValue(nativeOutput.trim());
-        expect(nativeValue).toBe(options.expectedValue);
-      } else {
-        // Direct output comparison
-        const jikiOutput = extractOutput(jikiResult);
-        expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(nativeOutput));
+  testFn(
+    name,
+    async () => {
+      // Prepare code for execution
+      // When testing expectedValue, wrap code with print() to capture the result
+      let jikiCode = code;
+      let nativeCode = code;
+      if (options?.expectedValue !== undefined) {
+        jikiCode = wrapPythonWithPrint(code);
+        nativeCode = wrapPythonWithPrint(code);
       }
-    }
-  });
+
+      // Execute with Jiki Python interpreter
+      const jikiResult = interpretPython(jikiCode);
+
+      // Execute with native Python
+      const nativeOutput = await executeNativePython(nativeCode);
+
+      if (options?.shouldError) {
+        // Verify both produce errors
+        expect(hasError(jikiResult)).toBe(true);
+        // Native Python errors usually go to stderr and are captured
+        expect(nativeOutput).toMatch(/Error|error|Traceback/);
+      } else {
+        // For successful execution, compare outputs
+        if (options?.expectedOutput !== undefined) {
+          // Compare against expected output
+          const jikiOutput = extractOutput(jikiResult);
+          expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
+          expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
+        } else if (options?.expectedValue !== undefined) {
+          // Compare final values via print() output
+          // Both Jiki and native code have been wrapped with print()
+          const jikiOutput = extractOutput(jikiResult);
+          const jikiValue = parseValue(jikiOutput.trim());
+          expect(jikiValue).toBe(options.expectedValue);
+
+          const nativeValue = parseValue(nativeOutput.trim());
+          expect(nativeValue).toBe(options.expectedValue);
+        } else {
+          // Direct output comparison
+          const jikiOutput = extractOutput(jikiResult);
+          expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(nativeOutput));
+        }
+      }
+    },
+    CROSS_VALIDATION_TIMEOUT_MS
+  );
 }
 
 /**
@@ -91,49 +101,53 @@ export function testJavaScript(
 ) {
   const testFn = options?.only ? test.only : options?.skip ? test.skip : test;
 
-  testFn(name, async () => {
-    // Prepare code for execution
-    // When testing expectedValue, wrap code with console.log() to capture the result
-    let jikiCode = code;
-    let nativeCode = code;
-    if (options?.expectedValue !== undefined) {
-      jikiCode = wrapJavaScriptWithConsoleLog(code);
-      nativeCode = wrapJavaScriptWithConsoleLog(code);
-    }
-
-    // Execute with Jiki JavaScript interpreter
-    const jikiResult = interpretJS(jikiCode, { languageFeatures: options?.languageFeatures });
-
-    // Execute with native Node.js
-    const nativeOutput = await executeNativeJS(nativeCode);
-
-    if (options?.shouldError) {
-      // Verify both produce errors
-      expect(hasError(jikiResult)).toBe(true);
-      expect(nativeOutput).toMatch(/Error|error/);
-    } else {
-      // For successful execution, compare outputs
-      if (options?.expectedOutput !== undefined) {
-        // Compare against expected output
-        const jikiOutput = extractOutput(jikiResult);
-        expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
-        expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
-      } else if (options?.expectedValue !== undefined) {
-        // Compare final values via console.log() output
-        // Both Jiki and native code have been wrapped with console.log()
-        const jikiOutput = extractOutput(jikiResult);
-        const jikiValue = parseValue(jikiOutput.trim());
-        expect(jikiValue).toBe(options.expectedValue);
-
-        const nativeValue = parseValue(nativeOutput.trim());
-        expect(nativeValue).toBe(options.expectedValue);
-      } else {
-        // Direct output comparison
-        const jikiOutput = extractOutput(jikiResult);
-        expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(nativeOutput));
+  testFn(
+    name,
+    async () => {
+      // Prepare code for execution
+      // When testing expectedValue, wrap code with console.log() to capture the result
+      let jikiCode = code;
+      let nativeCode = code;
+      if (options?.expectedValue !== undefined) {
+        jikiCode = wrapJavaScriptWithConsoleLog(code);
+        nativeCode = wrapJavaScriptWithConsoleLog(code);
       }
-    }
-  });
+
+      // Execute with Jiki JavaScript interpreter
+      const jikiResult = interpretJS(jikiCode, { languageFeatures: options?.languageFeatures });
+
+      // Execute with native Node.js
+      const nativeOutput = await executeNativeJS(nativeCode);
+
+      if (options?.shouldError) {
+        // Verify both produce errors
+        expect(hasError(jikiResult)).toBe(true);
+        expect(nativeOutput).toMatch(/Error|error/);
+      } else {
+        // For successful execution, compare outputs
+        if (options?.expectedOutput !== undefined) {
+          // Compare against expected output
+          const jikiOutput = extractOutput(jikiResult);
+          expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(options.expectedOutput));
+          expect(normalizeOutput(nativeOutput)).toBe(normalizeOutput(options.expectedOutput));
+        } else if (options?.expectedValue !== undefined) {
+          // Compare final values via console.log() output
+          // Both Jiki and native code have been wrapped with console.log()
+          const jikiOutput = extractOutput(jikiResult);
+          const jikiValue = parseValue(jikiOutput.trim());
+          expect(jikiValue).toBe(options.expectedValue);
+
+          const nativeValue = parseValue(nativeOutput.trim());
+          expect(nativeValue).toBe(options.expectedValue);
+        } else {
+          // Direct output comparison
+          const jikiOutput = extractOutput(jikiResult);
+          expect(normalizeOutput(jikiOutput)).toBe(normalizeOutput(nativeOutput));
+        }
+      }
+    },
+    CROSS_VALIDATION_TIMEOUT_MS
+  );
 }
 
 /**

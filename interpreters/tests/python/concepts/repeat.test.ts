@@ -55,6 +55,18 @@ describe("Python Concepts - Repeat", () => {
       expect(error).toBeNull();
       expect(echos).toEqual(["before", "after"]);
     });
+
+    test("raises MaxIterationsReached when it never finishes", () => {
+      const code = `repeat:
+    x = 1`;
+      const { frames, error } = interpret(code, {
+        languageFeatures: { maxTotalLoopIterations: 50 },
+      });
+      expect(error).toBeNull();
+      const errorFrame = frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("MaxIterationsReached");
+    });
   });
 
   describe("break and continue", () => {

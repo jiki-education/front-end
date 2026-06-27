@@ -100,7 +100,7 @@
       "MethodNotYetImplemented": "The method `{{method}}` exists but has not been implemented yet. It will be available in a future version.",
       "MethodNotYetAvailable": "The method `{{method}}` is not available at your current learning level. Keep progressing to unlock this feature!",
       "NonJikiObjectDetectedInExecution": "Internal error: Expected a JikiObject but received {{receivedType}}: {{receivedValue}}. This is a bug in the interpreter.",
-      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of iterations allowed is {{max}}.",
+      "MaxIterationsReached": "Your code ran for too long and was stopped to prevent an infinite loop. The maximum number of times the loops are allowed to run in this exercise is {{max}}.",
       "RepeatCountMustBeNumber": "repeat() requires a number, but got {{type}}.",
       "RepeatCountMustBeNonNegative": "repeat() count must be 0 or greater, but got {{value}}.",
       "RepeatCountTooHigh": "repeat() count {{value}} exceeds the maximum of {{max}} iterations.",

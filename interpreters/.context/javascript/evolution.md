@@ -1,5 +1,13 @@
 # JavaScript Interpreter Evolution
 
+## 2026-06-27: No-arg `repeat()` raises MaxIterationsReached at the cap
+
+A no-argument `repeat() { ... }` is meant to run until the exercise signals completion (`_exerciseFinished`), bounded only by the infinite-loop guard. Previously `executeRepeatStatement` passed `maxTotalLoopIterations` as the loop's literal `count`, so `while (iteration < count)` stopped the loop at exactly the cap, one iteration before `guardInfiniteLoop` (which throws only when `totalLoopIterations > max`) could fire. The result: a never-finishing loop like `repeat() { turnLeft() }` ran exactly `max` times and then exited cleanly with `status: SUCCESS` and no error frame, so the student got no feedback that they were stuck in an unproductive loop. (Before the per-exercise caps landed, the default cap of 10,000 meant this silently generated 10,000 frames and froze the browser.)
+
+The no-arg branch now passes `count: null` and the loop runs `while (count === null || iteration < count)`, relying on `guardInfiniteLoop` to stop it. Hitting `maxTotalLoopIterations` now raises a `MaxIterationsReached` error frame, matching JikiScript (which already used an explicit `iteration >= max` check). Bounded `repeat(n)` is unchanged. The Python interpreter had the identical off-by-one and was fixed the same way.
+
+The English `MaxIterationsReached` copy was reworded to "...The maximum number of times the loops are allowed to run in this exercise is {{max}}." in both JS and Python.
+
 ## 2026-06-26: Helpful error for dangling `else` / `else if`
 
 A dangling `else` (or `else if`) that reached the statement level previously fell through to expression parsing and produced the unhelpful `MissingExpression` ("Missing expression in code."). This happens when an `if` block is closed early or already has an `else`, so a following `else if` has no `if` to attach to (commonly a brace-count mistake).
