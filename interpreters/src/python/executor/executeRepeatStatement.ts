@@ -4,11 +4,11 @@ import type { EvaluationResult } from "../evaluation-result";
 import { BreakFlowControlError, ContinueFlowControlError } from "./executeForInStatement";
 
 export function executeRepeatStatement(executor: Executor, statement: RepeatStatement): EvaluationResult | null {
-  const count = executor.languageFeatures.maxTotalLoopIterations ?? 10000;
-  let iteration = 0;
-
-  while (iteration < count) {
-    iteration++;
+  // No-argument repeat: runs until the exercise signals completion (_exerciseFinished),
+  // bounded only by the infinite-loop guard. Relying on guardInfiniteLoop to stop the loop
+  // means hitting maxTotalLoopIterations raises MaxIterationsReached rather than silently
+  // exiting one iteration before the guard would fire.
+  while (true) {
     executor.guardInfiniteLoop(statement.location);
 
     try {

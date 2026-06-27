@@ -285,6 +285,21 @@ describe("JavaScript repeat loops", () => {
       expect(error).toBeNull();
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables.count.value).toBe(3);
     });
+
+    test("raises MaxIterationsReached when it never finishes", () => {
+      const code = `
+        repeat() {
+          let x = 1
+        }
+      `;
+      const { frames, error } = interpret(code, {
+        languageFeatures: { maxTotalLoopIterations: 50 },
+      });
+      expect(error).toBeNull();
+      const errorFrame = frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("MaxIterationsReached");
+    });
   });
 
   describe("descriptions", () => {
