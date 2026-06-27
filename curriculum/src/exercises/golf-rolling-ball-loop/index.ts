@@ -21,8 +21,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["repeat", "using-functions"],
-  interpreterOptions: { repeatDelay: 20 }
+  conceptSlugs: ["repeat", "using-functions"]
 };
 
 export default exerciseDefinition;
