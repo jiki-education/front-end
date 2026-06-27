@@ -28,7 +28,8 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "string-iteration", "building-arrays", "if"]
+  conceptSlugs: ["arrays", "string-iteration", "building-arrays", "if"],
+  interpreterOptions: { maxTotalLoopIterations: 10000 }
 };
 
 export default exerciseDefinition;

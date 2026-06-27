@@ -59,7 +59,8 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["if", "else-if", "else", "repeat"]
+  conceptSlugs: ["if", "else-if", "else", "repeat"],
+  interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 
 export default exerciseDefinition;

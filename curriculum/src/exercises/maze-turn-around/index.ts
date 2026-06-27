@@ -58,7 +58,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 
 export default exerciseDefinition;

@@ -35,7 +35,8 @@ const exerciseDefinition: VisualExerciseCore = {
   conceptSlugs: ["logical-and", "if", "repeat", "updating-variables", "using-functions-with-return-values"],
   tasks,
   scenarios,
-  functions
+  functions,
+  interpreterOptions: { repeatDelay: 20 }
 };
 
 export default exerciseDefinition;

@@ -57,7 +57,10 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "variables", "if", "repeat", "using-functions-with-return-values"]
+  conceptSlugs: ["arrays", "variables", "if", "repeat", "using-functions-with-return-values"],
+  // Nested loop (for inside the game repeat); bootcamp's 100-tick game-over cap maps to
+  // ~1214 cumulative iterations here, so allow headroom for suboptimal solutions.
+  interpreterOptions: { maxTotalLoopIterations: 2000 }
 };
 
 export default exerciseDefinition;
