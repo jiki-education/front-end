@@ -28,7 +28,7 @@ You're designing an algorithm to create a roll of stripey fabric, which should l
   <rect x="95" y="0" width="5" height="100" fill="#A020F0" />
 </svg>
 
-The pattern is a repeating sequence of `"yellow"`, `"blue"`, `"yellow"`, `"green"`. The first and last stripes are `purple`.
+The pattern is a repeating sequence of `"yellow"`, `"blue"`, `"yellow"`, `"green"`. The first and last stripes are `"purple"`.
 
 The canvas you're designing on is `100` wide and `100` tall. You need to draw `20` stripes, each `5` wide.
 
