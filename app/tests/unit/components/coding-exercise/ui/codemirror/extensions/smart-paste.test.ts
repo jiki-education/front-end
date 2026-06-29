@@ -2,13 +2,16 @@ import { smartPasteHandler } from "@/components/coding-exercise/ui/codemirror/ex
 import { EditorSelection, EditorState } from "@codemirror/state";
 import type { EditorView } from "@codemirror/view";
 
-function createMockEditor(doc: string, cursorPos: number) {
+function createMockEditor(doc: string, anchor: number, head: number = anchor) {
+  const state = EditorState.create({
+    doc,
+    selection: EditorSelection.single(anchor, head)
+  });
   return {
-    state: EditorState.create({
-      doc,
-      selection: EditorSelection.single(cursorPos)
-    }),
-    dispatch: jest.fn()
+    state,
+    // Mirror CodeMirror's real validation: applying a transaction whose
+    // selection points outside the resulting document throws a RangeError.
+    dispatch: jest.fn((spec) => state.update(spec))
   } as unknown as EditorView & { dispatch: jest.Mock };
 }
 
@@ -38,5 +41,41 @@ describe("smartPasteHandler", () => {
     expect(result).toBe(true);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(view.dispatch).not.toHaveBeenCalled();
+  });
+
+  it("dispatches an in-bounds change+selection for a normal paste", () => {
+    const doc = "line1\nline2\nline3";
+    // Cursor at the very end of the doc, "line1" (0..5) is readonly.
+    const view = createMockEditor(doc, doc.length);
+    const event = createMockClipboardEvent("PASTED");
+    const getReadOnlyRanges = () => [{ from: 0, to: 5 }];
+
+    const result = smartPasteHandler(getReadOnlyRanges)(event, view);
+
+    expect(result).toBe(true);
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(view.dispatch).toHaveBeenCalledTimes(1);
+
+    // The dispatched spec must apply cleanly — createMockEditor's dispatch runs
+    // state.update(), which throws "Selection points outside of document" if the
+    // anchor is out of range. The selection must land within the resulting doc.
+    const spec = view.dispatch.mock.calls[0][0];
+    const resultingLength = doc.length - (spec.changes.to - spec.changes.from) + "PASTED".length;
+    expect(spec.selection.anchor).toBeLessThanOrEqual(resultingLength);
+    expect(spec.selection.anchor).toBeGreaterThanOrEqual(0);
+  });
+
+  // Regression test for "RangeError: Selection points outside of document".
+  // A paste whose available target abuts the document end must never produce a
+  // selection anchor past the resulting document length.
+  it("never dispatches a selection outside the resulting document", () => {
+    const doc = "abc";
+    // Whole doc selected, no readonly ranges, long replacement text.
+    const view = createMockEditor(doc, 0, doc.length);
+    const event = createMockClipboardEvent("a much longer pasted string");
+    const getReadOnlyRanges = () => [];
+
+    expect(() => smartPasteHandler(getReadOnlyRanges)(event, view)).not.toThrow();
+    expect(view.dispatch).toHaveBeenCalledTimes(1);
   });
 });
