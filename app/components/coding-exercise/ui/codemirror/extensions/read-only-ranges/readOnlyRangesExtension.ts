@@ -102,25 +102,29 @@ export const smartPasteHandler =
     }
 
     // Normalize and clamp the target range to the current document so a missing
-    // or out-of-range edge can never produce an invalid change/selection.
+    // or out-of-range edge can never produce an invalid change.
     const clamp = (pos: number) => Math.max(0, Math.min(pos, docLength));
     const from = clamp(result[0].from ?? 0);
     const to = clamp(result[0].to ?? docLength);
     const insertAt = { from: Math.min(from, to), to: Math.max(from, to) };
 
-    // preventDefault + explicit selection keeps the cursor at the end of the
-    // inserted text without relying on the native paste also firing. The anchor
-    // is computed against the *resulting* doc length to avoid "Selection points
-    // outside of document".
+    // Build the ChangeSet from the editor's own state and derive the cursor from
+    // it, rather than computing an absolute position by hand. `mapPos(from, 1)`
+    // lands at the start of the inserted text in the *resulting* document, and
+    // clamping to `changes.newLength` (the authoritative post-change length)
+    // guarantees the selection can never point outside the document — even if
+    // anything upstream is stale. This is what previously threw the Sentry
+    // "RangeError: Selection points outside of document".
     event.preventDefault();
-    const resultingLength = docLength - (insertAt.to - insertAt.from) + pastedData.length;
+    const changes = view.state.changes({
+      from: insertAt.from,
+      to: insertAt.to,
+      insert: pastedData
+    });
+    const anchor = Math.min(changes.mapPos(insertAt.from, 1) + pastedData.length, changes.newLength);
     view.dispatch({
-      changes: {
-        from: insertAt.from,
-        to: insertAt.to,
-        insert: pastedData
-      },
-      selection: { anchor: Math.min(insertAt.from + pastedData.length, resultingLength) },
+      changes,
+      selection: { anchor },
       annotations: Transaction.userEvent.of(`input.paste.smart`)
     });
     return true;

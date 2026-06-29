@@ -43,7 +43,7 @@ describe("smartPasteHandler", () => {
     expect(view.dispatch).not.toHaveBeenCalled();
   });
 
-  it("dispatches an in-bounds change+selection for a normal paste", () => {
+  it("places the cursor at the end of the inserted text", () => {
     const doc = "line1\nline2\nline3";
     // Cursor at the very end of the doc, "line1" (0..5) is readonly.
     const view = createMockEditor(doc, doc.length);
@@ -56,13 +56,13 @@ describe("smartPasteHandler", () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(view.dispatch).toHaveBeenCalledTimes(1);
 
-    // The dispatched spec must apply cleanly — createMockEditor's dispatch runs
-    // state.update(), which throws "Selection points outside of document" if the
-    // anchor is out of range. The selection must land within the resulting doc.
-    const spec = view.dispatch.mock.calls[0][0];
-    const resultingLength = doc.length - (spec.changes.to - spec.changes.from) + "PASTED".length;
-    expect(spec.selection.anchor).toBeLessThanOrEqual(resultingLength);
-    expect(spec.selection.anchor).toBeGreaterThanOrEqual(0);
+    // createMockEditor's dispatch runs state.update(), which throws
+    // "Selection points outside of document" if the anchor is out of range.
+    // The resulting transaction must place the cursor right after the insert.
+    const tr = view.dispatch.mock.results[0].value;
+    const insertStart = tr.changes.mapPos(doc.length, 1) - "PASTED".length;
+    expect(tr.state.selection.main.anchor).toBe(insertStart + "PASTED".length);
+    expect(tr.state.selection.main.anchor).toBeLessThanOrEqual(tr.state.doc.length);
   });
 
   // Regression test for "RangeError: Selection points outside of document".
@@ -77,5 +77,39 @@ describe("smartPasteHandler", () => {
 
     expect(() => smartPasteHandler(getReadOnlyRanges)(event, view)).not.toThrow();
     expect(view.dispatch).toHaveBeenCalledTimes(1);
+  });
+
+  // Fuzz the handler across a wide grid of documents, selections, readonly
+  // configurations, and clipboard payloads. The contract is invariant: the
+  // dispatched transaction must apply without ever throwing "Selection points
+  // outside of document", regardless of how stale or pathological the inputs.
+  it("never throws across a fuzzed grid of inputs", () => {
+    const docs = ["", "a", "abc", "line1\nline2\nline3", "x\ny\n", "\n\n"];
+    const payloads = ["", "X", "PASTED", "a much longer pasted string\nwith a newline"];
+    const readOnlyConfigs: Array<(len: number) => Array<{ from: number; to: number }>> = [
+      () => [],
+      () => [{ from: 0, to: 1 }],
+      (len) => [{ from: 0, to: Math.min(3, len) }],
+      (len) => [{ from: Math.max(0, len - 2), to: len }]
+    ];
+
+    let combos = 0;
+    for (const doc of docs) {
+      for (let anchor = 0; anchor <= doc.length; anchor++) {
+        for (let head = anchor; head <= doc.length; head++) {
+          for (const payload of payloads) {
+            for (const makeRanges of readOnlyConfigs) {
+              combos++;
+              const view = createMockEditor(doc, anchor, head);
+              const event = createMockClipboardEvent(payload);
+              const ranges = makeRanges(doc.length).filter((r) => r.from < r.to);
+              expect(() => smartPasteHandler(() => ranges)(event, view)).not.toThrow();
+            }
+          }
+        }
+      }
+    }
+
+    expect(combos).toBeGreaterThan(500);
   });
 });
