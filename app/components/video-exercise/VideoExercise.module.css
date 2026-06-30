@@ -78,9 +78,11 @@
 }
 
 .muxPlayer {
+    /* First watch: keep the scrub bar visible so users can rewind within what
+       they've already seen, but hide the skip-ahead buttons. Forward seeking
+       past the watched point is clamped in `handleSeeking`. */
     --seek-forward-button: none;
     --seek-backward-button: none;
-    --time-range: none;
 
     position: absolute;
     inset: 0;
@@ -95,6 +97,50 @@
     width: 100%;
     height: 100%;
     transition: opacity 500ms;
+}
+
+/* Transient hint shown only when a first-time viewer tries to scrub past the
+   point they've watched. Anchored just above the player's control bar and
+   centered, it fades in on a blocked seek and auto-dismisses. */
+.skipHint {
+    position: absolute;
+    bottom: 72px;
+    left: 50%;
+    transform: translate(-50%, 8px);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: min(90%, 420px);
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--color-gray-900) 88%, transparent);
+    color: white;
+    font-size: 14px;
+    line-height: 1.35;
+    text-align: left;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease,
+        visibility 200ms;
+}
+
+.skipHintVisible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.skipHintIcon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--color-purple-400);
 }
 
 .muxPlayerHidden {
