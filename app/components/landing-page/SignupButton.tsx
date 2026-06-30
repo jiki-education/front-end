@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import RocketIcon from "./icons/rocket.svg";
 import styles from "./SignupButton.module.css";
@@ -11,6 +12,7 @@ interface SignupButtonProps {
 }
 
 export function SignupButton({ className = "" }: SignupButtonProps) {
+  const t = useTranslations("landing.signupButton");
   const ctaLaunch = useRocketLaunch("/auth/signup");
 
   return (
@@ -20,7 +22,8 @@ export function SignupButton({ className = "" }: SignupButtonProps) {
       onClick={ctaLaunch.handleClick}
     >
       <span>
-        Sign Up<span className={styles.free}> (it&apos;s free!)</span>
+        {t("signUp")}
+        <span className={styles.free}>{t("free")}</span>
       </span>
       <span
         className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}

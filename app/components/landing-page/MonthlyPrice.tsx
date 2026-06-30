@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { fetchExternalPricing } from "@/lib/api/externalPricing";
 import type { PremiumPrices } from "@/lib/pricing";
 import { reportError } from "@/lib/reportError";
-
-const FALLBACK = "$9.99";
 
 function fractionDigits(currency: string): number {
   return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
@@ -32,6 +31,7 @@ function format(prices: PremiumPrices): string {
  * price for their country (or USD if unmapped / no Cloudflare locally).
  */
 export function MonthlyPrice() {
+  const t = useTranslations("landing.monthlyPrice");
   const [prices, setPrices] = useState<PremiumPrices | null>(null);
 
   useEffect(() => {
@@ -46,5 +46,5 @@ export function MonthlyPrice() {
     };
   }, []);
 
-  return <>{prices ? format(prices) : FALLBACK}</>;
+  return <>{prices ? format(prices) : t("fallback")}</>;
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ComponentProps } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { annotate } from "rough-notation";
@@ -25,6 +26,7 @@ import { useHamster } from "./hooks/useHamster";
 import { SignupButton } from "./SignupButton";
 
 export function Hero() {
+  const t = useTranslations("landing.hero");
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const audienceRef = useRef<HTMLParagraphElement>(null);
@@ -108,34 +110,36 @@ export function Hero() {
       <div className={[styles["container"], shared["lg-container"]].join(" ")}>
         <div className={styles["hero-lhs"]}>
           <h1 ref={headlineRef} className={styles["rock-solid"]} data-rock-solid>
-            Learn to{" "}
+            {t("headlinePart1")}
             <span data-anim="highlight-headline" className="inline">
-              code and build
-            </span>{" "}
-            in the LLM-era!
+              {t("headlineHighlight")}
+            </span>
+            {t("headlinePart2")}
           </h1>
           <p ref={taglineRef} className={`${styles.tagline}`} data-tagline>
-            Learn the skills you need to create awesome things, be productive, and{" "}
-            <strong className="font-semibold">stay relevant in {new Date().getFullYear()}.</strong>
+            {t.rich("tagline", {
+              year: new Date().getFullYear(),
+              strong: (chunks) => <strong className="font-semibold">{chunks}</strong>
+            })}
           </p>
           <p ref={audienceRef} className={`${styles.tagline} `}>
-            Designed for{" "}
+            {t("audiencePrefix")}
             <span data-anim="highlight-audience" className="font-medium text-white">
-              people getting into tech
+              {t("audience1")}
             </span>
-            ,{" "}
+            {t("audienceMiddle")}
             <span data-anim="highlight-audience" className="font-medium text-white">
-              junior developers
-            </span>{" "}
-            who want to accelerate, and{" "}
+              {t("audience2")}
+            </span>
+            {t("audienceAfter2")}
             <span data-anim="highlight-audience" className="font-medium text-white">
-              vibe-coders
-            </span>{" "}
-            wanting to do things properly!
+              {t("audience3")}
+            </span>
+            {t("audienceSuffix")}
           </p>
           <div className={styles["cta-wrapper"]}>
             <SignupButton />
-            <div className={styles["cta-subtext"]}>...or read on to learn more!</div>
+            <div className={styles["cta-subtext"]}>{t("ctaSubtext")}</div>
           </div>
         </div>
         <div className={styles["hero-rhs"]}>
@@ -167,7 +171,7 @@ export function Hero() {
                 type="button"
                 onClick={() => setPlaying(true)}
                 className={styles["video-poster-button"]}
-                aria-label={playing ? "Loading video" : "Play video"}
+                aria-label={playing ? t("loadingVideo") : t("playVideo")}
                 disabled={playing}
               >
                 <Image
@@ -205,18 +209,17 @@ export function Hero() {
 }
 
 function WatchPrompt() {
+  const t = useTranslations("landing.hero");
   return (
     <div className={styles["watch-prompt"]}>
       <ArrowIcon width={48} height={100} className={styles["watch-arrow"]} />
-      <p>
-        (Reading not your thing? <span className="font-medium text-white">Click play</span> and I&apos;ll tell you
-        everything you need to know!)
-      </p>
+      <p>{t.rich("watchPrompt", { strong: (chunks) => <span className="font-medium text-white">{chunks}</span> })}</p>
     </div>
   );
 }
 
 function ScrollingTestimonials() {
+  const t = useTranslations("landing.hero.marquee");
   const { hamsterRef, smokeRef, containerRef: hamsterContainerRef } = useHamster();
   const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials(hamsterRef);
 
@@ -226,38 +229,9 @@ function ScrollingTestimonials() {
       <div ref={smokeRef}></div>
       <div className={styles.inner} ref={marqueeContainerRef}>
         <ul ref={ulRef}>
-          <li>&quot;Perfect mixture of challenge and fun&quot;</li>
-          <li>&quot;Amazing value&quot;</li>
-          <li>&quot;My best time investment for years&quot;</li>
-          <li>&quot;Incredibly Fun!&quot;</li>
-          <li>&quot;Its been transformative!&quot;</li>
-          <li>&quot;You *will* learn to code&quot;</li>
-          <li>&quot;Learning, as it should be!&quot;</li>
-          <li>&quot;The best course I&apos;ve done&quot;</li>
-          <li>&quot;Made learning a joy again&quot;</li>
-          <li>&quot;This course is pure gold.&quot;</li>
-          <li>&quot;A wonderful Learning Experience&quot;</li>
-          <li>&quot;Proper Hands-on learning&quot;</li>
-          <li>&quot;The knowledge you didn&apos;t think you needed&quot;</li>
-          <li>&quot;100% recommended!&quot;</li>
-          <li>&quot;So glad I stumbled on this&quot;</li>
-          <li>&quot;A great way to learn!&quot;</li>
-          <li>&quot;Fun exercises, clear explanations, cool hats&quot;</li>
-          <li>&quot;Exceptional course, truly outstanding&quot;</li>
-          <li>&quot;Addictive in a good way&quot;</li>
-          <li>&quot;Amazing fun&quot;</li>
-          <li>&quot;Fantastic community&quot;</li>
-          <li>&quot;Zero coding experience required&quot;</li>
-          <li>&quot;Fun and inspiring&quot;</li>
-          <li>&quot;It&apos;s changed the way I think about learning&quot;</li>
-          <li>&quot;An incredibly rewarding journey&quot;</li>
-          <li>&quot;Insane value&quot;</li>
-          <li>&quot;An opportunity to learn from a bonafide master&quot;</li>
-          <li>&quot;It&apos;s really an amazing and lovely thing&quot;</li>
-          <li>&quot;The best investment I made in myself this year&quot;</li>
-          <li>&quot;Its massively increased my confidence and motivation&quot;</li>
-          <li>&quot;Very supportive community!&quot;</li>
-          <li>&quot;Even as a prior programmer, its transformative!&quot;</li>
+          {Array.from({ length: 32 }, (_, i) => (
+            <li key={i}>{t(`t${i + 1}` as Parameters<typeof t>[0])}</li>
+          ))}
         </ul>
       </div>
     </div>
