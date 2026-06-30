@@ -9,6 +9,7 @@ import { validateImageFile } from "@/lib/utils/validateImageFile";
 import { getCroppedImage } from "@/lib/utils/cropImage";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
+import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import UploadIcon from "@/icons/upload.svg";
@@ -21,6 +22,7 @@ const MIN_ZOOM = 0.9;
 const MAX_ZOOM = 3;
 
 export function AvatarEditModal() {
+  const t = useTranslations("toasts.avatar");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const user = useAuthStore((state) => state.user);
@@ -74,10 +76,10 @@ export function AvatarEditModal() {
       if (user) {
         setUser({ ...user, avatar_url: url });
       }
-      toast.success("Avatar updated");
+      toast.success(t("updated"));
       hideModal();
     } catch (err) {
-      toast.error(err instanceof ApiError ? "Failed to upload avatar" : "Network error. Please try again.");
+      toast.error(err instanceof ApiError ? t("uploadFailed") : t("networkError"));
       setIsSaving(false);
     }
   };

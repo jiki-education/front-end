@@ -40,6 +40,7 @@ export function SubscriptionModal({
   onCancel
 }: SubscriptionModalProps) {
   const t = useTranslations("modals.subscription");
+  const tToast = useTranslations("toasts.subscription");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
@@ -80,7 +81,7 @@ export function SubscriptionModal({
 
   const handleTierSelection = async () => {
     if (!user) {
-      toast.error("Please log in to upgrade your account");
+      toast.error(tToast("loginRequired"));
       return;
     }
 
@@ -97,7 +98,7 @@ export function SubscriptionModal({
       });
     } catch (error) {
       console.error("Subscription error:", error);
-      toast.error("Failed to start checkout process. Please try again.");
+      toast.error(tToast("checkoutFailed"));
     } finally {
       setIsLoading(false);
     }

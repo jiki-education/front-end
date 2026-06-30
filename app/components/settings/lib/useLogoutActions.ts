@@ -1,9 +1,11 @@
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 export function useLogoutActions() {
+  const t = useTranslations("toasts.logout");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { logout: logoutFromStore } = useAuthStore();
   const router = useRouter();
@@ -14,15 +16,15 @@ export function useLogoutActions() {
     }
 
     setIsLoggingOut(true);
-    toast.loading("Logging out...");
+    toast.loading(t("loading"));
 
     const result = await logoutFromStore();
     toast.dismiss();
     if (result.success) {
-      toast.success("Logged out successfully");
+      toast.success(t("success"));
       router.push("/auth/login");
     } else {
-      toast.error("Logout failed - couldn't reach server");
+      toast.error(t("failed"));
     }
     setIsLoggingOut(false);
   };

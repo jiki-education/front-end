@@ -92,6 +92,26 @@
     "processing": "Processing...",
     "reloadPage": "Reload Page"
   },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "Please log in to upgrade your account",
+      "checkoutFailed": "Failed to start checkout process. Please try again.",
+      "alreadyPremium": "Already on Premium tier"
+    },
+    "auth": {
+      "sessionExpired": "Your session has expired. Please sign in again."
+    },
+    "logout": {
+      "loading": "Logging out...",
+      "success": "Logged out successfully",
+      "failed": "Logout failed - couldn't reach server"
+    },
+    "avatar": {
+      "updated": "Avatar updated",
+      "uploadFailed": "Failed to upload avatar",
+      "networkError": "Network error. Please try again."
+    }
+  },
   "modals": {
     "welcomeToPremium": {
       "badge": "Premium Member",
