@@ -7,6 +7,7 @@ import { handleSubscribe } from "@/lib/subscriptions/handlers";
 import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
+import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 
 interface SubscriptionModalProps {
@@ -38,6 +39,7 @@ export function SubscriptionModal({
   featuresContext,
   onCancel
 }: SubscriptionModalProps) {
+  const t = useTranslations("modals.subscription");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
@@ -48,24 +50,26 @@ export function SubscriptionModal({
     switch (triggerContext) {
       case "chat-gate":
         return {
-          headline: "Unlock AI Chat Assistant",
-          description: "Get instant help with your coding exercises from our AI assistant."
+          headline: t("chatGate.headline"),
+          description: t("chatGate.description")
         };
       case "feature-gate":
         return {
-          headline: `Unlock ${featuresContext?.feature || "Premium Features"}`,
-          description: "Upgrade your plan to access advanced features and enhanced learning experiences."
+          headline: t("featureGate.headline", {
+            feature: featuresContext?.feature || t("featureGate.headlineFallback")
+          }),
+          description: t("featureGate.description")
         };
       case "settings":
         return {
-          headline: "Choose Your Plan",
-          description: "Select the subscription plan that best fits your learning needs."
+          headline: t("settings.headline"),
+          description: t("settings.description")
         };
       case "general":
       default:
         return {
-          headline: "Upgrade Your Plan",
-          description: "Choose the plan that fits your learning goals and unlock advanced features."
+          headline: t("general.headline"),
+          description: t("general.description")
         };
     }
   };
@@ -118,7 +122,7 @@ export function SubscriptionModal({
       {featuresContext && (
         <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
           <h3 className="font-medium text-text-primary mb-3">
-            What you&apos;ll unlock with {featuresContext.feature}:
+            {t("unlockWith", { feature: featuresContext.feature })}
           </h3>
           <ul className="space-y-2">
             {featuresContext.benefits.map((benefit, index) => (
@@ -145,7 +149,7 @@ export function SubscriptionModal({
         >
           {suggestedTier === "premium" && (
             <div className="absolute -top-3 left-4">
-              <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">Recommended</span>
+              <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">{t("recommended")}</span>
             </div>
           )}
 
@@ -155,7 +159,7 @@ export function SubscriptionModal({
               <span className="text-3xl font-bold text-text-primary">
                 <PremiumPrice interval="monthly" />
               </span>
-              <span className="text-text-secondary">/month</span>
+              <span className="text-text-secondary">{t("perMonth")}</span>
             </div>
             <p className="text-text-secondary text-sm mt-2">{premiumTier.description}</p>
           </div>
@@ -176,21 +180,19 @@ export function SubscriptionModal({
             onClick={() => handleTierSelection()}
             loading={isLoading}
             className="w-full"
-            ariaLabel={`Subscribe to ${premiumTier.name} plan`}
+            ariaLabel={t("subscribeAriaLabel", { plan: premiumTier.name })}
           >
-            Choose Premium
+            {t("choosePremium")}
           </SubscriptionButton>
         </div>
       </div>
 
       {/* Footer */}
       <div className="text-center pt-4 border-t border-border-secondary">
-        <p className="text-xs text-text-tertiary mb-3">
-          Your subscription will renew automatically each month. You can cancel anytime from your settings.
-        </p>
+        <p className="text-xs text-text-tertiary mb-3">{t("renewNotice")}</p>
 
         <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
-          Not now, maybe later
+          {t("notNow")}
         </button>
       </div>
     </div>

@@ -83,5 +83,283 @@
         "accelerate": "to accelerate your learning"
       }
     }
+  },
+  "common": {
+    "continue": "Continue",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "processing": "Processing...",
+    "reloadPage": "Reload Page"
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "Premium Member",
+      "titlePrefix": "Welcome to ",
+      "titleHighlight": "Premium!",
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Build with Jeremy!",
+      "continue": "Continue"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "Welcome to AI Chat!",
+        "description": "Your AI assistant is now unlocked and ready to help with your coding exercises.",
+        "feature1": "Ask questions about your code",
+        "feature2": "Get explanations for complex concepts",
+        "feature3": "Receive personalized hints and guidance"
+      },
+      "featureGate": {
+        "title": "Feature Unlocked!",
+        "description": "You now have access to premium features that will enhance your learning experience."
+      },
+      "settings": {
+        "title": "Welcome to {tier}!",
+        "description": "Your subscription has been activated. Explore your new features in the settings."
+      },
+      "general": {
+        "title": "Welcome to {tier}!",
+        "description": "Thank you for upgrading your plan. You now have access to all premium features."
+      },
+      "planLabel": "{tier} Plan",
+      "perMonth": "/month",
+      "whatYouCanDo": "What you can do now:",
+      "getStarted": "Get Started",
+      "continueLearning": "Continue Learning",
+      "skipForNow": "Skip for now",
+      "close": "Close",
+      "renewalNotice": "Your subscription will renew automatically on {date}. Manage your subscription in Settings."
+    },
+    "confirmation": {
+      "defaultTitle": "Confirm Action",
+      "defaultMessage": "Are you sure you want to proceed?",
+      "defaultConfirm": "Confirm",
+      "defaultCancel": "Cancel"
+    },
+    "info": {
+      "defaultTitle": "Information",
+      "defaultButton": "Got it!"
+    },
+    "connectionError": {
+      "title": "Whoops! Lost connection",
+      "subtitle": "Jiki got a little tangled up and dropped the connection. Don't worry though - we're working on getting things plugged back in!",
+      "reconnecting": "Reconnecting",
+      "helpTextPrefix": "Just sit tight - this usually fixes itself in a few moments.",
+      "helpTextPersists": "If the problem persists, ",
+      "checkStatusPage": "check our status page"
+    },
+    "sessionExpired": {
+      "title": "Session Expired",
+      "description": "Your session has expired. Please log in again.",
+      "reload": "Reload Page"
+    },
+    "paymentVerificationFailed": {
+      "title": "We couldn't confirm your payment",
+      "description": "Something went wrong while checking with Stripe. Try refreshing the page in a moment — if Premium still isn't active, contact support.",
+      "close": "Close"
+    },
+    "levelMilestone": {
+      "title": "🎉 Level Complete!",
+      "message": "Congratulations! You've successfully completed <strong>{levelTitle}</strong> and mastered all its concepts.",
+      "lessonsCompleted": "Lessons Completed",
+      "xpEarned": "XP Earned",
+      "readyNext": "You're now ready to unlock the next level and continue your learning journey!",
+      "goToDashboard": "Go to Dashboard",
+      "continueNextLevel": "Continue to Next Level"
+    },
+    "badge": {
+      "funFact": "Fun Fact",
+      "keepGoing": "Keep Going!"
+    },
+    "authError": {
+      "title": "You've been Logged out.",
+      "subtitle": "For some reason you've been logged out (maybe a security check, maybe you logged out on a different device?). Please reload the page to continue.",
+      "reload": "Reload Page",
+      "helpTextPrefix": "If this keeps happening, try ",
+      "clearCookies": "clearing your cookies",
+      "helpTextOr": " or ",
+      "contactSupport": "contact support"
+    },
+    "rateLimit": {
+      "title": "You've moved too fast.",
+      "subtitle": "You've sent too many requests to our servers and so we're putting you on pause for a few seconds. Please wait and you'll be automatically reconnected.",
+      "reconnectingIn": "Reconnecting in",
+      "seconds": "seconds",
+      "autoRefresh": "This page will automatically refresh",
+      "noteLabel": "Note:",
+      "noteText": "Opening new tabs or making additional requests will extend your wait time."
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "Congratulations!",
+      "defaultMessage": "All tests passed! You've successfully completed this exercise.",
+      "defaultButton": "Continue"
+    },
+    "welcome": {
+      "title": "Welcome to Jiki!",
+      "subtitle": "Watch this short video to get started.",
+      "continue": "Continue",
+      "skipTitle": "Skip the welcome video?",
+      "skipMessage": "This video helps you get the most out of Jiki. Are you sure you want to skip it?",
+      "skipConfirm": "Skip video",
+      "skipCancel": "Keep watching"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "Unlock AI Chat Assistant",
+        "description": "Get instant help with your coding exercises from our AI assistant."
+      },
+      "featureGate": {
+        "headlineFallback": "Premium Features",
+        "headline": "Unlock {feature}",
+        "description": "Upgrade your plan to access advanced features and enhanced learning experiences."
+      },
+      "settings": {
+        "headline": "Choose Your Plan",
+        "description": "Select the subscription plan that best fits your learning needs."
+      },
+      "general": {
+        "headline": "Upgrade Your Plan",
+        "description": "Choose the plan that fits your learning goals and unlock advanced features."
+      },
+      "unlockWith": "What you'll unlock with {feature}:",
+      "recommended": "Recommended",
+      "perMonth": "/month",
+      "choosePremium": "Choose Premium",
+      "subscribeAriaLabel": "Subscribe to {plan} plan",
+      "renewNotice": "Your subscription will renew automatically each month. You can cancel anytime from your settings.",
+      "notNow": "Not now, maybe later"
+    },
+    "walkthroughConfirm": {
+      "title": "Try solving it yourself first?",
+      "intro": "Before watching the Deep Dive, you might want use these resources to help you pass the tests yourself:",
+      "conceptPagesLabel": "Concept Pages",
+      "conceptPagesText": " — review the concepts used in this exercise",
+      "askJikiLabel": "Ask Jiki",
+      "askJikiText": " — get personalised help from Jiki without spoilers",
+      "whatHappenedLabel": "“What happened?” tips",
+      "whatHappenedText": " — step through your code line by line to see what went wrong",
+      "revealHintsLabel": "Reveal all the Hints",
+      "revealHintsText": " — read through all the hints above for guidance",
+      "tryFirst": "I'll try first",
+      "watchDeepDive": "Watch the Deep Dive"
+    },
+    "paymentConfirming": {
+      "title": "Confirming your payment…",
+      "description": "Hang tight while we confirm your payment with Stripe. This usually only takes a moment."
+    },
+    "example": {
+      "defaultTitle": "Example Modal",
+      "defaultMessage": "This is an example modal!",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "paymentProcessing": {
+      "title": "Payment Processing",
+      "description": "Thank you. We're waiting for your payment provider to send us the funds. Once they do we'll upgrade your plan to Premium and send you an email.",
+      "continue": "Continue using Jiki"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "All tests passed!",
+        "messageExercise": "Great work! You're ready to complete this exercise and move on to the next challenge.",
+        "messageProject": "Great work! You're ready to complete this project and move on to the next challenge.",
+        "completeExercise": "Complete Exercise",
+        "completeProject": "Complete Project"
+      },
+      "conceptUnlocked": {
+        "title": "Concept unlocked!",
+        "messageGeneric": "You've unlocked a new concept to explore.",
+        "messageNamed": "You've unlocked a new concept: <strong>{title}</strong>",
+        "continue": "Continue"
+      },
+      "completed": {
+        "titleExercise": "Exercise completed!",
+        "titleProject": "Project completed!",
+        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
+        "messageProject": "Great work completing {title}! Ready to continue to the next project?",
+        "tidyCode": "Tidy code",
+        "continue": "Continue"
+      },
+      "difficultyRating": {
+        "title": "Rate your experience",
+        "message": "Help us improve {title} by rating it.",
+        "rateDifficulty": "Rate the difficulty",
+        "rateFun": "Rate the fun factor",
+        "difficultyTooEasy": "Too easy",
+        "difficultyEasy": "Easy",
+        "difficultyJustRight": "Just right",
+        "difficultyHard": "Hard",
+        "difficultyTooHard": "Too hard",
+        "funFrustrating": "Frustrating",
+        "funPrettyGood": "Pretty good",
+        "funAmazing": "Amazing!",
+        "rateDifficultyAriaLabel": "Rate difficulty as {label}",
+        "rateFunAriaLabel": "Rate fun as {label}",
+        "funOptionFallback": "option {number}",
+        "continue": "Continue"
+      },
+      "projectUnlocked": {
+        "title": "Project unlocked!",
+        "message": "All that practice means you're ready to combine what you've learned in a new project.",
+        "newLabel": "New",
+        "premiumOnly": "Exclusively for Premium members.",
+        "upgradeLink": "Upgrade your account",
+        "premiumInfoSuffix": " to access all the Projects as you unlock them.",
+        "continue": "Continue"
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "Not now, maybe later",
+      "userAvatarAlt": "User",
+      "processing": "Processing...",
+      "upgrade": "Upgrade to Premium",
+      "planName": "Jiki Premium",
+      "perMonth": "/month",
+      "dailyNotePrefix": "(That's only ",
+      "dailyNoteSuffix": " a day)",
+      "featureLearnToBuildPrefix": "Full access to ",
+      "featureLearnToBuild": "Learn to Build",
+      "featureProjectsPrefix": "Combine your skills in ",
+      "featureProjects": "Jiki Projects",
+      "featureAiPrefix": "Unlimited ",
+      "featureAi": "AI support",
+      "featureAiSuffix": " from Jiki",
+      "featureLivestreamsPrefix": "Regular ",
+      "featureLivestreams": "Q&A livestreams",
+      "featureLivestreamsSuffix": " you can join",
+      "featureCertificatesPrefix": "Earn ",
+      "featureCertificates": "certificates",
+      "featureCertificatesSuffix": " for courses",
+      "featureAdFree": "Ad-free",
+      "featureAdFreeSuffix": " learning experience",
+      "featureEarlyAccess": "Early access",
+      "featureEarlyAccessSuffix": " to new features",
+      "basic": {
+        "headlineHighlight": "Accelerate",
+        "headlineSuffix": " your learning!",
+        "subheading": "Upgrade to Premium to accelerate your road to job-ready.",
+        "planName": "Basic Plan",
+        "planPrice": "Free forever",
+        "feature1": "Over 80 Coding Exercises",
+        "feature2": "Full Concept Library",
+        "feature3": "30 mins of AI support",
+        "note": "+ Access to public YouTube videos and community forums for additional learning resources."
+      }
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Connecting to Stripe",
+      "paymentFailed": "Payment failed",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "paymentFailedTitle": "Payment failed",
+      "paymentInfoAriaLabel": "Payment information",
+      "processing": "Processing...",
+      "pay": "Pay",
+      "securedByPrefix": "Secured by ",
+      "stripeBrand": "stripe",
+      "errorPrefix": "Error: ",
+      "close": "Close",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Billed monthly. Cancel anytime.",
+      "perMonthShort": "/mo"
+    }
   }
 }

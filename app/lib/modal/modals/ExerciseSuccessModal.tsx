@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 
 interface ExerciseSuccessModalProps {
@@ -8,23 +9,20 @@ interface ExerciseSuccessModalProps {
   buttonText?: string;
 }
 
-export function ExerciseSuccessModal({
-  title = "Congratulations!",
-  message = "All tests passed! You've successfully completed this exercise.",
-  buttonText = "Continue"
-}: ExerciseSuccessModalProps) {
+export function ExerciseSuccessModal({ title, message, buttonText }: ExerciseSuccessModalProps) {
+  const t = useTranslations("modals.exerciseSuccess");
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-green-700">{title}</h2>
+      <h2 className="text-xl font-semibold text-green-700">{title ?? t("defaultTitle")}</h2>
       <div className="text-gray-600">
-        <p>{message}</p>
+        <p>{message ?? t("defaultMessage")}</p>
       </div>
       <div className="flex justify-center mt-6">
         <button
           onClick={hideModal}
           className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
         >
-          {buttonText}
+          {buttonText ?? t("defaultButton")}
         </button>
       </div>
     </div>

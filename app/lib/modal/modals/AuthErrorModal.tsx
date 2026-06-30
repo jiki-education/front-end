@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "./AuthErrorModal.module.css";
 
 export function AuthErrorModal() {
+  const t = useTranslations("modals.authError");
   const handleReload = () => {
     window.location.reload();
   };
@@ -16,25 +18,22 @@ export function AuthErrorModal() {
         <AvatarLockSvg />
       </div>
 
-      <h1 className={styles.title}>You&apos;ve been Logged out.</h1>
-      <p className={styles.subtitle}>
-        For some reason you&apos;ve been logged out (maybe a security check, maybe you logged out on a different
-        device?). Please reload the page to continue.
-      </p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.subtitle}>{t("subtitle")}</p>
 
       <button className={styles.reloadButton} onClick={handleReload}>
         <ReloadIcon />
-        Reload Page
+        {t("reload")}
       </button>
 
       <p className={styles.helpText}>
-        If this keeps happening, try{" "}
+        {t("helpTextPrefix")}
         <Link href="/articles/how-to-clear-your-cookies" className={styles.helpLink}>
-          clearing your cookies
-        </Link>{" "}
-        or{" "}
+          {t("clearCookies")}
+        </Link>
+        {t("helpTextOr")}
         <Link href="/articles/support" className={styles.helpLink}>
-          contact support
+          {t("contactSupport")}
         </Link>
         .
       </p>

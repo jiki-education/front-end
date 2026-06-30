@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 import styles from "./WelcomeToPremiumModal.module.css";
 
@@ -8,6 +9,7 @@ interface WelcomeToPremiumModalProps {
 }
 
 export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
+  const t = useTranslations("modals.welcomeToPremium");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -22,21 +24,19 @@ export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
             fill="currentColor"
           />
         </svg>
-        Premium Member
+        {t("badge")}
       </span>
 
       <h2 className={styles.title}>
-        Welcome to <span className={styles.highlight}>Premium!</span>
+        {t("titlePrefix")}
+        <span className={styles.highlight}>{t("titleHighlight")}</span>
       </h2>
 
-      <p className={styles.description}>
-        Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki,
-        Projects, and Build with Jeremy!
-      </p>
+      <p className={styles.description}>{t("description")}</p>
 
       <div className={styles.actions}>
         <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-purple ui-btn-large">
-          Continue
+          {t("continue")}
         </button>
       </div>
     </div>
