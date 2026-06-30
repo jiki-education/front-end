@@ -13,21 +13,29 @@ export const smartDelete = (
       }));
 
       if (initialSelections.length > 0) {
+        const docLength = tr.startState.doc.length;
         const readOnlyRanges = getReadOnlyRanges(tr.startState);
+        // getAvailableRanges can return `undefined` for an unbounded edge despite
+        // the cast, so treat a missing `from`/`to` as the document boundary and
+        // clamp into the document. Otherwise a malformed range could produce an
+        // invalid change ("Invalid change range ...").
         const result = getAvailableRanges(readOnlyRanges, initialSelections[0], {
           from: 0,
-          to: tr.startState.doc.line(tr.startState.doc.lines).to
-        }) as Array<{ from: number; to: number }>;
+          to: docLength
+        }) as Array<{ from: number | undefined; to: number | undefined }>;
 
-        return result.map((range) =>
-          tr.startState.update({
+        const clamp = (pos: number) => Math.max(0, Math.min(pos, docLength));
+        return result.map((range) => {
+          const from = clamp(range.from ?? 0);
+          const to = clamp(range.to ?? docLength);
+          return tr.startState.update({
             changes: {
-              from: range.from,
-              to: range.to
+              from: Math.min(from, to),
+              to: Math.max(from, to)
             },
             annotations: Transaction.userEvent.of(`${tr.annotation(Transaction.userEvent)}.smart`)
-          })
-        );
+          });
+        });
       }
     }
 
@@ -109,9 +117,12 @@ export const smartPasteHandler =
     const insertAt = { from: Math.min(from, to), to: Math.max(from, to) };
 
     // Build the ChangeSet from the editor's own state and derive the cursor from
-    // it, rather than computing an absolute position by hand. `mapPos(from, 1)`
-    // lands at the start of the inserted text in the *resulting* document, and
-    // clamping to `changes.newLength` (the authoritative post-change length)
+    // it, rather than computing an absolute position by hand. `mapPos(from, -1)`
+    // is the change's start in the *resulting* document (it stays before any
+    // inserted text), so the end of the inserted text is that + the inserted
+    // length. Lengths and positions are both UTF-16 code-unit counts, so this is
+    // correct for multi-unit input (emoji, astral, combining sequences) too.
+    // Clamping to `changes.newLength` (the authoritative post-change length)
     // guarantees the selection can never point outside the document — even if
     // anything upstream is stale. This is what previously threw the Sentry
     // "RangeError: Selection points outside of document".
@@ -121,7 +132,7 @@ export const smartPasteHandler =
       to: insertAt.to,
       insert: pastedData
     });
-    const anchor = Math.min(changes.mapPos(insertAt.from, 1) + pastedData.length, changes.newLength);
+    const anchor = Math.min(changes.mapPos(insertAt.from, -1) + pastedData.length, changes.newLength);
     view.dispatch({
       changes,
       selection: { anchor },

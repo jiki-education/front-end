@@ -58,11 +58,39 @@ describe("smartPasteHandler", () => {
 
     // createMockEditor's dispatch runs state.update(), which throws
     // "Selection points outside of document" if the anchor is out of range.
-    // The resulting transaction must place the cursor right after the insert.
+    // The resulting transaction must place the cursor right after the insert:
+    // the text immediately before the cursor is exactly the pasted payload.
     const tr = view.dispatch.mock.results[0].value;
-    const insertStart = tr.changes.mapPos(doc.length, 1) - "PASTED".length;
-    expect(tr.state.selection.main.anchor).toBe(insertStart + "PASTED".length);
-    expect(tr.state.selection.main.anchor).toBeLessThanOrEqual(tr.state.doc.length);
+    const anchor = tr.state.selection.main.anchor;
+    expect(tr.state.doc.toString().slice(anchor - "PASTED".length, anchor)).toBe("PASTED");
+    expect(anchor).toBeLessThanOrEqual(tr.state.doc.length);
+  });
+
+  // The cursor must land at the end of the inserted text even for multi-unit
+  // Unicode (emoji, astral, ZWJ sequences). Document positions and string
+  // `.length` both count UTF-16 code units, so the anchor math stays correct.
+  it.each([
+    ["plain", "HELLO"],
+    ["emoji", "👍"],
+    ["astral", "𝟙𝟚𝟛"],
+    ["zwj family", "👨‍👩‍👧‍👦"],
+    ["cjk", "한글"]
+  ])("places the cursor after a %s paste that replaces a selection", (_label, payload) => {
+    const doc = "line1\nline2\nline3";
+    // Select "line2" (6..11) and replace it; nothing is readonly.
+    const view = createMockEditor(doc, 6, 11);
+    const event = createMockClipboardEvent(payload);
+
+    const result = smartPasteHandler(() => [])(event, view);
+
+    expect(result).toBe(true);
+    const tr = view.dispatch.mock.results[0].value;
+    const text = tr.state.doc.toString();
+    const anchor = tr.state.selection.main.anchor;
+    // The `payload.length` code units immediately before the cursor are exactly
+    // the inserted text, proving the cursor sits at the end of the insertion.
+    expect(text.slice(anchor - payload.length, anchor)).toBe(payload);
+    expect(anchor).toBeLessThanOrEqual(tr.state.doc.length);
   });
 
   // Regression test for "RangeError: Selection points outside of document".
