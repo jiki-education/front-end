@@ -8,6 +8,7 @@ import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
+import { RequestAbortedError } from "@/lib/api/client";
 import BadgesCssModule from "./BadgeCard.module.css";
 import { useBadgeActions } from "./lib/useBadgeActions";
 import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
@@ -38,6 +39,11 @@ export function AchievementsContent() {
         const sorted = sortBadges(response.badges);
         setSortedBadgeIds(sorted.map((b) => b.id));
       } catch (err) {
+        // Request aborted because the user navigated away mid-fetch - expected,
+        // not a real error. Leave the loading state as-is; the component is unmounting.
+        if (err instanceof RequestAbortedError) {
+          return;
+        }
         console.error("Failed to fetch badges:", err);
         setError(err instanceof Error ? err.message : "Failed to load badges");
       } finally {

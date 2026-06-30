@@ -5,7 +5,7 @@
 
 /* eslint-disable @typescript-eslint/require-await */
 
-import { api, ApiError } from "@/lib/api/client";
+import { api, ApiError, RequestAbortedError } from "@/lib/api/client";
 import * as errorStore from "@/lib/api/errorHandlerStore";
 
 // Mock fetch globally
@@ -418,6 +418,38 @@ describe("API Client Retry Logic", () => {
 
       // Should only call fetch once (no retries)
       expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("Aborted Requests", () => {
+    // Browsers reject an aborted fetch with a DOMException named "AbortError"
+    // (e.g. when the user navigates away mid-request). jsdom has no DOMException,
+    // so we simulate it with an Error carrying the same name.
+    function makeAbortError(): Error {
+      const error = new Error("The operation was aborted.");
+      error.name = "AbortError";
+      return error;
+    }
+
+    it("should throw RequestAbortedError without retrying", async () => {
+      const mockFetch = global.fetch as jest.Mock;
+      mockFetch.mockRejectedValue(makeAbortError());
+
+      const promise = api.get("/test");
+
+      await expect(promise).rejects.toBeInstanceOf(RequestAbortedError);
+
+      // Aborts are not network errors - no retries
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it("should not show the connection-lost modal for aborts", async () => {
+      const mockFetch = global.fetch as jest.Mock;
+      mockFetch.mockRejectedValue(makeAbortError());
+
+      await expect(api.get("/test")).rejects.toBeInstanceOf(RequestAbortedError);
+
+      expect(errorStore.setCriticalError).not.toHaveBeenCalled();
     });
   });
 

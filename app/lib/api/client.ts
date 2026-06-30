@@ -49,6 +49,22 @@ export class NetworkError extends Error {
   }
 }
 
+// Thrown when the browser aborts an in-flight request — almost always because
+// the user navigated away while the fetch was still pending. This is expected,
+// not a bug, so callers should ignore it rather than logging/reporting it.
+export class RequestAbortedError extends Error {
+  constructor() {
+    super("Request aborted");
+    this.name = "RequestAbortedError";
+  }
+}
+
+// A fetch aborted on navigation rejects with a DOMException named "AbortError"
+// (or an AbortError-named error from an AbortController signal).
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === "AbortError";
+}
+
 export class RateLimitError extends ApiError {
   constructor(
     statusText: string,
@@ -319,6 +335,11 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
     // Re-throw ApiError (including AuthenticationError) and NetworkError
     if (error instanceof ApiError || error instanceof NetworkError) {
       throw error;
+    }
+
+    // Request aborted (e.g. user navigated away mid-fetch) - expected, not a bug
+    if (isAbortError(error)) {
+      throw new RequestAbortedError();
     }
 
     // Convert network errors (TypeError from fetch) to NetworkError
