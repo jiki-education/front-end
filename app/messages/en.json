@@ -538,6 +538,141 @@
       "messageIncompleteExpired": "Previous checkout session expired - please start a new subscription"
     }
   },
+  "premium": {
+    "page": {
+      "heading": "Jiki Premium",
+      "subheading": "Accelerate your road to job-ready. Unlock every course, every project, unlimited AI support, and everything else Jiki has to offer."
+    },
+    "planPrice": {
+      "basic": "Basic",
+      "premium": "Premium",
+      "free": "Free",
+      "perMonth": "per month"
+    },
+    "planBadge": {
+      "free": "Free",
+      "premium": "Premium"
+    },
+    "table": {
+      "comparePlans": "Compare plans",
+      "comparePlansDesc": "Here's what's included in each plan, so you can choose with confidence.",
+      "checkNo": "✕"
+    },
+    "values": {
+      "thirtyMins": "30 mins",
+      "unlimited": "Unlimited",
+      "firstEpisodes": "First episodes",
+      "fullAccess": "Full access",
+      "sampleEpisode": "Sample Episode"
+    },
+    "categories": {
+      "codingFundamentals": "Coding Fundamentals",
+      "buildWithJeremy": "Build with Jeremy",
+      "support": "Support",
+      "certificates": "Certificates",
+      "experience": "Experience"
+    },
+    "features": {
+      "codingExercisesTitle": "Coding Exercises",
+      "codingExercisesDesc": "Learn by doing with our growing library of interactive exercises.",
+      "conceptLibraryTitle": "Full Concept Library",
+      "conceptLibraryDesc": "Bite-sized lessons covering every coding concept you need to know.",
+      "jikiProjectsTitle": "Jiki Projects",
+      "jikiProjectsDesc": "Combine the skills you've learned into real, end-to-end projects.",
+      "talkToJikiTitle": "Talk to Jiki",
+      "talkToJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
+      "buildingFundamentalsTitle": "Building Fundamentals series",
+      "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
+      "howThingsWorkTitle": "How Things Work series",
+      "howThingsWorkDesc": "Deep dives into the trickier bits of Exercism and Jiki, and why they're built that way.",
+      "earlyAccessTitle": "Early access to new features",
+      "earlyAccessDesc": "Try out new features before everyone else.",
+      "communityForumsTitle": "Community forums",
+      "communityForumsDesc": "Ask questions and learn alongside other Jiki students.",
+      "livestreamsTitle": "Q&A livestreams with Jeremy",
+      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding and building questions.",
+      "certificatesTitle": "Earn certificates for courses",
+      "certificatesDesc": "Show off what you've learned with shareable certificates.",
+      "adFreeTitle": "Ad-free learning",
+      "adFreeDesc": "Focus on learning without distractions."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Can I try Jiki for free?",
+      "a1": "Yes! You can sign up for free and use the Basic plan for as long as you like. Upgrade to Premium whenever you need full access — there's no obligation.",
+      "q2": "Is there a minimum contract length?",
+      "a2": "No minimum contract — Premium is billed monthly and you can cancel at any time from your account settings.",
+      "q3": "What happens if I cancel my Premium subscription?",
+      "a3": "You'll keep Premium access until the end of your current billing period, and then your account will move back to the Basic plan. You don't lose any of your progress — you just lose access to Premium-only features.",
+      "q4": "Do you offer discounts for students or those who can't afford Premium?",
+      "a4Prefix": "We want Jiki to be accessible to everyone. If cost is a barrier, please ",
+      "a4Link": "get in touch",
+      "a4Suffix": " and we'll do what we can to help.",
+      "q5": "Can I upgrade or downgrade later?",
+      "a5": "Absolutely. You can upgrade to Premium at any time from your account, and you can cancel just as easily whenever you'd like."
+    },
+    "cta": {
+      "alreadyPremiumTitle": "You're already a Premium member",
+      "alreadyPremiumDesc": "Thanks for supporting Jiki — enjoy full access to everything!",
+      "upgradeTitle": "Ready to accelerate your learning?",
+      "upgradeDesc": "Upgrade to Premium and unlock everything Jiki has to offer.",
+      "upgradeButton": "Upgrade to Premium",
+      "freeTitle": "Get started for free",
+      "freeDesc": "Get started today for free and access hundreds of hours of free content. Upgrade to Premium when you want to go even deeper.",
+      "freeButton": "Sign up for free"
+    },
+    "publicPrice": {
+      "unavailable": "—"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "Roadmap",
+      "subheading": "Where Jiki is heading. A quarter-by-quarter view of what we're shipping, what's next, and what we're still dreaming up.",
+      "disclaimer": "This roadmap is a snapshot of our current plans. Priorities shift as we learn from our community, so dates and scope may change."
+    },
+    "status": {
+      "shipped": "Shipped",
+      "inProgress": "In progress",
+      "planned": "Planned"
+    },
+    "changelog": {
+      "title": "Changelog",
+      "subtitle": "Recent improvements we've shipped to Jiki.",
+      "entry1Date": "June 7, 2026",
+      "entry1Title": "Launched Jiki!",
+      "entry1Description": "Jiki is officially live (albeit in beta!)"
+    },
+    "phases": {
+      "nowLabel": "Now",
+      "nowTimeframe": "June 2026",
+      "nowSummary": "What we're focused on this month.",
+      "nowItem1Title": "Ironing out launch bugs",
+      "nowItem1Description": "Now that Jiki is live, we're spending June squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app.",
+      "nowItem2Title": "Responding to early feedback",
+      "nowItem2Description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week.",
+      "nowItem3Title": "Stabilising the foundations",
+      "nowItem3Description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now.",
+      "nextLabel": "Next",
+      "nextTimeframe": "Q3 2026",
+      "nextSummary": "Designed and queued up.",
+      "nextItem1Title": "Move from Beta to Fully Live",
+      "nextItem1Description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners.",
+      "nextItem2Title": "Launch Build with Jeremy",
+      "nextItem2Description": "Launching July 11th, this is a brand new series where Jeremy builds real, useful projects from scratch alongside learners. Each project will be broken down into bite-sized lessons, showing not just the code but the thinking, mistakes, and decisions that go into shipping software.",
+      "nextItem3Title": "Add Deep Dive Videos",
+      "nextItem3Description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming.",
+      "nextItem4Title": "Add first translations to other languages",
+      "nextItem4Description": "Bringing Jiki to learners in their own language, starting with <strong class=\"font-semibold\">European Portuguese</strong>, <strong class=\"font-semibold\">Spanish</strong>, <strong class=\"font-semibold\">Japanese</strong>, and <strong class=\"font-semibold\">Brazilian Portuguese</strong>. The whole interface and curriculum will be translated, not just the marketing pages.",
+      "futureLabel": "Future",
+      "futureTimeframe": "Q4 2026",
+      "futureSummary": "On the horizon. Subject to change as we learn.",
+      "futureItem1Title": "Launch Python version",
+      "futureItem1Description": "A fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction.",
+      "futureItem2Title": "Add 10 more languages",
+      "futureItem2Description": "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
+    }
+  },
   "toasts": {
     "subscription": {
       "loginRequired": "Please log in to upgrade your account",
