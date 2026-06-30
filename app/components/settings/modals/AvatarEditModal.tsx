@@ -23,6 +23,7 @@ const MAX_ZOOM = 3;
 
 export function AvatarEditModal() {
   const t = useTranslations("toasts.avatar");
+  const ts = useTranslations("settings.avatarEdit");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const user = useAuthStore((state) => state.user);
@@ -98,8 +99,8 @@ export function AvatarEditModal() {
   if (imageSrc) {
     return (
       <div>
-        <h4 className={styles.title}>Adjust Photo</h4>
-        <p className={styles.subtitle}>Zoom and position your photo.</p>
+        <h4 className={styles.title}>{ts("adjustTitle")}</h4>
+        <p className={styles.subtitle}>{ts("adjustSubtitle")}</p>
         <div ref={containerRef} className={styles.cropContainer}>
           {cropSize && (
             <Cropper
@@ -139,7 +140,7 @@ export function AvatarEditModal() {
             disabled={isSaving}
             className="ui-btn ui-btn-tertiary ui-btn-small flex-1"
           >
-            Back
+            {ts("back")}
           </button>
           <button
             type="button"
@@ -147,7 +148,7 @@ export function AvatarEditModal() {
             disabled={isSaving}
             className="ui-btn ui-btn-primary ui-btn-small flex-1"
           >
-            {isSaving ? <LoadingSpinner size="sm" /> : "Save"}
+            {isSaving ? <LoadingSpinner size="sm" /> : ts("save")}
           </button>
         </div>
       </div>
@@ -156,22 +157,22 @@ export function AvatarEditModal() {
 
   return (
     <div className={styles.content}>
-      <h4 className={styles.title}>Change Profile Photo</h4>
+      <h4 className={styles.title}>{ts("changeTitle")}</h4>
       <p className={styles.subtitle}>
-        Upload a new profile image.
+        {ts("changeSubtitlePart1")}
         <br />
-        This will only be visible to you.
+        {ts("changeSubtitlePart2")}
       </p>
 
       <button type="button" className={styles.uploadArea} onClick={() => fileInputRef.current?.click()}>
         <UploadIcon className={styles.uploadIcon} />
-        <div className={styles.uploadText}>Click to upload a new photo</div>
-        <div className={styles.uploadHint}>JPG, PNG or GIF. Max 5MB.</div>
+        <div className={styles.uploadText}>{ts("uploadText")}</div>
+        <div className={styles.uploadHint}>{ts("uploadHint")}</div>
       </button>
 
       <div className={styles.buttons}>
         <button type="button" onClick={hideModal} className="ui-btn ui-btn-default ui-btn-tertiary">
-          Cancel
+          {ts("cancel")}
         </button>
       </div>
 

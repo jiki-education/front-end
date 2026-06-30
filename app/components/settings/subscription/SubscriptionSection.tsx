@@ -7,6 +7,7 @@ import PaymentHistory from "../payment-history";
 import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
 import { assembleClassNames } from "@/lib/assemble-classnames";
+import { useTranslations } from "next-intl";
 
 interface SubscriptionSectionProps {
   user: User | null;
@@ -15,6 +16,7 @@ interface SubscriptionSectionProps {
 }
 
 export default function SubscriptionSection({ user, refreshUser, className = "" }: SubscriptionSectionProps) {
+  const t = useTranslations("settings.subscriptionSection");
   const {
     isLoading,
     currentTier,
@@ -31,14 +33,10 @@ export default function SubscriptionSection({ user, refreshUser, className = "" 
   // If no user, show loading state
   if (!user) {
     return (
-      <SettingsCard
-        title="Subscription"
-        description="Manage your subscription plan and billing details"
-        className={className}
-      >
+      <SettingsCard title={t("loadingCardTitle")} description={t("loadingCardDescription")} className={className}>
         <div className="flex items-center justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-link-primary"></div>
-          <span className="ml-3 text-text-secondary">Loading subscription data...</span>
+          <span className="ml-3 text-text-secondary">{t("loadingData")}</span>
         </div>
       </SettingsCard>
     );
