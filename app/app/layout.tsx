@@ -7,6 +7,8 @@ import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
 import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
@@ -49,32 +51,36 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
-        <GlobalErrorHandler />
-        <AttributionCapture />
-        <ServerAuthProvider>
-          <PostHogPageview />
-          <ThemeProvider>
-            <main className="w-full">{children}</main>
-            <GlobalModalProvider />
-            <ToasterProvider />
-          </ThemeProvider>
-        </ServerAuthProvider>
-        {process.env.NODE_ENV === "production" && (
-          <Script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
-            strategy="afterInteractive"
-          />
-        )}
+        <NextIntlClientProvider>
+          <GlobalErrorHandler />
+          <AttributionCapture />
+          <ServerAuthProvider>
+            <PostHogPageview />
+            <ThemeProvider>
+              <main className="w-full">{children}</main>
+              <GlobalModalProvider />
+              <ToasterProvider />
+            </ThemeProvider>
+          </ServerAuthProvider>
+          {process.env.NODE_ENV === "production" && (
+            <Script
+              defer
+              src="https://static.cloudflareinsights.com/beacon.min.js"
+              data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
+              strategy="afterInteractive"
+            />
+          )}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

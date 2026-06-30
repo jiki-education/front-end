@@ -1,0 +1,37 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "About",
+        "aboutJiki": "About Jiki",
+        "testimonials": "Testimonials",
+        "ourTeam": "Our team",
+        "premium": "Jiki Premium",
+        "roadmap": "Roadmap"
+      },
+      "legal": {
+        "heading": "Legal",
+        "termsOfUsage": "Terms of usage",
+        "privacyPolicy": "Privacy policy",
+        "cookiePolicy": "Cookie policy",
+        "codeOfConduct": "Code of conduct",
+        "accessibility": "Accessibility statement"
+      },
+      "keepInTouch": {
+        "heading": "Keep in Touch",
+        "blog": "Jiki's blog",
+        "youtube": "Jiki's YouTube Channel",
+        "reportAbuse": "Report abuse",
+        "sitemap": "Sitemap"
+      },
+      "getHelp": {
+        "heading": "Get Help",
+        "helpCenter": "Help Center",
+        "faqs": "FAQs",
+        "contactUs": "Contact us",
+        "siteStatus": "Site Status"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    }
+  }
+}

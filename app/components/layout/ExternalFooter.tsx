@@ -1,88 +1,91 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { YOUTUBE_URL } from "@/lib/constants/social";
 import styles from "./ExternalFooter.module.css";
 
 export function ExternalFooter() {
+  const t = useTranslations("layout.footer");
+
   return (
     <footer className={styles.footer}>
       <div className={styles.content}>
         <div className={styles.section}>
-          <h3 className={styles.heading}>About</h3>
+          <h3 className={styles.heading}>{t("about.heading")}</h3>
           <div className={styles.links}>
             <Link href="/blog/the-backstory-of-jiki" className={styles.link}>
-              About Jiki
+              {t("about.aboutJiki")}
             </Link>
             <Link href="/testimonials" className={styles.link}>
-              Testimonials
+              {t("about.testimonials")}
             </Link>
             <Link href="/articles/who-makes-runs-jiki" className={styles.link}>
-              Our team
+              {t("about.ourTeam")}
             </Link>
             <Link href="/premium" className={styles.link}>
-              Jiki Premium
+              {t("about.premium")}
             </Link>
             <Link href="/roadmap" className={styles.link}>
-              Roadmap
+              {t("about.roadmap")}
             </Link>
           </div>
         </div>
         <div className={styles.section}>
-          <h3 className={styles.heading}>Legal</h3>
+          <h3 className={styles.heading}>{t("legal.heading")}</h3>
           <div className={styles.links}>
             <Link href="/articles/terms-of-service" className={styles.link}>
-              Terms of usage
+              {t("legal.termsOfUsage")}
             </Link>
             <Link href="/articles/privacy-policy" className={styles.link}>
-              Privacy policy
+              {t("legal.privacyPolicy")}
             </Link>
             <Link href="/articles/cookie-policy" className={styles.link}>
-              Cookie policy
+              {t("legal.cookiePolicy")}
             </Link>
             <Link href="/articles/code-of-conduct" className={styles.link}>
-              Code of conduct
+              {t("legal.codeOfConduct")}
             </Link>
             <Link href="/articles/accessibility" className={styles.link}>
-              Accessibility statement
+              {t("legal.accessibility")}
             </Link>
           </div>
         </div>
         <div className={styles.section}>
-          <h3 className={styles.heading}>Keep in Touch</h3>
+          <h3 className={styles.heading}>{t("keepInTouch.heading")}</h3>
           <div className={styles.links}>
             <Link href="/blog" className={styles.link}>
-              Jiki&apos;s blog
+              {t("keepInTouch.blog")}
             </Link>
             <Link href={YOUTUBE_URL} className={styles.link} target="_blank" rel="noopener noreferrer">
-              Jiki&apos;s YouTube Channel
+              {t("keepInTouch.youtube")}
             </Link>
             <Link href="/articles/report-abuse" className={styles.link}>
-              Report abuse
+              {t("keepInTouch.reportAbuse")}
             </Link>
             <Link href="/sitemap.xml" className={styles.link}>
-              Sitemap
+              {t("keepInTouch.sitemap")}
             </Link>
           </div>
         </div>
         <div className={styles.section}>
-          <h3 className={styles.heading}>Get Help</h3>
+          <h3 className={styles.heading}>{t("getHelp.heading")}</h3>
           <div className={styles.links}>
             <Link href="/articles" className={styles.link}>
-              Help Center
+              {t("getHelp.helpCenter")}
             </Link>
             <Link href="/articles/faqs" className={styles.link}>
-              FAQs
+              {t("getHelp.faqs")}
             </Link>
             <Link href="/articles/support" className={styles.link}>
-              Contact us
+              {t("getHelp.contactUs")}
             </Link>
             <Link href="https://jiki.instatus.com/" className={styles.link} target="_blank" rel="noopener noreferrer">
-              Site Status
+              {t("getHelp.siteStatus")}
             </Link>
           </div>
         </div>
       </div>
       <div className={styles.bottom}>
-        <span className={styles.copyright}>&copy; 2026 Jiki Ltd</span>
+        <span className={styles.copyright}>{t("copyright", { year: 2026 })}</span>
       </div>
     </footer>
   );
