@@ -11,9 +11,7 @@
     padding: 20px 32px;
     background-color: white;
     scroll-behavior: smooth;
-    /* Establish this as the offsetParent so section offsetTop is measured relative to
-       the scroll container, matching the scrollTop values used for active-section detection. */
-    position: relative;
+    position: relative; /* offsetParent for sections, so their offsetTop matches scrollTop */
 }
 
 /* DynamicHeader styles */

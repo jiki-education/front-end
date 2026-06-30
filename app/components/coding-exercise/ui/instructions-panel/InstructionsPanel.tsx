@@ -40,9 +40,7 @@ export default function InstructionsPanel({
   const functionsRef = useRef<HTMLDivElement>(null);
   const conceptLibraryRef = useRef<HTMLDivElement>(null);
 
-  // Distance below the top of the scroll container at which a section's heading is
-  // considered "reached". Both scrolling-to and detecting the active section use this
-  // single value, so the two stay in sync by construction.
+  // Distance below the container top at which a section's heading counts as "reached".
   const SECTION_OFFSET = 30;
 
   // Build exercise data from props
@@ -102,21 +100,13 @@ export default function InstructionsPanel({
         return scrollTop <= 10;
       });
 
-      // The active section is the one whose scroll target the container has reached.
-      // Targets are clamped to the container's max scroll, so a section too near the
-      // bottom (whose heading can't reach the reference line) still becomes active once
-      // the container is scrolled as far down as it can go toward it. When several
-      // sections clamp to the same bottom target, the earliest of them wins — scrolling
-      // "to Functions" lands at the bottom showing Functions at the top, so that's what
-      // should highlight. This keeps the two rules in sync: clicking scrolls to a
-      // section's target, and reaching that target is exactly what highlights it.
+      // Active section = the lowest one whose (clamped) scroll target has been reached.
       const targets = sectionScrollTargets();
       if (!targets) {
         return;
       }
 
-      // +1 tolerance absorbs sub-pixel rounding between the scrolled position and the target.
-      const reached = scrollTop + 1;
+      const reached = scrollTop + 1; // +1 absorbs sub-pixel rounding
       if (targets.functions !== null && targets.functions <= reached && targets.functions >= targets.conceptLibrary) {
         // Functions and Concept Library clamp to the same bottom target: Functions wins.
         setActiveSection("functions");
@@ -134,10 +124,7 @@ export default function InstructionsPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- sectionScrollTargets reads refs, recomputed per scroll
   }, [functions.length]);
 
-  // The clamped scroll position at which each section becomes active. A section's
-  // natural target lands its heading SECTION_OFFSET below the container top; clamping
-  // to maxScroll handles sections too near the bottom to reach that line. Detection
-  // and navigation both read these, so they cannot disagree.
+  // Clamped scroll position at which each section becomes active; shared by detection and navigation so they can't disagree.
   const sectionScrollTargets = () => {
     const container = scrollContainerRef.current;
     if (!container) {
@@ -161,15 +148,13 @@ export default function InstructionsPanel({
     };
   };
 
-  // Navigation functions
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
     const container = scrollContainerRef.current;
     if (!sectionRef.current || !container) {
       return;
     }
 
-    // Scroll to the section's clamped target — the same value handleScroll uses to
-    // decide the active section, so arriving here highlights this section's button.
+    // Scroll to the same clamped target handleScroll uses, so arriving highlights this button.
     const target = Math.max(
       0,
       Math.min(sectionRef.current.offsetTop - SECTION_OFFSET, container.scrollHeight - container.clientHeight)
