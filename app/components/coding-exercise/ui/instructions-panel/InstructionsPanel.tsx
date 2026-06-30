@@ -121,30 +121,22 @@ export default function InstructionsPanel({
 
     scrollContainer.addEventListener("scroll", handleScroll);
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- sectionScrollTargets reads refs, recomputed per scroll
   }, [functions.length]);
 
   // Clamped scroll position at which each section becomes active; shared by detection and navigation so they can't disagree.
   const sectionScrollTargets = () => {
     const container = scrollContainerRef.current;
-    if (!container) {
+    if (!container || !instructionsRef.current || !conceptLibraryRef.current) {
       return null;
     }
 
     const maxScroll = container.scrollHeight - container.clientHeight;
-    const targetFor = (ref: React.RefObject<HTMLDivElement | null>) => {
-      if (!ref.current) {
-        return null;
-      }
-      const natural = ref.current.offsetTop - SECTION_OFFSET;
-      return Math.max(0, Math.min(natural, maxScroll));
-    };
+    const targetFor = (el: HTMLDivElement) => Math.max(0, Math.min(el.offsetTop - SECTION_OFFSET, maxScroll));
 
-    const conceptLibrary = targetFor(conceptLibraryRef);
     return {
-      instructions: targetFor(instructionsRef) ?? 0,
-      functions: functions.length > 0 ? targetFor(functionsRef) : null,
-      conceptLibrary: conceptLibrary ?? Infinity
+      instructions: targetFor(instructionsRef.current),
+      functions: functionsRef.current ? targetFor(functionsRef.current) : null,
+      conceptLibrary: targetFor(conceptLibraryRef.current)
     };
   };
 
