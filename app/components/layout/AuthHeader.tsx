@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ interface AuthHeaderProps {
 }
 
 export function AuthHeader({ title }: AuthHeaderProps) {
+  const t = useTranslations("layout.authHeader");
   const { user, isAuthenticated, isLoading } = useAuthStore();
   const [mounted, setMounted] = useState(false);
 
@@ -24,7 +26,7 @@ export function AuthHeader({ title }: AuthHeaderProps) {
           {/* Logo/Title */}
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-text-primary hover:text-link-primary">
-              Jiki Learn
+              {t("brand")}
             </Link>
             {title && (
               <>
@@ -37,10 +39,10 @@ export function AuthHeader({ title }: AuthHeaderProps) {
           {/* Auth Section */}
           <nav className="flex items-center space-x-4">
             <Link href="/blog" className="text-text-secondary hover:text-text-primary transition-colors">
-              Blog
+              {t("blog")}
             </Link>
             <Link href="/articles" className="text-text-secondary hover:text-text-primary transition-colors">
-              Articles
+              {t("articles")}
             </Link>
             {/* Auth-dependent content with hydration protection */}
             {!mounted || isLoading ? (
@@ -52,18 +54,18 @@ export function AuthHeader({ title }: AuthHeaderProps) {
             ) : isAuthenticated && user ? (
               // Authenticated user
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-600">Welcome, {user.name || user.email}</span>
+                <span className="text-sm text-gray-600">{t("welcome", { name: user.name || user.email })}</span>
                 <Link
                   href="/dashboard"
                   className="px-3 py-1.5 text-sm text-blue-600 hover:text-blue-700 border border-blue-600 rounded-md hover:bg-blue-50 transition-colors"
                 >
-                  Dashboard
+                  {t("dashboard")}
                 </Link>
                 <Link
                   href="/settings"
                   className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
                 >
-                  Settings
+                  {t("settings")}
                 </Link>
               </div>
             ) : (
@@ -73,13 +75,13 @@ export function AuthHeader({ title }: AuthHeaderProps) {
                   href="/auth/login"
                   className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
-                  Sign In
+                  {t("signIn")}
                 </Link>
                 <Link
                   href="/auth/signup"
                   className="px-3 py-1.5 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
                 >
-                  Sign Up For Free
+                  {t("signUp")}
                 </Link>
               </div>
             )}

@@ -32,6 +32,56 @@
         "siteStatus": "Site Status"
       },
       "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Jiki home",
+      "logoAlt": "Jiki",
+      "aboutJiki": "About Jiki",
+      "codingConcepts": "Coding Concepts",
+      "premium": "Premium",
+      "testimonials": "Testimonials",
+      "login": "Login",
+      "signUp": "Sign Up For Free"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Jiki home",
+      "logoAlt": "Jiki",
+      "backToJiki": "Back to Jiki →"
+    },
+    "authHeader": {
+      "brand": "Jiki Learn",
+      "blog": "Blog",
+      "articles": "Articles",
+      "welcome": "Welcome, {name}",
+      "dashboard": "Dashboard",
+      "settings": "Settings",
+      "signIn": "Sign In",
+      "signUp": "Sign Up For Free"
+    },
+    "sidebar": {
+      "logoAlt": "Jiki",
+      "nav": {
+        "learn": "Coding Fundamentals",
+        "build": "Build with Jeremy",
+        "projects": "Projects",
+        "concepts": "Concept Library",
+        "achievements": "Achievements",
+        "settings": "Settings"
+      },
+      "premiumPill": "Premium",
+      "moreMenu": {
+        "label": "More",
+        "helpCenter": "Help Center",
+        "youtube": "YouTube",
+        "forum": "Forum",
+        "blog": "Blog",
+        "logOut": "Log Out"
+      },
+      "upsell": {
+        "free": "You're currently on the free plan.",
+        "upgrade": "Upgrade to Premium",
+        "accelerate": "to accelerate your learning"
+      }
     }
   }
 }

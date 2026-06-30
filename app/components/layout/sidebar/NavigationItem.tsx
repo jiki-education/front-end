@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { ComponentType } from "react";
 import TickCircleIcon from "@/icons/tick-circle.svg";
@@ -20,6 +21,7 @@ export function NavigationItem({
   showPremiumPill,
   isUserPremium
 }: NavigationItemProps) {
+  const t = useTranslations("layout.sidebar");
   return (
     <li>
       <Link href={href || "#"} className={`nav-item ${isActive ? "active" : ""}`} data-label={label}>
@@ -31,7 +33,7 @@ export function NavigationItem({
         <span>{label}</span>
         {showPremiumPill && (
           <span className="premium-pill">
-            Premium
+            {t("premiumPill")}
             {isUserPremium && <TickCircleIcon className="premium-pill-tick" />}
           </span>
         )}
