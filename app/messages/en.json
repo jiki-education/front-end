@@ -90,7 +90,156 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "processing": "Processing...",
-    "reloadPage": "Reload Page"
+    "reloadPage": "Reload Page",
+    "loading": "Loading..."
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "Use Google",
+      "useExercism": "Use Exercism",
+      "divider": "OR"
+    },
+    "fields": {
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "emailInvalidAddress": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters"
+    },
+    "captchaError": {
+      "signup": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try signing up again using the button below.",
+      "login": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try logging in again using the button below.",
+      "generic": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try again using the button below."
+    },
+    "login": {
+      "title": "Log In",
+      "noAccountPrefix": "Don't have an account? ",
+      "signUpLink": "Sign up for free.",
+      "invalidCredentials": "Invalid email or password",
+      "unconfirmedPrefix": "Please confirm your email before logging in. ",
+      "resendConfirmationLink": "Resend confirmation",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Log In",
+      "submitting": "Logging in...",
+      "verifying": "Verifying...",
+      "resendPrompt": "Didn't receive your confirmation email? ",
+      "resendLink": "Resend it."
+    },
+    "signup": {
+      "title": "Sign Up",
+      "haveAccountPrefix": "Already got an account? ",
+      "loginLink": "Log in",
+      "emailAlreadyRegistered": "This email is already registered",
+      "submit": "Sign Up",
+      "submitting": "Signing up...",
+      "verifying": "Verifying...",
+      "resendPrompt": "Didn't receive your confirmation email? ",
+      "resendLink": "Resend it."
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtitle": "If you've forgotten your password, use the form below to request a link to change it.",
+      "successMessage": "If an account with that email exists, you'll receive reset instructions shortly.",
+      "submit": "Send Reset Link",
+      "submitting": "Sending...",
+      "verifying": "Verifying...",
+      "rememberedPrompt": "Remembered your password? ",
+      "loginLink": "Log in"
+    },
+    "resetPassword": {
+      "invalidTitle": "Invalid Reset Link",
+      "invalidMessage": "This password reset link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request a new password reset",
+      "title": "Reset your password",
+      "subtitle": "Enter your new password below.",
+      "tokenMissing": "Reset token is missing or invalid",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "confirmationRequired": "Password confirmation is required",
+      "passwordsDontMatch": "Passwords don't match",
+      "successMessage": "Password reset successfully! Redirecting to login...",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submit": "Reset password",
+      "submitting": "Resetting...",
+      "rememberedPrefix": "Remember your password? ",
+      "signInLink": "Sign in"
+    },
+    "resendConfirmation": {
+      "title": "Resend confirmation instructions",
+      "subtitle": "Not received a confirmation email? Use the form below and we'll send you another.",
+      "emailInvalid": "Please enter a valid email address",
+      "successMessage": "If an account with that email exists, you'll receive confirmation instructions shortly.",
+      "submit": "Resend confirmation instructions",
+      "submitting": "Sending...",
+      "confirmedPrompt": "Already confirmed? ",
+      "loginLink": "Log in"
+    },
+    "checkInbox": {
+      "heading": "Check your inbox",
+      "sentTo": "We've sent a confirmation email to",
+      "hintPrefix": "Click the link in the email to activate your account. Didn't receive it? ",
+      "resendLink": "Resend email"
+    },
+    "emailConfirmed": {
+      "heading": "Email Confirmed!",
+      "message": "Your email has been confirmed successfully. Redirecting to dashboard..."
+    },
+    "confirmEmail": {
+      "pendingTitle": "Confirming your email...",
+      "pendingDescription": "Please wait while we confirm your email address.",
+      "errorTitle": "Link expired",
+      "errorMessage": "This confirmation link is no longer valid. Request a new one to continue.",
+      "errorCta": "Resend confirmation email"
+    },
+    "exercismCallback": {
+      "errorTitle": "Sign in failed",
+      "errorCta": "Back to log in",
+      "pendingTitle": "Signing you in...",
+      "pendingDescription": "Please wait while we sign you in with Exercism.",
+      "authFailed": "Exercism authentication failed"
+    },
+    "errorCard": {
+      "needHelpPrefix": "Need help? ",
+      "contactSupport": "Contact support"
+    },
+    "twoFactorVerify": {
+      "title": "Two-Factor Authentication",
+      "subtitle": "Enter the 6-digit code from your authenticator app.",
+      "codeLabel": "Verification code",
+      "verifying": "Verifying...",
+      "cancel": "Cancel and sign in again",
+      "invalidCode": "Invalid verification code",
+      "verificationFailed": "Verification failed. Please try again."
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "Scan the QR code with your authenticator app to secure your account.",
+      "appsHint": "Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.",
+      "codeLabel": "Enter the 6-digit code from your app",
+      "verifying": "Verifying...",
+      "cancel": "Cancel and sign in again",
+      "invalidCode": "Invalid verification code",
+      "verificationFailed": "Verification failed. Please try again."
+    },
+    "unsubscribe": {
+      "noToken": "No unsubscribe token provided.",
+      "linkInvalid": "This unsubscribe link is invalid or has expired.",
+      "tooManyRequests": "Too many requests. Please wait a moment and try again.",
+      "serviceUnavailable": "Service temporarily unavailable. Please try again later.",
+      "unableToProcess": "Unable to process your request. Please contact support if this continues.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "processingTitle": "Unsubscribing...",
+      "processingDescription": "Please wait while we process your request.",
+      "successTitle": "Successfully Unsubscribed",
+      "successDescription": "You have been unsubscribed from our mailing list.",
+      "errorTitle": "Unsubscribe Failed"
+    }
   },
   "toasts": {
     "subscription": {

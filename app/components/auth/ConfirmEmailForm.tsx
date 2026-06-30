@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { confirmEmail as confirmEmailApi } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -9,6 +10,7 @@ import { AuthPendingMessage } from "./AuthPendingMessage";
 import { EmailConfirmedMessage } from "./EmailConfirmedMessage";
 
 export function ConfirmEmailForm() {
+  const t = useTranslations("auth.confirmEmail");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const router = useRouter();
@@ -40,12 +42,7 @@ export function ConfirmEmailForm() {
   }, [token, router, setUser]);
 
   if (status === "confirming") {
-    return (
-      <AuthPendingMessage
-        title="Confirming your email..."
-        description="Please wait while we confirm your email address."
-      />
-    );
+    return <AuthPendingMessage title={t("pendingTitle")} description={t("pendingDescription")} />;
   }
 
   if (status === "success") {
@@ -54,10 +51,10 @@ export function ConfirmEmailForm() {
 
   return (
     <AuthErrorCard
-      title="Link expired"
-      message="This confirmation link is no longer valid. Request a new one to continue."
+      title={t("errorTitle")}
+      message={t("errorMessage")}
       ctaHref="/auth/resend-confirmation"
-      ctaText="Resend confirmation email"
+      ctaText={t("errorCta")}
     />
   );
 }

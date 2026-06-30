@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl";
 import styles from "./AuthForm.module.css";
 
 export function EmailConfirmedMessage() {
+  const t = useTranslations("auth.emailConfirmed");
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -16,10 +18,10 @@ export function EmailConfirmedMessage() {
               />
             </svg>
           </div>
-          <h2>Email Confirmed!</h2>
+          <h2>{t("heading")}</h2>
           <div className={styles.confirmationCard}>
             <p className={styles.confirmationCardText} style={{ marginBottom: 0 }}>
-              Your email has been confirmed successfully. Redirecting to dashboard...
+              {t("message")}
             </p>
           </div>
         </div>
