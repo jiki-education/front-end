@@ -1,17 +1,19 @@
 import { ResendConfirmationForm } from "@/components/auth/ResendConfirmationForm";
 import { AuthLayout } from "@/components/ui/AuthLayout";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-  title: "Resend Confirmation - Jiki",
-  description: "Resend confirmation instructions"
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.resendConfirmation");
+  return { title: t("title"), description: t("description") };
+}
 
-export default function ResendConfirmationPage() {
+export default async function ResendConfirmationPage() {
+  const t = await getTranslations("common");
   return (
     <AuthLayout>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>{t("loading")}</div>}>
         <ResendConfirmationForm />
       </Suspense>
     </AuthLayout>

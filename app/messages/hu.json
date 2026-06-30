@@ -925,6 +925,88 @@
       "futureItem2Description": "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
     }
   },
+  "seo": {
+    "achievements": {
+      "title": "Achievements - Jiki",
+      "description": "Track your progress and unlock achievements as you learn to code."
+    },
+    "build": {
+      "title": "Learn to Build - Jiki",
+      "description": "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
+    },
+    "dashboard": {
+      "title": "Dashboard - Jiki",
+      "description": "Track your learning progress, continue coding exercises, and view your achievements."
+    },
+    "projects": {
+      "title": "Projects - Jiki",
+      "description": "Build real-world coding projects to practice your programming skills and create portfolio pieces."
+    },
+    "settings": {
+      "title": "Settings - Jiki",
+      "description": "Manage your account settings, subscription, and preferences."
+    },
+    "checkEmail": {
+      "title": "Check your email - Jiki",
+      "description": "We've sent you a confirmation email. Check your inbox to verify your address and finish signing up."
+    },
+    "confirmEmail": {
+      "title": "Confirm Email - Jiki",
+      "description": "Confirm your email address"
+    },
+    "exercismCallback": {
+      "title": "Signing in with Exercism - Jiki",
+      "description": "Completing your Exercism sign in"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password - Jiki",
+      "description": "Reset your password"
+    },
+    "login": {
+      "title": "Log In - Jiki",
+      "description": "Sign in to your Jiki account"
+    },
+    "resendConfirmation": {
+      "title": "Resend Confirmation - Jiki",
+      "description": "Resend confirmation instructions"
+    },
+    "resetPassword": {
+      "title": "Reset Password - Jiki",
+      "description": "Set your new password"
+    },
+    "signup": {
+      "title": "Sign Up - Jiki",
+      "description": "Create your Jiki account"
+    },
+    "home": {
+      "title": "Jiki - Learn to Code the Fun Way",
+      "description": "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
+    },
+    "premium": {
+      "title": "Premium - Jiki",
+      "description": "Accelerate your road to job-ready with Jiki Premium. Full access to courses, projects, AI support, and more."
+    },
+    "roadmap": {
+      "title": "Roadmap - Jiki",
+      "description": "What we're building next on Jiki. A quarter-by-quarter look at upcoming courses, projects, and features."
+    },
+    "testimonials": {
+      "title": "Testimonials - Jiki",
+      "description": "We asked our students if they'd enjoyed the course. Here's what they said."
+    },
+    "deleteAccount": {
+      "title": "Delete Account - Jiki",
+      "description": "Confirm account deletion"
+    },
+    "unsubscribePreferences": {
+      "title": "Email Preferences - Jiki",
+      "description": "Manage your email preferences and unsubscribe from Jiki emails."
+    },
+    "unsubscribe": {
+      "title": "Unsubscribe - Jiki",
+      "description": "Unsubscribe from Jiki emails"
+    }
+  },
   "toasts": {
     "subscription": {
       "loginRequired": "Please log in to upgrade your account",

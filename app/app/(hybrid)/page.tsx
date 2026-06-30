@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { hasAuthenticationCookie } from "../../lib/auth/server-storage";
 import { LandingPage } from "../../components/landing-page/LandingPage";
 import { getAllBlogPosts } from "../../lib/content/getAllBlogPosts";
 
-export const metadata: Metadata = {
-  title: "Jiki - Learn to Code the Fun Way",
-  description: "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.home");
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function RootPage() {
   const hasCookie = await hasAuthenticationCookie();
