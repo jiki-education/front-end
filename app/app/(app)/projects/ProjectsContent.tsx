@@ -1,6 +1,7 @@
 "use client";
 
 import { fetchProjects, type ProjectData, type ProjectsResponse } from "@/lib/api/projects";
+import { RequestAbortedError } from "@/lib/api/client";
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
@@ -67,6 +68,11 @@ export function ProjectsContent() {
         const response: ProjectsResponse = await fetchProjects();
         setProjects(response.results);
       } catch (error) {
+        // Request aborted because the user navigated away mid-fetch - expected,
+        // not a real error. Leave the loading state as-is; the component is unmounting.
+        if (error instanceof RequestAbortedError) {
+          return;
+        }
         console.error("Failed to fetch projects:", error);
         setProjectsError(error instanceof Error ? error.message : "Failed to load projects");
       } finally {
