@@ -5,15 +5,49 @@ import MuxPlayer from "@mux/mux-player-react";
 import type { MuxPlayerProps, MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { reportError } from "@/lib/reportError";
 
-// Mux dispatches a raw DOM Event for player errors (HLS load failures, mid-stream
-// teardown, etc.). If left unhandled it surfaces to Next's app-router as an
-// `Event`-typed unhandled rejection, which trips its globalError path and has
-// caused "Rendered more hooks than during the previous render" downstream.
+// Mux's HTML5 media error code for a network failure (see MediaError.MEDIA_ERR_NETWORK).
+const MEDIA_ERR_NETWORK = 2;
+
+// A Mux MediaError, carried on the error event's `detail`. It extends the native
+// MediaError with Mux-specific fields. Typed locally so we don't depend on the
+// playback-core internals just to read a few properties.
+interface MuxMediaError {
+  code?: number;
+  message?: string;
+  muxCode?: number;
+  fatal?: boolean;
+}
+
+// Mux dispatches the player error as a CustomEvent whose `detail` is the Mux
+// MediaError (HLS load failures, mid-stream teardown, etc.). If left unhandled
+// it surfaces to Next's app-router as an `Event`-typed unhandled rejection, which
+// trips its globalError path and has caused "Rendered more hooks than during the
+// previous render" downstream.
 function defaultOnError(event: Event) {
-  const target = event.target as HTMLMediaElement | null;
-  const mediaError = target?.error;
-  const message = mediaError ? `MuxPlayer error ${mediaError.code}: ${mediaError.message}` : "MuxPlayer error";
-  reportError(new Error(message));
+  // The rich error lives on event.detail; event.target.error is null for HLS
+  // failures and only populated on the native-video fallback path. detail is
+  // typed nullable because the native-video path dispatches a plain Event.
+  const detail: MuxMediaError | null | undefined = (event as CustomEvent<MuxMediaError | undefined>).detail;
+  const mediaError = detail ?? (event.target as HTMLMediaElement | null)?.error ?? null;
+
+  const code = mediaError?.code;
+  // muxCode is a Mux-specific field that only exists on the detail payload, not
+  // on the native MediaError surfaced via event.target.error.
+  const muxCode = detail?.muxCode;
+  const parts = ["MuxPlayer error"];
+  if (code != null) parts.push(`code ${code}`);
+  if (muxCode != null) parts.push(`muxCode ${muxCode}`);
+  if (mediaError?.message) parts.push(mediaError.message);
+  const error = new Error(parts.join(": "));
+
+  // Network failures are transient client-side connectivity drops (laptop sleep,
+  // wifi loss) rather than actionable bugs — log them but keep them out of Sentry.
+  if (code === MEDIA_ERR_NETWORK) {
+    console.error(error);
+    return;
+  }
+
+  reportError(error);
 }
 
 const JikiMuxPlayer = forwardRef<MuxPlayerRefAttributes, MuxPlayerProps>(function JikiMuxPlayer(props, ref) {
