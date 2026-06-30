@@ -78,4 +78,21 @@ describe("JikiMuxPlayer defaultOnError", () => {
     expect(mockReportError).toHaveBeenCalledTimes(1);
     expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: code 3: Decode failed.");
   });
+
+  it("silences network errors that arrive via event.target.error (native fallback path)", () => {
+    // Network skip keys off the HTML5 `code`, which is present on both the Mux
+    // detail payload and the native MediaError, so this path is silenced too.
+    const target = document.createElement("video");
+    Object.defineProperty(target, "error", {
+      configurable: true,
+      value: { code: 2, message: "Network error." }
+    });
+    const event = new Event("error");
+    Object.defineProperty(event, "target", { value: target });
+
+    capturedOnError?.(event);
+
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+  });
 });
