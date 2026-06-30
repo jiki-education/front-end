@@ -925,6 +925,49 @@
       "futureItem2Description": "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
     }
   },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "Select Language",
+      "backToVideo": "Back to video",
+      "tooltip": "Select one of the options to proceed.",
+      "saving": "Saving...",
+      "confirmChoice": "Confirm Choice",
+      "questionTitle": "Choose which language you want to learn?",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "chooseForMe": "Choose for me",
+      "cantChange": "You can't change once selected.",
+      "noVideo": "No video available",
+      "videoInstructionPrefix": "Watch the video then choose your language. Already know? ",
+      "skipVideo": "Skip the video"
+    },
+    "deleteAccount": {
+      "deletedTitle": "Your account has been deleted",
+      "deletedSubtitle": "We're sorry to see you go. We hope you've enjoyed Jiki. Good luck with your coding journey!",
+      "deletingTitle": "Deleting your account",
+      "deletingSubtitle": "Please wait",
+      "errorTitle": "There's been an error",
+      "errorSubtitle": "There has been an error deleting your account. We have been notified and will delete it manually for you.",
+      "expiredTitle": "Link expired or invalid",
+      "expiredSubtitle": "This deletion link is no longer valid. It may have already been used or has expired.",
+      "expiredSecondary": "If you still want to delete your account, please log in and request a new deletion link from your settings.",
+      "goHome": "Go to homepage"
+    },
+    "errorPage": {
+      "serverErrorTitle": "Something went wrong",
+      "serverErrorMessage": "We encountered an unexpected error. Sorry about that!",
+      "serverErrorAction": "Try again",
+      "notFoundTitle": "Page not found",
+      "notFoundMessage": "Looks like we can't find that page. Sorry!",
+      "notFoundAction": "Take me home"
+    },
+    "testimonialsPage": {
+      "title": "Testimonials",
+      "subtitle": "We asked our students if they'd enjoyed the course. Here's what they said...",
+      "quoteOpenAlt": "“",
+      "quoteCloseAlt": "”"
+    }
+  },
   "seo": {
     "achievements": {
       "title": "Achievements - Jiki",
