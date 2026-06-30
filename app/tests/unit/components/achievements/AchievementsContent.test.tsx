@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { AchievementsContent } from "@/app/(app)/achievements/AchievementsContent";
 import type { BadgeData } from "@/lib/api/badges";
+import { RequestAbortedError } from "@/lib/api/client";
 
 // Mock the API module
 jest.mock("@/lib/api/badges", () => ({
@@ -78,5 +79,20 @@ describe("AchievementsContent", () => {
     // Check that locked badge has locked class
     const lockedBadge = screen.getByText("Locked Badge").closest("[data-type='achievement']");
     expect(lockedBadge).toHaveClass("locked");
+  });
+
+  it("does not show the error state when the request is aborted (user navigated away)", async () => {
+    const { fetchBadges } = await import("@/lib/api/badges");
+    const consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    (fetchBadges as jest.Mock).mockRejectedValueOnce(new RequestAbortedError());
+
+    render(<AchievementsContent />);
+
+    // Loading resolves, but no error message is shown and nothing is logged - aborts are benign.
+    await waitFor(() => expect(screen.queryByText(/Error:/)).not.toBeInTheDocument());
+    expect(consoleError).not.toHaveBeenCalled();
+
+    consoleError.mockRestore();
   });
 });

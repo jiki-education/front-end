@@ -1,6 +1,7 @@
 "use client";
 
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
+import { RequestAbortedError } from "@/lib/api/client";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { fetchProjects, type ProjectData } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -54,18 +55,18 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
 
     void fetchProfile()
       .then((res) => setProfileData(res.profile))
-      .catch((error) => console.error("Failed to load profile:", error))
+      .catch(logUnlessAborted("Failed to load profile:"))
       .finally(() => setProfileLoading(false));
 
     void fetchBadges()
       .then((res) => setBadges(res.badges))
-      .catch((error) => console.error("Failed to load badges:", error))
+      .catch(logUnlessAborted("Failed to load badges:"))
       .finally(() => setBadgesLoading(false));
 
     if (isPremium) {
       void fetchProjects({ per: 100 })
         .then((res) => setProjects(res.results))
-        .catch((error) => console.error("Failed to load projects:", error))
+        .catch(logUnlessAborted("Failed to load projects:"))
         .finally(() => setProjectsLoading(false));
     }
   }, [user, isPremium]);
@@ -135,6 +136,17 @@ function ProjectsSidebar({ onProjectClick, onViewAllProjectsClick, onUpgradeClic
       </div>
     </aside>
   );
+}
+
+// Logs a fetch failure unless it was aborted because the user navigated away
+// mid-request (expected, not a real error - don't log or report it to Sentry).
+function logUnlessAborted(message: string) {
+  return (error: unknown) => {
+    if (error instanceof RequestAbortedError) {
+      return;
+    }
+    console.error(message, error);
+  };
 }
 
 export default ProjectsSidebar;

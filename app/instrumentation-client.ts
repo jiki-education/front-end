@@ -11,7 +11,19 @@ if (process.env.NODE_ENV === "production") {
     enableLogs: true,
     sendDefaultPii: true,
     beforeSend(event) {
-      const frames = event.exception?.values?.[0]?.stacktrace?.frames;
+      // Drop aborted-request errors - these happen when the user navigates away
+      // while a fetch is still in flight, which is expected, not a bug.
+      const exception = event.exception?.values?.[0];
+      if (
+        exception?.type === "RequestAbortedError" ||
+        exception?.type === "AbortError" ||
+        (exception?.value?.includes("AbortError") ?? false) ||
+        (exception?.value?.includes("The operation was aborted") ?? false)
+      ) {
+        return null;
+      }
+
+      const frames = exception?.stacktrace?.frames;
       if (!frames || frames.length === 0) return event;
       const isExtensionFrame = (url: string) =>
         url.startsWith("chrome-extension://") ||
