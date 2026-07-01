@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
@@ -10,38 +11,6 @@ interface BenefitSectionProps {
   className?: string;
 }
 
-interface Benefit {
-  title: string;
-  description: string;
-}
-
-const BENEFITS: Benefit[] = [
-  {
-    title: "Unlimited AI help",
-    description: "Get personalised guidance from Jiki whenever you're stuck"
-  },
-  {
-    title: "Unlimited content",
-    description: "Access all exercises, projects, and learning paths"
-  },
-  {
-    title: "Certificates",
-    description: "Earn shareable certificates when you complete courses"
-  },
-  {
-    title: "Ad-free",
-    description: "Enjoy a distraction-free learning experience"
-  },
-  {
-    title: "Priority support",
-    description: "Get faster responses when you need help"
-  },
-  {
-    title: "Early access",
-    description: "Be the first to try new features and content"
-  }
-];
-
 export default function BenefitSection({ isCancelling = false, onResubscribe, className = "" }: BenefitSectionProps) {
   if (isCancelling) {
     return <CancellingBenefitSection onResubscribe={onResubscribe} className={className} />;
@@ -51,6 +20,7 @@ export default function BenefitSection({ isCancelling = false, onResubscribe, cl
 }
 
 function ActiveBenefitSection({ className = "" }: { className?: string }) {
+  const t = useTranslations("settings.benefits");
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
@@ -62,7 +32,9 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
           className={`${styles.splashDecoration} ${styles.splashLeft}`}
         />
         <h3>
-          You&apos;re enjoying <span className={styles.gradientText}>Premium</span> benefits
+          {t("activeHeadingPrefix")}
+          <span className={styles.gradientText}>{t("premium")}</span>
+          {t("activeHeadingSuffix")}
         </h3>
         <Image
           src="/static/images/misc/splash.png"
@@ -72,13 +44,15 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
           className={`${styles.splashDecoration} ${styles.splashRight}`}
         />
       </div>
-      <p className={styles.benefitsSubtitle}>Here&apos;s what you&apos;re unlocking every day</p>
+      <p className={styles.benefitsSubtitle}>{t("activeSubtitle")}</p>
 
       <BenefitsList />
 
       <p className={styles.benefitsFooter}>
-        Got a question? Learn more about <Link href="/premium">what&apos;s included</Link> or{" "}
-        <Link href="/articles/support">contact support</Link>.
+        {t("footerPrefix")}
+        <Link href="/premium">{t("footerWhatsIncluded")}</Link>
+        {t("footerOr")}
+        <Link href="/articles/support">{t("footerContactSupport")}</Link>.
       </p>
     </div>
   );
@@ -91,34 +65,37 @@ function CancellingBenefitSection({
   onResubscribe?: () => void;
   className?: string;
 }) {
+  const t = useTranslations("settings.benefits");
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
         <h3>
-          Don&apos;t lose your <span className={styles.gradientText}>Premium</span> benefits
+          {t("cancellingHeadingPrefix")}
+          <span className={styles.gradientText}>{t("premium")}</span>
+          {t("cancellingHeadingSuffix")}
         </h3>
       </div>
-      <p className={styles.benefitsSubtitle}>Here&apos;s what you&apos;ll miss when your access ends</p>
+      <p className={styles.benefitsSubtitle}>{t("cancellingSubtitle")}</p>
 
       <BenefitsList />
 
       <div className={styles.resubscribeCta}>
         <div className={styles.resubscribeCtaContent}>
-          <h4>Keep learning without limits</h4>
+          <h4>{t("resubscribeTitle")}</h4>
           <p>
-            Resubscribe now for just{" "}
+            {t("resubscribePrefix")}
             <span className={styles.price}>
               <PremiumPrice interval="monthly" />
-              /month
-            </span>{" "}
-            and continue your coding journey with Jiki&apos;s support.
+              {t("resubscribePerMonth")}
+            </span>
+            {t("resubscribeSuffix")}
           </p>
         </div>
         <button
           className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple whitespace-nowrap"
           onClick={onResubscribe}
         >
-          Resubscribe to Premium
+          {t("resubscribeButton")}
         </button>
       </div>
     </div>
@@ -126,9 +103,18 @@ function CancellingBenefitSection({
 }
 
 function BenefitsList() {
+  const t = useTranslations("settings.benefits");
+  const benefits = [
+    { title: t("unlimitedAiTitle"), description: t("unlimitedAiDescription") },
+    { title: t("unlimitedContentTitle"), description: t("unlimitedContentDescription") },
+    { title: t("certificatesTitle"), description: t("certificatesDescription") },
+    { title: t("adFreeTitle"), description: t("adFreeDescription") },
+    { title: t("prioritySupportTitle"), description: t("prioritySupportDescription") },
+    { title: t("earlyAccessTitle"), description: t("earlyAccessDescription") }
+  ];
   return (
     <div className={styles.premiumBenefits}>
-      {BENEFITS.map((benefit) => (
+      {benefits.map((benefit) => (
         <div key={benefit.title} className={styles.premiumBenefit}>
           <CheckmarkCircle />
           <div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -9,6 +10,7 @@ interface ChangePasswordModalProps {
 }
 
 export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
+  const t = useTranslations("settings.changePassword");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,27 +23,27 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
     // Validation
     if (!currentPassword) {
-      setError("Current password is required");
+      setError(t("currentRequired"));
       return;
     }
 
     if (!newPassword) {
-      setError("New password is required");
+      setError(t("newRequired"));
       return;
     }
 
     if (newPassword.length < 8) {
-      setError("Password must be at least 8 characters long");
+      setError(t("minLength"));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("noMatch"));
       return;
     }
 
     if (currentPassword === newPassword) {
-      setError("New password must be different from current password");
+      setError(t("mustDiffer"));
       return;
     }
 
@@ -51,7 +53,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
       await onSave(newPassword, currentPassword);
       hideModal();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update password");
+      setError(err instanceof Error ? err.message : t("updateFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -59,19 +61,19 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
   return (
     <div className="p-24 max-w-md mx-auto ui-form-field-large text-left">
-      <h2 className="text-2xl font-bold mb-16">Change Password</h2>
+      <h2 className="text-2xl font-bold mb-16">{t("title")}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-16">
         <div className="ui-form-field-large">
           <label htmlFor="current-password" className="block text-sm font-medium mb-1">
-            Current Password
+            {t("currentLabel")}
           </label>
           <input
             id="current-password"
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Enter your current password"
+            placeholder={t("currentPlaceholder")}
             disabled={isSaving}
             autoFocus
           />
@@ -79,29 +81,29 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
         <div className="ui-form-field-large">
           <label htmlFor="new-password" className="block text-sm font-medium mb-1">
-            New Password
+            {t("newLabel")}
           </label>
           <input
             id="new-password"
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Enter your new password"
+            placeholder={t("newPlaceholder")}
             disabled={isSaving}
           />
-          <p className="text-xs text-text-secondary mt-1">Must be at least 8 characters long</p>
+          <p className="text-xs text-text-secondary mt-1">{t("newHint")}</p>
         </div>
 
         <div className="ui-form-field-large">
           <label htmlFor="confirm-password" className="block text-sm font-medium mb-1">
-            Confirm New Password
+            {t("confirmLabel")}
           </label>
           <input
             id="confirm-password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your new password"
+            placeholder={t("confirmPlaceholder")}
             disabled={isSaving}
           />
         </div>
@@ -110,7 +112,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
         <div className="flex gap-3 pt-4">
           <button type="submit" disabled={isSaving} className="ui-btn ui-btn-primary ui-btn-small flex-1">
-            {isSaving ? <LoadingSpinner size="sm" /> : "Update Password"}
+            {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
           </button>
           <button
             type="button"
@@ -118,7 +120,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
             disabled={isSaving}
             className="ui-btn ui-btn-secondary ui-btn-small flex-1"
           >
-            Cancel
+            {t("cancel")}
           </button>
         </div>
       </form>

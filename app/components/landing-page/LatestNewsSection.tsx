@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
@@ -9,6 +10,7 @@ interface LatestNewsSectionProps {
 }
 
 export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
+  const t = useTranslations("landing.latestNews");
   if (posts.length === 0) {
     return null;
   }
@@ -16,11 +18,11 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <h2 className={styles.heading}>Our latest news</h2>
+        <h2 className={styles.heading}>{t("heading")}</h2>
         <p className={styles.subheading}>
-          Keep up to date with what&apos;s happening at Jiki in{" "}
+          {t("subheadingPrefix")}
           <Link href="/blog" className={styles.blogLink}>
-            our blog
+            {t("subheadingLink")}
           </Link>
           .
         </p>
@@ -35,6 +37,7 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
 }
 
 function BlogPostCard({ post }: { post: BlogPostMeta }) {
+  const t = useTranslations("landing.latestNews");
   return (
     <Link href={`/blog/${post.slug}`} className={styles.blogPostCard}>
       <div
@@ -49,7 +52,7 @@ function BlogPostCard({ post }: { post: BlogPostMeta }) {
       <p className={styles.postExcerpt}>{post.excerpt}</p>
       <div className={styles.postAuthor}>
         <AuthorAvatar author={post.author} />
-        <span>by {post.author.name}</span>
+        <span>{t("byAuthor", { name: post.author.name })}</span>
       </div>
     </Link>
   );

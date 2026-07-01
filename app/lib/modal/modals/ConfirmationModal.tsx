@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 import styles from "@/app/styles/components/confirmation-modal.module.css";
 
@@ -18,15 +19,16 @@ interface ConfirmationModalProps {
 }
 
 export function ConfirmationModal({
-  title = "Confirm Action",
-  message = "Are you sure you want to proceed?",
-  confirmText = "Confirm",
-  cancelText = "Cancel",
+  title,
+  message,
+  confirmText,
+  cancelText,
   onConfirm,
   onCancel,
   variant: _variant = "default",
   closeOnAction = true
 }: ConfirmationModalProps) {
+  const t = useTranslations("modals.confirmation");
   const handleConfirm = () => {
     onConfirm?.();
     if (closeOnAction) hideModal();
@@ -39,14 +41,14 @@ export function ConfirmationModal({
 
   return (
     <>
-      <h2 className={styles.modalTitle}>{title}</h2>
-      <p className={styles.modalMessage}>{message}</p>
+      <h2 className={styles.modalTitle}>{title ?? t("defaultTitle")}</h2>
+      <p className={styles.modalMessage}>{message ?? t("defaultMessage")}</p>
       <div className={styles.modalButtons}>
         <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-default whitespace-nowrap">
-          {cancelText}
+          {cancelText ?? t("defaultCancel")}
         </button>
         <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-default whitespace-nowrap">
-          {confirmText}
+          {confirmText ?? t("defaultConfirm")}
         </button>
       </div>
     </>

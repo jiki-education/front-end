@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -10,6 +11,7 @@ interface ChangeEmailModalProps {
 }
 
 export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps) {
+  const t = useTranslations("settings.changeEmail");
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -26,22 +28,22 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
 
     // Validation
     if (!newEmail) {
-      setError("New email is required");
+      setError(t("newEmailRequired"));
       return;
     }
 
     if (!validateEmail(newEmail)) {
-      setError("Please enter a valid email address");
+      setError(t("emailInvalid"));
       return;
     }
 
     if (newEmail === currentEmail) {
-      setError("New email must be different from current email");
+      setError(t("emailSame"));
       return;
     }
 
     if (!currentPassword) {
-      setError("Current password is required");
+      setError(t("passwordRequired"));
       return;
     }
 
@@ -51,7 +53,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
       await onSave(newEmail, currentPassword);
       hideModal();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update email");
+      setError(err instanceof Error ? err.message : t("updateFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -59,32 +61,29 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
 
   return (
     <div className="p-24 max-w-md mx-auto text-left">
-      <h2 className="text-2xl font-bold mb-16">Change Email Address</h2>
+      <h2 className="text-2xl font-bold mb-16">{t("title")}</h2>
 
       <div className="bg-blue-50 text-blue-700 p-12 rounded-md text-sm mb-16">
-        <p className="font-semibold mb-4">Important:</p>
-        <p>
-          A confirmation email will be sent to your new email address. You&apos;ll need to confirm it before the change
-          takes effect.
-        </p>
+        <p className="font-semibold mb-4">{t("importantLabel")}</p>
+        <p>{t("importantText")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-16 ">
         <div className="ui-form-field-large">
-          <label className="block text-sm font-semibold mb-1">Current Email</label>
+          <label className="block text-sm font-semibold mb-1">{t("currentEmailLabel")}</label>
           <input type="email" value={currentEmail} disabled />
         </div>
 
         <div className="ui-form-field-large">
           <label htmlFor="new-email" className="block text-sm font-semibold mb-1">
-            New Email Address
+            {t("newEmailLabel")}
           </label>
           <input
             id="new-email"
             type="email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
-            placeholder="Enter your new email address"
+            placeholder={t("newEmailPlaceholder")}
             disabled={isSaving}
             autoFocus
           />
@@ -92,24 +91,24 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
 
         <div className="ui-form-field-large">
           <label htmlFor="current-password" className="block text-sm font-semibold mb-1">
-            Confirm with Current Password
+            {t("passwordLabel")}
           </label>
           <input
             id="current-password"
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            placeholder="Enter your current password"
+            placeholder={t("passwordPlaceholder")}
             disabled={isSaving}
           />
-          <p className="text-xs text-text-secondary mt-1">Required for security verification</p>
+          <p className="text-xs text-text-secondary mt-1">{t("passwordHint")}</p>
         </div>
 
         {error && <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">{error}</div>}
 
         <div className="flex gap-3 pt-4">
           <button type="submit" disabled={isSaving} className="ui-btn ui-btn-small ui-btn-primary flex-1">
-            {isSaving ? <LoadingSpinner size="sm" /> : "Update Email"}
+            {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
           </button>
           <button
             type="button"
@@ -117,7 +116,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
             disabled={isSaving}
             className="ui-btn ui-btn-small ui-btn-secondary flex-1"
           >
-            Cancel
+            {t("cancel")}
           </button>
         </div>
       </form>

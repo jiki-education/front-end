@@ -7,6 +7,7 @@
 
 import { create } from "zustand";
 import { settingsApi } from "@/lib/api/settings";
+import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import type {
   UserSettings,
   UpdateSettingParams,
@@ -127,7 +128,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   },
 
   updateLocale: async (locale: string) => {
-    return get().updateSetting({ field: "locale", value: locale });
+    await get().updateSetting({ field: "locale", value: locale });
+    setLocaleCookie(locale);
   },
 
   updateHandle: async (handle: string) => {

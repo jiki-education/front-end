@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
 import styles from "./PremiumUpgradeModal.module.css";
@@ -8,42 +9,56 @@ interface PremiumPlanSectionProps {
   onUpgrade: () => void;
 }
 
-const premiumFeatures: React.ReactNode[] = [
-  <>
-    Full access to <strong>Learn to Build</strong>
-  </>,
-  <>
-    Combine your skills in <strong>Jiki Projects</strong>
-  </>,
-  <>
-    Unlimited <strong>AI support</strong> from Jiki
-  </>,
-  <>
-    Regular <strong>Q&A livestreams</strong> you can join
-  </>,
-  <>
-    Earn <strong>certificates</strong> for courses
-  </>,
-  <>
-    <strong>Ad-free</strong> learning experience
-  </>,
-  <>
-    <strong>Early access</strong> to new features
-  </>
-];
-
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
+  const t = useTranslations("modals.premiumUpgrade");
+
+  const premiumFeatures: React.ReactNode[] = [
+    <>
+      {t("featureLearnToBuildPrefix")}
+      <strong>{t("featureLearnToBuild")}</strong>
+    </>,
+    <>
+      {t("featureProjectsPrefix")}
+      <strong>{t("featureProjects")}</strong>
+    </>,
+    <>
+      {t("featureAiPrefix")}
+      <strong>{t("featureAi")}</strong>
+      {t("featureAiSuffix")}
+    </>,
+    <>
+      {t("featureLivestreamsPrefix")}
+      <strong>{t("featureLivestreams")}</strong>
+      {t("featureLivestreamsSuffix")}
+    </>,
+    <>
+      {t("featureCertificatesPrefix")}
+      <strong>{t("featureCertificates")}</strong>
+      {t("featureCertificatesSuffix")}
+    </>,
+    <>
+      <strong>{t("featureAdFree")}</strong>
+      {t("featureAdFreeSuffix")}
+    </>,
+    <>
+      <strong>{t("featureEarlyAccess")}</strong>
+      {t("featureEarlyAccessSuffix")}
+    </>
+  ];
+
   return (
     <div className={styles.rightSide}>
-      <h2 className={styles.premiumName}>Jiki Premium</h2>
+      <h2 className={styles.premiumName}>{t("planName")}</h2>
       <div className={styles.premiumPrice}>
         <span className={styles.amount}>
           <PremiumPrice interval="monthly" />
         </span>
-        <span className={styles.period}>/month</span>
+        <span className={styles.period}>{t("perMonth")}</span>
       </div>
       <p className={styles.annualNote}>
-        (That&apos;s only <PremiumDailyPrice interval="monthly" /> a day)
+        {t("dailyNotePrefix")}
+        <PremiumDailyPrice interval="monthly" />
+        {t("dailyNoteSuffix")}
       </p>
 
       <button
@@ -54,13 +69,13 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
         {!isLoading && (
           <Image
             src={user?.avatar || "/static/icons/user-fallback.svg"}
-            alt="User"
+            alt={t("userAvatarAlt")}
             className={styles.buttonAvatar}
             width={24}
             height={24}
           />
         )}
-        {isLoading ? "Processing..." : "Upgrade to Premium"}
+        {isLoading ? t("processing") : t("upgrade")}
       </button>
 
       <ul className={styles.premiumFeatures}>

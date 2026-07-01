@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { ProgrammingLanguage } from "@/types/course";
 import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
+import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
 type ChooseLanguageLesson = Lesson & {
@@ -22,6 +23,7 @@ interface VideoStepProps {
 }
 
 export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisitedSelector }: VideoStepProps) {
+  const t = useTranslations("misc.chooseLanguage");
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
@@ -83,7 +85,7 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
                   color: "white"
                 }}
               >
-                No video available
+                {t("noVideo")}
               </div>
             </div>
           )}
@@ -92,9 +94,9 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
 
       {!hasVisitedSelector && (
         <p className={styles.videoInstruction}>
-          Watch the video then choose your language. Already know?{" "}
+          {t("videoInstructionPrefix")}
           <button className={styles.skipButton} onClick={handleSkip}>
-            Skip the video
+            {t("skipVideo")}
           </button>
         </p>
       )}

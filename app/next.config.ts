@@ -1,6 +1,9 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 import path from "path";
+
+const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
@@ -160,10 +163,10 @@ const nextConfig: NextConfig = {
 };
 
 // Only use Sentry build wrapper in production to avoid build overhead in dev/test
-let config: NextConfig = nextConfig;
+let config: NextConfig = withNextIntl(nextConfig);
 
 if (process.env.NODE_ENV === "production") {
-  config = withSentryConfig(nextConfig, {
+  config = withSentryConfig(config, {
     org: "thalamus-ai",
     project: "jiki-front-end",
     silent: !process.env.CI,

@@ -1,6 +1,7 @@
 "use client";
 
 import type { UserSettings } from "@/lib/api/types/settings";
+import { useTranslations } from "next-intl";
 import EditableField from "../ui/EditableField";
 import StatusNotification from "../ui/StatusNotification";
 import styles from "../Settings.module.css";
@@ -13,39 +14,41 @@ interface ProfileSectionProps {
 }
 
 export default function ProfileSection({ settings, updateName, updateHandle, updateEmail }: ProfileSectionProps) {
+  const t = useTranslations("settings.profile");
+
   // Validation functions
   const validateName = (value: string): string | null => {
     if (!value.trim()) {
-      return "Name cannot be empty";
+      return t("nameEmpty");
     }
     if (value.length > 100) {
-      return "Name must be less than 100 characters";
+      return t("nameTooLong");
     }
     return null;
   };
 
   const validateHandle = (value: string): string | null => {
     if (!value.trim()) {
-      return "Handle cannot be empty";
+      return t("handleEmpty");
     }
     if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
-      return "Handle can only contain letters, numbers, underscores, and hyphens";
+      return t("handleInvalid");
     }
     if (value.length < 3) {
-      return "Handle must be at least 3 characters";
+      return t("handleTooShort");
     }
     if (value.length > 30) {
-      return "Handle must be less than 30 characters";
+      return t("handleTooLong");
     }
     return null;
   };
 
   const validateEmail = (value: string): string | null => {
     if (!value.trim()) {
-      return "Email cannot be empty";
+      return t("emailEmpty");
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return "Please enter a valid email address";
+      return t("emailInvalid");
     }
     return null;
   };
@@ -54,47 +57,48 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
     <>
       <div className={styles.settingsField}>
         <EditableField
-          label="Name"
+          label={t("nameLabel")}
           value={settings.name || ""}
           onSave={updateName}
-          placeholder="Enter your name"
+          placeholder={t("namePlaceholder")}
           validation={validateName}
-          updateButtonText="Update Name"
+          updateButtonText={t("updateName")}
         />
       </div>
 
       <div className={styles.settingsField}>
         <EditableField
-          label="Handle"
+          label={t("handleLabel")}
           value={settings.handle || ""}
           onSave={updateHandle}
-          placeholder="Enter your handle"
+          placeholder={t("handlePlaceholder")}
           validation={validateHandle}
-          updateButtonText="Update Handle"
+          updateButtonText={t("updateHandle")}
         />
       </div>
 
       <div className={styles.settingsField}>
         <EditableField
-          label="Email"
+          label={t("emailLabel")}
           value={settings.email || ""}
           onSave={updateEmail}
           type="email"
-          placeholder="Enter your email"
+          placeholder={t("emailPlaceholder")}
           validation={validateEmail}
-          updateButtonText="Update Email"
+          updateButtonText={t("updateEmail")}
         />
         {settings.unconfirmed_email && (
           <StatusNotification variant="info">
             <p>
-              Confirmation pending for: <strong>{settings.unconfirmed_email}</strong>
+              {t("confirmationPendingPrefix")}
+              <strong>{settings.unconfirmed_email}</strong>
             </p>
-            <p className="text-xs mt-1">Please check your email to confirm the change.</p>
+            <p className="text-xs mt-1">{t("confirmationPendingHint")}</p>
           </StatusNotification>
         )}
         {!settings.email_confirmed && !settings.unconfirmed_email && (
           <StatusNotification variant="warning">
-            <p>Your email address is not confirmed.</p>
+            <p>{t("emailNotConfirmed")}</p>
           </StatusNotification>
         )}
       </div>

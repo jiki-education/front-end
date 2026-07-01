@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import Lottie from "react-lottie-player";
 import { hideModal } from "../store";
@@ -24,6 +25,7 @@ export function LevelMilestoneModal({
   onContinue,
   onGoToDashboard
 }: LevelMilestoneModalProps) {
+  const t = useTranslations("modals.levelMilestone");
   // Play celebration sound when the modal opens
   useEffect(() => {
     const soundManager = SoundManager.getInstance();
@@ -46,10 +48,10 @@ export function LevelMilestoneModal({
         <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
       </div>
 
-      <h2 className={styles.modalTitle}>🎉 Level Complete!</h2>
+      <h2 className={styles.modalTitle}>{t("title")}</h2>
 
       <p className={styles.modalMessage}>
-        Congratulations! You&apos;ve successfully completed <strong>{levelTitle}</strong> and mastered all its concepts.
+        {t.rich("message", { levelTitle, strong: (chunks) => <strong>{chunks}</strong> })}
       </p>
 
       {/* Level Achievement Summary */}
@@ -60,7 +62,7 @@ export function LevelMilestoneModal({
             <div className={styles.achievementValue}>
               {completedLessonsCount}/{totalLessonsCount}
             </div>
-            <div className={styles.achievementLabel}>Lessons Completed</div>
+            <div className={styles.achievementLabel}>{t("lessonsCompleted")}</div>
           </div>
         </div>
 
@@ -68,23 +70,21 @@ export function LevelMilestoneModal({
           <div className={styles.achievementIcon}>⭐</div>
           <div className={styles.achievementDetails}>
             <div className={styles.achievementValue}>+{xpEarned}</div>
-            <div className={styles.achievementLabel}>XP Earned</div>
+            <div className={styles.achievementLabel}>{t("xpEarned")}</div>
           </div>
         </div>
       </div>
 
-      <p className={styles.modalMessage}>
-        You&apos;re now ready to unlock the next level and continue your learning journey!
-      </p>
+      <p className={styles.modalMessage}>{t("readyNext")}</p>
 
       <div className={styles.modalButtonsDivider}></div>
 
       <div className={styles.modalButtons}>
         <button onClick={handleGoToDashboard} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
-          Go to Dashboard
+          {t("goToDashboard")}
         </button>
         <button onClick={handleContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          Continue to Next Level
+          {t("continueNextLevel")}
         </button>
       </div>
     </>

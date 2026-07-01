@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import styles from "./PasswordField.module.css";
 
@@ -10,6 +11,7 @@ interface PasswordFieldProps {
 }
 
 export default function PasswordField({ onSave, disabled = false }: PasswordFieldProps) {
+  const t = useTranslations("settings.passwordField");
   const [isEditing, setIsEditing] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -27,19 +29,19 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
   const handleSave = async () => {
     // Validation
     if (!currentPassword) {
-      setError("Current password is required");
+      setError(t("currentRequired"));
       return;
     }
     if (!newPassword) {
-      setError("New password is required");
+      setError(t("newRequired"));
       return;
     }
     if (newPassword.length < 8) {
-      setError("New password must be at least 8 characters");
+      setError(t("minLength"));
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("noMatch"));
       return;
     }
 
@@ -51,7 +53,7 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
       setIsEditing(false);
       resetForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update password");
+      setError(err instanceof Error ? err.message : t("updateFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -77,36 +79,36 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
         <div className={styles.inputContainer}>
           <div className={styles.passwordFields}>
             <div className="ui-form-field-large">
-              <label>Current password</label>
+              <label>{t("currentLabel")}</label>
               <input
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Enter current password"
+                placeholder={t("currentPlaceholder")}
                 disabled={isSaving}
                 autoFocus
               />
             </div>
             <div className="ui-form-field-large">
-              <label>New password</label>
+              <label>{t("newLabel")}</label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Enter new password"
+                placeholder={t("newPlaceholder")}
                 disabled={isSaving}
               />
             </div>
             <div className="ui-form-field-large">
-              <label>Confirm new password</label>
+              <label>{t("confirmLabel")}</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Confirm new password"
+                placeholder={t("confirmPlaceholder")}
                 disabled={isSaving}
               />
             </div>
@@ -114,10 +116,10 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
           {error && <div className={styles.errorMessage}>{error}</div>}
           <div className={styles.buttonRow}>
             <button onClick={handleCancel} disabled={isSaving} className="ui-btn ui-btn-secondary ui-btn-small">
-              Cancel
+              {t("cancel")}
             </button>
             <button onClick={handleSave} disabled={isSaving} className="ui-btn ui-btn-primary ui-btn-small">
-              {isSaving ? <LoadingSpinner size="sm" /> : "Update Password"}
+              {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
             </button>
           </div>
         </div>
@@ -129,11 +131,11 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
     <div className={styles.passwordField}>
       <div className={styles.header}>
         <div className={styles.labelGroup}>
-          <span className={styles.label}>Password</span>
+          <span className={styles.label}>{t("label")}</span>
           <div className={styles.value}>••••••••••••</div>
         </div>
         <button onClick={() => setIsEditing(true)} disabled={disabled} className="ui-btn ui-btn-tertiary ui-btn-small">
-          Change
+          {t("change")}
         </button>
       </div>
     </div>

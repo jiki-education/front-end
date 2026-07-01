@@ -15,6 +15,7 @@ import {
   FloatingArrow,
   FloatingPortal
 } from "@floating-ui/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ThreeDotsIcon from "@/icons/three-dots.svg";
@@ -27,6 +28,7 @@ interface MoreMenuProps {
 }
 
 export function MoreMenu({ isActive = false }: MoreMenuProps) {
+  const t = useTranslations("layout.sidebar.moreMenu");
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);
   const router = useRouter();
@@ -70,13 +72,13 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
         className={`nav-item ${isActive ? "active" : ""} ${styles.moreButton}`}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        data-label="More"
+        data-label={t("label")}
         {...getReferenceProps()}
       >
         <span className="nav-icon">
           <ThreeDotsIcon />
         </span>
-        <span>More</span>
+        <span>{t("label")}</span>
       </div>
 
       <FloatingPortal>
@@ -95,7 +97,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
                 height={8}
               />
               <Link href="/articles" onClick={closeMenu} className={styles.dropdownItem}>
-                Help Center
+                {t("helpCenter")}
               </Link>
               <a
                 href={YOUTUBE_URL}
@@ -104,16 +106,16 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
                 onClick={closeMenu}
                 className={styles.dropdownItem}
               >
-                YouTube
+                {t("youtube")}
               </a>
               <Link href="/r/forum" onClick={closeMenu} className={styles.dropdownItem}>
-                Forum
+                {t("forum")}
               </Link>
               <Link href="/blog" onClick={closeMenu} className={styles.dropdownItem}>
-                Blog
+                {t("blog")}
               </Link>
               <button onClick={handleLogout} className={styles.dropdownItem}>
-                Log Out
+                {t("logOut")}
               </button>
             </div>
           </div>

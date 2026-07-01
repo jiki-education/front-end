@@ -1,11 +1,12 @@
 import SidebarLayout from "../../../components/layout/SidebarLayout";
 import { BuildIndex } from "./BuildIndex";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Learn to Build - Jiki",
-  description: "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.build");
+  return { title: t("title"), description: t("description") };
+}
 
 export default function BuildPage() {
   return (

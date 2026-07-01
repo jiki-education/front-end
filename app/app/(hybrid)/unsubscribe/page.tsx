@@ -2,12 +2,13 @@ import { notFound } from "next/navigation";
 import HeaderLayout from "@/components/layout/HeaderLayout";
 import UnsubscribePage from "@/components/unsubscribe/UnsubscribePage";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import styles from "@/components/unsubscribe/UnsubscribePage.module.css";
 
-export const metadata: Metadata = {
-  title: "Email Preferences - Jiki",
-  description: "Manage your email preferences and unsubscribe from Jiki emails."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.unsubscribePreferences");
+  return { title: t("title"), description: t("description") };
+}
 
 interface Props {
   searchParams: Promise<{ token?: string; key?: string }>;

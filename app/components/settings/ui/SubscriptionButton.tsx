@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 interface SubscriptionButtonProps {
@@ -23,6 +24,7 @@ export default function SubscriptionButton({
   ariaLabel,
   ariaDescribedBy
 }: SubscriptionButtonProps) {
+  const t = useTranslations("settings.subscriptionButton");
   const baseClasses =
     "font-medium rounded transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed";
 
@@ -55,9 +57,9 @@ export default function SubscriptionButton({
           <div
             className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"
             role="status"
-            aria-label="Loading"
+            aria-label={t("loading")}
           />
-          <span>Loading...</span>
+          <span>{t("loading")}</span>
         </div>
       )}
       {!loading && children}

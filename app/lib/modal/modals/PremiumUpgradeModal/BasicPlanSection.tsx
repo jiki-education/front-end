@@ -1,18 +1,21 @@
+import { useTranslations } from "next-intl";
 import styles from "./PremiumUpgradeModal.module.css";
 
-const basicFeatures = ["Over 80 Coding Exercises", "Full Concept Library", "30 mins of AI support"];
-
 export function BasicPlanSection() {
+  const t = useTranslations("modals.premiumUpgrade.basic");
+  const basicFeatures = [t("feature1"), t("feature2"), t("feature3")];
+
   return (
     <div className={styles.leftSide}>
       <h1 className={styles.mainHeading}>
-        <span className={styles.highlight}>Accelerate</span> your learning!
+        <span className={styles.highlight}>{t("headlineHighlight")}</span>
+        {t("headlineSuffix")}
       </h1>
-      <p className={styles.mainSubheading}>Upgrade to Premium to accelerate your road to job-ready.</p>
+      <p className={styles.mainSubheading}>{t("subheading")}</p>
 
       <div className={styles.planSection}>
-        <h2 className={styles.planName}>Basic Plan</h2>
-        <p className={styles.planPrice}>Free forever</p>
+        <h2 className={styles.planName}>{t("planName")}</h2>
+        <p className={styles.planPrice}>{t("planPrice")}</p>
         <ul className={styles.planFeatures}>
           {basicFeatures.map((feature, index) => (
             <li key={index}>
@@ -21,9 +24,7 @@ export function BasicPlanSection() {
             </li>
           ))}
         </ul>
-        <p className={styles.planNote}>
-          + Access to public YouTube videos and community forums for additional learning resources.
-        </p>
+        <p className={styles.planNote}>{t("note")}</p>
       </div>
     </div>
   );

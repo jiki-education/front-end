@@ -1,12 +1,14 @@
+import { useTranslations } from "next-intl";
 import { ErrorPage } from "../components/error-page/ErrorPage";
 
 export default function NotFound() {
+  const t = useTranslations("misc.errorPage");
   return (
     <ErrorPage
       statusCode={404}
-      title="Page not found"
-      message="Looks like we can't find that page. Sorry!"
-      actionLabel="Take me home"
+      title={t("notFoundTitle")}
+      message={t("notFoundMessage")}
+      actionLabel={t("notFoundAction")}
       actionHref="/"
     />
   );

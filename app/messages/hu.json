@@ -1,0 +1,1343 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "About",
+        "aboutJiki": "About Jiki",
+        "testimonials": "Testimonials",
+        "ourTeam": "Our team",
+        "premium": "Jiki Premium",
+        "roadmap": "Roadmap"
+      },
+      "legal": {
+        "heading": "Legal",
+        "termsOfUsage": "Terms of usage",
+        "privacyPolicy": "Privacy policy",
+        "cookiePolicy": "Cookie policy",
+        "codeOfConduct": "Code of conduct",
+        "accessibility": "Accessibility statement"
+      },
+      "keepInTouch": {
+        "heading": "Keep in Touch",
+        "blog": "Jiki's blog",
+        "youtube": "Jiki's YouTube Channel",
+        "reportAbuse": "Report abuse",
+        "sitemap": "Sitemap"
+      },
+      "getHelp": {
+        "heading": "Get Help",
+        "helpCenter": "Help Center",
+        "faqs": "FAQs",
+        "contactUs": "Contact us",
+        "siteStatus": "Site Status"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Jiki home",
+      "logoAlt": "Jiki",
+      "aboutJiki": "About Jiki",
+      "codingConcepts": "Coding Concepts",
+      "premium": "Premium",
+      "testimonials": "Testimonials",
+      "login": "Login",
+      "signUp": "Sign Up For Free"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Jiki home",
+      "logoAlt": "Jiki",
+      "backToJiki": "Back to Jiki →"
+    },
+    "authHeader": {
+      "brand": "Jiki Learn",
+      "blog": "Blog",
+      "articles": "Articles",
+      "welcome": "Welcome, {name}",
+      "dashboard": "Dashboard",
+      "settings": "Settings",
+      "signIn": "Sign In",
+      "signUp": "Sign Up For Free"
+    },
+    "sidebar": {
+      "logoAlt": "Jiki",
+      "nav": {
+        "learn": "Coding Fundamentals",
+        "build": "Build with Jeremy",
+        "projects": "Projects",
+        "concepts": "Concept Library",
+        "achievements": "Achievements",
+        "settings": "Settings"
+      },
+      "premiumPill": "Premium",
+      "moreMenu": {
+        "label": "More",
+        "helpCenter": "Help Center",
+        "youtube": "YouTube",
+        "forum": "Forum",
+        "blog": "Blog",
+        "logOut": "Log Out"
+      },
+      "upsell": {
+        "free": "You're currently on the free plan.",
+        "upgrade": "Upgrade to Premium",
+        "accelerate": "to accelerate your learning"
+      }
+    }
+  },
+  "common": {
+    "continue": "Continue",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "processing": "Processing...",
+    "reloadPage": "Reload Page",
+    "loading": "Loading..."
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "Use Google",
+      "useExercism": "Use Exercism",
+      "divider": "OR"
+    },
+    "fields": {
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "emailInvalidAddress": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters"
+    },
+    "captchaError": {
+      "signup": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try signing up again using the button below.",
+      "login": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try logging in again using the button below.",
+      "generic": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try again using the button below."
+    },
+    "login": {
+      "title": "Log In",
+      "noAccountPrefix": "Don't have an account? ",
+      "signUpLink": "Sign up for free.",
+      "invalidCredentials": "Invalid email or password",
+      "unconfirmedPrefix": "Please confirm your email before logging in. ",
+      "resendConfirmationLink": "Resend confirmation",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Log In",
+      "submitting": "Logging in...",
+      "verifying": "Verifying...",
+      "resendPrompt": "Didn't receive your confirmation email? ",
+      "resendLink": "Resend it."
+    },
+    "signup": {
+      "title": "Sign Up",
+      "haveAccountPrefix": "Already got an account? ",
+      "loginLink": "Log in",
+      "emailAlreadyRegistered": "This email is already registered",
+      "submit": "Sign Up",
+      "submitting": "Signing up...",
+      "verifying": "Verifying...",
+      "resendPrompt": "Didn't receive your confirmation email? ",
+      "resendLink": "Resend it."
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtitle": "If you've forgotten your password, use the form below to request a link to change it.",
+      "successMessage": "If an account with that email exists, you'll receive reset instructions shortly.",
+      "submit": "Send Reset Link",
+      "submitting": "Sending...",
+      "verifying": "Verifying...",
+      "rememberedPrompt": "Remembered your password? ",
+      "loginLink": "Log in"
+    },
+    "resetPassword": {
+      "invalidTitle": "Invalid Reset Link",
+      "invalidMessage": "This password reset link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request a new password reset",
+      "title": "Reset your password",
+      "subtitle": "Enter your new password below.",
+      "tokenMissing": "Reset token is missing or invalid",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "confirmationRequired": "Password confirmation is required",
+      "passwordsDontMatch": "Passwords don't match",
+      "successMessage": "Password reset successfully! Redirecting to login...",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submit": "Reset password",
+      "submitting": "Resetting...",
+      "rememberedPrefix": "Remember your password? ",
+      "signInLink": "Sign in"
+    },
+    "resendConfirmation": {
+      "title": "Resend confirmation instructions",
+      "subtitle": "Not received a confirmation email? Use the form below and we'll send you another.",
+      "emailInvalid": "Please enter a valid email address",
+      "successMessage": "If an account with that email exists, you'll receive confirmation instructions shortly.",
+      "submit": "Resend confirmation instructions",
+      "submitting": "Sending...",
+      "confirmedPrompt": "Already confirmed? ",
+      "loginLink": "Log in"
+    },
+    "checkInbox": {
+      "heading": "Check your inbox",
+      "sentTo": "We've sent a confirmation email to",
+      "hintPrefix": "Click the link in the email to activate your account. Didn't receive it? ",
+      "resendLink": "Resend email"
+    },
+    "emailConfirmed": {
+      "heading": "Email Confirmed!",
+      "message": "Your email has been confirmed successfully. Redirecting to dashboard..."
+    },
+    "confirmEmail": {
+      "pendingTitle": "Confirming your email...",
+      "pendingDescription": "Please wait while we confirm your email address.",
+      "errorTitle": "Link expired",
+      "errorMessage": "This confirmation link is no longer valid. Request a new one to continue.",
+      "errorCta": "Resend confirmation email"
+    },
+    "exercismCallback": {
+      "errorTitle": "Sign in failed",
+      "errorCta": "Back to log in",
+      "pendingTitle": "Signing you in...",
+      "pendingDescription": "Please wait while we sign you in with Exercism.",
+      "authFailed": "Exercism authentication failed"
+    },
+    "errorCard": {
+      "needHelpPrefix": "Need help? ",
+      "contactSupport": "Contact support"
+    },
+    "twoFactorVerify": {
+      "title": "Two-Factor Authentication",
+      "subtitle": "Enter the 6-digit code from your authenticator app.",
+      "codeLabel": "Verification code",
+      "verifying": "Verifying...",
+      "cancel": "Cancel and sign in again",
+      "invalidCode": "Invalid verification code",
+      "verificationFailed": "Verification failed. Please try again."
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "Scan the QR code with your authenticator app to secure your account.",
+      "appsHint": "Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.",
+      "codeLabel": "Enter the 6-digit code from your app",
+      "verifying": "Verifying...",
+      "cancel": "Cancel and sign in again",
+      "invalidCode": "Invalid verification code",
+      "verificationFailed": "Verification failed. Please try again."
+    },
+    "unsubscribe": {
+      "noToken": "No unsubscribe token provided.",
+      "linkInvalid": "This unsubscribe link is invalid or has expired.",
+      "tooManyRequests": "Too many requests. Please wait a moment and try again.",
+      "serviceUnavailable": "Service temporarily unavailable. Please try again later.",
+      "unableToProcess": "Unable to process your request. Please contact support if this continues.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "processingTitle": "Unsubscribing...",
+      "processingDescription": "Please wait while we process your request.",
+      "successTitle": "Successfully Unsubscribed",
+      "successDescription": "You have been unsubscribed from our mailing list.",
+      "errorTitle": "Unsubscribe Failed"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "Settings",
+      "description": "Manage your account and preferences.",
+      "tabAccount": "Account",
+      "tabSubscription": "Subscription",
+      "tabNotifications": "Notifications",
+      "tabLearning": "Learning",
+      "tabDanger": "Danger Zone"
+    },
+    "common": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "back": "Back",
+      "edit": "Edit",
+      "change": "Change"
+    },
+    "avatarEdit": {
+      "adjustTitle": "Adjust Photo",
+      "adjustSubtitle": "Zoom and position your photo.",
+      "back": "Back",
+      "save": "Save",
+      "changeTitle": "Change Profile Photo",
+      "changeSubtitlePart1": "Upload a new profile image.",
+      "changeSubtitlePart2": "This will only be visible to you.",
+      "uploadText": "Click to upload a new photo",
+      "uploadHint": "JPG, PNG or GIF. Max 5MB.",
+      "cancel": "Cancel"
+    },
+    "avatarUpload": {
+      "label": "Profile Photo"
+    },
+    "avatarPreview": {
+      "alt": "Your avatar"
+    },
+    "cancelConfirm": {
+      "title": "Cancel your subscription?",
+      "message": "We'd hate to see you go! If you cancel, you'll lose access to Premium at the end of your current billing period.",
+      "benefitsTitle": "You're currently enjoying:",
+      "benefit1": "Unlimited AI help from Jiki",
+      "benefit2": "All projects and learning paths",
+      "benefit3": "Completion certificates",
+      "benefit4": "Ad-free experience",
+      "keep": "Keep my subscription",
+      "cancel": "Cancel subscription"
+    },
+    "cancelSuccess": {
+      "title": "Subscription cancelled",
+      "message": "Your Premium subscription has been cancelled. You can continue enjoying all Premium features until your current billing period ends.",
+      "accessUntil": "Premium access until",
+      "resubscribeNote": "Changed your mind? You can resubscribe anytime.",
+      "gotIt": "Got it"
+    },
+    "changeEmail": {
+      "title": "Change Email Address",
+      "importantLabel": "Important:",
+      "importantText": "A confirmation email will be sent to your new email address. You'll need to confirm it before the change takes effect.",
+      "currentEmailLabel": "Current Email",
+      "newEmailLabel": "New Email Address",
+      "newEmailPlaceholder": "Enter your new email address",
+      "passwordLabel": "Confirm with Current Password",
+      "passwordPlaceholder": "Enter your current password",
+      "passwordHint": "Required for security verification",
+      "newEmailRequired": "New email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "emailSame": "New email must be different from current email",
+      "passwordRequired": "Current password is required",
+      "updateFailed": "Failed to update email",
+      "submit": "Update Email",
+      "cancel": "Cancel"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "currentLabel": "Current Password",
+      "currentPlaceholder": "Enter your current password",
+      "newLabel": "New Password",
+      "newPlaceholder": "Enter your new password",
+      "newHint": "Must be at least 8 characters long",
+      "confirmLabel": "Confirm New Password",
+      "confirmPlaceholder": "Confirm your new password",
+      "currentRequired": "Current password is required",
+      "newRequired": "New password is required",
+      "minLength": "Password must be at least 8 characters long",
+      "noMatch": "Passwords do not match",
+      "mustDiffer": "New password must be different from current password",
+      "updateFailed": "Failed to update password",
+      "submit": "Update Password",
+      "cancel": "Cancel"
+    },
+    "deleteAccount": {
+      "sendFailed": "Failed to send confirmation email. Please try again.",
+      "confirmTitle": "Are you sure?",
+      "confirmMessage": "Do you really want to delete your account? You will lose all your work. This is irreversible.",
+      "cancel": "Cancel",
+      "submitting": "Sending...",
+      "submit": "Delete Account",
+      "securityTitle": "Security Check",
+      "securityMessage": "We've sent you an email to confirm this is really you. Please click the button in that email to delete your account.",
+      "understand": "I understand"
+    },
+    "paymentHistory": {
+      "title": "Payment History",
+      "subtitle": "View and download receipts for your past payments.",
+      "loading": "Loading payment history...",
+      "error": "Unable to load payment history. Please try again later.",
+      "empty": "No payment history available.",
+      "columnDate": "Date",
+      "columnAmount": "Amount",
+      "columnType": "Type",
+      "columnMethod": "Method",
+      "downloadReceipt": "Download Receipt"
+    },
+    "profile": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter your name",
+      "updateName": "Update Name",
+      "nameEmpty": "Name cannot be empty",
+      "nameTooLong": "Name must be less than 100 characters",
+      "handleLabel": "Handle",
+      "handlePlaceholder": "Enter your handle",
+      "updateHandle": "Update Handle",
+      "handleEmpty": "Handle cannot be empty",
+      "handleInvalid": "Handle can only contain letters, numbers, underscores, and hyphens",
+      "handleTooShort": "Handle must be at least 3 characters",
+      "handleTooLong": "Handle must be less than 30 characters",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your email",
+      "updateEmail": "Update Email",
+      "emailEmpty": "Email cannot be empty",
+      "emailInvalid": "Please enter a valid email address",
+      "confirmationPendingPrefix": "Confirmation pending for: ",
+      "confirmationPendingHint": "Please check your email to confirm the change.",
+      "emailNotConfirmed": "Your email address is not confirmed."
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "Subscription",
+      "loadingCardDescription": "Manage your subscription plan and billing details",
+      "loadingData": "Loading subscription data..."
+    },
+    "benefits": {
+      "activeHeadingPrefix": "You're enjoying ",
+      "premium": "Premium",
+      "activeHeadingSuffix": " benefits",
+      "activeSubtitle": "Here's what you're unlocking every day",
+      "footerPrefix": "Got a question? Learn more about ",
+      "footerWhatsIncluded": "what's included",
+      "footerOr": " or ",
+      "footerContactSupport": "contact support",
+      "cancellingHeadingPrefix": "Don't lose your ",
+      "cancellingHeadingSuffix": " benefits",
+      "cancellingSubtitle": "Here's what you'll miss when your access ends",
+      "resubscribeTitle": "Keep learning without limits",
+      "resubscribePrefix": "Resubscribe now for just ",
+      "resubscribePerMonth": "/month",
+      "resubscribeSuffix": " and continue your coding journey with Jiki's support.",
+      "resubscribeButton": "Resubscribe to Premium",
+      "unlimitedAiTitle": "Unlimited AI help",
+      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
+      "unlimitedContentTitle": "Unlimited content",
+      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
+      "certificatesTitle": "Certificates",
+      "certificatesDescription": "Earn shareable certificates when you complete courses",
+      "adFreeTitle": "Ad-free",
+      "adFreeDescription": "Enjoy a distraction-free learning experience",
+      "prioritySupportTitle": "Priority support",
+      "prioritySupportDescription": "Get faster responses when you need help",
+      "earlyAccessTitle": "Early access",
+      "earlyAccessDescription": "Be the first to try new features and content"
+    },
+    "cancelSectionPanel": {
+      "title": "Cancel Subscription",
+      "description": "If you cancel, you'll lose access to Premium features at the end of your billing period. You can always resubscribe later.",
+      "cancel": "Cancel"
+    },
+    "premiumUpsell": {
+      "headlinePrefix": "Unlock a ",
+      "headlineHighlight": "better",
+      "headlineSuffix": " way to learn",
+      "subtitle": "You're currently on the Free plan. Upgrade to Premium to unlock:",
+      "planName": "Jiki Premium",
+      "perMonth": "/month",
+      "dailyNotePrefix": "That's only ",
+      "dailyNoteSuffix": " a day",
+      "processing": "Processing...",
+      "upgrade": "Upgrade to Premium",
+      "unlimitedAiTitle": "Unlimited AI help",
+      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
+      "unlimitedContentTitle": "Unlimited content",
+      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
+      "certificatesTitle": "Certificates",
+      "certificatesDescription": "Earn shareable certificates when you complete courses",
+      "adFreeTitle": "Ad-free",
+      "adFreeDescription": "Enjoy a distraction-free learning experience"
+    },
+    "neverSubscribed": {
+      "heading": "Upgrade Your Plan",
+      "subtitle": "Unlock advanced features and enhanced learning experiences with our premium plans.",
+      "perMonth": "/month",
+      "featuresLabel": "Premium plan features",
+      "upgradeAriaLabel": "Upgrade to {plan} plan",
+      "upgrade": "Upgrade to Premium"
+    },
+    "errorBoundary": {
+      "title": "Subscription System Error",
+      "messagePart1": "We're experiencing issues loading your subscription information. This might be a temporary problem with our payment system.",
+      "messagePart2": "Please try refreshing the page, or contact support if the issue persists.",
+      "refresh": "Refresh Page",
+      "tryAgain": "Try Again",
+      "detailsSummary": "Error Details (Development)"
+    },
+    "danger": {
+      "sessionLabel": "Session Management",
+      "sessionDescription": "Manage your active sessions across all devices.",
+      "logout": "Log out",
+      "deleteLabel": "Delete Account",
+      "deleteDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
+      "deleteButton": "Delete Account"
+    },
+    "learning": {
+      "streaksLabel": "Study Streaks",
+      "streaksDescription": "Enable streaks on my account.",
+      "toggleAriaLabel": "Toggle study streaks",
+      "learnMore": "Learn more"
+    },
+    "notifications": {
+      "toggleAriaLabel": "Toggle {title}",
+      "essentialTitle": "Essential Service/Account messages",
+      "essentialDescription": "Important updates about your account, security, and service changes.",
+      "featuresTitle": "Emails about new features or content",
+      "featuresDescription": "Stay updated with the latest features and content added to Jiki.",
+      "livestreamsTitle": "Emails about livestreams",
+      "livestreamsDescription": "Get notified about upcoming livestreams and events.",
+      "milestonesTitle": "Emails when you reach new milestones",
+      "milestonesDescription": "Celebrate your achievements and progress on Jiki.",
+      "activityTitle": "Other emails in response to things that you do on Jiki",
+      "activityDescription": "Activity-based notifications like unlocking badges and completing challenges."
+    },
+    "editableField": {
+      "update": "Update",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "saveFailed": "Failed to save"
+    },
+    "passwordField": {
+      "currentRequired": "Current password is required",
+      "newRequired": "New password is required",
+      "minLength": "New password must be at least 8 characters",
+      "noMatch": "Passwords do not match",
+      "updateFailed": "Failed to update password",
+      "currentLabel": "Current password",
+      "currentPlaceholder": "Enter current password",
+      "newLabel": "New password",
+      "newPlaceholder": "Enter new password",
+      "confirmLabel": "Confirm new password",
+      "confirmPlaceholder": "Confirm new password",
+      "cancel": "Cancel",
+      "submit": "Update Password",
+      "label": "Password",
+      "change": "Change"
+    },
+    "subscriptionButton": {
+      "loading": "Loading..."
+    },
+    "subscriptionStatus": {
+      "statusActive": "Active",
+      "statusCanceled": "Canceled",
+      "statusPaymentFailed": "Payment Failed",
+      "statusCancelling": "Cancelling",
+      "statusIncomplete": "Incomplete",
+      "statusSessionExpired": "Session Expired",
+      "statusNotSubscribed": "Not Subscribed",
+      "currentPlan": "Current Plan",
+      "activePrefix": "You are on the ",
+      "activePlanName": "Jiki {tier}",
+      "activeMiddle": " plan at ",
+      "activePerMonth": "/month",
+      "activeNextBillingPrefix": ". Your next billing date is ",
+      "cancellingMessage": "Your Jiki Premium subscription has been cancelled.",
+      "cancellingRemainingPrefix": " You have ",
+      "cancellingDay": "day",
+      "cancellingDays": "days",
+      "cancellingRemainingSuffix": " remaining to enjoy all Premium features.",
+      "cancellingEndsPrefix": " Your Premium plan will end on ",
+      "freePrefix": "You are on the ",
+      "freePlanName": "Free",
+      "freeSuffix": " plan. This gives you all the content plus Jiki AI to help you out for one exercise per month.",
+      "planSuffix": " Plan",
+      "currentPlanAriaLabel": "Current plan: {plan} Plan",
+      "statusAriaLabel": "Subscription status: {status}",
+      "perMonth": "/month",
+      "messageCanceled": "Service continues until period end",
+      "messagePaymentFailed": "Payment failed - please update payment method",
+      "messageCancelling": "Cancellation scheduled - access until period end",
+      "messageIncomplete": "Payment setup incomplete - please complete setup",
+      "messageIncompleteExpired": "Previous checkout session expired - please start a new subscription"
+    }
+  },
+  "landing": {
+    "hero": {
+      "headlinePart1": "Learn to ",
+      "headlineHighlight": "code and build",
+      "headlinePart2": " in the LLM-era!",
+      "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
+      "audiencePrefix": "Designed for ",
+      "audience1": "people getting into tech",
+      "audienceMiddle": ", ",
+      "audience2": "junior developers",
+      "audienceAfter2": " who want to accelerate, and ",
+      "audience3": "vibe-coders",
+      "audienceSuffix": " wanting to do things properly!",
+      "ctaSubtext": "...or read on to learn more!",
+      "loadingVideo": "Loading video",
+      "playVideo": "Play video",
+      "watchPrompt": "(Reading not your thing? <strong>Click play</strong> and I'll tell you everything you need to know!)",
+      "marquee": {
+        "t1": "\"Perfect mixture of challenge and fun\"",
+        "t2": "\"Amazing value\"",
+        "t3": "\"My best time investment for years\"",
+        "t4": "\"Incredibly Fun!\"",
+        "t5": "\"Its been transformative!\"",
+        "t6": "\"You *will* learn to code\"",
+        "t7": "\"Learning, as it should be!\"",
+        "t8": "\"The best course I've done\"",
+        "t9": "\"Made learning a joy again\"",
+        "t10": "\"This course is pure gold.\"",
+        "t11": "\"A wonderful Learning Experience\"",
+        "t12": "\"Proper Hands-on learning\"",
+        "t13": "\"The knowledge you didn't think you needed\"",
+        "t14": "\"100% recommended!\"",
+        "t15": "\"So glad I stumbled on this\"",
+        "t16": "\"A great way to learn!\"",
+        "t17": "\"Fun exercises, clear explanations, cool hats\"",
+        "t18": "\"Exceptional course, truly outstanding\"",
+        "t19": "\"Addictive in a good way\"",
+        "t20": "\"Amazing fun\"",
+        "t21": "\"Fantastic community\"",
+        "t22": "\"Zero coding experience required\"",
+        "t23": "\"Fun and inspiring\"",
+        "t24": "\"It's changed the way I think about learning\"",
+        "t25": "\"An incredibly rewarding journey\"",
+        "t26": "\"Insane value\"",
+        "t27": "\"An opportunity to learn from a bonafide master\"",
+        "t28": "\"It's really an amazing and lovely thing\"",
+        "t29": "\"The best investment I made in myself this year\"",
+        "t30": "\"Its massively increased my confidence and motivation\"",
+        "t31": "\"Very supportive community!\"",
+        "t32": "\"Even as a prior programmer, its transformative!\""
+      }
+    },
+    "exercism": {
+      "heading": "What makes Exercism special?",
+      "intro": "Exercism is a <strong>longstanding nonprofit</strong> that's helped over <strong>2.5 million people</strong> level-up their coding skills.",
+      "studentsCount": "2,500,000",
+      "studentsTitle": "Exercism students",
+      "studentsDesc": "We've grown entirely by word of mouth. Good friends tell their friends about Exercism!",
+      "testimonialsCount": "85,000",
+      "testimonialsTitle": "Testimonials",
+      "testimonialsDesc": "We've been one of the most trusted resources for coding education for over a decade.",
+      "exercisesCount": "47,082,260",
+      "exercisesTitle": "Exercises Solved",
+      "exercisesDesc": "Our exercises are trusted by the coding community as the perfect way to level up!",
+      "mentoringCount": "384,906",
+      "mentoringTitle": "Mentoring Sessions",
+      "mentoringDesc": "Our unique mentoring program is one of the best ways to get tips from experts!"
+    },
+    "signupSection": {
+      "headingPrefix": "Get started - ",
+      "headingHighlight": "it's free!",
+      "intro": "The <strong>Coding Fundamentals</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",
+      "button": "Sign up & start coding →"
+    },
+    "signupButton": {
+      "signUp": "Sign Up",
+      "free": " (it's free!)"
+    },
+    "faqs": {
+      "heading": "Frequently Asked Questions",
+      "introPrefix": "These are the questions we get asked the most. Your question not answered here? ",
+      "introLink": "Ping us an email!",
+      "q1": "How much does it cost?",
+      "q1a1": "The <strong>Coding Fundamentals</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
+      "q1a2Prefix": "<strong>Jiki Premium</strong> is ",
+      "q1a2Suffix": " (priced by country) and unlocks:",
+      "q1PerMonth": "/month",
+      "q1Item1": "Full access to <strong>Build with Jeremy</strong>",
+      "q1Item2": "Combine your skills in <strong>Jiki Projects</strong>",
+      "q1Item3": "Unlimited <strong>Ask Jiki</strong> AI support",
+      "q1Item4": "Regular <strong>Q&A livestreams</strong> you can join",
+      "q1Item5": "Earn <strong>certificates</strong> for courses",
+      "q1Item6": "An <strong>ad-free</strong> learning experience",
+      "q1Item7": "<strong>Early access</strong> to new features",
+      "q2": "How much time will I need to spend each week on the course?",
+      "q2a": "You can spend as long or as little as you like. Most people get through the <strong>Coding Fundamentals</strong> strand in 12–20 weeks at around 5–10 hours a week. The <strong>Build with Jeremy</strong> strand is ongoing — you can dip in and out as new episodes go up, and join livestreams when it suits you.",
+      "q3": "How hard is the course? How smart do I need to be?",
+      "q3a1": "The course is designed to be accessible to everyone, regardless of your background. We don't believe you need to be \"smart\" to learn to code. But you do need to put in the effort and be willing to be challenged.",
+      "q3a2": "But if you put in the effort, ask for help when you get stuck, and embrace the challenge, you'll be amazed at how far you can go in a short time.",
+      "q4": "Is Jiki available now?",
+      "q4a1": "Yes — you can sign up and start the free Coding Fundamentals curriculum today.",
+      "q4a2": "The first <strong>Build with Jeremy</strong> session will be in <strong>mid-June</strong>. You can sign up for a reminder once you're inside.",
+      "q5": "I already signed up to the Bootcamp - is this different?",
+      "q5a1": "Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!",
+      "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Coding Fundamentals course and future courses."
+    },
+    "latestNews": {
+      "heading": "Our latest news",
+      "subheadingPrefix": "Keep up to date with what's happening at Jiki in ",
+      "subheadingLink": "our blog",
+      "byAuthor": "by {name}"
+    },
+    "monthlyPrice": {
+      "fallback": "$9.99"
+    },
+    "welcome": {
+      "headingHighlight": "Coding has changed.",
+      "headingRest": " The way you learn needs to change too.",
+      "para1": "In 2026, anyone can open Cursor and create a fully-functional product in minutes. Maybe you've done it yourself! Something that would have taken you <strong>years to learn</strong> to make in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to have a <strong>career in tech</strong>?",
+      "para2": "Here's a secret no-one tells you. <highlight><strong>Software engineering has never been about writing code.</strong></highlight> Coding is how you communicate with the computer, but the real skill has always been in <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in <strong>building and architecting</strong>. It's always been about taking ideas and <strong>turning them into reality</strong>.",
+      "para3": "Thanks to LLMs <highlight><strong>you don't have to spend years mastering coding</strong></highlight> in order to be useful. But you still have a lot to learn! You still need to learn <strong>coding fundamentals</strong>. You need to learn <strongHighlight>how everything works</strongHighlight>. You need to learn <strongHighlight>how to build</strongHighlight>. But the journey is <strong>much more fun</strong> than it's ever been before. And I'm here <strong><you>to be your guide on that journey!</you></strong>",
+      "hiThere": "Hi there! <wave>👋</wave> I'm Jeremy, and I've helped over <highlight>two million people</highlight> level up their coding skills.",
+      "para4": "For 20 years, I've been telling people that want to get into tech to get really good at writing code, and then start to work out how to make real apps. But now, thanks to LLMs - <strong>that advice is upside down</strong>.",
+      "para5": "If you're starting out today then most of your work is going to be <strong>reading code, not writing it.</strong> And that means something that's a little sad for me to admit...",
+      "heading2": "<strong>Getting good</strong> at writing code is <highlight>becoming irrelevant</highlight> 😢",
+      "para6": "You are never going to be better than an LLM at writing code. I have been coding for 34 years and LLMs are at my level. <strong>You won't catch up.</strong>",
+      "para7": "BUT, and this is the big but, <strong>you don't need to!</strong> I almost never write code now. I let the LLMs do it for me, and you can too. Instead we get to <strongHighlight>do more of the actual interesting stuff</strongHighlight>. And that's what I'm going to teach you in this course!",
+      "para8": "I think it's <strong>incredibly exciting for you</strong> to be starting out today. You don't need to spend 10 years mastering a skill to be useful. <strong>You can start doing real things straight away!</strong>",
+      "heading3": "<highlight>You learn by making stuff!</highlight>",
+      "para9": "I started coding when I was 8. Back then, YouTube didn't exist. There weren't any \"learn to code\" websites. I didn't even have the internet. There was basically only one way to learn. <strong>Make stuff. Lots of stuff!</strong>",
+      "rhodriAlt": "Jeremy and Rhodri in 1998 making their first paid website",
+      "captionShort": "1998: Me making the first website I ever got paid for.",
+      "captionLong": "1998: Me and Rhodri making the first website we ever got paid for.",
+      "para10Prefix": "And make stuff I did! I started making games and then graduated to making little bots to play against. And as I grew older I made websites for me and my friends, and ",
+      "para10Eventually": "eventually for customers.",
+      "para11": "I created, I played, I experimented. I had fun!",
+      "para12": "And through this, I got really good. <strong>I learned the coder mindset,</strong> and I laid the foundations that I've built my whole career on.",
+      "heading4": "<highlight>The two parts</highlight> to learning programming today...",
+      "para13": "We've made a different type of course. One that teaches you the fundamentals of programming differently, and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two parts:",
+      "listItem1": "<strong>Learn coding fundamentals</strong>. We'll teach you the fundamentals of coding so you can understand what an LLM is building - as essential as ever.",
+      "listItem2": "<strong>Learn how to build</strong>. Work alongside me as I make real projects with LLMs and show you everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have fun making stuff!",
+      "para14": "Within a few months, you'll go from zero to being able to build games like <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout</strong> in code from scratch. And in parallel, you'll be learning how to make real-world projects, <strong>using databases</strong>, adding auth, using APIs, deploying websites... Doing all the real stuff that developers do!",
+      "spaceInvadersLabel": "Space Invaders game screenshot",
+      "ticTacToeLabel": "Tic Tac Toe game screenshot",
+      "breakoutLabel": "Breakout game screenshot",
+      "mazeLabel": "Maze solving bot screenshot",
+      "heading5": "Sound fun?",
+      "para15": "If all <highlight>this sounds exciting</highlight>, then I'd love for you to join us! 💙",
+      "para16Prefix": "The core \"learn to code\" curriculum is <strong>entirely free</strong> - over 200 hours of fun challenges to hone your skills. And the rest, where you get to follow me as I teach you how to build things, costs only ",
+      "para16PerMonth": "/month",
+      "para16Suffix": " (as cheap as we can make it and still pay the bills!)",
+      "para17Prefix": "Want more details? Or to hear from others that I've taught? Read on below for even more details or ",
+      "para17Link": "just sign up!",
+      "ctaButton": "Enough with all the talking! Let's do this! "
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "What we cover",
+      "menuHeading": "What's on the <strong>menu?</strong>",
+      "menuIntro": "The course has two strands: <strong>Coding Fundamentals</strong> and <strong>Building in the Age of LLMs</strong>.",
+      "part1Heading": "1. Coding Fundamentals ",
+      "part1Bubble": "Absolute Beginners",
+      "part1Intro": "We're going to help you <highlight>build rock solid coding foundations.</highlight> We'll cover all the core concepts in programming and give you tons of exercises and projects to practice with.",
+      "part1Item1Prefix": "<strong>Build a solid understanding</strong> of ",
+      "part1Item1Link": "core programming principles",
+      "part1Item1Suffix": ", including flow control, conditionals, data types, functions, and much more, using a beginner-friendly version of JavaScript.",
+      "part1Item2": "<strong>Gain the confidence</strong> to put your knowledge into practice, being able to solve a wide variety of problems, using the right concept at the right time.",
+      "part1Item3": "<strong>Develop the Coder's Mind.</strong> You'll notice that your critical thinking, problem solving, and logic skills are all improving.",
+      "part1Item4": "<strong>A base to build on</strong>. Whatever type of programming you want to do, this is the base you need, and one you can easily build on.",
+      "part1Duration": "Takes 12-20 weeks",
+      "part1Alt": "Part 1",
+      "levelsHeading": "The <strong>Levels</strong> of Coding Fundamentals",
+      "levelsSideheading": "Students normally take 1-2 weeks per level.",
+      "levelsIntro": "From day one you'll be building fun things. You'll start by drawing, then animating, then making games, then building intelligence into your programs. Every level has lots of fun challenges!",
+      "levelsSubIntro": "<strong>Here are just a few of the fun things you'll make! 👇</strong>",
+      "penguinAlt": "Penguin drawing exercise",
+      "level2": "In <strong>level 2</strong> you get familiar with <strong>coding basics</strong> through some drawing puzzles.",
+      "golfLabel": "Golf animation exercise",
+      "level3": "In <strong>level 3</strong> you'll learn how to <strong>make things move</strong> for the first time.",
+      "flowerLabel": "Flower flipbook animation",
+      "flowerLevel": "Your first <strong>major project</strong> is to <strong>animate flipbook-style</strong> using variables and loops.",
+      "spaceInvadersLabel": "Space invaders game",
+      "level7": "By <strong>level 7</strong> you'll start <strong>building some intelligence</strong> into your code.",
+      "wallLabel": "Wall building exercise",
+      "level10": "In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code to eliminate duplication.",
+      "wordleAlt": "Wordle game exercise",
+      "level12": "<strong>Level 12</strong> introduces lists, your first <strong>compound data type,</strong> and Wordle!",
+      "ticTacToeLabel": "Tic-tac-toe game",
+      "level14": "<strong>Level 14</strong> focusses on <strong>coding mindset</strong> and solving a hard project.",
+      "mazeLabel": "Maze solving exercise",
+      "level16": "In <strong>Level 16</strong> you unlock <strong>dictionaries</strong> making Emoji Collector possible.",
+      "dreamingHouseLabel": "Dreaming house exercise",
+      "level20": "By <strong>Level 20</strong> you're able to build <strong>complex programs</strong> with intertwining ideas.",
+      "breakoutLabel": "Breakout game",
+      "levelEnd": "And by the <strong>end of the course</strong> you're building games like <strong>Breakout!</strong>",
+      "buildingHeading": "But learning to code <strong>isn't enough</strong>",
+      "buildingIntro": "In the LLM-era, you also need to get up to speed on how to create things, how to work with an LLM safely. So...",
+      "part2Heading": "2. Building in the Age of LLMs 🚀",
+      "part2Bubble": "Beginners / Juniors",
+      "part2Intro": "Alongside learning to code, we'll deep dive into how technology works. We'll <highlight>build real projects together</highlight>, digging into databases, creating secure auth, learning about frontends vs backends, and much much more.",
+      "part2Item1": "<strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin up an LLM and you can follow along with your own project idea. I'll teach you how to make good decisions and guide your LLM safely.",
+      "part2Item2": "<strong>Topic Deep Dives</strong>: I'll talk you through how complex platforms like Exercism and Jiki work, deep-diving into the code we've written and share my learnings with you!",
+      "part2Item3": "<strong>Regular Q&A Livestreams</strong>. Something not clicking? Need help with your projects? Submit your questions and I'll answer them with you on our regular livestreams.",
+      "part2Duration": "Regular New Episodes",
+      "jeremyLivestreamAlt": "Jeremy livestreaming with tech logos",
+      "certificateBubble": "Celebrate your new skills!",
+      "certificateHeading": "Get a verified certificate",
+      "certificatePara1": "At the end of the course, we'll issue you an official certificate to recognise your participation and completion of the course.",
+      "certificatePara2": "Show off your skills on your resume and in the Certifications section of your LinkedIn profile.",
+      "certificateAlt": "Jiki course completion certificate",
+      "linkedinAlt": "LinkedIn",
+      "linkedinShare": "Share your certificate in your network"
+    },
+    "testimonials": {
+      "heading": "What do our students think?",
+      "subheadingPrefix": "These are some extracts from what our beta users said. ",
+      "subheadingLink": "Read the full versions here!",
+      "quoteOpenAlt": "“",
+      "quoteCloseAlt": "”",
+      "primaryQuote": "Seeing how much effort, thought, and even love is put into this course, it's such a pleasure to be a student here. Every explanation, each exercise turn this course into a masterpiece. I really enjoy it.",
+      "primaryName": "Oleksandra",
+      "primaryRole": "Coding Newbie",
+      "roleTotalBeginner": "Total Beginner",
+      "roleAbsoluteBeginner": "Absolute Beginner",
+      "roleBeginner": "Beginner",
+      "roleJuniorDeveloper": "Junior Developer",
+      "rolePythonDev": "Python Dev",
+      "roleIntermediateDev": "Intermediate Dev",
+      "roleWasInTutorialHell": "Was in Tutorial Hell",
+      "roleSerialBeginner": "Serial beginner",
+      "fred": "As someone with <strong>no previous coding experience</strong> - I've been blown away with the <strong>quality of this course</strong>. I've <strong>come so far</strong> in the past weeks and reflecting on what I've achieved and <strong>how much I've learned has been phenomenal</strong>. My journey has been from a complete coding novice, to someone who is <strong>confident and excited to tackle complex logic problems</strong> in code!",
+      "shaun": "I was brand new to coding and this course <strong>exceeded my wildest expectations</strong> and then some. In my humble opinion, it will be <strong>one of the best choices you will ever make!</strong>",
+      "lucas": "From the moment I bought the course, I realized it would <strong>be different from anything I had ever experienced</strong> in terms of classes and studying. Learning while actually coding <strong>has made it pretty fun</strong>. Getting help and encouraging messages from the community, sharing their experiences, and knowing that you're not alone made things much easier. It's <strong>such a pleasure</strong> to be part of it!",
+      "nolan": "Getting into <strong>programming always felt overwhelming</strong>. I often quit before I really got started. However, the course has provided an <strong>excellent, guided path to self-sufficiency</strong>, and I now feel capable of growing and learning more in the field.",
+      "redrobio": "This course has pushed me past what I thought were personal limitations, and in doing so, has <strong>increased my confidence and motivation</strong>. Know that when you get the certificate at the end of the course, it will be because you EARNED it!",
+      "matt": "I joined the course with some Python knowledge, looking to learn front-end languages. I'd been <strong>struggling with self-paced learning</strong>, so I signed up for the structure and accountability. The teaching style — <strong>full of effective analogies</strong> — really clicked with me. In just 10 weeks, I've learned new material and <strong>gained clarity on topics I thought I already understood</strong>. Fantastic mentors, teaching, community, and global cohort. The course has exceeded my expectations—I'd highly recommend it!",
+      "abhinav": "The course provided me an opportunity to <strong>learn from a bonafide master</strong>. The purchasing power parity discount made it even more affordable. <strong>Thank you for making it accessible</strong>.",
+      "laura": "I'd recommend this to anyone trying to become a better programmer. I have done a fair bit of tutorial material online to learn programming but this course <strong>does the best job in teaching you the fundamentals</strong>. This course has <strong>given me confidence in writing code and made it fun! 😄</strong>.",
+      "oleksandra2": "Before I started this course I didn't think I could do the exercises we do now. <strong>I thought I am not smart enough</strong>, that \"this is not for me\" and I didn't expect anything which required so much effort to be here in the fundamentals of programming. But in the end, <strong>Jeremy shows it's yet another skill that can be learnt</strong>, even in such a <strong>short period of time.</strong>",
+      "kazzybits": "I had doubts that I would understand this kind of material, and yet as I look back to where I started, I have a deep appreciation for the incredible skills and knowledge I am now nurturing and growing. <strong>How I think about thinking, and about problem solving in general, has changed dramatically</strong> since undertaking this course. I can't wait to see what's next!",
+      "vignesh": "I joined this course with <strong>some coding experience</strong>, but the clarity and structure <strong>made everything click like never before</strong> and the lessons are perfectly paced, building concepts step-by-step in a way that <strong>feels natural and engaging</strong>. It's a transformative learning experience that <strong>leaves you feeling motivated and excited</strong> to keep pushing your coding skills to the next level.",
+      "rick": "Honestly, I had no expectations when I stumbled upon Jiki, but it turned out to be <strong>my greatest discovery of the year!</strong> Given the cost, I didn't hesitate to join and give it a try. I had no experience whatsoever, and <strong>I'm very impressed with myself</strong> looking at what I can do! 100% recommended!",
+      "artigiani": "The course has been <strong>a game-changer for me</strong>.The pace is perfect: <strong>challenging yet not impossible</strong>. The exercises are very nice, and it is <strong>incredibly satisfying</strong> to see that in just a few weeks one can pass from simply moving a blob in a maze to program one that solve EVERY maze.",
+      "robert": "This course hasn't just taught basic structures and logic for programming, but <strong>it instills some basic tenets of the coder's mindset</strong> that will be invaluable on your journey (<strong>how to start from a blank screen</strong>, breaking big impossible challenges into the smallest solvable pieces, creating more efficient, readable, and maintainable code).",
+      "karen": "I have next to no coding experience yet have found this course to be <strong>so intelligently scaffolded</strong>, with <strong>concepts clearly explained and logically built one after the other</strong>, making the information accessible to learn.",
+      "kcash": "This course gives you the <strong>tools to think through the process</strong> before even writing a single line of code which makes the actual coding part easier. Having <strong>a good mental model</strong> helps with understanding what's 'under the hood'",
+      "drac": "The <strong>resources are fantastic</strong> but it is Jeremy's knack of breaking things down into <strong>the smallest possible steps</strong> that has really helped things click for me. I've <strong>learned an unbelievable amount</strong> in a few short weeks and I'm now <strong>solving problems with code that I would never have thought possible!</strong>",
+      "jj": "Jeremy and the mentors have created an amazing <strong>resource like no other</strong> on the web. From the <strong>fun and sleek interface</strong>, to the live classes and labs or the discord discussions, it all comes together to make <strong>a superb learning experience</strong>.",
+      "nanouss": "Enrolling in this programming course was one of the <strong>best decisions I've ever made</strong>. The curriculum is well-structured, covering foundational programming concepts. The team is <strong>supportive, and truly invested</strong> in helping students succeed.",
+      "thom": "You will not believe <strong>how fantastic this course is</strong>! You learn to write code by writing code to solve problems that match--and push--your abilities. <strong>Jeremy is a master teacher.</strong> Jiki is the perfect environment.",
+      "chris": "For nearly a decade, <strong>I've repeatedly started online coding courses</strong>, but every time I run up against something that didn't make sense or a problem I just couldn't solve which stopped me in my tracks, meaning I have never completed a course, but now after years of trying, suddenly, <strong>coding feels possible.</strong>"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "Jiki Premium",
+      "subheading": "Accelerate your road to job-ready. Unlock every course, every project, unlimited AI support, and everything else Jiki has to offer."
+    },
+    "planPrice": {
+      "basic": "Basic",
+      "premium": "Premium",
+      "free": "Free",
+      "perMonth": "per month"
+    },
+    "planBadge": {
+      "free": "Free",
+      "premium": "Premium"
+    },
+    "table": {
+      "comparePlans": "Compare plans",
+      "comparePlansDesc": "Here's what's included in each plan, so you can choose with confidence.",
+      "checkNo": "✕"
+    },
+    "values": {
+      "thirtyMins": "30 mins",
+      "unlimited": "Unlimited",
+      "firstEpisodes": "First episodes",
+      "fullAccess": "Full access",
+      "sampleEpisode": "Sample Episode"
+    },
+    "categories": {
+      "codingFundamentals": "Coding Fundamentals",
+      "buildWithJeremy": "Build with Jeremy",
+      "support": "Support",
+      "certificates": "Certificates",
+      "experience": "Experience"
+    },
+    "features": {
+      "codingExercisesTitle": "Coding Exercises",
+      "codingExercisesDesc": "Learn by doing with our growing library of interactive exercises.",
+      "conceptLibraryTitle": "Full Concept Library",
+      "conceptLibraryDesc": "Bite-sized lessons covering every coding concept you need to know.",
+      "jikiProjectsTitle": "Jiki Projects",
+      "jikiProjectsDesc": "Combine the skills you've learned into real, end-to-end projects.",
+      "talkToJikiTitle": "Talk to Jiki",
+      "talkToJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
+      "buildingFundamentalsTitle": "Building Fundamentals series",
+      "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
+      "howThingsWorkTitle": "How Things Work series",
+      "howThingsWorkDesc": "Deep dives into the trickier bits of Exercism and Jiki, and why they're built that way.",
+      "earlyAccessTitle": "Early access to new features",
+      "earlyAccessDesc": "Try out new features before everyone else.",
+      "communityForumsTitle": "Community forums",
+      "communityForumsDesc": "Ask questions and learn alongside other Jiki students.",
+      "livestreamsTitle": "Q&A livestreams with Jeremy",
+      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding and building questions.",
+      "certificatesTitle": "Earn certificates for courses",
+      "certificatesDesc": "Show off what you've learned with shareable certificates.",
+      "adFreeTitle": "Ad-free learning",
+      "adFreeDesc": "Focus on learning without distractions."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Can I try Jiki for free?",
+      "a1": "Yes! You can sign up for free and use the Basic plan for as long as you like. Upgrade to Premium whenever you need full access — there's no obligation.",
+      "q2": "Is there a minimum contract length?",
+      "a2": "No minimum contract — Premium is billed monthly and you can cancel at any time from your account settings.",
+      "q3": "What happens if I cancel my Premium subscription?",
+      "a3": "You'll keep Premium access until the end of your current billing period, and then your account will move back to the Basic plan. You don't lose any of your progress — you just lose access to Premium-only features.",
+      "q4": "Do you offer discounts for students or those who can't afford Premium?",
+      "a4Prefix": "We want Jiki to be accessible to everyone. If cost is a barrier, please ",
+      "a4Link": "get in touch",
+      "a4Suffix": " and we'll do what we can to help.",
+      "q5": "Can I upgrade or downgrade later?",
+      "a5": "Absolutely. You can upgrade to Premium at any time from your account, and you can cancel just as easily whenever you'd like."
+    },
+    "cta": {
+      "alreadyPremiumTitle": "You're already a Premium member",
+      "alreadyPremiumDesc": "Thanks for supporting Jiki — enjoy full access to everything!",
+      "upgradeTitle": "Ready to accelerate your learning?",
+      "upgradeDesc": "Upgrade to Premium and unlock everything Jiki has to offer.",
+      "upgradeButton": "Upgrade to Premium",
+      "freeTitle": "Get started for free",
+      "freeDesc": "Get started today for free and access hundreds of hours of free content. Upgrade to Premium when you want to go even deeper.",
+      "freeButton": "Sign up for free"
+    },
+    "publicPrice": {
+      "unavailable": "—"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "Roadmap",
+      "subheading": "Where Jiki is heading. A quarter-by-quarter view of what we're shipping, what's next, and what we're still dreaming up.",
+      "disclaimer": "This roadmap is a snapshot of our current plans. Priorities shift as we learn from our community, so dates and scope may change."
+    },
+    "status": {
+      "shipped": "Shipped",
+      "inProgress": "In progress",
+      "planned": "Planned"
+    },
+    "changelog": {
+      "title": "Changelog",
+      "subtitle": "Recent improvements we've shipped to Jiki.",
+      "entry1Date": "June 7, 2026",
+      "entry1Title": "Launched Jiki!",
+      "entry1Description": "Jiki is officially live (albeit in beta!)"
+    },
+    "phases": {
+      "nowLabel": "Now",
+      "nowTimeframe": "June 2026",
+      "nowSummary": "What we're focused on this month.",
+      "nowItem1Title": "Ironing out launch bugs",
+      "nowItem1Description": "Now that Jiki is live, we're spending June squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app.",
+      "nowItem2Title": "Responding to early feedback",
+      "nowItem2Description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week.",
+      "nowItem3Title": "Stabilising the foundations",
+      "nowItem3Description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now.",
+      "nextLabel": "Next",
+      "nextTimeframe": "Q3 2026",
+      "nextSummary": "Designed and queued up.",
+      "nextItem1Title": "Move from Beta to Fully Live",
+      "nextItem1Description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners.",
+      "nextItem2Title": "Launch Build with Jeremy",
+      "nextItem2Description": "Launching July 11th, this is a brand new series where Jeremy builds real, useful projects from scratch alongside learners. Each project will be broken down into bite-sized lessons, showing not just the code but the thinking, mistakes, and decisions that go into shipping software.",
+      "nextItem3Title": "Add Deep Dive Videos",
+      "nextItem3Description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming.",
+      "nextItem4Title": "Add first translations to other languages",
+      "nextItem4Description": "Bringing Jiki to learners in their own language, starting with <strong class=\"font-semibold\">European Portuguese</strong>, <strong class=\"font-semibold\">Spanish</strong>, <strong class=\"font-semibold\">Japanese</strong>, and <strong class=\"font-semibold\">Brazilian Portuguese</strong>. The whole interface and curriculum will be translated, not just the marketing pages.",
+      "futureLabel": "Future",
+      "futureTimeframe": "Q4 2026",
+      "futureSummary": "On the horizon. Subject to change as we learn.",
+      "futureItem1Title": "Launch Python version",
+      "futureItem1Description": "A fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction.",
+      "futureItem2Title": "Add 10 more languages",
+      "futureItem2Description": "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "Select Language",
+      "backToVideo": "Back to video",
+      "tooltip": "Select one of the options to proceed.",
+      "saving": "Saving...",
+      "confirmChoice": "Confirm Choice",
+      "questionTitle": "Choose which language you want to learn?",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "chooseForMe": "Choose for me",
+      "cantChange": "You can't change once selected.",
+      "noVideo": "No video available",
+      "videoInstructionPrefix": "Watch the video then choose your language. Already know? ",
+      "skipVideo": "Skip the video"
+    },
+    "deleteAccount": {
+      "deletedTitle": "Your account has been deleted",
+      "deletedSubtitle": "We're sorry to see you go. We hope you've enjoyed Jiki. Good luck with your coding journey!",
+      "deletingTitle": "Deleting your account",
+      "deletingSubtitle": "Please wait",
+      "errorTitle": "There's been an error",
+      "errorSubtitle": "There has been an error deleting your account. We have been notified and will delete it manually for you.",
+      "expiredTitle": "Link expired or invalid",
+      "expiredSubtitle": "This deletion link is no longer valid. It may have already been used or has expired.",
+      "expiredSecondary": "If you still want to delete your account, please log in and request a new deletion link from your settings.",
+      "goHome": "Go to homepage"
+    },
+    "errorPage": {
+      "serverErrorTitle": "Something went wrong",
+      "serverErrorMessage": "We encountered an unexpected error. Sorry about that!",
+      "serverErrorAction": "Try again",
+      "notFoundTitle": "Page not found",
+      "notFoundMessage": "Looks like we can't find that page. Sorry!",
+      "notFoundAction": "Take me home"
+    },
+    "testimonialsPage": {
+      "title": "Testimonials",
+      "subtitle": "We asked our students if they'd enjoyed the course. Here's what they said...",
+      "quoteOpenAlt": "“",
+      "quoteCloseAlt": "”"
+    }
+  },
+  "seo": {
+    "achievements": {
+      "title": "Achievements - Jiki",
+      "description": "Track your progress and unlock achievements as you learn to code."
+    },
+    "build": {
+      "title": "Learn to Build - Jiki",
+      "description": "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
+    },
+    "dashboard": {
+      "title": "Dashboard - Jiki",
+      "description": "Track your learning progress, continue coding exercises, and view your achievements."
+    },
+    "projects": {
+      "title": "Projects - Jiki",
+      "description": "Build real-world coding projects to practice your programming skills and create portfolio pieces."
+    },
+    "settings": {
+      "title": "Settings - Jiki",
+      "description": "Manage your account settings, subscription, and preferences."
+    },
+    "checkEmail": {
+      "title": "Check your email - Jiki",
+      "description": "We've sent you a confirmation email. Check your inbox to verify your address and finish signing up."
+    },
+    "confirmEmail": {
+      "title": "Confirm Email - Jiki",
+      "description": "Confirm your email address"
+    },
+    "exercismCallback": {
+      "title": "Signing in with Exercism - Jiki",
+      "description": "Completing your Exercism sign in"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password - Jiki",
+      "description": "Reset your password"
+    },
+    "login": {
+      "title": "Log In - Jiki",
+      "description": "Sign in to your Jiki account"
+    },
+    "resendConfirmation": {
+      "title": "Resend Confirmation - Jiki",
+      "description": "Resend confirmation instructions"
+    },
+    "resetPassword": {
+      "title": "Reset Password - Jiki",
+      "description": "Set your new password"
+    },
+    "signup": {
+      "title": "Sign Up - Jiki",
+      "description": "Create your Jiki account"
+    },
+    "home": {
+      "title": "Jiki - Learn to Code the Fun Way",
+      "description": "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
+    },
+    "premium": {
+      "title": "Premium - Jiki",
+      "description": "Accelerate your road to job-ready with Jiki Premium. Full access to courses, projects, AI support, and more."
+    },
+    "roadmap": {
+      "title": "Roadmap - Jiki",
+      "description": "What we're building next on Jiki. A quarter-by-quarter look at upcoming courses, projects, and features."
+    },
+    "testimonials": {
+      "title": "Testimonials - Jiki",
+      "description": "We asked our students if they'd enjoyed the course. Here's what they said."
+    },
+    "deleteAccount": {
+      "title": "Delete Account - Jiki",
+      "description": "Confirm account deletion"
+    },
+    "unsubscribePreferences": {
+      "title": "Email Preferences - Jiki",
+      "description": "Manage your email preferences and unsubscribe from Jiki emails."
+    },
+    "unsubscribe": {
+      "title": "Unsubscribe - Jiki",
+      "description": "Unsubscribe from Jiki emails"
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "Please log in to upgrade your account",
+      "checkoutFailed": "Failed to start checkout process. Please try again.",
+      "alreadyPremium": "Already on Premium tier"
+    },
+    "auth": {
+      "sessionExpired": "Your session has expired. Please sign in again."
+    },
+    "logout": {
+      "loading": "Logging out...",
+      "success": "Logged out successfully",
+      "failed": "Logout failed - couldn't reach server"
+    },
+    "avatar": {
+      "updated": "Avatar updated",
+      "uploadFailed": "Failed to upload avatar",
+      "networkError": "Network error. Please try again."
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "Premium Member",
+      "titlePrefix": "Welcome to ",
+      "titleHighlight": "Premium!",
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Build with Jeremy!",
+      "continue": "Continue"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "Welcome to AI Chat!",
+        "description": "Your AI assistant is now unlocked and ready to help with your coding exercises.",
+        "feature1": "Ask questions about your code",
+        "feature2": "Get explanations for complex concepts",
+        "feature3": "Receive personalized hints and guidance"
+      },
+      "featureGate": {
+        "title": "Feature Unlocked!",
+        "description": "You now have access to premium features that will enhance your learning experience."
+      },
+      "settings": {
+        "title": "Welcome to {tier}!",
+        "description": "Your subscription has been activated. Explore your new features in the settings."
+      },
+      "general": {
+        "title": "Welcome to {tier}!",
+        "description": "Thank you for upgrading your plan. You now have access to all premium features."
+      },
+      "planLabel": "{tier} Plan",
+      "perMonth": "/month",
+      "whatYouCanDo": "What you can do now:",
+      "getStarted": "Get Started",
+      "continueLearning": "Continue Learning",
+      "skipForNow": "Skip for now",
+      "close": "Close",
+      "renewalNotice": "Your subscription will renew automatically on {date}. Manage your subscription in Settings."
+    },
+    "confirmation": {
+      "defaultTitle": "Confirm Action",
+      "defaultMessage": "Are you sure you want to proceed?",
+      "defaultConfirm": "Confirm",
+      "defaultCancel": "Cancel"
+    },
+    "info": {
+      "defaultTitle": "Information",
+      "defaultButton": "Got it!"
+    },
+    "connectionError": {
+      "title": "Whoops! Lost connection",
+      "subtitle": "Jiki got a little tangled up and dropped the connection. Don't worry though - we're working on getting things plugged back in!",
+      "reconnecting": "Reconnecting",
+      "helpTextPrefix": "Just sit tight - this usually fixes itself in a few moments.",
+      "helpTextPersists": "If the problem persists, ",
+      "checkStatusPage": "check our status page"
+    },
+    "sessionExpired": {
+      "title": "Session Expired",
+      "description": "Your session has expired. Please log in again.",
+      "reload": "Reload Page"
+    },
+    "paymentVerificationFailed": {
+      "title": "We couldn't confirm your payment",
+      "description": "Something went wrong while checking with Stripe. Try refreshing the page in a moment — if Premium still isn't active, contact support.",
+      "close": "Close"
+    },
+    "levelMilestone": {
+      "title": "🎉 Level Complete!",
+      "message": "Congratulations! You've successfully completed <strong>{levelTitle}</strong> and mastered all its concepts.",
+      "lessonsCompleted": "Lessons Completed",
+      "xpEarned": "XP Earned",
+      "readyNext": "You're now ready to unlock the next level and continue your learning journey!",
+      "goToDashboard": "Go to Dashboard",
+      "continueNextLevel": "Continue to Next Level"
+    },
+    "badge": {
+      "funFact": "Fun Fact",
+      "keepGoing": "Keep Going!"
+    },
+    "authError": {
+      "title": "You've been Logged out.",
+      "subtitle": "For some reason you've been logged out (maybe a security check, maybe you logged out on a different device?). Please reload the page to continue.",
+      "reload": "Reload Page",
+      "helpTextPrefix": "If this keeps happening, try ",
+      "clearCookies": "clearing your cookies",
+      "helpTextOr": " or ",
+      "contactSupport": "contact support"
+    },
+    "rateLimit": {
+      "title": "You've moved too fast.",
+      "subtitle": "You've sent too many requests to our servers and so we're putting you on pause for a few seconds. Please wait and you'll be automatically reconnected.",
+      "reconnectingIn": "Reconnecting in",
+      "seconds": "seconds",
+      "autoRefresh": "This page will automatically refresh",
+      "noteLabel": "Note:",
+      "noteText": "Opening new tabs or making additional requests will extend your wait time."
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "Congratulations!",
+      "defaultMessage": "All tests passed! You've successfully completed this exercise.",
+      "defaultButton": "Continue"
+    },
+    "welcome": {
+      "title": "Welcome to Jiki!",
+      "subtitle": "Watch this short video to get started.",
+      "continue": "Continue",
+      "skipTitle": "Skip the welcome video?",
+      "skipMessage": "This video helps you get the most out of Jiki. Are you sure you want to skip it?",
+      "skipConfirm": "Skip video",
+      "skipCancel": "Keep watching"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "Unlock AI Chat Assistant",
+        "description": "Get instant help with your coding exercises from our AI assistant."
+      },
+      "featureGate": {
+        "headlineFallback": "Premium Features",
+        "headline": "Unlock {feature}",
+        "description": "Upgrade your plan to access advanced features and enhanced learning experiences."
+      },
+      "settings": {
+        "headline": "Choose Your Plan",
+        "description": "Select the subscription plan that best fits your learning needs."
+      },
+      "general": {
+        "headline": "Upgrade Your Plan",
+        "description": "Choose the plan that fits your learning goals and unlock advanced features."
+      },
+      "unlockWith": "What you'll unlock with {feature}:",
+      "recommended": "Recommended",
+      "perMonth": "/month",
+      "choosePremium": "Choose Premium",
+      "subscribeAriaLabel": "Subscribe to {plan} plan",
+      "renewNotice": "Your subscription will renew automatically each month. You can cancel anytime from your settings.",
+      "notNow": "Not now, maybe later"
+    },
+    "walkthroughConfirm": {
+      "title": "Try solving it yourself first?",
+      "intro": "Before watching the Deep Dive, you might want use these resources to help you pass the tests yourself:",
+      "conceptPagesLabel": "Concept Pages",
+      "conceptPagesText": " — review the concepts used in this exercise",
+      "askJikiLabel": "Ask Jiki",
+      "askJikiText": " — get personalised help from Jiki without spoilers",
+      "whatHappenedLabel": "“What happened?” tips",
+      "whatHappenedText": " — step through your code line by line to see what went wrong",
+      "revealHintsLabel": "Reveal all the Hints",
+      "revealHintsText": " — read through all the hints above for guidance",
+      "tryFirst": "I'll try first",
+      "watchDeepDive": "Watch the Deep Dive"
+    },
+    "paymentConfirming": {
+      "title": "Confirming your payment…",
+      "description": "Hang tight while we confirm your payment with Stripe. This usually only takes a moment."
+    },
+    "example": {
+      "defaultTitle": "Example Modal",
+      "defaultMessage": "This is an example modal!",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "paymentProcessing": {
+      "title": "Payment Processing",
+      "description": "Thank you. We're waiting for your payment provider to send us the funds. Once they do we'll upgrade your plan to Premium and send you an email.",
+      "continue": "Continue using Jiki"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "All tests passed!",
+        "messageExercise": "Great work! You're ready to complete this exercise and move on to the next challenge.",
+        "messageProject": "Great work! You're ready to complete this project and move on to the next challenge.",
+        "completeExercise": "Complete Exercise",
+        "completeProject": "Complete Project"
+      },
+      "conceptUnlocked": {
+        "title": "Concept unlocked!",
+        "messageGeneric": "You've unlocked a new concept to explore.",
+        "messageNamed": "You've unlocked a new concept: <strong>{title}</strong>",
+        "continue": "Continue"
+      },
+      "completed": {
+        "titleExercise": "Exercise completed!",
+        "titleProject": "Project completed!",
+        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
+        "messageProject": "Great work completing {title}! Ready to continue to the next project?",
+        "tidyCode": "Tidy code",
+        "continue": "Continue"
+      },
+      "difficultyRating": {
+        "title": "Rate your experience",
+        "message": "Help us improve {title} by rating it.",
+        "rateDifficulty": "Rate the difficulty",
+        "rateFun": "Rate the fun factor",
+        "difficultyTooEasy": "Too easy",
+        "difficultyEasy": "Easy",
+        "difficultyJustRight": "Just right",
+        "difficultyHard": "Hard",
+        "difficultyTooHard": "Too hard",
+        "funFrustrating": "Frustrating",
+        "funPrettyGood": "Pretty good",
+        "funAmazing": "Amazing!",
+        "rateDifficultyAriaLabel": "Rate difficulty as {label}",
+        "rateFunAriaLabel": "Rate fun as {label}",
+        "funOptionFallback": "option {number}",
+        "continue": "Continue"
+      },
+      "projectUnlocked": {
+        "title": "Project unlocked!",
+        "message": "All that practice means you're ready to combine what you've learned in a new project.",
+        "newLabel": "New",
+        "premiumOnly": "Exclusively for Premium members.",
+        "upgradeLink": "Upgrade your account",
+        "premiumInfoSuffix": " to access all the Projects as you unlock them.",
+        "continue": "Continue"
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "Not now, maybe later",
+      "userAvatarAlt": "User",
+      "processing": "Processing...",
+      "upgrade": "Upgrade to Premium",
+      "planName": "Jiki Premium",
+      "perMonth": "/month",
+      "dailyNotePrefix": "(That's only ",
+      "dailyNoteSuffix": " a day)",
+      "featureLearnToBuildPrefix": "Full access to ",
+      "featureLearnToBuild": "Learn to Build",
+      "featureProjectsPrefix": "Combine your skills in ",
+      "featureProjects": "Jiki Projects",
+      "featureAiPrefix": "Unlimited ",
+      "featureAi": "AI support",
+      "featureAiSuffix": " from Jiki",
+      "featureLivestreamsPrefix": "Regular ",
+      "featureLivestreams": "Q&A livestreams",
+      "featureLivestreamsSuffix": " you can join",
+      "featureCertificatesPrefix": "Earn ",
+      "featureCertificates": "certificates",
+      "featureCertificatesSuffix": " for courses",
+      "featureAdFree": "Ad-free",
+      "featureAdFreeSuffix": " learning experience",
+      "featureEarlyAccess": "Early access",
+      "featureEarlyAccessSuffix": " to new features",
+      "basic": {
+        "headlineHighlight": "Accelerate",
+        "headlineSuffix": " your learning!",
+        "subheading": "Upgrade to Premium to accelerate your road to job-ready.",
+        "planName": "Basic Plan",
+        "planPrice": "Free forever",
+        "feature1": "Over 80 Coding Exercises",
+        "feature2": "Full Concept Library",
+        "feature3": "30 mins of AI support",
+        "note": "+ Access to public YouTube videos and community forums for additional learning resources."
+      }
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Connecting to Stripe",
+      "paymentFailed": "Payment failed",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "paymentFailedTitle": "Payment failed",
+      "paymentInfoAriaLabel": "Payment information",
+      "processing": "Processing...",
+      "pay": "Pay",
+      "securedByPrefix": "Secured by ",
+      "stripeBrand": "stripe",
+      "errorPrefix": "Error: ",
+      "close": "Close",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Billed monthly. Cancel anytime.",
+      "perMonthShort": "/mo"
+    }
+  }
+}

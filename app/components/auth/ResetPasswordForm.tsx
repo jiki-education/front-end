@@ -1,12 +1,14 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 
 export function ResetPasswordForm() {
+  const t = useTranslations("auth.resetPassword");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { resetPassword, isLoading, error, clearError } = useAuthStore();
@@ -21,19 +23,19 @@ export function ResetPasswordForm() {
     const errors: Record<string, string> = {};
 
     if (!token) {
-      errors.token = "Reset token is missing or invalid";
+      errors.token = t("tokenMissing");
     }
 
     if (!password) {
-      errors.password = "Password is required";
+      errors.password = t("passwordRequired");
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+      errors.password = t("passwordMinLength");
     }
 
     if (!passwordConfirmation) {
-      errors.passwordConfirmation = "Password confirmation is required";
+      errors.passwordConfirmation = t("confirmationRequired");
     } else if (password !== passwordConfirmation) {
-      errors.passwordConfirmation = "Passwords don't match";
+      errors.passwordConfirmation = t("passwordsDontMatch");
     }
 
     setValidationErrors(errors);
@@ -55,7 +57,7 @@ export function ResetPasswordForm() {
         password,
         password_confirmation: passwordConfirmation
       });
-      setSuccessMessage("Password reset successfully! Redirecting to login...");
+      setSuccessMessage(t("successMessage"));
 
       // Redirect to login after 3 seconds
       setTimeout(() => {
@@ -71,18 +73,16 @@ export function ResetPasswordForm() {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Invalid Reset Link</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{t("invalidTitle")}</h2>
         </div>
 
         <div className="rounded-md bg-red-50 p-4">
-          <p className="text-sm text-red-800">
-            This password reset link is invalid or has expired. Please request a new one.
-          </p>
+          <p className="text-sm text-red-800">{t("invalidMessage")}</p>
         </div>
 
         <div className="text-center">
           <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Request a new password reset
+            {t("requestNewLink")}
           </Link>
         </div>
       </div>
@@ -92,8 +92,8 @@ export function ResetPasswordForm() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset your password</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">Enter your new password below.</p>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{t("title")}</h2>
+        <p className="mt-2 text-center text-sm text-gray-600">{t("subtitle")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -111,7 +111,7 @@ export function ResetPasswordForm() {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            New Password
+            {t("newPasswordLabel")}
           </label>
           <div className="mt-1">
             <input
@@ -128,7 +128,7 @@ export function ResetPasswordForm() {
                 }
               }}
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder="Enter your new password"
+              placeholder={t("newPasswordPlaceholder")}
             />
             {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
           </div>
@@ -136,7 +136,7 @@ export function ResetPasswordForm() {
 
         <div>
           <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">
-            Confirm New Password
+            {t("confirmPasswordLabel")}
           </label>
           <div className="mt-1">
             <input
@@ -153,7 +153,7 @@ export function ResetPasswordForm() {
                 }
               }}
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder="Confirm your new password"
+              placeholder={t("confirmPasswordPlaceholder")}
             />
             {validationErrors.passwordConfirmation && (
               <p className="mt-2 text-sm text-red-600">{validationErrors.passwordConfirmation}</p>
@@ -167,14 +167,14 @@ export function ResetPasswordForm() {
             disabled={isLoading}
             className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Resetting..." : "Reset password"}
+            {isLoading ? t("submitting") : t("submit")}
           </button>
         </div>
 
         <div className="text-center text-sm">
-          <span className="text-gray-600">Remember your password? </span>
+          <span className="text-gray-600">{t("rememberedPrefix")}</span>
           <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Sign in
+            {t("signInLink")}
           </Link>
         </div>
       </form>
