@@ -44,8 +44,18 @@ const nextConfig: NextConfig = {
         permanent: false
       },
       {
+        source: "/r/youtube",
+        destination: "https://youtube.com/@jiki-coding",
+        permanent: false
+      },
+      {
         source: "/r/forum",
         destination: "https://forum.jiki.io",
+        permanent: false
+      },
+      {
+        source: "/r/discord",
+        destination: "https://discord.gg/ph6erP7P7G",
         permanent: false
       }
     ]);

@@ -68,6 +68,7 @@
     "lucide-react": "^0.562.0",
     "lunr": "^2.3.9",
     "marked": "^17.0.1",
+    "marked-footnote": "^1.4.0",
     "next": "15.5.19",
     "posthog-js": "^1.386.1",
     "qrcode.react": "^4.2.0",
