@@ -4,6 +4,12 @@ import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+// Tolerance (in seconds) on the max-watched ceiling so `timeupdate` granularity doesn't fight a user resuming playback.
+const SEEK_TOLERANCE_SECONDS = 0.5;
+
+// How long the "can't skip ahead" hint stays visible after a blocked seek.
+const SKIP_HINT_DURATION_MS = 2500;
+
 export function useVideoExercise(lessonSlug: string) {
   const router = useRouter();
   const [videoWatched, setVideoWatched] = useState(false);
@@ -13,8 +19,20 @@ export function useVideoExercise(lessonSlug: string) {
   const [isInitializing, setIsInitializing] = useState(true);
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [isAlreadyCompleted, setIsAlreadyCompleted] = useState(false);
+  // On a first watch, forward seeking is capped at the furthest point reached so far (tracked in `maxWatchedRef`) until the cap is lifted, and `showSkipHint` surfaces a transient message when a skip is blocked.
+  const [showSkipHint, setShowSkipHint] = useState(false);
+  const maxWatchedRef = useRef(0);
+  const skipHintTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
   const hasAutoPlayedRef = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      if (skipHintTimeoutRef.current) {
+        clearTimeout(skipHintTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleAutoplayFailure = (error: Error) => {
     const expected = error.name === "NotAllowedError" || error.name === "AbortError";
@@ -31,11 +49,12 @@ export function useVideoExercise(lessonSlug: string) {
           setVideoWatched(true);
           setVideoProgress(100);
           setShowCheckmark(true);
+          // Subsequent watches get a normal, fully-scrubbable seek bar.
+          maxWatchedRef.current = Infinity;
         }
       })
-      .catch(reportError);
-
-    setIsInitializing(false);
+      .catch(reportError)
+      .finally(() => setIsInitializing(false));
   }, [lessonSlug]);
 
   const handleVideoEnd = () => {
@@ -44,6 +63,8 @@ export function useVideoExercise(lessonSlug: string) {
     }
     setVideoWatched(true);
     setVideoProgress(100);
+    // The whole video has now been watched, so lift the seek cap.
+    maxWatchedRef.current = Infinity;
     setTimeout(() => setShowCheckmark(true), 100);
   };
 
@@ -56,6 +77,31 @@ export function useVideoExercise(lessonSlug: string) {
     const currentTime = playerRef.current.currentTime || 0;
     const duration = playerRef.current.duration || 1;
     setVideoProgress(Math.min((currentTime / duration) * 100, 100));
+
+    // Advance the watched ceiling only during natural playback, since a forward scrub past the cap is snapped back by `handleSeeking` before it can reach here.
+    if (currentTime > maxWatchedRef.current) {
+      maxWatchedRef.current = currentTime;
+    }
+  };
+
+  const flashSkipHint = () => {
+    setShowSkipHint(true);
+    if (skipHintTimeoutRef.current) {
+      clearTimeout(skipHintTimeoutRef.current);
+    }
+    skipHintTimeoutRef.current = setTimeout(() => setShowSkipHint(false), SKIP_HINT_DURATION_MS);
+  };
+
+  // On a first watch, clamp forward seeks to the furthest-watched point synchronously inside `seeking` so the handle snaps back before the player commits, and flash a hint to explain it.
+  const handleSeeking = () => {
+    if (isAlreadyCompleted || videoWatched || !playerRef.current) {
+      return;
+    }
+    const ceiling = maxWatchedRef.current + SEEK_TOLERANCE_SECONDS;
+    if (playerRef.current.currentTime > ceiling) {
+      playerRef.current.currentTime = maxWatchedRef.current;
+      flashSkipHint();
+    }
   };
 
   const autoplay = () => {
@@ -96,9 +142,11 @@ export function useVideoExercise(lessonSlug: string) {
     isInitializing,
     showCheckmark,
     isAlreadyCompleted,
+    showSkipHint,
     handleVideoEnd,
     handleVideoPlay,
     handleTimeUpdate,
+    handleSeeking,
     autoplay,
     handleContinue
   };
