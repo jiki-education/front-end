@@ -36,6 +36,10 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "All circle radii must be at least 1 and less than 30."
         },
         {
+          pass: ex.checkAllCirclesInsideBox(),
+          errorHtml: "Circles must not go outside the box. Account for each circle's radius when choosing its position."
+        },
+        {
           pass: ex.checkCirclesTouchEdges(),
           errorHtml: "Some circles should touch the edges of the canvas. Make sure your positions cover the full range."
         },

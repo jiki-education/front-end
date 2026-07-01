@@ -5,6 +5,10 @@
     {
       "question": "How do I keep the circles inside the box?",
       "answer": "The order is important. You need to decide on the radius of the circle, then make sure it's left and top positions never allow it to be pushed outside the box."
+    },
+    {
+      "question": "I can't keep my circles in the box",
+      "answer": "Remember that a circle's position is its center, so you'll need to account for its radius to keep the whole circle inside. If you currently let a position be as low as 0, the circle's edge will stick out past the box by its radius. So what does that minimum need to change to so the circle never sits outside the box? Then apply the same logic to the maximum."
     }
   ]
 }

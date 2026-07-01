@@ -5,7 +5,7 @@ description: "Splatter hundreds of colourful splodges across the canvas."
 
 Your task in this exercise is to create a canvas full of colorful rainbow splodges!
 
-You need to draw **200 circles** at random positions with random colors. The result should look something like this:
+You need to draw **200 circles** with random radii, at random positions, with random colors. The result should look something like this:
 
 <img src="/static/images/exercise-assets/rainbow-splodges/example.webp" alt="Rainbow Splodges" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
