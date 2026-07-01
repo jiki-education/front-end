@@ -41,11 +41,13 @@
     }
 
     a {
-        color: var(--color-blue-500);
-        text-decoration: none;
+        color: var(--color-blue-600);
+        text-decoration: underline;
+        font-weight: 600;
+        text-underline-offset: 1px;
 
         &:hover {
-            text-decoration: underline;
+            color: var(--color-blue-700);
         }
     }
 
