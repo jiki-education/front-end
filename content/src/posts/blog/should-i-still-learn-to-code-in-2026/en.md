@@ -47,7 +47,7 @@ And it does **bad things** all the time in code. The code equivalent to things l
 
 And I know it because sometimes I'm lazy and don't read the code. And on multiple occasions this really has caused things to break!
 
-I'm a year into using Claude Code and its mistakes are just more subtle and often more destructive. They're maybe a little less frequent. Initially, there was nearly always something a bit wrong, and I could quickly spot those things. Now, I have to look more carefully and reason harder to find those mistakes.
+I'm a year into using Claude Code and its mistakes are just more subtle and often more destructive. They're maybe a little less frequent. Initially, there was nearly always something a bit wrong, and I could quickly spot those things. Now, **I have to look more carefully** and reason harder to find those mistakes.
 
 And the only reason I can do this is that **I can read code**. I can read what Claude writes, and I can understand what it's trying to do and how badly it's managed to do it.
 
@@ -57,15 +57,15 @@ So yes, you need to learn to code.
 
 ### But make stuff now too!
 
-But it shouldn't stop you from getting building on day one. Code isn't the gatekeeper any more. You don't have to get good at coding before you make stuff. Do both at once! Spend half your time learning to code and half your time learning to make stuff.
+But it shouldn't stop you from getting building on day one. Code isn't the gatekeeper any more. You don't have to get good at coding before you make stuff. **Do both at once!** Spend half your time learning to code and half your time learning to make stuff.
 
-And actually, the bugs Claude makes aren't it making mistakes in coding. It doesn't have a stray comma. They're mistakes with the way it's solved the problem. And in the same way you need to read code to know what it's doing, you need to understand programming concepts in order to be able to spot when it's leading you down dark alleys.
+And actually, the bugs Claude makes aren't it making mistakes in coding. It doesn't have a stray comma. They're **mistakes with the way it's solved the problem**. And in the same way you need to read code to know what it's doing, you need to understand wider software development concepts in order to be able to spot when it's leading you down dark alleys.
 
 We've made [Jiki](https://jiki.io) exactly for this. Spend half your time learning to code in the most fun, effective environment out there. Then spend the other half learning from me as I build things, and building your own things next to me. I'll teach you what you need to know, and how you need to think.
 
-And together, we'll make cool stuff with LLMs, and make sure that we don't accidentally hurt ourselves in the process.
+And together, **we'll make cool stuff with LLMs**, and make sure that we **don't accidentally hurt ourselves** in the process.
 
-Thanks for reading. I'm off to fix my database. Again.
+Thanks for reading. I'm off to fix my database. **Again.**
 
 ---
 
