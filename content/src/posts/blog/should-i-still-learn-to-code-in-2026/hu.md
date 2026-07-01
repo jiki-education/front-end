@@ -48,7 +48,7 @@ Ezért **hihetetlen számomra**, hogy az emberek hajlandók vakon elfogadni, ami
 
 És azért is tudom, mert néha lusta vagyok, és nem olvasom el a kódot. És emiatt több alkalommal tényleg tönkre is ment valami!
 
-Egy éve használom a Claude Code-ot, és a hibái mostanra csak finomabbak és sokszor pusztítóbbak lettek. Talán egy kicsit ritkábbak is. Eleinte szinte mindig volt valami apró gond, és ezeket gyorsan ki tudtam szúrni. Most alaposabban kell figyelnem, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
+Egy éve használom a Claude Code-ot, és a hibái mostanra csak finomabbak és sokszor pusztítóbbak lettek. Talán egy kicsit ritkábbak is. Eleinte szinte mindig volt valami apró gond, és ezeket gyorsan ki tudtam szúrni. Most **alaposabban kell figyelnem**, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
 
 És az egyetlen ok, amiért ez sikerül, az, hogy **tudom olvasni a kódot**. El tudom olvasni, amit a Claude ír, és megértem, mit próbál csinálni, és mennyire rosszul sikerült neki.
 
@@ -58,15 +58,15 @@ Szóval igen, meg kell tanulnod programozni.
 
 ### De közben csinálj is dolgokat!
 
-De ez ne tartson vissza attól, hogy már az első napon építkezni kezdj. A kód már nem kapuőr. Nem kell előbb profivá válnod a programozásban, hogy dolgokat készíthess. Csináld egyszerre mindkettőt! Az időd felében tanulj programozni, a másik felében pedig tanuld meg, hogyan készíts dolgokat.
+De ez ne tartson vissza attól, hogy már az első napon építkezni kezdj. A kód már nem kapuőr. Nem kell előbb profivá válnod a programozásban, hogy dolgokat készíthess. **Csináld egyszerre mindkettőt!** Az időd felében tanulj programozni, a másik felében pedig tanuld meg, hogyan készíts dolgokat.
 
-És valójában a Claude által elkövetett bugok nem a kódolásban vétett hibák. Nincs benne egy elkóborolt vessző. A hibák abban vannak, ahogyan megoldotta a problémát. És ahogy olvasnod kell a kódot, hogy tudd, mit csinál, úgy értened kell a programozási alapfogalmakat is, hogy kiszúrd, mikor vezet téged sötét sikátorokba.
+És valójában a Claude által elkövetett bugok nem a kódolásban vétett hibák. Nincs benne egy elkóborolt vessző. A **hibák abban vannak, ahogyan megoldotta a problémát**. És ahogy olvasnod kell a kódot, hogy tudd, mit csinál, úgy értened kell a programozási alapfogalmakat is, hogy kiszúrd, mikor vezet téged sötét sikátorokba.
 
 Pontosan ezért készítettük el a [Jikit](https://jiki.io). Az időd felében tanulj programozni a létező legszórakoztatóbb, leghatékonyabb környezetben. A másik felében pedig tanulj tőlem, miközben dolgokat építek, és építsd a saját dolgaidat mellettem. Megtanítom neked, amit tudnod kell, és azt is, hogyan kell gondolkodnod.
 
-És együtt menő dolgokat készítünk az LLM-ekkel, és közben odafigyelünk arra, hogy véletlenül se ártsunk magunknak.
+És együtt **menő dolgokat készítünk az LLM-ekkel**, és közben odafigyelünk arra, hogy **véletlenül se ártsunk magunknak**.
 
-Köszönöm, hogy elolvastad. Én megyek, és megjavítom az adatbázisomat. Megint.
+Köszönöm, hogy elolvastad. Én megyek, és megjavítom az adatbázisomat. **Megint.**
 
 ---
 
