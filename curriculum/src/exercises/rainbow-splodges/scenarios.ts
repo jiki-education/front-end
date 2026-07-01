@@ -41,7 +41,8 @@ export const scenarios: VisualScenario[] = [
         },
         {
           pass: ex.checkCirclesTouchEdges(),
-          errorHtml: "Some circles should touch the edges of the canvas. Make sure your positions cover the full range."
+          errorHtml:
+            "None of your circles touched the edges of the canvas. If you're confident your code is correct, it might be that the random numbers didn't happen to land a circle exactly on an edge. Try running it again!"
         },
         {
           pass: ex.checkSaturationAndLuminosityInRange(20, 80),
