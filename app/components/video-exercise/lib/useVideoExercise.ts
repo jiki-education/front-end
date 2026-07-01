@@ -53,9 +53,8 @@ export function useVideoExercise(lessonSlug: string) {
           maxWatchedRef.current = Infinity;
         }
       })
-      .catch(reportError);
-
-    setIsInitializing(false);
+      .catch(reportError)
+      .finally(() => setIsInitializing(false));
   }, [lessonSlug]);
 
   const handleVideoEnd = () => {
