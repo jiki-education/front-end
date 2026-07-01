@@ -5,7 +5,7 @@ tags: ["jiki", "learn-to-code", "llms", "beginners"]
 seo:
   description: "2026-ban nem kell kódot írnod, de olvasni feltétlenül tudnod kell. Íme, miért számít még mindig a programozás tanulása a Claude és az LLM-ek korában."
   keywords: ["programozás tanulása", "érdemes megtanulni programozni 2026-ban", "AI-programozás", "LLM-ek", "jiki"]
-source_sha: f3084b66
+en_md5: 2d459335a65a0cb805595f97494f3630
 ---
 
 ### Tl;DR;
@@ -48,7 +48,7 @@ Ezért **hihetetlen számomra**, hogy az emberek hajlandók vakon elfogadni, ami
 
 És azért is tudom, mert néha lusta vagyok, és nem olvasom el a kódot. És emiatt több alkalommal tényleg tönkre is ment valami!
 
-Egy éve használom a Claude Code-ot, és a hibái mostanra csak finomabbak és sokszor pusztítóbbak lettek. Talán egy kicsit ritkábbak is. Eleinte szinte mindig volt valami apró gond, és ezeket gyorsan ki tudtam szúrni. Most **alaposabban kell figyelnem**, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
+Az elmúlt évben a Claude hibái ritkábbá váltak, viszont finomabbak és sokszor pusztítóbbak lettek. Eleinte szinte mindig volt valami apró gond a munkájában, és ezeket gyorsan ki tudtam szúrni. Most **alaposabban kell figyelnem**, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
 
 És az egyetlen ok, amiért ez sikerül, az, hogy **tudom olvasni a kódot**. El tudom olvasni, amit a Claude ír, és megértem, mit próbál csinálni, és mennyire rosszul sikerült neki.
 

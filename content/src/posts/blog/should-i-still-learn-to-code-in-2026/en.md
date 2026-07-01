@@ -47,7 +47,7 @@ And it does **bad things** all the time in code. The code equivalent to things l
 
 And I know it because sometimes I'm lazy and don't read the code. And on multiple occasions this really has caused things to break!
 
-I'm a year into using Claude Code and its mistakes are just more subtle and often more destructive. They're maybe a little less frequent. Initially, there was nearly always something a bit wrong, and I could quickly spot those things. Now, **I have to look more carefully** and reason harder to find those mistakes.
+In the last year, Claude's mistakes have become less frequent, but more subtle and often more destructive. Initially, there was nearly always something a bit wrong with its work, and I could quickly spot those things. Now, **I have to look more carefully** and reason harder to find those mistakes.
 
 And the only reason I can do this is that **I can read code**. I can read what Claude writes, and I can understand what it's trying to do and how badly it's managed to do it.
 
