@@ -38,7 +38,10 @@ import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { marked } from "marked";
+import markedFootnote from "marked-footnote";
 import lunr from "lunr";
+
+marked.use(markedFootnote());
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
