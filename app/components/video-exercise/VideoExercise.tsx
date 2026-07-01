@@ -69,7 +69,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
             aria-live="polite"
           >
             <LockIcon className={styles.skipHintIcon} aria-hidden="true" />
-            <span>You can&rsquo;t skip ahead on your first watch &mdash; you can rewind anytime.</span>
+            <span>You can&rsquo;t skip ahead on your first watch, but you can rewind anytime.</span>
           </div>
         </div>
       </div>

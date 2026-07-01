@@ -78,9 +78,7 @@
 }
 
 .muxPlayer {
-    /* First watch: keep the scrub bar visible so users can rewind within what
-       they've already seen, but hide the skip-ahead buttons. Forward seeking
-       past the watched point is clamped in `handleSeeking`. */
+    /* First watch: hide the skip-ahead buttons but keep the scrub bar visible so users can rewind within what they've already seen. */
     --seek-forward-button: none;
     --seek-backward-button: none;
 
@@ -99,9 +97,7 @@
     transition: opacity 500ms;
 }
 
-/* Transient hint shown only when a first-time viewer tries to scrub past the
-   point they've watched. Anchored just above the player's control bar and
-   centered, it fades in on a blocked seek and auto-dismisses. */
+/* Transient hint shown just above the control bar when a first-time viewer tries to scrub past the point they've watched. */
 .skipHint {
     position: absolute;
     bottom: 72px;

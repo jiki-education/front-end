@@ -4,8 +4,7 @@ import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-// Tolerance (in seconds) added to the max-watched ceiling so that the natural
-// granularity of `timeupdate` events doesn't fight a user resuming playback.
+// Tolerance (in seconds) on the max-watched ceiling so `timeupdate` granularity doesn't fight a user resuming playback.
 const SEEK_TOLERANCE_SECONDS = 0.5;
 
 // How long the "can't skip ahead" hint stays visible after a blocked seek.
@@ -20,12 +19,7 @@ export function useVideoExercise(lessonSlug: string) {
   const [isInitializing, setIsInitializing] = useState(true);
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [isAlreadyCompleted, setIsAlreadyCompleted] = useState(false);
-  // On a first watch, forward seeking is capped at the furthest point reached
-  // so far (tracked in `maxWatchedRef`, read synchronously inside the seek
-  // handler). Once the video has been watched the cap is lifted and the full
-  // bar becomes scrubbable. The purple progress bar is the only persistent cue;
-  // `showSkipHint` surfaces a transient message the moment a skip is blocked,
-  // so the snap-back never looks unexplained.
+  // On a first watch, forward seeking is capped at the furthest point reached so far (tracked in `maxWatchedRef`) until the cap is lifted, and `showSkipHint` surfaces a transient message when a skip is blocked.
   const [showSkipHint, setShowSkipHint] = useState(false);
   const maxWatchedRef = useRef(0);
   const skipHintTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -85,10 +79,7 @@ export function useVideoExercise(lessonSlug: string) {
     const duration = playerRef.current.duration || 1;
     setVideoProgress(Math.min((currentTime / duration) * 100, 100));
 
-    // Advance the watched ceiling only during natural playback — scrubbing
-    // forward must never raise it. `timeupdate` fires for both, but a
-    // scrub past the cap is snapped back by `handleSeeking` before it can
-    // reach here, so this only ever sees legitimately-reached positions.
+    // Advance the watched ceiling only during natural playback, since a forward scrub past the cap is snapped back by `handleSeeking` before it can reach here.
     if (currentTime > maxWatchedRef.current) {
       maxWatchedRef.current = currentTime;
     }
@@ -102,10 +93,7 @@ export function useVideoExercise(lessonSlug: string) {
     skipHintTimeoutRef.current = setTimeout(() => setShowSkipHint(false), SKIP_HINT_DURATION_MS);
   };
 
-  // On a first watch, clamp seeks to the furthest-watched point. Reading and
-  // resetting `currentTime` synchronously inside `seeking` snaps the handle
-  // back before the player commits to the new position, and surfaces a brief
-  // hint so the snap-back is explained rather than mysterious.
+  // On a first watch, clamp forward seeks to the furthest-watched point synchronously inside `seeking` so the handle snaps back before the player commits, and flash a hint to explain it.
   const handleSeeking = () => {
     if (isAlreadyCompleted || videoWatched || !playerRef.current) {
       return;
