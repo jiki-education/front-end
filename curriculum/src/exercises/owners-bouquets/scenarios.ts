@@ -15,6 +15,7 @@ export const tasks = [
 
 function flowerExpectations(exercise: PlantTheFlowersScenariosExercise, count: number) {
   const gap = 100 / (count + 1);
+  const expectedPositions = Array.from({ length: count }, (_, i) => gap * (i + 1));
   const expects = [];
 
   expects.push({
@@ -22,26 +23,23 @@ function flowerExpectations(exercise: PlantTheFlowersScenariosExercise, count: n
     errorHtml: `The owner expected to see ${count} flower${count === 1 ? "" : "s"} planted. But you planted ${exercise.flowers.length}.`
   });
 
+  // Every expected position must have a flower.
+  for (const position of expectedPositions) {
+    expects.push({
+      pass: exercise.hasFlowerAt(position),
+      errorHtml: `Expected a flower at position ${position}, but didn't find one.`
+    });
+  }
+
+  // No flowers should be planted at unexpected positions.
+  const strayFlower = exercise.flowers.find((position) => !expectedPositions.includes(position));
   expects.push({
-    pass: exercise.hasFlowerAt(gap),
-    errorHtml: `Expected a flower at position ${gap}, but didn't find one.`
+    pass: strayFlower === undefined,
+    errorHtml:
+      strayFlower === undefined
+        ? ""
+        : `Found a flower at position ${strayFlower}, which isn't where the owner wanted one. The flowers should be evenly spaced.`
   });
-
-  if (count > 1) {
-    expects.push({
-      pass: exercise.hasFlowerAt(gap * count),
-      errorHtml: `Expected a flower at position ${gap * count}, but didn't find one.`
-    });
-  }
-
-  if (count >= 3) {
-    const midIndex = Math.ceil(count / 2);
-    const midPosition = gap * midIndex;
-    expects.push({
-      pass: exercise.hasFlowerAt(midPosition),
-      errorHtml: `Expected a flower at position ${midPosition}, but didn't find one.`
-    });
-  }
 
   return expects;
 }
