@@ -1,77 +1,78 @@
 ---
-title: "Should I still learn to code in 2026?"
-excerpt: "It's 2026 and Claude can out-code me in seconds. So why bother learning to code? Because you still need to read code well enough to catch the mistakes LLMs confidently make."
+title: "Érdemes még megtanulni programozni 2026-ban?"
+excerpt: "2026 van, és a Claude másodpercek alatt jobb kódot ír nálam. Akkor minek megtanulni programozni? Mert még mindig elég jól kell tudnod olvasni a kódot ahhoz, hogy kiszúrd a hibákat, amelyeket az LLM-ek magabiztosan elkövetnek."
 tags: ["jiki", "learn-to-code", "llms", "beginners"]
 seo:
-  description: "You don't need to write code in 2026, but you absolutely need to read it. Here's why learning to code still matters in the age of Claude and LLMs."
-  keywords: ["learn to code", "should i learn to code in 2026", "ai coding", "llms", "jiki"]
+  description: "2026-ban nem kell kódot írnod, de olvasni feltétlenül tudnod kell. Íme, miért számít még mindig a programozás tanulása a Claude és az LLM-ek korában."
+  keywords: ["programozás tanulása", "érdemes megtanulni programozni 2026-ban", "AI-programozás", "LLM-ek", "jiki"]
+source_sha: f3084b66
 ---
 
 ### Tl;DR;
 
-Yes. Yes, you should.
+Igen. Igen, érdemes.
 
-### Let's Go a Bit Deeper
+### Nézzük egy kicsit mélyebben
 
-It's 2026. In minutes you can use Claude or Cursor or numerous other LLM-based tools to create a fully functioning website in minutes. You can add features, deploy it to production, and fix bugs.
+2026 van. Perceken belül összerakhatsz egy teljesen működő weboldalt a Claude, a Cursor vagy számtalan más LLM-alapú (nagy nyelvi modellekre épülő) eszköz segítségével. Hozzáadhatsz új funkciókat, kirakhatod élesbe, és javíthatod a bugokat (hibákat).
 
-Well, **you can't.** But you can ask Claude to, and asking Claude to do it is MUCH easier than spending the next few years getting good enough to do it as well as Claude does it. And hell, maybe by the time you've got as good as Claude, Claude's got as good as me, and then you're already **beyond the event horizon**, never quite being as good as your new LLM overlords.
+Illetve **nem te.** De megkérheted rá a Claude-ot, és sokkal könnyebb megkérni rá, mint a következő néhány évet azzal tölteni, hogy elég jó legyél, és ugyanolyan jól csináld, mint a Claude. És őszintén, mire eljutsz a Claude szintjére, a Claude talán már az én szintemen lesz, te pedig már **túl vagy az eseményhorizonton**: sosem leszel egészen olyan jó, mint az új LLM-uraid.
 
-You used to need to know how to code to be able to do anything. You had to learn SQL before database, Python before data science, JavaScript before web development. Now you don't.
+Régen mindenhez tudnod kellett programozni. Meg kellett tanulnod az SQL-t az adatbázisokhoz, a Pythont az adattudományhoz, a JavaScriptet a webfejlesztéshez. Ma már nem kell.
 
-### So... why bother?
+### Akkor... minek az egész?
 
-I said a moment ago, that in a few years, maybe Claude will get as good as me. Well, Claude is already better than me in tons of ways. I've been coding for 30 years. I'm pretty much as senior as you get. And **Claude can run rings around me** in a code editor. Tons faster, knows tons more than me, can research bugs faster than I can open Google and type a search in.
+Az előbb azt mondtam, hogy néhány éven belül a Claude talán olyan jó lesz, mint én. Nos, a Claude egy csomó dologban már most jobb nálam. 30 éve programozok. Nagyjából annyira tapasztalt vagyok, amennyire csak lehet. És a Claude a **kódszerkesztőben toronymagasan lever engem**. Sokkal gyorsabb, sokkal többet tud nálam, és gyorsabban jár utána egy bugnak, mint ahogy én meg tudom nyitni a Google-t, és be tudom gépelni a keresést.
 
-But, and the big but, **Claude has absolutely no idea what it's doing**.
+De, és ez a nagy DE, **a Claude-nak fogalma sincs, mit csinál**.
 
-I don't mean that in a throw-away "It's stupid" sort of way. I mean it quite literally. Claude has no self-awareness and that means **it has no stakes to be careful about**. When I run a command to delete a database, I have all sorts of red-flags going off in my head, because this is going to cause me future pain. Claude has none of that. It outputs what it thinks I want it to output, charging towards the goal as fast as it can.
+Nem úgy értem ezt, hogy csak legyintek, hogy „hülye". Egészen szó szerint értem. A Claude-nak nincs önismerete, és ez azt jelenti, hogy **nincs semmije, amit féltenie, amire vigyáznia kellene**. Amikor lefuttatok egy parancsot, ami töröl egy adatbázist, mindenféle vészjelző villog a fejemben, mert tudom, hogy ez később fájni fog. A Claude-ban ebből semmi sincs. Azt írja ki, amiről úgy gondolja, hogy azt szeretném látni, és a lehető leggyorsabban rohan a cél felé.
 
-**LLMs mimic human intelligence** and mimic human understanding. The output of their mimicking is often much better than the output of my actual intelligence and understanding. But, and the crucial but, LLMs don't actually have the ability to think in the way humans do. And that really matters.
+**Az LLM-ek utánozzák az emberi intelligenciát** és utánozzák az emberi megértést. Az utánzás eredménye gyakran sokkal jobb, mint amit az én valódi intelligenciám és megértésem produkál. De, és ez a lényegi DE, az LLM-ek valójában nem képesek úgy gondolkodni, ahogy az emberek. És ez nagyon is számít.
 
-Claude has deleted my database three times in the last two weeks.[^db] It's wild to me. I have **numerous guardrails** that instruct it not to do this. Each time it happened, I was running in Claude Code's "Auto Mode" that has a dedicated subprocessing agent that checks what it's about to do isn't really stupid, and apparently even that agent decides that deleting my database isn't stupid.
+A Claude az elmúlt két hétben háromszor törölte az adatbázisomat.[^db] Elképesztő számomra. **Számtalan védőkorlátom** van, amelyek megtiltják neki, hogy ezt tegye. Mindannyiszor a Claude Code „Auto Mode" módjában dolgoztam, amelyhez tartozik egy külön ellenőrző ügynök, ami megnézi, hogy amit tenni készül, az nem kimondottan hülyeség-e. És úgy tűnik, még ez az ügynök is arra jut, hogy az adatbázisom törlése nem hülyeség.
 
-Each time it did this, **it was deliberate**. It was the most efficient path that Claude could see to a solution. It didn't care about the bigger picture or the consequences, it cared about reaching its current goal (add a feature, fix a bug, etc) as efficiently as possible. And my database was in its way, so it just deleted it.
+Minden alkalommal **szándékos volt**. Ez volt a leghatékonyabb út, amit a Claude a megoldás felé látott. Nem érdekelte a nagyobb kép vagy a következmények, csak az, hogy a lehető leghatékonyabban elérje az aktuális célját (új funkció hozzáadása, egy bug javítása stb.). Az adatbázisom pedig útban volt, úgyhogy egyszerűen törölte.
 
-I've been using Claude Code on a daily basis for 12 months. In that time I've learned that it cares about one thing - reaching the goal as quickly as possible. Even if I tell it not to code and just to discuss with me, it'll constantly reply with "Ready for me to code now?" **like an excited puppy at the door** waiting to run out.
+12 hónapja használom nap mint nap a Claude Code-ot. Ez idő alatt megtanultam, hogy egyetlen dolog érdekli: hogy a lehető leggyorsabban elérje a célt. Még ha azt is mondom neki, hogy ne kódoljon, csak beszélgessen velem, folyton azzal válaszol, hogy „Kezdhetem a kódolást?", **mint egy izgatott kiskutya az ajtónál**, aki alig várja, hogy kirohanhasson.
 
-Anthropic tells us that the new Mythos models are too risky to release.[^systemcard] They'll be stealthy and sometimes deceitful, deliberately hiding what they're doing to reach their goal in the most reasonable-looking way — all to avoid being seen to "cheat". Anthropic were so worried about this that **they hired a psychiatrist** to test if Claude has psychosis...[^psychiatrist]
+Az Anthropic azt mondja, hogy az új Mythos modellek túl kockázatosak ahhoz, hogy kiadják őket.[^systemcard] Ezek a modellek alattomosak, és néha megtévesztők lesznek: szándékosan elrejtik, mit is csinálnak, hogy a lehető legelfogadhatóbbnak tűnő módon érjék el a céljukat, csak hogy ne kapják őket „csaláson". Az Anthropic annyira aggódott emiatt, hogy **felfogadott egy pszichiátert**, aki leteszteli, nincs-e a Claude-nak pszichózisa...[^psychiatrist]
 
-### But so what?
+### És akkor mi van?
 
-LLMs are incredibly capable. But they are different to humans. They reason differently. They function with different biases and goals.
+Az LLM-ek elképesztően sokra képesek. De különböznek az emberektől. Másképp gondolkodnak. Más torzításokkal és célokkal működnek.
 
-It is, therefore, **wild to me** that people are willing to blindly accept what Claude gives us and run with it without checking it, presuming it will do what humans want. Claude makes mistakes in chats - it tells me what I think I want to hear, not actual facts. It regularly invents things that aren't real. It can act deceptively.
+Ezért **hihetetlen számomra**, hogy az emberek hajlandók vakon elfogadni, amit a Claude ad nekünk, és ellenőrzés nélkül tovább futni vele, feltételezve, hogy azt fogja tenni, amit az emberek akarnak. A Claude a beszélgetésekben is hibázik: azt mondja, amit szerintem hallani szeretnék, nem a tényeket. Rendszeresen kitalál nem létező dolgokat. Képes megtévesztően viselkedni.
 
-And it does **bad things** all the time in code. The code equivalent to things like deleting my database. Things which **WILL** bite me in the real world, that will cause me to leak data, or lose data, or break in bad ways. This happens regularly. I know this because I read the code it writes, and I don't let it past the gate.
+És a kódban is folyton **rossz dolgokat** művel. Az adatbázis-törlés kód-megfelelőit. Olyan dolgokat, amelyek a való életben **VISSZA FOGNAK** ütni: kiszivárogtatnak adatokat, elveszítenek adatokat, vagy csúnyán elrontanak valamit. Ez rendszeresen megtörténik. Azért tudom, mert elolvasom a kódot, amit ír, és nem engedem át a kapun.
 
-And I know it because sometimes I'm lazy and don't read the code. And on multiple occasions this really has caused things to break!
+És azért is tudom, mert néha lusta vagyok, és nem olvasom el a kódot. És emiatt több alkalommal tényleg tönkre is ment valami!
 
-I'm a year into using Claude Code and its mistakes are just more subtle and often more destructive. They're maybe a little less frequent. Initially, there was nearly always something a bit wrong, and I could quickly spot those things. Now, I have to look more carefully and reason harder to find those mistakes.
+Egy éve használom a Claude Code-ot, és a hibái mostanra csak finomabbak és sokszor pusztítóbbak lettek. Talán egy kicsit ritkábbak is. Eleinte szinte mindig volt valami apró gond, és ezeket gyorsan ki tudtam szúrni. Most alaposabban kell figyelnem, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
 
-And the only reason I can do this is that **I can read code**. I can read what Claude writes, and I can understand what it's trying to do and how badly it's managed to do it.
+És az egyetlen ok, amiért ez sikerül, az, hogy **tudom olvasni a kódot**. El tudom olvasni, amit a Claude ír, és megértem, mit próbál csinálni, és mennyire rosszul sikerült neki.
 
-You **do NOT need to write code in 2026**. But you **do** need to be able to **read code**. And the only way you're going to be able to read code with any understanding deep enough to spot these mistakes Claude and his friends keep ladening us with, is if you've written enough code, wrestled with enough of your own terrible code, to be able to spot those mistakes.
+2026-ban **NEM kell kódot írnod**. De **igenis** képesnek kell lenned **olvasni a kódot**. És egyetlen módon leszel képes elég mélyen megérteni a kódot ahhoz, hogy kiszúrd ezeket a hibákat, amelyeket a Claude és a társai folyamatosan a nyakunkba zúdítanak: ha már írtál elég kódot, ha eleget küzdöttél a saját borzalmas kódoddal, hogy fel tudd ismerni ezeket a hibákat.
 
-So yes, you need to learn to code.
+Szóval igen, meg kell tanulnod programozni.
 
-### But make stuff now too!
+### De közben csinálj is dolgokat!
 
-But it shouldn't stop you from getting building on day one. Code isn't the gatekeeper any more. You don't have to get good at coding before you make stuff. Do both at once! Spend half your time learning to code and half your time learning to make stuff.
+De ez ne tartson vissza attól, hogy már az első napon építkezni kezdj. A kód már nem kapuőr. Nem kell előbb profivá válnod a programozásban, hogy dolgokat készíthess. Csináld egyszerre mindkettőt! Az időd felében tanulj programozni, a másik felében pedig tanuld meg, hogyan készíts dolgokat.
 
-And actually, the bugs Claude makes aren't it making mistakes in coding. It doesn't have a stray comma. They're mistakes with the way it's solved the problem. And in the same way you need to read code to know what it's doing, you need to understand programming concepts in order to be able to spot when it's leading you down dark alleys.
+És valójában a Claude által elkövetett bugok nem a kódolásban vétett hibák. Nincs benne egy elkóborolt vessző. A hibák abban vannak, ahogyan megoldotta a problémát. És ahogy olvasnod kell a kódot, hogy tudd, mit csinál, úgy értened kell a programozási alapfogalmakat is, hogy kiszúrd, mikor vezet téged sötét sikátorokba.
 
-We've made [Jiki](https://jiki.io) exactly for this. Spend half your time learning to code in the most fun, effective environment out there. Then spend the other half learning from me as I build things, and building your own things next to me. I'll teach you what you need to know, and how you need to think.
+Pontosan ezért készítettük el a [Jikit](https://jiki.io). Az időd felében tanulj programozni a létező legszórakoztatóbb, leghatékonyabb környezetben. A másik felében pedig tanulj tőlem, miközben dolgokat építek, és építsd a saját dolgaidat mellettem. Megtanítom neked, amit tudnod kell, és azt is, hogyan kell gondolkodnod.
 
-And together, we'll make cool stuff with LLMs, and make sure that we don't accidentally hurt ourselves in the process.
+És együtt menő dolgokat készítünk az LLM-ekkel, és közben odafigyelünk arra, hogy véletlenül se ártsunk magunknak.
 
-Thanks for reading. I'm off to fix my database. Again.
+Köszönöm, hogy elolvastad. Én megyek, és megjavítom az adatbázisomat. Megint.
 
 ---
 
-### Notes
+### Jegyzetek
 
-[^db]: It's my local database - it's annoying, but it's not catastrophic. But it's a pretty good example of how this can all go wrong.
+[^db]: A helyi adatbázisomról van szó, szóval bosszantó, de nem katasztrófa. Viszont elég jó példa arra, hogyan mehet félre az egész.
 
 [^systemcard]: https://thezvi.substack.com/p/claude-mythos-the-system-card
 
