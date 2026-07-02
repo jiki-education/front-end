@@ -5,19 +5,48 @@
  * Note: Only called for unauthenticated users (auth check happens in worker wrapper).
  */
 
-import { isExternalUrl } from "@/lib/routing/external-urls";
-
 /**
- * Check if a route is cacheable
+ * Check if a route is publicly cacheable at the edge.
  *
- * Only external URLs (blog, articles, concepts, etc.) are cacheable.
- * Static assets are already cached by OpenNext and don't go through this wrapper.
+ * True for anonymously-viewable public pages (landing, blog, articles, concepts,
+ * testimonials), in both naked and locale-prefixed form. These are the only
+ * routes the edge cache (worker-wrapper) and the middleware's public
+ * Cache-Control headers apply to. Everything else (authenticated app pages, auth
+ * flows, the token-specific unsubscribe page, dev/test) is never cached.
+ *
+ * Note: Only consulted for unauthenticated users. Static assets are cached
+ * separately by OpenNext and don't go through this wrapper.
  *
  * @param pathname - The URL pathname to check
  * @returns true if route should be cached
  */
 export function isCacheableRoute(pathname: string): boolean {
-  return isExternalUrl(pathname);
+  // Landing page
+  if (pathname === "/") {
+    return true;
+  }
+
+  // Blog routes (naked and locale-prefixed, e.g. /hu/blog)
+  if (pathname === "/blog" || pathname.startsWith("/blog/") || /^\/[a-z]{2}\/blog(\/|$)/.test(pathname)) {
+    return true;
+  }
+
+  // Articles routes (naked and locale-prefixed)
+  if (pathname === "/articles" || pathname.startsWith("/articles/") || /^\/[a-z]{2}\/articles(\/|$)/.test(pathname)) {
+    return true;
+  }
+
+  // Concepts routes
+  if (pathname === "/concepts" || pathname.startsWith("/concepts/")) {
+    return true;
+  }
+
+  // Testimonials page
+  if (pathname === "/testimonials") {
+    return true;
+  }
+
+  return false;
 }
 
 /**

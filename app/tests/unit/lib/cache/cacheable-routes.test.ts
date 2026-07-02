@@ -31,13 +31,13 @@ describe("cacheable-routes", () => {
         expect(isCacheableRoute("/concepts")).toBe(true);
         expect(isCacheableRoute("/concepts/my-concept")).toBe(true);
       });
-
-      it("returns true for unsubscribe pages", () => {
-        expect(isCacheableRoute("/unsubscribe/token123")).toBe(true);
-      });
     });
 
     describe("non-external URLs (not cacheable)", () => {
+      it("returns false for token-specific unsubscribe pages", () => {
+        expect(isCacheableRoute("/unsubscribe/token123")).toBe(false);
+      });
+
       it("returns false for dashboard", () => {
         expect(isCacheableRoute("/dashboard")).toBe(false);
       });

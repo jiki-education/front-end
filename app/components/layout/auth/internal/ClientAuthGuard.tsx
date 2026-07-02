@@ -1,6 +1,5 @@
 "use client";
 
-import { isExternalUrl } from "@/lib/routing/external-urls";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthStore } from "../../../../lib/auth/authStore";
@@ -8,9 +7,13 @@ import { useAuthStore } from "../../../../lib/auth/authStore";
 /**
  * Client-side guard that redirects unauthenticated users from protected pages.
  *
- * Used in app/(app)/layout.tsx to protect authenticated routes. Waits for
- * global auth initialization to complete, then redirects unauthenticated users
- * to either the external version of the page (if available) or to /auth/login.
+ * Used in app/(app)/layout.tsx to protect authenticated routes. Waits for global
+ * auth initialization to complete, then sends unauthenticated users to /auth/login
+ * (or, for /dashboard, to the landing page — its public equivalent).
+ *
+ * (app) routes are always protected and never have a public twin at the same URL
+ * (pages that serve both auth states live in the (hybrid) group and branch on the
+ * cookie themselves), so there is no "reload to reveal the public version" case.
  */
 export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, hasCheckedAuth } = useAuthStore();
@@ -20,16 +23,12 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   // Handle unauthenticated redirect in useEffect (not during render)
   useEffect(() => {
     if (hasCheckedAuth && !isAuthenticated) {
-      // If there is an external version of this page, redirect there
+      // /dashboard's public equivalent is the landing page, not a same-URL twin.
       if (pathname === "/dashboard") {
         router.push("/");
         return;
       }
-      if (isExternalUrl(pathname)) {
-        router.push(pathname);
-        return; // Reload same page → shows external version
-      }
-      router.push("/auth/login"); // Redirect to login
+      router.push("/auth/login");
     }
   }, [isAuthenticated, hasCheckedAuth, pathname, router]);
 
