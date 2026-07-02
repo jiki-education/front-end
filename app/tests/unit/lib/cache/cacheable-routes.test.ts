@@ -74,6 +74,11 @@ describe("cacheable-routes", () => {
         expect(isCacheableRoute("/hu/delete-account/confirm")).toBe(false);
       });
 
+      it("returns false for auth pages, even when locale-prefixed", () => {
+        expect(isCacheableRoute("/auth/login")).toBe(false);
+        expect(isCacheableRoute("/hu/auth/signup")).toBe(false);
+      });
+
       it("returns false for dashboard", () => {
         expect(isCacheableRoute("/dashboard")).toBe(false);
       });

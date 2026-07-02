@@ -40,6 +40,11 @@ describe("resolveLocaleRouting", () => {
         target: "/en/unsubscribe/tok123"
       });
     });
+
+    it("rewrites the auth flow", () => {
+      expect(resolveLocaleRouting("/auth/login")).toEqual({ action: "rewrite", target: "/en/auth/login" });
+      expect(resolveLocaleRouting("/auth/signup")).toEqual({ action: "rewrite", target: "/en/auth/signup" });
+    });
   });
 
   describe("explicit default-locale prefix (redirect to naked canonical URL)", () => {
@@ -66,7 +71,7 @@ describe("resolveLocaleRouting", () => {
       expect(resolveLocaleRouting("/en/testimonials")).toEqual({ action: "redirect", target: "/testimonials" });
     });
 
-    it("redirects the delete-account and unsubscribe flows to their naked URLs", () => {
+    it("redirects the delete-account, unsubscribe and auth flows to their naked URLs", () => {
       expect(resolveLocaleRouting("/en/delete-account/confirm")).toEqual({
         action: "redirect",
         target: "/delete-account/confirm"
@@ -75,6 +80,7 @@ describe("resolveLocaleRouting", () => {
         action: "redirect",
         target: "/unsubscribe/tok123"
       });
+      expect(resolveLocaleRouting("/en/auth/login")).toEqual({ action: "redirect", target: "/auth/login" });
     });
   });
 
@@ -94,6 +100,10 @@ describe("resolveLocaleRouting", () => {
     it("leaves the localized home (/hu) untouched", () => {
       expect(resolveLocaleRouting("/hu")).toEqual({ action: "none" });
     });
+
+    it("leaves /hu/auth/login untouched", () => {
+      expect(resolveLocaleRouting("/hu/auth/login")).toEqual({ action: "none" });
+    });
   });
 
   describe("apex home", () => {
@@ -107,11 +117,6 @@ describe("resolveLocaleRouting", () => {
   });
 
   describe("non-localizable paths (untouched)", () => {
-    it("leaves public pages that aren't yet in the [locale] tree alone (e.g. auth)", () => {
-      expect(resolveLocaleRouting("/auth/login")).toEqual({ action: "none" });
-      expect(resolveLocaleRouting("/auth/signup")).toEqual({ action: "none" });
-    });
-
     it("leaves app routes alone", () => {
       expect(resolveLocaleRouting("/dashboard")).toEqual({ action: "none" });
       expect(resolveLocaleRouting("/settings")).toEqual({ action: "none" });
