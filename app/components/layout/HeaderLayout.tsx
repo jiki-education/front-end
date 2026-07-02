@@ -1,5 +1,6 @@
+import { LocaleBanner } from "../i18n/LocaleBanner";
 import { ExternalFooter } from "./ExternalFooter";
-import { Header } from "./header/Header";
+import Header from "./header/Header";
 
 interface AuthenticatedHeaderLayoutProps {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ interface AuthenticatedHeaderLayoutProps {
 export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
+      <Header banner={<LocaleBanner />} />
       <main className="flex-1">{children}</main>
       <ExternalFooter />
     </div>

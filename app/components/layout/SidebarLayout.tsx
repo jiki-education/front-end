@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "../../lib/auth/authStore";
 import { ExternalFooter } from "./ExternalFooter";
-import ExternalHeader from "./header/ExternalButtons";
+import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 
 interface SidebarLayoutProps {
@@ -22,8 +22,8 @@ export default function SidebarLayout({ activeItem, children }: SidebarLayoutPro
   }
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <ExternalHeader />
-      <main className="flex-1 mt-[var(--header-height)]">{children}</main>
+      <Header />
+      <main className="flex-1">{children}</main>
       <ExternalFooter />
     </div>
   );
