@@ -40,6 +40,7 @@ export async function LocaleBanner() {
   return (
     <LocaleBannerBar
       href={offer.href}
+      offered={offer.offered}
       prefix={t("prefix", { language: names(offer.current) })}
       cta={t("cta", { language: names(offer.offered) })}
       or={t("or")}

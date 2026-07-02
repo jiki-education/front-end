@@ -67,6 +67,22 @@ export function swapLocaleInPath(pathname: string, locale: Locale): string {
 }
 
 /**
+ * The cache-key discriminator for an anonymous request: the language the banner
+ * would offer ("en"/"hu"), or "none" when there's no Accept-Language (crawler).
+ *
+ * The anonymous banner depends only on (path locale, this value), and the path
+ * is already in the cache key, so appending this gives each banner variant its
+ * own cache entry (no cross-language poisoning). Must stay in lock-step with the
+ * anonymous branch of resolveBannerOffer.
+ */
+export function localeCacheBucket(acceptLanguage: string | null): string {
+  if (acceptLanguage == null) {
+    return "none";
+  }
+  return firstSupportedLanguage(acceptLanguage) ?? DEFAULT_LOCALE;
+}
+
+/**
  * First supported locale in an Accept-Language header, honouring its ordering.
  * Tries an exact match then the base language (e.g. "pt-BR" -> "pt").
  */

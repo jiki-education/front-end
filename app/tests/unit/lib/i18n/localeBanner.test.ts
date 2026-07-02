@@ -1,4 +1,9 @@
-import { firstSupportedLanguage, resolveBannerOffer, swapLocaleInPath } from "@/lib/i18n/localeBanner";
+import {
+  firstSupportedLanguage,
+  localeCacheBucket,
+  resolveBannerOffer,
+  swapLocaleInPath
+} from "@/lib/i18n/localeBanner";
 
 describe("resolveBannerOffer", () => {
   describe("anonymous", () => {
@@ -65,6 +70,21 @@ describe("firstSupportedLanguage", () => {
 
   it("returns undefined when nothing is supported", () => {
     expect(firstSupportedLanguage("de,fr,pt-BR")).toBeUndefined();
+  });
+});
+
+describe("localeCacheBucket", () => {
+  it("returns 'none' when there is no Accept-Language (crawler)", () => {
+    expect(localeCacheBucket(null)).toBe("none");
+  });
+
+  it("returns the first supported language", () => {
+    expect(localeCacheBucket("hu-HU,hu;q=0.9,en;q=0.8")).toBe("hu");
+    expect(localeCacheBucket("en-US,en;q=0.9")).toBe("en");
+  });
+
+  it("falls back to the default locale when nothing is supported", () => {
+    expect(localeCacheBucket("fr-FR,fr;q=0.9")).toBe("en");
   });
 });
 
