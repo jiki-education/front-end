@@ -3,8 +3,10 @@ import { isCacheableRoute, shouldCacheResponse } from "@/lib/cache/cacheable-rou
 describe("cacheable-routes", () => {
   describe("isCacheableRoute", () => {
     describe("external URLs (cacheable)", () => {
-      it("returns true for landing page", () => {
+      it("returns true for landing page (naked apex and locale homes)", () => {
         expect(isCacheableRoute("/")).toBe(true);
+        expect(isCacheableRoute("/hu")).toBe(true);
+        expect(isCacheableRoute("/de")).toBe(true);
       });
 
       it("returns true for blog routes", () => {

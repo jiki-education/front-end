@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { hasAuthenticationCookie } from "../../lib/auth/server-storage";
-import { LandingPage } from "../../components/landing-page/LandingPage";
-import { getAllBlogPosts } from "../../lib/content/getAllBlogPosts";
+import { LandingPage } from "../../../components/landing-page/LandingPage";
+import { hasAuthenticationCookie } from "../../../lib/auth/server-storage";
+import { getAllBlogPosts } from "../../../lib/content/getAllBlogPosts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("seo.home");

@@ -21,8 +21,8 @@
  * @returns true if route should be cached
  */
 export function isCacheableRoute(pathname: string): boolean {
-  // Landing page
-  if (pathname === "/") {
+  // Landing page (naked apex and locale homes, e.g. /hu)
+  if (pathname === "/" || /^\/[a-z]{2}$/.test(pathname)) {
     return true;
   }
 

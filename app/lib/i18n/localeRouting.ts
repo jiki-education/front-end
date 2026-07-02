@@ -46,11 +46,17 @@ export function resolveLocaleRouting(pathname: string): LocaleRouting {
   if (isSupportedLocale(first)) {
     const base = `/${segments.slice(2).join("/")}`;
     // Explicit default-locale prefix has a naked canonical form: send them there.
-    if (first === DEFAULT_LOCALE && isLocalizableBase(base)) {
+    // base === "/" is the apex home (e.g. /en -> /).
+    if (first === DEFAULT_LOCALE && (base === "/" || isLocalizableBase(base))) {
       return { action: "redirect", target: base };
     }
-    // A supported non-default locale (e.g. /hu/blog) already matches [locale].
+    // A supported non-default locale (e.g. /hu, /hu/blog) already matches [locale].
     return { action: "none" };
+  }
+
+  // Apex: the naked home (/) is served from the default-locale branch (/en).
+  if (pathname === "/") {
+    return { action: "rewrite", target: `/${DEFAULT_LOCALE}` };
   }
 
   // Naked localizable path: serve it from the default-locale branch internally.

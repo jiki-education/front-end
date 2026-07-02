@@ -90,13 +90,23 @@ describe("resolveLocaleRouting", () => {
     it("leaves /hu/concepts untouched", () => {
       expect(resolveLocaleRouting("/hu/concepts")).toEqual({ action: "none" });
     });
+
+    it("leaves the localized home (/hu) untouched", () => {
+      expect(resolveLocaleRouting("/hu")).toEqual({ action: "none" });
+    });
+  });
+
+  describe("apex home", () => {
+    it("rewrites the naked home to the default-locale branch", () => {
+      expect(resolveLocaleRouting("/")).toEqual({ action: "rewrite", target: "/en" });
+    });
+
+    it("redirects the explicit default-locale home to the naked apex", () => {
+      expect(resolveLocaleRouting("/en")).toEqual({ action: "redirect", target: "/" });
+    });
   });
 
   describe("non-localizable paths (untouched)", () => {
-    it("leaves the landing page alone", () => {
-      expect(resolveLocaleRouting("/")).toEqual({ action: "none" });
-    });
-
     it("leaves public pages that aren't yet in the [locale] tree alone (e.g. auth)", () => {
       expect(resolveLocaleRouting("/auth/login")).toEqual({ action: "none" });
       expect(resolveLocaleRouting("/auth/signup")).toEqual({ action: "none" });
@@ -105,10 +115,6 @@ describe("resolveLocaleRouting", () => {
     it("leaves app routes alone", () => {
       expect(resolveLocaleRouting("/dashboard")).toEqual({ action: "none" });
       expect(resolveLocaleRouting("/settings")).toEqual({ action: "none" });
-    });
-
-    it("does not redirect a bare default-locale segment", () => {
-      expect(resolveLocaleRouting("/en")).toEqual({ action: "none" });
     });
 
     it("leaves a non-localizable locale-prefixed path alone", () => {
