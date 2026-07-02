@@ -45,9 +45,9 @@ It is, therefore, **wild to me** that people are willing to blindly accept what 
 
 And it does **bad things** all the time in code. The code equivalent to things like deleting my database. Things which **WILL** bite me in the real world, that will cause me to leak data, or lose data, or break in bad ways. This happens regularly. I know this because I read the code it writes, and I don't let it past the gate.
 
-And I know it because sometimes I'm lazy and don't read the code. And on multiple occasions this really has caused things to break!
+Except sometimes I'm lazy and don't read the code and do let it just pass the gate. And on multiple occasions this really has bitten me in production!
 
-In the last year, Claude's mistakes have become less frequent, but more subtle and often more destructive. Initially, there was nearly always something a bit wrong with its work, and I could quickly spot those things. Now, **I have to look more carefully** and reason harder to find those mistakes.
+In the last year, Claude's mistakes have become less frequent, but more subtle and often more destructive. Initially, there was nearly always something a bit wrong with its work, and I could quickly spot those things. Now, **I have to look more carefully** and reason harder to find those mistakes. Over time, LLMs will get better and this will become even more acute, but that's even more of a reason to check things carefully.
 
 And the only reason I can do this is that **I can read code**. I can read what Claude writes, and I can understand what it's trying to do and how badly it's managed to do it.
 

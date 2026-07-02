@@ -5,7 +5,7 @@ tags: ["jiki", "learn-to-code", "llms", "beginners"]
 seo:
   description: "2026-ban nem kell kódot írnod, de olvasni feltétlenül tudnod kell. Íme, miért számít még mindig a programozás tanulása a Claude és az LLM-ek korában."
   keywords: ["programozás tanulása", "érdemes megtanulni programozni 2026-ban", "AI-programozás", "LLM-ek", "jiki"]
-en_md5: 2d459335a65a0cb805595f97494f3630
+en_md5: 4ecf7517f8db1814548f02940a202a01
 ---
 
 ### Tl;DR;
@@ -46,9 +46,9 @@ Ezért **hihetetlen számomra**, hogy az emberek hajlandók vakon elfogadni, ami
 
 És a kódban is folyton **rossz dolgokat** művel. Az adatbázis-törlés kód-megfelelőit. Olyan dolgokat, amelyek a való életben **VISSZA FOGNAK** ütni: kiszivárogtatnak adatokat, elveszítenek adatokat, vagy csúnyán elrontanak valamit. Ez rendszeresen megtörténik. Azért tudom, mert elolvasom a kódot, amit ír, és nem engedem át a kapun.
 
-És azért is tudom, mert néha lusta vagyok, és nem olvasom el a kódot. És emiatt több alkalommal tényleg tönkre is ment valami!
+Bár néha lusta vagyok, és nem olvasom el a kódot, hanem átengedem a kapun. És ez több alkalommal tényleg visszaütött éles környezetben is!
 
-Az elmúlt évben a Claude hibái ritkábbá váltak, viszont finomabbak és sokszor pusztítóbbak lettek. Eleinte szinte mindig volt valami apró gond a munkájában, és ezeket gyorsan ki tudtam szúrni. Most **alaposabban kell figyelnem**, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat.
+Az elmúlt évben a Claude hibái ritkábbá váltak, viszont finomabbak és sokszor pusztítóbbak lettek. Eleinte szinte mindig volt valami apró gond a munkájában, és ezeket gyorsan ki tudtam szúrni. Most **alaposabban kell figyelnem**, és keményebben kell gondolkodnom, hogy megtaláljam ezeket a hibákat. Idővel az LLM-ek egyre jobbak lesznek, és ez a helyzet csak élesebbé válik, ami viszont még inkább okot ad arra, hogy gondosan ellenőrizzük a dolgukat.
 
 És az egyetlen ok, amiért ez sikerül, az, hogy **tudom olvasni a kódot**. El tudom olvasni, amit a Claude ír, és megértem, mit próbál csinálni, és mennyire rosszul sikerült neki.
 
