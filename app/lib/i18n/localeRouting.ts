@@ -1,20 +1,18 @@
-import { DEFAULT_LOCALE, isSupportedLocale } from "./config";
+import { DEFAULT_LOCALE, PUBLIC_PAGES, PUBLIC_SECTIONS, isSupportedLocale, stripLocalePrefix } from "./config";
+
+/**
+ * Account flows that are reachable logged-out and are localized like the public
+ * pages, but are never edge-cached (token/action specific — a shared cache entry
+ * would leak across users). Hence they drive routing but not `isCacheableRoute`.
+ */
+const ACCOUNT_FLOWS = ["/delete-account", "/unsubscribe"] as const;
 
 /**
  * Path bases (with any locale segment stripped) that have a `[locale]` route tree
  * and participate in locale prefixing. Add a base here only once the corresponding
  * `app/(hybrid)/[locale]/<base>` (or equivalent) route exists.
  */
-const LOCALIZABLE_BASES = [
-  "/blog",
-  "/articles",
-  "/concepts",
-  "/premium",
-  "/roadmap",
-  "/testimonials",
-  "/delete-account",
-  "/unsubscribe"
-] as const;
+const LOCALIZABLE_BASES = [...PUBLIC_SECTIONS, ...PUBLIC_PAGES, ...ACCOUNT_FLOWS] as const;
 
 function isLocalizableBase(basePath: string): boolean {
   return LOCALIZABLE_BASES.some((base) => basePath === base || basePath.startsWith(`${base}/`));
@@ -44,7 +42,7 @@ export function resolveLocaleRouting(pathname: string): LocaleRouting {
   const first = segments[1];
 
   if (isSupportedLocale(first)) {
-    const base = `/${segments.slice(2).join("/")}`;
+    const base = stripLocalePrefix(pathname);
     // Explicit default-locale prefix has a naked canonical form: send them there.
     // base === "/" is the apex home (e.g. /en -> /).
     if (first === DEFAULT_LOCALE && (base === "/" || isLocalizableBase(base))) {

@@ -19,10 +19,32 @@ export const URL_LOCALE_HEADER = "x-url-locale";
 // (e.g. the locale banner) can read the current path.
 export const PATHNAME_HEADER = "x-pathname";
 
+// Public sections: an index plus detail pages, matched by prefix (/blog,
+// /blog/my-post). Cacheable and locale-routed, in naked and locale-prefixed form.
+export const PUBLIC_SECTIONS = ["/blog", "/articles", "/concepts"] as const;
+
+// Public single pages, matched exactly (no sub-paths). Cacheable and locale-routed.
+export const PUBLIC_PAGES = ["/premium", "/roadmap", "/testimonials"] as const;
+
 export function isSupportedLocale(value: string | undefined | null): value is Locale {
   return value != null && (SUPPORTED_LOCALES as readonly string[]).includes(value);
 }
 
 export function normalizeLocale(value: string | undefined | null): Locale {
   return isSupportedLocale(value) ? value : DEFAULT_LOCALE;
+}
+
+/**
+ * Strip a leading supported-locale segment, returning the naked base path
+ * ("/hu/blog" -> "/blog", "/hu" -> "/", "/blog" -> "/blog"). Driven by
+ * SUPPORTED_LOCALES, so it handles any locale including region subtags (e.g.
+ * "pt-BR") and never strips an unsupported segment. Use this instead of ad-hoc
+ * `/[a-z]{2}/` regexes so locale-prefix handling stays config-driven.
+ */
+export function stripLocalePrefix(pathname: string): string {
+  const segments = pathname.split("/");
+  if (isSupportedLocale(segments[1])) {
+    return `/${segments.slice(2).join("/")}`;
+  }
+  return pathname;
 }
