@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
+import { URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
 import { setInternalNavigationCookie } from "./lib/middleware/internal-navigation";
 import { isExternalUrl } from "./lib/routing/external-urls";
 
@@ -49,9 +50,23 @@ export function middleware(request: NextRequest) {
   }
 
   //
+  // Expose the URL locale segment (e.g. /hu/blog -> "hu") as a trusted request
+  // header so resolveLocale() can make explicit-URL locale win. We always set or
+  // delete it from the (trusted) path, so a client-supplied header can't spoof it.
+  //
+  const requestHeaders = new Headers(request.headers);
+  // First path segment, kept whole including any region subtag (e.g. "pt-BR").
+  const localeSegment = path.split("/")[1];
+  if (isSupportedLocale(localeSegment)) {
+    requestHeaders.set(URL_LOCALE_HEADER, localeSegment);
+  } else {
+    requestHeaders.delete(URL_LOCALE_HEADER);
+  }
+
+  //
   // Happy path!
   //
-  const response = NextResponse.next();
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   setCSP(response);
   setInternalNavigationCookie(request, response);
 

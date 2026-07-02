@@ -48,16 +48,6 @@
       "logoAlt": "Jiki",
       "backToJiki": "Back to Jiki →"
     },
-    "authHeader": {
-      "brand": "Jiki Learn",
-      "blog": "Blog",
-      "articles": "Articles",
-      "welcome": "Welcome, {name}",
-      "dashboard": "Dashboard",
-      "settings": "Settings",
-      "signIn": "Sign In",
-      "signUp": "Sign Up For Free"
-    },
     "sidebar": {
       "logoAlt": "Jiki",
       "nav": {
@@ -82,6 +72,10 @@
         "upgrade": "Upgrade to Premium",
         "accelerate": "to accelerate your learning"
       }
+    },
+    "loading": {
+      "title": "Waking up Jiki",
+      "subtitle": "Preparing your learning experience"
     }
   },
   "common": {

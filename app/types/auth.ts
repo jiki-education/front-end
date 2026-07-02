@@ -17,6 +17,7 @@ export interface User {
   premium_prices: PremiumPrices;
   provider: string;
   email_confirmed: boolean;
+  locale: string;
 }
 
 export interface LoginCredentials {
@@ -38,6 +39,9 @@ export interface SignupData {
   password: string;
   password_confirmation: string;
   name?: string;
+  // Seed locale for the new account (URL > cookie > browser > default). The
+  // backend persists it and ignores unsupported values.
+  locale?: string;
   attribution?: SignupAttribution | null;
 }
 

@@ -34,29 +34,19 @@
       "copyright": "© {year} Jiki Ltd"
     },
     "externalHeader": {
-      "homeAriaLabel": "Jiki home",
+      "homeAriaLabel": "Jiki főoldal",
       "logoAlt": "Jiki",
-      "aboutJiki": "About Jiki",
-      "codingConcepts": "Coding Concepts",
+      "aboutJiki": "A Jikiről",
+      "codingConcepts": "Programozási fogalmak",
       "premium": "Premium",
-      "testimonials": "Testimonials",
-      "login": "Login",
-      "signUp": "Sign Up For Free"
+      "testimonials": "Vélemények",
+      "login": "Bejelentkezés",
+      "signUp": "Regisztrálj ingyen"
     },
     "internalHeader": {
-      "homeAriaLabel": "Jiki home",
+      "homeAriaLabel": "Jiki főoldal",
       "logoAlt": "Jiki",
-      "backToJiki": "Back to Jiki →"
-    },
-    "authHeader": {
-      "brand": "Jiki Learn",
-      "blog": "Blog",
-      "articles": "Articles",
-      "welcome": "Welcome, {name}",
-      "dashboard": "Dashboard",
-      "settings": "Settings",
-      "signIn": "Sign In",
-      "signUp": "Sign Up For Free"
+      "backToJiki": "Vissza a Jikihez →"
     },
     "sidebar": {
       "logoAlt": "Jiki",
@@ -82,6 +72,10 @@
         "upgrade": "Upgrade to Premium",
         "accelerate": "to accelerate your learning"
       }
+    },
+    "loading": {
+      "title": "Jiki ébresztése",
+      "subtitle": "A tanulási élményed előkészítése"
     }
   },
   "common": {

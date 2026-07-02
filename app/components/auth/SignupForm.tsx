@@ -5,8 +5,9 @@ import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -20,6 +21,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function SignupForm() {
   const t = useTranslations("auth.signup");
   const tc = useTranslations("auth");
+  const activeLocale = useLocale();
   const { signup, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
@@ -74,11 +76,13 @@ export function SignupForm() {
     }
 
     try {
+      const seedLocale = detectSeedLocale(activeLocale);
       const user = await signup(
         {
           email,
           password,
           password_confirmation: password,
+          ...(seedLocale ? { locale: seedLocale } : {}),
           attribution: readAttribution()
         },
         token

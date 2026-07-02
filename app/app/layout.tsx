@@ -7,8 +7,8 @@ import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
+import { ClientLocaleProvider } from "@/components/i18n/ClientLocaleProvider";
+import { getLocale, getMessages } from "next-intl/server";
 import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
 import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
@@ -57,11 +57,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
-        <NextIntlClientProvider>
+        <ClientLocaleProvider initialLocale={locale} initialMessages={messages}>
           <GlobalErrorHandler />
           <AttributionCapture />
           <ServerAuthProvider>
@@ -80,7 +81,7 @@ export default async function RootLayout({
               strategy="afterInteractive"
             />
           )}
-        </NextIntlClientProvider>
+        </ClientLocaleProvider>
       </body>
     </html>
   );

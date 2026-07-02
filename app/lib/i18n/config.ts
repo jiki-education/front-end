@@ -9,6 +9,12 @@ export type { Locale };
 // to the edge runtime on every request.
 export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 
+// Request header set by middleware to the URL's locale segment (e.g. "hu" for
+// /hu/blog). Read by resolveLocale() so an explicit URL locale wins over the
+// cookie. Middleware always sets or clears it from the trusted path, so it can't
+// be spoofed by a client-supplied header.
+export const URL_LOCALE_HEADER = "x-url-locale";
+
 export function isSupportedLocale(value: string | undefined | null): value is Locale {
   return value != null && (SUPPORTED_LOCALES as readonly string[]).includes(value);
 }
