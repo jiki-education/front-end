@@ -57,7 +57,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const messages = await getMessages();
+  // `seo` is server-only (consumed by generateMetadata via getTranslations) and no
+  // client component reads it, so we omit it from the catalog handed to the client
+  // provider rather than serializing it into every route's hydration payload.
+  const { seo: _seo, ...messages } = await getMessages();
 
   return (
     <html lang={locale}>
