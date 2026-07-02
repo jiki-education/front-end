@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LocaleBanner } from "../../i18n/LocaleBanner";
 import { Buttons } from "./Buttons";
+import { HeaderHeightSync } from "./HeaderHeightSync";
 
 // Picks the header based on client auth state. Isolated as a client component so
 // HeaderLayout itself can stay a server component (and render the server-side
@@ -12,7 +13,7 @@ export function Header() {
   const t = useTranslations("layout.internalHeader");
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white border-b-2 border-gray-200 z-modal">
+    <header className="sticky top-0 bg-white border-b-2 border-gray-200 z-modal">
       <LocaleBanner />
       <div className={`${shared["lg-container"]} flex items-center justify-between h-[72px]`}>
         <Link href="/" aria-label={t("homeAriaLabel")} className="flex items-center text-gray-900">
@@ -28,6 +29,7 @@ export function Header() {
 
         <Buttons />
       </div>
+      <HeaderHeightSync />
     </header>
   );
 }

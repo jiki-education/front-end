@@ -12,7 +12,7 @@ export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProp
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1 mt-[var(--header-height)]">{children}</main>
+      <main className="flex-1">{children}</main>
       <ExternalFooter />
     </div>
   );
