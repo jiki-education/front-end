@@ -6,6 +6,12 @@ jest.mock("@/lib/auth/server-storage", () => ({
   hasAuthenticationCookie: jest.fn().mockResolvedValue(false)
 }));
 
+// LocaleBanner is an async server component that reads request headers; it can't
+// render in the client test renderer, and it's irrelevant to these assertions.
+jest.mock("@/components/i18n/LocaleBanner", () => ({
+  LocaleBanner: () => null
+}));
+
 describe("Home Page (Landing Page)", () => {
   it("renders the marketing landing page", async () => {
     render(await RootPage());

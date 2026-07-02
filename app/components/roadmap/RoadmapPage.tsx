@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import HeaderLayout from "../layout/HeaderLayout";
 import styles from "./RoadmapPage.module.css";

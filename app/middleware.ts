@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
-import { URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
+import { PATHNAME_HEADER, URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
 import { setInternalNavigationCookie } from "./lib/middleware/internal-navigation";
 import { isExternalUrl } from "./lib/routing/external-urls";
 
@@ -55,6 +55,7 @@ export function middleware(request: NextRequest) {
   // delete it from the (trusted) path, so a client-supplied header can't spoof it.
   //
   const requestHeaders = new Headers(request.headers);
+  requestHeaders.set(PATHNAME_HEADER, path);
   // First path segment, kept whole including any region subtag (e.g. "pt-BR").
   const localeSegment = path.split("/")[1];
   if (isSupportedLocale(localeSegment)) {

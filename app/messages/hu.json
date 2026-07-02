@@ -76,6 +76,12 @@
     "loading": {
       "title": "Jiki ébresztése",
       "subtitle": "A tanulási élményed előkészítése"
+    },
+    "localeBanner": {
+      "prefix": "Az oldal {language} nyelvű változatát nézed.",
+      "cta": "Válts erre: {language}",
+      "or": "vagy",
+      "close": "bezárod ezt az értesítést"
     }
   },
   "common": {
@@ -85,7 +91,11 @@
     "confirm": "Confirm",
     "processing": "Processing...",
     "reloadPage": "Reload Page",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "languageNames": {
+      "en": "angol",
+      "hu": "magyar"
+    }
   },
   "auth": {
     "oauth": {

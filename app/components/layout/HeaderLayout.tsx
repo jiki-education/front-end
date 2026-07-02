@@ -1,14 +1,13 @@
-"use client";
-
-import { useAuthStore } from "../../lib/auth/authStore";
 import { ExternalFooter } from "./ExternalFooter";
-import InternalHeader from "./header/internal";
-import ExternalHeader from "./header/external";
+import { Header } from "./header/Header";
 
 interface AuthenticatedHeaderLayoutProps {
   children: React.ReactNode;
 }
 
+// Server layout for the public/hybrid site. The header switch is a client child
+// (auth-dependent); the LocaleBanner is server-rendered so it can read request
+// headers (Accept-Language) and is skipped for crawlers.
 export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -17,9 +16,4 @@ export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProp
       <ExternalFooter />
     </div>
   );
-}
-
-function Header() {
-  const { isAuthenticated } = useAuthStore();
-  return isAuthenticated ? <InternalHeader /> : <ExternalHeader />;
 }

@@ -15,6 +15,10 @@ export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 // be spoofed by a client-supplied header.
 export const URL_LOCALE_HEADER = "x-url-locale";
 
+// Request header set by middleware to the request pathname, so server components
+// (e.g. the locale banner) can read the current path.
+export const PATHNAME_HEADER = "x-pathname";
+
 export function isSupportedLocale(value: string | undefined | null): value is Locale {
   return value != null && (SUPPORTED_LOCALES as readonly string[]).includes(value);
 }

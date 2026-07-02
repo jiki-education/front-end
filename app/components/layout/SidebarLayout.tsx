@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "../../lib/auth/authStore";
 import { ExternalFooter } from "./ExternalFooter";
-import ExternalHeader from "./header/external";
+import ExternalHeader from "./header/ExternalButtons";
 import Sidebar from "./sidebar/Sidebar";
 
 interface SidebarLayoutProps {

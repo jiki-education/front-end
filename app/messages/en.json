@@ -76,6 +76,12 @@
     "loading": {
       "title": "Waking up Jiki",
       "subtitle": "Preparing your learning experience"
+    },
+    "localeBanner": {
+      "prefix": "You are viewing the {language} version of this page.",
+      "cta": "Change to {language}",
+      "or": "or",
+      "close": "close this notice"
     }
   },
   "common": {
@@ -85,7 +91,11 @@
     "confirm": "Confirm",
     "processing": "Processing...",
     "reloadPage": "Reload Page",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "languageNames": {
+      "en": "English",
+      "hu": "Hungarian"
+    }
   },
   "auth": {
     "oauth": {
