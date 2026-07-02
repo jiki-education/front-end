@@ -9,7 +9,7 @@
  * Check if a route is publicly cacheable at the edge.
  *
  * True for anonymously-viewable public pages (landing, blog, articles, concepts,
- * testimonials), in both naked and locale-prefixed form. These are the only
+ * premium, roadmap, testimonials), in both naked and locale-prefixed form. These are the only
  * routes the edge cache (worker-wrapper) and the middleware's public
  * Cache-Control headers apply to. Everything else (authenticated app pages, auth
  * flows, the token-specific unsubscribe page, dev/test) is never cached.
@@ -36,13 +36,13 @@ export function isCacheableRoute(pathname: string): boolean {
     return true;
   }
 
-  // Concepts routes
-  if (pathname === "/concepts" || pathname.startsWith("/concepts/")) {
+  // Concepts routes (naked and locale-prefixed)
+  if (pathname === "/concepts" || pathname.startsWith("/concepts/") || /^\/[a-z]{2}\/concepts(\/|$)/.test(pathname)) {
     return true;
   }
 
-  // Testimonials page
-  if (pathname === "/testimonials") {
+  // Single-page public marketing routes (naked and locale-prefixed)
+  if (/^(?:\/[a-z]{2})?\/(?:premium|roadmap|testimonials)$/.test(pathname)) {
     return true;
   }
 

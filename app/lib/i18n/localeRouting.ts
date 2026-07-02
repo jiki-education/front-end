@@ -5,7 +5,16 @@ import { DEFAULT_LOCALE, isSupportedLocale } from "./config";
  * and participate in locale prefixing. Add a base here only once the corresponding
  * `app/(hybrid)/[locale]/<base>` (or equivalent) route exists.
  */
-const LOCALIZABLE_BASES = ["/blog", "/articles"] as const;
+const LOCALIZABLE_BASES = [
+  "/blog",
+  "/articles",
+  "/concepts",
+  "/premium",
+  "/roadmap",
+  "/testimonials",
+  "/delete-account",
+  "/unsubscribe"
+] as const;
 
 function isLocalizableBase(basePath: string): boolean {
   return LOCALIZABLE_BASES.some((base) => basePath === base || basePath.startsWith(`${base}/`));

@@ -17,6 +17,29 @@ describe("resolveLocaleRouting", () => {
         target: "/en/articles/my-article"
       });
     });
+
+    it("rewrites the concepts index and details", () => {
+      expect(resolveLocaleRouting("/concepts")).toEqual({ action: "rewrite", target: "/en/concepts" });
+      expect(resolveLocaleRouting("/concepts/loops")).toEqual({ action: "rewrite", target: "/en/concepts/loops" });
+    });
+
+    it("rewrites the single-page marketing routes", () => {
+      expect(resolveLocaleRouting("/premium")).toEqual({ action: "rewrite", target: "/en/premium" });
+      expect(resolveLocaleRouting("/roadmap")).toEqual({ action: "rewrite", target: "/en/roadmap" });
+      expect(resolveLocaleRouting("/testimonials")).toEqual({ action: "rewrite", target: "/en/testimonials" });
+    });
+
+    it("rewrites the delete-account and unsubscribe flows", () => {
+      expect(resolveLocaleRouting("/delete-account/confirm")).toEqual({
+        action: "rewrite",
+        target: "/en/delete-account/confirm"
+      });
+      expect(resolveLocaleRouting("/unsubscribe")).toEqual({ action: "rewrite", target: "/en/unsubscribe" });
+      expect(resolveLocaleRouting("/unsubscribe/tok123")).toEqual({
+        action: "rewrite",
+        target: "/en/unsubscribe/tok123"
+      });
+    });
   });
 
   describe("explicit default-locale prefix (redirect to naked canonical URL)", () => {
@@ -31,6 +54,28 @@ describe("resolveLocaleRouting", () => {
     it("redirects /en/articles to /articles", () => {
       expect(resolveLocaleRouting("/en/articles")).toEqual({ action: "redirect", target: "/articles" });
     });
+
+    it("redirects /en/concepts and /en/concepts/loops to their naked URLs", () => {
+      expect(resolveLocaleRouting("/en/concepts")).toEqual({ action: "redirect", target: "/concepts" });
+      expect(resolveLocaleRouting("/en/concepts/loops")).toEqual({ action: "redirect", target: "/concepts/loops" });
+    });
+
+    it("redirects the marketing routes to their naked URLs", () => {
+      expect(resolveLocaleRouting("/en/premium")).toEqual({ action: "redirect", target: "/premium" });
+      expect(resolveLocaleRouting("/en/roadmap")).toEqual({ action: "redirect", target: "/roadmap" });
+      expect(resolveLocaleRouting("/en/testimonials")).toEqual({ action: "redirect", target: "/testimonials" });
+    });
+
+    it("redirects the delete-account and unsubscribe flows to their naked URLs", () => {
+      expect(resolveLocaleRouting("/en/delete-account/confirm")).toEqual({
+        action: "redirect",
+        target: "/delete-account/confirm"
+      });
+      expect(resolveLocaleRouting("/en/unsubscribe/tok123")).toEqual({
+        action: "redirect",
+        target: "/unsubscribe/tok123"
+      });
+    });
   });
 
   describe("supported non-default locales (pass through to [locale])", () => {
@@ -41,6 +86,10 @@ describe("resolveLocaleRouting", () => {
     it("leaves /hu/articles/my-article untouched", () => {
       expect(resolveLocaleRouting("/hu/articles/my-article")).toEqual({ action: "none" });
     });
+
+    it("leaves /hu/concepts untouched", () => {
+      expect(resolveLocaleRouting("/hu/concepts")).toEqual({ action: "none" });
+    });
   });
 
   describe("non-localizable paths (untouched)", () => {
@@ -48,10 +97,9 @@ describe("resolveLocaleRouting", () => {
       expect(resolveLocaleRouting("/")).toEqual({ action: "none" });
     });
 
-    it("leaves naked non-localizable public pages alone", () => {
-      expect(resolveLocaleRouting("/concepts")).toEqual({ action: "none" });
-      expect(resolveLocaleRouting("/testimonials")).toEqual({ action: "none" });
-      expect(resolveLocaleRouting("/premium")).toEqual({ action: "none" });
+    it("leaves public pages that aren't yet in the [locale] tree alone (e.g. auth)", () => {
+      expect(resolveLocaleRouting("/auth/login")).toEqual({ action: "none" });
+      expect(resolveLocaleRouting("/auth/signup")).toEqual({ action: "none" });
     });
 
     it("leaves app routes alone", () => {

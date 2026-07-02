@@ -31,11 +31,38 @@ describe("cacheable-routes", () => {
         expect(isCacheableRoute("/concepts")).toBe(true);
         expect(isCacheableRoute("/concepts/my-concept")).toBe(true);
       });
+
+      it("returns true for localized concepts routes", () => {
+        expect(isCacheableRoute("/hu/concepts")).toBe(true);
+        expect(isCacheableRoute("/de/concepts/my-concept")).toBe(true);
+      });
+
+      it("returns true for single-page marketing routes (naked and localized)", () => {
+        expect(isCacheableRoute("/premium")).toBe(true);
+        expect(isCacheableRoute("/roadmap")).toBe(true);
+        expect(isCacheableRoute("/testimonials")).toBe(true);
+        expect(isCacheableRoute("/hu/premium")).toBe(true);
+        expect(isCacheableRoute("/de/roadmap")).toBe(true);
+        expect(isCacheableRoute("/hu/testimonials")).toBe(true);
+      });
+
+      it("does not treat marketing sub-paths as the cacheable single page", () => {
+        expect(isCacheableRoute("/premium/checkout")).toBe(false);
+        expect(isCacheableRoute("/hu/roadmap/2026")).toBe(false);
+      });
     });
 
     describe("non-external URLs (not cacheable)", () => {
-      it("returns false for token-specific unsubscribe pages", () => {
+      it("returns false for token-specific unsubscribe pages, even when locale-prefixed", () => {
+        // Locale routing prefixes /unsubscribe, but it must stay uncacheable: the
+        // caching predicate is intentionally separate from localizable-path routing.
         expect(isCacheableRoute("/unsubscribe/token123")).toBe(false);
+        expect(isCacheableRoute("/hu/unsubscribe/token123")).toBe(false);
+      });
+
+      it("returns false for the delete-account flow", () => {
+        expect(isCacheableRoute("/delete-account/confirm")).toBe(false);
+        expect(isCacheableRoute("/hu/delete-account/confirm")).toBe(false);
       });
 
       it("returns false for dashboard", () => {
