@@ -9,6 +9,8 @@ import { getApiUrl } from "@/lib/api/config";
 import type { LoginCredentials, LoginResponse, PasswordReset, SignupData, User } from "@/types/auth";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { setCriticalError, clearCriticalError } from "@/lib/api/errorHandlerStore";
+import { setLocaleCookie } from "@/lib/i18n/localeCookie";
+import { isSupportedLocale } from "@/lib/i18n/config";
 import { create } from "zustand";
 import type { StoreApi } from "zustand";
 
@@ -206,6 +208,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       hasCheckedAuth: true,
       error: null
     });
+    // Mirror the authoritative locale into the NEXT_LOCALE cookie so the next
+    // SSR seed is correct. The cookie is an optimistic hint; user.locale is the
+    // source of truth. Ignore unsupported/absent values.
+    if (isSupportedLocale(user.locale)) {
+      setLocaleCookie(user.locale);
+    }
   },
   setNoUser: (error?: string | null) => {
     set({

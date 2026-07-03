@@ -2,8 +2,9 @@ import type { SignatureData, UsageMeta } from "./chat-types";
 
 export type UsageScope = "daily" | "monthly";
 
-// The fair-usage article, linked from anywhere we surface message limits.
-export const FAIR_USAGE_ARTICLE_PATH = "/articles/fair-usage-jiki-ai-policy";
+// The fair-usage article slug, linked from anywhere we surface message limits.
+// Build the (locale-aware) URL at the call site via routes.article(slug).
+export const FAIR_USAGE_ARTICLE_SLUG = "fair-usage-jiki-ai-policy";
 
 export interface UsageStatus {
   // The binding scope: whichever limit has the fewest messages remaining.

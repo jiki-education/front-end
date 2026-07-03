@@ -5,8 +5,10 @@ import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -20,6 +22,8 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function SignupForm() {
   const t = useTranslations("auth.signup");
   const tc = useTranslations("auth");
+  const activeLocale = useLocale();
+  const routes = useLocaleRoutes();
   const { signup, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
@@ -74,11 +78,13 @@ export function SignupForm() {
     }
 
     try {
+      const seedLocale = detectSeedLocale(activeLocale);
       const user = await signup(
         {
           email,
           password,
           password_confirmation: password,
+          ...(seedLocale ? { locale: seedLocale } : {}),
           attribution: readAttribution()
         },
         token
@@ -92,7 +98,7 @@ export function SignupForm() {
         } catch {
           // Storage may be disabled — the check-email page will fall back gracefully.
         }
-        router.push("/auth/check-email");
+        router.push(routes.authCheckEmail());
       }
     } catch (err) {
       setVerifying(false);
@@ -129,7 +135,7 @@ export function SignupForm() {
           <h1>{t("title")}</h1>
           <p>
             {t("haveAccountPrefix")}
-            <Link href={buildUrlWithReturnTo("/auth/login", returnTo)} className="ui-link">
+            <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
               {t("loginLink")}
             </Link>
             .
@@ -233,7 +239,7 @@ export function SignupForm() {
           <div className={styles.footerLinks}>
             <p>
               {t("resendPrompt")}
-              <Link href="/auth/resend-confirmation" className="ui-link">
+              <Link href={routes.authResendConfirmation()} className="ui-link">
                 {t("resendLink")}
               </Link>
             </p>

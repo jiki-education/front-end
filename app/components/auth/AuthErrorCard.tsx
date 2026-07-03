@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import ShieldXIcon from "@/icons/shield-x.svg";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./AuthForm.module.css";
 
 interface AuthErrorCardProps {
@@ -16,6 +17,7 @@ interface AuthErrorCardProps {
  */
 export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCardProps) {
   const t = useTranslations("auth.errorCard");
+  const routes = useLocaleRoutes();
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -35,7 +37,7 @@ export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCar
             </Link>
             <p className={styles.confirmationCardFooter}>
               {t("needHelpPrefix")}
-              <Link href="/articles/support" className="ui-link">
+              <Link href={routes.article("support")} className="ui-link">
                 {t("contactSupport")}
               </Link>
             </p>

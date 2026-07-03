@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import ThreeDotsIcon from "@/icons/three-dots.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { YOUTUBE_URL } from "@/lib/constants/social";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./MoreMenu.module.css";
 
 interface MoreMenuProps {
@@ -29,6 +30,7 @@ interface MoreMenuProps {
 
 export function MoreMenu({ isActive = false }: MoreMenuProps) {
   const t = useTranslations("layout.sidebar.moreMenu");
+  const routes = useLocaleRoutes();
   const [isOpen, setIsOpen] = useState(false);
   const arrowRef = useRef(null);
   const router = useRouter();
@@ -59,7 +61,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
     setIsOpen(false);
     const result = await logout();
     if (result.success) {
-      router.push("/");
+      router.push(routes.home());
     }
   };
 
@@ -96,7 +98,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
                 width={16}
                 height={8}
               />
-              <Link href="/articles" onClick={closeMenu} className={styles.dropdownItem}>
+              <Link href={routes.articles()} onClick={closeMenu} className={styles.dropdownItem}>
                 {t("helpCenter")}
               </Link>
               <a
@@ -111,7 +113,7 @@ export function MoreMenu({ isActive = false }: MoreMenuProps) {
               <Link href="/r/forum" onClick={closeMenu} className={styles.dropdownItem}>
                 {t("forum")}
               </Link>
-              <Link href="/blog" onClick={closeMenu} className={styles.dropdownItem}>
+              <Link href={routes.blog()} onClick={closeMenu} className={styles.dropdownItem}>
                 {t("blog")}
               </Link>
               <button onClick={handleLogout} className={styles.dropdownItem}>

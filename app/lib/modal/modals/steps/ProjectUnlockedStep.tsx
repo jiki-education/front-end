@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import UnlockedIcon from "@/icons/unlocked.svg";
 import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "@/app/styles/components/modals.module.css";
 import projectStyles from "@/app/styles/components/project-card.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
@@ -24,6 +25,7 @@ interface ProjectUnlockedStepProps {
 
 export function ProjectUnlockedStep({ completionResponse, unlockedProject, onContinue }: ProjectUnlockedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.projectUnlocked");
+  const routes = useLocaleRoutes();
   const unlockedProjectData = completionResponse.find((item) => item.type === "project_unlocked")?.data.project;
 
   const projectToShow = unlockedProjectData
@@ -62,7 +64,8 @@ export function ProjectUnlockedStep({ completionResponse, unlockedProject, onCon
       </div>
       <div className={styles.premiumInfoBox}>
         <p>
-          <span className="font-semibold">{t("premiumOnly")}</span> <Link href="/premium">{t("upgradeLink")}</Link>
+          <span className="font-semibold">{t("premiumOnly")}</span>{" "}
+          <Link href={routes.premium()}>{t("upgradeLink")}</Link>
           {t("premiumInfoSuffix")}
         </p>
       </div>

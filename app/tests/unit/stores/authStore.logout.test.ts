@@ -31,7 +31,8 @@ describe("AuthStore - Logout", () => {
     subscription: null,
     premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null },
     provider: "email",
-    email_confirmed: true
+    email_confirmed: true,
+    locale: "en"
   };
 
   beforeEach(() => {

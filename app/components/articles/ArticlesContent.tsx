@@ -27,12 +27,12 @@ export default function ArticlesContent({
   totalPages,
   tagSlugs
 }: ArticlesContentProps) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const searchParams = useSearchParams();
   const { searchQuery, setSearchQuery, searchResults, isLoading } = useArticlesSearch(locale);
 
   const hrefForPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString());
     if (page === 1) {
       params.delete("page");
     } else {

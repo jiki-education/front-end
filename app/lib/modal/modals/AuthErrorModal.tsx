@@ -2,10 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./AuthErrorModal.module.css";
 
 export function AuthErrorModal() {
   const t = useTranslations("modals.authError");
+  const routes = useLocaleRoutes();
   const handleReload = () => {
     window.location.reload();
   };
@@ -28,11 +30,11 @@ export function AuthErrorModal() {
 
       <p className={styles.helpText}>
         {t("helpTextPrefix")}
-        <Link href="/articles/how-to-clear-your-cookies" className={styles.helpLink}>
+        <Link href={routes.article("how-to-clear-your-cookies")} className={styles.helpLink}>
           {t("clearCookies")}
         </Link>
         {t("helpTextOr")}
-        <Link href="/articles/support" className={styles.helpLink}>
+        <Link href={routes.article("support")} className={styles.helpLink}>
           {t("contactSupport")}
         </Link>
         .

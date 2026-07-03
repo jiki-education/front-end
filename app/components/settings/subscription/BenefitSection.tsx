@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./BenefitSection.module.css";
 
@@ -21,6 +22,7 @@ export default function BenefitSection({ isCancelling = false, onResubscribe, cl
 
 function ActiveBenefitSection({ className = "" }: { className?: string }) {
   const t = useTranslations("settings.benefits");
+  const routes = useLocaleRoutes();
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
@@ -50,9 +52,9 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
 
       <p className={styles.benefitsFooter}>
         {t("footerPrefix")}
-        <Link href="/premium">{t("footerWhatsIncluded")}</Link>
+        <Link href={routes.premium()}>{t("footerWhatsIncluded")}</Link>
         {t("footerOr")}
-        <Link href="/articles/support">{t("footerContactSupport")}</Link>.
+        <Link href={routes.article("support")}>{t("footerContactSupport")}</Link>.
       </p>
     </div>
   );

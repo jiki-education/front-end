@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { ConceptsLayout } from "@/components/concepts";
 import { Breadcrumb } from "@/components/concepts";
 import ConceptHero from "@/components/concepts/ConceptHero";
@@ -20,6 +21,7 @@ interface ConceptLeafViewProps {
 
 export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
   const router = useRouter();
+  const routes = useLocaleRoutes();
   const {
     concept,
     ancestors,
@@ -42,7 +44,7 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
   }
 
   if (error || !concept) {
-    return <ConceptErrorView message={error} onBack={() => router.push("/concepts")} />;
+    return <ConceptErrorView message={error} onBack={() => router.push(routes.concepts())} />;
   }
 
   return (

@@ -2,8 +2,9 @@
 
 import { ApiError, AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { useAuth } from "@/lib/auth/useAuth";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -18,6 +19,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function LoginForm() {
   const t = useTranslations("auth.login");
   const tc = useTranslations("auth");
+  const routes = useLocaleRoutes();
   const { login, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
@@ -109,7 +111,7 @@ export function LoginForm() {
           <h1>{t("title")}</h1>
           <p>
             {t("noAccountPrefix")}
-            <Link href={buildUrlWithReturnTo("/auth/signup", returnTo)} className="ui-link">
+            <Link href={buildUrlWithReturnTo(routes.authSignup(), returnTo)} className="ui-link">
               {t("signUpLink")}
             </Link>
           </p>
@@ -200,7 +202,7 @@ export function LoginForm() {
                 <div className="ui-form-field-error-message" style={{ display: "block" }}>
                   {t("unconfirmedPrefix")}
                   <Link
-                    href={`/auth/resend-confirmation?email=${encodeURIComponent(unconfirmedEmail)}`}
+                    href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(unconfirmedEmail)}`}
                     className="ui-link"
                   >
                     {t("resendConfirmationLink")}
@@ -215,7 +217,7 @@ export function LoginForm() {
             </div>
 
             <div className={styles.forgotPassword}>
-              <Link href="/auth/forgot-password" className="ui-link">
+              <Link href={routes.authForgotPassword()} className="ui-link">
                 {t("forgotPassword")}
               </Link>
             </div>
@@ -236,7 +238,7 @@ export function LoginForm() {
           <div className={styles.footerLinks}>
             <p>
               {t("resendPrompt")}
-              <Link href="/auth/resend-confirmation" className="ui-link">
+              <Link href={routes.authResendConfirmation()} className="ui-link">
                 {t("resendLink")}
               </Link>
             </p>

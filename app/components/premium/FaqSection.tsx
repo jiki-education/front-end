@@ -1,3 +1,4 @@
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "./PremiumPage.module.css";
@@ -5,6 +6,7 @@ import { FAQ_ITEMS } from "./pricing.data";
 
 export default function FaqSection() {
   const t = useTranslations("premium.faq");
+  const routes = useLocaleRoutes();
   return (
     <div className={styles["faq-section"]}>
       <div className={styles["faq-inner"]}>
@@ -20,7 +22,7 @@ export default function FaqSection() {
                     {item.answerLinkKeyPrefix ? (
                       <>
                         {t(`${item.answerLinkKeyPrefix}Prefix` as Parameters<typeof t>[0])}
-                        <Link href="/articles/support">
+                        <Link href={routes.article("support")}>
                           {t(`${item.answerLinkKeyPrefix}Link` as Parameters<typeof t>[0])}
                         </Link>
                         {t(`${item.answerLinkKeyPrefix}Suffix` as Parameters<typeof t>[0])}

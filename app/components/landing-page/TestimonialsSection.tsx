@@ -22,6 +22,7 @@ import sharpiemath from "./assets/testimonials/sharpiemath.webp";
 import shaun from "./assets/testimonials/shaun.webp";
 import thom from "./assets/testimonials/thom.webp";
 import vignesh from "./assets/testimonials/vignesh.webp";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./TestimonialsSection.module.css";
 import shared from "./shared.module.css";
 
@@ -59,13 +60,14 @@ const QUOTES: QuoteData[] = [
 
 export function TestimonialsSection() {
   const t = useTranslations("landing.testimonials");
+  const routes = useLocaleRoutes();
   return (
     <section className={styles["testimonial-section"]}>
       <div className={shared["lg-container"]}>
         <h2>{t("heading")}</h2>
         <p className={styles.subheading}>
           {t("subheadingPrefix")}
-          <Link className="underline font-semibold" href="/testimonials">
+          <Link className="underline font-semibold" href={routes.testimonials()}>
             {t("subheadingLink")}
           </Link>
         </p>

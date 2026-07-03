@@ -1,0 +1,47 @@
+---
+title: "Using Functions"
+description: "Telling Jiki to run one of his little machines by writing its name followed by two brackets."
+---
+
+HUNGARIAN When you write code, what you're really doing is communicating what you want to happen in a language that a computer understands. Now, there are lots of different programming languages, and there are lots of different interpreters that take what you write and turn it into the ones and zeros that a computer can understand. In this course, your interpreter is Jiki. The whole course is named after Jiki. This is Jiki. Jiki is gonna be your friend on this coding journey. It's his job to interpret the code that you write and turn it into the ones and zeros that the computer can actually act on.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/using-functions/jiki-introduction.webp"
+  alt="Jiki, the friendly interpreter who will guide you through this course"
+  width="421"
+  height="400"
+/>
+
+The whole point of coding is giving the interpreter, Jiki in this case, the right instructions, and there are lots of different instructions that you can give Jiki, lots that he understands. He can stick things together, he can do something lots of times, he can say, "If this happens, then I need to do this." He can remember things and then use them again later. He can give you an error if something isn't right. We're gonna cover all of these different things in this course. But the key thing to understand is that everything you're going to be doing is putting instructions on a board for Jiki to come along and follow.
+
+When I learnt to code 34 years ago, this was the mental model that I built, and it's the one I still have today. I understand how computers work all the way down to the ones and the zeros, but I honestly never think of that. In my head, there's a little man living in the computer, and I tell him what to do. So go along with me on this. It's a powerful mental model that you can build, and if you start to think of things in this very visual way about what the person in the computer is doing, it's gonna hold you in very good stead as you learn to code.
+
+So let's start off by looking at one of the fundamental concepts in programming called functions. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, move, turn left, and turn right.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/using-functions/warehouse-three-machines.webp"
+  alt="A shelf in Jiki's warehouse holding three machines labelled move, turnLeft, and turnRight"
+  width="500"
+  height="371"
+/>
+
+When you wrote move and then those two brackets, what you were doing was telling Jiki to go and get the move machine off the shelf, to crank the handle, power it up, and to use it.
+
+<img
+  class="concept-image"
+  src="/static/images/concept-assets/using-functions/jiki-using-move-1.webp"
+  alt="Jiki wheeling the move machine off the shelf to use it"
+  width="439"
+  height="400"
+/>
+
+When you wrote turn left and then the brackets, you were telling Jiki to get the turn left machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:
+
+```javascript
+move()
+turnLeft()
+```
+
+Now, how that machine actually works, what's happening inside the machine, we don't need to worry about that for now. We'll look at that in a lot more detail later. In fact, it won't be long before you're able to make your own machines as well. But for now, don't worry about that. For every exercise, you'll be told which machines are on Jiki's shelf. There'll be different ones for each exercise, and you'll be able to use those machines to solve the exercises.

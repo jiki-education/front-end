@@ -1,11 +1,17 @@
 import { getRequestConfig } from "next-intl/server";
+import { DEFAULT_TIME_ZONE, isSupportedLocale } from "./config";
 import { resolveLocale } from "./resolveLocale";
 
-export default getRequestConfig(async () => {
-  const locale = await resolveLocale();
+export default getRequestConfig(async ({ requestLocale }) => {
+  // An explicit locale (e.g. getTranslations({ locale }) for the locale banner,
+  // which renders in the offered language) takes precedence; otherwise resolve
+  // it from the request (URL/cookie/default).
+  const requested = await requestLocale;
+  const locale = isSupportedLocale(requested) ? requested : await resolveLocale();
 
   return {
     locale,
-    messages: (await import(`@/messages/${locale}.json`)).default
+    messages: (await import(`@/messages/${locale}.json`)).default,
+    timeZone: DEFAULT_TIME_ZONE
   };
 });

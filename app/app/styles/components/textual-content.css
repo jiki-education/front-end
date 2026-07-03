@@ -8,6 +8,10 @@
     color: var(--color-gray-700);
     line-height: var(--leading-180);
 
+    *:first-child {
+        margin-top: 0;
+    }
+
     /* Typography */
     h2 {
         font-weight: 700;

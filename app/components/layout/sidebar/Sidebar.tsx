@@ -8,8 +8,9 @@ import MedalIcon from "@/icons/medal.svg";
 import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { localePath } from "@/lib/i18n/routes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import rocket from "@/components/landing-page/rocketLaunch.module.css";
@@ -24,7 +25,7 @@ interface SidebarProps {
 
 const navigationItems: Array<{
   id: "learn" | "build" | "projects" | "concepts" | "achievements" | "settings";
-  href?: string;
+  href: string;
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
@@ -38,6 +39,7 @@ const navigationItems: Array<{
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const t = useTranslations("layout.sidebar");
+  const locale = useLocale();
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
   const { launching, handleClick } = useRocketLaunch(() => showPremiumUpgradeModal("upgrade_cta_nav"), {
@@ -56,7 +58,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
               id={item.id}
               label={t(`nav.${item.id}`)}
               isActive={activeItem === item.id}
-              href={item.href}
+              href={localePath(item.href, locale)}
               icon={item.icon}
               showPremiumPill={item.showPremiumPill}
               isUserPremium={Boolean(isPremium)}

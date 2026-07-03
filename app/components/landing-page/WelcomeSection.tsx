@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import ArrowIcon from "./icons/arrow-1.svg";
 import RocketIcon from "./icons/rocket.svg";
 import withRhodri from "./assets/with-rhodri.webp";
@@ -18,10 +19,11 @@ import { SignupButton } from "./SignupButton";
 
 export function WelcomeSection() {
   const t = useTranslations("landing.welcome");
+  const routes = useLocaleRoutes();
   const annotationsRef = useRoughAnnotations();
   const wavingHandRef = useWavingHand();
   const rhodriRef = useArrowAnimation<HTMLSpanElement>("rhodri");
-  const ctaLaunch = useRocketLaunch("/auth/signup");
+  const ctaLaunch = useRocketLaunch(routes.authSignup());
 
   // Rich-text tag renderers preserving the prose's inline markup.
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
@@ -179,7 +181,7 @@ export function WelcomeSection() {
         </p>
         <p>
           {t("para17Prefix")}
-          <Link href="/auth/signup" className="underline font-semibold text-blue-800">
+          <Link href={routes.authSignup()} className="underline font-semibold text-blue-800">
             {t("para17Link")}
           </Link>
         </p>
@@ -188,7 +190,7 @@ export function WelcomeSection() {
             👉
           </span>
           <Link
-            href="/auth/signup"
+            href={routes.authSignup()}
             className={`ui-btn ui-btn-xlarge ui-btn-primary ${rocket.bounceOnHover}`}
             onClick={ctaLaunch.handleClick}
           >

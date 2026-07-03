@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import BuildIcon from "./icons/build.svg";
 import CalendarIcon from "./icons/calendar.svg";
 import CodersMindIcon from "./icons/coders-mind.svg";
@@ -22,6 +23,7 @@ import { useConfetti } from "./hooks/useConfetti";
 
 export function BootcampSection() {
   const t = useTranslations("landing.bootcamp");
+  const routes = useLocaleRoutes();
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   const highlight = (chunks: React.ReactNode) => <span className="rough-highlight font-medium">{chunks}</span>;
   const portfolioArrowRef = useArrowAnimation<HTMLDivElement>("portfolio-arrow");
@@ -51,7 +53,7 @@ export function BootcampSection() {
                       <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
                         {t.rich("part1Item1Prefix", { strong })}
-                        <Link href="/concepts" className="underline">
+                        <Link href={routes.concepts()} className="underline">
                           {t("part1Item1Link")}
                         </Link>
                         {t("part1Item1Suffix")}

@@ -65,6 +65,18 @@ if (typeof global.IntersectionObserver === "undefined") {
   };
 }
 
+// Polyfill ResizeObserver (used by HeaderHeightSync and other layout hooks).
+if (typeof global.ResizeObserver === "undefined") {
+  global.ResizeObserver = class ResizeObserver {
+    constructor(callback) {
+      this.callback = callback;
+    }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
 // Mock next-intl so components using translations render real English strings
 // (read from messages/en.json) without needing a NextIntlClientProvider in each
 // test. Supports namespaces, dotted keys, {var} interpolation, and t.rich.

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts";
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { SignupCta } from "@/components/concepts/SignupCta";
@@ -17,6 +18,7 @@ export default function ConceptsListPage({ initialConcepts }: ConceptsListPagePr
   const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } =
     useConcepts(initialConcepts);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const t = useTranslations("concepts.list");
 
   const showSkeleton = useDelayedLoading(isLoading, 300);
 
@@ -36,9 +38,7 @@ export default function ConceptsListPage({ initialConcepts }: ConceptsListPagePr
         <ConceptsHeader />
 
         {showEmptyState || isLoading ? (
-          <p className={styles.conceptsDescription}>
-            Here you can review and revisit the concepts you&apos;ve learned.
-          </p>
+          <p className={styles.conceptsDescription}>{t("intro")}</p>
         ) : (
           <ConceptsSearch
             searchQuery={searchQuery}

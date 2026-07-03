@@ -16,7 +16,8 @@
  *     - Hash manifest mapping locale -> metadata index hash
  *
  *   lib/generated/concept-meta-server.json
- *     - Minimal metadata for server-side SEO (slug, title, description)
+ *     - Minimal metadata for server-side SEO (slug, title, description), keyed
+ *       by locale: { [locale]: [...] }
  *
  * Used by:
  * - Client-side concept API (lib/api/concepts.ts)
@@ -269,17 +270,20 @@ ${entries},
 }
 
 /**
- * Write the server-side metadata JSON (for SEO)
+ * Write the server-side metadata JSON (for SEO), keyed by locale so page
+ * `generateMetadata` can localise titles/descriptions with an English fallback.
+ * Mirrors the shape of content-meta-server.json (`{ [locale]: [...] }`).
  */
 function writeServerMeta(byLocale) {
-  // Use English locale for server-side metadata (SEO)
-  const enConcepts = byLocale["en"] || [];
-  const serverMeta = enConcepts.map((c) => ({
-    slug: c.slug,
-    title: c.title,
-    description: c.description,
-    image: c.image
-  }));
+  const serverMeta = {};
+  for (const [locale, entries] of Object.entries(byLocale)) {
+    serverMeta[locale] = entries.map((c) => ({
+      slug: c.slug,
+      title: c.title,
+      description: c.description,
+      image: c.image
+    }));
+  }
 
   writeFile(path.join(GENERATED_DIR, "concept-meta-server.json"), JSON.stringify(serverMeta, null, 2));
 }
