@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import PasswordIcon from "../../icons/password.svg";
+import styles from "./AuthForm.module.css";
 
 export function ResetPasswordForm() {
   const t = useTranslations("auth.resetPassword");
@@ -73,113 +75,116 @@ export function ResetPasswordForm() {
   // Show error if no token is provided
   if (!token) {
     return (
-      <div className="space-y-6">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{t("invalidTitle")}</h2>
-        </div>
-
-        <div className="rounded-md bg-red-50 p-4">
-          <p className="text-sm text-red-800">{t("invalidMessage")}</p>
-        </div>
-
-        <div className="text-center">
-          <Link href={routes.authForgotPassword()} className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t("requestNewLink")}
-          </Link>
+      <div className={styles.leftSide}>
+        <div className={styles.formContainer}>
+          <header>
+            <h1>{t("invalidTitle")}</h1>
+          </header>
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div className={styles.errorMessage}>{t("invalidMessage")}</div>
+            <div className={styles.footerLinks}>
+              <p>
+                <Link href={routes.authForgotPassword()} className="ui-link">
+                  {t("requestNewLink")}
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{t("title")}</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">{t("subtitle")}</p>
-      </div>
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <header>
+          <h1>{t("title")}</h1>
+          <p>{t("subtitle")}</p>
+        </header>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <p className="text-sm text-red-800">{error}</p>
-          </div>
-        )}
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {error && <div className={styles.errorMessage}>{error}</div>}
 
-        {successMessage && (
-          <div className="rounded-md bg-green-50 p-4">
-            <p className="text-sm text-green-800">{successMessage}</p>
-          </div>
-        )}
+          {successMessage && (
+            <div className={styles.successMessage} style={{ display: "block" }}>
+              {successMessage}
+            </div>
+          )}
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            {t("newPasswordLabel")}
-          </label>
-          <div className="mt-4">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (validationErrors.password) {
-                  setValidationErrors({ ...validationErrors, password: "" });
-                }
-              }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-12 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder={t("newPasswordPlaceholder")}
-            />
-            {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">
-            {t("confirmPasswordLabel")}
-          </label>
-          <div className="mt-4">
-            <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={passwordConfirmation}
-              onChange={(e) => {
-                setPasswordConfirmation(e.target.value);
-                if (validationErrors.passwordConfirmation) {
-                  setValidationErrors({ ...validationErrors, passwordConfirmation: "" });
-                }
-              }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-12 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder={t("confirmPasswordPlaceholder")}
-            />
-            {validationErrors.passwordConfirmation && (
-              <p className="mt-2 text-sm text-red-600">{validationErrors.passwordConfirmation}</p>
+          <div className="ui-form-field-large" style={{ marginBottom: "8px" }}>
+            <label htmlFor="password">{t("newPasswordLabel")}</label>
+            <div>
+              <PasswordIcon />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={password}
+                placeholder={t("newPasswordPlaceholder")}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (validationErrors.password) {
+                    setValidationErrors({ ...validationErrors, password: "" });
+                  }
+                }}
+              />
+            </div>
+            {validationErrors.password && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                {validationErrors.password}
+              </div>
             )}
           </div>
-        </div>
 
-        <div>
+          <div className="ui-form-field-large" style={{ marginBottom: "8px" }}>
+            <label htmlFor="passwordConfirmation">{t("confirmPasswordLabel")}</label>
+            <div>
+              <PasswordIcon />
+              <input
+                id="passwordConfirmation"
+                name="passwordConfirmation"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={passwordConfirmation}
+                placeholder={t("confirmPasswordPlaceholder")}
+                onChange={(e) => {
+                  setPasswordConfirmation(e.target.value);
+                  if (validationErrors.passwordConfirmation) {
+                    setValidationErrors({ ...validationErrors, passwordConfirmation: "" });
+                  }
+                }}
+              />
+            </div>
+            {validationErrors.passwordConfirmation && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                {validationErrors.passwordConfirmation}
+              </div>
+            )}
+          </div>
+
           <button
             type="submit"
+            className="ui-btn ui-btn-large ui-btn-primary"
+            style={{ width: "100%" }}
             disabled={isLoading}
-            className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? t("submitting") : t("submit")}
           </button>
-        </div>
 
-        <div className="text-center text-sm">
-          <span className="text-gray-600">{t("rememberedPrefix")}</span>
-          <Link href={routes.authLogin()} className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t("signInLink")}
-          </Link>
-        </div>
-      </form>
+          <div className={styles.footerLinks}>
+            <p>
+              {t("rememberedPrefix")}
+              <Link href={routes.authLogin()} className="ui-link">
+                {t("signInLink")}
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

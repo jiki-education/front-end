@@ -2,6 +2,7 @@
 
 import { useGoogleLogin } from "@react-oauth/google";
 import GoogleIcon from "@/icons/google.svg";
+import styles from "./AuthForm.module.css";
 
 interface GoogleAuthButtonProps {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ function GoogleAuthButtonInner({ children, onSuccess, onError }: GoogleAuthButto
 
   return (
     <button type="button" onClick={() => login()} className="ui-btn ui-btn-large ui-btn-tertiary">
-      <GoogleIcon className="w-[24px] h-[24px]" />
+      <GoogleIcon className={styles.oauthIcon} />
       {children}
     </button>
   );

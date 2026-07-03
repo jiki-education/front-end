@@ -53,8 +53,7 @@ describe("UnsubscribeContent", () => {
       expect(screen.getByText("Please wait while we process your request.")).toBeInTheDocument();
 
       // Check for loading spinner
-      const spinner = document.querySelector(".animate-spin");
-      expect(spinner).toBeInTheDocument();
+      expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
     });
 
     it("should call API with correct token", () => {

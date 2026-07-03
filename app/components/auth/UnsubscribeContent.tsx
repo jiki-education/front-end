@@ -10,7 +10,7 @@ import styles from "./AuthForm.module.css";
 export function UnsubscribeContent() {
   const t = useTranslations("auth.unsubscribe");
   const params = useParams();
-  const token = params?.token as string;
+  const token = params.token as string;
 
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
   // Store a message key (resolved via `t` at render) so the effect stays keyed on token only.
@@ -80,10 +80,7 @@ export function UnsubscribeContent() {
         <div className={styles.formContainer}>
           {status === "processing" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
-                style={{ borderColor: "var(--color-blue-600)" }}
-              ></div>
+              <div className={styles.spinner} data-testid="loading-spinner"></div>
               <h1 style={{ marginBottom: "16px" }}>{t("processingTitle")}</h1>
               <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>{t("processingDescription")}</p>
             </div>
@@ -91,11 +88,13 @@ export function UnsubscribeContent() {
 
           {status === "success" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ background: "var(--color-success-bg)" }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="var(--color-success-text)" viewBox="0 0 24 24">
+              <div className={styles.statusIcon} style={{ background: "var(--color-success-bg)" }}>
+                <svg
+                  className={styles.statusIconSvg}
+                  fill="none"
+                  stroke="var(--color-success-text)"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -106,11 +105,8 @@ export function UnsubscribeContent() {
 
           {status === "error" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ background: "var(--color-error-bg)" }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="var(--color-error-text)" viewBox="0 0 24 24">
+              <div className={styles.statusIcon} style={{ background: "var(--color-error-bg)" }}>
+                <svg className={styles.statusIconSvg} fill="none" stroke="var(--color-error-text)" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
